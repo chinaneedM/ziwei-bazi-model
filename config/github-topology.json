@@ -1,0 +1,22 @@
+{
+  "schema": "GITHUB-TOPOLOGY-CONFIG-V1",
+  "owner": "chinaneedM",
+  "runtime_repo": "chinaneedM/fortune-runtime",
+  "answer_vault_repo": "chinaneedM/fortune-answer-vault",
+  "current_connected_runtime_repository": "chinaneedM/ziwei-bazi-model",
+  "prediction_identity": {
+    "runtime_repo": "read/write prediction artifacts only",
+    "answer_vault_repo": "no installation and no permission"
+  },
+  "grader_identity": {
+    "runtime_repo": "read frozen prediction; write reveal and reports",
+    "answer_vault_repo": "read after freeze authorization only"
+  },
+  "admin_identity": {
+    "runtime_repo": "admin",
+    "answer_vault_repo": "admin"
+  },
+  "required_branch_protection": ["pull request", "required CI", "no force push", "no deletion"],
+  "secrets_must_not_be_committed": ["FORTUNE_PREDICTION_GITHUB_TOKEN", "FORTUNE_GRADER_GITHUB_TOKEN", "ANSWER_VAULT_TOKEN"]
+}
+

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fortune://schemas/regression-v1",
+  "title": "PATCH_AND_REGRESSION",
+  "type": "object",
+  "required": ["schema", "regression_id", "candidate_version", "frozen_version", "stages", "damage", "decision"],
+  "properties": {
+    "schema": {"const": "PATCH-AND-REGRESSION-V1"}, "regression_id": {"type": "string"},
+    "candidate_version": {"type": "string"}, "frozen_version": {"type": "string"},
+    "stages": {"type": "array", "minItems": 5, "items": {"type": "object"}},
+    "damage": {"type": "integer", "minimum": 0},
+    "decision": {"enum": ["REGRESSION_PASS", "REJECTED", "GROUP_HOLD"]}
+  }
+}
+

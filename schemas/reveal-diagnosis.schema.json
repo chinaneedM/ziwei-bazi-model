@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fortune://schemas/reveal-diagnosis-v1",
+  "title": "REVEAL_AND_DIAGNOSIS",
+  "type": "object",
+  "required": ["schema", "reveal_id", "run_id", "freeze_receipt_sha256", "literal_replay", "score", "diagnosis"],
+  "properties": {
+    "schema": {"const": "REVEAL-AND-DIAGNOSIS-V1"},
+    "reveal_id": {"type": "string"}, "run_id": {"type": "string"},
+    "freeze_receipt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "literal_replay": {"type": "object"}, "score": {"type": "object"}, "diagnosis": {"type": "object"}
+  }
+}
+

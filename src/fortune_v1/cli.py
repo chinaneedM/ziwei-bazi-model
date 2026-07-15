@@ -1,0 +1,99 @@
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+from .audit import audit_sources, migrate_verified_sources
+from .bazi import freeze_transcription
+from .diagnosis import classify_errors, create_interface_patch_candidate
+from .group import authorize_group_reveal, create_dev_group, record_patch_round, register_baseline_freeze
+from .ingest import ingest_zip
+from .knowledge import build_locator_index, read_parent_segment
+from .patching import scan_patch
+from .prediction import freeze_prediction, prepare_run_contract
+from .prompt_snapshot import create_prompt_snapshot
+from .regression import execute_regression, select_regression
+from .reporting import installation_check, render_markdown
+from .scoring import grade_frozen_prediction
+from .snapshot import freeze_static_cache, generate_prediction_snapshot
+from .state import transition
+from .topology import verify_topology
+from .util import FortuneError, atomic_write_json, read_json
+
+
+def parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="fortune-v1")
+    sub = p.add_subparsers(dest="command", required=True)
+    def cmd(name: str, *args: tuple[str, dict]):
+        q = sub.add_parser(name)
+        for flag, kwargs in args: q.add_argument(flag, **kwargs)
+        return q
+    cmd("audit-sources", ("--source-dir", {"required": True}), ("--config", {"required": True}), ("--output", {"required": True}))
+    cmd("migrate-sources", ("--audit", {"required": True}), ("--destination", {"required": True}))
+    cmd("prompt-snapshot", ("--runtime-id", {"required": True}), ("--prompt-file", {"required": True}), ("--destination", {"required": True}))
+    cmd("ingest", ("--package", {"required": True}), ("--runtime-root", {"required": True}), ("--vault-root", {"required": True}), ("--dataset-type", {"required": True, "choices": ["DEV", "REGRESSION", "FROZEN_EVAL"]}))
+    cmd("bazi-freeze", ("--case-id", {"required": True}), ("--image", {"required": True}), ("--transcription", {"required": True}), ("--output", {"required": True}), ("--method", {"default": "HUMAN_VERIFIED_ENTRY"}), ("--method-version", {"default": "1"}))
+    cmd("snapshot", ("--case", {"required": True}), ("--output-root", {"required": True}), ("--bazi-transcription", {}))
+    cmd("cache-freeze", ("--snapshot", {"required": True}), ("--static-object", {"required": True}), ("--binding-hash", {"required": True}), ("--schema-version", {"required": True}), ("--cache-root", {"required": True}))
+    cmd("prepare-run", ("--snapshot", {"required": True}), ("--config", {"required": True}), ("--code-commit", {"required": True}), ("--output", {"required": True}), ("--prompt-snapshot-sha256", {}))
+    cmd("freeze", ("--run", {"required": True}), ("--contract", {"required": True}), ("--frozen-root", {"required": True}))
+    cmd("grade", ("--freeze-receipt", {"required": True}), ("--answer", {"required": True}), ("--output", {"required": True}), ("--gates", {}))
+    cmd("scan-patch", ("--patch", {"required": True}), ("--output", {"required": True}), ("--case-fingerprint", {}))
+    cmd("index", ("--source-dir", {"required": True}), ("--binding-hash", {"required": True}), ("--output", {"required": True}), ("--git-commit", {}))
+    cmd("source-read", ("--index", {"required": True}), ("--entry-id", {"required": True}), ("--output", {"required": True}))
+    cmd("regression-select", ("--manifest", {"required": True}), ("--affected-tag", {"action": "append", "default": []}), ("--full", {"action": "store_true"}), ("--output", {"required": True}))
+    cmd("regress", ("--selection", {"required": True}), ("--runner", {}), ("--candidate-version", {"required": True}), ("--frozen-version", {"required": True}), ("--baseline-results", {}), ("--output", {"required": True}))
+    cmd("state", ("--log", {"required": True}), ("--machine", {"required": True, "choices": ["DEV", "FROZEN_EVAL", "RELEASE"]}), ("--object-id", {"required": True}), ("--to", {"required": True}), ("--evidence", {}))
+    cmd("install-check", ("--repo-root", {"required": True}), ("--source-audit", {}), ("--prompt-snapshot", {}), ("--test-report", {}), ("--topology-receipt", {}), ("--external-runner", {}), ("--output", {"required": True}))
+    cmd("verify-topology", ("--config", {"required": True}), ("--output", {"required": True}))
+    cmd("report", ("--input", {"action": "append", "required": True}), ("--output", {"required": True}))
+    cmd("group-create", ("--group-id", {"required": True}), ("--case-id", {"action": "append", "required": True}), ("--binding", {"required": True}), ("--root", {"required": True}), ("--expected-size", {"type": int, "default": 5}))
+    cmd("group-register-freeze", ("--group-root", {"required": True}), ("--freeze-receipt", {"required": True}))
+    cmd("group-authorize-reveal", ("--group-root", {"required": True}))
+    cmd("group-patch-round", ("--group-root", {"required": True}), ("--net-improvement", {"type": int, "required": True}), ("--regression-damage", {"type": int, "required": True}), ("--defect-id", {"required": True}), ("--case-specific-only", {"action": "store_true"}), ("--base-change-required", {"action": "store_true"}))
+    cmd("diagnose", ("--reveal", {"required": True}), ("--prediction", {"required": True}), ("--output", {"required": True}))
+    cmd("patch-candidate", ("--diagnosis", {"required": True}), ("--defect-id", {"action": "append", "required": True}), ("--layer", {"required": True}), ("--parent-chain", {"required": True}), ("--changes", {"required": True}), ("--output", {"required": True}))
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parser().parse_args(argv)
+    try:
+        c = args.command
+        if c == "audit-sources": result = audit_sources(args.source_dir, args.config, args.output)
+        elif c == "migrate-sources": result = migrate_verified_sources(args.audit, args.destination)
+        elif c == "prompt-snapshot": result = create_prompt_snapshot(args.runtime_id, args.prompt_file, args.destination)
+        elif c == "ingest": result = ingest_zip(args.package, args.runtime_root, args.vault_root, args.dataset_type)
+        elif c == "bazi-freeze": result = freeze_transcription(args.case_id, args.image, args.transcription, args.output, args.method, args.method_version)
+        elif c == "snapshot": result = generate_prediction_snapshot(args.case, args.output_root, args.bazi_transcription)
+        elif c == "cache-freeze": result = freeze_static_cache(args.snapshot, args.static_object, args.binding_hash, args.schema_version, args.cache_root)
+        elif c == "prepare-run": result = prepare_run_contract(args.snapshot, args.config, args.code_commit, args.output, args.prompt_snapshot_sha256)
+        elif c == "freeze": result = freeze_prediction(args.run, args.contract, args.frozen_root)
+        elif c == "grade": result = grade_frozen_prediction(args.freeze_receipt, args.answer, args.output, read_json(args.gates) if args.gates else None)
+        elif c == "scan-patch": result = scan_patch(args.patch, args.output, args.case_fingerprint)
+        elif c == "index": result = build_locator_index(args.source_dir, args.binding_hash, args.output, args.git_commit)
+        elif c == "source-read": result = read_parent_segment(args.index, args.entry_id); atomic_write_json(args.output, result)
+        elif c == "regression-select": result = select_regression(args.manifest, args.affected_tag, args.full); atomic_write_json(args.output, result)
+        elif c == "regress": result = execute_regression(read_json(args.selection), args.runner, args.candidate_version, args.frozen_version, args.output, args.baseline_results)
+        elif c == "state": result = transition(args.log, args.machine, args.object_id, args.to, read_json(args.evidence) if args.evidence else None)
+        elif c == "install-check": result = installation_check(args.repo_root, args.source_audit, args.prompt_snapshot, args.test_report, args.topology_receipt, args.external_runner, args.output)
+        elif c == "verify-topology": result = verify_topology(args.config, args.output)
+        elif c == "report": result = {"output": str(render_markdown(args.input, args.output))}
+        elif c == "group-create": result = create_dev_group(args.group_id, args.case_id, read_json(args.binding), args.root, args.expected_size)
+        elif c == "group-register-freeze": result = register_baseline_freeze(args.group_root, args.freeze_receipt)
+        elif c == "group-authorize-reveal": result = authorize_group_reveal(args.group_root)
+        elif c == "group-patch-round": result = record_patch_round(args.group_root, args.net_improvement, args.regression_damage, args.defect_id, args.case_specific_only, args.base_change_required)
+        elif c == "diagnose": result = classify_errors(args.reveal, args.prediction, args.output)
+        elif c == "patch-candidate": result = create_interface_patch_candidate(args.diagnosis, args.defect_id, args.layer, read_json(args.parent_chain), read_json(args.changes), args.output)
+        else: raise AssertionError(c)
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+        return 0
+    except FortuneError as exc:
+        print(json.dumps({"status": exc.status, "error": str(exc)}, ensure_ascii=False), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

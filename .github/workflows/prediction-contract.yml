@@ -1,0 +1,28 @@
+name: prediction-contract
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot_manifest:
+        required: true
+        type: string
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - name: Create no-answer runner contract
+        run: >-
+          fortune-v1 prepare-run
+          --snapshot "${{ inputs.snapshot_manifest }}"
+          --config config/runtime.json
+          --code-commit "$GITHUB_SHA"
+          --output data/contracts/contract-${GITHUB_RUN_ID}.json
+      - name: Assert no vault credential exists
+        run: test -z "${ANSWER_VAULT_TOKEN:-}"
+

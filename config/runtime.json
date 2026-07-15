@@ -1,0 +1,30 @@
+{
+  "schema_version": "FORTUNE-AUTOMATION-V1",
+  "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+  "main_prompt_snapshot_is_runtime_authority": false,
+  "expected_s19_binding_hash": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+  "automation_runtime_install_status": "SCHEMA_DEFINED_NOT_INSTALLED",
+  "required_libraries": [
+    "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
+    "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19"
+  ],
+  "knowledge_index_scope": [
+    "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
+    "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"
+  ],
+  "expected_control_roots": {
+    "S00": "AUTOMATION-REPOSITORY-TRANSPORT-20260715-R6",
+    "S01": "AUTOMATION-INGEST-ANSWER-ISOLATION-20260715-R12",
+    "S18": "AUTOMATION-TRAINING-POLICY-BOUNDARY-20260715-R6",
+    "S19": "AUTOMATION-ACTIVE-BINDING-REGISTRY-CORRECTION-20260715-R24"
+  },
+  "training_policy": {
+    "default_dev_group_size": 5,
+    "max_group_patch_rounds": 5,
+    "max_same_defect_retries": 2,
+    "no_improvement_limit": 2,
+    "regression_damage_tolerance": 0,
+    "auto_base_knowledge_change": false
+  }
+}
+
