@@ -11,7 +11,7 @@ This repair changes installation, repository topology, source transport normaliz
 - S00/S01/S18/S19 active control-root occurrence count: one each.
 - S19 first current binding table: 19 rows; declared, recomputed and expected hashes match.
 - Source baseline commit: `989ee246ef55c92a9b4a1b86ccd4b616bbbf0069`.
-- Source baseline tag: `source-baseline-S00-S19-R16` (creation/readback pending at this report revision).
+- Source baseline tag target: `source-baseline-S00-S19-R16`; not yet created because no Actions run was emitted for connector writes. Manual `workflow_dispatch` remains available and readback is required.
 - Derived locator index: 18 parent libraries, 15,751 entries; all parent hashes, byte ranges and parent-segment hashes read back successfully; S19 excluded.
 - Active S02: `80c11bbb…a5b1`, 464160 bytes. The `66ee9750…abcb`, 461193-byte version is historical only.
 - Runtime vault credential/workflow path: removed from current runtime tree.

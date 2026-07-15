@@ -59,7 +59,7 @@ def parser() -> argparse.ArgumentParser:
     cmd("install-check", ("--repo-root", {"required": True}), ("--source-audit", {}),
         ("--binding-receipt", {}), ("--migration-receipt", {}), ("--prompt-snapshot", {}),
         ("--test-report", {}), ("--topology-receipt", {}), ("--answer-workflow-receipt", {}),
-        ("--external-runner", {}), ("--output", {"required": True}))
+        ("--external-runner", {}), ("--code-commit", {}), ("--output", {"required": True}))
     cmd("verify-topology", ("--config", {"required": True}), ("--output", {"required": True}))
     cmd("report", ("--input", {"action": "append", "required": True}), ("--output", {"required": True}))
     cmd("group-create", ("--group-id", {"required": True}), ("--case-id", {"action": "append", "required": True}), ("--binding", {"required": True}), ("--root", {"required": True}), ("--expected-size", {"type": int, "default": 5}))
@@ -110,7 +110,8 @@ def main(argv: list[str] | None = None) -> int:
         elif c == "install-check": result = installation_check(
             args.repo_root, args.source_audit, args.prompt_snapshot, args.test_report,
             args.topology_receipt, args.external_runner, args.output,
-            args.binding_receipt, args.migration_receipt, args.answer_workflow_receipt)
+            args.binding_receipt, args.migration_receipt, args.answer_workflow_receipt,
+            args.code_commit)
         elif c == "verify-topology": result = verify_topology(args.config, args.output)
         elif c == "report": result = {"output": str(render_markdown(args.input, args.output))}
         elif c == "group-create": result = create_dev_group(args.group_id, args.case_id, read_json(args.binding), args.root, args.expected_size)

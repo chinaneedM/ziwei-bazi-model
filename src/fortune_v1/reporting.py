@@ -30,9 +30,10 @@ def installation_check(repo_root: str | Path, source_audit_path: str | Path | No
                        topology_receipt_path: str | Path | None, external_runner: str | None,
                        output_path: str | Path, binding_receipt_path: str | Path | None = None,
                        migration_receipt_path: str | Path | None = None,
-                       answer_workflow_receipt_path: str | Path | None = None) -> dict[str, Any]:
+                       answer_workflow_receipt_path: str | Path | None = None,
+                       code_commit_override: str | None = None) -> dict[str, Any]:
     root = Path(repo_root)
-    commit = _git_commit(root)
+    commit = code_commit_override or _git_commit(root)
     config_path = root / "config" / "github-topology.json"
     config = read_json(config_path)
     checks: list[dict[str, Any]] = []

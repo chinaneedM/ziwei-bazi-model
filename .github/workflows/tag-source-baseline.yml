@@ -1,5 +1,6 @@
 name: tag-source-baseline
 on:
+  workflow_dispatch:
   push:
     branches: [agent/source-baseline-r16]
 permissions:
