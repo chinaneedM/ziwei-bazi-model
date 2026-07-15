@@ -30,7 +30,8 @@ def parser() -> argparse.ArgumentParser:
         q = sub.add_parser(name)
         for flag, kwargs in args: q.add_argument(flag, **kwargs)
         return q
-    cmd("audit-sources", ("--source-dir", {"required": True}), ("--config", {"required": True}), ("--output", {"required": True}))
+    cmd("audit-sources", ("--source-dir", {"required": True}), ("--config", {"required": True}),
+        ("--output", {"required": True}), ("--code-commit", {}))
     cmd("import-source-package", ("--package", {"required": True}),
         ("--expected-zip-sha256", {"required": True}), ("--config", {"required": True}),
         ("--work-root", {"required": True}), ("--reports-dir", {"required": True}),
@@ -74,7 +75,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
         c = args.command
-        if c == "audit-sources": result = audit_sources(args.source_dir, args.config, args.output)
+        if c == "audit-sources": result = audit_sources(
+            args.source_dir, args.config, args.output, commit_sha=args.code_commit)
         elif c == "import-source-package": result = import_source_package(
             args.package, args.expected_zip_sha256, args.config, args.work_root,
             args.reports_dir, args.migrate_destination, commit_sha=args.code_commit)

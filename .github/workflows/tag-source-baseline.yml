@@ -24,9 +24,11 @@ jobs:
         env:
           TAG: source-baseline-S00-S19-R16
         run: |
+          target="$(python -c 'import json; print(json.load(open("reports/migration-receipt.json"))["baseline_commit_sha"])')"
+          test "$target" != "None"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
-            test "$(git rev-list -n1 "$TAG")" = "$GITHUB_SHA"
+            test "$(git rev-list -n1 "$TAG")" = "$target"
           else
-            git tag "$TAG" "$GITHUB_SHA"
+            git tag "$TAG" "$target"
             git push origin "refs/tags/$TAG"
           fi

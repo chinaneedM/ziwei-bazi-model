@@ -63,14 +63,16 @@ def installation_check(repo_root: str | Path, source_audit_path: str | Path | No
     migration_actual = None if migration is None else {"status": migration.get("status"),
                                                        "source_file_count": migration.get("source_file_count"),
                                                        "baseline_commit_sha": migration.get("baseline_commit_sha"),
-                                                       "baseline_tag": migration.get("baseline_tag")}
+                                                       "baseline_tag": migration.get("baseline_tag"),
+                                                       "baseline_tag_status": migration.get("baseline_tag_status")}
     migration_pass = bool(migration and migration.get("status") == "MIGRATED" and
                           migration.get("source_file_count") == 20 and migration.get("baseline_commit_sha") and
-                          migration.get("baseline_tag"))
+                          migration.get("baseline_tag") and migration.get("baseline_tag_status") == "VERIFIED")
     checks.append(_check("SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE", migration_pass,
                          migration_receipt_path, "$.status+$.baseline_commit_sha+$.baseline_tag",
                          migration_actual, {"status": "MIGRATED", "source_file_count": 20,
-                                            "baseline_commit_sha": "NON_NULL", "baseline_tag": "NON_NULL"}, commit))
+                                            "baseline_commit_sha": "NON_NULL", "baseline_tag": "NON_NULL",
+                                            "baseline_tag_status": "VERIFIED"}, commit))
 
     prompt = read_json(prompt_snapshot_path) if prompt_snapshot_path and Path(prompt_snapshot_path).is_file() else None
     prompt_actual = None if prompt is None else {"status": prompt.get("status"),
