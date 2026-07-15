@@ -1,0 +1,32 @@
+name: tag-source-baseline
+on:
+  push:
+    branches: [agent/source-baseline-r16]
+permissions:
+  contents: write
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify source baseline receipts
+        run: |
+          python - <<'PY'
+          import json
+          for path in ["reports/source-audit.json", "reports/binding-table-recompute-receipt.json"]:
+              obj = json.load(open(path, encoding="utf-8"))
+              if obj.get("status") != "PASS":
+                  raise SystemExit(f"{path} is not PASS")
+          PY
+      - name: Create immutable source baseline tag
+        env:
+          TAG: source-baseline-S00-S19-R16
+        run: |
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            test "$(git rev-list -n1 "$TAG")" = "$GITHUB_SHA"
+          else
+            git tag "$TAG" "$GITHUB_SHA"
+            git push origin "refs/tags/$TAG"
+          fi

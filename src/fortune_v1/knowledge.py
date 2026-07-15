@@ -103,3 +103,50 @@ def read_parent_segment(index_path: str | Path, entry_id: str) -> dict[str, Any]
         "limitations": entry["limitations"], "exceptions": entry["exceptions"], "alternatives": entry["alternatives"],
     }
 
+
+def validate_locator_index(index_path: str | Path, output_path: str | Path) -> dict[str, Any]:
+    index = read_json(index_path)
+    source_by_path = {row["path"]: row for row in index["sources"]}
+    cached: dict[str, bytes] = {}
+    source_checks = []
+    failures = []
+    for path_text, source in source_by_path.items():
+        path = Path(path_text)
+        if not path.is_file():
+            failures.append({"source_path": path_text, "rule": "PARENT_FILE_MISSING"})
+            continue
+        data = path.read_bytes()
+        cached[path_text] = data
+        actual_hash = sha256_bytes(data)
+        passed = actual_hash == source["sha256"] and len(data) == source["bytes"]
+        source_checks.append({"library_id": source["library_id"], "source_path": path_text,
+                              "actual_sha256": actual_hash, "expected_sha256": source["sha256"],
+                              "actual_bytes": len(data), "expected_bytes": source["bytes"],
+                              "status": "PASS" if passed else "FAIL"})
+        if not passed:
+            failures.append({"source_path": path_text, "rule": "PARENT_FILE_HASH_OR_SIZE_MISMATCH"})
+    entry_checks = 0
+    for entry in index["entries"]:
+        data = cached.get(entry["source_path"])
+        if data is None:
+            failures.append({"entry_id": entry["entry_id"], "rule": "PARENT_FILE_UNAVAILABLE"})
+            continue
+        start, end = entry["byte_start"], entry["byte_end"]
+        range_valid = isinstance(start, int) and isinstance(end, int) and 0 <= start < end <= len(data)
+        if not range_valid:
+            failures.append({"entry_id": entry["entry_id"], "rule": "BYTE_RANGE_INVALID"})
+            continue
+        segment = data[start:end]
+        if sha256_bytes(segment) != entry["parent_segment"]["sha256"]:
+            failures.append({"entry_id": entry["entry_id"], "rule": "PARENT_SEGMENT_READBACK_HASH_MISMATCH"})
+            continue
+        entry_checks += 1
+    result = {"schema": "KNOWLEDGE-LOCATOR-INDEX-VALIDATION-V1", "index_path": str(Path(index_path)),
+              "index_sha256": sha256_file(index_path), "binding_hash": index["binding_hash"],
+              "source_count": len(index["sources"]), "source_checks": source_checks,
+              "entry_count": len(index["entries"]), "entries_checked": entry_checks,
+              "byte_ranges_checked": entry_checks, "parent_segments_read_back": entry_checks,
+              "s19_indexed": index.get("s19_indexed"), "failures": failures,
+              "status": "PASS" if not failures and entry_checks == len(index["entries"]) else "FAIL"}
+    atomic_write_json(output_path, result, overwrite=True)
+    return result

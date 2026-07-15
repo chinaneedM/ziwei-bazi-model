@@ -112,7 +112,8 @@ def freeze_prediction(run_path: str | Path, contract_path: str | Path, frozen_ro
         "schema": "PREDICTION-FREEZE-RECEIPT-V1", "run_id": run_id, "case_id": run["case_id"],
         "prediction_path": str(frozen_run), "prediction_sha256": sha256_file(frozen_run),
         "contract_path": str(contract_path), "contract_sha256": sha256_file(contract_path),
-        "runtime_validation": validation, "frozen_at": utc_now(), "immutable": True,
+        "runtime_validation": validation, "freeze_status": "PREDICTION_FROZEN",
+        "frozen_at": utc_now(), "immutable": True, "non_overwrite": True,
     }
     receipt_path = target_dir / "freeze-receipt.json"
     atomic_write_json(receipt_path, receipt); receipt_path.chmod(0o444)

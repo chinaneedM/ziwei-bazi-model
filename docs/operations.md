@@ -1,53 +1,29 @@
 # Operator manual
 
-## 1. Bootstrap repositories
+## 1. Import the active source baseline
 
-Run `scripts/create-repositories.sh OWNER` from an administrator workstation with `gh`. Provision two GitHub App installations or fine-grained tokens:
+Run `fortune-v1 import-source-package` with the expected outer ZIP SHA256. The command emits `raw-package-manifest.json`, `normalization-map.json`, `duplicate-and-quarantine-report.json`, staging/final source audits, `binding-table-recompute-receipt.json`, and `migration-receipt.json`. Do not rename the uploaded file or choose versions by suffix number or mtime.
 
-- prediction token: runtime repository only;
-- grader token: runtime plus answer vault;
-- administrator: both repositories.
+After the baseline commit is immutable, record its SHA and tag in the migration receipt. Build the S01–S18 locator index with that baseline SHA, then run `fortune-v1 index-validate` to check every parent file hash, byte range and parent-segment hash.
 
-Then export the two tokens only for a topology check and run:
+## 2. Install the answer vault package
 
-```bash
-fortune-v1 verify-topology --config config/github-topology.json --output reports/topology.json
-```
+Upload the generated `fortune-answer-vault-init.zip` to the existing private `chinaneedM/fortune-answer-vault`. Do not provide the token value to ChatGPT or commit it. Keep `RUNTIME_REPO_TOKEN` scoped only to `chinaneedM/ziwei-bazi-model`, Contents read/write and Metadata read-only.
 
-## 2. Source and prompt baseline
+Read back the installed workflow and compare every file hash. From the vault, probe that the runtime token receives 200 for the runtime repository and 403/404 for the vault. Also probe the repository-local token in the opposite direction. Save only HTTP statuses and file hashes, never token values.
 
-Run `audit-sources`; inspect missing/duplicate/control-root/binding-table rows. Only a PASS report can feed `migrate-sources`. Tag the resulting commit. Export the live project instruction text through an approved operator path and run `prompt-snapshot`; keep its audit-only disclaimer.
+## 3. Freeze before reveal
 
-## 3. Complete ZIP ingest
+`fortune-v1 freeze` writes a non-overwritable run directory and receipt. The vault workflow calls `fortune-v1 verify-freeze --run-id ...` before answer checkout. Missing Schema, mismatched RUN_ID, failed runtime validation, changed prediction/contract, or non-immutable state blocks grading before the answer object is read.
 
-```bash
-fortune-v1 ingest --package group.zip --runtime-root ./data/runtime \
-  --vault-root /separate/fortune-answer-vault --dataset-type DEV
-```
+TOP1 remains formal score. TOP2 is diagnostic only. `ANSWER_VECTOR_LITERAL_REPLAY` uses two literal parsers and an answer JSON must bind the same authorized RUN_ID.
 
-V1 accepts ZIP only. Paths, symlinks, encryption, duplicate member names, suspicious ratios and unclassified/ambiguous types fail or quarantine. The importer stores the ZIP and all members read-only in the vault. Runtime receives only purple-chart text, Bazi images, questions and optional notes.
+## 4. Prompt snapshot and external runner
 
-## 4. Bazi freeze and snapshot
+Export the exact active project instruction bytes through an approved operator path, then run `fortune-v1 prompt-snapshot --config config/runtime.json`. The receipt reports BOM, LF/CRLF, leading/trailing whitespace, UTF-8 validity, byte size, visible non-whitespace codepoint count and actual SHA256. Never change S19 expectations to fit a bad export.
 
-Create a transcription JSON conforming to `bazi-transcription.schema.json`; critical ambiguous/missing/conflicting fields quarantine that version. Freeze it, then generate the prediction snapshot. This V1 provides a deterministic transcription entry and verification boundary; it does not claim an OCR model is installed.
+Register and test a real no-answer dual-track runner before changing `config/external-runner.json` to `INSTALLED`. A contract-only placeholder is not installation.
 
-## 5. Static case cache
+## 5. Final install check
 
-Supply a fully materialized Ziwei/Bazi static object and run `cache-freeze`. Required Ziwei and Bazi sections are checked. Cache keys include case input, active binding and Schema version.
-
-## 6. Prediction and freeze
-
-`prepare-run` writes the only contract visible to an external model runner. The runner must return a complete `PREDICTION-RUN-V1`. `freeze` verifies TOP1/TOP2, 3–5 distinct public evidence families, two independent parent-library chains, full evidence-ledger fields and all N×(N−1)/2 pairwise rows. An existing `RUN_ID` cannot be overwritten.
-
-## 7. Reveal and score
-
-Only the grader identity runs `grade`, with a valid freeze receipt. Prefer an answer JSON containing only `schema`, `answers`, and optional `authorized_run_id`. Literal replay uses two parsers, preserves the original string/codepoints/offsets, does no case conversion, and requires exact question count and legal option membership. TOP1 is formal; TOP2 is diagnostic.
-
-## 8. Patch and regression
-
-Run `scan-patch` before execution. A case ID, answer vector, option-memory phrase, unique literal/date/identity or missing universal source parent chain rejects the patch as `PATCH_REJECTED_CASE_SPECIFIC`. `regression-select` orders defect reproduction, affected failures, current group, related history, core history and optional full regression. `regress` holds if the external runner is absent and rejects any historical damage.
-
-## 9. Installation receipt
-
-Run `install-check` last. It does not modify S19. Only an all-PASS receipt emits an S19 status-update candidate. Missing source roots, topology, tests, commit or runner retains `SCHEMA_DEFINED_NOT_INSTALLED`.
-
+Run `make install-check`. The checker never edits S19. It emits no installed-status candidate unless the source baseline/tag, prompt snapshot, two-repository machine probes, answer-vault workflow readback, external runner, synthetic tests and receipt Schema all pass together.

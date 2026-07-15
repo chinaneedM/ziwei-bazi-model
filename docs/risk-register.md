@@ -2,12 +2,11 @@
 
 | Risk | Current observation | Control | Current disposition |
 | --- | --- | --- | --- |
-| Incomplete active source set | S00, S01, S16, S18, S19 absent; S02 duplicated | Unique-library audit and fail-closed migration | HOLD |
-| Binding algorithm unavailable | S19 control file absent | Require explicit binding-table markers, row comparison and declared/computed/expected equality | HOLD |
-| Only one connected private repository | `chinaneedM/ziwei-bazi-model` exists | Separate repo bootstrap plus token-level topology verifier | HOLD |
-| Prompt text has no source file | Runtime lives in project instructions | Audit-copy mechanism with non-authority disclaimer | HOLD until export/attestation |
-| External prediction runner absent | No persistent model runner in workspace | Strict contract plus install check | HOLD |
-| Bazi OCR not installed | Only images supplied | Frozen transcription Schema and verified/manual provider entry | Open capability; no false claim |
-| Example packages are RAR | V1 requirement specifies ZIP | Deterministic ZIP-only rejection; convert outside blind predictor | Documented limitation |
-| CHAT can see answer if it opens original archive | Attachments contain full packages | Do not open real packages here; use external importer under separate identity | Enforced operational boundary |
-
+| Transport filename mistaken for identity | Platform may add `(8)`, `(9)`, `(59)` | Internal LIBRARY_ID + raw hash + size + active S19 row | Repaired and tested |
+| Mixed S02 versions | Active and historical byte versions exist | Only S19-bound `80c11bbb…a5b1` enters staging | Historical version excluded |
+| Runtime can read answers | Old runtime-initiated workflow existed | Delete it; static scan runtime workflows; vault initiates grading | Current tree repaired |
+| Paid protections overstated | GitHub Free private owner control | Record unavailable statuses, owner manual trigger | Limitation recorded |
+| Vault workflow not installed | Current connector cannot access vault | Manual initialization package plus later readback | Blocking |
+| Prompt copy mistaken for runtime authority | Live prompt is project custom instruction | Exact-byte audit copy with non-authority marker | Export blocking |
+| External runner conflated with validators | No prediction executor installed | Explicit registration Schema/status | Blocking |
+| Derived index substitutes for sources | Index is 22 MiB locator material | Parent file/hash/range/segment readback | Validation required after baseline commit |

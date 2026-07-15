@@ -1,25 +1,15 @@
 {
-  "schema": "ENVIRONMENT-GITHUB-AUDIT-V1",
-  "status": "PARTIAL_CAPABILITY",
-  "checked_at": "2026-07-15T14:43:28Z",
-  "authenticated_github_profile": "chinaneedM",
-  "accessible_repositories": [
-    {
-      "repository": "chinaneedM/ziwei-bazi-model",
-      "visibility": "private",
-      "default_branch": "main",
-      "admin": true,
-      "push": true,
-      "observed_state": "EMPTY_OR_NO_README"
-    }
-  ],
-  "github_cli_available": false,
-  "github_connector_can_create_repository": false,
-  "second_private_repository_observed": false,
-  "python_version": "3.12.13",
-  "node_version": "24.14.0",
-  "zip_reader_available": true,
-  "rar_reader_available": false,
-  "safe_decision": "BUILD_AND_TEST_LOCALLY; PUBLISH_RUNTIME_SOURCE_TO_EXISTING_PRIVATE_REPOSITORY; KEEP_TWO_REPOSITORY_ISOLATION_FAIL_CLOSED"
+  "schema": "ENVIRONMENT-AND-GITHUB-AUDIT-V2",
+  "runtime_repository": "chinaneedM/ziwei-bazi-model",
+  "runtime_base_commit": "0d104fc220bac61171ee45f8a1e7c35ec96b2e66",
+  "runtime_repository_visibility": "private",
+  "runtime_connector_permission": "admin",
+  "answer_vault_repository": "chinaneedM/fortune-answer-vault",
+  "answer_vault_connector_access": "NOT_AVAILABLE_IN_CURRENT_WORK_CONNECTION",
+  "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
+  "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
+  "runtime_repository_vault_credential": "NONE",
+  "paid_protection_claim": "NOT_MADE",
+  "token_value_seen_or_stored": false,
+  "status": "RUNTIME_VERIFIED_VAULT_READBACK_BLOCKED"
 }
-

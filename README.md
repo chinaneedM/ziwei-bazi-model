@@ -6,15 +6,15 @@ Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八�
 
 `AUTOMATION_RUNTIME_INSTALL_STATUS=SCHEMA_DEFINED_NOT_INSTALLED`
 
-This status is intentionally unchanged until all of these are true in one installation receipt:
+This status remains intentionally unchanged. The R16 source package now passes byte-level normalization, S19 binding recomputation and migration, but installation cannot advance until all gates are true in one installation receipt:
 
 - S00–S19 are present as unique original byte streams and the S19 S00–S18 binding table recomputes exactly.
 - A main-prompt audit snapshot exists and is explicitly marked as an audit copy, not runtime authority.
-- `fortune-runtime` and `fortune-answer-vault` are separate private repositories with distinct prediction/grader identities.
+- `ziwei-bazi-model` and `fortune-answer-vault` are separate private repositories and the vault-initiated token-scope probe is read back.
 - Static and synthetic end-to-end tests pass from an immutable commit.
 - A real external prediction runner is installed.
 
-The current upload audit is expected to HOLD because S00, S01, S16, S18 and S19 are absent and S02 is duplicated. No source is silently chosen.
+Transport suffixes such as `(8)`, `(9)` and `(59)` are never source identity. The importer reads the first active internal `LIBRARY_ID`, raw SHA256 and size, then selects only the version bound by the first current S19 table. Non-active byte versions are historical/quarantine records.
 
 ## Security boundary
 
@@ -26,11 +26,11 @@ flowchart TD
     N --> S["Immutable prediction snapshot"]
     S --> P["External dual-track runner"]
     P --> F["Frozen prediction receipt"]
-    F --> G["Grader gains vault access"]
-    G --> R["Reveal, score, diagnosis"]
+    F --> G["Vault manually starts grader"]
+    G --> R["Runtime receives one reveal"]
 ```
 
-The prediction identity must not be installed on the vault repository. The grading workflow checks the freeze receipt before it checks out the vault. Local directories alone do not prove physical isolation because one OS user may read both.
+The runtime repository has no vault credential and no workflow that checks out the vault. On GitHub Free private repositories, the answer vault manually dispatches reverse grading with `RUNTIME_REPO_TOKEN`, scoped only to the runtime repository. Paid branch/ruleset/environment protections are recorded as unavailable, never as PASS.
 
 ## Quick start
 
@@ -39,21 +39,16 @@ The prediction identity must not be installed on the vault repository. The gradi
 PYTHONPATH=src python -m fortune_v1.cli --help
 ```
 
-Audit source bytes without migrating them:
+Import, normalize, audit and migrate the one source ZIP:
 
 ```bash
-PYTHONPATH=src python -m fortune_v1.cli audit-sources \
-  --source-dir /path/to/current-S00-S19 \
+PYTHONPATH=src python -m fortune_v1.cli import-source-package \
+  --package /path/to/fortune-source-baseline-S00-S19-R16.zip \
+  --expected-zip-sha256 4bd8bf03cceeb2ca03d096fbebda9f4174f2e9f7879667bef228acd2770b09be \
   --config config/runtime.json \
-  --output reports/source-audit.json
-```
-
-Migration is fail-closed and only runs after that report is `PASS`:
-
-```bash
-PYTHONPATH=src python -m fortune_v1.cli migrate-sources \
-  --audit reports/source-audit.json \
-  --destination knowledge/base
+  --work-root .source-import-work \
+  --reports-dir reports \
+  --migrate-destination knowledge/base
 ```
 
 See [operations.md](docs/operations.md) for the complete lifecycle and [architecture.md](docs/architecture.md) for object and permission design.
@@ -69,3 +64,4 @@ See [operations.md](docs/operations.md) for the complete lifecycle and [architec
 
 Every rerun requires a new `RUN_ID`; existing run paths are rejected.
 
+The answer-vault initialization template is under `templates/answer-vault/`. Its generated ZIP is an installation package only; it contains no real answers, real examples, token value, prior prediction or SHADOW_REBUILD payload.

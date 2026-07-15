@@ -23,6 +23,5 @@ jobs:
           --config config/runtime.json
           --code-commit "$GITHUB_SHA"
           --output data/contracts/contract-${GITHUB_RUN_ID}.json
-      - name: Assert no vault credential exists
-        run: test -z "${ANSWER_VAULT_TOKEN:-}"
-
+      - name: Assert runtime workflows have no vault access path
+        run: python -m unittest tests.test_reverse_grading.ReverseGradingTests.test_runtime_workflows_have_no_vault_path -v
