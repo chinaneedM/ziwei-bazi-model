@@ -9,7 +9,7 @@
         "unique_library_count": 20
       },
       "check": "SOURCE_BASELINE_20_FILES",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": {
         "duplicates": {},
@@ -30,7 +30,7 @@
         "status": "PASS"
       },
       "check": "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": {
         "computed": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
@@ -52,7 +52,7 @@
         "status": "MIGRATED"
       },
       "check": "SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": {
           "baseline_commit_sha": "989ee246ef55c92a9b4a1b86ccd4b616bbbf0069",
@@ -91,7 +91,7 @@
         "visible": null
       },
       "check": "MAIN_PROMPT_AUDIT_SNAPSHOT",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": {
           "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
@@ -126,10 +126,10 @@
     {
       "actual": "PASS",
       "check": "STATIC_AND_SYNTHETIC_TESTS",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "97cd26f9fe0e3d5507987efa192e92efa9f3e7369b412c9ddb9c2abb8f4b37a9",
+      "file_sha256": "a2afac3fffd26b6cbd5a7688d645be9767f9ee0ee2304b2625daef43611b1793",
       "object_field_path": "$.status",
       "real_path": "reports/test-report.json",
       "status": "PASS"
@@ -140,17 +140,17 @@
         "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
         "status": "PASS",
         "violations": [],
-        "workflow_count": 3
+        "workflow_count": 4
       },
       "check": "RUNTIME_REPOSITORY_VAULT_CREDENTIAL_NONE",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": {
           "runtime_repository_vault_credential": "NONE",
           "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
           "status": "PASS",
           "violations": [],
-          "workflow_count": 3
+          "workflow_count": 4
         },
         "expected": {
           "runtime_repository_vault_credential": "NONE",
@@ -167,54 +167,45 @@
       "status": "PASS"
     },
     {
-      "actual": "UNVERIFIED",
+      "actual": "PASS",
       "check": "PHYSICAL_REPOSITORY_SEPARATION",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
-      "difference": {
-        "actual": "UNVERIFIED",
-        "expected": "PASS"
-      },
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "difference": null,
       "expected": "PASS",
-      "file_sha256": "4b7f9f76bc528f30964f20fdcb548bdbf5968d47ad1a962c42ce133e085d94c1",
+      "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
       "object_field_path": "$.checks.PHYSICAL_REPOSITORY_SEPARATION",
       "real_path": "config/current-topology-receipt.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
-      "actual": "UNVERIFIED",
+      "actual": "PASS",
       "check": "TOKEN_REPOSITORY_SCOPE",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
-      "difference": {
-        "actual": "UNVERIFIED",
-        "expected": "PASS"
-      },
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "difference": null,
       "expected": "PASS",
-      "file_sha256": "4b7f9f76bc528f30964f20fdcb548bdbf5968d47ad1a962c42ce133e085d94c1",
+      "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
       "object_field_path": "$.checks.TOKEN_REPOSITORY_SCOPE",
       "real_path": "config/current-topology-receipt.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
-      "actual": "UNVERIFIED",
+      "actual": "PASS",
       "check": "RUNTIME_VAULT_ACCESS_DENIAL",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
-      "difference": {
-        "actual": "UNVERIFIED",
-        "expected": "PASS"
-      },
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "difference": null,
       "expected": "PASS",
-      "file_sha256": "4b7f9f76bc528f30964f20fdcb548bdbf5968d47ad1a962c42ce133e085d94c1",
+      "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
       "object_field_path": "$.checks.RUNTIME_VAULT_ACCESS_DENIAL",
       "real_path": "config/current-topology-receipt.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "actual": "PASS",
       "check": "GRADING_DIRECTION",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "4b7f9f76bc528f30964f20fdcb548bdbf5968d47ad1a962c42ce133e085d94c1",
+      "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
       "object_field_path": "$.checks.GRADING_DIRECTION",
       "real_path": "config/current-topology-receipt.json",
       "status": "PASS"
@@ -222,10 +213,10 @@
     {
       "actual": "RECORDED",
       "check": "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": "RECORDED",
-      "file_sha256": "4b7f9f76bc528f30964f20fdcb548bdbf5968d47ad1a962c42ce133e085d94c1",
+      "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
       "object_field_path": "$.checks.FREE_PLAN_CONTROL_LIMITATION",
       "real_path": "config/current-topology-receipt.json",
       "status": "PASS"
@@ -242,7 +233,7 @@
         "runtime_repository_vault_credential": "NONE"
       },
       "check": "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": null,
       "expected": {
         "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
@@ -261,18 +252,18 @@
     },
     {
       "actual": {
-        "readback_sha256": null,
+        "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
         "repository": "chinaneedM/fortune-answer-vault",
-        "status": "NOT_INSTALLED_NOT_READ_BACK",
+        "status": "PASS",
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
       "check": "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": {
-          "readback_sha256": null,
+          "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
           "repository": "chinaneedM/fortune-answer-vault",
-          "status": "NOT_INSTALLED_NOT_READ_BACK",
+          "status": "PASS",
           "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
         },
         "expected": {
@@ -288,10 +279,10 @@
         "status": "PASS",
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
-      "file_sha256": "8dd128d92821c0d4fc7043d7b6b2b088966442e86c98c537ea7aa74dc81daa62",
+      "file_sha256": "1824d00f4eb925ff13060598fec75fd139d0706c092d82e264010309e5a83ae4",
       "object_field_path": "$.status+$.repository+$.readback_sha256",
       "real_path": "reports/answer-vault-workflow-readback.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "actual": {
@@ -299,7 +290,7 @@
         "status": "NOT_INSTALLED"
       },
       "check": "EXTERNAL_PREDICTION_RUNNER",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": {
           "runner_id": null,
@@ -320,11 +311,11 @@
       "status": "FAIL"
     },
     {
-      "actual": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "actual": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "check": "IMMUTABLE_GIT_COMMIT",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
-        "actual": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+        "actual": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
         "expected": "NON_NULL"
       },
       "expected": "NON_NULL",
@@ -336,7 +327,7 @@
     {
       "actual": 10,
       "check": "SCHEMA_SET",
-      "corresponding_commit_sha": "0970653f9f5c41159df39c4f2b75581df328aa8a",
+      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
       "difference": {
         "actual": 10,
         "expected": ">=9"
@@ -348,8 +339,8 @@
       "status": "PASS"
     }
   ],
-  "code_commit": "0970653f9f5c41159df39c4f2b75581df328aa8a",
-  "generated_at": "2026-07-15T16:49:53+00:00",
+  "code_commit": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+  "generated_at": "2026-07-16T13:54:48+00:00",
   "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
   "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
   "repository_root": ".",
