@@ -1,23 +1,27 @@
 name: Runtime materialize DEV-GROUP-001
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - runtime/dev-group-001-materialize
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   materialize:
+    if: "!contains(github.event.head_commit.message, '[materialized]')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: runtime/dev-group-001-materialize
       - name: Materialize no-answer runtime cases
         shell: bash
         run: |
           set -u
+          rm -rf runtime-materialized
           mkdir -p runtime-materialized/DEV-GROUP-001
           : > runtime-materialized/errors.txt
           for p in training-data/DEV-GROUP-001/cases/*; do
@@ -39,19 +43,23 @@ jobs:
           for p in sorted(root.glob('*.json')):
               raw=p.read_bytes()
               obj=json.loads(raw)
-              if obj.get('answer_isolation',{}).get('answer_payload_present') is not False:
-                  forbidden.append(f'{p}:answer_payload_present')
-              if obj.get('answer_isolation',{}).get('answer_reference_disclosed') is not False:
-                  forbidden.append(f'{p}:answer_reference_disclosed')
+              iso=obj.get('answer_isolation',{})
+              if iso.get('answer_payload_present') is not False:
+                  forbidden.append(f'{p}:answer_payload_present={iso.get("answer_payload_present")!r}')
+              if iso.get('answer_reference_disclosed') is not False:
+                  forbidden.append(f'{p}:answer_reference_disclosed={iso.get("answer_reference_disclosed")!r}')
               rows.append({'path':str(p),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'case_id':obj.get('case_id'),'question_count':obj.get('questions',{}).get('question_count')})
           errors=pathlib.Path('runtime-materialized/errors.txt').read_text(encoding='utf-8')
           status='PASS' if not forbidden and not errors.strip() and len(rows)==5 else 'FAIL'
           manifest={'schema':'RUNTIME-MATERIALIZATION-RECEIPT-V1','group_id':'DEV-GROUP-001','files':rows,'forbidden_findings':forbidden,'errors':errors,'status':status}
           pathlib.Path('runtime-materialized/materialization-receipt.json').write_text(json.dumps(manifest,ensure_ascii=False,sort_keys=True,indent=2)+'\n',encoding='utf-8')
           PY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dev-group-001-runtime-materialized
-          path: runtime-materialized/
-          if-no-files-found: error
-          retention-days: 1
+      - name: Persist branch-only diagnostics
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "fortune-runtime-materializer"
+          git config user.email "fortune-runtime-materializer@users.noreply.github.com"
+          git add -f runtime-materialized
+          git commit -m "Persist DEV-GROUP-001 materialization [materialized]"
+          git push origin HEAD:runtime/dev-group-001-materialize
