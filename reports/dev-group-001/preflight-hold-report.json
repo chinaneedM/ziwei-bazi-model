@@ -1,0 +1,59 @@
+{
+  "schema": "DEV-GROUP-PREFLIGHT-HOLD-REPORT-V1",
+  "group_id": "DEV-GROUP-001",
+  "status": "GROUP_HOLD",
+  "hold_class": "TRAINING_INPUT_MATERIALIZATION_FAILURE",
+  "stage_reached": "PRE_BASELINE_INPUT_VALIDATION",
+  "answer_vault_accessed": false,
+  "prediction_objects_created": false,
+  "prediction_freezes_created": false,
+  "reveal_authorized": false,
+  "expected_case_count": 5,
+  "expected_question_count": 25,
+  "readable_case_count": 1,
+  "readable_question_count": 5,
+  "readable_case_ids": ["DEV-EXAMPLE-005"],
+  "failed_case_rows": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-001.json.gz.b64",
+      "declared_storage_format": "GZIP_BASE64_JSON",
+      "failure": "ZLIB_INVALID_DISTANCE_TOO_FAR_BACK"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-002.json.gz.b64",
+      "declared_storage_format": "GZIP_BASE64_JSON",
+      "failure": "GZIP_CRC_CHECK_FAILED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-003.json.gz.b64",
+      "declared_storage_format": "GZIP_BASE64_JSON",
+      "failure": "GZIP_CRC_CHECK_FAILED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-004.json.gz.b64",
+      "declared_storage_format": "GZIP_BASE64_JSON",
+      "failure": "BASE64_INCORRECT_PADDING"
+    }
+  ],
+  "successful_case_row": {
+    "case_id": "DEV-EXAMPLE-005",
+    "logical_json_sha256": "5292c94c69263d6aacf934e0078b1d5f2e90a29d0b731df482da6b293a541e45",
+    "question_count": 5
+  },
+  "declared_group_manifest": "training-data/DEV-GROUP-001/manifest.json",
+  "declared_group_revision": "training-data/DEV-GROUP-001/revisions/0001.json",
+  "diagnostic_receipt_path": "runtime-materialized/materialization-receipt.json",
+  "diagnostic_receipt_branch": "runtime/dev-group-001-materialize",
+  "diagnostic_receipt_blob_sha": "e78b623c5272cbebf692f8e4385e2b6ab20a0e75",
+  "required_repair": "Replace or regenerate DEV-EXAMPLE-001 through DEV-EXAMPLE-004 from their verified logical JSON sources, recompute stored bytes and SHA-256 values, rerun the no-answer materialization and transcription/binding preflight, and create a new immutable group revision before baseline prediction.",
+  "stop_action": "FAIL_CLOSED_NO_PREDICTION_NO_REVEAL_NO_PATCH",
+  "notes": [
+    "The runtime manifest claimed READY_FOR_BASELINE_PREDICTION and runtime_answer_scan PASS, but four declared compressed case objects were not mechanically decodable.",
+    "No private answer repository was queried or opened.",
+    "This HOLD is an input transport/integrity defect and does not modify astrological knowledge or any prior prediction."
+  ]
+}
