@@ -1,11 +1,13 @@
 {
-  "schema": "DEV-GROUP-INTEGRITY-REPAIR-REPORT-V1",
+  "schema": "DEV-GROUP-INTEGRITY-REPAIR-REPORT-V2",
   "group_id": "DEV-GROUP-001",
-  "status": "INTERFACE_REPAIRED_SOURCE_REIMPORT_REQUIRED",
+  "status": "TRANSPORT_INTERFACE_REPAIRED_GROUP_HOLD_AWAITING_TRUSTED_SOURCE_REIMPORT",
   "answer_vault_accessed": false,
   "answer_payload_used": false,
   "prediction_objects_created": false,
   "reveal_authorized": false,
+  "current_conversation_prediction_eligible": false,
+  "current_conversation_reason": "Post-reveal artifacts became visible during source recovery; this conversation is restricted to data and interface repair.",
   "root_cause": {
     "class": "POST_WRITE_CONNECTOR_TRANSPORT_CORRUPTION_WITHOUT_READBACK_GATE",
     "description": "The prewrite manifest recorded intended hashes, but four long single-line gzip+Base64 objects were committed with different bytes. The old readiness gate trusted the prewrite registry and did not materialize repository readback bytes.",
@@ -70,6 +72,12 @@
       "acceptance": "REGISTERED_LOGICAL_SHA256_EXACT_MATCH_ONLY",
       "recovered_case_count": 0,
       "status": "FAILED_NO_FABRICATION"
+    },
+    {
+      "id": "FILE_LIBRARY_AND_PRIOR_RUNTIME_SOURCE_SEARCH",
+      "scope": "NO_ANSWER_INPUTS_ONLY",
+      "result": "EXAMPLE_001_RUNTIME_METADATA_FOUND; COMPLETE_EXACT_SOURCE_SET_FOR_002_TO_004_NOT_RECOVERABLE",
+      "status": "INSUFFICIENT_FOR_LITERAL_REIMPORT"
     }
   ],
   "installed_repairs": [
@@ -80,8 +88,17 @@
     "GROUP_READY_REQUIRES_ALL_CASES_PASS",
     "PLAIN_CANONICAL_JSON_REQUIRED_FOR_NEW_CONNECTOR_WRITES",
     "POST_WRITE_REPOSITORY_READBACK_REQUIRED",
+    "TRAINING_DATA_INTEGRITY_CI",
+    "TRANSPORT_REGRESSION_TESTS",
     "TRUTHFUL_HEAD_REVISION_0003_HOLD"
   ],
+  "verification": {
+    "repair_commit": "80197130eea0eaff2986257b51ac53bcd9f15d63",
+    "installation_validation_commit": "efeecb3aea04d511a107262be3c1e4521ac6da9f",
+    "static_and_synthetic_tests": "PASS",
+    "active_group_validator_expected_status": "PASS_HOLD_FAIL_CLOSED",
+    "ready_validation_expected_status": "FAIL_GROUP_NOT_READY"
+  },
   "source_reimport": {
     "required": true,
     "case_ids": [
@@ -92,7 +109,19 @@
     ],
     "answer_repository_access": "FORBIDDEN",
     "target_storage_format": "PLAIN_CANONICAL_JSON",
+    "required_inputs_per_case": [
+      "LITERAL_ZIWEI_TEXT",
+      "VERIFIED_STRUCTURED_BAZI_TRANSCRIPTION",
+      "LITERAL_QUESTION_AND_OPTION_TEXT",
+      "SOURCE_PROVENANCE_HASHES"
+    ],
     "resume_gate": "ALL_FIVE_CASES_PASS_REPOSITORY_READBACK_MATERIALIZATION_AND_LOGICAL_HASH_VALIDATION"
   },
-  "final_action": "KEEP_GROUP_HOLD_UNTIL_TRUSTED_SOURCE_REIMPORT; DO_NOT_PREDICT_OR_REVEAL"
+  "resume_protocol": {
+    "step_1": "Reimport exact no-answer source files for DEV-EXAMPLE-001 through DEV-EXAMPLE-004 into a new immutable revision.",
+    "step_2": "Run training-data-integrity and require PASS_READY.",
+    "step_3": "Start a clean answer-blind conversation and trigger DEV-GROUP-001 exactly once.",
+    "automatic_after_reimport": true
+  },
+  "final_action": "KEEP_GROUP_HOLD_UNTIL_TRUSTED_SOURCE_REIMPORT; DO_NOT_PREDICT_OR_REVEAL_IN_THIS_CONVERSATION"
 }
