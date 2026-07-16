@@ -19,7 +19,26 @@
     "runtime_answer_payload_forbidden": true,
     "answer_object_private_repository_only": true,
     "baseline_prediction_must_use_new_answer_blind_session": true,
+    "one_execution_session_per_group": true,
+    "same_execution_session_may_reveal_after_all_group_baselines_freeze": true,
+    "additional_user_started_reveal_session_required": false,
     "reveal_requires_all_group_baselines_frozen": true
+  },
+  "execution_orchestration": {
+    "user_manual_actions_per_group": 1,
+    "single_trigger_scope": "LOAD_GROUP_VALIDATE_PREDICT_ALL_CASES_FREEZE_ALL_AUTHORIZE_REVEAL_GRADE_DIAGNOSE_PATCH_AND_REGRESS",
+    "pause_for_user_confirmation_between_stages": false,
+    "fail_closed_on_missing_receipt_or_answer_contamination": true,
+    "prediction_objects_immutable_before_answer_access": true,
+    "same_conversation_stage_order": [
+      "NO_ANSWER_GROUP_LOAD",
+      "BASELINE_PREDICTION_ALL_CASES",
+      "FREEZE_ALL_BASELINES",
+      "GROUP_REVEAL_AUTHORIZATION",
+      "ANSWER_LITERAL_REPLAY_AND_SCORING",
+      "DEFECT_DIAGNOSIS",
+      "PATCH_CANDIDATE_AND_REGRESSION"
+    ]
   },
   "bazi_policy": {
     "training_authority": "VERIFIED_STRUCTURED_TRANSCRIPTION",
