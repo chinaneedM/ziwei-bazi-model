@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 from .audit import audit_sources, import_source_package, migrate_verified_sources
 from .bazi import freeze_transcription
 from .diagnosis import classify_errors, create_interface_patch_candidate
+from .external_runner import run_external_prediction, token_from_environment
 from .group import authorize_group_reveal, create_dev_group, record_patch_round, register_baseline_freeze
 from .ingest import ingest_zip
 from .knowledge import build_locator_index, read_parent_segment, validate_locator_index
@@ -44,6 +46,11 @@ def parser() -> argparse.ArgumentParser:
     cmd("snapshot", ("--case", {"required": True}), ("--output-root", {"required": True}), ("--bazi-transcription", {}))
     cmd("cache-freeze", ("--snapshot", {"required": True}), ("--static-object", {"required": True}), ("--binding-hash", {"required": True}), ("--schema-version", {"required": True}), ("--cache-root", {"required": True}))
     cmd("prepare-run", ("--snapshot", {"required": True}), ("--config", {"required": True}), ("--code-commit", {"required": True}), ("--output", {"required": True}), ("--prompt-snapshot-sha256", {}))
+    cmd("external-run", ("--snapshot", {"required": True}), ("--contract", {"required": True}),
+        ("--endpoint", {"required": True}), ("--runner-id", {"required": True}),
+        ("--output", {"required": True}), ("--receipt", {"required": True}),
+        ("--token-env", {"default": "PREDICTION_RUNNER_TOKEN"}),
+        ("--timeout-seconds", {"type": int, "default": 1800}))
     cmd("freeze", ("--run", {"required": True}), ("--contract", {"required": True}), ("--frozen-root", {"required": True}))
     cmd("grade", ("--freeze-receipt", {"required": True}), ("--answer", {"required": True}),
         ("--output", {"required": True}), ("--gates", {}), ("--run-id", {}))
@@ -93,6 +100,10 @@ def main(argv: list[str] | None = None) -> int:
         elif c == "snapshot": result = generate_prediction_snapshot(args.case, args.output_root, args.bazi_transcription)
         elif c == "cache-freeze": result = freeze_static_cache(args.snapshot, args.static_object, args.binding_hash, args.schema_version, args.cache_root)
         elif c == "prepare-run": result = prepare_run_contract(args.snapshot, args.config, args.code_commit, args.output, args.prompt_snapshot_sha256)
+        elif c == "external-run": result = run_external_prediction(
+            args.snapshot, args.contract, args.endpoint, args.output, args.receipt,
+            args.runner_id, token=token_from_environment(args.token_env),
+            timeout_seconds=args.timeout_seconds)
         elif c == "freeze": result = freeze_prediction(args.run, args.contract, args.frozen_root)
         elif c == "grade": result = grade_frozen_prediction(
             args.freeze_receipt, args.answer, args.output,
