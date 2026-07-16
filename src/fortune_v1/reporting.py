@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -26,72 +25,57 @@ def _check(name: str, passed: bool, path: str | Path | None, field_path: str,
             "corresponding_commit_sha": commit_sha}
 
 
-def _validate_live_external_runner(runner: dict[str, Any] | None) -> tuple[bool, dict[str, Any] | None]:
+def _validate_chat_work_runner(runner: dict[str, Any] | None) -> tuple[bool, dict[str, Any] | None]:
     if not isinstance(runner, dict):
         return False, None
-    proof = runner.get("no_answer_access_proof")
-    activation = runner.get("activation_receipt")
-    proof = proof if isinstance(proof, dict) else {}
-    activation = activation if isinstance(activation, dict) else {}
-    live_sha = proof.get("live_receipt_sha256")
-    required_runner_fields = [
-        "runner_id", "runner_type", "model_or_executor", "input_contract", "output_schema",
-        "timeout_seconds", "failure_status", "code_commit", "source_binding",
-    ]
-    fields_present = all(runner.get(key) not in {None, ""} for key in required_runner_fields)
-    model_bound = runner.get("model_or_executor") not in {
-        None, "", "UNBOUND_REMOTE_DUAL_TRACK_EXECUTOR", "PLACEHOLDER", "FIXTURE",
+    adapter = runner.get("adapter") if isinstance(runner.get("adapter"), dict) else {}
+    proof = runner.get("no_answer_access_proof") if isinstance(runner.get("no_answer_access_proof"), dict) else {}
+    prompt = runner.get("prompt_binding") if isinstance(runner.get("prompt_binding"), dict) else {}
+    modes = runner.get("interaction_modes")
+
+    checks = {
+        "status": runner.get("external_prediction_runner_status") == "INSTALLED",
+        "runner_id": runner.get("runner_id") == "CHAT-WORK-HANDOFF-V1",
+        "runner_type": runner.get("runner_type") == "CHAT_WORK_INTERACTIVE_EXECUTOR",
+        "model_or_executor": runner.get("model_or_executor") == "CHATGPT_PROJECT_SESSION",
+        "interaction_modes": isinstance(modes, list) and set(modes) == {"CHAT_ONLY", "WORK"},
+        "execution_model": runner.get("execution_model") == "USER_INITIATED_INTERACTIVE_SESSION",
+        "background_execution": runner.get("background_execution") is False,
+        "api_service_required": runner.get("api_service_required") is False,
+        "adapter": adapter.get("status") == "INSTALLED"
+                   and adapter.get("module") == "fortune_v1.external_runner"
+                   and adapter.get("cli_command") == "fortune-v1 chat-work-import"
+                   and adapter.get("workflow_path") == ".github/workflows/external-runner-smoke.yml",
+        "input_contract": runner.get("input_contract") == "PREDICTION-RUN-CONTRACT-V1",
+        "output_schema": runner.get("output_schema") == "PREDICTION-RUN-V1",
+        "proof_policy": proof.get("status") == "ENFORCED_PER_RUN"
+                        and proof.get("contract_answer_data_available_required_false") is True
+                        and proof.get("prediction_forbidden_scan_required") is True
+                        and proof.get("active_whitelist_required") is True
+                        and proof.get("runtime_repository_vault_credential") == "NONE"
+                        and proof.get("answer_vault_read_allowed") is False,
+        "prompt_binding": prompt.get("runtime_id") == "MP-PROFESSIONAL-REASONING-20260715-R16"
+                          and prompt.get("audit_snapshot_sha256") == "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017"
+                          and prompt.get("runtime_authority") == "PROJECT_CUSTOM_INSTRUCTIONS",
+        "source_binding": runner.get("source_binding") == "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+        "run_id_nonoverwrite": runner.get("run_id_nonoverwrite") is True,
+        "dual_track_seals": runner.get("ziwei_bazi_local_seal_requirement") is True,
+        "user_initiated": runner.get("case_execution_requires_user_initiated_chat") is True,
     }
-    proof_pass = (
-        proof.get("status") == "PASS"
-        and proof.get("answer_data_available") is False
-        and proof.get("request_forbidden_scan") == "PASS"
-        and proof.get("runtime_repository_vault_credential") == "NONE"
-        and proof.get("token_value_persisted") is False
-        and isinstance(live_sha, str)
-        and re.fullmatch(r"[0-9a-f]{64}", live_sha) is not None
-    )
-    activation_pass = (
-        activation.get("status") == "PASS"
-        and activation.get("fresh_unrevealed_dev_case") is True
-        and activation.get("prediction_run_validation") == "PASS"
-        and activation.get("ziwei_bazi_independent_local_seals") == "PASS"
-        and activation.get("frozen_before_reveal") is True
-        and activation.get("run_id_nonoverwrite") is True
-    )
-    prompt_binding = runner.get("prompt_binding")
-    prompt_pass = (
-        isinstance(prompt_binding, dict)
-        and prompt_binding.get("runtime_id") == "MP-PROFESSIONAL-REASONING-20260715-R16"
-        and isinstance(prompt_binding.get("audit_snapshot_sha256"), str)
-        and re.fullmatch(r"[0-9a-f]{64}", prompt_binding["audit_snapshot_sha256"]) is not None
-    )
-    passed = bool(
-        runner.get("external_prediction_runner_status") == "INSTALLED"
-        and fields_present
-        and model_bound
-        and proof_pass
-        and activation_pass
-        and prompt_pass
-        and runner.get("run_id_nonoverwrite") is True
-        and runner.get("ziwei_bazi_local_seal_requirement") is True
-    )
     summary = {
         "status": runner.get("external_prediction_runner_status"),
         "runner_id": runner.get("runner_id"),
+        "runner_type": runner.get("runner_type"),
         "model_or_executor": runner.get("model_or_executor"),
-        "fields_present": fields_present,
-        "model_bound": model_bound,
-        "prompt_binding_pass": prompt_pass,
-        "no_answer_access_proof": proof.get("status"),
-        "live_receipt_sha256": live_sha,
-        "activation_status": activation.get("status"),
-        "fresh_unrevealed_dev_case": activation.get("fresh_unrevealed_dev_case"),
-        "prediction_run_validation": activation.get("prediction_run_validation"),
-        "ziwei_bazi_independent_local_seals": activation.get("ziwei_bazi_independent_local_seals"),
-        "frozen_before_reveal": activation.get("frozen_before_reveal"),
+        "interaction_modes": modes,
+        "background_execution": runner.get("background_execution"),
+        "api_service_required": runner.get("api_service_required"),
+        "adapter_status": adapter.get("status"),
+        "no_answer_access_policy": proof.get("status"),
+        "prompt_runtime_id": prompt.get("runtime_id"),
+        "checks": checks,
     }
-    return passed, summary
+    return all(checks.values()), summary
 
 
 def installation_check(repo_root: str | Path, source_audit_path: str | Path | None,
@@ -207,24 +191,22 @@ def installation_check(repo_root: str | Path, source_audit_path: str | Path | No
                                          "readback_sha256": "NON_NULL"}, commit))
 
     runner = read_json(external_runner) if external_runner and Path(external_runner).is_file() else None
-    runner_pass, runner_actual = _validate_live_external_runner(runner)
+    runner_pass, runner_actual = _validate_chat_work_runner(runner)
     runner_expected = {
         "status": "INSTALLED",
-        "runner_id": "NON_NULL",
-        "model_or_executor": "BOUND_NON_PLACEHOLDER",
-        "fields_present": True,
-        "model_bound": True,
-        "prompt_binding_pass": True,
-        "no_answer_access_proof": "PASS",
-        "live_receipt_sha256": "64_HEX",
-        "activation_status": "PASS",
-        "fresh_unrevealed_dev_case": True,
-        "prediction_run_validation": "PASS",
-        "ziwei_bazi_independent_local_seals": "PASS",
-        "frozen_before_reveal": True,
+        "runner_id": "CHAT-WORK-HANDOFF-V1",
+        "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+        "model_or_executor": "CHATGPT_PROJECT_SESSION",
+        "interaction_modes": ["CHAT_ONLY", "WORK"],
+        "background_execution": False,
+        "api_service_required": False,
+        "adapter_status": "INSTALLED",
+        "no_answer_access_policy": "ENFORCED_PER_RUN",
+        "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+        "checks": "ALL_TRUE",
     }
     checks.append(_check("EXTERNAL_PREDICTION_RUNNER", runner_pass, external_runner,
-                         "$.external_prediction_runner_status+live_proof+activation_receipt",
+                         "$.external_prediction_runner_status+chat_work_handoff_contract",
                          runner_actual, runner_expected, commit))
 
     checks.append(_check("IMMUTABLE_GIT_COMMIT", bool(commit), root / ".git", "HEAD", commit, "NON_NULL", commit))
