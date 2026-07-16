@@ -1,0 +1,94 @@
+{
+  "answer_vault": {
+    "answer_payload_bytes_accessed": false,
+    "inspected_head": "9e0b0159188880a305fc2e8ec4773020a5da86a7",
+    "inspection_scope": "repository metadata, commit messages, installation files only",
+    "name": "chinaneedM/fortune-answer-vault",
+    "real_answer_object_commit_observed": false
+  },
+  "binding": {
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "source_binding_hash": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+    "traditional_source_knowledge_modified": false
+  },
+  "candidate_patch": {
+    "answer_letter_rule": false,
+    "base_knowledge_change": false,
+    "case_specific_direction_rule": false,
+    "change": "force-add only validated allowlisted data/chat-work-imports/<RUN_ID> and data/runs/<RUN_ID> paths because data/* is ignored; fail if staging is empty",
+    "leak_scan": "PASS",
+    "option_text_rule": false,
+    "overfit_scan": "PASS_GENERIC_INTERFACE_ONLY",
+    "patch_id": "CHAT-WORK-IGNORED-FREEZE-ARTIFACTS-20260716-R1",
+    "person_specific_history_rule": false,
+    "regression_validation": "NOT_RUN_NO_LOCAL_CHECKOUT_OR_WORKFLOW_DISPATCH_AVAILABLE",
+    "target": ".github/workflows/external-runner-smoke.yml"
+  },
+  "cycle_result": {
+    "continue_training": false,
+    "corrected_questions": [],
+    "development_set_replay_claimed_as_unseen_accuracy": false,
+    "freeze_receipt_sha256": null,
+    "high_confidence_errors": [],
+    "hold_reasons": [
+      "DEV_GROUP_001_INPUT_SNAPSHOTS_NOT_FOUND",
+      "NO_PRIOR_DEV_GROUP_FREEZE_OR_STATE_FOUND",
+      "NO_REAL_ANSWER_OBJECT_COMMIT_FOUND",
+      "CURRENT_MODEL_TOOL_IDENTITY_CAN_ACCESS_BOTH_REPOSITORIES_SO_PHYSICAL_ISOLATION_CANNOT_BE_CERTIFIED",
+      "AUTHORITATIVE_INSTALL_RECEIPT_REMAINS_SCHEMA_DEFINED_NOT_INSTALLED",
+      "NO_PREDICTION_OBJECT_GENERATED"
+    ],
+    "net_change_vs_previous_round": null,
+    "overclaim_count": null,
+    "prediction_sha256": null,
+    "promotion_decision": "NO_PROMOTION",
+    "regressed_questions": [],
+    "rollback_decision": "NO_MODEL_ROLLBACK_POSSIBLE_WITHOUT_PREVIOUS_GROUP_STATE",
+    "run_id": null,
+    "status": "HOLD",
+    "top1_accuracy": null,
+    "top2_diagnostic_coverage": null
+  },
+  "gates": {
+    "answer_content_visibility": "NOT_VISIBLE_NOT_ACCESSED",
+    "answer_vault_physical_isolation": "FAIL_CURRENT_CONNECTED_GITHUB_IDENTITY_HAS_ADMIN_ACCESS_TO_BOTH_REPOSITORIES",
+    "dev_group_case_completeness": "FAIL_NOT_FOUND",
+    "dual_track_local_seals": "NOT_RUN",
+    "prediction_freeze_before_reveal": "NOT_APPLICABLE_NO_PREDICTION_OBJECT",
+    "prediction_runtime_validation": "NOT_RUN",
+    "prediction_whitelist": "FAIL_NO_CASE_INPUT_SNAPSHOT",
+    "remaining_gate_report_status": "INSTALL_VALIDATION_PENDING_CI_RECEIPT",
+    "repository_version_verified": true,
+    "runtime_config_install_status": "SCHEMA_DEFINED_NOT_INSTALLED",
+    "source_and_prompt_binding_verified": true
+  },
+  "generated_at": "2026-07-16T00:00:00+08:00",
+  "group_id": "DEV-GROUP-001",
+  "object_hash": "5adda8206187a680cb884cca6659fe48ea283159a9c62ae4e73d7100ff510573",
+  "object_hash_scope": "SHA256_CANONICAL_JSON_WITHOUT_OBJECT_HASH_FIELDS",
+  "recovery": {
+    "candidate_patch_state": "ONE_GENERIC_WORKFLOW_PATCH_CREATED",
+    "case_inputs": "DEV_GROUP_001_NO_ANSWER_SNAPSHOTS_NOT_FOUND",
+    "modern_empirical_candidate_state": "NOT_FOUND",
+    "previous_dev_group_state": "NOT_FOUND_ON_DEFAULT_BRANCH",
+    "previous_stable_execution_model": "RUNTIME_HEAD_ONLY_NO_DEV_GROUP_FREEZE_FOUND",
+    "prior_predictions": "NOT_READ",
+    "prior_reveals_or_shadow_rebuild": "NOT_READ"
+  },
+  "requested_cycle": "NEXT_ANSWER_ISOLATED_LOOP",
+  "required_recovery_conditions": [
+    "DEV-GROUP-001 immutable no-answer case snapshots and group HEAD must exist in the runtime repository",
+    "corresponding immutable answer objects must exist in the answer vault",
+    "prediction execution must use an identity physically denied access to the answer vault",
+    "a new RUN_ID prediction must validate and freeze before any reveal operation"
+  ],
+  "runtime_repository": {
+    "candidate_branch": "agent/dev-group-001-cycle-hold-20260716",
+    "candidate_execution_version": "EXEC-CANDIDATE-DEV-GROUP-001-R1-20260716",
+    "candidate_patch_commit": "5fe97b89ffd308ee21c4c6618899283a90cea384",
+    "default_branch": "main",
+    "inspected_head": "66a63b607f9bfb95bb83909dd3a961470c005caf",
+    "name": "chinaneedM/ziwei-bazi-model"
+  },
+  "schema": "DEV-TRAINING-CYCLE-HOLD-REPORT-V1"
+}
