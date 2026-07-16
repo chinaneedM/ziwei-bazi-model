@@ -1,0 +1,115 @@
+name: external-runner-smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot_path:
+        description: Repository-relative frozen no-answer snapshot manifest
+        required: true
+        type: string
+      contract_path:
+        description: Repository-relative immutable prediction run contract
+        required: true
+        type: string
+      run_id:
+        description: New non-overwriting RUN_ID
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    env:
+      PREDICTION_RUNNER_ENDPOINT: ${{ secrets.PREDICTION_RUNNER_ENDPOINT }}
+      PREDICTION_RUNNER_TOKEN: ${{ secrets.PREDICTION_RUNNER_TOKEN }}
+      SNAPSHOT_PATH: ${{ inputs.snapshot_path }}
+      CONTRACT_PATH: ${{ inputs.contract_path }}
+      RUN_ID: ${{ inputs.run_id }}
+
+    steps:
+      - name: Checkout runtime repository only
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime package
+        run: python -m pip install -e .
+
+      - name: Validate activation inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -n "$PREDICTION_RUNNER_ENDPOINT" ]]
+          [[ "$SNAPSHOT_PATH" == data/snapshots/*/manifest.json ]]
+          [[ "$CONTRACT_PATH" == data/contracts/*.json ]]
+          [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]]
+          test -f "$SNAPSHOT_PATH"
+          test -f "$CONTRACT_PATH"
+          test ! -e "data/runs/$RUN_ID"
+
+      - name: Invoke external no-answer dual-track executor
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "data/runner-probes/$RUN_ID"
+          fortune-v1 external-run \
+            --snapshot "$SNAPSHOT_PATH" \
+            --contract "$CONTRACT_PATH" \
+            --endpoint "$PREDICTION_RUNNER_ENDPOINT" \
+            --runner-id FORTUNE-EXTERNAL-DUAL-TRACK-V1 \
+            --output "data/runner-probes/$RUN_ID/prediction-run.json" \
+            --receipt "data/runner-probes/$RUN_ID/external-runner-receipt.json" \
+            --token-env PREDICTION_RUNNER_TOKEN \
+            --timeout-seconds 1800
+
+      - name: Freeze validated prediction
+        shell: bash
+        run: |
+          set -euo pipefail
+          fortune-v1 freeze \
+            --run "data/runner-probes/$RUN_ID/prediction-run.json" \
+            --contract "$CONTRACT_PATH" \
+            --frozen-root data/runs
+
+      - name: Publish activation summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          run_id = os.environ["RUN_ID"]
+          receipt = json.loads(
+              Path(f"data/runner-probes/{run_id}/external-runner-receipt.json")
+              .read_text(encoding="utf-8")
+          )
+          freeze = json.loads(
+              Path(f"data/runs/{run_id}/freeze-receipt.json")
+              .read_text(encoding="utf-8")
+          )
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("## External runner activation probe\n\n")
+              summary.write(f"- Runner receipt: `{receipt['status']}`\n")
+              summary.write(f"- Endpoint origin: `{receipt['endpoint_origin']}`\n")
+              summary.write(f"- No-answer proof: `{receipt['no_answer_access_proof']['request_forbidden_scan']}`\n")
+              summary.write(f"- Freeze status: `{freeze['freeze_status']}`\n")
+              summary.write(f"- RUN_ID: `{run_id}`\n")
+          PY
+
+      - name: Upload probe receipts
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-runner-probe-${{ inputs.run_id }}
+          path: |
+            data/runner-probes/${{ inputs.run_id }}/external-runner-receipt.json
+            data/runs/${{ inputs.run_id }}/freeze-receipt.json
+          if-no-files-found: error
+          retention-days: 30
