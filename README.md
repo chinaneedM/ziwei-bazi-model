@@ -2,29 +2,29 @@
 
 Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, freeze/reveal ordering, literal answer replay, scoring, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
-## Current verified status
+## Execution model
 
-`AUTOMATION_RUNTIME_INSTALL_STATUS=SCHEMA_DEFINED_NOT_INSTALLED`
+The prediction engine is the active ChatGPT project session in either:
 
-The repository, source baseline, prompt audit snapshot, reverse-grading topology, answer-vault workflow, token-scope proofs and deterministic validation chain are installed and machine-checked. The repository-side external-runner adapter is also installed and covered by tests. Formal installation still cannot advance until a **real separate no-answer dual-track prediction executor** is bound and passes one fresh unrevealed DEV activation run.
+- `CHAT_ONLY` — the normal and preferred operating mode;
+- `WORK` — an optional higher-capacity interactive mode when available.
 
-The final unresolved gate is therefore:
+No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts each new case conversation, ChatGPT performs the dual-track reasoning, and the repository validates and freezes the resulting `PREDICTION-RUN-V1` object.
 
-```text
-EXTERNAL_PREDICTION_RUNNER=NOT_INSTALLED
-```
+## Installation state
 
-This status must not be changed by filling configuration fields, replaying a fixture or manufacturing a prediction object. See [external-runner.md](docs/external-runner.md) and [remaining-installation-gates.json](reports/remaining-installation-gates.json).
+The authoritative state is the current machine-generated `reports/install-receipt.json`. The installed components include:
 
-The completed gates include:
+- the S00–S19 source baseline and exact S19 binding-table recomputation;
+- the R16 main-prompt audit snapshot, explicitly marked as an audit copy rather than runtime authority;
+- the physically separate answer vault and reverse-grading workflow;
+- bidirectional token-scope denial and absence of any vault credential in the runtime repository;
+- static and synthetic validation;
+- the `CHAT_WORK_INTERACTIVE_EXECUTOR` registration;
+- the deterministic `fortune-v1 chat-work-import` handoff adapter;
+- the `chat-work-handoff` GitHub workflow, which validates and freezes a prediction before reveal.
 
-- S00–S19 are present as unique original byte streams and the S19 S00–S18 binding table recomputes exactly.
-- The exact R16 main-prompt audit snapshot is recorded as an audit copy, not runtime authority.
-- `ziwei-bazi-model` and `fortune-answer-vault` are separate private repositories with bidirectional token-scope denial proved by machine probes.
-- The answer-vault reverse-grading workflow is installed and read back by hash.
-- Static and synthetic tests pass from immutable commits.
-- The runtime repository has no vault credential and no workflow that checks out the vault.
-- A fail-closed external-runner HTTP adapter validates outbound answer isolation and inbound `PREDICTION-RUN-V1` objects.
+The phrase `EXTERNAL_PREDICTION_RUNNER` in the installation schema now refers to the **external-to-GitHub ChatGPT project session**, not to an API service. See [external-runner.md](docs/external-runner.md).
 
 Transport suffixes such as `(8)`, `(9)` and `(59)` are never source identity. The importer reads the first active internal `LIBRARY_ID`, raw SHA256 and size, then selects only the version bound by the first current S19 table. Non-active byte versions are historical/quarantine records.
 
@@ -36,8 +36,9 @@ flowchart TD
     IMP --> V["Answer vault: raw + answers"]
     IMP --> N["Runtime: no-answer normalized case"]
     N --> S["Immutable prediction snapshot"]
-    S --> P["External dual-track runner"]
-    P --> F["Frozen prediction receipt"]
+    S --> C["User-initiated CHAT_ONLY or WORK session"]
+    C --> H["CHAT/WORK handoff validator"]
+    H --> F["Frozen prediction receipt"]
     F --> G["Vault manually starts grader"]
     G --> R["Runtime receives one reveal"]
 ```
@@ -63,7 +64,7 @@ PYTHONPATH=src python -m fortune_v1.cli import-source-package \
   --migrate-destination knowledge/base
 ```
 
-See [operations.md](docs/operations.md) for the complete lifecycle and [architecture.md](docs/architecture.md) for object and permission design.
+See [operations.md](docs/operations.md), [architecture.md](docs/architecture.md), and [external-runner.md](docs/external-runner.md).
 
 ## Immutable object layers
 
