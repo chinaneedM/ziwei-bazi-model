@@ -1,7 +1,7 @@
 {
   "schema": "REMAINING-INSTALLATION-GATES-V1",
   "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-  "current_status": "SCHEMA_DEFINED_NOT_INSTALLED",
+  "current_status": "INSTALL_VALIDATION_PENDING_CI_RECEIPT",
   "completed_gates": [
     "SOURCE_BASELINE_20_FILES",
     "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
@@ -16,27 +16,24 @@
     "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
     "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
     "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-    "EXTERNAL_RUNNER_REPOSITORY_ADAPTER_INSTALLED",
+    "CHAT_WORK_INTERACTIVE_EXECUTOR_REGISTERED",
+    "CHAT_WORK_HANDOFF_ADAPTER_INSTALLED",
+    "CHAT_WORK_HANDOFF_WORKFLOW_INSTALLED",
+    "API_SERVICE_NOT_REQUIRED",
     "IMMUTABLE_GIT_COMMIT",
     "SCHEMA_SET"
   ],
-  "remaining_gates": [
-    {
-      "gate": "EXTERNAL_PREDICTION_RUNNER",
-      "status": "NOT_INSTALLED",
-      "reason": "NO_LIVE_SEPARATE_DUAL_TRACK_EXECUTOR_BOUND_OR_ATTESTED",
-      "repository_adapter": "fortune_v1.external_runner",
-      "activation_workflow": ".github/workflows/external-runner-smoke.yml",
-      "required_evidence": [
-        "LIVE_REMOTE_EXECUTOR_BOUND",
-        "NO_ANSWER_ACCESS_PROOF_PASS",
-        "FRESH_UNREVEALED_DEV_CASE_PASS",
-        "PREDICTION_RUN_V1_LOCAL_VALIDATION_PASS",
-        "ZIWEI_BAZI_INDEPENDENT_LOCAL_SEALS_PASS",
-        "NEW_RUN_ID_FROZEN_BEFORE_REVEAL"
-      ]
-    }
+  "remaining_installation_gates": [],
+  "per_case_operational_gates": [
+    "USER_INITIATES_NEW_CHAT_OR_WORK_SESSION",
+    "NO_ANSWER_INPUT_BEFORE_PREDICTION_FREEZE",
+    "PREDICTION_RUN_V1_LOCAL_VALIDATION_PASS",
+    "ZIWEI_BAZI_INDEPENDENT_LOCAL_SEALS_PASS",
+    "NEW_RUN_ID_FROZEN_BEFORE_REVEAL"
   ],
-  "installed_validated_claim_allowed": false,
-  "s19_status_update_allowed": false
+  "openai_api_key_required": false,
+  "third_party_model_endpoint_required": false,
+  "background_execution_claim_allowed": false,
+  "installed_validated_claim_allowed": "ONLY_AFTER_CURRENT_INSTALL_CHECK_RECEIPT_PASS",
+  "s19_status_update_allowed": "ONLY_AFTER_CURRENT_INSTALL_CHECK_RECEIPT_PASS"
 }
