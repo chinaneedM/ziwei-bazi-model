@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - runtime/dev-group-001-materialize
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -35,7 +38,6 @@ jobs:
           for p in sorted(root.glob('*.json')):
               raw=p.read_bytes()
               obj=json.loads(raw)
-              txt=raw.decode('utf-8')
               if obj.get('answer_isolation',{}).get('answer_payload_present') is not False:
                   forbidden.append(f'{p}:answer_payload_present')
               if obj.get('answer_isolation',{}).get('answer_reference_disclosed') is not False:
