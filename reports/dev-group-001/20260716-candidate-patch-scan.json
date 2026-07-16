@@ -1,0 +1,24 @@
+{
+  "schema": "CANDIDATE-PATCH-SCAN-V1",
+  "patch_id": "CHAT-WORK-IGNORED-FREEZE-ARTIFACTS-20260716-R1",
+  "candidate_version": "EXEC-CANDIDATE-DEV-GROUP-001-R1-20260716",
+  "patch_commit": "5fe97b89ffd308ee21c4c6618899283a90cea384",
+  "scanned_path": ".github/workflows/external-runner-smoke.yml",
+  "checks": {
+    "answer_payload_or_literal_answer_vector_present": false,
+    "answer_letter_direction_rule_present": false,
+    "case_identifier_branching_rule_present": false,
+    "option_sentence_match_rule_present": false,
+    "person_unique_history_rule_present": false,
+    "traditional_source_knowledge_modified": false,
+    "cross_track_reasoning_rule_modified": false,
+    "generic_interface_only": true
+  },
+  "leak_status": "PASS",
+  "case_specific_rule_status": "PASS_NONE_FOUND",
+  "overfit_status": "PASS_GENERIC_INTERFACE_ONLY",
+  "functional_change": "Force-add only validated allowlisted freeze artifacts under ignored data paths and fail if no staged artifacts exist.",
+  "runtime_regression_status": "NOT_EXECUTED_NO_WORKFLOW_DISPATCH_OR_LOCAL_CHECKOUT_IN_CURRENT_TOOLING",
+  "promotion_permission": false,
+  "status": "CANDIDATE_SCAN_PASS_BUT_CYCLE_HOLD"
+}
