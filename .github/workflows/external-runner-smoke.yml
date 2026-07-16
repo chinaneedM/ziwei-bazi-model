@@ -1,10 +1,10 @@
-name: external-runner-smoke
+name: chat-work-handoff
 
 on:
   workflow_dispatch:
     inputs:
-      snapshot_path:
-        description: Repository-relative frozen no-answer snapshot manifest
+      prediction_path:
+        description: Repository-relative PREDICTION-RUN-V1 produced in CHAT or WORK
         required: true
         type: string
       contract_path:
@@ -15,19 +15,31 @@ on:
         description: New non-overwriting RUN_ID
         required: true
         type: string
+      session_mode:
+        description: ChatGPT interaction mode used for the prediction
+        required: true
+        default: CHAT_ONLY
+        type: choice
+        options:
+          - CHAT_ONLY
+          - WORK
+      session_id:
+        description: Non-secret ChatGPT session identifier or case session label
+        required: true
+        type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  probe:
+  validate-and-freeze:
     runs-on: ubuntu-latest
     env:
-      PREDICTION_RUNNER_ENDPOINT: ${{ secrets.PREDICTION_RUNNER_ENDPOINT }}
-      PREDICTION_RUNNER_TOKEN: ${{ secrets.PREDICTION_RUNNER_TOKEN }}
-      SNAPSHOT_PATH: ${{ inputs.snapshot_path }}
+      PREDICTION_PATH: ${{ inputs.prediction_path }}
       CONTRACT_PATH: ${{ inputs.contract_path }}
       RUN_ID: ${{ inputs.run_id }}
+      SESSION_MODE: ${{ inputs.session_mode }}
+      SESSION_ID: ${{ inputs.session_id }}
 
     steps:
       - name: Checkout runtime repository only
@@ -41,43 +53,42 @@ jobs:
       - name: Install runtime package
         run: python -m pip install -e .
 
-      - name: Validate activation inputs
+      - name: Validate handoff paths and non-overwrite
         shell: bash
         run: |
           set -euo pipefail
-          [[ -n "$PREDICTION_RUNNER_ENDPOINT" ]]
-          [[ "$SNAPSHOT_PATH" == data/snapshots/*/manifest.json ]]
+          [[ "$PREDICTION_PATH" == data/chat-work-submissions/*.json ]]
           [[ "$CONTRACT_PATH" == data/contracts/*.json ]]
           [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]]
-          test -f "$SNAPSHOT_PATH"
+          [[ "$SESSION_ID" =~ ^[A-Za-z0-9._:-]+$ ]]
+          test -f "$PREDICTION_PATH"
           test -f "$CONTRACT_PATH"
           test ! -e "data/runs/$RUN_ID"
+          test ! -e "data/chat-work-imports/$RUN_ID"
 
-      - name: Invoke external no-answer dual-track executor
+      - name: Validate CHAT WORK prediction object
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p "data/runner-probes/$RUN_ID"
-          fortune-v1 external-run \
-            --snapshot "$SNAPSHOT_PATH" \
+          mkdir -p "data/chat-work-imports/$RUN_ID"
+          fortune-v1 chat-work-import \
+            --run "$PREDICTION_PATH" \
             --contract "$CONTRACT_PATH" \
-            --endpoint "$PREDICTION_RUNNER_ENDPOINT" \
-            --runner-id FORTUNE-EXTERNAL-DUAL-TRACK-V1 \
-            --output "data/runner-probes/$RUN_ID/prediction-run.json" \
-            --receipt "data/runner-probes/$RUN_ID/external-runner-receipt.json" \
-            --token-env PREDICTION_RUNNER_TOKEN \
-            --timeout-seconds 1800
+            --mode "$SESSION_MODE" \
+            --session-id "$SESSION_ID" \
+            --output "data/chat-work-imports/$RUN_ID/prediction-run.json" \
+            --receipt "data/chat-work-imports/$RUN_ID/handoff-receipt.json"
 
-      - name: Freeze validated prediction
+      - name: Freeze validated prediction before reveal
         shell: bash
         run: |
           set -euo pipefail
           fortune-v1 freeze \
-            --run "data/runner-probes/$RUN_ID/prediction-run.json" \
+            --run "data/chat-work-imports/$RUN_ID/prediction-run.json" \
             --contract "$CONTRACT_PATH" \
             --frozen-root data/runs
 
-      - name: Publish activation summary
+      - name: Publish handoff summary
         shell: bash
         run: |
           set -euo pipefail
@@ -88,7 +99,7 @@ jobs:
 
           run_id = os.environ["RUN_ID"]
           receipt = json.loads(
-              Path(f"data/runner-probes/{run_id}/external-runner-receipt.json")
+              Path(f"data/chat-work-imports/{run_id}/handoff-receipt.json")
               .read_text(encoding="utf-8")
           )
           freeze = json.loads(
@@ -96,20 +107,31 @@ jobs:
               .read_text(encoding="utf-8")
           )
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
-              summary.write("## External runner activation probe\n\n")
-              summary.write(f"- Runner receipt: `{receipt['status']}`\n")
-              summary.write(f"- Endpoint origin: `{receipt['endpoint_origin']}`\n")
-              summary.write(f"- No-answer proof: `{receipt['no_answer_access_proof']['request_forbidden_scan']}`\n")
+              summary.write("## CHAT/WORK prediction handoff\n\n")
+              summary.write(f"- Session mode: `{receipt['session_mode']}`\n")
+              summary.write(f"- Handoff status: `{receipt['status']}`\n")
+              summary.write(f"- Prediction validation: `{receipt['prediction_run_validation']['status']}`\n")
+              summary.write(f"- Dual-track local seals: `{receipt['ziwei_bazi_independent_local_seals']}`\n")
               summary.write(f"- Freeze status: `{freeze['freeze_status']}`\n")
               summary.write(f"- RUN_ID: `{run_id}`\n")
           PY
 
-      - name: Upload probe receipts
+      - name: Persist immutable handoff and freeze receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "fortune-chat-work-handoff"
+          git config user.email "fortune-chat-work-handoff@users.noreply.github.com"
+          git add "data/chat-work-imports/$RUN_ID" "data/runs/$RUN_ID"
+          git commit -m "Freeze CHAT WORK prediction $RUN_ID [skip ci]"
+          git push origin HEAD:main
+
+      - name: Upload handoff receipts
         uses: actions/upload-artifact@v4
         with:
-          name: external-runner-probe-${{ inputs.run_id }}
+          name: chat-work-handoff-${{ inputs.run_id }}
           path: |
-            data/runner-probes/${{ inputs.run_id }}/external-runner-receipt.json
+            data/chat-work-imports/${{ inputs.run_id }}/handoff-receipt.json
             data/runs/${{ inputs.run_id }}/freeze-receipt.json
           if-no-files-found: error
           retention-days: 30
