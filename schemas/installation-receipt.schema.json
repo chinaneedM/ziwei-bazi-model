@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fortune://schemas/installation-receipt-v2",
+  "title": "INSTALLATION_RECEIPT_V2",
+  "type": "object",
+  "required": ["schema", "generated_at", "repository_root", "code_commit", "checks", "github_plan_profile", "grading_topology", "automation_runtime_install_status", "status", "s19_installed_validated_status_update_candidate"],
+  "properties": {
+    "schema": {"const": "INSTALLATION-RECEIPT-V2"},
+    "github_plan_profile": {"const": "FREE_PRIVATE_OWNER_CONTROL"},
+    "grading_topology": {"const": "ANSWER_VAULT_INITIATED_REVERSE_GRADING"},
+    "automation_runtime_install_status": {"enum": ["SCHEMA_DEFINED_NOT_INSTALLED", "INSTALL_VALIDATION_CANDIDATE"]},
+    "status": {"enum": ["SCHEMA_DEFINED_NOT_INSTALLED", "INSTALL_VALIDATION_CANDIDATE"]},
+    "checks": {"type": "array"},
+    "s19_installed_validated_status_update_candidate": {"type": ["object", "null"]}
+  }
+}

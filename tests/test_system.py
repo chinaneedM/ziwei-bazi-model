@@ -7,7 +7,7 @@ import unittest
 import zipfile
 from pathlib import Path
 
-from fortune_v1.audit import audit_sources, migrate_verified_sources
+from fortune_v1.audit import BINDING_HEADER, audit_sources, import_source_package, migrate_verified_sources
 from fortune_v1.bazi import freeze_transcription
 from fortune_v1.ingest import ingest_zip
 from fortune_v1.group import authorize_group_reveal, create_dev_group, record_patch_round
@@ -52,13 +52,16 @@ class FortuneSystemTests(unittest.TestCase):
         rows = []
         for i in range(19):
             lib = f"S{i:02d}"
-            marker = {"S00": "ROOT00\n", "S01": "ROOT01\n", "S18": "ROOT18\n"}.get(lib, "")
-            body = (marker + f"LIBRARY_ID={lib}\n正文{i}\n").encode()
-            path = source / f"{lib}_source.txt"; path.write_bytes(body)
-            rows.append(f"LIBRARY_ID={lib};SHA256={sha256_bytes(body)};BYTES={len(body)}")
-        block = "\n".join(rows)
+            marker = {"S00": "ROOT00", "S01": "ROOT01", "S18": "ROOT18"}.get(lib, f"PATCH-{lib}")
+            body = f"LIBRARY_ID={lib}\nPATCH_ID={marker}\n正文{i}\n".encode()
+            name = f"{lib}_source.txt"
+            path = source / name; path.write_bytes(body)
+            rows.append(f"{lib}\tFILE-{lib}\t{name}\t{sha256_bytes(body)}\t{len(body)}")
+        block = BINDING_HEADER + "\n" + "\n".join(rows) + "\n"
         binding_hash = sha256_bytes(block.encode())
-        s19 = f"ROOT19\nACTIVE_BINDING_TABLE_SHA256={binding_hash}\nBEGIN_ACTIVE_BINDING_TABLE\n{block}\nEND_ACTIVE_BINDING_TABLE\n"
+        s19 = (f"LIBRARY_ID=S19\nPATCH_ID=ROOT19\nACTIVE_BINDING_TABLE_SHA256_UTF8_LF={binding_hash}\n"
+               f"ACTIVE_BINDING_TABLE_HASH_METHOD=SHA256_OF_HEADER_AND_S00_TO_S18_ROWS_UTF8_LF_TRAILING_LF\n"
+               f"{block}")
         (source / "S19_source.txt").write_text(s19, encoding="utf-8")
         config = self._config(binding_hash); config_path = write_json(self.root / "config.json", config)
         report = audit_sources(source, config_path, self.root / "audit.json")
@@ -70,8 +73,8 @@ class FortuneSystemTests(unittest.TestCase):
 
     def test_duplicate_and_missing_source_hold(self):
         source = self.root / "sources"; source.mkdir()
-        (source / "S02_a.txt").write_text("a", encoding="utf-8")
-        (source / "S02_b.txt").write_text("b", encoding="utf-8")
+        (source / "transport(8).txt").write_text("LIBRARY_ID=S02\na", encoding="utf-8")
+        (source / "transport(9).txt").write_text("LIBRARY_ID=S02\nb", encoding="utf-8")
         config_path = write_json(self.root / "config.json", self._config())
         report = audit_sources(source, config_path, self.root / "audit.json")
         self.assertEqual(report["status"], "HOLD_SOURCE_BASELINE_UNVERIFIED")
@@ -79,6 +82,45 @@ class FortuneSystemTests(unittest.TestCase):
         self.assertIn("S02", report["duplicates"])
         with self.assertRaises(FortuneError):
             migrate_verified_sources(self.root / "audit.json", self.root / "base")
+
+    def test_source_package_identity_ignores_transport_suffix_and_quarantines_old_version(self):
+        source_bytes, rows, manifest_rows = {}, [], []
+        for i in range(19):
+            lib = f"S{i:02d}"
+            marker = {"S00": "ROOT00", "S01": "ROOT01", "S18": "ROOT18"}.get(lib, f"PATCH-{lib}")
+            body = f"LIBRARY_ID={lib}\nPATCH_ID={marker}\n正文{i}\n".encode()
+            canonical = f"{lib}_canonical.txt"
+            source_bytes[lib] = body
+            rows.append(f"{lib}\tFILE-{lib}\t{canonical}\t{sha256_bytes(body)}\t{len(body)}")
+            manifest_rows.append({"library_id": lib, "canonical_filename": canonical,
+                                  "sha256": sha256_bytes(body), "size_bytes": len(body)})
+        block = BINDING_HEADER + "\n" + "\n".join(rows) + "\n"
+        binding_hash = sha256_bytes(block.encode())
+        s19 = (f"LIBRARY_ID=S19\nPATCH_ID=ROOT19\nACTIVE_BINDING_TABLE_SHA256_UTF8_LF={binding_hash}\n"
+               f"ACTIVE_BINDING_TABLE_HASH_METHOD=SHA256_OF_HEADER_AND_S00_TO_S18_ROWS_UTF8_LF_TRAILING_LF\n{block}").encode()
+        manifest_rows.append({"library_id": "S19", "canonical_filename": "S19_canonical.txt",
+                              "sha256": sha256_bytes(s19), "size_bytes": len(s19)})
+        package = self.root / "transport-name(42).zip"
+        with zipfile.ZipFile(package, "w", zipfile.ZIP_DEFLATED) as archive:
+            for lib, body in source_bytes.items():
+                suffix = "(9)" if lib == "S02" else "(17)"
+                archive.writestr(f"sources/{lib}_upload{suffix}.txt", body)
+            old = b"LIBRARY_ID=S02\nPATCH_ID=OLD\nold"
+            archive.writestr("sources/S02_upload(8).txt", old)
+            archive.writestr("sources/S19_upload(59).txt", s19)
+            archive.writestr("source-baseline-manifest.json", json.dumps({
+                "files": manifest_rows, "excluded_or_quarantined": []}, ensure_ascii=False))
+            archive.writestr("README.txt", "synthetic")
+        config = self._config(binding_hash)
+        config_path = write_json(self.root / "source-config.json", config)
+        result = import_source_package(package, sha256_file(package), config_path,
+                                       self.root / "import", self.root / "reports", self.root / "base")
+        self.assertEqual(result["status"], "PASS")
+        normalized = read_json(self.root / "reports" / "normalization-map.json")
+        s02 = next(row for row in normalized["files"] if row["library_id"] == "S02")
+        self.assertEqual(s02["canonical_filename"], "S02_canonical.txt")
+        quarantine = read_json(self.root / "reports" / "duplicate-and-quarantine-report.json")
+        self.assertEqual(quarantine["quarantined_or_historical"][0]["status"], "HISTORICAL_AUDIT_ONLY")
 
     def _make_zip(self) -> Path:
         package = self.root / "group.zip"

@@ -1,22 +1,23 @@
 {
   "schema": "GITHUB-TOPOLOGY-CONFIG-V1",
   "owner": "chinaneedM",
-  "runtime_repo": "chinaneedM/fortune-runtime",
+  "runtime_repo": "chinaneedM/ziwei-bazi-model",
   "answer_vault_repo": "chinaneedM/fortune-answer-vault",
   "current_connected_runtime_repository": "chinaneedM/ziwei-bazi-model",
-  "prediction_identity": {
-    "runtime_repo": "read/write prediction artifacts only",
-    "answer_vault_repo": "no installation and no permission"
-  },
-  "grader_identity": {
-    "runtime_repo": "read frozen prediction; write reveal and reports",
-    "answer_vault_repo": "read after freeze authorization only"
-  },
+  "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
+  "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
+  "runtime_repository_vault_credential": "NONE",
+  "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
+  "branch_protection_status": "NOT_AVAILABLE_ON_CURRENT_PLAN",
+  "ruleset_enforcement_status": "NOT_AVAILABLE_ON_CURRENT_PLAN",
+  "environment_protection_status": "NOT_AVAILABLE_ON_CURRENT_PLAN",
+  "owner_manual_trigger_required": "YES",
+  "prediction_identity": {"runtime_repo": "owner-controlled runtime write", "answer_vault_repo": "DENIED"},
+  "grading_identity": {"initiated_from": "chinaneedM/fortune-answer-vault", "runtime_repo": "RUNTIME_REPO_TOKEN write", "answer_vault_repo": "repository-local read"},
   "admin_identity": {
     "runtime_repo": "admin",
     "answer_vault_repo": "admin"
   },
-  "required_branch_protection": ["pull request", "required CI", "no force push", "no deletion"],
-  "secrets_must_not_be_committed": ["FORTUNE_PREDICTION_GITHUB_TOKEN", "FORTUNE_GRADER_GITHUB_TOKEN", "ANSWER_VAULT_TOKEN"]
+  "paid_controls_required_for_install": false,
+  "runtime_forbidden_capabilities": ["vault credential", "vault checkout", "vault remote read"]
 }
-

@@ -1,34 +1,30 @@
 # V1 architecture and trust model
 
-## Repositories
+## Source identity and immutable baseline
 
-| Repository | Contents | Prediction identity | Grader identity |
-| --- | --- | --- | --- |
-| `fortune-runtime` | Source baseline, prompt audit snapshot, no-answer cases, code, run packages, patches and reports | Read source/input; write new run artifacts | Read frozen runs; write reveals/reports |
-| `fortune-answer-vault` | Original ZIP, every original member, answers, authorization and private reveal input | **No access** | Read only after freeze authorization |
+Attachment display names and suffix numbers are transport metadata only. The source importer preserves the uploaded ZIP read-only, safely extracts raw members, reads the first active internal `LIBRARY_ID`, computes raw SHA256 and byte size, resolves the unique current S19 control root, and parses the first current S00–S18 binding table. Only an exact `LIBRARY_ID + SHA256 + SIZE + S19 row` match is copied to clean staging under the S19 canonical filename.
 
-`config/github-topology.json` is the desired state. `verify-topology` uses two separately supplied tokens to prove that the prediction identity receives 403/404 from the vault while the grader can read both private repositories. Tokens are never written to reports.
+Identical-byte duplicates are deduplicated with provenance retained. Different-byte versions go to historical audit/quarantine; no S19 match fails closed. Audit PASS is required before migration, baseline commit/tag, index construction, or any installed-status candidate. The derived locator index covers S01–S18 only and always reopens the bound parent file and exact byte range.
 
-## Runtime bindings
+## GitHub Free reverse grading
 
-A run contract binds four independent coordinates:
+| Property | Recorded state |
+| --- | --- |
+| Plan | `FREE_PRIVATE_OWNER_CONTROL` |
+| Topology | `ANSWER_VAULT_INITIATED_REVERSE_GRADING` |
+| Runtime vault credential | `NONE` |
+| Vault runtime credential | `RUNTIME_REPO_TOKEN` |
+| Branch protection | `NOT_AVAILABLE_ON_CURRENT_PLAN` |
+| Ruleset enforcement | `NOT_AVAILABLE_ON_CURRENT_PLAN` |
+| Environment protection | `NOT_AVAILABLE_ON_CURRENT_PLAN` |
+| Trigger | Owner manual `workflow_dispatch` |
 
-- `CASE_INPUT_HASH`
-- `ACTIVE_LIBRARY_BINDING_HASH`
-- `MAIN_PROMPT_RUNTIME_ID` plus an optional non-authoritative snapshot hash
-- immutable code commit and Schema version
+The runtime repository contains no vault checkout workflow. The answer vault first checks out the runtime, validates `data/runs/<run_id>/freeze-receipt.json` and its bound prediction/contract hashes, and only then checks out the current vault. Grading creates exactly `data/reveals/<run_id>.json`, rejects overwrite, removes the vault worktree and caches, verifies the staged path allowlist, then writes the reveal to runtime.
 
-The static-cache key is exactly the hash of case input hash, binding hash and Schema version. A changed input, source binding or Schema cannot reuse an older cache.
+Machine topology verification is componentized: physical repository separation, token repository scope, runtime-vault access denial, grading direction, and Free-plan limitation recording. An owner assertion is not a machine PASS; the answer-vault workflow and HTTP scope probes must be read back.
 
-## Prompt snapshot
+## Runtime bindings and external runner
 
-The project custom instruction is runtime authority. `prompt-snapshot` copies an explicitly exported text file and records `AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY`. Installation also needs a runtime attestation or external comparison procedure; repository presence alone never proves the project is executing that snapshot.
+A run contract binds `CASE_INPUT_HASH`, active source binding hash, main-prompt runtime ID/audit hash, Schema version and immutable code commit. The project custom instruction remains runtime authority; a repository prompt export is only `AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY`.
 
-## Knowledge index
-
-The locator index covers S01–S18. S00 routes and S19 governs, so neither is indexed as fortune knowledge. Every locator retains the complete source hash and Git commit, exact byte/line range, root atom, parent-segment hash and detected condition/negation/limitation/exception/alternative clauses. `source-read` reopens the full source, verifies its hash, and returns exact bytes. Index text never substitutes for source text.
-
-## Dataset separation
-
-DEV permits reveal, diagnosis and repeated regression. REGRESSION detects damage. FROZEN_EVAL uses a separate state machine and frozen binding. Release promotion is a third state machine: CANDIDATE → DEV_PASS → REGRESSION_PASS → FROZEN_EVAL_PASS → RELEASED. No state name from one machine is accepted as another machine's state.
-
+The deterministic importer, validator, freezer, grader and regression engine are not the prediction model. `config/external-runner.json` must register a real dual-track executor with `PREDICTION-RUN-V1` output, no-answer proof, prompt/source/code bindings, timeout, failure state, RUN_ID non-overwrite and independent Ziwei/Bazi local seals. Until then its status is `NOT_INSTALLED`.

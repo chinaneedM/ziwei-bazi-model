@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fortune://schemas/external-prediction-runner-v1",
+  "title": "EXTERNAL_PREDICTION_RUNNER_REGISTRATION",
+  "type": "object",
+  "required": ["schema", "runner_id", "runner_type", "model_or_executor", "input_contract", "output_schema", "timeout_seconds", "failure_status", "no_answer_access_proof", "code_commit", "prompt_binding", "source_binding", "run_id_nonoverwrite", "ziwei_bazi_local_seal_requirement", "external_prediction_runner_status"],
+  "properties": {
+    "schema": {"const": "EXTERNAL-PREDICTION-RUNNER-REGISTRATION-V1"},
+    "runner_id": {"type": ["string", "null"]},
+    "runner_type": {"const": "EXTERNAL_DUAL_TRACK_PREDICTION_EXECUTOR"},
+    "model_or_executor": {"type": ["string", "null"]},
+    "input_contract": {"const": "PREDICTION-RUN-CONTRACT-V1"},
+    "output_schema": {"const": "PREDICTION-RUN-V1"},
+    "timeout_seconds": {"type": "integer", "minimum": 1},
+    "failure_status": {"type": "string"},
+    "no_answer_access_proof": {"type": ["object", "null"]},
+    "code_commit": {"type": ["string", "null"]},
+    "prompt_binding": {"type": "object"},
+    "source_binding": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "run_id_nonoverwrite": {"const": true},
+    "ziwei_bazi_local_seal_requirement": {"const": true},
+    "external_prediction_runner_status": {"enum": ["INSTALLED", "NOT_INSTALLED"]}
+  }
+}

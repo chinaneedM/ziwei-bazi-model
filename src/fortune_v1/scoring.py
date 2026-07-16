@@ -10,7 +10,7 @@ from .util import FortuneError, atomic_write_json, read_json, sha256_file, slug,
 SEPARATORS = {" ", "\t", "\r", "\n", ",", "，", "、", "/", "|", "-", ";", "；"}
 
 
-def _extract_answer_payload(answer_path: str | Path) -> str:
+def _extract_answer_payload(answer_path: str | Path, expected_run_id: str | None = None) -> str:
     path = Path(answer_path)
     text = path.read_text(encoding="utf-8")
     if path.suffix.lower() == ".json":
@@ -19,12 +19,17 @@ def _extract_answer_payload(answer_path: str | Path) -> str:
             raise FortuneError("answer JSON contains unsupported fields", status="ANSWER_OBJECT_INVALID")
         if not isinstance(obj.get("answers"), str):
             raise FortuneError("answer JSON answers must be a string", status="ANSWER_OBJECT_INVALID")
+        if obj.get("schema") != "FORTUNE-ANSWER-OBJECT-V1":
+            raise FortuneError("answer JSON Schema invalid", status="ANSWER_OBJECT_INVALID")
+        if expected_run_id is not None and obj.get("authorized_run_id") != slug(expected_run_id):
+            raise FortuneError("answer object RUN_ID mismatch", status="ANSWER_OBJECT_RUN_ID_MISMATCH")
         return obj["answers"]
     return text
 
 
-def literal_replay(answer_path: str | Path, legal_options: list[list[str]]) -> dict[str, Any]:
-    original = _extract_answer_payload(answer_path)
+def literal_replay(answer_path: str | Path, legal_options: list[list[str]],
+                   expected_run_id: str | None = None) -> dict[str, Any]:
+    original = _extract_answer_payload(answer_path, expected_run_id)
     trimmed = original.strip()
     # Parser A: split only on an explicit separator set; no case conversion or semantic guessing.
     tokens_a = [token for token in re.split(r"[\s,，、/|;；-]+", trimmed) if token]
@@ -63,17 +68,49 @@ def minimum_correct(question_count: int) -> int:
     return math.ceil(question_count * 0.8)
 
 
-def grade_frozen_prediction(freeze_receipt_path: str | Path, answer_path: str | Path,
-                            output_path: str | Path, gates: dict[str, bool] | None = None) -> dict[str, Any]:
+def validate_freeze_receipt(freeze_receipt_path: str | Path,
+                            expected_run_id: str | None = None) -> dict[str, Any]:
     receipt = read_json(freeze_receipt_path)
-    if receipt.get("schema") != "PREDICTION-FREEZE-RECEIPT-V1" or not receipt.get("immutable"):
+    if receipt.get("schema") != "PREDICTION-FREEZE-RECEIPT-V1":
+        raise FortuneError("freeze receipt Schema invalid", status="GRADING_BEFORE_FREEZE_BLOCKED")
+    if receipt.get("immutable") is not True or receipt.get("non_overwrite") is not True:
+        raise FortuneError("immutable freeze receipt required", status="GRADING_BEFORE_FREEZE_BLOCKED")
+    if receipt.get("freeze_status") != "PREDICTION_FROZEN":
+        raise FortuneError("prediction is not frozen", status="GRADING_BEFORE_FREEZE_BLOCKED")
+    if expected_run_id is not None and receipt.get("run_id") != slug(expected_run_id):
+        raise FortuneError("freeze receipt RUN_ID mismatch", status="FREEZE_RUN_ID_MISMATCH")
+    if receipt.get("runtime_validation", {}).get("status") != "PASS":
+        raise FortuneError("freeze runtime validation failed", status="GRADING_BEFORE_FREEZE_BLOCKED")
+    required = {"prediction_path", "prediction_sha256", "contract_path", "contract_sha256", "run_id"}
+    if not required.issubset(receipt):
         raise FortuneError("valid freeze receipt required", status="GRADING_BEFORE_FREEZE_BLOCKED")
     prediction_path = Path(receipt["prediction_path"])
     if not prediction_path.is_file() or sha256_file(prediction_path) != receipt["prediction_sha256"]:
         raise FortuneError("frozen prediction changed or missing", status="FROZEN_PREDICTION_HASH_MISMATCH")
+    contract_path = Path(receipt["contract_path"])
+    if not contract_path.is_file() or sha256_file(contract_path) != receipt["contract_sha256"]:
+        raise FortuneError("frozen contract changed or missing", status="FROZEN_CONTRACT_HASH_MISMATCH")
+    run = read_json(prediction_path)
+    if slug(run.get("run_id", "")) != receipt["run_id"]:
+        raise FortuneError("prediction RUN_ID differs from freeze receipt", status="FREEZE_RUN_ID_MISMATCH")
+    return {"schema": "FREEZE-VALIDATION-RECEIPT-V1", "run_id": receipt["run_id"],
+            "freeze_receipt_path": str(Path(freeze_receipt_path)),
+            "freeze_receipt_sha256": sha256_file(freeze_receipt_path),
+            "prediction_path": str(prediction_path), "prediction_sha256": receipt["prediction_sha256"],
+            "contract_path": str(contract_path), "contract_sha256": receipt["contract_sha256"],
+            "freeze_status": receipt["freeze_status"], "immutable": True, "status": "PASS"}
+
+
+def grade_frozen_prediction(freeze_receipt_path: str | Path, answer_path: str | Path,
+                            output_path: str | Path, gates: dict[str, bool] | None = None,
+                            expected_run_id: str | None = None) -> dict[str, Any]:
+    validation = validate_freeze_receipt(freeze_receipt_path, expected_run_id)
+    receipt = read_json(freeze_receipt_path)
+    prediction_path = Path(receipt["prediction_path"])
     run = read_json(prediction_path)
     legal = [q["option_ids"] for q in run["questions"]]
-    replay = literal_replay(answer_path, legal)
+    # This is the first answer-object access. Every freeze check above has already passed.
+    replay = literal_replay(answer_path, legal, expected_run_id or receipt["run_id"])
     rows, top1_hits, top2_hits = [], 0, 0
     for question, answer_row in zip(run["questions"], replay["mapping"]):
         answer = answer_row["answer"]
@@ -99,6 +136,7 @@ def grade_frozen_prediction(freeze_receipt_path: str | Path, answer_path: str | 
     result = {
         "schema": "REVEAL-AND-DIAGNOSIS-V1", "reveal_id": f"REVEAL-{slug(run['run_id'])}", "run_id": run["run_id"],
         "freeze_receipt_sha256": sha256_file(freeze_receipt_path), "literal_replay": replay,
+        "pre_answer_freeze_validation": validation,
         "score": {"question_count": len(rows), "top1_correct": top1_hits, "top1_required": threshold,
                   "top1_accuracy": top1_hits / len(rows), "top2_diagnostic_hits": top2_hits,
                   "top2_is_formal_score": False, "accuracy_pass": accuracy_pass, "rows": rows},
@@ -107,4 +145,3 @@ def grade_frozen_prediction(freeze_receipt_path: str | Path, answer_path: str | 
     }
     atomic_write_json(output_path, result)
     return result
-
