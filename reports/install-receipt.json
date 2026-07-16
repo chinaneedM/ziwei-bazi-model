@@ -9,7 +9,7 @@
         "unique_library_count": 20
       },
       "check": "SOURCE_BASELINE_20_FILES",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": {
         "duplicates": {},
@@ -30,7 +30,7 @@
         "status": "PASS"
       },
       "check": "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": {
         "computed": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
@@ -52,7 +52,7 @@
         "status": "MIGRATED"
       },
       "check": "SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
         "actual": {
           "baseline_commit_sha": "989ee246ef55c92a9b4a1b86ccd4b616bbbf0069",
@@ -84,32 +84,15 @@
     {
       "actual": {
         "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
-        "bytes": null,
+        "bytes": 14988,
         "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-        "sha256": null,
-        "status": "NOT_CAPTURED_EXACT_EXPORT_REQUIRED",
-        "visible": null
+        "sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
+        "status": "PASS",
+        "visible": 6047
       },
       "check": "MAIN_PROMPT_AUDIT_SNAPSHOT",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
-      "difference": {
-        "actual": {
-          "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
-          "bytes": null,
-          "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-          "sha256": null,
-          "status": "NOT_CAPTURED_EXACT_EXPORT_REQUIRED",
-          "visible": null
-        },
-        "expected": {
-          "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
-          "bytes": 14988,
-          "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-          "sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
-          "status": "PASS",
-          "visible": 6047
-        }
-      },
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
+      "difference": null,
       "expected": {
         "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
         "bytes": 14988,
@@ -118,18 +101,18 @@
         "status": "PASS",
         "visible": 6047
       },
-      "file_sha256": "9b4645e8243d9399d3fc054085b8d3927b66021f8fdb67983e194e3b47d9d456",
+      "file_sha256": "2bdcc227ddcd204b3029f158e50ed41b470cd90ecf32c352909158b6a817cac5",
       "object_field_path": "$.status+$.runtime_id+$.authority_statement+$.actual",
       "real_path": "reports/prompt-snapshot-status.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
       "actual": "PASS",
       "check": "STATIC_AND_SYNTHETIC_TESTS",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "a2afac3fffd26b6cbd5a7688d645be9767f9ee0ee2304b2625daef43611b1793",
+      "file_sha256": "db7b873e4532cf754d2c15ab748f27b0bb689f69616d6ca329acc8e66a855c2d",
       "object_field_path": "$.status",
       "real_path": "reports/test-report.json",
       "status": "PASS"
@@ -143,7 +126,7 @@
         "workflow_count": 4
       },
       "check": "RUNTIME_REPOSITORY_VAULT_CREDENTIAL_NONE",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
         "actual": {
           "runtime_repository_vault_credential": "NONE",
@@ -169,7 +152,7 @@
     {
       "actual": "PASS",
       "check": "PHYSICAL_REPOSITORY_SEPARATION",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -180,7 +163,7 @@
     {
       "actual": "PASS",
       "check": "TOKEN_REPOSITORY_SCOPE",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -191,7 +174,7 @@
     {
       "actual": "PASS",
       "check": "RUNTIME_VAULT_ACCESS_DENIAL",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -202,7 +185,7 @@
     {
       "actual": "PASS",
       "check": "GRADING_DIRECTION",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -213,7 +196,7 @@
     {
       "actual": "RECORDED",
       "check": "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": "RECORDED",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -233,7 +216,7 @@
         "runtime_repository_vault_credential": "NONE"
       },
       "check": "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": null,
       "expected": {
         "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
@@ -258,7 +241,7 @@
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
       "check": "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
         "actual": {
           "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
@@ -290,7 +273,7 @@
         "status": "NOT_INSTALLED"
       },
       "check": "EXTERNAL_PREDICTION_RUNNER",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
         "actual": {
           "runner_id": null,
@@ -311,11 +294,11 @@
       "status": "FAIL"
     },
     {
-      "actual": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "actual": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "check": "IMMUTABLE_GIT_COMMIT",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
-        "actual": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+        "actual": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
         "expected": "NON_NULL"
       },
       "expected": "NON_NULL",
@@ -327,7 +310,7 @@
     {
       "actual": 10,
       "check": "SCHEMA_SET",
-      "corresponding_commit_sha": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
+      "corresponding_commit_sha": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
       "difference": {
         "actual": 10,
         "expected": ">=9"
@@ -339,8 +322,8 @@
       "status": "PASS"
     }
   ],
-  "code_commit": "77bca6e74cc76f33e77b39098e9ac1df11ed869a",
-  "generated_at": "2026-07-16T13:54:48+00:00",
+  "code_commit": "c0f3b4de6d981a9548c0c5dbfddd313f2387cd68",
+  "generated_at": "2026-07-16T14:00:49+00:00",
   "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
   "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
   "repository_root": ".",
