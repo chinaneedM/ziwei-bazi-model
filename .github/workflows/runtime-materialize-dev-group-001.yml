@@ -1,0 +1,53 @@
+name: Runtime materialize DEV-GROUP-001
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Materialize no-answer runtime cases
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime-materialized/DEV-GROUP-001
+          for p in training-data/DEV-GROUP-001/cases/*; do
+            b="$(basename "$p")"
+            out="runtime-materialized/DEV-GROUP-001/${b%%.json.gz.b64}.json"
+            if [[ "$b" == *.json ]]; then
+              out="runtime-materialized/DEV-GROUP-001/$b"
+            fi
+            python scripts/materialize-training-case.py "$p" --output "$out"
+          done
+          python - <<'PY'
+          import hashlib, json, pathlib
+          root=pathlib.Path('runtime-materialized/DEV-GROUP-001')
+          rows=[]
+          forbidden=[]
+          for p in sorted(root.glob('*.json')):
+              raw=p.read_bytes()
+              obj=json.loads(raw)
+              if obj.get('answer_isolation',{}).get('answer_payload_present') is not False:
+                  forbidden.append(f'{p}:answer_payload_present')
+              if obj.get('answer_isolation',{}).get('answer_reference_disclosed') is not False:
+                  forbidden.append(f'{p}:answer_reference_disclosed')
+              rows.append({'path':str(p),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'case_id':obj.get('case_id'),'question_count':obj.get('questions',{}).get('question_count')})
+          manifest={'schema':'RUNTIME-MATERIALIZATION-RECEIPT-V1','group_id':'DEV-GROUP-001','files':rows,'forbidden_findings':forbidden,'status':'PASS' if not forbidden and len(rows)==5 else 'FAIL'}
+          pathlib.Path('runtime-materialized/materialization-receipt.json').write_text(json.dumps(manifest,ensure_ascii=False,sort_keys=True,indent=2)+'\n',encoding='utf-8')
+          if manifest['status']!='PASS':
+              raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dev-group-001-runtime-materialized
+          path: runtime-materialized/
+          if-no-files-found: error
+          retention-days: 1
