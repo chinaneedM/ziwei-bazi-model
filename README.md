@@ -6,13 +6,25 @@ Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八�
 
 `AUTOMATION_RUNTIME_INSTALL_STATUS=SCHEMA_DEFINED_NOT_INSTALLED`
 
-This status remains intentionally unchanged. The R16 source package now passes byte-level normalization, S19 binding recomputation and migration, but installation cannot advance until all gates are true in one installation receipt:
+The repository, source baseline, prompt audit snapshot, reverse-grading topology, answer-vault workflow, token-scope proofs and deterministic validation chain are installed and machine-checked. The repository-side external-runner adapter is also installed and covered by tests. Formal installation still cannot advance until a **real separate no-answer dual-track prediction executor** is bound and passes one fresh unrevealed DEV activation run.
+
+The final unresolved gate is therefore:
+
+```text
+EXTERNAL_PREDICTION_RUNNER=NOT_INSTALLED
+```
+
+This status must not be changed by filling configuration fields, replaying a fixture or manufacturing a prediction object. See [external-runner.md](docs/external-runner.md) and [remaining-installation-gates.json](reports/remaining-installation-gates.json).
+
+The completed gates include:
 
 - S00–S19 are present as unique original byte streams and the S19 S00–S18 binding table recomputes exactly.
-- A main-prompt audit snapshot exists and is explicitly marked as an audit copy, not runtime authority.
-- `ziwei-bazi-model` and `fortune-answer-vault` are separate private repositories and the vault-initiated token-scope probe is read back.
-- Static and synthetic end-to-end tests pass from an immutable commit.
-- A real external prediction runner is installed.
+- The exact R16 main-prompt audit snapshot is recorded as an audit copy, not runtime authority.
+- `ziwei-bazi-model` and `fortune-answer-vault` are separate private repositories with bidirectional token-scope denial proved by machine probes.
+- The answer-vault reverse-grading workflow is installed and read back by hash.
+- Static and synthetic tests pass from immutable commits.
+- The runtime repository has no vault credential and no workflow that checks out the vault.
+- A fail-closed external-runner HTTP adapter validates outbound answer isolation and inbound `PREDICTION-RUN-V1` objects.
 
 Transport suffixes such as `(8)`, `(9)` and `(59)` are never source identity. The importer reads the first active internal `LIBRARY_ID`, raw SHA256 and size, then selects only the version bound by the first current S19 table. Non-active byte versions are historical/quarantine records.
 
