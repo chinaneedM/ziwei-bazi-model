@@ -1,0 +1,44 @@
+name: training-data-integrity
+
+on:
+  pull_request:
+    paths:
+      - "training-data/**"
+      - "scripts/materialize-training-case.py"
+      - "scripts/validate-training-group.py"
+      - "config/training-example-ingest-policy.json"
+      - "tests/test_training_data_integrity.py"
+      - ".github/workflows/training-data-integrity.yml"
+  push:
+    branches: [main]
+    paths:
+      - "training-data/**"
+      - "scripts/materialize-training-case.py"
+      - "scripts/validate-training-group.py"
+      - "config/training-example-ingest-policy.json"
+      - "tests/test_training_data_integrity.py"
+      - ".github/workflows/training-data-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate active training group state
+        run: |
+          python scripts/validate-training-group.py \
+            training-data/DEV-GROUP-001 \
+            --allow-hold \
+            --receipt /tmp/dev-group-001-integrity-receipt.json
+          cat /tmp/dev-group-001-integrity-receipt.json
+      - name: Run transport regression tests
+        run: |
+          python -m pip install pytest
+          pytest -q tests/test_training_data_integrity.py
