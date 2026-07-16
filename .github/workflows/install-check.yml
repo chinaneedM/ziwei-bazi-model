@@ -1,0 +1,113 @@
+name: install-check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "config/**"
+      - "reports/**"
+      - "knowledge/base/**"
+      - "src/**"
+      - "tests/**"
+      - "schemas/**"
+      - "Makefile"
+      - ".github/workflows/install-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-installation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout runtime repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime package
+        run: python -m pip install -e .
+
+      - name: Run current static and synthetic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          report = {
+              "schema": "SYNTHETIC-TEST-REPORT-V2",
+              "generated_at": (
+                  datetime.now(timezone.utc)
+                  .replace(microsecond=0)
+                  .isoformat()
+                  .replace("+00:00", "Z")
+              ),
+              "command": "python -m unittest discover -s tests -v",
+              "execution_commit": "${{ github.sha }}",
+              "status": "PASS",
+          }
+          Path("reports/test-report.json").write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Execute final installation check
+        run: make install-check
+
+      - name: Enforce installation candidate result
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          path = Path("reports/install-receipt.json")
+          receipt = json.loads(path.read_text(encoding="utf-8"))
+          expected = "INSTALL_VALIDATION_CANDIDATE"
+          status = receipt.get("status")
+          checks = receipt.get("checks", [])
+          failures = [row for row in checks if row.get("status") != "PASS"]
+
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("## Final installation check\n\n")
+              summary.write(f"- Receipt status: `{status}`\n")
+              summary.write(f"- Code commit: `{receipt.get('code_commit')}`\n")
+              summary.write(f"- Check count: `{len(checks)}`\n")
+              summary.write(f"- Failed checks: `{len(failures)}`\n\n")
+              if failures:
+                  summary.write("| Failed check | Actual | Expected |\n")
+                  summary.write("|---|---|---|\n")
+                  for row in failures:
+                      summary.write(
+                          f"| {row.get('check')} | `{row.get('actual')}` | "
+                          f"`{row.get('expected')}` |\n"
+                      )
+              else:
+                  summary.write("**Result: PASS**\n")
+
+          if status != expected or failures:
+              print(json.dumps(receipt, ensure_ascii=False, indent=2))
+              sys.exit(1)
+          PY
+
+      - name: Upload installation receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: install-receipt
+          path: reports/install-receipt.json
+          if-no-files-found: error
+          retention-days: 30
