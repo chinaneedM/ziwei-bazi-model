@@ -1,39 +1,37 @@
-# External prediction runner
+# CHAT/WORK prediction runner
 
-## Installed repository-side components
+## Execution model
 
-The runtime repository now contains a fail-closed HTTP adapter at `fortune_v1.external_runner`, exposed as:
+The prediction engine is the active ChatGPT project session operating in either `CHAT_ONLY` or `WORK` mode. No OpenAI API key, third-party model endpoint, paid server, or background process is required.
+
+The division of responsibility is:
+
+- ChatGPT `CHAT_ONLY` / `WORK`: performs the Ziwei and Bazi reasoning and emits the complete `PREDICTION-RUN-V1` object.
+- GitHub runtime: freezes inputs, validates bindings and object bodies, rejects answer contamination, enforces independent local seals and pairwise completeness, freezes the prediction, and manages reveal/regression receipts.
+- Answer vault: remains physically separate and is read only by the reverse-grading workflow after a valid freeze receipt exists.
+
+GitHub does not autonomously start a ChatGPT conversation. Each case is user-initiated in CHAT or WORK, consistent with the project's `CHAT_STATELESS_COLD_START` and `CHAT_ONLY` operating model.
+
+## Repository handoff
+
+The deterministic handoff adapter is exposed as:
 
 ```bash
-fortune-v1 external-run \
-  --snapshot data/snapshots/<snapshot-id>/manifest.json \
+fortune-v1 chat-work-import \
+  --run data/chat-work-submissions/<run-id>.json \
   --contract data/contracts/<run-id>.json \
-  --endpoint "$PREDICTION_RUNNER_ENDPOINT" \
-  --runner-id FORTUNE-EXTERNAL-DUAL-TRACK-V1 \
-  --output data/runner-probes/<run-id>/prediction-run.json \
-  --receipt data/runner-probes/<run-id>/external-runner-receipt.json
+  --mode CHAT_ONLY \
+  --session-id <non-secret-session-label> \
+  --output data/chat-work-imports/<run-id>/prediction-run.json \
+  --receipt data/chat-work-imports/<run-id>/handoff-receipt.json
 ```
 
-The adapter sends only the frozen no-answer snapshot, immutable run contract, question set and repository bindings. It rejects a contract that does not declare `answer_data_available=false`, rejects a snapshot without a passing answer scan, scans the outbound request for forbidden answer material, never persists the bearer token, and writes no prediction object unless the returned `PREDICTION-RUN-V1` passes the complete local validator.
+The adapter requires `answer_data_available=false`, scans the submitted prediction for forbidden answer material, validates the entire `PREDICTION-RUN-V1` body, verifies the Ziwei/Bazi independent local seals, and writes nothing when validation fails.
 
-The manual workflow `.github/workflows/external-runner-smoke.yml` performs the live activation probe, validates a fresh non-overwriting `RUN_ID`, invokes the remote executor, freezes the validated prediction and emits machine receipts.
+The workflow `.github/workflows/external-runner-smoke.yml` is named `chat-work-handoff` in GitHub Actions. It validates the committed CHAT/WORK prediction object, freezes it under a new non-overwriting `RUN_ID`, and persists the handoff and freeze receipts before reveal.
 
-## Deliberately unresolved external dependency
+## Installation meaning
 
-`config/external-runner.json` remains:
+`EXTERNAL_PREDICTION_RUNNER=INSTALLED` means the CHAT/WORK project-session handoff contract and deterministic validator are installed. It does not mean GitHub can run ChatGPT in the background, and it does not claim an API service exists.
 
-```text
-EXTERNAL_PREDICTION_RUNNER_STATUS=NOT_INSTALLED
-```
-
-This is intentional. The repository adapter is installed, but a real separate model/executor endpoint has not yet been bound and tested on a fresh unrevealed DEV case. ChatGPT conversation state, schemas, fixtures and locally manufactured JSON do not satisfy this gate.
-
-Activation requires all of the following in one live run:
-
-1. A separately hosted dual-track prediction executor is bound through `PREDICTION_RUNNER_ENDPOINT`.
-2. The executor has no answer-vault credential or answer path.
-3. Its response passes `PREDICTION-RUN-V1` validation, complete pairwise coverage and independent Ziwei/Bazi local seals.
-4. The resulting prediction is frozen under a new `RUN_ID` before any reveal.
-5. The live receipt is written back to `config/external-runner.json` and the final `make install-check` returns `INSTALL_VALIDATION_CANDIDATE`.
-
-Until those facts exist, the formal installation status must remain `SCHEMA_DEFINED_NOT_INSTALLED`.
+Every real case still requires a new user-initiated CHAT or WORK conversation. Once the model emits the prediction, the remaining validation, freeze, reveal, scoring, diagnosis, and regression operations can be handled through the repository workflow.
