@@ -1,0 +1,244 @@
+{
+  "answer_vault_accessed": false,
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "direct": {
+        "attempts": [
+          {
+            "candidate": {
+              "bytes": 16173,
+              "raw_sha256": "a106ac34d8dbbd7486601c43657b6bd4c5a49586b72421fca1549b896b14ef15",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0x94 in position 15868: invalid start byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: invalid distance too far back",
+              "fail_offset": 4811,
+              "output_bytes": 16173
+            },
+            "method": "gzip_incremental"
+          },
+          {
+            "candidate": {
+              "bytes": 16173,
+              "raw_sha256": "a106ac34d8dbbd7486601c43657b6bd4c5a49586b72421fca1549b896b14ef15",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0x94 in position 15868: invalid start byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: invalid distance too far back",
+              "fail_offset": 4811,
+              "output_bytes": 16173
+            },
+            "method": "raw_deflate_incremental"
+          }
+        ],
+        "decoded_bytes": 5546,
+        "decoded_sha256": "fbe944c78ed7d651e79828bd31410e4ac8aa10f6625ba0c5460bdab130a29f47"
+      },
+      "expected_logical_sha256": "fe390d56c06a776389a6a3844850e1eef57f68cadb3cc553296ed5718f27043e",
+      "mutation_search": {
+        "attempted": 69440,
+        "best_partial": [
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:O"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:N"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:M"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:L"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:K"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:J"
+          },
+          {
+            "bytes": 21605,
+            "mutation": "b64_insert:6415:I"
+          },
+          {
+            "bytes": 21584,
+            "mutation": "b64_insert:6409:z"
+          },
+          {
+            "bytes": 21584,
+            "mutation": "b64_insert:6409:y"
+          },
+          {
+            "bytes": 21584,
+            "mutation": "b64_insert:6409:x"
+          },
+          {
+            "bytes": 21584,
+            "mutation": "b64_insert:6409:w"
+          },
+          {
+            "bytes": 21584,
+            "mutation": "b64_insert:6409:7"
+          }
+        ]
+      },
+      "source_bytes": 7397,
+      "source_path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-001.json.gz.b64",
+      "source_sha256": "7d4b9818957a434587ce0730f1b6f60ac13a2b90c5f2f0da3ff3742ef5303ead",
+      "status": "FAIL_NOT_RECOVERED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "direct": {
+        "attempts": [
+          {
+            "candidate": {
+              "bytes": 34088,
+              "raw_sha256": "a2ec171b40304333a5b40613fbd55f99fb6b1abc860480521cd6893e0011d83e",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0x9d in position 2060: invalid start byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: incorrect data check",
+              "fail_offset": 6596,
+              "output_bytes": 34088
+            },
+            "method": "gzip_incremental"
+          },
+          {
+            "candidate": {
+              "bytes": 34088,
+              "raw_sha256": "a2ec171b40304333a5b40613fbd55f99fb6b1abc860480521cd6893e0011d83e",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0x9d in position 2060: invalid start byte"
+            },
+            "inflate": {
+              "eof": true,
+              "error": null,
+              "fail_offset": null,
+              "output_bytes": 34088
+            },
+            "method": "raw_deflate_incremental"
+          }
+        ],
+        "decoded_bytes": 6601,
+        "decoded_sha256": "ae1fbfe533852e8334d9b20853cb4c0e165697cff49f28b87d9e1fda5f327b7f"
+      },
+      "expected_logical_sha256": "edcae8dd0651cf7c6754b7b2664b1f0ebabb279d0a33d7bcfa9843fd5aa44b2e",
+      "source_bytes": 8805,
+      "source_path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-002.json.gz.b64",
+      "source_sha256": "594f19d8d2b827fa0d36e8bd14cd7c24337578e2a9fdf89ace816cad29aa9585",
+      "status": "FAIL_NOT_RECOVERED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direct": {
+        "attempts": [
+          {
+            "candidate": {
+              "bytes": 34083,
+              "raw_sha256": "a42197337614453083b4280b9cdc22d74d570b9dc65c2dc99a4ad1a7d06db5ea",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0xa8 in position 1834: invalid start byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: incorrect data check",
+              "fail_offset": 6556,
+              "output_bytes": 34083
+            },
+            "method": "gzip_incremental"
+          },
+          {
+            "candidate": {
+              "bytes": 34083,
+              "raw_sha256": "a42197337614453083b4280b9cdc22d74d570b9dc65c2dc99a4ad1a7d06db5ea",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0xa8 in position 1834: invalid start byte"
+            },
+            "inflate": {
+              "eof": true,
+              "error": null,
+              "fail_offset": null,
+              "output_bytes": 34083
+            },
+            "method": "raw_deflate_incremental"
+          }
+        ],
+        "decoded_bytes": 6561,
+        "decoded_sha256": "4d292cef3b2064bbe23e59ed5a80781d43091622c5547d3fd4e922291f76d3ac"
+      },
+      "expected_logical_sha256": "3684944f3c46f2c8280171ea99be7aa9f2791ce8dea9d57d0a3ddc0c1372809a",
+      "source_bytes": 8749,
+      "source_path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-003.json.gz.b64",
+      "source_sha256": "829845a4132178dd523aaa65463ac299f814b08669a8505f54cde37aad5e0100",
+      "status": "FAIL_NOT_RECOVERED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "direct": {
+        "attempts": [
+          {
+            "candidate": {
+              "bytes": 1717,
+              "raw_sha256": "f54efba2ed66882a56ea5792679c6535b4b8ada3a5b868a3e81b70349d793b54",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0xe7 in position 1714: invalid continuation byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: invalid distance too far back",
+              "fail_offset": 1238,
+              "output_bytes": 1717
+            },
+            "method": "gzip_incremental"
+          },
+          {
+            "candidate": {
+              "bytes": 1717,
+              "raw_sha256": "f54efba2ed66882a56ea5792679c6535b4b8ada3a5b868a3e81b70349d793b54",
+              "utf8": "FAIL:'utf-8' codec can't decode byte 0xe7 in position 1714: invalid continuation byte"
+            },
+            "inflate": {
+              "eof": false,
+              "error": "error: Error -3 while decompressing data: invalid distance too far back",
+              "fail_offset": 1238,
+              "output_bytes": 1717
+            },
+            "method": "raw_deflate_incremental"
+          }
+        ],
+        "decoded_bytes": 6539,
+        "decoded_sha256": "428d05a4ea7aa4406afd40164438c2a9ad9e2b5381c4bad3aaaa711acf178d8e"
+      },
+      "expected_logical_sha256": "6fe5074d02d1e60686d487c8b37ef6ac2e14e7f74f1cedaf2c1b1129ed2ad672",
+      "source_bytes": 8720,
+      "source_path": "training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-004.json.gz.b64",
+      "source_sha256": "69628e73d9f0ab9c2cfb43f248a486ede5d3d91ab16769aad0c6ee10f694e0f2",
+      "status": "FAIL_NOT_RECOVERED"
+    }
+  ],
+  "expected_recovered_case_count": 4,
+  "group_id": "DEV-GROUP-001",
+  "logical_hash_inference": {
+    "case_id": "DEV-EXAMPLE-005",
+    "hashes": {
+      "compact_sorted": "6c01997de6d6b4dcad111b65b0c5e350c28168d06a0fa95a4171296f17bf8450",
+      "compact_sorted_nl": "8dd0d0d5fab79f7b034db77b5f36b655329bff4d57ff2cd09497c1bfb850e86e",
+      "original": "6c01997de6d6b4dcad111b65b0c5e350c28168d06a0fa95a4171296f17bf8450",
+      "original_strip": "6c01997de6d6b4dcad111b65b0c5e350c28168d06a0fa95a4171296f17bf8450",
+      "pretty_sorted": "960f921d76b45949e0db51c50c8be95c0c4062de475a8d44fc9f6c0a3c17e957",
+      "pretty_sorted_nl": "5292c94c69263d6aacf934e0078b1d5f2e90a29d0b731df482da6b293a541e45"
+    },
+    "matching_variant": "pretty_sorted_nl",
+    "status": "PASS"
+  },
+  "recovered_case_count": 0,
+  "schema": "DEV-GROUP-001-MECHANICAL-RECOVERY-V1",
+  "status": "PARTIAL_OR_FAILED"
+}
