@@ -1,7 +1,16 @@
 {
-  "schema": "MAIN-PROMPT-AUDIT-SNAPSHOT-STATUS-V1",
+  "schema": "MAIN-PROMPT-AUDIT-SNAPSHOT-V1",
   "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+  "snapshot_sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
+  "snapshot_bytes": 14988,
+  "captured_at": "2026-07-16T13:58:54Z",
   "authority_statement": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
+  "runtime_attestation": {
+    "method": "SYSTEM_MANAGED_PROJECT_INSTRUCTION_EXACT_EXPORT",
+    "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "source": "ACTIVE_PROJECT_CUSTOM_INSTRUCTIONS",
+    "hash_and_size_recomputed": true
+  },
   "expected": {
     "sha256_raw_bytes": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
     "size_bytes": 14988,
@@ -9,16 +18,20 @@
     "visible_character_count_method": "UNICODE_NON_WHITESPACE_CODEPOINT_COUNT"
   },
   "actual": {
-    "sha256_raw_bytes": null,
-    "size_bytes": null,
-    "visible_character_count": null,
-    "bom": null,
-    "lf_count": null,
-    "crlf_count": null,
-    "leading_whitespace_codepoints": null,
-    "trailing_whitespace_codepoints": null,
-    "unicode_status": null
+    "sha256_raw_bytes": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
+    "size_bytes": 14988,
+    "visible_character_count": 6047,
+    "unicode_status": "UTF8_VALID",
+    "bom": false,
+    "lf_count": 88,
+    "crlf_count": 0,
+    "leading_whitespace_codepoints": 0,
+    "trailing_whitespace_codepoints": 1
   },
-  "runtime_attestation": null,
-  "status": "NOT_CAPTURED_EXACT_EXPORT_REQUIRED"
+  "checks": {
+    "sha256": true,
+    "bytes": true,
+    "visible_characters": true
+  },
+  "status": "PASS"
 }
