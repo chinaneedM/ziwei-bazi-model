@@ -1,0 +1,71 @@
+{
+  "schema": "TRAINING-EXAMPLE-INGEST-POLICY-V1",
+  "status": "ACTIVE",
+  "default_group_size": 5,
+  "accepted_archive_formats": ["rar", "zip", "7z"],
+  "required_semantic_roles": [
+    "ziwei_chart_text",
+    "bazi_chart_image_or_text",
+    "questions",
+    "answers"
+  ],
+  "filename_policy": "USER_LABELS_ARE_PRESERVED; CLASSIFICATION_IS_BY_FILENAME_AND_CONTENT",
+  "runtime_repository": "chinaneedM/ziwei-bazi-model",
+  "answer_repository": "chinaneedM/fortune-answer-vault",
+  "runtime_case_path_template": "training-data/{group_id}/cases/{case_id}.json",
+  "answer_path_template": "answers/{group_id}/{case_id}.json",
+  "answer_isolation": {
+    "mixed_source_archive_may_be_opened_only_in_ingest_workspace": true,
+    "runtime_answer_payload_forbidden": true,
+    "answer_object_private_repository_only": true,
+    "baseline_prediction_must_use_new_answer_blind_session": true,
+    "reveal_requires_all_group_baselines_frozen": true
+  },
+  "bazi_policy": {
+    "training_authority": "VERIFIED_STRUCTURED_TRANSCRIPTION",
+    "raw_image_git_retention": "OPTIONAL",
+    "source_image_sha256_required": true,
+    "source_image_dimensions_required": true,
+    "source_image_byte_size_required": true,
+    "visual_field_by_field_verification_required": true,
+    "required_field_groups": [
+      "calendar",
+      "pillars",
+      "hidden_stems_ten_gods",
+      "luck_start",
+      "luck_handover",
+      "luck_cycles",
+      "void",
+      "seasonal_qi",
+      "pillar_shensha",
+      "relations"
+    ],
+    "mismatch_action": "HOLD_AND_CORRECT_BEFORE_TRAINING"
+  },
+  "question_policy": {
+    "preserve_literal_question_and_option_text": true,
+    "question_count_must_equal_answer_vector_length": true,
+    "answer_symbol_must_belong_to_question_option_set": true,
+    "question_ids_are_stable_within_case": true
+  },
+  "immutability": {
+    "overwrite_existing_case": false,
+    "same_archive_sha256_action": "REUSE_EXISTING_CASE_REFERENCE",
+    "same_name_different_hash_action": "CREATE_NEW_REVISION_OR_NEW_CASE_ID",
+    "group_head_points_to_immutable_revision": true
+  },
+  "grouping": {
+    "partial_upload_status": "STAGING_PENDING_GROUP",
+    "ready_status": "READY_FOR_BASELINE_PREDICTION",
+    "group_requires_unique_cases": true
+  },
+  "receipts_required": [
+    "source_archive_sha256",
+    "case_object_sha256",
+    "question_count",
+    "answer_object_sha256",
+    "runtime_answer_scan",
+    "bazi_transcription_verification",
+    "group_head"
+  ]
+}
