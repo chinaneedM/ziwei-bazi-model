@@ -1,0 +1,51 @@
+{
+  "acceptance_rule": "VALID_JSON_AND_NO_ANSWER_PAYLOAD_AND_REGISTERED_LOGICAL_SHA256_MATCH",
+  "answer_vault_accessed": false,
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "search": {
+        "attempted_base64_replacements": 35280,
+        "attempted_decoded_byte_replacements": 73440,
+        "decoded_bytes": 6601,
+        "decoded_sha256": "ae1fbfe533852e8334d9b20853cb4c0e165697cff49f28b87d9e1fda5f327b7f",
+        "first_invalid_utf8": 2060,
+        "inflated_bytes": 34088,
+        "mapped_compressed_offset": 1390
+      },
+      "status": "FAIL_NOT_RECOVERED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "search": {
+        "attempted_base64_replacements": 35280,
+        "attempted_decoded_byte_replacements": 73440,
+        "decoded_bytes": 6561,
+        "decoded_sha256": "4d292cef3b2064bbe23e59ed5a80781d43091622c5547d3fd4e922291f76d3ac",
+        "first_invalid_utf8": 1834,
+        "inflated_bytes": 34083,
+        "mapped_compressed_offset": 1165
+      },
+      "status": "FAIL_NOT_RECOVERED"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "search": {
+        "attempted_deletions": 24495,
+        "compact_chars": 8719,
+        "deletion_lengths": [
+          554,
+          555,
+          556
+        ],
+        "expected_source_file_bytes": 8165,
+        "source_file_bytes": 8720
+      },
+      "status": "FAIL_NOT_RECOVERED"
+    }
+  ],
+  "group_id": "DEV-GROUP-001",
+  "recovered_case_count": 0,
+  "schema": "DEV-GROUP-001-LOCALIZED-RECOVERY-V2",
+  "status": "PARTIAL_OR_FAILED"
+}
