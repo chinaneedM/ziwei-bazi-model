@@ -1,4 +1,4 @@
-name: Trigger DEV-GROUP-001 mechanical recovery
+name: Trigger DEV-GROUP-001 mechanical recovery v2
 
 on:
   push:
@@ -17,24 +17,24 @@ permissions:
 
 jobs:
   recover:
-    timeout-minutes: 20
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: runtime/dev-group-001-materialize
-      - name: Recover and verify logical objects
-        run: python scripts/recover-dev-group-001.py
+      - name: Run localized hash-gated recovery
+        run: python scripts/recover-dev-group-001-v2.py
       - name: Persist isolated recovery evidence
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "fortune-runtime-recovery"
           git config user.email "fortune-runtime-recovery@users.noreply.github.com"
-          git add -f runtime-recovery
+          git add -f runtime-recovery-v2
           if git diff --cached --quiet; then
             echo "Recovery output unchanged"
             exit 0
           fi
-          git commit -m "Persist DEV-GROUP-001 recovery result [recovery-result]"
+          git commit -m "Persist DEV-GROUP-001 recovery v2 result [recovery-v2-result]"
           git push origin HEAD:runtime/dev-group-001-materialize
