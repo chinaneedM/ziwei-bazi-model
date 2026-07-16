@@ -1,5 +1,5 @@
 {
-  "automation_runtime_install_status": "SCHEMA_DEFINED_NOT_INSTALLED",
+  "automation_runtime_install_status": "INSTALL_VALIDATION_CANDIDATE",
   "checks": [
     {
       "actual": {
@@ -9,7 +9,7 @@
         "unique_library_count": 20
       },
       "check": "SOURCE_BASELINE_20_FILES",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": {
         "duplicates": {},
@@ -30,7 +30,7 @@
         "status": "PASS"
       },
       "check": "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": {
         "computed": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
@@ -52,7 +52,7 @@
         "status": "MIGRATED"
       },
       "check": "SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
         "actual": {
           "baseline_commit_sha": "989ee246ef55c92a9b4a1b86ccd4b616bbbf0069",
@@ -76,7 +76,7 @@
         "source_file_count": 20,
         "status": "MIGRATED"
       },
-      "file_sha256": "2f7401ef7a1086139621ad5cb48eacd52cfdac785da724b6c6c0682b022aab6a",
+      "file_sha256": "21821efa553879b728297e677f712dd26e04fb4513607da65ad8c17d01f73f3f",
       "object_field_path": "$.status+$.baseline_commit_sha+$.baseline_tag",
       "real_path": "reports/migration-receipt.json",
       "status": "PASS"
@@ -91,7 +91,7 @@
         "visible": 6047
       },
       "check": "MAIN_PROMPT_AUDIT_SNAPSHOT",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": {
         "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
@@ -109,10 +109,10 @@
     {
       "actual": "PASS",
       "check": "STATIC_AND_SYNTHETIC_TESTS",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "115cba234306c28f64974e9032f84b967ae64e23a40f9db91dd428f0edaab3e6",
+      "file_sha256": "e64d197daad306c75c82fe95014458e906e85e05062c2ab2ef392bf0a2633bb4",
       "object_field_path": "$.status",
       "real_path": "reports/test-report.json",
       "status": "PASS"
@@ -126,7 +126,7 @@
         "workflow_count": 5
       },
       "check": "RUNTIME_REPOSITORY_VAULT_CREDENTIAL_NONE",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
         "actual": {
           "runtime_repository_vault_credential": "NONE",
@@ -152,7 +152,7 @@
     {
       "actual": "PASS",
       "check": "PHYSICAL_REPOSITORY_SEPARATION",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -163,7 +163,7 @@
     {
       "actual": "PASS",
       "check": "TOKEN_REPOSITORY_SCOPE",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -174,7 +174,7 @@
     {
       "actual": "PASS",
       "check": "RUNTIME_VAULT_ACCESS_DENIAL",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -185,7 +185,7 @@
     {
       "actual": "PASS",
       "check": "GRADING_DIRECTION",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -196,7 +196,7 @@
     {
       "actual": "RECORDED",
       "check": "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": "RECORDED",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -216,7 +216,7 @@
         "runtime_repository_vault_credential": "NONE"
       },
       "check": "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": null,
       "expected": {
         "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
@@ -241,7 +241,7 @@
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
       "check": "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
         "actual": {
           "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
@@ -269,80 +269,120 @@
     },
     {
       "actual": {
-        "activation_status": null,
-        "fields_present": true,
-        "fresh_unrevealed_dev_case": null,
-        "frozen_before_reveal": null,
-        "live_receipt_sha256": null,
-        "model_bound": false,
-        "model_or_executor": "UNBOUND_REMOTE_DUAL_TRACK_EXECUTOR",
-        "no_answer_access_proof": "PENDING_LIVE_PROVIDER_ATTESTATION",
-        "prediction_run_validation": null,
-        "prompt_binding_pass": true,
-        "runner_id": "FORTUNE-EXTERNAL-DUAL-TRACK-V1",
-        "status": "NOT_INSTALLED",
-        "ziwei_bazi_independent_local_seals": null
+        "adapter_status": "INSTALLED",
+        "api_service_required": false,
+        "background_execution": false,
+        "checks": {
+          "adapter": true,
+          "api_service_required": true,
+          "background_execution": true,
+          "dual_track_seals": true,
+          "execution_model": true,
+          "input_contract": true,
+          "interaction_modes": true,
+          "model_or_executor": true,
+          "output_schema": true,
+          "prompt_binding": true,
+          "proof_policy": true,
+          "run_id_nonoverwrite": true,
+          "runner_id": true,
+          "runner_type": true,
+          "source_binding": true,
+          "status": true,
+          "user_initiated": true
+        },
+        "interaction_modes": [
+          "CHAT_ONLY",
+          "WORK"
+        ],
+        "model_or_executor": "CHATGPT_PROJECT_SESSION",
+        "no_answer_access_policy": "ENFORCED_PER_RUN",
+        "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+        "runner_id": "CHAT-WORK-HANDOFF-V1",
+        "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+        "status": "INSTALLED"
       },
       "check": "EXTERNAL_PREDICTION_RUNNER",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
         "actual": {
-          "activation_status": null,
-          "fields_present": true,
-          "fresh_unrevealed_dev_case": null,
-          "frozen_before_reveal": null,
-          "live_receipt_sha256": null,
-          "model_bound": false,
-          "model_or_executor": "UNBOUND_REMOTE_DUAL_TRACK_EXECUTOR",
-          "no_answer_access_proof": "PENDING_LIVE_PROVIDER_ATTESTATION",
-          "prediction_run_validation": null,
-          "prompt_binding_pass": true,
-          "runner_id": "FORTUNE-EXTERNAL-DUAL-TRACK-V1",
-          "status": "NOT_INSTALLED",
-          "ziwei_bazi_independent_local_seals": null
+          "adapter_status": "INSTALLED",
+          "api_service_required": false,
+          "background_execution": false,
+          "checks": {
+            "adapter": true,
+            "api_service_required": true,
+            "background_execution": true,
+            "dual_track_seals": true,
+            "execution_model": true,
+            "input_contract": true,
+            "interaction_modes": true,
+            "model_or_executor": true,
+            "output_schema": true,
+            "prompt_binding": true,
+            "proof_policy": true,
+            "run_id_nonoverwrite": true,
+            "runner_id": true,
+            "runner_type": true,
+            "source_binding": true,
+            "status": true,
+            "user_initiated": true
+          },
+          "interaction_modes": [
+            "CHAT_ONLY",
+            "WORK"
+          ],
+          "model_or_executor": "CHATGPT_PROJECT_SESSION",
+          "no_answer_access_policy": "ENFORCED_PER_RUN",
+          "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+          "runner_id": "CHAT-WORK-HANDOFF-V1",
+          "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+          "status": "INSTALLED"
         },
         "expected": {
-          "activation_status": "PASS",
-          "fields_present": true,
-          "fresh_unrevealed_dev_case": true,
-          "frozen_before_reveal": true,
-          "live_receipt_sha256": "64_HEX",
-          "model_bound": true,
-          "model_or_executor": "BOUND_NON_PLACEHOLDER",
-          "no_answer_access_proof": "PASS",
-          "prediction_run_validation": "PASS",
-          "prompt_binding_pass": true,
-          "runner_id": "NON_NULL",
-          "status": "INSTALLED",
-          "ziwei_bazi_independent_local_seals": "PASS"
+          "adapter_status": "INSTALLED",
+          "api_service_required": false,
+          "background_execution": false,
+          "checks": "ALL_TRUE",
+          "interaction_modes": [
+            "CHAT_ONLY",
+            "WORK"
+          ],
+          "model_or_executor": "CHATGPT_PROJECT_SESSION",
+          "no_answer_access_policy": "ENFORCED_PER_RUN",
+          "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+          "runner_id": "CHAT-WORK-HANDOFF-V1",
+          "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+          "status": "INSTALLED"
         }
       },
       "expected": {
-        "activation_status": "PASS",
-        "fields_present": true,
-        "fresh_unrevealed_dev_case": true,
-        "frozen_before_reveal": true,
-        "live_receipt_sha256": "64_HEX",
-        "model_bound": true,
-        "model_or_executor": "BOUND_NON_PLACEHOLDER",
-        "no_answer_access_proof": "PASS",
-        "prediction_run_validation": "PASS",
-        "prompt_binding_pass": true,
-        "runner_id": "NON_NULL",
-        "status": "INSTALLED",
-        "ziwei_bazi_independent_local_seals": "PASS"
+        "adapter_status": "INSTALLED",
+        "api_service_required": false,
+        "background_execution": false,
+        "checks": "ALL_TRUE",
+        "interaction_modes": [
+          "CHAT_ONLY",
+          "WORK"
+        ],
+        "model_or_executor": "CHATGPT_PROJECT_SESSION",
+        "no_answer_access_policy": "ENFORCED_PER_RUN",
+        "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+        "runner_id": "CHAT-WORK-HANDOFF-V1",
+        "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+        "status": "INSTALLED"
       },
-      "file_sha256": "80d48bbf74a09080b83332ba201fabce3a9b6b8db94362d5bdfe8717bc8f4726",
-      "object_field_path": "$.external_prediction_runner_status+live_proof+activation_receipt",
+      "file_sha256": "814ed62e49d5344d04109278a644f5ae30c4fbb7269b0f4e9226ed224f29812e",
+      "object_field_path": "$.external_prediction_runner_status+chat_work_handoff_contract",
       "real_path": "config/external-runner.json",
-      "status": "FAIL"
+      "status": "PASS"
     },
     {
-      "actual": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "actual": "a5aa86e1680d09989d6266173b47769b518689af",
       "check": "IMMUTABLE_GIT_COMMIT",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
-        "actual": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+        "actual": "a5aa86e1680d09989d6266173b47769b518689af",
         "expected": "NON_NULL"
       },
       "expected": "NON_NULL",
@@ -354,7 +394,7 @@
     {
       "actual": 10,
       "check": "SCHEMA_SET",
-      "corresponding_commit_sha": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
+      "corresponding_commit_sha": "a5aa86e1680d09989d6266173b47769b518689af",
       "difference": {
         "actual": 10,
         "expected": ">=9"
@@ -366,12 +406,15 @@
       "status": "PASS"
     }
   ],
-  "code_commit": "286e48c6fc5ceea7dab5a72f27290e55ad555923",
-  "generated_at": "2026-07-16T14:14:04+00:00",
+  "code_commit": "a5aa86e1680d09989d6266173b47769b518689af",
+  "generated_at": "2026-07-16T20:56:21+00:00",
   "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
   "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
   "repository_root": ".",
-  "s19_installed_validated_status_update_candidate": null,
+  "s19_installed_validated_status_update_candidate": {
+    "AUTOMATION_RUNTIME_INSTALL_STATUS": "INSTALLED_VALIDATED",
+    "basis_receipt_sha256": "9d26fe531436e4b71395587dd55788e123a7e690a31c9601adb5f88f1db7f669"
+  },
   "schema": "INSTALLATION-RECEIPT-V2",
-  "status": "SCHEMA_DEFINED_NOT_INSTALLED"
+  "status": "INSTALL_VALIDATION_CANDIDATE"
 }
