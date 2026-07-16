@@ -122,7 +122,9 @@ jobs:
           set -euo pipefail
           git config user.name "fortune-chat-work-handoff"
           git config user.email "fortune-chat-work-handoff@users.noreply.github.com"
-          git add "data/chat-work-imports/$RUN_ID" "data/runs/$RUN_ID"
+          # data/* is intentionally ignored in the repository; force-add only the two validated allowlisted run paths.
+          git add -f "data/chat-work-imports/$RUN_ID" "data/runs/$RUN_ID"
+          git diff --cached --quiet && { echo "No validated run artifacts staged" >&2; exit 1; }
           git commit -m "Freeze CHAT WORK prediction $RUN_ID [skip ci]"
           git push origin HEAD:main
 
