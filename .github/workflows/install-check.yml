@@ -15,7 +15,7 @@ on:
       - ".github/workflows/install-check.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-installation:
@@ -111,3 +111,22 @@ jobs:
           path: reports/install-receipt.json
           if-no-files-found: error
           retention-days: 30
+
+      - name: Persist installation receipt
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f reports/install-receipt.json ]]; then
+            echo "No installation receipt was generated."
+            exit 0
+          fi
+          git config user.name "fortune-install-validator"
+          git config user.email "fortune-install-validator@users.noreply.github.com"
+          git add reports/install-receipt.json
+          if git diff --cached --quiet; then
+            echo "Installation receipt is unchanged."
+            exit 0
+          fi
+          git commit -m "Record installation validation receipt [skip ci]"
+          git push origin HEAD:main
