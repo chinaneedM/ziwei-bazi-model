@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 22, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 17, in main
+    obj=load(Path(a.bundle))
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 8, in load
+    raw = gzip.decompress(base64.b64decode(path.read_text(encoding="utf-8").strip()))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/gzip.py", line 632, in decompress
+    decompressed = do.decompress(data[fp.tell():])
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+zlib.error: Error -3 while decompressing data: invalid distance too far back
+FAILED:training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-001.json.gz.b64
+Traceback (most recent call last):
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 22, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 17, in main
+    obj=load(Path(a.bundle))
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 8, in load
+    raw = gzip.decompress(base64.b64decode(path.read_text(encoding="utf-8").strip()))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/gzip.py", line 638, in decompress
+    raise BadGzipFile("CRC check failed")
+gzip.BadGzipFile: CRC check failed
+FAILED:training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-002.json.gz.b64
+Traceback (most recent call last):
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 22, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 17, in main
+    obj=load(Path(a.bundle))
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 8, in load
+    raw = gzip.decompress(base64.b64decode(path.read_text(encoding="utf-8").strip()))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/gzip.py", line 638, in decompress
+    raise BadGzipFile("CRC check failed")
+gzip.BadGzipFile: CRC check failed
+FAILED:training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-003.json.gz.b64
+Traceback (most recent call last):
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 22, in <module>
+    if __name__ == "__main__": main()
+                               ^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 17, in main
+    obj=load(Path(a.bundle))
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/scripts/materialize-training-case.py", line 8, in load
+    raw = gzip.decompress(base64.b64decode(path.read_text(encoding="utf-8").strip()))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/base64.py", line 88, in b64decode
+    return binascii.a2b_base64(s, strict_mode=validate)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+binascii.Error: Incorrect padding
+FAILED:training-data/DEV-GROUP-001/cases/DEV-EXAMPLE-004.json.gz.b64
