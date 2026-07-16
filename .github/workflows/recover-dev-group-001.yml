@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - .github/workflows/recover-dev-group-001.yml
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize]
   workflow_dispatch:
 
 permissions:
