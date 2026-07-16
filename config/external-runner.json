@@ -1,20 +1,48 @@
 {
   "schema": "EXTERNAL-PREDICTION-RUNNER-REGISTRATION-V1",
-  "runner_id": null,
+  "runner_id": "FORTUNE-EXTERNAL-DUAL-TRACK-V1",
   "runner_type": "EXTERNAL_DUAL_TRACK_PREDICTION_EXECUTOR",
-  "model_or_executor": null,
+  "model_or_executor": "UNBOUND_REMOTE_DUAL_TRACK_EXECUTOR",
+  "adapter": {
+    "module": "fortune_v1.external_runner",
+    "cli_command": "fortune-v1 external-run",
+    "status": "INSTALLED",
+    "endpoint_environment_variable": "PREDICTION_RUNNER_ENDPOINT",
+    "token_environment_variable": "PREDICTION_RUNNER_TOKEN",
+    "transport": "HTTPS_JSON_POST",
+    "request_schema": "EXTERNAL-PREDICTION-RUNNER-REQUEST-V1",
+    "receipt_schema": "EXTERNAL-PREDICTION-RUNNER-RECEIPT-V1"
+  },
   "input_contract": "PREDICTION-RUN-CONTRACT-V1",
   "output_schema": "PREDICTION-RUN-V1",
   "timeout_seconds": 1800,
   "failure_status": "EXTERNAL_PREDICTION_RUNNER_FAILED",
-  "no_answer_access_proof": null,
-  "code_commit": null,
+  "no_answer_access_proof": {
+    "status": "PENDING_LIVE_PROVIDER_ATTESTATION",
+    "request_builder_forbidden_scan": true,
+    "answer_data_available_required_false": true,
+    "runtime_repository_vault_credential": "NONE",
+    "forbidden_roots": [
+      "answers",
+      "data/reveals",
+      "shadow-rebuild"
+    ],
+    "token_value_persisted": false
+  },
+  "code_commit": "6414b1374e7ec5cd9bd9481fe5da9f745ec3ef71",
   "prompt_binding": {
     "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-    "audit_snapshot_sha256": null
+    "audit_snapshot_sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017"
   },
   "source_binding": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
   "run_id_nonoverwrite": true,
   "ziwei_bazi_local_seal_requirement": true,
+  "activation_requirements": [
+    "LIVE_REMOTE_EXECUTOR_BOUND",
+    "NO_ANSWER_ACCESS_PROOF_PASS",
+    "FRESH_UNREVEALED_DEV_CASE_PASS",
+    "PREDICTION_RUN_V1_LOCAL_VALIDATION_PASS",
+    "ZIWEI_BAZI_INDEPENDENT_LOCAL_SEALS_PASS"
+  ],
   "external_prediction_runner_status": "NOT_INSTALLED"
 }
