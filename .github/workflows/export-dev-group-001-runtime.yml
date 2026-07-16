@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - .github/workflows/export-dev-group-001-runtime.yml
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
   workflow_dispatch:
 
 permissions:
