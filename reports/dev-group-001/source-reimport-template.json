@@ -1,0 +1,41 @@
+{
+  "schema": "DEV-GROUP-SOURCE-REIMPORT-CONTRACT-V1",
+  "group_id": "DEV-GROUP-001",
+  "answer_repository_access": "FORBIDDEN",
+  "target_storage_format": "PLAIN_CANONICAL_JSON",
+  "case_ids": [
+    "DEV-EXAMPLE-001",
+    "DEV-EXAMPLE-002",
+    "DEV-EXAMPLE-003",
+    "DEV-EXAMPLE-004"
+  ],
+  "required_case_fields": [
+    "schema",
+    "group_id",
+    "case_id",
+    "dataset_type",
+    "answer_isolation",
+    "binding",
+    "ziwei",
+    "bazi",
+    "questions",
+    "source_archive"
+  ],
+  "required_answer_isolation": {
+    "answer_payload_present": false,
+    "answer_reference_disclosed": false,
+    "answer_repository": "PRIVATE_VAULT_ONLY"
+  },
+  "write_sequence": [
+    "BUILD_CANONICAL_JSON_FROM_TRUSTED_NO_ANSWER_SOURCE",
+    "COMPUTE_LOGICAL_JSON_SHA256",
+    "WRITE_REPOSITORY_FILE",
+    "READ_BACK_REPOSITORY_BLOB_BYTES",
+    "VERIFY_STORED_BYTES_AND_SHA256",
+    "STRICTLY_MATERIALIZE_AND_RECOMPUTE_LOGICAL_SHA256",
+    "VERIFY_CASE_ID_GROUP_ID_QUESTION_COUNT_AND_ANSWER_ISOLATION",
+    "CREATE_NEW_IMMUTABLE_GROUP_REVISION",
+    "RUN_GROUP_VALIDATOR_WITH_REQUIRE_READY",
+    "ONLY_THEN_SET_READY_FOR_BASELINE_PREDICTION"
+  ]
+}

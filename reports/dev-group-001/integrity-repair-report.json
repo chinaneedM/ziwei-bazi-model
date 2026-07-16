@@ -1,0 +1,98 @@
+{
+  "schema": "DEV-GROUP-INTEGRITY-REPAIR-REPORT-V1",
+  "group_id": "DEV-GROUP-001",
+  "status": "INTERFACE_REPAIRED_SOURCE_REIMPORT_REQUIRED",
+  "answer_vault_accessed": false,
+  "answer_payload_used": false,
+  "prediction_objects_created": false,
+  "reveal_authorized": false,
+  "root_cause": {
+    "class": "POST_WRITE_CONNECTOR_TRANSPORT_CORRUPTION_WITHOUT_READBACK_GATE",
+    "description": "The prewrite manifest recorded intended hashes, but four long single-line gzip+Base64 objects were committed with different bytes. The old readiness gate trusted the prewrite registry and did not materialize repository readback bytes.",
+    "affected_case_ids": [
+      "DEV-EXAMPLE-001",
+      "DEV-EXAMPLE-002",
+      "DEV-EXAMPLE-003",
+      "DEV-EXAMPLE-004"
+    ],
+    "unaffected_logical_case_ids": ["DEV-EXAMPLE-005"]
+  },
+  "mechanical_findings": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "finding": "COMMITTED_FILE_SHORTER_THAN_PREWRITE_REGISTRY_AND_DEFLATE_STREAM_TRUNCATED",
+      "actual_stored_bytes": 7397,
+      "actual_stored_sha256": "7d4b9818957a434587ce0730f1b6f60ac13a2b90c5f2f0da3ff3742ef5303ead",
+      "prewrite_stored_bytes": 8025,
+      "prewrite_stored_sha256": "a289132f74a005a528980e48af26eb6a2a0b539d74eafe8baedf6ea5cf25381c"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "finding": "SAME_LENGTH_DIFFERENT_HASH_GZIP_CRC_FAILURE_AND_INVALID_UTF8_OUTPUT",
+      "actual_stored_bytes": 8805,
+      "actual_stored_sha256": "594f19d8d2b827fa0d36e8bd14cd7c24337578e2a9fdf89ace816cad29aa9585",
+      "prewrite_stored_bytes": 8805,
+      "prewrite_stored_sha256": "4450e4999ced570fa8a8c326907120475b698a805dd98081c92ed123f02bfd5b"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "finding": "SAME_LENGTH_DIFFERENT_HASH_GZIP_CRC_FAILURE_AND_INVALID_UTF8_OUTPUT",
+      "actual_stored_bytes": 8749,
+      "actual_stored_sha256": "829845a4132178dd523aaa65463ac299f814b08669a8505f54cde37aad5e0100",
+      "prewrite_stored_bytes": 8749,
+      "prewrite_stored_sha256": "8a703059ab7ed79ffdbde66d85a3c456cb6b6dc8adb51cb407faeebb8bb43481"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "finding": "COMMITTED_FILE_LONGER_THAN_PREWRITE_REGISTRY_WITH_CROSS_CASE_TAIL_OVERWRITE",
+      "actual_stored_bytes": 8720,
+      "actual_stored_sha256": "69628e73d9f0ab9c2cfb43f248a486ede5d3d91ab16769aad0c6ee10f694e0f2",
+      "prewrite_stored_bytes": 8165,
+      "prewrite_stored_sha256": "84bf96438cd1d2578ae0194d7302d1c87de853c5948674b8ad1369a45d29b723"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "finding": "PLAIN_JSON_MATERIALIZES_AND_MATCHES_REGISTERED_LOGICAL_SHA256",
+      "actual_stored_bytes": 32806,
+      "actual_stored_sha256": "6c01997de6d6b4dcad111b65b0c5e350c28168d06a0fa95a4171296f17bf8450",
+      "logical_json_sha256": "5292c94c69263d6aacf934e0078b1d5f2e90a29d0b731df482da6b293a541e45"
+    }
+  ],
+  "recovery_attempts": [
+    {
+      "id": "MECHANICAL_RECOVERY_V1",
+      "acceptance": "REGISTERED_LOGICAL_SHA256_EXACT_MATCH_ONLY",
+      "recovered_case_count": 0,
+      "status": "FAILED_NO_FABRICATION"
+    },
+    {
+      "id": "LOCALIZED_RECOVERY_V2",
+      "acceptance": "REGISTERED_LOGICAL_SHA256_EXACT_MATCH_ONLY",
+      "recovered_case_count": 0,
+      "status": "FAILED_NO_FABRICATION"
+    }
+  ],
+  "installed_repairs": [
+    "STRICT_BASE64_AND_GZIP_MATERIALIZATION",
+    "STORED_BYTE_COUNT_AND_SHA256_VALIDATION",
+    "CANONICAL_LOGICAL_JSON_SHA256_VALIDATION",
+    "ANSWER_ISOLATION_AND_QUESTION_COUNT_VALIDATION",
+    "GROUP_READY_REQUIRES_ALL_CASES_PASS",
+    "PLAIN_CANONICAL_JSON_REQUIRED_FOR_NEW_CONNECTOR_WRITES",
+    "POST_WRITE_REPOSITORY_READBACK_REQUIRED",
+    "TRUTHFUL_HEAD_REVISION_0003_HOLD"
+  ],
+  "source_reimport": {
+    "required": true,
+    "case_ids": [
+      "DEV-EXAMPLE-001",
+      "DEV-EXAMPLE-002",
+      "DEV-EXAMPLE-003",
+      "DEV-EXAMPLE-004"
+    ],
+    "answer_repository_access": "FORBIDDEN",
+    "target_storage_format": "PLAIN_CANONICAL_JSON",
+    "resume_gate": "ALL_FIVE_CASES_PASS_REPOSITORY_READBACK_MATERIALIZATION_AND_LOGICAL_HASH_VALIDATION"
+  },
+  "final_action": "KEEP_GROUP_HOLD_UNTIL_TRUSTED_SOURCE_REIMPORT; DO_NOT_PREDICT_OR_REVEAL"
+}
