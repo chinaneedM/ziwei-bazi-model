@@ -49,8 +49,10 @@ jobs:
       - name: Verify packet manifest
         run: |
           python - <<'PY'
+          import hashlib
           import json
           from pathlib import Path
+
           result = json.loads(Path('packet-result.json').read_text(encoding='utf-8'))
           manifest_path = Path(result['manifest_path'])
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
@@ -58,16 +60,31 @@ jobs:
               raise SystemExit(manifest)
           if manifest.get('status') != 'READY_FOR_CHAT_PROFESSIONAL_REASONING':
               raise SystemExit(manifest)
-          if manifest.get('case_count') != 5:
+          if manifest.get('case_count') != 5 or len(manifest.get('packets', [])) != 5:
               raise SystemExit(f"unexpected case count: {manifest.get('case_count')}")
-          if manifest.get('answer_data_available') is not False:
-              raise SystemExit('answer data must be unavailable')
-          for row in manifest.get('packets', []):
-              packet = json.loads(Path(row['packet_path']).read_text(encoding='utf-8'))
+          case_ids = []
+          for row in manifest['packets']:
+              packet_path = Path(row['packet_path'])
+              digest = hashlib.sha256(packet_path.read_bytes()).hexdigest()
+              if digest != row['packet_sha256']:
+                  raise SystemExit(f"packet hash mismatch: {row['case_id']}")
+              packet = json.loads(packet_path.read_text(encoding='utf-8'))
+              if packet.get('schema') != 'CHAT-PROFESSIONAL-PACKET-V1':
+                  raise SystemExit(f"wrong packet schema: {row['case_id']}")
               if packet.get('answer_data_available') is not False:
                   raise SystemExit(f"answer data visible in {row['case_id']}")
-              if packet.get('repository_search_allowed') is not False:
+              contract = packet.get('execution_contract', {})
+              if contract.get('repository_search_allowed') is not False:
                   raise SystemExit(f"repository search enabled in {row['case_id']}")
+              if contract.get('history_navigation_allowed') is not False:
+                  raise SystemExit(f"history navigation enabled in {row['case_id']}")
+              if contract.get('answer_access_allowed') is not False:
+                  raise SystemExit(f"answer access enabled in {row['case_id']}")
+              if packet.get('group_run_id') != 'DEV-GROUP-002-RUN-001':
+                  raise SystemExit(f"group mismatch: {row['case_id']}")
+              case_ids.append(packet['case_id'])
+          if len(case_ids) != len(set(case_ids)):
+              raise SystemExit('duplicate case IDs')
           print(manifest_path)
           PY
 
