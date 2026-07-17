@@ -14,7 +14,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 jobs:
   prepare-private-grading-request:
@@ -50,37 +49,30 @@ jobs:
             git commit -m "Request private grading for $run [skip ci]"
             git push origin HEAD:main
           fi
-      - name: Dispatch private vault when configured
-        if: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY != '' }}
-        env:
-          GH_TOKEN: ${{ secrets.FORTUNE_ANSWER_VAULT_TOKEN }}
-          VAULT_REPO: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY }}
-          GROUP_ID: ${{ inputs.group_id }}
-          RUN_ID: ${{ inputs.run_id }}
+      - name: Record reverse-grading handoff state
+        shell: bash
         run: |
           set -euo pipefail
-          test -n "$GH_TOKEN"
-          gh api --method POST "/repos/$VAULT_REPO/dispatches" \
-            -f event_type='fortune-reverse-grade' \
-            -F client_payload[group_id]="$GROUP_ID" \
-            -F client_payload[run_id]="$RUN_ID" \
-            -F client_payload[runtime_repository]="${{ github.repository }}" \
-            -F client_payload[request_path]="data/grading-requests/$RUN_ID.json"
-      - name: Record single external blocker when vault is not configured
-        if: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY == '' }}
-        run: |
-          cat > reports/train-dev-group-external-blocker.json <<'JSON'
+          group='${{ inputs.group_id }}'
+          run='${{ inputs.run_id }}'
+          mkdir -p reports
+          cat > "reports/${run}-reverse-grading-handoff.json" <<JSON
           {
-            "schema": "TRAIN-DEV-GROUP-EXTERNAL-BLOCKER-V1",
-            "status": "BLOCKED_ONCE",
-            "blocking_component": "PRIVATE_ANSWER_VAULT_CONNECTION",
-            "required_repository_variable": "FORTUNE_ANSWER_VAULT_REPOSITORY",
-            "required_repository_secret": "FORTUNE_ANSWER_VAULT_TOKEN",
-            "required_shared_secret": "FORTUNE_GRADING_HMAC_SECRET",
+            "schema": "REVERSE-GRADING-HANDOFF-V1",
+            "status": "AWAITING_VAULT_INITIATED_GRADING",
+            "group_id": "$group",
+            "run_id": "$run",
+            "request_path": "data/grading-requests/$run.json",
+            "runtime_repository_vault_credential": "NONE",
+            "runtime_dispatch_to_vault": false,
+            "grading_direction": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
             "manual_stage_confirmations_required_after_install": false
           }
           JSON
           git config user.name fortune-train-orchestrator
           git config user.email fortune-train-orchestrator@users.noreply.github.com
-          git add reports/train-dev-group-external-blocker.json
-          git diff --cached --quiet || { git commit -m 'Record private vault connection blocker [skip ci]'; git push origin HEAD:main; }
+          git add "reports/${run}-reverse-grading-handoff.json"
+          git diff --cached --quiet || {
+            git commit -m "Record reverse grading handoff for $run [skip ci]"
+            git push origin HEAD:main
+          }

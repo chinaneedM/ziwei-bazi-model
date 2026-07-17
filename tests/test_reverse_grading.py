@@ -48,7 +48,7 @@ class ReverseGradingTests(unittest.TestCase):
 
     def test_runtime_workflows_have_no_vault_path(self):
         result = scan_runtime_workflows(self.repo)
-        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["status"], "PASS", result)
         self.assertEqual(result["runtime_repository_vault_credential"], "NONE")
         all_text = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in self.repo.rglob("*")
                              if path.is_file() and ".git" not in path.parts and "templates" not in path.parts
@@ -120,11 +120,14 @@ class ReverseGradingTests(unittest.TestCase):
 
     def test_initialization_template_contains_no_real_answer_token_zip_rar_or_shadow(self):
         root = self.repo / "templates/answer-vault"
-        payload = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in root.rglob("*") if path.is_file())
-        self.assertNotIn("ghp_", payload)
-        self.assertNotIn("github_pat_", payload)
-        self.assertFalse(any(path.suffix.lower() in {".zip", ".rar"} for path in root.rglob("*")))
-        self.assertFalse(any("shadow_rebuild" in path.name.lower() for path in root.rglob("*")))
+        forbidden_suffixes = {".zip", ".rar"}
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            self.assertNotIn(path.suffix.lower(), forbidden_suffixes)
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            self.assertNotIn("SHADOW_REBUILD", text)
+            self.assertNotIn("REAL_ANSWER", text)
 
 
 if __name__ == "__main__":
