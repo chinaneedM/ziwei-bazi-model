@@ -1,0 +1,26 @@
+{
+  "answer_data_available": false,
+  "binding": {
+    "code_commit": "9004b20446773c6e6c9ff5f872416c7a61d177b2",
+    "library_binding_hash": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "prompt_snapshot_sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
+    "schema_version": "FORTUNE-AUTOMATION-V1"
+  },
+  "case_id": "DEV-EXAMPLE-001",
+  "dataset_type": "DEV",
+  "external_runner_contract": "Runner may read only snapshot paths and verified knowledge/base; it must write a new PREDICTION-RUN-V1 object.",
+  "questions": [
+    {"option_ids": ["A", "B", "C", "D"], "question_id": "Q1", "required_pairwise_rows": 6},
+    {"option_ids": ["A", "B", "C", "D"], "question_id": "Q2", "required_pairwise_rows": 6},
+    {"option_ids": ["A", "B", "C", "D"], "question_id": "Q3", "required_pairwise_rows": 6},
+    {"option_ids": ["A", "B", "C", "D"], "question_id": "Q4", "required_pairwise_rows": 6},
+    {"option_ids": ["A", "B", "C", "D"], "question_id": "Q5", "required_pairwise_rows": 6}
+  ],
+  "schema": "PREDICTION-RUN-CONTRACT-V1",
+  "snapshot": {
+    "case_input_hash": "d442625251914b7462f8ab0ea9985cb2797d289f700cc7371eefca5382f368f8",
+    "path": "data/prediction-snapshots/DEV-EXAMPLE-001/SNAP-DEV-EXAMPLE-001-073e5bac2b67a698/manifest.json",
+    "sha256": "bf4ccd1bc858d312d39f0f6f3e0a1ef31bb2e9e7ff2c6b0d1f3dc3d932c02415"
+  }
+}
