@@ -9,7 +9,7 @@
         "unique_library_count": 20
       },
       "check": "SOURCE_BASELINE_20_FILES",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": {
         "duplicates": {},
@@ -30,7 +30,7 @@
         "status": "PASS"
       },
       "check": "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": {
         "computed": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
@@ -52,7 +52,7 @@
         "status": "MIGRATED"
       },
       "check": "SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
         "actual": {
           "baseline_commit_sha": "989ee246ef55c92a9b4a1b86ccd4b616bbbf0069",
@@ -76,7 +76,7 @@
         "source_file_count": 20,
         "status": "MIGRATED"
       },
-      "file_sha256": "de670d2a041a7f732560eacfed71dd04e4d8fd89ab7261831fc3f8edfc92b110",
+      "file_sha256": "72415045e2f7e00f57948f51ba37d2adc1f23862e3068300bea49bc018f60200",
       "object_field_path": "$.status+$.baseline_commit_sha+$.baseline_tag",
       "real_path": "reports/migration-receipt.json",
       "status": "PASS"
@@ -91,7 +91,7 @@
         "visible": 6047
       },
       "check": "MAIN_PROMPT_AUDIT_SNAPSHOT",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": {
         "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
@@ -109,10 +109,10 @@
     {
       "actual": "PASS",
       "check": "STATIC_AND_SYNTHETIC_TESTS",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "a9be0a1b971eeb1b0561d81b2dc65b6cd553be43da50afc910b5b0f156d89fb0",
+      "file_sha256": "711868180244b312aa9bf3afc995357ca07d51ed73439c1c97a6228d8aad20c6",
       "object_field_path": "$.status",
       "real_path": "reports/test-report.json",
       "status": "PASS"
@@ -123,17 +123,17 @@
         "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
         "status": "PASS",
         "violations": [],
-        "workflow_count": 10
+        "workflow_count": 11
       },
       "check": "RUNTIME_REPOSITORY_VAULT_CREDENTIAL_NONE",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
         "actual": {
           "runtime_repository_vault_credential": "NONE",
           "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
           "status": "PASS",
           "violations": [],
-          "workflow_count": 10
+          "workflow_count": 11
         },
         "expected": {
           "runtime_repository_vault_credential": "NONE",
@@ -152,7 +152,7 @@
     {
       "actual": "PASS",
       "check": "PHYSICAL_REPOSITORY_SEPARATION",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -163,7 +163,7 @@
     {
       "actual": "PASS",
       "check": "TOKEN_REPOSITORY_SCOPE",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -174,7 +174,7 @@
     {
       "actual": "PASS",
       "check": "RUNTIME_VAULT_ACCESS_DENIAL",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -185,7 +185,7 @@
     {
       "actual": "PASS",
       "check": "GRADING_DIRECTION",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -196,7 +196,7 @@
     {
       "actual": "RECORDED",
       "check": "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": "RECORDED",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -216,7 +216,7 @@
         "runtime_repository_vault_credential": "NONE"
       },
       "check": "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": null,
       "expected": {
         "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
@@ -241,7 +241,7 @@
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
       "check": "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
         "actual": {
           "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
@@ -303,7 +303,7 @@
         "status": "INSTALLED"
       },
       "check": "EXTERNAL_PREDICTION_RUNNER",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
         "actual": {
           "adapter_status": "INSTALLED",
@@ -378,11 +378,11 @@
       "status": "PASS"
     },
     {
-      "actual": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "actual": "9674f5d53655920cd5e6acbc38e284112231762a",
       "check": "IMMUTABLE_GIT_COMMIT",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
-        "actual": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+        "actual": "9674f5d53655920cd5e6acbc38e284112231762a",
         "expected": "NON_NULL"
       },
       "expected": "NON_NULL",
@@ -394,7 +394,7 @@
     {
       "actual": 10,
       "check": "SCHEMA_SET",
-      "corresponding_commit_sha": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
+      "corresponding_commit_sha": "9674f5d53655920cd5e6acbc38e284112231762a",
       "difference": {
         "actual": 10,
         "expected": ">=9"
@@ -406,14 +406,14 @@
       "status": "PASS"
     }
   ],
-  "code_commit": "f4ac5c678fc51bc52a4bcb1c9ad1ca3aeeb288b0",
-  "generated_at": "2026-07-17T08:35:03+00:00",
+  "code_commit": "9674f5d53655920cd5e6acbc38e284112231762a",
+  "generated_at": "2026-07-17T08:57:12+00:00",
   "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
   "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
   "repository_root": ".",
   "s19_installed_validated_status_update_candidate": {
     "AUTOMATION_RUNTIME_INSTALL_STATUS": "INSTALLED_VALIDATED",
-    "basis_receipt_sha256": "16ec6dcdde36460073d89be2bca644e4197dc8a1c7f75a89f154cf71aa58e092"
+    "basis_receipt_sha256": "459aacc2b170f605bd034455e9767810c3b1afa6675eacfbb1d8ad25fc76b795"
   },
   "schema": "INSTALLATION-RECEIPT-V2",
   "status": "INSTALL_VALIDATION_CANDIDATE"
