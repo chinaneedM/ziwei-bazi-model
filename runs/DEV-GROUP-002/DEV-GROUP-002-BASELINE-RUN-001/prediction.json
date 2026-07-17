@@ -15,64 +15,44 @@
     "ziwei_inputs_read": 5
   },
   "cases": [
-    {
-      "case_id": "DEV-EXAMPLE-001",
-      "questions": [
-        {"confidence": 0.54, "question_id": "Q1", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "A", "top2": "C"},
-        {"confidence": 0.55, "question_id": "Q2", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "A"},
-        {"confidence": 0.6, "question_id": "Q3", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "B"},
-        {"confidence": 0.51, "question_id": "Q4", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "B"},
-        {"confidence": 0.52, "question_id": "Q5", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "C"}
-      ]
-    },
-    {
-      "case_id": "DEV-EXAMPLE-002",
-      "questions": [
-        {"confidence": 0.62, "question_id": "Q1", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "A"},
-        {"confidence": 0.64, "question_id": "Q2", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "C"},
-        {"confidence": 0.58, "question_id": "Q3", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "C", "top2": "B"},
-        {"confidence": 0.57, "question_id": "Q4", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "C"},
-        {"confidence": 0.55, "question_id": "Q5", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "A", "top2": "B"}
-      ]
-    },
-    {
-      "case_id": "DEV-EXAMPLE-003",
-      "questions": [
-        {"confidence": 0.56, "question_id": "Q1", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "C", "top2": "A"},
-        {"confidence": 0.63, "question_id": "Q2", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "A", "top2": "B"},
-        {"confidence": 0.58, "question_id": "Q3", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "C", "top2": "D"},
-        {"confidence": 0.61, "question_id": "Q4", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "C", "top2": "A"},
-        {"confidence": 0.59, "question_id": "Q5", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "C"}
-      ]
-    },
-    {
-      "case_id": "DEV-EXAMPLE-004",
-      "questions": [
-        {"confidence": 0.53, "question_id": "Q1", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "C"},
-        {"confidence": 0.6, "question_id": "Q2", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "A"},
-        {"confidence": 0.68, "question_id": "Q3", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "C"},
-        {"confidence": 0.56, "question_id": "Q4", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "C", "top2": "A"},
-        {"confidence": 0.64, "question_id": "Q5", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "C"}
-      ]
-    },
-    {
-      "case_id": "DEV-EXAMPLE-005",
-      "questions": [
-        {"confidence": 0.61, "question_id": "Q1", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "B"},
-        {"confidence": 0.57, "question_id": "Q2", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "D", "top2": "B"},
-        {"confidence": 0.54, "question_id": "Q3", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "D"},
-        {"confidence": 0.56, "question_id": "Q4", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "A", "top2": "D"},
-        {"confidence": 0.66, "question_id": "Q5", "status": "LOW_VALIDITY_FORCED_CHOICE", "top1": "B", "top2": "D"}
-      ]
-    }
+    {"case_id":"DEV-EXAMPLE-001","questions":[
+      {"confidence":0.54,"question_id":"Q1","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"A","top2":"C"},
+      {"confidence":0.55,"question_id":"Q2","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"A"},
+      {"confidence":0.6,"question_id":"Q3","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"B"},
+      {"confidence":0.51,"question_id":"Q4","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"B"},
+      {"confidence":0.52,"question_id":"Q5","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"C"}]},
+    {"case_id":"DEV-EXAMPLE-002","questions":[
+      {"confidence":0.62,"question_id":"Q1","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"A"},
+      {"confidence":0.64,"question_id":"Q2","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"C"},
+      {"confidence":0.58,"question_id":"Q3","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"C","top2":"B"},
+      {"confidence":0.57,"question_id":"Q4","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"C"},
+      {"confidence":0.55,"question_id":"Q5","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"A","top2":"B"}]},
+    {"case_id":"DEV-EXAMPLE-003","questions":[
+      {"confidence":0.56,"question_id":"Q1","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"C","top2":"A"},
+      {"confidence":0.63,"question_id":"Q2","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"A","top2":"B"},
+      {"confidence":0.58,"question_id":"Q3","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"C","top2":"D"},
+      {"confidence":0.61,"question_id":"Q4","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"C","top2":"A"},
+      {"confidence":0.59,"question_id":"Q5","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"C"}]},
+    {"case_id":"DEV-EXAMPLE-004","questions":[
+      {"confidence":0.53,"question_id":"Q1","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"C"},
+      {"confidence":0.6,"question_id":"Q2","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"A"},
+      {"confidence":0.68,"question_id":"Q3","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"C"},
+      {"confidence":0.56,"question_id":"Q4","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"C","top2":"A"},
+      {"confidence":0.64,"question_id":"Q5","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"C"}]},
+    {"case_id":"DEV-EXAMPLE-005","questions":[
+      {"confidence":0.61,"question_id":"Q1","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"B"},
+      {"confidence":0.57,"question_id":"Q2","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"D","top2":"B"},
+      {"confidence":0.54,"question_id":"Q3","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"D"},
+      {"confidence":0.56,"question_id":"Q4","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"A","top2":"D"},
+      {"confidence":0.66,"question_id":"Q5","status":"LOW_VALIDITY_FORCED_CHOICE","top1":"B","top2":"D"}]}
   ],
   "dataset_type": "DEV",
   "formal_exact_assertion_status": "NULL_WHERE_EXACT_ENDPOINT_NOT_CLOSED",
-  "freeze_status": "BASELINE_SELECTIONS_READY_FOR_REPOSITORY_VALIDATION",
+  "freeze_status": "RELATIVE_BASELINE_READY_FOR_FREEZE",
   "group_id": "DEV-GROUP-002",
   "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
   "prediction_commit_input": "558feffbc04f07d45f882be699d0e0cac6f06534",
   "question_count_total": 25,
   "run_id": "DEV-GROUP-002-BASELINE-RUN-001",
-  "schema": "PREDICTION-RUN-V1"
+  "schema": "RELATIVE-BASELINE-GROUP-V1"
 }
