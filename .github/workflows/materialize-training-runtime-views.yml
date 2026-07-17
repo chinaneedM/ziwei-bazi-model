@@ -1,0 +1,44 @@
+name: materialize-training-runtime-views
+
+on:
+  workflow_dispatch:
+    inputs:
+      group_id:
+        description: Training group to materialize
+        required: true
+        default: DEV-GROUP-002
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Materialize line-readable answer-free views
+        env:
+          GROUP_ID: ${{ inputs.group_id }}
+        run: |
+          set -euo pipefail
+          out="training-data/${GROUP_ID}/runtime-views"
+          test ! -e "$out"
+          args=()
+          for file in training-data/${GROUP_ID}/cases/*.json; do
+            args+=(--case "$file")
+          done
+          python scripts/materialize-training-runtime-view.py \
+            "${args[@]}" \
+            --output-root "$out"
+          python -m unittest tests.test_materialize_training_runtime_view -v
+      - name: Commit materialized views
+        env:
+          GROUP_ID: ${{ inputs.group_id }}
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add "training-data/${GROUP_ID}/runtime-views"
+          git diff --cached --quiet && exit 0
+          git commit -m "Materialize ${GROUP_ID} runtime views"
+          git push
