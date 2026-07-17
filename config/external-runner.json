@@ -18,6 +18,18 @@
     "request_transport": "GITHUB_REPOSITORY_OBJECT_HANDOFF",
     "receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1"
   },
+  "freeze_gate": {
+    "status": "ENFORCED",
+    "cli_command": "fortune-v1 freeze --handoff-receipt",
+    "required_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
+    "origin_validation_schema": "CHAT-WORK-HANDOFF-VALIDATION-V1",
+    "prediction_origin": "CHAT_WORK_HANDOFF_VERIFIED",
+    "missing_receipt_status": "HANDOFF_RECEIPT_MISSING",
+    "invalid_receipt_status": "HANDOFF_RECEIPT_INVALID",
+    "prediction_hash_replay_required": true,
+    "contract_hash_replay_required": true,
+    "identity_and_binding_replay_required": true
+  },
   "input_contract": "PREDICTION-RUN-CONTRACT-V1",
   "output_schema": "PREDICTION-RUN-V1",
   "timeout_seconds": 1800,
