@@ -15,18 +15,18 @@ No OpenAI API key, separate model endpoint, paid server, or background process i
 
 ## Installation state
 
-The authoritative state is the current machine-generated `reports/install-receipt.json`. The installed components include:
+The authoritative runtime state is the machine-generated `reports/install-state.json`, validated by `reports/install-state-validation.json` and bound to the versioned installation receipt. Installed components include:
 
 - the S00–S19 source baseline and exact S19 binding-table recomputation;
 - the R16 main-prompt audit snapshot, explicitly marked as an audit copy rather than runtime authority;
-- the physically separate answer vault and reverse-grading workflow;
+- the physically separate answer vault and reverse-grading workflows;
 - bidirectional token-scope denial and absence of any vault credential in the runtime repository;
 - static and synthetic validation;
 - the `CHAT_WORK_INTERACTIVE_EXECUTOR` registration;
-- the deterministic `fortune-v1 chat-work-import` handoff adapter;
-- the `chat-work-handoff` GitHub workflow, which validates and freezes a prediction before reveal.
-
-The group-level single-session contract and commands are being added on the current development branch. They must pass tests and receive a new installation receipt before they may be described as installed on `main`.
+- the deterministic single-case `fortune-v1 chat-work-import` handoff adapter;
+- the installed group commands `fortune-v1 group-chat-work-run` and `fortune-v1 group-verify-freeze`;
+- complete-group freeze before any answer access;
+- the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading.
 
 The phrase `EXTERNAL_PREDICTION_RUNNER` in the installation schema refers to the **external-to-GitHub ChatGPT project session**, not to an API service. See [external-runner.md](docs/external-runner.md).
 
