@@ -1,0 +1,66 @@
+name: temp-artifact-retrieval-run1
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  create-clean-start:
+    if: github.head_ref == 'agent/artifact-retrieval-run1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Create clean start
+        run: |
+          PYTHONPATH=src python scripts/create-group-clean-start.py create \
+            --group-manifest training-data/DEV-GROUP-002/manifest.json \
+            --install-state reports/install-state.json \
+            --output-root data/group-clean-starts \
+            --group-run-id DEV-GROUP-002-RUN-001 \
+            --session-id CHAT-DEV-GROUP-002-001 \
+            --mode CHAT_ONLY \
+            | tee clean-start-result.json
+
+      - name: Verify clean start
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('clean-start-result.json').read_text(encoding='utf-8'))
+          if result.get('status') != 'READY_FOR_CLEAN_GROUP_PREDICTION':
+              raise SystemExit(result)
+          if result.get('answer_data_available') is not False:
+              raise SystemExit('answer data must be unavailable')
+          path = Path(result['clean_start_path'])
+          if not path.is_file():
+              raise SystemExit(f'missing clean start: {path}')
+          print(path)
+          PY
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: group-clean-start-DEV-GROUP-002-RUN-001
+          path: |
+            clean-start-result.json
+            data/group-clean-starts/DEV-GROUP-002-RUN-001/
+          if-no-files-found: error
+          retention-days: 1
