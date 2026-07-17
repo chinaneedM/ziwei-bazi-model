@@ -7,12 +7,14 @@ on:
       - data/prediction-contracts/**
       - data/chat-work-candidates/DEV-EXAMPLE-00*.prediction-body-draft.json
       - data/chat-work-candidates/DEV-EXAMPLE-005.schema-normalization.json
+      - data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json
   pull_request:
     paths:
       - .github/workflows/assemble-validate-dev-group-002-runs.yml
       - data/prediction-contracts/**
       - data/chat-work-candidates/DEV-EXAMPLE-00*.prediction-body-draft.json
       - data/chat-work-candidates/DEV-EXAMPLE-005.schema-normalization.json
+      - data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json
   workflow_dispatch:
 
 permissions:
@@ -42,6 +44,9 @@ jobs:
               'DEV-EXAMPLE-003': ('AACBC','CCAAB'),
               'DEV-EXAMPLE-005': ('BABAB','DDADC'),
           }
+          pairwise_overlay = json.loads(Path('data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json').read_text(encoding='utf-8'))
+          assert pairwise_overlay['answer_access_performed'] is False
+          assert pairwise_overlay['frozen_values_changed'] is False
           summary = []
           for case_id in cases:
               draft_path = Path('data/chat-work-candidates') / f'{case_id}.prediction-body-draft.json'
@@ -55,6 +60,16 @@ jobs:
               assert contract['answer_data_available'] is False
 
               questions = copy.deepcopy(draft['questions'])
+              if case_id == 'DEV-EXAMPLE-002':
+                  for operation in pairwise_overlay['operations']:
+                      q = next(item for item in questions if item['question_id'] == operation['question_id'])
+                      target_pair = set(operation['pair'])
+                      row = next(item for item in q['pairwise_rows'] if {item['left'], item['right']} == target_pair)
+                      assert row['winner'] == operation['old_winner']
+                      row['winner'] = operation['new_winner']
+                      row['decision_basis'] = operation['decision_basis']
+                      row['distinctive_atom_comparison'] = operation['distinctive_atom_comparison']
+
               for q in questions:
                   for entry in q.get('evidence_ledger', []):
                       if entry.get('source_library') in {'S17','S18'}:
@@ -70,10 +85,7 @@ jobs:
                   'binding': contract['binding'],
                   'run_id': f"RUN-DEV-GROUP-002-20260717-9004B204-01-{case_id}",
                   'cold_start': True,
-                  'input_snapshot': {
-                      'path': contract['snapshot']['path'],
-                      'sha256': contract['snapshot']['sha256'],
-                  },
+                  'input_snapshot': {'path': contract['snapshot']['path'], 'sha256': contract['snapshot']['sha256']},
                   'questions': questions,
               }
               validation = validate_prediction_run(run, contract)
@@ -82,24 +94,16 @@ jobs:
               out.write_text(json.dumps(run, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
               report_path = Path('reports/prediction-validation') / f'{case_id}.json'
               report_path.write_text(json.dumps({
-                  'schema':'PREDICTION-PRESEAL-VALIDATION-REPORT-V1',
-                  'case_id':case_id,
-                  'status':validation['status'],
-                  'errors':validation['errors'],
-                  'error_count':len(validation['errors']),
-                  'top1_vector':top1,
-                  'top2_vector':top2,
-                  'answer_access_performed':False,
-                  'formal_freeze_performed':False,
+                  'schema':'PREDICTION-PRESEAL-VALIDATION-REPORT-V1','case_id':case_id,
+                  'status':validation['status'],'errors':validation['errors'],'error_count':len(validation['errors']),
+                  'top1_vector':top1,'top2_vector':top2,'answer_access_performed':False,'formal_freeze_performed':False,
+                  'pairwise_overlay_applied': case_id == 'DEV-EXAMPLE-002',
               }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
               summary.append({'case_id':case_id,'status':validation['status'],'error_count':len(validation['errors'])})
 
           Path('reports/prediction-validation/summary.json').write_text(json.dumps({
-              'schema':'PREDICTION-PRESEAL-VALIDATION-SUMMARY-V1',
-              'status':'VALIDATED_NOT_FROZEN',
-              'cases':summary,
-              'answer_access_performed':False,
-              'formal_freeze_performed':False,
+              'schema':'PREDICTION-PRESEAL-VALIDATION-SUMMARY-V1','status':'VALIDATED_NOT_FROZEN','cases':summary,
+              'answer_access_performed':False,'formal_freeze_performed':False,
           }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
           PY
       - name: Upload pre-seal runs and validation reports
