@@ -26,18 +26,19 @@ jobs:
           export PYTHONPATH=src
           commit="9004b20446773c6e6c9ff5f872416c7a61d177b2"
           prompt_sha="832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017"
-          mkdir -p data/prediction-snapshots data/prediction-contracts reports .generated/normalized-cases
+          mkdir -p data/prediction-snapshots data/prediction-contracts reports .generated/normalized-cases .generated/normalized-inputs
 
           for case_id in DEV-EXAMPLE-001 DEV-EXAMPLE-002 DEV-EXAMPLE-003 DEV-EXAMPLE-005; do
             runtime_root="training-data/DEV-GROUP-002/runtime-views/${case_id}"
             runtime_manifest="${runtime_root}/manifest.json"
             normalized_case=".generated/normalized-cases/${case_id}.json"
+            normalized_questions=".generated/normalized-inputs/${case_id}-questions.txt"
 
-            python - "$case_id" "$runtime_manifest" "$normalized_case" <<'PY'
-          import json, sys
+            python - "$case_id" "$runtime_manifest" "$normalized_case" "$normalized_questions" <<'PY'
+          import hashlib, json, re, sys
           from pathlib import Path
 
-          case_id, manifest_path, output_path = sys.argv[1:]
+          case_id, manifest_path, output_path, normalized_questions_path = sys.argv[1:]
           manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
           assert manifest['case_id'] == case_id
           assert manifest['schema'] == 'TRAINING-CASE-RUNTIME-VIEW-V1'
@@ -46,20 +47,28 @@ jobs:
           assert manifest['answer_reference_disclosed'] is False
 
           runtime_root = Path(manifest_path).parent
-          selected = [
-              ('ZIWEI', 'ziwei.txt'),
-              ('QUESTIONS', 'questions.txt'),
+          source_questions = runtime_root / 'questions.txt'
+          text = source_questions.read_text(encoding='utf-8')
+          normalized_text = re.sub(r'(?m)^\s*([A-H])(?=\S)', r'\1 ', text)
+          Path(normalized_questions_path).write_text(normalized_text, encoding='utf-8')
+          q_bytes = Path(normalized_questions_path).read_bytes()
+
+          ziwei_meta = manifest['files']['ziwei.txt']
+          ziwei_path = runtime_root / 'ziwei.txt'
+          files = [
+              {
+                  'logical_type': 'ZIWEI',
+                  'path': str(ziwei_path),
+                  'sha256': ziwei_meta['sha256'],
+                  'bytes': ziwei_meta['bytes'],
+              },
+              {
+                  'logical_type': 'QUESTIONS',
+                  'path': normalized_questions_path,
+                  'sha256': hashlib.sha256(q_bytes).hexdigest(),
+                  'bytes': len(q_bytes),
+              },
           ]
-          files = []
-          for logical_type, name in selected:
-              meta = manifest['files'][name]
-              path = runtime_root / name
-              files.append({
-                  'logical_type': logical_type,
-                  'path': str(path),
-                  'sha256': meta['sha256'],
-                  'bytes': meta['bytes'],
-              })
           normalized = {
               'schema': 'NORMALIZED-CASE-ADAPTER-V1',
               'status': 'NORMALIZED',
@@ -75,6 +84,8 @@ jobs:
                   'path': manifest_path,
                   'source_case_path': manifest['source_case_path'],
                   'source_case_sha256': manifest['source_case_sha256'],
+                  'original_questions_sha256': manifest['files']['questions.txt']['sha256'],
+                  'question_normalization': 'INSERT_ONE_ASCII_SPACE_AFTER_OPTION_ID_WHEN_MISSING',
               },
           }
           Path(output_path).write_text(
