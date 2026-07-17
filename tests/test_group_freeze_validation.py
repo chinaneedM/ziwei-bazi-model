@@ -3,7 +3,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from fortune_v1.group import authorize_group_reveal, create_dev_group, register_baseline_freeze
+from fortune_v1.group import (
+    authorize_group_reveal,
+    create_dev_group,
+    register_baseline_freeze,
+    validate_group_reveal_authorization,
+)
 from fortune_v1.util import FortuneError, sha256_file
 
 
@@ -58,6 +63,38 @@ class GroupFreezeValidationTests(unittest.TestCase):
             prediction.write_text(prediction.read_text(encoding="utf-8") + "\n", encoding="utf-8")
             with self.assertRaises(FortuneError):
                 authorize_group_reveal(group_root / "GROUP-001")
+
+    def test_verify_reveal_rejects_before_group_authorization(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            binding = {"version": "R1"}
+            group_root = root / "groups"
+            create_dev_group("GROUP-001", ["CASE-001"], binding, group_root, expected_size=1)
+            receipt = self._write_valid_freeze(root, binding)
+            register_baseline_freeze(group_root / "GROUP-001", receipt)
+            with self.assertRaises(FortuneError):
+                validate_group_reveal_authorization(
+                    group_root / "GROUP-001", "CASE-001", "RUN-CASE-001"
+                )
+
+    def test_verify_reveal_passes_only_for_registered_case_and_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            binding = {"version": "R1"}
+            group_root = root / "groups"
+            create_dev_group("GROUP-001", ["CASE-001"], binding, group_root, expected_size=1)
+            receipt = self._write_valid_freeze(root, binding)
+            register_baseline_freeze(group_root / "GROUP-001", receipt)
+            authorize_group_reveal(group_root / "GROUP-001")
+            validation = validate_group_reveal_authorization(
+                group_root / "GROUP-001", "CASE-001", "RUN-CASE-001"
+            )
+            self.assertEqual(validation["status"], "PASS")
+            self.assertEqual(validation["case_id"], "CASE-001")
+            with self.assertRaises(FortuneError):
+                validate_group_reveal_authorization(
+                    group_root / "GROUP-001", "CASE-001", "RUN-WRONG"
+                )
 
 
 if __name__ == "__main__":

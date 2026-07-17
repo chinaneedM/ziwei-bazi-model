@@ -10,7 +10,13 @@ from .bazi import freeze_transcription
 from .blind_track import create_local_track_seal, seal_blind_track_model
 from .diagnosis import classify_errors, create_interface_patch_candidate
 from .external_runner import import_chat_work_prediction
-from .group import authorize_group_reveal, create_dev_group, record_patch_round, register_baseline_freeze
+from .group import (
+    authorize_group_reveal,
+    create_dev_group,
+    record_patch_round,
+    register_baseline_freeze,
+    validate_group_reveal_authorization,
+)
 from .ingest import ingest_zip
 from .install_state import finalize_installation_state, validate_installation_state
 from .knowledge import build_locator_index, read_parent_segment, validate_locator_index
@@ -79,6 +85,8 @@ def parser() -> argparse.ArgumentParser:
     cmd("group-create", ("--group-id", {"required": True}), ("--case-id", {"action": "append", "required": True}), ("--binding", {"required": True}), ("--root", {"required": True}), ("--expected-size", {"type": int, "default": 5}))
     cmd("group-register-freeze", ("--group-root", {"required": True}), ("--freeze-receipt", {"required": True}))
     cmd("group-authorize-reveal", ("--group-root", {"required": True}))
+    cmd("group-verify-reveal", ("--group-root", {"required": True}), ("--case-id", {"required": True}),
+        ("--run-id", {"required": True}), ("--output", {"required": True}))
     cmd("group-patch-round", ("--group-root", {"required": True}), ("--net-improvement", {"type": int, "required": True}), ("--regression-damage", {"type": int, "required": True}), ("--defect-id", {"required": True}), ("--case-specific-only", {"action": "store_true"}), ("--base-change-required", {"action": "store_true"}))
     cmd("diagnose", ("--reveal", {"required": True}), ("--prediction", {"required": True}), ("--output", {"required": True}))
     cmd("patch-candidate", ("--diagnosis", {"required": True}), ("--defect-id", {"action": "append", "required": True}), ("--layer", {"required": True}), ("--parent-chain", {"required": True}), ("--changes", {"required": True}), ("--output", {"required": True}))
@@ -140,6 +148,9 @@ def main(argv: list[str] | None = None) -> int:
         elif c == "group-create": result = create_dev_group(args.group_id, args.case_id, read_json(args.binding), args.root, args.expected_size)
         elif c == "group-register-freeze": result = register_baseline_freeze(args.group_root, args.freeze_receipt)
         elif c == "group-authorize-reveal": result = authorize_group_reveal(args.group_root)
+        elif c == "group-verify-reveal":
+            result = validate_group_reveal_authorization(args.group_root, args.case_id, args.run_id)
+            atomic_write_json(args.output, result)
         elif c == "group-patch-round": result = record_patch_round(args.group_root, args.net_improvement, args.regression_damage, args.defect_id, args.case_specific_only, args.base_change_required)
         elif c == "diagnose": result = classify_errors(args.reveal, args.prediction, args.output)
         elif c == "patch-candidate": result = create_interface_patch_candidate(args.diagnosis, args.defect_id, args.layer, read_json(args.parent_chain), read_json(args.changes), args.output)
