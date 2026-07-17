@@ -29,6 +29,7 @@ def _validate_chat_work_runner(runner: dict[str, Any] | None) -> tuple[bool, dic
     if not isinstance(runner, dict):
         return False, None
     adapter = runner.get("adapter") if isinstance(runner.get("adapter"), dict) else {}
+    freeze_gate = runner.get("freeze_gate") if isinstance(runner.get("freeze_gate"), dict) else {}
     proof = runner.get("no_answer_access_proof") if isinstance(runner.get("no_answer_access_proof"), dict) else {}
     prompt = runner.get("prompt_binding") if isinstance(runner.get("prompt_binding"), dict) else {}
     modes = runner.get("interaction_modes")
@@ -46,6 +47,16 @@ def _validate_chat_work_runner(runner: dict[str, Any] | None) -> tuple[bool, dic
                    and adapter.get("module") == "fortune_v1.external_runner"
                    and adapter.get("cli_command") == "fortune-v1 chat-work-import"
                    and adapter.get("workflow_path") == ".github/workflows/external-runner-smoke.yml",
+        "freeze_gate": freeze_gate.get("status") == "ENFORCED"
+                       and freeze_gate.get("cli_command") == "fortune-v1 freeze --handoff-receipt"
+                       and freeze_gate.get("required_receipt_schema") == "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1"
+                       and freeze_gate.get("origin_validation_schema") == "CHAT-WORK-HANDOFF-VALIDATION-V1"
+                       and freeze_gate.get("prediction_origin") == "CHAT_WORK_HANDOFF_VERIFIED"
+                       and freeze_gate.get("missing_receipt_status") == "HANDOFF_RECEIPT_MISSING"
+                       and freeze_gate.get("invalid_receipt_status") == "HANDOFF_RECEIPT_INVALID"
+                       and freeze_gate.get("prediction_hash_replay_required") is True
+                       and freeze_gate.get("contract_hash_replay_required") is True
+                       and freeze_gate.get("identity_and_binding_replay_required") is True,
         "input_contract": runner.get("input_contract") == "PREDICTION-RUN-CONTRACT-V1",
         "output_schema": runner.get("output_schema") == "PREDICTION-RUN-V1",
         "proof_policy": proof.get("status") == "ENFORCED_PER_RUN"
@@ -71,6 +82,7 @@ def _validate_chat_work_runner(runner: dict[str, Any] | None) -> tuple[bool, dic
         "background_execution": runner.get("background_execution"),
         "api_service_required": runner.get("api_service_required"),
         "adapter_status": adapter.get("status"),
+        "freeze_gate_status": freeze_gate.get("status"),
         "no_answer_access_policy": proof.get("status"),
         "prompt_runtime_id": prompt.get("runtime_id"),
         "checks": checks,
@@ -201,12 +213,13 @@ def installation_check(repo_root: str | Path, source_audit_path: str | Path | No
         "background_execution": False,
         "api_service_required": False,
         "adapter_status": "INSTALLED",
+        "freeze_gate_status": "ENFORCED",
         "no_answer_access_policy": "ENFORCED_PER_RUN",
         "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
         "checks": "ALL_TRUE",
     }
     checks.append(_check("EXTERNAL_PREDICTION_RUNNER", runner_pass, external_runner,
-                         "$.external_prediction_runner_status+chat_work_handoff_contract",
+                         "$.external_prediction_runner_status+chat_work_handoff_contract+freeze_gate",
                          runner_actual, runner_expected, commit))
 
     checks.append(_check("IMMUTABLE_GIT_COMMIT", bool(commit), root / ".git", "HEAD", commit, "NON_NULL", commit))
