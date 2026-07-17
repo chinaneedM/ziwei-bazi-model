@@ -1,0 +1,77 @@
+name: temp-blind-inventory
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    if: github.head_ref == 'agent/blind-inventory-check'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build metadata-only inventory
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          forbidden = {'answer','answers','answer_key','correct_answer','literal_answer_vector','reveal','grading'}
+          roots = [Path('training-data'), Path('data/dev-groups'), Path('data/groups'), Path('fixtures')]
+          rows = []
+          for root in roots:
+              if not root.exists():
+                  continue
+              for path in sorted(root.rglob('*')):
+                  if not path.is_file():
+                      continue
+                  row = {
+                      'path': path.as_posix(),
+                      'bytes': path.stat().st_size,
+                      'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                  }
+                  if path.suffix.lower() == '.json':
+                      try:
+                          value = json.loads(path.read_text(encoding='utf-8'))
+                      except Exception as exc:
+                          row['json_status'] = f'INVALID:{type(exc).__name__}'
+                      else:
+                          row['json_status'] = 'VALID'
+                          if isinstance(value, dict):
+                              row['schema'] = value.get('schema')
+                              row['group_id'] = value.get('group_id')
+                              row['case_id'] = value.get('case_id')
+                              row['status'] = value.get('status')
+                              keys = {str(k).lower() for k in value}
+                              row['top_level_forbidden_keys'] = sorted(keys & forbidden)
+                  rows.append(row)
+          result = {
+              'schema': 'RUNTIME-BLIND-INVENTORY-V1',
+              'row_count': len(rows),
+              'rows': rows,
+              'content_included': False,
+              'status': 'PASS',
+          }
+          Path('blind-inventory.json').write_text(
+              json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          print(f"rows={len(rows)}")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-blind-inventory
+          path: blind-inventory.json
+          if-no-files-found: error
+          retention-days: 1
