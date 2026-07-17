@@ -38,6 +38,11 @@ def create_dev_group(group_id: str, case_ids: list[str], binding: dict[str, Any]
 def _head(group_root: Path) -> tuple[dict[str, Any], Path]:
     pointer = read_json(group_root / "HEAD.json")
     path = Path(pointer["path"])
+    if not path.is_absolute():
+        candidate = path
+        if not candidate.is_file():
+            candidate = group_root / "revisions" / path.name
+        path = candidate
     return read_json(path), path
 
 
@@ -118,6 +123,51 @@ def authorize_group_reveal(group_root: str | Path) -> dict[str, Any]:
         for case_id, validation in replay_receipts.items()
     }
     return _append(root, group)
+
+
+def validate_group_reveal_authorization(group_root: str | Path, expected_case_id: str,
+                                        expected_run_id: str) -> dict[str, Any]:
+    root = Path(group_root)
+    group, head_path = _head(root)
+    if group.get("schema") != "DEV-GROUP-V1":
+        raise FortuneError("group schema invalid", status="GROUP_REVEAL_NOT_AUTHORIZED")
+    if group.get("status") != "GROUP_REVEAL_AUTHORIZED" or group.get("reveal_authorized") is not True:
+        raise FortuneError("group reveal is not authorized", status="GROUP_REVEAL_NOT_AUTHORIZED")
+    if set(group.get("baseline_freezes", {})) != set(group.get("case_ids", [])):
+        raise FortuneError("group baselines incomplete", status="GROUP_REVEAL_BEFORE_ALL_BASELINES_BLOCKED")
+    registered = group["baseline_freezes"].get(expected_case_id)
+    if not isinstance(registered, dict):
+        raise FortuneError("case is not registered in authorized group", status="CASE_NOT_IN_GROUP")
+    if registered.get("run_id") != slug(expected_run_id):
+        raise FortuneError("group RUN_ID mismatch", status="FREEZE_RUN_ID_MISMATCH")
+
+    validation = validate_freeze_receipt(registered["receipt_path"], expected_run_id)
+    if validation["freeze_receipt_sha256"] != registered.get("receipt_sha256"):
+        raise FortuneError("registered freeze receipt changed", status="FROZEN_PREDICTION_HASH_MISMATCH")
+    if validation["prediction_sha256"] != registered.get("prediction_sha256"):
+        raise FortuneError("registered prediction changed", status="FROZEN_PREDICTION_HASH_MISMATCH")
+    if validation["contract_sha256"] != registered.get("contract_sha256"):
+        raise FortuneError("registered contract changed", status="FROZEN_CONTRACT_HASH_MISMATCH")
+
+    run = read_json(validation["prediction_path"])
+    if run.get("case_id") != expected_case_id:
+        raise FortuneError("frozen prediction case mismatch", status="CASE_ID_MISMATCH")
+    if run.get("binding") != group.get("frozen_binding"):
+        raise FortuneError("group binding mismatch", status="DEV_GROUP_VERSION_MISMATCH")
+
+    return {
+        "schema": "GROUP-REVEAL-AUTHORIZATION-VALIDATION-V1",
+        "group_id": group["group_id"],
+        "case_id": expected_case_id,
+        "run_id": validation["run_id"],
+        "group_revision": group["revision"],
+        "group_head_path": str(head_path),
+        "group_head_sha256": sha256_file(head_path),
+        "freeze_receipt_sha256": validation["freeze_receipt_sha256"],
+        "prediction_sha256": validation["prediction_sha256"],
+        "contract_sha256": validation["contract_sha256"],
+        "status": "PASS",
+    }
 
 
 def record_patch_round(group_root: str | Path, net_improvement: int, regression_damage: int,
