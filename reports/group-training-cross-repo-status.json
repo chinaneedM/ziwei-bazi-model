@@ -2,35 +2,45 @@
   "schema": "GROUP-TRAINING-CROSS-REPOSITORY-STATUS-V1",
   "runtime_repository": "chinaneedM/ziwei-bazi-model",
   "runtime_pull_request": 20,
-  "runtime_validated_commit": "f5b9a3800d1f3322be21a9829398ea411f9b57ec",
+  "runtime_merge_commit": "9160a51a860a3aa8dcded1713b89a92e3da489d7",
   "runtime_checks": {
     "group_training_validation": {
-      "run_id": 29590278048,
+      "run_id": 29590392463,
       "conclusion": "success"
     },
     "runtime_ci": {
-      "run_id": 29590277805,
+      "run_id": 29590395803,
       "conclusion": "success"
     },
     "materialize_training_runtime_views": {
-      "run_id": 29590278045,
+      "run_id": 29590392307,
       "conclusion": "success"
     }
   },
   "answer_vault_repository": "chinaneedM/fortune-answer-vault",
   "answer_vault_pull_request": 5,
-  "answer_vault_workflow_commit": "92452cae5bf56f9d3cd277937da1fb36a67ca15a",
+  "answer_vault_merge_commit": "b243949f836b2674f29b283c0eb9816d9b0359dc",
   "answer_vault_workflow": ".github/workflows/grade-frozen-group.yml",
-  "runtime_implementation_status": "PASS_ON_BRANCH",
-  "answer_vault_implementation_status": "IMPLEMENTED_ON_BRANCH",
-  "cross_repository_installation_status": "NOT_INSTALLED",
-  "remaining_gates": [
-    "ANSWER_VAULT_WORKFLOW_REVIEW_OR_VALIDATION",
-    "MERGE_RUNTIME_PR_20",
-    "MERGE_ANSWER_VAULT_PR_5",
-    "GENERATE_NEW_INSTALL_RECEIPT",
-    "GENERATE_NEW_INSTALLATION_STATE_SEAL",
-    "POST_MERGE_READBACK_VALIDATION"
-  ],
-  "status": "PASS_IMPLEMENTED_NOT_INSTALLED"
+  "answer_vault_workflow_blob_sha": "8d58f286667be5f9d4d59de773ff28d65f758d3d",
+  "answer_vault_checks": {
+    "validate_group_grader": {
+      "run_id": 29590464028,
+      "conclusion": "success"
+    },
+    "answer_vault_ci": {
+      "run_id": 29590463829,
+      "conclusion": "success"
+    }
+  },
+  "runtime_install_state": {
+    "basis_commit": "9160a51a860a3aa8dcded1713b89a92e3da489d7",
+    "install_receipt_status": "INSTALL_VALIDATION_CANDIDATE_ALL_CHECKS_PASS",
+    "installation_state_status": "INSTALLED_VALIDATED",
+    "installation_state_validation_errors": []
+  },
+  "runtime_implementation_status": "INSTALLED_VALIDATED_ON_MAIN",
+  "answer_vault_implementation_status": "INSTALLED_ON_MAIN",
+  "cross_repository_installation_status": "INSTALLED_VALIDATED",
+  "remaining_gates": [],
+  "status": "PASS_INSTALLED_VALIDATED"
 }
