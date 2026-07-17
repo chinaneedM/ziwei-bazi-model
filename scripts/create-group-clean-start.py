@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+
+from fortune_v1.clean_start import create_group_clean_start, record_group_contamination
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    create = sub.add_parser("create")
+    create.add_argument("--group-manifest", required=True)
+    create.add_argument("--install-state", required=True)
+    create.add_argument("--output-root", required=True)
+    create.add_argument("--group-run-id", required=True)
+    create.add_argument("--session-id", required=True)
+    create.add_argument("--mode", choices=["CHAT_ONLY", "WORK"], default="CHAT_ONLY")
+
+    contaminate = sub.add_parser("contaminate")
+    contaminate.add_argument("--clean-start", required=True)
+    contaminate.add_argument("--output", required=True)
+    contaminate.add_argument("--resource-type", required=True)
+    contaminate.add_argument("--resource-reference", required=True)
+
+    args = parser.parse_args()
+    if args.command == "create":
+        result = create_group_clean_start(
+            args.group_manifest,
+            args.install_state,
+            args.output_root,
+            args.group_run_id,
+            args.session_id,
+            args.mode,
+        )
+    else:
+        result = record_group_contamination(
+            args.clean_start,
+            args.output,
+            args.resource_type,
+            args.resource_reference,
+        )
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
