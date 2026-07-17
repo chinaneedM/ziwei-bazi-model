@@ -1,0 +1,49 @@
+name: materialize-dev-group-002-pr
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Materialize or validate runtime views
+        run: |
+          set -euo pipefail
+          out="training-data/DEV-GROUP-002/runtime-views"
+          if [ ! -e "$out" ]; then
+            args=()
+            for file in training-data/DEV-GROUP-002/cases/*.json; do
+              args+=(--case "$file")
+            done
+            python scripts/materialize-training-runtime-view.py \
+              "${args[@]}" \
+              --output-root "$out"
+          fi
+          python -m unittest tests.test_materialize_training_runtime_view -v
+          test "$(find "$out" -mindepth 1 -maxdepth 1 -type d | wc -l)" -eq 5
+          for case_dir in "$out"/DEV-EXAMPLE-*; do
+            test -f "$case_dir/manifest.json"
+            test -f "$case_dir/ziwei.txt"
+            test -f "$case_dir/questions.txt"
+            test -f "$case_dir/questions-parsed.json"
+            test -f "$case_dir/bazi-transcription.json"
+          done
+      - name: Commit generated views to PR branch
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add training-data/DEV-GROUP-002/runtime-views
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Materialize DEV-GROUP-002 runtime views"
+          git push origin "HEAD:${{ github.head_ref }}"
