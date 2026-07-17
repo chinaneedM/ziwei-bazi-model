@@ -1,0 +1,31 @@
+{
+  "schema": "GROUP-TRAINING-RUNTIME-CONFIG-V1",
+  "execution_granularity": "GROUP_SINGLE_CHAT_WORK_SESSION",
+  "cold_start_boundary": "BETWEEN_GROUPS",
+  "per_case_new_conversation_required": false,
+  "per_case_continue_message_required": false,
+  "case_isolation_required": true,
+  "group_freeze_before_any_reveal_required": true,
+  "partial_group_reveal_permission": false,
+  "reuse_group_run_id_permission": false,
+  "reuse_case_run_id_permission": false,
+  "original_prediction_overwrite_permission": false,
+  "answer_or_reveal_visibility_during_prediction": "FORBIDDEN",
+  "later_case_may_read_prior_case_prediction": false,
+  "later_case_may_read_prior_case_reveal": false,
+  "clean_rerun_requires_new_group_and_case_ids": true,
+  "base_astrological_knowledge_change_from_single_group": false,
+  "case_specific_direction_rule_permission": false,
+  "workflow": [
+    "GROUP_INPUT_FREEZE",
+    "ALL_CASE_BLIND_PREDICTIONS",
+    "GROUP_PREDICTION_FREEZE",
+    "GROUP_REVEAL",
+    "GROUP_DIAGNOSIS",
+    "PATCH_CANDIDATE",
+    "CLEAN_GROUP_RERUN",
+    "REGRESSION_COMPARE",
+    "ACCEPT_OR_ROLLBACK"
+  ],
+  "status": "CONTRACT_DEFINED_IMPLEMENTATION_PENDING_VALIDATION"
+}
