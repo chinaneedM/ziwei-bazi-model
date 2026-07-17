@@ -136,4 +136,4 @@ Those functions must remain in a separate reveal-side implementation so predicti
 
 ## Release condition
 
-Do not merge this draft merely because the files exist. Before release, run the repository test suite in a real Python checkout and perform one synthetic end-to-end dry run from clean-start packet creation through group freeze. The fixed five development cases should only run after that synthetic dry run passes.
+The repository test suite, group fail-closed checks, command registration checks, and synthetic end-to-end dry run must all pass on the final code head. The fixed five development cases should run only after those checks pass and this prediction-side pull request is merged or explicitly selected as the frozen run commit.
