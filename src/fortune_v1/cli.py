@@ -11,6 +11,7 @@ from .diagnosis import classify_errors, create_interface_patch_candidate
 from .external_runner import import_chat_work_prediction
 from .group import authorize_group_reveal, create_dev_group, record_patch_round, register_baseline_freeze
 from .ingest import ingest_zip
+from .install_state import finalize_installation_state, validate_installation_state
 from .knowledge import build_locator_index, read_parent_segment, validate_locator_index
 from .patching import scan_patch
 from .prediction import freeze_prediction, prepare_run_contract
@@ -65,6 +66,11 @@ def parser() -> argparse.ArgumentParser:
         ("--binding-receipt", {}), ("--migration-receipt", {}), ("--prompt-snapshot", {}),
         ("--test-report", {}), ("--topology-receipt", {}), ("--answer-workflow-receipt", {}),
         ("--external-runner", {}), ("--code-commit", {}), ("--output", {"required": True}))
+    cmd("install-finalize", ("--install-receipt", {"required": True}),
+        ("--code-commit", {"required": True}), ("--output", {"required": True}))
+    cmd("install-validate", ("--seal", {"required": True}),
+        ("--install-receipt", {"required": True}), ("--code-commit", {"required": True}),
+        ("--output", {"required": True}))
     cmd("verify-topology", ("--config", {"required": True}), ("--output", {"required": True}))
     cmd("report", ("--input", {"action": "append", "required": True}), ("--output", {"required": True}))
     cmd("group-create", ("--group-id", {"required": True}), ("--case-id", {"action": "append", "required": True}), ("--binding", {"required": True}), ("--root", {"required": True}), ("--expected-size", {"type": int, "default": 5}))
@@ -119,6 +125,11 @@ def main(argv: list[str] | None = None) -> int:
             args.topology_receipt, args.external_runner, args.output,
             args.binding_receipt, args.migration_receipt, args.answer_workflow_receipt,
             args.code_commit)
+        elif c == "install-finalize": result = finalize_installation_state(
+            args.install_receipt, args.code_commit, args.output)
+        elif c == "install-validate":
+            result = validate_installation_state(args.seal, args.install_receipt, args.code_commit)
+            atomic_write_json(args.output, result, overwrite=True)
         elif c == "verify-topology": result = verify_topology(args.config, args.output)
         elif c == "report": result = {"output": str(render_markdown(args.input, args.output))}
         elif c == "group-create": result = create_dev_group(args.group_id, args.case_id, read_json(args.binding), args.root, args.expected_size)
