@@ -1,0 +1,84 @@
+name: temp-packet-materialization-run1
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  materialize-packets:
+    if: github.head_ref == 'agent/artifact-retrieval-run1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Create clean start
+        run: |
+          PYTHONPATH=src python scripts/create-group-clean-start.py create \
+            --group-manifest training-data/DEV-GROUP-002/manifest.json \
+            --install-state reports/install-state.json \
+            --output-root data/group-clean-starts \
+            --group-run-id DEV-GROUP-002-RUN-001 \
+            --session-id CHAT-DEV-GROUP-002-001 \
+            --mode CHAT_ONLY \
+            | tee clean-start-result.json
+
+      - name: Prepare CHAT professional packets
+        run: |
+          PYTHONPATH=src python scripts/semi-automated-r1.py prepare \
+            --clean-start data/group-clean-starts/DEV-GROUP-002-RUN-001/clean-start.json \
+            --output-root data/chat-professional-packets \
+            | tee packet-result.json
+
+      - name: Verify packet manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('packet-result.json').read_text(encoding='utf-8'))
+          manifest_path = Path(result['manifest_path'])
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          if manifest.get('schema') != 'CHAT-PROFESSIONAL-PACKET-MANIFEST-V1':
+              raise SystemExit(manifest)
+          if manifest.get('status') != 'READY_FOR_CHAT_PROFESSIONAL_REASONING':
+              raise SystemExit(manifest)
+          if manifest.get('case_count') != 5:
+              raise SystemExit(f"unexpected case count: {manifest.get('case_count')}")
+          if manifest.get('answer_data_available') is not False:
+              raise SystemExit('answer data must be unavailable')
+          for row in manifest.get('packets', []):
+              packet = json.loads(Path(row['packet_path']).read_text(encoding='utf-8'))
+              if packet.get('answer_data_available') is not False:
+                  raise SystemExit(f"answer data visible in {row['case_id']}")
+              if packet.get('repository_search_allowed') is not False:
+                  raise SystemExit(f"repository search enabled in {row['case_id']}")
+          print(manifest_path)
+          PY
+
+      - name: Upload packet artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chat-professional-packets-DEV-GROUP-002-RUN-001
+          path: |
+            clean-start-result.json
+            packet-result.json
+            data/group-clean-starts/DEV-GROUP-002-RUN-001/
+            data/chat-professional-packets/DEV-GROUP-002-RUN-001/
+          if-no-files-found: error
+          retention-days: 1
