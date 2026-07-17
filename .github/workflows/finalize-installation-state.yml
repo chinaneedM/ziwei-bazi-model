@@ -1,0 +1,122 @@
+name: finalize-installation-state
+
+on:
+  workflow_run:
+    workflows: ["runtime-ci"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: installation-state-${{ github.event.workflow_run.head_sha }}
+      cancel-in-progress: false
+    steps:
+      - name: Check out validated code commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Re-run tests and materialize test receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          Path("reports").mkdir(exist_ok=True)
+          Path("reports/test-report.json").write_text(
+              json.dumps({
+                  "schema": "STATIC-SYNTHETIC-TEST-RECEIPT-V1",
+                  "status": "PASS",
+                  "validated_code_commit": "${{ github.event.workflow_run.head_sha }}",
+                  "workflow": "finalize-installation-state",
+                  "generated_at": datetime.now(timezone.utc).isoformat(),
+              }, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Generate versioned installation receipt
+        shell: bash
+        env:
+          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p reports/install-receipts reports/install-states reports/install-validations
+          fortune-v1 install-check \
+            --repo-root . \
+            --source-audit reports/source-audit.json \
+            --binding-receipt reports/binding-table-recompute-receipt.json \
+            --migration-receipt reports/migration-receipt.json \
+            --prompt-snapshot reports/prompt-snapshot-status.json \
+            --test-report reports/test-report.json \
+            --topology-receipt config/current-topology-receipt.json \
+            --answer-workflow-receipt reports/answer-vault-workflow-readback.json \
+            --external-runner config/external-runner.json \
+            --code-commit "$CODE_COMMIT" \
+            --output "reports/install-receipts/${CODE_COMMIT}.json"
+
+      - name: Finalize and replay installation state
+        shell: bash
+        env:
+          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          RECEIPT="reports/install-receipts/${CODE_COMMIT}.json"
+          SEAL="reports/install-states/${CODE_COMMIT}.json"
+          VALIDATION="reports/install-validations/${CODE_COMMIT}.json"
+          fortune-v1 install-finalize \
+            --install-receipt "$RECEIPT" \
+            --code-commit "$CODE_COMMIT" \
+            --output "$SEAL"
+          fortune-v1 install-validate \
+            --seal "$SEAL" \
+            --install-receipt "$RECEIPT" \
+            --code-commit "$CODE_COMMIT" \
+            --output "$VALIDATION"
+          python - "$VALIDATION" <<'PY'
+          import json, sys
+          result = json.load(open(sys.argv[1], encoding="utf-8"))
+          if result.get("status") != "INSTALLED_VALIDATED" or result.get("errors"):
+              raise SystemExit("installation state replay did not pass")
+          PY
+          cp "$SEAL" reports/install-state.json
+          cp "$VALIDATION" reports/install-state-validation.json
+
+      - name: Commit immutable versioned receipts
+        shell: bash
+        env:
+          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          git config user.name fortune-install-validator
+          git config user.email fortune-install-validator@users.noreply.github.com
+          git add \
+            "reports/install-receipts/${CODE_COMMIT}.json" \
+            "reports/install-states/${CODE_COMMIT}.json" \
+            "reports/install-validations/${CODE_COMMIT}.json" \
+            reports/install-state.json \
+            reports/install-state-validation.json \
+            reports/test-report.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Finalize installation state for ${CODE_COMMIT} [skip ci]"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
