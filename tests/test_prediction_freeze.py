@@ -11,6 +11,7 @@ from fortune_v1.prediction_freeze import (
     freeze_group,
     validate_group,
 )
+from fortune_v1.util import FortuneError
 
 
 def _write(path: Path, value: dict) -> None:
@@ -61,7 +62,7 @@ def test_case_freeze_is_non_overwriting(tmp_path: Path) -> None:
     _write(source_path, _validated("c1"))
     first = freeze_case(source_path, freeze_path)
     assert first["status"] == "PREDICTION_FROZEN"
-    with pytest.raises(Exception):
+    with pytest.raises(FortuneError):
         freeze_case(source_path, freeze_path)
 
 
