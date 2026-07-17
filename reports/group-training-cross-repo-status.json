@@ -1,0 +1,36 @@
+{
+  "schema": "GROUP-TRAINING-CROSS-REPOSITORY-STATUS-V1",
+  "runtime_repository": "chinaneedM/ziwei-bazi-model",
+  "runtime_pull_request": 20,
+  "runtime_validated_commit": "f5b9a3800d1f3322be21a9829398ea411f9b57ec",
+  "runtime_checks": {
+    "group_training_validation": {
+      "run_id": 29590278048,
+      "conclusion": "success"
+    },
+    "runtime_ci": {
+      "run_id": 29590277805,
+      "conclusion": "success"
+    },
+    "materialize_training_runtime_views": {
+      "run_id": 29590278045,
+      "conclusion": "success"
+    }
+  },
+  "answer_vault_repository": "chinaneedM/fortune-answer-vault",
+  "answer_vault_pull_request": 5,
+  "answer_vault_workflow_commit": "92452cae5bf56f9d3cd277937da1fb36a67ca15a",
+  "answer_vault_workflow": ".github/workflows/grade-frozen-group.yml",
+  "runtime_implementation_status": "PASS_ON_BRANCH",
+  "answer_vault_implementation_status": "IMPLEMENTED_ON_BRANCH",
+  "cross_repository_installation_status": "NOT_INSTALLED",
+  "remaining_gates": [
+    "ANSWER_VAULT_WORKFLOW_REVIEW_OR_VALIDATION",
+    "MERGE_RUNTIME_PR_20",
+    "MERGE_ANSWER_VAULT_PR_5",
+    "GENERATE_NEW_INSTALL_RECEIPT",
+    "GENERATE_NEW_INSTALLATION_STATE_SEAL",
+    "POST_MERGE_READBACK_VALIDATION"
+  ],
+  "status": "PASS_IMPLEMENTED_NOT_INSTALLED"
+}
