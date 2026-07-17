@@ -1,0 +1,106 @@
+name: manual-group-clean-start
+
+on:
+  workflow_dispatch:
+    inputs:
+      group_run_id:
+        description: Unique group run ID
+        required: true
+        type: string
+      session_id:
+        description: Unique CHAT session ID
+        required: true
+        type: string
+      mode:
+        description: Runtime mode
+        required: true
+        default: CHAT_ONLY
+        type: choice
+        options:
+          - CHAT_ONLY
+          - WORK
+
+permissions:
+  contents: read
+
+jobs:
+  create-clean-start:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Validate identifiers
+        shell: bash
+        env:
+          GROUP_RUN_ID: ${{ inputs.group_run_id }}
+          SESSION_ID: ${{ inputs.session_id }}
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          for key in ("GROUP_RUN_ID", "SESSION_ID"):
+              value = os.environ[key]
+              if not re.fullmatch(r"[0-9A-Za-z._-]+", value):
+                  raise SystemExit(f"{key} contains unsupported characters")
+          PY
+
+      - name: Create clean start
+        env:
+          GROUP_RUN_ID: ${{ inputs.group_run_id }}
+          SESSION_ID: ${{ inputs.session_id }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          PYTHONPATH=src python scripts/create-group-clean-start.py create \
+            --group-manifest training-data/DEV-GROUP-002/manifest.json \
+            --install-state reports/install-state.json \
+            --output-root data/group-clean-starts \
+            --group-run-id "$GROUP_RUN_ID" \
+            --session-id "$SESSION_ID" \
+            --mode "$MODE" \
+            | tee clean-start-result.json
+
+      - name: Verify generated clean start
+        env:
+          GROUP_RUN_ID: ${{ inputs.group_run_id }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          result = json.loads(Path("clean-start-result.json").read_text(encoding="utf-8"))
+          if result.get("status") != "READY_FOR_CLEAN_GROUP_PREDICTION":
+              raise SystemExit(f"unexpected status: {result.get('status')}")
+          if result.get("answer_data_available") is not False:
+              raise SystemExit("answer data must be unavailable")
+          path = Path(result["clean_start_path"])
+          if not path.is_file():
+              raise SystemExit(f"clean start missing: {path}")
+          expected_root = Path("data/group-clean-starts") / os.environ["GROUP_RUN_ID"]
+          if expected_root.resolve() not in path.resolve().parents:
+              raise SystemExit("clean start path escaped expected output root")
+          print(path)
+          PY
+
+      - name: Upload clean start artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: group-clean-start-${{ inputs.group_run_id }}
+          path: |
+            clean-start-result.json
+            data/group-clean-starts/${{ inputs.group_run_id }}/
+          if-no-files-found: error
+          retention-days: 7
