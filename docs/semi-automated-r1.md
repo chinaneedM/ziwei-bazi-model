@@ -114,3 +114,7 @@ Not implemented in this prediction-side branch:
 - automatic prompt or knowledge-base modification
 
 Those functions must remain in a separate reveal-side implementation so prediction context cannot inherit answer-bearing data.
+
+## Release condition
+
+Do not merge this draft merely because the files exist. Before release, run the repository test suite in a real Python checkout and perform one synthetic end-to-end dry run from clean-start packet creation through group freeze. The fixed five development cases should only run after that synthetic dry run passes.
