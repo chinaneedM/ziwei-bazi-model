@@ -1,143 +1,42 @@
 name: materialize-dev-group-002-snapshots-contracts
 
 on:
-  push:
-    paths:
-      - .github/workflows/materialize-dev-group-002-snapshots-contracts.yml
-  pull_request:
-    paths:
-      - .github/workflows/materialize-dev-group-002-snapshots-contracts.yml
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  materialize:
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+  validate-materialized-contracts:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
-      - name: Generate answer-free immutable snapshots and contracts
+      - name: Validate committed answer-free snapshot manifests and contracts
         run: |
           set -euo pipefail
-          export PYTHONPATH=src
-          commit="9004b20446773c6e6c9ff5f872416c7a61d177b2"
-          prompt_sha="832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017"
-          mkdir -p data/prediction-snapshots data/prediction-contracts reports .generated/normalized-cases .generated/normalized-inputs
-
-          for case_id in DEV-EXAMPLE-001 DEV-EXAMPLE-002 DEV-EXAMPLE-003 DEV-EXAMPLE-005; do
-            runtime_root="training-data/DEV-GROUP-002/runtime-views/${case_id}"
-            runtime_manifest="${runtime_root}/manifest.json"
-            normalized_case=".generated/normalized-cases/${case_id}.json"
-            normalized_questions=".generated/normalized-inputs/${case_id}-questions.txt"
-
-            python - "$case_id" "$runtime_manifest" "$normalized_case" "$normalized_questions" <<'PY'
-          import hashlib, json, re, sys
-          from pathlib import Path
-
-          case_id, manifest_path, output_path, normalized_questions_path = sys.argv[1:]
-          manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
-          assert manifest['case_id'] == case_id
-          assert manifest['schema'] == 'TRAINING-CASE-RUNTIME-VIEW-V1'
-          assert manifest['answer_isolation_status'] == 'PROGRAMMATICALLY_ISOLATED'
-          assert manifest['answer_payload_present'] is False
-          assert manifest['answer_reference_disclosed'] is False
-
-          runtime_root = Path(manifest_path).parent
-          source_questions = runtime_root / 'questions.txt'
-          text = source_questions.read_text(encoding='utf-8')
-          normalized_text = re.sub(r'(?m)^\s*([A-H])(?=\S)', r'\1 ', text)
-          Path(normalized_questions_path).write_text(normalized_text, encoding='utf-8')
-          q_bytes = Path(normalized_questions_path).read_bytes()
-
-          ziwei_meta = manifest['files']['ziwei.txt']
-          ziwei_path = runtime_root / 'ziwei.txt'
-          files = [
-              {'logical_type': 'ZIWEI', 'path': str(ziwei_path), 'sha256': ziwei_meta['sha256'], 'bytes': ziwei_meta['bytes']},
-              {'logical_type': 'QUESTIONS', 'path': normalized_questions_path, 'sha256': hashlib.sha256(q_bytes).hexdigest(), 'bytes': len(q_bytes)},
-          ]
-          normalized = {
-              'schema': 'NORMALIZED-CASE-ADAPTER-V1',
-              'status': 'NORMALIZED',
-              'case_id': case_id,
-              'dataset_type': 'DEV',
-              'answer_isolation': {'status': 'PROGRAMMATICALLY_ISOLATED', 'answer_payload_present': False, 'answer_reference_disclosed': False},
-              'files': files,
-              'source_runtime_manifest': {
-                  'path': manifest_path,
-                  'source_case_path': manifest['source_case_path'],
-                  'source_case_sha256': manifest['source_case_sha256'],
-                  'original_questions_sha256': manifest['files']['questions.txt']['sha256'],
-                  'question_normalization': 'INSERT_ONE_ASCII_SPACE_AFTER_OPTION_ID_WHEN_MISSING',
-              },
-          }
-          Path(output_path).write_text(json.dumps(normalized, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
-          PY
-
-            root="data/prediction-snapshots/${case_id}"
-            python -m fortune_v1.cli snapshot \
-              --case "$normalized_case" \
-              --bazi-transcription "${runtime_root}/bazi-transcription.json" \
-              --output-root "$root"
-            snapshot_manifest="$(find "$root" -mindepth 2 -maxdepth 2 -name manifest.json -print | sort | head -n1)"
-            test -n "$snapshot_manifest"
-            python - "$snapshot_manifest" <<'PY'
-          import json, sys
-          p = sys.argv[1]
-          data = json.load(open(p, encoding='utf-8'))
-          assert data['schema'] == 'PREDICTION-INPUT-SNAPSHOT-V1'
-          assert data['answer_scan']['status'] == 'PASS'
-          assert data['answer_scan']['findings'] == []
-          assert len(json.load(open(data['questions_path'], encoding='utf-8'))['questions']) == 5
-          PY
-            contract="data/prediction-contracts/${case_id}.json"
-            python -m fortune_v1.cli prepare-run \
-              --snapshot "$snapshot_manifest" \
-              --config config/runtime.json \
-              --code-commit "$commit" \
-              --prompt-snapshot-sha256 "$prompt_sha" \
-              --output "$contract"
-          done
-
-          cat > reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json <<'JSON'
-          {
-            "schema": "SNAPSHOT-CONTRACT-BLOCK-RECEIPT-V1",
-            "case_id": "DEV-EXAMPLE-004",
-            "status": "BLOCKED_BY_BAZI_VERSION_CONFLICT",
-            "bazi_version_selected": false,
-            "snapshot_generated": false,
-            "contract_generated": false,
-            "s03_formal_fusion_performed": false
-          }
-          JSON
-
           python - <<'PY'
           import json
           from pathlib import Path
-          contracts = []
-          for case_id in ('DEV-EXAMPLE-001','DEV-EXAMPLE-002','DEV-EXAMPLE-003','DEV-EXAMPLE-005'):
-              p = Path('data/prediction-contracts') / f'{case_id}.json'
-              d = json.loads(p.read_text(encoding='utf-8'))
-              assert d['schema'] == 'PREDICTION-RUN-CONTRACT-V1'
-              assert d['case_id'] == case_id
-              assert d['answer_data_available'] is False
-              assert len(d['questions']) == 5
-              assert all(q['required_pairwise_rows'] == 6 for q in d['questions'])
-              contracts.append({'case_id': case_id, 'path': str(p), 'status': 'GENERATED'})
-          Path('reports/dev-group-002-snapshot-contract-summary.json').write_text(
-              json.dumps({'schema':'SNAPSHOT-CONTRACT-SUMMARY-V1','status':'FOUR_GENERATED_ONE_BLOCKED','contracts':contracts,'blocked_case':'DEV-EXAMPLE-004','answer_access_performed':False}, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+
+          cases = ('DEV-EXAMPLE-001','DEV-EXAMPLE-002','DEV-EXAMPLE-003','DEV-EXAMPLE-005')
+          for case_id in cases:
+              contract_path = Path('data/prediction-contracts') / f'{case_id}.json'
+              contract = json.loads(contract_path.read_text(encoding='utf-8'))
+              assert contract['schema'] == 'PREDICTION-RUN-CONTRACT-V1'
+              assert contract['case_id'] == case_id
+              assert contract['answer_data_available'] is False
+              assert len(contract['questions']) == 5
+              assert all(q['required_pairwise_rows'] == 6 for q in contract['questions'])
+              snapshot_path = Path(contract['snapshot']['path'])
+              snapshot = json.loads(snapshot_path.read_text(encoding='utf-8'))
+              assert snapshot['schema'] == 'PREDICTION-INPUT-SNAPSHOT-V1'
+              assert snapshot['case_id'] == case_id
+              assert snapshot['answer_scan']['status'] == 'PASS'
+              assert snapshot['answer_scan']['findings'] == []
+
+          blocked = json.loads(Path('reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json').read_text(encoding='utf-8'))
+          assert blocked['status'] == 'BLOCKED_BY_BAZI_VERSION_CONFLICT'
+          assert blocked['snapshot_generated'] is False
+          assert blocked['contract_generated'] is False
+          assert blocked['s03_formal_fusion_performed'] is False
           PY
-      - name: Upload generated snapshots and contracts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dev-group-002-snapshots-contracts
-          path: |
-            data/prediction-snapshots
-            data/prediction-contracts
-            reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json
-            reports/dev-group-002-snapshot-contract-summary.json
-          if-no-files-found: error
-          retention-days: 7
