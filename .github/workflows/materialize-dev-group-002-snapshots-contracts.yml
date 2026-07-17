@@ -1,0 +1,98 @@
+name: materialize-dev-group-002-snapshots-contracts
+
+on:
+  push:
+    paths:
+      - .github/workflows/materialize-dev-group-002-snapshots-contracts.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Generate answer-free immutable snapshots and contracts
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=src
+          commit="9004b20446773c6e6c9ff5f872416c7a61d177b2"
+          prompt_sha="832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017"
+          mkdir -p data/prediction-snapshots data/prediction-contracts reports
+
+          for case_id in DEV-EXAMPLE-001 DEV-EXAMPLE-002 DEV-EXAMPLE-003 DEV-EXAMPLE-005; do
+            root="data/prediction-snapshots/${case_id}"
+            if ! find "$root" -mindepth 2 -maxdepth 2 -name manifest.json -print -quit 2>/dev/null | grep -q .; then
+              python -m fortune_v1.cli snapshot \
+                --case "training-data/DEV-GROUP-002/cases/${case_id}.json" \
+                --bazi-transcription "training-data/DEV-GROUP-002/runtime-views/${case_id}/bazi-transcription.json" \
+                --output-root "$root"
+            fi
+            manifest="$(find "$root" -mindepth 2 -maxdepth 2 -name manifest.json -print | sort | head -n1)"
+            test -n "$manifest"
+            python - <<'PY' "$manifest"
+          import json, sys
+          p = sys.argv[1]
+          data = json.load(open(p, encoding='utf-8'))
+          assert data['schema'] == 'PREDICTION-INPUT-SNAPSHOT-V1'
+          assert data['answer_scan']['status'] == 'PASS'
+          assert data['answer_scan']['findings'] == []
+          PY
+            contract="data/prediction-contracts/${case_id}.json"
+            if [ ! -e "$contract" ]; then
+              python -m fortune_v1.cli prepare-run \
+                --snapshot "$manifest" \
+                --config config/runtime.json \
+                --code-commit "$commit" \
+                --prompt-snapshot-sha256 "$prompt_sha" \
+                --output "$contract"
+            fi
+          done
+
+          cat > reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json <<'JSON'
+          {
+            "schema": "SNAPSHOT-CONTRACT-BLOCK-RECEIPT-V1",
+            "case_id": "DEV-EXAMPLE-004",
+            "status": "BLOCKED_BY_BAZI_VERSION_CONFLICT",
+            "bazi_version_selected": false,
+            "snapshot_generated": false,
+            "contract_generated": false,
+            "s03_formal_fusion_performed": false
+          }
+          JSON
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          contracts = []
+          for case_id in ('DEV-EXAMPLE-001','DEV-EXAMPLE-002','DEV-EXAMPLE-003','DEV-EXAMPLE-005'):
+              p = Path('data/prediction-contracts') / f'{case_id}.json'
+              d = json.loads(p.read_text(encoding='utf-8'))
+              assert d['schema'] == 'PREDICTION-RUN-CONTRACT-V1'
+              assert d['case_id'] == case_id
+              assert d['answer_data_available'] is False
+              assert len(d['questions']) == 5
+              assert all(q['required_pairwise_rows'] == 6 for q in d['questions'])
+              contracts.append({'case_id': case_id, 'path': str(p), 'status': 'GENERATED'})
+          Path('reports/dev-group-002-snapshot-contract-summary.json').write_text(
+              json.dumps({
+                  'schema':'SNAPSHOT-CONTRACT-SUMMARY-V1',
+                  'status':'FOUR_GENERATED_ONE_BLOCKED',
+                  'contracts':contracts,
+                  'blocked_case':'DEV-EXAMPLE-004',
+                  'answer_access_performed':False
+              }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+      - name: Commit generated snapshots and contracts
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/prediction-snapshots data/prediction-contracts reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json reports/dev-group-002-snapshot-contract-summary.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Materialize DEV-GROUP-002 snapshots and contracts"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
