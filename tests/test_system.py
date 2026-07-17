@@ -149,6 +149,24 @@ class FortuneSystemTests(unittest.TestCase):
         self.assertEqual(result["overall_status"], "VALID")
         return output
 
+    @staticmethod
+    def _seal(prefix: str) -> dict:
+        return {
+            "seal_id": f"{prefix}-seal", "canonical_hash": f"{prefix}-canonical",
+            "body_hash": f"{prefix}-body", "machine_validation_report_id": f"{prefix}-report",
+            "validation_status": "PASS", "s18_local_adjudication_object_id": f"{prefix}-s18",
+            "parent_object_ids": [f"{prefix}-parent"],
+        }
+
+    @staticmethod
+    def _compound(atom: str) -> dict:
+        return {
+            "material_required_atom_ids": [atom], "satisfied_atom_ids": [],
+            "partial_atom_ids": [], "missing_atom_ids": [atom],
+            "contradicted_atom_ids": [], "reference_period_status": "UNKNOWN",
+            "coverage_status": "PARTIAL_NO_DIRECTION",
+        }
+
     def _run_question(self, qid, options, top1, top2):
         evidence = [{"evidence_family": f"F{i}", "text": f"e{i}"} for i in range(1, 4)]
         ledger = []
@@ -160,17 +178,35 @@ class FortuneSystemTests(unittest.TestCase):
                            "dedup_status": "UNIQUE", "downstream_effect": "CHANGED_RANK"})
         pairwise = []
         for i, left in enumerate(options):
-            for right in options[i + 1:]: pairwise.append({"left": left, "right": right, "winner": top1 if top1 in {left, right} else left, "comparison": "literal"})
-        return {"question_id": qid, "option_ids": options, "top1": top1, "top2": top2, "confidence": 0.65,
-                "blind_core": "sealed blind structure", "public_evidence": evidence, "strongest_competitor_reason": "less coverage",
-                "most_important_unverified_atom": "formal endpoint", "ziwei_track": {"validation_status": "PASS", "local_seal": True,
-                "parent_libraries": ["S05", "S08"], "blind_model_hash": "z" * 64, "top1": top1},
-                "bazi_track": {"validation_status": "PASS", "local_seal": True, "parent_libraries": ["S11", "S13"],
-                "blind_model_hash": "b" * 64, "top1": top1}, "fusion": {"status": "ZERO_GAIN_SAME_SELECTION"},
-                "coverage_plan": {"required_families": ["stable", "dynamic", "endpoint"], "status": "COMPLETE"},
-                "evidence_ledger": ledger, "direction_matrix": {o: {"support": [], "contradict": []} for o in options},
-                "compound_coverage": {o: {"status": "CHECKED"} for o in options}, "formal_exact_assertion": None,
-                "pairwise_rows": pairwise}
+            for right in options[i + 1:]:
+                pairwise.append({
+                    "left": left, "right": right,
+                    "winner": top1 if top1 in {left, right} else left,
+                    "decision_basis": "literal synthetic comparison",
+                    "distinctive_atom_comparison": {left: "unknown", right: "unknown"},
+                })
+        direction = {o: [{"atom_id": f"{qid}-{o}", "status": "UNKNOWN", "parent_ids": []}] for o in options}
+        compound = {o: self._compound(f"{qid}-{o}") for o in options}
+        return {
+            "question_id": qid, "option_ids": options, "top1": top1, "top2": top2, "confidence": 0.65,
+            "blind_core": "sealed blind structure", "public_evidence": evidence,
+            "strongest_competitor_reason": "less coverage", "most_important_unverified_atom": "formal endpoint",
+            "ziwei_track": {"validation_status": "PASS", "local_seal": self._seal(f"{qid}-ziwei"),
+                            "parent_libraries": ["S05", "S08"], "blind_model_hash": "z" * 64, "top1": top1},
+            "bazi_track": {"validation_status": "PASS", "local_seal": self._seal(f"{qid}-bazi"),
+                           "parent_libraries": ["S11", "S13"], "blind_model_hash": "b" * 64, "top1": top1},
+            "fusion": {"status": "ZERO_GAIN_SAME_SELECTION"},
+            "coverage_plan": {
+                "required_families": ["stable", "dynamic", "endpoint"], "status": "COMPLETE",
+                "distinctive_atom_rows": [{"atom_id": f"{qid}-{o}"} for o in options],
+                "required_source_family_rows": [{"family": "ZIWEI"}, {"family": "BAZI"}],
+                "actual_route_rows": [{"library": "S05"}, {"library": "S08"}, {"library": "S11"}],
+                "unresolved_required_routes": [],
+            },
+            "evidence_ledger": ledger, "direction_matrix": direction,
+            "compound_coverage": compound, "formal_exact_assertion": None,
+            "pairwise_rows": pairwise,
+        }
 
     def test_synthetic_end_to_end_and_answer_isolation(self):
         runtime, vault = self.root / "runtime", self.root / "vault"
@@ -193,8 +229,9 @@ class FortuneSystemTests(unittest.TestCase):
                "questions": [self._run_question("Q1", ["A", "B", "C", "D"], "A", "B"), self._run_question("Q2", ["A", "B", "C", "D"], "B", "A")],
                "runtime_validation": {"status": "PASS", "checks": []}, "cold_start": True}
         run_path = write_json(self.root / "run.json", run)
-        frozen = freeze_prediction(run_path, contract_path, self.root / "frozen")
-        with self.assertRaises(FortuneError): freeze_prediction(run_path, contract_path, self.root / "frozen")
+        freeze_prediction(run_path, contract_path, self.root / "frozen")
+        with self.assertRaises(FortuneError):
+            freeze_prediction(run_path, contract_path, self.root / "frozen")
         gates = {key: True for key in ["answer_isolation", "cold_start", "runtime_object_complete", "dual_track_independent", "patch_leak_free", "historical_regression_no_damage"]}
         reveal = grade_frozen_prediction(self.root / "frozen" / "RUN-C001-001" / "freeze-receipt.json", answer_path, self.root / "reveal.json", gates)
         self.assertEqual(reveal["status"], "CASE_PASS")
@@ -251,7 +288,8 @@ class FortuneSystemTests(unittest.TestCase):
         log = self.root / "state.json"
         transition(log, "DEV", "G1", "INGESTED")
         transition(log, "FROZEN_EVAL", "B1", "FROZEN_BLOCK_OPEN")
-        with self.assertRaises(FortuneError): transition(log, "DEV", "G1", "RUNNING")
+        with self.assertRaises(FortuneError):
+            transition(log, "DEV", "G1", "RUNNING")
 
     def test_prompt_snapshot_is_not_runtime_authority(self):
         prompt = self.root / "prompt.txt"; prompt.write_text("exact audit text", encoding="utf-8")
