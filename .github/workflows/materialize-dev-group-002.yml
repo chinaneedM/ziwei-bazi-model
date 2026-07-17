@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: agent/dev-group-002-source-reimport
-          fetch-depth: 1
+          fetch-depth: 20
 
       - name: Verify fragments and materialize source payload
         shell: bash
@@ -132,13 +132,12 @@ jobs:
           python -m pip install pytest
           pytest -q tests/test_training_data_integrity.py tests/test_dev_group_002_integrity.py
 
-      - name: Commit only validated materialized files
+      - name: Commit validated materialized files with safe branch synchronization
         shell: bash
         run: |
           set -euo pipefail
           test ! -e training-data/private-vault-staging
           rm -rf .staging/dev-group-002
-          rm -f .github/workflows/materialize-dev-group-002.yml
           git config user.name fortune-training-importer
           git config user.email fortune-training-importer@users.noreply.github.com
           git add -A
@@ -146,4 +145,6 @@ jobs:
           test -f reports/dev-group-002/training-data-integrity.json
           test ! -e .staging/dev-group-002
           git commit -m "Materialize DEV-GROUP-002 trusted source reimport"
+          git fetch origin agent/dev-group-002-source-reimport
+          git rebase origin/agent/dev-group-002-source-reimport
           git push origin HEAD:agent/dev-group-002-source-reimport
