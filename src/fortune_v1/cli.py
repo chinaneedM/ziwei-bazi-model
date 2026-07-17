@@ -9,7 +9,7 @@ from .audit import audit_sources, import_source_package, migrate_verified_source
 from .bazi import freeze_transcription
 from .blind_track import create_local_track_seal, seal_blind_track_model
 from .diagnosis import classify_errors, create_interface_patch_candidate
-from .external_runner import import_chat_work_prediction
+from .external_runner import freeze_chat_work_prediction, import_chat_work_prediction
 from .group import (
     authorize_group_reveal,
     create_dev_group,
@@ -21,7 +21,7 @@ from .ingest import ingest_zip
 from .install_state import finalize_installation_state, validate_installation_state
 from .knowledge import build_locator_index, read_parent_segment, validate_locator_index
 from .patching import scan_patch
-from .prediction import freeze_prediction, prepare_run_contract
+from .prediction import prepare_run_contract
 from .prompt_snapshot import create_prompt_snapshot
 from .regression import execute_regression, select_regression
 from .reporting import installation_check, render_markdown
@@ -59,7 +59,8 @@ def parser() -> argparse.ArgumentParser:
         ("--mode", {"required": True, "choices": ["CHAT_ONLY", "WORK"]}),
         ("--session-id", {"required": True}), ("--output", {"required": True}),
         ("--receipt", {"required": True}))
-    cmd("freeze", ("--run", {"required": True}), ("--contract", {"required": True}), ("--frozen-root", {"required": True}))
+    cmd("freeze", ("--run", {"required": True}), ("--contract", {"required": True}),
+        ("--handoff-receipt", {"required": True}), ("--frozen-root", {"required": True}))
     cmd("grade", ("--freeze-receipt", {"required": True}), ("--answer", {"required": True}),
         ("--output", {"required": True}), ("--gates", {}), ("--run-id", {}))
     cmd("verify-freeze", ("--freeze-receipt", {"required": True}),
@@ -119,7 +120,8 @@ def main(argv: list[str] | None = None) -> int:
         elif c == "local-track-seal": result = create_local_track_seal(args.adjudication, args.blind_receipt, args.output)
         elif c == "chat-work-import": result = import_chat_work_prediction(
             args.run, args.contract, args.output, args.receipt, args.mode, args.session_id)
-        elif c == "freeze": result = freeze_prediction(args.run, args.contract, args.frozen_root)
+        elif c == "freeze": result = freeze_chat_work_prediction(
+            args.run, args.contract, args.handoff_receipt, args.frozen_root)
         elif c == "grade": result = grade_frozen_prediction(
             args.freeze_receipt, args.answer, args.output,
             read_json(args.gates) if args.gates else None, args.run_id)
