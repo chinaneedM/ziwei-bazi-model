@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import pytest
+import unittest
 
 from fortune_v1.cli import parser
 from fortune_v1.group_runner import GROUP_RUN_SCHEMA, _validate_manifest
@@ -36,72 +36,80 @@ def manifest() -> dict:
     }
 
 
-def test_cli_exposes_group_single_session_commands() -> None:
-    p = parser()
-    args = p.parse_args([
-        "group-chat-work-run",
-        "--manifest", "group.json",
-        "--group-root", "groups/DEV-GROUP-002",
-        "--output-root", "runs",
-        "--mode", "CHAT_ONLY",
-        "--session-id", "SESSION-001",
-        "--group-run-id", "GROUP-RUN-001",
-    ])
-    assert args.command == "group-chat-work-run"
+class GroupRunnerTests(unittest.TestCase):
+    def assert_status(self, expected: str, fn) -> None:
+        with self.assertRaises(FortuneError) as caught:
+            fn()
+        self.assertEqual(caught.exception.status, expected)
 
-    verify = p.parse_args([
-        "group-verify-freeze",
-        "--group-freeze", "group-freeze.json",
-        "--group-run-id", "GROUP-RUN-001",
-        "--output", "validation.json",
-    ])
-    assert verify.command == "group-verify-freeze"
+    def test_cli_exposes_group_single_session_commands(self) -> None:
+        p = parser()
+        args = p.parse_args([
+            "group-chat-work-run",
+            "--manifest", "group.json",
+            "--group-root", "groups/DEV-GROUP-002",
+            "--output-root", "runs",
+            "--mode", "CHAT_ONLY",
+            "--session-id", "SESSION-001",
+            "--group-run-id", "GROUP-RUN-001",
+        ])
+        self.assertEqual(args.command, "group-chat-work-run")
+
+        verify = p.parse_args([
+            "group-verify-freeze",
+            "--group-freeze", "group-freeze.json",
+            "--group-run-id", "GROUP-RUN-001",
+            "--output", "validation.json",
+        ])
+        self.assertEqual(verify.command, "group-verify-freeze")
+
+    def test_complete_ordered_manifest_passes(self) -> None:
+        rows = _validate_manifest(
+            manifest(), group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY"
+        )
+        self.assertEqual(len(rows), 5)
+
+    def test_partial_group_submission_fails_closed(self) -> None:
+        data = manifest()
+        data["case_runs"] = data["case_runs"][:-1]
+        self.assert_status(
+            "PARTIAL_GROUP_SUBMISSION",
+            lambda: _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY"),
+        )
+
+    def test_duplicate_case_id_fails_closed(self) -> None:
+        data = manifest()
+        data["case_runs"][4]["case_id"] = data["case_runs"][3]["case_id"]
+        with self.assertRaises(FortuneError) as caught:
+            _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY")
+        self.assertIn(caught.exception.status, {"GROUP_CASE_ORDER_MISMATCH", "DUPLICATE_CASE_ID"})
+
+    def test_duplicate_case_run_id_fails_closed(self) -> None:
+        data = manifest()
+        data["case_runs"][4]["run_id"] = data["case_runs"][3]["run_id"]
+        self.assert_status(
+            "DUPLICATE_CASE_RUN_ID",
+            lambda: _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY"),
+        )
+
+    def test_group_answer_isolation_is_mandatory(self) -> None:
+        data = manifest()
+        data["answer_data_available"] = True
+        self.assert_status(
+            "GROUP_ANSWER_ISOLATION_FAILED",
+            lambda: _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY"),
+        )
+
+    def test_session_identity_and_mode_are_bound(self) -> None:
+        self.assert_status(
+            "GROUP_SESSION_ID_MISMATCH",
+            lambda: _validate_manifest(manifest(), group(), "GROUP-RUN-001", "OTHER", "CHAT_ONLY"),
+        )
+        self.assert_status(
+            "GROUP_SESSION_MODE_MISMATCH",
+            lambda: _validate_manifest(manifest(), group(), "GROUP-RUN-001", "SESSION-001", "WORK"),
+        )
 
 
-def test_complete_ordered_manifest_passes() -> None:
-    rows = _validate_manifest(
-        manifest(), group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY"
-    )
-    assert len(rows) == 5
-
-
-def test_partial_group_submission_fails_closed() -> None:
-    data = manifest()
-    data["case_runs"] = data["case_runs"][:-1]
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY")
-    assert exc.value.status == "PARTIAL_GROUP_SUBMISSION"
-
-
-def test_duplicate_case_id_fails_closed() -> None:
-    data = manifest()
-    data["case_runs"][4]["case_id"] = data["case_runs"][3]["case_id"]
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY")
-    assert exc.value.status in {"GROUP_CASE_ORDER_MISMATCH", "DUPLICATE_CASE_ID"}
-
-
-def test_duplicate_case_run_id_fails_closed() -> None:
-    data = manifest()
-    data["case_runs"][4]["run_id"] = data["case_runs"][3]["run_id"]
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY")
-    assert exc.value.status == "DUPLICATE_CASE_RUN_ID"
-
-
-def test_group_answer_isolation_is_mandatory() -> None:
-    data = manifest()
-    data["answer_data_available"] = True
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(data, group(), "GROUP-RUN-001", "SESSION-001", "CHAT_ONLY")
-    assert exc.value.status == "GROUP_ANSWER_ISOLATION_FAILED"
-
-
-def test_session_identity_and_mode_are_bound() -> None:
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(manifest(), group(), "GROUP-RUN-001", "OTHER", "CHAT_ONLY")
-    assert exc.value.status == "GROUP_SESSION_ID_MISMATCH"
-
-    with pytest.raises(FortuneError) as exc:
-        _validate_manifest(manifest(), group(), "GROUP-RUN-001", "SESSION-001", "WORK")
-    assert exc.value.status == "GROUP_SESSION_MODE_MISMATCH"
+if __name__ == "__main__":
+    unittest.main()
