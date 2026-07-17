@@ -77,7 +77,7 @@ python scripts/prediction-freeze-r1.py freeze-group \
   --output-root data/group-prediction-freezes
 ```
 
-The resulting `GROUP-PREDICTION-FREEZE-V1` is the first artifact that may authorize the separate reveal process. Prediction-side code never opens an answer vault.
+The resulting `GROUP-PREDICTION-FREEZE-V1` is the first artifact that may authorize a separate reveal-side process. It does not itself reveal, score, diagnose, or rebuild anything. Prediction-side code never opens an answer vault.
 
 ## Nine-node execution model
 
@@ -91,4 +91,4 @@ The resulting `GROUP-PREDICTION-FREEZE-V1` is the first artifact that may author
 8. `08_PAIRWISE_SELECTION`
 9. `09_LOCAL_SEAL_AND_FUSION`
 
-R1 now implements packet preparation, simplified professional output validation, pairwise materialization, visibility classification, local repair scoping, case freeze, complete-group validation, and immutable group freeze. Reveal, scoring, diagnosis, and `SHADOW_REBUILD` remain outside the prediction-side package.
+R1 now implements packet preparation, simplified professional output validation, pairwise materialization, visibility classification, local repair scoping, case freeze, complete-group validation, and immutable group freeze. Reveal, scoring, diagnosis, and `SHADOW_REBUILD` remain outside the prediction-side package and require a separate future implementation.
