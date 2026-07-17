@@ -1,0 +1,71 @@
+name: diagnose-dev-group-002-staging
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".staging/dev-group-002/**"
+      - ".github/workflows/diagnose-dev-group-002-staging.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/dev-group-002-source-reimport
+          fetch-depth: 1
+      - name: Report staging byte and hash metrics only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64
+          import hashlib
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path('.staging/dev-group-002/manifest.json').read_text(encoding='utf-8'))
+          parts = []
+          failed = False
+          for row in sorted(manifest['parts'], key=lambda item: item['order']):
+              restored = bytearray()
+              for fragment in row['fragments']:
+                  path = Path(fragment['path'])
+                  data = path.read_bytes()
+                  actual_sha = hashlib.sha256(data).hexdigest()
+                  print(f"FRAGMENT path={path} bytes={len(data)} expected_bytes={fragment['bytes']} sha256={actual_sha} expected_sha256={fragment['sha256']}")
+                  if len(data) != fragment['bytes'] or actual_sha != fragment['sha256']:
+                      failed = True
+                  if fragment['encoding'] == 'RAW_BASE64_TEXT':
+                      restored.extend(data)
+                  elif fragment['encoding'] == 'HEX_OF_BASE64_TEXT':
+                      try:
+                          restored.extend(bytes.fromhex(data.decode('ascii').strip()))
+                      except Exception as exc:
+                          print(f"HEX_DECODE_FAIL path={path} type={type(exc).__name__} message={exc}")
+                          failed = True
+                  else:
+                      print(f"UNSUPPORTED_ENCODING path={path} encoding={fragment['encoding']}")
+                      failed = True
+              part = bytes(restored)
+              actual_sha = hashlib.sha256(part).hexdigest()
+              print(f"PART order={row['order']} bytes={len(part)} expected_bytes={row['reconstructed_bytes']} sha256={actual_sha} expected_sha256={row['reconstructed_sha256']}")
+              if len(part) != row['reconstructed_bytes'] or actual_sha != row['reconstructed_sha256']:
+                  failed = True
+              parts.append(part)
+          encoded = b''.join(parts)
+          print(f"ENCODED bytes={len(encoded)} sha256={hashlib.sha256(encoded).hexdigest()}")
+          try:
+              archive = base64.b64decode(encoded, validate=True)
+              print(f"ARCHIVE bytes={len(archive)} expected_bytes={manifest['archive_bytes']} sha256={hashlib.sha256(archive).hexdigest()} expected_sha256={manifest['archive_sha256']}")
+              if len(archive) != manifest['archive_bytes'] or hashlib.sha256(archive).hexdigest() != manifest['archive_sha256']:
+                  failed = True
+          except Exception as exc:
+              print(f"BASE64_DECODE_FAIL type={type(exc).__name__} message={exc}")
+              failed = True
+          raise SystemExit(1 if failed else 0)
+          PY
