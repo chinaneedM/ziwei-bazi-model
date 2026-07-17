@@ -79,6 +79,22 @@ python scripts/prediction-freeze-r1.py freeze-group \
 
 The resulting `GROUP-PREDICTION-FREEZE-V1` is the first artifact that may authorize a separate reveal-side process. It does not itself reveal, score, diagnose, or rebuild anything. Prediction-side code never opens an answer vault.
 
+## Artifact binding guarantees
+
+Before group freeze, the runtime verifies all of the following:
+
+- packet manifest schema, ready status, case count, and unique case IDs
+- each validated output belongs to the manifest `group_run_id`
+- each validation report points to the exact validated-output path and SHA-256
+- report and validated-output statuses agree
+- duplicate validation reports or duplicate validated outputs are rejected
+- each case freeze belongs to the same `group_run_id`
+- each case freeze preserves the validated-output SHA-256 approved by group validation
+- the complete case-freeze set exactly matches the validated group case set
+- case and group freeze files are created non-overwriting and marked read-only after creation
+
+Read-only mode is an operational safeguard, not a substitute for hashes. The authoritative integrity proof remains the stored source and freeze SHA-256 chain.
+
 ## Nine-node execution model
 
 1. `01_INPUT_FREEZE`
@@ -103,6 +119,9 @@ Implemented:
 - immutable case freeze
 - complete-group validation
 - immutable group freeze
+- cross-group rejection
+- report/output hash binding
+- duplicate artifact rejection
 
 Not implemented in this prediction-side branch:
 
