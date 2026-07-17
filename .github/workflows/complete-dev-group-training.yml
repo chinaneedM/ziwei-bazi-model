@@ -1,0 +1,51 @@
+name: complete-dev-group-training
+
+on:
+  repository_dispatch:
+    types: [fortune-grading-complete]
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate callback payload
+        env:
+          RUN_ID: ${{ github.event.client_payload.run_id }}
+          GROUP_ID: ${{ github.event.client_payload.group_id }}
+          RESPONSE_PATH: ${{ github.event.client_payload.response_path }}
+        run: |
+          set -euo pipefail
+          [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]]
+          [[ "$GROUP_ID" =~ ^[A-Za-z0-9._-]+$ ]]
+          [[ "$RESPONSE_PATH" == data/grading-responses/$RUN_ID.json ]]
+          test -f "data/grading-requests/$RUN_ID.json"
+          test -f "$RESPONSE_PATH"
+      - name: Verify signed grading response and finalize
+        env:
+          FORTUNE_GRADING_HMAC_SECRET: ${{ secrets.FORTUNE_GRADING_HMAC_SECRET }}
+          RUN_ID: ${{ github.event.client_payload.run_id }}
+          RESPONSE_PATH: ${{ github.event.client_payload.response_path }}
+        run: |
+          set -euo pipefail
+          test -n "$FORTUNE_GRADING_HMAC_SECRET"
+          python scripts/train-dev-group-orchestrator.py finalize \
+            --request "data/grading-requests/$RUN_ID.json" \
+            --response "$RESPONSE_PATH" \
+            --output-root "reports/dev-group-training/$RUN_ID"
+      - name: Persist final report
+        env:
+          RUN_ID: ${{ github.event.client_payload.run_id }}
+        run: |
+          set -euo pipefail
+          git config user.name fortune-train-orchestrator
+          git config user.email fortune-train-orchestrator@users.noreply.github.com
+          git add -f "data/grading-responses/$RUN_ID.json" "reports/dev-group-training/$RUN_ID"
+          git diff --cached --quiet && { echo 'No final artifacts staged' >&2; exit 1; }
+          git commit -m "Complete DEV group training $RUN_ID [skip ci]"
+          git push origin HEAD:main
