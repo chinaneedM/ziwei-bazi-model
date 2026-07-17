@@ -1,0 +1,30 @@
+name: install-state-diagnostic
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute final receipt digest
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          p='reports/install-receipt.json'
+          data=open(p,'rb').read()
+          receipt=json.loads(data.decode('utf-8'))
+          out={
+            'install_receipt_sha256': hashlib.sha256(data).hexdigest(),
+            'validated_code_commit': receipt['code_commit'],
+            'receipt_status': receipt['status'],
+            'runtime_status': receipt['automation_runtime_install_status'],
+            'all_checks_pass': all(row.get('status') == 'PASS' for row in receipt.get('checks', [])),
+          }
+          open('install-state-diagnostic.json','w',encoding='utf-8').write(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: install-state-diagnostic
+          path: install-state-diagnostic.json
