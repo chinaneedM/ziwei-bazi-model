@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - .github/workflows/materialize-dev-group-002-snapshots-contracts.yml
+  pull_request:
+    paths:
+      - .github/workflows/materialize-dev-group-002-snapshots-contracts.yml
   workflow_dispatch:
 
 permissions:
@@ -11,11 +14,12 @@ permissions:
 
 jobs:
   materialize:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
       - name: Generate answer-free immutable snapshots and contracts
         run: |
           set -euo pipefail
@@ -34,7 +38,7 @@ jobs:
             fi
             manifest="$(find "$root" -mindepth 2 -maxdepth 2 -name manifest.json -print | sort | head -n1)"
             test -n "$manifest"
-            python - <<'PY' "$manifest"
+            python - "$manifest" <<'PY'
           import json, sys
           p = sys.argv[1]
           data = json.load(open(p, encoding='utf-8'))
@@ -88,6 +92,8 @@ jobs:
               }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
           PY
       - name: Commit generated snapshots and contracts
+        env:
+          TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -95,4 +101,4 @@ jobs:
           git add data/prediction-snapshots data/prediction-contracts reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json reports/dev-group-002-snapshot-contract-summary.json
           git diff --cached --quiet && exit 0
           git commit -m "Materialize DEV-GROUP-002 snapshots and contracts"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin "HEAD:${TARGET_BRANCH}"
