@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          fetch-depth: 0
       - name: Generate answer-free immutable snapshots and contracts
         run: |
           set -euo pipefail
@@ -56,29 +57,15 @@ jobs:
           ziwei_meta = manifest['files']['ziwei.txt']
           ziwei_path = runtime_root / 'ziwei.txt'
           files = [
-              {
-                  'logical_type': 'ZIWEI',
-                  'path': str(ziwei_path),
-                  'sha256': ziwei_meta['sha256'],
-                  'bytes': ziwei_meta['bytes'],
-              },
-              {
-                  'logical_type': 'QUESTIONS',
-                  'path': normalized_questions_path,
-                  'sha256': hashlib.sha256(q_bytes).hexdigest(),
-                  'bytes': len(q_bytes),
-              },
+              {'logical_type': 'ZIWEI', 'path': str(ziwei_path), 'sha256': ziwei_meta['sha256'], 'bytes': ziwei_meta['bytes']},
+              {'logical_type': 'QUESTIONS', 'path': normalized_questions_path, 'sha256': hashlib.sha256(q_bytes).hexdigest(), 'bytes': len(q_bytes)},
           ]
           normalized = {
               'schema': 'NORMALIZED-CASE-ADAPTER-V1',
               'status': 'NORMALIZED',
               'case_id': case_id,
               'dataset_type': 'DEV',
-              'answer_isolation': {
-                  'status': 'PROGRAMMATICALLY_ISOLATED',
-                  'answer_payload_present': False,
-                  'answer_reference_disclosed': False,
-              },
+              'answer_isolation': {'status': 'PROGRAMMATICALLY_ISOLATED', 'answer_payload_present': False, 'answer_reference_disclosed': False},
               'files': files,
               'source_runtime_manifest': {
                   'path': manifest_path,
@@ -88,9 +75,7 @@ jobs:
                   'question_normalization': 'INSERT_ONE_ASCII_SPACE_AFTER_OPTION_ID_WHEN_MISSING',
               },
           }
-          Path(output_path).write_text(
-              json.dumps(normalized, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
-              encoding='utf-8')
+          Path(output_path).write_text(json.dumps(normalized, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
           PY
 
             root="data/prediction-snapshots/${case_id}"
@@ -148,13 +133,7 @@ jobs:
               assert all(q['required_pairwise_rows'] == 6 for q in d['questions'])
               contracts.append({'case_id': case_id, 'path': str(p), 'status': 'GENERATED'})
           Path('reports/dev-group-002-snapshot-contract-summary.json').write_text(
-              json.dumps({
-                  'schema':'SNAPSHOT-CONTRACT-SUMMARY-V1',
-                  'status':'FOUR_GENERATED_ONE_BLOCKED',
-                  'contracts':contracts,
-                  'blocked_case':'DEV-EXAMPLE-004',
-                  'answer_access_performed':False
-              }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+              json.dumps({'schema':'SNAPSHOT-CONTRACT-SUMMARY-V1','status':'FOUR_GENERATED_ONE_BLOCKED','contracts':contracts,'blocked_case':'DEV-EXAMPLE-004','answer_access_performed':False}, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
           PY
       - name: Commit generated snapshots and contracts
         env:
@@ -166,4 +145,6 @@ jobs:
           git add data/prediction-snapshots data/prediction-contracts reports/DEV-EXAMPLE-004-snapshot-contract-blocked.json reports/dev-group-002-snapshot-contract-summary.json
           git diff --cached --quiet && exit 0
           git commit -m "Materialize DEV-GROUP-002 snapshots and contracts"
+          git fetch origin "${TARGET_BRANCH}"
+          git rebase "origin/${TARGET_BRANCH}"
           git push origin "HEAD:${TARGET_BRANCH}"
