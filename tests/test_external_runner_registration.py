@@ -22,6 +22,18 @@ class ChatWorkRunnerRegistrationTests(unittest.TestCase):
                 "status": "INSTALLED",
                 "workflow_path": ".github/workflows/external-runner-smoke.yml",
             },
+            "freeze_gate": {
+                "status": "ENFORCED",
+                "cli_command": "fortune-v1 freeze --handoff-receipt",
+                "required_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
+                "origin_validation_schema": "CHAT-WORK-HANDOFF-VALIDATION-V1",
+                "prediction_origin": "CHAT_WORK_HANDOFF_VERIFIED",
+                "missing_receipt_status": "HANDOFF_RECEIPT_MISSING",
+                "invalid_receipt_status": "HANDOFF_RECEIPT_INVALID",
+                "prediction_hash_replay_required": True,
+                "contract_hash_replay_required": True,
+                "identity_and_binding_replay_required": True,
+            },
             "input_contract": "PREDICTION-RUN-CONTRACT-V1",
             "output_schema": "PREDICTION-RUN-V1",
             "timeout_seconds": 1800,
@@ -50,6 +62,7 @@ class ChatWorkRunnerRegistrationTests(unittest.TestCase):
         passed, summary = _validate_chat_work_runner(self._registration())
         self.assertTrue(passed)
         self.assertFalse(summary["api_service_required"])
+        self.assertEqual(summary["freeze_gate_status"], "ENFORCED")
 
     def test_api_requirement_is_rejected(self):
         registration = self._registration()
@@ -72,6 +85,12 @@ class ChatWorkRunnerRegistrationTests(unittest.TestCase):
     def test_answer_vault_access_is_rejected(self):
         registration = self._registration()
         registration["no_answer_access_proof"]["answer_vault_read_allowed"] = True
+        passed, _ = _validate_chat_work_runner(registration)
+        self.assertFalse(passed)
+
+    def test_missing_freeze_gate_is_rejected(self):
+        registration = self._registration()
+        registration.pop("freeze_gate")
         passed, _ = _validate_chat_work_runner(registration)
         self.assertFalse(passed)
 
