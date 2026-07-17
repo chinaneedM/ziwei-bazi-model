@@ -1,0 +1,89 @@
+{
+  "schema": "RELATIVE-BASELINE-GROUP-REVEAL-V1",
+  "group_id": "DEV-GROUP-002",
+  "run_id": "DEV-GROUP-002-BASELINE-RUN-001",
+  "freeze_receipt_path": "data/relative-baseline-runs/DEV-GROUP-002-BASELINE-RUN-001/freeze-receipt.json",
+  "freeze_status_verified": "PASS",
+  "frozen_prediction_sha256": "5ff46e0947ee2944c6317a95e5bb87f913def8fbcaa87ad1aaf243d3a2cce01c",
+  "answer_vault_repository": "chinaneedM/fortune-answer-vault",
+  "answer_registry_path": "manifests/canonical-case-answer-registry.json",
+  "answer_registry_commit": "59f0908a3d4b04706a0c096552d4e309f69b3103",
+  "answer_lookup_rule": "CANONICAL_CASE_ID_NOT_GROUP_ID",
+  "literal_replay_status": "PASS_TWO_PATH_EQUIVALENT",
+  "answer_vectors_persisted_in_runtime_repository": false,
+  "question_count_total": 25,
+  "top1_exact_hits": 7,
+  "top2_exact_hits": 7,
+  "top2_coverage_hits": 14,
+  "top1_accuracy": 0.28,
+  "top2_exact_accuracy": 0.28,
+  "top2_coverage_accuracy": 0.56,
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "top1_exact_hits": 2,
+      "top2_exact_hits": 1,
+      "top2_coverage_hits": 3,
+      "question_results": [
+        {"question_id":"Q1","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q2","top1_hit":true,"top2_hit":false,"covered_by_top2":true},
+        {"question_id":"Q3","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q4","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q5","top1_hit":true,"top2_hit":false,"covered_by_top2":true}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "top1_exact_hits": 1,
+      "top2_exact_hits": 1,
+      "top2_coverage_hits": 2,
+      "question_results": [
+        {"question_id":"Q1","top1_hit":true,"top2_hit":false,"covered_by_top2":true},
+        {"question_id":"Q2","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q3","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q4","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q5","top1_hit":false,"top2_hit":true,"covered_by_top2":true}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "top1_exact_hits": 1,
+      "top2_exact_hits": 2,
+      "top2_coverage_hits": 3,
+      "question_results": [
+        {"question_id":"Q1","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q2","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q3","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q4","top1_hit":true,"top2_hit":false,"covered_by_top2":true},
+        {"question_id":"Q5","top1_hit":false,"top2_hit":false,"covered_by_top2":false}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "top1_exact_hits": 0,
+      "top2_exact_hits": 2,
+      "top2_coverage_hits": 2,
+      "question_results": [
+        {"question_id":"Q1","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q2","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q3","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q4","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q5","top1_hit":false,"top2_hit":false,"covered_by_top2":false}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "top1_exact_hits": 3,
+      "top2_exact_hits": 1,
+      "top2_coverage_hits": 4,
+      "question_results": [
+        {"question_id":"Q1","top1_hit":true,"top2_hit":false,"covered_by_top2":true},
+        {"question_id":"Q2","top1_hit":false,"top2_hit":false,"covered_by_top2":false},
+        {"question_id":"Q3","top1_hit":false,"top2_hit":true,"covered_by_top2":true},
+        {"question_id":"Q4","top1_hit":true,"top2_hit":false,"covered_by_top2":true},
+        {"question_id":"Q5","top1_hit":true,"top2_hit":false,"covered_by_top2":true}
+      ]
+    }
+  ],
+  "status": "PASS_SCORED"
+}
