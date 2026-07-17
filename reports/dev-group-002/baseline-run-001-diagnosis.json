@@ -1,0 +1,80 @@
+{
+  "schema": "DEV-GROUP-DIAGNOSIS-V1",
+  "group_id": "DEV-GROUP-002",
+  "run_id": "DEV-GROUP-002-BASELINE-RUN-001",
+  "grading_path": "reports/dev-group-002/baseline-run-001-grading.json",
+  "diagnosis_scope": "INTERFACE_AND_EXECUTION_ONLY",
+  "base_astrological_knowledge_change": false,
+  "case_specific_direction_rule_added": false,
+  "diagnostic_summary": {
+    "top1_accuracy": 0.28,
+    "top2_coverage_rate": 0.56,
+    "dominant_failure_mode": "INCOMPLETE_PROFESSIONAL_OBJECT_MATERIALIZATION",
+    "formal_method_validity": "NOT_MEASURABLE_FROM_LOW_VALIDITY_BASELINE"
+  },
+  "defect_classes": [
+    {
+      "id": "D001",
+      "class": "FORCED_CHOICE_WITHOUT_COMPLETE_KNOWLEDGE_COVERAGE",
+      "impact": "CRITICAL",
+      "evidence": "25题均缺完整来源调用账和全部实际路由覆盖；选择主要来自本命摘要与局部结构。",
+      "repair": "正式路径必须先物化每题每轨COMPLETE_KNOWLEDGE_COVERAGE_PLAN和ACTUAL_ROUTE_COVERAGE，再允许排序。"
+    },
+    {
+      "id": "D002",
+      "class": "NEUTRAL_TIME_FACTS_NOT_MATERIALIZED",
+      "impact": "CRITICAL",
+      "evidence": "精确年份题没有逐候选年、逐八字版本的对称S10/S15中立时间对象。",
+      "repair": "按候选年建立独立同字段时间事实；选项投影必须在时间事实密封后执行。"
+    },
+    {
+      "id": "D003",
+      "class": "ENDPOINT_AND_COMPOSITE_COVERAGE_INFLATION",
+      "impact": "HIGH",
+      "evidence": "学历、职业、婚姻、亲属事件和具体关系类型存在倾向或场景越级到现实终点的风险。",
+      "repair": "S17逐原子保留支持、限制、反证和精确终点缺口；复合选项不得由单一显眼原子完成。"
+    },
+    {
+      "id": "D004",
+      "class": "OPTION_ROUTE_DEPTH_ASYMMETRY",
+      "impact": "HIGH",
+      "evidence": "部分显眼选项获得较深叙事，强竞争项缺同来源族、同时间粒度和同终点负担。",
+      "repair": "在临时赢家产生前冻结OPTION_ATOM_RETRIEVAL_MATRIX，对全部选项执行四路挑战。"
+    },
+    {
+      "id": "D005",
+      "class": "DUAL_TRACK_LOCAL_SEALS_NOT_MACHINE_VALID",
+      "impact": "CRITICAL",
+      "evidence": "紫微与八字均未形成可由S19重放的本地密封，S03依法未融合。",
+      "repair": "每轨独立保存本轨父对象、来源正文、时间父对象、S17传播和S18成对矩阵，通过机器验证后才交S03。"
+    },
+    {
+      "id": "D006",
+      "class": "CASE_ASSET_AND_TRAINING_GROUP_IDENTITY_COUPLING",
+      "impact": "RESOLVED",
+      "evidence": "相同五案曾因DEV-GROUP编号变化被错误视为需要重新上传答案。",
+      "repair": "已安装CASE-ASSET-REGISTRY-V1；答案与案例按canonical_case_id和来源压缩包SHA绑定。"
+    },
+    {
+      "id": "D007",
+      "class": "GROUP_FREEZE_SCHEMA_DEADLOCK",
+      "impact": "RESOLVED",
+      "evidence": "完整PREDICTION-RUN验证失败曾阻止低有效度强制选择被冻结。",
+      "repair": "已安装RELATIVE-BASELINE-GROUP-V1独立冻结器，且明确不声称正式方法有效。"
+    }
+  ],
+  "learning_classification": {
+    "SOURCE_CONFIRMED": [
+      "既有五案答案资产可按原始压缩包哈希与案例编号复用",
+      "组级低有效度基线已冻结后才执行评分"
+    ],
+    "REASONED_HYPOTHESIS": [
+      "低准确率主要由运行对象未完整物化和检索深度不对称导致，而不能据此判定基础命理知识本身无效"
+    ],
+    "OPEN_RESEARCH_QUESTION": [
+      "完整双轨机器有效运行对同一五案的提升幅度",
+      "具体关系类型、职业身份和精确年份终点的可辨识上限"
+    ]
+  },
+  "status": "PASS_DIAGNOSIS_NO_BASE_KNOWLEDGE_PATCH"
+}
