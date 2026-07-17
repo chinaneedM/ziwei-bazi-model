@@ -16,6 +16,10 @@
   "clean_rerun_requires_new_group_and_case_ids": true,
   "base_astrological_knowledge_change_from_single_group": false,
   "case_specific_direction_rule_permission": false,
+  "runtime_commands": [
+    "group-chat-work-run",
+    "group-verify-freeze"
+  ],
   "workflow": [
     "GROUP_INPUT_FREEZE",
     "ALL_CASE_BLIND_PREDICTIONS",
@@ -27,5 +31,7 @@
     "REGRESSION_COMPARE",
     "ACCEPT_OR_ROLLBACK"
   ],
-  "status": "CONTRACT_DEFINED_IMPLEMENTATION_PENDING_VALIDATION"
+  "implementation_status": "IMPLEMENTED_ON_BRANCH",
+  "validation_status": "CI_PENDING",
+  "installation_status": "NOT_INSTALLED_ON_MAIN"
 }
