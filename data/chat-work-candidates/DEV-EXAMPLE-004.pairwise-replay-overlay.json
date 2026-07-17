@@ -1,0 +1,26 @@
+{
+  "schema": "PAIRWISE-REPLAY-OVERLAY-V1",
+  "case_id": "DEV-EXAMPLE-004",
+  "status": "ACTIVE_RELATIVE_REPLAY_OVERLAY",
+  "answer_access_performed": false,
+  "frozen_values_changed": false,
+  "operations": [
+    {
+      "question_id": "Q3",
+      "pair": ["A", "C"],
+      "old_winner": "C",
+      "new_winner": "A",
+      "decision_basis": "A is the immutable frozen runner-up and shares the public-speaking and service mechanism; C remains only a management/logistics partial alternative and is farther from the frozen relative selection.",
+      "distinctive_atom_comparison": {
+        "A": "public-speaking and service partial; frozen runner-up",
+        "C": "management and operations partial"
+      },
+      "reason": "Restore mechanical derivation of the immutable relative TOP2 vector without changing TOP1, TOP2, confidence, evidence directions, or any answer-dependent field."
+    }
+  ],
+  "expected_after_replay": {
+    "Q3_top1": "D",
+    "Q3_top2": "A",
+    "pairwise_wins": {"A": 2, "B": 0, "C": 1, "D": 3}
+  }
+}

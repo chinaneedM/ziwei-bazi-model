@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .audit import audit_sources, import_source_package, migrate_verified_sources
 from .bazi import freeze_transcription
+from .blind_track import create_local_track_seal, seal_blind_track_model
 from .diagnosis import classify_errors, create_interface_patch_candidate
 from .external_runner import import_chat_work_prediction
 from .group import authorize_group_reveal, create_dev_group, record_patch_round, register_baseline_freeze
@@ -46,6 +47,8 @@ def parser() -> argparse.ArgumentParser:
     cmd("snapshot", ("--case", {"required": True}), ("--output-root", {"required": True}), ("--bazi-transcription", {}))
     cmd("cache-freeze", ("--snapshot", {"required": True}), ("--static-object", {"required": True}), ("--binding-hash", {"required": True}), ("--schema-version", {"required": True}), ("--cache-root", {"required": True}))
     cmd("prepare-run", ("--snapshot", {"required": True}), ("--config", {"required": True}), ("--code-commit", {"required": True}), ("--output", {"required": True}), ("--prompt-snapshot-sha256", {}))
+    cmd("blind-track-seal", ("--candidate", {"required": True}), ("--frozen-root", {"required": True}))
+    cmd("local-track-seal", ("--adjudication", {"required": True}), ("--blind-receipt", {"required": True}), ("--output", {"required": True}))
     cmd("chat-work-import", ("--run", {"required": True}), ("--contract", {"required": True}),
         ("--mode", {"required": True, "choices": ["CHAT_ONLY", "WORK"]}),
         ("--session-id", {"required": True}), ("--output", {"required": True}),
@@ -104,6 +107,8 @@ def main(argv: list[str] | None = None) -> int:
         elif c == "snapshot": result = generate_prediction_snapshot(args.case, args.output_root, args.bazi_transcription)
         elif c == "cache-freeze": result = freeze_static_cache(args.snapshot, args.static_object, args.binding_hash, args.schema_version, args.cache_root)
         elif c == "prepare-run": result = prepare_run_contract(args.snapshot, args.config, args.code_commit, args.output, args.prompt_snapshot_sha256)
+        elif c == "blind-track-seal": result = seal_blind_track_model(args.candidate, args.frozen_root)
+        elif c == "local-track-seal": result = create_local_track_seal(args.adjudication, args.blind_receipt, args.output)
         elif c == "chat-work-import": result = import_chat_work_prediction(
             args.run, args.contract, args.output, args.receipt, args.mode, args.session_id)
         elif c == "freeze": result = freeze_prediction(args.run, args.contract, args.frozen_root)

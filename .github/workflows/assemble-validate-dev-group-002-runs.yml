@@ -1,0 +1,117 @@
+name: assemble-validate-dev-group-002-runs
+
+on:
+  push:
+    paths:
+      - .github/workflows/assemble-validate-dev-group-002-runs.yml
+      - data/prediction-contracts/**
+      - data/chat-work-candidates/DEV-EXAMPLE-00*.prediction-body-draft.json
+      - data/chat-work-candidates/DEV-EXAMPLE-005.schema-normalization.json
+      - data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json
+  pull_request:
+    paths:
+      - .github/workflows/assemble-validate-dev-group-002-runs.yml
+      - data/prediction-contracts/**
+      - data/chat-work-candidates/DEV-EXAMPLE-00*.prediction-body-draft.json
+      - data/chat-work-candidates/DEV-EXAMPLE-005.schema-normalization.json
+      - data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  assemble-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+      - name: Assemble canonical pre-seal runs and validate
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=src
+          mkdir -p data/prediction-runs-preseal reports/prediction-validation
+          python - <<'PY'
+          import copy, json
+          from pathlib import Path
+          from fortune_v1.prediction import validate_prediction_run
+
+          cases = ('DEV-EXAMPLE-001','DEV-EXAMPLE-002','DEV-EXAMPLE-003','DEV-EXAMPLE-005')
+          expected_vectors = {
+              'DEV-EXAMPLE-001': ('CBBAD','ADDCC'),
+              'DEV-EXAMPLE-002': ('DDCBA','BBDDB'),
+              'DEV-EXAMPLE-003': ('AACBC','CCAAB'),
+              'DEV-EXAMPLE-005': ('BABAB','DDADC'),
+          }
+          pairwise_overlay = json.loads(Path('data/chat-work-candidates/DEV-EXAMPLE-002.pairwise-replay-overlay.json').read_text(encoding='utf-8'))
+          assert pairwise_overlay['answer_access_performed'] is False
+          assert pairwise_overlay['frozen_values_changed'] is False
+          summary = []
+          for case_id in cases:
+              draft_path = Path('data/chat-work-candidates') / f'{case_id}.prediction-body-draft.json'
+              contract_path = Path('data/prediction-contracts') / f'{case_id}.json'
+              draft = json.loads(draft_path.read_text(encoding='utf-8'))
+              contract = json.loads(contract_path.read_text(encoding='utf-8'))
+
+              top1 = ''.join(q['top1'] for q in draft['questions'])
+              top2 = ''.join(q['top2'] for q in draft['questions'])
+              assert (top1, top2) == expected_vectors[case_id]
+              assert contract['answer_data_available'] is False
+
+              questions = copy.deepcopy(draft['questions'])
+              if case_id == 'DEV-EXAMPLE-002':
+                  for operation in pairwise_overlay['operations']:
+                      q = next(item for item in questions if item['question_id'] == operation['question_id'])
+                      target_pair = set(operation['pair'])
+                      row = next(item for item in q['pairwise_rows'] if {item['left'], item['right']} == target_pair)
+                      assert row['winner'] == operation['old_winner']
+                      row['winner'] = operation['new_winner']
+                      row['decision_basis'] = operation['decision_basis']
+                      row['distinctive_atom_comparison'] = operation['distinctive_atom_comparison']
+
+              for q in questions:
+                  for entry in q.get('evidence_ledger', []):
+                      if entry.get('source_library') in {'S17','S18'}:
+                          entry['track'] = 'SHARED'
+                      if 'capability_ceILING' in entry:
+                          assert case_id == 'DEV-EXAMPLE-005'
+                          entry['capability_ceiling'] = entry.pop('capability_ceILING')
+
+              run = {
+                  'schema': 'PREDICTION-RUN-V1',
+                  'case_id': case_id,
+                  'dataset_type': contract['dataset_type'],
+                  'binding': contract['binding'],
+                  'run_id': f"RUN-DEV-GROUP-002-20260717-9004B204-01-{case_id}",
+                  'cold_start': True,
+                  'input_snapshot': {'path': contract['snapshot']['path'], 'sha256': contract['snapshot']['sha256']},
+                  'questions': questions,
+              }
+              validation = validate_prediction_run(run, contract)
+              run['runtime_validation'] = validation
+              out = Path('data/prediction-runs-preseal') / f'{case_id}.json'
+              out.write_text(json.dumps(run, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+              report_path = Path('reports/prediction-validation') / f'{case_id}.json'
+              report_path.write_text(json.dumps({
+                  'schema':'PREDICTION-PRESEAL-VALIDATION-REPORT-V1','case_id':case_id,
+                  'status':validation['status'],'errors':validation['errors'],'error_count':len(validation['errors']),
+                  'top1_vector':top1,'top2_vector':top2,'answer_access_performed':False,'formal_freeze_performed':False,
+                  'pairwise_overlay_applied': case_id == 'DEV-EXAMPLE-002',
+              }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+              summary.append({'case_id':case_id,'status':validation['status'],'error_count':len(validation['errors'])})
+
+          Path('reports/prediction-validation/summary.json').write_text(json.dumps({
+              'schema':'PREDICTION-PRESEAL-VALIDATION-SUMMARY-V1','status':'VALIDATED_NOT_FROZEN','cases':summary,
+              'answer_access_performed':False,'formal_freeze_performed':False,
+          }, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+      - name: Upload pre-seal runs and validation reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-group-002-preseal-runs-validation
+          path: |
+            data/prediction-runs-preseal
+            reports/prediction-validation
+          if-no-files-found: error
+          retention-days: 7

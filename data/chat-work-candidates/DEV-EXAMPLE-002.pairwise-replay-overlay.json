@@ -1,0 +1,26 @@
+{
+  "schema": "PAIRWISE-REPLAY-OVERLAY-V1",
+  "case_id": "DEV-EXAMPLE-002",
+  "status": "ACTIVE_PRESEAL_OVERLAY",
+  "answer_access_performed": false,
+  "frozen_values_changed": false,
+  "operations": [
+    {
+      "question_id": "Q3",
+      "pair": ["B", "D"],
+      "old_winner": "B",
+      "new_winner": "D",
+      "decision_basis": "D is the frozen strongest competitor and has direct relational-resource coverage; B is limited to employment volatility and is farther from the selected self-directed career mechanism.",
+      "distinctive_atom_comparison": {
+        "B": "employment volatility partial",
+        "D": "relational-resource dependence partial and frozen runner-up"
+      },
+      "reason": "Restore mechanical derivation of the immutable TOP2 vector without changing TOP1, TOP2, confidence, evidence directions, or any answer-dependent field."
+    }
+  ],
+  "expected_after_replay": {
+    "Q3_top1": "C",
+    "Q3_top2": "D",
+    "pairwise_wins": {"A": 0, "B": 1, "C": 3, "D": 2}
+  }
+}

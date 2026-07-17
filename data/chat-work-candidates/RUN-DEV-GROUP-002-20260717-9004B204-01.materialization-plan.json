@@ -1,0 +1,106 @@
+{
+  "schema": "PREDICTION-MATERIALIZATION-PLAN-V1",
+  "status": "PLANNED_NOT_EXECUTED",
+  "run_id": "RUN-DEV-GROUP-002-20260717-9004B204-01",
+  "source_commit": "9004b20446773c6e6c9ff5f872416c7a61d177b2",
+  "immutability_rule": "TOP1 and row-level TOP2 are frozen and may not be changed during materialization.",
+  "answer_gate": "CLOSED",
+  "required_question_objects": [
+    "coverage_plan",
+    "direction_matrix",
+    "compound_coverage",
+    "pairwise_rows_body",
+    "evidence_ledger",
+    "public_evidence",
+    "ziwei_track",
+    "bazi_track",
+    "strongest_competitor_reason",
+    "most_important_unverified_atom",
+    "formal_exact_assertion"
+  ],
+  "track_seal_required_fields": [
+    "seal_id",
+    "canonical_hash",
+    "body_hash",
+    "machine_validation_report_id",
+    "validation_status",
+    "s18_local_adjudication_object_id",
+    "parent_object_ids"
+  ],
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "top1_vector": "CBBAD",
+      "top2_vector": "ADDCC",
+      "questions": [
+        {"question_id":"Q1","top1":"C","top2":"A","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q2","top1":"B","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q3","top1":"B","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q4","top1":"A","top2":"C","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q5","top1":"D","top2":"C","status":"PENDING_FULL_BODY"}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "top1_vector": "DDCBA",
+      "top2_vector": "BBDDB",
+      "questions": [
+        {"question_id":"Q1","top1":"D","top2":"B","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q2","top1":"D","top2":"B","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q3","top1":"C","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q4","top1":"B","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q5","top1":"A","top2":"B","status":"PENDING_FULL_BODY"}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "top1_vector": "AACBC",
+      "top2_vector": "CCAAB",
+      "questions": [
+        {"question_id":"Q1","top1":"A","top2":"C","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q2","top1":"A","top2":"C","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q3","top1":"C","top2":"A","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q4","top1":"B","top2":"A","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q5","top1":"C","top2":"B","status":"PENDING_FULL_BODY"}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "top1_vector": "CBDCD",
+      "top2_vector": "DDAAA",
+      "bazi_track_rule": "FAIL_CLOSED_UNSEALED_UNTIL_COORDINATE_CONFLICT_IS_RESOLVED_BY_TRUSTED_INPUT_OR_LEGALLY_NULLABLE_TRACK_SUPPORT_IS_IMPLEMENTED",
+      "questions": [
+        {"question_id":"Q1","top1":"C","top2":"D","status":"PENDING_FULL_BODY_BAZI_CONFLICT"},
+        {"question_id":"Q2","top1":"B","top2":"D","status":"PENDING_FULL_BODY_BAZI_CONFLICT"},
+        {"question_id":"Q3","top1":"D","top2":"A","status":"PENDING_FULL_BODY_BAZI_CONFLICT"},
+        {"question_id":"Q4","top1":"C","top2":"A","status":"PENDING_FULL_BODY_BAZI_CONFLICT"},
+        {"question_id":"Q5","top1":"D","top2":"A","status":"PENDING_FULL_BODY_BAZI_CONFLICT"}
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "top1_vector": "BABAB",
+      "top2_vector": "DDADC",
+      "questions": [
+        {"question_id":"Q1","top1":"B","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q2","top1":"A","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q3","top1":"B","top2":"A","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q4","top1":"A","top2":"D","status":"PENDING_FULL_BODY"},
+        {"question_id":"Q5","top1":"B","top2":"C","status":"PENDING_FULL_BODY"}
+      ]
+    }
+  ],
+  "execution_order": [
+    "DEV-EXAMPLE-001",
+    "DEV-EXAMPLE-002",
+    "DEV-EXAMPLE-003",
+    "DEV-EXAMPLE-005",
+    "DEV-EXAMPLE-004"
+  ],
+  "stop_conditions": [
+    "Do not reveal or grade before all required objects validate and a freeze receipt exists.",
+    "Do not generate seal hashes before canonical object bodies exist.",
+    "Do not treat chat summaries as complete evidence ledgers.",
+    "Do not repair the fourth-case Bazi coordinates by semantic guessing."
+  ]
+}
