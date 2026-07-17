@@ -91,4 +91,26 @@ The resulting `GROUP-PREDICTION-FREEZE-V1` is the first artifact that may author
 8. `08_PAIRWISE_SELECTION`
 9. `09_LOCAL_SEAL_AND_FUSION`
 
-R1 now implements packet preparation, simplified professional output validation, pairwise materialization, visibility classification, local repair scoping, case freeze, complete-group validation, and immutable group freeze. Reveal, scoring, diagnosis, and `SHADOW_REBUILD` remain outside the prediction-side package and require a separate future implementation.
+## Current R1 boundary
+
+Implemented:
+
+- clean CHAT packet preparation
+- simplified professional reasoning output validation
+- complete pairwise materialization
+- visibility-event classification
+- local repair receipts
+- immutable case freeze
+- complete-group validation
+- immutable group freeze
+
+Not implemented in this prediction-side branch:
+
+- answer-vault access
+- reveal
+- scoring
+- diagnosis
+- `SHADOW_REBUILD`
+- automatic prompt or knowledge-base modification
+
+Those functions must remain in a separate reveal-side implementation so prediction context cannot inherit answer-bearing data.
