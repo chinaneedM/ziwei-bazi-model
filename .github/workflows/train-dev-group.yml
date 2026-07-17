@@ -1,0 +1,86 @@
+name: train-dev-group
+
+on:
+  workflow_dispatch:
+    inputs:
+      group_id:
+        required: true
+        default: DEV-GROUP-002
+        type: string
+      run_id:
+        required: true
+        default: DEV-GROUP-002-BASELINE-RUN-001
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  prepare-private-grading-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate frozen baseline and build request
+        shell: bash
+        run: |
+          set -euo pipefail
+          group='${{ inputs.group_id }}'
+          run='${{ inputs.run_id }}'
+          receipt="data/relative-baseline-runs/$run/freeze-receipt.json"
+          test -f "$receipt"
+          python scripts/train-dev-group-orchestrator.py request \
+            --group-id "$group" \
+            --run-id "$run" \
+            --freeze-receipt "$receipt" \
+            --output "data/grading-requests/$run.json"
+      - name: Persist grading request
+        shell: bash
+        run: |
+          set -euo pipefail
+          run='${{ inputs.run_id }}'
+          git config user.name fortune-train-orchestrator
+          git config user.email fortune-train-orchestrator@users.noreply.github.com
+          git add -f "data/grading-requests/$run.json"
+          if git diff --cached --quiet; then
+            echo 'Request already materialized'
+          else
+            git commit -m "Request private grading for $run [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Dispatch private vault when configured
+        if: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.FORTUNE_ANSWER_VAULT_TOKEN }}
+          VAULT_REPO: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY }}
+          GROUP_ID: ${{ inputs.group_id }}
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          set -euo pipefail
+          test -n "$GH_TOKEN"
+          gh api --method POST "/repos/$VAULT_REPO/dispatches" \
+            -f event_type='fortune-reverse-grade' \
+            -F client_payload[group_id]="$GROUP_ID" \
+            -F client_payload[run_id]="$RUN_ID" \
+            -F client_payload[runtime_repository]="${{ github.repository }}" \
+            -F client_payload[request_path]="data/grading-requests/$RUN_ID.json"
+      - name: Record single external blocker when vault is not configured
+        if: ${{ vars.FORTUNE_ANSWER_VAULT_REPOSITORY == '' }}
+        run: |
+          cat > reports/train-dev-group-external-blocker.json <<'JSON'
+          {
+            "schema": "TRAIN-DEV-GROUP-EXTERNAL-BLOCKER-V1",
+            "status": "BLOCKED_ONCE",
+            "blocking_component": "PRIVATE_ANSWER_VAULT_CONNECTION",
+            "required_repository_variable": "FORTUNE_ANSWER_VAULT_REPOSITORY",
+            "required_repository_secret": "FORTUNE_ANSWER_VAULT_TOKEN",
+            "required_shared_secret": "FORTUNE_GRADING_HMAC_SECRET",
+            "manual_stage_confirmations_required_after_install": false
+          }
+          JSON
+          git config user.name fortune-train-orchestrator
+          git config user.email fortune-train-orchestrator@users.noreply.github.com
+          git add reports/train-dev-group-external-blocker.json
+          git diff --cached --quiet || { git commit -m 'Record private vault connection blocker [skip ci]'; git push origin HEAD:main; }
