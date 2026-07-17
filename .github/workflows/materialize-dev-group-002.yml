@@ -7,6 +7,11 @@ on:
     paths:
       - ".staging/dev-group-002/**"
       - ".github/workflows/materialize-dev-group-002.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".staging/dev-group-002/**"
+      - ".github/workflows/materialize-dev-group-002.yml"
 
 permissions:
   contents: write
@@ -18,6 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: agent/dev-group-002-source-reimport
           fetch-depth: 1
 
       - name: Verify fragments and materialize source payload
