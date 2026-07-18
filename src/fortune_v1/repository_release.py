@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from .contamination import assert_knowledge_source_path
 from .util import FortuneError, atomic_write_json, canonical_bytes, read_json, sha256_bytes, sha256_file, slug, utc_now
 
 LIBRARIES = tuple(f"S{i:02d}" for i in range(20))
@@ -32,8 +33,10 @@ def write_object(path: str | Path, value: dict[str, Any], *, overwrite: bool = F
 
 def source_rows(source_dir: str | Path) -> list[dict[str, Any]]:
     root = Path(source_dir)
+    assert_knowledge_source_path(root)
     found: dict[str, dict[str, Any]] = {}
     for path in sorted(root.glob("S??_*.txt")):
+        assert_knowledge_source_path(path)
         lib = path.name[:3].upper()
         if lib not in LIBRARIES or lib in found:
             raise FortuneError(f"invalid or duplicate library: {path.name}", status="KNOWLEDGE_SOURCE_SET_INVALID")
@@ -66,6 +69,7 @@ def build_knowledge_manifest(source_dir: str | Path, output: str | Path, *, rele
         "source_files": source_rows(source_dir),
         "s19_binding_sha256": s19_binding_sha256,
         "immutability": "NO_IN_PLACE_MUTATION",
+        "legacy_contamination_policy": "HISTORICAL_AND_RESEARCH_PATHS_PROHIBITED_FROM_RUNTIME_PACKETS",
         "score_eligibility": "BLOCKED_PENDING_CAUSAL_SHADOW_VALIDATION",
         "created_at": utc_now(),
     })
@@ -78,6 +82,15 @@ def validate_knowledge_manifest(manifest_path: str | Path, source_dir: str | Pat
     if manifest.get("schema") != "FORTUNE-KNOWLEDGE-RELEASE-MANIFEST-V1": errors.append("SCHEMA_INVALID")
     if [row.get("library_id") for row in rows] != list(LIBRARIES): errors.append("LIBRARY_SET_INVALID")
     if manifest.get("object_hash") != object_hash(manifest): errors.append("OBJECT_HASH_MISMATCH")
+    try:
+        assert_knowledge_source_path(manifest.get("source_root", ""))
+    except FortuneError as exc:
+        errors.append(exc.status)
+    for index, row in enumerate(rows):
+        try:
+            assert_knowledge_source_path(row.get("repository_relative_path", ""))
+        except FortuneError as exc:
+            errors.append(f"SOURCE_{index}:{exc.status}")
     readback = []
     if source_dir:
         for row in rows:
@@ -93,6 +106,7 @@ def validate_knowledge_manifest(manifest_path: str | Path, source_dir: str | Pat
         "knowledge_release_id": manifest.get("knowledge_release_id"),
         "manifest_sha256": sha256_file(manifest_path),
         "source_file_count": len(rows), "readback": readback, "errors": errors,
+        "legacy_contamination_gate": "PASS" if not any("PATH_" in error for error in errors) else "FAIL_CLOSED",
         "status": "PASS" if not errors else "FAIL_CLOSED",
     }
 
@@ -133,7 +147,9 @@ def build_method_packet(method_path: str | Path, output: str | Path) -> dict[str
         "method_release_path": Path(method_path).as_posix(),
         "method_release_sha256": sha256_file(method_path),
         "mandatory_stage_ids": list(METHOD_STAGES), "rules": rules,
-        "answer_or_option_specific_rule_permission": "NO", "created_at": utc_now(),
+        "answer_or_option_specific_rule_permission": "NO",
+        "historical_method_fallback_permission": "NO",
+        "created_at": utc_now(),
     })
 
 
@@ -159,6 +175,9 @@ def build_model_release(knowledge_manifest_path: str | Path, method_release_path
         "s19_binding_sha256": knowledge["s19_binding_sha256"],
         "source_packet_schema": source_packet_schema,
         "source_files": knowledge["source_files"],
+        "project_upload_fallback_permission": "NO",
+        "historical_training_trace_permission": "NO",
+        "research_hypothesis_direct_runtime_permission": "NO",
         "score_eligibility": "BLOCKED_PENDING_R16_REPOSITORY_ONLY_SHADOW_VALIDATION",
         "formal_release": "NO", "created_at": utc_now(),
     })
