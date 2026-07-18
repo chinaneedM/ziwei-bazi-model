@@ -1,8 +1,8 @@
-# Learning Cycle V2
+# Learning Cycle V2.1 — first-blind-only scoring correction
 
 ## Objective
 
-The fixed development examples are a revealed training set. They must be studied repeatedly until the model reaches stable mastery from clean prediction inputs. Audit controls remain guardrails; they are not a substitute for learning.
+The revealed development examples are training material. Their purpose is to expose why a prediction was wrong, correct the reasoning mechanism, and test whether that correction improves later first-time predictions. The system must learn from an error without pretending that a post-reveal replay is a new blind prediction.
 
 Core sequence:
 
@@ -12,76 +12,79 @@ Machine names:
 
 > ABSORB → DECOMPOSE → FILL → RESHAPE → APPLY → GENERATE
 
-## Three separate claims
+## Four separate claims
 
-- **Training mastery:** performance on examples already used for learning.
-- **Cold-start stability:** reproducibility with new run IDs and clean inputs.
-- **Unseen generalization:** performance on a later frozen block never used for learning.
+- **First-blind accuracy:** one immutable pre-reveal prediction for each distinct question.
+- **Post-reveal training fit:** whether the corrected method can reproduce the revealed result on the training question.
+- **Replay stability:** whether the corrected method is reproducible under clean input and order perturbations.
+- **Unseen generalization:** performance on a later frozen block never used to create or revise the method.
 
-Training mastery must never be reported as unseen accuracy.
+These claims must never be substituted for one another. Five replays of one revealed question are five stability observations but only zero additional blind-accuracy observations.
 
-## Learning phases
+## Why an incorrect answer is useful
 
-1. **ABSORB:** reopen relevant source parents, conditions, exceptions and competing methods.
-2. **DECOMPOSE:** locate the exact defect in source coverage, literal atoms, structure, timing, endpoint, pairwise decision, fusion or execution.
-3. **FILL:** add missing retrieval, semantic, entity, temporal, endpoint, pairwise, fusion, method or knowledge capability.
-4. **RESHAPE:** turn the local defect into a conditional general mechanism with counterexamples.
-5. **APPLY:** perform fresh cold-start replays and retention tests for mastered units.
-6. **GENERATE:** freeze the mastered candidate and test it on unseen cases.
+A wrong first prediction is not erased. It is the training signal. Post-reveal work must identify the faulty reasoning path, such as semantic scope, entity confusion, endpoint overreach, timing misuse, incomplete compound coverage, unfair proof burden, or defective pairwise adjudication. The correction must be expressed as a reusable conditional mechanism with counterexamples, never as a rule that maps a case, question, option letter, exact chart fingerprint, or remembered answer to a selection.
 
-A single question may justify a method candidate. A base-knowledge promotion requires two independent source parents and reproduction in two distinct training units.
+## Question-unit lifecycle
 
-## Unit modes
+1. **FIRST BLIND FREEZE:** make one answer-free prediction and freeze it before reveal.
+2. **REVEAL AND SCORE:** score that frozen prediction once. This is the question's only blind-accuracy contribution.
+3. **ABSORB:** reopen relevant source parents, conditions, exceptions, and competing methods.
+4. **DECOMPOSE:** identify exactly why the reasoning failed or succeeded for the wrong reason.
+5. **FILL:** add missing retrieval, semantic, entity, temporal, endpoint, pairwise, fusion, method, or source capability.
+6. **RESHAPE:** convert the local defect into a general mechanism with explicit applicability conditions and counterexamples.
+7. **APPLY:** run clean post-reveal replays for fit and stability only; these replays never count as blind accuracy.
+8. **ADVANCE:** after the correction object, provenance, pairwise replay, contamination scan, and stability gate pass, move to the next question so the revised reasoning can be tested prospectively.
+9. **GENERATE:** after the full training set, freeze the candidate and test it on an unseen blind block.
 
-### QUESTION
+A question may be training-complete even when its original first-blind prediction was wrong. That is expected: the purpose of the unit is to correct the reasoning. The correctness of that correction is tested prospectively on later distinct questions.
 
-Train one question at a time. Default gate:
+## Accuracy policy
 
-- at least five clean cold-start attempts;
-- TOP1 at least 80%;
-- TOP2 at least 90%;
-- complete provenance and pairwise replay;
-- no case-specific direction rule;
-- previously mastered questions remain at or above 80%.
+Only rows with `evaluation_role=FIRST_BLIND_PREDICTION`, an immutable pre-reveal freeze, answer-free prediction input, and complete provenance are accuracy eligible.
 
-Four correct TOP1 results out of five clean attempts is the minimum default mastery.
+- Exactly one eligible accuracy observation is allowed per distinct question.
+- `POST_REVEAL_TRAINING_REPLAY` rows measure fit and stability only.
+- Re-running one question five times cannot produce an 80% or 100% blind-accuracy claim.
+- Rolling TOP1/TOP2 rates are computed across distinct questions' first frozen predictions.
+- The default rolling rate gate is not evaluated before five distinct questions exist.
+- QUESTION progression is driven by completion of reasoning correction, not by forcing the old question to become retrospectively correct.
+- Final training-set closure still requires the configured rolling TOP1/TOP2 targets and a later frozen unseen test for generalization.
 
-### CASE
+Default targets:
 
-Train one case at a time. Default gate is TOP1 at least 80% across its questions, TOP2 at least 90%, two clean replays and retention of earlier units.
-
-### GROUP
-
-Train the complete development group. Default gate is TOP1 at least 80%, TOP2 at least 90%, two clean replays and no unacceptable regression damage.
-
-`DEV-GROUP-002` should begin in QUESTION mode and advance in frozen question order.
-
-## Legal changes
-
-The learning cycle may change retrieval, semantics, mappings, timing, endpoint logic, pairwise adjudication, fusion, general methods and source knowledge. Changes must have explicit parent chains, conditions, counterexamples and downstream effects.
-
-Forbidden changes include rules keyed to a case ID, question ID, option letter, exact fingerprint or prior output. A Bazi version cannot be selected because it matches a known result.
+- at least five clean post-reveal stability replays per trained question;
+- at least five distinct first-blind questions before evaluating rolling rates;
+- rolling TOP1 at least 80%;
+- rolling TOP2 at least 90%;
+- prior-method retention at least 80% when applicable.
 
 ## State model
 
 ```text
 LEARNING_ACTIVE
-  ├─ contamination/case rule → HOLD_ANSWER_OR_CASE_RULE_CONTAMINATION
-  ├─ invalid provenance      → HOLD_INVALID_PROVENANCE
-  ├─ below mastery           → continue DECOMPOSE/FILL/RESHAPE/APPLY
-  ├─ current unit mastered   → next unit
-  └─ all units mastered      → TRAINING_SET_MASTERED_AWAITING_UNSEEN_BLIND_TEST
+  ├─ contamination/case or answer rule → HOLD_ANSWER_OR_CASE_RULE_CONTAMINATION
+  ├─ invalid provenance/freeze          → HOLD_INVALID_PROVENANCE_OR_FREEZE
+  ├─ correction incomplete              → CONTINUE_CURRENT_UNIT_TRAINING
+  ├─ correction complete                → TRAINING_UNIT_COMPLETE → next question
+  ├─ all training units complete,
+  │    rolling target below threshold   → RESHAPE_AND_RETEST_ON_LATER_DISTINCT_UNITS
+  └─ all training units complete,
+       rolling target satisfied         → AWAIT_FROZEN_UNSEEN_BLIND_TEST
 ```
 
-There is no fixed five-round stop, no fixed defect retry limit and no stop after two zero-improvement rounds. Lack of improvement triggers deeper decomposition or method reshaping.
+`MASTERED` is not granted from repeated post-reveal runs of one question. The repository uses `TRAINING_UNIT_COMPLETE` for a question whose error analysis and reasoning correction are complete.
+
+## Base-knowledge boundary
+
+A single question may produce a method candidate. Base-knowledge promotion requires at least two independent source-parent chains and reproduction in at least two distinct training units. Even then, unseen prediction ability remains unproven until a frozen blind block is evaluated.
 
 ## CLI
 
 ```bash
-fortune-learning-cycle create --cycle-id <id> --group-id <group> --unit-mode QUESTION --unit-plan <plan.json> --output <cycle.json>
-fortune-learning-cycle evaluate --cycle <cycle.json> --replay <replay.json> --output <evaluation.json>
+fortune-learning-cycle create --cycle-id <id> --group-id <group> --unit-plan <plan.json> --output <cycle.json>
+fortune-learning-cycle evaluate-question --cycle <cycle.json> --evidence <question-evidence.json> --output <evaluation.json>
 fortune-learning-cycle advance --cycle <cycle.json> --evaluation <evaluation.json> --output <next-cycle.json>
-fortune-learning-cycle validate-patch --patch <patch.json> --output <validation.json>
 ```
 
-Formal release remains separate. Mastery does not by itself establish exact endpoints, machine-valid local seals, S03 fusion or unseen-case performance.
+Formal release remains separate. Training completion does not by itself establish exact endpoints, machine-valid local seals, S03 fusion, or unseen-case performance.
