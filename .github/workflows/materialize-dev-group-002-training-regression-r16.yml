@@ -1,0 +1,56 @@
+name: materialize-dev-group-002-training-regression-r16
+
+on:
+  push:
+    branches:
+      - agent/dev-group-002-training-regression-r1
+    paths:
+      - 'reports/dev-group-002/training-regression-r16/payload/**'
+      - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/dev-group-002-training-regression-r1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Decode deterministic R16 materializer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          import zlib
+
+          payload_dir = Path('reports/dev-group-002/training-regression-r16/payload')
+          parts = sorted(payload_dir.glob('part*.txt'))
+          if not parts:
+              raise SystemExit('R16 payload parts are missing')
+          encoded = ''.join(part.read_text(encoding='utf-8').strip() for part in parts)
+          script = zlib.decompress(base64.b64decode(encoded))
+          target = Path('reports/dev-group-002/training-regression-r16/materialize_validate.py')
+          target.write_bytes(script)
+          print(f'decoded {len(script)} bytes from {len(parts)} payload part(s)')
+          PY
+      - name: Materialize and validate R16
+        run: |
+          python reports/dev-group-002/training-regression-r16/materialize_validate.py --repo-root . --write --validate
+      - name: Commit deterministic R16 objects
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/dev-group-002/training-regression-r16
+          if git diff --cached --quiet; then
+            echo 'R16 objects already materialized'
+          else
+            git commit -m 'Materialize DEV-GROUP-002 R16 frozen-interface replay [skip ci]'
+            git push origin HEAD:agent/dev-group-002-training-regression-r1
+          fi
