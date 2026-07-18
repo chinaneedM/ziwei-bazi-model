@@ -21,6 +21,16 @@ def build_run_contract(model_release_path: str | Path, source_packet_path: str |
                        dataset_type: str, question_rows: list[dict[str, Any]]) -> dict[str, Any]:
     model = read_json(model_release_path); source = read_json(source_packet_path)
     method = read_json(method_packet_path); case = read_json(case_freeze_path)
+    normalized_questions = []
+    for row in question_rows:
+        options = row.get("option_ids")
+        if not options and isinstance(row.get("options"), list):
+            options = [item.get("option_id") or item.get("id") for item in row["options"]]
+        options = [item for item in (options or []) if item]
+        normalized_questions.append({
+            "question_id": row.get("question_id"), "option_ids": options,
+            "required_pairwise_rows": row.get("required_pairwise_rows", len(options) * (len(options) - 1) // 2),
+        })
     binding = {
         "model_release_id": model["model_release_id"],
         "main_prompt_runtime_id": model["main_prompt_runtime_id"],
@@ -42,7 +52,7 @@ def build_run_contract(model_release_path: str | Path, source_packet_path: str |
         "model_release": {"path": Path(model_release_path).as_posix(), "sha256": sha256_file(model_release_path)},
         "source_packet": {"path": Path(source_packet_path).as_posix(), "sha256": sha256_file(source_packet_path)},
         "method_packet": {"path": Path(method_packet_path).as_posix(), "sha256": sha256_file(method_packet_path)},
-        "questions": question_rows,
+        "questions": normalized_questions,
         "answer_data_available": False,
         "answer_isolation_declaration": "PHYSICALLY_INACCESSIBLE",
         "project_upload_access": "DENIED_AND_NOT_USED",
@@ -83,11 +93,25 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
     model = loaded.get("model_release", {}); source = loaded.get("source_packet", {})
     method = loaded.get("method_packet", {}); binding = contract.get("binding", {})
     if model.get("model_release_id") != binding.get("model_release_id"): errors.append("MODEL_RELEASE_MISMATCH")
+    if model.get("main_prompt_runtime_id") != binding.get("main_prompt_runtime_id"): errors.append("MAIN_PROMPT_BINDING_MISMATCH")
+    if model.get("code_commit_sha") != binding.get("code_commit_sha"): errors.append("CODE_COMMIT_BINDING_MISMATCH")
+    if model.get("s19_binding_sha256") != binding.get("s19_binding_sha256"): errors.append("S19_BINDING_MISMATCH")
+    if model.get("project_upload_fallback_permission") not in {None, "NO"}: errors.append("MODEL_PROJECT_FALLBACK_PERMISSION_INVALID")
     if source.get("knowledge_release_id") != binding.get("knowledge_release_id"): errors.append("KNOWLEDGE_RELEASE_MISMATCH")
     if method.get("method_release_id") != binding.get("method_release_id"): errors.append("METHOD_RELEASE_MISMATCH")
     if contract.get("source_packet", {}).get("sha256") != binding.get("source_packet_sha256"): errors.append("SOURCE_PACKET_BINDING_MISMATCH")
     if contract.get("method_packet", {}).get("sha256") != binding.get("method_packet_sha256"): errors.append("METHOD_PACKET_BINDING_MISMATCH")
 
+    model_sources = {row.get("library_id"): row for row in model.get("source_files", [])}
+    for index, item in enumerate(source.get("items", [])):
+        parent = model_sources.get(item.get("library_id"))
+        if not parent: errors.append(f"SOURCE_PACKET_ITEM_{index}:MODEL_LIBRARY_UNRESOLVED"); continue
+        if item.get("source_sha256") != parent.get("sha256_raw_file_bytes"):
+            errors.append(f"SOURCE_PACKET_ITEM_{index}:MODEL_SOURCE_HASH_MISMATCH")
+        if item.get("source_size_bytes") != parent.get("file_size_bytes"):
+            errors.append(f"SOURCE_PACKET_ITEM_{index}:MODEL_SOURCE_SIZE_MISMATCH")
+        if item.get("repository_relative_path") != parent.get("repository_relative_path"):
+            errors.append(f"SOURCE_PACKET_ITEM_{index}:MODEL_SOURCE_PATH_MISMATCH")
     items = {item.get("packet_item_id"): item for item in source.get("items", [])}
     valid_rules = {(row.get("stage_id"), row.get("method_rule_id")) for row in method.get("rules", [])}
     ledger_count = 0; stage_count = 0
