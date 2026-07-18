@@ -32,9 +32,9 @@ def parser() -> argparse.ArgumentParser:
     cmd("source-packet", ("--catalog", {"required": True}), ("--coverage-plan", {"required": True}),
         ("--case-freeze", {"required": True}), ("--output", {"required": True}))
     cmd("model-release", ("--knowledge-manifest", {"required": True}),
-        ("--method", {"required": True}), ("--output", {"required": True}),
-        ("--model-release-id", {"required": True}), ("--main-prompt-runtime-id", {"required": True}),
-        ("--code-commit", {"required": True}))
+        ("--method", {"required": True}), ("--prompt-snapshot-receipt", {"required": True}),
+        ("--output", {"required": True}), ("--model-release-id", {"required": True}),
+        ("--main-prompt-runtime-id", {"required": True}), ("--code-commit", {"required": True}))
     cmd("run-contract", ("--model-release", {"required": True}),
         ("--source-packet", {"required": True}), ("--method-packet", {"required": True}),
         ("--case-freeze", {"required": True}), ("--questions", {"required": True}),
@@ -68,7 +68,8 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "method-packet": result = build_method_packet(args.method, args.output)
         elif args.command == "source-catalog": result = build_source_catalog(args.manifest, args.source_dir, args.output)
         elif args.command == "source-packet": result = build_source_packet(args.catalog, args.coverage_plan, args.case_freeze, args.output)
-        elif args.command == "model-release": result = build_model_release(args.knowledge_manifest, args.method, args.output,
+        elif args.command == "model-release": result = build_model_release(
+            args.knowledge_manifest, args.method, args.prompt_snapshot_receipt, args.output,
             model_release_id=args.model_release_id, main_prompt_runtime_id=args.main_prompt_runtime_id,
             code_commit_sha=args.code_commit)
         elif args.command == "run-contract":
