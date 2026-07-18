@@ -31,14 +31,36 @@ jobs:
           python-version: '3.12'
       - name: Materialize R10 regression diagnosis
         run: |
+          set +e
           python reports/dev-group-002/training-regression-r10/materialize_validate.py \
-            --repo-root . --write --validate
-      - name: Commit deterministic R10 artifacts
-        if: github.event_name == 'push'
+            --repo-root . --write --validate \
+            > reports/dev-group-002/training-regression-r10/execution.log 2>&1
+          status=$?
+          cat reports/dev-group-002/training-regression-r10/execution.log
+          echo "$status" > reports/dev-group-002/training-regression-r10/execution.exit-code
+          exit "$status"
+      - name: Persist R10 failure diagnostics
+        if: failure() && github.event_name == 'push'
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add reports/dev-group-002/training-regression-r10/
+          if git diff --cached --quiet; then
+            echo 'R10 failure diagnostics already persisted'
+          else
+            git commit -m 'Record DEV-GROUP-002 R10 execution failure'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Commit deterministic R10 artifacts
+        if: success() && github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          rm -f \
+            reports/dev-group-002/training-regression-r10/execution.log \
+            reports/dev-group-002/training-regression-r10/execution.exit-code
           git add reports/dev-group-002/training-regression-r10/
           if git diff --cached --quiet; then
             echo 'R10 artifacts already frozen'
@@ -47,6 +69,7 @@ jobs:
             git push origin HEAD:${{ github.ref_name }}
           fi
       - name: Upload R10 validation receipt
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: dev-group-002-training-regression-r10-validation
