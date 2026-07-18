@@ -1,0 +1,80 @@
+{
+  "answer_specific_rule_change": "NO",
+  "branch": "agent/dev-group-002-training-regression-r1",
+  "component_id": "C05A_LEGACY_CONTAMINATION_QUARANTINE",
+  "created_at": "2026-07-18T15:17:13+00:00",
+  "enforced_rules": [
+    "ONLY_VERSIONED_KNOWLEDGE_ROOTS_MAY_BUILD_MANIFESTS",
+    "PROJECT_UPLOAD_AND_ANSWER_VAULT_REFERENCES_FAIL_CLOSED",
+    "REPORTS_POSTREVEAL_AND_SHADOW_REBUILD_REFERENCES_FAIL_CLOSED",
+    "DATA_TRAINING_REFERENCES_FAIL_CLOSED",
+    "RESEARCH_HYPOTHESIS_DIRECT_RUNTIME_REFERENCES_FAIL_CLOSED",
+    "SELECTED_PARENT_TEXT_WITH_PROHIBITED_REFERENCE_FAILS_PACKET_BUILD",
+    "CAUSAL_USE_CONTAMINATION_FAILURE_PROHIBITS_SCORING",
+    "HISTORICAL_OBJECTS_REMAIN_IMMUTABLE_AUDIT_NOT_ACTIVE_RUNTIME"
+  ],
+  "implementation_files": [
+    {
+      "commit": "7ba5d7f49c5854a54cefbbf32109116dd4528ee4",
+      "path": "src/fortune_v1/contamination.py",
+      "sha256_raw_bytes": "1002ca3edea49b77d2d46e4964d84f9b544c8e301d6a61006b3a3c16c0a66405"
+    },
+    {
+      "commit": "29932a893a1357d511038c45f48229e2f5245ab4",
+      "path": "src/fortune_v1/repository_release.py",
+      "sha256_raw_bytes": "80c7cae8a3cd98719c608fe75ab08efa02066947e1fb705333a44709613d552c"
+    },
+    {
+      "commit": "34822cd44358a8de198c9d76954ddf243dea227e",
+      "path": "src/fortune_v1/source_delivery.py",
+      "sha256_raw_bytes": "a1002d98a29ff9cf8f0d784b7e46a40c5b758ee75b1001c79319dcf791c3a663"
+    },
+    {
+      "commit": "edc569b04989994b02d3482a72fa4eccf179905c",
+      "path": "src/fortune_v1/causal_use.py",
+      "sha256_raw_bytes": "69687a4c93b751b8a7fdf7eb391f6d40b858547cef7f4cf8ce14a89d1c20d0f9"
+    },
+    {
+      "commit": "8157dec6b5872151b2ea34388550e7df555cc98b",
+      "path": "src/fortune_v1/repository_delivery_cli.py",
+      "sha256_raw_bytes": "58926b5b4e65ddcfb9ce29303190e52f138d37235f9d790373bc4045f524b1c1"
+    },
+    {
+      "commit": "6296c0073ca167e43fee0a31791e62fcf79de5f5",
+      "path": "tests/test_repository_delivery.py",
+      "sha256_raw_bytes": "94d98bf682b5b8c7ead21ee74d92551e769db5b6c8bc484ac34610b64dfe2c13"
+    }
+  ],
+  "knowledge_change": "NO_TRADITIONAL_KNOWLEDGE_CHANGE",
+  "object_hash": "f293455a293caa4210cb2812ace627bd71e7abead1b77d082f77b0bf53f4bbb8",
+  "policy": {
+    "object_hash": "76eecdfcf71f68ed83367141100a8d0cb1174fdb12f3db743168a2a864d7ac2a",
+    "path": "governance/runtime-contamination-policy-v1.json"
+  },
+  "prediction_accuracy_improvement_claim": "NO",
+  "project_uploaded_s00_s19_action": "UNCHANGED_RETAIN_READ_ONLY_DO_NOT_DELETE",
+  "remaining_conditions": [
+    "FULL_REPOSITORY_CONTAMINATION_INVENTORY_NOT_YET_EXECUTED_ON_IMMUTABLE_CHECKOUT",
+    "FULL_R16_SOURCE_CATALOG_AND_20_FILE_READBACK_NOT_YET_EXECUTED",
+    "REAL_REPOSITORY_ONLY_CHATGPT_SHADOW_RUN_NOT_YET_EXECUTED",
+    "REAL_CAUSAL_USE_RECEIPT_PASS_NOT_YET_OBTAINED",
+    "FORMAL_RELEASE_NO"
+  ],
+  "schema": "R25-C05A-LEGACY-CONTAMINATION-QUARANTINE-RECEIPT-V1",
+  "status": "IMPLEMENTED_PENDING_FULL_REPOSITORY_INVENTORY_AND_REAL_SHADOW_RUN",
+  "training_score_status": "BLOCKED",
+  "validation": {
+    "command": "PYTHONPATH=/tmp/fortune_patch/src python -m unittest -v /tmp/fortune_patch/tests/test_repository_delivery.py",
+    "environment": "ISOLATED_LOCAL_RECONSTRUCTION_OF_UPDATED_MODULES",
+    "full_github_actions_status": "NOT_YET_CONFIRMED",
+    "result": "6_TESTS_PASS",
+    "tests": [
+      "repository packet and causal validation positive path",
+      "project upload reference fail closed",
+      "temporary winner/answer field fail closed",
+      "historical training report reference fail closed",
+      "selected contaminated parent passage fail closed",
+      "non-versioned source root and direct research/report runtime reference fail closed"
+    ]
+  }
+}
