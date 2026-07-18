@@ -4,6 +4,12 @@ on:
   push:
     paths:
       - 'runtime/clean-start-requests/*.json'
+  workflow_dispatch:
+    inputs:
+      request_path:
+        description: 'Exact runtime/clean-start-requests/*.json path'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -34,14 +40,27 @@ jobs:
       - name: Resolve exact request files
         id: requests
         shell: bash
+        env:
+          MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
         run: |
           set -euo pipefail
-          git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/clean-start-requests/*.json' \
-            | sort -u > /tmp/clean-start-requests.txt
-          test -s /tmp/clean-start-requests.txt
-          while IFS= read -r request; do
+          : > /tmp/clean-start-requests.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            request="${MANUAL_REQUEST_PATH}"
+            case "$request" in
+              runtime/clean-start-requests/*.json) ;;
+              *) echo "invalid manual request path: $request" >&2; exit 1 ;;
+            esac
             test -f "$request"
-          done < /tmp/clean-start-requests.txt
+            printf '%s\n' "$request" > /tmp/clean-start-requests.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/clean-start-requests/*.json' \
+              | sort -u > /tmp/clean-start-requests.txt
+            test -s /tmp/clean-start-requests.txt
+            while IFS= read -r request; do
+              test -f "$request"
+            done < /tmp/clean-start-requests.txt
+          fi
 
       - name: Run clean-start validation tests
         run: python -m unittest tests.test_clean_start -v
