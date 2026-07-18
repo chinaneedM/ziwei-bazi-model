@@ -1,7 +1,7 @@
 {
   "schema": "EXTERNAL-RUNNER-INSTALLATION-V2",
   "runner_id": "CHAT_WORK_INTERACTIVE_EXECUTOR",
-  "status": "INSTALLED_WITH_REPOSITORY_DELIVERY_SHADOW_ONLY",
+  "status": "INSTALLED_WITH_REPOSITORY_DELIVERY_AND_CONTAMINATION_SHADOW_ONLY",
   "implementation": "ChatGPT project session in CHAT_ONLY or WORK mode",
   "api_service_required": false,
   "background_execution": false,
@@ -19,12 +19,24 @@
     "fallback_policy": "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK",
     "repository_only_shadow_validation_status": "NOT_YET_EXECUTED"
   },
-  "score_eligibility": "BLOCKED_UNTIL_REPOSITORY_ONLY_SHADOW_VALIDATION_PASS",
+  "contamination_quarantine": {
+    "policy_path": "governance/runtime-contamination-policy-v1.json",
+    "policy_schema": "FORTUNE-RUNTIME-CONTAMINATION-POLICY-V1",
+    "inventory_schema": "FORTUNE-LEGACY-CONTAMINATION-INVENTORY-V1",
+    "validation_schema": "FORTUNE-RUNTIME-CONTAMINATION-VALIDATION-V1",
+    "historical_report_access": "DENIED_AND_NOT_USED",
+    "postreveal_access": "DENIED_AND_NOT_USED",
+    "shadow_rebuild_access": "DENIED_AND_NOT_USED",
+    "research_hypothesis_direct_access": "DENIED_UNLESS_PROMOTED_AND_RELEASE_BOUND",
+    "failure_policy": "FAIL_CLOSED_SCORE_PROHIBITED",
+    "full_repository_inventory_status": "NOT_YET_EXECUTED_ON_IMMUTABLE_CHECKOUT"
+  },
+  "score_eligibility": "BLOCKED_UNTIL_REPOSITORY_ONLY_SHADOW_AND_CONTAMINATION_VALIDATION_PASS",
   "formal_release": "NO",
   "answer_data_available": false,
   "runtime_repository_vault_credential": "NONE",
   "supported_session_modes": ["CHAT_ONLY", "WORK"],
   "prediction_object_schema": "PREDICTION-RUN-V1",
   "handoff_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
-  "installation_boundary": "Interface and causal-source validation do not prove prediction accuracy."
+  "installation_boundary": "Interface, contamination quarantine and causal-source validation do not prove prediction accuracy."
 }
