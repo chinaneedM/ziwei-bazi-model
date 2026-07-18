@@ -1,0 +1,109 @@
+{
+  "canonical_sha256": "bec5f8e0a2ab96ee139a27008563267328b45309cc5ad4e6251ac32f49ca11d9",
+  "case_id": "DEV-EXAMPLE-003",
+  "conclusion": "The R12 score regression is preserved. Source and pairwise audits prove generic capability-propagation and burden-comparison defects, but the revealed answer cannot authorize any option promotion or astrological direction change.",
+  "group_id": "DEV-GROUP-002",
+  "knowledge_defect_proven": false,
+  "parent_pairwise_audit_sha256": "4f662dc728c2ad61b2eb0af4d685ad9a704fdbb1f7919b25ae57c1aacae3c157",
+  "parent_r11_prediction_sha256": "acce39985ebb0862fb5df42986826ad8c30e30248d9f29ae18134758b7c582ea",
+  "parent_r12_prediction_sha256": "4fd8b7e8ee0ba05274e656febc1d50b6864f0bfba6037c7eebf1e94554304d6a",
+  "parent_r12_review_sha256": "19534b1ce5964fda1a78d9167ae241944a82d2f1c463f3c29755549602701cb0",
+  "reproducible_interface_defect_proven": true,
+  "round_id": "R13",
+  "row_count": 5,
+  "rows": [
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direction_change_authorized": false,
+      "fail_closed_pairwise_count": 5,
+      "learning_classification": "SOURCE_CONFIRMED_EXECUTION_DEFECT",
+      "literal_answer": "B",
+      "pairwise_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS",
+        "SCENE_ONLY_USED_AS_POSITIVE_DECISION_BASIS"
+      ],
+      "question_id": "Q1",
+      "r11_rank": "CBAD",
+      "r11_top1_correct": false,
+      "r11_top2_covered": true,
+      "r12_rank": "CABD",
+      "r12_top1_correct": false,
+      "r12_top2_covered": false,
+      "rank_changed": true
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direction_change_authorized": false,
+      "fail_closed_pairwise_count": 0,
+      "learning_classification": "OPEN_RESEARCH_QUESTION",
+      "literal_answer": "B",
+      "pairwise_defect_ids": [],
+      "question_id": "Q2",
+      "r11_rank": "BACD",
+      "r11_top1_correct": true,
+      "r11_top2_covered": true,
+      "r12_rank": "ACBD",
+      "r12_top1_correct": false,
+      "r12_top2_covered": false,
+      "rank_changed": true
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direction_change_authorized": false,
+      "fail_closed_pairwise_count": 0,
+      "learning_classification": "OPEN_RESEARCH_QUESTION",
+      "literal_answer": "D",
+      "pairwise_defect_ids": [],
+      "question_id": "Q3",
+      "r11_rank": "CADB",
+      "r11_top1_correct": false,
+      "r11_top2_covered": false,
+      "r12_rank": "CABD",
+      "r12_top1_correct": false,
+      "r12_top2_covered": false,
+      "rank_changed": true
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direction_change_authorized": false,
+      "fail_closed_pairwise_count": 1,
+      "learning_classification": "SOURCE_CONFIRMED_EXECUTION_DEFECT",
+      "literal_answer": "C",
+      "pairwise_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q4",
+      "r11_rank": "CDAB",
+      "r11_top1_correct": true,
+      "r11_top2_covered": true,
+      "r12_rank": "CDAB",
+      "r12_top1_correct": true,
+      "r12_top2_covered": true,
+      "rank_changed": false
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "direction_change_authorized": false,
+      "fail_closed_pairwise_count": 3,
+      "learning_classification": "SOURCE_CONFIRMED_EXECUTION_DEFECT",
+      "literal_answer": "A",
+      "pairwise_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS",
+        "SCENE_ONLY_USED_AS_POSITIVE_DECISION_BASIS"
+      ],
+      "question_id": "Q5",
+      "r11_rank": "ADCB",
+      "r11_top1_correct": true,
+      "r11_top2_covered": true,
+      "r12_rank": "DACB",
+      "r12_top1_correct": false,
+      "r12_top2_covered": true,
+      "rank_changed": true
+    }
+  ],
+  "schema": "DEV-GROUP-002-R13-REGRESSION-DIAGNOSIS-V1",
+  "score_change": {
+    "top1_delta": -2,
+    "top2_delta": -2
+  }
+}

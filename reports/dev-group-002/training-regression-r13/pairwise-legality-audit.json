@@ -1,0 +1,833 @@
+{
+  "canonical_sha256": "4f662dc728c2ad61b2eb0af4d685ad9a704fdbb1f7919b25ae57c1aacae3c157",
+  "case_id": "DEV-EXAMPLE-003",
+  "group_id": "DEV-GROUP-002",
+  "parent_atom_audit_sha256": "d83d8260fabae087556a567a7af1c65ccff5b52c8fcf3a3c4a7a7751695cb391",
+  "parent_r12_pairwise_sha256": "e352831f572268cb4f7775487c51e7f28980a968c8d1f49a2da4b1accca2eee4",
+  "round_id": "R13",
+  "row_count": 30,
+  "rows": [
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_B_FATHER_SENIOR_GOV",
+        "Q1_B_FATHER_DEATH_2021",
+        "Q1_B_OLDER_BROTHER_SISTER_ORDER"
+      ],
+      "pair_defect_ids": [
+        "SCENE_ONLY_USED_AS_POSITIVE_DECISION_BASIS"
+      ],
+      "question_id": "Q1",
+      "r12_decision_basis": "SCENE_ONLY_COVERAGE",
+      "r12_winner": "A",
+      "right": "B",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_A_MOTHER_DEATH_NEXT_YEAR",
+        "Q1_A_FATHER_SMALL_BUSINESS",
+        "Q1_A_FATHER_REMARRIES",
+        "Q1_A_YOUNGER_BROTHER_SISTER_ORDER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_A_MOTHER_DEATH_NEXT_YEAR",
+        "Q1_A_FATHER_REMARRIES",
+        "Q1_A_TWO_SIBLINGS_COUNT",
+        "Q1_A_YOUNGER_BROTHER_SISTER_ORDER"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q1",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 2,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_C_MOTHER_HOMEMAKER",
+        "Q1_C_ONE_YOUNGER_BROTHER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_D_FATHER_DEATH_1985",
+        "Q1_D_MOTHER_INHERITS_BUSINESS",
+        "Q1_D_WIDOW_TO_NOW",
+        "Q1_D_OLDER_SISTER_YOUNGER_BROTHER"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q1",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "A",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_A_MOTHER_DEATH_NEXT_YEAR",
+        "Q1_A_FATHER_SMALL_BUSINESS",
+        "Q1_A_FATHER_REMARRIES",
+        "Q1_A_YOUNGER_BROTHER_SISTER_ORDER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_B_FATHER_SENIOR_GOV",
+        "Q1_B_FATHER_DEATH_2021",
+        "Q1_B_TWO_SIBLINGS_COUNT",
+        "Q1_B_OLDER_BROTHER_SISTER_ORDER"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q1",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_C_MOTHER_HOMEMAKER",
+        "Q1_C_FATHER_SMALL_BUSINESS",
+        "Q1_C_ONE_YOUNGER_BROTHER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_D_FATHER_DEATH_1985",
+        "Q1_D_MOTHER_INHERITS_BUSINESS",
+        "Q1_D_WIDOW_TO_NOW",
+        "Q1_D_OLDER_SISTER_YOUNGER_BROTHER"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q1",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "B",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_B_FATHER_SENIOR_GOV",
+        "Q1_B_FATHER_DEATH_2021",
+        "Q1_B_OLDER_BROTHER_SISTER_ORDER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "C",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q1_D_FATHER_DEATH_1985",
+        "Q1_D_MOTHER_INHERITS_BUSINESS",
+        "Q1_D_WIDOW_TO_NOW",
+        "Q1_D_TWO_SIBLINGS_COUNT",
+        "Q1_D_OLDER_SISTER_YOUNGER_BROTHER"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q1",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "C",
+      "right": "D",
+      "right_remaining_atom_count": 5,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q1_C_MOTHER_HOMEMAKER",
+        "Q1_C_FATHER_SMALL_BUSINESS",
+        "Q1_C_ONE_YOUNGER_BROTHER"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 5,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_B_TALL_BURLY",
+        "Q2_B_STUBBORN",
+        "Q2_B_BAR_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "A",
+      "right": "B",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_A_LEG_DISABILITY",
+        "Q2_A_ODD_TEMPER",
+        "Q2_A_PERFORMANCE_MUSICIAN",
+        "Q2_A_SAX_INSTRUMENT",
+        "Q2_A_BAND_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 6,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_C_MEDIUM_BUILD",
+        "Q2_C_DILIGENT",
+        "Q2_C_REBELLIOUS",
+        "Q2_C_SPORT_HOBBY",
+        "Q2_C_RESTAURANT_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "A",
+      "right": "C",
+      "right_remaining_atom_count": 5,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_A_LEG_DISABILITY",
+        "Q2_A_ODD_TEMPER",
+        "Q2_A_MUSIC_ART_HOBBY",
+        "Q2_A_PERFORMANCE_MUSICIAN",
+        "Q2_A_SAX_INSTRUMENT",
+        "Q2_A_BAND_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 6,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_D_PREMATURE",
+        "Q2_D_SICKLY_CHILDHOOD",
+        "Q2_D_GARDENING",
+        "Q2_D_REAL_ESTATE_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "A",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_A_LEG_DISABILITY",
+        "Q2_A_ODD_TEMPER",
+        "Q2_A_MUSIC_ART_HOBBY",
+        "Q2_A_PERFORMANCE_MUSICIAN",
+        "Q2_A_SAX_INSTRUMENT",
+        "Q2_A_BAND_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_B_TALL_BURLY",
+        "Q2_B_STUBBORN",
+        "Q2_B_MUSIC_ART_HOBBY",
+        "Q2_B_BAR_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "COMPOSITE_PARTIAL_COVERAGE",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 5,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_C_MEDIUM_BUILD",
+        "Q2_C_DILIGENT",
+        "Q2_C_REBELLIOUS",
+        "Q2_C_SPORT_HOBBY",
+        "Q2_C_RESTAURANT_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_D_PREMATURE",
+        "Q2_D_SICKLY_CHILDHOOD",
+        "Q2_D_GARDENING",
+        "Q2_D_REAL_ESTATE_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "B",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_B_TALL_BURLY",
+        "Q2_B_STUBBORN",
+        "Q2_B_MUSIC_ART_HOBBY",
+        "Q2_B_BAR_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "C",
+      "left_remaining_atom_count": 5,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q2_D_PREMATURE",
+        "Q2_D_SICKLY_CHILDHOOD",
+        "Q2_D_GARDENING",
+        "Q2_D_REAL_ESTATE_INDUSTRY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q2",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q2_C_MEDIUM_BUILD",
+        "Q2_C_DILIGENT",
+        "Q2_C_REBELLIOUS",
+        "Q2_C_SPORT_HOBBY",
+        "Q2_C_RESTAURANT_INDUSTRY"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_B_LIBERAL_ARTS",
+        "Q3_B_START_CURRENT_2011",
+        "Q3_B_PRISON_2019"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "A",
+      "right": "B",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_A_MEDICINE_MAJOR",
+        "Q3_A_CHANGED_FIELD",
+        "Q3_A_START_CURRENT_2013"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_A_ELITE_UNIVERSITY",
+        "Q3_A_MEDICINE_MAJOR",
+        "Q3_A_GRADUATED",
+        "Q3_A_CHANGED_FIELD"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_C_HIGH_SCHOOL",
+        "Q3_C_WORK_WHILE_STUDY",
+        "Q3_C_BENEFACTOR_2013"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_D_LIBERAL_ARTS",
+        "Q3_D_DROPPED_OUT",
+        "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION",
+        "Q3_D_START_CURRENT_2021"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "A",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_A_MEDICINE_MAJOR",
+        "Q3_A_CHANGED_FIELD",
+        "Q3_A_START_CURRENT_2013"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 5,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_B_ELITE_UNIVERSITY",
+        "Q3_B_LIBERAL_ARTS",
+        "Q3_B_GRADUATED",
+        "Q3_B_START_CURRENT_2011",
+        "Q3_B_PRISON_2019"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_C_HIGH_SCHOOL",
+        "Q3_C_WORK_WHILE_STUDY",
+        "Q3_C_BENEFACTOR_2013",
+        "Q3_C_START_CURRENT_2013"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 2,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_D_DROPPED_OUT",
+        "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION",
+        "Q3_D_START_CURRENT_2021"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "r12_winner": "B",
+      "right": "D",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_B_START_CURRENT_2011",
+        "Q3_B_PRISON_2019"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "C",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q3_D_ELITE_UNIVERSITY",
+        "Q3_D_LIBERAL_ARTS",
+        "Q3_D_GRADUATED",
+        "Q3_D_DROPPED_OUT",
+        "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION",
+        "Q3_D_START_CURRENT_2021"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q3",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "D",
+      "right_remaining_atom_count": 6,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q3_C_HIGH_SCHOOL",
+        "Q3_C_WORK_WHILE_STUDY",
+        "Q3_C_BENEFACTOR_2013",
+        "Q3_C_START_CURRENT_2013"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_B_MIDDLE_SCHOOL_CLASSMATE",
+        "Q4_B_SHOTGUN",
+        "Q4_B_RELATION_FLAT",
+        "Q4_B_FIRST_SON_2012",
+        "Q4_B_SECOND_SON_2015"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q4",
+      "r12_decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "r12_winner": "A",
+      "right": "B",
+      "right_remaining_atom_count": 5,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_A_ROMANCE_DIFFICULT",
+        "Q4_A_INTRODUCED",
+        "Q4_A_DAUGHTER_2014"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_A_ROMANCE_DIFFICULT",
+        "Q4_A_INTRODUCED",
+        "Q4_A_MARRIED_2011",
+        "Q4_A_DAUGHTER_2014"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q4",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_C_MULTIPLE_RELATIONSHIPS",
+        "Q4_C_UNMARRIED_TO_NOW",
+        "Q4_C_NO_CHILDREN"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_A_ROMANCE_DIFFICULT",
+        "Q4_A_INTRODUCED",
+        "Q4_A_MARRIED_2011",
+        "Q4_A_DAUGHTER_2014"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q4",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "D",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_D_DIVORCE_SCENE_2018",
+        "Q4_D_REGISTERED_DIVORCE_2018",
+        "Q4_D_SINGLE_SINCE",
+        "Q4_D_NO_CHILDREN"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 6,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_B_MARRIED_2011",
+        "Q4_B_MIDDLE_SCHOOL_CLASSMATE",
+        "Q4_B_SHOTGUN",
+        "Q4_B_RELATION_FLAT",
+        "Q4_B_FIRST_SON_2012",
+        "Q4_B_SECOND_SON_2015"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q4",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_C_MULTIPLE_RELATIONSHIPS",
+        "Q4_C_UNMARRIED_TO_NOW",
+        "Q4_C_NO_CHILDREN"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 6,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_B_MARRIED_2011",
+        "Q4_B_MIDDLE_SCHOOL_CLASSMATE",
+        "Q4_B_SHOTGUN",
+        "Q4_B_RELATION_FLAT",
+        "Q4_B_FIRST_SON_2012",
+        "Q4_B_SECOND_SON_2015"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q4",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "D",
+      "right": "D",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_D_DIVORCE_SCENE_2018",
+        "Q4_D_REGISTERED_DIVORCE_2018",
+        "Q4_D_SINGLE_SINCE",
+        "Q4_D_NO_CHILDREN"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "C",
+      "left_remaining_atom_count": 2,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q4_D_DIVORCE_SCENE_2018",
+        "Q4_D_REGISTERED_DIVORCE_2018",
+        "Q4_D_SINGLE_SINCE"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q4",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "C",
+      "right": "D",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q4_C_MULTIPLE_RELATIONSHIPS",
+        "Q4_C_UNMARRIED_TO_NOW"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 2,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_B_TRAVEL",
+        "Q5_B_CAR_ACCIDENT",
+        "Q5_B_INJURY"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q5",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "A",
+      "right": "B",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_A_PARENT_EVENT_2022",
+        "Q5_A_MOTHER_DEATH"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 2,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_C_HEALTH_EVENT",
+        "Q5_C_COVID",
+        "Q5_C_OTHER_ILLNESS",
+        "Q5_C_HOSPITAL_4_MONTH"
+      ],
+      "pair_defect_ids": [
+        "RAW_MISSING_ENDPOINT_COUNT_COMPARES_UNEQUAL_COMPOUND_LENGTHS"
+      ],
+      "question_id": "Q5",
+      "r12_decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "r12_winner": "A",
+      "right": "C",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_A_PARENT_EVENT_2022",
+        "Q5_A_MOTHER_DEATH"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "A",
+      "left_remaining_atom_count": 2,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_A_PARENT_EVENT_2022",
+        "Q5_A_MOTHER_DEATH"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q5",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "D",
+      "right": "D",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_D_CAREER_OBSTRUCTION",
+        "Q5_D_DEBT",
+        "Q5_D_SELL_HOUSE"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "FAIL_CLOSED",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_B_TRAVEL",
+        "Q5_B_CAR_ACCIDENT",
+        "Q5_B_INJURY"
+      ],
+      "pair_defect_ids": [
+        "SCENE_ONLY_USED_AS_POSITIVE_DECISION_BASIS"
+      ],
+      "question_id": "Q5",
+      "r12_decision_basis": "SCENE_ONLY_COVERAGE",
+      "r12_winner": "C",
+      "right": "C",
+      "right_remaining_atom_count": 4,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_C_HEALTH_EVENT",
+        "Q5_C_COVID",
+        "Q5_C_OTHER_ILLNESS",
+        "Q5_C_HOSPITAL_4_MONTH"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "B",
+      "left_remaining_atom_count": 3,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_B_TRAVEL",
+        "Q5_B_CAR_ACCIDENT",
+        "Q5_B_INJURY"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q5",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "D",
+      "right": "D",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_D_CAREER_OBSTRUCTION",
+        "Q5_D_DEBT",
+        "Q5_D_SELL_HOUSE"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "left": "C",
+      "left_remaining_atom_count": 4,
+      "legal_replay_status": "PASS_UNDER_R13_AUDIT",
+      "loser_atom_defect_ids": [],
+      "loser_atom_ids": [
+        "Q5_C_HEALTH_EVENT",
+        "Q5_C_COVID",
+        "Q5_C_OTHER_ILLNESS",
+        "Q5_C_HOSPITAL_4_MONTH"
+      ],
+      "pair_defect_ids": [],
+      "question_id": "Q5",
+      "r12_decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "r12_winner": "D",
+      "right": "D",
+      "right_remaining_atom_count": 3,
+      "winner_atom_defect_ids": [],
+      "winner_atom_ids": [
+        "Q5_D_CAREER_OBSTRUCTION",
+        "Q5_D_DEBT",
+        "Q5_D_SELL_HOUSE"
+      ],
+      "winner_change_permission": "NO_R13_DIAGNOSTIC_ONLY"
+    }
+  ],
+  "schema": "DEV-GROUP-002-R13-PAIRWISE-LEGALITY-AUDIT-V1",
+  "status": "FAIL_CLOSED_FOR_SELECTION_CHANGE",
+  "summary": {
+    "fail_closed_pairwise_rows": 9,
+    "legally_replayable_rows": 21,
+    "scene_only_decision_rows": 2,
+    "unequal_compound_raw_endpoint_count_rows": 7,
+    "winner_direct_support_capability_violation_rows": 0
+  }
+}
