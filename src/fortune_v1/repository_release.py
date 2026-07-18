@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from .contamination import assert_knowledge_source_path
+from .contamination import assert_knowledge_source_path, classify_repository_path
 from .util import FortuneError, atomic_write_json, canonical_bytes, read_json, sha256_bytes, sha256_file, slug, utc_now
 
 LIBRARIES = tuple(f"S{i:02d}" for i in range(20))
@@ -153,8 +153,47 @@ def build_method_packet(method_path: str | Path, output: str | Path) -> dict[str
     })
 
 
+def validate_prompt_snapshot_receipt(receipt_path: str | Path,
+                                     expected_runtime_id: str | None = None) -> dict[str, Any]:
+    receipt_file = Path(receipt_path)
+    receipt = read_json(receipt_file)
+    errors: list[str] = []
+    if receipt.get("schema") != "MAIN-PROMPT-AUDIT-SNAPSHOT-V1":
+        errors.append("PROMPT_SNAPSHOT_SCHEMA_INVALID")
+    if receipt.get("status") != "PASS":
+        errors.append("PROMPT_SNAPSHOT_STATUS_NOT_PASS")
+    if receipt.get("object_hash") != object_hash(receipt):
+        errors.append("PROMPT_SNAPSHOT_RECEIPT_OBJECT_HASH_MISMATCH")
+    if expected_runtime_id and receipt.get("runtime_id") != expected_runtime_id:
+        errors.append("PROMPT_RUNTIME_ID_MISMATCH")
+    for label, path in (("RECEIPT", receipt_file), ("SNAPSHOT", Path(receipt.get("snapshot_path", "")))):
+        classification = classify_repository_path(path)
+        if classification.get("classification") != "VERSIONED_MODEL_OBJECT":
+            errors.append(f"PROMPT_{label}_PATH_NOT_VERSIONED_MODEL")
+    snapshot_path = Path(receipt.get("snapshot_path", ""))
+    if not snapshot_path.is_file():
+        errors.append("PROMPT_SNAPSHOT_MISSING")
+    else:
+        if sha256_file(snapshot_path) != receipt.get("snapshot_sha256"):
+            errors.append("PROMPT_SNAPSHOT_HASH_MISMATCH")
+        if snapshot_path.stat().st_size != receipt.get("snapshot_bytes"):
+            errors.append("PROMPT_SNAPSHOT_SIZE_MISMATCH")
+    return {
+        "schema": "MAIN-PROMPT-AUDIT-SNAPSHOT-VALIDATION-V1",
+        "runtime_id": receipt.get("runtime_id"),
+        "receipt_path": receipt_file.as_posix(),
+        "receipt_sha256": sha256_file(receipt_file),
+        "snapshot_path": snapshot_path.as_posix(),
+        "snapshot_sha256": receipt.get("snapshot_sha256"),
+        "snapshot_bytes": receipt.get("snapshot_bytes"),
+        "errors": errors,
+        "status": "PASS" if not errors else "FAIL_CLOSED",
+    }
+
+
 def build_model_release(knowledge_manifest_path: str | Path, method_release_path: str | Path,
-                        output: str | Path, *, model_release_id: str, main_prompt_runtime_id: str,
+                        prompt_snapshot_receipt_path: str | Path, output: str | Path, *,
+                        model_release_id: str, main_prompt_runtime_id: str,
                         code_commit_sha: str, source_packet_schema: str = "FORTUNE-SOURCE-PACKET-V1") -> dict[str, Any]:
     knowledge = read_json(knowledge_manifest_path)
     method = read_json(method_release_path)
@@ -162,9 +201,23 @@ def build_model_release(knowledge_manifest_path: str | Path, method_release_path
         raise FortuneError("knowledge manifest invalid", status="MODEL_KNOWLEDGE_INVALID")
     if validate_method_release(method_release_path)["status"] != "PASS":
         raise FortuneError("method release invalid", status="MODEL_METHOD_INVALID")
+    prompt_validation = validate_prompt_snapshot_receipt(
+        prompt_snapshot_receipt_path, expected_runtime_id=main_prompt_runtime_id,
+    )
+    if prompt_validation["status"] != "PASS":
+        raise FortuneError("prompt snapshot invalid", status="MODEL_PROMPT_SNAPSHOT_INVALID")
+    if method.get("main_prompt_runtime_id") not in {None, main_prompt_runtime_id}:
+        raise FortuneError("method prompt binding mismatch", status="MODEL_METHOD_PROMPT_BINDING_MISMATCH")
+    if knowledge.get("prompt_runtime_id") not in {None, main_prompt_runtime_id}:
+        raise FortuneError("knowledge prompt binding mismatch", status="MODEL_KNOWLEDGE_PROMPT_BINDING_MISMATCH")
     return write_object(output, {
         "schema": "FORTUNE-MODEL-RELEASE-V1", "model_release_id": slug(model_release_id),
         "main_prompt_runtime_id": main_prompt_runtime_id,
+        "main_prompt_snapshot_path": prompt_validation["snapshot_path"],
+        "main_prompt_snapshot_sha256": prompt_validation["snapshot_sha256"],
+        "main_prompt_snapshot_size_bytes": prompt_validation["snapshot_bytes"],
+        "main_prompt_snapshot_receipt_path": Path(prompt_snapshot_receipt_path).as_posix(),
+        "main_prompt_snapshot_receipt_sha256": prompt_validation["receipt_sha256"],
         "knowledge_release_id": knowledge["knowledge_release_id"],
         "knowledge_manifest_path": Path(knowledge_manifest_path).as_posix(),
         "knowledge_manifest_sha256": sha256_file(knowledge_manifest_path),
@@ -178,7 +231,7 @@ def build_model_release(knowledge_manifest_path: str | Path, method_release_path
         "project_upload_fallback_permission": "NO",
         "historical_training_trace_permission": "NO",
         "research_hypothesis_direct_runtime_permission": "NO",
-        "score_eligibility": "BLOCKED_PENDING_R16_REPOSITORY_ONLY_SHADOW_VALIDATION",
+        "score_eligibility": "BLOCKED_PENDING_REPOSITORY_ONLY_SHADOW_VALIDATION",
         "formal_release": "NO", "created_at": utc_now(),
     })
 
