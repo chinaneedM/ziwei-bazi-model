@@ -46,7 +46,7 @@ SOURCE_EXCERPT_SPECS = [
     ('S07_PARENTS_TONGLIANG', 'S07', 'knowledge/base/S07_全星曜与星系入十二宫库.txt', 130390, 130425, ['天同天梁同度，不主刑克伤害', '父母婚姻有波折']),
     ('S08_TRANSFORMATION_LIMIT', 'S08', 'knowledge/base/S08_十干四化自化与禄忌线库.txt', 1, 25, ['自化', '不证明现实事件']),
     ('S08_NO_ENDPOINT_INFLATION', 'S08', 'knowledge/base/S08_十干四化自化与禄忌线库.txt', 380, 390, ['自化忌不等于失败']),
-    ('S10_NEUTRAL_TIME', 'S10', 'knowledge/base/S10_紫微岁运应期与动态辅助库.txt', 1, 52, ['方向中立', '不得']),
+    ('S10_NEUTRAL_TIME', 'S10', 'knowledge/base/S10_紫微岁运应期与动态辅助库.txt', 1, 52, ['禁止在此对象中写入', '中立时间事实密封后']),
     ('S11_FOUNDATION', 'S11', 'knowledge/base/S11_八字干支五行藏干与十神库.txt', 1, 60, ['S11唯一负责合法八字版本', 'S11不判断旺衰']),
     ('S12_QI_CONTROL', 'S12', 'knowledge/base/S12_八字月令旺衰通根与气势库.txt', 1, 65, ['月令是主轴而非独裁', '不负责格局命名']),
     ('S13_METHOD_COMPETITION', 'S13', 'knowledge/base/S13_八字格局用忌调候与病药库.txt', 1, 65, ['不得先定格局或用神再找证据', '不能直接完成现实事件']),
