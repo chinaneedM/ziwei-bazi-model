@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from fortune_v1.causal_use import build_run_contract, validate_causal_use
+from fortune_v1.contamination import classify_repository_path, validate_runtime_object
 from fortune_v1.repository_release import (
     METHOD_STAGES, build_knowledge_manifest, build_method_packet,
     build_model_release, write_object,
@@ -104,6 +105,7 @@ class RepositoryDeliveryTest(unittest.TestCase):
             receipt = validate_causal_use(prediction, contract)
             self.assertEqual(receipt["status"], "PASS")
             self.assertEqual(receipt["score_eligibility"], "ELIGIBLE")
+            self.assertEqual(receipt["legacy_contamination_scan_status"], "PASS")
 
             body = json.loads(prediction.read_text())
             body["project_source"] = "/mnt/data/S05.txt"
@@ -122,6 +124,55 @@ class RepositoryDeliveryTest(unittest.TestCase):
             with self.assertRaises(FortuneError) as context:
                 build_source_packet(catalog, plan, case, Path(directory) / "biased.json")
             self.assertEqual(context.exception.status, "SOURCE_PACKET_ANSWER_ISOLATION_FAILED")
+
+    def test_historical_training_trace_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            prediction, contract, *_ = fixture(Path(directory))
+            body = json.loads(prediction.read_text())
+            body["legacy_trace"] = "reports/dev-group-002/training-regression-r16/source-excerpts.json"
+            dump(prediction, body)
+            failed = validate_causal_use(prediction, contract)
+            self.assertEqual(failed["status"], "FAIL_CLOSED")
+            self.assertEqual(failed["legacy_contamination_scan_status"], "FAIL_CLOSED")
+            self.assertTrue(any("LEGACY_CONTAMINATION_REFERENCE_DETECTED" in error for error in failed["errors"]))
+
+    def test_source_packet_rejects_selected_historical_parent_reference(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, _, plan, catalog, case = fixture(Path(directory))
+            body = json.loads(catalog.read_text())
+            selected = next(item for item in body["entries"] if item["library_id"] == "S05" and "alpha" in item["parent_text"])
+            selected["parent_text"] += "\nreports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-Q1/postreveal-review.json\n"
+            dump(catalog, body)
+            with self.assertRaises(FortuneError) as context:
+                build_source_packet(catalog, plan, case, Path(directory) / "contaminated-packet.json")
+            self.assertEqual(context.exception.status, "SOURCE_PACKET_LEGACY_CONTAMINATION_DETECTED")
+
+    def test_non_versioned_source_root_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "reports" / "legacy-sources"
+            source.mkdir(parents=True)
+            for i in range(20):
+                lib = f"S{i:02d}"
+                (source / f"{lib}_测试库.txt").write_text(f"LIBRARY_ID={lib}\n", encoding="utf-8")
+            with self.assertRaises(FortuneError) as context:
+                build_knowledge_manifest(
+                    source, Path(directory) / "manifest.json", release_id="BAD",
+                    repository="owner/repo", commit_sha="a" * 40,
+                    s19_binding_sha256="b" * 64,
+                )
+            self.assertIn(context.exception.status, {"KNOWLEDGE_SOURCE_PATH_QUARANTINED", "KNOWLEDGE_SOURCE_PATH_INELIGIBLE"})
+
+    def test_runtime_object_validator_classifies_research_and_reports(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "runtime.json"
+            dump(path, {
+                "source": "research/fortune-hypothesis-library/registry-v1.json",
+                "audit": "reports/dev-group-002/training-regression-r18/postreveal-review.json",
+            })
+            receipt = validate_runtime_object(path)
+            self.assertEqual(receipt["status"], "FAIL_CLOSED")
+            self.assertEqual(receipt["violation_count"], 2)
+            self.assertEqual(classify_repository_path("knowledge/releases/K1/S00_a.txt")["runtime_eligibility"], "ELIGIBLE_WHEN_FROZEN_AND_HASH_BOUND")
 
 
 if __name__ == "__main__":
