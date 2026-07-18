@@ -2,9 +2,9 @@
 
 Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
-> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. Training scoring and the 25-question clean retest remain blocked until full immutable-checkout readback, a full repository contamination inventory, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed. Implementation summary object: `1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1`.
+> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. The active ChatGPT project instruction has been changed to `MP-PROFESSIONAL-REASONING-20260718-R17`, while `config/runtime.json`, the current S19 root, the verified prompt snapshot and `MODEL-R16-REPOSITORY-SHADOW-V2` still bind R16. The repository is therefore deliberately in `HOLD_PENDING_EXACT_R17_EXPORT_S19_REBIND_AND_MODEL_RELEASE`. Training, scoring and clean retesting remain prohibited until the R17 prompt snapshot, complete S19 knowledge candidate, immutable readback, contamination inventory, MODEL-R17 shadow binding, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed. R25 summary object: `1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1`. R26 plan object: `1c5b8d84965f1059055d2ad00256cb4f3cb803d225ccfc3c98c808310565cabd`.
 
-Audit dependencies are one-way: the R25 master plan binds the implementation summary, and the summary binds component receipts. Component receipts do not link back to the summary, preventing cyclic object-hash invalidation.
+Audit dependencies are one-way: the R25 master plan binds the implementation summary, the summary binds component receipts, and the R26 plan binds the prompt-cutover state without making historical receipts depend on R26. This prevents cyclic object-hash invalidation.
 
 ## Execution model
 
@@ -15,7 +15,7 @@ The prediction engine is the active ChatGPT project session in either:
 
 No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts one frozen training-group conversation, ChatGPT processes every answer-free case in that group with fresh per-case isolation, and the repository validates and freezes the resulting child `PREDICTION-RUN-V1` objects under one `GROUP-TRAINING-RUN-V1`.
 
-`CHAT_STATELESS_COLD_START` applies between groups, not between cases within one group. The fixed development group may therefore run five cases and 25 questions continuously in one CHAT/WORK session without five new conversations or five separate continue commands.
+`CHAT_STATELESS_COLD_START` applies between groups, not between cases within one group. A validated group manifest may therefore run all listed answer-free cases continuously in one CHAT/WORK session without a new conversation or separate continue command for every case.
 
 ## Learning and scoring model
 
@@ -39,10 +39,13 @@ The repository therefore distinguishes first-blind accuracy, post-reveal trainin
 
 ## Installation state
 
-The authoritative runtime state is the machine-generated `reports/install-state.json`, validated by `reports/install-state-validation.json` and bound to the versioned installation receipt. Installed components include:
+The authoritative runtime state is the machine-generated `reports/install-state.json`, validated by `reports/install-state-validation.json` and bound to the versioned installation receipt. Installed or staged components include:
 
-- the S00–S19 source baseline and exact S19 binding-table recomputation;
-- the R16 main-prompt audit snapshot, explicitly marked as an audit copy rather than runtime authority;
+- the immutable R16 S00–S19 source baseline and exact S19 binding-table recomputation;
+- the verified R16 main-prompt audit snapshot, retained as historical binding evidence rather than project runtime authority;
+- the user-installed R17 project instruction, with repository exact-byte snapshot and S19 rebinding still pending;
+- the `METHOD-R17` no-rule-change prompt-binding candidate;
+- the deterministic R17 prompt/S19 cutover builder and its isolated positive and negative tests;
 - the physically separate answer vault and reverse-grading workflows;
 - bidirectional token-scope denial and absence of any vault credential in the runtime repository;
 - static and synthetic validation;
@@ -102,6 +105,23 @@ PYTHONPATH=src python -m fortune_v1.cli import-source-package \
   --migrate-destination knowledge/base
 ```
 
+Capture the exact operator-exported R17 project instruction and build the complete S19-only knowledge candidate after the export passes:
+
+```bash
+python scripts/build_r17_prompt_cutover.py snapshot \
+  --input /path/to/exact-r17-project-instruction.txt \
+  --output-text model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt \
+  --output-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
+  --expected-normalized-sha256 e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79
+
+python scripts/build_r17_prompt_cutover.py knowledge-candidate \
+  --base-dir knowledge/base \
+  --base-manifest knowledge/base/release-manifest-R16.json \
+  --prompt-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
+  --output-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE \
+  --source-content-commit <immutable-commit-containing-candidate-source-files>
+```
+
 Build or validate the contamination boundary:
 
 ```bash
@@ -114,7 +134,7 @@ fortune-repository-delivery contamination-validate \
   --output reports/runtime-contamination-validation.json
 ```
 
-Run one complete answer-free training group in one active CHAT/WORK session only after all repository-delivery gates permit it:
+Run one complete answer-free training group in one active CHAT/WORK session only after all repository-delivery and R17 cutover gates permit it:
 
 ```bash
 fortune-v1 group-chat-work-run \
