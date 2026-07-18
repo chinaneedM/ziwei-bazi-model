@@ -1,0 +1,84 @@
+{
+  "schema": "DEV-GROUP-002-R21-SOURCE-PATCH-PLAN-V1",
+  "round_id": "R21",
+  "group_id": "DEV-GROUP-002",
+  "input_scope": "FIVE_CASE_POSTREVEAL_DEFECT_CLUSTER_WITHOUT_ANSWER_LETTERS_OR_CASE_WINNERS",
+  "patch_rows": [
+    {
+      "defect_id": "R21-D01-COMPLETE-ROUTE-COVERAGE",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S00", "S19"],
+      "required_change": "Make complete-knowledge coverage, source-family routing, actual-call evidence and stop-condition validation executable rather than descriptive.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D02-COMPOUND-OPTION-AND-PAIRWISE",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S18", "S19"],
+      "required_change": "Require full compound-option atom coverage, common-atom subtraction, complete direction matrix and all six pairwise rows before TOP1/TOP2 release.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D03-ENDPOINT-LADDER",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S17", "S18", "S19"],
+      "required_change": "Propagate capability ceilings so tendency, opportunity and time permission cannot be upgraded to actual occurrence or formal endpoint.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D04-NEUTRAL-TIME",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S10", "S15", "S17", "S19"],
+      "required_change": "Materialize candidate-year facts before option projection and enforce symmetric candidate-year fields and direct-time-counterevidence checks.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D05-PERSON-TAIJI-AND-FAMILY-CHRONOLOGY",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S04", "S17", "S18"],
+      "required_change": "Separate person entry, person-taiji origin, relative topic palace, native palace, actor actions, caregiver identity and stage chronology.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D06-EXACT-OCCUPATION-AND-MAGNITUDE",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S02", "S16", "S17", "S18"],
+      "required_change": "Require industry, product/service, unique action, service object, income form, employment/self-employment identity, continuity and region-era magnitude evidence.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D07-LEGAL-ZI-HOUR-INPUT-VARIANTS",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S01", "S11", "S16", "S19"],
+      "required_change": "Freeze user-provided Ziwei and Bazi charts independently; retain legal Zi-hour/day-change variants and prohibit result-based selection or cross-track overwrite.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D08-TRACK-INDEPENDENCE-AND-FUSION",
+      "classification": "EXISTING_KNOWLEDGE_NOT_USED",
+      "responsible_libraries": ["S03", "S19"],
+      "required_change": "Require immutable machine-valid local seals for both tracks and prevent copied parent chains or default positive gain from agreement.",
+      "base_knowledge_change": false
+    },
+    {
+      "defect_id": "R21-D09-SOURCE-BASELINE-TRAINING-LIFECYCLE",
+      "classification": "RUNTIME_AND_REPOSITORY_GAP",
+      "responsible_libraries": ["S00", "S19", "RUNTIME"],
+      "required_change": "Add candidate source-patch manifest, full S00-S19 baseline materialization, hash/binding rebuild, installation receipt, answer-isolated same-set retest and promote/reject state transitions.",
+      "base_knowledge_change": false
+    }
+  ],
+  "source_knowledge_gap_rows": [],
+  "source_gap_status": "NO_CONFIRMED_NEW_TRADITIONAL_KNOWLEDGE_GAP_YET; FIRST_REPLAY_EXISTING_PARENT_CLAUSES_AND_RUNTIME_COVERAGE",
+  "candidate_patch_requirements": [
+    "No case IDs, answer vectors, answer letters, option-specific winner text or copied question phrases",
+    "Every change has responsible library IDs, parent clauses, applicability conditions, limitations, counterexamples and capability ceiling",
+    "Rebuild S00 locator/index when any S01-S19 text changes",
+    "Rebuild S19 active binding table with full-file SHA256 and byte sizes",
+    "Create immutable prior baseline and complete candidate baseline",
+    "Install candidate baseline before fresh-context same-set retest"
+  ],
+  "next_object": "R21_CANDIDATE_PATCH_MANIFEST_AND_FILE_DIFFS",
+  "status": "PATCH_PLAN_COMPLETE_CANDIDATE_DIFFS_NOT_YET_MATERIALIZED",
+  "object_hash": "3502a79a6f33a2a6b68dd39d31094789417567b74b6bd8c59e97da744e09cb7a"
+}
