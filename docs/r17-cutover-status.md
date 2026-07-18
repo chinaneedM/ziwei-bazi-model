@@ -1,8 +1,15 @@
 # R17 prompt and repository cutover status
 
-## Current result
+## Active result
 
-The active ChatGPT project instruction is `MP-PROFESSIONAL-REASONING-20260718-R17`.
+R17 was activated after explicit user approval and compare-and-swap readback.
+
+```text
+MAIN_PROMPT_RUNTIME_ID=MP-PROFESSIONAL-REASONING-20260718-R17
+ACTIVATION_STATUS=PASS
+FORMAL_RELEASE=YES
+TRAINING_PERMISSION=YES_WITH_FRESH_GROUP_MANIFEST_SOURCE_PACKET_METHOD_PACKET_AND_PER_CASE_CAUSAL_PASS
+```
 
 Canonical prompt fingerprint:
 
@@ -10,64 +17,40 @@ Canonical prompt fingerprint:
 - bytes: `11702`
 - non-whitespace Unicode code points: `5253`
 
-The repository candidate chain now contains:
+## Active repository bindings
 
-- `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2`;
-- `METHOD-R17`;
-- `MODEL-R17-REPOSITORY-SHADOW-V2`;
-- R17 runtime configuration candidate;
-- a completed repository-only non-scoring shadow run.
+- knowledge: `KNOWLEDGE-R17`
+- method: `METHOD-R17`
+- model: `MODEL-R17-REPOSITORY-ACTIVE-V1`
+- runtime configuration: `FORTUNE-RUNTIME-R17-ACTIVE-V1`
+
+The active pointers and runtime configuration were updated by compare-and-swap and read back successfully. The activation receipt is:
+
+`model/releases/MODEL-R17-REPOSITORY-ACTIVE-V1/activation-receipt.json`
+
+Receipt object hash:
+
+`124b1df97f1e0100e3ee10726cd5daaa06d4a4db486f7a523ba108cb441d4a4b`
 
 ## Source delivery
 
-S00–S18 reuse exact immutable R16 parent files. S19 is reconstructed from a canonical gzip/base64 R17 control-root overlay plus the immutable R16 S19 file.
+S00–S18 reuse exact immutable R16 parent files. S19 is reconstructed from the canonical R17 gzip/base64 control-root overlay plus immutable R16 S19.
 
 Materialized S19:
 
 - SHA256: `59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91`
 - bytes: `10283817`
 
-Remote Git blob verification passed for all 20 parent files and the canonical overlay container. The original plain-text overlay candidate remains retained as a failed audit object because of a trailing-LF byte mismatch; it is superseded by manifest V2.
+Remote Git-blob verification passed for all source parents and the canonical overlay container.
 
-## Shadow validation
+## Validation boundary
 
-Shadow run:
+The non-scoring repository-only shadow run `RUN-R17-ENDPOINT-001` passed causal-use, no-fallback and answer-isolation validation. It did not create a training accuracy observation.
 
-`RUN-R17-ENDPOINT-001`
+GitHub Actions remain classified as `PRESTEP_PLATFORM_OR_RUNNER_FAILURE_UNRESOLVED_NOT_USED_AS_PASS`. No CI PASS is claimed; the scoped exception is recorded under `governance/activation-exceptions/`.
 
-Status:
+## Training rule
 
-```text
-PASS_NONSCORING_REPOSITORY_ONLY_SHADOW
-CAUSAL_USE=PASS
-NO_FALLBACK=PASS
-ANSWER_ISOLATION=PASS
-ACCURACY_OBSERVATION_CREATED=NO
-```
+Activation does not make historical or shadow predictions scoreable. Every real training group must begin with a fresh `GROUP_MANIFEST`; every case requires a new input freeze, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before reasoning. Score eligibility remains conditional on that case's own `CAUSAL_USE_RECEIPT=PASS`.
 
-The run froze its input, coverage plan, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before reasoning. It then materialized two independent local seals, five evidence-ledger rows, twelve method-stage receipts, one required pairwise comparison and a null formal assertion. All ten runtime objects passed remote Git-blob readback.
-
-## Activation boundary
-
-The active repository pointers still reference R16:
-
-- knowledge: `KNOWLEDGE-R16`;
-- method: `METHOD-R16`;
-- model: `MODEL-R16-REPOSITORY-SHADOW-V2`;
-- runtime configuration: R16.
-
-The frozen activation plan is:
-
-`model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json`
-
-It requires compare-and-swap checks against the current R16 pointer and configuration blobs, PR history cleanup, explicit user approval, post-update readback and an activation receipt.
-
-Current state:
-
-```text
-ACTIVATION_STATUS=READY_NOT_EXECUTED_EXPLICIT_USER_APPROVAL_REQUIRED
-FORMAL_RELEASE=NO
-TRAINING_PERMISSION=BLOCKED_UNTIL_ACTIVATION_AND_FRESH_GROUP_CONTRACT
-```
-
-After activation, case count, question count and training thresholds are not fixed by this configuration. They are controlled by the frozen `GROUP_MANIFEST`, `RUN_CONTRACT` and `LEARNING_POLICY` for each training group.
+Case count, question count, training rounds and mastery thresholds are not fixed globally. They are controlled by the frozen group and learning contracts.
