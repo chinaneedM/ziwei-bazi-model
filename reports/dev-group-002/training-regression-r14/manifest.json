@@ -1,0 +1,118 @@
+{
+  "artifacts": {
+    "adjusted_atom_direction_matrix": {
+      "canonical_sha256": "312540e62952b4b57a207f646c181f7450953b22db8f6334f24d7288fe88fdda",
+      "path": "reports/dev-group-002/training-regression-r14/adjusted-atom-direction-matrix.json"
+    },
+    "pairwise_replay": {
+      "canonical_sha256": "96df5cdb8cc41fb77231284aa7d90584fc37dd40a0d693ea757fc595dee68659",
+      "path": "reports/dev-group-002/training-regression-r14/pairwise-replay.json"
+    },
+    "postreveal_review": {
+      "canonical_sha256": "fd527bafcc1f3dd059bf69b41060c95635f1f023e1d53ffe2bcf9e703450ab43",
+      "path": "reports/dev-group-002/training-regression-r14/postreveal-review.json"
+    },
+    "prediction_freeze": {
+      "canonical_sha256": "66e25728d2df73b5a4742ec153146f91a91dda131b92abd1882460acb9fbf4fb",
+      "path": "reports/dev-group-002/training-regression-r14/prediction-freeze.json"
+    }
+  },
+  "base_astrological_knowledge_changed": false,
+  "canonical_sha256": "dcf5362c7a012f507976c7103e4ae68f5b051dacf0455a8748d258af1c999ef8",
+  "case_specific_direction_rule_added": false,
+  "group_id": "DEV-GROUP-002",
+  "historical_rounds": {
+    "R1": {
+      "git_blob_sha": "20a372e1e9baf09a00ca46babfe7fdee458de322",
+      "path": "reports/dev-group-002/training-regression-r1/manifest.json",
+      "preserved": true
+    },
+    "R10": {
+      "git_blob_sha": "e9d18ba175d53ce4a2395248ec08df050d275755",
+      "path": "reports/dev-group-002/training-regression-r10/manifest.json",
+      "preserved": true
+    },
+    "R11": {
+      "git_blob_sha": "97a5ba669d0e59151f29a2d4c4d6fd36e998e566",
+      "path": "reports/dev-group-002/training-regression-r11/manifest.json",
+      "preserved": true
+    },
+    "R12": {
+      "git_blob_sha": "2a3e77f9c04cdc07bba77b0cb570cfcc01029cf0",
+      "path": "reports/dev-group-002/training-regression-r12/manifest.json",
+      "preserved": true
+    },
+    "R13": {
+      "git_blob_sha": "87827c90debfd16eb9899712c16b3405edab05c6",
+      "path": "reports/dev-group-002/training-regression-r13/manifest.json",
+      "preserved": true
+    },
+    "R2": {
+      "git_blob_sha": "6e92ed4e079f9615c2be698b52a9477211fab81a",
+      "path": "reports/dev-group-002/training-regression-r2/formal-readiness-matrix.json",
+      "preserved": true
+    },
+    "R3": {
+      "git_blob_sha": "5132282a0301f461738db2c1fcb1242977a73186",
+      "path": "reports/dev-group-002/training-regression-r3/progress.json",
+      "preserved": true
+    },
+    "R4": {
+      "git_blob_sha": "0e0896f26d51eb2af39e297bddfbda6dbeab6eb2",
+      "path": "reports/dev-group-002/training-regression-r4/compact-manifest.json",
+      "preserved": true
+    },
+    "R5": {
+      "git_blob_sha": "c6313c941fd1e030b2f77fe67a16fc51df8c4dfa",
+      "path": "reports/dev-group-002/training-regression-r5/manifest.json",
+      "preserved": true
+    },
+    "R6": {
+      "git_blob_sha": "e4ae5fc92da8c0a63354c16775a5b9ab822dfed6",
+      "path": "reports/dev-group-002/training-regression-r6/manifest.json",
+      "preserved": true
+    },
+    "R7": {
+      "git_blob_sha": "52eddec60f8167332d1bc64f5436bcaf18e3d181",
+      "path": "reports/dev-group-002/training-regression-r7/manifest.json",
+      "preserved": true
+    },
+    "R8": {
+      "git_blob_sha": "4e13887abfbf09bc576ee00f8f49411273e332cc",
+      "path": "reports/dev-group-002/training-regression-r8/manifest.json",
+      "preserved": true
+    },
+    "R9": {
+      "git_blob_sha": "adee6cbc1019d223f2c26299aaf088d715631908",
+      "path": "reports/dev-group-002/training-regression-r9/manifest.json",
+      "preserved": true
+    }
+  },
+  "new_case_admission": "BLOCKED",
+  "next_required_round": "R15_REVIEW_R14_STABILITY_AND_DECIDE_DEV_EXAMPLE_004_GATE",
+  "round_id": "R14",
+  "run_class": "ANSWER_VISIBLE_SAME_CASE_SHADOW_REBUILD",
+  "s00_s19_modified": false,
+  "schema": "DEV-GROUP-002-R14-FROZEN-MANIFEST-V1",
+  "statistics": {
+    "adjusted_atom_rows": 178,
+    "atom_level_replayable_pairwise_rows": 30,
+    "bazi_changed_atom_count": 0,
+    "changed_atom_count": 0,
+    "cycle_question_count": 0,
+    "formal_valid_questions": 0,
+    "low_information_tiebreak_rows": 1,
+    "machine_valid_local_seals": 0,
+    "pairwise_rows": 30,
+    "processed_case_count": 1,
+    "processed_question_count": 5,
+    "question_count": 25,
+    "s03_fusions": 0,
+    "selection_changed_from_r12": true,
+    "top1_hits": 11,
+    "top2_coverage": 14,
+    "ziwei_changed_atom_count": 0
+  },
+  "status": "FROZEN_GENERIC_CAPABILITY_AND_NORMALIZED_BURDEN_REPLAY",
+  "training_conclusion": "R14 applies the R13 generic capability, neutral-time, scene-only and normalized burden rules before answer access. Any selection or score change is preserved without answer-derived repair."
+}
