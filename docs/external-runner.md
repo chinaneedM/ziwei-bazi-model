@@ -17,7 +17,25 @@ The current formal release remains `NO`, and repository-only R16 shadow validati
 - The original R16 S00–S19 set remains immutable under `knowledge/base`.
 - `knowledge/active-release.json` and `method/active-release.json` identify the shadow-bound versions.
 - Project-uploaded S00–S19 files remain in the old project as read-only bootstrap/archive copies. They must not be mixed with repository packets and must not be used by a repository-bound scored run.
-- A repository checkout failure, packet failure, hash mismatch, missing route, missing method stage, or causal-use failure must fail closed. There is no fallback to project files.
+- A repository checkout failure, packet failure, hash mismatch, missing route, missing method stage, causal-use failure, or contamination failure must fail closed. There is no fallback to project files.
+
+## Legacy contamination quarantine
+
+Historical files are not silently erased. They remain available for audit, defect reproduction and research, but they are not runtime knowledge or method inputs.
+
+The following references are prohibited in source packets, method packets, predictions and scored run contracts:
+
+- `/mnt/data`, opaque project file IDs and project-upload labels;
+- answer-vault or ground-truth paths;
+- `SHADOW_REBUILD` paths;
+- post-reveal or revealed-case objects;
+- any `reports/` path, including historical training-regression and example reports;
+- `data/training/` state objects;
+- `research/fortune-hypothesis-library/` objects unless the knowledge has been independently promoted into a versioned, hash-bound knowledge release.
+
+The active eligible roots are limited to versioned `knowledge`, `method` and `model` base/candidate/release paths. A selected parent passage containing a prohibited path reference is rejected before packet creation. A later runtime reference to one of these paths makes the causal-use receipt `FAIL_CLOSED` and the run permanently unscored.
+
+The governing object is `governance/runtime-contamination-policy-v1.json`.
 
 ## Pre-reasoning delivery chain
 
@@ -29,7 +47,8 @@ Before reasoning, the runtime must create and freeze:
 4. a source packet containing exact parent passages, byte ranges, conditions, negations, limitations, exceptions, alternatives, counterexamples, capability ceilings, and source hashes for all required routes;
 5. a method packet containing every mandatory stage and stable rule ID;
 6. a `MODEL_RELEASE` binding main prompt ID, knowledge release, method release, code commit, S19 binding hash, 20 source hashes and sizes, and source-packet protocol;
-7. the complete repository prediction run contract.
+7. the complete repository prediction run contract;
+8. a cleanroom declaration denying project uploads, historical training traces, post-reveal material and direct research-hypothesis access.
 
 The source-packet builder rejects answer fields and temporary-winner fields. It may not stop after three public evidence items and may not select only material supporting a provisional winner.
 
@@ -42,11 +61,12 @@ The validator also checks:
 - exact model, knowledge, method, source-packet and method-packet bindings;
 - packet and contract hashes;
 - project-upload references such as `/mnt/data`, opaque project file IDs, or project-upload labels;
+- historical report, training-state, post-reveal, SHADOW_REBUILD and direct research-hypothesis references;
 - explicit no-fallback policy;
 - answer isolation;
 - frozen-before-reasoning status.
 
-Only `FORTUNE-CAUSAL-USE-RECEIPT-V1` with `status=PASS` permits `score_eligibility=ELIGIBLE`. Interface installation, static tests, audit success, or a matching final answer do not substitute for causal proof.
+Only `FORTUNE-CAUSAL-USE-RECEIPT-V1` with `status=PASS` permits `score_eligibility=ELIGIBLE`. Interface installation, static tests, audit success, quarantine success, or a matching final answer do not substitute for causal proof or predictive accuracy.
 
 ## Commands
 
@@ -61,6 +81,8 @@ fortune-repository-delivery method-packet ...
 fortune-repository-delivery model-release ...
 fortune-repository-delivery run-contract ...
 fortune-repository-delivery causal-validate ...
+fortune-repository-delivery contamination-inventory ...
+fortune-repository-delivery contamination-validate ...
 ```
 
 The existing single-case handoff remains:
@@ -85,7 +107,7 @@ No answer reveal or training score may be authorized until the full group freeze
 
 ## Installation meaning
 
-The repository delivery code, schemas and compatibility adapter are installed on the development branch. This means C01–C05 interfaces exist; it does **not** mean:
+The repository delivery code, schemas and compatibility adapter are installed on the development branch. This means C01–C05 plus the C05A contamination quarantine interfaces exist; it does **not** mean:
 
 - GitHub can run ChatGPT in the background;
 - R16 repository source delivery has completed a real shadow run;
