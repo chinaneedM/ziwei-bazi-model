@@ -21,6 +21,8 @@ Machine names:
 
 These claims must never be substituted for one another. Five replays of one revealed question are five stability observations but only zero additional blind-accuracy observations.
 
+A distinct question is identified by an explicit `distinct_question_key`, normally the question-unit ID or the case ID plus question ID. A bare label such as `Q1` is not globally unique because multiple cases may each contain a question named `Q1`.
+
 ## Why an incorrect answer is useful
 
 A wrong first prediction is not erased. It is the training signal. Post-reveal work must identify the faulty reasoning path, such as semantic scope, entity confusion, endpoint overreach, timing misuse, incomplete compound coverage, unfair proof burden, or defective pairwise adjudication. The correction must be expressed as a reusable conditional mechanism with counterexamples, never as a rule that maps a case, question, option letter, exact chart fingerprint, or remembered answer to a selection.
@@ -38,6 +40,24 @@ A wrong first prediction is not erased. It is the training signal. Post-reveal w
 9. **GENERATE:** after the full training set, freeze the candidate and test it on an unseen blind block.
 
 A question may be training-complete even when its original first-blind prediction was wrong. That is expected: the purpose of the unit is to correct the reasoning. The correctness of that correction is tested prospectively on later distinct questions.
+
+Evaluation and advancement are separate operations. `evaluate-question` may return `advance_allowed=true`, but the active state does not enter the next question until the separate `advance` operation is executed.
+
+## Required reasoning-correction object
+
+`TRAINING_UNIT_COMPLETE` requires a content-addressed `REASONING-CORRECTION-OBJECT-V2.1`, not only boolean completion flags. The object must contain:
+
+1. the concrete error mechanisms;
+2. source-parent chains, hashes, conditions, limits, and downstream effects;
+3. the corrected reasoning order;
+4. capability ceilings and forbidden inference jumps;
+5. applicability conditions;
+6. counterexamples and failure boundaries;
+7. all `N×(N-1)/2` pairwise rows and a mechanically derived strongest competitor;
+8. contamination, answer-memory, case-rule, Bazi-variant, and base-knowledge-promotion checks;
+9. a candidate unit conclusion that keeps retrospective training fit separate from first-blind accuracy.
+
+A four-option question therefore requires six unique pairwise rows. Missing rows, duplicate pairs, invalid directions, incomplete parent payloads, or an invalid correction hash prevent training completion.
 
 ## Accuracy policy
 
@@ -87,4 +107,4 @@ fortune-learning-cycle evaluate-question --cycle <cycle.json> --evidence <questi
 fortune-learning-cycle advance --cycle <cycle.json> --evaluation <evaluation.json> --output <next-cycle.json>
 ```
 
-Formal release remains separate. Training completion does not by itself establish exact endpoints, machine-valid local seals, S03 fusion, or unseen-case performance.
+Formal release remains separate. Training completion does not by itself establish exact endpoints, machine-valid local seals, S03 fusion, remote GitHub Actions success, or unseen-case performance.
