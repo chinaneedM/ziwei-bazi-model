@@ -1,13 +1,26 @@
 {
-  "schema": "LEARNING-CYCLE-V2.1",
-  "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
-  "group_id": "DEV-GROUP-002",
-  "status": "SOURCE_BASELINE_REBUILD_ACTIVE_BEFORE_CLEAN_SAME_SET_RETEST",
+  "benchmark_scope": {
+    "excluded_questions": [],
+    "policy": "ALL_USER_PROVIDED_QUESTIONS_REMAIN_HISTORICAL_TRAINING_MATERIAL_BUT_NO_NEW_RETEST_OR_SCORE_WHILE_BLOCKED",
+    "question_count": 25,
+    "special_handling": []
+  },
   "bindings": {
     "branch": "agent/dev-group-002-training-regression-r1",
-    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
     "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1",
-    "source_learning_round_id": "R21"
+    "knowledge_release_id": "KNOWLEDGE-R16",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "method_release_id": "METHOD-R16",
+    "remediation_master_plan": "R25-SYSTEM-REMEDIATION-MASTER-PLAN",
+    "source_authority_policy": "R23-SINGLE-SOURCE-AUTHORITY"
+  },
+  "claim_boundary": {
+    "base_knowledge_promotion": "NO_UNTIL_SOURCE_GAP_PROVEN_AND_APPROVED",
+    "formal_release": "NO",
+    "interface_completion": "DOES_NOT_IMPLY_ACCURACY",
+    "prediction_accuracy_improvement": "NOT_CLAIMED",
+    "training_target": "NOT_YET_PROVEN",
+    "unseen_generalization": "NOT_PROVEN"
   },
   "completed_case_batches": [
     "DEV-EXAMPLE-001-BATCH-Q1-Q5",
@@ -16,58 +29,60 @@
     "DEV-EXAMPLE-004-BATCH-Q1-Q5",
     "DEV-EXAMPLE-005-BATCH-Q1-Q5"
   ],
-  "training_semantics": {
-    "user_intended_loop": "REVEAL_DIAGNOSE_REVISE_SOURCE_LIBRARIES_INSTALL_NEW_BASELINE_FRESH_CONTEXT_RETEST_SAME_QUESTIONS_REPEAT_UNTIL_TARGET",
-    "same_set_retest_role": "VALIDATE_KNOWLEDGE_ABSORPTION_AND_REPRODUCIBLE_USE_OF_REVISED_BASELINE",
-    "new_unseen_cases_role": "VALIDATE_GENERALIZATION_AFTER_SAME_SET_TARGET",
-    "model_weight_training_claim": "NO",
-    "project_learning_mechanism": "VERSIONED_SOURCE_LIBRARIES_RUNTIME_RULES_AND_ANSWER_ISOLATED_RETEST"
-  },
-  "benchmark_scope": {
-    "question_count": 25,
-    "excluded_questions": [],
-    "special_handling": [],
-    "policy": "ALL_USER_PROVIDED_QUESTIONS_ARE_NORMAL_TRAINING_QUESTIONS"
-  },
+  "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
+  "group_id": "DEV-GROUP-002",
   "historical_first_blind_accuracy": {
     "distinct_question_count": 25,
+    "immutable": true,
     "top1_hits": 7,
     "top1_rate": 0.28,
     "top2_hits": 15,
-    "top2_rate": 0.6,
-    "immutable": true
+    "top2_rate": 0.6
   },
   "invalidated_shortcuts": {
-    "R19_22_OF_22": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST",
-    "METHOD_ONLY_FREEZE": "INSUFFICIENT_WITHOUT_MATERIALIZED_REVISED_SOURCE_BASELINE"
+    "METHOD_ONLY_FREEZE": "INSUFFICIENT_WITHOUT_CAUSALLY_DELIVERED_REPOSITORY_KNOWLEDGE",
+    "POST_REASONING_BINDING_ONLY": "DOES_NOT_PROVE_REPOSITORY_SOURCE_USE",
+    "PROJECT_UPLOAD_PLUS_REPOSITORY_MIX": "FORBIDDEN_MIXED_SOURCE_RUNTIME",
+    "R19_22_OF_22": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST"
   },
-  "r21_source_learning_loop": {
-    "spec_path": "reports/learning-cycle-v2/DEV-GROUP-002/R21-SOURCE-BASELINE-LEARNING-LOOP/source-learning-loop-spec-v1.json",
-    "spec_object_hash": "9290856cab470b6c1277ff6e170ff40c03dcb2e4cdf0a25740bd555bd37e3ee7",
-    "patch_plan_path": "reports/learning-cycle-v2/DEV-GROUP-002/R21-SOURCE-BASELINE-LEARNING-LOOP/source-patch-plan-v1.json",
-    "patch_plan_object_hash": "3502a79a6f33a2a6b68dd39d31094789417567b74b6bd8c59e97da744e09cb7a",
-    "confirmed_source_knowledge_gaps": [],
-    "existing_knowledge_execution_defects": 8,
-    "runtime_repository_lifecycle_defects": 1,
-    "candidate_patch_diffs": "NOT_YET_MATERIALIZED",
-    "candidate_complete_s00_s19_baseline": "NOT_YET_MATERIALIZED",
-    "candidate_install_receipt": "NOT_YET_CREATED",
-    "fresh_context_same_set_retest": "BLOCKED_UNTIL_CANDIDATE_BASELINE_INSTALLED"
+  "next_required_action": "RUN_R16_REPOSITORY_ONLY_SHADOW_VALIDATION_ON_SYNTHETIC_OR_NONSCORING_INPUT_AND_PUBLISH_COMPONENT_RECEIPTS_BEFORE_ANY_25_QUESTION_RETEST",
+  "object_hash": "e5085e136e5dd81eac8080efcfd209a339557e38c2ebc694bf927dc1653d5f39",
+  "parent_state_object_hash": "2c76f7bc75604bf342125af5a1552b90cc5fb442bc2a4fce7f00942c95af8802",
+  "r25_remediation": {
+    "C01_VERSIONED_KNOWLEDGE_RELEASES": "IMPLEMENTED_PENDING_FULL_REPOSITORY_VALIDATION",
+    "C02_VERSIONED_METHOD_RELEASES": "IMPLEMENTED_PENDING_FULL_REPOSITORY_VALIDATION",
+    "C03_SOURCE_PACKET_BUILDER": "IMPLEMENTED_PENDING_R16_REAL_SOURCE_CATALOG_AND_SHADOW_RUN",
+    "C04_METHOD_PACKET_AND_RUN_CONTRACT": "IMPLEMENTED_PENDING_R16_SHADOW_RUN",
+    "C05_CAUSAL_USE_VALIDATOR": "IMPLEMENTED_PENDING_R16_SHADOW_RUN",
+    "formal_release": "NO",
+    "legacy_chat_work_contract_status": "ARCHIVE_ONLY_UNSCORED",
+    "project_uploaded_s00_s19_status": "RETAIN_READ_ONLY_DO_NOT_DELETE_OR_USE_IN_SCORED_REPOSITORY_RUN",
+    "repository_only_shadow_validation": "NOT_YET_EXECUTED"
   },
+  "schema": "LEARNING-CYCLE-V2.1",
+  "score_gate": {
+    "resume_requires": [
+      "R16_REPOSITORY_SOURCE_CATALOG_READBACK_PASS",
+      "SOURCE_PACKET_AND_METHOD_PACKET_DELIVERED_BEFORE_REASONING",
+      "CAUSAL_USE_RECEIPT_PASS",
+      "PROJECT_UPLOAD_REFERENCE_SCAN_PASS",
+      "NO_FALLBACK_PROOF_PASS",
+      "ANSWER_ISOLATED_FRESH_SESSION"
+    ],
+    "status": "BLOCKED"
+  },
+  "status": "TRAINING_SCORE_BLOCKED_PENDING_CAUSAL_REPOSITORY_SOURCE_DELIVERY",
   "target": {
+    "answer_contamination_tolerance": 0,
     "top1": "AT_LEAST_20_OF_25",
-    "top2": "AT_LEAST_23_OF_25",
-    "answer_contamination_tolerance": 0
+    "top2": "AT_LEAST_23_OF_25"
   },
-  "claim_boundary": {
-    "training_target": "NOT_YET_PROVEN",
-    "formal_exact_assertions": "ALL_NULL",
-    "base_knowledge_promotion": "NO_UNTIL_SOURCE_GAP_PROVEN_AND_APPROVED",
-    "unseen_generalization": "NOT_PROVEN",
-    "formal_release": "NO"
+  "training_semantics": {
+    "model_weight_training_claim": "NO",
+    "new_unseen_cases_role": "VALIDATE_GENERALIZATION_AFTER_TRAINING_COMPLETION",
+    "project_learning_mechanism": "VERSIONED_REPOSITORY_KNOWLEDGE_METHOD_PACKETS_AND_CAUSAL_VALIDATION",
+    "same_set_retest_role": "VALIDATE_CAUSAL_USE_AND_TRAINING_FIT_ONLY_AFTER_REPOSITORY_SOURCE_DELIVERY_PASS",
+    "user_intended_loop": "REVEAL_DIAGNOSE_REVISE_VERSIONED_KNOWLEDGE_AND_METHOD_RELEASES_THEN_FRESH_ANSWER_ISOLATED_RETEST"
   },
-  "next_required_action": "MATERIALIZE_R21_CANDIDATE_PATCH_MANIFEST_AND_RESPONSIBLE_LIBRARY_DIFFS_THEN_BUILD_INSTALL_AND_BIND_A_COMPLETE_CANDIDATE_S00_S19_BASELINE",
-  "parent_state_object_hash": "61836c40b4044703a8becb125f982001e19e0684b60d6f414182581fa245f992",
-  "updated_at": "2026-07-18T14:20:00+00:00",
-  "object_hash": "2c76f7bc75604bf342125af5a1552b90cc5fb442bc2a4fce7f00942c95af8802"
+  "updated_at": "2026-07-18T14:49:09+00:00"
 }
