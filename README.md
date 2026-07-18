@@ -2,6 +2,8 @@
 
 Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
+> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. Training scoring and the 25-question clean retest remain blocked until full immutable-checkout readback, a full repository contamination inventory, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed.
+
 ## Execution model
 
 The prediction engine is the active ChatGPT project session in either:
@@ -21,14 +23,15 @@ The active sequence is:
 
 > **汲取 → 拆解 → 填充 → 重塑 → 化用 → 生发**
 
-The corrected `LEARNING-CYCLE-V2.1` rules are:
+The corrected `LEARNING-CYCLE-V2.2` rules are:
 
 - each distinct question contributes at most one accuracy observation: its immutable first prediction made before reveal;
 - post-reveal replays measure training fit and execution stability only;
 - repeating one revealed question five times cannot be reported as 80% or 100% blind accuracy;
 - a question advances after its error diagnosis, reusable reasoning correction, counterexample tests, provenance, pairwise replay, and clean stability checks complete;
 - rolling TOP1/TOP2 are calculated only across distinct questions' first-blind predictions and are not evaluated before five distinct questions;
-- unseen generalization requires a later frozen block that was never used to create or revise the method.
+- unseen generalization requires a later frozen block that was never used to create or revise the method;
+- historical reports, revealed-case traces, `SHADOW_REBUILD`, training state and unpromoted research hypotheses are audit/research objects, not active runtime knowledge.
 
 The repository therefore distinguishes first-blind accuracy, post-reveal training fit, replay stability, and unseen generalization. See [learning-cycle-v2.md](docs/learning-cycle-v2.md).
 
@@ -46,7 +49,10 @@ The authoritative runtime state is the machine-generated `reports/install-state.
 - the installed group commands `fortune-v1 group-chat-work-run` and `fortune-v1 group-verify-freeze`;
 - the corrected learning command `fortune-learning-cycle`;
 - complete-group freeze before any answer access;
-- the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading.
+- the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading;
+- versioned knowledge, method and model release interfaces;
+- source-packet, method-packet and causal-use validation interfaces;
+- the C05A legacy-contamination quarantine gate defined by `governance/runtime-contamination-policy-v1.json`.
 
 The phrase `EXTERNAL_PREDICTION_RUNNER` in the installation schema refers to the **external-to-GitHub ChatGPT project session**, not to an API service. See [external-runner.md](docs/external-runner.md).
 
@@ -71,12 +77,15 @@ flowchart TD
 
 The runtime repository has no vault credential and no workflow that checks out the vault. On GitHub Free private repositories, the answer vault manually dispatches reverse grading with `RUNTIME_REPO_TOKEN`, scoped only to the runtime repository. Paid branch/ruleset/environment protections are recorded as unavailable, never as PASS.
 
+A repository-bound source packet or prediction that references project uploads, answer-vault paths, historical `reports/`, `data/training/`, post-reveal objects, `SHADOW_REBUILD`, or unpromoted research hypotheses fails closed and is score-ineligible. Historical objects remain immutable for audit; they are not silently erased or permitted to re-enter through narrative citation.
+
 ## Quick start
 
 ```bash
 ./scripts/install.sh
 PYTHONPATH=src python -m fortune_v1.cli --help
 fortune-learning-cycle --help
+fortune-repository-delivery --help
 ```
 
 Import, normalize, audit and migrate the one source ZIP:
@@ -91,7 +100,19 @@ PYTHONPATH=src python -m fortune_v1.cli import-source-package \
   --migrate-destination knowledge/base
 ```
 
-Run one complete answer-free training group in one active CHAT/WORK session:
+Build or validate the contamination boundary:
+
+```bash
+fortune-repository-delivery contamination-inventory \
+  --repository-root . \
+  --output reports/runtime-contamination-inventory.json
+
+fortune-repository-delivery contamination-validate \
+  --input data/contracts/<run-id>.json \
+  --output reports/runtime-contamination-validation.json
+```
+
+Run one complete answer-free training group in one active CHAT/WORK session only after all repository-delivery gates permit it:
 
 ```bash
 fortune-v1 group-chat-work-run \
@@ -120,4 +141,4 @@ See [operations.md](docs/operations.md), [architecture.md](docs/architecture.md)
 
 Every rerun requires a new `GROUP_RUN_ID` and new child `RUN_ID` values; existing run paths are rejected.
 
-The answer-vault initialization template is under `templates/answer-vault/`. Its generated ZIP is an installation package only; it contains no real answers, real examples, token value, prior prediction or SHADOW_REBUILD payload.
+The answer-vault initialization template is under `templates/answer-vault/`. Its generated ZIP is an installation package only; it contains no real answers, real examples, token value, prior prediction or `SHADOW_REBUILD` payload.
