@@ -1,0 +1,25 @@
+{
+  "answer_vault_access_status": "PASS_INACCESSIBLE",
+  "case_input_read_count_before_repair": 0,
+  "clean_start_commit": "5f6874dab5425db96842a7721bdb21b80e3dab46",
+  "clean_start_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/clean-start.json",
+  "clean_start_status_after_repair": "READY_FOR_CLEAN_GROUP_PREDICTION",
+  "failure_class": "ORCHESTRATION_TRIGGER_NO_OUTPUT",
+  "failure_observation": "The exact request existed, but the push-triggered workflow did not materialize the deterministic clean-start path.",
+  "group_run_id": "GROUP-RUN-20260718T180018Z-1F09939E2A6A",
+  "manual_materialization_basis": "src/fortune_v1/clean_start.py and tests/test_clean_start.py",
+  "manual_materialization_scope": [
+    "five empty prediction skeletons",
+    "one clean-start manifest"
+  ],
+  "not_claimed_without_actions_api_visibility": [
+    "workflow_was_disabled",
+    "push_event_was_not_delivered",
+    "workflow_job_failed_before_logging"
+  ],
+  "repair_status": "PASS_CURRENT_GROUP_UNBLOCKED",
+  "schema": "GROUP-CLEAN-START-REPAIR-RECEIPT-V1",
+  "workflow_fallback_commit": "dc0d255bfda65d3e870881b4c100025d00476026",
+  "workflow_fallback_installed": true,
+  "workflow_fallback_mode": "workflow_dispatch_with_exact_request_path_validation"
+}
