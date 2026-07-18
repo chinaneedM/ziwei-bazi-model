@@ -1,0 +1,55 @@
+{
+  "active_model_release_id": "MODEL-R17-REPOSITORY-ACTIVE-V1",
+  "claim_boundary": {
+    "current_session_may_continue_blind_training": false,
+    "current_session_score_eligible": false,
+    "historical_first_blind_score_unchanged": true,
+    "same_set_clean_replay_role": "TRAINING_FIT_AND_EXECUTION_STABILITY_ONLY_NOT_NEW_BLIND_ACCURACY"
+  },
+  "contamination_status": "FAIL_CLOSED_CONFIRMED",
+  "detected_at": "2026-07-19T01:15:57+08:00",
+  "effects": {
+    "accuracy_observation_created": false,
+    "case_run_id_created": false,
+    "formal_group_manifest_created": false,
+    "group_freeze_created": false,
+    "knowledge_or_method_patch_created": false,
+    "prediction_freeze_created": false,
+    "reveal_performed": false,
+    "training_result_created": false
+  },
+  "incident_id": "INC-R17-FIVE-CASE-CURRENT-SESSION-001",
+  "intended_scope": "DEV-GROUP-002_FIVE_CASE_ANSWER_ISOLATED_STABILITY_TRAINING",
+  "object_hash": "6cf7a7bdcb819da26ee0903e656196c081352ae0cc8f537f8896c91ee3990463",
+  "required_recovery": {
+    "forbidden_before_group_freeze": [
+      "REPOSITORY_SEARCH",
+      "COMMIT_OR_PR_HISTORY",
+      "OLD_RUNS",
+      "ANSWER_OBJECTS",
+      "REVEAL_OBJECTS",
+      "SCORING_OBJECTS",
+      "DIAGNOSIS_OBJECTS",
+      "SHADOW_REBUILD",
+      "POST_REVEAL_TRAINING_ARTIFACTS"
+    ],
+    "fresh_conversation_required": true,
+    "fresh_group_run_id_required": true,
+    "retrieval_policy": "EXACT_ALLOWED_PATHS_ONLY",
+    "start_object": "GROUP-CLEAN-START-V1"
+  },
+  "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+  "schema": "FORTUNE-R17-CONTAMINATION-INCIDENT-V1",
+  "status": "CLOSED_NO_FORMAL_RUN_STARTED",
+  "trigger": {
+    "answer_content_visible": true,
+    "opened_paths": [
+      "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-BATCH-Q2-Q5/completion-index-v2.1.json",
+      "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-002-BATCH-Q1-Q5/completion-index-v2.1.json",
+      "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-003-BATCH-Q1-Q5/completion-index-v2.1.json",
+      "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-004-BATCH-Q1-Q5/completion-index-v2.1.json",
+      "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-005-BATCH-Q1-Q5/completion-index-v2.1.json"
+    ],
+    "type": "ANSWER_BEARING_HISTORICAL_OBJECTS_OPENED_IN_CURRENT_MODEL_CONTEXT"
+  }
+}
