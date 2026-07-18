@@ -2,9 +2,9 @@
 
 Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
-> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. The active ChatGPT project instruction has been changed to `MP-PROFESSIONAL-REASONING-20260718-R17`, while `config/runtime.json`, the current S19 root, the verified prompt snapshot and `MODEL-R16-REPOSITORY-SHADOW-V2` still bind R16. The repository is therefore deliberately in `HOLD_PENDING_EXACT_R17_EXPORT_S19_REBIND_AND_MODEL_RELEASE`. Training, scoring and clean retesting remain prohibited until the R17 prompt snapshot, complete S19 knowledge candidate, immutable readback, contamination inventory, MODEL-R17 shadow binding, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed. R25 summary object: `1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1`. R26 plan object: `1c5b8d84965f1059055d2ad00256cb4f3cb803d225ccfc3c98c808310565cabd`.
+> **Current release boundary:** R25 C01–C05A interfaces and the R17 cutover candidate are installed on the development branch only. The active ChatGPT project instruction is `MP-PROFESSIONAL-REASONING-20260718-R17`; its user-confirmed canonical UTF-8/LF snapshot is bound under `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1`. `METHOD-R17` and `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE` now exist as non-promoted candidates. The knowledge candidate uses content-addressed R16 parent reuse plus an S19 byte-prepend overlay and has passed full local 20-file materialization. Remote immutable-checkout readback, MODEL-R17 construction, one repository-only non-scoring shadow run, causal-use PASS, no-fallback PASS and explicit promotion approval remain required. `FORMAL_RELEASE=NO`; no predictive improvement is claimed.
 
-Audit dependencies are one-way: the R25 master plan binds the implementation summary, the summary binds component receipts, and the R26 plan binds the prompt-cutover state without making historical receipts depend on R26. This prevents cyclic object-hash invalidation.
+Audit dependencies are one-way. Historical R16 objects remain immutable; R17 candidates point to their exact parents and never overwrite them.
 
 ## Execution model
 
@@ -13,9 +13,46 @@ The prediction engine is the active ChatGPT project session in either:
 - `CHAT_ONLY` — the normal and preferred operating mode;
 - `WORK` — an optional higher-capacity interactive mode when available.
 
-No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts one frozen training-group conversation, ChatGPT processes every answer-free case in that group with fresh per-case isolation, and the repository validates and freezes the resulting child `PREDICTION-RUN-V1` objects under one `GROUP-TRAINING-RUN-V1`.
+No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts a session; validated repository objects provide knowledge, method, contracts, state and receipts; the current ChatGPT conversation performs reasoning.
 
-`CHAT_STATELESS_COLD_START` applies between groups, not between cases within one group. A validated group manifest may therefore run all listed answer-free cases continuously in one CHAT/WORK session without a new conversation or separate continue command for every case.
+A formal prediction may start only after the exact MODEL_RELEASE, RUN_CONTRACT, SOURCE_PACKET, METHOD_PACKET, frozen input and answer-isolation objects are available before reasoning. Missing or mismatched objects fail closed without project-upload fallback.
+
+## R17 prompt and knowledge cutover
+
+The R17 prompt is method-decoupled: stable gates remain in the project instruction, while variable knowledge and procedure come from the bound repository releases and packets.
+
+Current candidate objects:
+
+- prompt snapshot: `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt`;
+- prompt receipt: `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json`;
+- method candidate: `method/candidates/METHOD-R17/method-release.json`;
+- knowledge candidate: `knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/release-manifest.json`;
+- S19 overlay: `knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/S19-R17-control-root-overlay.txt`.
+
+The knowledge candidate does not duplicate roughly 178 MB of unchanged source bytes. S00–S18 reuse exact content-addressed R16 parent files. S19 is deterministically materialized as:
+
+```text
+R17_S19 = R17_CONTROL_ROOT_OVERLAY_BYTES + R16_S19_BYTES
+```
+
+Expected materialized S19:
+
+```text
+SHA256=59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91
+BYTES=10283817
+```
+
+Materialize and verify the complete 20-file candidate before source-catalog construction:
+
+```bash
+fortune-repository-delivery knowledge-materialize \
+  --manifest knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/release-manifest.json \
+  --repository-root . \
+  --output-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-MATERIALIZED \
+  --receipt knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-MATERIALIZED/materialization-receipt.json
+```
+
+Any missing parent, changed overlay, unsupported composition mode, or final hash/size mismatch fails closed.
 
 ## Learning and scoring model
 
@@ -25,64 +62,37 @@ The active sequence is:
 
 > **汲取 → 拆解 → 填充 → 重塑 → 化用 → 生发**
 
-The corrected `LEARNING-CYCLE-V2.2` rules are:
+Core rules:
 
-- each distinct question contributes at most one accuracy observation: its immutable first prediction made before reveal;
-- post-reveal replays measure training fit and execution stability only;
-- repeating one revealed question five times cannot be reported as 80% or 100% blind accuracy;
-- a question advances after its error diagnosis, reusable reasoning correction, counterexample tests, provenance, pairwise replay, and clean stability checks complete;
-- rolling TOP1/TOP2 are calculated only across distinct questions' first-blind predictions and are not evaluated before five distinct questions;
-- unseen generalization requires a later frozen block that was never used to create or revise the method;
-- historical reports, revealed-case traces, `SHADOW_REBUILD`, training state and unpromoted research hypotheses are audit/research objects, not active runtime knowledge.
-
-The repository therefore distinguishes first-blind accuracy, post-reveal training fit, replay stability, and unseen generalization. See [learning-cycle-v2.md](docs/learning-cycle-v2.md).
-
-## Installation state
-
-The authoritative runtime state is the machine-generated `reports/install-state.json`, validated by `reports/install-state-validation.json` and bound to the versioned installation receipt. Installed or staged components include:
-
-- the immutable R16 S00–S19 source baseline and exact S19 binding-table recomputation;
-- the verified R16 main-prompt audit snapshot, retained as historical binding evidence rather than project runtime authority;
-- the user-installed R17 project instruction, with repository exact-byte snapshot and S19 rebinding still pending;
-- the `METHOD-R17` no-rule-change prompt-binding candidate;
-- the deterministic two-phase R17 prompt/S19 cutover builder and its isolated positive and negative tests;
-- the physically separate answer vault and reverse-grading workflows;
-- bidirectional token-scope denial and absence of any vault credential in the runtime repository;
-- static and synthetic validation;
-- the `CHAT_WORK_INTERACTIVE_EXECUTOR` registration;
-- the deterministic single-case `fortune-v1 chat-work-import` handoff adapter;
-- the installed group commands `fortune-v1 group-chat-work-run` and `fortune-v1 group-verify-freeze`;
-- the corrected learning command `fortune-learning-cycle`;
-- complete-group freeze before any answer access;
-- the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading;
-- versioned knowledge, method and model release interfaces;
-- source-packet, method-packet and causal-use validation interfaces;
-- the C05A legacy-contamination quarantine gate defined by `governance/runtime-contamination-policy-v1.json`.
-
-The phrase `EXTERNAL_PREDICTION_RUNNER` in the installation schema refers to the **external-to-GitHub ChatGPT project session**, not to an API service. See [external-runner.md](docs/external-runner.md).
-
-Transport suffixes such as `(8)`, `(9)` and `(59)` are never source identity. The importer reads the first active internal `LIBRARY_ID`, raw SHA256 and size, then selects only the version bound by the first current S19 table. Non-active byte versions are historical/quarantine records.
+- each distinct question contributes at most one blind accuracy observation: its immutable first prediction before reveal;
+- post-reveal replay measures training fit and execution stability only;
+- repeating a revealed question cannot improve blind accuracy;
+- TOP2 is diagnostic and does not replace TOP1 scoring;
+- unseen generalization requires a later frozen set not used to revise knowledge or method;
+- historical reports, revealed traces, `SHADOW_REBUILD`, training state and unpromoted hypotheses are not active prediction sources.
 
 ## Security boundary
 
-```mermaid
-flowchart TD
-    ZIP["Complete ZIP"] --> IMP["Deterministic importer"]
-    IMP --> V["Answer vault: raw + answers"]
-    IMP --> N["Runtime: no-answer normalized group"]
-    N --> S["Immutable first-blind prediction snapshots"]
-    S --> C["One user-initiated CHAT_ONLY or WORK group session"]
-    C --> F["Complete freeze before reveal"]
-    F --> G["Vault performs literal grading"]
-    G --> D["Error diagnosis and reasoning correction"]
-    D --> R["Post-reveal fit and stability replay"]
-    R --> Q["Next distinct question tests the correction prospectively"]
-    Q --> U["Frozen unseen blind test after training"]
+The runtime repository has no answer-vault credential. Repository-bound source packets or predictions referencing project uploads, answer-vault paths, historical `reports/`, `data/training/`, post-reveal objects, `SHADOW_REBUILD`, or unpromoted research hypotheses fail closed and are score-ineligible.
+
+Transport suffixes such as `(8)`, `(9)` and `(59)` are not source identity. Library ID, exact SHA256, byte size, immutable repository binding and manifest membership determine identity.
+
+## Current status
+
+```text
+CUTOVER_STATUS=HOLD_PENDING_REMOTE_IMMUTABLE_READBACK_MODEL_R17_AND_CAUSAL_SHADOW
+FORMAL_RELEASE=NO
+SCORE_ELIGIBILITY=PROHIBITED
 ```
 
-The runtime repository has no vault credential and no workflow that checks out the vault. On GitHub Free private repositories, the answer vault manually dispatches reverse grading with `RUNTIME_REPO_TOKEN`, scoped only to the runtime repository. Paid branch/ruleset/environment protections are recorded as unavailable, never as PASS.
+Local isolated validation completed:
 
-A repository-bound source packet or prediction that references project uploads, answer-vault paths, historical `reports/`, `data/training/`, post-reveal objects, `SHADOW_REBUILD`, or unpromoted research hypotheses fails closed and is score-ineligible. Historical objects remain immutable for audit; they are not silently erased or permitted to re-enter through narrative citation.
+- repository delivery, contamination and prompt binding: 7 tests PASS;
+- R17 prompt/S19 cutover: 3 tests PASS;
+- composite materialization and tamper rejection: 2 tests PASS;
+- complete local R17 source materialization: 20/20 files PASS.
+
+GitHub Actions currently fail before recording any job steps, logs or artifacts. Full CI is therefore unconfirmed rather than reported as a code-test failure or PASS.
 
 ## Quick start
 
@@ -93,92 +103,6 @@ fortune-learning-cycle --help
 fortune-repository-delivery --help
 ```
 
-Import, normalize, audit and migrate the one source ZIP:
+Formal group execution remains blocked until the R17 model and causal-use gates pass.
 
-```bash
-PYTHONPATH=src python -m fortune_v1.cli import-source-package \
-  --package /path/to/fortune-source-baseline-S00-S19-R16.zip \
-  --expected-zip-sha256 4bd8bf03cceeb2ca03d096fbebda9f4174f2e9f7879667bef228acd2770b09be \
-  --config config/runtime.json \
-  --work-root .source-import-work \
-  --reports-dir reports \
-  --migrate-destination knowledge/base
-```
-
-Capture the exact operator-exported R17 project instruction:
-
-```bash
-python scripts/build_r17_prompt_cutover.py snapshot \
-  --input /path/to/exact-r17-project-instruction.txt \
-  --output-text model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt \
-  --output-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
-  --expected-normalized-sha256 e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79
-```
-
-Build the S19-only knowledge candidate in two phases so the manifest cannot circularly claim the commit that creates itself. First stage and commit the exact 20-file source set plus stage receipt:
-
-```bash
-python scripts/build_r17_prompt_cutover.py knowledge-candidate-stage \
-  --prompt-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
-  --output-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE
-
-git add knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE
-git commit -m "Stage R17 S19-only knowledge candidate"
-SOURCE_CONTENT_COMMIT="$(git rev-parse HEAD)"
-```
-
-Then bind that immutable source commit in the manifest and commit the finalize objects separately:
-
-```bash
-python scripts/build_r17_prompt_cutover.py knowledge-candidate-finalize \
-  --candidate-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE \
-  --prompt-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
-  --source-content-commit "$SOURCE_CONTENT_COMMIT"
-
-git add knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/release-manifest.json \
-        knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/cutover-finalize-receipt.json
-git commit -m "Finalize R17 knowledge candidate manifest"
-```
-
-Build or validate the contamination boundary:
-
-```bash
-fortune-repository-delivery contamination-inventory \
-  --repository-root . \
-  --output reports/runtime-contamination-inventory.json
-
-fortune-repository-delivery contamination-validate \
-  --input data/contracts/<run-id>.json \
-  --output reports/runtime-contamination-validation.json
-```
-
-Run one complete answer-free training group in one active CHAT/WORK session only after all repository-delivery and R17 cutover gates permit it:
-
-```bash
-fortune-v1 group-chat-work-run \
-  --manifest data/group-submissions/<group-run-id>.json \
-  --group-root data/dev-groups/<group-id> \
-  --output-root data/group-runs \
-  --mode CHAT_ONLY \
-  --session-id <session-id> \
-  --group-run-id <new-group-run-id>
-```
-
-See [operations.md](docs/operations.md), [architecture.md](docs/architecture.md), [external-runner.md](docs/external-runner.md), [group-training-single-session.md](docs/group-training-single-session.md), and [learning-cycle-v2.md](docs/learning-cycle-v2.md).
-
-## Immutable object layers
-
-1. `RAW_PACKAGE` — vault-only original ZIP and members.
-2. `NORMALIZED_CASE` — deterministic classification result; runtime copy omits answer details.
-3. `PREDICTION_INPUT_SNAPSHOT` — the only case object visible to prediction.
-4. `PREDICTION_RUN` — TOP1/TOP2, two local seals, coverage, evidence ledger, direction matrix and all pairwise rows.
-5. `GROUP_PREDICTION_FREEZE` — every expected child run and hash, complete before any answer reveal.
-6. `REVEAL_AND_DIAGNOSIS` — literal replay and TOP1 scoring; never overwrites the run.
-7. `REASONING_CORRECTION` — error decomposition, general method candidate, conditions, counterexamples and source parents.
-8. `POST_REVEAL_TRAINING_REPLAY` — training fit and stability only; never blind accuracy.
-9. `DISTINCT_FIRST_BLIND_LEDGER` — one pre-reveal observation per question for rolling TOP1/TOP2.
-10. `UNSEEN_BLIND_TEST` — frozen evaluation performed only after training completion.
-
-Every rerun requires a new `GROUP_RUN_ID` and new child `RUN_ID` values; existing run paths are rejected.
-
-The answer-vault initialization template is under `templates/answer-vault/`. Its generated ZIP is an installation package only; it contains no real answers, real examples, token value, prior prediction or `SHADOW_REBUILD` payload.
+See `docs/operations.md`, `docs/architecture.md`, `docs/external-runner.md`, `docs/group-training-single-session.md`, and `docs/learning-cycle-v2.md`.
