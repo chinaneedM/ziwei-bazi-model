@@ -1,53 +1,74 @@
 {
+  "accuracy": {
+    "distinct_question_count": 1,
+    "rate_gate_status": "NOT_YET_EVALUABLE_BEFORE_FIVE_DISTINCT_QUESTIONS",
+    "top1_hits": 0,
+    "top1_rate": 0.0,
+    "top2_hits": 0,
+    "top2_rate": 0.0
+  },
   "active_state": {
+    "advance_to_q2": "ALLOWED_NOT_EXECUTED",
     "current_unit": "DEV-EXAMPLE-001-Q1",
     "current_unit_index": 0,
-    "file_sha256": "8bffcdfc3916cc0214618f1238cda1707eaf866b0792a035d6cbca239889ae4",
-    "git_blob_sha": "16353097f80dc86de84f0b78d72b7251a818c4da",
-    "object_hash": "19809d6ded61d9717ab9a834d1365d98bda24ba9c832160601910945f89b0f41",
+    "object_hash": "563a2f1e06396b785455a551f2e73da24a178aab06ab8ac1c8c6e57bbc89b1b8",
     "path": "data/training/dev-group-002-learning-cycle-state.json",
-    "status": "LEARNING_ACTIVE_Q1_CORRECTION"
+    "q2_status": "NOT_ENTERED",
+    "status": "TRAINING_UNIT_COMPLETE_Q2_NOT_ENTERED"
   },
-  "changes": [
-    "Only one immutable first-blind prediction per distinct question is accuracy eligible.",
-    "Post-reveal replays are training-fit and stability observations only.",
-    "Question completion is based on error diagnosis and reusable reasoning correction, not retrospective correctness.",
-    "Rolling 80/90 gates require at least five distinct first-blind questions.",
-    "Q1 MASTERED claim and Q2 pointer were revoked; state returns to Q1 correction."
-  ],
-  "claim_boundary": "LOCAL_RUNTIME_LOGIC_AND_ACTIVE_STATE_DRYRUN_VALIDATED; REMOTE_CI_AND_UNSEEN_GENERALIZATION_NOT_PROVEN",
+  "claim_boundary": "LOCAL_Q1_REASONING_CORRECTION_COMPLETE; REMOTE_GITHUB_ACTIONS_FAILED; FORMAL_RELEASE_NOT_PASSED; UNSEEN_GENERALIZATION_NOT_PROVEN",
   "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1",
-  "object_hash": "d536fec572930962f5cc62fbf92de5e9468780120ace09dd41f67ca4ab217b33",
-  "remote_blobs": {
-    "README.md": "012b3ad0c4aa1c0c3526b6cc93f0064b8bfef4fd",
-    "data/training/dev-group-002-question-plan.json": "3c8660212993f5fa8cc35ae4452fc06f254b73c9",
-    "docs/learning-cycle-v2.md": "bc04326b3a60b64c1b6d53aedc5a7502bed81f83",
-    "pyproject.toml": "26926f3c7c75680dbd924e58421a47e6ddf6297f",
-    "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-Q1/correction-v2.1.json": "f64e99225cd7e0118a1303fdc8519af908ba94d2",
-    "src/fortune_v1/training_corrected.py": "2825aee13b7799b491c575ebaa8880eb616bc71a",
-    "tests/test_training_corrected.py": "330cafc4a59cda5aad8e645336ac5338e939a581"
+  "object_hash": "7d26c4d214363338ea999bfccbc403ca950b509b4004540b32047793d986fa0e",
+  "q1": {
+    "first_blind_accuracy_observation_count": 1,
+    "first_blind_top1": "C",
+    "first_blind_top1_correct": false,
+    "first_blind_top2": "A",
+    "first_blind_top2_hit": false,
+    "formal_exact_assertion": null,
+    "post_reveal_fit_rate": 1.0,
+    "post_reveal_replay_count": 5,
+    "post_reveal_replays_eligible_for_blind_accuracy": false,
+    "revealed_answer": "B",
+    "training_fit_rank": [
+      "B",
+      "C",
+      "A",
+      "D"
+    ],
+    "training_status": "TRAINING_UNIT_COMPLETE"
   },
-  "remote_ci": "UNVERIFIED_UNTIL_GITHUB_ACTIONS_EXECUTES_REAL_STEPS",
-  "root_cause": "SAME_REVEALED_QUESTION_REPLAYS_WERE_WRONGLY_COUNTED_AS_MULTIPLE_ACCURACY_OBSERVATIONS",
+  "reasoning_correction": {
+    "answer_memorization_rule_detected": false,
+    "base_knowledge_promoted": false,
+    "bazi_variant_selected_by_answer": false,
+    "case_specific_rule_detected": false,
+    "complete_pairwise_rows": 6,
+    "contamination_scan": "PASS",
+    "object_hash": "5db76a4372f69ab3388765ad150b81ecd32ba418e08caf5ed8a5cb3f6e17d01e",
+    "path": "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-Q1/reasoning-correction-v2.1.json",
+    "source_parent_chain_status": "PASS_LOCAL_FILE_AND_EXCERPT_HASH",
+    "strongest_competitor": "C"
+  },
+  "remote_ci": {
+    "formal_pass_claim": false,
+    "q1_local_training_blocking": false,
+    "release_blocking": true,
+    "status": "EXECUTED_FAILURE"
+  },
+  "root_cause": "SAME_REVEALED_QUESTION_REPLAYS_WERE_WRONGLY_COUNTED_AS_MULTIPLE_ACCURACY_OBSERVATIONS_AND_BARE_QUESTION_LABELS_WERE_NOT_GLOBALLY_UNIQUE",
+  "runtime_changes": [
+    "REASONING_CORRECTION_OBJECT_V2_1_REQUIRED",
+    "SOURCE_PARENT_AND_CAPABILITY_VALIDATION_REQUIRED",
+    "COMPLETE_PAIRWISE_MATRIX_REQUIRED",
+    "ADVANCE_ALLOWED_SEPARATED_FROM_ADVANCE_EXECUTED",
+    "DISTINCT_QUESTION_KEY_USES_UNIT_OR_CASE_ID_NOT_BARE_Q1"
+  ],
   "schema": "MODEL-CORRECTION-VALIDATION-V2.1",
-  "status": "PASS_LOCAL_RUNTIME_AND_STATE_DRYRUN",
+  "status": "PASS_LOCAL_Q1_TRAINING_CLOSURE_REMOTE_CI_FAILED",
   "tests": {
-    "q1_state_dryrun": {
-      "advance_result_current_unit_index": 1,
-      "dryrun_only_not_written_to_active_state": true,
-      "evaluate_status": "TRAINING_UNIT_COMPLETE",
-      "first_blind_top1_correct": false,
-      "first_blind_top2_hit": false,
-      "post_reveal_fit_rate": 1.0,
-      "post_reveal_replays_eligible_for_blind_accuracy": false,
-      "rolling_distinct_question_count": 1,
-      "rolling_rate_gate_status": "NOT_YET_EVALUABLE",
-      "status": "PASS"
-    },
-    "unit_tests": {
-      "command": "PYTHONPATH=src pytest -q tests/test_training_corrected.py",
-      "result": "5 passed",
-      "status": "PASS"
-    }
+    "command": "PYTHONPATH=src pytest -q tests/test_training_corrected.py",
+    "result": "9 passed",
+    "status": "PASS_LOCAL"
   }
 }
