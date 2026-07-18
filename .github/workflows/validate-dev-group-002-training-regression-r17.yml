@@ -1,0 +1,32 @@
+name: validate-dev-group-002-training-regression-r17
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - ready_for_review
+      - synchronize
+    paths:
+      - 'reports/dev-group-002/training-regression-r17/**'
+      - '.github/workflows/validate-dev-group-002-training-regression-r17.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-r17:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/dev-group-002-training-regression-r1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate R17 cross-case stability gate
+        run: python reports/dev-group-002/training-regression-r17/validate.py
+      - name: Assert validation is read-only
+        run: git diff --exit-code
