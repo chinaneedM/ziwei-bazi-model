@@ -1,56 +1,30 @@
 {
-  "schema": "EXTERNAL-PREDICTION-RUNNER-REGISTRATION-V1",
-  "runner_id": "CHAT-WORK-HANDOFF-V1",
-  "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
-  "model_or_executor": "CHATGPT_PROJECT_SESSION",
-  "interaction_modes": [
-    "CHAT_ONLY",
-    "WORK"
-  ],
-  "execution_model": "USER_INITIATED_INTERACTIVE_SESSION",
-  "background_execution": false,
+  "schema": "EXTERNAL-RUNNER-INSTALLATION-V2",
+  "runner_id": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+  "status": "INSTALLED_WITH_REPOSITORY_DELIVERY_SHADOW_ONLY",
+  "implementation": "ChatGPT project session in CHAT_ONLY or WORK mode",
   "api_service_required": false,
-  "adapter": {
-    "module": "fortune_v1.external_runner",
-    "cli_command": "fortune-v1 chat-work-import",
-    "status": "INSTALLED",
-    "workflow_path": ".github/workflows/external-runner-smoke.yml",
-    "request_transport": "GITHUB_REPOSITORY_OBJECT_HANDOFF",
-    "receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1"
+  "background_execution": false,
+  "user_initiated_session_required": true,
+  "single_case_adapter": "fortune-v1 chat-work-import",
+  "group_adapter": "fortune-v1 group-chat-work-run",
+  "repository_delivery_cli": "fortune-repository-delivery",
+  "source_delivery": {
+    "legacy_contract_status": "ARCHIVE_ONLY_UNSCORED",
+    "scored_contract_schema": "REPOSITORY-PREDICTION-RUN-CONTRACT-V1",
+    "source_packet_schema": "FORTUNE-SOURCE-PACKET-V1",
+    "method_packet_schema": "FORTUNE-METHOD-PACKET-V1",
+    "causal_use_receipt_schema": "FORTUNE-CAUSAL-USE-RECEIPT-V1",
+    "project_upload_access": "DENIED_AND_NOT_USED",
+    "fallback_policy": "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK",
+    "repository_only_shadow_validation_status": "NOT_YET_EXECUTED"
   },
-  "freeze_gate": {
-    "status": "ENFORCED",
-    "cli_command": "fortune-v1 freeze --handoff-receipt",
-    "required_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
-    "origin_validation_schema": "CHAT-WORK-HANDOFF-VALIDATION-V1",
-    "prediction_origin": "CHAT_WORK_HANDOFF_VERIFIED",
-    "missing_receipt_status": "HANDOFF_RECEIPT_MISSING",
-    "invalid_receipt_status": "HANDOFF_RECEIPT_INVALID",
-    "prediction_hash_replay_required": true,
-    "contract_hash_replay_required": true,
-    "identity_and_binding_replay_required": true
-  },
-  "input_contract": "PREDICTION-RUN-CONTRACT-V1",
-  "output_schema": "PREDICTION-RUN-V1",
-  "timeout_seconds": 1800,
-  "failure_status": "CHAT_WORK_PREDICTION_FAILED",
-  "no_answer_access_proof": {
-    "status": "ENFORCED_PER_RUN",
-    "contract_answer_data_available_required_false": true,
-    "prediction_forbidden_scan_required": true,
-    "active_whitelist_required": true,
-    "runtime_repository_vault_credential": "NONE",
-    "answer_vault_read_allowed": false
-  },
-  "code_commit_binding": "REPOSITORY_HEAD_AT_HANDOFF",
-  "prompt_binding": {
-    "runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-    "audit_snapshot_sha256": "832dd43129b6e5d3098c972a55179ccb7e9ab49a9770339a87c94deaa440b017",
-    "runtime_authority": "PROJECT_CUSTOM_INSTRUCTIONS"
-  },
-  "source_binding": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
-  "run_id_nonoverwrite": true,
-  "ziwei_bazi_local_seal_requirement": true,
-  "case_execution_requires_user_initiated_chat": true,
-  "external_prediction_runner_status": "INSTALLED"
+  "score_eligibility": "BLOCKED_UNTIL_REPOSITORY_ONLY_SHADOW_VALIDATION_PASS",
+  "formal_release": "NO",
+  "answer_data_available": false,
+  "runtime_repository_vault_credential": "NONE",
+  "supported_session_modes": ["CHAT_ONLY", "WORK"],
+  "prediction_object_schema": "PREDICTION-RUN-V1",
+  "handoff_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
+  "installation_boundary": "Interface and causal-source validation do not prove prediction accuracy."
 }
