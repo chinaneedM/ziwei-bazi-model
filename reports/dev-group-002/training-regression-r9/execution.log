@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/reports/dev-group-002/training-regression-r9/materialize_validate.py", line 668, in <module>
+    if __name__=='__main__': raise SystemExit(main())
+                                              ^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/reports/dev-group-002/training-regression-r9/materialize_validate.py", line 663, in main
+    if a.write: materialize(root)
+                ^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/reports/dev-group-002/training-regression-r9/materialize_validate.py", line 599, in materialize
+    objects=build_objects(repo_root)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ziwei-bazi-model/ziwei-bazi-model/reports/dev-group-002/training-regression-r9/materialize_validate.py", line 576, in build_objects
+    raise ValueError('R9 precontent gate failed')
+ValueError: R9 precontent gate failed
