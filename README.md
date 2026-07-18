@@ -1,6 +1,6 @@
 # Fortune V1 automation runtime
 
-Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative mastery learning, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
+Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
 ## Execution model
 
@@ -13,23 +13,24 @@ No OpenAI API key, separate model endpoint, paid server, or background process i
 
 `CHAT_STATELESS_COLD_START` applies between groups, not between cases within one group. The fixed development group may therefore run five cases and 25 questions continuously in one CHAT/WORK session without five new conversations or five separate continue commands.
 
-## Mastery learning model
+## Learning and scoring model
 
-Revealed development examples are training material. They are not considered finished merely because an audit object or regression report exists.
+Revealed development examples are training material. An incorrect answer is used to diagnose and correct the reasoning path; it is never erased or converted into a retrospective blind success.
 
-The active learning sequence is:
+The active sequence is:
 
 > **汲取 → 拆解 → 填充 → 重塑 → 化用 → 生发**
 
-The repository implements this as `LEARNING-CYCLE-V2`:
+The corrected `LEARNING-CYCLE-V2.1` rules are:
 
-- `QUESTION` mode trains one question at a time;
-- `CASE` mode trains one case at a time;
-- `GROUP` mode trains a full development group.
+- each distinct question contributes at most one accuracy observation: its immutable first prediction made before reveal;
+- post-reveal replays measure training fit and execution stability only;
+- repeating one revealed question five times cannot be reported as 80% or 100% blind accuracy;
+- a question advances after its error diagnosis, reusable reasoning correction, counterexample tests, provenance, pairwise replay, and clean stability checks complete;
+- rolling TOP1/TOP2 are calculated only across distinct questions' first-blind predictions and are not evaluated before five distinct questions;
+- unseen generalization requires a later frozen block that was never used to create or revise the method.
 
-The default QUESTION gate requires five clean cold-start attempts, TOP1 at least 80%, TOP2 at least 90%, full provenance/pairwise replay, and retention of every previously mastered unit. Low scores cause another learning round; they do not trigger an arbitrary retry-limit HOLD.
-
-Training mastery, cold-start stability and unseen blind generalization are reported separately. See [learning-cycle-v2.md](docs/learning-cycle-v2.md).
+The repository therefore distinguishes first-blind accuracy, post-reveal training fit, replay stability, and unseen generalization. See [learning-cycle-v2.md](docs/learning-cycle-v2.md).
 
 ## Installation state
 
@@ -43,7 +44,7 @@ The authoritative runtime state is the machine-generated `reports/install-state.
 - the `CHAT_WORK_INTERACTIVE_EXECUTOR` registration;
 - the deterministic single-case `fortune-v1 chat-work-import` handoff adapter;
 - the installed group commands `fortune-v1 group-chat-work-run` and `fortune-v1 group-verify-freeze`;
-- the mastery command `fortune-learning-cycle`;
+- the corrected learning command `fortune-learning-cycle`;
 - complete-group freeze before any answer access;
 - the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading.
 
@@ -58,16 +59,14 @@ flowchart TD
     ZIP["Complete ZIP"] --> IMP["Deterministic importer"]
     IMP --> V["Answer vault: raw + answers"]
     IMP --> N["Runtime: no-answer normalized group"]
-    N --> S["Immutable prediction snapshots"]
+    N --> S["Immutable first-blind prediction snapshots"]
     S --> C["One user-initiated CHAT_ONLY or WORK group session"]
-    C --> H["Per-case CHAT/WORK validators"]
-    H --> F["Complete group freeze receipt"]
-    F --> G["Vault starts group grader"]
-    G --> R["Runtime receives group reveal"]
-    R --> L["Six-phase learning cycle"]
-    L --> CR["Clean cold-start replay"]
-    CR --> M["Mastery and retention gate"]
-    M --> U["Frozen unseen blind test"]
+    C --> F["Complete freeze before reveal"]
+    F --> G["Vault performs literal grading"]
+    G --> D["Error diagnosis and reasoning correction"]
+    D --> R["Post-reveal fit and stability replay"]
+    R --> Q["Next distinct question tests the correction prospectively"]
+    Q --> U["Frozen unseen blind test after training"]
 ```
 
 The runtime repository has no vault credential and no workflow that checks out the vault. On GitHub Free private repositories, the answer vault manually dispatches reverse grading with `RUNTIME_REPO_TOKEN`, scoped only to the runtime repository. Paid branch/ruleset/environment protections are recorded as unavailable, never as PASS.
@@ -114,9 +113,10 @@ See [operations.md](docs/operations.md), [architecture.md](docs/architecture.md)
 4. `PREDICTION_RUN` — TOP1/TOP2, two local seals, coverage, evidence ledger, direction matrix and all pairwise rows.
 5. `GROUP_PREDICTION_FREEZE` — every expected child run and hash, complete before any answer reveal.
 6. `REVEAL_AND_DIAGNOSIS` — literal replay and TOP1 scoring; never overwrites the run.
-7. `LEARNING_CYCLE` — append-only six-phase diagnosis, candidate, clean replay, mastery and retention objects.
-8. `PATCH_AND_REGRESSION` — candidate patch, leak scan, mastery metrics and regression decision.
-9. `UNSEEN_BLIND_TEST` — frozen evaluation performed only after training mastery.
+7. `REASONING_CORRECTION` — error decomposition, general method candidate, conditions, counterexamples and source parents.
+8. `POST_REVEAL_TRAINING_REPLAY` — training fit and stability only; never blind accuracy.
+9. `DISTINCT_FIRST_BLIND_LEDGER` — one pre-reveal observation per question for rolling TOP1/TOP2.
+10. `UNSEEN_BLIND_TEST` — frozen evaluation performed only after training completion.
 
 Every rerun requires a new `GROUP_RUN_ID` and new child `RUN_ID` values; existing run paths are rejected.
 
