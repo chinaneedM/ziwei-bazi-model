@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - ready_for_review
+      - synchronize
     paths:
       - 'reports/dev-group-002/training-regression-r16/payload/**'
       - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
