@@ -1,0 +1,198 @@
+name: private-repo-task
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'requests/*.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: private-repo-task-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  execute:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout trusted public executor base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+
+      - name: Checkout request revision without credentials
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: request-revision
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Resolve and validate single request
+        id: request
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          cd request-revision
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          if [[ "${#changed[@]}" -ne 1 ]]; then
+            echo "exactly one changed request file is required" >&2
+            exit 1
+          fi
+          request="${changed[0]}"
+          case "$request" in
+            requests/*.json) ;;
+            *) echo "changed file is outside requests/: $request" >&2; exit 1 ;;
+          esac
+          python - "$request" <<'PY'
+          import json, re, sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          body = json.loads(path.read_text(encoding='utf-8'))
+          required = {
+              'schema': 'FORTUNE-PUBLIC-EXECUTOR-REQUEST-V1',
+              'status': 'REQUESTED',
+              'task': 'BUILD_RUNTIME_PACKETS',
+              'private_repository': 'chinaneedM/ziwei-bazi-model',
+              'answer_data_available': False,
+          }
+          for key, expected in required.items():
+              if body.get(key) != expected:
+                  raise SystemExit(f'invalid {key}')
+          request_path = body.get('private_request_path', '')
+          if not re.fullmatch(r'runtime/runtime-packet-requests/[A-Za-z0-9._-]+\.json', request_path):
+              raise SystemExit('invalid private_request_path')
+          group_run_id = body.get('group_run_id', '')
+          if not re.fullmatch(r'GROUP-RUN-[A-Za-z0-9._-]+', group_run_id):
+              raise SystemExit('invalid group_run_id')
+          expected_sha = body.get('private_request_sha256', '')
+          if not re.fullmatch(r'[0-9a-f]{64}', expected_sha):
+              raise SystemExit('invalid private_request_sha256')
+          print('request validation PASS')
+          PY
+          echo "request_path=$request" >> "$GITHUB_OUTPUT"
+
+      - name: Require private repository credential
+        shell: bash
+        env:
+          PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PRIVATE_REPO_TOKEN"
+
+      - name: Checkout private authority repository
+        uses: actions/checkout@v4
+        with:
+          repository: chinaneedM/ziwei-bazi-model
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: private-authority
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify private request binding
+        shell: bash
+        env:
+          PUBLIC_REQUEST_PATH: ${{ steps.request.outputs.request_path }}
+        run: |
+          set -euo pipefail
+          python - "$PUBLIC_REQUEST_PATH" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+
+          public = json.loads((Path('request-revision') / sys.argv[1]).read_text(encoding='utf-8'))
+          private_path = Path('private-authority') / public['private_request_path']
+          if not private_path.is_file():
+              raise SystemExit('private request missing')
+          digest = hashlib.sha256(private_path.read_bytes()).hexdigest()
+          if digest != public['private_request_sha256']:
+              raise SystemExit('private request hash mismatch')
+          private = json.loads(private_path.read_text(encoding='utf-8'))
+          if private.get('group_run_id') != public['group_run_id']:
+              raise SystemExit('group run mismatch')
+          if private.get('answer_data_available') is not False:
+              raise SystemExit('answer data gate failed')
+          print('private request binding PASS')
+          PY
+
+      - name: Build answer-free runtime packets in private checkout
+        shell: bash
+        env:
+          PUBLIC_REQUEST_PATH: ${{ steps.request.outputs.request_path }}
+        run: |
+          set -euo pipefail
+          private_request="$(python - "$PUBLIC_REQUEST_PATH" <<'PY'
+          import json, sys
+          from pathlib import Path
+          body = json.loads((Path('request-revision') / sys.argv[1]).read_text(encoding='utf-8'))
+          print(body['private_request_path'])
+          PY
+          )"
+          cd private-authority
+          python scripts/create-group-runtime-packets.py \
+            --request "$private_request" \
+            --max-per-question 8 \
+            > /tmp/runtime-packet-result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path('/tmp/runtime-packet-result.json').read_text(encoding='utf-8'))
+          if result.get('status') != 'READY_FOR_BLIND_PREDICTION':
+              raise SystemExit('packet build status failed')
+          if result.get('answer_data_available') is not False:
+              raise SystemExit('answer isolation failed')
+          transport = Path(result['transport_plan_path'])
+          body = json.loads(transport.read_text(encoding='utf-8'))
+          if body.get('status') != 'READY' or body.get('answer_data_available') is not False:
+              raise SystemExit('transport plan validation failed')
+          print(json.dumps({
+              'status': result['status'],
+              'group_run_id': result['group_run_id'],
+              'case_count': result['case_count'],
+              'generated_path_count': result['generated_path_count'],
+              'source_packet_item_counts': result['source_packet_item_counts'],
+          }, ensure_ascii=False, sort_keys=True))
+          PY
+
+      - name: Commit only bound private output root
+        shell: bash
+        env:
+          PUBLIC_REQUEST_PATH: ${{ steps.request.outputs.request_path }}
+        run: |
+          set -euo pipefail
+          group_run_id="$(python - "$PUBLIC_REQUEST_PATH" <<'PY'
+          import json, sys
+          from pathlib import Path
+          body = json.loads((Path('request-revision') / sys.argv[1]).read_text(encoding='utf-8'))
+          print(body['group_run_id'])
+          PY
+          )"
+          cd private-authority
+          output_root="data/group-clean-starts/${group_run_id}"
+          test -d "$output_root"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -- "$output_root"
+          mapfile -t staged < <(git diff --cached --name-only)
+          test "${#staged[@]}" -gt 0
+          for path in "${staged[@]}"; do
+            case "$path" in
+              "$output_root"/*) ;;
+              *) echo "out-of-scope staged path: $path" >&2; exit 1 ;;
+            esac
+          done
+          git commit -m "Materialize answer-free runtime packets for ${group_run_id}"
+          git push origin HEAD:main
