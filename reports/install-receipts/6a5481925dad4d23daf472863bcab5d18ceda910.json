@@ -1,0 +1,67 @@
+{
+  "answer_or_reveal_data_read": false,
+  "base_astrological_knowledge_changed": false,
+  "checks": [
+    {
+      "check": "TARGETED_UNIT_TESTS",
+      "status": "PASS",
+      "test_count": 7
+    },
+    {
+      "check": "FIXED_EXACT_ENTRYPOINT",
+      "path": "GROUP-CLEAN-START-V1",
+      "status": "PASS"
+    },
+    {
+      "case_count": 5,
+      "check": "CURRENT_GROUP_POINTER",
+      "path": "CURRENT_GROUP_MANIFEST",
+      "question_count": 25,
+      "status": "PASS"
+    },
+    {
+      "check": "ANSWER_VAULT_FAIL_CLOSED",
+      "required_value": "PASS_INACCESSIBLE",
+      "status": "PASS"
+    },
+    {
+      "check": "PRECONTENT_SEARCH_FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "check": "REQUEST_DRIVEN_WORKFLOW",
+      "path": ".github/workflows/repository-group-clean-start.yml",
+      "status": "PASS"
+    },
+    {
+      "check": "ACTIVE_R17_BINDING_INJECTION",
+      "source_case_binding_retained": true,
+      "status": "PASS"
+    },
+    {
+      "check": "TRAINING_TARGETS_FROZEN",
+      "required_clean_replay_rounds": 5,
+      "retention_target": 0.8,
+      "status": "PASS",
+      "top1_target": 0.8,
+      "top2_target": 0.9
+    }
+  ],
+  "code_commit": "6a5481925dad4d23daf472863bcab5d18ceda910",
+  "file_sha256": {
+    ".github/workflows/repository-group-clean-start.yml": "dc612628297a609c360235699a1f5a525a39209427642e0df270a9891ae6879e",
+    "CURRENT_GROUP_MANIFEST": "7c78899023fc70f73d0ebecdaf34b94f41378540f62087805c1a0e4d111ff5b0",
+    "GROUP-CLEAN-START-V1": "1065300ebaf97c1e4238d1bc0d970574377add7b423dffc77c1056367e83dfbd",
+    "runtime/clean-start-requests/README.md": "7c654ce674a7331680a5caf422fc5f6fd55c9badbd8645157f88fcdb6b442645",
+    "scripts/create-group-clean-start.py": "8f7253c20d93c1fb16b07ef89ef295796e3d8dd78917d72a5e937376fa722bc2",
+    "src/fortune_v1/clean_start.py": "806bed019f8c3fe75c5ab5b061d09662fb4ddbc8736ab8a771af06fb3b46d9f5",
+    "tests/test_clean_start.py": "06a209784bb2b29bb280acfc6d682e158a23a983d71f14150a573b4d5ebbb77f"
+  },
+  "generated_at": "2026-07-19T02:30:00+08:00",
+  "object_hash": "2a0fcd191b8d9f57d74f3da5edb85839c809049c5209b05054c0fd49fd6e9585",
+  "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+  "schema": "INSTALLATION-RECEIPT-CLEAN-START-BOOTSTRAP-V1",
+  "scope": "CLEAN_START_BOOTSTRAP_REQUEST_WORKFLOW_AND_R17_BINDING_ONLY",
+  "status": "PASS",
+  "validation_environment": "LOCAL_DETERMINISTIC_PYTHON_3_11_COMPATIBLE"
+}
