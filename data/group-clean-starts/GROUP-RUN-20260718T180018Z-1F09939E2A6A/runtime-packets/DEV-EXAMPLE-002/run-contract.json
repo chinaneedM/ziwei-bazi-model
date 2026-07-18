@@ -1,0 +1,46 @@
+{
+  "answer_data_available": false,
+  "bindings": {
+    "knowledge_release_id": "KNOWLEDGE-R17",
+    "learning_policy_id": "LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "method_release_id": "METHOD-R17",
+    "model_release_id": "MODEL-R17-REPOSITORY-ACTIVE-V1"
+  },
+  "case_id": "DEV-EXAMPLE-002",
+  "formal_scoring_permission": "CONDITIONAL_ON_CAUSAL_USE_RECEIPT_PASS",
+  "group_id": "DEV-GROUP-002",
+  "group_run_id": "GROUP-RUN-20260718T180018Z-1F09939E2A6A",
+  "group_session_id": "GROUP-SESSION-20260718T180018Z-8644D182228A",
+  "input_snapshot": {
+    "bazi_sidecar_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/case-input-sidecars/DEV-EXAMPLE-002/bazi.json",
+    "bazi_sidecar_sha256": "ac263688ba4ae22009c70900f01140e5b77e5dcfdff126a9be81152a666442e3",
+    "path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+    "questions_sidecar_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/case-input-sidecars/DEV-EXAMPLE-002/questions.json",
+    "questions_sidecar_sha256": "95f0d4da98fc8b7f3984783c40fa2ec8d12704d7faa2fa0cb539fa3bf72077f3",
+    "sha256": "f985216512cc8a0ef5a87c96a2ce79b34d33830f4dac83f4238d8f92b441e7ee",
+    "ziwei_sidecar_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/case-input-sidecars/DEV-EXAMPLE-002/ziwei.txt",
+    "ziwei_sidecar_sha256": "2ba2dab3e9e7326a9aef8d95f88edf7ef7ff8ea7129b87dc805ba0704e9deb21"
+  },
+  "method_packet_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/runtime-packets/DEV-EXAMPLE-002/method-packet.json",
+  "object_hash": "9c6264808613b35dd457c835a9967ae7021cf6e881ba5820fc9df292714cf070",
+  "prediction_skeleton_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/case-skeletons/DEV-EXAMPLE-002.json",
+  "required_stages": [
+    "INPUT_AND_LITERAL_OPTION_FREEZE",
+    "COMPLETE_KNOWLEDGE_COVERAGE",
+    "ZIWEI_BLIND_TRACK",
+    "BAZI_BLIND_TRACK",
+    "NEUTRAL_TIME_FACTS",
+    "PERSON_TAIJI_AND_ENTITY_TOPOLOGY",
+    "REALITY_OCCURRENCE_AND_ENDPOINT_CLOSURE",
+    "COMMON_ATOM_SUBTRACTION",
+    "OPTION_ATOM_DIRECTION_MATRIX",
+    "FULL_PAIRWISE_ADJUDICATION",
+    "TRACK_INDEPENDENCE_AND_FUSION",
+    "PUBLIC_RELATIVE_AND_FORMAL_RELEASE"
+  ],
+  "run_id": "GROUP-RUN-20260718T180018Z-1F09939E2A6A-DEV-EXAMPLE-002",
+  "schema": "FORTUNE-RUN-CONTRACT-V1",
+  "source_packet_path": "data/group-clean-starts/GROUP-RUN-20260718T180018Z-1F09939E2A6A/runtime-packets/DEV-EXAMPLE-002/source-packet.json",
+  "status": "READY_FOR_BLIND_PREDICTION"
+}
