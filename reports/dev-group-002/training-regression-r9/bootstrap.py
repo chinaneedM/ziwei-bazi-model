@@ -7,7 +7,7 @@ from pathlib import Path
 ROUND_DIR = Path(__file__).resolve().parent
 PARTS_DIR = ROUND_DIR / 'source-parts'
 TARGET = ROUND_DIR / 'materialize_validate.py'
-EXPECTED_SHA256 = '1619b74f0d6c324b84b4342fd987413844441b16f451199f4bcd3d8e40458020'
+EXPECTED_SHA256 = 'b9dd8d9f8ed8e9871e75b0ffff2e2f4e4573e587b46a93eb2072f2a7dc3f0938'
 
 
 def main() -> int:
