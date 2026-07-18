@@ -4,10 +4,15 @@ on:
   push:
     paths:
       - 'runtime/runtime-packet-requests/*.json'
+  pull_request:
+    paths:
+      - 'runtime/runtime-packet-pr-requests/*.json'
+      - 'scripts/create-group-runtime-packets.py'
+      - '.github/workflows/repository-group-runtime-packets.yml'
   workflow_dispatch:
     inputs:
       request_path:
-        description: 'Exact runtime/runtime-packet-requests/*.json path'
+        description: 'Exact runtime packet request JSON path'
         required: true
         type: string
 
@@ -15,7 +20,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-runtime-packets-${{ github.ref }}
+  group: repository-group-runtime-packets-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -23,11 +28,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Checkout triggering branch
+      - name: Checkout triggering revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
-          fetch-depth: 2
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,17 +43,30 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/runtime-packet-requests.txt
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
             request="${MANUAL_REQUEST_PATH}"
             case "$request" in
-              runtime/runtime-packet-requests/*.json) ;;
+              runtime/runtime-packet-requests/*.json|runtime/runtime-packet-pr-requests/*.json) ;;
               *) echo "invalid manual request path: $request" >&2; exit 1 ;;
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/runtime-packet-requests.txt
+          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            git diff --name-only "$PR_BASE_SHA" "$PR_HEAD_SHA" -- 'runtime/runtime-packet-pr-requests/*.json' \
+              | sort -u > /tmp/runtime-packet-requests.txt
+            test -s /tmp/runtime-packet-requests.txt
+            while IFS= read -r request; do
+              case "$request" in
+                runtime/runtime-packet-pr-requests/*.json) ;;
+                *) echo "invalid PR request path: $request" >&2; exit 1 ;;
+              esac
+              test -f "$request"
+            done < /tmp/runtime-packet-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/runtime-packet-requests/*.json' \
               | sort -u > /tmp/runtime-packet-requests.txt
@@ -97,7 +115,19 @@ jobs:
                       raise SystemExit(f'missing generated path: {generated}')
           PY
 
+      - name: Upload answer-free runtime packet artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-packets-pr-${{ github.event.pull_request.number }}
+          path: |
+            data/group-clean-starts
+            /tmp/runtime-packet-results
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Commit immutable runtime packets
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
