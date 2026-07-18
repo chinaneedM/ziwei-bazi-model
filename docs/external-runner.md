@@ -2,19 +2,68 @@
 
 ## Execution model
 
-The prediction engine is the active ChatGPT project session operating in either `CHAT_ONLY` or `WORK` mode. No OpenAI API key, third-party model endpoint, paid server, or background process is required.
+The reasoning engine is an active ChatGPT project session operating in `CHAT_ONLY` or `WORK` mode. GitHub does not autonomously start ChatGPT, and no background model process is claimed.
 
-The division of responsibility is:
+The runtime now has two explicitly different handoff classes:
 
-- ChatGPT `CHAT_ONLY` / `WORK`: performs the Ziwei and Bazi reasoning and emits complete `PREDICTION-RUN-V1` child objects.
-- GitHub runtime: freezes inputs, validates bindings and object bodies, rejects answer contamination, enforces independent local seals and pairwise completeness, freezes predictions, and manages group reveal/regression receipts.
-- Answer vault: remains physically separate and is read only by the reverse-grading workflow after a valid group freeze exists.
+1. **Repository-bound shadow/scored contract** — uses `REPOSITORY-PREDICTION-RUN-CONTRACT-V1`, a frozen `MODEL_RELEASE`, `FORTUNE-SOURCE-PACKET-V1`, and `FORTUNE-METHOD-PACKET-V1`. The causal-use validator must pass before a run can be score-eligible.
+2. **Legacy post-reasoning contract** — may still be archived and frozen for compatibility, but it is permanently `LEGACY_UNSCORED` because it cannot prove that repository source text or the versioned method was delivered before reasoning.
 
-GitHub does not autonomously start a ChatGPT conversation. The user starts one training-group session in CHAT or WORK. `CHAT_STATELESS_COLD_START` applies between groups, not between cases inside one frozen group. After that single start, the active session may process every answer-free case in the group without requiring a new conversation or a per-case continue message.
+The current formal release remains `NO`, and repository-only R16 shadow validation has not yet been completed.
 
-## Single-case repository handoff
+## Authority boundary
 
-The legacy deterministic adapter remains available:
+- GitHub repository releases are the only mutable knowledge and method authority.
+- The original R16 S00–S19 set remains immutable under `knowledge/base`.
+- `knowledge/active-release.json` and `method/active-release.json` identify the shadow-bound versions.
+- Project-uploaded S00–S19 files remain in the old project as read-only bootstrap/archive copies. They must not be mixed with repository packets and must not be used by a repository-bound scored run.
+- A repository checkout failure, packet failure, hash mismatch, missing route, missing method stage, or causal-use failure must fail closed. There is no fallback to project files.
+
+## Pre-reasoning delivery chain
+
+Before reasoning, the runtime must create and freeze:
+
+1. an answer-isolated case and literal question/option freeze;
+2. a complete knowledge-coverage plan;
+3. a source catalog derived from the exact 20-file release manifest;
+4. a source packet containing exact parent passages, byte ranges, conditions, negations, limitations, exceptions, alternatives, counterexamples, capability ceilings, and source hashes for all required routes;
+5. a method packet containing every mandatory stage and stable rule ID;
+6. a `MODEL_RELEASE` binding main prompt ID, knowledge release, method release, code commit, S19 binding hash, 20 source hashes and sizes, and source-packet protocol;
+7. the complete repository prediction run contract.
+
+The source-packet builder rejects answer fields and temporary-winner fields. It may not stop after three public evidence items and may not select only material supporting a provisional winner.
+
+## Causal-use validation
+
+Every evidence-ledger row must resolve to one source-packet item and match its library, source-file SHA256, and source-root atom. Every mandatory prediction stage must have a method-stage receipt bound to one or more rule IDs from the method packet.
+
+The validator also checks:
+
+- exact model, knowledge, method, source-packet and method-packet bindings;
+- packet and contract hashes;
+- project-upload references such as `/mnt/data`, opaque project file IDs, or project-upload labels;
+- explicit no-fallback policy;
+- answer isolation;
+- frozen-before-reasoning status.
+
+Only `FORTUNE-CAUSAL-USE-RECEIPT-V1` with `status=PASS` permits `score_eligibility=ELIGIBLE`. Interface installation, static tests, audit success, or a matching final answer do not substitute for causal proof.
+
+## Commands
+
+The repository delivery interface is exposed through:
+
+```bash
+fortune-repository-delivery knowledge-validate ...
+fortune-repository-delivery method-validate ...
+fortune-repository-delivery source-catalog ...
+fortune-repository-delivery source-packet ...
+fortune-repository-delivery method-packet ...
+fortune-repository-delivery model-release ...
+fortune-repository-delivery run-contract ...
+fortune-repository-delivery causal-validate ...
+```
+
+The existing single-case handoff remains:
 
 ```bash
 fortune-v1 chat-work-import \
@@ -26,52 +75,20 @@ fortune-v1 chat-work-import \
   --receipt data/chat-work-imports/<run-id>/handoff-receipt.json
 ```
 
-It requires `answer_data_available=false`, scans the submitted prediction for forbidden answer material, validates the entire `PREDICTION-RUN-V1` body, verifies the Ziwei/Bazi independent local seals, and writes nothing when validation fails.
+For repository-bound contracts, this adapter now runs both the existing prediction-object validator and the causal-use validator. For legacy contracts it writes `score_eligibility=PROHIBITED`.
 
-## Group-level single-session handoff
+## Group-level handoff
 
-The preferred development-training adapter is:
+The group adapter still requires the exact group order, complete case count, unique non-overwriting run IDs, common session identity, answer-free contracts, frozen group bindings and absence of cross-case reveal/diagnosis/shadow references. Repository-bound group scoring additionally requires a causal-use PASS for every child run.
 
-```bash
-fortune-v1 group-chat-work-run \
-  --manifest data/group-submissions/<group-run-id>.json \
-  --group-root data/dev-groups/<group-id> \
-  --output-root data/group-runs \
-  --mode CHAT_ONLY \
-  --session-id <non-secret-session-label> \
-  --group-run-id <new-group-run-id>
-```
-
-The manifest uses `GROUP-TRAINING-RUN-V1` and contains an ordered child row for every frozen group member. The adapter requires:
-
-- the exact group case order and complete case count;
-- one unique, non-overwriting `CASE_RUN_ID` per case;
-- a common `GROUP_SESSION_ID` and session mode;
-- an answer-free run contract and prediction object for every case;
-- the frozen group binding on every child;
-- no prior-case prediction, reveal, diagnosis, or shadow-rebuild references.
-
-It imports and freezes every child, then writes one immutable `GROUP-PREDICTION-FREEZE-V1` object. Partial group submissions, duplicate IDs, changed child objects, cross-case references, answer contamination, or a reused group-run path fail closed.
-
-Validation is exposed as:
-
-```bash
-fortune-v1 group-verify-freeze \
-  --group-freeze data/group-runs/<group-run-id>/group-freeze.json \
-  --group-run-id <group-run-id> \
-  --output reports/group-freeze-validation.json
-```
-
-No answer reveal may be authorized until this validation passes for the complete group.
-
-## Workflows
-
-The workflow `.github/workflows/external-runner-smoke.yml` is named `chat-work-handoff` in GitHub Actions. It validates committed CHAT/WORK prediction objects and persists handoff and freeze receipts before reveal.
-
-The group-level command adds deterministic batch orchestration around those same child validators. A later workflow may automate command dispatch, but workflow automation is not allowed to weaken group freeze, answer isolation, or run non-overwrite gates.
+No answer reveal or training score may be authorized until the full group freeze and every required causal-use receipt pass.
 
 ## Installation meaning
 
-`EXTERNAL_PREDICTION_RUNNER=INSTALLED` means the CHAT/WORK project-session handoff contract and deterministic validator are installed. It does not mean GitHub can run ChatGPT in the background, and it does not claim an API service exists.
+The repository delivery code, schemas and compatibility adapter are installed on the development branch. This means C01–C05 interfaces exist; it does **not** mean:
 
-For group training, one real frozen group requires one user-initiated CHAT or WORK session. The group may contain five cases and 25 questions, all processed continuously inside that session. A separate conversation for every case is neither required nor the intended operating model.
+- GitHub can run ChatGPT in the background;
+- R16 repository source delivery has completed a real shadow run;
+- prediction accuracy improved;
+- the 25-question clean retest may begin;
+- a formal release exists.
