@@ -1,9 +1,9 @@
 {
-  "schema": "DEV-GROUP-002-R20-CLEAN-RUN-MANIFEST-V1",
+  "schema": "DEV-GROUP-002-R20-CLEAN-RUN-MANIFEST-V2",
   "round_id": "R20",
   "group_id": "DEV-GROUP-002",
   "frozen_method_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/frozen-revised-method-v1.json",
-  "frozen_method_object_hash": "cb6992de782763b311d736b5b37ecf13373cd10c7cc2cf6deba41ec0ad170f0c",
+  "frozen_method_object_hash": "158bf39eaae98a537f9aee589623517a051df71943761d9242ed59743d36928d",
   "case_ids": [
     "DEV-EXAMPLE-001",
     "DEV-EXAMPLE-002",
@@ -12,6 +12,7 @@
     "DEV-EXAMPLE-005"
   ],
   "question_count": 25,
+  "question_scope_policy": "ALL_25_ARE_NORMAL_TRAINING_QUESTIONS_NO_EXCLUSIONS_OR_SPECIAL_HANDLING",
   "active_input_allowlist": [
     "training-data/DEV-GROUP-002/readable/DEV-EXAMPLE-001/questions.txt",
     "training-data/DEV-GROUP-002/readable/DEV-EXAMPLE-001/ziwei.txt",
@@ -68,5 +69,5 @@
   },
   "current_execution_status": "BLOCKED_IN_CURRENT_CONTEXT_BY_KNOWN_ANSWER_MEMORY",
   "status": "MANIFEST_READY_AWAITING_FRESH_ANSWER_ISOLATED_EXECUTION",
-  "object_hash": "d513a2627bdce531914d263c52383679062c628738795ec9ec1e20415f997e60"
+  "object_hash": "9c5c576b0e1df176664b011c263b3544af80d31676034c0725e8fcbb572503f7"
 }
