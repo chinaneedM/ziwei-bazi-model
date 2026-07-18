@@ -1,0 +1,34 @@
+{
+  "answer_isolation_formal_status": "UNVERIFIED_FOR_R17",
+  "answer_object_read": false,
+  "answer_visibility": "NOT_OBSERVED",
+  "binding_status": "FAIL",
+  "case_question_content_read": false,
+  "case_run_ids": [
+    "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-001",
+    "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-002",
+    "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-003",
+    "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-004",
+    "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-005"
+  ],
+  "created_at": "2026-07-19T01:24:53.523283+08:00",
+  "formal_exact_assertion": null,
+  "freeze_receipt": null,
+  "gate": "SOURCE_PACKET_PRECONTENT_GATE|METHOD_PACKET_PRECONTENT_GATE|ACTIVE_WHITELIST_PRECONTENT_GATE",
+  "group_id": "DEV-GROUP-002",
+  "group_prediction_freeze": "NOT_PERFORMED",
+  "group_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB",
+  "history_navigation_performed": false,
+  "manifest_path": "data/group-clean-starts/GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB/GROUP_MANIFEST.json",
+  "object_sha256": "96c1c9948b32a561764f1921da718a26e111ef1cb4a2d24c88e901ae4e0b574c",
+  "public_relative_prediction": null,
+  "repository_global_search_performed": false,
+  "required_remediation": [
+    "Provide or pre-register exact immutable repository paths and hashes for KNOWLEDGE-R17, METHOD-R17, MODEL-R17-REPOSITORY-ACTIVE-V1 and LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1 in GROUP-CLEAN-START-V1.",
+    "Rebind the five answer-free case inputs to the R17 run contract without changing their question content or accessing any answer/history object.",
+    "Produce an R17 answer-vault physical-inaccessibility receipt for the prediction environment."
+  ],
+  "result": "HOLD_FAIL_CLOSED",
+  "schema": "CLEAN-START-PRECONTENT-HOLD-RECEIPT-V1",
+  "score": null
+}
