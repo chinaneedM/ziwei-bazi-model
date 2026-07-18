@@ -1,0 +1,44 @@
+{
+  "schema": "MAIN-PROMPT-CUTOVER-STATUS-V1",
+  "created_at": "2026-07-18T00:00:00+09:00",
+  "project_runtime_observation": {
+    "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "status": "ACTIVE_IN_CURRENT_PROJECT_SESSION",
+    "architecture": "USER_INITIATED_REPOSITORY_BOUND_SEMI_AUTOMATION",
+    "observation_scope": "RUNTIME_ID_AND_VISIBLE_INSTRUCTION_CONTENT_ONLY",
+    "exact_project_setting_bytes_exported": false
+  },
+  "repository_current_binding": {
+    "config_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "s19_expected_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "model_release_id": "MODEL-R16-REPOSITORY-SHADOW-V2",
+    "prompt_snapshot_status_path": "reports/prompt-snapshot-status.json",
+    "prompt_snapshot_status": "R16_PASS_HISTORICAL_BINDING"
+  },
+  "cutover_status": "HOLD_PENDING_EXACT_R17_EXPORT_S19_REBIND_AND_MODEL_RELEASE",
+  "formal_release": "NO",
+  "score_eligibility": "PROHIBITED",
+  "required_next_objects": [
+    "EXACT_R17_PROJECT_INSTRUCTION_EXPORT",
+    "R17_PROMPT_SNAPSHOT_RECEIPT",
+    "R17_S19_BINDING_CANDIDATE",
+    "R17_METHOD_RELEASE_BINDING_OR_EXPLICIT_COMPATIBILITY_RECEIPT",
+    "MODEL_R17_REPOSITORY_SHADOW_CANDIDATE",
+    "UPDATED_RUN_CONTRACT_VALIDATION",
+    "REPOSITORY_ONLY_NONSCORING_SHADOW_RUN",
+    "CAUSAL_USE_RECEIPT_PASS"
+  ],
+  "legacy_prompt_candidate": {
+    "path": "prompt/candidates/PROMPT-REPOSITORY-BOOTSTRAP-R1/bootstrap-prompt.txt",
+    "status": "DESIGN_CANDIDATE_NOT_INSTALLED_NOT_RUNTIME_AUTHORITY",
+    "relationship_to_r17": "NOT_THE_ACTIVE_R17_PROJECT_INSTRUCTION"
+  },
+  "claims": {
+    "r17_exact_byte_match_proven": false,
+    "s19_rebound_to_r17": false,
+    "model_release_r17_exists": false,
+    "repository_only_shadow_completed": false,
+    "accuracy_improvement_claimed": false
+  },
+  "object_hash": "ab132b2f14dd421de66c673b6fbead0e5f9df7345266adfc83b2516fe86385c6"
+}
