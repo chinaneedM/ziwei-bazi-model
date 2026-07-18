@@ -8,7 +8,7 @@
       "writeback_path_pattern": "data/group-clean-starts/{GROUP_RUN_ID}/**"
     }
   },
-  "artifact_upload_policy": "FORBIDDEN_FOR_PRIVATE_RUNTIME_OUTPUTS",
+  "artifact_upload_policy": "ONLY_SANITIZED_RECEIPTS_AND_DIAGNOSTICS_WITHOUT_PRIVATE_CONTENT",
   "authority_model": {
     "execution_compute": "PUBLIC_REPOSITORY_STANDARD_GITHUB_HOSTED_RUNNER",
     "formal_state_authority": "PRIVATE_REPOSITORY",
@@ -28,9 +28,18 @@
   },
   "expected_public_repository": "chinaneedM/ziwei-bazi-public-runner",
   "external_pull_request_policy": "SECRETS_NOT_AVAILABLE_AND_TASK_MUST_FAIL_CLOSED",
-  "installation_status": "AWAITING_PUBLIC_REPOSITORY_AND_SECRET",
-  "log_policy": "ONLY_IDS_HASHES_COUNTS_AND_STATUS",
+  "installation_status": "ACTIVE_VALIDATED",
+  "last_validated_execution": {
+    "group_run_id": "GROUP-RUN-20260718T180018Z-1F09939E2A6A",
+    "private_merge_commit_sha": "07cdfb3b8146d4480e852775f2b26aa2887312a1",
+    "private_pr_number": 31,
+    "public_request_pr_number": 12,
+    "public_workflow_run_id": 29657763560,
+    "result": "PASS"
+  },
+  "log_policy": "ONLY_IDS_HASHES_COUNTS_STATUS_AND_SANITIZED_ERROR_TAILS",
   "public_trigger_mode": "SAME_REPOSITORY_PULL_REQUEST_WITH_REQUEST_JSON_ONLY",
   "schema": "FORTUNE-PUBLIC-EXECUTOR-BRIDGE-V1",
-  "standard_runner": "ubuntu-latest"
+  "standard_runner": "ubuntu-latest",
+  "trusted_workflow_path": ".github/workflows/private-repo-final-writeback.yml"
 }
