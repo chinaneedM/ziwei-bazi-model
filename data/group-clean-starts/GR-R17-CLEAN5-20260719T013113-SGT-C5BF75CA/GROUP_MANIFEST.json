@@ -1,0 +1,172 @@
+{
+  "active_bindings": {
+    "knowledge_release_id": "KNOWLEDGE-R17",
+    "learning_policy_id": "LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "method_release_id": "METHOD-R17",
+    "model_release_id": "MODEL-R17-REPOSITORY-ACTIVE-V1",
+    "runtime_config_id": "FORTUNE-RUNTIME-R17-ACTIVE-V2"
+  },
+  "answer_isolation": {
+    "answer_file_content_read": false,
+    "answer_vault_repository": "chinaneedM/fortune-answer-vault",
+    "answer_visibility": "NOT_OBSERVED",
+    "metadata_access_probe_performed": true,
+    "metadata_access_probe_result": "ACCESSIBLE_WITH_ADMIN_PERMISSION",
+    "physical_inaccessibility_status": "FAIL",
+    "reasoning_context_has_repository_capability": true,
+    "required_location_outside_reasoning_context": true
+  },
+  "binding_readback": {
+    "activation_receipt_status": "PASS",
+    "knowledge_active_pointer_blob_sha": "dd1409059d71dbb79897119a3d4b37f2cd2c83b8",
+    "learning_policy_pointer_blob_sha": "9eab7e8f9ce54316ed109d18e4d6b2ac9e6d8718",
+    "method_active_pointer_blob_sha": "1006161b3d214e9832671f4cd586a4db4a39aaeb",
+    "model_active_pointer_blob_sha": "728f1ee647eaec12c41279d529b6b7489de7bdc9",
+    "runtime_config_blob_sha": "f960f70ce6782c6b1535c01a41d64f1e7c035e6e"
+  },
+  "case_order": [
+    "DEV-EXAMPLE-001",
+    "DEV-EXAMPLE-002",
+    "DEV-EXAMPLE-003",
+    "DEV-EXAMPLE-004",
+    "DEV-EXAMPLE-005"
+  ],
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "case_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA-DEV-EXAMPLE-001",
+      "current_run_state": "UNREVEALED_FOR_CURRENT_RUN",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+      "input_sha256": "4f3988421946cff85c60d67bcf5aa9792386ecac613c8f48e04ef8ffc015c9d8",
+      "prediction_execution_status": "NOT_STARTED",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "case_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA-DEV-EXAMPLE-002",
+      "current_run_state": "UNREVEALED_FOR_CURRENT_RUN",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+      "input_sha256": "f985216512cc8a0ef5a87c96a2ce79b34d33830f4dac83f4238d8f92b441e7ee",
+      "prediction_execution_status": "NOT_STARTED",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "case_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA-DEV-EXAMPLE-003",
+      "current_run_state": "UNREVEALED_FOR_CURRENT_RUN",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+      "input_sha256": "e48b0846c7152d12a7f506cedf62fae8d6eda9cb78a0c1dde47a2d201bae966c",
+      "prediction_execution_status": "NOT_STARTED",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "case_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA-DEV-EXAMPLE-004",
+      "current_run_state": "UNREVEALED_FOR_CURRENT_RUN",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-004.json",
+      "input_sha256": "3fc06c55ca3a9271158fe92acbfb8b0f2384b288b87645ef26ec3f96e1fc1430",
+      "prediction_execution_status": "NOT_STARTED",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "case_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA-DEV-EXAMPLE-005",
+      "current_run_state": "UNREVEALED_FOR_CURRENT_RUN",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-005.json",
+      "input_sha256": "6d58be64ced29efdb618c72fc3d1ceb5482571ba632087cd61e5bda03ce280cf",
+      "prediction_execution_status": "NOT_STARTED",
+      "question_count": 5
+    }
+  ],
+  "context_isolation": {
+    "current_context_prediction_eligible": false,
+    "current_context_read_pr_history_during_engineering": true,
+    "fresh_conversation_or_isolated_runtime_required": true,
+    "restart_required_after_access_scope_remediation": true
+  },
+  "created_at": "2026-07-19T01:31:13+08:00",
+  "exact_allowed_pre_freeze_paths": [
+    "config/runtime.json",
+    "knowledge/active-release.json",
+    "knowledge/releases/KNOWLEDGE-R17/release-manifest.json",
+    "method/active-release.json",
+    "method/releases/METHOD-R17/method-release.json",
+    "model/active-release.json",
+    "model/releases/MODEL-R17-REPOSITORY-ACTIVE-V1/model-release.json",
+    "model/releases/MODEL-R17-REPOSITORY-ACTIVE-V1/activation-receipt.json",
+    "learning/active-policy.json",
+    "learning/policies/LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1/policy.json",
+    "learning/templates/GROUP-CLEAN-START-V1.json",
+    "training-data/DEV-GROUP-002/manifest.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-004.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-005.json"
+  ],
+  "exact_input_paths": [
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-004.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-005.json"
+  ],
+  "execution": {
+    "answer_vector_literal_replay": "FORBIDDEN",
+    "bazi_local_seals": "NOT_PERFORMED",
+    "case_input_freezes": "NOT_PERFORMED",
+    "freeze_receipt": null,
+    "group_prediction_freeze": "NOT_PERFORMED",
+    "method_packets": "NOT_PERFORMED",
+    "run_contracts": "NOT_PERFORMED",
+    "score": null,
+    "source_packets": "NOT_PERFORMED",
+    "training_success_claim": null,
+    "ziwei_local_seals": "NOT_PERFORMED"
+  },
+  "forbidden_before_group_freeze": [
+    "ANSWER_KEYS",
+    "ANSWER_VECTORS",
+    "REVEAL_OBJECTS",
+    "SCORING_OBJECTS",
+    "OLD_PREDICTIONS",
+    "ERROR_DIAGNOSES",
+    "POST_REVEAL_REASONING",
+    "POST_REVEAL_TRAINING_ARTIFACTS",
+    "SHADOW_REBUILD",
+    "HISTORICAL_WINNER_OR_OPTION_POSITION_SUMMARIES",
+    "REPOSITORY_WIDE_SEARCH",
+    "COMMIT_HISTORY",
+    "PR_HISTORY",
+    "OLD_RUN_DIRECTORIES"
+  ],
+  "frozen_targets": {
+    "metric_name": "CLEAN_BLIND_REPLAY_TRAINING_FIT_ACCURACY",
+    "regression_damage_tolerance": 0,
+    "required_clean_replay_rounds": 5,
+    "top1_target": 0.8,
+    "top2_target": 0.9
+  },
+  "group_id": "DEV-GROUP-002",
+  "group_run_id": "GR-R17-CLEAN5-20260719T013113-SGT-C5BF75CA",
+  "group_session_id": "CHAT-R17-20260719T013113-SGT-2A39C3",
+  "hold_reason": "The current ChatGPT GitHub connector can access the private answer-vault repository with admin permission. Physical answer isolation required by GROUP-CLEAN-START-V1 and the active learning policy is therefore not satisfied. This context also viewed PR history during engineering and is not eligible to become the prediction context.",
+  "object_hash": "6e62fae420165afcf7ff7cd723e5bdc76d270db47fa6b68cc7f76cef1a1bf356",
+  "question_count_total": 25,
+  "question_counts": {
+    "DEV-EXAMPLE-001": 5,
+    "DEV-EXAMPLE-002": 5,
+    "DEV-EXAMPLE-003": 5,
+    "DEV-EXAMPLE-004": 5,
+    "DEV-EXAMPLE-005": 5
+  },
+  "required_remediation": [
+    "Remove chinaneedM/fortune-answer-vault from the repository set accessible to the ChatGPT/GitHub reasoning connector, while retaining runtime-repository access.",
+    "Start a fresh conversation or formally isolated reasoning context after the access change.",
+    "Create a new GROUP_RUN_ID and repeat the exact-path precontent gate without reading PR history or repository-wide search."
+  ],
+  "runtime_mode": "CHAT_ONLY",
+  "schema": "GROUP-RUN-MANIFEST-R17-V1",
+  "status": "HOLD_PRECONTENT_PHYSICAL_ANSWER_ISOLATION_FAILED"
+}
