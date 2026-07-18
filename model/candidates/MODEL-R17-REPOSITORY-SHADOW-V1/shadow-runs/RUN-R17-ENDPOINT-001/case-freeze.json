@@ -1,0 +1,58 @@
+{
+  "answer_data_available": false,
+  "case_id": "CASE-R17-ENDPOINT-001",
+  "dataset_type": "NONSCORING_REPOSITORY_ONLY_SHADOW",
+  "frozen_at": "2026-07-19T00:10:00+08:00",
+  "historical_winner_available": false,
+  "input_facts": [
+    "ZIWEI_TRACK_HAS_TIME_STAGE_ACTIVATION_ONLY",
+    "BAZI_TRACK_HAS_TIME_STAGE_ACTIVATION_ONLY",
+    "NO_ACTOR_ACTION_FORMALITY_OR_COMPLETION_NODE_IS_SUPPLIED"
+  ],
+  "input_mode": "SYNTHETIC_RULE_CONFORMANCE_CASE_NO_PERSONAL_CHART",
+  "object_hash": "3738afa6ff2dca50e7ecd78788fdfd725976906256a7d9e9a687fca0e9a7a3cd",
+  "prior_reveal_available": false,
+  "project_upload_source_permission": "NO",
+  "purpose": "VERIFY_TIME_ACTIVATION_TO_REALITY_ENDPOINT_CEILING_WITHOUT_ACCURACY_SCORING",
+  "questions": [
+    {
+      "answer_data_available": false,
+      "common_atoms": [
+        "BOTH_OPTIONS_REFER_TO_THE_SAME_TIME_ACTIVATION_FACTS"
+      ],
+      "distinctive_atoms": {
+        "A": [
+          "ACTUAL_OCCURRENCE",
+          "FORMAL_COMPLETION"
+        ],
+        "B": [
+          "STAGE_PERMISSION",
+          "STRUCTURE_ACTIVATION",
+          "MISSING_EXACT_ENDPOINT"
+        ]
+      },
+      "event_form": "RULE_CAPABILITY_CEILING",
+      "option_ids": [
+        "A",
+        "B"
+      ],
+      "options": [
+        {
+          "option_id": "A",
+          "text": "该现实事件已经正式发生并完成。"
+        },
+        {
+          "option_id": "B",
+          "text": "只能确认阶段许可或结构激活；精确现实终点仍然缺失。"
+        }
+      ],
+      "question_id": "Q1",
+      "question_text": "两个独立轨道都只显示时间阶段活跃或结构激活，但没有主体动作、手续或正式完成节点。哪项结论的证明上限更符合仓库规则？",
+      "reference_period": "UNSPECIFIED_RULE_CONFORMANCE_WINDOW",
+      "required_pairwise_rows": 1,
+      "task_polarity": "SELECT_STRONGER_ENTAILED_CONCLUSION"
+    }
+  ],
+  "run_id": "RUN-R17-ENDPOINT-001",
+  "schema": "FORTUNE-SHADOW-CASE-FREEZE-V1"
+}
