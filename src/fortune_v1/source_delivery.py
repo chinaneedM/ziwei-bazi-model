@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from typing import Any, Iterable
 
+from .contamination import assert_knowledge_source_path, runtime_reference_violations
 from .repository_release import object_hash, validate_knowledge_manifest, write_object
 from .util import FortuneError, read_json, sha256_bytes, sha256_file, utc_now
 
@@ -56,7 +57,9 @@ def build_source_catalog(manifest_path: str | Path, source_dir: str | Path,
     if validation["status"] != "PASS":
         raise FortuneError("knowledge release failed readback", status="SOURCE_CATALOG_PARENT_INVALID")
     manifest = read_json(manifest_path); root = Path(source_dir); entries = []
+    assert_knowledge_source_path(root)
     for row in manifest["source_files"]:
+        assert_knowledge_source_path(row["repository_relative_path"])
         path = root / row["canonical_filename"]
         data = path.read_bytes()
         if sha256_bytes(data) != row["sha256_raw_file_bytes"]:
@@ -89,7 +92,9 @@ def build_source_catalog(manifest_path: str | Path, source_dir: str | Path,
         "knowledge_manifest_sha256": sha256_file(manifest_path),
         "source_count": 20, "entry_count": len(entries), "entries": entries,
         "catalog_role": "LOCATOR_AND_EXACT_PARENT_TEXT_NOT_SUMMARY_AUTHORITY",
-        "answer_material_present": False, "created_at": utc_now(),
+        "answer_material_present": False,
+        "historical_training_material_runtime_permission": "NO",
+        "created_at": utc_now(),
     })
 
 
@@ -120,6 +125,12 @@ def build_source_packet(catalog_path: str | Path, coverage_plan_path: str | Path
     catalog = read_json(catalog_path); plan = read_json(coverage_plan_path); case = read_json(case_freeze_path)
     leaks = forbidden_paths(plan) + forbidden_paths(case)
     if leaks: raise FortuneError("answer or winner material in packet inputs: " + ",".join(leaks), status="SOURCE_PACKET_ANSWER_ISOLATION_FAILED")
+    input_contamination = runtime_reference_violations({"coverage_plan": plan, "case_freeze": case})
+    if input_contamination:
+        raise FortuneError(
+            "legacy or quarantined material in packet inputs: " + ",".join(row["object_path"] for row in input_contamination),
+            status="SOURCE_PACKET_LEGACY_CONTAMINATION_DETECTED",
+        )
     routes = _route_rows(plan); entries = catalog.get("entries", []); selected: dict[str, dict[str, Any]] = {}
     receipts = []; unresolved = []
     for index, route in enumerate(routes):
@@ -134,6 +145,13 @@ def build_source_packet(catalog_path: str | Path, coverage_plan_path: str | Path
     if unresolved: raise FortuneError("required routes unresolved: " + ",".join(unresolved), status="SOURCE_PACKET_REQUIRED_ROUTE_UNRESOLVED")
     items = []
     for entry in sorted(selected.values(), key=lambda row: row["catalog_entry_id"]):
+        assert_knowledge_source_path(entry["repository_relative_path"])
+        contamination = runtime_reference_violations(entry)
+        if contamination:
+            raise FortuneError(
+                "selected source parent contains legacy or quarantined references: " + entry["catalog_entry_id"],
+                status="SOURCE_PACKET_LEGACY_CONTAMINATION_DETECTED",
+            )
         item = dict(entry); item["packet_item_id"] = "PKT-" + entry["catalog_entry_id"]
         item["packet_item_hash"] = object_hash(item); items.append(item)
     if not items: raise FortuneError("source packet is empty", status="SOURCE_PACKET_EMPTY")
@@ -145,6 +163,7 @@ def build_source_packet(catalog_path: str | Path, coverage_plan_path: str | Path
         "case_freeze_path": Path(case_freeze_path).as_posix(), "case_freeze_sha256": sha256_file(case_freeze_path),
         "case_id": case.get("case_id"), "answer_data_available": False,
         "selection_policy": "COMPLETE_COVERAGE_ROUTES_NO_TEMPORARY_WINNER_FILTER",
+        "legacy_contamination_policy": "NO_REPORT_RESEARCH_POSTREVEAL_SHADOW_REBUILD_OR_PROJECT_UPLOAD_REFERENCES",
         "route_receipts": receipts, "unresolved_required_routes": [],
         "item_count": len(items), "items": items, "created_at": utc_now(),
     })
