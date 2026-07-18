@@ -1,0 +1,19 @@
+{
+  "base_astrological_knowledge_changed": false,
+  "canonical_sha256": "d38febee1f946b717c6ec1be7af763dffcdbe0ebbf84ea3a37adca574d1136f4",
+  "case_specific_direction_rule_added": false,
+  "defect_class": "SEMANTIC_SUMMARY_AND_PLACEHOLDER_PARENT_IMPORTED_AS_EVIDENCE_OBJECT",
+  "fix_id": "TR-R8-HISTORICAL-SUMMARY-NOT-SOURCE-PARENT",
+  "general_rules": [
+    "A historical direction matrix cannot be imported unless every parent identifier resolves to an immutable source or capability object with body and hash.",
+    "Text such as full applicable parent sentence is a placeholder description, not a source parent body.",
+    "An evidence ledger row without source excerpt identity, file hash, parent-text hash, source-root atom identity, and selector receipt cannot establish option direction.",
+    "A directly contradicted option may not defeat a noncontradicted option through frozen wording or narrative preference.",
+    "When historical source parents are unrecoverable, preserve the last frozen prediction and perform a fresh source rebuild rather than retroactively sealing the old body."
+  ],
+  "group_id": "DEV-GROUP-002",
+  "impact_scope": "HISTORICAL_ARTIFACT_IMPORT_GATE_AND_PAIRWISE_VALIDATION_ONLY",
+  "round_id": "R8",
+  "s00_s19_modified": false,
+  "schema": "DEV-GROUP-002-R8-GENERIC-FIX-V1"
+}
