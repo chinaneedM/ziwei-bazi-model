@@ -1,0 +1,55 @@
+{
+  "answer_specific_rule_change": "NO",
+  "branch": "agent/dev-group-002-training-regression-r1",
+  "component_receipts": [
+    {
+      "object_hash": "1e6864c5047af5aea327886345473a7f508c52dd8e6f4e1c682b83822f4b9d53",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C01-versioned-knowledge-releases-receipt-v1.json"
+    },
+    {
+      "object_hash": "184981948665b106a81844c9cead1586051921d385d778a5373008129e4a1d94",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C02-versioned-method-releases-receipt-v1.json"
+    },
+    {
+      "object_hash": "d5342a90bf6a7c572c5a94cf1853c79842b2773a83b1c47771574203ac19ff34",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C03-source-packet-builder-receipt-v1.json"
+    },
+    {
+      "object_hash": "6048c1703be7259e8adee8f3ae8c337f7557dfebffe2f792af6ddabb60bd76d9",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C04-method-packet-run-contract-receipt-v1.json"
+    },
+    {
+      "object_hash": "fb905d768f2bca8fa29de731e105d1e83221a857ef7438e66c37ae381990d9bf",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C05-causal-use-validator-receipt-v1.json"
+    }
+  ],
+  "focused_validation": {
+    "command": "PYTHONPATH=. pytest -q tests/test_repository_delivery_split.py",
+    "result": "2 passed in 0.12s",
+    "scope": "RECONSTRUCTED_ISOLATED_NEW_MODULES"
+  },
+  "formal_release": "NO",
+  "knowledge_change": "NO_TRADITIONAL_KNOWLEDGE_CHANGE",
+  "next_required_action": "BUILD_AND_VALIDATE_FULL_R16_CATALOG_THEN_RUN_ONE_NONSCORING_REPOSITORY_ONLY_CHATGPT_SHADOW_PREDICTION",
+  "object_hash": "e3cfc0e19278e40ceff327b8e87c36a424329eccad9319bb09238b601d82c727",
+  "prediction_accuracy_improvement_claim": "NO",
+  "project_uploaded_s00_s19_action": "UNCHANGED_RETAIN_READ_ONLY_DO_NOT_DELETE",
+  "remaining_conditions": [
+    "FULL_R16_SOURCE_CATALOG_BUILD_AND_20_FILE_READBACK_ON_IMMUTABLE_CHECKOUT_NOT_YET_EXECUTED",
+    "REAL_CHATGPT_REPOSITORY_ONLY_SOURCE_AND_METHOD_PACKET_SHADOW_RUN_NOT_YET_EXECUTED",
+    "REAL_PREDICTION_CAUSAL_USE_RECEIPT_PASS_NOT_YET_OBTAINED",
+    "FULL_GITHUB_ACTIONS_SUITE_NOT_YET_CONFIRMED",
+    "25_QUESTION_CLEAN_RETEST_AND_SCORING_PROHIBITED",
+    "FORMAL_RELEASE_NO"
+  ],
+  "runtime_code_commit": "724f80ed7ddd67dc414d6ee56a41ec6abeeed46b",
+  "schema": "R25-C01-C05-IMPLEMENTATION-SUMMARY-V1",
+  "shadow_model_release_id": "MODEL-R16-REPOSITORY-SHADOW-V2",
+  "shadow_model_release_object_hash": "2ea0297c30cecb79760cc8e8ab6863f327b21dab049decd7823e8df937b3e756",
+  "status": "IMPLEMENTED_PENDING_REPOSITORY_ONLY_SHADOW_VALIDATION",
+  "syntax_validation": {
+    "command": "python -m py_compile repository_delivery_modules",
+    "result": "PASS"
+  },
+  "training_score_status": "BLOCKED"
+}
