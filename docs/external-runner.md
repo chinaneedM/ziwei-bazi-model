@@ -9,7 +9,7 @@ The runtime now has two explicitly different handoff classes:
 1. **Repository-bound shadow/scored contract** — uses `REPOSITORY-PREDICTION-RUN-CONTRACT-V1`, a frozen `MODEL_RELEASE`, `FORTUNE-SOURCE-PACKET-V1`, and `FORTUNE-METHOD-PACKET-V1`. The causal-use validator must pass before a run can be score-eligible.
 2. **Legacy post-reasoning contract** — may still be archived and frozen for compatibility, but it is permanently `LEGACY_UNSCORED` because it cannot prove that repository source text or the versioned method was delivered before reasoning.
 
-The current formal release remains `NO`, and repository-only R16 shadow validation has not yet been completed.
+The current formal release remains `NO`, and repository-only R16 shadow validation has not yet been completed. The current C01–C05A implementation summary object is `1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1`.
 
 ## Authority boundary
 
