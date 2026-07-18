@@ -35,6 +35,8 @@ def build_run_contract(model_release_path: str | Path, source_packet_path: str |
     binding = {
         "model_release_id": model["model_release_id"],
         "main_prompt_runtime_id": model["main_prompt_runtime_id"],
+        "main_prompt_snapshot_sha256": model["main_prompt_snapshot_sha256"],
+        "main_prompt_snapshot_receipt_sha256": model["main_prompt_snapshot_receipt_sha256"],
         "knowledge_release_id": model["knowledge_release_id"],
         "method_release_id": model["method_release_id"],
         "code_commit_sha": model["code_commit_sha"],
@@ -101,11 +103,46 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
     method = loaded.get("method_packet", {}); binding = contract.get("binding", {})
     if model.get("model_release_id") != binding.get("model_release_id"): errors.append("MODEL_RELEASE_MISMATCH")
     if model.get("main_prompt_runtime_id") != binding.get("main_prompt_runtime_id"): errors.append("MAIN_PROMPT_BINDING_MISMATCH")
+    if model.get("main_prompt_snapshot_sha256") != binding.get("main_prompt_snapshot_sha256"):
+        errors.append("MAIN_PROMPT_SNAPSHOT_BINDING_MISMATCH")
+    if model.get("main_prompt_snapshot_receipt_sha256") != binding.get("main_prompt_snapshot_receipt_sha256"):
+        errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_BINDING_MISMATCH")
     if model.get("code_commit_sha") != binding.get("code_commit_sha"): errors.append("CODE_COMMIT_BINDING_MISMATCH")
     if model.get("s19_binding_sha256") != binding.get("s19_binding_sha256"): errors.append("S19_BINDING_MISMATCH")
     if model.get("project_upload_fallback_permission") not in {None, "NO"}: errors.append("MODEL_PROJECT_FALLBACK_PERMISSION_INVALID")
     if model.get("historical_training_trace_permission") not in {None, "NO"}: errors.append("MODEL_HISTORICAL_TRACE_PERMISSION_INVALID")
     if model.get("research_hypothesis_direct_runtime_permission") not in {None, "NO"}: errors.append("MODEL_RESEARCH_DIRECT_RUNTIME_PERMISSION_INVALID")
+
+    prompt_receipt_path = Path(model.get("main_prompt_snapshot_receipt_path", ""))
+    if not prompt_receipt_path.is_file():
+        errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_MISSING")
+    else:
+        if sha256_file(prompt_receipt_path) != model.get("main_prompt_snapshot_receipt_sha256"):
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_HASH_MISMATCH")
+        prompt_receipt = read_json(prompt_receipt_path)
+        if prompt_receipt.get("schema") != "MAIN-PROMPT-AUDIT-SNAPSHOT-V1":
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_SCHEMA_INVALID")
+        if prompt_receipt.get("status") != "PASS":
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_NOT_PASS")
+        if prompt_receipt.get("object_hash") != object_hash(prompt_receipt):
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_OBJECT_HASH_MISMATCH")
+        if prompt_receipt.get("runtime_id") != model.get("main_prompt_runtime_id"):
+            errors.append("MAIN_PROMPT_SNAPSHOT_RUNTIME_ID_MISMATCH")
+        prompt_snapshot_path = Path(model.get("main_prompt_snapshot_path", ""))
+        if prompt_receipt.get("snapshot_path") != prompt_snapshot_path.as_posix():
+            errors.append("MAIN_PROMPT_SNAPSHOT_PATH_MISMATCH")
+        if prompt_receipt.get("snapshot_sha256") != model.get("main_prompt_snapshot_sha256"):
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_MODEL_HASH_MISMATCH")
+        if prompt_receipt.get("snapshot_bytes") != model.get("main_prompt_snapshot_size_bytes"):
+            errors.append("MAIN_PROMPT_SNAPSHOT_RECEIPT_MODEL_SIZE_MISMATCH")
+        if not prompt_snapshot_path.is_file():
+            errors.append("MAIN_PROMPT_SNAPSHOT_MISSING")
+        else:
+            if sha256_file(prompt_snapshot_path) != model.get("main_prompt_snapshot_sha256"):
+                errors.append("MAIN_PROMPT_SNAPSHOT_HASH_MISMATCH")
+            if prompt_snapshot_path.stat().st_size != model.get("main_prompt_snapshot_size_bytes"):
+                errors.append("MAIN_PROMPT_SNAPSHOT_SIZE_MISMATCH")
+
     if source.get("knowledge_release_id") != binding.get("knowledge_release_id"): errors.append("KNOWLEDGE_RELEASE_MISMATCH")
     if method.get("method_release_id") != binding.get("method_release_id"): errors.append("METHOD_RELEASE_MISMATCH")
     if contract.get("source_packet", {}).get("sha256") != binding.get("source_packet_sha256"): errors.append("SOURCE_PACKET_BINDING_MISMATCH")
