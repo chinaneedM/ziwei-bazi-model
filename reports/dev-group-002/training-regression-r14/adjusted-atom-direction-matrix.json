@@ -1,8 +1,9 @@
 {
   "audit_binding_key_mode": "TRACK_ID_PLUS_ATOM_ID",
-  "bazi_changed_atom_count": 11,
-  "canonical_sha256": "1c8eaa8f62b34b780044037d353428e11d15d774691bb4694dd842f83f3d268e",
+  "bazi_changed_atom_count": 0,
+  "canonical_sha256": "8fa972777fe6da9f6149d02ab1118256c9cd41fd3485effbb91c97ace420d320",
   "case_id": "DEV-EXAMPLE-003",
+  "change_count_key_mode": "TRACK_ID_PLUS_ATOM_ID",
   "changed_atom_count": 11,
   "changed_atom_ids": [
     "Q2_A_LEG_DISABILITY",
@@ -17,11 +18,58 @@
     "Q4_D_DIVORCE_SCENE_2018",
     "Q5_D_CAREER_OBSTRUCTION"
   ],
+  "changed_atom_keys": [
+    {
+      "atom_id": "Q2_A_LEG_DISABILITY",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q2_A_MUSIC_ART_HOBBY",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q2_A_PERFORMANCE_MUSICIAN",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q2_B_MUSIC_ART_HOBBY",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q2_C_REBELLIOUS",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q3_A_START_CURRENT_2013",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q3_C_BENEFACTOR_2013",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q3_C_START_CURRENT_2013",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q4_C_MULTIPLE_RELATIONSHIPS",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q4_D_DIVORCE_SCENE_2018",
+      "track_id": "ZIWEI"
+    },
+    {
+      "atom_id": "Q5_D_CAREER_OBSTRUCTION",
+      "track_id": "ZIWEI"
+    }
+  ],
   "group_id": "DEV-GROUP-002",
   "parent_r12_matrix_sha256": "c7cff187d0feda4d050bf8ad9304b5f12dce96dd0004f1a880fcc70075a7ad14",
   "parent_r13_atom_audit_sha256": "d83d8260fabae087556a567a7af1c65ccff5b52c8fcf3a3c4a7a7751695cb391",
   "parent_r13_generic_fix_sha256": "f03435cda6e4c5b7907237059ef05721f63bf33ab52f28844876e9875bcee466",
   "r14_v1_atom_id_only_collision_corrected": true,
+  "r14_v2_cross_track_change_count_collision_corrected": true,
   "round_id": "R14",
   "row_count": 178,
   "rows": [
@@ -6360,7 +6408,7 @@
       "track_id": "BAZI"
     }
   ],
-  "schema": "DEV-GROUP-002-R14-ADJUSTED-ATOM-DIRECTION-MATRIX-V2",
+  "schema": "DEV-GROUP-002-R14-ADJUSTED-ATOM-DIRECTION-MATRIX-V3",
   "status": "PASS_GENERIC_CAPABILITY_RULES_APPLIED_BEFORE_ANSWER_ACCESS",
   "ziwei_changed_atom_count": 11
 }

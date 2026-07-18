@@ -2,7 +2,7 @@
   "adjusted_atom_rows": 178,
   "atom_level_replayable_pairwise_rows": 30,
   "base_astrological_knowledge_changed": false,
-  "bazi_changed_atom_count": 11,
+  "bazi_changed_atom_count": 0,
   "changed_atom_count": 11,
   "changed_question_ids": [
     "DEV-EXAMPLE-003:Q2",
@@ -19,10 +19,8 @@
   ],
   "dev003_top1": "CCCAD",
   "dev003_top2": "ABADC",
-  "error_count": 1,
-  "errors": [
-    "adjusted matrix counts"
-  ],
+  "error_count": 0,
+  "errors": [],
   "formal_valid_questions": 0,
   "historical_rounds_preserved": [
     "R1",
@@ -46,9 +44,9 @@
   "processed_case_id": "DEV-EXAMPLE-003",
   "s00_s19_modified": false,
   "s03_fusions": 0,
-  "schema": "DEV-GROUP-002-R14-VALIDATION-V2",
+  "schema": "DEV-GROUP-002-R14-VALIDATION-V3",
   "selection_changed_from_r12": true,
-  "status": "FAIL",
+  "status": "PASS",
   "top1_delta_from_r12": -1,
   "top1_hits": 10,
   "top2_coverage": 13,
@@ -56,7 +54,12 @@
   "track_aware_audit_binding_fix": {
     "key_mode": "TRACK_ID_PLUS_ATOM_ID",
     "selection_or_direction_rule_changed": false,
-    "status": "FAIL"
+    "status": "PASS"
+  },
+  "track_aware_change_count_fix": {
+    "key_mode": "TRACK_ID_PLUS_ATOM_ID",
+    "selection_or_direction_rule_changed": false,
+    "status": "PASS"
   },
   "ziwei_changed_atom_count": 11
 }
