@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 import tempfile
@@ -14,6 +15,7 @@ R17_RUNTIME_ID = "MP-PROFESSIONAL-REASONING-20260718-R17"
 R16_RELEASE_ID = "KNOWLEDGE-R16"
 R17_RELEASE_ID = "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE"
 LIBRARIES = tuple(f"S{i:02d}" for i in range(20))
+COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
 class CutoverError(RuntimeError):
@@ -50,7 +52,9 @@ def read_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def write_json(path: Path, value: dict[str, Any]) -> None:
+def write_json(path: Path, value: dict[str, Any]) -> dict[str, Any]:
+    if path.exists():
+        raise CutoverError(f"immutable object already exists: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     body = dict(value)
     body["object_hash"] = object_hash(body)
@@ -59,6 +63,7 @@ def write_json(path: Path, value: dict[str, Any]) -> None:
         encoding="utf-8",
         newline="\n",
     )
+    return body
 
 
 def prompt_metrics(data: bytes) -> dict[str, Any]:
@@ -95,7 +100,7 @@ def build_prompt_snapshot(args: argparse.Namespace) -> int:
         raise CutoverError("snapshot target already exists; create a new immutable version")
     target_text.parent.mkdir(parents=True, exist_ok=True)
     target_text.write_bytes(raw)
-    receipt = {
+    receipt = write_json(target_receipt, {
         "schema": "MAIN-PROMPT-AUDIT-SNAPSHOT-V1",
         "runtime_id": R17_RUNTIME_ID,
         "authority_statement": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
@@ -115,9 +120,8 @@ def build_prompt_snapshot(args: argparse.Namespace) -> int:
         "status": status,
         "formal_release": "NO",
         "score_eligibility": "PROHIBITED_PENDING_S19_MODEL_AND_SHADOW_VALIDATION",
-    }
-    write_json(target_receipt, receipt)
-    print(json.dumps(receipt | {"object_hash": object_hash(receipt)}, ensure_ascii=False, indent=2))
+    })
+    print(json.dumps(receipt, ensure_ascii=False, indent=2))
     return 0 if status == "PASS" else 2
 
 
@@ -135,6 +139,53 @@ def validate_base(base_dir: Path, manifest: dict[str, Any]) -> None:
             raise CutoverError(f"base hash mismatch: {row['library_id']}")
         if path.stat().st_size != row["file_size_bytes"]:
             raise CutoverError(f"base size mismatch: {row['library_id']}")
+
+
+def validate_prompt_receipt(prompt_receipt_path: Path) -> dict[str, Any]:
+    prompt = read_json(prompt_receipt_path)
+    if prompt.get("schema") != "MAIN-PROMPT-AUDIT-SNAPSHOT-V1" or prompt.get("status") != "PASS":
+        raise CutoverError("exact R17 prompt snapshot PASS required")
+    if prompt.get("runtime_id") != R17_RUNTIME_ID:
+        raise CutoverError("prompt runtime ID mismatch")
+    if prompt.get("object_hash") != object_hash(prompt):
+        raise CutoverError("prompt receipt object hash mismatch")
+    snapshot_path = Path(prompt.get("snapshot_path", ""))
+    if not snapshot_path.is_file() or sha256_file(snapshot_path) != prompt.get("snapshot_sha256"):
+        raise CutoverError("prompt snapshot readback failed")
+    return prompt
+
+
+def require_repo_relative(path_value: str, *, prefix: tuple[str, ...]) -> Path:
+    path = Path(path_value)
+    if path.is_absolute() or ".." in path.parts:
+        raise CutoverError(f"repository-relative path required: {path_value}")
+    normalized = path.as_posix().strip("/")
+    parts = tuple(Path(normalized).parts)
+    if parts[: len(prefix)] != prefix:
+        raise CutoverError(f"path must be under {'/'.join(prefix)}: {path_value}")
+    return Path(normalized)
+
+
+def resolve_repo_path(root: Path, path_value: str) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else root / path
+
+
+def candidate_source_rows(candidate_dir: Path, candidate_relative: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for library_id in LIBRARIES:
+        matches = list(candidate_dir.glob(f"{library_id}_*.txt"))
+        if len(matches) != 1:
+            raise CutoverError(f"candidate library set invalid: {library_id}")
+        path = matches[0]
+        rows.append({
+            "library_id": library_id,
+            "canonical_filename": path.name,
+            "repository_relative_path": (candidate_relative / path.name).as_posix(),
+            "sha256_raw_file_bytes": sha256_file(path),
+            "file_size_bytes": path.stat().st_size,
+        })
+    return rows
 
 
 def r17_s19_overlay(prompt: dict[str, Any]) -> bytes:
@@ -183,31 +234,27 @@ def r17_s19_overlay(prompt: dict[str, Any]) -> bytes:
     return ("\n".join(lines)).encode("utf-8")
 
 
-def build_knowledge_candidate(args: argparse.Namespace) -> int:
-    base_dir = Path(args.base_dir)
-    base_manifest_path = Path(args.base_manifest)
-    output_dir = Path(args.output_dir)
-    prompt_receipt_path = Path(args.prompt_receipt)
+def stage_knowledge_candidate(args: argparse.Namespace) -> int:
+    repository_root = Path(args.repository_root).resolve()
+    base_relative = Path(args.base_dir)
+    base_manifest_relative = Path(args.base_manifest)
+    candidate_relative = require_repo_relative(args.output_dir, prefix=("knowledge", "candidates"))
+    base_dir = resolve_repo_path(repository_root, args.base_dir)
+    base_manifest_path = resolve_repo_path(repository_root, args.base_manifest)
+    prompt_receipt_path = resolve_repo_path(repository_root, args.prompt_receipt)
+    output_dir = repository_root / candidate_relative
 
+    if base_relative.is_absolute() or base_manifest_relative.is_absolute():
+        raise CutoverError("base paths must be repository-relative")
     if output_dir.exists():
         raise CutoverError("candidate directory already exists")
-    if "knowledge/candidates/" not in output_dir.as_posix().replace("\\", "/"):
-        raise CutoverError("output must be under knowledge/candidates")
 
     manifest = read_json(base_manifest_path)
     validate_base(base_dir, manifest)
-    prompt = read_json(prompt_receipt_path)
-    if prompt.get("schema") != "MAIN-PROMPT-AUDIT-SNAPSHOT-V1" or prompt.get("status") != "PASS":
-        raise CutoverError("exact R17 prompt snapshot PASS required")
-    if prompt.get("runtime_id") != R17_RUNTIME_ID:
-        raise CutoverError("prompt runtime ID mismatch")
-    snapshot_path = Path(prompt.get("snapshot_path", ""))
-    if not snapshot_path.is_file() or sha256_file(snapshot_path) != prompt.get("snapshot_sha256"):
-        raise CutoverError("prompt snapshot readback failed")
+    prompt = validate_prompt_receipt(prompt_receipt_path)
 
-    temp_parent = output_dir.parent
-    temp_parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix=".r17-cutover.", dir=temp_parent) as temp_name:
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=".r17-cutover.", dir=output_dir.parent) as temp_name:
         staged = Path(temp_name) / output_dir.name
         staged.mkdir()
         for row in manifest["source_files"]:
@@ -218,59 +265,139 @@ def build_knowledge_candidate(args: argparse.Namespace) -> int:
         original_s19 = s19_path.read_bytes()
         s19_path.write_bytes(r17_s19_overlay(prompt) + original_s19)
 
-        source_rows = []
-        for library_id in LIBRARIES:
-            matches = list(staged.glob(f"{library_id}_*.txt"))
-            if len(matches) != 1:
-                raise CutoverError(f"candidate library set invalid: {library_id}")
-            path = matches[0]
-            source_rows.append({
-                "library_id": library_id,
-                "canonical_filename": path.name,
-                "repository_relative_path": f"{output_dir.as_posix()}/{path.name}",
-                "sha256_raw_file_bytes": sha256_file(path),
-                "file_size_bytes": path.stat().st_size,
-            })
+        source_rows = candidate_source_rows(staged, candidate_relative)
+        parent_rows = {row["library_id"]: row for row in manifest["source_files"]}
+        for row in source_rows[:19]:
+            if row["sha256_raw_file_bytes"] != parent_rows[row["library_id"]]["sha256_raw_file_bytes"]:
+                raise CutoverError(f"unexpected non-S19 mutation: {row['library_id']}")
+        if source_rows[-1]["sha256_raw_file_bytes"] == parent_rows["S19"]["sha256_raw_file_bytes"]:
+            raise CutoverError("S19 candidate did not change")
 
-        candidate_manifest = {
-            "schema": "FORTUNE-KNOWLEDGE-RELEASE-MANIFEST-V1",
-            "knowledge_release_id": args.release_id,
-            "release_kind": "CANDIDATE",
-            "parent_release_id": manifest["knowledge_release_id"],
-            "repository_full_name": args.repository,
-            "repository_commit_sha": args.source_content_commit,
-            "source_root": output_dir.as_posix(),
-            "source_authority": "GITHUB_REPOSITORY",
-            "source_file_count": 20,
-            "source_files": source_rows,
-            "s19_binding_sha256": manifest["s19_binding_sha256"],
-            "prompt_runtime_id": R17_RUNTIME_ID,
-            "prompt_snapshot_sha256": prompt["snapshot_sha256"],
+        stage_receipt = write_json(staged / "cutover-stage-receipt.json", {
+            "schema": "R17-PROMPT-S19-CUTOVER-STAGE-RECEIPT-V1",
+            "status": "PASS_SOURCE_SET_STAGED_NOT_COMMIT_BOUND",
+            "base_manifest_path": base_manifest_relative.as_posix(),
+            "base_manifest_sha256": sha256_file(base_manifest_path),
+            "prompt_snapshot_receipt_path": Path(args.prompt_receipt).as_posix(),
             "prompt_snapshot_receipt_sha256": sha256_file(prompt_receipt_path),
+            "prompt_snapshot_sha256": prompt["snapshot_sha256"],
+            "knowledge_release_id": args.release_id,
+            "candidate_root": candidate_relative.as_posix(),
+            "source_file_count": len(source_rows),
+            "source_files": source_rows,
             "changed_library_ids": ["S19"],
             "unchanged_library_ids": list(LIBRARIES[:-1]),
-            "immutability": "NO_IN_PLACE_MUTATION",
-            "promotion_status": "BLOCKED_PENDING_FULL_READBACK_CONTAMINATION_SHADOW_CAUSAL_AND_APPROVAL",
-            "score_eligibility": "BLOCKED_PENDING_CAUSAL_SHADOW_VALIDATION",
-            "formal_release": "NO",
-        }
-        write_json(staged / "release-manifest.json", candidate_manifest)
-        receipt = {
-            "schema": "R17-PROMPT-S19-CUTOVER-BUILD-RECEIPT-V1",
-            "status": "PASS_CANDIDATE_BUILT_NOT_PROMOTED",
-            "base_manifest_sha256": sha256_file(base_manifest_path),
-            "prompt_snapshot_receipt_sha256": sha256_file(prompt_receipt_path),
-            "knowledge_release_id": args.release_id,
-            "changed_library_ids": ["S19"],
             "s19_candidate_sha256": source_rows[-1]["sha256_raw_file_bytes"],
-            "source_file_count": len(source_rows),
+            "next_action": "COMMIT_STAGED_SOURCE_SET_THEN_RUN_KNOWLEDGE_CANDIDATE_FINALIZE",
             "formal_release": "NO",
             "score_eligibility": "PROHIBITED",
-        }
-        write_json(staged / "cutover-build-receipt.json", receipt)
+        })
         staged.replace(output_dir)
 
-    print(json.dumps(read_json(output_dir / "cutover-build-receipt.json"), ensure_ascii=False, indent=2))
+    print(json.dumps(stage_receipt, ensure_ascii=False, indent=2))
+    return 0
+
+
+def finalize_knowledge_candidate(args: argparse.Namespace) -> int:
+    repository_root = Path(args.repository_root).resolve()
+    candidate_relative = require_repo_relative(args.candidate_dir, prefix=("knowledge", "candidates"))
+    candidate_dir = repository_root / candidate_relative
+    base_manifest_path = resolve_repo_path(repository_root, args.base_manifest)
+    prompt_receipt_path = resolve_repo_path(repository_root, args.prompt_receipt)
+    commit_sha = args.source_content_commit.lower()
+
+    if not COMMIT_SHA_RE.fullmatch(commit_sha):
+        raise CutoverError("source-content-commit must be an exact lowercase 40-hex commit SHA")
+    if not candidate_dir.is_dir():
+        raise CutoverError("candidate directory is missing")
+    manifest_path = candidate_dir / "release-manifest.json"
+    finalize_receipt_path = candidate_dir / "cutover-finalize-receipt.json"
+    if manifest_path.exists() or finalize_receipt_path.exists():
+        raise CutoverError("candidate has already been finalized")
+
+    base_manifest = read_json(base_manifest_path)
+    base_dir = resolve_repo_path(repository_root, base_manifest.get("source_root", "knowledge/base"))
+    validate_base(base_dir, base_manifest)
+    prompt = validate_prompt_receipt(prompt_receipt_path)
+    stage_receipt_path = candidate_dir / "cutover-stage-receipt.json"
+    stage = read_json(stage_receipt_path)
+    if stage.get("schema") != "R17-PROMPT-S19-CUTOVER-STAGE-RECEIPT-V1":
+        raise CutoverError("stage receipt schema invalid")
+    if stage.get("status") != "PASS_SOURCE_SET_STAGED_NOT_COMMIT_BOUND":
+        raise CutoverError("stage receipt is not eligible for finalization")
+    if stage.get("object_hash") != object_hash(stage):
+        raise CutoverError("stage receipt object hash mismatch")
+    if stage.get("candidate_root") != candidate_relative.as_posix():
+        raise CutoverError("stage candidate root mismatch")
+    if stage.get("knowledge_release_id") != args.release_id:
+        raise CutoverError("stage release ID mismatch")
+    if stage.get("base_manifest_sha256") != sha256_file(base_manifest_path):
+        raise CutoverError("base manifest changed after staging")
+    if stage.get("prompt_snapshot_receipt_sha256") != sha256_file(prompt_receipt_path):
+        raise CutoverError("prompt receipt changed after staging")
+    if stage.get("prompt_snapshot_sha256") != prompt.get("snapshot_sha256"):
+        raise CutoverError("prompt snapshot binding changed after staging")
+
+    source_rows = candidate_source_rows(candidate_dir, candidate_relative)
+    if source_rows != stage.get("source_files"):
+        raise CutoverError("candidate source set changed after staging")
+    parent_rows = {row["library_id"]: row for row in base_manifest["source_files"]}
+    for row in source_rows[:19]:
+        if row["sha256_raw_file_bytes"] != parent_rows[row["library_id"]]["sha256_raw_file_bytes"]:
+            raise CutoverError(f"unexpected non-S19 mutation: {row['library_id']}")
+    if source_rows[-1]["sha256_raw_file_bytes"] == parent_rows["S19"]["sha256_raw_file_bytes"]:
+        raise CutoverError("S19 candidate is identical to R16")
+    s19_text = (candidate_dir / source_rows[-1]["canonical_filename"]).read_text(encoding="utf-8")
+    if not s19_text.startswith("# R17半自动化仓库运行与提示词—方法解耦唯一活动控制根"):
+        raise CutoverError("R17 S19 control root missing")
+    if "BEGIN_S19_RETAINED_R16_COMPLETE_FILE" not in s19_text:
+        raise CutoverError("retained R16 S19 marker missing")
+
+    manifest = write_json(manifest_path, {
+        "schema": "FORTUNE-KNOWLEDGE-RELEASE-MANIFEST-V1",
+        "knowledge_release_id": args.release_id,
+        "release_kind": "CANDIDATE",
+        "parent_release_id": base_manifest["knowledge_release_id"],
+        "repository_full_name": args.repository,
+        "repository_commit_sha": commit_sha,
+        "repository_commit_role": "IMMUTABLE_COMMIT_CONTAINING_STAGED_20_FILE_SOURCE_SET_AND_STAGE_RECEIPT",
+        "source_root": candidate_relative.as_posix(),
+        "source_authority": "GITHUB_REPOSITORY",
+        "source_file_count": 20,
+        "source_files": source_rows,
+        "s19_binding_sha256": base_manifest["s19_binding_sha256"],
+        "s19_file_sha256": source_rows[-1]["sha256_raw_file_bytes"],
+        "prompt_runtime_id": R17_RUNTIME_ID,
+        "prompt_snapshot_path": prompt["snapshot_path"],
+        "prompt_snapshot_sha256": prompt["snapshot_sha256"],
+        "prompt_snapshot_receipt_path": Path(args.prompt_receipt).as_posix(),
+        "prompt_snapshot_receipt_sha256": sha256_file(prompt_receipt_path),
+        "stage_receipt_path": (candidate_relative / "cutover-stage-receipt.json").as_posix(),
+        "stage_receipt_sha256": sha256_file(stage_receipt_path),
+        "changed_library_ids": ["S19"],
+        "unchanged_library_ids": list(LIBRARIES[:-1]),
+        "immutability": "NO_IN_PLACE_MUTATION",
+        "promotion_status": "BLOCKED_PENDING_IMMUTABLE_COMMIT_READBACK_CONTAMINATION_SHADOW_CAUSAL_AND_APPROVAL",
+        "score_eligibility": "BLOCKED_PENDING_CAUSAL_SHADOW_VALIDATION",
+        "formal_release": "NO",
+    })
+    finalize_receipt = write_json(finalize_receipt_path, {
+        "schema": "R17-PROMPT-S19-CUTOVER-FINALIZE-RECEIPT-V1",
+        "status": "PASS_MANIFEST_BUILT_PENDING_IMMUTABLE_COMMIT_READBACK",
+        "knowledge_release_id": args.release_id,
+        "repository_commit_sha": commit_sha,
+        "source_file_count": len(source_rows),
+        "manifest_path": (candidate_relative / "release-manifest.json").as_posix(),
+        "manifest_sha256": sha256_file(manifest_path),
+        "manifest_object_hash": manifest["object_hash"],
+        "stage_receipt_sha256": sha256_file(stage_receipt_path),
+        "prompt_snapshot_sha256": prompt["snapshot_sha256"],
+        "s19_candidate_sha256": source_rows[-1]["sha256_raw_file_bytes"],
+        "next_action": "COMMIT_MANIFEST_AND_FINALIZE_RECEIPT_THEN_PERFORM_REMOTE_IMMUTABLE_READBACK",
+        "formal_release": "NO",
+        "score_eligibility": "PROHIBITED",
+    })
+    print(json.dumps(finalize_receipt, ensure_ascii=False, indent=2))
     return 0
 
 
@@ -285,15 +412,24 @@ def parser() -> argparse.ArgumentParser:
     snapshot.add_argument("--expected-normalized-sha256")
     snapshot.set_defaults(handler=build_prompt_snapshot)
 
-    candidate = sub.add_parser("knowledge-candidate")
-    candidate.add_argument("--base-dir", required=True)
-    candidate.add_argument("--base-manifest", required=True)
-    candidate.add_argument("--prompt-receipt", required=True)
-    candidate.add_argument("--output-dir", required=True)
-    candidate.add_argument("--source-content-commit", required=True)
-    candidate.add_argument("--repository", default="chinaneedM/ziwei-bazi-model")
-    candidate.add_argument("--release-id", default=R17_RELEASE_ID)
-    candidate.set_defaults(handler=build_knowledge_candidate)
+    stage = sub.add_parser("knowledge-candidate-stage")
+    stage.add_argument("--repository-root", default=".")
+    stage.add_argument("--base-dir", default="knowledge/base")
+    stage.add_argument("--base-manifest", default="knowledge/base/release-manifest-R16.json")
+    stage.add_argument("--prompt-receipt", required=True)
+    stage.add_argument("--output-dir", required=True)
+    stage.add_argument("--release-id", default=R17_RELEASE_ID)
+    stage.set_defaults(handler=stage_knowledge_candidate)
+
+    finalize = sub.add_parser("knowledge-candidate-finalize")
+    finalize.add_argument("--repository-root", default=".")
+    finalize.add_argument("--candidate-dir", required=True)
+    finalize.add_argument("--base-manifest", default="knowledge/base/release-manifest-R16.json")
+    finalize.add_argument("--prompt-receipt", required=True)
+    finalize.add_argument("--source-content-commit", required=True)
+    finalize.add_argument("--repository", default="chinaneedM/ziwei-bazi-model")
+    finalize.add_argument("--release-id", default=R17_RELEASE_ID)
+    finalize.set_defaults(handler=finalize_knowledge_candidate)
     return root
 
 
