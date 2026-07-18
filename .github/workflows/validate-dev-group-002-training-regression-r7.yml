@@ -35,7 +35,7 @@ jobs:
           python-version: '3.12'
       - name: Materialize R7 source-parent rebuild
         run: |
-          python reports/dev-group-002/training-regression-r7/materialize_validate.py \
+          python reports/dev-group-002/training-regression-r7/materialize_validate_v2.py \
             --repo-root . --write --validate
       - name: Commit deterministic R7 artifacts
         if: github.event_name == 'push'
