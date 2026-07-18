@@ -1,0 +1,64 @@
+{
+  "schema": "DEV-GROUP-002-R19-UNIFIED-GENERIC-INTERFACE-V1",
+  "round_id": "R19",
+  "group_id": "DEV-GROUP-002",
+  "source_taxonomy_object_hash": "33c7be89609c3247c1bab8588a18b4ba7164e7ef56d3f9de4909741c8c7ccf36",
+  "rules": [
+    {
+      "rule_id": "R19-G1-COMPOUND-COVERAGE",
+      "instruction": "逐选项机械检查主体、动作、对象、机构、期间、持续、量级与正式终点；任一关键区别原子缺失，不得判定整项完成。",
+      "prohibited_shortcut": "单一显眼原子完成复合选项"
+    },
+    {
+      "rule_id": "R19-G2-ENDPOINT-LADDER",
+      "instruction": "固定区分倾向/风险、机会/许可、实际发生、正式终点；前级证据不得越级证明后级。",
+      "prohibited_shortcut": "宫位、十神、四化或岁运激活直接证明现实终点"
+    },
+    {
+      "rule_id": "R19-G3-NEUTRAL-TIME-FIRST",
+      "instruction": "先建立不含题目终点语义的中立时间事实，再逐选项投影事件主体、类别与动作。",
+      "prohibited_shortcut": "时间显著等于事件发生"
+    },
+    {
+      "rule_id": "R19-G4-PERSON-TAIJI",
+      "instruction": "六亲题分别保存人物入口宫、人物太极起点、人物主题宫与命主原始宫位。",
+      "prohibited_shortcut": "命中六亲宫即完成该人物疾病、死亡、职业或婚姻"
+    },
+    {
+      "rule_id": "R19-G5-EXACT-OCCUPATION",
+      "instruction": "职业需闭合实体、行业/产品、独有动作、服务对象、收入形式、雇佣/自营身份和持续范围。",
+      "prohibited_shortcut": "一般象意直接升级为精确职业"
+    },
+    {
+      "rule_id": "R19-G6-FAMILY-CHRONOLOGY",
+      "instruction": "家庭题逐人、逐阶段、逐动作、逐量级建账，并先扣除共同原子。",
+      "prohibited_shortcut": "把父母、照顾者、疾病、离异、死亡与经济量级压成单一好坏标签"
+    },
+    {
+      "rule_id": "R19-G7-LEGAL-INPUT-VARIANTS",
+      "instruction": "用户提供的紫微盘与八字盘分别只读冻结；子时/换日等合法差异分轨保留，禁止结果选版和跨轨覆盖。",
+      "prohibited_shortcut": "因两轨附带四柱不同而关闭用户提供八字盘"
+    },
+    {
+      "rule_id": "R19-G8-SENSITIVE-TARGET-FAIL-CLOSED",
+      "instruction": "选项核心区别要求推断性取向、亲密性行为或性相关人格特征时，保留原始审计但排除训练、评分与规则提升。",
+      "prohibited_shortcut": "用命理建立敏感属性推断规则"
+    },
+    {
+      "rule_id": "R19-G9-PAIRWISE-SYMMETRY",
+      "instruction": "四选项必须生成6条成对比较；按区别支持、同轴反证、复合覆盖、终点距离、时间阶段、替代解释、机制连贯性固定裁决。",
+      "prohibited_shortcut": "先选赢家再补理由"
+    },
+    {
+      "rule_id": "R19-G10-CROSS-TRACK-INDEPENDENCE",
+      "instruction": "紫微与八字各自完成本地盲态、选项挑战和裁决；无双轨机器有效本地密封时不得正式融合。",
+      "prohibited_shortcut": "两轨复制或以一轨替代另一轨父链"
+    }
+  ],
+  "scope": "ALL_22_ELIGIBLE_REVEALED_TRAINING_QUESTIONS",
+  "case_specific_rules": "PROHIBITED",
+  "answer_letter_rules": "PROHIBITED",
+  "base_astrological_knowledge_change": "NONE",
+  "status": "FROZEN_FOR_R19_SAME_SET_RESHAPING",
+  "object_hash": "bba8e9f2922949fd7c62b73857ebe1453aadc5c242b25257a4f9fd2a37f6fff2"
+}
