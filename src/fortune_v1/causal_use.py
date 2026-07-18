@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .contamination import runtime_reference_violations
 from .repository_release import METHOD_STAGES, object_hash, write_object
 from .util import read_json, sha256_file, utc_now
 
@@ -56,6 +57,9 @@ def build_run_contract(model_release_path: str | Path, source_packet_path: str |
         "answer_data_available": False,
         "answer_isolation_declaration": "PHYSICALLY_INACCESSIBLE",
         "project_upload_access": "DENIED_AND_NOT_USED",
+        "legacy_contamination_access": "DENIED_AND_NOT_USED",
+        "historical_training_trace_access": "DENIED_AND_NOT_USED",
+        "research_hypothesis_access": "DENIED_UNLESS_PROMOTED_AND_RELEASE_BOUND",
         "fallback_policy": "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK",
         "contract_frozen_before_reasoning": True,
         "source_authority": "GITHUB_REPOSITORY_SOURCE_PACKET_ONLY",
@@ -81,6 +85,9 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
     if contract.get("contract_frozen_before_reasoning") is not True: errors.append("CONTRACT_NOT_FROZEN_BEFORE_REASONING")
     if contract.get("answer_data_available") is not False: errors.append("ANSWER_ISOLATION_FAILED")
     if contract.get("project_upload_access") != "DENIED_AND_NOT_USED": errors.append("PROJECT_UPLOAD_NON_USE_NOT_PROVEN")
+    if contract.get("legacy_contamination_access") != "DENIED_AND_NOT_USED": errors.append("LEGACY_CONTAMINATION_NON_USE_NOT_PROVEN")
+    if contract.get("historical_training_trace_access") != "DENIED_AND_NOT_USED": errors.append("HISTORICAL_TRAINING_TRACE_NON_USE_NOT_PROVEN")
+    if contract.get("research_hypothesis_access") != "DENIED_UNLESS_PROMOTED_AND_RELEASE_BOUND": errors.append("RESEARCH_HYPOTHESIS_ACCESS_POLICY_INVALID")
     if contract.get("fallback_policy") != "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK": errors.append("SILENT_FALLBACK_POLICY_INVALID")
 
     loaded: dict[str, dict[str, Any]] = {}
@@ -97,6 +104,8 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
     if model.get("code_commit_sha") != binding.get("code_commit_sha"): errors.append("CODE_COMMIT_BINDING_MISMATCH")
     if model.get("s19_binding_sha256") != binding.get("s19_binding_sha256"): errors.append("S19_BINDING_MISMATCH")
     if model.get("project_upload_fallback_permission") not in {None, "NO"}: errors.append("MODEL_PROJECT_FALLBACK_PERMISSION_INVALID")
+    if model.get("historical_training_trace_permission") not in {None, "NO"}: errors.append("MODEL_HISTORICAL_TRACE_PERMISSION_INVALID")
+    if model.get("research_hypothesis_direct_runtime_permission") not in {None, "NO"}: errors.append("MODEL_RESEARCH_DIRECT_RUNTIME_PERMISSION_INVALID")
     if source.get("knowledge_release_id") != binding.get("knowledge_release_id"): errors.append("KNOWLEDGE_RELEASE_MISMATCH")
     if method.get("method_release_id") != binding.get("method_release_id"): errors.append("METHOD_RELEASE_MISMATCH")
     if contract.get("source_packet", {}).get("sha256") != binding.get("source_packet_sha256"): errors.append("SOURCE_PACKET_BINDING_MISMATCH")
@@ -137,6 +146,18 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
     if ledger_count == 0: errors.append("EVIDENCE_LEDGER_EMPTY")
     refs = _project_refs(prediction) + _project_refs({key: contract.get(key) for key in ("snapshot", "model_release", "source_packet", "method_packet")})
     if refs: errors.append("PROJECT_UPLOAD_REFERENCE_DETECTED:" + ",".join(sorted(set(refs))))
+    contamination = runtime_reference_violations({
+        "prediction": prediction,
+        "contract": contract,
+        "model_release": model,
+        "source_packet": source,
+        "method_packet": method,
+    })
+    if contamination:
+        errors.append(
+            "LEGACY_CONTAMINATION_REFERENCE_DETECTED:" +
+            ",".join(sorted({row["object_path"] for row in contamination}))
+        )
     if prediction.get("binding") != contract.get("binding"): errors.append("PREDICTION_CONTRACT_BINDING_MISMATCH")
 
     receipt = {
@@ -148,7 +169,10 @@ def validate_causal_use(prediction_path: str | Path, contract_path: str | Path,
         "method_release_id": binding.get("method_release_id"),
         "evidence_ledger_rows_checked": ledger_count,
         "method_stage_receipts_checked": stage_count,
-        "project_upload_reference_paths": sorted(set(refs)), "errors": errors,
+        "project_upload_reference_paths": sorted(set(refs)),
+        "legacy_contamination_reference_rows": contamination,
+        "legacy_contamination_scan_status": "PASS" if not contamination else "FAIL_CLOSED",
+        "errors": errors,
         "score_eligibility": "ELIGIBLE" if not errors else "PROHIBITED",
         "formal_release": "NO", "validated_at": utc_now(),
     }
