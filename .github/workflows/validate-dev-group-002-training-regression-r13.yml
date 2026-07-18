@@ -32,7 +32,7 @@ jobs:
       - name: Materialize R13 legality diagnosis
         run: |
           set +e
-          python reports/dev-group-002/training-regression-r13/materialize_validate.py \
+          python reports/dev-group-002/training-regression-r13/validate_v2.py \
             --repo-root . --write --validate \
             > reports/dev-group-002/training-regression-r13/execution.log 2>&1
           status=$?
