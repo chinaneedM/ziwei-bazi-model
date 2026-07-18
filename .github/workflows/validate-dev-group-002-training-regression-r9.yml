@@ -43,6 +43,8 @@ jobs:
           python-version: '3.12'
       - name: Assemble R9 materializer
         run: python reports/dev-group-002/training-regression-r9/bootstrap.py
+      - name: Diagnose R9 precontent gate
+        run: python reports/dev-group-002/training-regression-r9/preflight_diagnose.py
       - name: Materialize and validate R9 fresh source rebuild
         run: |
           set +e
@@ -61,6 +63,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add \
             reports/dev-group-002/training-regression-r9/materialize_validate.py \
+            reports/dev-group-002/training-regression-r9/preflight.json \
             reports/dev-group-002/training-regression-r9/execution.log \
             reports/dev-group-002/training-regression-r9/execution.exit-code
           if git diff --cached --quiet; then
