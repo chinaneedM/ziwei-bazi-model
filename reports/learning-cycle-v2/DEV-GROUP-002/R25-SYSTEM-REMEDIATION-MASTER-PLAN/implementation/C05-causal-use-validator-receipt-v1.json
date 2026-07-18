@@ -1,0 +1,64 @@
+{
+  "artifacts": [
+    {
+      "git_blob_sha": "101407a561921e33609d8600f0444bc459dc48be",
+      "path": "src/fortune_v1/causal_use.py",
+      "role": "EVIDENCE_METHOD_VERSION_AND_PROJECT_REFERENCE_VALIDATOR"
+    },
+    {
+      "git_blob_sha": "82bbc7a0ad4b2891027e57a1cafd55eb4b4faf38",
+      "path": "src/fortune_v1/external_runner.py",
+      "role": "HANDOFF_SCORE_GATE_INTEGRATION"
+    },
+    {
+      "git_blob_sha": "2f861585d186aa02db5dec9a212cbc27931a1218",
+      "path": "config/external-runner.json",
+      "role": "SHADOW_ONLY_INSTALLATION_STATE"
+    },
+    {
+      "git_blob_sha": "b5878cf8a60c839adcc2b0dc63c552719a36e115",
+      "path": "docs/external-runner.md",
+      "role": "OPERATIONAL_CONTRACT"
+    },
+    {
+      "git_blob_sha": "443f14434c8de1fe05a0af40f19c2c79ffdc9c88",
+      "object_hash": "e5085e136e5dd81eac8080efcfd209a339557e38c2ebc694bf927dc1653d5f39",
+      "path": "data/training/dev-group-002-learning-cycle-state.json",
+      "role": "TRAINING_BLOCK"
+    }
+  ],
+  "branch": "agent/dev-group-002-training-regression-r1",
+  "component_id": "C05_CAUSAL_USE_VALIDATOR",
+  "fail_closed_checks": [
+    "EVIDENCE_PACKET_ITEM_BINDING",
+    "SOURCE_LIBRARY_HASH_SIZE_PATH_BINDING",
+    "METHOD_STAGE_RULE_BINDING",
+    "MODEL_KNOWLEDGE_METHOD_CODE_S19_BINDING",
+    "PROJECT_MNT_DATA_REFERENCE_SCAN",
+    "OPAQUE_PROJECT_FILE_ID_SCAN",
+    "NO_SILENT_FALLBACK",
+    "ANSWER_ISOLATION",
+    "PREDICTION_CONTRACT_EXACT_BINDING"
+  ],
+  "formal_release": "NO",
+  "implementation_code_commit": "724f80ed7ddd67dc414d6ee56a41ec6abeeed46b",
+  "object_hash": "fb905d768f2bca8fa29de731e105d1e83221a857ef7438e66c37ae381990d9bf",
+  "remaining_conditions": [
+    "FULL_R16_SOURCE_CATALOG_BUILD_AND_20_FILE_READBACK_ON_IMMUTABLE_CHECKOUT_NOT_YET_EXECUTED",
+    "REAL_CHATGPT_REPOSITORY_ONLY_SOURCE_AND_METHOD_PACKET_SHADOW_RUN_NOT_YET_EXECUTED",
+    "REAL_PREDICTION_CAUSAL_USE_RECEIPT_PASS_NOT_YET_OBTAINED",
+    "FULL_GITHUB_ACTIONS_SUITE_NOT_YET_CONFIRMED",
+    "25_QUESTION_CLEAN_RETEST_AND_SCORING_PROHIBITED",
+    "FORMAL_RELEASE_NO"
+  ],
+  "schema": "R25-COMPONENT-IMPLEMENTATION-RECEIPT-V1",
+  "scoring_rule": "NO_CAUSAL_USE_PASS_NO_SCORE",
+  "status": "IMPLEMENTED_PENDING_REAL_PREDICTION_CAUSAL_PROOF",
+  "training_score_status": "BLOCKED",
+  "validation": {
+    "focused_pytest": "2_PASSED",
+    "project_reference_negative_test": "PASS_FAIL_CLOSED",
+    "real_prediction_causal_receipt": "NOT_YET_OBTAINED",
+    "winner_bias_negative_test": "PASS_FAIL_CLOSED"
+  }
+}
