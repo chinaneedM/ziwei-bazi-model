@@ -2,7 +2,7 @@
 
 Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
 
-> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. Training scoring and the 25-question clean retest remain blocked until full immutable-checkout readback, a full repository contamination inventory, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed.
+> **Current release boundary:** R25 C01–C05A repository-delivery and contamination-quarantine interfaces are installed on the development branch only. Training scoring and the 25-question clean retest remain blocked until full immutable-checkout readback, a full repository contamination inventory, one real repository-only shadow run, causal-use PASS, no-fallback PASS and fresh answer isolation all pass. `FORMAL_RELEASE=NO`; no predictive improvement is claimed. Implementation summary object: `1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1`.
 
 ## Execution model
 
