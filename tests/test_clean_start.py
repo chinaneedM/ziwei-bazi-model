@@ -62,6 +62,11 @@ class CleanStartTests(unittest.TestCase):
             "schema": "CURRENT-GROUP-MANIFEST-POINTER-V1",
             "status": "ACTIVE",
             "group_id": "GROUP-1",
+            "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+            "active_knowledge_release_id": "KNOWLEDGE-R17",
+            "active_method_release_id": "METHOD-R17",
+            "active_model_release_id": "MODEL-R17-REPOSITORY-ACTIVE-V1",
+            "active_learning_policy_id": "LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1",
             "group_manifest_path": str(group),
             "install_state_path": str(install),
             "output_root": str(root / "runs"),
@@ -108,6 +113,10 @@ class CleanStartTests(unittest.TestCase):
             self.assertEqual(result["group_run_id"], "RUN-2")
             self.assertEqual([row["case_run_id"] for row in result["cases"]], ["RUN-2-CASE-1", "RUN-2-CASE-2"])
             self.assertEqual(result["start_request_receipt"]["precontent_search_status"], "PASS_NOT_USED")
+            self.assertEqual(result["active_runtime_binding"]["main_prompt_runtime_id"], "MP-PROFESSIONAL-REASONING-20260718-R17")
+            first_skeleton = json.loads(Path(result["cases"][0]["skeleton_path"]).read_text(encoding="utf-8"))
+            self.assertEqual(first_skeleton["binding"]["knowledge_release_id"], "KNOWLEDGE-R17")
+            self.assertEqual(first_skeleton["source_case_binding"]["main_prompt_runtime_id"], "R17")
             allowlist = result["retrieval_policy"]["exact_allowed_paths"]
             self.assertIn(str(pointer), allowlist)
             self.assertIn(str(request), allowlist)
