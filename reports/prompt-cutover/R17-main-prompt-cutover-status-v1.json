@@ -1,44 +1,58 @@
 {
-  "schema": "MAIN-PROMPT-CUTOVER-STATUS-V1",
-  "created_at": "2026-07-18T00:00:00+09:00",
-  "project_runtime_observation": {
-    "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
-    "status": "ACTIVE_IN_CURRENT_PROJECT_SESSION",
-    "architecture": "USER_INITIATED_REPOSITORY_BOUND_SEMI_AUTOMATION",
-    "observation_scope": "RUNTIME_ID_AND_VISIBLE_INSTRUCTION_CONTENT_ONLY",
-    "exact_project_setting_bytes_exported": false
+  "claims": {
+    "accuracy_improvement_claimed": false,
+    "canonical_r17_content_match_proven": true,
+    "model_release_r17_exists": false,
+    "platform_storage_exact_byte_export_proven": false,
+    "repository_only_shadow_completed": false,
+    "s19_r17_candidate_defined": true,
+    "s19_remote_materialized_readback_proven": false
   },
-  "repository_current_binding": {
-    "config_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-    "s19_expected_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-    "model_release_id": "MODEL-R16-REPOSITORY-SHADOW-V2",
-    "prompt_snapshot_status_path": "reports/prompt-snapshot-status.json",
-    "prompt_snapshot_status": "R16_PASS_HISTORICAL_BINDING"
-  },
-  "cutover_status": "HOLD_PENDING_EXACT_R17_EXPORT_S19_REBIND_AND_MODEL_RELEASE",
+  "completed_objects": [
+    "R17_CANONICAL_PROMPT_SNAPSHOT_PASS",
+    "METHOD_R17_CANDIDATE",
+    "R17_S19_CONTROL_ROOT_OVERLAY",
+    "R17_COMPOSITE_KNOWLEDGE_MANIFEST",
+    "LOCAL_FULL_20_FILE_MATERIALIZATION_PASS",
+    "COMPOSITE_MATERIALIZER_AND_TAMPER_TESTS"
+  ],
+  "cutover_status": "HOLD_PENDING_REMOTE_IMMUTABLE_READBACK_MODEL_R17_AND_CAUSAL_SHADOW",
   "formal_release": "NO",
-  "score_eligibility": "PROHIBITED",
+  "object_hash": "4e348e17bd2343d79c6a424e24b575cd1d265bd473e2c7a756d62a9de894c989",
+  "project_runtime_observation": {
+    "architecture": "USER_INITIATED_REPOSITORY_BOUND_SEMI_AUTOMATION",
+    "canonical_prompt_sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
+    "canonical_prompt_size_bytes": 11702,
+    "canonical_prompt_visible_nonwhitespace_codepoints": 5253,
+    "confirmation_transport": "USER_VERBATIM_CHAT_PASTE",
+    "platform_storage_raw_byte_export_available": false,
+    "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "status": "ACTIVE_IN_CURRENT_PROJECT_SESSION"
+  },
+  "repository_candidate_binding": {
+    "active_repository_binding_status": "R16_REMAINS_ACTIVE_UNTIL_R17_SHADOW_AND_PROMOTION",
+    "knowledge_manifest_object_hash": "6d62b5781da2b7be0ef2f0b772b5cf379f1ef4ce3054df7992e160b3d55c00dc",
+    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE",
+    "materialization_status": "PASS_LOCAL_FULL_20_REMOTE_IMMUTABLE_READBACK_PENDING",
+    "method_release_id": "METHOD-R17",
+    "method_release_object_hash": "d22f19f1b975aaa6ce42c3af951cc6ff49d81aed3953629f1b33c86509b20cee",
+    "prompt_snapshot_path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt",
+    "prompt_snapshot_receipt_path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json",
+    "prompt_snapshot_status": "PASS_CANONICAL_USER_CONFIRMED",
+    "s19_materialized_sha256": "59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91",
+    "s19_materialized_size_bytes": 10283817,
+    "source_content_commit_sha": "3f823756b2cb9479e5cd9d27978459b7e537eaa8"
+  },
   "required_next_objects": [
-    "EXACT_R17_PROJECT_INSTRUCTION_EXPORT",
-    "R17_PROMPT_SNAPSHOT_RECEIPT",
-    "R17_S19_BINDING_CANDIDATE",
-    "R17_METHOD_RELEASE_BINDING_OR_EXPLICIT_COMPATIBILITY_RECEIPT",
+    "REMOTE_IMMUTABLE_CHECKOUT_MATERIALIZATION_READBACK_PASS",
     "MODEL_R17_REPOSITORY_SHADOW_CANDIDATE",
     "UPDATED_RUN_CONTRACT_VALIDATION",
     "REPOSITORY_ONLY_NONSCORING_SHADOW_RUN",
-    "CAUSAL_USE_RECEIPT_PASS"
+    "CAUSAL_USE_RECEIPT_PASS",
+    "NO_FALLBACK_PASS",
+    "USER_PROMOTION_APPROVAL"
   ],
-  "legacy_prompt_candidate": {
-    "path": "prompt/candidates/PROMPT-REPOSITORY-BOOTSTRAP-R1/bootstrap-prompt.txt",
-    "status": "DESIGN_CANDIDATE_NOT_INSTALLED_NOT_RUNTIME_AUTHORITY",
-    "relationship_to_r17": "NOT_THE_ACTIVE_R17_PROJECT_INSTRUCTION"
-  },
-  "claims": {
-    "r17_exact_byte_match_proven": false,
-    "s19_rebound_to_r17": false,
-    "model_release_r17_exists": false,
-    "repository_only_shadow_completed": false,
-    "accuracy_improvement_claimed": false
-  },
-  "object_hash": "ab132b2f14dd421de66c673b6fbead0e5f9df7345266adfc83b2516fe86385c6"
+  "schema": "MAIN-PROMPT-CUTOVER-STATUS-V2",
+  "score_eligibility": "PROHIBITED",
+  "updated_at": "2026-07-19T00:00:00+08:00"
 }
