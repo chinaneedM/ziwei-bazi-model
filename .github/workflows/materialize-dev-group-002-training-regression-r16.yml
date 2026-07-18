@@ -8,13 +8,13 @@ on:
       - ready_for_review
       - synchronize
     paths:
-      - 'reports/dev-group-002/training-regression-r16/payload/**'
+      - 'reports/dev-group-002/training-regression-r16/payload-b85/**'
       - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
   push:
     branches:
       - agent/dev-group-002-training-regression-r1
     paths:
-      - 'reports/dev-group-002/training-regression-r16/payload/**'
+      - 'reports/dev-group-002/training-regression-r16/payload-b85/**'
       - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
   workflow_dispatch:
 
@@ -38,22 +38,34 @@ jobs:
           from pathlib import Path
           import base64
           import hashlib
+          import runpy
           import zlib
 
-          payload_dir = Path('reports/dev-group-002/training-regression-r16/payload')
-          parts = sorted(payload_dir.glob('part*.txt'))
+          payload_dir = Path('reports/dev-group-002/training-regression-r16/payload-b85')
+          parts = sorted(payload_dir.glob('part*'))
           if not parts:
-              raise SystemExit('R16 payload parts are missing')
-          encoded = ''.join(part.read_text(encoding='utf-8-sig') for part in parts)
-          encoded = ''.join(encoded.split())
-          print(f'payload_parts={len(parts)} encoded_chars={len(encoded)} prefix={encoded[:12]!r} suffix={encoded[-12:]!r}')
-          padding = '=' * (-len(encoded) % 4)
-          compressed = base64.b64decode(encoded + padding, validate=True)
-          print(f'compressed_bytes={len(compressed)} compressed_sha256={hashlib.sha256(compressed).hexdigest()} magic={compressed[:8].hex()}')
+              raise SystemExit('R16 Base85 payload parts are missing')
+          pieces = []
+          for part in parts:
+              if part.suffix == '.py':
+                  pieces.append(runpy.run_path(str(part))['PART'])
+              else:
+                  pieces.append(''.join(part.read_text(encoding='utf-8-sig').split()))
+          encoded = ''.join(pieces)
+          if len(encoded) != 19423:
+              raise SystemExit(f'R16 encoded length mismatch: {len(encoded)}')
+          compressed = base64.b85decode(encoded)
+          compressed_sha = hashlib.sha256(compressed).hexdigest()
+          if compressed_sha != '99981e4efe4f9a4f09dc12be732e8cc3c939538c576725869451880195a14844':
+              raise SystemExit(f'R16 compressed SHA mismatch: {compressed_sha}')
           script = zlib.decompress(compressed)
+          script_sha = hashlib.sha256(script).hexdigest()
+          if script_sha != '49538f865e1153c41c071f50aa18201e095e89bcf7820414488e57b189e11894':
+              raise SystemExit(f'R16 script SHA mismatch: {script_sha}')
           target = Path('reports/dev-group-002/training-regression-r16/materialize_validate.py')
           target.write_bytes(script)
-          print(f'decoded_bytes={len(script)} script_sha256={hashlib.sha256(script).hexdigest()}')
+          print(f'payload_parts={len(parts)} encoded_chars={len(encoded)} compressed_bytes={len(compressed)} decoded_bytes={len(script)}')
+          print(f'compressed_sha256={compressed_sha} script_sha256={script_sha}')
           PY
       - name: Materialize and validate R16
         run: |
