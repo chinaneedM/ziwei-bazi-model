@@ -1,0 +1,133 @@
+        'B': {'status':'VALID_ABSTENTION','parents':['S11_FOUNDATION','S12_QI_CONTROL','S14_RELATION_LIMIT','S15_NEUTRAL_TIME','S16_TOPIC_PACKAGE'],'partial':['RESPONSIBILITY_OR_RECOGNITION_CANDIDATE'],'limited':['FAME_AND_SMOOTH_SUCCESS'],'reason':'Officer activation does not prove public recognition or smooth work.'},
+        'C': {'status':'DIRECTION_ONLY','parents':['S11_FOUNDATION','S12_QI_CONTROL','S13_METHOD_COMPETITION','S14_RELATION_LIMIT','S15_NEUTRAL_TIME','S16_ROLE_ENDPOINT_LIMIT'],'partial':['BUSINESS_RESPONSIBILITY_OR_OUTPUT_TO_WEALTH_CANDIDATE'],'limited':['OWNER_IDENTITY_AND_TURNOVER'],'reason':'The period can support business responsibility but not legal ownership.'},
+        'D': {'status':'DIRECTION_ONLY','parents':['S11_FOUNDATION','S12_QI_CONTROL','S14_RELATION_LIMIT','S15_NEUTRAL_TIME','S16_TOPIC_PACKAGE'],'partial':['WORK_STAGE_CHANGE_AND_FINANCIAL_MOVEMENT'],'limited':['RESIDENCE_AND_PARTNER_PAYMENT_ENDPOINTS'],'reason':'The relations and luck period permit change/flow, not household payer identity.'},
+    },
+    'Q4': {option: {'status':'VALID_ABSTENTION','parents':['S11_FOUNDATION','S12_QI_CONTROL','S14_RELATION_LIMIT','S15_NEUTRAL_TIME','S16_ROLE_ENDPOINT_LIMIT'],'partial':['RELATIONSHIP_ACTIVATION_ONLY'],'limited':['LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE'],'reason':'The Bazi structure cannot distinguish the four completed relationship states.'} for option in 'ABCD'},
+    'Q5': {option: {'status':'VALID_ABSTENTION','parents':['S11_FOUNDATION','S12_QI_CONTROL','S14_RELATION_LIMIT','S16_MEDICAL_AND_FAMILY_LIMIT'],'partial':['RESOURCE_OR_PARENT_SCENE_ONLY'],'limited':['PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE'],'reason':'The Bazi structure cannot identify a parent action, death, divorce, caregiver or calibrated household class.'} for option in 'ABCD'},
+}
+
+
+def read_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def git_blob_sha(path: Path) -> str:
+    data = path.read_bytes()
+    return hashlib.sha1(f'blob {len(data)}\0'.encode() + data).hexdigest()
+
+
+def canonical_payload(obj: dict[str, Any]) -> bytes:
+    clone = dict(obj)
+    clone.pop('canonical_sha256', None)
+    return (json.dumps(clone, ensure_ascii=False, sort_keys=True, separators=(',', ':')) + '\n').encode('utf-8')
+
+
+def canonical_hash(obj: dict[str, Any]) -> str:
+    return sha256_bytes(canonical_payload(obj))
+
+
+def with_hash(obj: dict[str, Any]) -> dict[str, Any]:
+    clone = dict(obj)
+    clone['canonical_sha256'] = canonical_hash(clone)
+    return clone
+
+
+def write_json(path: Path, obj: dict[str, Any]) -> None:
+    path.write_text(json.dumps(obj, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+
+
+def extract_lines(path: Path, start: int, end: int) -> str:
+    lines = path.read_text(encoding='utf-8').splitlines()
+    if start < 1 or end > len(lines) or end < start:
+        raise ValueError(f'invalid range {path}:{start}-{end}; line_count={len(lines)}')
+    return '\n'.join(lines[start - 1:end]) + '\n'
+
+
+def build_whitelist(repo_root: Path) -> dict[str, Any]:
+    declared = read_json(repo_root / INPUTS['whitelist'])
+    rows = []
+    for row in declared['rows']:
+        path = repo_root / 'knowledge/base' / row['canonical_filename']
+        data = path.read_bytes()
+        actual = sha256_bytes(data)
+        status = 'PASS' if actual == row['sha256'] and len(data) == row['bytes'] else 'FAIL'
+        rows.append({
+            'library_id': row['library_id'],
+            'path': path.relative_to(repo_root).as_posix(),
+            'declared_sha256': row['sha256'],
+            'actual_sha256': actual,
+            'declared_bytes': row['bytes'],
+            'actual_bytes': len(data),
+            'status': status,
+            'read_method': 'UTF8_DIRECT_FILE_READ',
+        })
+    return with_hash({
+        'schema': 'DEV-GROUP-002-R9-ACTIVE-WHITELIST-V1',
+        'group_id': 'DEV-GROUP-002',
+        'case_id': CASE_ID,
+        'round_id': 'R9',
+        'main_prompt_runtime_id': declared['main_prompt_runtime_id'],
+        'active_binding_table_sha256_utf8_lf': declared['active_binding_table_sha256_utf8_lf'],
+        'rows': rows,
+        'status': 'PASS' if all(row['status'] == 'PASS' for row in rows) else 'FAIL',
+    })
+
+
+def build_input_freeze(repo_root: Path) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any], str]:
+    manifest = read_json(repo_root / INPUTS['view_manifest'])
+    questions = read_json(repo_root / INPUTS['questions'])
+    bazi = read_json(repo_root / INPUTS['bazi'])
+    ziwei_text = (repo_root / INPUTS['ziwei']).read_text(encoding='utf-8')
+    file_rows = []
+    file_name_map = {
+        'ziwei.txt': INPUTS['ziwei'],
+        'bazi-transcription.json': INPUTS['bazi'],
+        'questions-parsed.json': INPUTS['questions'],
+    }
+    for name, rel in file_name_map.items():
+        data = (repo_root / rel).read_bytes()
+        declared = manifest['files'][name]
+        file_rows.append({
+            'name': name,
+            'path': rel,
+            'sha256': sha256_bytes(data),
+            'bytes': len(data),
+            'declared_sha256': declared['sha256'],
+            'declared_bytes': declared['bytes'],
+            'status': 'PASS' if sha256_bytes(data) == declared['sha256'] and len(data) == declared['bytes'] else 'FAIL',
+        })
+    required_chart_tokens = [
+        '命  宫[癸丑][身宫]', '天相[庙]', '父母宫[壬寅]', '天同[利][生年权],天梁[庙][↓禄]',
+        '田宅宫[甲辰]', '太阳[旺][↓忌][↑禄]', '官禄宫[乙巳]', '地劫[不],地空[庙],天马[平]',
+        '疾厄宫[戊申]', '财帛宫[己酉]', '天府[旺]', '夫妻宫[辛亥]', '廉贞[陷],贪狼[陷]',
+        '起止年份:2019年(33虚岁)~2028年(42虚岁)', '大限四化:廉贞禄,破军权,武曲科,太阳忌',
+    ]
+    missing_chart_tokens = [token for token in required_chart_tokens if token not in ziwei_text]
+    if bazi['pillars'] != {'year':'丁卯','month':'丙午','day':'乙卯','hour':'壬午'}:
+        raise ValueError('Bazi pillar freeze mismatch')
+    if [q['question_id'] for q in questions] != [f'Q{i}' for i in range(1, 6)]:
+        raise ValueError('Question set mismatch')
+    obj = with_hash({
+        'schema': 'DEV-GROUP-002-R9-INPUT-FREEZE-V1',
+        'group_id': 'DEV-GROUP-002',
+        'case_id': CASE_ID,
+        'round_id': 'R9',
+        'source_runtime_view_manifest_path': INPUTS['view_manifest'],
+        'source_runtime_view_manifest_git_blob_sha': git_blob_sha(repo_root / INPUTS['view_manifest']),
+        'answer_isolation': {
+            'status': manifest['answer_isolation_status'],
+            'answer_payload_present': manifest['answer_payload_present'],
+            'answer_reference_disclosed': manifest['answer_reference_disclosed'],
+        },
+        'files': file_rows,
+        'ziwei_required_token_count': len(required_chart_tokens),
+        'ziwei_missing_tokens': missing_chart_tokens,
+        'bazi_pillars': bazi['pillars'],
+        'bazi_seasonal_qi': bazi['seasonal_qi'],
+        'bazi_luck_cycles': bazi['luck']['cycles'],
+        'question_count': len(questions),
+        'questions': questions,
