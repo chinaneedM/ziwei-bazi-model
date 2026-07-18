@@ -4,6 +4,7 @@ import argparse
 import json
 
 from .causal_use import build_run_contract, validate_causal_use
+from .composite_release import materialize_knowledge_release
 from .contamination import build_contamination_inventory, validate_runtime_object
 from .repository_release import (
     build_knowledge_manifest, build_method_packet, build_model_release,
@@ -25,6 +26,9 @@ def parser() -> argparse.ArgumentParser:
         ("--release-kind", {"default": "CANDIDATE"}), ("--parent-release-id", {}))
     cmd("knowledge-validate", ("--manifest", {"required": True}), ("--source-dir", {}),
         ("--output", {"required": True}))
+    cmd("knowledge-materialize", ("--manifest", {"required": True}),
+        ("--repository-root", {"required": True}), ("--output-dir", {"required": True}),
+        ("--receipt", {"required": True}))
     cmd("method-validate", ("--method", {"required": True}), ("--output", {"required": True}))
     cmd("method-packet", ("--method", {"required": True}), ("--output", {"required": True}))
     cmd("source-catalog", ("--manifest", {"required": True}), ("--source-dir", {"required": True}),
@@ -63,6 +67,10 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "knowledge-validate":
             result = validate_knowledge_manifest(args.manifest, args.source_dir)
             atomic_write_json(args.output, result, overwrite=True)
+        elif args.command == "knowledge-materialize":
+            result = materialize_knowledge_release(
+                args.manifest, args.repository_root, args.output_dir, args.receipt,
+            )
         elif args.command == "method-validate":
             result = validate_method_release(args.method); atomic_write_json(args.output, result, overwrite=True)
         elif args.command == "method-packet": result = build_method_packet(args.method, args.output)
