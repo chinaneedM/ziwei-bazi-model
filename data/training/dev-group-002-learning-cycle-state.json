@@ -2,7 +2,7 @@
   "schema": "LEARNING-CYCLE-V2.1",
   "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
   "group_id": "DEV-GROUP-002",
-  "status": "FIXED_GROUP_COMPLETE_PENDING_UNIFIED_EVALUATION",
+  "status": "EVALUATED_TRAINING_GROUP_BELOW_TARGET_READY_FOR_UNSEEN_BLOCK",
   "bindings": {
     "branch": "agent/dev-group-002-training-regression-r1",
     "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
@@ -37,7 +37,13 @@
     "top2_rate": 0.5909090909090909,
     "target_top1": 0.8,
     "target_top2": 0.9,
-    "rate_gate_status": "BELOW_TARGET_TRAINING_GROUP_COMPLETE"
+    "rate_gate_status": "BELOW_TARGET_GROUP_EVALUATED"
+  },
+  "evaluation": {
+    "unified_evaluation_path": "reports/learning-cycle-v2/DEV-GROUP-002/unified-evaluation-v2.1.json",
+    "unified_evaluation_object_hash": "88df5f3de30bc28877e3f0fb3ba1d9ef4f6cb8c3ec51294f0b0d987c0a626b40",
+    "error_taxonomy_path": "reports/learning-cycle-v2/DEV-GROUP-002/generalizable-error-taxonomy-v1.json",
+    "error_taxonomy_object_hash": "33c7be89609c3247c1bab8588a18b4ba7164e7ef56d3f9de4909741c8c7ccf36"
   },
   "claim_boundary": {
     "original_predictions": "IMMUTABLE",
@@ -48,8 +54,8 @@
     "unseen_generalization": "NOT_PROVEN",
     "formal_release": "NO"
   },
-  "next_required_action": "UNIFIED_GROUP_EVALUATION_AND_GENERALIZABLE_ERROR_TAXONOMY",
-  "parent_state_object_hash": "2f64d3fb32564d2207b6c99dfa48192b5df84dd73e1ce7650ac8c3d5cc6a76be",
-  "updated_at": "2026-07-18T12:30:00+00:00",
-  "object_hash": "88ef43bb79a555eecf7787a833cca7b3648f96a05796b47619bc54627869aecd"
+  "next_required_action": "START_NEW_FROZEN_UNSEEN_BLIND_TEST_BLOCK_WITH_RULES_LOCKED_BEFORE_CASE1",
+  "parent_state_object_hash": "88ef43bb79a555eecf7787a833cca7b3648f96a05796b47619bc54627869aecd",
+  "updated_at": "2026-07-18T12:42:00+00:00",
+  "object_hash": "17bb2867326da54e08763551750dbb3a3e638c19eddc1b50e1d1d87d91b75256"
 }
