@@ -1,0 +1,39 @@
+{
+  "schema": "TRAINING-UNIT-PLAN-V2",
+  "group_id": "DEV-GROUP-002",
+  "unit_mode": "QUESTION",
+  "policy": {
+    "top1_mastery_rate": 0.8,
+    "top2_diagnostic_rate": 0.9,
+    "min_clean_cold_start_replays": 5,
+    "prior_unit_retention_rate": 0.8,
+    "max_regression_damage_questions": 0
+  },
+  "units": [
+    {"unit_id": "DEV-EXAMPLE-001-Q1", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q2", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q3", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q4", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q5", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q1", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q2", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q3", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q4", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q5", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q1", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q2", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q3", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q4", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q5", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q1", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q2", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q3", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q4", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q5", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q1", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q2", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q3", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q4", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q5", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q5"]}
+  ]
+}
