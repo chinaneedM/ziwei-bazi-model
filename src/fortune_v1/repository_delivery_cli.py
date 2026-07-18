@@ -4,6 +4,7 @@ import argparse
 import json
 
 from .causal_use import build_run_contract, validate_causal_use
+from .contamination import build_contamination_inventory, validate_runtime_object
 from .repository_release import (
     build_knowledge_manifest, build_method_packet, build_model_release,
     rollback_release, validate_knowledge_manifest, validate_method_release,
@@ -41,6 +42,10 @@ def parser() -> argparse.ArgumentParser:
         ("--case-id", {"required": True}), ("--dataset-type", {"required": True}))
     cmd("causal-validate", ("--prediction", {"required": True}),
         ("--contract", {"required": True}), ("--output", {"required": True}))
+    cmd("contamination-inventory", ("--repository-root", {"required": True}),
+        ("--output", {"required": True}))
+    cmd("contamination-validate", ("--input", {"required": True}),
+        ("--output", {"required": True}))
     cmd("rollback", ("--target-manifest", {"required": True}),
         ("--active-pointer", {"required": True}), ("--receipt", {"required": True}),
         ("--reason", {"required": True}), ("--approval-id", {"required": True}))
@@ -72,6 +77,8 @@ def main(argv: list[str] | None = None) -> int:
                 args.case_freeze, args.output, run_id=args.run_id, case_id=args.case_id,
                 dataset_type=args.dataset_type, question_rows=questions)
         elif args.command == "causal-validate": result = validate_causal_use(args.prediction, args.contract, args.output)
+        elif args.command == "contamination-inventory": result = build_contamination_inventory(args.repository_root, args.output)
+        elif args.command == "contamination-validate": result = validate_runtime_object(args.input, args.output)
         elif args.command == "rollback": result = rollback_release(args.target_manifest, args.active_pointer,
             args.receipt, reason=args.reason, approval_id=args.approval_id)
         else: raise AssertionError(args.command)
