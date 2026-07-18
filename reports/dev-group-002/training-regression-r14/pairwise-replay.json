@@ -1,18 +1,18 @@
 {
   "atom_level_replayable_rows": 30,
-  "canonical_sha256": "96df5cdb8cc41fb77231284aa7d90584fc37dd40a0d693ea757fc595dee68659",
+  "canonical_sha256": "8a82cccfd6f258e64ac7c6ce1b8f89a923bfea61f85bf621a92f483283357e80",
   "case_id": "DEV-EXAMPLE-003",
   "cycle_question_ids": [],
   "derived_ranks": {
     "Q1": "CABD",
-    "Q2": "ABCD",
+    "Q2": "CBAD",
     "Q3": "CABD",
-    "Q4": "CDAB",
+    "Q4": "ADCB",
     "Q5": "DCAB"
   },
   "group_id": "DEV-GROUP-002",
   "low_information_tiebreak_rows": 1,
-  "parent_adjusted_matrix_sha256": "312540e62952b4b57a207f646c181f7450953b22db8f6334f24d7288fe88fdda",
+  "parent_adjusted_matrix_sha256": "1c8eaa8f62b34b780044037d353428e11d15d774691bb4694dd842f83f3d268e",
   "parent_common_subtraction_sha256": "f67457942d21960b0628e5d074e219ba9abdbfd34d2810281574c5db21bf6d6b",
   "parent_r12_prediction_sha256": "4fd8b7e8ee0ba05274e656febc1d50b6864f0bfba6037c7eebf1e94554304d6a",
   "rank_derivation": "COPELAND_PAIRWISE_WINS_THEN_PREANSWER_R12_ORDER_FOR_EQUAL_WIN_COUNTS",
@@ -1059,16 +1059,16 @@
         "MUSIC_ART_HOBBY",
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 5,
-          "numerator": 2
+          "numerator": 3
         },
         "mode": "MAX",
         "right": {
           "denominator": 3,
-          "numerator": 0
+          "numerator": 2
         }
       },
       "left": "A",
@@ -1082,20 +1082,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 5,
-          "numerator": 4
+          "numerator": 3
         },
         "counterevidence_ratio": {
           "denominator": 5,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_A_LEG_DISABILITY",
-          "Q2_A_PERFORMANCE_MUSICIAN"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 5,
-          "numerator": 2
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_A_PERFORMANCE_MUSICIAN",
@@ -1112,6 +1109,7 @@
           "numerator": 3
         },
         "partial_support_atom_ids": [
+          "Q2_A_LEG_DISABILITY",
           "Q2_A_ODD_TEMPER",
           "Q2_A_BAND_INDUSTRY"
         ],
@@ -1153,7 +1151,7 @@
         "S07_LIANTAN_TALENT",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "B",
+      "loser": "A",
       "question_id": "Q2",
       "raw_endpoint_count_decision_permission": false,
       "right": "B",
@@ -1232,7 +1230,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "A"
+      "winner": "B"
     },
     {
       "answer_access_during_decision": false,
@@ -1242,16 +1240,16 @@
       "common_atom_ids_zeroed": [
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 6,
-          "numerator": 3
+          "numerator": 4
         },
         "mode": "MAX",
         "right": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 4
         }
       },
       "left": "A",
@@ -1266,21 +1264,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 6,
-          "numerator": 5
+          "numerator": 4
         },
         "counterevidence_ratio": {
           "denominator": 6,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_A_LEG_DISABILITY",
-          "Q2_A_MUSIC_ART_HOBBY",
-          "Q2_A_PERFORMANCE_MUSICIAN"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 6,
-          "numerator": 3
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_A_PERFORMANCE_MUSICIAN",
@@ -1297,7 +1291,9 @@
           "numerator": 3
         },
         "partial_support_atom_ids": [
+          "Q2_A_LEG_DISABILITY",
           "Q2_A_ODD_TEMPER",
+          "Q2_A_MUSIC_ART_HOBBY",
           "Q2_A_BAND_INDUSTRY"
         ],
         "remaining_atom_ids": [
@@ -1339,7 +1335,7 @@
         "S07_LIANTAN_TALENT",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "C",
+      "loser": "A",
       "question_id": "Q2",
       "raw_endpoint_count_decision_permission": false,
       "right": "C",
@@ -1360,12 +1356,10 @@
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_C_REBELLIOUS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_C_MEDIUM_BUILD",
@@ -1383,6 +1377,7 @@
         },
         "partial_support_atom_ids": [
           "Q2_C_DILIGENT",
+          "Q2_C_REBELLIOUS",
           "Q2_C_SPORT_HOBBY",
           "Q2_C_RESTAURANT_INDUSTRY"
         ],
@@ -1427,7 +1422,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "A"
+      "winner": "C"
     },
     {
       "answer_access_during_decision": false,
@@ -1437,16 +1432,16 @@
       "common_atom_ids_zeroed": [
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 6,
-          "numerator": 3
+          "numerator": 4
         },
         "mode": "MAX",
         "right": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 1
         }
       },
       "left": "A",
@@ -1461,21 +1456,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 6,
-          "numerator": 5
+          "numerator": 4
         },
         "counterevidence_ratio": {
           "denominator": 6,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_A_LEG_DISABILITY",
-          "Q2_A_MUSIC_ART_HOBBY",
-          "Q2_A_PERFORMANCE_MUSICIAN"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 6,
-          "numerator": 3
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_A_PERFORMANCE_MUSICIAN",
@@ -1492,7 +1483,9 @@
           "numerator": 3
         },
         "partial_support_atom_ids": [
+          "Q2_A_LEG_DISABILITY",
           "Q2_A_ODD_TEMPER",
+          "Q2_A_MUSIC_ART_HOBBY",
           "Q2_A_BAND_INDUSTRY"
         ],
         "remaining_atom_ids": [
@@ -1634,16 +1627,16 @@
       "common_atom_ids_zeroed": [
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 3
         },
         "mode": "MAX",
         "right": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 4
         }
       },
       "left": "B",
@@ -1663,12 +1656,10 @@
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_B_MUSIC_ART_HOBBY"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_B_TALL_BURLY",
@@ -1684,6 +1675,7 @@
         },
         "partial_support_atom_ids": [
           "Q2_B_STUBBORN",
+          "Q2_B_MUSIC_ART_HOBBY",
           "Q2_B_BAR_INDUSTRY"
         ],
         "remaining_atom_ids": [
@@ -1725,7 +1717,7 @@
         "S07_LIANTAN_TALENT",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "C",
+      "loser": "B",
       "question_id": "Q2",
       "raw_endpoint_count_decision_permission": false,
       "right": "C",
@@ -1746,12 +1738,10 @@
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_C_REBELLIOUS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_C_MEDIUM_BUILD",
@@ -1769,6 +1759,7 @@
         },
         "partial_support_atom_ids": [
           "Q2_C_DILIGENT",
+          "Q2_C_REBELLIOUS",
           "Q2_C_SPORT_HOBBY",
           "Q2_C_RESTAURANT_INDUSTRY"
         ],
@@ -1813,7 +1804,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "B"
+      "winner": "C"
     },
     {
       "answer_access_during_decision": false,
@@ -1823,16 +1814,16 @@
       "common_atom_ids_zeroed": [
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 3
         },
         "mode": "MAX",
         "right": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 1
         }
       },
       "left": "B",
@@ -1852,12 +1843,10 @@
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_B_MUSIC_ART_HOBBY"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_B_TALL_BURLY",
@@ -1873,6 +1862,7 @@
         },
         "partial_support_atom_ids": [
           "Q2_B_STUBBORN",
+          "Q2_B_MUSIC_ART_HOBBY",
           "Q2_B_BAR_INDUSTRY"
         ],
         "remaining_atom_ids": [
@@ -2014,16 +2004,16 @@
       "common_atom_ids_zeroed": [
         "OWNER_IDENTITY"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 4
         },
         "mode": "MAX",
         "right": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 1
         }
       },
       "left": "C",
@@ -2044,12 +2034,10 @@
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q2_C_REBELLIOUS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 5,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q2_C_MEDIUM_BUILD",
@@ -2067,6 +2055,7 @@
         },
         "partial_support_atom_ids": [
           "Q2_C_DILIGENT",
+          "Q2_C_REBELLIOUS",
           "Q2_C_SPORT_HOBBY",
           "Q2_C_RESTAURANT_INDUSTRY"
         ],
@@ -2211,16 +2200,16 @@
         "ELITE_UNIVERSITY",
         "GRADUATED"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "UNRESOLVED_UNKNOWN_BURDEN",
       "decision_values": {
         "left": {
           "denominator": 3,
           "numerator": 1
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 3,
-          "numerator": 0
+          "numerator": 2
         }
       },
       "left": "A",
@@ -2232,19 +2221,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q3_A_START_CURRENT_2013"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q3_A_MEDICINE_MAJOR",
@@ -2388,11 +2375,11 @@
       "common_atom_ids_zeroed": [
         "START_CURRENT_2013"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 1
         },
         "mode": "MAX",
         "right": {
@@ -2492,19 +2479,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q3_C_BENEFACTOR_2013"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q3_C_HIGH_SCHOOL",
@@ -2569,16 +2554,16 @@
         "ELITE_UNIVERSITY",
         "GRADUATED"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE_RATIO",
       "decision_values": {
         "left": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 1
         }
       },
       "left": "A",
@@ -2590,19 +2575,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q3_A_START_CURRENT_2013"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q3_A_MEDICINE_MAJOR",
@@ -2748,16 +2731,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 5,
-          "numerator": 0
+          "numerator": 1
         },
         "mode": "MAX",
         "right": {
           "denominator": 4,
-          "numerator": 2
+          "numerator": 1
         }
       },
       "left": "B",
@@ -2856,20 +2839,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 4,
-          "numerator": 3
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 4,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q3_C_BENEFACTOR_2013",
-          "Q3_C_START_CURRENT_2013"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 2
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q3_C_HIGH_SCHOOL",
@@ -3098,16 +3078,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE_RATIO",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 2
+          "numerator": 0
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 6,
-          "numerator": 0
+          "numerator": 2
         }
       },
       "left": "C",
@@ -3120,20 +3100,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 4,
-          "numerator": 3
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 4,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q3_C_BENEFACTOR_2013",
-          "Q3_C_START_CURRENT_2013"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 2
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q3_C_HIGH_SCHOOL",
@@ -3467,16 +3444,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 3
         },
         "mode": "MAX",
         "right": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         }
       },
       "left": "A",
@@ -3557,7 +3534,7 @@
         "S16_COMPOSITE_CAPABILITY",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "A",
+      "loser": "C",
       "question_id": "Q4",
       "raw_endpoint_count_decision_permission": false,
       "right": "C",
@@ -3569,19 +3546,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_C_MULTIPLE_RELATIONSHIPS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_C_UNMARRIED_TO_NOW",
@@ -3602,11 +3577,12 @@
           "Q4_C_NO_CHILDREN"
         ],
         "scene_only_atom_ids": [
+          "Q4_C_MULTIPLE_RELATIONSHIPS",
           "Q4_C_NO_CHILDREN"
         ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -3631,7 +3607,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "C"
+      "winner": "A"
     },
     {
       "answer_access_during_decision": false,
@@ -3639,16 +3615,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
-          "numerator": 0
+          "numerator": 3
         },
         "mode": "MAX",
         "right": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         }
       },
       "left": "A",
@@ -3729,7 +3705,7 @@
         "S16_COMPOSITE_CAPABILITY",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "A",
+      "loser": "D",
       "question_id": "Q4",
       "raw_endpoint_count_decision_permission": false,
       "right": "D",
@@ -3742,19 +3718,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 4,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_D_DIVORCE_SCENE_2018"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_D_REGISTERED_DIVORCE_2018",
@@ -3778,11 +3752,12 @@
           "Q4_D_NO_CHILDREN"
         ],
         "scene_only_atom_ids": [
+          "Q4_D_DIVORCE_SCENE_2018",
           "Q4_D_NO_CHILDREN"
         ],
         "scene_only_burden_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -3807,7 +3782,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "D"
+      "winner": "A"
     },
     {
       "answer_access_during_decision": false,
@@ -3815,16 +3790,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE_RATIO",
       "decision_values": {
         "left": {
           "denominator": 6,
-          "numerator": 0
+          "numerator": 2
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         }
       },
       "left": "B",
@@ -3928,19 +3903,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_C_MULTIPLE_RELATIONSHIPS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_C_UNMARRIED_TO_NOW",
@@ -3961,11 +3934,12 @@
           "Q4_C_NO_CHILDREN"
         ],
         "scene_only_atom_ids": [
+          "Q4_C_MULTIPLE_RELATIONSHIPS",
           "Q4_C_NO_CHILDREN"
         ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -3998,16 +3972,16 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE_RATIO",
       "decision_values": {
         "left": {
           "denominator": 6,
-          "numerator": 0
+          "numerator": 2
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         }
       },
       "left": "B",
@@ -4112,19 +4086,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 4,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_D_DIVORCE_SCENE_2018"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_D_REGISTERED_DIVORCE_2018",
@@ -4148,11 +4120,12 @@
           "Q4_D_NO_CHILDREN"
         ],
         "scene_only_atom_ids": [
+          "Q4_D_DIVORCE_SCENE_2018",
           "Q4_D_NO_CHILDREN"
         ],
         "scene_only_burden_ratio": {
           "denominator": 4,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -4187,13 +4160,13 @@
       "common_atom_ids_zeroed": [
         "NO_CHILDREN"
       ],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "ALTERNATIVE_SCENE_ONLY_BURDEN",
       "decision_values": {
         "left": {
           "denominator": 2,
           "numerator": 1
         },
-        "mode": "MAX",
+        "mode": "MIN",
         "right": {
           "denominator": 3,
           "numerator": 1
@@ -4207,19 +4180,17 @@
       "left_metrics": {
         "composite_support_ratio": {
           "denominator": 2,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 2,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_C_MULTIPLE_RELATIONSHIPS"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 2,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_C_UNMARRIED_TO_NOW"
@@ -4236,10 +4207,12 @@
           "Q4_C_MULTIPLE_RELATIONSHIPS",
           "Q4_C_UNMARRIED_TO_NOW"
         ],
-        "scene_only_atom_ids": [],
+        "scene_only_atom_ids": [
+          "Q4_C_MULTIPLE_RELATIONSHIPS"
+        ],
         "scene_only_burden_ratio": {
           "denominator": 2,
-          "numerator": 0
+          "numerator": 1
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -4259,7 +4232,7 @@
         "S10_NEUTRAL_TIME",
         "S17_DIRECTION_AND_ENDPOINT"
       ],
-      "loser": "D",
+      "loser": "C",
       "question_id": "Q4",
       "raw_endpoint_count_decision_permission": false,
       "right": "D",
@@ -4271,19 +4244,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q4_D_DIVORCE_SCENE_2018"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q4_D_REGISTERED_DIVORCE_2018",
@@ -4303,10 +4274,12 @@
           "Q4_D_REGISTERED_DIVORCE_2018",
           "Q4_D_SINGLE_SINCE"
         ],
-        "scene_only_atom_ids": [],
+        "scene_only_atom_ids": [
+          "Q4_D_DIVORCE_SCENE_2018"
+        ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 0
+          "numerator": 1
         },
         "source_parent_excerpt_ids": [
           "S04_AXIS_SCOPE",
@@ -4327,7 +4300,7 @@
         "S17_DIRECTION_AND_ENDPOINT"
       ],
       "scene_only_positive_contribution": 0,
-      "winner": "C"
+      "winner": "D"
     },
     {
       "answer_access_during_decision": false,
@@ -4635,7 +4608,7 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 2,
@@ -4719,19 +4692,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q5_D_CAREER_OBSTRUCTION"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q5_D_DEBT",
@@ -4754,11 +4725,12 @@
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_atom_ids": [
+          "Q5_D_CAREER_OBSTRUCTION",
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S05_ZIWEI_POJUN",
@@ -4943,7 +4915,7 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 3,
@@ -5033,19 +5005,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q5_D_CAREER_OBSTRUCTION"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q5_D_DEBT",
@@ -5068,11 +5038,12 @@
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_atom_ids": [
+          "Q5_D_CAREER_OBSTRUCTION",
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S05_ZIWEI_POJUN",
@@ -5101,7 +5072,7 @@
       "bazi_fusion_effect": "ZERO_NO_MACHINE_VALID_BAZI_LOCAL_SEAL",
       "case_id": "DEV-EXAMPLE-003",
       "common_atom_ids_zeroed": [],
-      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT_RATIO",
+      "decision_basis": "NORMALIZED_COMPOSITE_SUPPORT_COVERAGE",
       "decision_values": {
         "left": {
           "denominator": 4,
@@ -5191,19 +5162,17 @@
       "right_metrics": {
         "composite_support_ratio": {
           "denominator": 3,
-          "numerator": 2
+          "numerator": 1
         },
         "counterevidence_ratio": {
           "denominator": 3,
           "numerator": 0
         },
         "direct_counterevidence_atom_ids": [],
-        "direct_support_atom_ids": [
-          "Q5_D_CAREER_OBSTRUCTION"
-        ],
+        "direct_support_atom_ids": [],
         "direct_support_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 0
         },
         "exact_endpoint_atom_ids": [
           "Q5_D_DEBT",
@@ -5226,11 +5195,12 @@
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_atom_ids": [
+          "Q5_D_CAREER_OBSTRUCTION",
           "Q5_D_SELL_HOUSE"
         ],
         "scene_only_burden_ratio": {
           "denominator": 3,
-          "numerator": 1
+          "numerator": 2
         },
         "source_parent_excerpt_ids": [
           "S05_ZIWEI_POJUN",

@@ -1,19 +1,37 @@
 {
-  "bazi_changed_atom_count": 0,
-  "canonical_sha256": "312540e62952b4b57a207f646c181f7450953b22db8f6334f24d7288fe88fdda",
+  "audit_binding_key_mode": "TRACK_ID_PLUS_ATOM_ID",
+  "bazi_changed_atom_count": 11,
+  "canonical_sha256": "1c8eaa8f62b34b780044037d353428e11d15d774691bb4694dd842f83f3d268e",
   "case_id": "DEV-EXAMPLE-003",
-  "changed_atom_count": 0,
-  "changed_atom_ids": [],
+  "changed_atom_count": 11,
+  "changed_atom_ids": [
+    "Q2_A_LEG_DISABILITY",
+    "Q2_A_MUSIC_ART_HOBBY",
+    "Q2_A_PERFORMANCE_MUSICIAN",
+    "Q2_B_MUSIC_ART_HOBBY",
+    "Q2_C_REBELLIOUS",
+    "Q3_A_START_CURRENT_2013",
+    "Q3_C_BENEFACTOR_2013",
+    "Q3_C_START_CURRENT_2013",
+    "Q4_C_MULTIPLE_RELATIONSHIPS",
+    "Q4_D_DIVORCE_SCENE_2018",
+    "Q5_D_CAREER_OBSTRUCTION"
+  ],
   "group_id": "DEV-GROUP-002",
   "parent_r12_matrix_sha256": "c7cff187d0feda4d050bf8ad9304b5f12dce96dd0004f1a880fcc70075a7ad14",
   "parent_r13_atom_audit_sha256": "d83d8260fabae087556a567a7af1c65ccff5b52c8fcf3a3c4a7a7751695cb391",
   "parent_r13_generic_fix_sha256": "f03435cda6e4c5b7907237059ef05721f63bf33ab52f28844876e9875bcee466",
+  "r14_v1_atom_id_only_collision_corrected": true,
   "round_id": "R14",
   "row_count": 178,
   "rows": [
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_MOTHER_DEATH_NEXT_YEAR",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_A_MOTHER_DEATH_NEXT_YEAR"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -44,6 +62,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_FATHER_SMALL_BUSINESS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_A_FATHER_SMALL_BUSINESS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -74,6 +96,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_FATHER_REMARRIES",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_A_FATHER_REMARRIES"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -86,7 +112,7 @@
       "literal_atom": "父亲另娶",
       "option_id": "A",
       "parent_group": "FAMILY",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q1",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -106,6 +132,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_A_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -135,6 +165,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_YOUNGER_BROTHER_SISTER_ORDER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_A_YOUNGER_BROTHER_SISTER_ORDER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -164,6 +198,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_FATHER_SENIOR_GOV",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_B_FATHER_SENIOR_GOV"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -194,6 +232,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_FATHER_DEATH_2021",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_B_FATHER_DEATH_2021"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -224,6 +266,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_B_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -253,6 +299,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_OLDER_BROTHER_SISTER_ORDER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_B_OLDER_BROTHER_SISTER_ORDER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -282,6 +332,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_MOTHER_HOMEMAKER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_C_MOTHER_HOMEMAKER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -312,6 +366,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_FATHER_SMALL_BUSINESS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_C_FATHER_SMALL_BUSINESS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -342,6 +400,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_ONE_YOUNGER_BROTHER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_C_ONE_YOUNGER_BROTHER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -371,6 +433,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_FATHER_DEATH_1985",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_D_FATHER_DEATH_1985"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -401,6 +467,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_MOTHER_INHERITS_BUSINESS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_D_MOTHER_INHERITS_BUSINESS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -431,6 +501,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_WIDOW_TO_NOW",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_D_WIDOW_TO_NOW"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -461,6 +535,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_D_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -490,6 +568,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_OLDER_SISTER_YOUNGER_BROTHER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q1_D_OLDER_SISTER_YOUNGER_BROTHER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -519,23 +601,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_LEG_DISABILITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_LEG_DISABILITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "PARTIAL_SUPPORT",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "腿脚残疾候选",
       "option_id": "A",
       "parent_group": "IDENTITY",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q2",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "SOURCE_CAPABILITY_LIMITS_DIRECT_RANKING_SUPPORT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "LEG_DISABILITY",
       "source_parent_excerpt_ids": [
@@ -549,6 +637,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_ODD_TEMPER",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_ODD_TEMPER"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -579,23 +671,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_MUSIC_ART_HOBBY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_MUSIC_ART_HOBBY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "PARTIAL_SUPPORT",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "喜好文艺爵士和古典音乐",
       "option_id": "A",
       "parent_group": "ART",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q2",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "SOURCE_CAPABILITY_LIMITS_DIRECT_RANKING_SUPPORT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "MUSIC_ART_HOBBY",
       "source_parent_excerpt_ids": [
@@ -610,23 +708,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_PERFORMANCE_MUSICIAN",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_PERFORMANCE_MUSICIAN"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_MISSING_ENDPOINT",
       "endpoint_closed": false,
       "exact_endpoint_required": true,
       "formal_exact_assertion": null,
       "literal_atom": "现在为演奏乐手",
       "option_id": "A",
       "parent_group": "ART",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q2",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "EXACT_ENDPOINT_REQUIRES_DIRECT_ENDPOINT_PARENT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "PERFORMANCE_MUSICIAN",
       "source_parent_excerpt_ids": [
@@ -641,6 +745,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_SAX_INSTRUMENT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_SAX_INSTRUMENT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -672,6 +780,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -702,6 +814,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_BAND_INDUSTRY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_A_BAND_INDUSTRY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -733,6 +849,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_TALL_BURLY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_B_TALL_BURLY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -763,6 +883,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_STUBBORN",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_B_STUBBORN"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -793,23 +917,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_MUSIC_ART_HOBBY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_B_MUSIC_ART_HOBBY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "PARTIAL_SUPPORT",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "喜好音乐",
       "option_id": "B",
       "parent_group": "ART",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q2",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "SOURCE_CAPABILITY_LIMITS_DIRECT_RANKING_SUPPORT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "MUSIC_ART_HOBBY",
       "source_parent_excerpt_ids": [
@@ -824,6 +954,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_B_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -854,6 +988,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_BAR_INDUSTRY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_B_BAR_INDUSTRY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -885,6 +1023,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_MEDIUM_BUILD",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_MEDIUM_BUILD"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -915,6 +1057,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_DILIGENT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_DILIGENT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -945,23 +1091,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_REBELLIOUS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_REBELLIOUS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "PARTIAL_SUPPORT",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "叛逆",
       "option_id": "C",
       "parent_group": "IDENTITY",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q2",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "SOURCE_CAPABILITY_LIMITS_DIRECT_RANKING_SUPPORT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "REBELLIOUS",
       "source_parent_excerpt_ids": [
@@ -975,6 +1127,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_SPORT_HOBBY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_SPORT_HOBBY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1006,6 +1162,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1036,6 +1196,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_RESTAURANT_INDUSTRY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_C_RESTAURANT_INDUSTRY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1067,6 +1231,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_PREMATURE",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_D_PREMATURE"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1097,6 +1265,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_SICKLY_CHILDHOOD",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_D_SICKLY_CHILDHOOD"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1127,6 +1299,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_GARDENING",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_D_GARDENING"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1158,6 +1334,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_D_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1188,6 +1368,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_REAL_ESTATE_INDUSTRY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q2_D_REAL_ESTATE_INDUSTRY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1218,6 +1402,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_A_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1248,6 +1436,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_MEDICINE_MAJOR",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_A_MEDICINE_MAJOR"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1278,6 +1470,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_GRADUATED",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_A_GRADUATED"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1308,6 +1504,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_CHANGED_FIELD",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_A_CHANGED_FIELD"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1338,23 +1538,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_START_CURRENT_2013",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_A_START_CURRENT_2013"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_MISSING_ENDPOINT",
       "endpoint_closed": false,
       "exact_endpoint_required": true,
       "formal_exact_assertion": null,
       "literal_atom": "2013年从事现在工作",
       "option_id": "A",
       "parent_group": "TIME",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q3",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "EXACT_ENDPOINT_REQUIRES_DIRECT_ENDPOINT_PARENT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "START_CURRENT_2013",
       "source_parent_excerpt_ids": [
@@ -1367,6 +1573,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_B_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1397,6 +1607,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_LIBERAL_ARTS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_B_LIBERAL_ARTS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1427,6 +1641,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_GRADUATED",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_B_GRADUATED"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1457,6 +1675,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_START_CURRENT_2011",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_B_START_CURRENT_2011"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1486,6 +1708,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_PRISON_2019",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_B_PRISON_2019"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1514,6 +1740,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_HIGH_SCHOOL",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_C_HIGH_SCHOOL"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1544,6 +1774,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_WORK_WHILE_STUDY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_C_WORK_WHILE_STUDY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1574,23 +1808,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_BENEFACTOR_2013",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_C_BENEFACTOR_2013"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_MISSING_ENDPOINT",
       "endpoint_closed": false,
       "exact_endpoint_required": true,
       "formal_exact_assertion": null,
       "literal_atom": "2013年得贵人提携",
       "option_id": "C",
       "parent_group": "TIME",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q3",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "EXACT_ENDPOINT_REQUIRES_DIRECT_ENDPOINT_PARENT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "BENEFACTOR_2013",
       "source_parent_excerpt_ids": [
@@ -1603,23 +1843,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_START_CURRENT_2013",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_C_START_CURRENT_2013"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_MISSING_ENDPOINT",
       "endpoint_closed": false,
       "exact_endpoint_required": true,
       "formal_exact_assertion": null,
       "literal_atom": "2013年进入现在工作",
       "option_id": "C",
       "parent_group": "TIME",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q3",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "EXACT_ENDPOINT_REQUIRES_DIRECT_ENDPOINT_PARENT"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "START_CURRENT_2013",
       "source_parent_excerpt_ids": [
@@ -1632,6 +1878,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1662,6 +1912,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_LIBERAL_ARTS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_LIBERAL_ARTS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1692,6 +1946,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_GRADUATED",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_GRADUATED"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1722,6 +1980,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_DROPPED_OUT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_DROPPED_OUT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1752,6 +2014,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1782,6 +2048,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_START_CURRENT_2021",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q3_D_START_CURRENT_2021"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1811,6 +2081,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_ROMANCE_DIFFICULT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_A_ROMANCE_DIFFICULT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1841,6 +2115,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_INTRODUCED",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_A_INTRODUCED"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1871,6 +2149,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_MARRIED_2011",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_A_MARRIED_2011"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1900,6 +2182,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_DAUGHTER_2014",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_A_DAUGHTER_2014"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1929,6 +2215,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_MARRIED_2011",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_MARRIED_2011"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1958,6 +2248,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_MIDDLE_SCHOOL_CLASSMATE",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_MIDDLE_SCHOOL_CLASSMATE"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -1988,6 +2282,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_SHOTGUN",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_SHOTGUN"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2018,6 +2316,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_RELATION_FLAT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_RELATION_FLAT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2048,6 +2350,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_FIRST_SON_2012",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_FIRST_SON_2012"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2077,6 +2383,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_SECOND_SON_2015",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_B_SECOND_SON_2015"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2106,23 +2416,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_MULTIPLE_RELATIONSHIPS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_C_MULTIPLE_RELATIONSHIPS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_SCENE_ONLY",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "多次恋爱",
       "option_id": "C",
       "parent_group": "MARRIAGE",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q4",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "NEUTRAL_TIME_CANNOT_PROVE_OCCURRENCE"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "MULTIPLE_RELATIONSHIPS",
       "source_parent_excerpt_ids": [
@@ -2136,6 +2452,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_UNMARRIED_TO_NOW",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_C_UNMARRIED_TO_NOW"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2166,6 +2486,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_NO_CHILDREN",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_C_NO_CHILDREN"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2178,7 +2502,7 @@
       "literal_atom": "无子女",
       "option_id": "C",
       "parent_group": "CHILD",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q4",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -2197,23 +2521,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_DIVORCE_SCENE_2018",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_D_DIVORCE_SCENE_2018"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_SCENE_ONLY",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "2018年关系分离场景",
       "option_id": "D",
       "parent_group": "MARRIAGE",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q4",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "NEUTRAL_TIME_CANNOT_PROVE_OCCURRENCE"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "DIVORCE_SCENE_2018",
       "source_parent_excerpt_ids": [
@@ -2227,6 +2557,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_REGISTERED_DIVORCE_2018",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_D_REGISTERED_DIVORCE_2018"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2257,6 +2591,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_SINGLE_SINCE",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_D_SINGLE_SINCE"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2287,6 +2625,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_NO_CHILDREN",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q4_D_NO_CHILDREN"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2299,7 +2641,7 @@
       "literal_atom": "无子女",
       "option_id": "D",
       "parent_group": "CHILD",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q4",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -2318,6 +2660,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_A_PARENT_EVENT_2022",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_A_PARENT_EVENT_2022"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2330,7 +2676,7 @@
       "literal_atom": "2022年父母主题事件",
       "option_id": "A",
       "parent_group": "FAMILY",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q5",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -2350,6 +2696,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_A_MOTHER_DEATH",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_A_MOTHER_DEATH"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2380,6 +2730,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_TRAVEL",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_B_TRAVEL"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2409,6 +2763,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_CAR_ACCIDENT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_B_CAR_ACCIDENT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2438,6 +2796,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_INJURY",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_B_INJURY"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2467,6 +2829,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_HEALTH_EVENT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_C_HEALTH_EVENT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2479,7 +2845,7 @@
       "literal_atom": "发生健康事件",
       "option_id": "C",
       "parent_group": "HEALTH",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q5",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -2498,6 +2864,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_COVID",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_C_COVID"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2527,6 +2897,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_OTHER_ILLNESS",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_C_OTHER_ILLNESS"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2556,6 +2930,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_HOSPITAL_4_MONTH",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_C_HOSPITAL_4_MONTH"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2585,23 +2963,29 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_CAREER_OBSTRUCTION",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_D_CAREER_OBSTRUCTION"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
       "direct_event_parent_available": false,
       "direct_score_parent_available": false,
-      "direction_status": "DIRECT_SUPPORT",
+      "direction_status": "LIMITED_SCENE_ONLY",
       "endpoint_closed": false,
       "exact_endpoint_required": false,
       "formal_exact_assertion": null,
       "literal_atom": "事业受阻",
       "option_id": "D",
       "parent_group": "FINANCE",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q5",
       "r12_direction_status": "DIRECT_SUPPORT",
-      "r14_adjustment_reason_ids": [],
+      "r14_adjustment_reason_ids": [
+        "NEUTRAL_TIME_CANNOT_PROVE_OCCURRENCE"
+      ],
       "scene_positive_contribution": 0,
       "short_id": "CAREER_OBSTRUCTION",
       "source_parent_excerpt_ids": [
@@ -2615,6 +2999,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_DEBT",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_D_DEBT"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2645,6 +3033,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_SELL_HOUSE",
+      "audit_binding_key": [
+        "ZIWEI",
+        "Q5_D_SELL_HOUSE"
+      ],
       "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2657,7 +3049,7 @@
       "literal_atom": "卖掉房子填补漏洞",
       "option_id": "D",
       "parent_group": "FINANCE",
-      "parent_r13_atom_audit_status": "PASS_OR_NOT_APPLICABLE",
+      "parent_r13_atom_audit_status": "FAIL_CLOSED",
       "program_state": "EXECUTED",
       "question_id": "Q5",
       "r12_direction_status": "LIMITED_SCENE_ONLY",
@@ -2677,6 +3069,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_MOTHER_DEATH_NEXT_YEAR",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_A_MOTHER_DEATH_NEXT_YEAR"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2710,6 +3106,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_FATHER_SMALL_BUSINESS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_A_FATHER_SMALL_BUSINESS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2743,6 +3143,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_FATHER_REMARRIES",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_A_FATHER_REMARRIES"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2776,6 +3180,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_A_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2809,6 +3217,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_A_YOUNGER_BROTHER_SISTER_ORDER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_A_YOUNGER_BROTHER_SISTER_ORDER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2842,6 +3254,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_FATHER_SENIOR_GOV",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_B_FATHER_SENIOR_GOV"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2875,6 +3291,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_FATHER_DEATH_2021",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_B_FATHER_DEATH_2021"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2908,6 +3328,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_B_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2941,6 +3365,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_B_OLDER_BROTHER_SISTER_ORDER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_B_OLDER_BROTHER_SISTER_ORDER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -2974,6 +3402,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_MOTHER_HOMEMAKER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_C_MOTHER_HOMEMAKER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3007,6 +3439,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_FATHER_SMALL_BUSINESS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_C_FATHER_SMALL_BUSINESS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3040,6 +3476,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_C_ONE_YOUNGER_BROTHER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_C_ONE_YOUNGER_BROTHER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3073,6 +3513,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_FATHER_DEATH_1985",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_D_FATHER_DEATH_1985"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3106,6 +3550,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_MOTHER_INHERITS_BUSINESS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_D_MOTHER_INHERITS_BUSINESS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3139,6 +3587,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_WIDOW_TO_NOW",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_D_WIDOW_TO_NOW"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3172,6 +3624,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_TWO_SIBLINGS_COUNT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_D_TWO_SIBLINGS_COUNT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3205,6 +3661,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q1_D_OLDER_SISTER_YOUNGER_BROTHER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q1_D_OLDER_SISTER_YOUNGER_BROTHER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3238,6 +3698,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_LEG_DISABILITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_LEG_DISABILITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3271,6 +3735,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_ODD_TEMPER",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_ODD_TEMPER"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3304,6 +3772,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_MUSIC_ART_HOBBY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_MUSIC_ART_HOBBY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3337,6 +3809,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_PERFORMANCE_MUSICIAN",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_PERFORMANCE_MUSICIAN"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3370,6 +3846,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_SAX_INSTRUMENT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_SAX_INSTRUMENT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3403,6 +3883,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3436,6 +3920,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_A_BAND_INDUSTRY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_A_BAND_INDUSTRY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3469,6 +3957,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_TALL_BURLY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_B_TALL_BURLY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3502,6 +3994,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_STUBBORN",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_B_STUBBORN"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3535,6 +4031,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_MUSIC_ART_HOBBY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_B_MUSIC_ART_HOBBY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3568,6 +4068,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_B_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3601,6 +4105,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_B_BAR_INDUSTRY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_B_BAR_INDUSTRY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3634,6 +4142,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_MEDIUM_BUILD",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_MEDIUM_BUILD"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3667,6 +4179,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_DILIGENT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_DILIGENT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3700,6 +4216,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_REBELLIOUS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_REBELLIOUS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3733,6 +4253,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_SPORT_HOBBY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_SPORT_HOBBY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3766,6 +4290,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3799,6 +4327,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_C_RESTAURANT_INDUSTRY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_C_RESTAURANT_INDUSTRY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3832,6 +4364,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_PREMATURE",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_D_PREMATURE"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3865,6 +4401,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_SICKLY_CHILDHOOD",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_D_SICKLY_CHILDHOOD"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3898,6 +4438,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_GARDENING",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_D_GARDENING"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3931,6 +4475,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_OWNER_IDENTITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_D_OWNER_IDENTITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3964,6 +4512,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q2_D_REAL_ESTATE_INDUSTRY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q2_D_REAL_ESTATE_INDUSTRY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -3997,6 +4549,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_A_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4030,6 +4586,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_MEDICINE_MAJOR",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_A_MEDICINE_MAJOR"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4063,6 +4623,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_GRADUATED",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_A_GRADUATED"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4096,6 +4660,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_CHANGED_FIELD",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_A_CHANGED_FIELD"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4129,6 +4697,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_A_START_CURRENT_2013",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_A_START_CURRENT_2013"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4162,6 +4734,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_B_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4195,6 +4771,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_LIBERAL_ARTS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_B_LIBERAL_ARTS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4228,6 +4808,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_GRADUATED",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_B_GRADUATED"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4261,6 +4845,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_START_CURRENT_2011",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_B_START_CURRENT_2011"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4294,6 +4882,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_B_PRISON_2019",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_B_PRISON_2019"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4327,6 +4919,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_HIGH_SCHOOL",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_C_HIGH_SCHOOL"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4360,6 +4956,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_WORK_WHILE_STUDY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_C_WORK_WHILE_STUDY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4393,6 +4993,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_BENEFACTOR_2013",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_C_BENEFACTOR_2013"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4426,6 +5030,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_C_START_CURRENT_2013",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_C_START_CURRENT_2013"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4459,6 +5067,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_ELITE_UNIVERSITY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_ELITE_UNIVERSITY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4492,6 +5104,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_LIBERAL_ARTS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_LIBERAL_ARTS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4525,6 +5141,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_GRADUATED",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_GRADUATED"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4558,6 +5178,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_DROPPED_OUT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_DROPPED_OUT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4591,6 +5215,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_INTERNAL_CREDENTIAL_CONTRADICTION"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4624,6 +5252,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q3_D_START_CURRENT_2021",
+      "audit_binding_key": [
+        "BAZI",
+        "Q3_D_START_CURRENT_2021"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4657,6 +5289,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_ROMANCE_DIFFICULT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_A_ROMANCE_DIFFICULT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4690,6 +5326,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_INTRODUCED",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_A_INTRODUCED"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4723,6 +5363,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_MARRIED_2011",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_A_MARRIED_2011"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4756,6 +5400,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_A_DAUGHTER_2014",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_A_DAUGHTER_2014"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4789,6 +5437,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_MARRIED_2011",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_MARRIED_2011"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4822,6 +5474,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_MIDDLE_SCHOOL_CLASSMATE",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_MIDDLE_SCHOOL_CLASSMATE"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4855,6 +5511,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_SHOTGUN",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_SHOTGUN"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4888,6 +5548,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_RELATION_FLAT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_RELATION_FLAT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4921,6 +5585,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_FIRST_SON_2012",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_FIRST_SON_2012"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4954,6 +5622,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_B_SECOND_SON_2015",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_B_SECOND_SON_2015"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -4987,6 +5659,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_MULTIPLE_RELATIONSHIPS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_C_MULTIPLE_RELATIONSHIPS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5020,6 +5696,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_UNMARRIED_TO_NOW",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_C_UNMARRIED_TO_NOW"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5053,6 +5733,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_C_NO_CHILDREN",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_C_NO_CHILDREN"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5086,6 +5770,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_DIVORCE_SCENE_2018",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_D_DIVORCE_SCENE_2018"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5119,6 +5807,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_REGISTERED_DIVORCE_2018",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_D_REGISTERED_DIVORCE_2018"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5152,6 +5844,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_SINGLE_SINCE",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_D_SINGLE_SINCE"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5185,6 +5881,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q4_D_NO_CHILDREN",
+      "audit_binding_key": [
+        "BAZI",
+        "Q4_D_NO_CHILDREN"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5218,6 +5918,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_A_PARENT_EVENT_2022",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_A_PARENT_EVENT_2022"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5251,6 +5955,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_A_MOTHER_DEATH",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_A_MOTHER_DEATH"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5284,6 +5992,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_TRAVEL",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_B_TRAVEL"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5317,6 +6029,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_CAR_ACCIDENT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_B_CAR_ACCIDENT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5350,6 +6066,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_B_INJURY",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_B_INJURY"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5383,6 +6103,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_HEALTH_EVENT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_C_HEALTH_EVENT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5416,6 +6140,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_COVID",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_C_COVID"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5449,6 +6177,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_OTHER_ILLNESS",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_C_OTHER_ILLNESS"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5482,6 +6214,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_C_HOSPITAL_4_MONTH",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_C_HOSPITAL_4_MONTH"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5515,6 +6251,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_CAREER_OBSTRUCTION",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_D_CAREER_OBSTRUCTION"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5548,6 +6288,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_DEBT",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_D_DEBT"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5581,6 +6325,10 @@
     {
       "answer_access_during_adjustment": false,
       "atom_id": "Q5_D_SELL_HOUSE",
+      "audit_binding_key": [
+        "BAZI",
+        "Q5_D_SELL_HOUSE"
+      ],
       "capability_ceiling": "STRUCTURE_OR_TIME_PERMISSION_ONLY_NO_LOCAL_RANK",
       "case_id": "DEV-EXAMPLE-003",
       "direct_endpoint_parent_available": false,
@@ -5612,7 +6360,7 @@
       "track_id": "BAZI"
     }
   ],
-  "schema": "DEV-GROUP-002-R14-ADJUSTED-ATOM-DIRECTION-MATRIX-V1",
+  "schema": "DEV-GROUP-002-R14-ADJUSTED-ATOM-DIRECTION-MATRIX-V2",
   "status": "PASS_GENERIC_CAPABILITY_RULES_APPLIED_BEFORE_ANSWER_ACCESS",
-  "ziwei_changed_atom_count": 0
+  "ziwei_changed_atom_count": 11
 }

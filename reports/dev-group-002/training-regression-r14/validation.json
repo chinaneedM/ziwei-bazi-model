@@ -2,36 +2,26 @@
   "adjusted_atom_rows": 178,
   "atom_level_replayable_pairwise_rows": 30,
   "base_astrological_knowledge_changed": false,
-  "bazi_changed_atom_count": 0,
-  "changed_atom_count": 0,
+  "bazi_changed_atom_count": 11,
+  "changed_atom_count": 11,
   "changed_question_ids": [
     "DEV-EXAMPLE-003:Q2",
+    "DEV-EXAMPLE-003:Q4",
     "DEV-EXAMPLE-003:Q5"
   ],
   "cycle_question_ids": [],
   "dev003_ranks": [
     "CABD",
-    "ABCD",
+    "CBAD",
     "CABD",
-    "CDAB",
+    "ADCB",
     "DCAB"
   ],
-  "dev003_top1": "CACCD",
+  "dev003_top1": "CCCAD",
   "dev003_top2": "ABADC",
-  "error_count": 12,
+  "error_count": 1,
   "errors": [
-    "adjusted matrix counts",
-    "unresolved direct-score ceiling Q2_A_LEG_DISABILITY",
-    "unresolved direct-score ceiling Q2_A_MUSIC_ART_HOBBY",
-    "unresolved direct-score ceiling Q2_A_PERFORMANCE_MUSICIAN",
-    "unresolved direct-score ceiling Q2_B_MUSIC_ART_HOBBY",
-    "unresolved direct-score ceiling Q2_C_REBELLIOUS",
-    "unresolved direct-score ceiling Q3_A_START_CURRENT_2013",
-    "unresolved direct-score ceiling Q3_C_BENEFACTOR_2013",
-    "unresolved direct-score ceiling Q3_C_START_CURRENT_2013",
-    "unresolved direct-score ceiling Q4_C_MULTIPLE_RELATIONSHIPS",
-    "unresolved direct-score ceiling Q4_D_DIVORCE_SCENE_2018",
-    "unresolved direct-score ceiling Q5_D_CAREER_OBSTRUCTION"
+    "adjusted matrix counts"
   ],
   "formal_valid_questions": 0,
   "historical_rounds_preserved": [
@@ -56,12 +46,17 @@
   "processed_case_id": "DEV-EXAMPLE-003",
   "s00_s19_modified": false,
   "s03_fusions": 0,
-  "schema": "DEV-GROUP-002-R14-VALIDATION-V1",
+  "schema": "DEV-GROUP-002-R14-VALIDATION-V2",
   "selection_changed_from_r12": true,
   "status": "FAIL",
-  "top1_delta_from_r12": 0,
-  "top1_hits": 11,
-  "top2_coverage": 14,
-  "top2_delta_from_r12": 0,
-  "ziwei_changed_atom_count": 0
+  "top1_delta_from_r12": -1,
+  "top1_hits": 10,
+  "top2_coverage": 13,
+  "top2_delta_from_r12": -1,
+  "track_aware_audit_binding_fix": {
+    "key_mode": "TRACK_ID_PLUS_ATOM_ID",
+    "selection_or_direction_rule_changed": false,
+    "status": "FAIL"
+  },
+  "ziwei_changed_atom_count": 11
 }

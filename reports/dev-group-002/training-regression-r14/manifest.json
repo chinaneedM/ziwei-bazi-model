@@ -1,24 +1,24 @@
 {
   "artifacts": {
     "adjusted_atom_direction_matrix": {
-      "canonical_sha256": "312540e62952b4b57a207f646c181f7450953b22db8f6334f24d7288fe88fdda",
+      "canonical_sha256": "1c8eaa8f62b34b780044037d353428e11d15d774691bb4694dd842f83f3d268e",
       "path": "reports/dev-group-002/training-regression-r14/adjusted-atom-direction-matrix.json"
     },
     "pairwise_replay": {
-      "canonical_sha256": "96df5cdb8cc41fb77231284aa7d90584fc37dd40a0d693ea757fc595dee68659",
+      "canonical_sha256": "8a82cccfd6f258e64ac7c6ce1b8f89a923bfea61f85bf621a92f483283357e80",
       "path": "reports/dev-group-002/training-regression-r14/pairwise-replay.json"
     },
     "postreveal_review": {
-      "canonical_sha256": "fd527bafcc1f3dd059bf69b41060c95635f1f023e1d53ffe2bcf9e703450ab43",
+      "canonical_sha256": "71d09793a9ffc32bc9769e994b9b6570362c5a78f08a4b2ee9f1f79ef1166a6f",
       "path": "reports/dev-group-002/training-regression-r14/postreveal-review.json"
     },
     "prediction_freeze": {
-      "canonical_sha256": "66e25728d2df73b5a4742ec153146f91a91dda131b92abd1882460acb9fbf4fb",
+      "canonical_sha256": "92ec6f2df86d2f00f0b49cf46d429815d58ed1a6058216e4d1bdad865400360f",
       "path": "reports/dev-group-002/training-regression-r14/prediction-freeze.json"
     }
   },
   "base_astrological_knowledge_changed": false,
-  "canonical_sha256": "dcf5362c7a012f507976c7103e4ae68f5b051dacf0455a8748d258af1c999ef8",
+  "canonical_sha256": "a144a298d2125a965690992e478386c5890cc050fefe359bf055303adfd58317",
   "case_specific_direction_rule_added": false,
   "group_id": "DEV-GROUP-002",
   "historical_rounds": {
@@ -97,8 +97,8 @@
   "statistics": {
     "adjusted_atom_rows": 178,
     "atom_level_replayable_pairwise_rows": 30,
-    "bazi_changed_atom_count": 0,
-    "changed_atom_count": 0,
+    "bazi_changed_atom_count": 11,
+    "changed_atom_count": 11,
     "cycle_question_count": 0,
     "formal_valid_questions": 0,
     "low_information_tiebreak_rows": 1,
@@ -109,9 +109,9 @@
     "question_count": 25,
     "s03_fusions": 0,
     "selection_changed_from_r12": true,
-    "top1_hits": 11,
-    "top2_coverage": 14,
-    "ziwei_changed_atom_count": 0
+    "top1_hits": 10,
+    "top2_coverage": 13,
+    "ziwei_changed_atom_count": 11
   },
   "status": "FROZEN_GENERIC_CAPABILITY_AND_NORMALIZED_BURDEN_REPLAY",
   "training_conclusion": "R14 applies the R13 generic capability, neutral-time, scene-only and normalized burden rules before answer access. Any selection or score change is preserved without answer-derived repair."

@@ -8,7 +8,7 @@
     "DEV-EXAMPLE-004": "CDBAB",
     "DEV-EXAMPLE-005": "DADAB"
   },
-  "canonical_sha256": "fd527bafcc1f3dd059bf69b41060c95635f1f023e1d53ffe2bcf9e703450ab43",
+  "canonical_sha256": "71d09793a9ffc32bc9769e994b9b6570362c5a78f08a4b2ee9f1f79ef1166a6f",
   "case_scores": [
     {
       "case_id": "DEV-EXAMPLE-001",
@@ -22,8 +22,8 @@
     },
     {
       "case_id": "DEV-EXAMPLE-003",
-      "top1_hits": 1,
-      "top2_coverage": 2
+      "top1_hits": 0,
+      "top2_coverage": 1
     },
     {
       "case_id": "DEV-EXAMPLE-004",
@@ -37,17 +37,17 @@
     }
   ],
   "comparison_to_r12": {
-    "top1_delta": 0,
-    "top2_delta": 0
+    "top1_delta": -1,
+    "top2_delta": -1
   },
   "group_id": "DEV-GROUP-002",
-  "parent_prediction_sha256": "66e25728d2df73b5a4742ec153146f91a91dda131b92abd1882460acb9fbf4fb",
+  "parent_prediction_sha256": "92ec6f2df86d2f00f0b49cf46d429815d58ed1a6058216e4d1bdad865400360f",
   "round_id": "R14",
   "schema": "DEV-GROUP-002-R14-POSTREVEAL-REVIEW-V1",
   "totals": {
     "question_count": 25,
     "score_label": "TRAINING_REGRESSION_SCORE",
-    "top1_hits": 11,
-    "top2_coverage": 14
+    "top1_hits": 10,
+    "top2_coverage": 13
   }
 }
