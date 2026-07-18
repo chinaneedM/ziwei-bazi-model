@@ -1,53 +1,73 @@
 # R17 prompt and repository cutover status
 
-## Confirmed project instruction
+## Current result
 
-The active project instruction is `MP-PROFESSIONAL-REASONING-20260718-R17`.
+The active ChatGPT project instruction is `MP-PROFESSIONAL-REASONING-20260718-R17`.
 
-The user supplied the complete active instruction verbatim in the running project conversation. Its canonical UTF-8/LF representation matches the previously calculated candidate fingerprint:
+Canonical prompt fingerprint:
 
 - SHA256: `e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79`
 - bytes: `11702`
 - non-whitespace Unicode code points: `5253`
-- LF count: `84`
 
-This proves the user-confirmed canonical content. It does not claim access to an unavailable raw export of the platform's internal project-setting storage bytes.
+The repository candidate chain now contains:
 
-## Candidate bindings
+- `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2`;
+- `METHOD-R17`;
+- `MODEL-R17-REPOSITORY-SHADOW-V2`;
+- R17 runtime configuration candidate;
+- a completed repository-only non-scoring shadow run.
 
-- prompt snapshot receipt status: `PASS`
-- method candidate: `METHOD-R17`
-- method rule change: `NO_RULE_CHANGE_PROMPT_BINDING_ONLY`
-- knowledge candidate: `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE`
-- source-content commit: `3f823756b2cb9479e5cd9d27978459b7e537eaa8`
-- knowledge manifest object hash: `6d62b5781da2b7be0ef2f0b772b5cf379f1ef4ce3054df7992e160b3d55c00dc`
+## Source delivery
 
-## Composite source materialization
+S00–S18 reuse exact immutable R16 parent files. S19 is reconstructed from a canonical gzip/base64 R17 control-root overlay plus the immutable R16 S19 file.
 
-S00–S18 reuse exact R16 parent files. S19 is produced by byte-prepending the R17 control-root overlay to the immutable R16 S19 file.
-
-Expected S19 output:
+Materialized S19:
 
 - SHA256: `59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91`
 - bytes: `10283817`
 
-Full local materialization using uploaded files whose hashes matched the GitHub R16 manifest passed 20/20 source rows. The generic materializer and overlay-tamper rejection tests passed 2/2.
+Remote Git blob verification passed for all 20 parent files and the canonical overlay container. The original plain-text overlay candidate remains retained as a failed audit object because of a trailing-LF byte mismatch; it is superseded by manifest V2.
 
-## Current hard boundary
+## Shadow validation
+
+Shadow run:
+
+`RUN-R17-ENDPOINT-001`
+
+Status:
 
 ```text
-CUTOVER_STATUS=HOLD_PENDING_REMOTE_IMMUTABLE_READBACK_MODEL_R17_AND_CAUSAL_SHADOW
-FORMAL_RELEASE=NO
-SCORE_ELIGIBILITY=PROHIBITED
+PASS_NONSCORING_REPOSITORY_ONLY_SHADOW
+CAUSAL_USE=PASS
+NO_FALLBACK=PASS
+ANSWER_ISOLATION=PASS
+ACCURACY_OBSERVATION_CREATED=NO
 ```
 
-Remaining gates:
+The run froze its input, coverage plan, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before reasoning. It then materialized two independent local seals, five evidence-ledger rows, twelve method-stage receipts, one required pairwise comparison and a null formal assertion. All ten runtime objects passed remote Git-blob readback.
 
-1. Materialize the composite candidate from an immutable GitHub checkout and verify all 20 files.
-2. Build `MODEL-R17-REPOSITORY-SHADOW-V1` with the resulting code and materialization bindings.
-3. Generate a fresh answer-isolated RUN_CONTRACT, SOURCE_PACKET and METHOD_PACKET before reasoning.
-4. Execute one real non-scoring repository-only shadow run.
-5. Obtain causal-use and no-fallback PASS receipts.
-6. Obtain explicit promotion approval.
+## Activation boundary
 
-The R16 active pointers remain unchanged until these gates pass.
+The active repository pointers still reference R16:
+
+- knowledge: `KNOWLEDGE-R16`;
+- method: `METHOD-R16`;
+- model: `MODEL-R16-REPOSITORY-SHADOW-V2`;
+- runtime configuration: R16.
+
+The frozen activation plan is:
+
+`model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json`
+
+It requires compare-and-swap checks against the current R16 pointer and configuration blobs, PR history cleanup, explicit user approval, post-update readback and an activation receipt.
+
+Current state:
+
+```text
+ACTIVATION_STATUS=READY_NOT_EXECUTED_EXPLICIT_USER_APPROVAL_REQUIRED
+FORMAL_RELEASE=NO
+TRAINING_PERMISSION=BLOCKED_UNTIL_ACTIVATION_AND_FRESH_GROUP_CONTRACT
+```
+
+After activation, case count, question count and training thresholds are not fixed by this configuration. They are controlled by the frozen `GROUP_MANIFEST`, `RUN_CONTRACT` and `LEARNING_POLICY` for each training group.
