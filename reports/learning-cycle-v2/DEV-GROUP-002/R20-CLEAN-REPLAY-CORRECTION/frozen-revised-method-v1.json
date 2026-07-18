@@ -1,5 +1,5 @@
 {
-  "schema": "DEV-GROUP-002-R20-FROZEN-REVISED-METHOD-V1",
+  "schema": "DEV-GROUP-002-R20-FROZEN-REVISED-METHOD-V2",
   "round_id": "R20",
   "group_id": "DEV-GROUP-002",
   "method_role": "POST_REVEAL_LEARNED_GENERIC_METHOD_FROZEN_BEFORE_CLEAN_REPLAY",
@@ -41,8 +41,8 @@
       "instruction": "用户提供的紫微盘和八字盘分别只读冻结；子时、换日、时辰或交运边界形成合法差异时分轨保留，禁止结果选版、跨轨覆盖和混合拼盘。"
     },
     {
-      "rule_id": "R20-M9-ALL-QUESTIONS-RETAINED-WITH-CAPABILITY-BOUNDARY",
-      "instruction": "固定基准的25题全部参与相对选择和评分。含性取向、亲密行为或关系人格措辞的选项按原文字面作为基准候选处理；不得由单例建立普遍性敏感属性规律，正式精确断言证据不足时为NULL。"
+      "rule_id": "R20-M9-ALL-QUESTIONS-NORMAL-BENCHMARK",
+      "instruction": "固定训练集25题全部是正常题目，全部按题干和选项原文字面使用同一套推理、证据、时间、现实终点与成对裁决流程；不因题材设置排除、降权或特殊处理。"
     },
     {
       "rule_id": "R20-M10-COMMON-ATOM-AND-PAIRWISE",
@@ -64,5 +64,5 @@
   "formal_exact_assertion_policy": "EVIDENCE_INSUFFICIENT_MAY_BE_NULL_WITHOUT_ERASING_RELATIVE_CHOICE",
   "base_astrological_knowledge_change": "NONE_FROM_SINGLE_CASE",
   "status": "FROZEN_AWAITING_INDEPENDENT_CLEAN_REPLAY",
-  "object_hash": "cb6992de782763b311d736b5b37ecf13373cd10c7cc2cf6deba41ec0ad170f0c"
+  "object_hash": "158bf39eaae98a537f9aee589623517a051df71943761d9242ed59743d36928d"
 }
