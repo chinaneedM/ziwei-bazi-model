@@ -1,4 +1,4 @@
-name: materialize-dev-group-002-training-regression-r16
+name: validate-dev-group-002-training-regression-r16
 
 on:
   pull_request:
@@ -8,21 +8,15 @@ on:
       - ready_for_review
       - synchronize
     paths:
-      - 'reports/dev-group-002/training-regression-r16/payload-b85/**'
-      - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
-  push:
-    branches:
-      - agent/dev-group-002-training-regression-r1
-    paths:
-      - 'reports/dev-group-002/training-regression-r16/payload-b85/**'
+      - 'reports/dev-group-002/training-regression-r16/**'
       - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  materialize:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,52 +26,45 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Decode deterministic R16 materializer
+      - name: Replay R16 validation without writes
+        run: |
+          python reports/dev-group-002/training-regression-r16/materialize_validate.py --repo-root . --validate
+      - name: Assert frozen R16 receipt
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
-          import base64
-          import hashlib
-          import runpy
-          import zlib
 
-          payload_dir = Path('reports/dev-group-002/training-regression-r16/payload-b85')
-          parts = sorted(payload_dir.glob('part*'))
-          if not parts:
-              raise SystemExit('R16 Base85 payload parts are missing')
-          pieces = []
-          for part in parts:
-              if part.suffix == '.py':
-                  pieces.append(runpy.run_path(str(part))['PART'])
-              else:
-                  pieces.append(''.join(part.read_text(encoding='utf-8-sig').split()))
-          encoded = ''.join(pieces)
-          if len(encoded) != 19423:
-              raise SystemExit(f'R16 encoded length mismatch: {len(encoded)}')
-          compressed = base64.b85decode(encoded)
-          compressed_sha = hashlib.sha256(compressed).hexdigest()
-          if compressed_sha != '99981e4efe4f9a4f09dc12be732e8cc3c939538c576725869451880195a14844':
-              raise SystemExit(f'R16 compressed SHA mismatch: {compressed_sha}')
-          script = zlib.decompress(compressed)
-          script_sha = hashlib.sha256(script).hexdigest()
-          if script_sha != '49538f865e1153c41c071f50aa18201e095e89bcf7820414488e57b189e11894':
-              raise SystemExit(f'R16 script SHA mismatch: {script_sha}')
-          target = Path('reports/dev-group-002/training-regression-r16/materialize_validate.py')
-          target.write_bytes(script)
-          print(f'payload_parts={len(parts)} encoded_chars={len(encoded)} compressed_bytes={len(compressed)} decoded_bytes={len(script)}')
-          print(f'compressed_sha256={compressed_sha} script_sha256={script_sha}')
+          validation = json.loads(Path('reports/dev-group-002/training-regression-r16/validation.json').read_text(encoding='utf-8'))
+          expected = {
+              'status': 'PASS',
+              'processed_case_id': 'DEV-EXAMPLE-004',
+              'frozen_interface_id': 'TR-R14-CAPABILITY-NEUTRAL-TIME-SCENE-NORMALIZED-BURDEN-V1',
+              'source_excerpt_count': 20,
+              'literal_atom_direction_rows': 90,
+              'ziwei_atom_direction_rows': 45,
+              'bazi_atom_direction_rows': 45,
+              'common_atom_pair_rows': 30,
+              'atom_level_replayable_pairwise_rows': 30,
+              'pairwise_rows': 30,
+              'formal_valid_questions': 0,
+              'machine_valid_local_seals': 0,
+              's03_fusions': 0,
+              'formal_release_permission': 'NO',
+              'new_external_case_admission': 'BLOCKED',
+              'answer_visible_score_tuning_permission': 'NO',
+              'top1_hits': 9,
+              'top2_coverage': 13,
+          }
+          for key, value in expected.items():
+              actual = validation.get(key)
+              if actual != value:
+                  raise SystemExit(f'{key}: expected {value!r}, got {actual!r}')
+          if validation.get('dev004_ranks') != ['CABD', 'BACD', 'CDAB', 'BCDA', 'DBCA']:
+              raise SystemExit('DEV-EXAMPLE-004 rank vector mismatch')
+          if validation.get('cycle_rows') != []:
+              raise SystemExit('pairwise cycle detected')
+          print('R16 frozen validation receipt PASS')
           PY
-      - name: Materialize and validate R16
-        run: |
-          python reports/dev-group-002/training-regression-r16/materialize_validate.py --repo-root . --write --validate
-      - name: Commit deterministic R16 objects
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add reports/dev-group-002/training-regression-r16
-          if git diff --cached --quiet; then
-            echo 'R16 objects already materialized'
-          else
-            git commit -m 'Materialize DEV-GROUP-002 R16 frozen-interface replay [skip ci]'
-            git push origin HEAD:agent/dev-group-002-training-regression-r1
-          fi
+      - name: Assert validation is read-only
+        run: git diff --exit-code
