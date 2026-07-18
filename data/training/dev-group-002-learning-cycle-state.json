@@ -2,12 +2,12 @@
   "schema": "LEARNING-CYCLE-V2.1",
   "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
   "group_id": "DEV-GROUP-002",
-  "status": "SAME_SET_TRAINING_FIT_TARGET_MET_AWAITING_USER_NEW_CASES",
+  "status": "SAME_SET_RETRAINING_ACTIVE_CLEAN_REPLAY_NOT_YET_PROVEN",
   "bindings": {
     "branch": "agent/dev-group-002-training-regression-r1",
     "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
     "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1",
-    "reshaping_round_id": "R19"
+    "clean_replay_correction_round_id": "R20"
   },
   "completed_case_batches": [
     "DEV-EXAMPLE-001-BATCH-Q1-Q5",
@@ -18,56 +18,56 @@
   ],
   "runtime_corrections": {
     "DEV-EXAMPLE-004": "LEGAL_ZI_HOUR_DAY_CHANGE_VARIATION_USER_PROVIDED_BAZI_REINSTATED",
-    "progression": "BELOW_TARGET_MUST_RESHAPE_SAME_SET_BEFORE_NEW_BLOCK"
+    "progression": "BELOW_TARGET_MUST_RESHAPE_AND_THEN_RUN_CLEAN_ANSWER_ISOLATED_REPLAY",
+    "R19": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST"
   },
-  "excluded_training_units": [
-    "DEV-EXAMPLE-002-Q4",
-    "DEV-EXAMPLE-005-Q2",
-    "DEV-EXAMPLE-005-Q5"
-  ],
+  "benchmark_scope": {
+    "question_count": 25,
+    "excluded_questions": [],
+    "special_handling": {
+      "DEV-EXAMPLE-002-Q4": "Retain as opaque benchmark option; no general sexual-orientation inference rule and no formal exact assertion.",
+      "DEV-EXAMPLE-005-Q2": "Retain as historical-event question.",
+      "DEV-EXAMPLE-005-Q5": "Retain as relationship/personality question."
+    }
+  },
   "historical_first_blind_accuracy": {
-    "distinct_eligible_question_count": 22,
+    "distinct_question_count": 25,
     "top1_hits": 7,
-    "top1_rate": 0.3181818181818182,
-    "top2_hits": 13,
-    "top2_rate": 0.5909090909090909,
+    "top1_rate": 0.28,
+    "top2_hits": 15,
+    "top2_rate": 0.6,
     "immutable": true,
     "role": "HISTORICAL_AUDIT_ONLY"
   },
-  "same_set_training_fit": {
-    "eligible_question_count": 22,
-    "top1_hits": 22,
-    "top1_rate": 1.0,
-    "top2_hits": 22,
-    "top2_rate": 1.0,
-    "order_perturbation_attempts": 110,
-    "stable_attempts": 110,
-    "stability_rate": 1.0,
+  "r19_answer_aligned_reconstruction": {
+    "reported_top1": "22/22",
+    "reported_top2": "22/22",
+    "independent_retest_validity": "INVALID",
+    "reason": "Revealed answers were directly used to materialize training ranks.",
+    "role": "POST_REVEAL_EXPLANATION_ONLY_NOT_PASS_GATE"
+  },
+  "r20_clean_replay": {
+    "protocol_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
+    "protocol_object_hash": "baf903a3ec1cd2d855195ecb9bb6d5507e1225130766a23ed370c24d61e3056b",
+    "method_freeze": "REQUIRED_BEFORE_EXECUTION",
+    "answer_isolated_prediction": "NOT_YET_EXECUTED",
+    "scoring_scope": "ALL_25_QUESTIONS",
     "target_top1": 0.8,
     "target_top2": 0.9,
-    "gate_status": "PASS",
-    "role": "POST_REVEAL_TRAINING_FIT_NOT_BLIND_ACCURACY"
-  },
-  "r19_artifacts": {
-    "generic_interface_path": "reports/learning-cycle-v2/DEV-GROUP-002/R19-UNIFIED-RESHAPING/generic-interface-v1.json",
-    "generic_interface_object_hash": "bba8e9f2922949fd7c62b73857ebe1453aadc5c242b25257a4f9fd2a37f6fff2",
-    "replay_matrix_path": "reports/learning-cycle-v2/DEV-GROUP-002/R19-UNIFIED-RESHAPING/unified-replay-matrix-v1.json",
-    "replay_matrix_object_hash": "65194a4096eb6928fd29cdec6af96aea73923e5dea4bf2160b0c3a1206b0d8fe",
-    "completion_receipt_path": "reports/learning-cycle-v2/DEV-GROUP-002/R19-UNIFIED-RESHAPING/completion-receipt-v1.json",
-    "completion_receipt_object_hash": "ad5ad2c6de6f90ae622436c592218a22dcb51b8637fb0a04fe4341020a0dcf8c"
+    "pass_threshold": "TOP1_AT_LEAST_20_OF_25_AND_TOP2_AT_LEAST_23_OF_25",
+    "current_session_cleanliness": "CONTAMINATED_BY_PRIOR_ANSWER_ACCESS"
   },
   "claim_boundary": {
     "original_predictions": "IMMUTABLE",
-    "same_set_training_target": "MET",
-    "blind_accuracy_target": "NOT_RETROACTIVELY_CHANGEABLE",
+    "training_target": "NOT_YET_PROVEN_BY_CLEAN_REPLAY",
     "formal_exact_assertions": "ALL_NULL",
     "base_knowledge_promotion": "NONE",
     "s03_fusion": "NOT_PERFORMED_WITHOUT_MACHINE_VALID_LOCAL_SEALS",
     "unseen_generalization": "NOT_PROVEN",
     "formal_release": "NO"
   },
-  "next_required_action": "NO_AUTOMATIC_NEW_BLOCK; USER_MAY_SUPPLY_NEW_CASES_AFTER_ACCEPTING_SAME_SET_TRAINING_FIT",
-  "parent_state_object_hash": "17bb2867326da54e08763551750dbb3a3e638c19eddc1b50e1d1d87d91b75256",
-  "updated_at": "2026-07-18T13:05:00+00:00",
-  "object_hash": "9ef707444d2da1a3a53b5dd1bd5df9192325bc3a95cf571c40d4142af14fe435"
+  "next_required_action": "FREEZE_REVISED_METHOD_AND_EXECUTE_ALL_25_QUESTIONS_IN_AN_INDEPENDENT_ANSWER_ISOLATED_RUNTIME_BEFORE_REVEAL_AND_SCORING",
+  "parent_state_object_hash": "9ef707444d2da1a3a53b5dd1bd5df9192325bc3a95cf571c40d4142af14fe435",
+  "updated_at": "2026-07-18T13:25:00+00:00",
+  "object_hash": "de9668a4ce5a69a87cb091846b1a94399a7f78fcb14f735a8599c1e66ddf5ce0"
 }
