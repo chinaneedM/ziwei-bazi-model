@@ -1,6 +1,12 @@
 name: materialize-dev-group-002-training-regression-r16
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'reports/dev-group-002/training-regression-r16/payload/**'
+      - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
   push:
     branches:
       - agent/dev-group-002-training-regression-r1
