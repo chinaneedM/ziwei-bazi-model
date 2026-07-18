@@ -37,17 +37,23 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import base64
+          import hashlib
           import zlib
 
           payload_dir = Path('reports/dev-group-002/training-regression-r16/payload')
           parts = sorted(payload_dir.glob('part*.txt'))
           if not parts:
               raise SystemExit('R16 payload parts are missing')
-          encoded = ''.join(part.read_text(encoding='utf-8').strip() for part in parts)
-          script = zlib.decompress(base64.b64decode(encoded))
+          encoded = ''.join(part.read_text(encoding='utf-8-sig') for part in parts)
+          encoded = ''.join(encoded.split())
+          print(f'payload_parts={len(parts)} encoded_chars={len(encoded)} prefix={encoded[:12]!r} suffix={encoded[-12:]!r}')
+          padding = '=' * (-len(encoded) % 4)
+          compressed = base64.b64decode(encoded + padding, validate=True)
+          print(f'compressed_bytes={len(compressed)} compressed_sha256={hashlib.sha256(compressed).hexdigest()} magic={compressed[:8].hex()}')
+          script = zlib.decompress(compressed)
           target = Path('reports/dev-group-002/training-regression-r16/materialize_validate.py')
           target.write_bytes(script)
-          print(f'decoded {len(script)} bytes from {len(parts)} payload part(s)')
+          print(f'decoded_bytes={len(script)} script_sha256={hashlib.sha256(script).hexdigest()}')
           PY
       - name: Materialize and validate R16
         run: |
