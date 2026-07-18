@@ -43,6 +43,19 @@ A question may be training-complete even when its original first-blind predictio
 
 Evaluation and advancement are separate operations. `evaluate-question` may return `advance_allowed=true`, but the active state does not enter the next question until the separate `advance` operation is executed.
 
+## Case-batch execution with question-independent settlement
+
+A five-question case should be executed as one shared case batch when the same frozen chart, Bazi foundation, source whitelist, answer isolation, and entity topology apply to all five questions. Shared preparation is materialized once, then each question keeps an independent reasoning-correction object, first-blind score, direction matrix, pairwise rows, strongest competitor, formal endpoint status, and completion receipt.
+
+Batch execution does not merge five questions into one accuracy observation or one reasoning object. It changes execution efficiency, not the scoring or audit unit:
+
+- **execution unit:** one case batch;
+- **training and audit unit:** one question;
+- **accuracy unit:** one immutable first-blind prediction per distinct question;
+- **generalization unit:** later frozen unseen cases, not repeated questions from the same case.
+
+A batch may therefore activate Q2–Q5 together while retaining `TRAINING_UNIT_COMPLETE` only for questions whose individual correction gates actually pass. Candidate post-reveal ranks inside the batch remain training hypotheses until their question-level correction objects and validators are complete.
+
 ## Required reasoning-correction object
 
 `TRAINING_UNIT_COMPLETE` requires a content-addressed `REASONING-CORRECTION-OBJECT-V2.1`, not only boolean completion flags. The object must contain:
