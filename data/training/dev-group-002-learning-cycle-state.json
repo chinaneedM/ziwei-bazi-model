@@ -2,12 +2,12 @@
   "schema": "LEARNING-CYCLE-V2.1",
   "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
   "group_id": "DEV-GROUP-002",
-  "status": "SAME_SET_RETRAINING_ACTIVE_CLEAN_REPLAY_NOT_YET_PROVEN",
+  "status": "SOURCE_BASELINE_REBUILD_ACTIVE_BEFORE_CLEAN_SAME_SET_RETEST",
   "bindings": {
     "branch": "agent/dev-group-002-training-regression-r1",
     "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
     "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1",
-    "clean_replay_correction_round_id": "R20"
+    "source_learning_round_id": "R21"
   },
   "completed_case_batches": [
     "DEV-EXAMPLE-001-BATCH-Q1-Q5",
@@ -16,17 +16,18 @@
     "DEV-EXAMPLE-004-BATCH-Q1-Q5",
     "DEV-EXAMPLE-005-BATCH-Q1-Q5"
   ],
-  "runtime_corrections": {
-    "DEV-EXAMPLE-004": "LEGAL_ZI_HOUR_DAY_CHANGE_VARIATION_USER_PROVIDED_BAZI_REINSTATED",
-    "progression": "BELOW_TARGET_MUST_RESHAPE_AND_THEN_RUN_CLEAN_ANSWER_ISOLATED_REPLAY",
-    "R19": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST",
-    "question_scope": "ALL_25_USER_PROVIDED_QUESTIONS_ARE_NORMAL_TRAINING_QUESTIONS"
+  "training_semantics": {
+    "user_intended_loop": "REVEAL_DIAGNOSE_REVISE_SOURCE_LIBRARIES_INSTALL_NEW_BASELINE_FRESH_CONTEXT_RETEST_SAME_QUESTIONS_REPEAT_UNTIL_TARGET",
+    "same_set_retest_role": "VALIDATE_KNOWLEDGE_ABSORPTION_AND_REPRODUCIBLE_USE_OF_REVISED_BASELINE",
+    "new_unseen_cases_role": "VALIDATE_GENERALIZATION_AFTER_SAME_SET_TARGET",
+    "model_weight_training_claim": "NO",
+    "project_learning_mechanism": "VERSIONED_SOURCE_LIBRARIES_RUNTIME_RULES_AND_ANSWER_ISOLATED_RETEST"
   },
   "benchmark_scope": {
     "question_count": 25,
     "excluded_questions": [],
     "special_handling": [],
-    "policy": "USE_EVERY_STEM_AND_OPTION_LITERALLY_WITH_THE_SAME_TRAINING_AND_SCORING_RULES"
+    "policy": "ALL_USER_PROVIDED_QUESTIONS_ARE_NORMAL_TRAINING_QUESTIONS"
   },
   "historical_first_blind_accuracy": {
     "distinct_question_count": 25,
@@ -34,42 +35,39 @@
     "top1_rate": 0.28,
     "top2_hits": 15,
     "top2_rate": 0.6,
-    "immutable": true,
-    "role": "HISTORICAL_AUDIT_ONLY"
+    "immutable": true
   },
-  "r19_answer_aligned_reconstruction": {
-    "reported_top1": "22/22",
-    "reported_top2": "22/22",
-    "independent_retest_validity": "INVALID",
-    "reason": "Revealed answers were directly used to materialize training ranks.",
-    "role": "POST_REVEAL_EXPLANATION_ONLY_NOT_PASS_GATE"
+  "invalidated_shortcuts": {
+    "R19_22_OF_22": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST",
+    "METHOD_ONLY_FREEZE": "INSUFFICIENT_WITHOUT_MATERIALIZED_REVISED_SOURCE_BASELINE"
   },
-  "r20_clean_replay": {
-    "correction_protocol_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
-    "correction_protocol_object_hash": "d5605488cc6cd4ac042304ba1a54c62a2f92afe2c1a8ff93e4936a29f9f3edab",
-    "frozen_method_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/frozen-revised-method-v1.json",
-    "frozen_method_object_hash": "158bf39eaae98a537f9aee589623517a051df71943761d9242ed59743d36928d",
-    "clean_run_manifest_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/clean-run-manifest-v1.json",
-    "clean_run_manifest_object_hash": "9c5c576b0e1df176664b011c263b3544af80d31676034c0725e8fcbb572503f7",
-    "method_freeze": "PASS",
-    "answer_isolated_prediction": "NOT_YET_EXECUTED",
-    "scoring_scope": "ALL_25_QUESTIONS",
-    "target_top1": 0.8,
-    "target_top2": 0.9,
-    "pass_threshold": "TOP1_AT_LEAST_20_OF_25_AND_TOP2_AT_LEAST_23_OF_25",
-    "current_session_cleanliness": "CONTAMINATED_BY_PRIOR_ANSWER_ACCESS"
+  "r21_source_learning_loop": {
+    "spec_path": "reports/learning-cycle-v2/DEV-GROUP-002/R21-SOURCE-BASELINE-LEARNING-LOOP/source-learning-loop-spec-v1.json",
+    "spec_object_hash": "9290856cab470b6c1277ff6e170ff40c03dcb2e4cdf0a25740bd555bd37e3ee7",
+    "patch_plan_path": "reports/learning-cycle-v2/DEV-GROUP-002/R21-SOURCE-BASELINE-LEARNING-LOOP/source-patch-plan-v1.json",
+    "patch_plan_object_hash": "3502a79a6f33a2a6b68dd39d31094789417567b74b6bd8c59e97da744e09cb7a",
+    "confirmed_source_knowledge_gaps": [],
+    "existing_knowledge_execution_defects": 8,
+    "runtime_repository_lifecycle_defects": 1,
+    "candidate_patch_diffs": "NOT_YET_MATERIALIZED",
+    "candidate_complete_s00_s19_baseline": "NOT_YET_MATERIALIZED",
+    "candidate_install_receipt": "NOT_YET_CREATED",
+    "fresh_context_same_set_retest": "BLOCKED_UNTIL_CANDIDATE_BASELINE_INSTALLED"
+  },
+  "target": {
+    "top1": "AT_LEAST_20_OF_25",
+    "top2": "AT_LEAST_23_OF_25",
+    "answer_contamination_tolerance": 0
   },
   "claim_boundary": {
-    "original_predictions": "IMMUTABLE",
-    "training_target": "NOT_YET_PROVEN_BY_CLEAN_REPLAY",
+    "training_target": "NOT_YET_PROVEN",
     "formal_exact_assertions": "ALL_NULL",
-    "base_knowledge_promotion": "NONE",
-    "s03_fusion": "NOT_PERFORMED_WITHOUT_MACHINE_VALID_LOCAL_SEALS",
+    "base_knowledge_promotion": "NO_UNTIL_SOURCE_GAP_PROVEN_AND_APPROVED",
     "unseen_generalization": "NOT_PROVEN",
     "formal_release": "NO"
   },
-  "next_required_action": "EXECUTE_R20_FROZEN_METHOD_ON_ALL_25_QUESTIONS_IN_A_FRESH_RUNTIME_WITH_ANSWER_VAULT_AND_PRIOR_RANKS_DENIED_THEN_FREEZE_PREDICTIONS_BEFORE_REVEAL",
-  "parent_state_object_hash": "8ac05a7df4ca7955d06eb0d1c2a85d2155f14b64fcc37a2f955f4dbe8c0f21db",
-  "updated_at": "2026-07-18T13:55:00+00:00",
-  "object_hash": "61836c40b4044703a8becb125f982001e19e0684b60d6f414182581fa245f992"
+  "next_required_action": "MATERIALIZE_R21_CANDIDATE_PATCH_MANIFEST_AND_RESPONSIBLE_LIBRARY_DIFFS_THEN_BUILD_INSTALL_AND_BIND_A_COMPLETE_CANDIDATE_S00_S19_BASELINE",
+  "parent_state_object_hash": "61836c40b4044703a8becb125f982001e19e0684b60d6f414182581fa245f992",
+  "updated_at": "2026-07-18T14:20:00+00:00",
+  "object_hash": "2c76f7bc75604bf342125af5a1552b90cc5fb442bc2a4fce7f00942c95af8802"
 }
