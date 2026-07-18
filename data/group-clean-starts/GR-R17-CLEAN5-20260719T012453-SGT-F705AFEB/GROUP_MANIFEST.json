@@ -1,0 +1,158 @@
+{
+  "answer_isolation": {
+    "dataset_manifest_answer_payload_present": false,
+    "dataset_manifest_runtime_answer_scan": "PASS",
+    "formal_r17_answer_vault_outside_environment_proof": "MISSING_OR_UNVERIFIED",
+    "prediction_context_answer_visibility": false,
+    "status": "INSUFFICIENT_FOR_R17_PASS"
+  },
+  "case_order": [
+    "DEV-EXAMPLE-001",
+    "DEV-EXAMPLE-002",
+    "DEV-EXAMPLE-003",
+    "DEV-EXAMPLE-004",
+    "DEV-EXAMPLE-005"
+  ],
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "case_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-001",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+      "input_sha256": "4f3988421946cff85c60d67bcf5aa9792386ecac613c8f48e04ef8ffc015c9d8",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "case_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-002",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+      "input_sha256": "f985216512cc8a0ef5a87c96a2ce79b34d33830f4dac83f4238d8f92b441e7ee",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "case_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-003",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+      "input_sha256": "e48b0846c7152d12a7f506cedf62fae8d6eda9cb78a0c1dde47a2d201bae966c",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "case_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-004",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-004.json",
+      "input_sha256": "3fc06c55ca3a9271158fe92acbfb8b0f2384b288b87645ef26ec3f96e1fc1430",
+      "question_count": 5
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "case_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB-DEV-EXAMPLE-005",
+      "input_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-005.json",
+      "input_sha256": "6d58be64ced29efdb618c72fc3d1ceb5482571ba632087cd61e5bda03ce280cf",
+      "question_count": 5
+    }
+  ],
+  "created_at": "2026-07-19T01:24:53.523283+08:00",
+  "dataset_registration": {
+    "answer_payload_present": false,
+    "case_count": 5,
+    "github_blob_sha": "cb84a60f6997d316957b9c26229d128a50cf708a",
+    "path": "training-data/DEV-GROUP-002/manifest.json",
+    "question_count_total": 25,
+    "runtime_answer_scan": "PASS",
+    "status": "READY_FOR_BASELINE_PREDICTION"
+  },
+  "exact_allowed_pre_freeze_paths": [
+    "scripts/create-group-clean-start.py",
+    "src/fortune_v1/clean_start.py",
+    ".github/workflows/manual-group-clean-start.yml",
+    "training-data/DEV-GROUP-002/manifest.json",
+    "reports/install-state.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-002.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-004.json",
+    "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-005.json"
+  ],
+  "execution": {
+    "answer_vector_literal_replay": "FORBIDDEN",
+    "bazi_local_seal": "NOT_PERFORMED",
+    "freeze_receipt": null,
+    "group_prediction_freeze": "NOT_PERFORMED",
+    "input_freeze": "NOT_PERFORMED",
+    "method_packet": "NOT_PERFORMED",
+    "run_contract": "NOT_PERFORMED",
+    "scoring": null,
+    "source_packet": "NOT_PERFORMED",
+    "training_success_claim": null,
+    "ziwei_local_seal": "NOT_PERFORMED"
+  },
+  "forbidden_pre_freeze_resources": [
+    "answers",
+    "answer_vectors",
+    "answer_vault",
+    "prior_predictions",
+    "prior_rankings",
+    "prior_winners",
+    "prior_reveals",
+    "prior_scores",
+    "prior_accuracy",
+    "diagnosis",
+    "post_reveal_reasoning",
+    "training_fit_objects",
+    "SHADOW_REBUILD",
+    "old_run_directories",
+    "commit_history",
+    "pull_request_history",
+    "repository_global_search"
+  ],
+  "frozen_targets": {
+    "regression_damage_tolerance": 0,
+    "required_clean_replay_rounds": 5,
+    "score_name": "CLEAN_BLIND_REPLAY_TRAINING_FIT_ACCURACY",
+    "top1_minimum": 0.8,
+    "top2_minimum": 0.9
+  },
+  "group_id": "DEV-GROUP-002",
+  "group_run_id": "GR-R17-CLEAN5-20260719T012453-SGT-F705AFEB",
+  "group_session_id": "CHAT-R17-20260719T012453-SGT-F4BD16",
+  "hold_reason": "Current clean input registration exposes an R16 case binding and the exact R17 release object paths/hashes are not verified within the allowed pre-freeze path set. Prediction must not start.",
+  "installation_state": {
+    "code_commit": "72872bdf492e40d7586ee94cdad7aba3a3e7fdd5",
+    "github_blob_sha": "da0e56cc83f0bf187f0bbfb01c32aeeb89818d3f",
+    "path": "reports/install-state.json",
+    "r17_binding_verified": false,
+    "status": "INSTALLED_VALIDATED"
+  },
+  "object_sha256": "272f39a896902aed60c5e2644b1b0391109a33d17d2f403372f7d556f8d24668",
+  "precontent_gate_findings": [
+    {
+      "finding_id": "R17-BINDING-MISMATCH-001",
+      "observed_main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+      "observed_source_baseline_tag": "source-baseline-S00-S19-R16",
+      "path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-001.json",
+      "required_knowledge_release": "KNOWLEDGE-R17",
+      "required_main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+      "result": "FAIL_CLOSED"
+    },
+    {
+      "finding_id": "R17-ACTIVE-OBJECT-PATHS-002",
+      "missing_verified_exact_paths_or_hashes": [
+        "KNOWLEDGE-R17",
+        "METHOD-R17",
+        "MODEL-R17-REPOSITORY-ACTIVE-V1",
+        "LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1"
+      ],
+      "result": "HOLD"
+    }
+  ],
+  "requested_binding": {
+    "clean_start_schema": "GROUP-CLEAN-START-V1",
+    "knowledge_release": "KNOWLEDGE-R17",
+    "learning_policy": "LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "method_release": "METHOD-R17",
+    "model_release": "MODEL-R17-REPOSITORY-ACTIVE-V1"
+  },
+  "runtime_mode": "CHAT_ONLY",
+  "schema": "GROUP-RUN-MANIFEST-R17-V1",
+  "status": "HOLD_PRECONTENT_BINDING_MISMATCH"
+}
