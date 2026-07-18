@@ -45,7 +45,7 @@ The authoritative runtime state is the machine-generated `reports/install-state.
 - the verified R16 main-prompt audit snapshot, retained as historical binding evidence rather than project runtime authority;
 - the user-installed R17 project instruction, with repository exact-byte snapshot and S19 rebinding still pending;
 - the `METHOD-R17` no-rule-change prompt-binding candidate;
-- the deterministic R17 prompt/S19 cutover builder and its isolated positive and negative tests;
+- the deterministic two-phase R17 prompt/S19 cutover builder and its isolated positive and negative tests;
 - the physically separate answer vault and reverse-grading workflows;
 - bidirectional token-scope denial and absence of any vault credential in the runtime repository;
 - static and synthetic validation;
@@ -105,7 +105,7 @@ PYTHONPATH=src python -m fortune_v1.cli import-source-package \
   --migrate-destination knowledge/base
 ```
 
-Capture the exact operator-exported R17 project instruction and build the complete S19-only knowledge candidate after the export passes:
+Capture the exact operator-exported R17 project instruction:
 
 ```bash
 python scripts/build_r17_prompt_cutover.py snapshot \
@@ -113,13 +113,31 @@ python scripts/build_r17_prompt_cutover.py snapshot \
   --output-text model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt \
   --output-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
   --expected-normalized-sha256 e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79
+```
 
-python scripts/build_r17_prompt_cutover.py knowledge-candidate \
-  --base-dir knowledge/base \
-  --base-manifest knowledge/base/release-manifest-R16.json \
+Build the S19-only knowledge candidate in two phases so the manifest cannot circularly claim the commit that creates itself. First stage and commit the exact 20-file source set plus stage receipt:
+
+```bash
+python scripts/build_r17_prompt_cutover.py knowledge-candidate-stage \
   --prompt-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
-  --output-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE \
-  --source-content-commit <immutable-commit-containing-candidate-source-files>
+  --output-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE
+
+git add knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE
+git commit -m "Stage R17 S19-only knowledge candidate"
+SOURCE_CONTENT_COMMIT="$(git rev-parse HEAD)"
+```
+
+Then bind that immutable source commit in the manifest and commit the finalize objects separately:
+
+```bash
+python scripts/build_r17_prompt_cutover.py knowledge-candidate-finalize \
+  --candidate-dir knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE \
+  --prompt-receipt model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json \
+  --source-content-commit "$SOURCE_CONTENT_COMMIT"
+
+git add knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/release-manifest.json \
+        knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/cutover-finalize-receipt.json
+git commit -m "Finalize R17 knowledge candidate manifest"
 ```
 
 Build or validate the contamination boundary:
