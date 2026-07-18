@@ -19,16 +19,14 @@
   "runtime_corrections": {
     "DEV-EXAMPLE-004": "LEGAL_ZI_HOUR_DAY_CHANGE_VARIATION_USER_PROVIDED_BAZI_REINSTATED",
     "progression": "BELOW_TARGET_MUST_RESHAPE_AND_THEN_RUN_CLEAN_ANSWER_ISOLATED_REPLAY",
-    "R19": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST"
+    "R19": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST",
+    "question_scope": "ALL_25_USER_PROVIDED_QUESTIONS_ARE_NORMAL_TRAINING_QUESTIONS"
   },
   "benchmark_scope": {
     "question_count": 25,
     "excluded_questions": [],
-    "special_handling": {
-      "DEV-EXAMPLE-002-Q4": "Retain as opaque benchmark option; no general sexual-orientation inference rule and no formal exact assertion.",
-      "DEV-EXAMPLE-005-Q2": "Retain as historical-event question.",
-      "DEV-EXAMPLE-005-Q5": "Retain as relationship/personality question."
-    }
+    "special_handling": [],
+    "policy": "USE_EVERY_STEM_AND_OPTION_LITERALLY_WITH_THE_SAME_TRAINING_AND_SCORING_RULES"
   },
   "historical_first_blind_accuracy": {
     "distinct_question_count": 25,
@@ -48,11 +46,11 @@
   },
   "r20_clean_replay": {
     "correction_protocol_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
-    "correction_protocol_object_hash": "baf903a3ec1cd2d855195ecb9bb6d5507e1225130766a23ed370c24d61e3056b",
+    "correction_protocol_object_hash": "d5605488cc6cd4ac042304ba1a54c62a2f92afe2c1a8ff93e4936a29f9f3edab",
     "frozen_method_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/frozen-revised-method-v1.json",
-    "frozen_method_object_hash": "cb6992de782763b311d736b5b37ecf13373cd10c7cc2cf6deba41ec0ad170f0c",
+    "frozen_method_object_hash": "158bf39eaae98a537f9aee589623517a051df71943761d9242ed59743d36928d",
     "clean_run_manifest_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/clean-run-manifest-v1.json",
-    "clean_run_manifest_object_hash": "d513a2627bdce531914d263c52383679062c628738795ec9ec1e20415f997e60",
+    "clean_run_manifest_object_hash": "9c5c576b0e1df176664b011c263b3544af80d31676034c0725e8fcbb572503f7",
     "method_freeze": "PASS",
     "answer_isolated_prediction": "NOT_YET_EXECUTED",
     "scoring_scope": "ALL_25_QUESTIONS",
@@ -71,7 +69,7 @@
     "formal_release": "NO"
   },
   "next_required_action": "EXECUTE_R20_FROZEN_METHOD_ON_ALL_25_QUESTIONS_IN_A_FRESH_RUNTIME_WITH_ANSWER_VAULT_AND_PRIOR_RANKS_DENIED_THEN_FREEZE_PREDICTIONS_BEFORE_REVEAL",
-  "parent_state_object_hash": "de9668a4ce5a69a87cb091846b1a94399a7f78fcb14f735a8599c1e66ddf5ce0",
-  "updated_at": "2026-07-18T13:38:00+00:00",
-  "object_hash": "8ac05a7df4ca7955d06eb0d1c2a85d2155f14b64fcc37a2f955f4dbe8c0f21db"
+  "parent_state_object_hash": "8ac05a7df4ca7955d06eb0d1c2a85d2155f14b64fcc37a2f955f4dbe8c0f21db",
+  "updated_at": "2026-07-18T13:55:00+00:00",
+  "object_hash": "61836c40b4044703a8becb125f982001e19e0684b60d6f414182581fa245f992"
 }
