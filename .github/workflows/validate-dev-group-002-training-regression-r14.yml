@@ -38,7 +38,7 @@ jobs:
       - name: Materialize R14 clean replay
         run: |
           set +e
-          python reports/dev-group-002/training-regression-r14/materialize_validate_v2.py \
+          python reports/dev-group-002/training-regression-r14/materialize_validate_v3.py \
             --repo-root . --write --validate \
             > reports/dev-group-002/training-regression-r14/execution.log 2>&1
           status=$?
