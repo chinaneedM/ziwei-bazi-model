@@ -1,58 +1,59 @@
 {
   "claims": {
     "accuracy_improvement_claimed": false,
-    "canonical_r17_content_match_proven": true,
-    "model_release_r17_exists": false,
-    "platform_storage_exact_byte_export_proven": false,
-    "repository_only_shadow_completed": false,
-    "s19_r17_candidate_defined": true,
-    "s19_remote_materialized_readback_proven": false
+    "model_release_r17_exists": true,
+    "r17_canonical_prompt_content_confirmed": true,
+    "repository_only_shadow_completed": true,
+    "s19_rebound_to_r17_candidate": true
   },
-  "completed_objects": [
-    "R17_CANONICAL_PROMPT_SNAPSHOT_PASS",
-    "METHOD_R17_CANDIDATE",
-    "R17_S19_CONTROL_ROOT_OVERLAY",
-    "R17_COMPOSITE_KNOWLEDGE_MANIFEST",
-    "LOCAL_FULL_20_FILE_MATERIALIZATION_PASS",
-    "COMPOSITE_MATERIALIZER_AND_TAMPER_TESTS"
-  ],
-  "cutover_status": "HOLD_PENDING_REMOTE_IMMUTABLE_READBACK_MODEL_R17_AND_CAUSAL_SHADOW",
+  "created_at": "2026-07-19T00:26:00+08:00",
+  "cutover_status": "READY_NOT_EXECUTED_EXPLICIT_USER_APPROVAL_REQUIRED",
   "formal_release": "NO",
-  "object_hash": "4e348e17bd2343d79c6a424e24b575cd1d265bd473e2c7a756d62a9de894c989",
+  "legacy_prompt_candidate": {
+    "path": "prompt/candidates/PROMPT-REPOSITORY-BOOTSTRAP-R1/bootstrap-prompt.txt",
+    "relationship_to_r17": "NOT_THE_ACTIVE_R17_PROJECT_INSTRUCTION",
+    "status": "DESIGN_CANDIDATE_NOT_INSTALLED_NOT_RUNTIME_AUTHORITY"
+  },
+  "object_hash": "e7e2aca57e1685db4b4d38352b10b3e567f987055d3d39f60441a0f4d4f3df20",
   "project_runtime_observation": {
     "architecture": "USER_INITIATED_REPOSITORY_BOUND_SEMI_AUTOMATION",
-    "canonical_prompt_sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
-    "canonical_prompt_size_bytes": 11702,
-    "canonical_prompt_visible_nonwhitespace_codepoints": 5253,
+    "canonical_content_sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
     "confirmation_transport": "USER_VERBATIM_CHAT_PASTE",
-    "platform_storage_raw_byte_export_available": false,
     "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
     "status": "ACTIVE_IN_CURRENT_PROJECT_SESSION"
   },
+  "promotion_plan": {
+    "object_hash": "b3eb98024d57d8531c8436239e420e3a6c405f5cea8bc9fd6290762f321fc6e0",
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json",
+    "status": "READY_NOT_EXECUTED_EXPLICIT_USER_APPROVAL_REQUIRED"
+  },
+  "repository_active_binding": {
+    "config_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "knowledge_release_id": "KNOWLEDGE-R16",
+    "method_release_id": "METHOD-R16",
+    "model_release_id": "MODEL-R16-REPOSITORY-SHADOW-V2",
+    "status": "UNCHANGED_PENDING_APPROVAL"
+  },
   "repository_candidate_binding": {
-    "active_repository_binding_status": "R16_REMAINS_ACTIVE_UNTIL_R17_SHADOW_AND_PROMOTION",
-    "knowledge_manifest_object_hash": "6d62b5781da2b7be0ef2f0b772b5cf379f1ef4ce3054df7992e160b3d55c00dc",
-    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE",
-    "materialization_status": "PASS_LOCAL_FULL_20_REMOTE_IMMUTABLE_READBACK_PENDING",
+    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2",
     "method_release_id": "METHOD-R17",
-    "method_release_object_hash": "d22f19f1b975aaa6ce42c3af951cc6ff49d81aed3953629f1b33c86509b20cee",
-    "prompt_snapshot_path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/main-prompt.txt",
-    "prompt_snapshot_receipt_path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot.json",
-    "prompt_snapshot_status": "PASS_CANONICAL_USER_CONFIRMED",
-    "s19_materialized_sha256": "59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91",
-    "s19_materialized_size_bytes": 10283817,
-    "source_content_commit_sha": "3f823756b2cb9479e5cd9d27978459b7e537eaa8"
+    "model_release_id": "MODEL-R17-REPOSITORY-SHADOW-V2",
+    "runtime_config_id": "FORTUNE-RUNTIME-R17-CANDIDATE-V1"
   },
   "required_next_objects": [
-    "REMOTE_IMMUTABLE_CHECKOUT_MATERIALIZATION_READBACK_PASS",
-    "MODEL_R17_REPOSITORY_SHADOW_CANDIDATE",
-    "UPDATED_RUN_CONTRACT_VALIDATION",
-    "REPOSITORY_ONLY_NONSCORING_SHADOW_RUN",
-    "CAUSAL_USE_RECEIPT_PASS",
-    "NO_FALLBACK_PASS",
-    "USER_PROMOTION_APPROVAL"
+    "EXPLICIT_USER_PROMOTION_APPROVAL",
+    "ACTIVE_POINTER_AND_CONFIG_CAS_UPDATES",
+    "POST_ACTIVATION_READBACK_RECEIPT",
+    "FRESH_TRAINING_GROUP_MANIFEST_AND_RUN_CONTRACT"
   ],
-  "schema": "MAIN-PROMPT-CUTOVER-STATUS-V2",
-  "score_eligibility": "PROHIBITED",
-  "updated_at": "2026-07-19T00:00:00+08:00"
+  "schema": "MAIN-PROMPT-CUTOVER-STATUS-V1",
+  "score_eligibility": "PROHIBITED_UNTIL_ACTIVATION_AND_FRESH_PER_CASE_CAUSAL_PASS",
+  "shadow_validation": {
+    "answer_isolation_status": "PASS",
+    "attestation_object_hash": "3cad73e53fa55bc8a3d794b289d9e230ebba9c6533e74e7c1bf5097169f0d6ec",
+    "causal_use_status": "PASS",
+    "no_fallback_status": "PASS",
+    "run_id": "RUN-R17-ENDPOINT-001",
+    "status": "PASS_NONSCORING_REPOSITORY_ONLY_SHADOW"
+  }
 }
