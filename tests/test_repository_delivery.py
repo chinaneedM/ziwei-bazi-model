@@ -1,7 +1,7 @@
 import json
+import tempfile
+import unittest
 from pathlib import Path
-
-import pytest
 
 from fortune_v1.causal_use import build_run_contract, validate_causal_use
 from fortune_v1.repository_release import (
@@ -97,26 +97,32 @@ def fixture(tmp_path: Path):
     return prediction, contract, plan, catalog, case
 
 
-def test_repository_packet_contract_and_causal_validation(tmp_path):
-    prediction, contract, *_ = fixture(tmp_path)
-    receipt = validate_causal_use(prediction, contract)
-    assert receipt["status"] == "PASS"
-    assert receipt["score_eligibility"] == "ELIGIBLE"
+class RepositoryDeliveryTest(unittest.TestCase):
+    def test_repository_packet_contract_and_causal_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            prediction, contract, *_ = fixture(Path(directory))
+            receipt = validate_causal_use(prediction, contract)
+            self.assertEqual(receipt["status"], "PASS")
+            self.assertEqual(receipt["score_eligibility"], "ELIGIBLE")
 
-    body = json.loads(prediction.read_text())
-    body["project_source"] = "/mnt/data/S05.txt"
-    dump(prediction, body)
-    failed = validate_causal_use(prediction, contract)
-    assert failed["status"] == "FAIL_CLOSED"
-    assert failed["score_eligibility"] == "PROHIBITED"
-    assert any("PROJECT_UPLOAD_REFERENCE_DETECTED" in error for error in failed["errors"])
+            body = json.loads(prediction.read_text())
+            body["project_source"] = "/mnt/data/S05.txt"
+            dump(prediction, body)
+            failed = validate_causal_use(prediction, contract)
+            self.assertEqual(failed["status"], "FAIL_CLOSED")
+            self.assertEqual(failed["score_eligibility"], "PROHIBITED")
+            self.assertTrue(any("PROJECT_UPLOAD_REFERENCE_DETECTED" in error for error in failed["errors"]))
+
+    def test_source_packet_rejects_winner_bias(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, _, plan, catalog, case = fixture(Path(directory))
+            biased = json.loads(plan.read_text())
+            biased["top1"] = "A"
+            dump(plan, biased)
+            with self.assertRaises(FortuneError) as context:
+                build_source_packet(catalog, plan, case, Path(directory) / "biased.json")
+            self.assertEqual(context.exception.status, "SOURCE_PACKET_ANSWER_ISOLATION_FAILED")
 
 
-def test_source_packet_rejects_winner_bias(tmp_path):
-    _, _, plan, catalog, case = fixture(tmp_path)
-    biased = json.loads(plan.read_text())
-    biased["top1"] = "A"
-    dump(plan, biased)
-    with pytest.raises(FortuneError) as exc:
-        build_source_packet(catalog, plan, case, tmp_path / "biased.json")
-    assert exc.value.status == "SOURCE_PACKET_ANSWER_ISOLATION_FAILED"
+if __name__ == "__main__":
+    unittest.main()
