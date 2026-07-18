@@ -10,7 +10,7 @@ from fortune_v1.repository_release import (
     build_model_release, write_object,
 )
 from fortune_v1.source_delivery import build_source_catalog, build_source_packet
-from fortune_v1.util import FortuneError
+from fortune_v1.util import FortuneError, sha256_file
 
 
 def dump(path: Path, value):
@@ -49,9 +49,22 @@ def fixture(tmp_path: Path):
     })
     method_packet = tmp_path / "method-packet.json"
     build_method_packet(method_path, method_packet)
+    prompt_dir = tmp_path / "model" / "candidates" / "MODEL-R16"
+    prompt_dir.mkdir(parents=True)
+    prompt_text = prompt_dir / "main-prompt.txt"
+    prompt_text.write_text("MAIN_PROMPT_RUNTIME_ID=MP-R16\n", encoding="utf-8")
+    prompt_receipt = prompt_dir / "prompt-snapshot.json"
+    write_object(prompt_receipt, {
+        "schema": "MAIN-PROMPT-AUDIT-SNAPSHOT-V1",
+        "runtime_id": "MP-R16",
+        "snapshot_path": prompt_text.as_posix(),
+        "snapshot_sha256": sha256_file(prompt_text),
+        "snapshot_bytes": prompt_text.stat().st_size,
+        "status": "PASS",
+    })
     model = tmp_path / "model.json"
     build_model_release(
-        manifest, method_path, model, model_release_id="MODEL-R16",
+        manifest, method_path, prompt_receipt, model, model_release_id="MODEL-R16",
         main_prompt_runtime_id="MP-R16", code_commit_sha="c" * 40,
     )
     catalog = tmp_path / "catalog.json"
@@ -95,7 +108,7 @@ def fixture(tmp_path: Path):
             } for n, stage in enumerate(METHOD_STAGES, 1)],
         }],
     })
-    return prediction, contract, plan, catalog, case
+    return prediction, contract, plan, catalog, case, prompt_text
 
 
 class RepositoryDeliveryTest(unittest.TestCase):
@@ -115,9 +128,17 @@ class RepositoryDeliveryTest(unittest.TestCase):
             self.assertEqual(failed["score_eligibility"], "PROHIBITED")
             self.assertTrue(any("PROJECT_UPLOAD_REFERENCE_DETECTED" in error for error in failed["errors"]))
 
+    def test_causal_validation_rejects_prompt_snapshot_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            prediction, contract, _, _, _, prompt_text = fixture(Path(directory))
+            prompt_text.write_text("MAIN_PROMPT_RUNTIME_ID=MP-R16\nMUTATED\n", encoding="utf-8")
+            failed = validate_causal_use(prediction, contract)
+            self.assertEqual(failed["status"], "FAIL_CLOSED")
+            self.assertIn("MAIN_PROMPT_SNAPSHOT_HASH_MISMATCH", failed["errors"])
+
     def test_source_packet_rejects_winner_bias(self):
         with tempfile.TemporaryDirectory() as directory:
-            _, _, plan, catalog, case = fixture(Path(directory))
+            _, _, plan, catalog, case, _ = fixture(Path(directory))
             biased = json.loads(plan.read_text())
             biased["top1"] = "A"
             dump(plan, biased)
@@ -138,7 +159,7 @@ class RepositoryDeliveryTest(unittest.TestCase):
 
     def test_source_packet_rejects_selected_historical_parent_reference(self):
         with tempfile.TemporaryDirectory() as directory:
-            _, _, plan, catalog, case = fixture(Path(directory))
+            _, _, plan, catalog, case, _ = fixture(Path(directory))
             body = json.loads(catalog.read_text())
             selected = next(item for item in body["entries"] if item["library_id"] == "S05" and "alpha" in item["parent_text"])
             selected["parent_text"] += "\nreports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-Q1/postreveal-review.json\n"
