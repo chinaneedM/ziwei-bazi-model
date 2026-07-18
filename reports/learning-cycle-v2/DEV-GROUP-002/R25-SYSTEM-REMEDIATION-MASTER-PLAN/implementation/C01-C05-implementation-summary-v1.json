@@ -21,34 +21,46 @@
     {
       "object_hash": "fb905d768f2bca8fa29de731e105d1e83221a857ef7438e66c37ae381990d9bf",
       "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C05-causal-use-validator-receipt-v1.json"
+    },
+    {
+      "object_hash": "f293455a293caa4210cb2812ace627bd71e7abead1b77d082f77b0bf53f4bbb8",
+      "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C05A-legacy-contamination-quarantine-receipt-v1.json"
     }
   ],
   "focused_validation": {
-    "command": "PYTHONPATH=. pytest -q tests/test_repository_delivery_split.py",
-    "result": "2 passed in 0.12s",
-    "scope": "RECONSTRUCTED_ISOLATED_NEW_MODULES"
+    "command": "PYTHONPATH=/tmp/fortune_patch/src python -m unittest -v /tmp/fortune_patch/tests/test_repository_delivery.py",
+    "result": "6 tests passed",
+    "scope": "RECONSTRUCTED_UPDATED_REPOSITORY_DELIVERY_AND_CONTAMINATION_MODULES"
   },
   "formal_release": "NO",
   "knowledge_change": "NO_TRADITIONAL_KNOWLEDGE_CHANGE",
-  "next_required_action": "BUILD_AND_VALIDATE_FULL_R16_CATALOG_THEN_RUN_ONE_NONSCORING_REPOSITORY_ONLY_CHATGPT_SHADOW_PREDICTION",
-  "object_hash": "e3cfc0e19278e40ceff327b8e87c36a424329eccad9319bb09238b601d82c727",
+  "next_required_action": "BUILD_AND_VALIDATE_FULL_R16_CATALOG_AND_FULL_REPOSITORY_CONTAMINATION_INVENTORY_THEN_RUN_ONE_NONSCORING_REPOSITORY_ONLY_CHATGPT_SHADOW_PREDICTION",
+  "object_hash": "5f9d8001ede72e66dfb6fad10740a5002c2a2df761a6c7ae058d82d48a370d91",
   "prediction_accuracy_improvement_claim": "NO",
   "project_uploaded_s00_s19_action": "UNCHANGED_RETAIN_READ_ONLY_DO_NOT_DELETE",
   "remaining_conditions": [
     "FULL_R16_SOURCE_CATALOG_BUILD_AND_20_FILE_READBACK_ON_IMMUTABLE_CHECKOUT_NOT_YET_EXECUTED",
+    "FULL_REPOSITORY_CONTAMINATION_INVENTORY_ON_IMMUTABLE_CHECKOUT_NOT_YET_EXECUTED",
     "REAL_CHATGPT_REPOSITORY_ONLY_SOURCE_AND_METHOD_PACKET_SHADOW_RUN_NOT_YET_EXECUTED",
     "REAL_PREDICTION_CAUSAL_USE_RECEIPT_PASS_NOT_YET_OBTAINED",
     "FULL_GITHUB_ACTIONS_SUITE_NOT_YET_CONFIRMED",
     "25_QUESTION_CLEAN_RETEST_AND_SCORING_PROHIBITED",
     "FORMAL_RELEASE_NO"
   ],
-  "runtime_code_commit": "724f80ed7ddd67dc414d6ee56a41ec6abeeed46b",
-  "schema": "R25-C01-C05-IMPLEMENTATION-SUMMARY-V1",
+  "runtime_code_commits": {
+    "causal_use_gate": "edc569b04989994b02d3482a72fa4eccf179905c",
+    "cli": "8157dec6b5872151b2ea34388550e7df555cc98b",
+    "contamination_module": "7ba5d7f49c5854a54cefbbf32109116dd4528ee4",
+    "knowledge_root_gate": "29932a893a1357d511038c45f48229e2f5245ab4",
+    "source_packet_gate": "34822cd44358a8de198c9d76954ddf243dea227e",
+    "tests": "6296c0073ca167e43fee0a31791e62fcf79de5f5"
+  },
+  "schema": "R25-C01-C05A-IMPLEMENTATION-SUMMARY-V1",
   "shadow_model_release_id": "MODEL-R16-REPOSITORY-SHADOW-V2",
   "shadow_model_release_object_hash": "2ea0297c30cecb79760cc8e8ab6863f327b21dab049decd7823e8df937b3e756",
-  "status": "IMPLEMENTED_PENDING_REPOSITORY_ONLY_SHADOW_VALIDATION",
+  "status": "IMPLEMENTED_PENDING_FULL_REPOSITORY_INVENTORY_AND_REPOSITORY_ONLY_SHADOW_VALIDATION",
   "syntax_validation": {
-    "command": "python -m py_compile repository_delivery_modules",
+    "command": "python -m py_compile updated repository-delivery modules",
     "result": "PASS"
   },
   "training_score_status": "BLOCKED"
