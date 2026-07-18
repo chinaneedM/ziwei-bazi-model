@@ -1,1 +1,55 @@
-{"bindings":{"branch":"agent/dev-group-002-training-regression-r1","correction_id":"FIRST-BLIND-ONLY-SCORING-20260718-R1","main_prompt_runtime_id":"MP-PROFESSIONAL-REASONING-20260715-R16"},"blind_accuracy_summary":{"distinct_eligible_question_count":19,"provenance_limitation":"Exact user-declared R1 per-question vector was not recovered; preserved repository baseline used and remains explicitly limited.","rate_gate_status":"BELOW_TARGET_PROVISIONAL_HISTORICAL_PROVENANCE_LIMITED","target_top1":0.8,"target_top2":0.9,"top1_hits":4,"top1_rate":0.21052631578947367,"top2_hits":10,"top2_rate":0.5263157894736842},"claim_boundary":{"base_knowledge_promotion":"NONE","dev004_bazi_track":"QUARANTINED_FOUNDATION_CONFLICT","formal_exact_assertions":"ALL_NULL","post_reveal_fit":"TRAINING_FIT_ONLY_NOT_BLIND_ACCURACY","remote_ci":"UNVERIFIED_AFTER_NEW_COMMITS","s03_fusion":"NOT_PERFORMED","sensitive_target_exclusion":"DEV-EXAMPLE-002-Q4_EXCLUDED","unseen_generalization":"NOT_PROVEN"},"completed_case_batches":[{"batch_id":"DEV-EXAMPLE-001-BATCH-Q2-Q5","completion_index_object_hash":"80dbbf347d6840bc9b90e143dec63548956c0aa04e4c5fa882c110a61611b874","completion_index_path":"reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-001-BATCH-Q2-Q5/completion-index-v2.1.json","status":"TRAINING_BATCH_COMPLETE"},{"batch_id":"DEV-EXAMPLE-002-BATCH-Q1-Q5","completion_index_object_hash":"5742f3ac4d33e27fdef03279328c48aa47a1ec5a274972fb9c21897b5b573eb7","completion_index_path":"reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-002-BATCH-Q1-Q5/completion-index-v2.1.json","status":"TRAINING_BATCH_COMPLETE_WITH_SENSITIVE_TARGET_EXCLUSION"},{"batch_id":"DEV-EXAMPLE-003-BATCH-Q1-Q5","completion_index_object_hash":"74e3195ee83ed16cdc587f3cd6909c22392648c5c907a0bf109452a1089c3107","completion_index_path":"reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-003-BATCH-Q1-Q5/completion-index-v2.1.json","status":"TRAINING_BATCH_COMPLETE"},{"batch_id":"DEV-EXAMPLE-004-BATCH-Q1-Q5","bazi_track":"QUARANTINED_FOUNDATION_CONFLICT","bundle_object_hash":"e3040dfd47dcbc996d38fd959db38df70e0c02be54d7b7617789fba540037544","completion_index_object_hash":"2f3a044a559bd3d8c2021505821c43c9dcb21b16ed43570eb837bd1e0f26488a","completion_index_path":"reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-004-BATCH-Q1-Q5/completion-index-v2.1.json","local_validation_object_hash":"d84d233b3f28b01b936af209baf1ee401892ef1c84a4805b9d3c53178bc25afd","manifest_object_hash":"f8f099966a6a21a310d298ff03f8afd52009703bbca318236b8296b568ece873","status":"TRAINING_BATCH_COMPLETE_WITH_BAZI_FOUNDATION_QUARANTINE"}],"completed_training_unit_count":19,"current_batch":"DEV-EXAMPLE-004-BATCH-Q1-Q5","current_unit":"DEV-EXAMPLE-004-Q5","cycle_id":"LEARNING-CYCLE-V2-DEV-GROUP-002","dataset_role":"REVEALED_TRAINING_SET","excluded_training_units":["DEV-EXAMPLE-002-Q4"],"execution_mode":"CASE_BATCH_QUESTION_INDEPENDENT","group_id":"DEV-GROUP-002","next_unit":"DEV-EXAMPLE-005-Q1","next_unit_status":"NOT_ENTERED","object_hash":"2f64d3fb32564d2207b6c99dfa48192b5df84dd73e1ce7650ac8c3d5cc6a76be","parent_state_object_hash":"421b48fa7ad83d290e5a40e8dfe3c5eb2d535b9cb961d70ec5188c9ec58634a1","raw_audit_summary_including_excluded":{"question_count":20,"role":"AUDIT_ONLY_NOT_ACCURACY_DENOMINATOR","top1_hits":4,"top2_hits":11},"schema":"LEARNING-CYCLE-V2.1","status":"CASE_BATCH_COMPLETE_WITH_BAZI_QUARANTINE_NEXT_CASE_NOT_ENTERED","updated_at":"2026-07-18T12:06:00+00:00"}
+{
+  "schema": "LEARNING-CYCLE-V2.1",
+  "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
+  "group_id": "DEV-GROUP-002",
+  "status": "FIXED_GROUP_COMPLETE_PENDING_UNIFIED_EVALUATION",
+  "bindings": {
+    "branch": "agent/dev-group-002-training-regression-r1",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1"
+  },
+  "completed_case_batches": [
+    "DEV-EXAMPLE-001-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-002-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-003-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-004-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-005-BATCH-Q1-Q5"
+  ],
+  "runtime_corrections": {
+    "DEV-EXAMPLE-004": "LEGAL_ZI_HOUR_DAY_CHANGE_VARIATION_USER_PROVIDED_BAZI_REINSTATED"
+  },
+  "excluded_training_units": [
+    "DEV-EXAMPLE-002-Q4",
+    "DEV-EXAMPLE-005-Q2",
+    "DEV-EXAMPLE-005-Q5"
+  ],
+  "raw_audit_summary_including_excluded": {
+    "question_count": 25,
+    "top1_hits": 7,
+    "top2_hits": 15,
+    "role": "AUDIT_ONLY_NOT_ACCURACY_DENOMINATOR"
+  },
+  "blind_accuracy_summary": {
+    "distinct_eligible_question_count": 22,
+    "top1_hits": 7,
+    "top1_rate": 0.3181818181818182,
+    "top2_hits": 13,
+    "top2_rate": 0.5909090909090909,
+    "target_top1": 0.8,
+    "target_top2": 0.9,
+    "rate_gate_status": "BELOW_TARGET_TRAINING_GROUP_COMPLETE"
+  },
+  "claim_boundary": {
+    "original_predictions": "IMMUTABLE",
+    "formal_exact_assertions": "ALL_NULL",
+    "base_knowledge_promotion": "NONE",
+    "post_reveal_fit": "TRAINING_ONLY",
+    "s03_fusion": "NOT_PERFORMED_WITHOUT_MACHINE_VALID_LOCAL_SEALS",
+    "unseen_generalization": "NOT_PROVEN",
+    "formal_release": "NO"
+  },
+  "next_required_action": "UNIFIED_GROUP_EVALUATION_AND_GENERALIZABLE_ERROR_TAXONOMY",
+  "parent_state_object_hash": "2f64d3fb32564d2207b6c99dfa48192b5df84dd73e1ce7650ac8c3d5cc6a76be",
+  "updated_at": "2026-07-18T12:30:00+00:00",
+  "object_hash": "88ef43bb79a555eecf7787a833cca7b3648f96a05796b47619bc54627869aecd"
+}
