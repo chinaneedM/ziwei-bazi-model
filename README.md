@@ -1,6 +1,10 @@
 # Fortune V1 automation runtime
 
-Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
+Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八字综合相对预测**. V1 automates deterministic ingest, immutable snapshots, run validation, group freeze/reveal ordering, literal answer replay, scoring, iterative reasoning correction, patch leak scanning, regression selection, state transitions, and audit reporting. It does not pretend that a CHAT continues reasoning after the response ends.
+
+> **Current release boundary:** the R17 repository candidate has passed immutable source readback and one complete non-scoring repository-only shadow run. `CAUSAL_USE=PASS`, `NO_FALLBACK=PASS`, and `ANSWER_ISOLATION=PASS` for `RUN-R17-ENDPOINT-001`; no accuracy observation was created. R16 remains active until explicit user approval and compare-and-swap activation. `FORMAL_RELEASE=NO` and no predictive-improvement claim is made.
+
+The frozen activation plan is `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json`. It binds the current R16 knowledge, method, model, and runtime-config blob SHAs and will stop if any pointer moves before activation. The required approval phrase is recorded in that plan.
 
 ## Execution model
 
@@ -9,89 +13,42 @@ The prediction engine is the active ChatGPT project session in either:
 - `CHAT_ONLY` — the normal and preferred operating mode;
 - `WORK` — an optional higher-capacity interactive mode when available.
 
-No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts one frozen training-group conversation, ChatGPT processes every answer-free case in that group with fresh per-case isolation, and the repository validates and freezes the resulting child `PREDICTION-RUN-V1` objects under one `GROUP-TRAINING-RUN-V1`.
+No OpenAI API key, separate model endpoint, paid server, or background process is required. GitHub does not start ChatGPT autonomously. The user starts a frozen training-group conversation, ChatGPT processes every answer-free case permitted by that group's contract with fresh per-case isolation, and the repository validates and freezes the resulting run objects.
 
-`CHAT_STATELESS_COLD_START` applies between groups, not between cases within one group. The fixed development group may therefore run five cases and 25 questions continuously in one CHAT/WORK session without five new conversations or five separate continue commands.
+Group size, case count, question count, training rounds, mastery threshold and regression scope are not fixed by the R17 runtime. They are determined by the frozen `GROUP_MANIFEST`, `RUN_CONTRACT` and `LEARNING_POLICY`.
 
-## Installation state
+## R17 candidate bindings
 
-The authoritative runtime state is the machine-generated `reports/install-state.json`, validated by `reports/install-state-validation.json` and bound to the versioned installation receipt. Installed components include:
+- Project prompt: `MP-PROFESSIONAL-REASONING-20260718-R17`
+- Knowledge: `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2`
+- Method: `METHOD-R17`
+- Model: `MODEL-R17-REPOSITORY-SHADOW-V2`
+- Runtime config candidate: `config/runtime-r17-candidate.json`
 
-- the S00–S19 source baseline and exact S19 binding-table recomputation;
-- the R16 main-prompt audit snapshot, explicitly marked as an audit copy rather than runtime authority;
-- the physically separate answer vault and reverse-grading workflows;
-- bidirectional token-scope denial and absence of any vault credential in the runtime repository;
-- static and synthetic validation;
-- the `CHAT_WORK_INTERACTIVE_EXECUTOR` registration;
-- the deterministic single-case `fortune-v1 chat-work-import` handoff adapter;
-- the installed group commands `fortune-v1 group-chat-work-run` and `fortune-v1 group-verify-freeze`;
-- complete-group freeze before any answer access;
-- the answer-vault `grade-frozen-group` workflow for one-dispatch whole-group reveal and per-case literal grading.
+S00–S18 reuse exact immutable R16 parent files. S19 is reconstructed from a canonical gzip/base64 R17 control-root overlay plus immutable R16 S19 bytes. The materialized S19 SHA256 is `59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91` and its size is `10283817` bytes.
 
-The phrase `EXTERNAL_PREDICTION_RUNNER` in the installation schema refers to the **external-to-GitHub ChatGPT project session**, not to an API service. See [external-runner.md](docs/external-runner.md).
+## Shadow validation
 
-Transport suffixes such as `(8)`, `(9)` and `(59)` are never source identity. The importer reads the first active internal `LIBRARY_ID`, raw SHA256 and size, then selects only the version bound by the first current S19 table. Non-active byte versions are historical/quarantine records.
+`RUN-R17-ENDPOINT-001` validated the complete precontent and reasoning chain without a personal chart or answer key:
 
-## Security boundary
+- frozen input, coverage plan, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before reasoning;
+- two independent local seals;
+- five evidence-ledger rows;
+- twelve method-stage receipts;
+- one required pairwise comparison;
+- relative TOP1/TOP2 release with FORMAL exact assertion null;
+- causal-use, no-fallback and answer-isolation PASS;
+- ten runtime objects read back from GitHub with exact Git-blob matches;
+- no score and no accuracy observation.
 
-```mermaid
-flowchart TD
-    ZIP["Complete ZIP"] --> IMP["Deterministic importer"]
-    IMP --> V["Answer vault: raw + answers"]
-    IMP --> N["Runtime: no-answer normalized group"]
-    N --> S["Immutable prediction snapshots"]
-    S --> C["One user-initiated CHAT_ONLY or WORK group session"]
-    C --> H["Per-case CHAT/WORK validators"]
-    H --> F["Complete group freeze receipt"]
-    F --> G["Vault starts group grader"]
-    G --> R["Runtime receives group reveal"]
-```
+## Activation boundary
 
-The runtime repository has no vault credential and no workflow that checks out the vault. On GitHub Free private repositories, the answer vault manually dispatches reverse grading with `RUNTIME_REPO_TOKEN`, scoped only to the runtime repository. Paid branch/ruleset/environment protections are recorded as unavailable, never as PASS.
+The active pointers still reference R16. R17 activation requires explicit approval, PR history cleanup or an explicit exception, CAS updates for all three active pointers and `config/runtime.json`, post-activation readback, and an activation receipt.
 
-## Quick start
+After activation, the first real training group must create a fresh `GROUP_MANIFEST`, per-case input snapshots, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before any reasoning. Every scored case remains conditional on its own causal-use PASS.
 
-```bash
-./scripts/install.sh
-PYTHONPATH=src python -m fortune_v1.cli --help
-```
+## GitHub Actions incident
 
-Import, normalize, audit and migrate the one source ZIP:
+Recent GitHub Actions jobs still fail before recording executable steps, logs or artifacts. This remains classified as `PRESTEP_PLATFORM_OR_RUNNER_FAILURE_UNRESOLVED` and is not represented as test PASS or as a code assertion failure. The R17 source and shadow proofs instead use immutable Git blob readback and deterministic local reconstruction.
 
-```bash
-PYTHONPATH=src python -m fortune_v1.cli import-source-package \
-  --package /path/to/fortune-source-baseline-S00-S19-R16.zip \
-  --expected-zip-sha256 4bd8bf03cceeb2ca03d096fbebda9f4174f2e9f7879667bef228acd2770b09be \
-  --config config/runtime.json \
-  --work-root .source-import-work \
-  --reports-dir reports \
-  --migrate-destination knowledge/base
-```
-
-Run one complete answer-free training group in one active CHAT/WORK session:
-
-```bash
-fortune-v1 group-chat-work-run \
-  --manifest data/group-submissions/<group-run-id>.json \
-  --group-root data/dev-groups/<group-id> \
-  --output-root data/group-runs \
-  --mode CHAT_ONLY \
-  --session-id <session-id> \
-  --group-run-id <new-group-run-id>
-```
-
-See [operations.md](docs/operations.md), [architecture.md](docs/architecture.md), [external-runner.md](docs/external-runner.md), and [group-training-single-session.md](docs/group-training-single-session.md).
-
-## Immutable object layers
-
-1. `RAW_PACKAGE` — vault-only original ZIP and members.
-2. `NORMALIZED_CASE` — deterministic classification result; runtime copy omits answer details.
-3. `PREDICTION_INPUT_SNAPSHOT` — the only case object visible to prediction.
-4. `PREDICTION_RUN` — TOP1/TOP2, two local seals, coverage, evidence ledger, direction matrix and all pairwise rows.
-5. `GROUP_PREDICTION_FREEZE` — every expected child run and hash, complete before any answer reveal.
-6. `REVEAL_AND_DIAGNOSIS` — literal replay and TOP1 scoring; never overwrites the run.
-7. `PATCH_AND_REGRESSION` — candidate patch, leak scan and zero-damage regression decision.
-
-Every rerun requires a new `GROUP_RUN_ID` and new child `RUN_ID` values; existing run paths are rejected.
-
-The answer-vault initialization template is under `templates/answer-vault/`. Its generated ZIP is an installation package only; it contains no real answers, real examples, token value, prior prediction or SHADOW_REBUILD payload.
+See [R17 cutover status](docs/r17-cutover-status.md), [operations](docs/operations.md), [architecture](docs/architecture.md), [external runner](docs/external-runner.md), [single-session group training](docs/group-training-single-session.md), and [learning cycle v2](docs/learning-cycle-v2.md).

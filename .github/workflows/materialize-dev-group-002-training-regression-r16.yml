@@ -1,0 +1,70 @@
+name: validate-dev-group-002-training-regression-r16
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - ready_for_review
+      - synchronize
+    paths:
+      - 'reports/dev-group-002/training-regression-r16/**'
+      - '.github/workflows/materialize-dev-group-002-training-regression-r16.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/dev-group-002-training-regression-r1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Replay R16 validation without writes
+        run: |
+          python reports/dev-group-002/training-regression-r16/materialize_validate.py --repo-root . --validate
+      - name: Assert frozen R16 receipt
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          validation = json.loads(Path('reports/dev-group-002/training-regression-r16/validation.json').read_text(encoding='utf-8'))
+          expected = {
+              'status': 'PASS',
+              'processed_case_id': 'DEV-EXAMPLE-004',
+              'frozen_interface_id': 'TR-R14-CAPABILITY-NEUTRAL-TIME-SCENE-NORMALIZED-BURDEN-V1',
+              'source_excerpt_count': 20,
+              'literal_atom_direction_rows': 90,
+              'ziwei_atom_direction_rows': 45,
+              'bazi_atom_direction_rows': 45,
+              'common_atom_pair_rows': 30,
+              'atom_level_replayable_pairwise_rows': 30,
+              'pairwise_rows': 30,
+              'formal_valid_questions': 0,
+              'machine_valid_local_seals': 0,
+              's03_fusions': 0,
+              'formal_release_permission': 'NO',
+              'new_external_case_admission': 'BLOCKED',
+              'answer_visible_score_tuning_permission': 'NO',
+              'top1_hits': 9,
+              'top2_coverage': 13,
+          }
+          for key, value in expected.items():
+              actual = validation.get(key)
+              if actual != value:
+                  raise SystemExit(f'{key}: expected {value!r}, got {actual!r}')
+          if validation.get('dev004_ranks') != ['CABD', 'BACD', 'CDAB', 'BCDA', 'DBCA']:
+              raise SystemExit('DEV-EXAMPLE-004 rank vector mismatch')
+          if validation.get('cycle_rows') != []:
+              raise SystemExit('pairwise cycle detected')
+          print('R16 frozen validation receipt PASS')
+          PY
+      - name: Assert validation is read-only
+        run: git diff --exit-code

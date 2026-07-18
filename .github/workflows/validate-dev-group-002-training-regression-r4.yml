@@ -1,0 +1,26 @@
+name: validate-dev-group-002-training-regression-r4
+
+on:
+  push:
+    paths:
+      - reports/dev-group-002/training-regression-r4/**
+      - .github/workflows/validate-dev-group-002-training-regression-r4.yml
+  pull_request:
+    paths:
+      - reports/dev-group-002/training-regression-r4/**
+      - .github/workflows/validate-dev-group-002-training-regression-r4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-r4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source-constrained forced choices
+        run: python reports/dev-group-002/training-regression-r4/validate.py

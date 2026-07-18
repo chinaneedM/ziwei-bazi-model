@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fortune-training-v1"
-version = "1.0.0"
-description = "Repository-driven blind training and regression orchestration for Ziwei + Bazi relative prediction"
+version = "1.2.0"
+description = "Repository-driven blind prediction, reasoning-correction training, and regression orchestration for Ziwei + Bazi"
 requires-python = ">=3.11"
 dependencies = []
 
 [project.scripts]
 fortune-v1 = "fortune_v1.cli:main"
+fortune-learning-cycle = "fortune_v1.training_corrected:main"
+fortune-repository-delivery = "fortune_v1.repository_delivery_cli:main"
+fortune-release-lifecycle = "fortune_v1.release_lifecycle_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -18,4 +21,3 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
-

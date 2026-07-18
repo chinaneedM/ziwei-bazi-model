@@ -1,0 +1,90 @@
+{
+  "canonical_sha256": "18741fb2823960fe10cc5c4ac5587873c8c50e21f49aa6df1137982a633dee85",
+  "cases": [
+    {
+      "answer_visible_during_prediction_materialization": false,
+      "case_id": "DEV-EXAMPLE-001",
+      "prediction_origin": "R7_DEV001_OPTION_PARENT_REBUILD",
+      "question_count": 5,
+      "ranks": [
+        "ACBD",
+        "BACD",
+        "DBAC",
+        "CBAD",
+        "BDCA"
+      ],
+      "top1_vector": "ABDCB",
+      "top2_vector": "CABBD"
+    },
+    {
+      "answer_visible_during_prediction_materialization": false,
+      "case_id": "DEV-EXAMPLE-002",
+      "prediction_origin": "R4_SOURCE_CONSTRAINED_TOTAL_ORDER_REPLAY",
+      "question_count": 5,
+      "ranks": [
+        "DCBA",
+        "BADC",
+        "DCBA",
+        "BCAD",
+        "BADC"
+      ],
+      "top1_vector": "DBDBB",
+      "top2_vector": "CACCA"
+    },
+    {
+      "answer_visible_during_prediction_materialization": false,
+      "case_id": "DEV-EXAMPLE-003",
+      "prediction_origin": "R4_SOURCE_CONSTRAINED_TOTAL_ORDER_REPLAY",
+      "question_count": 5,
+      "ranks": [
+        "CBAD",
+        "BACD",
+        "CADB",
+        "CDAB",
+        "ADCB"
+      ],
+      "top1_vector": "CBCCA",
+      "top2_vector": "BAADD"
+    },
+    {
+      "answer_visible_during_prediction_materialization": false,
+      "case_id": "DEV-EXAMPLE-004",
+      "prediction_origin": "R4_SOURCE_CONSTRAINED_TOTAL_ORDER_REPLAY",
+      "question_count": 5,
+      "ranks": [
+        "CBAD",
+        "BADC",
+        "CDAB",
+        "CDAB",
+        "BDCA"
+      ],
+      "top1_vector": "CBCCB",
+      "top2_vector": "BADDD"
+    },
+    {
+      "answer_visible_during_prediction_materialization": false,
+      "case_id": "DEV-EXAMPLE-005",
+      "prediction_origin": "R4_SOURCE_CONSTRAINED_TOTAL_ORDER_REPLAY",
+      "question_count": 5,
+      "ranks": [
+        "DBAC",
+        "DCBA",
+        "DBAC",
+        "ABCD",
+        "BDAC"
+      ],
+      "top1_vector": "DDDAB",
+      "top2_vector": "BCBBD"
+    }
+  ],
+  "formal_exact_assertion_permission": "NULL_ONLY",
+  "group_id": "DEV-GROUP-002",
+  "new_case_admission": "BLOCKED",
+  "parent_r7_prediction_sha256": "d36460193ba191bc83b457ab859bf7d8f622c96a9bccb70b856cc94d05959499",
+  "question_count": 25,
+  "round_id": "R8",
+  "schema": "DEV-GROUP-002-R8-PREDICTION-PRESERVATION-V1",
+  "selection_changed": false,
+  "top1_hits": 14,
+  "top2_coverage": 16
+}

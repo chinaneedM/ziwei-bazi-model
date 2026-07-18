@@ -1,0 +1,106 @@
+{
+  "schema": "FORTUNE-DUAL-CAPABILITY-LEARNING-ARCHITECTURE-V1",
+  "round_id": "R22",
+  "group_id": "DEV-GROUP-002",
+  "goal": "Increase prediction accuracy by improving both executable prediction procedure and accumulated domain reasoning knowledge.",
+  "capability_tracks": {
+    "TRACK_A_PREDICTION_PROGRAM": {
+      "purpose": "Make reasoning complete, reproducible, auditable and answer-isolated.",
+      "artifacts": [
+        "S00 retrieval and routing",
+        "S01 input freezing",
+        "S03 fusion",
+        "S10/S15 neutral time",
+        "S17 reality endpoints",
+        "S18 pairwise adjudication",
+        "S19 runtime validation and release",
+        "runtime schemas and validators"
+      ],
+      "learning_signal": "Execution defects, missing calls, invalid propagation, incomplete comparisons and contamination failures."
+    },
+    "TRACK_B_REASONING_KNOWLEDGE": {
+      "purpose": "Accumulate better interpretations of structures, schools, methods, conditions, counterexamples and real-world mappings.",
+      "layers": [
+        "SOURCE_CONFIRMED_KNOWLEDGE: source-backed and active in S00-S19",
+        "REASONED_HYPOTHESIS: derived from review and stored outside active S00-S19",
+        "OPEN_RESEARCH_QUESTION: plausible but not sufficiently specified or tested",
+        "REJECTED_OR_CONTRADICTED: retained for audit but never activated"
+      ],
+      "learning_signal": "Repeated clean cases showing that a general interpretation improves discrimination without case-specific answer encoding."
+    }
+  },
+  "repository_layers": {
+    "active_source_baseline": {
+      "path": "sources/active/S00-S19",
+      "role": "Only installed, bound and machine-validated knowledge and procedure rules may influence formal prediction."
+    },
+    "research_hypothesis_library": {
+      "path": "research/fortune-hypothesis-library",
+      "role": "Stores project-discovered candidate knowledge independently from active S00-S19."
+    },
+    "training_and_validation_ledger": {
+      "path": "data/research/fortune-hypothesis-registry.json",
+      "role": "Stores lifecycle state, provenance, supporting and contradicting cases, blind validation metrics and promotion decisions."
+    }
+  },
+  "hypothesis_lifecycle": [
+    "PROPOSED",
+    "SPECIFIED",
+    "RETROSPECTIVE_SUPPORT_ONLY",
+    "SAME_SET_CLEAN_SUPPORT",
+    "UNSEEN_VALIDATION_ACTIVE",
+    "VALIDATED_CANDIDATE",
+    "PROMOTED_TO_ACTIVE_SOURCE",
+    "REJECTED",
+    "SUPERSEDED"
+  ],
+  "mandatory_hypothesis_fields": [
+    "hypothesis_id",
+    "statement",
+    "domain_and_track",
+    "origin",
+    "source_parent_atoms",
+    "mechanism",
+    "applicability_conditions",
+    "limitations",
+    "counterexamples",
+    "capability_ceiling",
+    "alternative_explanations",
+    "supporting_case_ids",
+    "contradicting_case_ids",
+    "same_set_clean_metrics",
+    "unseen_metrics",
+    "provenance_independence",
+    "status",
+    "promotion_target"
+  ],
+  "promotion_gate": {
+    "single_case_can_promote": false,
+    "postreveal_explanation_can_promote": false,
+    "same_set_clean_support_required": true,
+    "unseen_validation_required": true,
+    "contradiction_review_required": true,
+    "no_answer_or_option_specific_text": true,
+    "source_and_mechanism_review_required": true,
+    "user_approval_required_for_active_S00_S19_change": true,
+    "machine_binding_and_hash_validation_required": true
+  },
+  "accuracy_policy": {
+    "aspiration": "Seek the highest reproducible prediction accuracy, potentially approaching 100 percent on well-posed tasks.",
+    "guarantee": "No fixed 100 percent guarantee. Accuracy claims require frozen answer-isolated tests.",
+    "same_set_role": "Validates absorption and reproducible execution.",
+    "unseen_role": "Validates generalization.",
+    "formal_release_role": "Requires both predictive evidence and machine-valid runtime state."
+  },
+  "anti_overfitting_rules": [
+    "Do not store answer letters, option positions or copied winner phrases in research hypotheses.",
+    "Do not count retrospective support as blind validation.",
+    "Do not promote a hypothesis because it explains one correct answer.",
+    "Record direct counterexamples and failed predictions with equal visibility.",
+    "Use option-order perturbations and provenance-independent cases.",
+    "Prefer conditional mechanisms over absolute event rules."
+  ],
+  "current_action": "Create the research hypothesis library and bind it to the R21 source-baseline rebuild without activating any unvalidated hypothesis.",
+  "status": "ARCHITECTURE_DEFINED",
+  "object_hash": "2f910757d143853b82693df1e81c6c219aa6280348e890a33faf4d614661c2eb"
+}

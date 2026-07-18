@@ -1,0 +1,52 @@
+{
+  "accuracy_improvement_claimed": false,
+  "formal_release": "NO",
+  "knowledge_candidate": {
+    "changed_library_ids": ["S19"],
+    "full_local_materialization_status": "PASS_20_OF_20",
+    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE",
+    "manifest_object_hash": "6d62b5781da2b7be0ef2f0b772b5cf379f1ef4ce3054df7992e160b3d55c00dc",
+    "materialization_mode": "CONTENT_ADDRESSED_PARENT_REUSE_WITH_BYTE_PREPEND_OVERLAY",
+    "source_content_commit_sha": "3f823756b2cb9479e5cd9d27978459b7e537eaa8",
+    "source_file_count": 20,
+    "unchanged_library_count": 19
+  },
+  "method_candidate": {
+    "method_release_id": "METHOD-R17",
+    "object_hash": "d22f19f1b975aaa6ce42c3af951cc6ff49d81aed3953629f1b33c86509b20cee",
+    "rule_change_status": "NO_RULE_CHANGE_PROMPT_BINDING_ONLY"
+  },
+  "object_hash": "77bc5a1811f961db2a2a45b0730fd73e9e88b0e6818c88dcbb1004161c568033",
+  "prompt_snapshot": {
+    "bytes": 11702,
+    "confirmation_transport": "USER_VERBATIM_CHAT_PASTE",
+    "sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
+    "status": "PASS"
+  },
+  "remaining_gates": [
+    "REMOTE_IMMUTABLE_CHECKOUT_MATERIALIZATION_READBACK_PASS",
+    "MODEL_R17_REPOSITORY_SHADOW_CANDIDATE",
+    "REPOSITORY_ONLY_NONSCORING_SHADOW_RUN",
+    "CAUSAL_USE_RECEIPT_PASS",
+    "NO_FALLBACK_PASS",
+    "USER_PROMOTION_APPROVAL"
+  ],
+  "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+  "s19": {
+    "base_bytes": 10281569,
+    "base_sha256": "6370a29465fe0178a3411138103f17e4e50cc2d05d380c614e0de86593674efc",
+    "materialized_bytes": 10283817,
+    "materialized_sha256": "59a0c04a282125929317b7166f9137b440f1f6d239bf27aec5b740d20b5c6a91",
+    "overlay_bytes": 2248,
+    "overlay_sha256": "c29a424ac16943a6dc51f77acfa6f51a237deb031a528e6d2bd8aa47a6eb5383"
+  },
+  "schema": "R26-R17-COMPOSITE-CANDIDATE-VALIDATION-V1",
+  "score_eligibility": "PROHIBITED",
+  "status": "PASS_LOCAL_COMPLETE_REMOTE_IMMUTABLE_READBACK_PENDING",
+  "tests": {
+    "composite_materialization": {"passed": 2},
+    "composite_tamper_rejection": "PASS_FAIL_CLOSED",
+    "r17_prompt_cutover": {"passed": 3},
+    "repository_delivery_prompt_and_contamination": {"passed": 7}
+  }
+}

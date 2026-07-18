@@ -1,0 +1,78 @@
+name: validate-dev-group-002-training-regression-r13
+
+on:
+  push:
+    paths:
+      - reports/dev-group-002/training-regression-r13/**
+      - reports/dev-group-002/training-regression-r12/**
+      - reports/dev-group-002/training-regression-r11/prediction-freeze.json
+      - .github/workflows/validate-dev-group-002-training-regression-r13.yml
+  pull_request:
+    paths:
+      - reports/dev-group-002/training-regression-r13/**
+      - reports/dev-group-002/training-regression-r12/**
+      - reports/dev-group-002/training-regression-r11/prediction-freeze.json
+      - .github/workflows/validate-dev-group-002-training-regression-r13.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-and-validate-r13:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize R13 legality diagnosis
+        run: |
+          set +e
+          python reports/dev-group-002/training-regression-r13/validate_v2.py \
+            --repo-root . --write --validate \
+            > reports/dev-group-002/training-regression-r13/execution.log 2>&1
+          status=$?
+          cat reports/dev-group-002/training-regression-r13/execution.log
+          echo "$status" > reports/dev-group-002/training-regression-r13/execution.exit-code
+          exit "$status"
+      - name: Persist R13 failure diagnostics
+        if: failure() && github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add reports/dev-group-002/training-regression-r13/
+          if git diff --cached --quiet; then
+            echo 'R13 failure diagnostics already persisted'
+          else
+            git commit -m 'Record DEV-GROUP-002 R13 execution failure'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Commit deterministic R13 artifacts
+        if: success() && github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          rm -f \
+            reports/dev-group-002/training-regression-r13/execution.log \
+            reports/dev-group-002/training-regression-r13/execution.exit-code
+          git add reports/dev-group-002/training-regression-r13/
+          if git diff --cached --quiet; then
+            echo 'R13 artifacts already frozen'
+          else
+            git commit -m 'Freeze DEV-GROUP-002 R13 legality diagnosis'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Upload R13 validation receipt
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-group-002-training-regression-r13-validation
+          path: reports/dev-group-002/training-regression-r13/validation.json
+          if-no-files-found: error
+          retention-days: 14

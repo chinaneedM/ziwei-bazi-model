@@ -1,0 +1,28 @@
+name: validate-dev-group-002-training-regression-r3
+
+on:
+  push:
+    paths:
+      - reports/dev-group-002/training-regression-r3/progress.json
+      - reports/dev-group-002/training-regression-r3/validate_progress.py
+      - .github/workflows/validate-dev-group-002-training-regression-r3.yml
+  pull_request:
+    paths:
+      - reports/dev-group-002/training-regression-r3/progress.json
+      - reports/dev-group-002/training-regression-r3/validate_progress.py
+      - .github/workflows/validate-dev-group-002-training-regression-r3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-r3-progress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate R3 source-grounding boundary
+        run: python reports/dev-group-002/training-regression-r3/validate_progress.py

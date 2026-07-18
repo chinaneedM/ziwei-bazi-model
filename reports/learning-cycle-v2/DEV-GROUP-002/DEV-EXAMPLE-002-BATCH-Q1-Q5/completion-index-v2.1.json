@@ -1,0 +1,47 @@
+{
+  "schema": "CASE-BATCH-TRAINING-COMPLETION-INDEX-V2.1",
+  "batch_id": "DEV-EXAMPLE-002-BATCH-Q1-Q5",
+  "case_id": "DEV-EXAMPLE-002",
+  "status": "TRAINING_BATCH_COMPLETE_WITH_SENSITIVE_TARGET_EXCLUSION",
+  "bundle_path": "case-batch-artifact-v2.1.json",
+  "bundle_object_hash": "bc70d64ca6df9353e6b5d49707d7a5bbf80e2afe1aec8bf607e9c71feb8edddf",
+  "bundle_sha256": "8be0b14ca05d2c69c0c1d09f96bc78634609a73dbab1980a02d963c0b053bae9",
+  "local_validation_path": "local-validation-v2.1.json",
+  "local_validation_object_hash": "f8ab14577985867abdecaaf2da41605eaa2e09d98e617c5f1e2ab5218dcda025",
+  "completed_trainable_units": [
+    "DEV-EXAMPLE-002-Q1",
+    "DEV-EXAMPLE-002-Q2",
+    "DEV-EXAMPLE-002-Q3",
+    "DEV-EXAMPLE-002-Q5"
+  ],
+  "excluded_units": [
+    "DEV-EXAMPLE-002-Q4"
+  ],
+  "raw_first_blind_audit": {
+    "question_count": 5,
+    "top1_hits": 1,
+    "top2_hits": 5,
+    "provenance": "REPOSITORY_BASELINE_LIMITED"
+  },
+  "eligible_first_blind_accuracy": {
+    "question_count": 4,
+    "top1_hits": 1,
+    "top2_hits": 4,
+    "top1_rate": 0.25,
+    "top2_rate": 1.0,
+    "excluded_question_ids": [
+      "Q4"
+    ]
+  },
+  "post_reveal_training_fit": {
+    "trainable_unit_count": 4,
+    "top1_hits": 4,
+    "role": "TRAINING_FIT_ONLY_NOT_BLIND_ACCURACY"
+  },
+  "formal_exact_assertions": "ALL_NULL",
+  "next_unit": "DEV-EXAMPLE-003-Q1",
+  "next_unit_status": "NOT_ENTERED",
+  "remote_ci": "UNVERIFIED",
+  "formal_release": "NO",
+  "object_hash": "5742f3ac4d33e27fdef03279328c48aa47a1ec5a274972fb9c21897b5b573eb7"
+}

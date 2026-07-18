@@ -1,0 +1,248 @@
+{
+  "current_authoritative_status": "REMEDIATION_REQUIRED_BEFORE_VALID_RETRAINING",
+  "current_diagnosis": {
+    "consequence": "Repository-only modifications cannot yet be credited as learned knowledge or prediction improvement.",
+    "critical_gap": "The installed CHAT/WORK adapter validates predictions after reasoning but does not deliver repository source text into the reasoning session or prove causal use.",
+    "formal_release": "NO",
+    "historical_baseline": "The original project-upload S00-S19 and repository R16 baseline were byte-identical at migration time.",
+    "training_score_status": "BLOCKED"
+  },
+  "group_id": "DEV-GROUP-002",
+  "implementation_order": [
+    "P0 Freeze current claims and preserve R16/project state as archive",
+    "P1 Implement knowledge and method release versioning",
+    "P2 Materialize chunked source catalog and SOURCE-PACKET-BUILDER-V1",
+    "P3 Implement immutable MODEL_RELEASE and run contract",
+    "P4 Implement causal-use and mixed-source validators",
+    "P4A Implement legacy contamination quarantine and repository inventory",
+    "P5 Run byte-identical R16 repository-only shadow validation",
+    "P6 Compile the five-case review into R21/R22 candidate source, method and hypothesis changes",
+    "P7 Build complete revised MODEL_RELEASE candidate",
+    "P8 Run clean same-set 25-question retest and freeze before grading",
+    "P9 Iterate until the declared target or document unresolved limits",
+    "P10 Run a new unseen frozen block",
+    "P11 Promote release and create the clean repository-only ChatGPT project"
+  ],
+  "implementation_summary": {
+    "object_hash": "6d663f0fe35b085111586929c57f25a544f2304867c5e2e6c01b79745bc62bad",
+    "path": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C01-C05-implementation-summary-v1.json"
+  },
+  "mandatory_components": [
+    {
+      "acceptance": "A new release can differ from R16 without overwriting R16, and every file is hash-bound.",
+      "deliverables": [
+        "candidate and release directories",
+        "complete 20-file manifest",
+        "S00 rebuilt locator/index",
+        "S19 rebuilt active binding table",
+        "active knowledge release pointer",
+        "candidate-to-release promotion receipt"
+      ],
+      "id": "C01_VERSIONED_KNOWLEDGE_RELEASES",
+      "purpose": "Keep history immutable while allowing the active knowledge model to advance."
+    },
+    {
+      "acceptance": "A run proves the exact method release used; method changes do not require rewriting historical predictions.",
+      "deliverables": [
+        "machine-readable method release",
+        "coverage planning rules",
+        "dual-track isolation rules",
+        "neutral-time and endpoint rules",
+        "literal option and pairwise adjudication rules",
+        "method release pointer and hash"
+      ],
+      "id": "C02_VERSIONED_METHOD_RELEASES",
+      "purpose": "Move mutable prediction workflow out of permanently static project instructions."
+    },
+    {
+      "acceptance": "Every evidence-ledger entry resolves to an exact packet item and repository file hash.",
+      "deliverables": [
+        "chunked repository source representation",
+        "searchable locator catalog",
+        "question-specific answer-free source packet",
+        "parent-clause text with conditions, negations, exceptions and limitations",
+        "packet and excerpt hashes"
+      ],
+      "id": "C03_SOURCE_PACKET_BUILDER",
+      "purpose": "Causally deliver the exact repository knowledge release into ChatGPT reasoning."
+    },
+    {
+      "acceptance": "The ChatGPT session receives one complete immutable run contract before reasoning begins.",
+      "deliverables": [
+        "MODEL_RELEASE binding",
+        "method packet",
+        "source packet",
+        "case input freeze",
+        "answer-isolation declaration",
+        "project-upload non-use declaration"
+      ],
+      "id": "C04_METHOD_PACKET_AND_RUN_CONTRACT",
+      "purpose": "Deliver the exact prediction procedure together with the source packet."
+    },
+    {
+      "acceptance": "Any project-upload citation, unbound excerpt or missing method stage fails closed and cannot be scored.",
+      "deliverables": [
+        "packet-item references on every knowledge call",
+        "method-rule references on every mandatory stage",
+        "mixed-source detector",
+        "missing-source detector",
+        "no-silent-fallback rule",
+        "source-authority receipt"
+      ],
+      "id": "C05_CAUSAL_USE_VALIDATOR",
+      "purpose": "Reject declared bindings that were not actually used."
+    },
+    {
+      "acceptance": "A source packet or run containing project uploads, historical reports, postreveal objects, SHADOW_REBUILD, answer-vault material, training state or unpromoted research hypotheses fails closed and is score-ineligible; superseded files remain immutable audit only.",
+      "deliverables": [
+        "runtime contamination policy",
+        "lifecycle status registry",
+        "versioned knowledge-root enforcement",
+        "selected-parent contamination rejection",
+        "historical report and postreveal detector",
+        "SHADOW_REBUILD and answer-vault detector",
+        "direct research-hypothesis detector",
+        "repository contamination inventory command",
+        "negative tests and validation receipt"
+      ],
+      "id": "C05A_LEGACY_CONTAMINATION_QUARANTINE",
+      "purpose": "Remove obsolete reasoning, revealed-case traces and research-only material from the active runtime without destroying immutable audit history."
+    },
+    {
+      "acceptance": "No revealed answer letter, option position or case-specific winner phrase enters a candidate release.",
+      "classification": [
+        "EXISTING_KNOWLEDGE_NOT_RETRIEVED",
+        "EXISTING_KNOWLEDGE_MISAPPLIED",
+        "METHOD_OR_ADJUDICATION_DEFECT",
+        "REALITY_ENDPOINT_DEFECT",
+        "TRUE_SOURCE_KNOWLEDGE_GAP",
+        "REASONED_HYPOTHESIS",
+        "OPEN_RESEARCH_QUESTION",
+        "CASE_NOISE_OR_UNRESOLVED"
+      ],
+      "deliverables": [
+        "generalizable defect record",
+        "responsible library or method module",
+        "candidate diff",
+        "conditions and limitations",
+        "counterexamples",
+        "anti-answer-leak scan"
+      ],
+      "id": "C06_POSTREVEAL_LEARNING_COMPILER",
+      "purpose": "Convert review findings into either program fixes, source candidates or research hypotheses."
+    },
+    {
+      "acceptance": "TOP1/TOP2 are calculated only from answer-isolated frozen predictions; retrospective explanations never count as accuracy.",
+      "id": "C07_CLEAN_RETEST_AND_GENERALIZATION",
+      "purpose": "Separate absorption, stability and generalization.",
+      "stages": [
+        "same-set clean retest with revised MODEL_RELEASE",
+        "freeze before reveal",
+        "score all 25 questions",
+        "repeat source/method revision until target or unresolved limit",
+        "new unseen frozen block after same-set target"
+      ]
+    },
+    {
+      "acceptance": "A clean run can complete using repository packets only, with explicit proof that project-upload knowledge was absent or unused.",
+      "deliverables": [
+        "R16 repository-only shadow proof",
+        "new clean ChatGPT project",
+        "minimal bootstrap prompt",
+        "GitHub access",
+        "no S00-S19 project uploads",
+        "old project retained as archive"
+      ],
+      "id": "C08_PROJECT_CUTOVER",
+      "purpose": "Eliminate permanent dual-source drift."
+    }
+  ],
+  "next_engineering_action": "Complete C01 full repository readback and C05A full contamination inventory, then run the non-scoring R16 repository-only shadow validation; do not start the 25-question clean retest before all gates pass.",
+  "object_hash": "6f4ad912133c0de36b07003cf1da3c898b61fdadbd0424333d8d9ee1d008a9e6",
+  "objective": "Make every claimed training improvement causally attributable to a versioned knowledge release and a versioned prediction-method release that were actually consumed by an answer-isolated ChatGPT reasoning session.",
+  "round_id": "R25",
+  "schema": "FORTUNE-SYSTEM-REMEDIATION-MASTER-PLAN-V1",
+  "score_and_release_gates": {
+    "required_before_any_accuracy_claim": [
+      "source packet consumed",
+      "method packet consumed",
+      "causal-use validator PASS",
+      "no project-upload fallback",
+      "legacy contamination inventory and runtime reference scan PASS",
+      "complete prediction freeze before reveal"
+    ],
+    "required_before_formal_release": [
+      "same-set target",
+      "unseen evaluation",
+      "knowledge and method manifests PASS",
+      "S00 and S19 rebuild PASS",
+      "user approval",
+      "clean project cutover PASS"
+    ],
+    "same_set_target": {
+      "answer_contamination": 0,
+      "top1": "AT_LEAST_20_OF_25",
+      "top2": "AT_LEAST_23_OF_25"
+    }
+  },
+  "target_architecture": {
+    "answer_vault": {
+      "role": "Physically separate grading authority after complete prediction freeze",
+      "runtime_read_access": false
+    },
+    "chatgpt_project": {
+      "contains": [
+        "minimal stable bootstrap prompt",
+        "GitHub connector access",
+        "case inputs supplied by the user"
+      ],
+      "must_not_contain_after_cutover": [
+        "duplicate S00-S19 uploads",
+        "answer files",
+        "prior revealed-case rationale available to blind runs"
+      ],
+      "role": "Interactive reasoning shell"
+    },
+    "github_repository": {
+      "contamination_governance": "governance/runtime-contamination-policy-v1.json",
+      "knowledge_layers": [
+        "knowledge/base/R16 immutable historical control",
+        "knowledge/candidates/<version> training candidates",
+        "knowledge/releases/<version> promoted releases",
+        "knowledge/active-release.json exact active pointer"
+      ],
+      "method_layers": [
+        "method/base/<version> immutable historical method",
+        "method/candidates/<version> revised prediction procedure",
+        "method/releases/<version> promoted method",
+        "method/active-release.json exact active pointer"
+      ],
+      "research_layer": "research/fortune-hypothesis-library",
+      "role": "Sole mutable authority for knowledge, method, research hypotheses, runtime state and audit"
+    },
+    "model_release": {
+      "definition": "One immutable tuple of bootstrap prompt ID, knowledge release, method release, code commit and source-delivery schema.",
+      "required_fields": [
+        "MODEL_RELEASE_ID",
+        "MAIN_PROMPT_RUNTIME_ID",
+        "KNOWLEDGE_RELEASE_ID",
+        "METHOD_RELEASE_ID",
+        "CODE_COMMIT_SHA",
+        "S19_BINDING_SHA256",
+        "SOURCE_PACKET_SCHEMA",
+        "20 source file hashes and sizes"
+      ]
+    }
+  },
+  "user_actions": {
+    "later_once_cutover_is_proven": [
+      "Create or switch to the new clean project with the minimal bootstrap prompt and GitHub connection.",
+      "Keep the old project read-only as an archive rather than deleting it."
+    ],
+    "now": [
+      "Do not delete the current project S00-S19 files yet.",
+      "Do not manually maintain two changing copies.",
+      "Do not treat further case scores as valid until repository source delivery is installed."
+    ]
+  }
+}

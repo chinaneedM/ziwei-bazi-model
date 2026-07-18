@@ -1,0 +1,66 @@
+{
+  "answer_used_to_derive_variants": false,
+  "case_id": "DEV-EXAMPLE-004",
+  "formal_status": "READY_FOR_PARALLEL_S11_TO_S16_REBUILD_NOT_SEALED",
+  "group_id": "DEV-GROUP-002",
+  "physical_time": {
+    "clock_time": "1993-04-08 23:30",
+    "confirmed_shichen": "ZI",
+    "true_solar_time": "1993-04-08 23:28",
+    "within_same_shichen": true
+  },
+  "previous_r1_classification": "QUARANTINED_FOUNDATION_CONFLICT",
+  "prohibitions": [
+    "NO_CROSS_VARIANT_COMPONENT_MIXING",
+    "NO_ANSWER_OR_ZIWEI_SELECTION",
+    "NO_DOUBLE_VOTE",
+    "NO_RETROACTIVE_CHART_CORRECTION"
+  ],
+  "r2_classification": "CROSS_SYSTEM_CALENDAR_CONVENTION_DIVERGENCE_VALID",
+  "required_result_class": [
+    "VARIANT_ROBUST",
+    "VARIANT_CONSTRAINED",
+    "VARIANT_DEPENDENT",
+    "DAY_BOUNDARY_VARIANT_RANK_REVERSAL",
+    "ONE_VARIANT_BLOCKED",
+    "BOTH_VARIANTS_VALID_ABSTENTION"
+  ],
+  "schema": "DEV-EXAMPLE-004-ZI-HOUR-VARIANT-RESOLUTION-V1",
+  "source_excerpt_ids": [
+    "ZI_HOUR_LEGAL_PARALLEL_VARIANTS",
+    "BAZI_TRANSCRIPTION_CONFLICT_RULE"
+  ],
+  "source_rows": [
+    {
+      "displayed_pillars": "癸酉 丙辰 己未 甲子",
+      "lunar_day": "三月十七",
+      "source": "training-data/DEV-GROUP-002/readable/DEV-EXAMPLE-004/ziwei.txt",
+      "source_sha256": "b1bb67d7fe9a8b3df77aed0f6247e325e9d4e1a75ccaf0e65b9bafc683ea73ff"
+    },
+    {
+      "displayed_pillars": "癸酉 丙辰 庚申 丙子",
+      "lunar_day": "三月十八",
+      "source": "training-data/DEV-GROUP-002/readable/DEV-EXAMPLE-004/bazi.json",
+      "source_image_sha256": "f8ccbb5d4b740a21fa1a645f06494e8aebc456890f86bf560534ab9514a93df0"
+    }
+  ],
+  "status": "PASS_RECLASSIFIED_AS_LEGAL_PARALLEL_VARIANTS",
+  "variants": [
+    {
+      "day_boundary_rule": "ZI_CHU_DAY_CHANGE_AT_23",
+      "derived_day_pillar": "庚申",
+      "derived_hour_pillar": "丙子",
+      "source_binding": "bazi sidecar",
+      "status": "LEGAL_CANDIDATE",
+      "variant_id": "DEV004-BAZI-ZI-23"
+    },
+    {
+      "day_boundary_rule": "MIDNIGHT_DAY_CHANGE_AT_00",
+      "derived_day_pillar": "己未",
+      "derived_hour_pillar": "甲子",
+      "source_binding": "ziwei text embedded solar-term pillars",
+      "status": "LEGAL_CANDIDATE",
+      "variant_id": "DEV004-BAZI-00"
+    }
+  ]
+}

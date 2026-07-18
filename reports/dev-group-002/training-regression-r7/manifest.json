@@ -1,0 +1,96 @@
+{
+  "artifacts": {
+    "adjudication": {
+      "canonical_sha256": "9b8934d202572773cad6829ceaebcce43e16a21e6cdb741aaf617cac000984e1",
+      "path": "reports/dev-group-002/training-regression-r7/pairwise-adjudication.json",
+      "row_count": 30
+    },
+    "generic_fix": {
+      "canonical_sha256": "b2b9d52b886ac6e9d006091505d95e4a5d908419151f5ce646c9832680455eb8",
+      "path": "reports/dev-group-002/training-regression-r7/generic-fix.json"
+    },
+    "parent_bindings": {
+      "canonical_sha256": "8131ae1a47181a85900c332f696335ba27e8d1c0811c01a528a21323fa599c60",
+      "composite_row_count": 20,
+      "path": "reports/dev-group-002/training-regression-r7/track-option-parent-bindings.json",
+      "track_row_count": 40
+    },
+    "prediction": {
+      "canonical_sha256": "d36460193ba191bc83b457ab859bf7d8f622c96a9bccb70b856cc94d05959499",
+      "path": "reports/dev-group-002/training-regression-r7/prediction-freeze.json"
+    },
+    "review": {
+      "canonical_sha256": "e4dca99eb1c0ab620e733ff20f6aaaf31eb6b1240a7dfaed7af2e35caf539aaa",
+      "path": "reports/dev-group-002/training-regression-r7/postreveal-review.json"
+    },
+    "source_registry": {
+      "canonical_sha256": "345e7f7ac0a4c8c2b31d4ef7cf27ba40eba5ed3281ca0f42694fac885fe4dcfd",
+      "path": "reports/dev-group-002/training-regression-r7/source-registry.json",
+      "row_count": 26
+    }
+  },
+  "base_astrological_knowledge_changed": false,
+  "canonical_sha256": "90b6c2be16b07e1ac6d9df8064c17e0911980b2bf54476eee7d8fd226330d0dc",
+  "case_specific_direction_rule_added": false,
+  "group_id": "DEV-GROUP-002",
+  "historical_rounds": {
+    "R1": {
+      "git_blob_sha": "20a372e1e9baf09a00ca46babfe7fdee458de322",
+      "path": "reports/dev-group-002/training-regression-r1/manifest.json",
+      "preserved": true
+    },
+    "R2": {
+      "git_blob_sha": "6e92ed4e079f9615c2be698b52a9477211fab81a",
+      "path": "reports/dev-group-002/training-regression-r2/formal-readiness-matrix.json",
+      "preserved": true
+    },
+    "R3": {
+      "git_blob_sha": "5132282a0301f461738db2c1fcb1242977a73186",
+      "path": "reports/dev-group-002/training-regression-r3/progress.json",
+      "preserved": true
+    },
+    "R4": {
+      "git_blob_sha": "0e0896f26d51eb2af39e297bddfbda6dbeab6eb2",
+      "path": "reports/dev-group-002/training-regression-r4/compact-manifest.json",
+      "preserved": true
+    },
+    "R5": {
+      "git_blob_sha": "c6313c941fd1e030b2f77fe67a16fc51df8c4dfa",
+      "path": "reports/dev-group-002/training-regression-r5/manifest.json",
+      "preserved": true
+    },
+    "R6": {
+      "git_blob_sha": "e4ae5fc92da8c0a63354c16775a5b9ab822dfed6",
+      "path": "reports/dev-group-002/training-regression-r6/manifest.json",
+      "preserved": true
+    }
+  },
+  "new_case_admission": "BLOCKED",
+  "next_required_round": "R8_REBUILD_DEV_EXAMPLE_002_SOURCE_CALL_BODIES_OR_FAIL_CLOSED",
+  "remaining_cases": [
+    "DEV-EXAMPLE-002",
+    "DEV-EXAMPLE-003",
+    "DEV-EXAMPLE-004",
+    "DEV-EXAMPLE-005"
+  ],
+  "round_id": "R7",
+  "run_class": "ANSWER_VISIBLE_SAME_CASE_SHADOW_REBUILD",
+  "s00_s19_modified": false,
+  "schema": "DEV-GROUP-002-R7-FROZEN-MANIFEST-V1",
+  "statistics": {
+    "bazi_option_rows_with_native_parent_binding": 0,
+    "evidence_reconstructed_pairwise_rows": 11,
+    "formal_valid_questions": 0,
+    "fully_processed_case_count": 1,
+    "fully_processed_question_count": 5,
+    "low_information_forced_pairwise_rows_in_processed_case": 19,
+    "machine_valid_local_seals": 0,
+    "pairwise_winner_changes": 1,
+    "question_count": 25,
+    "s03_fusions": 0,
+    "top1_hits": 14,
+    "top2_coverage": 16,
+    "ziwei_option_rows_with_native_parent_binding": 20
+  },
+  "status": "FROZEN_PARTIAL_SOURCE_REBUILD"
+}

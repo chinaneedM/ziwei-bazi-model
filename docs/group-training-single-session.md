@@ -2,16 +2,21 @@
 
 ## Authority and scope
 
-This document defines the runtime correction for fixed development groups such as `DEV-GROUP-002`.
-It changes orchestration granularity only. It does not change S00–S19 astrological knowledge, question semantics, evidence direction, pairwise adjudication, or case-specific outcome rules.
+This document defines orchestration for fixed development groups such as `DEV-GROUP-002`.
+
+It preserves S00–S19 provenance, blind prediction isolation, literal answer replay and immutable prediction objects. It also defines the corrected learning objective: revealed development cases are repeatedly studied until they reach configured mastery. General methods and source knowledge may be revised through controlled candidates; case-specific outcome rules remain forbidden.
 
 ## Correct cold-start boundary
 
 `CHAT_STATELESS_COLD_START` applies between training groups, not between cases inside one group.
 
-One user instruction starts one `GROUP_SESSION_ID`. The active CHAT/WORK session may then retrieve and process every answer-free case in the group without asking the user to open a new conversation or send a per-case continue instruction.
+One user instruction starts one `GROUP_SESSION_ID`. The active CHAT/WORK session may process every answer-free case in the group without requiring a new conversation or per-case continue instruction.
 
-## Runtime object
+Within a revealed training cycle, each replay attempt still receives a fresh run ID and an answer-free prediction input. Old selections, old error explanations and reveal payloads are not prediction inputs.
+
+## Runtime objects
+
+The original group object remains:
 
 ```text
 SCHEMA=GROUP-TRAINING-RUN-V1
@@ -34,106 +39,144 @@ FINAL_DECISION
 OBJECT_HASH
 ```
 
-Each `CASE_RUN_ROW` must bind:
+Mastery training adds:
 
 ```text
-CASE_ID
-CASE_RUN_ID
-PREDICTION_INPUT_SNAPSHOT_ID
-CASE_WHITELIST_ID
-ZIWEI_LOCAL_SEAL_ID
-BAZI_LOCAL_SEAL_ID
-S18_LOCAL_ADJUDICATION_OBJECT_IDS
-PREDICTION_RUN_ID
-CASE_FREEZE_STATUS
-CASE_OBJECT_HASH
+SCHEMA=LEARNING-CYCLE-V2
+CYCLE_ID
+GROUP_ID
+UNIT_MODE
+UNITS
+CURRENT_UNIT_INDEX
+THRESHOLDS
+MASTERED_UNITS
+HISTORY
+STATUS
+GENERALIZATION_STATUS
+OBJECT_HASH
 ```
 
-## Execution sequence
+Each `CASE_RUN_ROW` continues to bind the case snapshot, whitelists, local seals, S18 adjudication objects, prediction run and immutable hashes.
+
+## Baseline freeze and first reveal
+
+The first group execution remains:
 
 ```text
 GROUP_INPUT_FREEZE
 → CASE_1_BLIND_PREDICTION_AND_LOCAL_SEALS
-→ CASE_2_BLIND_PREDICTION_AND_LOCAL_SEALS
-→ CASE_3_BLIND_PREDICTION_AND_LOCAL_SEALS
-→ CASE_4_BLIND_PREDICTION_AND_LOCAL_SEALS
-→ CASE_5_BLIND_PREDICTION_AND_LOCAL_SEALS
+→ ...
+→ CASE_N_BLIND_PREDICTION_AND_LOCAL_SEALS
 → GROUP_PREDICTION_FREEZE
 → GROUP_REVEAL
 → ANSWER_VECTOR_LITERAL_REPLAY_PER_CASE
-→ GROUP_DIAGNOSIS
-→ PATCH_CANDIDATE
-→ CLEAN_GROUP_RERUN_WITH_NEW_IDS
-→ REGRESSION_COMPARE
-→ ACCEPT_OR_ROLLBACK
 ```
 
-The case count is read from the frozen group manifest. Five is the current fixed development-group size, not a universal schema constant.
+No group answer may become visible until all expected baseline case runs are frozen and validated.
 
-## Case isolation inside one session
+## Corrected iterative learning
 
-The session may retain only group-level administrative state between cases:
+After reveal, the active sequence is:
 
-- frozen S00–S19 bindings;
-- main-prompt runtime ID;
-- runtime code commit;
-- group and case ordering;
-- completion status and immutable object identifiers.
+```text
+ABSORB
+→ DECOMPOSE
+→ FILL
+→ RESHAPE
+→ APPLY_WITH_CLEAN_COLD_START
+→ MASTERY_AND_RETENTION_EVALUATION
+→ either repeat learning or advance unit
+→ GENERATE_UNSEEN_BLIND_TEST after all units are mastered
+```
 
-The following are forbidden inputs to a later case prediction:
+The answer is allowed in diagnosis after immutable freeze. It is forbidden in prediction, clean replay, patch direction logic and variant selection.
 
-- prior case TOP1 or TOP2 selections;
-- prior case blind-model text or mechanism synthesis;
-- prior case evidence direction or strongest competitor;
-- prior case reveal, answer, score, error explanation, or shadow rebuild;
-- case-specific patch rules.
+## Training unit granularity
 
-Before each case, the executor must create a fresh case whitelist and verify that only the current answer-free `PREDICTION_INPUT_SNAPSHOT` is present.
+The cycle can run in three modes:
 
-## Group freeze and reveal
+- `QUESTION`: one question at a time;
+- `CASE`: one case at a time;
+- `GROUP`: the complete group.
 
-No answer for any group member may become visible until all expected cases have:
+`DEV-GROUP-002` defaults to `QUESTION` mode when full-group work is too large. The frozen order is preserved. A later question cannot begin until the active question passes its mastery and retention gates.
 
-1. a complete `PREDICTION-RUN-V1` body;
-2. two machine-valid independent local seals where applicable;
-3. complete direction matrices and pairwise rows;
-4. a non-overwriting case freeze receipt.
+Default question gate:
 
-`GROUP_PREDICTION_FREEZE` passes only when every expected case row passes. Partial group freeze, missing case rows, duplicate case IDs, reused run IDs, or changed prediction bodies fail closed.
+- five clean cold-start attempts;
+- TOP1 at least 80%;
+- TOP2 at least 90%;
+- source provenance and pairwise replay PASS;
+- no case-specific direction rule;
+- previously mastered units remain at least 80%.
 
-The answer vault performs one group-authorized reveal after the group freeze. Literal answer replay and grading remain per case and per question; the group layer only authorizes timing and aggregates results.
+## What learning may change
 
-## Iterative training
+A general candidate may revise:
 
-A patch candidate may be produced only after the original group prediction is immutable and the group answer replay has passed. A candidate may repair reproducible execution, retrieval, semantic, entity, time, endpoint, independence, fusion, mapping, or release-interface defects.
+- retrieval and source routing;
+- literal semantics and atom decomposition;
+- entity and person-Taiji mapping;
+- neutral time, occurrence and duration logic;
+- real-world endpoint chains;
+- pairwise adjudication;
+- two-track independence and fusion;
+- method rules;
+- source knowledge under stronger review.
 
-It may not:
+A method candidate may originate from one wrong question if it is expressed as a general mechanism with explicit conditions and counterexamples.
 
-- overwrite the original prediction;
-- add answer-direction rules for the five development cases;
-- modify base astrological knowledge from a single group result;
-- select a Bazi variant by outcome;
-- inject answers, prior predictions, reveal explanations, or `SHADOW_REBUILD` into a clean rerun.
+A base-knowledge promotion requires at least two independent source parents and reproduction in two distinct training units. Before that it remains a research candidate.
 
-Every rerun uses a new `GROUP_RUN_ID` and new `CASE_RUN_ID` values. Acceptance requires the configured group policy to pass and no prohibited regression damage. Otherwise the candidate is rejected and the prior runtime commit remains authoritative.
+## Forbidden learning shortcuts
+
+The following remain illegal:
+
+- overwrite a frozen prediction;
+- encode a case ID, question ID, answer letter or exact fingerprint as a decision rule;
+- choose a Bazi variant because it matches the known result;
+- pass old selections, reveal explanations or shadow rebuild text to a clean replay;
+- call training mastery blind accuracy;
+- claim unseen generalization before a frozen unseen block.
+
+## Retention and regression
+
+A candidate is evaluated on the active unit and all previously mastered units.
+
+- Active unit below target: continue learning.
+- Prior unit below retention target: reshape or repair the candidate.
+- No improvement in repeated rounds: return to decomposition; do not stop automatically.
+- Base knowledge needed: enter knowledge review; do not stop automatically.
+- Case-specific rule or prediction contamination: HOLD.
+- Invalid source or pairwise provenance: HOLD.
+
+There is no arbitrary maximum of five rounds, no maximum same-defect retry count and no stop after two zero-improvement rounds.
+
+## State transitions
+
+```text
+LEARNING_ACTIVE
+  ├─ active unit below target     → LEARNING_ACTIVE
+  ├─ prior-unit regression        → REGRESSION_REPAIR_REQUIRED
+  ├─ method stagnation            → METHOD_RETHINK_REQUIRED
+  ├─ knowledge candidate needed   → KNOWLEDGE_REVIEW_REQUIRED
+  ├─ contamination                → GROUP_HOLD
+  ├─ current unit mastered        → next unit
+  └─ all units mastered           → TRAINING_SET_MASTERED_AWAITING_UNSEEN_BLIND_TEST
+```
 
 ## User interaction contract
 
-A single user instruction such as:
-
-> Continue the repository fixed five-case blind group training cycle.
-
-is sufficient to start the whole group in the current session. The executor must not require five new conversations or five separate continue messages.
-
-GitHub still does not autonomously wake ChatGPT after the response ends. “Autonomous group training” means that, once started by the user, the active session continuously performs the full group workflow without per-case intervention.
+One user instruction is enough to start or continue the current cycle. GitHub does not wake ChatGPT autonomously after a response, but the active response should perform the complete available learning step without asking for per-case confirmation.
 
 ## Required validation tests
 
-- later-case prediction cannot read earlier-case predictions;
-- any answer visibility before group freeze fails the group;
-- partial group freeze cannot authorize reveal;
-- duplicate or reused group/case run IDs fail;
-- changed frozen prediction body fails;
-- patch files containing answer vectors, old selections, case-specific direction rules, or reveal text fail leak scanning;
-- clean rerun uses new IDs and answer-free snapshots;
-- rejection restores the previously authoritative runtime commit.
+- reveal is impossible before the baseline group freeze;
+- clean replay cannot read answer payloads, old predictions or old error explanations;
+- case-specific direction rules are rejected;
+- a question reaches mastery only after the required clean attempts and rate threshold;
+- previously mastered questions are replayed and retained;
+- arbitrary round counts do not force HOLD;
+- base-knowledge candidates require independent sources and multi-unit reproduction;
+- training mastery remains explicitly separate from unseen generalization;
+- frozen prediction objects remain immutable throughout learning.

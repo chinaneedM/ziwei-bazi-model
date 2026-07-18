@@ -1,0 +1,166 @@
+{
+  "answer_or_option_specific_rule_permission": "NO",
+  "created_at": "2026-07-19T00:13:30+08:00",
+  "historical_method_fallback_permission": "NO",
+  "mandatory_stage_ids": [
+    "INPUT_AND_LITERAL_OPTION_FREEZE",
+    "COMPLETE_KNOWLEDGE_COVERAGE",
+    "ZIWEI_BLIND_TRACK",
+    "BAZI_BLIND_TRACK",
+    "NEUTRAL_TIME_FACTS",
+    "PERSON_TAIJI_AND_ENTITY_TOPOLOGY",
+    "REALITY_OCCURRENCE_AND_ENDPOINT_CLOSURE",
+    "COMMON_ATOM_SUBTRACTION",
+    "OPTION_ATOM_DIRECTION_MATRIX",
+    "FULL_PAIRWISE_ADJUDICATION",
+    "TRACK_INDEPENDENCE_AND_FUSION",
+    "PUBLIC_RELATIVE_AND_FORMAL_RELEASE"
+  ],
+  "method_release_id": "METHOD-R17",
+  "method_release_path": "method/candidates/METHOD-R17/method-release-v2.json",
+  "method_release_sha256": "6b38f853fcca86c40f35cefa75f2b09ed214afb3db2c0953a4c2704b6ac67723",
+  "object_hash": "db54d12c1a74366d761aca366f8444fc9d56619641085427cc6766c35777fc3f",
+  "rules": [
+    {
+      "failure_status": "INPUT_OR_LITERAL_FREEZE_INVALID",
+      "method_rule_id": "MR-R16-001",
+      "requirement": "Freeze case inputs, question text, option text, literal predicates, event forms and reference periods before prediction.",
+      "source_authority": "S01|S02",
+      "stage_id": "INPUT_AND_LITERAL_OPTION_FREEZE"
+    },
+    {
+      "failure_status": "ANSWER_ISOLATION_FAIL_CLOSED",
+      "method_rule_id": "MR-R16-002",
+      "requirement": "Answer data, prior reveal, prior diagnosis and shadow rebuild must be physically inaccessible.",
+      "source_authority": "S01|S02",
+      "stage_id": "INPUT_AND_LITERAL_OPTION_FREEZE"
+    },
+    {
+      "failure_status": "KNOWLEDGE_COVERAGE_INCOMPLETE",
+      "method_rule_id": "MR-R16-003",
+      "requirement": "Derive required and conditional source families from target axis, distinctive atoms, event family, exactness, actor, action, object, reference period and strongest competitor.",
+      "source_authority": "S00",
+      "stage_id": "COMPLETE_KNOWLEDGE_COVERAGE"
+    },
+    {
+      "failure_status": "EARLY_STOP_INVALID",
+      "method_rule_id": "MR-R16-004",
+      "requirement": "Do not stop because three public evidence items or a temporary winner already exists.",
+      "source_authority": "S00",
+      "stage_id": "COMPLETE_KNOWLEDGE_COVERAGE"
+    },
+    {
+      "failure_status": "ZIWEI_BLIND_TRACK_INVALID",
+      "method_rule_id": "MR-R16-005",
+      "requirement": "Seal a Ziwei blind-axis model before option-direction challenge; bind every used parent to S05-S10 and real S06 selectors.",
+      "source_authority": "S05|S06|S07|S08|S09|S10",
+      "stage_id": "ZIWEI_BLIND_TRACK"
+    },
+    {
+      "failure_status": "ZIWEI_OPTION_CHALLENGE_INCOMPLETE",
+      "method_rule_id": "MR-R16-006",
+      "requirement": "Challenge every option atom through support, counterevidence, alternative explanation and exact occurrence or endpoint routes.",
+      "source_authority": "S05|S06|S07|S08|S09|S10",
+      "stage_id": "ZIWEI_BLIND_TRACK"
+    },
+    {
+      "failure_status": "BAZI_BLIND_TRACK_INVALID",
+      "method_rule_id": "MR-R16-007",
+      "requirement": "Seal a Bazi blind-axis capability model before option-direction challenge and preserve all legal variants.",
+      "source_authority": "S11|S12|S13|S14|S15|S16",
+      "stage_id": "BAZI_BLIND_TRACK"
+    },
+    {
+      "failure_status": "BAZI_TRACK_PROVENANCE_INVALID",
+      "method_rule_id": "MR-R16-008",
+      "requirement": "Bazi mechanisms must use independent S11-S16 parents and may not copy Ziwei facts or prose.",
+      "source_authority": "S11|S12|S13|S14|S15|S16",
+      "stage_id": "BAZI_BLIND_TRACK"
+    },
+    {
+      "failure_status": "NEUTRAL_TIME_FACT_MISSING",
+      "method_rule_id": "MR-R16-009",
+      "requirement": "Create direction-neutral facts for every candidate time and legal Bazi variant before option projection.",
+      "source_authority": "S10|S15",
+      "stage_id": "NEUTRAL_TIME_FACTS"
+    },
+    {
+      "failure_status": "TIME_ENDPOINT_INFLATION",
+      "method_rule_id": "MR-R16-010",
+      "requirement": "Time intensity, transformations or relations provide stage permission only and never prove occurrence or endpoint.",
+      "source_authority": "S10|S15",
+      "stage_id": "NEUTRAL_TIME_FACTS"
+    },
+    {
+      "failure_status": "PERSON_TAIJI_TOPOLOGY_INVALID",
+      "method_rule_id": "MR-R16-011",
+      "requirement": "Separate native raw palace, person entry, person Taiji origin and person-relative theme coordinates; only natural persons receive person Taiji.",
+      "source_authority": "S04",
+      "stage_id": "PERSON_TAIJI_AND_ENTITY_TOPOLOGY"
+    },
+    {
+      "failure_status": "DIRECTIONAL_PROPAGATION_FAIL",
+      "method_rule_id": "MR-R16-012",
+      "requirement": "Propagate every support, limitation and contradiction atom without erasing direction because an exact endpoint is missing.",
+      "source_authority": "S17",
+      "stage_id": "REALITY_OCCURRENCE_AND_ENDPOINT_CLOSURE"
+    },
+    {
+      "failure_status": "REALITY_LEVEL_JUMP_INVALID",
+      "method_rule_id": "MR-R16-013",
+      "requirement": "Keep propensity, opportunity, actual occurrence and formal endpoint as separate levels.",
+      "source_authority": "S17",
+      "stage_id": "REALITY_OCCURRENCE_AND_ENDPOINT_CLOSURE"
+    },
+    {
+      "failure_status": "COMMON_ATOM_SUBTRACTION_INVALID",
+      "method_rule_id": "MR-R16-014",
+      "requirement": "Mechanically subtract shared atoms and identical physical facts before ranking.",
+      "source_authority": "S18",
+      "stage_id": "COMMON_ATOM_SUBTRACTION"
+    },
+    {
+      "failure_status": "DIRECTION_MATRIX_INVALID",
+      "method_rule_id": "MR-R16-015",
+      "requirement": "Preserve per-atom support, partial support, limitation, direct contradiction, alternative explanation, time stage and exact endpoint gaps.",
+      "source_authority": "S18",
+      "stage_id": "OPTION_ATOM_DIRECTION_MATRIX"
+    },
+    {
+      "failure_status": "PAIRWISE_MATRIX_INCOMPLETE",
+      "method_rule_id": "MR-R16-016",
+      "requirement": "Generate all N*(N-1)/2 pairwise comparisons using the fixed literal decision order and derive strongest competitor mechanically.",
+      "source_authority": "S18",
+      "stage_id": "FULL_PAIRWISE_ADJUDICATION"
+    },
+    {
+      "failure_status": "FUSION_INPUT_INVALID",
+      "method_rule_id": "MR-R16-017",
+      "requirement": "Fusion may read only two machine-valid local seals; same choice alone gives zero gain.",
+      "source_authority": "S03|S16",
+      "stage_id": "TRACK_INDEPENDENCE_AND_FUSION"
+    },
+    {
+      "failure_status": "FUSION_GAIN_INVALID",
+      "method_rule_id": "MR-R16-018",
+      "requirement": "Positive gain requires independent completion of the weakest formal atom or direct closure of the strongest competitor.",
+      "source_authority": "S03|S16",
+      "stage_id": "TRACK_INDEPENDENCE_AND_FUSION"
+    },
+    {
+      "failure_status": "RELATIVE_RELEASE_MISSING",
+      "method_rule_id": "MR-R16-019",
+      "requirement": "Always release relative TOP1 and TOP2 for a clean readable choice question, even when formal exact assertion is null.",
+      "source_authority": "S18|S19",
+      "stage_id": "PUBLIC_RELATIVE_AND_FORMAL_RELEASE"
+    },
+    {
+      "failure_status": "SCORING_WITHOUT_CAUSAL_PROOF",
+      "method_rule_id": "MR-R16-020",
+      "requirement": "No run may be scored without source-packet, method-packet and causal-use validation PASS.",
+      "source_authority": "S18|S19",
+      "stage_id": "PUBLIC_RELATIVE_AND_FORMAL_RELEASE"
+    }
+  ],
+  "schema": "FORTUNE-METHOD-PACKET-V1"
+}

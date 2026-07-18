@@ -1,0 +1,43 @@
+{
+  "schema": "TRAINING-UNIT-PLAN-V2.1",
+  "group_id": "DEV-GROUP-002",
+  "unit_mode": "QUESTION",
+  "policy": {
+    "accuracy_eligible_role": "FIRST_BLIND_PREDICTION",
+    "one_accuracy_observation_per_distinct_question": true,
+    "post_reveal_replays_count_as_accuracy": false,
+    "min_post_reveal_stability_replays": 5,
+    "min_distinct_first_blind_questions_for_rate_gate": 5,
+    "rolling_top1_target": 0.8,
+    "rolling_top2_target": 0.9,
+    "prior_method_retention_target": 0.8,
+    "max_regression_damage_questions": 0
+  },
+  "units": [
+    {"unit_id": "DEV-EXAMPLE-001-Q1", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q2", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q3", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q4", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-001-Q5", "case_ids": ["DEV-EXAMPLE-001"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q1", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q2", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q3", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q4", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-002-Q5", "case_ids": ["DEV-EXAMPLE-002"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q1", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q2", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q3", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q4", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-003-Q5", "case_ids": ["DEV-EXAMPLE-003"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q1", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q2", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q3", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q4", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-004-Q5", "case_ids": ["DEV-EXAMPLE-004"], "question_ids": ["Q5"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q1", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q1"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q2", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q2"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q3", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q3"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q4", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q4"]},
+    {"unit_id": "DEV-EXAMPLE-005-Q5", "case_ids": ["DEV-EXAMPLE-005"], "question_ids": ["Q5"]}
+  ]
+}

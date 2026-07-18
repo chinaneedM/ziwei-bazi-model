@@ -1,0 +1,53 @@
+{
+  "accuracy_claim": "NO_NEW_BLIND_RESULT",
+  "answer_used_for_selection": false,
+  "answer_vectors": {
+    "DEV-EXAMPLE-001": "BDBAB",
+    "DEV-EXAMPLE-002": "DBDDB",
+    "DEV-EXAMPLE-003": "BBDCA",
+    "DEV-EXAMPLE-004": "CDBAB",
+    "DEV-EXAMPLE-005": "DADAB"
+  },
+  "canonical_sha256": "19534b1ce5964fda1a78d9167ae241944a82d2f1c463f3c29755549602701cb0",
+  "case_scores": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "top1_hits": 1,
+      "top2_coverage": 2
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "top1_hits": 3,
+      "top2_coverage": 4
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "top1_hits": 1,
+      "top2_coverage": 2
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "top1_hits": 2,
+      "top2_coverage": 2
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "top1_hits": 4,
+      "top2_coverage": 4
+    }
+  ],
+  "comparison_to_r11": {
+    "top1_delta": -2,
+    "top2_delta": -2
+  },
+  "group_id": "DEV-GROUP-002",
+  "parent_prediction_sha256": "4fd8b7e8ee0ba05274e656febc1d50b6864f0bfba6037c7eebf1e94554304d6a",
+  "round_id": "R12",
+  "schema": "DEV-GROUP-002-R12-POSTREVEAL-REVIEW-V1",
+  "totals": {
+    "question_count": 25,
+    "score_label": "TRAINING_REGRESSION_SCORE",
+    "top1_hits": 11,
+    "top2_coverage": 14
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "CASE-BATCH-TRAINING-COMPLETION-INDEX-V2.1",
+  "batch_id": "DEV-EXAMPLE-005-BATCH-Q1-Q5",
+  "case_id": "DEV-EXAMPLE-005",
+  "answer_vector": "DADAB",
+  "historical_first_blind": {
+    "top1_vector": "DDDAD",
+    "top2_vector": "BCBBB",
+    "top1_hits_raw": 3,
+    "top2_hits_raw": 4,
+    "question_count_raw": 5,
+    "source_prediction_freeze_sha256": "9fd9210bdbdc9b7c3080db2134955b6fc9c09da6c7a039a43afc58aad6440032"
+  },
+  "eligible_training_units": [
+    "DEV-EXAMPLE-005-Q1",
+    "DEV-EXAMPLE-005-Q3",
+    "DEV-EXAMPLE-005-Q4"
+  ],
+  "excluded_training_units": {
+    "DEV-EXAMPLE-005-Q2": "SENSITIVE_TARGET_INTIMATE_SEXUAL_BEHAVIOR",
+    "DEV-EXAMPLE-005-Q5": "SENSITIVE_TARGET_SEXUAL_PROCLIVITY_AND_ROMANTIC_POPULARITY"
+  },
+  "eligible_accuracy": {
+    "question_count": 3,
+    "top1_hits": 3,
+    "top2_hits": 3
+  },
+  "reasoning_correction_path": "reports/learning-cycle-v2/DEV-GROUP-002/DEV-EXAMPLE-005-BATCH-Q1-Q5/reasoning-correction-v2.1.json",
+  "reasoning_correction_object_hash": "9ae59a9707f7761d30a1597cb799a89c29284a48ed77c7b0095784a4c4dbb238",
+  "formal_exact_assertions": "ALL_NULL",
+  "s03_fusion": "NOT_PERFORMED",
+  "next_unit": null,
+  "next_unit_status": "FIXED_GROUP_COMPLETE_PENDING_UNIFIED_EVALUATION",
+  "formal_release": "NO",
+  "status": "TRAINING_BATCH_COMPLETE_WITH_TWO_SENSITIVE_TARGET_EXCLUSIONS",
+  "object_hash": "f57f2817a0bbac36f7b7272feb4a9f6db55d35d4c0885ae217743fd6421b4e39"
+}

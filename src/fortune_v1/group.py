@@ -25,6 +25,16 @@ def create_dev_group(group_id: str, case_ids: list[str], binding: dict[str, Any]
         "patch_round": 0,
         "same_defect_retries": {},
         "round_net_improvements": [],
+        "round_records": [],
+        "learning_policy": {
+            "model": "ABSORB_DECOMPOSE_FILL_RESHAPE_APPLY_GENERATE",
+            "mastery_target": 0.80,
+            "arbitrary_round_limit": None,
+            "answer_visible_diagnosis_allowed_after_freeze": True,
+            "answer_visible_prediction_allowed": False,
+            "case_specific_direction_rules_allowed": False,
+            "base_knowledge_candidate_allowed": "MULTI_SOURCE_MULTI_UNIT_REVIEW_ONLY",
+        },
         "status": "BASELINE_PENDING",
         "created_at": utc_now(),
     }
@@ -172,24 +182,51 @@ def validate_group_reveal_authorization(group_root: str | Path, expected_case_id
 
 def record_patch_round(group_root: str | Path, net_improvement: int, regression_damage: int,
                        defect_id: str, case_specific_only: bool = False, base_change_required: bool = False) -> dict[str, Any]:
+    """Record one learning round without imposing an arbitrary maximum retry count.
+
+    A revealed training set may be studied repeatedly. HOLD is reserved for contamination
+    or an invalid case-specific direction rule. Lack of improvement routes the next round
+    back to decomposition/reshaping; it does not terminate learning.
+    """
     root = Path(group_root)
     group, _ = _head(root)
     group["patch_round"] += 1
     group["round_net_improvements"].append(net_improvement)
     group["same_defect_retries"][defect_id] = group["same_defect_retries"].get(defect_id, 0) + 1
-    hold_reasons = []
-    if group["patch_round"] >= 5:
-        hold_reasons.append("MAX_GROUP_PATCH_ROUNDS")
-    if group["same_defect_retries"][defect_id] > 2:
-        hold_reasons.append("MAX_SAME_DEFECT_RETRIES")
-    if len(group["round_net_improvements"]) >= 2 and group["round_net_improvements"][-2:] == [0, 0]:
-        hold_reasons.append("NO_IMPROVEMENT_LIMIT")
-    if regression_damage > 0:
-        hold_reasons.append("REGRESSION_DAMAGE")
+
+    round_record = {
+        "round": group["patch_round"],
+        "defect_id": defect_id,
+        "net_improvement": net_improvement,
+        "regression_damage": regression_damage,
+        "case_specific_only": case_specific_only,
+        "base_change_required": base_change_required,
+        "recorded_at": utc_now(),
+    }
+    group.setdefault("round_records", []).append(round_record)
+
+    hold_reasons: list[str] = []
     if case_specific_only:
-        hold_reasons.append("CASE_SPECIFIC_ONLY")
-    if base_change_required:
-        hold_reasons.append("BASE_KNOWLEDGE_CHANGE_REQUIRED")
-    group["status"] = "GROUP_HOLD" if hold_reasons else "RETESTING"
+        hold_reasons.append("CASE_SPECIFIC_DIRECTION_RULE_OR_CONTAMINATION")
+
+    if hold_reasons:
+        group["status"] = "GROUP_HOLD"
+        next_phase = None
+    elif base_change_required:
+        group["status"] = "KNOWLEDGE_REVIEW_REQUIRED"
+        next_phase = "FILL"
+    elif regression_damage > 0:
+        group["status"] = "REGRESSION_REPAIR_REQUIRED"
+        next_phase = "RESHAPE"
+    elif len(group["round_net_improvements"]) >= 2 and group["round_net_improvements"][-2:] == [0, 0]:
+        group["status"] = "METHOD_RETHINK_REQUIRED"
+        next_phase = "DECOMPOSE"
+    else:
+        group["status"] = "RETESTING"
+        next_phase = "APPLY"
+
     group["hold_reasons"] = hold_reasons
+    group["next_learning_phase"] = next_phase
+    group["training_continues"] = not bool(hold_reasons)
+    group["generalization_status"] = "NOT_PROVEN_UNTIL_UNSEEN_BLIND_TEST"
     return _append(root, group)

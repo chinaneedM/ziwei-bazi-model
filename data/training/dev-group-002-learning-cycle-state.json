@@ -1,0 +1,96 @@
+{
+  "benchmark_scope": {
+    "excluded_questions": [],
+    "policy": "ALL_USER_PROVIDED_QUESTIONS_REMAIN_HISTORICAL_TRAINING_MATERIAL_BUT_NO_NEW_RETEST_OR_SCORE_WHILE_BLOCKED",
+    "question_count": 25,
+    "special_handling": []
+  },
+  "bindings": {
+    "branch": "agent/dev-group-002-training-regression-r1",
+    "contamination_policy": "governance/runtime-contamination-policy-v1.json",
+    "contamination_policy_object_hash": "76eecdfcf71f68ed83367141100a8d0cb1174fdb12f3db743168a2a864d7ac2a",
+    "correction_id": "FIRST-BLIND-ONLY-SCORING-20260718-R1",
+    "implementation_summary": "reports/learning-cycle-v2/DEV-GROUP-002/R25-SYSTEM-REMEDIATION-MASTER-PLAN/implementation/C01-C05-implementation-summary-v1.json",
+    "implementation_summary_object_hash": "1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1",
+    "knowledge_release_id": "KNOWLEDGE-R16",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
+    "method_release_id": "METHOD-R16",
+    "remediation_master_plan": "R25-SYSTEM-REMEDIATION-MASTER-PLAN",
+    "source_authority_policy": "R23-SINGLE-SOURCE-AUTHORITY"
+  },
+  "claim_boundary": {
+    "base_knowledge_promotion": "NO_UNTIL_SOURCE_GAP_PROVEN_AND_APPROVED",
+    "formal_release": "NO",
+    "interface_completion": "DOES_NOT_IMPLY_ACCURACY",
+    "prediction_accuracy_improvement": "NOT_CLAIMED",
+    "training_target": "NOT_YET_PROVEN",
+    "unseen_generalization": "NOT_PROVEN"
+  },
+  "completed_case_batches": [
+    "DEV-EXAMPLE-001-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-002-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-003-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-004-BATCH-Q1-Q5",
+    "DEV-EXAMPLE-005-BATCH-Q1-Q5"
+  ],
+  "cycle_id": "LEARNING-CYCLE-V2-DEV-GROUP-002",
+  "group_id": "DEV-GROUP-002",
+  "historical_first_blind_accuracy": {
+    "distinct_question_count": 25,
+    "immutable": true,
+    "top1_hits": 7,
+    "top1_rate": 0.28,
+    "top2_hits": 15,
+    "top2_rate": 0.6
+  },
+  "invalidated_shortcuts": {
+    "HISTORICAL_REPORT_OR_RESEARCH_DIRECT_RUNTIME_USE": "FORBIDDEN_CONTAMINATION_PATH",
+    "METHOD_ONLY_FREEZE": "INSUFFICIENT_WITHOUT_CAUSALLY_DELIVERED_REPOSITORY_KNOWLEDGE",
+    "POST_REASONING_BINDING_ONLY": "DOES_NOT_PROVE_REPOSITORY_SOURCE_USE",
+    "PROJECT_UPLOAD_PLUS_REPOSITORY_MIX": "FORBIDDEN_MIXED_SOURCE_RUNTIME",
+    "R19_22_OF_22": "ANSWER_ALIGNED_RECONSTRUCTION_NOT_AN_INDEPENDENT_RETEST"
+  },
+  "next_required_action": "BUILD_FULL_R16_REPOSITORY_CATALOG_AND_CONTAMINATION_INVENTORY_ON_ONE_IMMUTABLE_CHECKOUT_THEN_RUN_A_NONSCORED_REPOSITORY_ONLY_SHADOW_SESSION",
+  "object_hash": "4e889d6cef56604ceeab4c97cca4d1278651bc13e73bf73d5f884bd68f34d778",
+  "parent_state_object_hash": "e5085e136e5dd81eac8080efcfd209a339557e38c2ebc694bf927dc1653d5f39",
+  "r25_remediation": {
+    "C01_VERSIONED_KNOWLEDGE_RELEASES": "IMPLEMENTED_PENDING_FULL_REPOSITORY_VALIDATION",
+    "C02_VERSIONED_METHOD_RELEASES": "IMPLEMENTED_PENDING_FULL_REPOSITORY_VALIDATION",
+    "C03_SOURCE_PACKET_BUILDER": "IMPLEMENTED_PENDING_R16_REAL_SOURCE_CATALOG_AND_SHADOW_RUN",
+    "C04_METHOD_PACKET_AND_RUN_CONTRACT": "IMPLEMENTED_PENDING_R16_SHADOW_RUN",
+    "C05A_LEGACY_CONTAMINATION_QUARANTINE": "IMPLEMENTED_PENDING_FULL_REPOSITORY_INVENTORY_AND_SHADOW_RUN",
+    "C05_CAUSAL_USE_VALIDATOR": "IMPLEMENTED_PENDING_R16_SHADOW_RUN",
+    "formal_release": "NO",
+    "legacy_chat_work_contract_status": "ARCHIVE_ONLY_UNSCORED",
+    "project_uploaded_s00_s19_status": "RETAIN_READ_ONLY_DO_NOT_DELETE_OR_USE_IN_SCORED_REPOSITORY_RUN",
+    "repository_only_shadow_validation": "NOT_YET_EXECUTED"
+  },
+  "schema": "LEARNING-CYCLE-V2.2",
+  "score_gate": {
+    "resume_requires": [
+      "R16_REPOSITORY_SOURCE_CATALOG_READBACK_PASS",
+      "FULL_REPOSITORY_CONTAMINATION_INVENTORY_AND_RUNTIME_REFERENCE_SCAN_PASS",
+      "SOURCE_PACKET_AND_METHOD_PACKET_DELIVERED_BEFORE_REASONING",
+      "CAUSAL_USE_RECEIPT_PASS",
+      "PROJECT_UPLOAD_REFERENCE_SCAN_PASS",
+      "NO_HISTORICAL_REPORT_POSTREVEAL_SHADOW_REBUILD_OR_DIRECT_RESEARCH_REFERENCE_PASS",
+      "NO_FALLBACK_PROOF_PASS",
+      "ANSWER_ISOLATED_FRESH_SESSION"
+    ],
+    "status": "BLOCKED"
+  },
+  "status": "TRAINING_SCORE_BLOCKED_PENDING_CAUSAL_REPOSITORY_SOURCE_DELIVERY",
+  "target": {
+    "answer_contamination_tolerance": 0,
+    "top1": "AT_LEAST_20_OF_25",
+    "top2": "AT_LEAST_23_OF_25"
+  },
+  "training_semantics": {
+    "model_weight_training_claim": "NO",
+    "new_unseen_cases_role": "VALIDATE_GENERALIZATION_AFTER_TRAINING_COMPLETION",
+    "project_learning_mechanism": "VERSIONED_REPOSITORY_KNOWLEDGE_METHOD_PACKETS_CAUSAL_VALIDATION_AND_CONTAMINATION_QUARANTINE",
+    "same_set_retest_role": "VALIDATE_CAUSAL_USE_AND_TRAINING_FIT_ONLY_AFTER_REPOSITORY_SOURCE_DELIVERY_PASS",
+    "user_intended_loop": "REVEAL_DIAGNOSE_REVISE_VERSIONED_KNOWLEDGE_AND_METHOD_RELEASES_THEN_FRESH_ANSWER_ISOLATED_RETEST"
+  },
+  "updated_at": "2026-07-18T15:17:13+00:00"
+}

@@ -1,0 +1,58 @@
+name: validate-dev-group-002-training-regression-r7
+
+on:
+  push:
+    paths:
+      - reports/dev-group-002/training-regression-r7/**
+      - reports/dev-group-002/training-regression-r2/source-excerpt-spec.json
+      - reports/dev-group-002/training-regression-r3/DEV-EXAMPLE-001/source-grounded-replay.json
+      - reports/dev-group-002/training-regression-r5/**
+      - reports/dev-group-002/training-regression-r6/**
+      - .github/workflows/validate-dev-group-002-training-regression-r7.yml
+  pull_request:
+    paths:
+      - reports/dev-group-002/training-regression-r7/**
+      - reports/dev-group-002/training-regression-r2/source-excerpt-spec.json
+      - reports/dev-group-002/training-regression-r3/DEV-EXAMPLE-001/source-grounded-replay.json
+      - reports/dev-group-002/training-regression-r5/**
+      - reports/dev-group-002/training-regression-r6/**
+      - .github/workflows/validate-dev-group-002-training-regression-r7.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-and-validate-r7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize R7 source-parent rebuild
+        run: |
+          python reports/dev-group-002/training-regression-r7/materialize_validate_v2.py \
+            --repo-root . --write --validate
+      - name: Commit deterministic R7 artifacts
+        if: github.event_name == 'push'
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add reports/dev-group-002/training-regression-r7/
+          if git diff --cached --quiet; then
+            echo 'R7 artifacts already frozen'
+          else
+            git commit -m 'Freeze DEV-GROUP-002 R7 source rebuild'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Upload R7 validation receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-group-002-training-regression-r7-validation
+          path: reports/dev-group-002/training-regression-r7/validation.json
+          if-no-files-found: error
+          retention-days: 14

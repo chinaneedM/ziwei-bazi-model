@@ -1,0 +1,23 @@
+{
+  "case_id": "DEV-EXAMPLE-005",
+  "codepoints": [68, 65, 68, 65, 66],
+  "legal_option_sets": ["ABCD", "ABCD", "ABCD", "ABCD", "ABCD"],
+  "normalized_answer_string": "DADAB",
+  "original_answer_string": "DADAB",
+  "parser_a": {
+    "method": "TRIM_OUTER_WHITESPACE_AND_READ_EACH_CODEPOINT",
+    "result": ["D", "A", "D", "A", "B"]
+  },
+  "parser_b": {
+    "method": "LEGAL_OPTION_CHARACTER_SEQUENCE_REPLAY",
+    "result": ["D", "A", "D", "A", "B"]
+  },
+  "parsers_agree": true,
+  "prediction_freeze_canonical_sha256": "9fd9210bdbdc9b7c3080db2134955b6fc9c09da6c7a039a43afc58aad6440032",
+  "question_count": 5,
+  "round_id": "R18",
+  "schema": "DEV-GROUP-002-R18-ANSWER-VECTOR-LITERAL-REPLAY-V1",
+  "source_path": "reports/dev-group-002/training-regression-r4/compact-manifest.json",
+  "source_git_blob_sha": "0e0896f26d51eb2af39e297bddfbda6dbeab6eb2",
+  "status": "PASS"
+}

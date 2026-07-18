@@ -1,0 +1,70 @@
+{
+  "schema": "DEV-GROUP-002-R3-PROGRESS-V1",
+  "group_id": "DEV-GROUP-002",
+  "case_count": 5,
+  "question_count": 25,
+  "cases": [
+    {
+      "case_id": "DEV-EXAMPLE-001",
+      "physical_selector_count": 6,
+      "source_call_count": 14,
+      "source_confirmed_exact_top1_count": 0,
+      "repository_validation": "PASS",
+      "machine_valid_local_seals": 0
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "physical_selector_count": 7,
+      "source_call_count": 12,
+      "source_confirmed_exact_top1_count": 0,
+      "repository_receipt": "PASS",
+      "machine_valid_local_seals": 0
+    },
+    {
+      "case_id": "DEV-EXAMPLE-003",
+      "physical_selector_count": 8,
+      "source_call_count": 13,
+      "source_confirmed_exact_top1_count": 0,
+      "local_source_replay_validation": "PASS",
+      "machine_valid_local_seals": 0
+    },
+    {
+      "case_id": "DEV-EXAMPLE-004",
+      "physical_selector_count": 5,
+      "source_call_count": 12,
+      "source_confirmed_exact_top1_count": 0,
+      "bazi_variant_count": 2,
+      "bazi_variant_policy": "LEGAL_PARALLEL_NO_ANSWER_SELECTION_NO_MIXING",
+      "local_source_replay_validation": "PASS",
+      "machine_valid_local_seals": 0
+    },
+    {
+      "case_id": "DEV-EXAMPLE-005",
+      "physical_selector_count": 6,
+      "source_call_count": 13,
+      "source_confirmed_exact_top1_count": 0,
+      "local_source_replay_validation": "PASS",
+      "machine_valid_local_seals": 0
+    }
+  ],
+  "totals": {
+    "physical_selector_count": 32,
+    "source_call_count": 64,
+    "source_confirmed_exact_top1_count": 0,
+    "machine_valid_local_seals": 0,
+    "s03_fusions": 0,
+    "formal_valid_questions": 0
+  },
+  "r1_training_regression_score": {
+    "top1": "25/25",
+    "top2": "25/25",
+    "status": "ANSWER_VISIBLE_ALIGNMENT_NOT_SOURCE_GROUNDED"
+  },
+  "original_blind_baseline": {
+    "top1": "11/25",
+    "top2": "16/25",
+    "status": "PRESERVED_NOT_OVERWRITTEN"
+  },
+  "training_conclusion": "R3 rejects same-case answer alignment as a stability criterion. None of the 25 complete option stories is currently closed by replayable native-track sources and real-world endpoints.",
+  "new_case_admission": "BLOCKED"
+}

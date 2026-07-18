@@ -1,0 +1,90 @@
+{
+  "schema": "R26-R17-PROMPT-CUTOVER-IMPLEMENTATION-RECEIPT-V1",
+  "created_at": "2026-07-18T00:00:00+09:00",
+  "status": "IMPLEMENTED_PENDING_EXACT_PROMPT_EXPORT_IMMUTABLE_READBACK_AND_REAL_SHADOW_RUN",
+  "runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+  "changes": [
+    {
+      "component": "TWO_PHASE_PROMPT_S19_CUTOVER_BUILDER",
+      "path": "scripts/build_r17_prompt_cutover.py",
+      "commit_sha": "f11186d946547e24286bd7430b60b859c79b6a0c",
+      "blob_sha": "733a4653705bbbe05b740db5c077db02663729e9"
+    },
+    {
+      "component": "TWO_PHASE_CUTOVER_TESTS",
+      "path": "tests/test_r17_prompt_cutover.py",
+      "commit_sha": "6f1969ef1018d5de7343f8698c68e8ca0d949d53",
+      "blob_sha": "0dc902010c10a648dde805802a25483e1ac07432"
+    },
+    {
+      "component": "PROMPT_SNAPSHOT_MODEL_BINDING",
+      "path": "src/fortune_v1/repository_release.py",
+      "commit_sha": "d306dd1db0650885441d0509b931945dd50b7622",
+      "blob_sha": "0f080457eed49a56b4bce6ecd3647c5b2da5d5d0"
+    },
+    {
+      "component": "MODEL_RELEASE_CLI_PROMPT_RECEIPT_GATE",
+      "path": "src/fortune_v1/repository_delivery_cli.py",
+      "commit_sha": "bf6ea3706a887262b10cb70af998327527217971",
+      "blob_sha": "a51643bd4b60ebb7809e9e3a1a6cb7078e76ec87"
+    },
+    {
+      "component": "CAUSAL_PROMPT_SNAPSHOT_READBACK",
+      "path": "src/fortune_v1/causal_use.py",
+      "commit_sha": "f3cf725ee3c26da8dc28fb017e26e8255e076010",
+      "blob_sha": "1c48a567fafa9deebe8d0d6417c623712a7733b6"
+    },
+    {
+      "component": "PROMPT_SNAPSHOT_MUTATION_TEST",
+      "path": "tests/test_repository_delivery.py",
+      "commit_sha": "e06a1c6c08ec45a42345c193964702548da6c7d3",
+      "blob_sha": "e7dd0138ff9cab7a0ad9814a986b979b392bcc5b"
+    },
+    {
+      "component": "OPERATOR_DOCUMENTATION",
+      "path": "README.md",
+      "commit_sha": "98b152e81b90d32efc2d39129747b0c85405c32e",
+      "blob_sha": "6282811fc956f79ebf058928b3473c34a83f0d56"
+    }
+  ],
+  "validation": {
+    "repository_delivery_test_count": 7,
+    "repository_delivery_status": "PASS_ISOLATED_LOCAL_RECONSTRUCTION",
+    "r17_cutover_test_count": 3,
+    "r17_cutover_status": "PASS_ISOLATED_LOCAL_RECONSTRUCTION",
+    "verified_behaviors": [
+      "S00_TO_S18_BYTE_IDENTITY_PRESERVED",
+      "S19_ONLY_CHANGE_REQUIRED",
+      "PROMPT_MISMATCH_FAIL_CLOSED",
+      "NONIMMUTABLE_COMMIT_IDENTIFIER_REJECTED",
+      "PROMPT_SNAPSHOT_MUTATION_CAUSAL_FAIL_CLOSED"
+    ]
+  },
+  "ci_incident": {
+    "latest_runtime_ci_run_id": 29651312895,
+    "latest_runtime_ci_job_id": 88098022613,
+    "observation": "COMPLETED_FAILURE_WITH_NO_STEPS_LOGS_OR_ARTIFACTS",
+    "classification": "PRESTEP_PLATFORM_OR_RUNNER_FAILURE_UNRESOLVED",
+    "full_ci_status": "NOT_CONFIRMED"
+  },
+  "remaining_gates": [
+    "EXACT_R17_PROJECT_INSTRUCTION_EXPORT",
+    "PROMPT_SNAPSHOT_PASS",
+    "STAGE_AND_COMMIT_20_FILE_CANDIDATE",
+    "FINALIZE_MANIFEST_WITH_SOURCE_COMMIT",
+    "REMOTE_IMMUTABLE_READBACK",
+    "FULL_CONTAMINATION_INVENTORY",
+    "MODEL_R17_BUILD",
+    "REAL_NONSCORING_REPOSITORY_ONLY_SHADOW_RUN",
+    "CAUSAL_USE_PASS",
+    "NO_FALLBACK_PASS",
+    "USER_PROMOTION_APPROVAL"
+  ],
+  "claims": {
+    "formal_release": false,
+    "score_eligibility": false,
+    "accuracy_improvement": false,
+    "r17_exact_byte_match_proven": false
+  },
+  "object_hash": "b611480b4c823f99561728d9a1adad377d086b4bc6c28d003318ac626ab241e5"
+}

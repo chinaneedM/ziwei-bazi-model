@@ -1,0 +1,2812 @@
+{
+  "atom_level_replayable_rows": 30,
+  "canonical_sha256": "dc32348d24027cb374bb3f7aaed2fccf22d654de530ed76ae3ad7705a65c8409",
+  "case_id": "DEV-EXAMPLE-002",
+  "derived_ranks": {
+    "Q1": "DCAB",
+    "Q2": "DBAC",
+    "Q3": "DCBA",
+    "Q4": "CBDA",
+    "Q5": "BADC"
+  },
+  "group_id": "DEV-GROUP-002",
+  "low_information_tiebreak_rows": 0,
+  "parent_atom_matrix_sha256": "e2cad174da2b796f4a7ec84beba19f758b7abd37373742dc674b2fbaed4aad3f",
+  "parent_common_subtraction_sha256": "c37add42d40d3834d02cd9be967fc4fa861bb6479fa8cab7eebbf134d1699bb2",
+  "parent_r9_prediction_sha256": "f2ae105127062ef75cba3ee9ba90910c13e47d40ddaabb2effedb2abbcc0417e",
+  "round_id": "R11",
+  "row_count": 30,
+  "rows": [
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "COMPOSITE_PARTIAL_COVERAGE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 0
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q1_A_HEALTHY_FEW_PAIN",
+        "Q1_A_SKIN_SENSITIVITY",
+        "Q1_A_SEAFOOD_AVOIDANCE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN"
+        ],
+        "remaining_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN",
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q1",
+      "right": "B",
+      "right_atom_direction_parent_ids": [
+        "Q1_B_MAJOR_SURGERY",
+        "Q1_B_LIFE_DANGER"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "A"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q1_A_HEALTHY_FEW_PAIN",
+        "Q1_A_SKIN_SENSITIVITY",
+        "Q1_A_SEAFOOD_AVOIDANCE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN"
+        ],
+        "remaining_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN",
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q1",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q1_C_WEAK_SICKLY",
+        "Q1_C_DIABETES",
+        "Q1_C_RECURRENT_CONDITION"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_C_WEAK_SICKLY"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_C_DIABETES"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "remaining_atom_ids": [
+          "Q1_C_WEAK_SICKLY",
+          "Q1_C_DIABETES",
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 2
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q1_A_HEALTHY_FEW_PAIN",
+        "Q1_A_SKIN_SENSITIVITY",
+        "Q1_A_SEAFOOD_AVOIDANCE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN"
+        ],
+        "remaining_atom_ids": [
+          "Q1_A_HEALTHY_FEW_PAIN",
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_A_SKIN_SENSITIVITY",
+          "Q1_A_SEAFOOD_AVOIDANCE"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q1",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q1_D_OBESITY",
+        "Q1_D_LIVER_PROBLEM",
+        "Q1_D_GI_PROBLEM",
+        "Q1_D_FOOT_PROBLEM"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM",
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q1_B_MAJOR_SURGERY",
+        "Q1_B_LIFE_DANGER"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q1",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q1_C_WEAK_SICKLY",
+        "Q1_C_DIABETES",
+        "Q1_C_RECURRENT_CONDITION"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_C_WEAK_SICKLY"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_C_DIABETES"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "remaining_atom_ids": [
+          "Q1_C_WEAK_SICKLY",
+          "Q1_C_DIABETES",
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 2
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q1_B_MAJOR_SURGERY",
+        "Q1_B_LIFE_DANGER"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q1_B_MAJOR_SURGERY",
+          "Q1_B_LIFE_DANGER"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q1",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q1_D_OBESITY",
+        "Q1_D_LIVER_PROBLEM",
+        "Q1_D_GI_PROBLEM",
+        "Q1_D_FOOT_PROBLEM"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM",
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 2
+      },
+      "left": "C",
+      "left_atom_direction_parent_ids": [
+        "Q1_C_WEAK_SICKLY",
+        "Q1_C_DIABETES",
+        "Q1_C_RECURRENT_CONDITION"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_C_WEAK_SICKLY"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_C_DIABETES"
+        ],
+        "partial_support_atom_ids": [
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "remaining_atom_ids": [
+          "Q1_C_WEAK_SICKLY",
+          "Q1_C_DIABETES",
+          "Q1_C_RECURRENT_CONDITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q1",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q1_D_OBESITY",
+        "Q1_D_LIVER_PROBLEM",
+        "Q1_D_GI_PROBLEM",
+        "Q1_D_FOOT_PROBLEM"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q1_D_OBESITY",
+          "Q1_D_LIVER_PROBLEM",
+          "Q1_D_GI_PROBLEM",
+          "Q1_D_FOOT_PROBLEM"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_GEOMETRY",
+          "S05_TIANLIANG_NATURE",
+          "S07_HEALTH_TIANLIANG",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q2_A_MEDIOCRE_LAZY",
+        "Q2_A_UNIVERSITY_GRADUATION",
+        "Q2_A_ORDINARY_SALARIED"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_A_UNIVERSITY_GRADUATION"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "remaining_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY",
+          "Q2_A_UNIVERSITY_GRADUATION",
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q2",
+      "right": "B",
+      "right_atom_direction_parent_ids": [
+        "Q2_B_INTELLIGENT",
+        "Q2_B_NOT_STUDY",
+        "Q2_B_HIGH_SCHOOL",
+        "Q2_B_PART_TIME_PRIMARY"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_B_INTELLIGENT"
+        ],
+        "remaining_atom_ids": [
+          "Q2_B_INTELLIGENT",
+          "Q2_B_NOT_STUDY",
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q2_B_NOT_STUDY"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [
+        "UNIVERSITY_GRADUATION"
+      ],
+      "decision_basis": "EXACT_ENDPOINT_DISTANCE",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MIN",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q2_A_MEDIOCRE_LAZY",
+        "Q2_A_ORDINARY_SALARIED"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [],
+        "partial_support_atom_ids": [
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "remaining_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY",
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q2",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q2_C_NOT_INTELLIGENT",
+        "Q2_C_HARDWORKING",
+        "Q2_C_FAMILY_BUSINESS"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_C_HARDWORKING"
+        ],
+        "remaining_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT",
+          "Q2_C_HARDWORKING",
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_FINANCE_TIANFU",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_FINANCE_TIANFU",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "A"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q2_A_MEDIOCRE_LAZY",
+        "Q2_A_UNIVERSITY_GRADUATION",
+        "Q2_A_ORDINARY_SALARIED"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_A_UNIVERSITY_GRADUATION"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "remaining_atom_ids": [
+          "Q2_A_MEDIOCRE_LAZY",
+          "Q2_A_UNIVERSITY_GRADUATION",
+          "Q2_A_ORDINARY_SALARIED"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q2",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q2_D_INTELLIGENT",
+        "Q2_D_CAN_STUDY",
+        "Q2_D_MASTERS_PHD",
+        "Q2_D_MANAGEMENT_ORIENTATION",
+        "Q2_D_FORMAL_MANAGEMENT_TITLE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q2_D_MANAGEMENT_ORIENTATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_D_INTELLIGENT",
+          "Q2_D_CAN_STUDY"
+        ],
+        "remaining_atom_ids": [
+          "Q2_D_INTELLIGENT",
+          "Q2_D_CAN_STUDY",
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_MANAGEMENT_ORIENTATION",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MIN",
+        "right_value": 1
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q2_B_INTELLIGENT",
+        "Q2_B_NOT_STUDY",
+        "Q2_B_HIGH_SCHOOL",
+        "Q2_B_PART_TIME_PRIMARY"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_B_INTELLIGENT"
+        ],
+        "remaining_atom_ids": [
+          "Q2_B_INTELLIGENT",
+          "Q2_B_NOT_STUDY",
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q2_B_NOT_STUDY"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q2",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q2_C_NOT_INTELLIGENT",
+        "Q2_C_HARDWORKING",
+        "Q2_C_UNIVERSITY_GRADUATION",
+        "Q2_C_FAMILY_BUSINESS"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_C_UNIVERSITY_GRADUATION",
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_C_HARDWORKING"
+        ],
+        "remaining_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT",
+          "Q2_C_HARDWORKING",
+          "Q2_C_UNIVERSITY_GRADUATION",
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_FINANCE_TIANFU",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_FINANCE_TIANFU",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [
+        "POSITIVE_INTELLIGENCE"
+      ],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q2_B_NOT_STUDY",
+        "Q2_B_HIGH_SCHOOL",
+        "Q2_B_PART_TIME_PRIMARY"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q2_B_NOT_STUDY",
+          "Q2_B_HIGH_SCHOOL",
+          "Q2_B_PART_TIME_PRIMARY"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q2_B_NOT_STUDY"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q2",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q2_D_CAN_STUDY",
+        "Q2_D_MASTERS_PHD",
+        "Q2_D_MANAGEMENT_ORIENTATION",
+        "Q2_D_FORMAL_MANAGEMENT_TITLE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q2_D_MANAGEMENT_ORIENTATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_D_CAN_STUDY"
+        ],
+        "remaining_atom_ids": [
+          "Q2_D_CAN_STUDY",
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_MANAGEMENT_ORIENTATION",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "C",
+      "left_atom_direction_parent_ids": [
+        "Q2_C_NOT_INTELLIGENT",
+        "Q2_C_HARDWORKING",
+        "Q2_C_UNIVERSITY_GRADUATION",
+        "Q2_C_FAMILY_BUSINESS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_C_UNIVERSITY_GRADUATION",
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_C_HARDWORKING"
+        ],
+        "remaining_atom_ids": [
+          "Q2_C_NOT_INTELLIGENT",
+          "Q2_C_HARDWORKING",
+          "Q2_C_UNIVERSITY_GRADUATION",
+          "Q2_C_FAMILY_BUSINESS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_FINANCE_TIANFU",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_FINANCE_TIANFU",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q2",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q2_D_INTELLIGENT",
+        "Q2_D_CAN_STUDY",
+        "Q2_D_MASTERS_PHD",
+        "Q2_D_MANAGEMENT_ORIENTATION",
+        "Q2_D_FORMAL_MANAGEMENT_TITLE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q2_D_MANAGEMENT_ORIENTATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "partial_support_atom_ids": [
+          "Q2_D_INTELLIGENT",
+          "Q2_D_CAN_STUDY"
+        ],
+        "remaining_atom_ids": [
+          "Q2_D_INTELLIGENT",
+          "Q2_D_CAN_STUDY",
+          "Q2_D_MASTERS_PHD",
+          "Q2_D_MANAGEMENT_ORIENTATION",
+          "Q2_D_FORMAL_MANAGEMENT_TITLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S05_TIANXIANG_NATURE",
+          "S07_TIANXIANG_CHOU",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 2,
+        "mode": "MIN",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q3_A_ROMANCE_SCAM",
+        "Q3_A_ALL_SAVINGS_LOST",
+        "Q3_A_FIXED_JOB",
+        "Q3_A_STABLE_INCOME",
+        "Q3_A_RECOVER_LOSS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_RECOVER_LOSS"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q3",
+      "right": "B",
+      "right_atom_direction_parent_ids": [
+        "Q3_B_FAME_SUCCESS",
+        "Q3_B_SMOOTH_WORK",
+        "Q3_B_ABILITY_USED",
+        "Q3_B_PUBLIC_RECOGNITION"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_B_SMOOTH_WORK"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_B_ABILITY_USED"
+        ],
+        "remaining_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_ABILITY_USED",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 2,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q3_A_ROMANCE_SCAM",
+        "Q3_A_ALL_SAVINGS_LOST",
+        "Q3_A_FIXED_JOB",
+        "Q3_A_STABLE_INCOME",
+        "Q3_A_RECOVER_LOSS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_RECOVER_LOSS"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q3",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q3_C_OWNER_IDENTITY",
+        "Q3_C_AVERAGE_TURNOVER",
+        "Q3_C_HARD_OPERATION",
+        "Q3_C_BREAK_FRAME"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_C_OWNER_IDENTITY"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "remaining_atom_ids": [
+          "Q3_C_OWNER_IDENTITY",
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q3_A_ROMANCE_SCAM",
+        "Q3_A_ALL_SAVINGS_LOST",
+        "Q3_A_FIXED_JOB",
+        "Q3_A_STABLE_INCOME",
+        "Q3_A_RECOVER_LOSS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_ALL_SAVINGS_LOST",
+          "Q3_A_FIXED_JOB",
+          "Q3_A_STABLE_INCOME",
+          "Q3_A_RECOVER_LOSS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q3_A_ROMANCE_SCAM",
+          "Q3_A_RECOVER_LOSS"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q3",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q3_D_REPEATED_JOB_CHANGE",
+        "Q3_D_MONEY_FLOW",
+        "Q3_D_LIVE_WITH_FAMILY",
+        "Q3_D_PARTNER_PAYS"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY"
+        ],
+        "remaining_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE",
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY",
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q3_B_FAME_SUCCESS",
+        "Q3_B_SMOOTH_WORK",
+        "Q3_B_ABILITY_USED",
+        "Q3_B_PUBLIC_RECOGNITION"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_B_SMOOTH_WORK"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_B_ABILITY_USED"
+        ],
+        "remaining_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_ABILITY_USED",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q3",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q3_C_OWNER_IDENTITY",
+        "Q3_C_AVERAGE_TURNOVER",
+        "Q3_C_HARD_OPERATION",
+        "Q3_C_BREAK_FRAME"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_C_OWNER_IDENTITY"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "remaining_atom_ids": [
+          "Q3_C_OWNER_IDENTITY",
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q3_B_FAME_SUCCESS",
+        "Q3_B_SMOOTH_WORK",
+        "Q3_B_ABILITY_USED",
+        "Q3_B_PUBLIC_RECOGNITION"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q3_B_SMOOTH_WORK"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_B_ABILITY_USED"
+        ],
+        "remaining_atom_ids": [
+          "Q3_B_FAME_SUCCESS",
+          "Q3_B_SMOOTH_WORK",
+          "Q3_B_ABILITY_USED",
+          "Q3_B_PUBLIC_RECOGNITION"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q3",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q3_D_REPEATED_JOB_CHANGE",
+        "Q3_D_MONEY_FLOW",
+        "Q3_D_LIVE_WITH_FAMILY",
+        "Q3_D_PARTNER_PAYS"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY"
+        ],
+        "remaining_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE",
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY",
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "C",
+      "left_atom_direction_parent_ids": [
+        "Q3_C_OWNER_IDENTITY",
+        "Q3_C_AVERAGE_TURNOVER",
+        "Q3_C_HARD_OPERATION",
+        "Q3_C_BREAK_FRAME"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_C_OWNER_IDENTITY"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "remaining_atom_ids": [
+          "Q3_C_OWNER_IDENTITY",
+          "Q3_C_AVERAGE_TURNOVER",
+          "Q3_C_HARD_OPERATION",
+          "Q3_C_BREAK_FRAME"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q3",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q3_D_REPEATED_JOB_CHANGE",
+        "Q3_D_MONEY_FLOW",
+        "Q3_D_LIVE_WITH_FAMILY",
+        "Q3_D_PARTNER_PAYS"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "partial_support_atom_ids": [
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY"
+        ],
+        "remaining_atom_ids": [
+          "Q3_D_REPEATED_JOB_CHANGE",
+          "Q3_D_MONEY_FLOW",
+          "Q3_D_LIVE_WITH_FAMILY",
+          "Q3_D_PARTNER_PAYS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_CAREER_LIANTAN",
+          "S07_FINANCE_TIANFU",
+          "S07_PROPERTY_SUN_JI",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [
+        "MARRIED_STATE"
+      ],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q4_A_HAPPY_HARMONIOUS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q4",
+      "right": "B",
+      "right_atom_direction_parent_ids": [
+        "Q4_B_RELATION_HURT",
+        "Q4_B_VERBAL_ABUSE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_B_RELATION_HURT",
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "scene_only_atom_ids": [
+          "Q4_B_RELATION_HURT"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [
+        "MARRIED_STATE"
+      ],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q4_A_HAPPY_HARMONIOUS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q4",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q4_C_MULTI_STAGE_RELATION",
+        "Q4_C_REGISTERED_DIVORCE",
+        "Q4_C_REGISTERED_REMARRIAGE",
+        "Q4_C_CURRENT_STABLE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q4_C_MULTI_STAGE_RELATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_C_MULTI_STAGE_RELATION",
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q4_A_MARRIED",
+        "Q4_A_HAPPY_HARMONIOUS"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_A_MARRIED",
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_A_MARRIED",
+          "Q4_A_HAPPY_HARMONIOUS"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_A_MARRIED"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q4",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q4_D_SAME_SEX_ORIENTATION",
+        "Q4_D_PARTNER_CARE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_MARRIAGE_LIANTAN",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_MARRIAGE_LIANTAN",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [
+        "MARRIED_STATE"
+      ],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q4_B_RELATION_HURT",
+        "Q4_B_VERBAL_ABUSE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_B_RELATION_HURT",
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "scene_only_atom_ids": [
+          "Q4_B_RELATION_HURT"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "B",
+      "question_id": "Q4",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q4_C_MULTI_STAGE_RELATION",
+        "Q4_C_REGISTERED_DIVORCE",
+        "Q4_C_REGISTERED_REMARRIAGE",
+        "Q4_C_CURRENT_STABLE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q4_C_MULTI_STAGE_RELATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_C_MULTI_STAGE_RELATION",
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SCENE_ONLY_COVERAGE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 0
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q4_B_MARRIED",
+        "Q4_B_RELATION_HURT",
+        "Q4_B_VERBAL_ABUSE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_B_MARRIED",
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_B_MARRIED",
+          "Q4_B_RELATION_HURT",
+          "Q4_B_VERBAL_ABUSE"
+        ],
+        "scene_only_atom_ids": [
+          "Q4_B_RELATION_HURT"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_B_MARRIED"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "D",
+      "question_id": "Q4",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q4_D_SAME_SEX_ORIENTATION",
+        "Q4_D_PARTNER_CARE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_MARRIAGE_LIANTAN",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_MARRIAGE_LIANTAN",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 0
+      },
+      "left": "C",
+      "left_atom_direction_parent_ids": [
+        "Q4_C_MARRIED",
+        "Q4_C_MULTI_STAGE_RELATION",
+        "Q4_C_REGISTERED_DIVORCE",
+        "Q4_C_REGISTERED_REMARRIAGE",
+        "Q4_C_CURRENT_STABLE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q4_C_MULTI_STAGE_RELATION"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_C_MARRIED",
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_C_MARRIED",
+          "Q4_C_MULTI_STAGE_RELATION",
+          "Q4_C_REGISTERED_DIVORCE",
+          "Q4_C_REGISTERED_REMARRIAGE",
+          "Q4_C_CURRENT_STABLE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_MARRIAGE_LIANTAN",
+          "S10_NEUTRAL_TIME",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_C_MARRIED"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "D",
+      "question_id": "Q4",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q4_D_SAME_SEX_ORIENTATION",
+        "Q4_D_PARTNER_CARE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "partial_support_atom_ids": [],
+        "remaining_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S04_AXIS_SCOPE",
+          "S07_MARRIAGE_LIANTAN",
+          "S16_ROLE_ENDPOINT_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q4_D_SAME_SEX_ORIENTATION",
+          "Q4_D_PARTNER_CARE"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_MARRIAGE_LIANTAN",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "C"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MAX",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q5_A_WEALTHY",
+        "Q5_A_MOTHER_CLOSE",
+        "Q5_A_FATHER_DISTANT"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_A_MOTHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_MOTHER_CLOSE",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_A_FATHER_DISTANT"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "A",
+      "question_id": "Q5",
+      "right": "B",
+      "right_atom_direction_parent_ids": [
+        "Q5_B_COMFORTABLE_CLASS",
+        "Q5_B_FATHER_BUSINESS_FAILURE",
+        "Q5_B_HOUSEHOLD_DECLINE",
+        "Q5_B_NORMAL_PARENT_RELATION"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q5_B_HOUSEHOLD_DECLINE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "remaining_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS",
+          "Q5_B_FATHER_BUSINESS_FAILURE",
+          "Q5_B_HOUSEHOLD_DECLINE",
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "scene_only_atom_ids": [
+          "Q5_B_FATHER_BUSINESS_FAILURE"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 0,
+        "mode": "MIN",
+        "right_value": 1
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q5_A_WEALTHY",
+        "Q5_A_MOTHER_CLOSE",
+        "Q5_A_FATHER_DISTANT"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_A_MOTHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_MOTHER_CLOSE",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_A_FATHER_DISTANT"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q5",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q5_C_POOR_CHILDHOOD",
+        "Q5_C_MOTHER_DEATH",
+        "Q5_C_FATHER_CAREGIVER",
+        "Q5_C_FATHER_CLOSE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q5_C_MOTHER_DEATH"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER",
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_C_FATHER_CAREGIVER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "A"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "UNRESOLVED_UNKNOWN_ATOMS",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 2
+      },
+      "left": "A",
+      "left_atom_direction_parent_ids": [
+        "Q5_A_WEALTHY",
+        "Q5_A_MOTHER_CLOSE",
+        "Q5_A_FATHER_DISTANT"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_A_MOTHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_A_WEALTHY",
+          "Q5_A_MOTHER_CLOSE",
+          "Q5_A_FATHER_DISTANT"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_A_FATHER_DISTANT"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "D",
+      "question_id": "Q5",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q5_D_PARENT_DIVORCE",
+        "Q5_D_BASIC_SUPPORT",
+        "Q5_D_GRANDMOTHER_CAREGIVER"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_D_BASIC_SUPPORT"
+        ],
+        "remaining_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_BASIC_SUPPORT",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "A"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 0
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q5_B_COMFORTABLE_CLASS",
+        "Q5_B_FATHER_BUSINESS_FAILURE",
+        "Q5_B_HOUSEHOLD_DECLINE",
+        "Q5_B_NORMAL_PARENT_RELATION"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q5_B_HOUSEHOLD_DECLINE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "remaining_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS",
+          "Q5_B_FATHER_BUSINESS_FAILURE",
+          "Q5_B_HOUSEHOLD_DECLINE",
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "scene_only_atom_ids": [
+          "Q5_B_FATHER_BUSINESS_FAILURE"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q5",
+      "right": "C",
+      "right_atom_direction_parent_ids": [
+        "Q5_C_POOR_CHILDHOOD",
+        "Q5_C_MOTHER_DEATH",
+        "Q5_C_FATHER_CAREGIVER",
+        "Q5_C_FATHER_CLOSE"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q5_C_MOTHER_DEATH"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER",
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_C_FATHER_CAREGIVER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "DISTINCTIVE_DIRECT_SUPPORT",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MAX",
+        "right_value": 0
+      },
+      "left": "B",
+      "left_atom_direction_parent_ids": [
+        "Q5_B_COMFORTABLE_CLASS",
+        "Q5_B_FATHER_BUSINESS_FAILURE",
+        "Q5_B_HOUSEHOLD_DECLINE",
+        "Q5_B_NORMAL_PARENT_RELATION"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [
+          "Q5_B_HOUSEHOLD_DECLINE"
+        ],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "remaining_atom_ids": [
+          "Q5_B_COMFORTABLE_CLASS",
+          "Q5_B_FATHER_BUSINESS_FAILURE",
+          "Q5_B_HOUSEHOLD_DECLINE",
+          "Q5_B_NORMAL_PARENT_RELATION"
+        ],
+        "scene_only_atom_ids": [
+          "Q5_B_FATHER_BUSINESS_FAILURE"
+        ],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S07_PROPERTY_SUN_JI",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": []
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "D",
+      "question_id": "Q5",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q5_D_PARENT_DIVORCE",
+        "Q5_D_BASIC_SUPPORT",
+        "Q5_D_GRANDMOTHER_CAREGIVER"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_D_BASIC_SUPPORT"
+        ],
+        "remaining_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_BASIC_SUPPORT",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "B"
+    },
+    {
+      "answer_access_during_decision": false,
+      "atom_level_replay_status": "PASS",
+      "case_id": "DEV-EXAMPLE-002",
+      "common_atom_ids_zeroed": [],
+      "decision_basis": "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+      "decision_values": {
+        "left_value": 1,
+        "mode": "MIN",
+        "right_value": 0
+      },
+      "left": "C",
+      "left_atom_direction_parent_ids": [
+        "Q5_C_POOR_CHILDHOOD",
+        "Q5_C_MOTHER_DEATH",
+        "Q5_C_FATHER_CAREGIVER",
+        "Q5_C_FATHER_CLOSE"
+      ],
+      "left_metrics": {
+        "direct_counterevidence_atom_ids": [
+          "Q5_C_MOTHER_DEATH"
+        ],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "remaining_atom_ids": [
+          "Q5_C_POOR_CHILDHOOD",
+          "Q5_C_MOTHER_DEATH",
+          "Q5_C_FATHER_CAREGIVER",
+          "Q5_C_FATHER_CLOSE"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_C_FATHER_CAREGIVER"
+        ]
+      },
+      "left_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "loser": "C",
+      "question_id": "Q5",
+      "right": "D",
+      "right_atom_direction_parent_ids": [
+        "Q5_D_PARENT_DIVORCE",
+        "Q5_D_BASIC_SUPPORT",
+        "Q5_D_GRANDMOTHER_CAREGIVER"
+      ],
+      "right_metrics": {
+        "direct_counterevidence_atom_ids": [],
+        "direct_support_atom_ids": [],
+        "missing_exact_endpoint_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "partial_support_atom_ids": [
+          "Q5_D_BASIC_SUPPORT"
+        ],
+        "remaining_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_BASIC_SUPPORT",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ],
+        "scene_only_atom_ids": [],
+        "source_parent_excerpt_ids": [
+          "S07_PARENTS_TONGLIANG",
+          "S16_MEDICAL_AND_FAMILY_LIMIT",
+          "S17_DIRECTION_AND_ENDPOINT"
+        ],
+        "unknown_atom_ids": [
+          "Q5_D_PARENT_DIVORCE",
+          "Q5_D_GRANDMOTHER_CAREGIVER"
+        ]
+      },
+      "right_source_parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "winner": "D"
+    }
+  ],
+  "schema": "DEV-GROUP-002-R11-ATOM-PARENT-PAIRWISE-REPLAY-V1",
+  "status": "PASS_COMPLETE_TRANSITIVE_REPLAY"
+}

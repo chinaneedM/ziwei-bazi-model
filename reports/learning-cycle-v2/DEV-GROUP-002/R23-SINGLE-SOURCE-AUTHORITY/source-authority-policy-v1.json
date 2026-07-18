@@ -1,0 +1,81 @@
+{
+  "schema": "FORTUNE-SINGLE-SOURCE-AUTHORITY-POLICY-V1",
+  "round_id": "R23",
+  "group_id": "DEV-GROUP-002",
+  "problem": "The ChatGPT project upload set and the GitHub knowledge baseline are separate physical copies. GitHub commits do not mutate project uploads, so they can diverge after training changes.",
+  "source_roles": {
+    "PROJECT_UPLOAD_BASELINE": {
+      "role": "BOOTSTRAP_AND_HISTORICAL_REFERENCE_ONLY_AFTER_VERIFIED_MIGRATION",
+      "mutable_by_runtime": false,
+      "allowed_in_automated_training_prediction": false,
+      "notes": "The original project S00-S19 files remain available to the project but must not be mixed with a later repository candidate or release."
+    },
+    "REPOSITORY_IMMUTABLE_BASELINE": {
+      "path": "knowledge/base",
+      "role": "FROZEN_R16_CONTROL_BASELINE",
+      "mutable_in_place": false,
+      "tag": "source-baseline-S00-S19-R16"
+    },
+    "REPOSITORY_CANDIDATE_BASELINE": {
+      "path_pattern": "knowledge/candidates/<round_or_version>",
+      "role": "TRAINING_PATCH_CANDIDATE",
+      "mutable_in_place": false,
+      "allowed_in_prediction": "ONLY_WHEN_BOUND_BY_A_FROZEN_RUN_CONTRACT"
+    },
+    "REPOSITORY_RELEASE_BASELINE": {
+      "path_pattern": "knowledge/releases/<version>",
+      "role": "SOLE_ACTIVE_SOURCE_FOR_AUTOMATED_TRAINING_AND_EVALUATION_AFTER_PROMOTION",
+      "mutable_in_place": false
+    }
+  },
+  "single_authority_rule": {
+    "automated_training_and_retest": "REPOSITORY_BOUND_BASELINE_ONLY",
+    "ordinary_project_chat_without_repository_binding": "NOT_VALID_FOR_TRAINING_SCORE_OR_RELEASE_CLAIMS",
+    "mixed_project_and_repository_sources": "FAIL_CLOSED",
+    "missing_exact_repository_commit_manifest_or_file_hash": "FAIL_CLOSED"
+  },
+  "required_run_binding": [
+    "SOURCE_AUTHORITY=GITHUB_REPOSITORY",
+    "repository_full_name",
+    "exact_commit_or_release_tag",
+    "baseline_manifest_sha256",
+    "S19_binding_table_sha256",
+    "20 canonical source paths",
+    "20 raw-file SHA256 values",
+    "20 file sizes",
+    "project_upload_access=DENIED_OR_NOT_USED"
+  ],
+  "promotion_and_sync": {
+    "candidate_to_release": [
+      "candidate source and runtime patches validated",
+      "complete S00-S19 baseline materialized",
+      "S00 index rebuilt",
+      "S19 active binding table rebuilt",
+      "same-set clean retest completed",
+      "required validation and approval gates passed"
+    ],
+    "repository_release_to_project_uploads": "NOT_AUTOMATIC",
+    "project_sync_options": [
+      "Preferred: repository-backed executor loads the exact release for every scored run",
+      "Fallback: export a release ZIP and manually replace the ChatGPT project files"
+    ],
+    "sync_requirement_for_scored_runs": "NONE_IF_THE_RUN_READS_ONLY_THE_EXACT_REPOSITORY_RELEASE",
+    "sync_requirement_for_ordinary_project_only_runs": "PROJECT_FILES_MUST_BE_REPLACED_WITH_THE_EXACT_RELEASE_BEFORE_RESULTS_CAN_BE_COMPARED"
+  },
+  "contamination_checks": [
+    "Reject any run whose evidence ledger cites both project-upload paths and repository knowledge paths",
+    "Reject any run whose source hash is not in the frozen baseline manifest",
+    "Reject any run that silently falls back to project uploads after repository read failure",
+    "Reject any score produced without a source-authority receipt"
+  ],
+  "current_state": {
+    "initial_migration": "VERIFIED_BYTE_IDENTICAL_ACTIVE_BASELINE",
+    "repository_baseline": "INSTALLED_IMMUTABLE_R16",
+    "project_upload_baseline": "STILL_PRESENT_AND_SEPARATE",
+    "post_migration_auto_sync": false,
+    "candidate_release_for_R21": "NOT_YET_MATERIALIZED",
+    "risk": "VERSION_DRIFT_IF_SINGLE_AUTHORITY_GATE_IS_NOT_ENFORCED"
+  },
+  "status": "POLICY_DEFINED_IMPLEMENTATION_REQUIRED",
+  "object_hash": "a42c91e577c96837be7ea4ca49aa74437f22eb568430e9d42989bb1ef2f81aa8"
+}

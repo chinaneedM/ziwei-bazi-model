@@ -1,0 +1,372 @@
+{
+  "accuracy_observation_created": false,
+  "answer_data_available": false,
+  "binding": {
+    "code_commit_sha": "862e73c677f38d6d330b2a82e1ffac6421839388",
+    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "main_prompt_snapshot_receipt_sha256": "9a9f3fcc641e7c51884cdb23c29836a85c880a118c47009ef34ded8a646bce89",
+    "main_prompt_snapshot_sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
+    "method_packet_sha256": "812a5b9cdbadb526ad1cc2662cba4f41904a620d1b2bbc6d3eb61cd86d0aa3c3",
+    "method_release_id": "METHOD-R17",
+    "model_release_id": "MODEL-R17-REPOSITORY-SHADOW-V2",
+    "s19_binding_sha256": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+    "source_packet_schema": "FORTUNE-SOURCE-PACKET-V1",
+    "source_packet_sha256": "4906a4f61789f5ead35b9d91a3e9b118e320672115f8298bf4399e55cfc8b638"
+  },
+  "case_id": "CASE-R17-ENDPOINT-001",
+  "completed_at": "2026-07-19T00:15:00+08:00",
+  "dataset_type": "NONSCORING_REPOSITORY_ONLY_SHADOW",
+  "fallback_used": false,
+  "formal_release": "NO",
+  "input_freeze": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/case-freeze.json",
+    "sha256": "487267c96b730662b9e97279be3a7f230c46ffde5167813340c8323ac8a3aebe",
+    "status": "PASS"
+  },
+  "method_packet": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/method-packet.json",
+    "sha256": "812a5b9cdbadb526ad1cc2662cba4f41904a620d1b2bbc6d3eb61cd86d0aa3c3",
+    "status": "PASS_PRECONTENT"
+  },
+  "model_release": {
+    "id": "MODEL-R17-REPOSITORY-SHADOW-V2",
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/model-release-v2.json"
+  },
+  "object_hash": "cc6b55cf374baca73ac2e519485f6bfc0ad21e54dba0853bcbc354cbcb66b6dd",
+  "project_upload_access": "DENIED_AND_NOT_USED",
+  "questions": [
+    {
+      "bazi_local_seal": {
+        "formal_exact_assertion": null,
+        "independent_parent_libraries": [
+          "S15",
+          "S17",
+          "S18"
+        ],
+        "local_top1": "B",
+        "local_top2": "A",
+        "neutral_time_fact": "Dynamic relations and structure activation establish temporal permission only.",
+        "reality_endpoint_result": "ACTUAL_OCCURRENCE_AND_FORMAL_COMPLETION_UNPROVEN",
+        "status": "PASS"
+      },
+      "blind_model": {
+        "blind_axis": "Determine the maximum reality assertion permitted when independent time systems show activation but no action or completion node exists.",
+        "option_letters_visible_at_seal": false,
+        "other_track_conclusion_visible_at_seal": false,
+        "sealed_before_option_direction_challenge": true,
+        "seed_hypothesis": "TIME_ACTIVATION_IS_A_STAGE_PERMISSION_SIGNAL_AND_REQUIRES_SEPARATE_REALITY_ENDPOINT_CLOSURE"
+      },
+      "common_atom_subtraction": {
+        "remaining_distinctive_atoms": {
+          "A": [
+            "ACTUAL_OCCURRENCE",
+            "FORMAL_COMPLETION"
+          ],
+          "B": [
+            "STAGE_PERMISSION",
+            "MISSING_EXACT_ENDPOINT"
+          ]
+        },
+        "subtracted_atoms": [
+          "SAME_TIME_ACTIVATION_PREMISE"
+        ]
+      },
+      "composite_coverage": {
+        "A": {
+          "endpoint_distance": 2,
+          "status": "INCOMPLETE",
+          "weakest_required_atom": "FORMAL_COMPLETION"
+        },
+        "B": {
+          "endpoint_distance": 0,
+          "status": "COMPLETE_FOR_RELATIVE_CLAIM",
+          "weakest_required_atom": "MISSING_EXACT_ENDPOINT"
+        }
+      },
+      "coverage_plan": {
+        "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/coverage-plan.json",
+        "sha256": "997b4dcf95c3b068eaec3028789b87427963bd364971a51bf497c3aee60f93f1",
+        "status": "COMPLETE"
+      },
+      "evidence_ledger": [
+        {
+          "capability_ceiling": "AS_STATED_IN_PARENT_TEXT_NO_UPGRADE",
+          "direction": "LIMITATION",
+          "downstream_impact": "Coverage cannot stop at a fixed public evidence count.",
+          "packet_item_id": "PKT-S00-SHADOW-K0001",
+          "physical_selector": {
+            "byte_end": 7519,
+            "byte_start": 7164,
+            "line_end": 127,
+            "line_start": 127
+          },
+          "source_file_sha256": "b8408a9070f5e22f6fbb74ec0134ec49823dcc3d6633deab45bcf8fae117b27d",
+          "source_library": "S00",
+          "source_root_atom": "证据数量由题目区别原子、事件族、精度、实际盘面结构、强竞争项和来源条件决定",
+          "track": "CONTROL"
+        },
+        {
+          "capability_ceiling": "AS_STATED_IN_PARENT_TEXT_NO_UPGRADE",
+          "direction": "DIRECT_COUNTEREVIDENCE_TO_A",
+          "downstream_impact": "Ziwei time signal cannot prove occurrence.",
+          "packet_item_id": "PKT-S10-SHADOW-K0002",
+          "physical_selector": {
+            "byte_end": 2334,
+            "byte_start": 2117,
+            "line_end": 51,
+            "line_start": 51
+          },
+          "source_file_sha256": "b3c81e1837d7d5ce0f461109eaaf0a486d793b1adbb0921924225ecd2a3d05f3",
+          "source_library": "S10",
+          "source_root_atom": "同一时间事实可被多个选项引用，但每个选项必须同字段、同粒度、同证明负担",
+          "track": "ZIWEI"
+        },
+        {
+          "capability_ceiling": "AS_STATED_IN_PARENT_TEXT_NO_UPGRADE",
+          "direction": "DIRECT_COUNTEREVIDENCE_TO_A",
+          "downstream_impact": "Bazi time activation cannot prove a reality endpoint.",
+          "packet_item_id": "PKT-S15-SHADOW-K0003",
+          "physical_selector": {
+            "byte_end": 9496,
+            "byte_start": 9276,
+            "line_end": 169,
+            "line_start": 169
+          },
+          "source_file_sha256": "32b2eaf0cfc4b78e8caa3fbe144f167d7d1937c28c130a4b94eb964ed6e676d3",
+          "source_library": "S15",
+          "source_root_atom": "时间显著、交运、冲合、财官印食伤增强或压力集中，只能形成时间许可和结构激活，不能直接等同结婚、离婚、创业、破产、手术部位、具体职业或其他现实终点",
+          "track": "BAZI"
+        },
+        {
+          "capability_ceiling": "AS_STATED_IN_PARENT_TEXT_NO_UPGRADE",
+          "direction": "DIRECT_SUPPORT_TO_B",
+          "downstream_impact": "Missing exact endpoint remains an explicit gap without erasing valid stage direction.",
+          "packet_item_id": "PKT-S17-SHADOW-K0004",
+          "physical_selector": {
+            "byte_end": 2728,
+            "byte_start": 2502,
+            "line_end": 58,
+            "line_start": 58
+          },
+          "source_file_sha256": "80f5b158df6425707a5ea179ce896ff74a6112356d5614addb2303a11f4fecb6",
+          "source_library": "S17",
+          "source_root_atom": "精确身份、金额、手续、量级或持续未闭合，只能把该原子标为`MISSING_EXACT_ENDPOINT`，不能把已经成立的职业族方向、人格方向、组织形式、直接限制或直接反证重置为空",
+          "track": "SHARED_REALITY_CLOSURE"
+        },
+        {
+          "capability_ceiling": "AS_STATED_IN_PARENT_TEXT_NO_UPGRADE",
+          "direction": "DIRECT_SUPPORT_TO_B",
+          "downstream_impact": "Formal assertion may remain null while relative selection continues.",
+          "packet_item_id": "PKT-S18-SHADOW-K0005",
+          "physical_selector": {
+            "byte_end": 10529,
+            "byte_start": 10188,
+            "line_end": 201,
+            "line_start": 201
+          },
+          "source_file_sha256": "bb7afe78b37e45da816305801d95e188f76fb766df09732b07e13fd6a769cecc",
+          "source_library": "S18",
+          "source_root_atom": "学习能力不得直接等于大学文凭；伴侣显著不得直接等于登记结婚；关系破裂不得直接等于登记离婚；父母宫显著不得直接等于死亡；司法压力不得直接等于正式提告或实际服刑",
+          "track": "SHARED_ADJUDICATION"
+        }
+      ],
+      "formal_exact_assertion": null,
+      "fusion": {
+        "bazi_local_seal_status": "PASS",
+        "positive_gain": "NO",
+        "result_top1": "B",
+        "result_top2": "A",
+        "same_choice_gain": "ZERO",
+        "status": "PERFORMED",
+        "ziwei_local_seal_status": "PASS"
+      },
+      "method_stage_receipts": [
+        {
+          "method_rule_ids": [
+            "MR-R16-001",
+            "MR-R16-002"
+          ],
+          "reason": null,
+          "stage_id": "INPUT_AND_LITERAL_OPTION_FREEZE",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-003",
+            "MR-R16-004"
+          ],
+          "reason": null,
+          "stage_id": "COMPLETE_KNOWLEDGE_COVERAGE",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-005",
+            "MR-R16-006"
+          ],
+          "reason": null,
+          "stage_id": "ZIWEI_BLIND_TRACK",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-007",
+            "MR-R16-008"
+          ],
+          "reason": null,
+          "stage_id": "BAZI_BLIND_TRACK",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-009",
+            "MR-R16-010"
+          ],
+          "reason": null,
+          "stage_id": "NEUTRAL_TIME_FACTS",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-011"
+          ],
+          "reason": "NO_NATURAL_PERSON_IN_SYNTHETIC_RULE_CASE",
+          "stage_id": "PERSON_TAIJI_AND_ENTITY_TOPOLOGY",
+          "status": "NOT_APPLICABLE_WITH_REASON"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-012",
+            "MR-R16-013"
+          ],
+          "reason": null,
+          "stage_id": "REALITY_OCCURRENCE_AND_ENDPOINT_CLOSURE",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-014"
+          ],
+          "reason": null,
+          "stage_id": "COMMON_ATOM_SUBTRACTION",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-015"
+          ],
+          "reason": null,
+          "stage_id": "OPTION_ATOM_DIRECTION_MATRIX",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-016"
+          ],
+          "reason": null,
+          "stage_id": "FULL_PAIRWISE_ADJUDICATION",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-017",
+            "MR-R16-018"
+          ],
+          "reason": null,
+          "stage_id": "TRACK_INDEPENDENCE_AND_FUSION",
+          "status": "EXECUTED"
+        },
+        {
+          "method_rule_ids": [
+            "MR-R16-019",
+            "MR-R16-020"
+          ],
+          "reason": null,
+          "stage_id": "PUBLIC_RELATIVE_AND_FORMAL_RELEASE",
+          "status": "EXECUTED"
+        }
+      ],
+      "most_important_unverified_atom": "NO_REAL_WORLD_EVENT_OR_PERSONAL_CHART_WAS_SUPPLIED; THIS_RUN_VALIDATES_ONLY_THE_RUNTIME_RULE_CHAIN",
+      "neutral_time_facts": [
+        {
+          "fact": "STAGE_PERMISSION_ONLY",
+          "projected_option_id": null,
+          "track": "ZIWEI"
+        },
+        {
+          "fact": "STRUCTURE_ACTIVATION_ONLY",
+          "projected_option_id": null,
+          "track": "BAZI"
+        }
+      ],
+      "option_atom_direction_matrix": {
+        "A": {
+          "ACTUAL_OCCURRENCE": "DIRECT_COUNTEREVIDENCE",
+          "FORMAL_COMPLETION": "MISSING_EXACT_ENDPOINT",
+          "time_stage": "SUPPORTED_ONLY_AS_PERMISSION"
+        },
+        "B": {
+          "MISSING_EXACT_ENDPOINT": "DIRECT_SUPPORT",
+          "STAGE_PERMISSION": "DIRECT_SUPPORT",
+          "STRUCTURE_ACTIVATION": "DIRECT_SUPPORT"
+        }
+      },
+      "pairwise_comparisons": [
+        {
+          "decision_order_applied": [
+            "DISTINCTIVE_DIRECT_SUPPORT",
+            "SAME_AXIS_DIRECT_COUNTEREVIDENCE",
+            "COMPOSITE_COVERAGE",
+            "ENDPOINT_DISTANCE",
+            "TIME_STAGE",
+            "ALTERNATIVE_EXPLANATION",
+            "MECHANISM_COHERENCE"
+          ],
+          "left_option_id": "A",
+          "pair_id": "Q1-A-vs-B",
+          "reason": "A upgrades stage permission to occurrence and formal completion without required action or endpoint nodes; B preserves the supported time role and endpoint gap.",
+          "right_option_id": "B",
+          "winner_option_id": "B"
+        }
+      ],
+      "public_relative_prediction": {
+        "confidence": "HIGH_FOR_RULE_CONFORMANCE_ONLY",
+        "top1": "B",
+        "top2": "A"
+      },
+      "question_id": "Q1",
+      "strongest_competitor": {
+        "challenger_loss_reason": "DIRECT_COUNTEREVIDENCE_ON_OCCURRENCE_AND_MISSING_FORMAL_ENDPOINT",
+        "challenger_option_id": "A",
+        "leader_option_id": "B"
+      },
+      "ziwei_local_seal": {
+        "formal_exact_assertion": null,
+        "independent_parent_libraries": [
+          "S10",
+          "S17",
+          "S18"
+        ],
+        "local_top1": "B",
+        "local_top2": "A",
+        "neutral_time_fact": "Time intensity or transformations establish stage permission only.",
+        "reality_endpoint_result": "ACTUAL_OCCURRENCE_AND_FORMAL_COMPLETION_UNPROVEN",
+        "status": "PASS"
+      }
+    }
+  ],
+  "run_contract": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/run-contract.json",
+    "sha256": "ffbde92783f238049bf48523e5f60942b74aac31de4e63099322de82a941daac",
+    "status": "FROZEN_BEFORE_REASONING"
+  },
+  "run_id": "RUN-R17-ENDPOINT-001",
+  "schema": "CASE-RUNTIME-BUNDLE-V1",
+  "score_eligibility": "PROHIBITED_NONSCORING_SHADOW",
+  "source_packet": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/source-packet.json",
+    "sha256": "4906a4f61789f5ead35b9d91a3e9b118e320672115f8298bf4399e55cfc8b638",
+    "status": "PASS_PRECONTENT"
+  }
+}

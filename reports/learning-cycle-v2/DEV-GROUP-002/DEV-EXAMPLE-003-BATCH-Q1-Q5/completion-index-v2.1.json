@@ -1,0 +1,100 @@
+{
+  "batch_id": "DEV-EXAMPLE-003-BATCH-Q1-Q5",
+  "bundle_object_hash": "96758303db40c9fc04223193478b1702431b8a3343a3cbbf34190bf4531588e2",
+  "bundle_sha256": "246f26e4dd925d3c4b8e977c6054a23397cdedb711a3724dbd3cc7b0c2aa4a4a",
+  "case_id": "DEV-EXAMPLE-003",
+  "completed_trainable_units": [
+    "DEV-EXAMPLE-003-Q1",
+    "DEV-EXAMPLE-003-Q2",
+    "DEV-EXAMPLE-003-Q3",
+    "DEV-EXAMPLE-003-Q4",
+    "DEV-EXAMPLE-003-Q5"
+  ],
+  "formal_exact_assertions": "ALL_NULL",
+  "formal_release": "NO",
+  "next_unit": "DEV-EXAMPLE-004-Q1",
+  "next_unit_status": "NOT_ENTERED",
+  "object_hash": "74e3195ee83ed16cdc587f3cd6909c22392648c5c907a0bf109452a1089c3107",
+  "payload_manifest_object_hash": "b26da242c44a3fc2c078ef4bf3f17480cbf55f8a1de7b4b2404aac49cfba20ac",
+  "post_reveal_training_fit": {
+    "role": "TRAINING_FIT_ONLY_NOT_BLIND_ACCURACY",
+    "top1_hits": 5,
+    "trainable_unit_count": 5
+  },
+  "raw_first_blind_audit": {
+    "provenance": "REPOSITORY_BASELINE_LIMITED",
+    "question_count": 5,
+    "top1_hits": 0,
+    "top2_hits": 0
+  },
+  "remote_ci": "UNVERIFIED",
+  "schema": "CASE-BATCH-TRAINING-COMPLETION-INDEX-V2.1",
+  "status": "TRAINING_BATCH_COMPLETE",
+  "unit_receipts": {
+    "Q1": {
+      "answer": "B",
+      "completion_object_hash": "3fb1f210985110957e4f4661b34c564696b51c921e6d16fc9d7b30f5f8fbb668",
+      "evaluation_object_hash": "49f0e4b774f4a3588f3493e06e46437e65842f5a09c7b42c68212d80947c04c9",
+      "evidence_object_hash": "6f3adf10b6dfcb27df4e97894b60ea5db6580996bf0f69a29b8c9650d468a7ca",
+      "formal_exact_assertion": null,
+      "historical_top1": "A",
+      "historical_top2": "C",
+      "post_reveal_fit_rank": ["B", "C", "A", "D"],
+      "reasoning_object_hash": "cf8602abe74cf8e5842d529bf2dc9b58df1bc791a01c10b9235599781ebfcfed",
+      "status": "TRAINING_UNIT_COMPLETE",
+      "unit_id": "DEV-EXAMPLE-003-Q1"
+    },
+    "Q2": {
+      "answer": "B",
+      "completion_object_hash": "9dfe727d22b769ed94a2cda27a6e957bb10ab8abe0f0f32b9888dc05c8aaf3be",
+      "evaluation_object_hash": "eb835c95b24b1f225a2d357d957b7d3676aeb1b4be6ec9341d49e687f9fa586a",
+      "evidence_object_hash": "84355277ec9b1736968d4c27414391a287fc9dc805af50d653474417971dd1da",
+      "formal_exact_assertion": null,
+      "historical_top1": "A",
+      "historical_top2": "C",
+      "post_reveal_fit_rank": ["B", "A", "C", "D"],
+      "reasoning_object_hash": "5044b56228f608bb64756efc7af840cebd11450133e39cb2235b1fa97ff6ed5d",
+      "status": "TRAINING_UNIT_COMPLETE",
+      "unit_id": "DEV-EXAMPLE-003-Q2"
+    },
+    "Q3": {
+      "answer": "D",
+      "completion_object_hash": "e313ecd2899ee2b0b2440c0a6e265ba09d06db6d3a7ecdc1e870557c562167ae",
+      "evaluation_object_hash": "7f04b5fd5a60fce775ab6a2af676b61e7579bf87fc9b4768a4a371dd247872df",
+      "evidence_object_hash": "f1155f598f6eea8f0582a83e7c93a0f2a281ece5d24cd2b0f79e7ad789fadab3",
+      "formal_exact_assertion": null,
+      "historical_top1": "C",
+      "historical_top2": "A",
+      "post_reveal_fit_rank": ["D", "B", "C", "A"],
+      "reasoning_object_hash": "31c2949ff3243a0a07e02b3e32536502b55452d06494a083d0c0c0c05987d95c",
+      "status": "TRAINING_UNIT_COMPLETE",
+      "unit_id": "DEV-EXAMPLE-003-Q3"
+    },
+    "Q4": {
+      "answer": "C",
+      "completion_object_hash": "5d312d20721bd65fe560a5d0be1630530d88904e56698cc21196715f32adeff9",
+      "evaluation_object_hash": "6ba69a967f18ed5c765485c7e2047590a935dabc8d8374fa8aa09647a68925cb",
+      "evidence_object_hash": "ab358c2a539f1f066de68a3fb4c4e56f56bcc604f7b2b389dc4ede93418c898d",
+      "formal_exact_assertion": null,
+      "historical_top1": "B",
+      "historical_top2": "A",
+      "post_reveal_fit_rank": ["C", "A", "D", "B"],
+      "reasoning_object_hash": "3e5024d87ca1e5f665b3f85900b7065c7fdaecac4ef504681d918a539c028a29",
+      "status": "TRAINING_UNIT_COMPLETE",
+      "unit_id": "DEV-EXAMPLE-003-Q4"
+    },
+    "Q5": {
+      "answer": "A",
+      "completion_object_hash": "37754778b7975a18d7b29d01dc57d69ee9ddd550b5f2303f4af026faa46dd6eb",
+      "evaluation_object_hash": "b6b2ae06d42235d1ad8b6c3cc183e30811b06b935cdb91339b1a46da39e17ee9",
+      "evidence_object_hash": "f98a5cc41c6126a367012d363a6d9841cfeaa105439a31067220b0fda2c326d6",
+      "formal_exact_assertion": null,
+      "historical_top1": "C",
+      "historical_top2": "B",
+      "post_reveal_fit_rank": ["A", "D", "C", "B"],
+      "reasoning_object_hash": "12fd11fface1263bff4283f1d12785a317cb4599246be4fa6c382ba3c8a75f86",
+      "status": "TRAINING_UNIT_COMPLETE",
+      "unit_id": "DEV-EXAMPLE-003-Q5"
+    }
+  }
+}

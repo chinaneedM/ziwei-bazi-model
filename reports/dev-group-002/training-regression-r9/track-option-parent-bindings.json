@@ -1,0 +1,1230 @@
+{
+  "atom_freeze_sha256": "68f114873cf839574bbef059002d1f5c4ac6bc219ab0c9716a60730f3b732bb6",
+  "blind_models_sha256": "3fb6099c110590d53fc2dfcbf92e0cf7cfc551db046e6599ae6aa0756948fcd6",
+  "canonical_sha256": "475d35e98dc02042b88ee1700114618cc6b007da761cbe31875da3fe255554ef",
+  "case_id": "DEV-EXAMPLE-002",
+  "coverage_plan_sha256": "e221e51d749323943631db029607da906c3848f9ce9307b20d5040e46ba034cc",
+  "group_id": "DEV-GROUP-002",
+  "round_id": "R9",
+  "schema": "DEV-GROUP-002-R9-TRACK-OPTION-PARENT-BINDINGS-V1",
+  "summary": {
+    "bazi_local_rank_rows": 0,
+    "bazi_rows": 20,
+    "formal_exact_assertions": 0,
+    "machine_valid_local_seals": 0,
+    "ziwei_rows": 20
+  },
+  "track_row_count": 40,
+  "track_rows": [
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "LIMITED_BY_SOURCE",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "HEALTHY_FEW_PAIN_STATE",
+        "SKIN_SENSITIVITY",
+        "SEAFOOD_AVOIDANCE"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SKIN_DIAGNOSIS_AND_DIETARY_CAUSATION"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "LIGHT_DISEASE_RESOLUTION_TENDENCY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "Tianliang can reduce severity, but the broader health route does not establish a healthy period, skin diagnosis or seafood causation.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "ACTUAL_2022_2025_HEALTH_RECORD"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "UNKNOWN",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "GENERAL_HEALTH_RISK_ONLY"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SURGERY_AND_SEVERITY_ENDPOINT"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "No preserved medical endpoint identifies a major operation or life-threatening episode.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "MAJOR_SURGERY",
+        "LIFE_DANGER"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "DIABETES_IDENTITY"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DIABETES_DIAGNOSIS_AND_RECURRENCE_RECORD"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "CHRONIC_OR_RECURRENT_HEALTH_BURDEN"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "The health structure supports recurrent burden, but diabetes remains an unverified diagnosis.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "CLINICAL_DIAGNOSIS"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "OBESITY",
+        "LIVER_IDENTITY"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "OBESITY_LIVER_GI_FOOT_MEDICAL_RECORD"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S04_GEOMETRY",
+        "S05_TIANLIANG_NATURE",
+        "S07_HEALTH_TIANLIANG",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "DIGESTIVE_BURDEN",
+        "LIMB_OR_RHEUMATIC_PAIN"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "Borrowed Tianliang plus depletion/malefic context gives the closest direct system-level match to digestive and foot/limb problems, without proving all diagnoses.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "ACTUAL_DIAGNOSES"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "MEDIOCRE_LAZY_PERSONALITY"
+      ],
+      "direction_status": "LIMITED_BY_SOURCE",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "UNIVERSITY_COMPLETION",
+        "ORDINARY_EMPLOYMENT"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DEGREE_AND_EMPLOYMENT_STATUS"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "SALARIED_SUPPORT_ROLE_SCENE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "Tianxiang does not support the mediocre/lazy core, although a salaried support role remains structurally plausible.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "NOT_STUDY_BEHAVIOR",
+        "HIGH_SCHOOL_COMPLETION",
+        "PART_TIME_PRIMARY_STATUS"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "EDUCATION_AND_JOB_STATUS"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "INTELLIGENCE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "Intelligence is supported, but study behavior, highest certificate and part-time status are not.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "NOT_INTELLIGENT"
+      ],
+      "direction_status": "DIRECTLY_CONTRADICTED_MATERIAL_ATOM",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "UNIVERSITY_COMPLETION",
+        "FAMILY_BUSINESS_OPERATION"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DEGREE_AND_OWNERSHIP"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S07_FINANCE_TIANFU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "HARDWORKING_OR_SERVICE_ORIENTATION"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "The not-intelligent material atom conflicts with the natal identity model, while family-business ownership is unclosed.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "MASTERS_OR_PHD",
+        "CORPORATE_MANAGEMENT_TITLE"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "ADVANCED_DEGREE_AND_FORMAL_TITLE"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S05_TIANXIANG_NATURE",
+        "S07_TIANXIANG_CHOU",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "INTELLIGENCE",
+        "PLANNING_OR_MANAGEMENT_ORIENTATION"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "Tianxiang directly favors intelligence and planning/management orientation, but advanced degrees and corporate title remain missing endpoints.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "FIXED_STABLE_JOB"
+      ],
+      "direction_status": "DIRECTLY_CONTRADICTED_MATERIAL_ATOM",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "ROMANCE_SCAM",
+        "ALL_SAVINGS_LOST"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SCAM_LOSS_AND_EMPLOYMENT_CONTINUITY"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S07_PROPERTY_SUN_JI",
+        "S07_FINANCE_TIANFU",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "FINANCIAL_LOSS_SCENE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "The period model conflicts with a fixed stable job; scam and total-loss endpoints are not established.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "UNINTERRUPTED_SMOOTH_CAREER"
+      ],
+      "direction_status": "LIMITED_BY_SOURCE",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "FAME_SUCCESS",
+        "SMOOTH_WORK"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "RECOGNITION_AND_SUCCESS_RECORD"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "SKILL_OR_RECOGNITION_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "Some skill/recognition symbolism exists, but the same period has direct instability and root-loss pressure.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_BUSINESS_OWNERSHIP"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "OWNER_IDENTITY_AND_TURNOVER"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "MULTIPLE_BUSINESS_OR_WORK_ACTIVITIES",
+        "HARD_OPERATION",
+        "AVERAGE_FINANCIAL_RESULT"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "Lianzhen-Tanlang with void/malefic context and no wealth-luck closure supports hard multi-activity operation, but not legal owner identity.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARTNER_PAYS_DAILY_EXPENSES"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "HOUSEHOLD_PAYER_AND_RESIDENCE_RECORD"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_CAREER_LIANTAN",
+        "S07_FINANCE_TIANFU",
+        "S07_PROPERTY_SUN_JI",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "REPEATED_WORK_CHANGE",
+        "MONEY_IN_AND_OUT",
+        "HOME_OR_FAMILY_AXIS_DOMINANCE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "The period directly favors job-root instability, multiple work stages and cash movement; partner-paid expenses remain unproved.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "HAPPY_HARMONIOUS_MARRIAGE"
+      ],
+      "direction_status": "DIRECTLY_CONTRADICTED_MATERIAL_ATOM",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_MARRIAGE_EXISTENCE"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "MARRIAGE_AND_STABLE_HARMONY_AT_CUTOFF"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The spouse structure directly conflicts with an unqualified happy and harmonious marriage.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "VERBAL_ABUSE_AND_BLAME"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "MARRIAGE_REGISTRATION_AND_VERBAL_BEHAVIOR_RECORD"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "MARRIAGE_CONFLICT_OR_HURT_SCENE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "Relationship harm is structurally supported, but legal marriage and specific verbal behavior are not established.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "LEGAL_MARRIAGE_STATUS"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "REGISTERED_DIVORCE",
+        "REGISTERED_REMARRIAGE",
+        "CURRENT_STABILITY"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DIVORCE_REMARRIAGE_AND_CUTOFF_STABILITY"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S07_MARRIAGE_LIANTAN",
+        "S10_NEUTRAL_TIME",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "MULTI_STAGE_RELATIONSHIP_OR_TWO_UNIONS_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The Lianzhen-Tanlang structure with a single auxiliary star most directly supports a two-stage relationship candidate, but all legal and current-status endpoints remain missing.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "UNKNOWN",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARTNER_CARE"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "ORIENTATION_AND_PARTNER_STATUS"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S04_AXIS_SCOPE",
+        "S07_MARRIAGE_LIANTAN",
+        "S16_ROLE_ENDPOINT_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "PARTNER_RELATION_SCENE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The chart can describe relationship dynamics but cannot identify sexual orientation or prove partner care.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": [
+        "SEXUAL_ORIENTATION"
+      ]
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "WEALTHY_MAGNITUDE",
+        "CLOSE_MOTHER_DISTANT_FATHER_SPLIT"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "HOUSEHOLD_CLASS_AND_PARENT_RELATION_CALIBRATION"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "PARENTAL_SUPPORT",
+        "NON_EXTREME_DEPRIVATION"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "Parental support is plausible, but wealthy magnitude and the mother/father relationship split are not established.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "PARTIALLY_SUPPORTED",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "MODESTLY_COMFORTABLE_MAGNITUDE",
+        "FATHER_BUSINESS_FAILURE_ACTOR_ACTION"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "HOUSEHOLD_CLASS_AND_FATHER_BUSINESS_EVENT"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S07_PROPERTY_SUN_JI",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "NORMAL_PARENT_RELATION",
+        "HOUSEHOLD_OR_ANCESTRAL_DECLINE_SCENE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The parent system supports normal ongoing relations, while Sun transformation pressure in the property axis supplies the closest household-decline mechanism.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [
+        "MOTHER_DEATH"
+      ],
+      "direction_status": "DIRECTLY_CONTRADICTED_MATERIAL_ATOM",
+      "effective": true,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "POVERTY_MAGNITUDE"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "MOTHER_DEATH_AND_CARE_HISTORY"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "FATHER_SUPPORT_POSSIBLE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The supportive Tongliang parent structure does not support mother death; the required death endpoint is absent.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "UNKNOWN",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARENT_DIVORCE",
+        "MATERNAL_GRANDMOTHER_CAREGIVER"
+      ],
+      "local_rank_permission": "YES_RELATIVE_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DIVORCE_AND_CAREGIVER_IDENTITY"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S07_PARENTS_TONGLIANG",
+        "S16_MEDICAL_AND_FAMILY_LIMIT",
+        "S17_DIRECTION_AND_ENDPOINT"
+      ],
+      "partial_atom_ids": [
+        "PARENTAL_BASIC_SUPPORT_POSSIBLE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "Parent support is possible, but divorce and grandmother caregiver identity have no person-specific endpoint chain.",
+      "track_id": "ZIWEI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "SKIN_AND_DIET_CAUSATION"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SKIN_AND_DIET_CAUSATION"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "LIGHT_DISEASE_NOT_ESTABLISHED"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "Hot/dry load does not prove a healthy period or skin/food diagnosis.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "SURGERY_AND_SEVERITY_ENDPOINT"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SURGERY_AND_SEVERITY_ENDPOINT"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S15_NEUTRAL_TIME",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "No anatomical, procedural or hospitalization endpoint is available.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "DIABETES_DIAGNOSIS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "DIABETES_DIAGNOSIS"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "METABOLIC_OR_RECURRENT_BURDEN_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "The qi structure can carry metabolic burden but cannot identify diabetes.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "OBESITY_LIVER_FOOT_DIAGNOSES"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "OBESITY_LIVER_FOOT_DIAGNOSES"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "DIGESTIVE_OR_METABOLIC_BURDEN_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q1",
+      "semantic_reason": "The qi structure permits digestive/metabolic burden but cannot supply the listed diagnoses.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LAZINESS_DEGREE_EMPLOYMENT_ENDPOINTS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "LAZINESS_DEGREE_EMPLOYMENT_ENDPOINTS"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S13_METHOD_COMPETITION",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "SALARIED_ORGANIZATION_ROLE_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "Role structure cannot close the compound personality, degree and job status.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "NOT_STUDY_HIGH_SCHOOL_PART_TIME_ENDPOINTS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "NOT_STUDY_HIGH_SCHOOL_PART_TIME_ENDPOINTS"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S13_METHOD_COMPETITION",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "EXPRESSIVE_INTELLIGENCE_WITH_WEAK_RESOURCE_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "Output/resource balance permits this personality direction but not its educational and employment endpoints.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "INTELLIGENCE_DEGREE_FAMILY_BUSINESS_ENDPOINTS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "INTELLIGENCE_DEGREE_FAMILY_BUSINESS_ENDPOINTS"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S13_METHOD_COMPETITION",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "WORK_EFFORT_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "No family-business ownership or degree endpoint can be derived.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "ADVANCED_DEGREE_AND_MANAGEMENT_TITLE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "ADVANCED_DEGREE_AND_MANAGEMENT_TITLE"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S13_METHOD_COMPETITION",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "INTELLIGENCE_OR_RESPONSIBILITY_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q2",
+      "semantic_reason": "The structure can carry responsibility but not masters/PhD or management title.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "SCAM_TOTAL_LOSS_STABLE_JOB"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "SCAM_TOTAL_LOSS_STABLE_JOB"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_TOPIC_PACKAGE"
+      ],
+      "partial_atom_ids": [
+        "FINANCIAL_PRESSURE_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "The period cannot identify a scam or stable employment.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "FAME_AND_SMOOTH_SUCCESS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "FAME_AND_SMOOTH_SUCCESS"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_TOPIC_PACKAGE"
+      ],
+      "partial_atom_ids": [
+        "RESPONSIBILITY_OR_RECOGNITION_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "Officer activation does not prove public recognition or smooth work.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "OWNER_IDENTITY_AND_TURNOVER"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "OWNER_IDENTITY_AND_TURNOVER"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S13_METHOD_COMPETITION",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "BUSINESS_RESPONSIBILITY_OR_OUTPUT_TO_WEALTH_CANDIDATE"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "The period can support business responsibility but not legal ownership.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "DIRECTION_ONLY",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "RESIDENCE_AND_PARTNER_PAYMENT_ENDPOINTS"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "RESIDENCE_AND_PARTNER_PAYMENT_ENDPOINTS"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_TOPIC_PACKAGE"
+      ],
+      "partial_atom_ids": [
+        "WORK_STAGE_CHANGE_AND_FINANCIAL_MOVEMENT"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q3",
+      "semantic_reason": "The relations and luck period permit change/flow, not household payer identity.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RELATIONSHIP_ACTIVATION_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The Bazi structure cannot distinguish the four completed relationship states.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RELATIONSHIP_ACTIVATION_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The Bazi structure cannot distinguish the four completed relationship states.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RELATIONSHIP_ACTIVATION_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The Bazi structure cannot distinguish the four completed relationship states.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "LEGAL_STATUS_ORIENTATION_BEHAVIOR_AND_CUTOFF_STATE"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S15_NEUTRAL_TIME",
+        "S16_ROLE_ENDPOINT_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RELATIONSHIP_ACTIVATION_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q4",
+      "semantic_reason": "The Bazi structure cannot distinguish the four completed relationship states.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "option_id": "A",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RESOURCE_OR_PARENT_SCENE_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The Bazi structure cannot identify a parent action, death, divorce, caregiver or calibrated household class.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "option_id": "B",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RESOURCE_OR_PARENT_SCENE_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The Bazi structure cannot identify a parent action, death, divorce, caregiver or calibrated household class.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "option_id": "C",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RESOURCE_OR_PARENT_SCENE_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The Bazi structure cannot identify a parent action, death, divorce, caregiver or calibrated household class.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    },
+    {
+      "case_id": "DEV-EXAMPLE-002",
+      "contradicted_atom_ids": [],
+      "direction_status": "VALID_ABSTENTION",
+      "effective": false,
+      "formal_exact_assertion": null,
+      "limited_atom_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "local_rank_permission": "NO_VALID_ABSTENTION_OR_DIRECTION_ONLY",
+      "missing_exact_endpoint_ids": [
+        "PARENT_ACTOR_EVENT_CAREGIVER_AND_MAGNITUDE"
+      ],
+      "option_id": "D",
+      "parent_excerpt_ids": [
+        "S11_FOUNDATION",
+        "S12_QI_CONTROL",
+        "S14_RELATION_LIMIT",
+        "S16_MEDICAL_AND_FAMILY_LIMIT"
+      ],
+      "partial_atom_ids": [
+        "RESOURCE_OR_PARENT_SCENE_ONLY"
+      ],
+      "program_state": "EXECUTED",
+      "question_id": "Q5",
+      "semantic_reason": "The Bazi structure cannot identify a parent action, death, divorce, caregiver or calibrated household class.",
+      "track_id": "BAZI",
+      "unknown_atom_ids": []
+    }
+  ]
+}

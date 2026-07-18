@@ -1,0 +1,58 @@
+{
+  "answer_data_available": false,
+  "answer_isolation_declaration": "PHYSICALLY_INACCESSIBLE",
+  "binding": {
+    "code_commit_sha": "862e73c677f38d6d330b2a82e1ffac6421839388",
+    "knowledge_release_id": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2",
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "main_prompt_snapshot_receipt_sha256": "9a9f3fcc641e7c51884cdb23c29836a85c880a118c47009ef34ded8a646bce89",
+    "main_prompt_snapshot_sha256": "e7e33e69fec7258b538eaf2698755f901b73933d67bcd86ca45e9bc2a66fce79",
+    "method_packet_sha256": "812a5b9cdbadb526ad1cc2662cba4f41904a620d1b2bbc6d3eb61cd86d0aa3c3",
+    "method_release_id": "METHOD-R17",
+    "model_release_id": "MODEL-R17-REPOSITORY-SHADOW-V2",
+    "s19_binding_sha256": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
+    "source_packet_schema": "FORTUNE-SOURCE-PACKET-V1",
+    "source_packet_sha256": "4906a4f61789f5ead35b9d91a3e9b118e320672115f8298bf4399e55cfc8b638"
+  },
+  "case_id": "CASE-R17-ENDPOINT-001",
+  "contract_frozen_before_reasoning": true,
+  "created_at": "2026-07-19T00:14:00+08:00",
+  "dataset_type": "NONSCORING_REPOSITORY_ONLY_SHADOW",
+  "fallback_policy": "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK",
+  "formal_release": "NO",
+  "historical_training_trace_access": "DENIED_AND_NOT_USED",
+  "legacy_contamination_access": "DENIED_AND_NOT_USED",
+  "method_packet": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/method-packet.json",
+    "sha256": "812a5b9cdbadb526ad1cc2662cba4f41904a620d1b2bbc6d3eb61cd86d0aa3c3"
+  },
+  "model_release": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/model-release-v2.json",
+    "sha256": "b0b58ab1a1de7dad6457dc0257c59008fe5baa0c8888d64c23c27851d571630b"
+  },
+  "object_hash": "85c24ee3e8b56b7a7c3c36c8302d101db9b41b154787df319b970b681bc457b3",
+  "project_upload_access": "DENIED_AND_NOT_USED",
+  "questions": [
+    {
+      "option_ids": [
+        "A",
+        "B"
+      ],
+      "question_id": "Q1",
+      "required_pairwise_rows": 1
+    }
+  ],
+  "research_hypothesis_access": "DENIED_UNLESS_PROMOTED_AND_RELEASE_BOUND",
+  "run_id": "RUN-R17-ENDPOINT-001",
+  "schema": "REPOSITORY-PREDICTION-RUN-CONTRACT-V1",
+  "snapshot": {
+    "case_input_hash": "3738afa6ff2dca50e7ecd78788fdfd725976906256a7d9e9a687fca0e9a7a3cd",
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/case-freeze.json",
+    "sha256": "487267c96b730662b9e97279be3a7f230c46ffde5167813340c8323ac8a3aebe"
+  },
+  "source_authority": "GITHUB_REPOSITORY_SOURCE_PACKET_ONLY",
+  "source_packet": {
+    "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/shadow-runs/RUN-R17-ENDPOINT-001/source-packet.json",
+    "sha256": "4906a4f61789f5ead35b9d91a3e9b118e320672115f8298bf4399e55cfc8b638"
+  }
+}

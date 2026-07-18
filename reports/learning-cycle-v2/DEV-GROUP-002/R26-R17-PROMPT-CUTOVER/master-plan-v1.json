@@ -1,0 +1,114 @@
+{
+  "schema": "R26-R17-PROMPT-CUTOVER-MASTER-PLAN-V1",
+  "plan_id": "R26-R17-PROMPT-CUTOVER",
+  "created_at": "2026-07-18T00:00:00+09:00",
+  "repository": "chinaneedM/ziwei-bazi-model",
+  "branch": "agent/dev-group-002-training-regression-r1",
+  "parent_program": {
+    "plan_id": "R25-SYSTEM-REMEDIATION-MASTER-PLAN",
+    "implementation_summary_object_hash": "1e27934cc7e22cea6a9aa6911f1877d27a3172003bbcfeb51abf23b5385d74c1"
+  },
+  "target_runtime": {
+    "main_prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260718-R17",
+    "architecture": "USER_INITIATED_REPOSITORY_BOUND_SEMI_AUTOMATION",
+    "knowledge_target": "KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE",
+    "method_target": "METHOD-R17",
+    "model_target": "MODEL-R17-REPOSITORY-SHADOW-V1"
+  },
+  "current_state": {
+    "project_prompt_status": "USER_REPORTED_INSTALLED_AND_RUNTIME_ID_OBSERVED",
+    "repository_prompt_snapshot_status": "PENDING_EXACT_EXPORT",
+    "repository_s19_binding_status": "R16_ONLY",
+    "method_candidate_status": "CREATED_NOT_PROMOTED",
+    "knowledge_candidate_status": "NOT_MATERIALIZED",
+    "model_candidate_status": "NOT_CREATED",
+    "shadow_run_status": "NOT_EXECUTED",
+    "score_eligibility": "PROHIBITED",
+    "formal_release": "NO"
+  },
+  "completed_objects": [
+    {
+      "path": "reports/prompt-cutover/R17-main-prompt-cutover-status-v1.json",
+      "object_hash": "ab132b2f14dd421de66c673b6fbead0e5f9df7345266adfc83b2516fe86385c6"
+    },
+    {
+      "path": "method/candidates/METHOD-R17/method-release.json",
+      "object_hash": "d22f19f1b975aaa6ce42c3af951cc6ff49d81aed3953629f1b33c86509b20cee"
+    },
+    {
+      "path": "model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/prompt-snapshot-candidate-v1.json",
+      "status": "PENDING_EXACT_EXPORT"
+    },
+    {
+      "path": "scripts/build_r17_prompt_cutover.py",
+      "validation": "ISOLATED_POSITIVE_AND_NEGATIVE_TEST_PASS"
+    },
+    {
+      "path": "tests/test_r17_prompt_cutover.py",
+      "test_count": 2,
+      "status": "PASS_ISOLATED"
+    }
+  ],
+  "execution_order": [
+    {
+      "step": "R26-01",
+      "name": "EXACT_PROJECT_PROMPT_EXPORT",
+      "required_output": "MAIN-PROMPT-AUDIT-SNAPSHOT-V1_PASS",
+      "status": "BLOCKED_OPERATOR_EXPORT_REQUIRED"
+    },
+    {
+      "step": "R26-02",
+      "name": "MATERIALIZE_R17_KNOWLEDGE_CANDIDATE",
+      "required_output": "COMPLETE_20_FILE_CANDIDATE_WITH_ONLY_S19_CHANGED",
+      "status": "BLOCKED_BY_R26-01"
+    },
+    {
+      "step": "R26-03",
+      "name": "FULL_READBACK_AND_CONTAMINATION_INVENTORY",
+      "required_output": "KNOWLEDGE_VALIDATION_PASS_AND_CONTAMINATION_PASS",
+      "status": "BLOCKED_BY_R26-02_AND_ACTIONS_INCIDENT"
+    },
+    {
+      "step": "R26-04",
+      "name": "BUILD_MODEL_R17_SHADOW_CANDIDATE",
+      "required_output": "PROMPT_KNOWLEDGE_METHOD_CODE_S19_BOUND_MODEL",
+      "status": "BLOCKED_BY_R26-03"
+    },
+    {
+      "step": "R26-05",
+      "name": "REAL_REPOSITORY_ONLY_NONSCORING_SHADOW_RUN",
+      "required_output": "SOURCE_AND_METHOD_PACKETS_DELIVERED_BEFORE_REASONING",
+      "status": "BLOCKED_BY_R26-04"
+    },
+    {
+      "step": "R26-06",
+      "name": "CAUSAL_USE_AND_NO_FALLBACK_VALIDATION",
+      "required_output": "CAUSAL_USE_RECEIPT_PASS",
+      "status": "BLOCKED_BY_R26-05"
+    },
+    {
+      "step": "R26-07",
+      "name": "PROMOTION_DECISION",
+      "required_output": "USER_APPROVAL_AND_FORMAL_RELEASE_DECISION",
+      "status": "BLOCKED_BY_R26-06"
+    }
+  ],
+  "ci_incident": {
+    "runtime_ci_run_id": 29650411967,
+    "initial_job_id": 88095685431,
+    "rerun_job_id": 88097016919,
+    "observation": "BOTH_FAILURES_RECORDED_NO_STEPS_NO_LOGS_NO_ARTIFACTS",
+    "classification": "PRESTEP_PLATFORM_OR_RUNNER_FAILURE_UNRESOLVED",
+    "full_ci_status": "NOT_CONFIRMED"
+  },
+  "prohibited_claims": [
+    "R17_EXACT_BYTE_SNAPSHOT_PASS",
+    "S19_REBOUND_TO_R17",
+    "MODEL_R17_EXISTS",
+    "REPOSITORY_ONLY_SHADOW_PASS",
+    "FORMAL_RELEASE",
+    "SCORE_ELIGIBILITY",
+    "ACCURACY_IMPROVEMENT"
+  ],
+  "object_hash": "1c5b8d84965f1059055d2ad00256cb4f3cb803d225ccfc3c98c808310565cabd"
+}

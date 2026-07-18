@@ -1,0 +1,100 @@
+{
+  "alternative_explanation_routes": [
+    "R-S17-ENDPOINT"
+  ],
+  "answer_or_winner_fields_present": false,
+  "blind_axis": "MAXIMUM_ASSERTION_PERMITTED_BY_TIME_ACTIVATION_WITHOUT_REALITY_ENDPOINT",
+  "case_id": "CASE-R17-ENDPOINT-001",
+  "conditional_source_family_rows": [
+    {
+      "library_id": "S04",
+      "reason": "NO_NATURAL_PERSON_OR_PERSON_TAIJI_IN_SYNTHETIC_RULE_CASE",
+      "route_id": "R-S04-PERSON",
+      "status": "NOT_APPLICABLE_WITH_REASON"
+    },
+    {
+      "library_id": "S05",
+      "reason": "NO_NATAL_ZIWEI_CONFIGURATION_IS_ASSERTED; ONLY_TIME_CAPABILITY_CEILING_IS_TESTED",
+      "route_id": "R-S05-S09-STRUCTURE",
+      "status": "NOT_APPLICABLE_WITH_REASON"
+    },
+    {
+      "library_id": "S11",
+      "reason": "NO_NATAL_BAZI_CONFIGURATION_IS_ASSERTED; ONLY_TIME_CAPABILITY_CEILING_IS_TESTED",
+      "route_id": "R-S11-S14-STRUCTURE",
+      "status": "NOT_APPLICABLE_WITH_REASON"
+    }
+  ],
+  "coverage_stop_status": "COMPLETE",
+  "created_at": "2026-07-19T00:11:00+08:00",
+  "direct_counterevidence_routes": [
+    "R-S10-TIME",
+    "R-S15-TIME"
+  ],
+  "object_hash": "3da7ce37a7d4d5f73090b1c2c1e4fdc077ca70df33c29053fb15df5330848162",
+  "question_id": "Q1",
+  "required_source_family_rows": [
+    {
+      "library_id": "S00",
+      "query_terms": [
+        "证据数量由题目区别原子"
+      ],
+      "route_id": "R-S00-COVERAGE",
+      "target_atoms": [
+        "COMPLETE_COVERAGE_NO_FIXED_QUOTA"
+      ]
+    },
+    {
+      "library_id": "S10",
+      "query_terms": [
+        "只提供阶段许可"
+      ],
+      "route_id": "R-S10-TIME",
+      "target_atoms": [
+        "ZIWEI_STAGE_PERMISSION",
+        "NO_OCCURRENCE_UPGRADE"
+      ]
+    },
+    {
+      "library_id": "S15",
+      "query_terms": [
+        "时间许可和结构激活"
+      ],
+      "route_id": "R-S15-TIME",
+      "target_atoms": [
+        "BAZI_STAGE_PERMISSION",
+        "NO_ENDPOINT_UPGRADE"
+      ]
+    },
+    {
+      "library_id": "S17",
+      "query_terms": [
+        "MISSING_EXACT_ENDPOINT"
+      ],
+      "route_id": "R-S17-ENDPOINT",
+      "target_atoms": [
+        "ENDPOINT_GAP_PRESERVES_DIRECTION"
+      ]
+    },
+    {
+      "library_id": "S18",
+      "query_terms": [
+        "FORMAL可NULL"
+      ],
+      "route_id": "R-S18-ADJUDICATION",
+      "target_atoms": [
+        "RELATIVE_SELECTION_CONTINUES",
+        "FORMAL_NULL_ALLOWED"
+      ]
+    }
+  ],
+  "run_id": "RUN-R17-ENDPOINT-001",
+  "schema": "COMPLETE-KNOWLEDGE-COVERAGE-PLAN-V1",
+  "strongest_competitor_option_id": "A",
+  "support_routes": [
+    "R-S10-TIME",
+    "R-S15-TIME",
+    "R-S17-ENDPOINT",
+    "R-S18-ADJUDICATION"
+  ]
+}

@@ -1,0 +1,82 @@
+name: validate-dev-group-002-training-regression-r15
+
+on:
+  push:
+    paths:
+      - reports/dev-group-002/training-regression-r15/**
+      - reports/dev-group-002/training-regression-r14/**
+      - reports/dev-group-002/training-regression-r13/generic-fix.json
+      - reports/dev-group-002/training-regression-r12/manifest.json
+      - reports/dev-group-002/training-regression-r11/manifest.json
+      - .github/workflows/validate-dev-group-002-training-regression-r15.yml
+  pull_request:
+    paths:
+      - reports/dev-group-002/training-regression-r15/**
+      - reports/dev-group-002/training-regression-r14/**
+      - reports/dev-group-002/training-regression-r13/generic-fix.json
+      - reports/dev-group-002/training-regression-r12/manifest.json
+      - reports/dev-group-002/training-regression-r11/manifest.json
+      - .github/workflows/validate-dev-group-002-training-regression-r15.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-and-validate-r15:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize R15 stability gate
+        run: |
+          set +e
+          python reports/dev-group-002/training-regression-r15/materialize_validate.py \
+            --repo-root . --write --validate \
+            > reports/dev-group-002/training-regression-r15/execution.log 2>&1
+          status=$?
+          cat reports/dev-group-002/training-regression-r15/execution.log
+          echo "$status" > reports/dev-group-002/training-regression-r15/execution.exit-code
+          exit "$status"
+      - name: Persist R15 failure diagnostics
+        if: failure() && github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add reports/dev-group-002/training-regression-r15/
+          if git diff --cached --quiet; then
+            echo 'R15 failure diagnostics already persisted'
+          else
+            git commit -m 'Record DEV-GROUP-002 R15 execution failure'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Commit deterministic R15 artifacts
+        if: success() && github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          rm -f \
+            reports/dev-group-002/training-regression-r15/execution.log \
+            reports/dev-group-002/training-regression-r15/execution.exit-code
+          git add reports/dev-group-002/training-regression-r15/
+          if git diff --cached --quiet; then
+            echo 'R15 artifacts already frozen'
+          else
+            git commit -m 'Freeze DEV-GROUP-002 R15 stability gate'
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+      - name: Upload R15 validation receipt
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-group-002-training-regression-r15-validation
+          path: reports/dev-group-002/training-regression-r15/validation.json
+          if-no-files-found: error
+          retention-days: 14
