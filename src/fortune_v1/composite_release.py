@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import gzip
 import os
 import shutil
 import tempfile
@@ -8,11 +10,12 @@ from typing import Any
 
 from .contamination import assert_knowledge_source_path
 from .repository_release import LIBRARIES, object_hash, validate_knowledge_manifest, write_object
-from .util import FortuneError, read_json, sha256_file, utc_now
+from .util import FortuneError, read_json, sha256_bytes, sha256_file, utc_now
 
 
 DIRECT_PARENT_REUSE = "DIRECT_PARENT_REUSE"
 BYTE_PREPEND = "BYTE_PREPEND"
+GZIP_BASE64_PREPEND = "GZIP_BASE64_PREPEND"
 
 
 def _verified_file(root: Path, relative_path: str, expected_sha256: str,
@@ -28,9 +31,23 @@ def _verified_file(root: Path, relative_path: str, expected_sha256: str,
     return path
 
 
+def _decode_gzip_base64_overlay(container: Path, materialization: dict[str, Any], *, label: str) -> bytes:
+    try:
+        encoded = container.read_bytes()
+        compressed = base64.b64decode(encoded, validate=True)
+        decoded = gzip.decompress(compressed)
+    except (OSError, ValueError) as exc:
+        raise FortuneError(f"{label} decode failed", status="COMPOSITE_OVERLAY_DECODE_INVALID") from exc
+    if len(decoded) != materialization["overlay_file_size_bytes"]:
+        raise FortuneError(f"{label} decoded size mismatch", status="COMPOSITE_SOURCE_SIZE_MISMATCH")
+    if sha256_bytes(decoded) != materialization["overlay_sha256_raw_file_bytes"]:
+        raise FortuneError(f"{label} decoded hash mismatch", status="COMPOSITE_SOURCE_HASH_MISMATCH")
+    return decoded
+
+
 def materialize_knowledge_release(manifest_path: str | Path, repository_root: str | Path,
-                                  output_dir: str | Path, receipt_path: str | Path | None = None,
-                                  *, overwrite: bool = False) -> dict[str, Any]:
+                                   output_dir: str | Path, receipt_path: str | Path | None = None,
+                                   *, overwrite: bool = False) -> dict[str, Any]:
     manifest_file = Path(manifest_path)
     manifest = read_json(manifest_file)
     root = Path(repository_root)
@@ -56,6 +73,8 @@ def materialize_knowledge_release(manifest_path: str | Path, repository_root: st
             materialization = row.get("source_materialization") or {"mode": DIRECT_PARENT_REUSE}
             mode = materialization.get("mode")
             destination = staged / row["canonical_filename"]
+            decoded_overlay_sha256 = None
+            decoded_overlay_size_bytes = None
             if mode == DIRECT_PARENT_REUSE:
                 relative = materialization.get("parent_repository_relative_path") or row.get("repository_relative_path")
                 source = _verified_file(
@@ -88,6 +107,33 @@ def materialize_knowledge_release(manifest_path: str | Path, repository_root: st
                     materialization["overlay_repository_relative_path"],
                     materialization["base_repository_relative_path"],
                 ]
+            elif mode == GZIP_BASE64_PREPEND:
+                base = _verified_file(
+                    root,
+                    materialization["base_repository_relative_path"],
+                    materialization["base_sha256_raw_file_bytes"],
+                    materialization["base_file_size_bytes"],
+                    label=f"{lib} base",
+                )
+                container = _verified_file(
+                    root,
+                    materialization["overlay_container_repository_relative_path"],
+                    materialization["overlay_container_sha256_raw_file_bytes"],
+                    materialization["overlay_container_file_size_bytes"],
+                    label=f"{lib} overlay container",
+                )
+                decoded = _decode_gzip_base64_overlay(container, materialization, label=f"{lib} overlay")
+                decoded_overlay_sha256 = sha256_bytes(decoded)
+                decoded_overlay_size_bytes = len(decoded)
+                with destination.open("wb") as out, base.open("rb") as right:
+                    out.write(decoded)
+                    shutil.copyfileobj(right, out)
+                    out.flush()
+                    os.fsync(out.fileno())
+                parents = [
+                    materialization["overlay_container_repository_relative_path"],
+                    materialization["base_repository_relative_path"],
+                ]
             else:
                 raise FortuneError(f"unsupported materialization mode: {mode}",
                                    status="COMPOSITE_MATERIALIZATION_MODE_INVALID")
@@ -101,6 +147,8 @@ def materialize_knowledge_release(manifest_path: str | Path, repository_root: st
                 "library_id": lib,
                 "mode": mode,
                 "parent_paths": parents,
+                "decoded_overlay_sha256": decoded_overlay_sha256,
+                "decoded_overlay_size_bytes": decoded_overlay_size_bytes,
                 "output_filename": destination.name,
                 "output_sha256": sha256_file(destination),
                 "output_size_bytes": destination.stat().st_size,
