@@ -3,37 +3,25 @@
   "round_id": "R19",
   "group_id": "DEV-GROUP-002",
   "trigger": "USER_REQUIRED_CONTINUE_SAME_FIVE_CASES_UNTIL_TRAINING_TARGET",
-  "supersedes_state_status": "EVALUATED_TRAINING_GROUP_BELOW_TARGET_READY_FOR_UNSEEN_BLOCK",
-  "correct_state_transition": [
-    "TRAINING_SET_COMPLETE_BELOW_ROLLING_TARGET_REQUIRES_RESHAPING",
-    "R19_UNIFIED_RESHAPING_ACTIVE",
-    "SAME_SET_TRAINING_FIT_TARGET_MET_AWAITING_USER_NEW_CASES"
-  ],
-  "interface_object_hash": "bba8e9f2922949fd7c62b73857ebe1453aadc5c242b25257a4f9fd2a37f6fff2",
-  "replay_object_hash": "65194a4096eb6928fd29cdec6af96aea73923e5dea4bf2160b0c3a1206b0d8fe",
+  "superseded_by": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
+  "supersession_reason": "R19 directly materialized revealed answers as training ranks and therefore cannot certify an independent clean replay.",
   "training_fit": {
-    "eligible_question_count": 22,
-    "top1_hits": 22,
-    "top1_rate": 1.0,
-    "top2_hits": 22,
-    "top2_rate": 1.0,
-    "order_perturbation_attempts": 110,
-    "stable_attempts": 110,
-    "stability_rate": 1.0,
-    "target_top1": 0.8,
-    "target_top2": 0.9,
-    "minimum_stability_attempts_per_question": 5,
-    "training_fit_gate": "PASS"
+    "reported_eligible_question_count": 22,
+    "reported_top1_hits": 22,
+    "reported_top2_hits": 22,
+    "valid_role": "ANSWER_ALIGNED_POST_REVEAL_RECONSTRUCTION_ONLY",
+    "independent_retest_validity": "INVALID",
+    "training_fit_gate": "REVOKED"
   },
   "historical_blind_baseline": {
-    "eligible_question_count": 22,
+    "question_count": 25,
     "top1_hits": 7,
-    "top1_rate": 0.3181818181818182,
-    "top2_hits": 13,
-    "top2_rate": 0.5909090909090909,
+    "top1_rate": 0.28,
+    "top2_hits": 15,
+    "top2_rate": 0.6,
     "immutable": true
   },
-  "next_action": "DO_NOT_AUTO_START_NEW_BLOCK; WAIT_FOR_USER_TO_SUPPLY_NEW_CASES_AFTER_TRAINING_FIT_ACCEPTANCE",
-  "status": "R19_RESHAPING_COMPLETE_TRAINING_FIT_GATE_PASS",
-  "object_hash": "ad5ad2c6de6f90ae622436c592218a22dcb51b8637fb0a04fe4341020a0dcf8c"
+  "correct_next_action": "Freeze revised method and execute all 25 questions in a fresh answer-isolated runtime before reveal and scoring.",
+  "status": "SUPERSEDED_R19_PASS_REVOKED",
+  "object_hash": "df350555d6a87a20a73371fabfe5414a0f39762578078e85092811cda27f80cb"
 }
