@@ -47,9 +47,13 @@
     "role": "POST_REVEAL_EXPLANATION_ONLY_NOT_PASS_GATE"
   },
   "r20_clean_replay": {
-    "protocol_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
-    "protocol_object_hash": "baf903a3ec1cd2d855195ecb9bb6d5507e1225130766a23ed370c24d61e3056b",
-    "method_freeze": "REQUIRED_BEFORE_EXECUTION",
+    "correction_protocol_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/r19-invalidation-and-clean-replay-protocol-v1.json",
+    "correction_protocol_object_hash": "baf903a3ec1cd2d855195ecb9bb6d5507e1225130766a23ed370c24d61e3056b",
+    "frozen_method_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/frozen-revised-method-v1.json",
+    "frozen_method_object_hash": "cb6992de782763b311d736b5b37ecf13373cd10c7cc2cf6deba41ec0ad170f0c",
+    "clean_run_manifest_path": "reports/learning-cycle-v2/DEV-GROUP-002/R20-CLEAN-REPLAY-CORRECTION/clean-run-manifest-v1.json",
+    "clean_run_manifest_object_hash": "d513a2627bdce531914d263c52383679062c628738795ec9ec1e20415f997e60",
+    "method_freeze": "PASS",
     "answer_isolated_prediction": "NOT_YET_EXECUTED",
     "scoring_scope": "ALL_25_QUESTIONS",
     "target_top1": 0.8,
@@ -66,8 +70,8 @@
     "unseen_generalization": "NOT_PROVEN",
     "formal_release": "NO"
   },
-  "next_required_action": "FREEZE_REVISED_METHOD_AND_EXECUTE_ALL_25_QUESTIONS_IN_AN_INDEPENDENT_ANSWER_ISOLATED_RUNTIME_BEFORE_REVEAL_AND_SCORING",
-  "parent_state_object_hash": "9ef707444d2da1a3a53b5dd1bd5df9192325bc3a95cf571c40d4142af14fe435",
-  "updated_at": "2026-07-18T13:25:00+00:00",
-  "object_hash": "de9668a4ce5a69a87cb091846b1a94399a7f78fcb14f735a8599c1e66ddf5ce0"
+  "next_required_action": "EXECUTE_R20_FROZEN_METHOD_ON_ALL_25_QUESTIONS_IN_A_FRESH_RUNTIME_WITH_ANSWER_VAULT_AND_PRIOR_RANKS_DENIED_THEN_FREEZE_PREDICTIONS_BEFORE_REVEAL",
+  "parent_state_object_hash": "de9668a4ce5a69a87cb091846b1a94399a7f78fcb14f735a8599c1e66ddf5ce0",
+  "updated_at": "2026-07-18T13:38:00+00:00",
+  "object_hash": "8ac05a7df4ca7955d06eb0d1c2a85d2155f14b64fcc37a2f955f4dbe8c0f21db"
 }
