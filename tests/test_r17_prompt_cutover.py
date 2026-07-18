@@ -37,6 +37,7 @@ class R17PromptCutoverTest(unittest.TestCase):
             })
         manifest = {
             "knowledge_release_id": "KNOWLEDGE-R16",
+            "source_root": "knowledge/base",
             "source_files": rows,
             "s19_binding_sha256": "b" * 64,
         }
@@ -62,39 +63,60 @@ class R17PromptCutoverTest(unittest.TestCase):
         self.assertEqual(status, 0)
         return output_text, output_receipt
 
-    def test_snapshot_and_candidate_preserve_r16_and_change_only_s19(self):
+    def stage(self, root: Path, prompt_receipt: Path) -> Path:
+        output_relative = Path("knowledge/candidates/KNOWLEDGE-R17")
+        status = cutover.stage_knowledge_candidate(argparse.Namespace(
+            repository_root=str(root),
+            base_dir="knowledge/base",
+            base_manifest="knowledge/base/release-manifest-R16.json",
+            prompt_receipt=str(prompt_receipt),
+            output_dir=output_relative.as_posix(),
+            release_id="KNOWLEDGE-R17",
+        ))
+        self.assertEqual(status, 0)
+        return root / output_relative
+
+    def test_two_phase_candidate_preserves_r16_and_changes_only_s19(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            base, manifest_path, manifest = self.build_base(root)
+            _, _, parent_manifest = self.build_base(root)
             _, prompt_receipt = self.build_snapshot(root)
-            output = root / "knowledge" / "candidates" / "KNOWLEDGE-R17"
-            status = cutover.build_knowledge_candidate(argparse.Namespace(
-                base_dir=str(base),
-                base_manifest=str(manifest_path),
+            candidate_dir = self.stage(root, prompt_receipt)
+
+            self.assertFalse((candidate_dir / "release-manifest.json").exists())
+            stage = json.loads((candidate_dir / "cutover-stage-receipt.json").read_text(encoding="utf-8"))
+            self.assertEqual(stage["status"], "PASS_SOURCE_SET_STAGED_NOT_COMMIT_BOUND")
+
+            status = cutover.finalize_knowledge_candidate(argparse.Namespace(
+                repository_root=str(root),
+                candidate_dir="knowledge/candidates/KNOWLEDGE-R17",
+                base_manifest="knowledge/base/release-manifest-R16.json",
                 prompt_receipt=str(prompt_receipt),
-                output_dir=str(output),
                 source_content_commit="a" * 40,
                 repository="owner/repo",
                 release_id="KNOWLEDGE-R17",
             ))
             self.assertEqual(status, 0)
-            candidate = json.loads((output / "release-manifest.json").read_text(encoding="utf-8"))
-            self.assertEqual(candidate["changed_library_ids"], ["S19"])
-            self.assertEqual(candidate["source_file_count"], 20)
-            for row, parent in zip(candidate["source_files"][:19], manifest["source_files"][:19]):
+            manifest = json.loads((candidate_dir / "release-manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(manifest["repository_commit_sha"], "a" * 40)
+            self.assertEqual(manifest["changed_library_ids"], ["S19"])
+            self.assertEqual(manifest["source_file_count"], 20)
+            for row, parent in zip(manifest["source_files"][:19], parent_manifest["source_files"][:19]):
                 self.assertEqual(row["sha256_raw_file_bytes"], parent["sha256_raw_file_bytes"])
             self.assertNotEqual(
-                candidate["source_files"][19]["sha256_raw_file_bytes"],
                 manifest["source_files"][19]["sha256_raw_file_bytes"],
+                parent_manifest["source_files"][19]["sha256_raw_file_bytes"],
             )
-            s19 = next(output.glob("S19_*.txt")).read_text(encoding="utf-8")
+            s19 = next(candidate_dir.glob("S19_*.txt")).read_text(encoding="utf-8")
             self.assertTrue(s19.startswith("# R17半自动化仓库运行与提示词—方法解耦唯一活动控制根"))
             self.assertIn("BEGIN_S19_RETAINED_R16_COMPLETE_FILE", s19)
+            finalize = json.loads((candidate_dir / "cutover-finalize-receipt.json").read_text(encoding="utf-8"))
+            self.assertEqual(finalize["status"], "PASS_MANIFEST_BUILT_PENDING_IMMUTABLE_COMMIT_READBACK")
 
-    def test_snapshot_mismatch_is_review_required_and_blocks_candidate(self):
+    def test_snapshot_mismatch_is_review_required_and_blocks_stage(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            base, manifest_path, _ = self.build_base(root)
+            self.build_base(root)
             prompt = root / "operator-export.txt"
             prompt.write_text(
                 f"MAIN_PROMPT_RUNTIME_ID={cutover.R17_RUNTIME_ID}\ndifferent\n",
@@ -111,14 +133,29 @@ class R17PromptCutoverTest(unittest.TestCase):
             self.assertEqual(status, 2)
             receipt = json.loads(output_receipt.read_text(encoding="utf-8"))
             self.assertEqual(receipt["status"], "REVIEW_REQUIRED")
-            output = root / "knowledge" / "candidates" / "KNOWLEDGE-R17"
             with self.assertRaises(cutover.CutoverError):
-                cutover.build_knowledge_candidate(argparse.Namespace(
-                    base_dir=str(base),
-                    base_manifest=str(manifest_path),
+                cutover.stage_knowledge_candidate(argparse.Namespace(
+                    repository_root=str(root),
+                    base_dir="knowledge/base",
+                    base_manifest="knowledge/base/release-manifest-R16.json",
                     prompt_receipt=str(output_receipt),
-                    output_dir=str(output),
-                    source_content_commit="a" * 40,
+                    output_dir="knowledge/candidates/KNOWLEDGE-R17",
+                    release_id="KNOWLEDGE-R17",
+                ))
+
+    def test_finalize_rejects_nonimmutable_commit_identifier(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.build_base(root)
+            _, prompt_receipt = self.build_snapshot(root)
+            self.stage(root, prompt_receipt)
+            with self.assertRaises(cutover.CutoverError):
+                cutover.finalize_knowledge_candidate(argparse.Namespace(
+                    repository_root=str(root),
+                    candidate_dir="knowledge/candidates/KNOWLEDGE-R17",
+                    base_manifest="knowledge/base/release-manifest-R16.json",
+                    prompt_receipt=str(prompt_receipt),
+                    source_content_commit="main",
                     repository="owner/repo",
                     release_id="KNOWLEDGE-R17",
                 ))
