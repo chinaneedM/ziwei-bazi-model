@@ -1,0 +1,36 @@
+{
+  "answer_data_policy": "NEVER_PRINT_OR_UPLOAD_ANSWER_OR_CASE_CONTENT_TO_PUBLIC_REPOSITORY",
+  "allowed_private_repository": "chinaneedM/ziwei-bazi-model",
+  "allowed_tasks": {
+    "BUILD_RUNTIME_PACKETS": {
+      "private_request_path_pattern": "runtime/runtime-packet-requests/*.json",
+      "private_script": "scripts/create-group-runtime-packets.py",
+      "writeback_path_pattern": "data/group-clean-starts/{GROUP_RUN_ID}/**"
+    }
+  },
+  "artifact_upload_policy": "FORBIDDEN_FOR_PRIVATE_RUNTIME_OUTPUTS",
+  "authority_model": {
+    "execution_compute": "PUBLIC_REPOSITORY_STANDARD_GITHUB_HOSTED_RUNNER",
+    "formal_state_authority": "PRIVATE_REPOSITORY",
+    "knowledge_method_case_authority": "PRIVATE_REPOSITORY",
+    "public_repository_role": "STATELESS_EXECUTOR_ONLY"
+  },
+  "credential": {
+    "public_secret_name": "PRIVATE_REPO_TOKEN",
+    "required_repository_selection": [
+      "chinaneedM/ziwei-bazi-model"
+    ],
+    "required_repository_permissions": {
+      "Contents": "Read and write",
+      "Metadata": "Read"
+    },
+    "token_type": "FINE_GRAINED_PERSONAL_ACCESS_TOKEN"
+  },
+  "expected_public_repository": "chinaneedM/ziwei-bazi-public-runner",
+  "external_pull_request_policy": "SECRETS_NOT_AVAILABLE_AND_TASK_MUST_FAIL_CLOSED",
+  "installation_status": "AWAITING_PUBLIC_REPOSITORY_AND_SECRET",
+  "log_policy": "ONLY_IDS_HASHES_COUNTS_AND_STATUS",
+  "public_trigger_mode": "SAME_REPOSITORY_PULL_REQUEST_WITH_REQUEST_JSON_ONLY",
+  "schema": "FORTUNE-PUBLIC-EXECUTOR-BRIDGE-V1",
+  "standard_runner": "ubuntu-latest"
+}
