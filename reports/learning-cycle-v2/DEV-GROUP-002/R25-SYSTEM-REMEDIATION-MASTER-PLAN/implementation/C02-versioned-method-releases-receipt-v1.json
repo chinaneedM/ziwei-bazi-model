@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "git_blob_sha": "0491f60a2db8caae02e7717bdd712ce6ad061527",
+      "object_hash": "b0db1ada081d6430820d20e5a4181ebadf89392d21b4ededd784ed152b224c96",
+      "path": "method/base/METHOD-R16/method-release.json",
+      "role": "MACHINE_READABLE_R16_METHOD"
+    },
+    {
+      "git_blob_sha": "164e27d0da6c7b705719fafd41ed5b274b498fac",
+      "object_hash": "32dddb8f124f44f3fe6d38ff94a52115f74a43e8cbc7d106d8c262e4b1ac21e6",
+      "path": "method/active-release.json",
+      "role": "SHADOW_ACTIVE_METHOD_POINTER"
+    },
+    {
+      "git_blob_sha": "dd2ab759419320a098550acbc2fa7adf71afa81a",
+      "path": "src/fortune_v1/method_release_lifecycle.py",
+      "role": "METHOD_PROMOTION_AND_ROLLBACK"
+    },
+    {
+      "path": "method/candidates/README.md",
+      "role": "METHOD_CANDIDATE_CONTRACT"
+    },
+    {
+      "path": "method/releases/README.md",
+      "role": "METHOD_RELEASE_CONTRACT"
+    }
+  ],
+  "branch": "agent/dev-group-002-training-regression-r1",
+  "component_id": "C02_VERSIONED_METHOD_RELEASES",
+  "formal_release": "NO",
+  "implementation_code_commit": "724f80ed7ddd67dc414d6ee56a41ec6abeeed46b",
+  "object_hash": "184981948665b106a81844c9cead1586051921d385d778a5373008129e4a1d94",
+  "remaining_conditions": [
+    "FULL_R16_SOURCE_CATALOG_BUILD_AND_20_FILE_READBACK_ON_IMMUTABLE_CHECKOUT_NOT_YET_EXECUTED",
+    "REAL_CHATGPT_REPOSITORY_ONLY_SOURCE_AND_METHOD_PACKET_SHADOW_RUN_NOT_YET_EXECUTED",
+    "REAL_PREDICTION_CAUSAL_USE_RECEIPT_PASS_NOT_YET_OBTAINED",
+    "FULL_GITHUB_ACTIONS_SUITE_NOT_YET_CONFIRMED",
+    "25_QUESTION_CLEAN_RETEST_AND_SCORING_PROHIBITED",
+    "FORMAL_RELEASE_NO"
+  ],
+  "schema": "R25-COMPONENT-IMPLEMENTATION-RECEIPT-V1",
+  "status": "IMPLEMENTED_PENDING_FULL_REPOSITORY_VALIDATION",
+  "training_score_status": "BLOCKED",
+  "validation": {
+    "answer_or_option_specific_rule_permission": "NO",
+    "mandatory_stage_count": 12,
+    "python_compile": "PASS",
+    "stable_rule_count": 20,
+    "traditional_knowledge_change": "NO"
+  }
+}
