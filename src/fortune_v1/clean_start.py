@@ -110,6 +110,7 @@ def create_group_clean_start(
     initial_control_paths: list[str | Path] | None = None,
     bootstrap_receipt: dict[str, Any] | None = None,
     request_receipt: dict[str, Any] | None = None,
+    runtime_binding: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     group_manifest_file = _require_file(group_manifest_path, status="GROUP_MANIFEST_MISSING")
     install_state_file = _require_file(install_state_path, status="INSTALL_STATE_MISSING")
@@ -150,7 +151,8 @@ def create_group_clean_start(
             "case_id": case["case_id"],
             "dataset_type": case["dataset_type"],
             "run_id": case_run_id,
-            "binding": case["binding"],
+            "binding": runtime_binding or case["binding"],
+            "source_case_binding": case["binding"],
             "cold_start": True,
             "input_snapshot": {"path": str(case_path), "sha256": sha256_file(case_path)},
             "answer_data_available": False,
@@ -189,6 +191,7 @@ def create_group_clean_start(
         },
         "bootstrap_receipt": bootstrap_receipt,
         "start_request_receipt": request_receipt,
+        "active_runtime_binding": runtime_binding,
         "cases": cases,
         "retrieval_policy": {
             "mode": "EXACT_PATH_ONLY",
@@ -263,6 +266,13 @@ def create_group_clean_start_from_request(
         "precontent_search_status": "PASS_NOT_USED",
         "old_run_visibility_status": "PASS_NOT_VISIBLE",
     }
+    runtime_binding = {
+        "main_prompt_runtime_id": pointer["main_prompt_runtime_id"],
+        "knowledge_release_id": pointer["active_knowledge_release_id"],
+        "method_release_id": pointer["active_method_release_id"],
+        "model_release_id": pointer["active_model_release_id"],
+        "learning_policy_id": pointer["active_learning_policy_id"],
+    }
     return create_group_clean_start(
         pointer["group_manifest_path"],
         pointer["install_state_path"],
@@ -273,6 +283,7 @@ def create_group_clean_start_from_request(
         initial_control_paths=mandatory_paths,
         bootstrap_receipt=bootstrap_receipt,
         request_receipt=request_receipt,
+        runtime_binding=runtime_binding,
     )
 
 
