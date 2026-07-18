@@ -4,7 +4,11 @@ from __future__ import annotations
 import argparse
 import json
 
-from fortune_v1.clean_start import create_group_clean_start, record_group_contamination
+from fortune_v1.clean_start import (
+    create_group_clean_start,
+    create_group_clean_start_from_request,
+    record_group_contamination,
+)
 
 
 def main() -> int:
@@ -18,6 +22,10 @@ def main() -> int:
     create.add_argument("--group-run-id", required=True)
     create.add_argument("--session-id", required=True)
     create.add_argument("--mode", choices=["CHAT_ONLY", "WORK"], default="CHAT_ONLY")
+
+    create_request = sub.add_parser("create-from-request")
+    create_request.add_argument("--request", required=True)
+    create_request.add_argument("--current-group-manifest", default="CURRENT_GROUP_MANIFEST")
 
     contaminate = sub.add_parser("contaminate")
     contaminate.add_argument("--clean-start", required=True)
@@ -34,6 +42,11 @@ def main() -> int:
             args.group_run_id,
             args.session_id,
             args.mode,
+        )
+    elif args.command == "create-from-request":
+        result = create_group_clean_start_from_request(
+            args.request,
+            args.current_group_manifest,
         )
     else:
         result = record_group_contamination(
