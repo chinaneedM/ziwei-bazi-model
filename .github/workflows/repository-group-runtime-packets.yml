@@ -1,0 +1,112 @@
+name: repository-group-runtime-packets
+
+on:
+  push:
+    paths:
+      - 'runtime/runtime-packet-requests/*.json'
+  workflow_dispatch:
+    inputs:
+      request_path:
+        description: 'Exact runtime/runtime-packet-requests/*.json path'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repository-group-runtime-packets-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-runtime-packets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout triggering branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Resolve exact request files
+        shell: bash
+        env:
+          MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+        run: |
+          set -euo pipefail
+          : > /tmp/runtime-packet-requests.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            request="${MANUAL_REQUEST_PATH}"
+            case "$request" in
+              runtime/runtime-packet-requests/*.json) ;;
+              *) echo "invalid manual request path: $request" >&2; exit 1 ;;
+            esac
+            test -f "$request"
+            printf '%s\n' "$request" > /tmp/runtime-packet-requests.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/runtime-packet-requests/*.json' \
+              | sort -u > /tmp/runtime-packet-requests.txt
+            test -s /tmp/runtime-packet-requests.txt
+            while IFS= read -r request; do
+              test -f "$request"
+            done < /tmp/runtime-packet-requests.txt
+          fi
+
+      - name: Build answer-free runtime packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/runtime-packet-results
+          while IFS= read -r request; do
+            request_name="$(basename "$request" .json)"
+            python scripts/create-group-runtime-packets.py \
+              --request "$request" \
+              --max-per-question 8 \
+              | tee "/tmp/runtime-packet-results/${request_name}.json"
+          done < /tmp/runtime-packet-requests.txt
+
+      - name: Verify generated packet gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          results = sorted(Path('/tmp/runtime-packet-results').glob('*.json'))
+          if not results:
+              raise SystemExit('no runtime packet result')
+          for path in results:
+              result = json.loads(path.read_text(encoding='utf-8'))
+              if result.get('status') != 'READY_FOR_BLIND_PREDICTION':
+                  raise SystemExit(f'unexpected status: {result}')
+              if result.get('answer_data_available') is not False:
+                  raise SystemExit('answer data became available')
+              transport = Path(result['transport_plan_path'])
+              body = json.loads(transport.read_text(encoding='utf-8'))
+              if body.get('status') != 'READY' or body.get('answer_data_available') is not False:
+                  raise SystemExit('transport plan gate failed')
+              for generated in body.get('generated_paths', []):
+                  if not Path(generated).is_file():
+                      raise SystemExit(f'missing generated path: {generated}')
+          PY
+
+      - name: Commit immutable runtime packets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/group-clean-starts
+          if git diff --cached --quiet; then
+            echo 'No runtime packet objects to commit.'
+            exit 0
+          fi
+          git commit -m 'Materialize answer-free group runtime packets'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
