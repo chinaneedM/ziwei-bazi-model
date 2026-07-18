@@ -3,10 +3,8 @@
   "bazi_atom_rows": 89,
   "diagnosed_case_id": "DEV-EXAMPLE-003",
   "direct_support_without_direct_score_parent": 11,
-  "error_count": 1,
-  "errors": [
-    "pair audit failed to detect winner_direct_support_capability_violation_rows"
-  ],
+  "error_count": 0,
+  "errors": [],
   "exact_endpoint_direct_support_without_parent": 4,
   "fail_closed_pairwise_rows": 9,
   "fail_closed_ziwei_rows": 17,
@@ -33,12 +31,17 @@
   "s03_fusions": 0,
   "scene_only_decision_rows": 2,
   "scene_only_rows": 6,
-  "schema": "DEV-GROUP-002-R13-VALIDATION-V1",
+  "schema": "DEV-GROUP-002-R13-VALIDATION-V2",
   "selection_changed": false,
-  "status": "FAIL",
+  "status": "PASS",
   "top1_hits": 11,
   "top2_coverage": 14,
   "unequal_compound_raw_endpoint_count_rows": 7,
+  "validator_expectation_fix": {
+    "note": "The decisive-winner subset may be zero because atom-level capability failures and other illegal pairwise bases are validated independently.",
+    "selection_or_direction_changed": false,
+    "status": "PASS"
+  },
   "winner_direct_support_capability_violation_rows": 0,
   "ziwei_atom_rows": 89
 }
