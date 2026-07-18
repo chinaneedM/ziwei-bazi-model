@@ -1,0 +1,34 @@
+{
+  "schema": "DEV002-Q1-Q5-BATCH-PAYLOAD-MANIFEST-V1",
+  "batch_id": "DEV-EXAMPLE-002-BATCH-Q1-Q5",
+  "encoding": "zlib+base85",
+  "parts": [
+    {
+      "path": "part00.txt",
+      "bytes": 9000,
+      "sha256": "9845bef17643bb7623de77cd5a3543106b6cd75ee45961272ddc41962b9a0085"
+    },
+    {
+      "path": "part01.txt",
+      "bytes": 9000,
+      "sha256": "5d1ff8874f17bb4356d9d5fff0d274887485acc8c5e88e2bad658381cd5057d7"
+    },
+    {
+      "path": "part02.txt",
+      "bytes": 9000,
+      "sha256": "17669f6db83815903d1f4c0adb97d6f9a0a1151f2c9a1b85d9d45956be8063c7"
+    },
+    {
+      "path": "part03.txt",
+      "bytes": 4800,
+      "sha256": "b01edc59cb37fe769f042e47f77a7debb48772598e16991cc9f66f5683cee05f"
+    }
+  ],
+  "materialized_path": "case-batch-artifact-v2.1.json",
+  "materialized_bytes": 241914,
+  "materialized_sha256": "8be0b14ca05d2c69c0c1d09f96bc78634609a73dbab1980a02d963c0b053bae9",
+  "bundle_object_hash": "bc70d64ca6df9353e6b5d49707d7a5bbf80e2afe1aec8bf607e9c71feb8edddf",
+  "local_validation_object_hash": "f8ab14577985867abdecaaf2da41605eaa2e09d98e617c5f1e2ab5218dcda025",
+  "completion_index_object_hash": "5742f3ac4d33e27fdef03279328c48aa47a1ec5a274972fb9c21897b5b573eb7",
+  "object_hash": "37f5d2f9f443283b2ef3bf37d5bacd50ade91314de511c2eafdaf183d688729e"
+}
