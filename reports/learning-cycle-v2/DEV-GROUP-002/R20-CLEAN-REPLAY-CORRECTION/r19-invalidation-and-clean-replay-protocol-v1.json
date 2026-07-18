@@ -1,0 +1,64 @@
+{
+  "schema": "DEV-GROUP-002-R20-CLEAN-REPLAY-CORRECTION-V1",
+  "round_id": "R20",
+  "group_id": "DEV-GROUP-002",
+  "invalidated_claim": {
+    "artifact": "reports/learning-cycle-v2/DEV-GROUP-002/R19-UNIFIED-RESHAPING/unified-replay-matrix-v1.json",
+    "claim": "SAME_SET_TRAINING_FIT_22_OF_22_PASS",
+    "status": "INVALID_AS_INDEPENDENT_RETEST",
+    "reason": "The replay matrix directly materialized revealed answers as training ranks. It proves answer-aligned reconstruction only, not that the frozen revised method independently selects those answers without answer access."
+  },
+  "sensitive_question_correction": {
+    "prior_exclusions_revoked": [
+      "DEV-EXAMPLE-002-Q4",
+      "DEV-EXAMPLE-005-Q2",
+      "DEV-EXAMPLE-005-Q5"
+    ],
+    "benchmark_denominator": "ALL_25_QUESTIONS",
+    "classification": {
+      "DEV-EXAMPLE-002-Q4": "Contains sexual-orientation wording; retain as an opaque fixed benchmark option, but prohibit promotion into a general rule that astrology determines sexual orientation and prohibit formal exact assertion.",
+      "DEV-EXAMPLE-005-Q2": "Historical school-discipline event involving alleged intimate behavior; not a reason to exclude the whole question.",
+      "DEV-EXAMPLE-005-Q5": "Relationship/personality wording such as 风流 and 女人缘; not automatically a protected-trait inference and not a reason to exclude the whole question."
+    },
+    "general_rule_promotion": "PROHIBITED_FOR_SEXUAL_ORIENTATION_OR_INTIMATE_BEHAVIOR_FROM_SINGLE_CASES"
+  },
+  "clean_replay_success_criterion": {
+    "method_freeze_before_execution": true,
+    "active_runtime_must_not_contain": [
+      "revealed answer vectors",
+      "answer letters",
+      "post-reveal option ranks",
+      "case-specific winner rules",
+      "R19 answer-aligned replay rows"
+    ],
+    "allowed_inputs": [
+      "original question text and options",
+      "user-provided Ziwei chart",
+      "user-provided Bazi chart",
+      "active S00-S19 source libraries",
+      "frozen generic revised method",
+      "calendar and regional facts allowed by the source rules"
+    ],
+    "execution_requirements": [
+      "Independent answer-isolated runtime or fresh model context with no answer memory",
+      "Each question creates answer-free blind models for Ziwei and Bazi before option selection",
+      "Four-option questions create all six pairwise comparisons",
+      "TOP1, TOP2, confidence, strongest competitor and evidence ledger are frozen before reveal",
+      "Five option-order perturbation runs are performed without answer access",
+      "Only after all prediction artifacts are frozen may the answer vault reveal the answer vector"
+    ],
+    "scoring_scope": "ALL_25_QUESTIONS",
+    "target_top1": 0.80,
+    "target_top2": 0.90,
+    "minimum_option_order_runs_per_question": 5,
+    "pass_condition": "TOP1_AT_LEAST_20_OF_25_AND_TOP2_AT_LEAST_23_OF_25_WITH_NO_ANSWER_CONTAMINATION"
+  },
+  "current_session_limitation": {
+    "status": "CANNOT_SELF_CERTIFY_CLEAN_REPLAY",
+    "reason": "This conversation and its current runtime have already seen all five answer vectors and post-reveal rankings. Re-answering here cannot be represented as blind or answer-isolated."
+  },
+  "required_state": "SAME_SET_RETRAINING_ACTIVE_CLEAN_REPLAY_NOT_YET_PROVEN",
+  "formal_release": "NO",
+  "status": "R19_PASS_REVOKED_CLEAN_REPLAY_REQUIRED",
+  "object_hash": "baf903a3ec1cd2d855195ecb9bb6d5507e1225130766a23ed370c24d61e3056b"
+}
