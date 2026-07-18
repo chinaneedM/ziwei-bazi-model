@@ -4,7 +4,7 @@ Repository-driven, answer-isolated orchestration for **紫微斗数＋四柱八�
 
 > **Current release boundary:** the R17 repository candidate has passed immutable source readback and one complete non-scoring repository-only shadow run. `CAUSAL_USE=PASS`, `NO_FALLBACK=PASS`, and `ANSWER_ISOLATION=PASS` for `RUN-R17-ENDPOINT-001`; no accuracy observation was created. R16 remains active until explicit user approval and compare-and-swap activation. `FORMAL_RELEASE=NO` and no predictive-improvement claim is made.
 
-The frozen activation plan is `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json`. It binds the current R16 knowledge, method, model, and runtime-config blob SHAs and will stop if any pointer moves before activation.
+The frozen activation plan is `model/candidates/MODEL-R17-REPOSITORY-SHADOW-V1/promotion-plan.json`. It binds the current R16 knowledge, method, model, and runtime-config blob SHAs and will stop if any pointer moves before activation. The required approval phrase is recorded in that plan.
 
 ## Execution model
 
@@ -43,7 +43,7 @@ S00–S18 reuse exact immutable R16 parent files. S19 is reconstructed from a ca
 
 ## Activation boundary
 
-The active pointers still reference R16. R17 activation requires the exact approval phrase recorded in the promotion plan, PR history cleanup or an explicit exception, CAS updates for all three active pointers and `config/runtime.json`, post-activation readback, and an activation receipt.
+The active pointers still reference R16. R17 activation requires explicit approval, PR history cleanup or an explicit exception, CAS updates for all three active pointers and `config/runtime.json`, post-activation readback, and an activation receipt.
 
 After activation, the first real training group must create a fresh `GROUP_MANIFEST`, per-case input snapshots, SOURCE_PACKET, METHOD_PACKET and RUN_CONTRACT before any reasoning. Every scored case remains conditional on its own causal-use PASS.
 
