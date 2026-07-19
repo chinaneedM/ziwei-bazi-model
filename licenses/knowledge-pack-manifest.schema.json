@@ -10,7 +10,17 @@
     "pack_id",
     "release_id",
     "public_distribution_allowed",
-    "files"
+    "license_expression",
+    "active_release_pointer_path",
+    "active_release_pointer_sha256",
+    "source_release_manifest_path",
+    "source_release_manifest_sha256",
+    "source_release_manifest_object_hash",
+    "rights_declaration_path",
+    "rights_declaration_sha256",
+    "notice_path",
+    "files",
+    "object_hash"
   ],
   "properties": {
     "schema": {
@@ -34,8 +44,48 @@
     "public_distribution_allowed": {
       "type": "boolean"
     },
+    "license_expression": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_release_pointer_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "active_release_pointer_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_release_manifest_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source_release_manifest_object_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rights_declaration_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rights_declaration_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "notice_path": {
+      "type": "string",
+      "minLength": 1
+    },
     "manifest_generated_at": {
       "type": "string"
+    },
+    "object_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     },
     "files": {
       "type": "array",
@@ -44,6 +94,7 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
+          "library_id",
           "path",
           "sha256",
           "byte_length",
@@ -55,6 +106,10 @@
           "personal_data_status"
         ],
         "properties": {
+          "library_id": {
+            "type": "string",
+            "pattern": "^S(0[0-9]|1[0-9])$"
+          },
           "path": {
             "type": "string",
             "minLength": 1
