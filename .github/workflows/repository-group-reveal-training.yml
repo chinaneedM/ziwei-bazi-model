@@ -86,32 +86,48 @@ jobs:
             test -f "$request"
           done < /tmp/group-reveal-requests.txt
 
-      - name: Verify all predictions are frozen before answer checkout
+      - name: Verify exact freeze and training paths before answer checkout
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
-          from pathlib import Path
+          from pathlib import Path, PurePosixPath
 
-          for request_path in Path('/tmp').joinpath('group-reveal-requests.txt').read_text(encoding='utf-8').splitlines():
+          for request_path in Path('/tmp/group-reveal-requests.txt').read_text(encoding='utf-8').splitlines():
               request = json.loads(Path(request_path).read_text(encoding='utf-8'))
               if request.get('schema') != 'GROUP-REVEAL-TRAINING-REQUEST-V1' or request.get('status') != 'REQUESTED':
                   raise SystemExit(f'invalid reveal request: {request_path}')
-              freeze_path = Path(request['group_prediction_freeze_path'])
-              if not freeze_path.is_file():
-                  raise SystemExit(f'group freeze missing: {freeze_path}')
+              group_run_id = request.get('group_run_id')
+              run_root = Path('data/group-clean-starts') / group_run_id
+              expected_freeze = run_root / 'group-prediction-freeze.json'
+              freeze_path = Path(request.get('group_prediction_freeze_path', ''))
+              if freeze_path != expected_freeze or not freeze_path.is_file():
+                  raise SystemExit(f'group freeze path mismatch: {freeze_path} != {expected_freeze}')
+              if Path(request.get('output_root', '')) != run_root / 'training':
+                  raise SystemExit(f'training output root mismatch: {request_path}')
+              answer_path = PurePosixPath(str(request.get('answer_vector_path', '')))
+              if answer_path.is_absolute() or '..' in answer_path.parts or not answer_path.parts:
+                  raise SystemExit(f'unsafe answer vector path: {answer_path}')
               freeze = json.loads(freeze_path.read_text(encoding='utf-8'))
               if freeze.get('status') != 'GROUP_PREDICTION_FREEZE_PASS':
                   raise SystemExit(f'group freeze not PASS: {freeze_path}')
               if freeze.get('all_predictions_frozen_before_reveal') is not True:
                   raise SystemExit(f'group freeze order invalid: {freeze_path}')
-              if freeze.get('group_run_id') != request.get('group_run_id'):
+              if freeze.get('group_run_id') != group_run_id:
                   raise SystemExit(f'group identity mismatch: {request_path}')
           PY
 
       - name: Run reveal and learning adapter tests
         run: python -m unittest tests.test_learning_cycle_v2 tests.test_end_to_end_pipeline -v
+
+      - name: Require isolated answer-vault credential
+        shell: bash
+        env:
+          ANSWER_VAULT_TOKEN: ${{ secrets.FORTUNE_ANSWER_VAULT_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$ANSWER_VAULT_TOKEN"
 
       - name: Checkout isolated answer vault after freeze PASS
         uses: actions/checkout@v4
