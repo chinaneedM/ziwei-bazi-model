@@ -1,0 +1,64 @@
+name: one-time-inventory-ci-workflows
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-inventory-ci-workflows.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  inventory-and-remove-self:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Inventory workflow names and checkout depth
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/open-source-migration
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          rows = []
+          for path in sorted(Path('.github/workflows').glob('*.yml')):
+              text = path.read_text(encoding='utf-8', errors='replace')
+              name_match = re.search(r'^name:\s*(.+?)\s*$', text, re.M)
+              rows.append({
+                  'path': path.as_posix(),
+                  'name': name_match.group(1).strip('"\'') if name_match else None,
+                  'uses_checkout': 'actions/checkout@v4' in text,
+                  'fetch_depth_zero': 'fetch-depth: 0' in text,
+                  'unittest_discover': 'unittest discover' in text,
+                  'pytest_q': 'pytest -q' in text,
+                  'make_install_check': 'make install-check' in text,
+              })
+          result = {
+              'schema': 'CI-WORKFLOW-INVENTORY-V1',
+              'status': 'PASS',
+              'rows': rows,
+          }
+          Path('reports/open-source-migration/ci-workflow-inventory.json').write_text(
+              json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Remove one-time workflow and commit inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-inventory-ci-workflows.yml
+          git add reports/open-source-migration/ci-workflow-inventory.json
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Record CI workflow inventory'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
