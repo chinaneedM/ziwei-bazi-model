@@ -1,0 +1,200 @@
+{
+  "answer_data_available": false,
+  "current_stage": "PREBLIND",
+  "exact_allowed_paths": [
+    "CURRENT_GROUP_MANIFEST",
+    "config/runtime.json",
+    "knowledge/active-release.json",
+    "method/active-release.json",
+    "model/active-release.json",
+    "learning/active-policy.json",
+    "learning/policies/LEARNING-POLICY-EXAMPLE-CLEAN-BLIND-REPLAY-R1/policy.json",
+    "learning/templates/GROUP-CLEAN-START-V1.json",
+    "docs/group-training-single-session.md",
+    "GROUP-CLEAN-START-V1",
+    "training-data/DEV-GROUP-002/manifest.json",
+    "reports/install-state.json",
+    "runtime/clean-start-requests/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-001.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-001.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-002.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-002.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-004.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-004.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-005.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-005.json",
+    "/tmp/fortune-staged-runtime-dsadpxf5/legacy-runtime-request.json",
+    "/tmp/fortune-staged-runtime-dsadpxf5/legacy-clean-start.json",
+    "knowledge/releases/KNOWLEDGE-R17/release-manifest.json",
+    "method/releases/METHOD-R17/method-release.json",
+    "model/releases/MODEL-R17-REPOSITORY-ACTIVE-V1/model-release.json",
+    "knowledge/base/S00_全库检索路由与来源定位索引.txt",
+    "knowledge/base/S01_统一输入排盘与坐标冻结库.txt",
+    "knowledge/base/S02_现代语义现实变量与量级标准库.txt",
+    "knowledge/base/S03_紫微八字互证与冲突裁决库.txt",
+    "knowledge/base/S04_十二宫主题太极与气数位库.txt",
+    "knowledge/base/S05_星曜本性辅煞系统与组合条件库.txt",
+    "knowledge/base/S06_六十星系与十二基础盘库.txt",
+    "knowledge/base/S07_全星曜与星系入十二宫库.txt",
+    "knowledge/base/S08_十干四化自化与禄忌线库.txt",
+    "knowledge/base/S09_一四四诀体用飞化与太极索引库.txt",
+    "knowledge/base/S10_紫微岁运应期与动态辅助库.txt",
+    "knowledge/base/S11_八字干支五行藏干与十神库.txt",
+    "knowledge/base/S12_八字月令旺衰通根与气势库.txt",
+    "knowledge/base/S13_八字格局用忌调候与病药库.txt",
+    "knowledge/base/S14_八字合冲刑害墓库与结构变化库.txt",
+    "knowledge/base/S15_八字大运流年流月与应期库.txt",
+    "knowledge/base/S16_八字专题映射与紫微接口库.txt",
+    "knowledge/base/S17_专题闭合人物太极与动作终点链库.txt",
+    "knowledge/base/S18_证据归并非法归零与评分分寸库.txt",
+    "knowledge/candidates/KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE/materialized/S19_运行门禁训练释放反馈审计与校准库.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-001/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-001/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-002/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-002/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-004/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-004/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-005/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-005/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/stage-access-plan.json"
+  ],
+  "generated_paths": [
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-001.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-001.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-001/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-001/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-001/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-002.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-002.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-002/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-002/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-002/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-004.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-004.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-004/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-004/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-004/stage-access-plan.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-005.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-005.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-005/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-005/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/run-contract.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-005/stage-access-plan.json"
+  ],
+  "group_id": "DEV-GROUP-002",
+  "group_run_id": "GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02",
+  "history_navigation_allowed": false,
+  "mode": "EXACT_PATH_ONLY",
+  "object_hash": "8c65da4ac23bd7a5c2f1cbb3c520ccd1a166b97ae1d02f5d2bf54a7cf0b7545a",
+  "parent_clean_start_blob_sha": null,
+  "parent_clean_start_path": "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/clean-start.json",
+  "postblind_release_receipt_required": true,
+  "postblind_release_receipt_schema": "POSTBLIND-ACCESS-RECEIPT-V1",
+  "repository_search_allowed": false,
+  "schema": "FORTUNE-RETRIEVAL-TRANSPORT-PLAN-V1",
+  "status": "READY_FOR_PREBLIND_MODELING",
+  "withheld_path_hashes": [
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "a310fdd7a10ba65c19c51a511491fa95b00bdd825927cc032a7c39b0400bece7"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "a3563b4ef7f5a60c123f1835a9b23f1d83b52472cb7d39f5357497b21f0a4ea6"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "c84af4d9f30ca3710f5fb1747b3c8235b8155a7d1f7a85ca14e22c8d14ffae5f"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "512773316051f0ecd1b0e4eccfee4a40ec180ec2fe740f9d56627d49bb9fd981"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "5062e7a2f209586e8ccad495474a91d40497d165f9c04780f310e1bc8ec40927"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "f958e3518fcbf19bd290b692adf00ef1eb68ad95e7a5700e93a4f54541257eab"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "2fd3dfc0879f24007111ad02f99363b6adeb7f235af218f4cce8446efb945304"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "277a8e883ff07a821dbbd6e06b129f818916b65d93b9e0fefec5d92ecc8505aa"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "d7d5cb4a3fddcfaee8524a4e9d92c37e779b04fefd92b61317a7129779b15b4d"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "b996d4d664f9fea50b6aa3d0acf27aa1f5ac3eafcda4b6064268757c17db7b8b"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "38a4d2e19257bcbe5976c4ef7df9ca739b19990d489cde3ffbe2eba1e4fe95ba"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "e01143dc22c8aab4a68a3a7a08a066e8111b9e37acd0e7f65f811d7fb3b0aa2e"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "228f36261a938b069f69e7edbfe0ff883e99c396e8dff9ddff293b9e09b05cce"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "961b7ec5377f26242e3fbf39023b6fe8d26a0b1da539917fd2402dc5fac609b2"
+    },
+    {
+      "role": "POSTBLIND_ONLY",
+      "sha256": "f189bf84a29b8d34d18875d36985c96457bfd90f03e4027e6597ce439371522f"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "answer_data_available": false,
+  "case_id": "DEV-EXAMPLE-003",
+  "current_stage": "PREBLIND",
+  "group_run_id": "GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02",
+  "object_hash": "74170d25c8b41066bc4f262c17ffa8bfa1ccdba57f1680dc5e2418b375addb21",
+  "postblind_withheld_paths": [
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/withheld-options/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/withheld-postblind-templates/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/withheld-postblind-source-packet.json"
+  ],
+  "preblind_allowed_paths": [
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-inputs/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/preblind-skeletons/DEV-EXAMPLE-003.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/ziwei.txt",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/case-input-sidecars/DEV-EXAMPLE-003/bazi.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/preblind-source-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/method-packet.json",
+    "data/group-clean-starts/GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02/runtime-packets/DEV-EXAMPLE-003/run-contract.json"
+  ],
+  "release_condition": "ALL_QUESTION_ROWS_HAVE_ZIWEI_AND_BAZI_PREBLIND_SEAL_PASS_AND_NO_OPTION_ACCESS_BEFORE_SEAL",
+  "release_receipt_schema": "POSTBLIND-ACCESS-RECEIPT-V1",
+  "run_id": "GROUP-RUN-20260719T211007SGT-DEV002-TRAINING-REPLAY02-DEV-EXAMPLE-003",
+  "schema": "FORTUNE-STAGED-ACCESS-PLAN-V1",
+  "status": "READY_FOR_PREBLIND_MODELING"
+}
