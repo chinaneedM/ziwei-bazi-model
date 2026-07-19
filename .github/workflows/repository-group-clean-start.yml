@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - 'runtime/clean-start-requests/*.json'
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'runtime/clean-start-requests/*.json'
   workflow_dispatch:
     inputs:
       request_path:
@@ -15,19 +19,21 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-clean-start-${{ github.ref }}
+  group: repository-group-clean-start-${{ github.event.pull_request.head.ref || github.ref }}
   cancel-in-progress: false
 
 jobs:
   create-clean-start:
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Checkout triggering branch
+      - name: Checkout exact request branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
-          fetch-depth: 2
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -42,6 +48,8 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/clean-start-requests.txt
@@ -53,14 +61,22 @@ jobs:
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/clean-start-requests.txt
+          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request_target" ]]; then
+            git diff --name-only "${PR_BASE_SHA}...${PR_HEAD_SHA}" -- 'runtime/clean-start-requests/*.json' \
+              | sort -u > /tmp/clean-start-requests.txt
+            test -s /tmp/clean-start-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/clean-start-requests/*.json' \
               | sort -u > /tmp/clean-start-requests.txt
             test -s /tmp/clean-start-requests.txt
-            while IFS= read -r request; do
-              test -f "$request"
-            done < /tmp/clean-start-requests.txt
           fi
+          while IFS= read -r request; do
+            case "$request" in
+              runtime/clean-start-requests/*.json) ;;
+              *) echo "invalid request path: $request" >&2; exit 1 ;;
+            esac
+            test -f "$request"
+          done < /tmp/clean-start-requests.txt
 
       - name: Run clean-start, bootstrap and staged-access tests
         run: python -m unittest tests.test_clean_start tests.test_bootstrap_request tests.test_staged_access -v
@@ -72,10 +88,27 @@ jobs:
           mkdir -p /tmp/clean-start-results
           while IFS= read -r request; do
             request_name="$(basename "$request" .json)"
-            PYTHONPATH=src python scripts/create-staged-group-clean-start.py create-from-request \
-              --request "$request" \
-              --current-group-manifest CURRENT_GROUP_MANIFEST \
-              | tee "/tmp/clean-start-results/${request_name}.json"
+            group_run_id="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["group_run_id"])' "$request")"
+            existing="data/group-clean-starts/${group_run_id}/clean-start.json"
+            if [[ -f "$existing" ]]; then
+              python - "$existing" <<'PY' | tee "/tmp/clean-start-results/${request_name}.json"
+          import hashlib
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path(sys.argv[1])
+          result = json.loads(path.read_text(encoding='utf-8'))
+          result['clean_start_path'] = str(path)
+          result['clean_start_sha256'] = hashlib.sha256(path.read_bytes()).hexdigest()
+          print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+          PY
+            else
+              PYTHONPATH=src python scripts/create-staged-group-clean-start.py create-from-request \
+                --request "$request" \
+                --current-group-manifest CURRENT_GROUP_MANIFEST \
+                | tee "/tmp/clean-start-results/${request_name}.json"
+            fi
           done < /tmp/clean-start-requests.txt
 
       - name: Verify generated staged clean starts
@@ -110,6 +143,8 @@ jobs:
 
       - name: Commit immutable staged clean-start objects
         shell: bash
+        env:
+          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -120,4 +155,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Materialize repository staged clean start'
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin "HEAD:${TARGET_BRANCH}"
