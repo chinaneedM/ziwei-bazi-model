@@ -1,9 +1,10 @@
 {
   "schema": "OPEN-SOURCE-RELEASE-CONTRACT-V1",
-  "status": "PASS_KNOWLEDGE_RIGHTS_PENDING_PR_MERGE",
+  "status": "PR36_MERGED_POST_MERGE_INSTALL_CHECK_PENDING",
   "software_license": "Apache-2.0",
   "repository_visibility_required": "public",
   "single_public_repository_required": true,
+  "architecture_merge_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
   "required_project_files": [
     "LICENSE",
     "NOTICE",
@@ -16,7 +17,9 @@
     "licenses/knowledge-pack-manifest.schema.json",
     "licenses/knowledge-packs/KNOWLEDGE-R17/rights-declaration.json",
     "licenses/knowledge-packs/KNOWLEDGE-R17/CC0-NOTICE.md",
-    "licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json"
+    "licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json",
+    "scripts/final-open-source-install-check.py",
+    ".github/workflows/final-install-check.yml"
   ],
   "active_knowledge_release_pointer_path": "knowledge/active-release.json",
   "allowed_knowledge_license_expressions": [
@@ -28,7 +31,7 @@
   "knowledge_pack_release_rule": "LICENSE_MANIFEST_MUST_BIND_EXACT_ACTIVE_POINTER_RELEASE_MANIFEST_AND_S00_S19_FILE_HASHES",
   "current_knowledge_release_public_distribution_status": "PASS_CC0_ACTIVE_KNOWLEDGE_R17_EXACT_S00_S19",
   "formal_open_source_release_allowed": false,
-  "formal_open_source_release_blocker": "PULL_REQUEST_36_MERGE_AND_POST_MERGE_READBACK_REQUIRED",
+  "formal_open_source_release_blocker": "FINAL_MAKE_INSTALL_CHECK_ON_MAIN_AND_POST_MERGE_READBACK_REQUIRED",
   "open_source_architecture_receipt_path": "reports/open-source-migration/open-source-architecture-20260719T130610JST.json",
   "open_source_architecture_addendum_path": "reports/open-source-migration/architecture-addendum-20260719T131000JST.json",
   "public_execution_validation_receipt_path": "reports/open-source-migration/public-execution-validation-20260719T162000JST.json",
@@ -50,6 +53,7 @@
     "PUBLIC_POLICY_TESTS_PASS",
     "SYNTHETIC_END_TO_END_RECEIPT_PASS",
     "PULL_REQUEST_36_MERGED",
+    "MAKE_INSTALL_CHECK_V3_PASS_ON_MAIN",
     "POST_MERGE_READBACK_PASS"
   ]
 }
