@@ -1,10 +1,12 @@
 {
   "schema": "OPEN-SOURCE-RELEASE-CONTRACT-V1",
-  "status": "PR36_MERGED_POST_MERGE_INSTALL_CHECK_PENDING",
+  "status": "INSTALLED_VALIDATED",
   "software_license": "Apache-2.0",
   "repository_visibility_required": "public",
   "single_public_repository_required": true,
   "architecture_merge_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
+  "install_v3_merge_commit_sha": "03564113a279463548503045528b061c70cc00ef",
+  "validated_main_commit": "03564113a279463548503045528b061c70cc00ef",
   "required_project_files": [
     "LICENSE",
     "NOTICE",
@@ -19,7 +21,10 @@
     "licenses/knowledge-packs/KNOWLEDGE-R17/CC0-NOTICE.md",
     "licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json",
     "scripts/final-open-source-install-check.py",
-    ".github/workflows/final-install-check.yml"
+    ".github/workflows/final-install-check.yml",
+    ".github/workflows/finalize-installation-state.yml",
+    "reports/open-source-migration/main-readback/03564113a279463548503045528b061c70cc00ef.json",
+    "reports/open-source-migration/final-open-source-runtime-activation-20260719T165534JST.json"
   ],
   "active_knowledge_release_pointer_path": "knowledge/active-release.json",
   "allowed_knowledge_license_expressions": [
@@ -30,8 +35,10 @@
   ],
   "knowledge_pack_release_rule": "LICENSE_MANIFEST_MUST_BIND_EXACT_ACTIVE_POINTER_RELEASE_MANIFEST_AND_S00_S19_FILE_HASHES",
   "current_knowledge_release_public_distribution_status": "PASS_CC0_ACTIVE_KNOWLEDGE_R17_EXACT_S00_S19",
-  "formal_open_source_release_allowed": false,
-  "formal_open_source_release_blocker": "FINAL_MAKE_INSTALL_CHECK_ON_MAIN_AND_POST_MERGE_READBACK_REQUIRED",
+  "formal_open_source_release_allowed": true,
+  "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+  "score_eligibility": "CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS",
+  "background_execution": false,
   "open_source_architecture_receipt_path": "reports/open-source-migration/open-source-architecture-20260719T130610JST.json",
   "open_source_architecture_addendum_path": "reports/open-source-migration/architecture-addendum-20260719T131000JST.json",
   "public_execution_validation_receipt_path": "reports/open-source-migration/public-execution-validation-20260719T162000JST.json",
@@ -43,17 +50,23 @@
   "knowledge_rights_materialization_receipt_path": "reports/open-source-migration/knowledge-rights/KNOWLEDGE-R17-CC0-20260719-01-materialization-receipt.json",
   "knowledge_rights_materialization_receipt_object_hash": "c70e110029ca181e15e69975b31b5c0a2a6bd2563f8669bea5cd9f6a49614345",
   "knowledge_rights_verification_receipt_path": "reports/open-source-migration/knowledge-rights/open-source-release-verification.json",
-  "release_unblock_requirements": [
-    "REPOSITORY_VISIBILITY_PUBLIC",
-    "ALL_REQUIRED_PROJECT_FILES_PRESENT",
-    "PACKAGE_LICENSE_METADATA_APACHE_2_0",
-    "ACTIVE_KNOWLEDGE_POINTER_BINDS_KNOWLEDGE_R17",
-    "CC0_RIGHTS_DECLARATION_A2_RECORDED",
-    "KNOWLEDGE_LICENSE_MANIFEST_BINDS_EXACT_ACTIVE_S00_S19_HASHES",
-    "PUBLIC_POLICY_TESTS_PASS",
-    "SYNTHETIC_END_TO_END_RECEIPT_PASS",
-    "PULL_REQUEST_36_MERGED",
-    "MAKE_INSTALL_CHECK_V3_PASS_ON_MAIN",
-    "POST_MERGE_READBACK_PASS"
-  ]
+  "main_install_readback_path": "reports/open-source-migration/main-readback/03564113a279463548503045528b061c70cc00ef.json",
+  "main_install_readback_object_hash": "2715b633bb71b05d147b2dba18a81aa9556955129a7a3badd7046f02591c2415",
+  "activation_receipt_path": "reports/open-source-migration/final-open-source-runtime-activation-20260719T165534JST.json",
+  "activation_receipt_object_hash": "4c1e555eead5e788189d6952981df5bdef6c0379b3609efad15434b917a549ee",
+  "release_gate_results": {
+    "REPOSITORY_VISIBILITY_PUBLIC": "PASS",
+    "ALL_REQUIRED_PROJECT_FILES_PRESENT": "PASS",
+    "PACKAGE_LICENSE_METADATA_APACHE_2_0": "PASS",
+    "ACTIVE_KNOWLEDGE_POINTER_BINDS_KNOWLEDGE_R17": "PASS",
+    "CC0_RIGHTS_DECLARATION_A2_RECORDED": "PASS",
+    "KNOWLEDGE_LICENSE_MANIFEST_BINDS_EXACT_ACTIVE_S00_S19_HASHES": "PASS",
+    "PUBLIC_POLICY_TESTS_PASS": "PASS",
+    "SYNTHETIC_END_TO_END_RECEIPT_PASS": "PASS_NONSCORING",
+    "PULL_REQUEST_36_MERGED": "PASS",
+    "PULL_REQUEST_37_MERGED": "PASS",
+    "MAKE_INSTALL_CHECK_V3_PASS_ON_MAIN": "PASS",
+    "POST_MERGE_READBACK_PASS": "PASS"
+  },
+  "activation_boundary": "Formal release is active. Real training begins only through a user-initiated clean start, and each run remains score-ineligible unless its own causal-use receipt passes."
 }
