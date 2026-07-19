@@ -1,0 +1,196 @@
+name: one-time-readback-pr37-main
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-readback-pr37-main.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  readback-and-remove-self:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      EXPECTED_MAIN_COMMIT: 03564113a279463548503045528b061c70cc00ef
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout readback branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Wait for exact main workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pr37-main-readback
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import time
+          from pathlib import Path
+
+          repo = os.environ['GITHUB_REPOSITORY']
+          expected = os.environ['EXPECTED_MAIN_COMMIT']
+
+          def api(path: str):
+              proc = subprocess.run(['gh', 'api', path], capture_output=True, text=True)
+              if proc.returncode != 0:
+                  raise SystemExit(proc.stderr or proc.stdout)
+              return json.loads(proc.stdout)
+
+          def wait_for(workflow: str, event: str):
+              last = None
+              for _ in range(60):
+                  payload = api(f'repos/{repo}/actions/workflows/{workflow}/runs?branch=main&event={event}&per_page=30')
+                  candidates = [
+                      row for row in payload.get('workflow_runs', [])
+                      if row.get('head_sha') == expected
+                  ]
+                  if candidates:
+                      row = sorted(candidates, key=lambda item: item.get('run_number', 0), reverse=True)[0]
+                      last = row
+                      if row.get('status') == 'completed':
+                          if row.get('conclusion') != 'success':
+                              raise SystemExit(f'{workflow} completed without success: {row}')
+                          return row
+                  time.sleep(10)
+              raise SystemExit(f'timed out waiting for {workflow}: {last}')
+
+          final_run = wait_for('final-install-check.yml', 'push')
+          replay_run = wait_for('finalize-installation-state.yml', 'workflow_run')
+          Path('/tmp/pr37-main-readback/runs.json').write_text(
+              json.dumps({'final_install_check': final_run, 'finalize_installation_state': replay_run}, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Download exact workflow artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY' > /tmp/pr37-main-readback/run-ids.env
+          import json
+          from pathlib import Path
+          rows = json.loads(Path('/tmp/pr37-main-readback/runs.json').read_text())
+          print(f"FINAL_RUN_ID={rows['final_install_check']['id']}")
+          print(f"REPLAY_RUN_ID={rows['finalize_installation_state']['id']}")
+          PY
+          source /tmp/pr37-main-readback/run-ids.env
+
+          for pair in "final:$FINAL_RUN_ID:final-install-check-$EXPECTED_MAIN_COMMIT" "replay:$REPLAY_RUN_ID:final-installation-state-v3-$EXPECTED_MAIN_COMMIT"; do
+            IFS=: read -r label run_id expected_name <<< "$pair"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/artifacts?per_page=100" > "/tmp/pr37-main-readback/${label}-artifacts.json"
+            artifact_id="$(python - "$expected_name" "/tmp/pr37-main-readback/${label}-artifacts.json" <<'PY'
+          import json, sys
+          expected, path = sys.argv[1], sys.argv[2]
+          rows = json.load(open(path, encoding='utf-8')).get('artifacts', [])
+          matches = [row for row in rows if row.get('name') == expected and not row.get('expired')]
+          if len(matches) != 1:
+              raise SystemExit(f'artifact match count for {expected}: {len(matches)}')
+          print(matches[0]['id'])
+          PY
+            )"
+            mkdir -p "/tmp/pr37-main-readback/${label}"
+            gh api -H 'Accept: application/vnd.github+json' "repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact_id/zip" > "/tmp/pr37-main-readback/${label}.zip"
+            unzip -q "/tmp/pr37-main-readback/${label}.zip" -d "/tmp/pr37-main-readback/${label}"
+          done
+
+      - name: Validate receipts and write immutable readback report
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/open-source-migration/main-readback
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          expected = os.environ['EXPECTED_MAIN_COMMIT']
+          temp = Path('/tmp/pr37-main-readback')
+          runs = json.loads((temp / 'runs.json').read_text(encoding='utf-8'))
+          final_path = temp / 'final/install-receipt.json'
+          replay_path = temp / 'replay/install-receipt.json'
+
+          def load_and_validate(path: Path):
+              body = json.loads(path.read_text(encoding='utf-8'))
+              required = {
+                  'schema': 'FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3',
+                  'status': 'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START',
+                  'code_commit': expected,
+                  'activation_mode': 'main',
+                  'failure_count': 0,
+                  'formal_open_source_release_permission': 'PASS',
+                  'formal_training_permission': 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY',
+                  'score_eligibility': 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS',
+                  'background_execution': False,
+                  'synthetic_run_scoring_eligibility': 'NONE',
+              }
+              for key, value in required.items():
+                  if body.get(key) != value:
+                      raise SystemExit(f'{path}: {key}={body.get(key)!r}, expected {value!r}')
+              if body.get('check_count') != 14 or body.get('pass_count') != 14:
+                  raise SystemExit(f'{path}: check totals invalid')
+              if any(row.get('status') != 'PASS' for row in body.get('checks', [])):
+                  raise SystemExit(f'{path}: non-PASS check found')
+              return body
+
+          final = load_and_validate(final_path)
+          replay = load_and_validate(replay_path)
+
+          def digest(path: Path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          report = {
+              'schema': 'PR37-MAIN-INSTALL-READBACK-V1',
+              'status': 'PASS',
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'validated_main_commit': expected,
+              'final_install_check': {
+                  'run_id': runs['final_install_check']['id'],
+                  'run_number': runs['final_install_check']['run_number'],
+                  'conclusion': runs['final_install_check']['conclusion'],
+                  'artifact_receipt_sha256': digest(final_path),
+                  'receipt_object_hash': final['object_hash'],
+                  'receipt_status': final['status'],
+              },
+              'finalize_installation_state': {
+                  'run_id': runs['finalize_installation_state']['id'],
+                  'run_number': runs['finalize_installation_state']['run_number'],
+                  'conclusion': runs['finalize_installation_state']['conclusion'],
+                  'artifact_receipt_sha256': digest(replay_path),
+                  'receipt_object_hash': replay['object_hash'],
+                  'receipt_status': replay['status'],
+              },
+              'check_count': 14,
+              'pass_count': 14,
+              'failure_count': 0,
+              'formal_open_source_release_permission': 'PASS',
+              'formal_training_permission': 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY',
+              'score_eligibility': 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS',
+              'synthetic_run_scoring_eligibility': 'NONE',
+              'background_execution': False,
+          }
+          encoded = json.dumps(report, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+          report['object_hash'] = hashlib.sha256(encoded).hexdigest()
+          output = Path(f'reports/open-source-migration/main-readback/{expected}.json')
+          output.write_text(json.dumps(report, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Remove one-time workflow and commit report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-readback-pr37-main.yml
+          git add reports/open-source-migration/main-readback
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Record PR37 main V3 install readback'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
