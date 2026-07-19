@@ -62,23 +62,23 @@ jobs:
             done < /tmp/clean-start-requests.txt
           fi
 
-      - name: Run clean-start validation tests
-        run: python -m unittest tests.test_clean_start -v
+      - name: Run clean-start and staged-access tests
+        run: python -m unittest tests.test_clean_start tests.test_staged_access -v
 
-      - name: Materialize requested clean starts
+      - name: Materialize requested staged clean starts
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p /tmp/clean-start-results
           while IFS= read -r request; do
             request_name="$(basename "$request" .json)"
-            PYTHONPATH=src python scripts/create-group-clean-start.py create-from-request \
+            PYTHONPATH=src python scripts/create-staged-group-clean-start.py create-from-request \
               --request "$request" \
               --current-group-manifest CURRENT_GROUP_MANIFEST \
               | tee "/tmp/clean-start-results/${request_name}.json"
           done < /tmp/clean-start-requests.txt
 
-      - name: Verify generated clean starts
+      - name: Verify generated staged clean starts
         shell: bash
         run: |
           set -euo pipefail
@@ -91,10 +91,15 @@ jobs:
               raise SystemExit('no clean-start results generated')
           for result_path in results:
               result = json.loads(result_path.read_text(encoding='utf-8'))
-              if result.get('status') != 'READY_FOR_CLEAN_GROUP_PREDICTION':
+              if result.get('status') != 'READY_FOR_PREBLIND_MODELING':
                   raise SystemExit(f"unexpected status in {result_path}: {result.get('status')}")
               if result.get('answer_data_available') is not False:
                   raise SystemExit(f'answer data available in {result_path}')
+              staged = result.get('retrieval_policy', {}).get('staged_access', {})
+              if staged.get('current_stage') != 'PREBLIND':
+                  raise SystemExit(f'missing PREBLIND stage in {result_path}')
+              if staged.get('withheld_paths_not_disclosed_to_prediction_context') is not True:
+                  raise SystemExit(f'withheld path disclosure gate failed in {result_path}')
               clean_path = Path(result['clean_start_path'])
               if not clean_path.is_file():
                   raise SystemExit(f'missing generated clean start: {clean_path}')
@@ -103,7 +108,7 @@ jobs:
                   raise SystemExit(f'unexpected clean-start path: {clean_path} != {expected}')
           PY
 
-      - name: Commit immutable clean-start objects
+      - name: Commit immutable staged clean-start objects
         shell: bash
         run: |
           set -euo pipefail
@@ -114,5 +119,5 @@ jobs:
             echo 'No new clean-start objects to commit.'
             exit 0
           fi
-          git commit -m 'Materialize repository clean start'
+          git commit -m 'Materialize repository staged clean start'
           git push origin "HEAD:${GITHUB_REF_NAME}"
