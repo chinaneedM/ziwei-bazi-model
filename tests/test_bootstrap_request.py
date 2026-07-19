@@ -47,7 +47,7 @@ class BootstrapRequestTests(unittest.TestCase):
             "cases": [{"case_id": "CASE-1", "path": str(case_path)}],
         })
         install_path = root / "reports" / "install-state.json"
-        self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "abc123"})
+        self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})
         control = root / "config" / "runtime.json"
         self.write_json(control, {"runtime": "R17"})
         pointer = root / "CURRENT_GROUP_MANIFEST"
