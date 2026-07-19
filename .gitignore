@@ -4,22 +4,13 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-data/*
-!data/.gitkeep
-!data/group-clean-starts/
-!data/group-clean-starts/**
-reports/*.tmp
-runtime_build/*
-!runtime_build/.gitkeep
-!runtime_build/knowledge-locator-index.json
-!runtime_build/knowledge-locator-index-validation.json
-knowledge/staged/*
-!knowledge/staged/.gitkeep
 
-# Public repository answer isolation: encrypted envelopes only.
-public-answer-vault/**
-!public-answer-vault/README.md
-!public-answer-vault/encrypted/
-!public-answer-vault/encrypted/*.json.fernet
+# Plaintext answers and keys are never repository data.
 *.answer-key
+*.answers.json
 *.decrypted-answer.json
+
+# Only encrypted answer envelopes may be committed here.
+answer-vault/encrypted/*
+!answer-vault/encrypted/.gitkeep
+!answer-vault/encrypted/*.json.fernet

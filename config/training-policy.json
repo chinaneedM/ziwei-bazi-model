@@ -1,0 +1,15 @@
+{
+  "schema": "CASE-TRAINING-POLICY-V1",
+  "training_unit": "CASE",
+  "round_limit": null,
+  "pass_rule": {
+    "fewer_than_5_questions": "ALL_CORRECT",
+    "5_or_more_questions": "CEILING_80_PERCENT"
+  },
+  "consecutive_passing_rounds_required": 3,
+  "failed_round_resets_streak": true,
+  "prediction_must_be_frozen_before_scoring": true,
+  "failed_round_requires_learning_before_retry": true,
+  "answer_plaintext_allowed_in_repository": false,
+  "repeated_case_rounds_are_first_blind_evaluations": false
+}

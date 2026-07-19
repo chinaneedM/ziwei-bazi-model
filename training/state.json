@@ -1,0 +1,20 @@
+{
+  "schema": "CASE-TRAINING-STATE-V1",
+  "group_id": "DEV-GROUP-002",
+  "group_path": "examples/DEV-GROUP-002/group.json",
+  "policy_path": "config/training-policy.json",
+  "source_manifest_path": "sources/manifest.json",
+  "current_source_release": "SOURCE-BASELINE-001",
+  "current_case_index": 0,
+  "status": "READY_FOR_ROUND",
+  "active_round_id": null,
+  "round_count": 0,
+  "round_limit": null,
+  "cases": {
+    "DEV-EXAMPLE-001": {"status": "ACTIVE", "consecutive_passes": 0, "round_ids": []},
+    "DEV-EXAMPLE-002": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
+    "DEV-EXAMPLE-003": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
+    "DEV-EXAMPLE-004": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
+    "DEV-EXAMPLE-005": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []}
+  }
+}

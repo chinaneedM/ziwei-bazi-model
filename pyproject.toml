@@ -3,43 +3,22 @@ requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fortune-training-v1"
-version = "1.4.0"
-description = "Open-source repository-driven blind prediction, staged release, public encrypted answer storage, group freeze, reveal, and reasoning-correction training for Ziwei + Bazi"
+name = "fortune-case-trainer"
+version = "2.0.0"
+description = "Case-by-case, answer-isolated Ziwei and Bazi prediction training"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
-authors = [
-  {name = "chinaneedM contributors"}
-]
+authors = [{name = "chinaneedM contributors"}]
 dependencies = ["cryptography>=42,<47"]
-classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.11",
-  "Operating System :: OS Independent"
-]
 
 [project.urls]
-Homepage = "https://github.com/chinaneedM/ziwei-bazi-model"
 Repository = "https://github.com/chinaneedM/ziwei-bazi-model"
-Documentation = "https://github.com/chinaneedM/ziwei-bazi-model/tree/main/docs"
 Issues = "https://github.com/chinaneedM/ziwei-bazi-model/issues"
 
 [project.scripts]
-fortune-v1 = "fortune_v1.cli:main"
-fortune-learning-cycle = "fortune_v1.training_corrected:main"
-fortune-group-pipeline = "fortune_v1.end_to_end:main"
-fortune-preblind-seal = "fortune_v1.preblind_seal:main"
-fortune-public-answer-vault = "fortune_v1.public_answer_vault:main"
-fortune-training-finalize = "fortune_v1.training_finalize:main"
-fortune-repository-delivery = "fortune_v1.repository_delivery_cli:main"
-fortune-release-lifecycle = "fortune_v1.release_lifecycle_cli:main"
+fortune-train = "fortune_training.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-q"
