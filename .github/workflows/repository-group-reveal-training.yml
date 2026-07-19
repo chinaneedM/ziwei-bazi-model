@@ -4,14 +4,6 @@ on:
   push:
     paths:
       - 'runtime/group-reveal-requests/*.json'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/group-reveal-requests/*.json'
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/group-reveal-requests/*.json'
   workflow_dispatch:
     inputs:
       request_path:
@@ -23,21 +15,20 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-reveal-training-${{ github.event.pull_request.head.ref || github.ref }}
+  group: repository-group-reveal-training-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   reveal-and-start-training:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Checkout exact request branch
+      - name: Checkout public runtime repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -51,8 +42,6 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/group-reveal-requests.txt
@@ -64,10 +53,6 @@ jobs:
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/group-reveal-requests.txt
-          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" || "${GITHUB_EVENT_NAME}" == "pull_request_target" ]]; then
-            git diff --name-only "${PR_BASE_SHA}...${PR_HEAD_SHA}" -- 'runtime/group-reveal-requests/*.json' \
-              | sort -u > /tmp/group-reveal-requests.txt
-            test -s /tmp/group-reveal-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/group-reveal-requests/*.json' \
               | sort -u > /tmp/group-reveal-requests.txt
@@ -81,13 +66,13 @@ jobs:
             test -f "$request"
           done < /tmp/group-reveal-requests.txt
 
-      - name: Verify exact freeze and training paths before answer checkout
+      - name: Verify group freeze and public encrypted answer paths
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           import json
-          from pathlib import Path, PurePosixPath
+          from pathlib import Path
 
           for request_path in Path('/tmp/group-reveal-requests.txt').read_text(encoding='utf-8').splitlines():
               request = json.loads(Path(request_path).read_text(encoding='utf-8'))
@@ -101,9 +86,19 @@ jobs:
                   raise SystemExit(f'group freeze path mismatch: {freeze_path} != {expected_freeze}')
               if Path(request.get('output_root', '')) != run_root / 'training':
                   raise SystemExit(f'training output root mismatch: {request_path}')
-              answer_path = PurePosixPath(str(request.get('answer_vector_path', '')))
-              if answer_path.is_absolute() or '..' in answer_path.parts or not answer_path.parts:
-                  raise SystemExit(f'unsafe answer vector path: {answer_path}')
+              expected_envelope = Path('public-answer-vault/encrypted') / f'{group_run_id}.json.fernet'
+              envelope_path = Path(request.get('encrypted_answer_envelope_path', ''))
+              if envelope_path != expected_envelope or not envelope_path.is_file():
+                  raise SystemExit(f'encrypted answer envelope path mismatch: {envelope_path} != {expected_envelope}')
+              envelope = json.loads(envelope_path.read_text(encoding='utf-8'))
+              if envelope.get('schema') != 'PUBLIC-ENCRYPTED-ANSWER-VECTOR-V1':
+                  raise SystemExit(f'encrypted answer envelope schema invalid: {envelope_path}')
+              if envelope.get('status') != 'ENCRYPTED_PUBLIC_STORAGE_READY':
+                  raise SystemExit(f'encrypted answer envelope status invalid: {envelope_path}')
+              if envelope.get('group_run_id') != group_run_id:
+                  raise SystemExit(f'encrypted answer identity mismatch: {envelope_path}')
+              if envelope.get('plaintext_not_stored_in_repository') is not True:
+                  raise SystemExit(f'plaintext storage policy invalid: {envelope_path}')
               freeze = json.loads(freeze_path.read_text(encoding='utf-8'))
               if freeze.get('status') != 'GROUP_PREDICTION_FREEZE_PASS':
                   raise SystemExit(f'group freeze not PASS: {freeze_path}')
@@ -113,25 +108,50 @@ jobs:
                   raise SystemExit(f'group identity mismatch: {request_path}')
           PY
 
-      - name: Run reveal and learning adapter tests
-        run: python -m unittest tests.test_learning_cycle_v2 tests.test_end_to_end_pipeline -v
+      - name: Run reveal and public answer vault tests
+        run: python -m unittest tests.test_learning_cycle_v2 tests.test_public_answer_vault tests.test_end_to_end_pipeline -v
 
-      - name: Require isolated answer-vault credential
+      - name: Require public encrypted answer key
         shell: bash
         env:
-          ANSWER_VAULT_TOKEN: ${{ secrets.FORTUNE_ANSWER_VAULT_TOKEN }}
+          FORTUNE_PUBLIC_ANSWER_KEY: ${{ secrets.FORTUNE_PUBLIC_ANSWER_KEY }}
         run: |
           set -euo pipefail
-          test -n "$ANSWER_VAULT_TOKEN"
+          test -n "$FORTUNE_PUBLIC_ANSWER_KEY"
 
-      - name: Checkout isolated answer vault after freeze PASS
-        uses: actions/checkout@v4
-        with:
-          repository: chinaneedM/fortune-answer-vault
-          token: ${{ secrets.FORTUNE_ANSWER_VAULT_TOKEN }}
-          path: answer-vault
-          fetch-depth: 1
-          persist-credentials: false
+      - name: Decrypt public envelopes only after freeze PASS
+        shell: bash
+        env:
+          FORTUNE_PUBLIC_ANSWER_KEY: ${{ secrets.FORTUNE_PUBLIC_ANSWER_KEY }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/fortune-public-answer-vault /tmp/derived-reveal-requests
+          mkdir -p /tmp/fortune-public-answer-vault /tmp/derived-reveal-requests /tmp/public-answer-decryption-receipts
+          while IFS= read -r request; do
+            request_name="$(basename "$request" .json)"
+            group_run_id="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["group_run_id"])' "$request")"
+            envelope="$(python -c 'import json,sys; print(json.load(open(sys.argv[1], encoding="utf-8"))["encrypted_answer_envelope_path"])' "$request")"
+            decrypted="/tmp/fortune-public-answer-vault/${group_run_id}.json"
+            PYTHONPATH=src python scripts/public-answer-vault.py decrypt \
+              --envelope "$envelope" \
+              --output "$decrypted" \
+              --repository-root . \
+              | tee "/tmp/public-answer-decryption-receipts/${request_name}.json"
+            derived="/tmp/derived-reveal-requests/${request_name}.json"
+            python - "$request" "$derived" "$group_run_id" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          source = Path(sys.argv[1])
+          target = Path(sys.argv[2])
+          group_run_id = sys.argv[3]
+          request = json.loads(source.read_text(encoding='utf-8'))
+          request['answer_vector_path'] = f'{group_run_id}.json'
+          request['answer_vector_transport'] = 'TRANSIENT_DECRYPTED_FROM_PUBLIC_ENVELOPE_AFTER_GROUP_FREEZE'
+          target.write_text(json.dumps(request, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+          done < /tmp/group-reveal-requests.txt
 
       - name: Literal replay and start learning cycle
         shell: bash
@@ -140,13 +160,14 @@ jobs:
           mkdir -p /tmp/group-reveal-results
           while IFS= read -r request; do
             request_name="$(basename "$request" .json)"
+            derived="/tmp/derived-reveal-requests/${request_name}.json"
             PYTHONPATH=src python scripts/group-training-pipeline.py reveal-and-start-training \
-              --request "$request" \
-              --answer-root answer-vault \
+              --request "$derived" \
+              --answer-root /tmp/fortune-public-answer-vault \
               | tee "/tmp/group-reveal-results/${request_name}.json"
           done < /tmp/group-reveal-requests.txt
 
-      - name: Verify learning intake
+      - name: Verify learning intake and public-only transport
         shell: bash
         run: |
           set -euo pipefail
@@ -154,9 +175,18 @@ jobs:
           import json
           from pathlib import Path
 
+          decryptions = sorted(Path('/tmp/public-answer-decryption-receipts').glob('*.json'))
           results = sorted(Path('/tmp/group-reveal-results').glob('*.json'))
-          if not results:
-              raise SystemExit('no reveal/training result')
+          if not results or len(results) != len(decryptions):
+              raise SystemExit('reveal/decryption result count mismatch')
+          for receipt_path in decryptions:
+              receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
+              if receipt.get('status') != 'PASS':
+                  raise SystemExit(f'public answer decryption failed: {receipt}')
+              if receipt.get('plaintext_committed_to_repository') is not False:
+                  raise SystemExit('decrypted answer was marked as repository content')
+              if receipt.get('decrypted_output_location') != 'TRANSIENT_OUTSIDE_REPOSITORY':
+                  raise SystemExit('decrypted answer location policy failed')
           for path in results:
               result = json.loads(path.read_text(encoding='utf-8'))
               if result.get('status') != 'LEARNING_ACTIVE':
@@ -172,13 +202,12 @@ jobs:
                   raise SystemExit(f'literal answer replay failed: {replay}')
           PY
 
-      - name: Remove answer vault checkout before repository writeback
-        run: rm -rf answer-vault
+      - name: Destroy transient answer plaintext
+        if: always()
+        run: rm -rf /tmp/fortune-public-answer-vault /tmp/derived-reveal-requests
 
       - name: Commit immutable reveal and learning intake objects
         shell: bash
-        env:
-          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -188,5 +217,5 @@ jobs:
             echo 'No reveal or learning intake objects to commit.'
             exit 0
           fi
-          git commit -m 'Replay frozen answers and start learning cycle'
-          git push origin "HEAD:${TARGET_BRANCH}"
+          git commit -m 'Replay frozen public encrypted answers and start learning cycle'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
