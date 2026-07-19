@@ -65,7 +65,7 @@ jobs:
           set -euo pipefail
           mkdir -p reports/open-source-migration/knowledge-rights
           while IFS= read -r request_path; do
-            python - <<'PY' "$request_path" > /tmp/rights-request.env
+            python - "$request_path" <<'PY' > /tmp/rights-request.env
           import json
           import shlex
           import sys
