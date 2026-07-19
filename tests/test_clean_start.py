@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from fortune_v1.clean_start import (
     create_group_clean_start,
@@ -50,7 +51,7 @@ class CleanStartTests(unittest.TestCase):
             "cases": cases,
         })
         install_path = root / "install-state.json"
-        self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "abc123"})
+        self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "a" * 40})
         return group_path, install_path
 
     def request_fixture(self, root: Path) -> tuple[Path, Path]:
@@ -99,6 +100,7 @@ class CleanStartTests(unittest.TestCase):
             self.assertEqual(result["status"], "READY_FOR_CLEAN_GROUP_PREDICTION")
             self.assertFalse(result["retrieval_policy"]["repository_search_allowed"])
             self.assertFalse(result["retrieval_policy"]["history_navigation_allowed"])
+            self.assertEqual(result["installation_state"]["binding_mode"], "LEGACY_EXACT_CODE_COMMIT")
             self.assertEqual(len(result["cases"]), 2)
             for row in result["cases"]:
                 skeleton = json.loads(Path(row["skeleton_path"]).read_text(encoding="utf-8"))
@@ -140,6 +142,44 @@ class CleanStartTests(unittest.TestCase):
             with self.assertRaises(FortuneError) as caught:
                 create_group_clean_start_from_request(request, pointer)
             self.assertEqual(caught.exception.status, "FAIL_CLOSED_CONTAMINATED")
+
+    def test_v3_install_state_binds_validated_and_execution_commits(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            group, install = self.fixture(root)
+            self.write_json(install, {
+                "status": "INSTALLED_VALIDATED",
+                "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+                "formal_open_source_release_permission": "PASS",
+                "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+                "background_execution": False,
+                "validated_main_commit": "b" * 40,
+                "object_hash": "c" * 64,
+            })
+            with mock.patch.dict("os.environ", {"GITHUB_SHA": "d" * 40}, clear=False):
+                result = create_group_clean_start(group, install, root / "runs", "RUN-V3", "SESSION-V3")
+            binding = result["installation_state"]
+            self.assertEqual(binding["code_commit"], "d" * 40)
+            self.assertEqual(binding["validated_main_commit"], "b" * 40)
+            self.assertEqual(binding["state_object_hash"], "c" * 64)
+            self.assertEqual(binding["binding_mode"], "V3_VALIDATED_MAIN_COMMIT")
+
+    def test_v3_install_state_missing_permission_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            group, install = self.fixture(root)
+            self.write_json(install, {
+                "status": "INSTALLED_VALIDATED",
+                "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+                "formal_open_source_release_permission": "BLOCKED",
+                "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+                "background_execution": False,
+                "validated_main_commit": "b" * 40,
+                "object_hash": "c" * 64,
+            })
+            with self.assertRaises(FortuneError) as caught:
+                create_group_clean_start(group, install, root / "runs", "RUN-V3", "SESSION-V3")
+            self.assertEqual(caught.exception.status, "INSTALLATION_BINDING_INVALID")
 
     def test_nonoverwrite_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
