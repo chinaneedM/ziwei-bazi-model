@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -31,6 +33,64 @@ FORBIDDEN_RESOURCE_TYPES = [
     "diagnosis",
     "shadow_rebuild",
 ]
+
+_COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+_HASH_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+
+
+def _validated_install_binding(install_state: dict[str, Any]) -> dict[str, Any]:
+    if install_state.get("status") != "INSTALLED_VALIDATED":
+        raise FortuneError("runtime installation is not validated", status="INSTALLATION_NOT_VALIDATED")
+
+    legacy_commit = install_state.get("code_commit")
+    validated_main_commit = install_state.get("validated_main_commit")
+    if isinstance(legacy_commit, str) and _COMMIT_PATTERN.fullmatch(legacy_commit):
+        validated_commit = legacy_commit
+        binding_mode = "LEGACY_EXACT_CODE_COMMIT"
+        state_object_hash = install_state.get("object_hash")
+    elif isinstance(validated_main_commit, str) and _COMMIT_PATTERN.fullmatch(validated_main_commit):
+        required = {
+            "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+            "formal_open_source_release_permission": "PASS",
+            "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+            "background_execution": False,
+        }
+        mismatches = {
+            key: {"actual": install_state.get(key), "expected": value}
+            for key, value in required.items()
+            if install_state.get(key) != value
+        }
+        if mismatches:
+            raise FortuneError(
+                f"V3 installation binding invalid: {mismatches}",
+                status="INSTALLATION_BINDING_INVALID",
+            )
+        state_object_hash = install_state.get("object_hash")
+        if not isinstance(state_object_hash, str) or not _HASH_PATTERN.fullmatch(state_object_hash):
+            raise FortuneError(
+                "V3 installation state object hash missing or invalid",
+                status="INSTALLATION_BINDING_INVALID",
+            )
+        validated_commit = validated_main_commit
+        binding_mode = "V3_VALIDATED_MAIN_COMMIT"
+    else:
+        raise FortuneError(
+            "installation state has no valid commit binding",
+            status="INSTALLATION_BINDING_INVALID",
+        )
+
+    execution_commit = os.environ.get("GITHUB_SHA") or validated_commit
+    if not _COMMIT_PATTERN.fullmatch(execution_commit):
+        raise FortuneError(
+            "execution commit binding missing or invalid",
+            status="INSTALLATION_BINDING_INVALID",
+        )
+    return {
+        "binding_mode": binding_mode,
+        "validated_main_commit": validated_commit,
+        "execution_code_commit": execution_commit,
+        "state_object_hash": state_object_hash,
+    }
 
 
 def _exact_identifier(value: Any, field: str) -> str:
@@ -125,8 +185,7 @@ def create_group_clean_start(
         raise FortuneError("group is not ready", status="GROUP_NOT_READY")
     if group.get("answer_payload_present") is not False or group.get("runtime_answer_scan") != "PASS":
         raise FortuneError("group answer isolation failed", status="GROUP_ANSWER_ISOLATION_FAILED")
-    if install_state.get("status") != "INSTALLED_VALIDATED":
-        raise FortuneError("runtime installation is not validated", status="INSTALLATION_NOT_VALIDATED")
+    install_binding = _validated_install_binding(install_state)
     if session_mode not in {"CHAT_ONLY", "WORK"}:
         raise FortuneError("invalid session mode", status="GROUP_SESSION_MODE_INVALID")
 
@@ -180,7 +239,10 @@ def create_group_clean_start(
         "installation_state": {
             "path": str(install_state_file),
             "sha256": sha256_file(install_state_file),
-            "code_commit": install_state["code_commit"],
+            "code_commit": install_binding["execution_code_commit"],
+            "validated_main_commit": install_binding["validated_main_commit"],
+            "state_object_hash": install_binding["state_object_hash"],
+            "binding_mode": install_binding["binding_mode"],
             "status": install_state["status"],
         },
         "group_manifest": {
