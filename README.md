@@ -6,9 +6,24 @@ The project is designed to be public, inspectable, forkable, and reproducible. I
 
 ## Open-source model
 
-Project-authored software, tests, workflows, schemas, configuration, and original documentation are licensed under **Apache-2.0**. See `LICENSE`, `NOTICE`, and `docs/open-source-architecture.md`.
+The repository uses a two-part licensing model:
 
-Knowledge and data packs use per-pack provenance and license manifests. An official public release may include only material with verified public-domain status, an open license, or documented redistribution permission. Unverified rights are fail-closed.
+- project-authored software, tests, workflows, schemas, configuration, and
+  original documentation use **Apache-2.0**;
+- the exact 20 S00-S19 files bound by the active `KNOWLEDGE-R17` release use
+  **CC0-1.0**.
+
+The active knowledge license is machine-bound through:
+
+- `knowledge/active-release.json`;
+- `knowledge/releases/KNOWLEDGE-R17/release-manifest.json`;
+- `licenses/knowledge-packs/KNOWLEDGE-R17/rights-declaration.json`;
+- `licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json`;
+- `licenses/knowledge-packs/KNOWLEDGE-R17/CC0-NOTICE.md`.
+
+The formal verifier recomputes all 20 file hashes and byte lengths. Historical,
+candidate, uploaded, personal, or third-party material is not automatically
+covered by the active CC0 manifest.
 
 ## One public repository
 
@@ -71,15 +86,20 @@ answer-free group request
   -> public regression and release receipts
 ```
 
-## Current candidate bindings
+## Current bindings and validation
 
 - Project prompt: `MP-PROFESSIONAL-REASONING-20260718-R17`
-- Knowledge candidate: `KNOWLEDGE-R17-PROMPT-CUTOVER-CANDIDATE-V2`
+- Active knowledge release: `KNOWLEDGE-R17`
+- Knowledge license: `CC0-1.0` for the exact active S00-S19 manifest
 - Method: `METHOD-R17`
 - Model candidate: `MODEL-R17-REPOSITORY-SHADOW-V2`
 - Runtime configuration candidate: `config/runtime-r17-candidate.json`
 
-Candidate status is not equivalent to a formal release. Formal training remains blocked until the public-repository policy, complete test suite, synthetic public-envelope end-to-end run, immutable receipt, and active release bindings all pass.
+Public repository CI, answer-key runtime validation, and a synthetic non-scoring
+public-envelope run through `LEARNING_ACTIVE` have passed. The knowledge-rights
+verifier also passed with one active manifest, 20 files, and zero failures.
+Formal activation remains blocked until pull request #36 is merged and the
+merged default branch passes post-merge CI and immutable readback.
 
 ## Installation
 
@@ -94,12 +114,21 @@ Run the tests:
 
 ```bash
 python -m unittest discover -s tests -v
+pytest -q
 ```
 
-Verify the open-source/public-only repository policy:
+Verify the public-only repository policy:
 
 ```bash
 python scripts/verify-public-only-repository.py \
+  --root . \
+  --visibility public
+```
+
+Verify the complete open-source release and active knowledge manifest:
+
+```bash
+python scripts/verify-open-source-release.py \
   --root . \
   --visibility public
 ```
@@ -132,7 +161,8 @@ The system does not:
 - convert revealed answers into case-specific prediction rules;
 - count post-reveal repetitions as additional blind accuracy;
 - silently fall back to uploads, prior chats, private repositories, or hidden files;
-- claim PASS, release, or training readiness without repository-bound receipts.
+- claim PASS, release, or training readiness without repository-bound receipts;
+- treat a user rights declaration as independent legal verification.
 
 ## Contributing and governance
 
@@ -145,4 +175,4 @@ The system does not:
 
 ## License
 
-Apache License 2.0 for project-authored software and original project documentation, except where otherwise stated. Third-party and user-supplied content remains under its own declared terms.
+Apache License 2.0 for project-authored software and original project documentation, except where otherwise stated. The exact active `KNOWLEDGE-R17` S00-S19 files are available under CC0-1.0 through their machine-bound manifest. Other content remains under its own declared terms.
