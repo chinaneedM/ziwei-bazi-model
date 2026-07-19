@@ -1,0 +1,216 @@
+name: one-time-readback-pr38-main
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-readback-pr38-main.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  readback-and-remove-self:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      EXPECTED_MAIN_COMMIT: 378c5007578ed67de7a074ba97dc010c8f3fcce0
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout readback branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Wait for exact main workflows
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pr38-final-readback
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import time
+          from pathlib import Path
+
+          repo = os.environ['GITHUB_REPOSITORY']
+          expected = os.environ['EXPECTED_MAIN_COMMIT']
+
+          def api(path: str):
+              proc = subprocess.run(['gh', 'api', path], capture_output=True, text=True)
+              if proc.returncode != 0:
+                  raise SystemExit(proc.stderr or proc.stdout)
+              return json.loads(proc.stdout)
+
+          def wait_for(workflow: str, event: str):
+              last = None
+              for _ in range(90):
+                  payload = api(f'repos/{repo}/actions/workflows/{workflow}/runs?branch=main&event={event}&per_page=50')
+                  matches = [row for row in payload.get('workflow_runs', []) if row.get('head_sha') == expected]
+                  if matches:
+                      row = sorted(matches, key=lambda item: item.get('run_number', 0), reverse=True)[0]
+                      last = row
+                      if row.get('status') == 'completed':
+                          if row.get('conclusion') != 'success':
+                              raise SystemExit(f'{workflow} completed without success: {row}')
+                          return row
+                  time.sleep(10)
+              raise SystemExit(f'timed out waiting for {workflow}: {last}')
+
+          primary = wait_for('final-install-check.yml', 'push')
+          replay = wait_for('finalize-installation-state.yml', 'workflow_run')
+          Path('/tmp/pr38-final-readback/runs.json').write_text(
+              json.dumps({'primary': primary, 'replay': replay}, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Download exact workflow artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY' > /tmp/pr38-final-readback/run-ids.env
+          import json
+          from pathlib import Path
+          rows = json.loads(Path('/tmp/pr38-final-readback/runs.json').read_text())
+          print(f"PRIMARY_RUN_ID={rows['primary']['id']}")
+          print(f"REPLAY_RUN_ID={rows['replay']['id']}")
+          PY
+          source /tmp/pr38-final-readback/run-ids.env
+
+          for pair in "primary:$PRIMARY_RUN_ID:final-install-check-$EXPECTED_MAIN_COMMIT" "replay:$REPLAY_RUN_ID:final-installation-state-v3-$EXPECTED_MAIN_COMMIT"; do
+            IFS=: read -r label run_id expected_name <<< "$pair"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/artifacts?per_page=100" > "/tmp/pr38-final-readback/${label}-artifacts.json"
+            artifact_id="$(python - "$expected_name" "/tmp/pr38-final-readback/${label}-artifacts.json" <<'PY'
+          import json, sys
+          expected, path = sys.argv[1], sys.argv[2]
+          rows = json.load(open(path, encoding='utf-8')).get('artifacts', [])
+          matches = [row for row in rows if row.get('name') == expected and not row.get('expired')]
+          if len(matches) != 1:
+              raise SystemExit(f'artifact match count for {expected}: {len(matches)}')
+          print(matches[0]['id'])
+          PY
+            )"
+            mkdir -p "/tmp/pr38-final-readback/${label}"
+            gh api -H 'Accept: application/vnd.github+json' "repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact_id/zip" > "/tmp/pr38-final-readback/${label}.zip"
+            unzip -q "/tmp/pr38-final-readback/${label}.zip" -d "/tmp/pr38-final-readback/${label}"
+          done
+
+      - name: Validate all final receipts and write report
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/open-source-migration/main-readback
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          expected = os.environ['EXPECTED_MAIN_COMMIT']
+          temp = Path('/tmp/pr38-final-readback')
+          runs = json.loads((temp / 'runs.json').read_text(encoding='utf-8'))
+
+          def digest(path: Path) -> str:
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          def validate_install(path: Path):
+              body = json.loads(path.read_text(encoding='utf-8'))
+              required = {
+                  'schema': 'FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3',
+                  'status': 'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START',
+                  'code_commit': expected,
+                  'activation_mode': 'main',
+                  'check_count': 14,
+                  'pass_count': 14,
+                  'failure_count': 0,
+                  'formal_open_source_release_permission': 'PASS',
+                  'formal_training_permission': 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY',
+                  'score_eligibility': 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS',
+                  'background_execution': False,
+                  'synthetic_run_scoring_eligibility': 'NONE',
+              }
+              for key, value in required.items():
+                  if body.get(key) != value:
+                      raise SystemExit(f'{path}: {key}={body.get(key)!r}, expected {value!r}')
+              if any(row.get('status') != 'PASS' for row in body.get('checks', [])):
+                  raise SystemExit(f'{path}: non-PASS install check')
+              return body
+
+          def validate_state(path: Path):
+              body = json.loads(path.read_text(encoding='utf-8'))
+              required = {
+                  'schema': 'ACTIVATED-INSTALLATION-STATE-VERIFICATION-V1',
+                  'status': 'PASS',
+                  'code_commit': expected,
+                  'activation_mode': 'main',
+                  'check_count': 8,
+                  'pass_count': 8,
+                  'failure_count': 0,
+                  'formal_open_source_release_permission': 'PASS',
+                  'formal_training_permission': 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY',
+                  'score_eligibility': 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS',
+                  'background_execution': False,
+              }
+              for key, value in required.items():
+                  if body.get(key) != value:
+                      raise SystemExit(f'{path}: {key}={body.get(key)!r}, expected {value!r}')
+              if any(row.get('status') != 'PASS' for row in body.get('checks', [])):
+                  raise SystemExit(f'{path}: non-PASS activated-state check')
+              return body
+
+          report = {
+              'schema': 'PR38-FINAL-MAIN-READBACK-V1',
+              'status': 'PASS',
+              'repository': os.environ['GITHUB_REPOSITORY'],
+              'validated_main_commit': expected,
+              'formal_open_source_release_permission': 'PASS',
+              'formal_training_permission': 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY',
+              'score_eligibility': 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS',
+              'synthetic_run_scoring_eligibility': 'NONE',
+              'background_execution': False,
+              'primary': {},
+              'replay': {},
+          }
+          for label in ('primary', 'replay'):
+              root = temp / label
+              install_path = root / 'install-receipt.json'
+              state_path = root / 'activated-state-receipt.json'
+              install = validate_install(install_path)
+              state = validate_state(state_path)
+              run = runs[label]
+              report[label] = {
+                  'run_id': run['id'],
+                  'run_number': run['run_number'],
+                  'conclusion': run['conclusion'],
+                  'install_receipt_sha256': digest(install_path),
+                  'install_receipt_object_hash': install['object_hash'],
+                  'install_receipt_status': install['status'],
+                  'install_check_count': install['check_count'],
+                  'activated_state_receipt_sha256': digest(state_path),
+                  'activated_state_receipt_object_hash': state['object_hash'],
+                  'activated_state_status': state['status'],
+                  'activated_state_check_count': state['check_count'],
+              }
+
+          report['failure_count'] = 0
+          report['pass_summary'] = 'PRIMARY_14_OF_14_REPLAY_14_OF_14_STATE_8_OF_8_TWICE'
+          encoded = json.dumps(report, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+          report['object_hash'] = hashlib.sha256(encoded).hexdigest()
+          output = Path(f'reports/open-source-migration/main-readback/{expected}-final.json')
+          output.write_text(json.dumps(report, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Remove one-time workflow and commit report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-readback-pr38-main.yml
+          git add reports/open-source-migration/main-readback
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Record PR38 final main readback'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
