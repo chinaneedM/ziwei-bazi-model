@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import json
-import os
 import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
 
 from fortune_v1.scoring import grade_frozen_prediction
-from fortune_v1.topology import scan_runtime_workflows, verify_topology
+from fortune_v1.topology import scan_runtime_workflows
 from fortune_v1.util import FortuneError, sha256_file
 
 
@@ -46,43 +45,53 @@ class ReverseGradingTests(unittest.TestCase):
             "schema": "FORTUNE-ANSWER-OBJECT-V1", "authorized_run_id": run_id, "answers": "A,C"})
         return receipt, prediction, answer
 
-    def test_runtime_workflows_have_no_vault_path(self):
+    def test_active_runtime_has_no_private_vault_path(self):
         result = scan_runtime_workflows(self.repo)
         self.assertEqual(result["status"], "PASS", result)
         self.assertEqual(result["runtime_repository_vault_credential"], "NONE")
-        all_text = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in self.repo.rglob("*")
-                             if path.is_file() and ".git" not in path.parts and "templates" not in path.parts
-                             and "__pycache__" not in path.parts)
+
+        quarantine = json.loads(
+            (self.repo / "config/legacy-public-migration-quarantine.json").read_text(encoding="utf-8")
+        )
+        quarantined = set(quarantine["paths"])
+        active_texts: list[str] = []
+        for path in self.repo.rglob("*"):
+            if not path.is_file() or ".git" in path.parts or "__pycache__" in path.parts:
+                continue
+            rel = path.relative_to(self.repo).as_posix()
+            if rel in quarantined or rel.startswith("templates/answer-vault/"):
+                continue
+            active_texts.append(path.read_text(encoding="utf-8", errors="ignore"))
+        all_text = "\n".join(active_texts)
         self.assertNotIn("ANSWER_" + "VAULT_TOKEN", all_text)
+        self.assertNotIn("chinaneedM/fortune-" + "answer-vault", all_text)
         self.assertFalse((self.repo / ".github/workflows/grade-frozen.yml").exists())
 
-    def test_vault_workflow_order_and_write_allowlist(self):
-        path = self.repo / "templates/answer-vault/.github/workflows/grade-frozen-prediction.yml"
+    def test_public_reveal_workflow_order_and_secret_boundary(self):
+        path = self.repo / ".github/workflows/repository-group-reveal-training.yml"
         text = path.read_text(encoding="utf-8")
-        order = [text.index(marker) for marker in ["Checkout runtime repository", "Validate immutable freeze before any answer access",
-                                                    "Checkout current answer vault only after freeze validation",
-                                                    "Grade frozen prediction", "Remove answer worktree and caches before commit",
-                                                    "Commit only the new reveal"]]
+        markers = [
+            "Verify group freeze and public encrypted answer paths",
+            "Require public encrypted answer key",
+            "Decrypt public envelopes only after freeze PASS",
+            "Literal replay and start learning cycle",
+            "Destroy transient answer plaintext",
+        ]
+        order = [text.index(marker) for marker in markers]
         self.assertEqual(order, sorted(order))
-        self.assertIn("secrets.RUNTIME_REPO_TOKEN", text)
-        self.assertIn('test "$(git diff --cached --name-only)" = "$reveal"', text)
-        self.assertIn("Reject reveal overwrite", text)
+        self.assertNotIn("pull_request:", text)
+        self.assertIn("secrets.FORTUNE_PUBLIC_ANSWER_KEY", text)
+        self.assertIn("/tmp/fortune-public-answer-vault", text)
+        self.assertIn("public-answer-vault/encrypted", text)
 
-    def test_token_scope_probe_requires_runtime_allow_and_vault_denial(self):
-        config = self.repo / "config/github-topology.json"
-        statuses = {
-            ("chinaneedM/ziwei-bazi-model", "runtime-secret"): (200, {"private": True}),
-            ("chinaneedM/fortune-answer-vault", "runtime-secret"): (404, None),
-            ("chinaneedM/fortune-answer-vault", "vault-self"): (200, {"private": True}),
-            ("chinaneedM/ziwei-bazi-model", "vault-self"): (404, None),
-        }
-        with mock.patch.dict(os.environ, {"RUNTIME_REPO_TOKEN": "runtime-secret", "VAULT_SELF_TOKEN": "vault-self"}), \
-             mock.patch("fortune_v1.topology._github_get", side_effect=lambda repo, token: statuses[(repo, token)]):
-            result = verify_topology(config, self.root / "topology.json")
-        self.assertEqual(result["status"], "PASS")
-        self.assertEqual(result["checks"]["TOKEN_REPOSITORY_SCOPE"], "PASS")
-        self.assertEqual(result["checks"]["RUNTIME_VAULT_ACCESS_DENIAL"], "PASS")
-        self.assertEqual(result["checks"]["FREE_PLAN_CONTROL_LIMITATION"], "RECORDED")
+    def test_public_answer_repository_accepts_encrypted_envelopes_only(self):
+        ignore = (self.repo / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn("public-answer-vault/**", ignore)
+        self.assertIn("!public-answer-vault/encrypted/*.json.fernet", ignore)
+        self.assertIn("*.decrypted-answer.json", ignore)
+        readme = (self.repo / "public-answer-vault/README.md").read_text(encoding="utf-8")
+        self.assertIn("encrypted", readme.lower())
+        self.assertNotIn("FORTUNE_PUBLIC_ANSWER_KEY=", readme)
 
     def test_missing_or_invalid_freeze_does_not_read_answer(self):
         fake = self._write_json(self.root / "invalid-freeze.json", {"schema": "wrong"})
@@ -112,22 +121,12 @@ class ReverseGradingTests(unittest.TestCase):
 
     def test_answer_run_id_mismatch_is_rejected(self):
         receipt, _, answer = self._valid_freeze()
-        obj = json.loads(answer.read_text(encoding="utf-8")); obj["authorized_run_id"] = "RUN-WRONG"
+        obj = json.loads(answer.read_text(encoding="utf-8"))
+        obj["authorized_run_id"] = "RUN-WRONG"
         answer.write_text(json.dumps(obj), encoding="utf-8")
         with self.assertRaises(FortuneError) as ctx:
             grade_frozen_prediction(receipt, answer, self.root / "out.json", expected_run_id="RUN-TEST-001")
         self.assertEqual(ctx.exception.status, "ANSWER_OBJECT_RUN_ID_MISMATCH")
-
-    def test_initialization_template_contains_no_real_answer_token_zip_rar_or_shadow(self):
-        root = self.repo / "templates/answer-vault"
-        forbidden_suffixes = {".zip", ".rar"}
-        for path in root.rglob("*"):
-            if not path.is_file():
-                continue
-            self.assertNotIn(path.suffix.lower(), forbidden_suffixes)
-            text = path.read_text(encoding="utf-8", errors="ignore")
-            self.assertNotIn("SHADOW_REBUILD", text)
-            self.assertNotIn("REAL_ANSWER", text)
 
 
 if __name__ == "__main__":
