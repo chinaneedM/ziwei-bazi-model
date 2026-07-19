@@ -1,5 +1,5 @@
 {
-  "automation_runtime_install_status": "INSTALL_VALIDATION_CANDIDATE",
+  "automation_runtime_install_status": "SCHEMA_DEFINED_NOT_INSTALLED",
   "checks": [
     {
       "actual": {
@@ -9,7 +9,7 @@
         "unique_library_count": 20
       },
       "check": "SOURCE_BASELINE_20_FILES",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": {
         "duplicates": {},
@@ -30,7 +30,7 @@
         "status": "PASS"
       },
       "check": "S19_ACTIVE_BINDING_TABLE_RECOMPUTE",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": {
         "computed": "1766aa81fad8134c12f50c18e2e7e7b3523e098113df37bd75a9a88a2cc56654",
@@ -52,7 +52,7 @@
         "status": "MIGRATED"
       },
       "check": "SOURCE_MIGRATION_AND_IMMUTABLE_BASELINE",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
         "actual": {
           "baseline_commit_sha": "989ee246ef55c92a9b4a1b86ccd4b616bbbf0069",
@@ -76,7 +76,7 @@
         "source_file_count": 20,
         "status": "MIGRATED"
       },
-      "file_sha256": "4b32d37e7b93c1b1eddf658900efaa77700f31fa65b41d51e43db1f18854459d",
+      "file_sha256": "9b13348595b892950b4c561c0b38cb064e2ec9783dd6eff9c2542e738378cd81",
       "object_field_path": "$.status+$.baseline_commit_sha+$.baseline_tag",
       "real_path": "reports/migration-receipt.json",
       "status": "PASS"
@@ -91,7 +91,7 @@
         "visible": 6047
       },
       "check": "MAIN_PROMPT_AUDIT_SNAPSHOT",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": {
         "authority": "AUDIT_COPY_ONLY_NOT_RUNTIME_AUTHORITY",
@@ -109,10 +109,10 @@
     {
       "actual": "PASS",
       "check": "STATIC_AND_SYNTHETIC_TESTS",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "PASS",
-      "file_sha256": "ca47b60cd7ca723540a376b196eb73b2928bee289c72b1fb1afde303ba48ab7c",
+      "file_sha256": "e6d82cd72a36052990b4c6134d51d2b76e1fa3fc0534c0c760806abfc4574141",
       "object_field_path": "$.status",
       "real_path": "reports/test-report.json",
       "status": "PASS"
@@ -123,17 +123,17 @@
         "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
         "status": "PASS",
         "violations": [],
-        "workflow_count": 17
+        "workflow_count": 46
       },
       "check": "RUNTIME_REPOSITORY_VAULT_CREDENTIAL_NONE",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
         "actual": {
           "runtime_repository_vault_credential": "NONE",
           "schema": "RUNTIME-WORKFLOW-VAULT-SCAN-V1",
           "status": "PASS",
           "violations": [],
-          "workflow_count": 17
+          "workflow_count": 46
         },
         "expected": {
           "runtime_repository_vault_credential": "NONE",
@@ -152,7 +152,7 @@
     {
       "actual": "PASS",
       "check": "PHYSICAL_REPOSITORY_SEPARATION",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -163,7 +163,7 @@
     {
       "actual": "PASS",
       "check": "TOKEN_REPOSITORY_SCOPE",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -174,7 +174,7 @@
     {
       "actual": "PASS",
       "check": "RUNTIME_VAULT_ACCESS_DENIAL",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -185,7 +185,7 @@
     {
       "actual": "PASS",
       "check": "GRADING_DIRECTION",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "PASS",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -196,7 +196,7 @@
     {
       "actual": "RECORDED",
       "check": "FREE_PLAN_CONTROL_LIMITATION_RECORDED",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": "RECORDED",
       "file_sha256": "3a9e262172007cd3ccb5cedcc4c6c574d9864acd73bebe60c2ae6f1dee60589b",
@@ -216,7 +216,7 @@
         "runtime_repository_vault_credential": "NONE"
       },
       "check": "FREE_PRIVATE_OWNER_CONTROL_PROFILE",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": null,
       "expected": {
         "answer_vault_runtime_credential": "RUNTIME_REPO_TOKEN",
@@ -241,7 +241,7 @@
         "workflow_path": ".github/workflows/grade-frozen-prediction.yml"
       },
       "check": "ANSWER_VAULT_WORKFLOW_INSTALLED_AND_READBACK",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
         "actual": {
           "readback_sha256": "aed7603bf1b4a563839daad967e0ad1a7e2fcb28488e7a10ea85e800c32e3411",
@@ -269,79 +269,73 @@
     },
     {
       "actual": {
-        "adapter_status": "INSTALLED",
+        "adapter_status": null,
         "api_service_required": false,
         "background_execution": false,
         "checks": {
-          "adapter": true,
+          "adapter": false,
           "api_service_required": true,
           "background_execution": true,
-          "dual_track_seals": true,
-          "execution_model": true,
-          "freeze_gate": true,
-          "input_contract": true,
-          "interaction_modes": true,
-          "model_or_executor": true,
-          "output_schema": true,
-          "prompt_binding": true,
-          "proof_policy": true,
-          "run_id_nonoverwrite": true,
-          "runner_id": true,
-          "runner_type": true,
-          "source_binding": true,
-          "status": true,
-          "user_initiated": true
+          "dual_track_seals": false,
+          "execution_model": false,
+          "freeze_gate": false,
+          "input_contract": false,
+          "interaction_modes": false,
+          "model_or_executor": false,
+          "output_schema": false,
+          "prompt_binding": false,
+          "proof_policy": false,
+          "run_id_nonoverwrite": false,
+          "runner_id": false,
+          "runner_type": false,
+          "source_binding": false,
+          "status": false,
+          "user_initiated": false
         },
         "freeze_gate_status": "ENFORCED",
-        "interaction_modes": [
-          "CHAT_ONLY",
-          "WORK"
-        ],
-        "model_or_executor": "CHATGPT_PROJECT_SESSION",
-        "no_answer_access_policy": "ENFORCED_PER_RUN",
-        "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-        "runner_id": "CHAT-WORK-HANDOFF-V1",
-        "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
-        "status": "INSTALLED"
+        "interaction_modes": null,
+        "model_or_executor": null,
+        "no_answer_access_policy": null,
+        "prompt_runtime_id": null,
+        "runner_id": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+        "runner_type": null,
+        "status": null
       },
       "check": "EXTERNAL_PREDICTION_RUNNER",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
         "actual": {
-          "adapter_status": "INSTALLED",
+          "adapter_status": null,
           "api_service_required": false,
           "background_execution": false,
           "checks": {
-            "adapter": true,
+            "adapter": false,
             "api_service_required": true,
             "background_execution": true,
-            "dual_track_seals": true,
-            "execution_model": true,
-            "freeze_gate": true,
-            "input_contract": true,
-            "interaction_modes": true,
-            "model_or_executor": true,
-            "output_schema": true,
-            "prompt_binding": true,
-            "proof_policy": true,
-            "run_id_nonoverwrite": true,
-            "runner_id": true,
-            "runner_type": true,
-            "source_binding": true,
-            "status": true,
-            "user_initiated": true
+            "dual_track_seals": false,
+            "execution_model": false,
+            "freeze_gate": false,
+            "input_contract": false,
+            "interaction_modes": false,
+            "model_or_executor": false,
+            "output_schema": false,
+            "prompt_binding": false,
+            "proof_policy": false,
+            "run_id_nonoverwrite": false,
+            "runner_id": false,
+            "runner_type": false,
+            "source_binding": false,
+            "status": false,
+            "user_initiated": false
           },
           "freeze_gate_status": "ENFORCED",
-          "interaction_modes": [
-            "CHAT_ONLY",
-            "WORK"
-          ],
-          "model_or_executor": "CHATGPT_PROJECT_SESSION",
-          "no_answer_access_policy": "ENFORCED_PER_RUN",
-          "prompt_runtime_id": "MP-PROFESSIONAL-REASONING-20260715-R16",
-          "runner_id": "CHAT-WORK-HANDOFF-V1",
-          "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
-          "status": "INSTALLED"
+          "interaction_modes": null,
+          "model_or_executor": null,
+          "no_answer_access_policy": null,
+          "prompt_runtime_id": null,
+          "runner_id": "CHAT_WORK_INTERACTIVE_EXECUTOR",
+          "runner_type": null,
+          "status": null
         },
         "expected": {
           "adapter_status": "INSTALLED",
@@ -378,17 +372,17 @@
         "runner_type": "CHAT_WORK_INTERACTIVE_EXECUTOR",
         "status": "INSTALLED"
       },
-      "file_sha256": "c9bbd6cd6aaf2cc6196361ebac0bd96dbe9436481b5c6be52149d17a799600be",
+      "file_sha256": "1bdad0727dde2b39deea12e841d39f9b3eb82fedb6c72bb8e6e3e853d75df6d2",
       "object_field_path": "$.external_prediction_runner_status+chat_work_handoff_contract+freeze_gate",
       "real_path": "config/external-runner.json",
-      "status": "PASS"
+      "status": "FAIL"
     },
     {
-      "actual": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "actual": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "check": "IMMUTABLE_GIT_COMMIT",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
-        "actual": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+        "actual": "99ae5d73c22cff1d09e06161ac867368981be5c7",
         "expected": "NON_NULL"
       },
       "expected": "NON_NULL",
@@ -398,11 +392,11 @@
       "status": "PASS"
     },
     {
-      "actual": 10,
+      "actual": 11,
       "check": "SCHEMA_SET",
-      "corresponding_commit_sha": "490c5aff05f810f52ab71e5963801f534d4fea9a",
+      "corresponding_commit_sha": "99ae5d73c22cff1d09e06161ac867368981be5c7",
       "difference": {
-        "actual": 10,
+        "actual": 11,
         "expected": ">=9"
       },
       "expected": ">=9",
@@ -412,15 +406,12 @@
       "status": "PASS"
     }
   ],
-  "code_commit": "490c5aff05f810f52ab71e5963801f534d4fea9a",
-  "generated_at": "2026-07-17T16:18:43+00:00",
+  "code_commit": "99ae5d73c22cff1d09e06161ac867368981be5c7",
+  "generated_at": "2026-07-19T07:35:29+00:00",
   "github_plan_profile": "FREE_PRIVATE_OWNER_CONTROL",
   "grading_topology": "ANSWER_VAULT_INITIATED_REVERSE_GRADING",
   "repository_root": ".",
-  "s19_installed_validated_status_update_candidate": {
-    "AUTOMATION_RUNTIME_INSTALL_STATUS": "INSTALLED_VALIDATED",
-    "basis_receipt_sha256": "5e8330ecbd62339924515b9fa164069a9c6865a900fae2d3edb393241c85aa16"
-  },
+  "s19_installed_validated_status_update_candidate": null,
   "schema": "INSTALLATION-RECEIPT-V2",
-  "status": "INSTALL_VALIDATION_CANDIDATE"
+  "status": "SCHEMA_DEFINED_NOT_INSTALLED"
 }
