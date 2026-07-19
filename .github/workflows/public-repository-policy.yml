@@ -1,0 +1,40 @@
+name: public-repository-policy
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-only:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Test public and open-source policy gates
+        run: python -m unittest tests.test_public_repository_policy tests.test_open_source_release -v
+
+      - name: Verify public visibility, licensing, and single-repository runtime
+        env:
+          GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+        run: |
+          python scripts/verify-public-only-repository.py \
+            --root . \
+            --visibility "$GITHUB_REPOSITORY_VISIBILITY"
+
+      - name: Verify active KNOWLEDGE-R17 CC0 release binding
+        env:
+          GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+        run: |
+          python scripts/verify-open-source-release.py \
+            --root . \
+            --visibility "$GITHUB_REPOSITORY_VISIBILITY"

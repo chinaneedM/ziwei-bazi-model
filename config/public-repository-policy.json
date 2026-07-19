@@ -1,0 +1,52 @@
+{
+  "schema": "PUBLIC-REPOSITORY-POLICY-V1",
+  "status": "ACTIVE",
+  "project_mode": "COMPLETE_OPEN_SOURCE",
+  "required_repository_visibility": "public",
+  "single_repository_runtime": true,
+  "required_software_license": "Apache-2.0",
+  "open_source_release_contract_path": "config/open-source-release.json",
+  "legacy_quarantine_manifest_path": "config/legacy-public-migration-quarantine.json",
+  "legacy_quarantine_required_status": "ACTIVE_READ_ONLY_QUARANTINE",
+  "required_open_source_files": [
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "CONTRIBUTING.md",
+    "GOVERNANCE.md",
+    "SECURITY.md",
+    "docs/open-source-architecture.md",
+    "licenses/README.md",
+    "licenses/knowledge-pack-manifest.schema.json",
+    "config/open-source-release.json",
+    "config/legacy-public-migration-quarantine.json"
+  ],
+  "public_encrypted_answer_root": "public-answer-vault/encrypted",
+  "allowed_answer_secret_names": [
+    "FORTUNE_PUBLIC_ANSWER_KEY"
+  ],
+  "forbidden_literals": [
+    "chinaneedM/fortune-answer-vault",
+    "FORTUNE_ANSWER_VAULT_TOKEN",
+    "ANSWER_VAULT_TOKEN",
+    "checkout isolated answer vault",
+    "private answer vault"
+  ],
+  "active_scan_roots": [
+    ".github/workflows",
+    "src",
+    "scripts",
+    "runtime",
+    "config",
+    "pyproject.toml"
+  ],
+  "plaintext_answer_repository_patterns": [
+    "public-answer-vault/**/*.json",
+    "public-answer-vault/**/*.txt"
+  ],
+  "allowed_public_answer_patterns": [
+    "public-answer-vault/README.md",
+    "public-answer-vault/encrypted/*.json.fernet"
+  ],
+  "formal_release_requires_open_knowledge_manifests": true
+}

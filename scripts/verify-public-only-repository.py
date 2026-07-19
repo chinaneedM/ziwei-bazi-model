@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import fnmatch
+import json
+import os
+import re
+import tomllib
+from pathlib import Path
+from typing import Any
+
+POLICY_PATH = Path("config/public-repository-policy.json")
+SECRET_PATTERN = re.compile(r"secrets\.([A-Z0-9_]+)")
+REPOSITORY_FIELD_PATTERN = re.compile(r"^\s*repository:\s*(.+?)\s*$")
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def iter_files(root: Path, configured: list[str]) -> list[Path]:
+    files: list[Path] = []
+    for raw in configured:
+        path = root / raw
+        if path.is_file():
+            files.append(path)
+        elif path.is_dir():
+            files.extend(p for p in path.rglob("*") if p.is_file())
+    return sorted(set(files))
+
+
+def relative(root: Path, path: Path) -> str:
+    return path.resolve().relative_to(root.resolve()).as_posix()
+
+
+def verify(root: Path, visibility: str) -> dict[str, Any]:
+    root = root.resolve()
+    policy_path = root / POLICY_PATH
+    if not policy_path.is_file():
+        raise SystemExit("public repository policy missing")
+    policy = read_json(policy_path)
+    failures: list[dict[str, str]] = []
+
+    required_visibility = policy.get("required_repository_visibility")
+    if visibility != required_visibility:
+        failures.append({
+            "code": "REPOSITORY_VISIBILITY_NOT_PUBLIC",
+            "path": ".",
+            "detail": f"actual={visibility} required={required_visibility}",
+        })
+
+    if policy.get("project_mode") != "COMPLETE_OPEN_SOURCE":
+        failures.append({
+            "code": "PROJECT_MODE_NOT_COMPLETE_OPEN_SOURCE",
+            "path": str(POLICY_PATH),
+            "detail": str(policy.get("project_mode")),
+        })
+
+    for raw in policy.get("required_open_source_files", []):
+        path = root / str(raw)
+        if not path.is_file():
+            failures.append({
+                "code": "REQUIRED_OPEN_SOURCE_FILE_MISSING",
+                "path": str(raw),
+                "detail": "missing",
+            })
+
+    pyproject_path = root / "pyproject.toml"
+    if not pyproject_path.is_file():
+        failures.append({"code": "PYPROJECT_MISSING", "path": "pyproject.toml", "detail": "missing"})
+    else:
+        project = tomllib.loads(pyproject_path.read_text(encoding="utf-8")).get("project", {})
+        required_license = policy.get("required_software_license")
+        if project.get("license") != required_license:
+            failures.append({
+                "code": "PACKAGE_LICENSE_METADATA_MISMATCH",
+                "path": "pyproject.toml",
+                "detail": f"actual={project.get('license')} required={required_license}",
+            })
+
+    release_contract = root / str(policy.get("open_source_release_contract_path", ""))
+    if not release_contract.is_file():
+        failures.append({
+            "code": "OPEN_SOURCE_RELEASE_CONTRACT_MISSING",
+            "path": str(policy.get("open_source_release_contract_path", "")),
+            "detail": "missing",
+        })
+
+    quarantine_paths: set[str] = set()
+    quarantine_raw = str(policy.get("legacy_quarantine_manifest_path", ""))
+    quarantine_path = root / quarantine_raw
+    if not quarantine_raw or not quarantine_path.is_file():
+        failures.append({
+            "code": "LEGACY_QUARANTINE_MANIFEST_MISSING",
+            "path": quarantine_raw or "<unset>",
+            "detail": "missing",
+        })
+    else:
+        quarantine = read_json(quarantine_path)
+        required_quarantine_status = policy.get("legacy_quarantine_required_status")
+        if quarantine.get("schema") != "LEGACY-PUBLIC-MIGRATION-QUARANTINE-V1":
+            failures.append({
+                "code": "LEGACY_QUARANTINE_SCHEMA_INVALID",
+                "path": quarantine_raw,
+                "detail": str(quarantine.get("schema")),
+            })
+        if quarantine.get("status") != required_quarantine_status:
+            failures.append({
+                "code": "LEGACY_QUARANTINE_STATUS_INVALID",
+                "path": quarantine_raw,
+                "detail": f"actual={quarantine.get('status')} required={required_quarantine_status}",
+            })
+        rows = quarantine.get("paths", [])
+        if not isinstance(rows, list) or not rows:
+            failures.append({
+                "code": "LEGACY_QUARANTINE_PATHS_MISSING",
+                "path": quarantine_raw,
+                "detail": "empty",
+            })
+        else:
+            for raw in rows:
+                rel = str(raw)
+                candidate = (root / rel).resolve()
+                try:
+                    candidate.relative_to(root)
+                except ValueError:
+                    failures.append({
+                        "code": "LEGACY_QUARANTINE_PATH_ESCAPE",
+                        "path": rel,
+                        "detail": "outside repository",
+                    })
+                    continue
+                if rel.startswith(".github/workflows/") or rel.startswith("scripts/") or rel == "pyproject.toml":
+                    failures.append({
+                        "code": "ACTIVE_EXECUTION_PATH_CANNOT_BE_QUARANTINED",
+                        "path": rel,
+                        "detail": "workflow, script, and package metadata must remain fully scanned",
+                    })
+                    continue
+                if not candidate.is_file():
+                    failures.append({
+                        "code": "LEGACY_QUARANTINE_FILE_MISSING",
+                        "path": rel,
+                        "detail": "missing",
+                    })
+                    continue
+                quarantine_paths.add(rel)
+
+    forbidden = [str(value) for value in policy.get("forbidden_literals", [])]
+    allowed_secrets = set(str(value) for value in policy.get("allowed_answer_secret_names", []))
+    scan_files = iter_files(root, list(policy.get("active_scan_roots", [])))
+    scanned_active_count = 0
+    for path in scan_files:
+        rel = relative(root, path)
+        if rel == POLICY_PATH.as_posix() or rel in quarantine_paths:
+            continue
+        scanned_active_count += 1
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        for literal in forbidden:
+            if literal and literal in text:
+                failures.append({"code": "FORBIDDEN_PRIVATE_REPOSITORY_REFERENCE", "path": rel, "detail": literal})
+        for secret in SECRET_PATTERN.findall(text):
+            if "ANSWER" in secret and secret not in allowed_secrets:
+                failures.append({"code": "FORBIDDEN_ANSWER_SECRET", "path": rel, "detail": secret})
+        if rel.startswith(".github/workflows/"):
+            for line_number, line in enumerate(text.splitlines(), 1):
+                match = REPOSITORY_FIELD_PATTERN.match(line)
+                if not match:
+                    continue
+                value = match.group(1).strip().strip("'\"")
+                if value not in {"${{ github.repository }}", "${{github.repository}}"}:
+                    failures.append({
+                        "code": "CROSS_REPOSITORY_CHECKOUT_FORBIDDEN",
+                        "path": rel,
+                        "detail": f"line={line_number} repository={value}",
+                    })
+
+    vault_root = root / "public-answer-vault"
+    allowed_patterns = list(policy.get("allowed_public_answer_patterns", []))
+    forbidden_patterns = list(policy.get("plaintext_answer_repository_patterns", []))
+    if vault_root.exists():
+        for path in vault_root.rglob("*"):
+            if not path.is_file():
+                continue
+            rel = relative(root, path)
+            allowed = any(fnmatch.fnmatch(rel, pattern) for pattern in allowed_patterns)
+            forbidden_match = any(fnmatch.fnmatch(rel, pattern) for pattern in forbidden_patterns)
+            if forbidden_match and not allowed:
+                failures.append({"code": "PLAINTEXT_ANSWER_FILE_FORBIDDEN", "path": rel, "detail": "public vault accepts encrypted envelopes only"})
+            if path.is_symlink():
+                failures.append({"code": "PUBLIC_ANSWER_SYMLINK_FORBIDDEN", "path": rel, "detail": "symlink"})
+
+    result = {
+        "schema": "PUBLIC-ONLY-REPOSITORY-VERIFICATION-V1",
+        "status": "PASS" if not failures else "FAIL",
+        "project_mode": policy.get("project_mode"),
+        "repository_visibility": visibility,
+        "software_license": policy.get("required_software_license"),
+        "single_repository_runtime": policy.get("single_repository_runtime") is True,
+        "scanned_file_count": len(scan_files),
+        "scanned_active_file_count": scanned_active_count,
+        "legacy_quarantine_count": len(quarantine_paths),
+        "legacy_quarantine_status": "PASS" if quarantine_paths else "FAIL",
+        "failure_count": len(failures),
+        "failures": failures,
+    }
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+    return result
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", default=".")
+    parser.add_argument("--visibility", default=os.environ.get("GITHUB_REPOSITORY_VISIBILITY", "unknown"))
+    args = parser.parse_args()
+    result = verify(Path(args.root), str(args.visibility).lower())
+    return 0 if result["status"] == "PASS" else 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

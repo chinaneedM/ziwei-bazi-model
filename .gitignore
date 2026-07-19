@@ -15,3 +15,11 @@ runtime_build/*
 !runtime_build/knowledge-locator-index-validation.json
 knowledge/staged/*
 !knowledge/staged/.gitkeep
+
+# Public repository answer isolation: encrypted envelopes only.
+public-answer-vault/**
+!public-answer-vault/README.md
+!public-answer-vault/encrypted/
+!public-answer-vault/encrypted/*.json.fernet
+*.answer-key
+*.decrypted-answer.json

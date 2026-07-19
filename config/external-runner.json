@@ -23,6 +23,16 @@
     "fallback_policy": "FAIL_CLOSED_NO_PROJECT_UPLOAD_FALLBACK",
     "repository_only_shadow_validation_status": "NOT_YET_EXECUTED"
   },
+  "freeze_gate": {
+    "status": "ENFORCED",
+    "required_receipt_schema": "CHAT-WORK-PREDICTION-HANDOFF-RECEIPT-V1",
+    "origin_validation_schema": "CHAT-WORK-HANDOFF-VALIDATION-V1",
+    "prediction_hash_replay_required": true,
+    "contract_hash_replay_required": true,
+    "identity_and_binding_replay_required": true,
+    "group_freeze_before_reveal_required": true,
+    "answer_access_before_group_freeze": false
+  },
   "contamination_quarantine": {
     "policy_path": "governance/runtime-contamination-policy-v1.json",
     "policy_object_hash": "76eecdfcf71f68ed83367141100a8d0cb1174fdb12f3db743168a2a864d7ac2a",
