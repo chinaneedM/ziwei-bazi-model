@@ -52,7 +52,6 @@ def main() -> int:
             args.group_run_id,
             args.session_id,
             args.mode,
-            args.run_purpose,
         )
         result = harden_clean_start(legacy)
     elif args.command == "prepare-request":
@@ -62,6 +61,7 @@ def main() -> int:
             args.group_run_id,
             args.session_id,
             args.mode,
+            args.run_purpose,
         )
     elif args.command == "create-from-request":
         legacy = create_group_clean_start_from_bootstrap_request(

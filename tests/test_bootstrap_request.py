@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import json
 import os
+import runpy
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from fortune_v1.bootstrap_request import (
     PREAUTHORIZED_REQUEST_SCHEMA,
@@ -126,6 +129,30 @@ class BootstrapRequestTests(unittest.TestCase):
             result = create_group_clean_start_from_bootstrap_request(request_path, pointer)
             self.assertEqual(result["start_request_receipt"]["run_purpose"], "TRAINING_REPLAY")
             self.assertEqual(result["start_request_receipt"]["new_first_blind_score_eligibility"], "NONE")
+
+    def test_prepare_request_cli_forwards_training_replay_purpose(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pointer = self.fixture(root)
+            request_path = root / "runtime" / "clean-start-requests" / "RUN-CLI-REPLAY.json"
+            script = Path(__file__).parents[1] / "scripts" / "create-staged-group-clean-start.py"
+            argv = [
+                str(script),
+                "prepare-request",
+                "--current-group-manifest", str(pointer),
+                "--output", str(request_path),
+                "--group-run-id", "RUN-CLI-REPLAY",
+                "--session-id", "SESSION-CLI-REPLAY",
+                "--mode", "WORK",
+                "--run-purpose", "TRAINING_REPLAY",
+            ]
+            with patch.object(sys, "argv", argv):
+                with self.assertRaises(SystemExit) as caught:
+                    runpy.run_path(str(script), run_name="__main__")
+            self.assertEqual(caught.exception.code, 0)
+            request = json.loads(request_path.read_text(encoding="utf-8"))
+            self.assertEqual(request["run_purpose"], "TRAINING_REPLAY")
+            self.assertEqual(request["new_first_blind_score_eligibility"], "NONE")
 
     def test_exact_commit_runtime_preflight_is_bound_into_clean_start(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
