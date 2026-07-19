@@ -1,0 +1,31 @@
+{
+  "schema": "OPEN-SOURCE-RELEASE-CONTRACT-V1",
+  "status": "HOLD_KNOWLEDGE_PACK_RIGHTS_REVIEW",
+  "software_license": "Apache-2.0",
+  "repository_visibility_required": "public",
+  "single_public_repository_required": true,
+  "required_project_files": [
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "CONTRIBUTING.md",
+    "GOVERNANCE.md",
+    "SECURITY.md",
+    "docs/open-source-architecture.md",
+    "licenses/README.md",
+    "licenses/knowledge-pack-manifest.schema.json"
+  ],
+  "active_knowledge_pack_manifests": [],
+  "knowledge_pack_release_rule": "EVERY_ACTIVE_PACK_MUST_PASS_PUBLIC_DISTRIBUTION",
+  "current_knowledge_release_public_distribution_status": "NOT_VERIFIED",
+  "formal_open_source_release_allowed": false,
+  "release_unblock_requirements": [
+    "REPOSITORY_VISIBILITY_PUBLIC",
+    "ALL_REQUIRED_PROJECT_FILES_PRESENT",
+    "PACKAGE_LICENSE_METADATA_APACHE_2_0",
+    "EVERY_ACTIVE_KNOWLEDGE_PACK_HAS_EXACT_FILE_HASH_AND_RIGHTS_MANIFEST",
+    "EVERY_ACTIVE_KNOWLEDGE_PACK_STATUS_PASS_PUBLIC_DISTRIBUTION",
+    "PUBLIC_POLICY_TESTS_PASS",
+    "SYNTHETIC_END_TO_END_RECEIPT_PASS"
+  ]
+}
