@@ -9,12 +9,6 @@ on:
     paths:
       - 'runtime/runtime-packet-requests/*.json'
       - 'runtime/runtime-packet-pr-requests/*.json'
-      - 'scripts/create-staged-group-runtime-packets.py'
-      - 'src/fortune_v1/staged_access.py'
-      - 'src/fortune_v1/end_to_end.py'
-      - 'tests/test_staged_access.py'
-      - 'tests/test_end_to_end_pipeline.py'
-      - '.github/workflows/repository-group-runtime-packets.yml'
   pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
@@ -139,7 +133,6 @@ jobs:
                   raise SystemExit('postblind release receipt is not required')
               if not body.get('withheld_path_hashes'):
                   raise SystemExit('withheld path hashes missing')
-              allowed = set(body.get('exact_allowed_paths', []))
               for generated in body.get('generated_paths', []):
                   if not Path(generated).is_file():
                       raise SystemExit(f'missing generated path: {generated}')
