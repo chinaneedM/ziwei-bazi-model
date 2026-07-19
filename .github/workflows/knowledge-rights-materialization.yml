@@ -1,0 +1,154 @@
+name: knowledge-rights-materialization
+
+on:
+  push:
+    paths:
+      - 'runtime/knowledge-rights-requests/*.json'
+  workflow_dispatch:
+    inputs:
+      request_path:
+        description: 'Exact runtime/knowledge-rights-requests/*.json path'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: knowledge-rights-materialization-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  materialize-and-verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Resolve exact rights requests
+        shell: bash
+        env:
+          MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+        run: |
+          set -euo pipefail
+          : > /tmp/knowledge-rights-requests.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            request="${MANUAL_REQUEST_PATH}"
+            case "$request" in
+              runtime/knowledge-rights-requests/*.json) ;;
+              *) echo "invalid manual request path: $request" >&2; exit 1 ;;
+            esac
+            test -f "$request"
+            printf '%s\n' "$request" > /tmp/knowledge-rights-requests.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/knowledge-rights-requests/*.json' \
+              | sort -u > /tmp/knowledge-rights-requests.txt
+            test -s /tmp/knowledge-rights-requests.txt
+          fi
+
+      - name: Materialize exact active-release CC0 manifests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/open-source-migration/knowledge-rights
+          while IFS= read -r request_path; do
+            python - <<'PY' "$request_path" > /tmp/rights-request.env
+          import json
+          import shlex
+          import sys
+          from pathlib import Path
+
+          request_path = Path(sys.argv[1])
+          request = json.loads(request_path.read_text(encoding='utf-8'))
+          if request.get('schema') != 'KNOWLEDGE-RIGHTS-MATERIALIZATION-REQUEST-V1':
+              raise SystemExit('request schema invalid')
+          if request.get('status') != 'REQUESTED':
+              raise SystemExit('request status invalid')
+          if request.get('knowledge_release_id') != 'KNOWLEDGE-R17':
+              raise SystemExit('request release invalid')
+          if request.get('selection') != 'A2' or request.get('license_expression') != 'CC0-1.0':
+              raise SystemExit('request license instruction invalid')
+          fields = {
+              'REQUEST_ID': request['request_id'],
+              'DECLARATION': request['rights_declaration_path'],
+              'NOTICE': request['notice_path'],
+              'OUTPUT': request['license_manifest_path'],
+              'RECEIPT': request['materialization_receipt_path'],
+          }
+          for key, value in fields.items():
+              print(f'{key}={shlex.quote(str(value))}')
+          PY
+            source /tmp/rights-request.env
+            generated_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            python scripts/materialize-active-knowledge-cc0.py \
+              --root . \
+              --declaration "$DECLARATION" \
+              --notice "$NOTICE" \
+              --output "$OUTPUT" \
+              --receipt "$RECEIPT" \
+              --generated-at "$generated_at" \
+              --code-commit "$GITHUB_SHA" \
+              > "reports/open-source-migration/knowledge-rights/${REQUEST_ID}-materializer-output.json"
+          done < /tmp/knowledge-rights-requests.txt
+
+      - name: Verify formal open-source rights gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify-open-source-release.py \
+            --root . \
+            --visibility public \
+            > reports/open-source-migration/knowledge-rights/open-source-release-verification.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('reports/open-source-migration/knowledge-rights/open-source-release-verification.json')
+          receipt = json.loads(path.read_text(encoding='utf-8'))
+          if receipt.get('status') != 'PASS':
+              raise SystemExit(f'open-source release verifier failed: {receipt}')
+          if receipt.get('active_knowledge_release_id') != 'KNOWLEDGE-R17':
+              raise SystemExit('verified wrong active release')
+          if receipt.get('checked_manifest_count') != 1:
+              raise SystemExit('unexpected license manifest count')
+          if receipt.get('checked_knowledge_file_count') != 20:
+              raise SystemExit('unexpected knowledge file count')
+          PY
+
+      - name: Enforce write allowlist
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json \
+            reports/open-source-migration/knowledge-rights
+          changed="$(git diff --cached --name-only)"
+          test -n "$changed"
+          while IFS= read -r path; do
+            case "$path" in
+              licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json) ;;
+              reports/open-source-migration/knowledge-rights/*.json) ;;
+              *) echo "forbidden knowledge-rights write: $path" >&2; exit 1 ;;
+            esac
+          done <<< "$changed"
+
+      - name: Commit immutable knowledge-rights objects
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Materialize KNOWLEDGE-R17 CC0 rights manifest'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
