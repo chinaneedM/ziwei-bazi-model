@@ -4,14 +4,6 @@ on:
   push:
     paths:
       - 'runtime/group-freeze-requests/*.json'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/group-freeze-requests/*.json'
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/group-freeze-requests/*.json'
   workflow_dispatch:
     inputs:
       request_path:
@@ -23,20 +15,18 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-freeze-${{ github.event.pull_request.head.ref || github.ref }}
+  group: repository-group-freeze-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   freeze-group:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - name: Checkout exact request branch
+      - name: Checkout public runtime repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
 
       - name: Set up Python
@@ -51,8 +41,6 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/group-freeze-requests.txt
@@ -64,10 +52,6 @@ jobs:
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/group-freeze-requests.txt
-          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" || "${GITHUB_EVENT_NAME}" == "pull_request_target" ]]; then
-            git diff --name-only "${PR_BASE_SHA}...${PR_HEAD_SHA}" -- 'runtime/group-freeze-requests/*.json' \
-              | sort -u > /tmp/group-freeze-requests.txt
-            test -s /tmp/group-freeze-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/group-freeze-requests/*.json' \
               | sort -u > /tmp/group-freeze-requests.txt
@@ -166,8 +150,6 @@ jobs:
 
       - name: Commit immutable prediction freezes
         shell: bash
-        env:
-          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -178,4 +160,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Freeze group predictions before reveal'
-          git push origin "HEAD:${TARGET_BRANCH}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
