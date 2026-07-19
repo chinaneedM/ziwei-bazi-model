@@ -87,13 +87,75 @@ def verify(root: Path, visibility: str) -> dict[str, Any]:
             "detail": "missing",
         })
 
+    quarantine_paths: set[str] = set()
+    quarantine_raw = str(policy.get("legacy_quarantine_manifest_path", ""))
+    quarantine_path = root / quarantine_raw
+    if not quarantine_raw or not quarantine_path.is_file():
+        failures.append({
+            "code": "LEGACY_QUARANTINE_MANIFEST_MISSING",
+            "path": quarantine_raw or "<unset>",
+            "detail": "missing",
+        })
+    else:
+        quarantine = read_json(quarantine_path)
+        required_quarantine_status = policy.get("legacy_quarantine_required_status")
+        if quarantine.get("schema") != "LEGACY-PUBLIC-MIGRATION-QUARANTINE-V1":
+            failures.append({
+                "code": "LEGACY_QUARANTINE_SCHEMA_INVALID",
+                "path": quarantine_raw,
+                "detail": str(quarantine.get("schema")),
+            })
+        if quarantine.get("status") != required_quarantine_status:
+            failures.append({
+                "code": "LEGACY_QUARANTINE_STATUS_INVALID",
+                "path": quarantine_raw,
+                "detail": f"actual={quarantine.get('status')} required={required_quarantine_status}",
+            })
+        rows = quarantine.get("paths", [])
+        if not isinstance(rows, list) or not rows:
+            failures.append({
+                "code": "LEGACY_QUARANTINE_PATHS_MISSING",
+                "path": quarantine_raw,
+                "detail": "empty",
+            })
+        else:
+            for raw in rows:
+                rel = str(raw)
+                candidate = (root / rel).resolve()
+                try:
+                    candidate.relative_to(root)
+                except ValueError:
+                    failures.append({
+                        "code": "LEGACY_QUARANTINE_PATH_ESCAPE",
+                        "path": rel,
+                        "detail": "outside repository",
+                    })
+                    continue
+                if rel.startswith(".github/workflows/") or rel.startswith("scripts/") or rel == "pyproject.toml":
+                    failures.append({
+                        "code": "ACTIVE_EXECUTION_PATH_CANNOT_BE_QUARANTINED",
+                        "path": rel,
+                        "detail": "workflow, script, and package metadata must remain fully scanned",
+                    })
+                    continue
+                if not candidate.is_file():
+                    failures.append({
+                        "code": "LEGACY_QUARANTINE_FILE_MISSING",
+                        "path": rel,
+                        "detail": "missing",
+                    })
+                    continue
+                quarantine_paths.add(rel)
+
     forbidden = [str(value) for value in policy.get("forbidden_literals", [])]
     allowed_secrets = set(str(value) for value in policy.get("allowed_answer_secret_names", []))
     scan_files = iter_files(root, list(policy.get("active_scan_roots", [])))
+    scanned_active_count = 0
     for path in scan_files:
         rel = relative(root, path)
-        if rel == POLICY_PATH.as_posix():
+        if rel == POLICY_PATH.as_posix() or rel in quarantine_paths:
             continue
+        scanned_active_count += 1
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
@@ -140,6 +202,9 @@ def verify(root: Path, visibility: str) -> dict[str, Any]:
         "software_license": policy.get("required_software_license"),
         "single_repository_runtime": policy.get("single_repository_runtime") is True,
         "scanned_file_count": len(scan_files),
+        "scanned_active_file_count": scanned_active_count,
+        "legacy_quarantine_count": len(quarantine_paths),
+        "legacy_quarantine_status": "PASS" if quarantine_paths else "FAIL",
         "failure_count": len(failures),
         "failures": failures,
     }
