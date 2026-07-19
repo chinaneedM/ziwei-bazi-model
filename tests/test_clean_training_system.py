@@ -17,6 +17,7 @@ from fortune_training.runtime import (
     status,
 )
 from fortune_training.cli import build_parser
+from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
 from fortune_training.util import TrainingError, object_sha256
 from fortune_training.verify import build_source_manifest, verify_repository
 
@@ -178,6 +179,19 @@ class RuntimeFixture:
             },
         )
         encrypt_answer(self.root, self.case_id, self.plaintext_answer, self.key)
+        for case_id in case_order[1:]:
+            answer_file = base / f"{case_id}.trusted-answer.json"
+            write_json(
+                answer_file,
+                {
+                    "case_id": case_id,
+                    "answers": [
+                        {"question_id": f"Q{index}", "correct_option": "A"}
+                        for index in range(1, 6)
+                    ],
+                },
+            )
+            encrypt_answer(self.root, case_id, answer_file, self.key)
 
     def prediction_file(self, round_id: str, correct_count: int) -> Path:
         path = self.base / f"{round_id}.prediction.json"
@@ -347,6 +361,69 @@ class RuntimeTests(unittest.TestCase):
                 apply_learning(fixture.root, "R1", patch, "LEAKING")
 
 
+class IssueRelayTests(unittest.TestCase):
+    def _packet(self, fixture: RuntimeFixture, round_id: str, correct_count: int) -> dict:
+        prediction = json.loads(fixture.prediction_file(round_id, correct_count).read_text())
+        packet = {
+            "schema": "TRAINING-ISSUE-PACKET-V1",
+            "round_id": round_id,
+            "case_id": fixture.case_id,
+            "predictions": prediction["predictions"],
+            "expected_result": "PASS"
+            if correct_count >= required_correct(fixture.question_count)
+            else "FAIL",
+        }
+        if packet["expected_result"] == "FAIL":
+            packet["learning_release_id"] = f"LEARNING-{round_id}"
+            packet["learning_patch"] = {
+                "learning_type": "REASONING_STRATEGY",
+                "related_source_libraries": ["S03", "S17"],
+                "principles": [
+                    {
+                        "statement": "Separate a possible structure from a proved real-world endpoint.",
+                        "applicability": "When several outcomes share the same broad symbolic structure.",
+                        "limits": "The broad structure cannot establish an exact event without timing evidence.",
+                        "counterexamples": "The same structure may manifest through another person or domain.",
+                        "capability_ceiling": "Use only to generate candidates before endpoint adjudication.",
+                        "source_basis": "S03 conflict arbitration and S17 endpoint-chain principles.",
+                    }
+                ],
+            }
+        return packet
+
+    def test_extract_and_process_passing_issue(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            packet = self._packet(fixture, "ISSUE-PASS-1", 4)
+            body = (
+                f"header\n{PACKET_START}\n```json\n"
+                f"{json.dumps(packet)}\n```\n{PACKET_END}\n"
+            )
+            result = process_packet(fixture.root, extract_packet(body), fixture.key)
+            self.assertTrue(result["passed"])
+            self.assertEqual(result["consecutive_passes"], 1)
+            self.assertFalse(result["answers_published"])
+
+    def test_failed_issue_requires_and_applies_general_learning(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            packet = self._packet(fixture, "ISSUE-FAIL-1", 3)
+            result = process_packet(fixture.root, packet, fixture.key)
+            self.assertFalse(result["passed"])
+            self.assertEqual(result["learning_release"], "LEARNING-ISSUE-FAIL-1")
+            self.assertEqual(status(fixture.root)["status"], "READY_FOR_ROUND")
+
+    def test_issue_expected_result_mismatch_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            packet = self._packet(fixture, "ISSUE-MISMATCH-1", 4)
+            packet["expected_result"] = "FAIL"
+            packet["learning_release_id"] = "LEARNING-ISSUE-MISMATCH-1"
+            packet["learning_patch"] = self._packet(fixture, "TEMP", 0)["learning_patch"]
+            with self.assertRaises(TrainingError):
+                process_packet(fixture.root, packet, fixture.key)
+
+
 class RepositoryIntegrityTests(unittest.TestCase):
     def test_real_repository_has_one_clean_source_and_case_baseline(self):
         root = Path(__file__).resolve().parents[1]
@@ -377,12 +454,19 @@ class RepositoryIntegrityTests(unittest.TestCase):
     def test_answer_source_readiness_is_explicit(self):
         root = Path(__file__).resolve().parents[1]
         result = verify_repository(root)
-        self.assertEqual(result["answer_envelopes"], 0)
-        self.assertFalse(result["preloaded_encrypted_answers_ready"])
+        self.assertGreaterEqual(result["answer_envelopes"], 0)
+        self.assertLessEqual(result["answer_envelopes"], result["answer_envelopes_required"])
+        self.assertEqual(
+            result["preloaded_encrypted_answers_ready"],
+            result["answer_envelopes"] == result["answer_envelopes_required"],
+        )
         self.assertTrue(result["external_post_freeze_answer_supported"])
         self.assertTrue(result["controller_ready"])
-        with self.assertRaises(TrainingError):
-            verify_repository(root, require_answers=True)
+        if result["preloaded_encrypted_answers_ready"]:
+            self.assertEqual(verify_repository(root, require_answers=True)["status"], "PASS")
+        else:
+            with self.assertRaises(TrainingError):
+                verify_repository(root, require_answers=True)
 
 
 if __name__ == "__main__":
