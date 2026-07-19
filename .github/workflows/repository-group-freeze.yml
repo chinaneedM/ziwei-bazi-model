@@ -86,6 +86,40 @@ jobs:
             test -f "$request"
           done < /tmp/group-freeze-requests.txt
 
+      - name: Validate exact run-local freeze paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          for request_path in Path('/tmp/group-freeze-requests.txt').read_text(encoding='utf-8').splitlines():
+              request = json.loads(Path(request_path).read_text(encoding='utf-8'))
+              if request.get('schema') != 'GROUP-PREDICTION-FREEZE-REQUEST-V1' or request.get('status') != 'REQUESTED':
+                  raise SystemExit(f'invalid freeze request: {request_path}')
+              group_run_id = request.get('group_run_id')
+              run_root = Path('data/group-clean-starts') / group_run_id
+              expected_access = run_root / 'group-postblind-access.json'
+              if Path(request.get('group_postblind_access_path', '')) != expected_access:
+                  raise SystemExit(f'postblind access path mismatch: {request_path}')
+              if Path(request.get('output_root', '')) != run_root:
+                  raise SystemExit(f'freeze output root mismatch: {request_path}')
+              rows = request.get('case_prediction_bundles', [])
+              if not rows:
+                  raise SystemExit(f'prediction bundle rows missing: {request_path}')
+              seen = set()
+              for row in rows:
+                  case_id = row.get('case_id')
+                  prediction = Path(row.get('prediction_bundle_path', ''))
+                  expected = run_root / 'postblind-predictions' / f'{case_id}.json'
+                  if prediction != expected:
+                      raise SystemExit(f'prediction path mismatch: {prediction} != {expected}')
+                  if case_id in seen:
+                      raise SystemExit(f'duplicate case prediction: {case_id}')
+                  seen.add(case_id)
+          PY
+
       - name: Run freeze gate tests
         run: python -m unittest tests.test_end_to_end_pipeline -v
 
