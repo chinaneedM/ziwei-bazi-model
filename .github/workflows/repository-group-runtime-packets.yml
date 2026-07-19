@@ -4,16 +4,6 @@ on:
   push:
     paths:
       - 'runtime/runtime-packet-requests/*.json'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/runtime-packet-requests/*.json'
-      - 'runtime/runtime-packet-pr-requests/*.json'
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/runtime-packet-requests/*.json'
-      - 'runtime/runtime-packet-pr-requests/*.json'
   workflow_dispatch:
     inputs:
       request_path:
@@ -25,20 +15,18 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-runtime-packets-${{ github.event.pull_request.head.ref || github.ref }}
+  group: repository-group-runtime-packets-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   build-runtime-packets:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Checkout exact request branch
+      - name: Checkout public runtime repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
 
       - name: Set up Python
@@ -53,25 +41,17 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/runtime-packet-requests.txt
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
             request="${MANUAL_REQUEST_PATH}"
             case "$request" in
-              runtime/runtime-packet-requests/*.json|runtime/runtime-packet-pr-requests/*.json) ;;
+              runtime/runtime-packet-requests/*.json) ;;
               *) echo "invalid manual request path: $request" >&2; exit 1 ;;
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/runtime-packet-requests.txt
-          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" || "${GITHUB_EVENT_NAME}" == "pull_request_target" ]]; then
-            git diff --name-only "${PR_BASE_SHA}...${PR_HEAD_SHA}" -- \
-              'runtime/runtime-packet-requests/*.json' \
-              'runtime/runtime-packet-pr-requests/*.json' \
-              | sort -u > /tmp/runtime-packet-requests.txt
-            test -s /tmp/runtime-packet-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- \
               'runtime/runtime-packet-requests/*.json' \
@@ -80,7 +60,7 @@ jobs:
           fi
           while IFS= read -r request; do
             case "$request" in
-              runtime/runtime-packet-requests/*.json|runtime/runtime-packet-pr-requests/*.json) ;;
+              runtime/runtime-packet-requests/*.json) ;;
               *) echo "invalid request path: $request" >&2; exit 1 ;;
             esac
             test -f "$request"
@@ -143,8 +123,6 @@ jobs:
 
       - name: Commit immutable staged runtime packets
         shell: bash
-        env:
-          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -155,4 +133,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Materialize staged group runtime packets'
-          git push origin "HEAD:${TARGET_BRANCH}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
