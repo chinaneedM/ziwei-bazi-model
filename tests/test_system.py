@@ -306,8 +306,10 @@ class FortuneSystemTests(unittest.TestCase):
         one = record_patch_round(group_root, 0, 0, "D1")
         self.assertEqual(one["status"], "RETESTING")
         two = record_patch_round(group_root, 0, 0, "D1")
-        self.assertEqual(two["status"], "GROUP_HOLD")
-        self.assertIn("NO_IMPROVEMENT_LIMIT", two["hold_reasons"])
+        self.assertEqual(two["status"], "METHOD_RETHINK_REQUIRED")
+        self.assertEqual(two["next_learning_phase"], "DECOMPOSE")
+        self.assertTrue(two["training_continues"])
+        self.assertEqual(two["hold_reasons"], [])
 
 
 if __name__ == "__main__":

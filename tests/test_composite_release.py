@@ -173,7 +173,9 @@ class CompositeKnowledgeReleaseTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest, container, _ = self.gzip_fixture(root)
-            container.write_bytes(container.read_bytes()[:-4] + b"AAAA")
+            tampered = bytearray(container.read_bytes())
+            tampered[-1] ^= 1
+            container.write_bytes(bytes(tampered))
             output = root / "knowledge" / "candidates" / "K-R17-GZIP-materialized"
             with self.assertRaises(FortuneError) as context:
                 materialize_knowledge_release(manifest, root, output)
