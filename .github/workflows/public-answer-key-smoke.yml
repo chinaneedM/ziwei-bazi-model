@@ -1,0 +1,124 @@
+name: public-answer-key-smoke
+
+on:
+  push:
+    paths:
+      - 'runtime/public-answer-key-smoke-requests/*.json'
+  workflow_dispatch:
+    inputs:
+      request_path:
+        description: 'Exact runtime/public-answer-key-smoke-requests/*.json path'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: public-answer-key-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-secret-runtime-use:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime
+        run: python -m pip install -e .
+
+      - name: Resolve exact smoke requests
+        shell: bash
+        env:
+          MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+        run: |
+          set -euo pipefail
+          : > /tmp/public-answer-key-smoke-requests.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            request="${MANUAL_REQUEST_PATH}"
+            case "$request" in
+              runtime/public-answer-key-smoke-requests/*.json) ;;
+              *) echo "invalid manual request path: $request" >&2; exit 1 ;;
+            esac
+            test -f "$request"
+            printf '%s\n' "$request" > /tmp/public-answer-key-smoke-requests.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/public-answer-key-smoke-requests/*.json' \
+              | sort -u > /tmp/public-answer-key-smoke-requests.txt
+            test -s /tmp/public-answer-key-smoke-requests.txt
+          fi
+
+      - name: Validate configured key with in-memory synthetic roundtrip
+        shell: bash
+        env:
+          FORTUNE_PUBLIC_ANSWER_KEY: ${{ secrets.FORTUNE_PUBLIC_ANSWER_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$FORTUNE_PUBLIC_ANSWER_KEY"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from cryptography.fernet import Fernet
+
+          key_text = os.environ['FORTUNE_PUBLIC_ANSWER_KEY']
+          cipher = Fernet(key_text.encode('ascii'))
+          payload = b'FORTUNE-PUBLIC-ANSWER-KEY-SMOKE-V1'
+          token = cipher.encrypt(payload)
+          if cipher.decrypt(token) != payload:
+              raise SystemExit('synthetic roundtrip mismatch')
+
+          for request_name in Path('/tmp/public-answer-key-smoke-requests.txt').read_text(encoding='utf-8').splitlines():
+              request_path = Path(request_name)
+              request = json.loads(request_path.read_text(encoding='utf-8'))
+              if request.get('schema') != 'PUBLIC-ANSWER-KEY-SMOKE-REQUEST-V1':
+                  raise SystemExit(f'invalid schema: {request_path}')
+              if request.get('status') != 'REQUESTED':
+                  raise SystemExit(f'invalid status: {request_path}')
+              request_id = request.get('request_id')
+              if not isinstance(request_id, str) or not request_id:
+                  raise SystemExit(f'invalid request id: {request_path}')
+              output = Path('reports/open-source-migration/public-answer-key-smoke') / f'{request_id}.json'
+              if output.exists():
+                  raise SystemExit(f'immutable receipt already exists: {output}')
+              output.parent.mkdir(parents=True, exist_ok=True)
+              receipt = {
+                  'schema': 'PUBLIC-ANSWER-KEY-SMOKE-RECEIPT-V1',
+                  'status': 'PASS',
+                  'request_id': request_id,
+                  'repository_visibility_required': 'public',
+                  'secret_present': True,
+                  'fernet_key_accepted': True,
+                  'synthetic_roundtrip': 'PASS',
+                  'secret_value_recorded': False,
+                  'secret_fingerprint_recorded': False,
+                  'ciphertext_recorded': False,
+                  'plaintext_answer_used': False,
+                  'formal_training_permission': 'BLOCKED_PENDING_SYNTHETIC_END_TO_END_AND_KNOWLEDGE_RIGHTS_GATES',
+              }
+              rendered = json.dumps(receipt, ensure_ascii=False, sort_keys=True, indent=2) + '\n'
+              if key_text in rendered:
+                  raise SystemExit('secret appeared in receipt')
+              output.write_text(rendered, encoding='utf-8')
+          PY
+
+      - name: Commit immutable smoke receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add reports/open-source-migration/public-answer-key-smoke
+          test -n "$(git diff --cached --name-only)"
+          git commit -m 'Validate public answer key runtime use'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
