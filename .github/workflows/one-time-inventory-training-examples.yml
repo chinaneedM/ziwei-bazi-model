@@ -1,0 +1,89 @@
+name: one-time-inventory-training-examples
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-inventory-training-examples.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  inventory-and-remove-self:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Inventory possible training examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/training-example-inventory
+          python - <<'PY'
+          import hashlib
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path('.')
+          binary_exts = {'.rar', '.zip', '.7z', '.tar', '.gz', '.png', '.jpg', '.jpeg', '.webp', '.pdf'}
+          keywords = ('例题', 'example', 'training', 'case', '题目', '答案', 'answer', 'fixture')
+          rows = []
+          for path in sorted(p for p in root.rglob('*') if p.is_file()):
+              if '.git' in path.parts:
+                  continue
+              rel = path.as_posix()
+              lower = rel.lower()
+              matched = [word for word in keywords if word.lower() in lower]
+              binary = path.suffix.lower() in binary_exts
+              if not matched and not binary:
+                  continue
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              rows.append({
+                  'path': rel,
+                  'name': path.name,
+                  'suffix': path.suffix.lower(),
+                  'byte_length': path.stat().st_size,
+                  'sha256': digest,
+                  'keyword_matches': matched,
+                  'binary_or_archive': binary,
+              })
+
+          likely_examples = []
+          for row in rows:
+              path = row['path'].lower()
+              name = row['name'].lower()
+              score = 0
+              if '例题' in row['path'] or 'example' in path: score += 4
+              if re.search(r'(?:case|example|例题)[-_ ]*[1-5](?:\D|$)', name, re.I): score += 5
+              if row['suffix'] in {'.rar', '.zip', '.7z'}: score += 3
+              if 'training' in path or 'case' in path: score += 2
+              if score >= 4:
+                  likely_examples.append({**row, 'likelihood_score': score})
+
+          result = {
+              'schema': 'TRAINING-EXAMPLE-REPOSITORY-INVENTORY-V1',
+              'status': 'PASS',
+              'scanned_match_count': len(rows),
+              'likely_example_count': len(likely_examples),
+              'likely_examples': sorted(likely_examples, key=lambda r: (-r['likelihood_score'], r['path'])),
+              'all_matches': rows,
+          }
+          out = Path('reports/training-example-inventory/current-main-inventory.json')
+          out.write_text(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Remove one-time workflow and commit inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-inventory-training-examples.yml
+          git add reports/training-example-inventory/current-main-inventory.json
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Record training example repository inventory'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
