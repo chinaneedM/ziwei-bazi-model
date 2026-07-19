@@ -1,0 +1,55 @@
+name: one-time-fix-bootstrap-fixture
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-fix-bootstrap-fixture.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  correct-test-fixture:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Correct exact fixture value
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tests/test_bootstrap_request.py')
+          text = path.read_text(encoding='utf-8')
+          old = '"code_commit": "abc123"'
+          new = '"code_commit": "' + ('a' * 40) + '"'
+          if text.count(old) != 1:
+              raise SystemExit(f'fixture replacement count: {text.count(old)}')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
+      - name: Run affected tests
+        run: |
+          python -m pip install -e . pytest
+          python -m unittest tests.test_bootstrap_request tests.test_clean_start -v
+          pytest -q tests/test_bootstrap_request.py tests/test_clean_start.py
+
+      - name: Remove workflow and commit correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-fix-bootstrap-fixture.yml
+          git add tests/test_bootstrap_request.py
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Use valid commit binding in bootstrap fixture'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
