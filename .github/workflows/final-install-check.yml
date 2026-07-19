@@ -1,0 +1,90 @@
+name: final-install-check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  make-install-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact workflow revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime and test runner
+        run: python -m pip install -e . pytest
+
+      - name: Resolve activation mode
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_REF_NAME}" == "main" && "${GITHUB_EVENT_NAME}" != "pull_request" ]]; then
+            echo 'ACTIVATION_MODE=main' >> "$GITHUB_ENV"
+          else
+            echo 'ACTIVATION_MODE=candidate' >> "$GITHUB_ENV"
+          fi
+
+      - name: Execute complete make install-check
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/final-install-check
+          make install-check \
+            PYTHON=python \
+            REPOSITORY_VISIBILITY=public \
+            EXPECTED_COMMIT="$GITHUB_SHA" \
+            ACTIVATION_MODE="$ACTIVATION_MODE" \
+            INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json
+
+      - name: Validate receipt status and safety boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path('/tmp/final-install-check/install-receipt.json')
+          receipt = json.loads(path.read_text(encoding='utf-8'))
+          mode = os.environ['ACTIVATION_MODE']
+          expected = (
+              'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START'
+              if mode == 'main'
+              else 'INSTALL_CHECK_PASS_CANDIDATE'
+          )
+          if receipt.get('status') != expected:
+              raise SystemExit(f'unexpected install receipt status: {receipt}')
+          if receipt.get('failure_count') != 0:
+              raise SystemExit('install receipt contains failures')
+          if receipt.get('pass_count') != receipt.get('check_count'):
+              raise SystemExit('not all install checks passed')
+          if receipt.get('background_execution') is not False:
+              raise SystemExit('background execution boundary invalid')
+          if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
+              raise SystemExit('score eligibility boundary invalid')
+          if receipt.get('synthetic_run_scoring_eligibility') != 'NONE':
+              raise SystemExit('synthetic run scoring boundary invalid')
+          PY
+
+      - name: Upload immutable install-check artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-install-check-${{ github.sha }}
+          path: /tmp/final-install-check/install-receipt.json
+          if-no-files-found: error
+          retention-days: 30
