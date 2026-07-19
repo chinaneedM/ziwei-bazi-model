@@ -1,0 +1,26 @@
+{
+  "answer_data_available": false,
+  "case_id": "DEV-EXAMPLE-003",
+  "case_run_id": "GROUP-RUN-20260719T112500JST-3BBBF55AA880-DEV-EXAMPLE-003",
+  "group_id": "DEV-GROUP-002",
+  "group_run_id": "GROUP-RUN-20260719T112500JST-3BBBF55AA880",
+  "group_session_id": "GROUP-SESSION-20260719T112500JST-2B63017831D4",
+  "object_hash": "d9c7c1bc98c31b632e61def870bcc22828926d2646cec12f3151db7291a36565",
+  "option_visibility": "WITHHELD",
+  "prediction_fields": {"blind_models": {}, "local_seals": {}, "method_packets": {}, "source_packets": {}, "status": "NOT_YET_EXECUTED"},
+  "questions": [
+    {"option_count": 4, "option_visibility": "WITHHELD", "question_id": "Q1", "stem": "命主出身及家庭情况？"},
+    {"option_count": 4, "option_visibility": "WITHHELD", "question_id": "Q2", "stem": "命主的样貌，性情，爱好及职业？"},
+    {"option_count": 4, "option_visibility": "WITHHELD", "question_id": "Q3", "stem": "命主的学历和职业状况？"},
+    {"option_count": 4, "option_visibility": "WITHHELD", "question_id": "Q4", "stem": "命主的婚恋和子女情况？"},
+    {"option_count": 4, "option_visibility": "WITHHELD", "question_id": "Q5", "stem": "2022年，命主发生的重要事件？"}
+  ],
+  "schema": "PREBLIND-CASE-INPUT-V1",
+  "source_case_binding": {"answer_payload_present": false, "canonical_case_path": "training-data/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json", "canonical_case_sha256": "e48b0846c7152d12a7f506cedf62fae8d6eda9cb78a0c1dde47a2d201bae966c", "runtime_answer_scan": "PASS"},
+  "status": "PREBLIND_INPUT_READY",
+  "trusted_input_sidecars": {
+    "bazi": {"content_role": "FROZEN_BAZI_TRANSCRIPTION", "git_blob_sha": "01babf98051b9e8c4f4798ddd377be9dfe7e7fde", "path": "data/group-clean-starts/GROUP-RUN-20260719T042915JST-34AFAECF9168/case-input-sidecars/DEV-EXAMPLE-003/bazi.json", "reuse_class": "IMMUTABLE_INPUT_SIDECAR_ONLY_NO_PREDICTION_OR_REVEAL", "source_image_sha256": "3abbf38b22059910a1610d0f83a75f8ca4eeefac0687eec6792d62464f0a72b9"},
+    "ziwei": {"content_role": "FROZEN_ZIWEI_TEXT", "git_blob_sha": "645b81328d12aa1e6867b897ea7ce8dc88f6c633", "path": "data/group-clean-starts/GROUP-RUN-20260719T042915JST-34AFAECF9168/case-input-sidecars/DEV-EXAMPLE-003/ziwei.txt", "reuse_class": "IMMUTABLE_INPUT_SIDECAR_ONLY_NO_PREDICTION_OR_REVEAL", "source_raw_sha256": "1d036855bcde3fa96114f83c9ab5ce63982fa34e077813dcf547c00c2da30f7e"}
+  },
+  "withheld_option_payload_commitment": {"path_disclosed_to_prediction_context": false, "semantic_content_disclosed_to_prediction_context": false, "sha256": "5ab6b821874cf063abe0ad273b5b762213cf1fc1d64cb973b93017738d8eb96e"}
+}
