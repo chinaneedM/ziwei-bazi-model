@@ -1,0 +1,126 @@
+name: repository-group-start-signal
+
+on:
+  push:
+    paths:
+      - 'runtime/group-start-signals/*.json'
+  workflow_dispatch:
+    inputs:
+      signal_path:
+        description: 'Exact runtime/group-start-signals/*.json path'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repository-group-start-signal-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  process-group-signal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime and test runner
+        run: python -m pip install -e . pytest
+
+      - name: Resolve exact signal files
+        shell: bash
+        env:
+          MANUAL_SIGNAL_PATH: ${{ inputs.signal_path }}
+        run: |
+          set -euo pipefail
+          : > /tmp/group-start-signals.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            signal="${MANUAL_SIGNAL_PATH}"
+            case "$signal" in
+              runtime/group-start-signals/*.json) ;;
+              *) echo "invalid manual signal path: $signal" >&2; exit 1 ;;
+            esac
+            test -f "$signal"
+            printf '%s\n' "$signal" > /tmp/group-start-signals.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/group-start-signals/*.json' \
+              | sort -u > /tmp/group-start-signals.txt
+            test -s /tmp/group-start-signals.txt
+          fi
+          while IFS= read -r signal; do
+            case "$signal" in
+              runtime/group-start-signals/*.json) ;;
+              *) echo "invalid signal path: $signal" >&2; exit 1 ;;
+            esac
+            test -f "$signal"
+          done < /tmp/group-start-signals.txt
+
+      - name: Run deterministic startup tests
+        run: |
+          python -m unittest \
+            tests.test_bootstrap_request \
+            tests.test_clean_start \
+            tests.test_staged_access \
+            tests.test_end_to_end_pipeline -v
+
+      - name: Process signals and validate generated receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/group-start-signal-results
+          while IFS= read -r signal; do
+            group_run_id="$(basename "$signal" .json)"
+            PYTHONPATH=src python scripts/process-group-start-signal.py \
+              --signal "$signal" \
+              --current-group-manifest CURRENT_GROUP_MANIFEST \
+              | tee "/tmp/group-start-signal-results/${group_run_id}.json"
+          done < /tmp/group-start-signals.txt
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          results = sorted(Path('/tmp/group-start-signal-results').glob('*.json'))
+          if not results:
+              raise SystemExit('no signal results generated')
+          for result_path in results:
+              result = json.loads(result_path.read_text(encoding='utf-8'))
+              if result.get('status') != 'PASS':
+                  raise SystemExit(f'signal processing did not pass: {result}')
+              if result.get('case_count') != 5 or result.get('question_count_total') != 25:
+                  raise SystemExit(f'group dimensions invalid: {result}')
+              if result.get('prediction_context_started') is not False:
+                  raise SystemExit(f'prediction context boundary invalid: {result}')
+              if result.get('runtime_validation_status') != 'PASS':
+                  raise SystemExit(f'runtime validation failed: {result}')
+          PY
+
+      - name: Commit immutable generated objects
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add runtime/clean-start-requests data/group-clean-starts reports/clean-start-preauthorization
+          test -n "$(git diff --cached --name-only)"
+          while IFS= read -r path; do
+            case "$path" in
+              runtime/clean-start-requests/*.json) ;;
+              data/group-clean-starts/*/*) ;;
+              reports/clean-start-preauthorization/*.json) ;;
+              *) echo "unexpected generated path: $path" >&2; exit 1 ;;
+            esac
+          done <<< "$(git diff --cached --name-only)"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Materialize group runtime start'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
