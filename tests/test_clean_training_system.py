@@ -7,6 +7,7 @@ from pathlib import Path
 
 from cryptography.fernet import Fernet
 
+from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_input
 from fortune_training.policy import passed, required_correct
 from fortune_training.runtime import (
     apply_learning,
@@ -165,6 +166,7 @@ class RuntimeFixture:
         (self.root / "answer-vault" / "encrypted").mkdir(parents=True, exist_ok=True)
         (self.root / "training" / "runs").mkdir(parents=True, exist_ok=True)
         (self.root / "model-learning" / "patches").mkdir(parents=True, exist_ok=True)
+        write_chat_input(self.root)
         self.case_id = case_order[0]
         self.question_count = first_question_count
         self.plaintext_answer = base / "trusted-answer.json"
@@ -229,6 +231,30 @@ class PolicyTests(unittest.TestCase):
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_chat_input_contains_only_current_safe_prediction_material(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 4)
+            bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
+            serialized = json.dumps(bundle, ensure_ascii=False)
+            self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V1")
+            self.assertEqual(bundle["state_summary"]["current_case_id"], fixture.case_id)
+            self.assertTrue(bundle["state_summary"]["prediction_allowed"])
+            self.assertFalse(bundle["contains_old_predictions"])
+            self.assertNotIn("general reasoning", serialized)
+            self.assertNotIn('"top1"', serialized)
+            self.assertNotIn("prediction-freeze.json", serialized)
+
+    def test_chat_input_tampering_fails_repository_verification(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.root / CHAT_INPUT_RELATIVE_PATH
+            bundle = json.loads(path.read_text())
+            bundle["contains_old_predictions"] = True
+            write_json(path, bundle)
+            with self.assertRaises(TrainingError):
+                verify_repository(fixture.root)
+
     def test_failure_resets_streak_requires_learning_and_three_new_passes(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))

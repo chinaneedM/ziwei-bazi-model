@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .chat_input import CHAT_INPUT_RELATIVE_PATH, compose_chat_input
 from .policy import load_and_validate_policy
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
@@ -292,6 +293,11 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     _validate_state(root, state, group)
     _validate_release_chain(root, current_release)
 
+    chat_input_path = root / CHAT_INPUT_RELATIVE_PATH
+    chat_input = load_json(chat_input_path)
+    if chat_input != compose_chat_input(root):
+        raise TrainingError("chat-input/current.json is stale or contains non-current material")
+
     encrypted_dir = root / "answer-vault" / "encrypted"
     answer_count = sum((encrypted_dir / f"{case_id}.json.fernet").is_file() for case_id in case_order)
     if require_answers and answer_count != len(case_order):
@@ -310,6 +316,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "preloaded_encrypted_answers_ready": answer_count == len(case_order),
         "external_post_freeze_answer_supported": True,
         "controller_ready": True,
+        "chat_input_ready": True,
         "round_limit": None,
         "consecutive_passes_required": 3,
     }

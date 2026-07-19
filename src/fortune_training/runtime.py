@@ -7,6 +7,7 @@ from typing import Any
 
 from cryptography.fernet import Fernet, InvalidToken
 
+from .chat_input import write_chat_input
 from .policy import REQUIRED_CONSECUTIVE_PASSES, passed, required_correct
 from .util import (
     TrainingError,
@@ -145,6 +146,7 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     state["round_count"] += 1
     state["cases"][case_id]["round_ids"].append(round_id)
     atomic_write_json(_state_path(root), state)
+    write_chat_input(root)
     return round_record
 
 
@@ -217,6 +219,7 @@ def freeze_prediction(root: Path, round_id: str, prediction_path: Path) -> dict[
     atomic_write_json(round_path / "round.json", round_record)
     state["status"] = "PREDICTION_FROZEN"
     atomic_write_json(_state_path(root), state)
+    write_chat_input(root)
     return frozen
 
 
@@ -403,6 +406,7 @@ def score_round(
             state["cases"][next_case]["status"] = "ACTIVE"
             state["status"] = "READY_FOR_ROUND"
     atomic_write_json(_state_path(root), state)
+    write_chat_input(root)
     return aggregate
 
 
@@ -510,4 +514,5 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
     state["current_model_release"] = release_id
     state["status"] = "READY_FOR_ROUND"
     atomic_write_json(_state_path(root), state)
+    write_chat_input(root)
     return release

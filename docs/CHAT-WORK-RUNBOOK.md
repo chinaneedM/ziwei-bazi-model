@@ -23,13 +23,13 @@ FORTUNE_ANSWER_KEY='保存好的密钥' fortune-train encrypt-answer DEV-EXAMPLE
 
 把下面这段直接发给 Chat：
 
-> 继续“半自动命理预测训练系统”。本轮只训练当前状态中的单个案例。预测前只允许读取 Git 仓库 `sources/canonical/`、当前 `model-learning` 发布和无答案案例；不得读取答案、密钥、旧轮次逐题揭盲或旧选项映射。按控制器当前轮次作答全部选择题，给出每题 top1、top2、理由和证据，先不要揭盲。
+> 开始当前案例下一轮。只直接读取安全启动包 `https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/main/chat-input/current.json`，不得搜索 GitHub 仓库、代码、提交、历史或目录，不得读取其他 Git 文件。若启动包中 `prediction_allowed=true`，使用其中内嵌的当前无答案案例和当前 model-learning，并结合项目 S00–S19 只读镜像，从零完成 `recommended_round_id` 的预测；不得读取旧预测、评分、复盘或答案。完成后冻结输出并停止，等待我揭盲。本项目固定使用 Chat＋GitHub Issue 通道，不切换 Work。
 
-Chat 完成预测后，切换同一对话到 Work，发送：
+Chat 完成预测后，在同一对话发送：
 
-> 把刚才的预测作为当前案例的新一轮：创建轮次、冻结并评分。若未达标，立即完成通用复盘、写入 `model-learning/`、验证、提交并发布，然后保持在同一案例；若达标，只更新连续达标次数，连续 3 次后才进入下一案例。不要修改 `sources/canonical/`。
+> 现在揭盲：答案字母串。请使用刚才冻结的预测评分和复盘，并生成可整份粘贴到“无 Work 训练提交单”的 `TRAINING-ISSUE-PACKET-V1` JSON。JSON 不得包含正确答案或密钥。
 
-Work 在一次操作中完成整笔事务。用户不需要输入 Git、`gh` 或 Python 命令。
+用户复制整份 JSON 到“无 Work 训练提交单”；GitHub 自动冻结、复核加密答案、更新状态和模型。用户不需要输入 Git、`gh` 或 Python 命令。
 
 ## 四、达标时
 

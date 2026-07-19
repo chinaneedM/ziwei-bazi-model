@@ -31,6 +31,7 @@
    - 检查 S00–S19 未被改写并运行全部测试；
    - 只提交 `training/` 与 `model-learning/` 的允许内容；
    - 在 Issue 留下不含答案的结果并自动关闭。
+   - 自动刷新 `chat-input/current.json`，为下一轮 Chat 提供不含旧预测的唯一安全入口。
 
 ## 三、提交单 JSON 格式
 

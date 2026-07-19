@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from .chat_input import CHAT_INPUT_RAW_URL, compose_chat_input
 from .runtime import (
     _validate_learning_patch,
     apply_learning,
@@ -130,6 +131,7 @@ def process_packet(root: Path, packet: dict[str, Any], key: str | bytes | None) 
 
         verification = verify_repository(root, require_answers=True)
         new_status = status(root)
+        chat_input = compose_chat_input(root)
         result = {
             "schema": "TRAINING-ISSUE-RESULT-V1",
             "round_id": round_id,
@@ -143,6 +145,8 @@ def process_packet(root: Path, packet: dict[str, Any], key: str | bytes | None) 
             "learning_release": learning_release,
             "next_case_id": new_status["current_case_id"],
             "next_status": new_status["status"],
+            "next_round_id": chat_input["state_summary"]["recommended_round_id"],
+            "chat_input_url": CHAT_INPUT_RAW_URL,
             "answers_published": False,
             "verification": verification["status"],
         }
