@@ -1,197 +1,134 @@
-# Ziwei-Bazi Model
+# 半自动命理预测训练系统
 
-An open-source, repository-driven system for auditable **紫微斗数＋四柱八字综合相对预测** training and regression.
+这是从零重建后的单案例循环训练系统。它只做一件事：把一个真实案例当作未揭盲题反复训练，直到同一案例连续 3 轮达标，再进入下一案例。单题训练次数没有上限。
 
-The project is designed to be public, inspectable, forkable, and reproducible. It does not depend on a private repository, private package server, hidden database, paid model API, or background ChatGPT execution.
+## 唯一达标规则
 
-## Open-source model
+- 少于 5 道选择题：必须全部答对。
+- 5 道选择题：至少答对 4 道（80%）。
+- 多于 5 道选择题：至少答对向上取整的 80%。
+- 达标后不立即换题；同一案例必须连续 3 轮达标。
+- 任一轮未达标，连续达标次数立即归零；必须先复盘并激活模型修正，再重练同一案例。
+- 不存在“最多 5 次”或任何其他轮次上限。
 
-The repository uses a two-part licensing model:
+## 来源库只有一个运行权威
 
-- project-authored software, tests, workflows, schemas, configuration, and
-  original documentation use **Apache-2.0**;
-- the exact 20 S00-S19 files bound by the active `KNOWLEDGE-R17` release use
-  **CC0-1.0**.
+原算命项目中的来源库**不要删除**，它只作为只读原始档案保存，正式训练不会读取它。
 
-The active knowledge license is machine-bound through:
+训练只读取 Git 仓库中的两层内容：
 
-- `knowledge/active-release.json`;
-- `knowledge/releases/KNOWLEDGE-R17/release-manifest.json`;
-- `licenses/knowledge-packs/KNOWLEDGE-R17/rights-declaration.json`;
-- `licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json`;
-- `licenses/knowledge-packs/KNOWLEDGE-R17/CC0-NOTICE.md`.
+1. `sources/canonical/`：Git 版 S00–S19 冻结原典。用户经验和古书知识在训练期间不改写，`sources/canonical-manifest.json`用哈希锁定它们。
+2. `model-learning/`：模型自己的思路、知识运用方法、执行步骤和待验证新假设。揭盲复盘后只更新这一层。
 
-The formal verifier recomputes all 20 file hashes and byte lengths. Historical,
-candidate, uploaded, personal, or third-party material is not automatically
-covered by the active CC0 manifest.
+因此不存在“两套来源库冲突”：运行器固定忽略原项目来源库，只认 Git 仓库；下一轮的有效训练输入始终是“同一份冻结原典 + 最新模型发布”。如果任何冻结原典被改动，`verify`会直接失败，不能偷偷重新生成锁文件放行。
 
-## One public repository
+## 每轮闭环
 
-The complete runtime operates in this repository:
+1. `start`：绑定当前案例、冻结原典哈希和当前模型发布，建立新轮次。
+2. 独立预测：只读取当前无答案案例、Git 冻结原典和已激活模型修正。
+3. `freeze`：冻结本轮全部首选、次选和理由；冻结后不可修改。
+4. `score`：冻结后才读取答案并评分；仓库只保存汇总成绩，逐题答案对照输出到仓库外。
+5. 未达标：复盘错误思路或执行缺口，形成不含案例答案映射的模型修正，用 `learn` 激活。
+6. 达标但未连续 3 次：对同一案例开启新的独立轮次。
+7. 连续 3 次达标：系统自动切换到下一案例。
 
-```text
-chinaneedM/ziwei-bazi-model
-```
+同一案例第二轮及以后是训练拟合验证，不冒充新的首次盲测准确率，但仍必须重新推理并严格先冻结、后评分。
 
-No active workflow may require another repository. The public-only policy rejects private-repository references, cross-repository checkouts, unauthorized answer secrets, and plaintext unrevealed answers.
+## 公共仓库中的答案
 
-## Blind evaluation in an open-source project
+不需要私人答案仓库。答案可以和系统放在同一个公共仓库，但只能以 `answer-vault/encrypted/<CASE_ID>.json.fernet` 的加密形式保存；解密密钥不能进入仓库。
 
-All answer-handling code is public. Unrevealed answer plaintext is not committed.
+明文答案一旦进入公共仓库，模型在预测前就可能读到，所谓“未揭盲”将失去可信度。因此控制器会拒绝仓库内的明文答案。当前 5 个案例尚未装入官方加密答案，不能凭空编造；正式评分前需从用户保存的原答案文件生成一次加密文件。
 
-The repository stores public encrypted envelopes:
+## Chat 与 Work 的真实分工
 
-```text
-public-answer-vault/encrypted/<GROUP_RUN_ID>.json.fernet
-```
+- Chat 模式：读取项目上下文、完成命理预测、揭盲后复盘、整理候选模型修正。
+- Work/Codex：验证并写入模型修正、运行控制器、提交 Git、更新公共仓库。
 
-The official runtime key is stored as the GitHub Actions secret:
+Chat 模式本身没有 GitHub 插件和仓库写入能力，因此不能保证在纯 Chat 中直接修改 Git。为节省 Work 用量，日常推理和复盘都放在 Chat；只有“把本轮修正写入 Git 并发布”这一步切到 Work。详细照做文本见 `docs/CHAT-WORK-RUNBOOK.md`。
 
-```text
-FORTUNE_PUBLIC_ANSWER_KEY
-```
+## 当前干净基线
 
-The key is an operational blind-evaluation secret, not a private source-code dependency. Anyone can fork the project, generate their own key, create their own encrypted envelopes, and reproduce the complete mechanism.
+- 冻结原典：`sources/canonical/` 中恰好一份 S00–S19。
+- 模型基线：`model-learning/releases/MODEL-BASELINE-001.json`，初始没有补丁。
+- 例题：`examples/DEV-GROUP-002/cases/` 中 5 个无答案案例。
+- 初始状态：`training/state.json`，从例题 1、连续达标 0 次开始。
+- 政策：`config/training-policy.json`、`config/source-policy.json`和`config/answer-policy.json`。
 
-The reveal workflow:
-
-1. verifies `GROUP_PREDICTION_FREEZE_PASS`;
-2. decrypts the public envelope only into a transient `/tmp` directory;
-3. performs two-path literal answer replay;
-4. creates public scoring and learning receipts;
-5. destroys the transient plaintext.
-
-It does not run on pull requests, so untrusted fork code cannot receive the key.
-
-## Execution model
-
-The prediction engine is an active user-started ChatGPT project session in `CHAT_ONLY` or `WORK` mode. GitHub does not autonomously start ChatGPT, and the project must not claim asynchronous or background reasoning.
-
-Repository code handles deterministic ingest, immutable snapshots, source and method packets, staged access, track seals, option release, pairwise validation, group freeze, answer replay, training state, regression, and audit receipts.
-
-## Runtime sequence
-
-```text
-answer-free group request
-  -> staged PREBLIND clean start
-  -> SOURCE_PACKET / METHOD_PACKET / RUN_CONTRACT
-  -> independent Ziwei and Bazi preblind models
-  -> machine-built local seals
-  -> postblind option release
-  -> complete pairwise prediction bundles
-  -> case and group prediction freeze
-  -> transient answer-envelope decryption
-  -> literal replay and scoring
-  -> LEARNING-CYCLE-V2.1
-  -> public regression and release receipts
-```
-
-## Current bindings and validation
-
-- Project prompt: `MP-PROFESSIONAL-REASONING-20260718-R17`
-- Active knowledge release: `KNOWLEDGE-R17`
-- Knowledge license: `CC0-1.0` for the exact active S00-S19 manifest
-- Method: `METHOD-R17`
-- Model candidate: `MODEL-R17-REPOSITORY-SHADOW-V2`
-- Runtime configuration candidate: `config/runtime-r17-candidate.json`
-
-The repository is **installed and validated for a user-initiated clean start**.
-The exact `main` commit `03564113a279463548503045528b061c70cc00ef`
-passed `FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3` twice: the primary main
-workflow and an independent read-only replay. Both receipts report 14/14 checks
-PASS, zero failures, public release permission PASS, no background execution,
-and synthetic scoring eligibility NONE.
-
-This status does not start training automatically. Every real training run must
-still begin from an answer-isolated user request and produce its own valid
-runtime packets, freezes, evidence ledger, literal replay, and
-`CAUSAL_USE_RECEIPT=PASS` before it becomes score-eligible.
-
-## Installation
+## 控制器命令
 
 ```bash
-python -m venv .venv
-. .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -e .
+fortune-train verify
+fortune-train status
+fortune-train start ROUND-001
+fortune-train freeze ROUND-001 /tmp/ROUND-001.predictions.json
+fortune-train score ROUND-001 --answer-file /tmp/DEV-EXAMPLE-001.answers.json --review-output /tmp/ROUND-001.review.json
 ```
 
-Run the tests:
+未达标后：
 
 ```bash
-python -m unittest discover -s tests -v
-pytest -q
+fortune-train learn ROUND-001 /tmp/model-learning-patch.json MODEL-LEARNING-001
+fortune-train start ROUND-002
 ```
 
-Verify the public-only repository policy:
+预测文件格式：
+
+```json
+{
+  "case_id": "DEV-EXAMPLE-001",
+  "round_id": "ROUND-001",
+  "predictions": [
+    {"question_id": "Q1", "top1": "A", "top2": "B", "reasoning": "..."}
+  ]
+}
+```
+
+模型修正文件必须是通用思路，不能包含案例编号、题号、答案字母或选项原句：
+
+```json
+{
+  "learning_type": "REASONING_STRATEGY",
+  "related_source_libraries": ["S03", "S17"],
+  "principles": [
+    {
+      "statement": "通用判断规则",
+      "applicability": "适用条件",
+      "limits": "限制",
+      "counterexamples": "反例",
+      "capability_ceiling": "能力上限",
+      "source_basis": "所依据的原典模块和推理依据"
+    }
+  ]
+}
+```
+
+答案明文格式只用于仓库外的一次性加密或冻结后评分：
+
+```json
+{
+  "case_id": "DEV-EXAMPLE-001",
+  "answers": [
+    {"question_id": "Q1", "correct_option": "A"}
+  ]
+}
+```
+
+生成加密答案：
 
 ```bash
-python scripts/verify-public-only-repository.py \
-  --root . \
-  --visibility public
+fortune-train keygen
+FORTUNE_ANSWER_KEY='...' fortune-train encrypt-answer DEV-EXAMPLE-001 /tmp/DEV-EXAMPLE-001.answers.json
 ```
 
-Verify the complete open-source release and active knowledge manifest:
+`keygen`只显示密钥，不写入仓库。评分器只在预测冻结后解密。
+
+## 验证
 
 ```bash
-python scripts/verify-open-source-release.py \
-  --root . \
-  --visibility public
+make verify
+make test
 ```
 
-Run the complete installation gate on a full Git checkout:
-
-```bash
-make install-check \
-  REPOSITORY_VISIBILITY=public \
-  EXPECTED_COMMIT="$(git rev-parse HEAD)" \
-  ACTIVATION_MODE=candidate
-```
-
-Only the `main` workflow may emit
-`INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START`.
-
-## Public answer envelopes
-
-Generate a key for your own fork or synthetic environment:
-
-```bash
-fortune-public-answer-vault generate-key
-```
-
-Store it as `FORTUNE_PUBLIC_ANSWER_KEY`; do not commit it. Encrypt a locally prepared answer vector:
-
-```bash
-export FORTUNE_PUBLIC_ANSWER_KEY='<your key>'
-fortune-public-answer-vault encrypt \
-  --answer /secure-local-path/<GROUP_RUN_ID>.json \
-  --envelope public-answer-vault/encrypted/<GROUP_RUN_ID>.json.fernet
-```
-
-Only the encrypted envelope is committed.
-
-## Project boundaries
-
-The system does not:
-
-- treat astrology as scientifically validated fact;
-- provide medical, legal, financial, or emergency decisions;
-- convert revealed answers into case-specific prediction rules;
-- count post-reveal repetitions as additional blind accuracy;
-- silently fall back to uploads, prior chats, private repositories, or hidden files;
-- claim PASS, release, or training readiness without repository-bound receipts;
-- treat a user rights declaration as independent legal verification;
-- begin training or background work without a user-started clean run.
-
-## Contributing and governance
-
-- `CONTRIBUTING.md` — contribution and provenance requirements
-- `GOVERNANCE.md` — public decision and release process
-- `SECURITY.md` — vulnerability and answer-isolation reporting
-- `licenses/README.md` — knowledge/data licensing policy
-- `docs/open-source-architecture.md` — complete open-source architecture
-- `docs/end-to-end-training-pipeline.md` — runtime pipeline
-
-## License
-
-Apache License 2.0 for project-authored software and original project documentation, except where otherwise stated. The exact active `KNOWLEDGE-R17` S00-S19 files are available under CC0-1.0 through their machine-bound manifest. Other content remains under its own declared terms.
+`verify`检查 20 份冻结原典的哈希、来源权威、模型发布链、5 份案例的无答案性、训练政策和状态一致性。`--require-answers`只在 5 份官方加密答案都装入后使用。持续集成只保留一个工作流，运行相同检查与测试。
