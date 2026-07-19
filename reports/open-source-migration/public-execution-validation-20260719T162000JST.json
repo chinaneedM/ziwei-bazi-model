@@ -1,0 +1,50 @@
+{
+  "schema": "PUBLIC-EXECUTION-VALIDATION-RECEIPT-V1",
+  "status": "PASS_PUBLIC_CI_AND_SYNTHETIC_E2E",
+  "generated_at": "2026-07-19T16:20:00+09:00",
+  "repository": "chinaneedM/ziwei-bazi-model",
+  "repository_visibility": "public",
+  "validated_code_commit": "04439602c87373e5bfc245a20af312c2177f7ec1",
+  "github_actions": {
+    "runtime_ci": {
+      "run_id": 29677765783,
+      "conclusion": "success"
+    },
+    "public_repository_policy": {
+      "run_id": 29677765782,
+      "conclusion": "success"
+    },
+    "group_training_validation": {
+      "run_id": 29677765813,
+      "conclusion": "success"
+    },
+    "materialize_training_runtime_views": {
+      "run_id": 29677765800,
+      "conclusion": "success"
+    }
+  },
+  "public_answer_key_runtime_validation": {
+    "receipt_path": "reports/open-source-migration/public-answer-key-smoke/PUBLIC-KEY-SMOKE-20260719-01.json",
+    "receipt_git_blob_sha": "a2b1b2fbcada74003f470e86ff0598eeb7cdcdcb",
+    "status": "PASS",
+    "secret_value_recorded": false,
+    "secret_fingerprint_recorded": false
+  },
+  "public_synthetic_end_to_end": {
+    "request_commit": "0a95d358e1b16007586e9beb2622b807d32ce73d",
+    "receipt_path": "reports/open-source-migration/public-synthetic-e2e/PUBLIC-SYNTHETIC-E2E-20260719-01.json",
+    "receipt_git_blob_sha": "46bb1f1a5526d2731d135eabf4107a97730df172",
+    "receipt_object_hash": "05a2387dcf9de0f473184defc5ae57ba7f7287b6aa961b74e3f45b5b2c4897d1",
+    "envelope_path": "public-answer-vault/encrypted/PUBLIC-SYNTHETIC-GROUP-20260719-01.json.fernet",
+    "envelope_git_blob_sha": "ded3e7b19607b0911964539ff876031d76f74e87",
+    "envelope_object_hash": "d3cd7b2de1186cc572bcc7ff4ae003a70473d99f919c796877f3b755bdf150bb",
+    "group_freeze_status": "GROUP_PREDICTION_FREEZE_PASS",
+    "literal_replay_status": "PASS",
+    "learning_status": "LEARNING_ACTIVE",
+    "synthetic_non_scoring": true,
+    "transient_plaintext_destroyed": true
+  },
+  "private_repository_dependency": false,
+  "formal_training_permission": "BLOCKED_PENDING_ACTIVE_KNOWLEDGE_PACK_RIGHTS_MANIFESTS_AND_RELEASE_ACTIVATION",
+  "formal_open_source_release_permission": "BLOCKED_PENDING_ACTIVE_KNOWLEDGE_PACK_RIGHTS_MANIFESTS_AND_PR_MERGE"
+}
