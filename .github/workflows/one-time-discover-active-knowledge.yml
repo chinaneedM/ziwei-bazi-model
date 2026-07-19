@@ -1,0 +1,121 @@
+name: one-time-discover-active-knowledge
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-discover-active-knowledge.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  discover-and-remove-self:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout candidate branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Discover repository knowledge authority objects
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/open-source-migration
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path('.')
+
+          def sha256(path: Path) -> str:
+              h = hashlib.sha256()
+              with path.open('rb') as f:
+                  for chunk in iter(lambda: f.read(1024 * 1024), b''):
+                      h.update(chunk)
+              return h.hexdigest()
+
+          knowledge_files = []
+          for path in sorted(Path('knowledge').rglob('*')) if Path('knowledge').exists() else []:
+              if path.is_file():
+                  knowledge_files.append({
+                      'path': path.as_posix(),
+                      'byte_length': path.stat().st_size,
+                      'sha256': sha256(path),
+                  })
+
+          json_objects = []
+          scan_roots = [Path('config'), Path('knowledge'), Path('releases'), Path('runtime'), Path('reports')]
+          for scan_root in scan_roots:
+              if not scan_root.exists():
+                  continue
+              for path in sorted(scan_root.rglob('*.json')):
+                  try:
+                      body = json.loads(path.read_text(encoding='utf-8'))
+                  except Exception:
+                      continue
+                  if not isinstance(body, dict):
+                      continue
+                  schema = str(body.get('schema', ''))
+                  interesting = (
+                      'RELEASE' in schema
+                      or 'MODEL' in schema
+                      or 'KNOWLEDGE' in schema
+                      or 'METHOD' in schema
+                      or body.get('knowledge_release_id')
+                      or body.get('model_release_id')
+                      or body.get('method_release_id')
+                      or body.get('active_knowledge_release')
+                  )
+                  if interesting:
+                      json_objects.append({
+                          'path': path.as_posix(),
+                          'schema': body.get('schema'),
+                          'status': body.get('status'),
+                          'knowledge_release_id': body.get('knowledge_release_id'),
+                          'method_release_id': body.get('method_release_id'),
+                          'model_release_id': body.get('model_release_id'),
+                          'release_id': body.get('release_id'),
+                          'source_file_count': body.get('source_file_count'),
+                          'source_root': body.get('source_root'),
+                          'repository_commit_sha': body.get('repository_commit_sha'),
+                          'object_hash': body.get('object_hash'),
+                      })
+
+          s_rows = []
+          for row in knowledge_files:
+              name = Path(row['path']).name
+              if len(name) >= 3 and name[0] == 'S' and name[1:3].isdigit():
+                  library_id = name[:3]
+                  if library_id in {f'S{i:02d}' for i in range(20)}:
+                      s_rows.append({'library_id': library_id, **row})
+
+          result = {
+              'schema': 'ACTIVE-KNOWLEDGE-DISCOVERY-REPORT-V1',
+              'status': 'DISCOVERY_COMPLETE',
+              'git_commit': __import__('subprocess').check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+              'knowledge_file_count': len(knowledge_files),
+              'knowledge_files': knowledge_files,
+              's00_s19_candidate_file_count': len(s_rows),
+              's00_s19_candidates': s_rows,
+              'release_and_binding_objects': json_objects,
+          }
+          Path('reports/open-source-migration/active-knowledge-discovery.json').write_text(
+              json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Remove one-time workflow and commit discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-discover-active-knowledge.yml
+          git add reports/open-source-migration/active-knowledge-discovery.json
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Discover active knowledge release objects'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
