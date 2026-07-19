@@ -50,6 +50,7 @@ jobs:
             EXPECTED_COMMIT="$GITHUB_SHA" \
             ACTIVATION_MODE="$ACTIVATION_MODE" \
             INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json \
+            ACTIVATED_STATE_RECEIPT=/tmp/final-install-check/activated-state-receipt.json \
             > /tmp/final-install-check/make-install-check.log 2>&1
           status=$?
           set -e
@@ -61,11 +62,11 @@ jobs:
           from pathlib import Path
 
           root = Path('/tmp/final-install-check')
-          receipt = root / 'install-receipt.json'
           diagnostic = {
               'schema': 'FINAL-INSTALL-CHECK-DIAGNOSTIC-V1',
               'make_exit_code': int((root / 'exit-code.txt').read_text().strip()),
-              'receipt_exists': receipt.is_file(),
+              'install_receipt_exists': (root / 'install-receipt.json').is_file(),
+              'activated_state_receipt_exists': (root / 'activated-state-receipt.json').is_file(),
               'activation_mode': os.environ['ACTIVATION_MODE'],
               'github_sha': os.environ['GITHUB_SHA'],
           }
@@ -85,7 +86,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Validate receipt status and safety boundaries
+      - name: Validate receipts and safety boundaries
         if: always()
         shell: bash
         run: |
@@ -96,11 +97,13 @@ jobs:
           from pathlib import Path
 
           root = Path('/tmp/final-install-check')
-          path = root / 'install-receipt.json'
-          if not path.is_file():
+          install_path = root / 'install-receipt.json'
+          state_path = root / 'activated-state-receipt.json'
+          if not install_path.is_file() or not state_path.is_file():
               log = (root / 'make-install-check.log').read_text(encoding='utf-8', errors='replace')
-              raise SystemExit('install receipt was not produced:\n' + log[-12000:])
-          receipt = json.loads(path.read_text(encoding='utf-8'))
+              raise SystemExit('required receipt was not produced:\n' + log[-12000:])
+          install = json.loads(install_path.read_text(encoding='utf-8'))
+          state = json.loads(state_path.read_text(encoding='utf-8'))
           mode = os.environ['ACTIVATION_MODE']
           expected = (
               'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START'
@@ -108,17 +111,22 @@ jobs:
               else 'INSTALL_CHECK_PASS_CANDIDATE'
           )
           if os.environ.get('MAKE_INSTALL_CHECK_EXIT_CODE') != '0':
-              raise SystemExit(f'make install-check failed: {receipt}')
-          if receipt.get('status') != expected:
-              raise SystemExit(f'unexpected install receipt status: {receipt}')
-          if receipt.get('failure_count') != 0:
-              raise SystemExit(f'install receipt contains failures: {receipt}')
-          if receipt.get('pass_count') != receipt.get('check_count'):
+              raise SystemExit(f'make install-check failed: install={install}, state={state}')
+          if install.get('status') != expected or install.get('failure_count') != 0:
+              raise SystemExit(f'unexpected install receipt: {install}')
+          if install.get('pass_count') != install.get('check_count'):
               raise SystemExit('not all install checks passed')
-          if receipt.get('background_execution') is not False:
-              raise SystemExit('background execution boundary invalid')
-          if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
-              raise SystemExit('score eligibility boundary invalid')
-          if receipt.get('synthetic_run_scoring_eligibility') != 'NONE':
+          if state.get('schema') != 'ACTIVATED-INSTALLATION-STATE-VERIFICATION-V1':
+              raise SystemExit('activated state receipt schema invalid')
+          if state.get('status') != 'PASS' or state.get('failure_count') != 0:
+              raise SystemExit(f'activated state verification failed: {state}')
+          if state.get('pass_count') != state.get('check_count'):
+              raise SystemExit('not all activated state checks passed')
+          for receipt in (install, state):
+              if receipt.get('background_execution') is not False:
+                  raise SystemExit('background execution boundary invalid')
+              if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
+                  raise SystemExit('score eligibility boundary invalid')
+          if install.get('synthetic_run_scoring_eligibility') != 'NONE':
               raise SystemExit('synthetic run scoring boundary invalid')
           PY

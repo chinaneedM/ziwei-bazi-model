@@ -95,11 +95,17 @@ answer-free group request
 - Model candidate: `MODEL-R17-REPOSITORY-SHADOW-V2`
 - Runtime configuration candidate: `config/runtime-r17-candidate.json`
 
-Public repository CI, answer-key runtime validation, and a synthetic non-scoring
-public-envelope run through `LEARNING_ACTIVE` have passed. The knowledge-rights
-verifier also passed with one active manifest, 20 files, and zero failures.
-Formal activation remains blocked until pull request #36 is merged and the
-merged default branch passes post-merge CI and immutable readback.
+The repository is **installed and validated for a user-initiated clean start**.
+The exact `main` commit `03564113a279463548503045528b061c70cc00ef`
+passed `FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3` twice: the primary main
+workflow and an independent read-only replay. Both receipts report 14/14 checks
+PASS, zero failures, public release permission PASS, no background execution,
+and synthetic scoring eligibility NONE.
+
+This status does not start training automatically. Every real training run must
+still begin from an answer-isolated user request and produce its own valid
+runtime packets, freezes, evidence ledger, literal replay, and
+`CAUSAL_USE_RECEIPT=PASS` before it becomes score-eligible.
 
 ## Installation
 
@@ -133,6 +139,18 @@ python scripts/verify-open-source-release.py \
   --visibility public
 ```
 
+Run the complete installation gate on a full Git checkout:
+
+```bash
+make install-check \
+  REPOSITORY_VISIBILITY=public \
+  EXPECTED_COMMIT="$(git rev-parse HEAD)" \
+  ACTIVATION_MODE=candidate
+```
+
+Only the `main` workflow may emit
+`INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START`.
+
 ## Public answer envelopes
 
 Generate a key for your own fork or synthetic environment:
@@ -162,7 +180,8 @@ The system does not:
 - count post-reveal repetitions as additional blind accuracy;
 - silently fall back to uploads, prior chats, private repositories, or hidden files;
 - claim PASS, release, or training readiness without repository-bound receipts;
-- treat a user rights declaration as independent legal verification.
+- treat a user rights declaration as independent legal verification;
+- begin training or background work without a user-started clean run.
 
 ## Contributing and governance
 

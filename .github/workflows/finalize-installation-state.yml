@@ -45,7 +45,8 @@ jobs:
             REPOSITORY_VISIBILITY=public \
             EXPECTED_COMMIT="$CODE_COMMIT" \
             ACTIVATION_MODE=main \
-            INSTALL_RECEIPT=/tmp/final-installation-state-v3/install-receipt.json
+            INSTALL_RECEIPT=/tmp/final-installation-state-v3/install-receipt.json \
+            ACTIVATED_STATE_RECEIPT=/tmp/final-installation-state-v3/activated-state-receipt.json
 
       - name: Enforce installed validated readback
         shell: bash
@@ -58,27 +59,38 @@ jobs:
           import os
           from pathlib import Path
 
-          receipt = json.loads(Path('/tmp/final-installation-state-v3/install-receipt.json').read_text(encoding='utf-8'))
-          if receipt.get('schema') != 'FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3':
-              raise SystemExit('unexpected receipt schema')
-          if receipt.get('status') != 'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START':
-              raise SystemExit(f'installed validation did not pass: {receipt}')
-          if receipt.get('code_commit') != os.environ['CODE_COMMIT']:
-              raise SystemExit('receipt commit mismatch')
-          if receipt.get('failure_count') != 0 or receipt.get('pass_count') != receipt.get('check_count'):
-              raise SystemExit('receipt contains failed checks')
-          if receipt.get('formal_training_permission') != 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY':
-              raise SystemExit('training permission boundary invalid')
-          if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
-              raise SystemExit('score eligibility boundary invalid')
-          if receipt.get('background_execution') is not False:
-              raise SystemExit('background execution boundary invalid')
+          root = Path('/tmp/final-installation-state-v3')
+          install = json.loads((root / 'install-receipt.json').read_text(encoding='utf-8'))
+          state = json.loads((root / 'activated-state-receipt.json').read_text(encoding='utf-8'))
+          if install.get('schema') != 'FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3':
+              raise SystemExit('unexpected install receipt schema')
+          if install.get('status') != 'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START':
+              raise SystemExit(f'installed validation did not pass: {install}')
+          if install.get('code_commit') != os.environ['CODE_COMMIT']:
+              raise SystemExit('install receipt commit mismatch')
+          if install.get('failure_count') != 0 or install.get('pass_count') != install.get('check_count'):
+              raise SystemExit('install receipt contains failed checks')
+          if state.get('schema') != 'ACTIVATED-INSTALLATION-STATE-VERIFICATION-V1':
+              raise SystemExit('unexpected activated state receipt schema')
+          if state.get('status') != 'PASS' or state.get('failure_count') != 0:
+              raise SystemExit(f'activated state validation did not pass: {state}')
+          if state.get('code_commit') != os.environ['CODE_COMMIT']:
+              raise SystemExit('activated state receipt commit mismatch')
+          if state.get('pass_count') != state.get('check_count'):
+              raise SystemExit('activated state receipt contains failed checks')
+          for receipt in (install, state):
+              if receipt.get('formal_training_permission') != 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY':
+                  raise SystemExit('training permission boundary invalid')
+              if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
+                  raise SystemExit('score eligibility boundary invalid')
+              if receipt.get('background_execution') is not False:
+                  raise SystemExit('background execution boundary invalid')
           PY
 
-      - name: Upload immutable readback artifact without repository mutation
+      - name: Upload immutable readback artifacts without repository mutation
         uses: actions/upload-artifact@v4
         with:
           name: final-installation-state-v3-${{ github.event.workflow_run.head_sha }}
-          path: /tmp/final-installation-state-v3/install-receipt.json
+          path: /tmp/final-installation-state-v3/
           if-no-files-found: error
           retention-days: 90
