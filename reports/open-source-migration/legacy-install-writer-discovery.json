@@ -1,0 +1,199 @@
+{
+  "commit": "06d8d1d7a1d987a5c6d56301df201548cfa6bc81",
+  "match_file_count": 6,
+  "matches": [
+    {
+      "matches": [
+        {
+          "line": 41,
+          "needles": [
+            "make install-check"
+          ],
+          "text": "      - name: Execute complete make install-check"
+        },
+        {
+          "line": 46,
+          "needles": [
+            "make install-check"
+          ],
+          "text": "          make install-check \\"
+        },
+        {
+          "line": 51,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "            INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json"
+        },
+        {
+          "line": 62,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "          path = Path('/tmp/final-install-check/install-receipt.json')"
+        },
+        {
+          "line": 88,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "          path: /tmp/final-install-check/install-receipt.json"
+        }
+      ],
+      "path": ".github/workflows/final-install-check.yml"
+    },
+    {
+      "matches": [
+        {
+          "line": 63,
+          "needles": [
+            "fortune-v1 install-check"
+          ],
+          "text": "          fortune-v1 install-check \\"
+        }
+      ],
+      "path": ".github/workflows/finalize-installation-state.yml"
+    },
+    {
+      "matches": [
+        {
+          "line": 115,
+          "needles": [
+            "make install-check"
+          ],
+          "text": "        run: make install-check"
+        },
+        {
+          "line": 127,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "          path = Path(\"reports/install-receipt.json\")"
+        },
+        {
+          "line": 161,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "          path: reports/install-receipt.json"
+        },
+        {
+          "line": 173,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "          if [[ -f reports/install-receipt.json ]]; then"
+        },
+        {
+          "line": 174,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "            git add reports/install-receipt.json"
+        },
+        {
+          "line": 180,
+          "needles": [
+            "Record installation validation receipts"
+          ],
+          "text": "          git commit -m \"Record installation validation receipts [skip ci]\""
+        }
+      ],
+      "path": ".github/workflows/install-check.yml"
+    },
+    {
+      "matches": [
+        {
+          "line": 32,
+          "needles": [
+            "Record installation validation receipts"
+          ],
+          "text": "              'Record installation validation receipts',"
+        },
+        {
+          "line": 33,
+          "needles": [
+            "install-receipt.json"
+          ],
+          "text": "              'install-receipt.json',"
+        },
+        {
+          "line": 34,
+          "needles": [
+            "installation_check("
+          ],
+          "text": "              'installation_check(',"
+        },
+        {
+          "line": 35,
+          "needles": [
+            "fortune-v1 install-check"
+          ],
+          "text": "              'fortune-v1 install-check',"
+        },
+        {
+          "line": 36,
+          "needles": [
+            "make install-check"
+          ],
+          "text": "              'make install-check',"
+        },
+        {
+          "line": 37,
+          "needles": [
+            "SCHEMA_DEFINED_NOT_INSTALLED"
+          ],
+          "text": "              'SCHEMA_DEFINED_NOT_INSTALLED',"
+        },
+        {
+          "line": 38,
+          "needles": [
+            "INSTALLATION-RECEIPT-V2"
+          ],
+          "text": "              'INSTALLATION-RECEIPT-V2',"
+        }
+      ],
+      "path": ".github/workflows/one-time-find-legacy-install-writer.yml"
+    },
+    {
+      "matches": [
+        {
+          "line": 211,
+          "needles": [
+            "installation_check("
+          ],
+          "text": "            result = installation_check(args.repo_root, args.source_audit, args.prompt_snapshot,"
+        }
+      ],
+      "path": "src/fortune_v1/cli.py"
+    },
+    {
+      "matches": [
+        {
+          "line": 93,
+          "needles": [
+            "installation_check("
+          ],
+          "text": "def installation_check(repo_root: str | Path, source_audit_path: str | Path | None,"
+        },
+        {
+          "line": 230,
+          "needles": [
+            "SCHEMA_DEFINED_NOT_INSTALLED"
+          ],
+          "text": "    status = \"INSTALL_VALIDATION_CANDIDATE\" if all_pass else \"SCHEMA_DEFINED_NOT_INSTALLED\""
+        },
+        {
+          "line": 231,
+          "needles": [
+            "INSTALLATION-RECEIPT-V2"
+          ],
+          "text": "    result = {\"schema\": \"INSTALLATION-RECEIPT-V2\", \"generated_at\": utc_now(),"
+        }
+      ],
+      "path": "src/fortune_v1/reporting.py"
+    }
+  ],
+  "schema": "LEGACY-INSTALL-WRITER-DISCOVERY-V1",
+  "status": "DISCOVERY_COMPLETE"
+}
