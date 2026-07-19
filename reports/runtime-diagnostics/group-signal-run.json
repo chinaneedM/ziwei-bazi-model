@@ -1,0 +1,92 @@
+{
+  "run_count": 1,
+  "runs": [
+    {
+      "conclusion": "failure",
+      "event": "push",
+      "id": 29681493719,
+      "jobs": [
+        {
+          "conclusion": "failure",
+          "id": 88178338477,
+          "name": "process-group-signal",
+          "status": "completed",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Checkout exact revision",
+              "number": 2,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Set up Python",
+              "number": 3,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Install runtime and test runner",
+              "number": 4,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Resolve exact signal files",
+              "number": 5,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Run deterministic startup tests",
+              "number": 6,
+              "status": "completed"
+            },
+            {
+              "conclusion": "failure",
+              "name": "Process signals and validate generated receipts",
+              "number": 7,
+              "status": "completed"
+            },
+            {
+              "conclusion": "skipped",
+              "name": "Commit immutable generated objects",
+              "number": 8,
+              "status": "completed"
+            },
+            {
+              "conclusion": "skipped",
+              "name": "Post Set up Python",
+              "number": 15,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Post Checkout exact revision",
+              "number": 16,
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 17,
+              "status": "completed"
+            }
+          ]
+        }
+      ],
+      "run_number": 1,
+      "status": "completed"
+    }
+  ],
+  "schema": "GROUP-SIGNAL-WORKFLOW-DIAGNOSTIC-V1",
+  "status": "FOUND",
+  "target_branch": "runtime/start-dev-group-002-0052b111b31d",
+  "target_commit": "2d926ad2ed4cacb73a4984045638f30847e33799"
+}
