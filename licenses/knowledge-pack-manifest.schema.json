@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/licenses/knowledge-pack-manifest.schema.json",
+  "title": "Open Knowledge Pack License and Provenance Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "pack_id",
+    "release_id",
+    "public_distribution_allowed",
+    "files"
+  ],
+  "properties": {
+    "schema": {
+      "const": "OPEN-KNOWLEDGE-PACK-LICENSE-MANIFEST-V1"
+    },
+    "status": {
+      "enum": [
+        "PASS_PUBLIC_DISTRIBUTION",
+        "HOLD_RIGHTS_REVIEW",
+        "BLOCKED_NO_REDISTRIBUTION_RIGHTS"
+      ]
+    },
+    "pack_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "public_distribution_allowed": {
+      "type": "boolean"
+    },
+    "manifest_generated_at": {
+      "type": "string"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "byte_length",
+          "source_identity",
+          "rights_basis",
+          "redistribution_allowed",
+          "modification_allowed",
+          "public_display_allowed",
+          "personal_data_status"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "byte_length": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "source_identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_locator": {
+            "type": ["string", "null"]
+          },
+          "author_or_rights_holder": {
+            "type": ["string", "null"]
+          },
+          "rights_basis": {
+            "enum": [
+              "SPDX_LICENSE",
+              "PUBLIC_DOMAIN",
+              "DOCUMENTED_PERMISSION",
+              "PROJECT_ORIGINAL",
+              "UNKNOWN",
+              "NO_PERMISSION"
+            ]
+          },
+          "spdx_license_expression": {
+            "type": ["string", "null"]
+          },
+          "permission_record_path": {
+            "type": ["string", "null"]
+          },
+          "attribution_text": {
+            "type": ["string", "null"]
+          },
+          "redistribution_allowed": {
+            "type": "boolean"
+          },
+          "modification_allowed": {
+            "type": "boolean"
+          },
+          "public_display_allowed": {
+            "type": "boolean"
+          },
+          "personal_data_status": {
+            "enum": [
+              "NONE",
+              "ANONYMIZED_WITH_PUBLICATION_CONSENT",
+              "PUBLIC_RECORD_WITH_REUSE_ALLOWED",
+              "UNVERIFIED",
+              "PROHIBITED"
+            ]
+          },
+          "required_notices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "PASS_PUBLIC_DISTRIBUTION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "public_distribution_allowed": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}
