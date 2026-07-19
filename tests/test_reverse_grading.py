@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -50,21 +52,23 @@ class ReverseGradingTests(unittest.TestCase):
         self.assertEqual(result["status"], "PASS", result)
         self.assertEqual(result["runtime_repository_vault_credential"], "NONE")
 
-        quarantine = json.loads(
-            (self.repo / "config/legacy-public-migration-quarantine.json").read_text(encoding="utf-8")
+        verifier = subprocess.run(
+            [
+                sys.executable,
+                str(self.repo / "scripts/verify-public-only-repository.py"),
+                "--root",
+                str(self.repo),
+                "--visibility",
+                "public",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
         )
-        quarantined = set(quarantine["paths"])
-        active_texts: list[str] = []
-        for path in self.repo.rglob("*"):
-            if not path.is_file() or ".git" in path.parts or "__pycache__" in path.parts:
-                continue
-            rel = path.relative_to(self.repo).as_posix()
-            if rel in quarantined or rel.startswith("templates/answer-vault/"):
-                continue
-            active_texts.append(path.read_text(encoding="utf-8", errors="ignore"))
-        all_text = "\n".join(active_texts)
-        self.assertNotIn("ANSWER_" + "VAULT_TOKEN", all_text)
-        self.assertNotIn("chinaneedM/fortune-" + "answer-vault", all_text)
+        self.assertEqual(verifier.returncode, 0, verifier.stdout + verifier.stderr)
+        receipt = json.loads(verifier.stdout)
+        self.assertEqual(receipt["status"], "PASS")
+        self.assertEqual(receipt["legacy_quarantine_status"], "PASS")
         self.assertFalse((self.repo / ".github/workflows/grade-frozen.yml").exists())
 
     def test_public_reveal_workflow_order_and_secret_boundary(self):
