@@ -4,11 +4,11 @@ from __future__ import annotations
 import argparse
 import json
 
-from fortune_v1.clean_start import (
-    create_group_clean_start,
-    create_group_clean_start_from_request,
-    record_group_contamination,
+from fortune_v1.bootstrap_request import (
+    build_preauthorized_request,
+    create_group_clean_start_from_bootstrap_request,
 )
+from fortune_v1.clean_start import create_group_clean_start, record_group_contamination
 from fortune_v1.staged_access import harden_clean_start
 
 
@@ -23,6 +23,13 @@ def main() -> int:
     create.add_argument("--group-run-id", required=True)
     create.add_argument("--session-id", required=True)
     create.add_argument("--mode", choices=["CHAT_ONLY", "WORK"], default="CHAT_ONLY")
+
+    prepare_request = sub.add_parser("prepare-request")
+    prepare_request.add_argument("--current-group-manifest", default="CURRENT_GROUP_MANIFEST")
+    prepare_request.add_argument("--output", required=True)
+    prepare_request.add_argument("--group-run-id", required=True)
+    prepare_request.add_argument("--session-id", required=True)
+    prepare_request.add_argument("--mode", choices=["CHAT_ONLY", "WORK"], default="CHAT_ONLY")
 
     create_request = sub.add_parser("create-from-request")
     create_request.add_argument("--request", required=True)
@@ -45,8 +52,16 @@ def main() -> int:
             args.mode,
         )
         result = harden_clean_start(legacy)
+    elif args.command == "prepare-request":
+        result = build_preauthorized_request(
+            args.current_group_manifest,
+            args.output,
+            args.group_run_id,
+            args.session_id,
+            args.mode,
+        )
     elif args.command == "create-from-request":
-        legacy = create_group_clean_start_from_request(args.request, args.current_group_manifest)
+        legacy = create_group_clean_start_from_bootstrap_request(args.request, args.current_group_manifest)
         result = harden_clean_start(legacy)
     else:
         result = record_group_contamination(
