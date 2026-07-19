@@ -1,10 +1,12 @@
 # End-to-end clean-blind training pipeline
 
-This document defines the connected public-repository workflow from a fresh clean start through first-blind freeze, controlled reveal, and learning-cycle activation.
+This document defines the connected open-source workflow from a fresh clean start through first-blind freeze, controlled reveal, and learning-cycle activation.
 
-## Public-only repository policy
+## Complete open-source policy
 
-The runtime uses one public GitHub repository only. It must not clone, fetch, call, or depend on any private repository.
+The runtime uses one public GitHub repository only. It must not clone, fetch, call, or depend on any private repository, private package server, hidden database, or maintainer-only source tree.
+
+Project-authored software and original documentation are Apache-2.0. Every active knowledge or data pack must carry an exact file-level provenance and license manifest before it can be included in a formal open-source release.
 
 Answer isolation is provided by encrypted answer envelopes stored in the same public repository:
 
@@ -12,7 +14,7 @@ Answer isolation is provided by encrypted answer envelopes stored in the same pu
 public-answer-vault/encrypted/<GROUP_RUN_ID>.json.fernet
 ```
 
-The ciphertext is public. The symmetric decryption key is held only in the repository Actions secret `FORTUNE_PUBLIC_ANSWER_KEY`. A GitHub Actions secret is not a repository and does not require a private repository. Decrypted answer plaintext exists only in a transient runner path under `/tmp`, after group-freeze validation, and is destroyed before the job finishes.
+The ciphertext is public. The symmetric decryption key is held only in the repository Actions secret `FORTUNE_PUBLIC_ANSWER_KEY`. A GitHub Actions secret is not a private repository or source dependency. Anyone may fork the project and generate an independent key. Decrypted answer plaintext exists only in a transient runner path under `/tmp`, after group-freeze validation, and is destroyed before the job finishes.
 
 The reveal workflow is intentionally limited to `push` and `workflow_dispatch`. It does not run for pull requests, so public fork PRs cannot access the answer key.
 
@@ -207,24 +209,46 @@ The output creates:
 
 Reasoning correction, stability replays, evaluation, and advancement continue through the existing `fortune-learning-cycle` commands. Post-reveal replays never count as additional blind-accuracy observations.
 
-## Public-repository security boundaries
+## Open-source release gates
+
+The structural public-repository policy runs on pushes and pull requests. It checks:
+
+- repository visibility is `public`;
+- project mode is `COMPLETE_OPEN_SOURCE`;
+- Apache-2.0 package metadata is present;
+- required governance and security files exist;
+- no private repository or cross-repository runtime appears;
+- no unauthorized answer secret or plaintext answer file appears.
+
+The formal release gate runs for `v*` tags or manual dispatch. It additionally requires:
+
+- at least one active knowledge/data pack license manifest;
+- exact file hashes and byte lengths;
+- an open rights basis for every file;
+- redistribution, modification, and public-display permission;
+- acceptable personal-data status;
+- a public synthetic end-to-end receipt.
+
+## Security and privacy boundaries
 
 - No private repository or cross-repository token is used.
-- The encrypted answer envelope may be public; the decryption key must never be committed.
+- The encrypted answer envelope may be public; the official decryption key must never be committed.
 - Pull-request workflows never receive `FORTUNE_PUBLIC_ANSWER_KEY`.
 - Decryption is blocked before group freeze.
 - Decrypted plaintext is forbidden inside the repository tree.
 - Runtime retrieval remains exact-path-only and must not search historical revealed runs.
-- A public repository makes source files, code, encrypted envelopes, and post-reveal training objects visible to everyone. Only material legally and operationally suitable for public release may be committed.
+- Personal cases require anonymization or explicit public-release consent.
+- Content without redistribution permission is excluded from formal public releases.
 
 ## Operational boundary
 
 Component installation is not equivalent to end-to-end readiness. `INSTALLED_VALIDATED` may be restored only after:
 
-1. the unit tests pass, including public answer-vault tests;
-2. all workflow files parse and are bound to the staged scripts;
-3. a synthetic answer-free run reaches group freeze;
-4. a separate synthetic public-envelope reveal reaches `LEARNING_ACTIVE`;
-5. no private-repository or private-token reference remains in the active runtime;
-6. the immutable installation receipt records those results;
-7. repository metadata confirms `visibility=public`.
+1. the complete unit test suite passes;
+2. repository metadata reports `visibility=public`;
+3. `FORTUNE_PUBLIC_ANSWER_KEY` is configured;
+4. all active knowledge/data packs pass the public-distribution manifest gate;
+5. all workflow files parse and are bound to staged scripts;
+6. a synthetic answer-free run reaches group freeze;
+7. a synthetic public-envelope reveal reaches `LEARNING_ACTIVE`;
+8. an immutable installation and open-source release receipt records those results.
