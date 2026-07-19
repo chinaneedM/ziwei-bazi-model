@@ -7,10 +7,6 @@ assignees: ""
 
 只有仓库所有者提交的、标题以 `[TRAINING ROUND]` 开头的 Issue 才会运行。请勿在这里粘贴正确答案或解密密钥。
 
-把 Chat 生成的完整 JSON 替换到下面的 `PASTE_CHAT_PACKET_HERE`；保留开始和结束标记，然后点击“Submit new issue”。
+最简单的操作：点击本正文框，按 `Ctrl+A` 全选，再按 `Ctrl+V` 粘贴 Chat 生成的整份 JSON，最后点击“Submit new issue”。裸 JSON 或单独一个 JSON 代码块均可，不需要保留本说明。
 
-<!-- TRAINING_PACKET_START -->
-```json
-PASTE_CHAT_PACKET_HERE
-```
-<!-- TRAINING_PACKET_END -->
+PASTE_COMPLETE_JSON_HERE

@@ -46,7 +46,7 @@ Chat 可以完成命理推理，但当前产品边界下，纯 Chat 不能可靠
 
 如果 Work 用量暂时完全不可用，仍可另建“GitHub Issue + 自动工作流”入口：用户把 Chat 生成的结构化修正粘贴一次，GitHub 自动校验并提交。这不会消耗 Work，但仍需要一次人工粘贴，无法做到纯 Chat 零操作写 Git。没有 Work、API 或外部自动化身份时，公开仓库不可能接受匿名写入。
 
-该入口的实际文件、固定 JSON 格式和逐步操作见 `docs/NO-WORK-ISSUE-RELAY.md`。它每轮只需创建一张 Issue，Issue 不含正确答案；GitHub 使用加密答案和 Actions Secret 自行复核评分。首次必须完成一次加密答案与 `FORTUNE_ANSWER_KEY` 设置。
+该入口的实际文件、固定 JSON 格式和逐步操作见 `docs/NO-WORK-ISSUE-RELAY.md`。它每轮只需创建一张 Issue：用户复制 Chat 输出的整份 JSON，在 Issue 正文中全选粘贴并提交，不需要寻找占位符或保留标记。Issue 不含正确答案；GitHub 使用加密答案和 Actions Secret 自行复核评分。首次必须完成一次加密答案与 `FORTUNE_ANSWER_KEY` 设置。
 
 ## 七、用户只需要说什么
 

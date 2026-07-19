@@ -20,8 +20,9 @@
    > 生成 `TRAINING-ISSUE-PACKET-V1`。保留刚才冻结的全部 predictions；根据揭盲评分填写 expected_result。若失败，加入不含案例编号、题号、答案字母和选项原句的 learning_release_id 与 learning_patch；若通过，不得加入学习修正。只输出一个 JSON 代码块。
 
 4. 打开：<https://github.com/chinaneedM/ziwei-bazi-model/issues/new?template=training-round.md>
-5. 将 JSON 替换 Issue 模板中的 `PASTE_CHAT_PACKET_HERE`，保留两端标记，点击 **Submit new issue**。
-6. GitHub 自动执行以下动作：
+5. 点击 Issue 正文框，按 `Ctrl+A` 全选，再按 `Ctrl+V` 粘贴 Chat 生成的整份 JSON。无需寻找占位符、保留标记或手工修改 JSON。
+6. 标题默认以 `[TRAINING ROUND]` 开头，不需要改；直接点击 **Submit new issue**。
+7. GitHub 自动执行以下动作：
    - 只接受仓库所有者创建的 `[TRAINING ROUND]` Issue；
    - 检查当前案例、轮次和预测完整性；
    - 先冻结预测，再用加密答案重新评分；
@@ -78,3 +79,11 @@
 - Issue 留言显示成功并自动关闭：本轮已经写入 `main`，回到 Chat 说“读取 Git 最新状态，开始下一轮”。
 - Issue 留言显示失败：本轮不会提交任何修改。打开留言中的 Actions 链接查看错误；通常是 JSON 格式、PASS/FAIL 不符、修正含案例答案映射，或首次密钥/加密答案尚未准备完成。
 - 不要反复编辑同一个失败 Issue。修正 JSON 后重新创建一张新的训练提交单。
+
+## 五、最简日常口令
+
+预测已经输出后，用户只需在同一个 Chat 对话中说：
+
+> 现在揭盲：在这里填写答案字母串。请评分、复盘，并在回复末尾生成可直接整份粘贴到“无 Work 训练提交单”的 `TRAINING-ISSUE-PACKET-V1` JSON。JSON 不得包含正确答案或密钥。
+
+Chat 输出 JSON 后，点击代码块的复制按钮；到 GitHub Issue 正文中 `Ctrl+A`、`Ctrl+V`、提交即可。

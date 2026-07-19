@@ -404,6 +404,25 @@ class IssueRelayTests(unittest.TestCase):
             self.assertEqual(result["consecutive_passes"], 1)
             self.assertFalse(result["answers_published"])
 
+    def test_extract_accepts_raw_json_issue_body(self):
+        packet = {
+            "schema": "TRAINING-ISSUE-PACKET-V1",
+            "round_id": "RAW-JSON-1",
+        }
+        self.assertEqual(extract_packet(json.dumps(packet)), packet)
+
+    def test_extract_accepts_single_json_code_block(self):
+        packet = {
+            "schema": "TRAINING-ISSUE-PACKET-V1",
+            "round_id": "FENCED-JSON-1",
+        }
+        body = f"```json\n{json.dumps(packet)}\n```"
+        self.assertEqual(extract_packet(body), packet)
+
+    def test_extract_rejects_partial_legacy_marker(self):
+        with self.assertRaises(TrainingError):
+            extract_packet(f"{PACKET_START}\n{{}}")
+
     def test_failed_issue_requires_and_applies_general_learning(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))

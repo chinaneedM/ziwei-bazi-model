@@ -27,18 +27,25 @@ EXPECTED_RESULTS = {"PASS", "FAIL"}
 
 
 def extract_packet(issue_body: str) -> dict[str, Any]:
-    if issue_body.count(PACKET_START) != 1 or issue_body.count(PACKET_END) != 1:
-        raise TrainingError("issue must contain exactly one training packet marker pair")
-    start = issue_body.index(PACKET_START) + len(PACKET_START)
-    end = issue_body.index(PACKET_END, start)
-    raw = issue_body[start:end].strip()
+    start_count = issue_body.count(PACKET_START)
+    end_count = issue_body.count(PACKET_END)
+    if start_count or end_count:
+        if start_count != 1 or end_count != 1:
+            raise TrainingError("issue must contain exactly one training packet marker pair")
+        start = issue_body.index(PACKET_START) + len(PACKET_START)
+        end = issue_body.index(PACKET_END, start)
+        raw = issue_body[start:end].strip()
+    else:
+        # Low-friction mode: the owner may replace the whole Issue body with the
+        # JSON copied from Chat. Legacy marker-wrapped submissions remain valid.
+        raw = issue_body.strip()
     if raw.startswith("```json"):
         raw = raw[len("```json") :].strip()
     elif raw.startswith("```"):
         raw = raw[3:].strip()
     if raw.endswith("```"):
         raw = raw[:-3].strip()
-    if not raw or raw == "PASTE_CHAT_PACKET_HERE":
+    if not raw or raw in {"PASTE_CHAT_PACKET_HERE", "PASTE_COMPLETE_JSON_HERE"}:
         raise TrainingError("training packet is empty")
     try:
         packet = json.loads(raw)
