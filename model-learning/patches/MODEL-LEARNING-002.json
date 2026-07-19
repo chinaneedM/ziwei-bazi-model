@@ -1,0 +1,88 @@
+{
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "release_id": "MODEL-LEARNING-002",
+  "created_at": "2026-07-20T02:30:00Z",
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "rule_id": "RULE-FAMILY-WEALTH-ROLE-SEPARATION",
+        "topic_tags": ["FAMILY_ORIGIN", "PARENTS", "WEALTH_FINANCE"],
+        "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "REALITY_SCALE_MAPPING", "OPTION_GRANULARITY", "EVIDENCE_WEIGHTING"],
+        "source_routes": ["S02", "S03", "S04", "S17", "S18"],
+        "statement": "原生家庭量级与父母职业必须分轨评分；资源渠道、星曜或财官十神不能直接替代财富等级，也不能直接生成父母的精确职业与制度身份。",
+        "applicability": "题目同时提供家庭贫富等级、父母职业或公共身份等不同类型候选时。",
+        "limits": "缺少地域年代基线和职业动作链时，只能释放相对资源压力、职业环境或职业大类。",
+        "counterexamples": "若父母人物太极、职业主题宫位、长期收入方式、组织属性和现实终点均有独立同向证据，职业候选可以超过单纯量级候选。",
+        "capability_ceiling": "未闭合家庭量级轴时不输出精确财富阶层；未闭合职业画像时不输出精确岗位。",
+        "source_basis": "S02现实量级与职业语义、S04父母及田宅边界、S17家庭和职业终点链、S18区别原子裁决。",
+        "trigger_conditions": "候选把家庭财富、父母身份和职业混在同一比较层级。",
+        "decision_procedure": "先固定早年依赖期并完成家庭量级轴，再独立建立父母人物职业链，最后比较各候选的最弱必需原子。",
+        "stop_conditions": "若收入、住房、负债、结余或职业动作等关键现实变量缺失，停止在较宽结论，不补造精确身份。"
+      },
+      {
+        "rule_id": "RULE-CAREER-SPECIFICITY-CLOSURE",
+        "topic_tags": ["CAREER_EDUCATION"],
+        "reasoning_skill_tags": ["TOPIC_PALACE_ROUTING", "OPTION_GRANULARITY", "EVIDENCE_WEIGHTING", "CAREER_PROFILE_CLOSURE"],
+        "source_routes": ["S02", "S05", "S06", "S07", "S17", "S18"],
+        "statement": "广义才艺、公众接触或经营倾向只能确定职业族；精确岗位必须同时闭合人物、主题宫位、完整星系条件、工作动作、场所或服务对象、收入方式、进入年龄与持续性。",
+        "applicability": "候选竞争广义职业类别与更窄的具体岗位、场所或身份时。",
+        "limits": "单一组合或分散星曜只能建立条件性职业候选，不能拼接成不存在的完整岗位链。",
+        "counterexamples": "完整组合在同一有效结构中出现，且阶段、谋生动作、场所和收入链同时闭合时，较窄职业可以胜出。",
+        "capability_ceiling": "只有能力、桃花、才艺或公众性证据时，最高释放到广义职业族。",
+        "source_basis": "S02职业画像维度、S05至S07星系组合边界、S17职业终点链、S18组合完整性门禁。",
+        "trigger_conditions": "多个职业候选共享同一能力或场景，但精确程度不同。",
+        "decision_procedure": "逐项检查雇佣或经营主体、日常动作、行业场所、服务对象、收入形式、进入年龄和持续性，并惩罚缺失的独有节点。",
+        "stop_conditions": "若只能证明能力或环境，停止在职业大类，不用时代标签或刻板印象补齐岗位。"
+      },
+      {
+        "rule_id": "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+        "topic_tags": ["MARRIAGE_RELATIONSHIP", "WEALTH_FINANCE", "HEALTH", "TRAVEL_ACCIDENT_SAFETY", "LEGAL_CONFLICT", "MAJOR_YEAR_EVENT"],
+        "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "TIME_LAYER_ACTIVATION", "EVENT_ENDPOINT_CLOSURE", "OPTION_GRANULARITY", "EVIDENCE_WEIGHTING", "COUNTEREVIDENCE_REVERSAL"],
+        "source_routes": ["S02", "S03", "S04", "S10", "S14", "S15", "S16", "S17", "S18"],
+        "statement": "同一年份的异质事件必须先按主题分流，再为每个候选建立专属主体、动作、对象、后果和年份触发链；通用冲刑忌煞耗不能同时充当事故、侵财、伤害或死亡终点。",
+        "applicability": "候选横跨婚姻、财务、交通、治安、健康或不同人物事件时。",
+        "limits": "主题命中仅建立候选，必须继续闭合现实完成动作与专属后果。",
+        "counterexamples": "负面候选若具备明确主体、专属动作、对象、后果和年份触发，而关系主题只有一般活跃信号，则负面候选可以胜出。",
+        "capability_ceiling": "泛化风险结构只能提高场景概率，不能独立释放具体事件。",
+        "source_basis": "S02事件语义、S03冲突裁决、S10限年定位、S14至S15冲动边界、S17事件动作链、S18非法映射归零。",
+        "trigger_conditions": "同一时间题的选项属于不同现实事件族，且共享变化、压力或移动等宽泛信号。",
+        "decision_procedure": "为每个候选分别列主体、主题坐标、专属机制、时间增量、完成动作和现实后果，再比较专属节点而非共享风险背景。",
+        "stop_conditions": "缺少行为人、工具、动作或完成后果时，不把宽泛风险提升为具体事件。"
+      },
+      {
+        "rule_id": "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+        "topic_tags": ["MARRIAGE_RELATIONSHIP", "CAREER_EDUCATION", "WEALTH_FINANCE", "HEALTH", "TRAVEL_ACCIDENT_SAFETY", "MAJOR_YEAR_EVENT"],
+        "reasoning_skill_tags": ["TOPIC_PALACE_ROUTING", "TIME_LAYER_ACTIVATION", "EVENT_ENDPOINT_CLOSURE", "EVIDENCE_WEIGHTING", "ZIWEI_BAZI_ARBITRATION"],
+        "source_routes": ["S03", "S08", "S09", "S10", "S14", "S15", "S16", "S17", "S18"],
+        "statement": "限年重叠、冲动和四化密度先表示中性激活或状态转换，不能自动给出吉凶与事件终点；方向必须由目标主题的专属证据决定。",
+        "applicability": "岁运出现强冲动、限年重叠或同一时间兼具喜庆与风险信号时。",
+        "limits": "共同期间背景不产生选项区别分，必须寻找该年份相对本命和大限的主题新增量。",
+        "counterexamples": "目标主题完全未激活而另一事件专属链闭合时，强冲动应归入后者。",
+        "capability_ceiling": "冲动与叠宫只负责许可和放大，不负责自动确定事件。",
+        "source_basis": "S08至S10四化与限年分层、S14至S15合冲中性原则、S16接口、S17完成链、S18增量比较。",
+        "trigger_conditions": "推理试图直接把冲、刑、忌、叠宫或四化数量映射成吉凶事件。",
+        "decision_procedure": "先完成本命体与大限阶段定位，再计算流年目标主题、人物关系和现实完成节点，最后用八字岁运独立复核方向。",
+        "stop_conditions": "若没有目标主题的年份新增量和现实完成节点，只保留为中性应期或风险许可。"
+      },
+      {
+        "rule_id": "RULE-CROSS-QUESTION-CONSISTENCY",
+        "topic_tags": ["FAMILY_ORIGIN", "PARENTS", "MARRIAGE_RELATIONSHIP", "CHILDREN_FERTILITY", "CAREER_EDUCATION", "WEALTH_FINANCE", "HEALTH", "PERSONALITY_APPEARANCE", "MAJOR_YEAR_EVENT"],
+        "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "TIME_LAYER_ACTIVATION", "COUNTEREVIDENCE_REVERSAL", "CROSS_QUESTION_CONSISTENCY"],
+        "source_routes": ["S02", "S03", "S04", "S10", "S15", "S17", "S18"],
+        "statement": "同案各题必须先独立推理，冻结前再做潜变量一致性审计；表面矛盾只有在存在明确阶段转换、人物变化或现实动作链时才能同时成立。",
+        "applicability": "多道题共享同一人物、家庭阶段、职业履历、婚姻序列或年份时间线时。",
+        "limits": "一致性审计只能触发重算，不能把一题选项当成另一题的事实证据。",
+        "counterexamples": "不同题位于不同阶段且存在搬迁、衰败、继承、转职、丧偶等可验证转折时，表面矛盾可以共存。",
+        "capability_ceiling": "该规则只发现矛盾并要求补充阶段桥梁，不单独生成事实或答案。",
+        "source_basis": "S02主体与期间冻结、S03冲突裁决、S04人物主题边界、S10和S15时间层、S17阶段动作链、S18反证审计。",
+        "trigger_conditions": "不同题的家庭资源、劳动必要性、关系状态、职业序列或重大事件时间线互相冲突。",
+        "decision_procedure": "逐题保留独立证据表，再按人物和时间排序；若冲突，寻找明确转换节点，否则降低推测性更强的一方。",
+        "stop_conditions": "不得为了故事顺畅而覆盖更强独立反证，也不得用其他题的选项文字补造事实。"
+      }
+    ]
+  },
+  "contains_case_answer_mapping": false,
+  "modifies_canonical_source_files": false,
+  "validation_status": "CANDIDATE_RULES"
+}

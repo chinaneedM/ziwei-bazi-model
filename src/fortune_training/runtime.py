@@ -8,7 +8,16 @@ from typing import Any
 from cryptography.fernet import Fernet, InvalidToken
 
 from .chat_input import write_chat_input
-from .policy import REQUIRED_CONSECUTIVE_PASSES, passed, required_correct
+from .learning import (
+    load_learning_ledger,
+    load_rule_catalog,
+    record_first_blind_results,
+    register_rules,
+    validate_learning_patch_v2,
+    validate_question_profile,
+    write_learning_ledger,
+)
+from .policy import passed, required_correct
 from .util import (
     TrainingError,
     atomic_write_json,
@@ -24,7 +33,7 @@ from .util import (
 from .verify import verify_repository
 
 
-OPENABLE_STATES = {"READY_FOR_ROUND", "CONFIRMATION_REQUIRED"}
+OPENABLE_STATES = {"READY_FOR_ROUND"}
 PATCH_LEAK_PATTERNS = (
     re.compile(r"DEV-EXAMPLE-\d+", re.IGNORECASE),
     re.compile(r"\bQ\d+\b", re.IGNORECASE),
@@ -39,14 +48,6 @@ PATCH_FORBIDDEN_KEYS = {
     "option_id",
     "case_id",
     "question_id",
-}
-PATCH_PRINCIPLE_FIELDS = {
-    "statement",
-    "applicability",
-    "limits",
-    "counterexamples",
-    "capability_ceiling",
-    "source_basis",
 }
 
 
@@ -83,12 +84,27 @@ def _round_dir(root: Path, round_id: str) -> Path:
     return root / "training" / "runs" / round_id
 
 
+def _complete_current_case_and_advance(root: Path, state: dict[str, Any]) -> None:
+    group = _load_group(root, state)
+    current_case_id = _current_case_id(state, group)
+    state["cases"][current_case_id]["status"] = "COMPLETE"
+    state["current_case_index"] += 1
+    if state["current_case_index"] >= len(group["case_order"]):
+        state["status"] = "GROUP_COMPLETE"
+        return
+    next_case_id = group["case_order"][state["current_case_index"]]
+    state["cases"][next_case_id]["status"] = "ACTIVE"
+    state["status"] = "READY_FOR_ROUND"
+
+
 def status(root: Path) -> dict[str, Any]:
     state = _load_state(root)
     group = _load_group(root, state)
     current_case = None
     if state["status"] != "GROUP_COMPLETE":
         current_case = _current_case_id(state, group)
+    current_case_state = state["cases"].get(current_case, {}) if current_case else {}
+    ledger = load_learning_ledger(root)
     return {
         "group_id": state["group_id"],
         "status": state["status"],
@@ -98,8 +114,11 @@ def status(root: Path) -> dict[str, Any]:
         "active_round_id": state["active_round_id"],
         "round_count": state["round_count"],
         "round_limit": None,
-        "consecutive_passes": state["cases"].get(current_case, {}).get("consecutive_passes") if current_case else None,
-        "consecutive_passes_required": REQUIRED_CONSECUTIVE_PASSES,
+        "training_unit": "QUESTION_FIRST_BLIND",
+        "current_case_first_blind_round_id": current_case_state.get("first_blind_round_id"),
+        "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
+        "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
+        "same_case_replays_count_toward_validation": False,
     }
 
 
@@ -113,6 +132,9 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
         raise TrainingError("another round is already active")
     group = _load_group(root, state)
     case_id = _current_case_id(state, group)
+    case_state = state["cases"][case_id]
+    if case_state.get("first_blind_round_id") is not None:
+        raise TrainingError("the current case already has its one scored first-blind round")
     case_path = _case_path(root, group, case_id)
     case = load_json(case_path)
     question_count = len(_questions(case))
@@ -124,9 +146,11 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     if round_path.exists():
         raise TrainingError(f"round already exists: {round_id}")
     round_record = {
-        "schema": "CASE-TRAINING-ROUND-V1",
+        "schema": "QUESTION-FIRST-BLIND-ROUND-V2",
         "round_id": round_id,
         "case_id": case_id,
+        "evaluation_kind": "FIRST_BLIND",
+        "counts_toward_learning_evidence": True,
         "case_path": case_path.relative_to(root).as_posix(),
         "case_sha256": sha256_file(case_path),
         "question_count": question_count,
@@ -138,19 +162,26 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
         "effective_training_input": "GIT_CANONICAL_S00_S19_PLUS_MODEL_RELEASE",
         "status": "PREDICTION_OPEN",
         "answer_visibility": "PHYSICALLY_UNAVAILABLE_TO_PREDICTION_CONTEXT",
+        "question_profile_required": True,
         "started_at": utc_now(),
     }
     exclusive_write_json(round_path / "round.json", round_record)
     state["active_round_id"] = round_id
     state["status"] = "AWAITING_PREDICTION_FREEZE"
     state["round_count"] += 1
-    state["cases"][case_id]["round_ids"].append(round_id)
+    case_state["first_blind_round_id"] = round_id
+    case_state["round_ids"].append(round_id)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return round_record
 
 
-def _validate_prediction(case: dict[str, Any], round_record: dict[str, Any], payload: Any) -> dict[str, Any]:
+def _validate_prediction(
+    root: Path,
+    case: dict[str, Any],
+    round_record: dict[str, Any],
+    payload: Any,
+) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise TrainingError("prediction payload must be an object")
     if payload.get("case_id") != round_record["case_id"] or payload.get("round_id") != round_record["round_id"]:
@@ -164,6 +195,7 @@ def _validate_prediction(case: dict[str, Any], round_record: dict[str, Any], pay
     if len(predictions) != len(question_map):
         raise TrainingError("prediction must cover every question exactly once")
     normalized: list[dict[str, Any]] = []
+    known_rule_ids = set(load_rule_catalog(root))
     seen: set[str] = set()
     for row in predictions:
         if not isinstance(row, dict):
@@ -179,15 +211,45 @@ def _validate_prediction(case: dict[str, Any], round_record: dict[str, Any], pay
         top2 = row.get("top2")
         if top1 not in valid_options:
             raise TrainingError(f"invalid top1 for {question_id}: {top1!r}")
-        if top2 is not None and (top2 not in valid_options or top2 == top1):
+        if top2 not in valid_options or top2 == top1:
             raise TrainingError(f"invalid top2 for {question_id}: {top2!r}")
+        profile = validate_question_profile(
+            root,
+            row.get("question_profile"),
+            known_rule_ids=known_rule_ids,
+        )
+        reasoning = row.get("reasoning")
+        counterevidence = row.get("strongest_counterevidence")
+        confidence = row.get("confidence")
+        evidence = row.get("evidence")
+        if not isinstance(reasoning, str) or not reasoning.strip():
+            raise TrainingError(f"{question_id} needs non-empty reasoning")
+        if not isinstance(counterevidence, str) or not counterevidence.strip():
+            raise TrainingError(f"{question_id} needs strongest_counterevidence")
+        if (
+            not isinstance(confidence, int)
+            or isinstance(confidence, bool)
+            or confidence < 0
+            or confidence > 100
+        ):
+            raise TrainingError(f"{question_id} confidence must be an integer from 0 to 100")
+        if (
+            not isinstance(evidence, list)
+            or not evidence
+            or any(not isinstance(item, str) or item not in profile["source_routes"] for item in evidence)
+            or len(evidence) != len(set(evidence))
+        ):
+            raise TrainingError(f"{question_id} evidence must be unique ids from source_routes")
         normalized.append(
             {
                 "question_id": question_id,
                 "top1": top1,
                 "top2": top2,
-                "reasoning": row.get("reasoning", ""),
-                "evidence": row.get("evidence", []),
+                "reasoning": reasoning.strip(),
+                "evidence": evidence,
+                "strongest_counterevidence": counterevidence.strip(),
+                "confidence": confidence,
+                "question_profile": profile,
             }
         )
     normalized.sort(key=lambda item: list(question_map).index(item["question_id"]))
@@ -210,7 +272,7 @@ def freeze_prediction(root: Path, round_id: str, prediction_path: Path) -> dict[
     if round_record.get("status") != "PREDICTION_OPEN":
         raise TrainingError("round prediction is not open")
     case = load_json(root / round_record["case_path"])
-    frozen = _validate_prediction(case, round_record, load_json(prediction_path))
+    frozen = _validate_prediction(root, case, round_record, load_json(prediction_path))
     frozen["prediction_sha256"] = object_sha256(frozen["predictions"])
     exclusive_write_json(round_path / "prediction-freeze.json", frozen)
     round_record["status"] = "PREDICTION_FROZEN"
@@ -355,20 +417,27 @@ def score_round(
     question_count = len(review_rows)
     did_pass = passed(correct_count, question_count)
     case_state = state["cases"][round_record["case_id"]]
-    streak_before = case_state["consecutive_passes"]
-    streak_after = streak_before + 1 if did_pass else 0
-    case_state["consecutive_passes"] = streak_after
+    if round_record.get("evaluation_kind") != "FIRST_BLIND":
+        raise TrainingError("only a first-blind round may update learning evidence")
+    top2_covered = sum(
+        1
+        for prediction, review in zip(frozen["predictions"], review_rows)
+        if review["is_correct"] or prediction.get("top2") == review["correct_option"]
+    )
     aggregate = {
-        "schema": "CASE-ROUND-SCORE-V1",
+        "schema": "QUESTION-FIRST-BLIND-SCORE-V2",
         "round_id": round_id,
         "case_id": round_record["case_id"],
+        "evaluation_kind": "FIRST_BLIND",
         "correct_count": correct_count,
+        "top2_covered_count": top2_covered,
         "question_count": question_count,
         "required_correct": required_correct(question_count),
         "accuracy": correct_count / question_count,
+        "top2_coverage": top2_covered / question_count,
         "passed": did_pass,
-        "consecutive_passes_before": streak_before,
-        "consecutive_passes_after": streak_after,
+        "advances_after_learning_if_failed": True,
+        "same_case_replay_required": False,
         "scored_at": utc_now(),
         "detailed_answers_stored_in_repository": False,
         "answer_source": answer_source,
@@ -389,22 +458,20 @@ def score_round(
     atomic_write_json(round_path / "round.json", round_record)
     state["active_round_id"] = None
 
+    ledger = load_learning_ledger(root)
+    record_first_blind_results(
+        ledger,
+        case_id=round_record["case_id"],
+        predictions=frozen["predictions"],
+        review_rows=review_rows,
+    )
+    write_learning_ledger(root, ledger)
+
     if not did_pass:
         state["status"] = "LEARNING_REQUIRED"
-        case_state["status"] = "ACTIVE"
-    elif streak_after < REQUIRED_CONSECUTIVE_PASSES:
-        state["status"] = "CONFIRMATION_REQUIRED"
-        case_state["status"] = "ACTIVE"
+        case_state["status"] = "LEARNING_PENDING"
     else:
-        case_state["status"] = "COMPLETE"
-        state["current_case_index"] += 1
-        group = _load_group(root, state)
-        if state["current_case_index"] >= len(group["case_order"]):
-            state["status"] = "GROUP_COMPLETE"
-        else:
-            next_case = group["case_order"][state["current_case_index"]]
-            state["cases"][next_case]["status"] = "ACTIVE"
-            state["status"] = "READY_FOR_ROUND"
+        _complete_current_case_and_advance(root, state)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return aggregate
@@ -438,26 +505,7 @@ def _validate_learning_patch(root: Path, payload: Any) -> dict[str, Any]:
                 normalized = " ".join(str(text).split())
                 if len(normalized) >= 8 and normalized in serialized:
                     raise TrainingError("learning patch copies a case-specific question or option text")
-    learning_type = payload.get("learning_type")
-    if learning_type not in {"REASONING_STRATEGY", "EXECUTION_PROCEDURE", "MODEL_HYPOTHESIS"}:
-        raise TrainingError(
-            "learning_type must be REASONING_STRATEGY, EXECUTION_PROCEDURE, or MODEL_HYPOTHESIS"
-        )
-    affected = payload.get("related_source_libraries")
-    if not isinstance(affected, list) or not affected:
-        raise TrainingError("learning patch needs related_source_libraries")
-    valid_libraries = {f"S{index:02d}" for index in range(20)}
-    if any(item not in valid_libraries for item in affected) or len(set(affected)) != len(affected):
-        raise TrainingError("related_source_libraries must be unique S00-S19 ids")
-    principles = payload.get("principles")
-    if not isinstance(principles, list) or not principles:
-        raise TrainingError("learning patch needs at least one general principle")
-    for index, principle in enumerate(principles):
-        if not isinstance(principle, dict) or not PATCH_PRINCIPLE_FIELDS.issubset(principle):
-            raise TrainingError(f"principle {index} lacks required generalization fields")
-        if any(not principle[field] for field in PATCH_PRINCIPLE_FIELDS):
-            raise TrainingError(f"principle {index} has an empty required field")
-    return payload
+    return validate_learning_patch_v2(root, payload)
 
 
 def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str) -> dict[str, Any]:
@@ -469,7 +517,7 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning is only accepted after a failed round")
     group = _load_group(root, state)
     current_case_id = _current_case_id(state, group)
-    if state["cases"][current_case_id]["round_ids"][-1] != round_id:
+    if state["cases"][current_case_id].get("first_blind_round_id") != round_id:
         raise TrainingError("learning must close the most recent failed round")
     round_path = _round_dir(root, round_id)
     round_record = load_json(round_path / "round.json")
@@ -480,14 +528,13 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning round is not for the current case")
     patch_payload = _validate_learning_patch(root, load_json(patch_input))
     patch_record = {
-        "schema": "MODEL-LEARNING-PATCH-V1",
+        "schema": "MODEL-LEARNING-PATCH-V2",
         "release_id": release_id,
-        "derived_from_failed_round": round_id,
         "created_at": utc_now(),
         "content": patch_payload,
         "contains_case_answer_mapping": False,
         "modifies_canonical_source_files": False,
-        "validation_status": "ACTIVE_PROVISIONAL",
+        "validation_status": "CANDIDATE_RULES",
     }
     patch_path = root / "model-learning" / "patches" / f"{release_id}.json"
     release_path = root / "model-learning" / "releases" / f"{release_id}.json"
@@ -511,8 +558,11 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
     round_record["model_learning_release"] = release_id
     round_record["status"] = "LEARNING_APPLIED"
     atomic_write_json(round_path / "round.json", round_record)
+    ledger = load_learning_ledger(root)
+    register_rules(ledger, patch_payload["rules"])
+    write_learning_ledger(root, ledger)
     state["current_model_release"] = release_id
-    state["status"] = "READY_FOR_ROUND"
+    _complete_current_case_and_advance(root, state)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return release

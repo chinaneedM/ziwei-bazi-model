@@ -6,11 +6,13 @@ from typing import Any
 from .util import TrainingError, load_json
 
 
-REQUIRED_CONSECUTIVE_PASSES = 3
+RULE_MIN_SUPPORTING_APPLICATIONS = 3
+RULE_MIN_DISTINCT_FUTURE_CASES = 3
+RULE_MIN_SUPPORT_RATIO = 0.8
 
 
 def required_correct(question_count: int) -> int:
-    """Return the pass threshold: all below five, otherwise ceil(80%)."""
+    """Return the round-quality threshold: all below five, otherwise ceil(80%)."""
     if not isinstance(question_count, int) or isinstance(question_count, bool) or question_count < 1:
         raise TrainingError("question_count must be a positive integer")
     if question_count < 5:
@@ -29,16 +31,18 @@ def passed(correct_count: int, question_count: int) -> bool:
 def load_and_validate_policy(path: Path) -> dict[str, Any]:
     policy = load_json(path)
     expected = {
-        "training_unit": "CASE",
+        "schema": "QUESTION-LEVEL-TRAINING-POLICY-V2",
+        "training_unit": "QUESTION_FIRST_BLIND",
         "round_limit": None,
-        "consecutive_passing_rounds_required": REQUIRED_CONSECUTIVE_PASSES,
-        "failed_round_resets_streak": True,
+        "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+        "same_case_replays_count_toward_validation": False,
+        "passing_round_advances_to_next_case": True,
+        "failed_round_requires_general_learning_before_advance": True,
         "prediction_must_be_frozen_before_scoring": True,
-        "failed_round_requires_learning_before_retry": True,
         "failed_round_updates_model_layer_only": True,
         "canonical_sources_mutable_during_training": False,
         "answer_plaintext_allowed_in_repository": False,
-        "repeated_case_rounds_are_first_blind_evaluations": False,
+        "performance_reporting": "BY_TOPIC_AND_REASONING_SKILL",
     }
     for key, value in expected.items():
         if policy.get(key) != value:
@@ -48,4 +52,15 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
         raise TrainingError("policy must require all answers correct below five questions")
     if pass_rule.get("5_or_more_questions") != "CEILING_80_PERCENT":
         raise TrainingError("policy must require ceiling 80 percent at five or more questions")
+    validation = policy.get("rule_validation", {})
+    validation_expected = {
+        "minimum_supporting_applications": RULE_MIN_SUPPORTING_APPLICATIONS,
+        "minimum_distinct_future_cases": RULE_MIN_DISTINCT_FUTURE_CASES,
+        "minimum_support_ratio": RULE_MIN_SUPPORT_RATIO,
+        "unrelated_questions_count_as_evidence": False,
+        "same_origin_case_counts_as_validation": False,
+    }
+    for key, value in validation_expected.items():
+        if validation.get(key) != value:
+            raise TrainingError(f"rule-validation policy mismatch for {key}: expected {value!r}")
     return policy

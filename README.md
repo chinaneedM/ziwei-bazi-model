@@ -1,132 +1,94 @@
-# 半自动命理预测训练系统
+# 半自动命理推理训练系统
 
-这是从零重建后的单案例循环训练系统。它只做一件事：把一个真实案例当作未揭盲题反复训练，直到同一案例连续 3 轮达标，再进入下一案例。单题训练次数没有上限。
+本系统不是通过重复例题修改大模型参数，而是建立一套可审计的外部推理系统：冻结 S00–S19 为知识底座，把真实选择题按主题与推理能力自动分类；揭盲后只产生不含答案映射的候选通用规则，再由未来不同案例中的相关题目验证。
 
-## 唯一达标规则
+## 核心训练规则
 
-- 少于 5 道选择题：必须全部答对。
-- 5 道选择题：至少答对 4 道（80%）。
-- 多于 5 道选择题：至少答对向上取整的 80%。
-- 达标后不立即换题；同一案例必须连续 3 轮达标。
-- 任一轮未达标，连续达标次数立即归零；必须先复盘并激活模型修正，再重练同一案例。
-- 不存在“最多 5 次”或任何其他轮次上限。
+- 每个案例只允许一轮计分的 `FIRST_BLIND` 预测。
+- 少于 5 题必须全对；5题及以上达到向上取整的80%记为该轮通过。该阈值只描述本轮表现，不代表整个模型成熟。
+- 通过后立即进入下一未揭盲案例。
+- 未通过时先生成候选通用规则，再进入下一案例；不在原案例上连续刷分。
+- 同案回放可以另作诊断，但永不计入首次盲测准确率或规则验证。
+- 每道题必须在揭盲前填写 `question_profile`：主题、人物、时间、现实终点、推理能力、来源路线及实际采用的规则。
+- 只有预测前明确列入 `applied_rule_ids` 的规则，才会因该题结果获得支持或反证；无关题目不计证据。
+- 规则至少在3个不同的后续案例中获得3次支持且支持率达到80%，才从候选状态提升为内部 `VALIDATED`。这仍是题库内经验状态，不等于科学定律。
 
-## 来源库只有一个运行权威
+## 两层运行权威
 
-原算命项目中的来源库**不要删除**。它是只读原始档案，也可在 Chat 中作为 Git 冻结原典的快速检索镜像；它不是第二套可修改来源库，不能覆盖 Git 状态或模型发布。当前提供的两个 S02 中，只有 `(9)` 与 Git 原典一致，`(8)` 必须移出项目或明确忽略。
+1. `sources/canonical/`：S00–S19 冻结原典。训练中只读，由 `sources/canonical-manifest.json` 哈希锁定。
+2. `model-learning/`：模型自己的通用推理规则。不得包含案例编号、题号、答案字母、选项位置、选项原句或案例专属映射。
 
-训练只读取 Git 仓库中的两层内容：
+项目中上传的 S00–S19 只是 Git 原典的只读检索镜像；S02 `(8)` 禁用，S02 `(9)` 有效。`sources/canonical/` 被改动时仓库验证会直接失败。
 
-1. `sources/canonical/`：Git 版 S00–S19 冻结原典。用户经验和古书知识在训练期间不改写，`sources/canonical-manifest.json`用哈希锁定它们。
-2. `model-learning/`：模型自己的思路、知识运用方法、执行步骤和待验证新假设。揭盲复盘后只更新这一层。
+## 题级学习结构
 
-因此不存在“两套来源库冲突”：Git 是权威，项目文件只是只读镜像；下一轮的有效训练输入始终是“同一份冻结原典 + 最新模型发布”。如果任何 Git 冻结原典被改动，`verify`会直接失败，不能偷偷重新生成锁文件放行。
+`config/question-taxonomy.json` 定义四类语义标签和推理能力标签。Chat 根据题干、选项和无答案盘面在预测前自动分类，用户不需要人工整理。
 
-## 每轮闭环
+`training/learning-ledger.json` 只保存汇总证据：各主题/推理能力的首次盲测题数、Top1、Top2，以及规则在不同案例中的支持和反证计数。该文件不进入预测上下文，不含正确答案映射。
 
-1. `start`：绑定当前案例、冻结原典哈希和当前模型发布，建立新轮次。
-2. 独立预测：只读取当前无答案案例、Git 冻结原典和已激活模型修正。
-3. `freeze`：冻结本轮全部首选、次选和理由；冻结后不可修改。
-4. `score`：冻结后才读取答案并评分；仓库只保存汇总成绩，逐题答案对照输出到仓库外。
-5. 未达标：复盘错误思路或执行缺口，形成不含案例答案映射的模型修正，用 `learn` 激活。
-6. 达标但未连续 3 次：对同一案例开启新的独立轮次。
-7. 连续 3 次达标：系统自动切换到下一案例。
+规则生命周期：
 
-同一案例第二轮及以后是训练拟合验证，不冒充新的首次盲测准确率，但仍必须重新推理并严格先冻结、后评分。
+- `CANDIDATE`：由一次失败提出，尚无未来案例证据。
+- `PROVISIONAL`：已在后续相关题中使用，但证据不足。
+- `VALIDATED`：达到跨案例内部验证门槛。
+- `CHALLENGED`：应用结果未达到支持率门槛，需要修订边界。
+- `RETIRED`：停止使用。
 
-## 公共仓库中的答案
+## 每案闭环
 
-不需要私人答案仓库。答案可以和系统放在同一个公共仓库，但只能以 `answer-vault/encrypted/<CASE_ID>.json.fernet` 的加密形式保存；解密密钥不能进入仓库。
+1. Chat 只读取 `chat-input/current.json`；该文件内嵌当前未揭盲案例、标签表、当前模型规则和冻结原典清单。
+2. Chat 对每题先分类，再完成紫微与八字独立推理、选项比较、最强反证和置信度。
+3. 预测冻结后用户揭盲；Chat 输出完整 `TRAINING-ISSUE-PACKET-V2`。
+4. 用户把整份 JSON 粘贴到“无 Work 训练提交单”。
+5. GitHub 自动冻结、用加密答案复核评分、更新题级统计。
+6. 未通过时自动校验并加入候选规则；无论通过与否，闭环完成后都进入下一未揭盲案例。
 
-明文答案一旦进入公共仓库，模型在预测前就可能读到，所谓“未揭盲”将失去可信度。因此控制器会拒绝仓库内的明文答案。当前 5 个案例尚未装入官方加密答案，不能凭空编造；正式评分前需从用户保存的原答案文件生成一次加密文件。
+详细操作见 `docs/CHAT-WORK-RUNBOOK.md` 与 `docs/NO-WORK-ISSUE-RELAY.md`。
 
-## Chat 与 Work 的真实分工
+## 答案隔离
 
-- Chat 模式：读取项目上下文、完成命理预测、揭盲后复盘、整理候选模型修正。
-- Work/Codex：验证并写入模型修正、运行控制器、提交 Git、更新公共仓库。
+答案只允许以 `answer-vault/encrypted/<CASE_ID>.json.fernet` 保存；密钥只存在 GitHub Actions Secret。预测冻结前不得解密。仓库内不保存逐题正确选项；详细对照只写到仓库外的临时文件。
 
-Chat 模式本身没有 GitHub 插件和仓库写入能力，因此不能保证在纯 Chat 中直接修改 Git。为节省 Work 用量，日常推理放在 Chat；预测完成后只切换一次 Work，由同一个 Work 操作完成冻结、评分，以及未达标时的复盘、落库和发布。项目中的旧 R17 指令必须完整替换为 `docs/PROJECT-MAIN-PROMPT-R1.txt`，不能与新指令叠加。详细操作见 `docs/CHAT-WORK-RUNBOOK.md`。
+## 当前迁移状态
 
-Work 额度用尽时可改用 `docs/NO-WORK-ISSUE-RELAY.md`：Chat 在揭盲复盘后生成一张不含答案的训练提交单，用户粘贴到 GitHub Issue；仓库自动用加密答案复核评分，更新连续达标状态，并在失败时激活通用模型修正。
+- 原 `ROUND-001` 保留为第一案的历史首次盲测。
+- 原 `ROUND-002` 标记为同案修复回放，排除新统计。
+- 第一案不再重复；当前正式入口已切换至第二个未揭盲案例。
+- 原通用复盘被转换为5条带适用范围的候选规则，等待后续相关题目验证。
 
-为避免 Chat 的 GitHub 搜索意外返回旧轮预测，日常预测不得搜索仓库、提交、历史或目录。Chat 只直接读取 `chat-input/current.json`；该安全启动包由控制器在每次状态或模型变化后自动刷新，只内嵌当前无答案案例、当前模型发布/补丁、当前状态和冻结原典清单，不包含旧预测、答案或评分。
-
-## 当前干净基线
-
-- 冻结原典：`sources/canonical/` 中恰好一份 S00–S19。
-- 模型基线：`model-learning/releases/MODEL-BASELINE-001.json`，初始没有补丁。
-- 例题：`examples/DEV-GROUP-002/cases/` 中 5 个无答案案例。
-- 初始状态：`training/state.json`，从例题 1、连续达标 0 次开始。
-- 政策：`config/training-policy.json`、`config/source-policy.json`和`config/answer-policy.json`。
-
-## 控制器命令
+## 控制器
 
 ```bash
 python -m pip install -e .
 fortune-train verify
 fortune-train status
-fortune-train start ROUND-001
-fortune-train freeze ROUND-001 /tmp/ROUND-001.predictions.json
-fortune-train score ROUND-001 --answer-file /tmp/DEV-EXAMPLE-001.answers.json --review-output /tmp/ROUND-001.review.json
+fortune-train report
+fortune-train start ROUND-003
+fortune-train freeze ROUND-003 /tmp/ROUND-003.predictions.json
+fortune-train score ROUND-003 --review-output /tmp/ROUND-003.review.json
 ```
 
-未达标后：
+失败后追加候选规则：
 
 ```bash
-fortune-train learn ROUND-001 /tmp/model-learning-patch.json MODEL-LEARNING-001
-fortune-train start ROUND-002
+fortune-train learn ROUND-003 /tmp/model-learning-rules.json MODEL-LEARNING-003
 ```
 
-预测文件格式：
+预测的每一行除 `top1`、`top2`、`reasoning`、`evidence` 外，还必须包含：
 
 ```json
 {
-  "case_id": "DEV-EXAMPLE-001",
-  "round_id": "ROUND-001",
-  "predictions": [
-    {"question_id": "Q1", "top1": "A", "top2": "B", "reasoning": "..."}
-  ]
+  "question_profile": {
+    "topic_tags": ["MARRIAGE_RELATIONSHIP"],
+    "subject_tags": ["SPOUSE_PARTNER"],
+    "time_scope_tags": ["CURRENT_STATUS"],
+    "endpoint_tags": ["RELATIONSHIP_STATUS"],
+    "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "RELATIONSHIP_SEQUENCE"],
+    "source_routes": ["S04", "S08", "S16", "S17"],
+    "applied_rule_ids": []
+  }
 }
 ```
-
-模型修正文件必须是通用思路，不能包含案例编号、题号、答案字母或选项原句：
-
-```json
-{
-  "learning_type": "REASONING_STRATEGY",
-  "related_source_libraries": ["S03", "S17"],
-  "principles": [
-    {
-      "statement": "通用判断规则",
-      "applicability": "适用条件",
-      "limits": "限制",
-      "counterexamples": "反例",
-      "capability_ceiling": "能力上限",
-      "source_basis": "所依据的原典模块和推理依据"
-    }
-  ]
-}
-```
-
-答案明文格式只用于仓库外的一次性加密或冻结后评分：
-
-```json
-{
-  "case_id": "DEV-EXAMPLE-001",
-  "answers": [
-    {"question_id": "Q1", "correct_option": "A"}
-  ]
-}
-```
-
-生成加密答案：
-
-```bash
-fortune-train keygen
-FORTUNE_ANSWER_KEY='...' fortune-train encrypt-answer DEV-EXAMPLE-001 /tmp/DEV-EXAMPLE-001.answers.json
-```
-
-`keygen`只显示密钥，不写入仓库。评分器只在预测冻结后解密。
 
 ## 验证
 
@@ -135,4 +97,4 @@ make verify
 make test
 ```
 
-`verify`检查 20 份冻结原典的哈希、来源权威、模型发布链、5 份案例的无答案性、训练政策和状态一致性。`--require-answers`只在 5 份官方加密答案都装入后使用。持续集成只保留一个工作流，运行相同检查与测试。
+验证覆盖冻结原典、答案隔离、模型发布链、题级标签、规则证据账本、一次性首次盲测状态机、安全 Chat 输入包以及 Issue 自动闭环。

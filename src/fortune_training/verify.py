@@ -5,6 +5,13 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import CHAT_INPUT_RELATIVE_PATH, compose_chat_input
+from .learning import (
+    LEDGER_RELATIVE_PATH,
+    load_rule_catalog,
+    load_taxonomy,
+    validate_learning_ledger,
+    validate_rule,
+)
 from .policy import load_and_validate_policy
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
@@ -191,12 +198,22 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
                 f"model release patch is missing or outside model-learning/patches: {relative_path}"
             )
         patch = load_json(patch_path)
-        if patch.get("schema") != "MODEL-LEARNING-PATCH-V1":
+        if patch.get("schema") not in {"MODEL-LEARNING-PATCH-V1", "MODEL-LEARNING-PATCH-V2"}:
             raise TrainingError(f"wrong model learning patch schema: {relative_path}")
         if patch.get("contains_case_answer_mapping") is not False:
             raise TrainingError(f"model learning patch is not answer-isolated: {relative_path}")
         if patch.get("modifies_canonical_source_files") is not False:
             raise TrainingError(f"model learning patch attempts to mutate canonical sources: {relative_path}")
+        if patch.get("schema") == "MODEL-LEARNING-PATCH-V2":
+            content = patch.get("content")
+            if not isinstance(content, dict) or set(content) != {"learning_type", "rules"}:
+                raise TrainingError(f"invalid V2 learning patch content: {relative_path}")
+            rules = content.get("rules")
+            if not isinstance(rules, list) or not rules:
+                raise TrainingError(f"V2 learning patch contains no rules: {relative_path}")
+            normalized = [validate_rule(root, rule) for rule in rules]
+            if normalized != rules:
+                raise TrainingError(f"V2 learning patch rules are not normalized: {relative_path}")
     parent_id = release.get("parent_release")
     if parent_id is None:
         if release_id != "MODEL-BASELINE-001" or patches:
@@ -214,6 +231,8 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
 
 
 def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) -> None:
+    if state.get("schema") != "QUESTION-TRAINING-STATE-V2":
+        raise TrainingError("wrong question-level training state schema")
     case_order = group["case_order"]
     index = state.get("current_case_index")
     if not isinstance(index, int) or index < 0 or index > len(case_order):
@@ -224,13 +243,35 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
     elif index >= len(case_order):
         raise TrainingError("non-complete state must have a current case")
     rounds: list[str] = []
-    for case_id in case_order:
+    for case_position, case_id in enumerate(case_order):
         case_state = state["cases"][case_id]
         if not isinstance(case_state.get("round_ids"), list):
             raise TrainingError(f"invalid round list for {case_id}")
-        streak = case_state.get("consecutive_passes")
-        if not isinstance(streak, int) or streak < 0 or streak > 3:
-            raise TrainingError(f"invalid consecutive pass count for {case_id}")
+        first_blind = case_state.get("first_blind_round_id")
+        if first_blind is not None and (
+            not isinstance(first_blind, str) or first_blind not in case_state["round_ids"]
+        ):
+            raise TrainingError(f"invalid first-blind round for {case_id}")
+        replays = case_state.get("replay_round_ids")
+        if not isinstance(replays, list) or len(replays) != len(set(replays)):
+            raise TrainingError(f"invalid replay list for {case_id}")
+        if any(round_id not in case_state["round_ids"] or round_id == first_blind for round_id in replays):
+            raise TrainingError(f"replay list does not match case rounds for {case_id}")
+        if set(case_state["round_ids"]) != ({first_blind} if first_blind else set()) | set(replays):
+            raise TrainingError(f"every case round must be classified as first-blind or replay: {case_id}")
+        expected_status = "PENDING"
+        if case_position < index:
+            expected_status = "COMPLETE"
+        elif case_position == index and state.get("status") != "GROUP_COMPLETE":
+            expected_status = "LEARNING_PENDING" if state.get("status") == "LEARNING_REQUIRED" else "ACTIVE"
+        if case_state.get("status") != expected_status:
+            raise TrainingError(
+                f"case status mismatch for {case_id}: expected {expected_status}"
+            )
+        if case_position < index and first_blind is None:
+            raise TrainingError(f"completed case lacks a first-blind round: {case_id}")
+        if case_position > index and first_blind is not None:
+            raise TrainingError(f"pending case already has a first-blind round: {case_id}")
         rounds.extend(case_state["round_ids"])
     if len(rounds) != len(set(rounds)):
         raise TrainingError("a round id appears more than once")
@@ -250,6 +291,7 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
 def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str, Any]:
     root = root.resolve()
     policy = load_and_validate_policy(root / "config" / "training-policy.json")
+    taxonomy = load_taxonomy(root)
     source_policy = _validate_source_policy(root)
     _validate_answer_policy(root)
     expected_manifest = build_source_manifest(root)
@@ -264,8 +306,8 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     case_order = group.get("case_order")
     cases = group.get("cases")
-    if not isinstance(case_order, list) or len(case_order) != 5 or len(set(case_order)) != 5:
-        raise TrainingError("the clean baseline must contain exactly five ordered cases")
+    if not isinstance(case_order, list) or not case_order or len(set(case_order)) != len(case_order):
+        raise TrainingError("the training group must contain one or more uniquely ordered cases")
     if not isinstance(cases, dict) or set(cases) != set(case_order):
         raise TrainingError("group case mapping does not match case order")
     question_counts = {case_id: _validate_case(root, case_id, cases[case_id]) for case_id in case_order}
@@ -291,7 +333,10 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     if set(state.get("cases", {})) != set(case_order):
         raise TrainingError("training state case set mismatch")
     _validate_state(root, state, group)
-    _validate_release_chain(root, current_release)
+    current_release_record = _validate_release_chain(root, current_release)
+    load_rule_catalog(root, current_release_record)
+    ledger = load_json(root / LEDGER_RELATIVE_PATH)
+    validate_learning_ledger(root, ledger, current_release_record)
 
     chat_input_path = root / CHAT_INPUT_RELATIVE_PATH
     chat_input = load_json(chat_input_path)
@@ -317,6 +362,11 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "external_post_freeze_answer_supported": True,
         "controller_ready": True,
         "chat_input_ready": True,
+        "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V1",
+        "learning_ledger_ready": True,
+        "training_unit": "QUESTION_FIRST_BLIND",
+        "same_case_replays_count_toward_validation": False,
         "round_limit": None,
-        "consecutive_passes_required": 3,
+        "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
+        "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
     }

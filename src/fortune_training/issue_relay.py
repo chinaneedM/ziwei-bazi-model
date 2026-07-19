@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import CHAT_INPUT_RAW_URL, compose_chat_input
+from .learning import public_learning_summary
 from .runtime import (
     _validate_learning_patch,
     apply_learning,
@@ -23,7 +24,7 @@ from .verify import verify_repository
 
 PACKET_START = "<!-- TRAINING_PACKET_START -->"
 PACKET_END = "<!-- TRAINING_PACKET_END -->"
-PACKET_SCHEMA = "TRAINING-ISSUE-PACKET-V1"
+PACKET_SCHEMA = "TRAINING-ISSUE-PACKET-V2"
 EXPECTED_RESULTS = {"PASS", "FAIL"}
 
 
@@ -81,7 +82,7 @@ def _validate_packet(root: Path, packet: dict[str, Any]) -> dict[str, Any]:
     current = status(root)
     if packet.get("case_id") != current["current_case_id"]:
         raise TrainingError("packet case_id is not the current training case")
-    if current["status"] not in {"READY_FOR_ROUND", "CONFIRMATION_REQUIRED"}:
+    if current["status"] != "READY_FOR_ROUND":
         raise TrainingError(f"cannot process a new round while state is {current['status']}")
     predictions = packet.get("predictions")
     if not isinstance(predictions, list) or not predictions:
@@ -124,29 +125,37 @@ def process_packet(root: Path, packet: dict[str, Any], key: str | bytes | None) 
             )
 
         learning_release = None
+        learning_rules_created: list[str] = []
         if not score["passed"]:
             atomic_write_json(patch_file, packet["learning_patch"])
             release = apply_learning(root, round_id, patch_file, packet["learning_release_id"])
             learning_release = release["release_id"]
+            learning_rules_created = [
+                rule["rule_id"] for rule in packet["learning_patch"]["rules"]
+            ]
 
         verification = verify_repository(root, require_answers=True)
         new_status = status(root)
         chat_input = compose_chat_input(root)
         result = {
-            "schema": "TRAINING-ISSUE-RESULT-V1",
+            "schema": "TRAINING-ISSUE-RESULT-V2",
             "round_id": round_id,
             "case_id": packet["case_id"],
             "correct_count": score["correct_count"],
             "question_count": score["question_count"],
             "required_correct": score["required_correct"],
             "accuracy": score["accuracy"],
+            "top2_coverage": score["top2_coverage"],
             "passed": score["passed"],
-            "consecutive_passes": score["consecutive_passes_after"],
+            "evaluation_kind": "FIRST_BLIND",
+            "same_case_replay_required": False,
             "learning_release": learning_release,
+            "learning_rules_created": learning_rules_created,
             "next_case_id": new_status["current_case_id"],
             "next_status": new_status["status"],
             "next_round_id": chat_input["state_summary"]["recommended_round_id"],
             "chat_input_url": CHAT_INPUT_RAW_URL,
+            "learning_summary": public_learning_summary(root),
             "answers_published": False,
             "verification": verification["status"],
         }

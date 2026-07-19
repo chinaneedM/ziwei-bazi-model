@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from .policy import REQUIRED_CONSECUTIVE_PASSES
+from .learning import load_taxonomy, safe_active_rules
 from .util import atomic_write_json, load_json, object_sha256, sha256_file
 
 
@@ -12,7 +12,7 @@ CHAT_INPUT_RAW_URL = (
     "https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/"
     "main/chat-input/current.json"
 )
-OPENABLE_STATES = {"READY_FOR_ROUND", "CONFIRMATION_REQUIRED"}
+OPENABLE_STATES = {"READY_FOR_ROUND"}
 
 
 def compose_chat_input(root: Path) -> dict[str, Any]:
@@ -20,33 +20,32 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     state = load_json(root / "training" / "state.json")
     group = load_json(root / state["group_path"])
     manifest = load_json(root / state["source_manifest_path"])
+    taxonomy = load_taxonomy(root)
 
     current_case_id = None
     current_case = None
     current_case_sha256 = None
-    consecutive_passes = None
+    current_case_state: dict[str, Any] = {}
     if state["status"] != "GROUP_COMPLETE":
         current_case_id = group["case_order"][state["current_case_index"]]
+        current_case_state = state["cases"][current_case_id]
         case_path = root / group["cases"][current_case_id]
         current_case = load_json(case_path)
         current_case_sha256 = sha256_file(case_path)
-        consecutive_passes = state["cases"][current_case_id]["consecutive_passes"]
 
     release_id = state["current_model_release"]
     release = load_json(root / "model-learning" / "releases" / f"{release_id}.json")
-    patches = [
-        {"path": path, "record": load_json(root / path)}
-        for path in release.get("patches", [])
-    ]
+    active_rules = safe_active_rules(root, release)
     prediction_allowed = (
         state["status"] in OPENABLE_STATES
         and state.get("active_round_id") is None
         and current_case_id is not None
+        and current_case_state.get("first_blind_round_id") is None
     )
     recommended_round_id = f"ROUND-{state['round_count'] + 1:03d}" if prediction_allowed else None
 
     return {
-        "schema": "CHAT-PREDICTION-INPUT-V1",
+        "schema": "CHAT-PREDICTION-INPUT-V2",
         "repository": "chinaneedM/ziwei-bazi-model",
         "branch": "main",
         "state_summary": {
@@ -54,20 +53,60 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "current_case_id": current_case_id,
             "current_model_release": release_id,
             "round_count": state["round_count"],
-            "consecutive_passes": consecutive_passes,
-            "consecutive_passes_required": REQUIRED_CONSECUTIVE_PASSES,
             "prediction_allowed": prediction_allowed,
             "recommended_round_id": recommended_round_id,
+            "training_unit": "QUESTION_FIRST_BLIND",
+            "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+            "same_case_replays_count_toward_validation": False,
         },
         "component_hashes": {
             "current_case_sha256": current_case_sha256,
             "current_model_release_sha256": object_sha256(release),
+            "question_taxonomy_sha256": object_sha256(taxonomy),
             "canonical_source_manifest_sha256": object_sha256(manifest),
         },
         "current_case": current_case,
+        "question_taxonomy": taxonomy,
         "current_model": {
-            "release": release,
-            "active_patches": patches,
+            "release_id": release_id,
+            "active_rules": active_rules,
+            "rule_application_policy": {
+                "VALIDATED": "May be used normally within its declared scope.",
+                "PROVISIONAL": "Use as a low-weight hypothesis and never as sole evidence.",
+                "CANDIDATE": "Use only when scope matches; never as sole evidence.",
+                "CHALLENGED": "Treat as a warning or counter-hypothesis, not a decisive rule.",
+            },
+        },
+        "prediction_output_contract": {
+            "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V2",
+            "each_question_must_include": [
+                "top1",
+                "top2",
+                "reasoning",
+                "evidence",
+                "strongest_counterevidence",
+                "confidence",
+                "question_profile",
+            ],
+            "question_profile_fields": [
+                "topic_tags",
+                "subject_tags",
+                "time_scope_tags",
+                "endpoint_tags",
+                "reasoning_skill_tags",
+                "source_routes",
+                "applied_rule_ids",
+            ],
+            "tagging_rule": (
+                "Classify every question before reveal using only its stem/options and the no-answer chart. "
+                "Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects "
+                "the frozen reasoning; unrelated questions do not validate that rule."
+            ),
+            "failure_learning_rule": (
+                "After reveal, a failed round must propose one or more generic candidate rules. Rules may "
+                "contain no case id, question id, answer letter, option position, or copied option sentence. "
+                "Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only."
+            ),
         },
         "canonical_source_manifest": manifest,
         "prediction_access_contract": {
@@ -82,7 +121,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "code search",
                 "commit search or commit inspection",
                 "history, diff, branch, tree, or directory listing",
-                "opening training/runs, prediction-freeze, score, review, relay-results, or answer-vault",
+                "opening training/runs, prediction-freeze, score, review, relay-results, learning-ledger, or answer-vault",
             ],
             "forbidden_prediction_inputs": [
                 "old predictions",

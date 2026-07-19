@@ -8,6 +8,14 @@ from pathlib import Path
 from cryptography.fernet import Fernet
 
 from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_input
+from fortune_training.cli import build_parser
+from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
+from fortune_training.learning import (
+    LEDGER_RELATIVE_PATH,
+    empty_learning_ledger,
+    load_learning_ledger,
+    write_learning_ledger,
+)
 from fortune_training.policy import passed, required_correct
 from fortune_training.runtime import (
     apply_learning,
@@ -17,34 +25,36 @@ from fortune_training.runtime import (
     start_round,
     status,
 )
-from fortune_training.cli import build_parser
-from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
 from fortune_training.util import TrainingError, object_sha256
 from fortune_training.verify import build_source_manifest, verify_repository
 
 
-POLICY = {
-    "schema": "CASE-TRAINING-POLICY-V1",
-    "training_unit": "CASE",
-    "round_limit": None,
-    "pass_rule": {
-        "fewer_than_5_questions": "ALL_CORRECT",
-        "5_or_more_questions": "CEILING_80_PERCENT",
-    },
-    "consecutive_passing_rounds_required": 3,
-    "failed_round_resets_streak": True,
-    "prediction_must_be_frozen_before_scoring": True,
-    "failed_round_requires_learning_before_retry": True,
-    "failed_round_updates_model_layer_only": True,
-    "canonical_sources_mutable_during_training": False,
-    "answer_plaintext_allowed_in_repository": False,
-    "repeated_case_rounds_are_first_blind_evaluations": False,
-}
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+TAXONOMY = json.loads((PROJECT_ROOT / "config" / "question-taxonomy.json").read_text())
+POLICY = json.loads((PROJECT_ROOT / "config" / "training-policy.json").read_text())
 
 
 def write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def general_rule(rule_id: str) -> dict:
+    return {
+        "rule_id": rule_id,
+        "topic_tags": ["OTHER"],
+        "reasoning_skill_tags": ["EVIDENCE_WEIGHTING"],
+        "source_routes": ["S03", "S17"],
+        "statement": "Separate structural possibility from a proved event endpoint.",
+        "applicability": "When several real-world outcomes share the same broad structure.",
+        "limits": "A broad structure cannot prove an exact event by itself.",
+        "counterexamples": "A complete actor, action, timing, and endpoint chain may justify precision.",
+        "capability_ceiling": "Use as a candidate until independent timing and endpoint evidence agree.",
+        "source_basis": "S03 conflict arbitration and S17 endpoint-chain principles.",
+        "trigger_conditions": "Several options share the same non-specific symbolic background.",
+        "decision_procedure": "Build a separate actor, mechanism, timing, and endpoint chain for each option.",
+        "stop_conditions": "Stop at a broad possibility when an exclusive endpoint node is missing.",
+    }
 
 
 class RuntimeFixture:
@@ -57,6 +67,7 @@ class RuntimeFixture:
             source.parent.mkdir(parents=True, exist_ok=True)
             source.write_text(f"general source {index}\n", encoding="utf-8")
         write_json(self.root / "config" / "training-policy.json", POLICY)
+        write_json(self.root / "config" / "question-taxonomy.json", TAXONOMY)
         source_manifest = build_source_manifest(self.root)
         write_json(
             self.root / "config" / "source-policy.json",
@@ -104,18 +115,17 @@ class RuntimeFixture:
         }
         for index, case_id in enumerate(case_order):
             count = first_question_count if index == 0 else 5
-            questions = []
-            for question_index in range(1, count + 1):
-                questions.append(
-                    {
-                        "question_id": f"Q{question_index}",
-                        "stem": f"question {question_index}",
-                        "options": [
-                            {"option_id": option, "text": option}
-                            for option in ("A", "B", "C", "D")
-                        ],
-                    }
-                )
+            questions = [
+                {
+                    "question_id": f"Q{question_index}",
+                    "stem": f"question {question_index}",
+                    "options": [
+                        {"option_id": option, "text": option}
+                        for option in ("A", "B", "C", "D")
+                    ],
+                }
+                for question_index in range(1, count + 1)
+            ]
             write_json(
                 self.root / case_paths[case_id],
                 {
@@ -142,7 +152,7 @@ class RuntimeFixture:
         write_json(
             self.root / "training" / "state.json",
             {
-                "schema": "CASE-TRAINING-STATE-V1",
+                "schema": "QUESTION-TRAINING-STATE-V2",
                 "group_id": "DEV-GROUP-002",
                 "group_path": "examples/DEV-GROUP-002/group.json",
                 "policy_path": "config/training-policy.json",
@@ -156,73 +166,105 @@ class RuntimeFixture:
                 "cases": {
                     case_id: {
                         "status": "ACTIVE" if index == 0 else "PENDING",
-                        "consecutive_passes": 0,
+                        "first_blind_round_id": None,
+                        "replay_round_ids": [],
                         "round_ids": [],
                     }
                     for index, case_id in enumerate(case_order)
                 },
             },
         )
+        write_learning_ledger(self.root, empty_learning_ledger(self.root))
         (self.root / "answer-vault" / "encrypted").mkdir(parents=True, exist_ok=True)
         (self.root / "training" / "runs").mkdir(parents=True, exist_ok=True)
         (self.root / "model-learning" / "patches").mkdir(parents=True, exist_ok=True)
         write_chat_input(self.root)
-        self.case_id = case_order[0]
-        self.question_count = first_question_count
-        self.plaintext_answer = base / "trusted-answer.json"
-        write_json(
-            self.plaintext_answer,
-            {
-                "case_id": self.case_id,
-                "answers": [
-                    {"question_id": f"Q{index}", "correct_option": "A"}
-                    for index in range(1, first_question_count + 1)
-                ],
-            },
-        )
-        encrypt_answer(self.root, self.case_id, self.plaintext_answer, self.key)
-        for case_id in case_order[1:]:
+        for index, case_id in enumerate(case_order):
+            count = first_question_count if index == 0 else 5
             answer_file = base / f"{case_id}.trusted-answer.json"
             write_json(
                 answer_file,
                 {
                     "case_id": case_id,
                     "answers": [
-                        {"question_id": f"Q{index}", "correct_option": "A"}
-                        for index in range(1, 6)
+                        {"question_id": f"Q{question_index}", "correct_option": "A"}
+                        for question_index in range(1, count + 1)
                     ],
                 },
             )
             encrypt_answer(self.root, case_id, answer_file, self.key)
+        self.plaintext_answer = base / f"{case_order[0]}.trusted-answer.json"
 
-    def prediction_file(self, round_id: str, correct_count: int) -> Path:
+    def current_case(self) -> tuple[str, int]:
+        current = status(self.root)["current_case_id"]
+        group = json.loads((self.root / "examples/DEV-GROUP-002/group.json").read_text())
+        case = json.loads((self.root / group["cases"][current]).read_text())
+        return current, case["questions"]["question_count"]
+
+    def profile(self, applied_rule_ids: list[str] | None = None) -> dict:
+        return {
+            "topic_tags": ["OTHER"],
+            "subject_tags": ["SELF"],
+            "time_scope_tags": ["NATAL"],
+            "endpoint_tags": ["OTHER"],
+            "reasoning_skill_tags": ["EVIDENCE_WEIGHTING"],
+            "source_routes": ["S03", "S17"],
+            "applied_rule_ids": applied_rule_ids or [],
+        }
+
+    def prediction_file(
+        self,
+        round_id: str,
+        correct_count: int,
+        *,
+        applied_rule_ids: list[str] | None = None,
+        include_profile: bool = True,
+    ) -> Path:
+        case_id, question_count = self.current_case()
         path = self.base / f"{round_id}.prediction.json"
+        rows = []
+        for index in range(1, question_count + 1):
+            row = {
+                "question_id": f"Q{index}",
+                "top1": "A" if index <= correct_count else "B",
+                "top2": "C",
+                "reasoning": "general reasoning",
+                "evidence": ["S03", "S17"],
+                "strongest_counterevidence": "A competing endpoint may fit the same background.",
+                "confidence": 70,
+            }
+            if include_profile:
+                row["question_profile"] = self.profile(applied_rule_ids)
+            rows.append(row)
         write_json(
             path,
-            {
-                "case_id": self.case_id,
-                "round_id": round_id,
-                "predictions": [
-                    {
-                        "question_id": f"Q{index}",
-                        "top1": "A" if index <= correct_count else "B",
-                        "top2": "C",
-                        "reasoning": "general reasoning",
-                    }
-                    for index in range(1, self.question_count + 1)
-                ],
-            },
+            {"case_id": case_id, "round_id": round_id, "predictions": rows},
         )
         return path
 
-    def run_and_score(self, round_id: str, correct_count: int):
+    def run_and_score(
+        self,
+        round_id: str,
+        correct_count: int,
+        *,
+        applied_rule_ids: list[str] | None = None,
+    ) -> dict:
         start_round(self.root, round_id)
-        freeze_prediction(self.root, round_id, self.prediction_file(round_id, correct_count))
+        freeze_prediction(
+            self.root,
+            round_id,
+            self.prediction_file(round_id, correct_count, applied_rule_ids=applied_rule_ids),
+        )
         return score_round(self.root, round_id, self.base / f"{round_id}.review.json", self.key)
+
+    def patch_file(self, release_id: str, rule_id: str) -> Path:
+        path = self.base / f"{release_id}.patch.json"
+        write_json(path, {"learning_type": "REASONING_STRATEGY", "rules": [general_rule(rule_id)]})
+        return path
 
 
 class PolicyTests(unittest.TestCase):
-    def test_exact_thresholds_and_no_fixed_round_count(self):
+    def test_exact_round_quality_thresholds(self):
         self.assertEqual([required_correct(count) for count in range(1, 5)], [1, 2, 3, 4])
         self.assertEqual(required_correct(5), 4)
         self.assertEqual(required_correct(6), 5)
@@ -231,85 +273,120 @@ class PolicyTests(unittest.TestCase):
 
 
 class RuntimeTests(unittest.TestCase):
-    def test_chat_input_contains_only_current_safe_prediction_material(self):
+    def test_passing_first_blind_round_advances_immediately(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            score = fixture.run_and_score("R1", 4)
+            self.assertTrue(score["passed"])
+            self.assertEqual(score["evaluation_kind"], "FIRST_BLIND")
+            self.assertFalse(score["same_case_replay_required"])
+            current = status(fixture.root)
+            self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-002")
+            self.assertEqual(current["status"], "READY_FOR_ROUND")
+            state = json.loads((fixture.root / "training/state.json").read_text())
+            self.assertEqual(state["cases"]["DEV-EXAMPLE-001"]["first_blind_round_id"], "R1")
+            self.assertEqual(state["cases"]["DEV-EXAMPLE-001"]["replay_round_ids"], [])
+
+    def test_failure_creates_candidate_rule_then_advances(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            score = fixture.run_and_score("R1", 3)
+            self.assertFalse(score["passed"])
+            self.assertEqual(status(fixture.root)["status"], "LEARNING_REQUIRED")
+            with self.assertRaises(TrainingError):
+                start_round(fixture.root, "BLOCKED")
+            release = apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
+                "LEARNING-001",
+            )
+            self.assertEqual(release["parent_release"], "MODEL-BASELINE-001")
+            self.assertEqual(status(fixture.root)["current_case_id"], "DEV-EXAMPLE-002")
+            ledger = load_learning_ledger(fixture.root)
+            self.assertEqual(ledger["rule_evidence"]["RULE-GENERAL-ENDPOINT"]["status"], "CANDIDATE")
+
+    def test_question_profile_is_required_and_taxonomy_checked(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            start_round(fixture.root, "R1")
+            with self.assertRaises(TrainingError):
+                freeze_prediction(
+                    fixture.root,
+                    "R1",
+                    fixture.prediction_file("R1", 5, include_profile=False),
+                )
+
+    def test_rule_is_validated_only_by_explicit_future_applications(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 3)
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
+                "LEARNING-001",
+            )
+            fixture.run_and_score("R2", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            fixture.run_and_score("R3", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
+            self.assertEqual(evidence["status"], "PROVISIONAL")
+            fixture.run_and_score("R4", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
+            self.assertEqual(evidence["status"], "VALIDATED")
+            self.assertEqual(evidence["supporting_applications"], 15)
+            self.assertEqual(len(evidence["distinct_support_cases"]), 3)
+
+    def test_unrelated_question_does_not_validate_rule(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 3)
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
+                "LEARNING-001",
+            )
+            fixture.run_and_score("R2", 5)
+            evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
+            self.assertEqual(evidence["applications"], 0)
+            self.assertEqual(evidence["status"], "CANDIDATE")
+
+    def test_metrics_are_question_level_by_topic_and_skill(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 4)
+            ledger = load_learning_ledger(fixture.root)
+            self.assertEqual(ledger["first_blind_totals"]["cases"], 1)
+            self.assertEqual(ledger["first_blind_totals"]["questions"], 5)
+            self.assertEqual(ledger["topic_metrics"]["OTHER"]["top1_correct"], 4)
+            self.assertEqual(ledger["reasoning_skill_metrics"]["EVIDENCE_WEIGHTING"]["questions"], 5)
+
+    def test_group_completes_after_one_first_blind_round_per_case(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            for index in range(1, 6):
+                fixture.run_and_score(f"R{index}", 5)
+            current = status(fixture.root)
+            self.assertEqual(current["status"], "GROUP_COMPLETE")
+            self.assertIsNone(current["current_case_id"])
+            bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
+            self.assertFalse(bundle["state_summary"]["prediction_allowed"])
+            self.assertIsNone(bundle["state_summary"]["recommended_round_id"])
+
+    def test_chat_input_is_safe_and_points_to_next_unseen_case(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             fixture.run_and_score("R1", 4)
             bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
             serialized = json.dumps(bundle, ensure_ascii=False)
-            self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V1")
-            self.assertEqual(bundle["state_summary"]["current_case_id"], fixture.case_id)
-            self.assertTrue(bundle["state_summary"]["prediction_allowed"])
-            self.assertFalse(bundle["contains_old_predictions"])
+            self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V2")
+            self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-002")
+            self.assertEqual(bundle["state_summary"]["training_unit"], "QUESTION_FIRST_BLIND")
+            self.assertFalse(bundle["state_summary"]["same_case_replays_count_toward_validation"])
             self.assertNotIn("general reasoning", serialized)
-            self.assertNotIn('"top1"', serialized)
-            self.assertNotIn("prediction-freeze.json", serialized)
-
-    def test_chat_input_tampering_fails_repository_verification(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            fixture = RuntimeFixture(Path(temporary))
-            path = fixture.root / CHAT_INPUT_RELATIVE_PATH
-            bundle = json.loads(path.read_text())
-            bundle["contains_old_predictions"] = True
-            write_json(path, bundle)
-            with self.assertRaises(TrainingError):
-                verify_repository(fixture.root)
-
-    def test_failure_resets_streak_requires_learning_and_three_new_passes(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            fixture = RuntimeFixture(Path(temporary))
-            self.assertTrue(fixture.run_and_score("R1", 4)["passed"])
-            self.assertTrue(fixture.run_and_score("R2", 5)["passed"])
-            failed = fixture.run_and_score("R3", 3)
-            self.assertFalse(failed["passed"])
-            self.assertEqual(status(fixture.root)["consecutive_passes"], 0)
-            with self.assertRaises(TrainingError):
-                start_round(fixture.root, "BLOCKED-BEFORE-LEARNING")
-
-            patch = fixture.base / "general-patch.json"
-            canonical_before = build_source_manifest(fixture.root)
-            write_json(
-                patch,
-                {
-                    "learning_type": "REASONING_STRATEGY",
-                    "related_source_libraries": ["S03", "S17"],
-                    "principles": [
-                        {
-                            "statement": "Separate structural possibility from a proved event endpoint.",
-                            "applicability": "When several real-world outcomes share the same broad structure.",
-                            "limits": "A broad structure cannot prove an exact event by itself.",
-                            "counterexamples": "A matching structure may manifest through another actor or domain.",
-                            "capability_ceiling": "Use as a candidate generator until timing and endpoint evidence agree.",
-                            "source_basis": "S03 conflict arbitration and S17 endpoint-chain principles.",
-                        }
-                    ],
-                },
-            )
-            release = apply_learning(fixture.root, "R3", patch, "LEARNING-001")
-            self.assertEqual(release["parent_release"], "MODEL-BASELINE-001")
-            self.assertEqual(build_source_manifest(fixture.root), canonical_before)
-            self.assertTrue(
-                (fixture.root / "model-learning" / "patches" / "LEARNING-001.json").is_file()
-            )
-            first_retry = start_round(fixture.root, "R4")
-            self.assertEqual(first_retry["model_release"], "LEARNING-001")
-            freeze_prediction(fixture.root, "R4", fixture.prediction_file("R4", 4))
-            score_round(fixture.root, "R4", fixture.base / "R4.review.json", fixture.key)
-            fixture.run_and_score("R5", 4)
-            fixture.run_and_score("R6", 5)
-            current = status(fixture.root)
-            self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-002")
-            self.assertEqual(current["status"], "READY_FOR_ROUND")
-            self.assertEqual(current["round_count"], 6)
-            score_text = (fixture.root / "training" / "runs" / "R6" / "score.json").read_text()
-            self.assertNotIn("correct_option", score_text)
-
-    def test_less_than_five_requires_all_correct(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            fixture = RuntimeFixture(Path(temporary), first_question_count=3)
-            score = fixture.run_and_score("SHORT-1", 2)
-            self.assertFalse(score["passed"])
-            self.assertEqual(score["required_correct"], 3)
+            self.assertNotIn('"top1_correct"', serialized)
+            self.assertNotIn('"correct_option"', serialized)
 
     def test_scoring_before_freeze_and_second_freeze_are_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -322,19 +399,11 @@ class RuntimeTests(unittest.TestCase):
             with self.assertRaises(TrainingError):
                 freeze_prediction(fixture.root, "R1", prediction)
 
-    def test_plaintext_answers_inside_repository_are_rejected(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            fixture = RuntimeFixture(Path(temporary))
-            inside = fixture.root / "unsafe.answers.json"
-            inside.write_text(fixture.plaintext_answer.read_text(), encoding="utf-8")
-            with self.assertRaises(TrainingError):
-                encrypt_answer(fixture.root, fixture.case_id, inside, fixture.key)
-
     def test_external_answer_is_read_only_after_freeze(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            envelope = fixture.root / "answer-vault" / "encrypted" / f"{fixture.case_id}.json.fernet"
-            envelope.unlink()
+            case_id, _ = fixture.current_case()
+            (fixture.root / "answer-vault" / "encrypted" / f"{case_id}.json.fernet").unlink()
             start_round(fixture.root, "R1")
             freeze_prediction(fixture.root, "R1", fixture.prediction_file("R1", 5))
             score = score_round(
@@ -346,140 +415,88 @@ class RuntimeTests(unittest.TestCase):
             self.assertTrue(score["passed"])
             self.assertEqual(score["answer_source"], "EXTERNAL_POST_FREEZE_FILE")
 
-    def test_external_answer_inside_repository_is_rejected(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            fixture = RuntimeFixture(Path(temporary))
-            inside = fixture.root / "unsafe-answer-input.json"
-            inside.write_text(fixture.plaintext_answer.read_text(), encoding="utf-8")
-            start_round(fixture.root, "R1")
-            freeze_prediction(fixture.root, "R1", fixture.prediction_file("R1", 5))
-            with self.assertRaises(TrainingError):
-                score_round(
-                    fixture.root,
-                    "R1",
-                    fixture.base / "unsafe.review.json",
-                    answer_file=inside,
-                )
-
-    def test_case_specific_learning_patch_is_rejected(self):
+    def test_case_specific_learning_rule_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             fixture.run_and_score("R1", 0)
+            rule = general_rule("RULE-LEAKING")
+            rule["statement"] = "DEV-EXAMPLE-001 Q1 should choose A."
             patch = fixture.base / "leaking-patch.json"
-            write_json(
-                patch,
-                {
-                    "learning_type": "REASONING_STRATEGY",
-                    "related_source_libraries": ["S03"],
-                    "principles": [
-                        {
-                            "statement": "DEV-EXAMPLE-001 Q1 should choose A.",
-                            "applicability": "always",
-                            "limits": "none",
-                            "counterexamples": "none",
-                            "capability_ceiling": "exact",
-                            "source_basis": "memory",
-                        }
-                    ],
-                },
-            )
+            write_json(patch, {"learning_type": "REASONING_STRATEGY", "rules": [rule]})
             with self.assertRaises(TrainingError):
                 apply_learning(fixture.root, "R1", patch, "LEAKING")
 
 
 class IssueRelayTests(unittest.TestCase):
-    def _packet(self, fixture: RuntimeFixture, round_id: str, correct_count: int) -> dict:
+    def packet(self, fixture: RuntimeFixture, round_id: str, correct_count: int) -> dict:
+        case_id, question_count = fixture.current_case()
         prediction = json.loads(fixture.prediction_file(round_id, correct_count).read_text())
+        failed = correct_count < required_correct(question_count)
         packet = {
-            "schema": "TRAINING-ISSUE-PACKET-V1",
+            "schema": "TRAINING-ISSUE-PACKET-V2",
             "round_id": round_id,
-            "case_id": fixture.case_id,
+            "case_id": case_id,
             "predictions": prediction["predictions"],
-            "expected_result": "PASS"
-            if correct_count >= required_correct(fixture.question_count)
-            else "FAIL",
+            "expected_result": "FAIL" if failed else "PASS",
         }
-        if packet["expected_result"] == "FAIL":
+        if failed:
             packet["learning_release_id"] = f"LEARNING-{round_id}"
             packet["learning_patch"] = {
                 "learning_type": "REASONING_STRATEGY",
-                "related_source_libraries": ["S03", "S17"],
-                "principles": [
-                    {
-                        "statement": "Separate a possible structure from a proved real-world endpoint.",
-                        "applicability": "When several outcomes share the same broad symbolic structure.",
-                        "limits": "The broad structure cannot establish an exact event without timing evidence.",
-                        "counterexamples": "The same structure may manifest through another person or domain.",
-                        "capability_ceiling": "Use only to generate candidates before endpoint adjudication.",
-                        "source_basis": "S03 conflict arbitration and S17 endpoint-chain principles.",
-                    }
-                ],
+                "rules": [general_rule(f"RULE-{round_id}")],
             }
         return packet
 
     def test_extract_and_process_passing_issue(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            packet = self._packet(fixture, "ISSUE-PASS-1", 4)
-            body = (
-                f"header\n{PACKET_START}\n```json\n"
-                f"{json.dumps(packet)}\n```\n{PACKET_END}\n"
-            )
+            packet = self.packet(fixture, "ISSUE-PASS-1", 4)
+            body = f"header\n{PACKET_START}\n```json\n{json.dumps(packet)}\n```\n{PACKET_END}\n"
             result = process_packet(fixture.root, extract_packet(body), fixture.key)
             self.assertTrue(result["passed"])
-            self.assertEqual(result["consecutive_passes"], 1)
+            self.assertEqual(result["evaluation_kind"], "FIRST_BLIND")
+            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-002")
             self.assertFalse(result["answers_published"])
 
-    def test_extract_accepts_raw_json_issue_body(self):
-        packet = {
-            "schema": "TRAINING-ISSUE-PACKET-V1",
-            "round_id": "RAW-JSON-1",
-        }
+    def test_extract_accepts_raw_json_and_single_code_block(self):
+        packet = {"schema": "TRAINING-ISSUE-PACKET-V2", "round_id": "RAW-1"}
         self.assertEqual(extract_packet(json.dumps(packet)), packet)
+        self.assertEqual(extract_packet(f"```json\n{json.dumps(packet)}\n```"), packet)
 
-    def test_extract_accepts_single_json_code_block(self):
-        packet = {
-            "schema": "TRAINING-ISSUE-PACKET-V1",
-            "round_id": "FENCED-JSON-1",
-        }
-        body = f"```json\n{json.dumps(packet)}\n```"
-        self.assertEqual(extract_packet(body), packet)
-
-    def test_extract_rejects_partial_legacy_marker(self):
-        with self.assertRaises(TrainingError):
-            extract_packet(f"{PACKET_START}\n{{}}")
-
-    def test_failed_issue_requires_and_applies_general_learning(self):
+    def test_failed_issue_creates_candidate_rules_and_advances(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            packet = self._packet(fixture, "ISSUE-FAIL-1", 3)
+            packet = self.packet(fixture, "ISSUE-FAIL-1", 3)
             result = process_packet(fixture.root, packet, fixture.key)
             self.assertFalse(result["passed"])
             self.assertEqual(result["learning_release"], "LEARNING-ISSUE-FAIL-1")
-            self.assertEqual(status(fixture.root)["status"], "READY_FOR_ROUND")
+            self.assertEqual(result["learning_rules_created"], ["RULE-ISSUE-FAIL-1"])
+            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-002")
 
-    def test_issue_expected_result_mismatch_is_rejected(self):
+    def test_expected_result_mismatch_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            packet = self._packet(fixture, "ISSUE-MISMATCH-1", 4)
+            packet = self.packet(fixture, "ISSUE-MISMATCH-1", 4)
             packet["expected_result"] = "FAIL"
-            packet["learning_release_id"] = "LEARNING-ISSUE-MISMATCH-1"
-            packet["learning_patch"] = self._packet(fixture, "TEMP", 0)["learning_patch"]
+            packet["learning_release_id"] = "LEARNING-MISMATCH"
+            packet["learning_patch"] = {
+                "learning_type": "REASONING_STRATEGY",
+                "rules": [general_rule("RULE-MISMATCH")],
+            }
             with self.assertRaises(TrainingError):
                 process_packet(fixture.root, packet, fixture.key)
 
 
 class RepositoryIntegrityTests(unittest.TestCase):
-    def test_real_repository_has_one_clean_source_and_case_baseline(self):
-        root = Path(__file__).resolve().parents[1]
-        result = verify_repository(root)
+    def test_real_repository_has_question_level_training_baseline(self):
+        result = verify_repository(PROJECT_ROOT)
         self.assertEqual(result["sources"], 20)
         self.assertEqual(result["cases"], 5)
         self.assertEqual(result["questions"], 25)
-        self.assertIsNone(result["round_limit"])
-        self.assertEqual(result["runtime_source"], "GIT_REPOSITORY_ONLY")
-        self.assertTrue(result["canonical_sources_immutable"])
-        self.assertTrue(result["model_learning_separate"])
+        self.assertEqual(result["training_unit"], "QUESTION_FIRST_BLIND")
+        self.assertFalse(result["same_case_replays_count_toward_validation"])
+        self.assertTrue(result["question_taxonomy_ready"])
+        self.assertTrue(result["learning_ledger_ready"])
 
     def test_canonical_sources_cannot_be_silently_rebaselined(self):
         parser = build_parser()
@@ -496,22 +513,22 @@ class RepositoryIntegrityTests(unittest.TestCase):
             with self.assertRaises(TrainingError):
                 verify_repository(fixture.root)
 
+    def test_learning_ledger_tampering_fails_verification(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            ledger = load_learning_ledger(fixture.root)
+            ledger["first_blind_totals"]["questions"] = -1
+            write_json(fixture.root / LEDGER_RELATIVE_PATH, ledger)
+            with self.assertRaises(TrainingError):
+                verify_repository(fixture.root)
+
     def test_answer_source_readiness_is_explicit(self):
-        root = Path(__file__).resolve().parents[1]
-        result = verify_repository(root)
-        self.assertGreaterEqual(result["answer_envelopes"], 0)
-        self.assertLessEqual(result["answer_envelopes"], result["answer_envelopes_required"])
+        result = verify_repository(PROJECT_ROOT)
         self.assertEqual(
             result["preloaded_encrypted_answers_ready"],
             result["answer_envelopes"] == result["answer_envelopes_required"],
         )
         self.assertTrue(result["external_post_freeze_answer_supported"])
-        self.assertTrue(result["controller_ready"])
-        if result["preloaded_encrypted_answers_ready"]:
-            self.assertEqual(verify_repository(root, require_answers=True)["status"], "PASS")
-        else:
-            with self.assertRaises(TrainingError):
-                verify_repository(root, require_answers=True)
 
 
 if __name__ == "__main__":

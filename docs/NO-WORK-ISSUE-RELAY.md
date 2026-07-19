@@ -1,90 +1,96 @@
-# Work 额度用尽时：GitHub Issue 自动训练通道
+# GitHub Issue 自动训练通道
 
-这个通道不调用 ChatGPT Work，也不要求用户运行 Git、`gh`、Python 或终端命令。Chat 负责预测和揭盲复盘；GitHub Actions 负责重新评分、校验、落库和更新训练状态。
+该通道不消耗ChatGPT Work额度。Chat负责首次盲测、揭盲复盘和生成提交单；GitHub Actions负责冻结、用加密答案复核、更新题级统计、写入候选规则和切换案例。
 
-## 一、只做一次的安全准备
+## 每案操作
 
-仓库需要满足两项条件：
-
-1. 5 个案例各有一个 `answer-vault/encrypted/<CASE_ID>.json.fernet` 加密答案文件。
-2. 仓库 Settings → Secrets and variables → Actions 中存在名为 `FORTUNE_ANSWER_KEY` 的 Repository secret。
-
-密钥只保存在 GitHub Secret 中，不放入项目指令、Chat、Issue、代码、提交记录或 Actions 日志。Issue 自动通道在缺少任一加密答案或密钥时会拒绝运行。
-
-## 二、每轮实际操作
-
-1. 在 Chat 中说“开始当前案例下一轮”，完成全部题目的预测。
-2. 冻结预测后，再向 Chat 提供本轮正确答案，让 Chat 评分和复盘。
-3. 对 Chat 说：
-
-   > 生成 `TRAINING-ISSUE-PACKET-V1`。保留刚才冻结的全部 predictions；根据揭盲评分填写 expected_result。若失败，加入不含案例编号、题号、答案字母和选项原句的 learning_release_id 与 learning_patch；若通过，不得加入学习修正。只输出一个 JSON 代码块。
-
+1. 新开Chat，使用 `docs/CHAT-WORK-RUNBOOK.md` 中的固定预测口令。
+2. Chat冻结全部预测后，在同一对话提供答案字母串。
+3. 要求Chat生成 `TRAINING-ISSUE-PACKET-V2`。
 4. 打开：<https://github.com/chinaneedM/ziwei-bazi-model/issues/new?template=training-round.md>
-5. 点击 Issue 正文框，按 `Ctrl+A` 全选，再按 `Ctrl+V` 粘贴 Chat 生成的整份 JSON。无需寻找占位符、保留标记或手工修改 JSON。
-6. 标题默认以 `[TRAINING ROUND]` 开头，不需要改；直接点击 **Submit new issue**。
-7. GitHub 自动执行以下动作：
-   - 只接受仓库所有者创建的 `[TRAINING ROUND]` Issue；
-   - 检查当前案例、轮次和预测完整性；
-   - 先冻结预测，再用加密答案重新评分；
-   - 核对 Chat 填写的 PASS/FAIL；
-   - 失败时验证并激活通用模型修正；
-   - 检查 S00–S19 未被改写并运行全部测试；
-   - 只提交 `training/` 与 `model-learning/` 的允许内容；
-   - 在 Issue 留下不含答案的结果并自动关闭。
-   - 自动刷新 `chat-input/current.json`，为下一轮 Chat 提供不含旧预测的唯一安全入口。
+5. 在正文框按 `Ctrl+A`、`Ctrl+V` 粘贴整份JSON。
+6. 保持标题以 `[TRAINING ROUND]` 开头，直接提交。
 
-## 三、提交单 JSON 格式
+## V2提交单结构
 
-达标轮：
+每道预测必须带有揭盲前冻结的标签：
 
 ```json
 {
-  "schema": "TRAINING-ISSUE-PACKET-V1",
-  "round_id": "ROUND-20260719-001",
-  "case_id": "DEV-EXAMPLE-001",
+  "schema": "TRAINING-ISSUE-PACKET-V2",
+  "round_id": "ROUND-003",
+  "case_id": "当前安全包中的案例ID",
   "predictions": [
     {
       "question_id": "Q1",
       "top1": "A",
       "top2": "B",
-      "reasoning": "通用证据链",
-      "evidence": ["S03", "S17"]
+      "reasoning": "冻结的完整理由与最强反证",
+      "evidence": ["S04", "S08", "S16", "S17"],
+      "strongest_counterevidence": "最强竞争项及其成立条件",
+      "confidence": 72,
+      "question_profile": {
+        "topic_tags": ["MARRIAGE_RELATIONSHIP"],
+        "subject_tags": ["SPOUSE_PARTNER"],
+        "time_scope_tags": ["CURRENT_STATUS"],
+        "endpoint_tags": ["RELATIONSHIP_STATUS"],
+        "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "RELATIONSHIP_SEQUENCE"],
+        "source_routes": ["S04", "S08", "S16", "S17"],
+        "applied_rule_ids": []
+      }
     }
   ],
   "expected_result": "PASS"
 }
 ```
 
-未达标轮还必须在同一个 JSON 的最外层增加：
+失败轮必须在最外层增加 `learning_release_id` 和V2规则补丁：
 
 ```json
-"learning_release_id": "MODEL-LEARNING-20260719-001",
-"learning_patch": {
-  "learning_type": "REASONING_STRATEGY",
-  "related_source_libraries": ["S03", "S17"],
-  "principles": [
-    {
-      "statement": "可推广判断规则",
-      "applicability": "适用条件",
-      "limits": "限制",
-      "counterexamples": "反例",
-      "capability_ceiling": "能力上限",
-      "source_basis": "所依据的原典模块与推理理由"
-    }
-  ]
+{
+  "learning_release_id": "MODEL-LEARNING-003",
+  "learning_patch": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "rule_id": "RULE-SEMANTIC-NAME-001",
+        "topic_tags": ["MARRIAGE_RELATIONSHIP"],
+        "reasoning_skill_tags": ["EVENT_ENDPOINT_CLOSURE"],
+        "source_routes": ["S04", "S16", "S17"],
+        "statement": "通用规则陈述",
+        "applicability": "适用条件",
+        "limits": "限制",
+        "counterexamples": "反例",
+        "capability_ceiling": "能力上限",
+        "source_basis": "来源依据",
+        "trigger_conditions": "触发条件",
+        "decision_procedure": "决策步骤",
+        "stop_conditions": "停止条件"
+      }
+    ]
+  }
 }
 ```
 
-## 四、出错时怎么办
+上面两个片段只是结构说明。实际操作时只复制Chat生成的一个完整JSON，不要手工拼接或修改。
 
-- Issue 留言显示成功并自动关闭：本轮已经写入 `main`，回到 Chat 说“读取 Git 最新状态，开始下一轮”。
-- Issue 留言显示失败：本轮不会提交任何修改。打开留言中的 Actions 链接查看错误；通常是 JSON 格式、PASS/FAIL 不符、修正含案例答案映射，或首次密钥/加密答案尚未准备完成。
-- 不要反复编辑同一个失败 Issue。修正 JSON 后重新创建一张新的训练提交单。
+## GitHub自动执行
 
-## 五、最简日常口令
+- 只接受仓库所有者创建的训练Issue；
+- 确认当前案例尚未进行过首次盲测；
+- 验证每题标签均来自固定taxonomy；
+- 验证 `applied_rule_ids` 在预测前已经存在；
+- 冻结预测后才解密答案；
+- 复核PASS/FAIL并记录题级汇总；
+- 只为明确应用的规则累计后续证据；
+- 失败时拒绝含案例答案映射的规则；
+- 不修改 `sources/canonical/`；
+- 运行完整验证与测试；
+- 刷新下一案例的 `chat-input/current.json`；
+- 留下不含答案的结果并关闭Issue。
 
-预测已经输出后，用户只需在同一个 Chat 对话中说：
+## 出错处理
 
-> 现在揭盲：在这里填写答案字母串。请评分、复盘，并在回复末尾生成可直接整份粘贴到“无 Work 训练提交单”的 `TRAINING-ISSUE-PACKET-V1` JSON。JSON 不得包含正确答案或密钥。
-
-Chat 输出 JSON 后，点击代码块的复制按钮；到 GitHub Issue 正文中 `Ctrl+A`、`Ctrl+V`、提交即可。
+- Issue成功并自动关闭：该案例闭环完成，下一次新开Chat继续。
+- Issue失败：仓库不会提交半成品。根据Actions错误重新让Chat输出完整V2 JSON，再新建一张Issue。
+- 不要在预测前上传答案，也不要把答案或密钥放入Issue。

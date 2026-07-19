@@ -1,17 +1,25 @@
 {
-  "schema": "CASE-TRAINING-POLICY-V1",
-  "training_unit": "CASE",
+  "schema": "QUESTION-LEVEL-TRAINING-POLICY-V2",
+  "training_unit": "QUESTION_FIRST_BLIND",
   "round_limit": null,
   "pass_rule": {
     "fewer_than_5_questions": "ALL_CORRECT",
     "5_or_more_questions": "CEILING_80_PERCENT"
   },
-  "consecutive_passing_rounds_required": 3,
-  "failed_round_resets_streak": true,
+  "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+  "same_case_replays_count_toward_validation": false,
+  "passing_round_advances_to_next_case": true,
+  "failed_round_requires_general_learning_before_advance": true,
   "prediction_must_be_frozen_before_scoring": true,
-  "failed_round_requires_learning_before_retry": true,
   "failed_round_updates_model_layer_only": true,
   "canonical_sources_mutable_during_training": false,
   "answer_plaintext_allowed_in_repository": false,
-  "repeated_case_rounds_are_first_blind_evaluations": false
+  "performance_reporting": "BY_TOPIC_AND_REASONING_SKILL",
+  "rule_validation": {
+    "minimum_supporting_applications": 3,
+    "minimum_distinct_future_cases": 3,
+    "minimum_support_ratio": 0.8,
+    "unrelated_questions_count_as_evidence": false,
+    "same_origin_case_counts_as_validation": false
+  }
 }

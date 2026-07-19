@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import write_chat_input
+from .learning import public_learning_summary
 from .runtime import (
     apply_learning,
     encrypt_answer,
@@ -46,6 +47,7 @@ def build_parser() -> argparse.ArgumentParser:
     verify_parser.add_argument("--require-answers", action="store_true", help="fail unless every case has an encrypted answer")
 
     subparsers.add_parser("status", help="show the current training state")
+    subparsers.add_parser("report", help="show answer-free question-level learning metrics")
     subparsers.add_parser("chat-input", help="rebuild the answer-isolated Chat prediction input")
 
     start_parser = subparsers.add_parser("start", help="start a new round for the current case")
@@ -89,6 +91,8 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(verify_repository(root, require_answers=args.require_answers))
         elif args.command == "status":
             _print_json(status(root))
+        elif args.command == "report":
+            _print_json(public_learning_summary(root))
         elif args.command == "chat-input":
             _print_json(write_chat_input(root))
         elif args.command == "start":

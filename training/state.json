@@ -1,43 +1,45 @@
 {
-  "active_round_id": null,
-  "cases": {
-    "DEV-EXAMPLE-001": {
-      "consecutive_passes": 1,
-      "round_ids": [
-        "ROUND-001",
-        "ROUND-002"
-      ],
-      "status": "ACTIVE"
-    },
-    "DEV-EXAMPLE-002": {
-      "consecutive_passes": 0,
-      "round_ids": [],
-      "status": "PENDING"
-    },
-    "DEV-EXAMPLE-003": {
-      "consecutive_passes": 0,
-      "round_ids": [],
-      "status": "PENDING"
-    },
-    "DEV-EXAMPLE-004": {
-      "consecutive_passes": 0,
-      "round_ids": [],
-      "status": "PENDING"
-    },
-    "DEV-EXAMPLE-005": {
-      "consecutive_passes": 0,
-      "round_ids": [],
-      "status": "PENDING"
-    }
-  },
-  "current_case_index": 0,
-  "current_model_release": "MODEL-LEARNING-001",
+  "schema": "QUESTION-TRAINING-STATE-V2",
   "group_id": "DEV-GROUP-002",
   "group_path": "examples/DEV-GROUP-002/group.json",
   "policy_path": "config/training-policy.json",
+  "source_manifest_path": "sources/canonical-manifest.json",
+  "current_model_release": "MODEL-LEARNING-002",
+  "current_case_index": 1,
+  "status": "READY_FOR_ROUND",
+  "active_round_id": null,
   "round_count": 2,
   "round_limit": null,
-  "schema": "CASE-TRAINING-STATE-V1",
-  "source_manifest_path": "sources/canonical-manifest.json",
-  "status": "CONFIRMATION_REQUIRED"
+  "cases": {
+    "DEV-EXAMPLE-001": {
+      "status": "COMPLETE",
+      "first_blind_round_id": "ROUND-001",
+      "replay_round_ids": ["ROUND-002"],
+      "round_ids": ["ROUND-001", "ROUND-002"]
+    },
+    "DEV-EXAMPLE-002": {
+      "status": "ACTIVE",
+      "first_blind_round_id": null,
+      "replay_round_ids": [],
+      "round_ids": []
+    },
+    "DEV-EXAMPLE-003": {
+      "status": "PENDING",
+      "first_blind_round_id": null,
+      "replay_round_ids": [],
+      "round_ids": []
+    },
+    "DEV-EXAMPLE-004": {
+      "status": "PENDING",
+      "first_blind_round_id": null,
+      "replay_round_ids": [],
+      "round_ids": []
+    },
+    "DEV-EXAMPLE-005": {
+      "status": "PENDING",
+      "first_blind_round_id": null,
+      "replay_round_ids": [],
+      "round_ids": []
+    }
+  }
 }
