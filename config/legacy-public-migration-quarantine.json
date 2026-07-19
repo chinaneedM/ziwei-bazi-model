@@ -6,6 +6,8 @@
     "config/current-topology-receipt.json",
     "config/github-topology.json",
     "config/training-example-ingest-policy.json",
+    "reports/install-receipt.json",
+    "reports/migration-receipt.json",
     "runtime/clean-start-requests/GROUP-RUN-20260718T180018Z-1F09939E2A6A.json",
     "runtime/clean-start-requests/GROUP-RUN-20260719T042915JST-34AFAECF9168.json",
     "runtime/clean-start-requests/GROUP-RUN-20260719T112500JST-3BBBF55AA880.json",
@@ -15,7 +17,7 @@
     "src/fortune_v1/reporting.py",
     "src/fortune_v1/topology.py"
   ],
-  "activation_boundary": "Only the new public-repository workflows, public answer-envelope modules, and R17 repository packets may participate in formal runs.",
-  "mutation_policy": "Historical run objects are preserved byte-for-byte. Legacy code/config remains available only for audit and cannot satisfy a formal gate.",
-  "removal_policy": "A quarantined path may leave this manifest only after its private-topology references are removed and replacement tests pass."
+  "activation_boundary": "Only the public V3 install-check, public-repository workflows, public answer-envelope modules, active KNOWLEDGE-R17 rights objects, and R17 repository packets may participate in formal runs.",
+  "mutation_policy": "Historical run and installation objects are preserved byte-for-byte. Legacy code, topology and R16 installation receipts remain audit-only and cannot satisfy a formal gate.",
+  "removal_policy": "A quarantined path may leave this manifest only after its obsolete topology or release assumptions are removed and replacement tests pass."
 }
