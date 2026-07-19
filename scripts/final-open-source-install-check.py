@@ -269,6 +269,12 @@ def verify(
         and synthetic.get("group_freeze_status") == "GROUP_PREDICTION_FREEZE_PASS"
         and synthetic.get("literal_replay_status") == "PASS"
         and synthetic.get("learning_status") == "LEARNING_ACTIVE"
+        and synthetic.get("training_finalize_status") == "TRAINING_FINALIZE_PASS"
+        and synthetic.get("completed_training_unit_count") == synthetic.get("training_unit_count")
+        and synthetic.get("training_set_status") in {
+            "TRAINING_SET_COMPLETE_AWAITING_UNSEEN_BLIND_TEST",
+            "TRAINING_SET_COMPLETE_BELOW_ROLLING_TARGET_REQUIRES_RESHAPING",
+        }
         and synthetic.get("plaintext_committed_to_repository") is False
         and synthetic.get("transient_plaintext_destroyed") is True
         and synthetic.get("transient_workspace_destroyed") is True
@@ -281,7 +287,9 @@ def verify(
         actual={key: synthetic.get(key) for key in (
             "status", "synthetic_non_scoring", "answer_data_available_before_group_freeze",
             "all_predictions_frozen_before_reveal", "group_freeze_status", "literal_replay_status",
-            "learning_status", "plaintext_committed_to_repository", "transient_plaintext_destroyed",
+            "learning_status", "training_finalize_status", "training_unit_count",
+            "completed_training_unit_count", "training_set_status",
+            "plaintext_committed_to_repository", "transient_plaintext_destroyed",
             "transient_workspace_destroyed", "secret_value_recorded", "object_hash")},
         expected={
             "status": "PASS",
@@ -289,6 +297,8 @@ def verify(
             "group_freeze_status": "GROUP_PREDICTION_FREEZE_PASS",
             "literal_replay_status": "PASS",
             "learning_status": "LEARNING_ACTIVE",
+            "training_finalize_status": "TRAINING_FINALIZE_PASS",
+            "completed_training_unit_count": "equals training_unit_count",
             "transient_plaintext_destroyed": True,
         },
     ))

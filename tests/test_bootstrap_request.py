@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,7 +11,7 @@ from fortune_v1.bootstrap_request import (
     build_preauthorized_request,
     create_group_clean_start_from_bootstrap_request,
 )
-from fortune_v1.util import FortuneError
+from fortune_v1.util import FortuneError, canonical_bytes, sha256_bytes
 
 
 class BootstrapRequestTests(unittest.TestCase):
@@ -80,6 +81,8 @@ class BootstrapRequestTests(unittest.TestCase):
             request = build_preauthorized_request(pointer, request_path, "RUN-3", "SESSION-3")
             self.assertEqual(request["schema"], PREAUTHORIZED_REQUEST_SCHEMA)
             self.assertFalse(request["prediction_context_started"])
+            self.assertEqual(request["run_purpose"], "FIRST_BLIND")
+            self.assertNotIn("forbidden_repository", request)
             self.assertEqual(request["future_prediction_first_repository_action"], "FETCH_EXACT_CLEAN_START_PATH_ONLY")
             self.assertEqual(
                 request["future_prediction_entrypoint"],
@@ -104,6 +107,50 @@ class BootstrapRequestTests(unittest.TestCase):
                 result["start_request_receipt"]["answer_vault_physical_access_test_status"],
                 "PASS_INACCESSIBLE_BY_REPOSITORY_BOUNDARY",
             )
+
+    def test_training_replay_uses_purpose_not_an_unrecognized_origin(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pointer = self.fixture(root)
+            request_path = root / "runtime" / "clean-start-requests" / "RUN-REPLAY.json"
+            request = build_preauthorized_request(
+                pointer,
+                request_path,
+                "RUN-REPLAY",
+                "SESSION-REPLAY",
+                run_purpose="TRAINING_REPLAY",
+            )
+            self.assertEqual(request["request_origin"], "PREAUTHORIZED_ENGINEERING_BOOTSTRAP")
+            self.assertEqual(request["run_purpose"], "TRAINING_REPLAY")
+            self.assertEqual(request["new_first_blind_score_eligibility"], "NONE")
+            result = create_group_clean_start_from_bootstrap_request(request_path, pointer)
+            self.assertEqual(result["start_request_receipt"]["run_purpose"], "TRAINING_REPLAY")
+            self.assertEqual(result["start_request_receipt"]["new_first_blind_score_eligibility"], "NONE")
+
+    def test_exact_commit_runtime_preflight_is_bound_into_clean_start(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pointer = self.fixture(root)
+            request_path = root / "runtime" / "clean-start-requests" / "RUN-PREFLIGHT.json"
+            build_preauthorized_request(pointer, request_path, "RUN-PREFLIGHT", "SESSION-PREFLIGHT")
+            receipt_path = root / "install-preflight.json"
+            execution_commit = os.environ.get("GITHUB_SHA", "a" * 40)
+            receipt = {
+                "schema": "FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3",
+                "status": "INSTALL_CHECK_PASS_CANDIDATE",
+                "code_commit": execution_commit,
+                "failure_count": 0,
+                "formal_open_source_release_permission": "PASS",
+            }
+            receipt["object_hash"] = sha256_bytes(canonical_bytes(receipt))
+            self.write_json(receipt_path, receipt)
+            result = create_group_clean_start_from_bootstrap_request(
+                request_path,
+                pointer,
+                receipt_path,
+            )
+            self.assertEqual(result["runtime_preflight_receipt"]["object_hash"], receipt["object_hash"])
+            self.assertEqual(result["runtime_preflight_receipt"]["code_commit"], execution_commit)
 
     def test_pointer_change_after_authorization_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

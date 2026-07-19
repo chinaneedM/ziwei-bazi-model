@@ -101,9 +101,9 @@ LEARNING_ACTIVE
   ├─ correction incomplete              → CONTINUE_CURRENT_UNIT_TRAINING
   ├─ correction complete                → TRAINING_UNIT_COMPLETE → next question
   ├─ all training units complete,
-  │    rolling target below threshold   → RESHAPE_AND_RETEST_ON_LATER_DISTINCT_UNITS
+  │    rolling target below threshold   → TRAINING_SET_COMPLETE_BELOW_ROLLING_TARGET_REQUIRES_RESHAPING
   └─ all training units complete,
-       rolling target satisfied         → AWAIT_FROZEN_UNSEEN_BLIND_TEST
+       rolling target satisfied         → TRAINING_SET_COMPLETE_AWAITING_UNSEEN_BLIND_TEST
 ```
 
 `MASTERED` is not granted from repeated post-reveal runs of one question. The repository uses `TRAINING_UNIT_COMPLETE` for a question whose error analysis and reasoning correction are complete.
@@ -118,6 +118,11 @@ A single question may produce a method candidate. Base-knowledge promotion requi
 fortune-learning-cycle create --cycle-id <id> --group-id <group> --unit-plan <plan.json> --output <cycle.json>
 fortune-learning-cycle evaluate-question --cycle <cycle.json> --evidence <question-evidence.json> --output <evaluation.json>
 fortune-learning-cycle advance --cycle <cycle.json> --evaluation <evaluation.json> --output <next-cycle.json>
+fortune-training-finalize --request runtime/training-finalize-requests/<GROUP_RUN_ID>.json
 ```
+
+The finalize command performs a full evidence preflight before creating any
+evaluation or cycle state, executes every unit serially, and emits a group
+receipt only when completed-unit count equals declared-unit count.
 
 Formal release remains separate. Training completion does not by itself establish exact endpoints, machine-valid local seals, S03 fusion, remote GitHub Actions success, or unseen-case performance.
