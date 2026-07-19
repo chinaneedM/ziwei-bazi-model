@@ -49,18 +49,39 @@ jobs:
             REPOSITORY_VISIBILITY=public \
             EXPECTED_COMMIT="$GITHUB_SHA" \
             ACTIVATION_MODE="$ACTIVATION_MODE" \
-            INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json
+            INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json \
+            > /tmp/final-install-check/make-install-check.log 2>&1
           status=$?
           set -e
+          printf '%s\n' "$status" > /tmp/final-install-check/exit-code.txt
           echo "MAKE_INSTALL_CHECK_EXIT_CODE=$status" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path('/tmp/final-install-check')
+          receipt = root / 'install-receipt.json'
+          diagnostic = {
+              'schema': 'FINAL-INSTALL-CHECK-DIAGNOSTIC-V1',
+              'make_exit_code': int((root / 'exit-code.txt').read_text().strip()),
+              'receipt_exists': receipt.is_file(),
+              'activation_mode': os.environ['ACTIVATION_MODE'],
+              'github_sha': os.environ['GITHUB_SHA'],
+          }
+          (root / 'diagnostic.json').write_text(
+              json.dumps(diagnostic, sort_keys=True, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
           exit 0
 
-      - name: Upload immutable install-check artifact
+      - name: Upload immutable install-check diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: final-install-check-${{ github.sha }}
-          path: /tmp/final-install-check/install-receipt.json
+          path: /tmp/final-install-check/
           if-no-files-found: error
           retention-days: 30
 
@@ -74,9 +95,11 @@ jobs:
           import os
           from pathlib import Path
 
-          path = Path('/tmp/final-install-check/install-receipt.json')
+          root = Path('/tmp/final-install-check')
+          path = root / 'install-receipt.json'
           if not path.is_file():
-              raise SystemExit('install receipt was not produced')
+              log = (root / 'make-install-check.log').read_text(encoding='utf-8', errors='replace')
+              raise SystemExit('install receipt was not produced:\n' + log[-12000:])
           receipt = json.loads(path.read_text(encoding='utf-8'))
           mode = os.environ['ACTIVATION_MODE']
           expected = (
