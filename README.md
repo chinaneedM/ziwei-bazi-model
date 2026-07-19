@@ -47,6 +47,8 @@
 
 Chat 模式本身没有 GitHub 插件和仓库写入能力，因此不能保证在纯 Chat 中直接修改 Git。为节省 Work 用量，日常推理放在 Chat；预测完成后只切换一次 Work，由同一个 Work 操作完成冻结、评分，以及未达标时的复盘、落库和发布。项目中的旧 R17 指令必须完整替换为 `docs/PROJECT-MAIN-PROMPT-R1.txt`，不能与新指令叠加。详细操作见 `docs/CHAT-WORK-RUNBOOK.md`。
 
+Work 额度用尽时可改用 `docs/NO-WORK-ISSUE-RELAY.md`：Chat 在揭盲复盘后生成一张不含答案的训练提交单，用户粘贴到 GitHub Issue；仓库自动用加密答案复核评分，更新连续达标状态，并在失败时激活通用模型修正。
+
 ## 当前干净基线
 
 - 冻结原典：`sources/canonical/` 中恰好一份 S00–S19。

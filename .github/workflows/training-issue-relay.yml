@@ -1,0 +1,82 @@
+name: training-issue-relay
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: fortune-training-issue-relay
+  cancel-in-progress: false
+
+jobs:
+  process-owner-training-round:
+    if: >-
+      github.event.issue.user.login == github.repository_owner &&
+      startsWith(github.event.issue.title, '[TRAINING ROUND]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FORTUNE_ANSWER_KEY: ${{ secrets.FORTUNE_ANSWER_KEY }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Reject missing answer key
+        run: test -n "$FORTUNE_ANSWER_KEY"
+
+      - name: Install controller
+        run: python -m pip install -e .
+
+      - name: Save issue body without shell evaluation
+        run: python -c 'import os, pathlib; pathlib.Path("/tmp/issue-body.md").write_text(os.environ["ISSUE_BODY"], encoding="utf-8")'
+
+      - name: Process, score, learn, and verify
+        run: >-
+          python -m fortune_training.issue_relay
+          --root .
+          --issue-body-file /tmp/issue-body.md
+          --result-file /tmp/relay-result.json
+
+      - name: Run full tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Commit only runtime and learning outputs
+        run: |
+          git config user.name "fortune-training-relay[bot]"
+          git config user.email "fortune-training-relay[bot]@users.noreply.github.com"
+          git add training/state.json training/runs training/relay-results model-learning
+          git diff --cached --quiet && { echo "No runtime changes produced"; exit 1; }
+          git commit -m "Process training round #${{ github.event.issue.number }}"
+          git push origin HEAD:main
+
+      - name: Publish sanitized result and close issue
+        run: |
+          {
+            echo '训练提交单已处理，答案未发布。'
+            echo
+            echo '```json'
+            cat /tmp/relay-result.json
+            echo '```'
+          } > /tmp/success-comment.md
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/success-comment.md
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
+
+      - name: Report failure without exposing secrets
+        if: failure()
+        run: >-
+          gh issue comment "${{ github.event.issue.number }}"
+          --repo "${{ github.repository }}"
+          --body "自动处理失败，仓库没有提交本轮变更。请打开本次 Actions 运行查看不含答案的错误信息，然后修正提交单。运行：${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
