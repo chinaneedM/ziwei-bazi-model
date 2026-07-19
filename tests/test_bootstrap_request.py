@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -133,10 +134,11 @@ class BootstrapRequestTests(unittest.TestCase):
             request_path = root / "runtime" / "clean-start-requests" / "RUN-PREFLIGHT.json"
             build_preauthorized_request(pointer, request_path, "RUN-PREFLIGHT", "SESSION-PREFLIGHT")
             receipt_path = root / "install-preflight.json"
+            execution_commit = os.environ.get("GITHUB_SHA", "a" * 40)
             receipt = {
                 "schema": "FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3",
                 "status": "INSTALL_CHECK_PASS_CANDIDATE",
-                "code_commit": "a" * 40,
+                "code_commit": execution_commit,
                 "failure_count": 0,
                 "formal_open_source_release_permission": "PASS",
             }
@@ -148,7 +150,7 @@ class BootstrapRequestTests(unittest.TestCase):
                 receipt_path,
             )
             self.assertEqual(result["runtime_preflight_receipt"]["object_hash"], receipt["object_hash"])
-            self.assertEqual(result["runtime_preflight_receipt"]["code_commit"], "a" * 40)
+            self.assertEqual(result["runtime_preflight_receipt"]["code_commit"], execution_commit)
 
     def test_pointer_change_after_authorization_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
