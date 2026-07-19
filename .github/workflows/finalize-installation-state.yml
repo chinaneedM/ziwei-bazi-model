@@ -2,121 +2,83 @@ name: finalize-installation-state
 
 on:
   workflow_run:
-    workflows: ["runtime-ci"]
+    workflows: ["final-install-check"]
     types: [completed]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  finalize:
+  replay-final-install-check-v3:
     if: >-
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_branch == 'main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
     concurrency:
-      group: installation-state-${{ github.event.workflow_run.head_sha }}
+      group: installation-state-v3-${{ github.event.workflow_run.head_sha }}
       cancel-in-progress: false
     steps:
-      - name: Check out validated code commit
+      - name: Checkout validated main commit
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.11'
 
-      - name: Install runtime
-        run: python -m pip install -e .
+      - name: Install runtime and test runner
+        run: python -m pip install -e . pytest
 
-      - name: Re-run tests and materialize test receipt
+      - name: Replay complete V3 install check on exact main commit
         shell: bash
+        env:
+          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
-          python -m unittest discover -s tests -v
+          mkdir -p /tmp/final-installation-state-v3
+          make install-check \
+            PYTHON=python \
+            REPOSITORY_VISIBILITY=public \
+            EXPECTED_COMMIT="$CODE_COMMIT" \
+            ACTIVATION_MODE=main \
+            INSTALL_RECEIPT=/tmp/final-installation-state-v3/install-receipt.json
+
+      - name: Enforce installed validated readback
+        shell: bash
+        env:
+          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
           python - <<'PY'
           import json
-          from datetime import datetime, timezone
+          import os
           from pathlib import Path
-          Path("reports").mkdir(exist_ok=True)
-          Path("reports/test-report.json").write_text(
-              json.dumps({
-                  "schema": "STATIC-SYNTHETIC-TEST-RECEIPT-V1",
-                  "status": "PASS",
-                  "validated_code_commit": "${{ github.event.workflow_run.head_sha }}",
-                  "workflow": "finalize-installation-state",
-                  "generated_at": datetime.now(timezone.utc).isoformat(),
-              }, ensure_ascii=False, sort_keys=True, indent=2) + "\n",
-              encoding="utf-8",
-          )
+
+          receipt = json.loads(Path('/tmp/final-installation-state-v3/install-receipt.json').read_text(encoding='utf-8'))
+          if receipt.get('schema') != 'FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3':
+              raise SystemExit('unexpected receipt schema')
+          if receipt.get('status') != 'INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START':
+              raise SystemExit(f'installed validation did not pass: {receipt}')
+          if receipt.get('code_commit') != os.environ['CODE_COMMIT']:
+              raise SystemExit('receipt commit mismatch')
+          if receipt.get('failure_count') != 0 or receipt.get('pass_count') != receipt.get('check_count'):
+              raise SystemExit('receipt contains failed checks')
+          if receipt.get('formal_training_permission') != 'READY_FOR_USER_INITIATED_CLEAN_START_ONLY':
+              raise SystemExit('training permission boundary invalid')
+          if receipt.get('score_eligibility') != 'CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS':
+              raise SystemExit('score eligibility boundary invalid')
+          if receipt.get('background_execution') is not False:
+              raise SystemExit('background execution boundary invalid')
           PY
 
-      - name: Generate versioned installation receipt
-        shell: bash
-        env:
-          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          set -euo pipefail
-          mkdir -p reports/install-receipts reports/install-states reports/install-validations
-          fortune-v1 install-check \
-            --repo-root . \
-            --source-audit reports/source-audit.json \
-            --binding-receipt reports/binding-table-recompute-receipt.json \
-            --migration-receipt reports/migration-receipt.json \
-            --prompt-snapshot reports/prompt-snapshot-status.json \
-            --test-report reports/test-report.json \
-            --topology-receipt config/current-topology-receipt.json \
-            --answer-workflow-receipt reports/answer-vault-workflow-readback.json \
-            --external-runner config/external-runner.json \
-            --code-commit "$CODE_COMMIT" \
-            --output "reports/install-receipts/${CODE_COMMIT}.json"
-
-      - name: Finalize and replay installation state
-        shell: bash
-        env:
-          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          set -euo pipefail
-          RECEIPT="reports/install-receipts/${CODE_COMMIT}.json"
-          SEAL="reports/install-states/${CODE_COMMIT}.json"
-          VALIDATION="reports/install-validations/${CODE_COMMIT}.json"
-          fortune-v1 install-finalize \
-            --install-receipt "$RECEIPT" \
-            --code-commit "$CODE_COMMIT" \
-            --output "$SEAL"
-          fortune-v1 install-validate \
-            --seal "$SEAL" \
-            --install-receipt "$RECEIPT" \
-            --code-commit "$CODE_COMMIT" \
-            --output "$VALIDATION"
-          python - "$VALIDATION" <<'PY'
-          import json, sys
-          result = json.load(open(sys.argv[1], encoding="utf-8"))
-          if result.get("status") != "INSTALLED_VALIDATED" or result.get("errors"):
-              raise SystemExit("installation state replay did not pass")
-          PY
-          cp "$SEAL" reports/install-state.json
-          cp "$VALIDATION" reports/install-state-validation.json
-
-      - name: Commit immutable versioned receipts
-        shell: bash
-        env:
-          CODE_COMMIT: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          set -euo pipefail
-          git config user.name fortune-install-validator
-          git config user.email fortune-install-validator@users.noreply.github.com
-          git add \
-            "reports/install-receipts/${CODE_COMMIT}.json" \
-            "reports/install-states/${CODE_COMMIT}.json" \
-            "reports/install-validations/${CODE_COMMIT}.json" \
-            reports/install-state.json \
-            reports/install-state-validation.json \
-            reports/test-report.json
-          git diff --cached --quiet && exit 0
-          git commit -m "Finalize installation state for ${CODE_COMMIT} [skip ci]"
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+      - name: Upload immutable readback artifact without repository mutation
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-installation-state-v3-${{ github.event.workflow_run.head_sha }}
+          path: /tmp/final-installation-state-v3/install-receipt.json
+          if-no-files-found: error
+          retention-days: 90
