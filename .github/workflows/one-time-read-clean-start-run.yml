@@ -1,0 +1,66 @@
+name: one-time-read-clean-start-run
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-read-clean-start-run.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  readback:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGET_SHA: 37fa0e4aaaa725e9220350e9d6699b8a1cc1c0cd
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Read exact clean-start workflow run
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/runtime-readback
+          python - <<'PY'
+          import json, os, subprocess, time
+          from pathlib import Path
+          repo=os.environ['GITHUB_REPOSITORY']; sha=os.environ['TARGET_SHA']
+          last=None
+          for _ in range(30):
+              p=subprocess.run(['gh','api',f'repos/{repo}/actions/workflows/repository-group-clean-start.yml/runs?event=push&per_page=50'],capture_output=True,text=True)
+              if p.returncode: raise SystemExit(p.stderr)
+              rows=json.loads(p.stdout).get('workflow_runs',[])
+              matches=[r for r in rows if r.get('head_sha')==sha]
+              if matches:
+                  last=sorted(matches,key=lambda r:r.get('run_number',0),reverse=True)[0]
+                  if last.get('status')=='completed': break
+              time.sleep(5)
+          if not last: raise SystemExit('no matching workflow run found')
+          jobs_p=subprocess.run(['gh','api',f"repos/{repo}/actions/runs/{last['id']}/jobs"],capture_output=True,text=True)
+          if jobs_p.returncode: raise SystemExit(jobs_p.stderr)
+          jobs=json.loads(jobs_p.stdout).get('jobs',[])
+          report={
+            'schema':'CLEAN-START-WORKFLOW-READBACK-V1',
+            'target_sha':sha,
+            'run_id':last.get('id'),
+            'run_number':last.get('run_number'),
+            'status':last.get('status'),
+            'conclusion':last.get('conclusion'),
+            'jobs':[{'name':j.get('name'),'status':j.get('status'),'conclusion':j.get('conclusion'),'steps':[{'name':s.get('name'),'status':s.get('status'),'conclusion':s.get('conclusion')} for s in j.get('steps',[])]} for j in jobs]
+          }
+          Path('reports/runtime-readback/clean-start-37fa0e4.json').write_text(json.dumps(report,ensure_ascii=False,sort_keys=True,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Remove workflow and commit report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-read-clean-start-run.yml
+          git add reports/runtime-readback/clean-start-37fa0e4.json
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Record five-case clean-start workflow readback'
+          git push origin HEAD:main
