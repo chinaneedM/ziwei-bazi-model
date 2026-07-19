@@ -21,6 +21,7 @@
     "licenses/knowledge-packs/KNOWLEDGE-R17/CC0-NOTICE.md",
     "licenses/knowledge-packs/KNOWLEDGE-R17/manifest.json",
     "scripts/final-open-source-install-check.py",
+    "scripts/verify-activated-installation-state.py",
     ".github/workflows/final-install-check.yml",
     ".github/workflows/finalize-installation-state.yml",
     "reports/open-source-migration/main-readback/03564113a279463548503045528b061c70cc00ef.json",
@@ -66,7 +67,8 @@
     "PULL_REQUEST_36_MERGED": "PASS",
     "PULL_REQUEST_37_MERGED": "PASS",
     "MAKE_INSTALL_CHECK_V3_PASS_ON_MAIN": "PASS",
-    "POST_MERGE_READBACK_PASS": "PASS"
+    "POST_MERGE_READBACK_PASS": "PASS",
+    "ACTIVATED_INSTALLATION_STATE_VERIFICATION": "PASS"
   },
   "activation_boundary": "Formal release is active. Real training begins only through a user-initiated clean start, and each run remains score-ineligible unless its own causal-use receipt passes."
 }
