@@ -6,6 +6,8 @@
   "single_repository_runtime": true,
   "required_software_license": "Apache-2.0",
   "open_source_release_contract_path": "config/open-source-release.json",
+  "legacy_quarantine_manifest_path": "config/legacy-public-migration-quarantine.json",
+  "legacy_quarantine_required_status": "ACTIVE_READ_ONLY_QUARANTINE",
   "required_open_source_files": [
     "LICENSE",
     "NOTICE",
@@ -16,7 +18,8 @@
     "docs/open-source-architecture.md",
     "licenses/README.md",
     "licenses/knowledge-pack-manifest.schema.json",
-    "config/open-source-release.json"
+    "config/open-source-release.json",
+    "config/legacy-public-migration-quarantine.json"
   ],
   "public_encrypted_answer_root": "public-answer-vault/encrypted",
   "allowed_answer_secret_names": [
