@@ -30,6 +30,7 @@ class PublicRepositoryPolicyTests(unittest.TestCase):
             "licenses/README.md",
             "licenses/knowledge-pack-manifest.schema.json",
             "config/open-source-release.json",
+            "config/legacy-public-migration-quarantine.json",
         ]
 
     def policy(self, root: Path) -> None:
@@ -40,6 +41,8 @@ class PublicRepositoryPolicyTests(unittest.TestCase):
             "single_repository_runtime": True,
             "required_software_license": "Apache-2.0",
             "open_source_release_contract_path": "config/open-source-release.json",
+            "legacy_quarantine_manifest_path": "config/legacy-public-migration-quarantine.json",
+            "legacy_quarantine_required_status": "ACTIVE_READ_ONLY_QUARANTINE",
             "required_open_source_files": self.required_files(),
             "allowed_answer_secret_names": ["FORTUNE_PUBLIC_ANSWER_KEY"],
             "forbidden_literals": ["private-answer-repository", "OLD_ANSWER_TOKEN"],
@@ -52,6 +55,15 @@ class PublicRepositoryPolicyTests(unittest.TestCase):
         self.policy(root)
         for path in self.required_files():
             self.write(root / path, f"fixture {path}\n")
+        self.write(
+            root / "config/legacy-public-migration-quarantine.json",
+            json.dumps({
+                "schema": "LEGACY-PUBLIC-MIGRATION-QUARANTINE-V1",
+                "status": "ACTIVE_READ_ONLY_QUARANTINE",
+                "paths": ["runtime/legacy-run.json"],
+            }, indent=2),
+        )
+        self.write(root / "runtime/legacy-run.json", '{"repository":"private-answer-repository"}\n')
         self.write(root / "pyproject.toml", "[project]\nname='fixture'\nversion='1.0.0'\nlicense='Apache-2.0'\n")
         self.write(root / ".github/workflows/ci.yml", "steps:\n  - uses: actions/checkout@v4\n")
         self.write(root / "src/example.py", "SECRET = '${{ secrets.FORTUNE_PUBLIC_ANSWER_KEY }}'\n")
@@ -66,6 +78,7 @@ class PublicRepositoryPolicyTests(unittest.TestCase):
             self.assertEqual(result["status"], "PASS")
             self.assertEqual(result["project_mode"], "COMPLETE_OPEN_SOURCE")
             self.assertEqual(result["software_license"], "Apache-2.0")
+            self.assertEqual(result["legacy_quarantine_count"], 1)
 
     def test_private_visibility_fails(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -106,6 +119,17 @@ class PublicRepositoryPolicyTests(unittest.TestCase):
             self.write(root / "pyproject.toml", "[project]\nname='fixture'\nversion='1.0.0'\nlicense='Proprietary'\n")
             result = MODULE.verify(root, "public")
             self.assertIn("PACKAGE_LICENSE_METADATA_MISMATCH", {row["code"] for row in result["failures"]})
+
+    def test_workflow_cannot_be_quarantined(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.fixture(root)
+            manifest_path = root / "config/legacy-public-migration-quarantine.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["paths"].append(".github/workflows/ci.yml")
+            self.write(manifest_path, json.dumps(manifest, indent=2))
+            result = MODULE.verify(root, "public")
+            self.assertIn("ACTIVE_EXECUTION_PATH_CANNOT_BE_QUARANTINED", {row["code"] for row in result["failures"]})
 
 
 if __name__ == "__main__":
