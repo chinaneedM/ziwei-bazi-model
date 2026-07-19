@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from .policy import load_and_validate_policy
-from .util import TrainingError, atomic_write_json, is_within, load_json, object_sha256, sha256_file
+from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
 
 SOURCE_ID = re.compile(r"^(S(?:0[0-9]|1[0-9]))_")
@@ -26,8 +26,9 @@ FORBIDDEN_CASE_KEYS = {
 }
 
 
-def build_source_manifest(root: Path, *, write: bool = False) -> dict[str, Any]:
-    source_dir = root / "sources" / "active"
+def build_source_manifest(root: Path) -> dict[str, Any]:
+    """Build the immutable Git canonical-source manifest for comparison only."""
+    source_dir = root / "sources" / "canonical"
     files = sorted(source_dir.glob("*.txt"))
     entries: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -58,14 +59,55 @@ def build_source_manifest(root: Path, *, write: bool = False) -> dict[str, Any]:
         extra = sorted(seen - expected)
         raise TrainingError(f"source set must be exactly S00-S19; missing={missing}, extra={extra}")
     manifest = {
-        "schema": "SOURCE-MANIFEST-V1",
+        "schema": "CANONICAL-SOURCE-MANIFEST-V1",
         "source_count": len(entries),
         "process_authority": "config/training-policy.json",
+        "runtime_source": "GIT_REPOSITORY_ONLY",
+        "mutability": "IMMUTABLE_DURING_TRAINING",
         "sources": entries,
     }
-    if write:
-        atomic_write_json(root / "sources" / "manifest.json", manifest)
     return manifest
+
+
+def _validate_source_policy(root: Path) -> dict[str, Any]:
+    policy = load_json(root / "config" / "source-policy.json")
+    if policy.get("schema") != "SOURCE-AUTHORITY-POLICY-V1":
+        raise TrainingError("wrong source authority policy schema")
+    expected = {
+        "original_project_library_role": "ARCHIVAL_READ_ONLY_NOT_RUNTIME",
+        "original_project_library_deletion_required": False,
+        "runtime_source": "GIT_REPOSITORY_ONLY",
+        "git_canonical_path": "sources/canonical",
+        "git_canonical_mutable_during_training": False,
+        "model_learning_path": "model-learning",
+        "model_learning_mutable_during_training": True,
+        "conflict_resolution": "IGNORE_EXTERNAL_ORIGINAL_AND_USE_GIT_RUNTIME",
+    }
+    for key, value in expected.items():
+        if policy.get(key) != value:
+            raise TrainingError(f"source policy mismatch for {key}: expected {value!r}")
+    manifest_hash = policy.get("canonical_manifest_sha256")
+    if not isinstance(manifest_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", manifest_hash):
+        raise TrainingError("source policy needs a valid canonical_manifest_sha256 lock")
+    return policy
+
+
+def _validate_answer_policy(root: Path) -> dict[str, Any]:
+    policy = load_json(root / "config" / "answer-policy.json")
+    if policy.get("schema") != "PUBLIC-REPOSITORY-ANSWER-POLICY-V1":
+        raise TrainingError("wrong public-repository answer policy schema")
+    expected = {
+        "repository_visibility": "PUBLIC",
+        "private_answer_repository_required": False,
+        "plaintext_answers_allowed": False,
+        "encrypted_answer_envelopes_allowed": True,
+        "decryption_keys_allowed": False,
+        "answer_read_phase": "POST_FREEZE_ONLY",
+    }
+    for key, value in expected.items():
+        if policy.get(key) != value:
+            raise TrainingError(f"answer policy mismatch for {key}: expected {value!r}")
+    return policy
 
 
 def _check_answer_free(value: Any, location: str = "$") -> None:
@@ -90,6 +132,11 @@ def _validate_case(root: Path, case_id: str, relative_path: str) -> int:
         raise TrainingError(f"unexpected group id in {relative_path}")
     if case.get("answer_isolation", {}).get("answer_payload_present") is not False:
         raise TrainingError(f"case does not declare answer isolation: {relative_path}")
+    binding = case.get("binding", {})
+    if binding.get("source_manifest") != "sources/canonical-manifest.json":
+        raise TrainingError(f"case does not bind the Git canonical source lock: {relative_path}")
+    if binding.get("training_policy") != "config/training-policy.json":
+        raise TrainingError(f"case does not bind the training policy: {relative_path}")
     _check_answer_free(case)
     questions = case.get("questions", {}).get("parsed")
     if not isinstance(questions, list) or not questions:
@@ -116,36 +163,49 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
     if seen is None:
         seen = set()
     if release_id in seen:
-        raise TrainingError(f"source release cycle detected at {release_id}")
+        raise TrainingError(f"model release cycle detected at {release_id}")
     seen.add(release_id)
-    release_path = root / "sources" / "releases" / f"{release_id}.json"
+    release_path = root / "model-learning" / "releases" / f"{release_id}.json"
     release = load_json(release_path)
     if release.get("release_id") != release_id:
-        raise TrainingError(f"source release id mismatch: {release_id}")
-    if release.get("base_manifest") != "sources/manifest.json":
-        raise TrainingError(f"source release has the wrong base manifest: {release_id}")
+        raise TrainingError(f"model release id mismatch: {release_id}")
+    if release.get("schema") != "MODEL-RELEASE-V1":
+        raise TrainingError(f"wrong model release schema: {release_id}")
+    if release.get("base_source_manifest") != "sources/canonical-manifest.json":
+        raise TrainingError(f"model release has the wrong base source manifest: {release_id}")
     if release.get("training_process_authority") != "config/training-policy.json":
-        raise TrainingError(f"source release has the wrong process authority: {release_id}")
+        raise TrainingError(f"model release has the wrong process authority: {release_id}")
+    if release.get("canonical_sources_mutated") is not False:
+        raise TrainingError(f"model release may not mutate canonical sources: {release_id}")
     patches = release.get("patches")
     if not isinstance(patches, list) or len(set(patches)) != len(patches):
-        raise TrainingError(f"invalid patch list in source release: {release_id}")
-    patch_root = (root / "sources" / "patches").resolve()
+        raise TrainingError(f"invalid patch list in model release: {release_id}")
+    patch_root = (root / "model-learning" / "patches").resolve()
     for relative_path in patches:
         if not isinstance(relative_path, str):
-            raise TrainingError(f"invalid patch path in source release: {release_id}")
+            raise TrainingError(f"invalid patch path in model release: {release_id}")
         patch_path = (root / relative_path).resolve()
         if not is_within(patch_root, patch_path) or not patch_path.is_file():
-            raise TrainingError(f"source release patch is missing or outside sources/patches: {relative_path}")
+            raise TrainingError(
+                f"model release patch is missing or outside model-learning/patches: {relative_path}"
+            )
+        patch = load_json(patch_path)
+        if patch.get("schema") != "MODEL-LEARNING-PATCH-V1":
+            raise TrainingError(f"wrong model learning patch schema: {relative_path}")
+        if patch.get("contains_case_answer_mapping") is not False:
+            raise TrainingError(f"model learning patch is not answer-isolated: {relative_path}")
+        if patch.get("modifies_canonical_source_files") is not False:
+            raise TrainingError(f"model learning patch attempts to mutate canonical sources: {relative_path}")
     parent_id = release.get("parent_release")
     if parent_id is None:
-        if release_id != "SOURCE-BASELINE-001" or patches:
-            raise TrainingError("only an empty SOURCE-BASELINE-001 may be a root release")
+        if release_id != "MODEL-BASELINE-001" or patches:
+            raise TrainingError("only an empty MODEL-BASELINE-001 may be a root release")
     else:
         if not isinstance(parent_id, str):
-            raise TrainingError(f"invalid parent source release: {release_id}")
+            raise TrainingError(f"invalid parent model release: {release_id}")
         parent = _validate_release_chain(root, parent_id, seen)
         if not patches or patches[:-1] != parent["patches"]:
-            raise TrainingError(f"source release must append exactly one patch: {release_id}")
+            raise TrainingError(f"model release must append exactly one patch: {release_id}")
         latest_patch = load_json(root / patches[-1])
         if release.get("latest_patch_sha256") != object_sha256(latest_patch):
             raise TrainingError(f"latest patch hash mismatch: {release_id}")
@@ -189,10 +249,16 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
 def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str, Any]:
     root = root.resolve()
     policy = load_and_validate_policy(root / "config" / "training-policy.json")
+    source_policy = _validate_source_policy(root)
+    _validate_answer_policy(root)
     expected_manifest = build_source_manifest(root)
-    manifest = load_json(root / "sources" / "manifest.json")
+    manifest = load_json(root / "sources" / "canonical-manifest.json")
+    if source_policy["canonical_manifest_sha256"] != object_sha256(manifest):
+        raise TrainingError("canonical source manifest lock hash changed")
     if manifest != expected_manifest:
-        raise TrainingError("sources/manifest.json does not match the active S00-S19 files")
+        raise TrainingError(
+            "canonical S00-S19 changed or sources/canonical-manifest.json is not the frozen lock"
+        )
 
     group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     case_order = group.get("case_order")
@@ -203,22 +269,24 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError("group case mapping does not match case order")
     question_counts = {case_id: _validate_case(root, case_id, cases[case_id]) for case_id in case_order}
 
-    release = load_json(root / "sources" / "releases" / "SOURCE-BASELINE-001.json")
+    release = load_json(root / "model-learning" / "releases" / "MODEL-BASELINE-001.json")
     if release.get("patches") != [] or release.get("parent_release") is not None:
-        raise TrainingError("baseline source release must not contain learning patches")
+        raise TrainingError("baseline model release must not contain learning patches")
 
     state = load_json(root / "training" / "state.json")
     if state.get("group_id") != group.get("group_id"):
         raise TrainingError("training state group mismatch")
     if state.get("round_limit") is not None or policy.get("round_limit") is not None:
         raise TrainingError("training rounds must be unlimited")
-    current_release = state.get("current_source_release")
+    if state.get("source_manifest_path") != "sources/canonical-manifest.json":
+        raise TrainingError("training state must bind the frozen Git canonical manifest")
+    current_release = state.get("current_model_release")
     if not isinstance(current_release, str) or not (
-        root / "sources" / "releases" / f"{current_release}.json"
+        root / "model-learning" / "releases" / f"{current_release}.json"
     ).is_file():
-        raise TrainingError("training state points to a missing source release")
-    if state.get("round_count") == 0 and current_release != "SOURCE-BASELINE-001":
-        raise TrainingError("an unused clean state must begin at SOURCE-BASELINE-001")
+        raise TrainingError("training state points to a missing model release")
+    if state.get("round_count") == 0 and current_release != "MODEL-BASELINE-001":
+        raise TrainingError("an unused clean state must begin at MODEL-BASELINE-001")
     if set(state.get("cases", {})) != set(case_order):
         raise TrainingError("training state case set mismatch")
     _validate_state(root, state, group)
@@ -232,6 +300,9 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     return {
         "status": "PASS",
         "sources": expected_manifest["source_count"],
+        "runtime_source": "GIT_REPOSITORY_ONLY",
+        "canonical_sources_immutable": True,
+        "model_learning_separate": True,
         "cases": len(case_order),
         "questions": sum(question_counts.values()),
         "answer_envelopes": answer_count,

@@ -35,6 +35,8 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
         "failed_round_resets_streak": True,
         "prediction_must_be_frozen_before_scoring": True,
         "failed_round_requires_learning_before_retry": True,
+        "failed_round_updates_model_layer_only": True,
+        "canonical_sources_mutable_during_training": False,
         "answer_plaintext_allowed_in_repository": False,
         "repeated_case_rounds_are_first_blind_evaluations": False,
     }

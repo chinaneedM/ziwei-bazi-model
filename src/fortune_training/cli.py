@@ -16,7 +16,7 @@ from .runtime import (
     status,
 )
 from .util import TrainingError
-from .verify import build_source_manifest, verify_repository
+from .verify import verify_repository
 
 
 def _repo_root(value: str | None) -> Path:
@@ -42,7 +42,6 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     verify_parser = subparsers.add_parser("verify", help="verify the clean repository baseline")
-    verify_parser.add_argument("--write-manifest", action="store_true", help="rebuild sources/manifest.json first")
     verify_parser.add_argument("--require-answers", action="store_true", help="fail unless every case has an encrypted answer")
 
     subparsers.add_parser("status", help="show the current training state")
@@ -85,8 +84,6 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         root = _repo_root(args.root)
         if args.command == "verify":
-            if args.write_manifest:
-                build_source_manifest(root, write=True)
             _print_json(verify_repository(root, require_answers=args.require_answers))
         elif args.command == "status":
             _print_json(status(root))

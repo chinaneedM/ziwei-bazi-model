@@ -92,7 +92,8 @@ def status(root: Path) -> dict[str, Any]:
         "group_id": state["group_id"],
         "status": state["status"],
         "current_case_id": current_case,
-        "current_source_release": state["current_source_release"],
+        "canonical_source_manifest": state["source_manifest_path"],
+        "current_model_release": state["current_model_release"],
         "active_round_id": state["active_round_id"],
         "round_count": state["round_count"],
         "round_limit": None,
@@ -114,7 +115,9 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     case_path = _case_path(root, group, case_id)
     case = load_json(case_path)
     question_count = len(_questions(case))
-    release_path = root / "sources" / "releases" / f"{state['current_source_release']}.json"
+    source_manifest_path = root / state["source_manifest_path"]
+    source_manifest = load_json(source_manifest_path)
+    release_path = root / "model-learning" / "releases" / f"{state['current_model_release']}.json"
     release = load_json(release_path)
     round_path = _round_dir(root, round_id)
     if round_path.exists():
@@ -127,8 +130,11 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
         "case_sha256": sha256_file(case_path),
         "question_count": question_count,
         "required_correct": required_correct(question_count),
-        "source_release": state["current_source_release"],
-        "source_release_sha256": object_sha256(release),
+        "canonical_source_manifest": state["source_manifest_path"],
+        "canonical_source_manifest_sha256": object_sha256(source_manifest),
+        "model_release": state["current_model_release"],
+        "model_release_sha256": object_sha256(release),
+        "effective_training_input": "GIT_CANONICAL_S00_S19_PLUS_MODEL_RELEASE",
         "status": "PREDICTION_OPEN",
         "answer_visibility": "PHYSICALLY_UNAVAILABLE_TO_PREDICTION_CONTEXT",
         "started_at": utc_now(),
@@ -428,12 +434,17 @@ def _validate_learning_patch(root: Path, payload: Any) -> dict[str, Any]:
                 normalized = " ".join(str(text).split())
                 if len(normalized) >= 8 and normalized in serialized:
                     raise TrainingError("learning patch copies a case-specific question or option text")
-    affected = payload.get("affected_libraries")
+    learning_type = payload.get("learning_type")
+    if learning_type not in {"REASONING_STRATEGY", "EXECUTION_PROCEDURE", "MODEL_HYPOTHESIS"}:
+        raise TrainingError(
+            "learning_type must be REASONING_STRATEGY, EXECUTION_PROCEDURE, or MODEL_HYPOTHESIS"
+        )
+    affected = payload.get("related_source_libraries")
     if not isinstance(affected, list) or not affected:
-        raise TrainingError("learning patch needs affected_libraries")
+        raise TrainingError("learning patch needs related_source_libraries")
     valid_libraries = {f"S{index:02d}" for index in range(20)}
     if any(item not in valid_libraries for item in affected) or len(set(affected)) != len(affected):
-        raise TrainingError("affected_libraries must be unique S00-S19 ids")
+        raise TrainingError("related_source_libraries must be unique S00-S19 ids")
     principles = payload.get("principles")
     if not isinstance(principles, list) or not principles:
         raise TrainingError("learning patch needs at least one general principle")
@@ -465,35 +476,38 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning round is not for the current case")
     patch_payload = _validate_learning_patch(root, load_json(patch_input))
     patch_record = {
-        "schema": "GENERAL-LEARNING-PATCH-V1",
+        "schema": "MODEL-LEARNING-PATCH-V1",
         "release_id": release_id,
         "derived_from_failed_round": round_id,
         "created_at": utc_now(),
         "content": patch_payload,
         "contains_case_answer_mapping": False,
+        "modifies_canonical_source_files": False,
+        "validation_status": "ACTIVE_PROVISIONAL",
     }
-    patch_path = root / "sources" / "patches" / f"{release_id}.json"
-    release_path = root / "sources" / "releases" / f"{release_id}.json"
+    patch_path = root / "model-learning" / "patches" / f"{release_id}.json"
+    release_path = root / "model-learning" / "releases" / f"{release_id}.json"
     if patch_path.exists() or release_path.exists():
         raise TrainingError(f"learning release already exists: {release_id}")
     exclusive_write_json(patch_path, patch_record)
-    parent_id = state["current_source_release"]
-    parent_path = root / "sources" / "releases" / f"{parent_id}.json"
+    parent_id = state["current_model_release"]
+    parent_path = root / "model-learning" / "releases" / f"{parent_id}.json"
     parent = load_json(parent_path)
     release = {
-        "schema": "SOURCE-RELEASE-V1",
+        "schema": "MODEL-RELEASE-V1",
         "release_id": release_id,
         "parent_release": parent_id,
-        "base_manifest": "sources/manifest.json",
+        "base_source_manifest": "sources/canonical-manifest.json",
         "patches": [*parent.get("patches", []), patch_path.relative_to(root).as_posix()],
         "latest_patch_sha256": object_sha256(patch_record),
         "training_process_authority": "config/training-policy.json",
+        "canonical_sources_mutated": False,
     }
     exclusive_write_json(release_path, release)
-    round_record["learning_release"] = release_id
+    round_record["model_learning_release"] = release_id
     round_record["status"] = "LEARNING_APPLIED"
     atomic_write_json(round_path / "round.json", round_record)
-    state["current_source_release"] = release_id
+    state["current_model_release"] = release_id
     state["status"] = "READY_FOR_ROUND"
     atomic_write_json(_state_path(root), state)
     return release

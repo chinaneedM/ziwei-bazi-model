@@ -16,7 +16,8 @@ from fortune_training.runtime import (
     start_round,
     status,
 )
-from fortune_training.util import TrainingError
+from fortune_training.cli import build_parser
+from fortune_training.util import TrainingError, object_sha256
 from fortune_training.verify import build_source_manifest, verify_repository
 
 
@@ -32,6 +33,8 @@ POLICY = {
     "failed_round_resets_streak": True,
     "prediction_must_be_frozen_before_scoring": True,
     "failed_round_requires_learning_before_retry": True,
+    "failed_round_updates_model_layer_only": True,
+    "canonical_sources_mutable_during_training": False,
     "answer_plaintext_allowed_in_repository": False,
     "repeated_case_rounds_are_first_blind_evaluations": False,
 }
@@ -48,20 +51,49 @@ class RuntimeFixture:
         self.root = base / "repo"
         self.key = Fernet.generate_key()
         for index in range(20):
-            source = self.root / "sources" / "active" / f"S{index:02d}_test.txt"
+            source = self.root / "sources" / "canonical" / f"S{index:02d}_test.txt"
             source.parent.mkdir(parents=True, exist_ok=True)
             source.write_text(f"general source {index}\n", encoding="utf-8")
         write_json(self.root / "config" / "training-policy.json", POLICY)
-        build_source_manifest(self.root, write=True)
+        source_manifest = build_source_manifest(self.root)
         write_json(
-            self.root / "sources" / "releases" / "SOURCE-BASELINE-001.json",
+            self.root / "config" / "source-policy.json",
             {
-                "schema": "SOURCE-RELEASE-V1",
-                "release_id": "SOURCE-BASELINE-001",
+                "schema": "SOURCE-AUTHORITY-POLICY-V1",
+                "original_project_library_role": "ARCHIVAL_READ_ONLY_NOT_RUNTIME",
+                "original_project_library_deletion_required": False,
+                "runtime_source": "GIT_REPOSITORY_ONLY",
+                "git_canonical_path": "sources/canonical",
+                "git_canonical_mutable_during_training": False,
+                "canonical_manifest_sha256": object_sha256(source_manifest),
+                "model_learning_path": "model-learning",
+                "model_learning_mutable_during_training": True,
+                "conflict_resolution": "IGNORE_EXTERNAL_ORIGINAL_AND_USE_GIT_RUNTIME",
+            },
+        )
+        write_json(
+            self.root / "config" / "answer-policy.json",
+            {
+                "schema": "PUBLIC-REPOSITORY-ANSWER-POLICY-V1",
+                "repository_visibility": "PUBLIC",
+                "private_answer_repository_required": False,
+                "plaintext_answers_allowed": False,
+                "encrypted_answer_envelopes_allowed": True,
+                "decryption_keys_allowed": False,
+                "answer_read_phase": "POST_FREEZE_ONLY",
+            },
+        )
+        write_json(self.root / "sources" / "canonical-manifest.json", source_manifest)
+        write_json(
+            self.root / "model-learning" / "releases" / "MODEL-BASELINE-001.json",
+            {
+                "schema": "MODEL-RELEASE-V1",
+                "release_id": "MODEL-BASELINE-001",
                 "parent_release": None,
-                "base_manifest": "sources/manifest.json",
+                "base_source_manifest": "sources/canonical-manifest.json",
                 "patches": [],
                 "training_process_authority": "config/training-policy.json",
+                "canonical_sources_mutated": False,
             },
         )
         case_order = [f"DEV-EXAMPLE-{index:03d}" for index in range(1, 6)]
@@ -89,6 +121,10 @@ class RuntimeFixture:
                     "case_id": case_id,
                     "group_id": "DEV-GROUP-002",
                     "answer_isolation": {"answer_payload_present": False},
+                    "binding": {
+                        "source_manifest": "sources/canonical-manifest.json",
+                        "training_policy": "config/training-policy.json",
+                    },
                     "questions": {"question_count": count, "parsed": questions},
                 },
             )
@@ -108,8 +144,8 @@ class RuntimeFixture:
                 "group_id": "DEV-GROUP-002",
                 "group_path": "examples/DEV-GROUP-002/group.json",
                 "policy_path": "config/training-policy.json",
-                "source_manifest_path": "sources/manifest.json",
-                "current_source_release": "SOURCE-BASELINE-001",
+                "source_manifest_path": "sources/canonical-manifest.json",
+                "current_model_release": "MODEL-BASELINE-001",
                 "current_case_index": 0,
                 "status": "READY_FOR_ROUND",
                 "active_round_id": None,
@@ -127,7 +163,7 @@ class RuntimeFixture:
         )
         (self.root / "answer-vault" / "encrypted").mkdir(parents=True, exist_ok=True)
         (self.root / "training" / "runs").mkdir(parents=True, exist_ok=True)
-        (self.root / "sources" / "patches").mkdir(parents=True, exist_ok=True)
+        (self.root / "model-learning" / "patches").mkdir(parents=True, exist_ok=True)
         self.case_id = case_order[0]
         self.question_count = first_question_count
         self.plaintext_answer = base / "trusted-answer.json"
@@ -191,10 +227,12 @@ class RuntimeTests(unittest.TestCase):
                 start_round(fixture.root, "BLOCKED-BEFORE-LEARNING")
 
             patch = fixture.base / "general-patch.json"
+            canonical_before = build_source_manifest(fixture.root)
             write_json(
                 patch,
                 {
-                    "affected_libraries": ["S03", "S17"],
+                    "learning_type": "REASONING_STRATEGY",
+                    "related_source_libraries": ["S03", "S17"],
                     "principles": [
                         {
                             "statement": "Separate structural possibility from a proved event endpoint.",
@@ -208,9 +246,13 @@ class RuntimeTests(unittest.TestCase):
                 },
             )
             release = apply_learning(fixture.root, "R3", patch, "LEARNING-001")
-            self.assertEqual(release["parent_release"], "SOURCE-BASELINE-001")
+            self.assertEqual(release["parent_release"], "MODEL-BASELINE-001")
+            self.assertEqual(build_source_manifest(fixture.root), canonical_before)
+            self.assertTrue(
+                (fixture.root / "model-learning" / "patches" / "LEARNING-001.json").is_file()
+            )
             first_retry = start_round(fixture.root, "R4")
-            self.assertEqual(first_retry["source_release"], "LEARNING-001")
+            self.assertEqual(first_retry["model_release"], "LEARNING-001")
             freeze_prediction(fixture.root, "R4", fixture.prediction_file("R4", 4))
             score_round(fixture.root, "R4", fixture.base / "R4.review.json", fixture.key)
             fixture.run_and_score("R5", 4)
@@ -287,7 +329,8 @@ class RuntimeTests(unittest.TestCase):
             write_json(
                 patch,
                 {
-                    "affected_libraries": ["S03"],
+                    "learning_type": "REASONING_STRATEGY",
+                    "related_source_libraries": ["S03"],
                     "principles": [
                         {
                             "statement": "DEV-EXAMPLE-001 Q1 should choose A.",
@@ -312,6 +355,24 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertEqual(result["cases"], 5)
         self.assertEqual(result["questions"], 25)
         self.assertIsNone(result["round_limit"])
+        self.assertEqual(result["runtime_source"], "GIT_REPOSITORY_ONLY")
+        self.assertTrue(result["canonical_sources_immutable"])
+        self.assertTrue(result["model_learning_separate"])
+
+    def test_canonical_sources_cannot_be_silently_rebaselined(self):
+        parser = build_parser()
+        subparsers = next(action for action in parser._actions if action.dest == "command")
+        verify_parser = subparsers.choices["verify"]
+        option_strings = {option for action in verify_parser._actions for option in action.option_strings}
+        self.assertNotIn("--write-manifest", option_strings)
+
+    def test_canonical_source_mutation_fails_verification(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            source = fixture.root / "sources" / "canonical" / "S03_test.txt"
+            source.write_text("tampered\n", encoding="utf-8")
+            with self.assertRaises(TrainingError):
+                verify_repository(fixture.root)
 
     def test_answer_source_readiness_is_explicit(self):
         root = Path(__file__).resolve().parents[1]
