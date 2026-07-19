@@ -1,0 +1,77 @@
+{
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "conclusion": "failure",
+      "name": "create-clean-start",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Checkout public runtime repository",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Set up Python",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install runtime",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Resolve exact request files",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run clean-start and end-to-end tests",
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Materialize or validate staged clean starts",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Verify generated staged clean starts",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Commit immutable staged clean-start objects",
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Post Set up Python",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Checkout public runtime repository",
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+  "run_id": 29685488529,
+  "run_number": 11,
+  "schema": "CLEAN-START-WORKFLOW-READBACK-V1",
+  "status": "completed",
+  "target_sha": "37fa0e4aaaa725e9220350e9d6699b8a1cc1c0cd"
+}
