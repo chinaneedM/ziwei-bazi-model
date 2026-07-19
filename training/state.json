@@ -2,9 +2,10 @@
   "active_round_id": null,
   "cases": {
     "DEV-EXAMPLE-001": {
-      "consecutive_passes": 0,
+      "consecutive_passes": 1,
       "round_ids": [
-        "ROUND-001"
+        "ROUND-001",
+        "ROUND-002"
       ],
       "status": "ACTIVE"
     },
@@ -34,9 +35,9 @@
   "group_id": "DEV-GROUP-002",
   "group_path": "examples/DEV-GROUP-002/group.json",
   "policy_path": "config/training-policy.json",
-  "round_count": 1,
+  "round_count": 2,
   "round_limit": null,
   "schema": "CASE-TRAINING-STATE-V1",
   "source_manifest_path": "sources/canonical-manifest.json",
-  "status": "READY_FOR_ROUND"
+  "status": "CONFIRMATION_REQUIRED"
 }
