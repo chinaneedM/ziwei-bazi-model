@@ -1,20 +1,42 @@
 {
-  "schema": "CASE-TRAINING-STATE-V1",
+  "active_round_id": "ROUND-001",
+  "cases": {
+    "DEV-EXAMPLE-001": {
+      "consecutive_passes": 0,
+      "round_ids": [
+        "ROUND-001"
+      ],
+      "status": "ACTIVE"
+    },
+    "DEV-EXAMPLE-002": {
+      "consecutive_passes": 0,
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "DEV-EXAMPLE-003": {
+      "consecutive_passes": 0,
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "DEV-EXAMPLE-004": {
+      "consecutive_passes": 0,
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "DEV-EXAMPLE-005": {
+      "consecutive_passes": 0,
+      "round_ids": [],
+      "status": "PENDING"
+    }
+  },
+  "current_case_index": 0,
+  "current_model_release": "MODEL-BASELINE-001",
   "group_id": "DEV-GROUP-002",
   "group_path": "examples/DEV-GROUP-002/group.json",
   "policy_path": "config/training-policy.json",
-  "source_manifest_path": "sources/canonical-manifest.json",
-  "current_model_release": "MODEL-BASELINE-001",
-  "current_case_index": 0,
-  "status": "READY_FOR_ROUND",
-  "active_round_id": null,
-  "round_count": 0,
+  "round_count": 1,
   "round_limit": null,
-  "cases": {
-    "DEV-EXAMPLE-001": {"status": "ACTIVE", "consecutive_passes": 0, "round_ids": []},
-    "DEV-EXAMPLE-002": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
-    "DEV-EXAMPLE-003": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
-    "DEV-EXAMPLE-004": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []},
-    "DEV-EXAMPLE-005": {"status": "PENDING", "consecutive_passes": 0, "round_ids": []}
-  }
+  "schema": "CASE-TRAINING-STATE-V1",
+  "source_manifest_path": "sources/canonical-manifest.json",
+  "status": "PREDICTION_FROZEN"
 }
