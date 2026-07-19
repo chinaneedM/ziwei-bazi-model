@@ -1,0 +1,233 @@
+name: one-time-runtime-binding-compat
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-runtime-binding-compat.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-and-remove-self:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply exact compatibility patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/fortune_v1/clean_start.py')
+          text = path.read_text(encoding='utf-8')
+          old_import = 'from pathlib import Path\nfrom typing import Any\n'
+          new_import = 'import os\nimport re\nfrom pathlib import Path\nfrom typing import Any\n'
+          if text.count(old_import) != 1:
+              raise SystemExit('clean_start import anchor mismatch')
+          text = text.replace(old_import, new_import)
+
+          anchor = '''FORBIDDEN_RESOURCE_TYPES = [
+    "pull_request",
+    "issue",
+    "commit_history",
+    "prior_prediction",
+    "prior_reveal",
+    "grading_result",
+    "diagnosis",
+    "shadow_rebuild",
+]
+
+
+'''
+          helper = '''FORBIDDEN_RESOURCE_TYPES = [
+    "pull_request",
+    "issue",
+    "commit_history",
+    "prior_prediction",
+    "prior_reveal",
+    "grading_result",
+    "diagnosis",
+    "shadow_rebuild",
+]
+
+_COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+_HASH_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+
+
+def _validated_install_binding(install_state: dict[str, Any]) -> dict[str, Any]:
+    if install_state.get("status") != "INSTALLED_VALIDATED":
+        raise FortuneError("runtime installation is not validated", status="INSTALLATION_NOT_VALIDATED")
+
+    legacy_commit = install_state.get("code_commit")
+    validated_main_commit = install_state.get("validated_main_commit")
+    if isinstance(legacy_commit, str) and _COMMIT_PATTERN.fullmatch(legacy_commit):
+        validated_commit = legacy_commit
+        binding_mode = "LEGACY_EXACT_CODE_COMMIT"
+        state_object_hash = install_state.get("object_hash")
+    elif isinstance(validated_main_commit, str) and _COMMIT_PATTERN.fullmatch(validated_main_commit):
+        required = {
+            "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+            "formal_open_source_release_permission": "PASS",
+            "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+            "background_execution": False,
+        }
+        mismatches = {
+            key: {"actual": install_state.get(key), "expected": value}
+            for key, value in required.items()
+            if install_state.get(key) != value
+        }
+        if mismatches:
+            raise FortuneError(
+                f"V3 installation binding invalid: {mismatches}",
+                status="INSTALLATION_BINDING_INVALID",
+            )
+        state_object_hash = install_state.get("object_hash")
+        if not isinstance(state_object_hash, str) or not _HASH_PATTERN.fullmatch(state_object_hash):
+            raise FortuneError(
+                "V3 installation state object hash missing or invalid",
+                status="INSTALLATION_BINDING_INVALID",
+            )
+        validated_commit = validated_main_commit
+        binding_mode = "V3_VALIDATED_MAIN_COMMIT"
+    else:
+        raise FortuneError(
+            "installation state has no valid commit binding",
+            status="INSTALLATION_BINDING_INVALID",
+        )
+
+    execution_commit = os.environ.get("GITHUB_SHA") or validated_commit
+    if not _COMMIT_PATTERN.fullmatch(execution_commit):
+        raise FortuneError(
+            "execution commit binding missing or invalid",
+            status="INSTALLATION_BINDING_INVALID",
+        )
+    return {
+        "binding_mode": binding_mode,
+        "validated_main_commit": validated_commit,
+        "execution_code_commit": execution_commit,
+        "state_object_hash": state_object_hash,
+    }
+
+
+'''
+          if text.count(anchor) != 1:
+              raise SystemExit('clean_start helper anchor mismatch')
+          text = text.replace(anchor, helper)
+
+          old_validation = '''    if install_state.get("status") != "INSTALLED_VALIDATED":
+        raise FortuneError("runtime installation is not validated", status="INSTALLATION_NOT_VALIDATED")
+    if session_mode not in {"CHAT_ONLY", "WORK"}:
+'''
+          new_validation = '''    install_binding = _validated_install_binding(install_state)
+    if session_mode not in {"CHAT_ONLY", "WORK"}:
+'''
+          if text.count(old_validation) != 1:
+              raise SystemExit('clean_start validation anchor mismatch')
+          text = text.replace(old_validation, new_validation)
+
+          old_block = '''        "installation_state": {
+            "path": str(install_state_file),
+            "sha256": sha256_file(install_state_file),
+            "code_commit": install_state["code_commit"],
+            "status": install_state["status"],
+        },
+'''
+          new_block = '''        "installation_state": {
+            "path": str(install_state_file),
+            "sha256": sha256_file(install_state_file),
+            "code_commit": install_binding["execution_code_commit"],
+            "validated_main_commit": install_binding["validated_main_commit"],
+            "state_object_hash": install_binding["state_object_hash"],
+            "binding_mode": install_binding["binding_mode"],
+            "status": install_state["status"],
+        },
+'''
+          if text.count(old_block) != 1:
+              raise SystemExit('clean_start installation block anchor mismatch')
+          text = text.replace(old_block, new_block)
+          path.write_text(text, encoding='utf-8')
+
+          test_path = Path('tests/test_clean_start.py')
+          tests = test_path.read_text(encoding='utf-8')
+          tests = tests.replace('import unittest\nfrom pathlib import Path\n', 'import unittest\nfrom pathlib import Path\nfrom unittest import mock\n')
+          old_fixture = 'self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "abc123"})'
+          new_fixture = 'self.write_json(install_path, {"status": "INSTALLED_VALIDATED", "code_commit": "a" * 40})'
+          if tests.count(old_fixture) != 1:
+              raise SystemExit('test fixture anchor mismatch')
+          tests = tests.replace(old_fixture, new_fixture)
+
+          test_anchor = '''    def test_nonoverwrite_fails_closed(self) -> None:
+'''
+          new_tests = '''    def test_v3_install_state_binds_validated_and_execution_commits(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            group, install = self.fixture(root)
+            self.write_json(install, {
+                "status": "INSTALLED_VALIDATED",
+                "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+                "formal_open_source_release_permission": "PASS",
+                "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+                "background_execution": False,
+                "validated_main_commit": "b" * 40,
+                "object_hash": "c" * 64,
+            })
+            with mock.patch.dict("os.environ", {"GITHUB_SHA": "d" * 40}, clear=False):
+                result = create_group_clean_start(group, install, root / "runs", "RUN-V3", "SESSION-V3")
+            binding = result["installation_state"]
+            self.assertEqual(binding["code_commit"], "d" * 40)
+            self.assertEqual(binding["validated_main_commit"], "b" * 40)
+            self.assertEqual(binding["state_object_hash"], "c" * 64)
+            self.assertEqual(binding["binding_mode"], "V3_VALIDATED_MAIN_COMMIT")
+
+    def test_v3_install_state_missing_permission_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            group, install = self.fixture(root)
+            self.write_json(install, {
+                "status": "INSTALLED_VALIDATED",
+                "automation_runtime_install_status": "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+                "formal_open_source_release_permission": "BLOCKED",
+                "formal_training_permission": "READY_FOR_USER_INITIATED_CLEAN_START_ONLY",
+                "background_execution": False,
+                "validated_main_commit": "b" * 40,
+                "object_hash": "c" * 64,
+            })
+            with self.assertRaises(FortuneError) as caught:
+                create_group_clean_start(group, install, root / "runs", "RUN-V3", "SESSION-V3")
+            self.assertEqual(caught.exception.status, "INSTALLATION_BINDING_INVALID")
+
+    def test_nonoverwrite_fails_closed(self) -> None:
+'''
+          if tests.count(test_anchor) != 1:
+              raise SystemExit('test insertion anchor mismatch')
+          tests = tests.replace(test_anchor, new_tests)
+          test_path.write_text(tests, encoding='utf-8')
+          PY
+
+      - name: Install and run targeted tests
+        run: |
+          python -m pip install -e . pytest
+          python -m unittest tests.test_clean_start tests.test_bootstrap_request tests.test_group_start_signal_transport -v
+          pytest -q tests/test_clean_start.py tests/test_bootstrap_request.py tests/test_group_start_signal_transport.py
+
+      - name: Remove workflow and commit patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/one-time-runtime-binding-compat.yml
+          git add src/fortune_v1/clean_start.py tests/test_clean_start.py
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m 'Support V3 installation state bindings in clean starts'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
