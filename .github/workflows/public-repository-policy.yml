@@ -1,0 +1,24 @@
+name: public-repository-policy
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-only:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify public visibility and single-repository runtime
+        env:
+          GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+        run: |
+          python scripts/verify-public-only-repository.py \
+            --root . \
+            --visibility "$GITHUB_REPOSITORY_VISIBILITY"
