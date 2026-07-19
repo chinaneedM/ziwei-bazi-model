@@ -1,21 +1,27 @@
 from __future__ import annotations
 
+import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
 
 from cryptography.fernet import Fernet
 
-import tests.test_end_to_end_pipeline as e2e_fixture
 from fortune_v1.end_to_end import freeze_group_predictions, release_group_postblind, reveal_and_start_training
 from fortune_v1.public_answer_vault import decrypt_answer_envelope, encrypt_answer_vector
+
+_FIXTURE_PATH = Path(__file__).with_name("test_end_to_end_pipeline.py")
+_FIXTURE_SPEC = importlib.util.spec_from_file_location("public_e2e_fixture", _FIXTURE_PATH)
+assert _FIXTURE_SPEC and _FIXTURE_SPEC.loader
+E2E_FIXTURE = importlib.util.module_from_spec(_FIXTURE_SPEC)
+_FIXTURE_SPEC.loader.exec_module(E2E_FIXTURE)
 
 
 class PublicEnvelopeEndToEndTests(unittest.TestCase):
     def test_public_envelope_reaches_learning_active_after_group_freeze(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            helper = e2e_fixture.EndToEndPipelineTests(methodName="runTest")
+            helper = E2E_FIXTURE.EndToEndPipelineTests(methodName="runTest")
             run_root, _, release_request = helper.fixture(root)
 
             access = release_group_postblind(release_request)
