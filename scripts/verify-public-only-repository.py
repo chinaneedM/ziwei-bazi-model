@@ -6,6 +6,7 @@ import fnmatch
 import json
 import os
 import re
+import tomllib
 from pathlib import Path
 from typing import Any
 
@@ -47,6 +48,43 @@ def verify(root: Path, visibility: str) -> dict[str, Any]:
             "code": "REPOSITORY_VISIBILITY_NOT_PUBLIC",
             "path": ".",
             "detail": f"actual={visibility} required={required_visibility}",
+        })
+
+    if policy.get("project_mode") != "COMPLETE_OPEN_SOURCE":
+        failures.append({
+            "code": "PROJECT_MODE_NOT_COMPLETE_OPEN_SOURCE",
+            "path": str(POLICY_PATH),
+            "detail": str(policy.get("project_mode")),
+        })
+
+    for raw in policy.get("required_open_source_files", []):
+        path = root / str(raw)
+        if not path.is_file():
+            failures.append({
+                "code": "REQUIRED_OPEN_SOURCE_FILE_MISSING",
+                "path": str(raw),
+                "detail": "missing",
+            })
+
+    pyproject_path = root / "pyproject.toml"
+    if not pyproject_path.is_file():
+        failures.append({"code": "PYPROJECT_MISSING", "path": "pyproject.toml", "detail": "missing"})
+    else:
+        project = tomllib.loads(pyproject_path.read_text(encoding="utf-8")).get("project", {})
+        required_license = policy.get("required_software_license")
+        if project.get("license") != required_license:
+            failures.append({
+                "code": "PACKAGE_LICENSE_METADATA_MISMATCH",
+                "path": "pyproject.toml",
+                "detail": f"actual={project.get('license')} required={required_license}",
+            })
+
+    release_contract = root / str(policy.get("open_source_release_contract_path", ""))
+    if not release_contract.is_file():
+        failures.append({
+            "code": "OPEN_SOURCE_RELEASE_CONTRACT_MISSING",
+            "path": str(policy.get("open_source_release_contract_path", "")),
+            "detail": "missing",
         })
 
     forbidden = [str(value) for value in policy.get("forbidden_literals", [])]
@@ -97,7 +135,9 @@ def verify(root: Path, visibility: str) -> dict[str, Any]:
     result = {
         "schema": "PUBLIC-ONLY-REPOSITORY-VERIFICATION-V1",
         "status": "PASS" if not failures else "FAIL",
+        "project_mode": policy.get("project_mode"),
         "repository_visibility": visibility,
+        "software_license": policy.get("required_software_license"),
         "single_repository_runtime": policy.get("single_repository_runtime") is True,
         "scanned_file_count": len(scan_files),
         "failure_count": len(failures),
