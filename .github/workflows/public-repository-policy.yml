@@ -30,3 +30,11 @@ jobs:
           python scripts/verify-public-only-repository.py \
             --root . \
             --visibility "$GITHUB_REPOSITORY_VISIBILITY"
+
+      - name: Verify active KNOWLEDGE-R17 CC0 release binding
+        env:
+          GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
+        run: |
+          python scripts/verify-open-source-release.py \
+            --root . \
+            --visibility "$GITHUB_REPOSITORY_VISIBILITY"
