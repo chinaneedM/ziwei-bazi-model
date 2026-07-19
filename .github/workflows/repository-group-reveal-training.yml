@@ -8,11 +8,6 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'runtime/group-reveal-requests/*.json'
-      - 'src/fortune_v1/end_to_end.py'
-      - 'src/fortune_v1/training_corrected.py'
-      - 'scripts/group-training-pipeline.py'
-      - 'tests/test_end_to_end_pipeline.py'
-      - '.github/workflows/repository-group-reveal-training.yml'
   pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
