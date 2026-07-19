@@ -8,10 +8,11 @@ from .clean_start import (
     create_group_clean_start,
     create_group_clean_start_from_request,
 )
-from .util import FortuneError, atomic_write_json, read_json, sha256_file, slug, utc_now
+from .util import FortuneError, atomic_write_json, canonical_bytes, read_json, sha256_bytes, sha256_file, slug, utc_now
 
 PREAUTHORIZED_REQUEST_SCHEMA = "GROUP-CLEAN-START-REQUEST-V2"
 PREAUTHORIZED_REQUEST_ORIGIN = "PREAUTHORIZED_ENGINEERING_BOOTSTRAP"
+RUN_PURPOSES = {"FIRST_BLIND", "TRAINING_REPLAY"}
 
 
 def _require_file(path: str | Path, *, status: str) -> Path:
@@ -47,6 +48,7 @@ def build_preauthorized_request(
     group_run_id: str,
     session_id: str,
     mode: str = "CHAT_ONLY",
+    run_purpose: str = "FIRST_BLIND",
 ) -> dict[str, Any]:
     """Materialize a request before the prediction context starts.
 
@@ -62,6 +64,8 @@ def build_preauthorized_request(
     exact_session_id = _exact_identifier(session_id, "session_id")
     if mode not in {"CHAT_ONLY", "WORK"}:
         raise FortuneError("invalid session mode", status="GROUP_SESSION_MODE_INVALID")
+    if run_purpose not in RUN_PURPOSES:
+        raise FortuneError("invalid run purpose", status="CLEAN_START_REQUEST_INVALID")
 
     request = {
         "schema": PREAUTHORIZED_REQUEST_SCHEMA,
@@ -70,6 +74,12 @@ def build_preauthorized_request(
         "group_run_id": exact_group_run_id,
         "session_id": exact_session_id,
         "mode": mode,
+        "run_purpose": run_purpose,
+        "new_first_blind_score_eligibility": (
+            "CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS"
+            if run_purpose == "FIRST_BLIND"
+            else "NONE"
+        ),
         "prediction_context_started": False,
         "prediction_context_repository_search_used": False,
         "prediction_context_commit_history_used": False,
@@ -78,8 +88,7 @@ def build_preauthorized_request(
         "pointer_sha256": sha256_file(pointer_file),
         "requested_group_id": pointer["group_id"],
         "allowed_repository": pointer["allowed_repository"],
-        "forbidden_repository": pointer["forbidden_repository"],
-        "answer_vault_access_basis": "SINGLE_ALLOWED_REPOSITORY_CHECKOUT_PLUS_ACTIVE_POINTER",
+        "answer_vault_access_basis": "PUBLIC_ENCRYPTED_ENVELOPE_ONLY_AFTER_GROUP_PREDICTION_FREEZE_PASS",
         "future_prediction_entrypoint": str(Path(pointer["output_root"]) / exact_group_run_id / "clean-start.json"),
         "future_prediction_first_repository_action": "FETCH_EXACT_CLEAN_START_PATH_ONLY",
         "created_at": utc_now(),
@@ -95,6 +104,7 @@ def build_preauthorized_request(
 def create_group_clean_start_from_bootstrap_request(
     request_path: str | Path,
     current_group_pointer_path: str | Path = "CURRENT_GROUP_MANIFEST",
+    runtime_preflight_receipt_path: str | Path | None = None,
 ) -> dict[str, Any]:
     request_file = _require_file(request_path, status="CLEAN_START_REQUEST_MISSING")
     request = read_json(request_file)
@@ -123,8 +133,16 @@ def create_group_clean_start_from_bootstrap_request(
         raise FortuneError("request group mismatch", status="CLEAN_START_REQUEST_GROUP_MISMATCH")
     if request.get("allowed_repository") != pointer.get("allowed_repository"):
         raise FortuneError("allowed repository mismatch", status="CLEAN_START_REQUEST_REPOSITORY_MISMATCH")
-    if request.get("forbidden_repository") != pointer.get("forbidden_repository"):
-        raise FortuneError("forbidden repository mismatch", status="CLEAN_START_REQUEST_REPOSITORY_MISMATCH")
+    run_purpose = request.get("run_purpose", "FIRST_BLIND")
+    if run_purpose not in RUN_PURPOSES:
+        raise FortuneError("invalid run purpose", status="CLEAN_START_REQUEST_INVALID")
+    expected_eligibility = (
+        "CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS"
+        if run_purpose == "FIRST_BLIND"
+        else "NONE"
+    )
+    if request.get("new_first_blind_score_eligibility") != expected_eligibility:
+        raise FortuneError("run purpose scoring boundary mismatch", status="CLEAN_START_REQUEST_INVALID")
     if request.get("pointer_sha256") != sha256_file(pointer_file):
         raise FortuneError("pointer changed after request authorization", status="CLEAN_START_REQUEST_POINTER_MISMATCH")
 
@@ -150,6 +168,8 @@ def create_group_clean_start_from_bootstrap_request(
         "sha256": sha256_file(request_file),
         "schema": request["schema"],
         "request_origin": request["request_origin"],
+        "run_purpose": run_purpose,
+        "new_first_blind_score_eligibility": expected_eligibility,
         "answer_vault_physical_access_test_status": "PASS_INACCESSIBLE_BY_REPOSITORY_BOUNDARY",
         "precontent_search_status": "PASS_PREDICTION_CONTEXT_NOT_STARTED",
         "old_run_visibility_status": "PASS_PREDICTION_CONTEXT_NOT_STARTED",
@@ -162,6 +182,33 @@ def create_group_clean_start_from_bootstrap_request(
         "model_release_id": pointer["active_model_release_id"],
         "learning_policy_id": pointer["active_learning_policy_id"],
     }
+    runtime_preflight_receipt = None
+    if runtime_preflight_receipt_path is not None:
+        preflight_file = _require_file(runtime_preflight_receipt_path, status="INSTALLATION_BINDING_INVALID")
+        preflight = read_json(preflight_file)
+        preflight_body = {key: value for key, value in preflight.items() if key != "object_hash"}
+        valid_statuses = {
+            "INSTALL_CHECK_PASS_CANDIDATE",
+            "INSTALLED_VALIDATED_READY_FOR_USER_INITIATED_CLEAN_START",
+        }
+        if (
+            preflight.get("schema") != "FINAL-OPEN-SOURCE-INSTALL-CHECK-RECEIPT-V3"
+            or preflight.get("status") not in valid_statuses
+            or preflight.get("failure_count") != 0
+            or preflight.get("formal_open_source_release_permission") != "PASS"
+            or preflight.get("object_hash") != sha256_bytes(canonical_bytes(preflight_body))
+        ):
+            raise FortuneError("runtime preflight receipt invalid", status="INSTALLATION_BINDING_INVALID")
+        runtime_preflight_receipt = {
+            "path": str(preflight_file),
+            "sha256": sha256_file(preflight_file),
+            "object_hash": preflight["object_hash"],
+            "schema": preflight["schema"],
+            "status": preflight["status"],
+            "code_commit": preflight.get("code_commit"),
+            "failure_count": preflight["failure_count"],
+            "formal_open_source_release_permission": preflight["formal_open_source_release_permission"],
+        }
     return create_group_clean_start(
         pointer["group_manifest_path"],
         pointer["install_state_path"],
@@ -172,5 +219,6 @@ def create_group_clean_start_from_bootstrap_request(
         initial_control_paths=mandatory_paths,
         bootstrap_receipt=bootstrap_receipt,
         request_receipt=request_receipt,
+        runtime_preflight_receipt=runtime_preflight_receipt,
         runtime_binding=runtime_binding,
     )

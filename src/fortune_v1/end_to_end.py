@@ -381,7 +381,19 @@ def reveal_and_start_training(request_path: str | Path, *, answer_root: str | Pa
         "rows": replay_rows,
         "replayed_at": utc_now(),
     })
-    units = [{"unit_id": slug(q["key"]), "case_ids": [q["case_id"]], "question_ids": [q["question_id"]]} for q in frozen_questions]
+    observation_hashes = {
+        row["distinct_question_key"]: sha256_bytes(canonical_bytes(row))
+        for row in replay_rows
+    }
+    units = [
+        {
+            "unit_id": slug(q["key"]),
+            "case_ids": [q["case_id"]],
+            "question_ids": [q["question_id"]],
+            "first_blind_observation_hash": observation_hashes[q["key"]],
+        }
+        for q in frozen_questions
+    ]
     unit_plan_path = output_root / "learning-unit-plan.json"
     unit_plan = _write_new(unit_plan_path, {"schema": "LEARNING-UNIT-PLAN-V1", "group_id": freeze["group_id"], "group_run_id": freeze["group_run_id"], "units": units})
     cycle_path = output_root / "learning-cycle.json"
@@ -399,6 +411,10 @@ def reveal_and_start_training(request_path: str | Path, *, answer_root: str | Pa
             "knowledge_release_id": request.get("knowledge_release_id"),
             "method_release_id": request.get("method_release_id"),
             "model_release_id": request.get("model_release_id"),
+            "new_first_blind_score_eligibility": request.get(
+                "new_first_blind_score_eligibility",
+                "CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS",
+            ),
         },
     )
     seed_dir = output_root / "training-evidence-seeds"
@@ -412,6 +428,7 @@ def reveal_and_start_training(request_path: str | Path, *, answer_root: str | Pa
             "cycle_id": cycle["cycle_id"],
             "unit_id": unit_id,
             "first_blind_prediction": row,
+            "first_blind_observation_hash": observation_hashes[row["distinct_question_key"]],
             "correction_required": True,
             "minimum_post_reveal_stability_replays": cycle["thresholds"]["min_post_reveal_stability_replays"],
             "answer_memorization_forbidden": True,
@@ -430,6 +447,12 @@ def reveal_and_start_training(request_path: str | Path, *, answer_root: str | Pa
         "unit_plan_object_hash": unit_plan["object_hash"],
         "literal_replay_path": str(replay_path),
         "literal_replay_object_hash": replay["object_hash"],
+        "group_prediction_freeze_path": str(freeze_path),
+        "group_prediction_freeze_sha256": sha256_file(freeze_path),
+        "new_first_blind_score_eligibility": request.get(
+            "new_first_blind_score_eligibility",
+            "CONDITIONAL_PER_RUN_CAUSAL_USE_RECEIPT_PASS",
+        ),
         "training_unit_count": len(seed_rows),
         "training_evidence_seeds": seed_rows,
         "first_active_unit": seed_rows[0]["unit_id"],

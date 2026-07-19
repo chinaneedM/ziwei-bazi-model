@@ -11,14 +11,19 @@ def dump(path: Path, value):
 
 def with_hash(value):
     value = dict(value)
+    value.pop("object_hash", None)
     value["object_hash"] = sha256_bytes(canonical_bytes(value))
     return value
 
 
-def reasoning_object():
+def dump_hashed(path: Path, value):
+    dump(path, with_hash(value))
+
+
+def reasoning_object(unit_id="CASE-1-Q1"):
     return with_hash({
         "schema": "REASONING-CORRECTION-OBJECT-V2.1",
-        "unit_id": "Q1",
+        "unit_id": unit_id,
         "error_mechanisms": [{"id": "E1", "mechanism": "scope error"}],
         "source_parent_chains": [{
             "library_id": "S02",
@@ -64,12 +69,27 @@ def reasoning_object():
 
 
 def base(tmp_path):
+    first_blind = {
+        "evaluation_role": "FIRST_BLIND_PREDICTION",
+        "case_id": "CASE-1",
+        "question_id": "Q1",
+        "frozen_before_reveal": True,
+        "answer_visible_during_prediction": False,
+        "prediction_input_answer_free": True,
+        "case_specific_rule_detected": False,
+        "source_provenance_status": "PASS",
+        "pairwise_replay_status": "PASS",
+        "top1_correct": False,
+        "top2_hit": False,
+        "prediction_freeze_hash": "abc",
+    }
+    observation_hash = sha256_bytes(canonical_bytes(first_blind))
     cycle_path = tmp_path / "cycle.json"
     create_cycle(
         "CYCLE",
         "GROUP",
         [
-            {"unit_id": "CASE-1-Q1", "case_ids": ["CASE-1"], "question_ids": ["Q1"]},
+            {"unit_id": "CASE-1-Q1", "case_ids": ["CASE-1"], "question_ids": ["Q1"], "first_blind_observation_hash": observation_hash},
             {"unit_id": "CASE-1-Q2", "case_ids": ["CASE-1"], "question_ids": ["Q2"]},
         ],
         cycle_path,
@@ -79,20 +99,8 @@ def base(tmp_path):
         "cycle_id": "CYCLE",
         "unit_id": "CASE-1-Q1",
         "evidence_id": "E1",
-        "first_blind_prediction": {
-            "evaluation_role": "FIRST_BLIND_PREDICTION",
-            "case_id": "CASE-1",
-            "question_id": "Q1",
-            "frozen_before_reveal": True,
-            "answer_visible_during_prediction": False,
-            "prediction_input_answer_free": True,
-            "case_specific_rule_detected": False,
-            "source_provenance_status": "PASS",
-            "pairwise_replay_status": "PASS",
-            "top1_correct": False,
-            "top2_hit": False,
-            "prediction_freeze_hash": "abc",
-        },
+        "first_blind_prediction": first_blind,
+        "first_blind_observation_hash": observation_hash,
         "correction": {
             "error_diagnosis_complete": True,
             "reasoning_update_complete": True,
@@ -122,7 +130,7 @@ def base(tmp_path):
         },
     }
     evidence_path = tmp_path / "evidence.json"
-    dump(evidence_path, evidence)
+    dump_hashed(evidence_path, evidence)
     return cycle_path, evidence_path
 
 
@@ -169,7 +177,7 @@ def test_case_specific_rule_holds(tmp_path):
     data = json.loads(evidence.read_text())
     data["correction"]["case_specific_rule_detected"] = True
     evidence.unlink()
-    dump(evidence, data)
+    dump_hashed(evidence, data)
     result = evaluate_question_training(cycle, evidence, tmp_path / "evaluation.json")
     assert result["status"] == "HOLD_ANSWER_OR_CASE_RULE_CONTAMINATION"
 
@@ -179,7 +187,7 @@ def test_reasoning_object_is_required(tmp_path):
     data = json.loads(evidence.read_text())
     del data["correction"]["reasoning_correction_object"]
     evidence.unlink()
-    dump(evidence, data)
+    dump_hashed(evidence, data)
     result = evaluate_question_training(cycle, evidence, tmp_path / "evaluation.json")
     assert result["status"] == "CONTINUE_CURRENT_UNIT_TRAINING"
     assert "REASONING_CORRECTION_OBJECT_MISSING" in result["correction"]["reasons"]
@@ -193,7 +201,7 @@ def test_complete_pairwise_matrix_is_required(tmp_path):
     obj.pop("object_hash")
     obj["object_hash"] = sha256_bytes(canonical_bytes(obj))
     evidence.unlink()
-    dump(evidence, data)
+    dump_hashed(evidence, data)
     result = evaluate_question_training(cycle, evidence, tmp_path / "evaluation.json")
     assert result["status"] == "CONTINUE_CURRENT_UNIT_TRAINING"
     assert "PAIRWISE_ROW_COUNT_INCOMPLETE" in result["correction"]["reasons"]
@@ -208,9 +216,7 @@ def test_same_question_label_in_different_units_counts_as_distinct(tmp_path):
 
     cycle_data = json.loads(first_advanced.read_text())
     cycle_data["units"][1]["question_ids"] = ["Q1"]
-    cycle_data.pop("object_hash")
-    cycle_data["object_hash"] = sha256_bytes(canonical_bytes(cycle_data))
-    dump(tmp_path / "second-cycle.json", cycle_data)
+    cycle_data["units"][1]["case_ids"] = ["CASE-2"]
 
     evidence_data = json.loads(evidence.read_text())
     evidence_data["unit_id"] = "CASE-1-Q2"
@@ -218,7 +224,11 @@ def test_same_question_label_in_different_units_counts_as_distinct(tmp_path):
     evidence_data["first_blind_prediction"]["question_id"] = "Q1"
     evidence_data["first_blind_prediction"]["case_id"] = "CASE-2"
     evidence_data["first_blind_prediction"]["prediction_freeze_hash"] = "def"
-    dump(tmp_path / "second-evidence.json", evidence_data)
+    second_observation_hash = sha256_bytes(canonical_bytes(evidence_data["first_blind_prediction"]))
+    evidence_data["first_blind_observation_hash"] = second_observation_hash
+    cycle_data["units"][1]["first_blind_observation_hash"] = second_observation_hash
+    dump_hashed(tmp_path / "second-cycle.json", cycle_data)
+    dump_hashed(tmp_path / "second-evidence.json", evidence_data)
 
     result = evaluate_question_training(tmp_path / "second-cycle.json", tmp_path / "second-evidence.json", tmp_path / "second-eval.json")
     assert result["rolling_first_blind_accuracy"]["distinct_question_count"] == 2
@@ -233,6 +243,6 @@ def test_answer_memorization_audit_fails_closed(tmp_path):
     obj.pop("object_hash")
     obj["object_hash"] = sha256_bytes(canonical_bytes(obj))
     evidence.unlink()
-    dump(evidence, data)
+    dump_hashed(evidence, data)
     result = evaluate_question_training(cycle, evidence, tmp_path / "evaluation.json")
     assert result["status"] == "HOLD_ANSWER_OR_CASE_RULE_CONTAMINATION"

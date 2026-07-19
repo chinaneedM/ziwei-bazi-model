@@ -72,6 +72,7 @@ def create_cycle(
             "question_ids": question_ids,
             "status": "PENDING",
             "completion_evaluation_id": None,
+            "first_blind_observation_hash": raw.get("first_blind_observation_hash"),
         })
 
     merged = default_thresholds()
@@ -221,13 +222,15 @@ def _validate_pairwise_rows(reasoning: dict[str, Any], reasons: list[str]) -> No
         reasons.append("PAIRWISE_PAIR_SET_INCOMPLETE")
 
 
-def _validate_reasoning_correction(reasoning: dict[str, Any]) -> list[str]:
+def _validate_reasoning_correction(reasoning: dict[str, Any], *, expected_unit_id: str) -> list[str]:
     reasons: list[str] = []
     if reasoning.get("schema") != REASONING_CORRECTION_SCHEMA:
         reasons.append("REASONING_CORRECTION_SCHEMA_INVALID")
         return reasons
     if not _hash_matches(reasoning):
         reasons.append("REASONING_CORRECTION_HASH_INVALID")
+    if reasoning.get("unit_id") != expected_unit_id:
+        reasons.append("REASONING_CORRECTION_UNIT_ID_MISMATCH")
     required_nonempty_lists = {
         "error_mechanisms": "ERROR_MECHANISM_LEDGER_INCOMPLETE",
         "source_parent_chains": "SOURCE_PARENT_CHAINS_INCOMPLETE",
@@ -294,6 +297,8 @@ def evaluate_question_training(
     evidence = read_json(evidence_path)
     _require(cycle.get("schema") == SCHEMA, "cycle schema invalid", "TRAINING_CYCLE_SCHEMA_INVALID")
     _require(evidence.get("schema") == EVIDENCE_SCHEMA, "evidence schema invalid", "TRAINING_EVIDENCE_SCHEMA_INVALID")
+    _require(_hash_matches(cycle), "cycle object hash invalid", "TRAINING_CYCLE_HASH_INVALID")
+    _require(_hash_matches(evidence), "evidence object hash invalid", "TRAINING_EVIDENCE_HASH_INVALID")
     _require(evidence.get("cycle_id") == cycle.get("cycle_id"), "cycle id mismatch", "TRAINING_CYCLE_ID_MISMATCH")
 
     current_index = int(cycle["current_unit_index"])
@@ -301,8 +306,23 @@ def evaluate_question_training(
     unit = cycle["units"][current_index]
     _require(evidence.get("unit_id") == unit["unit_id"], "unit id mismatch", "TRAINING_UNIT_ID_MISMATCH")
 
-    first_blind = dict(evidence.get("first_blind_prediction") or {})
-    first_blind["unit_id"] = unit["unit_id"]
+    first_blind_observation = dict(evidence.get("first_blind_prediction") or {})
+    expected_observation_hash = unit.get("first_blind_observation_hash")
+    if expected_observation_hash:
+        actual_observation_hash = sha256_bytes(canonical_bytes(first_blind_observation))
+        _require(
+            actual_observation_hash == expected_observation_hash,
+            "first blind observation does not match immutable literal replay",
+            "FIRST_BLIND_OBSERVATION_MISMATCH",
+        )
+        _require(
+            evidence.get("first_blind_observation_hash") == expected_observation_hash,
+            "training evidence first-blind hash binding mismatch",
+            "FIRST_BLIND_OBSERVATION_MISMATCH",
+        )
+    first_blind = {**first_blind_observation, "unit_id": unit["unit_id"]}
+    _require(first_blind.get("case_id") in unit.get("case_ids", []), "first blind case mismatch", "TRAINING_UNIT_IDENTITY_MISMATCH")
+    _require(first_blind.get("question_id") in unit.get("question_ids", []), "first blind question mismatch", "TRAINING_UNIT_IDENTITY_MISMATCH")
     first_clean, first_reasons = _clean_prediction_row(first_blind, expected_role=FIRST_BLIND_ROLE)
 
     correction = dict(evidence.get("correction") or {})
@@ -327,7 +347,7 @@ def evaluate_question_training(
         correction_reasons.append("REASONING_CORRECTION_OBJECT_MISSING")
         reasoning_reasons = ["REASONING_CORRECTION_OBJECT_MISSING"]
     else:
-        reasoning_reasons = _validate_reasoning_correction(reasoning)
+        reasoning_reasons = _validate_reasoning_correction(reasoning, expected_unit_id=unit["unit_id"])
         correction_reasons.extend(reasoning_reasons)
 
     replay_rows = list(evidence.get("post_reveal_training_replays", []))
@@ -443,6 +463,8 @@ def advance_cycle(
     evaluation = read_json(evaluation_path)
     _require(cycle.get("schema") == SCHEMA, "cycle schema invalid", "TRAINING_CYCLE_SCHEMA_INVALID")
     _require(evaluation.get("schema") == EVALUATION_SCHEMA, "evaluation schema invalid", "TRAINING_EVALUATION_SCHEMA_INVALID")
+    _require(_hash_matches(cycle), "cycle object hash invalid", "TRAINING_CYCLE_HASH_INVALID")
+    _require(_hash_matches(evaluation), "evaluation object hash invalid", "TRAINING_EVALUATION_HASH_INVALID")
     _require(evaluation.get("cycle_id") == cycle.get("cycle_id"), "cycle id mismatch", "TRAINING_CYCLE_ID_MISMATCH")
 
     next_cycle = json.loads(json.dumps(cycle))
@@ -463,6 +485,7 @@ def advance_cycle(
             next_cycle["status"] = "LEARNING_ACTIVE"
         else:
             rolling = evaluation["rolling_first_blind_accuracy"]
+            next_cycle["current_unit_index"] = len(next_cycle["units"])
             next_cycle["status"] = (
                 "TRAINING_SET_COMPLETE_AWAITING_UNSEEN_BLIND_TEST"
                 if rolling.get("rate_gate_pass") is True

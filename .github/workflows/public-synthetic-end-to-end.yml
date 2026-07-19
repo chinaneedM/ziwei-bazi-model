@@ -101,6 +101,10 @@ jobs:
                   raise SystemExit('literal replay invalid')
               if result.get('learning_status') != 'LEARNING_ACTIVE':
                   raise SystemExit('learning intake inactive')
+              if result.get('training_finalize_status') != 'TRAINING_FINALIZE_PASS':
+                  raise SystemExit('training finalize invalid')
+              if result.get('completed_training_unit_count') != result.get('training_unit_count'):
+                  raise SystemExit('training closure count invalid')
               if result.get('transient_plaintext_destroyed') is not True:
                   raise SystemExit('plaintext cleanup invalid')
               if result.get('secret_value_recorded') is not False:

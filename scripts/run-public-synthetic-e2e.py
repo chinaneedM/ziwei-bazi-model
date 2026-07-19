@@ -16,6 +16,7 @@ from fortune_v1.end_to_end import (
     validate_staged_clean_start,
 )
 from fortune_v1.public_answer_vault import decrypt_answer_envelope, encrypt_answer_vector
+from fortune_v1.training_finalize import finalize_group_training
 from fortune_v1.util import atomic_write_json, canonical_bytes, read_json, sha256_bytes, sha256_file, utc_now
 
 
@@ -283,6 +284,116 @@ def execute(request_path: Path, repository_root: Path, code_commit: str) -> dict
         require(replay.get("status") == "PASS", "literal replay failed")
         require(replay.get("top1_hits") == 1, "synthetic top1 replay mismatch")
 
+        unit_id = intake["first_active_unit"]
+        seed = read_json(Path(intake["training_evidence_seeds"][0]["path"]))
+        reasoning = with_object_hash({
+            "schema": "REASONING-CORRECTION-OBJECT-V2.1",
+            "unit_id": unit_id,
+            "error_mechanisms": [{"id": "E1", "mechanism": "synthetic scope calibration"}],
+            "source_parent_chains": [{
+                "library_id": "S02",
+                "active_file_sha256": "a" * 64,
+                "excerpt_sha256": "b" * 64,
+                "line_ranges": ["1-2"],
+                "knowledge_point": "synthetic relative scope",
+                "applicability_conditions": ["public synthetic fixture only"],
+                "capability_ceiling": "RELATIVE_DIRECTION_ONLY",
+                "downstream_effect": "closes the synthetic competitor",
+            }],
+            "corrected_reasoning_order": ["scope", "evidence", "endpoint", "pairwise"],
+            "capability_ceiling_and_no_overreach": ["no formal exact assertion"],
+            "applicability_conditions": ["public synthetic fixture only"],
+            "counterexamples_and_failure_boundaries": ["not a real-case rule"],
+            "option_semantics": [
+                {"option_id": "A", "concept": "synthetic A"},
+                {"option_id": "B", "concept": "synthetic B"},
+            ],
+            "pairwise_rows": [{
+                "row_id": "AB",
+                "left": "A",
+                "right": "B",
+                "direction": "LEFT_AHEAD",
+                "decisive_rule": "DISTINCTIVE_ATOM_DIRECT_SUPPORT",
+                "reason": "synthetic deterministic comparison",
+                "left_vector": {},
+                "right_vector": {},
+            }],
+            "strongest_competitor": {"relative_first": "A", "relative_second": "B", "pairwise_row_id": "AB"},
+            "contamination_and_answer_memory_audit": {
+                "original_first_blind_preserved": True,
+                "post_reveal_replays_excluded_from_accuracy": True,
+                "generic_rule_has_no_case_or_option_fixed_selection": True,
+                "bazi_variant_not_selected_by_revealed_result": True,
+                "base_knowledge_not_promoted_from_single_unit": True,
+                "case_specific_rule_detected": False,
+                "answer_memorization_rule_detected": False,
+                "status": "PASS",
+            },
+            "training_unit_conclusion": {"status": "TRAINING_UNIT_COMPLETE_CANDIDATE"},
+        })
+        evidence_path = run_root / "training" / "evidence" / f"001-{unit_id}.json"
+        training_evidence = with_object_hash({
+            "schema": "QUESTION-TRAINING-EVIDENCE-V2.1",
+            "cycle_id": read_json(Path(intake["cycle_path"]))["cycle_id"],
+            "unit_id": unit_id,
+            "evidence_id": "SYNTHETIC-EVIDENCE-001",
+            "first_blind_prediction": seed["first_blind_prediction"],
+            "first_blind_observation_hash": seed["first_blind_observation_hash"],
+            "correction": {
+                "error_diagnosis_complete": True,
+                "reasoning_update_complete": True,
+                "generic_method_candidate_recorded": True,
+                "counterexample_tests_complete": True,
+                "patch_validation_status": "PASS",
+                "case_specific_rule_detected": False,
+                "answer_memorization_rule_detected": False,
+                "reasoning_correction_object": reasoning,
+            },
+            "post_reveal_training_replays": [
+                {
+                    "evaluation_role": "POST_REVEAL_TRAINING_REPLAY",
+                    "attempt_id": f"SYNTHETIC-R{attempt}",
+                    "answer_visible_during_prediction": False,
+                    "prediction_input_answer_free": True,
+                    "case_specific_rule_detected": False,
+                    "source_provenance_status": "PASS",
+                    "pairwise_replay_status": "PASS",
+                    "matches_revealed_result": True,
+                }
+                for attempt in range(1, 6)
+            ],
+            "prior_method_retention": {"prior_completed_unit_count": 0, "retention_rate": None},
+        })
+        write_json(evidence_path, training_evidence)
+        evidence_manifest_path = run_root / "training" / "evidence-manifest.json"
+        write_json(evidence_manifest_path, with_object_hash({
+            "schema": "GROUP-TRAINING-EVIDENCE-MANIFEST-V1",
+            "status": "READY_FOR_SERIAL_EVALUATION",
+            "group_id": intake["group_id"],
+            "group_run_id": group_run_id,
+            "training_unit_count": 1,
+            "units": [{
+                "unit_id": unit_id,
+                "evidence_path": str(evidence_path),
+                "evidence_sha256": sha256_file(evidence_path),
+                "evidence_object_hash": training_evidence["object_hash"],
+            }],
+        }))
+        finalize_request = temp_path / "runtime" / "training-finalize-requests" / f"{group_run_id}.json"
+        write_json(finalize_request, with_object_hash({
+            "schema": "GROUP-TRAINING-FINALIZE-REQUEST-V1",
+            "status": "REQUESTED",
+            "group_id": intake["group_id"],
+            "group_run_id": group_run_id,
+            "run_root": str(run_root),
+            "training_intake_path": intake["output_path"],
+            "evidence_manifest_path": str(evidence_manifest_path),
+            "output_root": str(run_root / "training"),
+        }))
+        finalization = finalize_group_training(finalize_request)
+        require(finalization.get("status") == "TRAINING_FINALIZE_PASS", "synthetic training did not finalize")
+        require(finalization.get("training_unit_count") == finalization.get("completed_training_unit_count") == 1, "synthetic training closure count mismatch")
+
         evidence = {
             "clean_start_validation_status": clean_validation["status"],
             "clean_start_validation_object_hash": clean_validation["object_hash"],
@@ -304,6 +415,10 @@ def execute(request_path: Path, repository_root: Path, code_commit: str) -> dict
             "learning_status": intake["status"],
             "learning_intake_object_hash": intake["object_hash"],
             "training_unit_count": intake["training_unit_count"],
+            "training_finalize_status": finalization["status"],
+            "training_finalize_object_hash": finalization["object_hash"],
+            "completed_training_unit_count": finalization["completed_training_unit_count"],
+            "training_set_status": finalization["training_set_status"],
         }
 
         shutil.rmtree(secure_local)

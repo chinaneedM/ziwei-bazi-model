@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/training-finalize-request.schema.json",
+  "title": "Group training finalize request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "group_id",
+    "group_run_id",
+    "run_root",
+    "training_intake_path",
+    "evidence_manifest_path",
+    "output_root",
+    "object_hash"
+  ],
+  "properties": {
+    "schema": {"const": "GROUP-TRAINING-FINALIZE-REQUEST-V1"},
+    "status": {"const": "REQUESTED"},
+    "group_id": {"type": "string", "minLength": 1},
+    "group_run_id": {"type": "string", "minLength": 1},
+    "run_root": {"type": "string", "minLength": 1},
+    "training_intake_path": {"type": "string", "minLength": 1},
+    "evidence_manifest_path": {"type": "string", "minLength": 1},
+    "output_root": {"type": "string", "minLength": 1},
+    "object_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

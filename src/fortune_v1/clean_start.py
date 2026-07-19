@@ -170,6 +170,7 @@ def create_group_clean_start(
     initial_control_paths: list[str | Path] | None = None,
     bootstrap_receipt: dict[str, Any] | None = None,
     request_receipt: dict[str, Any] | None = None,
+    runtime_preflight_receipt: dict[str, Any] | None = None,
     runtime_binding: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     group_manifest_file = _require_file(group_manifest_path, status="GROUP_MANIFEST_MISSING")
@@ -186,6 +187,12 @@ def create_group_clean_start(
     if group.get("answer_payload_present") is not False or group.get("runtime_answer_scan") != "PASS":
         raise FortuneError("group answer isolation failed", status="GROUP_ANSWER_ISOLATION_FAILED")
     install_binding = _validated_install_binding(install_state)
+    if runtime_preflight_receipt is not None:
+        if runtime_preflight_receipt.get("code_commit") != install_binding["execution_code_commit"]:
+            raise FortuneError(
+                "runtime preflight commit does not match clean-start execution commit",
+                status="INSTALLATION_BINDING_INVALID",
+            )
     if session_mode not in {"CHAT_ONLY", "WORK"}:
         raise FortuneError("invalid session mode", status="GROUP_SESSION_MODE_INVALID")
 
@@ -253,6 +260,7 @@ def create_group_clean_start(
         },
         "bootstrap_receipt": bootstrap_receipt,
         "start_request_receipt": request_receipt,
+        "runtime_preflight_receipt": runtime_preflight_receipt,
         "active_runtime_binding": runtime_binding,
         "cases": cases,
         "retrieval_policy": {

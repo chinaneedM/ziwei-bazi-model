@@ -199,8 +199,31 @@ def _source_case_map(clean: dict[str, Any]) -> dict[str, str]:
 def build_legacy_runtime_inputs(request_path: str | Path, temp_root: str | Path) -> tuple[Path, Path]:
     request_path = Path(request_path)
     request = _read_json(request_path)
+    if request.get("schema") not in {"GROUP-RUNTIME-PACKET-REQUEST-V1", "GROUP-RUNTIME-PACKET-REQUEST-V2"}:
+        raise RuntimeError("invalid runtime packet request schema")
+    if request.get("status") != "REQUESTED":
+        raise RuntimeError("invalid runtime packet request status")
+    if request.get("answer_data_available") is not False:
+        raise RuntimeError("answer data available in runtime packet request")
+    if request.get("repository_search_used") is not False:
+        raise RuntimeError("runtime packet request used repository search")
     clean_path = Path(request["clean_start_path"])
     clean = _read_json(clean_path)
+    if request.get("group_id") != clean.get("group_id") or request.get("group_run_id") != clean.get("group_run_id"):
+        raise RuntimeError("runtime packet request group identity mismatch")
+    if Path(request.get("output_root", "")).resolve() != clean_path.parent.resolve():
+        raise RuntimeError("runtime packet output root mismatch")
+    if request.get("schema") == "GROUP-RUNTIME-PACKET-REQUEST-V2":
+        if request.get("clean_start_sha256") != _sha256_file(clean_path):
+            raise RuntimeError("runtime packet clean-start hash mismatch")
+        for path_field, hash_field in (
+            ("knowledge_manifest_path", "knowledge_manifest_sha256"),
+            ("method_release_path", "method_release_sha256"),
+            ("model_release_path", "model_release_sha256"),
+        ):
+            path = Path(str(request.get(path_field, "")))
+            if not path.is_file() or request.get(hash_field) != _sha256_file(path):
+                raise RuntimeError(f"runtime packet release hash mismatch: {path_field}")
     source_map = _source_case_map(clean)
 
     legacy_clean = deepcopy(clean)

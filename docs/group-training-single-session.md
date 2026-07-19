@@ -162,7 +162,8 @@ LEARNING_ACTIVE
   ├─ knowledge candidate needed   → KNOWLEDGE_REVIEW_REQUIRED
   ├─ contamination                → GROUP_HOLD
   ├─ current unit mastered        → next unit
-  └─ all units mastered           → TRAINING_SET_MASTERED_AWAITING_UNSEEN_BLIND_TEST
+  ├─ all units complete, rate pass → TRAINING_SET_COMPLETE_AWAITING_UNSEEN_BLIND_TEST
+  └─ all units complete, rate low  → TRAINING_SET_COMPLETE_BELOW_ROLLING_TARGET_REQUIRES_RESHAPING
 ```
 
 ## User interaction contract

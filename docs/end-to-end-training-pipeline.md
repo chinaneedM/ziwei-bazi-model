@@ -1,6 +1,6 @@
 # End-to-end clean-blind training pipeline
 
-This document defines the connected open-source workflow from a fresh clean start through first-blind freeze, controlled reveal, and learning-cycle activation.
+This document defines the connected open-source workflow from a fresh clean start through first-blind freeze, controlled reveal, serial question training, and training finalization.
 
 ## Complete open-source policy
 
@@ -23,7 +23,7 @@ The reveal workflow is intentionally limited to `push` and `workflow_dispatch`. 
 ```text
 GROUP-CLEAN-START-REQUEST-V2
   -> READY_FOR_PREBLIND_MODELING
-  -> GROUP-RUNTIME-PACKET-REQUEST-V1
+  -> derived GROUP-RUNTIME-PACKET-REQUEST-V2
   -> staged PREBLIND packets and stage plans
   -> PREBLIND-TRACK-MODEL-V1 for Ziwei and Bazi
   -> GROUP-PREBLIND-SEAL-AND-RELEASE-REQUEST-V1
@@ -36,19 +36,27 @@ GROUP-CLEAN-START-REQUEST-V2
   -> GROUP-REVEAL-TRAINING-REQUEST-V1
   -> ANSWER-VECTOR-LITERAL-REPLAY-V1
   -> LEARNING-CYCLE-V2.1 / LEARNING_ACTIVE
+  -> GROUP-TRAINING-EVIDENCE-MANIFEST-V1
+  -> serial QUESTION-TRAINING-EVALUATION-V2.1 and cycle advancement
+  -> GROUP-TRAINING-FINALIZE-RECEIPT-V1 / TRAINING_FINALIZE_PASS
 ```
 
 No reveal workflow may decrypt an answer envelope before `GROUP_PREDICTION_FREEZE_PASS` is verified.
 
 ## 1. Staged runtime-packet request
 
-Path:
+The clean-start workflow derives this request inside the run directory and
+builds the staged packets in the same commit transaction:
 
 ```text
-runtime/runtime-packet-requests/<GROUP_RUN_ID>.json
+data/group-clean-starts/<GROUP_RUN_ID>/control/runtime-packet-request.json
 ```
 
-The existing `GROUP-RUNTIME-PACKET-REQUEST-V1` fields remain authoritative. The workflow invokes `create-staged-group-runtime-packets.py`, requires `READY_FOR_PREBLIND_MODELING`, removes option-aware source packets from the PREBLIND transport allowlist, and creates one `stage-access-plan.json` per case.
+`GROUP-RUNTIME-PACKET-REQUEST-V2` binds the validated clean-start hash and the
+exact active knowledge, method, and model release file hashes. The workflow
+invokes `create-staged-group-runtime-packets.py`, requires
+`READY_FOR_PREBLIND_MODELING`, removes option-aware source packets from the
+PREBLIND transport allowlist, and creates one `stage-access-plan.json` per case.
 
 ## 2. Preblind model objects
 
@@ -209,6 +217,24 @@ The output creates:
 
 Reasoning correction, stability replays, evaluation, and advancement continue through the existing `fortune-learning-cycle` commands. Post-reveal replays never count as additional blind-accuracy observations.
 
+## 7. Transactional training finalization
+
+After all evidence objects exist, create a content-addressed
+`GROUP-TRAINING-EVIDENCE-MANIFEST-V1` and an immutable request at:
+
+```text
+runtime/training-finalize-requests/<GROUP_RUN_ID>.json
+```
+
+The finalize workflow first validates the entire request, intake, learning
+cycle, manifest, evidence file hashes, evidence object hashes, unit order, and
+immutable first-blind observation bindings. It writes nothing until this full
+preflight succeeds. It then evaluates and advances units serially and writes
+`training/training-finalize-receipt.json` only after every unit is complete.
+For `DEV-GROUP-002`, the receipt gate requires five cases and 25 question units.
+This closes training; it does not promote a formal model release or claim unseen
+generalization.
+
 ## Open-source release gates
 
 The structural public-repository policy runs on pushes and pull requests. It checks:
@@ -250,5 +276,5 @@ Component installation is not equivalent to end-to-end readiness. `INSTALLED_VAL
 4. all active knowledge/data packs pass the public-distribution manifest gate;
 5. all workflow files parse and are bound to staged scripts;
 6. a synthetic answer-free run reaches group freeze;
-7. a synthetic public-envelope reveal reaches `LEARNING_ACTIVE`;
+7. a synthetic public-envelope reveal reaches `LEARNING_ACTIVE` and then `TRAINING_FINALIZE_PASS`;
 8. an immutable installation and open-source release receipt records those results.

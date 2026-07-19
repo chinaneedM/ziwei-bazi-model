@@ -243,7 +243,7 @@ def main() -> int:
 
     request_path = Path(args.request)
     request = read_json(request_path)
-    if request.get("schema") != "GROUP-RUNTIME-PACKET-REQUEST-V1" or request.get("status") != "REQUESTED":
+    if request.get("schema") not in {"GROUP-RUNTIME-PACKET-REQUEST-V1", "GROUP-RUNTIME-PACKET-REQUEST-V2"} or request.get("status") != "REQUESTED":
         raise SystemExit("invalid runtime packet request")
 
     clean_path = Path(request["clean_start_path"])

@@ -1,0 +1,133 @@
+name: repository-group-training-finalize
+
+on:
+  push:
+    paths:
+      - 'runtime/training-finalize-requests/*.json'
+  workflow_dispatch:
+    inputs:
+      request_path:
+        description: 'Exact runtime/training-finalize-requests/*.json path'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repository-group-training-finalize-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  finalize-training:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact training submission
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install runtime and tests
+        run: python -m pip install -e . pytest
+
+      - name: Resolve exact finalize requests
+        shell: bash
+        env:
+          MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
+        run: |
+          set -euo pipefail
+          : > /tmp/training-finalize-requests.txt
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            request="${MANUAL_REQUEST_PATH}"
+            case "$request" in
+              runtime/training-finalize-requests/*.json) ;;
+              *) echo "invalid manual request path: $request" >&2; exit 1 ;;
+            esac
+            test -f "$request"
+            printf '%s\n' "$request" > /tmp/training-finalize-requests.txt
+          else
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/training-finalize-requests/*.json' \
+              | sort -u > /tmp/training-finalize-requests.txt
+            test -s /tmp/training-finalize-requests.txt
+          fi
+
+      - name: Run full training closure regression suite
+        run: python -m unittest tests.test_training_finalize tests.test_end_to_end_pipeline tests.test_public_envelope_end_to_end -v
+
+      - name: Validate request paths and finalize all units serially
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/training-finalize-results
+          while IFS= read -r request; do
+            request_name="$(basename "$request" .json)"
+            python - "$request" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          request_path = Path(sys.argv[1])
+          request = json.loads(request_path.read_text(encoding='utf-8'))
+          group_run_id = request.get('group_run_id')
+          run_root = Path('data/group-clean-starts') / str(group_run_id)
+          if Path(request.get('run_root', '')) != run_root:
+              raise SystemExit(f'run root mismatch: {request_path}')
+          if Path(request.get('training_intake_path', '')) != run_root / 'training/group-training-intake.json':
+              raise SystemExit(f'training intake path mismatch: {request_path}')
+          if Path(request.get('evidence_manifest_path', '')) != run_root / 'training/evidence-manifest.json':
+              raise SystemExit(f'evidence manifest path mismatch: {request_path}')
+          if Path(request.get('output_root', '')) != run_root / 'training':
+              raise SystemExit(f'training output path mismatch: {request_path}')
+          PY
+            PYTHONPATH=src python scripts/finalize-group-training.py --request "$request" \
+              | tee "/tmp/training-finalize-results/${request_name}.json"
+          done < /tmp/training-finalize-requests.txt
+
+      - name: Verify real group closure receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          results = sorted(Path('/tmp/training-finalize-results').glob('*.json'))
+          if not results:
+              raise SystemExit('no training finalize result')
+          for path in results:
+              result = json.loads(path.read_text(encoding='utf-8'))
+              if result.get('status') != 'TRAINING_FINALIZE_PASS':
+                  raise SystemExit(f'training finalize failed: {result}')
+              if result.get('completed_training_unit_count') != result.get('training_unit_count'):
+                  raise SystemExit(f'partial training closure: {result}')
+              if any(row.get('status') != 'CASE_TRAINING_COMPLETE' for row in result.get('cases', [])):
+                  raise SystemExit(f'case training closure failed: {result}')
+              if result.get('group_id') == 'DEV-GROUP-002':
+                  if result.get('case_count') != 5 or result.get('training_unit_count') != 25:
+                      raise SystemExit(f'DEV-GROUP-002 closure count mismatch: {result}')
+              if result.get('post_reveal_replays_count_as_accuracy') is not False:
+                  raise SystemExit('post-reveal replay accuracy boundary invalid')
+              if result.get('formal_model_release_promotion') != 'NOT_PERFORMED_REQUIRES_SEPARATE_CANDIDATE_PROMOTION_GATE':
+                  raise SystemExit('candidate promotion boundary invalid')
+          PY
+
+      - name: Commit immutable training evaluations and finalize receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/group-clean-starts
+          if git diff --cached --quiet; then
+            echo 'No training finalize objects to commit.'
+            exit 0
+          fi
+          git commit -m 'Finalize serial group training closure'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
