@@ -19,6 +19,7 @@ Issues = "https://github.com/chinaneedM/ziwei-bazi-model/issues"
 
 [project.scripts]
 fortune-train = "fortune_training.cli:main"
+fortune-training-issue = "fortune_training.issue_relay:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
