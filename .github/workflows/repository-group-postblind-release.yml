@@ -8,9 +8,12 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'runtime/preblind-seal-requests/*.json'
-      - 'data/group-clean-starts/*/preblind-seals/*.json'
+      - 'data/group-clean-starts/*/preblind-models/**/*.json'
+      - 'src/fortune_v1/preblind_seal.py'
       - 'src/fortune_v1/end_to_end.py'
+      - 'scripts/prepare-preblind-seals.py'
       - 'scripts/group-training-pipeline.py'
+      - 'tests/test_preblind_seal.py'
       - 'tests/test_end_to_end_pipeline.py'
       - '.github/workflows/repository-group-postblind-release.yml'
   pull_request_target:
@@ -86,22 +89,27 @@ jobs:
             test -f "$request"
           done < /tmp/postblind-release-requests.txt
 
-      - name: Run release gate tests
-        run: python -m unittest tests.test_staged_access tests.test_end_to_end_pipeline -v
+      - name: Run seal and release gate tests
+        run: python -m unittest tests.test_staged_access tests.test_preblind_seal tests.test_end_to_end_pipeline -v
 
-      - name: Validate dual-track seals and release options
+      - name: Machine-build dual-track seals and release options
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/postblind-release-results
+          mkdir -p /tmp/preblind-seal-results /tmp/derived-release-requests /tmp/postblind-release-results
           while IFS= read -r request; do
             request_name="$(basename "$request" .json)"
-            PYTHONPATH=src python scripts/group-training-pipeline.py release-postblind \
+            derived="/tmp/derived-release-requests/${request_name}.json"
+            PYTHONPATH=src python scripts/prepare-preblind-seals.py \
               --request "$request" \
+              --derived-request "$derived" \
+              | tee "/tmp/preblind-seal-results/${request_name}.json"
+            PYTHONPATH=src python scripts/group-training-pipeline.py release-postblind \
+              --request "$derived" \
               | tee "/tmp/postblind-release-results/${request_name}.json"
           done < /tmp/postblind-release-requests.txt
 
-      - name: Verify group release receipts
+      - name: Verify machine seals and group release receipts
         shell: bash
         run: |
           set -euo pipefail
@@ -109,10 +117,28 @@ jobs:
           import json
           from pathlib import Path
 
-          results = sorted(Path('/tmp/postblind-release-results').glob('*.json'))
-          if not results:
-              raise SystemExit('no postblind release result')
-          for path in results:
+          seal_results = sorted(Path('/tmp/preblind-seal-results').glob('*.json'))
+          release_results = sorted(Path('/tmp/postblind-release-results').glob('*.json'))
+          if not seal_results or len(seal_results) != len(release_results):
+              raise SystemExit('seal/release result count mismatch')
+          for path in seal_results:
+              result = json.loads(path.read_text(encoding='utf-8'))
+              if result.get('status') != 'PASS':
+                  raise SystemExit(f'preblind seal materialization failed: {result}')
+              if result.get('answer_data_available') is not False:
+                  raise SystemExit('answer data became available during sealing')
+              if result.get('case_count') != len(result.get('seals', [])):
+                  raise SystemExit('seal case count mismatch')
+              for row in result.get('seals', []):
+                  bundle = Path(row['path'])
+                  if not bundle.is_file():
+                      raise SystemExit(f'missing seal bundle: {bundle}')
+                  body = json.loads(bundle.read_text(encoding='utf-8'))
+                  if body.get('schema') != 'PREBLIND-SEAL-BUNDLE-V1' or body.get('status') != 'PASS':
+                      raise SystemExit(f'invalid seal bundle: {bundle}')
+                  if body.get('option_access_before_all_seals') is not False:
+                      raise SystemExit(f'pre-seal option access detected: {bundle}')
+          for path in release_results:
               result = json.loads(path.read_text(encoding='utf-8'))
               if result.get('status') != 'POSTBLIND_OPTION_CHALLENGE_RELEASED':
                   raise SystemExit(f'group postblind release failed: {result}')
@@ -131,7 +157,7 @@ jobs:
                       raise SystemExit(f'pre-seal option access detected: {receipt}')
           PY
 
-      - name: Commit immutable postblind access receipts
+      - name: Commit immutable seals and postblind access receipts
         shell: bash
         env:
           TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
@@ -141,8 +167,8 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add data/group-clean-starts
           if git diff --cached --quiet; then
-            echo 'No postblind release objects to commit.'
+            echo 'No preblind seal or postblind release objects to commit.'
             exit 0
           fi
-          git commit -m 'Release machine-gated postblind stage'
+          git commit -m 'Seal preblind models and release postblind stage'
           git push origin "HEAD:${TARGET_BRANCH}"
