@@ -1,0 +1,33 @@
+{
+  "schema": "PUBLIC-REPOSITORY-POLICY-V1",
+  "status": "ACTIVE",
+  "required_repository_visibility": "public",
+  "single_repository_runtime": true,
+  "public_encrypted_answer_root": "public-answer-vault/encrypted",
+  "allowed_answer_secret_names": [
+    "FORTUNE_PUBLIC_ANSWER_KEY"
+  ],
+  "forbidden_literals": [
+    "chinaneedM/fortune-answer-vault",
+    "FORTUNE_ANSWER_VAULT_TOKEN",
+    "ANSWER_VAULT_TOKEN",
+    "checkout isolated answer vault",
+    "private answer vault"
+  ],
+  "active_scan_roots": [
+    ".github/workflows",
+    "src",
+    "scripts",
+    "runtime",
+    "config",
+    "pyproject.toml"
+  ],
+  "plaintext_answer_repository_patterns": [
+    "public-answer-vault/**/*.json",
+    "public-answer-vault/**/*.txt"
+  ],
+  "allowed_public_answer_patterns": [
+    "public-answer-vault/README.md",
+    "public-answer-vault/encrypted/*.json.fernet"
+  ]
+}
