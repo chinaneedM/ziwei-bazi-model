@@ -15,7 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify public visibility and single-repository runtime
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Test public and open-source policy gates
+        run: python -m unittest tests.test_public_repository_policy tests.test_open_source_release -v
+
+      - name: Verify public visibility, licensing, and single-repository runtime
         env:
           GITHUB_REPOSITORY_VISIBILITY: ${{ github.event.repository.visibility }}
         run: |
