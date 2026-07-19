@@ -62,8 +62,8 @@ jobs:
             done < /tmp/clean-start-requests.txt
           fi
 
-      - name: Run clean-start and staged-access tests
-        run: python -m unittest tests.test_clean_start tests.test_staged_access -v
+      - name: Run clean-start, bootstrap and staged-access tests
+        run: python -m unittest tests.test_clean_start tests.test_bootstrap_request tests.test_staged_access -v
 
       - name: Materialize requested staged clean starts
         shell: bash
