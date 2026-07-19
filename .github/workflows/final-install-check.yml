@@ -41,16 +41,31 @@ jobs:
       - name: Execute complete make install-check
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
           mkdir -p /tmp/final-install-check
+          set +e
           make install-check \
             PYTHON=python \
             REPOSITORY_VISIBILITY=public \
             EXPECTED_COMMIT="$GITHUB_SHA" \
             ACTIVATION_MODE="$ACTIVATION_MODE" \
             INSTALL_RECEIPT=/tmp/final-install-check/install-receipt.json
+          status=$?
+          set -e
+          echo "MAKE_INSTALL_CHECK_EXIT_CODE=$status" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Upload immutable install-check artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-install-check-${{ github.sha }}
+          path: /tmp/final-install-check/install-receipt.json
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Validate receipt status and safety boundaries
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
@@ -60,6 +75,8 @@ jobs:
           from pathlib import Path
 
           path = Path('/tmp/final-install-check/install-receipt.json')
+          if not path.is_file():
+              raise SystemExit('install receipt was not produced')
           receipt = json.loads(path.read_text(encoding='utf-8'))
           mode = os.environ['ACTIVATION_MODE']
           expected = (
@@ -67,10 +84,12 @@ jobs:
               if mode == 'main'
               else 'INSTALL_CHECK_PASS_CANDIDATE'
           )
+          if os.environ.get('MAKE_INSTALL_CHECK_EXIT_CODE') != '0':
+              raise SystemExit(f'make install-check failed: {receipt}')
           if receipt.get('status') != expected:
               raise SystemExit(f'unexpected install receipt status: {receipt}')
           if receipt.get('failure_count') != 0:
-              raise SystemExit('install receipt contains failures')
+              raise SystemExit(f'install receipt contains failures: {receipt}')
           if receipt.get('pass_count') != receipt.get('check_count'):
               raise SystemExit('not all install checks passed')
           if receipt.get('background_execution') is not False:
@@ -80,11 +99,3 @@ jobs:
           if receipt.get('synthetic_run_scoring_eligibility') != 'NONE':
               raise SystemExit('synthetic run scoring boundary invalid')
           PY
-
-      - name: Upload immutable install-check artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: final-install-check-${{ github.sha }}
-          path: /tmp/final-install-check/install-receipt.json
-          if-no-files-found: error
-          retention-days: 30
