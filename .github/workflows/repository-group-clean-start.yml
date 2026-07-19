@@ -4,14 +4,6 @@ on:
   push:
     paths:
       - 'runtime/clean-start-requests/*.json'
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/clean-start-requests/*.json'
-  pull_request_target:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'runtime/clean-start-requests/*.json'
   workflow_dispatch:
     inputs:
       request_path:
@@ -23,20 +15,18 @@ permissions:
   contents: write
 
 concurrency:
-  group: repository-group-clean-start-${{ github.event.pull_request.head.ref || github.ref }}
+  group: repository-group-clean-start-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   create-clean-start:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Checkout exact request branch
+      - name: Checkout public runtime repository
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
 
       - name: Set up Python
@@ -51,8 +41,6 @@ jobs:
         shell: bash
         env:
           MANUAL_REQUEST_PATH: ${{ inputs.request_path }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
           : > /tmp/clean-start-requests.txt
@@ -64,10 +52,6 @@ jobs:
             esac
             test -f "$request"
             printf '%s\n' "$request" > /tmp/clean-start-requests.txt
-          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" || "${GITHUB_EVENT_NAME}" == "pull_request_target" ]]; then
-            git diff --name-only "${PR_BASE_SHA}...${PR_HEAD_SHA}" -- 'runtime/clean-start-requests/*.json' \
-              | sort -u > /tmp/clean-start-requests.txt
-            test -s /tmp/clean-start-requests.txt
           else
             git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- 'runtime/clean-start-requests/*.json' \
               | sort -u > /tmp/clean-start-requests.txt
@@ -146,8 +130,6 @@ jobs:
 
       - name: Commit immutable staged clean-start objects
         shell: bash
-        env:
-          TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name github-actions[bot]
@@ -158,4 +140,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Materialize repository staged clean start'
-          git push origin "HEAD:${TARGET_BRANCH}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
