@@ -1,0 +1,86 @@
+{
+  "schema": "FORTUNE-REASONING-CORE-V3",
+  "method_id": "REASONING-CORE-V3",
+  "contains_case_answer_mapping": false,
+  "modifies_canonical_source_files": false,
+  "purpose": "Stable question-level reasoning procedure shared by Chat and Work; case-derived rules remain separate and evidence-tracked.",
+  "stages": [
+    {
+      "stage": "INPUT_FREEZE",
+      "required_outputs": ["calendar_and_chart_coordinates", "question_and_option_atoms", "data_quality_status"],
+      "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field"]
+    },
+    {
+      "stage": "BLIND_FACT_MODEL",
+      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "real_world_endpoints"],
+      "rule": "Build before option ranking and do not treat an option assertion as a known fact."
+    },
+    {
+      "stage": "ZIWEI_INDEPENDENT_TRACK",
+      "required_outputs": ["natal_structure", "star_system_and_palace_expression", "transformation_chain", "time_activation_when_needed", "capability_limits"],
+      "rule": "Static tendency, dynamic activation and completed event are separate levels."
+    },
+    {
+      "stage": "BAZI_INDEPENDENT_TRACK",
+      "required_outputs": ["seasonal_strength_and_flow", "structure_axes", "structural_changes", "luck_cycle_activation_when_needed", "topic_capability_limits"],
+      "rule": "Do not copy Ziwei mechanisms or jump from ten gods, useful-god, clash, fu-yin or shensha to an exact endpoint."
+    },
+    {
+      "stage": "REALITY_CLOSURE",
+      "required_outputs": ["actor", "action", "object", "time", "result", "missing_endpoint_atoms", "alternative_explanations"],
+      "rule": "Risk and opportunity remain distinct from occurrence and formal completion."
+    },
+    {
+      "stage": "PAIRWISE_SELECTION",
+      "required_outputs": ["all_option_pairs", "temporary_first", "strongest_rival", "reversal_test", "top1", "top2", "confidence"],
+      "rule": "Shared atoms and duplicate physical evidence do not decide a pair."
+    },
+    {
+      "stage": "FREEZE_THEN_REVEAL",
+      "required_outputs": ["immutable_prediction", "prediction_hash", "bound_source_and_model_versions"],
+      "rule": "No scoring or answer access before a complete freeze."
+    }
+  ],
+  "evidence_priority": [
+    "direct_same_axis_counterevidence",
+    "completed_actor_time_endpoint_chain",
+    "time-bound_distinguishing_mechanism",
+    "stable_topic-specific_structure",
+    "general_scene_or_tendency",
+    "low-weight_auxiliary_marker"
+  ],
+  "non_accumulation_rules": [
+    "same_physical_fact_counts_once",
+    "source_count_is_not_weight",
+    "school_count_is_not_weight",
+    "three_evidence_items_are_a_minimum_summary_not_a_maximum_ledger",
+    "ziwei_and_bazi_agreement_without_independent_parentage_adds_no_gain"
+  ],
+  "uncertainty_rules": [
+    "lower confidence when exact actor, endpoint or time is missing",
+    "label forced relative choice when all options exceed source capability",
+    "sensitive, rare, non-falsifiable and high-severity claims cannot use a single marker or singleton rule",
+    "input damage blocks the affected case before prediction"
+  ],
+  "post_reveal_error_classes": [
+    "INPUT_RECOGNITION",
+    "QUESTION_ROUTING",
+    "SUBJECT_TAIJI",
+    "NATAL_STRUCTURE",
+    "TIME_ACTIVATION",
+    "REALITY_SEMANTICS",
+    "REGION_ERA_SCALE",
+    "ZIWEI_BAZI_ARBITRATION",
+    "COMPOSITE_ATOMIZATION",
+    "STRONGEST_RIVAL_COMPARISON",
+    "EXECUTION_OMISSION",
+    "UNCERTAINTY_CALIBRATION"
+  ],
+  "learning_boundary": {
+    "development_may_propose_candidate_rules": true,
+    "stage_validation_may_propose_candidate_rules": false,
+    "final_holdout_may_propose_candidate_rules": false,
+    "same_case_replay_is_independent_evidence": false,
+    "unrelated_question_is_rule_evidence": false
+  }
+}

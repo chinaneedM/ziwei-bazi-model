@@ -1,5 +1,5 @@
 {
-  "schema": "QUESTION-LEVEL-TRAINING-POLICY-V2",
+  "schema": "QUESTION-LEVEL-TRAINING-POLICY-V3",
   "training_unit": "QUESTION_FIRST_BLIND",
   "round_limit": null,
   "pass_rule": {
@@ -14,12 +14,32 @@
   "failed_round_updates_model_layer_only": true,
   "canonical_sources_mutable_during_training": false,
   "answer_plaintext_allowed_in_repository": false,
-  "performance_reporting": "BY_TOPIC_AND_REASONING_SKILL",
+  "performance_reporting": "BY_TOPIC_REASONING_SKILL_AND_DATASET_SPLIT",
+  "dataset_partition_policy": {
+    "manifest": "case-bank/manifest.json",
+    "development": "case-bank/partitions/development.json",
+    "stage_validation": "case-bank/partitions/stage-validation.json",
+    "final_holdout": "case-bank/partitions/final-holdout.json",
+    "same_identity_across_partitions_allowed": false,
+    "blocked_input_can_enter_partition": false,
+    "validation_can_create_rule": false,
+    "final_holdout_can_create_rule": false,
+    "historical_revealed_cases_count_as_future_validation": false,
+    "source_exposed_cases_count_as_first_blind": false
+  },
   "rule_validation": {
     "minimum_supporting_applications": 3,
     "minimum_distinct_future_cases": 3,
     "minimum_support_ratio": 0.8,
     "unrelated_questions_count_as_evidence": false,
-    "same_origin_case_counts_as_validation": false
+    "same_origin_case_counts_as_validation": false,
+    "topic_specific_rule_requires_matching_topic": true,
+    "sensitive_or_rare_rule_requires_minimum_distinct_cases": 5,
+    "singletons_remain_unvalidated": true
+  },
+  "composite_option_policy": {
+    "atomize_before_prediction": true,
+    "record_atom_level_failure_after_reveal": true,
+    "whole_option_score_remains_top1_only": true
   }
 }

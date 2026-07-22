@@ -491,8 +491,11 @@ class RepositoryIntegrityTests(unittest.TestCase):
     def test_real_repository_has_question_level_training_baseline(self):
         result = verify_repository(PROJECT_ROOT)
         self.assertEqual(result["sources"], 20)
-        self.assertEqual(result["cases"], 5)
-        self.assertEqual(result["questions"], 25)
+        self.assertEqual(result["cases"], 107)
+        self.assertEqual(result["questions"], 511)
+        self.assertEqual(result["case_bank"]["blocked_cases"], [])
+        self.assertFalse(result["case_bank"]["answer_payload_present"])
+        self.assertEqual(result["legacy_controller_group"]["cases"], 5)
         self.assertEqual(result["training_unit"], "QUESTION_FIRST_BLIND")
         self.assertFalse(result["same_case_replays_count_toward_validation"])
         self.assertTrue(result["question_taxonomy_ready"])

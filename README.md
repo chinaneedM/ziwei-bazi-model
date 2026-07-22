@@ -44,6 +44,7 @@
 6. 未通过时自动校验并加入候选规则；无论通过与否，闭环完成后都进入下一未揭盲案例。
 
 详细操作见 `docs/CHAT-WORK-RUNBOOK.md` 与 `docs/NO-WORK-ISSUE-RELAY.md`。
+整体架构、来源梳理、第二阶段知识工程、覆盖缺口和后续实施顺序分别见 `docs/MODEL-ARCHITECTURE-V3.md`、`docs/SOURCE-KNOWLEDGE-MAP.md`、`docs/KNOWLEDGE-ENGINEERING-PHASE2.md`、`docs/CASE-COVERAGE-REPORT.md` 与 `docs/IMPLEMENTATION-ROADMAP-V3.md`。公共资料发布边界见 `docs/PUBLIC-RELEASE-SAFETY.md`。
 
 ## 答案隔离
 
@@ -51,24 +52,27 @@
 
 ## 当前迁移状态
 
-- 原 `ROUND-001` 保留为第一案的历史首次盲测。
-- 原 `ROUND-002` 标记为同案修复回放，排除新统计。
-- 第一案不再重复；当前正式入口已切换至第二个未揭盲案例。
-- 原通用复盘被转换为5条带适用范围的候选规则，等待后续相关题目验证。
+- 107例、511题已完成统一入库；107例全部通过输入门，例题98已由用户补传的完整原文修复。
+- 例题1保留为已揭盲历史；`ROUND-002`属于同案回放，不计独立证据。
+- 例题29有两个选项原文已经出现在S01方法说明中，只能作开发参考，不计首次盲测。
+- 当前干净首次盲测日程为：开发63例、阶段验证21例、最终保留21例。
+- 新案例答案尚未导入：0/107。系统状态为`DATASET_FROZEN_AWAITING_ANSWER_IMPORT`，不会开放预测。
+- 原通用复盘已转换为5条带适用范围的候选规则，等待未来匹配案例验证。
 
 ## 控制器
 
 ```bash
 python -m pip install -e .
 fortune-train verify
+fortune-train case-bank-verify
+fortune-train case-bank-report
 fortune-train status
 fortune-train report
-fortune-train start ROUND-003
-fortune-train freeze ROUND-003 /tmp/ROUND-003.predictions.json
-fortune-train score ROUND-003 --review-output /tmp/ROUND-003.review.json
 ```
 
-失败后追加候选规则：
+案例库未激活前不得执行`start`。激活后的冻结、评分和失败学习仍由Chat＋GitHub Issue通道调用控制器，不要求用户手工运行命令。
+
+控制器内部的失败学习命令为：
 
 ```bash
 fortune-train learn ROUND-003 /tmp/model-learning-rules.json MODEL-LEARNING-003

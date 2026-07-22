@@ -1,16 +1,19 @@
 # 日常训练操作单：Chat＋GitHub Issue
 
+> 当前107例题库仍处于`DATASET_FROZEN_AWAITING_ANSWER_IMPORT`，本操作单暂不执行。只有安全包显示`prediction_allowed=true`后才开始。
+
 ## 一、一次性准备
 
 1. 项目中的S00–S19保留为只读镜像；S02 `(8)` 停用，只使用 `(9)`。
 2. 用 `docs/PROJECT-MAIN-PROMPT-R1.txt` 完整替换项目旧指令，不要追加混用。
 3. 各案例的加密答案与 `FORTUNE_ANSWER_KEY` 已准备后，日常无需再处理密钥。
+4. Chat必须能在同一项目中只读检索完整S00–S19；如果项目来源不可用、缺库或版本不符，停止预测，不凭启动包中的摘要代替正文。
 
 ## 二、开始一个新案例
 
 必须新开Chat，原样发送：
 
-> 开始当前未揭盲案例。只能直接读取安全启动包 `https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/main/chat-input/current.json`，不得搜索GitHub仓库、代码、提交、历史、diff、分支、目录或读取其他Git文件。若 `prediction_allowed=true`，按包内 taxonomy 先为每题建立完整 `question_profile`，再使用当前无答案案例、当前模型规则和项目S00–S19只读镜像，从零完成 `recommended_round_id` 的全部预测。逐题输出top1、top2、核心理由、来源证据、最强反证、置信度及question_profile。不得读取旧预测、答案、评分、复盘或learning-ledger。完成后冻结并停止，等待我揭盲。本项目固定使用Chat＋GitHub Issue，不切换Work。
+> 开始当前未揭盲案例。只能直接读取安全启动包 `https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/main/chat-input/current.json`，不得搜索GitHub仓库、代码、提交、历史、diff、分支、目录或读取其他Git文件。先确认 `prediction_allowed=true`，并确认项目S00–S19只读镜像均可检索；否则停止。按包内 taxonomy 先为每题建立完整 `question_profile`，再使用当前无答案案例、当前模型规则和项目来源，从零完成 `recommended_round_id` 的全部预测。逐题输出top1、top2、核心理由、来源证据、最强反证、置信度及question_profile。不得读取旧预测、答案、评分、复盘或learning-ledger。完成后冻结并停止，等待我揭盲。本项目固定使用Chat＋GitHub Issue，不切换Work。
 
 每个案例只做这一次计分的首次盲测。系统不会要求在同一案例上重复三轮。
 

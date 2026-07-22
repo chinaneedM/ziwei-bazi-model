@@ -1,0 +1,53 @@
+{
+  "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
+  "case_bank_manifest_sha256": "afc1ba1a5c8858bb3cec5c7ca488ee70f86bc12344c1eb8d8a390447d17ead6f",
+  "exact_stem_case_ids": [],
+  "exact_stem_question_count": 0,
+  "high_risk_case_ids": [
+    "CASE-029"
+  ],
+  "high_risk_question_count": 1,
+  "interpretation": "HIGH means an exact question stem and at least two exact options occur within the configured line window in one canonical source; REVIEW_REQUIRED means the exact stem occurs without that full nearby option pattern. Two or more nearby options from one question are also HIGH even without an exact stem. HIGH cases are development references, excluded from first-blind schedules. Exact overlap is a leakage screen, not proof that an answer is present.",
+  "minimum_pattern_length": 8,
+  "nearby_line_window": 20,
+  "option_only_matches": [
+    {
+      "case_id": "CASE-029",
+      "line": 575,
+      "matched_text": "谨慎小心，从不冒险",
+      "option_id": "A",
+      "question_id": "Q1",
+      "source_id": "S01"
+    },
+    {
+      "case_id": "CASE-029",
+      "line": 576,
+      "matched_text": "先斩后奏，闯祸后就逃避",
+      "option_id": "C",
+      "question_id": "Q1",
+      "source_id": "S01"
+    }
+  ],
+  "pattern_count": 1720,
+  "question_source_findings": [
+    {
+      "case_id": "CASE-029",
+      "nearby_option_ids": [],
+      "option_cluster_ids": [
+        "A",
+        "C"
+      ],
+      "question_id": "Q1",
+      "risk": "HIGH",
+      "source_id": "S01",
+      "stem_lines": []
+    }
+  ],
+  "raw_match_count": 2,
+  "schema": "CASE-SOURCE-OVERLAP-AUDIT-V1",
+  "scope": "EXACT_NORMALIZED_TEXT_ONLY",
+  "source_exposed_case_ids": [
+    "CASE-029"
+  ],
+  "uncontained_high_risk_case_ids": []
+}

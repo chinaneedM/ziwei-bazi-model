@@ -1,0 +1,69 @@
+{
+  "answer_scan": "PASS_FOR_SELECTED_SOURCES",
+  "archive_or_batch_sources": [
+    {
+      "case_directories_found": 36,
+      "label": "original",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 17,
+      "label": "examples-42-58",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 16,
+      "label": "examples-59-74",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 14,
+      "label": "examples-75-88",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 19,
+      "label": "examples-89-107",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 1,
+      "label": "replacement-30",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 1,
+      "label": "replacement-37",
+      "path_excluded_from_repository": true
+    },
+    {
+      "case_directories_found": 1,
+      "label": "replacement-74",
+      "path_excluded_from_repository": true
+    }
+  ],
+  "discarded_source_contents_retained": false,
+  "normalized_question_ids": "Q1..Qn in source order",
+  "replacement_events": [
+    {
+      "case_id": "CASE-030",
+      "content_retained_from_discarded_source": false,
+      "discarded_source": "original",
+      "selected_source": "replacement-30"
+    },
+    {
+      "case_id": "CASE-037",
+      "content_retained_from_discarded_source": false,
+      "discarded_source": "original",
+      "selected_source": "replacement-37"
+    },
+    {
+      "case_id": "CASE-074",
+      "content_retained_from_discarded_source": false,
+      "discarded_source": "examples-59-74",
+      "selected_source": "replacement-74"
+    }
+  ],
+  "schema": "FORTUNE-CASE-BANK-INTAKE-AUDIT-V1",
+  "source_question_numbering_is_not_authoritative": true
+}

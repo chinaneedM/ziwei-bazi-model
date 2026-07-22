@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "FORTUNE-KNOWLEDGE-CARD-V1",
+  "title": "Fortune knowledge card",
+  "type": "object",
+  "required": [
+    "card_id",
+    "title",
+    "method_family",
+    "claim_scope",
+    "ordered_procedure",
+    "required_inputs",
+    "source_anchors",
+    "limitations",
+    "forbidden_shortcuts",
+    "status",
+    "validation"
+  ],
+  "properties": {
+    "card_id": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
+    "title": {"type": "string", "minLength": 1},
+    "method_family": {"type": "string", "minLength": 1},
+    "claim_scope": {"type": "string", "minLength": 1},
+    "ordered_procedure": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "required_inputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "source_anchors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "line_start", "line_end", "anchor_role"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^S(?:0[0-9]|1[0-9])$"},
+          "line_start": {"type": "integer", "minimum": 1},
+          "line_end": {"type": "integer", "minimum": 1},
+          "anchor_role": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "forbidden_shortcuts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "status": {
+      "enum": ["CURATED_UNVALIDATED", "PARTIALLY_VALIDATED", "VALIDATED_WITH_SCOPE", "CHALLENGED", "RETIRED"]
+    },
+    "validation": {
+      "type": "object",
+      "required": ["distinct_case_count", "support_count", "counterexample_count", "case_ids"],
+      "properties": {
+        "distinct_case_count": {"type": "integer", "minimum": 0},
+        "support_count": {"type": "integer", "minimum": 0},
+        "counterexample_count": {"type": "integer", "minimum": 0},
+        "case_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

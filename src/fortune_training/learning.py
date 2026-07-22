@@ -41,7 +41,7 @@ RULE_FIELDS = {
 
 def load_taxonomy(root: Path) -> dict[str, Any]:
     taxonomy = load_json(root / TAXONOMY_RELATIVE_PATH)
-    if taxonomy.get("schema") != "QUESTION-REASONING-TAXONOMY-V1":
+    if taxonomy.get("schema") != "QUESTION-REASONING-TAXONOMY-V2":
         raise TrainingError("wrong question taxonomy schema")
     for key in (
         "topic_tags",
@@ -50,6 +50,7 @@ def load_taxonomy(root: Path) -> dict[str, Any]:
         "endpoint_tags",
         "reasoning_skill_tags",
         "source_routes",
+        "governance_tags",
         "rule_statuses",
     ):
         values = taxonomy.get(key)
