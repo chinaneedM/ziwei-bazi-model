@@ -1,0 +1,22 @@
+{
+  "schema": "FORTUNE-RESEARCH-HYPOTHESIS-REGISTRY-V1",
+  "authority": "HYPOTHESES_ONLY_NO_ASTROLOGICAL_AUTHORITY",
+  "origin_policy": {
+    "allowed_origins": ["USER_HYPOTHESIS", "AI_HYPOTHESIS"],
+    "equal_validation_threshold": true,
+    "identity_grants_extra_weight": false,
+    "direct_promotion_to_truth_allowed": false
+  },
+  "required_controls": [
+    "BASELINE_RATE",
+    "SELECTION_BIAS",
+    "CONFIRMATION_BIAS",
+    "REGION_ERA_DIFFERENCE",
+    "ALTERNATIVE_EXPLANATION",
+    "COUNTERFACTUAL",
+    "NEGATIVE_EXAMPLE",
+    "ANSWER_DISPUTE",
+    "CONFIDENCE_CALIBRATION"
+  ],
+  "hypotheses": []
+}

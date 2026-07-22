@@ -786,6 +786,7 @@
     "unexpected_output_rule": "If any tool unexpectedly returns an old prediction, answer mapping, score, or review, stop without predicting and discard that Chat conversation."
   },
   "prediction_output_contract": {
+    "case_progression_rule": "Advance only after the same case passes three scored rounds consecutively. A passing round below that gate stays on the same case. Same-case replay rounds count toward this gate but never as independent cross-case rule-validation evidence.",
     "each_question_must_include": [
       "top1",
       "top2",
@@ -795,7 +796,7 @@
       "confidence",
       "question_profile"
     ],
-    "failure_learning_rule": "After reveal, a failed round must propose one or more generic candidate rules. Rules may contain no case id, question id, answer letter, option position, or copied option sentence. Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only.",
+    "failure_learning_rule": "After reveal, a failed round must propose one or more generic candidate rules. Rules may contain no case id, question id, answer letter, option position, or copied option sentence. Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only. A failure resets the same-case consecutive-pass count to zero; after model-learning is updated, training retries the same case.",
     "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V2",
     "question_profile_fields": [
       "topic_tags",
@@ -948,16 +949,19 @@
   "repository": "chinaneedM/ziwei-bazi-model",
   "schema": "CHAT-PREDICTION-INPUT-V2",
   "state_summary": {
-    "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+    "case_attempt_policy": "SAME_CASE_UNTIL_THREE_CONSECUTIVE_PASSES",
+    "current_case_consecutive_passes": 0,
     "current_case_id": null,
     "current_model_release": "MODEL-LEARNING-002",
     "dataset_manifest_path": "case-bank/manifest.json",
     "dataset_runtime_status": "PAUSED_NO_NEW_PREDICTIONS",
     "prediction_allowed": false,
     "recommended_round_id": null,
+    "required_consecutive_passes": 3,
     "round_count": 2,
+    "same_case_replays_count_toward_case_gate": true,
     "same_case_replays_count_toward_validation": false,
     "status": "DATASET_FROZEN_AWAITING_ANSWER_IMPORT",
-    "training_unit": "QUESTION_FIRST_BLIND"
+    "training_unit": "SAME_CASE_CONSECUTIVE_ROUNDS"
   }
 }

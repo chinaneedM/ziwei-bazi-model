@@ -166,6 +166,7 @@ class RuntimeFixture:
                 "cases": {
                     case_id: {
                         "status": "ACTIVE" if index == 0 else "PENDING",
+                        "consecutive_passes": 0,
                         "first_blind_round_id": None,
                         "replay_round_ids": [],
                         "round_ids": [],
@@ -257,6 +258,21 @@ class RuntimeFixture:
         )
         return score_round(self.root, round_id, self.base / f"{round_id}.review.json", self.key)
 
+    def pass_current_case(
+        self,
+        round_prefix: str,
+        *,
+        applied_rule_ids: list[str] | None = None,
+    ) -> list[dict]:
+        return [
+            self.run_and_score(
+                f"{round_prefix}-{attempt}",
+                5,
+                applied_rule_ids=applied_rule_ids,
+            )
+            for attempt in range(1, 4)
+        ]
+
     def patch_file(self, release_id: str, rule_id: str) -> Path:
         path = self.base / f"{release_id}.patch.json"
         write_json(path, {"learning_type": "REASONING_STRATEGY", "rules": [general_rule(rule_id)]})
@@ -273,36 +289,48 @@ class PolicyTests(unittest.TestCase):
 
 
 class RuntimeTests(unittest.TestCase):
-    def test_passing_first_blind_round_advances_immediately(self):
+    def test_case_advances_only_after_three_consecutive_passing_rounds(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            score = fixture.run_and_score("R1", 4)
-            self.assertTrue(score["passed"])
-            self.assertEqual(score["evaluation_kind"], "FIRST_BLIND")
-            self.assertFalse(score["same_case_replay_required"])
+            first = fixture.run_and_score("R1", 4)
+            second = fixture.run_and_score("R2", 4)
+            self.assertEqual(first["evaluation_kind"], "FIRST_BLIND")
+            self.assertEqual(second["evaluation_kind"], "SAME_CASE_REPLAY")
+            self.assertEqual(first["consecutive_passes_after"], 1)
+            self.assertEqual(second["consecutive_passes_after"], 2)
+            self.assertTrue(second["same_case_replay_required"])
+            self.assertEqual(status(fixture.root)["current_case_id"], "DEV-EXAMPLE-001")
+            third = fixture.run_and_score("R3", 4)
+            self.assertEqual(third["consecutive_passes_after"], 3)
+            self.assertTrue(third["advances_to_next_case"])
+            self.assertFalse(third["same_case_replay_required"])
             current = status(fixture.root)
             self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-002")
             self.assertEqual(current["status"], "READY_FOR_ROUND")
             state = json.loads((fixture.root / "training/state.json").read_text())
             self.assertEqual(state["cases"]["DEV-EXAMPLE-001"]["first_blind_round_id"], "R1")
-            self.assertEqual(state["cases"]["DEV-EXAMPLE-001"]["replay_round_ids"], [])
+            self.assertEqual(state["cases"]["DEV-EXAMPLE-001"]["replay_round_ids"], ["R2", "R3"])
 
-    def test_failure_creates_candidate_rule_then_advances(self):
+    def test_failure_resets_streak_and_learning_retries_same_case(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            score = fixture.run_and_score("R1", 3)
+            fixture.run_and_score("R1", 4)
+            score = fixture.run_and_score("R2", 3)
             self.assertFalse(score["passed"])
+            self.assertEqual(score["consecutive_passes_before"], 1)
+            self.assertEqual(score["consecutive_passes_after"], 0)
             self.assertEqual(status(fixture.root)["status"], "LEARNING_REQUIRED")
             with self.assertRaises(TrainingError):
                 start_round(fixture.root, "BLOCKED")
             release = apply_learning(
                 fixture.root,
-                "R1",
+                "R2",
                 fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
                 "LEARNING-001",
             )
             self.assertEqual(release["parent_release"], "MODEL-BASELINE-001")
-            self.assertEqual(status(fixture.root)["current_case_id"], "DEV-EXAMPLE-002")
+            self.assertEqual(status(fixture.root)["current_case_id"], "DEV-EXAMPLE-001")
+            self.assertEqual(status(fixture.root)["current_case_consecutive_passes"], 0)
             ledger = load_learning_ledger(fixture.root)
             self.assertEqual(ledger["rule_evidence"]["RULE-GENERAL-ENDPOINT"]["status"], "CANDIDATE")
 
@@ -327,11 +355,12 @@ class RuntimeTests(unittest.TestCase):
                 fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
                 "LEARNING-001",
             )
-            fixture.run_and_score("R2", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
-            fixture.run_and_score("R3", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            fixture.pass_current_case("R1-RECOVERY", applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            fixture.pass_current_case("CASE2", applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            fixture.pass_current_case("CASE3", applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
             evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
             self.assertEqual(evidence["status"], "PROVISIONAL")
-            fixture.run_and_score("R4", 5, applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
+            fixture.pass_current_case("CASE4", applied_rule_ids=["RULE-GENERAL-ENDPOINT"])
             evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
             self.assertEqual(evidence["status"], "VALIDATED")
             self.assertEqual(evidence["supporting_applications"], 15)
@@ -347,7 +376,8 @@ class RuntimeTests(unittest.TestCase):
                 fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
                 "LEARNING-001",
             )
-            fixture.run_and_score("R2", 5)
+            fixture.pass_current_case("R1-RECOVERY")
+            fixture.pass_current_case("CASE2")
             evidence = load_learning_ledger(fixture.root)["rule_evidence"]["RULE-GENERAL-ENDPOINT"]
             self.assertEqual(evidence["applications"], 0)
             self.assertEqual(evidence["status"], "CANDIDATE")
@@ -362,11 +392,11 @@ class RuntimeTests(unittest.TestCase):
             self.assertEqual(ledger["topic_metrics"]["OTHER"]["top1_correct"], 4)
             self.assertEqual(ledger["reasoning_skill_metrics"]["EVIDENCE_WEIGHTING"]["questions"], 5)
 
-    def test_group_completes_after_one_first_blind_round_per_case(self):
+    def test_group_completes_after_three_consecutive_passes_per_case(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             for index in range(1, 6):
-                fixture.run_and_score(f"R{index}", 5)
+                fixture.pass_current_case(f"CASE{index}")
             current = status(fixture.root)
             self.assertEqual(current["status"], "GROUP_COMPLETE")
             self.assertIsNone(current["current_case_id"])
@@ -374,15 +404,17 @@ class RuntimeTests(unittest.TestCase):
             self.assertFalse(bundle["state_summary"]["prediction_allowed"])
             self.assertIsNone(bundle["state_summary"]["recommended_round_id"])
 
-    def test_chat_input_is_safe_and_points_to_next_unseen_case(self):
+    def test_chat_input_is_safe_and_keeps_case_until_gate(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             fixture.run_and_score("R1", 4)
             bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
             serialized = json.dumps(bundle, ensure_ascii=False)
             self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V2")
-            self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-002")
-            self.assertEqual(bundle["state_summary"]["training_unit"], "QUESTION_FIRST_BLIND")
+            self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-001")
+            self.assertEqual(bundle["state_summary"]["training_unit"], "SAME_CASE_CONSECUTIVE_ROUNDS")
+            self.assertEqual(bundle["state_summary"]["current_case_consecutive_passes"], 1)
+            self.assertEqual(bundle["state_summary"]["required_consecutive_passes"], 3)
             self.assertFalse(bundle["state_summary"]["same_case_replays_count_toward_validation"])
             self.assertNotIn("general reasoning", serialized)
             self.assertNotIn('"top1_correct"', serialized)
@@ -455,7 +487,9 @@ class IssueRelayTests(unittest.TestCase):
             result = process_packet(fixture.root, extract_packet(body), fixture.key)
             self.assertTrue(result["passed"])
             self.assertEqual(result["evaluation_kind"], "FIRST_BLIND")
-            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-002")
+            self.assertTrue(result["same_case_replay_required"])
+            self.assertEqual(result["consecutive_passes_after"], 1)
+            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-001")
             self.assertFalse(result["answers_published"])
 
     def test_extract_accepts_raw_json_and_single_code_block(self):
@@ -463,7 +497,7 @@ class IssueRelayTests(unittest.TestCase):
         self.assertEqual(extract_packet(json.dumps(packet)), packet)
         self.assertEqual(extract_packet(f"```json\n{json.dumps(packet)}\n```"), packet)
 
-    def test_failed_issue_creates_candidate_rules_and_advances(self):
+    def test_failed_issue_creates_candidate_rules_and_retries_same_case(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             packet = self.packet(fixture, "ISSUE-FAIL-1", 3)
@@ -471,7 +505,8 @@ class IssueRelayTests(unittest.TestCase):
             self.assertFalse(result["passed"])
             self.assertEqual(result["learning_release"], "LEARNING-ISSUE-FAIL-1")
             self.assertEqual(result["learning_rules_created"], ["RULE-ISSUE-FAIL-1"])
-            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-002")
+            self.assertEqual(result["consecutive_passes_after"], 0)
+            self.assertEqual(result["next_case_id"], "DEV-EXAMPLE-001")
 
     def test_expected_result_mismatch_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -496,7 +531,8 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertEqual(result["case_bank"]["blocked_cases"], [])
         self.assertFalse(result["case_bank"]["answer_payload_present"])
         self.assertEqual(result["legacy_controller_group"]["cases"], 5)
-        self.assertEqual(result["training_unit"], "QUESTION_FIRST_BLIND")
+        self.assertEqual(result["training_unit"], "SAME_CASE_CONSECUTIVE_ROUNDS")
+        self.assertEqual(result["required_consecutive_passes"], 3)
         self.assertFalse(result["same_case_replays_count_toward_validation"])
         self.assertTrue(result["question_taxonomy_ready"])
         self.assertTrue(result["learning_ledger_ready"])

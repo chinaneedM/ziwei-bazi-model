@@ -9,6 +9,7 @@ from .util import TrainingError, load_json
 RULE_MIN_SUPPORTING_APPLICATIONS = 3
 RULE_MIN_DISTINCT_FUTURE_CASES = 3
 RULE_MIN_SUPPORT_RATIO = 0.8
+REQUIRED_CONSECUTIVE_PASSES = 3
 
 
 def required_correct(question_count: int) -> int:
@@ -31,15 +32,20 @@ def passed(correct_count: int, question_count: int) -> bool:
 def load_and_validate_policy(path: Path) -> dict[str, Any]:
     policy = load_json(path)
     expected = {
-        "schema": "QUESTION-LEVEL-TRAINING-POLICY-V3",
-        "training_unit": "QUESTION_FIRST_BLIND",
+        "schema": "CASE-CONSECUTIVE-PASS-TRAINING-POLICY-R1",
+        "training_unit": "SAME_CASE_CONSECUTIVE_ROUNDS",
         "round_limit": None,
-        "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+        "case_attempt_policy": "SAME_CASE_UNTIL_THREE_CONSECUTIVE_PASSES",
+        "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
+        "failed_round_resets_consecutive_passes": True,
         "same_case_replays_count_toward_validation": False,
-        "passing_round_advances_to_next_case": True,
-        "failed_round_requires_general_learning_before_advance": True,
+        "same_case_replays_count_toward_case_gate": True,
+        "passing_round_advances_to_next_case": "ONLY_WHEN_CONSECUTIVE_PASS_COUNT_REACHES_3",
+        "failed_round_requires_general_learning_before_retry": True,
+        "failed_round_stays_on_same_case": True,
         "prediction_must_be_frozen_before_scoring": True,
         "failed_round_updates_model_layer_only": True,
+        "failure_learning_scope": "MODEL_LEARNING_ONLY",
         "canonical_sources_mutable_during_training": False,
         "answer_plaintext_allowed_in_repository": False,
         "performance_reporting": "BY_TOPIC_REASONING_SKILL_AND_DATASET_SPLIT",

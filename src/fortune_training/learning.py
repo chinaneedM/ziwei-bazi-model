@@ -183,7 +183,7 @@ def validate_learning_patch_v2(root: Path, payload: Any) -> dict[str, Any]:
         raise TrainingError("invalid V2 learning_type")
     rules = payload["rules"]
     if not isinstance(rules, list) or not rules:
-        raise TrainingError("failed first-blind round needs at least one candidate rule")
+        raise TrainingError("failed scored round needs at least one candidate rule")
     normalized_rules = [validate_rule(root, rule) for rule in rules]
     ids = [rule["rule_id"] for rule in normalized_rules]
     if len(ids) != len(set(ids)):

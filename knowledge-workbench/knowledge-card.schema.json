@@ -1,58 +1,132 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "FORTUNE-KNOWLEDGE-CARD-V1",
-  "title": "Fortune knowledge card",
+  "$id": "FORTUNE-KNOWLEDGE-CARD-V2",
+  "title": "Auditable fortune knowledge card",
   "type": "object",
   "required": [
     "card_id",
     "title",
+    "batch",
+    "source_scope",
     "method_family",
+    "school_attribution",
     "claim_scope",
-    "ordered_procedure",
     "required_inputs",
+    "prerequisites",
+    "ordered_procedure",
+    "applicability_conditions",
+    "negation_conditions",
+    "variant_or_conflicts",
+    "counterexamples",
     "source_anchors",
+    "source_case_role",
+    "dedup_key",
+    "highest_provable_level",
     "limitations",
     "forbidden_shortcuts",
+    "question_tags",
     "status",
     "validation"
   ],
   "properties": {
     "card_id": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
     "title": {"type": "string", "minLength": 1},
+    "batch": {"type": "string", "minLength": 1},
+    "source_scope": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^S(?:0[0-9]|1[0-9])$"}
+    },
     "method_family": {"type": "string", "minLength": 1},
+    "school_attribution": {
+      "type": "object",
+      "required": ["school", "text_layer", "attribution_note"],
+      "properties": {
+        "school": {"type": "string", "minLength": 1},
+        "text_layer": {"enum": ["SOURCE_TEXT", "COMMENTARY", "EDITORIAL_CONTROL", "DERIVED_SYNTHESIS"]},
+        "attribution_note": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
     "claim_scope": {"type": "string", "minLength": 1},
-    "ordered_procedure": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-    "required_inputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "required_inputs": {"$ref": "#/$defs/nonEmptyStrings"},
+    "prerequisites": {"$ref": "#/$defs/nonEmptyStrings"},
+    "ordered_procedure": {"$ref": "#/$defs/nonEmptyStrings"},
+    "applicability_conditions": {"$ref": "#/$defs/nonEmptyStrings"},
+    "negation_conditions": {"$ref": "#/$defs/nonEmptyStrings"},
+    "variant_or_conflicts": {"$ref": "#/$defs/nonEmptyStrings"},
+    "counterexamples": {"$ref": "#/$defs/nonEmptyStrings"},
     "source_anchors": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["source_id", "line_start", "line_end", "anchor_role"],
+        "required": ["source_id", "line_start", "line_end", "anchor_role", "anchor_text_hint"],
         "properties": {
           "source_id": {"type": "string", "pattern": "^S(?:0[0-9]|1[0-9])$"},
           "line_start": {"type": "integer", "minimum": 1},
           "line_end": {"type": "integer", "minimum": 1},
-          "anchor_role": {"type": "string", "minLength": 1}
+          "anchor_role": {"type": "string", "minLength": 1},
+          "anchor_text_hint": {"type": "string", "minLength": 1}
         },
         "additionalProperties": false
       }
     },
-    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-    "forbidden_shortcuts": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "source_case_role": {"const": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION"},
+    "dedup_key": {"type": "string", "pattern": "^[A-Z0-9:_-]+$"},
+    "highest_provable_level": {
+      "enum": [
+        "ROUTING_ONLY",
+        "STATIC_TENDENCY",
+        "STRUCTURE_EXISTENCE",
+        "CONDITIONED_STRUCTURE_TENDENCY",
+        "PALACE_AXIS_ENTAILMENT",
+        "SCENE_OR_PRECONDITION_ONLY",
+        "FORMAL_ENDPOINT_WITH_EXTERNAL_CLOSURE_ONLY"
+      ]
+    },
+    "limitations": {"$ref": "#/$defs/nonEmptyStrings"},
+    "forbidden_shortcuts": {"$ref": "#/$defs/nonEmptyStrings"},
+    "question_tags": {
+      "type": "object",
+      "required": ["topic_tags", "subject_tags", "time_scope_tags", "endpoint_tags", "reasoning_skill_tags", "source_routes"],
+      "properties": {
+        "topic_tags": {"$ref": "#/$defs/uniqueStrings"},
+        "subject_tags": {"$ref": "#/$defs/uniqueStrings"},
+        "time_scope_tags": {"$ref": "#/$defs/uniqueStrings"},
+        "endpoint_tags": {"$ref": "#/$defs/uniqueStrings"},
+        "reasoning_skill_tags": {"$ref": "#/$defs/uniqueStrings"},
+        "source_routes": {"$ref": "#/$defs/uniqueStrings"}
+      },
+      "additionalProperties": false
+    },
     "status": {
       "enum": ["CURATED_UNVALIDATED", "PARTIALLY_VALIDATED", "VALIDATED_WITH_SCOPE", "CHALLENGED", "RETIRED"]
     },
     "validation": {
       "type": "object",
-      "required": ["distinct_case_count", "support_count", "counterexample_count", "case_ids"],
+      "required": ["distinct_case_count", "support_count", "counterexample_count", "case_ids", "validation_note"],
       "properties": {
         "distinct_case_count": {"type": "integer", "minimum": 0},
         "support_count": {"type": "integer", "minimum": 0},
         "counterexample_count": {"type": "integer", "minimum": 0},
-        "case_ids": {"type": "array", "items": {"type": "string"}}
+        "case_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "validation_note": {"type": "string", "minLength": 1}
       },
       "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
     }
   },
   "additionalProperties": false

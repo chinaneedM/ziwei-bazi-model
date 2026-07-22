@@ -14,6 +14,7 @@ from .learning import (
     validate_rule,
 )
 from .policy import load_and_validate_policy
+from .policy import REQUIRED_CONSECUTIVE_PASSES
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
 
@@ -235,6 +236,10 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
     if state.get("schema") != "QUESTION-TRAINING-STATE-V2":
         raise TrainingError("wrong question-level training state schema")
     case_order = group["case_order"]
+    transition = state.get("policy_transition", {})
+    legacy_complete = transition.get("legacy_pre_r1_completed_cases", [])
+    if not isinstance(legacy_complete, list) or any(case_id not in case_order for case_id in legacy_complete):
+        raise TrainingError("invalid R1 policy-transition case list")
     index = state.get("current_case_index")
     if not isinstance(index, int) or index < 0 or index > len(case_order):
         raise TrainingError("invalid current_case_index")
@@ -246,6 +251,9 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
     rounds: list[str] = []
     for case_position, case_id in enumerate(case_order):
         case_state = state["cases"][case_id]
+        consecutive = case_state.get("consecutive_passes", 0)
+        if not isinstance(consecutive, int) or isinstance(consecutive, bool) or not 0 <= consecutive <= REQUIRED_CONSECUTIVE_PASSES:
+            raise TrainingError(f"invalid consecutive-pass count for {case_id}")
         if not isinstance(case_state.get("round_ids"), list):
             raise TrainingError(f"invalid round list for {case_id}")
         first_blind = case_state.get("first_blind_round_id")
@@ -269,6 +277,10 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             raise TrainingError(
                 f"case status mismatch for {case_id}: expected {expected_status}"
             )
+        if case_position < index and consecutive < REQUIRED_CONSECUTIVE_PASSES and case_id not in legacy_complete:
+            raise TrainingError(f"completed case did not meet the R1 consecutive-pass gate: {case_id}")
+        if case_position >= index and consecutive >= REQUIRED_CONSECUTIVE_PASSES:
+            raise TrainingError(f"non-complete case already meets the R1 consecutive-pass gate: {case_id}")
         if case_position < index and first_blind is None:
             raise TrainingError(f"completed case lacks a first-blind round: {case_id}")
         if case_position > index and first_blind is not None:
@@ -403,8 +415,10 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "chat_input_ready": True,
         "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
         "learning_ledger_ready": True,
-        "training_unit": "QUESTION_FIRST_BLIND",
+        "training_unit": "SAME_CASE_CONSECUTIVE_ROUNDS",
+        "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
         "same_case_replays_count_toward_validation": False,
+        "same_case_replays_count_toward_case_gate": True,
         "round_limit": None,
         "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
         "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
