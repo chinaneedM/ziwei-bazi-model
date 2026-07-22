@@ -1,0 +1,1795 @@
+{
+  "schema": "FORTUNE-KNOWLEDGE-CARD-COLLECTION-V2",
+  "authority": "DERIVED_CURATED_SUMMARY_NO_INDEPENDENT_ASTROLOGICAL_AUTHORITY",
+  "batch": "A-ZIWEI-STATIC-S04-S07",
+  "cards": [
+    {
+      "card_id": "A-S04-001",
+      "title": "十二宫主题轴与唯一主题宫",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04"
+      ],
+      "method_family": "PALACE_TOPIC_ROUTING",
+      "school_attribution": {
+        "school": "派生综合（S04活动控制根）",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "宫位定义来自S04活动段，卡片只做执行化整理。"
+      },
+      "claim_scope": "把题目原子路由到唯一主题宫和评价轴；只能证明主题入口与观察范围。",
+      "required_inputs": [
+        "冻结盘面十二宫",
+        "题目主语、动作、对象与评价轴"
+      ],
+      "prerequisites": [
+        "先完成题目原子化",
+        "原始宫位坐标不得被人物或动态坐标覆盖"
+      ],
+      "ordered_procedure": [
+        "识别主语类型",
+        "拆出动作和对象",
+        "确定评价轴",
+        "选择唯一主题宫",
+        "登记禁止越级点"
+      ],
+      "applicability_conditions": [
+        "题目原子可以归入十二宫之一",
+        "同一原子只有一个事件本体"
+      ],
+      "negation_conditions": [
+        "主题本体不明确",
+        "复合事实尚未拆分",
+        "仅凭显眼星曜反推主题宫"
+      ],
+      "variant_or_conflicts": [
+        "命宫不能抢占事业、财富、婚姻或疾病终点",
+        "辅助宫和动态宫不得覆盖主题宫"
+      ],
+      "counterexamples": [
+        "命宫强但具体职业仍未知",
+        "财帛宫活跃但个人期末资产仍可能不高"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S04",
+          "line_start": 1723,
+          "line_end": 1750,
+          "anchor_role": "宫位职责、固定路由顺序与坐标隔离",
+          "anchor_text_hint": "S04是十二宫基础定义与主题宫权威；固定顺序从主语到气数位。"
+        },
+        {
+          "source_id": "S04",
+          "line_start": 1750,
+          "line_end": 2031,
+          "anchor_role": "十二宫定义及逐宫禁止越级点",
+          "anchor_text_hint": "六至十二节逐宫列出允许定位和禁止直接推出。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S04:PALACE_TOPIC_AXIS",
+      "highest_provable_level": "ROUTING_ONLY",
+      "limitations": [
+        "宫位只定位领域，不证明动作或正式结果",
+        "必须由后续来源承担星系语义与现实闭合"
+      ],
+      "forbidden_shortcuts": [
+        "单宫定终点",
+        "用星名替代主题路由",
+        "把多个宫位当多票"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING"
+        ],
+        "source_routes": [
+          "S04"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S04-002",
+      "title": "人物入口与人物太极交接",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04"
+      ],
+      "method_family": "PERSON_ENTRY_ROUTING",
+      "school_attribution": {
+        "school": "派生综合（S04人物角色表）",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "角色入口表为S04运行注册表，人物太极计算仍交S17。"
+      },
+      "claim_scope": "为自然人选择入口宫并判断是否必须转人物太极；最高只证明人物路线已建立。",
+      "required_inputs": [
+        "明确自然人身份",
+        "人物与命主关系",
+        "目标事件主题"
+      ],
+      "prerequisites": [
+        "人物必须是自然人",
+        "机构、资产、关系和事件不得伪装成人物"
+      ],
+      "ordered_procedure": [
+        "锁定人物身份",
+        "查默认入口宫",
+        "区分入口宫与人物太极起点",
+        "重大人物事件转S17",
+        "未完成则保留UNKNOWN"
+      ],
+      "applicability_conditions": [
+        "题目明确父母、配偶、子女、兄弟或其他自然人",
+        "人物事件需要其内部主题宫"
+      ],
+      "negation_conditions": [
+        "主体是机构或资产",
+        "人物身份不唯一且没有消歧",
+        "命主自身不需要另立人物太极"
+      ],
+      "variant_or_conflicts": [
+        "父母宫只是父母入口，不自动等于父亲或母亲个人盘",
+        "平级、下属、门生分别路由"
+      ],
+      "counterexamples": [
+        "父母宫受冲但无法区分父母主体",
+        "交友宫风险不能直接证明某员工犯罪"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S04",
+          "line_start": 2035,
+          "line_end": 2072,
+          "anchor_role": "人物角色、入口宫与硬边界",
+          "anchor_text_hint": "S04-PR-01至S04-PR-22及主语硬边界。"
+        },
+        {
+          "source_id": "S04",
+          "line_start": 2175,
+          "line_end": 2194,
+          "anchor_role": "人物入口向人物太极的交接条件",
+          "anchor_text_hint": "人物重大事件必须转人物太极；未完成保持UNKNOWN。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S04:PERSON_ENTRY_HANDOFF",
+      "highest_provable_level": "ROUTING_ONLY",
+      "limitations": [
+        "不建立人物太极内部结论",
+        "入口宫变化只能形成场景候选"
+      ],
+      "forbidden_shortcuts": [
+        "父母宫直接断父亡或母亡",
+        "用命主疾厄宫替代他人健康路线",
+        "给机构建立人物太极"
+      ],
+      "question_tags": {
+        "topic_tags": [],
+        "subject_tags": [
+          "FATHER",
+          "MOTHER",
+          "PARENTS",
+          "SPOUSE_PARTNER",
+          "CHILDREN",
+          "SIBLINGS",
+          "FRIEND_BUSINESS_PARTNER",
+          "EXTERNAL_ACTOR"
+        ],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING"
+        ],
+        "source_routes": [
+          "S04"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S04-003",
+      "title": "资金、房产与所有权主语分离",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04"
+      ],
+      "method_family": "ENTITY_OWNERSHIP_ROUTING",
+      "school_attribution": {
+        "school": "派生综合（S04实体拓扑）",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "将传统宫位场景拆为个人、家庭、公司和受托对象。"
+      },
+      "claim_scope": "区分掌管、使用、居住、家庭共有、公司名下与个人所有；最高证明正确的实体轴。",
+      "required_inputs": [
+        "资金或房产对象",
+        "法律或现实所有人",
+        "使用人、管理人和参考期"
+      ],
+      "prerequisites": [
+        "先区分自然人、家庭单位与组织",
+        "题目中的所有权词不能由宫位自行补全"
+      ],
+      "ordered_procedure": [
+        "建立资金或物业实体",
+        "分别登记拥有、使用、管理和负债边",
+        "选择财帛或田宅主题宫",
+        "把缺失所有权标为终点缺口"
+      ],
+      "applicability_conditions": [
+        "财富、负债、房产、祖业或公司场所题",
+        "选项区分个人与组织资产"
+      ],
+      "negation_conditions": [
+        "对象不存在或主体不明",
+        "只有宫位场景没有财产边",
+        "题目只问一般居住环境"
+      ],
+      "variant_or_conflicts": [
+        "公司营业额与个人收入冲突",
+        "家庭房产与个人名下资产冲突",
+        "居住与产权冲突"
+      ],
+      "counterexamples": [
+        "命主管理大量客户资金但个人净资产一般",
+        "居住豪宅但没有产权"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S04",
+          "line_start": 2074,
+          "line_end": 2100,
+          "anchor_role": "财务与物业主语门",
+          "anchor_text_hint": "掌管资金不等于拥有资金；实际居住不等于产权。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S04:ENTITY_OWNERSHIP_AXIS",
+      "highest_provable_level": "ROUTING_ONLY",
+      "limitations": [
+        "不证明财富等级或产权已正式成立",
+        "需S17动作与法律终点闭合"
+      ],
+      "forbidden_shortcuts": [
+        "公司收入算个人财富",
+        "居住等于持有",
+        "祖业候选等于继承完成"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "FAMILY_ORIGIN",
+          "BUSINESS_PARTNERSHIP"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [
+          "FINANCIAL_LEVEL",
+          "PROPERTY_HOLDING",
+          "BUSINESS_OUTCOME"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "REALITY_SCALE_MAPPING"
+        ],
+        "source_routes": [
+          "S04"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S04-004",
+      "title": "复合事实原子化后重新定宫",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04"
+      ],
+      "method_family": "PALACE_ATOMIZATION",
+      "school_attribution": {
+        "school": "派生综合（S04两次调用协议）",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "ROUTE_PASS与ATOM_PASS是S04派生执行协议。"
+      },
+      "claim_scope": "复合选项先拆原子，再为每个原子独立确定主题宫、主语和评价轴。",
+      "required_inputs": [
+        "完整题干和全部选项",
+        "复合原子清单"
+      ],
+      "prerequisites": [
+        "ROUTE_PASS只建立初始实体",
+        "ATOM_PASS前不得合并不同终点"
+      ],
+      "ordered_procedure": [
+        "初步识别复合事实",
+        "拆分关系、动作与终点",
+        "逐原子重新定宫",
+        "记录共同原子和最弱原子",
+        "交下游闭合"
+      ],
+      "applicability_conditions": [
+        "一个选项同时包含两种以上动作或终点",
+        "题目存在因果链或先后阶段"
+      ],
+      "negation_conditions": [
+        "每个选项只有单一同质原子",
+        "拆分后原子仍无法确定主体"
+      ],
+      "variant_or_conflicts": [
+        "关系成立与离婚不能共用单一宫位证据",
+        "收入增长与资产增加是不同原子"
+      ],
+      "counterexamples": [
+        "创业能力成立但公司未注册",
+        "有症状但未确诊或手术"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S04",
+          "line_start": 2104,
+          "line_end": 2148,
+          "anchor_role": "ROUTE_PASS、ATOM_PASS与复合事实清单",
+          "anchor_text_hint": "ROUTE_PASS不生成结果；ATOM_PASS要求每个原子唯一主题宫。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S04:ATOMIZED_THEME_ROUTE",
+      "highest_provable_level": "ROUTING_ONLY",
+      "limitations": [
+        "原子化不等于原子已发生",
+        "共同背景不得重复贡献"
+      ],
+      "forbidden_shortcuts": [
+        "一宫包办复合故事",
+        "用最显眼原子替代最弱原子",
+        "把拆分数量当证据数量"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "TOPIC_PALACE_ROUTING"
+        ],
+        "source_routes": [
+          "S04"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S04-005",
+      "title": "对宫三方、辅助宫与主题太极限权",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04"
+      ],
+      "method_family": "PALACE_RELATIONAL_CONTEXT",
+      "school_attribution": {
+        "school": "传统宫位关系的派生控制",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "保留传统对宫三方关系，但依S04限制其贡献层级。"
+      },
+      "claim_scope": "对宫、三方、夹宫和辅助宫只补结构语境；主题太极只改变观察参照，不复制证据。",
+      "required_inputs": [
+        "本宫",
+        "对宫与三方",
+        "主题原子",
+        "必要主题太极点"
+      ],
+      "prerequisites": [
+        "先确定唯一主题宫",
+        "区分本宫坐守与借照"
+      ],
+      "ordered_procedure": [
+        "标记本宫证据",
+        "分别标记对宫、三方和辅助宫",
+        "建立主题太极",
+        "同源结构归并一次",
+        "交星系与终点模块"
+      ],
+      "applicability_conditions": [
+        "主题宫已确定且关系宫位确有结构作用",
+        "需要换参照解释同一主题"
+      ],
+      "negation_conditions": [
+        "用辅助宫另立主题",
+        "无限递归立太极",
+        "关系宫缺物理结构"
+      ],
+      "variant_or_conflicts": [
+        "本宫坐守、对宫、三方、夹宫和借照不能混称",
+        "主题太极不能替代人物太极或一四四体用"
+      ],
+      "counterexamples": [
+        "对宫吉不代表本宫正式结果完成",
+        "三方多吉仍可能缺动作与终点"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S04",
+          "line_start": 2219,
+          "line_end": 2270,
+          "anchor_role": "辅助宫、对宫三方与主题太极边界",
+          "anchor_text_hint": "对宫三方只补结构；主题太极不得无限递归或替代人物太极。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S04:RELATIONAL_PALACE_CONTEXT",
+      "highest_provable_level": "ROUTING_ONLY",
+      "limitations": [
+        "只提供关系语境",
+        "不得以关系宫数量累加独立票"
+      ],
+      "forbidden_shortcuts": [
+        "三方四正当三份证据",
+        "借星当本宫坐守",
+        "主题太极直接定吉凶"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "EVIDENCE_WEIGHTING"
+        ],
+        "source_routes": [
+          "S04"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S05-001",
+      "title": "十四主星稳定本性按轴投影",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05"
+      ],
+      "method_family": "STAR_STABLE_NATURE",
+      "school_attribution": {
+        "school": "全书系与中州整理的来源综合",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "S05保留多来源星性；卡片不把不同来源数当投票。"
+      },
+      "claim_scope": "读取实际星曜的稳定倾向和条件，只投影到当前题轴；最高为静态倾向。",
+      "required_inputs": [
+        "实际坐守或合法借照的星曜",
+        "性别、日夜、庙旺输入",
+        "题目现实轴"
+      ],
+      "prerequisites": [
+        "先由盘面确认星曜实存",
+        "角色标签不得冒充实际坐守"
+      ],
+      "ordered_procedure": [
+        "建立案例级星性对象",
+        "读取同轴父句段",
+        "应用性别日夜庙旺修饰",
+        "记录冲突和未知",
+        "输出静态倾向"
+      ],
+      "applicability_conditions": [
+        "题目轴与来源直接承担轴一致",
+        "星曜在案例物理结构中真实存在"
+      ],
+      "negation_conditions": [
+        "仅星名词面重合",
+        "来源未承担目标题轴",
+        "组合条件未满足"
+      ],
+      "variant_or_conflicts": [
+        "古典星性与现代终点之间需语义桥接",
+        "不同来源可能对庙旺、性别或组合有异文"
+      ],
+      "counterexamples": [
+        "有领导倾向但未任管理职位",
+        "有财星倾向但没有个人净资产证据"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S05",
+          "line_start": 20,
+          "line_end": 59,
+          "anchor_role": "案例静态星性、题级投影与S05/S06/S07边界",
+          "anchor_text_hint": "不得因一个星名展开全部人生主题；通用星性只到同轴倾向。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S05:STAR_STABLE_NATURE",
+      "highest_provable_level": "STATIC_TENDENCY",
+      "limitations": [
+        "不证明物理星系或入宫原子",
+        "不证明具体行为、职业、疾病或正式终点"
+      ],
+      "forbidden_shortcuts": [
+        "单星定职业",
+        "单星确诊",
+        "星性广播全部宫位",
+        "按来源数量投票"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL"
+        ],
+        "source_routes": [
+          "S05"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S05-002",
+      "title": "性别日夜庙旺与辅煞条件修饰",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05"
+      ],
+      "method_family": "STAR_CONDITION_MODIFIERS",
+      "school_attribution": {
+        "school": "全书系与中州条件分支综合",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "条件、否定、例外和异文必须随父句段保存。"
+      },
+      "claim_scope": "修饰既有星性或组合强弱，不得独立产生相反方向或正式事件。",
+      "required_inputs": [
+        "性别",
+        "昼夜",
+        "庙旺落陷",
+        "实际辅煞会照",
+        "目标星曜对象"
+      ],
+      "prerequisites": [
+        "基础星性对象已建立",
+        "条件字段来自冻结盘面而非猜测"
+      ],
+      "ordered_procedure": [
+        "读取父句段全部条件",
+        "分别标记增强、削弱、限制或未知",
+        "检查相反分支",
+        "修正静态倾向",
+        "保留能力上限"
+      ],
+      "applicability_conditions": [
+        "来源明确声明条件分支",
+        "当前盘面具备对应输入"
+      ],
+      "negation_conditions": [
+        "条件未知",
+        "辅煞并未真实同度或会照",
+        "条件来自另一星系"
+      ],
+      "variant_or_conflicts": [
+        "庙旺、性别和日夜表可能存在来源异文",
+        "辅曜在不同主星组合中的作用不可广播"
+      ],
+      "counterexamples": [
+        "煞曜出现但原局有制化或条件不全",
+        "吉曜出现但结构选择器错配"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S05",
+          "line_start": 20,
+          "line_end": 45,
+          "anchor_role": "静态对象字段和题级投影触发",
+          "anchor_text_hint": "静态对象保存条件、性别日夜、庙旺、组合和冲突。"
+        },
+        {
+          "source_id": "S05",
+          "line_start": 57,
+          "line_end": 59,
+          "anchor_role": "多轴知识按来源实际承担轴投影",
+          "anchor_text_hint": "未承担的轴不得补写。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S05:CONDITION_MODIFIER",
+      "highest_provable_level": "STATIC_TENDENCY",
+      "limitations": [
+        "修饰不等于独立证据家族",
+        "条件不足必须降为UNKNOWN或不适用"
+      ],
+      "forbidden_shortcuts": [
+        "吉曜等于成功",
+        "煞曜等于灾祸",
+        "庙旺直接翻转所有负面",
+        "落陷直接判失败"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL"
+        ],
+        "source_routes": [
+          "S05"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S05-003",
+      "title": "格局成立门：结构、辅佐与条件齐备",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05",
+        "S06"
+      ],
+      "method_family": "PATTERN_FORMATION_GATE",
+      "school_attribution": {
+        "school": "全书格局与中州条件校核",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "格局名保留来源归属；物理结构必须由S06另行确认。"
+      },
+      "claim_scope": "格局只有在正曜结构、辅佐会合、位置和必要条件齐备时成立为条件化结构倾向。",
+      "required_inputs": [
+        "候选格局名",
+        "实际星系",
+        "三方四正与夹宫",
+        "辅佐煞曜和四化条件"
+      ],
+      "prerequisites": [
+        "S06物理选择器匹配",
+        "读取格局定义的全部必要条件"
+      ],
+      "ordered_procedure": [
+        "提取必要条件",
+        "逐项验证物理结构",
+        "检查辅佐与缺失",
+        "检查破格条件",
+        "只输出成立范围内倾向"
+      ],
+      "applicability_conditions": [
+        "来源定义和盘面结构一一匹配",
+        "必要正曜与辅佐条件齐备"
+      ],
+      "negation_conditions": [
+        "缺任一必要条件",
+        "只有格局名称相似",
+        "来源属于不同地支或不同星系"
+      ],
+      "variant_or_conflicts": [
+        "同名格局在不同来源可有宽严差异",
+        "正曜、辅曜和杂曜的成立权重不可混为一谈"
+      ],
+      "counterexamples": [
+        "只见紫微和一颗吉曜不足称百官朝拱",
+        "格局成立但现实职位或财富未必完成"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S05",
+          "line_start": 227,
+          "line_end": 245,
+          "anchor_role": "百官朝拱的正曜、辅曜、佐曜与条件示例",
+          "anchor_text_hint": "定义要求府相、辅弼、魁钺、昌曲等分层条件。"
+        },
+        {
+          "source_id": "S06",
+          "line_start": 34,
+          "line_end": 46,
+          "anchor_role": "物理结构选择器与错配归零",
+          "anchor_text_hint": "双星、地支、对拱、借照条件必须逐项匹配。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S05_S06:PATTERN_FORMATION",
+      "highest_provable_level": "CONDITIONED_STRUCTURE_TENDENCY",
+      "limitations": [
+        "格局成立不是现代身份、金额或事件终点",
+        "动态应期仍需S08/S10"
+      ],
+      "forbidden_shortcuts": [
+        "见格局名即成格",
+        "辅曜数量投票",
+        "格局成立直接定富贵",
+        "忽略破格条件"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING"
+        ],
+        "source_routes": [
+          "S05",
+          "S06"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S05-004",
+      "title": "破格与制化：限制原倾向而非自动反转",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05"
+      ],
+      "method_family": "PATTERN_BREAK_AND_MITIGATION",
+      "school_attribution": {
+        "school": "全书格局与中州条件校核",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "破格、制化、吉化与异文作为同一父条件树处理。"
+      },
+      "claim_scope": "识别空劫、煞忌、刑夹、条件缺失及制化；最高只能修正格局或星性倾向。",
+      "required_inputs": [
+        "已通过成立门的格局候选",
+        "煞忌空劫和夹宫",
+        "制化与保护条件"
+      ],
+      "prerequisites": [
+        "先证明原格局成立",
+        "限制和保护必须来自同一结构语境"
+      ],
+      "ordered_procedure": [
+        "列出破格分支",
+        "列出制化分支",
+        "区分削弱、失效和条件转化",
+        "搜索直接反证",
+        "输出修正后上限"
+      ],
+      "applicability_conditions": [
+        "来源明确给出破格或制化条件",
+        "相关星曜关系真实存在"
+      ],
+      "negation_conditions": [
+        "原格局本就未成立",
+        "煞曜来自无关宫位或不同父链",
+        "保护条件只是一般吉象"
+      ],
+      "variant_or_conflicts": [
+        "有的来源将条件视为破格，有的只视为减等",
+        "制化不能删除仍存在的负面条件"
+      ],
+      "counterexamples": [
+        "天府见空形成空库限制，但不自动证明破产",
+        "刑忌夹印修正天相但不直接证明法律灾祸"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S05",
+          "line_start": 227,
+          "line_end": 245,
+          "anchor_role": "格局条件及空曜、夹印等限制示例",
+          "anchor_text_hint": "天府空库、天相刑忌夹印等条件只修正结构。"
+        },
+        {
+          "source_id": "S05",
+          "line_start": 247,
+          "line_end": 263,
+          "anchor_role": "特殊星曜关系、吉凶与制化分支",
+          "anchor_text_hint": "喜忌总诀含例外和制化，不能只取凶词。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S05:PATTERN_BREAK_MITIGATION",
+      "highest_provable_level": "CONDITIONED_STRUCTURE_TENDENCY",
+      "limitations": [
+        "破格不等于相反事件必然发生",
+        "制化不等于风险归零"
+      ],
+      "forbidden_shortcuts": [
+        "见煞即破格",
+        "有吉即完全解厄",
+        "破格直接等于失败或死亡",
+        "只检索支持不检索制化"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "COUNTEREVIDENCE_REVERSAL",
+          "EVIDENCE_WEIGHTING"
+        ],
+        "source_routes": [
+          "S05"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S06-001",
+      "title": "十二基础盘一次识别与案例级静态结构",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S06"
+      ],
+      "method_family": "TWELVE_BASE_CHART",
+      "school_attribution": {
+        "school": "中州六十星系结构",
+        "text_layer": "SOURCE_TEXT",
+        "attribution_note": "十二基础盘和六十星系物理坐标由S06承担。"
+      },
+      "claim_scope": "每案只识别一次基础盘、十二宫主星结构、空宫借星、对宫和三方；最高证明结构存在。",
+      "required_inputs": [
+        "紫微所在支",
+        "十二宫主星坐守",
+        "空宫和对宫关系",
+        "冻结盘面哈希"
+      ],
+      "prerequisites": [
+        "盘面校准完成",
+        "同一案例使用同一活动来源版本"
+      ],
+      "ordered_procedure": [
+        "确定BASE_CHART_ID",
+        "生成十二宫结构行",
+        "登记空宫借星和对宫三方",
+        "生成结构键",
+        "题级只引用结构对象"
+      ],
+      "applicability_conditions": [
+        "任何需要主星组合或空宫借照的题目",
+        "盘面十二宫可完整读取"
+      ],
+      "negation_conditions": [
+        "基础盘无法识别",
+        "盘面星曜缺失或冲突",
+        "题目只用单星一般本性且不需结构"
+      ],
+      "variant_or_conflicts": [
+        "六组结构对不能替代十二基础盘方向",
+        "同一组合在不同地支可有分支"
+      ],
+      "counterexamples": [
+        "同为紫微独坐，子宫与午宫不能默认完全相同",
+        "空宫不能当无星无信息"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S06",
+          "line_start": 19,
+          "line_end": 32,
+          "anchor_role": "案例级静态结构字段与只建一次规则",
+          "anchor_text_hint": "十二基础盘、六十星系和借星结构只证明物理结构。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S06:CASE_STATIC_STRUCTURE",
+      "highest_provable_level": "STRUCTURE_EXISTENCE",
+      "limitations": [
+        "不解释现代事件",
+        "不允许每题或每选项重建基础盘"
+      ],
+      "forbidden_shortcuts": [
+        "逐颗星重建星系",
+        "每题重算十二基础盘",
+        "把结构事实当终点"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE"
+        ],
+        "source_routes": [
+          "S06"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S06-002",
+      "title": "六十星系优先于单星相加",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05",
+        "S06"
+      ],
+      "method_family": "SIXTY_STAR_SYSTEM",
+      "school_attribution": {
+        "school": "中州六十星系",
+        "text_layer": "SOURCE_TEXT",
+        "attribution_note": "组合星系及地支分支来自六十星系来源，单星本性只作条件输入。"
+      },
+      "claim_scope": "当完整主星组合存在时，以星系和地支分支为物理单位，单星本性不能替代组合性质。",
+      "required_inputs": [
+        "完整主星组合",
+        "宫位地支",
+        "对宫三方结构",
+        "S05单星条件对象"
+      ],
+      "prerequisites": [
+        "S06基础盘已锁定",
+        "组合与来源系统章节完全匹配"
+      ],
+      "ordered_procedure": [
+        "识别系统章节",
+        "读取组合主轴",
+        "读取地支分支",
+        "把S05本性作为修饰",
+        "保留冲突和状态转移"
+      ],
+      "applicability_conditions": [
+        "双星同度、对拱或明确六十星系章节适用",
+        "单星在特定系统内发生交涉"
+      ],
+      "negation_conditions": [
+        "只有单星一般本性",
+        "系统章节或地支不匹配",
+        "空宫借星尚未确认"
+      ],
+      "variant_or_conflicts": [
+        "单星本性与星系整体可能方向不同",
+        "同一星系在不同支位有变体"
+      ],
+      "counterexamples": [
+        "紫微贪狼不能用紫微与贪狼两个一般性简单相加",
+        "太阳太阴星系不能套给太阴独坐异构盘"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S06",
+          "line_start": 19,
+          "line_end": 19,
+          "anchor_role": "六十星系物理结构职责",
+          "anchor_text_hint": "S06只证明当前盘物理结构与来源选择器。"
+        },
+        {
+          "source_id": "S06",
+          "line_start": 17273,
+          "line_end": 17276,
+          "anchor_role": "单星本性不能替代六十星系及地支分支",
+          "anchor_text_hint": "六十星系组合各具特性，且同一独坐在不同支略有不同。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S06:SIXTY_SYSTEM_PHYSICAL",
+      "highest_provable_level": "CONDITIONED_STRUCTURE_TENDENCY",
+      "limitations": [
+        "星系倾向仍非现实终点",
+        "不能跨系统借用语义"
+      ],
+      "forbidden_shortcuts": [
+        "逐星加减",
+        "星名重合即调用",
+        "忽略地支变体",
+        "六十星系全库无差别展开"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING"
+        ],
+        "source_routes": [
+          "S05",
+          "S06"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S06-003",
+      "title": "空宫借星、对宫与本宫坐守分离",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S04",
+        "S06"
+      ],
+      "method_family": "EMPTY_PALACE_BORROWING",
+      "school_attribution": {
+        "school": "中州基础盘结构",
+        "text_layer": "SOURCE_TEXT",
+        "attribution_note": "空宫借星为物理结构关系，不等于本宫直接坐守。"
+      },
+      "claim_scope": "登记空宫借自何宫、何星系及其对宫三方关系；最高证明合法借照结构。",
+      "required_inputs": [
+        "空宫位置",
+        "对宫星系",
+        "基础盘ID",
+        "借星状态"
+      ],
+      "prerequisites": [
+        "确认本宫无主星",
+        "S06表中存在对应借星关系"
+      ],
+      "ordered_procedure": [
+        "标记EMPTY_MAIN_STAR",
+        "查BORROWED_FROM_BRANCH",
+        "绑定借入系统章节",
+        "区分借照与坐守",
+        "将结构交S07"
+      ],
+      "applicability_conditions": [
+        "当前宫位为空宫且来源允许借照",
+        "对宫结构完整"
+      ],
+      "negation_conditions": [
+        "本宫已有主星",
+        "借入宫位或系统不匹配",
+        "只凭三方见星而称借星"
+      ],
+      "variant_or_conflicts": [
+        "借照、对宫、三方和夹宫是不同位置关系",
+        "借星语义可能受本宫辅煞与主题限制"
+      ],
+      "counterexamples": [
+        "借入星系有某倾向，但不能说该星实际坐守本宫",
+        "空宫借照仍可能因选择器条件不足而UNKNOWN"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S06",
+          "line_start": 21,
+          "line_end": 32,
+          "anchor_role": "案例结构中的空宫借星行",
+          "anchor_text_hint": "静态结构对象分别保存EMPTY_PALACE_BORROW_ROWS。"
+        },
+        {
+          "source_id": "S06",
+          "line_start": 119,
+          "line_end": 125,
+          "anchor_role": "双星、对拱、借照选择器硬规则",
+          "anchor_text_hint": "空宫借照或特定地支必须逐项满足。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S06:EMPTY_PALACE_BORROW",
+      "highest_provable_level": "STRUCTURE_EXISTENCE",
+      "limitations": [
+        "借星不拥有本宫坐守身份",
+        "仅证明结构关系，不证明事件"
+      ],
+      "forbidden_shortcuts": [
+        "空宫等于没有信息",
+        "借照当坐守",
+        "对宫星性全量复制",
+        "三方星曜当借星"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "TOPIC_PALACE_ROUTING"
+        ],
+        "source_routes": [
+          "S04",
+          "S06"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S06-004",
+      "title": "来源物理选择器错配归零",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S06"
+      ],
+      "method_family": "STRUCTURE_SELECTOR_GATE",
+      "school_attribution": {
+        "school": "中州结构选择器的派生控制",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "S06活动控制根把结构匹配设为所有下游语义前置门。"
+      },
+      "claim_scope": "逐项核对宫位、地支、主星组合、对宫、借照和四化要求；错配贡献固定为零。",
+      "required_inputs": [
+        "当前盘结构对象",
+        "来源要求的物理选择器",
+        "目标原子"
+      ],
+      "prerequisites": [
+        "来源锚点可解析出明确物理要求",
+        "案例结构哈希有效"
+      ],
+      "ordered_procedure": [
+        "比较宫位",
+        "比较地支",
+        "比较主星组合",
+        "比较对宫与借照",
+        "输出FULL_MATCH、PARTIAL或MISMATCH"
+      ],
+      "applicability_conditions": [
+        "S07或其他语义来源要求具体结构",
+        "组合证据将进入排序"
+      ],
+      "negation_conditions": [
+        "来源只陈述单星一般本性",
+        "选择器字段未知且无法补建",
+        "来源与当前结构完全不同"
+      ],
+      "variant_or_conflicts": [
+        "PARTIAL_GENERIC_ONLY只能保留一般本性",
+        "MISMATCH即使词面命中也不得恢复"
+      ],
+      "counterexamples": [
+        "职业词直接重合但结构不符仍为零",
+        "只出现双星中的一颗不构成组合匹配"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S06",
+          "line_start": 34,
+          "line_end": 62,
+          "anchor_role": "题级选择器字段、精准调用与上下游边界",
+          "anchor_text_hint": "STRUCTURE_SELECTOR_MISMATCH固定归零。"
+        },
+        {
+          "source_id": "S06",
+          "line_start": 83,
+          "line_end": 125,
+          "anchor_role": "选择器状态与硬规则",
+          "anchor_text_hint": "无回执的组合证据不得进入排序。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S06:STRUCTURE_SELECTOR",
+      "highest_provable_level": "STRUCTURE_EXISTENCE",
+      "limitations": [
+        "匹配只授权下游读取，不代表语义蕴含",
+        "未知结构必须失败关闭"
+      ],
+      "forbidden_shortcuts": [
+        "词面重合恢复错配证据",
+        "部分结构当完整匹配",
+        "跳过选择器直接读入宫断语"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL"
+        ],
+        "source_routes": [
+          "S06"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S07-001",
+      "title": "入宫父句段逐原子蕴含回执",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S05",
+        "S06",
+        "S07"
+      ],
+      "method_family": "PALACE_ATOM_ENTAILMENT",
+      "school_attribution": {
+        "school": "全星曜与星系入十二宫来源综合",
+        "text_layer": "DERIVED_SYNTHESIS",
+        "attribution_note": "S07保存父句段，S05/S06只提供本性与物理前置。"
+      },
+      "claim_scope": "对每个选项原子绑定真实父句段、条件、主体、动作、对象和时间范围；最高为入宫轴蕴含。",
+      "required_inputs": [
+        "S06选择器回执",
+        "S05本性对象",
+        "目标现实轴",
+        "来源父句段"
+      ],
+      "prerequisites": [
+        "S00已路由来源",
+        "S06选择器适用",
+        "目标原子明确"
+      ],
+      "ordered_procedure": [
+        "建立内容寻址摘录",
+        "读取全部条件与限制",
+        "逐项核对主体动作对象时间",
+        "登记直接反证",
+        "机械派生能力上限"
+      ],
+      "applicability_conditions": [
+        "父句段直接承担目标题轴",
+        "条件和选择器闭合"
+      ],
+      "negation_conditions": [
+        "字面重合但跨轴",
+        "父句段缺失或仅有ID",
+        "主体、动作或对象不匹配"
+      ],
+      "variant_or_conflicts": [
+        "直接蕴含、部分前置、场景、限制和反证必须分开",
+        "同一父句段的替代结果需完整召回"
+      ],
+      "counterexamples": [
+        "来源提到行业族但不能证明精确职位",
+        "来源提到健康风险但不能直接确诊"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S07",
+          "line_start": 248,
+          "line_end": 275,
+          "anchor_role": "来源摘录和逐原子蕴含回执",
+          "anchor_text_hint": "父句段保存条件、限制、替代结果；能力由回执机械派生。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S07:PARENT_ATOM_ENTAILMENT",
+      "highest_provable_level": "PALACE_AXIS_ENTAILMENT",
+      "limitations": [
+        "不建立正式现实终点",
+        "必须保留来源条件、否定和例外"
+      ],
+      "forbidden_shortcuts": [
+        "只凭短ID调用",
+        "用章节名代替父句段",
+        "先写强支持再找来源",
+        "跨轴词面匹配"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVIDENCE_WEIGHTING",
+          "COMPOSITE_OPTION_ATOMIZATION"
+        ],
+        "source_routes": [
+          "S05",
+          "S06",
+          "S07"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S07-002",
+      "title": "星系入十二宫能力上限",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S07"
+      ],
+      "method_family": "PALACE_CAPABILITY_CEILING",
+      "school_attribution": {
+        "school": "入宫来源综合的派生控制",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "传统结果词保留，但现代终点资格由S07上限和S17闭合共同控制。"
+      },
+      "claim_scope": "入宫来源只承担其直接语义轴；具体行为、法律状态、金额、精确职业、手术、牢狱和死亡须外部闭合。",
+      "required_inputs": [
+        "逐原子蕴含回执",
+        "来源直接承担轴",
+        "目标正式终点"
+      ],
+      "prerequisites": [
+        "来源物理和语义均匹配",
+        "直接结果词与现代概念已区分"
+      ],
+      "ordered_procedure": [
+        "识别来源轴",
+        "标记场景或前置",
+        "列出未闭合人物动作对象时间",
+        "设置能力上限",
+        "交S17正式闭合"
+      ],
+      "applicability_conditions": [
+        "任何入宫语义向现代选项转译",
+        "选项包含具体行为或正式终点"
+      ],
+      "negation_conditions": [
+        "来源已直接包含全部现实动作且另有S17闭合",
+        "目标仅问静态倾向"
+      ],
+      "variant_or_conflicts": [
+        "传统结果词与现代法律、医学、财务概念不等价",
+        "保护因素只能修饰原方向"
+      ],
+      "counterexamples": [
+        "破耗不能独立证明负债或破产",
+        "刑忌不能独立证明坐牢",
+        "疾病词不能独立完成诊断"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S07",
+          "line_start": 277,
+          "line_end": 300,
+          "anchor_role": "调用集合、能力上限与下游职责",
+          "anchor_text_hint": "具体行为和正式终点必须交S17闭合。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S07:CAPABILITY_CEILING",
+      "highest_provable_level": "SCENE_OR_PRECONDITION_ONLY",
+      "limitations": [
+        "传统断语不得未经校准直译为现代事实",
+        "能力上限本身固定零贡献"
+      ],
+      "forbidden_shortcuts": [
+        "星系入宫直接定离婚",
+        "风险词直接定死亡",
+        "职业族直接定具体职业",
+        "结果词当完成证明"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING"
+        ],
+        "source_routes": [
+          "S07"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    },
+    {
+      "card_id": "A-S07-003",
+      "title": "同父链支持、限制、替代与直接反证并读",
+      "batch": "A-ZIWEI-STATIC-S04-S07",
+      "source_scope": [
+        "S07"
+      ],
+      "method_family": "PALACE_PARENT_CHAIN_COUNTEREVIDENCE",
+      "school_attribution": {
+        "school": "入宫来源综合的派生控制",
+        "text_layer": "EDITORIAL_CONTROL",
+        "attribution_note": "同一父句段各分支必须成组召回，禁止只取支持赢家的片段。"
+      },
+      "claim_scope": "同一物理结构与父链内同时检索支持、限制、例外、替代和直接反证，并对互斥原子保持单向贡献。",
+      "required_inputs": [
+        "来源父链",
+        "目标原子与互斥原子",
+        "当前条件分支"
+      ],
+      "prerequisites": [
+        "父句段可完整复读",
+        "赢家与最强挑战者采用同等检索深度"
+      ],
+      "ordered_procedure": [
+        "召回支持分支",
+        "召回限制和例外",
+        "召回同级替代",
+        "搜索直接反证",
+        "记录最弱原子与剩余冲突"
+      ],
+      "applicability_conditions": [
+        "选项互斥或共享场景",
+        "来源包含转折、并列、替代或条件分支"
+      ],
+      "negation_conditions": [
+        "来源只有单一无条件陈述",
+        "父句段未知",
+        "反证来自不同物理结构"
+      ],
+      "variant_or_conflicts": [
+        "同一解释不能同时支持富裕与贫穷等互斥方向",
+        "共享场景不能完成复合选项"
+      ],
+      "counterexamples": [
+        "来源同时支持能力又限制现实完成",
+        "普通正状态可能是戏剧性负状态的强反证"
+      ],
+      "source_anchors": [
+        {
+          "source_id": "S07",
+          "line_start": 24,
+          "line_end": 69,
+          "anchor_role": "互斥原子方向、支持限制反证分离",
+          "anchor_text_hint": "同一父句段不得以同一解释支持互斥原子。"
+        },
+        {
+          "source_id": "S07",
+          "line_start": 248,
+          "line_end": 260,
+          "anchor_role": "父句段全部条件、限制和替代结果一次保存",
+          "anchor_text_hint": "摘录对象必须保存完整父链且可复读。"
+        }
+      ],
+      "source_case_role": "USAGE_DEMONSTRATION_ONLY_NOT_INDEPENDENT_VALIDATION",
+      "dedup_key": "S07:PARENT_CHAIN_POLARITY",
+      "highest_provable_level": "PALACE_AXIS_ENTAILMENT",
+      "limitations": [
+        "反证必须与同一目标题轴相关",
+        "无调用不等于反证"
+      ],
+      "forbidden_shortcuts": [
+        "只召回支持赢家",
+        "限制当零证据后丢弃",
+        "同源正反各算一票",
+        "共享场景完成复合终点"
+      ],
+      "question_tags": {
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE",
+          "SOCIAL_FRIENDS",
+          "BUSINESS_PARTNERSHIP",
+          "MIGRATION_RELOCATION",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "LEGAL_CONFLICT",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "subject_tags": [],
+        "time_scope_tags": [],
+        "endpoint_tags": [],
+        "reasoning_skill_tags": [
+          "COUNTEREVIDENCE_REVERSAL",
+          "EVIDENCE_WEIGHTING",
+          "COMPOSITE_OPTION_ATOMIZATION"
+        ],
+        "source_routes": [
+          "S07"
+        ]
+      },
+      "status": "CURATED_UNVALIDATED",
+      "validation": {
+        "distinct_case_count": 0,
+        "support_count": 0,
+        "counterexample_count": 0,
+        "case_ids": [],
+        "validation_note": "来源梳理完成；未读取答案，尚无独立案例支持或反例。"
+      }
+    }
+  ]
+}

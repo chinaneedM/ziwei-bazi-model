@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "FORTUNE-RESEARCH-HYPOTHESIS-V1",
+  "type": "object",
+  "required": [
+    "hypothesis_id",
+    "origin",
+    "statement",
+    "scope",
+    "regional_era_context",
+    "baseline_rate_plan",
+    "selection_bias_risk",
+    "confirmation_bias_control",
+    "alternative_explanations",
+    "counterfactuals",
+    "negative_example_plan",
+    "answer_dispute_status",
+    "confidence",
+    "calibration_plan",
+    "validation_status",
+    "evidence"
+  ],
+  "properties": {
+    "hypothesis_id": {"type": "string", "pattern": "^HYP-[A-Z0-9-]+$"},
+    "origin": {"enum": ["USER_HYPOTHESIS", "AI_HYPOTHESIS"]},
+    "statement": {"type": "string", "minLength": 1},
+    "scope": {"type": "string", "minLength": 1},
+    "regional_era_context": {"type": "string", "minLength": 1},
+    "baseline_rate_plan": {"type": "string", "minLength": 1},
+    "selection_bias_risk": {"type": "string", "minLength": 1},
+    "confirmation_bias_control": {"type": "string", "minLength": 1},
+    "alternative_explanations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "counterfactuals": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "negative_example_plan": {"type": "string", "minLength": 1},
+    "answer_dispute_status": {"enum": ["NOT_APPLICABLE", "UNASSESSED", "UNCONTESTED", "DISPUTED", "EXCLUDED"]},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "calibration_plan": {"type": "string", "minLength": 1},
+    "validation_status": {"enum": ["UNTESTED", "PROVISIONAL", "SUPPORTED_WITH_SCOPE", "CHALLENGED", "REJECTED"]},
+    "evidence": {
+      "type": "object",
+      "required": ["supporting_case_ids", "counterexample_case_ids", "distinct_case_count", "notes"],
+      "properties": {
+        "supporting_case_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "counterexample_case_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "distinct_case_count": {"type": "integer", "minimum": 0},
+        "notes": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

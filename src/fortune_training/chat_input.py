@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from .learning import load_taxonomy, safe_active_rules
+from .policy import REQUIRED_CONSECUTIVE_PASSES
 from .util import atomic_write_json, load_json, object_sha256, sha256_file
 
 
@@ -58,7 +59,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         state["status"] in OPENABLE_STATES
         and state.get("active_round_id") is None
         and current_case_id is not None
-        and current_case_state.get("first_blind_round_id") is None
+        and current_case_state.get("consecutive_passes", 0) < REQUIRED_CONSECUTIVE_PASSES
     )
     recommended_round_id = f"ROUND-{state['round_count'] + 1:03d}" if prediction_allowed else None
 
@@ -73,9 +74,12 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "round_count": state["round_count"],
             "prediction_allowed": prediction_allowed,
             "recommended_round_id": recommended_round_id,
-            "training_unit": "QUESTION_FIRST_BLIND",
-            "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
+            "training_unit": "SAME_CASE_CONSECUTIVE_ROUNDS",
+            "case_attempt_policy": "SAME_CASE_UNTIL_THREE_CONSECUTIVE_PASSES",
+            "current_case_consecutive_passes": current_case_state.get("consecutive_passes", 0),
+            "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
             "same_case_replays_count_toward_validation": False,
+            "same_case_replays_count_toward_case_gate": True,
             "dataset_manifest_path": state.get("dataset_manifest_path"),
             "dataset_runtime_status": state.get("dataset_runtime_status"),
         },
@@ -129,7 +133,14 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "failure_learning_rule": (
                 "After reveal, a failed round must propose one or more generic candidate rules. Rules may "
                 "contain no case id, question id, answer letter, option position, or copied option sentence. "
-                "Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only."
+                "Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only. "
+                "A failure resets the same-case consecutive-pass count to zero; after model-learning is "
+                "updated, training retries the same case."
+            ),
+            "case_progression_rule": (
+                "Advance only after the same case passes three scored rounds consecutively. A passing round "
+                "below that gate stays on the same case. Same-case replay rounds count toward this gate but "
+                "never as independent cross-case rule-validation evidence."
             ),
         },
         "canonical_source_manifest": manifest,

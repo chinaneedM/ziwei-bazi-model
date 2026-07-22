@@ -17,7 +17,7 @@ from .learning import (
     validate_question_profile,
     write_learning_ledger,
 )
-from .policy import passed, required_correct
+from .policy import REQUIRED_CONSECUTIVE_PASSES, passed, required_correct
 from .util import (
     TrainingError,
     atomic_write_json,
@@ -100,6 +100,7 @@ def _complete_current_case_and_advance(root: Path, state: dict[str, Any]) -> Non
         return
     next_case_id = group["case_order"][state["current_case_index"]]
     state["cases"][next_case_id]["status"] = "ACTIVE"
+    state["cases"][next_case_id].setdefault("consecutive_passes", 0)
     state["status"] = "READY_FOR_ROUND"
 
 
@@ -120,8 +121,10 @@ def status(root: Path) -> dict[str, Any]:
         "active_round_id": state["active_round_id"],
         "round_count": state["round_count"],
         "round_limit": None,
-        "training_unit": "QUESTION_FIRST_BLIND",
+        "training_unit": "SAME_CASE_CONSECUTIVE_ROUNDS",
         "current_case_first_blind_round_id": current_case_state.get("first_blind_round_id"),
+        "current_case_consecutive_passes": current_case_state.get("consecutive_passes", 0),
+        "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
         "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
         "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
         "same_case_replays_count_toward_validation": False,
@@ -141,8 +144,14 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     group = _load_group(root, state)
     case_id = _current_case_id(state, group)
     case_state = state["cases"][case_id]
-    if case_state.get("first_blind_round_id") is not None:
-        raise TrainingError("the current case already has its one scored first-blind round")
+    consecutive_before = case_state.get("consecutive_passes", 0)
+    if not isinstance(consecutive_before, int) or not 0 <= consecutive_before < REQUIRED_CONSECUTIVE_PASSES:
+        raise TrainingError("the current case has an invalid consecutive-pass count")
+    evaluation_kind = (
+        "FIRST_BLIND"
+        if case_state.get("first_blind_round_id") is None
+        else "SAME_CASE_REPLAY"
+    )
     case_path = _case_path(root, group, case_id)
     case = load_json(case_path)
     question_count = len(_questions(case))
@@ -154,11 +163,14 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     if round_path.exists():
         raise TrainingError(f"round already exists: {round_id}")
     round_record = {
-        "schema": "QUESTION-FIRST-BLIND-ROUND-V2",
+        "schema": "CASE-CONSECUTIVE-ROUND-R1",
         "round_id": round_id,
         "case_id": case_id,
-        "evaluation_kind": "FIRST_BLIND",
-        "counts_toward_learning_evidence": True,
+        "evaluation_kind": evaluation_kind,
+        "counts_toward_learning_evidence": evaluation_kind == "FIRST_BLIND",
+        "counts_toward_case_gate": True,
+        "consecutive_passes_before": consecutive_before,
+        "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
         "case_path": case_path.relative_to(root).as_posix(),
         "case_sha256": sha256_file(case_path),
         "question_count": question_count,
@@ -177,7 +189,10 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     state["active_round_id"] = round_id
     state["status"] = "AWAITING_PREDICTION_FREEZE"
     state["round_count"] += 1
-    case_state["first_blind_round_id"] = round_id
+    if evaluation_kind == "FIRST_BLIND":
+        case_state["first_blind_round_id"] = round_id
+    else:
+        case_state["replay_round_ids"].append(round_id)
     case_state["round_ids"].append(round_id)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
@@ -431,18 +446,22 @@ def score_round(
     question_count = len(review_rows)
     did_pass = passed(correct_count, question_count)
     case_state = state["cases"][round_record["case_id"]]
-    if round_record.get("evaluation_kind") != "FIRST_BLIND":
-        raise TrainingError("only a first-blind round may update learning evidence")
+    evaluation_kind = round_record.get("evaluation_kind")
+    if evaluation_kind not in {"FIRST_BLIND", "SAME_CASE_REPLAY"}:
+        raise TrainingError("round has an unsupported R1 evaluation kind")
     top2_covered = sum(
         1
         for prediction, review in zip(frozen["predictions"], review_rows)
         if review["is_correct"] or prediction.get("top2") == review["correct_option"]
     )
+    consecutive_before = case_state.get("consecutive_passes", 0)
+    consecutive_after = consecutive_before + 1 if did_pass else 0
+    advances = did_pass and consecutive_after >= REQUIRED_CONSECUTIVE_PASSES
     aggregate = {
-        "schema": "QUESTION-FIRST-BLIND-SCORE-V2",
+        "schema": "CASE-CONSECUTIVE-ROUND-SCORE-R1",
         "round_id": round_id,
         "case_id": round_record["case_id"],
-        "evaluation_kind": "FIRST_BLIND",
+        "evaluation_kind": evaluation_kind,
         "correct_count": correct_count,
         "top2_covered_count": top2_covered,
         "question_count": question_count,
@@ -450,8 +469,12 @@ def score_round(
         "accuracy": correct_count / question_count,
         "top2_coverage": top2_covered / question_count,
         "passed": did_pass,
-        "advances_after_learning_if_failed": True,
-        "same_case_replay_required": False,
+        "consecutive_passes_before": consecutive_before,
+        "consecutive_passes_after": consecutive_after,
+        "required_consecutive_passes": REQUIRED_CONSECUTIVE_PASSES,
+        "advances_to_next_case": advances,
+        "advances_after_learning_if_failed": False,
+        "same_case_replay_required": not advances,
         "scored_at": utc_now(),
         "detailed_answers_stored_in_repository": False,
         "answer_source": answer_source,
@@ -472,20 +495,27 @@ def score_round(
     atomic_write_json(round_path / "round.json", round_record)
     state["active_round_id"] = None
 
-    ledger = load_learning_ledger(root)
-    record_first_blind_results(
-        ledger,
-        case_id=round_record["case_id"],
-        predictions=frozen["predictions"],
-        review_rows=review_rows,
-    )
-    write_learning_ledger(root, ledger)
+    if evaluation_kind == "FIRST_BLIND":
+        ledger = load_learning_ledger(root)
+        record_first_blind_results(
+            ledger,
+            case_id=round_record["case_id"],
+            predictions=frozen["predictions"],
+            review_rows=review_rows,
+        )
+        write_learning_ledger(root, ledger)
 
     if not did_pass:
+        case_state["consecutive_passes"] = 0
         state["status"] = "LEARNING_REQUIRED"
         case_state["status"] = "LEARNING_PENDING"
-    else:
+    elif advances:
+        case_state["consecutive_passes"] = consecutive_after
         _complete_current_case_and_advance(root, state)
+    else:
+        case_state["consecutive_passes"] = consecutive_after
+        case_state["status"] = "ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return aggregate
@@ -531,7 +561,7 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning is only accepted after a failed round")
     group = _load_group(root, state)
     current_case_id = _current_case_id(state, group)
-    if state["cases"][current_case_id].get("first_blind_round_id") != round_id:
+    if not state["cases"][current_case_id].get("round_ids") or state["cases"][current_case_id]["round_ids"][-1] != round_id:
         raise TrainingError("learning must close the most recent failed round")
     round_path = _round_dir(root, round_id)
     round_record = load_json(round_path / "round.json")
@@ -576,7 +606,9 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
     register_rules(ledger, patch_payload["rules"])
     write_learning_ledger(root, ledger)
     state["current_model_release"] = release_id
-    _complete_current_case_and_advance(root, state)
+    state["cases"][current_case_id]["status"] = "ACTIVE"
+    state["cases"][current_case_id]["consecutive_passes"] = 0
+    state["status"] = "READY_FOR_ROUND"
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return release
