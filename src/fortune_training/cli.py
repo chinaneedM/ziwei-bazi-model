@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import write_chat_input
+from .case_bank import case_bank_report, validate_case_bank
 from .learning import public_learning_summary
 from .runtime import (
     apply_learning,
@@ -48,6 +49,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers.add_parser("status", help="show the current training state")
     subparsers.add_parser("report", help="show answer-free question-level learning metrics")
+    subparsers.add_parser("case-bank-verify", help="verify the answer-free 107-case corpus")
+    subparsers.add_parser("case-bank-report", help="show answer-free corpus coverage and quality")
     subparsers.add_parser("chat-input", help="rebuild the answer-isolated Chat prediction input")
 
     start_parser = subparsers.add_parser("start", help="start a new round for the current case")
@@ -93,6 +96,10 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(status(root))
         elif args.command == "report":
             _print_json(public_learning_summary(root))
+        elif args.command == "case-bank-verify":
+            _print_json(validate_case_bank(root))
+        elif args.command == "case-bank-report":
+            _print_json(case_bank_report(root))
         elif args.command == "chat-input":
             _print_json(write_chat_input(root))
         elif args.command == "start":

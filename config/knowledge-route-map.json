@@ -1,0 +1,96 @@
+{
+  "schema": "FORTUNE-KNOWLEDGE-ROUTE-MAP-V1",
+  "authority": {
+    "canonical_sources": "sources/canonical/S00-S19",
+    "canonical_mutability_during_training": "IMMUTABLE",
+    "derived_map_contribution": "ROUTING_ONLY_NO_ASTROLOGICAL_FACT",
+    "model_learning_path": "model-learning"
+  },
+  "layers": [
+    {
+      "layer": "INPUT_AND_SEMANTICS",
+      "sources": ["S00", "S01", "S02"],
+      "purpose": "Locate source text, freeze chart coordinates and define the real-world burden of each option atom."
+    },
+    {
+      "layer": "ZIWEI_STATIC",
+      "sources": ["S04", "S05", "S06", "S07"],
+      "purpose": "Route palace/subject coordinates, star nature, sixty star systems and palace-specific expression."
+    },
+    {
+      "layer": "ZIWEI_DYNAMIC_AND_METHOD",
+      "sources": ["S08", "S09", "S10"],
+      "purpose": "Apply transformations, 144 body-use lookup and natal/decade/year/month activation."
+    },
+    {
+      "layer": "BAZI_STATIC",
+      "sources": ["S11", "S12", "S13", "S14"],
+      "purpose": "Build stems/branches, ten-god roles, seasonal strength, structure, climate and structural changes."
+    },
+    {
+      "layer": "BAZI_DYNAMIC_AND_TOPIC",
+      "sources": ["S15", "S16"],
+      "purpose": "Project luck-cycle timing and topic capability while preserving Bazi-specific evidence limits."
+    },
+    {
+      "layer": "FUSION_AND_SELECTION",
+      "sources": ["S03", "S17", "S18", "S19"],
+      "purpose": "Arbitrate independent tracks, close real-world endpoints, compare every option pair and enforce runtime isolation."
+    }
+  ],
+  "school_interfaces": {
+    "CLASSICAL_QUANSHU_STATIC": {
+      "primary_sources": ["S05", "S07"],
+      "role": "Star nature, palace expression, combinations and classical pattern conditions.",
+      "limit": "A classical phrase is a conditional tendency, not a guaranteed modern event."
+    },
+    "ZHONGZHOU_STAR_SYSTEM": {
+      "primary_sources": ["S05", "S06", "S07", "S08"],
+      "role": "Read the complete star system and transformation-conditioned quality before topic projection.",
+      "limit": "Do not reduce the method to a single main star or count the same physical structure twice."
+    },
+    "FLYING_STAR_LIANG": {
+      "primary_sources": ["S08", "S10"],
+      "role": "Track heavenly-stem transformations, self-transformations and Lu/Ji direction through changing time layers.",
+      "limit": "Movement and salience do not by themselves prove actor, event type or completed outcome."
+    },
+    "HELUO_FANGWAI": {
+      "primary_sources": ["S04", "S09", "S10"],
+      "role": "Use topic taiji, body/use, qi-number position, palace stem and heaven-earth-human layering as coordinate methods.",
+      "limit": "These coordinate systems must not replace person routing, time activation or endpoint closure."
+    },
+    "ONE_HUNDRED_FORTY_FOUR": {
+      "primary_sources": ["S09"],
+      "role": "A 12 body-palace by 12 use-palace lookup, further expanded by taiji point and transformation; comparable to a conditional dictionary.",
+      "limit": "A lookup hit is not a standalone prediction and must return to the actual chart, conditions and time layer."
+    },
+    "BAZI_ZIPING": {
+      "primary_sources": ["S11", "S12", "S13", "S14", "S15", "S16"],
+      "role": "Move from seasonal qi and structure to role allocation, structural change, luck-cycle trigger and topic capability.",
+      "limit": "Useful-god, ten-god, clash, fu-yin or a shensha may not jump directly to an exact person, profession, disease or legal endpoint."
+    }
+  },
+  "topic_routes": {
+    "FAMILY_ORIGIN_OR_PARENTS": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "MARRIAGE_OR_RELATIONSHIP": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "CAREER_EDUCATION": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "WEALTH_PROPERTY_BUSINESS": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "HEALTH_ACCIDENT_DEATH": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "PERSONALITY_APPEARANCE": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S11", "S12", "S13", "S16", "S17", "S18"],
+    "RARE_OR_SENSITIVE": ["S02", "S04", "S08", "S10", "S11", "S14", "S15", "S16", "S17", "S18", "S19"]
+  },
+  "mandatory_reasoning_order": [
+    "freeze_input_and_option_atoms",
+    "build_option_blind_fact_model",
+    "route_subject_topic_and_reference_period",
+    "derive_ziwei_static_structure",
+    "derive_ziwei_dynamic_activation_when_applicable",
+    "derive_bazi_static_structure_independently",
+    "derive_bazi_dynamic_activation_when_applicable",
+    "close_actor_action_object_time_and_endpoint",
+    "deduplicate_same_physical_evidence",
+    "compare_all_option_pairs_and_strongest_rival",
+    "freeze_top1_top2_and_uncertainty",
+    "reveal_only_after_freeze"
+  ]
+}

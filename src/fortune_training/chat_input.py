@@ -13,6 +13,12 @@ CHAT_INPUT_RAW_URL = (
     "main/chat-input/current.json"
 )
 OPENABLE_STATES = {"READY_FOR_ROUND"}
+CASE_VISIBLE_STATES = {
+    "READY_FOR_ROUND",
+    "AWAITING_PREDICTION_FREEZE",
+    "PREDICTION_FROZEN",
+    "LEARNING_REQUIRED",
+}
 
 
 def compose_chat_input(root: Path) -> dict[str, Any]:
@@ -26,7 +32,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     current_case = None
     current_case_sha256 = None
     current_case_state: dict[str, Any] = {}
-    if state["status"] != "GROUP_COMPLETE":
+    if state["status"] in CASE_VISIBLE_STATES:
         current_case_id = group["case_order"][state["current_case_index"]]
         current_case_state = state["cases"][current_case_id]
         case_path = root / group["cases"][current_case_id]
@@ -36,6 +42,18 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     release_id = state["current_model_release"]
     release = load_json(root / "model-learning" / "releases" / f"{release_id}.json")
     active_rules = safe_active_rules(root, release)
+    model_runtime_path = root / "config" / "model-runtime.json"
+    model_runtime = load_json(model_runtime_path) if model_runtime_path.is_file() else None
+    reasoning_core = (
+        load_json(root / model_runtime["reasoning_core"])
+        if model_runtime is not None
+        else None
+    )
+    knowledge_route_map = (
+        load_json(root / model_runtime["knowledge_route_map"])
+        if model_runtime is not None
+        else None
+    )
     prediction_allowed = (
         state["status"] in OPENABLE_STATES
         and state.get("active_round_id") is None
@@ -58,17 +76,23 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "training_unit": "QUESTION_FIRST_BLIND",
             "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
             "same_case_replays_count_toward_validation": False,
+            "dataset_manifest_path": state.get("dataset_manifest_path"),
+            "dataset_runtime_status": state.get("dataset_runtime_status"),
         },
         "component_hashes": {
             "current_case_sha256": current_case_sha256,
             "current_model_release_sha256": object_sha256(release),
             "question_taxonomy_sha256": object_sha256(taxonomy),
             "canonical_source_manifest_sha256": object_sha256(manifest),
+            "reasoning_core_sha256": object_sha256(reasoning_core),
+            "knowledge_route_map_sha256": object_sha256(knowledge_route_map),
         },
         "current_case": current_case,
         "question_taxonomy": taxonomy,
         "current_model": {
             "release_id": release_id,
+            "reasoning_core": reasoning_core,
+            "knowledge_route_map": knowledge_route_map,
             "active_rules": active_rules,
             "rule_application_policy": {
                 "VALIDATED": "May be used normally within its declared scope.",
@@ -115,6 +139,14 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "canonical_sources": (
                 "Use only the project S00-S19 read-only mirrors whose source ids match "
                 "canonical_source_manifest; S02 (8) is forbidden and S02 (9) is active."
+            ),
+            "project_source_precondition": (
+                model_runtime.get("chat_source_access")
+                if model_runtime is not None
+                else {
+                    "mode": "LEGACY_TEST_FIXTURE",
+                    "fail_closed_when_project_sources_unavailable": True,
+                }
             ),
             "forbidden_git_operations": [
                 "repository search",

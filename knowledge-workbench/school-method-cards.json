@@ -1,0 +1,97 @@
+{
+  "schema": "FORTUNE-SCHOOL-METHOD-CARDS-V1",
+  "authority": "DERIVED_CURATED_SUMMARY_NO_INDEPENDENT_ASTROLOGICAL_AUTHORITY",
+  "cards": [
+    {
+      "card_id": "ZW-CLASSICAL-STATIC-001",
+      "title": "传统星情与格局静态底盘",
+      "method_family": "CLASSICAL_QUANSHU_STATIC",
+      "claim_scope": "建立本命星曜、辅煞、组合条件和入宫倾向，不直接证明现代事件已经发生。",
+      "ordered_procedure": ["锁定实际星曜与庙旺日夜等条件", "确认辅煞与组合成立门", "以S06确认物理星系", "以S07投影到题目宫位和现实轴", "保留异文、破格与反证"],
+      "required_inputs": ["冻结紫微盘", "实际星曜与辅煞", "宫位及三方四正", "题目现实轴"],
+      "source_anchors": [{"source_id": "S05", "line_start": 20, "line_end": 52, "anchor_role": "稳定本性、组合、星系和入宫职责边界"}, {"source_id": "S07", "line_start": 248, "line_end": 295, "anchor_role": "入宫父句段与能力上限"}],
+      "limitations": ["古代断语需经过现代语义和现实终点转换", "单星倾向不能广播到全部人生领域"],
+      "forbidden_shortcuts": ["单星定职业或疾病", "格局名命中即视为现实终点"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "ZW-ZHONGZHOU-001",
+      "title": "中州六十星系与四化修正",
+      "method_family": "ZHONGZHOU_STAR_SYSTEM",
+      "claim_scope": "以完整主星组合和三方结构为单位，再用同一版本四化表修正星系性质与时期环境。",
+      "ordered_procedure": ["由S06确定十二基础盘和完整星系", "由S05读取星系稳定性质与辅煞条件", "由S07读取入宫父句段", "冻结唯一四化表版本", "按本命、大限、流年层次修正而不重复计权"],
+      "required_inputs": ["十二基础盘", "完整主星组合", "三方四正", "唯一四化表版本", "题目时间层"],
+      "source_anchors": [{"source_id": "S05", "line_start": 50, "line_end": 52, "anchor_role": "S05/S06/S07职责链"}, {"source_id": "S06", "line_start": 19, "line_end": 19, "anchor_role": "六十星系物理结构职责"}, {"source_id": "S08", "line_start": 191, "line_end": 245, "anchor_role": "中州四化来源与唯一表版本"}, {"source_id": "S08", "line_start": 371, "line_end": 375, "anchor_role": "本命、大限、流年四化层次"}],
+      "limitations": ["不同传承四化异表不得在同盘同层混用", "星系结构和四化动力仍需现实闭合"],
+      "forbidden_shortcuts": ["逐颗星简单相加", "四化数量或方法名称当作多票", "化禄等于成功或化忌等于失败"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "ZW-FLYING-STAR-001",
+      "title": "飞星四化动态关系链",
+      "method_family": "FLYING_STAR_LIANG",
+      "claim_scope": "描述四化、自化、向心离心及禄忌线所形成的动力对象、方向和层间关系。",
+      "ordered_procedure": ["冻结四化表与盘上标注冲突", "建立生年和宫干静态四化基础", "按题目需要调用大限、流年、流月", "区分自化与外来飞化方向", "把动力链交给人物、动作和终点模块闭合"],
+      "required_inputs": ["宫干", "四化表版本", "生年四化", "自化与向心离心标记", "必要岁运层"],
+      "source_anchors": [{"source_id": "S08", "line_start": 18, "line_end": 18, "anchor_role": "四化、自化与禄忌线职责"}, {"source_id": "S08", "line_start": 54, "line_end": 58, "anchor_role": "按需调用与同源去重"}, {"source_id": "S08", "line_start": 170, "line_end": 170, "anchor_role": "原局种子与流年触发边界"}],
+      "limitations": ["动态显著只能证明关系和激活，不自动证明事件类型", "同一底层飞化路径只算一个证据家族"],
+      "forbidden_shortcuts": ["忌入某宫直接断死亡离婚破产", "十二宫和全部岁运无差别展开"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "ZW-HELUO-001",
+      "title": "河洛体用、气数位与天地人",
+      "method_family": "HELUO_FANGWAI",
+      "claim_scope": "以主题太极、体用、气数位和本命—大限—流年层次重建观察坐标与现实承接位置。",
+      "ordered_procedure": ["由S04确定题目主题宫和实体", "建立体宫与用宫", "计算气数位但不把它当吉凶宫", "以本命为结构、大限为媒介、流年为触发层", "返回现实动作链验证承接是否完成"],
+      "required_inputs": ["主题宫", "体宫与用宫", "宫干", "气数位", "本命大限流年"],
+      "source_anchors": [{"source_id": "S04", "line_start": 2263, "line_end": 2279, "anchor_role": "主题太极与气数位定义"}, {"source_id": "S10", "line_start": 5251, "line_end": 5253, "anchor_role": "天地人三盘层级作用来源子句"}],
+      "limitations": ["气数位只表示现实承接，不等于成功、失败或终点", "天地人接口不可泛化为任意三层"],
+      "forbidden_shortcuts": ["气数位见禄即成功", "只看流年而跳过原局和大限"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "ZW-144-001",
+      "title": "一四四诀条件检索",
+      "method_family": "ONE_HUNDRED_FORTY_FOUR",
+      "claim_scope": "在12体宫乘12用宫的坐标中，按体、用、宫干、相对太极点和四化精准查找条件节点。",
+      "ordered_procedure": ["先由题目确定BODY_PALACE", "确定USE_PALACE", "读取USE_GAN", "把原始宫位转换成TAIJI_POINT", "按TRANSFORMATION精准提取节点", "将节点作为候选象义、限制或反证回流现实链"],
+      "required_inputs": ["BODY_PALACE", "USE_PALACE", "USE_GAN", "RAW_PALACE", "TAIJI_POINT", "TRANSFORMATION"],
+      "source_anchors": [{"source_id": "S09", "line_start": 571, "line_end": 572, "anchor_role": "12体宫与12用宫规模"}, {"source_id": "S09", "line_start": 697, "line_end": 720, "anchor_role": "六字段精准调用"}, {"source_id": "S09", "line_start": 732, "line_end": 737, "anchor_role": "调用前置条件"}, {"source_id": "S09", "line_start": 1711, "line_end": 1711, "anchor_role": "压缩断语禁止脱离坐标"}],
+      "limitations": ["它是条件字典和索引，不是答案表", "缺体、用或宫干时必须失败关闭"],
+      "forbidden_shortcuts": ["把144解释为12主题乘12人生角度", "命中一句诀即定精确事件"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "BZ-ZIPING-001",
+      "title": "子平结构竞争与岁运激活",
+      "method_family": "BAZI_ZIPING",
+      "claim_scope": "从节气四柱和月令气势出发，让格局、扶抑、调候、通关、病药等方法竞争，再用岁运判断结构何时被许可或改变。",
+      "ordered_procedure": ["冻结节气四柱、性别与交运边界", "建立干支五行、藏干和十神", "以月令、通根、透干和全局气势判断承载", "并列建立格局、扶抑、调候、通关、病药等挑战者", "用合冲刑害墓库描述结构变化", "投影到大运流年流月", "由S16限制现实专题能力"],
+      "required_inputs": ["节气四柱", "月令与通根", "藏干十神", "大运流年", "题目专题与现实原子"],
+      "source_anchors": [{"source_id": "S11", "line_start": 18, "line_end": 18, "anchor_role": "八字基础事实职责"}, {"source_id": "S12", "line_start": 19, "line_end": 19, "anchor_role": "月令气势职责"}, {"source_id": "S13", "line_start": 19, "line_end": 19, "anchor_role": "结构方法竞争职责"}, {"source_id": "S14", "line_start": 19, "line_end": 19, "anchor_role": "合冲刑害结构变化边界"}, {"source_id": "S15", "line_start": 162, "line_end": 162, "anchor_role": "岁运时间事实职责"}, {"source_id": "S16", "line_start": 1428, "line_end": 1439, "anchor_role": "结构竞争到专题能力接口"}],
+      "limitations": ["多个方法可以并存，不能强迫唯一用神", "八字对精确职业、诊断、法律身份或金额可能没有直接能力"],
+      "forbidden_shortcuts": ["伏吟或神煞单点定事", "看见一个冲就指定离婚事故死亡", "按方法或古籍数量投票"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    },
+    {
+      "card_id": "FUSION-DUAL-TRACK-001",
+      "title": "紫微八字独立轨与融合",
+      "method_family": "DUAL_TRACK_FUSION",
+      "claim_scope": "两轨先独立密封，再按共同现实原子比较是否真正互补、直接反证或存在能力不对称。",
+      "ordered_procedure": ["紫微轨独立形成本地密封", "八字轨独立形成本地密封", "只比较公共现实原子而非答案字母", "去除同源重复", "只为独立补齐最弱原子或关闭强竞争项记融合增益", "冲突时保留分歧维度与能力边界"],
+      "required_inputs": ["紫微不可变密封", "八字不可变密封或合法弃权", "共同现实原子", "来源父链", "强竞争项"],
+      "source_anchors": [{"source_id": "S03", "line_start": 105, "line_end": 119, "anchor_role": "公共原子、零增益同选与分歧对象"}, {"source_id": "S03", "line_start": 153, "line_end": 191, "anchor_role": "密封后融合边界"}, {"source_id": "S03", "line_start": 735, "line_end": 735, "anchor_role": "可吸收但必须保留来源和失败边界"}],
+      "limitations": ["两轨同选不自动增加可信度", "一轨无能力时允许局部弃权"],
+      "forbidden_shortcuts": ["按流派或证据数量投票", "八字复制紫微理由", "以整体更像人工选边"],
+      "status": "CURATED_UNVALIDATED",
+      "validation": {"distinct_case_count": 0, "support_count": 0, "counterexample_count": 0, "case_ids": []}
+    }
+  ]
+}

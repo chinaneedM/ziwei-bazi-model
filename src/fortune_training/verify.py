@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import CHAT_INPUT_RELATIVE_PATH, compose_chat_input
+from .case_bank import validate_case_bank
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -317,6 +318,16 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError("baseline model release must not contain learning patches")
 
     state = load_json(root / "training" / "state.json")
+    dataset_manifest_path = state.get("dataset_manifest_path")
+    if dataset_manifest_path is None:
+        case_bank = {
+            "status": "NOT_BOUND",
+            "reason": "training state does not declare a dataset manifest",
+        }
+    else:
+        if dataset_manifest_path != "case-bank/manifest.json":
+            raise TrainingError("training state points to an unsupported dataset manifest")
+        case_bank = validate_case_bank(root)
     if state.get("group_id") != group.get("group_id"):
         raise TrainingError("training state group mismatch")
     if state.get("round_limit") is not None or policy.get("round_limit") is not None:
@@ -344,9 +355,30 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError("chat-input/current.json is stale or contains non-current material")
 
     encrypted_dir = root / "answer-vault" / "encrypted"
-    answer_count = sum((encrypted_dir / f"{case_id}.json.fernet").is_file() for case_id in case_order)
-    if require_answers and answer_count != len(case_order):
-        raise TrainingError(f"formal training requires {len(case_order)} encrypted answers; found {answer_count}")
+    legacy_answer_count = sum(
+        (encrypted_dir / f"{case_id}.json.fernet").is_file()
+        for case_id in case_order
+    )
+    if dataset_manifest_path is None:
+        answer_count = legacy_answer_count
+        answer_required = len(case_order)
+    else:
+        dataset_manifest = load_json(root / dataset_manifest_path)
+        dataset_case_ids = set().union(
+            *(
+                set(case_ids)
+                for case_ids in dataset_manifest.get("partitions", {}).values()
+            )
+        )
+        answer_count = sum(
+            (encrypted_dir / f"{case_id}.json.fernet").is_file()
+            for case_id in dataset_case_ids
+        )
+        answer_required = len(dataset_case_ids)
+    if require_answers and answer_count != answer_required:
+        raise TrainingError(
+            f"formal training requires {answer_required} encrypted answers; found {answer_count}"
+        )
 
     return {
         "status": "PASS",
@@ -354,15 +386,22 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "runtime_source": "GIT_REPOSITORY_ONLY",
         "canonical_sources_immutable": True,
         "model_learning_separate": True,
-        "cases": len(case_order),
-        "questions": sum(question_counts.values()),
+        "cases": case_bank.get("cases", len(case_order)),
+        "questions": case_bank.get("questions", sum(question_counts.values())),
+        "case_bank": case_bank,
+        "legacy_controller_group": {
+            "cases": len(case_order),
+            "questions": sum(question_counts.values()),
+            "answer_envelopes": legacy_answer_count,
+            "role": "MIGRATION_HISTORY_UNTIL_CASE_BANK_ACTIVATION",
+        },
         "answer_envelopes": answer_count,
-        "answer_envelopes_required": len(case_order),
-        "preloaded_encrypted_answers_ready": answer_count == len(case_order),
+        "answer_envelopes_required": answer_required,
+        "preloaded_encrypted_answers_ready": answer_count == answer_required,
         "external_post_freeze_answer_supported": True,
         "controller_ready": True,
         "chat_input_ready": True,
-        "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V1",
+        "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
         "learning_ledger_ready": True,
         "training_unit": "QUESTION_FIRST_BLIND",
         "same_case_replays_count_toward_validation": False,

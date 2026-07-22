@@ -1,0 +1,23 @@
+{
+  "schema": "FORTUNE-MODEL-RUNTIME-V1",
+  "reasoning_core": "model-learning/methods/REASONING-CORE-V3.json",
+  "knowledge_route_map": "config/knowledge-route-map.json",
+  "question_taxonomy": "config/question-taxonomy.json",
+  "rule_release_source": "training/state.json#current_model_release",
+  "activation_order": [
+    "frozen_canonical_sources",
+    "reasoning_core",
+    "validated_and_provisional_rules_with_matching_scope"
+  ],
+  "chat_source_access": {
+    "mode": "PROJECT_READ_ONLY_RETRIEVAL",
+    "required_source_ids": [
+      "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
+      "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19"
+    ],
+    "source_text_embedded_in_chat_input": false,
+    "fail_closed_when_project_sources_unavailable": true
+  },
+  "case_specific_memory_allowed": false,
+  "answer_mapping_allowed": false
+}

@@ -31,7 +31,7 @@ def passed(correct_count: int, question_count: int) -> bool:
 def load_and_validate_policy(path: Path) -> dict[str, Any]:
     policy = load_json(path)
     expected = {
-        "schema": "QUESTION-LEVEL-TRAINING-POLICY-V2",
+        "schema": "QUESTION-LEVEL-TRAINING-POLICY-V3",
         "training_unit": "QUESTION_FIRST_BLIND",
         "round_limit": None,
         "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
@@ -42,7 +42,7 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
         "failed_round_updates_model_layer_only": True,
         "canonical_sources_mutable_during_training": False,
         "answer_plaintext_allowed_in_repository": False,
-        "performance_reporting": "BY_TOPIC_AND_REASONING_SKILL",
+        "performance_reporting": "BY_TOPIC_REASONING_SKILL_AND_DATASET_SPLIT",
     }
     for key, value in expected.items():
         if policy.get(key) != value:
@@ -63,4 +63,27 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
     for key, value in validation_expected.items():
         if validation.get(key) != value:
             raise TrainingError(f"rule-validation policy mismatch for {key}: expected {value!r}")
+    partition = policy.get("dataset_partition_policy", {})
+    partition_expected = {
+        "manifest": "case-bank/manifest.json",
+        "development": "case-bank/partitions/development.json",
+        "stage_validation": "case-bank/partitions/stage-validation.json",
+        "final_holdout": "case-bank/partitions/final-holdout.json",
+        "same_identity_across_partitions_allowed": False,
+        "blocked_input_can_enter_partition": False,
+        "validation_can_create_rule": False,
+        "final_holdout_can_create_rule": False,
+        "historical_revealed_cases_count_as_future_validation": False,
+        "source_exposed_cases_count_as_first_blind": False,
+    }
+    for key, value in partition_expected.items():
+        if partition.get(key) != value:
+            raise TrainingError(f"dataset-partition policy mismatch for {key}: expected {value!r}")
+    composite = policy.get("composite_option_policy", {})
+    if composite != {
+        "atomize_before_prediction": True,
+        "record_atom_level_failure_after_reveal": True,
+        "whole_option_score_remains_top1_only": True,
+    }:
+        raise TrainingError("composite-option policy mismatch")
     return policy

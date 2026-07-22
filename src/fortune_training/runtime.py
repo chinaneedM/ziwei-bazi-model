@@ -34,6 +34,12 @@ from .verify import verify_repository
 
 
 OPENABLE_STATES = {"READY_FOR_ROUND"}
+CASE_VISIBLE_STATES = {
+    "READY_FOR_ROUND",
+    "AWAITING_PREDICTION_FREEZE",
+    "PREDICTION_FROZEN",
+    "LEARNING_REQUIRED",
+}
 PATCH_LEAK_PATTERNS = (
     re.compile(r"DEV-EXAMPLE-\d+", re.IGNORECASE),
     re.compile(r"\bQ\d+\b", re.IGNORECASE),
@@ -101,7 +107,7 @@ def status(root: Path) -> dict[str, Any]:
     state = _load_state(root)
     group = _load_group(root, state)
     current_case = None
-    if state["status"] != "GROUP_COMPLETE":
+    if state["status"] in CASE_VISIBLE_STATES:
         current_case = _current_case_id(state, group)
     current_case_state = state["cases"].get(current_case, {}) if current_case else {}
     ledger = load_learning_ledger(root)
@@ -119,6 +125,8 @@ def status(root: Path) -> dict[str, Any]:
         "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
         "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
         "same_case_replays_count_toward_validation": False,
+        "dataset_manifest_path": state.get("dataset_manifest_path"),
+        "dataset_runtime_status": state.get("dataset_runtime_status"),
     }
 
 
@@ -330,10 +338,16 @@ def encrypt_answer(root: Path, case_id: str, plaintext_path: Path, key: str | by
     root = root.resolve()
     require_safe_id(case_id, "case_id")
     require_outside(root, plaintext_path, "plaintext answer input")
-    group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
-    if case_id not in group["cases"]:
-        raise TrainingError(f"unknown case: {case_id}")
-    case = load_json(root / group["cases"][case_id])
+    case_bank_path = root / "case-bank" / "cases" / f"{case_id}.json"
+    if case_bank_path.is_file():
+        case = load_json(case_bank_path)
+        if case.get("quality", {}).get("status") == "BLOCKED_INPUT":
+            raise TrainingError(f"blocked case cannot receive a formal answer: {case_id}")
+    else:
+        group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
+        if case_id not in group["cases"]:
+            raise TrainingError(f"unknown case: {case_id}")
+        case = load_json(root / group["cases"][case_id])
     payload = load_json(plaintext_path)
     _validate_answers(case, payload)
     token = _fernet_from_key(key).encrypt(canonical_bytes(payload))
