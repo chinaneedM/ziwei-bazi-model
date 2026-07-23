@@ -12,6 +12,9 @@ from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_inp
 from fortune_training.cli import build_parser
 from fortune_training.formal import (
     FORMAL_ANSWER_DIR,
+    FORMAL_GROUP_PATH,
+    PRE_FORMAL_LEDGER_ARCHIVE,
+    PRE_FORMAL_STATE_ARCHIVE,
     import_answer_batch,
 )
 from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
@@ -716,9 +719,19 @@ class FormalActivationTests(unittest.TestCase):
             transport_dir = root / "answer-vault/import-transport"
             if transport_dir.exists():
                 shutil.rmtree(transport_dir)
-            archived_state = root / "training/history/PRE-FORMAL-STATE.json"
+            archived_state = root / PRE_FORMAL_STATE_ARCHIVE
             if archived_state.is_file():
+                archived_ledger = root / PRE_FORMAL_LEDGER_ARCHIVE
+                if not archived_ledger.is_file():
+                    self.fail("formal test fixture is missing the pre-formal ledger archive")
                 shutil.copyfile(archived_state, root / "training/state.json")
+                shutil.copyfile(
+                    archived_ledger,
+                    root / LEDGER_RELATIVE_PATH,
+                )
+                (root / FORMAL_GROUP_PATH).unlink(missing_ok=True)
+                archived_state.unlink()
+                archived_ledger.unlink()
                 write_chat_input(root)
 
             manifest = json.loads((root / "case-bank/manifest.json").read_text())
