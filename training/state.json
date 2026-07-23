@@ -1,5 +1,5 @@
 {
-  "active_replay_case_id": null,
+  "active_replay_case_id": "CASE-004",
   "active_round_id": null,
   "cases": {
     "CASE-002": {
@@ -36,7 +36,7 @@
       "round_ids": [
         "FORMAL-ROUND-003"
       ],
-      "status": "FIRST_BLIND_CLOSED"
+      "status": "REPLAY_ACTIVE"
     },
     "CASE-005": {
       "first_blind_passed": true,
@@ -503,12 +503,14 @@
       "status": "PENDING"
     },
     "CASE-103": {
-      "first_blind_passed": null,
-      "first_blind_round_id": null,
-      "remediation_status": "NOT_EVALUATED",
+      "first_blind_passed": false,
+      "first_blind_round_id": "FORMAL-ROUND-010",
+      "remediation_status": "QUEUED",
       "replay_round_ids": [],
-      "round_ids": [],
-      "status": "ACTIVE"
+      "round_ids": [
+        "FORMAL-ROUND-010"
+      ],
+      "status": "FIRST_BLIND_CLOSED"
     },
     "CASE-104": {
       "first_blind_passed": null,
@@ -527,11 +529,11 @@
       "status": "PENDING"
     }
   },
-  "current_case_index": 7,
-  "current_model_release": "MODEL-LEARNING-009",
+  "current_case_index": 8,
+  "current_model_release": "MODEL-LEARNING-010",
   "dataset_manifest_path": "case-bank/manifest.json",
   "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
-  "first_blind_cases_closed": 7,
+  "first_blind_cases_closed": 8,
   "formal_activation": {
     "activated_at": "2026-07-23T06:04:34Z",
     "answer_vault_manifest": "answer-vault/formal/manifest.json",
@@ -549,7 +551,7 @@
   "mode": "FORMAL_CASE_BANK",
   "policy_path": "config/training-policy.json",
   "required_consecutive_independent_passes": 3,
-  "round_count": 9,
+  "round_count": 10,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
@@ -574,6 +576,10 @@
     {
       "case_id": "CASE-003",
       "eligible_after_first_blind_count": 12
+    },
+    {
+      "case_id": "CASE-103",
+      "eligible_after_first_blind_count": 13
     }
   ],
   "status": "READY_FOR_ROUND"

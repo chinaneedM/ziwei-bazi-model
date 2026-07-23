@@ -1,0 +1,417 @@
+{
+  "case_id": "CASE-103",
+  "frozen_at": "2026-07-23T12:29:36Z",
+  "prediction_sha256": "db0fc5e0f01d94e23f1d82e90a7f0cc2c12c3c795b88c0757b7e640eacd90bd5",
+  "predictions": [
+    {
+      "confidence": 64,
+      "evidence": [
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S17",
+        "S11",
+        "S12",
+        "S13",
+        "S16",
+        "S02",
+        "S18"
+      ],
+      "question_id": "Q1",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+          "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE"
+        ],
+        "endpoint_tags": [
+          "EDUCATION_LEVEL"
+        ],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAREER_PROFILE_CLOSURE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S11",
+          "S12",
+          "S13",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "LIFETIME"
+        ],
+        "topic_tags": [
+          "CAREER_EDUCATION"
+        ]
+      },
+      "reasoning": "盲态事实模型把本题限定为正式学历层级，学习能力、求学过程与文凭终点分开。紫微轨：官禄宫天机、巨门庙旺，巨门带生年禄与自化禄，天机向心科；文曲生年科、魁钺等提高理解、表达和考试竞争能力，整体明显高于仅小学或小学以下。与此同时，辛年文昌生年忌落父母轴，提示求学路径较易有阻滞、转折或非直线完成，故不把科名能力直接抬升为硕士以上。八字轨：己土生酉月，辛食神在年月透出且多根，丁偏印与甲正官并见，形成较强学习、表达和制度适应候选；但金气偏重、印官承接不算完整，支持中高学历而不足以独立证明研究生文凭。成对比较中，C胜B的关键是两轨均支持明显超过基础教育的学习与制度能力；C胜E则因硕士以上需要更强、连续且正式的高阶学位终点，现有证据只到大学层级相对优先。",
+      "strongest_counterevidence": "文昌生年忌和食神偏重可表现为学业中断、路径反复或重实践轻学历，因此中学仍是最强竞争项；没有学校、毕业或学位现实节点，大学结论属于强制相对选择而非正式学历证明。",
+      "top1": "C",
+      "top2": "B"
+    },
+    {
+      "confidence": 55,
+      "evidence": [
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S10",
+        "S11",
+        "S14",
+        "S15",
+        "S16",
+        "S02",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q2",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+          "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE",
+          "RULE-RELATIONSHIP-CAPACITY-CURRENT-STATUS-SEPARATION",
+          "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN"
+        ],
+        "endpoint_tags": [
+          "RELATIONSHIP_STATUS",
+          "DIVORCE",
+          "SEXUAL_ORIENTATION"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "SENSITIVE_ATTRIBUTE_CAUTION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S10",
+          "S11",
+          "S12",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF",
+          "SPOUSE_PARTNER"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "SEXUALITY_INTIMACY",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "盲态模型把五个选项拆成：一次婚姻后离婚、截至2011仍未婚、2011附近刚完成婚姻、敏感身份、两次婚姻。紫微轨：本命夫妻宫空宫借对宫天机巨门，宫内禄存与地劫并存；天机巨门提供关系建立与沟通能力，也带争执、反复和分离倾向。2003—2012正处夫妻大限，2011辛卯又对冲本命夫妻宫酉；大限巨门忌与流年巨门禄、文昌忌并存，显示关系议题被强烈激活但吉凶并存，更像已有关系发生重大转换，而不是单纯没有关系。八字轨：2011辛卯进入甲午新运，卯同时冲原局双酉，属于明显结构切换；但男命配偶财星未在流年明透，对刚结婚的正式完成支持弱，反而更支持关系破裂或旧状态终止。成对比较中，A胜B是因为夫妻大限末段加双轨强冲动更像已有关系后的终止；A胜C是冲突与解除信号强于新婚完成；E需要两次婚姻的完整序列，负担过高；D属于敏感属性，盘面无可接受的直接依据。",
+      "strongest_counterevidence": "夫妻大限、禄存及流年禄科也可解释为关系建立或婚姻机会，且缺少登记与离婚法律动作；若这些吉化实际承接为正式婚姻，C会反转A。B也因正式婚姻终点不足而保留为次选。",
+      "top1": "A",
+      "top2": "B"
+    },
+    {
+      "confidence": 86,
+      "evidence": [
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S11",
+        "S12",
+        "S13",
+        "S16",
+        "S02",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q3",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+          "RULE-PERSONALITY-ROLE-AXIS-SEPARATION"
+        ],
+        "endpoint_tags": [
+          "PERSONALITY",
+          "OTHER"
+        ],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S11",
+          "S12",
+          "S13",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "NATAL",
+          "LIFETIME"
+        ],
+        "topic_tags": [
+          "PERSONALITY_APPEARANCE"
+        ]
+      },
+      "reasoning": "本题按语言表达、社交退缩、出风头和攻击性语言分轴。紫微轨：官禄宫天机巨门庙旺，巨门生年禄、自化禄，天机向心科；文曲生年科进一步提高组织语言、反应与说服能力。巨门向心忌和文昌忌增加口舌、争议与说话伤人的风险，但它们是在强表达底盘上的负面修饰，不足以把核心类型从“口才强”改成“经常出口伤人”。命宫天同庙也不支持自闭或强烈张扬。八字轨：辛食神在年月透出并多见，食神是持续输出、表达与表现能力的独立结构；丁偏印会带思虑与内在加工，但不构成口吃或自闭终点。成对比较中，B对表达流畅与大量语言输出的覆盖最完整；E是最强反证，因为巨门忌与昌忌确有口舌攻击风险，但缺“经常伤人”的频率和持续行为终点。",
+      "strongest_counterevidence": "巨门向心忌、文昌生年忌可使表达尖锐、争辩或招口舌，故E是强竞争项；若现实行为显示攻击性语言长期反复，E可反转。但现有本命核心仍是能说、善说，而非只会伤人。",
+      "top1": "B",
+      "top2": "E"
+    },
+    {
+      "confidence": 78,
+      "evidence": [
+        "S05",
+        "S07",
+        "S08",
+        "S10",
+        "S17",
+        "S11",
+        "S12",
+        "S14",
+        "S15",
+        "S16",
+        "S02",
+        "S18"
+      ],
+      "question_id": "Q4",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+          "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+          "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION"
+        ],
+        "endpoint_tags": [
+          "HEALTH_CONDITION",
+          "ACCIDENT_INJURY"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S10",
+          "S11",
+          "S12",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "CHILDHOOD",
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "HEALTH",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "盲态模型先区分交通外伤与四类医学系统，不能用同一个“凶”信号广播。紫微轨：本命疾厄宫七杀旺，来源对七杀疾厄的直接能力集中在幼年多灾病、呼吸系统、急性炎症，并明确包含肺炎、气管炎等；七杀虽亦带“血星”性质，但现代解释首先落在肺与呼吸系统，血象更多需要外伤、瘀血或其他组合补齐。1984处第一大限幼年阶段，流年四化含破军权、太阳忌，提供急性变化与炎症压力，但没有车辆、道路、碰撞的专属链。八字轨：原局双酉辛金旺、秋金偏强，1984甲子加入寒湿水气，肺金与呼吸系统的脆弱方向比肝、肾或独立血液病更一致；但八字只能作系统方向复核，不能单独诊断。成对比较中，C得到最直接的器官系统与病名父链；D保留为次选，因为七杀血性和急性炎症可涉及血象，但缺血液疾病专属终点。",
+      "strongest_counterevidence": "七杀也有血星、外伤与急症含义，命盘又见天伤，因此D或A并非完全排除；但D缺具体血液病理，A缺车辆与碰撞机制，均弱于肺炎的直接来源闭合。",
+      "top1": "C",
+      "top2": "D"
+    },
+    {
+      "confidence": 62,
+      "evidence": [
+        "S01",
+        "S10",
+        "S15",
+        "S04",
+        "S05",
+        "S07",
+        "S08",
+        "S17",
+        "S11",
+        "S12",
+        "S14",
+        "S16",
+        "S02",
+        "S18"
+      ],
+      "question_id": "Q5",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+          "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+          "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION"
+        ],
+        "endpoint_tags": [
+          "RELATIONSHIP_STATUS",
+          "DIVORCE",
+          "WINDFALL",
+          "ACCIDENT_INJURY",
+          "MAJOR_EVENT"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "RARE_TOPIC_SAMPLE_GUARD",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S08",
+          "S10",
+          "S11",
+          "S12",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF",
+          "MOTHER",
+          "PARENTS",
+          "SPOUSE_PARTNER"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "PARENTS",
+          "MARRIAGE_RELATIONSHIP",
+          "WEALTH_FINANCE",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "GAMBLING_WINDFALL",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "题干给出精确日期2003年1月1日，必须先处理岁运边界：该日早于立春与农历换年，八字仍以壬午年事实为主；紫微“2003年夫妻大限”不能无条件提前覆盖1月1日，因此将壬午年、第二大限作为主窗口，癸未与第三大限仅列相邻过渡解释。紫微轨：壬午流年命宫落本命疾厄宫甲午，直接激活七杀、天伤的本人健康与突发风险；第二大限落兄弟宫破军、擎羊，结构具有冲击、损伤与突发变化。壬年武曲忌又落父母轴，使亲属风险成为竞争解释，但不能从“父母”直接指定母亲。八字轨：仍在乙未大运，未冲日支丑；壬午年午与戌形成火势并使原局结构急剧变化，支持身体、行动或意外压力，但不能单独证明车辆。综合后，A的“受伤”主干在本人、突发、损伤和时间上最闭合；“车祸”这一附属机制仍缺车辆与道路节点，故置信度有限。C为次选，因父母轴确被武曲忌触发，但母亲身份和灾害终点未排他闭合。",
+      "strongest_counterevidence": "“车祸”需要车辆、道路、碰撞和受伤结果，现有证据主要只能闭合突发外伤；同时父母轴武曲忌使C具有真实竞争力。若岁运系统把1月1日机械归入癸未与夫妻大限，B也会增强，但该做法违反精确日期边界。",
+      "top1": "A",
+      "top2": "C"
+    }
+  ],
+  "round_id": "FORMAL-ROUND-010",
+  "schema": "FROZEN-PREDICTION-V1"
+}
