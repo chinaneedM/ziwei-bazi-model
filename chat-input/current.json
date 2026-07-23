@@ -3699,5 +3699,75 @@
     "spaced_replay_queue_size": 4,
     "status": "READY_FOR_ROUND",
     "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY"
+  },
+  "chat_work_handoff_contract": {
+    "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
+    "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
+    "issue_title": "[PREDICTION HANDOFF] FORMAL-ROUND-008 CASE-035",
+    "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+    "binding": {
+      "case_id": "CASE-035",
+      "round_id": "FORMAL-ROUND-008",
+      "evaluation_kind": "FIRST_BLIND",
+      "model_release": "MODEL-LEARNING-007",
+      "current_case_sha256": "282d251067909f049224caa93ebdcb141c219d158d2543431e2f9e8a73d39ee4",
+      "current_model_release_sha256": "dbb7746f43168f8c9267e5f1783f5606b77fdcd1e4486467df8c18fb578dd0e2",
+      "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39"
+    },
+    "handoff_required_fields": [
+      "schema",
+      "binding",
+      "predictions"
+    ],
+    "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
+    "work_acceptance_rule": "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions from conversation memory. Validate every binding value against this current bundle and stop before scoring if the receipt is missing, duplicated, stale, or mismatched.",
+    "training_issue_input_contract": {
+      "schema": "TRAINING-ISSUE-PACKET-V2",
+      "allowed_top_level_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result",
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "pass_required_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result"
+      ],
+      "pass_forbidden_fields": [
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "fail_required_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result",
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "result_only_fields_forbidden_in_input": [
+        "evaluation_kind",
+        "accuracy",
+        "correct_count",
+        "top2_coverage",
+        "learning_release",
+        "next_case_id",
+        "next_status"
+      ]
+    },
+    "handoff_forbidden_content": [
+      "ANSWER_BEARING_FIELDS",
+      "SCORING_OR_REVIEW_FIELDS",
+      "EXPECTED_OUTCOME_FIELDS",
+      "LEARNING_PATCH_FIELDS",
+      "SECRETS_OR_KEYS"
+    ]
   }
 }
