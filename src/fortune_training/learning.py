@@ -282,6 +282,8 @@ def record_first_blind_results(
     totals["cases"] += 1
     for prediction in predictions:
         review = review_map[prediction["question_id"]]
+        if review.get("is_scored", True) is False:
+            continue
         is_correct = review["is_correct"]
         top2_hit = prediction.get("top2") == review["correct_option"]
         totals["questions"] += 1

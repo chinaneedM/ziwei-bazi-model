@@ -463,8 +463,16 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
             expected_hashes = formal_manifest.get("envelope_hashes")
             if (
                 formal_manifest.get("schema") != "FORMAL-ANSWER-VAULT-MANIFEST-V1"
+                or formal_manifest.get("answer_batch_schema") != "FORTUNE-ANSWER-BATCH-V2"
                 or formal_manifest.get("corpus_id") != dataset_manifest.get("corpus_id")
                 or formal_manifest.get("case_count") != len(dataset_case_ids)
+                or formal_manifest.get("question_count")
+                != dataset_manifest.get("question_count")
+                or not isinstance(formal_manifest.get("scoreable_question_count"), int)
+                or not isinstance(formal_manifest.get("unscored_question_count"), int)
+                or formal_manifest["scoreable_question_count"]
+                + formal_manifest["unscored_question_count"]
+                != formal_manifest["question_count"]
                 or not isinstance(expected_hashes, dict)
                 or set(expected_hashes) != dataset_case_ids
                 or formal_manifest.get("plaintext_stored_in_repository") is not False

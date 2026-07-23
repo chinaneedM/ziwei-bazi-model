@@ -400,25 +400,47 @@ def generate_key() -> str:
     return Fernet.generate_key().decode("ascii")
 
 
-def _validate_answers(case: dict[str, Any], payload: Any) -> dict[str, str]:
+def _validate_answers(
+    case: dict[str, Any],
+    payload: Any,
+) -> dict[str, dict[str, str | None]]:
     if not isinstance(payload, dict) or payload.get("case_id") != case.get("case_id"):
         raise TrainingError("answer case_id mismatch")
     rows = payload.get("answers")
     if not isinstance(rows, list):
         raise TrainingError("answers must be an array")
     questions = {question["question_id"]: question for question in _questions(case)}
-    answer_map: dict[str, str] = {}
+    answer_map: dict[str, dict[str, str | None]] = {}
     for row in rows:
         if not isinstance(row, dict):
             raise TrainingError("every answer row must be an object")
         question_id = row.get("question_id")
-        correct = row.get("correct_option")
         if question_id not in questions or question_id in answer_map:
             raise TrainingError(f"invalid or duplicate answer question: {question_id!r}")
-        valid_options = {option["option_id"] for option in questions[question_id]["options"]}
-        if correct not in valid_options:
-            raise TrainingError(f"invalid correct option for {question_id}")
-        answer_map[question_id] = correct
+        if set(row) == {"question_id", "correct_option"}:
+            correct = row.get("correct_option")
+            valid_options = {
+                option["option_id"] for option in questions[question_id]["options"]
+            }
+            if correct not in valid_options:
+                raise TrainingError(f"invalid correct option for {question_id}")
+            answer_map[question_id] = {
+                "scoring_status": "SCORED",
+                "correct_option": correct,
+            }
+        elif set(row) == {"question_id", "scoring_status", "reason_code"}:
+            if (
+                row.get("scoring_status") != "UNSCORED"
+                or row.get("reason_code") != "NO_VALID_OPTION"
+            ):
+                raise TrainingError(f"invalid unscored declaration for {question_id}")
+            answer_map[question_id] = {
+                "scoring_status": "UNSCORED",
+                "correct_option": None,
+                "reason_code": "NO_VALID_OPTION",
+            }
+        else:
+            raise TrainingError(f"answer row has unexpected fields for {question_id}")
     if set(answer_map) != set(questions):
         raise TrainingError("answer payload must cover every question exactly once")
     return answer_map
@@ -451,7 +473,11 @@ def encrypt_answer(root: Path, case_id: str, plaintext_path: Path, key: str | by
     return destination
 
 
-def _decrypt_answers(root: Path, case: dict[str, Any], key: str | bytes | None) -> dict[str, str]:
+def _decrypt_answers(
+    root: Path,
+    case: dict[str, Any],
+    key: str | bytes | None,
+) -> dict[str, dict[str, str | None]]:
     case_id = case["case_id"]
     if (root / "case-bank" / "cases" / f"{case_id}.json").is_file():
         envelope = root / "answer-vault" / "formal" / f"{case_id}.json.fernet"
@@ -506,39 +532,62 @@ def score_round(
     prediction_map = {row["question_id"]: row["top1"] for row in frozen["predictions"]}
     review_rows = []
     correct_count = 0
+    scoreable_question_count = 0
     for question in _questions(case):
         question_id = question["question_id"]
         predicted = prediction_map[question_id]
-        correct = answers[question_id]
+        answer = answers[question_id]
+        if answer["scoring_status"] == "UNSCORED":
+            review_rows.append(
+                {
+                    "question_id": question_id,
+                    "predicted_option": predicted,
+                    "is_scored": False,
+                    "is_correct": None,
+                    "unscored_reason_code": answer["reason_code"],
+                }
+            )
+            continue
+        correct = answer["correct_option"]
         is_correct = predicted == correct
+        scoreable_question_count += 1
         correct_count += int(is_correct)
         review_rows.append(
             {
                 "question_id": question_id,
                 "predicted_option": predicted,
                 "correct_option": correct,
+                "is_scored": True,
                 "is_correct": is_correct,
             }
         )
-    question_count = len(review_rows)
-    did_pass = passed(correct_count, question_count)
+    if scoreable_question_count < 1:
+        raise TrainingError("a round must contain at least one scoreable question")
+    total_question_count = len(review_rows)
+    did_pass = passed(correct_count, scoreable_question_count)
     case_state = state["cases"][round_record["case_id"]]
     top2_covered = sum(
         1
         for prediction, review in zip(frozen["predictions"], review_rows)
-        if review["is_correct"] or prediction.get("top2") == review["correct_option"]
+        if review["is_scored"]
+        and (
+            review["is_correct"]
+            or prediction.get("top2") == review["correct_option"]
+        )
     )
     aggregate = {
-        "schema": "GENERALIZATION-ROUND-SCORE-R2",
+        "schema": "GENERALIZATION-ROUND-SCORE-R3",
         "round_id": round_id,
         "case_id": round_record["case_id"],
         "evaluation_kind": round_record["evaluation_kind"],
         "correct_count": correct_count,
         "top2_covered_count": top2_covered,
-        "question_count": question_count,
-        "required_correct": required_correct(question_count),
-        "accuracy": correct_count / question_count,
-        "top2_coverage": top2_covered / question_count,
+        "question_count": total_question_count,
+        "scoreable_question_count": scoreable_question_count,
+        "unscored_question_count": total_question_count - scoreable_question_count,
+        "required_correct": required_correct(scoreable_question_count),
+        "accuracy": correct_count / scoreable_question_count,
+        "top2_coverage": top2_covered / scoreable_question_count,
         "passed": did_pass,
         "advances_after_learning_if_failed": round_record["evaluation_kind"] == "FIRST_BLIND",
         "independent_pass_streak_before": state.get("independent_pass_streak", 0),
@@ -570,7 +619,7 @@ def score_round(
         >= REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES
     )
     detailed_review = {
-        "schema": "CASE-ROUND-DETAILED-REVIEW-V1",
+        "schema": "CASE-ROUND-DETAILED-REVIEW-V2",
         "round_id": round_id,
         "case_id": round_record["case_id"],
         "score": aggregate,

@@ -47,5 +47,12 @@
     "atomize_before_prediction": true,
     "record_atom_level_failure_after_reveal": true,
     "whole_option_score_remains_top1_only": true
+  },
+  "unscored_question_policy": {
+    "allowed_only_when_no_valid_option": true,
+    "prediction_still_required": true,
+    "excluded_from_pass_threshold": true,
+    "excluded_from_learning_metrics": true,
+    "aggregate_counts_required": true
   }
 }

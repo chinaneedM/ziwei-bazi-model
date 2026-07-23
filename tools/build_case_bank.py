@@ -31,8 +31,8 @@ QUESTION_HEADING = re.compile(
     r"([0-9一二三四五六七八九十]+)?\s*[:：]?\s*"
 )
 OPTION_LABEL = re.compile(
-    r"(?m)(?:^[ \t]*([A-Da-dΑ])\s*[.、:：)]?\s*(?=\S)"
-    r"|(?<=[ \t])([A-Da-dΑ])\s*[.、:：)]?\s*(?=[\u3400-\u9fff\d$]))"
+    r"(?m)(?:^[ \t]*([A-Ea-eΑ])\s*[.、:：)]?\s*(?=\S)"
+    r"|(?<=[ \t])([A-Ea-eΑ])\s*[.、:：)]?\s*(?=[\u3400-\u9fff\d$]))"
 )
 ANSWER_MARKER = re.compile(
     r"正确答案|参考答案|答案\s*[:：]|评分|得分|揭盲|复盘|"
@@ -173,7 +173,7 @@ def parse_questions(text: str) -> tuple[list[dict[str, Any]], list[dict[str, Any
         question_id = f"Q{index + 1}"
         source_number = heading.group(1)
         source_numbers.append(source_number)
-        if labels != list("ABCD"):
+        if labels not in (list("ABCD"), list("ABCDE")):
             issues.append({
                 "code": "QUESTION_OPTION_SET_INVALID",
                 "question_id": question_id,
