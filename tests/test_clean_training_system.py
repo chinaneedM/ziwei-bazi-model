@@ -618,10 +618,14 @@ class RepositoryIntegrityTests(unittest.TestCase):
         ledger = load_learning_ledger(PROJECT_ROOT)
         retired_rule = "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON"
         self.assertEqual(ledger["rule_evidence"][retired_rule]["status"], "RETIRED")
+        state = json.loads(
+            (PROJECT_ROOT / "training/state.json").read_text(encoding="utf-8")
+        )
         release = json.loads(
             (
                 PROJECT_ROOT
-                / "model-learning/releases/MODEL-LEARNING-003.json"
+                / "model-learning/releases"
+                / f"{state['current_model_release']}.json"
             ).read_text(encoding="utf-8")
         )
         validate_learning_ledger(PROJECT_ROOT, ledger, release)
