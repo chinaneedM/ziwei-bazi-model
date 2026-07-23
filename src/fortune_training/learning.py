@@ -407,7 +407,10 @@ def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[s
             evidence["distinct_application_cases"]
         ):
             raise TrainingError(f"support cases are not application cases for {rule_id}")
-        if evidence.get("status") != _rule_status(evidence):
+        if (
+            evidence.get("status") != "RETIRED"
+            and evidence.get("status") != _rule_status(evidence)
+        ):
             raise TrainingError(f"stale rule status for {rule_id}")
     for key, allowed_tags in (
         ("topic_metrics", taxonomy["topic_tags"]),

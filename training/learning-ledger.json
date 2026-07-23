@@ -2,14 +2,277 @@
   "schema": "QUESTION-LEARNING-LEDGER-V1",
   "taxonomy_sha256": "08b4a5992cded23596758335ea8cd25bc8fae12cea376ee4300aa6fab978b7eb",
   "first_blind_totals": {
-    "cases": 0,
-    "questions": 0,
-    "top1_correct": 0,
-    "top2_covered": 0
+    "cases": 1,
+    "questions": 5,
+    "top1_correct": 2,
+    "top2_covered": 3
   },
-  "topic_metrics": {},
-  "reasoning_skill_metrics": {},
-  "source_route_metrics": {},
+  "topic_metrics": {
+    "CAREER_EDUCATION": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "FAMILY_ORIGIN": {
+      "questions": 1,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "HEALTH": {
+      "questions": 1,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "MAJOR_YEAR_EVENT": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "MARRIAGE_RELATIONSHIP": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "PARENTS": {
+      "questions": 1,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "PERSONALITY_APPEARANCE": {
+      "questions": 2,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "SEXUALITY_INTIMACY": {
+      "questions": 1,
+      "top1_correct": 0,
+      "top2_covered": 0
+    },
+    "WEALTH_FINANCE": {
+      "questions": 2,
+      "top1_correct": 1,
+      "top2_covered": 2
+    }
+  },
+  "reasoning_skill_metrics": {
+    "BAZI_STRUCTURE_THEN_TRIGGER": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "CAREER_PROFILE_CLOSURE": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "CAUSAL_ACTOR_DIRECTION": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "COMPOSITE_OPTION_ATOMIZATION": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "COUNTEREVIDENCE_REVERSAL": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "DEATH_ENTITY_TIME_CLOSURE": {
+      "questions": 1,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "EVENT_ENDPOINT_CLOSURE": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "EVIDENCE_WEIGHTING": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "HEALTH_SEVERITY_LOCALIZATION": {
+      "questions": 1,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "NATAL_STRUCTURE": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "OPTION_GRANULARITY": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "PALACE_TRANSFORMATION_CHAIN": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "RARE_TOPIC_SAMPLE_GUARD": {
+      "questions": 1,
+      "top1_correct": 0,
+      "top2_covered": 0
+    },
+    "REALITY_SCALE_MAPPING": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "REGION_ERA_NORMALIZATION": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "RELATIONSHIP_SEQUENCE": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "SENSITIVE_ATTRIBUTE_CAUTION": {
+      "questions": 1,
+      "top1_correct": 0,
+      "top2_covered": 0
+    },
+    "STATIC_DYNAMIC_LAYERING": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "SUBJECT_ENTITY_ROUTING": {
+      "questions": 3,
+      "top1_correct": 1,
+      "top2_covered": 1
+    },
+    "TIME_LAYER_ACTIVATION": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "TOPIC_PALACE_ROUTING": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "UNCERTAINTY_CALIBRATION": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "ZIWEI_BAZI_ARBITRATION": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    }
+  },
+  "source_route_metrics": {
+    "S00": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S01": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S02": {
+      "questions": 4,
+      "top1_correct": 1,
+      "top2_covered": 2
+    },
+    "S03": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S04": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S05": {
+      "questions": 3,
+      "top1_correct": 2,
+      "top2_covered": 2
+    },
+    "S06": {
+      "questions": 3,
+      "top1_correct": 2,
+      "top2_covered": 2
+    },
+    "S07": {
+      "questions": 3,
+      "top1_correct": 2,
+      "top2_covered": 2
+    },
+    "S08": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S09": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S10": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S11": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S12": {
+      "questions": 3,
+      "top1_correct": 2,
+      "top2_covered": 2
+    },
+    "S13": {
+      "questions": 3,
+      "top1_correct": 2,
+      "top2_covered": 2
+    },
+    "S14": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S15": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S16": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S17": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S18": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    },
+    "S19": {
+      "questions": 5,
+      "top1_correct": 2,
+      "top2_covered": 3
+    }
+  },
   "rule_evidence": {
     "RULE-FAMILY-WEALTH-ROLE-SEPARATION": {
       "applications": 0,
@@ -44,6 +307,30 @@
       "status": "CANDIDATE"
     },
     "RULE-CROSS-QUESTION-CONSISTENCY": {
+      "applications": 0,
+      "supporting_applications": 0,
+      "contradicting_applications": 0,
+      "distinct_application_cases": [],
+      "distinct_support_cases": [],
+      "status": "CANDIDATE"
+    },
+    "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON": {
+      "applications": 0,
+      "supporting_applications": 0,
+      "contradicting_applications": 0,
+      "distinct_application_cases": [],
+      "distinct_support_cases": [],
+      "status": "RETIRED"
+    },
+    "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT": {
+      "applications": 0,
+      "supporting_applications": 0,
+      "contradicting_applications": 0,
+      "distinct_application_cases": [],
+      "distinct_support_cases": [],
+      "status": "CANDIDATE"
+    },
+    "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN": {
       "applications": 0,
       "supporting_applications": 0,
       "contradicting_applications": 0,

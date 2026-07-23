@@ -1042,41 +1042,6 @@
         "validation_status": "CANDIDATE"
       },
       {
-        "applicability": "同一道健康题同时出现多部位慢性症状、明确疾病诊断、医疗干预或危重结果，并且参考期包含连续岁运触发时。",
-        "capability_ceiling": "在缺少机构、处置动作或病名证据时，只能释放为较高医疗风险或可能需要干预，不能断言具体术式、病名或生死结果。",
-        "counterexamples": "若慢性疾病具有稳定本命结构、明确部位病理和多期重复应象，而高严重度候选只有一次宽泛冲动，则应优先稳定慢性链，不因事件更重大而加权。",
-        "decision_procedure": "先分别建立部位、诊断、处置、危重四张证据表；再检查本命承载、大运背景、逐年升级与现实处置动作；按完整链强度而非命中原子数比较，最后对缺失的专属节点降置信度。",
-        "limits": "冲刑、煞曜、火燥、疾病倾向或单一部位信息都不能独立证明住院、手术、危重或具体病名；严重度升级仍需至少两个独立父链。",
-        "reasoning_skill_tags": [
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "EVIDENCE_WEIGHTING",
-          "COUNTEREVIDENCE_REVERSAL",
-          "HEALTH_SEVERITY_LOCALIZATION",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON",
-        "source_basis": "S02负责医疗语义与严重度量级，S04负责疾厄主题路由，S10与S15负责岁运升级，S16负责八字健康能力边界，S17闭合人物—处置—结果，S18执行原子去重与成对裁决。",
-        "source_routes": [
-          "S02",
-          "S04",
-          "S10",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "健康选项比较必须把症状部位、慢性病诊断、重大医疗干预和危重后果分成不同严重度终点；不得因一个复合选项含有较多一般性部分命中，就用原子数量压过证据较少但严重度与岁运升级链更一致的候选。",
-        "stop_conditions": "若两类候选都没有完成处置或诊断链，停止在相对风险排序，不用星曜、神煞或合冲补造具体医疗事实。",
-        "topic_tags": [
-          "HEALTH",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名主要依靠多个宽泛症状原子，而竞争项对应更高严重度医疗终点，且参考期存在连续而非单点的风险升级。",
-        "validation_status": "CANDIDATE"
-      },
-      {
         "applicability": "候选横跨婚姻、财务、交通、治安、健康或不同人物事件时。",
         "capability_ceiling": "泛化风险结构只能提高场景概率，不能独立释放具体事件。",
         "counterexamples": "负面候选若具备明确主体、专属动作、对象、后果和年份触发，而关系主题只有一般活跃信号，则负面候选可以胜出。",

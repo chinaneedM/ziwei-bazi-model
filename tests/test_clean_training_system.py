@@ -22,6 +22,8 @@ from fortune_training.learning import (
     LEDGER_RELATIVE_PATH,
     empty_learning_ledger,
     load_learning_ledger,
+    safe_active_rules,
+    validate_learning_ledger,
     write_learning_ledger,
 )
 from fortune_training.policy import passed, required_correct
@@ -612,6 +614,31 @@ class IssueRelayTests(unittest.TestCase):
 
 
 class RepositoryIntegrityTests(unittest.TestCase):
+    def test_retired_rule_is_valid_but_not_exposed_to_prediction(self):
+        ledger = load_learning_ledger(PROJECT_ROOT)
+        retired_rule = "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON"
+        self.assertEqual(ledger["rule_evidence"][retired_rule]["status"], "RETIRED")
+        release = json.loads(
+            (
+                PROJECT_ROOT
+                / "model-learning/releases/MODEL-LEARNING-003.json"
+            ).read_text(encoding="utf-8")
+        )
+        validate_learning_ledger(PROJECT_ROOT, ledger, release)
+        self.assertNotIn(
+            retired_rule,
+            {rule["rule_id"] for rule in safe_active_rules(PROJECT_ROOT, release)},
+        )
+
+    def test_training_relay_commits_learning_ledger(self):
+        workflow = (
+            PROJECT_ROOT / ".github/workflows/training-issue-relay.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "git add training/state.json training/learning-ledger.json",
+            workflow,
+        )
+
     def test_real_repository_has_generalization_r2_training_baseline(self):
         result = verify_repository(PROJECT_ROOT)
         self.assertEqual(result["sources"], 20)
