@@ -1,0 +1,123 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "同一道健康题同时出现多部位慢性症状、明确疾病诊断、医疗干预或危重结果，并且参考期包含连续岁运触发时。",
+        "capability_ceiling": "在缺少机构、处置动作或病名证据时，只能释放为较高医疗风险或可能需要干预，不能断言具体术式、病名或生死结果。",
+        "counterexamples": "若慢性疾病具有稳定本命结构、明确部位病理和多期重复应象，而高严重度候选只有一次宽泛冲动，则应优先稳定慢性链，不因事件更重大而加权。",
+        "decision_procedure": "先分别建立部位、诊断、处置、危重四张证据表；再检查本命承载、大运背景、逐年升级与现实处置动作；按完整链强度而非命中原子数比较，最后对缺失的专属节点降置信度。",
+        "limits": "冲刑、煞曜、火燥、疾病倾向或单一部位信息都不能独立证明住院、手术、危重或具体病名；严重度升级仍需至少两个独立父链。",
+        "reasoning_skill_tags": [
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON",
+        "source_basis": "S02负责医疗语义与严重度量级，S04负责疾厄主题路由，S10与S15负责岁运升级，S16负责八字健康能力边界，S17闭合人物—处置—结果，S18执行原子去重与成对裁决。",
+        "source_routes": [
+          "S02",
+          "S04",
+          "S10",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "健康选项比较必须把症状部位、慢性病诊断、重大医疗干预和危重后果分成不同严重度终点；不得因一个复合选项含有较多一般性部分命中，就用原子数量压过证据较少但严重度与岁运升级链更一致的候选。",
+        "stop_conditions": "若两类候选都没有完成处置或诊断链，停止在相对风险排序，不用星曜、神煞或合冲补造具体医疗事实。",
+        "topic_tags": [
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要依靠多个宽泛症状原子，而竞争项对应更高严重度医疗终点，且参考期存在连续而非单点的风险升级。"
+      },
+      {
+        "applicability": "职业候选在组织内管理、项目经营、合伙关系和独立所有权之间竞争，且盘面同时出现权责、变动、财务或公众能力时。",
+        "capability_ceiling": "未闭合所有权与盈亏承担时，最高释放到经营管理、业务负责人或创业倾向，不输出精确法律或商业身份。",
+        "counterexamples": "若存在明确的自有资本投入、客户获取、盈亏自担、雇佣他人、组织外收入和持续经营时间链，独立经营者身份可以超过组织内管理候选。",
+        "decision_procedure": "依次核对劳动关系、决策权来源、资本归属、盈亏承担、客户来源、收入方式和持续期；将可由组织管理共同解释的证据归为共享原子，只用所有权专属节点决定身份层级。",
+        "limits": "化权、食伤生财、财星、迁动、破军或职业反复均不能单独确定劳动关系、股权、法人身份或收入来源。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "CROSS_QUESTION_CONSISTENCY",
+          "CAREER_PROFILE_CLOSURE"
+        ],
+        "rule_id": "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT",
+        "source_basis": "S02区分职业与商业现实语义，S03裁决两轨冲突，S04路由官禄财帛与人物太极，S10和S15定位阶段，S16限制八字职业映射，S17闭合劳动与经营终点，S18比较专属原子。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S10",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "自主掌控、破旧立新、财务责任和项目经营只能证明经营性工作方式，不能直接证明资产所有权或独立经营者身份；必须把企业管理者、项目负责人、合伙经营与独立所有者分轨闭合。",
+        "stop_conditions": "若没有资本、盈亏、客户或组织边界证据，停止在广义经营管理，不用职业波动或财务压力补造所有权。",
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "BUSINESS_PARTNERSHIP"
+        ],
+        "trigger_conditions": "临时第一名需要独立所有权，但核心证据同样可以由组织内管理、项目负责或业务拓展解释。"
+      },
+      {
+        "applicability": "选项在普通婚姻质量、单次分合、正式解除、再次建立关系和当前状态等不同序列复杂度之间竞争时。",
+        "capability_ceiling": "缺少制度动作或连续年份桥梁时，最高释放到关系波动、分离风险或关系重组，不输出精确婚史次数。",
+        "counterexamples": "若不同年份分别出现前一关系终止、制度解除、第二关系建立与当前持续的独立证据，并有现实动作链相互印证，多阶段序列可优先于简单现状。",
+        "decision_procedure": "按时间建立关系起点、质量变化、分离事实、制度解除、新关系建立和当前持续六个节点；每一节点要求独立主题与现实动作证据，缺一段即降低整个序列，转而比较较简单状态候选。",
+        "limits": "夫妻宫性质、桃花、合冲、四化或单一年份只能提供关系主题和转换许可，不能单独证明法律状态或完整履历。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN",
+        "source_basis": "S02定义关系状态与制度终点，S03处理两轨冲突，S04确定夫妻人物太极，S08与S10提供四化和岁运分层，S14与S15提供中性冲合触发，S16限制八字婚恋映射，S17闭合序列动作，S18执行复杂度与反证门禁。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "婚恋中的多阶段制度序列必须逐段举证；关系波动、化忌、冲合或先坏后好只能证明状态变化，不能自动补齐前一关系解除、后一关系建立和当前稳定三个独立完成节点。",
+        "stop_conditions": "若只能证明关系活跃或波动，停止在状态风险，不以叙事连贯性补齐婚史。",
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名包含两个以上连续关系事件，但现有证据主要是一般波动、冲合或阶段转好转坏。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T06:28:15Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-003",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}
