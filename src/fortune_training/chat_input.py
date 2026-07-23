@@ -167,6 +167,94 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only."
             ),
         },
+        "chat_work_handoff_contract": {
+            "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
+            "transport": "GITHUB_ISSUE_MACHINE_RECEIPT",
+            "issue_title": (
+                f"[PREDICTION HANDOFF] {recommended_round_id} {current_case_id}"
+                if prediction_allowed
+                else None
+            ),
+            "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+            "binding": {
+                "case_id": current_case_id,
+                "round_id": recommended_round_id,
+                "evaluation_kind": (
+                    "SPACED_REPLAY"
+                    if state.get("active_replay_case_id") == current_case_id
+                    else "FIRST_BLIND"
+                ),
+                "model_release": release_id,
+                "current_case_sha256": current_case_sha256,
+                "current_model_release_sha256": object_sha256(release),
+                "canonical_source_manifest_sha256": object_sha256(manifest),
+            },
+            "handoff_required_fields": [
+                "schema",
+                "binding",
+                "predictions",
+            ],
+            "handoff_forbidden_fields": [
+                "answer",
+                "correct_option",
+                "score",
+                "review",
+                "expected_result",
+                "learning_release_id",
+                "learning_patch",
+            ],
+            "chat_freeze_rule": (
+                "After all predictions are frozen, create exactly one GitHub Issue using issue_title "
+                "and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete "
+                "prediction rows. This is the only Chat-side GitHub write allowed."
+            ),
+            "work_acceptance_rule": (
+                "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions "
+                "from conversation memory. Validate every binding value against this current bundle and "
+                "stop before scoring if the receipt is missing, duplicated, stale, or mismatched."
+            ),
+            "training_issue_input_contract": {
+                "schema": "TRAINING-ISSUE-PACKET-V2",
+                "allowed_top_level_fields": [
+                    "schema",
+                    "round_id",
+                    "case_id",
+                    "predictions",
+                    "expected_result",
+                    "learning_release_id",
+                    "learning_patch",
+                ],
+                "pass_required_fields": [
+                    "schema",
+                    "round_id",
+                    "case_id",
+                    "predictions",
+                    "expected_result",
+                ],
+                "pass_forbidden_fields": [
+                    "learning_release_id",
+                    "learning_patch",
+                ],
+                "fail_required_fields": [
+                    "schema",
+                    "round_id",
+                    "case_id",
+                    "predictions",
+                    "expected_result",
+                    "learning_release_id",
+                    "learning_patch",
+                ],
+                "result_only_fields_forbidden_in_input": [
+                    "evaluation_kind",
+                    "accuracy",
+                    "correct_count",
+                    "top2_coverage",
+                    "learning_release",
+                    "next_case_id",
+                    "next_status",
+                ],
+            },
+        },
         "canonical_source_manifest": manifest,
         "prediction_access_contract": {
             "git_read_scope": "THIS_EXACT_FILE_ONLY",
