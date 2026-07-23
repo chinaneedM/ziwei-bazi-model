@@ -1,0 +1,89 @@
+name: handoff-score-probe
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: fortune-handoff-score-probe
+  cancel-in-progress: false
+
+jobs:
+  privately-score-owner-handoff:
+    if: >-
+      github.event.comment.user.login == github.repository_owner &&
+      startsWith(github.event.issue.title, '[PREDICTION HANDOFF]') &&
+      startsWith(github.event.comment.body, '/score-review ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FORTUNE_ANSWER_KEY: ${{ secrets.FORTUNE_ANSWER_KEY }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      ISSUE_TITLE: ${{ github.event.issue.title }}
+      REVIEW_REQUEST: ${{ github.event.comment.body }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Reject missing answer key
+        run: test -n "$FORTUNE_ANSWER_KEY"
+
+      - name: Install controller
+        run: python -m pip install -e .
+
+      - name: Save event fields without shell evaluation
+        run: >-
+          python -c 'import os, pathlib;
+          pathlib.Path("/tmp/handoff.md").write_text(os.environ["ISSUE_BODY"], encoding="utf-8");
+          pathlib.Path("/tmp/review-request.txt").write_text(os.environ["REVIEW_REQUEST"], encoding="utf-8")'
+
+      - name: Require one exact open handoff
+        run: |
+          gh issue list --repo "${{ github.repository }}" --state open --limit 1000 --json number,title > /tmp/open-issues.json
+          python -c 'import json, os, pathlib; rows=json.loads(pathlib.Path("/tmp/open-issues.json").read_text()); matches=[row for row in rows if row["title"] == os.environ["ISSUE_TITLE"]]; assert len(matches) == 1, f"expected one exact open handoff, found {len(matches)}"'
+
+      - name: Privately score frozen handoff
+        run: >-
+          python -m fortune_training.handoff_probe
+          --root .
+          --issue-title "$ISSUE_TITLE"
+          --issue-body-file /tmp/handoff.md
+          --request-file /tmp/review-request.txt
+          --summary-output /tmp/score-summary.json
+          --sealed-output /tmp/private-review.sealed.json
+
+      - name: Publish sealed Work-only review
+        run: |
+          {
+            echo '[HANDOFF SCORE SEALED]'
+            echo
+            echo '本次仅执行临时冻结与私密评分；main 尚未改变，答案未公开。'
+            echo
+            echo '```json'
+            cat /tmp/score-summary.json
+            echo '```'
+            echo
+            echo '```json'
+            cat /tmp/private-review.sealed.json
+            echo '```'
+          } > /tmp/sealed-comment.md
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/sealed-comment.md
+
+      - name: Report failure without exposing secrets
+        if: failure()
+        run: >-
+          gh issue comment "${{ github.event.issue.number }}"
+          --repo "${{ github.repository }}"
+          --body "私密评分未完成，main 未改变，答案未公开。运行：${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

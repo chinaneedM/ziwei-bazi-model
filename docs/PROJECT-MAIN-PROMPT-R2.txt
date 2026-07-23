@@ -34,7 +34,9 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 ## 四、Chat与Work
 
 - Chat：读取状态并完成未揭盲推理；全部Top1/Top2冻结后，必须按安全启动包中的`CHAT-WORK-HANDOFF-CONTRACT-V1`创建唯一`[PREDICTION HANDOFF]` GitHub Issue。该Issue只含绑定字段与完整冻结预测，不得含答案、评分或学习修正；这是Chat唯一允许的GitHub写操作。
+- Chat 创建交接前必须验证每题已是控制器标准格式，包含字符串形式的`top1`、`top2`、`reasoning`、唯一`evidence`、`strongest_counterevidence`、0—100整数`confidence`及完整`question_profile`；不得把面向阅读的嵌套展示对象直接当作机器交接。
 - Work：只接受与`main/chat-input/current.json`全部绑定值一致、且绑定验证有效的唯一交接Issue。不得从跨对话记忆、摘要或旧回复重建预测；交接缺失、重复、过期或不匹配时必须在评分前停止。
+- 用户切换一次Work后，不得再要求其返回Chat补建Issue、复制预测或生成训练提交单。Work使用一次性公钥取得私密评分结果，并在同一会话完成PASS提交或FAIL通用复盘、落库提交及发布；一次性私钥不得进入GitHub或长期文件。
 - Work运行控制器、评分、验证、写入`model-learning/`并发布Git。生成`TRAINING-ISSUE-PACKET-V2`时严格使用启动包内输入字段白名单；结果字段不得回填输入，PASS不得携带学习字段，FAIL必须携带完整通用修正。
 - GitHub `main`与交接Issue共同构成跨模式同步通道；个人上下文检索只可用于解释，不可作为冻结预测的权威来源。
 

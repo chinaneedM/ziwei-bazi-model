@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import json
+import base64
 import shutil
 import tempfile
 import unittest
 from pathlib import Path
 
 from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
 
 from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_input
 from fortune_training.cli import build_parser
@@ -18,6 +21,10 @@ from fortune_training.formal import (
     import_answer_batch,
 )
 from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
+from fortune_training.handoff_probe import (
+    process_handoff_probe,
+    unseal_private_review,
+)
 from fortune_training.learning import (
     LEDGER_RELATIVE_PATH,
     empty_learning_ledger,
@@ -633,6 +640,44 @@ class IssueRelayTests(unittest.TestCase):
             }
             with self.assertRaises(TrainingError):
                 process_packet(fixture.root, packet, fixture.key)
+
+
+class HandoffProbeTests(unittest.TestCase):
+    def test_probe_returns_work_private_review_without_persisting_answers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
+            contract = bundle["chat_work_handoff_contract"]
+            prediction = json.loads(
+                fixture.prediction_file(contract["binding"]["round_id"], 3).read_text()
+            )
+            handoff = {
+                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+                "binding": contract["binding"],
+                "predictions": prediction["predictions"],
+            }
+            private_key = rsa.generate_private_key(public_exponent=65537, key_size=3072)
+            public_der = private_key.public_key().public_bytes(
+                serialization.Encoding.DER,
+                serialization.PublicFormat.SubjectPublicKeyInfo,
+            )
+            encoded_public_key = base64.b64encode(public_der).decode("ascii")
+            summary, sealed = process_handoff_probe(
+                fixture.root,
+                issue_title=contract["issue_title"],
+                issue_body=json.dumps(handoff),
+                encoded_public_key=encoded_public_key,
+                key=fixture.key,
+            )
+            private_review = unseal_private_review(sealed, private_key)
+            self.assertFalse(summary["passed"])
+            self.assertFalse(summary["repository_mutated"])
+            self.assertEqual(
+                private_review["detailed_review"]["questions"][3]["correct_option"],
+                "A",
+            )
+            self.assertNotIn("correct_option", json.dumps(summary))
+            self.assertNotIn("correct_option", json.dumps(sealed))
 
 
 class RepositoryIntegrityTests(unittest.TestCase):

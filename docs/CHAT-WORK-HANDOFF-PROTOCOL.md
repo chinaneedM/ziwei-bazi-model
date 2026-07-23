@@ -46,6 +46,18 @@ Work 必须同时满足以下条件才可评分：
 
 任一项失败必须在答案访问和评分之前停止。禁止使用 Personal Context、聊天摘要或旧回复补齐冻结预测。
 
+## 单次 Work 接管
+
+Chat 创建唯一交接 Issue 并返回编号后，用户只需切换一次 Work。Work 在同一会话中：
+
+1. 生成一次性 RSA 公私钥，只把公钥提交给 `handoff-score-probe`；
+2. 工作流临时冻结并用仓库 Secret 解密评分，不提交任何状态；
+3. 逐题复核以该次公钥加密后回传，公开 Issue 只保存密文和无答案汇总；
+4. Work 解密复核；PASS 直接生成正式提交，FAIL 在同一会话完成通用复盘和学习补丁；
+5. 创建唯一 `[TRAINING ROUND]` Issue，等待正式控制器验证、提交 `main`，随后关闭交接 Issue。
+
+一次性私钥不得进入 Issue、仓库、Actions 日志或长期文件。交接 Issue 必须已经是控制器标准预测格式，不能在揭盲后补写 `question_profile`、改变 Top1/Top2 或重做推理。
+
 ## 训练提交字段
 
 `TRAINING-ISSUE-PACKET-V2`只允许：
