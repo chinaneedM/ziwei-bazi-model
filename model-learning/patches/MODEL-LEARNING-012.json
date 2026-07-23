@@ -1,0 +1,151 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "多个候选年份处于同一大限或大运，叙事同时包含长期背景、启动原因、核心动作和可观察结果，且不同年份分别命中这些层级时。",
+        "capability_ceiling": "缺少现实日期记录时只能比较题内各年对所问终点的相对闭合度，不能断言事件在盘外资料中的确切发生日、流程长度或先后月序。",
+        "counterexamples": "若事件本身就是发病、冲突启动、离职决定或事故发生，而不是诊断、手续、获利或公开完成，则触发年可以成为正确锚点；若启动与完成确实同年且两条链同时闭合，也无需人为延后。",
+        "decision_procedure": "先把叙事写成背景、潜伏或准备、触发、主体动作、可观察完成、后续影响六列；逐年只记录相对上一年的新增量；共享的大限大运背景归零；确定题干真正询问哪一列，再要求紫微与八字分别验证主题和时间方向；最后以完成节点对临时第一名做反转，并审查相邻年份是否只是准备或余波。",
+        "limits": "现实完成优先并不等于只看吉化、结果词或流年命宫；终点仍需主题轴、人物、动作与现实对象的独立父链。缺少完成链时不能凭后来已知结果反推某年，也不能把换运首年机械降级。",
+        "reasoning_skill_tags": [
+          "STATIC_DYNAMIC_LAYERING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-DATED-EVENT-OBSERVABLE-TERMINAL-ANCHOR",
+        "source_basis": "S02区分现实动作、状态与量级，S03要求双轨不得用同一宽泛激活互相补缺，S04与S09重立主题和人物太极，S08与S10区分静态结构、阶段背景与流年触发，S11及S14至S16复核八字阶段和岁运，S17闭合人物—动作—对象—终点链，S18执行逐年成对反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "精确年份题必须把阶段背景、潜伏或准备、触发、主体动作、现实完成和后续影响按时间拆开。大限进入、换运、强冲合、流年落宫或四化密度只能建立背景或触发候选；题干要求的公开认可、交易取得、经营落地、制度手续、检查处置等可观察终点，必须由对应人物、对象、动作和结果在同一年完成。候选都位于同一阶段时，应以区别性完成节点而非总体激活强度定年。",
+        "stop_conditions": "若无法确定题干锚定的是触发还是完成，或所有年份都只有阶段激活而无区别性现实节点，停止高置信度定年，保留低置信度相对排序。",
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "BUSINESS_PARTNERSHIP",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要因进入新阶段、四化或冲合更强而领先，但另一候选对题干所问的公开、经济、制度、医疗或场所完成节点具有更直接的同年闭合。"
+      },
+      {
+        "applicability": "题目同时出现命主、配偶、手足、子女、客户或其他外部人物，并包含建议、信息传递、资金取得、创业、消费、照料、冲突或资产转换等跨人物动作时。",
+        "capability_ceiling": "缺少现实记录时只能比较哪一年更完整承接各人物角色与资源流向，不能确认隐秘信息内容、金额、责任比例或人物主观意图。",
+        "counterexamples": "若题干只有单一人物完成单一动作，或某人物的专属太极、动作、对象和终点在同年完整闭合，则直接人物命中可以具有高权重；人物宫直接命中并非一律无效。",
+        "decision_procedure": "建立来源者、传递者、决策者、执行者、受益或承受者、对象或场所、现实终点七列；把同一人兼任多角色与不同人分工两种模型分别计算；共享的人物参与信号归零；逐年检查传递方向和终点承接；最后用缺失角色最多的一年作反证，不以单一人物宫命中直接定年。",
+        "limits": "人物分工拆解不能凭宫位名称指定现实亲属，也不能把同一四化或十神重复计为来源、动作和结果。无法重立人物太极时，只能保留多人物事件候选，不得补造谁发起、谁获益或谁承担。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-MULTIACTOR-INFORMATION-RESOURCE-TRANSFER-CHAIN",
+        "source_basis": "S02限定人物身份、资金和资产终点的现实语义，S03要求紫微八字分别验证而不共同补造人物，S04与S09用于逐人重立太极，S08与S10提供人物轴动态，S11及S14至S16复核十神人物和岁运，S17闭合来源—传递—动作—受益—终点，S18执行复合人物分账。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "同一事件含两名以上人物时，必须分开信息或动机来源、传递者、决策者、执行者、受益者或承受者、资源或场所对象和最终结果。流年直接落入某人物宫、某人物星被化动或八字出现对应十神，只能建立该人物参与许可，不能因为该人物在叙事中显眼就替代整条传递与结果链。",
+        "stop_conditions": "若只能证明某人物被主题激活，却无法闭合其在链中的具体角色与资源方向，停止把该人物当作年度锚点，并降低多人物叙事的置信度。",
+        "topic_tags": [
+          "SIBLINGS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "BUSINESS_PARTNERSHIP",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要因为流年落在被提及人物的宫位，或该人物相关星曜化禄权科，但信息来源、执行动作、资源流向、场所和终点分别落在其他人物或主题轴。"
+      },
+      {
+        "applicability": "候选年份横跨慢性症状存在、病情升级、发现确诊、住院手术和术后恢复，尤其同一大限内早期恶化信号与后期医疗完成信号竞争时。",
+        "capability_ceiling": "无病历时只能判断病程层级与医疗动作的相对年份，不能确认病理类型、分期、术式、医院、复发概率或真实预后。",
+        "counterexamples": "若题干只问首次发病或病情恶化而没有检查、诊断或治疗终点，应以病理触发年为锚；若治疗跨年进行，也不能强迫所有医疗节点落在同一年。",
+        "decision_procedure": "为每年填写体质背景、症状存在、病理升级、就医检查、正式诊断、治疗动作、恢复结果七列；共享的疾厄大限归零；先确定题干最后一个必需医疗节点，再检查该年是否能承接前序病程；吉化只用于处置和结果修饰，凶象只用于发生与恶化，最后比较完整医疗链。",
+        "limits": "该规则不把任何星曜、四化、五行失衡或冲合直接对应具体病名、部位、分期或疗效。正式诊断和治疗至少需要健康主题、时间激活、医疗动作或控制信号及结果修饰中的不同父链。",
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-HEALTH-PATHOGENESIS-DIAGNOSIS-TREATMENT-DATE-SEPARATION",
+        "source_basis": "S02限定疾病、诊断、手术与结果的现实语义，S03约束双轨独立，S04与S09路由疾厄及相关人物太极，S08与S10区分病理触发和吉化控制，S11至S16复核体质及岁运变化，S17闭合症状—检查—诊断—处置—结果链，S18执行严重度和时间反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S12",
+          "S13",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "健康年份必须把体质承载、潜伏或慢性症状、病理变化、就医检查、正式诊断、治疗或手术、恢复结果分别定时。凶忌、冲刑或病理象增强可支持恶化窗口，但不能自动充当被发现和确诊的日期；科权、贵人、医药或控制性信号可支持检查、处置和恢复，也不能反向否认疾病。题干同时询问诊断与治疗结果时，应优先比较完成医疗链的年份。",
+        "stop_conditions": "若诊断、处置和恢复都没有区别性节点，停止把恶化年写成确诊手术年；只能输出健康风险窗口并降低置信度。",
+        "topic_tags": [
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名由较早的忌冲、病理或身体压力主导，而较晚候选出现更完整的检查、诊断、控制、手术或恢复链，题干询问的又是可观察医疗完成事件。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T15:15:41Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-012",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}
