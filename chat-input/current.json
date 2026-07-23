@@ -3719,15 +3719,6 @@
       "binding",
       "predictions"
     ],
-    "handoff_forbidden_fields": [
-      "answer",
-      "correct_option",
-      "score",
-      "review",
-      "expected_result",
-      "learning_release_id",
-      "learning_patch"
-    ],
     "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
     "work_acceptance_rule": "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions from conversation memory. Validate every binding value against this current bundle and stop before scoring if the receipt is missing, duplicated, stale, or mismatched.",
     "training_issue_input_contract": {
@@ -3770,6 +3761,13 @@
         "next_case_id",
         "next_status"
       ]
-    }
+    },
+    "handoff_forbidden_content": [
+      "ANSWER_BEARING_FIELDS",
+      "SCORING_OR_REVIEW_FIELDS",
+      "EXPECTED_OUTCOME_FIELDS",
+      "LEARNING_PATCH_FIELDS",
+      "SECRETS_OR_KEYS"
+    ]
   }
 }
