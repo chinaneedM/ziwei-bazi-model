@@ -1,0 +1,67 @@
+{
+  "active_replay_case_id": null,
+  "active_round_id": null,
+  "cases": {
+    "DEV-EXAMPLE-001": {
+      "first_blind_passed": false,
+      "first_blind_round_id": "ROUND-001",
+      "remediation_status": "RESOLVED",
+      "replay_round_ids": [
+        "ROUND-002"
+      ],
+      "round_ids": [
+        "ROUND-001",
+        "ROUND-002"
+      ],
+      "status": "FIRST_BLIND_CLOSED"
+    },
+    "DEV-EXAMPLE-002": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "ACTIVE"
+    },
+    "DEV-EXAMPLE-003": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "DEV-EXAMPLE-004": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "DEV-EXAMPLE-005": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    }
+  },
+  "current_case_index": 1,
+  "current_model_release": "MODEL-LEARNING-002",
+  "dataset_manifest_path": "case-bank/manifest.json",
+  "dataset_runtime_status": "PAUSED_NO_NEW_PREDICTIONS",
+  "first_blind_cases_closed": 1,
+  "group_id": "DEV-GROUP-002",
+  "group_path": "examples/DEV-GROUP-002/group.json",
+  "independent_pass_streak": 0,
+  "policy_path": "config/training-policy.json",
+  "required_consecutive_independent_passes": 3,
+  "round_count": 2,
+  "round_limit": null,
+  "schema": "GENERALIZATION-TRAINING-STATE-R2",
+  "source_manifest_path": "sources/canonical-manifest.json",
+  "spaced_replay_queue": [],
+  "status": "DATASET_FROZEN_AWAITING_ANSWER_IMPORT"
+}

@@ -1,62 +1,539 @@
 {
-  "schema": "GENERALIZATION-TRAINING-STATE-R2",
-  "group_id": "DEV-GROUP-002",
-  "group_path": "examples/DEV-GROUP-002/group.json",
-  "policy_path": "config/training-policy.json",
-  "source_manifest_path": "sources/canonical-manifest.json",
-  "current_model_release": "MODEL-LEARNING-002",
-  "current_case_index": 1,
-  "status": "DATASET_FROZEN_AWAITING_ANSWER_IMPORT",
-  "dataset_manifest_path": "case-bank/manifest.json",
-  "dataset_runtime_status": "PAUSED_NO_NEW_PREDICTIONS",
-  "active_round_id": null,
-  "round_count": 2,
-  "round_limit": null,
-  "first_blind_cases_closed": 1,
-  "independent_pass_streak": 0,
-  "required_consecutive_independent_passes": 3,
   "active_replay_case_id": null,
-  "spaced_replay_queue": [],
+  "active_round_id": null,
   "cases": {
-    "DEV-EXAMPLE-001": {
-      "status": "FIRST_BLIND_CLOSED",
-      "first_blind_passed": false,
-      "remediation_status": "RESOLVED",
-      "first_blind_round_id": "ROUND-001",
-      "replay_round_ids": ["ROUND-002"],
-      "round_ids": ["ROUND-001", "ROUND-002"]
-    },
-    "DEV-EXAMPLE-002": {
-      "status": "ACTIVE",
+    "CASE-002": {
       "first_blind_passed": null,
-      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
-      "round_ids": []
+      "round_ids": [],
+      "status": "ACTIVE"
     },
-    "DEV-EXAMPLE-003": {
-      "status": "PENDING",
+    "CASE-003": {
       "first_blind_passed": null,
-      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
-      "round_ids": []
+      "round_ids": [],
+      "status": "PENDING"
     },
-    "DEV-EXAMPLE-004": {
-      "status": "PENDING",
+    "CASE-004": {
       "first_blind_passed": null,
-      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
-      "round_ids": []
+      "round_ids": [],
+      "status": "PENDING"
     },
-    "DEV-EXAMPLE-005": {
-      "status": "PENDING",
+    "CASE-005": {
       "first_blind_passed": null,
-      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
-      "round_ids": []
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-006": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-007": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-008": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-009": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-011": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-012": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-014": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-017": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-019": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-020": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-022": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-025": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-026": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-027": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-028": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-031": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-032": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-033": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-034": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-035": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-036": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-037": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-038": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-043": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-047": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-050": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-052": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-053": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-054": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-057": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-058": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-060": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-062": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-065": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-066": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-067": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-071": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-072": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-074": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-075": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-077": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-078": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-080": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-081": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-082": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-085": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-086": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-087": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-089": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-093": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-094": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-095": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-096": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-098": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-101": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-102": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-103": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-104": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
+    },
+    "CASE-107": {
+      "first_blind_passed": null,
+      "first_blind_round_id": null,
+      "remediation_status": "NOT_EVALUATED",
+      "replay_round_ids": [],
+      "round_ids": [],
+      "status": "PENDING"
     }
-  }
+  },
+  "current_case_index": 0,
+  "current_model_release": "MODEL-LEARNING-002",
+  "dataset_manifest_path": "case-bank/manifest.json",
+  "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
+  "first_blind_cases_closed": 0,
+  "formal_activation": {
+    "activated_at": "2026-07-23T06:04:34Z",
+    "answer_vault_manifest": "answer-vault/formal/manifest.json",
+    "answer_vault_manifest_sha256": "65352af69a8935e5b35daac9f9a926b6297bd1962bf8d673668abd1f7e895f5f",
+    "previous_ledger_archive": "training/history/PRE-FORMAL-LEARNING-LEDGER.json",
+    "previous_state_archive": "training/history/PRE-FORMAL-STATE.json",
+    "verified_answer_envelopes": 107,
+    "verified_scoreable_questions": 510,
+    "verified_unscored_questions": 1
+  },
+  "formal_phase": "DEVELOPMENT",
+  "group_id": "FORMAL-DEVELOPMENT-001",
+  "group_path": "training/formal-development-group.json",
+  "independent_pass_streak": 0,
+  "mode": "FORMAL_CASE_BANK",
+  "policy_path": "config/training-policy.json",
+  "required_consecutive_independent_passes": 3,
+  "round_count": 0,
+  "round_id_prefix": "FORMAL-ROUND",
+  "round_limit": null,
+  "schema": "GENERALIZATION-TRAINING-STATE-R2",
+  "source_manifest_path": "sources/canonical-manifest.json",
+  "spaced_replay_queue": [],
+  "status": "READY_FOR_ROUND"
 }
