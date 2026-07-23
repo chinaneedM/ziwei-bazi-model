@@ -1,0 +1,186 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "家庭出身选项同时混合父母职业或阶层、死亡年份、再婚继承与兄弟姐妹数量，且所有候选都含至少一个无法完整证明的精确原子时。",
+        "capability_ceiling": "缺少人物重立、指定时间和不可逆结果时，最高输出家庭类型或父母角色的相对优先，不断言具体死亡年份、继承事实或行政级别。",
+        "counterexamples": "若某候选只有一般父母吉凶或地位倾向，却附带多个精确死亡与重组节点，而竞争项在父母角色、手足结构和现实终点上均有同轴闭合，则仍应处罚前者。",
+        "decision_procedure": "建立父亲角色、母亲角色、制度层级、存亡、重组、资源承接、手足数量七列；共享原子归零；先比较家庭类型主轴，再分别检查不可逆与数量终点；以主轴差异决定相对排序，以未闭合精确原子控制置信度。",
+        "limits": "该规则只用于相对选项比较；死亡、继承、再婚、政府级别和手足数量仍需各自证据，不能由其他主轴代证。不可逆终点缺链时必须降低置信度并保留停止条件。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "DEATH_ENTITY_TIME_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR",
+        "source_basis": "S02定义家庭身份、制度层级与不可逆终点的现实负担，S03约束双轨裁决，S04与S09负责父母及手足太极，S08与S10定位动态，S11及S14至S16限制八字亲缘映射，S17闭合人物动作结果，S18执行复合原子分账。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "家庭复合选项必须把父母职业与制度层级、父母存亡、家庭重组、资源承接和手足构成分别建账，再确定哪些原子是决定整体家庭类型的主轴。高严重度原子缺少专属闭合时不得当作事实，但也不能仅因该原子精确就自动淘汰一个在父母角色、制度层级或手足结构上明显更强的候选。",
+        "stop_conditions": "若父母角色和手足结构都无法形成排他差异，停止在强制低置信度选择，不以描述简单度或单个凶吉标记定项。",
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要因描述较简单或高严重度原子较少而领先，但最强竞争项在父母制度角色、家庭主轴或手足结构上拥有更直接的区别证据。"
+      },
+      {
+        "applicability": "选项把外形健康、性格爱好、具体技能与职业所有权捆绑，且临时第一名主要依靠爱好或行业场景相似，而同时携带未闭合的严重健康或精确职业原子时。",
+        "capability_ceiling": "健康链不足时最多到风险或体质倾向；职业对象不足时最多到功能族或场景族，不补造具体疾病、乐器、场所或所有权。",
+        "counterexamples": "若严重健康状态有部位、功能限制、长期持续及现实处置的独立链，而竞争项的职业与外形只有一般倾向，则严重原子不应被机械处罚。",
+        "decision_procedure": "为每项标记外形、健康、性格、爱好、核心职业对象、专业技能、所有权；识别必要前提；先检查严重必要原子是否闭合，再比较共享场景与职业核心对象，最后执行最强竞争反转。",
+        "limits": "否决只针对该严重原子确为必要身份前提的情况；轻微附属细节缺证只降置信度。不能因为没有严重健康信号就直接证明另一个职业或外形。",
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAREER_PROFILE_CLOSURE",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO",
+        "source_basis": "S02区分健康严重度、职业身份和所有权终点，S03处理多轴冲突，S04至S08提供人物与职业结构，S11与S16限制八字映射，S17闭合功能结果，S18要求必要原子及反转测试。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S07",
+          "S08",
+          "S11",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "人物画像或职业复合项中的永久残疾、重大疾病、特定专业技艺和企业所有权必须先判定为主干还是装饰。若某未证严重原子构成该候选身份叙事的必要前提，它具有否决权，不能被音乐、审美、社交或经营等共享场景信号抵消。",
+        "stop_conditions": "若无法判断严重原子是否为必要前提，停止使用一票否决，改为分层扣分并降低置信度。",
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE"
+        ],
+        "trigger_conditions": "临时第一名拥有强爱好或场景共鸣，但同时要求不可逆健康状态、精确技能或所有权，而这些节点没有独立父链。"
+      },
+      {
+        "applicability": "候选在高等教育层级、专业类别、毕业或辍学状态、边工边学和不同职业进入年份之间竞争时。",
+        "capability_ceiling": "缺学校或学历制度终点时只能判断学习能力、教育路径连续性和职业进入窗口，不断言院校档次、专业或文凭。",
+        "counterexamples": "若教育轴长期弱且缺任何科名、印证或制度承接，而工作与非标准学习链在对应阶段完整，则较低教育或边工边学仍可优先。",
+        "decision_procedure": "建立学习能力、入学层级、专业、完成状态、中断状态、当前工作进入年份六列；分别读取静态容量和各阶段动态；不得用中断信号回填入学层级；最后比较最弱必需节点。",
+        "limits": "科曜、昌曲、印星或官星不能独立证明重点院校和专业；煞忌、冲合或职业转折也不能独立证明辍学。每一节点仍需制度终点和时间闭合。",
+        "reasoning_skill_tags": [
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAREER_PROFILE_CLOSURE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+        "source_basis": "S02定义学历、入学、毕业、辍学及入职终点，S03处理两轨冲突，S04与S09路由教育职业轴，S08与S10处理动态，S11及S14至S16限制八字教育映射，S17闭合阶段，S18执行时间和区别原子比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "教育与职业题必须分离学习能力、入学层级、专业方向、是否正式毕业、是否中断，以及进入当前工作的年份。学习路径有煞忌、冲动或反复，只能证明中断与转折风险，不能反向推定起始教育层级较低；高层级入学与中途退出可以同时成立。",
+        "stop_conditions": "若教育层级与完成状态均无制度证据，停止在教育路径可能反复，不用单个科忌或冲合确定具体学历。",
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名把学习或职业路径的中断信号直接解释为低教育起点，或把某个职业激活年份同时当成学历完成年份。"
+      },
+      {
+        "applicability": "候选在多次恋爱但未婚无子、一次婚姻加单次生育、奉子婚及多次生育、离婚后无子等不同序列之间竞争时。",
+        "capability_ceiling": "缺法律或生育终点时最高释放到关系活跃、阻力、反复或家庭议题窗口，不断言结婚、离婚、子女人数和性别。",
+        "counterexamples": "若婚姻登记、共同家庭建立或子女出生在指定时间得到独立双轴闭合，则主题激活可以与完成链合并，不应退回未完成状态。",
+        "decision_procedure": "先建立关系活动、法律婚姻、共同生活、生育动作、子女人数、关系解除、当前状态七列；主题激活只计入第一列；其余各列需独立终点；再比较多节点序列与未完成基线。",
+        "limits": "无完成证据不自动证明终身未婚或无子；当前状态仍需参考期。该规则不能用一般阻力直接排除曾婚、收养、流产或其他家庭形式。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE",
+        "source_basis": "S02区分恋爱、婚姻、离婚、生育与当前状态，S03约束双轨融合，S04与S09重立夫妻子女太极，S08与S10定位岁运，S11及S14至S16限制十神与冲合，S17闭合关系序列，S18比较复合节点。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "夫妻或子女主题的大限、流年、桃花、官杀财星或宫位激活只证明关系与家庭议题活跃，不等于法律婚姻或生育完成。关系活动可以表现为多次恋爱、反复协商或未完成关系；婚姻和子女必须分别具备人物、制度或生理动作、时间与结果。",
+        "stop_conditions": "若所有候选的正式状态均缺终点，停止在低置信度相对选择，不把十年主题或单一年份当成完成凭证。",
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要由夫妻或子女主题年份直接推出正式婚姻和出生，而候选还要求关系来源、子女数量、性别或多阶段完成。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T11:18:02Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-009",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}
