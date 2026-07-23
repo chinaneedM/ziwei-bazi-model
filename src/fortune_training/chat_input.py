@@ -194,14 +194,12 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "binding",
                 "predictions",
             ],
-            "handoff_forbidden_fields": [
-                "answer",
-                "correct_option",
-                "score",
-                "review",
-                "expected_result",
-                "learning_release_id",
-                "learning_patch",
+            "handoff_forbidden_content": [
+                "ANSWER_BEARING_FIELDS",
+                "SCORING_OR_REVIEW_FIELDS",
+                "EXPECTED_OUTCOME_FIELDS",
+                "LEARNING_PATCH_FIELDS",
+                "SECRETS_OR_KEYS",
             ],
             "chat_freeze_rule": (
                 "After all predictions are frozen, create exactly one GitHub Issue using issue_title "
