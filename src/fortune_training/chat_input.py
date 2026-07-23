@@ -169,7 +169,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         },
         "chat_work_handoff_contract": {
             "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
-            "transport": "GITHUB_ISSUE_MACHINE_RECEIPT",
+            "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
             "issue_title": (
                 f"[PREDICTION HANDOFF] {recommended_round_id} {current_case_id}"
                 if prediction_allowed
