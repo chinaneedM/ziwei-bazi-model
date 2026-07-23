@@ -29,6 +29,7 @@ from .util import (
     canonical_bytes,
     exclusive_write_json,
     load_json,
+    next_round_id,
     object_sha256,
     require_outside,
     require_safe_id,
@@ -205,6 +206,13 @@ def status(root: Path) -> dict[str, Any]:
         "same_case_replays_count_toward_stage_gate": False,
         "dataset_manifest_path": state.get("dataset_manifest_path"),
         "dataset_runtime_status": state.get("dataset_runtime_status"),
+        "mode": state.get("mode", "LEGACY_MIGRATION"),
+        "formal_phase": state.get("formal_phase"),
+        "recommended_round_id": (
+            next_round_id(state)
+            if state["status"] in OPENABLE_STATES and state.get("active_round_id") is None
+            else None
+        ),
     }
 
 
@@ -216,6 +224,8 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
         raise TrainingError(f"cannot start a round while state is {state['status']}")
     if state.get("active_round_id") is not None:
         raise TrainingError("another round is already active")
+    if state.get("round_id_prefix") is not None and round_id != next_round_id(state):
+        raise TrainingError(f"formal round id must be {next_round_id(state)}")
     group = _load_group(root, state)
     case_id = _current_case_id(state, group)
     case_state = state["cases"][case_id]
@@ -420,9 +430,7 @@ def encrypt_answer(root: Path, case_id: str, plaintext_path: Path, key: str | by
     require_outside(root, plaintext_path, "plaintext answer input")
     case_bank_path = root / "case-bank" / "cases" / f"{case_id}.json"
     if case_bank_path.is_file():
-        case = load_json(case_bank_path)
-        if case.get("quality", {}).get("status") == "BLOCKED_INPUT":
-            raise TrainingError(f"blocked case cannot receive a formal answer: {case_id}")
+        raise TrainingError("formal case answers must use the atomic import-answer-batch command")
     else:
         group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
         if case_id not in group["cases"]:
@@ -444,7 +452,11 @@ def encrypt_answer(root: Path, case_id: str, plaintext_path: Path, key: str | by
 
 
 def _decrypt_answers(root: Path, case: dict[str, Any], key: str | bytes | None) -> dict[str, str]:
-    envelope = root / "answer-vault" / "encrypted" / f"{case['case_id']}.json.fernet"
+    case_id = case["case_id"]
+    if (root / "case-bank" / "cases" / f"{case_id}.json").is_file():
+        envelope = root / "answer-vault" / "formal" / f"{case_id}.json.fernet"
+    else:
+        envelope = root / "answer-vault" / "encrypted" / f"{case_id}.json.fernet"
     try:
         token = envelope.read_bytes().strip()
     except FileNotFoundError as exc:
@@ -607,7 +619,7 @@ def _validate_learning_patch(root: Path, payload: Any) -> dict[str, Any]:
     for pattern in PATCH_LEAK_PATTERNS:
         if pattern.search(serialized):
             raise TrainingError("learning patch contains case-, question-, or answer-specific material")
-    group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
+    group = _load_group(root, _load_state(root))
     for case_path in group["cases"].values():
         case = load_json(root / case_path)
         for question in _questions(case):

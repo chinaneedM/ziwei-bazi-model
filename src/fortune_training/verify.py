@@ -347,14 +347,21 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
             "canonical S00-S19 changed or sources/canonical-manifest.json is not the frozen lock"
         )
 
-    group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
-    case_order = group.get("case_order")
-    cases = group.get("cases")
-    if not isinstance(case_order, list) or not case_order or len(set(case_order)) != len(case_order):
+    legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
+    legacy_case_order = legacy_group.get("case_order")
+    legacy_cases = legacy_group.get("cases")
+    if (
+        not isinstance(legacy_case_order, list)
+        or not legacy_case_order
+        or len(set(legacy_case_order)) != len(legacy_case_order)
+    ):
         raise TrainingError("the training group must contain one or more uniquely ordered cases")
-    if not isinstance(cases, dict) or set(cases) != set(case_order):
+    if not isinstance(legacy_cases, dict) or set(legacy_cases) != set(legacy_case_order):
         raise TrainingError("group case mapping does not match case order")
-    question_counts = {case_id: _validate_case(root, case_id, cases[case_id]) for case_id in case_order}
+    legacy_question_counts = {
+        case_id: _validate_case(root, case_id, legacy_cases[case_id])
+        for case_id in legacy_case_order
+    }
 
     release = load_json(root / "model-learning" / "releases" / "MODEL-BASELINE-001.json")
     if release.get("patches") != [] or release.get("parent_release") is not None:
@@ -371,6 +378,38 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         if dataset_manifest_path != "case-bank/manifest.json":
             raise TrainingError("training state points to an unsupported dataset manifest")
         case_bank = validate_case_bank(root)
+    group_path = state.get("group_path")
+    if not isinstance(group_path, str):
+        raise TrainingError("training state has no group path")
+    group = load_json(root / group_path)
+    case_order = group.get("case_order")
+    cases = group.get("cases")
+    if not isinstance(case_order, list) or not case_order or len(set(case_order)) != len(case_order):
+        raise TrainingError("active training group must contain uniquely ordered cases")
+    if not isinstance(cases, dict) or set(cases) != set(case_order):
+        raise TrainingError("active group case mapping does not match case order")
+    if state.get("mode") == "FORMAL_CASE_BANK":
+        development = load_json(root / "case-bank" / "partitions" / "development.json")
+        expected_order = development.get("first_blind_schedule")
+        expected_cases = {
+            case_id: development["cases"][case_id]
+            for case_id in expected_order
+        }
+        if (
+            group.get("group_id") != "FORMAL-DEVELOPMENT-001"
+            or group.get("partition_id") != "DEVELOPMENT"
+            or case_order != expected_order
+            or cases != expected_cases
+        ):
+            raise TrainingError("formal controller group does not match the development first-blind schedule")
+        question_counts = {
+            case_id: load_json(root / cases[case_id])["questions"]["question_count"]
+            for case_id in case_order
+        }
+    else:
+        if group_path != "examples/DEV-GROUP-002/group.json" or group != legacy_group:
+            raise TrainingError("pre-formal state must remain bound to the migration group")
+        question_counts = legacy_question_counts
     if state.get("group_id") != group.get("group_id"):
         raise TrainingError("training state group mismatch")
     if state.get("round_limit") is not None or policy.get("round_limit") is not None:
@@ -382,7 +421,11 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         root / "model-learning" / "releases" / f"{current_release}.json"
     ).is_file():
         raise TrainingError("training state points to a missing model release")
-    if state.get("round_count") == 0 and current_release != "MODEL-BASELINE-001":
+    if (
+        state.get("round_count") == 0
+        and state.get("mode") != "FORMAL_CASE_BANK"
+        and current_release != "MODEL-BASELINE-001"
+    ):
         raise TrainingError("an unused clean state must begin at MODEL-BASELINE-001")
     if set(state.get("cases", {})) != set(case_order):
         raise TrainingError("training state case set mismatch")
@@ -413,10 +456,33 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
                 for case_ids in dataset_manifest.get("partitions", {}).values()
             )
         )
-        answer_count = sum(
-            (encrypted_dir / f"{case_id}.json.fernet").is_file()
-            for case_id in dataset_case_ids
-        )
+        formal_dir = root / "answer-vault" / "formal"
+        formal_manifest_path = formal_dir / "manifest.json"
+        if formal_dir.exists():
+            formal_manifest = load_json(formal_manifest_path)
+            expected_hashes = formal_manifest.get("envelope_hashes")
+            if (
+                formal_manifest.get("schema") != "FORMAL-ANSWER-VAULT-MANIFEST-V1"
+                or formal_manifest.get("corpus_id") != dataset_manifest.get("corpus_id")
+                or formal_manifest.get("case_count") != len(dataset_case_ids)
+                or not isinstance(expected_hashes, dict)
+                or set(expected_hashes) != dataset_case_ids
+                or formal_manifest.get("plaintext_stored_in_repository") is not False
+                or formal_manifest.get("answer_read_phase") != "POST_FREEZE_ONLY"
+            ):
+                raise TrainingError("formal answer-vault manifest is invalid")
+            actual_files = {
+                path.name.removesuffix(".json.fernet")
+                for path in formal_dir.glob("CASE-*.json.fernet")
+            }
+            if actual_files != dataset_case_ids:
+                raise TrainingError("formal answer-vault files do not match the 107-case corpus")
+            for case_id, expected_hash in expected_hashes.items():
+                if sha256_file(formal_dir / f"{case_id}.json.fernet") != expected_hash:
+                    raise TrainingError(f"formal answer envelope hash mismatch: {case_id}")
+            answer_count = len(actual_files)
+        else:
+            answer_count = 0
         answer_required = len(dataset_case_ids)
     if require_answers and answer_count != answer_required:
         raise TrainingError(
@@ -433,10 +499,16 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "questions": case_bank.get("questions", sum(question_counts.values())),
         "case_bank": case_bank,
         "legacy_controller_group": {
-            "cases": len(case_order),
-            "questions": sum(question_counts.values()),
+            "cases": len(legacy_case_order),
+            "questions": sum(legacy_question_counts.values()),
             "answer_envelopes": legacy_answer_count,
             "role": "MIGRATION_HISTORY_UNTIL_CASE_BANK_ACTIVATION",
+        },
+        "active_controller_group": {
+            "group_id": group["group_id"],
+            "cases": len(case_order),
+            "questions": sum(question_counts.values()),
+            "mode": state.get("mode", "LEGACY_MIGRATION"),
         },
         "answer_envelopes": answer_count,
         "answer_envelopes_required": answer_required,
