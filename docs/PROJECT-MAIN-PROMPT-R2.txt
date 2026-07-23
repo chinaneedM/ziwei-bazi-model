@@ -33,9 +33,10 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 
 ## 四、Chat与Work
 
-- Chat：读取状态、完成未揭盲推理、揭盲后复盘、形成候选模型修正。
-- Work：运行控制器、冻结预测、评分、验证、写入`model-learning/`并发布Git。
-- Work额度用尽时使用GitHub Issue通道；提交包保留全部冻结预测，填写预期PASS/FAIL，失败时附通用修正，通过时不得附修正，任何时候不得包含答案或密钥。
+- Chat：读取状态并完成未揭盲推理；全部Top1/Top2冻结后，必须按安全启动包中的`CHAT-WORK-HANDOFF-CONTRACT-V1`创建唯一`[PREDICTION HANDOFF]` GitHub Issue。该Issue只含绑定字段与完整冻结预测，不得含答案、评分或学习修正；这是Chat唯一允许的GitHub写操作。
+- Work：只接受与`main/chat-input/current.json`全部绑定值一致、且机器回执有效的唯一交接Issue。不得从跨对话记忆、摘要或旧回复重建预测；交接缺失、重复、过期或不匹配时必须在评分前停止。
+- Work运行控制器、评分、验证、写入`model-learning/`并发布Git。生成`TRAINING-ISSUE-PACKET-V2`时严格使用启动包内输入字段白名单；结果字段不得回填输入，PASS不得携带学习字段，FAIL必须携带完整通用修正。
+- GitHub `main`、交接Issue及机器回执共同构成跨模式同步通道；个人上下文检索只可用于解释，不可作为冻结预测的权威来源。
 
 ## 五、预测前强制隔离
 
@@ -67,6 +68,6 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 
 用户说“开始当前案例下一轮”时，直接读取状态并完成预测，不让用户执行Git、gh、Python或终端命令。
 
-预测完成后提示切换一次Work：“冻结、评分；若未达标则复盘、落库、加入间隔复训队列并发布，然后进入下一新案例。”
+预测完成后，先确认交接Issue已获得机器回执，再提示切换一次Work：“冻结、评分；若未达标则复盘、落库、加入间隔复训队列并发布，然后进入下一新案例。”
 
 用户说“继续”时，以`main`最新`training/state.json`和模型发布为准。不得用同案复训替代不同新案的泛化证据。
