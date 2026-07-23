@@ -8,7 +8,18 @@ from typing import Any
 
 from .chat_input import write_chat_input
 from .case_bank import case_bank_report, validate_case_bank
+from .formal import (
+    activate_formal_controller,
+    import_answer_batch,
+    rehearse_formal_no_reveal,
+    verify_formal_answer_vault,
+)
 from .learning import public_learning_summary
+from .transport import (
+    bootstrap_answer_transport,
+    finalize_answer_transport,
+    seal_answer_batch,
+)
 from .runtime import (
     apply_learning,
     encrypt_answer,
@@ -79,6 +90,38 @@ def build_parser() -> argparse.ArgumentParser:
     encrypt_parser = subparsers.add_parser("encrypt-answer", help="encrypt a trusted answer file from outside the repository")
     encrypt_parser.add_argument("case_id")
     encrypt_parser.add_argument("plaintext_file", type=Path)
+    import_parser = subparsers.add_parser(
+        "import-answer-batch",
+        help="atomically validate and encrypt the complete 107-case answer batch",
+    )
+    import_parser.add_argument("plaintext_batch", type=Path)
+    subparsers.add_parser(
+        "verify-formal-answers",
+        help="verify all formal answer envelopes without publishing mappings",
+    )
+    subparsers.add_parser(
+        "activate-formal",
+        help="atomically switch from the migration controller to formal development",
+    )
+    subparsers.add_parser(
+        "rehearse-formal",
+        help="verify the formal Chat bundle without starting or revealing a round",
+    )
+    subparsers.add_parser(
+        "answer-transport-bootstrap",
+        help="create a public import key while keeping its private key encrypted",
+    )
+    seal_parser = subparsers.add_parser(
+        "answer-transport-seal",
+        help="seal a repository-external plaintext answer batch for GitHub Actions",
+    )
+    seal_parser.add_argument("public_key", type=Path)
+    seal_parser.add_argument("plaintext_batch", type=Path)
+    seal_parser.add_argument("sealed_output", type=Path)
+    subparsers.add_parser(
+        "answer-transport-finalize",
+        help="decrypt the sealed batch inside Actions, import, activate, and rehearse",
+    )
     return parser
 
 
@@ -113,6 +156,27 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "encrypt-answer":
             destination = encrypt_answer(root, args.case_id, args.plaintext_file)
             _print_json({"status": "ENCRYPTED", "path": destination.relative_to(root).as_posix()})
+        elif args.command == "import-answer-batch":
+            _print_json(import_answer_batch(root, args.plaintext_batch))
+        elif args.command == "verify-formal-answers":
+            _print_json(verify_formal_answer_vault(root))
+        elif args.command == "activate-formal":
+            _print_json(activate_formal_controller(root))
+        elif args.command == "rehearse-formal":
+            _print_json(rehearse_formal_no_reveal(root))
+        elif args.command == "answer-transport-bootstrap":
+            _print_json(bootstrap_answer_transport(root))
+        elif args.command == "answer-transport-seal":
+            _print_json(
+                seal_answer_batch(
+                    root,
+                    args.public_key,
+                    args.plaintext_batch,
+                    args.sealed_output,
+                )
+            )
+        elif args.command == "answer-transport-finalize":
+            _print_json(finalize_answer_transport(root))
         else:
             parser.error(f"unknown command: {args.command}")
     except TrainingError as exc:

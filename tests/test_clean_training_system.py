@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,10 @@ from cryptography.fernet import Fernet
 
 from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_input
 from fortune_training.cli import build_parser
+from fortune_training.formal import (
+    FORMAL_ANSWER_DIR,
+    import_answer_batch,
+)
 from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
 from fortune_training.learning import (
     LEDGER_RELATIVE_PATH,
@@ -24,6 +29,13 @@ from fortune_training.runtime import (
     score_round,
     start_round,
     status,
+)
+from fortune_training.transport import (
+    PUBLIC_KEY_PATH,
+    SEALED_BATCH_PATH,
+    bootstrap_answer_transport,
+    finalize_answer_transport,
+    seal_answer_batch,
 )
 from fortune_training.util import TrainingError, object_sha256
 from fortune_training.verify import build_source_manifest, verify_repository
@@ -342,6 +354,9 @@ class RuntimeTests(unittest.TestCase):
             current = status(fixture.root)
             self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-001")
             self.assertEqual(current["active_replay_case_id"], "DEV-EXAMPLE-001")
+            bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
+            self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-001")
+            self.assertEqual(bundle["state_summary"]["evaluation_kind"], "SPACED_REPLAY")
             streak_before = current["independent_pass_streak"]
             replay = fixture.run_and_score("REPLAY-1", 5)
             self.assertEqual(replay["evaluation_kind"], "SPACED_REPLAY")
@@ -593,6 +608,82 @@ class RepositoryIntegrityTests(unittest.TestCase):
             result["answer_envelopes"] == result["answer_envelopes_required"],
         )
         self.assertTrue(result["external_post_freeze_answer_supported"])
+
+
+class FormalActivationTests(unittest.TestCase):
+    def test_atomic_107_answer_import_activation_and_no_reveal_rehearsal(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            root = base / "repo"
+            shutil.copytree(
+                PROJECT_ROOT,
+                root,
+                ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
+            )
+            formal_vault = root / FORMAL_ANSWER_DIR
+            if formal_vault.exists():
+                shutil.rmtree(formal_vault)
+            archived_state = root / "training/history/PRE-FORMAL-STATE.json"
+            if archived_state.is_file():
+                shutil.copyfile(archived_state, root / "training/state.json")
+                write_chat_input(root)
+
+            manifest = json.loads((root / "case-bank/manifest.json").read_text())
+            case_ids = [
+                case_id
+                for partition_id in ("DEVELOPMENT", "STAGE_VALIDATION", "FINAL_HOLDOUT")
+                for case_id in manifest["partitions"][partition_id]
+            ]
+            rows = []
+            for case_id in case_ids:
+                case = json.loads(
+                    (root / "case-bank/cases" / f"{case_id}.json").read_text()
+                )
+                rows.append(
+                    {
+                        "case_id": case_id,
+                        "answers": [
+                            {
+                                "question_id": question["question_id"],
+                                "correct_option": "A",
+                            }
+                            for question in case["questions"]["parsed"]
+                        ],
+                    }
+                )
+            batch = {
+                "schema": "FORTUNE-ANSWER-BATCH-V1",
+                "corpus_id": manifest["corpus_id"],
+                "cases": rows,
+            }
+            batch_path = base / "trusted-answers.json"
+            write_json(batch_path, {**batch, "cases": rows[:-1]})
+            key = Fernet.generate_key()
+            with self.assertRaises(TrainingError):
+                import_answer_batch(root, batch_path, key)
+            self.assertFalse(formal_vault.exists())
+
+            write_json(batch_path, batch)
+            transport = bootstrap_answer_transport(root, key)
+            self.assertTrue(transport["private_key_encrypted"])
+            sealed_output = base / "answer-batch.sealed.json"
+            seal_answer_batch(
+                root,
+                root / PUBLIC_KEY_PATH,
+                batch_path,
+                sealed_output,
+            )
+            shutil.copyfile(sealed_output, root / SEALED_BATCH_PATH)
+            finalized = finalize_answer_transport(root, key)
+            self.assertEqual(finalized["answer_envelopes"], 107)
+            self.assertEqual(finalized["current_case_id"], "CASE-002")
+            self.assertEqual(finalized["recommended_round_id"], "FORMAL-ROUND-001")
+            self.assertEqual(finalized["no_reveal_rehearsal"], "NO_REVEAL_REHEARSAL_PASS")
+            self.assertTrue(finalized["transport_material_removed"])
+            result = verify_repository(root, require_answers=True)
+            self.assertEqual(result["answer_envelopes"], 107)
+            self.assertEqual(result["active_controller_group"]["cases"], 63)
+            self.assertEqual(result["active_controller_group"]["mode"], "FORMAL_CASE_BANK")
 
 
 if __name__ == "__main__":

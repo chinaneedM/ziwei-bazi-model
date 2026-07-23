@@ -40,6 +40,8 @@
 
 详细操作见 `docs/CHAT-WORK-RUNBOOK.md` 与 `docs/NO-WORK-ISSUE-RELAY.md`。
 整体架构、来源梳理、第二阶段状态、覆盖缺口和后续实施顺序分别见 `docs/MODEL-ARCHITECTURE-V3.md`、`docs/SOURCE-KNOWLEDGE-MAP.md`、`docs/PHASE2-CURATION-AND-MODEL-STATUS-20260723.md`、`docs/CASE-COVERAGE-REPORT.md` 与 `docs/IMPLEMENTATION-ROADMAP-V3.md`。公共资料发布边界见 `docs/PUBLIC-RELEASE-SAFETY.md`。
+107例答案的原子导入、无密钥暴露传输、正式控制器切换和不揭盲演练见
+`docs/FORMAL-ACTIVATION-RUNBOOK.md`。
 
 ## 答案隔离
 
@@ -66,6 +68,10 @@ fortune-train report
 ```
 
 案例库未激活前不得执行`start`。激活后的冻结、评分和失败学习仍由Chat＋GitHub Issue通道调用控制器，不要求用户手工运行命令。
+
+正式化控制器提供以下封闭门禁：完整107例答案批次必须一次性校验并加密；GitHub
+Actions只在临时运行器中接触明文；激活后安全包只开放63个开发集首次盲测案例，
+CASE-001与CASE-029不计首次盲测。用户不需要接触或粘贴答案密钥。
 
 控制器内部的失败学习命令为：
 

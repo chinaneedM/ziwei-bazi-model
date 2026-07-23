@@ -8,7 +8,7 @@ from .policy import (
     MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
 )
-from .util import atomic_write_json, load_json, object_sha256, sha256_file
+from .util import atomic_write_json, load_json, next_round_id, object_sha256, sha256_file
 
 
 CHAT_INPUT_RELATIVE_PATH = Path("chat-input/current.json")
@@ -37,7 +37,9 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     current_case_sha256 = None
     current_case_state: dict[str, Any] = {}
     if state["status"] in CASE_VISIBLE_STATES:
-        current_case_id = group["case_order"][state["current_case_index"]]
+        current_case_id = state.get("active_replay_case_id")
+        if current_case_id is None:
+            current_case_id = group["case_order"][state["current_case_index"]]
         current_case_state = state["cases"][current_case_id]
         case_path = root / group["cases"][current_case_id]
         current_case = load_json(case_path)
@@ -73,7 +75,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         and state.get("active_round_id") is None
         and current_case_id is not None
     )
-    recommended_round_id = f"ROUND-{state['round_count'] + 1:03d}" if prediction_allowed else None
+    recommended_round_id = next_round_id(state) if prediction_allowed else None
 
     return {
         "schema": "CHAT-PREDICTION-INPUT-V2",
@@ -103,6 +105,8 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "spaced_replay_queue_size": len(state.get("spaced_replay_queue", [])),
             "dataset_manifest_path": state.get("dataset_manifest_path"),
             "dataset_runtime_status": state.get("dataset_runtime_status"),
+            "mode": state.get("mode", "LEGACY_MIGRATION"),
+            "formal_phase": state.get("formal_phase"),
         },
         "component_hashes": {
             "current_case_sha256": current_case_sha256,
