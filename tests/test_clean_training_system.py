@@ -448,6 +448,28 @@ class RuntimeTests(unittest.TestCase):
             bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
             serialized = json.dumps(bundle, ensure_ascii=False)
             self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V2")
+            handoff = bundle["chat_work_handoff_contract"]
+            self.assertEqual(handoff["schema"], "CHAT-WORK-HANDOFF-CONTRACT-V1")
+            self.assertEqual(
+                handoff["binding"]["case_id"],
+                bundle["state_summary"]["current_case_id"],
+            )
+            self.assertEqual(
+                handoff["binding"]["round_id"],
+                bundle["state_summary"]["recommended_round_id"],
+            )
+            self.assertEqual(
+                handoff["binding"]["model_release"],
+                bundle["state_summary"]["current_model_release"],
+            )
+            self.assertNotIn(
+                "evaluation_kind",
+                handoff["training_issue_input_contract"]["allowed_top_level_fields"],
+            )
+            self.assertIn(
+                "learning_release_id",
+                handoff["training_issue_input_contract"]["pass_forbidden_fields"],
+            )
             self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-002")
             self.assertEqual(
                 bundle["state_summary"]["training_unit"],
