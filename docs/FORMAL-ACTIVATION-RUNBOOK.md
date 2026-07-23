@@ -2,7 +2,7 @@
 
 ## 固定顺序
 
-1. 在仓库外准备一份`FORTUNE-ANSWER-BATCH-V1`明文答案批次。
+1. 在仓库外准备一份`FORTUNE-ANSWER-BATCH-V2`明文答案批次。
 2. 使用与GitHub Actions Secret `FORTUNE_ANSWER_KEY`相同的密钥执行原子导入。
 3. 校验107个加密信封都可解密、案例和题目一一对应。
 4. 激活`FORMAL-DEVELOPMENT-001`控制器。
@@ -16,7 +16,7 @@
 
 ```json
 {
-  "schema": "FORTUNE-ANSWER-BATCH-V1",
+  "schema": "FORTUNE-ANSWER-BATCH-V2",
   "corpus_id": "FORTUNE-CASE-BANK-107-V1",
   "cases": [
     {
@@ -31,6 +31,20 @@
 
 每例的`answers`必须覆盖该案例全部题目且只能使用该题已有选项。上例只是结构示范，
 不是正式答案。
+
+若原题本身没有任何正确选项，只允许使用以下严格结构；该题仍需完成预测与冻结，
+但不进入正确率分母、达标门槛或学习证据：
+
+```json
+{
+  "question_id": "Q3",
+  "scoring_status": "UNSCORED",
+  "reason_code": "NO_VALID_OPTION"
+}
+```
+
+正式批次汇总为511题，其中510题可评分、1题不计分。题库允许每题为连续的
+`A–D`或`A–E`选项；当前共有29道五选题。
 
 ## 控制器命令
 
@@ -51,6 +65,6 @@ fortune-train rehearse-formal
 
 因此，用户只需提供完整答案原件；不需要把Secret粘贴到Chat、安装`gh`或运行命令。
 
-导入成功后，仓库只新增Fernet密文和哈希，不写入明文答案。正式控制器只使用开发集
+导入成功后，仓库只新增Fernet密文、哈希和不含答案映射的汇总计数，不写入明文答案。正式控制器只使用开发集
 的63个干净首次盲测案例；历史揭盲的CASE-001和来源暴露的CASE-029不会进入首次盲测。
 首个安全启动案例是CASE-002，推荐轮次为`FORMAL-ROUND-001`。

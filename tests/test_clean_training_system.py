@@ -23,6 +23,7 @@ from fortune_training.learning import (
 )
 from fortune_training.policy import passed, required_correct
 from fortune_training.runtime import (
+    _validate_answers,
     apply_learning,
     encrypt_answer,
     freeze_prediction,
@@ -485,6 +486,53 @@ class RuntimeTests(unittest.TestCase):
             self.assertTrue(score["passed"])
             self.assertEqual(score["answer_source"], "EXTERNAL_POST_FREEZE_FILE")
 
+    def test_unscored_question_is_excluded_from_threshold_and_learning_metrics(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            case_id, _ = fixture.current_case()
+            answer_file = fixture.base / "answer-with-unscored.json"
+            write_json(
+                answer_file,
+                {
+                    "case_id": case_id,
+                    "answers": [
+                        *[
+                            {"question_id": f"Q{index}", "correct_option": "A"}
+                            for index in range(1, 5)
+                        ],
+                        {
+                            "question_id": "Q5",
+                            "scoring_status": "UNSCORED",
+                            "reason_code": "NO_VALID_OPTION",
+                        },
+                    ],
+                },
+            )
+            start_round(fixture.root, "R1")
+            freeze_prediction(
+                fixture.root,
+                "R1",
+                fixture.prediction_file("R1", 4),
+            )
+            review_path = fixture.base / "unscored.review.json"
+            score = score_round(
+                fixture.root,
+                "R1",
+                review_path,
+                answer_file=answer_file,
+            )
+            self.assertTrue(score["passed"])
+            self.assertEqual(score["question_count"], 5)
+            self.assertEqual(score["scoreable_question_count"], 4)
+            self.assertEqual(score["unscored_question_count"], 1)
+            self.assertEqual(score["required_correct"], 4)
+            detailed = json.loads(review_path.read_text(encoding="utf-8"))
+            self.assertFalse(detailed["questions"][-1]["is_scored"])
+            self.assertNotIn("correct_option", detailed["questions"][-1])
+            ledger = load_learning_ledger(fixture.root)
+            self.assertEqual(ledger["first_blind_totals"]["cases"], 1)
+            self.assertEqual(ledger["first_blind_totals"]["questions"], 4)
+
     def test_case_specific_learning_rule_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -611,6 +659,48 @@ class RepositoryIntegrityTests(unittest.TestCase):
 
 
 class FormalActivationTests(unittest.TestCase):
+    def test_five_option_cases_are_not_merged_and_unscored_rows_are_strict(self):
+        five_option_questions = []
+        for case_path in sorted((PROJECT_ROOT / "case-bank/cases").glob("CASE-*.json")):
+            case = json.loads(case_path.read_text(encoding="utf-8"))
+            for question in case["questions"]["parsed"]:
+                option_ids = [row["option_id"] for row in question["options"]]
+                self.assertIn(option_ids, [list("ABCD"), list("ABCDE")])
+                if option_ids == list("ABCDE"):
+                    five_option_questions.append(
+                        (case["case_id"], question["question_id"])
+                    )
+        self.assertEqual(len(five_option_questions), 29)
+        case = json.loads(
+            (PROJECT_ROOT / "case-bank/cases/CASE-077.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        payload = {
+            "case_id": "CASE-077",
+            "answers": [
+                (
+                    {
+                        "question_id": question["question_id"],
+                        "scoring_status": "UNSCORED",
+                        "reason_code": "NO_VALID_OPTION",
+                    }
+                    if question["question_id"] == "Q3"
+                    else {
+                        "question_id": question["question_id"],
+                        "correct_option": "A",
+                    }
+                )
+                for question in case["questions"]["parsed"]
+            ],
+        }
+        normalized = _validate_answers(case, payload)
+        self.assertEqual(normalized["Q3"]["scoring_status"], "UNSCORED")
+        self.assertEqual(
+            sum(row["scoring_status"] == "SCORED" for row in normalized.values()),
+            4,
+        )
+
     def test_atomic_107_answer_import_activation_and_no_reveal_rehearsal(self):
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
@@ -623,6 +713,9 @@ class FormalActivationTests(unittest.TestCase):
             formal_vault = root / FORMAL_ANSWER_DIR
             if formal_vault.exists():
                 shutil.rmtree(formal_vault)
+            transport_dir = root / "answer-vault/import-transport"
+            if transport_dir.exists():
+                shutil.rmtree(transport_dir)
             archived_state = root / "training/history/PRE-FORMAL-STATE.json"
             if archived_state.is_file():
                 shutil.copyfile(archived_state, root / "training/state.json")
@@ -643,16 +736,25 @@ class FormalActivationTests(unittest.TestCase):
                     {
                         "case_id": case_id,
                         "answers": [
-                            {
-                                "question_id": question["question_id"],
-                                "correct_option": "A",
-                            }
+                            (
+                                {
+                                    "question_id": question["question_id"],
+                                    "scoring_status": "UNSCORED",
+                                    "reason_code": "NO_VALID_OPTION",
+                                }
+                                if case_id == "CASE-077"
+                                and question["question_id"] == "Q3"
+                                else {
+                                    "question_id": question["question_id"],
+                                    "correct_option": "A",
+                                }
+                            )
                             for question in case["questions"]["parsed"]
                         ],
                     }
                 )
             batch = {
-                "schema": "FORTUNE-ANSWER-BATCH-V1",
+                "schema": "FORTUNE-ANSWER-BATCH-V2",
                 "corpus_id": manifest["corpus_id"],
                 "cases": rows,
             }
@@ -676,6 +778,8 @@ class FormalActivationTests(unittest.TestCase):
             shutil.copyfile(sealed_output, root / SEALED_BATCH_PATH)
             finalized = finalize_answer_transport(root, key)
             self.assertEqual(finalized["answer_envelopes"], 107)
+            self.assertEqual(finalized["scoreable_questions"], 510)
+            self.assertEqual(finalized["unscored_questions"], 1)
             self.assertEqual(finalized["current_case_id"], "CASE-002")
             self.assertEqual(finalized["recommended_round_id"], "FORMAL-ROUND-001")
             self.assertEqual(finalized["no_reveal_rehearsal"], "NO_REVEAL_REHEARSAL_PASS")

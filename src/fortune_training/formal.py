@@ -53,7 +53,7 @@ def _load_answer_batch(root: Path, batch_path: Path) -> tuple[dict[str, Any], di
     if not isinstance(payload, dict) or set(payload) != {"schema", "corpus_id", "cases"}:
         raise TrainingError("answer batch must contain exactly schema, corpus_id, and cases")
     manifest = load_json(root / "case-bank" / "manifest.json")
-    if payload.get("schema") != "FORTUNE-ANSWER-BATCH-V1":
+    if payload.get("schema") != "FORTUNE-ANSWER-BATCH-V2":
         raise TrainingError("wrong formal answer-batch schema")
     if payload.get("corpus_id") != manifest.get("corpus_id"):
         raise TrainingError("answer batch corpus_id does not match the case bank")
@@ -101,7 +101,17 @@ def import_answer_batch(
     staging = Path(tempfile.mkdtemp(prefix=".formal-answer-import-", dir=vault_parent))
     try:
         envelope_hashes: dict[str, str] = {}
+        scoreable_question_count = 0
+        unscored_question_count = 0
         for case_id in _dataset_case_ids(root):
+            case = load_json(root / "case-bank" / "cases" / f"{case_id}.json")
+            normalized = _validate_answers(case, by_id[case_id])
+            scoreable_question_count += sum(
+                row["scoring_status"] == "SCORED" for row in normalized.values()
+            )
+            unscored_question_count += sum(
+                row["scoring_status"] == "UNSCORED" for row in normalized.values()
+            )
             token = fernet.encrypt(canonical_bytes(by_id[case_id]))
             envelope = staging / f"{case_id}.json.fernet"
             with envelope.open("xb") as handle:
@@ -111,8 +121,12 @@ def import_answer_batch(
             envelope_hashes[case_id] = sha256_file(envelope)
         vault_manifest = {
             "schema": "FORMAL-ANSWER-VAULT-MANIFEST-V1",
+            "answer_batch_schema": "FORTUNE-ANSWER-BATCH-V2",
             "corpus_id": manifest["corpus_id"],
             "case_count": len(envelope_hashes),
+            "question_count": scoreable_question_count + unscored_question_count,
+            "scoreable_question_count": scoreable_question_count,
+            "unscored_question_count": unscored_question_count,
             "envelope_hashes": envelope_hashes,
             "plaintext_stored_in_repository": False,
             "answer_read_phase": "POST_FREEZE_ONLY",
@@ -128,6 +142,8 @@ def import_answer_batch(
         "status": "FORMAL_ANSWERS_ENCRYPTED",
         "corpus_id": manifest["corpus_id"],
         "answer_envelopes": len(by_id),
+        "scoreable_questions": scoreable_question_count,
+        "unscored_questions": unscored_question_count,
         "vault_manifest": FORMAL_ANSWER_MANIFEST.as_posix(),
         "plaintext_stored_in_repository": False,
     }
@@ -140,6 +156,8 @@ def verify_formal_answer_vault(
     root = root.resolve()
     fernet = _fernet_from_key(key)
     case_ids = _dataset_case_ids(root)
+    scoreable_question_count = 0
+    unscored_question_count = 0
     for case_id in case_ids:
         envelope = root / FORMAL_ANSWER_DIR / f"{case_id}.json.fernet"
         try:
@@ -155,10 +173,28 @@ def verify_formal_answer_vault(
         except (UnicodeDecodeError, ValueError) as exc:
             raise TrainingError(f"formal answer envelope is invalid JSON: {case_id}") from exc
         case = load_json(root / "case-bank" / "cases" / f"{case_id}.json")
-        _validate_answers(case, payload)
+        normalized = _validate_answers(case, payload)
+        scoreable_question_count += sum(
+            row["scoring_status"] == "SCORED" for row in normalized.values()
+        )
+        unscored_question_count += sum(
+            row["scoring_status"] == "UNSCORED" for row in normalized.values()
+        )
+    vault_manifest = load_json(root / FORMAL_ANSWER_MANIFEST)
+    observed = {
+        "answer_batch_schema": "FORTUNE-ANSWER-BATCH-V2",
+        "question_count": scoreable_question_count + unscored_question_count,
+        "scoreable_question_count": scoreable_question_count,
+        "unscored_question_count": unscored_question_count,
+    }
+    for field, expected in observed.items():
+        if vault_manifest.get(field) != expected:
+            raise TrainingError(f"formal answer-vault manifest mismatch: {field}")
     return {
         "status": "FORMAL_ANSWER_VAULT_VERIFIED",
         "answer_envelopes": len(case_ids),
+        "scoreable_questions": scoreable_question_count,
+        "unscored_questions": unscored_question_count,
         "plaintext_disclosed": False,
     }
 
@@ -241,6 +277,8 @@ def activate_formal_controller(
             "answer_vault_manifest": FORMAL_ANSWER_MANIFEST.as_posix(),
             "answer_vault_manifest_sha256": sha256_file(root / FORMAL_ANSWER_MANIFEST),
             "verified_answer_envelopes": answer_check["answer_envelopes"],
+            "verified_scoreable_questions": answer_check["scoreable_questions"],
+            "verified_unscored_questions": answer_check["unscored_questions"],
             "previous_state_archive": PRE_FORMAL_STATE_ARCHIVE.as_posix(),
             "previous_ledger_archive": PRE_FORMAL_LEDGER_ARCHIVE.as_posix(),
         },

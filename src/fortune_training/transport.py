@@ -183,6 +183,8 @@ def finalize_answer_transport(
     return {
         "status": "FORMAL_ANSWER_IMPORT_FINALIZED",
         "answer_envelopes": imported["answer_envelopes"],
+        "scoreable_questions": imported["scoreable_questions"],
+        "unscored_questions": imported["unscored_questions"],
         "controller": activated["status"],
         "current_case_id": rehearsal["current_case_id"],
         "recommended_round_id": rehearsal["recommended_round_id"],

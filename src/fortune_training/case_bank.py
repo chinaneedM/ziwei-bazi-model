@@ -117,7 +117,10 @@ def validate_case_bank(root: Path) -> dict[str, Any]:
             if not isinstance(question_id, str):
                 raise TrainingError(f"invalid question id: {case_id}")
             option_ids = [option.get("option_id") for option in question.get("options", [])]
-            if case_id in accepted and option_ids != list("ABCD"):
+            if case_id in accepted and option_ids not in (
+                list("ABCD"),
+                list("ABCDE"),
+            ):
                 raise TrainingError(f"accepted case has an invalid option set: {case_id}/{question_id}")
             _validate_profile(question.get("preblind_profile"), taxonomy, case_id, question_id)
             atom_keys = set(question["preblind_profile"]["option_atom_hints"])

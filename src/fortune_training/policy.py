@@ -94,4 +94,13 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
         "whole_option_score_remains_top1_only": True,
     }:
         raise TrainingError("composite-option policy mismatch")
+    unscored = policy.get("unscored_question_policy", {})
+    if unscored != {
+        "allowed_only_when_no_valid_option": True,
+        "prediction_still_required": True,
+        "excluded_from_pass_threshold": True,
+        "excluded_from_learning_metrics": True,
+        "aggregate_counts_required": True,
+    }:
+        raise TrainingError("unscored-question policy mismatch")
     return policy
