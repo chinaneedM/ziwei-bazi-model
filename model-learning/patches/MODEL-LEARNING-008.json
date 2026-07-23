@@ -1,0 +1,181 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "职业选项同时包含岗位功能、行业、机构属性或地域，而多个行业共享文书、流动、服务、销售或协调等日常动作时。",
+        "capability_ceiling": "缺少行业专属对象时，最高释放到财务记录、运营文书、客户关系、移动服务等功能族，不补造精确企业与地点。",
+        "counterexamples": "若运输载体、路线网络、货物流转与调度责任同时闭合，而财务账目或审计对象只有一般文书信号，则移动行业可优先，不因制度性名称更专业而反转。",
+        "decision_procedure": "为每个候选建立核心对象、产出凭证、日常动作、行业、雇主、地域六列；先把共享动作归零，再比较行业专属对象和制度产物，最后单独检查雇主与地域，未闭合的精确节点只降置信度。",
+        "limits": "核心对象与制度产物仍不能单独证明具体雇主、城市或企业所有制；精确机构与地域需要独立现实链。命理结构最多提供职业族和相对功能。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "CAREER_PROFILE_CLOSURE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY",
+        "source_basis": "S02区分现代岗位、行业、机构与地域语义，S03约束双轨裁决，S04与S09负责官禄及人物太极，S08提供化象层级，S11与S16限制八字职业映射，S17闭合岗位动作与服务对象，S18执行区别原子比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S11",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "职业候选必须把核心处理对象、制度产物、日常动作、所属行业、雇主性质与地域场景分层。文书、记录、调度、出行或应酬等工作方式只能定义功能，不能直接把职业归入最显眼的场景行业；当候选行业不同，核心对象与制度产物优先于环境相似度。",
+        "stop_conditions": "若所有候选都只有共享动作而无行业专属对象，停止在功能族相对选择，不用迁移、财星、化科或单颗星曜补造行业。",
+        "topic_tags": [
+          "CAREER_EDUCATION"
+        ],
+        "trigger_conditions": "临时第一名主要由文书、移动、服务或社交等共享工作方式支持，而竞争项拥有不同的核心业务对象或制度产物。"
+      },
+      {
+        "applicability": "竞争项分别代表不同事件类型，而较复杂候选包含一个强主干事件和若干精确附属描述，较简单候选只有宽泛结构或一般阶段信号时。",
+        "capability_ceiling": "主干成立而附属未闭合时，只能输出事件类型的相对优先并明确细节未知，不能把整句描述当作全部已证实。",
+        "counterexamples": "若复杂候选的所谓主干只有一般桃花、疾病、移动或财务活动，而简单候选具有人物、动作、制度终点和时间的完整链，则应继续处罚复杂候选。",
+        "decision_procedure": "先标记每项的事件类型主干，再把人物、动作、时间、结果列为必要节点，把地点、精确身份、数量和修饰语列为附属节点；主干按独立父链评分，附属缺证只作分层扣分，然后用直接同轴机制对临时第一名做反转。",
+        "limits": "主干闭合不能自动证明附属身份、地点、数目或法律状态；高严重度及敏感属性仍需更高门槛。该规则不允许用单一星曜、单次冲合或叙事相似替代完整主干。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+        "source_basis": "S02划分现实主干与精确终点，S03处理同源证据和双轨冲突，S04与S08至S10提供主题及动态，S14至S16限制触发解释，S17闭合人物—动作—结果，S18要求原子分层和最强竞争反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "复合选项的区别原子必须分成决定事件类型的主干原子与只修饰身份、地点、数量或细节的附属原子。主干人物—动作—时间机制获得直接同轴闭合时，可超过只获一般背景支持的竞争项；附属原子缺证应降低置信度，但不得与主干原子等权累积后机械否决。",
+        "stop_conditions": "若主干人物、动作或时间仍缺一项，停止使用本规则反转；若涉及敏感身份或不可逆严重结果，继续执行专项高门槛。",
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "CAREER_EDUCATION",
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名凭一般结构领先，但竞争项在指定年份出现与其独有事件类型完全同轴的直接机制，仅因附属描述较多而被整体降级。"
+      },
+      {
+        "applicability": "候选年份都处于迁动活跃期，而题目明确询问换住所、迁居、入伙或家庭居住基点变化时。",
+        "capability_ceiling": "缺少旧居—新居—落地链时，最高释放到移动或居住调整窗口，不断言具体搬迁年份。",
+        "counterexamples": "若某年迁移轴直接激活，同时出现田宅取得或退出、家庭成员联动和现实落地动作，而其他年份只有生活结构换挡，则该直接迁移年可以优先。",
+        "decision_procedure": "逐年建立移动许可、居住基点、旧居变化、新居变化、家庭联动、手续或落地六列；短途出行与职业移动归零；再比较田宅—迁移双轴和八字阶段触发，必要时区分换运背景年与完成年。",
+        "limits": "田宅或迁移单轴都不能独立证明搬迁；买卖房产、装修、短期旅行、通勤变化和正式迁居必须分开。大运交接只提供背景，不自动等于当年完成。",
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-RELOCATION-RESIDENCE-VERSUS-MOBILITY",
+        "source_basis": "S02区分出行、房产与住所语义，S03裁决两轨时间冲突，S04与S09路由田宅和迁移太极，S08与S10处理四化及岁运，S14至S16限制冲动与换运解释，S17闭合迁居动作，S18比较候选年份。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "出行、迁动、异地活动与家宅搬迁是不同终点。迁移宫、天马、驿动、冲动或移动行业只提供移动许可；判断住所搬迁必须同时检查居住基点或田宅轴的变化、旧居退出或新居进入以及实际落地时间。",
+        "stop_conditions": "若所有年份都只有迁动或换运背景而无住所完成链，停止在低置信度时间窗口，不用流年命宫单点定年。",
+        "topic_tags": [
+          "PROPERTY_HOUSING",
+          "MIGRATION_RELOCATION",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名只因流年落迁移或出现强驿动而领先，但没有居住基点及落地动作；竞争年在田宅、家庭结构或新阶段实际完成上更闭合。"
+      },
+      {
+        "applicability": "同一道题在命主本人、父亲、母亲或其他亲属的疾病与医疗结果之间竞争，且命主疾厄轴和亲属轴同时被激活时。",
+        "capability_ceiling": "人物专属疾病链不完整时，最高释放到某人物的健康风险或家庭医疗事件，不输出精确诊断和结局。",
+        "counterexamples": "若命主疾厄轴同时具备本人身体症状、部位病理、检查处置和恢复结果，而亲属轴只有一般压力，则事件主体仍应判为命主，不因题目出现亲属候选而强行转移。",
+        "decision_procedure": "先列出所有候选患者；对每人依次检查人物许可、静态健康容量、指定时间触发、部位或病理、检查处置、结果；命主自身疾厄只计入本人链，照护与家庭压力另列，最后做人选反转。",
+        "limits": "重新立极只能确定人物相对优先，不能凭宫位直接断病名、部位、分期、手术或生存结果；高严重度医疗终点仍需专项链。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-OTHER-PERSON-HEALTH-REROOT-FIRST",
+        "source_basis": "S02区分患者、照护者和医疗终点，S03处理双轨冲突，S04与S09负责人物太极重立，S08与S10定位动态，S11及S14至S16限制八字亲缘和健康映射，S17闭合患者—诊断—处置—结果，S18执行人物排他比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "同年健康候选涉及命主与父母等不同人物时，必须先确定事件主体，再分别重新立极读取该人物的健康链。流年落命主疾厄、来因或身体轴不能默认疾病发生在命主本人，也可能表示照护压力、得知事件、医疗陪同或家庭负担。",
+        "stop_conditions": "若无法把疾病动作排他地归属某一人物，停止在家庭健康事件层，不以流年命宫或单个十神默认患者。",
+        "topic_tags": [
+          "PARENTS",
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要依据命主疾厄或身体轴，而竞争项指向亲属健康，且尚未为每个候选人物建立独立疾病与医疗链。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T10:34:32Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-008",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}

@@ -149,10 +149,80 @@
       }
     ]
   },
+  "chat_work_handoff_contract": {
+    "binding": {
+      "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
+      "case_id": "CASE-003",
+      "current_case_sha256": "c4e9ec00019b355e3e5e8b43be60692cd93e6cdb88d4db405da4a879f47bce03",
+      "current_model_release_sha256": "69c7a37cbabe4bf486890d762ebf6b4e651b8e6a83b5264abe307ad1fe63d064",
+      "evaluation_kind": "SPACED_REPLAY",
+      "model_release": "MODEL-LEARNING-008",
+      "round_id": "FORMAL-ROUND-009"
+    },
+    "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
+    "handoff_forbidden_content": [
+      "ANSWER_BEARING_FIELDS",
+      "SCORING_OR_REVIEW_FIELDS",
+      "EXPECTED_OUTCOME_FIELDS",
+      "LEARNING_PATCH_FIELDS",
+      "SECRETS_OR_KEYS"
+    ],
+    "handoff_required_fields": [
+      "schema",
+      "binding",
+      "predictions"
+    ],
+    "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+    "issue_title": "[PREDICTION HANDOFF] FORMAL-ROUND-009 CASE-003",
+    "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
+    "training_issue_input_contract": {
+      "allowed_top_level_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result",
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "fail_required_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result",
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "pass_forbidden_fields": [
+        "learning_release_id",
+        "learning_patch"
+      ],
+      "pass_required_fields": [
+        "schema",
+        "round_id",
+        "case_id",
+        "predictions",
+        "expected_result"
+      ],
+      "result_only_fields_forbidden_in_input": [
+        "evaluation_kind",
+        "accuracy",
+        "correct_count",
+        "top2_coverage",
+        "learning_release",
+        "next_case_id",
+        "next_status"
+      ],
+      "schema": "TRAINING-ISSUE-PACKET-V2"
+    },
+    "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
+    "work_acceptance_rule": "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions from conversation memory. Validate every binding value against this current bundle and stop before scoring if the receipt is missing, duplicated, stale, or mismatched."
+  },
   "component_hashes": {
     "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
-    "current_case_sha256": "282d251067909f049224caa93ebdcb141c219d158d2543431e2f9e8a73d39ee4",
-    "current_model_release_sha256": "dbb7746f43168f8c9267e5f1783f5606b77fdcd1e4486467df8c18fb578dd0e2",
+    "current_case_sha256": "c4e9ec00019b355e3e5e8b43be60692cd93e6cdb88d4db405da4a879f47bce03",
+    "current_model_release_sha256": "69c7a37cbabe4bf486890d762ebf6b4e651b8e6a83b5264abe307ad1fe63d064",
     "knowledge_cards_sha256": "0cb429239b2ebb5445f83ecd2da9937ac2b6997e3a9705f106739f3d15e52459",
     "knowledge_route_map_sha256": "c99de0759b6468ec62b6621d9b9d9a992af353c280ca21e0c0090c677adce264",
     "question_taxonomy_sha256": "08b4a5992cded23596758335ea8cd25bc8fae12cea376ee4300aa6fab978b7eb",
@@ -165,146 +235,145 @@
     "answer_isolation": {
       "answer_payload_present": false,
       "answer_reference_disclosed": false,
-      "status": "PROGRAMMATICALLY_SCANNED"
+      "status": "PROGRAMMATICALLY_ISOLATED"
     },
     "bazi": {
       "calendar": {
-        "gender": "女",
-        "lunar": "甲子年冬月廿八日酉时",
-        "solar": "1984-12-20 18:0",
-        "true_solar": "1984-12-20 18:2"
+        "chart_type": "乾造",
+        "gender": "男",
+        "lunar": "1983年三月初九 卯时",
+        "solar": "1983-04-21 06:30"
       },
       "hidden_stems_ten_gods": {
         "day": [
-          "癸 正财"
+          "乙 七杀"
         ],
         "hour": [
-          "辛 伤官"
+          "乙 七杀"
         ],
         "month": [
-          "癸 正财"
+          "戊 劫财",
+          "乙 七杀",
+          "癸 偏财"
         ],
         "year": [
-          "癸 正财"
+          "壬 正财",
+          "甲 正官"
         ]
       },
       "luck": {
         "cycles": [
-          {
-            "nominal_age": 6,
-            "pillar": "乙亥",
-            "start_year": 1989
-          },
-          {
-            "nominal_age": 16,
-            "pillar": "甲戌",
-            "start_year": 1999
-          },
-          {
-            "nominal_age": 26,
-            "pillar": "癸酉",
-            "start_year": 2009
-          },
-          {
-            "nominal_age": 36,
-            "pillar": "壬申",
-            "start_year": 2019
-          },
-          {
-            "nominal_age": 46,
-            "pillar": "辛未",
-            "start_year": 2029
-          },
-          {
-            "nominal_age": 56,
-            "pillar": "庚午",
-            "start_year": 2039
-          },
-          {
-            "nominal_age": 66,
-            "pillar": "己巳",
-            "start_year": 2049
-          },
-          {
-            "nominal_age": 76,
-            "pillar": "戊辰",
-            "start_year": 2059
-          },
-          {
-            "nominal_age": 86,
-            "pillar": "丁卯",
-            "start_year": 2069
-          }
+          "1988 乙卯 6岁",
+          "1998 甲寅 16岁",
+          "2008 癸丑 26岁",
+          "2018 壬子 36岁",
+          "2028 辛亥 46岁",
+          "2038 庚戌 56岁",
+          "2048 己酉 66岁",
+          "2058 戊申 76岁",
+          "2068 丁未 86岁"
         ],
-        "direction": "REVERSE",
-        "first_major_luck_nominal_age": 6,
-        "first_major_luck_year": 1989,
-        "ocr_year_candidates": [
-          1984,
-          1989,
-          1999,
-          2009,
-          2019,
-          2029,
-          2039,
-          2049,
-          2059,
-          2069,
-          2019,
-          2020,
-          2021,
-          2022,
-          2023,
-          2024,
-          2025,
-          2026,
-          2027,
-          2028
+        "handover": "逢戊、癸年 芒种后24天交大运",
+        "start": "出生后5年2月8天19时起运",
+        "void": "申酉空亡（日）"
+      },
+      "pillar_shensha": {
+        "day": [
+          "天乙贵人",
+          "文昌贵人",
+          "天厨贵人",
+          "福星贵人",
+          "德秀贵人",
+          "九丑日",
+          "将星",
+          "天医"
+        ],
+        "hour": [
+          "天乙贵人",
+          "文昌贵人",
+          "天厨贵人",
+          "福星贵人",
+          "天德合",
+          "月德合",
+          "将星",
+          "天医"
+        ],
+        "month": [
+          "太极贵人",
+          "德秀贵人",
+          "红艳煞",
+          "红鸾",
+          "元辰"
+        ],
+        "year": [
+          "德秀贵人",
+          "飞刃"
         ]
       },
       "pillars": {
-        "day": "戊子",
-        "hour": "辛酉",
-        "month": "丙子",
-        "year": "甲子"
+        "day": "己卯",
+        "hour": "丁卯",
+        "month": "丙辰",
+        "year": "癸亥"
       },
+      "relations": [
+        "己癸相克",
+        "壬丙相克",
+        "癸丁相克",
+        "丁壬合化木",
+        "子辰半合水局",
+        "亥卯半合木局",
+        "午亥暗合",
+        "子辰暗合",
+        "子卯相刑",
+        "子午相冲",
+        "午卯相破",
+        "卯辰相害"
+      ],
+      "seasonal_qi": [
+        "土旺",
+        "金相",
+        "火休",
+        "木囚",
+        "水死"
+      ],
       "source_image": {
-        "bytes": 377323,
-        "height": 1285,
-        "path": "case-bank/raw/CASE-035/bazi.png",
-        "sha256": "1d695dc9e282ec5eaf38fa8bc26f9466a21993efa2c5eecca80ea92db733127f",
-        "width": 1179
+        "bytes": 387172,
+        "height": 1280,
+        "original_name": "例题3八字排盘.png",
+        "sha256": "3abbf38b22059910a1610d0f83a75f8ca4eeefac0687eec6792d62464f0a72b9",
+        "width": 1173
       },
-      "transcription_status": "DERIVED_FROM_ZIWEI_TEXT_AND_IMAGE_YEAR_BOUNDARY"
+      "transcription_status": "VERIFIED_BY_IMAGE_SHA_BOUND_SIDECAR"
     },
     "binding": {
       "source_manifest": "sources/canonical-manifest.json",
       "training_policy": "config/training-policy.json"
     },
-    "case_id": "CASE-035",
+    "case_id": "CASE-003",
     "dataset_split": "DEVELOPMENT",
-    "identity_group_id": "PERSON-459B11B5A25E044B",
+    "identity_group_id": "PERSON-6EAA95D18A6B4A87",
     "input": {
-      "body_lord": "火星",
-      "body_palace_branch": "酉",
-      "clock_time": "1984-12-20 18:0",
-      "five_element_bureau": "火六局",
-      "gender": "女",
-      "life_lord": "贪狼",
+      "body_lord": "天机",
+      "body_palace_branch": "未",
+      "clock_time": "1983-4-21 6:30",
+      "five_element_bureau": "金四局",
+      "gender": "男",
+      "life_lord": "巨门",
       "longitude": "120.000",
-      "lunar_time": "甲子年冬月廿八日酉时",
-      "non_solar_term_pillars": "甲子 丙子 戊子 辛酉",
+      "lunar_time": "癸亥年三月初九日卯时",
+      "non_solar_term_pillars": "癸亥 丙辰 己卯 丁卯",
       "pillars": {
-        "day": "戊子",
-        "hour": "辛酉",
-        "month": "丙子",
-        "year": "甲子"
+        "day": "己卯",
+        "hour": "丁卯",
+        "month": "丙辰",
+        "year": "癸亥"
       },
-      "solar_term_pillars": "甲子 丙子 戊子 辛酉",
-      "true_solar_time": "1984-12-20 18:2",
-      "year_doujun": "亥"
+      "solar_term_pillars": "癸亥 丙辰 己卯 丁卯",
+      "true_solar_time": "1983-4-21 6:31",
+      "year_doujun": "丑"
     },
-    "legacy_case_id": null,
+    "legacy_case_id": "DEV-EXAMPLE-003",
     "quality": {
       "issues": [],
       "status": "ACCEPTED"
@@ -315,235 +384,53 @@
           "options": [
             {
               "option_id": "A",
-              "text": "资质愚笨，勤奋补救，大专毕业"
+              "text": "出生后次年，母亲去世，父亲为小型企业主，另娶后，又生一弟一妹"
             },
             {
               "option_id": "B",
-              "text": "专心学习，天资聪颖，大学毕业"
+              "text": "父亲为政府高级职员，2021年去世，命主有一兄一姐"
             },
             {
               "option_id": "C",
-              "text": "爱好玩乐，海外读书，大学毕业"
+              "text": "母亲为家庭主妇，父亲为小型企业主，命主有一弟"
             },
             {
               "option_id": "D",
-              "text": "与书无缘，师长放任，中学毕业"
+              "text": "1985年父亲去世，母亲继承父亲产业，守寡至今，命主有一姐一弟"
             }
           ],
           "preblind_profile": {
             "atomization_required": true,
             "endpoint_tags": [
-              "EDUCATION_LEVEL"
-            ],
-            "governance_tags": [],
-            "option_atom_hints": {
-              "A": [
-                "资质愚笨",
-                "勤奋补救",
-                "大专毕业"
-              ],
-              "B": [
-                "专心学习",
-                "天资聪颖",
-                "大学毕业"
-              ],
-              "C": [
-                "爱好玩乐",
-                "海外读书",
-                "大学毕业"
-              ],
-              "D": [
-                "与书无缘",
-                "师长放任",
-                "中学毕业"
-              ]
-            },
-            "reasoning_skill_tags": [
-              "TOPIC_PALACE_ROUTING",
-              "NATAL_STRUCTURE",
-              "EVIDENCE_WEIGHTING",
-              "COUNTEREVIDENCE_REVERSAL",
-              "ZIWEI_BAZI_ARBITRATION",
-              "OPTION_GRANULARITY",
-              "STATIC_DYNAMIC_LAYERING",
-              "PALACE_TRANSFORMATION_CHAIN",
-              "BAZI_STRUCTURE_THEN_TRIGGER",
-              "UNCERTAINTY_CALIBRATION",
-              "COMPOSITE_OPTION_ATOMIZATION",
-              "REALITY_SCALE_MAPPING",
-              "REGION_ERA_NORMALIZATION",
-              "CAREER_PROFILE_CLOSURE"
-            ],
-            "source_routes": [
-              "S00",
-              "S01",
-              "S02",
-              "S03",
-              "S04",
-              "S08",
-              "S09",
-              "S11",
-              "S16",
-              "S17",
-              "S18",
-              "S19"
-            ],
-            "subject_tags": [
-              "SELF"
-            ],
-            "time_scope_tags": [
-              "OTHER"
-            ],
-            "topic_tags": [
-              "CAREER_EDUCATION"
-            ]
-          },
-          "question_id": "Q1",
-          "source_question_number": "1",
-          "stem": "命主的读书及学历情况如何？"
-        },
-        {
-          "options": [
-            {
-              "option_id": "A",
-              "text": "会计行业，在香港于中资公司工作"
-            },
-            {
-              "option_id": "B",
-              "text": "空中服务员，工作以短途航线为主"
-            },
-            {
-              "option_id": "C",
-              "text": "公关行业，需要为公司销售、应酬"
-            },
-            {
-              "option_id": "D",
-              "text": "运输行业，负责文件单据记录工作"
-            }
-          ],
-          "preblind_profile": {
-            "atomization_required": true,
-            "endpoint_tags": [
-              "OCCUPATION",
-              "BUSINESS_OUTCOME"
-            ],
-            "governance_tags": [],
-            "option_atom_hints": {
-              "A": [
-                "会计行业",
-                "在香港于中资公司工作"
-              ],
-              "B": [
-                "空中服务员",
-                "工作以短途航线为主"
-              ],
-              "C": [
-                "公关行业",
-                "需要为公司销售、应酬"
-              ],
-              "D": [
-                "运输行业",
-                "负责文件单据记录工作"
-              ]
-            },
-            "reasoning_skill_tags": [
-              "TOPIC_PALACE_ROUTING",
-              "NATAL_STRUCTURE",
-              "EVIDENCE_WEIGHTING",
-              "COUNTEREVIDENCE_REVERSAL",
-              "ZIWEI_BAZI_ARBITRATION",
-              "OPTION_GRANULARITY",
-              "STATIC_DYNAMIC_LAYERING",
-              "PALACE_TRANSFORMATION_CHAIN",
-              "BAZI_STRUCTURE_THEN_TRIGGER",
-              "UNCERTAINTY_CALIBRATION",
-              "SUBJECT_ENTITY_ROUTING",
-              "CAUSAL_ACTOR_DIRECTION",
-              "COMPOSITE_OPTION_ATOMIZATION",
-              "REALITY_SCALE_MAPPING",
-              "REGION_ERA_NORMALIZATION",
-              "CAREER_PROFILE_CLOSURE"
-            ],
-            "source_routes": [
-              "S00",
-              "S01",
-              "S02",
-              "S03",
-              "S04",
-              "S08",
-              "S09",
-              "S11",
-              "S16",
-              "S17",
-              "S18",
-              "S19"
-            ],
-            "subject_tags": [
-              "EMPLOYER_ORGANIZATION"
-            ],
-            "time_scope_tags": [
-              "OTHER"
-            ],
-            "topic_tags": [
-              "CAREER_EDUCATION"
-            ]
-          },
-          "question_id": "Q2",
-          "source_question_number": "2",
-          "stem": "命主毕业后，从事那类型工作？"
-        },
-        {
-          "options": [
-            {
-              "option_id": "A",
-              "text": "女同性恋者，于 2011 年同居，她的女伴年龄比她大七年"
-            },
-            {
-              "option_id": "B",
-              "text": "离婚人士，于 2017 年结婚，但于 2020 年，年底两人离婚"
-            },
-            {
-              "option_id": "C",
-              "text": "已婚人士，于 2016 年有婚外情，此男外地人、本身有老婆"
-            },
-            {
-              "option_id": "D",
-              "text": "已婚人士，于 2014 年结婚，虽时有吵闹，但不失夫妻姻爱"
-            }
-          ],
-          "preblind_profile": {
-            "atomization_required": true,
-            "endpoint_tags": [
-              "RELATIONSHIP_STATUS",
-              "RELATIONSHIP_QUALITY",
-              "DIVORCE",
-              "SEXUAL_ORIENTATION"
+              "BACKGROUND_LEVEL",
+              "DEATH"
             ],
             "governance_tags": [
-              "SENSITIVE_PERSONAL_ATTRIBUTE"
+              "HIGH_SEVERITY_OUTCOME"
             ],
             "option_atom_hints": {
               "A": [
-                "女同性恋者",
-                "于 2011 年同居",
-                "她的女伴年龄比她大七年"
+                "出生后次年",
+                "母亲去世",
+                "父亲为小型企业主",
+                "另娶后",
+                "又生一弟一妹"
               ],
               "B": [
-                "离婚人士",
-                "于 2017 年结婚",
-                "于 2020 年",
-                "年底两人离婚"
+                "父亲为政府高级职员",
+                "2021年去世",
+                "命主有一兄一姐"
               ],
               "C": [
-                "已婚人士",
-                "于 2016 年有婚外情",
-                "此男外地人、本身有老婆"
+                "母亲为家庭主妇",
+                "父亲为小型企业主",
+                "命主有一弟"
               ],
               "D": [
-                "已婚人士",
-                "于 2014 年结婚",
-                "虽时有吵闹",
-                "不失夫妻姻爱"
+                "1985年父亲去世",
+                "母亲继承父亲产业",
+                "守寡至今",
+                "命主有一姐一弟"
               ]
             },
             "reasoning_skill_tags": [
@@ -562,9 +449,227 @@
               "TIME_LAYER_ACTIVATION",
               "EVENT_ENDPOINT_CLOSURE",
               "COMPOSITE_OPTION_ATOMIZATION",
-              "SENSITIVE_ATTRIBUTE_CAUTION",
-              "RARE_TOPIC_SAMPLE_GUARD",
-              "RELATIONSHIP_SEQUENCE"
+              "DEATH_ENTITY_TIME_CLOSURE"
+            ],
+            "source_routes": [
+              "S00",
+              "S01",
+              "S03",
+              "S04",
+              "S05",
+              "S06",
+              "S07",
+              "S08",
+              "S09",
+              "S10",
+              "S11",
+              "S12",
+              "S13",
+              "S14",
+              "S15",
+              "S16",
+              "S17",
+              "S18",
+              "S19"
+            ],
+            "subject_tags": [
+              "FATHER",
+              "MOTHER",
+              "EMPLOYER_ORGANIZATION"
+            ],
+            "time_scope_tags": [
+              "SPECIFIC_YEAR",
+              "NATAL"
+            ],
+            "topic_tags": [
+              "FAMILY_ORIGIN",
+              "PARENTS",
+              "SIBLINGS",
+              "MAJOR_YEAR_EVENT"
+            ]
+          },
+          "question_id": "Q1",
+          "source_question_number": "1",
+          "stem": "命主出身及家庭情况？"
+        },
+        {
+          "options": [
+            {
+              "option_id": "A",
+              "text": "腿脚残疾，脾气古怪，喜好文艺爵士和古典音乐，现在为萨克斯手和乐团老板"
+            },
+            {
+              "option_id": "B",
+              "text": "身材高大魁梧，性情固执，喜好音乐，现在为酒吧老板"
+            },
+            {
+              "option_id": "C",
+              "text": "中等身材，勤奋，叛逆，喜好拳击，橄榄球等运动，现在为餐厅老板"
+            },
+            {
+              "option_id": "D",
+              "text": "早产，自幼身体不好，喜好园艺，现在为小型房地产经纪公司老板"
+            }
+          ],
+          "preblind_profile": {
+            "atomization_required": true,
+            "endpoint_tags": [
+              "OCCUPATION",
+              "BUSINESS_OUTCOME",
+              "PROPERTY_HOLDING",
+              "HEALTH_CONDITION",
+              "APPEARANCE"
+            ],
+            "governance_tags": [],
+            "option_atom_hints": {
+              "A": [
+                "腿脚残疾",
+                "脾气古怪",
+                "喜好文艺爵士和古典音乐",
+                "现在为萨克斯手和乐团老板"
+              ],
+              "B": [
+                "身材高大魁梧",
+                "性情固执",
+                "喜好音乐",
+                "现在为酒吧老板"
+              ],
+              "C": [
+                "中等身材",
+                "勤奋",
+                "叛逆",
+                "喜好拳击",
+                "橄榄球等运动",
+                "现在为餐厅老板"
+              ],
+              "D": [
+                "早产",
+                "自幼身体不好",
+                "喜好园艺",
+                "现在为小型房地产经纪公司老板"
+              ]
+            },
+            "reasoning_skill_tags": [
+              "TOPIC_PALACE_ROUTING",
+              "NATAL_STRUCTURE",
+              "EVIDENCE_WEIGHTING",
+              "COUNTEREVIDENCE_REVERSAL",
+              "ZIWEI_BAZI_ARBITRATION",
+              "OPTION_GRANULARITY",
+              "STATIC_DYNAMIC_LAYERING",
+              "PALACE_TRANSFORMATION_CHAIN",
+              "BAZI_STRUCTURE_THEN_TRIGGER",
+              "UNCERTAINTY_CALIBRATION",
+              "SUBJECT_ENTITY_ROUTING",
+              "CAUSAL_ACTOR_DIRECTION",
+              "COMPOSITE_OPTION_ATOMIZATION",
+              "REALITY_SCALE_MAPPING",
+              "REGION_ERA_NORMALIZATION",
+              "CAREER_PROFILE_CLOSURE",
+              "HEALTH_SEVERITY_LOCALIZATION"
+            ],
+            "source_routes": [
+              "S00",
+              "S01",
+              "S02",
+              "S03",
+              "S04",
+              "S05",
+              "S06",
+              "S07",
+              "S08",
+              "S09",
+              "S11",
+              "S12",
+              "S13",
+              "S16",
+              "S17",
+              "S18",
+              "S19"
+            ],
+            "subject_tags": [
+              "EMPLOYER_ORGANIZATION"
+            ],
+            "time_scope_tags": [
+              "CURRENT_STATUS"
+            ],
+            "topic_tags": [
+              "CAREER_EDUCATION",
+              "PROPERTY_HOUSING",
+              "HEALTH",
+              "PERSONALITY_APPEARANCE"
+            ]
+          },
+          "question_id": "Q2",
+          "source_question_number": "2",
+          "stem": "命主的样貌，性情，爱好及职业？"
+        },
+        {
+          "options": [
+            {
+              "option_id": "A",
+              "text": "重点大学医学类专业，毕业后转行，2013年从事现在工作"
+            },
+            {
+              "option_id": "B",
+              "text": "重点大学文科毕业，2011年进入现在工作，2019年曾经因事判监半年"
+            },
+            {
+              "option_id": "C",
+              "text": "高中毕业，边打工边学习，2013年得贵人提携，进入现在工作"
+            },
+            {
+              "option_id": "D",
+              "text": "重点大学文科毕业，中途辍学，2021年进入现在工作"
+            }
+          ],
+          "preblind_profile": {
+            "atomization_required": true,
+            "endpoint_tags": [
+              "OCCUPATION",
+              "EDUCATION_LEVEL"
+            ],
+            "governance_tags": [],
+            "option_atom_hints": {
+              "A": [
+                "重点大学医学类专业",
+                "毕业后转行",
+                "2013年从事现在工作"
+              ],
+              "B": [
+                "重点大学文科毕业",
+                "2011年进入现在工作",
+                "2019年曾经因事判监半年"
+              ],
+              "C": [
+                "高中毕业",
+                "边打工边学习",
+                "2013年得贵人提携",
+                "进入现在工作"
+              ],
+              "D": [
+                "重点大学文科毕业",
+                "中途辍学",
+                "2021年进入现在工作"
+              ]
+            },
+            "reasoning_skill_tags": [
+              "TOPIC_PALACE_ROUTING",
+              "NATAL_STRUCTURE",
+              "EVIDENCE_WEIGHTING",
+              "COUNTEREVIDENCE_REVERSAL",
+              "ZIWEI_BAZI_ARBITRATION",
+              "OPTION_GRANULARITY",
+              "STATIC_DYNAMIC_LAYERING",
+              "PALACE_TRANSFORMATION_CHAIN",
+              "BAZI_STRUCTURE_THEN_TRIGGER",
+              "UNCERTAINTY_CALIBRATION",
+              "TIME_LAYER_ACTIVATION",
+              "EVENT_ENDPOINT_CLOSURE",
+              "COMPOSITE_OPTION_ATOMIZATION",
+              "REALITY_SCALE_MAPPING",
+              "REGION_ERA_NORMALIZATION",
+              "CAREER_PROFILE_CLOSURE"
             ],
             "source_routes": [
               "S00",
@@ -584,153 +689,73 @@
               "S19"
             ],
             "subject_tags": [
-              "SPOUSE_PARTNER"
+              "SELF"
             ],
             "time_scope_tags": [
-              "SPECIFIC_YEAR"
+              "SPECIFIC_YEAR",
+              "CURRENT_STATUS"
             ],
             "topic_tags": [
-              "MARRIAGE_RELATIONSHIP",
-              "SEXUALITY_INTIMACY",
+              "CAREER_EDUCATION",
+              "SOCIAL_FRIENDS",
               "MAJOR_YEAR_EVENT"
             ]
           },
           "question_id": "Q3",
           "source_question_number": "3",
-          "stem": "命主的感情、婚姻情况如何？"
+          "stem": "命主的学历和职业状况？"
         },
         {
           "options": [
             {
               "option_id": "A",
-              "text": "2017"
+              "text": "婚恋不顺，经人介绍，2011年结婚，2014年生一女"
             },
             {
               "option_id": "B",
-              "text": "2018"
+              "text": "2011年与中学同学奉子成婚，关系平淡，2012年初生一子，2015年生第二子"
             },
             {
               "option_id": "C",
-              "text": "2019"
+              "text": "多次恋爱，至今未婚，无子女"
             },
             {
               "option_id": "D",
-              "text": "2020"
-            }
-          ],
-          "preblind_profile": {
-            "atomization_required": false,
-            "endpoint_tags": [
-              "MIGRATION"
-            ],
-            "governance_tags": [],
-            "option_atom_hints": {
-              "A": [
-                "2017"
-              ],
-              "B": [
-                "2018"
-              ],
-              "C": [
-                "2019"
-              ],
-              "D": [
-                "2020"
-              ]
-            },
-            "reasoning_skill_tags": [
-              "TOPIC_PALACE_ROUTING",
-              "NATAL_STRUCTURE",
-              "EVIDENCE_WEIGHTING",
-              "COUNTEREVIDENCE_REVERSAL",
-              "ZIWEI_BAZI_ARBITRATION",
-              "OPTION_GRANULARITY",
-              "STATIC_DYNAMIC_LAYERING",
-              "PALACE_TRANSFORMATION_CHAIN",
-              "BAZI_STRUCTURE_THEN_TRIGGER",
-              "UNCERTAINTY_CALIBRATION",
-              "TIME_LAYER_ACTIVATION",
-              "EVENT_ENDPOINT_CLOSURE"
-            ],
-            "source_routes": [
-              "S00",
-              "S01",
-              "S03",
-              "S04",
-              "S08",
-              "S09",
-              "S10",
-              "S11",
-              "S14",
-              "S15",
-              "S16",
-              "S17",
-              "S18",
-              "S19"
-            ],
-            "subject_tags": [
-              "SELF"
-            ],
-            "time_scope_tags": [
-              "SPECIFIC_YEAR"
-            ],
-            "topic_tags": [
-              "MIGRATION_RELOCATION",
-              "MAJOR_YEAR_EVENT"
-            ]
-          },
-          "question_id": "Q4",
-          "source_question_number": "4",
-          "stem": "命主于那一年有家宅搬迁？"
-        },
-        {
-          "options": [
-            {
-              "option_id": "A",
-              "text": "其母亲发现了有乳癌，幸不是末期，存活至今"
-            },
-            {
-              "option_id": "B",
-              "text": "命主患上了妇科病，验出卵巢有瘤，手术成功"
-            },
-            {
-              "option_id": "C",
-              "text": "有相识已久的朋友，邀其合伙做生意，生意赚钱"
-            },
-            {
-              "option_id": "D",
-              "text": "在公司与男同事有私情，并有男女关系，最后分手"
+              "text": "2018年离婚后，一直独身，无子女"
             }
           ],
           "preblind_profile": {
             "atomization_required": true,
             "endpoint_tags": [
+              "FAMILY_COMPOSITION",
+              "RELATIONSHIP_STATUS",
+              "RELATIONSHIP_QUALITY",
               "DIVORCE",
-              "OCCUPATION",
-              "BUSINESS_OUTCOME",
-              "HEALTH_CONDITION"
+              "EDUCATION_LEVEL"
             ],
             "governance_tags": [],
             "option_atom_hints": {
               "A": [
-                "其母亲发现了有乳癌",
-                "幸不是末期",
-                "存活至今"
+                "婚恋不顺",
+                "经人介绍",
+                "2011年结婚",
+                "2014年生一女"
               ],
               "B": [
-                "命主患上了妇科病",
-                "验出卵巢有瘤",
-                "手术成功"
+                "2011年与中学同学奉子成婚",
+                "关系平淡",
+                "2012年初生一子",
+                "2015年生第二子"
               ],
               "C": [
-                "有相识已久的朋友",
-                "邀其合伙做生意",
-                "生意赚钱"
+                "多次恋爱",
+                "至今未婚",
+                "无子女"
               ],
               "D": [
-                "在公司与男同事有私情",
-                "并有男女关系",
-                "最后分手"
+                "2018年离婚后",
+                "一直独身",
+                "无子女"
               ]
             },
             "reasoning_skill_tags": [
@@ -752,6 +777,111 @@
               "REALITY_SCALE_MAPPING",
               "REGION_ERA_NORMALIZATION",
               "CAREER_PROFILE_CLOSURE",
+              "RELATIONSHIP_SEQUENCE"
+            ],
+            "source_routes": [
+              "S00",
+              "S01",
+              "S02",
+              "S03",
+              "S04",
+              "S08",
+              "S09",
+              "S10",
+              "S11",
+              "S14",
+              "S15",
+              "S16",
+              "S17",
+              "S18",
+              "S19"
+            ],
+            "subject_tags": [
+              "CHILDREN"
+            ],
+            "time_scope_tags": [
+              "SPECIFIC_YEAR"
+            ],
+            "topic_tags": [
+              "MARRIAGE_RELATIONSHIP",
+              "CHILDREN_FERTILITY",
+              "CAREER_EDUCATION",
+              "MAJOR_YEAR_EVENT"
+            ]
+          },
+          "question_id": "Q4",
+          "source_question_number": "4",
+          "stem": "命主的婚恋和子女情况？"
+        },
+        {
+          "options": [
+            {
+              "option_id": "A",
+              "text": "母亲去世"
+            },
+            {
+              "option_id": "B",
+              "text": "外出旅游时，遭遇车祸受伤"
+            },
+            {
+              "option_id": "C",
+              "text": "染患新冠，引发其他病症，住院治疗4个月"
+            },
+            {
+              "option_id": "D",
+              "text": "事业受阻，欠下债务，卖掉房子填补漏洞"
+            }
+          ],
+          "preblind_profile": {
+            "atomization_required": true,
+            "endpoint_tags": [
+              "DEATH",
+              "HEALTH_CONDITION",
+              "ACCIDENT_INJURY",
+              "MAJOR_EVENT"
+            ],
+            "governance_tags": [
+              "HIGH_SEVERITY_OUTCOME"
+            ],
+            "option_atom_hints": {
+              "A": [
+                "母亲去世"
+              ],
+              "B": [
+                "外出旅游时",
+                "遭遇车祸受伤"
+              ],
+              "C": [
+                "染患新冠",
+                "引发其他病症",
+                "住院治疗4个月"
+              ],
+              "D": [
+                "事业受阻",
+                "欠下债务",
+                "卖掉房子填补漏洞"
+              ]
+            },
+            "reasoning_skill_tags": [
+              "TOPIC_PALACE_ROUTING",
+              "NATAL_STRUCTURE",
+              "EVIDENCE_WEIGHTING",
+              "COUNTEREVIDENCE_REVERSAL",
+              "ZIWEI_BAZI_ARBITRATION",
+              "OPTION_GRANULARITY",
+              "STATIC_DYNAMIC_LAYERING",
+              "PALACE_TRANSFORMATION_CHAIN",
+              "BAZI_STRUCTURE_THEN_TRIGGER",
+              "UNCERTAINTY_CALIBRATION",
+              "SUBJECT_ENTITY_ROUTING",
+              "CAUSAL_ACTOR_DIRECTION",
+              "TIME_LAYER_ACTIVATION",
+              "EVENT_ENDPOINT_CLOSURE",
+              "COMPOSITE_OPTION_ATOMIZATION",
+              "REALITY_SCALE_MAPPING",
+              "REGION_ERA_NORMALIZATION",
+              "DEATH_ENTITY_TIME_CLOSURE",
+              "CAREER_PROFILE_CLOSURE",
               "HEALTH_SEVERITY_LOCALIZATION"
             ],
             "source_routes": [
@@ -772,9 +902,7 @@
               "S19"
             ],
             "subject_tags": [
-              "MOTHER",
-              "FRIEND_BUSINESS_PARTNER",
-              "EMPLOYER_ORGANIZATION"
+              "MOTHER"
             ],
             "time_scope_tags": [
               "SPECIFIC_YEAR"
@@ -783,26 +911,24 @@
               "PARENTS",
               "CAREER_EDUCATION",
               "HEALTH",
-              "SOCIAL_FRIENDS",
-              "BUSINESS_PARTNERSHIP",
+              "TRAVEL_ACCIDENT_SAFETY",
               "MAJOR_YEAR_EVENT"
             ]
           },
           "question_id": "Q5",
           "source_question_number": "5",
-          "stem": "命主 2018 年发生了什么事情及结果如何？"
+          "stem": "2022年，命主发生的重要事件？"
         }
       ],
       "question_count": 5,
-      "source_path": "case-bank/raw/CASE-035/questions.txt",
-      "source_sha256": "25a8064606efdd7cce97d554c441f1cbe9406362386669b2d6065a917b8d4157"
+      "source_sha256": "5ab6b821874cf063abe0ad273b5b762213cf1fc1d64cb973b93017738d8eb96e"
     },
     "schema": "FORTUNE-CASE-BANK-CASE-V1",
-    "source_label": "例题35",
+    "source_label": "例题3",
     "ziwei": {
-      "sha256": "c03fa09b195e82717b04cb0426b79725bd4f159f6a0f4bb82e860df0c19b2321",
-      "source_path": "case-bank/raw/CASE-035/ziwei.txt",
-      "text": "├符号定义\n│ ├(↓:离心自化)\n│ ├(↑:向心自化，从对宫化入)\n│ ├(┏ : 生日前小限)\n│ └( ┓: 生日后小限)\n│\n├基本信息\n│ │\n│ ├性别 : 女\n│ ├地理经度 : 120.000\n│ ├钟表时间 : 1984-12-20 18:0\n│ ├真太阳时 : 1984-12-20 18:2\n│ ├农历时间 : 甲子年冬月廿八日酉时\n│ ├节气四柱 : 甲子 丙子 戊子 辛酉\n│ ├非节气四柱 : 甲子 丙子 戊子 辛酉\n│ ├五行局数 : 火六局\n│ └身主:火星; 命主:贪狼; 子年斗君:亥; 身宫:酉\n│\n├命盘十二宫\n│ │ \n│ ├子女宫[丙子]\n│ │ ├主星 : 廉贞[平][生年禄][↓忌],天相[庙]\n│ │ ├辅星 : 右弼[庙]\n│ │ ├小星 : 无\n│ │ ├神煞\n│ │ │ ├岁前星 : 岁建\n│ │ │ ├将前星 : 將星\n│ │ │ ├十二长生 : 冠带\n│ │ │ └太岁煞禄 : 青龙\n│ │ ├大限 : 36 ~ 45虚岁\n│ │ ├小限 : 11,23,35,47,59虚岁\n│ │ ├流年 : 1,13,25,37,49虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├夫妻宫[丁丑]\n│ │ ├主星 : 天梁[旺]\n│ │ ├辅星 : 文昌[庙][↑忌],文曲[庙][↑科],天魁[旺],陀罗[庙]\n│ │ ├小星 : 天空[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 晦气\n│ │ │ ├将前星 : 攀鞍\n│ │ │ ├十二长生 : 沐浴\n│ │ │ └太岁煞禄 : 力士\n│ │ ├大限 : 26 ~ 35虚岁\n│ │ ├小限 : 10,22,34,46,58虚岁\n│ │ ├流年 : 2,14,26,38,50虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├兄弟宫[丙寅]\n│ │ ├主星 : 七杀[庙]\n│ │ ├辅星 : 左辅[庙][↑科],禄存[庙],地空[陷],天马[旺]\n│ │ ├小星 : 天巫,孤辰[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 丧门\n│ │ │ ├将前星 : 岁驿\n│ │ │ ├十二长生 : 长生\n│ │ │ └太岁煞禄 : 博士\n│ │ ├大限 : 16 ~ 25虚岁\n│ │ ├小限 : 9,21,33,45,57虚岁\n│ │ ├流年 : 3,15,27,39,51虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├命  宫[丁卯]\n│ │ ├主星 : 天同[平][↓权]\n│ │ ├辅星 : 擎羊[陷]\n│ │ ├小星 : 红鸾[庙],恩光[庙],天贵[旺],天才[旺],台辅\n│ │ ├神煞\n│ │ │ ├岁前星 : 贯索\n│ │ │ ├将前星 : 息神\n│ │ │ ├十二长生 : 养\n│ │ │ └太岁煞禄 : 官符\n│ │ ├大限 : 6 ~ 15虚岁\n│ │ ├小限 : 8,20,32,44,56虚岁\n│ │ ├流年 : 4,16,28,40,52虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├父母宫[戊辰]\n│ │ ├主星 : 武曲[庙][生年科][↑科]\n│ │ ├辅星 : 无\n│ │ ├小星 : 龙池[庙],华盖[庙]\n│ │ ├神煞\n│ │ │ ├岁前星 : 官符\n│ │ │ ├将前星 : 华盖\n│ │ │ ├十二长生 : 胎\n│ │ │ └太岁煞禄 : 伏兵\n│ │ ├大限 : 116 ~ 125虚岁\n│ │ ├小限 : 7,19,31,43,55虚岁\n│ │ ├流年 : 5,17,29,41,53虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├福德宫[己巳]\n│ │ ├主星 : 太阳[旺][生年忌]\n│ │ ├辅星 : 无\n│ │ ├小星 : 三台[平],天厨,破碎[陷],劫煞,月德\n│ │ ├神煞\n│ │ │ ├岁前星 : 小耗\n│ │ │ ├将前星 : 劫煞\n│ │ │ ├十二长生 : 绝\n│ │ │ └太岁煞禄 : 大耗\n│ │ ├大限 : 106 ~ 115虚岁\n│ │ ├小限 : 6,18,30,42,54虚岁\n│ │ ├流年 : 6,18,30,42,54虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├田宅宫[庚午]\n│ │ ├主星 : 破军[庙][生年权]\n│ │ ├辅星 : 无\n│ │ ├小星 : 解神[庙],天哭[陷],天虚[平],阴煞\n│ │ ├神煞\n│ │ │ ├岁前星 : 岁破\n│ │ │ ├将前星 : 灾煞\n│ │ │ ├十二长生 : 墓\n│ │ │ └太岁煞禄 : 病符\n│ │ ├大限 : 96 ~ 105虚岁\n│ │ ├小限 : 5,17,29,41,53虚岁\n│ │ ├流年 : 7,19,31,43,55虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├官禄宫[辛未]\n│ │ ├主星 : 天机[陷][↑科]\n│ │ ├辅星 : 天钺[旺],铃星[利]\n│ │ ├小星 : 天刑[陷],天官[庙],大耗[平],龙德\n│ │ ├神煞\n│ │ │ ├岁前星 : 龙德\n│ │ │ ├将前星 : 天煞\n│ │ │ ├十二长生 : 死\n│ │ │ └太岁煞禄 : 喜神\n│ │ ├大限 : 86 ~ 95虚岁\n│ │ ├小限 : 4,16,28,40,52虚岁\n│ │ ├流年 : 8,20,32,44,56虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├交友宫[壬申]\n│ │ ├主星 : 紫微[旺][↓权],天府[得]\n│ │ ├辅星 : 地劫[庙]\n│ │ ├小星 : 天使[平],截空[庙],蜚廉\n│ │ ├神煞\n│ │ │ ├岁前星 : 白虎\n│ │ │ ├将前星 : 指背\n│ │ │ ├十二长生 : 病\n│ │ │ └太岁煞禄 : 飞廉\n│ │ ├大限 : 76 ~ 85虚岁\n│ │ ├小限 : 3,15,27,39,51虚岁\n│ │ ├流年 : 9,21,33,45,57虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├迁移宫[癸酉][身宫]\n│ │ ├主星 : 太阴[旺][↓科][↑禄]\n│ │ ├辅星 : 无\n│ │ ├小星 : 天喜[庙],八座[庙],天寿[平],天福[庙],副截[庙],咸池[平],天德[不]\n│ │ ├神煞\n│ │ │ ├岁前星 : 天德\n│ │ │ ├将前星 : 咸池\n│ │ │ ├十二长生 : 衰\n│ │ │ └太岁煞禄 : 奏书\n│ │ ├大限 : 66 ~ 75虚岁\n│ │ ├小限 : 2,14,26,38,50虚岁\n│ │ ├流年 : 10,22,34,46,58虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├疾厄宫[甲戌][来因]\n│ │ ├主星 : 贪狼[庙][↑禄]\n│ │ ├辅星 : 无\n│ │ ├小星 : 凤阁[庙],天伤[平],天月,旬空[陷],寡宿[陷],年解[庙]\n│ │ ├神煞\n│ │ │ ├岁前星 : 吊客\n│ │ │ ├将前星 : 月煞\n│ │ │ ├十二长生 : 帝旺\n│ │ │ └太岁煞禄 : 将军\n│ │ ├大限 : 56 ~ 65虚岁\n│ │ ├小限 : 1,13,25,37,49虚岁\n│ │ ├流年 : 11,23,35,47,59虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ └财帛宫[乙亥]\n│ │ ├主星 : 巨门[旺]\n│ │ ├辅星 : 火星[利]\n│ │ ├小星 : 天姚[陷],封诰,副旬[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 病符\n│ │ │ ├将前星 : 亡神\n│ │ │ ├十二长生 : 临官\n│ │ │ └太岁煞禄 : 小耗\n│ │ ├大限 : 46 ~ 55虚岁\n│ │ ├小限 : 12,24,36,48,60虚岁\n│ │ ├流年 : 12,24,36,48,60虚岁\n│ │ └限流叠宫 : 无\n│\n├大限流年信息\n│ │\n│ ├第1大限[丁卯]\n│ │ ├起止年份:1989年(6虚岁)~1998年(15虚岁)\n│ │ ├大限四化:太阴禄,天同权,天机科,巨门忌\n│ │ ├流年\n│ │ │ ├1989年[己巳](6虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├1990年[庚午](7虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├1991年[辛未](8虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├1992年[壬申](9虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├1993年[癸酉](10虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├1994年[甲戌](11虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├1995年[乙亥](12虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├1996年[丙子](13虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├1997年[丁丑](14虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├1998年[戊寅](15虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第2大限[丙寅]\n│ │ ├起止年份:1999年(16虚岁)~2008年(25虚岁)\n│ │ ├大限四化:天同禄,天机权,文昌科,廉贞忌\n│ │ ├流年\n│ │ │ ├1999年[己卯](16虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2000年[庚辰](17虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2001年[辛巳](18虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2002年[壬午](19虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2003年[癸未](20虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2004年[甲申](21虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2005年[乙酉](22虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2006年[丙戌](23虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2007年[丁亥](24虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2008年[戊子](25虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第3大限[丁丑]\n│ │ ├起止年份:2009年(26虚岁)~2018年(35虚岁)\n│ │ ├大限四化:太阴禄,天同权,天机科,巨门忌\n│ │ ├流年\n│ │ │ ├2009年[己丑](26虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2010年[庚寅](27虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2011年[辛卯](28虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2012年[壬辰](29虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2013年[癸巳](30虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2014年[甲午](31虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2015年[乙未](32虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2016年[丙申](33虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2017年[丁酉](34虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2018年[戊戌](35虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第4大限[丙子]\n│ │ ├起止年份:2019年(36虚岁)~2028年(45虚岁)\n│ │ ├大限四化:天同禄,天机权,文昌科,廉贞忌\n│ │ ├流年\n│ │ │ ├2019年[己亥](36虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2020年[庚子](37虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2021年[辛丑](38虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2022年[壬寅](39虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2023年[癸卯](40虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2024年[甲辰](41虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2025年[乙巳](42虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2026年[丙午](43虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2027年[丁未](44虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2028年[戊申](45虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第5大限[乙亥]\n│ │ ├起止年份:2029年(46虚岁)~2038年(55虚岁)\n│ │ ├大限四化:天机禄,天梁权,紫微科,太阴忌\n│ │ ├流年\n│ │ │ ├2029年[己酉](46虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2030年[庚戌](47虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2031年[辛亥](48虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2032年[壬子](49虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2033年[癸丑](50虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2034年[甲寅](51虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2035年[乙卯](52虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2036年[丙辰](53虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2037年[丁巳](54虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2038年[戊午](55虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第6大限[甲戌]\n│ │ ├起止年份:2039年(56虚岁)~2048年(65虚岁)\n│ │ ├大限四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ ├流年\n│ │ │ ├2039年[己未](56虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2040年[庚申](57虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2041年[辛酉](58虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2042年[壬戌](59虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2043年[癸亥](60虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2044年[甲子](61虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2045年[乙丑](62虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2046年[丙寅](63虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2047年[丁卯](64虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2048年[戊辰](65虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第7大限[癸酉]\n│ │ ├起止年份:2049年(66虚岁)~2058年(75虚岁)\n│ │ ├大限四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ ├流年\n│ │ │ ├2049年[己巳](66虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2050年[庚午](67虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2051年[辛未](68虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2052年[壬申](69虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2053年[癸酉](70虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2054年[甲戌](71虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2055年[乙亥](72虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2056年[丙子](73虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2057年[丁丑](74虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2058年[戊寅](75虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第8大限[壬申]\n│ │ ├起止年份:2059年(76虚岁)~2068年(85虚岁)\n│ │ ├大限四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ ├流年\n│ │ │ ├2059年[己卯](76虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2060年[庚辰](77虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2061年[辛巳](78虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2062年[壬午](79虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2063年[癸未](80虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2064年[甲申](81虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2065年[乙酉](82虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2066年[丙戌](83虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2067年[丁亥](84虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2068年[戊子](85虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第9大限[辛未]\n│ │ ├起止年份:2069年(86虚岁)~2078年(95虚岁)\n│ │ ├大限四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ ├流年\n│ │ │ ├2069年[己丑](86虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2070年[庚寅](87虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2071年[辛卯](88虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2072年[壬辰](89虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2073年[癸巳](90虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2074年[甲午](91虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2075年[乙未](92虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2076年[丙申](93虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2077年[丁酉](94虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2078年[戊戌](95虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第10大限[庚午]\n│ │ ├起止年份:2079年(96虚岁)~2088年(105虚岁)\n│ │ ├大限四化:太阳禄,武曲权,太阴科,天同忌\n│ │ ├流年\n│ │ │ ├2079年[己亥](96虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2080年[庚子](97虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2081年[辛丑](98虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2082年[壬寅](99虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2083年[癸卯](100虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2084年[甲辰](101虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2085年[乙巳](102虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2086年[丙午](103虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2087年[丁未](104虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2088年[戊申](105虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第11大限[己巳]\n│ │ ├起止年份:2089年(106虚岁)~2098年(115虚岁)\n│ │ ├大限四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ ├流年\n│ │ │ ├2089年[己酉](106虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2090年[庚戌](107虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2091年[辛亥](108虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2092年[壬子](109虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2093年[癸丑](110虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2094年[甲寅](111虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2095年[乙卯](112虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2096年[丙辰](113虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2097年[丁巳](114虚岁)\n│ │ │ │ ├命宫干支:己巳\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2098年[戊午](115虚岁)\n│ │ │ │ ├命宫干支:庚午\n│ │ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │\n│ ├第12大限[戊辰]\n│ │ ├起止年份:2099年(116虚岁)~2108年(125虚岁)\n│ │ ├大限四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ ├流年\n│ │ │ ├2099年[己未](116虚岁)\n│ │ │ │ ├命宫干支:辛未\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2100年[庚申](117虚岁)\n│ │ │ │ ├命宫干支:壬申\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2101年[辛酉](118虚岁)\n│ │ │ │ ├命宫干支:癸酉\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2102年[壬戌](119虚岁)\n│ │ │ │ ├命宫干支:甲戌\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2103年[癸亥](120虚岁)\n│ │ │ │ ├命宫干支:乙亥\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2104年[甲子](121虚岁)\n│ │ │ │ ├命宫干支:丙子\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2105年[乙丑](122虚岁)\n│ │ │ │ ├命宫干支:丁丑\n│ │ │ │ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │ │ ├2106年[丙寅](123虚岁)\n│ │ │ │ ├命宫干支:丙寅\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2107年[丁卯](124虚岁)\n│ │ │ │ ├命宫干支:丁卯\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2108年[戊辰](125虚岁)\n│ │ │ │ ├命宫干支:戊辰\n│ └ └ └ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│\n└[备注: 出生地 香港]\n"
+      "sha256": "1d036855bcde3fa96114f83c9ab5ce63982fa34e077813dcf547c00c2da30f7e",
+      "source_path": "examples/DEV-GROUP-002/cases/DEV-EXAMPLE-003.json",
+      "text": "├符号定义\n│ ├(↓:离心自化)\n│ ├(↑:向心自化，从对宫化入)\n│ ├(┏ : 生日前小限)\n│ └( ┓: 生日后小限)\n│\n├基本信息\n│ │\n│ ├性别 : 男\n│ ├地理经度 : 120.000\n│ ├钟表时间 : 1983-4-21 6:30\n│ ├真太阳时 : 1983-4-21 6:31\n│ ├农历时间 : 癸亥年三月初九日卯时\n│ ├节气四柱 : 癸亥 丙辰 己卯 丁卯\n│ ├非节气四柱 : 癸亥 丙辰 己卯 丁卯\n│ ├五行局数 : 金四局\n│ └身主:天机; 命主:巨门; 子年斗君:丑; 身宫:未\n│\n├命盘十二宫\n│ │ \n│ ├兄弟宫[甲子]\n│ │ ├主星 : 天机[庙][↑忌]\n│ │ ├辅星 : 禄存[庙],火星[陷]\n│ │ ├小星 : 八座[陷],天才[旺],副截[陷],副旬[陷],天空[陷],咸池[陷]\n│ │ ├神煞\n│ │ │ ├岁前星 : 晦气\n│ │ │ ├将前星 : 咸池\n│ │ │ ├十二长生 : 衰\n│ │ │ └太岁煞禄 : 博士\n│ │ ├大限 : 14 ~ 23虚岁\n│ │ ├小限 : 12,24,36,48,60虚岁\n│ │ ├流年 : 2,14,26,38,50虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├命  宫[乙丑]\n│ │ ├主星 : 紫微[庙][↓科],破军[旺][生年禄]\n│ │ ├辅星 : 擎羊[庙],铃星[得]\n│ │ ├小星 : 截空[不],旬空[平],蜚廉\n│ │ ├神煞\n│ │ │ ├岁前星 : 丧门\n│ │ │ ├将前星 : 月煞\n│ │ │ ├十二长生 : 帝旺\n│ │ │ └太岁煞禄 : 官符\n│ │ ├大限 : 4 ~ 13虚岁\n│ │ ├小限 : 1,13,25,37,49虚岁\n│ │ ├流年 : 3,15,27,39,51虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├父母宫[甲寅]\n│ │ ├主星 : 无\n│ │ ├辅星 : 地劫[平]\n│ │ ├小星 : 三台[平],恩光[平],天贵[平],天巫,孤辰[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 贯索\n│ │ │ ├将前星 : 亡神\n│ │ │ ├十二长生 : 临官\n│ │ │ └太岁煞禄 : 伏兵\n│ │ ├大限 : 114 ~ 123虚岁\n│ │ ├小限 : 2,14,26,38,50虚岁\n│ │ ├流年 : 4,16,28,40,52虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├福德宫[乙卯]\n│ │ ├主星 : 天府[得]\n│ │ ├辅星 : 天魁[庙]\n│ │ ├小星 : 天姚[庙],龙池[庙]\n│ │ ├神煞\n│ │ │ ├岁前星 : 官符\n│ │ │ ├将前星 : 將星\n│ │ │ ├十二长生 : 冠带\n│ │ │ └太岁煞禄 : 大耗\n│ │ ├大限 : 104 ~ 113虚岁\n│ │ ├小限 : 3,15,27,39,51虚岁\n│ │ ├流年 : 5,17,29,41,53虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├田宅宫[丙辰]\n│ │ ├主星 : 太阴[陷][生年科]\n│ │ ├辅星 : 无\n│ │ ├小星 : 红鸾[庙],天月,大耗[平],月德\n│ │ ├神煞\n│ │ │ ├岁前星 : 小耗\n│ │ │ ├将前星 : 攀鞍\n│ │ │ ├十二长生 : 沐浴\n│ │ │ └太岁煞禄 : 病符\n│ │ ├大限 : 94 ~ 103虚岁\n│ │ ├小限 : 4,16,28,40,52虚岁\n│ │ ├流年 : 6,18,30,42,54虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├官禄宫[丁巳]\n│ │ ├主星 : 廉贞[陷],贪狼[陷][生年忌][↑忌]\n│ │ ├辅星 : 天钺[旺],天马[平]\n│ │ ├小星 : 天福[旺],封诰,天虚[旺]\n│ │ ├神煞\n│ │ │ ├岁前星 : 岁破\n│ │ │ ├将前星 : 岁驿\n│ │ │ ├十二长生 : 长生\n│ │ │ └太岁煞禄 : 喜神\n│ │ ├大限 : 84 ~ 93虚岁\n│ │ ├小限 : 5,17,29,41,53虚岁\n│ │ ├流年 : 7,19,31,43,55虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├交友宫[戊午]\n│ │ ├主星 : 巨门[旺][生年权]\n│ │ ├辅星 : 左辅[旺]\n│ │ ├小星 : 天寿[平],天官[庙],天使[平],龙德\n│ │ ├神煞\n│ │ │ ├岁前星 : 龙德\n│ │ │ ├将前星 : 息神\n│ │ │ ├十二长生 : 养\n│ │ │ └太岁煞禄 : 飞廉\n│ │ ├大限 : 74 ~ 83虚岁\n│ │ ├小限 : 6,18,30,42,54虚岁\n│ │ ├流年 : 8,20,32,44,56虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├迁移宫[己未][身宫]\n│ │ ├主星 : 天相[得]\n│ │ ├辅星 : 文昌[利],文曲[旺][↓忌]\n│ │ ├小星 : 天哭[平],华盖[陷]\n│ │ ├神煞\n│ │ │ ├岁前星 : 白虎\n│ │ │ ├将前星 : 华盖\n│ │ │ ├十二长生 : 胎\n│ │ │ └太岁煞禄 : 奏书\n│ │ ├大限 : 64 ~ 73虚岁\n│ │ ├小限 : 7,19,31,43,55虚岁\n│ │ ├流年 : 9,21,33,45,57虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├疾厄宫[庚申]\n│ │ ├主星 : 天同[旺][↓忌],天梁[陷]\n│ │ ├辅星 : 右弼[不],地空[庙]\n│ │ ├小星 : 天伤[平],劫煞,天德[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 天德\n│ │ │ ├将前星 : 劫煞\n│ │ │ ├十二长生 : 绝\n│ │ │ └太岁煞禄 : 将军\n│ │ ├大限 : 54 ~ 63虚岁\n│ │ ├小限 : 8,20,32,44,56虚岁\n│ │ ├流年 : 10,22,34,46,58虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├财帛宫[辛酉]\n│ │ ├主星 : 武曲[利],七杀[旺]\n│ │ ├辅星 : 无\n│ │ ├小星 : 台辅,破碎[平]\n│ │ ├神煞\n│ │ │ ├岁前星 : 吊客\n│ │ │ ├将前星 : 灾煞\n│ │ │ ├十二长生 : 墓\n│ │ │ └太岁煞禄 : 小耗\n│ │ ├大限 : 44 ~ 53虚岁\n│ │ ├小限 : 9,21,33,45,57虚岁\n│ │ ├流年 : 11,23,35,47,59虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ ├子女宫[壬戌]\n│ │ ├主星 : 太阳[不]\n│ │ ├辅星 : 无\n│ │ ├小星 : 天喜[陷],解神[庙],寡宿[陷],阴煞\n│ │ ├神煞\n│ │ │ ├岁前星 : 病符\n│ │ │ ├将前星 : 天煞\n│ │ │ ├十二长生 : 死\n│ │ │ └太岁煞禄 : 青龙\n│ │ ├大限 : 34 ~ 43虚岁\n│ │ ├小限 : 10,22,34,46,58虚岁\n│ │ ├流年 : 12,24,36,48,60虚岁\n│ │ └限流叠宫 : 无\n│ │ \n│ └夫妻宫[癸亥][来因]\n│ │ ├主星 : 无\n│ │ ├辅星 : 陀罗[陷]\n│ │ ├小星 : 天刑[陷],凤阁[旺],天厨,年解[得]\n│ │ ├神煞\n│ │ │ ├岁前星 : 岁建\n│ │ │ ├将前星 : 指背\n│ │ │ ├十二长生 : 病\n│ │ │ └太岁煞禄 : 力士\n│ │ ├大限 : 24 ~ 33虚岁\n│ │ ├小限 : 11,23,35,47,59虚岁\n│ │ ├流年 : 1,13,25,37,49虚岁\n│ │ └限流叠宫 : 无\n│\n├大限流年信息\n│ │\n│ ├第1大限[乙丑]\n│ │ ├起止年份:1986年(4虚岁)~1995年(13虚岁)\n│ │ ├大限四化:天机禄,天梁权,紫微科,太阴忌\n│ │ ├流年\n│ │ │ ├1986年[丙寅](4虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├1987年[丁卯](5虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├1988年[戊辰](6虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├1989年[己巳](7虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├1990年[庚午](8虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├1991年[辛未](9虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├1992年[壬申](10虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├1993年[癸酉](11虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├1994年[甲戌](12虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├1995年[乙亥](13虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第2大限[甲子]\n│ │ ├起止年份:1996年(14虚岁)~2005年(23虚岁)\n│ │ ├大限四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ ├流年\n│ │ │ ├1996年[丙子](14虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├1997年[丁丑](15虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├1998年[戊寅](16虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├1999年[己卯](17虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2000年[庚辰](18虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2001年[辛巳](19虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2002年[壬午](20虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2003年[癸未](21虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2004年[甲申](22虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2005年[乙酉](23虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第3大限[癸亥]\n│ │ ├起止年份:2006年(24虚岁)~2015年(33虚岁)\n│ │ ├大限四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ ├流年\n│ │ │ ├2006年[丙戌](24虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2007年[丁亥](25虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2008年[戊子](26虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2009年[己丑](27虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2010年[庚寅](28虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2011年[辛卯](29虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2012年[壬辰](30虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2013年[癸巳](31虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2014年[甲午](32虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2015年[乙未](33虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第4大限[壬戌]\n│ │ ├起止年份:2016年(34虚岁)~2025年(43虚岁)\n│ │ ├大限四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ ├流年\n│ │ │ ├2016年[丙申](34虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2017年[丁酉](35虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2018年[戊戌](36虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2019年[己亥](37虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2020年[庚子](38虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2021年[辛丑](39虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2022年[壬寅](40虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2023年[癸卯](41虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2024年[甲辰](42虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2025年[乙巳](43虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第5大限[辛酉]\n│ │ ├起止年份:2026年(44虚岁)~2035年(53虚岁)\n│ │ ├大限四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ ├流年\n│ │ │ ├2026年[丙午](44虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2027年[丁未](45虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2028年[戊申](46虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2029年[己酉](47虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2030年[庚戌](48虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2031年[辛亥](49虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2032年[壬子](50虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2033年[癸丑](51虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2034年[甲寅](52虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2035年[乙卯](53虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第6大限[庚申]\n│ │ ├起止年份:2036年(54虚岁)~2045年(63虚岁)\n│ │ ├大限四化:太阳禄,武曲权,太阴科,天同忌\n│ │ ├流年\n│ │ │ ├2036年[丙辰](54虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2037年[丁巳](55虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2038年[戊午](56虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2039年[己未](57虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2040年[庚申](58虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2041年[辛酉](59虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2042年[壬戌](60虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2043年[癸亥](61虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2044年[甲子](62虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2045年[乙丑](63虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第7大限[己未]\n│ │ ├起止年份:2046年(64虚岁)~2055年(73虚岁)\n│ │ ├大限四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ ├流年\n│ │ │ ├2046年[丙寅](64虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2047年[丁卯](65虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2048年[戊辰](66虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2049年[己巳](67虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2050年[庚午](68虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2051年[辛未](69虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2052年[壬申](70虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2053年[癸酉](71虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2054年[甲戌](72虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2055年[乙亥](73虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第8大限[戊午]\n│ │ ├起止年份:2056年(74虚岁)~2065年(83虚岁)\n│ │ ├大限四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ ├流年\n│ │ │ ├2056年[丙子](74虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2057年[丁丑](75虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2058年[戊寅](76虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2059年[己卯](77虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2060年[庚辰](78虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2061年[辛巳](79虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2062年[壬午](80虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2063年[癸未](81虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2064年[甲申](82虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2065年[乙酉](83虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第9大限[丁巳]\n│ │ ├起止年份:2066年(84虚岁)~2075年(93虚岁)\n│ │ ├大限四化:太阴禄,天同权,天机科,巨门忌\n│ │ ├流年\n│ │ │ ├2066年[丙戌](84虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2067年[丁亥](85虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2068年[戊子](86虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2069年[己丑](87虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2070年[庚寅](88虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2071年[辛卯](89虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2072年[壬辰](90虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2073年[癸巳](91虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2074年[甲午](92虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2075年[乙未](93虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第10大限[丙辰]\n│ │ ├起止年份:2076年(94虚岁)~2085年(103虚岁)\n│ │ ├大限四化:天同禄,天机权,文昌科,廉贞忌\n│ │ ├流年\n│ │ │ ├2076年[丙申](94虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2077年[丁酉](95虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2078年[戊戌](96虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2079年[己亥](97虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2080年[庚子](98虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2081年[辛丑](99虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2082年[壬寅](100虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2083年[癸卯](101虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2084年[甲辰](102虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2085年[乙巳](103虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第11大限[乙卯]\n│ │ ├起止年份:2086年(104虚岁)~2095年(113虚岁)\n│ │ ├大限四化:天机禄,天梁权,紫微科,太阴忌\n│ │ ├流年\n│ │ │ ├2086年[丙午](104虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2087年[丁未](105虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2088年[戊申](106虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2089年[己酉](107虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2090年[庚戌](108虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2091年[辛亥](109虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2092年[壬子](110虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2093年[癸丑](111虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2094年[甲寅](112虚岁)\n│ │ │ │ ├命宫干支:甲寅\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2095年[乙卯](113虚岁)\n│ │ │ │ ├命宫干支:乙卯\n│ │ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│ │\n│ ├第12大限[甲寅]\n│ │ ├起止年份:2096年(114虚岁)~2105年(123虚岁)\n│ │ ├大限四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ ├流年\n│ │ │ ├2096年[丙辰](114虚岁)\n│ │ │ │ ├命宫干支:丙辰\n│ │ │ │ └流年四化:天同禄,天机权,文昌科,廉贞忌\n│ │ │ ├2097年[丁巳](115虚岁)\n│ │ │ │ ├命宫干支:丁巳\n│ │ │ │ └流年四化:太阴禄,天同权,天机科,巨门忌\n│ │ │ ├2098年[戊午](116虚岁)\n│ │ │ │ ├命宫干支:戊午\n│ │ │ │ └流年四化:贪狼禄,太阴权,右弼科,天机忌\n│ │ │ ├2099年[己未](117虚岁)\n│ │ │ │ ├命宫干支:己未\n│ │ │ │ └流年四化:武曲禄,贪狼权,天梁科,文曲忌\n│ │ │ ├2100年[庚申](118虚岁)\n│ │ │ │ ├命宫干支:庚申\n│ │ │ │ └流年四化:太阳禄,武曲权,太阴科,天同忌\n│ │ │ ├2101年[辛酉](119虚岁)\n│ │ │ │ ├命宫干支:辛酉\n│ │ │ │ └流年四化:巨门禄,太阳权,文曲科,文昌忌\n│ │ │ ├2102年[壬戌](120虚岁)\n│ │ │ │ ├命宫干支:壬戌\n│ │ │ │ └流年四化:天梁禄,紫微权,左辅科,武曲忌\n│ │ │ ├2103年[癸亥](121虚岁)\n│ │ │ │ ├命宫干支:癸亥\n│ │ │ │ └流年四化:破军禄,巨门权,太阴科,贪狼忌\n│ │ │ ├2104年[甲子](122虚岁)\n│ │ │ │ ├命宫干支:甲子\n│ │ │ │ └流年四化:廉贞禄,破军权,武曲科,太阳忌\n│ │ │ ├2105年[乙丑](123虚岁)\n│ │ │ │ ├命宫干支:乙丑\n│ └ └ └ └流年四化:天机禄,天梁权,紫微科,太阴忌\n│\n└[备注: 出生地 日本宫崎]\n"
     }
   },
   "current_model": {
@@ -891,6 +1017,45 @@
           "MAJOR_YEAR_EVENT"
         ],
         "trigger_conditions": "推理用吉化否决某人物的高严重度结局，或用煞忌直接确认另一人物的不可逆终点，而没有分别检查人物许可、动作和现实完成。",
+        "validation_status": "CANDIDATE"
+      },
+      {
+        "applicability": "职业选项同时包含岗位功能、行业、机构属性或地域，而多个行业共享文书、流动、服务、销售或协调等日常动作时。",
+        "capability_ceiling": "缺少行业专属对象时，最高释放到财务记录、运营文书、客户关系、移动服务等功能族，不补造精确企业与地点。",
+        "counterexamples": "若运输载体、路线网络、货物流转与调度责任同时闭合，而财务账目或审计对象只有一般文书信号，则移动行业可优先，不因制度性名称更专业而反转。",
+        "decision_procedure": "为每个候选建立核心对象、产出凭证、日常动作、行业、雇主、地域六列；先把共享动作归零，再比较行业专属对象和制度产物，最后单独检查雇主与地域，未闭合的精确节点只降置信度。",
+        "limits": "核心对象与制度产物仍不能单独证明具体雇主、城市或企业所有制；精确机构与地域需要独立现实链。命理结构最多提供职业族和相对功能。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "CAREER_PROFILE_CLOSURE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY",
+        "source_basis": "S02区分现代岗位、行业、机构与地域语义，S03约束双轨裁决，S04与S09负责官禄及人物太极，S08提供化象层级，S11与S16限制八字职业映射，S17闭合岗位动作与服务对象，S18执行区别原子比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S11",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "职业候选必须把核心处理对象、制度产物、日常动作、所属行业、雇主性质与地域场景分层。文书、记录、调度、出行或应酬等工作方式只能定义功能，不能直接把职业归入最显眼的场景行业；当候选行业不同，核心对象与制度产物优先于环境相似度。",
+        "stop_conditions": "若所有候选都只有共享动作而无行业专属对象，停止在功能族相对选择，不用迁移、财星、化科或单颗星曜补造行业。",
+        "topic_tags": [
+          "CAREER_EDUCATION"
+        ],
+        "trigger_conditions": "临时第一名主要由文书、移动、服务或社交等共享工作方式支持，而竞争项拥有不同的核心业务对象或制度产物。",
         "validation_status": "CANDIDATE"
       },
       {
@@ -1209,6 +1374,49 @@
         "validation_status": "CHALLENGED"
       },
       {
+        "applicability": "竞争项分别代表不同事件类型，而较复杂候选包含一个强主干事件和若干精确附属描述，较简单候选只有宽泛结构或一般阶段信号时。",
+        "capability_ceiling": "主干成立而附属未闭合时，只能输出事件类型的相对优先并明确细节未知，不能把整句描述当作全部已证实。",
+        "counterexamples": "若复杂候选的所谓主干只有一般桃花、疾病、移动或财务活动，而简单候选具有人物、动作、制度终点和时间的完整链，则应继续处罚复杂候选。",
+        "decision_procedure": "先标记每项的事件类型主干，再把人物、动作、时间、结果列为必要节点，把地点、精确身份、数量和修饰语列为附属节点；主干按独立父链评分，附属缺证只作分层扣分，然后用直接同轴机制对临时第一名做反转。",
+        "limits": "主干闭合不能自动证明附属身份、地点、数目或法律状态；高严重度及敏感属性仍需更高门槛。该规则不允许用单一星曜、单次冲合或叙事相似替代完整主干。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+        "source_basis": "S02划分现实主干与精确终点，S03处理同源证据和双轨冲突，S04与S08至S10提供主题及动态，S14至S16限制触发解释，S17闭合人物—动作—结果，S18要求原子分层和最强竞争反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "复合选项的区别原子必须分成决定事件类型的主干原子与只修饰身份、地点、数量或细节的附属原子。主干人物—动作—时间机制获得直接同轴闭合时，可超过只获一般背景支持的竞争项；附属原子缺证应降低置信度，但不得与主干原子等权累积后机械否决。",
+        "stop_conditions": "若主干人物、动作或时间仍缺一项，停止使用本规则反转；若涉及敏感身份或不可逆严重结果，继续执行专项高门槛。",
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "CAREER_EDUCATION",
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名凭一般结构领先，但竞争项在指定年份出现与其独有事件类型完全同轴的直接机制，仅因附属描述较多而被整体降级。",
+        "validation_status": "CANDIDATE"
+      },
+      {
         "applicability": "题目同时提供家庭贫富等级、父母职业或公共身份等不同类型候选时。",
         "capability_ceiling": "未闭合家庭量级轴时不输出精确财富阶层；未闭合职业画像时不输出精确岗位。",
         "counterexamples": "若父母人物太极、职业主题宫位、长期收入方式、组织属性和现实终点均有独立同向证据，职业候选可以超过单纯量级候选。",
@@ -1322,6 +1530,52 @@
         ],
         "trigger_conditions": "临时第一名的具体行业主要由可跨多个行业解释的流动、管理、财务或表达信号推出，而竞争职业在服务对象或机构场景上可能拥有独立闭合。",
         "validation_status": "CHALLENGED"
+      },
+      {
+        "applicability": "同一道题在命主本人、父亲、母亲或其他亲属的疾病与医疗结果之间竞争，且命主疾厄轴和亲属轴同时被激活时。",
+        "capability_ceiling": "人物专属疾病链不完整时，最高释放到某人物的健康风险或家庭医疗事件，不输出精确诊断和结局。",
+        "counterexamples": "若命主疾厄轴同时具备本人身体症状、部位病理、检查处置和恢复结果，而亲属轴只有一般压力，则事件主体仍应判为命主，不因题目出现亲属候选而强行转移。",
+        "decision_procedure": "先列出所有候选患者；对每人依次检查人物许可、静态健康容量、指定时间触发、部位或病理、检查处置、结果；命主自身疾厄只计入本人链，照护与家庭压力另列，最后做人选反转。",
+        "limits": "重新立极只能确定人物相对优先，不能凭宫位直接断病名、部位、分期、手术或生存结果；高严重度医疗终点仍需专项链。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-OTHER-PERSON-HEALTH-REROOT-FIRST",
+        "source_basis": "S02区分患者、照护者和医疗终点，S03处理双轨冲突，S04与S09负责人物太极重立，S08与S10定位动态，S11及S14至S16限制八字亲缘和健康映射，S17闭合患者—诊断—处置—结果，S18执行人物排他比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "同年健康候选涉及命主与父母等不同人物时，必须先确定事件主体，再分别重新立极读取该人物的健康链。流年落命主疾厄、来因或身体轴不能默认疾病发生在命主本人，也可能表示照护压力、得知事件、医疗陪同或家庭负担。",
+        "stop_conditions": "若无法把疾病动作排他地归属某一人物，停止在家庭健康事件层，不以流年命宫或单个十神默认患者。",
+        "topic_tags": [
+          "PARENTS",
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要依据命主疾厄或身体轴，而竞争项指向亲属健康，且尚未为每个候选人物建立独立疾病与医疗链。",
+        "validation_status": "CANDIDATE"
       },
       {
         "applicability": "候选由多个年度和多个现实领域组成，且某一候选借用了同案其他题的信息形成连贯故事，而另一候选直接承接覆盖期主导限运时。",
@@ -1530,6 +1784,50 @@
         ],
         "trigger_conditions": "临时第一名包含两个以上连续关系事件，但现有证据主要是一般波动、冲合或阶段转好转坏。",
         "validation_status": "CHALLENGED"
+      },
+      {
+        "applicability": "候选年份都处于迁动活跃期，而题目明确询问换住所、迁居、入伙或家庭居住基点变化时。",
+        "capability_ceiling": "缺少旧居—新居—落地链时，最高释放到移动或居住调整窗口，不断言具体搬迁年份。",
+        "counterexamples": "若某年迁移轴直接激活，同时出现田宅取得或退出、家庭成员联动和现实落地动作，而其他年份只有生活结构换挡，则该直接迁移年可以优先。",
+        "decision_procedure": "逐年建立移动许可、居住基点、旧居变化、新居变化、家庭联动、手续或落地六列；短途出行与职业移动归零；再比较田宅—迁移双轴和八字阶段触发，必要时区分换运背景年与完成年。",
+        "limits": "田宅或迁移单轴都不能独立证明搬迁；买卖房产、装修、短期旅行、通勤变化和正式迁居必须分开。大运交接只提供背景，不自动等于当年完成。",
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-RELOCATION-RESIDENCE-VERSUS-MOBILITY",
+        "source_basis": "S02区分出行、房产与住所语义，S03裁决两轨时间冲突，S04与S09路由田宅和迁移太极，S08与S10处理四化及岁运，S14至S16限制冲动与换运解释，S17闭合迁居动作，S18比较候选年份。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "出行、迁动、异地活动与家宅搬迁是不同终点。迁移宫、天马、驿动、冲动或移动行业只提供移动许可；判断住所搬迁必须同时检查居住基点或田宅轴的变化、旧居退出或新居进入以及实际落地时间。",
+        "stop_conditions": "若所有年份都只有迁动或换运背景而无住所完成链，停止在低置信度时间窗口，不用流年命宫单点定年。",
+        "topic_tags": [
+          "PROPERTY_HOUSING",
+          "MIGRATION_RELOCATION",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名只因流年落迁移或出现强驿动而领先，但没有居住基点及落地动作；竞争年在田宅、家庭结构或新阶段实际完成上更闭合。",
+        "validation_status": "CANDIDATE"
       },
       {
         "applicability": "同一年份的候选横跨获奖表达、交通事故、疾病发现、制度冲突或其他不同事件机制，且盘面同时出现吉化与移动、冲击、医疗或制度风险时。",
@@ -3463,7 +3761,7 @@
         "input damage blocks the affected case before prediction"
       ]
     },
-    "release_id": "MODEL-LEARNING-007",
+    "release_id": "MODEL-LEARNING-008",
     "rule_application_policy": {
       "CANDIDATE": "Use only when scope matches; never as sole evidence.",
       "CHALLENGED": "Treat as a warning or counter-hypothesis, not a decisive rule.",
@@ -3681,93 +3979,23 @@
   "schema": "CHAT-PREDICTION-INPUT-V2",
   "state_summary": {
     "case_attempt_policy": "ONE_FIRST_BLIND_THEN_SPACED_DIAGNOSTIC_REPLAY",
-    "current_case_id": "CASE-035",
-    "current_model_release": "MODEL-LEARNING-007",
+    "current_case_id": "CASE-003",
+    "current_model_release": "MODEL-LEARNING-008",
     "dataset_manifest_path": "case-bank/manifest.json",
     "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
-    "evaluation_kind": "FIRST_BLIND",
+    "evaluation_kind": "SPACED_REPLAY",
     "failed_first_blind_resets_independent_passes": true,
     "formal_phase": "DEVELOPMENT",
     "independent_pass_streak": 0,
     "minimum_new_cases_between_replays": 5,
     "mode": "FORMAL_CASE_BANK",
     "prediction_allowed": true,
-    "recommended_round_id": "FORMAL-ROUND-008",
+    "recommended_round_id": "FORMAL-ROUND-009",
     "required_consecutive_independent_passes": 3,
-    "round_count": 7,
+    "round_count": 8,
     "same_case_replay_counts_toward_stage_gate": false,
-    "spaced_replay_queue_size": 4,
+    "spaced_replay_queue_size": 5,
     "status": "READY_FOR_ROUND",
     "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY"
-  },
-  "chat_work_handoff_contract": {
-    "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
-    "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
-    "issue_title": "[PREDICTION HANDOFF] FORMAL-ROUND-008 CASE-035",
-    "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
-    "binding": {
-      "case_id": "CASE-035",
-      "round_id": "FORMAL-ROUND-008",
-      "evaluation_kind": "FIRST_BLIND",
-      "model_release": "MODEL-LEARNING-007",
-      "current_case_sha256": "282d251067909f049224caa93ebdcb141c219d158d2543431e2f9e8a73d39ee4",
-      "current_model_release_sha256": "dbb7746f43168f8c9267e5f1783f5606b77fdcd1e4486467df8c18fb578dd0e2",
-      "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39"
-    },
-    "handoff_required_fields": [
-      "schema",
-      "binding",
-      "predictions"
-    ],
-    "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
-    "work_acceptance_rule": "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions from conversation memory. Validate every binding value against this current bundle and stop before scoring if the receipt is missing, duplicated, stale, or mismatched.",
-    "training_issue_input_contract": {
-      "schema": "TRAINING-ISSUE-PACKET-V2",
-      "allowed_top_level_fields": [
-        "schema",
-        "round_id",
-        "case_id",
-        "predictions",
-        "expected_result",
-        "learning_release_id",
-        "learning_patch"
-      ],
-      "pass_required_fields": [
-        "schema",
-        "round_id",
-        "case_id",
-        "predictions",
-        "expected_result"
-      ],
-      "pass_forbidden_fields": [
-        "learning_release_id",
-        "learning_patch"
-      ],
-      "fail_required_fields": [
-        "schema",
-        "round_id",
-        "case_id",
-        "predictions",
-        "expected_result",
-        "learning_release_id",
-        "learning_patch"
-      ],
-      "result_only_fields_forbidden_in_input": [
-        "evaluation_kind",
-        "accuracy",
-        "correct_count",
-        "top2_coverage",
-        "learning_release",
-        "next_case_id",
-        "next_status"
-      ]
-    },
-    "handoff_forbidden_content": [
-      "ANSWER_BEARING_FIELDS",
-      "SCORING_OR_REVIEW_FIELDS",
-      "EXPECTED_OUTCOME_FIELDS",
-      "LEARNING_PATCH_FIELDS",
-      "SECRETS_OR_KEYS"
-    ]
   }
 }
