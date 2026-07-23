@@ -1,5 +1,5 @@
 {
-  "schema": "QUESTION-TRAINING-STATE-V2",
+  "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "group_id": "DEV-GROUP-002",
   "group_path": "examples/DEV-GROUP-002/group.json",
   "policy_path": "config/training-policy.json",
@@ -12,33 +12,48 @@
   "active_round_id": null,
   "round_count": 2,
   "round_limit": null,
+  "first_blind_cases_closed": 1,
+  "independent_pass_streak": 0,
+  "required_consecutive_independent_passes": 3,
+  "active_replay_case_id": null,
+  "spaced_replay_queue": [],
   "cases": {
     "DEV-EXAMPLE-001": {
-      "status": "COMPLETE",
+      "status": "FIRST_BLIND_CLOSED",
+      "first_blind_passed": false,
+      "remediation_status": "RESOLVED",
       "first_blind_round_id": "ROUND-001",
       "replay_round_ids": ["ROUND-002"],
       "round_ids": ["ROUND-001", "ROUND-002"]
     },
     "DEV-EXAMPLE-002": {
       "status": "ACTIVE",
+      "first_blind_passed": null,
+      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
       "replay_round_ids": [],
       "round_ids": []
     },
     "DEV-EXAMPLE-003": {
       "status": "PENDING",
+      "first_blind_passed": null,
+      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
       "replay_round_ids": [],
       "round_ids": []
     },
     "DEV-EXAMPLE-004": {
       "status": "PENDING",
+      "first_blind_passed": null,
+      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
       "replay_round_ids": [],
       "round_ids": []
     },
     "DEV-EXAMPLE-005": {
       "status": "PENDING",
+      "first_blind_passed": null,
+      "remediation_status": "NOT_EVALUATED",
       "first_blind_round_id": null,
       "replay_round_ids": [],
       "round_ids": []

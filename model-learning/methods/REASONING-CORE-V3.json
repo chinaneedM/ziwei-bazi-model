@@ -3,7 +3,7 @@
   "method_id": "REASONING-CORE-V3",
   "contains_case_answer_mapping": false,
   "modifies_canonical_source_files": false,
-  "purpose": "Stable question-level reasoning procedure shared by Chat and Work; case-derived rules remain separate and evidence-tracked.",
+  "purpose": "Generalization-first reasoning procedure shared by Chat and Work; new cases provide first-blind evidence, while spaced replays diagnose remediation without masquerading as independent evidence.",
   "stages": [
     {
       "stage": "INPUT_FREEZE",
@@ -39,6 +39,11 @@
       "stage": "FREEZE_THEN_REVEAL",
       "required_outputs": ["immutable_prediction", "prediction_hash", "bound_source_and_model_versions"],
       "rule": "No scoring or answer access before a complete freeze."
+    },
+    {
+      "stage": "ROUND_FEEDBACK_AND_GENERALIZATION_GATE",
+      "required_outputs": ["round_score", "independent_case_pass_streak", "generic_learning_if_failed", "next_new_case_or_spaced_replay"],
+      "rule": "Each distinct new case contributes at most one first-blind result. A failed first blind resets the cross-case streak, requires generic learning, and queues the case for replay after at least five newer cases. Replays diagnose remediation but never count toward the three-case gate."
     }
   ],
   "evidence_priority": [
@@ -77,10 +82,13 @@
     "UNCERTAINTY_CALIBRATION"
   ],
   "learning_boundary": {
-    "development_may_propose_candidate_rules": true,
-    "stage_validation_may_propose_candidate_rules": false,
-    "final_holdout_may_propose_candidate_rules": false,
+    "failed_round_must_activate_generic_model_learning": true,
+    "passing_round_must_not_create_answer_derived_rule": true,
     "same_case_replay_is_independent_evidence": false,
-    "unrelated_question_is_rule_evidence": false
+    "unrelated_question_is_rule_evidence": false,
+    "required_consecutive_independent_passes": 3,
+    "minimum_new_cases_between_replays": 5,
+    "failed_first_blind_resets_independent_passes": true,
+    "same_case_replay_counts_toward_stage_gate": false
   }
 }
