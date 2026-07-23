@@ -1,16 +1,19 @@
 {
-  "active_replay_case_id": "CASE-002",
+  "active_replay_case_id": null,
   "active_round_id": null,
   "cases": {
     "CASE-002": {
       "first_blind_passed": false,
       "first_blind_round_id": "FORMAL-ROUND-001",
-      "remediation_status": "QUEUED",
-      "replay_round_ids": [],
-      "round_ids": [
-        "FORMAL-ROUND-001"
+      "remediation_status": "RESOLVED",
+      "replay_round_ids": [
+        "FORMAL-ROUND-007"
       ],
-      "status": "REPLAY_ACTIVE"
+      "round_ids": [
+        "FORMAL-ROUND-001",
+        "FORMAL-ROUND-007"
+      ],
+      "status": "FIRST_BLIND_CLOSED"
     },
     "CASE-003": {
       "first_blind_passed": false,
@@ -202,7 +205,7 @@
       "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
       "round_ids": [],
-      "status": "PENDING"
+      "status": "ACTIVE"
     },
     "CASE-036": {
       "first_blind_passed": null,
@@ -541,16 +544,12 @@
   "mode": "FORMAL_CASE_BANK",
   "policy_path": "config/training-policy.json",
   "required_consecutive_independent_passes": 3,
-  "round_count": 6,
+  "round_count": 7,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [
-    {
-      "case_id": "CASE-002",
-      "eligible_after_first_blind_count": 6
-    },
     {
       "case_id": "CASE-003",
       "eligible_after_first_blind_count": 7
