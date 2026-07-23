@@ -1,0 +1,23 @@
+{
+  "schema": "TRAINING-OPERATIONAL-EVENTS-V1",
+  "events": [
+    {
+      "kind": "HANDOFF",
+      "round_count": 11,
+      "detail": "The first FORMAL-ROUND-011 handoff used a human-readable prediction shape instead of the controller schema and was rejected before scoring.",
+      "recorded_at": "2026-07-23T14:32:39Z"
+    },
+    {
+      "kind": "HASH_BINDING",
+      "round_count": 11,
+      "detail": "The replacement FORMAL-ROUND-011 handoff contained a one-character canonical-manifest hash transcription error and was rejected before scoring.",
+      "recorded_at": "2026-07-23T14:32:39Z"
+    },
+    {
+      "kind": "HANDOFF",
+      "round_count": 11,
+      "detail": "The corrected FORMAL-ROUND-011 handoff initially used a non-exact question_profile field set and was rejected before scoring.",
+      "recorded_at": "2026-07-23T14:32:39Z"
+    }
+  ]
+}

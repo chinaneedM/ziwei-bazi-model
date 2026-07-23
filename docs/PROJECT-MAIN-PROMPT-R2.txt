@@ -14,6 +14,7 @@ PROJECT_INSTRUCTION_STATUS=ACTIVE
 - 至少隔开5个新案例后才可复训；复训只验证修复，不计首次盲测准确率、独立规则证据或阶段晋级。
 - 3个不同首次盲测案例连续达标才通过阶段门；任一新案失败，跨案连续次数立即归零。
 - 开发集用于学习，阶段验证集不得创建规则，最终留出集不得创建规则或反向调参。
+- 每25道严格首次盲测题自动短维护、每100道中期维护；低分、Top2、过度自信、规则量、复训成效或运行故障达到异常阈值时提前维护。维护不计训练证据且不得修改S00–S19。
 
 ## 二、唯一运行权威
 
@@ -23,6 +24,7 @@ PROJECT_INSTRUCTION_STATUS=ACTIVE
 - `sources/canonical-manifest.json`：冻结文件及哈希锁。
 - `model-learning/`：通用思路、知识调用方式、执行步骤和待验证假设；失败复盘只更新这一层。
 - `training/state.json`：当前新案、间隔复训队列、跨案连续达标次数和当前模型发布。
+- `training/maintenance-state.json`与`training/maintenance-reports/`：维护里程碑及无答案映射的维护审计。
 - `examples/`：无答案案例材料。
 
 项目内S00–S19只是只读检索镜像。S02 `(8)`禁用，S02 `(9)`有效。不得以项目镜像覆盖Git状态。
@@ -34,7 +36,9 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 ## 四、Chat与Work
 
 - Chat：读取状态并完成未揭盲推理；全部Top1/Top2冻结后，必须按安全启动包中的`CHAT-WORK-HANDOFF-CONTRACT-V1`创建唯一`[PREDICTION HANDOFF]` GitHub Issue。该Issue只含绑定字段与完整冻结预测，不得含答案、评分或学习修正；这是Chat唯一允许的GitHub写操作。
-- Chat 创建交接前必须验证每题已是控制器标准格式，包含字符串形式的`top1`、`top2`、`reasoning`、唯一`evidence`、`strongest_counterevidence`、0—100整数`confidence`及完整`question_profile`；不得把面向阅读的嵌套展示对象直接当作机器交接。
+- Chat 创建交接前必须验证每题已是控制器标准格式，包含字符串形式的`top1`、`top2`、`reasoning`、唯一`evidence`、`strongest_counterevidence`、0—100整数`confidence`、完整`question_profile`及`rule_attribution`；不得把面向阅读的嵌套展示对象直接当作机器交接。
+- 每题先按`rule_router`选取最多6条范围匹配规则；每条`applied_rule_id`必须恰好归入决定性、辅助性或反证。只有去掉后会改变Top1的规则才列为决定性；`CHALLENGED`规则只能作反证。人物、准确时间、机制或现实终点未闭合时置信度不得高于65。
+- 创建交接Issue时直接使用启动包`handoff_payload_template`，只填入冻结`predictions`，不得手工重抄绑定哈希。
 - Work：只接受与`main/chat-input/current.json`全部绑定值一致、且绑定验证有效的唯一交接Issue。不得从跨对话记忆、摘要或旧回复重建预测；交接缺失、重复、过期或不匹配时必须在评分前停止。
 - 用户切换一次Work后，不得再要求其返回Chat补建Issue、复制预测或生成训练提交单。Work使用一次性公钥取得私密评分结果，并在同一会话完成PASS提交或FAIL通用复盘、落库提交及发布；一次性私钥不得进入GitHub或长期文件。
 - Work运行控制器、评分、验证、写入`model-learning/`并发布Git。生成`TRAINING-ISSUE-PACKET-V2`时严格使用启动包内输入字段白名单；结果字段不得回填输入，PASS不得携带学习字段，FAIL必须携带完整通用修正。
@@ -58,7 +62,7 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 4. 把象义闭合为人物、事件、动作和结果。
 5. 两轨冲突时按主题、证据链、时间命中和现实终点裁决，保留冲突。
 6. 全选项成对比较，说明Top1胜过Top2的原因和最强反证。
-7. 每题输出`top1`、`top2`、核心证据、反证和置信度。
+7. 每题输出`top1`、`top2`、核心证据、反证、置信度、完整`question_profile`与`rule_attribution`。
 
 ## 七、揭盲评分与复盘
 

@@ -13,6 +13,8 @@
 - 每道题必须在揭盲前填写 `question_profile`：主题、人物、时间、现实终点、推理能力、来源路线及实际采用的规则。
 - 只有预测前明确列入 `applied_rule_ids` 的规则，才会因该题结果获得支持或反证；无关题目不计证据。
 - 规则至少在3个不同的后续案例中获得3次支持且支持率达到80%，才从候选状态提升为内部 `VALIDATED`。这仍是题库内经验状态，不等于科学定律。
+- 每完成25道严格首次盲测题自动执行短维护；每100道执行中期维护。连续低分、Top2过低、过度自信、规则过量、复训不改善或近期流程故障会提前触发异常维护。维护不计训练证据，也不修改S00–S19。
+- 每题先按主题路由，再最多调用6条模型规则。规则必须分为决定性、辅助性与反证；只有去掉后会改变Top1的决定性规则才获得主要验证证据。
 
 ## 两层运行权威
 
@@ -29,6 +31,8 @@
 
 失败产生的通用规则在下一轮按其适用范围启用；规则状态只表示证据强弱，不决定当前案例能否继续。
 
+`training/maintenance-state.json`保存维护里程碑，`training/maintenance-reports/`保存不含答案映射的维护报告，`training/replay-effectiveness.json`单独记录复训相对首次盲测的改善或退化。被更完整规则接替的旧规则保留审计记录，但不再装入运行上下文。
+
 ## 每案闭环
 
 1. Chat只读取`chat-input/current.json`；该文件内嵌当前无答案案例、23张来源知识卡、标签表、当前模型规则和冻结原典清单。
@@ -37,6 +41,7 @@
 4. 用户把整份 JSON 粘贴到“无 Work 训练提交单”。
 5. GitHub 自动冻结、用加密答案复核评分、更新题级统计。
 6. 未通过时跨案连续次数归零，校验并激活通用候选规则后进入下一新案，同时排入间隔复训；通过时累加不同新案连续次数。
+7. 每轮闭环后控制器自动检查固定里程碑与异常触发器；到期时先完成维护、生成报告，再恢复下一案例。
 
 详细操作见 `docs/CHAT-WORK-RUNBOOK.md` 与 `docs/NO-WORK-ISSUE-RELAY.md`。
 整体架构、来源梳理、第二阶段状态、覆盖缺口和后续实施顺序分别见 `docs/MODEL-ARCHITECTURE-V3.md`、`docs/SOURCE-KNOWLEDGE-MAP.md`、`docs/PHASE2-CURATION-AND-MODEL-STATUS-20260723.md`、`docs/CASE-COVERAGE-REPORT.md` 与 `docs/IMPLEMENTATION-ROADMAP-V3.md`。公共资料发布边界见 `docs/PUBLIC-RELEASE-SAFETY.md`。
@@ -65,6 +70,8 @@ fortune-train case-bank-verify
 fortune-train case-bank-report
 fortune-train status
 fortune-train report
+fortune-train maintenance-status
+fortune-train maintenance-run
 ```
 
 案例库未激活前不得执行`start`。激活后的冻结、评分和失败学习仍由Chat＋GitHub Issue通道调用控制器，不要求用户手工运行命令。
@@ -91,9 +98,17 @@ fortune-train learn ROUND-003 /tmp/model-learning-rules.json MODEL-LEARNING-003
     "reasoning_skill_tags": ["SUBJECT_ENTITY_ROUTING", "RELATIONSHIP_SEQUENCE"],
     "source_routes": ["S04", "S08", "S16", "S17"],
     "applied_rule_ids": []
+  },
+  "rule_attribution": {
+    "decisive_rule_ids": [],
+    "supporting_rule_ids": [],
+    "counterevidence_rule_ids": [],
+    "decision_changed": false
   }
 }
 ```
+
+`applied_rule_ids`必须恰好等于三类归因ID的并集，三类不得重叠。`CHALLENGED`规则只能进入`counterevidence_rule_ids`。人物、准确时间、事件机制或现实终点未闭合时，置信度上限为65。
 
 ## 验证
 
@@ -102,4 +117,4 @@ make verify
 make test
 ```
 
-验证覆盖冻结原典、答案隔离、模型发布链、题级标签、23张知识卡、失败学习、跨案三连门、间隔复训、安全Chat输入包以及Issue自动闭环。
+验证覆盖冻结原典、答案隔离、模型发布链、题级标签、23张知识卡、失败学习、跨案三连门、间隔复训、维护里程碑、规则归因、置信度校准、安全Chat输入包以及Issue自动闭环。

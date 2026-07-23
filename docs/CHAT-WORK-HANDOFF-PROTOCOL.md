@@ -24,7 +24,8 @@
     "model_release": "<current model release>",
     "current_case_sha256": "<from current.json>",
     "current_model_release_sha256": "<from current.json>",
-    "canonical_source_manifest_sha256": "<from current.json>"
+    "canonical_source_manifest_sha256": "<from current.json>",
+    "effective_model_input_sha256": "<from current.json>"
   },
   "predictions": []
 }
@@ -38,9 +39,9 @@ Work 必须同时满足以下条件才可评分：
 
 1. `main/chat-input/current.json`仍指向同一案例、轮次和模型；
 2. 只有一个对应的开放交接 Issue；
-3. Schema、案例、轮次、评估类型、模型发布及三个哈希全部相同；
+3. Schema、案例、轮次、评估类型、模型发布及全部绑定哈希相同；
 4. 题目覆盖完整且每题只出现一次；
-5. Top1/Top2、理由、证据、反证、置信度及`question_profile`齐全；
+5. Top1/Top2、理由、证据、反证、置信度、`question_profile`及`rule_attribution`齐全；
 6. `evidence`无重复且均存在于同题`source_routes`；
 7. 不存在答案、评分或学习字段。
 
@@ -56,7 +57,11 @@ Chat 创建唯一交接 Issue 并返回编号后，用户只需切换一次 Work
 4. Work 解密复核；PASS 直接生成正式提交，FAIL 在同一会话完成通用复盘和学习补丁；
 5. 创建唯一 `[TRAINING ROUND]` Issue，等待正式控制器验证、提交 `main`，随后关闭交接 Issue。
 
-一次性私钥不得进入 Issue、仓库、Actions 日志或长期文件。交接 Issue 必须已经是控制器标准预测格式，不能在揭盲后补写 `question_profile`、改变 Top1/Top2 或重做推理。
+一次性私钥不得进入 Issue、仓库、Actions 日志或长期文件。交接 Issue 必须已经是控制器标准预测格式，不能在揭盲后补写 `question_profile`、`rule_attribution`、改变 Top1/Top2 或重做推理。
+
+`rule_attribution`必须把每个`applied_rule_id`恰好归入`decisive_rule_ids`、`supporting_rule_ids`或`counterevidence_rule_ids`之一，并填写`decision_changed`。每题最多使用6条范围匹配规则；`CHALLENGED`规则只能作为反证。
+
+创建Issue时应直接使用`chat_work_handoff_contract.handoff_payload_template`，只填入已冻结的`predictions`，不得手工重抄绑定哈希。
 
 ## 训练提交字段
 

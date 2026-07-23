@@ -33,6 +33,7 @@ from fortune_training.learning import (
     validate_learning_ledger,
     write_learning_ledger,
 )
+from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
 from fortune_training.runtime import (
     _validate_answers,
@@ -267,6 +268,12 @@ class RuntimeFixture:
             }
             if include_profile:
                 row["question_profile"] = self.profile(applied_rule_ids)
+                row["rule_attribution"] = {
+                    "decisive_rule_ids": applied_rule_ids or [],
+                    "supporting_rule_ids": [],
+                    "counterevidence_rule_ids": [],
+                    "decision_changed": bool(applied_rule_ids),
+                }
             rows.append(row)
         write_json(
             path,
@@ -302,6 +309,47 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(required_correct(6), 5)
         self.assertTrue(passed(4, 5))
         self.assertFalse(passed(3, 5))
+
+
+class MaintenanceTests(unittest.TestCase):
+    def test_short_maintenance_runs_at_twenty_five_first_blind_questions(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary), case_count=6)
+            for index in range(1, 6):
+                fixture.run_and_score(f"R{index}", 5)
+            due = maintenance_due(fixture.root)
+            self.assertTrue(due["short_due"])
+            result = run_maintenance(fixture.root)
+            self.assertTrue(result["performed"])
+            self.assertEqual(result["maintenance_type"], "SHORT")
+            self.assertFalse(maintenance_due(fixture.root)["due"])
+            self.assertTrue(
+                (
+                    fixture.root
+                    / "training/maintenance-reports/MAINTENANCE-001.json"
+                ).is_file()
+            )
+
+    def test_overconfidence_anomaly_can_trigger_before_fixed_milestone(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary), case_count=6)
+            for index in range(1, 6):
+                fixture.run_and_score(f"R{index}", 0)
+                apply_learning(
+                    fixture.root,
+                    f"R{index}",
+                    fixture.patch_file(
+                        f"LEARNING-{index}",
+                        f"RULE-OVERCONFIDENT-{index}",
+                    ),
+                    f"LEARNING-{index}",
+                )
+            due = maintenance_due(fixture.root)
+            self.assertTrue(due["anomaly_due"])
+            self.assertIn(
+                "OVERCONFIDENCE",
+                {row["code"] for row in due["anomalies"]},
+            )
 
 
 class RuntimeTests(unittest.TestCase):

@@ -13,6 +13,7 @@ from .learning import (
     validate_learning_ledger,
     validate_rule,
 )
+from .maintenance import validate_maintenance
 from .policy import (
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
     load_and_validate_policy,
@@ -431,9 +432,10 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError("training state case set mismatch")
     _validate_state(root, state, group)
     current_release_record = _validate_release_chain(root, current_release)
-    load_rule_catalog(root, current_release_record)
+    rule_catalog = load_rule_catalog(root, current_release_record)
     ledger = load_json(root / LEDGER_RELATIVE_PATH)
     validate_learning_ledger(root, ledger, current_release_record)
+    maintenance = validate_maintenance(root, rule_catalog)
 
     chat_input_path = root / CHAT_INPUT_RELATIVE_PATH
     chat_input = load_json(chat_input_path)
@@ -528,6 +530,8 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "knowledge_cards_ready": chat_input["current_model"]["knowledge_cards"]["card_count"] >= 23,
         "knowledge_card_count": chat_input["current_model"]["knowledge_cards"]["card_count"],
         "learning_ledger_ready": True,
+        "maintenance_ready": True,
+        "maintenance": maintenance,
         "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
         "required_consecutive_independent_passes": REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
         "same_case_replays_count_toward_stage_gate": False,

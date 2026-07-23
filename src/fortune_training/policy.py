@@ -11,6 +11,11 @@ RULE_MIN_DISTINCT_FUTURE_CASES = 3
 RULE_MIN_SUPPORT_RATIO = 0.8
 REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES = 3
 MINIMUM_NEW_CASES_BETWEEN_REPLAYS = 5
+SHORT_MAINTENANCE_INTERVAL_QUESTIONS = 25
+MEDIUM_MAINTENANCE_INTERVAL_QUESTIONS = 100
+MAINTENANCE_RECENT_WINDOW_QUESTIONS = 25
+MAINTENANCE_ANOMALY_COOLDOWN_QUESTIONS = 10
+MAX_APPLIED_RULES_PER_QUESTION = 6
 
 
 def required_correct(question_count: int) -> int:
@@ -103,4 +108,33 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
         "aggregate_counts_required": True,
     }:
         raise TrainingError("unscored-question policy mismatch")
+    maintenance = policy.get("maintenance_policy", {})
+    maintenance_expected = {
+        "short_interval_first_blind_questions": SHORT_MAINTENANCE_INTERVAL_QUESTIONS,
+        "medium_interval_first_blind_questions": MEDIUM_MAINTENANCE_INTERVAL_QUESTIONS,
+        "recent_window_first_blind_questions": MAINTENANCE_RECENT_WINDOW_QUESTIONS,
+        "anomaly_cooldown_first_blind_questions": MAINTENANCE_ANOMALY_COOLDOWN_QUESTIONS,
+        "maintenance_does_not_count_as_training_evidence": True,
+        "canonical_sources_mutable_during_maintenance": False,
+        "max_applied_rules_per_question": MAX_APPLIED_RULES_PER_QUESTION,
+        "challenged_rules_are_counterevidence_only": True,
+    }
+    for key, value in maintenance_expected.items():
+        if maintenance.get(key) != value:
+            raise TrainingError(
+                f"maintenance policy mismatch for {key}: expected {value!r}"
+            )
+    anomaly = maintenance.get("anomaly_triggers", {})
+    anomaly_expected = {
+        "consecutive_low_first_blind_cases": 2,
+        "maximum_correct_for_low_five_question_case": 2,
+        "accuracy_drop_percentage_points": 15,
+        "minimum_recent_top2_coverage": 0.6,
+        "maximum_confidence_accuracy_gap": 0.15,
+        "operational_failures_in_recent_five_rounds": 2,
+        "active_rule_limit": 40,
+        "same_replay_no_improvement_limit": 2,
+    }
+    if anomaly != anomaly_expected:
+        raise TrainingError("maintenance anomaly-trigger policy mismatch")
     return policy

@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from .policy import (
+    MAX_APPLIED_RULES_PER_QUESTION,
     RULE_MIN_DISTINCT_FUTURE_CASES,
     RULE_MIN_SUPPORT_RATIO,
     RULE_MIN_SUPPORTING_APPLICATIONS,
@@ -13,6 +14,7 @@ from .util import TrainingError, atomic_write_json, load_json, object_sha256
 
 TAXONOMY_RELATIVE_PATH = Path("config/question-taxonomy.json")
 LEDGER_RELATIVE_PATH = Path("training/learning-ledger.json")
+RUNTIME_GOVERNANCE_RELATIVE_PATH = Path("model-learning/runtime-governance.json")
 PROFILE_FIELDS = {
     "topic_tags",
     "subject_tags",
@@ -37,6 +39,20 @@ RULE_FIELDS = {
     "decision_procedure",
     "stop_conditions",
 }
+RULE_ATTRIBUTION_FIELDS = {
+    "decisive_rule_ids",
+    "supporting_rule_ids",
+    "counterevidence_rule_ids",
+    "decision_changed",
+}
+CONFIDENCE_BINS = (
+    (0, 49, "00-49"),
+    (50, 59, "50-59"),
+    (60, 69, "60-69"),
+    (70, 79, "70-79"),
+    (80, 89, "80-89"),
+    (90, 100, "90-100"),
+)
 
 
 def load_taxonomy(root: Path) -> dict[str, Any]:
@@ -99,6 +115,28 @@ def load_rule_catalog(root: Path, release: dict[str, Any] | None = None) -> dict
     return catalog
 
 
+def load_runtime_governance(root: Path) -> dict[str, Any]:
+    path = root / RUNTIME_GOVERNANCE_RELATIVE_PATH
+    if not path.is_file():
+        return {
+            "schema": "MODEL-RUNTIME-GOVERNANCE-V1",
+            "authority": "AUTOMATED_TRAINING_MAINTENANCE",
+            "canonical_sources_mutated": False,
+            "suppressed_rules": [],
+        }
+    return load_json(path)
+
+
+def suppressed_rule_ids(root: Path) -> set[str]:
+    governance = load_runtime_governance(root)
+    rows = governance.get("suppressed_rules", [])
+    return {
+        row["rule_id"]
+        for row in rows
+        if isinstance(row, dict) and isinstance(row.get("rule_id"), str)
+    }
+
+
 def validate_question_profile(
     root: Path,
     profile: Any,
@@ -136,6 +174,84 @@ def validate_question_profile(
     if len(applied) != len(set(applied)):
         raise TrainingError("applied_rule_ids contains duplicates")
     normalized["applied_rule_ids"] = sorted(applied)
+    return normalized
+
+
+def validate_rule_attribution(
+    root: Path,
+    attribution: Any,
+    *,
+    profile: dict[str, Any],
+    catalog: dict[str, dict[str, Any]] | None = None,
+    ledger: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    if not isinstance(attribution, dict) or set(attribution) != RULE_ATTRIBUTION_FIELDS:
+        raise TrainingError("rule_attribution must contain exactly the required fields")
+    if catalog is None:
+        catalog = load_rule_catalog(root)
+    if ledger is None:
+        ledger = load_learning_ledger(root)
+    normalized: dict[str, Any] = {}
+    combined: list[str] = []
+    for field in (
+        "decisive_rule_ids",
+        "supporting_rule_ids",
+        "counterevidence_rule_ids",
+    ):
+        values = attribution[field]
+        if (
+            not isinstance(values, list)
+            or any(not isinstance(rule_id, str) or rule_id not in catalog for rule_id in values)
+            or len(values) != len(set(values))
+        ):
+            raise TrainingError(f"{field} contains an unknown or duplicate rule")
+        normalized[field] = sorted(values)
+        combined.extend(values)
+    if len(combined) != len(set(combined)):
+        raise TrainingError("rule_attribution roles must be disjoint")
+    if sorted(combined) != profile["applied_rule_ids"]:
+        raise TrainingError("rule_attribution must classify every applied_rule_id exactly once")
+    if len(combined) > MAX_APPLIED_RULES_PER_QUESTION:
+        raise TrainingError(
+            f"a question may apply at most {MAX_APPLIED_RULES_PER_QUESTION} rules"
+        )
+    if len(normalized["decisive_rule_ids"]) > 2:
+        raise TrainingError("at most two rules may be decisive for one Top1 decision")
+    decision_changed = attribution["decision_changed"]
+    if not isinstance(decision_changed, bool):
+        raise TrainingError("rule_attribution decision_changed must be boolean")
+    if decision_changed != bool(normalized["decisive_rule_ids"]):
+        raise TrainingError(
+            "decision_changed must be true exactly when decisive_rule_ids is non-empty"
+        )
+    suppressed = suppressed_rule_ids(root)
+    for rule_id in combined:
+        if rule_id in suppressed:
+            raise TrainingError(f"suppressed rule may not be applied: {rule_id}")
+        rule = catalog[rule_id]
+        if not (
+            set(rule["topic_tags"]).intersection(profile["topic_tags"])
+            or set(rule["reasoning_skill_tags"]).intersection(
+                profile["reasoning_skill_tags"]
+            )
+        ):
+            raise TrainingError(f"applied rule is outside the question scope: {rule_id}")
+    for rule_id in (
+        normalized["decisive_rule_ids"] + normalized["supporting_rule_ids"]
+    ):
+        evidence = ledger["rule_evidence"].get(rule_id)
+        attributed_evidence = ledger.get("attributed_rule_evidence", {}).get(rule_id)
+        if (
+            evidence is not None
+            and evidence.get("status") == "CHALLENGED"
+        ) or (
+            attributed_evidence is not None
+            and attributed_evidence.get("status") == "CHALLENGED"
+        ):
+            raise TrainingError(
+                f"challenged rule may only be counterevidence: {rule_id}"
+            )
+    normalized["decision_changed"] = decision_changed
     return normalized
 
 
@@ -210,6 +326,15 @@ def empty_learning_ledger(root: Path) -> dict[str, Any]:
         "reasoning_skill_metrics": {},
         "source_route_metrics": {},
         "rule_evidence": {},
+        "attributed_rule_evidence": {},
+        "confidence_calibration": {
+            "started_after_first_blind_questions": 0,
+            "questions": 0,
+            "correct": 0,
+            "confidence_sum": 0,
+            "brier_sum": 0.0,
+            "bins": {},
+        },
         "legacy_unclassified": {
             "first_blind_cases": 0,
             "first_blind_questions": 0,
@@ -255,7 +380,46 @@ def _rule_status(evidence: dict[str, Any]) -> str:
     return "PROVISIONAL"
 
 
+def ensure_learning_extensions(
+    ledger: dict[str, Any],
+    *,
+    rule_ids: set[str] | None = None,
+) -> None:
+    if rule_ids is None:
+        rule_ids = set(ledger.get("rule_evidence", {}))
+    attributed = ledger.setdefault("attributed_rule_evidence", {})
+    for rule_id in sorted(rule_ids):
+        attributed.setdefault(
+            rule_id,
+            {
+                "decisive_applications": 0,
+                "decisive_supporting_applications": 0,
+                "decisive_contradicting_applications": 0,
+                "decision_change_applications": 0,
+                "supporting_mentions": 0,
+                "counterevidence_mentions": 0,
+                "distinct_decisive_cases": [],
+                "distinct_decisive_support_cases": [],
+                "status": "CANDIDATE",
+            },
+        )
+    ledger.setdefault(
+        "confidence_calibration",
+        {
+            "started_after_first_blind_questions": ledger["first_blind_totals"][
+                "questions"
+            ],
+            "questions": 0,
+            "correct": 0,
+            "confidence_sum": 0,
+            "brier_sum": 0.0,
+            "bins": {},
+        },
+    )
+
+
 def register_rules(ledger: dict[str, Any], rules: list[dict[str, Any]]) -> None:
+    ensure_learning_extensions(ledger)
     for rule in rules:
         rule_id = rule["rule_id"]
         if rule_id in ledger["rule_evidence"]:
@@ -268,6 +432,67 @@ def register_rules(ledger: dict[str, Any], rules: list[dict[str, Any]]) -> None:
             "distinct_support_cases": [],
             "status": "CANDIDATE",
         }
+        ensure_learning_extensions(ledger, rule_ids={rule_id})
+
+
+def _confidence_bin(confidence: int) -> str:
+    for minimum, maximum, label in CONFIDENCE_BINS:
+        if minimum <= confidence <= maximum:
+            return label
+    raise TrainingError("confidence is outside the supported calibration range")
+
+
+def _record_confidence(
+    calibration: dict[str, Any],
+    *,
+    confidence: int,
+    is_correct: bool,
+) -> None:
+    probability = confidence / 100
+    calibration["questions"] += 1
+    calibration["correct"] += int(is_correct)
+    calibration["confidence_sum"] += confidence
+    calibration["brier_sum"] += (probability - int(is_correct)) ** 2
+    row = calibration["bins"].setdefault(
+        _confidence_bin(confidence),
+        {"questions": 0, "correct": 0, "confidence_sum": 0},
+    )
+    row["questions"] += 1
+    row["correct"] += int(is_correct)
+    row["confidence_sum"] += confidence
+
+
+def _record_attribution(
+    ledger: dict[str, Any],
+    *,
+    case_id: str,
+    attribution: dict[str, Any],
+    is_correct: bool,
+) -> None:
+    attributed = ledger["attributed_rule_evidence"]
+    for rule_id in attribution["decisive_rule_ids"]:
+        row = attributed[rule_id]
+        row["decisive_applications"] += 1
+        row["decisive_supporting_applications"] += int(is_correct)
+        row["decisive_contradicting_applications"] += int(not is_correct)
+        row["decision_change_applications"] += int(attribution["decision_changed"])
+        if case_id not in row["distinct_decisive_cases"]:
+            row["distinct_decisive_cases"].append(case_id)
+        if is_correct and case_id not in row["distinct_decisive_support_cases"]:
+            row["distinct_decisive_support_cases"].append(case_id)
+        row["status"] = _rule_status(
+            {
+                "applications": row["decisive_applications"],
+                "supporting_applications": row[
+                    "decisive_supporting_applications"
+                ],
+                "distinct_application_cases": row["distinct_decisive_cases"],
+            }
+        )
+    for rule_id in attribution["supporting_rule_ids"]:
+        attributed[rule_id]["supporting_mentions"] += 1
+    for rule_id in attribution["counterevidence_rule_ids"]:
+        attributed[rule_id]["counterevidence_mentions"] += 1
 
 
 def record_first_blind_results(
@@ -277,6 +502,10 @@ def record_first_blind_results(
     predictions: list[dict[str, Any]],
     review_rows: list[dict[str, Any]],
 ) -> None:
+    ensure_learning_extensions(
+        ledger,
+        rule_ids=set(ledger.get("rule_evidence", {})),
+    )
     review_map = {row["question_id"]: row for row in review_rows}
     totals = ledger["first_blind_totals"]
     totals["cases"] += 1
@@ -290,6 +519,12 @@ def record_first_blind_results(
         totals["top1_correct"] += int(is_correct)
         totals["top2_covered"] += int(is_correct or top2_hit)
         profile = prediction["question_profile"]
+        attribution = prediction["rule_attribution"]
+        _record_confidence(
+            ledger["confidence_calibration"],
+            confidence=prediction["confidence"],
+            is_correct=is_correct,
+        )
         for tag in profile["topic_tags"]:
             _update_metric(ledger["topic_metrics"], tag, is_correct, is_correct or top2_hit)
         for tag in profile["reasoning_skill_tags"]:
@@ -298,7 +533,13 @@ def record_first_blind_results(
             )
         for tag in profile["source_routes"]:
             _update_metric(ledger["source_route_metrics"], tag, is_correct, is_correct or top2_hit)
-        for rule_id in profile["applied_rule_ids"]:
+        _record_attribution(
+            ledger,
+            case_id=case_id,
+            attribution=attribution,
+            is_correct=is_correct,
+        )
+        for rule_id in attribution["decisive_rule_ids"]:
             evidence = ledger["rule_evidence"].get(rule_id)
             if evidence is None:
                 raise TrainingError(f"missing evidence ledger entry for applied rule: {rule_id}")
@@ -315,15 +556,81 @@ def record_first_blind_results(
 def safe_active_rules(root: Path, release: dict[str, Any]) -> list[dict[str, Any]]:
     catalog = load_rule_catalog(root, release)
     ledger = load_learning_ledger(root)
+    ensure_learning_extensions(ledger, rule_ids=set(catalog))
+    suppressed = suppressed_rule_ids(root)
     rows = []
     for rule_id in sorted(catalog):
         evidence = ledger["rule_evidence"].get(rule_id)
         if evidence is None:
             raise TrainingError(f"learning ledger is missing rule: {rule_id}")
-        if evidence["status"] == "RETIRED":
+        if evidence["status"] == "RETIRED" or rule_id in suppressed:
             continue
-        rows.append({**catalog[rule_id], "validation_status": evidence["status"]})
+        attributed = ledger["attributed_rule_evidence"][rule_id]
+        rows.append(
+            {
+                **catalog[rule_id],
+                "validation_status": evidence["status"],
+                "attributed_validation_status": attributed["status"],
+                "runtime_role": (
+                    "COUNTEREVIDENCE_ONLY"
+                    if evidence["status"] == "CHALLENGED"
+                    else "DECISIVE_OR_SUPPORTING_CANDIDATE"
+                ),
+            }
+        )
     return rows
+
+
+def build_rule_router(root: Path, release: dict[str, Any]) -> dict[str, Any]:
+    rules = safe_active_rules(root, release)
+    rank = {"VALIDATED": 0, "PROVISIONAL": 1, "CANDIDATE": 2, "CHALLENGED": 3}
+
+    def sort_key(rule: dict[str, Any]) -> tuple[Any, ...]:
+        return (
+            rank.get(rule["validation_status"], 9),
+            len(rule["topic_tags"]),
+            rule["rule_id"],
+        )
+
+    taxonomy = load_taxonomy(root)
+    routes: dict[str, Any] = {}
+    for topic in taxonomy["topic_tags"]:
+        matching = [rule for rule in rules if topic in rule["topic_tags"]]
+        decisive = sorted(
+            (
+                rule
+                for rule in matching
+                if rule["runtime_role"] == "DECISIVE_OR_SUPPORTING_CANDIDATE"
+            ),
+            key=sort_key,
+        )
+        counter = sorted(
+            (
+                rule
+                for rule in matching
+                if rule["runtime_role"] == "COUNTEREVIDENCE_ONLY"
+            ),
+            key=sort_key,
+        )
+        routes[topic] = {
+            "decisive_or_supporting_rule_ids": [
+                rule["rule_id"]
+                for rule in decisive[:MAX_APPLIED_RULES_PER_QUESTION]
+            ],
+            "counterevidence_rule_ids": [
+                rule["rule_id"]
+                for rule in counter[:MAX_APPLIED_RULES_PER_QUESTION]
+            ],
+        }
+    return {
+        "schema": "TOPIC-RULE-ROUTER-V1",
+        "max_applied_rules_per_question": MAX_APPLIED_RULES_PER_QUESTION,
+        "selection_order": (
+            "TAG_QUESTION_FIRST_THEN_SELECT_SCOPE_MATCHED_RULES; "
+            "CHALLENGED_RULES_COUNTEREVIDENCE_ONLY"
+        ),
+        "topics": routes,
+    }
 
 
 def public_learning_summary(root: Path) -> dict[str, Any]:
@@ -345,6 +652,11 @@ def public_learning_summary(root: Path) -> dict[str, Any]:
     for evidence in ledger["rule_evidence"].values():
         status = evidence["status"]
         status_counts[status] = status_counts.get(status, 0) + 1
+    attributed_status_counts: dict[str, int] = {}
+    for evidence in ledger["attributed_rule_evidence"].values():
+        status = evidence["status"]
+        attributed_status_counts[status] = attributed_status_counts.get(status, 0) + 1
+    calibration = ledger["confidence_calibration"]
     return {
         "first_blind_totals": {
             **totals,
@@ -358,6 +670,25 @@ def public_learning_summary(root: Path) -> dict[str, Any]:
         "topic_metrics": metric_summary(ledger["topic_metrics"]),
         "reasoning_skill_metrics": metric_summary(ledger["reasoning_skill_metrics"]),
         "rule_status_counts": dict(sorted(status_counts.items())),
+        "attributed_rule_status_counts": dict(sorted(attributed_status_counts.items())),
+        "confidence_calibration": {
+            **calibration,
+            "mean_confidence": (
+                calibration["confidence_sum"] / calibration["questions"] / 100
+                if calibration["questions"]
+                else None
+            ),
+            "accuracy": (
+                calibration["correct"] / calibration["questions"]
+                if calibration["questions"]
+                else None
+            ),
+            "brier_score": (
+                calibration["brier_sum"] / calibration["questions"]
+                if calibration["questions"]
+                else None
+            ),
+        },
         "legacy_unclassified": ledger["legacy_unclassified"],
         "overall_maturity_claim": "NOT_DERIVED_FROM_A_SINGLE_CASE_OR_GLOBAL_STREAK",
     }
@@ -393,6 +724,11 @@ def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[s
     catalog = load_rule_catalog(root, release)
     if set(ledger.get("rule_evidence", {})) != set(catalog):
         raise TrainingError("learning ledger rule set does not match current model release")
+    attributed = ledger.get("attributed_rule_evidence")
+    if not isinstance(attributed, dict) or set(attributed) != set(catalog):
+        raise TrainingError(
+            "attributed rule evidence must match the current model release"
+        )
     for rule_id, evidence in ledger["rule_evidence"].items():
         for key in ("applications", "supporting_applications", "contradicting_applications"):
             if not isinstance(evidence.get(key), int) or evidence[key] < 0:
@@ -412,6 +748,106 @@ def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[s
             and evidence.get("status") != _rule_status(evidence)
         ):
             raise TrainingError(f"stale rule status for {rule_id}")
+    for rule_id, evidence in attributed.items():
+        integer_fields = (
+            "decisive_applications",
+            "decisive_supporting_applications",
+            "decisive_contradicting_applications",
+            "decision_change_applications",
+            "supporting_mentions",
+            "counterevidence_mentions",
+        )
+        if any(
+            not isinstance(evidence.get(key), int) or evidence[key] < 0
+            for key in integer_fields
+        ):
+            raise TrainingError(f"invalid attributed evidence counts for {rule_id}")
+        if (
+            evidence["decisive_supporting_applications"]
+            + evidence["decisive_contradicting_applications"]
+            != evidence["decisive_applications"]
+        ):
+            raise TrainingError(
+                f"attributed decisive evidence does not balance for {rule_id}"
+            )
+        if evidence["decision_change_applications"] > evidence["decisive_applications"]:
+            raise TrainingError(
+                f"decision-change count exceeds decisive applications for {rule_id}"
+            )
+        for key in ("distinct_decisive_cases", "distinct_decisive_support_cases"):
+            values = evidence.get(key)
+            if not isinstance(values, list) or len(values) != len(set(values)):
+                raise TrainingError(
+                    f"invalid attributed distinct-case evidence for {rule_id}/{key}"
+                )
+        if not set(evidence["distinct_decisive_support_cases"]).issubset(
+            evidence["distinct_decisive_cases"]
+        ):
+            raise TrainingError(
+                f"attributed support cases are not decisive cases for {rule_id}"
+            )
+        derived = _rule_status(
+            {
+                "applications": evidence["decisive_applications"],
+                "supporting_applications": evidence[
+                    "decisive_supporting_applications"
+                ],
+                "distinct_application_cases": evidence["distinct_decisive_cases"],
+            }
+        )
+        if evidence.get("status") != derived:
+            raise TrainingError(f"stale attributed rule status for {rule_id}")
+    calibration = ledger.get("confidence_calibration")
+    if not isinstance(calibration, dict) or set(calibration) != {
+        "started_after_first_blind_questions",
+        "questions",
+        "correct",
+        "confidence_sum",
+        "brier_sum",
+        "bins",
+    }:
+        raise TrainingError("invalid confidence calibration ledger")
+    for key in (
+        "started_after_first_blind_questions",
+        "questions",
+        "correct",
+        "confidence_sum",
+    ):
+        if not isinstance(calibration[key], int) or calibration[key] < 0:
+            raise TrainingError(f"invalid confidence calibration field: {key}")
+    if (
+        not isinstance(calibration["brier_sum"], (int, float))
+        or isinstance(calibration["brier_sum"], bool)
+        or calibration["brier_sum"] < 0
+        or calibration["correct"] > calibration["questions"]
+        or calibration["confidence_sum"] > calibration["questions"] * 100
+    ):
+        raise TrainingError("confidence calibration totals do not balance")
+    if not isinstance(calibration["bins"], dict) or not set(
+        calibration["bins"]
+    ).issubset({label for _, _, label in CONFIDENCE_BINS}):
+        raise TrainingError("invalid confidence calibration bins")
+    bin_questions = bin_correct = bin_confidence = 0
+    for label, row in calibration["bins"].items():
+        if not isinstance(row, dict) or set(row) != {
+            "questions",
+            "correct",
+            "confidence_sum",
+        }:
+            raise TrainingError(f"invalid confidence calibration bin: {label}")
+        if any(not isinstance(value, int) or value < 0 for value in row.values()):
+            raise TrainingError(f"invalid confidence calibration counts: {label}")
+        if row["correct"] > row["questions"] or row["confidence_sum"] > row["questions"] * 100:
+            raise TrainingError(f"confidence calibration bin does not balance: {label}")
+        bin_questions += row["questions"]
+        bin_correct += row["correct"]
+        bin_confidence += row["confidence_sum"]
+    if (
+        bin_questions != calibration["questions"]
+        or bin_correct != calibration["correct"]
+        or bin_confidence != calibration["confidence_sum"]
+    ):
+        raise TrainingError("confidence calibration bins do not match totals")
     for key, allowed_tags in (
         ("topic_metrics", taxonomy["topic_tags"]),
         ("reasoning_skill_metrics", taxonomy["reasoning_skill_tags"]),
