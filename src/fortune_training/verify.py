@@ -13,7 +13,10 @@ from .learning import (
     validate_learning_ledger,
     validate_rule,
 )
-from .policy import load_and_validate_policy
+from .policy import (
+    REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
+    load_and_validate_policy,
+)
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
 
@@ -232,17 +235,47 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
 
 
 def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) -> None:
-    if state.get("schema") != "QUESTION-TRAINING-STATE-V2":
-        raise TrainingError("wrong question-level training state schema")
+    if state.get("schema") != "GENERALIZATION-TRAINING-STATE-R2":
+        raise TrainingError("wrong generalization training state schema")
     case_order = group["case_order"]
     index = state.get("current_case_index")
     if not isinstance(index, int) or index < 0 or index > len(case_order):
         raise TrainingError("invalid current_case_index")
+    if state.get("first_blind_cases_closed") != index:
+        raise TrainingError("first_blind_cases_closed must match the new-case cursor")
+    streak = state.get("independent_pass_streak")
+    if not isinstance(streak, int) or isinstance(streak, bool) or streak < 0:
+        raise TrainingError("invalid independent first-blind pass streak")
+    if state.get("required_consecutive_independent_passes") != REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES:
+        raise TrainingError("wrong independent first-blind pass gate")
+    queue = state.get("spaced_replay_queue")
+    if not isinstance(queue, list):
+        raise TrainingError("spaced_replay_queue must be a list")
+    queue_ids: list[str] = []
+    for item in queue:
+        if not isinstance(item, dict) or set(item) != {
+            "case_id",
+            "eligible_after_first_blind_count",
+        }:
+            raise TrainingError("invalid spaced replay queue item")
+        case_id = item["case_id"]
+        eligible = item["eligible_after_first_blind_count"]
+        if case_id not in group["cases"] or not isinstance(eligible, int) or eligible < 1:
+            raise TrainingError("invalid spaced replay target")
+        queue_ids.append(case_id)
+    if len(queue_ids) != len(set(queue_ids)):
+        raise TrainingError("duplicate case in spaced replay queue")
+    active_replay = state.get("active_replay_case_id")
+    if active_replay is not None and active_replay not in queue_ids:
+        raise TrainingError("active replay case is absent from the replay queue")
     if state.get("status") == "GROUP_COMPLETE":
-        if index != len(case_order):
-            raise TrainingError("GROUP_COMPLETE requires every case to be finished")
-    elif index >= len(case_order):
-        raise TrainingError("non-complete state must have a current case")
+        if index != len(case_order) or queue:
+            raise TrainingError("GROUP_COMPLETE requires all first blinds and replays to be closed")
+    elif state.get("status") == "FIRST_BLIND_COMPLETE_REPLAY_PENDING":
+        if index != len(case_order) or not queue or active_replay is not None:
+            raise TrainingError("invalid replay-pending terminal state")
+    elif index >= len(case_order) and active_replay is None:
+        raise TrainingError("non-terminal state must have a new case or active replay")
     rounds: list[str] = []
     for case_position, case_id in enumerate(case_order):
         case_state = state["cases"][case_id]
@@ -262,9 +295,15 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             raise TrainingError(f"every case round must be classified as first-blind or replay: {case_id}")
         expected_status = "PENDING"
         if case_position < index:
-            expected_status = "COMPLETE"
-        elif case_position == index and state.get("status") != "GROUP_COMPLETE":
+            expected_status = "FIRST_BLIND_CLOSED"
+        elif (
+            case_position == index
+            and index < len(case_order)
+            and active_replay is None
+        ):
             expected_status = "LEARNING_PENDING" if state.get("status") == "LEARNING_REQUIRED" else "ACTIVE"
+        if case_id == active_replay:
+            expected_status = "LEARNING_PENDING" if state.get("status") == "LEARNING_REQUIRED" else "REPLAY_ACTIVE"
         if case_state.get("status") != expected_status:
             raise TrainingError(
                 f"case status mismatch for {case_id}: expected {expected_status}"
@@ -273,6 +312,10 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             raise TrainingError(f"completed case lacks a first-blind round: {case_id}")
         if case_position > index and first_blind is not None:
             raise TrainingError(f"pending case already has a first-blind round: {case_id}")
+        if case_position < index and not isinstance(case_state.get("first_blind_passed"), bool):
+            raise TrainingError(f"closed case lacks a first-blind result: {case_id}")
+        if case_id in queue_ids and case_state.get("remediation_status") != "QUEUED":
+            raise TrainingError(f"queued case lacks remediation status: {case_id}")
         rounds.extend(case_state["round_ids"])
     if len(rounds) != len(set(rounds)):
         raise TrainingError("a round id appears more than once")
@@ -402,9 +445,12 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "controller_ready": True,
         "chat_input_ready": True,
         "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
+        "knowledge_cards_ready": chat_input["current_model"]["knowledge_cards"]["card_count"] >= 23,
+        "knowledge_card_count": chat_input["current_model"]["knowledge_cards"]["card_count"],
         "learning_ledger_ready": True,
-        "training_unit": "QUESTION_FIRST_BLIND",
-        "same_case_replays_count_toward_validation": False,
+        "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
+        "required_consecutive_independent_passes": REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
+        "same_case_replays_count_toward_stage_gate": False,
         "round_limit": None,
         "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
         "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],

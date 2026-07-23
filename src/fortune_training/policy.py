@@ -9,6 +9,8 @@ from .util import TrainingError, load_json
 RULE_MIN_SUPPORTING_APPLICATIONS = 3
 RULE_MIN_DISTINCT_FUTURE_CASES = 3
 RULE_MIN_SUPPORT_RATIO = 0.8
+REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES = 3
+MINIMUM_NEW_CASES_BETWEEN_REPLAYS = 5
 
 
 def required_correct(question_count: int) -> int:
@@ -31,18 +33,24 @@ def passed(correct_count: int, question_count: int) -> bool:
 def load_and_validate_policy(path: Path) -> dict[str, Any]:
     policy = load_json(path)
     expected = {
-        "schema": "QUESTION-LEVEL-TRAINING-POLICY-V3",
-        "training_unit": "QUESTION_FIRST_BLIND",
+        "schema": "GENERALIZATION-TRAINING-POLICY-R2",
+        "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
         "round_limit": None,
-        "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
-        "same_case_replays_count_toward_validation": False,
-        "passing_round_advances_to_next_case": True,
+        "case_attempt_policy": "ONE_FIRST_BLIND_THEN_SPACED_DIAGNOSTIC_REPLAY",
+        "required_consecutive_independent_passes": REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
+        "independent_pass_requires_distinct_first_blind_case": True,
+        "failed_first_blind_resets_independent_passes": True,
+        "first_blind_case_advances_after_round_closure": True,
         "failed_round_requires_general_learning_before_advance": True,
+        "same_case_replay_counts_as_independent_evidence": False,
+        "same_case_replay_counts_toward_stage_gate": False,
+        "minimum_new_cases_between_replays": MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
+        "replay_purpose": "DIAGNOSTIC_REMEDIATION_ONLY",
         "prediction_must_be_frozen_before_scoring": True,
         "failed_round_updates_model_layer_only": True,
         "canonical_sources_mutable_during_training": False,
         "answer_plaintext_allowed_in_repository": False,
-        "performance_reporting": "BY_TOPIC_REASONING_SKILL_AND_DATASET_SPLIT",
+        "performance_reporting": "SEPARATE_FIRST_BLIND_FROM_REPLAY_BY_CASE_TOPIC_AND_REASONING_SKILL",
     }
     for key, value in expected.items():
         if policy.get(key) != value:

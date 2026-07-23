@@ -147,8 +147,13 @@ def process_packet(root: Path, packet: dict[str, Any], key: str | bytes | None) 
             "accuracy": score["accuracy"],
             "top2_coverage": score["top2_coverage"],
             "passed": score["passed"],
-            "evaluation_kind": "FIRST_BLIND",
-            "same_case_replay_required": False,
+            "evaluation_kind": score["evaluation_kind"],
+            "spaced_replay_required": score["spaced_replay_required"],
+            "independent_pass_streak": new_status["independent_pass_streak"],
+            "required_consecutive_independent_passes": (
+                new_status["required_consecutive_independent_passes"]
+            ),
+            "spaced_replay_queue_size": new_status["spaced_replay_queue_size"],
             "learning_release": learning_release,
             "learning_rules_created": learning_rules_created,
             "next_case_id": new_status["current_case_id"],

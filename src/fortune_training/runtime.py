@@ -17,7 +17,12 @@ from .learning import (
     validate_question_profile,
     write_learning_ledger,
 )
-from .policy import passed, required_correct
+from .policy import (
+    MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
+    REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
+    passed,
+    required_correct,
+)
 from .util import (
     TrainingError,
     atomic_write_json,
@@ -70,6 +75,11 @@ def _load_group(root: Path, state: dict[str, Any]) -> dict[str, Any]:
 
 
 def _current_case_id(state: dict[str, Any], group: dict[str, Any]) -> str:
+    replay_case_id = state.get("active_replay_case_id")
+    if replay_case_id is not None:
+        if replay_case_id not in group["cases"]:
+            raise TrainingError("active replay case is not in the training group")
+        return replay_case_id
     index = state.get("current_case_index")
     case_order = group["case_order"]
     if not isinstance(index, int) or index < 0 or index >= len(case_order):
@@ -90,17 +100,80 @@ def _round_dir(root: Path, round_id: str) -> Path:
     return root / "training" / "runs" / round_id
 
 
-def _complete_current_case_and_advance(root: Path, state: dict[str, Any]) -> None:
+def _schedule_next_round(root: Path, state: dict[str, Any]) -> None:
     group = _load_group(root, state)
-    current_case_id = _current_case_id(state, group)
-    state["cases"][current_case_id]["status"] = "COMPLETE"
-    state["current_case_index"] += 1
-    if state["current_case_index"] >= len(group["case_order"]):
-        state["status"] = "GROUP_COMPLETE"
+    state["active_replay_case_id"] = None
+    closed_count = state.get("first_blind_cases_closed", 0)
+    queue = state.setdefault("spaced_replay_queue", [])
+    eligible = next(
+        (
+            item
+            for item in queue
+            if item["eligible_after_first_blind_count"] <= closed_count
+        ),
+        None,
+    )
+    if eligible is not None:
+        state["active_replay_case_id"] = eligible["case_id"]
+        state["cases"][eligible["case_id"]]["status"] = "REPLAY_ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
         return
-    next_case_id = group["case_order"][state["current_case_index"]]
-    state["cases"][next_case_id]["status"] = "ACTIVE"
-    state["status"] = "READY_FOR_ROUND"
+    if state["current_case_index"] < len(group["case_order"]):
+        next_case_id = group["case_order"][state["current_case_index"]]
+        state["cases"][next_case_id]["status"] = "ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
+        return
+    state["status"] = (
+        "FIRST_BLIND_COMPLETE_REPLAY_PENDING" if queue else "GROUP_COMPLETE"
+    )
+
+
+def _close_first_blind_and_advance(root: Path, state: dict[str, Any], case_id: str) -> None:
+    group = _load_group(root, state)
+    expected_case_id = group["case_order"][state["current_case_index"]]
+    if case_id != expected_case_id:
+        raise TrainingError("first-blind case does not match the new-case cursor")
+    state["cases"][case_id]["status"] = "FIRST_BLIND_CLOSED"
+    state["current_case_index"] += 1
+    state["first_blind_cases_closed"] = state.get("first_blind_cases_closed", 0) + 1
+    _schedule_next_round(root, state)
+
+
+def _enqueue_spaced_replay(
+    state: dict[str, Any],
+    case_id: str,
+    *,
+    after_current_first_blind: bool = False,
+) -> None:
+    queue = state.setdefault("spaced_replay_queue", [])
+    queue[:] = [item for item in queue if item["case_id"] != case_id]
+    queue.append(
+        {
+            "case_id": case_id,
+            "eligible_after_first_blind_count": (
+                state.get("first_blind_cases_closed", 0)
+                + int(after_current_first_blind)
+                + MINIMUM_NEW_CASES_BETWEEN_REPLAYS
+            ),
+        }
+    )
+    state["cases"][case_id]["remediation_status"] = "QUEUED"
+
+
+def _finish_replay(root: Path, state: dict[str, Any], case_id: str, did_pass: bool) -> None:
+    queue = state.setdefault("spaced_replay_queue", [])
+    if did_pass:
+        queue[:] = [item for item in queue if item["case_id"] != case_id]
+        state["cases"][case_id]["remediation_status"] = "RESOLVED"
+    else:
+        _enqueue_spaced_replay(state, case_id)
+    state["cases"][case_id]["status"] = "FIRST_BLIND_CLOSED"
+    state["active_replay_case_id"] = None
+    _schedule_next_round(root, state)
+
+
+def _round_evaluation_kind(state: dict[str, Any], case_id: str) -> str:
+    return "SPACED_REPLAY" if state.get("active_replay_case_id") == case_id else "FIRST_BLIND"
 
 
 def status(root: Path) -> dict[str, Any]:
@@ -120,11 +193,16 @@ def status(root: Path) -> dict[str, Any]:
         "active_round_id": state["active_round_id"],
         "round_count": state["round_count"],
         "round_limit": None,
-        "training_unit": "QUESTION_FIRST_BLIND",
+        "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
+        "independent_pass_streak": state.get("independent_pass_streak", 0),
+        "required_consecutive_independent_passes": REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
         "current_case_first_blind_round_id": current_case_state.get("first_blind_round_id"),
         "first_blind_cases_scored": ledger["first_blind_totals"]["cases"],
         "first_blind_questions_scored": ledger["first_blind_totals"]["questions"],
-        "same_case_replays_count_toward_validation": False,
+        "first_blind_cases_closed": state.get("first_blind_cases_closed", 0),
+        "active_replay_case_id": state.get("active_replay_case_id"),
+        "spaced_replay_queue_size": len(state.get("spaced_replay_queue", [])),
+        "same_case_replays_count_toward_stage_gate": False,
         "dataset_manifest_path": state.get("dataset_manifest_path"),
         "dataset_runtime_status": state.get("dataset_runtime_status"),
     }
@@ -141,8 +219,6 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     group = _load_group(root, state)
     case_id = _current_case_id(state, group)
     case_state = state["cases"][case_id]
-    if case_state.get("first_blind_round_id") is not None:
-        raise TrainingError("the current case already has its one scored first-blind round")
     case_path = _case_path(root, group, case_id)
     case = load_json(case_path)
     question_count = len(_questions(case))
@@ -153,12 +229,13 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     round_path = _round_dir(root, round_id)
     if round_path.exists():
         raise TrainingError(f"round already exists: {round_id}")
+    evaluation_kind = _round_evaluation_kind(state, case_id)
     round_record = {
-        "schema": "QUESTION-FIRST-BLIND-ROUND-V2",
+        "schema": "GENERALIZATION-BLIND-ROUND-R2",
         "round_id": round_id,
         "case_id": case_id,
-        "evaluation_kind": "FIRST_BLIND",
-        "counts_toward_learning_evidence": True,
+        "evaluation_kind": evaluation_kind,
+        "counts_toward_stage_gate": evaluation_kind == "FIRST_BLIND",
         "case_path": case_path.relative_to(root).as_posix(),
         "case_sha256": sha256_file(case_path),
         "question_count": question_count,
@@ -177,7 +254,10 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     state["active_round_id"] = round_id
     state["status"] = "AWAITING_PREDICTION_FREEZE"
     state["round_count"] += 1
-    case_state["first_blind_round_id"] = round_id
+    if evaluation_kind == "FIRST_BLIND":
+        case_state["first_blind_round_id"] = round_id
+    else:
+        case_state.setdefault("replay_round_ids", []).append(round_id)
     case_state["round_ids"].append(round_id)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
@@ -431,18 +511,16 @@ def score_round(
     question_count = len(review_rows)
     did_pass = passed(correct_count, question_count)
     case_state = state["cases"][round_record["case_id"]]
-    if round_record.get("evaluation_kind") != "FIRST_BLIND":
-        raise TrainingError("only a first-blind round may update learning evidence")
     top2_covered = sum(
         1
         for prediction, review in zip(frozen["predictions"], review_rows)
         if review["is_correct"] or prediction.get("top2") == review["correct_option"]
     )
     aggregate = {
-        "schema": "QUESTION-FIRST-BLIND-SCORE-V2",
+        "schema": "GENERALIZATION-ROUND-SCORE-R2",
         "round_id": round_id,
         "case_id": round_record["case_id"],
-        "evaluation_kind": "FIRST_BLIND",
+        "evaluation_kind": round_record["evaluation_kind"],
         "correct_count": correct_count,
         "top2_covered_count": top2_covered,
         "question_count": question_count,
@@ -450,12 +528,35 @@ def score_round(
         "accuracy": correct_count / question_count,
         "top2_coverage": top2_covered / question_count,
         "passed": did_pass,
-        "advances_after_learning_if_failed": True,
-        "same_case_replay_required": False,
+        "advances_after_learning_if_failed": round_record["evaluation_kind"] == "FIRST_BLIND",
+        "independent_pass_streak_before": state.get("independent_pass_streak", 0),
         "scored_at": utc_now(),
         "detailed_answers_stored_in_repository": False,
         "answer_source": answer_source,
     }
+    if not did_pass:
+        if round_record["evaluation_kind"] == "FIRST_BLIND":
+            state["independent_pass_streak"] = 0
+            case_state["first_blind_passed"] = False
+        aggregate["independent_pass_streak_after"] = state.get("independent_pass_streak", 0)
+        aggregate["spaced_replay_required"] = True
+        state["status"] = "LEARNING_REQUIRED"
+        case_state["status"] = "LEARNING_PENDING"
+    else:
+        if round_record["evaluation_kind"] == "FIRST_BLIND":
+            state["independent_pass_streak"] = state.get("independent_pass_streak", 0) + 1
+            case_state["first_blind_passed"] = True
+            case_state["remediation_status"] = "NOT_REQUIRED"
+            aggregate["spaced_replay_required"] = False
+            _close_first_blind_and_advance(root, state, round_record["case_id"])
+        else:
+            aggregate["spaced_replay_required"] = False
+            _finish_replay(root, state, round_record["case_id"], True)
+        aggregate["independent_pass_streak_after"] = state.get("independent_pass_streak", 0)
+    aggregate["independent_stage_gate_met"] = (
+        state.get("independent_pass_streak", 0)
+        >= REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES
+    )
     detailed_review = {
         "schema": "CASE-ROUND-DETAILED-REVIEW-V1",
         "round_id": round_id,
@@ -472,20 +573,16 @@ def score_round(
     atomic_write_json(round_path / "round.json", round_record)
     state["active_round_id"] = None
 
-    ledger = load_learning_ledger(root)
-    record_first_blind_results(
-        ledger,
-        case_id=round_record["case_id"],
-        predictions=frozen["predictions"],
-        review_rows=review_rows,
-    )
-    write_learning_ledger(root, ledger)
+    if round_record["evaluation_kind"] == "FIRST_BLIND":
+        ledger = load_learning_ledger(root)
+        record_first_blind_results(
+            ledger,
+            case_id=round_record["case_id"],
+            predictions=frozen["predictions"],
+            review_rows=review_rows,
+        )
+        write_learning_ledger(root, ledger)
 
-    if not did_pass:
-        state["status"] = "LEARNING_REQUIRED"
-        case_state["status"] = "LEARNING_PENDING"
-    else:
-        _complete_current_case_and_advance(root, state)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return aggregate
@@ -531,7 +628,7 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning is only accepted after a failed round")
     group = _load_group(root, state)
     current_case_id = _current_case_id(state, group)
-    if state["cases"][current_case_id].get("first_blind_round_id") != round_id:
+    if state["cases"][current_case_id].get("round_ids", [])[-1:] != [round_id]:
         raise TrainingError("learning must close the most recent failed round")
     round_path = _round_dir(root, round_id)
     round_record = load_json(round_path / "round.json")
@@ -576,7 +673,15 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
     register_rules(ledger, patch_payload["rules"])
     write_learning_ledger(root, ledger)
     state["current_model_release"] = release_id
-    _complete_current_case_and_advance(root, state)
+    if round_record["evaluation_kind"] == "FIRST_BLIND":
+        _enqueue_spaced_replay(
+            state,
+            current_case_id,
+            after_current_first_blind=True,
+        )
+        _close_first_blind_and_advance(root, state, current_case_id)
+    else:
+        _finish_replay(root, state, current_case_id, False)
     atomic_write_json(_state_path(root), state)
     write_chat_input(root)
     return release

@@ -4,6 +4,10 @@ from pathlib import Path
 from typing import Any
 
 from .learning import load_taxonomy, safe_active_rules
+from .policy import (
+    MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
+    REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
+)
 from .util import atomic_write_json, load_json, object_sha256, sha256_file
 
 
@@ -54,11 +58,20 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         if model_runtime is not None
         else None
     )
+    knowledge_card_payloads = (
+        [load_json(root / relative_path) for relative_path in model_runtime["knowledge_card_sources"]]
+        if model_runtime is not None
+        else []
+    )
+    knowledge_cards = [
+        card
+        for payload in knowledge_card_payloads
+        for card in payload.get("cards", [])
+    ]
     prediction_allowed = (
         state["status"] in OPENABLE_STATES
         and state.get("active_round_id") is None
         and current_case_id is not None
-        and current_case_state.get("first_blind_round_id") is None
     )
     recommended_round_id = f"ROUND-{state['round_count'] + 1:03d}" if prediction_allowed else None
 
@@ -73,9 +86,21 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "round_count": state["round_count"],
             "prediction_allowed": prediction_allowed,
             "recommended_round_id": recommended_round_id,
-            "training_unit": "QUESTION_FIRST_BLIND",
-            "case_attempt_policy": "ONE_SCORED_FIRST_BLIND_ROUND",
-            "same_case_replays_count_toward_validation": False,
+            "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
+            "case_attempt_policy": "ONE_FIRST_BLIND_THEN_SPACED_DIAGNOSTIC_REPLAY",
+            "evaluation_kind": (
+                "SPACED_REPLAY"
+                if state.get("active_replay_case_id") == current_case_id
+                else "FIRST_BLIND"
+            ),
+            "independent_pass_streak": state.get("independent_pass_streak", 0),
+            "required_consecutive_independent_passes": (
+                REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES
+            ),
+            "failed_first_blind_resets_independent_passes": True,
+            "same_case_replay_counts_toward_stage_gate": False,
+            "minimum_new_cases_between_replays": MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
+            "spaced_replay_queue_size": len(state.get("spaced_replay_queue", [])),
             "dataset_manifest_path": state.get("dataset_manifest_path"),
             "dataset_runtime_status": state.get("dataset_runtime_status"),
         },
@@ -86,6 +111,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "canonical_source_manifest_sha256": object_sha256(manifest),
             "reasoning_core_sha256": object_sha256(reasoning_core),
             "knowledge_route_map_sha256": object_sha256(knowledge_route_map),
+            "knowledge_cards_sha256": object_sha256(knowledge_cards),
         },
         "current_case": current_case,
         "question_taxonomy": taxonomy,
@@ -93,6 +119,11 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "release_id": release_id,
             "reasoning_core": reasoning_core,
             "knowledge_route_map": knowledge_route_map,
+            "knowledge_cards": {
+                "authority": "DERIVED_ROUTING_AND_PROCEDURE_ONLY",
+                "card_count": len(knowledge_cards),
+                "cards": knowledge_cards,
+            },
             "active_rules": active_rules,
             "rule_application_policy": {
                 "VALIDATED": "May be used normally within its declared scope.",

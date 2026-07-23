@@ -2,10 +2,15 @@
   "schema": "FORTUNE-MODEL-RUNTIME-V1",
   "reasoning_core": "model-learning/methods/REASONING-CORE-V3.json",
   "knowledge_route_map": "config/knowledge-route-map.json",
+  "knowledge_card_sources": [
+    "knowledge-workbench/school-method-cards.json",
+    "knowledge-workbench/phase2-executable-cards.json"
+  ],
   "question_taxonomy": "config/question-taxonomy.json",
   "rule_release_source": "training/state.json#current_model_release",
   "activation_order": [
     "frozen_canonical_sources",
+    "curated_knowledge_cards_for_routing_and_procedure",
     "reasoning_core",
     "validated_and_provisional_rules_with_matching_scope"
   ],
