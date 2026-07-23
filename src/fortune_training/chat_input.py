@@ -3,8 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from .learning import load_taxonomy, safe_active_rules
+from .learning import (
+    build_rule_router,
+    load_runtime_governance,
+    load_taxonomy,
+    safe_active_rules,
+)
 from .policy import (
+    MAX_APPLIED_RULES_PER_QUESTION,
     MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
 )
@@ -48,6 +54,8 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     release_id = state["current_model_release"]
     release = load_json(root / "model-learning" / "releases" / f"{release_id}.json")
     active_rules = safe_active_rules(root, release)
+    rule_router = build_rule_router(root, release)
+    runtime_governance = load_runtime_governance(root)
     model_runtime_path = root / "config" / "model-runtime.json"
     model_runtime = load_json(model_runtime_path) if model_runtime_path.is_file() else None
     reasoning_core = (
@@ -70,6 +78,17 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         for payload in knowledge_card_payloads
         for card in payload.get("cards", [])
     ]
+    effective_model_input_sha256 = object_sha256(
+        {
+            "release": release,
+            "reasoning_core": reasoning_core,
+            "knowledge_route_map": knowledge_route_map,
+            "knowledge_cards": knowledge_cards,
+            "active_rules": active_rules,
+            "rule_router": rule_router,
+            "runtime_governance": runtime_governance,
+        }
+    )
     prediction_allowed = (
         state["status"] in OPENABLE_STATES
         and state.get("active_round_id") is None
@@ -116,6 +135,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "reasoning_core_sha256": object_sha256(reasoning_core),
             "knowledge_route_map_sha256": object_sha256(knowledge_route_map),
             "knowledge_cards_sha256": object_sha256(knowledge_cards),
+            "effective_model_input_sha256": effective_model_input_sha256,
         },
         "current_case": current_case,
         "question_taxonomy": taxonomy,
@@ -129,11 +149,27 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "cards": knowledge_cards,
             },
             "active_rules": active_rules,
+            "rule_router": rule_router,
+            "runtime_governance": {
+                "schema": runtime_governance["schema"],
+                "suppressed_rule_count": len(
+                    runtime_governance.get("suppressed_rules", [])
+                ),
+                "suppressed_rule_ids": sorted(
+                    row["rule_id"]
+                    for row in runtime_governance.get("suppressed_rules", [])
+                ),
+            },
             "rule_application_policy": {
                 "VALIDATED": "May be used normally within its declared scope.",
                 "PROVISIONAL": "Use as a low-weight hypothesis and never as sole evidence.",
                 "CANDIDATE": "Use only when scope matches; never as sole evidence.",
                 "CHALLENGED": "Treat as a warning or counter-hypothesis, not a decisive rule.",
+                "ATTRIBUTION": (
+                    "Classify every applied rule as decisive, supporting, or "
+                    "counterevidence. Removing a decisive rule must change Top1."
+                ),
+                "MAX_RULES_PER_QUESTION": MAX_APPLIED_RULES_PER_QUESTION,
             },
         },
         "prediction_output_contract": {
@@ -146,6 +182,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "strongest_counterevidence",
                 "confidence",
                 "question_profile",
+                "rule_attribution",
             ],
             "question_profile_fields": [
                 "topic_tags",
@@ -156,10 +193,22 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "source_routes",
                 "applied_rule_ids",
             ],
+            "rule_attribution_fields": [
+                "decisive_rule_ids",
+                "supporting_rule_ids",
+                "counterevidence_rule_ids",
+                "decision_changed",
+            ],
             "tagging_rule": (
                 "Classify every question before reveal using only its stem/options and the no-answer chart. "
                 "Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects "
-                "the frozen reasoning; unrelated questions do not validate that rule."
+                "the frozen reasoning; unrelated questions do not validate that rule. Select no more than "
+                f"{MAX_APPLIED_RULES_PER_QUESTION} scope-matched rules from rule_router. A CHALLENGED rule "
+                "may appear only as counterevidence."
+            ),
+            "confidence_calibration_rule": (
+                "If actor, exact time, mechanism, or real-world endpoint is unresolved, cap confidence "
+                "at 65. Forced relative choices are not high-confidence factual claims."
             ),
             "failure_learning_rule": (
                 "After reveal, a failed round must propose one or more generic candidate rules. Rules may "
@@ -188,12 +237,31 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "current_case_sha256": current_case_sha256,
                 "current_model_release_sha256": object_sha256(release),
                 "canonical_source_manifest_sha256": object_sha256(manifest),
+                "effective_model_input_sha256": effective_model_input_sha256,
             },
             "handoff_required_fields": [
                 "schema",
                 "binding",
                 "predictions",
             ],
+            "handoff_payload_template": {
+                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+                "binding": {
+                    "case_id": current_case_id,
+                    "round_id": recommended_round_id,
+                    "evaluation_kind": (
+                        "SPACED_REPLAY"
+                        if state.get("active_replay_case_id") == current_case_id
+                        else "FIRST_BLIND"
+                    ),
+                    "model_release": release_id,
+                    "current_case_sha256": current_case_sha256,
+                    "current_model_release_sha256": object_sha256(release),
+                    "canonical_source_manifest_sha256": object_sha256(manifest),
+                    "effective_model_input_sha256": effective_model_input_sha256,
+                },
+                "predictions": [],
+            },
             "handoff_forbidden_content": [
                 "ANSWER_BEARING_FIELDS",
                 "SCORING_OR_REVIEW_FIELDS",

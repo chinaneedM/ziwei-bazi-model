@@ -1,0 +1,49 @@
+{
+  "cases": {
+    "CASE-002": {
+      "first_blind_correct": 2,
+      "first_blind_round_id": "FORMAL-ROUND-001",
+      "replays": [
+        {
+          "correct_count": 4,
+          "delta_from_first_blind": 2,
+          "passed": true,
+          "round_id": "FORMAL-ROUND-007"
+        }
+      ]
+    },
+    "CASE-003": {
+      "first_blind_correct": 2,
+      "first_blind_round_id": "FORMAL-ROUND-002",
+      "replays": [
+        {
+          "correct_count": 1,
+          "delta_from_first_blind": -1,
+          "passed": false,
+          "round_id": "FORMAL-ROUND-009"
+        }
+      ]
+    },
+    "CASE-004": {
+      "first_blind_correct": 2,
+      "first_blind_round_id": "FORMAL-ROUND-003",
+      "replays": [
+        {
+          "correct_count": 1,
+          "delta_from_first_blind": -1,
+          "passed": false,
+          "round_id": "FORMAL-ROUND-011"
+        }
+      ]
+    }
+  },
+  "counts_as_first_blind_evidence": false,
+  "generated_at": "2026-07-23T14:32:54Z",
+  "schema": "SPACED-REPLAY-EFFECTIVENESS-V1",
+  "summary": {
+    "improved": 1,
+    "regressed": 2,
+    "replay_rounds": 3,
+    "unchanged": 0
+  }
+}

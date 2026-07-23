@@ -15,6 +15,7 @@ from .learning import (
     register_rules,
     validate_learning_patch_v2,
     validate_question_profile,
+    validate_rule_attribution,
     write_learning_ledger,
 )
 from .policy import (
@@ -293,7 +294,9 @@ def _validate_prediction(
     if len(predictions) != len(question_map):
         raise TrainingError("prediction must cover every question exactly once")
     normalized: list[dict[str, Any]] = []
-    known_rule_ids = set(load_rule_catalog(root))
+    rule_catalog = load_rule_catalog(root)
+    known_rule_ids = set(rule_catalog)
+    learning_ledger = load_learning_ledger(root)
     seen: set[str] = set()
     for row in predictions:
         if not isinstance(row, dict):
@@ -315,6 +318,13 @@ def _validate_prediction(
             root,
             row.get("question_profile"),
             known_rule_ids=known_rule_ids,
+        )
+        rule_attribution = validate_rule_attribution(
+            root,
+            row.get("rule_attribution"),
+            profile=profile,
+            catalog=rule_catalog,
+            ledger=learning_ledger,
         )
         reasoning = row.get("reasoning")
         counterevidence = row.get("strongest_counterevidence")
@@ -348,6 +358,7 @@ def _validate_prediction(
                 "strongest_counterevidence": counterevidence.strip(),
                 "confidence": confidence,
                 "question_profile": profile,
+                "rule_attribution": rule_attribution,
             }
         )
     normalized.sort(key=lambda item: list(question_map).index(item["question_id"]))

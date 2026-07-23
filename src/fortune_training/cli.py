@@ -15,6 +15,7 @@ from .formal import (
     verify_formal_answer_vault,
 )
 from .learning import public_learning_summary
+from .maintenance import maintenance_due, record_operational_event, run_maintenance
 from .transport import (
     bootstrap_answer_transport,
     finalize_answer_transport,
@@ -63,6 +64,25 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("case-bank-verify", help="verify the answer-free 107-case corpus")
     subparsers.add_parser("case-bank-report", help="show answer-free corpus coverage and quality")
     subparsers.add_parser("chat-input", help="rebuild the answer-isolated Chat prediction input")
+    subparsers.add_parser(
+        "maintenance-status",
+        help="show fixed-interval and anomaly maintenance triggers",
+    )
+    maintenance_parser = subparsers.add_parser(
+        "maintenance-run",
+        help="run due maintenance between closed rounds",
+    )
+    maintenance_parser.add_argument("--force", action="store_true")
+    event_parser = subparsers.add_parser(
+        "maintenance-event",
+        help="record a sanitized handoff, hash, controller, or workflow failure",
+    )
+    event_parser.add_argument(
+        "kind",
+        choices=["HANDOFF", "HASH_BINDING", "CONTROLLER", "WORKFLOW"],
+    )
+    event_parser.add_argument("round_count", type=int)
+    event_parser.add_argument("detail")
 
     start_parser = subparsers.add_parser("start", help="start a new round for the current case")
     start_parser.add_argument("round_id")
@@ -145,6 +165,28 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(case_bank_report(root))
         elif args.command == "chat-input":
             _print_json(write_chat_input(root))
+        elif args.command == "maintenance-status":
+            due = maintenance_due(root)
+            _print_json(
+                {
+                    key: value
+                    for key, value in due.items()
+                    if key not in {"first_blind_rows", "replay_effectiveness"}
+                }
+            )
+        elif args.command == "maintenance-run":
+            result = run_maintenance(root, force=args.force)
+            write_chat_input(root)
+            _print_json(result)
+        elif args.command == "maintenance-event":
+            _print_json(
+                record_operational_event(
+                    root,
+                    kind=args.kind,
+                    round_count=args.round_count,
+                    detail=args.detail,
+                )
+            )
         elif args.command == "start":
             _print_json(start_round(root, args.round_id))
         elif args.command == "freeze":

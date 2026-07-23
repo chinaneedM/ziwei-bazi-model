@@ -7,7 +7,13 @@ from pathlib import Path
 from typing import Any
 
 from .chat_input import compose_chat_input, write_chat_input
-from .learning import LEDGER_RELATIVE_PATH, load_learning_ledger
+from .learning import (
+    LEDGER_RELATIVE_PATH,
+    ensure_learning_extensions,
+    load_learning_ledger,
+    load_rule_catalog,
+    write_learning_ledger,
+)
 from .runtime import _fernet_from_key, _validate_answers
 from .util import (
     TrainingError,
@@ -222,6 +228,12 @@ def activate_formal_controller(
     key: str | bytes | None = None,
 ) -> dict[str, Any]:
     root = root.resolve()
+    migrated_ledger = load_learning_ledger(root)
+    ensure_learning_extensions(
+        migrated_ledger,
+        rule_ids=set(load_rule_catalog(root)),
+    )
+    write_learning_ledger(root, migrated_ledger)
     verify_repository(root, require_answers=True)
     answer_check = verify_formal_answer_vault(root, key)
     old_state = load_json(root / "training" / "state.json")
@@ -234,7 +246,7 @@ def activate_formal_controller(
     if group_path.exists():
         raise TrainingError("formal group file already exists")
     old_chat_input = load_json(root / "chat-input" / "current.json")
-    old_ledger = load_learning_ledger(root)
+    old_ledger = migrated_ledger
     state_archive = root / PRE_FORMAL_STATE_ARCHIVE
     ledger_archive = root / PRE_FORMAL_LEDGER_ARCHIVE
     if state_archive.exists() or ledger_archive.exists():

@@ -155,6 +155,7 @@
       "case_id": "CASE-022",
       "current_case_sha256": "0f455015d1f3f02df22e3648519bd231cadef2bc455ba4b04a23405608803860",
       "current_model_release_sha256": "cc0d84df80a0ddd6d7dd327c6497963b478d904481e8c2fa6c7ade0e024cefdc",
+      "effective_model_input_sha256": "5299525ffb214037ecfe47b2a012cdd3bfbe11cb6b6935c2ab7ae10a72c876e8",
       "evaluation_kind": "FIRST_BLIND",
       "model_release": "MODEL-LEARNING-011",
       "round_id": "FORMAL-ROUND-012"
@@ -167,6 +168,20 @@
       "LEARNING_PATCH_FIELDS",
       "SECRETS_OR_KEYS"
     ],
+    "handoff_payload_template": {
+      "binding": {
+        "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
+        "case_id": "CASE-022",
+        "current_case_sha256": "0f455015d1f3f02df22e3648519bd231cadef2bc455ba4b04a23405608803860",
+        "current_model_release_sha256": "cc0d84df80a0ddd6d7dd327c6497963b478d904481e8c2fa6c7ade0e024cefdc",
+        "effective_model_input_sha256": "5299525ffb214037ecfe47b2a012cdd3bfbe11cb6b6935c2ab7ae10a72c876e8",
+        "evaluation_kind": "FIRST_BLIND",
+        "model_release": "MODEL-LEARNING-011",
+        "round_id": "FORMAL-ROUND-012"
+      },
+      "predictions": [],
+      "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1"
+    },
     "handoff_required_fields": [
       "schema",
       "binding",
@@ -223,6 +238,7 @@
     "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
     "current_case_sha256": "0f455015d1f3f02df22e3648519bd231cadef2bc455ba4b04a23405608803860",
     "current_model_release_sha256": "cc0d84df80a0ddd6d7dd327c6497963b478d904481e8c2fa6c7ade0e024cefdc",
+    "effective_model_input_sha256": "5299525ffb214037ecfe47b2a012cdd3bfbe11cb6b6935c2ab7ae10a72c876e8",
     "knowledge_cards_sha256": "0cb429239b2ebb5445f83ecd2da9937ac2b6997e3a9705f106739f3d15e52459",
     "knowledge_route_map_sha256": "c99de0759b6468ec62b6621d9b9d9a992af353c280ca21e0c0090c677adce264",
     "question_taxonomy_sha256": "08b4a5992cded23596758335ea8cd25bc8fae12cea376ee4300aa6fab978b7eb",
@@ -863,6 +879,7 @@
     "active_rules": [
       {
         "applicability": "选项同时竞争父亲与母亲、不同亲属、多个子女、多个关系阶段，或多个相邻年份的高严重度事件时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "无法排除同主题内其他人物时，最高释放为该人物群体或关系轴的重大变化风险，不输出精确死亡主体、子女性别、婚姻次数或事件年份。",
         "counterexamples": "若同一人物的主题宫、对宫或气数位、八字角色轴和指定年份动作链三者同向，并且其他人物存在直接反证，则可以完成排他性人物判定。",
         "decision_procedure": "为每个候选建立人物ID、参考年、主题宫或十神轴、现实动作、完成结果五元组；任何证据只允许绑定一个人物—年份父链；先排除人物转移和年份借用，再比较完成度与直接反证。",
@@ -877,6 +894,7 @@
           "RELATIONSHIP_SEQUENCE"
         ],
         "rule_id": "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S02区分现实人物和完成状态，S03处理两轨冲突与证据同源，S04建立人物太极，S08和S10约束四化与岁运，S14和S15提供中性结构触发，S16限制八字角色映射，S17闭合人物动作终点，S18执行反转测试。",
         "source_routes": [
           "S02",
@@ -902,53 +920,8 @@
         "validation_status": "CHALLENGED"
       },
       {
-        "applicability": "候选在同一年比较不同家庭成员、配偶或子女的疾病、事故、死亡等终点，且各人物轴同时出现吉化与凶动信号时。",
-        "capability_ceiling": "缺少人物专属终点链时，最高释放到该人物轴被激活或处于风险窗口，不宣布精确死亡、病名或事故结果。",
-        "counterexamples": "某人物已由重新立极、疾病或事故接口、指定时间、不可逆动作和现实完成五层独立闭合，竞争人物只有资源性活动，此时可以形成较高排他性。",
-        "decision_procedure": "为每个候选人物独立建立角色许可、静态容量、动态触发、疾病或事故机制、不可逆动作、现实完成六列；吉化和凶动只进入动态权重，不能跨列替代终点；最后做人物间排他比较。",
-        "limits": "明确的吉凶动态仍可调整风险方向和权重；本规则禁止的是二元化终点替代，不是否定四化、旺衰或合冲的作用。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "STATIC_DYNAMIC_LAYERING",
-          "PALACE_TRANSFORMATION_CHAIN",
-          "BAZI_STRUCTURE_THEN_TRIGGER",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "DEATH_ENTITY_TIME_CLOSURE",
-          "EVIDENCE_WEIGHTING",
-          "CAUSAL_ACTOR_DIRECTION",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-BENEFIC-MALEFIC-NONBINARY-TERMINAL",
-        "source_basis": "S02区分风险、事件与完成，S03约束双轨裁决，S04与S09规定人物太极，S08与S10区分化象和岁运，S14与S15把合冲旺衰作为中性触发，S16限制亲缘映射，S17闭合动作终点，S18执行人物反转。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S09",
-          "S10",
-          "S11",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "高严重度人物终点中，禄权科、旺庙、印比或喜用不得直接当作保护证明，煞忌、刑冲、衰弱或忌神也不得直接当作死亡或不可逆完成证明。两类信号都先解释为资源、压力、活动和变化，再独立验证人物、疾病或事故动作与现实终点。",
-        "stop_conditions": "若两个以上人物都只有动态激活而无完成链，停止在风险排序并降低置信度，不以吉凶标签完成二选一。",
-        "topic_tags": [
-          "PARENTS",
-          "MARRIAGE_RELATIONSHIP",
-          "HEALTH",
-          "TRAVEL_ACCIDENT_SAFETY",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "推理用吉化否决某人物的高严重度结局，或用煞忌直接确认另一人物的不可逆终点，而没有分别检查人物许可、动作和现实完成。",
-        "validation_status": "CANDIDATE"
-      },
-      {
         "applicability": "指定年份的候选跨越事故、健康、竞赛、休学或其他异质事件，且盘面同时出现风险机制与吉化缓冲、或表达能力与正式成果竞争时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少现实记录时只能给出题内事件机制与结果修饰的相对优先，不能确认事故类型、伤情、名次或法律处理。",
         "counterexamples": "若风险轴只有一般压力而没有事件机制，同时制度、竞赛平台和成果节点完整，则正式成果候选可优先；若事故机制完整但没有保护信号，则不得无依据追加平安或轻微结果。",
         "decision_procedure": "为每个候选分别填写主题轴、发生许可、专属机制、动作主体、结果严重度、保护或恶化修饰、现实终点七列；共享年份激活归零；先比较机制，再比较结果修饰，最后检查正式成果或事故所需的独有节点。",
@@ -968,6 +941,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分事件、机制与量级，S03约束双轨独立，S04与S09路由迁移、疾厄和功能太极，S08及S10区分四化方向与结果修饰，S11及S14至S16复核冲击和应期，S17闭合场景—动作—结果链，S18执行异质候选比较。",
         "source_routes": [
           "S02",
@@ -995,46 +969,8 @@
         "validation_status": "CANDIDATE"
       },
       {
-        "applicability": "职业选项同时包含岗位功能、行业、机构属性或地域，而多个行业共享文书、流动、服务、销售或协调等日常动作时。",
-        "capability_ceiling": "缺少行业专属对象时，最高释放到财务记录、运营文书、客户关系、移动服务等功能族，不补造精确企业与地点。",
-        "counterexamples": "若运输载体、路线网络、货物流转与调度责任同时闭合，而财务账目或审计对象只有一般文书信号，则移动行业可优先，不因制度性名称更专业而反转。",
-        "decision_procedure": "为每个候选建立核心对象、产出凭证、日常动作、行业、雇主、地域六列；先把共享动作归零，再比较行业专属对象和制度产物，最后单独检查雇主与地域，未闭合的精确节点只降置信度。",
-        "limits": "核心对象与制度产物仍不能单独证明具体雇主、城市或企业所有制；精确机构与地域需要独立现实链。命理结构最多提供职业族和相对功能。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "EVENT_ENDPOINT_CLOSURE",
-          "REALITY_SCALE_MAPPING",
-          "OPTION_GRANULARITY",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "EVIDENCE_WEIGHTING",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAUSAL_ACTOR_DIRECTION",
-          "CAREER_PROFILE_CLOSURE",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY",
-        "source_basis": "S02区分现代岗位、行业、机构与地域语义，S03约束双轨裁决，S04与S09负责官禄及人物太极，S08提供化象层级，S11与S16限制八字职业映射，S17闭合岗位动作与服务对象，S18执行区别原子比较。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S09",
-          "S11",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "职业候选必须把核心处理对象、制度产物、日常动作、所属行业、雇主性质与地域场景分层。文书、记录、调度、出行或应酬等工作方式只能定义功能，不能直接把职业归入最显眼的场景行业；当候选行业不同，核心对象与制度产物优先于环境相似度。",
-        "stop_conditions": "若所有候选都只有共享动作而无行业专属对象，停止在功能族相对选择，不用迁移、财星、化科或单颗星曜补造行业。",
-        "topic_tags": [
-          "CAREER_EDUCATION"
-        ],
-        "trigger_conditions": "临时第一名主要由文书、移动、服务或社交等共享工作方式支持，而竞争项拥有不同的核心业务对象或制度产物。",
-        "validation_status": "CANDIDATE"
-      },
-      {
         "applicability": "职业候选在组织内管理、项目经营、合伙关系和独立所有权之间竞争，且盘面同时出现权责、变动、财务或公众能力时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "未闭合所有权与盈亏承担时，最高释放到经营管理、业务负责人或创业倾向，不输出精确法律或商业身份。",
         "counterexamples": "若存在明确的自有资本投入、客户获取、盈亏自担、雇佣他人、组织外收入和持续经营时间链，独立经营者身份可以超过组织内管理候选。",
         "decision_procedure": "依次核对劳动关系、决策权来源、资本归属、盈亏承担、客户来源、收入方式和持续期；将可由组织管理共同解释的证据归为共享原子，只用所有权专属节点决定身份层级。",
@@ -1051,6 +987,7 @@
           "CAREER_PROFILE_CLOSURE"
         ],
         "rule_id": "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S02区分职业与商业现实语义，S03裁决两轨冲突，S04路由官禄财帛与人物太极，S10和S15定位阶段，S16限制八字职业映射，S17闭合劳动与经营终点，S18比较专属原子。",
         "source_routes": [
           "S02",
@@ -1074,6 +1011,7 @@
       },
       {
         "applicability": "候选横跨专业职称、一般职能、资产经营和机构文职，而官禄结构只提供可跨行业复用的能力时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少行业对象或资格终点时，最高释放到职业功能族和资产接触倾向，不宣称精确行业或职称。",
         "counterexamples": "若专业资格、机构场景、服务对象、收入方式及持续期都由独立父链闭合，则专业职称可高于资产行业；反之亦然。",
         "decision_procedure": "建立工作方法、服务对象、资产载体、机构场景、资格门槛、收入来源、持续期七列；共享能力只作背景分，行业专属对象与流程决定排序，再检查动态阶段是否持续承载。",
@@ -1090,6 +1028,7 @@
           "CAREER_PROFILE_CLOSURE"
         ],
         "rule_id": "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02定义职业与资产现实语义，S03处理双轨冲突，S04和S09分开官禄、财帛、田宅太极，S05与S07提供星系条件，S10与S15定位阶段，S11至S16限制十神映射，S17闭合对象与收入终点，S18比较行业专属原子。",
         "source_routes": [
           "S02",
@@ -1120,6 +1059,7 @@
       },
       {
         "applicability": "候选职业共享管理、沟通、运营或流动能力，但行业服务对象和制度环境明显不同，尤其包含少见或高专属性职业时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "对象或机构未闭合时只能输出职业功能簇，不能确认具体行业、岗位、执业资格或雇佣组织。",
         "counterexamples": "若某候选虽属常见行业，但对象、机构、资格、进入年份和持续收入形成完整闭合，而专门职业只有象征联想，则常见行业仍应优先；反之，专门对象链完整时不得被通用管理能力压过。",
         "decision_procedure": "先建立职业功能、服务对象、工作动作、机构场景、资格入口、进入时间、收入终点七列；共享功能归零；优先比较对象和机构的独有证据，再检查资格与现实终点；最后才用功能适配度裁决同对象职业。",
@@ -1143,6 +1083,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02限定职业现实语义与行业量级，S03要求双轨分别验证，S04与S09重立官禄、迁移及专题太极，S08和S10提供结构及年份启动，S11及S14至S16复核八字职业功能，S17闭合对象—方法—机构—收入链，S18执行职业候选成对比较。",
         "source_routes": [
           "S02",
@@ -1168,37 +1109,8 @@
         "validation_status": "CANDIDATE"
       },
       {
-        "applicability": "候选竞争广义职业类别与更窄的具体岗位、场所或身份时。",
-        "capability_ceiling": "只有能力、桃花、才艺或公众性证据时，最高释放到广义职业族。",
-        "counterexamples": "完整组合在同一有效结构中出现，且阶段、谋生动作、场所和收入链同时闭合时，较窄职业可以胜出。",
-        "decision_procedure": "逐项检查雇佣或经营主体、日常动作、行业场所、服务对象、收入形式、进入年龄和持续性，并惩罚缺失的独有节点。",
-        "limits": "单一组合或分散星曜只能建立条件性职业候选，不能拼接成不存在的完整岗位链。",
-        "reasoning_skill_tags": [
-          "TOPIC_PALACE_ROUTING",
-          "OPTION_GRANULARITY",
-          "EVIDENCE_WEIGHTING",
-          "CAREER_PROFILE_CLOSURE"
-        ],
-        "rule_id": "RULE-CAREER-SPECIFICITY-CLOSURE",
-        "source_basis": "S02职业画像维度、S05至S07星系组合边界、S17职业终点链、S18组合完整性门禁。",
-        "source_routes": [
-          "S02",
-          "S05",
-          "S06",
-          "S07",
-          "S17",
-          "S18"
-        ],
-        "statement": "广义才艺、公众接触或经营倾向只能确定职业族；精确岗位必须同时闭合人物、主题宫位、完整星系条件、工作动作、场所或服务对象、收入方式、进入年龄与持续性。",
-        "stop_conditions": "若只能证明能力或环境，停止在职业大类，不用时代标签或刻板印象补齐岗位。",
-        "topic_tags": [
-          "CAREER_EDUCATION"
-        ],
-        "trigger_conditions": "多个职业候选共享同一能力或场景，但精确程度不同。",
-        "validation_status": "CHALLENGED"
-      },
-      {
         "applicability": "题目涉及叔伯、舅姨、侄甥或其他旁系亲属，并要求在多个精确年份中判断死亡、疾病、事故或制度事件时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "无法完成旁系人物和年份排他时，最高释放到该亲缘支系的风险窗口，不输出精确死亡年份或方式。",
         "counterexamples": "若重新立极后的人物宫、其疾厄或福德接口、八字角色轴与指定年份动作链三者同向，并排除其他亲属和相邻年份，则可提高排他性判断。",
         "decision_procedure": "先写出亲缘路径并确定新太极；再为每个年份建立人物宫、角色星或十神、动态触发、死亡动作、完成结果五列；证据不得跨人物和跨年复用，最后执行相邻年份排除。",
@@ -1214,6 +1126,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-COLLATERAL-KIN-REROOT-YEAR-CLOSURE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分人物与死亡完成，S03裁决双轨，S04和S09规定人物太极与气数位，S08与S10约束四化岁运，S14与S15提供中性触发，S16限制八字亲缘映射，S17闭合人物动作终点，S18执行年份反转。",
         "source_routes": [
           "S02",
@@ -1241,6 +1154,7 @@
       },
       {
         "applicability": "同一题各选项原子数量明显不同，或某选项由多个一般原子加一个高严重度、精确身份、精确时间或连续事件原子组成时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少区别原子的专属闭合时，只能输出相对首选并降低置信度，不宣称复合叙事中的每个细节均已证实。",
         "counterexamples": "若复合选项的高严重度或精确原子具有独立人物、主题、时间与现实动作链，而较短选项只有宽泛相似性，则复合选项应优先，不能因复杂度而受罚。",
         "decision_procedure": "先列出每项全部原子并标记共享、区别、严重度和完成状态；再为区别原子建立人物、主题、时间、动作、结果五列证据；共享原子只作背景分，直接冲突优先于一般同向证据；最后执行Top1与最强竞争项反转测试。",
@@ -1254,6 +1168,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S02定义现代语义与量级，S03裁决两轨和同源证据，S04路由人物与主题，S10和S15约束时间层，S16限制八字映射，S17闭合人物—动作—终点，S18负责原子化和成对比较。",
         "source_routes": [
           "S02",
@@ -1278,6 +1193,7 @@
       },
       {
         "applicability": "父母、童年照料、家庭分离、成员健康与迁移职业原因被组合在同一道排他选择题中，且多个候选共享家庭不连续这一背景时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少现实人物和终点节点时，只能比较题内哪个复合叙事的核心原子覆盖更完整，不能把照料者身份、疾病诊断或离乡原因写成已核实事实。",
         "counterexamples": "若人物太极、指定时间、动作原因和现实终点形成独立证据链，且替代照料关系由另一条家庭角色链直接承接，则可以选择更具体的家庭叙事；若只有广义家庭疏离，则只能停留在背景层。",
         "decision_procedure": "先列人物、原因、动作、时间、照料结构、健康状态、迁移状态七列；共享的家庭不连续证据归零；分别检查每个精确人物和终点的紫微、八字及现实链；对未闭合的精确身份和高严重度终点使用同级惩罚，再比较核心主干覆盖和最强反证。",
@@ -1297,6 +1213,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02限制现实身份、健康与量级映射，S03要求紫微八字不得共同补造同一缺口，S04与S09重立父母及家庭人物太极，S08与S10只提供结构和动态方向，S11及S14至S16复核人物与岁运，S17闭合人物—动作—终点链，S18执行复合原子分账和强竞争反转。",
         "source_routes": [
           "S02",
@@ -1326,6 +1243,7 @@
       },
       {
         "applicability": "候选把关系、疾病、死亡、职业、资产、金额或多年事件组合在同一句中，且不同候选共享部分背景原子、只在少数高精度原子上分叉时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "无法闭合全部关键区别原子时，最高释放到被支持的主题或方向，不把一个强主轴扩写为整条现实叙事。",
         "counterexamples": "候选虽然原子较多，但人物、动作、时间、现实结果和数量均由不同父链同向支持，竞争项反而存在直接反证，此时不适用简化惩罚。",
         "decision_procedure": "先拆出共享原子和区别原子；对每个区别原子标记直接支持、间接支持、缺证、直接反证及严重度；共享原子归零，独立支持加分，高精度缺证逐项扣分，完成最强竞争反转后再定Top1。",
@@ -1339,6 +1257,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02定义现代语义、量级和高严重度终点，S03限制双轨与同源重复，S04与S08至S10建立紫微主题和动态链，S11至S16限制八字映射，S17要求人物—动作—对象—结果闭合，S18要求全选项成对比较。",
         "source_routes": [
           "S02",
@@ -1369,6 +1288,7 @@
       },
       {
         "applicability": "多道题共享同一人物、家庭阶段、职业履历、婚姻序列或年份时间线时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "该规则只发现矛盾并要求补充阶段桥梁，不单独生成事实或答案。",
         "counterexamples": "不同题位于不同阶段且存在搬迁、衰败、继承、转职、丧偶等可验证转折时，表面矛盾可以共存。",
         "decision_procedure": "逐题保留独立证据表，再按人物和时间排序；若冲突，寻找明确转换节点，否则降低推测性更强的一方。",
@@ -1380,6 +1300,7 @@
           "CROSS_QUESTION_CONSISTENCY"
         ],
         "rule_id": "RULE-CROSS-QUESTION-CONSISTENCY",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S02主体与期间冻结、S03冲突裁决、S04人物主题边界、S10和S15时间层、S17阶段动作链、S18反证审计。",
         "source_routes": [
           "S02",
@@ -1408,6 +1329,7 @@
       },
       {
         "applicability": "岁运出现强冲动、限年重叠或同一时间兼具喜庆与风险信号时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "冲动与叠宫只负责许可和放大，不负责自动确定事件。",
         "counterexamples": "目标主题完全未激活而另一事件专属链闭合时，强冲动应归入后者。",
         "decision_procedure": "先完成本命体与大限阶段定位，再计算流年目标主题、人物关系和现实完成节点，最后用八字岁运独立复核方向。",
@@ -1420,6 +1342,7 @@
           "ZIWEI_BAZI_ARBITRATION"
         ],
         "rule_id": "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S08至S10四化与限年分层、S14至S15合冲中性原则、S16接口、S17完成链、S18增量比较。",
         "source_routes": [
           "S03",
@@ -1447,6 +1370,7 @@
       },
       {
         "applicability": "候选在高等教育层级、专业类别、毕业或辍学状态、边工边学和不同职业进入年份之间竞争时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺学校或学历制度终点时只能判断学习能力、教育路径连续性和职业进入窗口，不断言院校档次、专业或文凭。",
         "counterexamples": "若教育轴长期弱且缺任何科名、印证或制度承接，而工作与非标准学习链在对应阶段完整，则较低教育或边工边学仍可优先。",
         "decision_procedure": "建立学习能力、入学层级、专业、完成状态、中断状态、当前工作进入年份六列；分别读取静态容量和各阶段动态；不得用中断信号回填入学层级；最后比较最弱必需节点。",
@@ -1464,6 +1388,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02定义学历、入学、毕业、辍学及入职终点，S03处理两轨冲突，S04与S09路由教育职业轴，S08与S10处理动态，S11及S14至S16限制八字教育映射，S17闭合阶段，S18执行时间和区别原子比较。",
         "source_routes": [
           "S02",
@@ -1490,6 +1415,7 @@
       },
       {
         "applicability": "选项按教育程度形成有序阶梯，盘面同时出现多条学习、科名、制度适应或专业训练链，但缺少直接毕业文件，且较高层级与中间层级发生竞争时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "无现实授证节点时，只能给出题内相对层级优先及其缺口，不能把该层级写成已经核实的学历事实。",
         "counterexamples": "若只有聪明、表达、贵人或制度接触，而求学阶段出现明确中断且没有恢复、完成或后续专业训练承接，则不得因能力强而上调层级；若高低层级都只有同一组科名信号，也应保持较低置信度而非选择最高档。",
         "decision_procedure": "先把所有选项按层级排序；分别建立学习能力、入学许可、求学阶段、持续或中断、恢复、正式完成、后续专业资格七列；共享能力信号归零，只比较相邻层级的新增必要节点；再用紫微与八字各自检查阶段承接，最后区分题内相对首选与现实核实状态。",
@@ -1509,6 +1435,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-EDUCATION-RELATIVE-TIER-ANCHOR",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分相对排序与教育正式终点，S03约束双轨独立增益，S04与S08路由教育、科名及忌阻结构，S10与S15检查求学阶段和承接，S11至S13及S16限定八字学习与资格映射，S17闭合入学—持续—完成—资格链，S18执行有序层级比较与反转。",
         "source_routes": [
           "S02",
@@ -1534,6 +1461,7 @@
       },
       {
         "applicability": "竞争项分别代表不同事件类型，而较复杂候选包含一个强主干事件和若干精确附属描述，较简单候选只有宽泛结构或一般阶段信号时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "主干成立而附属未闭合时，只能输出事件类型的相对优先并明确细节未知，不能把整句描述当作全部已证实。",
         "counterexamples": "若复杂候选的所谓主干只有一般桃花、疾病、移动或财务活动，而简单候选具有人物、动作、制度终点和时间的完整链，则应继续处罚复杂候选。",
         "decision_procedure": "先标记每项的事件类型主干，再把人物、动作、时间、结果列为必要节点，把地点、精确身份、数量和修饰语列为附属节点；主干按独立父链评分，附属缺证只作分层扣分，然后用直接同轴机制对临时第一名做反转。",
@@ -1551,6 +1479,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02划分现实主干与精确终点，S03处理同源证据和双轨冲突，S04与S08至S10提供主题及动态，S14至S16限制触发解释，S17闭合人物—动作—结果，S18要求原子分层和最强竞争反转。",
         "source_routes": [
           "S02",
@@ -1576,53 +1505,8 @@
         "validation_status": "CANDIDATE"
       },
       {
-        "applicability": "家庭出身选项同时混合父母职业或阶层、死亡年份、再婚继承与兄弟姐妹数量，且所有候选都含至少一个无法完整证明的精确原子时。",
-        "capability_ceiling": "缺少人物重立、指定时间和不可逆结果时，最高输出家庭类型或父母角色的相对优先，不断言具体死亡年份、继承事实或行政级别。",
-        "counterexamples": "若某候选只有一般父母吉凶或地位倾向，却附带多个精确死亡与重组节点，而竞争项在父母角色、手足结构和现实终点上均有同轴闭合，则仍应处罚前者。",
-        "decision_procedure": "建立父亲角色、母亲角色、制度层级、存亡、重组、资源承接、手足数量七列；共享原子归零；先比较家庭类型主轴，再分别检查不可逆与数量终点；以主轴差异决定相对排序，以未闭合精确原子控制置信度。",
-        "limits": "该规则只用于相对选项比较；死亡、继承、再婚、政府级别和手足数量仍需各自证据，不能由其他主轴代证。不可逆终点缺链时必须降低置信度并保留停止条件。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "TOPIC_PALACE_ROUTING",
-          "NATAL_STRUCTURE",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "DEATH_ENTITY_TIME_CLOSURE",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "EVIDENCE_WEIGHTING",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAUSAL_ACTOR_DIRECTION",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR",
-        "source_basis": "S02定义家庭身份、制度层级与不可逆终点的现实负担，S03约束双轨裁决，S04与S09负责父母及手足太极，S08与S10定位动态，S11及S14至S16限制八字亲缘映射，S17闭合人物动作结果，S18执行复合原子分账。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S09",
-          "S10",
-          "S11",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "家庭复合选项必须把父母职业与制度层级、父母存亡、家庭重组、资源承接和手足构成分别建账，再确定哪些原子是决定整体家庭类型的主轴。高严重度原子缺少专属闭合时不得当作事实，但也不能仅因该原子精确就自动淘汰一个在父母角色、制度层级或手足结构上明显更强的候选。",
-        "stop_conditions": "若父母角色和手足结构都无法形成排他差异，停止在强制低置信度选择，不以描述简单度或单个凶吉标记定项。",
-        "topic_tags": [
-          "FAMILY_ORIGIN",
-          "PARENTS",
-          "SIBLINGS",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名主要因描述较简单或高严重度原子较少而领先，但最强竞争项在父母制度角色、家庭主轴或手足结构上拥有更直接的区别证据。",
-        "validation_status": "CANDIDATE"
-      },
-      {
         "applicability": "题目同时提供家庭贫富等级、父母职业或公共身份等不同类型候选时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "未闭合家庭量级轴时不输出精确财富阶层；未闭合职业画像时不输出精确岗位。",
         "counterexamples": "若父母人物太极、职业主题宫位、长期收入方式、组织属性和现实终点均有独立同向证据，职业候选可以超过单纯量级候选。",
         "decision_procedure": "先固定早年依赖期并完成家庭量级轴，再独立建立父母人物职业链，最后比较各候选的最弱必需原子。",
@@ -1634,6 +1518,7 @@
           "EVIDENCE_WEIGHTING"
         ],
         "rule_id": "RULE-FAMILY-WEALTH-ROLE-SEPARATION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02现实量级与职业语义、S04父母及田宅边界、S17家庭和职业终点链、S18区别原子裁决。",
         "source_routes": [
           "S02",
@@ -1654,6 +1539,7 @@
       },
       {
         "applicability": "候选横跨婚姻、财务、交通、治安、健康或不同人物事件时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "泛化风险结构只能提高场景概率，不能独立释放具体事件。",
         "counterexamples": "负面候选若具备明确主体、专属动作、对象、后果和年份触发，而关系主题只有一般活跃信号，则负面候选可以胜出。",
         "decision_procedure": "为每个候选分别列主体、主题坐标、专属机制、时间增量、完成动作和现实后果，再比较专属节点而非共享风险背景。",
@@ -1667,6 +1553,7 @@
           "COUNTEREVIDENCE_REVERSAL"
         ],
         "rule_id": "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+        "runtime_role": "COUNTEREVIDENCE_ONLY",
         "source_basis": "S02事件语义、S03冲突裁决、S10限年定位、S14至S15冲动边界、S17事件动作链、S18非法映射归零。",
         "source_routes": [
           "S02",
@@ -1693,51 +1580,8 @@
         "validation_status": "CHALLENGED"
       },
       {
-        "applicability": "职业选项属于不同产业或特殊职业，但盘面只强烈显示管理、迁动、表达、技术、财务或服务等可跨行业复用的能力时。",
-        "capability_ceiling": "服务对象或机构链缺失时，最高释放到职能族群，如运营管理、内容表达、照护服务或技术执行，不输出精确行业和职称。",
-        "counterexamples": "若某行业的服务对象、机构边界、典型工具、工作流程与持续岁运同时获得独立证据，而其他候选只有共享能力，则具体行业可以优先。",
-        "decision_procedure": "先分别记录工作方式、服务对象、机构场景、工具流程、责任边界、收入来源和持续期；把可跨行业解释的能力降为共享证据，只用行业专属对象与流程决定最终职业。",
-        "limits": "单一星系、十神、宫位或职业性格不能锁定法律职业名称；稀有职业也不得因象义奇特而优先，仍需多源场景闭合。",
-        "reasoning_skill_tags": [
-          "TOPIC_PALACE_ROUTING",
-          "NATAL_STRUCTURE",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "REALITY_SCALE_MAPPING",
-          "REGION_ERA_NORMALIZATION",
-          "OPTION_GRANULARITY",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAREER_PROFILE_CLOSURE"
-        ],
-        "rule_id": "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION",
-        "source_basis": "S02约束职业现实语义和量级，S03处理双轨裁决，S04与S09建立主题太极，S05和S07提供有条件星系语义，S10与S15定位职业阶段，S11至S16限制八字职业映射，S17闭合人物动作终点，S18比较专属原子。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S05",
-          "S07",
-          "S09",
-          "S10",
-          "S11",
-          "S13",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "职业识别必须把工作方式与行业服务对象分轨。流动、管理、财务、表达、技术、照护或危机处理只说明工作方法和能力，不能直接证明运输、传媒、宗教、医疗、殡葬或其他具体行业；行业必须由服务对象、机构场景、工具流程与现实产出闭合。",
-        "stop_conditions": "若行业专属对象和机构链均缺失，停止在职业功能层，不以叙事顺滑度或单一象义补造具体行业。",
-        "topic_tags": [
-          "CAREER_EDUCATION",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名的具体行业主要由可跨多个行业解释的流动、管理、财务或表达信号推出，而竞争职业在服务对象或机构场景上可能拥有独立闭合。",
-        "validation_status": "CHALLENGED"
-      },
-      {
         "applicability": "同一道题在命主本人、父亲、母亲或其他亲属的疾病与医疗结果之间竞争，且命主疾厄轴和亲属轴同时被激活时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "人物专属疾病链不完整时，最高释放到某人物的健康风险或家庭医疗事件，不输出精确诊断和结局。",
         "counterexamples": "若命主疾厄轴同时具备本人身体症状、部位病理、检查处置和恢复结果，而亲属轴只有一般压力，则事件主体仍应判为命主，不因题目出现亲属候选而强行转移。",
         "decision_procedure": "先列出所有候选患者；对每人依次检查人物许可、静态健康容量、指定时间触发、部位或病理、检查处置、结果；命主自身疾厄只计入本人链，照护与家庭压力另列，最后做人选反转。",
@@ -1757,6 +1601,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-OTHER-PERSON-HEALTH-REROOT-FIRST",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分患者、照护者和医疗终点，S03处理双轨冲突，S04与S09负责人物太极重立，S08与S10定位动态，S11及S14至S16限制八字亲缘和健康映射，S17闭合患者—诊断—处置—结果，S18执行人物排他比较。",
         "source_routes": [
           "S02",
@@ -1784,6 +1629,7 @@
       },
       {
         "applicability": "候选由多个年度和多个现实领域组成，且某一候选借用了同案其他题的信息形成连贯故事，而另一候选直接承接覆盖期主导限运时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少多阶段完成链时，最高释放到期间主主题与期末方向，不宣称具体赔付、病名、法律结果、财富等级或住房类型。",
         "counterexamples": "若跨题信息代表同一已独立闭合的潜变量，并且在本题的时间、人物、法律或财务链上再次获得独立证据，则可用于一致性校验，但不能重复计分。",
         "decision_procedure": "先切分覆盖期并确定每段主导限运；为每个候选列起因、动作、对象、转折、结果、期末状态；跨题信息只作一致性检查且不得补造因果；直接阶段证据优先于叙事连贯度。",
@@ -1800,6 +1646,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02定义多阶段现实终点，S03限制同源与跨题裁决，S04和S09路由主题，S08与S10确定紫微动态层，S14与S15确定八字阶段，S16限制专题映射，S17闭合因果和期末状态，S18执行复合选项分账。",
         "source_routes": [
           "S02",
@@ -1829,6 +1676,7 @@
       },
       {
         "applicability": "性格选项同时混合行动节奏、表达方式、情绪、人际信任和资源态度，且不同宫位或八字结构分别支持不同原子时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少长期现实行为时，最高释放到相对性格倾向，不把压力反应、社交场景或理财方式宣称为终身固定人格。",
         "counterexamples": "若命身、福德、交友、语言轴与八字心性结构持续同向，并且竞争项存在直接反证，则核心轴可形成高置信度人格结论。",
         "decision_procedure": "先把每个候选拆成驱动、行为、语言、情绪、信任、资源六列；分别绑定命身、福德、交友、疾厄表达接口与八字心性父链；共享原子降权，直接行为反证优先，最后做逐轴覆盖和反转测试。",
@@ -1844,6 +1692,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-PERSONALITY-ROLE-AXIS-SEPARATION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02约束现代人格语义，S03裁决双轨，S04与S09建立命身、福德和交友太极，S05与S07提供有条件星曜语义，S08区分本性与化象，S11至S16限制八字心性映射，S17闭合行为终点，S18执行复合原子比较。",
         "source_routes": [
           "S02",
@@ -1871,6 +1720,7 @@
       },
       {
         "applicability": "多个候选共享同一资产或能力方向，仅在数量、金额、等级或阈值上下分叉，或把定性主题与精确数值捆绑时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "没有独立量级链时，最高释放到有无、偏多偏少、流动性压力或相对等级；精确数量和金额只作为未决区别原子。",
         "counterexamples": "若数量或等级由多条独立现实终点、连续阶段、资产取得与退出记录、地区时代校准共同约束，则可在预定义区间内相对比较。",
         "decision_procedure": "先把有无、数量、净值、现金、负债、地区年代六轴分开；只对有独立证据的轴计分；数字轴无校准即标记未知，不能用定性吉凶代填；再比较剩余区别原子并降低置信度。",
@@ -1885,6 +1735,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02负责现代语义和量级校准，S03限制跨轨换算，S04与S08至S10只提供主题及动态，S11至S16限制八字量级映射，S17要求现实资产和结果链，S18要求拆分复合阈值。",
         "source_routes": [
           "S02",
@@ -1913,92 +1764,8 @@
         "validation_status": "PROVISIONAL"
       },
       {
-        "applicability": "候选在多次恋爱但未婚无子、一次婚姻加单次生育、奉子婚及多次生育、离婚后无子等不同序列之间竞争时。",
-        "capability_ceiling": "缺法律或生育终点时最高释放到关系活跃、阻力、反复或家庭议题窗口，不断言结婚、离婚、子女人数和性别。",
-        "counterexamples": "若婚姻登记、共同家庭建立或子女出生在指定时间得到独立双轴闭合，则主题激活可以与完成链合并，不应退回未完成状态。",
-        "decision_procedure": "先建立关系活动、法律婚姻、共同生活、生育动作、子女人数、关系解除、当前状态七列；主题激活只计入第一列；其余各列需独立终点；再比较多节点序列与未完成基线。",
-        "limits": "无完成证据不自动证明终身未婚或无子；当前状态仍需参考期。该规则不能用一般阻力直接排除曾婚、收养、流产或其他家庭形式。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "TOPIC_PALACE_ROUTING",
-          "NATAL_STRUCTURE",
-          "STATIC_DYNAMIC_LAYERING",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "EVIDENCE_WEIGHTING",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAUSAL_ACTOR_DIRECTION",
-          "RELATIONSHIP_SEQUENCE",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE",
-        "source_basis": "S02区分恋爱、婚姻、离婚、生育与当前状态，S03约束双轨融合，S04与S09重立夫妻子女太极，S08与S10定位岁运，S11及S14至S16限制十神与冲合，S17闭合关系序列，S18比较复合节点。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S09",
-          "S10",
-          "S11",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "夫妻或子女主题的大限、流年、桃花、官杀财星或宫位激活只证明关系与家庭议题活跃，不等于法律婚姻或生育完成。关系活动可以表现为多次恋爱、反复协商或未完成关系；婚姻和子女必须分别具备人物、制度或生理动作、时间与结果。",
-        "stop_conditions": "若所有候选的正式状态均缺终点，停止在低置信度相对选择，不把十年主题或单一年份当成完成凭证。",
-        "topic_tags": [
-          "MARRIAGE_RELATIONSHIP",
-          "CHILDREN_FERTILITY",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名主要由夫妻或子女主题年份直接推出正式婚姻和出生，而候选还要求关系来源、子女数量、性别或多阶段完成。",
-        "validation_status": "PROVISIONAL"
-      },
-      {
-        "applicability": "选项在未婚单身、长期交往、已婚稳定、婚内冲突或离婚过程中竞争，而盘面同时显示良好夫妻结构和活跃岁运时。",
-        "capability_ceiling": "缺少制度动作或当前延续证据时，最高释放到婚恋机会强、关系存在概率高或对象条件较佳，不宣称具体法律与忠诚状态。",
-        "counterexamples": "若关系建立、登记或共同生活、持续期和当前延续分别获得独立时间与现实动作证据，则已婚或长期伴侣状态可以超过单身候选。",
-        "decision_procedure": "分列关系容量、相识建立、持续交往、制度化、当前延续、质量与终止七个节点；本命结构只进入容量列，岁运只提供启动许可，必须由独立动作证据完成现实状态列。",
-        "limits": "庙旺、禄权科、财官配合、桃花或夫妻大限均不能单独证明法律婚姻及当前状态；煞忌也不能单独证明不忠或离婚。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAUSAL_ACTOR_DIRECTION",
-          "RELATIONSHIP_SEQUENCE",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-RELATIONSHIP-CAPACITY-CURRENT-STATUS-SEPARATION",
-        "source_basis": "S02定义关系现实状态，S03裁决两轨，S04确定夫妻人物太极，S08与S10区分本命容量和动态启动，S14与S15提供关系触发，S16限制八字婚恋映射，S17闭合关系动作终点，S18执行状态原子比较。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S10",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "夫妻结构优良、婚恋大限启动或配偶星活跃只能证明关系容量、对象条件与建立机会，不能直接证明已经登记、当前有伴侣或关系稳定。当前状态必须把相识、持续交往、制度化、同居或分离等现实节点独立闭合。",
-        "stop_conditions": "若只能证明婚恋活跃或关系潜力，停止在状态不确定并降置信度，不从优质夫妻结构补造已婚事实。",
-        "topic_tags": [
-          "MARRIAGE_RELATIONSHIP",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名由夫妻宫品质或婚恋大限直接推出已婚稳定，但缺少登记、共同生活、持续期或当前状态证据。",
-        "validation_status": "CHALLENGED"
-      },
-      {
         "applicability": "候选在单身、短期恋爱、长期关系、并行关系、已婚稳定、冲突或解除程序之间竞争，且盘面同时出现夫妻容量、桃花、化忌或岁运激活时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少现实关系节点时，只能输出题内关系阶段和复杂度的相对优先，不能确认伴侣数量、持续年限、忠诚状况或法律状态。",
         "counterexamples": "若早期关系建立、跨阶段持续、两个独立人物太极、并行动作和现实后果分别闭合，则复杂关系候选可高于简单状态；若制度婚姻和共同家庭已完成，也不应因缺少桃花证据退回未婚。",
         "decision_procedure": "按人物出现、关系建立、持续承接、第二人物、并行动作、冲突后果、制度状态七列记账；共享的夫妻轴或桃花激活归零；逐层检查每个新增复杂度原子，任一关键层缺失即回退一级，再做最强竞争反转。",
@@ -2021,6 +1788,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分关系状态、行为与法律终点，S03约束双轨不得共同补造人物，S04与S09重立夫妻及第三方人物太极，S08和S10只提供关系方向与时间激活，S11及S14至S16复核配偶星和冲合，S17闭合建立—持续—分叉—终点链，S18执行复合区别原子比较。",
         "source_routes": [
           "S02",
@@ -2047,6 +1815,7 @@
       },
       {
         "applicability": "候选在从未完成制度婚姻、当前已婚、婚后解除及多次制度婚姻之间排他竞争，且指定阶段有强烈夫妻轴、配偶星、冲合或化忌激活时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "前置婚姻完成未知时，最高只能输出关系活跃、婚事受阻或状态转换候选，不能确认已经解除或累计婚姻次数。",
         "counterexamples": "若早期阶段已有配偶人物、制度建立、共同家庭或公开身份的独立完成链，后续阶段又出现解除动作、分居承接和法律状态变化，则强冲与忌可以用于判断解除方向，不应退回未完成基线。",
         "decision_procedure": "为每个候选依次填写配偶人物、关系建立、制度完成、共同生活、冲突或分离、解除动作、当前状态七列；先审前置节点，再分配动态信号；所有候选共享的关系激活归零，缺少前置婚姻完成的解除和多次婚姻候选先降级，最后做最强竞争反转。",
@@ -2070,6 +1839,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分恋爱、登记、分居和法律解除，S03约束双轨不能共同补造终点，S04与S09重立夫妻太极，S08与S10只提供动态方向，S11及S14至S16限制配偶星和冲合解释，S17闭合建立—持续—解除序列，S18执行先决节点与复合选项比较。",
         "source_routes": [
           "S02",
@@ -2095,46 +1865,8 @@
         "validation_status": "CANDIDATE"
       },
       {
-        "applicability": "选项在普通婚姻质量、单次分合、正式解除、再次建立关系和当前状态等不同序列复杂度之间竞争时。",
-        "capability_ceiling": "缺少制度动作或连续年份桥梁时，最高释放到关系波动、分离风险或关系重组，不输出精确婚史次数。",
-        "counterexamples": "若不同年份分别出现前一关系终止、制度解除、第二关系建立与当前持续的独立证据，并有现实动作链相互印证，多阶段序列可优先于简单现状。",
-        "decision_procedure": "按时间建立关系起点、质量变化、分离事实、制度解除、新关系建立和当前持续六个节点；每一节点要求独立主题与现实动作证据，缺一段即降低整个序列，转而比较较简单状态候选。",
-        "limits": "夫妻宫性质、桃花、合冲、四化或单一年份只能提供关系主题和转换许可，不能单独证明法律状态或完整履历。",
-        "reasoning_skill_tags": [
-          "SUBJECT_ENTITY_ROUTING",
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "COMPOSITE_OPTION_ATOMIZATION",
-          "COUNTEREVIDENCE_REVERSAL",
-          "CAUSAL_ACTOR_DIRECTION",
-          "RELATIONSHIP_SEQUENCE",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN",
-        "source_basis": "S02定义关系状态与制度终点，S03处理两轨冲突，S04确定夫妻人物太极，S08与S10提供四化和岁运分层，S14与S15提供中性冲合触发，S16限制八字婚恋映射，S17闭合序列动作，S18执行复杂度与反证门禁。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S10",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "婚恋中的多阶段制度序列必须逐段举证；关系波动、化忌、冲合或先坏后好只能证明状态变化，不能自动补齐前一关系解除、后一关系建立和当前稳定三个独立完成节点。",
-        "stop_conditions": "若只能证明关系活跃或波动，停止在状态风险，不以叙事连贯性补齐婚史。",
-        "topic_tags": [
-          "MARRIAGE_RELATIONSHIP",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名包含两个以上连续关系事件，但现有证据主要是一般波动、冲合或阶段转好转坏。",
-        "validation_status": "CHALLENGED"
-      },
-      {
         "applicability": "候选年份都处于迁动活跃期，而题目明确询问换住所、迁居、入伙或家庭居住基点变化时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少旧居—新居—落地链时，最高释放到移动或居住调整窗口，不断言具体搬迁年份。",
         "counterexamples": "若某年迁移轴直接激活，同时出现田宅取得或退出、家庭成员联动和现实落地动作，而其他年份只有生活结构换挡，则该直接迁移年可以优先。",
         "decision_procedure": "逐年建立移动许可、居住基点、旧居变化、新居变化、家庭联动、手续或落地六列；短途出行与职业移动归零；再比较田宅—迁移双轴和八字阶段触发，必要时区分换运背景年与完成年。",
@@ -2153,6 +1885,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-RELOCATION-RESIDENCE-VERSUS-MOBILITY",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分出行、房产与住所语义，S03裁决两轨时间冲突，S04与S09路由田宅和迁移太极，S08与S10处理四化及岁运，S14至S16限制冲动与换运解释，S17闭合迁居动作，S18比较候选年份。",
         "source_routes": [
           "S02",
@@ -2179,6 +1912,7 @@
       },
       {
         "applicability": "选项把外形健康、性格爱好、具体技能与职业所有权捆绑，且临时第一名主要依靠爱好或行业场景相似，而同时携带未闭合的严重健康或精确职业原子时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "健康链不足时最多到风险或体质倾向；职业对象不足时最多到功能族或场景族，不补造具体疾病、乐器、场所或所有权。",
         "counterexamples": "若严重健康状态有部位、功能限制、长期持续及现实处置的独立链，而竞争项的职业与外形只有一般倾向，则严重原子不应被机械处罚。",
         "decision_procedure": "为每项标记外形、健康、性格、爱好、核心职业对象、专业技能、所有权；识别必要前提；先检查严重必要原子是否闭合，再比较共享场景与职业核心对象，最后执行最强竞争反转。",
@@ -2196,6 +1930,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02区分健康严重度、职业身份和所有权终点，S03处理多轴冲突，S04至S08提供人物与职业结构，S11与S16限制八字映射，S17闭合功能结果，S18要求必要原子及反转测试。",
         "source_routes": [
           "S02",
@@ -2221,6 +1956,7 @@
       },
       {
         "applicability": "候选分别强调健谈、表达流畅、轻度言语阻滞、社交退缩、表现欲或伤人效果，且盘面同时出现语言输出结构与语言功能受阻信号时。",
+        "attributed_validation_status": "CANDIDATE",
         "capability_ceiling": "缺少现实观察或医学评估时，只能给出题内语言画像的相对优先，不能作言语障碍诊断、频率判断或永久性结论。",
         "counterexamples": "若只有稳定的语言输出、组织表达和说服能力，而语言或口部功能轴没有任何独立阻滞，纯流畅表达候选可优先；若只有阻滞而无表达欲，则不能选择同时要求健谈的复合画像。",
         "decision_procedure": "建立表达欲、输出量、组织能力、流畅度、发音或口部阻滞、攻击性、社会反馈七列；共享的健谈或输出证据归零；语言阻滞必须通过功能位置和条件组复核，攻击性必须由行为效果链复核；再比较各候选独有原子的覆盖与反证，不用总体吉凶平均。",
@@ -2239,6 +1975,7 @@
           "UNCERTAINTY_CALIBRATION"
         ],
         "rule_id": "RULE-SPEECH-OUTPUT-FLUENCY-EFFECT-SEPARATION",
+        "runtime_role": "DECISIVE_OR_SUPPORTING_CANDIDATE",
         "source_basis": "S02禁止把口才直接扩展为其他行为并限定健康表达，S03要求两轨独立，S04路由命身、官禄与功能太极，S05与S07提供星曜语言及口部条件，S08处理语言曜化忌与正负性质并存，S11至S13及S16限制食伤映射，S17闭合功能—表现—社会效果，S18执行复合区别原子比较。",
         "source_routes": [
           "S02",
@@ -2262,46 +1999,6 @@
         ],
         "trigger_conditions": "临时第一名把表达欲或输出量直接当成流畅度证明，而竞争项同时包含输出倾向与较轻的语言功能阻滞，且两者分别有独立证据。",
         "validation_status": "CANDIDATE"
-      },
-      {
-        "applicability": "同一年份的候选横跨获奖表达、交通事故、疾病发现、制度冲突或其他不同事件机制，且盘面同时出现吉化与移动、冲击、医疗或制度风险时。",
-        "capability_ceiling": "缺少动作与现实结果时，最高释放到相对事件类型和结果倾向，不断言具体交通工具、伤势、奖项或病名。",
-        "counterexamples": "若表达、竞赛、机构认可具有独立主题宫位、动作链和明确结果，而移动冲击只有宽泛煞象，则应优先成就事件，不能因为存在煞曜就补造事故。",
-        "decision_procedure": "先为每个候选建立事件机制、动作主体、发生场景、结果严重度四列；主题与动作决定发生什么，吉凶和救应决定结果如何；对每一项分别完成发生链与结果链后再成对比较。",
-        "limits": "吉化不自动等于逢凶化吉，煞忌也不自动等于事故或疾病；事件发生仍需主题宫位、动作触发和现实终点至少两条独立父链。",
-        "reasoning_skill_tags": [
-          "TIME_LAYER_ACTIVATION",
-          "EVENT_ENDPOINT_CLOSURE",
-          "EVIDENCE_WEIGHTING",
-          "COUNTEREVIDENCE_REVERSAL",
-          "ZIWEI_BAZI_ARBITRATION",
-          "CAUSAL_ACTOR_DIRECTION",
-          "UNCERTAINTY_CALIBRATION"
-        ],
-        "rule_id": "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION",
-        "source_basis": "S02区分现代事件语义与严重度，S03裁决两轨，S04路由主题与人物，S08和S10分离四化性质与岁运触发，S14与S15提供中性冲合及应期，S16限制八字映射，S17闭合动作结果，S18执行异质选项比较。",
-        "source_routes": [
-          "S02",
-          "S03",
-          "S04",
-          "S08",
-          "S10",
-          "S14",
-          "S15",
-          "S16",
-          "S17",
-          "S18"
-        ],
-        "statement": "精确年份的异质事件比较必须先判断事件机制，再判断事件结果的吉凶与严重度。禄、权、科、贵人或顺行信号可以修饰事故后的平安、疾病后的发现与治疗、冲突后的解决，不能仅凭结果较吉就排除风险事件已经发生。",
-        "stop_conditions": "若只能判断年份总体顺逆而不能区分事件机制，停止在低置信度相对选择，不用吉凶替代事件识别。",
-        "topic_tags": [
-          "CAREER_EDUCATION",
-          "HEALTH",
-          "TRAVEL_ACCIDENT_SAFETY",
-          "MAJOR_YEAR_EVENT"
-        ],
-        "trigger_conditions": "临时第一名主要依靠吉化或负面化象判断事件性质，而最强竞争项具有不同事件机制，并且吉凶信号也可以解释其结果。",
-        "validation_status": "CHALLENGED"
       }
     ],
     "knowledge_cards": {
@@ -4197,10 +3894,222 @@
     },
     "release_id": "MODEL-LEARNING-011",
     "rule_application_policy": {
+      "ATTRIBUTION": "Classify every applied rule as decisive, supporting, or counterevidence. Removing a decisive rule must change Top1.",
       "CANDIDATE": "Use only when scope matches; never as sole evidence.",
       "CHALLENGED": "Treat as a warning or counter-hypothesis, not a decisive rule.",
+      "MAX_RULES_PER_QUESTION": 6,
       "PROVISIONAL": "Use as a low-weight hypothesis and never as sole evidence.",
       "VALIDATED": "May be used normally within its declared scope."
+    },
+    "rule_router": {
+      "max_applied_rules_per_question": 6,
+      "schema": "TOPIC-RULE-ROUTER-V1",
+      "selection_order": "TAG_QUESTION_FIRST_THEN_SELECT_SCOPE_MATCHED_RULES; CHALLENGED_RULES_COUNTEREVIDENCE_ONLY",
+      "topics": {
+        "BUSINESS_PARTNERSHIP": {
+          "counterevidence_rule_ids": [
+            "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT"
+          ],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "CAREER_EDUCATION": {
+          "counterevidence_rule_ids": [
+            "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT",
+            "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+            "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE",
+            "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+            "RULE-EDUCATION-RELATIVE-TIER-ANCHOR",
+            "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+            "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO"
+          ]
+        },
+        "CHILDREN_FERTILITY": {
+          "counterevidence_rule_ids": [
+            "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "FAMILY_ORIGIN": {
+          "counterevidence_rule_ids": [
+            "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-FAMILY-WEALTH-ROLE-SEPARATION",
+            "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+            "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE"
+          ]
+        },
+        "GAMBLING_WINDFALL": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "HEALTH": {
+          "counterevidence_rule_ids": [
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+            "RULE-OTHER-PERSON-HEALTH-REROOT-FIRST",
+            "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO",
+            "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+            "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+            "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE"
+          ]
+        },
+        "LEGAL_CONFLICT": {
+          "counterevidence_rule_ids": [
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM"
+          ],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "MAJOR_YEAR_EVENT": {
+          "counterevidence_rule_ids": [
+            "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+            "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+            "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+            "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+            "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+            "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION",
+            "RULE-COLLATERAL-KIN-REROOT-YEAR-CLOSURE"
+          ]
+        },
+        "MARRIAGE_RELATIONSHIP": {
+          "counterevidence_rule_ids": [
+            "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+            "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+            "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION",
+            "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+            "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY"
+          ]
+        },
+        "MIGRATION_RELOCATION": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+            "RULE-RELOCATION-RESIDENCE-VERSUS-MOBILITY",
+            "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE"
+          ]
+        },
+        "OTHER": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-SPEECH-OUTPUT-FLUENCY-EFFECT-SEPARATION"
+          ]
+        },
+        "PARENTS": {
+          "counterevidence_rule_ids": [
+            "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-FAMILY-WEALTH-ROLE-SEPARATION",
+            "RULE-COLLATERAL-KIN-REROOT-YEAR-CLOSURE",
+            "RULE-OTHER-PERSON-HEALTH-REROOT-FIRST",
+            "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE",
+            "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY"
+          ]
+        },
+        "PERSONALITY_APPEARANCE": {
+          "counterevidence_rule_ids": [
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-PERSONALITY-ROLE-AXIS-SEPARATION",
+            "RULE-SPEECH-OUTPUT-FLUENCY-EFFECT-SEPARATION",
+            "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO"
+          ]
+        },
+        "PROPERTY_HOUSING": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE",
+            "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+            "RULE-RELOCATION-RESIDENCE-VERSUS-MOBILITY",
+            "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY"
+          ]
+        },
+        "SEXUALITY_INTIMACY": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "SIBLINGS": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-COLLATERAL-KIN-REROOT-YEAR-CLOSURE"
+          ]
+        },
+        "SOCIAL_FRIENDS": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-PERSONALITY-ROLE-AXIS-SEPARATION"
+          ]
+        },
+        "SPIRITUAL_PARANORMAL": {
+          "counterevidence_rule_ids": [],
+          "decisive_or_supporting_rule_ids": []
+        },
+        "TRAVEL_ACCIDENT_SAFETY": {
+          "counterevidence_rule_ids": [
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+            "RULE-BENEFIC-MITIGATION-NONCANCELLATION"
+          ]
+        },
+        "WEALTH_FINANCE": {
+          "counterevidence_rule_ids": [
+            "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT",
+            "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+            "RULE-HETEROGENEOUS-EVENT-MECHANISM",
+            "RULE-CROSS-QUESTION-CONSISTENCY"
+          ],
+          "decisive_or_supporting_rule_ids": [
+            "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE",
+            "RULE-FAMILY-WEALTH-ROLE-SEPARATION",
+            "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+            "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE",
+            "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY"
+          ]
+        }
+      }
+    },
+    "runtime_governance": {
+      "schema": "MODEL-RUNTIME-GOVERNANCE-V1",
+      "suppressed_rule_count": 9,
+      "suppressed_rule_ids": [
+        "RULE-BENEFIC-MALEFIC-NONBINARY-TERMINAL",
+        "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY",
+        "RULE-CAREER-SPECIFICITY-CLOSURE",
+        "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR",
+        "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION",
+        "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE",
+        "RULE-RELATIONSHIP-CAPACITY-CURRENT-STATUS-SEPARATION",
+        "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN",
+        "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION"
+      ]
     }
   },
   "prediction_access_contract": {
@@ -4250,6 +4159,7 @@
     "unexpected_output_rule": "If any tool unexpectedly returns an old prediction, answer mapping, score, or review, stop without predicting and discard that Chat conversation."
   },
   "prediction_output_contract": {
+    "confidence_calibration_rule": "If actor, exact time, mechanism, or real-world endpoint is unresolved, cap confidence at 65. Forced relative choices are not high-confidence factual claims.",
     "each_question_must_include": [
       "top1",
       "top2",
@@ -4257,7 +4167,8 @@
       "evidence",
       "strongest_counterevidence",
       "confidence",
-      "question_profile"
+      "question_profile",
+      "rule_attribution"
     ],
     "failure_learning_rule": "After reveal, a failed round must propose one or more generic candidate rules. Rules may contain no case id, question id, answer letter, option position, or copied option sentence. Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only.",
     "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V2",
@@ -4270,7 +4181,13 @@
       "source_routes",
       "applied_rule_ids"
     ],
-    "tagging_rule": "Classify every question before reveal using only its stem/options and the no-answer chart. Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects the frozen reasoning; unrelated questions do not validate that rule."
+    "rule_attribution_fields": [
+      "decisive_rule_ids",
+      "supporting_rule_ids",
+      "counterevidence_rule_ids",
+      "decision_changed"
+    ],
+    "tagging_rule": "Classify every question before reveal using only its stem/options and the no-answer chart. Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects the frozen reasoning; unrelated questions do not validate that rule. Select no more than 6 scope-matched rules from rule_router. A CHALLENGED rule may appear only as counterevidence."
   },
   "question_taxonomy": {
     "endpoint_tags": [

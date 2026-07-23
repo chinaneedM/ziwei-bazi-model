@@ -54,5 +54,25 @@
     "excluded_from_pass_threshold": true,
     "excluded_from_learning_metrics": true,
     "aggregate_counts_required": true
+  },
+  "maintenance_policy": {
+    "short_interval_first_blind_questions": 25,
+    "medium_interval_first_blind_questions": 100,
+    "recent_window_first_blind_questions": 25,
+    "anomaly_cooldown_first_blind_questions": 10,
+    "maintenance_does_not_count_as_training_evidence": true,
+    "canonical_sources_mutable_during_maintenance": false,
+    "max_applied_rules_per_question": 6,
+    "challenged_rules_are_counterevidence_only": true,
+    "anomaly_triggers": {
+      "consecutive_low_first_blind_cases": 2,
+      "maximum_correct_for_low_five_question_case": 2,
+      "accuracy_drop_percentage_points": 15,
+      "minimum_recent_top2_coverage": 0.6,
+      "maximum_confidence_accuracy_gap": 0.15,
+      "operational_failures_in_recent_five_rounds": 2,
+      "active_rule_limit": 40,
+      "same_replay_no_improvement_limit": 2
+    }
   }
 }
