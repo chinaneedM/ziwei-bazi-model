@@ -838,12 +838,13 @@ def build_completeness_report(
             for row in predictions
         ),
         "high_confidence_with_unclosed_critical_link": sum(
-            row["confidence_components"]["overall_confidence"] >= 75
+            1
+            for row in predictions
+            if row["confidence_components"]["overall_confidence"] >= 75
             and (
                 row["ziwei_track_seal"]["unresolved_links"]
                 or row["bazi_track_seal"]["unresolved_links"]
             )
-            for row in predictions
         ),
         "cross_question_unresolved_conflicts": len(consistency["unresolved_conflicts"]),
         "reasoning_framework": {
