@@ -5,6 +5,6 @@ title: "[PREDICTION HANDOFF] "
 assignees: ""
 ---
 
-只允许粘贴安全启动包`CHAT-WORK-HANDOFF-CONTRACT-V1`要求的完整`CHAT-WORK-PREDICTION-HANDOFF-V1` JSON。不得包含正确答案、评分、复盘、预期结果、学习补丁或密钥。
+只允许粘贴安全启动包`CHAT-WORK-HANDOFF-CONTRACT-V2`要求的完整`CHAT-WORK-PREDICTION-HANDOFF-V2` JSON。不得包含正确答案、评分、复盘、预期结果、学习补丁或密钥。
 
 PASTE_COMPLETE_HANDOFF_JSON_HERE
