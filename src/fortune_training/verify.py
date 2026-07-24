@@ -10,6 +10,7 @@ from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
     load_taxonomy,
+    validate_learning_patch_v3,
     validate_learning_ledger,
     validate_rule,
 )
@@ -203,7 +204,11 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
                 f"model release patch is missing or outside model-learning/patches: {relative_path}"
             )
         patch = load_json(patch_path)
-        if patch.get("schema") not in {"MODEL-LEARNING-PATCH-V1", "MODEL-LEARNING-PATCH-V2"}:
+        if patch.get("schema") not in {
+            "MODEL-LEARNING-PATCH-V1",
+            "MODEL-LEARNING-PATCH-V2",
+            "MODEL-LEARNING-PATCH-V3",
+        }:
             raise TrainingError(f"wrong model learning patch schema: {relative_path}")
         if patch.get("contains_case_answer_mapping") is not False:
             raise TrainingError(f"model learning patch is not answer-isolated: {relative_path}")
@@ -219,6 +224,15 @@ def _validate_release_chain(root: Path, release_id: str, seen: set[str] | None =
             normalized = [validate_rule(root, rule) for rule in rules]
             if normalized != rules:
                 raise TrainingError(f"V2 learning patch rules are not normalized: {relative_path}")
+        if patch.get("schema") == "MODEL-LEARNING-PATCH-V3":
+            content = patch.get("content")
+            normalized = validate_learning_patch_v3(
+                root,
+                content,
+                check_catalog_collisions=False,
+            )
+            if normalized != content:
+                raise TrainingError(f"V3 learning patch is not normalized: {relative_path}")
     parent_id = release.get("parent_release")
     if parent_id is None:
         if release_id != "MODEL-BASELINE-001" or patches:
