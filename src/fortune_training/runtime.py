@@ -13,7 +13,7 @@ from .learning import (
     load_rule_catalog,
     record_first_blind_results,
     register_rules,
-    validate_learning_patch_v2,
+    validate_learning_patch_v3,
     validate_question_profile,
     validate_rule_attribution,
     write_learning_ledger,
@@ -23,6 +23,15 @@ from .policy import (
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
     passed,
     required_correct,
+)
+from .reasoning import (
+    FROZEN_SCHEMA,
+    PREDICTION_SCHEMA,
+    build_completeness_report,
+    frozen_content_hash,
+    validate_prediction_reasoning,
+    validate_question_reasoning,
+    validate_replay_remediation,
 )
 from .util import (
     TrainingError,
@@ -259,6 +268,10 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
         "status": "PREDICTION_OPEN",
         "answer_visibility": "PHYSICALLY_UNAVAILABLE_TO_PREDICTION_CONTEXT",
         "question_profile_required": True,
+        "prediction_workbook_schema": PREDICTION_SCHEMA,
+        "blind_chart_model_required_before_option_comparison": True,
+        "dual_track_seal_required": True,
+        "reasoning_completeness_gate_required": True,
         "started_at": utc_now(),
     }
     exclusive_write_json(round_path / "round.json", round_record)
@@ -283,6 +296,19 @@ def _validate_prediction(
 ) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise TrainingError("prediction payload must be an object")
+    expected_top_level = {
+        "schema",
+        "case_id",
+        "round_id",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
+        "predictions",
+    }
+    if set(payload) != expected_top_level or payload.get("schema") != PREDICTION_SCHEMA:
+        raise TrainingError(
+            f"prediction payload must use {PREDICTION_SCHEMA} and its exact top-level fields"
+        )
     if payload.get("case_id") != round_record["case_id"] or payload.get("round_id") != round_record["round_id"]:
         raise TrainingError("prediction case_id or round_id mismatch")
     if any("answer" in str(key).lower() for key in payload):
@@ -293,6 +319,15 @@ def _validate_prediction(
     question_map = {question["question_id"]: question for question in _questions(case)}
     if len(predictions) != len(question_map):
         raise TrainingError("prediction must cover every question exactly once")
+    blind_chart_model, cross_question_consistency = validate_prediction_reasoning(
+        case=case,
+        payload=payload,
+        predictions=predictions,
+    )
+    replay_remediation = validate_replay_remediation(
+        payload.get("replay_remediation"),
+        required=round_record["evaluation_kind"] == "SPACED_REPLAY",
+    )
     normalized: list[dict[str, Any]] = []
     rule_catalog = load_rule_catalog(root)
     known_rule_ids = set(rule_catalog)
@@ -301,6 +336,28 @@ def _validate_prediction(
     for row in predictions:
         if not isinstance(row, dict):
             raise TrainingError("every prediction row must be an object")
+        expected_row_fields = {
+            "question_id",
+            "top1",
+            "top2",
+            "public_summary",
+            "question_profile",
+            "rule_attribution",
+            "question_semantic_model",
+            "ziwei_track_seal",
+            "bazi_track_seal",
+            "cross_track_arbitration",
+            "evidence_ledger",
+            "final_ranking",
+            "option_comparison_matrix",
+            "adversarial_review",
+            "confidence_components",
+            "counterfactual_analysis",
+        }
+        if set(row) != expected_row_fields:
+            raise TrainingError(
+                f"every prediction row must contain the complete {PREDICTION_SCHEMA} structure"
+            )
         if any("answer" in str(key).lower() for key in row):
             raise TrainingError("prediction rows may not contain answer fields")
         question_id = row.get("question_id")
@@ -326,47 +383,42 @@ def _validate_prediction(
             catalog=rule_catalog,
             ledger=learning_ledger,
         )
-        reasoning = row.get("reasoning")
-        counterevidence = row.get("strongest_counterevidence")
-        confidence = row.get("confidence")
-        evidence = row.get("evidence")
-        if not isinstance(reasoning, str) or not reasoning.strip():
-            raise TrainingError(f"{question_id} needs non-empty reasoning")
-        if not isinstance(counterevidence, str) or not counterevidence.strip():
-            raise TrainingError(f"{question_id} needs strongest_counterevidence")
-        if (
-            not isinstance(confidence, int)
-            or isinstance(confidence, bool)
-            or confidence < 0
-            or confidence > 100
-        ):
-            raise TrainingError(f"{question_id} confidence must be an integer from 0 to 100")
-        if (
-            not isinstance(evidence, list)
-            or not evidence
-            or any(not isinstance(item, str) or item not in profile["source_routes"] for item in evidence)
-            or len(evidence) != len(set(evidence))
-        ):
-            raise TrainingError(f"{question_id} evidence must be unique ids from source_routes")
+        public_summary = row.get("public_summary")
+        if not isinstance(public_summary, str) or not public_summary.strip():
+            raise TrainingError(f"{question_id} needs a non-empty public_summary")
+        structured = validate_question_reasoning(
+            row=row,
+            option_ids=[option["option_id"] for option in question_map[question_id]["options"]],
+            source_routes=profile["source_routes"],
+            top1=top1,
+            top2=top2,
+            decisive_rule_ids=rule_attribution["decisive_rule_ids"],
+        )
         normalized.append(
             {
                 "question_id": question_id,
                 "top1": top1,
                 "top2": top2,
-                "reasoning": reasoning.strip(),
-                "evidence": evidence,
-                "strongest_counterevidence": counterevidence.strip(),
-                "confidence": confidence,
+                "public_summary": public_summary.strip(),
                 "question_profile": profile,
                 "rule_attribution": rule_attribution,
+                **structured,
             }
         )
     normalized.sort(key=lambda item: list(question_map).index(item["question_id"]))
     return {
-        "schema": "FROZEN-PREDICTION-V1",
+        "schema": FROZEN_SCHEMA,
         "case_id": round_record["case_id"],
         "round_id": round_record["round_id"],
+        "blind_chart_model": blind_chart_model,
+        "cross_question_consistency": cross_question_consistency,
+        "replay_remediation": replay_remediation,
         "predictions": normalized,
+        "reasoning_completeness_report": build_completeness_report(
+            blind_chart_model,
+            normalized,
+            cross_question_consistency,
+        ),
         "frozen_at": utc_now(),
     }
 
@@ -382,7 +434,7 @@ def freeze_prediction(root: Path, round_id: str, prediction_path: Path) -> dict[
         raise TrainingError("round prediction is not open")
     case = load_json(root / round_record["case_path"])
     frozen = _validate_prediction(root, case, round_record, load_json(prediction_path))
-    frozen["prediction_sha256"] = object_sha256(frozen["predictions"])
+    frozen["prediction_sha256"] = frozen_content_hash(frozen)
     exclusive_write_json(round_path / "prediction-freeze.json", frozen)
     round_record["status"] = "PREDICTION_FROZEN"
     round_record["prediction_sha256"] = frozen["prediction_sha256"]
@@ -530,7 +582,7 @@ def score_round(
         raise TrainingError("round score is immutable and already exists")
     round_record = load_json(round_path / "round.json")
     frozen = load_json(round_path / "prediction-freeze.json")
-    if round_record.get("prediction_sha256") != object_sha256(frozen["predictions"]):
+    if round_record.get("prediction_sha256") != frozen_content_hash(frozen):
         raise TrainingError("frozen prediction hash mismatch")
     case = load_json(root / round_record["case_path"])
     if answer_file is not None:
@@ -629,6 +681,75 @@ def score_round(
         state.get("independent_pass_streak", 0)
         >= REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES
     )
+    if round_record["evaluation_kind"] == "SPACED_REPLAY":
+        first_round_id = case_state["first_blind_round_id"]
+        first_dir = _round_dir(root, first_round_id)
+        first_frozen = load_json(first_dir / "prediction-freeze.json")
+        first_score = load_json(first_dir / "score.json")
+        first_predictions = {
+            row["question_id"]: row["top1"] for row in first_frozen["predictions"]
+        }
+        repaired = regressed = stable_correct = stable_incorrect = 0
+        for review in review_rows:
+            if not review["is_scored"]:
+                continue
+            original_correct = (
+                first_predictions[review["question_id"]] == review["correct_option"]
+            )
+            current_correct = review["is_correct"]
+            repaired += int(not original_correct and current_correct)
+            regressed += int(original_correct and not current_correct)
+            stable_correct += int(original_correct and current_correct)
+            stable_incorrect += int(not original_correct and not current_correct)
+        first_completeness = first_frozen.get("reasoning_completeness_report")
+        current_completeness = frozen.get("reasoning_completeness_report")
+        remediation_input = frozen["replay_remediation"]
+        remediation_report = {
+            "schema": "REPLAY-REMEDIATION-REPORT-V1",
+            "round_id": round_id,
+            "case_id": round_record["case_id"],
+            "first_blind_round_id": first_round_id,
+            "counts_as_first_blind_evidence": False,
+            "counts_toward_stage_gate": False,
+            "original_root_causes": remediation_input["original_root_causes"],
+            "remediation_type": remediation_input["remediation_type"],
+            "new_idea_executed": remediation_input["new_idea_executed"],
+            "changed_steps": remediation_input["changed_steps"],
+            "predicted_mechanism_of_improvement": remediation_input[
+                "predicted_mechanism_of_improvement"
+            ],
+            "original_failed_answers_repaired": repaired,
+            "original_correct_answers_regressed": regressed,
+            "stable_correct_answers": stable_correct,
+            "stable_incorrect_answers": stable_incorrect,
+            "score_delta_from_first_blind": (
+                aggregate["accuracy"] - first_score["accuracy"]
+            ),
+            "reasoning_completeness_comparison": {
+                "first_blind_schema": first_frozen.get("schema"),
+                "replay_schema": frozen.get("schema"),
+                "first_blind_valid_evidence_entries": (
+                    first_completeness.get("valid_evidence_entries")
+                    if isinstance(first_completeness, dict)
+                    else None
+                ),
+                "replay_valid_evidence_entries": current_completeness[
+                    "valid_evidence_entries"
+                ],
+                "legacy_first_blind_detail_unavailable": first_completeness is None,
+            },
+            "new_error_risks": remediation_input["new_error_risks"],
+            "mechanism_confirmation": (
+                "SUPPORTED_BY_REPAIR_WITHOUT_NET_REGRESSION"
+                if repaired > regressed
+                else "NOT_YET_CONFIRMED"
+            ),
+            "answer_mapping_stored": False,
+        }
+        exclusive_write_json(round_path / "replay-remediation.json", remediation_report)
+        aggregate["replay_remediation_report"] = (
+            round_path / "replay-remediation.json"
+        ).relative_to(root).as_posix()
     detailed_review = {
         "schema": "CASE-ROUND-DETAILED-REVIEW-V2",
         "round_id": round_id,
@@ -688,7 +809,7 @@ def _validate_learning_patch(root: Path, payload: Any) -> dict[str, Any]:
                 normalized = " ".join(str(text).split())
                 if len(normalized) >= 8 and normalized in serialized:
                     raise TrainingError("learning patch copies a case-specific question or option text")
-    return validate_learning_patch_v2(root, payload)
+    return validate_learning_patch_v3(root, payload)
 
 
 def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str) -> dict[str, Any]:
@@ -711,13 +832,17 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
         raise TrainingError("learning round is not for the current case")
     patch_payload = _validate_learning_patch(root, load_json(patch_input))
     patch_record = {
-        "schema": "MODEL-LEARNING-PATCH-V2",
+        "schema": "MODEL-LEARNING-PATCH-V3",
         "release_id": release_id,
         "created_at": utc_now(),
         "content": patch_payload,
         "contains_case_answer_mapping": False,
         "modifies_canonical_source_files": False,
-        "validation_status": "CANDIDATE_RULES",
+        "validation_status": (
+            "CANDIDATE_RULES"
+            if patch_payload["remediation_type"] == "NEW_GENERAL_RULE"
+            else "ACTIVE_PROCESS_CORRECTION"
+        ),
     }
     patch_path = root / "model-learning" / "patches" / f"{release_id}.json"
     release_path = root / "model-learning" / "releases" / f"{release_id}.json"
@@ -743,6 +868,10 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
     atomic_write_json(round_path / "round.json", round_record)
     ledger = load_learning_ledger(root)
     register_rules(ledger, patch_payload["rules"])
+    for change in patch_payload["rule_status_changes"]:
+        rule_id = change["rule_id"]
+        ledger["rule_evidence"][rule_id]["status"] = "RETIRED"
+        ledger["attributed_rule_evidence"][rule_id]["status"] = "RETIRED"
     write_learning_ledger(root, ledger)
     state["current_model_release"] = release_id
     if round_record["evaluation_kind"] == "FIRST_BLIND":
