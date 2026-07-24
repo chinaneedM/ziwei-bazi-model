@@ -155,12 +155,12 @@
       "case_id": "CASE-014",
       "current_case_sha256": "39672e1a951060785ab7310aedd5ffae7654ab9d683aceffecb05037d189e654",
       "current_model_release_sha256": "df550d54ea07904454cbf4f1cdad79bd1868b4a982d67f69d0f39022e5191748",
-      "effective_model_input_sha256": "e023029c13627b18f9bd622e7b9f913e98d3d7ec58cffb9da2a51d80e57d978b",
+      "effective_model_input_sha256": "3018a764a35aad69940e5211dda911563b9c620f35d99c805789a05e49dbf47e",
       "evaluation_kind": "FIRST_BLIND",
       "model_release": "MODEL-LEARNING-012",
       "round_id": "FORMAL-ROUND-013"
     },
-    "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
+    "chat_freeze_rule": "After all predictions are frozen, create exactly one GitHub Issue using issue_title and CHAT-WORK-PREDICTION-HANDOFF-V2. Copy binding exactly and preserve the complete prediction rows. This is the only Chat-side GitHub write allowed.",
     "handoff_forbidden_content": [
       "ANSWER_BEARING_FIELDS",
       "SCORING_OR_REVIEW_FIELDS",
@@ -174,27 +174,36 @@
         "case_id": "CASE-014",
         "current_case_sha256": "39672e1a951060785ab7310aedd5ffae7654ab9d683aceffecb05037d189e654",
         "current_model_release_sha256": "df550d54ea07904454cbf4f1cdad79bd1868b4a982d67f69d0f39022e5191748",
-        "effective_model_input_sha256": "e023029c13627b18f9bd622e7b9f913e98d3d7ec58cffb9da2a51d80e57d978b",
+        "effective_model_input_sha256": "3018a764a35aad69940e5211dda911563b9c620f35d99c805789a05e49dbf47e",
         "evaluation_kind": "FIRST_BLIND",
         "model_release": "MODEL-LEARNING-012",
         "round_id": "FORMAL-ROUND-013"
       },
+      "blind_chart_model": {},
+      "cross_question_consistency": {},
       "predictions": [],
-      "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1"
+      "replay_remediation": null,
+      "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2"
     },
     "handoff_required_fields": [
       "schema",
       "binding",
+      "blind_chart_model",
+      "cross_question_consistency",
+      "replay_remediation",
       "predictions"
     ],
-    "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+    "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
     "issue_title": "[PREDICTION HANDOFF] FORMAL-ROUND-013 CASE-014",
-    "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
+    "schema": "CHAT-WORK-HANDOFF-CONTRACT-V2",
     "training_issue_input_contract": {
       "allowed_top_level_fields": [
         "schema",
         "round_id",
         "case_id",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
         "predictions",
         "expected_result",
         "learning_release_id",
@@ -204,6 +213,9 @@
         "schema",
         "round_id",
         "case_id",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
         "predictions",
         "expected_result",
         "learning_release_id",
@@ -217,6 +229,9 @@
         "schema",
         "round_id",
         "case_id",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
         "predictions",
         "expected_result"
       ],
@@ -229,7 +244,7 @@
         "next_case_id",
         "next_status"
       ],
-      "schema": "TRAINING-ISSUE-PACKET-V2"
+      "schema": "TRAINING-ISSUE-PACKET-V3"
     },
     "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
     "work_acceptance_rule": "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions from conversation memory. Validate every binding value against this current bundle and stop before scoring if the receipt is missing, duplicated, stale, or mismatched."
@@ -238,7 +253,7 @@
     "canonical_source_manifest_sha256": "0eaa4c3b66eef1f9019d61506cd14611e13e2fbefad5a41c29ee805f8c515c39",
     "current_case_sha256": "39672e1a951060785ab7310aedd5ffae7654ab9d683aceffecb05037d189e654",
     "current_model_release_sha256": "df550d54ea07904454cbf4f1cdad79bd1868b4a982d67f69d0f39022e5191748",
-    "effective_model_input_sha256": "e023029c13627b18f9bd622e7b9f913e98d3d7ec58cffb9da2a51d80e57d978b",
+    "effective_model_input_sha256": "3018a764a35aad69940e5211dda911563b9c620f35d99c805789a05e49dbf47e",
     "knowledge_cards_sha256": "0cb429239b2ebb5445f83ecd2da9937ac2b6997e3a9705f106739f3d15e52459",
     "knowledge_route_map_sha256": "c99de0759b6468ec62b6621d9b9d9a992af353c280ca21e0c0090c677adce264",
     "question_taxonomy_sha256": "08b4a5992cded23596758335ea8cd25bc8fae12cea376ee4300aa6fab978b7eb",
@@ -922,6 +937,7 @@
     }
   },
   "current_model": {
+    "active_process_corrections": [],
     "active_rules": [
       {
         "applicability": "选项同时竞争父亲与母亲、不同亲属、多个子女、多个关系阶段，或多个相邻年份的高严重度事件时。",
@@ -4089,8 +4105,10 @@
     "rule_application_policy": {
       "ATTRIBUTION": "Classify every applied rule as decisive, supporting, or counterevidence. Removing a decisive rule must change Top1.",
       "CANDIDATE": "Use only when scope matches; never as sole evidence.",
+      "CANONICAL_EVIDENCE_QUOTA": null,
       "CHALLENGED": "Treat as a warning or counter-hypothesis, not a decisive rule.",
-      "MAX_RULES_PER_QUESTION": 6,
+      "EVIDENCE_STOP_RULE": "Retrieve every valid evidence item that could change the ranking; the model-learning rule cap is not an evidence cap.",
+      "MAX_MODEL_LEARNING_RULES_PER_QUESTION": 6,
       "PROVISIONAL": "Use as a low-weight hypothesis and never as sole evidence.",
       "VALIDATED": "May be used normally within its declared scope."
     },
@@ -4362,19 +4380,30 @@
     "unexpected_output_rule": "If any tool unexpectedly returns an old prediction, answer mapping, score, or review, stop without predicting and discard that Chat conversation."
   },
   "prediction_output_contract": {
+    "blind_before_options_rule": "Complete blind_chart_model without option text or option-derived events before building question_semantic_model and option comparisons.",
     "confidence_calibration_rule": "If actor, exact time, mechanism, or real-world endpoint is unresolved, cap confidence at 65. Forced relative choices are not high-confidence factual claims.",
     "each_question_must_include": [
       "top1",
       "top2",
-      "reasoning",
-      "evidence",
-      "strongest_counterevidence",
-      "confidence",
+      "public_summary",
       "question_profile",
-      "rule_attribution"
+      "rule_attribution",
+      "question_semantic_model",
+      "ziwei_track_seal",
+      "bazi_track_seal",
+      "cross_track_arbitration",
+      "evidence_ledger",
+      "final_ranking",
+      "option_comparison_matrix",
+      "adversarial_review",
+      "confidence_components",
+      "counterfactual_analysis"
     ],
-    "failure_learning_rule": "After reveal, a failed round must propose one or more generic candidate rules. Rules may contain no case id, question id, answer letter, option position, or copied option sentence. Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only.",
-    "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V2",
+    "evidence_count_quota": null,
+    "failure_learning_rule": "After reveal, classify the root cause and choose one V3 remediation type. Only NEW_GENERAL_RULE may add catalog rules; execution, measurement, calibration, weighting, scope, merge, retirement, tests, and hypotheses are valid non-rule corrections.",
+    "frozen_schema": "FROZEN-PREDICTION-V2",
+    "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V3",
+    "prediction_schema": "PREDICTION-WORKBOOK-V2",
     "question_profile_fields": [
       "topic_tags",
       "subject_tags",
@@ -4384,13 +4413,23 @@
       "source_routes",
       "applied_rule_ids"
     ],
+    "reasoning_framework_status": "WORKING_HYPOTHESIS_NOT_FIXED_DOGMA",
     "rule_attribution_fields": [
       "decisive_rule_ids",
       "supporting_rule_ids",
       "counterevidence_rule_ids",
       "decision_changed"
     ],
-    "tagging_rule": "Classify every question before reveal using only its stem/options and the no-answer chart. Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects the frozen reasoning; unrelated questions do not validate that rule. Select no more than 6 scope-matched rules from rule_router. A CHALLENGED rule may appear only as counterevidence."
+    "tagging_rule": "Classify every question before reveal using only its stem/options and the no-answer chart. Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects the frozen reasoning; unrelated questions do not validate that rule. Select no more than 6 scope-matched rules from rule_router. A CHALLENGED rule may appear only as counterevidence.",
+    "top_level_required": [
+      "schema",
+      "case_id",
+      "round_id",
+      "blind_chart_model",
+      "cross_question_consistency",
+      "replay_remediation",
+      "predictions"
+    ]
   },
   "question_taxonomy": {
     "endpoint_tags": [
@@ -4530,7 +4569,7 @@
     ]
   },
   "repository": "chinaneedM/ziwei-bazi-model",
-  "schema": "CHAT-PREDICTION-INPUT-V2",
+  "schema": "CHAT-PREDICTION-INPUT-V3",
   "state_summary": {
     "case_attempt_policy": "ONE_FIRST_BLIND_THEN_SPACED_DIAGNOSTIC_REPLAY",
     "current_case_id": "CASE-014",
