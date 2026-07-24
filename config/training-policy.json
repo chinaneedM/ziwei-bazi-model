@@ -63,6 +63,12 @@
     "maintenance_does_not_count_as_training_evidence": true,
     "canonical_sources_mutable_during_maintenance": false,
     "max_applied_rules_per_question": 6,
+    "max_applied_rules_scope": "MODEL_LEARNING_RULES_ONLY_NOT_CANONICAL_EVIDENCE",
+    "canonical_evidence_count_quota": null,
+    "evidence_retrieval_stop_condition": "NO_REMAINING_VALID_EVIDENCE_LIKELY_TO_CHANGE_THE_RANKING",
+    "reasoning_degradation_recent_rounds": 5,
+    "low_sample_threshold_questions": 30,
+    "low_sample_action": "REPORT_INSUFFICIENT_SAMPLE_WITHOUT_REORDERING_REWEIGHTING_OR_AUTOMATIC_MODEL_CHANGE",
     "challenged_rules_are_counterevidence_only": true,
     "anomaly_triggers": {
       "consecutive_low_first_blind_cases": 2,

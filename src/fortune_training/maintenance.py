@@ -61,9 +61,20 @@ def _round_rows(root: Path) -> list[dict[str, Any]]:
         frozen_path = round_dir / "prediction-freeze.json"
         frozen = load_json(frozen_path) if frozen_path.is_file() else {"predictions": []}
         confidences = [
-            prediction["confidence"]
+            (
+                prediction["confidence_components"]["overall_confidence"]
+                if isinstance(prediction.get("confidence_components"), dict)
+                else prediction.get("confidence")
+            )
             for prediction in frozen.get("predictions", [])
-            if isinstance(prediction.get("confidence"), int)
+            if isinstance(
+                (
+                    prediction["confidence_components"].get("overall_confidence")
+                    if isinstance(prediction.get("confidence_components"), dict)
+                    else prediction.get("confidence")
+                ),
+                int,
+            )
         ]
         rows.append(
             {
@@ -86,6 +97,161 @@ def _round_rows(root: Path) -> list[dict[str, Any]]:
         )
     rows.sort(key=lambda row: (row["scored_at"], row["round_id"]))
     return rows
+
+
+def _reasoning_quality_metrics(root: Path) -> dict[str, Any]:
+    freezes = [
+        load_json(path)
+        for path in sorted((root / "training" / "runs").glob("*/prediction-freeze.json"))
+    ]
+    new_freezes = [
+        freeze for freeze in freezes if freeze.get("schema") == "FROZEN-PREDICTION-V2"
+    ]
+    predictions = [
+        prediction
+        for freeze in new_freezes
+        for prediction in freeze.get("predictions", [])
+    ]
+    reports = [
+        freeze["reasoning_completeness_report"]
+        for freeze in new_freezes
+        if isinstance(freeze.get("reasoning_completeness_report"), dict)
+    ]
+    questions = len(predictions)
+    evidence_rows = [
+        evidence
+        for prediction in predictions
+        for evidence in prediction["evidence_ledger"]
+    ]
+    family_count = len(
+        {
+            (prediction["question_id"], evidence["evidence_family_id"])
+            for prediction in predictions
+            for evidence in prediction["evidence_ledger"]
+        }
+    )
+    decisive_ablations = sum(
+        len(prediction["counterfactual_analysis"]["decisive_rule_ablations"])
+        for prediction in predictions
+    )
+    high_unclosed = sum(
+        report["high_confidence_with_unclosed_critical_link"] for report in reports
+    )
+    cross_conflicts = sum(
+        report["cross_question_unresolved_conflicts"] for report in reports
+    )
+    source_only_invalid = sum(
+        report["source_only_invalid_evidence_entries"] for report in reports
+    )
+    topics: dict[str, int] = {}
+    option_counts: dict[str, int] = {}
+    precision_questions = composite_questions = 0
+    for prediction in predictions:
+        for topic in prediction["question_profile"]["topic_tags"]:
+            topics[topic] = topics.get(topic, 0) + 1
+        option_count = len(prediction["final_ranking"])
+        option_counts[str(option_count)] = option_counts.get(str(option_count), 0) + 1
+        semantic = prediction["question_semantic_model"]
+        composite_questions += int(semantic["is_composite_narrative"])
+        precision_questions += int(
+            any(
+                atoms["severe_irreversible_or_high_precision_atoms"]
+                for atoms in semantic["option_atoms"].values()
+            )
+        )
+    low_sample_threshold = 30
+    return {
+        "schema": "REASONING-DEGRADATION-METRICS-V1",
+        "legacy_freezes_excluded": len(freezes) - len(new_freezes),
+        "v2_freezes": len(new_freezes),
+        "v2_questions": questions,
+        "sample_status": (
+            "INSUFFICIENT_SAMPLE"
+            if questions < low_sample_threshold
+            else "OBSERVED"
+        ),
+        "low_sample_threshold_questions": low_sample_threshold,
+        "blind_chart_model_completion_rate": (
+            len(reports) / len(new_freezes) if new_freezes else None
+        ),
+        "ziwei_independent_seal_completion_rate": (
+            sum(
+                "ziwei_track_seal" in prediction for prediction in predictions
+            )
+            / questions
+            if questions
+            else None
+        ),
+        "bazi_independent_seal_completion_rate": (
+            sum("bazi_track_seal" in prediction for prediction in predictions)
+            / questions
+            if questions
+            else None
+        ),
+        "cross_track_conflict_preservation_rate": (
+            sum(
+                isinstance(
+                    prediction["cross_track_arbitration"]["conflict_layers"],
+                    list,
+                )
+                for prediction in predictions
+            )
+            / questions
+            if questions
+            else None
+        ),
+        "valid_evidence_entries": len(evidence_rows),
+        "independent_evidence_families": family_count,
+        "source_only_invalid_evidence_entries": source_only_invalid,
+        "all_option_comparison_coverage": (
+            sum("option_comparison_matrix" in row for row in predictions)
+            / questions
+            if questions
+            else None
+        ),
+        "reversal_test_completion_rate": (
+            sum("adversarial_review" in row for row in predictions) / questions
+            if questions
+            else None
+        ),
+        "decisive_rules_with_recorded_top1_change": decisive_ablations,
+        "high_confidence_unclosed_critical_links": high_unclosed,
+        "cross_question_unresolved_conflicts": cross_conflicts,
+        "known_rule_execution_omissions": sum(
+            prediction["adversarial_review"]["known_rule_execution_omissions"]
+            not in {"NONE", "无", "无遗漏"}
+            for prediction in predictions
+        ),
+        "label_to_evidence_mismatch": sum(
+            len(prediction["question_profile"]["source_routes"])
+            > len(
+                {
+                    evidence["source_route"]
+                    for evidence in prediction["evidence_ledger"]
+                }
+            )
+            for prediction in predictions
+        ),
+        "template_or_compression_check": (
+            "STRUCTURAL_VALIDATION_ACTIVE"
+            if questions
+            else "INSUFFICIENT_SAMPLE"
+        ),
+        "question_distribution_monitoring": {
+            "topics": dict(sorted(topics.items())),
+            "option_counts": dict(sorted(option_counts.items())),
+            "composite_questions": composite_questions,
+            "high_precision_endpoint_questions": precision_questions,
+            "overlapping_topic_counts_are_not_independent": True,
+            "automatic_reordering_or_reweighting": False,
+            "automatic_model_change": False,
+            "sample_status": (
+                "INSUFFICIENT_SAMPLE"
+                if questions < low_sample_threshold
+                else "OBSERVED"
+            ),
+        },
+    }
 
 
 def _aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -515,8 +681,17 @@ def run_maintenance(root: Path, *, force: bool = False) -> dict[str, Any]:
     for evidence in ledger["rule_evidence"].values():
         status = evidence["status"]
         rule_status_counts[status] = rule_status_counts.get(status, 0) + 1
+    remediation_type_counts: dict[str, int] = {}
+    for relative_path in release.get("patches", []):
+        patch = load_json(root / relative_path)
+        if patch.get("schema") != "MODEL-LEARNING-PATCH-V3":
+            continue
+        remediation_type = patch["content"]["remediation_type"]
+        remediation_type_counts[remediation_type] = (
+            remediation_type_counts.get(remediation_type, 0) + 1
+        )
     report = {
-        "schema": "TRAINING-MAINTENANCE-REPORT-V1",
+        "schema": "TRAINING-MAINTENANCE-REPORT-V2",
         "maintenance_id": maintenance_id,
         "maintenance_type": maintenance_type,
         "performed_at": utc_now(),
@@ -548,8 +723,13 @@ def run_maintenance(root: Path, *, force: bool = False) -> dict[str, Any]:
             "suppressed_rules": governance.get("suppressed_rules", []),
             "runtime_active_rule_count": due["active_rule_count"],
             "duplicate_candidates": _duplicate_candidates(catalog, suppressed),
-            "rule_selection": "TOPIC_ROUTER_MAXIMUM_SIX_PER_QUESTION",
+            "rule_selection": "TOPIC_ROUTER_MAXIMUM_SIX_MODEL_LEARNING_RULES_PER_QUESTION",
+            "canonical_evidence_quota": None,
             "attribution": "DECISIVE_SUPPORTING_COUNTEREVIDENCE_WITH_DECISION_CHANGE",
+            "remediation_type_counts": dict(
+                sorted(remediation_type_counts.items())
+            ),
+            "only_new_general_rule_increases_catalog": True,
         },
         "confidence_calibration": {
             "historical_round_level_gap": _aggregate(due["first_blind_rows"])[
@@ -559,6 +739,7 @@ def run_maintenance(root: Path, *, force: bool = False) -> dict[str, Any]:
             "unresolved_actor_time_or_endpoint_confidence_cap": 0.65,
         },
         "replay_effectiveness": due["replay_effectiveness"],
+        "reasoning_degradation": _reasoning_quality_metrics(root),
         "operational_events_recent": _operational_events(root),
         "handoff_hardening": {
             "machine_generated_payload_template": True,

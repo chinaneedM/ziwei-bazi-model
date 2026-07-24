@@ -35,6 +35,7 @@ from fortune_training.learning import (
 )
 from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
+from fortune_training.reasoning import frozen_content_hash
 from fortune_training.runtime import (
     _validate_answers,
     apply_learning,
@@ -80,6 +81,30 @@ def general_rule(rule_id: str) -> dict:
         "trigger_conditions": "Several options share the same non-specific symbolic background.",
         "decision_procedure": "Build a separate actor, mechanism, timing, and endpoint chain for each option.",
         "stop_conditions": "Stop at a broad possibility when an exclusive endpoint node is missing.",
+    }
+
+
+def learning_correction(
+    *,
+    remediation_type: str = "NEW_GENERAL_RULE",
+    rules: list[dict] | None = None,
+) -> dict:
+    return {
+        "schema": "MODEL-LEARNING-CORRECTION-V3",
+        "learning_type": "REASONING_STRATEGY",
+        "root_causes": ["EVIDENCE_WEIGHTING"],
+        "remediation_type": remediation_type,
+        "correction": {
+            "statement": "Require a complete actor, mechanism, timing, and endpoint chain.",
+            "applicability": "Use when broad structures support several competing outcomes.",
+            "limitations": "The procedure cannot create missing chart facts.",
+            "expected_effect": "Reduce unsupported endpoint selection.",
+            "capability_ceiling": "Retain uncertainty when an endpoint remains unclosed.",
+            "source_basis": "S03 conflict arbitration and S17 endpoint closure.",
+            "reasoning": "The correction targets a general execution or weighting defect.",
+        },
+        "rules": rules or [],
+        "rule_status_changes": [],
     }
 
 
@@ -257,14 +282,17 @@ class RuntimeFixture:
         path = self.base / f"{round_id}.prediction.json"
         rows = []
         for index in range(1, question_count + 1):
+            top1 = "A" if index <= correct_count else "B"
+            top2 = "C"
+            option_ids = ["A", "B", "C", "D"]
+            ranking = [top1, top2, *[option for option in option_ids if option not in {top1, top2}]]
+            ziwei_evidence_id = f"Z-{index}"
+            bazi_evidence_id = f"B-{index}"
             row = {
                 "question_id": f"Q{index}",
-                "top1": "A" if index <= correct_count else "B",
-                "top2": "C",
-                "reasoning": "general reasoning",
-                "evidence": ["S03", "S17"],
-                "strongest_counterevidence": "A competing endpoint may fit the same background.",
-                "confidence": 70,
+                "top1": top1,
+                "top2": top2,
+                "public_summary": "The selected option has the strongest relative endpoint closure.",
             }
             if include_profile:
                 row["question_profile"] = self.profile(applied_rule_ids)
@@ -274,10 +302,282 @@ class RuntimeFixture:
                     "counterevidence_rule_ids": [],
                     "decision_changed": bool(applied_rule_ids),
                 }
+                row["question_semantic_model"] = {
+                    "target": "relative event outcome",
+                    "subject": "the chart native",
+                    "time_range": "the stated scope",
+                    "action_subject": "the relevant actor",
+                    "reality_object": "the stated real-world object",
+                    "event_process": "background, trigger, action, and completion",
+                    "completion_endpoint": "observable completion",
+                    "magnitude": "relative among the offered choices",
+                    "is_composite_narrative": False,
+                    "option_atoms": {
+                        option: {
+                            "required_atoms": [f"{option} required atom"],
+                            "distinctive_atoms": [f"{option} distinctive atom"],
+                            "severe_irreversible_or_high_precision_atoms": [],
+                        }
+                        for option in option_ids
+                    },
+                    "shared_non_discriminating_atoms": ["shared background"],
+                    "ambiguities": [],
+                }
+                row["evidence_ledger"] = [
+                    {
+                        "evidence_id": ziwei_evidence_id,
+                        "track": "ZIWEI",
+                        "layer": "NATAL",
+                        "chart_fact": f"Ziwei synthetic chart fact {index}",
+                        "source_route": "S03",
+                        "knowledge_point": "Separate structural capacity from completed endpoint.",
+                        "applicability_conditions": ["Ziwei chart fact is present"],
+                        "conditions_satisfied": ["Synthetic Ziwei fixture condition is present"],
+                        "supports_option_atoms": [f"{top1}:{top1} required atom"],
+                        "contradicts_option_atoms": [f"{top2}:{top2} distinctive atom"],
+                        "alternative_explanation": "The same structure may remain only background.",
+                        "evidence_family_id": f"ZF-{index}",
+                        "independence_status": "INDEPENDENT",
+                        "reliability": "HIGH",
+                        "capability_ceiling": "Does not prove an exact endpoint alone.",
+                        "decision_impact": "SUPPORTING",
+                        "limitations": "Synthetic fixture has no domain-specific claim.",
+                    },
+                    {
+                        "evidence_id": bazi_evidence_id,
+                        "track": "BAZI",
+                        "layer": "PERIOD",
+                        "chart_fact": f"Bazi synthetic chart fact {index}",
+                        "source_route": "S17",
+                        "knowledge_point": "Close person, action, object, and endpoint separately.",
+                        "applicability_conditions": ["Bazi period fact is present"],
+                        "conditions_satisfied": ["Synthetic Bazi fixture condition is present"],
+                        "supports_option_atoms": [f"{top1}:{top1} distinctive atom"],
+                        "contradicts_option_atoms": [],
+                        "alternative_explanation": "The period signal may mark preparation only.",
+                        "evidence_family_id": f"BF-{index}",
+                        "independence_status": "INDEPENDENT",
+                        "reliability": "MEDIUM",
+                        "capability_ceiling": "Does not create an unstated real-world action.",
+                        "decision_impact": "SUPPORTING",
+                        "limitations": "Synthetic fixture has no exact timing claim.",
+                    },
+                ]
+                endpoint_chain = {
+                    "subject": "relevant actor",
+                    "action": "observable action",
+                    "object": "real-world object",
+                    "endpoint": "completed outcome",
+                }
+                row["ziwei_track_seal"] = {
+                    "top1": top1,
+                    "top2": top2,
+                    "ranking": ranking,
+                    "core_structure": "Synthetic Ziwei structure supports a relative ranking.",
+                    "dynamic_trigger": "Synthetic timing is treated as a trigger, not an endpoint.",
+                    "endpoint_chain": endpoint_chain,
+                    "supporting_evidence_ids": [ziwei_evidence_id],
+                    "contradicting_evidence_ids": [],
+                    "alternative_explanations": ["Background without completion"],
+                    "unresolved_links": [],
+                    "capability_ceiling": "Relative choice only.",
+                    "confidence": 70,
+                }
+                row["bazi_track_seal"] = {
+                    "top1": top1,
+                    "top2": top2,
+                    "ranking": ranking,
+                    "strength_and_pattern": "Synthetic strength and pattern candidates were compared.",
+                    "method_competition": "Fuyi, regulation, and structural change were compared.",
+                    "luck_timing": "Period signal is separated from real-world completion.",
+                    "endpoint_chain": endpoint_chain,
+                    "supporting_evidence_ids": [bazi_evidence_id],
+                    "contradicting_evidence_ids": [],
+                    "alternative_explanations": ["Preparation without completion"],
+                    "unresolved_links": [],
+                    "capability_ceiling": "Relative choice only.",
+                    "confidence": 70,
+                }
+                row["cross_track_arbitration"] = {
+                    "agreement_layers": ["relative endpoint direction"],
+                    "conflict_layers": [],
+                    "conflict_origin": "No material synthetic conflict.",
+                    "shared_reality_assumption_risk": "The tracks use separate chart facts.",
+                    "stronger_track_for_topic": "EQUAL",
+                    "decision": "Fuse equal independent support while retaining limits.",
+                    "confidence_reduction_required": False,
+                }
+                row["final_ranking"] = ranking
+                row["option_comparison_matrix"] = {
+                    "options": {
+                        option: {
+                            "required_atom_completion": [f"{option} atom reviewed"],
+                            "distinctive_atom_completion": [f"{option} distinction reviewed"],
+                            "severe_atoms_have_independent_evidence": True,
+                            "ziwei_support_evidence_ids": (
+                                [ziwei_evidence_id] if option == top1 else []
+                            ),
+                            "bazi_support_evidence_ids": (
+                                [bazi_evidence_id] if option == top1 else []
+                            ),
+                            "reality_closure": "Compared at the same endpoint standard.",
+                            "timing_closure": "Compared at the same time-layer standard.",
+                            "direct_counterevidence_ids": (
+                                [ziwei_evidence_id] if option == top2 else []
+                            ),
+                            "unknown_atoms": [],
+                            "shared_background_zeroed": True,
+                            "final_rank": ranking.index(option) + 1,
+                            "final_rank_reason": "Ranked by distinctive atom closure.",
+                        }
+                        for option in option_ids
+                    },
+                    "pairwise": [
+                        {
+                            "left": left,
+                            "right": right,
+                            "winner": (
+                                left
+                                if ranking.index(left) < ranking.index(right)
+                                else right
+                            ),
+                            "reason": "The winner has stronger distinctive endpoint closure.",
+                        }
+                        for left_index, left in enumerate(option_ids)
+                        for right in option_ids[left_index + 1 :]
+                    ],
+                }
+                row["adversarial_review"] = {
+                    "top1_weakest_required_atom": f"{top1} required atom",
+                    "strongest_competitor": top2,
+                    "strongest_reversal_evidence_ids": [ziwei_evidence_id],
+                    "ignored_alternative_explanations": ["Background without completion"],
+                    "option_wording_inducement": "Checked and not used as chart evidence.",
+                    "annual_signal_overweighting": "Checked; timing is not treated as completion.",
+                    "bazi_posthoc_agreement": "Checked; Bazi was independently sealed.",
+                    "duplicate_evidence_stacking": "Checked by evidence family.",
+                    "background_as_endpoint": "Checked and rejected.",
+                    "participation_as_action": "Checked and rejected.",
+                    "valence_as_mechanism": "Checked and rejected.",
+                    "known_rule_execution_omissions": "NONE",
+                    "precision_beyond_capability": "No precision beyond the relative choice.",
+                    "reversal_test": {
+                        "removed_evidence_ids": [ziwei_evidence_id],
+                        "ranking_before": ranking,
+                        "ranking_after_removal": [top2, top1, *ranking[2:]],
+                        "top2_best_explanation": "Top2 could fit the shared background.",
+                        "top1_survives": False,
+                        "reason": "Removing the strongest evidence temporarily reverses Top1.",
+                    },
+                }
+                row["confidence_components"] = {
+                    "input_confidence": 70,
+                    "natal_structure_confidence": 70,
+                    "subject_confidence": 70,
+                    "mechanism_confidence": 70,
+                    "timing_confidence": 70,
+                    "reality_endpoint_confidence": 70,
+                    "cross_track_agreement": 70,
+                    "top1_top2_separation": 70,
+                    "overall_confidence": 70,
+                }
+                row["counterfactual_analysis"] = {
+                    "full_model_ranking": ranking,
+                    "canonical_only_ranking": ranking,
+                    "ziwei_only_ranking": ranking,
+                    "bazi_only_ranking": ranking,
+                    "fused_ranking": ranking,
+                    "decisive_rule_ablations": [
+                        {
+                            "rule_id": rule_id,
+                            "ranking_without_rule": [top2, top1, *ranking[2:]],
+                            "changes_top1": True,
+                            "reason": "The declared decisive rule changes the leading option.",
+                        }
+                        for rule_id in (applied_rule_ids or [])
+                    ],
+                }
             rows.append(row)
+        state = json.loads((self.root / "training/state.json").read_text())
+        replay_remediation = (
+            {
+                "original_root_causes": ["EVIDENCE_WEIGHTING"],
+                "remediation_type": "EXECUTION_GATE",
+                "new_idea_executed": "Applied the evidence and endpoint completeness gate.",
+                "changed_steps": ["Evidence family grouping", "Full option comparison"],
+                "predicted_mechanism_of_improvement": "Reduce repeated background-as-endpoint errors.",
+                "new_error_risks": ["Possible underconfidence"],
+            }
+            if state.get("active_replay_case_id") == case_id
+            else None
+        )
         write_json(
             path,
-            {"case_id": case_id, "round_id": round_id, "predictions": rows},
+            {
+                "schema": "PREDICTION-WORKBOOK-V2",
+                "case_id": case_id,
+                "round_id": round_id,
+                "blind_chart_model": {
+                    "schema": "BLIND-CHART-MODEL-V1",
+                    "input_reliability": {
+                        "gender": "known",
+                        "calendar": "known",
+                        "birth_time": "known",
+                        "birth_place": "known",
+                        "four_pillars": "known synthetic pillars",
+                        "ziwei_coordinates": "known synthetic coordinates",
+                        "major_periods": "known synthetic periods",
+                        "missing_fields": [],
+                        "conflicting_fields": [],
+                        "unreliable_fields": [],
+                        "forbidden_inferences": ["Do not invent unstated endpoints"],
+                    },
+                    "ziwei_static_model": {
+                        "chart_facts": ["Synthetic Ziwei fact"],
+                        "palace_and_star_structures": ["Synthetic palace structure"],
+                        "transformations_and_lines": ["Synthetic transformation structure"],
+                        "advanced_method_applicability": ["Advanced method conditions checked"],
+                        "structural_conflicts": [],
+                        "limitations": ["Fixture does not assert real divination content"],
+                    },
+                    "bazi_static_model": {
+                        "chart_facts": ["Synthetic Bazi fact"],
+                        "seasonal_strength_candidates": ["Synthetic strength candidate"],
+                        "pattern_candidates": ["Synthetic pattern candidate"],
+                        "method_competition": ["Synthetic method comparison"],
+                        "relations_and_structural_changes": ["Synthetic relation"],
+                        "useful_harmful_candidates": ["Synthetic useful candidate"],
+                        "unresolved_disputes": [],
+                        "limitations": ["Fixture does not assert real divination content"],
+                    },
+                    "shared_life_structure": {
+                        "personality_and_behavior": ["Synthetic behavior structure"],
+                        "family_roles": ["Synthetic family structure"],
+                        "marriage_capacity": ["Synthetic marriage capacity"],
+                        "children_axis": ["Synthetic children axis"],
+                        "career_and_wealth": ["Synthetic career structure"],
+                        "health_capacity": ["Synthetic health capacity"],
+                        "migration_assets_social": ["Synthetic migration structure"],
+                        "period_themes": ["Synthetic period theme"],
+                        "major_conflicts": [],
+                        "unknowns": [],
+                    },
+                },
+                "cross_question_consistency": {
+                    "checks": [
+                        {
+                            "question_id": f"Q{index}",
+                            "consistent": True,
+                            "conflicts": [],
+                            "resolution": "Uses the shared blind chart model.",
+                        }
+                        for index in range(1, question_count + 1)
+                    ],
+                    "unresolved_conflicts": [],
+                },
+                "replay_remediation": replay_remediation,
+                "predictions": rows,
+            },
         )
         return path
 
@@ -298,7 +598,10 @@ class RuntimeFixture:
 
     def patch_file(self, release_id: str, rule_id: str) -> Path:
         path = self.base / f"{release_id}.patch.json"
-        write_json(path, {"learning_type": "REASONING_STRATEGY", "rules": [general_rule(rule_id)]})
+        write_json(
+            path,
+            learning_correction(rules=[general_rule(rule_id)]),
+        )
         return path
 
 
@@ -309,6 +612,16 @@ class PolicyTests(unittest.TestCase):
         self.assertEqual(required_correct(6), 5)
         self.assertTrue(passed(4, 5))
         self.assertFalse(passed(3, 5))
+
+    def test_validation_and_holdout_cannot_create_rules(self):
+        partition = POLICY["dataset_partition_policy"]
+        self.assertFalse(partition["validation_can_create_rule"])
+        self.assertFalse(partition["final_holdout_can_create_rule"])
+        self.assertFalse(
+            POLICY["maintenance_policy"][
+                "canonical_sources_mutable_during_maintenance"
+            ]
+        )
 
 
 class MaintenanceTests(unittest.TestCase):
@@ -329,6 +642,20 @@ class MaintenanceTests(unittest.TestCase):
                     / "training/maintenance-reports/MAINTENANCE-001.json"
                 ).is_file()
             )
+            report = json.loads(
+                (
+                    fixture.root
+                    / "training/maintenance-reports/MAINTENANCE-001.json"
+                ).read_text()
+            )
+            degradation = report["reasoning_degradation"]
+            self.assertEqual(degradation["sample_status"], "INSUFFICIENT_SAMPLE")
+            self.assertFalse(
+                degradation["question_distribution_monitoring"][
+                    "automatic_model_change"
+                ]
+            )
+            self.assertTrue(report["training_statistics_unchanged"])
 
     def test_overconfidence_anomaly_can_trigger_before_fixed_milestone(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -502,9 +829,9 @@ class RuntimeTests(unittest.TestCase):
             fixture.run_and_score("R1", 4)
             bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
             serialized = json.dumps(bundle, ensure_ascii=False)
-            self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V2")
+            self.assertEqual(bundle["schema"], "CHAT-PREDICTION-INPUT-V3")
             handoff = bundle["chat_work_handoff_contract"]
-            self.assertEqual(handoff["schema"], "CHAT-WORK-HANDOFF-CONTRACT-V1")
+            self.assertEqual(handoff["schema"], "CHAT-WORK-HANDOFF-CONTRACT-V2")
             self.assertEqual(
                 handoff["binding"]["case_id"],
                 bundle["state_summary"]["current_case_id"],
@@ -622,9 +949,239 @@ class RuntimeTests(unittest.TestCase):
             rule = general_rule("RULE-LEAKING")
             rule["statement"] = "DEV-EXAMPLE-001 Q1 should choose A."
             patch = fixture.base / "leaking-patch.json"
-            write_json(patch, {"learning_type": "REASONING_STRATEGY", "rules": [rule]})
+            write_json(patch, learning_correction(rules=[rule]))
             with self.assertRaises(TrainingError):
                 apply_learning(fixture.root, "R1", patch, "LEAKING")
+
+
+class ReasoningExecutionLayerTests(unittest.TestCase):
+    def assert_freeze_rejected(self, mutate) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            mutate(payload)
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            with self.assertRaises(TrainingError):
+                freeze_prediction(fixture.root, "R1", path)
+            self.assertFalse(
+                (fixture.root / "training/runs/R1/prediction-freeze.json").exists()
+            )
+
+    def test_missing_blind_chart_or_independent_track_seal_is_rejected(self):
+        self.assert_freeze_rejected(lambda payload: payload.pop("blind_chart_model"))
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0].pop("ziwei_track_seal")
+        )
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0].pop("bazi_track_seal")
+        )
+
+    def test_source_only_evidence_and_missing_applicability_are_rejected(self):
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0]["evidence_ledger"][0].update(
+                {"chart_fact": ""}
+            )
+        )
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0]["evidence_ledger"][0].update(
+                {"applicability_conditions": []}
+            )
+        )
+
+    def test_same_chart_fact_must_share_one_evidence_family(self):
+        def mutate(payload):
+            row = payload["predictions"][0]
+            duplicate = dict(row["evidence_ledger"][0])
+            duplicate["evidence_id"] = "Z-DUPLICATE"
+            duplicate["evidence_family_id"] = "DIFFERENT-FAMILY"
+            row["evidence_ledger"].append(duplicate)
+
+        self.assert_freeze_rejected(mutate)
+
+    def test_full_option_matrix_and_real_reversal_test_are_required(self):
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0][
+                "option_comparison_matrix"
+            ]["pairwise"].pop()
+        )
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0]["adversarial_review"][
+                "reversal_test"
+            ].update({"removed_evidence_ids": []})
+        )
+
+    def test_overall_confidence_cannot_exceed_weakest_component(self):
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0][
+                "confidence_components"
+            ].update({"overall_confidence": 80})
+        )
+
+    def test_timing_only_and_unproved_high_precision_atoms_are_rejected(self):
+        def timing_only(payload):
+            for evidence in payload["predictions"][0]["evidence_ledger"]:
+                evidence["layer"] = "YEAR"
+
+        self.assert_freeze_rejected(timing_only)
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0][
+                "question_semantic_model"
+            ]["option_atoms"]["D"].update(
+                {
+                    "severe_irreversible_or_high_precision_atoms": [
+                        "exact irreversible endpoint"
+                    ]
+                }
+            )
+        )
+
+    def test_decisive_rule_must_change_top1_under_ablation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 0)
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-1", "RULE-ABLATION"),
+                "LEARNING-1",
+            )
+            path = fixture.prediction_file(
+                "R2",
+                4,
+                applied_rule_ids=["RULE-ABLATION"],
+            )
+            payload = json.loads(path.read_text())
+            row = payload["predictions"][0]
+            row["counterfactual_analysis"]["decisive_rule_ablations"][0][
+                "ranking_without_rule"
+            ] = row["final_ranking"]
+            write_json(path, payload)
+            start_round(fixture.root, "R2")
+            with self.assertRaises(TrainingError):
+                freeze_prediction(fixture.root, "R2", path)
+
+    def test_failed_round_can_publish_non_rule_process_correction(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 0)
+            patch = fixture.base / "execution-gate.json"
+            write_json(
+                patch,
+                learning_correction(
+                    remediation_type="EXECUTION_GATE",
+                    rules=[],
+                ),
+            )
+            release = apply_learning(
+                fixture.root,
+                "R1",
+                patch,
+                "LEARNING-EXECUTION-GATE",
+            )
+            self.assertEqual(release["release_id"], "LEARNING-EXECUTION-GATE")
+            self.assertEqual(load_learning_ledger(fixture.root)["rule_evidence"], {})
+            bundle = json.loads(
+                (fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text()
+            )
+            self.assertEqual(
+                bundle["current_model"]["active_process_corrections"][-1][
+                    "remediation_type"
+                ],
+                "EXECUTION_GATE",
+            )
+
+    def test_retired_rule_cannot_enter_a_new_prediction(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 0)
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-1", "RULE-TO-RETIRE"),
+                "LEARNING-1",
+            )
+            ledger = load_learning_ledger(fixture.root)
+            ledger["rule_evidence"]["RULE-TO-RETIRE"]["status"] = "RETIRED"
+            ledger["attributed_rule_evidence"]["RULE-TO-RETIRE"][
+                "status"
+            ] = "RETIRED"
+            write_learning_ledger(fixture.root, ledger)
+            write_chat_input(fixture.root)
+            path = fixture.prediction_file(
+                "R2",
+                4,
+                applied_rule_ids=["RULE-TO-RETIRE"],
+            )
+            start_round(fixture.root, "R2")
+            with self.assertRaises(TrainingError):
+                freeze_prediction(fixture.root, "R2", path)
+
+    def test_spaced_replay_records_targeted_repair_without_answer_mapping(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary), case_count=7)
+            fixture.run_and_score("R1", 0)
+            patch = fixture.base / "execution-gate.json"
+            write_json(
+                patch,
+                learning_correction(
+                    remediation_type="EXECUTION_GATE",
+                    rules=[],
+                ),
+            )
+            apply_learning(fixture.root, "R1", patch, "LEARNING-GATE")
+            for index in range(2, 7):
+                fixture.run_and_score(f"R{index}", 5)
+            self.assertEqual(status(fixture.root)["active_replay_case_id"], "DEV-EXAMPLE-001")
+            replay_score = fixture.run_and_score("R7", 5)
+            report = json.loads(
+                (
+                    fixture.root
+                    / replay_score["replay_remediation_report"]
+                ).read_text()
+            )
+            self.assertEqual(report["original_failed_answers_repaired"], 5)
+            self.assertEqual(report["original_correct_answers_regressed"], 0)
+            self.assertFalse(report["counts_as_first_blind_evidence"])
+            self.assertNotIn("correct_option", json.dumps(report))
+
+    def test_invalid_issue_preflight_does_not_consume_active_case(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            prediction = json.loads(
+                fixture.prediction_file("ISSUE-1", 4).read_text()
+            )
+            before = json.loads(
+                (fixture.root / "training/state.json").read_text()
+            )
+            packet = {
+                "schema": "TRAINING-ISSUE-PACKET-V3",
+                "round_id": "ISSUE-1",
+                "case_id": prediction["case_id"],
+                "blind_chart_model": None,
+                "cross_question_consistency": prediction[
+                    "cross_question_consistency"
+                ],
+                "replay_remediation": None,
+                "predictions": prediction["predictions"],
+                "expected_result": "PASS",
+            }
+            with self.assertRaises(TrainingError):
+                process_packet(fixture.root, packet, fixture.key)
+            after = json.loads((fixture.root / "training/state.json").read_text())
+            self.assertEqual(after, before)
+            self.assertFalse((fixture.root / "training/runs/ISSUE-1").exists())
+
+    def test_legacy_frozen_prediction_hash_remains_parseable(self):
+        legacy = {
+            "schema": "FROZEN-PREDICTION-V1",
+            "predictions": [{"question_id": "Q1", "top1": "A"}],
+        }
+        self.assertEqual(
+            frozen_content_hash(legacy),
+            object_sha256(legacy["predictions"]),
+        )
 
 
 class IssueRelayTests(unittest.TestCase):
@@ -633,18 +1190,22 @@ class IssueRelayTests(unittest.TestCase):
         prediction = json.loads(fixture.prediction_file(round_id, correct_count).read_text())
         failed = correct_count < required_correct(question_count)
         packet = {
-            "schema": "TRAINING-ISSUE-PACKET-V2",
+            "schema": "TRAINING-ISSUE-PACKET-V3",
             "round_id": round_id,
             "case_id": case_id,
+            "blind_chart_model": prediction["blind_chart_model"],
+            "cross_question_consistency": prediction[
+                "cross_question_consistency"
+            ],
+            "replay_remediation": prediction["replay_remediation"],
             "predictions": prediction["predictions"],
             "expected_result": "FAIL" if failed else "PASS",
         }
         if failed:
             packet["learning_release_id"] = f"LEARNING-{round_id}"
-            packet["learning_patch"] = {
-                "learning_type": "REASONING_STRATEGY",
-                "rules": [general_rule(f"RULE-{round_id}")],
-            }
+            packet["learning_patch"] = learning_correction(
+                rules=[general_rule(f"RULE-{round_id}")]
+            )
         return packet
 
     def test_extract_and_process_passing_issue(self):
@@ -660,7 +1221,7 @@ class IssueRelayTests(unittest.TestCase):
             self.assertFalse(result["answers_published"])
 
     def test_extract_accepts_raw_json_and_single_code_block(self):
-        packet = {"schema": "TRAINING-ISSUE-PACKET-V2", "round_id": "RAW-1"}
+        packet = {"schema": "TRAINING-ISSUE-PACKET-V3", "round_id": "RAW-1"}
         self.assertEqual(extract_packet(json.dumps(packet)), packet)
         self.assertEqual(extract_packet(f"```json\n{json.dumps(packet)}\n```"), packet)
 
@@ -682,10 +1243,9 @@ class IssueRelayTests(unittest.TestCase):
             packet = self.packet(fixture, "ISSUE-MISMATCH-1", 4)
             packet["expected_result"] = "FAIL"
             packet["learning_release_id"] = "LEARNING-MISMATCH"
-            packet["learning_patch"] = {
-                "learning_type": "REASONING_STRATEGY",
-                "rules": [general_rule("RULE-MISMATCH")],
-            }
+            packet["learning_patch"] = learning_correction(
+                rules=[general_rule("RULE-MISMATCH")]
+            )
             with self.assertRaises(TrainingError):
                 process_packet(fixture.root, packet, fixture.key)
 
@@ -700,8 +1260,13 @@ class HandoffProbeTests(unittest.TestCase):
                 fixture.prediction_file(contract["binding"]["round_id"], 3).read_text()
             )
             handoff = {
-                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
                 "binding": contract["binding"],
+                "blind_chart_model": prediction["blind_chart_model"],
+                "cross_question_consistency": prediction[
+                    "cross_question_consistency"
+                ],
+                "replay_remediation": prediction["replay_remediation"],
                 "predictions": prediction["predictions"],
             }
             private_key = rsa.generate_private_key(public_exponent=65537, key_size=3072)

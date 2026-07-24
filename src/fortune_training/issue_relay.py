@@ -13,19 +13,20 @@ from .learning import public_learning_summary
 from .maintenance import run_maintenance
 from .runtime import (
     _validate_learning_patch,
+    _validate_prediction,
     apply_learning,
     freeze_prediction,
     score_round,
     start_round,
     status,
 )
-from .util import TrainingError, atomic_write_json, require_safe_id
+from .util import TrainingError, atomic_write_json, load_json, require_safe_id
 from .verify import verify_repository
 
 
 PACKET_START = "<!-- TRAINING_PACKET_START -->"
 PACKET_END = "<!-- TRAINING_PACKET_END -->"
-PACKET_SCHEMA = "TRAINING-ISSUE-PACKET-V2"
+PACKET_SCHEMA = "TRAINING-ISSUE-PACKET-V3"
 EXPECTED_RESULTS = {"PASS", "FAIL"}
 
 
@@ -66,6 +67,9 @@ def _validate_packet(root: Path, packet: dict[str, Any]) -> dict[str, Any]:
         "schema",
         "round_id",
         "case_id",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
         "predictions",
         "expected_result",
         "learning_release_id",
@@ -93,6 +97,33 @@ def _validate_packet(root: Path, packet: dict[str, Any]) -> dict[str, Any]:
         _validate_learning_patch(root, packet.get("learning_patch"))
     elif release_id is not None or packet.get("learning_patch") is not None:
         raise TrainingError("a PASS packet must not contain a learning patch or release id")
+    state = load_json(root / "training" / "state.json")
+    group = load_json(root / state["group_path"])
+    case = load_json(root / group["cases"][current["current_case_id"]])
+    _validate_prediction(
+        root,
+        case,
+        {
+            "case_id": current["current_case_id"],
+            "round_id": round_id,
+            "evaluation_kind": (
+                "SPACED_REPLAY"
+                if current["active_replay_case_id"] == current["current_case_id"]
+                else "FIRST_BLIND"
+            ),
+        },
+        {
+            "schema": "PREDICTION-WORKBOOK-V2",
+            "case_id": packet["case_id"],
+            "round_id": round_id,
+            "blind_chart_model": packet.get("blind_chart_model"),
+            "cross_question_consistency": packet.get(
+                "cross_question_consistency"
+            ),
+            "replay_remediation": packet.get("replay_remediation"),
+            "predictions": predictions,
+        },
+    )
     return packet
 
 
@@ -110,8 +141,12 @@ def process_packet(root: Path, packet: dict[str, Any], key: str | bytes | None) 
         atomic_write_json(
             prediction_file,
             {
+                "schema": "PREDICTION-WORKBOOK-V2",
                 "case_id": packet["case_id"],
                 "round_id": round_id,
+                "blind_chart_model": packet["blind_chart_model"],
+                "cross_question_consistency": packet["cross_question_consistency"],
+                "replay_remediation": packet["replay_remediation"],
                 "predictions": packet["predictions"],
             },
         )

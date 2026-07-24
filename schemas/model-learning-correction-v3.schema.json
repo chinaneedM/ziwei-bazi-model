@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/model-learning-correction-v3.schema.json",
+  "title": "Model Learning Correction V3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "learning_type",
+    "root_causes",
+    "remediation_type",
+    "correction",
+    "rules",
+    "rule_status_changes"
+  ],
+  "properties": {
+    "schema": {"const": "MODEL-LEARNING-CORRECTION-V3"},
+    "learning_type": {
+      "enum": [
+        "REASONING_STRATEGY",
+        "EXECUTION_PROCEDURE",
+        "MODEL_HYPOTHESIS",
+        "MEASUREMENT_OR_CALIBRATION",
+        "RULE_GOVERNANCE"
+      ]
+    },
+    "root_causes": {"type": "array", "minItems": 1, "uniqueItems": true},
+    "remediation_type": {
+      "enum": [
+        "EXECUTION_GATE",
+        "MEASUREMENT_CHANGE",
+        "CALIBRATION_CHANGE",
+        "RULE_WEIGHT_CHANGE",
+        "RULE_SCOPE_CHANGE",
+        "RULE_MERGE",
+        "RULE_RETIREMENT",
+        "TEST_ADDITION",
+        "HYPOTHESIS_ONLY",
+        "NEW_GENERAL_RULE"
+      ]
+    },
+    "correction": {"type": "object"},
+    "rules": {"type": "array"},
+    "rule_status_changes": {"type": "array"}
+  }
+}

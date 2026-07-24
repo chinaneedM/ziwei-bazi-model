@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/prediction-workbook-v2.schema.json",
+  "title": "Prediction Workbook V2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "case_id",
+    "round_id",
+    "blind_chart_model",
+    "cross_question_consistency",
+    "replay_remediation",
+    "predictions"
+  ],
+  "properties": {
+    "schema": {"const": "PREDICTION-WORKBOOK-V2"},
+    "case_id": {"type": "string", "minLength": 1},
+    "round_id": {"type": "string", "minLength": 1},
+    "blind_chart_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "input_reliability",
+        "ziwei_static_model",
+        "bazi_static_model",
+        "shared_life_structure"
+      ],
+      "properties": {
+        "schema": {"const": "BLIND-CHART-MODEL-V1"},
+        "input_reliability": {"type": "object"},
+        "ziwei_static_model": {"type": "object"},
+        "bazi_static_model": {"type": "object"},
+        "shared_life_structure": {"type": "object"}
+      }
+    },
+    "cross_question_consistency": {"type": "object"},
+    "replay_remediation": {"type": ["object", "null"]},
+    "predictions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "question_id",
+          "top1",
+          "top2",
+          "public_summary",
+          "question_profile",
+          "rule_attribution",
+          "question_semantic_model",
+          "ziwei_track_seal",
+          "bazi_track_seal",
+          "cross_track_arbitration",
+          "evidence_ledger",
+          "final_ranking",
+          "option_comparison_matrix",
+          "adversarial_review",
+          "confidence_components",
+          "counterfactual_analysis"
+        ],
+        "properties": {
+          "question_id": {"type": "string", "minLength": 1},
+          "top1": {"type": "string", "minLength": 1},
+          "top2": {"type": "string", "minLength": 1},
+          "public_summary": {"type": "string", "minLength": 1},
+          "question_profile": {"type": "object"},
+          "rule_attribution": {"type": "object"},
+          "question_semantic_model": {"type": "object"},
+          "ziwei_track_seal": {"type": "object"},
+          "bazi_track_seal": {"type": "object"},
+          "cross_track_arbitration": {"type": "object"},
+          "evidence_ledger": {"type": "array", "minItems": 1},
+          "final_ranking": {"type": "array", "minItems": 2},
+          "option_comparison_matrix": {"type": "object"},
+          "adversarial_review": {"type": "object"},
+          "confidence_components": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "input_confidence",
+              "natal_structure_confidence",
+              "subject_confidence",
+              "mechanism_confidence",
+              "timing_confidence",
+              "reality_endpoint_confidence",
+              "cross_track_agreement",
+              "top1_top2_separation",
+              "overall_confidence"
+            ],
+            "properties": {
+              "input_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "natal_structure_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "subject_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "mechanism_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "timing_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "reality_endpoint_confidence": {"type": "integer", "minimum": 0, "maximum": 100},
+              "cross_track_agreement": {"type": "integer", "minimum": 0, "maximum": 100},
+              "top1_top2_separation": {"type": "integer", "minimum": 0, "maximum": 100},
+              "overall_confidence": {"type": "integer", "minimum": 0, "maximum": 100}
+            }
+          },
+          "counterfactual_analysis": {"type": "object"}
+        }
+      }
+    }
+  }
+}

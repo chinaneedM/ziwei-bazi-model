@@ -15,12 +15,12 @@ from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
 from .chat_input import CHAT_INPUT_RELATIVE_PATH
 from .issue_relay import extract_packet
-from .runtime import freeze_prediction, score_round, start_round
+from .runtime import _validate_prediction, freeze_prediction, score_round, start_round
 from .util import TrainingError, atomic_write_json, canonical_bytes, load_json, sha256_bytes
 from .verify import verify_repository
 
 
-HANDOFF_SCHEMA = "CHAT-WORK-PREDICTION-HANDOFF-V1"
+HANDOFF_SCHEMA = "CHAT-WORK-PREDICTION-HANDOFF-V2"
 REQUEST_PREFIX = "/score-review "
 SEALED_SCHEMA = "WORK-PRIVATE-ROUND-REVIEW-V1"
 FORBIDDEN_HANDOFF_KEYS = {
@@ -86,14 +86,41 @@ def validate_handoff(
     handoff = extract_packet(issue_body)
     if handoff.get("schema") != HANDOFF_SCHEMA:
         raise TrainingError(f"handoff schema must be {HANDOFF_SCHEMA}")
-    if set(handoff) != {"schema", "binding", "predictions"}:
-        raise TrainingError("handoff must contain only schema, binding, and predictions")
+    if set(handoff) != {
+        "schema",
+        "binding",
+        "blind_chart_model",
+        "cross_question_consistency",
+        "replay_remediation",
+        "predictions",
+    }:
+        raise TrainingError("handoff must contain the complete V2 reasoning workbook")
     if handoff.get("binding") != contract.get("binding"):
         raise TrainingError("handoff binding does not match the current Chat bundle")
     predictions = handoff.get("predictions")
     if not isinstance(predictions, list) or not predictions:
         raise TrainingError("handoff predictions must be a non-empty array")
     _walk_forbidden_keys(handoff)
+    _validate_prediction(
+        root,
+        bundle["current_case"],
+        {
+            "case_id": contract["binding"]["case_id"],
+            "round_id": contract["binding"]["round_id"],
+            "evaluation_kind": contract["binding"]["evaluation_kind"],
+        },
+        {
+            "schema": "PREDICTION-WORKBOOK-V2",
+            "case_id": contract["binding"]["case_id"],
+            "round_id": contract["binding"]["round_id"],
+            "blind_chart_model": handoff["blind_chart_model"],
+            "cross_question_consistency": handoff[
+                "cross_question_consistency"
+            ],
+            "replay_remediation": handoff["replay_remediation"],
+            "predictions": predictions,
+        },
+    )
     return handoff
 
 
@@ -175,8 +202,14 @@ def process_handoff_probe(
         atomic_write_json(
             prediction_path,
             {
+                "schema": "PREDICTION-WORKBOOK-V2",
                 "case_id": binding["case_id"],
                 "round_id": round_id,
+                "blind_chart_model": handoff["blind_chart_model"],
+                "cross_question_consistency": handoff[
+                    "cross_question_consistency"
+                ],
+                "replay_remediation": handoff["replay_remediation"],
                 "predictions": handoff["predictions"],
             },
         )
