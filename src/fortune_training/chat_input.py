@@ -78,6 +78,12 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         for payload in knowledge_card_payloads
         for card in payload.get("cards", [])
     ]
+    active_process_corrections = [
+        patch["content"]
+        for relative_path in release.get("patches", [])
+        for patch in [load_json(root / relative_path)]
+        if patch.get("schema") == "MODEL-LEARNING-PATCH-V3"
+    ]
     effective_model_input_sha256 = object_sha256(
         {
             "release": release,
@@ -85,6 +91,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "knowledge_route_map": knowledge_route_map,
             "knowledge_cards": knowledge_cards,
             "active_rules": active_rules,
+            "active_process_corrections": active_process_corrections,
             "rule_router": rule_router,
             "runtime_governance": runtime_governance,
         }
@@ -97,7 +104,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
     recommended_round_id = next_round_id(state) if prediction_allowed else None
 
     return {
-        "schema": "CHAT-PREDICTION-INPUT-V2",
+        "schema": "CHAT-PREDICTION-INPUT-V3",
         "repository": "chinaneedM/ziwei-bazi-model",
         "branch": "main",
         "state_summary": {
@@ -149,6 +156,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "cards": knowledge_cards,
             },
             "active_rules": active_rules,
+            "active_process_corrections": active_process_corrections,
             "rule_router": rule_router,
             "runtime_governance": {
                 "schema": runtime_governance["schema"],
@@ -169,20 +177,43 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "Classify every applied rule as decisive, supporting, or "
                     "counterevidence. Removing a decisive rule must change Top1."
                 ),
-                "MAX_RULES_PER_QUESTION": MAX_APPLIED_RULES_PER_QUESTION,
+                "MAX_MODEL_LEARNING_RULES_PER_QUESTION": MAX_APPLIED_RULES_PER_QUESTION,
+                "CANONICAL_EVIDENCE_QUOTA": None,
+                "EVIDENCE_STOP_RULE": (
+                    "Retrieve every valid evidence item that could change the ranking; "
+                    "the model-learning rule cap is not an evidence cap."
+                ),
             },
         },
         "prediction_output_contract": {
-            "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V2",
+            "prediction_schema": "PREDICTION-WORKBOOK-V2",
+            "frozen_schema": "FROZEN-PREDICTION-V2",
+            "packet_schema_after_reveal": "TRAINING-ISSUE-PACKET-V3",
+            "top_level_required": [
+                "schema",
+                "case_id",
+                "round_id",
+                "blind_chart_model",
+                "cross_question_consistency",
+                "replay_remediation",
+                "predictions",
+            ],
             "each_question_must_include": [
                 "top1",
                 "top2",
-                "reasoning",
-                "evidence",
-                "strongest_counterevidence",
-                "confidence",
+                "public_summary",
                 "question_profile",
                 "rule_attribution",
+                "question_semantic_model",
+                "ziwei_track_seal",
+                "bazi_track_seal",
+                "cross_track_arbitration",
+                "evidence_ledger",
+                "final_ranking",
+                "option_comparison_matrix",
+                "adversarial_review",
+                "confidence_components",
+                "counterfactual_analysis",
             ],
             "question_profile_fields": [
                 "topic_tags",
@@ -211,20 +242,26 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "at 65. Forced relative choices are not high-confidence factual claims."
             ),
             "failure_learning_rule": (
-                "After reveal, a failed round must propose one or more generic candidate rules. Rules may "
-                "contain no case id, question id, answer letter, option position, or copied option sentence. "
-                "Each unique rule_id starts with RULE- and uses uppercase letters, digits, and hyphens only."
+                "After reveal, classify the root cause and choose one V3 remediation type. Only "
+                "NEW_GENERAL_RULE may add catalog rules; execution, measurement, calibration, weighting, "
+                "scope, merge, retirement, tests, and hypotheses are valid non-rule corrections."
+            ),
+            "reasoning_framework_status": "WORKING_HYPOTHESIS_NOT_FIXED_DOGMA",
+            "evidence_count_quota": None,
+            "blind_before_options_rule": (
+                "Complete blind_chart_model without option text or option-derived events before "
+                "building question_semantic_model and option comparisons."
             ),
         },
         "chat_work_handoff_contract": {
-            "schema": "CHAT-WORK-HANDOFF-CONTRACT-V1",
+            "schema": "CHAT-WORK-HANDOFF-CONTRACT-V2",
             "transport": "GITHUB_ISSUE_DURABLE_RECEIPT",
             "issue_title": (
                 f"[PREDICTION HANDOFF] {recommended_round_id} {current_case_id}"
                 if prediction_allowed
                 else None
             ),
-            "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+            "handoff_schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
             "binding": {
                 "case_id": current_case_id,
                 "round_id": recommended_round_id,
@@ -242,10 +279,13 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "handoff_required_fields": [
                 "schema",
                 "binding",
+                "blind_chart_model",
+                "cross_question_consistency",
+                "replay_remediation",
                 "predictions",
             ],
             "handoff_payload_template": {
-                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V1",
+                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
                 "binding": {
                     "case_id": current_case_id,
                     "round_id": recommended_round_id,
@@ -260,6 +300,9 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "canonical_source_manifest_sha256": object_sha256(manifest),
                     "effective_model_input_sha256": effective_model_input_sha256,
                 },
+                "blind_chart_model": {},
+                "cross_question_consistency": {},
+                "replay_remediation": None,
                 "predictions": [],
             },
             "handoff_forbidden_content": [
@@ -271,7 +314,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             ],
             "chat_freeze_rule": (
                 "After all predictions are frozen, create exactly one GitHub Issue using issue_title "
-                "and CHAT-WORK-PREDICTION-HANDOFF-V1. Copy binding exactly and preserve the complete "
+                "and CHAT-WORK-PREDICTION-HANDOFF-V2. Copy binding exactly and preserve the complete "
                 "prediction rows. This is the only Chat-side GitHub write allowed."
             ),
             "work_acceptance_rule": (
@@ -280,11 +323,14 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "stop before scoring if the receipt is missing, duplicated, stale, or mismatched."
             ),
             "training_issue_input_contract": {
-                "schema": "TRAINING-ISSUE-PACKET-V2",
+                "schema": "TRAINING-ISSUE-PACKET-V3",
                 "allowed_top_level_fields": [
                     "schema",
                     "round_id",
                     "case_id",
+                    "blind_chart_model",
+                    "cross_question_consistency",
+                    "replay_remediation",
                     "predictions",
                     "expected_result",
                     "learning_release_id",
@@ -294,6 +340,9 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "schema",
                     "round_id",
                     "case_id",
+                    "blind_chart_model",
+                    "cross_question_consistency",
+                    "replay_remediation",
                     "predictions",
                     "expected_result",
                 ],
@@ -305,6 +354,9 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "schema",
                     "round_id",
                     "case_id",
+                    "blind_chart_model",
+                    "cross_question_consistency",
+                    "replay_remediation",
                     "predictions",
                     "expected_result",
                     "learning_release_id",
