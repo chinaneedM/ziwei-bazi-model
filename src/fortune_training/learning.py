@@ -10,6 +10,7 @@ from .policy import (
     RULE_MIN_SUPPORTING_APPLICATIONS,
 )
 from .util import TrainingError, atomic_write_json, load_json, object_sha256
+from .reasoning import REMEDIATION_TYPES, ROOT_CAUSES
 
 
 TAXONOMY_RELATIVE_PATH = Path("config/question-taxonomy.json")
@@ -105,7 +106,10 @@ def load_rule_catalog(root: Path, release: dict[str, Any] | None = None) -> dict
     catalog: dict[str, dict[str, Any]] = {}
     for relative_path in release.get("patches", []):
         patch = load_json(root / relative_path)
-        if patch.get("schema") != "MODEL-LEARNING-PATCH-V2":
+        if patch.get("schema") not in {
+            "MODEL-LEARNING-PATCH-V2",
+            "MODEL-LEARNING-PATCH-V3",
+        }:
             continue
         for rule in patch.get("content", {}).get("rules", []):
             rule_id = rule.get("rule_id")
@@ -228,6 +232,12 @@ def validate_rule_attribution(
     for rule_id in combined:
         if rule_id in suppressed:
             raise TrainingError(f"suppressed rule may not be applied: {rule_id}")
+        if (
+            ledger["rule_evidence"][rule_id].get("status") == "RETIRED"
+            or ledger["attributed_rule_evidence"][rule_id].get("status")
+            == "RETIRED"
+        ):
+            raise TrainingError(f"retired rule may not be applied: {rule_id}")
         rule = catalog[rule_id]
         if not (
             set(rule["topic_tags"]).intersection(profile["topic_tags"])
@@ -311,10 +321,135 @@ def validate_learning_patch_v2(root: Path, payload: Any) -> dict[str, Any]:
     return {"learning_type": payload["learning_type"], "rules": normalized_rules}
 
 
+def validate_learning_patch_v3(
+    root: Path,
+    payload: Any,
+    *,
+    check_catalog_collisions: bool = True,
+) -> dict[str, Any]:
+    fields = {
+        "schema",
+        "learning_type",
+        "root_causes",
+        "remediation_type",
+        "correction",
+        "rules",
+        "rule_status_changes",
+    }
+    if not isinstance(payload, dict) or set(payload) != fields:
+        raise TrainingError("V3 learning patch must contain the complete correction structure")
+    if payload["schema"] != "MODEL-LEARNING-CORRECTION-V3":
+        raise TrainingError("wrong V3 learning correction schema")
+    if payload["learning_type"] not in {
+        "REASONING_STRATEGY",
+        "EXECUTION_PROCEDURE",
+        "MODEL_HYPOTHESIS",
+        "MEASUREMENT_OR_CALIBRATION",
+        "RULE_GOVERNANCE",
+    }:
+        raise TrainingError("invalid V3 learning_type")
+    roots = payload["root_causes"]
+    if (
+        not isinstance(roots, list)
+        or not roots
+        or len(roots) != len(set(roots))
+        or not set(roots).issubset(ROOT_CAUSES)
+    ):
+        raise TrainingError("V3 learning patch needs valid, unique root causes")
+    remediation_type = payload["remediation_type"]
+    if remediation_type not in REMEDIATION_TYPES:
+        raise TrainingError("invalid V3 remediation_type")
+    correction = payload["correction"]
+    correction_fields = {
+        "statement",
+        "applicability",
+        "limitations",
+        "expected_effect",
+        "capability_ceiling",
+        "source_basis",
+        "reasoning",
+    }
+    if not isinstance(correction, dict) or set(correction) != correction_fields:
+        raise TrainingError("V3 correction must contain its complete generalization contract")
+    normalized_correction: dict[str, str] = {}
+    for field in correction_fields:
+        text = correction[field]
+        if not isinstance(text, str) or not text.strip():
+            raise TrainingError(f"V3 correction has an empty {field}")
+        normalized_correction[field] = text.strip()
+
+    rules = payload["rules"]
+    if not isinstance(rules, list):
+        raise TrainingError("V3 rules must be a list")
+    if remediation_type == "NEW_GENERAL_RULE" and not rules:
+        raise TrainingError("NEW_GENERAL_RULE requires at least one generic rule")
+    if remediation_type != "NEW_GENERAL_RULE" and rules:
+        raise TrainingError("only NEW_GENERAL_RULE may increase the rule catalog")
+    normalized_rules = [validate_rule(root, rule) for rule in rules]
+    ids = [rule["rule_id"] for rule in normalized_rules]
+    if len(ids) != len(set(ids)):
+        raise TrainingError("V3 learning patch contains duplicate rule ids")
+    catalog = load_rule_catalog(root)
+    collision = set(catalog).intersection(ids)
+    if check_catalog_collisions and collision:
+        raise TrainingError(f"learning rule already exists: {', '.join(sorted(collision))}")
+
+    status_changes = payload["rule_status_changes"]
+    if not isinstance(status_changes, list):
+        raise TrainingError("rule_status_changes must be a list")
+    normalized_changes: list[dict[str, Any]] = []
+    seen_changes: set[str] = set()
+    for change in status_changes:
+        if not isinstance(change, dict) or set(change) != {
+            "rule_id",
+            "new_status",
+            "reason",
+            "replacement_rule_id",
+        }:
+            raise TrainingError("invalid rule_status_changes entry")
+        rule_id = change["rule_id"]
+        if rule_id not in catalog or rule_id in seen_changes:
+            raise TrainingError("rule_status_changes contains an unknown or duplicate rule")
+        if change["new_status"] != "RETIRED":
+            raise TrainingError("manual rule status changes currently support RETIRED only")
+        reason = change["reason"]
+        if not isinstance(reason, str) or not reason.strip():
+            raise TrainingError("rule retirement needs a reason")
+        replacement = change["replacement_rule_id"]
+        if replacement is not None and (
+            not isinstance(replacement, str)
+            or replacement not in catalog
+            or replacement == rule_id
+        ):
+            raise TrainingError("rule retirement replacement must be another existing rule")
+        normalized_changes.append(
+            {
+                "rule_id": rule_id,
+                "new_status": "RETIRED",
+                "reason": reason.strip(),
+                "replacement_rule_id": replacement,
+            }
+        )
+        seen_changes.add(rule_id)
+    if remediation_type == "RULE_RETIREMENT" and not normalized_changes:
+        raise TrainingError("RULE_RETIREMENT requires a rule_status_changes entry")
+    if remediation_type not in {"RULE_RETIREMENT", "RULE_MERGE"} and normalized_changes:
+        raise TrainingError("only RULE_RETIREMENT or RULE_MERGE may retire rules")
+    return {
+        "schema": payload["schema"],
+        "learning_type": payload["learning_type"],
+        "root_causes": roots,
+        "remediation_type": remediation_type,
+        "correction": normalized_correction,
+        "rules": normalized_rules,
+        "rule_status_changes": normalized_changes,
+    }
+
+
 def empty_learning_ledger(root: Path) -> dict[str, Any]:
     taxonomy = load_taxonomy(root)
     return {
-        "schema": "QUESTION-LEARNING-LEDGER-V1",
+        "schema": "QUESTION-LEARNING-LEDGER-V2",
         "taxonomy_sha256": object_sha256(taxonomy),
         "first_blind_totals": {
             "cases": 0,
@@ -334,6 +469,27 @@ def empty_learning_ledger(root: Path) -> dict[str, Any]:
             "confidence_sum": 0,
             "brier_sum": 0.0,
             "bins": {},
+        },
+        "confidence_component_calibration": {
+            component: {
+                "started_after_first_blind_questions": 0,
+                "questions": 0,
+                "correct": 0,
+                "confidence_sum": 0,
+                "brier_sum": 0.0,
+                "bins": {},
+            }
+            for component in (
+                "input_confidence",
+                "natal_structure_confidence",
+                "subject_confidence",
+                "mechanism_confidence",
+                "timing_confidence",
+                "reality_endpoint_confidence",
+                "cross_track_agreement",
+                "top1_top2_separation",
+                "overall_confidence",
+            )
         },
         "legacy_unclassified": {
             "first_blind_cases": 0,
@@ -385,6 +541,8 @@ def ensure_learning_extensions(
     *,
     rule_ids: set[str] | None = None,
 ) -> None:
+    if ledger.get("schema") == "QUESTION-LEARNING-LEDGER-V1":
+        ledger["schema"] = "QUESTION-LEARNING-LEDGER-V2"
     if rule_ids is None:
         rule_ids = set(ledger.get("rule_evidence", {}))
     attributed = ledger.setdefault("attributed_rule_evidence", {})
@@ -414,6 +572,32 @@ def ensure_learning_extensions(
             "confidence_sum": 0,
             "brier_sum": 0.0,
             "bins": {},
+        },
+    )
+    ledger.setdefault(
+        "confidence_component_calibration",
+        {
+            component: {
+                "started_after_first_blind_questions": ledger[
+                    "first_blind_totals"
+                ]["questions"],
+                "questions": 0,
+                "correct": 0,
+                "confidence_sum": 0,
+                "brier_sum": 0.0,
+                "bins": {},
+            }
+            for component in (
+                "input_confidence",
+                "natal_structure_confidence",
+                "subject_confidence",
+                "mechanism_confidence",
+                "timing_confidence",
+                "reality_endpoint_confidence",
+                "cross_track_agreement",
+                "top1_top2_separation",
+                "overall_confidence",
+            )
         },
     )
 
@@ -520,18 +704,32 @@ def record_first_blind_results(
         totals["top2_covered"] += int(is_correct or top2_hit)
         profile = prediction["question_profile"]
         attribution = prediction["rule_attribution"]
+        overall_confidence = prediction["confidence_components"][
+            "overall_confidence"
+        ]
         _record_confidence(
             ledger["confidence_calibration"],
-            confidence=prediction["confidence"],
+            confidence=overall_confidence,
             is_correct=is_correct,
         )
+        for component, confidence in prediction["confidence_components"].items():
+            _record_confidence(
+                ledger["confidence_component_calibration"][component],
+                confidence=confidence,
+                is_correct=is_correct,
+            )
         for tag in profile["topic_tags"]:
             _update_metric(ledger["topic_metrics"], tag, is_correct, is_correct or top2_hit)
         for tag in profile["reasoning_skill_tags"]:
             _update_metric(
                 ledger["reasoning_skill_metrics"], tag, is_correct, is_correct or top2_hit
             )
-        for tag in profile["source_routes"]:
+        impactful_routes = {
+            evidence["source_route"]
+            for evidence in prediction["evidence_ledger"]
+            if evidence["decision_impact"] != "NEUTRAL"
+        }
+        for tag in impactful_routes:
             _update_metric(ledger["source_route_metrics"], tag, is_correct, is_correct or top2_hit)
         _record_attribution(
             ledger,
@@ -657,6 +855,26 @@ def public_learning_summary(root: Path) -> dict[str, Any]:
         status = evidence["status"]
         attributed_status_counts[status] = attributed_status_counts.get(status, 0) + 1
     calibration = ledger["confidence_calibration"]
+    component_calibration = ledger.get("confidence_component_calibration", {})
+
+    def calibration_summary(row: dict[str, Any]) -> dict[str, Any]:
+        return {
+            **row,
+            "mean_confidence": (
+                row["confidence_sum"] / row["questions"] / 100
+                if row["questions"]
+                else None
+            ),
+            "accuracy": (
+                row["correct"] / row["questions"] if row["questions"] else None
+            ),
+            "brier_score": (
+                row["brier_sum"] / row["questions"] if row["questions"] else None
+            ),
+            "sample_status": (
+                "INSUFFICIENT_SAMPLE" if row["questions"] < 30 else "OBSERVED"
+            ),
+        }
     return {
         "first_blind_totals": {
             **totals,
@@ -671,23 +889,10 @@ def public_learning_summary(root: Path) -> dict[str, Any]:
         "reasoning_skill_metrics": metric_summary(ledger["reasoning_skill_metrics"]),
         "rule_status_counts": dict(sorted(status_counts.items())),
         "attributed_rule_status_counts": dict(sorted(attributed_status_counts.items())),
-        "confidence_calibration": {
-            **calibration,
-            "mean_confidence": (
-                calibration["confidence_sum"] / calibration["questions"] / 100
-                if calibration["questions"]
-                else None
-            ),
-            "accuracy": (
-                calibration["correct"] / calibration["questions"]
-                if calibration["questions"]
-                else None
-            ),
-            "brier_score": (
-                calibration["brier_sum"] / calibration["questions"]
-                if calibration["questions"]
-                else None
-            ),
+        "confidence_calibration": calibration_summary(calibration),
+        "confidence_component_calibration": {
+            component: calibration_summary(row)
+            for component, row in sorted(component_calibration.items())
         },
         "legacy_unclassified": ledger["legacy_unclassified"],
         "overall_maturity_claim": "NOT_DERIVED_FROM_A_SINGLE_CASE_OR_GLOBAL_STREAK",
@@ -696,7 +901,10 @@ def public_learning_summary(root: Path) -> dict[str, Any]:
 
 def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[str, Any]) -> None:
     taxonomy = load_taxonomy(root)
-    if ledger.get("schema") != "QUESTION-LEARNING-LEDGER-V1":
+    if ledger.get("schema") not in {
+        "QUESTION-LEARNING-LEDGER-V1",
+        "QUESTION-LEARNING-LEDGER-V2",
+    }:
         raise TrainingError("wrong learning-ledger schema")
     if ledger.get("taxonomy_sha256") != object_sha256(taxonomy):
         raise TrainingError("learning ledger taxonomy hash mismatch")
@@ -795,7 +1003,7 @@ def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[s
                 "distinct_application_cases": evidence["distinct_decisive_cases"],
             }
         )
-        if evidence.get("status") != derived:
+        if evidence.get("status") != "RETIRED" and evidence.get("status") != derived:
             raise TrainingError(f"stale attributed rule status for {rule_id}")
     calibration = ledger.get("confidence_calibration")
     if not isinstance(calibration, dict) or set(calibration) != {
@@ -848,6 +1056,85 @@ def validate_learning_ledger(root: Path, ledger: dict[str, Any], release: dict[s
         or bin_confidence != calibration["confidence_sum"]
     ):
         raise TrainingError("confidence calibration bins do not match totals")
+    if ledger.get("schema") == "QUESTION-LEARNING-LEDGER-V2":
+        expected_components = {
+            "input_confidence",
+            "natal_structure_confidence",
+            "subject_confidence",
+            "mechanism_confidence",
+            "timing_confidence",
+            "reality_endpoint_confidence",
+            "cross_track_agreement",
+            "top1_top2_separation",
+            "overall_confidence",
+        }
+        component_rows = ledger.get("confidence_component_calibration")
+        if not isinstance(component_rows, dict) or set(component_rows) != expected_components:
+            raise TrainingError("invalid confidence component calibration ledger")
+        for component, row in component_rows.items():
+            if not isinstance(row, dict) or set(row) != {
+                "started_after_first_blind_questions",
+                "questions",
+                "correct",
+                "confidence_sum",
+                "brier_sum",
+                "bins",
+            }:
+                raise TrainingError(
+                    f"invalid confidence component calibration: {component}"
+                )
+            for key in (
+                "started_after_first_blind_questions",
+                "questions",
+                "correct",
+                "confidence_sum",
+            ):
+                if not isinstance(row[key], int) or row[key] < 0:
+                    raise TrainingError(
+                        f"invalid confidence component field: {component}/{key}"
+                    )
+            if (
+                not isinstance(row["brier_sum"], (int, float))
+                or isinstance(row["brier_sum"], bool)
+                or row["brier_sum"] < 0
+                or row["correct"] > row["questions"]
+                or row["confidence_sum"] > row["questions"] * 100
+                or not isinstance(row["bins"], dict)
+            ):
+                raise TrainingError(
+                    f"confidence component totals do not balance: {component}"
+                )
+            component_questions = component_correct = component_confidence = 0
+            for label, bin_row in row["bins"].items():
+                if (
+                    label not in {name for _, _, name in CONFIDENCE_BINS}
+                    or not isinstance(bin_row, dict)
+                    or set(bin_row) != {
+                        "questions",
+                        "correct",
+                        "confidence_sum",
+                    }
+                    or any(
+                        not isinstance(count, int) or count < 0
+                        for count in bin_row.values()
+                    )
+                    or bin_row["correct"] > bin_row["questions"]
+                    or bin_row["confidence_sum"] > bin_row["questions"] * 100
+                ):
+                    raise TrainingError(
+                        f"invalid confidence component bin: {component}/{label}"
+                    )
+                component_questions += bin_row["questions"]
+                component_correct += bin_row["correct"]
+                component_confidence += bin_row["confidence_sum"]
+            if (
+                component_questions != row["questions"]
+                or component_correct != row["correct"]
+                or component_confidence != row["confidence_sum"]
+            ):
+                raise TrainingError(
+                    f"confidence component bins do not match totals: {component}"
+                )
     for key, allowed_tags in (
         ("topic_metrics", taxonomy["topic_tags"]),
         ("reasoning_skill_metrics", taxonomy["reasoning_skill_tags"]),
