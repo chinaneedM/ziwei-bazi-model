@@ -35,7 +35,7 @@ from fortune_training.learning import (
 )
 from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
-from fortune_training.reasoning import frozen_content_hash
+from fortune_training.reasoning import build_completeness_report, frozen_content_hash
 from fortune_training.runtime import (
     _validate_answers,
     apply_learning,
@@ -955,6 +955,28 @@ class RuntimeTests(unittest.TestCase):
 
 
 class ReasoningExecutionLayerTests(unittest.TestCase):
+    def test_high_confidence_unclosed_link_is_counted_as_an_integer(self):
+        report = build_completeness_report(
+            {},
+            [
+                {
+                    "evidence_ledger": [
+                        {
+                            "evidence_family_id": "FAMILY-1",
+                            "decision_impact": "SUPPORTING",
+                        }
+                    ],
+                    "cross_track_arbitration": {"conflict_layers": []},
+                    "counterfactual_analysis": {"decisive_rule_ablations": []},
+                    "confidence_components": {"overall_confidence": 80},
+                    "ziwei_track_seal": {"unresolved_links": ["unclosed endpoint"]},
+                    "bazi_track_seal": {"unresolved_links": []},
+                }
+            ],
+            {"unresolved_conflicts": []},
+        )
+        self.assertEqual(report["high_confidence_with_unclosed_critical_link"], 1)
+
     def assert_freeze_rejected(self, mutate) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
