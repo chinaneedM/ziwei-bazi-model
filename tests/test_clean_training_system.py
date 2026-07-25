@@ -11,7 +11,12 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
-from fortune_training.chat_input import CHAT_INPUT_RELATIVE_PATH, write_chat_input
+from fortune_training.chat_input import (
+    CHAT_INPUT_RELATIVE_PATH,
+    GITHUB_ISSUE_BODY_MAX_CHARACTERS,
+    HANDOFF_TARGET_MAX_CHARACTERS,
+    write_chat_input,
+)
 from fortune_training.cli import build_parser
 from fortune_training.formal import (
     FORMAL_ANSWER_DIR,
@@ -851,6 +856,54 @@ class RuntimeTests(unittest.TestCase):
             self.assertIn(
                 "learning_release_id",
                 handoff["training_issue_input_contract"]["pass_forbidden_fields"],
+            )
+            handoff_template = handoff["handoff_payload_template"]
+            self.assertEqual(
+                set(handoff_template["blind_chart_model"]),
+                {
+                    "schema",
+                    "input_reliability",
+                    "ziwei_static_model",
+                    "bazi_static_model",
+                    "shared_life_structure",
+                },
+            )
+            prediction_template = handoff["prediction_row_template"]
+            self.assertEqual(
+                set(prediction_template),
+                {
+                    "question_id",
+                    "top1",
+                    "top2",
+                    "public_summary",
+                    "question_profile",
+                    "rule_attribution",
+                    "question_semantic_model",
+                    "ziwei_track_seal",
+                    "bazi_track_seal",
+                    "cross_track_arbitration",
+                    "evidence_ledger",
+                    "final_ranking",
+                    "option_comparison_matrix",
+                    "adversarial_review",
+                    "confidence_components",
+                    "counterfactual_analysis",
+                },
+            )
+            constraints = handoff["serialization_constraints"]
+            self.assertTrue(constraints["exact_fields_only"])
+            self.assertTrue(constraints["preflight_required"])
+            self.assertEqual(
+                constraints["github_issue_body_hard_limit_characters"],
+                GITHUB_ISSUE_BODY_MAX_CHARACTERS,
+            )
+            self.assertEqual(
+                constraints["target_max_characters"],
+                HANDOFF_TARGET_MAX_CHARACTERS,
+            )
+            self.assertLess(
+                HANDOFF_TARGET_MAX_CHARACTERS,
+                GITHUB_ISSUE_BODY_MAX_CHARACTERS,
             )
             self.assertEqual(bundle["state_summary"]["current_case_id"], "DEV-EXAMPLE-002")
             self.assertEqual(
