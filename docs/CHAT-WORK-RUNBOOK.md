@@ -4,7 +4,7 @@
 
 新开Chat并发送：
 
-> 开始当前案例下一轮。只读取公共仓库main最新`chat-input/current.json`以及项目内与其manifest匹配的S00–S19只读镜像，禁止读取旧预测、评分、复盘、learning-ledger、答案或密钥。先确认`prediction_allowed=true`。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`；随后逐题完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。输出完整`PREDICTION-WORKBOOK-V2`并创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue；不得读取或写入答案。完成后停止，等待我切换Work。
+> 开始当前案例下一轮。只读取公共仓库main最新`chat-input/current.json`以及项目内与其manifest匹配的S00–S19只读镜像，禁止读取旧预测、评分、复盘、learning-ledger、答案或密钥。先确认`prediction_allowed=true`。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`；随后逐题完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。严格按`chat_work_handoff_contract`的精确模板输出完整`PREDICTION-WORKBOOK-V2`，不得使用近义自定义字段；创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue前，将正文紧凑序列化并确认不超过60,000字符目标和65,536字符硬上限，压缩时不得删结构、证据或改变Top1/Top2；不得读取或写入答案。完成后停止，等待我切换Work。
 
 ## Work闭环
 
@@ -13,6 +13,9 @@
 > 冻结、评分；若未达标则先分类根因，再选择可推广的执行、测量、校准、权重、范围、合并、退休、测试、假设或新规则修正，落库并加入间隔复训队列；只有确认缺少可推广知识时才用NEW_GENERAL_RULE。发布后进入下一新案例。不得修改S00–S19，不得消费未通过完整性预检的案例。
 
 Work读取唯一交接Issue，核对全部绑定并预检完整推理。评分必须晚于冻结；PASS不生成修正，FAIL使用`MODEL-LEARNING-CORRECTION-V3`。复训继续从零推理，但不计首次盲测、独立规则证据或阶段门。
+
+若交接Schema或长度预检失败，必须在读取答案前停止。Schema修复只允许把已冻结内容机械映射
+到精确字段或压缩重复措辞，严禁改变Top1、Top2或借答案重新推理。
 
 ## 维护
 
