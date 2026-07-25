@@ -22,6 +22,8 @@ CHAT_INPUT_RAW_URL = (
     "https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/"
     "main/chat-input/current.json"
 )
+GITHUB_ISSUE_BODY_MAX_CHARACTERS = 65_536
+HANDOFF_TARGET_MAX_CHARACTERS = 60_000
 OPENABLE_STATES = {"READY_FOR_ROUND"}
 CASE_VISIBLE_STATES = {
     "READY_FOR_ROUND",
@@ -29,6 +31,267 @@ CASE_VISIBLE_STATES = {
     "PREDICTION_FROZEN",
     "LEARNING_REQUIRED",
 }
+
+
+def _blind_chart_model_template() -> dict[str, Any]:
+    text = "<REQUIRED_NON_EMPTY_STRING>"
+    return {
+        "schema": "BLIND-CHART-MODEL-V1",
+        "input_reliability": {
+            "gender": text,
+            "calendar": text,
+            "birth_time": text,
+            "birth_place": text,
+            "four_pillars": text,
+            "ziwei_coordinates": text,
+            "major_periods": text,
+            "missing_fields": [],
+            "conflicting_fields": [],
+            "unreliable_fields": [],
+            "forbidden_inferences": [],
+        },
+        "ziwei_static_model": {
+            "chart_facts": [text],
+            "palace_and_star_structures": [text],
+            "transformations_and_lines": [text],
+            "advanced_method_applicability": [text],
+            "structural_conflicts": [],
+            "limitations": [text],
+        },
+        "bazi_static_model": {
+            "chart_facts": [text],
+            "seasonal_strength_candidates": [text],
+            "pattern_candidates": [text],
+            "method_competition": [text],
+            "relations_and_structural_changes": [text],
+            "useful_harmful_candidates": [text],
+            "unresolved_disputes": [],
+            "limitations": [text],
+        },
+        "shared_life_structure": {
+            "personality_and_behavior": [text],
+            "family_roles": [text],
+            "marriage_capacity": [text],
+            "children_axis": [text],
+            "career_and_wealth": [text],
+            "health_capacity": [text],
+            "migration_assets_social": [text],
+            "period_themes": [text],
+            "major_conflicts": [],
+            "unknowns": [],
+        },
+    }
+
+
+def _cross_question_consistency_template() -> dict[str, Any]:
+    return {
+        "checks": [
+            {
+                "question_id": "<QUESTION_ID>",
+                "consistent": True,
+                "conflicts": [],
+                "resolution": "<REQUIRED_NON_EMPTY_STRING>",
+            }
+        ],
+        "unresolved_conflicts": [],
+    }
+
+
+def _replay_remediation_template() -> dict[str, Any]:
+    return {
+        "original_root_causes": ["<ROOT_CAUSE>"],
+        "remediation_type": "<REMEDIATION_TYPE>",
+        "new_idea_executed": "<REQUIRED_NON_EMPTY_STRING>",
+        "changed_steps": ["<REQUIRED_NON_EMPTY_STRING>"],
+        "predicted_mechanism_of_improvement": "<REQUIRED_NON_EMPTY_STRING>",
+        "new_error_risks": [],
+    }
+
+
+def _prediction_row_template() -> dict[str, Any]:
+    text = "<REQUIRED_NON_EMPTY_STRING>"
+    option_id = "<OPTION_ID>"
+    evidence_id = "<EVIDENCE_ID>"
+    ranking = ["<ALL_OPTION_IDS_IN_FINAL_ORDER>"]
+    return {
+        "question_id": "<QUESTION_ID>",
+        "top1": "<OPTION_ID>",
+        "top2": "<OPTION_ID>",
+        "public_summary": text,
+        "question_profile": {
+            "topic_tags": ["<TAXONOMY_VALUE>"],
+            "subject_tags": ["<TAXONOMY_VALUE>"],
+            "time_scope_tags": ["<TAXONOMY_VALUE>"],
+            "endpoint_tags": ["<TAXONOMY_VALUE>"],
+            "reasoning_skill_tags": ["<TAXONOMY_VALUE>"],
+            "source_routes": ["<S00_TO_S19>"],
+            "applied_rule_ids": [],
+        },
+        "rule_attribution": {
+            "decisive_rule_ids": [],
+            "supporting_rule_ids": [],
+            "counterevidence_rule_ids": [],
+            "decision_changed": False,
+        },
+        "question_semantic_model": {
+            "target": text,
+            "subject": text,
+            "time_range": text,
+            "action_subject": text,
+            "reality_object": text,
+            "event_process": text,
+            "completion_endpoint": text,
+            "magnitude": text,
+            "is_composite_narrative": False,
+            "option_atoms": {
+                option_id: {
+                    "required_atoms": [text],
+                    "distinctive_atoms": [text],
+                    "severe_irreversible_or_high_precision_atoms": [],
+                }
+            },
+            "shared_non_discriminating_atoms": [],
+            "ambiguities": [],
+        },
+        "ziwei_track_seal": {
+            "top1": "<OPTION_ID>",
+            "top2": "<OPTION_ID>",
+            "ranking": ranking,
+            "core_structure": text,
+            "dynamic_trigger": text,
+            "endpoint_chain": {
+                "subject": text,
+                "action": text,
+                "object": text,
+                "endpoint": text,
+            },
+            "supporting_evidence_ids": [evidence_id],
+            "contradicting_evidence_ids": [],
+            "alternative_explanations": [text],
+            "unresolved_links": [],
+            "capability_ceiling": text,
+            "confidence": 0,
+        },
+        "bazi_track_seal": {
+            "top1": "<OPTION_ID>",
+            "top2": "<OPTION_ID>",
+            "ranking": ranking,
+            "strength_and_pattern": text,
+            "method_competition": text,
+            "luck_timing": text,
+            "endpoint_chain": {
+                "subject": text,
+                "action": text,
+                "object": text,
+                "endpoint": text,
+            },
+            "supporting_evidence_ids": [evidence_id],
+            "contradicting_evidence_ids": [],
+            "alternative_explanations": [text],
+            "unresolved_links": [],
+            "capability_ceiling": text,
+            "confidence": 0,
+        },
+        "cross_track_arbitration": {
+            "agreement_layers": [],
+            "conflict_layers": [],
+            "conflict_origin": text,
+            "shared_reality_assumption_risk": text,
+            "stronger_track_for_topic": "UNRESOLVED",
+            "decision": text,
+            "confidence_reduction_required": True,
+        },
+        "evidence_ledger": [
+            {
+                "evidence_id": evidence_id,
+                "track": "<ZIWEI_OR_BAZI_OR_REALITY>",
+                "layer": "<NATAL_PERIOD_YEAR_MONTH_OR_REALITY>",
+                "chart_fact": text,
+                "source_route": "<DECLARED_S00_TO_S19>",
+                "knowledge_point": text,
+                "applicability_conditions": [text],
+                "conditions_satisfied": [text],
+                "supports_option_atoms": [f"{option_id}:<ATOM>"],
+                "contradicts_option_atoms": [],
+                "alternative_explanation": text,
+                "evidence_family_id": "<EVIDENCE_FAMILY_ID>",
+                "independence_status": "<INDEPENDENT_SAME_FAMILY_OR_NEUTRAL_BACKGROUND>",
+                "reliability": "<HIGH_MEDIUM_LOW_OR_UNKNOWN>",
+                "capability_ceiling": text,
+                "decision_impact": "<DECISIVE_SUPPORTING_COUNTEREVIDENCE_OR_NEUTRAL>",
+                "limitations": text,
+            }
+        ],
+        "final_ranking": ranking,
+        "option_comparison_matrix": {
+            "options": {
+                option_id: {
+                    "required_atom_completion": [],
+                    "distinctive_atom_completion": [],
+                    "severe_atoms_have_independent_evidence": False,
+                    "ziwei_support_evidence_ids": [],
+                    "bazi_support_evidence_ids": [],
+                    "reality_closure": text,
+                    "timing_closure": text,
+                    "direct_counterevidence_ids": [],
+                    "unknown_atoms": [],
+                    "shared_background_zeroed": True,
+                    "final_rank": 1,
+                    "final_rank_reason": text,
+                }
+            },
+            "pairwise": [
+                {
+                    "left": "<OPTION_ID>",
+                    "right": "<OPTION_ID>",
+                    "winner": "<OPTION_ID>",
+                    "reason": text,
+                }
+            ],
+        },
+        "adversarial_review": {
+            "top1_weakest_required_atom": text,
+            "strongest_competitor": "<TOP2_OPTION_ID>",
+            "strongest_reversal_evidence_ids": [evidence_id],
+            "ignored_alternative_explanations": [text],
+            "option_wording_inducement": text,
+            "annual_signal_overweighting": text,
+            "bazi_posthoc_agreement": text,
+            "duplicate_evidence_stacking": text,
+            "background_as_endpoint": text,
+            "participation_as_action": text,
+            "valence_as_mechanism": text,
+            "known_rule_execution_omissions": text,
+            "precision_beyond_capability": text,
+            "reversal_test": {
+                "removed_evidence_ids": [evidence_id],
+                "ranking_before": ranking,
+                "ranking_after_removal": ranking,
+                "top2_best_explanation": text,
+                "top1_survives": False,
+                "reason": text,
+            },
+        },
+        "confidence_components": {
+            "input_confidence": 0,
+            "natal_structure_confidence": 0,
+            "subject_confidence": 0,
+            "mechanism_confidence": 0,
+            "timing_confidence": 0,
+            "reality_endpoint_confidence": 0,
+            "cross_track_agreement": 0,
+            "top1_top2_separation": 0,
+            "overall_confidence": 0,
+        },
+        "counterfactual_analysis": {
+            "full_model_ranking": ranking,
+            "canonical_only_ranking": ranking,
+            "ziwei_only_ranking": ranking,
+            "bazi_only_ranking": ranking,
+            "fused_ranking": ranking,
+            "decisive_rule_ablations": [],
+        },
+    }
 
 
 def compose_chat_input(root: Path) -> dict[str, Any]:
@@ -300,10 +563,31 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "canonical_source_manifest_sha256": object_sha256(manifest),
                     "effective_model_input_sha256": effective_model_input_sha256,
                 },
-                "blind_chart_model": {},
-                "cross_question_consistency": {},
-                "replay_remediation": None,
+                "blind_chart_model": _blind_chart_model_template(),
+                "cross_question_consistency": _cross_question_consistency_template(),
+                "replay_remediation": (
+                    _replay_remediation_template()
+                    if state.get("active_replay_case_id") == current_case_id
+                    else None
+                ),
                 "predictions": [],
+            },
+            "prediction_row_template": _prediction_row_template(),
+            "serialization_constraints": {
+                "encoding": "UTF-8_JSON_WITHOUT_CODE_FENCES",
+                "exact_fields_only": True,
+                "github_issue_body_hard_limit_characters": (
+                    GITHUB_ISSUE_BODY_MAX_CHARACTERS
+                ),
+                "target_max_characters": HANDOFF_TARGET_MAX_CHARACTERS,
+                "preflight_required": True,
+                "preflight_rule": (
+                    "Serialize compact JSON and count Unicode characters before creating "
+                    "the Issue. Keep every required field and every substantive evidence row, "
+                    "but deduplicate repeated prose and shorten wording until the body is at "
+                    f"most {HANDOFF_TARGET_MAX_CHARACTERS} characters. Never split one handoff "
+                    "across Issues and never change Top1 or Top2 to meet the size budget."
+                ),
             },
             "handoff_forbidden_content": [
                 "ANSWER_BEARING_FIELDS",
