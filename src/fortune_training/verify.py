@@ -19,6 +19,10 @@ from .policy import (
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
     load_and_validate_policy,
 )
+from .prediction_access import (
+    build_prediction_access_contract,
+    load_prediction_tool_policy,
+)
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
 
@@ -336,6 +340,50 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
         raise TrainingError("a round id appears more than once")
     if state.get("round_count") != len(rounds):
         raise TrainingError("round_count does not match the case round lists")
+    non_executed_rounds = state.get("non_executed_rounds", [])
+    if not isinstance(non_executed_rounds, list):
+        raise TrainingError("non_executed_rounds must be a list")
+    non_executed_ids: list[str] = []
+    for record in non_executed_rounds:
+        if not isinstance(record, dict) or set(record) != {
+            "round_id",
+            "case_id",
+            "status",
+            "prediction_frozen",
+            "scored",
+            "counts_toward_first_blind",
+            "prediction_directions_retained",
+            "reason",
+            "recorded_at",
+        }:
+            raise TrainingError("invalid non-executed round record")
+        if record.get("status") != "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED":
+            raise TrainingError("non-executed round has the wrong status")
+        if any(
+            record.get(field) is not False
+            for field in (
+                "prediction_frozen",
+                "scored",
+                "counts_toward_first_blind",
+                "prediction_directions_retained",
+            )
+        ):
+            raise TrainingError("contaminated pre-freeze round retained training effects")
+        if record.get("case_id") in group["cases"]:
+            raise TrainingError("contaminated case remains in the first-blind group")
+        non_executed_ids.append(record.get("round_id"))
+    if len(non_executed_ids) != len(set(non_executed_ids)):
+        raise TrainingError("duplicate non-executed round id")
+    if set(non_executed_ids) & set(rounds):
+        raise TrainingError("non-executed round also appears as an executed round")
+    round_sequence = state.get("round_sequence")
+    if round_sequence is not None:
+        if (
+            not isinstance(round_sequence, int)
+            or isinstance(round_sequence, bool)
+            or round_sequence != len(rounds) + len(non_executed_rounds)
+        ):
+            raise TrainingError("round_sequence does not balance executed and non-executed rounds")
     for round_id in rounds:
         if not (root / "training" / "runs" / round_id / "round.json").is_file():
             raise TrainingError(f"state references a missing round: {round_id}")
@@ -350,6 +398,7 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
 def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str, Any]:
     root = root.resolve()
     policy = load_and_validate_policy(root / "config" / "training-policy.json")
+    prediction_tool_policy = load_prediction_tool_policy(root)
     taxonomy = load_taxonomy(root)
     source_policy = _validate_source_policy(root)
     _validate_answer_policy(root)
@@ -455,6 +504,10 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     chat_input = load_json(chat_input_path)
     if chat_input != compose_chat_input(root):
         raise TrainingError("chat-input/current.json is stale or contains non-current material")
+    if chat_input.get("prediction_access_contract") != build_prediction_access_contract(
+        root, state
+    ):
+        raise TrainingError("chat prediction access contract is stale or not fail-closed")
 
     encrypted_dir = root / "answer-vault" / "encrypted"
     legacy_answer_count = sum(
@@ -540,6 +593,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "external_post_freeze_answer_supported": True,
         "controller_ready": True,
         "chat_input_ready": True,
+        "prediction_tool_policy": prediction_tool_policy["schema"],
         "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
         "knowledge_cards_ready": chat_input["current_model"]["knowledge_cards"]["card_count"] >= 23,
         "knowledge_card_count": chat_input["current_model"]["knowledge_cards"]["card_count"],

@@ -4,7 +4,7 @@
 
 新开Chat并发送：
 
-> 开始当前案例下一轮。只读取公共仓库main最新`chat-input/current.json`以及项目内与其manifest匹配的S00–S19只读镜像，禁止读取旧预测、评分、复盘、learning-ledger、答案或密钥。先确认`prediction_allowed=true`。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`；随后逐题完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。严格按`chat_work_handoff_contract`的精确模板输出完整`PREDICTION-WORKBOOK-V2`，不得使用近义自定义字段；创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue前，将正文紧凑序列化并确认不超过60,000字符目标和65,536字符硬上限，压缩时不得删结构、证据或改变Top1/Top2；不得读取或写入答案。完成后停止，等待我切换Work。
+> 开始当前案例下一轮。先读取公共仓库main最新`config/prediction-tool-policy.json`并执行默认拒绝门禁。预测阶段只可用GitHub单文件读取访问main最新`training/state.json`、`chat-input/current.json`、`sources/canonical/`、当前发布实际引用的`model-learning/`文件及白名单配置；硬性禁止File Library、附件、历史上传、Personal Context、跨对话记忆、仓库搜索、提交/历史/差异/目录枚举、旧预测、旧揭盲、旧诊断、learning-ledger、答案或密钥。任一违规立即停止且不得冻结或评分。先确认`prediction_allowed=true`。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`；随后逐题完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。严格按`chat_work_handoff_contract`的精确模板输出完整`PREDICTION-WORKBOOK-V2`，不得使用近义自定义字段；创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue前，将正文紧凑序列化并确认不超过60,000字符目标和65,536字符硬上限，压缩时不得删结构、证据或改变Top1/Top2；不得读取或写入答案。完成后停止，等待我切换Work。
 
 ## Work闭环
 

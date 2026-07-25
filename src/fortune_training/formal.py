@@ -219,7 +219,25 @@ def _formal_group(root: Path) -> dict[str, Any]:
         "partition_id": "DEVELOPMENT",
         "case_order": schedule,
         "cases": {case_id: cases[case_id] for case_id in schedule},
-        "excluded_revealed_or_source_exposed_cases": sorted(set(partition["case_order"]) - set(schedule)),
+        "excluded_first_blind_cases": sorted(
+            set(partition["case_order"]) - set(schedule)
+        ),
+        "exclusion_reasons": {
+            **{
+                case_id: "HISTORICAL_REVEALED"
+                for case_id in partition.get("historical_case_ids", [])
+            },
+            **{
+                case_id: "SOURCE_EXPOSED"
+                for case_id in partition.get("source_exposed_case_ids", [])
+            },
+            **{
+                case_id: "PRE_FREEZE_CONTEXT_CONTAMINATION"
+                for case_id in partition.get(
+                    "contaminated_development_reference_case_ids", []
+                )
+            },
+        },
     }
 
 
@@ -266,6 +284,8 @@ def activate_formal_controller(
         "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
         "active_round_id": None,
         "round_count": 0,
+        "round_sequence": 0,
+        "non_executed_rounds": [],
         "round_id_prefix": "FORMAL-ROUND",
         "round_limit": None,
         "first_blind_cases_closed": 0,

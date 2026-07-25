@@ -278,6 +278,8 @@ def start_round(root: Path, round_id: str) -> dict[str, Any]:
     state["active_round_id"] = round_id
     state["status"] = "AWAITING_PREDICTION_FREEZE"
     state["round_count"] += 1
+    if "round_sequence" in state:
+        state["round_sequence"] += 1
     if evaluation_kind == "FIRST_BLIND":
         case_state["first_blind_round_id"] = round_id
     else:

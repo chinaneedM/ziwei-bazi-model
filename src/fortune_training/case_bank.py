@@ -197,6 +197,16 @@ def validate_case_bank(root: Path) -> dict[str, Any]:
         raise TrainingError("development source-exposure list is stale")
     if source_exposed & set(development.get("first_blind_schedule", [])):
         raise TrainingError("source-exposed cases entered the first-blind schedule")
+    contaminated_references = set(
+        development.get("contaminated_development_reference_case_ids", [])
+    )
+    if any(
+        partition_members.get(case_id) != "DEVELOPMENT"
+        for case_id in contaminated_references
+    ):
+        raise TrainingError("contaminated reference cases must remain development-only")
+    if contaminated_references & set(development.get("first_blind_schedule", [])):
+        raise TrainingError("contaminated reference cases entered the first-blind schedule")
     return {
         "status": "PASS",
         "corpus_id": manifest["corpus_id"],
@@ -213,6 +223,9 @@ def validate_case_bank(root: Path) -> dict[str, Any]:
         "exact_source_stem_overlap_questions": overlap.get("exact_stem_question_count"),
         "high_risk_source_overlap_questions": overlap.get("high_risk_question_count"),
         "source_exposed_development_cases": sorted(source_exposed),
+        "contaminated_development_reference_cases": sorted(
+            contaminated_references
+        ),
     }
 
 

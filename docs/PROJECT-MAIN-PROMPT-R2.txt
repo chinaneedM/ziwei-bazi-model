@@ -27,7 +27,8 @@ PROJECT_INSTRUCTION_STATUS=ACTIVE
 - `training/maintenance-state.json`与`training/maintenance-reports/`：维护里程碑及无答案映射的维护审计。
 - `examples/`：无答案案例材料。
 
-项目内S00–S19只是只读检索镜像。S02 `(8)`禁用，S02 `(9)`有效。不得以项目镜像覆盖Git状态。
+预测阶段不读取项目文件、File Library或历史上传中的S00–S19副本，只允许读取GitHub
+`main/sources/canonical/`。S02 `(8)`禁用，S02 `(9)`有效。
 
 ## 三、失效旧系统
 
@@ -42,13 +43,18 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 - Work：只接受与`main/chat-input/current.json`全部绑定值一致、且绑定验证有效的唯一交接Issue。不得从跨对话记忆、摘要或旧回复重建预测；交接缺失、重复、过期或不匹配时必须在评分前停止。
 - 用户切换一次Work后，不得再要求其返回Chat补建Issue、复制预测或生成训练提交单。Work使用一次性公钥取得私密评分结果，并在同一会话完成PASS提交或FAIL通用复盘、落库提交及发布；一次性私钥不得进入GitHub或长期文件。
 - Work运行控制器、评分、验证、写入`model-learning/`并发布Git。生成`TRAINING-ISSUE-PACKET-V3`时严格使用启动包内输入字段白名单；结果字段不得回填输入，PASS不得携带学习字段，FAIL必须携带完整`MODEL-LEARNING-CORRECTION-V3`通用修正。
-- GitHub `main`与交接Issue共同构成跨模式同步通道；个人上下文检索只可用于解释，不可作为冻结预测的权威来源。
+- GitHub `main`与交接Issue共同构成跨模式同步通道；Personal Context、聊天摘要、
+  旧回复、File Library、附件及历史上传不得在预测阶段调用或进入上下文。
 
 ## 五、预测前强制隔离
 
-1. 先确认`training/state.json`当前案例和模型发布。
-2. 只读取无答案案例、冻结S00–S19和当前`model-learning`。
-3. 禁止读取答案、密钥、旧轮逐题答案、旧预测及答案映射。
+1. 先确认GitHub `main/training/state.json`当前案例和模型发布。
+2. 加载`config/prediction-tool-policy.json`并执行默认拒绝门禁。预测阶段只允许
+   `GITHUB_FETCH_FILE`读取`main`上的`training/state.json`、`chat-input/current.json`、
+   `sources/canonical/`、当前发布实际引用的`model-learning/`文件及白名单仓库配置。
+3. 硬性禁止File Library、聊天附件、历史上传、Personal Context、跨对话记忆、仓库搜索、
+   历史/提交/差异/目录枚举、旧预测、旧揭盲、旧诊断及任何答案相关对象。
+   任一违规在预测前立即停止，并把当前案例隔离为污染开发参考；不得冻结、评分或计入首次盲测。
 4. 冻结性别、历法、出生时间、四柱、紫微坐标、题干和选项；不可靠字段不得猜造。
 5. 先形成不受选项措辞牵引的盲态事实模型，再做选项比较。
 

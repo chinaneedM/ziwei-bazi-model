@@ -1,6 +1,9 @@
 # Chat→Work 机器交接协议 V2
 
-跨模式切换不依赖对话记忆。Chat只读取当前`chat-input/current.json`，完成全部结构化推理后创建一个无答案交接 Issue；Work只依据当前安全包与这张唯一凭证继续。
+跨模式切换不依赖对话记忆。Chat预测阶段先执行
+`config/prediction-tool-policy.json`，只用GitHub单文件读取访问`main`白名单路径；
+File Library、附件、历史上传、Personal Context及旧训练对象均默认拒绝。
+完成全部结构化推理后创建一个无答案交接 Issue；Work只依据当前安全包与这张唯一凭证继续。
 
 ## 唯一凭证
 
@@ -33,7 +36,8 @@ Work在访问答案前必须验证：
 7. 不存在答案、评分或学习字段。
 8. Issue正文不超过65,536字符，且已通过紧凑序列化预检。
 
-任一项失败必须在`start_round`之前停止，因此无效交接不会消费活动案例。禁止用Personal Context、聊天摘要或旧回复补齐字段。
+任一项失败必须在`start_round`之前停止，因此无效交接不会消费活动案例。禁止用
+Personal Context、聊天摘要、旧回复、File Library、附件或历史上传补齐字段。
 
 ## 正式训练提交
 

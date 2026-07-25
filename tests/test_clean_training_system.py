@@ -40,6 +40,7 @@ from fortune_training.learning import (
 )
 from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
+from fortune_training.prediction_access import assert_prediction_access
 from fortune_training.reasoning import build_completeness_report, frozen_content_hash
 from fortune_training.runtime import (
     _validate_answers,
@@ -64,6 +65,9 @@ from fortune_training.verify import build_source_manifest, verify_repository
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TAXONOMY = json.loads((PROJECT_ROOT / "config" / "question-taxonomy.json").read_text())
 POLICY = json.loads((PROJECT_ROOT / "config" / "training-policy.json").read_text())
+PREDICTION_TOOL_POLICY = json.loads(
+    (PROJECT_ROOT / "config" / "prediction-tool-policy.json").read_text()
+)
 
 
 def write_json(path: Path, value: object) -> None:
@@ -123,6 +127,10 @@ class RuntimeFixture:
             source.parent.mkdir(parents=True, exist_ok=True)
             source.write_text(f"general source {index}\n", encoding="utf-8")
         write_json(self.root / "config" / "training-policy.json", POLICY)
+        write_json(
+            self.root / "config" / "prediction-tool-policy.json",
+            PREDICTION_TOOL_POLICY,
+        )
         write_json(self.root / "config" / "question-taxonomy.json", TAXONOMY)
         source_manifest = build_source_manifest(self.root)
         write_json(
@@ -918,9 +926,105 @@ class RuntimeTests(unittest.TestCase):
                 "DERIVED_ROUTING_AND_PROCEDURE_ONLY",
             )
             self.assertNotIn("general reasoning", serialized)
+            access = bundle["prediction_access_contract"]
+            self.assertEqual(access["enforcement"], "DEFAULT_DENY_FAIL_CLOSED")
+            self.assertEqual(access["allowed_tool_classes"], ["GITHUB_FETCH_FILE"])
+            self.assertFalse(access["file_library_allowed"])
+            self.assertFalse(access["chat_attachments_allowed"])
+            self.assertFalse(access["historical_uploads_allowed"])
+            self.assertFalse(access["cross_conversation_memory_allowed"])
             self.assertNotIn('"top1_correct"', serialized)
             self.assertNotIn('"correct_option"', serialized)
 
+    def test_prediction_access_is_main_only_and_fail_closed(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            state = json.loads((fixture.root / "training/state.json").read_text())
+            allowed = {
+                "tool_class": "GITHUB_FETCH_FILE",
+                "context_source": "GITHUB_MAIN",
+                "repository": "chinaneedM/ziwei-bazi-model",
+                "ref": "main",
+            }
+            for path in (
+                "training/state.json",
+                "chat-input/current.json",
+                "sources/canonical/S03_test.txt",
+                "model-learning/releases/MODEL-BASELINE-001.json",
+                "config/training-policy.json",
+            ):
+                assert_prediction_access(
+                    fixture.root,
+                    state,
+                    path=path,
+                    **allowed,
+                )
+            denied_requests = (
+                {**allowed, "path": "answer-vault/formal/CASE-001.json.fernet"},
+                {**allowed, "path": "training/runs/ROUND-001/round.json"},
+                {**allowed, "path": "model-learning/releases/MODEL-LEARNING-015.json"},
+                {**allowed, "path": "case-bank/cases/CASE-001.json"},
+                {**allowed, "path": "README.md"},
+                {
+                    **allowed,
+                    "tool_class": "FILE_LIBRARY_READ",
+                    "context_source": "FILE_LIBRARY",
+                    "path": "sources/canonical/S03_test.txt",
+                },
+                {
+                    **allowed,
+                    "tool_class": "ATTACHMENT_FILE_READ",
+                    "context_source": "CHAT_ATTACHMENTS",
+                    "path": "sources/canonical/S03_test.txt",
+                },
+                {
+                    **allowed,
+                    "tool_class": "PERSONAL_CONTEXT_SEARCH",
+                    "context_source": "PERSONAL_CONTEXT",
+                    "path": "training/state.json",
+                },
+                {**allowed, "ref": "old-branch", "path": "training/state.json"},
+            )
+            for request in denied_requests:
+                with self.subTest(request=request):
+                    with self.assertRaises(TrainingError):
+                        assert_prediction_access(
+                            fixture.root,
+                            state,
+                            **request,
+                        )
+
+    def test_non_executed_contaminated_round_is_skipped_without_counting(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            state_path = fixture.root / "training/state.json"
+            state = json.loads(state_path.read_text())
+            state["round_id_prefix"] = "FORMAL-ROUND"
+            state["round_sequence"] = 1
+            state["non_executed_rounds"] = [
+                {
+                    "round_id": "FORMAL-ROUND-001",
+                    "case_id": "QUARANTINED-CASE",
+                    "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+                    "prediction_frozen": False,
+                    "scored": False,
+                    "counts_toward_first_blind": False,
+                    "prediction_directions_retained": False,
+                    "reason": "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION",
+                    "recorded_at": "2026-07-25T00:00:00Z",
+                }
+            ]
+            write_json(state_path, state)
+            write_chat_input(fixture.root)
+            started = start_round(fixture.root, "FORMAL-ROUND-002")
+            updated = json.loads(state_path.read_text())
+            self.assertEqual(started["round_id"], "FORMAL-ROUND-002")
+            self.assertEqual(updated["round_count"], 1)
+            self.assertEqual(updated["round_sequence"], 2)
+            self.assertEqual(
+                updated["non_executed_rounds"][0]["status"],
+                "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+            )
     def test_scoring_before_freeze_and_second_freeze_are_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -1585,7 +1689,7 @@ class FormalActivationTests(unittest.TestCase):
             self.assertTrue(finalized["transport_material_removed"])
             result = verify_repository(root, require_answers=True)
             self.assertEqual(result["answer_envelopes"], 107)
-            self.assertEqual(result["active_controller_group"]["cases"], 63)
+            self.assertEqual(result["active_controller_group"]["cases"], 62)
             self.assertEqual(result["active_controller_group"]["mode"], "FORMAL_CASE_BANK")
 
 
