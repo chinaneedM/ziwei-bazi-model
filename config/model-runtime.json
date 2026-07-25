@@ -15,12 +15,18 @@
     "validated_and_provisional_rules_with_matching_scope"
   ],
   "chat_source_access": {
-    "mode": "PROJECT_READ_ONLY_RETRIEVAL",
+    "mode": "GITHUB_MAIN_ALLOWLIST_ONLY",
+    "repository": "chinaneedM/ziwei-bazi-model",
+    "ref": "main",
+    "tool_policy": "config/prediction-tool-policy.json",
     "required_source_ids": [
       "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
       "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19"
     ],
     "source_text_embedded_in_chat_input": false,
+    "file_library_allowed": false,
+    "historical_uploads_allowed": false,
+    "cross_conversation_memory_allowed": false,
     "fail_closed_when_project_sources_unavailable": true
   },
   "case_specific_memory_allowed": false,

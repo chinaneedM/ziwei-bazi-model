@@ -54,7 +54,7 @@ def object_sha256(value: Any) -> str:
 def next_round_id(state: dict[str, Any]) -> str:
     prefix = state.get("round_id_prefix", "ROUND")
     require_safe_id(prefix, "round_id_prefix")
-    count = state.get("round_count")
+    count = state.get("round_sequence", state.get("round_count"))
     if not isinstance(count, int) or isinstance(count, bool) or count < 0:
         raise TrainingError("round_count must be a non-negative integer")
     return f"{prefix}-{count + 1:03d}"

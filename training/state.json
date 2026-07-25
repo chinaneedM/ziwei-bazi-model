@@ -312,14 +312,6 @@
       "round_ids": [],
       "status": "PENDING"
     },
-    "CASE-060": {
-      "first_blind_passed": null,
-      "first_blind_round_id": null,
-      "remediation_status": "NOT_EVALUATED",
-      "replay_round_ids": [],
-      "round_ids": [],
-      "status": "ACTIVE"
-    },
     "CASE-062": {
       "first_blind_passed": null,
       "first_blind_round_id": null,
@@ -499,7 +491,7 @@
       "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
       "round_ids": [],
-      "status": "PENDING"
+      "status": "ACTIVE"
     },
     "CASE-101": {
       "first_blind_passed": null,
@@ -564,11 +556,25 @@
   "group_path": "training/formal-development-group.json",
   "independent_pass_streak": 0,
   "mode": "FORMAL_CASE_BANK",
+  "non_executed_rounds": [
+    {
+      "case_id": "CASE-060",
+      "counts_toward_first_blind": false,
+      "prediction_directions_retained": false,
+      "prediction_frozen": false,
+      "reason": "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION",
+      "recorded_at": "2026-07-25T16:48:38Z",
+      "round_id": "FORMAL-ROUND-017",
+      "scored": false,
+      "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
+    }
+  ],
   "policy_path": "config/training-policy.json",
   "required_consecutive_independent_passes": 3,
   "round_count": 16,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
+  "round_sequence": 17,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [

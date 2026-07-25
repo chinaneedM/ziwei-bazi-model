@@ -14,6 +14,7 @@ from .policy import (
     MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
 )
+from .prediction_access import build_prediction_access_contract
 from .util import atomic_write_json, load_json, next_round_id, object_sha256, sha256_file
 
 
@@ -658,39 +659,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             },
         },
         "canonical_source_manifest": manifest,
-        "prediction_access_contract": {
-            "git_read_scope": "THIS_EXACT_FILE_ONLY",
-            "permitted_git_url": CHAT_INPUT_RAW_URL,
-            "canonical_sources": (
-                "Use only the project S00-S19 read-only mirrors whose source ids match "
-                "canonical_source_manifest; S02 (8) is forbidden and S02 (9) is active."
-            ),
-            "project_source_precondition": (
-                model_runtime.get("chat_source_access")
-                if model_runtime is not None
-                else {
-                    "mode": "LEGACY_TEST_FIXTURE",
-                    "fail_closed_when_project_sources_unavailable": True,
-                }
-            ),
-            "forbidden_git_operations": [
-                "repository search",
-                "code search",
-                "commit search or commit inspection",
-                "history, diff, branch, tree, or directory listing",
-                "opening training/runs, prediction-freeze, score, review, relay-results, learning-ledger, or answer-vault",
-            ],
-            "forbidden_prediction_inputs": [
-                "old predictions",
-                "old answer mappings",
-                "scores or detailed reviews",
-                "answer envelopes or keys",
-            ],
-            "unexpected_output_rule": (
-                "If any tool unexpectedly returns an old prediction, answer mapping, score, or review, "
-                "stop without predicting and discard that Chat conversation."
-            ),
-        },
+        "prediction_access_contract": build_prediction_access_contract(root, state),
         "contains_old_predictions": False,
         "contains_answers": False,
         "contains_scores_or_reviews": False,

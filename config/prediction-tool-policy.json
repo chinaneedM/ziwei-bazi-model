@@ -1,0 +1,29 @@
+{
+  "allowed_repository": "chinaneedM/ziwei-bazi-model",
+  "allowed_ref": "main",
+  "allowed_tool_classes": [
+    "GITHUB_FETCH_FILE"
+  ],
+  "default_decision": "DENY",
+  "forbidden_context_sources": [
+    "CHAT_ATTACHMENTS",
+    "CROSS_CONVERSATION_MEMORY",
+    "FILE_LIBRARY",
+    "HISTORICAL_UPLOADS",
+    "PERSONAL_CONTEXT",
+    "PRIOR_ASSISTANT_OUTPUT"
+  ],
+  "forbidden_tool_classes": [
+    "ATTACHMENT_FILE_READ",
+    "FILE_LIBRARY_READ",
+    "GITHUB_COMMIT_INSPECTION",
+    "GITHUB_DIFF",
+    "GITHUB_HISTORY",
+    "GITHUB_REPOSITORY_SEARCH",
+    "GITHUB_TREE_LISTING",
+    "PERSONAL_CONTEXT_SEARCH"
+  ],
+  "phase": "PREDICTION",
+  "schema": "FORMAL-PREDICTION-TOOL-POLICY-V1",
+  "violation_action": "ABORT_BEFORE_PREDICTION_AND_QUARANTINE_CASE"
+}

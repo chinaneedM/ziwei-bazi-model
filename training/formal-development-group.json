@@ -11,7 +11,6 @@
     "CASE-022",
     "CASE-014",
     "CASE-052",
-    "CASE-060",
     "CASE-098",
     "CASE-104",
     "CASE-102",
@@ -100,7 +99,6 @@
     "CASE-054": "case-bank/cases/CASE-054.json",
     "CASE-057": "case-bank/cases/CASE-057.json",
     "CASE-058": "case-bank/cases/CASE-058.json",
-    "CASE-060": "case-bank/cases/CASE-060.json",
     "CASE-062": "case-bank/cases/CASE-062.json",
     "CASE-065": "case-bank/cases/CASE-065.json",
     "CASE-066": "case-bank/cases/CASE-066.json",
@@ -129,10 +127,16 @@
     "CASE-104": "case-bank/cases/CASE-104.json",
     "CASE-107": "case-bank/cases/CASE-107.json"
   },
-  "excluded_revealed_or_source_exposed_cases": [
+  "excluded_first_blind_cases": [
     "CASE-001",
-    "CASE-029"
+    "CASE-029",
+    "CASE-060"
   ],
+  "exclusion_reasons": {
+    "CASE-001": "HISTORICAL_REVEALED",
+    "CASE-029": "SOURCE_EXPOSED",
+    "CASE-060": "PRE_FREEZE_CONTEXT_CONTAMINATION"
+  },
   "group_id": "FORMAL-DEVELOPMENT-001",
   "partition_id": "DEVELOPMENT",
   "schema": "TRAINING-GROUP-V1"
