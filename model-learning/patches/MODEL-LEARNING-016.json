@@ -1,0 +1,32 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "correction": {
+      "applicability": "适用于结构化交接、相邻年份或共享选项题组，以及Top1含多个已承认未闭合原子的异质选择。",
+      "capability_ceiling": "只保证结构、题间独立和证据角色一致；不能制造现实记录或证明具体人物、事件、职业与数值终点。",
+      "expected_effect": "减少Schema运行失败、跨题故事造成的人物年份错配，以及文字承认终点缺口但权重仍支持Top1；先提升Top2覆盖与可诊断性，再由未来不同案例验证Top1。",
+      "limitations": "不把简单或保守候选自动当真；所有候选均缺证时只按专属新增量与附加原子负担排序并降置信。Schema修复只能映射既有冻结内容，不得改变Top1或Top2。",
+      "reasoning": "失败来自执行层：交接字段近似、跨题排他叙事、以及缺口规则角色不一致。硬门比单案新增断语更可推广，也不保存答案映射。",
+      "source_basis": "S02现代语义与量级；S03双轨独立；S04/S09人物太极；S08/S10/S14/S15分层与触发；S17动作终点；S18原子分账与反转；S19冻结门禁；reasoning.py与handoff_probe.py规定精确Schema。",
+      "statement": "冻结前执行三门：交接逐字段符合当前PREDICTION-WORKBOOK-V2，禁止近义自定义结构；跨题一致性只查冲突，不创造相邻年份必须分配不同人物或事件的排他故事，每题先独立闭合人物—年份—机制—终点；规则若指出Top1存在未闭合人物、动作、数量、制度或不可逆终点，不得仍作Top1支持，必须转为反证或触发降级，并对所有候选使用同一原子负担。"
+    },
+    "learning_type": "EXECUTION_PROCEDURE",
+    "remediation_type": "EXECUTION_GATE",
+    "root_causes": [
+      "QUESTION_SEMANTICS",
+      "SUBJECT_ROUTING",
+      "OPTION_COMPARISON",
+      "EVIDENCE_WEIGHTING",
+      "EXECUTION_OMISSION",
+      "SYSTEM_SCHEMA"
+    ],
+    "rule_status_changes": [],
+    "rules": [],
+    "schema": "MODEL-LEARNING-CORRECTION-V3"
+  },
+  "created_at": "2026-07-25T15:11:40Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-016",
+  "schema": "MODEL-LEARNING-PATCH-V3",
+  "validation_status": "ACTIVE_PROCESS_CORRECTION"
+}

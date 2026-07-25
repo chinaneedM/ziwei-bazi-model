@@ -1,5 +1,5 @@
 {
-  "active_replay_case_id": "CASE-089",
+  "active_replay_case_id": null,
   "active_round_id": null,
   "cases": {
     "CASE-002": {
@@ -318,7 +318,7 @@
       "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
       "round_ids": [],
-      "status": "PENDING"
+      "status": "ACTIVE"
     },
     "CASE-062": {
       "first_blind_passed": null,
@@ -452,11 +452,14 @@
       "first_blind_passed": false,
       "first_blind_round_id": "FORMAL-ROUND-006",
       "remediation_status": "QUEUED",
-      "replay_round_ids": [],
-      "round_ids": [
-        "FORMAL-ROUND-006"
+      "replay_round_ids": [
+        "FORMAL-ROUND-016"
       ],
-      "status": "REPLAY_ACTIVE"
+      "round_ids": [
+        "FORMAL-ROUND-006",
+        "FORMAL-ROUND-016"
+      ],
+      "status": "FIRST_BLIND_CLOSED"
     },
     "CASE-093": {
       "first_blind_passed": null,
@@ -542,7 +545,7 @@
     }
   },
   "current_case_index": 11,
-  "current_model_release": "MODEL-LEARNING-015",
+  "current_model_release": "MODEL-LEARNING-016",
   "dataset_manifest_path": "case-bank/manifest.json",
   "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
   "first_blind_cases_closed": 11,
@@ -563,16 +566,12 @@
   "mode": "FORMAL_CASE_BANK",
   "policy_path": "config/training-policy.json",
   "required_consecutive_independent_passes": 3,
-  "round_count": 15,
+  "round_count": 16,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [
-    {
-      "case_id": "CASE-089",
-      "eligible_after_first_blind_count": 11
-    },
     {
       "case_id": "CASE-035",
       "eligible_after_first_blind_count": 12
@@ -603,6 +602,10 @@
     },
     {
       "case_id": "CASE-052",
+      "eligible_after_first_blind_count": 16
+    },
+    {
+      "case_id": "CASE-089",
       "eligible_after_first_blind_count": 16
     }
   ],

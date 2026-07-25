@@ -1,0 +1,38 @@
+{
+  "answer_mapping_stored": false,
+  "case_id": "CASE-089",
+  "changed_steps": [
+    "Actor rerooting",
+    "Endpoint comparison",
+    "Scale separation"
+  ],
+  "counts_as_first_blind_evidence": false,
+  "counts_toward_stage_gate": false,
+  "first_blind_round_id": "FORMAL-ROUND-006",
+  "mechanism_confirmation": "NOT_YET_CONFIRMED",
+  "new_error_risks": [
+    "Possible underconfidence"
+  ],
+  "new_idea_executed": "Reroot actor; compare literal endpoints; separate assets from cash.",
+  "original_correct_answers_regressed": 0,
+  "original_failed_answers_repaired": 0,
+  "original_root_causes": [
+    "SUBJECT_ROUTING",
+    "OPTION_COMPARISON",
+    "CONFIDENCE_CALIBRATION"
+  ],
+  "predicted_mechanism_of_improvement": "Reduce actor swaps and unsupported endpoint conversion.",
+  "reasoning_completeness_comparison": {
+    "first_blind_schema": "FROZEN-PREDICTION-V1",
+    "first_blind_valid_evidence_entries": null,
+    "legacy_first_blind_detail_unavailable": true,
+    "replay_schema": "FROZEN-PREDICTION-V2",
+    "replay_valid_evidence_entries": 25
+  },
+  "remediation_type": "EXECUTION_GATE",
+  "round_id": "FORMAL-ROUND-016",
+  "schema": "REPLAY-REMEDIATION-REPORT-V1",
+  "score_delta_from_first_blind": 0.0,
+  "stable_correct_answers": 1,
+  "stable_incorrect_answers": 4
+}
