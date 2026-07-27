@@ -1883,6 +1883,40 @@ class HandoffProbeTests(unittest.TestCase):
                 ["Q1-ZW-01", "Q1-REAL-01"],
             )
 
+    def test_preflight_declares_attributed_rule_as_applied(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            rule_id = "RULE-ATTRIBUTED-BUT-UNDECLARED"
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "question_profile": {
+                                "applied_rule_ids": [],
+                            },
+                            "rule_attribution": {
+                                "decisive_rule_ids": [],
+                                "supporting_rule_ids": [],
+                                "counterevidence_rule_ids": [rule_id],
+                                "decision_changed": False,
+                            },
+                        }
+                    ]
+                },
+            )
+            profile = normalized["predictions"][0]["question_profile"]
+            self.assertEqual(profile["applied_rule_ids"], [rule_id])
+            self.assertIn(
+                {
+                    "kind": "ATTRIBUTED_RULES_DECLARED_AS_APPLIED",
+                    "question_id": "Q1",
+                    "rule_ids": [rule_id],
+                },
+                report["changes"],
+            )
+
     def test_preflight_classifies_missing_applied_rule_as_supporting(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
