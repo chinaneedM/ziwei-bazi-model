@@ -48,13 +48,16 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 
 ## 五、预测前强制隔离
 
-1. 先确认GitHub `main/training/state.json`当前案例和模型发布。
-2. 加载`config/prediction-tool-policy.json`并执行默认拒绝门禁。预测阶段只允许
-   `GITHUB_FETCH_FILE`读取`main`上的`training/state.json`、`chat-input/current.json`、
-   `sources/canonical/`、当前发布实际引用的`model-learning/`文件及白名单仓库配置。
+1. 任何仓库检索前，唯一允许的首次读取是GitHub
+   `main/chat-input/prediction-access-contract.json`。读取后必须立即执行其中的
+   `prediction_access_contract`；契约未执行前禁止读取状态、当前案例、模型、配置或任何其他路径。
+2. 契约执行后，按其`startup_sequence`先读取`training/state.json`与
+   `chat-input/current.json`，并要求输入包内嵌契约与独立启动契约完全一致；随后才可按动态白名单读取
+   `sources/canonical/`、当前发布实际引用的`model-learning/`文件及必要仓库配置。
 3. 硬性禁止File Library、聊天附件、历史上传、Personal Context、跨对话记忆、仓库搜索、
    历史/提交/差异/目录枚举、旧预测、旧揭盲、旧诊断及任何答案相关对象。
-   任一违规在预测前立即停止，并把当前案例隔离为污染开发参考；不得冻结、评分或计入首次盲测。
+   任一违规在预测前立即停止；不得冻结、评分或计入首次盲测。若污染泄露了案例或答案相关对象，
+   隔离案例为开发参考；若仅为启动顺序违规且未泄露答案，则作废当前轮次、丢弃全部预测方向并为同一案例生成新轮次。
 4. 冻结性别、历法、出生时间、四柱、紫微坐标、题干和选项；不可靠字段不得猜造。
 5. 先形成不受选项措辞牵引的盲态事实模型，再做选项比较。
 
