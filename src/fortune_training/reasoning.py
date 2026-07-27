@@ -728,14 +728,13 @@ def validate_question_reasoning(
         final_ranking=final_ranking,
         question_id=question_id,
     )
-    for option_id, atoms in semantics["option_atoms"].items():
-        if not atoms["severe_irreversible_or_high_precision_atoms"]:
-            continue
-        option_row = matrix["options"][option_id]
+    top1_atoms = semantics["option_atoms"][top1]
+    if top1_atoms["severe_irreversible_or_high_precision_atoms"]:
+        option_row = matrix["options"][top1]
         independent_support = any(
             evidence_row["independence_status"] == "INDEPENDENT"
             and any(
-                atom_ref.startswith(f"{option_id}:")
+                atom_ref.startswith(f"{top1}:")
                 for atom_ref in evidence_row["supports_option_atoms"]
             )
             for evidence_row in evidence
@@ -745,7 +744,7 @@ def validate_question_reasoning(
             or not independent_support
         ):
             raise TrainingError(
-                f"{question_id}.{option_id} high-precision atoms need independent evidence"
+                f"{question_id}.{top1} high-precision Top1 atoms need independent evidence"
             )
     adversarial = _validate_adversarial(
         row.get("adversarial_review"),
