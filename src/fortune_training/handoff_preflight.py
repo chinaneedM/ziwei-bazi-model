@@ -249,6 +249,48 @@ def normalize_handoff(
                     )
                     break
 
+        if isinstance(evidence, list):
+            evidence_tracks = {
+                evidence_row.get("evidence_id"): evidence_row.get("track")
+                for evidence_row in evidence
+                if isinstance(evidence_row, dict)
+                and isinstance(evidence_row.get("evidence_id"), str)
+            }
+            for track_field, expected_track in (
+                ("ziwei_track_seal", "ZIWEI"),
+                ("bazi_track_seal", "BAZI"),
+            ):
+                track_seal = row.get(track_field)
+                if not isinstance(track_seal, dict):
+                    continue
+                for evidence_field in (
+                    "supporting_evidence_ids",
+                    "contradicting_evidence_ids",
+                ):
+                    evidence_ids = track_seal.get(evidence_field)
+                    if not isinstance(evidence_ids, list):
+                        continue
+                    removed_ids = [
+                        evidence_id
+                        for evidence_id in evidence_ids
+                        if evidence_tracks.get(evidence_id) != expected_track
+                    ]
+                    if removed_ids:
+                        track_seal[evidence_field] = [
+                            evidence_id
+                            for evidence_id in evidence_ids
+                            if evidence_id not in removed_ids
+                        ]
+                        changes.append(
+                            {
+                                "kind": "CROSS_TRACK_SEAL_EVIDENCE_REMOVED",
+                                "question_id": question_id,
+                                "track": expected_track,
+                                "field": evidence_field,
+                                "evidence_ids": removed_ids,
+                            }
+                        )
+
         counterfactual = row.get("counterfactual_analysis")
         if isinstance(counterfactual, dict):
             full_ranking = counterfactual.get("full_model_ranking")
@@ -296,6 +338,30 @@ def normalize_handoff(
 
         profile = row.get("question_profile")
         attribution = row.get("rule_attribution")
+        if isinstance(profile, dict) and isinstance(evidence, list):
+            declared_routes = profile.get("source_routes")
+            if isinstance(declared_routes, list):
+                missing_routes: list[str] = []
+                for evidence_row in evidence:
+                    if not isinstance(evidence_row, dict):
+                        continue
+                    source_route = evidence_row.get("source_route")
+                    if (
+                        isinstance(source_route, str)
+                        and source_route in {f"S{route:02d}" for route in range(20)}
+                        and source_route not in declared_routes
+                        and source_route not in missing_routes
+                    ):
+                        missing_routes.append(source_route)
+                if missing_routes:
+                    profile["source_routes"] = declared_routes + missing_routes
+                    changes.append(
+                        {
+                            "kind": "EVIDENCE_SOURCE_ROUTES_DECLARED",
+                            "question_id": question_id,
+                            "source_routes": missing_routes,
+                        }
+                    )
         if not isinstance(profile, dict) or not isinstance(attribution, dict):
             continue
         for field, aliases in PROFILE_TAG_ALIASES.items():
