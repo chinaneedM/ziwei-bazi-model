@@ -149,7 +149,13 @@ def _schedule_next_round(
     )
 
 
-def _close_first_blind_and_advance(root: Path, state: dict[str, Any], case_id: str) -> None:
+def _close_first_blind_and_advance(
+    root: Path,
+    state: dict[str, Any],
+    case_id: str,
+    *,
+    prefer_new_case: bool = False,
+) -> None:
     group = _load_group(root, state)
     expected_case_id = group["case_order"][state["current_case_index"]]
     if case_id != expected_case_id:
@@ -157,7 +163,7 @@ def _close_first_blind_and_advance(root: Path, state: dict[str, Any], case_id: s
     state["cases"][case_id]["status"] = "FIRST_BLIND_CLOSED"
     state["current_case_index"] += 1
     state["first_blind_cases_closed"] = state.get("first_blind_cases_closed", 0) + 1
-    _schedule_next_round(root, state)
+    _schedule_next_round(root, state, prefer_new_case=prefer_new_case)
 
 
 def _enqueue_spaced_replay(
@@ -892,7 +898,12 @@ def apply_learning(root: Path, round_id: str, patch_input: Path, release_id: str
             current_case_id,
             after_current_first_blind=True,
         )
-        _close_first_blind_and_advance(root, state, current_case_id)
+        _close_first_blind_and_advance(
+            root,
+            state,
+            current_case_id,
+            prefer_new_case=True,
+        )
     else:
         _finish_replay(root, state, current_case_id, False)
     atomic_write_json(_state_path(root), state)
