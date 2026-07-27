@@ -1,0 +1,44 @@
+{
+  "answer_mapping_stored": false,
+  "case_id": "CASE-003",
+  "changed_steps": [
+    "盲态建模",
+    "人物年份终点绑定",
+    "共享原子归零",
+    "职业对象分账",
+    "年份阶段分层",
+    "高精度原子对称扣分与反转"
+  ],
+  "counts_as_first_blind_evidence": false,
+  "counts_toward_stage_gate": false,
+  "first_blind_round_id": "FORMAL-ROUND-002",
+  "mechanism_confirmation": "NOT_YET_CONFIRMED",
+  "new_error_risks": [
+    "精确终点仍有缺口",
+    "跨题一致性可能诱发叙事偏差"
+  ],
+  "new_idea_executed": "跨题只审计矛盾，不作单题证据",
+  "original_correct_answers_regressed": 1,
+  "original_failed_answers_repaired": 0,
+  "original_root_causes": [
+    "SUBJECT_ROUTING",
+    "EVENT_MECHANISM",
+    "PERIOD_TIMING",
+    "OPTION_COMPARISON",
+    "EVIDENCE_WEIGHTING"
+  ],
+  "predicted_mechanism_of_improvement": "让人物、对象和完成节点而非主题强度决胜",
+  "reasoning_completeness_comparison": {
+    "first_blind_schema": "FROZEN-PREDICTION-V1",
+    "first_blind_valid_evidence_entries": null,
+    "legacy_first_blind_detail_unavailable": true,
+    "replay_schema": "FROZEN-PREDICTION-V2",
+    "replay_valid_evidence_entries": 15
+  },
+  "remediation_type": "EXECUTION_GATE",
+  "round_id": "FORMAL-ROUND-021",
+  "schema": "REPLAY-REMEDIATION-REPORT-V1",
+  "score_delta_from_first_blind": -0.2,
+  "stable_correct_answers": 1,
+  "stable_incorrect_answers": 3
+}

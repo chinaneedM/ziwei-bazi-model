@@ -1,0 +1,2769 @@
+{
+  "blind_chart_model": {
+    "bazi_static_model": {
+      "chart_facts": [
+        "己土辰月，丙丁印透，癸财，亥卯卯官杀有根"
+      ],
+      "limitations": [
+        "十神合冲只到结构候选"
+      ],
+      "method_competition": [
+        "杀印、扶抑、财官印并行"
+      ],
+      "pattern_candidates": [
+        "杀印相生候选"
+      ],
+      "relations_and_structural_changes": [
+        "亥卯半合木、卯辰害；2018戌冲辰并换壬子运"
+      ],
+      "seasonal_strength_candidates": [
+        "土有根、印透、官杀有根，不从弱"
+      ],
+      "unresolved_disputes": [],
+      "useful_harmful_candidates": [
+        "火印承杀；水财兼资源与压力"
+      ]
+    },
+    "input_reliability": {
+      "birth_place": "经度120，城市未知",
+      "birth_time": "1983-04-21 06:30，真太阳时06:31，卯时",
+      "calendar": "男，癸亥年三月初九",
+      "conflicting_fields": [],
+      "forbidden_inferences": [
+        "不从选项反推现实事实"
+      ],
+      "four_pillars": "癸亥 丙辰 己卯 丁卯",
+      "gender": "男",
+      "major_periods": "紫微24-33夫妻、34-43子女；八字2008癸丑、2018壬子",
+      "missing_fields": [
+        "城市"
+      ],
+      "unreliable_fields": [
+        "神煞与软件派生解释"
+      ],
+      "ziwei_coordinates": "金四局；命宫紫微破军，身宫迁移"
+    },
+    "schema": "BLIND-CHART-MODEL-V1",
+    "shared_life_structure": {
+      "career_and_wealth": [
+        "经营、交易、审美、流动与房产对象候选"
+      ],
+      "children_axis": [
+        "子女完成偏弱；2018为家庭转换窗"
+      ],
+      "family_roles": [
+        "父母贵助与分离并存，须逐人定终点"
+      ],
+      "health_capacity": [
+        "体弱或突发负荷候选，不直断残疾病名"
+      ],
+      "major_conflicts": [
+        "精确行业和2022事件类别未完全闭合"
+      ],
+      "marriage_capacity": [
+        "早期可建立关系，2018明显转换"
+      ],
+      "migration_assets_social": [
+        "迁移、田宅、财帛共同活跃"
+      ],
+      "period_themes": [
+        "2013官禄入职；2018关系转换；2022父母轴"
+      ],
+      "personality_and_behavior": [
+        "自主固执、审美表达、经营管理"
+      ],
+      "unknowns": [
+        "学校、职业、登记、疾病、父母身份和资产手续"
+      ]
+    },
+    "ziwei_static_model": {
+      "advanced_method_applicability": [
+        "人物逐人立极，机构资产不作人物太极"
+      ],
+      "chart_facts": [
+        "命紫破羊铃；身天相昌曲华盖；官廉贪忌；财武七；田宅太阴科；父母劫空；夫妻陀刑；子女太阳弱"
+      ],
+      "limitations": [
+        "只到结构场景触发，不完成现实终点"
+      ],
+      "palace_and_star_structures": [
+        "命财官强经营变动；父母分离损耗；2018关系家庭转换"
+      ],
+      "structural_conflicts": [
+        "艺术娱乐与房产经营均有部分支持"
+      ],
+      "transformations_and_lines": [
+        "破军禄、巨门权、太阴科、贪狼忌并存，不互相抵消"
+      ]
+    }
+  },
+  "case_id": "CASE-003",
+  "cross_question_consistency": {
+    "checks": [
+      {
+        "conflicts": [],
+        "consistent": true,
+        "question_id": "Q1",
+        "resolution": "父亲早亡与2022母亲事件可分人物分年并存"
+      },
+      {
+        "conflicts": [],
+        "consistent": true,
+        "question_id": "Q2",
+        "resolution": "房产职业与2013转行可衔接但不互证"
+      },
+      {
+        "conflicts": [],
+        "consistent": true,
+        "question_id": "Q3",
+        "resolution": "2013官禄进入独立成立"
+      },
+      {
+        "conflicts": [],
+        "consistent": true,
+        "question_id": "Q4",
+        "resolution": "先婚后2018转换序列可成立"
+      },
+      {
+        "conflicts": [],
+        "consistent": true,
+        "question_id": "Q5",
+        "resolution": "只作冲突审计，不从Q1加分"
+      }
+    ],
+    "unresolved_conflicts": [
+      "家庭产业与当前职业不得跨题补证"
+    ]
+  },
+  "frozen_at": "2026-07-27T11:07:07Z",
+  "prediction_sha256": "8d3460157ac84fa57d6b0e72169dd9cba91764363e1328bf610b2152d0ea4d57",
+  "predictions": [
+    {
+      "adversarial_review": {
+        "annual_signal_overweighting": "已检查",
+        "background_as_endpoint": "已检查",
+        "bazi_posthoc_agreement": "已检查",
+        "duplicate_evidence_stacking": "已检查",
+        "ignored_alternative_explanations": [
+          "分离疾病"
+        ],
+        "known_rule_execution_omissions": "无",
+        "option_wording_inducement": "已检查",
+        "participation_as_action": "已检查",
+        "precision_beyond_capability": "已检查",
+        "reversal_test": {
+          "ranking_after_removal": [
+            "A",
+            "D",
+            "B",
+            "C"
+          ],
+          "ranking_before": [
+            "D",
+            "A",
+            "B",
+            "C"
+          ],
+          "reason": "删除父亲角色证据后A反超",
+          "removed_evidence_ids": [
+            "Q1-B-FATHER"
+          ],
+          "top1_survives": false,
+          "top2_best_explanation": "同为早年父母缺失"
+        },
+        "strongest_competitor": "A",
+        "strongest_reversal_evidence_ids": [
+          "Q1-B-FATHER"
+        ],
+        "top1_weakest_required_atom": "法律继承与守寡",
+        "valence_as_mechanism": "已检查"
+      },
+      "bazi_track_seal": {
+        "alternative_explanations": [
+          "财星也可为家庭资源"
+        ],
+        "capability_ceiling": "不证明死亡",
+        "confidence": 62,
+        "contradicting_evidence_ids": [],
+        "endpoint_chain": {
+          "action": "父母角色比较",
+          "endpoint": "父亲轴相对脆弱",
+          "object": "父母角色",
+          "subject": "父母"
+        },
+        "luck_timing": "早年家庭风险高于晚年",
+        "method_competition": "杀印与财官印并行",
+        "ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "strength_and_pattern": "己土印透，年财承压",
+        "supporting_evidence_ids": [
+          "Q1-B-FATHER"
+        ],
+        "top1": "D",
+        "top2": "B",
+        "unresolved_links": [
+          "死亡年份"
+        ]
+      },
+      "confidence_components": {
+        "cross_track_agreement": 64,
+        "input_confidence": 90,
+        "mechanism_confidence": 66,
+        "natal_structure_confidence": 72,
+        "overall_confidence": 64,
+        "reality_endpoint_confidence": 64,
+        "subject_confidence": 66,
+        "timing_confidence": 64,
+        "top1_top2_separation": 64
+      },
+      "counterfactual_analysis": {
+        "bazi_only_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "canonical_only_ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "decisive_rule_ablations": [],
+        "full_model_ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "fused_ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "ziwei_only_ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "cross_track_arbitration": {
+        "agreement_layers": [
+          "早年父母损耗"
+        ],
+        "confidence_reduction_required": true,
+        "conflict_layers": [
+          "精确人物终点"
+        ],
+        "conflict_origin": "两轨能力不同，共享语义归零",
+        "decision": "D首选、A次选",
+        "shared_reality_assumption_risk": "已归零",
+        "stronger_track_for_topic": "ZIWEI"
+      },
+      "evidence_ledger": [
+        {
+          "alternative_explanation": "父母分离或体弱",
+          "applicability_conditions": [
+            "父母主题匹配"
+          ],
+          "capability_ceiling": "不指定死亡人物",
+          "chart_fact": "父母宫地劫孤辰借天同天梁地空劫煞",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "DECISIVE",
+          "evidence_family_id": "FAM-PARENT-RISK",
+          "evidence_id": "Q1-Z-PARENT",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "早年父母不可逆缺失风险",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S07",
+          "supports_option_atoms": [
+            "D:父亲早亡",
+            "A:母亲早亡"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "女性参与家庭资产",
+          "applicability_conditions": [
+            "母亲与田宅匹配"
+          ],
+          "capability_ceiling": "不证明法律继承",
+          "chart_fact": "田宅太阴陷生年科兼大耗",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-MOTHER-ASSET",
+          "evidence_id": "Q1-Z-MOTHER",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "母亲与产业管理候选",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S04",
+          "supports_option_atoms": [
+            "D:母亲承接产业"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "财星可为资源压力",
+          "applicability_conditions": [
+            "父母角色分轨"
+          ],
+          "capability_ceiling": "不证明死亡",
+          "chart_fact": "年柱癸亥财星，丙丁印透",
+          "conditions_satisfied": [
+            "四柱冻结"
+          ],
+          "contradicts_option_atoms": [
+            "A:母亲死亡人物"
+          ],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-BAZI-PARENT",
+          "evidence_id": "Q1-B-FATHER",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "父亲财星相对脆弱",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S16",
+          "supports_option_atoms": [
+            "D:父亲早亡"
+          ],
+          "track": "BAZI"
+        }
+      ],
+      "final_ranking": [
+        "D",
+        "A",
+        "B",
+        "C"
+      ],
+      "option_comparison_matrix": {
+        "options": {
+          "A": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [
+              "Q1-B-FATHER"
+            ],
+            "distinctive_atom_completion": [
+              "早年父母缺失"
+            ],
+            "final_rank": 2,
+            "final_rank_reason": "早年方向匹配但人物弱",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "早年缺失"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "早年",
+            "unknown_atoms": [
+              "母亲死亡"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q1-Z-PARENT"
+            ]
+          },
+          "B": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 3,
+            "final_rank_reason": "晚年与身份缺口大",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "弱",
+            "unknown_atoms": [
+              "高级身份"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "C": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 4,
+            "final_rank_reason": "父母损耗反证",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "无",
+            "unknown_atoms": [
+              "完整家庭"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "D": {
+            "bazi_support_evidence_ids": [
+              "Q1-B-FATHER"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "早年父死",
+              "母与产业"
+            ],
+            "final_rank": 1,
+            "final_rank_reason": "人物和产业链较完整",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "早年父母缺失",
+              "母亲产业连接"
+            ],
+            "severe_atoms_have_independent_evidence": true,
+            "shared_background_zeroed": true,
+            "timing_closure": "早年",
+            "unknown_atoms": [
+              "继承守寡"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q1-Z-PARENT",
+              "Q1-Z-MOTHER"
+            ]
+          }
+        },
+        "pairwise": [
+          {
+            "left": "D",
+            "reason": "父亲人物与产业链更强",
+            "right": "A",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "早年新增量更强",
+            "right": "B",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "父母损耗更强",
+            "right": "C",
+            "winner": "D"
+          },
+          {
+            "left": "A",
+            "reason": "早年方向更强",
+            "right": "B",
+            "winner": "A"
+          },
+          {
+            "left": "A",
+            "reason": "父母损耗更强",
+            "right": "C",
+            "winner": "A"
+          },
+          {
+            "left": "B",
+            "reason": "父亲终点候选更强",
+            "right": "C",
+            "winner": "B"
+          }
+        ]
+      },
+      "public_summary": "D首选，A次选：父亲早亡与母亲产业连接相对更完整。",
+      "question_id": "Q1",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY"
+        ],
+        "endpoint_tags": [
+          "BACKGROUND_LEVEL",
+          "DEATH"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "EVENT_ENDPOINT_CLOSURE",
+          "DEATH_ENTITY_TIME_CLOSURE"
+        ],
+        "source_routes": [
+          "S02",
+          "S04",
+          "S07",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "subject_tags": [
+          "FATHER",
+          "MOTHER"
+        ],
+        "time_scope_tags": [
+          "NATAL",
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "PARENTS",
+          "SIBLINGS"
+        ]
+      },
+      "question_semantic_model": {
+        "action_subject": "父亲母亲",
+        "ambiguities": [
+          "父母宫不能指定死亡人物",
+          "继承守寡需手续持续"
+        ],
+        "completion_endpoint": "指定父母死亡、职业、继承婚姻及手足构成",
+        "event_process": "身份背景→死亡/分离→承接/再婚→家庭结果",
+        "is_composite_narrative": true,
+        "magnitude": "政府高级职员与小企业主不能由贵曜换算",
+        "option_atoms": {
+          "A": {
+            "distinctive_atoms": [
+              "早年母死"
+            ],
+            "required_atoms": [
+              "次年母死",
+              "父小企业主",
+              "再娶",
+              "弟妹"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "死亡人物"
+            ]
+          },
+          "B": {
+            "distinctive_atoms": [
+              "高级身份",
+              "晚年父死"
+            ],
+            "required_atoms": [
+              "父高级职员",
+              "2021父死",
+              "兄姐"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "身份",
+              "死亡年"
+            ]
+          },
+          "C": {
+            "distinctive_atoms": [
+              "完整普通家庭"
+            ],
+            "required_atoms": [
+              "母主妇",
+              "父小企业主",
+              "一弟"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "职业数量"
+            ]
+          },
+          "D": {
+            "distinctive_atoms": [
+              "早年父死",
+              "母承接产业"
+            ],
+            "required_atoms": [
+              "1985父死",
+              "母继承守寡",
+              "姐弟"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "死亡",
+              "继承守寡"
+            ]
+          }
+        },
+        "reality_object": "父母、家庭、机构、产业、手足",
+        "shared_non_discriminating_atoms": [
+          "父母轴损耗"
+        ],
+        "subject": "原生家庭及父母手足",
+        "target": "父母存续职业产业与手足",
+        "time_range": "出生至早年并含1985、2021"
+      },
+      "rule_attribution": {
+        "counterevidence_rule_ids": [
+          "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY"
+        ],
+        "decision_changed": false,
+        "decisive_rule_ids": [],
+        "supporting_rule_ids": []
+      },
+      "top1": "D",
+      "top2": "A",
+      "ziwei_track_seal": {
+        "alternative_explanations": [
+          "父母分离或疾病"
+        ],
+        "capability_ceiling": "只释放父母风险方向",
+        "confidence": 66,
+        "contradicting_evidence_ids": [],
+        "core_structure": "父母宫地劫孤辰借疾厄劫空；田宅太阴科",
+        "dynamic_trigger": "早年命宫强变动",
+        "endpoint_chain": {
+          "action": "父亲死亡、母亲承接",
+          "endpoint": "家庭结构重组",
+          "object": "父母与产业",
+          "subject": "父母"
+        },
+        "ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "supporting_evidence_ids": [
+          "Q1-Z-PARENT",
+          "Q1-Z-MOTHER"
+        ],
+        "top1": "D",
+        "top2": "A",
+        "unresolved_links": [
+          "继承守寡与手足数量"
+        ]
+      }
+    },
+    {
+      "adversarial_review": {
+        "annual_signal_overweighting": "已检查",
+        "background_as_endpoint": "已检查",
+        "bazi_posthoc_agreement": "已检查",
+        "duplicate_evidence_stacking": "已检查",
+        "ignored_alternative_explanations": [
+          "物业管理",
+          "酒吧音乐"
+        ],
+        "known_rule_execution_omissions": "无",
+        "option_wording_inducement": "已检查",
+        "participation_as_action": "已检查",
+        "precision_beyond_capability": "已检查",
+        "reversal_test": {
+          "ranking_after_removal": [
+            "B",
+            "D",
+            "A",
+            "C"
+          ],
+          "ranking_before": [
+            "D",
+            "B",
+            "A",
+            "C"
+          ],
+          "reason": "删除房产对象后B反超",
+          "removed_evidence_ids": [
+            "Q2-Z-PROPERTY"
+          ],
+          "top1_survives": false,
+          "top2_best_explanation": "音乐经营场景"
+        },
+        "strongest_competitor": "B",
+        "strongest_reversal_evidence_ids": [
+          "Q2-Z-PROPERTY"
+        ],
+        "top1_weakest_required_atom": "公司所有权",
+        "valence_as_mechanism": "已检查"
+      },
+      "bazi_track_seal": {
+        "alternative_explanations": [
+          "一般管理销售"
+        ],
+        "capability_ceiling": "不锁行业",
+        "confidence": 65,
+        "contradicting_evidence_ids": [],
+        "endpoint_chain": {
+          "action": "管理交易",
+          "endpoint": "经营功能",
+          "object": "资源客户",
+          "subject": "命主"
+        },
+        "luck_timing": "当前状态",
+        "method_competition": "杀印与财官印",
+        "ranking": [
+          "D",
+          "B",
+          "C",
+          "A"
+        ],
+        "strength_and_pattern": "管理制度与财务功能强于纯表演",
+        "supporting_evidence_ids": [
+          "Q2-B-FUNCTION"
+        ],
+        "top1": "D",
+        "top2": "B",
+        "unresolved_links": [
+          "行业对象"
+        ]
+      },
+      "confidence_components": {
+        "cross_track_agreement": 67,
+        "input_confidence": 90,
+        "mechanism_confidence": 69,
+        "natal_structure_confidence": 74,
+        "overall_confidence": 67,
+        "reality_endpoint_confidence": 67,
+        "subject_confidence": 70,
+        "timing_confidence": 67,
+        "top1_top2_separation": 67
+      },
+      "counterfactual_analysis": {
+        "bazi_only_ranking": [
+          "D",
+          "B",
+          "C",
+          "A"
+        ],
+        "canonical_only_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "decisive_rule_ablations": [
+          {
+            "changes_top1": true,
+            "ranking_without_rule": [
+              "B",
+              "D",
+              "A",
+              "C"
+            ],
+            "reason": "Removing the declared decisive rule changes Top1 from D to B.",
+            "rule_id": "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE"
+          }
+        ],
+        "full_model_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "fused_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "ziwei_only_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ]
+      },
+      "cross_track_arbitration": {
+        "agreement_layers": [
+          "经营与房产对象"
+        ],
+        "confidence_reduction_required": true,
+        "conflict_layers": [],
+        "conflict_origin": "共享经营能力归零",
+        "decision": "D首选、B次选",
+        "shared_reality_assumption_risk": "已归零",
+        "stronger_track_for_topic": "ZIWEI"
+      },
+      "evidence_ledger": [
+        {
+          "alternative_explanation": "物业管理或投资",
+          "applicability_conditions": [
+            "田宅财官匹配"
+          ],
+          "capability_ceiling": "不证明所有权",
+          "chart_fact": "田宅太阴科、财武七、官禄天马",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "DECISIVE",
+          "evidence_family_id": "FAM-PROPERTY-OBJECT",
+          "evidence_id": "Q2-Z-PROPERTY",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "房产对象交易经营链",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S04",
+          "supports_option_atoms": [
+            "D:房地产经纪"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "音乐审美兴趣",
+          "applicability_conditions": [
+            "健康与兴趣轴匹配"
+          ],
+          "capability_ceiling": "不证明早产园艺",
+          "chart_fact": "疾厄天同天梁地空劫煞；身昌曲华盖",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-HEALTH-AESTHETIC",
+          "evidence_id": "Q2-Z-HEALTH",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "体弱与园艺审美候选",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S05",
+          "supports_option_atoms": [
+            "D:体弱园艺"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "其他管理销售",
+          "applicability_conditions": [
+            "职业功能匹配"
+          ],
+          "capability_ceiling": "不锁行业",
+          "chart_fact": "杀印候选、财星透、食伤不显",
+          "conditions_satisfied": [
+            "四柱冻结"
+          ],
+          "contradicts_option_atoms": [
+            "A:纯器乐职业"
+          ],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-BAZI-CAREER",
+          "evidence_id": "Q2-B-FUNCTION",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "管理交易强于纯表演",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S16",
+          "supports_option_atoms": [
+            "D:经纪经营",
+            "B:管理经营"
+          ],
+          "track": "BAZI"
+        }
+      ],
+      "final_ranking": [
+        "D",
+        "B",
+        "A",
+        "C"
+      ],
+      "option_comparison_matrix": {
+        "options": {
+          "A": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [
+              "Q2-B-FUNCTION"
+            ],
+            "distinctive_atom_completion": [],
+            "final_rank": 3,
+            "final_rank_reason": "残疾乐器缺口大",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "当前",
+            "unknown_atoms": [
+              "腿残萨克斯"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "B": {
+            "bazi_support_evidence_ids": [
+              "Q2-B-FUNCTION"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "音乐经营场景"
+            ],
+            "final_rank": 2,
+            "final_rank_reason": "音乐酒吧强但对象弱于房产",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "经营"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "当前",
+            "unknown_atoms": [
+              "魁梧酒吧"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "C": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 4,
+            "final_rank_reason": "运动餐饮对象弱",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "当前",
+            "unknown_atoms": [
+              "运动餐厅"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "D": {
+            "bazi_support_evidence_ids": [
+              "Q2-B-FUNCTION"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "房产交易",
+              "体弱审美"
+            ],
+            "final_rank": 1,
+            "final_rank_reason": "行业对象链最完整",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "房产对象",
+              "经营功能"
+            ],
+            "severe_atoms_have_independent_evidence": true,
+            "shared_background_zeroed": true,
+            "timing_closure": "当前",
+            "unknown_atoms": [
+              "早产所有权"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q2-Z-PROPERTY",
+              "Q2-Z-HEALTH"
+            ]
+          }
+        },
+        "pairwise": [
+          {
+            "left": "D",
+            "reason": "房产对象链更完整",
+            "right": "B",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "高精度缺口更少",
+            "right": "A",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "行业对象更强",
+            "right": "C",
+            "winner": "D"
+          },
+          {
+            "left": "B",
+            "reason": "残疾乐器缺口更大",
+            "right": "A",
+            "winner": "B"
+          },
+          {
+            "left": "B",
+            "reason": "音乐经营场景更强",
+            "right": "C",
+            "winner": "B"
+          },
+          {
+            "left": "A",
+            "reason": "艺术对象略强",
+            "right": "C",
+            "winner": "A"
+          }
+        ]
+      },
+      "public_summary": "D首选，B次选：房产交易对象链胜过共享经营和音乐场景。",
+      "question_id": "Q2",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT",
+          "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE",
+          "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION"
+        ],
+        "endpoint_tags": [
+          "OCCUPATION",
+          "BUSINESS_OUTCOME",
+          "HEALTH_CONDITION",
+          "APPEARANCE"
+        ],
+        "reasoning_skill_tags": [
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAREER_PROFILE_CLOSURE"
+        ],
+        "source_routes": [
+          "S02",
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S11",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "subject_tags": [
+          "SELF",
+          "EMPLOYER_ORGANIZATION"
+        ],
+        "time_scope_tags": [
+          "NATAL",
+          "CURRENT_STATUS"
+        ],
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "PERSONALITY_APPEARANCE"
+        ]
+      },
+      "question_semantic_model": {
+        "action_subject": "命主劳动经营",
+        "ambiguities": [
+          "艺术不能指定乐器场所",
+          "经营不等于所有权"
+        ],
+        "completion_endpoint": "当前职业所有权及复合描述",
+        "event_process": "特征→能力→工作→对象→经营终点",
+        "is_composite_narrative": true,
+        "magnitude": "老板身份不能由管理倾向换算",
+        "option_atoms": {
+          "A": {
+            "distinctive_atoms": [
+              "腿残",
+              "萨克斯乐团"
+            ],
+            "required_atoms": [
+              "腿残",
+              "古怪",
+              "爵士古典",
+              "萨克斯手乐团老板"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "残疾",
+              "精确职业"
+            ]
+          },
+          "B": {
+            "distinctive_atoms": [
+              "魁梧",
+              "酒吧"
+            ],
+            "required_atoms": [
+              "魁梧",
+              "固执",
+              "音乐",
+              "酒吧老板"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "体貌",
+              "所有权"
+            ]
+          },
+          "C": {
+            "distinctive_atoms": [
+              "运动",
+              "餐饮"
+            ],
+            "required_atoms": [
+              "中等",
+              "勤奋叛逆",
+              "运动",
+              "餐厅老板"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "爱好",
+              "所有权"
+            ]
+          },
+          "D": {
+            "distinctive_atoms": [
+              "体弱",
+              "房产交易"
+            ],
+            "required_atoms": [
+              "早产体弱",
+              "园艺",
+              "房地产经纪老板"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "早产",
+              "所有权"
+            ]
+          }
+        },
+        "reality_object": "身体、兴趣、企业、行业对象、收入",
+        "shared_non_discriminating_atoms": [
+          "经营管理",
+          "审美表达"
+        ],
+        "subject": "命主",
+        "target": "体貌性情兴趣职业",
+        "time_range": "本命与当前"
+      },
+      "rule_attribution": {
+        "counterevidence_rule_ids": [
+          "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT"
+        ],
+        "decision_changed": true,
+        "decisive_rule_ids": [
+          "RULE-CAREER-SECTOR-ASSET-OBJECT-CLOSURE"
+        ],
+        "supporting_rule_ids": [
+          "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION"
+        ]
+      },
+      "top1": "D",
+      "top2": "B",
+      "ziwei_track_seal": {
+        "alternative_explanations": [
+          "物业或资产管理"
+        ],
+        "capability_ceiling": "不证明所有权",
+        "confidence": 68,
+        "contradicting_evidence_ids": [],
+        "core_structure": "田宅太阴科、财武七、官禄天马；疾厄劫空；身昌曲华盖",
+        "dynamic_trigger": "静态当前状态",
+        "endpoint_chain": {
+          "action": "经纪交易经营",
+          "endpoint": "当前房产经纪职业",
+          "object": "房产客户企业",
+          "subject": "命主"
+        },
+        "ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "supporting_evidence_ids": [
+          "Q2-Z-PROPERTY",
+          "Q2-Z-HEALTH"
+        ],
+        "top1": "D",
+        "top2": "B",
+        "unresolved_links": [
+          "早产和所有权"
+        ]
+      }
+    },
+    {
+      "adversarial_review": {
+        "annual_signal_overweighting": "已检查",
+        "background_as_endpoint": "已检查",
+        "bazi_posthoc_agreement": "已检查",
+        "duplicate_evidence_stacking": "已检查",
+        "ignored_alternative_explanations": [
+          "职业资格"
+        ],
+        "known_rule_execution_omissions": "无",
+        "option_wording_inducement": "已检查",
+        "participation_as_action": "已检查",
+        "precision_beyond_capability": "已检查",
+        "reversal_test": {
+          "ranking_after_removal": [
+            "C",
+            "A",
+            "D",
+            "B"
+          ],
+          "ranking_before": [
+            "A",
+            "C",
+            "D",
+            "B"
+          ],
+          "reason": "删除高等教育证据后C反超",
+          "removed_evidence_ids": [
+            "Q3-B-EDU"
+          ],
+          "top1_survives": false,
+          "top2_best_explanation": "共享2013且精确缺口较少"
+        },
+        "strongest_competitor": "C",
+        "strongest_reversal_evidence_ids": [
+          "Q3-B-EDU"
+        ],
+        "top1_weakest_required_atom": "医学重点大学",
+        "valence_as_mechanism": "已检查"
+      },
+      "bazi_track_seal": {
+        "alternative_explanations": [
+          "职业资格而非大学"
+        ],
+        "capability_ceiling": "不证明学校专业",
+        "confidence": 68,
+        "contradicting_evidence_ids": [],
+        "endpoint_chain": {
+          "action": "制度学习与职业进入",
+          "endpoint": "完整教育路径",
+          "object": "学校资格",
+          "subject": "命主"
+        },
+        "luck_timing": "2013职业进入较强",
+        "method_competition": "杀印与扶抑",
+        "ranking": [
+          "A",
+          "C",
+          "B",
+          "D"
+        ],
+        "strength_and_pattern": "丙丁印透承官杀",
+        "supporting_evidence_ids": [
+          "Q3-B-EDU"
+        ],
+        "top1": "A",
+        "top2": "C",
+        "unresolved_links": [
+          "专业"
+        ]
+      },
+      "confidence_components": {
+        "cross_track_agreement": 70,
+        "input_confidence": 90,
+        "mechanism_confidence": 72,
+        "natal_structure_confidence": 77,
+        "overall_confidence": 70,
+        "reality_endpoint_confidence": 70,
+        "subject_confidence": 73,
+        "timing_confidence": 70,
+        "top1_top2_separation": 70
+      },
+      "counterfactual_analysis": {
+        "bazi_only_ranking": [
+          "A",
+          "C",
+          "B",
+          "D"
+        ],
+        "canonical_only_ranking": [
+          "A",
+          "C",
+          "D",
+          "B"
+        ],
+        "decisive_rule_ablations": [
+          {
+            "changes_top1": true,
+            "ranking_without_rule": [
+              "C",
+              "A",
+              "D",
+              "B"
+            ],
+            "reason": "Removing the declared decisive rule changes Top1 from A to C.",
+            "rule_id": "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION"
+          }
+        ],
+        "full_model_ranking": [
+          "A",
+          "C",
+          "D",
+          "B"
+        ],
+        "fused_ranking": [
+          "A",
+          "C",
+          "D",
+          "B"
+        ],
+        "ziwei_only_ranking": [
+          "A",
+          "C",
+          "D",
+          "B"
+        ]
+      },
+      "cross_track_arbitration": {
+        "agreement_layers": [
+          "教育容量",
+          "2013职业进入"
+        ],
+        "confidence_reduction_required": true,
+        "conflict_layers": [],
+        "conflict_origin": "学校专业为共同缺口",
+        "decision": "A首选、C次选",
+        "shared_reality_assumption_risk": "已归零",
+        "stronger_track_for_topic": "BAZI"
+      },
+      "evidence_ledger": [
+        {
+          "alternative_explanation": "升职转岗",
+          "applicability_conditions": [
+            "2013职业题"
+          ],
+          "capability_ceiling": "不区分A/C教育",
+          "chart_fact": "2013虚岁31流年落官禄宫",
+          "conditions_satisfied": [
+            "时间冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "DECISIVE",
+          "evidence_family_id": "FAM-CAREER-2013",
+          "evidence_id": "Q3-Z-2013",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "2013当前工作进入时点",
+          "layer": "YEAR",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S10",
+          "supports_option_atoms": [
+            "A:2013",
+            "C:2013"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "职业资格",
+          "applicability_conditions": [
+            "教育轴匹配"
+          ],
+          "capability_ceiling": "不证明重点大学",
+          "chart_fact": "紫微科、太阴科、身宫昌曲",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-EDU-CAP",
+          "evidence_id": "Q3-Z-EDU",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "高等专业学习容量",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S07",
+          "supports_option_atoms": [
+            "A:高等教育",
+            "B:高等教育",
+            "D:高等教育"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "职业资格",
+          "applicability_conditions": [
+            "印杀结构"
+          ],
+          "capability_ceiling": "不锁专业",
+          "chart_fact": "丙丁印透并承官杀",
+          "conditions_satisfied": [
+            "四柱冻结"
+          ],
+          "contradicts_option_atoms": [
+            "C:仅高中主干"
+          ],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-BAZI-EDU",
+          "evidence_id": "Q3-B-EDU",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "较完整制度学习路径",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S13",
+          "supports_option_atoms": [
+            "A:毕业",
+            "B:毕业"
+          ],
+          "track": "BAZI"
+        }
+      ],
+      "final_ranking": [
+        "A",
+        "C",
+        "D",
+        "B"
+      ],
+      "option_comparison_matrix": {
+        "options": {
+          "A": {
+            "bazi_support_evidence_ids": [
+              "Q3-B-EDU"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "2013",
+              "完整教育"
+            ],
+            "final_rank": 1,
+            "final_rank_reason": "教育与时间主干最完整",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "高等教育",
+              "2013"
+            ],
+            "severe_atoms_have_independent_evidence": true,
+            "shared_background_zeroed": true,
+            "timing_closure": "2013强",
+            "unknown_atoms": [
+              "医学重点大学"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q3-Z-2013",
+              "Q3-Z-EDU"
+            ]
+          },
+          "B": {
+            "bazi_support_evidence_ids": [
+              "Q3-B-EDU"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "高等教育"
+            ],
+            "final_rank": 4,
+            "final_rank_reason": "判监终点未闭合",
+            "reality_closure": "弱",
+            "required_atom_completion": [
+              "教育"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2011弱",
+            "unknown_atoms": [
+              "判监"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q3-Z-EDU"
+            ]
+          },
+          "C": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [
+              "Q3-B-EDU"
+            ],
+            "distinctive_atom_completion": [
+              "2013"
+            ],
+            "final_rank": 2,
+            "final_rank_reason": "2013强但学历主干弱",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "2013"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2013强",
+            "unknown_atoms": [
+              "高中贵人"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q3-Z-2013"
+            ]
+          },
+          "D": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 3,
+            "final_rank_reason": "毕业辍学字面冲突",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2021弱",
+            "unknown_atoms": [
+              "学历状态"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q3-Z-EDU"
+            ]
+          }
+        },
+        "pairwise": [
+          {
+            "left": "A",
+            "reason": "教育主干更完整",
+            "right": "C",
+            "winner": "A"
+          },
+          {
+            "left": "A",
+            "reason": "2013与完成状态更强",
+            "right": "D",
+            "winner": "A"
+          },
+          {
+            "left": "A",
+            "reason": "判监缺口更大",
+            "right": "B",
+            "winner": "A"
+          },
+          {
+            "left": "C",
+            "reason": "2013更强",
+            "right": "D",
+            "winner": "C"
+          },
+          {
+            "left": "C",
+            "reason": "判监缺口更大",
+            "right": "B",
+            "winner": "C"
+          },
+          {
+            "left": "D",
+            "reason": "判监严重缺口",
+            "right": "B",
+            "winner": "D"
+          }
+        ]
+      },
+      "public_summary": "A首选，C次选：高等教育容量与2013官禄进入共同领先。",
+      "question_id": "Q3",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-DATED-EVENT-OBSERVABLE-TERMINAL-ANCHOR",
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+          "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION"
+        ],
+        "endpoint_tags": [
+          "OCCUPATION",
+          "EDUCATION_LEVEL"
+        ],
+        "reasoning_skill_tags": [
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "CAREER_PROFILE_CLOSURE"
+        ],
+        "source_routes": [
+          "S02",
+          "S04",
+          "S07",
+          "S10",
+          "S11",
+          "S13",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR",
+          "CURRENT_STATUS"
+        ],
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "question_semantic_model": {
+        "action_subject": "命主学生劳动者",
+        "ambiguities": [
+          "学校专业未知",
+          "2013可为转岗"
+        ],
+        "completion_endpoint": "学历完成与当前工作进入；B另需判监",
+        "event_process": "能力→入学专业→完成/中断→入职",
+        "is_composite_narrative": true,
+        "magnitude": "重点大学不能由科印强度换算",
+        "option_atoms": {
+          "A": {
+            "distinctive_atoms": [
+              "医学",
+              "2013"
+            ],
+            "required_atoms": [
+              "重点大学医学",
+              "毕业转行",
+              "2013现工作"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "学校专业",
+              "入职年"
+            ]
+          },
+          "B": {
+            "distinctive_atoms": [
+              "2011",
+              "判监"
+            ],
+            "required_atoms": [
+              "重点文科",
+              "2011现工作",
+              "2019判监半年"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "判监"
+            ]
+          },
+          "C": {
+            "distinctive_atoms": [
+              "低学历",
+              "非标准学习"
+            ],
+            "required_atoms": [
+              "高中",
+              "边工边学",
+              "2013贵人入职"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "学历",
+              "贵人"
+            ]
+          },
+          "D": {
+            "distinctive_atoms": [
+              "完成状态冲突",
+              "2021"
+            ],
+            "required_atoms": [
+              "重点文科毕业",
+              "中途辍学",
+              "2021现工作"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "学历状态"
+            ]
+          }
+        },
+        "reality_object": "学校专业文凭雇主司法机构",
+        "shared_non_discriminating_atoms": [
+          "学习能力",
+          "职业转换"
+        ],
+        "subject": "命主",
+        "target": "学历专业毕业转行入职年",
+        "time_range": "教育期至2021"
+      },
+      "rule_attribution": {
+        "counterevidence_rule_ids": [
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION"
+        ],
+        "decision_changed": true,
+        "decisive_rule_ids": [
+          "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION"
+        ],
+        "supporting_rule_ids": [
+          "RULE-DATED-EVENT-OBSERVABLE-TERMINAL-ANCHOR"
+        ]
+      },
+      "top1": "A",
+      "top2": "C",
+      "ziwei_track_seal": {
+        "alternative_explanations": [
+          "职业资格自学"
+        ],
+        "capability_ceiling": "不证明学校专业",
+        "confidence": 72,
+        "contradicting_evidence_ids": [],
+        "core_structure": "紫微科、太阴科、昌曲；2013流年官禄",
+        "dynamic_trigger": "2013官禄新增量",
+        "endpoint_chain": {
+          "action": "毕业转行入职",
+          "endpoint": "2013当前工作",
+          "object": "学校专业雇主",
+          "subject": "命主"
+        },
+        "ranking": [
+          "A",
+          "C",
+          "D",
+          "B"
+        ],
+        "supporting_evidence_ids": [
+          "Q3-Z-2013",
+          "Q3-Z-EDU"
+        ],
+        "top1": "A",
+        "top2": "C",
+        "unresolved_links": [
+          "医学与重点大学"
+        ]
+      }
+    },
+    {
+      "adversarial_review": {
+        "annual_signal_overweighting": "已检查",
+        "background_as_endpoint": "已检查",
+        "bazi_posthoc_agreement": "已检查",
+        "duplicate_evidence_stacking": "已检查",
+        "ignored_alternative_explanations": [
+          "分手备孕搬家"
+        ],
+        "known_rule_execution_omissions": "无",
+        "option_wording_inducement": "已检查",
+        "participation_as_action": "已检查",
+        "precision_beyond_capability": "已检查",
+        "reversal_test": {
+          "ranking_after_removal": [
+            "B",
+            "D",
+            "A",
+            "C"
+          ],
+          "ranking_before": [
+            "D",
+            "B",
+            "A",
+            "C"
+          ],
+          "reason": "删除2018专属证据后B反超",
+          "removed_evidence_ids": [
+            "Q4-Z-2018"
+          ],
+          "top1_survives": false,
+          "top2_best_explanation": "2011婚姻家庭扩张"
+        },
+        "strongest_competitor": "B",
+        "strongest_reversal_evidence_ids": [
+          "Q4-Z-2018"
+        ],
+        "top1_weakest_required_atom": "法律离婚",
+        "valence_as_mechanism": "已检查"
+      },
+      "bazi_track_seal": {
+        "alternative_explanations": [
+          "搬家家庭冲突"
+        ],
+        "capability_ceiling": "不证明登记",
+        "confidence": 63,
+        "contradicting_evidence_ids": [],
+        "endpoint_chain": {
+          "action": "关系结构重整",
+          "endpoint": "2018转换",
+          "object": "婚姻家庭",
+          "subject": "命主配偶"
+        },
+        "luck_timing": "2018戌冲辰并换壬子运",
+        "method_competition": "关系与家庭轴",
+        "ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "strength_and_pattern": "官杀关系压力与换运并见",
+        "supporting_evidence_ids": [
+          "Q4-B-2018"
+        ],
+        "top1": "D",
+        "top2": "A",
+        "unresolved_links": [
+          "法律状态"
+        ]
+      },
+      "confidence_components": {
+        "cross_track_agreement": 65,
+        "input_confidence": 90,
+        "mechanism_confidence": 67,
+        "natal_structure_confidence": 72,
+        "overall_confidence": 65,
+        "reality_endpoint_confidence": 65,
+        "subject_confidence": 68,
+        "timing_confidence": 65,
+        "top1_top2_separation": 65
+      },
+      "counterfactual_analysis": {
+        "bazi_only_ranking": [
+          "D",
+          "A",
+          "B",
+          "C"
+        ],
+        "canonical_only_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "decisive_rule_ablations": [
+          {
+            "changes_top1": true,
+            "ranking_without_rule": [
+              "B",
+              "D",
+              "A",
+              "C"
+            ],
+            "reason": "Removing the declared decisive rule changes Top1 from D to B.",
+            "rule_id": "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION"
+          }
+        ],
+        "full_model_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "fused_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "ziwei_only_ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ]
+      },
+      "cross_track_arbitration": {
+        "agreement_layers": [
+          "2018关系转换"
+        ],
+        "confidence_reduction_required": true,
+        "conflict_layers": [
+          "法律终点"
+        ],
+        "conflict_origin": "两轨只到转换机制",
+        "decision": "D首选、B次选",
+        "shared_reality_assumption_risk": "已归零",
+        "stronger_track_for_topic": "ZIWEI"
+      },
+      "evidence_ledger": [
+        {
+          "alternative_explanation": "备孕或家庭责任",
+          "applicability_conditions": [
+            "2018关系家庭题"
+          ],
+          "capability_ceiling": "不证明离婚",
+          "chart_fact": "2018进入子女大限且流年落子女宫",
+          "conditions_satisfied": [
+            "时间冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "DECISIVE",
+          "evidence_family_id": "FAM-REL-2018",
+          "evidence_id": "Q4-Z-2018",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "2018关系家庭强转换",
+          "layer": "YEAR",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S10",
+          "supports_option_atoms": [
+            "D:2018解除"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "搬家或职责改变",
+          "applicability_conditions": [
+            "2018岁运匹配"
+          ],
+          "capability_ceiling": "不证明离婚",
+          "chart_fact": "2018戊戌冲辰并换壬子运",
+          "conditions_satisfied": [
+            "四柱时间冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-BAZI-REL-2018",
+          "evidence_id": "Q4-B-2018",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "婚姻家庭结构重整",
+          "layer": "YEAR",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S15",
+          "supports_option_atoms": [
+            "D:2018分离"
+          ],
+          "track": "BAZI"
+        },
+        {
+          "alternative_explanation": "长期恋爱或婚事协商",
+          "applicability_conditions": [
+            "2011处夫妻大限"
+          ],
+          "capability_ceiling": "不证明登记",
+          "chart_fact": "24-33夫妻大限，夫妻陀罗天刑年解",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-MARRIAGE",
+          "evidence_id": "Q4-Z-MARRIAGE",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "早期婚姻建立前置",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S10",
+          "supports_option_atoms": [
+            "A:2011婚",
+            "B:2011婚"
+          ],
+          "track": "ZIWEI"
+        }
+      ],
+      "final_ranking": [
+        "D",
+        "B",
+        "A",
+        "C"
+      ],
+      "option_comparison_matrix": {
+        "options": {
+          "A": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "2011关系"
+            ],
+            "final_rank": 3,
+            "final_rank_reason": "子女年份人物缺口",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "关系建立"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2011背景",
+            "unknown_atoms": [
+              "介绍女儿"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q4-Z-MARRIAGE"
+            ]
+          },
+          "B": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "2011关系"
+            ],
+            "final_rank": 2,
+            "final_rank_reason": "家庭扩张竞争强但两子缺口大",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "关系建立"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2011-15部分",
+            "unknown_atoms": [
+              "奉子两男孩"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q4-Z-MARRIAGE"
+            ]
+          },
+          "C": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 4,
+            "final_rank_reason": "夫妻大限前置不利从未婚",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "弱",
+            "unknown_atoms": [
+              "从未婚"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "D": {
+            "bazi_support_evidence_ids": [
+              "Q4-B-2018"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "2018转换"
+            ],
+            "final_rank": 1,
+            "final_rank_reason": "先决与转换主干最完整",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "早期关系前置",
+              "2018转换"
+            ],
+            "severe_atoms_have_independent_evidence": true,
+            "shared_background_zeroed": true,
+            "timing_closure": "2018强",
+            "unknown_atoms": [
+              "法律离婚持续独身"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q4-Z-2018"
+            ]
+          }
+        },
+        "pairwise": [
+          {
+            "left": "D",
+            "reason": "2018转换更专属",
+            "right": "B",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "2018终点更强",
+            "right": "A",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "关系前置与转换更完整",
+            "right": "C",
+            "winner": "D"
+          },
+          {
+            "left": "B",
+            "reason": "家庭扩张时间略强",
+            "right": "A",
+            "winner": "B"
+          },
+          {
+            "left": "B",
+            "reason": "婚姻建立更强",
+            "right": "C",
+            "winner": "B"
+          },
+          {
+            "left": "A",
+            "reason": "婚姻建立更强",
+            "right": "C",
+            "winner": "A"
+          }
+        ]
+      },
+      "public_summary": "D首选，B次选：2018双轨转换与早期婚姻前置形成主干。",
+      "question_id": "Q4",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION",
+          "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+          "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION"
+        ],
+        "endpoint_tags": [
+          "FAMILY_COMPOSITION",
+          "RELATIONSHIP_STATUS",
+          "DIVORCE"
+        ],
+        "reasoning_skill_tags": [
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "RELATIONSHIP_SEQUENCE"
+        ],
+        "source_routes": [
+          "S02",
+          "S04",
+          "S08",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "subject_tags": [
+          "SPOUSE_PARTNER",
+          "CHILDREN"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR",
+          "CURRENT_STATUS"
+        ],
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY"
+        ]
+      },
+      "question_semantic_model": {
+        "action_subject": "命主与配偶",
+        "ambiguities": [
+          "2018可为分手或离婚",
+          "无子女需截止状态"
+        ],
+        "completion_endpoint": "2011结婚、生育或2018离婚及当前状态",
+        "event_process": "建立→婚姻→家庭→转换→当前状态",
+        "is_composite_narrative": true,
+        "magnitude": "人数性别不能由星数换算",
+        "option_atoms": {
+          "A": {
+            "distinctive_atoms": [
+              "介绍",
+              "女儿"
+            ],
+            "required_atoms": [
+              "介绍",
+              "2011婚",
+              "2014女"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "登记出生"
+            ]
+          },
+          "B": {
+            "distinctive_atoms": [
+              "奉子",
+              "两男孩"
+            ],
+            "required_atoms": [
+              "同学奉子",
+              "2011婚",
+              "2012子",
+              "2015子"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "人物出生"
+            ]
+          },
+          "C": {
+            "distinctive_atoms": [
+              "从未婚"
+            ],
+            "required_atoms": [
+              "多恋爱",
+              "未婚无子"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "截止状态"
+            ]
+          },
+          "D": {
+            "distinctive_atoms": [
+              "2018解除",
+              "独身"
+            ],
+            "required_atoms": [
+              "2018离婚",
+              "持续独身",
+              "无子"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "离婚",
+              "截止状态"
+            ]
+          }
+        },
+        "reality_object": "配偶关系登记解除与子女出生",
+        "shared_non_discriminating_atoms": [
+          "夫妻轴活跃",
+          "关系不顺"
+        ],
+        "subject": "命主配偶子女",
+        "target": "婚姻建立解除及子女",
+        "time_range": "2011-2018及当前"
+      },
+      "rule_attribution": {
+        "counterevidence_rule_ids": [
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION"
+        ],
+        "decision_changed": true,
+        "decisive_rule_ids": [
+          "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION"
+        ],
+        "supporting_rule_ids": [
+          "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE"
+        ]
+      },
+      "top1": "D",
+      "top2": "B",
+      "ziwei_track_seal": {
+        "alternative_explanations": [
+          "分手或子女事件"
+        ],
+        "capability_ceiling": "不证明法律手续",
+        "confidence": 67,
+        "contradicting_evidence_ids": [],
+        "core_structure": "夫妻大限可建立；2018子女限流重叠；子女宫弱",
+        "dynamic_trigger": "2018关系家庭转换",
+        "endpoint_chain": {
+          "action": "先建立后解除",
+          "endpoint": "2018状态转换",
+          "object": "婚姻家庭",
+          "subject": "命主配偶"
+        },
+        "ranking": [
+          "D",
+          "B",
+          "A",
+          "C"
+        ],
+        "supporting_evidence_ids": [
+          "Q4-Z-2018",
+          "Q4-Z-MARRIAGE"
+        ],
+        "top1": "D",
+        "top2": "B",
+        "unresolved_links": [
+          "法律离婚与持续独身"
+        ]
+      }
+    },
+    {
+      "adversarial_review": {
+        "annual_signal_overweighting": "已检查",
+        "background_as_endpoint": "已检查",
+        "bazi_posthoc_agreement": "已检查",
+        "duplicate_evidence_stacking": "已检查",
+        "ignored_alternative_explanations": [
+          "父亲事件",
+          "一般财务压力"
+        ],
+        "known_rule_execution_omissions": "无",
+        "option_wording_inducement": "已检查",
+        "participation_as_action": "已检查",
+        "precision_beyond_capability": "已检查",
+        "reversal_test": {
+          "ranking_after_removal": [
+            "D",
+            "A",
+            "C",
+            "B"
+          ],
+          "ranking_before": [
+            "A",
+            "D",
+            "C",
+            "B"
+          ],
+          "reason": "删除父母年份证据后D反超",
+          "removed_evidence_ids": [
+            "Q5-Z-PARENT"
+          ],
+          "top1_survives": false,
+          "top2_best_explanation": "财务压力有独立候选"
+        },
+        "strongest_competitor": "D",
+        "strongest_reversal_evidence_ids": [
+          "Q5-Z-PARENT"
+        ],
+        "top1_weakest_required_atom": "母亲死亡完成",
+        "valence_as_mechanism": "已检查"
+      },
+      "bazi_track_seal": {
+        "alternative_explanations": [
+          "工作或关系压力"
+        ],
+        "capability_ceiling": "不定事件类别",
+        "confidence": 61,
+        "contradicting_evidence_ids": [],
+        "endpoint_chain": {
+          "action": "高压结构触发",
+          "endpoint": "家庭或财务事件候选",
+          "object": "家庭财务",
+          "subject": "命主家庭"
+        },
+        "luck_timing": "壬子运壬寅年官杀压力",
+        "method_competition": "家庭与财务并行",
+        "ranking": [
+          "D",
+          "A",
+          "C",
+          "B"
+        ],
+        "strength_and_pattern": "寅亥合加强木势",
+        "supporting_evidence_ids": [
+          "Q5-B-PRESSURE"
+        ],
+        "top1": "D",
+        "top2": "A",
+        "unresolved_links": [
+          "事件类别"
+        ]
+      },
+      "confidence_components": {
+        "cross_track_agreement": 63,
+        "input_confidence": 90,
+        "mechanism_confidence": 65,
+        "natal_structure_confidence": 70,
+        "overall_confidence": 63,
+        "reality_endpoint_confidence": 63,
+        "subject_confidence": 66,
+        "timing_confidence": 63,
+        "top1_top2_separation": 63
+      },
+      "counterfactual_analysis": {
+        "bazi_only_ranking": [
+          "D",
+          "A",
+          "C",
+          "B"
+        ],
+        "canonical_only_ranking": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ],
+        "decisive_rule_ablations": [],
+        "full_model_ranking": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ],
+        "fused_ranking": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ],
+        "ziwei_only_ranking": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ]
+      },
+      "cross_track_arbitration": {
+        "agreement_layers": [
+          "2022高压"
+        ],
+        "confidence_reduction_required": true,
+        "conflict_layers": [
+          "父母或财务类别"
+        ],
+        "conflict_origin": "八字无人物对象坐标",
+        "decision": "A首选、D次选",
+        "shared_reality_assumption_risk": "已归零",
+        "stronger_track_for_topic": "ZIWEI"
+      },
+      "evidence_ledger": [
+        {
+          "alternative_explanation": "父亲或父母事务",
+          "applicability_conditions": [
+            "2022父母题"
+          ],
+          "capability_ceiling": "不单独指定母亲死亡",
+          "chart_fact": "2022虚岁40流年落父母宫，原局父母劫空",
+          "conditions_satisfied": [
+            "时间盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "DECISIVE",
+          "evidence_family_id": "FAM-2022-PARENT",
+          "evidence_id": "Q5-Z-PARENT",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "年份新增量落父母人物",
+          "layer": "NATAL",
+          "limitations": "不越级",
+          "reliability": "HIGH",
+          "source_route": "S10",
+          "supports_option_atoms": [
+            "A:母亲重大事件"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "母亲住院或资产处置",
+          "applicability_conditions": [
+            "母亲人物分轨"
+          ],
+          "capability_ceiling": "不完成死亡",
+          "chart_fact": "太阴陷生年科兼田宅大耗",
+          "conditions_satisfied": [
+            "盘面冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "SUPPORTING",
+          "evidence_family_id": "FAM-MOTHER-ROLE",
+          "evidence_id": "Q5-Z-MOTHER",
+          "independence_status": "INDEPENDENT",
+          "knowledge_point": "母亲家庭支柱损耗链",
+          "layer": "YEAR",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S04",
+          "supports_option_atoms": [
+            "A:母亲去世"
+          ],
+          "track": "ZIWEI"
+        },
+        {
+          "alternative_explanation": "工作关系或健康压力",
+          "applicability_conditions": [
+            "2022岁运匹配"
+          ],
+          "capability_ceiling": "不定类别",
+          "chart_fact": "壬子运遇壬寅，寅亥合加强木势",
+          "conditions_satisfied": [
+            "四柱时间冻结"
+          ],
+          "contradicts_option_atoms": [],
+          "decision_impact": "NEUTRAL",
+          "evidence_family_id": "FAM-2022-BAZI",
+          "evidence_id": "Q5-B-PRESSURE",
+          "independence_status": "NEUTRAL_BACKGROUND",
+          "knowledge_point": "家庭责任与财务健康高压窗口",
+          "layer": "YEAR",
+          "limitations": "不越级",
+          "reliability": "MEDIUM",
+          "source_route": "S15",
+          "supports_option_atoms": [
+            "A:家庭事件",
+            "D:财务压力"
+          ],
+          "track": "BAZI"
+        }
+      ],
+      "final_ranking": [
+        "A",
+        "D",
+        "C",
+        "B"
+      ],
+      "option_comparison_matrix": {
+        "options": {
+          "A": {
+            "bazi_support_evidence_ids": [
+              "Q5-B-PRESSURE"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "父母人物年份"
+            ],
+            "final_rank": 1,
+            "final_rank_reason": "人物年份专属性最高",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "父母人物",
+              "2022"
+            ],
+            "severe_atoms_have_independent_evidence": true,
+            "shared_background_zeroed": true,
+            "timing_closure": "2022父母宫",
+            "unknown_atoms": [
+              "死亡完成"
+            ],
+            "ziwei_support_evidence_ids": [
+              "Q5-Z-PARENT",
+              "Q5-Z-MOTHER"
+            ]
+          },
+          "B": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 4,
+            "final_rank_reason": "交通载体缺失",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "共享高压",
+            "unknown_atoms": [
+              "车辆碰撞"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "C": {
+            "bazi_support_evidence_ids": [],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [],
+            "final_rank": 3,
+            "final_rank_reason": "诊断时长缺失",
+            "reality_closure": "弱",
+            "required_atom_completion": [],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "共享高压",
+            "unknown_atoms": [
+              "新冠住院四月"
+            ],
+            "ziwei_support_evidence_ids": []
+          },
+          "D": {
+            "bazi_support_evidence_ids": [
+              "Q5-B-PRESSURE"
+            ],
+            "direct_counterevidence_ids": [],
+            "distinctive_atom_completion": [
+              "财务压力"
+            ],
+            "final_rank": 2,
+            "final_rank_reason": "财务方向强但动作链长",
+            "reality_closure": "部分",
+            "required_atom_completion": [
+              "财务压力"
+            ],
+            "severe_atoms_have_independent_evidence": false,
+            "shared_background_zeroed": true,
+            "timing_closure": "2022财务压力",
+            "unknown_atoms": [
+              "债务卖房填洞"
+            ],
+            "ziwei_support_evidence_ids": []
+          }
+        },
+        "pairwise": [
+          {
+            "left": "A",
+            "reason": "人物年份专属性更强",
+            "right": "D",
+            "winner": "A"
+          },
+          {
+            "left": "A",
+            "reason": "诊疗终点缺口更大",
+            "right": "C",
+            "winner": "A"
+          },
+          {
+            "left": "A",
+            "reason": "交通载体缺口更大",
+            "right": "B",
+            "winner": "A"
+          },
+          {
+            "left": "D",
+            "reason": "财务方向有独立背景",
+            "right": "C",
+            "winner": "D"
+          },
+          {
+            "left": "D",
+            "reason": "交通载体更弱",
+            "right": "B",
+            "winner": "D"
+          },
+          {
+            "left": "C",
+            "reason": "健康轴略强于交通",
+            "right": "B",
+            "winner": "C"
+          }
+        ]
+      },
+      "public_summary": "A首选，D次选：2022父母人物年份专属性高于财务复合链。",
+      "question_id": "Q5",
+      "question_profile": {
+        "applied_rule_ids": [
+          "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+          "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION"
+        ],
+        "endpoint_tags": [
+          "DEATH",
+          "HEALTH_CONDITION",
+          "ACCIDENT_INJURY",
+          "MAJOR_EVENT"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "DEATH_ENTITY_TIME_CLOSURE"
+        ],
+        "source_routes": [
+          "S02",
+          "S04",
+          "S08",
+          "S10",
+          "S11",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "subject_tags": [
+          "SELF",
+          "MOTHER"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "PARENTS",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "TRAVEL_ACCIDENT_SAFETY"
+        ]
+      },
+      "question_semantic_model": {
+        "action_subject": "母亲、命主或机构",
+        "ambiguities": [
+          "父母宫不单独指定母亲",
+          "财务压力不等于债务卖房"
+        ],
+        "completion_endpoint": "母亲死亡、车祸、新冠住院四月或债务卖房",
+        "event_process": "年份许可→人物机制→动作终点",
+        "is_composite_narrative": true,
+        "magnitude": "高严重度终点对称负担",
+        "option_atoms": {
+          "A": {
+            "distinctive_atoms": [
+              "母亲生命终点"
+            ],
+            "required_atoms": [
+              "母亲",
+              "2022死亡"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "死亡人物年份"
+            ]
+          },
+          "B": {
+            "distinctive_atoms": [
+              "交通载体"
+            ],
+            "required_atoms": [
+              "旅游车辆道路碰撞受伤"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "车祸"
+            ]
+          },
+          "C": {
+            "distinctive_atoms": [
+              "病原住院时长"
+            ],
+            "required_atoms": [
+              "新冠并发症住院四月"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "诊断持续"
+            ]
+          },
+          "D": {
+            "distinctive_atoms": [
+              "债务房产因果链"
+            ],
+            "required_atoms": [
+              "事业阻碍债务卖房填洞"
+            ],
+            "severe_irreversible_or_high_precision_atoms": [
+              "债务交易用途"
+            ]
+          }
+        },
+        "reality_object": "母亲、车辆道路、医院疾病、债务房产",
+        "shared_non_discriminating_atoms": [
+          "2022高压变化"
+        ],
+        "subject": "命主及母亲",
+        "target": "2022异质重大事件",
+        "time_range": "2022壬寅"
+      },
+      "rule_attribution": {
+        "counterevidence_rule_ids": [
+          "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+          "RULE-DYNAMIC-ACTIVATION-DIRECTION"
+        ],
+        "decision_changed": false,
+        "decisive_rule_ids": [],
+        "supporting_rule_ids": [
+          "RULE-BENEFIC-MITIGATION-NONCANCELLATION"
+        ]
+      },
+      "top1": "A",
+      "top2": "D",
+      "ziwei_track_seal": {
+        "alternative_explanations": [
+          "父亲或父母事务"
+        ],
+        "capability_ceiling": "不单独完成死亡",
+        "confidence": 65,
+        "contradicting_evidence_ids": [],
+        "core_structure": "2022流年父母宫；父母劫空；太阴田宅损耗；武曲忌财务压力",
+        "dynamic_trigger": "2022父母轴新增量",
+        "endpoint_chain": {
+          "action": "母亲不可逆事件",
+          "endpoint": "生命终点候选",
+          "object": "母亲",
+          "subject": "母亲"
+        },
+        "ranking": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ],
+        "supporting_evidence_ids": [
+          "Q5-Z-PARENT",
+          "Q5-Z-MOTHER"
+        ],
+        "top1": "A",
+        "top2": "D",
+        "unresolved_links": [
+          "死亡完成"
+        ]
+      }
+    }
+  ],
+  "reasoning_completeness_report": {
+    "all_option_comparisons_complete": true,
+    "bazi_track_seals_complete": true,
+    "blind_chart_model_complete": true,
+    "blind_chart_model_sha256": "dee2ff24e808f1eb1b0e573fc35c93981847f35cc4a5b7236530eca34bf2b006",
+    "cross_question_unresolved_conflicts": 1,
+    "cross_track_conflicts_preserved": true,
+    "decision_impact_evidence_entries": 14,
+    "decisive_rules_with_real_top1_change": 3,
+    "evidence_family_sizes": {
+      "FAM-2022-BAZI": 1,
+      "FAM-2022-PARENT": 1,
+      "FAM-BAZI-CAREER": 1,
+      "FAM-BAZI-EDU": 1,
+      "FAM-BAZI-PARENT": 1,
+      "FAM-BAZI-REL-2018": 1,
+      "FAM-CAREER-2013": 1,
+      "FAM-EDU-CAP": 1,
+      "FAM-HEALTH-AESTHETIC": 1,
+      "FAM-MARRIAGE": 1,
+      "FAM-MOTHER-ASSET": 1,
+      "FAM-MOTHER-ROLE": 1,
+      "FAM-PARENT-RISK": 1,
+      "FAM-PROPERTY-OBJECT": 1,
+      "FAM-REL-2018": 1
+    },
+    "high_confidence_with_unclosed_critical_link": 0,
+    "independent_evidence_families": 15,
+    "reasoning_framework": {
+      "dimensions": [
+        "STRUCTURE",
+        "MECHANISM",
+        "TIMING",
+        "REALITY",
+        "ADVERSARIAL",
+        "REFLECTION"
+      ],
+      "evidence_quota": null,
+      "status": "WORKING_HYPOTHESIS_NOT_FIXED_DOGMA"
+    },
+    "reversal_tests_complete": true,
+    "schema": "REASONING-COMPLETENESS-REPORT-V1",
+    "source_only_invalid_evidence_entries": 0,
+    "valid_evidence_entries": 15,
+    "ziwei_track_seals_complete": true
+  },
+  "replay_remediation": {
+    "changed_steps": [
+      "盲态建模",
+      "人物年份终点绑定",
+      "共享原子归零",
+      "职业对象分账",
+      "年份阶段分层",
+      "高精度原子对称扣分与反转"
+    ],
+    "new_error_risks": [
+      "精确终点仍有缺口",
+      "跨题一致性可能诱发叙事偏差"
+    ],
+    "new_idea_executed": "跨题只审计矛盾，不作单题证据",
+    "original_root_causes": [
+      "SUBJECT_ROUTING",
+      "EVENT_MECHANISM",
+      "PERIOD_TIMING",
+      "OPTION_COMPARISON",
+      "EVIDENCE_WEIGHTING"
+    ],
+    "predicted_mechanism_of_improvement": "让人物、对象和完成节点而非主题强度决胜",
+    "remediation_type": "EXECUTION_GATE"
+  },
+  "round_id": "FORMAL-ROUND-021",
+  "schema": "FROZEN-PREDICTION-V2"
+}
