@@ -745,6 +745,55 @@ class RuntimeTests(unittest.TestCase):
             ledger = load_learning_ledger(fixture.root)
             self.assertEqual(ledger["rule_evidence"]["RULE-GENERAL-ENDPOINT"]["status"], "CANDIDATE")
 
+    def test_failed_first_blind_prefers_next_new_case_over_older_due_replay(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary), case_count=8)
+            fixture.run_and_score("FAIL-1", 3)
+            apply_learning(
+                fixture.root,
+                "FAIL-1",
+                fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
+                "LEARNING-001",
+            )
+            for index in range(2, 7):
+                fixture.run_and_score(f"NEW-{index}", 5)
+            self.assertEqual(
+                status(fixture.root)["active_replay_case_id"],
+                "DEV-EXAMPLE-001",
+            )
+            fixture.run_and_score("REPLAY-1", 5)
+            self.assertEqual(
+                status(fixture.root)["current_case_id"],
+                "DEV-EXAMPLE-007",
+            )
+
+            state_path = fixture.root / "training" / "state.json"
+            state = json.loads(state_path.read_text())
+            state["spaced_replay_queue"].append(
+                {
+                    "case_id": "DEV-EXAMPLE-002",
+                    "eligible_after_first_blind_count": 6,
+                },
+            )
+            state["cases"]["DEV-EXAMPLE-002"]["remediation_status"] = "QUEUED"
+            write_json(state_path, state)
+            write_chat_input(fixture.root)
+
+            fixture.run_and_score("FAIL-7", 3)
+            apply_learning(
+                fixture.root,
+                "FAIL-7",
+                fixture.patch_file(
+                    "LEARNING-007",
+                    "RULE-FAILED-FIRST-BLIND-NEXT-NEW",
+                ),
+                "LEARNING-007",
+            )
+            current = status(fixture.root)
+            self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-008")
+            self.assertIsNone(current["active_replay_case_id"])
+            self.assertEqual(current["spaced_replay_queue_size"], 2)
+
     def test_failed_case_replays_only_after_five_new_cases_and_does_not_count_as_new_evidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary), case_count=7)
