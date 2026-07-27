@@ -29,7 +29,9 @@ from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packe
 from fortune_training.handoff_probe import (
     process_handoff_probe,
     unseal_private_review,
+    validate_handoff,
 )
+from fortune_training.handoff_preflight import normalize_handoff
 from fortune_training.learning import (
     LEDGER_RELATIVE_PATH,
     empty_learning_ledger,
@@ -902,6 +904,18 @@ class RuntimeTests(unittest.TestCase):
             self.assertTrue(constraints["exact_fields_only"])
             self.assertTrue(constraints["preflight_required"])
             self.assertEqual(
+                constraints["confidence_unit"],
+                "INTEGER_PERCENT_0_TO_100",
+            )
+            self.assertIn(
+                "fortune-handoff-preflight",
+                constraints["preflight_command"],
+            )
+            self.assertIn(
+                "CHALLENGED",
+                constraints["rule_status_normalization"],
+            )
+            self.assertEqual(
                 constraints["github_issue_body_hard_limit_characters"],
                 GITHUB_ISSUE_BODY_MAX_CHARACTERS,
             )
@@ -1453,24 +1467,37 @@ class IssueRelayTests(unittest.TestCase):
 
 
 class HandoffProbeTests(unittest.TestCase):
+    @staticmethod
+    def handoff_for(
+        fixture: RuntimeFixture,
+        *,
+        correct_count: int = 3,
+        applied_rule_ids: list[str] | None = None,
+    ) -> tuple[dict, dict]:
+        bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
+        contract = bundle["chat_work_handoff_contract"]
+        prediction = json.loads(
+            fixture.prediction_file(
+                contract["binding"]["round_id"],
+                correct_count,
+                applied_rule_ids=applied_rule_ids,
+            ).read_text()
+        )
+        return contract, {
+            "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
+            "binding": contract["binding"],
+            "blind_chart_model": prediction["blind_chart_model"],
+            "cross_question_consistency": prediction[
+                "cross_question_consistency"
+            ],
+            "replay_remediation": prediction["replay_remediation"],
+            "predictions": prediction["predictions"],
+        }
+
     def test_probe_returns_work_private_review_without_persisting_answers(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
-            bundle = json.loads((fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text())
-            contract = bundle["chat_work_handoff_contract"]
-            prediction = json.loads(
-                fixture.prediction_file(contract["binding"]["round_id"], 3).read_text()
-            )
-            handoff = {
-                "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
-                "binding": contract["binding"],
-                "blind_chart_model": prediction["blind_chart_model"],
-                "cross_question_consistency": prediction[
-                    "cross_question_consistency"
-                ],
-                "replay_remediation": prediction["replay_remediation"],
-                "predictions": prediction["predictions"],
-            }
+            contract, handoff = self.handoff_for(fixture)
             private_key = rsa.generate_private_key(public_exponent=65537, key_size=3072)
             public_der = private_key.public_key().public_bytes(
                 serialization.Encoding.DER,
@@ -1493,9 +1520,125 @@ class HandoffProbeTests(unittest.TestCase):
             )
             self.assertNotIn("correct_option", json.dumps(summary))
             self.assertNotIn("correct_option", json.dumps(sealed))
+            self.assertFalse(summary["preflight"]["changed"])
+
+    def test_preflight_normalizes_fractional_confidence_before_validation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            contract, handoff = self.handoff_for(fixture)
+            for row in handoff["predictions"]:
+                row["ziwei_track_seal"]["confidence"] = 0.7
+                row["bazi_track_seal"]["confidence"] = 0.7
+                for field in row["confidence_components"]:
+                    row["confidence_components"][field] = 0.7
+            normalized, report = validate_handoff(
+                fixture.root,
+                issue_title=contract["issue_title"],
+                issue_body=json.dumps(handoff),
+                include_preflight_report=True,
+            )
+            self.assertTrue(report["changed"])
+            self.assertEqual(
+                normalized["predictions"][0]["ziwei_track_seal"]["confidence"],
+                70,
+            )
+            self.assertEqual(
+                normalized["predictions"][0]["confidence_components"][
+                    "overall_confidence"
+                ],
+                70,
+            )
+            self.assertEqual(
+                {row["top1"] for row in normalized["predictions"]},
+                {row["top1"] for row in handoff["predictions"]},
+            )
+
+    def test_preflight_moves_challenged_rule_to_counterevidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 0)
+            rule_id = "RULE-CHALLENGED-PREFLIGHT"
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-1", rule_id),
+                "LEARNING-1",
+            )
+            ledger = load_learning_ledger(fixture.root)
+            ledger["rule_evidence"][rule_id]["status"] = "CHALLENGED"
+            ledger["attributed_rule_evidence"][rule_id]["status"] = "CHALLENGED"
+            write_learning_ledger(fixture.root, ledger)
+            handoff = {
+                "predictions": [
+                    {
+                        "question_id": "Q1",
+                        "question_profile": {"applied_rule_ids": [rule_id]},
+                        "rule_attribution": {
+                            "decisive_rule_ids": [rule_id],
+                            "supporting_rule_ids": [],
+                            "counterevidence_rule_ids": [],
+                            "decision_changed": True,
+                        },
+                        "counterfactual_analysis": {
+                            "decisive_rule_ablations": [{"rule_id": rule_id}]
+                        },
+                    }
+                ]
+            }
+            normalized, report = normalize_handoff(fixture.root, handoff)
+            attribution = normalized["predictions"][0]["rule_attribution"]
+            self.assertEqual(attribution["decisive_rule_ids"], [])
+            self.assertEqual(
+                attribution["counterevidence_rule_ids"],
+                [rule_id],
+            )
+            self.assertFalse(attribution["decision_changed"])
+            self.assertEqual(
+                normalized["predictions"][0]["counterfactual_analysis"][
+                    "decisive_rule_ablations"
+                ],
+                [],
+            )
+            self.assertTrue(report["changed"])
+
+    def test_preflight_fails_closed_for_retired_rule(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            fixture.run_and_score("R1", 0)
+            rule_id = "RULE-RETIRED-PREFLIGHT"
+            apply_learning(
+                fixture.root,
+                "R1",
+                fixture.patch_file("LEARNING-1", rule_id),
+                "LEARNING-1",
+            )
+            ledger = load_learning_ledger(fixture.root)
+            ledger["rule_evidence"][rule_id]["status"] = "RETIRED"
+            ledger["attributed_rule_evidence"][rule_id]["status"] = "RETIRED"
+            write_learning_ledger(fixture.root, ledger)
+            handoff = {
+                "predictions": [
+                    {
+                        "question_id": "Q1",
+                        "question_profile": {"applied_rule_ids": [rule_id]},
+                        "rule_attribution": {},
+                    }
+                ]
+            }
+            with self.assertRaises(TrainingError):
+                normalize_handoff(fixture.root, handoff)
 
 
 class RepositoryIntegrityTests(unittest.TestCase):
+    def test_work_environment_bootstrap_is_versioned_and_executable(self):
+        bootstrap = PROJECT_ROOT / "scripts/bootstrap-work-env.sh"
+        self.assertTrue(bootstrap.is_file())
+        self.assertTrue(bootstrap.stat().st_mode & 0o111)
+        contents = bootstrap.read_text(encoding="utf-8")
+        self.assertIn("git -C \"$repo_root\" sparse-checkout add", contents)
+        self.assertIn("gh_version=\"2.96.0\"", contents)
+        self.assertIn("sha256sum --check", contents)
+
     def test_retired_rule_is_valid_but_not_exposed_to_prediction(self):
         ledger = load_learning_ledger(PROJECT_ROOT)
         retired_rule = "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON"

@@ -577,17 +577,34 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "serialization_constraints": {
                 "encoding": "UTF-8_JSON_WITHOUT_CODE_FENCES",
                 "exact_fields_only": True,
+                "confidence_unit": "INTEGER_PERCENT_0_TO_100",
+                "fractional_confidence_normalization": (
+                    "A numeric float from 0.0 through 1.0 is deterministically "
+                    "converted to the nearest integer percent before validation."
+                ),
+                "rule_status_normalization": (
+                    "CHALLENGED rules are automatically moved out of decisive/supporting "
+                    "roles into counterevidence. RETIRED or suppressed rules fail closed."
+                ),
                 "github_issue_body_hard_limit_characters": (
                     GITHUB_ISSUE_BODY_MAX_CHARACTERS
                 ),
                 "target_max_characters": HANDOFF_TARGET_MAX_CHARACTERS,
                 "preflight_required": True,
+                "preflight_command": (
+                    "fortune-handoff-preflight --root . --issue-title "
+                    "\"<ISSUE_TITLE_FROM_THIS_CONTRACT>\" --input <DRAFT_JSON> "
+                    "--output <NORMALIZED_JSON> --report <PREFLIGHT_REPORT_JSON>"
+                ),
                 "preflight_rule": (
-                    "Serialize compact JSON and count Unicode characters before creating "
-                    "the Issue. Keep every required field and every substantive evidence row, "
-                    "but deduplicate repeated prose and shorten wording until the body is at "
-                    f"most {HANDOFF_TARGET_MAX_CHARACTERS} characters. Never split one handoff "
-                    "across Issues and never change Top1 or Top2 to meet the size budget."
+                    "Run the repository preflight command and create the Issue only from its "
+                    "normalized output. It fully validates the workbook, converts fractional "
+                    "confidence to integer percent, enforces rule-ledger status, serializes "
+                    "compact JSON, and verifies the size budget. Keep every required field and "
+                    "every substantive evidence row, but deduplicate repeated prose and shorten "
+                    f"wording until the body is at most {HANDOFF_TARGET_MAX_CHARACTERS} "
+                    "characters. Never split one handoff across Issues and never change Top1 or "
+                    "Top2 to meet the size budget."
                 ),
             },
             "handoff_forbidden_content": [

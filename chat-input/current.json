@@ -538,11 +538,15 @@
     },
     "schema": "CHAT-WORK-HANDOFF-CONTRACT-V2",
     "serialization_constraints": {
+      "confidence_unit": "INTEGER_PERCENT_0_TO_100",
       "encoding": "UTF-8_JSON_WITHOUT_CODE_FENCES",
       "exact_fields_only": true,
+      "fractional_confidence_normalization": "A numeric float from 0.0 through 1.0 is deterministically converted to the nearest integer percent before validation.",
       "github_issue_body_hard_limit_characters": 65536,
+      "preflight_command": "fortune-handoff-preflight --root . --issue-title \"<ISSUE_TITLE_FROM_THIS_CONTRACT>\" --input <DRAFT_JSON> --output <NORMALIZED_JSON> --report <PREFLIGHT_REPORT_JSON>",
       "preflight_required": true,
-      "preflight_rule": "Serialize compact JSON and count Unicode characters before creating the Issue. Keep every required field and every substantive evidence row, but deduplicate repeated prose and shorten wording until the body is at most 60000 characters. Never split one handoff across Issues and never change Top1 or Top2 to meet the size budget.",
+      "preflight_rule": "Run the repository preflight command and create the Issue only from its normalized output. It fully validates the workbook, converts fractional confidence to integer percent, enforces rule-ledger status, serializes compact JSON, and verifies the size budget. Keep every required field and every substantive evidence row, but deduplicate repeated prose and shorten wording until the body is at most 60000 characters. Never split one handoff across Issues and never change Top1 or Top2 to meet the size budget.",
+      "rule_status_normalization": "CHALLENGED rules are automatically moved out of decisive/supporting roles into counterevidence. RETIRED or suppressed rules fail closed.",
       "target_max_characters": 60000
     },
     "training_issue_input_contract": {
