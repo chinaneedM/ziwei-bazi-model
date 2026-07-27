@@ -197,6 +197,40 @@ def normalize_handoff(
                 }
             )
 
+        classified: set[str] = set()
+        for field in (
+            "decisive_rule_ids",
+            "supporting_rule_ids",
+            "counterevidence_rule_ids",
+        ):
+            values = attribution.get(field)
+            if isinstance(values, list):
+                classified.update(values)
+        missing = [rule_id for rule_id in applied if rule_id not in classified]
+        if missing:
+            supporting = attribution.get("supporting_rule_ids")
+            counter = attribution.get("counterevidence_rule_ids")
+            if not isinstance(supporting, list):
+                supporting = []
+            if not isinstance(counter, list):
+                counter = []
+            supporting_missing = [
+                rule_id for rule_id in missing if rule_id not in challenged
+            ]
+            counter_missing = [
+                rule_id for rule_id in missing if rule_id in challenged
+            ]
+            attribution["supporting_rule_ids"] = supporting + supporting_missing
+            attribution["counterevidence_rule_ids"] = counter + counter_missing
+            changes.append(
+                {
+                    "kind": "MISSING_RULE_ATTRIBUTION_CLASSIFIED",
+                    "question_id": question_id,
+                    "supporting_rule_ids": supporting_missing,
+                    "counterevidence_rule_ids": counter_missing,
+                }
+            )
+
     return normalized, {
         "schema": "HANDOFF-PREFLIGHT-REPORT-V1",
         "changed": bool(changes),
