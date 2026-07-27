@@ -25,6 +25,18 @@
 对应轮次记录为`PRE-FREEZE_CONTAMINATED_NOT_EXECUTED`；不得冻结、评分、
 计入首次盲测、加入学习证据或保存预测方向。
 
+隔离必须通过强绑定控制器执行：
+
+```bash
+fortune-train quarantine-current FORMAL-ROUND-000 CASE-000
+```
+
+控制器仅在轮次、案例与当前`READY_FOR_ROUND`首次盲测完全一致且案例没有任何
+训练效果时执行。它以单一事务更新开发分区、正式组、状态和Chat输入；验证失败
+则全部回滚。远程操作使用仓库所有者创建的`[PREDICTION CONTAMINATION]` Issue，
+正文必须是`PREDICTION-CONTAMINATION-REPORT-V1`四字段JSON。自动流程不需要、
+不读取也不接受答案或预测内容，并在隔离后切换到下一可用案例。
+
 `fortune-train verify`会校验策略完整性、动态白名单、当前Chat输入包和状态一致性。
 回归测试同时覆盖允许路径以及File Library、附件、Personal Context、旧模型发布、
 训练历史、答案对象和非`main`引用的拒绝行为。

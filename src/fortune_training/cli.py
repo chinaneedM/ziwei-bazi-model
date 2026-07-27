@@ -11,6 +11,7 @@ from .case_bank import case_bank_report, validate_case_bank
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
+    quarantine_current_case,
     rehearse_formal_no_reveal,
     verify_formal_answer_vault,
 )
@@ -86,6 +87,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     start_parser = subparsers.add_parser("start", help="start a new round for the current case")
     start_parser.add_argument("round_id")
+
+    quarantine_parser = subparsers.add_parser(
+        "quarantine-current",
+        help="quarantine a contaminated current first-blind case before prediction freeze",
+    )
+    quarantine_parser.add_argument("round_id")
+    quarantine_parser.add_argument("case_id")
 
     freeze_parser = subparsers.add_parser("freeze", help="freeze one complete prediction payload")
     freeze_parser.add_argument("round_id")
@@ -189,6 +197,8 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "start":
             _print_json(start_round(root, args.round_id))
+        elif args.command == "quarantine-current":
+            _print_json(quarantine_current_case(root, args.round_id, args.case_id))
         elif args.command == "freeze":
             _print_json(freeze_prediction(root, args.round_id, args.prediction_file))
         elif args.command == "score":
