@@ -2260,6 +2260,59 @@ class HandoffProbeTests(unittest.TestCase):
                 report["changes"],
             )
 
+    def test_preflight_reclassifies_option_matrix_support_by_evidence_track(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "evidence_ledger": [
+                                {"evidence_id": "Q1-ZW-01", "track": "ZIWEI"},
+                                {"evidence_id": "Q1-BZ-01", "track": "BAZI"},
+                                {"evidence_id": "Q1-REAL-01", "track": "REALITY"},
+                            ],
+                            "option_comparison_matrix": {
+                                "options": {
+                                    "A": {
+                                        "ziwei_support_evidence_ids": [
+                                            "Q1-BZ-01",
+                                            "Q1-ZW-01",
+                                            "Q1-REAL-01",
+                                        ],
+                                        "bazi_support_evidence_ids": [],
+                                    }
+                                }
+                            },
+                        }
+                    ]
+                },
+            )
+            option = normalized["predictions"][0][
+                "option_comparison_matrix"
+            ]["options"]["A"]
+            self.assertEqual(
+                option["ziwei_support_evidence_ids"],
+                ["Q1-ZW-01"],
+            )
+            self.assertEqual(
+                option["bazi_support_evidence_ids"],
+                ["Q1-BZ-01"],
+            )
+            self.assertIn(
+                {
+                    "kind": "OPTION_MATRIX_SUPPORT_EVIDENCE_RECLASSIFIED",
+                    "question_id": "Q1",
+                    "option_id": "A",
+                    "ziwei_support_evidence_ids": ["Q1-ZW-01"],
+                    "bazi_support_evidence_ids": ["Q1-BZ-01"],
+                    "removed_non_track_evidence_ids": ["Q1-REAL-01"],
+                },
+                report["changes"],
+            )
+
     def test_preflight_normalizes_legacy_rule_ablation_shape(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
