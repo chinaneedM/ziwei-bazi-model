@@ -27,6 +27,21 @@ REPLAY_REMEDIATION_ALIASES = {
     },
 }
 
+PROFILE_TAG_ALIASES = {
+    "subject_tags": {
+        "HOUSEHOLD_UNIT": "FAMILY",
+        "FRIEND": "FRIEND_BUSINESS_PARTNER",
+        "COWORKER": "EXTERNAL_ACTOR",
+    },
+    "time_scope_tags": {
+        "LIFE_STAGE": "ADULTHOOD",
+        "MULTI_YEAR_SEQUENCE": "MULTI_YEAR_PERIOD",
+    },
+    "endpoint_tags": {
+        "SURGERY": "HEALTH_CONDITION",
+    },
+}
+
 
 def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | None]:
     if isinstance(value, float) and not isinstance(value, bool) and 0 <= value <= 1:
@@ -108,6 +123,26 @@ def normalize_handoff(
         attribution = row.get("rule_attribution")
         if not isinstance(profile, dict) or not isinstance(attribution, dict):
             continue
+        for field, aliases in PROFILE_TAG_ALIASES.items():
+            values = profile.get(field)
+            if not isinstance(values, list):
+                continue
+            normalized_values: list[Any] = []
+            for value in values:
+                normalized_value = aliases.get(value, value)
+                if normalized_value not in normalized_values:
+                    normalized_values.append(normalized_value)
+                if normalized_value != value:
+                    changes.append(
+                        {
+                            "kind": "PROFILE_TAG_ALIAS",
+                            "question_id": question_id,
+                            "field": field,
+                            "from": value,
+                            "to": normalized_value,
+                        }
+                    )
+            profile[field] = normalized_values
         applied = profile.get("applied_rule_ids")
         if not isinstance(applied, list):
             continue
