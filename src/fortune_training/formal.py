@@ -17,6 +17,7 @@ from .learning import (
 from .runtime import _fernet_from_key, _validate_answers
 from .util import (
     TrainingError,
+    atomic_write_bytes,
     atomic_write_json,
     canonical_bytes,
     exclusive_write_json,
@@ -36,6 +37,7 @@ FORMAL_ANSWER_DIR = Path("answer-vault/formal")
 FORMAL_ANSWER_MANIFEST = FORMAL_ANSWER_DIR / "manifest.json"
 PRE_FORMAL_STATE_ARCHIVE = Path("training/history/PRE-FORMAL-STATE.json")
 PRE_FORMAL_LEDGER_ARCHIVE = Path("training/history/PRE-FORMAL-LEARNING-LEDGER.json")
+PREDICTION_CONTEXT_VIOLATION = "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION"
 
 
 def _dataset_case_ids(root: Path) -> list[str]:
@@ -207,6 +209,10 @@ def verify_formal_answer_vault(
 
 def _formal_group(root: Path) -> dict[str, Any]:
     partition = load_json(root / "case-bank" / "partitions" / "development.json")
+    return _formal_group_from_partition(partition)
+
+
+def _formal_group_from_partition(partition: dict[str, Any]) -> dict[str, Any]:
     schedule = partition.get("first_blind_schedule")
     cases = partition.get("cases")
     if not isinstance(schedule, list) or not schedule:
@@ -238,6 +244,149 @@ def _formal_group(root: Path) -> dict[str, Any]:
                 )
             },
         },
+    }
+
+
+def quarantine_current_case(
+    root: Path,
+    round_id: str,
+    case_id: str,
+    *,
+    reason: str = PREDICTION_CONTEXT_VIOLATION,
+) -> dict[str, Any]:
+    """Remove a contaminated, not-yet-started first-blind case without training effects."""
+    root = root.resolve()
+    if reason != PREDICTION_CONTEXT_VIOLATION:
+        raise TrainingError("unsupported prediction-contamination reason")
+
+    partition_path = root / "case-bank" / "partitions" / "development.json"
+    group_path = root / FORMAL_GROUP_PATH
+    state_path = root / "training" / "state.json"
+    chat_input_path = root / "chat-input" / "current.json"
+    partition = load_json(partition_path)
+    group = load_json(group_path)
+    state = load_json(state_path)
+    old_file_bytes = {
+        path: path.read_bytes()
+        for path in (partition_path, group_path, state_path, chat_input_path)
+    }
+
+    if state.get("mode") != "FORMAL_CASE_BANK" or state.get("formal_phase") != "DEVELOPMENT":
+        raise TrainingError("prediction contamination quarantine requires formal development mode")
+    if (
+        state.get("status") != "READY_FOR_ROUND"
+        or state.get("active_round_id") is not None
+        or state.get("active_replay_case_id") is not None
+    ):
+        raise TrainingError("only a not-yet-started first-blind case may be quarantined")
+    if round_id != next_round_id(state):
+        raise TrainingError("contamination report round_id is stale or not current")
+    index = state.get("current_case_index")
+    schedule = partition.get("first_blind_schedule")
+    if (
+        not isinstance(index, int)
+        or not isinstance(schedule, list)
+        or index >= len(schedule)
+        or schedule[index] != case_id
+        or group.get("case_order") != schedule
+    ):
+        raise TrainingError("contamination report case_id is stale or not current")
+    case_state = state.get("cases", {}).get(case_id)
+    if not isinstance(case_state, dict) or case_state != {
+        "status": "ACTIVE",
+        "first_blind_passed": None,
+        "remediation_status": "NOT_EVALUATED",
+        "first_blind_round_id": None,
+        "replay_round_ids": [],
+        "round_ids": [],
+    }:
+        raise TrainingError("current case already has training effects and cannot be quarantined")
+    if any(
+        item.get("round_id") == round_id or item.get("case_id") == case_id
+        for item in state.get("non_executed_rounds", [])
+    ):
+        raise TrainingError("contamination report was already processed")
+    if any(item.get("case_id") == case_id for item in state.get("spaced_replay_queue", [])):
+        raise TrainingError("a queued replay case cannot be quarantined as a fresh first blind")
+
+    schedule.remove(case_id)
+    contaminated = set(partition.get("contaminated_development_reference_case_ids", []))
+    contaminated.add(case_id)
+    partition["contaminated_development_reference_case_ids"] = [
+        item for item in partition["case_order"] if item in contaminated
+    ]
+    new_group = _formal_group_from_partition(partition)
+
+    del state["cases"][case_id]
+    state["round_sequence"] = state.get("round_sequence", state["round_count"]) + 1
+    state.setdefault("non_executed_rounds", []).append(
+        {
+            "round_id": round_id,
+            "case_id": case_id,
+            "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+            "prediction_frozen": False,
+            "scored": False,
+            "counts_toward_first_blind": False,
+            "prediction_directions_retained": False,
+            "reason": reason,
+            "recorded_at": utc_now(),
+        }
+    )
+
+    next_case_id = None
+    state["active_replay_case_id"] = None
+    if index < len(new_group["case_order"]):
+        next_case_id = new_group["case_order"][index]
+        state["cases"][next_case_id]["status"] = "ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
+    else:
+        eligible = next(
+            (
+                item
+                for item in state.get("spaced_replay_queue", [])
+                if item["eligible_after_first_blind_count"]
+                <= state.get("first_blind_cases_closed", 0)
+            ),
+            None,
+        )
+        if eligible is not None:
+            next_case_id = eligible["case_id"]
+            state["active_replay_case_id"] = next_case_id
+            state["cases"][next_case_id]["status"] = "REPLAY_ACTIVE"
+            state["status"] = "READY_FOR_ROUND"
+        else:
+            state["status"] = (
+                "FIRST_BLIND_COMPLETE_REPLAY_PENDING"
+                if state.get("spaced_replay_queue")
+                else "GROUP_COMPLETE"
+            )
+
+    try:
+        atomic_write_json(partition_path, partition)
+        atomic_write_json(group_path, new_group)
+        atomic_write_json(state_path, state)
+        write_chat_input(root)
+        verification = verify_repository(root)
+    except Exception:
+        for path, payload in old_file_bytes.items():
+            atomic_write_bytes(path, payload)
+        raise
+
+    return {
+        "schema": "PREDICTION-CONTAMINATION-RESULT-V1",
+        "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+        "round_id": round_id,
+        "case_id": case_id,
+        "prediction_frozen": False,
+        "scored": False,
+        "counts_toward_first_blind": False,
+        "prediction_directions_retained": False,
+        "answers_accessed": False,
+        "current_model_release": state["current_model_release"],
+        "next_case_id": next_case_id,
+        "next_round_id": next_round_id(state) if next_case_id is not None else None,
+        "next_status": state["status"],
+        "verification": verification["status"],
     }
 
 
