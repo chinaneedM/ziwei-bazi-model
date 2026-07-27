@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import re
 from pathlib import Path
 from typing import Any
 
@@ -73,6 +74,8 @@ ZIWEI_STATIC_STAR_MARKERS = (
     "天刑",
     "年解",
 )
+EXACT_SOURCE_ROUTES = {f"S{route:02d}" for route in range(20)}
+SOURCE_ROUTE_RANGE_ALIAS = re.compile(r"^S(?P<start>\d{2})-S(?P<end>\d{2})$")
 
 
 def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | None]:
@@ -99,6 +102,37 @@ def _contains_explicit_natal_structure(evidence_row: dict[str, Any]) -> bool:
         marker for marker in ZIWEI_STATIC_STAR_MARKERS if marker in chart_fact
     }
     return len(matched_stars) >= 2
+
+
+def _normalize_source_route_alias(
+    value: Any,
+    *,
+    question_id: str,
+    evidence_id: Any,
+) -> tuple[Any, dict[str, Any] | None]:
+    """Collapse an invalid multi-source shorthand to its declared primary route."""
+    if not isinstance(value, str) or value in EXACT_SOURCE_ROUTES:
+        return value, None
+    match = SOURCE_ROUTE_RANGE_ALIAS.fullmatch(value)
+    if match is None:
+        return value, None
+    start = int(match.group("start"))
+    end = int(match.group("end"))
+    if start > end or start > 19 or end > 19:
+        raise TrainingError(
+            f"{question_id}.{evidence_id} has invalid source_route range alias"
+        )
+    primary_route = f"S{start:02d}"
+    return primary_route, {
+        "kind": "EVIDENCE_SOURCE_ROUTE_RANGE_TO_PRIMARY",
+        "question_id": question_id,
+        "evidence_id": evidence_id,
+        "from": value,
+        "to": primary_route,
+        "covered_source_routes": [
+            f"S{route:02d}" for route in range(start, end + 1)
+        ],
+    }
 
 
 def normalize_handoff(
@@ -345,10 +379,17 @@ def normalize_handoff(
                 for evidence_row in evidence:
                     if not isinstance(evidence_row, dict):
                         continue
-                    source_route = evidence_row.get("source_route")
+                    source_route, source_route_change = _normalize_source_route_alias(
+                        evidence_row.get("source_route"),
+                        question_id=question_id,
+                        evidence_id=evidence_row.get("evidence_id"),
+                    )
+                    evidence_row["source_route"] = source_route
+                    if source_route_change:
+                        changes.append(source_route_change)
                     if (
                         isinstance(source_route, str)
-                        and source_route in {f"S{route:02d}" for route in range(20)}
+                        and source_route in EXACT_SOURCE_ROUTES
                         and source_route not in declared_routes
                         and source_route not in missing_routes
                     ):

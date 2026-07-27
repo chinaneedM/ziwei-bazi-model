@@ -1928,6 +1928,86 @@ class HandoffProbeTests(unittest.TestCase):
                 report["changes"],
             )
 
+    def test_preflight_normalizes_source_route_range_to_primary_route(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "question_profile": {
+                                "source_routes": ["S08"],
+                                "applied_rule_ids": [],
+                            },
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-ZW-01",
+                                    "source_route": "S04-S08",
+                                }
+                            ],
+                            "rule_attribution": {},
+                        }
+                    ]
+                },
+            )
+            prediction = normalized["predictions"][0]
+            self.assertEqual(
+                prediction["evidence_ledger"][0]["source_route"],
+                "S04",
+            )
+            self.assertEqual(
+                prediction["question_profile"]["source_routes"],
+                ["S08", "S04"],
+            )
+            self.assertIn(
+                {
+                    "kind": "EVIDENCE_SOURCE_ROUTE_RANGE_TO_PRIMARY",
+                    "question_id": "Q1",
+                    "evidence_id": "Q1-ZW-01",
+                    "from": "S04-S08",
+                    "to": "S04",
+                    "covered_source_routes": [
+                        "S04",
+                        "S05",
+                        "S06",
+                        "S07",
+                        "S08",
+                    ],
+                },
+                report["changes"],
+            )
+
+    def test_preflight_rejects_invalid_source_route_range_alias(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            with self.assertRaisesRegex(
+                TrainingError,
+                "invalid source_route range alias",
+            ):
+                normalize_handoff(
+                    fixture.root,
+                    {
+                        "predictions": [
+                            {
+                                "question_id": "Q1",
+                                "question_profile": {
+                                    "source_routes": ["S04"],
+                                    "applied_rule_ids": [],
+                                },
+                                "evidence_ledger": [
+                                    {
+                                        "evidence_id": "Q1-ZW-01",
+                                        "source_route": "S08-S04",
+                                    }
+                                ],
+                                "rule_attribution": {},
+                            }
+                        ]
+                    },
+                )
+
     def test_preflight_removes_cross_track_ids_from_independent_seals(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
