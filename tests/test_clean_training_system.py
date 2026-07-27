@@ -1204,17 +1204,40 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                 evidence["layer"] = "YEAR"
 
         self.assert_freeze_rejected(timing_only)
-        self.assert_freeze_rejected(
-            lambda payload: payload["predictions"][0][
-                "question_semantic_model"
-            ]["option_atoms"]["D"].update(
+        def add_unproved_top1_precision(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            row["question_semantic_model"]["option_atoms"][top1].update(
                 {
                     "severe_irreversible_or_high_precision_atoms": [
                         "exact irreversible endpoint"
                     ]
                 }
             )
-        )
+            row["option_comparison_matrix"]["options"][top1][
+                "severe_atoms_have_independent_evidence"
+            ] = False
+
+        self.assert_freeze_rejected(add_unproved_top1_precision)
+
+    def test_unproved_high_precision_atom_on_losing_option_remains_comparable(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            row = payload["predictions"][0]
+            losing_option = row["final_ranking"][-1]
+            row["question_semantic_model"]["option_atoms"][losing_option].update(
+                {
+                    "severe_irreversible_or_high_precision_atoms": [
+                        "unclosed losing-option endpoint"
+                    ]
+                }
+            )
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(frozen["schema"], "FROZEN-PREDICTION-V2")
 
     def test_decisive_rule_must_change_top1_under_ablation(self):
         with tempfile.TemporaryDirectory() as temporary:
