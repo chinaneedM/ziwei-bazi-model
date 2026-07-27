@@ -388,6 +388,32 @@ def normalize_handoff(
         if not isinstance(applied, list):
             continue
 
+        attributed_rule_ids: list[str] = []
+        for field in (
+            "decisive_rule_ids",
+            "supporting_rule_ids",
+            "counterevidence_rule_ids",
+        ):
+            values = attribution.get(field)
+            if not isinstance(values, list):
+                continue
+            for rule_id in values:
+                if isinstance(rule_id, str) and rule_id not in attributed_rule_ids:
+                    attributed_rule_ids.append(rule_id)
+        missing_applied = [
+            rule_id for rule_id in attributed_rule_ids if rule_id not in applied
+        ]
+        if missing_applied:
+            applied = applied + missing_applied
+            profile["applied_rule_ids"] = applied
+            changes.append(
+                {
+                    "kind": "ATTRIBUTED_RULES_DECLARED_AS_APPLIED",
+                    "question_id": question_id,
+                    "rule_ids": missing_applied,
+                }
+            )
+
         for rule_id in applied:
             evidence_status = rule_evidence.get(rule_id, {}).get("status")
             attributed_status = attributed_evidence.get(rule_id, {}).get("status")
