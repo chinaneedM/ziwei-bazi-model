@@ -20,6 +20,13 @@ CONFIDENCE_COMPONENT_FIELDS = {
     "overall_confidence",
 }
 
+REPLAY_REMEDIATION_ALIASES = {
+    "EXECUTION_GATE_AND_RULE_WEIGHT_CHANGE": {
+        "primary": "EXECUTION_GATE",
+        "secondary": ["RULE_WEIGHT_CHANGE"],
+    },
+}
+
 
 def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | None]:
     if isinstance(value, float) and not isinstance(value, bool) and 0 <= value <= 1:
@@ -55,6 +62,21 @@ def normalize_handoff(
             "changed": False,
             "changes": [],
         }
+
+    replay_remediation = normalized.get("replay_remediation")
+    if isinstance(replay_remediation, dict):
+        remediation_type = replay_remediation.get("remediation_type")
+        alias = REPLAY_REMEDIATION_ALIASES.get(remediation_type)
+        if alias:
+            replay_remediation["remediation_type"] = alias["primary"]
+            changes.append(
+                {
+                    "kind": "REPLAY_REMEDIATION_ALIAS_TO_PRIMARY",
+                    "from": remediation_type,
+                    "to": alias["primary"],
+                    "secondary_types": alias["secondary"],
+                }
+            )
 
     for index, row in enumerate(predictions):
         if not isinstance(row, dict):

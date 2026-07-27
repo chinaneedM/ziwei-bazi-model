@@ -29,15 +29,6 @@ for relative_path in "${required_paths[@]}"; do
   fi
 done
 
-if [[ "${1:-}" == "--check" ]]; then
-  command -v gh >/dev/null || {
-    echo "ERROR: gh is not available" >&2
-    exit 2
-  }
-  echo "Work environment is ready."
-  exit 0
-fi
-
 if command -v gh >/dev/null; then
   gh_bin="$(command -v gh)"
 elif [[ -x "/tmp/fortune-gh/gh_2.96.0_linux_amd64/bin/gh" ]]; then
@@ -54,13 +45,18 @@ else
     "https://github.com/cli/cli/releases/download/v${gh_version}/${archive_name}" \
     --output "$archive_path"
   printf '%s  %s\n' "$archive_sha256" "$archive_path" | sha256sum --check -
-  tar -xzf "$archive_path" -C "$install_root"
+  tar --no-same-owner -xzf "$archive_path" -C "$install_root"
   gh_bin="$extracted_root/bin/gh"
 fi
 
 if [[ ! -x "$gh_bin" ]]; then
   echo "ERROR: gh bootstrap did not produce an executable" >&2
   exit 2
+fi
+
+if [[ "${1:-}" == "--check" ]]; then
+  echo "Work environment is ready: $gh_bin"
+  exit 0
 fi
 
 if [[ "$#" -gt 0 ]]; then

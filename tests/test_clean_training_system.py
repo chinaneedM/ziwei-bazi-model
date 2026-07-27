@@ -1553,6 +1553,36 @@ class HandoffProbeTests(unittest.TestCase):
                 {row["top1"] for row in handoff["predictions"]},
             )
 
+    def test_preflight_normalizes_known_composite_replay_remediation_type(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "replay_remediation": {
+                        "remediation_type": (
+                            "EXECUTION_GATE_AND_RULE_WEIGHT_CHANGE"
+                        ),
+                    },
+                    "predictions": [],
+                },
+            )
+            self.assertEqual(
+                normalized["replay_remediation"]["remediation_type"],
+                "EXECUTION_GATE",
+            )
+            self.assertEqual(
+                report["changes"],
+                [
+                    {
+                        "kind": "REPLAY_REMEDIATION_ALIAS_TO_PRIMARY",
+                        "from": "EXECUTION_GATE_AND_RULE_WEIGHT_CHANGE",
+                        "to": "EXECUTION_GATE",
+                        "secondary_types": ["RULE_WEIGHT_CHANGE"],
+                    }
+                ],
+            )
+
     def test_preflight_moves_challenged_rule_to_counterevidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -1638,6 +1668,11 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertIn("git -C \"$repo_root\" sparse-checkout add", contents)
         self.assertIn("gh_version=\"2.96.0\"", contents)
         self.assertIn("sha256sum --check", contents)
+        self.assertIn("tar --no-same-owner -xzf", contents)
+        self.assertLess(
+            contents.index('elif [[ -x "/tmp/fortune-gh/'),
+            contents.index('if [[ "${1:-}" == "--check" ]]'),
+        )
 
     def test_retired_rule_is_valid_but_not_exposed_to_prediction(self):
         ledger = load_learning_ledger(PROJECT_ROOT)
