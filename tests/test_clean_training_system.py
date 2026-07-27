@@ -6,6 +6,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import serialization
@@ -24,7 +25,9 @@ from fortune_training.formal import (
     PRE_FORMAL_LEDGER_ARCHIVE,
     PRE_FORMAL_STATE_ARCHIVE,
     import_answer_batch,
+    quarantine_current_case,
 )
+from fortune_training.contamination_relay import validate_contamination_report
 from fortune_training.issue_relay import PACKET_END, PACKET_START, extract_packet, process_packet
 from fortune_training.handoff_probe import (
     process_handoff_probe,
@@ -2235,8 +2238,121 @@ class FormalActivationTests(unittest.TestCase):
             self.assertTrue(finalized["transport_material_removed"])
             result = verify_repository(root, require_answers=True)
             self.assertEqual(result["answer_envelopes"], 107)
-            self.assertEqual(result["active_controller_group"]["cases"], 62)
+            self.assertEqual(result["active_controller_group"]["cases"], 61)
             self.assertEqual(result["active_controller_group"]["mode"], "FORMAL_CASE_BANK")
+
+
+class PredictionContaminationQuarantineTests(unittest.TestCase):
+    def _copy_runtime_files(self, root: Path) -> None:
+        for relative in (
+            "case-bank/partitions/development.json",
+            "training/formal-development-group.json",
+            "training/state.json",
+            "chat-input/current.json",
+        ):
+            destination = root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(PROJECT_ROOT / relative, destination)
+
+    def test_quarantine_is_non_scoring_and_advances_to_next_clean_case(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self._copy_runtime_files(root)
+            old_state = json.loads((root / "training/state.json").read_text())
+            old_group = json.loads(
+                (root / "training/formal-development-group.json").read_text()
+            )
+            current_index = old_state["current_case_index"]
+            current_case_id = old_group["case_order"][current_index]
+            next_case_id = old_group["case_order"][current_index + 1]
+            round_id = f"FORMAL-ROUND-{old_state['round_sequence'] + 1:03d}"
+
+            with (
+                patch("fortune_training.formal.write_chat_input"),
+                patch(
+                    "fortune_training.formal.verify_repository",
+                    return_value={"status": "VERIFIED"},
+                ),
+            ):
+                result = quarantine_current_case(
+                    root, round_id, current_case_id
+                )
+
+            partition = json.loads(
+                (root / "case-bank/partitions/development.json").read_text()
+            )
+            group = json.loads(
+                (root / "training/formal-development-group.json").read_text()
+            )
+            state = json.loads((root / "training/state.json").read_text())
+            self.assertNotIn(current_case_id, partition["first_blind_schedule"])
+            self.assertIn(
+                current_case_id,
+                partition["contaminated_development_reference_case_ids"],
+            )
+            self.assertEqual(group["case_order"][current_index], next_case_id)
+            self.assertNotIn(current_case_id, state["cases"])
+            self.assertEqual(state["cases"][next_case_id]["status"], "ACTIVE")
+            self.assertEqual(state["current_case_index"], current_index)
+            self.assertEqual(
+                state["first_blind_cases_closed"],
+                old_state["first_blind_cases_closed"],
+            )
+            self.assertEqual(state["round_count"], old_state["round_count"])
+            self.assertEqual(state["round_sequence"], old_state["round_sequence"] + 1)
+            self.assertEqual(result["next_case_id"], next_case_id)
+            self.assertEqual(
+                result["next_round_id"],
+                f"FORMAL-ROUND-{old_state['round_sequence'] + 2:03d}",
+            )
+            self.assertFalse(result["prediction_frozen"])
+            self.assertFalse(result["scored"])
+            self.assertFalse(result["answers_accessed"])
+
+    def test_quarantine_rolls_back_every_file_when_verification_fails(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self._copy_runtime_files(root)
+            paths = (
+                root / "case-bank/partitions/development.json",
+                root / "training/formal-development-group.json",
+                root / "training/state.json",
+                root / "chat-input/current.json",
+            )
+            before = [json.loads(path.read_text()) for path in paths]
+            state = before[2]
+            group = before[1]
+            current_case_id = group["case_order"][state["current_case_index"]]
+            round_id = f"FORMAL-ROUND-{state['round_sequence'] + 1:03d}"
+            with (
+                patch("fortune_training.formal.write_chat_input"),
+                patch(
+                    "fortune_training.formal.verify_repository",
+                    side_effect=TrainingError("verification failed"),
+                ),
+                self.assertRaises(TrainingError),
+            ):
+                quarantine_current_case(root, round_id, current_case_id)
+            after = [json.loads(path.read_text()) for path in paths]
+            self.assertEqual(after, before)
+
+    def test_contamination_report_rejects_prediction_or_answer_fields(self):
+        valid = {
+            "schema": "PREDICTION-CONTAMINATION-REPORT-V1",
+            "round_id": "FORMAL-ROUND-022",
+            "case_id": "CASE-102",
+            "reason": "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION",
+        }
+        self.assertEqual(validate_contamination_report(valid), valid)
+        with self.assertRaises(TrainingError):
+            validate_contamination_report({**valid, "correct_option": "A"})
+
+    def test_cli_exposes_strongly_bound_quarantine_command(self):
+        args = build_parser().parse_args(
+            ["quarantine-current", "FORMAL-ROUND-022", "CASE-102"]
+        )
+        self.assertEqual(args.round_id, "FORMAL-ROUND-022")
+        self.assertEqual(args.case_id, "CASE-102")
 
 
 if __name__ == "__main__":
