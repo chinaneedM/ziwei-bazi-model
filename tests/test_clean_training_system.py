@@ -1788,6 +1788,103 @@ class HandoffProbeTests(unittest.TestCase):
                 report["changes"],
             )
 
+    def test_preflight_recovers_ziwei_static_structure_from_mixed_period_row(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-Z1",
+                                    "track": "ZIWEI",
+                                    "layer": "PERIOD",
+                                    "chart_fact": (
+                                        "24-33夫妻大限，夫妻陀罗天刑年解"
+                                    ),
+                                    "decision_impact": "SUPPORTING",
+                                }
+                            ],
+                        }
+                    ]
+                },
+            )
+            self.assertEqual(
+                normalized["predictions"][0]["evidence_ledger"][0]["layer"],
+                "NATAL",
+            )
+            self.assertIn(
+                {
+                    "kind": "MIXED_STATIC_TIMING_EVIDENCE_LAYER_TO_NATAL",
+                    "question_id": "Q1",
+                    "evidence_id": "Q1-Z1",
+                    "from": "PERIOD",
+                    "to": "NATAL",
+                },
+                report["changes"],
+            )
+
+    def test_preflight_normalizes_legacy_rule_ablation_shape(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "counterfactual_analysis": {
+                                "full_model_ranking": ["D", "B", "A", "C"],
+                                "decisive_rule_ablations": [
+                                    {
+                                        "rule_id": "RULE-LEGACY-ABLATION",
+                                        "ranking_without_rule": [
+                                            "B",
+                                            "D",
+                                            "A",
+                                            "C",
+                                        ],
+                                        "top1_changes": True,
+                                    }
+                                ],
+                            },
+                        }
+                    ]
+                },
+            )
+            ablation = normalized["predictions"][0][
+                "counterfactual_analysis"
+            ]["decisive_rule_ablations"][0]
+            self.assertNotIn("top1_changes", ablation)
+            self.assertTrue(ablation["changes_top1"])
+            self.assertEqual(
+                ablation["reason"],
+                "Removing the declared decisive rule changes Top1 from D to B.",
+            )
+            self.assertIn(
+                {
+                    "kind": "RULE_ABLATION_FIELD_ALIAS",
+                    "question_id": "Q1",
+                    "rule_id": "RULE-LEGACY-ABLATION",
+                    "from": "top1_changes",
+                    "to": "changes_top1",
+                },
+                report["changes"],
+            )
+            self.assertIn(
+                {
+                    "kind": "RULE_ABLATION_REASON_DERIVED",
+                    "question_id": "Q1",
+                    "rule_id": "RULE-LEGACY-ABLATION",
+                    "top1_before": "D",
+                    "top1_after": "B",
+                },
+                report["changes"],
+            )
+
     def test_preflight_moves_challenged_rule_to_counterevidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
