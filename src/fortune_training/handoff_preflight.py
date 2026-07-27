@@ -325,6 +325,61 @@ def normalize_handoff(
                             }
                         )
 
+            matrix = row.get("option_comparison_matrix")
+            matrix_options = (
+                matrix.get("options") if isinstance(matrix, dict) else None
+            )
+            if isinstance(matrix_options, dict):
+                for option_id, option_row in matrix_options.items():
+                    if not isinstance(option_row, dict):
+                        continue
+                    ziwei_ids = option_row.get("ziwei_support_evidence_ids")
+                    bazi_ids = option_row.get("bazi_support_evidence_ids")
+                    if not isinstance(ziwei_ids, list) or not isinstance(
+                        bazi_ids, list
+                    ):
+                        continue
+                    combined_ids: list[Any] = []
+                    for evidence_id in ziwei_ids + bazi_ids:
+                        if evidence_id not in combined_ids:
+                            combined_ids.append(evidence_id)
+                    normalized_ziwei = [
+                        evidence_id
+                        for evidence_id in combined_ids
+                        if evidence_tracks.get(evidence_id) == "ZIWEI"
+                    ]
+                    normalized_bazi = [
+                        evidence_id
+                        for evidence_id in combined_ids
+                        if evidence_tracks.get(evidence_id) == "BAZI"
+                    ]
+                    removed_non_track_ids = [
+                        evidence_id
+                        for evidence_id in combined_ids
+                        if evidence_tracks.get(evidence_id)
+                        not in {"ZIWEI", "BAZI"}
+                    ]
+                    if (
+                        normalized_ziwei != ziwei_ids
+                        or normalized_bazi != bazi_ids
+                    ):
+                        option_row[
+                            "ziwei_support_evidence_ids"
+                        ] = normalized_ziwei
+                        option_row["bazi_support_evidence_ids"] = normalized_bazi
+                        changes.append(
+                            {
+                                "kind": "OPTION_MATRIX_SUPPORT_EVIDENCE_RECLASSIFIED",
+                                "question_id": question_id,
+                                "option_id": option_id,
+                                "ziwei_support_evidence_ids": normalized_ziwei,
+                                "bazi_support_evidence_ids": normalized_bazi,
+                                "removed_non_track_evidence_ids": (
+                                    removed_non_track_ids
+                                ),
+                            }
+                        )
+
         counterfactual = row.get("counterfactual_analysis")
         if isinstance(counterfactual, dict):
             full_ranking = counterfactual.get("full_model_ranking")
