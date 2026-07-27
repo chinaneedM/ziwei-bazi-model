@@ -13,7 +13,10 @@ CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V1"
 BASE_EXACT_PATHS = {
     "training/state.json",
     "chat-input/current.json",
+    "chat-input/prediction-row-template.json",
+    "chat-input/runtime-model.json",
     "sources/canonical-manifest.json",
+    "config/chat-runtime-performance.json",
     "config/prediction-tool-policy.json",
     "config/model-runtime.json",
     "config/knowledge-route-map.json",

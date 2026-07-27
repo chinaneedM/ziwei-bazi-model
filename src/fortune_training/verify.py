@@ -4,7 +4,12 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .chat_input import CHAT_INPUT_RELATIVE_PATH, compose_chat_input
+from .chat_input import (
+    CHAT_INPUT_RELATIVE_PATH,
+    CHAT_RUNTIME_MODEL_RELATIVE_PATH,
+    PREDICTION_ROW_TEMPLATE_RELATIVE_PATH,
+    compose_chat_input,
+)
 from .case_bank import validate_case_bank
 from .learning import (
     LEDGER_RELATIVE_PATH,
@@ -508,6 +513,108 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         root, state
     ):
         raise TrainingError("chat prediction access contract is stale or not fail-closed")
+    performance = chat_input.get("runtime_performance_contract")
+    required_themes = {
+        "INPUT_AND_CHART_COORDINATE_FREEZE",
+        "OPTION_BLIND_SHARED_CHART_MODEL",
+        "ZIWEI_STATIC_STRUCTURE",
+        "ZIWEI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+        "BAZI_STATIC_STRUCTURE_INDEPENDENTLY",
+        "BAZI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+        "ACTOR_ACTION_OBJECT_TIME_ENDPOINT_CLOSURE",
+        "REALITY_SEMANTICS_AND_MAGNITUDE",
+        "ALL_OPTION_ATOM_COVERAGE",
+        "ALL_OPTION_PAIR_COMPARISON",
+        "TOP1_TOP2_STRONGEST_REVERSAL",
+        "CROSS_TRACK_CONFLICT_PRESERVATION",
+        "CROSS_QUESTION_CONSISTENCY",
+        "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION",
+    }
+    if (
+        not isinstance(performance, dict)
+        or performance.get("schema")
+        != "CHAT-PREDICTION-RUNTIME-PERFORMANCE-V1"
+        or set(performance.get("non_negotiable_reasoning_themes", []))
+        != required_themes
+        or performance.get("retrieval", {}).get("evidence_quota")
+        is not None
+        or performance.get("comparison_representation", {}).get(
+            "all_pairs_required"
+        )
+        is not True
+    ):
+        raise TrainingError("Chat runtime performance policy weakens reasoning coverage")
+    budgets = performance.get("budgets", {})
+    current_input_characters = len(chat_input_path.read_text(encoding="utf-8"))
+    if current_input_characters > budgets.get("current_input_max_characters", 0):
+        raise TrainingError("chat-input/current.json exceeds its runtime budget")
+    runtime_model_ref = chat_input.get("current_model", {}).get(
+        "compiled_runtime_model_ref"
+    )
+    if (
+        not isinstance(runtime_model_ref, dict)
+        or runtime_model_ref.get("path")
+        != CHAT_RUNTIME_MODEL_RELATIVE_PATH.as_posix()
+    ):
+        raise TrainingError("compiled Chat runtime model reference is invalid")
+    runtime_model_path = root / CHAT_RUNTIME_MODEL_RELATIVE_PATH
+    runtime_model = load_json(runtime_model_path)
+    if (
+        object_sha256(runtime_model) != runtime_model_ref.get("sha256")
+        or runtime_model.get("release_id") != current_release
+        or runtime_model.get("predictive_content_omitted") is not False
+    ):
+        raise TrainingError("compiled Chat runtime model is stale or incomplete")
+    runtime_model_characters = len(runtime_model_path.read_text(encoding="utf-8"))
+    if runtime_model_characters > budgets.get(
+        "compiled_runtime_model_max_characters",
+        0,
+    ):
+        raise TrainingError("compiled Chat runtime model exceeds its runtime budget")
+    template_ref = chat_input.get("chat_work_handoff_contract", {}).get(
+        "prediction_row_template_ref"
+    )
+    if (
+        not isinstance(template_ref, dict)
+        or template_ref.get("path")
+        != PREDICTION_ROW_TEMPLATE_RELATIVE_PATH.as_posix()
+        or object_sha256(load_json(root / PREDICTION_ROW_TEMPLATE_RELATIVE_PATH))
+        != template_ref.get("sha256")
+    ):
+        raise TrainingError("prediction row template reference is stale")
+    question_ids = {
+        question["question_id"]
+        for question in (chat_input.get("current_case") or {})
+        .get("questions", {})
+        .get("parsed", [])
+    }
+    execution_routes = chat_input.get("current_model", {}).get(
+        "question_execution_routes",
+        [],
+    )
+    if (
+        {route.get("question_id") for route in execution_routes}
+        != question_ids
+        or any(
+            route.get("retrieval_mode")
+            != "ANCHOR_FIRST_PROGRESSIVE_EXPANSION"
+            for route in execution_routes
+        )
+    ):
+        raise TrainingError("question execution routes are incomplete")
+    runtime_rule_ids = {row["rule_id"] for row in runtime_model["active_rules"]}
+    runtime_card_ids = {
+        row["card_id"] for row in runtime_model["knowledge_cards"]
+    }
+    for route in execution_routes:
+        if not set(route["decisive_or_supporting_rule_ids"]).issubset(
+            runtime_rule_ids
+        ) or not set(route["counterevidence_rule_ids"]).issubset(
+            runtime_rule_ids
+        ):
+            raise TrainingError("question execution route references an absent rule")
+        if not set(route["knowledge_card_ids"]).issubset(runtime_card_ids):
+            raise TrainingError("question execution route references an absent card")
 
     encrypted_dir = root / "answer-vault" / "encrypted"
     legacy_answer_count = sum(
@@ -597,6 +704,17 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
         "knowledge_cards_ready": chat_input["current_model"]["knowledge_cards"]["card_count"] >= 23,
         "knowledge_card_count": chat_input["current_model"]["knowledge_cards"]["card_count"],
+        "chat_runtime": {
+            "current_input_characters": current_input_characters,
+            "compiled_runtime_model_characters": runtime_model_characters,
+            "current_input_budget": budgets["current_input_max_characters"],
+            "compiled_runtime_model_budget": budgets[
+                "compiled_runtime_model_max_characters"
+            ],
+            "reasoning_theme_count": len(required_themes),
+            "all_prediction_themes_preserved": True,
+            "evidence_quota": None,
+        },
         "learning_ledger_ready": True,
         "maintenance_ready": True,
         "maintenance": maintenance,

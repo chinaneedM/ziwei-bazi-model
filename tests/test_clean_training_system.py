@@ -13,6 +13,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 from fortune_training.chat_input import (
+    CHAT_RUNTIME_MODEL_RELATIVE_PATH,
     CHAT_INPUT_RELATIVE_PATH,
     GITHUB_ISSUE_BODY_MAX_CHARACTERS,
     HANDOFF_TARGET_MAX_CHARACTERS,
@@ -164,6 +165,10 @@ class RuntimeFixture:
                 "decryption_keys_allowed": False,
                 "answer_read_phase": "POST_FREEZE_ONLY",
             },
+        )
+        shutil.copy2(
+            PROJECT_ROOT / "config" / "chat-runtime-performance.json",
+            self.root / "config" / "chat-runtime-performance.json",
         )
         write_json(self.root / "sources" / "canonical-manifest.json", source_manifest)
         write_json(
@@ -973,7 +978,14 @@ class RuntimeTests(unittest.TestCase):
                     "shared_life_structure",
                 },
             )
-            prediction_template = handoff["prediction_row_template"]
+            template_ref = handoff["prediction_row_template_ref"]
+            prediction_template = json.loads(
+                (fixture.root / template_ref["path"]).read_text()
+            )
+            self.assertEqual(
+                object_sha256(prediction_template),
+                template_ref["sha256"],
+            )
             self.assertEqual(
                 set(prediction_template),
                 {
@@ -1058,6 +1070,8 @@ class RuntimeTests(unittest.TestCase):
             for path in (
                 "training/state.json",
                 "chat-input/current.json",
+                "chat-input/runtime-model.json",
+                "chat-input/prediction-row-template.json",
                 "sources/canonical/S03_test.txt",
                 "model-learning/releases/MODEL-BASELINE-001.json",
                 "config/training-policy.json",
@@ -1448,9 +1462,14 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                 (fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text()
             )
             self.assertEqual(
-                bundle["current_model"]["active_process_corrections"][-1][
-                    "remediation_type"
-                ],
+                json.loads(
+                    (
+                        fixture.root
+                        / bundle["current_model"]["compiled_runtime_model_ref"][
+                            "path"
+                        ]
+                    ).read_text()
+                )["active_process_corrections"][-1]["remediation_type"],
                 "EXECUTION_GATE",
             )
 
@@ -2279,6 +2298,64 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertTrue(result["learning_ledger_ready"])
         bundle = json.loads((PROJECT_ROOT / CHAT_INPUT_RELATIVE_PATH).read_text())
         self.assertEqual(bundle["current_model"]["knowledge_cards"]["card_count"], 23)
+
+    def test_real_chat_runtime_is_slim_without_reasoning_reduction(self):
+        result = verify_repository(PROJECT_ROOT)
+        runtime = result["chat_runtime"]
+        self.assertLess(runtime["current_input_characters"], 80_000)
+        self.assertLess(runtime["compiled_runtime_model_characters"], 80_000)
+        self.assertTrue(runtime["all_prediction_themes_preserved"])
+        self.assertEqual(runtime["reasoning_theme_count"], 14)
+        self.assertIsNone(runtime["evidence_quota"])
+
+        bundle = json.loads((PROJECT_ROOT / CHAT_INPUT_RELATIVE_PATH).read_text())
+        self.assertNotIn(
+            "prediction_row_template",
+            bundle["chat_work_handoff_contract"],
+        )
+        performance = bundle["runtime_performance_contract"]
+        self.assertTrue(
+            performance["comparison_representation"]["all_pairs_required"]
+        )
+        self.assertFalse(
+            performance["comparison_representation"][
+                "may_omit_reasoning_step"
+            ]
+        )
+        self.assertTrue(
+            performance["shared_case_work"]["reuse_by_reference"]
+        )
+        self.assertEqual(
+            performance["retrieval"]["mode"],
+            "ANCHOR_FIRST_PROGRESSIVE_EXPANSION",
+        )
+
+        runtime_model = json.loads(
+            (PROJECT_ROOT / CHAT_RUNTIME_MODEL_RELATIVE_PATH).read_text()
+        )
+        self.assertFalse(runtime_model["predictive_content_omitted"])
+        self.assertEqual(
+            runtime_model["release_id"],
+            bundle["state_summary"]["current_model_release"],
+        )
+        self.assertTrue(runtime_model["active_rules"])
+        self.assertTrue(runtime_model["active_process_corrections"])
+        self.assertEqual(len(runtime_model["knowledge_cards"]), 23)
+        self.assertNotIn("expected_effect", runtime_model["active_process_corrections"][-1])
+        self.assertNotIn("reasoning", runtime_model["active_process_corrections"][-1])
+
+        question_ids = {
+            row["question_id"]
+            for row in bundle["current_case"]["questions"]["parsed"]
+        }
+        execution_routes = bundle["current_model"]["question_execution_routes"]
+        self.assertEqual(
+            {row["question_id"] for row in execution_routes},
+            question_ids,
+        )
+        self.assertTrue(
+            all(row["knowledge_card_ids"] for row in execution_routes)
+        )
 
     def test_canonical_sources_cannot_be_silently_rebaselined(self):
         parser = build_parser()

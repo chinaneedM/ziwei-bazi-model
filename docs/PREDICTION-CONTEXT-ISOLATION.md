@@ -9,6 +9,8 @@
 
 - `training/state.json`
 - `chat-input/current.json`
+- 与`current.json`哈希绑定的`chat-input/runtime-model.json`
+- 冻结组装时才读取的`chat-input/prediction-row-template.json`
 - `sources/canonical/`及其冻结manifest
 - 当前`current_model_release`文件及该发布实际引用的patch
 - 当前推理核心、运行治理和必要配置
@@ -37,6 +39,8 @@ fortune-train quarantine-current FORMAL-ROUND-000 CASE-000
 正文必须是`PREDICTION-CONTAMINATION-REPORT-V1`四字段JSON。自动流程不需要、
 不读取也不接受答案或预测内容，并在隔离后切换到下一可用案例。
 
-`fortune-train verify`会校验策略完整性、动态白名单、当前Chat输入包和状态一致性。
+`fortune-train verify`会校验策略完整性、动态白名单、当前Chat输入包和状态一致性，
+并验证运行模型与模板哈希、运行包字符预算、14项不可删减推理主题、无证据配额、
+全选项比较和题级渐进检索路由。
 回归测试同时覆盖允许路径以及File Library、附件、Personal Context、旧模型发布、
 训练历史、答案对象和非`main`引用的拒绝行为。
