@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from typing import Any
 
@@ -68,6 +69,12 @@ EVIDENCE_FIELDS = {
     "decision_impact",
     "limitations",
 }
+
+_TIME_WINDOW_ATOM = re.compile(
+    r"^(?:约|大约|第)?\\d{1,4}(?:\\s*(?:-|–|—|~|～|至|到)\\s*\\d{1,4})?"
+    r"\\s*(?:岁|年|年代|月|日|周|天|时|点|季度|季)"
+    r"(?:以前|以后|前|后|间|内|左右|上下)?$"
+)
 
 
 def _object(value: Any, fields: set[str], label: str) -> dict[str, Any]:
@@ -289,6 +296,41 @@ def _validate_semantics(value: Any, option_ids: list[str], question_id: str) -> 
     _texts(model["shared_non_discriminating_atoms"], f"{question_id}.shared_atoms")
     _texts(model["ambiguities"], f"{question_id}.ambiguities")
     return model
+
+
+def _is_pure_time_window_comparison(semantics: dict[str, Any]) -> bool:
+    """Return true only when option differences are explicit time windows."""
+
+    if semantics["is_composite_narrative"]:
+        return False
+    atoms = semantics.get("option_atoms")
+    if not isinstance(atoms, dict) or len(atoms) < 2:
+        return False
+
+    windows: list[str] = []
+    shared_required_atoms: set[str] | None = None
+    for atom_model in atoms.values():
+        if not isinstance(atom_model, dict):
+            return False
+        required_atoms = atom_model.get("required_atoms")
+        distinctive_atoms = atom_model.get("distinctive_atoms")
+        if (
+            not isinstance(required_atoms, list)
+            or not isinstance(distinctive_atoms, list)
+            or len(distinctive_atoms) != 1
+        ):
+            return False
+        window = distinctive_atoms[0].strip()
+        if not _TIME_WINDOW_ATOM.fullmatch(window) or window not in required_atoms:
+            return False
+        windows.append(window)
+        option_shared_atoms = set(required_atoms) - {window}
+        if shared_required_atoms is None:
+            shared_required_atoms = option_shared_atoms
+        elif option_shared_atoms != shared_required_atoms:
+            return False
+
+    return len(windows) == len(set(windows))
 
 
 def _validate_evidence(
@@ -701,8 +743,13 @@ def validate_question_reasoning(
     profile = row.get("question_profile")
     allow_timing_only = (
         semantics["is_composite_narrative"] is False
-        and isinstance(profile, dict)
-        and profile.get("time_scope_tags") == ["SPECIFIC_YEAR"]
+        and (
+            (
+                isinstance(profile, dict)
+                and profile.get("time_scope_tags") == ["SPECIFIC_YEAR"]
+            )
+            or _is_pure_time_window_comparison(semantics)
+        )
     )
     evidence, evidence_by_id = _validate_evidence(
         row.get("evidence_ledger"),
