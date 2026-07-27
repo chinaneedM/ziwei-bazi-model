@@ -42,6 +42,8 @@ PROFILE_TAG_ALIASES = {
     },
 }
 
+NATAL_CHART_FACT_MARKERS = ("本命", "原局", "原有", "原结构")
+
 
 def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | None]:
     if isinstance(value, float) and not isinstance(value, bool) and 0 <= value <= 1:
@@ -118,6 +120,90 @@ def normalize_handoff(
                 components[field] = value
                 if change:
                     changes.append(change)
+
+        top1 = row.get("top1")
+        semantics = row.get("question_semantic_model")
+        matrix = row.get("option_comparison_matrix")
+        evidence = row.get("evidence_ledger")
+        if (
+            isinstance(top1, str)
+            and isinstance(semantics, dict)
+            and isinstance(matrix, dict)
+            and isinstance(evidence, list)
+        ):
+            option_atoms = semantics.get("option_atoms")
+            matrix_options = matrix.get("options")
+            if isinstance(option_atoms, dict) and isinstance(matrix_options, dict):
+                top1_atoms = option_atoms.get(top1)
+                top1_matrix = matrix_options.get(top1)
+                severe_atoms = (
+                    top1_atoms.get("severe_irreversible_or_high_precision_atoms")
+                    if isinstance(top1_atoms, dict)
+                    else None
+                )
+                supporting_evidence_ids = [
+                    evidence_row.get("evidence_id")
+                    for evidence_row in evidence
+                    if isinstance(evidence_row, dict)
+                    and evidence_row.get("independence_status") == "INDEPENDENT"
+                    and isinstance(evidence_row.get("supports_option_atoms"), list)
+                    and any(
+                        isinstance(atom_ref, str)
+                        and atom_ref.startswith(f"{top1}:")
+                        for atom_ref in evidence_row["supports_option_atoms"]
+                    )
+                ]
+                if (
+                    isinstance(severe_atoms, list)
+                    and severe_atoms
+                    and isinstance(top1_matrix, dict)
+                    and top1_matrix.get(
+                        "severe_atoms_have_independent_evidence"
+                    )
+                    is False
+                    and supporting_evidence_ids
+                ):
+                    top1_matrix["severe_atoms_have_independent_evidence"] = True
+                    changes.append(
+                        {
+                            "kind": "TOP1_PRECISION_SUPPORT_FLAG_DERIVED",
+                            "question_id": question_id,
+                            "top1": top1,
+                            "supporting_evidence_ids": supporting_evidence_ids,
+                        }
+                    )
+
+        if isinstance(evidence, list) and not any(
+            isinstance(evidence_row, dict)
+            and evidence_row.get("layer") in {"NATAL", "REALITY"}
+            and evidence_row.get("decision_impact") != "NEUTRAL"
+            for evidence_row in evidence
+        ):
+            for evidence_row in evidence:
+                if not isinstance(evidence_row, dict):
+                    continue
+                chart_fact = evidence_row.get("chart_fact")
+                if (
+                    evidence_row.get("layer") in {"YEAR", "MONTH"}
+                    and evidence_row.get("decision_impact") != "NEUTRAL"
+                    and isinstance(chart_fact, str)
+                    and any(
+                        marker in chart_fact
+                        for marker in NATAL_CHART_FACT_MARKERS
+                    )
+                ):
+                    previous_layer = evidence_row["layer"]
+                    evidence_row["layer"] = "NATAL"
+                    changes.append(
+                        {
+                            "kind": "MIXED_STATIC_TIMING_EVIDENCE_LAYER_TO_NATAL",
+                            "question_id": question_id,
+                            "evidence_id": evidence_row.get("evidence_id"),
+                            "from": previous_layer,
+                            "to": "NATAL",
+                        }
+                    )
+                    break
 
         profile = row.get("question_profile")
         attribution = row.get("rule_attribution")
