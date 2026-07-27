@@ -1,0 +1,40 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "correction": {
+      "applicability": "适用于答案必须在多个复合候选中强制选择，而现实记录对所有候选都不可见的题；尤其适用于家境量级、行业与年份联合、经营正负结果、健康严重度，以及候选精度或严重度明显不对称的比较。",
+      "capability_ceiling": "最高改善题内相对排序、反证编码、联合轴比较和置信校准；不能确认任何盘外事件，不能保证后续个案命中，也不允许把揭盲结果写成具体人物、年份、行业或疾病映射。",
+      "expected_effect": "减少以资料缺失淘汰高精度或高严重度候选的保守偏差，提高全部候选的对称召回、时间与领域联合比较、正负结果反转测试及Top2覆盖，并使现实终点置信度真实反映能力边界而非虚构反证。",
+      "limitations": "该修正不会把未知转换为支持，也不能凭命理结构证明盘外身份、金额、诊断、所有权、具体行业或现实完成结果。若独有机制仍不足，只能保留低置信相对排序；题面存在明确同轴事实时，合法反证仍应优先。",
+      "reasoning": "本轮错误跨越静态量级、时间与领域联合、经营结果和健康严重度，显示共同缺口不在单一星曜或干支知识，而在终排证据编码：模型虽承认现实资料不可见，却把不可见当作候选不成立，并把精确或严重原子的证明负担不对称地转成淘汰权。既有对称召回与主干优先修正已经给出原则，但仍有一条候选规则允许未证严重原子一票否决，造成治理冲突。因而应退役该规则，并把未知、反证、时间轴、领域轴和终点轴的分账固化为冻结前执行顺序。",
+      "source_basis": "S02区分现实主张、量级与证明负担；S03要求双轨独立并裁决共同语义偏差；S10与S15区分阶段背景、时间触发和现实完成；S16限制专题映射越级；S17要求人物、动作、对象、时间与终点闭合；S18要求全选项同深比较、同源去重、直接同轴反证优先及最强竞争反转；S19要求失败后只发布通用学习并进入间隔复训。",
+      "statement": "冻结时必须把未知与反证分开编码。缺少盘外身份、金额、诊断、所有权或完成记录，只表示能力边界，对候选方向记零分；只有题面已给出的同轴可观察事实与候选不兼容时，才能记为直接反证。强制选择题中，各候选未获支持的高精度原子须接受对称处理，不得让较常见、较低严重度或较安全的叙事自动胜出。复合时间题应分别评分时间轴与领域或结果轴，再检查二者是否联合闭合；宽泛场景和主题活跃不能替代独有领域。经营结果题中，静态资源弱或一般压力只证明风险，不能自动升级为不可逆失败；失败必须有具体终止链，恢复也须有独立缓解与延续链。健康题中，缺少诊断、生活史或事故记录不得直接排除严重候选，应先比较病理方向、部位和时间机制。"
+    },
+    "learning_type": "RULE_GOVERNANCE",
+    "remediation_type": "RULE_RETIREMENT",
+    "root_causes": [
+      "PERIOD_TIMING",
+      "EVENT_MECHANISM",
+      "REALITY_TRANSLATION",
+      "OPTION_COMPARISON",
+      "EVIDENCE_WEIGHTING",
+      "CONFIDENCE_CALIBRATION",
+      "EXECUTION_OMISSION"
+    ],
+    "rule_status_changes": [
+      {
+        "new_status": "RETIRED",
+        "reason": "该规则把未获盘外证明的严重原子赋予一票否决权，容易把能力边界误编码为直接反证，并与所有候选缺口对称处理及主干区别原子优先原则冲突。",
+        "replacement_rule_id": "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY",
+        "rule_id": "RULE-SEVERE-UNSUPPORTED-ATOM-ESSENTIALITY-VETO"
+      }
+    ],
+    "rules": [],
+    "schema": "MODEL-LEARNING-CORRECTION-V3"
+  },
+  "created_at": "2026-07-27T17:10:41Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-023",
+  "schema": "MODEL-LEARNING-PATCH-V3",
+  "validation_status": "ACTIVE_PROCESS_CORRECTION"
+}
