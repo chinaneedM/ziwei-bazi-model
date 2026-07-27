@@ -770,6 +770,49 @@ class RuntimeTests(unittest.TestCase):
             ledger = load_learning_ledger(fixture.root)
             self.assertEqual(ledger["first_blind_totals"]["cases"], 6)
 
+    def test_failed_replay_returns_to_new_case_before_another_due_replay(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary), case_count=8)
+            fixture.run_and_score("FAIL-1", 3)
+            apply_learning(
+                fixture.root,
+                "FAIL-1",
+                fixture.patch_file("LEARNING-001", "RULE-GENERAL-ENDPOINT"),
+                "LEARNING-001",
+            )
+            for index in range(2, 7):
+                fixture.run_and_score(f"NEW-{index}", 5)
+            self.assertEqual(
+                status(fixture.root)["active_replay_case_id"],
+                "DEV-EXAMPLE-001",
+            )
+            state_path = fixture.root / "training" / "state.json"
+            state = json.loads(state_path.read_text())
+            state["spaced_replay_queue"].insert(
+                1,
+                {
+                    "case_id": "DEV-EXAMPLE-002",
+                    "eligible_after_first_blind_count": 6,
+                },
+            )
+            state["cases"]["DEV-EXAMPLE-002"]["remediation_status"] = "QUEUED"
+            write_json(state_path, state)
+            write_chat_input(fixture.root)
+            fixture.run_and_score("REPLAY-FAIL", 3)
+            apply_learning(
+                fixture.root,
+                "REPLAY-FAIL",
+                fixture.patch_file(
+                    "LEARNING-REPLAY-FAIL",
+                    "RULE-REPLAY-FAIL-GATE",
+                ),
+                "LEARNING-REPLAY-FAIL",
+            )
+            current = status(fixture.root)
+            self.assertEqual(current["current_case_id"], "DEV-EXAMPLE-007")
+            self.assertIsNone(current["active_replay_case_id"])
+            self.assertEqual(current["spaced_replay_queue_size"], 2)
+
     def test_question_profile_is_required_and_taxonomy_checked(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))

@@ -111,9 +111,19 @@ def _round_dir(root: Path, round_id: str) -> Path:
     return root / "training" / "runs" / round_id
 
 
-def _schedule_next_round(root: Path, state: dict[str, Any]) -> None:
+def _schedule_next_round(
+    root: Path,
+    state: dict[str, Any],
+    *,
+    prefer_new_case: bool = False,
+) -> None:
     group = _load_group(root, state)
     state["active_replay_case_id"] = None
+    if prefer_new_case and state["current_case_index"] < len(group["case_order"]):
+        next_case_id = group["case_order"][state["current_case_index"]]
+        state["cases"][next_case_id]["status"] = "ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
+        return
     closed_count = state.get("first_blind_cases_closed", 0)
     queue = state.setdefault("spaced_replay_queue", [])
     eligible = next(
@@ -180,7 +190,7 @@ def _finish_replay(root: Path, state: dict[str, Any], case_id: str, did_pass: bo
         _enqueue_spaced_replay(state, case_id)
     state["cases"][case_id]["status"] = "FIRST_BLIND_CLOSED"
     state["active_replay_case_id"] = None
-    _schedule_next_round(root, state)
+    _schedule_next_round(root, state, prefer_new_case=True)
 
 
 def _round_evaluation_kind(state: dict[str, Any], case_id: str) -> str:
