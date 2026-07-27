@@ -4,7 +4,7 @@
 
 新开Chat并发送：
 
-> 开始当前案例下一轮。先读取公共仓库main最新`config/prediction-tool-policy.json`并执行默认拒绝门禁。预测阶段只可用GitHub单文件读取访问main最新`training/state.json`、`chat-input/current.json`、当前绑定的`chat-input/runtime-model.json`、`sources/canonical/`、当前发布实际引用的`model-learning/`文件及白名单配置；硬性禁止File Library、附件、历史上传、Personal Context、跨对话记忆、仓库搜索、提交/历史/差异/目录枚举、旧预测、旧揭盲、旧诊断、learning-ledger、答案或密钥。任一违规立即停止且不得冻结或评分。先确认`prediction_allowed=true`并核对运行模型哈希；绑定通过后读取一次编译运行模型并输出`BINDING_VERIFIED`检查点。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`、紫微静态结构、八字静态结构、必要时间事实与共享证据注册表；随后逐题投影，完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。先使用题级路由与知识卡精确锚点；若任何竞争项仍有未闭合区别原子、直接反证未查、双轨或时间终点未闭合，或未读声明来源仍可能改变排序，必须渐进扩大检索。严格按`chat_work_handoff_contract`与冻结前才读取的`prediction_row_template_ref`输出完整`PREDICTION-WORKBOOK-V2`，不得使用近义自定义字段；创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue前，必须由系统运行`fortune-handoff-preflight`并只使用其归一化输出。该预检自动把0—1小数置信度转为0—100整数，把`CHALLENGED`规则移入反证，对`RETIRED`或抑制规则失败关闭，并验证完整结构、当前绑定和正文长度；压缩时不得删结构、实质证据或改变Top1/Top2；不得读取或写入答案。完成后停止，等待我切换Work。
+> 开始当前案例下一轮。任何仓库检索前，唯一允许的首次读取是公共仓库main最新`chat-input/prediction-access-contract.json`；立即执行其中的默认拒绝契约，契约未执行前不得读取状态、当前案例、模型或配置。随后按`startup_sequence`读取`training/state.json`与`chat-input/current.json`，确认内嵌契约与启动契约完全一致，再按动态白名单读取当前绑定的`chat-input/runtime-model.json`、`sources/canonical/`、当前发布实际引用的`model-learning/`文件及必要配置。预测阶段只可使用GitHub单文件读取；硬性禁止File Library、附件、历史上传、Personal Context、跨对话记忆、仓库搜索、提交/历史/差异/目录枚举、旧预测、旧揭盲、旧诊断、learning-ledger、答案或密钥。任一违规立即停止且不得冻结或评分。先确认`prediction_allowed=true`并核对运行模型哈希；绑定通过后读取一次编译运行模型并输出`BINDING_VERIFIED`检查点。在看选项和比较选项之前，先建立并冻结全案共享的`blind_chart_model`、紫微静态结构、八字静态结构、必要时间事实与共享证据注册表；随后逐题投影，完成语义原子化、紫微独立封卷、八字独立封卷、双轨裁决、具体证据账本、全选项矩阵与全部必要配对、Top1真实反转测试、置信度分解、规则反事实消融和跨题一致性检查。证据不设数量配额；`max_applied_rules_per_question`只限制model-learning规则，不限制S00–S19证据。先使用题级路由与知识卡精确锚点；若任何竞争项仍有未闭合区别原子、直接反证未查、双轨或时间终点未闭合，或未读声明来源仍可能改变排序，必须渐进扩大检索。严格按`chat_work_handoff_contract`与冻结前才读取的`prediction_row_template_ref`输出完整`PREDICTION-WORKBOOK-V2`，不得使用近义自定义字段；创建唯一`CHAT-WORK-PREDICTION-HANDOFF-V2` Issue前，必须由系统运行`fortune-handoff-preflight`并只使用其归一化输出。该预检自动把0—1小数置信度转为0—100整数，把`CHALLENGED`规则移入反证，对`RETIRED`或抑制规则失败关闭，并验证完整结构、当前绑定和正文长度；压缩时不得删结构、实质证据或改变Top1/Top2；不得读取或写入答案。完成后停止，等待我切换Work。
 
 预测过程中每45秒内至少输出一次简短可恢复检查点，依次覆盖绑定、共享盘面、
 每题分析、跨题复核和正式交接。检查点只记录当前绑定、已完成阶段、共享证据ID及
@@ -12,9 +12,10 @@
 绑定未变时复用已显示的阶段摘要，只重跑未决阶段和最终一致性；不得把中断的内部推理
 假定为已完成冻结。
 
-若开始后发现任何白名单违规，立即丢弃所有推理方向，不创建预测交接单。系统改为提交唯一
-`[PREDICTION CONTAMINATION]` Issue，仅包含当前轮次、案例和固定原因四字段；控制器会
-登记`PRE-FREEZE_CONTAMINATED_NOT_EXECUTED`、隔离案例并自动生成下一干净案例输入。
+若开始后发现任何白名单违规，立即丢弃所有推理方向，不创建预测交接单。读取了答案、旧预测
+或其他案例污染对象时，控制器登记`PRE-FREEZE_CONTAMINATED_NOT_EXECUTED`并隔离案例；
+仅发生契约启动顺序违规且未泄露答案时，控制器登记同一状态但只作废当前轮次，为同一案例生成
+下一干净轮次与无答案输入包。
 
 ## Work闭环
 

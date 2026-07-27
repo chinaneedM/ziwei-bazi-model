@@ -26,6 +26,7 @@ from fortune_training.formal import (
     PRE_FORMAL_LEDGER_ARCHIVE,
     PRE_FORMAL_STATE_ARCHIVE,
     import_answer_batch,
+    invalidate_current_pre_freeze_round,
     quarantine_current_case,
 )
 from fortune_training.contamination_relay import validate_contamination_report
@@ -46,7 +47,11 @@ from fortune_training.learning import (
 )
 from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
-from fortune_training.prediction_access import assert_prediction_access
+from fortune_training.prediction_access import (
+    PREDICTION_ACCESS_CONTRACT_PATH,
+    PredictionAccessSession,
+    assert_prediction_access,
+)
 from fortune_training.reasoning import build_completeness_report, frozen_content_hash
 from fortune_training.runtime import (
     _validate_answers,
@@ -1068,6 +1073,7 @@ class RuntimeTests(unittest.TestCase):
                 "ref": "main",
             }
             for path in (
+                "chat-input/prediction-access-contract.json",
                 "training/state.json",
                 "chat-input/current.json",
                 "chat-input/runtime-model.json",
@@ -1116,6 +1122,55 @@ class RuntimeTests(unittest.TestCase):
                             state,
                             **request,
                         )
+
+    def test_prediction_access_contract_must_be_first_repository_read(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            contract = json.loads(
+                (fixture.root / PREDICTION_ACCESS_CONTRACT_PATH).read_text()
+            )
+            common = {
+                "tool_class": "GITHUB_FETCH_FILE",
+                "context_source": "GITHUB_MAIN",
+                "repository": "chinaneedM/ziwei-bazi-model",
+                "ref": "main",
+            }
+
+            session = PredictionAccessSession()
+            with self.assertRaises(TrainingError):
+                session.authorize_repository_read(
+                    **common,
+                    path="training/state.json",
+                )
+            with self.assertRaises(TrainingError):
+                session.authorize_bootstrap_fetch(
+                    **common,
+                    path="chat-input/current.json",
+                )
+
+            session.authorize_bootstrap_fetch(
+                **common,
+                path=PREDICTION_ACCESS_CONTRACT_PATH.as_posix(),
+            )
+            with self.assertRaises(TrainingError):
+                session.authorize_repository_read(
+                    **common,
+                    path="training/state.json",
+                )
+            session.execute_contract(contract)
+            session.authorize_repository_read(
+                **common,
+                path="training/state.json",
+            )
+            session.authorize_repository_read(
+                **common,
+                path="chat-input/current.json",
+            )
+            with self.assertRaises(TrainingError):
+                session.authorize_repository_read(
+                    **common,
+                    path="answer-vault/formal/CASE-001.json.fernet",
+                )
 
     def test_non_executed_contaminated_round_is_skipped_without_counting(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -2599,6 +2654,59 @@ class PredictionContaminationQuarantineTests(unittest.TestCase):
             self.assertFalse(result["scored"])
             self.assertFalse(result["answers_accessed"])
 
+    def test_startup_order_violation_preserves_same_case_for_clean_round(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self._copy_runtime_files(root)
+            state_path = root / "training/state.json"
+            old_state = json.loads(state_path.read_text())
+            group = json.loads(
+                (root / "training/formal-development-group.json").read_text()
+            )
+            current_case_id = group["case_order"][old_state["current_case_index"]]
+            round_id = f"FORMAL-ROUND-{old_state['round_sequence'] + 1:03d}"
+
+            with (
+                patch("fortune_training.formal.write_chat_input"),
+                patch(
+                    "fortune_training.formal.verify_repository",
+                    return_value={"status": "VERIFIED"},
+                ),
+            ):
+                result = invalidate_current_pre_freeze_round(
+                    root,
+                    round_id,
+                    current_case_id,
+                )
+
+            state = json.loads(state_path.read_text())
+            self.assertEqual(
+                state["cases"][current_case_id],
+                old_state["cases"][current_case_id],
+            )
+            self.assertEqual(
+                state["first_blind_cases_closed"],
+                old_state["first_blind_cases_closed"],
+            )
+            self.assertEqual(state["round_count"], old_state["round_count"])
+            self.assertEqual(
+                state["round_sequence"],
+                old_state["round_sequence"] + 1,
+            )
+            self.assertEqual(
+                state["non_executed_rounds"][-1]["reason"],
+                "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ",
+            )
+            self.assertEqual(result["next_case_id"], current_case_id)
+            self.assertEqual(
+                result["next_round_id"],
+                f"FORMAL-ROUND-{old_state['round_sequence'] + 2:03d}",
+            )
+            self.assertTrue(result["case_first_blind_eligibility_preserved"])
+            self.assertFalse(result["prediction_frozen"])
+            self.assertFalse(result["scored"])
+            self.assertFalse(result["answers_accessed"])
+
     def test_quarantine_rolls_back_every_file_when_verification_fails(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -2643,6 +2751,11 @@ class PredictionContaminationQuarantineTests(unittest.TestCase):
         )
         self.assertEqual(args.round_id, "FORMAL-ROUND-022")
         self.assertEqual(args.case_id, "CASE-102")
+        invalidate_args = build_parser().parse_args(
+            ["invalidate-current-round", "FORMAL-ROUND-025", "CASE-006"]
+        )
+        self.assertEqual(invalidate_args.round_id, "FORMAL-ROUND-025")
+        self.assertEqual(invalidate_args.case_id, "CASE-006")
 
 
 if __name__ == "__main__":

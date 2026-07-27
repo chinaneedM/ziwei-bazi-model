@@ -37,9 +37,11 @@
 
 ## 每案闭环
 
-1. Chat预测阶段执行默认拒绝工具门禁，只用GitHub单文件读取访问`main`白名单：
-   `training/state.json`、`chat-input/current.json`、`sources/canonical/`、当前模型发布实际引用文件
-   及必要配置。File Library、附件、历史上传、Personal Context、仓库搜索、旧训练对象和答案对象均被拒绝。
+1. Chat预测阶段的唯一首次仓库读取必须是
+   `main/chat-input/prediction-access-contract.json`；执行其中的默认拒绝契约后，
+   才可用GitHub单文件读取访问`training/state.json`、`chat-input/current.json`、
+   `sources/canonical/`、当前模型发布实际引用文件及必要配置。File Library、附件、
+   历史上传、Personal Context、仓库搜索、旧训练对象和答案对象均被拒绝。
 2. Chat 先建立选项前全盘模型，再对每题完成双轨独立封卷、证据账本、全选项比较、真实反转和分解置信度。
 3. Chat 生成交接单后必须先运行 `fortune-handoff-preflight`。预检会把 `0–1`
    小数置信度归一化为 `0–100` 整数，把 `CHALLENGED` 规则自动改列为反证，
