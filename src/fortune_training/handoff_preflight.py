@@ -43,6 +43,36 @@ PROFILE_TAG_ALIASES = {
 }
 
 NATAL_CHART_FACT_MARKERS = ("本命", "原局", "原有", "原结构")
+ZIWEI_STATIC_STAR_MARKERS = (
+    "紫微",
+    "天机",
+    "太阳",
+    "武曲",
+    "天同",
+    "廉贞",
+    "天府",
+    "太阴",
+    "贪狼",
+    "巨门",
+    "天相",
+    "天梁",
+    "七杀",
+    "破军",
+    "左辅",
+    "右弼",
+    "文昌",
+    "文曲",
+    "禄存",
+    "天马",
+    "擎羊",
+    "陀罗",
+    "火星",
+    "铃星",
+    "地空",
+    "地劫",
+    "天刑",
+    "年解",
+)
 
 
 def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | None]:
@@ -55,6 +85,20 @@ def _normalize_confidence(value: Any, path: str) -> tuple[Any, dict[str, Any] | 
             "to": normalized,
         }
     return value, None
+
+
+def _contains_explicit_natal_structure(evidence_row: dict[str, Any]) -> bool:
+    chart_fact = evidence_row.get("chart_fact")
+    if not isinstance(chart_fact, str):
+        return False
+    if any(marker in chart_fact for marker in NATAL_CHART_FACT_MARKERS):
+        return True
+    if evidence_row.get("track") != "ZIWEI":
+        return False
+    matched_stars = {
+        marker for marker in ZIWEI_STATIC_STAR_MARKERS if marker in chart_fact
+    }
+    return len(matched_stars) >= 2
 
 
 def normalize_handoff(
@@ -186,11 +230,11 @@ def normalize_handoff(
                 if (
                     evidence_row.get("layer") in {"YEAR", "MONTH"}
                     and evidence_row.get("decision_impact") != "NEUTRAL"
-                    and isinstance(chart_fact, str)
-                    and any(
-                        marker in chart_fact
-                        for marker in NATAL_CHART_FACT_MARKERS
-                    )
+                    and _contains_explicit_natal_structure(evidence_row)
+                ) or (
+                    evidence_row.get("layer") == "PERIOD"
+                    and evidence_row.get("decision_impact") != "NEUTRAL"
+                    and _contains_explicit_natal_structure(evidence_row)
                 ):
                     previous_layer = evidence_row["layer"]
                     evidence_row["layer"] = "NATAL"
@@ -204,6 +248,51 @@ def normalize_handoff(
                         }
                     )
                     break
+
+        counterfactual = row.get("counterfactual_analysis")
+        if isinstance(counterfactual, dict):
+            full_ranking = counterfactual.get("full_model_ranking")
+            ablations = counterfactual.get("decisive_rule_ablations")
+            if isinstance(ablations, list):
+                for ablation in ablations:
+                    if not isinstance(ablation, dict):
+                        continue
+                    if (
+                        "top1_changes" in ablation
+                        and "changes_top1" not in ablation
+                    ):
+                        previous_value = ablation.pop("top1_changes")
+                        ablation["changes_top1"] = previous_value
+                        changes.append(
+                            {
+                                "kind": "RULE_ABLATION_FIELD_ALIAS",
+                                "question_id": question_id,
+                                "rule_id": ablation.get("rule_id"),
+                                "from": "top1_changes",
+                                "to": "changes_top1",
+                            }
+                        )
+                    ranking_without_rule = ablation.get("ranking_without_rule")
+                    if (
+                        not ablation.get("reason")
+                        and isinstance(full_ranking, list)
+                        and full_ranking
+                        and isinstance(ranking_without_rule, list)
+                        and ranking_without_rule
+                    ):
+                        ablation["reason"] = (
+                            "Removing the declared decisive rule changes Top1 "
+                            f"from {full_ranking[0]} to {ranking_without_rule[0]}."
+                        )
+                        changes.append(
+                            {
+                                "kind": "RULE_ABLATION_REASON_DERIVED",
+                                "question_id": question_id,
+                                "rule_id": ablation.get("rule_id"),
+                                "top1_before": full_ranking[0],
+                                "top1_after": ranking_without_rule[0],
+                            }
+                        )
 
         profile = row.get("question_profile")
         attribution = row.get("rule_attribution")
