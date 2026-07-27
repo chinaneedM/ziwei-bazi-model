@@ -1643,6 +1643,42 @@ class HandoffProbeTests(unittest.TestCase):
                 6,
             )
 
+    def test_preflight_classifies_missing_applied_rule_as_supporting(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            rule_id = "RULE-MISSING-ATTRIBUTION"
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "question_profile": {
+                                "applied_rule_ids": [rule_id],
+                            },
+                            "rule_attribution": {
+                                "decisive_rule_ids": [],
+                                "supporting_rule_ids": [],
+                                "counterevidence_rule_ids": [],
+                                "decision_changed": False,
+                            },
+                        }
+                    ]
+                },
+            )
+            attribution = normalized["predictions"][0]["rule_attribution"]
+            self.assertEqual(attribution["supporting_rule_ids"], [rule_id])
+            self.assertEqual(attribution["counterevidence_rule_ids"], [])
+            self.assertIn(
+                {
+                    "kind": "MISSING_RULE_ATTRIBUTION_CLASSIFIED",
+                    "question_id": "Q1",
+                    "supporting_rule_ids": [rule_id],
+                    "counterevidence_rule_ids": [],
+                },
+                report["changes"],
+            )
+
     def test_preflight_moves_challenged_rule_to_counterevidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
