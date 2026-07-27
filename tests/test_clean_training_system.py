@@ -1704,6 +1704,100 @@ class HandoffProbeTests(unittest.TestCase):
                 6,
             )
 
+    def test_preflight_declares_source_routes_used_by_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "question_profile": {
+                                "source_routes": ["S03"],
+                                "applied_rule_ids": [],
+                            },
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-ZW-01",
+                                    "source_route": "S07",
+                                },
+                                {
+                                    "evidence_id": "Q1-REAL-01",
+                                    "source_route": "S17",
+                                },
+                                {
+                                    "evidence_id": "Q1-ZW-02",
+                                    "source_route": "S07",
+                                },
+                            ],
+                            "rule_attribution": {},
+                        }
+                    ]
+                },
+            )
+            self.assertEqual(
+                normalized["predictions"][0]["question_profile"]["source_routes"],
+                ["S03", "S07", "S17"],
+            )
+            self.assertIn(
+                {
+                    "kind": "EVIDENCE_SOURCE_ROUTES_DECLARED",
+                    "question_id": "Q1",
+                    "source_routes": ["S07", "S17"],
+                },
+                report["changes"],
+            )
+
+    def test_preflight_removes_cross_track_ids_from_independent_seals(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "evidence_ledger": [
+                                {"evidence_id": "Q1-ZW-01", "track": "ZIWEI"},
+                                {"evidence_id": "Q1-BZ-01", "track": "BAZI"},
+                                {"evidence_id": "Q1-REAL-01", "track": "REALITY"},
+                            ],
+                            "ziwei_track_seal": {
+                                "supporting_evidence_ids": ["Q1-ZW-01"],
+                                "contradicting_evidence_ids": ["Q1-REAL-01"],
+                            },
+                            "bazi_track_seal": {
+                                "supporting_evidence_ids": ["Q1-BZ-01"],
+                                "contradicting_evidence_ids": [
+                                    "Q1-ZW-01",
+                                    "Q1-REAL-01",
+                                ],
+                            },
+                        }
+                    ]
+                },
+            )
+            prediction = normalized["predictions"][0]
+            self.assertEqual(
+                prediction["ziwei_track_seal"]["contradicting_evidence_ids"],
+                [],
+            )
+            self.assertEqual(
+                prediction["bazi_track_seal"]["contradicting_evidence_ids"],
+                [],
+            )
+            changes = [
+                change
+                for change in report["changes"]
+                if change["kind"] == "CROSS_TRACK_SEAL_EVIDENCE_REMOVED"
+            ]
+            self.assertEqual(len(changes), 2)
+            self.assertEqual(
+                changes[1]["evidence_ids"],
+                ["Q1-ZW-01", "Q1-REAL-01"],
+            )
+
     def test_preflight_classifies_missing_applied_rule_as_supporting(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
