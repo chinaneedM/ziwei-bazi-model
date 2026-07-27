@@ -1,5 +1,5 @@
 {
-  "active_replay_case_id": null,
+  "active_replay_case_id": "CASE-035",
   "active_round_id": null,
   "cases": {
     "CASE-002": {
@@ -220,7 +220,7 @@
       "round_ids": [
         "FORMAL-ROUND-008"
       ],
-      "status": "FIRST_BLIND_CLOSED"
+      "status": "REPLAY_ACTIVE"
     },
     "CASE-036": {
       "first_blind_passed": null,
@@ -522,12 +522,14 @@
       "status": "FIRST_BLIND_CLOSED"
     },
     "CASE-104": {
-      "first_blind_passed": null,
-      "first_blind_round_id": null,
-      "remediation_status": "NOT_EVALUATED",
+      "first_blind_passed": false,
+      "first_blind_round_id": "FORMAL-ROUND-019",
+      "remediation_status": "QUEUED",
       "replay_round_ids": [],
-      "round_ids": [],
-      "status": "ACTIVE"
+      "round_ids": [
+        "FORMAL-ROUND-019"
+      ],
+      "status": "FIRST_BLIND_CLOSED"
     },
     "CASE-107": {
       "first_blind_passed": null,
@@ -538,11 +540,11 @@
       "status": "PENDING"
     }
   },
-  "current_case_index": 12,
-  "current_model_release": "MODEL-LEARNING-017",
+  "current_case_index": 13,
+  "current_model_release": "MODEL-LEARNING-018",
   "dataset_manifest_path": "case-bank/manifest.json",
   "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
-  "first_blind_cases_closed": 12,
+  "first_blind_cases_closed": 13,
   "formal_activation": {
     "activated_at": "2026-07-23T06:04:34Z",
     "answer_vault_manifest": "answer-vault/formal/manifest.json",
@@ -573,10 +575,10 @@
   ],
   "policy_path": "config/training-policy.json",
   "required_consecutive_independent_passes": 3,
-  "round_count": 17,
+  "round_count": 18,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
-  "round_sequence": 18,
+  "round_sequence": 19,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [
@@ -619,6 +621,10 @@
     {
       "case_id": "CASE-098",
       "eligible_after_first_blind_count": 17
+    },
+    {
+      "case_id": "CASE-104",
+      "eligible_after_first_blind_count": 18
     }
   ],
   "status": "READY_FOR_ROUND"
