@@ -25,8 +25,10 @@ from .policy import (
     load_and_validate_policy,
 )
 from .prediction_access import (
+    PREDICTION_ACCESS_CONTRACT_PATH,
     build_prediction_access_contract,
     load_prediction_tool_policy,
+    validate_prediction_access_contract,
 )
 from .util import TrainingError, is_within, load_json, object_sha256, sha256_file
 
@@ -374,8 +376,17 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             )
         ):
             raise TrainingError("contaminated pre-freeze round retained training effects")
-        if record.get("case_id") in group["cases"]:
-            raise TrainingError("contaminated case remains in the first-blind group")
+        reason = record.get("reason")
+        if reason == "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION":
+            if record.get("case_id") in group["cases"]:
+                raise TrainingError("quarantined case remains in the first-blind group")
+        elif reason == (
+            "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ"
+        ):
+            if record.get("case_id") not in group["cases"]:
+                raise TrainingError("same-case invalidation removed the first-blind case")
+        else:
+            raise TrainingError("non-executed round has an unsupported reason")
         non_executed_ids.append(record.get("round_id"))
     if len(non_executed_ids) != len(set(non_executed_ids)):
         raise TrainingError("duplicate non-executed round id")
@@ -513,6 +524,12 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         root, state
     ):
         raise TrainingError("chat prediction access contract is stale or not fail-closed")
+    bootstrap_contract = load_json(root / PREDICTION_ACCESS_CONTRACT_PATH)
+    validate_prediction_access_contract(bootstrap_contract)
+    if bootstrap_contract != chat_input["prediction_access_contract"]:
+        raise TrainingError(
+            "standalone prediction access contract does not match Chat input"
+        )
     performance = chat_input.get("runtime_performance_contract")
     required_themes = {
         "INPUT_AND_CHART_COORDINATE_FREEZE",
