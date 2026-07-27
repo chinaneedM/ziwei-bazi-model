@@ -1234,6 +1234,21 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
 
         self.assert_freeze_rejected(add_unproved_top1_precision)
 
+    def test_noncomposite_specific_year_question_can_use_timing_only_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            row = payload["predictions"][0]
+            row["question_semantic_model"]["is_composite_narrative"] = False
+            row["question_profile"]["time_scope_tags"] = ["SPECIFIC_YEAR"]
+            for evidence in row["evidence_ledger"]:
+                evidence["layer"] = "YEAR"
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(frozen["schema"], "FROZEN-PREDICTION-V2")
+
     def test_unproved_high_precision_atom_on_losing_option_remains_comparable(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -1675,6 +1690,100 @@ class HandoffProbeTests(unittest.TestCase):
                     "question_id": "Q1",
                     "supporting_rule_ids": [rule_id],
                     "counterevidence_rule_ids": [],
+                },
+                report["changes"],
+            )
+
+    def test_preflight_derives_top1_precision_support_flag_from_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "top1": "B",
+                            "question_semantic_model": {
+                                "option_atoms": {
+                                    "B": {
+                                        "severe_irreversible_or_high_precision_atoms": [
+                                            "exact endpoint"
+                                        ]
+                                    }
+                                }
+                            },
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-Z1",
+                                    "independence_status": "INDEPENDENT",
+                                    "supports_option_atoms": ["B:exact endpoint"],
+                                }
+                            ],
+                            "option_comparison_matrix": {
+                                "options": {
+                                    "B": {
+                                        "severe_atoms_have_independent_evidence": False
+                                    }
+                                }
+                            },
+                        }
+                    ]
+                },
+            )
+            self.assertTrue(
+                normalized["predictions"][0]["option_comparison_matrix"][
+                    "options"
+                ]["B"]["severe_atoms_have_independent_evidence"]
+            )
+            self.assertIn(
+                {
+                    "kind": "TOP1_PRECISION_SUPPORT_FLAG_DERIVED",
+                    "question_id": "Q1",
+                    "top1": "B",
+                    "supporting_evidence_ids": ["Q1-Z1"],
+                },
+                report["changes"],
+            )
+
+    def test_preflight_recovers_explicit_natal_fact_from_mixed_year_row(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-Z1",
+                                    "layer": "YEAR",
+                                    "chart_fact": "流年触发本命夫妻宫原有结构",
+                                    "decision_impact": "DECISIVE",
+                                },
+                                {
+                                    "evidence_id": "Q1-B1",
+                                    "layer": "YEAR",
+                                    "chart_fact": "流年角色显化",
+                                    "decision_impact": "SUPPORTING",
+                                },
+                            ],
+                        }
+                    ]
+                },
+            )
+            self.assertEqual(
+                normalized["predictions"][0]["evidence_ledger"][0]["layer"],
+                "NATAL",
+            )
+            self.assertIn(
+                {
+                    "kind": "MIXED_STATIC_TIMING_EVIDENCE_LAYER_TO_NATAL",
+                    "question_id": "Q1",
+                    "evidence_id": "Q1-Z1",
+                    "from": "YEAR",
+                    "to": "NATAL",
                 },
                 report["changes"],
             )
