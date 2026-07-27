@@ -13,7 +13,6 @@
     "CASE-052",
     "CASE-098",
     "CASE-104",
-    "CASE-102",
     "CASE-093",
     "CASE-095",
     "CASE-006",
@@ -122,7 +121,6 @@
     "CASE-096": "case-bank/cases/CASE-096.json",
     "CASE-098": "case-bank/cases/CASE-098.json",
     "CASE-101": "case-bank/cases/CASE-101.json",
-    "CASE-102": "case-bank/cases/CASE-102.json",
     "CASE-103": "case-bank/cases/CASE-103.json",
     "CASE-104": "case-bank/cases/CASE-104.json",
     "CASE-107": "case-bank/cases/CASE-107.json"
@@ -130,12 +128,14 @@
   "excluded_first_blind_cases": [
     "CASE-001",
     "CASE-029",
-    "CASE-060"
+    "CASE-060",
+    "CASE-102"
   ],
   "exclusion_reasons": {
     "CASE-001": "HISTORICAL_REVEALED",
     "CASE-029": "SOURCE_EXPOSED",
-    "CASE-060": "PRE_FREEZE_CONTEXT_CONTAMINATION"
+    "CASE-060": "PRE_FREEZE_CONTEXT_CONTAMINATION",
+    "CASE-102": "PRE_FREEZE_CONTEXT_CONTAMINATION"
   },
   "group_id": "FORMAL-DEVELOPMENT-001",
   "partition_id": "DEVELOPMENT",
