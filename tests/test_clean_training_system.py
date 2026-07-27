@@ -1344,6 +1344,42 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             frozen = freeze_prediction(fixture.root, "R1", path)
             self.assertEqual(frozen["schema"], "FROZEN-PREDICTION-V2")
 
+    def test_noncomposite_period_window_question_can_use_timing_only_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            row = payload["predictions"][0]
+            row["question_semantic_model"]["is_composite_narrative"] = False
+            row["question_profile"]["time_scope_tags"] = ["OTHER"]
+            windows = ["12-21岁", "22-31岁", "32-41岁", "42-51岁"]
+            for option_id, window in zip(
+                row["question_semantic_model"]["option_atoms"],
+                windows,
+                strict=True,
+            ):
+                row["question_semantic_model"]["option_atoms"][option_id] = {
+                    "required_atoms": [window],
+                    "distinctive_atoms": [window],
+                    "severe_irreversible_or_high_precision_atoms": [],
+                }
+            for evidence in row["evidence_ledger"]:
+                evidence["layer"] = "PERIOD"
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(frozen["schema"], "FROZEN-PREDICTION-V2")
+
+    def test_noncomposite_nontemporal_question_rejects_timing_only_evidence(self):
+        def make_timing_only(payload):
+            row = payload["predictions"][0]
+            row["question_semantic_model"]["is_composite_narrative"] = False
+            row["question_profile"]["time_scope_tags"] = ["OTHER"]
+            for evidence in row["evidence_ledger"]:
+                evidence["layer"] = "PERIOD"
+
+        self.assert_freeze_rejected(make_timing_only)
+
     def test_unproved_high_precision_atom_on_losing_option_remains_comparable(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
