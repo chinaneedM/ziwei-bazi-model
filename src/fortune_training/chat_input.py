@@ -15,16 +15,29 @@ from .policy import (
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
 )
 from .prediction_access import build_prediction_access_contract
-from .util import atomic_write_json, load_json, next_round_id, object_sha256, sha256_file
+from .util import (
+    atomic_write_compact_json,
+    atomic_write_json,
+    load_json,
+    next_round_id,
+    object_sha256,
+    sha256_file,
+)
 
 
 CHAT_INPUT_RELATIVE_PATH = Path("chat-input/current.json")
+PREDICTION_ROW_TEMPLATE_RELATIVE_PATH = Path(
+    "chat-input/prediction-row-template.json"
+)
+CHAT_RUNTIME_MODEL_RELATIVE_PATH = Path("chat-input/runtime-model.json")
+CHAT_RUNTIME_POLICY_RELATIVE_PATH = Path("config/chat-runtime-performance.json")
 CHAT_INPUT_RAW_URL = (
     "https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/"
     "main/chat-input/current.json"
 )
 GITHUB_ISSUE_BODY_MAX_CHARACTERS = 65_536
 HANDOFF_TARGET_MAX_CHARACTERS = 60_000
+HANDOFF_PREFERRED_MAX_CHARACTERS = 40_000
 OPENABLE_STATES = {"READY_FOR_ROUND"}
 CASE_VISIBLE_STATES = {
     "READY_FOR_ROUND",
@@ -295,12 +308,161 @@ def _prediction_row_template() -> dict[str, Any]:
     }
 
 
-def compose_chat_input(root: Path) -> dict[str, Any]:
+def _compact_rule(rule: dict[str, Any]) -> dict[str, Any]:
+    """Keep every runtime decision field while excluding learning-history metadata."""
+    fields = (
+        "rule_id",
+        "validation_status",
+        "runtime_role",
+        "statement",
+        "applicability",
+        "trigger_conditions",
+        "decision_procedure",
+        "limits",
+        "stop_conditions",
+        "capability_ceiling",
+        "counterexamples",
+        "source_basis",
+    )
+    return {field: rule[field] for field in fields}
+
+
+def _compact_process_correction(
+    correction: dict[str, Any],
+    index: int,
+) -> dict[str, Any]:
+    content = correction["correction"]
+    return {
+        "correction_id": f"ACTIVE-PROCESS-{index:03d}",
+        "learning_type": correction["learning_type"],
+        "remediation_type": correction["remediation_type"],
+        "root_causes": correction["root_causes"],
+        "statement": content["statement"],
+        "applicability": content["applicability"],
+        "limitations": content["limitations"],
+        "capability_ceiling": content["capability_ceiling"],
+        "source_basis": content["source_basis"],
+    }
+
+
+def _compact_knowledge_card(card: dict[str, Any]) -> dict[str, Any]:
+    fields = (
+        "card_id",
+        "method_family",
+        "school_attribution",
+        "claim_scope",
+        "ordered_procedure",
+        "required_inputs",
+        "proof_ceiling",
+        "source_anchors",
+        "limitations",
+        "conflicts",
+        "forbidden_shortcuts",
+    )
+    return {field: card[field] for field in fields if field in card}
+
+
+def _current_questions(current_case: dict[str, Any] | None) -> list[dict[str, Any]]:
+    if not isinstance(current_case, dict):
+        return []
+    questions = current_case.get("questions")
+    if not isinstance(questions, dict):
+        return []
+    parsed = questions.get("parsed")
+    return parsed if isinstance(parsed, list) else []
+
+
+def _build_question_execution_routes(
+    current_case: dict[str, Any] | None,
+    rule_router: dict[str, Any],
+    knowledge_cards: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    card_sources = {
+        card["card_id"]: {
+            anchor["source_id"]
+            for anchor in card.get("source_anchors", [])
+            if isinstance(anchor, dict) and isinstance(anchor.get("source_id"), str)
+        }
+        for card in knowledge_cards
+    }
+    routes: list[dict[str, Any]] = []
+    for question in _current_questions(current_case):
+        profile = question.get("preblind_profile", {})
+        topics = profile.get("topic_tags", [])
+        source_routes = profile.get("source_routes", [])
+        source_set = set(source_routes)
+        decisive: list[str] = []
+        counter: list[str] = []
+        for topic in topics:
+            topic_route = rule_router.get("topics", {}).get(topic, {})
+            for rule_id in topic_route.get(
+                "decisive_or_supporting_rule_ids",
+                [],
+            ):
+                if rule_id not in decisive:
+                    decisive.append(rule_id)
+            for rule_id in topic_route.get("counterevidence_rule_ids", []):
+                if rule_id not in counter:
+                    counter.append(rule_id)
+        routes.append(
+            {
+                "question_id": question["question_id"],
+                "knowledge_card_ids": [
+                    card_id
+                    for card_id, sources in card_sources.items()
+                    if sources and sources.issubset(source_set)
+                ],
+                "decisive_or_supporting_rule_ids": decisive,
+                "counterevidence_rule_ids": counter,
+                "retrieval_mode": "ANCHOR_FIRST_PROGRESSIVE_EXPANSION",
+            }
+        )
+    return routes
+
+
+def _compose_runtime_model(
+    *,
+    release_id: str,
+    reasoning_core: dict[str, Any] | None,
+    knowledge_route_map: dict[str, Any] | None,
+    compact_knowledge_cards: list[dict[str, Any]],
+    compact_rules: list[dict[str, Any]],
+    compact_process_corrections: list[dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "schema": "CHAT-COMPILED-RUNTIME-MODEL-V1",
+        "release_id": release_id,
+        "reasoning_core": reasoning_core,
+        "knowledge_route_map": {
+            "schema": knowledge_route_map["schema"],
+            "mandatory_reasoning_order": knowledge_route_map[
+                "mandatory_reasoning_order"
+            ],
+            "authority": knowledge_route_map["authority"],
+        }
+        if knowledge_route_map is not None
+        else None,
+        "knowledge_cards": compact_knowledge_cards,
+        "active_rules": compact_rules,
+        "active_process_corrections": compact_process_corrections,
+        "compilation_rule": (
+            "Only prediction-execution fields are included. Learning-history reasoning, "
+            "expected-effect prose, empty validation examples, and duplicate routing metadata "
+            "remain in the bound release but are not repeated in the Chat runtime."
+        ),
+        "predictive_content_omitted": False,
+    }
+
+
+def _compose_chat_input_and_runtime_model(
+    root: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     root = root.resolve()
     state = load_json(root / "training" / "state.json")
     group = load_json(root / state["group_path"])
     manifest = load_json(root / state["source_manifest_path"])
     taxonomy = load_taxonomy(root)
+    runtime_performance = load_json(root / CHAT_RUNTIME_POLICY_RELATIVE_PATH)
 
     current_case_id = None
     current_case = None
@@ -348,6 +510,27 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         for patch in [load_json(root / relative_path)]
         if patch.get("schema") == "MODEL-LEARNING-PATCH-V3"
     ]
+    compact_rules = [_compact_rule(rule) for rule in active_rules]
+    compact_process_corrections = [
+        _compact_process_correction(correction, index)
+        for index, correction in enumerate(active_process_corrections, start=1)
+    ]
+    compact_knowledge_cards = [
+        _compact_knowledge_card(card) for card in knowledge_cards
+    ]
+    question_execution_routes = _build_question_execution_routes(
+        current_case,
+        rule_router,
+        compact_knowledge_cards,
+    )
+    runtime_model = _compose_runtime_model(
+        release_id=release_id,
+        reasoning_core=reasoning_core,
+        knowledge_route_map=knowledge_route_map,
+        compact_knowledge_cards=compact_knowledge_cards,
+        compact_rules=compact_rules,
+        compact_process_corrections=compact_process_corrections,
+    )
     effective_model_input_sha256 = object_sha256(
         {
             "release": release,
@@ -407,21 +590,35 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
             "knowledge_route_map_sha256": object_sha256(knowledge_route_map),
             "knowledge_cards_sha256": object_sha256(knowledge_cards),
             "effective_model_input_sha256": effective_model_input_sha256,
+            "chat_runtime_policy_sha256": object_sha256(runtime_performance),
+            "prediction_row_template_sha256": object_sha256(
+                _prediction_row_template()
+            ),
+            "compiled_runtime_model_sha256": object_sha256(runtime_model),
         },
         "current_case": current_case,
-        "question_taxonomy": taxonomy,
+        "question_taxonomy": {
+            "schema": taxonomy["schema"],
+            "path": "config/question-taxonomy.json",
+            "sha256": object_sha256(taxonomy),
+            "load_when": "FINAL_TAG_VALIDATION_ONLY",
+        },
         "current_model": {
             "release_id": release_id,
-            "reasoning_core": reasoning_core,
-            "knowledge_route_map": knowledge_route_map,
+            "compiled_runtime_model_ref": {
+                "path": CHAT_RUNTIME_MODEL_RELATIVE_PATH.as_posix(),
+                "sha256": object_sha256(runtime_model),
+                "load_when": "AFTER_BINDING_CHECK_BEFORE_SHARED_CHART_MODEL",
+            },
             "knowledge_cards": {
                 "authority": "DERIVED_ROUTING_AND_PROCEDURE_ONLY",
                 "card_count": len(knowledge_cards),
-                "cards": knowledge_cards,
             },
-            "active_rules": active_rules,
-            "active_process_corrections": active_process_corrections,
-            "rule_router": rule_router,
+            "active_rule_count": len(compact_rules),
+            "active_process_correction_count": len(
+                compact_process_corrections
+            ),
+            "question_execution_routes": question_execution_routes,
             "runtime_governance": {
                 "schema": runtime_governance["schema"],
                 "suppressed_rule_count": len(
@@ -444,11 +641,15 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "MAX_MODEL_LEARNING_RULES_PER_QUESTION": MAX_APPLIED_RULES_PER_QUESTION,
                 "CANONICAL_EVIDENCE_QUOTA": None,
                 "EVIDENCE_STOP_RULE": (
-                    "Retrieve every valid evidence item that could change the ranking; "
-                    "the model-learning rule cap is not an evidence cap."
+                    "There is no evidence quota. Stop only after every option's required "
+                    "and distinctive atoms are marked supported, contradicted, or unknown; "
+                    "every rival has been compared with Top1; and no unread declared source "
+                    "section is reasonably capable of changing the ordering. Otherwise expand "
+                    "retrieval. Unknowns remain explicit and cap confidence."
                 ),
             },
         },
+        "runtime_performance_contract": runtime_performance,
         "prediction_output_contract": {
             "prediction_schema": "PREDICTION-WORKBOOK-V2",
             "frozen_schema": "FROZEN-PREDICTION-V2",
@@ -498,8 +699,8 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 "Classify every question before reveal using only its stem/options and the no-answer chart. "
                 "Use only taxonomy values. List a rule in applied_rule_ids only when it materially affects "
                 "the frozen reasoning; unrelated questions do not validate that rule. Select no more than "
-                f"{MAX_APPLIED_RULES_PER_QUESTION} scope-matched rules from rule_router. A CHALLENGED rule "
-                "may appear only as counterevidence."
+                f"{MAX_APPLIED_RULES_PER_QUESTION} scope-matched rules from question_execution_routes "
+                "and the compiled runtime model. A CHALLENGED rule may appear only as counterevidence."
             ),
             "confidence_calibration_rule": (
                 "If actor, exact time, mechanism, or real-world endpoint is unresolved, cap confidence "
@@ -573,7 +774,11 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                 ),
                 "predictions": [],
             },
-            "prediction_row_template": _prediction_row_template(),
+            "prediction_row_template_ref": {
+                "path": PREDICTION_ROW_TEMPLATE_RELATIVE_PATH.as_posix(),
+                "sha256": object_sha256(_prediction_row_template()),
+                "load_when": "HANDOFF_ASSEMBLY_ONLY",
+            },
             "serialization_constraints": {
                 "encoding": "UTF-8_JSON_WITHOUT_CODE_FENCES",
                 "exact_fields_only": True,
@@ -590,6 +795,7 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     GITHUB_ISSUE_BODY_MAX_CHARACTERS
                 ),
                 "target_max_characters": HANDOFF_TARGET_MAX_CHARACTERS,
+                "preferred_max_characters": HANDOFF_PREFERRED_MAX_CHARACTERS,
                 "preflight_required": True,
                 "preflight_command": (
                     "fortune-handoff-preflight --root . --issue-title "
@@ -602,9 +808,10 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
                     "confidence to integer percent, enforces rule-ledger status, serializes "
                     "compact JSON, and verifies the size budget. Keep every required field and "
                     "every substantive evidence row, but deduplicate repeated prose and shorten "
-                    f"wording until the body is at most {HANDOFF_TARGET_MAX_CHARACTERS} "
-                    "characters. Never split one handoff across Issues and never change Top1 or "
-                    "Top2 to meet the size budget."
+                    f"wording toward {HANDOFF_PREFERRED_MAX_CHARACTERS} characters. Evidence "
+                    f"completeness takes priority up to {HANDOFF_TARGET_MAX_CHARACTERS} characters. "
+                    "Never split one handoff across Issues, remove ranking-changing evidence, or "
+                    "change Top1 or Top2 to meet the preferred budget."
                 ),
             },
             "handoff_forbidden_content": [
@@ -680,10 +887,24 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
         "contains_old_predictions": False,
         "contains_answers": False,
         "contains_scores_or_reviews": False,
-    }
+    }, runtime_model
+
+
+def compose_chat_input(root: Path) -> dict[str, Any]:
+    payload, _runtime_model = _compose_chat_input_and_runtime_model(root)
+    return payload
 
 
 def write_chat_input(root: Path) -> dict[str, Any]:
-    payload = compose_chat_input(root)
-    atomic_write_json(root.resolve() / CHAT_INPUT_RELATIVE_PATH, payload)
+    root = root.resolve()
+    payload, runtime_model = _compose_chat_input_and_runtime_model(root)
+    atomic_write_compact_json(
+        root / CHAT_RUNTIME_MODEL_RELATIVE_PATH,
+        runtime_model,
+    )
+    atomic_write_json(
+        root / PREDICTION_ROW_TEMPLATE_RELATIVE_PATH,
+        _prediction_row_template(),
+    )
+    atomic_write_compact_json(root / CHAT_INPUT_RELATIVE_PATH, payload)
     return payload

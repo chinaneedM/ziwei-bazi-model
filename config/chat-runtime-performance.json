@@ -1,0 +1,87 @@
+{
+  "schema": "CHAT-PREDICTION-RUNTIME-PERFORMANCE-V1",
+  "goal": "Reduce connection failures and repeated work without reducing predictive coverage or changing evidence standards.",
+  "budgets": {
+    "current_input_max_characters": 80000,
+    "compiled_runtime_model_max_characters": 80000,
+    "visible_progress_interval_seconds": 45
+  },
+  "non_negotiable_reasoning_themes": [
+    "INPUT_AND_CHART_COORDINATE_FREEZE",
+    "OPTION_BLIND_SHARED_CHART_MODEL",
+    "ZIWEI_STATIC_STRUCTURE",
+    "ZIWEI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+    "BAZI_STATIC_STRUCTURE_INDEPENDENTLY",
+    "BAZI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+    "ACTOR_ACTION_OBJECT_TIME_ENDPOINT_CLOSURE",
+    "REALITY_SEMANTICS_AND_MAGNITUDE",
+    "ALL_OPTION_ATOM_COVERAGE",
+    "ALL_OPTION_PAIR_COMPARISON",
+    "TOP1_TOP2_STRONGEST_REVERSAL",
+    "CROSS_TRACK_CONFLICT_PRESERVATION",
+    "CROSS_QUESTION_CONSISTENCY",
+    "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION"
+  ],
+  "shared_case_work": {
+    "build_once": [
+      "INPUT_RELIABILITY",
+      "ZIWEI_STATIC_MODEL",
+      "BAZI_STATIC_MODEL",
+      "MAJOR_PERIOD_AND_CANDIDATE_TIME_FACTS",
+      "SHARED_EVIDENCE_REGISTRY"
+    ],
+    "reuse_by_reference": true,
+    "question_specific_projection_required": true
+  },
+  "retrieval": {
+    "mode": "ANCHOR_FIRST_PROGRESSIVE_EXPANSION",
+    "first_pass": "Use the routed knowledge-card anchors and case-shared chart structures.",
+    "expand_when": [
+      "TOP1_TOP2_NOT_SEPARATED",
+      "ANY_RIVAL_HAS_UNRESOLVED_DISTINCTIVE_ATOM",
+      "DIRECT_COUNTEREVIDENCE_NOT_CHECKED",
+      "ZIWEI_OR_BAZI_TOPIC_CHAIN_INCOMPLETE",
+      "TIME_STAGE_OR_REALITY_ENDPOINT_UNCLOSED",
+      "AN_UNREAD_DECLARED_SOURCE_SECTION_COULD_REASONABLY_CHANGE_RANKING"
+    ],
+    "evidence_quota": null,
+    "stop_rule": "Stop only when every option atom is supported, contradicted, or explicitly unknown; Top1 has been compared with every rival; the strongest reversal has been run; and further declared-source retrieval is not reasonably capable of changing the ordering."
+  },
+  "comparison_representation": {
+    "all_pairs_required": true,
+    "internal_format": "COMPACT_MATRIX",
+    "expanded_prose_required_for": [
+      "TOP1_VS_TOP2",
+      "STRONGEST_REVERSAL",
+      "DIRECT_COUNTEREVIDENCE"
+    ],
+    "may_omit_reasoning_step": false
+  },
+  "interruption_recovery": {
+    "external_checkpoint_write_allowed": false,
+    "visible_checkpoint_interval_seconds": 45,
+    "checkpoint_stages": [
+      "BINDING_VERIFIED",
+      "SHARED_CHART_MODEL_COMPLETE",
+      "EACH_QUESTION_ANALYSIS_COMPLETE",
+      "CROSS_QUESTION_REVIEW_COMPLETE",
+      "HANDOFF_CREATED"
+    ],
+    "checkpoint_minimum_fields": [
+      "CASE_ROUND_MODEL_BINDING",
+      "COMPLETED_STAGE",
+      "COMPLETED_QUESTION_IDS",
+      "SHARED_EVIDENCE_IDS",
+      "UNRESOLVED_ITEMS"
+    ],
+    "resume_rule": "Re-read current main binding and hashes, reuse visible completed-stage summaries when still matched, and rerun only unresolved stages plus final consistency. Never infer a completed final freeze from an interrupted response."
+  },
+  "transport": {
+    "preferred_handoff_characters": 40000,
+    "hard_target_handoff_characters": 60000,
+    "github_issue_hard_limit_characters": 65536,
+    "deduplicate_repeated_prose": true,
+    "substantive_evidence_has_priority_over_preferred_size": true
+  },
+  "guardrail": "Any optimization that omits a non-negotiable reasoning theme, removes ranking-changing evidence, skips a rival comparison, merges Ziwei and Bazi before independent sealing, or converts an unknown endpoint into a fact must fail closed."
+}

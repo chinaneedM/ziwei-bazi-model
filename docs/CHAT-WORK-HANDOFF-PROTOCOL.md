@@ -17,11 +17,13 @@ File Library、附件、历史上传、Personal Context及旧训练对象均默�
 
 不得手工填写哈希，不得省略内部推理结构，不得包含答案、评分、复盘、预期PASS/FAIL、学习补丁或密钥。
 
-`chat_work_handoff_contract`同时提供完整的`prediction_row_template`与
-`serialization_constraints`。交接必须逐字段按模板生成，不得使用语义近似但字段不同的
-自定义结构。创建Issue前把完整交接序列化为无代码围栏的紧凑UTF-8 JSON并计数字符：
-目标不超过60,000字符，GitHub硬上限为65,536字符。超出目标时只压缩重复措辞和共享说明，
-保留全部必填结构、实质证据行、选项矩阵、规则归因及已冻结Top1/Top2；禁止拆成多个Issue。
+`chat_work_handoff_contract`提供`prediction_row_template_ref`与
+`serialization_constraints`。完整模板在冻结交接组装前才读取，避免把约束模板长期重复
+占用预测上下文；其哈希必须与当前包一致。交接仍须逐字段按模板生成，不得使用语义近似但
+字段不同的自定义结构。创建Issue前把完整交接序列化为无代码围栏的紧凑UTF-8 JSON并计数字符：
+优选不超过40,000字符，完整证据优先的硬目标为60,000字符，GitHub硬上限为65,536字符。
+超过优选值时只压缩重复措辞和共享说明；不得删必填结构、实质证据行、选项矩阵、规则归因
+或已冻结Top1/Top2，也不得拆成多个Issue。
 
 ## Work接受门
 
