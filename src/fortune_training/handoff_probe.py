@@ -13,7 +13,8 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
-from .chat_input import CHAT_INPUT_RELATIVE_PATH
+from .chat_input import CHAT_INPUT_RELATIVE_PATH, GITHUB_ISSUE_BODY_MAX_CHARACTERS
+from .handoff_preflight import normalize_handoff
 from .issue_relay import extract_packet
 from .runtime import _validate_prediction, freeze_prediction, score_round, start_round
 from .util import TrainingError, atomic_write_json, canonical_bytes, load_json, sha256_bytes
@@ -71,8 +72,11 @@ def validate_handoff(
     *,
     issue_title: str,
     issue_body: str,
-) -> dict[str, Any]:
+    include_preflight_report: bool = False,
+) -> dict[str, Any] | tuple[dict[str, Any], dict[str, Any]]:
     root = root.resolve()
+    if len(issue_body) > GITHUB_ISSUE_BODY_MAX_CHARACTERS:
+        raise TrainingError("handoff Issue body exceeds the GitHub hard limit")
     bundle = load_json(root / CHAT_INPUT_RELATIVE_PATH)
     contract = bundle.get("chat_work_handoff_contract")
     if not isinstance(contract, dict):
@@ -83,7 +87,7 @@ def validate_handoff(
     if bundle.get("state_summary", {}).get("prediction_allowed") is not True:
         raise TrainingError("current Chat bundle does not allow a prediction round")
 
-    handoff = extract_packet(issue_body)
+    handoff, preflight_report = normalize_handoff(root, extract_packet(issue_body))
     if handoff.get("schema") != HANDOFF_SCHEMA:
         raise TrainingError(f"handoff schema must be {HANDOFF_SCHEMA}")
     if set(handoff) != {
@@ -121,6 +125,8 @@ def validate_handoff(
             "predictions": predictions,
         },
     )
+    if include_preflight_report:
+        return handoff, preflight_report
     return handoff
 
 
@@ -191,7 +197,12 @@ def process_handoff_probe(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     root = root.resolve()
     verify_repository(root, require_answers=True)
-    handoff = validate_handoff(root, issue_title=issue_title, issue_body=issue_body)
+    handoff, preflight_report = validate_handoff(
+        root,
+        issue_title=issue_title,
+        issue_body=issue_body,
+        include_preflight_report=True,
+    )
     binding = handoff["binding"]
     round_id = binding["round_id"]
 
@@ -235,6 +246,7 @@ def process_handoff_probe(
         "passed": score["passed"],
         "answers_published": False,
         "repository_mutated": False,
+        "preflight": preflight_report,
     }
     return summary, seal_private_review(private_payload, encoded_public_key)
 
