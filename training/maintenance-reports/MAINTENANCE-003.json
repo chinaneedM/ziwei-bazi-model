@@ -1,0 +1,431 @@
+{
+  "canonical_sources_mutated": false,
+  "confidence_calibration": {
+    "future_question_level_ledger": {
+      "bins": {
+        "00-49": {
+          "confidence_sum": 303,
+          "correct": 3,
+          "questions": 7
+        },
+        "50-59": {
+          "confidence_sum": 269,
+          "correct": 2,
+          "questions": 5
+        },
+        "60-69": {
+          "confidence_sum": 124,
+          "correct": 2,
+          "questions": 2
+        },
+        "70-79": {
+          "confidence_sum": 222,
+          "correct": 0,
+          "questions": 3
+        },
+        "80-89": {
+          "confidence_sum": 84,
+          "correct": 0,
+          "questions": 1
+        },
+        "90-100": {
+          "confidence_sum": 183,
+          "correct": 1,
+          "questions": 2
+        }
+      },
+      "brier_sum": 6.5463000000000005,
+      "confidence_sum": 1185,
+      "correct": 8,
+      "questions": 20,
+      "started_after_first_blind_questions": 40
+    },
+    "historical_round_level_gap": 0.22650000000000003,
+    "unresolved_actor_time_or_endpoint_confidence_cap": 0.65
+  },
+  "counts_as_training_evidence": false,
+  "handoff_hardening": {
+    "binding_values_copied_from_current_bundle": true,
+    "machine_generated_payload_template": true,
+    "prediction_rows_require_rule_attribution": true
+  },
+  "maintenance_id": "MAINTENANCE-003",
+  "maintenance_type": "ANOMALY",
+  "metrics": {
+    "all_first_blind": {
+      "case_ids": [
+        "CASE-002",
+        "CASE-003",
+        "CASE-004",
+        "CASE-005",
+        "CASE-017",
+        "CASE-089",
+        "CASE-035",
+        "CASE-103",
+        "CASE-022",
+        "CASE-014",
+        "CASE-052",
+        "CASE-098"
+      ],
+      "confidence_accuracy_gap": 0.22650000000000003,
+      "mean_confidence": 0.6265000000000001,
+      "questions": 60,
+      "round_ids": [
+        "FORMAL-ROUND-001",
+        "FORMAL-ROUND-002",
+        "FORMAL-ROUND-003",
+        "FORMAL-ROUND-004",
+        "FORMAL-ROUND-005",
+        "FORMAL-ROUND-006",
+        "FORMAL-ROUND-008",
+        "FORMAL-ROUND-010",
+        "FORMAL-ROUND-012",
+        "FORMAL-ROUND-013",
+        "FORMAL-ROUND-015",
+        "FORMAL-ROUND-018"
+      ],
+      "rounds": 12,
+      "top1_accuracy": 0.4,
+      "top1_correct": 24,
+      "top2_coverage": 0.5833333333333334,
+      "top2_covered": 35
+    },
+    "ledger_totals": {
+      "cases": 12,
+      "questions": 60,
+      "top1_correct": 24,
+      "top2_covered": 35
+    },
+    "previous_window": {
+      "case_ids": [
+        "CASE-004",
+        "CASE-005",
+        "CASE-017",
+        "CASE-089",
+        "CASE-035"
+      ],
+      "confidence_accuracy_gap": 0.24639999999999995,
+      "mean_confidence": 0.6464,
+      "questions": 25,
+      "round_ids": [
+        "FORMAL-ROUND-003",
+        "FORMAL-ROUND-004",
+        "FORMAL-ROUND-005",
+        "FORMAL-ROUND-006",
+        "FORMAL-ROUND-008"
+      ],
+      "rounds": 5,
+      "top1_accuracy": 0.4,
+      "top1_correct": 10,
+      "top2_coverage": 0.6,
+      "top2_covered": 15
+    },
+    "recent_window": {
+      "case_ids": [
+        "CASE-103",
+        "CASE-022",
+        "CASE-014",
+        "CASE-052",
+        "CASE-098"
+      ],
+      "confidence_accuracy_gap": 0.21199999999999997,
+      "mean_confidence": 0.612,
+      "questions": 25,
+      "round_ids": [
+        "FORMAL-ROUND-010",
+        "FORMAL-ROUND-012",
+        "FORMAL-ROUND-013",
+        "FORMAL-ROUND-015",
+        "FORMAL-ROUND-018"
+      ],
+      "rounds": 5,
+      "top1_accuracy": 0.4,
+      "top1_correct": 10,
+      "top2_coverage": 0.6,
+      "top2_covered": 15
+    }
+  },
+  "next_due": {
+    "anomaly_monitoring": "AFTER_EVERY_CLOSED_ROUND_WITH_COOLDOWN",
+    "medium_at_first_blind_questions": 100,
+    "short_at_first_blind_questions": 75
+  },
+  "operational_events_recent": [
+    {
+      "detail": "The first FORMAL-ROUND-011 handoff used a human-readable prediction shape instead of the controller schema and was rejected before scoring.",
+      "kind": "HANDOFF",
+      "recorded_at": "2026-07-23T14:32:39Z",
+      "round_count": 11
+    },
+    {
+      "detail": "The replacement FORMAL-ROUND-011 handoff contained a one-character canonical-manifest hash transcription error and was rejected before scoring.",
+      "kind": "HASH_BINDING",
+      "recorded_at": "2026-07-23T14:32:39Z",
+      "round_count": 11
+    },
+    {
+      "detail": "The corrected FORMAL-ROUND-011 handoff initially used a non-exact question_profile field set and was rejected before scoring.",
+      "kind": "HANDOFF",
+      "recorded_at": "2026-07-23T14:32:39Z",
+      "round_count": 11
+    }
+  ],
+  "performed_at": "2026-07-27T04:43:28Z",
+  "reasoning_degradation": {
+    "all_option_comparison_coverage": 1.0,
+    "bazi_independent_seal_completion_rate": 1.0,
+    "blind_chart_model_completion_rate": 1.0,
+    "cross_question_unresolved_conflicts": 3,
+    "cross_track_conflict_preservation_rate": 1.0,
+    "decisive_rules_with_recorded_top1_change": 4,
+    "high_confidence_unclosed_critical_links": 2,
+    "independent_evidence_families": 85,
+    "known_rule_execution_omissions": 25,
+    "label_to_evidence_mismatch": 25,
+    "legacy_freezes_excluded": 14,
+    "low_sample_threshold_questions": 30,
+    "question_distribution_monitoring": {
+      "automatic_model_change": false,
+      "automatic_reordering_or_reweighting": false,
+      "composite_questions": 22,
+      "high_precision_endpoint_questions": 4,
+      "option_counts": {
+        "4": 25
+      },
+      "overlapping_topic_counts_are_not_independent": true,
+      "sample_status": "INSUFFICIENT_SAMPLE",
+      "topics": {
+        "BUSINESS_PARTNERSHIP": 1,
+        "CAREER_EDUCATION": 11,
+        "CHILDREN_FERTILITY": 3,
+        "HEALTH": 5,
+        "MAJOR_YEAR_EVENT": 14,
+        "MARRIAGE_RELATIONSHIP": 8,
+        "MIGRATION_RELOCATION": 2,
+        "PARENTS": 2,
+        "PERSONALITY_APPEARANCE": 3,
+        "PROPERTY_HOUSING": 2,
+        "SEXUALITY_INTIMACY": 3,
+        "SIBLINGS": 1,
+        "SOCIAL_FRIENDS": 2,
+        "SPIRITUAL_PARANORMAL": 2,
+        "TRAVEL_ACCIDENT_SAFETY": 3,
+        "WEALTH_FINANCE": 5
+      }
+    },
+    "reversal_test_completion_rate": 1.0,
+    "sample_status": "INSUFFICIENT_SAMPLE",
+    "schema": "REASONING-DEGRADATION-METRICS-V1",
+    "source_only_invalid_evidence_entries": 0,
+    "template_or_compression_check": "STRUCTURAL_VALIDATION_ACTIVE",
+    "v2_freezes": 5,
+    "v2_questions": 25,
+    "valid_evidence_entries": 95,
+    "ziwei_independent_seal_completion_rate": 1.0
+  },
+  "replay_effectiveness": {
+    "cases": {
+      "CASE-002": {
+        "first_blind_correct": 2,
+        "first_blind_round_id": "FORMAL-ROUND-001",
+        "replays": [
+          {
+            "correct_count": 4,
+            "delta_from_first_blind": 2,
+            "passed": true,
+            "round_id": "FORMAL-ROUND-007"
+          }
+        ]
+      },
+      "CASE-003": {
+        "first_blind_correct": 2,
+        "first_blind_round_id": "FORMAL-ROUND-002",
+        "replays": [
+          {
+            "correct_count": 1,
+            "delta_from_first_blind": -1,
+            "passed": false,
+            "round_id": "FORMAL-ROUND-009"
+          }
+        ]
+      },
+      "CASE-004": {
+        "first_blind_correct": 2,
+        "first_blind_round_id": "FORMAL-ROUND-003",
+        "replays": [
+          {
+            "correct_count": 1,
+            "delta_from_first_blind": -1,
+            "passed": false,
+            "round_id": "FORMAL-ROUND-011"
+          }
+        ]
+      },
+      "CASE-017": {
+        "first_blind_correct": 1,
+        "first_blind_round_id": "FORMAL-ROUND-005",
+        "replays": [
+          {
+            "correct_count": 1,
+            "delta_from_first_blind": 0,
+            "passed": false,
+            "round_id": "FORMAL-ROUND-014"
+          }
+        ]
+      },
+      "CASE-089": {
+        "first_blind_correct": 1,
+        "first_blind_round_id": "FORMAL-ROUND-006",
+        "replays": [
+          {
+            "correct_count": 1,
+            "delta_from_first_blind": 0,
+            "passed": false,
+            "round_id": "FORMAL-ROUND-016"
+          }
+        ]
+      }
+    },
+    "counts_as_first_blind_evidence": false,
+    "generated_at": "2026-07-27T04:43:28Z",
+    "schema": "SPACED-REPLAY-EFFECTIVENESS-V1",
+    "summary": {
+      "improved": 1,
+      "regressed": 2,
+      "replay_rounds": 5,
+      "unchanged": 2
+    }
+  },
+  "rule_governance": {
+    "attribution": "DECISIVE_SUPPORTING_COUNTEREVIDENCE_WITH_DECISION_CHANGE",
+    "canonical_evidence_quota": null,
+    "catalog_rules": 38,
+    "duplicate_candidates": [
+      {
+        "action": "REVIEW_FOR_FUTURE_SUPERSESSION_NOT_AUTO_MERGED",
+        "combined_similarity": 0.9688,
+        "left_rule_id": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+        "right_rule_id": "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION",
+        "skill_jaccard": 0.9375,
+        "topic_jaccard": 1.0
+      },
+      {
+        "action": "REVIEW_FOR_FUTURE_SUPERSESSION_NOT_AUTO_MERGED",
+        "combined_similarity": 0.7647,
+        "left_rule_id": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+        "right_rule_id": "RULE-EDUCATION-LEVEL-INTERRUPTION-ENTRY-SEPARATION",
+        "skill_jaccard": 0.5294,
+        "topic_jaccard": 1.0
+      },
+      {
+        "action": "REVIEW_FOR_FUTURE_SUPERSESSION_NOT_AUTO_MERGED",
+        "combined_similarity": 0.75,
+        "left_rule_id": "RULE-HEALTH-PATHOGENESIS-DIAGNOSIS-TREATMENT-DATE-SEPARATION",
+        "right_rule_id": "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON",
+        "skill_jaccard": 0.5,
+        "topic_jaccard": 1.0
+      }
+    ],
+    "only_new_general_rule_increases_catalog": true,
+    "remediation_type_counts": {
+      "EXECUTION_GATE": 3,
+      "RULE_WEIGHT_CHANGE": 2
+    },
+    "rule_selection": "TOPIC_ROUTER_MAXIMUM_SIX_MODEL_LEARNING_RULES_PER_QUESTION",
+    "runtime_active_rule_count": 28,
+    "status_counts": {
+      "CANDIDATE": 16,
+      "CHALLENGED": 11,
+      "PROVISIONAL": 10,
+      "RETIRED": 1
+    },
+    "suppressed_rule_count": 9,
+    "suppressed_rules": [
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule preserves the event mechanism while separating beneficial mitigation from the outcome, covering the older non-binary terminal distinction more precisely.",
+        "replaced_by": "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+        "rule_id": "RULE-BENEFIC-MALEFIC-NONBINARY-TERMINAL"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule keeps the object and institution test while adding transferable-function separation and a stricter decision procedure.",
+        "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+        "rule_id": "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule operationalizes career specificity through service object, institution, qualification, and income endpoints.",
+        "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+        "rule_id": "RULE-CAREER-SPECIFICITY-CLOSURE"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer family rule retains multi-axis atomization and adds independent closure for role, absence cause, substitute carer, health, migration, and endpoint.",
+        "replaced_by": "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE",
+        "rule_id": "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule supersedes the same method-versus-service-object distinction with explicit institution, qualification, timing, and income checks.",
+        "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+        "rule_id": "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule retains activation-versus-completion separation and extends it into an auditable relationship-complexity ladder.",
+        "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+        "rule_id": "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule includes capacity-versus-current-status separation and requires independent evidence for each additional relationship stage.",
+        "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+        "rule_id": "RULE-RELATIONSHIP-CAPACITY-CURRENT-STATUS-SEPARATION"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule preserves the multistage burden and adds a concrete rollback procedure when a stage lacks evidence.",
+        "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+        "rule_id": "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN"
+      },
+      {
+        "applied_in_maintenance": "MAINTENANCE-001",
+        "reason": "The newer rule keeps mechanism-versus-outcome separation and directly prevents beneficial signals from cancelling an otherwise complete event mechanism.",
+        "replaced_by": "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+        "rule_id": "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION"
+      }
+    ]
+  },
+  "schema": "TRAINING-MAINTENANCE-REPORT-V2",
+  "training_statistics_unchanged": true,
+  "trigger": {
+    "anomalies": [
+      {
+        "code": "CONSECUTIVE_LOW_FIRST_BLIND_CASES",
+        "observed": [
+          {
+            "case_id": "CASE-052",
+            "correct_count": 2
+          },
+          {
+            "case_id": "CASE-098",
+            "correct_count": 2
+          }
+        ],
+        "threshold": 2
+      },
+      {
+        "code": "OVERCONFIDENCE",
+        "observed": 0.21199999999999997,
+        "threshold": 0.15
+      }
+    ],
+    "anomaly_due": true,
+    "first_blind_questions": 60,
+    "medium_due": false,
+    "medium_milestone": 0,
+    "short_due": false,
+    "short_milestone": 50
+  }
+}
