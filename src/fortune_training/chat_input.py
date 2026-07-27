@@ -14,7 +14,10 @@ from .policy import (
     MINIMUM_NEW_CASES_BETWEEN_REPLAYS,
     REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
 )
-from .prediction_access import build_prediction_access_contract
+from .prediction_access import (
+    PREDICTION_ACCESS_CONTRACT_PATH,
+    build_prediction_access_contract,
+)
 from .util import (
     atomic_write_compact_json,
     atomic_write_json,
@@ -898,6 +901,11 @@ def compose_chat_input(root: Path) -> dict[str, Any]:
 def write_chat_input(root: Path) -> dict[str, Any]:
     root = root.resolve()
     payload, runtime_model = _compose_chat_input_and_runtime_model(root)
+    access_contract = payload["prediction_access_contract"]
+    atomic_write_compact_json(
+        root / PREDICTION_ACCESS_CONTRACT_PATH,
+        access_contract,
+    )
     atomic_write_compact_json(
         root / CHAT_RUNTIME_MODEL_RELATIVE_PATH,
         runtime_model,
