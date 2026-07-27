@@ -1583,6 +1583,66 @@ class HandoffProbeTests(unittest.TestCase):
                 ],
             )
 
+    def test_preflight_normalizes_known_profile_tag_aliases(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "question_profile": {
+                                "subject_tags": [
+                                    "SELF",
+                                    "HOUSEHOLD_UNIT",
+                                    "FRIEND",
+                                    "COWORKER",
+                                ],
+                                "time_scope_tags": [
+                                    "LIFE_STAGE",
+                                    "MULTI_YEAR_SEQUENCE",
+                                ],
+                                "endpoint_tags": [
+                                    "HEALTH_CONDITION",
+                                    "SURGERY",
+                                ],
+                                "applied_rule_ids": [],
+                            },
+                            "rule_attribution": {},
+                        }
+                    ]
+                },
+            )
+            profile = normalized["predictions"][0]["question_profile"]
+            self.assertEqual(
+                profile["subject_tags"],
+                [
+                    "SELF",
+                    "FAMILY",
+                    "FRIEND_BUSINESS_PARTNER",
+                    "EXTERNAL_ACTOR",
+                ],
+            )
+            self.assertEqual(
+                profile["time_scope_tags"],
+                ["ADULTHOOD", "MULTI_YEAR_PERIOD"],
+            )
+            self.assertEqual(
+                profile["endpoint_tags"],
+                ["HEALTH_CONDITION"],
+            )
+            self.assertEqual(
+                len(
+                    [
+                        change
+                        for change in report["changes"]
+                        if change["kind"] == "PROFILE_TAG_ALIAS"
+                    ]
+                ),
+                6,
+            )
+
     def test_preflight_moves_challenged_rule_to_counterevidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
