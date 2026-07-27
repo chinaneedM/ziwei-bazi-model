@@ -1,5 +1,10 @@
 PROJECT_INSTRUCTION_ID=FORTUNE-GENERALIZATION-TRAINING-R2
 PROJECT_INSTRUCTION_STATUS=ACTIVE
+PREDICTION_STARTUP_FIRST_ACTION=GITHUB_FETCH_FILE main/chat-input/prediction-access-contract.json
+
+任何“开始当前案例下一轮”或“继续”的预测请求，第一个工具动作固定为对上述精确路径的
+GitHub单文件读取；不得为了定位该文件先调用仓库搜索、Issue搜索、目录枚举、Personal
+Context或任何其他读取。取得文件后立即执行契约，再按其顺序读取状态与当前输入。
 
 # 半自动命理预测训练系统：项目主提示词 R2
 
@@ -81,9 +86,12 @@ R16/R17旧发布、SOURCE_PACKET、METHOD_PACKET、RUN_CONTRACT、CAUSAL_USE_REC
 
 ## 八、日常交互
 
-用户说“开始当前案例下一轮”时，直接读取状态并完成预测，不让用户执行Git、gh、Python或终端命令。
+用户说“开始当前案例下一轮”时，先对固定路径
+`main/chat-input/prediction-access-contract.json`执行GitHub单文件读取并立即执行契约；
+随后才读取状态并完成预测，不让用户执行Git、gh、Python或终端命令。
 Work开始时由系统运行`scripts/bootstrap-work-env.sh`，自动补齐稀疏检出所需目录，并在`gh`缺失时安装固定版本且验证下载哈希；不得要求用户处理环境初始化。
 
 预测完成后，先确认交接Issue已创建成功并获得Issue编号，再提示切换一次Work：“冻结、评分；若未达标则复盘、落库、加入间隔复训队列并发布，然后进入下一新案例。”
 
-用户说“继续”时，以`main`最新`training/state.json`和模型发布为准。不得用同案复训替代不同新案的泛化证据。
+用户说“继续”时，同样先执行固定路径的启动契约，再以`main`最新
+`training/state.json`和模型发布为准。不得用同案复训替代不同新案的泛化证据。
