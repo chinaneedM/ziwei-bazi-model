@@ -1172,6 +1172,26 @@ class RuntimeTests(unittest.TestCase):
                     path="answer-vault/formal/CASE-001.json.fernet",
                 )
 
+    def test_short_chat_commands_cannot_reintroduce_state_first_startup(self):
+        prompt = (
+            Path(__file__).resolve().parents[1]
+            / "docs"
+            / "PROJECT-MAIN-PROMPT-R2.txt"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            "PREDICTION_STARTUP_FIRST_ACTION=GITHUB_FETCH_FILE "
+            "main/chat-input/prediction-access-contract.json",
+            prompt,
+        )
+        self.assertIn(
+            "用户说“开始当前案例下一轮”时，先对固定路径",
+            prompt,
+        )
+        self.assertNotIn(
+            "用户说“开始当前案例下一轮”时，直接读取状态",
+            prompt,
+        )
+
     def test_non_executed_contaminated_round_is_skipped_without_counting(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))

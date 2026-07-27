@@ -41,8 +41,11 @@ fortune-train invalidate-current-round FORMAL-ROUND-000 CASE-000
 控制器仅在轮次、案例与当前`READY_FOR_ROUND`首次盲测完全一致且案例没有任何
 训练效果时执行。它以单一事务更新开发分区、正式组、状态和Chat输入；验证失败
 则全部回滚。远程操作使用仓库所有者创建的`[PREDICTION CONTAMINATION]` Issue，
-正文必须是`PREDICTION-CONTAMINATION-REPORT-V1`四字段JSON。自动流程不需要、
-不读取也不接受答案或预测内容，并在隔离后切换到下一可用案例。
+正文可以是`PREDICTION-CONTAMINATION-REPORT-V1`四字段JSON，或以
+`round_id/case_id/status/reason`四字段机器头开头、空行后附行政说明。仅启动顺序违规
+可把`round_id`写为`RESOLVE_FROM_MAIN_CURRENT_ACTIVE_ROUND`，控制器会从本次检出的
+`main/training/state.json`解析唯一当前轮次；真正的案例上下文污染仍必须提交显式轮次，
+防止误隔离。自动流程不需要、不读取也不接受答案、预测方向或评分字段。
 
 `fortune-train verify`会校验策略完整性、动态白名单、当前Chat输入包和状态一致性，
 并验证运行模型与模板哈希、运行包字符预算、14项不可删减推理主题、无证据配额、
