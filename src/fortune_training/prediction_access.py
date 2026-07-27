@@ -7,11 +7,18 @@ from .util import TrainingError, load_json
 
 
 PREDICTION_TOOL_POLICY_PATH = Path("config/prediction-tool-policy.json")
+PREDICTION_ACCESS_CONTRACT_PATH = Path(
+    "chat-input/prediction-access-contract.json"
+)
 POLICY_SCHEMA = "FORMAL-PREDICTION-TOOL-POLICY-V1"
 CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V1"
+VIOLATION_ACTION = (
+    "ABORT_BEFORE_PREDICTION_AND_INVALIDATE_ROUND_OR_QUARANTINE_CASE"
+)
 
 BASE_EXACT_PATHS = {
     "training/state.json",
+    PREDICTION_ACCESS_CONTRACT_PATH.as_posix(),
     "chat-input/current.json",
     "chat-input/prediction-row-template.json",
     "chat-input/runtime-model.json",
@@ -38,6 +45,22 @@ FORBIDDEN_REPOSITORY_PREFIXES = (
     "training/relay-results/",
     "training/runs/",
 )
+
+STARTUP_SEQUENCE = {
+    "bootstrap_path": PREDICTION_ACCESS_CONTRACT_PATH.as_posix(),
+    "must_be_first_repository_read": True,
+    "pre_contract_repository_reads_allowed": [],
+    "execute_before_any_other_repository_read": True,
+    "next_required_reads": [
+        "training/state.json",
+        "chat-input/current.json",
+    ],
+    "binding_rule": (
+        "After loading training/state.json and chat-input/current.json, require "
+        "the embedded prediction_access_contract to exactly equal this bootstrap "
+        "contract before any further repository retrieval."
+    ),
+}
 
 
 def load_prediction_tool_policy(root: Path) -> dict[str, Any]:
@@ -85,8 +108,10 @@ def load_prediction_tool_policy(root: Path) -> dict[str, Any]:
     }
     if set(policy.get("forbidden_context_sources", [])) != required_forbidden_context:
         raise TrainingError("prediction context denylist is incomplete")
-    if policy.get("violation_action") != "ABORT_BEFORE_PREDICTION_AND_QUARANTINE_CASE":
-        raise TrainingError("prediction access violation must quarantine before prediction")
+    if policy.get("violation_action") != VIOLATION_ACTION:
+        raise TrainingError(
+            "prediction access violation must invalidate or quarantine before prediction"
+        )
     return policy
 
 
@@ -142,13 +167,74 @@ def build_prediction_access_contract(
         "old_reveals_allowed": False,
         "old_diagnostics_allowed": False,
         "answer_related_objects_allowed": False,
+        "startup_sequence": STARTUP_SEQUENCE,
         "violation_action": policy["violation_action"],
     }
 
 
-def assert_prediction_access(
-    root: Path,
-    state: dict[str, Any],
+def validate_prediction_access_contract(contract: dict[str, Any]) -> dict[str, Any]:
+    """Validate a fetched bootstrap contract without reading any repository file."""
+    required = {
+        "schema",
+        "phase",
+        "enforcement",
+        "repository",
+        "ref",
+        "allowed_tool_classes",
+        "allowed_repository_paths",
+        "forbidden_repository_prefixes",
+        "forbidden_tool_classes",
+        "forbidden_context_sources",
+        "file_library_allowed",
+        "chat_attachments_allowed",
+        "historical_uploads_allowed",
+        "cross_conversation_memory_allowed",
+        "old_predictions_allowed",
+        "old_reveals_allowed",
+        "old_diagnostics_allowed",
+        "answer_related_objects_allowed",
+        "startup_sequence",
+        "violation_action",
+    }
+    if not isinstance(contract, dict) or set(contract) != required:
+        raise TrainingError("invalid prediction access contract fields")
+    if (
+        contract.get("schema") != CONTRACT_SCHEMA
+        or contract.get("phase") != "PREDICTION"
+        or contract.get("enforcement") != "DEFAULT_DENY_FAIL_CLOSED"
+        or contract.get("repository") != "chinaneedM/ziwei-bazi-model"
+        or contract.get("ref") != "main"
+        or contract.get("allowed_tool_classes") != ["GITHUB_FETCH_FILE"]
+        or contract.get("startup_sequence") != STARTUP_SEQUENCE
+        or contract.get("violation_action") != VIOLATION_ACTION
+    ):
+        raise TrainingError("prediction access contract is not fail-closed")
+    paths = contract.get("allowed_repository_paths")
+    if (
+        not isinstance(paths, dict)
+        or set(paths) != {"exact", "prefixes"}
+        or not isinstance(paths.get("exact"), list)
+        or not isinstance(paths.get("prefixes"), list)
+        or PREDICTION_ACCESS_CONTRACT_PATH.as_posix() not in paths["exact"]
+    ):
+        raise TrainingError("prediction access contract has invalid repository paths")
+    false_fields = (
+        "file_library_allowed",
+        "chat_attachments_allowed",
+        "historical_uploads_allowed",
+        "cross_conversation_memory_allowed",
+        "old_predictions_allowed",
+        "old_reveals_allowed",
+        "old_diagnostics_allowed",
+        "answer_related_objects_allowed",
+    )
+    if any(contract.get(field) is not False for field in false_fields):
+        raise TrainingError("prediction access contract permits contaminated context")
+    return contract
+
+
+def assert_prediction_access_from_contract(
+    contract: dict[str, Any],
     *,
     tool_class: str,
     context_source: str,
@@ -156,7 +242,8 @@ def assert_prediction_access(
     ref: str,
     path: str,
 ) -> None:
-    contract = build_prediction_access_contract(root, state)
+    """Authorize one post-bootstrap read without consulting repository state."""
+    contract = validate_prediction_access_contract(contract)
     if tool_class not in contract["allowed_tool_classes"]:
         raise TrainingError(f"prediction tool is not allowed: {tool_class}")
     if context_source != "GITHUB_MAIN":
@@ -172,3 +259,67 @@ def assert_prediction_access(
         raise TrainingError(f"prediction repository path is not allowed: {normalized}")
     if normalized.startswith(tuple(contract["forbidden_repository_prefixes"])):
         raise TrainingError(f"prediction repository path is forbidden: {normalized}")
+
+
+class PredictionAccessSession:
+    """Fail-closed startup guard that makes the contract the first repository read."""
+
+    def __init__(self) -> None:
+        self._contract: dict[str, Any] | None = None
+        self._bootstrap_fetch_authorized = False
+
+    def authorize_bootstrap_fetch(
+        self,
+        *,
+        tool_class: str,
+        context_source: str,
+        repository: str,
+        ref: str,
+        path: str,
+    ) -> None:
+        if self._bootstrap_fetch_authorized or self._contract is not None:
+            raise TrainingError("prediction bootstrap contract fetch may occur only once")
+        if (
+            tool_class != "GITHUB_FETCH_FILE"
+            or context_source != "GITHUB_MAIN"
+            or repository != "chinaneedM/ziwei-bazi-model"
+            or ref != "main"
+            or PurePosixPath(path).as_posix().lstrip("/")
+            != PREDICTION_ACCESS_CONTRACT_PATH.as_posix()
+        ):
+            raise TrainingError(
+                "the prediction access contract must be the first repository read"
+            )
+        self._bootstrap_fetch_authorized = True
+
+    def execute_contract(self, contract: dict[str, Any]) -> None:
+        if not self._bootstrap_fetch_authorized or self._contract is not None:
+            raise TrainingError("prediction bootstrap contract was not fetched first")
+        self._contract = validate_prediction_access_contract(contract)
+
+    def authorize_repository_read(self, **request: str) -> None:
+        if self._contract is None:
+            raise TrainingError(
+                "prediction access contract must execute before repository retrieval"
+            )
+        assert_prediction_access_from_contract(self._contract, **request)
+
+
+def assert_prediction_access(
+    root: Path,
+    state: dict[str, Any],
+    *,
+    tool_class: str,
+    context_source: str,
+    repository: str,
+    ref: str,
+    path: str,
+) -> None:
+    assert_prediction_access_from_contract(
+        build_prediction_access_contract(root, state),
+        tool_class=tool_class,
+        context_source=context_source,
+        repository=repository,
+        ref=ref,
+        path=path,
+    )
