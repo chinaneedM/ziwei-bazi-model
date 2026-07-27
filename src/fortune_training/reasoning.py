@@ -297,6 +297,7 @@ def _validate_evidence(
     option_ids: list[str],
     source_routes: list[str],
     question_id: str,
+    allow_timing_only: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, dict[str, Any]]]:
     if not isinstance(value, list) or not value:
         raise TrainingError(f"{question_id}.evidence_ledger must be non-empty")
@@ -340,7 +341,7 @@ def _validate_evidence(
         by_id[evidence_id] = row
     if not {"ZIWEI", "BAZI"}.issubset({row["track"] for row in rows}):
         raise TrainingError(f"{question_id} needs concrete evidence from both Ziwei and Bazi")
-    if not any(
+    if not allow_timing_only and not any(
         row["layer"] in {"NATAL", "REALITY"}
         and row["decision_impact"] != "NEUTRAL"
         for row in rows
@@ -697,11 +698,18 @@ def validate_question_reasoning(
 ) -> dict[str, Any]:
     question_id = row["question_id"]
     semantics = _validate_semantics(row.get("question_semantic_model"), option_ids, question_id)
+    profile = row.get("question_profile")
+    allow_timing_only = (
+        semantics["is_composite_narrative"] is False
+        and isinstance(profile, dict)
+        and profile.get("time_scope_tags") == ["SPECIFIC_YEAR"]
+    )
     evidence, evidence_by_id = _validate_evidence(
         row.get("evidence_ledger"),
         option_ids=option_ids,
         source_routes=source_routes,
         question_id=question_id,
+        allow_timing_only=allow_timing_only,
     )
     ziwei = _validate_track(
         row.get("ziwei_track_seal"),
