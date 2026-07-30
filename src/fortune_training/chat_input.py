@@ -234,7 +234,7 @@ def _prediction_row_template() -> dict[str, Any]:
                 "contradicts_option_atoms": [],
                 "alternative_explanation": text,
                 "evidence_family_id": "<EVIDENCE_FAMILY_ID>",
-                "independence_status": "<INDEPENDENT_SAME_FAMILY_OR_NEUTRAL_BACKGROUND>",
+                "independence_status": "<INDEPENDENT|SAME_FAMILY|NEUTRAL_BACKGROUND>",
                 "reliability": "<HIGH_MEDIUM_LOW_OR_UNKNOWN>",
                 "capability_ceiling": text,
                 "decision_impact": "<DECISIVE_SUPPORTING_COUNTEREVIDENCE_OR_NEUTRAL>",

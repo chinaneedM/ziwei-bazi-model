@@ -43,6 +43,8 @@ PROFILE_TAG_ALIASES = {
     },
 }
 
+INDEPENDENCE_STATUS_ALIAS = "INDEPENDENT_SAME_FAMILY"
+
 NATAL_CHART_FACT_MARKERS = ("本命", "原局", "原有", "原结构")
 ZIWEI_STATIC_STAR_MARKERS = (
     "紫微",
@@ -203,6 +205,34 @@ def normalize_handoff(
         semantics = row.get("question_semantic_model")
         matrix = row.get("option_comparison_matrix")
         evidence = row.get("evidence_ledger")
+        if isinstance(evidence, list):
+            seen_families: set[str] = set()
+            for evidence_row in evidence:
+                if not isinstance(evidence_row, dict):
+                    continue
+                family_id = evidence_row.get("evidence_family_id")
+                if evidence_row.get("independence_status") != INDEPENDENCE_STATUS_ALIAS:
+                    if isinstance(family_id, str):
+                        seen_families.add(family_id)
+                    continue
+                normalized_status = (
+                    "SAME_FAMILY"
+                    if isinstance(family_id, str) and family_id in seen_families
+                    else "INDEPENDENT"
+                )
+                evidence_row["independence_status"] = normalized_status
+                changes.append(
+                    {
+                        "kind": "EVIDENCE_INDEPENDENCE_STATUS_ALIAS",
+                        "question_id": question_id,
+                        "evidence_id": evidence_row.get("evidence_id"),
+                        "evidence_family_id": family_id,
+                        "from": INDEPENDENCE_STATUS_ALIAS,
+                        "to": normalized_status,
+                    }
+                )
+                if isinstance(family_id, str):
+                    seen_families.add(family_id)
         if (
             isinstance(top1, str)
             and isinstance(semantics, dict)

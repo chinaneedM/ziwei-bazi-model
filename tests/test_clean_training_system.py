@@ -2018,6 +2018,64 @@ class HandoffProbeTests(unittest.TestCase):
                 ],
             )
 
+    def test_preflight_normalizes_ambiguous_independence_status_by_family(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            normalized, report = normalize_handoff(
+                fixture.root,
+                {
+                    "predictions": [
+                        {
+                            "question_id": "Q1",
+                            "evidence_ledger": [
+                                {
+                                    "evidence_id": "Q1-Z1",
+                                    "evidence_family_id": "Q1-FAMILY-A",
+                                    "independence_status": "INDEPENDENT_SAME_FAMILY",
+                                },
+                                {
+                                    "evidence_id": "Q1-Z2",
+                                    "evidence_family_id": "Q1-FAMILY-A",
+                                    "independence_status": "INDEPENDENT_SAME_FAMILY",
+                                },
+                                {
+                                    "evidence_id": "Q1-B1",
+                                    "evidence_family_id": "Q1-FAMILY-B",
+                                    "independence_status": "INDEPENDENT_SAME_FAMILY",
+                                },
+                                {
+                                    "evidence_id": "Q1-R1",
+                                    "evidence_family_id": "Q1-BACKGROUND",
+                                    "independence_status": "NEUTRAL_BACKGROUND",
+                                },
+                            ],
+                        }
+                    ],
+                },
+            )
+            self.assertEqual(
+                [
+                    row["independence_status"]
+                    for row in normalized["predictions"][0]["evidence_ledger"]
+                ],
+                [
+                    "INDEPENDENT",
+                    "SAME_FAMILY",
+                    "INDEPENDENT",
+                    "NEUTRAL_BACKGROUND",
+                ],
+            )
+            changes = [
+                row
+                for row in report["changes"]
+                if row["kind"] == "EVIDENCE_INDEPENDENCE_STATUS_ALIAS"
+            ]
+            self.assertEqual([row["to"] for row in changes], [
+                "INDEPENDENT",
+                "SAME_FAMILY",
+                "INDEPENDENT",
+            ])
+
     def test_preflight_normalizes_known_profile_tag_aliases(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -2691,10 +2749,11 @@ class RepositoryIntegrityTests(unittest.TestCase):
             PROJECT_ROOT
             / ".github/workflows/prediction-handoff-gate.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("types: [opened]", workflow)
+        self.assertIn("types: [opened, reopened]", workflow)
         self.assertIn("fortune-handoff-preflight", workflow)
         self.assertIn("Require the unique current-round handoff", workflow)
         self.assertIn("gh issue close", workflow)
+        self.assertIn('--reason "not planned"', workflow)
         self.assertNotIn("fortune-train score", workflow)
         self.assertNotIn("fortune-train freeze", workflow)
 
