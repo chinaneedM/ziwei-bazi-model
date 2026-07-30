@@ -808,22 +808,26 @@ def validate_question_reasoning(
         question_id=question_id,
     )
     top1_atoms = semantics["option_atoms"][top1]
-    if top1_atoms["severe_irreversible_or_high_precision_atoms"]:
+    severe_atoms = top1_atoms["severe_irreversible_or_high_precision_atoms"]
+    if severe_atoms:
         option_row = matrix["options"][top1]
-        independent_support = any(
-            evidence_row["independence_status"] == "INDEPENDENT"
-            and any(
-                atom_ref.startswith(f"{top1}:")
-                for atom_ref in evidence_row["supports_option_atoms"]
-            )
+        required_refs = {
+            " ".join(f"{top1}:{atom}".split()).casefold()
+            for atom in severe_atoms
+        }
+        supported_refs = {
+            " ".join(atom_ref.split()).casefold()
             for evidence_row in evidence
-        )
+            if evidence_row["independence_status"] == "INDEPENDENT"
+            for atom_ref in evidence_row["supports_option_atoms"]
+        }
         if (
             not option_row["severe_atoms_have_independent_evidence"]
-            or not independent_support
+            or not required_refs.issubset(supported_refs)
         ):
             raise TrainingError(
-                f"{question_id}.{top1} high-precision Top1 atoms need independent evidence"
+                f"{question_id}.{top1} each high-precision Top1 atom needs "
+                "an exact independent evidence binding"
             )
     adversarial = _validate_adversarial(
         row.get("adversarial_review"),
