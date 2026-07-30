@@ -8,7 +8,9 @@ from typing import Any
 
 from .formal import (
     PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+    PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
     PREDICTION_CONTEXT_VIOLATION,
+    PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED,
     invalidate_current_pre_freeze_round,
     quarantine_current_case,
 )
@@ -49,14 +51,18 @@ def validate_contamination_report(report: dict[str, Any]) -> dict[str, Any]:
     if round_id != RESOLVE_CURRENT_ROUND:
         require_safe_id(round_id, "round_id")
     require_safe_id(report.get("case_id"), "case_id")
+    same_case_reasons = {
+        PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+        PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+    }
     if report.get("reason") not in {
         PREDICTION_CONTEXT_VIOLATION,
-        PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+        *same_case_reasons,
     }:
         raise TrainingError("unsupported prediction-contamination reason")
     if (
         round_id == RESOLVE_CURRENT_ROUND
-        and report.get("reason") != PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION
+        and report.get("reason") not in same_case_reasons
     ):
         raise TrainingError(
             "automatic current-round resolution is allowed only for a startup-order violation"
@@ -123,9 +129,14 @@ def parse_contamination_report(issue_body: str) -> dict[str, Any]:
             rows = _parse_administrative_header(issue_body)
         except TrainingError as exc:
             raise exc from packet_error
-        if rows["status"] != NON_EXECUTED_STATUS:
+        expected_status = (
+            PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED
+            if rows["reason"] == PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE
+            else NON_EXECUTED_STATUS
+        )
+        if rows["status"] != expected_status:
             raise TrainingError(
-                f"administrative contamination status must be {NON_EXECUTED_STATUS}"
+                f"administrative non-executed status must be {expected_status}"
             ) from packet_error
         return validate_contamination_report(
             {
@@ -143,7 +154,10 @@ def process_contamination_report(root: Path, report: dict[str, Any]) -> dict[str
     if round_id == RESOLVE_CURRENT_ROUND:
         state = load_json(root.resolve() / "training" / "state.json")
         round_id = next_round_id(state)
-    if report["reason"] == PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION:
+    if report["reason"] in {
+        PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+        PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+    }:
         return invalidate_current_pre_freeze_round(
             root,
             round_id,
