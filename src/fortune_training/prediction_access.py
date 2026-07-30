@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from .util import TrainingError, load_json
+from .util import TrainingError, load_json, object_sha256
 
 
 PREDICTION_TOOL_POLICY_PATH = Path("config/prediction-tool-policy.json")
@@ -12,6 +12,7 @@ PREDICTION_ACCESS_CONTRACT_PATH = Path(
 )
 POLICY_SCHEMA = "FORMAL-PREDICTION-TOOL-POLICY-V1"
 CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V1"
+ACCESS_EXECUTION_RECEIPT_SCHEMA = "PREDICTION-ACCESS-EXECUTION-RECEIPT-V1"
 VIOLATION_ACTION = (
     "ABORT_BEFORE_PREDICTION_AND_INVALIDATE_ROUND_OR_QUARANTINE_CASE"
 )
@@ -55,6 +56,7 @@ STARTUP_SEQUENCE = {
         "training/state.json",
         "chat-input/current.json",
     ],
+    "required_handoff_receipt_field": "prediction_access_execution_receipt",
     "binding_rule": (
         "After loading training/state.json and chat-input/current.json, require "
         "the embedded prediction_access_contract to exactly equal this bootstrap "
@@ -231,6 +233,38 @@ def validate_prediction_access_contract(contract: dict[str, Any]) -> dict[str, A
     if any(contract.get(field) is not False for field in false_fields):
         raise TrainingError("prediction access contract permits contaminated context")
     return contract
+
+
+def build_prediction_access_execution_receipt(
+    contract: dict[str, Any],
+) -> dict[str, Any]:
+    """Build the exact fail-closed receipt required in every prediction handoff."""
+    contract = validate_prediction_access_contract(contract)
+    startup = contract["startup_sequence"]
+    return {
+        "schema": ACCESS_EXECUTION_RECEIPT_SCHEMA,
+        "contract_sha256": object_sha256(contract),
+        "repository": contract["repository"],
+        "ref": contract["ref"],
+        "tool_class": contract["allowed_tool_classes"][0],
+        "first_repository_read": startup["bootstrap_path"],
+        "pre_contract_repository_reads": [],
+        "contract_executed_before_followup_reads": True,
+        "required_followup_reads": startup["next_required_reads"],
+    }
+
+
+def validate_prediction_access_execution_receipt(
+    contract: dict[str, Any],
+    receipt: dict[str, Any],
+) -> dict[str, Any]:
+    """Reject a handoff that cannot attest to the contract-first startup sequence."""
+    expected = build_prediction_access_execution_receipt(contract)
+    if receipt != expected:
+        raise TrainingError(
+            "prediction handoff lacks the exact contract-first access execution receipt"
+        )
+    return receipt
 
 
 def assert_prediction_access_from_contract(
