@@ -2215,6 +2215,7 @@ class HandoffProbeTests(unittest.TestCase):
                                     "HOUSEHOLD_UNIT",
                                     "FRIEND",
                                     "COWORKER",
+                                    "EMPLOYER_OR_ORGANIZATION",
                                 ],
                                 "time_scope_tags": [
                                     "LIFE_STAGE",
@@ -2239,6 +2240,7 @@ class HandoffProbeTests(unittest.TestCase):
                     "FAMILY",
                     "FRIEND_BUSINESS_PARTNER",
                     "EXTERNAL_ACTOR",
+                    "EMPLOYER_ORGANIZATION",
                 ],
             )
             self.assertEqual(
@@ -2257,7 +2259,7 @@ class HandoffProbeTests(unittest.TestCase):
                         if change["kind"] == "PROFILE_TAG_ALIAS"
                     ]
                 ),
-                6,
+                7,
             )
 
     def test_preflight_declares_source_routes_used_by_evidence(self):
