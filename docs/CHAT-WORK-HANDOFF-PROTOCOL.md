@@ -3,7 +3,8 @@
 跨模式切换不依赖对话记忆。Chat预测阶段先执行
 `config/prediction-tool-policy.json`，只用GitHub单文件读取访问`main`白名单路径；
 File Library、附件、历史上传、Personal Context及旧训练对象均默认拒绝。
-完成全部结构化推理后创建一个无答案交接 Issue；Work只依据当前安全包与这张唯一凭证继续。
+完成全部结构化推理并冻结、验证binding与访问收据后，转换到
+`POST_PREDICTION_HANDOFF`，再创建一个无答案交接Issue；Work只依据当前安全包与这张唯一凭证继续。
 
 ## 唯一凭证
 
@@ -23,7 +24,10 @@ File Library、附件、历史上传、Personal Context及旧训练对象均默�
 字段不同的自定义结构。创建Issue前把完整交接序列化为无代码围栏的紧凑UTF-8 JSON并计数字符：
 优选不超过40,000字符，完整证据优先的硬目标为60,000字符，GitHub硬上限为65,536字符。
 超过优选值时只压缩重复措辞和共享说明；不得删必填结构、实质证据行、选项矩阵、规则归因
-或已冻结Top1/Top2，也不得拆成多个Issue。
+或已冻结Top1/Top2，也不得拆成多个Issue。CHAT不运行本地`fortune-handoff-preflight`；
+只需现有GitHub connector。创建Issue后，`.github/workflows/prediction-handoff-gate.yml`
+在GitHub侧执行同一归一化与完整验证，必要时只写回安全归一化结果；失败则关闭Issue且
+不冻结、不评分、不揭盲、不学习、不推进状态。
 
 ## Work接受门
 

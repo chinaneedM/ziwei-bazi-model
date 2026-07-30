@@ -17,6 +17,9 @@
 - 当前`current_model_release`文件及该发布实际引用的patch
 - 当前推理核心、运行治理和必要配置
 
+外部/项目来源不需要也不允许运行时使用。`knowledge-workbench/`仅在构建时参与编译；
+CHAT直接读取`chat-input/runtime-model.json`中的knowledge cards，不读取workbench。
+
 以下来源和操作硬性禁止：
 
 - File Library、聊天附件、历史上传
@@ -51,4 +54,6 @@ fortune-train invalidate-current-round FORMAL-ROUND-000 CASE-000
 并验证运行模型与模板哈希、运行包字符预算、14项不可删减推理主题、无证据配额、
 全选项比较和题级渐进检索路由。
 回归测试同时覆盖允许路径以及File Library、附件、Personal Context、旧模型发布、
-训练历史、答案对象和非`main`引用的拒绝行为。
+训练历史、答案对象和非`main`引用的拒绝行为。完整预测冻结后才可转换到
+`POST_PREDICTION_HANDOFF`；该阶段只允许一次`GITHUB_CREATE_ISSUE`，其他Git写操作
+继续默认拒绝。

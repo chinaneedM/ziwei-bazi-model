@@ -1,0 +1,23 @@
+{
+  "schema": "POST-PREDICTION-HANDOFF-POLICY-V1",
+  "phase": "POST_PREDICTION_HANDOFF",
+  "default_decision": "DENY",
+  "allowed_repository": "chinaneedM/ziwei-bazi-model",
+  "allowed_ref": "main",
+  "allowed_tool_classes": [
+    "GITHUB_CREATE_ISSUE"
+  ],
+  "allowed_issue_count_per_round": 1,
+  "required_issue_title_prefix": "[PREDICTION HANDOFF] ",
+  "transition_requirements": [
+    "COMPLETE_PREDICTION_FROZEN",
+    "BINDING_VERIFIED",
+    "PREDICTION_ACCESS_EXECUTION_RECEIPT_VERIFIED",
+    "WORKBOOK_SCHEMA_COMPLETE"
+  ],
+  "chat_local_preflight_required": false,
+  "normalization_authority": "GITHUB_CONTROLLER",
+  "controller_workflow": ".github/workflows/prediction-handoff-gate.yml",
+  "all_other_git_writes": "DENY",
+  "invalid_handoff_action": "CLOSE_ISSUE_FAIL_CLOSED_NO_SECOND_ISSUE"
+}

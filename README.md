@@ -23,7 +23,7 @@
 1. `sources/canonical/`：S00–S19 冻结原典。训练中只读，由 `sources/canonical-manifest.json` 哈希锁定。
 2. `model-learning/`：模型自己的通用推理规则。不得包含案例编号、题号、答案字母、选项位置、选项原句或案例专属映射。
 
-项目中上传的 S00–S19 只是 Git 原典的只读检索镜像；S02 `(8)` 禁用，S02 `(9)` 有效。`sources/canonical/` 被改动时仓库验证会直接失败。
+外部/项目来源不是运行依赖，项目文件和 File Library 中的 S00–S19 不允许运行时读取。正式唯一权威是 Git `main` 的 `sources/canonical/` 与锁定清单；`sources/canonical/` 被改动时仓库验证会直接失败。
 
 ## 题级学习结构
 
@@ -44,9 +44,10 @@
    历史上传、Personal Context、仓库搜索、旧训练对象和答案对象均被拒绝。
 2. Chat 先建立选项前全盘模型，再对每题完成双轨独立封卷、证据账本、全选项比较、真实反转和分解置信度。
 3. Chat交接必须原样携带安全启动包生成的`prediction_access_execution_receipt`；它绑定独立契约哈希、唯一首读路径、空的契约前读取列表和固定后续读取顺序。收据缺失或不一致时，预检与Work接收端会在启动轮次、冻结和评分前失败关闭。
-4. Chat 生成交接单后必须先运行 `fortune-handoff-preflight`。预检会把 `0–1`
-   小数置信度归一化为 `0–100` 整数，把 `CHALLENGED` 规则自动改列为反证，
-   对 `RETIRED` 或抑制规则失败关闭，并在创建 Issue 前完成全结构和长度校验。
+4. 完整预测冻结且 binding 与访问收据验证通过后，Chat 进入
+   `POST_PREDICTION_HANDOFF`，仅可调用一次 `GITHUB_CREATE_ISSUE`。等价的归一化与
+   完整预检在 GitHub controller 中执行；Chat 和用户都无需安装 `gh`、克隆仓库或
+   运行 Python/终端命令。
 5. 预测冻结后用户揭盲；Chat 输出完整 `TRAINING-ISSUE-PACKET-V3`。
 6. 用户把整份 JSON 粘贴到“无 Work 训练提交单”。
 7. GitHub 自动冻结、用加密答案复核评分、更新题级统计。
@@ -78,7 +79,7 @@
 python -m pip install -e .
 ./scripts/bootstrap-work-env.sh --check
 fortune-train verify
-fortune-handoff-preflight --help
+fortune-handoff-preflight --help  # GitHub controller/Work维护使用；CHAT与用户不运行
 fortune-train case-bank-verify
 fortune-train case-bank-report
 fortune-train status

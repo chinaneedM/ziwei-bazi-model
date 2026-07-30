@@ -18,6 +18,7 @@ from .prediction_access import (
     PREDICTION_ACCESS_CONTRACT_PATH,
     build_prediction_access_contract,
     build_prediction_access_execution_receipt,
+    load_post_prediction_handoff_policy,
 )
 from .util import (
     atomic_write_compact_json,
@@ -432,6 +433,8 @@ def _compose_runtime_model(
     compact_knowledge_cards: list[dict[str, Any]],
     compact_rules: list[dict[str, Any]],
     compact_process_corrections: list[dict[str, Any]],
+    model_runtime: dict[str, Any] | None,
+    post_handoff_policy: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema": "CHAT-COMPILED-RUNTIME-MODEL-V1",
@@ -449,6 +452,29 @@ def _compose_runtime_model(
         "knowledge_cards": compact_knowledge_cards,
         "active_rules": compact_rules,
         "active_process_corrections": compact_process_corrections,
+        "knowledge_card_runtime_authority": (
+            model_runtime["knowledge_cards"]["compiled_runtime_ref"]
+            if model_runtime is not None
+            else "chat-input/runtime-model.json#knowledge_cards"
+        ),
+        "knowledge_workbench_chat_read_allowed": False,
+        "post_prediction_handoff": {
+            "phase": post_handoff_policy["phase"],
+            "allowed_tool_classes": post_handoff_policy[
+                "allowed_tool_classes"
+            ],
+            "allowed_issue_count_per_round": post_handoff_policy[
+                "allowed_issue_count_per_round"
+            ],
+            "transition_requirements": post_handoff_policy[
+                "transition_requirements"
+            ],
+            "normalization_authority": post_handoff_policy[
+                "normalization_authority"
+            ],
+            "chat_local_preflight_required": False,
+            "all_other_git_writes": "DENY",
+        },
         "compilation_rule": (
             "Only prediction-execution fields are included. Learning-history reasoning, "
             "expected-effect prose, empty validation examples, and duplicate routing metadata "
@@ -488,6 +514,7 @@ def _compose_chat_input_and_runtime_model(
     runtime_governance = load_runtime_governance(root)
     model_runtime_path = root / "config" / "model-runtime.json"
     model_runtime = load_json(model_runtime_path) if model_runtime_path.is_file() else None
+    post_handoff_policy = load_post_prediction_handoff_policy(root)
     reasoning_core = (
         load_json(root / model_runtime["reasoning_core"])
         if model_runtime is not None
@@ -499,7 +526,12 @@ def _compose_chat_input_and_runtime_model(
         else None
     )
     knowledge_card_payloads = (
-        [load_json(root / relative_path) for relative_path in model_runtime["knowledge_card_sources"]]
+        [
+            load_json(root / relative_path)
+            for relative_path in model_runtime["knowledge_cards"][
+                "build_time_sources"
+            ]
+        ]
         if model_runtime is not None
         else []
     )
@@ -534,6 +566,8 @@ def _compose_chat_input_and_runtime_model(
         compact_knowledge_cards=compact_knowledge_cards,
         compact_rules=compact_rules,
         compact_process_corrections=compact_process_corrections,
+        model_runtime=model_runtime,
+        post_handoff_policy=post_handoff_policy,
     )
     effective_model_input_sha256 = object_sha256(
         {
@@ -658,6 +692,7 @@ def _compose_chat_input_and_runtime_model(
             },
         },
         "runtime_performance_contract": runtime_performance,
+        "post_prediction_handoff_policy": post_handoff_policy,
         "prediction_output_contract": {
             "prediction_schema": "PREDICTION-WORKBOOK-V2",
             "frozen_schema": "FROZEN-PREDICTION-V2",
@@ -808,22 +843,31 @@ def _compose_chat_input_and_runtime_model(
                 ),
                 "target_max_characters": HANDOFF_TARGET_MAX_CHARACTERS,
                 "preferred_max_characters": HANDOFF_PREFERRED_MAX_CHARACTERS,
-                "preflight_required": True,
-                "preflight_command": (
-                    "fortune-handoff-preflight --root . --issue-title "
-                    "\"<ISSUE_TITLE_FROM_THIS_CONTRACT>\" --input <DRAFT_JSON> "
-                    "--output <NORMALIZED_JSON> --report <PREFLIGHT_REPORT_JSON>"
-                ),
+                "chat_local_preflight_required": False,
+                "chat_required_capabilities": [
+                    "GITHUB_FETCH_FILE",
+                    "GITHUB_CREATE_ISSUE",
+                ],
+                "controller_validation_workflow": post_handoff_policy[
+                    "controller_workflow"
+                ],
+                "normalization_authority": post_handoff_policy[
+                    "normalization_authority"
+                ],
                 "preflight_rule": (
-                    "Run the repository preflight command and create the Issue only from its "
-                    "normalized output. It fully validates the workbook, converts fractional "
-                    "confidence to integer percent, enforces rule-ledger status, serializes "
-                    "compact JSON, and verifies the size budget. Keep every required field and "
-                    "every substantive evidence row, but deduplicate repeated prose and shorten "
-                    f"wording toward {HANDOFF_PREFERRED_MAX_CHARACTERS} characters. Evidence "
-                    f"completeness takes priority up to {HANDOFF_TARGET_MAX_CHARACTERS} characters. "
-                    "Never split one handoff across Issues, remove ranking-changing evidence, or "
-                    "change Top1 or Top2 to meet the preferred budget."
+                    "CHAT applies the deterministic serialization rules embedded here, then "
+                    "after complete freeze and binding/receipt verification enters "
+                    "POST_PREDICTION_HANDOFF and creates exactly one Issue through the GitHub "
+                    "connector. The GitHub controller performs authoritative normalization and "
+                    "full validation, including fractional confidence conversion, rule-ledger "
+                    "status enforcement, compact serialization, binding checks, receipt checks, "
+                    "and size checks. No local gh, clone, Python, or terminal command is required. "
+                    "Keep every required field and every substantive evidence row, deduplicate "
+                    "repeated prose, and shorten wording toward "
+                    f"{HANDOFF_PREFERRED_MAX_CHARACTERS} characters. Evidence completeness takes "
+                    f"priority up to {HANDOFF_TARGET_MAX_CHARACTERS} characters. Never split one "
+                    "handoff across Issues, remove ranking-changing evidence, or change Top1 or "
+                    "Top2 to meet the preferred budget."
                 ),
             },
             "handoff_forbidden_content": [
@@ -834,9 +878,12 @@ def _compose_chat_input_and_runtime_model(
                 "SECRETS_OR_KEYS",
             ],
             "chat_freeze_rule": (
-                "After all predictions are frozen, create exactly one GitHub Issue using issue_title "
-                "and CHAT-WORK-PREDICTION-HANDOFF-V2. Copy binding exactly and preserve the complete "
-                "prediction rows. This is the only Chat-side GitHub write allowed."
+                "After all predictions are frozen and the binding plus access execution receipt "
+                "are verified, transition from PREDICTION to POST_PREDICTION_HANDOFF. Only then "
+                "create exactly one GitHub Issue using issue_title and "
+                "CHAT-WORK-PREDICTION-HANDOFF-V2. Copy binding exactly and preserve the complete "
+                "prediction rows. This one GITHUB_CREATE_ISSUE call is the only Chat-side GitHub "
+                "write allowed; all other Git writes remain denied."
             ),
             "work_acceptance_rule": (
                 "Read the unique open handoff Issue for binding.round_id; never reconstruct predictions "

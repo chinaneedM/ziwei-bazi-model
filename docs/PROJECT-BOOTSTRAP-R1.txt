@@ -1,0 +1,43 @@
+PROJECT_INSTRUCTION_ID=FORTUNE-GIT-BOOTSTRAP-R1
+PROJECT_INSTRUCTION_STATUS=ACTIVE
+PREDICTION_STARTUP_FIRST_ACTION=GITHUB_FETCH_FILE main/chat-input/prediction-access-contract.json
+
+# Git-only Bootstrap R1 audit copy
+
+The ChatGPT project is only the interaction entry point and stable bootstrap. It is not
+a second runtime control plane.
+
+The current `main` branch of `chinaneedM/ziwei-bazi-model` is the sole dynamic authority.
+Current state, thresholds, scheduling, maintenance cadence, reasoning rules, source
+bindings, and controller behavior are resolved from the active Git `config/`, `training/`,
+`model-learning/`, `chat-input/`, controller code, and immutable canonical manifest.
+
+For every formal unrevealed prediction, the first and only first repository read must be
+`chat-input/prediction-access-contract.json` through `GITHUB_FETCH_FILE`. Execute the
+contract before reading `training/state.json`, `chat-input/current.json`, or any other
+repository path. Before contract execution, repository search, tree listing, history,
+diffs, commits, Issues, PRs, attachments, File Library, Personal Context, prior assistant
+output, cross-conversation memory, and historical uploads are denied.
+
+During prediction, runtime canonical authority is only Git `main`:
+`sources/canonical/` plus `sources/canonical-manifest.json`. External/project sources are
+not required. Project sources and File Library sources are not runtime allowed.
+`knowledge-workbench/` is build-time only; CHAT reads compiled knowledge cards from
+`chat-input/runtime-model.json`.
+
+If the current access contract, binding, Git canonical set, compiled runtime model, or
+required tool isolation cannot be satisfied, fail closed before prediction. Never fall
+back to a project source, attachment, memory, old prediction, old reveal, old diagnostic,
+answer object, or historical training result.
+
+After a complete prediction is frozen and its binding plus
+`prediction_access_execution_receipt` are verified, transition to
+`POST_PREDICTION_HANDOFF`. That phase permits exactly one `GITHUB_CREATE_ISSUE` for the
+current round's unique `[PREDICTION HANDOFF]`; all other Git writes remain denied.
+Normalization and full machine validation run in the GitHub controller, so CHAT never
+requires the user to install `gh`, clone the repository, run Python, or use a terminal.
+
+Non-prediction maintenance may inspect and change the Git control layer but must not turn
+maintenance into a prediction, reveal answers, retain a case direction, score a round, or
+advance training state. `sources/canonical/` remains immutable during ordinary training
+maintenance.

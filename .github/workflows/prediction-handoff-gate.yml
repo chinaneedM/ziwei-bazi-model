@@ -1,0 +1,72 @@
+name: prediction-handoff-gate
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: prediction-handoff-${{ github.event.issue.title }}
+  cancel-in-progress: false
+
+jobs:
+  normalize-and-validate:
+    if: >-
+      github.event.issue.user.login == github.repository_owner &&
+      startsWith(github.event.issue.title, '[PREDICTION HANDOFF] ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      ISSUE_TITLE: ${{ github.event.issue.title }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install controller
+        run: python -m pip install -e .
+
+      - name: Save untrusted Issue body without shell evaluation
+        run: >-
+          python -c 'import os, pathlib;
+          pathlib.Path("/tmp/handoff-input.json").write_text(os.environ["ISSUE_BODY"], encoding="utf-8")'
+
+      - name: Require the unique current-round handoff
+        run: |
+          gh issue list --repo "${{ github.repository }}" --state all --limit 1000 --json number,title > /tmp/issues.json
+          python -c 'import json, os, pathlib; rows=json.loads(pathlib.Path("/tmp/issues.json").read_text()); matches=[row for row in rows if row["title"] == os.environ["ISSUE_TITLE"]]; assert len(matches) == 1 and str(matches[0]["number"]) == os.environ["ISSUE_NUMBER"], f"expected one exact handoff, found {len(matches)}"'
+
+      - name: Normalize and fully validate on GitHub
+        run: >-
+          fortune-handoff-preflight
+          --root .
+          --issue-title "$ISSUE_TITLE"
+          --input /tmp/handoff-input.json
+          --output /tmp/handoff-normalized.json
+          --report /tmp/handoff-report.json
+
+      - name: Persist only safe normalization changes
+        run: |
+          if ! cmp -s /tmp/handoff-input.json /tmp/handoff-normalized.json; then
+            gh issue edit "$ISSUE_NUMBER" --repo "${{ github.repository }}" --body-file /tmp/handoff-normalized.json
+          fi
+          sha256sum /tmp/handoff-normalized.json | cut -d ' ' -f 1 > /tmp/handoff-sha256.txt
+          gh issue comment "$ISSUE_NUMBER" --repo "${{ github.repository }}" --body "[HANDOFF VALIDATED] controller-normalized SHA256=$(cat /tmp/handoff-sha256.txt)"
+
+      - name: Fail closed and close an invalid handoff
+        if: failure()
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "${{ github.repository }}" --body "[HANDOFF REJECTED] Controller validation failed. No freeze, score, reveal, learning update, or training-state advance was performed. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          gh issue close "$ISSUE_NUMBER" --repo "${{ github.repository }}" --reason not_planned

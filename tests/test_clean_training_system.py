@@ -49,8 +49,10 @@ from fortune_training.maintenance import maintenance_due, run_maintenance
 from fortune_training.policy import passed, required_correct
 from fortune_training.prediction_access import (
     PREDICTION_ACCESS_CONTRACT_PATH,
+    PostPredictionHandoffSession,
     PredictionAccessSession,
     assert_prediction_access,
+    load_post_prediction_handoff_policy,
 )
 from fortune_training.reasoning import build_completeness_report, frozen_content_hash
 from fortune_training.runtime import (
@@ -70,7 +72,11 @@ from fortune_training.transport import (
     seal_answer_batch,
 )
 from fortune_training.util import TrainingError, object_sha256
-from fortune_training.verify import build_source_manifest, verify_repository
+from fortune_training.verify import (
+    _validate_model_runtime_policy,
+    build_source_manifest,
+    verify_repository,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +84,13 @@ TAXONOMY = json.loads((PROJECT_ROOT / "config" / "question-taxonomy.json").read_
 POLICY = json.loads((PROJECT_ROOT / "config" / "training-policy.json").read_text())
 PREDICTION_TOOL_POLICY = json.loads(
     (PROJECT_ROOT / "config" / "prediction-tool-policy.json").read_text()
+)
+POST_PREDICTION_HANDOFF_POLICY = json.loads(
+    (
+        PROJECT_ROOT
+        / "config"
+        / "post-prediction-handoff-policy.json"
+    ).read_text()
 )
 
 
@@ -142,21 +155,30 @@ class RuntimeFixture:
             self.root / "config" / "prediction-tool-policy.json",
             PREDICTION_TOOL_POLICY,
         )
+        write_json(
+            self.root / "config" / "post-prediction-handoff-policy.json",
+            POST_PREDICTION_HANDOFF_POLICY,
+        )
         write_json(self.root / "config" / "question-taxonomy.json", TAXONOMY)
         source_manifest = build_source_manifest(self.root)
         write_json(
             self.root / "config" / "source-policy.json",
             {
-                "schema": "SOURCE-AUTHORITY-POLICY-V1",
-                "original_project_library_role": "ARCHIVAL_READ_ONLY_NOT_RUNTIME",
-                "original_project_library_deletion_required": False,
+                "schema": "SOURCE-AUTHORITY-POLICY-V2",
+                "external_project_sources_required": False,
+                "project_file_library_sources_runtime_allowed": False,
+                "runtime_canonical_authority": "GIT_MAIN_SOURCES_CANONICAL_ONLY",
                 "runtime_source": "GIT_REPOSITORY_ONLY",
+                "git_repository": "chinaneedM/ziwei-bazi-model",
+                "git_ref": "main",
                 "git_canonical_path": "sources/canonical",
                 "git_canonical_mutable_during_training": False,
                 "canonical_manifest_sha256": object_sha256(source_manifest),
                 "model_learning_path": "model-learning",
                 "model_learning_mutable_during_training": True,
-                "conflict_resolution": "IGNORE_EXTERNAL_ORIGINAL_AND_USE_GIT_RUNTIME",
+                "conflict_resolution": (
+                    "REJECT_PROJECT_OR_FILE_LIBRARY_SOURCE_AND_USE_GIT_MAIN_CANONICAL"
+                ),
             },
         )
         write_json(
@@ -1033,14 +1055,18 @@ class RuntimeTests(unittest.TestCase):
             )
             constraints = handoff["serialization_constraints"]
             self.assertTrue(constraints["exact_fields_only"])
-            self.assertTrue(constraints["preflight_required"])
+            self.assertFalse(constraints["chat_local_preflight_required"])
             self.assertEqual(
                 constraints["confidence_unit"],
                 "INTEGER_PERCENT_0_TO_100",
             )
-            self.assertIn(
-                "fortune-handoff-preflight",
-                constraints["preflight_command"],
+            self.assertEqual(
+                constraints["normalization_authority"],
+                "GITHUB_CONTROLLER",
+            )
+            self.assertEqual(
+                constraints["chat_required_capabilities"],
+                ["GITHUB_FETCH_FILE", "GITHUB_CREATE_ISSUE"],
             )
             self.assertIn(
                 "CHALLENGED",
@@ -1191,11 +1217,132 @@ class RuntimeTests(unittest.TestCase):
                     path="answer-vault/formal/CASE-001.json.fernet",
                 )
 
+    def test_post_prediction_handoff_requires_freeze_and_allows_one_issue(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            bundle = json.loads(
+                (fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text()
+            )
+            handoff = bundle["chat_work_handoff_contract"]
+            session = PostPredictionHandoffSession(
+                fixture.root,
+                contract=bundle["prediction_access_contract"],
+                expected_binding=handoff["binding"],
+                expected_issue_title=handoff["issue_title"],
+            )
+            request = {
+                "tool_class": "GITHUB_CREATE_ISSUE",
+                "repository": "chinaneedM/ziwei-bazi-model",
+                "ref": "main",
+                "issue_title": handoff["issue_title"],
+            }
+            with self.assertRaisesRegex(TrainingError, "denied during prediction"):
+                session.authorize_issue_create(**request)
+            with self.assertRaisesRegex(TrainingError, "freeze is required"):
+                session.enter_post_prediction_handoff(
+                    prediction_frozen=False,
+                    workbook_schema_complete=True,
+                    binding=handoff["binding"],
+                    receipt=handoff["handoff_payload_template"][
+                        "prediction_access_execution_receipt"
+                    ],
+                )
+            session.enter_post_prediction_handoff(
+                prediction_frozen=True,
+                workbook_schema_complete=True,
+                binding=handoff["binding"],
+                receipt=handoff["handoff_payload_template"][
+                    "prediction_access_execution_receipt"
+                ],
+            )
+            self.assertEqual(session.phase, "POST_PREDICTION_HANDOFF")
+            session.authorize_issue_create(**request)
+            with self.assertRaisesRegex(TrainingError, "only one"):
+                session.authorize_issue_create(**request)
+
+    def test_git_only_runtime_without_project_sources_is_complete(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            self.assertFalse((fixture.root / "project-sources").exists())
+            self.assertFalse((fixture.root / "file-library").exists())
+            contract = json.loads(
+                (fixture.root / PREDICTION_ACCESS_CONTRACT_PATH).read_text()
+            )
+            bundle = json.loads(
+                (fixture.root / CHAT_INPUT_RELATIVE_PATH).read_text()
+            )
+            common = {
+                "tool_class": "GITHUB_FETCH_FILE",
+                "context_source": "GITHUB_MAIN",
+                "repository": "chinaneedM/ziwei-bazi-model",
+                "ref": "main",
+            }
+            startup = PredictionAccessSession()
+            startup.authorize_bootstrap_fetch(
+                **common,
+                path=PREDICTION_ACCESS_CONTRACT_PATH.as_posix(),
+            )
+            startup.execute_contract(contract)
+            startup.authorize_repository_read(
+                **common,
+                path="sources/canonical/S00_test.txt",
+            )
+            startup.authorize_repository_read(
+                **common,
+                path=CHAT_RUNTIME_MODEL_RELATIVE_PATH.as_posix(),
+            )
+            for tool_class, context_source in (
+                ("FILE_LIBRARY_READ", "FILE_LIBRARY"),
+                ("ATTACHMENT_FILE_READ", "CHAT_ATTACHMENTS"),
+                ("PERSONAL_CONTEXT_SEARCH", "PERSONAL_CONTEXT"),
+            ):
+                with self.assertRaises(TrainingError):
+                    startup.authorize_repository_read(
+                        tool_class=tool_class,
+                        context_source=context_source,
+                        repository="chinaneedM/ziwei-bazi-model",
+                        ref="main",
+                        path="sources/canonical/S00_test.txt",
+                    )
+            runtime_model = json.loads(
+                (fixture.root / CHAT_RUNTIME_MODEL_RELATIVE_PATH).read_text()
+            )
+            self.assertFalse(
+                runtime_model["knowledge_workbench_chat_read_allowed"]
+            )
+            self.assertEqual(
+                runtime_model["knowledge_card_runtime_authority"],
+                "chat-input/runtime-model.json#knowledge_cards",
+            )
+            policy = load_post_prediction_handoff_policy(fixture.root)
+            self.assertFalse(policy["chat_local_preflight_required"])
+            handoff = bundle["chat_work_handoff_contract"]
+            post = PostPredictionHandoffSession(
+                fixture.root,
+                contract=contract,
+                expected_binding=handoff["binding"],
+                expected_issue_title=handoff["issue_title"],
+            )
+            post.enter_post_prediction_handoff(
+                prediction_frozen=True,
+                workbook_schema_complete=True,
+                binding=handoff["binding"],
+                receipt=handoff["handoff_payload_template"][
+                    "prediction_access_execution_receipt"
+                ],
+            )
+            post.authorize_issue_create(
+                tool_class="GITHUB_CREATE_ISSUE",
+                repository="chinaneedM/ziwei-bazi-model",
+                ref="main",
+                issue_title=handoff["issue_title"],
+            )
+
     def test_short_chat_commands_cannot_reintroduce_state_first_startup(self):
         prompt = (
             Path(__file__).resolve().parents[1]
             / "docs"
-            / "PROJECT-MAIN-PROMPT-R2.txt"
+            / "PROJECT-BOOTSTRAP-R1.txt"
         ).read_text(encoding="utf-8")
         self.assertIn(
             "PREDICTION_STARTUP_FIRST_ACTION=GITHUB_FETCH_FILE "
@@ -1203,13 +1350,16 @@ class RuntimeTests(unittest.TestCase):
             prompt,
         )
         self.assertIn(
-            "用户说“开始当前案例下一轮”时，先对固定路径",
+            "first and only first repository read",
             prompt,
         )
-        self.assertNotIn(
-            "用户说“开始当前案例下一轮”时，直接读取状态",
-            prompt,
-        )
+        retired = (
+            Path(__file__).resolve().parents[1]
+            / "docs"
+            / "PROJECT-MAIN-PROMPT-R2.txt"
+        ).read_text(encoding="utf-8")
+        self.assertIn("PROJECT_INSTRUCTION_STATUS=RETIRED", retired)
+        self.assertNotIn("PROJECT_INSTRUCTION_STATUS=ACTIVE", retired)
 
     def test_non_executed_contaminated_round_is_skipped_without_counting(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -2536,6 +2686,18 @@ class RepositoryIntegrityTests(unittest.TestCase):
             workflow,
         )
 
+    def test_handoff_gate_runs_preflight_on_github_and_fails_closed(self):
+        workflow = (
+            PROJECT_ROOT
+            / ".github/workflows/prediction-handoff-gate.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("types: [opened]", workflow)
+        self.assertIn("fortune-handoff-preflight", workflow)
+        self.assertIn("Require the unique current-round handoff", workflow)
+        self.assertIn("gh issue close", workflow)
+        self.assertNotIn("fortune-train score", workflow)
+        self.assertNotIn("fortune-train freeze", workflow)
+
     def test_real_repository_has_generalization_r2_training_baseline(self):
         result = verify_repository(PROJECT_ROOT)
         self.assertEqual(result["sources"], 20)
@@ -2567,6 +2729,18 @@ class RepositoryIntegrityTests(unittest.TestCase):
             bundle["chat_work_handoff_contract"],
         )
         performance = bundle["runtime_performance_contract"]
+        self.assertGreaterEqual(
+            performance["interruption_recovery"][
+                "visible_checkpoint_interval_seconds"
+            ],
+            15,
+        )
+        self.assertLessEqual(
+            performance["interruption_recovery"][
+                "visible_checkpoint_interval_seconds"
+            ],
+            20,
+        )
         self.assertTrue(
             performance["comparison_representation"]["all_pairs_required"]
         )
@@ -2596,6 +2770,13 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertEqual(len(runtime_model["knowledge_cards"]), 23)
         self.assertNotIn("expected_effect", runtime_model["active_process_corrections"][-1])
         self.assertNotIn("reasoning", runtime_model["active_process_corrections"][-1])
+        self.assertFalse(
+            runtime_model["knowledge_workbench_chat_read_allowed"]
+        )
+        self.assertEqual(
+            runtime_model["knowledge_card_runtime_authority"],
+            "chat-input/runtime-model.json#knowledge_cards",
+        )
 
         question_ids = {
             row["question_id"]
@@ -2609,6 +2790,23 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertTrue(
             all(row["knowledge_card_ids"] for row in execution_routes)
         )
+
+    def test_model_runtime_rejects_project_source_dependency(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            policy = json.loads(
+                (
+                    PROJECT_ROOT / "config" / "model-runtime.json"
+                ).read_text()
+            )
+            write_json(root / "config" / "model-runtime.json", policy)
+            self.assertIsNotNone(_validate_model_runtime_policy(root))
+            policy["chat_source_access"][
+                "fail_closed_when_project_sources_unavailable"
+            ] = True
+            write_json(root / "config" / "model-runtime.json", policy)
+            with self.assertRaisesRegex(TrainingError, "project-source"):
+                _validate_model_runtime_policy(root)
 
     def test_canonical_sources_cannot_be_silently_rebaselined(self):
         parser = build_parser()
