@@ -2,7 +2,7 @@ name: prediction-handoff-gate
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: read
@@ -69,4 +69,4 @@ jobs:
         if: failure()
         run: |
           gh issue comment "$ISSUE_NUMBER" --repo "${{ github.repository }}" --body "[HANDOFF REJECTED] Controller validation failed. No freeze, score, reveal, learning update, or training-state advance was performed. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          gh issue close "$ISSUE_NUMBER" --repo "${{ github.repository }}" --reason not_planned
+          gh issue close "$ISSUE_NUMBER" --repo "${{ github.repository }}" --reason "not planned"
