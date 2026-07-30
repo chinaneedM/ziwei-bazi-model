@@ -618,6 +618,17 @@
       "round_id": "FORMAL-ROUND-027",
       "scored": false,
       "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
+    },
+    {
+      "case_id": "CASE-075",
+      "counts_toward_first_blind": false,
+      "prediction_directions_retained": false,
+      "prediction_frozen": false,
+      "reason": "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ",
+      "recorded_at": "2026-07-30T11:50:45Z",
+      "round_id": "FORMAL-ROUND-029",
+      "scored": false,
+      "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
     }
   ],
   "policy_path": "config/training-policy.json",
@@ -625,7 +636,7 @@
   "round_count": 23,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
-  "round_sequence": 28,
+  "round_sequence": 29,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [
