@@ -373,6 +373,15 @@ def _validate_evidence(
             raise TrainingError(f"{question_id}.{evidence_id} has invalid reliability")
         if row["decision_impact"] not in {"DECISIVE", "SUPPORTING", "COUNTEREVIDENCE", "NEUTRAL"}:
             raise TrainingError(f"{question_id}.{evidence_id} has invalid decision_impact")
+        if row["independence_status"] == "NEUTRAL_BACKGROUND":
+            if row["decision_impact"] != "NEUTRAL":
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} neutral background must have NEUTRAL decision_impact"
+                )
+            if row["contradicts_option_atoms"]:
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} neutral background may not contradict option atoms"
+                )
         for field in ("capability_ceiling", "limitations"):
             _text(row[field], f"{question_id}.{evidence_id}.{field}")
         normalized_fact = " ".join(row["chart_fact"].split()).casefold()
@@ -445,6 +454,13 @@ def _validate_track(
             evidence = evidence_by_id.get(evidence_id)
             if evidence is None or evidence["track"] != track:
                 raise TrainingError(f"{question_id}.{track} references evidence from another track")
+            if field == "contradicting_evidence_ids" and (
+                evidence["decision_impact"] == "NEUTRAL"
+                or evidence["independence_status"] == "NEUTRAL_BACKGROUND"
+            ):
+                raise TrainingError(
+                    f"{question_id}.{track} contradicting evidence must be non-neutral"
+                )
         used_ids.extend(ids)
     if len(used_ids) != len(set(used_ids)):
         raise TrainingError(f"{question_id}.{track} support and counterevidence must be disjoint")
@@ -524,8 +540,16 @@ def _validate_matrix(
                 if evidence_id not in evidence_by_id or evidence_by_id[evidence_id]["track"] != track:
                     raise TrainingError(f"{question_id}.{option_id}.{field} references invalid evidence")
         for evidence_id in _texts(row["direct_counterevidence_ids"], f"{question_id}.{option_id}.counterevidence"):
-            if evidence_id not in evidence_by_id:
+            evidence = evidence_by_id.get(evidence_id)
+            if evidence is None:
                 raise TrainingError(f"{question_id}.{option_id} references unknown counterevidence")
+            if (
+                evidence["decision_impact"] == "NEUTRAL"
+                or evidence["independence_status"] == "NEUTRAL_BACKGROUND"
+            ):
+                raise TrainingError(
+                    f"{question_id}.{option_id} direct counterevidence must be non-neutral"
+                )
         for field in ("reality_closure", "timing_closure", "final_rank_reason"):
             _text(row[field], f"{question_id}.{option_id}.{field}")
         if not isinstance(row["shared_background_zeroed"], bool):
