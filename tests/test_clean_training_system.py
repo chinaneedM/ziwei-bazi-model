@@ -1051,6 +1051,28 @@ class RuntimeTests(unittest.TestCase):
                 object_sha256(prediction_template),
                 template_ref["sha256"],
             )
+            for track_name in ("ziwei_track_seal", "bazi_track_seal"):
+                track = prediction_template[track_name]
+                self.assertIn(
+                    "EXCLUSIVE_FROM_CONTRADICTING_SET",
+                    track["supporting_evidence_ids"][0],
+                )
+                self.assertIsInstance(track["confidence"], str)
+            reversal = prediction_template["adversarial_review"]["reversal_test"]
+            self.assertIn("DERIVED_FROM_RANKING", reversal["top1_survives"])
+            confidence = prediction_template["confidence_components"]
+            self.assertIn(
+                "WEAKEST_NON_OVERALL_COMPONENT",
+                confidence["overall_confidence"],
+            )
+            ablations = prediction_template["counterfactual_analysis"][
+                "decisive_rule_ablations"
+            ]
+            self.assertEqual(len(ablations), 1)
+            self.assertEqual(
+                set(ablations[0]),
+                {"rule_id", "ranking_without_rule", "changes_top1", "reason"},
+            )
             self.assertEqual(
                 set(prediction_template),
                 {
@@ -1078,6 +1100,19 @@ class RuntimeTests(unittest.TestCase):
             self.assertEqual(
                 constraints["confidence_unit"],
                 "INTEGER_PERCENT_0_TO_100",
+            )
+            self.assertIn(
+                "disjoint", constraints["track_evidence_partition_rule"]
+            )
+            self.assertIn(
+                "weakest", constraints["overall_confidence_cap_rule"]
+            )
+            self.assertIn(
+                "exactly one", constraints["decisive_rule_ablation_rule"]
+            )
+            self.assertIn(
+                "Derive top1_survives",
+                constraints["reversal_test_consistency_rule"],
             )
             self.assertEqual(
                 constraints["normalization_authority"],

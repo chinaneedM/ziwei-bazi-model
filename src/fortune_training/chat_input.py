@@ -131,6 +131,13 @@ def _prediction_row_template() -> dict[str, Any]:
     text = "<REQUIRED_NON_EMPTY_STRING>"
     option_id = "<OPTION_ID>"
     evidence_id = "<EVIDENCE_ID>"
+    supporting_evidence_id = (
+        "<SUPPORTING_EVIDENCE_ID_EXCLUSIVE_FROM_CONTRADICTING_SET>"
+    )
+    confidence = "<INTEGER_PERCENT_0_TO_100>"
+    overall_confidence = (
+        "<INTEGER_PERCENT_0_TO_WEAKEST_NON_OVERALL_COMPONENT>"
+    )
     ranking = ["<ALL_OPTION_IDS_IN_FINAL_ORDER>"]
     return {
         "question_id": "<QUESTION_ID>",
@@ -184,12 +191,12 @@ def _prediction_row_template() -> dict[str, Any]:
                 "object": text,
                 "endpoint": text,
             },
-            "supporting_evidence_ids": [evidence_id],
+            "supporting_evidence_ids": [supporting_evidence_id],
             "contradicting_evidence_ids": [],
             "alternative_explanations": [text],
             "unresolved_links": [],
             "capability_ceiling": text,
-            "confidence": 0,
+            "confidence": confidence,
         },
         "bazi_track_seal": {
             "top1": "<OPTION_ID>",
@@ -204,12 +211,12 @@ def _prediction_row_template() -> dict[str, Any]:
                 "object": text,
                 "endpoint": text,
             },
-            "supporting_evidence_ids": [evidence_id],
+            "supporting_evidence_ids": [supporting_evidence_id],
             "contradicting_evidence_ids": [],
             "alternative_explanations": [text],
             "unresolved_links": [],
             "capability_ceiling": text,
-            "confidence": 0,
+            "confidence": confidence,
         },
         "cross_track_arbitration": {
             "agreement_layers": [],
@@ -287,20 +294,22 @@ def _prediction_row_template() -> dict[str, Any]:
                 "ranking_before": ranking,
                 "ranking_after_removal": ranking,
                 "top2_best_explanation": text,
-                "top1_survives": False,
+                "top1_survives": (
+                    "<BOOLEAN_DERIVED_FROM_RANKING_BEFORE_AND_AFTER_REMOVAL>"
+                ),
                 "reason": text,
             },
         },
         "confidence_components": {
-            "input_confidence": 0,
-            "natal_structure_confidence": 0,
-            "subject_confidence": 0,
-            "mechanism_confidence": 0,
-            "timing_confidence": 0,
-            "reality_endpoint_confidence": 0,
-            "cross_track_agreement": 0,
-            "top1_top2_separation": 0,
-            "overall_confidence": 0,
+            "input_confidence": confidence,
+            "natal_structure_confidence": confidence,
+            "subject_confidence": confidence,
+            "mechanism_confidence": confidence,
+            "timing_confidence": confidence,
+            "reality_endpoint_confidence": confidence,
+            "cross_track_agreement": confidence,
+            "top1_top2_separation": confidence,
+            "overall_confidence": overall_confidence,
         },
         "counterfactual_analysis": {
             "full_model_ranking": ranking,
@@ -308,7 +317,18 @@ def _prediction_row_template() -> dict[str, Any]:
             "ziwei_only_ranking": ranking,
             "bazi_only_ranking": ranking,
             "fused_ranking": ranking,
-            "decisive_rule_ablations": [],
+            "decisive_rule_ablations": [
+                {
+                    "rule_id": "<ONE_ROW_FOR_EACH_DECISIVE_RULE_ID>",
+                    "ranking_without_rule": [
+                        "<ALL_OPTION_IDS_IN_FINAL_ORDER_WITHOUT_THIS_RULE>"
+                    ],
+                    "changes_top1": (
+                        "<BOOLEAN_DERIVED_FROM_RANKING_WITHOUT_RULE>"
+                    ),
+                    "reason": text,
+                }
+            ],
         },
     }
 
@@ -830,6 +850,24 @@ def _compose_chat_input_and_runtime_model(
                 "encoding": "UTF-8_JSON_WITHOUT_CODE_FENCES",
                 "exact_fields_only": True,
                 "confidence_unit": "INTEGER_PERCENT_0_TO_100",
+                "track_evidence_partition_rule": (
+                    "Within each Ziwei or Bazi track, supporting_evidence_ids and "
+                    "contradicting_evidence_ids must be disjoint. Evidence that supports "
+                    "Top1 by contradicting a rival remains supporting evidence for Top1."
+                ),
+                "overall_confidence_cap_rule": (
+                    "overall_confidence must not exceed the weakest of the other eight "
+                    "confidence components."
+                ),
+                "decisive_rule_ablation_rule": (
+                    "Provide exactly one decisive_rule_ablations row for every "
+                    "rule_attribution.decisive_rule_ids entry; removing that rule must "
+                    "change Top1, or reclassify it as supporting before freeze."
+                ),
+                "reversal_test_consistency_rule": (
+                    "Derive top1_survives by comparing ranking_before with "
+                    "ranking_after_removal; never copy the template placeholder."
+                ),
                 "fractional_confidence_normalization": (
                     "A numeric float from 0.0 through 1.0 is deterministically "
                     "converted to the nearest integer percent before validation."

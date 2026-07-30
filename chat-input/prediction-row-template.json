@@ -22,7 +22,7 @@
       "removed_evidence_ids": [
         "<EVIDENCE_ID>"
       ],
-      "top1_survives": false,
+      "top1_survives": "<BOOLEAN_DERIVED_FROM_RANKING_BEFORE_AND_AFTER_REMOVAL>",
       "top2_best_explanation": "<REQUIRED_NON_EMPTY_STRING>"
     },
     "strongest_competitor": "<TOP2_OPTION_ID>",
@@ -37,7 +37,7 @@
       "<REQUIRED_NON_EMPTY_STRING>"
     ],
     "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
-    "confidence": 0,
+    "confidence": "<INTEGER_PERCENT_0_TO_100>",
     "contradicting_evidence_ids": [],
     "endpoint_chain": {
       "action": "<REQUIRED_NON_EMPTY_STRING>",
@@ -52,22 +52,22 @@
     ],
     "strength_and_pattern": "<REQUIRED_NON_EMPTY_STRING>",
     "supporting_evidence_ids": [
-      "<EVIDENCE_ID>"
+      "<SUPPORTING_EVIDENCE_ID_EXCLUSIVE_FROM_CONTRADICTING_SET>"
     ],
     "top1": "<OPTION_ID>",
     "top2": "<OPTION_ID>",
     "unresolved_links": []
   },
   "confidence_components": {
-    "cross_track_agreement": 0,
-    "input_confidence": 0,
-    "mechanism_confidence": 0,
-    "natal_structure_confidence": 0,
-    "overall_confidence": 0,
-    "reality_endpoint_confidence": 0,
-    "subject_confidence": 0,
-    "timing_confidence": 0,
-    "top1_top2_separation": 0
+    "cross_track_agreement": "<INTEGER_PERCENT_0_TO_100>",
+    "input_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "mechanism_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "natal_structure_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "overall_confidence": "<INTEGER_PERCENT_0_TO_WEAKEST_NON_OVERALL_COMPONENT>",
+    "reality_endpoint_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "subject_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "timing_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "top1_top2_separation": "<INTEGER_PERCENT_0_TO_100>"
   },
   "counterfactual_analysis": {
     "bazi_only_ranking": [
@@ -76,7 +76,16 @@
     "canonical_only_ranking": [
       "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
     ],
-    "decisive_rule_ablations": [],
+    "decisive_rule_ablations": [
+      {
+        "changes_top1": "<BOOLEAN_DERIVED_FROM_RANKING_WITHOUT_RULE>",
+        "ranking_without_rule": [
+          "<ALL_OPTION_IDS_IN_FINAL_ORDER_WITHOUT_THIS_RULE>"
+        ],
+        "reason": "<REQUIRED_NON_EMPTY_STRING>",
+        "rule_id": "<ONE_ROW_FOR_EACH_DECISIVE_RULE_ID>"
+      }
+    ],
     "full_model_ranking": [
       "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
     ],
@@ -212,7 +221,7 @@
       "<REQUIRED_NON_EMPTY_STRING>"
     ],
     "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
-    "confidence": 0,
+    "confidence": "<INTEGER_PERCENT_0_TO_100>",
     "contradicting_evidence_ids": [],
     "core_structure": "<REQUIRED_NON_EMPTY_STRING>",
     "dynamic_trigger": "<REQUIRED_NON_EMPTY_STRING>",
@@ -226,7 +235,7 @@
       "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
     ],
     "supporting_evidence_ids": [
-      "<EVIDENCE_ID>"
+      "<SUPPORTING_EVIDENCE_ID_EXCLUSIVE_FROM_CONTRADICTING_SET>"
     ],
     "top1": "<OPTION_ID>",
     "top2": "<OPTION_ID>",
