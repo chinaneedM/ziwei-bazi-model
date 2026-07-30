@@ -20,11 +20,19 @@ from fortune_training.chat_input import (
     write_chat_input,
 )
 from fortune_training.cli import build_parser
+from fortune_training.canonical_runtime import (
+    MAX_SEGMENT_BYTES,
+    RUNTIME_MANIFEST_PATH,
+    validate_canonical_runtime,
+    write_canonical_runtime,
+)
 from fortune_training.formal import (
     FORMAL_ANSWER_DIR,
     FORMAL_GROUP_PATH,
     PRE_FORMAL_LEDGER_ARCHIVE,
     PRE_FORMAL_STATE_ARCHIVE,
+    PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+    PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED,
     import_answer_batch,
     invalidate_current_pre_freeze_round,
     quarantine_current_case,
@@ -161,6 +169,8 @@ class RuntimeFixture:
         )
         write_json(self.root / "config" / "question-taxonomy.json", TAXONOMY)
         source_manifest = build_source_manifest(self.root)
+        write_json(self.root / "sources" / "canonical-manifest.json", source_manifest)
+        runtime_manifest = write_canonical_runtime(self.root)
         write_json(
             self.root / "config" / "source-policy.json",
             {
@@ -174,6 +184,16 @@ class RuntimeFixture:
                 "git_canonical_path": "sources/canonical",
                 "git_canonical_mutable_during_training": False,
                 "canonical_manifest_sha256": object_sha256(source_manifest),
+                "canonical_runtime_manifest_path": RUNTIME_MANIFEST_PATH.as_posix(),
+                "canonical_runtime_manifest_sha256": object_sha256(
+                    runtime_manifest
+                ),
+                "canonical_runtime_derivation": (
+                    "UTF8_LINE_PRESERVING_EXACT_CONCATENATION"
+                ),
+                "canonical_runtime_authority_role": (
+                    "LOSSLESS_READ_VIEW_NOT_INDEPENDENT_AUTHORITY"
+                ),
                 "model_learning_path": "model-learning",
                 "model_learning_mutable_during_training": True,
                 "conflict_resolution": (
@@ -197,7 +217,6 @@ class RuntimeFixture:
             PROJECT_ROOT / "config" / "chat-runtime-performance.json",
             self.root / "config" / "chat-runtime-performance.json",
         )
-        write_json(self.root / "sources" / "canonical-manifest.json", source_manifest)
         write_json(
             self.root / "model-learning" / "releases" / "MODEL-BASELINE-001.json",
             {
@@ -1123,7 +1142,9 @@ class RuntimeTests(unittest.TestCase):
                 "chat-input/current.json",
                 "chat-input/runtime-model.json",
                 "chat-input/prediction-row-template.json",
-                "sources/canonical/S03_test.txt",
+                "sources/canonical-runtime-manifest.json",
+                "sources/canonical-runtime/S03/index.json",
+                "sources/canonical-runtime/S03/segment-0001.txt",
                 "model-learning/releases/MODEL-BASELINE-001.json",
                 "config/training-policy.json",
             ):
@@ -1139,17 +1160,18 @@ class RuntimeTests(unittest.TestCase):
                 {**allowed, "path": "model-learning/releases/MODEL-LEARNING-015.json"},
                 {**allowed, "path": "case-bank/cases/CASE-001.json"},
                 {**allowed, "path": "README.md"},
+                {**allowed, "path": "sources/canonical/S03_test.txt"},
                 {
                     **allowed,
                     "tool_class": "FILE_LIBRARY_READ",
                     "context_source": "FILE_LIBRARY",
-                    "path": "sources/canonical/S03_test.txt",
+                    "path": "sources/canonical-runtime/S03/segment-0001.txt",
                 },
                 {
                     **allowed,
                     "tool_class": "ATTACHMENT_FILE_READ",
                     "context_source": "CHAT_ATTACHMENTS",
-                    "path": "sources/canonical/S03_test.txt",
+                    "path": "sources/canonical-runtime/S03/segment-0001.txt",
                 },
                 {
                     **allowed,
@@ -1285,7 +1307,7 @@ class RuntimeTests(unittest.TestCase):
             startup.execute_contract(contract)
             startup.authorize_repository_read(
                 **common,
-                path="sources/canonical/S00_test.txt",
+                path="sources/canonical-runtime/S00/segment-0001.txt",
             )
             startup.authorize_repository_read(
                 **common,
@@ -1302,7 +1324,7 @@ class RuntimeTests(unittest.TestCase):
                         context_source=context_source,
                         repository="chinaneedM/ziwei-bazi-model",
                         ref="main",
-                        path="sources/canonical/S00_test.txt",
+                        path="sources/canonical-runtime/S00/segment-0001.txt",
                     )
             runtime_model = json.loads(
                 (fixture.root / CHAT_RUNTIME_MODEL_RELATIVE_PATH).read_text()
@@ -2941,6 +2963,58 @@ class RepositoryIntegrityTests(unittest.TestCase):
         option_strings = {option for action in verify_parser._actions for option in action.option_strings}
         self.assertNotIn("--write-manifest", option_strings)
 
+    def test_all_large_canonical_sources_have_lossless_fetchable_parent_segments(self):
+        manifest = validate_canonical_runtime(PROJECT_ROOT)
+        self.assertEqual(
+            {source["source_id"] for source in manifest["sources"]},
+            {f"S{index:02d}" for index in range(20)},
+        )
+        self.assertLess(
+            (PROJECT_ROOT / RUNTIME_MANIFEST_PATH).stat().st_size,
+            1024 * 1024,
+        )
+        self.assertTrue(
+            any(source["canonical_bytes"] > 1024 * 1024 for source in manifest["sources"])
+        )
+        contract = json.loads(
+            (PROJECT_ROOT / PREDICTION_ACCESS_CONTRACT_PATH).read_text()
+        )
+        state = json.loads((PROJECT_ROOT / "training/state.json").read_text())
+        for source in manifest["sources"]:
+            index_path = PROJECT_ROOT / source["runtime_index_path"]
+            self.assertLess(index_path.stat().st_size, 1024 * 1024)
+            source_index = json.loads(index_path.read_text())
+            self.assertTrue(source_index["heading_routes"])
+            segment_paths = {
+                segment["path"] for segment in source_index["segments"]
+            }
+            self.assertTrue(segment_paths)
+            self.assertTrue(
+                all(
+                    segment["bytes"] <= MAX_SEGMENT_BYTES
+                    for segment in source_index["segments"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    set(route["segment_paths"]).issubset(segment_paths)
+                    for route in source_index["heading_routes"]
+                )
+            )
+            assert_prediction_access(
+                PROJECT_ROOT,
+                state,
+                tool_class="GITHUB_FETCH_FILE",
+                context_source="GITHUB_MAIN",
+                repository="chinaneedM/ziwei-bazi-model",
+                ref="main",
+                path=source_index["segments"][0]["path"],
+            )
+        self.assertEqual(
+            contract["canonical_runtime_access"]["runtime_segment_manifest_path"],
+            RUNTIME_MANIFEST_PATH.as_posix(),
+        )
+
     def test_canonical_source_mutation_fails_verification(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -3224,6 +3298,52 @@ class PredictionContaminationQuarantineTests(unittest.TestCase):
                 result["next_round_id"],
                 f"FORMAL-ROUND-{old_state['round_sequence'] + 2:03d}",
             )
+            self.assertTrue(result["case_first_blind_eligibility_preserved"])
+            self.assertFalse(result["prediction_frozen"])
+            self.assertFalse(result["scored"])
+            self.assertFalse(result["answers_accessed"])
+
+    def test_runtime_gate_failure_preserves_same_case_for_clean_round(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self._copy_runtime_files(root)
+            state_path = root / "training/state.json"
+            old_state = json.loads(state_path.read_text())
+            group = json.loads(
+                (root / "training/formal-development-group.json").read_text()
+            )
+            current_case_id = group["case_order"][old_state["current_case_index"]]
+            round_id = f"FORMAL-ROUND-{old_state['round_sequence'] + 1:03d}"
+
+            with (
+                patch("fortune_training.formal.write_chat_input"),
+                patch(
+                    "fortune_training.formal.verify_repository",
+                    return_value={"status": "VERIFIED"},
+                ),
+            ):
+                result = invalidate_current_pre_freeze_round(
+                    root,
+                    round_id,
+                    current_case_id,
+                    reason=PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+                )
+
+            state = json.loads(state_path.read_text())
+            record = state["non_executed_rounds"][-1]
+            self.assertEqual(
+                record["status"],
+                PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED,
+            )
+            self.assertEqual(
+                record["reason"],
+                PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+            )
+            self.assertEqual(
+                state["cases"][current_case_id],
+                old_state["cases"][current_case_id],
+            )
+            self.assertEqual(result["next_case_id"], current_case_id)
             self.assertTrue(result["case_first_blind_eligibility_preserved"])
             self.assertFalse(result["prediction_frozen"])
             self.assertFalse(result["scored"])

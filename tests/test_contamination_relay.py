@@ -11,7 +11,9 @@ from fortune_training.contamination_relay import (
 )
 from fortune_training.formal import (
     PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+    PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
     PREDICTION_CONTEXT_VIOLATION,
+    PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED,
 )
 from fortune_training.util import TrainingError
 
@@ -163,6 +165,39 @@ class ContaminationRelayRegressionTests(unittest.TestCase):
             "FORMAL-ROUND-026",
             "CASE-006",
             reason=PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+        )
+        quarantine.assert_not_called()
+
+    def test_runtime_gate_failure_invalidates_round_without_contaminating_case(self):
+        body = "\n".join(
+            (
+                "round_id: FORMAL-ROUND-031",
+                "case_id: CASE-057",
+                f"status: {PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED}",
+                f"reason: {PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE}",
+            )
+        )
+        report = parse_contamination_report(body)
+        expected = {"next_round_id": "FORMAL-ROUND-032"}
+        with (
+            patch(
+                "fortune_training.contamination_relay."
+                "invalidate_current_pre_freeze_round",
+                return_value=expected,
+            ) as invalidate,
+            patch(
+                "fortune_training.contamination_relay.quarantine_current_case"
+            ) as quarantine,
+        ):
+            self.assertEqual(
+                process_contamination_report(Path("."), report),
+                expected,
+            )
+        invalidate.assert_called_once_with(
+            Path("."),
+            "FORMAL-ROUND-031",
+            "CASE-057",
+            reason=PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
         )
         quarantine.assert_not_called()
 

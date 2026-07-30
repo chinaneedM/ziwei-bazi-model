@@ -8,9 +8,12 @@ from typing import Any
 
 from .chat_input import write_chat_input
 from .case_bank import case_bank_report, validate_case_bank
+from .canonical_runtime import write_canonical_runtime
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
+    PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+    PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
     invalidate_current_pre_freeze_round,
     quarantine_current_case,
     rehearse_formal_no_reveal,
@@ -67,6 +70,10 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("case-bank-report", help="show answer-free corpus coverage and quality")
     subparsers.add_parser("chat-input", help="rebuild the answer-isolated Chat prediction input")
     subparsers.add_parser(
+        "canonical-runtime-build",
+        help="rebuild the lossless Git canonical runtime segments",
+    )
+    subparsers.add_parser(
         "maintenance-status",
         help="show fixed-interval and anomaly maintenance triggers",
     )
@@ -104,6 +111,14 @@ def build_parser() -> argparse.ArgumentParser:
     )
     invalidate_parser.add_argument("round_id")
     invalidate_parser.add_argument("case_id")
+    invalidate_parser.add_argument(
+        "--reason",
+        choices=[
+            PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+            PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE,
+        ],
+        default=PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+    )
 
     freeze_parser = subparsers.add_parser("freeze", help="freeze one complete prediction payload")
     freeze_parser.add_argument("round_id")
@@ -183,6 +198,8 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(case_bank_report(root))
         elif args.command == "chat-input":
             _print_json(write_chat_input(root))
+        elif args.command == "canonical-runtime-build":
+            _print_json(write_canonical_runtime(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(
@@ -215,6 +232,7 @@ def main(argv: list[str] | None = None) -> int:
                     root,
                     args.round_id,
                     args.case_id,
+                    reason=args.reason,
                 )
             )
         elif args.command == "freeze":

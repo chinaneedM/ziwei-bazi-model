@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from .canonical_runtime import RUNTIME_MANIFEST_PATH, RUNTIME_SEGMENT_ROOT
 from .util import TrainingError, load_json, object_sha256
 
 
@@ -13,9 +14,9 @@ POST_PREDICTION_HANDOFF_POLICY_PATH = Path(
 PREDICTION_ACCESS_CONTRACT_PATH = Path(
     "chat-input/prediction-access-contract.json"
 )
-POLICY_SCHEMA = "FORMAL-PREDICTION-TOOL-POLICY-V1"
+POLICY_SCHEMA = "FORMAL-PREDICTION-TOOL-POLICY-V2"
 POST_HANDOFF_POLICY_SCHEMA = "POST-PREDICTION-HANDOFF-POLICY-V1"
-CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V1"
+CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V2"
 ACCESS_EXECUTION_RECEIPT_SCHEMA = "PREDICTION-ACCESS-EXECUTION-RECEIPT-V1"
 VIOLATION_ACTION = (
     "ABORT_BEFORE_PREDICTION_AND_INVALIDATE_ROUND_OR_QUARANTINE_CASE"
@@ -28,6 +29,7 @@ BASE_EXACT_PATHS = {
     "chat-input/prediction-row-template.json",
     "chat-input/runtime-model.json",
     "sources/canonical-manifest.json",
+    RUNTIME_MANIFEST_PATH.as_posix(),
     "config/chat-runtime-performance.json",
     "config/prediction-tool-policy.json",
     "config/post-prediction-handoff-policy.json",
@@ -39,7 +41,7 @@ BASE_EXACT_PATHS = {
     "model-learning/methods/REASONING-CORE-V3.json",
     "model-learning/runtime-governance.json",
 }
-ALLOWED_PREFIXES = ("sources/canonical/",)
+ALLOWED_PREFIXES = (f"{RUNTIME_SEGMENT_ROOT.as_posix()}/",)
 FORBIDDEN_REPOSITORY_PREFIXES = (
     "answer-vault/",
     "case-bank/raw/",
@@ -186,6 +188,8 @@ def build_prediction_access_contract(
 ) -> dict[str, Any]:
     policy = load_prediction_tool_policy(root)
     allowed_paths = allowed_prediction_paths(root, state)
+    canonical_manifest = load_json(root / "sources/canonical-manifest.json")
+    runtime_manifest = load_json(root / RUNTIME_MANIFEST_PATH)
     return {
         "schema": CONTRACT_SCHEMA,
         "phase": policy["phase"],
@@ -194,6 +198,23 @@ def build_prediction_access_contract(
         "ref": policy["allowed_ref"],
         "allowed_tool_classes": policy["allowed_tool_classes"],
         "allowed_repository_paths": allowed_paths,
+        "canonical_runtime_access": {
+            "canonical_authority_manifest_path": "sources/canonical-manifest.json",
+            "canonical_authority_manifest_sha256": object_sha256(
+                canonical_manifest
+            ),
+            "runtime_segment_manifest_path": RUNTIME_MANIFEST_PATH.as_posix(),
+            "runtime_segment_manifest_sha256": object_sha256(runtime_manifest),
+            "runtime_segment_path_prefix": (
+                f"{RUNTIME_SEGMENT_ROOT.as_posix()}/"
+            ),
+            "runtime_view_role": (
+                "LOSSLESS_READ_VIEW_NOT_INDEPENDENT_AUTHORITY"
+            ),
+            "required_integrity_mode": (
+                "MANIFEST_SHA256_AND_EXACT_SEGMENT_SHA256"
+            ),
+        },
         "forbidden_repository_prefixes": list(FORBIDDEN_REPOSITORY_PREFIXES),
         "forbidden_tool_classes": policy["forbidden_tool_classes"],
         "forbidden_context_sources": policy["forbidden_context_sources"],
@@ -220,6 +241,7 @@ def validate_prediction_access_contract(contract: dict[str, Any]) -> dict[str, A
         "ref",
         "allowed_tool_classes",
         "allowed_repository_paths",
+        "canonical_runtime_access",
         "forbidden_repository_prefixes",
         "forbidden_tool_classes",
         "forbidden_context_sources",
@@ -254,8 +276,44 @@ def validate_prediction_access_contract(contract: dict[str, Any]) -> dict[str, A
         or not isinstance(paths.get("exact"), list)
         or not isinstance(paths.get("prefixes"), list)
         or PREDICTION_ACCESS_CONTRACT_PATH.as_posix() not in paths["exact"]
+        or RUNTIME_MANIFEST_PATH.as_posix() not in paths["exact"]
+        or paths["prefixes"] != [f"{RUNTIME_SEGMENT_ROOT.as_posix()}/"]
     ):
         raise TrainingError("prediction access contract has invalid repository paths")
+    runtime = contract.get("canonical_runtime_access")
+    if (
+        not isinstance(runtime, dict)
+        or set(runtime)
+        != {
+            "canonical_authority_manifest_path",
+            "canonical_authority_manifest_sha256",
+            "runtime_segment_manifest_path",
+            "runtime_segment_manifest_sha256",
+            "runtime_segment_path_prefix",
+            "runtime_view_role",
+            "required_integrity_mode",
+        }
+        or runtime.get("canonical_authority_manifest_path")
+        != "sources/canonical-manifest.json"
+        or runtime.get("runtime_segment_manifest_path")
+        != RUNTIME_MANIFEST_PATH.as_posix()
+        or runtime.get("runtime_segment_path_prefix")
+        != f"{RUNTIME_SEGMENT_ROOT.as_posix()}/"
+        or runtime.get("runtime_view_role")
+        != "LOSSLESS_READ_VIEW_NOT_INDEPENDENT_AUTHORITY"
+        or runtime.get("required_integrity_mode")
+        != "MANIFEST_SHA256_AND_EXACT_SEGMENT_SHA256"
+        or any(
+            not isinstance(runtime.get(field), str)
+            or len(runtime[field]) != 64
+            or any(character not in "0123456789abcdef" for character in runtime[field])
+            for field in (
+                "canonical_authority_manifest_sha256",
+                "runtime_segment_manifest_sha256",
+            )
+        )
+    ):
+        raise TrainingError("prediction canonical runtime access is not lossless")
     false_fields = (
         "file_library_allowed",
         "chat_attachments_allowed",

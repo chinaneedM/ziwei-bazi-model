@@ -48,6 +48,15 @@ PREDICTION_CONTEXT_VIOLATION = "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION"
 PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION = (
     "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ"
 )
+PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE = (
+    "PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE"
+)
+PRE_FREEZE_CONTAMINATED_NOT_EXECUTED = (
+    "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
+)
+PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED = (
+    "PRE-FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED"
+)
 
 
 def _chat_output_paths(root: Path) -> tuple[Path, ...]:
@@ -422,10 +431,19 @@ def invalidate_current_pre_freeze_round(
     *,
     reason: str = PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
 ) -> dict[str, Any]:
-    """Invalidate one contaminated round while preserving the case's first-blind eligibility."""
+    """Invalidate one unexecuted round while preserving first-blind eligibility."""
     root = root.resolve()
-    if reason != PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION:
+    status_by_reason = {
+        PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION: (
+            PRE_FREEZE_CONTAMINATED_NOT_EXECUTED
+        ),
+        PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE: (
+            PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED
+        ),
+    }
+    if reason not in status_by_reason:
         raise TrainingError("unsupported same-case round invalidation reason")
+    non_executed_status = status_by_reason[reason]
 
     state_path = root / "training" / "state.json"
     state = load_json(state_path)
@@ -476,7 +494,7 @@ def invalidate_current_pre_freeze_round(
         {
             "round_id": round_id,
             "case_id": case_id,
-            "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+            "status": non_executed_status,
             "prediction_frozen": False,
             "scored": False,
             "counts_toward_first_blind": False,
@@ -500,7 +518,7 @@ def invalidate_current_pre_freeze_round(
 
     return {
         "schema": "PREDICTION-ROUND-INVALIDATION-RESULT-V1",
-        "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+        "status": non_executed_status,
         "round_id": round_id,
         "case_id": case_id,
         "prediction_frozen": False,

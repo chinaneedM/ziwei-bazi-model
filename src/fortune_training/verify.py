@@ -11,6 +11,10 @@ from .chat_input import (
     compose_chat_input,
 )
 from .case_bank import validate_case_bank
+from .canonical_runtime import (
+    RUNTIME_MANIFEST_PATH,
+    validate_canonical_runtime,
+)
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -108,6 +112,13 @@ def _validate_source_policy(root: Path) -> dict[str, Any]:
         "git_ref": "main",
         "git_canonical_path": "sources/canonical",
         "git_canonical_mutable_during_training": False,
+        "canonical_runtime_manifest_path": RUNTIME_MANIFEST_PATH.as_posix(),
+        "canonical_runtime_derivation": (
+            "UTF8_LINE_PRESERVING_EXACT_CONCATENATION"
+        ),
+        "canonical_runtime_authority_role": (
+            "LOSSLESS_READ_VIEW_NOT_INDEPENDENT_AUTHORITY"
+        ),
         "model_learning_path": "model-learning",
         "model_learning_mutable_during_training": True,
         "conflict_resolution": (
@@ -120,6 +131,13 @@ def _validate_source_policy(root: Path) -> dict[str, Any]:
     manifest_hash = policy.get("canonical_manifest_sha256")
     if not isinstance(manifest_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", manifest_hash):
         raise TrainingError("source policy needs a valid canonical_manifest_sha256 lock")
+    runtime_manifest_hash = policy.get("canonical_runtime_manifest_sha256")
+    if not isinstance(runtime_manifest_hash, str) or not re.fullmatch(
+        r"[0-9a-f]{64}", runtime_manifest_hash
+    ):
+        raise TrainingError(
+            "source policy needs a valid canonical_runtime_manifest_sha256 lock"
+        )
     return policy
 
 
@@ -163,6 +181,11 @@ def _validate_model_runtime_policy(root: Path) -> dict[str, Any] | None:
         or access.get("historical_uploads_allowed") is not False
         or access.get("cross_conversation_memory_allowed") is not False
         or access.get("fail_closed_when_git_canonical_unavailable") is not True
+        or access.get("canonical_runtime_manifest")
+        != RUNTIME_MANIFEST_PATH.as_posix()
+        or access.get("canonical_runtime_mode")
+        != "LOSSLESS_GIT_DERIVED_SEGMENTS"
+        or access.get("canonical_direct_large_file_reads_allowed") is not False
         or "fail_closed_when_project_sources_unavailable" in access
     ):
         raise TrainingError("model runtime reintroduced a project-source dependency")
@@ -423,8 +446,6 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             "recorded_at",
         }:
             raise TrainingError("invalid non-executed round record")
-        if record.get("status") != "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED":
-            raise TrainingError("non-executed round has the wrong status")
         if any(
             record.get(field) is not False
             for field in (
@@ -437,13 +458,25 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
             raise TrainingError("contaminated pre-freeze round retained training effects")
         reason = record.get("reason")
         if reason == "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION":
+            if record.get("status") != "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED":
+                raise TrainingError("contamination round has the wrong status")
             if record.get("case_id") in group["cases"]:
                 raise TrainingError("quarantined case remains in the first-blind group")
         elif reason == (
             "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ"
         ):
+            if record.get("status") != "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED":
+                raise TrainingError("startup-order round has the wrong status")
             if record.get("case_id") not in group["cases"]:
                 raise TrainingError("same-case invalidation removed the first-blind case")
+        elif reason == "PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE":
+            if (
+                record.get("status")
+                != "PRE-FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED"
+            ):
+                raise TrainingError("runtime-gate round has the wrong status")
+            if record.get("case_id") not in group["cases"]:
+                raise TrainingError("runtime-gate failure removed the first-blind case")
         else:
             raise TrainingError("non-executed round has an unsupported reason")
         non_executed_ids.append(record.get("round_id"))
@@ -487,6 +520,11 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError(
             "canonical S00-S19 changed or sources/canonical-manifest.json is not the frozen lock"
         )
+    runtime_manifest = validate_canonical_runtime(root)
+    if source_policy["canonical_runtime_manifest_sha256"] != object_sha256(
+        runtime_manifest
+    ):
+        raise TrainingError("canonical runtime manifest lock hash changed")
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
