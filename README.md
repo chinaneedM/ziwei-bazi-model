@@ -43,14 +43,15 @@
    `sources/canonical/`、当前模型发布实际引用文件及必要配置。File Library、附件、
    历史上传、Personal Context、仓库搜索、旧训练对象和答案对象均被拒绝。
 2. Chat 先建立选项前全盘模型，再对每题完成双轨独立封卷、证据账本、全选项比较、真实反转和分解置信度。
-3. Chat 生成交接单后必须先运行 `fortune-handoff-preflight`。预检会把 `0–1`
+3. Chat交接必须原样携带安全启动包生成的`prediction_access_execution_receipt`；它绑定独立契约哈希、唯一首读路径、空的契约前读取列表和固定后续读取顺序。收据缺失或不一致时，预检与Work接收端会在启动轮次、冻结和评分前失败关闭。
+4. Chat 生成交接单后必须先运行 `fortune-handoff-preflight`。预检会把 `0–1`
    小数置信度归一化为 `0–100` 整数，把 `CHALLENGED` 规则自动改列为反证，
    对 `RETIRED` 或抑制规则失败关闭，并在创建 Issue 前完成全结构和长度校验。
-4. 预测冻结后用户揭盲；Chat 输出完整 `TRAINING-ISSUE-PACKET-V3`。
-5. 用户把整份 JSON 粘贴到“无 Work 训练提交单”。
-6. GitHub 自动冻结、用加密答案复核评分、更新题级统计。
-7. 未通过时跨案连续次数归零，校验并激活通用候选规则后进入下一新案，同时排入间隔复训；通过时累加不同新案连续次数。
-8. 每轮闭环后控制器自动检查固定里程碑与异常触发器；到期时先完成维护、生成报告，再恢复下一案例。
+5. 预测冻结后用户揭盲；Chat 输出完整 `TRAINING-ISSUE-PACKET-V3`。
+6. 用户把整份 JSON 粘贴到“无 Work 训练提交单”。
+7. GitHub 自动冻结、用加密答案复核评分、更新题级统计。
+8. 未通过时跨案连续次数归零，校验并激活通用候选规则后进入下一新案，同时排入间隔复训；通过时累加不同新案连续次数。
+9. 每轮闭环后控制器自动检查固定里程碑与异常触发器；到期时先完成维护、生成报告，再恢复下一案例。
 
 详细操作见 `docs/CHAT-WORK-RUNBOOK.md` 与 `docs/NO-WORK-ISSUE-RELAY.md`。
 整体架构、来源梳理、第二阶段状态、覆盖缺口和后续实施顺序分别见 `docs/MODEL-ARCHITECTURE-V3.md`、`docs/SOURCE-KNOWLEDGE-MAP.md`、`docs/PHASE2-CURATION-AND-MODEL-STATUS-20260723.md`、`docs/CASE-COVERAGE-REPORT.md` 与 `docs/IMPLEMENTATION-ROADMAP-V3.md`。公共资料发布边界见 `docs/PUBLIC-RELEASE-SAFETY.md`。

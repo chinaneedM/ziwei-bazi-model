@@ -973,6 +973,25 @@ class RuntimeTests(unittest.TestCase):
                 handoff["training_issue_input_contract"]["pass_forbidden_fields"],
             )
             handoff_template = handoff["handoff_payload_template"]
+            self.assertIn(
+                "prediction_access_execution_receipt",
+                handoff["handoff_required_fields"],
+            )
+            access_receipt = handoff_template[
+                "prediction_access_execution_receipt"
+            ]
+            self.assertEqual(
+                access_receipt["first_repository_read"],
+                "chat-input/prediction-access-contract.json",
+            )
+            self.assertEqual(access_receipt["pre_contract_repository_reads"], [])
+            self.assertTrue(
+                access_receipt["contract_executed_before_followup_reads"]
+            )
+            self.assertEqual(
+                access_receipt["required_followup_reads"],
+                ["training/state.json", "chat-input/current.json"],
+            )
             self.assertEqual(
                 set(handoff_template["blind_chart_model"]),
                 {
@@ -1726,6 +1745,9 @@ class HandoffProbeTests(unittest.TestCase):
         return contract, {
             "schema": "CHAT-WORK-PREDICTION-HANDOFF-V2",
             "binding": contract["binding"],
+            "prediction_access_execution_receipt": contract[
+                "handoff_payload_template"
+            ]["prediction_access_execution_receipt"],
             "blind_chart_model": prediction["blind_chart_model"],
             "cross_question_consistency": prediction[
                 "cross_question_consistency"
@@ -1761,6 +1783,29 @@ class HandoffProbeTests(unittest.TestCase):
             self.assertNotIn("correct_option", json.dumps(summary))
             self.assertNotIn("correct_option", json.dumps(sealed))
             self.assertFalse(summary["preflight"]["changed"])
+
+    def test_handoff_fails_closed_without_exact_startup_access_receipt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            contract, handoff = self.handoff_for(fixture)
+            receipt = handoff.pop("prediction_access_execution_receipt")
+            with self.assertRaisesRegex(TrainingError, "complete V2 reasoning workbook"):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
+
+            handoff["prediction_access_execution_receipt"] = {
+                **receipt,
+                "first_repository_read": "training/state.json",
+            }
+            with self.assertRaisesRegex(TrainingError, "contract-first"):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
 
     def test_preflight_normalizes_fractional_confidence_before_validation(self):
         with tempfile.TemporaryDirectory() as temporary:
