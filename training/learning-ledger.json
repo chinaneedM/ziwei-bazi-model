@@ -1,7 +1,7 @@
 {
   "attributed_rule_evidence": {
     "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY": {
-      "counterevidence_mentions": 7,
+      "counterevidence_mentions": 10,
       "decision_change_applications": 0,
       "decisive_applications": 0,
       "decisive_contradicting_applications": 0,
@@ -33,7 +33,7 @@
       ],
       "distinct_decisive_support_cases": [],
       "status": "PROVISIONAL",
-      "supporting_mentions": 4
+      "supporting_mentions": 5
     },
     "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY": {
       "counterevidence_mentions": 0,
@@ -47,7 +47,7 @@
       "supporting_mentions": 0
     },
     "RULE-CAREER-OWNERSHIP-VERSUS-MANAGEMENT": {
-      "counterevidence_mentions": 7,
+      "counterevidence_mentions": 8,
       "decision_change_applications": 0,
       "decisive_applications": 0,
       "decisive_contradicting_applications": 0,
@@ -66,7 +66,7 @@
       "distinct_decisive_cases": [],
       "distinct_decisive_support_cases": [],
       "status": "CANDIDATE",
-      "supporting_mentions": 3
+      "supporting_mentions": 4
     },
     "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION": {
       "counterevidence_mentions": 0,
@@ -104,7 +104,7 @@
       "supporting_mentions": 1
     },
     "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER": {
-      "counterevidence_mentions": 4,
+      "counterevidence_mentions": 5,
       "decision_change_applications": 0,
       "decisive_applications": 0,
       "decisive_contradicting_applications": 0,
@@ -123,18 +123,20 @@
       "distinct_decisive_cases": [],
       "distinct_decisive_support_cases": [],
       "status": "CANDIDATE",
-      "supporting_mentions": 1
+      "supporting_mentions": 2
     },
     "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY": {
       "counterevidence_mentions": 0,
-      "decision_change_applications": 0,
-      "decisive_applications": 0,
-      "decisive_contradicting_applications": 0,
+      "decision_change_applications": 2,
+      "decisive_applications": 2,
+      "decisive_contradicting_applications": 2,
       "decisive_supporting_applications": 0,
-      "distinct_decisive_cases": [],
+      "distinct_decisive_cases": [
+        "CASE-009"
+      ],
       "distinct_decisive_support_cases": [],
-      "status": "CANDIDATE",
-      "supporting_mentions": 5
+      "status": "PROVISIONAL",
+      "supporting_mentions": 6
     },
     "RULE-CROSS-QUESTION-CONSISTENCY": {
       "counterevidence_mentions": 2,
@@ -182,30 +184,35 @@
         "CASE-098"
       ],
       "status": "PROVISIONAL",
-      "supporting_mentions": 0
-    },
-    "RULE-EDUCATION-RELATIVE-TIER-ANCHOR": {
-      "counterevidence_mentions": 0,
-      "decision_change_applications": 0,
-      "decisive_applications": 0,
-      "decisive_contradicting_applications": 0,
-      "decisive_supporting_applications": 0,
-      "distinct_decisive_cases": [],
-      "distinct_decisive_support_cases": [],
-      "status": "CANDIDATE",
       "supporting_mentions": 1
     },
-    "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY": {
+    "RULE-EDUCATION-RELATIVE-TIER-ANCHOR": {
       "counterevidence_mentions": 0,
       "decision_change_applications": 1,
       "decisive_applications": 1,
       "decisive_contradicting_applications": 1,
       "decisive_supporting_applications": 0,
       "distinct_decisive_cases": [
-        "CASE-022"
+        "CASE-009"
       ],
       "distinct_decisive_support_cases": [],
       "status": "PROVISIONAL",
+      "supporting_mentions": 1
+    },
+    "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY": {
+      "counterevidence_mentions": 0,
+      "decision_change_applications": 5,
+      "decisive_applications": 5,
+      "decisive_contradicting_applications": 4,
+      "decisive_supporting_applications": 1,
+      "distinct_decisive_cases": [
+        "CASE-022",
+        "CASE-009"
+      ],
+      "distinct_decisive_support_cases": [
+        "CASE-009"
+      ],
+      "status": "CHALLENGED",
       "supporting_mentions": 14
     },
     "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR": {
@@ -221,12 +228,13 @@
     },
     "RULE-FAMILY-WEALTH-ROLE-SEPARATION": {
       "counterevidence_mentions": 0,
-      "decision_change_applications": 1,
-      "decisive_applications": 1,
-      "decisive_contradicting_applications": 1,
+      "decision_change_applications": 2,
+      "decisive_applications": 2,
+      "decisive_contradicting_applications": 2,
       "decisive_supporting_applications": 0,
       "distinct_decisive_cases": [
-        "CASE-104"
+        "CASE-104",
+        "CASE-009"
       ],
       "distinct_decisive_support_cases": [],
       "status": "PROVISIONAL",
@@ -241,7 +249,7 @@
       "distinct_decisive_cases": [],
       "distinct_decisive_support_cases": [],
       "status": "CANDIDATE",
-      "supporting_mentions": 2
+      "supporting_mentions": 3
     },
     "RULE-HEALTH-SEVERITY-ENDPOINT-COMPARISON": {
       "counterevidence_mentions": 0,
@@ -267,14 +275,18 @@
     },
     "RULE-MULTIACTOR-INFORMATION-RESOURCE-TRANSFER-CHAIN": {
       "counterevidence_mentions": 0,
-      "decision_change_applications": 0,
-      "decisive_applications": 0,
+      "decision_change_applications": 1,
+      "decisive_applications": 1,
       "decisive_contradicting_applications": 0,
-      "decisive_supporting_applications": 0,
-      "distinct_decisive_cases": [],
-      "distinct_decisive_support_cases": [],
-      "status": "CANDIDATE",
-      "supporting_mentions": 1
+      "decisive_supporting_applications": 1,
+      "distinct_decisive_cases": [
+        "CASE-009"
+      ],
+      "distinct_decisive_support_cases": [
+        "CASE-009"
+      ],
+      "status": "PROVISIONAL",
+      "supporting_mentions": 2
     },
     "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION": {
       "counterevidence_mentions": 0,
@@ -303,13 +315,15 @@
     },
     "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE": {
       "counterevidence_mentions": 0,
-      "decision_change_applications": 0,
-      "decisive_applications": 0,
-      "decisive_contradicting_applications": 0,
+      "decision_change_applications": 1,
+      "decisive_applications": 1,
+      "decisive_contradicting_applications": 1,
       "decisive_supporting_applications": 0,
-      "distinct_decisive_cases": [],
+      "distinct_decisive_cases": [
+        "CASE-009"
+      ],
       "distinct_decisive_support_cases": [],
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "supporting_mentions": 4
     },
     "RULE-PERSONALITY-ROLE-AXIS-SEPARATION": {
@@ -338,7 +352,7 @@
         "CASE-098"
       ],
       "status": "PROVISIONAL",
-      "supporting_mentions": 4
+      "supporting_mentions": 7
     },
     "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE": {
       "counterevidence_mentions": 0,
@@ -371,7 +385,7 @@
       "distinct_decisive_cases": [],
       "distinct_decisive_support_cases": [],
       "status": "CANDIDATE",
-      "supporting_mentions": 2
+      "supporting_mentions": 3
     },
     "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION": {
       "counterevidence_mentions": 0,
@@ -382,7 +396,7 @@
       "distinct_decisive_cases": [],
       "distinct_decisive_support_cases": [],
       "status": "CANDIDATE",
-      "supporting_mentions": 1
+      "supporting_mentions": 2
     },
     "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN": {
       "counterevidence_mentions": 0,
@@ -447,9 +461,9 @@
   "confidence_calibration": {
     "bins": {
       "00-49": {
-        "confidence_sum": 596,
-        "correct": 4,
-        "questions": 16
+        "confidence_sum": 763,
+        "correct": 5,
+        "questions": 21
       },
       "50-59": {
         "confidence_sum": 1039,
@@ -477,19 +491,19 @@
         "questions": 2
       }
     },
-    "brier_sum": 14.323999999999995,
-    "confidence_sum": 2706,
-    "correct": 13,
-    "questions": 50,
+    "brier_sum": 15.510499999999993,
+    "confidence_sum": 2873,
+    "correct": 14,
+    "questions": 55,
     "started_after_first_blind_questions": 40
   },
   "confidence_component_calibration": {
     "cross_track_agreement": {
       "bins": {
         "00-49": {
-          "confidence_sum": 176,
+          "confidence_sum": 224,
           "correct": 1,
-          "questions": 4
+          "questions": 5
         },
         "50-59": {
           "confidence_sum": 660,
@@ -502,34 +516,34 @@
           "questions": 15
         },
         "70-79": {
-          "confidence_sum": 505,
+          "confidence_sum": 651,
           "correct": 4,
-          "questions": 7
+          "questions": 9
         },
         "80-89": {
-          "confidence_sum": 566,
-          "correct": 0,
-          "questions": 7
+          "confidence_sum": 728,
+          "correct": 1,
+          "questions": 9
         }
       },
-      "brier_sum": 15.540099999999999,
-      "confidence_sum": 2877,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 17.548899999999996,
+      "confidence_sum": 3233,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "input_confidence": {
       "bins": {
         "90-100": {
-          "confidence_sum": 4247,
-          "correct": 12,
-          "questions": 45
+          "confidence_sum": 4722,
+          "correct": 13,
+          "questions": 50
         }
       },
-      "brier_sum": 29.3349,
-      "confidence_sum": 4247,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 32.9474,
+      "confidence_sum": 4722,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "mechanism_confidence": {
@@ -540,14 +554,14 @@
           "questions": 2
         },
         "50-59": {
-          "confidence_sum": 340,
-          "correct": 2,
-          "questions": 6
+          "confidence_sum": 398,
+          "correct": 3,
+          "questions": 7
         },
         "60-69": {
-          "confidence_sum": 1689,
+          "confidence_sum": 1949,
           "correct": 7,
-          "questions": 26
+          "questions": 30
         },
         "70-79": {
           "confidence_sum": 656,
@@ -560,10 +574,10 @@
           "questions": 2
         }
       },
-      "brier_sum": 15.7723,
-      "confidence_sum": 2945,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 17.640100000000004,
+      "confidence_sum": 3263,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "natal_structure_confidence": {
@@ -579,14 +593,14 @@
           "questions": 7
         },
         "70-79": {
-          "confidence_sum": 1577,
-          "correct": 6,
-          "questions": 21
+          "confidence_sum": 1883,
+          "correct": 7,
+          "questions": 25
         },
         "80-89": {
-          "confidence_sum": 1251,
+          "confidence_sum": 1331,
           "correct": 3,
-          "questions": 15
+          "questions": 16
         },
         "90-100": {
           "confidence_sum": 90,
@@ -594,18 +608,18 @@
           "questions": 1
         }
       },
-      "brier_sum": 20.632699999999996,
-      "confidence_sum": 3431,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 23.176499999999994,
+      "confidence_sum": 3817,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "overall_confidence": {
       "bins": {
         "00-49": {
-          "confidence_sum": 596,
-          "correct": 4,
-          "questions": 16
+          "confidence_sum": 763,
+          "correct": 5,
+          "questions": 21
         },
         "50-59": {
           "confidence_sum": 1039,
@@ -623,18 +637,18 @@
           "questions": 3
         }
       },
-      "brier_sum": 11.6387,
-      "confidence_sum": 2289,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 12.825199999999999,
+      "confidence_sum": 2456,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "reality_endpoint_confidence": {
       "bins": {
         "00-49": {
-          "confidence_sum": 561,
-          "correct": 4,
-          "questions": 13
+          "confidence_sum": 728,
+          "correct": 5,
+          "questions": 18
         },
         "50-59": {
           "confidence_sum": 1210,
@@ -657,10 +671,10 @@
           "questions": 1
         }
       },
-      "brier_sum": 12.5183,
-      "confidence_sum": 2429,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 13.704799999999999,
+      "confidence_sum": 2596,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "subject_confidence": {
@@ -671,30 +685,30 @@
           "questions": 1
         },
         "60-69": {
-          "confidence_sum": 390,
-          "correct": 0,
-          "questions": 6
+          "confidence_sum": 459,
+          "correct": 1,
+          "questions": 7
         },
         "70-79": {
-          "confidence_sum": 298,
+          "confidence_sum": 372,
           "correct": 1,
-          "questions": 4
+          "questions": 5
         },
         "80-89": {
-          "confidence_sum": 1075,
+          "confidence_sum": 1157,
           "correct": 2,
-          "questions": 13
+          "questions": 14
         },
         "90-100": {
-          "confidence_sum": 1961,
+          "confidence_sum": 2143,
           "correct": 9,
-          "questions": 21
+          "questions": 23
         }
       },
-      "brier_sum": 22.728,
-      "confidence_sum": 3782,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 25.700499999999998,
+      "confidence_sum": 4189,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "timing_confidence": {
@@ -705,19 +719,19 @@
           "questions": 6
         },
         "60-69": {
-          "confidence_sum": 1341,
-          "correct": 6,
-          "questions": 21
+          "confidence_sum": 1409,
+          "correct": 7,
+          "questions": 22
         },
         "70-79": {
-          "confidence_sum": 530,
+          "confidence_sum": 750,
           "correct": 1,
-          "questions": 7
+          "questions": 10
         },
         "80-89": {
-          "confidence_sum": 488,
+          "confidence_sum": 573,
           "correct": 2,
-          "questions": 6
+          "questions": 7
         },
         "90-100": {
           "confidence_sum": 463,
@@ -725,28 +739,28 @@
           "questions": 5
         }
       },
-      "brier_sum": 17.675199999999997,
-      "confidence_sum": 3148,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 20.116899999999994,
+      "confidence_sum": 3521,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     },
     "top1_top2_separation": {
       "bins": {
         "00-49": {
-          "confidence_sum": 332,
-          "correct": 2,
-          "questions": 10
+          "confidence_sum": 375,
+          "correct": 3,
+          "questions": 11
         },
         "50-59": {
-          "confidence_sum": 787,
+          "confidence_sum": 960,
           "correct": 3,
-          "questions": 14
+          "questions": 17
         },
         "60-69": {
-          "confidence_sum": 951,
+          "confidence_sum": 1012,
           "correct": 4,
-          "questions": 15
+          "questions": 16
         },
         "70-79": {
           "confidence_sum": 446,
@@ -754,18 +768,18 @@
           "questions": 6
         }
       },
-      "brier_sum": 12.572600000000001,
-      "confidence_sum": 2516,
-      "correct": 12,
-      "questions": 45,
+      "brier_sum": 14.267299999999999,
+      "confidence_sum": 2793,
+      "correct": 13,
+      "questions": 50,
       "started_after_first_blind_questions": 45
     }
   },
   "first_blind_totals": {
-    "cases": 18,
-    "questions": 90,
-    "top1_correct": 29,
-    "top2_covered": 49
+    "cases": 19,
+    "questions": 95,
+    "top1_correct": 30,
+    "top2_covered": 53
   },
   "legacy_unclassified": {
     "first_blind_cases": 1,
@@ -774,29 +788,29 @@
   },
   "reasoning_skill_metrics": {
     "BAZI_STRUCTURE_THEN_TRIGGER": {
-      "questions": 74,
-      "top1_correct": 25,
-      "top2_covered": 42
+      "questions": 79,
+      "top1_correct": 26,
+      "top2_covered": 46
     },
     "CAREER_PROFILE_CLOSURE": {
-      "questions": 33,
+      "questions": 35,
       "top1_correct": 12,
-      "top2_covered": 18
-    },
-    "CAUSAL_ACTOR_DIRECTION": {
-      "questions": 33,
-      "top1_correct": 11,
       "top2_covered": 19
     },
+    "CAUSAL_ACTOR_DIRECTION": {
+      "questions": 37,
+      "top1_correct": 12,
+      "top2_covered": 23
+    },
     "COMPOSITE_OPTION_ATOMIZATION": {
-      "questions": 48,
-      "top1_correct": 18,
-      "top2_covered": 27
+      "questions": 52,
+      "top1_correct": 19,
+      "top2_covered": 31
     },
     "COUNTEREVIDENCE_REVERSAL": {
-      "questions": 83,
-      "top1_correct": 28,
-      "top2_covered": 46
+      "questions": 88,
+      "top1_correct": 29,
+      "top2_covered": 50
     },
     "CROSS_QUESTION_CONSISTENCY": {
       "questions": 1,
@@ -809,89 +823,89 @@
       "top2_covered": 3
     },
     "EVENT_ENDPOINT_CLOSURE": {
-      "questions": 72,
-      "top1_correct": 21,
-      "top2_covered": 37
+      "questions": 74,
+      "top1_correct": 22,
+      "top2_covered": 39
     },
     "EVIDENCE_WEIGHTING": {
-      "questions": 71,
-      "top1_correct": 26,
-      "top2_covered": 41
+      "questions": 76,
+      "top1_correct": 27,
+      "top2_covered": 45
     },
     "HEALTH_SEVERITY_LOCALIZATION": {
-      "questions": 13,
+      "questions": 14,
       "top1_correct": 5,
-      "top2_covered": 8
+      "top2_covered": 9
     },
     "NATAL_STRUCTURE": {
-      "questions": 71,
-      "top1_correct": 25,
-      "top2_covered": 41
+      "questions": 76,
+      "top1_correct": 26,
+      "top2_covered": 45
     },
     "OPTION_GRANULARITY": {
-      "questions": 64,
-      "top1_correct": 24,
-      "top2_covered": 36
+      "questions": 69,
+      "top1_correct": 25,
+      "top2_covered": 40
     },
     "PALACE_TRANSFORMATION_CHAIN": {
-      "questions": 72,
-      "top1_correct": 25,
-      "top2_covered": 42
+      "questions": 77,
+      "top1_correct": 26,
+      "top2_covered": 46
     },
     "RARE_TOPIC_SAMPLE_GUARD": {
-      "questions": 8,
-      "top1_correct": 3,
-      "top2_covered": 5
+      "questions": 9,
+      "top1_correct": 4,
+      "top2_covered": 6
     },
     "REALITY_SCALE_MAPPING": {
-      "questions": 38,
+      "questions": 41,
       "top1_correct": 16,
-      "top2_covered": 22
+      "top2_covered": 24
     },
     "REGION_ERA_NORMALIZATION": {
-      "questions": 28,
+      "questions": 31,
       "top1_correct": 12,
-      "top2_covered": 16
+      "top2_covered": 18
     },
     "RELATIONSHIP_SEQUENCE": {
-      "questions": 24,
-      "top1_correct": 8,
-      "top2_covered": 13
+      "questions": 26,
+      "top1_correct": 9,
+      "top2_covered": 15
     },
     "SENSITIVE_ATTRIBUTE_CAUTION": {
-      "questions": 8,
-      "top1_correct": 2,
-      "top2_covered": 5
+      "questions": 9,
+      "top1_correct": 3,
+      "top2_covered": 6
     },
     "STATIC_DYNAMIC_LAYERING": {
-      "questions": 73,
-      "top1_correct": 25,
-      "top2_covered": 42
-    },
-    "SUBJECT_ENTITY_ROUTING": {
-      "questions": 44,
-      "top1_correct": 12,
-      "top2_covered": 22
-    },
-    "TIME_LAYER_ACTIVATION": {
-      "questions": 66,
-      "top1_correct": 22,
-      "top2_covered": 37
-    },
-    "TOPIC_PALACE_ROUTING": {
-      "questions": 75,
-      "top1_correct": 25,
-      "top2_covered": 42
-    },
-    "UNCERTAINTY_CALIBRATION": {
-      "questions": 75,
-      "top1_correct": 25,
-      "top2_covered": 42
-    },
-    "ZIWEI_BAZI_ARBITRATION": {
       "questions": 78,
       "top1_correct": 26,
-      "top2_covered": 44
+      "top2_covered": 46
+    },
+    "SUBJECT_ENTITY_ROUTING": {
+      "questions": 48,
+      "top1_correct": 13,
+      "top2_covered": 26
+    },
+    "TIME_LAYER_ACTIVATION": {
+      "questions": 68,
+      "top1_correct": 23,
+      "top2_covered": 39
+    },
+    "TOPIC_PALACE_ROUTING": {
+      "questions": 80,
+      "top1_correct": 26,
+      "top2_covered": 46
+    },
+    "UNCERTAINTY_CALIBRATION": {
+      "questions": 80,
+      "top1_correct": 26,
+      "top2_covered": 46
+    },
+    "ZIWEI_BAZI_ARBITRATION": {
+      "questions": 83,
+      "top1_correct": 27,
+      "top2_covered": 48
     }
   },
   "rule_evidence": {
@@ -1023,11 +1037,13 @@
       "supporting_applications": 0
     },
     "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY": {
-      "applications": 0,
-      "contradicting_applications": 0,
-      "distinct_application_cases": [],
+      "applications": 2,
+      "contradicting_applications": 2,
+      "distinct_application_cases": [
+        "CASE-009"
+      ],
       "distinct_support_cases": [],
-      "status": "CANDIDATE",
+      "status": "PROVISIONAL",
       "supporting_applications": 0
     },
     "RULE-CROSS-QUESTION-CONSISTENCY": {
@@ -1083,22 +1099,27 @@
       "supporting_applications": 1
     },
     "RULE-EDUCATION-RELATIVE-TIER-ANCHOR": {
-      "applications": 0,
-      "contradicting_applications": 0,
-      "distinct_application_cases": [],
-      "distinct_support_cases": [],
-      "status": "CANDIDATE",
-      "supporting_applications": 0
-    },
-    "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY": {
       "applications": 1,
       "contradicting_applications": 1,
       "distinct_application_cases": [
-        "CASE-022"
+        "CASE-009"
       ],
       "distinct_support_cases": [],
       "status": "PROVISIONAL",
       "supporting_applications": 0
+    },
+    "RULE-ESSENTIAL-DISTINCTIVE-ATOM-PRIORITY": {
+      "applications": 5,
+      "contradicting_applications": 4,
+      "distinct_application_cases": [
+        "CASE-022",
+        "CASE-009"
+      ],
+      "distinct_support_cases": [
+        "CASE-009"
+      ],
+      "status": "CHALLENGED",
+      "supporting_applications": 1
     },
     "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR": {
       "applications": 0,
@@ -1109,14 +1130,15 @@
       "supporting_applications": 0
     },
     "RULE-FAMILY-WEALTH-ROLE-SEPARATION": {
-      "applications": 2,
-      "contradicting_applications": 2,
+      "applications": 3,
+      "contradicting_applications": 3,
       "distinct_application_cases": [
         "CASE-003",
-        "CASE-104"
+        "CASE-104",
+        "CASE-009"
       ],
       "distinct_support_cases": [],
-      "status": "PROVISIONAL",
+      "status": "CHALLENGED",
       "supporting_applications": 0
     },
     "RULE-HEALTH-PATHOGENESIS-DIAGNOSIS-TREATMENT-DATE-SEPARATION": {
@@ -1154,12 +1176,16 @@
       "supporting_applications": 4
     },
     "RULE-MULTIACTOR-INFORMATION-RESOURCE-TRANSFER-CHAIN": {
-      "applications": 0,
+      "applications": 1,
       "contradicting_applications": 0,
-      "distinct_application_cases": [],
-      "distinct_support_cases": [],
-      "status": "CANDIDATE",
-      "supporting_applications": 0
+      "distinct_application_cases": [
+        "CASE-009"
+      ],
+      "distinct_support_cases": [
+        "CASE-009"
+      ],
+      "status": "PROVISIONAL",
+      "supporting_applications": 1
     },
     "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION": {
       "applications": 3,
@@ -1187,10 +1213,11 @@
       "supporting_applications": 0
     },
     "RULE-PERIOD-TRAJECTORY-PRIMARY-LAYER-CAUSAL-INDEPENDENCE": {
-      "applications": 1,
-      "contradicting_applications": 0,
+      "applications": 2,
+      "contradicting_applications": 1,
       "distinct_application_cases": [
-        "CASE-089"
+        "CASE-089",
+        "CASE-009"
       ],
       "distinct_support_cases": [
         "CASE-089"
@@ -1338,9 +1365,9 @@
       "top2_covered": 23
     },
     "S02": {
-      "questions": 38,
+      "questions": 40,
       "top1_correct": 13,
-      "top2_covered": 20
+      "top2_covered": 22
     },
     "S03": {
       "questions": 40,
@@ -1348,14 +1375,14 @@
       "top2_covered": 24
     },
     "S04": {
-      "questions": 61,
-      "top1_correct": 20,
-      "top2_covered": 35
+      "questions": 64,
+      "top1_correct": 21,
+      "top2_covered": 38
     },
     "S05": {
-      "questions": 21,
+      "questions": 25,
       "top1_correct": 7,
-      "top2_covered": 10
+      "top2_covered": 13
     },
     "S06": {
       "questions": 14,
@@ -1368,9 +1395,9 @@
       "top2_covered": 11
     },
     "S08": {
-      "questions": 57,
-      "top1_correct": 23,
-      "top2_covered": 32
+      "questions": 59,
+      "top1_correct": 24,
+      "top2_covered": 34
     },
     "S09": {
       "questions": 35,
@@ -1378,9 +1405,9 @@
       "top2_covered": 21
     },
     "S10": {
-      "questions": 63,
-      "top1_correct": 22,
-      "top2_covered": 37
+      "questions": 65,
+      "top1_correct": 23,
+      "top2_covered": 39
     },
     "S11": {
       "questions": 50,
@@ -1403,22 +1430,22 @@
       "top2_covered": 29
     },
     "S15": {
-      "questions": 62,
-      "top1_correct": 20,
-      "top2_covered": 32
+      "questions": 64,
+      "top1_correct": 21,
+      "top2_covered": 34
     },
     "S16": {
-      "questions": 49,
+      "questions": 52,
       "top1_correct": 18,
-      "top2_covered": 28
+      "top2_covered": 30
     },
     "S17": {
-      "questions": 64,
-      "top1_correct": 20,
-      "top2_covered": 36
+      "questions": 68,
+      "top1_correct": 21,
+      "top2_covered": 39
     },
     "S18": {
-      "questions": 47,
+      "questions": 48,
       "top1_correct": 17,
       "top2_covered": 27
     },
@@ -1436,14 +1463,14 @@
       "top2_covered": 5
     },
     "CAREER_EDUCATION": {
-      "questions": 39,
+      "questions": 41,
       "top1_correct": 16,
-      "top2_covered": 23
+      "top2_covered": 24
     },
     "CHILDREN_FERTILITY": {
-      "questions": 8,
+      "questions": 9,
       "top1_correct": 3,
-      "top2_covered": 6
+      "top2_covered": 7
     },
     "FAMILY_ORIGIN": {
       "questions": 3,
@@ -1456,19 +1483,19 @@
       "top2_covered": 2
     },
     "HEALTH": {
-      "questions": 18,
+      "questions": 19,
       "top1_correct": 5,
-      "top2_covered": 9
+      "top2_covered": 10
     },
     "MAJOR_YEAR_EVENT": {
-      "questions": 57,
-      "top1_correct": 17,
-      "top2_covered": 31
+      "questions": 59,
+      "top1_correct": 18,
+      "top2_covered": 33
     },
     "MARRIAGE_RELATIONSHIP": {
-      "questions": 28,
-      "top1_correct": 8,
-      "top2_covered": 15
+      "questions": 30,
+      "top1_correct": 9,
+      "top2_covered": 17
     },
     "MIGRATION_RELOCATION": {
       "questions": 9,
@@ -1481,9 +1508,9 @@
       "top2_covered": 2
     },
     "PARENTS": {
-      "questions": 15,
+      "questions": 16,
       "top1_correct": 4,
-      "top2_covered": 6
+      "top2_covered": 7
     },
     "PERSONALITY_APPEARANCE": {
       "questions": 10,
@@ -1491,14 +1518,14 @@
       "top2_covered": 7
     },
     "PROPERTY_HOUSING": {
-      "questions": 8,
+      "questions": 9,
       "top1_correct": 4,
-      "top2_covered": 4
+      "top2_covered": 5
     },
     "SEXUALITY_INTIMACY": {
-      "questions": 6,
-      "top1_correct": 1,
-      "top2_covered": 3
+      "questions": 7,
+      "top1_correct": 2,
+      "top2_covered": 4
     },
     "SIBLINGS": {
       "questions": 5,
@@ -1521,9 +1548,9 @@
       "top2_covered": 8
     },
     "WEALTH_FINANCE": {
-      "questions": 15,
+      "questions": 17,
       "top1_correct": 7,
-      "top2_covered": 12
+      "top2_covered": 14
     }
   }
 }
