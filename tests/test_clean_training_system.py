@@ -1957,6 +1957,73 @@ class HandoffProbeTests(unittest.TestCase):
                     issue_body=json.dumps(handoff),
                 )
 
+    def test_handoff_rejects_neutral_background_used_as_counterevidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            contract, handoff = self.handoff_for(fixture)
+            evidence = handoff["predictions"][0]["evidence_ledger"][0]
+            evidence["independence_status"] = "NEUTRAL_BACKGROUND"
+            evidence["decision_impact"] = "COUNTEREVIDENCE"
+            evidence["contradicts_option_atoms"] = []
+            with self.assertRaisesRegex(
+                TrainingError,
+                "neutral background must have NEUTRAL decision_impact",
+            ):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
+
+            evidence["decision_impact"] = "NEUTRAL"
+            evidence["contradicts_option_atoms"] = ["C:C distinctive atom"]
+            with self.assertRaisesRegex(
+                TrainingError,
+                "neutral background may not contradict option atoms",
+            ):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
+
+    def test_handoff_rejects_neutral_background_in_counterevidence_indexes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            contract, handoff = self.handoff_for(fixture)
+            prediction = handoff["predictions"][0]
+            evidence = prediction["evidence_ledger"][1]
+            evidence["independence_status"] = "NEUTRAL_BACKGROUND"
+            evidence["decision_impact"] = "NEUTRAL"
+            evidence_id = evidence["evidence_id"]
+
+            prediction["bazi_track_seal"]["contradicting_evidence_ids"] = [
+                evidence_id
+            ]
+            with self.assertRaisesRegex(
+                TrainingError,
+                "contradicting evidence must be non-neutral",
+            ):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
+
+            prediction["bazi_track_seal"]["contradicting_evidence_ids"] = []
+            prediction["option_comparison_matrix"]["options"]["D"][
+                "direct_counterevidence_ids"
+            ] = [evidence_id]
+            with self.assertRaisesRegex(
+                TrainingError,
+                "direct counterevidence must be non-neutral",
+            ):
+                validate_handoff(
+                    fixture.root,
+                    issue_title=contract["issue_title"],
+                    issue_body=json.dumps(handoff),
+                )
+
     def test_preflight_normalizes_fractional_confidence_before_validation(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
