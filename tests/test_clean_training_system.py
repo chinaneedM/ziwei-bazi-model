@@ -1644,6 +1644,22 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
 
         self.assert_freeze_rejected(add_unproved_top1_precision)
 
+        def add_falsely_bound_top1_precision(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            row["question_semantic_model"]["option_atoms"][top1].update(
+                {
+                    "severe_irreversible_or_high_precision_atoms": [
+                        "exact irreversible endpoint"
+                    ]
+                }
+            )
+            row["option_comparison_matrix"]["options"][top1][
+                "severe_atoms_have_independent_evidence"
+            ] = True
+
+        self.assert_freeze_rejected(add_falsely_bound_top1_precision)
+
     def test_noncomposite_specific_year_question_can_use_timing_only_evidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
@@ -2506,7 +2522,7 @@ class HandoffProbeTests(unittest.TestCase):
                 report["changes"],
             )
 
-    def test_preflight_derives_top1_precision_support_flag_from_evidence(self):
+    def test_preflight_does_not_derive_top1_precision_support_flag(self):
         with tempfile.TemporaryDirectory() as temporary:
             fixture = RuntimeFixture(Path(temporary))
             normalized, report = normalize_handoff(
@@ -2543,19 +2559,14 @@ class HandoffProbeTests(unittest.TestCase):
                     ]
                 },
             )
-            self.assertTrue(
+            self.assertFalse(
                 normalized["predictions"][0]["option_comparison_matrix"][
                     "options"
                 ]["B"]["severe_atoms_have_independent_evidence"]
             )
-            self.assertIn(
-                {
-                    "kind": "TOP1_PRECISION_SUPPORT_FLAG_DERIVED",
-                    "question_id": "Q1",
-                    "top1": "B",
-                    "supporting_evidence_ids": ["Q1-Z1"],
-                },
-                report["changes"],
+            self.assertNotIn(
+                "TOP1_PRECISION_SUPPORT_FLAG_DERIVED",
+                {change["kind"] for change in report["changes"]},
             )
 
     def test_preflight_recovers_explicit_natal_fact_from_mixed_year_row(self):
