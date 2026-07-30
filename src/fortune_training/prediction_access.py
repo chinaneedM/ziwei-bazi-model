@@ -7,10 +7,14 @@ from .util import TrainingError, load_json, object_sha256
 
 
 PREDICTION_TOOL_POLICY_PATH = Path("config/prediction-tool-policy.json")
+POST_PREDICTION_HANDOFF_POLICY_PATH = Path(
+    "config/post-prediction-handoff-policy.json"
+)
 PREDICTION_ACCESS_CONTRACT_PATH = Path(
     "chat-input/prediction-access-contract.json"
 )
 POLICY_SCHEMA = "FORMAL-PREDICTION-TOOL-POLICY-V1"
+POST_HANDOFF_POLICY_SCHEMA = "POST-PREDICTION-HANDOFF-POLICY-V1"
 CONTRACT_SCHEMA = "FORMAL-PREDICTION-ACCESS-CONTRACT-V1"
 ACCESS_EXECUTION_RECEIPT_SCHEMA = "PREDICTION-ACCESS-EXECUTION-RECEIPT-V1"
 VIOLATION_ACTION = (
@@ -26,6 +30,7 @@ BASE_EXACT_PATHS = {
     "sources/canonical-manifest.json",
     "config/chat-runtime-performance.json",
     "config/prediction-tool-policy.json",
+    "config/post-prediction-handoff-policy.json",
     "config/model-runtime.json",
     "config/knowledge-route-map.json",
     "config/question-taxonomy.json",
@@ -91,6 +96,7 @@ def load_prediction_tool_policy(root: Path) -> dict[str, Any]:
     required_forbidden_tools = {
         "ATTACHMENT_FILE_READ",
         "FILE_LIBRARY_READ",
+        "GITHUB_CREATE_ISSUE",
         "GITHUB_COMMIT_INSPECTION",
         "GITHUB_DIFF",
         "GITHUB_HISTORY",
@@ -114,6 +120,36 @@ def load_prediction_tool_policy(root: Path) -> dict[str, Any]:
         raise TrainingError(
             "prediction access violation must invalidate or quarantine before prediction"
         )
+    return policy
+
+
+def load_post_prediction_handoff_policy(root: Path) -> dict[str, Any]:
+    policy = load_json(root.resolve() / POST_PREDICTION_HANDOFF_POLICY_PATH)
+    expected = {
+        "schema": POST_HANDOFF_POLICY_SCHEMA,
+        "phase": "POST_PREDICTION_HANDOFF",
+        "default_decision": "DENY",
+        "allowed_repository": "chinaneedM/ziwei-bazi-model",
+        "allowed_ref": "main",
+        "allowed_tool_classes": ["GITHUB_CREATE_ISSUE"],
+        "allowed_issue_count_per_round": 1,
+        "required_issue_title_prefix": "[PREDICTION HANDOFF] ",
+        "transition_requirements": [
+            "COMPLETE_PREDICTION_FROZEN",
+            "BINDING_VERIFIED",
+            "PREDICTION_ACCESS_EXECUTION_RECEIPT_VERIFIED",
+            "WORKBOOK_SCHEMA_COMPLETE",
+        ],
+        "chat_local_preflight_required": False,
+        "normalization_authority": "GITHUB_CONTROLLER",
+        "controller_workflow": ".github/workflows/prediction-handoff-gate.yml",
+        "all_other_git_writes": "DENY",
+        "invalid_handoff_action": (
+            "CLOSE_ISSUE_FAIL_CLOSED_NO_SECOND_ISSUE"
+        ),
+    }
+    if policy != expected:
+        raise TrainingError("invalid post-prediction handoff policy")
     return policy
 
 
@@ -337,6 +373,84 @@ class PredictionAccessSession:
                 "prediction access contract must execute before repository retrieval"
             )
         assert_prediction_access_from_contract(self._contract, **request)
+
+
+class PostPredictionHandoffSession:
+    """Authorize the one durable handoff write only after a complete freeze."""
+
+    def __init__(
+        self,
+        root: Path,
+        *,
+        contract: dict[str, Any],
+        expected_binding: dict[str, Any],
+        expected_issue_title: str,
+    ) -> None:
+        self._policy = load_post_prediction_handoff_policy(root)
+        self._contract = validate_prediction_access_contract(contract)
+        self._expected_binding = expected_binding
+        self._expected_issue_title = expected_issue_title
+        self._phase = "PREDICTION"
+        self._issue_created = False
+
+    @property
+    def phase(self) -> str:
+        return self._phase
+
+    def enter_post_prediction_handoff(
+        self,
+        *,
+        prediction_frozen: bool,
+        workbook_schema_complete: bool,
+        binding: dict[str, Any],
+        receipt: dict[str, Any],
+    ) -> None:
+        if self._phase != "PREDICTION":
+            raise TrainingError("handoff phase transition may occur only once")
+        if prediction_frozen is not True:
+            raise TrainingError(
+                "complete prediction freeze is required before handoff"
+            )
+        if workbook_schema_complete is not True:
+            raise TrainingError(
+                "complete prediction workbook is required before handoff"
+            )
+        if binding != self._expected_binding:
+            raise TrainingError("handoff binding was not verified")
+        validate_prediction_access_execution_receipt(self._contract, receipt)
+        self._phase = self._policy["phase"]
+
+    def authorize_issue_create(
+        self,
+        *,
+        tool_class: str,
+        repository: str,
+        ref: str,
+        issue_title: str,
+    ) -> None:
+        if self._phase != "POST_PREDICTION_HANDOFF":
+            raise TrainingError(
+                "GitHub Issue creation is denied during prediction"
+            )
+        if self._issue_created:
+            raise TrainingError(
+                "only one prediction handoff Issue is allowed per round"
+            )
+        if tool_class != "GITHUB_CREATE_ISSUE":
+            raise TrainingError("all non-handoff Git writes are denied")
+        if (
+            repository != self._policy["allowed_repository"]
+            or ref != self._policy["allowed_ref"]
+        ):
+            raise TrainingError("handoff Issue target is not authorized")
+        if (
+            issue_title != self._expected_issue_title
+            or not issue_title.startswith(
+                self._policy["required_issue_title_prefix"]
+            )
+        ):
+            raise TrainingError("handoff Issue title is not the current binding")
+        self._issue_created = True
 
 
 def assert_prediction_access(

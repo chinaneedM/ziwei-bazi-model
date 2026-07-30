@@ -1,11 +1,16 @@
 {
-  "schema": "FORTUNE-MODEL-RUNTIME-V1",
+  "schema": "FORTUNE-MODEL-RUNTIME-V2",
   "reasoning_core": "model-learning/methods/REASONING-CORE-V3.json",
   "knowledge_route_map": "config/knowledge-route-map.json",
-  "knowledge_card_sources": [
-    "knowledge-workbench/school-method-cards.json",
-    "knowledge-workbench/phase2-executable-cards.json"
-  ],
+  "knowledge_cards": {
+    "build_time_sources": [
+      "knowledge-workbench/school-method-cards.json",
+      "knowledge-workbench/phase2-executable-cards.json"
+    ],
+    "knowledge_workbench_runtime_role": "BUILD_TIME_ONLY",
+    "chat_direct_read_allowed": false,
+    "compiled_runtime_ref": "chat-input/runtime-model.json#knowledge_cards"
+  },
   "question_taxonomy": "config/question-taxonomy.json",
   "rule_release_source": "training/state.json#current_model_release",
   "activation_order": [
@@ -25,9 +30,17 @@
     ],
     "source_text_embedded_in_chat_input": false,
     "file_library_allowed": false,
+    "project_sources_allowed": false,
+    "external_project_sources_required": false,
     "historical_uploads_allowed": false,
     "cross_conversation_memory_allowed": false,
-    "fail_closed_when_project_sources_unavailable": true
+    "fail_closed_when_git_canonical_unavailable": true
+  },
+  "runtime_dependency_guard": {
+    "forbid_project_source_dependency": true,
+    "forbid_file_library_dependency": true,
+    "forbid_knowledge_workbench_chat_reads": true,
+    "require_compiled_knowledge_cards": true
   },
   "case_specific_memory_allowed": false,
   "answer_mapping_allowed": false

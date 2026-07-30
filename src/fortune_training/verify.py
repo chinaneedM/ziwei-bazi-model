@@ -27,6 +27,7 @@ from .policy import (
 from .prediction_access import (
     PREDICTION_ACCESS_CONTRACT_PATH,
     build_prediction_access_contract,
+    load_post_prediction_handoff_policy,
     load_prediction_tool_policy,
     validate_prediction_access_contract,
 )
@@ -96,17 +97,22 @@ def build_source_manifest(root: Path) -> dict[str, Any]:
 
 def _validate_source_policy(root: Path) -> dict[str, Any]:
     policy = load_json(root / "config" / "source-policy.json")
-    if policy.get("schema") != "SOURCE-AUTHORITY-POLICY-V1":
+    if policy.get("schema") != "SOURCE-AUTHORITY-POLICY-V2":
         raise TrainingError("wrong source authority policy schema")
     expected = {
-        "original_project_library_role": "ARCHIVAL_READ_ONLY_NOT_RUNTIME",
-        "original_project_library_deletion_required": False,
+        "external_project_sources_required": False,
+        "project_file_library_sources_runtime_allowed": False,
+        "runtime_canonical_authority": "GIT_MAIN_SOURCES_CANONICAL_ONLY",
         "runtime_source": "GIT_REPOSITORY_ONLY",
+        "git_repository": "chinaneedM/ziwei-bazi-model",
+        "git_ref": "main",
         "git_canonical_path": "sources/canonical",
         "git_canonical_mutable_during_training": False,
         "model_learning_path": "model-learning",
         "model_learning_mutable_during_training": True,
-        "conflict_resolution": "IGNORE_EXTERNAL_ORIGINAL_AND_USE_GIT_RUNTIME",
+        "conflict_resolution": (
+            "REJECT_PROJECT_OR_FILE_LIBRARY_SOURCE_AND_USE_GIT_MAIN_CANONICAL"
+        ),
     }
     for key, value in expected.items():
         if policy.get(key) != value:
@@ -114,6 +120,59 @@ def _validate_source_policy(root: Path) -> dict[str, Any]:
     manifest_hash = policy.get("canonical_manifest_sha256")
     if not isinstance(manifest_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", manifest_hash):
         raise TrainingError("source policy needs a valid canonical_manifest_sha256 lock")
+    return policy
+
+
+def _validate_model_runtime_policy(root: Path) -> dict[str, Any] | None:
+    path = root / "config" / "model-runtime.json"
+    if not path.is_file():
+        return None
+    policy = load_json(path)
+    if policy.get("schema") != "FORTUNE-MODEL-RUNTIME-V2":
+        raise TrainingError("wrong model runtime schema")
+    cards = policy.get("knowledge_cards")
+    if (
+        not isinstance(cards, dict)
+        or set(cards)
+        != {
+            "build_time_sources",
+            "knowledge_workbench_runtime_role",
+            "chat_direct_read_allowed",
+            "compiled_runtime_ref",
+        }
+        or cards.get("knowledge_workbench_runtime_role") != "BUILD_TIME_ONLY"
+        or cards.get("chat_direct_read_allowed") is not False
+        or cards.get("compiled_runtime_ref")
+        != "chat-input/runtime-model.json#knowledge_cards"
+        or not isinstance(cards.get("build_time_sources"), list)
+        or not cards["build_time_sources"]
+        or any(
+            not isinstance(item, str)
+            or not item.startswith("knowledge-workbench/")
+            for item in cards["build_time_sources"]
+        )
+    ):
+        raise TrainingError("knowledge cards are not build-time compiled for Chat")
+    access = policy.get("chat_source_access")
+    if (
+        not isinstance(access, dict)
+        or access.get("mode") != "GITHUB_MAIN_ALLOWLIST_ONLY"
+        or access.get("file_library_allowed") is not False
+        or access.get("project_sources_allowed") is not False
+        or access.get("external_project_sources_required") is not False
+        or access.get("historical_uploads_allowed") is not False
+        or access.get("cross_conversation_memory_allowed") is not False
+        or access.get("fail_closed_when_git_canonical_unavailable") is not True
+        or "fail_closed_when_project_sources_unavailable" in access
+    ):
+        raise TrainingError("model runtime reintroduced a project-source dependency")
+    if policy.get("runtime_dependency_guard") != {
+        "forbid_project_source_dependency": True,
+        "forbid_file_library_dependency": True,
+        "forbid_knowledge_workbench_chat_reads": True,
+        "require_compiled_knowledge_cards": True,
+    }:
+        raise TrainingError("model runtime dependency guard is incomplete")
     return policy
 
 
@@ -415,8 +474,10 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     root = root.resolve()
     policy = load_and_validate_policy(root / "config" / "training-policy.json")
     prediction_tool_policy = load_prediction_tool_policy(root)
+    post_handoff_policy = load_post_prediction_handoff_policy(root)
     taxonomy = load_taxonomy(root)
     source_policy = _validate_source_policy(root)
+    model_runtime_policy = _validate_model_runtime_policy(root)
     _validate_answer_policy(root)
     expected_manifest = build_source_manifest(root)
     manifest = load_json(root / "sources" / "canonical-manifest.json")
@@ -530,6 +591,22 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         raise TrainingError(
             "standalone prediction access contract does not match Chat input"
         )
+    handoff_contract = chat_input.get("chat_work_handoff_contract", {})
+    serialization = handoff_contract.get("serialization_constraints", {})
+    if (
+        chat_input.get("post_prediction_handoff_policy")
+        != post_handoff_policy
+        or serialization.get("chat_local_preflight_required") is not False
+        or serialization.get("chat_required_capabilities")
+        != ["GITHUB_FETCH_FILE", "GITHUB_CREATE_ISSUE"]
+        or serialization.get("normalization_authority")
+        != "GITHUB_CONTROLLER"
+        or serialization.get("controller_validation_workflow")
+        != post_handoff_policy["controller_workflow"]
+    ):
+        raise TrainingError(
+            "Chat handoff still depends on local preflight or bypasses the phase gate"
+        )
     performance = chat_input.get("runtime_performance_contract")
     required_themes = {
         "INPUT_AND_CHART_COORDINATE_FREEZE",
@@ -582,6 +659,31 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         or runtime_model.get("predictive_content_omitted") is not False
     ):
         raise TrainingError("compiled Chat runtime model is stale or incomplete")
+    if model_runtime_policy is not None:
+        cards = model_runtime_policy["knowledge_cards"]
+        if (
+            runtime_model.get("knowledge_card_runtime_authority")
+            != cards["compiled_runtime_ref"]
+            or runtime_model.get("knowledge_workbench_chat_read_allowed")
+            is not False
+        ):
+            raise TrainingError(
+                "compiled runtime model does not own Chat knowledge-card access"
+            )
+    if runtime_model.get("post_prediction_handoff") != {
+        "phase": post_handoff_policy["phase"],
+        "allowed_tool_classes": post_handoff_policy[
+            "allowed_tool_classes"
+        ],
+        "allowed_issue_count_per_round": 1,
+        "transition_requirements": post_handoff_policy[
+            "transition_requirements"
+        ],
+        "normalization_authority": "GITHUB_CONTROLLER",
+        "chat_local_preflight_required": False,
+        "all_other_git_writes": "DENY",
+    }:
+        raise TrainingError("compiled runtime model has an invalid handoff phase")
     runtime_model_characters = len(runtime_model_path.read_text(encoding="utf-8"))
     if runtime_model_characters > budgets.get(
         "compiled_runtime_model_max_characters",
@@ -720,6 +822,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "prediction_tool_policy": prediction_tool_policy["schema"],
         "question_taxonomy_ready": taxonomy["schema"] == "QUESTION-REASONING-TAXONOMY-V2",
         "knowledge_cards_ready": chat_input["current_model"]["knowledge_cards"]["card_count"] >= 23,
+        "post_prediction_handoff_policy": post_handoff_policy["phase"],
         "knowledge_card_count": chat_input["current_model"]["knowledge_cards"]["card_count"],
         "chat_runtime": {
             "current_input_characters": current_input_characters,
