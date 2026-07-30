@@ -237,7 +237,7 @@ def _prediction_row_template() -> dict[str, Any]:
                 "knowledge_point": text,
                 "applicability_conditions": [text],
                 "conditions_satisfied": [text],
-                "supports_option_atoms": [f"{option_id}:<ATOM>"],
+                "supports_option_atoms": [f"{option_id}:<EXACT_ATOM_TEXT>"],
                 "contradicts_option_atoms": [],
                 "alternative_explanation": text,
                 "evidence_family_id": "<EVIDENCE_FAMILY_ID>",
@@ -768,6 +768,13 @@ def _compose_chat_input_and_runtime_model(
             "confidence_calibration_rule": (
                 "If actor, exact time, mechanism, or real-world endpoint is unresolved, cap confidence "
                 "at 65. Forced relative choices are not high-confidence factual claims."
+            ),
+            "severe_atom_binding_rule": (
+                "If Top1 contains severe, irreversible, or high-precision atoms, set "
+                "severe_atoms_have_independent_evidence=true only when every such atom is "
+                "copied exactly into supports_option_atoms as '<OPTION_ID>:<EXACT_ATOM_TEXT>' "
+                "on at least one INDEPENDENT evidence row. General option support, a different "
+                "atom, or a shared scene does not qualify. Preflight never derives this flag."
             ),
             "failure_learning_rule": (
                 "After reveal, classify the root cause and choose one V3 remediation type. Only "
