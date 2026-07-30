@@ -17,6 +17,7 @@ from .policy import (
 from .prediction_access import (
     PREDICTION_ACCESS_CONTRACT_PATH,
     build_prediction_access_contract,
+    build_prediction_access_execution_receipt,
 )
 from .util import (
     atomic_write_compact_json,
@@ -552,6 +553,10 @@ def _compose_chat_input_and_runtime_model(
         and current_case_id is not None
     )
     recommended_round_id = next_round_id(state) if prediction_allowed else None
+    prediction_access_contract = build_prediction_access_contract(root, state)
+    prediction_access_execution_receipt = (
+        build_prediction_access_execution_receipt(prediction_access_contract)
+    )
 
     return {
         "schema": "CHAT-PREDICTION-INPUT-V3",
@@ -747,6 +752,7 @@ def _compose_chat_input_and_runtime_model(
             "handoff_required_fields": [
                 "schema",
                 "binding",
+                "prediction_access_execution_receipt",
                 "blind_chart_model",
                 "cross_question_consistency",
                 "replay_remediation",
@@ -768,6 +774,9 @@ def _compose_chat_input_and_runtime_model(
                     "canonical_source_manifest_sha256": object_sha256(manifest),
                     "effective_model_input_sha256": effective_model_input_sha256,
                 },
+                "prediction_access_execution_receipt": (
+                    prediction_access_execution_receipt
+                ),
                 "blind_chart_model": _blind_chart_model_template(),
                 "cross_question_consistency": _cross_question_consistency_template(),
                 "replay_remediation": (
@@ -886,7 +895,7 @@ def _compose_chat_input_and_runtime_model(
             },
         },
         "canonical_source_manifest": manifest,
-        "prediction_access_contract": build_prediction_access_contract(root, state),
+        "prediction_access_contract": prediction_access_contract,
         "contains_old_predictions": False,
         "contains_answers": False,
         "contains_scores_or_reviews": False,
