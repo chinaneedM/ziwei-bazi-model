@@ -202,9 +202,6 @@ def normalize_handoff(
                 if change:
                     changes.append(change)
 
-        top1 = row.get("top1")
-        semantics = row.get("question_semantic_model")
-        matrix = row.get("option_comparison_matrix")
         evidence = row.get("evidence_ledger")
         if isinstance(evidence, list):
             seen_families: set[str] = set()
@@ -234,53 +231,6 @@ def normalize_handoff(
                 )
                 if isinstance(family_id, str):
                     seen_families.add(family_id)
-        if (
-            isinstance(top1, str)
-            and isinstance(semantics, dict)
-            and isinstance(matrix, dict)
-            and isinstance(evidence, list)
-        ):
-            option_atoms = semantics.get("option_atoms")
-            matrix_options = matrix.get("options")
-            if isinstance(option_atoms, dict) and isinstance(matrix_options, dict):
-                top1_atoms = option_atoms.get(top1)
-                top1_matrix = matrix_options.get(top1)
-                severe_atoms = (
-                    top1_atoms.get("severe_irreversible_or_high_precision_atoms")
-                    if isinstance(top1_atoms, dict)
-                    else None
-                )
-                supporting_evidence_ids = [
-                    evidence_row.get("evidence_id")
-                    for evidence_row in evidence
-                    if isinstance(evidence_row, dict)
-                    and evidence_row.get("independence_status") == "INDEPENDENT"
-                    and isinstance(evidence_row.get("supports_option_atoms"), list)
-                    and any(
-                        isinstance(atom_ref, str)
-                        and atom_ref.startswith(f"{top1}:")
-                        for atom_ref in evidence_row["supports_option_atoms"]
-                    )
-                ]
-                if (
-                    isinstance(severe_atoms, list)
-                    and severe_atoms
-                    and isinstance(top1_matrix, dict)
-                    and top1_matrix.get(
-                        "severe_atoms_have_independent_evidence"
-                    )
-                    is False
-                    and supporting_evidence_ids
-                ):
-                    top1_matrix["severe_atoms_have_independent_evidence"] = True
-                    changes.append(
-                        {
-                            "kind": "TOP1_PRECISION_SUPPORT_FLAG_DERIVED",
-                            "question_id": question_id,
-                            "top1": top1,
-                            "supporting_evidence_ids": supporting_evidence_ids,
-                        }
-                    )
 
         if isinstance(evidence, list) and not any(
             isinstance(evidence_row, dict)
