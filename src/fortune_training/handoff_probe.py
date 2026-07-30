@@ -16,6 +16,7 @@ from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from .chat_input import CHAT_INPUT_RELATIVE_PATH, GITHUB_ISSUE_BODY_MAX_CHARACTERS
 from .handoff_preflight import normalize_handoff
 from .issue_relay import extract_packet
+from .prediction_access import validate_prediction_access_execution_receipt
 from .runtime import _validate_prediction, freeze_prediction, score_round, start_round
 from .util import TrainingError, atomic_write_json, canonical_bytes, load_json, sha256_bytes
 from .verify import verify_repository
@@ -93,6 +94,7 @@ def validate_handoff(
     if set(handoff) != {
         "schema",
         "binding",
+        "prediction_access_execution_receipt",
         "blind_chart_model",
         "cross_question_consistency",
         "replay_remediation",
@@ -101,6 +103,16 @@ def validate_handoff(
         raise TrainingError("handoff must contain the complete V2 reasoning workbook")
     if handoff.get("binding") != contract.get("binding"):
         raise TrainingError("handoff binding does not match the current Chat bundle")
+    validate_prediction_access_execution_receipt(
+        bundle.get("prediction_access_contract"),
+        handoff.get("prediction_access_execution_receipt"),
+    )
+    if handoff["prediction_access_execution_receipt"] != contract.get(
+        "handoff_payload_template", {}
+    ).get("prediction_access_execution_receipt"):
+        raise TrainingError(
+            "handoff access receipt does not match the current Chat bundle"
+        )
     predictions = handoff.get("predictions")
     if not isinstance(predictions, list) or not predictions:
         raise TrainingError("handoff predictions must be a non-empty array")
