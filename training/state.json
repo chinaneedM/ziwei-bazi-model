@@ -339,7 +339,7 @@
       "remediation_status": "NOT_EVALUATED",
       "replay_round_ids": [],
       "round_ids": [],
-      "status": "PENDING"
+      "status": "ACTIVE"
     },
     "CASE-066": {
       "first_blind_passed": null,
@@ -447,14 +447,6 @@
       "round_ids": [],
       "status": "PENDING"
     },
-    "CASE-087": {
-      "first_blind_passed": null,
-      "first_blind_round_id": null,
-      "remediation_status": "NOT_EVALUATED",
-      "replay_round_ids": [],
-      "round_ids": [],
-      "status": "ACTIVE"
-    },
     "CASE-089": {
       "first_blind_passed": false,
       "first_blind_round_id": "FORMAL-ROUND-006",
@@ -554,7 +546,7 @@
     }
   },
   "current_case_index": 21,
-  "current_model_release": "MODEL-LEARNING-028",
+  "current_model_release": "MODEL-LEARNING-029",
   "dataset_manifest_path": "case-bank/manifest.json",
   "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
   "first_blind_cases_closed": 21,
@@ -650,6 +642,17 @@
       "round_id": "FORMAL-ROUND-031",
       "scored": false,
       "status": "PRE-FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED"
+    },
+    {
+      "case_id": "CASE-087",
+      "counts_toward_first_blind": false,
+      "prediction_directions_retained": false,
+      "prediction_frozen": false,
+      "reason": "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION",
+      "recorded_at": "2026-07-31T13:14:13Z",
+      "round_id": "FORMAL-ROUND-036",
+      "scored": false,
+      "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
     }
   ],
   "policy_path": "config/training-policy.json",
@@ -657,7 +660,7 @@
   "round_count": 28,
   "round_id_prefix": "FORMAL-ROUND",
   "round_limit": null,
-  "round_sequence": 35,
+  "round_sequence": 36,
   "schema": "GENERALIZATION-TRAINING-STATE-R2",
   "source_manifest_path": "sources/canonical-manifest.json",
   "spaced_replay_queue": [

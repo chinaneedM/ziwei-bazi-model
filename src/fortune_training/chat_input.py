@@ -465,6 +465,7 @@ def _compose_runtime_model(
             "mandatory_reasoning_order": knowledge_route_map[
                 "mandatory_reasoning_order"
             ],
+            "execution_gates": knowledge_route_map["execution_gates"],
             "authority": knowledge_route_map["authority"],
         }
         if knowledge_route_map is not None
