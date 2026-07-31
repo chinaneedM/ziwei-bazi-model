@@ -154,17 +154,34 @@
       "route": ["S01", "S03", "S18", "S19"],
       "required_order": ["generic_hypothesis_registration", "case_detail_stripping", "scope_mechanism_and_falsification_predeclaration", "independent_cross_case_support", "counterexample_review", "pending_zero_decision_weight", "governed_promotion_or_rejection"],
       "limit": "A recurrence signature found in one discussion remains a zero-weight hypothesis. Neither one case nor same-case replay can promote it into a runtime rule."
+    },
+    "composite_required_atom_closure": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["required_atom_inventory", "independent_exact_support", "direct_same_axis_refutation", "explicit_unknowns", "disjoint_complete_partition", "top1_unclosed_atom_confidence_reduction", "existing_severe_precision_fail_closed"],
+      "limit": "A compound option is not closed by one matching fragment. Every required atom has exactly one closure status, and any Top1 atom lacking independent support reduces confidence while severe, irreversible, and high-precision atoms retain their stronger existing Fail Closed rule."
+    },
+    "upstream_fact_dependency_invalidation": {
+      "route": ["S01", "S03", "S08", "S10", "S11", "S14", "S15", "S18", "S19"],
+      "required_order": ["stable_upstream_fact_ids", "branch_scoped_source_resolution", "evidence_dependency_hashes", "upstream_recomputation", "transitive_evidence_invalidation", "downstream_contribution_removal", "ranking_recomputation"],
+      "limit": "Evidence weight follows verified fact IDs, not paraphrased premises. Any failed coordinate, transformation, Bazi atom, or period object neutralizes every dependent evidence row before ranking is rerun."
+    },
+    "time_boundary_parallel_branches": {
+      "route": ["S01", "S03", "S08", "S10", "S11", "S14", "S15", "S18", "S19"],
+      "required_order": ["boundary_detection", "all_legal_branch_materialization", "complete_ziwei_truth_table_per_branch", "complete_bazi_atomic_ledger_per_branch", "branch_labeled_evidence", "independent_branch_rankings", "option_blind_time_calibration", "divergence_preservation", "external_fact_only_resolution"],
+      "limit": "True-solar-time, late-Zi-day-change, and comparable legal boundary candidates remain parallel. Options cannot calibrate time, and divergent Top1 results stay uncertain until an independent external fact resolves the branch."
     }
   },
   "mandatory_reasoning_order": [
     "freeze_input_and_option_atoms",
     "validate_calendar_solar_term_and_month_mapping",
+    "materialize_all_legal_time_boundary_branches_without_using_options",
     "validate_ziwei_palace_transformation_age_doujun_and_qi_coordinates",
     "materialize_ziwei_coordinate_truth_table_and_lock_downstream_references",
     "separate_ziwei_major_period_and_bazi_luck_cycle_namespaces_and_validate_year_membership",
     "materialize_and_mechanically_verify_bazi_immutable_atomic_fact_ledger",
     "freeze_bazi_strength_structure_and_favorability_chain_before_option_ranking",
     "bound_bazi_dynamic_relations_to_declared_time_scope",
+    "bind_evidence_to_branch_scoped_upstream_facts_and_propagate_failures",
     "revalidate_collaborative_hypotheses_against_frozen_chart",
     "quarantine_new_cross_case_hypotheses_at_zero_decision_weight",
     "build_option_blind_fact_model",
@@ -180,6 +197,8 @@
     "reject_malefic_only_entity_nonexistence_binary",
     "deduplicate_same_physical_evidence",
     "apply_event_specificity_and_axis_distance_before_general_evidence_count",
+    "partition_every_required_option_atom_and_reduce_confidence_for_top1_gaps",
+    "rank_each_time_boundary_branch_independently_and_preserve_divergence",
     "compare_all_option_pairs_and_strongest_rival",
     "freeze_top1_top2_and_uncertainty",
     "reveal_only_after_freeze"

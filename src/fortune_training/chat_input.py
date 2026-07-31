@@ -54,8 +54,58 @@ CASE_VISIBLE_STATES = {
 
 def _blind_chart_model_template() -> dict[str, Any]:
     text = "<REQUIRED_NON_EMPTY_STRING>"
+    bazi_ledger = {
+        "schema": "BAZI-ATOMIC-FACT-LEDGER-V1",
+        "convention": "ZIPING_ATOMIC_RELATIONS_V1",
+        "scope": "NATAL_ONLY",
+        "four_pillars": {
+            "YEAR": "<STEM_BRANCH>",
+            "MONTH": "<STEM_BRANCH>",
+            "DAY": "<STEM_BRANCH>",
+            "HOUR": "<STEM_BRANCH>",
+        },
+        "day_master": "<HEAVENLY_STEM>",
+        "hidden_stems": {"<PILLAR_POSITION>": ["<HIDDEN_STEM>"]},
+        "five_elements": {"<FACT_ID>": "<ELEMENT>"},
+        "element_roles": {"<FACT_ID>": "<ELEMENT_ROLE>"},
+        "ten_gods": {"<STEM_FACT_ID>": "<TEN_GOD>"},
+        "visible_stem_roots": {"<STEM_FACT_ID>": ["<ROOT_FACT_ID>"]},
+        "heavenly_stem_combinations": [],
+        "earthly_branch_relations": [],
+        "verification_status": "MECHANICALLY_DERIVED",
+    }
+    bazi_chain = {
+        "schema": "BAZI-STRENGTH-STRUCTURE-FAVORABILITY-CHAIN-V1",
+        "ledger_sha256": "<OBJECT_SHA256_OF_IMMUTABLE_ATOMIC_FACT_LEDGER>",
+        "seasonal_command_fact_id": "MONTH_BRANCH",
+        "root_fact_ids": [],
+        "supporting_fact_ids": ["<ALL_PEER_AND_RESOURCE_FACT_IDS>"],
+        "draining_fact_ids": ["<ALL_OUTPUT_AND_WEALTH_FACT_IDS>"],
+        "controlling_fact_ids": ["<ALL_OFFICER_FACT_IDS>"],
+        "relation_fact_ids": [],
+        "strength_candidates": [text],
+        "selected_strength_candidate": text,
+        "pattern_candidates": [text],
+        "selected_pattern_candidate": text,
+        "favorability_candidates": [text],
+        "selected_favorability_candidate": text,
+        "method_competition": [text],
+        "unresolved_conflicts": [],
+        "reasoning_summary": text,
+        "option_blind_frozen": True,
+    }
+    palace_names = [
+        "命宫", "兄弟宫", "夫妻宫", "子女宫", "财帛宫", "疾厄宫",
+        "迁移宫", "交友宫", "官禄宫", "田宅宫", "福德宫", "父母宫",
+    ]
+    earthly_branches = list("子丑寅卯辰巳午未申酉戌亥")
+    namespace_specs = (
+        ("<NATAL_NAMESPACE_ID>", "NATAL"),
+        ("<ZIWEI_MAJOR_PERIOD_NAMESPACE_ID>", "ZIWEI_MAJOR_PERIOD"),
+        ("<YEAR_NAMESPACE_ID>", "YEAR"),
+    )
     return {
-        "schema": "BLIND-CHART-MODEL-V2",
+        "schema": "BLIND-CHART-MODEL-V3",
         "input_reliability": {
             "gender": text,
             "calendar": text,
@@ -78,46 +128,6 @@ def _blind_chart_model_template() -> dict[str, Any]:
             "limitations": [text],
         },
         "bazi_static_model": {
-            "immutable_atomic_fact_ledger": {
-                "schema": "BAZI-ATOMIC-FACT-LEDGER-V1",
-                "convention": "ZIPING_ATOMIC_RELATIONS_V1",
-                "scope": "NATAL_ONLY",
-                "four_pillars": {
-                    "YEAR": "<STEM_BRANCH>",
-                    "MONTH": "<STEM_BRANCH>",
-                    "DAY": "<STEM_BRANCH>",
-                    "HOUR": "<STEM_BRANCH>",
-                },
-                "day_master": "<HEAVENLY_STEM>",
-                "hidden_stems": {"<PILLAR_POSITION>": ["<HIDDEN_STEM>"]},
-                "five_elements": {"<FACT_ID>": "<ELEMENT>"},
-                "element_roles": {"<FACT_ID>": "<ELEMENT_ROLE>"},
-                "ten_gods": {"<STEM_FACT_ID>": "<TEN_GOD>"},
-                "visible_stem_roots": {"<STEM_FACT_ID>": ["<ROOT_FACT_ID>"]},
-                "heavenly_stem_combinations": [],
-                "earthly_branch_relations": [],
-                "verification_status": "MECHANICALLY_DERIVED",
-            },
-            "strength_structure_favorability_chain": {
-                "schema": "BAZI-STRENGTH-STRUCTURE-FAVORABILITY-CHAIN-V1",
-                "ledger_sha256": "<OBJECT_SHA256_OF_IMMUTABLE_ATOMIC_FACT_LEDGER>",
-                "seasonal_command_fact_id": "MONTH_BRANCH",
-                "root_fact_ids": [],
-                "supporting_fact_ids": ["<ALL_PEER_AND_RESOURCE_FACT_IDS>"],
-                "draining_fact_ids": ["<ALL_OUTPUT_AND_WEALTH_FACT_IDS>"],
-                "controlling_fact_ids": ["<ALL_OFFICER_FACT_IDS>"],
-                "relation_fact_ids": [],
-                "strength_candidates": [text],
-                "selected_strength_candidate": text,
-                "pattern_candidates": [text],
-                "selected_pattern_candidate": text,
-                "favorability_candidates": [text],
-                "selected_favorability_candidate": text,
-                "method_competition": [text],
-                "unresolved_conflicts": [],
-                "reasoning_summary": text,
-                "option_blind_frozen": True,
-            },
             "chart_facts": [text],
             "seasonal_strength_candidates": [text],
             "pattern_candidates": [text],
@@ -126,6 +136,77 @@ def _blind_chart_model_template() -> dict[str, Any]:
             "useful_harmful_candidates": [text],
             "unresolved_disputes": [],
             "limitations": [text],
+        },
+        "chart_branch_model": {
+            "schema": "TIME-BOUNDARY-CHART-BRANCHES-V1",
+            "boundary_status": "UNAMBIGUOUS",
+            "boundary_kinds": ["NONE"],
+            "branches": {
+                "<BRANCH_ID>": {
+                    "derivation_basis": text,
+                    "option_blind_frozen": True,
+                    "ziwei_coordinate_truth_table": {
+                        "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V1",
+                        "required_namespace_ids": [spec[0] for spec in namespace_specs],
+                        "namespaces": [
+                            {
+                                "namespace_id": namespace_id,
+                                "namespace_type": namespace_type,
+                                "coordinates": [
+                                    [
+                                        f"{namespace_id}-C{index:02d}",
+                                        palace_name,
+                                        earthly_branch,
+                                    ]
+                                    for index, (palace_name, earthly_branch) in enumerate(
+                                        zip(palace_names, earthly_branches)
+                                    )
+                                ],
+                            }
+                            for namespace_id, namespace_type in namespace_specs
+                        ],
+                        "transformations": [
+                            {
+                                "fact_id": "<TRANSFORMATION_FACT_ID>",
+                                "origin_layer": "<NATAL_PERIOD_YEAR_OR_MONTH>",
+                                "heavenly_stem": "<HEAVENLY_STEM>",
+                                "transformed_star": "<TRANSFORMED_STAR>",
+                                "destination_coordinate_id": "<DECLARED_COORDINATE_ID>",
+                                "verification_status": "VERIFIED",
+                            }
+                        ],
+                        "verification_status": "VERIFIED",
+                    },
+                    "bazi_atomic_fact_ledger": bazi_ledger,
+                    "bazi_strength_structure_favorability_chain": bazi_chain,
+                    "period_objects": [
+                        {
+                            "fact_id": "<ZIWEI_MAJOR_PERIOD_FACT_ID>",
+                            "namespace": "ZIWEI_MAJOR_PERIOD",
+                            "start_marker": text,
+                            "end_marker": text,
+                            "query_membership_verified": True,
+                            "recomputation_status": "VERIFIED",
+                        },
+                        {
+                            "fact_id": "<BAZI_LUCK_CYCLE_FACT_ID>",
+                            "namespace": "BAZI_LUCK_CYCLE",
+                            "start_marker": text,
+                            "end_marker": text,
+                            "query_membership_verified": True,
+                            "recomputation_status": "VERIFIED",
+                        },
+                    ],
+                    "verification_status": "VERIFIED",
+                }
+            },
+            "calibration": {
+                "status": "NOT_REQUIRED",
+                "selected_branch_id": "<BRANCH_ID>",
+                "independent_external_fact_ids": [],
+                "option_atoms_used": False,
+                "rationale": text,
+            },
         },
         "shared_life_structure": {
             "personality_and_behavior": [text],
@@ -211,8 +292,8 @@ def _prediction_row_template() -> dict[str, Any]:
             "is_composite_narrative": False,
             "option_atoms": {
                 option_id: {
-                    "required_atoms": [text],
-                    "distinctive_atoms": [text],
+                    "required_atoms": ["<EXACT_ATOM_TEXT>"],
+                    "distinctive_atoms": ["<EXACT_ATOM_TEXT>"],
                     "severe_irreversible_or_high_precision_atoms": [],
                 }
             },
@@ -281,6 +362,7 @@ def _prediction_row_template() -> dict[str, Any]:
         "evidence_ledger": [
             {
                 "evidence_id": evidence_id,
+                "branch_id": "<DECLARED_BRANCH_ID>",
                 "track": "<ZIWEI_OR_BAZI_OR_REALITY>",
                 "layer": "<NATAL_PERIOD_YEAR_MONTH_OR_REALITY>",
                 "chart_fact": text,
@@ -303,11 +385,33 @@ def _prediction_row_template() -> dict[str, Any]:
                 "scope_id": "<DECLARED_TEMPORAL_SCOPE_ID>",
             }
         ],
+        "upstream_fact_dependencies": {
+            "facts": [
+                {
+                    "fact_id": "<UPSTREAM_FACT_ID>",
+                    "branch_id": "<DECLARED_BRANCH_ID>",
+                    "fact_type": "<ZIWEI_COORDINATE_ZIWEI_TRANSFORMATION_BAZI_ATOMIC_PERIOD_OBJECT_OR_EXTERNAL_FACT>",
+                    "source_object_id": "<SOURCE_OBJECT_ID_FROM_THE_DECLARED_BRANCH>",
+                    "recomputation_status": "<VERIFIED_OR_FAILED>",
+                }
+            ],
+            "evidence_dependencies": [
+                {
+                    "evidence_id": evidence_id,
+                    "branch_id": "<DECLARED_BRANCH_ID>",
+                    "upstream_fact_ids": ["<UPSTREAM_FACT_ID>"],
+                    "dependency_signature": "<SHA256_OF_SORTED_UPSTREAM_FACT_IDS_AND_BRANCH_ID>",
+                }
+            ],
+            "invalidated_evidence_ids": [],
+            "ranking_recomputed_after_invalidation": True,
+        },
         "final_ranking": ranking,
         "option_comparison_matrix": {
             "options": {
                 option_id: {
                     "required_atom_completion": [],
+                    "directly_refuted_atoms": [],
                     "distinctive_atom_completion": [],
                     "severe_atoms_have_independent_evidence": False,
                     "ziwei_support_evidence_ids": [],
@@ -329,6 +433,24 @@ def _prediction_row_template() -> dict[str, Any]:
                     "reason": text,
                 }
             ],
+        },
+        "branch_analysis": {
+            "branch_rankings": {
+                "<DECLARED_BRANCH_ID>": {
+                    "top1": "<OPTION_ID>",
+                    "top2": "<OPTION_ID>",
+                    "ranking": ranking,
+                    "supporting_evidence_ids": [
+                        "<ZIWEI_EVIDENCE_ID_FOR_THIS_BRANCH>",
+                        "<BAZI_EVIDENCE_ID_FOR_THIS_BRANCH>",
+                    ],
+                    "contradicting_evidence_ids": [],
+                    "confidence": confidence,
+                }
+            },
+            "consensus_status": "<CONSISTENT_DIVERGENT_UNRESOLVED_OR_RESOLVED_BY_EXTERNAL_FACT>",
+            "selected_branch_id": None,
+            "top1_uncertainty_preserved": False,
         },
         "adversarial_review": {
             "top1_weakest_required_atom": text,
@@ -806,8 +928,10 @@ def _compose_chat_input_and_runtime_model(
                 "bazi_track_seal",
                 "cross_track_arbitration",
                 "evidence_ledger",
+                "upstream_fact_dependencies",
                 "final_ranking",
                 "option_comparison_matrix",
+                "branch_analysis",
                 "adversarial_review",
                 "confidence_components",
                 "counterfactual_analysis",

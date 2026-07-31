@@ -71,6 +71,9 @@ REQUIRED_METHOD_GATES = {
     "STATUS_TRANSITION_STATE_MACHINE",
     "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
     "CROSS_CASE_HYPOTHESIS_QUARANTINE",
+    "COMPOSITE_REQUIRED_ATOM_CLOSURE",
+    "UPSTREAM_FACT_DEPENDENCY_INVALIDATION",
+    "TIME_BOUNDARY_PARALLEL_CHART_BRANCHES",
 }
 REQUIRED_ROUTE_GATES = {
     "calendar_and_month_mapping",
@@ -88,6 +91,9 @@ REQUIRED_ROUTE_GATES = {
     "status_transition_state_machine",
     "collaborative_hypothesis_revalidation",
     "cross_case_hypothesis_quarantine",
+    "composite_required_atom_closure",
+    "upstream_fact_dependency_invalidation",
+    "time_boundary_parallel_branches",
 }
 REQUIRED_METHOD_GATE_CHECKS = {
     "ZIWEI_COORDINATE_INTEGRITY": {
@@ -178,6 +184,33 @@ REQUIRED_METHOD_GATE_CHECKS = {
         "keep_runtime_decision_weight_at_zero_while_pending",
         "forbid_promotion_by_single_case_discussion_or_replay",
         "promote_only_through_the_existing_governance_and_validation_process",
+    },
+    "COMPOSITE_REQUIRED_ATOM_CLOSURE": {
+        "partition_every_required_atom_as_independently_supported_directly_refuted_or_unknown",
+        "require_exact_atom_evidence_bindings",
+        "forbid_half_match_whole_option_acceptance",
+        "reduce_top1_confidence_when_any_required_atom_is_not_independently_closed",
+        "preserve_existing_independent_evidence_fail_closed_for_severe_irreversible_and_high_precision_atoms",
+    },
+    "UPSTREAM_FACT_DEPENDENCY_INVALIDATION": {
+        "register_ziwei_coordinate_transformation_bazi_atomic_and_period_facts_by_stable_id",
+        "bind_every_evidence_row_to_branch_scoped_upstream_fact_ids",
+        "hash_each_dependency_set_independently_of_evidence_wording",
+        "recompute_upstream_facts_before_ranking",
+        "invalidate_all_evidence_with_any_failed_dependency",
+        "remove_invalidated_evidence_from_tracks_matrices_reversal_tests_and_branch_rankings",
+        "rerun_ranking_after_invalidation",
+    },
+    "TIME_BOUNDARY_PARALLEL_CHART_BRANCHES": {
+        "detect_true_solar_time_late_zi_day_change_and_other_hour_boundary_ambiguity",
+        "materialize_every_legal_branch_before_option_reading",
+        "build_a_complete_ziwei_coordinate_truth_table_per_branch",
+        "build_and_mechanically_verify_a_complete_bazi_atomic_ledger_per_branch",
+        "label_every_evidence_row_with_exactly_one_branch",
+        "rank_every_branch_independently",
+        "forbid_option_atoms_from_time_calibration",
+        "preserve_uncertainty_when_branch_top1_differs",
+        "allow_branch_selection_only_from_independent_external_facts",
     },
 }
 REQUIRED_ROUTE_GATE_ORDERS = {
@@ -273,6 +306,35 @@ REQUIRED_ROUTE_GATE_ORDERS = {
         "pending_zero_decision_weight",
         "governed_promotion_or_rejection",
     ],
+    "composite_required_atom_closure": [
+        "required_atom_inventory",
+        "independent_exact_support",
+        "direct_same_axis_refutation",
+        "explicit_unknowns",
+        "disjoint_complete_partition",
+        "top1_unclosed_atom_confidence_reduction",
+        "existing_severe_precision_fail_closed",
+    ],
+    "upstream_fact_dependency_invalidation": [
+        "stable_upstream_fact_ids",
+        "branch_scoped_source_resolution",
+        "evidence_dependency_hashes",
+        "upstream_recomputation",
+        "transitive_evidence_invalidation",
+        "downstream_contribution_removal",
+        "ranking_recomputation",
+    ],
+    "time_boundary_parallel_branches": [
+        "boundary_detection",
+        "all_legal_branch_materialization",
+        "complete_ziwei_truth_table_per_branch",
+        "complete_bazi_atomic_ledger_per_branch",
+        "branch_labeled_evidence",
+        "independent_branch_rankings",
+        "option_blind_time_calibration",
+        "divergence_preservation",
+        "external_fact_only_resolution",
+    ],
 }
 REQUIRED_REASONING_THEMES = {
     "INPUT_AND_CHART_COORDINATE_FREEZE",
@@ -303,6 +365,9 @@ REQUIRED_REASONING_THEMES = {
     "STATUS_TRANSITION_STATE_MACHINE",
     "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
     "CROSS_CASE_HYPOTHESIS_QUARANTINE",
+    "COMPOSITE_REQUIRED_ATOM_CLOSURE_GATE",
+    "UPSTREAM_FACT_DEPENDENCY_INVALIDATION_GATE",
+    "TIME_BOUNDARY_PARALLEL_CHART_BRANCHES_GATE",
     "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION",
 }
 

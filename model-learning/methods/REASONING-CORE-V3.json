@@ -7,12 +7,12 @@
   "stages": [
     {
       "stage": "INPUT_FREEZE",
-      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "ziwei_coordinate_truth_table", "bazi_immutable_atomic_fact_ledger", "bazi_strength_structure_favorability_chain", "period_namespace_and_year_alignment_ledger", "collaborative_hypothesis_ledger", "question_and_option_atoms", "data_quality_status"],
+      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "legal_time_boundary_branches", "per_branch_ziwei_coordinate_truth_tables", "per_branch_bazi_immutable_atomic_fact_ledgers", "bazi_strength_structure_favorability_chain", "period_namespace_and_year_alignment_ledger", "collaborative_hypothesis_ledger", "question_and_option_atoms", "data_quality_status"],
       "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field", "ambiguous_calendar_or_solar_term_month_for_required_month_inference", "failed_ziwei_coordinate_validation"]
     },
     {
       "stage": "BLIND_FACT_MODEL",
-      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "bazi_dynamic_relation_scope_ledger", "evidence_axis_distance_ledger", "real_world_endpoints", "status_transition_models", "joint_candidate_matrices_for_related_questions"],
+      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "bazi_dynamic_relation_scope_ledger", "evidence_axis_distance_ledger", "upstream_fact_dependency_graph", "real_world_endpoints", "status_transition_models", "joint_candidate_matrices_for_related_questions"],
       "rule": "Build before option ranking and do not treat an option assertion as a known fact."
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "stage": "PAIRWISE_SELECTION",
-      "required_outputs": ["all_option_pairs", "temporary_first", "strongest_rival", "reversal_test", "top1", "top2", "confidence"],
+      "required_outputs": ["required_atom_closure_partition", "per_branch_rankings", "all_option_pairs", "temporary_first", "strongest_rival", "reversal_test", "top1", "top2", "confidence"],
       "rule": "Shared atoms and duplicate physical evidence do not decide a pair."
     },
     {
@@ -121,6 +121,21 @@
       "required_checks": ["register_new_recurrence_patterns_as_generic_hypotheses_only", "strip_case_answers_options_years_and_prediction_directions", "predeclare_scope_mechanism_and_falsification_conditions", "require_independent_cross_case_support_and_counterexamples", "keep_runtime_decision_weight_at_zero_while_pending", "forbid_promotion_by_single_case_discussion_or_replay", "promote_only_through_the_existing_governance_and_validation_process"],
       "fail_closed_when": ["a_new_recurrence_pattern_is_written_as_an_iron_rule", "case_specific_material_enters_the_hypothesis_record", "a_pending_hypothesis_changes_ranking", "same_case_repetition_is_counted_as_cross_case_validation", "promotion_occurs_without_independent_support_and_counterexample_audit"],
       "rule": "New recurrence signatures discovered in discussion, including a same-stem, same-transformed-star and same-destination reappearance pattern, remain generic quarantined hypotheses with zero decision weight. They may be promoted only after predefined falsification, independent cross-case support and counterexample review under existing governance; one case, one discussion or one replay can never make them an iron rule."
+    },
+    "COMPOSITE_REQUIRED_ATOM_CLOSURE": {
+      "required_checks": ["partition_every_required_atom_as_independently_supported_directly_refuted_or_unknown", "require_exact_atom_evidence_bindings", "forbid_half_match_whole_option_acceptance", "reduce_top1_confidence_when_any_required_atom_is_not_independently_closed", "preserve_existing_independent_evidence_fail_closed_for_severe_irreversible_and_high_precision_atoms"],
+      "fail_closed_when": ["a_required_atom_is_unclassified_or_multiply_classified", "a_completed_atom_lacks_independent_exact_support", "a_refuted_atom_lacks_direct_same_axis_counterevidence", "a_partial_compound_match_is_treated_as_whole_option_support", "top1_confidence_is_not_reduced_despite_an_unclosed_required_atom"],
+      "rule": "Every option is a conjunction of its required atoms. Before ranking, each required atom must appear in exactly one explicit class: independently supported, directly refuted, or unknown. A partial hit never closes the whole option. If Top1 contains any required atom outside the independently supported class, overall confidence must be strictly below the weakest non-overall component. Existing independent-evidence Fail Closed rules for severe, irreversible, or high-precision atoms remain unchanged."
+    },
+    "UPSTREAM_FACT_DEPENDENCY_INVALIDATION": {
+      "required_checks": ["register_ziwei_coordinate_transformation_bazi_atomic_and_period_facts_by_stable_id", "bind_every_evidence_row_to_branch_scoped_upstream_fact_ids", "hash_each_dependency_set_independently_of_evidence_wording", "recompute_upstream_facts_before_ranking", "invalidate_all_evidence_with_any_failed_dependency", "remove_invalidated_evidence_from_tracks_matrices_reversal_tests_and_branch_rankings", "rerun_ranking_after_invalidation"],
+      "fail_closed_when": ["an_evidence_row_has_no_upstream_dependency", "a_dependency_crosses_chart_branches", "a_source_object_id_cannot_be_resolved", "failed_upstream_premises_retain_atom_or_ranking_weight", "the_same_failed_premise_is_reworded_under_a_new_evidence_sentence", "ranking_is_not_recomputed_after_invalidation"],
+      "rule": "Evidence is downstream of explicit, branch-scoped facts rather than free-standing prose. Coordinate, transformation-provenance, Bazi-atomic, and period-object facts receive stable IDs; each evidence row binds a hashed set of those IDs. If any bound fact fails recomputation, every dependent evidence row is neutralized and excluded from track seals, option matrices, reversal tests, and branch rankings before the ranking is rerun. Rewording cannot restore a failed dependency because eligibility follows fact IDs and dependency hashes, not prose."
+    },
+    "TIME_BOUNDARY_PARALLEL_CHART_BRANCHES": {
+      "required_checks": ["detect_true_solar_time_late_zi_day_change_and_other_hour_boundary_ambiguity", "materialize_every_legal_branch_before_option_reading", "build_a_complete_ziwei_coordinate_truth_table_per_branch", "build_and_mechanically_verify_a_complete_bazi_atomic_ledger_per_branch", "label_every_evidence_row_with_exactly_one_branch", "rank_every_branch_independently", "forbid_option_atoms_from_time_calibration", "preserve_uncertainty_when_branch_top1_differs", "allow_branch_selection_only_from_independent_external_facts"],
+      "fail_closed_when": ["a_legal_time_branch_is_discarded_without_external_calibration", "branches_share_a_partial_coordinate_table_or_atomic_ledger", "evidence_or_period_objects_cross_branches", "option_wording_is_used_to_choose_a_birth_time", "divergent_branch_top1_results_are_silently_collapsed", "a_branch_is_selected_without_independent_external_facts"],
+      "rule": "When true solar time, late-Zi day change, or another hour boundary yields multiple legal inputs, preserve parallel chart branches. Each branch independently owns a complete Ziwei coordinate truth table, Bazi atomic ledger, period objects, evidence, and ranking. Options never calibrate birth time. Divergent branch Top1 results remain explicit and reduce confidence until independent facts outside the option set resolve the boundary."
     }
   },
   "evidence_priority": [
@@ -147,6 +162,7 @@
     "lower confidence when exact actor, endpoint or time is missing",
     "label forced relative choice when all options exceed source capability",
     "sensitive, rare, non-falsifiable and high-severity claims cannot use a single marker or singleton rule",
+    "an_unclosed_top1_required_atom_or_unresolved_divergent_time_branch_requires_explicit_confidence_reduction",
     "input damage blocks the affected case before prediction"
   ],
   "post_reveal_error_classes": [

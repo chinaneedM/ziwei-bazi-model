@@ -95,6 +95,9 @@ def load_and_validate_policy(path: Path) -> dict[str, Any]:
     composite = policy.get("composite_option_policy", {})
     if composite != {
         "atomize_before_prediction": True,
+        "required_atoms_partitioned_as_independent_support_direct_refutation_or_unknown": True,
+        "top1_unclosed_required_atom_requires_overall_confidence_below_weakest_component": True,
+        "severe_irreversible_or_high_precision_independent_evidence_fail_closed_preserved": True,
         "record_atom_level_failure_after_reveal": True,
         "whole_option_score_remains_top1_only": True,
     }:

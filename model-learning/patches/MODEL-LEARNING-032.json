@@ -1,0 +1,36 @@
+{
+  "schema": "MODEL-LEARNING-PATCH-V3",
+  "release_id": "MODEL-LEARNING-032",
+  "created_at": "2026-08-01T00:00:00Z",
+  "content": {
+    "schema": "MODEL-LEARNING-CORRECTION-V3",
+    "learning_type": "EXECUTION_PROCEDURE",
+    "root_causes": [
+      "INPUT_RECOGNITION",
+      "QUESTION_SEMANTICS",
+      "ZIWEI_REASONING",
+      "BAZI_REASONING",
+      "PERIOD_TIMING",
+      "OPTION_COMPARISON",
+      "EVIDENCE_WEIGHTING",
+      "CONFIDENCE_CALIBRATION",
+      "EXECUTION_OMISSION",
+      "SYSTEM_SCHEMA"
+    ],
+    "remediation_type": "EXECUTION_GATE",
+    "correction": {
+      "applicability": "适用于复合或单项选项的必需原子闭合、所有参与排序证据的上游事实依赖，以及真太阳时、子时换日或其他时辰边界存在多个合法候选的输入。",
+      "capability_ceiling": "最高把必需原子的闭合状态、证据依赖失效传播、并行命盘分支及分支排名变成机器可验证对象；不能用选项校时，不能以依赖图替代命理解释，也不能在缺少独立盘外事实时消除合法分支不确定性。",
+      "expected_effect": "减少复合选项只命中局部即整体成立、错误坐标或干支前提被改写后继续增权、上游复算失败却未重排，以及时辰边界候选被静默舍弃或由选项反向校时的错误。",
+      "limitations": "本维护只增加通用执行门、结构化验证器、运行模板和合成回归；不记录任何案例答案、选项、人物、事件年份或预测方向，不形成案例专属规则，不修改canonical。严重、不可逆或高精度原子的既有独立证据Fail Closed保持不变。",
+      "reasoning": "030已覆盖单一紫微坐标真值表、四化来源链和限运命名空间，031已覆盖八字原子账本、强弱链、动态作用域与传导距离，因此不重复建立这些门。真实缺口是选项矩阵没有机械核对required atoms的完整互斥分区；证据缺少到坐标、四化、八字原子和限运对象的稳定ID依赖，无法传播复算失败；时辰边界也没有把030与031的完整对象复制到每个合法分支并逐分支独立排序。故新增三个衔接门并复用现有上游对象。",
+      "source_basis": "S01约束输入、时间边界与坐标冻结；S03约束双轨独立、冲突和不确定性；S08与S10提供四化和限运来源链；S11、S14与S15提供八字原子和岁运对象；S17与S18负责现实闭合、选项原子、反证与排序；S19负责执行门禁。",
+      "statement": "每个required atom必须且只能归入独立支持、直接同轴反证或unknown；部分命中不得闭合整个选项，Top1任何必需原子未获独立支持时overall confidence必须严格低于其余置信度组件的最低值，既有严重、不可逆和高精度独立证据Fail Closed继续执行。每条证据必须绑定同一命盘分支内的稳定上游事实ID及依赖哈希，覆盖紫微坐标、四化来源、八字原子和限运对象；任一上游复算失败即中和所有依赖证据，禁止其进入双轨封印、选项矩阵、反转测试或分支排名，并在移除后重排，改变措辞不能恢复同一失败依赖。若时间边界存在多个合法候选，必须在读取选项前并行生成各自完整的紫微坐标真值表、八字原子账本、限运对象和证据，逐分支独立排序；选项不得参与校时，分支Top1不一致时保留不确定性并降低置信度，只有独立盘外事实才能选择分支。"
+    },
+    "rules": [],
+    "rule_status_changes": []
+  },
+  "contains_case_answer_mapping": false,
+  "modifies_canonical_source_files": false,
+  "validation_status": "ACTIVE_PROCESS_CORRECTION"
+}
