@@ -367,7 +367,7 @@ def _compact_process_correction(
     }
 
 
-def _compact_reasoning_core(reasoning_core: dict[str, Any] | None) -> dict[str, Any] | None:
+def compact_reasoning_core(reasoning_core: dict[str, Any] | None) -> dict[str, Any] | None:
     if reasoning_core is None:
         return None
     prediction_fields = (
@@ -472,7 +472,7 @@ def _compose_runtime_model(
     return {
         "schema": "CHAT-COMPILED-RUNTIME-MODEL-V1",
         "release_id": release_id,
-        "reasoning_core": _compact_reasoning_core(reasoning_core),
+        "reasoning_core": compact_reasoning_core(reasoning_core),
         "knowledge_route_map": {
             "schema": knowledge_route_map["schema"],
             "mandatory_reasoning_order": knowledge_route_map[

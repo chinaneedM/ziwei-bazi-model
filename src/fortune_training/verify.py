@@ -8,6 +8,7 @@ from .chat_input import (
     CHAT_INPUT_RELATIVE_PATH,
     CHAT_RUNTIME_MODEL_RELATIVE_PATH,
     PREDICTION_ROW_TEMPLATE_RELATIVE_PATH,
+    compact_reasoning_core,
     compose_chat_input,
 )
 from .case_bank import validate_case_bank
@@ -894,7 +895,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         object_sha256(runtime_model) != runtime_model_ref.get("sha256")
         or runtime_model.get("release_id") != current_release
         or runtime_model.get("predictive_content_omitted") is not False
-        or runtime_model.get("reasoning_core") != reasoning_core
+        or runtime_model.get("reasoning_core") != compact_reasoning_core(reasoning_core)
         or (
             knowledge_route_map is not None
             and runtime_model.get("knowledge_route_map", {}).get(
