@@ -359,15 +359,28 @@ def _compact_process_correction(
     content = correction["correction"]
     return {
         "correction_id": f"ACTIVE-PROCESS-{index:03d}",
-        "learning_type": correction["learning_type"],
         "remediation_type": correction["remediation_type"],
-        "root_causes": correction["root_causes"],
         "statement": content["statement"],
         "applicability": content["applicability"],
         "limitations": content["limitations"],
         "capability_ceiling": content["capability_ceiling"],
-        "source_basis": content["source_basis"],
     }
+
+
+def compact_reasoning_core(reasoning_core: dict[str, Any] | None) -> dict[str, Any] | None:
+    if reasoning_core is None:
+        return None
+    prediction_fields = (
+        "schema",
+        "method_id",
+        "purpose",
+        "stages",
+        "method_gates",
+        "evidence_priority",
+        "non_accumulation_rules",
+        "uncertainty_rules",
+    )
+    return {field: reasoning_core[field] for field in prediction_fields}
 
 
 def _compact_knowledge_card(card: dict[str, Any]) -> dict[str, Any]:
@@ -459,7 +472,7 @@ def _compose_runtime_model(
     return {
         "schema": "CHAT-COMPILED-RUNTIME-MODEL-V1",
         "release_id": release_id,
-        "reasoning_core": reasoning_core,
+        "reasoning_core": compact_reasoning_core(reasoning_core),
         "knowledge_route_map": {
             "schema": knowledge_route_map["schema"],
             "mandatory_reasoning_order": knowledge_route_map[

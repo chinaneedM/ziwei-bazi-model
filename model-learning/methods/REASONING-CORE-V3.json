@@ -7,12 +7,12 @@
   "stages": [
     {
       "stage": "INPUT_FREEZE",
-      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "question_and_option_atoms", "data_quality_status"],
+      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "ziwei_coordinate_truth_table", "period_namespace_and_year_alignment_ledger", "collaborative_hypothesis_ledger", "question_and_option_atoms", "data_quality_status"],
       "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field", "ambiguous_calendar_or_solar_term_month_for_required_month_inference", "failed_ziwei_coordinate_validation"]
     },
     {
       "stage": "BLIND_FACT_MODEL",
-      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "real_world_endpoints"],
+      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "real_world_endpoints", "status_transition_models", "joint_candidate_matrices_for_related_questions"],
       "rule": "Build before option ranking and do not treat an option assertion as a known fact."
     },
     {
@@ -53,9 +53,19 @@
       "rule": "A lunar month label, Gregorian month number and solar-term month are different coordinates. No flow-month or Doujun inference may proceed until the reference date is mapped under one declared convention; an unresolved boundary blocks only the affected month-resolution claim and may not be guessed."
     },
     "ZIWEI_COORDINATE_INTEGRITY": {
-      "required_checks": ["twelve_palaces_are_unique_and_complete", "opposite_and_trine_sets_are_reciprocal", "transformations_have_declared_origin_layer_and_destination", "major_period_age_range_matches_direction_and_age_convention", "year_and_month_palace_sequences_are_complete", "doujun_month_sequence_matches_declared_convention", "qi_position_derivation_returns_to_declared_taiji"],
+      "required_checks": ["twelve_palaces_are_unique_and_complete", "opposite_and_trine_sets_are_reciprocal", "transformations_bind_origin_layer_heavenly_stem_transformed_star_and_destination_palace", "major_period_age_range_matches_direction_and_age_convention", "year_and_month_palace_sequences_are_complete", "doujun_month_sequence_matches_declared_convention", "qi_position_derivation_returns_to_declared_taiji"],
       "fail_closed_when": ["any_required_coordinate_has_two_destinations", "age_range_or_direction_is_inconsistent", "transformation_origin_or_destination_is_missing", "doujun_or_qi_position_derivation_cannot_be_reproduced"],
       "rule": "Coordinate validation precedes interpretation. Opposite, trine, transformation, age, Doujun and qi-position claims must be mechanically reproducible from the frozen chart and declared convention."
+    },
+    "ZIWEI_COORDINATE_TRUTH_TABLE": {
+      "required_checks": ["materialize_one_immutable_coordinate_truth_table", "include_natal_major_period_year_and_each_subject_taiji_namespace", "require_exactly_twelve_unique_palace_rows_per_namespace", "assign_stable_coordinate_ids", "require_all_downstream_ziwei_claims_to_reference_coordinate_ids", "materialize_all_twelve_subject_taiji_palaces_before_topic_reasoning", "bind_each_transformation_to_origin_layer_heavenly_stem_transformed_star_and_destination_coordinate_id"],
+      "fail_closed_when": ["a_ziwei_namespace_is_partial_duplicated_or_ambiguous", "a_subject_taiji_topic_is_read_before_its_twelve_palaces_exist", "a_downstream_claim_recomputes_or_bypasses_the_truth_table", "a_transformation_lacks_any_provenance_field"],
+      "rule": "Freeze one coordinate truth table before interpretation. Natal, Ziwei major-period, year and every rotated subject-Taiji chart each own exactly twelve unique rows. Later reasoning is read-only and may cite stable coordinate IDs only; it may not silently regenerate a palace or transformation mapping."
+    },
+    "PERIOD_NAMESPACE_YEAR_ALIGNMENT": {
+      "required_checks": ["name_ziwei_periods_under_ziwei_major_period_namespace", "name_bazi_periods_under_bazi_luck_cycle_namespace", "forbid_unqualified_major_period_or_luck_cycle_labels", "bind_each_period_to_explicit_start_and_end_years", "validate_reference_year_membership_independently_in_each_track", "record_age_convention_and_boundary_handling"],
+      "fail_closed_when": ["ziwei_major_period_and_bazi_luck_cycle_are_merged_or_aliased", "a_reference_year_is_mapped_without_explicit_period_boundaries", "age_or_year_boundaries_disagree_without_a_preserved_conflict"],
+      "rule": "Ziwei major periods and Bazi luck cycles are different coordinate systems. They must keep separate namespaces, ranges and age conventions; agreement is recorded only after the same reference year has been independently mapped in both tracks."
     },
     "RESULT_QUESTION_DYNAMIC_CLOSURE": {
       "required_checks": ["identify_result_endpoint", "inspect_corresponding_ziwei_major_period_and_bazi_luck_cycle", "inspect_reference_year_in_both_tracks", "inspect_candidate_months_under_valid_month_mapping", "separate_activation_process_first_observable_result_formal_effect_peak_and_aftermath"],
@@ -76,6 +86,21 @@
       "required_checks": ["route_subject_and_topic_to_primary_palace", "inspect_opposite_and_trine_auxiliary_palaces", "derive_qi_position_under_declared_taiji", "trace_transformations_and_time_layers", "require_dynamic_realization_for_result_endpoint"],
       "fail_closed_when": ["auxiliary_palace_replaces_primary_subject_routing", "qi_position_is_used_as_a_standalone_prediction", "dynamic_realization_is_skipped_for_a_result_question"],
       "rule": "Topic routing follows primary palace, auxiliary opposite/trine palaces, qi position and dynamic realization in order. Auxiliary and qi coordinates modify or challenge the primary route; they do not replace the subject, time or endpoint chain."
+    },
+    "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX": {
+      "required_checks": ["identify_related_questions_without_assuming_shared_answers", "build_joint_candidates_on_explicit_dimensions_such_as_year_by_cause", "preserve_each_questions_independent_evidence_ledger", "allow_later_question_counterevidence_to_challenge_earlier_candidates", "zero_story_coherence_and_repeated_evidence_as_decision_weight", "rerun_pairwise_ranking_after_valid_cross_question_counterevidence"],
+      "fail_closed_when": ["related_questions_are_forced_into_one_story_without_independent_support", "one_questions_option_text_is_treated_as_fact_in_another", "shared_evidence_is_counted_twice_across_the_matrix", "a_prior_ranking_is_changed_by_coherence_alone"],
+      "rule": "Related questions use an explicit joint candidate matrix, for example year by cause, only to expose compatible and incompatible combinations. A later question may supply genuine same-axis counterevidence to an earlier candidate, but narrative coherence, option wording and duplicated evidence carry zero weight; each question must remain independently evidenced."
+    },
+    "STATUS_TRANSITION_STATE_MACHINE": {
+      "required_checks": ["declare_state_domain_for_marriage_career_asset_and_other_status_questions", "separate_entry_maintenance_impairment_and_exit_transitions", "require_observable_transition_evidence_for_each_state_change", "treat_damage_pressure_or_interruption_as_nonterminal_by_default", "test_recovery_continuation_and_substitute_states", "bind_terminal_exit_to_independent_dynamic_endpoint_evidence"],
+      "fail_closed_when": ["impairment_is_equated_with_nonexistence_or_terminal_exit", "entry_is_inferred_from_capacity_without_a_transition", "maintenance_is_inferred_from_missing_exit_evidence", "terminal_status_lacks_an_independent_endpoint_chain"],
+      "rule": "Marriage, career, asset and comparable status questions are modeled as entry, maintenance, impairment and exit transitions. Damage can alter quality or stability without ending the state; termination requires its own independently timed, observable or formal endpoint."
+    },
+    "COLLABORATIVE_HYPOTHESIS_REVALIDATION": {
+      "required_checks": ["label_every_user_or_model_proposed_derivation_as_unverified_hypothesis", "return_to_the_frozen_chart_before_acceptance", "recompute_coordinates_and_time_mappings_from_the_truth_table", "seek_independent_support_and_same_axis_counterevidence", "record_accept_revise_or_reject_status_with_basis", "forbid_authority_fluency_or_agreement_as_evidence"],
+      "fail_closed_when": ["a_discussion_claim_enters_the_evidence_ledger_without_independent_chart_validation", "user_or_model_confidence_substitutes_for_frozen_chart_evidence", "a_hypothesis_changes_ranking_before_coordinate_and_time_checks_complete"],
+      "rule": "Anything proposed during collaboration, whether by the user or the model, is an unverified hypothesis. It may affect ranking only after independent revalidation against the frozen chart, coordinate truth table, time layers and same-axis counterevidence; agreement and narrative fluency are not evidence."
     }
   },
   "evidence_priority": [

@@ -87,8 +87,18 @@
     },
     "ziwei_coordinate_integrity": {
       "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
-      "required_order": ["twelve_palaces", "opposites_and_trines", "transformation_origin_and_destination", "major_period_direction_and_age_range", "year_and_month_sequence", "doujun", "qi_position"],
+      "required_order": ["twelve_palaces", "opposites_and_trines", "transformation_origin_layer_heavenly_stem_transformed_star_and_destination", "major_period_direction_and_age_range", "year_and_month_sequence", "doujun", "qi_position"],
       "limit": "Interpretation may begin only after the coordinate receipt is internally reciprocal and reproducible."
+    },
+    "ziwei_coordinate_truth_table": {
+      "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
+      "required_order": ["natal_twelve_palaces", "ziwei_major_period_twelve_palaces", "ziwei_year_twelve_palaces", "each_rotated_subject_taiji_twelve_palaces", "stable_coordinate_ids", "transformation_provenance_rows", "downstream_read_only_coordinate_references"],
+      "limit": "Every namespace must have exactly twelve unique palaces before interpretation. Topic reasoning may reference the frozen table but may not regenerate coordinates or accept a partial subject-Taiji chart."
+    },
+    "period_namespace_alignment": {
+      "route": ["S01", "S03", "S10", "S15", "S19"],
+      "required_order": ["ziwei_major_period_namespace", "bazi_luck_cycle_namespace", "explicit_start_and_end_years", "age_and_boundary_conventions", "independent_reference_year_membership", "preserved_cross_track_conflicts"],
+      "limit": "Ziwei major periods and Bazi luck cycles may not share an unqualified label or range. Each track maps the reference year independently before fusion."
     },
     "result_dynamic_closure": {
       "route": ["S08", "S10", "S15", "S17", "S18"],
@@ -109,13 +119,33 @@
       "route": ["S04", "S08", "S09", "S10", "S17", "S18"],
       "required_order": ["primary_palace", "opposite_and_trine_auxiliary_palaces", "qi_position_under_declared_taiji", "transformations", "major_period_year_month_realization", "endpoint"],
       "limit": "Auxiliary palaces and qi position refine or challenge the primary route; they cannot replace subject identity, time activation or endpoint closure."
+    },
+    "cross_question_joint_candidates": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["related_question_detection", "explicit_joint_dimensions", "per_question_independent_evidence", "cross_question_same_axis_counterevidence", "story_coherence_and_duplicate_evidence_zeroing", "pairwise_ranking_recheck"],
+      "limit": "A joint matrix exposes combinations and contradictions; it does not turn one option into a fact for another question or reward a coherent story without independent evidence."
+    },
+    "status_transition_state_machine": {
+      "route": ["S02", "S03", "S10", "S15", "S17", "S18"],
+      "required_order": ["state_domain", "entry_transition", "maintenance_evidence", "impairment_or_interruption", "recovery_or_substitute_state", "terminal_exit_endpoint"],
+      "limit": "Damage, pressure, separation or interruption may impair a state without ending it. Entry, maintenance and terminal exit each require their own transition evidence."
+    },
+    "collaborative_hypothesis_revalidation": {
+      "route": ["S01", "S03", "S17", "S18", "S19"],
+      "required_order": ["unverified_hypothesis_label", "frozen_chart_return", "coordinate_and_time_recalculation", "independent_support_and_counterevidence", "accept_revise_or_reject_status", "ranking_eligibility"],
+      "limit": "User or model proposals remain hypotheses until independently checked against the frozen chart. Authority, confidence, agreement and narrative fluency are not evidence."
     }
   },
   "mandatory_reasoning_order": [
     "freeze_input_and_option_atoms",
     "validate_calendar_solar_term_and_month_mapping",
     "validate_ziwei_palace_transformation_age_doujun_and_qi_coordinates",
+    "materialize_ziwei_coordinate_truth_table_and_lock_downstream_references",
+    "separate_ziwei_major_period_and_bazi_luck_cycle_namespaces_and_validate_year_membership",
+    "revalidate_collaborative_hypotheses_against_frozen_chart",
     "build_option_blind_fact_model",
+    "build_status_transition_models_for_state_questions",
+    "build_joint_candidate_matrices_for_related_questions",
     "route_subject_topic_and_reference_period",
     "route_primary_palace_auxiliary_palaces_and_qi_position",
     "derive_ziwei_static_structure",
