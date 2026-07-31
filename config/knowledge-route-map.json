@@ -100,6 +100,21 @@
       "required_order": ["ziwei_major_period_namespace", "bazi_luck_cycle_namespace", "explicit_start_and_end_years", "age_and_boundary_conventions", "independent_reference_year_membership", "preserved_cross_track_conflicts"],
       "limit": "Ziwei major periods and Bazi luck cycles may not share an unqualified label or range. Each track maps the reference year independently before fusion."
     },
+    "bazi_atomic_fact_ledger": {
+      "route": ["S01", "S11", "S14", "S19"],
+      "required_order": ["four_pillars", "hidden_stems", "ten_gods", "five_elements_and_element_roles", "visible_stem_roots", "heavenly_stem_five_combinations", "earthly_branch_combinations_clashes_punishments_harms_and_breaks", "mechanical_verification_receipt", "immutable_downstream_reference"],
+      "limit": "All Bazi atomic facts must be mechanically derived under one declared convention before interpretation. Option wording cannot repair, add or recalculate the ledger."
+    },
+    "bazi_strength_structure_favorability": {
+      "route": ["S11", "S12", "S13", "S14", "S19"],
+      "required_order": ["atomic_ledger_hash_binding", "month_command_and_seasonal_qi", "complete_support_drain_and_control_fact_classes", "day_master_roots", "relation_facts", "strength_candidate_comparison", "pattern_candidate_comparison", "favorability_candidate_comparison", "option_blind_freeze", "unresolved_method_conflicts"],
+      "limit": "Strength, pattern and favorability must share one complete option-blind evidence chain and cannot be reassigned to satisfy a question."
+    },
+    "bazi_dynamic_relation_scope": {
+      "route": ["S11", "S14", "S15", "S19"],
+      "required_order": ["natal_objects", "bazi_luck_cycle_objects", "active_query_year_and_month_objects", "historical_validation_anchors", "within_scope_relations", "declared_cross_time_method_if_any", "source_route_and_bounded_reactivated_objects"],
+      "limit": "Historical event years are inactive validation anchors by default. Objects from different years may interact only under an explicit source-routed and object-bounded method."
+    },
     "result_dynamic_closure": {
       "route": ["S08", "S10", "S15", "S17", "S18"],
       "required_order": ["natal_capacity", "ziwei_major_period_and_bazi_luck_cycle", "reference_year", "defensible_candidate_months", "observable_or_formal_endpoint"],
@@ -112,8 +127,8 @@
     },
     "event_specificity": {
       "route": ["S03", "S17", "S18"],
-      "required_order": ["same_axis_counterevidence", "completed_event_specific_chain", "time_bound_distinguishing_mechanism", "topic_specific_structure", "general_tendency"],
-      "limit": "General evidence quantity, source count and school count do not outweigh an independent event-specific chain."
+      "required_order": ["same_axis_counterevidence", "direct_same_axis_event_evidence", "completed_event_specific_chain", "one_hop_transmission_with_complete_path", "time_bound_distinguishing_mechanism", "multi_hop_transmission_with_complete_path", "topic_specific_structure", "general_tendency"],
+      "limit": "General evidence quantity, source count and school count do not outweigh an independent event-specific chain. Transmitted evidence must disclose every hop and is discounted against equally reliable direct same-axis evidence."
     },
     "topic_palace_chain": {
       "route": ["S04", "S08", "S09", "S10", "S17", "S18"],
@@ -134,6 +149,11 @@
       "route": ["S01", "S03", "S17", "S18", "S19"],
       "required_order": ["unverified_hypothesis_label", "frozen_chart_return", "coordinate_and_time_recalculation", "independent_support_and_counterevidence", "accept_revise_or_reject_status", "ranking_eligibility"],
       "limit": "User or model proposals remain hypotheses until independently checked against the frozen chart. Authority, confidence, agreement and narrative fluency are not evidence."
+    },
+    "cross_case_hypothesis_quarantine": {
+      "route": ["S01", "S03", "S18", "S19"],
+      "required_order": ["generic_hypothesis_registration", "case_detail_stripping", "scope_mechanism_and_falsification_predeclaration", "independent_cross_case_support", "counterexample_review", "pending_zero_decision_weight", "governed_promotion_or_rejection"],
+      "limit": "A recurrence signature found in one discussion remains a zero-weight hypothesis. Neither one case nor same-case replay can promote it into a runtime rule."
     }
   },
   "mandatory_reasoning_order": [
@@ -142,7 +162,11 @@
     "validate_ziwei_palace_transformation_age_doujun_and_qi_coordinates",
     "materialize_ziwei_coordinate_truth_table_and_lock_downstream_references",
     "separate_ziwei_major_period_and_bazi_luck_cycle_namespaces_and_validate_year_membership",
+    "materialize_and_mechanically_verify_bazi_immutable_atomic_fact_ledger",
+    "freeze_bazi_strength_structure_and_favorability_chain_before_option_ranking",
+    "bound_bazi_dynamic_relations_to_declared_time_scope",
     "revalidate_collaborative_hypotheses_against_frozen_chart",
+    "quarantine_new_cross_case_hypotheses_at_zero_decision_weight",
     "build_option_blind_fact_model",
     "build_status_transition_models_for_state_questions",
     "build_joint_candidate_matrices_for_related_questions",
@@ -155,7 +179,7 @@
     "close_actor_action_object_time_and_endpoint",
     "reject_malefic_only_entity_nonexistence_binary",
     "deduplicate_same_physical_evidence",
-    "apply_event_specificity_before_general_evidence_count",
+    "apply_event_specificity_and_axis_distance_before_general_evidence_count",
     "compare_all_option_pairs_and_strongest_rival",
     "freeze_top1_top2_and_uncertainty",
     "reveal_only_after_freeze"

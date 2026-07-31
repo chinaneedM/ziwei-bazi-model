@@ -14,6 +14,11 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
+from fortune_training.bazi_facts import (
+    build_bazi_atomic_fact_ledger,
+    validate_bazi_atomic_fact_ledger,
+    validate_bazi_strength_chain,
+)
 from fortune_training.chat_input import (
     CHAT_RUNTIME_MODEL_RELATIVE_PATH,
     CHAT_INPUT_RELATIVE_PATH,
@@ -352,6 +357,48 @@ class RuntimeFixture:
     ) -> Path:
         case_id, question_count = self.current_case()
         path = self.base / f"{round_id}.prediction.json"
+        bazi_atomic_ledger = build_bazi_atomic_fact_ledger(
+            {
+                "YEAR": "甲子",
+                "MONTH": "己丑",
+                "DAY": "丙午",
+                "HOUR": "辛未",
+            }
+        )
+        roles = bazi_atomic_ledger["element_roles"]
+        bazi_strength_chain = {
+            "schema": "BAZI-STRENGTH-STRUCTURE-FAVORABILITY-CHAIN-V1",
+            "ledger_sha256": object_sha256(bazi_atomic_ledger),
+            "seasonal_command_fact_id": "MONTH_BRANCH",
+            "root_fact_ids": bazi_atomic_ledger["visible_stem_roots"]["DAY_STEM"],
+            "supporting_fact_ids": sorted(
+                fact_id
+                for fact_id, role in roles.items()
+                if role in {"PEER", "RESOURCE"}
+            ),
+            "draining_fact_ids": sorted(
+                fact_id
+                for fact_id, role in roles.items()
+                if role in {"OUTPUT", "WEALTH"}
+            ),
+            "controlling_fact_ids": sorted(
+                fact_id for fact_id, role in roles.items() if role == "OFFICER"
+            ),
+            "relation_fact_ids": sorted(
+                bazi_atomic_ledger["heavenly_stem_combinations"]
+                + bazi_atomic_ledger["earthly_branch_relations"]
+            ),
+            "strength_candidates": ["Synthetic balanced candidate"],
+            "selected_strength_candidate": "Synthetic balanced candidate",
+            "pattern_candidates": ["Synthetic ordinary-pattern candidate"],
+            "selected_pattern_candidate": "Synthetic ordinary-pattern candidate",
+            "favorability_candidates": ["Synthetic favorability candidate"],
+            "selected_favorability_candidate": "Synthetic favorability candidate",
+            "method_competition": ["Synthetic methods compared before options"],
+            "unresolved_conflicts": [],
+            "reasoning_summary": "All atomic fact classes were bound before ranking.",
+            "option_blind_frozen": True,
+        }
         rows = []
         for index in range(1, question_count + 1):
             top1 = "A" if index <= correct_count else "B"
@@ -414,6 +461,10 @@ class RuntimeFixture:
                         "capability_ceiling": "Does not prove an exact endpoint alone.",
                         "decision_impact": "SUPPORTING",
                         "limitations": "Synthetic fixture has no domain-specific claim.",
+                        "axis_distance": "DIRECT_SAME_AXIS",
+                        "transmission_path": [],
+                        "temporal_role": "NATAL_STATIC",
+                        "scope_id": "SYNTHETIC-NATAL",
                     },
                     {
                         "evidence_id": bazi_evidence_id,
@@ -433,6 +484,10 @@ class RuntimeFixture:
                         "capability_ceiling": "Does not create an unstated real-world action.",
                         "decision_impact": "SUPPORTING",
                         "limitations": "Synthetic fixture has no exact timing claim.",
+                        "axis_distance": "ONE_HOP",
+                        "transmission_path": ["period context to endpoint candidate"],
+                        "temporal_role": "PERIOD_CONTEXT",
+                        "scope_id": "SYNTHETIC-PERIOD",
                     },
                 ]
                 endpoint_chain = {
@@ -462,6 +517,17 @@ class RuntimeFixture:
                     "strength_and_pattern": "Synthetic strength and pattern candidates were compared.",
                     "method_competition": "Fuyi, regulation, and structural change were compared.",
                     "luck_timing": "Period signal is separated from real-world completion.",
+                    "dynamic_relation_scope": {
+                        "query_scope_id": "SYNTHETIC-QUERY-SCOPE",
+                        "active_dynamic_object_ids": ["SYNTHETIC-PERIOD-OBJECT"],
+                        "historical_anchor_ids": [],
+                        "cross_time_reactivation": {
+                            "status": "NOT_USED",
+                            "method": "NOT_APPLICABLE",
+                            "source_route": "NOT_APPLICABLE",
+                            "bounded_object_ids": [],
+                        },
+                    },
                     "endpoint_chain": endpoint_chain,
                     "supporting_evidence_ids": [bazi_evidence_id],
                     "contradicting_evidence_ids": [],
@@ -590,7 +656,7 @@ class RuntimeFixture:
                 "case_id": case_id,
                 "round_id": round_id,
                 "blind_chart_model": {
-                    "schema": "BLIND-CHART-MODEL-V1",
+                    "schema": "BLIND-CHART-MODEL-V2",
                     "input_reliability": {
                         "gender": "known",
                         "calendar": "known",
@@ -613,6 +679,8 @@ class RuntimeFixture:
                         "limitations": ["Fixture does not assert real divination content"],
                     },
                     "bazi_static_model": {
+                        "immutable_atomic_fact_ledger": bazi_atomic_ledger,
+                        "strength_structure_favorability_chain": bazi_strength_chain,
                         "chart_facts": ["Synthetic Bazi fact"],
                         "seasonal_strength_candidates": ["Synthetic strength candidate"],
                         "pattern_candidates": ["Synthetic pattern candidate"],
@@ -1596,6 +1664,28 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             )
         )
 
+    def test_evidence_distance_and_historical_scope_are_fail_closed(self):
+        self.assert_freeze_rejected(
+            lambda payload: payload["predictions"][0]["evidence_ledger"][0].update(
+                {"axis_distance": "MULTI_HOP", "transmission_path": ["one hop only"]}
+            )
+        )
+
+        def silently_reactivate_historical_object(payload):
+            scope = payload["predictions"][0]["bazi_track_seal"][
+                "dynamic_relation_scope"
+            ]
+            scope["historical_anchor_ids"] = ["SYNTHETIC-PERIOD-OBJECT"]
+
+        self.assert_freeze_rejected(silently_reactivate_historical_object)
+
+        def active_historical_anchor(payload):
+            evidence = payload["predictions"][0]["evidence_ledger"][1]
+            evidence["layer"] = "YEAR"
+            evidence["temporal_role"] = "HISTORICAL_VALIDATION_ANCHOR"
+
+        self.assert_freeze_rejected(active_historical_anchor)
+
     def test_same_chart_fact_must_share_one_evidence_family(self):
         def mutate(payload):
             row = payload["predictions"][0]
@@ -1629,6 +1719,7 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
         def timing_only(payload):
             for evidence in payload["predictions"][0]["evidence_ledger"]:
                 evidence["layer"] = "YEAR"
+                evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
 
         self.assert_freeze_rejected(timing_only)
         def add_unproved_top1_precision(payload):
@@ -1673,6 +1764,7 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             row["question_profile"]["time_scope_tags"] = ["SPECIFIC_YEAR"]
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "YEAR"
+                evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
             write_json(path, payload)
             start_round(fixture.root, "R1")
             frozen = freeze_prediction(fixture.root, "R1", path)
@@ -1699,6 +1791,7 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                 }
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "PERIOD"
+                evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
             write_json(path, payload)
             start_round(fixture.root, "R1")
             frozen = freeze_prediction(fixture.root, "R1", path)
@@ -1711,6 +1804,7 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             row["question_profile"]["time_scope_tags"] = ["OTHER"]
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "PERIOD"
+                evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
 
         self.assert_freeze_rejected(make_timing_only)
 
@@ -2916,10 +3010,22 @@ class RepositoryIntegrityTests(unittest.TestCase):
     def test_real_chat_runtime_is_slim_without_reasoning_reduction(self):
         result = verify_repository(PROJECT_ROOT)
         runtime = result["chat_runtime"]
-        self.assertLess(runtime["current_input_characters"], 80_000)
-        self.assertLess(runtime["compiled_runtime_model_characters"], 80_000)
+        performance = json.loads(
+            (PROJECT_ROOT / "config/chat-runtime-performance.json").read_text()
+        )
+        self.assertLessEqual(
+            runtime["current_input_characters"],
+            performance["budgets"]["current_input_max_characters"],
+        )
+        self.assertLessEqual(
+            runtime["compiled_runtime_model_characters"],
+            performance["budgets"]["compiled_runtime_model_max_characters"],
+        )
         self.assertTrue(runtime["all_prediction_themes_preserved"])
-        self.assertEqual(runtime["reasoning_theme_count"], 25)
+        self.assertEqual(
+            runtime["reasoning_theme_count"],
+            len(performance["non_negotiable_reasoning_themes"]),
+        )
         self.assertIsNone(runtime["evidence_quota"])
 
         bundle = json.loads((PROJECT_ROOT / CHAT_INPUT_RELATIVE_PATH).read_text())
@@ -2989,6 +3095,9 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "ZIWEI_COORDINATE_INTEGRITY",
                 "ZIWEI_COORDINATE_TRUTH_TABLE",
                 "PERIOD_NAMESPACE_YEAR_ALIGNMENT",
+                "BAZI_IMMUTABLE_ATOMIC_FACT_LEDGER",
+                "BAZI_STRENGTH_STRUCTURE_FAVORABILITY_CHAIN",
+                "BAZI_DYNAMIC_RELATION_SCOPE",
                 "RESULT_QUESTION_DYNAMIC_CLOSURE",
                 "ENTITY_NONEXISTENCE_NONBINARY",
                 "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
@@ -2996,6 +3105,7 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
                 "STATUS_TRANSITION_STATE_MACHINE",
                 "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
+                "CROSS_CASE_HYPOTHESIS_QUARANTINE",
             },
         )
         self.assertEqual(
@@ -3005,6 +3115,9 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "ziwei_coordinate_integrity",
                 "ziwei_coordinate_truth_table",
                 "period_namespace_alignment",
+                "bazi_atomic_fact_ledger",
+                "bazi_strength_structure_favorability",
+                "bazi_dynamic_relation_scope",
                 "result_dynamic_closure",
                 "entity_nonexistence",
                 "event_specificity",
@@ -3012,6 +3125,7 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "cross_question_joint_candidates",
                 "status_transition_state_machine",
                 "collaborative_hypothesis_revalidation",
+                "cross_case_hypothesis_quarantine",
             },
         )
 
@@ -3085,7 +3199,106 @@ class RepositoryIntegrityTests(unittest.TestCase):
             ):
                 _validate_method_execution_gates(root, runtime_policy)
 
-    def test_synthetic_method_regressions_reject_all_seven_execution_errors(self):
+    def test_bazi_atomic_fact_ledger_is_mechanical_and_immutable(self):
+        ledger = build_bazi_atomic_fact_ledger(
+            {
+                "YEAR": "甲子",
+                "MONTH": "己丑",
+                "DAY": "丙午",
+                "HOUR": "辛未",
+            }
+        )
+        self.assertEqual(ledger["hidden_stems"]["MONTH"], ["己", "癸", "辛"])
+        self.assertEqual(ledger["ten_gods"]["YEAR_STEM"], "偏印")
+        self.assertEqual(ledger["ten_gods"]["HOUR_STEM"], "正财")
+        self.assertIn(
+            "YEAR_STEM+MONTH_STEM:甲己合土",
+            ledger["heavenly_stem_combinations"],
+        )
+        self.assertTrue(
+            any(
+                relation.startswith("冲:YEAR_BRANCH+DAY_BRANCH")
+                for relation in ledger["earthly_branch_relations"]
+            )
+        )
+        validate_bazi_atomic_fact_ledger(ledger)
+
+        for field, mutate in (
+            ("hidden stem", lambda row: row["hidden_stems"]["MONTH"].pop()),
+            ("ten god", lambda row: row["ten_gods"].__setitem__("HOUR_STEM", "偏财")),
+            ("root", lambda row: row["visible_stem_roots"]["DAY_STEM"].clear()),
+            ("relation", lambda row: row["earthly_branch_relations"].clear()),
+        ):
+            with self.subTest(field=field):
+                damaged = json.loads(json.dumps(ledger, ensure_ascii=False))
+                mutate(damaged)
+                with self.assertRaisesRegex(
+                    TrainingError,
+                    "does not match mechanical derivation",
+                ):
+                    validate_bazi_atomic_fact_ledger(damaged)
+
+    def test_bazi_strength_pattern_and_favorability_share_one_complete_chain(self):
+        ledger = build_bazi_atomic_fact_ledger(
+            {
+                "YEAR": "甲子",
+                "MONTH": "己丑",
+                "DAY": "丙午",
+                "HOUR": "辛未",
+            }
+        )
+        roles = ledger["element_roles"]
+        chain = {
+            "schema": "BAZI-STRENGTH-STRUCTURE-FAVORABILITY-CHAIN-V1",
+            "ledger_sha256": object_sha256(ledger),
+            "seasonal_command_fact_id": "MONTH_BRANCH",
+            "root_fact_ids": ledger["visible_stem_roots"]["DAY_STEM"],
+            "supporting_fact_ids": sorted(
+                fact_id
+                for fact_id, role in roles.items()
+                if role in {"PEER", "RESOURCE"}
+            ),
+            "draining_fact_ids": sorted(
+                fact_id
+                for fact_id, role in roles.items()
+                if role in {"OUTPUT", "WEALTH"}
+            ),
+            "controlling_fact_ids": sorted(
+                fact_id for fact_id, role in roles.items() if role == "OFFICER"
+            ),
+            "relation_fact_ids": sorted(
+                ledger["heavenly_stem_combinations"]
+                + ledger["earthly_branch_relations"]
+            ),
+            "strength_candidates": ["candidate-a", "candidate-b"],
+            "selected_strength_candidate": "candidate-a",
+            "pattern_candidates": ["pattern-a"],
+            "selected_pattern_candidate": "pattern-a",
+            "favorability_candidates": ["favorability-a"],
+            "selected_favorability_candidate": "favorability-a",
+            "method_competition": ["method-a versus method-b"],
+            "unresolved_conflicts": [],
+            "reasoning_summary": "Synthetic complete evidence chain.",
+            "option_blind_frozen": True,
+        }
+        validate_bazi_strength_chain(ledger, chain)
+
+        damaged = json.loads(json.dumps(chain))
+        damaged["supporting_fact_ids"].pop()
+        with self.assertRaisesRegex(TrainingError, "incomplete supporting_fact_ids"):
+            validate_bazi_strength_chain(ledger, damaged)
+
+        damaged = json.loads(json.dumps(chain))
+        damaged["selected_pattern_candidate"] = "question-driven-pattern"
+        with self.assertRaisesRegex(TrainingError, "invalid Bazi candidate chain"):
+            validate_bazi_strength_chain(ledger, damaged)
+
+        damaged = json.loads(json.dumps(chain))
+        damaged["option_blind_frozen"] = False
+        with self.assertRaisesRegex(TrainingError, "option-blind frozen"):
+            validate_bazi_strength_chain(ledger, damaged)
+
+    def test_synthetic_method_regressions_reject_incremental_execution_errors(self):
         runtime_policy = json.loads(
             (PROJECT_ROOT / "config/model-runtime.json").read_text()
         )
@@ -3128,6 +3341,31 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "discussion hypothesis accepted without chart validation",
                 "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
                 "return_to_the_frozen_chart_before_acceptance",
+            ),
+            (
+                "Bazi atomic ledger is changed after option reading",
+                "BAZI_IMMUTABLE_ATOMIC_FACT_LEDGER",
+                "forbid_downstream_mutation_or_option_driven_recalculation",
+            ),
+            (
+                "strength pattern and favorability lack one frozen chain",
+                "BAZI_STRENGTH_STRUCTURE_FAVORABILITY_CHAIN",
+                "freeze_selected_candidates_before_option_ranking",
+            ),
+            (
+                "historical event object silently reactivated",
+                "BAZI_DYNAMIC_RELATION_SCOPE",
+                "treat_historical_event_years_as_inactive_by_default",
+            ),
+            (
+                "multi-hop evidence lacks distance",
+                "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
+                "label_each_evidence_row_as_direct_same_axis_one_hop_or_multi_hop",
+            ),
+            (
+                "single discussion recurrence promoted to rule",
+                "CROSS_CASE_HYPOTHESIS_QUARANTINE",
+                "keep_runtime_decision_weight_at_zero_while_pending",
             ),
         ]
 

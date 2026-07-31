@@ -7,12 +7,12 @@
   "stages": [
     {
       "stage": "INPUT_FREEZE",
-      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "ziwei_coordinate_truth_table", "period_namespace_and_year_alignment_ledger", "collaborative_hypothesis_ledger", "question_and_option_atoms", "data_quality_status"],
+      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "ziwei_coordinate_truth_table", "bazi_immutable_atomic_fact_ledger", "bazi_strength_structure_favorability_chain", "period_namespace_and_year_alignment_ledger", "collaborative_hypothesis_ledger", "question_and_option_atoms", "data_quality_status"],
       "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field", "ambiguous_calendar_or_solar_term_month_for_required_month_inference", "failed_ziwei_coordinate_validation"]
     },
     {
       "stage": "BLIND_FACT_MODEL",
-      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "real_world_endpoints", "status_transition_models", "joint_candidate_matrices_for_related_questions"],
+      "required_outputs": ["subject_entities", "topic_axes", "reference_periods", "bazi_dynamic_relation_scope_ledger", "evidence_axis_distance_ledger", "real_world_endpoints", "status_transition_models", "joint_candidate_matrices_for_related_questions"],
       "rule": "Build before option ranking and do not treat an option assertion as a known fact."
     },
     {
@@ -22,8 +22,8 @@
     },
     {
       "stage": "BAZI_INDEPENDENT_TRACK",
-      "required_outputs": ["seasonal_strength_and_flow", "structure_axes", "structural_changes", "luck_cycle_activation_when_needed", "topic_capability_limits"],
-      "rule": "Do not copy Ziwei mechanisms or jump from ten gods, useful-god, clash, fu-yin or shensha to an exact endpoint."
+      "required_outputs": ["immutable_atomic_fact_ledger_receipt", "seasonal_strength_and_flow", "strength_structure_favorability_evidence_chain", "structure_axes", "structural_changes", "bounded_dynamic_relation_scope", "luck_cycle_activation_when_needed", "topic_capability_limits"],
+      "rule": "Derive the immutable atomic ledger before interpretation, freeze strength, structure and favorability before option comparison, keep dynamic relations inside their declared time scope, and do not copy Ziwei mechanisms or jump from ten gods, useful-god, clash, fu-yin or shensha to an exact endpoint."
     },
     {
       "stage": "REALITY_CLOSURE",
@@ -67,6 +67,21 @@
       "fail_closed_when": ["ziwei_major_period_and_bazi_luck_cycle_are_merged_or_aliased", "a_reference_year_is_mapped_without_explicit_period_boundaries", "age_or_year_boundaries_disagree_without_a_preserved_conflict"],
       "rule": "Ziwei major periods and Bazi luck cycles are different coordinate systems. They must keep separate namespaces, ranges and age conventions; agreement is recorded only after the same reference year has been independently mapped in both tracks."
     },
+    "BAZI_IMMUTABLE_ATOMIC_FACT_LEDGER": {
+      "required_checks": ["freeze_exact_year_month_day_and_hour_pillars", "derive_hidden_stems_under_one_declared_convention", "derive_all_visible_and_hidden_stem_ten_gods_from_the_day_master", "derive_five_elements_and_element_roles_for_every_atomic_fact", "derive_visible_stem_root_presence_and_qi_grade", "enumerate_all_natal_heavenly_stem_five_combinations", "enumerate_all_natal_earthly_branch_combinations_clashes_punishments_harms_and_breaks", "bind_one_mechanical_verification_receipt", "forbid_downstream_mutation_or_option_driven_recalculation"],
+      "fail_closed_when": ["any_pillar_atom_is_missing_or_illegal", "hidden_stem_ten_god_element_root_or_relation_rows_do_not_match_mechanical_derivation", "more_than_one_relation_convention_is_silently_mixed", "a_downstream_claim_uses_an_unledgered_bazi_atom", "the_ledger_changes_after_option_reading"],
+      "rule": "Before strength, pattern, useful-harmful or timing interpretation, materialize one immutable Bazi atomic fact ledger. Four pillars, hidden stems, ten gods, five elements, element roles, root presence and grade, heavenly-stem five combinations, and earthly-branch combination/clash/punishment/harm/break rows must be mechanically derived under one declared convention; later reasoning is read-only and may not repair the ledger to fit an option."
+    },
+    "BAZI_STRENGTH_STRUCTURE_FAVORABILITY_CHAIN": {
+      "required_checks": ["bind_the_chain_to_the_atomic_ledger_hash", "identify_month_command_and_seasonal_qi", "enumerate_all_peer_resource_output_wealth_and_officer_facts", "enumerate_day_master_root_facts", "enumerate_all_declared_relation_facts", "compare_competing_strength_candidates", "compare_competing_pattern_candidates", "compare_competing_favorability_candidates", "freeze_selected_candidates_before_option_ranking", "preserve_unresolved_method_conflicts"],
+      "fail_closed_when": ["strength_pattern_or_favorability_is_asserted_without_the_complete_fact_classes", "a_selected_candidate_is_not_among_the_predeclared_candidates", "the_chain_is_not_bound_to_the_atomic_ledger", "the_selected_model_changes_only_after_an_option_needs_it", "a_method_conflict_is_silently_erased"],
+      "rule": "Body strength, pattern and favorability are derived hypotheses, not selectable premises. Each must share one complete, option-blind chain from month command, all support/drain/control facts, roots, relations and competing methods; the selected candidates and unresolved conflicts freeze before any option ranking and cannot be reassigned for a question."
+    },
+    "BAZI_DYNAMIC_RELATION_SCOPE": {
+      "required_checks": ["assign_each_natal_period_year_and_month_object_to_one_scope_id", "separate_active_query_objects_from_historical_validation_anchors", "enumerate_relations_only_among_objects_active_in_the_declared_scope", "treat_historical_event_years_as_inactive_by_default", "require_named_method_source_route_and_bounded_objects_for_any_cross_time_reactivation", "prevent_one_historical_anchor_from_becoming_reusable_future_dynamic_evidence"],
+      "fail_closed_when": ["objects_from_different_years_are_combined_without_a_declared_method", "a_historical_event_year_is_silently_reintroduced_as_a_future_dynamic_object", "the_cross_time_method_or_source_route_is_missing", "reactivated_objects_are_not_explicitly_bounded", "natal_relations_are_confused_with_period_or_year_relations"],
+      "rule": "Bazi relations act only among objects active in one declared natal, luck-cycle, year or month scope. A historical event year is a validation anchor, not a standing future dynamic object; cross-time reuse is allowed only under an explicitly named, source-routed and object-bounded method, never by narrative carryover."
+    },
     "RESULT_QUESTION_DYNAMIC_CLOSURE": {
       "required_checks": ["identify_result_endpoint", "inspect_corresponding_ziwei_major_period_and_bazi_luck_cycle", "inspect_reference_year_in_both_tracks", "inspect_candidate_months_under_valid_month_mapping", "separate_activation_process_first_observable_result_formal_effect_peak_and_aftermath"],
       "fail_closed_when": ["result_is_inferred_from_natal_structure_only", "major_period_or_year_layer_is_skipped", "month_specific_result_is_claimed_without_valid_month_mapping"],
@@ -78,9 +93,9 @@
       "rule": "Severe malefic structure can raise risk, impairment, separation or loss intensity, but it cannot by itself prove that the relevant person, relationship, asset, organ or institution is absent or never existed."
     },
     "EVENT_SPECIFICITY_WEIGHT_DOMINANCE": {
-      "required_checks": ["classify_shared_and_distinguishing_evidence", "identify_event_specific_mechanism_and_endpoint", "deduplicate_same_parent_evidence", "compare_specific_net_support_before_general_counts"],
-      "fail_closed_when": ["general_symbol_count_outvotes_an_independent_event_specific_chain", "source_or_school_count_is_used_as_weight"],
-      "rule": "One reliable same-actor same-time event-specific mechanism or completed endpoint chain outranks any number of merely compatible general tendencies, unless direct same-axis counterevidence defeats it."
+      "required_checks": ["classify_shared_and_distinguishing_evidence", "identify_event_specific_mechanism_and_endpoint", "label_each_evidence_row_as_direct_same_axis_one_hop_or_multi_hop", "materialize_every_intermediate_link_for_transmitted_evidence", "deduplicate_same_parent_evidence", "discount_longer_transmission_distance_before_general_counts", "compare_specific_net_support_before_general_counts"],
+      "fail_closed_when": ["general_symbol_count_outvotes_an_independent_event_specific_chain", "direct_and_transmitted_evidence_are_given_equal_distance_without_a_path", "a_multi_hop_claim_omits_an_intermediate_link", "source_or_school_count_is_used_as_weight"],
+      "rule": "One reliable direct same-axis event fact, same-actor same-time event-specific mechanism, or completed endpoint chain outranks any number of merely compatible general tendencies. Evidence transmitted through one or multiple intermediate axes must carry an explicit distance and complete path and is discounted relative to equally reliable direct evidence; direct same-axis counterevidence may still defeat the candidate."
     },
     "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING": {
       "required_checks": ["route_subject_and_topic_to_primary_palace", "inspect_opposite_and_trine_auxiliary_palaces", "derive_qi_position_under_declared_taiji", "trace_transformations_and_time_layers", "require_dynamic_realization_for_result_endpoint"],
@@ -101,19 +116,28 @@
       "required_checks": ["label_every_user_or_model_proposed_derivation_as_unverified_hypothesis", "return_to_the_frozen_chart_before_acceptance", "recompute_coordinates_and_time_mappings_from_the_truth_table", "seek_independent_support_and_same_axis_counterevidence", "record_accept_revise_or_reject_status_with_basis", "forbid_authority_fluency_or_agreement_as_evidence"],
       "fail_closed_when": ["a_discussion_claim_enters_the_evidence_ledger_without_independent_chart_validation", "user_or_model_confidence_substitutes_for_frozen_chart_evidence", "a_hypothesis_changes_ranking_before_coordinate_and_time_checks_complete"],
       "rule": "Anything proposed during collaboration, whether by the user or the model, is an unverified hypothesis. It may affect ranking only after independent revalidation against the frozen chart, coordinate truth table, time layers and same-axis counterevidence; agreement and narrative fluency are not evidence."
+    },
+    "CROSS_CASE_HYPOTHESIS_QUARANTINE": {
+      "required_checks": ["register_new_recurrence_patterns_as_generic_hypotheses_only", "strip_case_answers_options_years_and_prediction_directions", "predeclare_scope_mechanism_and_falsification_conditions", "require_independent_cross_case_support_and_counterexamples", "keep_runtime_decision_weight_at_zero_while_pending", "forbid_promotion_by_single_case_discussion_or_replay", "promote_only_through_the_existing_governance_and_validation_process"],
+      "fail_closed_when": ["a_new_recurrence_pattern_is_written_as_an_iron_rule", "case_specific_material_enters_the_hypothesis_record", "a_pending_hypothesis_changes_ranking", "same_case_repetition_is_counted_as_cross_case_validation", "promotion_occurs_without_independent_support_and_counterexample_audit"],
+      "rule": "New recurrence signatures discovered in discussion, including a same-stem, same-transformed-star and same-destination reappearance pattern, remain generic quarantined hypotheses with zero decision weight. They may be promoted only after predefined falsification, independent cross-case support and counterexample review under existing governance; one case, one discussion or one replay can never make them an iron rule."
     }
   },
   "evidence_priority": [
     "direct_same_axis_counterevidence",
+    "direct_same_axis_event_evidence",
     "completed_actor_time_endpoint_chain",
     "independent_event_specific_mechanism",
+    "one_hop_event_transmission_with_complete_path",
     "time-bound_distinguishing_mechanism",
+    "multi_hop_event_transmission_with_complete_path",
     "stable_topic-specific_structure",
     "general_scene_or_tendency",
     "low-weight_auxiliary_marker"
   ],
   "non_accumulation_rules": [
     "same_physical_fact_counts_once",
+    "one_parent_fact_does_not_gain_weight_by_being_reexpressed_across_multiple_transmission_hops",
     "source_count_is_not_weight",
     "school_count_is_not_weight",
     "three_evidence_items_are_a_minimum_summary_not_a_maximum_ledger",

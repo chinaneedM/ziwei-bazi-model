@@ -39,6 +39,17 @@
     "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
     "confidence": "<INTEGER_PERCENT_0_TO_100>",
     "contradicting_evidence_ids": [],
+    "dynamic_relation_scope": {
+      "active_dynamic_object_ids": [],
+      "cross_time_reactivation": {
+        "bounded_object_ids": [],
+        "method": "NOT_APPLICABLE",
+        "source_route": "NOT_APPLICABLE",
+        "status": "NOT_USED"
+      },
+      "historical_anchor_ids": [],
+      "query_scope_id": "<QUESTION_BOUND_SCOPE_ID>"
+    },
     "endpoint_chain": {
       "action": "<REQUIRED_NON_EMPTY_STRING>",
       "endpoint": "<REQUIRED_NON_EMPTY_STRING>",
@@ -111,6 +122,7 @@
       "applicability_conditions": [
         "<REQUIRED_NON_EMPTY_STRING>"
       ],
+      "axis_distance": "<DIRECT_SAME_AXIS_ONE_HOP_OR_MULTI_HOP>",
       "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
       "chart_fact": "<REQUIRED_NON_EMPTY_STRING>",
       "conditions_satisfied": [
@@ -125,11 +137,14 @@
       "layer": "<NATAL_PERIOD_YEAR_MONTH_OR_REALITY>",
       "limitations": "<REQUIRED_NON_EMPTY_STRING>",
       "reliability": "<HIGH_MEDIUM_LOW_OR_UNKNOWN>",
+      "scope_id": "<DECLARED_TEMPORAL_SCOPE_ID>",
       "source_route": "<DECLARED_S00_TO_S19>",
       "supports_option_atoms": [
         "<OPTION_ID>:<EXACT_ATOM_TEXT>"
       ],
-      "track": "<ZIWEI_OR_BAZI_OR_REALITY>"
+      "temporal_role": "<NATAL_STATIC_PERIOD_CONTEXT_ACTIVE_QUERY_OBJECT_HISTORICAL_VALIDATION_ANCHOR_OR_REALITY_ENDPOINT>",
+      "track": "<ZIWEI_OR_BAZI_OR_REALITY>",
+      "transmission_path": []
     }
   ],
   "final_ranking": [

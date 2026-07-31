@@ -5,6 +5,10 @@ import re
 from collections import Counter
 from typing import Any
 
+from .bazi_facts import (
+    validate_bazi_atomic_fact_ledger,
+    validate_bazi_strength_chain,
+)
 from .util import TrainingError, object_sha256
 
 
@@ -68,6 +72,12 @@ EVIDENCE_FIELDS = {
     "capability_ceiling",
     "decision_impact",
     "limitations",
+}
+EVIDENCE_SCOPE_FIELDS = {
+    "axis_distance",
+    "transmission_path",
+    "temporal_role",
+    "scope_id",
 }
 
 _TIME_WINDOW_ATOM = re.compile(
@@ -145,8 +155,8 @@ def validate_blind_chart_model(case: dict[str, Any], value: Any) -> dict[str, An
         },
         "blind_chart_model",
     )
-    if model["schema"] != "BLIND-CHART-MODEL-V1":
-        raise TrainingError("blind_chart_model schema must be BLIND-CHART-MODEL-V1")
+    if model["schema"] not in {"BLIND-CHART-MODEL-V1", "BLIND-CHART-MODEL-V2"}:
+        raise TrainingError("blind_chart_model has an unsupported schema")
     _walk_forbidden(model, "$.blind_chart_model")
     reliability = _object(
         model["input_reliability"],
@@ -195,20 +205,34 @@ def validate_blind_chart_model(case: dict[str, Any], value: Any) -> dict[str, An
         },
         "blind_chart_model.ziwei_static_model",
     )
+    bazi_fields = {
+        "chart_facts",
+        "seasonal_strength_candidates",
+        "pattern_candidates",
+        "method_competition",
+        "relations_and_structural_changes",
+        "useful_harmful_candidates",
+        "unresolved_disputes",
+        "limitations",
+    }
+    if model["schema"] == "BLIND-CHART-MODEL-V2":
+        bazi_fields |= {
+            "immutable_atomic_fact_ledger",
+            "strength_structure_favorability_chain",
+        }
     bazi = _object(
         model["bazi_static_model"],
-        {
-            "chart_facts",
-            "seasonal_strength_candidates",
-            "pattern_candidates",
-            "method_competition",
-            "relations_and_structural_changes",
-            "useful_harmful_candidates",
-            "unresolved_disputes",
-            "limitations",
-        },
+        bazi_fields,
         "blind_chart_model.bazi_static_model",
     )
+    if model["schema"] == "BLIND-CHART-MODEL-V2":
+        atomic_ledger = validate_bazi_atomic_fact_ledger(
+            bazi["immutable_atomic_fact_ledger"]
+        )
+        validate_bazi_strength_chain(
+            atomic_ledger,
+            bazi["strength_structure_favorability_chain"],
+        )
     shared = _object(
         model["shared_life_structure"],
         {
@@ -231,6 +255,11 @@ def validate_blind_chart_model(case: dict[str, Any], value: Any) -> dict[str, An
         ("shared_life_structure", shared),
     ):
         for field, field_value in section.items():
+            if field in {
+                "immutable_atomic_fact_ledger",
+                "strength_structure_favorability_chain",
+            }:
+                continue
             _texts(field_value, f"{label}.{field}", allow_empty=field in {"structural_conflicts", "unresolved_disputes", "major_conflicts", "unknowns"})
 
     serialized = json.dumps(model, ensure_ascii=False)
@@ -347,7 +376,16 @@ def _validate_evidence(
     by_id: dict[str, dict[str, Any]] = {}
     fact_families: dict[str, str] = {}
     for raw in value:
-        row = _object(raw, EVIDENCE_FIELDS, f"{question_id}.evidence")
+        if not isinstance(raw, dict):
+            raise TrainingError(f"{question_id}.evidence must be an object")
+        raw_fields = frozenset(raw)
+        scoped = raw_fields == frozenset(EVIDENCE_FIELDS | EVIDENCE_SCOPE_FIELDS)
+        if raw_fields not in {
+            frozenset(EVIDENCE_FIELDS),
+            frozenset(EVIDENCE_FIELDS | EVIDENCE_SCOPE_FIELDS),
+        }:
+            raise TrainingError(f"{question_id}.evidence has invalid fields")
+        row = raw
         evidence_id = _text(row["evidence_id"], f"{question_id}.evidence_id")
         if evidence_id in by_id:
             raise TrainingError(f"{question_id} has duplicate evidence_id: {evidence_id}")
@@ -373,6 +411,54 @@ def _validate_evidence(
             raise TrainingError(f"{question_id}.{evidence_id} has invalid reliability")
         if row["decision_impact"] not in {"DECISIVE", "SUPPORTING", "COUNTEREVIDENCE", "NEUTRAL"}:
             raise TrainingError(f"{question_id}.{evidence_id} has invalid decision_impact")
+        if scoped:
+            distance = row["axis_distance"]
+            path = _texts(
+                row["transmission_path"],
+                f"{question_id}.{evidence_id}.transmission_path",
+            )
+            expected_path_length = {
+                "DIRECT_SAME_AXIS": 0,
+                "ONE_HOP": 1,
+            }
+            if distance in expected_path_length and len(path) != expected_path_length[distance]:
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} evidence distance/path mismatch"
+                )
+            if distance == "MULTI_HOP" and len(path) < 2:
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} multi-hop evidence needs every intermediate link"
+                )
+            if distance not in {"DIRECT_SAME_AXIS", "ONE_HOP", "MULTI_HOP"}:
+                raise TrainingError(f"{question_id}.{evidence_id} has invalid axis_distance")
+            temporal_role = row["temporal_role"]
+            if temporal_role not in {
+                "NATAL_STATIC",
+                "PERIOD_CONTEXT",
+                "ACTIVE_QUERY_OBJECT",
+                "HISTORICAL_VALIDATION_ANCHOR",
+                "REALITY_ENDPOINT",
+            }:
+                raise TrainingError(f"{question_id}.{evidence_id} has invalid temporal_role")
+            _text(row["scope_id"], f"{question_id}.{evidence_id}.scope_id")
+            allowed_layers = {
+                "NATAL_STATIC": {"NATAL"},
+                "PERIOD_CONTEXT": {"PERIOD"},
+                "ACTIVE_QUERY_OBJECT": {"PERIOD", "YEAR", "MONTH"},
+                "HISTORICAL_VALIDATION_ANCHOR": {"YEAR", "MONTH", "REALITY"},
+                "REALITY_ENDPOINT": {"REALITY"},
+            }
+            if row["layer"] not in allowed_layers[temporal_role]:
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} temporal role/layer mismatch"
+                )
+            if temporal_role == "HISTORICAL_VALIDATION_ANCHOR" and (
+                row["decision_impact"] != "NEUTRAL"
+                or row["independence_status"] != "NEUTRAL_BACKGROUND"
+            ):
+                raise TrainingError(
+                    f"{question_id}.{evidence_id} historical anchor may not become an active decision object"
+                )
         if row["independence_status"] == "NEUTRAL_BACKGROUND":
             if row["decision_impact"] != "NEUTRAL":
                 raise TrainingError(
@@ -403,6 +489,59 @@ def _validate_evidence(
     return rows, by_id
 
 
+def _validate_bazi_dynamic_relation_scope(value: Any, question_id: str) -> dict[str, Any]:
+    scope = _object(
+        value,
+        {
+            "query_scope_id",
+            "active_dynamic_object_ids",
+            "historical_anchor_ids",
+            "cross_time_reactivation",
+        },
+        f"{question_id}.bazi_dynamic_relation_scope",
+    )
+    _text(scope["query_scope_id"], f"{question_id}.bazi_dynamic_relation_scope.query_scope_id")
+    active = _texts(
+        scope["active_dynamic_object_ids"],
+        f"{question_id}.bazi_dynamic_relation_scope.active_dynamic_object_ids",
+    )
+    historical = _texts(
+        scope["historical_anchor_ids"],
+        f"{question_id}.bazi_dynamic_relation_scope.historical_anchor_ids",
+    )
+    reactivation = _object(
+        scope["cross_time_reactivation"],
+        {"status", "method", "source_route", "bounded_object_ids"},
+        f"{question_id}.bazi_dynamic_relation_scope.cross_time_reactivation",
+    )
+    bounded = _texts(
+        reactivation["bounded_object_ids"],
+        f"{question_id}.bazi_dynamic_relation_scope.bounded_object_ids",
+    )
+    overlap = set(active) & set(historical)
+    if reactivation["status"] == "NOT_USED":
+        if (
+            reactivation["method"] != "NOT_APPLICABLE"
+            or reactivation["source_route"] != "NOT_APPLICABLE"
+            or bounded
+            or overlap
+        ):
+            raise TrainingError(
+                f"{question_id} silently reactivates a historical Bazi object"
+            )
+    elif reactivation["status"] == "DECLARED_METHOD":
+        _text(reactivation["method"], f"{question_id}.bazi_dynamic_relation_scope.method")
+        if reactivation["method"] == "NOT_APPLICABLE":
+            raise TrainingError(f"{question_id} lacks a declared cross-time method")
+        if not re.fullmatch(r"S(?:0[0-9]|1[0-9])", str(reactivation["source_route"])):
+            raise TrainingError(f"{question_id} has an invalid cross-time source route")
+        if not bounded or not set(bounded).issubset(set(active) | set(historical)):
+            raise TrainingError(f"{question_id} cross-time method is not object-bounded")
+    else:
+        raise TrainingError(f"{question_id} has invalid cross-time reactivation status")
+    return scope
+
+
 def _validate_track(
     value: Any,
     *,
@@ -416,21 +555,24 @@ def _validate_track(
         if track == "ZIWEI"
         else {"strength_and_pattern", "method_competition", "luck_timing"}
     )
+    seal_fields = {
+        "top1",
+        "top2",
+        "ranking",
+        *analysis_fields,
+        "endpoint_chain",
+        "supporting_evidence_ids",
+        "contradicting_evidence_ids",
+        "alternative_explanations",
+        "unresolved_links",
+        "capability_ceiling",
+        "confidence",
+    }
+    if track == "BAZI" and isinstance(value, dict) and "dynamic_relation_scope" in value:
+        seal_fields.add("dynamic_relation_scope")
     seal = _object(
         value,
-        {
-            "top1",
-            "top2",
-            "ranking",
-            *analysis_fields,
-            "endpoint_chain",
-            "supporting_evidence_ids",
-            "contradicting_evidence_ids",
-            "alternative_explanations",
-            "unresolved_links",
-            "capability_ceiling",
-            "confidence",
-        },
+        seal_fields,
         f"{question_id}.{track.lower()}_track_seal",
     )
     if seal["top1"] not in option_ids or seal["top2"] not in option_ids or seal["top1"] == seal["top2"]:
@@ -466,6 +608,11 @@ def _validate_track(
         raise TrainingError(f"{question_id}.{track} support and counterevidence must be disjoint")
     _texts(seal["alternative_explanations"], f"{question_id}.{track}.alternative_explanations", allow_empty=False)
     _texts(seal["unresolved_links"], f"{question_id}.{track}.unresolved_links")
+    if track == "BAZI" and "dynamic_relation_scope" in seal:
+        _validate_bazi_dynamic_relation_scope(
+            seal["dynamic_relation_scope"],
+            question_id,
+        )
     _text(seal["capability_ceiling"], f"{question_id}.{track}.capability_ceiling")
     _confidence(seal["confidence"], f"{question_id}.{track}.confidence")
     return seal
