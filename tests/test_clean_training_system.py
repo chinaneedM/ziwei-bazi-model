@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 import base64
+import io
 import shutil
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -19,7 +21,7 @@ from fortune_training.chat_input import (
     HANDOFF_TARGET_MAX_CHARACTERS,
     write_chat_input,
 )
-from fortune_training.cli import build_parser
+from fortune_training.cli import build_parser, main as cli_main
 from fortune_training.canonical_runtime import (
     MAX_SEGMENT_BYTES,
     RUNTIME_MANIFEST_PATH,
@@ -81,6 +83,7 @@ from fortune_training.transport import (
 )
 from fortune_training.util import TrainingError, object_sha256
 from fortune_training.verify import (
+    _validate_method_execution_gates,
     _validate_model_runtime_policy,
     build_source_manifest,
     verify_repository,
@@ -2916,7 +2919,7 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertLess(runtime["current_input_characters"], 80_000)
         self.assertLess(runtime["compiled_runtime_model_characters"], 80_000)
         self.assertTrue(runtime["all_prediction_themes_preserved"])
-        self.assertEqual(runtime["reasoning_theme_count"], 14)
+        self.assertEqual(runtime["reasoning_theme_count"], 20)
         self.assertIsNone(runtime["evidence_quota"])
 
         bundle = json.loads((PROJECT_ROOT / CHAT_INPUT_RELATIVE_PATH).read_text())
@@ -2973,6 +2976,28 @@ class RepositoryIntegrityTests(unittest.TestCase):
             runtime_model["knowledge_card_runtime_authority"],
             "chat-input/runtime-model.json#knowledge_cards",
         )
+        self.assertEqual(
+            set(runtime_model["reasoning_core"]["method_gates"]),
+            {
+                "CALENDAR_SOLAR_TERM_MONTH_MAPPING",
+                "ZIWEI_COORDINATE_INTEGRITY",
+                "RESULT_QUESTION_DYNAMIC_CLOSURE",
+                "ENTITY_NONEXISTENCE_NONBINARY",
+                "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
+                "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+            },
+        )
+        self.assertEqual(
+            set(runtime_model["knowledge_route_map"]["execution_gates"]),
+            {
+                "calendar_and_month_mapping",
+                "ziwei_coordinate_integrity",
+                "result_dynamic_closure",
+                "entity_nonexistence",
+                "event_specificity",
+                "topic_palace_chain",
+            },
+        )
 
         question_ids = {
             row["question_id"]
@@ -2986,6 +3011,88 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertTrue(
             all(row["knowledge_card_ids"] for row in execution_routes)
         )
+
+    def test_method_gates_fail_closed_and_preserve_specificity_priority(self):
+        runtime_policy = json.loads(
+            (PROJECT_ROOT / "config/model-runtime.json").read_text()
+        )
+        reasoning_core, route_map = _validate_method_execution_gates(
+            PROJECT_ROOT,
+            runtime_policy,
+        )
+        priority = reasoning_core["evidence_priority"]
+        self.assertLess(
+            priority.index("independent_event_specific_mechanism"),
+            priority.index("general_scene_or_tendency"),
+        )
+        result_gate = reasoning_core["method_gates"][
+            "RESULT_QUESTION_DYNAMIC_CLOSURE"
+        ]
+        self.assertIn(
+            "inspect_corresponding_ziwei_major_period_and_bazi_luck_cycle",
+            result_gate["required_checks"],
+        )
+        self.assertIn(
+            "inspect_candidate_months_under_valid_month_mapping",
+            result_gate["required_checks"],
+        )
+        self.assertEqual(
+            route_map["execution_gates"]["topic_palace_chain"][
+                "required_order"
+            ][:3],
+            [
+                "primary_palace",
+                "opposite_and_trine_auxiliary_palaces",
+                "qi_position_under_declared_taiji",
+            ],
+        )
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            write_json(root / "config/model-runtime.json", runtime_policy)
+            write_json(
+                root / runtime_policy["reasoning_core"],
+                reasoning_core,
+            )
+            write_json(
+                root / runtime_policy["knowledge_route_map"],
+                route_map,
+            )
+            damaged = json.loads(
+                (root / runtime_policy["reasoning_core"]).read_text()
+            )
+            damaged["method_gates"].pop("ZIWEI_COORDINATE_INTEGRITY")
+            write_json(root / runtime_policy["reasoning_core"], damaged)
+            with self.assertRaisesRegex(
+                TrainingError,
+                "method gates are incomplete",
+            ):
+                _validate_method_execution_gates(root, runtime_policy)
+
+    def test_chat_input_cli_never_prints_case_body(self):
+        bundle = {
+            "state_summary": {
+                "current_model_release": "MODEL-TEST",
+                "current_case_id": "CASE-TEST",
+                "recommended_round_id": "ROUND-TEST",
+                "prediction_allowed": True,
+            },
+            "contains_answers": False,
+            "contains_old_predictions": False,
+            "contains_scores_or_reviews": False,
+            "current_case": {"private_marker": "MUST_NOT_PRINT"},
+        }
+        output = io.StringIO()
+        with (
+            patch("fortune_training.cli._repo_root", return_value=PROJECT_ROOT),
+            patch("fortune_training.cli.write_chat_input", return_value=bundle),
+            redirect_stdout(output),
+        ):
+            self.assertEqual(cli_main(["chat-input"]), 0)
+        payload = json.loads(output.getvalue())
+        self.assertEqual(payload["status"], "CHAT_INPUT_REBUILT")
+        self.assertNotIn("current_case", payload)
+        self.assertNotIn("MUST_NOT_PRINT", output.getvalue())
 
     def test_model_runtime_rejects_project_source_dependency(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -3227,7 +3334,13 @@ class FormalActivationTests(unittest.TestCase):
             self.assertTrue(finalized["transport_material_removed"])
             result = verify_repository(root, require_answers=True)
             self.assertEqual(result["answer_envelopes"], 107)
-            self.assertEqual(result["active_controller_group"]["cases"], 61)
+            development = json.loads(
+                (root / "case-bank/partitions/development.json").read_text()
+            )
+            self.assertEqual(
+                result["active_controller_group"]["cases"],
+                len(development["first_blind_schedule"]),
+            )
             self.assertEqual(result["active_controller_group"]["mode"], "FORMAL_CASE_BANK")
 
 

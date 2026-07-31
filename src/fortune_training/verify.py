@@ -54,6 +54,44 @@ FORBIDDEN_CASE_KEYS = {
     "label",
     "revealed_answer",
 }
+REQUIRED_METHOD_GATES = {
+    "CALENDAR_SOLAR_TERM_MONTH_MAPPING",
+    "ZIWEI_COORDINATE_INTEGRITY",
+    "RESULT_QUESTION_DYNAMIC_CLOSURE",
+    "ENTITY_NONEXISTENCE_NONBINARY",
+    "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
+    "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+}
+REQUIRED_ROUTE_GATES = {
+    "calendar_and_month_mapping",
+    "ziwei_coordinate_integrity",
+    "result_dynamic_closure",
+    "entity_nonexistence",
+    "event_specificity",
+    "topic_palace_chain",
+}
+REQUIRED_REASONING_THEMES = {
+    "INPUT_AND_CHART_COORDINATE_FREEZE",
+    "CALENDAR_SOLAR_TERM_MONTH_MAPPING_GATE",
+    "ZIWEI_COORDINATE_INTEGRITY_GATE",
+    "OPTION_BLIND_SHARED_CHART_MODEL",
+    "ZIWEI_STATIC_STRUCTURE",
+    "ZIWEI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+    "BAZI_STATIC_STRUCTURE_INDEPENDENTLY",
+    "BAZI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
+    "RESULT_QUESTION_MAJOR_PERIOD_YEAR_MONTH_CLOSURE",
+    "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+    "ACTOR_ACTION_OBJECT_TIME_ENDPOINT_CLOSURE",
+    "ENTITY_NONEXISTENCE_NONBINARY_GATE",
+    "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
+    "REALITY_SEMANTICS_AND_MAGNITUDE",
+    "ALL_OPTION_ATOM_COVERAGE",
+    "ALL_OPTION_PAIR_COMPARISON",
+    "TOP1_TOP2_STRONGEST_REVERSAL",
+    "CROSS_TRACK_CONFLICT_PRESERVATION",
+    "CROSS_QUESTION_CONSISTENCY",
+    "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION",
+}
 
 
 def build_source_manifest(root: Path) -> dict[str, Any]:
@@ -197,6 +235,62 @@ def _validate_model_runtime_policy(root: Path) -> dict[str, Any] | None:
     }:
         raise TrainingError("model runtime dependency guard is incomplete")
     return policy
+
+
+def _validate_method_execution_gates(
+    root: Path,
+    model_runtime_policy: dict[str, Any] | None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    if model_runtime_policy is None:
+        raise TrainingError("model runtime policy is required for method gates")
+    reasoning_path = model_runtime_policy.get("reasoning_core")
+    route_path = model_runtime_policy.get("knowledge_route_map")
+    if not isinstance(reasoning_path, str) or not isinstance(route_path, str):
+        raise TrainingError("model runtime method paths are missing")
+    reasoning_core = load_json(root / reasoning_path)
+    route_map = load_json(root / route_path)
+    gates = reasoning_core.get("method_gates")
+    if not isinstance(gates, dict) or set(gates) != REQUIRED_METHOD_GATES:
+        raise TrainingError("reasoning core method gates are incomplete")
+    for gate_id, gate in gates.items():
+        if (
+            not isinstance(gate, dict)
+            or set(gate) != {"required_checks", "fail_closed_when", "rule"}
+            or not isinstance(gate["required_checks"], list)
+            or not gate["required_checks"]
+            or len(gate["required_checks"]) != len(set(gate["required_checks"]))
+            or not isinstance(gate["fail_closed_when"], list)
+            or not gate["fail_closed_when"]
+            or len(gate["fail_closed_when"]) != len(set(gate["fail_closed_when"]))
+            or not isinstance(gate["rule"], str)
+            or not gate["rule"].strip()
+        ):
+            raise TrainingError(f"invalid reasoning method gate: {gate_id}")
+    priority = reasoning_core.get("evidence_priority", [])
+    try:
+        specific_index = priority.index("independent_event_specific_mechanism")
+        general_index = priority.index("general_scene_or_tendency")
+    except ValueError as exc:
+        raise TrainingError("reasoning core lacks event-specific evidence priority") from exc
+    if specific_index >= general_index:
+        raise TrainingError("general evidence outranks event-specific evidence")
+    route_gates = route_map.get("execution_gates")
+    if not isinstance(route_gates, dict) or set(route_gates) != REQUIRED_ROUTE_GATES:
+        raise TrainingError("knowledge route execution gates are incomplete")
+    for gate_id, gate in route_gates.items():
+        if (
+            not isinstance(gate, dict)
+            or set(gate) != {"route", "required_order", "limit"}
+            or not isinstance(gate["route"], list)
+            or not gate["route"]
+            or not set(gate["route"]).issubset({f"S{index:02d}" for index in range(20)})
+            or not isinstance(gate["required_order"], list)
+            or not gate["required_order"]
+            or not isinstance(gate["limit"], str)
+            or not gate["limit"].strip()
+        ):
+            raise TrainingError(f"invalid knowledge route execution gate: {gate_id}")
+    return reasoning_core, route_map
 
 
 def _validate_answer_policy(root: Path) -> dict[str, Any]:
@@ -511,6 +605,13 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     taxonomy = load_taxonomy(root)
     source_policy = _validate_source_policy(root)
     model_runtime_policy = _validate_model_runtime_policy(root)
+    if model_runtime_policy is not None:
+        reasoning_core, knowledge_route_map = _validate_method_execution_gates(
+            root,
+            model_runtime_policy,
+        )
+    else:
+        reasoning_core, knowledge_route_map = None, None
     _validate_answer_policy(root)
     expected_manifest = build_source_manifest(root)
     manifest = load_json(root / "sources" / "canonical-manifest.json")
@@ -646,28 +747,12 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
             "Chat handoff still depends on local preflight or bypasses the phase gate"
         )
     performance = chat_input.get("runtime_performance_contract")
-    required_themes = {
-        "INPUT_AND_CHART_COORDINATE_FREEZE",
-        "OPTION_BLIND_SHARED_CHART_MODEL",
-        "ZIWEI_STATIC_STRUCTURE",
-        "ZIWEI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
-        "BAZI_STATIC_STRUCTURE_INDEPENDENTLY",
-        "BAZI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
-        "ACTOR_ACTION_OBJECT_TIME_ENDPOINT_CLOSURE",
-        "REALITY_SEMANTICS_AND_MAGNITUDE",
-        "ALL_OPTION_ATOM_COVERAGE",
-        "ALL_OPTION_PAIR_COMPARISON",
-        "TOP1_TOP2_STRONGEST_REVERSAL",
-        "CROSS_TRACK_CONFLICT_PRESERVATION",
-        "CROSS_QUESTION_CONSISTENCY",
-        "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION",
-    }
     if (
         not isinstance(performance, dict)
         or performance.get("schema")
         != "CHAT-PREDICTION-RUNTIME-PERFORMANCE-V1"
         or set(performance.get("non_negotiable_reasoning_themes", []))
-        != required_themes
+        != REQUIRED_REASONING_THEMES
         or performance.get("retrieval", {}).get("evidence_quota")
         is not None
         or performance.get("comparison_representation", {}).get(
@@ -695,6 +780,14 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         object_sha256(runtime_model) != runtime_model_ref.get("sha256")
         or runtime_model.get("release_id") != current_release
         or runtime_model.get("predictive_content_omitted") is not False
+        or runtime_model.get("reasoning_core") != reasoning_core
+        or (
+            knowledge_route_map is not None
+            and runtime_model.get("knowledge_route_map", {}).get(
+                "execution_gates"
+            )
+            != knowledge_route_map["execution_gates"]
+        )
     ):
         raise TrainingError("compiled Chat runtime model is stale or incomplete")
     if model_runtime_policy is not None:
@@ -869,7 +962,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
             "compiled_runtime_model_budget": budgets[
                 "compiled_runtime_model_max_characters"
             ],
-            "reasoning_theme_count": len(required_themes),
+            "reasoning_theme_count": len(REQUIRED_REASONING_THEMES),
             "all_prediction_themes_preserved": True,
             "evidence_quota": None,
         },

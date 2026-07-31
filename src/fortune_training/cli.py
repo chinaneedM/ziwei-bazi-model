@@ -35,7 +35,7 @@ from .runtime import (
     start_round,
     status,
 )
-from .util import TrainingError
+from .util import TrainingError, object_sha256
 from .verify import verify_repository
 
 
@@ -197,7 +197,34 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "case-bank-report":
             _print_json(case_bank_report(root))
         elif args.command == "chat-input":
-            _print_json(write_chat_input(root))
+            bundle = write_chat_input(root)
+            _print_json(
+                {
+                    "status": "CHAT_INPUT_REBUILT",
+                    "path": "chat-input/current.json",
+                    "runtime_model_path": "chat-input/runtime-model.json",
+                    "current_model_release": bundle["state_summary"][
+                        "current_model_release"
+                    ],
+                    "current_case_id": bundle["state_summary"][
+                        "current_case_id"
+                    ],
+                    "recommended_round_id": bundle["state_summary"][
+                        "recommended_round_id"
+                    ],
+                    "prediction_allowed": bundle["state_summary"][
+                        "prediction_allowed"
+                    ],
+                    "chat_input_sha256": object_sha256(bundle),
+                    "contains_answers": bundle["contains_answers"],
+                    "contains_old_predictions": bundle[
+                        "contains_old_predictions"
+                    ],
+                    "contains_scores_or_reviews": bundle[
+                        "contains_scores_or_reviews"
+                    ],
+                }
+            )
         elif args.command == "canonical-runtime-build":
             _print_json(write_canonical_runtime(root))
         elif args.command == "maintenance-status":

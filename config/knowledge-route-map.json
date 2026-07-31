@@ -79,16 +79,53 @@
     "PERSONALITY_APPEARANCE": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S11", "S12", "S13", "S16", "S17", "S18"],
     "RARE_OR_SENSITIVE": ["S02", "S04", "S08", "S10", "S11", "S14", "S15", "S16", "S17", "S18", "S19"]
   },
+  "execution_gates": {
+    "calendar_and_month_mapping": {
+      "route": ["S01", "S10", "S15", "S19"],
+      "required_order": ["civil_and_lunar_date_identity", "timezone_and_true_solar_time", "adjacent_solar_terms", "solar_term_month", "declared_month_numbering", "doujun_month_mapping"],
+      "limit": "Gregorian month, lunar month and solar-term month may not be substituted for one another. An unresolved boundary or convention blocks the affected flow-month conclusion."
+    },
+    "ziwei_coordinate_integrity": {
+      "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
+      "required_order": ["twelve_palaces", "opposites_and_trines", "transformation_origin_and_destination", "major_period_direction_and_age_range", "year_and_month_sequence", "doujun", "qi_position"],
+      "limit": "Interpretation may begin only after the coordinate receipt is internally reciprocal and reproducible."
+    },
+    "result_dynamic_closure": {
+      "route": ["S08", "S10", "S15", "S17", "S18"],
+      "required_order": ["natal_capacity", "ziwei_major_period_and_bazi_luck_cycle", "reference_year", "defensible_candidate_months", "observable_or_formal_endpoint"],
+      "limit": "A result-bearing option cannot be ranked from natal capacity or general scene alone."
+    },
+    "entity_nonexistence": {
+      "route": ["S02", "S03", "S04", "S08", "S10", "S17", "S18"],
+      "required_order": ["entity_identity", "existence_or_absence", "condition_or_risk", "dynamic_action", "real_world_endpoint"],
+      "limit": "Severe or malefic symbolism is risk evidence, not standalone proof that an entity is absent or never existed."
+    },
+    "event_specificity": {
+      "route": ["S03", "S17", "S18"],
+      "required_order": ["same_axis_counterevidence", "completed_event_specific_chain", "time_bound_distinguishing_mechanism", "topic_specific_structure", "general_tendency"],
+      "limit": "General evidence quantity, source count and school count do not outweigh an independent event-specific chain."
+    },
+    "topic_palace_chain": {
+      "route": ["S04", "S08", "S09", "S10", "S17", "S18"],
+      "required_order": ["primary_palace", "opposite_and_trine_auxiliary_palaces", "qi_position_under_declared_taiji", "transformations", "major_period_year_month_realization", "endpoint"],
+      "limit": "Auxiliary palaces and qi position refine or challenge the primary route; they cannot replace subject identity, time activation or endpoint closure."
+    }
+  },
   "mandatory_reasoning_order": [
     "freeze_input_and_option_atoms",
+    "validate_calendar_solar_term_and_month_mapping",
+    "validate_ziwei_palace_transformation_age_doujun_and_qi_coordinates",
     "build_option_blind_fact_model",
     "route_subject_topic_and_reference_period",
+    "route_primary_palace_auxiliary_palaces_and_qi_position",
     "derive_ziwei_static_structure",
-    "derive_ziwei_dynamic_activation_when_applicable",
+    "derive_ziwei_major_period_year_and_month_activation_for_result_questions",
     "derive_bazi_static_structure_independently",
-    "derive_bazi_dynamic_activation_when_applicable",
+    "derive_bazi_luck_cycle_year_and_month_activation_for_result_questions",
     "close_actor_action_object_time_and_endpoint",
+    "reject_malefic_only_entity_nonexistence_binary",
     "deduplicate_same_physical_evidence",
+    "apply_event_specificity_before_general_evidence_count",
     "compare_all_option_pairs_and_strongest_rival",
     "freeze_top1_top2_and_uncertainty",
     "reveal_only_after_freeze"

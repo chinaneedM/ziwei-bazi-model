@@ -7,8 +7,8 @@
   "stages": [
     {
       "stage": "INPUT_FREEZE",
-      "required_outputs": ["calendar_and_chart_coordinates", "question_and_option_atoms", "data_quality_status"],
-      "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field"]
+      "required_outputs": ["calendar_system_and_civil_date", "lunar_date_if_supplied", "timezone_true_solar_time_and_solar_term_boundary", "solar_term_month_mapping", "ziwei_coordinate_validation_receipt", "question_and_option_atoms", "data_quality_status"],
+      "stop_conditions": ["answer_visibility", "unrecoverable_question_or_option_damage", "unresolved_critical_chart_field", "ambiguous_calendar_or_solar_term_month_for_required_month_inference", "failed_ziwei_coordinate_validation"]
     },
     {
       "stage": "BLIND_FACT_MODEL",
@@ -17,8 +17,8 @@
     },
     {
       "stage": "ZIWEI_INDEPENDENT_TRACK",
-      "required_outputs": ["natal_structure", "star_system_and_palace_expression", "transformation_chain", "time_activation_when_needed", "capability_limits"],
-      "rule": "Static tendency, dynamic activation and completed event are separate levels."
+      "required_outputs": ["natal_structure", "primary_palace_auxiliary_palaces_and_qi_position", "star_system_and_palace_expression", "transformation_chain", "major_period_year_and_month_activation_for_result_questions", "capability_limits"],
+      "rule": "Static tendency, coordinate routing, dynamic activation and completed event are separate levels. Result-bearing questions must enter the corresponding major period, year and defensible month layer before endpoint closure."
     },
     {
       "stage": "BAZI_INDEPENDENT_TRACK",
@@ -28,7 +28,7 @@
     {
       "stage": "REALITY_CLOSURE",
       "required_outputs": ["actor", "action", "object", "time", "result", "missing_endpoint_atoms", "alternative_explanations"],
-      "rule": "Risk and opportunity remain distinct from occurrence and formal completion."
+      "rule": "Risk and opportunity remain distinct from occurrence and formal completion. Severe or malefic symbolism is not proof that a person, relationship, asset or other entity does not exist."
     },
     {
       "stage": "PAIRWISE_SELECTION",
@@ -46,9 +46,42 @@
       "rule": "Each distinct new case contributes at most one first-blind result. A failed first blind resets the cross-case streak, requires generic learning, and queues the case for replay after at least five newer cases. Replays diagnose remediation but never count toward the three-case gate."
     }
   ],
+  "method_gates": {
+    "CALENDAR_SOLAR_TERM_MONTH_MAPPING": {
+      "required_checks": ["declare_calendar_system", "preserve_civil_and_lunar_dates_without_substitution", "resolve_timezone_and_true_solar_time_when_required", "locate_adjacent_solar_terms", "map_reference_date_to_single_solar_term_month", "declare_month_numbering_and_doujun_convention"],
+      "fail_closed_when": ["civil_lunar_or_solar_term_date_is_conflated", "solar_term_boundary_is_unresolved", "month_numbering_or_doujun_convention_is_ambiguous"],
+      "rule": "A lunar month label, Gregorian month number and solar-term month are different coordinates. No flow-month or Doujun inference may proceed until the reference date is mapped under one declared convention; an unresolved boundary blocks only the affected month-resolution claim and may not be guessed."
+    },
+    "ZIWEI_COORDINATE_INTEGRITY": {
+      "required_checks": ["twelve_palaces_are_unique_and_complete", "opposite_and_trine_sets_are_reciprocal", "transformations_have_declared_origin_layer_and_destination", "major_period_age_range_matches_direction_and_age_convention", "year_and_month_palace_sequences_are_complete", "doujun_month_sequence_matches_declared_convention", "qi_position_derivation_returns_to_declared_taiji"],
+      "fail_closed_when": ["any_required_coordinate_has_two_destinations", "age_range_or_direction_is_inconsistent", "transformation_origin_or_destination_is_missing", "doujun_or_qi_position_derivation_cannot_be_reproduced"],
+      "rule": "Coordinate validation precedes interpretation. Opposite, trine, transformation, age, Doujun and qi-position claims must be mechanically reproducible from the frozen chart and declared convention."
+    },
+    "RESULT_QUESTION_DYNAMIC_CLOSURE": {
+      "required_checks": ["identify_result_endpoint", "inspect_corresponding_ziwei_major_period_and_bazi_luck_cycle", "inspect_reference_year_in_both_tracks", "inspect_candidate_months_under_valid_month_mapping", "separate_activation_process_first_observable_result_formal_effect_peak_and_aftermath"],
+      "fail_closed_when": ["result_is_inferred_from_natal_structure_only", "major_period_or_year_layer_is_skipped", "month_specific_result_is_claimed_without_valid_month_mapping"],
+      "rule": "Any question asking what actually happened, existed, ended, succeeded, failed or became effective is result-bearing. Static capacity may recall candidates but cannot rank the endpoint without the corresponding major-period, year and month-stage audit."
+    },
+    "ENTITY_NONEXISTENCE_NONBINARY": {
+      "required_checks": ["separate_entity_existence_from_entity_condition", "encode_unobserved_as_unknown_not_false", "seek_independent_same_axis_absence_evidence", "test_nonterminal_and_substitute_manifestations"],
+      "fail_closed_when": ["malefic_or_severe_symbolism_is_the_only_absence_evidence", "risk_intensity_is_used_as_an_ontological_negation"],
+      "rule": "Severe malefic structure can raise risk, impairment, separation or loss intensity, but it cannot by itself prove that the relevant person, relationship, asset, organ or institution is absent or never existed."
+    },
+    "EVENT_SPECIFICITY_WEIGHT_DOMINANCE": {
+      "required_checks": ["classify_shared_and_distinguishing_evidence", "identify_event_specific_mechanism_and_endpoint", "deduplicate_same_parent_evidence", "compare_specific_net_support_before_general_counts"],
+      "fail_closed_when": ["general_symbol_count_outvotes_an_independent_event_specific_chain", "source_or_school_count_is_used_as_weight"],
+      "rule": "One reliable same-actor same-time event-specific mechanism or completed endpoint chain outranks any number of merely compatible general tendencies, unless direct same-axis counterevidence defeats it."
+    },
+    "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING": {
+      "required_checks": ["route_subject_and_topic_to_primary_palace", "inspect_opposite_and_trine_auxiliary_palaces", "derive_qi_position_under_declared_taiji", "trace_transformations_and_time_layers", "require_dynamic_realization_for_result_endpoint"],
+      "fail_closed_when": ["auxiliary_palace_replaces_primary_subject_routing", "qi_position_is_used_as_a_standalone_prediction", "dynamic_realization_is_skipped_for_a_result_question"],
+      "rule": "Topic routing follows primary palace, auxiliary opposite/trine palaces, qi position and dynamic realization in order. Auxiliary and qi coordinates modify or challenge the primary route; they do not replace the subject, time or endpoint chain."
+    }
+  },
   "evidence_priority": [
     "direct_same_axis_counterevidence",
     "completed_actor_time_endpoint_chain",
+    "independent_event_specific_mechanism",
     "time-bound_distinguishing_mechanism",
     "stable_topic-specific_structure",
     "general_scene_or_tendency",
