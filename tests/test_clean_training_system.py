@@ -2969,6 +2969,12 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertEqual(len(runtime_model["knowledge_cards"]), 23)
         self.assertNotIn("expected_effect", runtime_model["active_process_corrections"][-1])
         self.assertNotIn("reasoning", runtime_model["active_process_corrections"][-1])
+        self.assertNotIn("root_causes", runtime_model["active_process_corrections"][-1])
+        self.assertNotIn("source_basis", runtime_model["active_process_corrections"][-1])
+        self.assertIn("remediation_type", runtime_model["active_process_corrections"][-1])
+        self.assertNotIn("learning_boundary", runtime_model["reasoning_core"])
+        self.assertNotIn("post_reveal_error_classes", runtime_model["reasoning_core"])
+        self.assertIn("method_gates", runtime_model["reasoning_core"])
         self.assertFalse(
             runtime_model["knowledge_workbench_chat_read_allowed"]
         )
