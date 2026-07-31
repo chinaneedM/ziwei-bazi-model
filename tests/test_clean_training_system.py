@@ -399,6 +399,89 @@ class RuntimeFixture:
             "reasoning_summary": "All atomic fact classes were bound before ranking.",
             "option_blind_frozen": True,
         }
+        branch_id = "BRANCH-PRIMARY"
+        palace_names = [
+            "命宫", "兄弟宫", "夫妻宫", "子女宫", "财帛宫", "疾厄宫",
+            "迁移宫", "交友宫", "官禄宫", "田宅宫", "福德宫", "父母宫",
+        ]
+        earthly_branches = list("子丑寅卯辰巳午未申酉戌亥")
+        namespace_specs = (
+            ("NATAL-NS", "NATAL"),
+            ("ZIWEI-PERIOD-NS", "ZIWEI_MAJOR_PERIOD"),
+            ("YEAR-NS", "YEAR"),
+        )
+        coordinate_truth_table = {
+            "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V1",
+            "required_namespace_ids": [item[0] for item in namespace_specs],
+            "namespaces": [
+                {
+                    "namespace_id": namespace_id,
+                    "namespace_type": namespace_type,
+                    "coordinates": [
+                        [
+                            f"{namespace_id}-C{coordinate_index:02d}",
+                            palace_name,
+                            earthly_branch,
+                        ]
+                        for coordinate_index, (palace_name, earthly_branch) in enumerate(
+                            zip(palace_names, earthly_branches)
+                        )
+                    ],
+                }
+                for namespace_id, namespace_type in namespace_specs
+            ],
+            "transformations": [
+                {
+                    "fact_id": "TRANSFORM-PRIMARY",
+                    "origin_layer": "NATAL",
+                    "heavenly_stem": "甲",
+                    "transformed_star": "Synthetic star",
+                    "destination_coordinate_id": "NATAL-NS-C00",
+                    "verification_status": "VERIFIED",
+                }
+            ],
+            "verification_status": "VERIFIED",
+        }
+        chart_branch_model = {
+            "schema": "TIME-BOUNDARY-CHART-BRANCHES-V1",
+            "boundary_status": "UNAMBIGUOUS",
+            "boundary_kinds": ["NONE"],
+            "branches": {
+                branch_id: {
+                    "derivation_basis": "Synthetic unambiguous input.",
+                    "option_blind_frozen": True,
+                    "ziwei_coordinate_truth_table": coordinate_truth_table,
+                    "bazi_atomic_fact_ledger": bazi_atomic_ledger,
+                    "bazi_strength_structure_favorability_chain": bazi_strength_chain,
+                    "period_objects": [
+                        {
+                            "fact_id": "ZIWEI-PERIOD-OBJECT",
+                            "namespace": "ZIWEI_MAJOR_PERIOD",
+                            "start_marker": "synthetic start",
+                            "end_marker": "synthetic end",
+                            "query_membership_verified": True,
+                            "recomputation_status": "VERIFIED",
+                        },
+                        {
+                            "fact_id": "BAZI-PERIOD-OBJECT",
+                            "namespace": "BAZI_LUCK_CYCLE",
+                            "start_marker": "synthetic start",
+                            "end_marker": "synthetic end",
+                            "query_membership_verified": True,
+                            "recomputation_status": "VERIFIED",
+                        },
+                    ],
+                    "verification_status": "VERIFIED",
+                }
+            },
+            "calibration": {
+                "status": "NOT_REQUIRED",
+                "selected_branch_id": branch_id,
+                "independent_external_fact_ids": [],
+                "option_atoms_used": False,
+                "rationale": "No legal time-boundary ambiguity is present.",
+            },
+        }
         rows = []
         for index in range(1, question_count + 1):
             top1 = "A" if index <= correct_count else "B"
@@ -434,7 +517,7 @@ class RuntimeFixture:
                     "option_atoms": {
                         option: {
                             "required_atoms": [f"{option} required atom"],
-                            "distinctive_atoms": [f"{option} distinctive atom"],
+                            "distinctive_atoms": [f"{option} required atom"],
                             "severe_irreversible_or_high_precision_atoms": [],
                         }
                         for option in option_ids
@@ -445,6 +528,7 @@ class RuntimeFixture:
                 row["evidence_ledger"] = [
                     {
                         "evidence_id": ziwei_evidence_id,
+                        "branch_id": branch_id,
                         "track": "ZIWEI",
                         "layer": "NATAL",
                         "chart_fact": f"Ziwei synthetic chart fact {index}",
@@ -453,7 +537,7 @@ class RuntimeFixture:
                         "applicability_conditions": ["Ziwei chart fact is present"],
                         "conditions_satisfied": ["Synthetic Ziwei fixture condition is present"],
                         "supports_option_atoms": [f"{top1}:{top1} required atom"],
-                        "contradicts_option_atoms": [f"{top2}:{top2} distinctive atom"],
+                        "contradicts_option_atoms": [f"{top2}:{top2} required atom"],
                         "alternative_explanation": "The same structure may remain only background.",
                         "evidence_family_id": f"ZF-{index}",
                         "independence_status": "INDEPENDENT",
@@ -468,6 +552,7 @@ class RuntimeFixture:
                     },
                     {
                         "evidence_id": bazi_evidence_id,
+                        "branch_id": branch_id,
                         "track": "BAZI",
                         "layer": "PERIOD",
                         "chart_fact": f"Bazi synthetic chart fact {index}",
@@ -475,7 +560,7 @@ class RuntimeFixture:
                         "knowledge_point": "Close person, action, object, and endpoint separately.",
                         "applicability_conditions": ["Bazi period fact is present"],
                         "conditions_satisfied": ["Synthetic Bazi fixture condition is present"],
-                        "supports_option_atoms": [f"{top1}:{top1} distinctive atom"],
+                        "supports_option_atoms": [f"{top1}:{top1} required atom"],
                         "contradicts_option_atoms": [],
                         "alternative_explanation": "The period signal may mark preparation only.",
                         "evidence_family_id": f"BF-{index}",
@@ -490,6 +575,78 @@ class RuntimeFixture:
                         "scope_id": "SYNTHETIC-PERIOD",
                     },
                 ]
+                ziwei_upstream_id = f"UF-Z-{index}"
+                ziwei_period_upstream_id = f"UF-ZP-{index}"
+                bazi_upstream_id = f"UF-B-{index}"
+                period_upstream_id = f"UF-P-{index}"
+                row["upstream_fact_dependencies"] = {
+                    "facts": [
+                        {
+                            "fact_id": ziwei_upstream_id,
+                            "branch_id": branch_id,
+                            "fact_type": "ZIWEI_COORDINATE",
+                            "source_object_id": "NATAL-NS-C00",
+                            "recomputation_status": "VERIFIED",
+                        },
+                        {
+                            "fact_id": ziwei_period_upstream_id,
+                            "branch_id": branch_id,
+                            "fact_type": "PERIOD_OBJECT",
+                            "source_object_id": "ZIWEI-PERIOD-OBJECT",
+                            "recomputation_status": "VERIFIED",
+                        },
+                        {
+                            "fact_id": bazi_upstream_id,
+                            "branch_id": branch_id,
+                            "fact_type": "BAZI_ATOMIC",
+                            "source_object_id": "DAY_STEM",
+                            "recomputation_status": "VERIFIED",
+                        },
+                        {
+                            "fact_id": period_upstream_id,
+                            "branch_id": branch_id,
+                            "fact_type": "PERIOD_OBJECT",
+                            "source_object_id": "BAZI-PERIOD-OBJECT",
+                            "recomputation_status": "VERIFIED",
+                        },
+                    ],
+                    "evidence_dependencies": [
+                        {
+                            "evidence_id": ziwei_evidence_id,
+                            "branch_id": branch_id,
+                            "upstream_fact_ids": [
+                                ziwei_upstream_id,
+                                ziwei_period_upstream_id,
+                            ],
+                            "dependency_signature": object_sha256(
+                                {
+                                    "branch_id": branch_id,
+                                    "upstream_fact_ids": sorted(
+                                        [ziwei_upstream_id, ziwei_period_upstream_id]
+                                    ),
+                                }
+                            ),
+                        },
+                        {
+                            "evidence_id": bazi_evidence_id,
+                            "branch_id": branch_id,
+                            "upstream_fact_ids": [
+                                bazi_upstream_id,
+                                period_upstream_id,
+                            ],
+                            "dependency_signature": object_sha256(
+                                {
+                                    "branch_id": branch_id,
+                                    "upstream_fact_ids": sorted(
+                                        [bazi_upstream_id, period_upstream_id]
+                                    ),
+                                }
+                            ),
+                        },
+                    ],
+                    "invalidated_evidence_ids": [],
+                    "ranking_recomputed_after_invalidation": True,
+                }
                 endpoint_chain = {
                     "subject": "relevant actor",
                     "action": "observable action",
@@ -549,8 +706,15 @@ class RuntimeFixture:
                 row["option_comparison_matrix"] = {
                     "options": {
                         option: {
-                            "required_atom_completion": [f"{option} atom reviewed"],
-                            "distinctive_atom_completion": [f"{option} distinction reviewed"],
+                            "required_atom_completion": (
+                                [f"{option} required atom"] if option == top1 else []
+                            ),
+                            "directly_refuted_atoms": (
+                                [f"{option} required atom"] if option == top2 else []
+                            ),
+                            "distinctive_atom_completion": (
+                                [f"{option} required atom"] if option == top1 else []
+                            ),
                             "severe_atoms_have_independent_evidence": True,
                             "ziwei_support_evidence_ids": (
                                 [ziwei_evidence_id] if option == top1 else []
@@ -563,7 +727,11 @@ class RuntimeFixture:
                             "direct_counterevidence_ids": (
                                 [ziwei_evidence_id] if option == top2 else []
                             ),
-                            "unknown_atoms": [],
+                            "unknown_atoms": (
+                                [f"{option} required atom"]
+                                if option not in {top1, top2}
+                                else []
+                            ),
                             "shared_background_zeroed": True,
                             "final_rank": ranking.index(option) + 1,
                             "final_rank_reason": "Ranked by distinctive atom closure.",
@@ -584,6 +752,24 @@ class RuntimeFixture:
                         for left_index, left in enumerate(option_ids)
                         for right in option_ids[left_index + 1 :]
                     ],
+                }
+                row["branch_analysis"] = {
+                    "branch_rankings": {
+                        branch_id: {
+                            "top1": top1,
+                            "top2": top2,
+                            "ranking": ranking,
+                            "supporting_evidence_ids": [
+                                ziwei_evidence_id,
+                                bazi_evidence_id,
+                            ],
+                            "contradicting_evidence_ids": [],
+                            "confidence": 70,
+                        }
+                    },
+                    "consensus_status": "CONSISTENT",
+                    "selected_branch_id": None,
+                    "top1_uncertainty_preserved": False,
                 }
                 row["adversarial_review"] = {
                     "top1_weakest_required_atom": f"{top1} required atom",
@@ -656,7 +842,7 @@ class RuntimeFixture:
                 "case_id": case_id,
                 "round_id": round_id,
                 "blind_chart_model": {
-                    "schema": "BLIND-CHART-MODEL-V2",
+                    "schema": "BLIND-CHART-MODEL-V3",
                     "input_reliability": {
                         "gender": "known",
                         "calendar": "known",
@@ -679,8 +865,6 @@ class RuntimeFixture:
                         "limitations": ["Fixture does not assert real divination content"],
                     },
                     "bazi_static_model": {
-                        "immutable_atomic_fact_ledger": bazi_atomic_ledger,
-                        "strength_structure_favorability_chain": bazi_strength_chain,
                         "chart_facts": ["Synthetic Bazi fact"],
                         "seasonal_strength_candidates": ["Synthetic strength candidate"],
                         "pattern_candidates": ["Synthetic pattern candidate"],
@@ -690,6 +874,7 @@ class RuntimeFixture:
                         "unresolved_disputes": [],
                         "limitations": ["Fixture does not assert real divination content"],
                     },
+                    "chart_branch_model": chart_branch_model,
                     "shared_life_structure": {
                         "personality_and_behavior": ["Synthetic behavior structure"],
                         "family_roles": ["Synthetic family structure"],
@@ -1111,6 +1296,7 @@ class RuntimeTests(unittest.TestCase):
                     "input_reliability",
                     "ziwei_static_model",
                     "bazi_static_model",
+                    "chart_branch_model",
                     "shared_life_structure",
                 },
             )
@@ -1158,8 +1344,10 @@ class RuntimeTests(unittest.TestCase):
                     "bazi_track_seal",
                     "cross_track_arbitration",
                     "evidence_ledger",
+                    "upstream_fact_dependencies",
                     "final_ranking",
                     "option_comparison_matrix",
+                    "branch_analysis",
                     "adversarial_review",
                     "confidence_components",
                     "counterfactual_analysis",
@@ -1715,6 +1903,307 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             ].update({"overall_confidence": 80})
         )
 
+    def test_required_atom_partition_and_top1_gap_confidence_gate(self):
+        def leave_required_atom_unclassified(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            row["question_semantic_model"]["option_atoms"][top1][
+                "required_atoms"
+            ].append("second compound requirement")
+
+        self.assert_freeze_rejected(leave_required_atom_unclassified)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            option_row = row["option_comparison_matrix"]["options"][top1]
+            unresolved_atom = option_row["required_atom_completion"].pop()
+            option_row["unknown_atoms"].append(unresolved_atom)
+            row["cross_track_arbitration"]["confidence_reduction_required"] = True
+            row["confidence_components"]["overall_confidence"] = 69
+
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(
+                frozen["predictions"][0]["confidence_components"][
+                    "overall_confidence"
+                ],
+                69,
+            )
+
+    def test_failed_upstream_fact_invalidates_downstream_ranking_contributions(self):
+        def fail_upstream_transformation(payload):
+            row = payload["predictions"][0]
+            dependency_graph = row["upstream_fact_dependencies"]
+            failed_fact_id = "UF-TRANSFORMATION-FAILED"
+            dependency_graph["facts"].append(
+                {
+                    "fact_id": failed_fact_id,
+                    "branch_id": "BRANCH-PRIMARY",
+                    "fact_type": "ZIWEI_TRANSFORMATION",
+                    "source_object_id": "TRANSFORM-PRIMARY",
+                    "recomputation_status": "FAILED",
+                }
+            )
+            dependency = dependency_graph["evidence_dependencies"][0]
+            dependency["upstream_fact_ids"].append(failed_fact_id)
+            dependency["dependency_signature"] = object_sha256(
+                {
+                    "branch_id": dependency["branch_id"],
+                    "upstream_fact_ids": sorted(dependency["upstream_fact_ids"]),
+                }
+            )
+            invalidated_id = dependency["evidence_id"]
+            dependency_graph["invalidated_evidence_ids"] = [invalidated_id]
+            dependency_graph["ranking_recomputed_after_invalidation"] = True
+
+        self.assert_freeze_rejected(fail_upstream_transformation)
+
+    def test_parallel_time_branches_preserve_divergent_top1(self):
+        def add_divergent_branch(payload):
+            branch_model = payload["blind_chart_model"]["chart_branch_model"]
+            primary_branch_id = next(iter(branch_model["branches"]))
+            alternate_branch_id = "BRANCH-ALTERNATE"
+            alternate_branch = json.loads(
+                json.dumps(branch_model["branches"][primary_branch_id])
+            )
+            alternate_branch["derivation_basis"] = (
+                "Synthetic alternate legal time-boundary derivation."
+            )
+            branch_model["branches"][alternate_branch_id] = alternate_branch
+            branch_model["boundary_status"] = "MULTIPLE_LEGAL_CANDIDATES"
+            branch_model["boundary_kinds"] = ["TRUE_SOLAR_TIME_BOUNDARY"]
+            branch_model["calibration"] = {
+                "status": "UNRESOLVED",
+                "selected_branch_id": None,
+                "independent_external_fact_ids": [],
+                "option_atoms_used": False,
+                "rationale": "No independent external calibration fact is available.",
+            }
+
+            row = payload["predictions"][0]
+            alternate_top1 = row["top2"]
+            alternate_top2 = row["top1"]
+            alternate_ranking = [
+                alternate_top1,
+                alternate_top2,
+                *[
+                    option
+                    for option in row["final_ranking"]
+                    if option not in {alternate_top1, alternate_top2}
+                ],
+            ]
+            ziwei_id = "Z-ALTERNATE"
+            bazi_id = "B-ALTERNATE"
+            row["evidence_ledger"].extend(
+                [
+                    {
+                        **row["evidence_ledger"][0],
+                        "evidence_id": ziwei_id,
+                        "branch_id": alternate_branch_id,
+                        "chart_fact": "Alternate-branch synthetic Ziwei fact",
+                        "supports_option_atoms": [
+                            f"{alternate_top1}:{alternate_top1} required atom"
+                        ],
+                        "contradicts_option_atoms": [],
+                        "evidence_family_id": "ZF-ALTERNATE",
+                    },
+                    {
+                        **row["evidence_ledger"][1],
+                        "evidence_id": bazi_id,
+                        "branch_id": alternate_branch_id,
+                        "chart_fact": "Alternate-branch synthetic Bazi fact",
+                        "supports_option_atoms": [
+                            f"{alternate_top1}:{alternate_top1} required atom"
+                        ],
+                        "contradicts_option_atoms": [],
+                        "evidence_family_id": "BF-ALTERNATE",
+                    },
+                ]
+            )
+            graph = row["upstream_fact_dependencies"]
+            alternate_facts = [
+                {
+                    "fact_id": "UF-Z-ALTERNATE",
+                    "branch_id": alternate_branch_id,
+                    "fact_type": "ZIWEI_COORDINATE",
+                    "source_object_id": "NATAL-NS-C00",
+                    "recomputation_status": "VERIFIED",
+                },
+                {
+                    "fact_id": "UF-B-ALTERNATE",
+                    "branch_id": alternate_branch_id,
+                    "fact_type": "BAZI_ATOMIC",
+                    "source_object_id": "DAY_STEM",
+                    "recomputation_status": "VERIFIED",
+                },
+                {
+                    "fact_id": "UF-P-ALTERNATE",
+                    "branch_id": alternate_branch_id,
+                    "fact_type": "PERIOD_OBJECT",
+                    "source_object_id": "BAZI-PERIOD-OBJECT",
+                    "recomputation_status": "VERIFIED",
+                },
+            ]
+            graph["facts"].extend(alternate_facts)
+            for evidence_id, upstream_ids in (
+                (ziwei_id, ["UF-Z-ALTERNATE"]),
+                (bazi_id, ["UF-B-ALTERNATE", "UF-P-ALTERNATE"]),
+            ):
+                graph["evidence_dependencies"].append(
+                    {
+                        "evidence_id": evidence_id,
+                        "branch_id": alternate_branch_id,
+                        "upstream_fact_ids": upstream_ids,
+                        "dependency_signature": object_sha256(
+                            {
+                                "branch_id": alternate_branch_id,
+                                "upstream_fact_ids": sorted(upstream_ids),
+                            }
+                        ),
+                    }
+                )
+            row["branch_analysis"]["branch_rankings"][alternate_branch_id] = {
+                "top1": alternate_top1,
+                "top2": alternate_top2,
+                "ranking": alternate_ranking,
+                "supporting_evidence_ids": [ziwei_id, bazi_id],
+                "contradicting_evidence_ids": [],
+                "confidence": 65,
+            }
+            row["branch_analysis"].update(
+                {
+                    "consensus_status": "DIVERGENT_UNRESOLVED",
+                    "selected_branch_id": None,
+                    "top1_uncertainty_preserved": True,
+                }
+            )
+            row["cross_track_arbitration"]["confidence_reduction_required"] = True
+            row["confidence_components"]["overall_confidence"] = 69
+            for other_index, other_row in enumerate(payload["predictions"][1:], 2):
+                other_top1 = other_row["top2"]
+                other_top2 = other_row["top1"]
+                other_ranking = [
+                    other_top1,
+                    other_top2,
+                    *[
+                        option
+                        for option in other_row["final_ranking"]
+                        if option not in {other_top1, other_top2}
+                    ],
+                ]
+                other_ziwei_id = f"Z-ALTERNATE-{other_index}"
+                other_bazi_id = f"B-ALTERNATE-{other_index}"
+                other_row["evidence_ledger"].extend(
+                    [
+                        {
+                            **other_row["evidence_ledger"][0],
+                            "evidence_id": other_ziwei_id,
+                            "branch_id": alternate_branch_id,
+                            "chart_fact": f"Alternate Ziwei fact {other_index}",
+                            "supports_option_atoms": [
+                                f"{other_top1}:{other_top1} required atom"
+                            ],
+                            "contradicts_option_atoms": [],
+                            "evidence_family_id": f"ZF-ALTERNATE-{other_index}",
+                        },
+                        {
+                            **other_row["evidence_ledger"][1],
+                            "evidence_id": other_bazi_id,
+                            "branch_id": alternate_branch_id,
+                            "chart_fact": f"Alternate Bazi fact {other_index}",
+                            "supports_option_atoms": [
+                                f"{other_top1}:{other_top1} required atom"
+                            ],
+                            "contradicts_option_atoms": [],
+                            "evidence_family_id": f"BF-ALTERNATE-{other_index}",
+                        },
+                    ]
+                )
+                fact_ids = {
+                    "ziwei": f"UF-Z-ALTERNATE-{other_index}",
+                    "bazi": f"UF-B-ALTERNATE-{other_index}",
+                    "period": f"UF-P-ALTERNATE-{other_index}",
+                }
+                other_graph = other_row["upstream_fact_dependencies"]
+                for fact_type, source_object_id, fact_id in (
+                    ("ZIWEI_COORDINATE", "NATAL-NS-C00", fact_ids["ziwei"]),
+                    ("BAZI_ATOMIC", "DAY_STEM", fact_ids["bazi"]),
+                    ("PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", fact_ids["period"]),
+                ):
+                    other_graph["facts"].append(
+                        {
+                            "fact_id": fact_id,
+                            "branch_id": alternate_branch_id,
+                            "fact_type": fact_type,
+                            "source_object_id": source_object_id,
+                            "recomputation_status": "VERIFIED",
+                        }
+                    )
+                for evidence_id, upstream_ids in (
+                    (other_ziwei_id, [fact_ids["ziwei"]]),
+                    (other_bazi_id, [fact_ids["bazi"], fact_ids["period"]]),
+                ):
+                    other_graph["evidence_dependencies"].append(
+                        {
+                            "evidence_id": evidence_id,
+                            "branch_id": alternate_branch_id,
+                            "upstream_fact_ids": upstream_ids,
+                            "dependency_signature": object_sha256(
+                                {
+                                    "branch_id": alternate_branch_id,
+                                    "upstream_fact_ids": sorted(upstream_ids),
+                                }
+                            ),
+                        }
+                    )
+                other_row["branch_analysis"]["branch_rankings"][
+                    alternate_branch_id
+                ] = {
+                    "top1": other_top1,
+                    "top2": other_top2,
+                    "ranking": other_ranking,
+                    "supporting_evidence_ids": [other_ziwei_id, other_bazi_id],
+                    "contradicting_evidence_ids": [],
+                    "confidence": 65,
+                }
+                other_row["branch_analysis"].update(
+                    {
+                        "consensus_status": "DIVERGENT_UNRESOLVED",
+                        "selected_branch_id": None,
+                        "top1_uncertainty_preserved": True,
+                    }
+                )
+                other_row["cross_track_arbitration"][
+                    "confidence_reduction_required"
+                ] = True
+                other_row["confidence_components"]["overall_confidence"] = 69
+
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            add_divergent_branch(payload)
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(
+                frozen["predictions"][0]["branch_analysis"]["consensus_status"],
+                "DIVERGENT_UNRESOLVED",
+            )
+
+        def calibrate_from_options(payload):
+            add_divergent_branch(payload)
+            payload["blind_chart_model"]["chart_branch_model"]["calibration"][
+                "option_atoms_used"
+            ] = True
+
+        self.assert_freeze_rejected(calibrate_from_options)
+
     def test_timing_only_and_unproved_high_precision_atoms_are_rejected(self):
         def timing_only(payload):
             for evidence in payload["predictions"][0]["evidence_ledger"]:
@@ -1789,6 +2278,24 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                     "distinctive_atoms": [window],
                     "severe_irreversible_or_high_precision_atoms": [],
                 }
+            top1 = row["top1"]
+            top2 = row["top2"]
+            atom_by_option = dict(zip(row["question_semantic_model"]["option_atoms"], windows))
+            row["evidence_ledger"][0]["supports_option_atoms"] = [
+                f"{top1}:{atom_by_option[top1]}"
+            ]
+            row["evidence_ledger"][0]["contradicts_option_atoms"] = [
+                f"{top2}:{atom_by_option[top2]}"
+            ]
+            row["evidence_ledger"][1]["supports_option_atoms"] = [
+                f"{top1}:{atom_by_option[top1]}"
+            ]
+            for option_id, atom in atom_by_option.items():
+                option_row = row["option_comparison_matrix"]["options"][option_id]
+                option_row["required_atom_completion"] = [atom] if option_id == top1 else []
+                option_row["directly_refuted_atoms"] = [atom] if option_id == top2 else []
+                option_row["distinctive_atom_completion"] = [atom] if option_id == top1 else []
+                option_row["unknown_atoms"] = [atom] if option_id not in {top1, top2} else []
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "PERIOD"
                 evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
@@ -1822,6 +2329,12 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                     ]
                 }
             )
+            row["question_semantic_model"]["option_atoms"][losing_option][
+                "required_atoms"
+            ].append("unclosed losing-option endpoint")
+            row["option_comparison_matrix"]["options"][losing_option][
+                "unknown_atoms"
+            ].append("unclosed losing-option endpoint")
             write_json(path, payload)
             start_round(fixture.root, "R1")
             frozen = freeze_prediction(fixture.root, "R1", path)
@@ -2089,7 +2602,7 @@ class HandoffProbeTests(unittest.TestCase):
             summary, sealed = process_handoff_probe(
                 fixture.root,
                 issue_title=contract["issue_title"],
-                issue_body=json.dumps(handoff),
+                issue_body=json.dumps(handoff, separators=(",", ":")),
                 encoded_public_key=encoded_public_key,
                 key=fixture.key,
             )
@@ -2113,7 +2626,7 @@ class HandoffProbeTests(unittest.TestCase):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
             handoff["prediction_access_execution_receipt"] = {
@@ -2124,7 +2637,7 @@ class HandoffProbeTests(unittest.TestCase):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
     def test_handoff_rejects_neutral_background_used_as_counterevidence(self):
@@ -2142,11 +2655,11 @@ class HandoffProbeTests(unittest.TestCase):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
             evidence["decision_impact"] = "NEUTRAL"
-            evidence["contradicts_option_atoms"] = ["C:C distinctive atom"]
+            evidence["contradicts_option_atoms"] = ["C:C required atom"]
             with self.assertRaisesRegex(
                 TrainingError,
                 "neutral background may not contradict option atoms",
@@ -2154,7 +2667,7 @@ class HandoffProbeTests(unittest.TestCase):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
     def test_handoff_rejects_neutral_background_in_counterevidence_indexes(self):
@@ -2172,12 +2685,12 @@ class HandoffProbeTests(unittest.TestCase):
             ]
             with self.assertRaisesRegex(
                 TrainingError,
-                "contradicting evidence must be non-neutral",
+                "may not use invalidated or neutral evidence",
             ):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
             prediction["bazi_track_seal"]["contradicting_evidence_ids"] = []
@@ -2186,12 +2699,12 @@ class HandoffProbeTests(unittest.TestCase):
             ] = [evidence_id]
             with self.assertRaisesRegex(
                 TrainingError,
-                "direct counterevidence must be non-neutral",
+                "may not use invalidated or neutral evidence",
             ):
                 validate_handoff(
                     fixture.root,
                     issue_title=contract["issue_title"],
-                    issue_body=json.dumps(handoff),
+                    issue_body=json.dumps(handoff, separators=(",", ":")),
                 )
 
     def test_preflight_normalizes_fractional_confidence_before_validation(self):
@@ -2206,7 +2719,7 @@ class HandoffProbeTests(unittest.TestCase):
             normalized, report = validate_handoff(
                 fixture.root,
                 issue_title=contract["issue_title"],
-                issue_body=json.dumps(handoff),
+                issue_body=json.dumps(handoff, separators=(",", ":")),
                 include_preflight_report=True,
             )
             self.assertTrue(report["changed"])
@@ -3106,6 +3619,9 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "STATUS_TRANSITION_STATE_MACHINE",
                 "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
                 "CROSS_CASE_HYPOTHESIS_QUARANTINE",
+                "COMPOSITE_REQUIRED_ATOM_CLOSURE",
+                "UPSTREAM_FACT_DEPENDENCY_INVALIDATION",
+                "TIME_BOUNDARY_PARALLEL_CHART_BRANCHES",
             },
         )
         self.assertEqual(
@@ -3126,6 +3642,9 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "status_transition_state_machine",
                 "collaborative_hypothesis_revalidation",
                 "cross_case_hypothesis_quarantine",
+                "composite_required_atom_closure",
+                "upstream_fact_dependency_invalidation",
+                "time_boundary_parallel_branches",
             },
         )
 

@@ -366,8 +366,10 @@ def _validate_prediction(
             "bazi_track_seal",
             "cross_track_arbitration",
             "evidence_ledger",
+            "upstream_fact_dependencies",
             "final_ranking",
             "option_comparison_matrix",
+            "branch_analysis",
             "adversarial_review",
             "confidence_components",
             "counterfactual_analysis",
@@ -411,6 +413,7 @@ def _validate_prediction(
             top1=top1,
             top2=top2,
             decisive_rule_ids=rule_attribution["decisive_rule_ids"],
+            chart_branch_model=blind_chart_model["chart_branch_model"],
         )
         normalized.append(
             {

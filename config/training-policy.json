@@ -45,6 +45,9 @@
   },
   "composite_option_policy": {
     "atomize_before_prediction": true,
+    "required_atoms_partitioned_as_independent_support_direct_refutation_or_unknown": true,
+    "top1_unclosed_required_atom_requires_overall_confidence_below_weakest_component": true,
+    "severe_irreversible_or_high_precision_independent_evidence_fail_closed_preserved": true,
     "record_atom_level_failure_after_reveal": true,
     "whole_option_score_remains_top1_only": true
   },

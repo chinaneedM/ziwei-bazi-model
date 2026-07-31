@@ -69,6 +69,26 @@
     "top2": "<OPTION_ID>",
     "unresolved_links": []
   },
+  "branch_analysis": {
+    "branch_rankings": {
+      "<DECLARED_BRANCH_ID>": {
+        "confidence": "<INTEGER_PERCENT_0_TO_100>",
+        "contradicting_evidence_ids": [],
+        "ranking": [
+          "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+        ],
+        "supporting_evidence_ids": [
+          "<ZIWEI_EVIDENCE_ID_FOR_THIS_BRANCH>",
+          "<BAZI_EVIDENCE_ID_FOR_THIS_BRANCH>"
+        ],
+        "top1": "<OPTION_ID>",
+        "top2": "<OPTION_ID>"
+      }
+    },
+    "consensus_status": "<CONSISTENT_DIVERGENT_UNRESOLVED_OR_RESOLVED_BY_EXTERNAL_FACT>",
+    "selected_branch_id": null,
+    "top1_uncertainty_preserved": false
+  },
   "confidence_components": {
     "cross_track_agreement": "<INTEGER_PERCENT_0_TO_100>",
     "input_confidence": "<INTEGER_PERCENT_0_TO_100>",
@@ -123,6 +143,7 @@
         "<REQUIRED_NON_EMPTY_STRING>"
       ],
       "axis_distance": "<DIRECT_SAME_AXIS_ONE_HOP_OR_MULTI_HOP>",
+      "branch_id": "<DECLARED_BRANCH_ID>",
       "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
       "chart_fact": "<REQUIRED_NON_EMPTY_STRING>",
       "conditions_satisfied": [
@@ -155,6 +176,7 @@
       "<OPTION_ID>": {
         "bazi_support_evidence_ids": [],
         "direct_counterevidence_ids": [],
+        "directly_refuted_atoms": [],
         "distinctive_atom_completion": [],
         "final_rank": 1,
         "final_rank_reason": "<REQUIRED_NON_EMPTY_STRING>",
@@ -209,10 +231,10 @@
     "option_atoms": {
       "<OPTION_ID>": {
         "distinctive_atoms": [
-          "<REQUIRED_NON_EMPTY_STRING>"
+          "<EXACT_ATOM_TEXT>"
         ],
         "required_atoms": [
-          "<REQUIRED_NON_EMPTY_STRING>"
+          "<EXACT_ATOM_TEXT>"
         ],
         "severe_irreversible_or_high_precision_atoms": []
       }
@@ -231,6 +253,29 @@
   },
   "top1": "<OPTION_ID>",
   "top2": "<OPTION_ID>",
+  "upstream_fact_dependencies": {
+    "evidence_dependencies": [
+      {
+        "branch_id": "<DECLARED_BRANCH_ID>",
+        "dependency_signature": "<SHA256_OF_SORTED_UPSTREAM_FACT_IDS_AND_BRANCH_ID>",
+        "evidence_id": "<EVIDENCE_ID>",
+        "upstream_fact_ids": [
+          "<UPSTREAM_FACT_ID>"
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "branch_id": "<DECLARED_BRANCH_ID>",
+        "fact_id": "<UPSTREAM_FACT_ID>",
+        "fact_type": "<ZIWEI_COORDINATE_ZIWEI_TRANSFORMATION_BAZI_ATOMIC_PERIOD_OBJECT_OR_EXTERNAL_FACT>",
+        "recomputation_status": "<VERIFIED_OR_FAILED>",
+        "source_object_id": "<SOURCE_OBJECT_ID_FROM_THE_DECLARED_BRANCH>"
+      }
+    ],
+    "invalidated_evidence_ids": [],
+    "ranking_recomputed_after_invalidation": true
+  },
   "ziwei_track_seal": {
     "alternative_explanations": [
       "<REQUIRED_NON_EMPTY_STRING>"

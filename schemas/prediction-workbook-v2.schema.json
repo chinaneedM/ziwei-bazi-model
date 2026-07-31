@@ -25,13 +25,15 @@
         "input_reliability",
         "ziwei_static_model",
         "bazi_static_model",
+        "chart_branch_model",
         "shared_life_structure"
       ],
       "properties": {
-        "schema": {"const": "BLIND-CHART-MODEL-V1"},
+        "schema": {"const": "BLIND-CHART-MODEL-V3"},
         "input_reliability": {"type": "object"},
         "ziwei_static_model": {"type": "object"},
         "bazi_static_model": {"type": "object"},
+        "chart_branch_model": {"type": "object"},
         "shared_life_structure": {"type": "object"}
       }
     },
@@ -55,8 +57,10 @@
           "bazi_track_seal",
           "cross_track_arbitration",
           "evidence_ledger",
+          "upstream_fact_dependencies",
           "final_ranking",
           "option_comparison_matrix",
+          "branch_analysis",
           "adversarial_review",
           "confidence_components",
           "counterfactual_analysis"
@@ -73,8 +77,10 @@
           "bazi_track_seal": {"type": "object"},
           "cross_track_arbitration": {"type": "object"},
           "evidence_ledger": {"type": "array", "minItems": 1},
+          "upstream_fact_dependencies": {"type": "object"},
           "final_ranking": {"type": "array", "minItems": 2},
           "option_comparison_matrix": {"type": "object"},
+          "branch_analysis": {"type": "object"},
           "adversarial_review": {"type": "object"},
           "confidence_components": {
             "type": "object",
