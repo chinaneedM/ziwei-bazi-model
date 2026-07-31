@@ -2919,7 +2919,7 @@ class RepositoryIntegrityTests(unittest.TestCase):
         self.assertLess(runtime["current_input_characters"], 80_000)
         self.assertLess(runtime["compiled_runtime_model_characters"], 80_000)
         self.assertTrue(runtime["all_prediction_themes_preserved"])
-        self.assertEqual(runtime["reasoning_theme_count"], 20)
+        self.assertEqual(runtime["reasoning_theme_count"], 25)
         self.assertIsNone(runtime["evidence_quota"])
 
         bundle = json.loads((PROJECT_ROOT / CHAT_INPUT_RELATIVE_PATH).read_text())
@@ -2981,10 +2981,15 @@ class RepositoryIntegrityTests(unittest.TestCase):
             {
                 "CALENDAR_SOLAR_TERM_MONTH_MAPPING",
                 "ZIWEI_COORDINATE_INTEGRITY",
+                "ZIWEI_COORDINATE_TRUTH_TABLE",
+                "PERIOD_NAMESPACE_YEAR_ALIGNMENT",
                 "RESULT_QUESTION_DYNAMIC_CLOSURE",
                 "ENTITY_NONEXISTENCE_NONBINARY",
                 "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
                 "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+                "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
+                "STATUS_TRANSITION_STATE_MACHINE",
+                "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
             },
         )
         self.assertEqual(
@@ -2992,10 +2997,15 @@ class RepositoryIntegrityTests(unittest.TestCase):
             {
                 "calendar_and_month_mapping",
                 "ziwei_coordinate_integrity",
+                "ziwei_coordinate_truth_table",
+                "period_namespace_alignment",
                 "result_dynamic_closure",
                 "entity_nonexistence",
                 "event_specificity",
                 "topic_palace_chain",
+                "cross_question_joint_candidates",
+                "status_transition_state_machine",
+                "collaborative_hypothesis_revalidation",
             },
         )
 
@@ -3066,6 +3076,92 @@ class RepositoryIntegrityTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 TrainingError,
                 "method gates are incomplete",
+            ):
+                _validate_method_execution_gates(root, runtime_policy)
+
+    def test_synthetic_method_regressions_reject_all_seven_execution_errors(self):
+        runtime_policy = json.loads(
+            (PROJECT_ROOT / "config/model-runtime.json").read_text()
+        )
+        reasoning_core, route_map = _validate_method_execution_gates(
+            PROJECT_ROOT,
+            runtime_policy,
+        )
+        synthetic_errors = [
+            (
+                "missing coordinate truth table",
+                "ZIWEI_COORDINATE_TRUTH_TABLE",
+                "materialize_one_immutable_coordinate_truth_table",
+            ),
+            (
+                "merged Ziwei and Bazi period namespace",
+                "PERIOD_NAMESPACE_YEAR_ALIGNMENT",
+                "name_bazi_periods_under_bazi_luck_cycle_namespace",
+            ),
+            (
+                "incomplete transformation provenance",
+                "ZIWEI_COORDINATE_INTEGRITY",
+                "transformations_bind_origin_layer_heavenly_stem_transformed_star_and_destination_palace",
+            ),
+            (
+                "partial rotated subject Taiji",
+                "ZIWEI_COORDINATE_TRUTH_TABLE",
+                "materialize_all_twelve_subject_taiji_palaces_before_topic_reasoning",
+            ),
+            (
+                "story-only cross-question consistency",
+                "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
+                "zero_story_coherence_and_repeated_evidence_as_decision_weight",
+            ),
+            (
+                "damage treated as terminal status",
+                "STATUS_TRANSITION_STATE_MACHINE",
+                "treat_damage_pressure_or_interruption_as_nonterminal_by_default",
+            ),
+            (
+                "discussion hypothesis accepted without chart validation",
+                "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
+                "return_to_the_frozen_chart_before_acceptance",
+            ),
+        ]
+
+        for label, gate_id, required_check in synthetic_errors:
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                damaged = json.loads(json.dumps(reasoning_core))
+                damaged["method_gates"][gate_id]["required_checks"].remove(
+                    required_check
+                )
+                write_json(root / "config/model-runtime.json", runtime_policy)
+                write_json(root / runtime_policy["reasoning_core"], damaged)
+                write_json(
+                    root / runtime_policy["knowledge_route_map"],
+                    route_map,
+                )
+                with self.assertRaisesRegex(
+                    TrainingError,
+                    "lacks mandatory checks",
+                ):
+                    _validate_method_execution_gates(root, runtime_policy)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            damaged_route = json.loads(json.dumps(route_map))
+            damaged_route["execution_gates"]["ziwei_coordinate_truth_table"][
+                "required_order"
+            ].remove("each_rotated_subject_taiji_twelve_palaces")
+            write_json(root / "config/model-runtime.json", runtime_policy)
+            write_json(
+                root / runtime_policy["reasoning_core"],
+                reasoning_core,
+            )
+            write_json(
+                root / runtime_policy["knowledge_route_map"],
+                damaged_route,
+            )
+            with self.assertRaisesRegex(
+                TrainingError,
+                "route gate order is incomplete",
             ):
                 _validate_method_execution_gates(root, runtime_policy)
 

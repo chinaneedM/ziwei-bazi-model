@@ -57,23 +57,124 @@ FORBIDDEN_CASE_KEYS = {
 REQUIRED_METHOD_GATES = {
     "CALENDAR_SOLAR_TERM_MONTH_MAPPING",
     "ZIWEI_COORDINATE_INTEGRITY",
+    "ZIWEI_COORDINATE_TRUTH_TABLE",
+    "PERIOD_NAMESPACE_YEAR_ALIGNMENT",
     "RESULT_QUESTION_DYNAMIC_CLOSURE",
     "ENTITY_NONEXISTENCE_NONBINARY",
     "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
     "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+    "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
+    "STATUS_TRANSITION_STATE_MACHINE",
+    "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
 }
 REQUIRED_ROUTE_GATES = {
     "calendar_and_month_mapping",
     "ziwei_coordinate_integrity",
+    "ziwei_coordinate_truth_table",
+    "period_namespace_alignment",
     "result_dynamic_closure",
     "entity_nonexistence",
     "event_specificity",
     "topic_palace_chain",
+    "cross_question_joint_candidates",
+    "status_transition_state_machine",
+    "collaborative_hypothesis_revalidation",
+}
+REQUIRED_METHOD_GATE_CHECKS = {
+    "ZIWEI_COORDINATE_INTEGRITY": {
+        "transformations_bind_origin_layer_heavenly_stem_transformed_star_and_destination_palace",
+    },
+    "ZIWEI_COORDINATE_TRUTH_TABLE": {
+        "materialize_one_immutable_coordinate_truth_table",
+        "include_natal_major_period_year_and_each_subject_taiji_namespace",
+        "require_exactly_twelve_unique_palace_rows_per_namespace",
+        "assign_stable_coordinate_ids",
+        "require_all_downstream_ziwei_claims_to_reference_coordinate_ids",
+        "materialize_all_twelve_subject_taiji_palaces_before_topic_reasoning",
+        "bind_each_transformation_to_origin_layer_heavenly_stem_transformed_star_and_destination_coordinate_id",
+    },
+    "PERIOD_NAMESPACE_YEAR_ALIGNMENT": {
+        "name_ziwei_periods_under_ziwei_major_period_namespace",
+        "name_bazi_periods_under_bazi_luck_cycle_namespace",
+        "forbid_unqualified_major_period_or_luck_cycle_labels",
+        "bind_each_period_to_explicit_start_and_end_years",
+        "validate_reference_year_membership_independently_in_each_track",
+        "record_age_convention_and_boundary_handling",
+    },
+    "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX": {
+        "identify_related_questions_without_assuming_shared_answers",
+        "build_joint_candidates_on_explicit_dimensions_such_as_year_by_cause",
+        "preserve_each_questions_independent_evidence_ledger",
+        "allow_later_question_counterevidence_to_challenge_earlier_candidates",
+        "zero_story_coherence_and_repeated_evidence_as_decision_weight",
+        "rerun_pairwise_ranking_after_valid_cross_question_counterevidence",
+    },
+    "STATUS_TRANSITION_STATE_MACHINE": {
+        "declare_state_domain_for_marriage_career_asset_and_other_status_questions",
+        "separate_entry_maintenance_impairment_and_exit_transitions",
+        "require_observable_transition_evidence_for_each_state_change",
+        "treat_damage_pressure_or_interruption_as_nonterminal_by_default",
+        "test_recovery_continuation_and_substitute_states",
+        "bind_terminal_exit_to_independent_dynamic_endpoint_evidence",
+    },
+    "COLLABORATIVE_HYPOTHESIS_REVALIDATION": {
+        "label_every_user_or_model_proposed_derivation_as_unverified_hypothesis",
+        "return_to_the_frozen_chart_before_acceptance",
+        "recompute_coordinates_and_time_mappings_from_the_truth_table",
+        "seek_independent_support_and_same_axis_counterevidence",
+        "record_accept_revise_or_reject_status_with_basis",
+        "forbid_authority_fluency_or_agreement_as_evidence",
+    },
+}
+REQUIRED_ROUTE_GATE_ORDERS = {
+    "ziwei_coordinate_truth_table": [
+        "natal_twelve_palaces",
+        "ziwei_major_period_twelve_palaces",
+        "ziwei_year_twelve_palaces",
+        "each_rotated_subject_taiji_twelve_palaces",
+        "stable_coordinate_ids",
+        "transformation_provenance_rows",
+        "downstream_read_only_coordinate_references",
+    ],
+    "period_namespace_alignment": [
+        "ziwei_major_period_namespace",
+        "bazi_luck_cycle_namespace",
+        "explicit_start_and_end_years",
+        "age_and_boundary_conventions",
+        "independent_reference_year_membership",
+        "preserved_cross_track_conflicts",
+    ],
+    "cross_question_joint_candidates": [
+        "related_question_detection",
+        "explicit_joint_dimensions",
+        "per_question_independent_evidence",
+        "cross_question_same_axis_counterevidence",
+        "story_coherence_and_duplicate_evidence_zeroing",
+        "pairwise_ranking_recheck",
+    ],
+    "status_transition_state_machine": [
+        "state_domain",
+        "entry_transition",
+        "maintenance_evidence",
+        "impairment_or_interruption",
+        "recovery_or_substitute_state",
+        "terminal_exit_endpoint",
+    ],
+    "collaborative_hypothesis_revalidation": [
+        "unverified_hypothesis_label",
+        "frozen_chart_return",
+        "coordinate_and_time_recalculation",
+        "independent_support_and_counterevidence",
+        "accept_revise_or_reject_status",
+        "ranking_eligibility",
+    ],
 }
 REQUIRED_REASONING_THEMES = {
     "INPUT_AND_CHART_COORDINATE_FREEZE",
     "CALENDAR_SOLAR_TERM_MONTH_MAPPING_GATE",
     "ZIWEI_COORDINATE_INTEGRITY_GATE",
+    "ZIWEI_COORDINATE_TRUTH_TABLE_GATE",
+    "PERIOD_NAMESPACE_YEAR_ALIGNMENT_GATE",
     "OPTION_BLIND_SHARED_CHART_MODEL",
     "ZIWEI_STATIC_STRUCTURE",
     "ZIWEI_DYNAMIC_ACTIVATION_WHEN_APPLICABLE",
@@ -90,6 +191,9 @@ REQUIRED_REASONING_THEMES = {
     "TOP1_TOP2_STRONGEST_REVERSAL",
     "CROSS_TRACK_CONFLICT_PRESERVATION",
     "CROSS_QUESTION_CONSISTENCY",
+    "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
+    "STATUS_TRANSITION_STATE_MACHINE",
+    "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
     "CAPABILITY_LIMIT_AND_CONFIDENCE_CALIBRATION",
 }
 
@@ -266,6 +370,11 @@ def _validate_method_execution_gates(
             or not gate["rule"].strip()
         ):
             raise TrainingError(f"invalid reasoning method gate: {gate_id}")
+        required_checks = REQUIRED_METHOD_GATE_CHECKS.get(gate_id, set())
+        if not required_checks.issubset(set(gate["required_checks"])):
+            raise TrainingError(
+                f"reasoning method gate lacks mandatory checks: {gate_id}"
+            )
     priority = reasoning_core.get("evidence_priority", [])
     try:
         specific_index = priority.index("independent_event_specific_mechanism")
@@ -290,6 +399,11 @@ def _validate_method_execution_gates(
             or not gate["limit"].strip()
         ):
             raise TrainingError(f"invalid knowledge route execution gate: {gate_id}")
+        required_order = REQUIRED_ROUTE_GATE_ORDERS.get(gate_id)
+        if required_order is not None and gate["required_order"] != required_order:
+            raise TrainingError(
+                f"knowledge route gate order is incomplete: {gate_id}"
+            )
     return reasoning_core, route_map
 
 
