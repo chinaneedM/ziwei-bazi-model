@@ -1,0 +1,67 @@
+{
+  "schema": "TIME-CALENDAR-POLICY-REGISTRY-V1",
+  "registry_version": "PHASE-01-R1",
+  "policies": {
+    "civil.ambiguous_time_policy": {
+      "class": "OPERATIONAL",
+      "default": "REJECT",
+      "values": {
+        "REJECT": "Return both UTC candidates and require an explicit choice.",
+        "EARLIER_OFFSET": "Select the earlier UTC instant (fold=0 in ordinary backward transitions).",
+        "LATER_OFFSET": "Select the later UTC instant (fold=1 in ordinary backward transitions)."
+      }
+    },
+    "bazi.year_boundary_policy": {
+      "class": "MINGLI_POLICY",
+      "default": "START_OF_SPRING",
+      "values": {
+        "START_OF_SPRING": "Year pillar changes at the global UTC instant of apparent solar longitude 315 degrees."
+      }
+    },
+    "bazi.day_boundary_policy": {
+      "class": "MINGLI_POLICY",
+      "default": "MIDNIGHT",
+      "values": {
+        "MIDNIGHT": "Sexagenary day changes at 00:00 local apparent solar time.",
+        "ZI_START_23": "Sexagenary day changes at 23:00 local apparent solar time."
+      }
+    },
+    "bazi.late_zi_hour_stem_policy": {
+      "class": "MINGLI_POLICY",
+      "default": "CLASSICAL_CONTINUOUS",
+      "default_status": "CORE_CANDIDATE_NOT_SETTLED_CLASSICAL_TRUTH",
+      "values": {
+        "CLASSICAL_CONTINUOUS": "Late Zi retains the old day pillar but derives the hour stem from the next day's stem.",
+        "CURRENT_DAY_STEM": "Late Zi retains the old day pillar and derives the hour stem from that same day's stem.",
+        "ZI_START_ROLLOVER": "At 23:00 both day pillar and hour-stem derivation use the next day; requires ZI_START_23."
+      }
+    },
+    "ziwei.calendar_date_policy": {
+      "class": "MINGLI_POLICY",
+      "default": "LOCAL_SOLAR_DATE_INDEXED",
+      "default_status": "CORE_CANDIDATE_NOT_SETTLED_CLASSICAL_TRUTH",
+      "values": {
+        "LOCAL_SOLAR_DATE_INDEXED": "Map the complete local apparent solar Gregorian date through the unified Chinese calendar.",
+        "ABSOLUTE_CALENDAR": "Use the official Chinese-calendar mapping of the reported civil Gregorian date."
+      }
+    },
+    "ziwei.life_body_leap_month_policy": {
+      "class": "MINGLI_POLICY_SCOPED",
+      "default": "FULLBOOK_NEXT_MONTH",
+      "default_status": "TEXTUAL_CANDIDATE_SCOPE_LIMITED",
+      "allowed_scope": ["ZIWEI_LIFE_BODY_PLACEMENT"],
+      "values": {
+        "FULLBOOK_NEXT_MONTH": "For life/body placement only, treat a leap month as the following month.",
+        "ZHONGZHOU_FIXED_15": "For life/body placement only, days 1-15 use the current month and later days the next month.",
+        "CURRENT_MONTH": "For life/body placement only, retain the leap month's nominal month.",
+        "TRUE_HALF_SPLIT": "For life/body placement only, divide the actual month length into two halves."
+      }
+    }
+  },
+  "governance": {
+    "facts_are_not_policies": true,
+    "policy_ids_are_versioned": true,
+    "leap_month_policy_must_not_escape_allowed_scope": true,
+    "no_boolean_aliases": true
+  }
+}

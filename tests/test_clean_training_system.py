@@ -176,6 +176,15 @@ class RuntimeFixture:
             POST_PREDICTION_HANDOFF_POLICY,
         )
         write_json(self.root / "config" / "question-taxonomy.json", TAXONOMY)
+        shutil.copy2(
+            PROJECT_ROOT / "config" / "time-calendar-policies.json",
+            self.root / "config" / "time-calendar-policies.json",
+        )
+        (self.root / "schemas").mkdir(parents=True, exist_ok=True)
+        shutil.copy2(
+            PROJECT_ROOT / "schemas" / "time-calendar-foundation-v1.schema.json",
+            self.root / "schemas" / "time-calendar-foundation-v1.schema.json",
+        )
         source_manifest = build_source_manifest(self.root)
         write_json(self.root / "sources" / "canonical-manifest.json", source_manifest)
         runtime_manifest = write_canonical_runtime(self.root)

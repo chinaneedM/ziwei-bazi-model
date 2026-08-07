@@ -143,3 +143,14 @@ make test
 ```
 
 验证覆盖冻结原典、答案隔离、模型发布链、题级标签、23张知识卡、失败学习、跨案三连门、间隔复训、维护里程碑、选项前全盘模型、双轨封卷、证据父链、全选项矩阵、反转测试、规则消融、置信度校准、安全Chat输入包以及Issue自动闭环。
+
+## 排盘时间／历法底座
+
+确定性的紫微＋八字共用 Time / Calendar Foundation R1 已纳入现有 Python
+包，不属于 `model-learning`，也不修改冻结来源。其架构、Policy Registry、
+AuditTrace、依赖审计、边界测试和开放问题见
+`docs/TIME-CALENDAR-FOUNDATION-R1.md`。可用以下命令生成完整机器可读示例：
+
+```bash
+PYTHONPATH=src python scripts/time-calendar-example.py
+```
