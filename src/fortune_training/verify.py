@@ -12,6 +12,7 @@ from .chat_input import (
     compose_chat_input,
 )
 from .case_bank import validate_case_bank
+from .calendar_foundation.policies import PolicyRegistry
 from .canonical_runtime import (
     RUNTIME_MANIFEST_PATH,
     validate_canonical_runtime,
@@ -55,6 +56,49 @@ FORBIDDEN_CASE_KEYS = {
     "label",
     "revealed_answer",
 }
+
+
+def _validate_time_calendar_foundation(root: Path) -> dict[str, Any]:
+    registry_path = root / "config" / "time-calendar-policies.json"
+    schema_path = root / "schemas" / "time-calendar-foundation-v1.schema.json"
+    try:
+        registry = PolicyRegistry.from_file(registry_path)
+        defaults = registry.validate_selection(registry.default_selection())
+    except (OSError, ValueError) as exc:
+        raise TrainingError(f"invalid time/calendar policy registry: {exc}") from exc
+    expected_policy_ids = {
+        "civil.ambiguous_time_policy",
+        "bazi.year_boundary_policy",
+        "bazi.day_boundary_policy",
+        "bazi.late_zi_hour_stem_policy",
+        "ziwei.calendar_date_policy",
+        "ziwei.life_body_leap_month_policy",
+    }
+    if set(registry.payload["policies"]) != expected_policy_ids:
+        raise TrainingError("time/calendar policy registry has an incomplete policy set")
+    leap_policy = registry.policy("ziwei.life_body_leap_month_policy")
+    if leap_policy.get("allowed_scope") != ["ZIWEI_LIFE_BODY_PLACEMENT"]:
+        raise TrainingError("Ziwei leap-month policy escaped its proven R1 scope")
+    schema = load_json(schema_path)
+    if (
+        schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema"
+        or schema.get("properties", {}).get("schema", {}).get("const")
+        != "TIME-CALENDAR-FOUNDATION-RESULT-V1"
+        or schema.get("properties", {})
+        .get("metadata", {})
+        .get("properties", {})
+        .get("canonical_sources_modified", {})
+        .get("const")
+        is not False
+    ):
+        raise TrainingError("invalid Time/Calendar Foundation schema")
+    return {
+        "schema": schema["properties"]["schema"]["const"],
+        "policy_registry_version": registry.version,
+        "policy_count": len(expected_policy_ids),
+        "default_selection": defaults.__dict__,
+        "canonical_sources_modified": False,
+    }
 REQUIRED_METHOD_GATES = {
     "CALENDAR_SOLAR_TERM_MONTH_MAPPING",
     "ZIWEI_COORDINATE_INTEGRITY",
@@ -937,6 +981,7 @@ def _validate_state(root: Path, state: dict[str, Any], group: dict[str, Any]) ->
 
 def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str, Any]:
     root = root.resolve()
+    time_calendar = _validate_time_calendar_foundation(root)
     policy = load_and_validate_policy(root / "config" / "training-policy.json")
     prediction_tool_policy = load_prediction_tool_policy(root)
     post_handoff_policy = load_post_prediction_handoff_policy(root)
@@ -1307,6 +1352,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "learning_ledger_ready": True,
         "maintenance_ready": True,
         "maintenance": maintenance,
+        "time_calendar_foundation": time_calendar,
         "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
         "required_consecutive_independent_passes": REQUIRED_CONSECUTIVE_INDEPENDENT_PASSES,
         "same_case_replays_count_toward_stage_gate": False,
