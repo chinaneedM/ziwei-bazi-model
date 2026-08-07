@@ -92,8 +92,8 @@
     },
     "ziwei_coordinate_truth_table": {
       "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
-      "required_order": ["natal_twelve_palaces", "ziwei_major_period_twelve_palaces", "ziwei_year_twelve_palaces", "each_rotated_subject_taiji_twelve_palaces", "stable_coordinate_ids", "transformation_provenance_rows", "downstream_read_only_coordinate_references"],
-      "limit": "Every namespace must have exactly twelve unique palaces before interpretation. Topic reasoning may reference the frozen table but may not regenerate coordinates or accept a partial subject-Taiji chart."
+      "required_order": ["natal_twelve_palaces_and_physical_star_inventory", "ziwei_major_period_twelve_palaces", "ziwei_year_twelve_palaces", "each_rotated_subject_taiji_twelve_palaces", "same_branch_natal_coordinate_bindings", "mechanical_opposite_and_trine_topology", "separate_qi_and_one_six_links", "opposite_only_empty_palace_borrowing", "source_kind_type_star_origin_and_semantic_destination_for_transformations", "downstream_read_only_coordinate_references"],
+      "limit": "Every namespace must have exactly twelve unique palaces before interpretation. Natal owns physical star locations; dynamic and subject-Taiji palaces reference, rather than move or duplicate, those stars. Empty-palace borrowing is opposite-only, and transformation state cannot change physical coordinates."
     },
     "period_namespace_alignment": {
       "route": ["S01", "S03", "S10", "S15", "S19"],
@@ -120,6 +120,16 @@
       "required_order": ["natal_capacity", "ziwei_major_period_and_bazi_luck_cycle", "reference_year", "defensible_candidate_months", "observable_or_formal_endpoint"],
       "limit": "A result-bearing option cannot be ranked from natal capacity or general scene alone."
     },
+    "question_scope_minimum_sufficient_retrieval": {
+      "route": ["S01", "S03", "S10", "S15", "S17", "S18", "S19"],
+      "required_order": ["question_mode", "target_time_resolution", "required_layers", "actually_inspected_layers", "advanced_module_justification", "core_layer_preservation"],
+      "limit": "Static questions start from natal structure; current, result and time-comparison questions retain both major-period namespaces and the year. Extra expansion needs a live competition reason, while efficiency may never remove a required layer."
+    },
+    "event_cause_sensitive_reality_atom_boundary": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["event_atoms", "cause_atoms", "same_option_event_to_cause_bridge", "reality_identity_atoms", "primary_cashflow_atoms", "sensitive_noninferable_atoms", "closure_or_unknown"],
+      "limit": "Cause, current identity and primary cashflow do not inherit proof from event activation or general capacity. Sensitive non-inferable attributes remain unknown and cannot receive chart-derived support or refutation."
+    },
     "entity_nonexistence": {
       "route": ["S02", "S03", "S04", "S08", "S10", "S17", "S18"],
       "required_order": ["entity_identity", "existence_or_absence", "condition_or_risk", "dynamic_action", "real_world_endpoint"],
@@ -137,8 +147,8 @@
     },
     "cross_question_joint_candidates": {
       "route": ["S02", "S03", "S17", "S18", "S19"],
-      "required_order": ["related_question_detection", "explicit_joint_dimensions", "per_question_independent_evidence", "cross_question_same_axis_counterevidence", "story_coherence_and_duplicate_evidence_zeroing", "pairwise_ranking_recheck"],
-      "limit": "A joint matrix exposes combinations and contradictions; it does not turn one option into a fact for another question or reward a coherent story without independent evidence."
+      "required_order": ["related_question_detection", "explicit_joint_dimensions", "per_question_independent_evidence", "direct_same_axis_counterevidence_edges_only", "acyclic_dependency_check", "story_coherence_and_duplicate_evidence_zeroing", "affected_pairwise_ranking_recheck"],
+      "limit": "A joint matrix exposes combinations and contradictions; its edges may constrain or refute only, may not form cycles, and cannot turn one option or coherent story into evidence for another question."
     },
     "status_transition_state_machine": {
       "route": ["S02", "S03", "S10", "S15", "S17", "S18"],
@@ -185,8 +195,10 @@
     "revalidate_collaborative_hypotheses_against_frozen_chart",
     "quarantine_new_cross_case_hypotheses_at_zero_decision_weight",
     "build_option_blind_fact_model",
+    "classify_question_scope_and_freeze_minimum_sufficient_layers",
+    "separate_event_cause_reality_identity_primary_cashflow_and_sensitive_atoms",
     "build_status_transition_models_for_state_questions",
-    "build_joint_candidate_matrices_for_related_questions",
+    "build_acyclic_counterevidence_only_joint_candidate_matrices_for_related_questions",
     "route_subject_topic_and_reference_period",
     "route_primary_palace_auxiliary_palaces_and_qi_position",
     "derive_ziwei_static_structure",

@@ -410,33 +410,91 @@ class RuntimeFixture:
             ("ZIWEI-PERIOD-NS", "ZIWEI_MAJOR_PERIOD"),
             ("YEAR-NS", "YEAR"),
         )
+
+        def coordinate_rows(namespace_id: str, namespace_type: str) -> list[list]:
+            rows = []
+            for coordinate_index, (palace_name, earthly_branch) in enumerate(
+                zip(palace_names, earthly_branches)
+            ):
+                coordinate_id = f"{namespace_id}-C{coordinate_index:02d}"
+                rows.append(
+                    [
+                        coordinate_id,
+                        palace_name,
+                        earthly_branch,
+                        coordinate_id,
+                        coordinate_id,
+                    ]
+                )
+            return rows
+
+        namespace_rows = {
+            namespace_id: coordinate_rows(namespace_id, namespace_type)
+            for namespace_id, namespace_type in namespace_specs
+        }
+        natal_star_inventory = [
+            [
+                f"NATAL-NS-C{coordinate_index:02d}",
+                ["Synthetic star"] if coordinate_index == 0 else [],
+                [],
+                [],
+            ]
+            for coordinate_index in range(12)
+        ]
+        topology_rows = []
+        for namespace_id, _namespace_type in namespace_specs:
+            for coordinate_index, coordinate in enumerate(namespace_rows[namespace_id]):
+                topology_rows.append(
+                    [
+                        coordinate[0],
+                        f"{namespace_id}-C{(coordinate_index + 6) % 12:02d}",
+                        sorted(
+                            [
+                                f"{namespace_id}-C{(coordinate_index + 4) % 12:02d}",
+                                f"{namespace_id}-C{(coordinate_index + 8) % 12:02d}",
+                            ]
+                        ),
+                        (
+                            f"{namespace_id}-C{(coordinate_index + 6) % 12:02d}"
+                            if not natal_star_inventory[coordinate_index][1]
+                            else None
+                        ),
+                        coordinate[3],
+                        coordinate[4],
+                    ]
+                )
+
         coordinate_truth_table = {
-            "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V1",
+            "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V2",
+            "coordinate_row_fields": [
+                "coordinate_id",
+                "palace_name",
+                "earthly_branch",
+                "qi_coordinate_id",
+                "one_six_coordinate_id",
+            ],
+            "natal_star_inventory": natal_star_inventory,
+            "topology_receipt_sha256": object_sha256(sorted(topology_rows)),
             "required_namespace_ids": [item[0] for item in namespace_specs],
             "namespaces": [
                 {
                     "namespace_id": namespace_id,
                     "namespace_type": namespace_type,
-                    "coordinates": [
-                        [
-                            f"{namespace_id}-C{coordinate_index:02d}",
-                            palace_name,
-                            earthly_branch,
-                        ]
-                        for coordinate_index, (palace_name, earthly_branch) in enumerate(
-                            zip(palace_names, earthly_branches)
-                        )
-                    ],
+                    "subject_tag": "NOT_APPLICABLE",
+                    "coordinates": namespace_rows[namespace_id],
                 }
                 for namespace_id, namespace_type in namespace_specs
             ],
             "transformations": [
                 {
                     "fact_id": "TRANSFORM-PRIMARY",
+                    "source_kind": "BIRTH",
                     "origin_layer": "NATAL",
                     "heavenly_stem": "甲",
+                    "transformation_type": "LU",
                     "transformed_star": "Synthetic star",
-                    "destination_coordinate_id": "NATAL-NS-C00",
+                    "star_origin_coordinate_id": "NATAL-NS-C00",
+                    "semantic_destination_coordinate_id": "NATAL-NS-C00",
                     "verification_status": "VERIFIED",
                 }
             ],
@@ -522,9 +580,22 @@ class RuntimeFixture:
                         }
                         for option in option_ids
                     },
+                    "special_atom_refs": [],
                     "shared_non_discriminating_atoms": ["shared background"],
                     "ambiguities": [],
                 }
+                row["question_scope_execution"] = [
+                    "STATIC_NATAL",
+                    "NOT_APPLICABLE",
+                    ["NATAL"],
+                    ["NATAL", "BAZI_LUCK_CYCLE"],
+                    [],
+                    [
+                        "Synthetic fixture preserves the independent Bazi period track."
+                    ],
+                    True,
+                    True,
+                ]
                 row["evidence_ledger"] = [
                     {
                         "evidence_id": ziwei_evidence_id,
@@ -544,6 +615,7 @@ class RuntimeFixture:
                         "reliability": "HIGH",
                         "capability_ceiling": "Does not prove an exact endpoint alone.",
                         "decision_impact": "SUPPORTING",
+                        "causal_role": "NONE",
                         "limitations": "Synthetic fixture has no domain-specific claim.",
                         "axis_distance": "DIRECT_SAME_AXIS",
                         "transmission_path": [],
@@ -568,6 +640,7 @@ class RuntimeFixture:
                         "reliability": "MEDIUM",
                         "capability_ceiling": "Does not create an unstated real-world action.",
                         "decision_impact": "SUPPORTING",
+                        "causal_role": "NONE",
                         "limitations": "Synthetic fixture has no exact timing claim.",
                         "axis_distance": "ONE_HOP",
                         "transmission_path": ["period context to endpoint candidate"],
@@ -581,44 +654,20 @@ class RuntimeFixture:
                 period_upstream_id = f"UF-P-{index}"
                 row["upstream_fact_dependencies"] = {
                     "facts": [
-                        {
-                            "fact_id": ziwei_upstream_id,
-                            "branch_id": branch_id,
-                            "fact_type": "ZIWEI_COORDINATE",
-                            "source_object_id": "NATAL-NS-C00",
-                            "recomputation_status": "VERIFIED",
-                        },
-                        {
-                            "fact_id": ziwei_period_upstream_id,
-                            "branch_id": branch_id,
-                            "fact_type": "PERIOD_OBJECT",
-                            "source_object_id": "ZIWEI-PERIOD-OBJECT",
-                            "recomputation_status": "VERIFIED",
-                        },
-                        {
-                            "fact_id": bazi_upstream_id,
-                            "branch_id": branch_id,
-                            "fact_type": "BAZI_ATOMIC",
-                            "source_object_id": "DAY_STEM",
-                            "recomputation_status": "VERIFIED",
-                        },
-                        {
-                            "fact_id": period_upstream_id,
-                            "branch_id": branch_id,
-                            "fact_type": "PERIOD_OBJECT",
-                            "source_object_id": "BAZI-PERIOD-OBJECT",
-                            "recomputation_status": "VERIFIED",
-                        },
+                        [ziwei_upstream_id, branch_id, "ZIWEI_COORDINATE", "NATAL-NS-C00", "VERIFIED"],
+                        [ziwei_period_upstream_id, branch_id, "PERIOD_OBJECT", "ZIWEI-PERIOD-OBJECT", "VERIFIED"],
+                        [bazi_upstream_id, branch_id, "BAZI_ATOMIC", "DAY_STEM", "VERIFIED"],
+                        [period_upstream_id, branch_id, "PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", "VERIFIED"],
                     ],
                     "evidence_dependencies": [
-                        {
-                            "evidence_id": ziwei_evidence_id,
-                            "branch_id": branch_id,
-                            "upstream_fact_ids": [
+                        [
+                            ziwei_evidence_id,
+                            branch_id,
+                            [
                                 ziwei_upstream_id,
                                 ziwei_period_upstream_id,
                             ],
-                            "dependency_signature": object_sha256(
+                            object_sha256(
                                 {
                                     "branch_id": branch_id,
                                     "upstream_fact_ids": sorted(
@@ -626,15 +675,15 @@ class RuntimeFixture:
                                     ),
                                 }
                             ),
-                        },
-                        {
-                            "evidence_id": bazi_evidence_id,
-                            "branch_id": branch_id,
-                            "upstream_fact_ids": [
+                        ],
+                        [
+                            bazi_evidence_id,
+                            branch_id,
+                            [
                                 bazi_upstream_id,
                                 period_upstream_id,
                             ],
-                            "dependency_signature": object_sha256(
+                            object_sha256(
                                 {
                                     "branch_id": branch_id,
                                     "upstream_fact_ids": sorted(
@@ -642,7 +691,7 @@ class RuntimeFixture:
                                     ),
                                 }
                             ),
-                        },
+                        ],
                     ],
                     "invalidated_evidence_ids": [],
                     "ranking_recomputed_after_invalidation": True,
@@ -739,16 +788,16 @@ class RuntimeFixture:
                         for option in option_ids
                     },
                     "pairwise": [
-                        {
-                            "left": left,
-                            "right": right,
-                            "winner": (
+                        [
+                            left,
+                            right,
+                            (
                                 left
                                 if ranking.index(left) < ranking.index(right)
                                 else right
                             ),
-                            "reason": "The winner has stronger distinctive endpoint closure.",
-                        }
+                            "The winner has stronger distinctive endpoint closure.",
+                        ]
                         for left_index, left in enumerate(option_ids)
                         for right in option_ids[left_index + 1 :]
                     ],
@@ -890,14 +939,15 @@ class RuntimeFixture:
                 },
                 "cross_question_consistency": {
                     "checks": [
-                        {
-                            "question_id": f"Q{index}",
-                            "consistent": True,
-                            "conflicts": [],
-                            "resolution": "Uses the shared blind chart model.",
-                        }
+                        [
+                            f"Q{index}",
+                            True,
+                            [],
+                            "Uses the shared blind chart model.",
+                        ]
                         for index in range(1, question_count + 1)
                     ],
+                    "joint_candidate_matrices": [],
                     "unresolved_conflicts": [],
                 },
                 "replay_remediation": replay_remediation,
@@ -1340,6 +1390,7 @@ class RuntimeTests(unittest.TestCase):
                     "question_profile",
                     "rule_attribution",
                     "question_semantic_model",
+                    "question_scope_execution",
                     "ziwei_track_seal",
                     "bazi_track_seal",
                     "cross_track_arbitration",
@@ -1840,6 +1891,197 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             lambda payload: payload["predictions"][0].pop("bazi_track_seal")
         )
 
+    def test_ziwei_physical_topology_and_transformation_provenance_fail_closed(self):
+        def wrong_opposite(payload):
+            table = payload["blind_chart_model"]["chart_branch_model"]["branches"][
+                "BRANCH-PRIMARY"
+            ]["ziwei_coordinate_truth_table"]
+            table["topology_receipt_sha256"] = "0" * 64
+
+        self.assert_freeze_rejected(wrong_opposite)
+
+        def wrong_empty_borrow(payload):
+            table = payload["blind_chart_model"]["chart_branch_model"]["branches"][
+                "BRANCH-PRIMARY"
+            ]["ziwei_coordinate_truth_table"]
+            table["natal_star_inventory"][1][1] = ["Second synthetic star"]
+
+        self.assert_freeze_rejected(wrong_empty_borrow)
+
+        def duplicate_physical_star(payload):
+            table = payload["blind_chart_model"]["chart_branch_model"]["branches"][
+                "BRANCH-PRIMARY"
+            ]["ziwei_coordinate_truth_table"]
+            table["natal_star_inventory"][1][1] = ["Synthetic star"]
+
+        self.assert_freeze_rejected(duplicate_physical_star)
+
+        def move_transformed_star(payload):
+            table = payload["blind_chart_model"]["chart_branch_model"]["branches"][
+                "BRANCH-PRIMARY"
+            ]["ziwei_coordinate_truth_table"]
+            table["transformations"][0][
+                "semantic_destination_coordinate_id"
+            ] = "NATAL-NS-C01"
+
+        self.assert_freeze_rejected(move_transformed_star)
+
+    def test_cause_sensitive_identity_and_cashflow_atoms_have_separate_burdens(self):
+        def infer_sensitive_atom(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            atom = row["question_semantic_model"]["option_atoms"][top1][
+                "required_atoms"
+            ][0]
+            row["question_semantic_model"]["special_atom_refs"] = [
+                ["SENSITIVE_NONINFERABLE", f"{top1}:{atom}"]
+            ]
+
+        self.assert_freeze_rejected(infer_sensitive_atom)
+
+        def infer_reality_identity_from_chart(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            atom = row["question_semantic_model"]["option_atoms"][top1][
+                "required_atoms"
+            ][0]
+            row["question_semantic_model"]["special_atom_refs"] = [
+                ["REALITY_IDENTITY", f"{top1}:{atom}"]
+            ]
+
+        self.assert_freeze_rejected(infer_reality_identity_from_chart)
+
+        def infer_primary_cashflow_from_capacity(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            atom = row["question_semantic_model"]["option_atoms"][top1][
+                "required_atoms"
+            ][0]
+            row["question_semantic_model"]["special_atom_refs"] = [
+                ["PRIMARY_CASHFLOW", f"{top1}:{atom}"]
+            ]
+
+        self.assert_freeze_rejected(infer_primary_cashflow_from_capacity)
+
+        def assert_cause_without_bridge(payload):
+            row = payload["predictions"][0]
+            top1 = row["top1"]
+            atom = row["question_semantic_model"]["option_atoms"][top1][
+                "required_atoms"
+            ][0]
+            row["question_semantic_model"]["special_atom_refs"] = [
+                ["CAUSE", f"{top1}:{atom}"]
+            ]
+
+        self.assert_freeze_rejected(assert_cause_without_bridge)
+
+    def test_question_scope_receipt_blocks_missing_layers_and_unjustified_expansion(self):
+        def omit_current_dynamic_layers(payload):
+            row = payload["predictions"][0]
+            row["question_profile"]["time_scope_tags"] = ["CURRENT_STATUS"]
+            row["question_scope_execution"][0] = "CURRENT_STATUS"
+            row["question_scope_execution"][1] = "RESOLVED"
+
+        self.assert_freeze_rejected(omit_current_dynamic_layers)
+
+        def expand_without_reason(payload):
+            row = payload["predictions"][0]
+            row["question_scope_execution"][5] = []
+
+        self.assert_freeze_rejected(expand_without_reason)
+
+    def test_cross_question_matrix_rejects_story_weight_and_circular_proof(self):
+        def add_story_weight(payload):
+            payload["cross_question_consistency"]["joint_candidate_matrices"] = [
+                {
+                    "matrix_id": "SYNTHETIC-JOINT",
+                    "question_ids": ["Q1", "Q2"],
+                    "dimensions": ["subject", "event"],
+                    "independent_evidence_ids_by_question": {
+                        "Q1": ["Z-1"],
+                        "Q2": ["Z-2"],
+                    },
+                    "counterevidence_edges": [],
+                    "story_coherence_weight": 1,
+                    "option_text_used_as_fact": False,
+                    "ranking_recomputed_question_ids": [],
+                    "unresolved_conflicts": [],
+                }
+            ]
+
+        self.assert_freeze_rejected(add_story_weight)
+
+        def add_circular_edges(payload):
+            payload["cross_question_consistency"]["joint_candidate_matrices"] = [
+                {
+                    "matrix_id": "SYNTHETIC-JOINT",
+                    "question_ids": ["Q1", "Q2"],
+                    "dimensions": ["subject", "event"],
+                    "independent_evidence_ids_by_question": {
+                        "Q1": ["Z-1"],
+                        "Q2": ["Z-2"],
+                    },
+                    "counterevidence_edges": [
+                        {
+                            "from_question_id": "Q1",
+                            "to_question_id": "Q2",
+                            "evidence_ids": ["Z-1"],
+                            "effect": "COUNTEREVIDENCE_ONLY",
+                        },
+                        {
+                            "from_question_id": "Q2",
+                            "to_question_id": "Q1",
+                            "evidence_ids": ["Z-2"],
+                            "effect": "COUNTEREVIDENCE_ONLY",
+                        },
+                    ],
+                    "story_coherence_weight": 0,
+                    "option_text_used_as_fact": False,
+                    "ranking_recomputed_question_ids": ["Q1", "Q2"],
+                    "unresolved_conflicts": [],
+                }
+            ]
+
+        self.assert_freeze_rejected(add_circular_edges)
+
+    def test_cross_question_matrix_accepts_one_way_direct_counterevidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = RuntimeFixture(Path(temporary))
+            path = fixture.prediction_file("R1", 4)
+            payload = json.loads(path.read_text())
+            payload["cross_question_consistency"]["joint_candidate_matrices"] = [
+                {
+                    "matrix_id": "SYNTHETIC-JOINT",
+                    "question_ids": ["Q1", "Q2"],
+                    "dimensions": ["subject", "event"],
+                    "independent_evidence_ids_by_question": {
+                        "Q1": ["Z-1"],
+                        "Q2": ["Z-2"],
+                    },
+                    "counterevidence_edges": [
+                        {
+                            "from_question_id": "Q2",
+                            "to_question_id": "Q1",
+                            "evidence_ids": ["Z-2"],
+                            "effect": "COUNTEREVIDENCE_ONLY",
+                        }
+                    ],
+                    "story_coherence_weight": 0,
+                    "option_text_used_as_fact": False,
+                    "ranking_recomputed_question_ids": ["Q1"],
+                    "unresolved_conflicts": [],
+                }
+            ]
+            write_json(path, payload)
+            start_round(fixture.root, "R1")
+            frozen = freeze_prediction(fixture.root, "R1", path)
+            self.assertEqual(
+                frozen["cross_question_consistency"]["joint_candidate_matrices"][0][
+                    "matrix_id"
+                ],
+                "SYNTHETIC-JOINT",
+            )
+
     def test_source_only_evidence_and_missing_applicability_are_rejected(self):
         self.assert_freeze_rejected(
             lambda payload: payload["predictions"][0]["evidence_ledger"][0].update(
@@ -1941,23 +2183,23 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             dependency_graph = row["upstream_fact_dependencies"]
             failed_fact_id = "UF-TRANSFORMATION-FAILED"
             dependency_graph["facts"].append(
-                {
-                    "fact_id": failed_fact_id,
-                    "branch_id": "BRANCH-PRIMARY",
-                    "fact_type": "ZIWEI_TRANSFORMATION",
-                    "source_object_id": "TRANSFORM-PRIMARY",
-                    "recomputation_status": "FAILED",
-                }
+                [
+                    failed_fact_id,
+                    "BRANCH-PRIMARY",
+                    "ZIWEI_TRANSFORMATION",
+                    "TRANSFORM-PRIMARY",
+                    "FAILED",
+                ]
             )
             dependency = dependency_graph["evidence_dependencies"][0]
-            dependency["upstream_fact_ids"].append(failed_fact_id)
-            dependency["dependency_signature"] = object_sha256(
+            dependency[2].append(failed_fact_id)
+            dependency[3] = object_sha256(
                 {
-                    "branch_id": dependency["branch_id"],
-                    "upstream_fact_ids": sorted(dependency["upstream_fact_ids"]),
+                    "branch_id": dependency[1],
+                    "upstream_fact_ids": sorted(dependency[2]),
                 }
             )
-            invalidated_id = dependency["evidence_id"]
+            invalidated_id = dependency[0]
             dependency_graph["invalidated_evidence_ids"] = [invalidated_id]
             dependency_graph["ranking_recomputed_after_invalidation"] = True
 
@@ -2027,27 +2269,9 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             )
             graph = row["upstream_fact_dependencies"]
             alternate_facts = [
-                {
-                    "fact_id": "UF-Z-ALTERNATE",
-                    "branch_id": alternate_branch_id,
-                    "fact_type": "ZIWEI_COORDINATE",
-                    "source_object_id": "NATAL-NS-C00",
-                    "recomputation_status": "VERIFIED",
-                },
-                {
-                    "fact_id": "UF-B-ALTERNATE",
-                    "branch_id": alternate_branch_id,
-                    "fact_type": "BAZI_ATOMIC",
-                    "source_object_id": "DAY_STEM",
-                    "recomputation_status": "VERIFIED",
-                },
-                {
-                    "fact_id": "UF-P-ALTERNATE",
-                    "branch_id": alternate_branch_id,
-                    "fact_type": "PERIOD_OBJECT",
-                    "source_object_id": "BAZI-PERIOD-OBJECT",
-                    "recomputation_status": "VERIFIED",
-                },
+                ["UF-Z-ALTERNATE", alternate_branch_id, "ZIWEI_COORDINATE", "NATAL-NS-C00", "VERIFIED"],
+                ["UF-B-ALTERNATE", alternate_branch_id, "BAZI_ATOMIC", "DAY_STEM", "VERIFIED"],
+                ["UF-P-ALTERNATE", alternate_branch_id, "PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", "VERIFIED"],
             ]
             graph["facts"].extend(alternate_facts)
             for evidence_id, upstream_ids in (
@@ -2055,17 +2279,17 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                 (bazi_id, ["UF-B-ALTERNATE", "UF-P-ALTERNATE"]),
             ):
                 graph["evidence_dependencies"].append(
-                    {
-                        "evidence_id": evidence_id,
-                        "branch_id": alternate_branch_id,
-                        "upstream_fact_ids": upstream_ids,
-                        "dependency_signature": object_sha256(
+                    [
+                        evidence_id,
+                        alternate_branch_id,
+                        upstream_ids,
+                        object_sha256(
                             {
                                 "branch_id": alternate_branch_id,
                                 "upstream_fact_ids": sorted(upstream_ids),
                             }
                         ),
-                    }
+                    ]
                 )
             row["branch_analysis"]["branch_rankings"][alternate_branch_id] = {
                 "top1": alternate_top1,
@@ -2136,30 +2360,30 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                     ("PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", fact_ids["period"]),
                 ):
                     other_graph["facts"].append(
-                        {
-                            "fact_id": fact_id,
-                            "branch_id": alternate_branch_id,
-                            "fact_type": fact_type,
-                            "source_object_id": source_object_id,
-                            "recomputation_status": "VERIFIED",
-                        }
+                        [
+                            fact_id,
+                            alternate_branch_id,
+                            fact_type,
+                            source_object_id,
+                            "VERIFIED",
+                        ]
                     )
                 for evidence_id, upstream_ids in (
                     (other_ziwei_id, [fact_ids["ziwei"]]),
                     (other_bazi_id, [fact_ids["bazi"], fact_ids["period"]]),
                 ):
                     other_graph["evidence_dependencies"].append(
-                        {
-                            "evidence_id": evidence_id,
-                            "branch_id": alternate_branch_id,
-                            "upstream_fact_ids": upstream_ids,
-                            "dependency_signature": object_sha256(
+                        [
+                            evidence_id,
+                            alternate_branch_id,
+                            upstream_ids,
+                            object_sha256(
                                 {
                                     "branch_id": alternate_branch_id,
                                     "upstream_fact_ids": sorted(upstream_ids),
                                 }
                             ),
-                        }
+                        ]
                     )
                 other_row["branch_analysis"]["branch_rankings"][
                     alternate_branch_id
@@ -2251,6 +2475,26 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             row = payload["predictions"][0]
             row["question_semantic_model"]["is_composite_narrative"] = False
             row["question_profile"]["time_scope_tags"] = ["SPECIFIC_YEAR"]
+            row["question_scope_execution"] = [
+                "RESULT_OR_EVENT",
+                "RESOLVED",
+                [
+                    "NATAL",
+                    "ZIWEI_MAJOR_PERIOD",
+                    "BAZI_LUCK_CYCLE",
+                    "YEAR",
+                ],
+                [
+                    "NATAL",
+                    "ZIWEI_MAJOR_PERIOD",
+                    "BAZI_LUCK_CYCLE",
+                    "YEAR",
+                ],
+                [],
+                [],
+                True,
+                True,
+            ]
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "YEAR"
                 evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
@@ -2299,6 +2543,26 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
             for evidence in row["evidence_ledger"]:
                 evidence["layer"] = "PERIOD"
                 evidence["temporal_role"] = "ACTIVE_QUERY_OBJECT"
+            row["question_scope_execution"] = [
+                "TIME_COMPARISON",
+                "RESOLVED",
+                [
+                    "NATAL",
+                    "ZIWEI_MAJOR_PERIOD",
+                    "BAZI_LUCK_CYCLE",
+                    "YEAR",
+                ],
+                [
+                    "NATAL",
+                    "ZIWEI_MAJOR_PERIOD",
+                    "BAZI_LUCK_CYCLE",
+                    "YEAR",
+                ],
+                [],
+                [],
+                True,
+                True,
+            ]
             write_json(path, payload)
             start_round(fixture.root, "R1")
             frozen = freeze_prediction(fixture.root, "R1", path)
@@ -3615,6 +3879,8 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "ENTITY_NONEXISTENCE_NONBINARY",
                 "EVENT_SPECIFICITY_WEIGHT_DOMINANCE",
                 "PRIMARY_AUXILIARY_QI_DYNAMIC_ROUTING",
+                "QUESTION_SCOPE_MINIMUM_SUFFICIENT_RETRIEVAL",
+                "EVENT_CAUSE_SENSITIVE_REALITY_ATOM_BOUNDARY",
                 "CROSS_QUESTION_JOINT_CANDIDATE_MATRIX",
                 "STATUS_TRANSITION_STATE_MACHINE",
                 "COLLABORATIVE_HYPOTHESIS_REVALIDATION",
@@ -3638,6 +3904,8 @@ class RepositoryIntegrityTests(unittest.TestCase):
                 "entity_nonexistence",
                 "event_specificity",
                 "topic_palace_chain",
+                "question_scope_minimum_sufficient_retrieval",
+                "event_cause_sensitive_reality_atom_boundary",
                 "cross_question_joint_candidates",
                 "status_transition_state_machine",
                 "collaborative_hypothesis_revalidation",

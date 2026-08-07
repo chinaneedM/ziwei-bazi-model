@@ -29,6 +29,7 @@ from .reasoning import (
     PREDICTION_SCHEMA,
     build_completeness_report,
     frozen_content_hash,
+    validate_cross_question_joint_matrices,
     validate_prediction_reasoning,
     validate_question_reasoning,
     validate_replay_remediation,
@@ -362,6 +363,7 @@ def _validate_prediction(
             "question_profile",
             "rule_attribution",
             "question_semantic_model",
+            "question_scope_execution",
             "ziwei_track_seal",
             "bazi_track_seal",
             "cross_track_arbitration",
@@ -427,6 +429,10 @@ def _validate_prediction(
             }
         )
     normalized.sort(key=lambda item: list(question_map).index(item["question_id"]))
+    cross_question_consistency = validate_cross_question_joint_matrices(
+        cross_question_consistency,
+        normalized,
+    )
     return {
         "schema": FROZEN_SCHEMA,
         "case_id": round_record["case_id"],
