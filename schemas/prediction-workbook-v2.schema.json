@@ -53,6 +53,7 @@
           "question_profile",
           "rule_attribution",
           "question_semantic_model",
+          "question_scope_execution",
           "ziwei_track_seal",
           "bazi_track_seal",
           "cross_track_arbitration",
@@ -73,6 +74,11 @@
           "question_profile": {"type": "object"},
           "rule_attribution": {"type": "object"},
           "question_semantic_model": {"type": "object"},
+          "question_scope_execution": {
+            "type": "array",
+            "minItems": 8,
+            "maxItems": 8
+          },
           "ziwei_track_seal": {"type": "object"},
           "bazi_track_seal": {"type": "object"},
           "cross_track_arbitration": {"type": "object"},

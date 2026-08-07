@@ -145,6 +145,7 @@
       "axis_distance": "<DIRECT_SAME_AXIS_ONE_HOP_OR_MULTI_HOP>",
       "branch_id": "<DECLARED_BRANCH_ID>",
       "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
+      "causal_role": "<NONE_EVENT_CAUSE_CONTEXT_OR_CAUSE_BRIDGE>",
       "chart_fact": "<REQUIRED_NON_EMPTY_STRING>",
       "conditions_satisfied": [
         "<REQUIRED_NON_EMPTY_STRING>"
@@ -190,12 +191,12 @@
       }
     },
     "pairwise": [
-      {
-        "left": "<OPTION_ID>",
-        "reason": "<REQUIRED_NON_EMPTY_STRING>",
-        "right": "<OPTION_ID>",
-        "winner": "<OPTION_ID>"
-      }
+      [
+        "<LEFT_OPTION_ID>",
+        "<RIGHT_OPTION_ID>",
+        "<WINNER_OPTION_ID>",
+        "<REQUIRED_NON_EMPTY_STRING>"
+      ]
     ]
   },
   "public_summary": "<REQUIRED_NON_EMPTY_STRING>",
@@ -221,6 +222,20 @@
       "<TAXONOMY_VALUE>"
     ]
   },
+  "question_scope_execution": [
+    "<MODE_STATIC_NATAL_CURRENT_STATUS_RESULT_OR_EVENT_OR_TIME_COMPARISON>",
+    "<TARGET_TIME_NOT_APPLICABLE_OR_RESOLVED>",
+    [
+      "<REQUIRED_LAYERS>"
+    ],
+    [
+      "<ACTUALLY_INSPECTED_LAYERS>"
+    ],
+    [],
+    [],
+    true,
+    true
+  ],
   "question_semantic_model": {
     "action_subject": "<REQUIRED_NON_EMPTY_STRING>",
     "ambiguities": [],
@@ -241,6 +256,7 @@
     },
     "reality_object": "<REQUIRED_NON_EMPTY_STRING>",
     "shared_non_discriminating_atoms": [],
+    "special_atom_refs": [],
     "subject": "<REQUIRED_NON_EMPTY_STRING>",
     "target": "<REQUIRED_NON_EMPTY_STRING>",
     "time_range": "<REQUIRED_NON_EMPTY_STRING>"
@@ -255,23 +271,23 @@
   "top2": "<OPTION_ID>",
   "upstream_fact_dependencies": {
     "evidence_dependencies": [
-      {
-        "branch_id": "<DECLARED_BRANCH_ID>",
-        "dependency_signature": "<SHA256_OF_SORTED_UPSTREAM_FACT_IDS_AND_BRANCH_ID>",
-        "evidence_id": "<EVIDENCE_ID>",
-        "upstream_fact_ids": [
+      [
+        "<EVIDENCE_ID>",
+        "<BRANCH_ID>",
+        [
           "<UPSTREAM_FACT_ID>"
-        ]
-      }
+        ],
+        "<DEPENDENCY_SHA256>"
+      ]
     ],
     "facts": [
-      {
-        "branch_id": "<DECLARED_BRANCH_ID>",
-        "fact_id": "<UPSTREAM_FACT_ID>",
-        "fact_type": "<ZIWEI_COORDINATE_ZIWEI_TRANSFORMATION_BAZI_ATOMIC_PERIOD_OBJECT_OR_EXTERNAL_FACT>",
-        "recomputation_status": "<VERIFIED_OR_FAILED>",
-        "source_object_id": "<SOURCE_OBJECT_ID_FROM_THE_DECLARED_BRANCH>"
-      }
+      [
+        "<FACT_ID>",
+        "<BRANCH_ID>",
+        "<FACT_TYPE>",
+        "<SOURCE_OBJECT_ID>",
+        "<VERIFIED_OR_FAILED>"
+      ]
     ],
     "invalidated_evidence_ids": [],
     "ranking_recomputed_after_invalidation": true

@@ -104,6 +104,60 @@ def _blind_chart_model_template() -> dict[str, Any]:
         ("<ZIWEI_MAJOR_PERIOD_NAMESPACE_ID>", "ZIWEI_MAJOR_PERIOD"),
         ("<YEAR_NAMESPACE_ID>", "YEAR"),
     )
+
+    def coordinate_rows(namespace_id: str, namespace_type: str) -> list[list[Any]]:
+        rows: list[list[Any]] = []
+        for index, (palace_name, earthly_branch) in enumerate(
+            zip(palace_names, earthly_branches)
+        ):
+            coordinate_id = f"{namespace_id}-C{index:02d}"
+            rows.append(
+                [
+                    coordinate_id,
+                    palace_name,
+                    earthly_branch,
+                    coordinate_id,
+                    coordinate_id,
+                ]
+            )
+        return rows
+
+    namespace_rows = {
+        namespace_id: coordinate_rows(namespace_id, namespace_type)
+        for namespace_id, namespace_type in namespace_specs
+    }
+    natal_star_inventory = [
+        [
+            f"{namespace_specs[0][0]}-C{index:02d}",
+            ["<TRANSFORMED_STAR>"] if index == 0 else [],
+            [],
+            [],
+        ]
+        for index in range(12)
+    ]
+    topology_rows = []
+    for namespace_id, _namespace_type in namespace_specs:
+        for index, coordinate in enumerate(namespace_rows[namespace_id]):
+            topology_rows.append(
+                [
+                    coordinate[0],
+                    f"{namespace_id}-C{(index + 6) % 12:02d}",
+                    sorted(
+                        [
+                            f"{namespace_id}-C{(index + 4) % 12:02d}",
+                            f"{namespace_id}-C{(index + 8) % 12:02d}",
+                        ]
+                    ),
+                    (
+                        f"{namespace_id}-C{(index + 6) % 12:02d}"
+                        if not natal_star_inventory[index][1]
+                        else None
+                    ),
+                    coordinate[3],
+                    coordinate[4],
+                ]
+            )
+
     return {
         "schema": "BLIND-CHART-MODEL-V3",
         "input_reliability": {
@@ -146,32 +200,38 @@ def _blind_chart_model_template() -> dict[str, Any]:
                     "derivation_basis": text,
                     "option_blind_frozen": True,
                     "ziwei_coordinate_truth_table": {
-                        "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V1",
+                        "schema": "ZIWEI-COORDINATE-TRUTH-TABLE-V2",
+                        "coordinate_row_fields": [
+                            "coordinate_id",
+                            "palace_name",
+                            "earthly_branch",
+                            "qi_coordinate_id",
+                            "one_six_coordinate_id",
+                        ],
+                        "natal_star_inventory": natal_star_inventory,
+                        "topology_receipt_sha256": object_sha256(
+                            sorted(topology_rows)
+                        ),
                         "required_namespace_ids": [spec[0] for spec in namespace_specs],
                         "namespaces": [
                             {
                                 "namespace_id": namespace_id,
                                 "namespace_type": namespace_type,
-                                "coordinates": [
-                                    [
-                                        f"{namespace_id}-C{index:02d}",
-                                        palace_name,
-                                        earthly_branch,
-                                    ]
-                                    for index, (palace_name, earthly_branch) in enumerate(
-                                        zip(palace_names, earthly_branches)
-                                    )
-                                ],
+                                "subject_tag": "NOT_APPLICABLE",
+                                "coordinates": namespace_rows[namespace_id],
                             }
                             for namespace_id, namespace_type in namespace_specs
                         ],
                         "transformations": [
                             {
                                 "fact_id": "<TRANSFORMATION_FACT_ID>",
+                                "source_kind": "BIRTH",
                                 "origin_layer": "<NATAL_PERIOD_YEAR_OR_MONTH>",
                                 "heavenly_stem": "<HEAVENLY_STEM>",
+                                "transformation_type": "<LU_QUAN_KE_OR_JI>",
                                 "transformed_star": "<TRANSFORMED_STAR>",
-                                "destination_coordinate_id": "<DECLARED_COORDINATE_ID>",
+                                "star_origin_coordinate_id": "<NATAL_NAMESPACE_ID>-C00",
+                                "semantic_destination_coordinate_id": "<DECLARED_COORDINATE_ID_AT_THE_SAME_PHYSICAL_BRANCH>",
                                 "verification_status": "VERIFIED",
                             }
                         ],
@@ -226,13 +286,9 @@ def _blind_chart_model_template() -> dict[str, Any]:
 def _cross_question_consistency_template() -> dict[str, Any]:
     return {
         "checks": [
-            {
-                "question_id": "<QUESTION_ID>",
-                "consistent": True,
-                "conflicts": [],
-                "resolution": "<REQUIRED_NON_EMPTY_STRING>",
-            }
+            ["<QUESTION_ID>", True, [], "<REQUIRED_NON_EMPTY_STRING>"]
         ],
+        "joint_candidate_matrices": [],
         "unresolved_conflicts": [],
     }
 
@@ -297,9 +353,20 @@ def _prediction_row_template() -> dict[str, Any]:
                     "severe_irreversible_or_high_precision_atoms": [],
                 }
             },
+            "special_atom_refs": [],
             "shared_non_discriminating_atoms": [],
             "ambiguities": [],
         },
+        "question_scope_execution": [
+            "<MODE_STATIC_NATAL_CURRENT_STATUS_RESULT_OR_EVENT_OR_TIME_COMPARISON>",
+            "<TARGET_TIME_NOT_APPLICABLE_OR_RESOLVED>",
+            ["<REQUIRED_LAYERS>"],
+            ["<ACTUALLY_INSPECTED_LAYERS>"],
+            [],
+            [],
+            True,
+            True,
+        ],
         "ziwei_track_seal": {
             "top1": "<OPTION_ID>",
             "top2": "<OPTION_ID>",
@@ -378,6 +445,7 @@ def _prediction_row_template() -> dict[str, Any]:
                 "reliability": "<HIGH_MEDIUM_LOW_OR_UNKNOWN>",
                 "capability_ceiling": text,
                 "decision_impact": "<DECISIVE_SUPPORTING_COUNTEREVIDENCE_OR_NEUTRAL>",
+                "causal_role": "<NONE_EVENT_CAUSE_CONTEXT_OR_CAUSE_BRIDGE>",
                 "limitations": text,
                 "axis_distance": "<DIRECT_SAME_AXIS_ONE_HOP_OR_MULTI_HOP>",
                 "transmission_path": [],
@@ -387,21 +455,10 @@ def _prediction_row_template() -> dict[str, Any]:
         ],
         "upstream_fact_dependencies": {
             "facts": [
-                {
-                    "fact_id": "<UPSTREAM_FACT_ID>",
-                    "branch_id": "<DECLARED_BRANCH_ID>",
-                    "fact_type": "<ZIWEI_COORDINATE_ZIWEI_TRANSFORMATION_BAZI_ATOMIC_PERIOD_OBJECT_OR_EXTERNAL_FACT>",
-                    "source_object_id": "<SOURCE_OBJECT_ID_FROM_THE_DECLARED_BRANCH>",
-                    "recomputation_status": "<VERIFIED_OR_FAILED>",
-                }
+                ["<FACT_ID>", "<BRANCH_ID>", "<FACT_TYPE>", "<SOURCE_OBJECT_ID>", "<VERIFIED_OR_FAILED>"]
             ],
             "evidence_dependencies": [
-                {
-                    "evidence_id": evidence_id,
-                    "branch_id": "<DECLARED_BRANCH_ID>",
-                    "upstream_fact_ids": ["<UPSTREAM_FACT_ID>"],
-                    "dependency_signature": "<SHA256_OF_SORTED_UPSTREAM_FACT_IDS_AND_BRANCH_ID>",
-                }
+                [evidence_id, "<BRANCH_ID>", ["<UPSTREAM_FACT_ID>"], "<DEPENDENCY_SHA256>"]
             ],
             "invalidated_evidence_ids": [],
             "ranking_recomputed_after_invalidation": True,
@@ -426,12 +483,7 @@ def _prediction_row_template() -> dict[str, Any]:
                 }
             },
             "pairwise": [
-                {
-                    "left": "<OPTION_ID>",
-                    "right": "<OPTION_ID>",
-                    "winner": "<OPTION_ID>",
-                    "reason": text,
-                }
+                ["<LEFT_OPTION_ID>", "<RIGHT_OPTION_ID>", "<WINNER_OPTION_ID>", text]
             ],
         },
         "branch_analysis": {

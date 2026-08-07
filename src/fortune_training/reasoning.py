@@ -74,6 +74,7 @@ EVIDENCE_FIELDS = {
     "reliability",
     "capability_ceiling",
     "decision_impact",
+    "causal_role",
     "limitations",
 }
 EVIDENCE_SCOPE_FIELDS = {
@@ -95,6 +96,16 @@ ZIWEI_NAMESPACE_TYPES = {
     "YEAR",
     "SUBJECT_TAIJI",
 }
+ZIWEI_TRANSFORMATION_SOURCE_KINDS = {
+    "BIRTH",
+    "ZIWEI_MAJOR_PERIOD",
+    "YEAR",
+    "MONTH",
+    "PALACE_STEM",
+    "OUTWARD_SELF",
+    "INWARD_SELF",
+}
+ZIWEI_TRANSFORMATION_TYPES = {"LU", "QUAN", "KE", "JI"}
 UPSTREAM_FACT_TYPES = {
     "ZIWEI_COORDINATE",
     "ZIWEI_TRANSFORMATION",
@@ -182,6 +193,9 @@ def _validate_ziwei_coordinate_truth_table(
         value,
         {
             "schema",
+            "coordinate_row_fields",
+            "natal_star_inventory",
+            "topology_receipt_sha256",
             "required_namespace_ids",
             "namespaces",
             "transformations",
@@ -189,8 +203,17 @@ def _validate_ziwei_coordinate_truth_table(
         },
         label,
     )
-    if table["schema"] != "ZIWEI-COORDINATE-TRUTH-TABLE-V1":
+    if table["schema"] != "ZIWEI-COORDINATE-TRUTH-TABLE-V2":
         raise TrainingError(f"{label} has the wrong schema")
+    expected_coordinate_fields = [
+        "coordinate_id",
+        "palace_name",
+        "earthly_branch",
+        "qi_coordinate_id",
+        "one_six_coordinate_id",
+    ]
+    if table["coordinate_row_fields"] != expected_coordinate_fields:
+        raise TrainingError(f"{label} has an invalid compact coordinate row contract")
     required_namespace_ids = _texts(
         table["required_namespace_ids"],
         f"{label}.required_namespace_ids",
@@ -202,10 +225,14 @@ def _validate_ziwei_coordinate_truth_table(
     namespace_ids: set[str] = set()
     namespace_types: set[str] = set()
     coordinate_ids: set[str] = set()
+    coordinates_by_id: dict[str, dict[str, Any]] = {}
+    namespace_coordinate_ids: dict[str, set[str]] = {}
+    namespace_branch_coordinates: dict[str, dict[str, str]] = {}
+    natal_namespace_ids: list[str] = []
     for raw_namespace in namespaces:
         namespace = _object(
             raw_namespace,
-            {"namespace_id", "namespace_type", "coordinates"},
+            {"namespace_id", "namespace_type", "subject_tag", "coordinates"},
             f"{label}.namespace",
         )
         namespace_id = _text(namespace["namespace_id"], f"{label}.namespace_id")
@@ -216,18 +243,36 @@ def _validate_ziwei_coordinate_truth_table(
         if namespace_type not in ZIWEI_NAMESPACE_TYPES:
             raise TrainingError(f"{label}.{namespace_id} has invalid namespace_type")
         namespace_types.add(namespace_type)
+        if namespace_type == "NATAL":
+            natal_namespace_ids.append(namespace_id)
+        subject_tag = namespace["subject_tag"]
+        if namespace_type == "SUBJECT_TAIJI":
+            _text(subject_tag, f"{label}.{namespace_id}.subject_tag")
+            if subject_tag == "NOT_APPLICABLE":
+                raise TrainingError(f"{label}.{namespace_id} needs a subject tag")
+        elif subject_tag != "NOT_APPLICABLE":
+            raise TrainingError(
+                f"{label}.{namespace_id} may declare a subject only for SUBJECT_TAIJI"
+            )
         coordinates = namespace["coordinates"]
         if not isinstance(coordinates, list) or len(coordinates) != 12:
             raise TrainingError(f"{label}.{namespace_id} must contain exactly twelve coordinates")
         palace_names: set[str] = set()
         earthly_branches: set[str] = set()
         local_coordinate_ids: set[str] = set()
+        branch_coordinate_ids: dict[str, str] = {}
         for raw_coordinate in coordinates:
-            if not isinstance(raw_coordinate, list) or len(raw_coordinate) != 3:
+            coordinate_fields = tuple(expected_coordinate_fields)
+            if not isinstance(raw_coordinate, list) or len(raw_coordinate) != len(
+                coordinate_fields
+            ):
                 raise TrainingError(
-                    f"{label}.{namespace_id}.coordinate must be [id, palace, branch]"
+                    f"{label}.{namespace_id}.coordinate must use the compact V2 row"
                 )
-            coordinate_id, palace_name, earthly_branch = raw_coordinate
+            coordinate = dict(zip(coordinate_fields, raw_coordinate, strict=True))
+            coordinate_id = coordinate["coordinate_id"]
+            palace_name = coordinate["palace_name"]
+            earthly_branch = coordinate["earthly_branch"]
             coordinate_id = _text(
                 coordinate_id,
                 f"{label}.{namespace_id}.coordinate_id",
@@ -252,17 +297,106 @@ def _validate_ziwei_coordinate_truth_table(
             local_coordinate_ids.add(coordinate_id)
             palace_names.add(palace_name)
             earthly_branches.add(earthly_branch)
+            branch_coordinate_ids[earthly_branch] = coordinate_id
+            coordinates_by_id[coordinate_id] = coordinate
         if earthly_branches != set(EARTHLY_BRANCHES):
             raise TrainingError(
                 f"{label}.{namespace_id} does not cover all twelve earthly branches"
             )
         coordinate_ids.update(local_coordinate_ids)
+        namespace_coordinate_ids[namespace_id] = local_coordinate_ids
+        namespace_branch_coordinates[namespace_id] = branch_coordinate_ids
     if namespace_ids != set(required_namespace_ids):
         raise TrainingError(f"{label} required namespaces do not match materialized namespaces")
     if not {"NATAL", "ZIWEI_MAJOR_PERIOD", "YEAR"}.issubset(namespace_types):
         raise TrainingError(
             f"{label} must include natal, Ziwei-major-period, and year namespaces"
         )
+    if len(natal_namespace_ids) != 1:
+        raise TrainingError(f"{label} must contain exactly one natal namespace")
+
+    natal_namespace_id = natal_namespace_ids[0]
+    natal_by_branch = namespace_branch_coordinates[natal_namespace_id]
+    natal_star_coordinates: dict[str, str] = {}
+    inventory_main_stars: dict[str, list[str]] = {}
+    inventory_rows = table["natal_star_inventory"]
+    if not isinstance(inventory_rows, list) or len(inventory_rows) != 12:
+        raise TrainingError(f"{label}.natal_star_inventory must cover twelve coordinates")
+    inventory_coordinate_ids: set[str] = set()
+    for raw_inventory_row in inventory_rows:
+        if not isinstance(raw_inventory_row, list) or len(raw_inventory_row) != 4:
+            raise TrainingError(
+                f"{label}.natal_star_inventory rows must be [coordinate, main, auxiliary, malefic]"
+            )
+        natal_coordinate_id, main_stars, auxiliary_stars, malefic_stars = raw_inventory_row
+        if (
+            natal_coordinate_id not in namespace_coordinate_ids[natal_namespace_id]
+            or natal_coordinate_id in inventory_coordinate_ids
+        ):
+            raise TrainingError(f"{label} has an invalid natal star inventory coordinate")
+        inventory_coordinate_ids.add(natal_coordinate_id)
+        inventory_main_stars[natal_coordinate_id] = _texts(
+            main_stars,
+            f"{label}.{natal_coordinate_id}.main_stars",
+        )
+        for star_field, stars in (
+            ("main_stars", main_stars),
+            ("auxiliary_stars", auxiliary_stars),
+            ("malefic_stars", malefic_stars),
+        ):
+            for star in _texts(stars, f"{label}.{natal_coordinate_id}.{star_field}"):
+                if star in natal_star_coordinates:
+                    raise TrainingError(
+                        f"{label} assigns one physical star to multiple natal coordinates"
+                    )
+                natal_star_coordinates[star] = natal_coordinate_id
+    if inventory_coordinate_ids != namespace_coordinate_ids[natal_namespace_id]:
+        raise TrainingError(f"{label} natal star inventory is incomplete")
+
+    branch_order = list(EARTHLY_BRANCHES)
+    derived_topology: list[list[Any]] = []
+    natal_coordinate_by_id: dict[str, str] = {}
+    for namespace in namespaces:
+        namespace_id = namespace["namespace_id"]
+        namespace_type = namespace["namespace_type"]
+        local_ids = namespace_coordinate_ids[namespace_id]
+        by_branch = namespace_branch_coordinates[namespace_id]
+        for branch, coordinate_id in by_branch.items():
+            coordinate = coordinates_by_id[coordinate_id]
+            expected_natal_id = natal_by_branch[branch]
+            natal_coordinate_by_id[coordinate_id] = expected_natal_id
+            opposite_branch = branch_order[(branch_order.index(branch) + 6) % 12]
+            expected_opposite_id = by_branch[opposite_branch]
+            expected_trines = sorted({
+                by_branch[branch_order[(branch_order.index(branch) + offset) % 12]]
+                for offset in (4, 8)
+            })
+            for relation_field in ("qi_coordinate_id", "one_six_coordinate_id"):
+                if coordinate[relation_field] not in local_ids:
+                    raise TrainingError(
+                        f"{label}.{coordinate_id}.{relation_field} crosses namespaces"
+                    )
+            borrowed_id = (
+                expected_opposite_id
+                if not inventory_main_stars[expected_natal_id]
+                else None
+            )
+            derived_topology.append(
+                [
+                    coordinate_id,
+                    expected_opposite_id,
+                    expected_trines,
+                    borrowed_id,
+                    coordinate["qi_coordinate_id"],
+                    coordinate["one_six_coordinate_id"],
+                ]
+            )
+            if namespace_type == "NATAL":
+                if expected_natal_id != coordinate_id:
+                    raise TrainingError(f"{label}.{coordinate_id} natal identity is not self-bound")
+    expected_topology_receipt = object_sha256(sorted(derived_topology))
+    if table["topology_receipt_sha256"] != expected_topology_receipt:
+        raise TrainingError(f"{label} topology or empty-palace borrowing receipt is invalid")
 
     transformations = table["transformations"]
     if not isinstance(transformations, list):
@@ -273,10 +407,13 @@ def _validate_ziwei_coordinate_truth_table(
             raw_transformation,
             {
                 "fact_id",
+                "source_kind",
                 "origin_layer",
                 "heavenly_stem",
+                "transformation_type",
                 "transformed_star",
-                "destination_coordinate_id",
+                "star_origin_coordinate_id",
+                "semantic_destination_coordinate_id",
                 "verification_status",
             },
             f"{label}.transformation",
@@ -285,10 +422,25 @@ def _validate_ziwei_coordinate_truth_table(
         if fact_id in transformation_ids:
             raise TrainingError(f"{label} has duplicate transformation fact_id")
         transformation_ids.add(fact_id)
+        if transformation["source_kind"] not in ZIWEI_TRANSFORMATION_SOURCE_KINDS:
+            raise TrainingError(f"{label} transformation has an invalid source kind")
+        if transformation["transformation_type"] not in ZIWEI_TRANSFORMATION_TYPES:
+            raise TrainingError(f"{label} transformation has an invalid transformation type")
         for field in ("origin_layer", "heavenly_stem", "transformed_star"):
             _text(transformation[field], f"{label}.transformation.{field}")
-        if transformation["destination_coordinate_id"] not in coordinate_ids:
-            raise TrainingError(f"{label} transformation has an unknown destination")
+        transformed_star = transformation["transformed_star"]
+        star_origin_id = transformation["star_origin_coordinate_id"]
+        semantic_destination_id = transformation["semantic_destination_coordinate_id"]
+        if natal_star_coordinates.get(transformed_star) != star_origin_id:
+            raise TrainingError(
+                f"{label} transformation does not bind the star's physical natal coordinate"
+            )
+        if semantic_destination_id not in coordinate_ids:
+            raise TrainingError(f"{label} transformation has an unknown semantic destination")
+        if natal_coordinate_by_id[semantic_destination_id] != star_origin_id:
+            raise TrainingError(
+                f"{label} transformation moves a star instead of changing its state"
+            )
         if transformation["verification_status"] != "VERIFIED":
             raise TrainingError(f"{label} transformation provenance was not verified")
     if table["verification_status"] != "VERIFIED":
@@ -612,6 +764,7 @@ def _validate_semantics(value: Any, option_ids: list[str], question_id: str) -> 
             "magnitude",
             "is_composite_narrative",
             "option_atoms",
+            "special_atom_refs",
             "shared_non_discriminating_atoms",
             "ambiguities",
         },
@@ -665,9 +818,178 @@ def _validate_semantics(value: Any, option_ids: list[str], question_id: str) -> 
             raise TrainingError(
                 f"{question_id}.{option_id} severe atoms must be required atoms"
             )
+    valid_atom_refs = {
+        f"{option_id}:{atom}"
+        for option_id, atom_model in atoms.items()
+        for atom in atom_model["required_atoms"]
+    }
+    special_atom_refs = model["special_atom_refs"]
+    if not isinstance(special_atom_refs, list):
+        raise TrainingError(f"{question_id}.special_atom_refs must be a list")
+    classified_refs = {
+        "CAUSE": set(),
+        "REALITY_IDENTITY": set(),
+        "PRIMARY_CASHFLOW": set(),
+        "SENSITIVE_NONINFERABLE": set(),
+    }
+    observed_special_refs: set[str] = set()
+    for raw_special_ref in special_atom_refs:
+        if not isinstance(raw_special_ref, list) or len(raw_special_ref) != 2:
+            raise TrainingError(
+                f"{question_id}.special_atom_refs rows must be [class, option:atom]"
+            )
+        atom_class, atom_ref = raw_special_ref
+        if atom_class not in classified_refs or atom_ref not in valid_atom_refs:
+            raise TrainingError(f"{question_id} has an invalid special atom reference")
+        if atom_ref in observed_special_refs:
+            raise TrainingError(f"{question_id} assigns one atom to multiple special classes")
+        observed_special_refs.add(atom_ref)
+        classified_refs[atom_class].add(atom_ref)
+    severe_refs = {
+        f"{option_id}:{atom}"
+        for option_id, atom_model in atoms.items()
+        for atom in atom_model["severe_irreversible_or_high_precision_atoms"]
+    }
+    if classified_refs["SENSITIVE_NONINFERABLE"] & severe_refs:
+        raise TrainingError(
+            f"{question_id} sensitive non-inferable atoms may not be relabelled "
+            "as severe atoms to force closure"
+        )
     _texts(model["shared_non_discriminating_atoms"], f"{question_id}.shared_atoms")
     _texts(model["ambiguities"], f"{question_id}.ambiguities")
     return model
+
+
+def _validate_question_scope_execution(
+    value: Any,
+    *,
+    profile: dict[str, Any],
+    evidence_rows: list[dict[str, Any]],
+    pure_time_comparison: bool,
+    question_id: str,
+) -> list[Any]:
+    receipt_fields = (
+        "mode",
+        "target_time_status",
+        "required_layers",
+        "inspected_layers",
+        "advanced_modules",
+        "expansion_reasons",
+        "core_layers_preserved",
+        "minimal_sufficient_retrieval",
+    )
+    if not isinstance(value, list) or len(value) != len(receipt_fields):
+        raise TrainingError(
+            f"{question_id}.question_scope_execution must use the compact scope row"
+        )
+    receipt = dict(zip(receipt_fields, value, strict=True))
+    allowed_layers = {
+        "NATAL",
+        "ZIWEI_MAJOR_PERIOD",
+        "BAZI_LUCK_CYCLE",
+        "YEAR",
+        "MONTH",
+    }
+    required_layers = set(
+        _texts(
+            receipt["required_layers"],
+            f"{question_id}.required_layers",
+            allow_empty=False,
+        )
+    )
+    inspected_layers = set(
+        _texts(
+            receipt["inspected_layers"],
+            f"{question_id}.inspected_layers",
+            allow_empty=False,
+        )
+    )
+    if not required_layers.issubset(allowed_layers) or not inspected_layers.issubset(
+        allowed_layers
+    ):
+        raise TrainingError(f"{question_id} declares an invalid reasoning layer")
+    if not required_layers.issubset(inspected_layers):
+        raise TrainingError(f"{question_id} omitted a question-required reasoning layer")
+    advanced_modules = set(
+        _texts(receipt["advanced_modules"], f"{question_id}.advanced_modules")
+    )
+    if not advanced_modules.issubset(
+        {
+            "SUBJECT_TAIJI",
+            "QI_POSITION",
+            "ONE_SIX",
+            "SMALL_LIMIT",
+            "MONTH",
+            "CROSS_TRACK",
+            "JOINT_MATRIX",
+        }
+    ):
+        raise TrainingError(f"{question_id} declares an invalid advanced module")
+    expansion_reasons = _texts(
+        receipt["expansion_reasons"],
+        f"{question_id}.expansion_reasons",
+    )
+    extra_layers = inspected_layers - required_layers
+    if (extra_layers or advanced_modules) and not expansion_reasons:
+        raise TrainingError(
+            f"{question_id} expanded beyond the minimum without a competition reason"
+        )
+    if receipt["core_layers_preserved"] is not True:
+        raise TrainingError(f"{question_id} may not remove a required prediction layer")
+    if receipt["minimal_sufficient_retrieval"] is not True:
+        raise TrainingError(f"{question_id} must use minimum-sufficient retrieval")
+
+    time_tags = set(profile["time_scope_tags"])
+    mode = receipt["mode"]
+    if "CURRENT_STATUS" in time_tags:
+        expected_mode = "CURRENT_STATUS"
+    elif pure_time_comparison:
+        expected_mode = "TIME_COMPARISON"
+    elif time_tags & {"SPECIFIC_YEAR", "MULTI_YEAR_PERIOD", "CHILDHOOD", "ADULTHOOD"}:
+        expected_mode = "RESULT_OR_EVENT"
+    else:
+        expected_mode = "STATIC_NATAL"
+    if mode != expected_mode:
+        raise TrainingError(f"{question_id} scope mode does not match the question time scope")
+    dynamic_required = {
+        "NATAL",
+        "ZIWEI_MAJOR_PERIOD",
+        "BAZI_LUCK_CYCLE",
+        "YEAR",
+    }
+    if mode == "STATIC_NATAL":
+        if "NATAL" not in required_layers or receipt["target_time_status"] != "NOT_APPLICABLE":
+            raise TrainingError(f"{question_id} has an invalid static scope receipt")
+    else:
+        if not dynamic_required.issubset(required_layers):
+            raise TrainingError(
+                f"{question_id} dynamic or current question omitted a major-period/year layer"
+            )
+        if receipt["target_time_status"] != "RESOLVED":
+            raise TrainingError(f"{question_id} must resolve its target time before ranking")
+
+    evidence_layer_map = {
+        "NATAL": "NATAL",
+        "YEAR": "YEAR",
+        "MONTH": "MONTH",
+    }
+    for evidence in evidence_rows:
+        mapped_layer = evidence_layer_map.get(evidence["layer"])
+        if mapped_layer and mapped_layer not in inspected_layers:
+            raise TrainingError(
+                f"{question_id} uses {mapped_layer} evidence outside its scope receipt"
+            )
+        if evidence["layer"] == "PERIOD":
+            period_layer = (
+                "ZIWEI_MAJOR_PERIOD"
+                if evidence["track"] == "ZIWEI"
+                else "BAZI_LUCK_CYCLE"
+            )
+            if period_layer not in inspected_layers:
+                raise TrainingError(
+                    f"{question_id} uses an undeclared {period_layer} evidence layer"
+                )
+    return value
 
 
 def _is_pure_time_window_comparison(semantics: dict[str, Any]) -> bool:
@@ -737,16 +1059,22 @@ def _validate_upstream_fact_dependencies(
         raise TrainingError(f"{question_id}.upstream facts must be non-empty")
     fact_by_id: dict[str, dict[str, Any]] = {}
     for raw_fact in facts:
-        fact = _object(
-            raw_fact,
-            {
-                "fact_id",
-                "branch_id",
-                "fact_type",
-                "source_object_id",
-                "recomputation_status",
-            },
-            f"{question_id}.upstream_fact",
+        if not isinstance(raw_fact, list) or len(raw_fact) != 5:
+            raise TrainingError(
+                f"{question_id}.upstream facts must be compact five-field rows"
+            )
+        fact = dict(
+            zip(
+                (
+                    "fact_id",
+                    "branch_id",
+                    "fact_type",
+                    "source_object_id",
+                    "recomputation_status",
+                ),
+                raw_fact,
+                strict=True,
+            )
         )
         fact_id = _text(fact["fact_id"], f"{question_id}.upstream_fact.fact_id")
         if fact_id in fact_by_id:
@@ -780,10 +1108,21 @@ def _validate_upstream_fact_dependencies(
     dependency_by_evidence: dict[str, dict[str, Any]] = {}
     invalidated: set[str] = set()
     for raw_dependency in dependencies:
-        dependency = _object(
-            raw_dependency,
-            {"evidence_id", "branch_id", "upstream_fact_ids", "dependency_signature"},
-            f"{question_id}.evidence_dependency",
+        if not isinstance(raw_dependency, list) or len(raw_dependency) != 4:
+            raise TrainingError(
+                f"{question_id}.evidence dependencies must be compact four-field rows"
+            )
+        dependency = dict(
+            zip(
+                (
+                    "evidence_id",
+                    "branch_id",
+                    "upstream_fact_ids",
+                    "dependency_signature",
+                ),
+                raw_dependency,
+                strict=True,
+            )
         )
         evidence_id = dependency["evidence_id"]
         if evidence_id not in evidence_by_id or evidence_id in dependency_by_evidence:
@@ -907,6 +1246,13 @@ def _validate_evidence(
             raise TrainingError(f"{question_id}.{evidence_id} has invalid reliability")
         if row["decision_impact"] not in {"DECISIVE", "SUPPORTING", "COUNTEREVIDENCE", "NEUTRAL"}:
             raise TrainingError(f"{question_id}.{evidence_id} has invalid decision_impact")
+        if row["causal_role"] not in {
+            "NONE",
+            "EVENT",
+            "CAUSE_CONTEXT",
+            "CAUSE_BRIDGE",
+        }:
+            raise TrainingError(f"{question_id}.{evidence_id} has invalid causal_role")
         if scoped:
             distance = row["axis_distance"]
             path = _texts(
@@ -1295,12 +1641,15 @@ def _validate_matrix(
     if not isinstance(pairs, list):
         raise TrainingError(f"{question_id}.pairwise must be a list")
     for raw in pairs:
-        pair = _object(raw, {"left", "right", "winner", "reason"}, f"{question_id}.pairwise")
-        left, right = pair["left"], pair["right"]
+        if not isinstance(raw, list) or len(raw) != 4:
+            raise TrainingError(
+                f"{question_id}.pairwise rows must be [left, right, winner, reason]"
+            )
+        left, right, winner, reason = raw
         key = tuple(sorted((left, right)))
-        if key not in expected_pairs or key in observed_pairs or pair["winner"] not in {left, right}:
+        if key not in expected_pairs or key in observed_pairs or winner not in {left, right}:
             raise TrainingError(f"{question_id} has invalid or duplicate pairwise comparison")
-        _text(pair["reason"], f"{question_id}.pairwise.reason")
+        _text(reason, f"{question_id}.pairwise.reason")
         observed_pairs.add(key)
     if observed_pairs != expected_pairs:
         raise TrainingError(f"{question_id} must compare every option pair")
@@ -1584,24 +1933,193 @@ def validate_prediction_reasoning(
         )
     consistency = _object(
         payload.get("cross_question_consistency"),
-        {"checks", "unresolved_conflicts"},
+        {"checks", "joint_candidate_matrices", "unresolved_conflicts"},
         "cross_question_consistency",
     )
     question_ids = [row["question_id"] for row in predictions]
     checks = consistency["checks"]
-    if not isinstance(checks, list) or {row.get("question_id") for row in checks if isinstance(row, dict)} != set(question_ids):
+    if (
+        not isinstance(checks, list)
+        or {
+            row[0]
+            for row in checks
+            if isinstance(row, list) and len(row) == 4
+        }
+        != set(question_ids)
+    ):
         raise TrainingError("cross_question_consistency must check every question")
     for raw in checks:
-        row = _object(raw, {"question_id", "consistent", "conflicts", "resolution"}, "cross_question_consistency.check")
-        if not isinstance(row["consistent"], bool):
+        if not isinstance(raw, list) or len(raw) != 4:
+            raise TrainingError(
+                "cross-question checks must be [question_id, consistent, conflicts, resolution]"
+            )
+        question_id, consistent, conflicts, resolution = raw
+        if not isinstance(consistent, bool):
             raise TrainingError("cross-question consistency flag must be boolean")
-        _texts(row["conflicts"], "cross_question_consistency.conflicts")
-        _text(row["resolution"], "cross_question_consistency.resolution")
-        if not row["consistent"] and not row["conflicts"]:
+        _texts(conflicts, "cross_question_consistency.conflicts")
+        _text(resolution, "cross_question_consistency.resolution")
+        if not consistent and not conflicts:
             raise TrainingError("an inconsistent question must disclose conflicts")
     _texts(consistency["unresolved_conflicts"], "cross_question_consistency.unresolved_conflicts")
+    if not isinstance(consistency["joint_candidate_matrices"], list):
+        raise TrainingError("cross_question_consistency.joint_candidate_matrices must be a list")
     _walk_forbidden(payload)
     return blind, consistency
+
+
+def validate_cross_question_joint_matrices(
+    consistency: dict[str, Any],
+    predictions: list[dict[str, Any]],
+) -> dict[str, Any]:
+    prediction_by_id = {row["question_id"]: row for row in predictions}
+    seen_matrix_ids: set[str] = set()
+    normalized_matrices: list[dict[str, Any]] = []
+    for raw_matrix in consistency["joint_candidate_matrices"]:
+        matrix = _object(
+            raw_matrix,
+            {
+                "matrix_id",
+                "question_ids",
+                "dimensions",
+                "independent_evidence_ids_by_question",
+                "counterevidence_edges",
+                "story_coherence_weight",
+                "option_text_used_as_fact",
+                "ranking_recomputed_question_ids",
+                "unresolved_conflicts",
+            },
+            "cross_question_consistency.joint_candidate_matrix",
+        )
+        matrix_id = _text(matrix["matrix_id"], "joint_candidate_matrix.matrix_id")
+        if matrix_id in seen_matrix_ids:
+            raise TrainingError("joint candidate matrix IDs must be unique")
+        seen_matrix_ids.add(matrix_id)
+        question_ids = _texts(
+            matrix["question_ids"],
+            f"{matrix_id}.question_ids",
+            allow_empty=False,
+        )
+        if len(question_ids) < 2 or not set(question_ids).issubset(prediction_by_id):
+            raise TrainingError(f"{matrix_id} must bind at least two known questions")
+        _texts(matrix["dimensions"], f"{matrix_id}.dimensions", allow_empty=False)
+        if matrix["story_coherence_weight"] != 0:
+            raise TrainingError(f"{matrix_id} story coherence must have zero decision weight")
+        if matrix["option_text_used_as_fact"] is not False:
+            raise TrainingError(f"{matrix_id} may not treat option text as a cross-question fact")
+
+        evidence_map = matrix["independent_evidence_ids_by_question"]
+        if not isinstance(evidence_map, dict) or set(evidence_map) != set(question_ids):
+            raise TrainingError(f"{matrix_id} must preserve each question's evidence ledger")
+        evidence_by_question: dict[str, dict[str, dict[str, Any]]] = {}
+        for question_id in question_ids:
+            evidence_by_question[question_id] = {
+                row["evidence_id"]: row
+                for row in prediction_by_id[question_id]["evidence_ledger"]
+            }
+            evidence_ids = _texts(
+                evidence_map[question_id],
+                f"{matrix_id}.{question_id}.independent_evidence_ids",
+                allow_empty=False,
+            )
+            for evidence_id in evidence_ids:
+                evidence = evidence_by_question[question_id].get(evidence_id)
+                if (
+                    evidence is None
+                    or evidence["independence_status"] != "INDEPENDENT"
+                    or evidence["decision_impact"] == "NEUTRAL"
+                ):
+                    raise TrainingError(
+                        f"{matrix_id}.{question_id} uses non-independent cross-question evidence"
+                    )
+
+        edges = matrix["counterevidence_edges"]
+        if not isinstance(edges, list):
+            raise TrainingError(f"{matrix_id}.counterevidence_edges must be a list")
+        adjacency = {question_id: set() for question_id in question_ids}
+        target_questions: set[str] = set()
+        observed_edges: set[tuple[str, str]] = set()
+        for raw_edge in edges:
+            edge = _object(
+                raw_edge,
+                {
+                    "from_question_id",
+                    "to_question_id",
+                    "evidence_ids",
+                    "effect",
+                },
+                f"{matrix_id}.counterevidence_edge",
+            )
+            source = edge["from_question_id"]
+            target = edge["to_question_id"]
+            if (
+                source not in question_ids
+                or target not in question_ids
+                or source == target
+                or (source, target) in observed_edges
+            ):
+                raise TrainingError(f"{matrix_id} has an invalid counterevidence edge")
+            observed_edges.add((source, target))
+            if edge["effect"] != "COUNTEREVIDENCE_ONLY":
+                raise TrainingError(
+                    f"{matrix_id} cross-question edges may constrain or refute only"
+                )
+            evidence_ids = _texts(
+                edge["evidence_ids"],
+                f"{matrix_id}.{source}_to_{target}.evidence_ids",
+                allow_empty=False,
+            )
+            for evidence_id in evidence_ids:
+                evidence = evidence_by_question[source].get(evidence_id)
+                if (
+                    evidence is None
+                    or evidence["independence_status"] != "INDEPENDENT"
+                    or evidence["decision_impact"] == "NEUTRAL"
+                    or evidence.get("axis_distance") != "DIRECT_SAME_AXIS"
+                ):
+                    raise TrainingError(
+                        f"{matrix_id} counterevidence must be independent and direct same-axis"
+                    )
+            adjacency[source].add(target)
+            target_questions.add(target)
+
+        visiting: set[str] = set()
+        visited: set[str] = set()
+
+        def visit(question_id: str) -> None:
+            if question_id in visiting:
+                raise TrainingError(
+                    f"{matrix_id} contains circular cross-question proof or refutation"
+                )
+            if question_id in visited:
+                return
+            visiting.add(question_id)
+            for target in adjacency[question_id]:
+                visit(target)
+            visiting.remove(question_id)
+            visited.add(question_id)
+
+        for question_id in question_ids:
+            visit(question_id)
+
+        recomputed = set(
+            _texts(
+                matrix["ranking_recomputed_question_ids"],
+                f"{matrix_id}.ranking_recomputed_question_ids",
+            )
+        )
+        if not target_questions.issubset(recomputed) or not recomputed.issubset(
+            set(question_ids)
+        ):
+            raise TrainingError(
+                f"{matrix_id} must rerun every ranking touched by counterevidence"
+            )
+        _texts(matrix["unresolved_conflicts"], f"{matrix_id}.unresolved_conflicts")
+        normalized_matrices.append(matrix)
+    return {
+        "checks": consistency["checks"],
+        "joint_candidate_matrices": normalized_matrices,
+        "unresolved_conflicts": consistency["unresolved_conflicts"],
+    }
 
 
 def validate_question_reasoning(
@@ -1644,6 +2162,13 @@ def validate_question_reasoning(
         invalidated_evidence_ids=invalidated_evidence_ids,
         allow_timing_only=allow_timing_only,
     )
+    scope_execution = _validate_question_scope_execution(
+        row.get("question_scope_execution"),
+        profile=row["question_profile"],
+        evidence_rows=evidence,
+        pure_time_comparison=_is_pure_time_window_comparison(semantics),
+        question_id=question_id,
+    )
     ziwei = _validate_track(
         row.get("ziwei_track_seal"),
         track="ZIWEI",
@@ -1670,6 +2195,88 @@ def validate_question_reasoning(
         final_ranking=final_ranking,
         question_id=question_id,
     )
+    for option_id, atom_model in semantics["option_atoms"].items():
+        option_row = matrix["options"][option_id]
+        def classified_atoms(atom_class: str) -> set[str]:
+            prefix = f"{option_id}:"
+            return {
+                ref.split(":", 1)[1]
+                for row in semantics["special_atom_refs"]
+                if row[0] == atom_class
+                for ref in [row[1]]
+                if ref.startswith(prefix)
+            }
+
+        sensitive_atoms = classified_atoms("SENSITIVE_NONINFERABLE")
+        if sensitive_atoms:
+            sensitive_refs = {f"{option_id}:{atom}" for atom in sensitive_atoms}
+            if any(
+                sensitive_refs
+                & set(
+                    evidence_row["supports_option_atoms"]
+                    + evidence_row["contradicts_option_atoms"]
+                )
+                for evidence_row in evidence
+            ):
+                raise TrainingError(
+                    f"{question_id}.{option_id} sensitive attributes may not be inferred "
+                    "from chart evidence"
+                )
+            if not sensitive_atoms.issubset(set(option_row["unknown_atoms"])):
+                raise TrainingError(
+                    f"{question_id}.{option_id} sensitive non-inferable atoms must remain unknown"
+                )
+
+        reality_only_atoms = classified_atoms("REALITY_IDENTITY") | classified_atoms(
+            "PRIMARY_CASHFLOW"
+        )
+        completed_reality_atoms = reality_only_atoms & set(
+            option_row["required_atom_completion"]
+        )
+        if completed_reality_atoms:
+            independently_supported_reality_atoms = {
+                ref.split(":", 1)[1]
+                for evidence_row in evidence
+                if evidence_row["track"] == "REALITY"
+                if evidence_row["independence_status"] == "INDEPENDENT"
+                and evidence_row.get("temporal_role") == "REALITY_ENDPOINT"
+                for ref in evidence_row["supports_option_atoms"]
+                if ref.startswith(f"{option_id}:")
+            }
+            if not completed_reality_atoms.issubset(
+                independently_supported_reality_atoms
+            ):
+                raise TrainingError(
+                    f"{question_id}.{option_id} reality identity or primary cashflow "
+                    "atoms need independent reality-endpoint evidence"
+                )
+
+        cause_atoms = classified_atoms("CAUSE")
+        completed_cause_atoms = cause_atoms & set(
+            option_row["required_atom_completion"]
+        )
+        if completed_cause_atoms:
+            non_cause_atoms = set(atom_model["required_atoms"]) - cause_atoms
+            bridge_rows = [
+                evidence_row
+                for evidence_row in evidence
+                if evidence_row["independence_status"] == "INDEPENDENT"
+                and evidence_row["causal_role"] == "CAUSE_BRIDGE"
+            ]
+            bridged_causes: set[str] = set()
+            for evidence_row in bridge_rows:
+                supported = {
+                    ref.split(":", 1)[1]
+                    for ref in evidence_row["supports_option_atoms"]
+                    if ref.startswith(f"{option_id}:")
+                }
+                if supported & non_cause_atoms:
+                    bridged_causes.update(supported & completed_cause_atoms)
+            if not completed_cause_atoms.issubset(bridged_causes):
+                raise TrainingError(
+                    f"{question_id}.{option_id} completed cause atoms need an "
+                    "independent same-option event-to-cause bridge"
+                )
     branch_analysis, branch_confidence_reduction = _validate_branch_analysis(
         row.get("branch_analysis"),
         branch_context=branch_context,
@@ -1734,6 +2341,7 @@ def validate_question_reasoning(
     )
     return {
         "question_semantic_model": semantics,
+        "question_scope_execution": scope_execution,
         "ziwei_track_seal": ziwei,
         "bazi_track_seal": bazi,
         "cross_track_arbitration": arbitration,
