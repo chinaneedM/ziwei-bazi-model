@@ -54,6 +54,8 @@ class BirthInput:
             raise ValueError("longitude must be in [-180, 180]")
         if self.uncertainty_seconds < 0:
             raise ValueError("uncertainty_seconds must be non-negative")
+        if self.precision is TimePrecision.APPROXIMATE and self.uncertainty_seconds == 0:
+            raise ValueError("APPROXIMATE precision requires uncertainty_seconds > 0")
 
     @property
     def effective_uncertainty_seconds(self) -> int:

@@ -55,13 +55,20 @@ date never overwrites either raw mapping. `life_body_leap_month_policy` is
 recorded but is not applied in R1 because its only allowed scope is the later
 `ZIWEI_LIFE_BODY_PLACEMENT` phase.
 
+The civil-time layer and Chinese-calendar day boundary intentionally use two
+different time concepts. Birth-wall-time resolution uses the historical IANA
+zone (including DST where applicable). The modern Chinese calendar uses fixed
+**Beijing Standard Time, UTC+08:00 (120°E standard time)** for its calendar-day
+boundary; historical Chinese civil DST must not shift a new moon, solar term,
+or lunar date into another official calendar day.
+
 ## Astronomy, calendar and timezone dependencies
 
 | Component | Choice | License / authority | R1 precision and portability decision |
 |---|---|---|---|
 | Timezone | Python `zoneinfo` + first-party `tzdata` | Python / IANA tzdb | Cross-platform; exact tzdata version is emitted. Pre-1970 results carry reduced confidence because IANA defines location-zone agreement primarily since 1970. |
 | Solar and lunar events | Astronomy Engine 2.1.x | MIT; VSOP87/NOVAS-based, tested upstream against JPL Horizons | Pure Python, no downloaded ephemeris, advertised position accuracy within 1 arcminute; exact installed version and accuracy claim are emitted. |
-| Modern Chinese calendar | Repository algorithm using astronomical events | GB/T 33661-2017 governance; HKO rules/oracles | Month starts, winter-solstice month and no-principal-term leap rule are calculated, not table-looked-up. R1 validated range is 1901–2100. |
+| Modern Chinese calendar | Repository algorithm using astronomical events; fixed UTC+08:00 calendar standard time | GB/T 33661-2017 governance; HKO rules/oracles | Month starts, winter-solstice month and no-principal-term leap rule are calculated, not table-looked-up. R1 validated range is 1901–2100. Historical civil DST is not used as the lunar-calendar day boundary. |
 
 Authority fixtures live in
 `tests/fixtures/time-calendar-foundation-r1.json`. HKO tables and an independent
@@ -116,25 +123,28 @@ algorithm/tzdb versions and the selected registry version.
 
 ## Boundary and regression coverage
 
-`tests/test_time_calendar_foundation.py` covers:
+`tests/test_time_calendar_foundation.py` and
+`tests/test_time_calendar_standard_time.py` cover:
 
 1. standard modern China time;
 2. true-solar hour change and full-second retention;
 3. true-solar date rollover;
 4. 23:00, 00:00 and 01:00 plus all late-Zi policies;
 5. the microsecond before/after a solar-term instant using UTC comparison;
-6. historical China DST;
-7. an overseas IANA zone;
-8. an ambiguous DST fold;
-9. a nonexistent DST gap;
-10. a new-moon date boundary;
-11. civil/solar calendar-date divergence;
-12. a leap month under every scoped policy value;
-13. the 2033 leap-eleventh-month anomaly;
-14. reported-time uncertainty crossing a classification boundary;
-15. Astronomy Engine results cross-checked against HKO and an independent EOT formula;
-16. already-true-solar input failing closed when UTC cannot be reconstructed;
-17. repository policy/schema integrity.
+6. historical China DST for birth civil-time resolution;
+7. fixed UTC+08:00 Beijing Standard Time for Chinese-calendar day boundaries during historical DST;
+8. an overseas IANA zone;
+9. an ambiguous DST fold;
+10. a nonexistent DST gap;
+11. a new-moon date boundary;
+12. civil/solar calendar-date divergence;
+13. a leap month under every scoped policy value;
+14. the 2033 leap-eleventh-month anomaly;
+15. reported-time uncertainty crossing a classification boundary;
+16. approximate reported times failing closed unless an explicit uncertainty interval is supplied;
+17. Astronomy Engine results cross-checked against HKO and an independent EOT formula;
+18. already-true-solar input failing closed when UTC cannot be reconstructed;
+19. repository policy/schema integrity.
 
 ## Open questions
 
@@ -145,8 +155,8 @@ algorithm/tzdb versions and the selected registry version.
 - Decide whether commercial operation requires a separately pinned tzdb release
   per deployment instead of recording the installed release in every output.
 - Confirm whether worldwide Ziwei work always indexes the unified official
-  Chinese calendar (`Asia/Shanghai`) or needs a second explicitly named local
-  calendar-date policy. R1 does not guess.
+  Chinese calendar using fixed Beijing Standard Time (UTC+08:00), or needs a
+  second explicitly named local-calendar policy. R1 does not guess.
 - Validate the late-Zi and Ziwei effective-date Core candidates against the
   selected classical texts and additional independent software fixtures.
 - Add historical Chinese calendar strategy objects before accepting dates

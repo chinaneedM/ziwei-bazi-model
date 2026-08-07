@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from importlib.metadata import version
-from zoneinfo import ZoneInfo
 
 import astronomy
 
@@ -27,19 +26,24 @@ class _LunarMonth:
 class ChineseCalendarEngine:
     """Astronomically derive the modern Chinese calendar for 1901..2100.
 
-    R1 applies the modern calendar in Asia/Shanghai: month starts are civil
-    dates containing geocentric new moons; month 11 contains winter solstice;
-    in a 13-month sui the first subsequent month without a principal term is
-    leap. Historical calendar regimes are intentionally outside this adapter.
+    R1 applies the modern national-calendar day boundary in Beijing Standard
+    Time: fixed UTC+08:00 (the standard time of 120 degrees east longitude).
+    This is deliberately not the historical Asia/Shanghai civil-time zone,
+    because historical DST must not move an official Chinese-calendar day
+    boundary. Month starts are civil dates containing geocentric new moons;
+    month 11 contains winter solstice; in a 13-month sui the first subsequent
+    month without a principal term is leap. Historical calendar regimes are
+    intentionally outside this adapter.
     """
 
     algorithm_id = "MODERN-CHINESE-CALENDAR-ASTRONOMICAL-V1"
-    calendar_zone = "Asia/Shanghai"
+    calendar_zone = "UTC+08:00"
+    calendar_time_standard = "BEIJING_STANDARD_TIME"
     supported_years = (1901, 2100)
 
     def __init__(self, solar_terms: SolarTermEngine | None = None) -> None:
         self.solar_terms = solar_terms or SolarTermEngine()
-        self.zone = ZoneInfo(self.calendar_zone)
+        self.zone = timezone(timedelta(hours=8), name="Beijing Standard Time")
 
     @staticmethod
     def _atime(instant: datetime) -> astronomy.Time:

@@ -11,7 +11,7 @@ from .models import SolarTimeResult
 class SolarTimeEngine:
     """Calculate local mean and apparent solar clock readings as full datetimes."""
 
-    algorithm_id = "ASTRONOMY-ENGINE-GAST-APPARENT-SUN-EOT-V1"
+    algorithm_id = "ASTRONOMY-ENGINE-GAST-GEOCENTRIC-APPARENT-SUN-EOT-V2"
 
     @staticmethod
     def _astronomy_time(utc_instant: datetime) -> astronomy.Time:
@@ -24,18 +24,16 @@ class SolarTimeEngine:
         """Return apparent solar time minus local mean solar time at Greenwich.
 
         USNO defines apparent solar time as 12h plus the local hour angle of the
-        apparent Sun. Astronomy Engine supplies GAST and apparent Sun right
-        ascension in the true-equator-of-date frame.
+        apparent Sun. The equation of time is a longitude-independent clock
+        correction, so use the apparent *geocentric* solar right ascension in
+        the true-equator-of-date frame. Astronomy Engine's Equator() API is
+        topocentric and therefore is intentionally not used here.
         """
         utc = utc_instant.astimezone(timezone.utc)
         time = cls._astronomy_time(utc)
-        sun = astronomy.Equator(
-            astronomy.Body.Sun,
-            time,
-            astronomy.Observer(0.0, 0.0, 0.0),
-            ofdate=True,
-            aberration=True,
-        )
+        sun_eqj = astronomy.GeoVector(astronomy.Body.Sun, time, aberration=True)
+        sun_eqd = astronomy.RotateVector(astronomy.Rotation_EQJ_EQD(time), sun_eqj)
+        sun = astronomy.EquatorFromVector(sun_eqd)
         apparent_hours = (astronomy.SiderealTime(time) - sun.ra + 12.0) % 24.0
         utc_hours = (
             utc.hour
