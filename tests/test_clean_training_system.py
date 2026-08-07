@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 52145)
-Total output lines: 4701
-
 from __future__ import annotations
 
 import json
@@ -2202,7 +2199,191 @@ class ReasoningExecutionLayerTests(unittest.TestCase):
                     "TRANSFORM-PRIMARY",
                     "FAILED",
                 ]
-…2145 tokens truncated…                         evidence_id,
+            )
+            dependency = dependency_graph["evidence_dependencies"][0]
+            dependency[2].append(failed_fact_id)
+            dependency[3] = object_sha256(
+                {
+                    "branch_id": dependency[1],
+                    "upstream_fact_ids": sorted(dependency[2]),
+                }
+            )
+            invalidated_id = dependency[0]
+            dependency_graph["invalidated_evidence_ids"] = [invalidated_id]
+            dependency_graph["ranking_recomputed_after_invalidation"] = True
+
+        self.assert_freeze_rejected(fail_upstream_transformation)
+
+    def test_parallel_time_branches_preserve_divergent_top1(self):
+        def add_divergent_branch(payload):
+            branch_model = payload["blind_chart_model"]["chart_branch_model"]
+            primary_branch_id = next(iter(branch_model["branches"]))
+            alternate_branch_id = "BRANCH-ALTERNATE"
+            alternate_branch = json.loads(
+                json.dumps(branch_model["branches"][primary_branch_id])
+            )
+            alternate_branch["derivation_basis"] = (
+                "Synthetic alternate legal time-boundary derivation."
+            )
+            branch_model["branches"][alternate_branch_id] = alternate_branch
+            branch_model["boundary_status"] = "MULTIPLE_LEGAL_CANDIDATES"
+            branch_model["boundary_kinds"] = ["TRUE_SOLAR_TIME_BOUNDARY"]
+            branch_model["calibration"] = {
+                "status": "UNRESOLVED",
+                "selected_branch_id": None,
+                "independent_external_fact_ids": [],
+                "option_atoms_used": False,
+                "rationale": "No independent external calibration fact is available.",
+            }
+
+            row = payload["predictions"][0]
+            alternate_top1 = row["top2"]
+            alternate_top2 = row["top1"]
+            alternate_ranking = [
+                alternate_top1,
+                alternate_top2,
+                *[
+                    option
+                    for option in row["final_ranking"]
+                    if option not in {alternate_top1, alternate_top2}
+                ],
+            ]
+            ziwei_id = "Z-ALTERNATE"
+            bazi_id = "B-ALTERNATE"
+            row["evidence_ledger"].extend(
+                [
+                    {
+                        **row["evidence_ledger"][0],
+                        "evidence_id": ziwei_id,
+                        "branch_id": alternate_branch_id,
+                        "chart_fact": "Alternate-branch synthetic Ziwei fact",
+                        "supports_option_atoms": [
+                            f"{alternate_top1}:{alternate_top1} required atom"
+                        ],
+                        "contradicts_option_atoms": [],
+                        "evidence_family_id": "ZF-ALTERNATE",
+                    },
+                    {
+                        **row["evidence_ledger"][1],
+                        "evidence_id": bazi_id,
+                        "branch_id": alternate_branch_id,
+                        "chart_fact": "Alternate-branch synthetic Bazi fact",
+                        "supports_option_atoms": [
+                            f"{alternate_top1}:{alternate_top1} required atom"
+                        ],
+                        "contradicts_option_atoms": [],
+                        "evidence_family_id": "BF-ALTERNATE",
+                    },
+                ]
+            )
+            graph = row["upstream_fact_dependencies"]
+            alternate_facts = [
+                ["UF-Z-ALTERNATE", alternate_branch_id, "ZIWEI_COORDINATE", "NATAL-NS-C00", "VERIFIED"],
+                ["UF-B-ALTERNATE", alternate_branch_id, "BAZI_ATOMIC", "DAY_STEM", "VERIFIED"],
+                ["UF-P-ALTERNATE", alternate_branch_id, "PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", "VERIFIED"],
+            ]
+            graph["facts"].extend(alternate_facts)
+            for evidence_id, upstream_ids in (
+                (ziwei_id, ["UF-Z-ALTERNATE"]),
+                (bazi_id, ["UF-B-ALTERNATE", "UF-P-ALTERNATE"]),
+            ):
+                graph["evidence_dependencies"].append(
+                    [
+                        evidence_id,
+                        alternate_branch_id,
+                        upstream_ids,
+                        object_sha256(
+                            {
+                                "branch_id": alternate_branch_id,
+                                "upstream_fact_ids": sorted(upstream_ids),
+                            }
+                        ),
+                    ]
+                )
+            row["branch_analysis"]["branch_rankings"][alternate_branch_id] = {
+                "top1": alternate_top1,
+                "top2": alternate_top2,
+                "ranking": alternate_ranking,
+                "supporting_evidence_ids": [ziwei_id, bazi_id],
+                "contradicting_evidence_ids": [],
+                "confidence": 65,
+            }
+            row["branch_analysis"].update(
+                {
+                    "consensus_status": "DIVERGENT_UNRESOLVED",
+                    "selected_branch_id": None,
+                    "top1_uncertainty_preserved": True,
+                }
+            )
+            row["cross_track_arbitration"]["confidence_reduction_required"] = True
+            row["confidence_components"]["overall_confidence"] = 69
+            for other_index, other_row in enumerate(payload["predictions"][1:], 2):
+                other_top1 = other_row["top2"]
+                other_top2 = other_row["top1"]
+                other_ranking = [
+                    other_top1,
+                    other_top2,
+                    *[
+                        option
+                        for option in other_row["final_ranking"]
+                        if option not in {other_top1, other_top2}
+                    ],
+                ]
+                other_ziwei_id = f"Z-ALTERNATE-{other_index}"
+                other_bazi_id = f"B-ALTERNATE-{other_index}"
+                other_row["evidence_ledger"].extend(
+                    [
+                        {
+                            **other_row["evidence_ledger"][0],
+                            "evidence_id": other_ziwei_id,
+                            "branch_id": alternate_branch_id,
+                            "chart_fact": f"Alternate Ziwei fact {other_index}",
+                            "supports_option_atoms": [
+                                f"{other_top1}:{other_top1} required atom"
+                            ],
+                            "contradicts_option_atoms": [],
+                            "evidence_family_id": f"ZF-ALTERNATE-{other_index}",
+                        },
+                        {
+                            **other_row["evidence_ledger"][1],
+                            "evidence_id": other_bazi_id,
+                            "branch_id": alternate_branch_id,
+                            "chart_fact": f"Alternate Bazi fact {other_index}",
+                            "supports_option_atoms": [
+                                f"{other_top1}:{other_top1} required atom"
+                            ],
+                            "contradicts_option_atoms": [],
+                            "evidence_family_id": f"BF-ALTERNATE-{other_index}",
+                        },
+                    ]
+                )
+                fact_ids = {
+                    "ziwei": f"UF-Z-ALTERNATE-{other_index}",
+                    "bazi": f"UF-B-ALTERNATE-{other_index}",
+                    "period": f"UF-P-ALTERNATE-{other_index}",
+                }
+                other_graph = other_row["upstream_fact_dependencies"]
+                for fact_type, source_object_id, fact_id in (
+                    ("ZIWEI_COORDINATE", "NATAL-NS-C00", fact_ids["ziwei"]),
+                    ("BAZI_ATOMIC", "DAY_STEM", fact_ids["bazi"]),
+                    ("PERIOD_OBJECT", "BAZI-PERIOD-OBJECT", fact_ids["period"]),
+                ):
+                    other_graph["facts"].append(
+                        [
+                            fact_id,
+                            alternate_branch_id,
+                            fact_type,
+                            source_object_id,
+                            "VERIFIED",
+                        ]
+                    )
+                for evidence_id, upstream_ids in (
+                    (other_ziwei_id, [fact_ids["ziwei"]]),
+                    (other_bazi_id, [fact_ids["bazi"], fact_ids["period"]]),
+                ):
+                    other_graph["evidence_dependencies"].append(
+                        [
+                            evidence_id,
                             alternate_branch_id,
                             upstream_ids,
                             object_sha256(
