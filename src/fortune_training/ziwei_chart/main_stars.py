@@ -7,7 +7,7 @@ from .registries import address
 
 
 MAIN_STAR_ALGORITHM_ID = "ZIWEI-FOURTEEN-MAIN-STARS-V1"
-MAIN_STAR_ALGORITHM_VERSION = "1.0.0"
+MAIN_STAR_ALGORITHM_VERSION = "1.0.1"
 
 ZIWEI_SOURCE_REFS = ("S01:ZZZA-PR-012", "S01:ZZZA-PR-014")
 TIANFU_SOURCE_REFS = ("S01:ZZZA-PR-013", "S01:ZZZA-PR-015")
@@ -18,7 +18,9 @@ ZIWEI_GROUP = (
     ("STAR.TAIYANG", "太阳", -3),
     ("STAR.WUQU", "武曲", -4),
     ("STAR.TIANTONG", "天同", -5),
-    ("STAR.LIANZHEN", "廉贞", -7),
+    # 天同后“隔二安廉贞” means 辰、卯 are the two intervening palaces.
+    # Therefore 廉贞 is eight addresses behind 紫微, not seven.
+    ("STAR.LIANZHEN", "廉贞", -8),
 )
 
 TIANFU_GROUP = (

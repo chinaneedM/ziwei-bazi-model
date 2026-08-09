@@ -149,9 +149,13 @@ class QSCoreAuxiliaryGenerator:
 
     @staticmethod
     def hour_void_robbery(hour_index: int) -> tuple[Placement, Placement]:
+        # The QS e-witness uses the historical label 天空 in this paired hour rule,
+        # while the canonical project primitive and modern charting vocabulary
+        # distinguish it as 地空 from the separate 天空 entity. Normalize the
+        # generated entity to 地空 and preserve the witness identity in source_refs.
         refs = ("S01:ZZQS-A-1847", "S01:ZZQS-A-1848", "S01:ZZZA-PR-018")
         return (
-            _placement("AUX.HOUR_VOID", "天空", 11 - hour_index, refs),
+            _placement("STAR.DIKONG", "地空", 11 - hour_index, refs),
             _placement("STAR.DIJIE", "地劫", 11 + hour_index, refs),
         )
 

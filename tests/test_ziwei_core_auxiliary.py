@@ -64,13 +64,15 @@ class QSCoreAuxiliaryTests(unittest.TestCase):
             self.assertEqual((lucun.address.index - 1) % 12, tuo.address.index)
         self.assertEqual(10, len(LUCUN_BY_STEM))
 
-    def test_hour_void_and_dijie_all_twelve_hours(self):
+    def test_dikong_and_dijie_all_twelve_hours(self):
         for hour_index in range(12):
-            void, dijie = self.generator.hour_void_robbery(hour_index)
-            self.assertEqual((11 - hour_index) % 12, void.address.index)
+            dikong, dijie = self.generator.hour_void_robbery(hour_index)
+            self.assertEqual((11 - hour_index) % 12, dikong.address.index)
             self.assertEqual((11 + hour_index) % 12, dijie.address.index)
-        void, dijie = self.generator.hour_void_robbery(0)
-        self.assertEqual("亥", void.address.branch)
+            self.assertEqual("STAR.DIKONG", dikong.entity_id)
+            self.assertEqual("地空", dikong.display_name)
+        dikong, dijie = self.generator.hour_void_robbery(0)
+        self.assertEqual("亥", dikong.address.branch)
         self.assertEqual("亥", dijie.address.branch)
 
     def test_reference_examples_are_preserved(self):
@@ -141,7 +143,7 @@ class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
                 "STAR.LUCUN",
                 "STAR.QINGYANG",
                 "STAR.TUOLUO",
-                "AUX.HOUR_VOID",
+                "STAR.DIKONG",
                 "STAR.DIJIE",
             }.issubset(entity_ids)
         )
