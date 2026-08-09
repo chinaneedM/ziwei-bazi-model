@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-chart-view-v1.schema.json",
+  "title": "Ziwei Chart View Model V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "presentation_profile_id",
+    "presentation_profile_version",
+    "renderer_contract_id",
+    "renderer_contract_version",
+    "source_fact_hash",
+    "source_computation_hash",
+    "selected_temporal_frame_ids",
+    "roles",
+    "cells",
+    "view_hash"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-CHART-VIEW-MODEL-V1"},
+    "presentation_profile_id": {"type": "string", "minLength": 1},
+    "presentation_profile_version": {"type": "string", "minLength": 1},
+    "renderer_contract_id": {"const": "ZIWEI-PLAIN-TEXT-RENDERER-V1"},
+    "renderer_contract_version": {"type": "string", "minLength": 1},
+    "source_fact_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "source_computation_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "selected_temporal_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "roles": {"type": "array", "items": {"$ref": "#/$defs/role"}},
+    "cells": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/cell"}},
+    "view_hash": {"pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "label", "transformation_badges"],
+      "properties": {
+        "entity_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "transformation_badges": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "ringMember": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ring_id", "member_id", "label"],
+      "properties": {
+        "ring_id": {"type": "string", "minLength": 1},
+        "member_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1}
+      }
+    },
+    "temporalDesignation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_type", "frame_id", "designation_id", "label"],
+      "properties": {
+        "frame_type": {"enum": ["DAXIAN", "ANNUAL"]},
+        "frame_id": {"type": "string", "minLength": 1},
+        "designation_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1}
+      }
+    },
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_id", "label", "entity_id", "entity_label"],
+      "properties": {
+        "role_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1},
+        "entity_id": {"type": "string", "minLength": 1},
+        "entity_label": {"type": "string", "minLength": 1}
+      }
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "address_index",
+        "branch",
+        "stem",
+        "natal_designation_id",
+        "natal_designation_label",
+        "placements",
+        "ring_members",
+        "temporal_designations",
+        "minor_limit_frame_ids"
+      ],
+      "properties": {
+        "address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "natal_designation_id": {"type": "string", "minLength": 1},
+        "natal_designation_label": {"type": "string", "minLength": 1},
+        "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
+        "ring_members": {"type": "array", "items": {"$ref": "#/$defs/ringMember"}},
+        "temporal_designations": {"type": "array", "items": {"$ref": "#/$defs/temporalDesignation"}},
+        "minor_limit_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
