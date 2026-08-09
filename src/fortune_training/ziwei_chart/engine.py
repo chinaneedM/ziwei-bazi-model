@@ -9,7 +9,7 @@ from typing import Any
 from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
 from fortune_training.calendar_foundation.models import json_value
 
-from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
+from .auxiliary import AuxiliaryContext, AuxiliaryGenerationError, QSCoreAuxiliaryGenerator
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -62,6 +62,7 @@ class ZiweiChartFoundation:
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
                         raw_lunar_month=structure.raw_lunar_month,
+                        is_leap_month=bool(lunar["is_leap_month"]),
                         birth_hour_branch=structure.birth_hour_branch,
                     )
                 )
@@ -97,12 +98,24 @@ class ZiweiChartFoundation:
             }
 
         unique: dict[str, dict[str, Any]] = {}
-        for branch_index, branch in enumerate(time_result["branches"]):
-            chart = json_value(self._generate_chart(branch, request))
-            key = self._chart_key(chart)
-            if key not in unique:
-                unique[key] = {"chart": chart, "branch_indices": []}
-            unique[key]["branch_indices"].append(branch_index)
+        try:
+            for branch_index, branch in enumerate(time_result["branches"]):
+                chart = json_value(self._generate_chart(branch, request))
+                key = self._chart_key(chart)
+                if key not in unique:
+                    unique[key] = {"chart": chart, "branch_indices": []}
+                unique[key]["branch_indices"].append(branch_index)
+        except AuxiliaryGenerationError as exc:
+            return {
+                "schema": self.schema,
+                "status": "FAILED",
+                "diagnostics": [exc.diagnostic_code],
+                "events": [],
+                "calculation_profile": json_value(profile),
+                "time_calendar": time_result,
+                "charts": [],
+                "chart_branch_indices": [],
+            }
 
         candidates = list(unique.values())
         charts = [row["chart"] for row in candidates]
