@@ -9,7 +9,6 @@ from .registries import (
     PALACE_DESIGNATIONS,
     YEAR_STEM_TO_YIN_START_STEM,
     address,
-    branch_index,
     bureau_for_ganzhi,
     sexagenary_for_year,
     stem_index,
@@ -18,6 +17,11 @@ from .registries import (
 
 NATAL_STRUCTURE_ALGORITHM_ID = "ZIWEI-NATAL-STRUCTURE-V1"
 NATAL_STRUCTURE_ALGORITHM_VERSION = "1.0.0"
+
+MING_SHEN_SOURCE = ("S01:ZZZA-PR-008",)
+PALACE_DESIGNATION_SOURCE = ("S01:ZZZA-PR-009",)
+ADDRESS_STEM_SOURCE = ("S01:ZZZA-PR-010",)
+BUREAU_SOURCE = ("S01:ZZZA-PR-010", "S01:ZZZA-PR-011")
 
 
 @dataclass(frozen=True)
@@ -100,6 +104,7 @@ class NatalStructureGenerator:
                 outputs={"natal_month_coordinate": natal_month},
                 algorithm_id=NATAL_STRUCTURE_ALGORITHM_ID,
                 algorithm_version=NATAL_STRUCTURE_ALGORITHM_VERSION,
+                source_refs=MING_SHEN_SOURCE,
             ),
             GenerationStep(
                 operation="place_life_and_body",
@@ -110,6 +115,23 @@ class NatalStructureGenerator:
                 outputs={"life": life.branch, "body": body.branch},
                 algorithm_id=NATAL_STRUCTURE_ALGORITHM_ID,
                 algorithm_version=NATAL_STRUCTURE_ALGORITHM_VERSION,
+                source_refs=MING_SHEN_SOURCE,
+            ),
+            GenerationStep(
+                operation="bind_twelve_palace_designations",
+                inputs={"life_address": life.branch},
+                outputs={row.designation_id: row.address.branch for row in designations},
+                algorithm_id=NATAL_STRUCTURE_ALGORITHM_ID,
+                algorithm_version=NATAL_STRUCTURE_ALGORITHM_VERSION,
+                source_refs=PALACE_DESIGNATION_SOURCE,
+            ),
+            GenerationStep(
+                operation="generate_address_stems",
+                inputs={"ziwei_birth_year_stem": year_stem},
+                outputs={row.address.branch: row.stem for row in attributes},
+                algorithm_id=NATAL_STRUCTURE_ALGORITHM_ID,
+                algorithm_version=NATAL_STRUCTURE_ALGORITHM_VERSION,
+                source_refs=ADDRESS_STEM_SOURCE,
             ),
             GenerationStep(
                 operation="derive_five_element_bureau",
@@ -126,6 +148,7 @@ class NatalStructureGenerator:
                 },
                 algorithm_id=NATAL_STRUCTURE_ALGORITHM_ID,
                 algorithm_version=NATAL_STRUCTURE_ALGORITHM_VERSION,
+                source_refs=BUREAU_SOURCE,
             ),
         )
 
