@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-temporal-state-v1.schema.json",
+  "title": "Ziwei Temporal State V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rule_set_id", "rule_set_version", "algorithm_id", "algorithm_version",
+    "daxian_direction", "first_daxian_nominal_age",
+    "daxian_frames", "annual_frames", "minor_limit_frames"
+  ],
+  "properties": {
+    "rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
+    "rule_set_version": {"const": "1.0.0"},
+    "algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
+    "algorithm_version": {"const": "1.0.0"},
+    "daxian_direction": {"enum": ["FORWARD", "REVERSE"]},
+    "first_daxian_nominal_age": {"type": "integer", "minimum": 2, "maximum": 6},
+    "daxian_frames": {"type": "array", "items": {"$ref": "#/$defs/daxian"}},
+    "annual_frames": {"type": "array", "items": {"$ref": "#/$defs/annual"}},
+    "minor_limit_frames": {"type": "array", "items": {"$ref": "#/$defs/minor"}}
+  },
+  "$defs": {
+    "address": {
+      "type": "object", "additionalProperties": false, "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]}
+      }
+    },
+    "designation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["designation_id", "display_name", "address"],
+      "properties": {
+        "designation_id": {"type": "string"}, "display_name": {"type": "string"},
+        "address": {"$ref": "#/$defs/address"}
+      }
+    },
+    "transformation": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "activation_id", "transformation_type", "target_entity_id", "target_display_name",
+        "target_address", "source_layer", "source_stem", "context_id", "assignment_id",
+        "mechanism_id", "generator_id", "algorithm_version", "source_refs"
+      ],
+      "properties": {
+        "activation_id": {"type": "string"},
+        "transformation_type": {"enum": ["化禄","化权","化科","化忌"]},
+        "target_entity_id": {"type": "string"}, "target_display_name": {"type": "string"},
+        "target_address": {"$ref": "#/$defs/address"},
+        "source_layer": {"enum": ["DAXIAN", "ANNUAL"]},
+        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "context_id": {"type": "string"}, "assignment_id": {"type": "string"},
+        "mechanism_id": {"type": "string"}, "generator_id": {"type": "string"},
+        "algorithm_version": {"type": "string"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "daxian": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "frame_id", "index", "nominal_age_start", "nominal_age_end",
+        "absolute_year_start", "absolute_year_end", "active_address",
+        "active_palace_ganzhi", "designation_overlay", "source_stem",
+        "transformations", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"type": "string"}, "index": {"type": "integer", "minimum": 1},
+        "nominal_age_start": {"type": "integer", "minimum": 1},
+        "nominal_age_end": {"type": "integer", "minimum": 1},
+        "absolute_year_start": {"type": "integer"}, "absolute_year_end": {"type": "integer"},
+        "active_address": {"$ref": "#/$defs/address"}, "active_palace_ganzhi": {"type": "string"},
+        "designation_overlay": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
+        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "annual": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "frame_id", "absolute_year", "nominal_age", "year_stem", "year_branch",
+        "active_address", "active_palace_ganzhi", "designation_overlay",
+        "parent_daxian_frame_id", "transformations", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"type": "string"}, "absolute_year": {"type": "integer"},
+        "nominal_age": {"type": "integer", "minimum": 1},
+        "year_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "year_branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]},
+        "active_address": {"$ref": "#/$defs/address"}, "active_palace_ganzhi": {"type": "string"},
+        "designation_overlay": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
+        "parent_daxian_frame_id": {"type": ["string", "null"]},
+        "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "minor": {
+      "type": "object", "additionalProperties": false,
+      "required": ["frame_id", "nominal_age", "active_address", "source_refs"],
+      "properties": {
+        "frame_id": {"type": "string"}, "nominal_age": {"type": "integer", "minimum": 1},
+        "active_address": {"$ref": "#/$defs/address"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    }
+  }
+}
