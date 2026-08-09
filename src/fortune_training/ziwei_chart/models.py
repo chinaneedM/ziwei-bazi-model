@@ -65,6 +65,27 @@ class RoleBinding:
 
 
 @dataclass(frozen=True)
+class RingMemberBinding:
+    member_id: str
+    display_name: str
+    address: Address
+    ordinal: int
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class RingInstance:
+    ring_id: str
+    display_name: str
+    anchor_address: Address
+    direction: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+    members: tuple[RingMemberBinding, ...]
+
+
+@dataclass(frozen=True)
 class GenerationStep:
     operation: str
     inputs: dict[str, Any]
@@ -98,4 +119,5 @@ class NatalChartState:
     profile_id: str
     profile_version: str
     role_bindings: tuple[RoleBinding, ...] = ()
+    rings: tuple[RingInstance, ...] = ()
     algorithm_versions: dict[str, str] = field(default_factory=dict)
