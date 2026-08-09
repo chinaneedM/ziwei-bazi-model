@@ -4,7 +4,8 @@
 
 The shared Time/Calendar Foundation and the Ziwei foundation core are stable.
 The implementation now extends through natal placements, operational content,
-typed roles/rings/transformations, temporal frames and fail-closed integrity/hash validation.
+typed roles/rings/transformations, temporal frames, fail-closed integrity/hash
+validation and a presentation-only ViewModel boundary.
 
 Implemented:
 
@@ -23,6 +24,8 @@ Implemented:
   transformation, temporal, ring and role rule identities/versions;
 - fail-closed natal and temporal integrity validation;
 - separate deterministic `FactHash` and `ComputationHash` semantics;
+- typed `PresentationProfile`, renderer-neutral `ChartViewModel` and `ViewHash`;
+- a pure plain-text renderer that consumes only `ChartViewModel`;
 - machine-readable schemas, provenance and diagnostics.
 
 Still outside the current implementation slice:
@@ -31,7 +34,7 @@ Still outside the current implementation slice:
 - a complete operational Dignity registry (tracked by GitHub issue #180);
 - temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
   separately typed 斗君/月 frame runtime if promoted into V1;
-- renderer/ViewModel separation and UI;
+- graphical renderer / UI;
 - general ChartDiff automation beyond frozen Wenmo fixtures;
 - interpretation or prediction.
 
@@ -56,6 +59,9 @@ DaxianFrame / AnnualFrame / MinorLimitFrame
 
 DesignationBinding
   = a palace designation bound to an address inside one declared frame
+
+ChartViewModel
+  = renderer-neutral presentation projection only; it cannot write back into canonical or temporal state
 ```
 
 Same-label objects remain distinct across layers. Physical 华盖 is not the
@@ -83,9 +89,20 @@ NatalChartState + absolute Ziwei birth year + Sex + resolved profile
    -> MinorLimitFrame[]
    -> IntegrityReport
    -> FactHash / ComputationHash
+
+validated NatalChartState (+ optional validated TemporalState)
++ HashBundle
++ PresentationProfile
+-> ZiweiViewProjectionCompiler
+-> immutable renderer-neutral ChartViewModel
+-> ViewHash
+-> any compatible Renderer
 ```
 
-Temporal state is deliberately separate from `NatalChartState`.
+Temporal state is deliberately separate from `NatalChartState`. Renderers are
+deliberately downstream from `ChartViewModel` and never receive mutable access
+to canonical state. A graphical square chart, circular chart and plain-text view
+may therefore consume the same ViewModel without requiring a second canonical state.
 
 ## Integrity and hash semantics
 
@@ -94,7 +111,7 @@ It must also pass typed integrity checks covering structure topology, unique
 physical entity identity, provenance, transformation-target immutability, ring
 cardinality/topology and temporal-frame invariants. Invalid generated state fails closed.
 
-Two hash layers are deliberately distinct:
+Three hash layers are deliberately distinct:
 
 ```text
 FactHash
@@ -102,12 +119,20 @@ FactHash
 
 ComputationHash
   = FactHash + resolved profile + algorithm/generator versions + provenance lineage
+
+ViewHash
+  = source hashes + PresentationProfile + selected temporal projection + ViewProjection version
 ```
 
-Display-label-only changes do not change either hash. A provenance, algorithm or
-profile identity change can preserve `FactHash` while changing `ComputationHash`.
-A physical chart fact change changes both. This allows two historical/operational
-profiles to produce identical chart facts without losing their distinct computation lineage.
+Display-label, palace-label, address-order or visibility changes are presentation
+changes only: they may change `ViewHash`, but they cannot rewrite `FactHash` or
+`ComputationHash`. Renderer-specific layout/pixel output is deliberately not part
+of the renderer-neutral ViewHash; a future renderer-specific `RenderHash` may be
+added downstream if required.
+
+The View compiler re-validates its natal source; temporal projection additionally
+requires the explicit `TemporalNatalContext` used to validate that temporal state,
+rather than reconstructing hidden inputs.
 
 ## Canonical and compatibility authority
 
@@ -171,8 +196,12 @@ Regression coverage now includes:
 - pre-first-Daxian Annual frames preserved with no invented Daxian parent;
 - natal and temporal integrity success/failure cases;
 - deterministic 64-hex fact/computation hashes;
-- display/provenance/profile/fact mutation tests proving the intended two-layer hash semantics;
-- injected invalid generated state proving the public chart engine fails closed before return.
+- display/provenance/profile/fact mutation tests proving the intended two-layer canonical hash semantics;
+- injected invalid generated state proving the public chart engine fails closed before return;
+- deterministic ViewModel/ViewHash generation;
+- lexeme and address-order presentation changes without canonical-state mutation;
+- explicit temporal-context requirement at the View projection boundary;
+- plain-text rendering from renderer-neutral ViewModel only.
 
 Run the full repository checks with:
 
@@ -184,5 +213,6 @@ fortune-train verify
 ## Release boundary
 
 Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The main remaining V1 gates are Dignity/content closure, renderer separation and
-wider operational compatibility regression.
+The main remaining V1 gates are Dignity/content closure and wider operational
+compatibility regression. Graphical UI can remain post-core because the renderer
+boundary is now explicit and presentation-only.
