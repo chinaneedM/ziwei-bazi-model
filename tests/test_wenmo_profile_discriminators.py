@@ -36,7 +36,7 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         )
         cls.wenmo_profile = ResolvedZiweiCalculationProfile(
             profile_id="WENMO-DEFAULT-COMPAT-R1",
-            profile_version="1.0.0",
+            profile_version="1.1.0",
             time_calendar_policy_registry_version=cls.registry.version,
             time_calendar_policies=cls.wenmo_policies,
             ziwei_day_boundary_policy="ZI_START_23",
@@ -71,8 +71,10 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         self.assertEqual(case["body_branch"], structure["body_address"]["branch"])
         self.assertEqual(tuple(case["bureau"]), (structure["bureau"]["element"], structure["bureau"]["number"], structure["bureau"]["life_palace_ganzhi"]))
         actual = {row["entity_id"]: row["address"]["branch"] for row in chart["placements"]}
-        self.assertEqual(case["placements"], actual)
-        self.assertEqual(26, len(actual))
+        expected = dict(case["placements"])
+        expected.update(case["observed_fire_bell"])
+        self.assertEqual(expected, actual)
+        self.assertEqual(28, len(actual))
 
     def test_leap_month_first_half_preserves_raw_lunar_identity_but_uses_month_4_coordinate(self):
         case = self._case("WENMO-CHARTDIFF-002")
@@ -123,6 +125,50 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         self.assertEqual(9 * 3600, branch["selected_civil_candidate"]["utc_offset_seconds"])
         self.assertFalse(branch["solar_time"]["local_apparent_solar_datetime"].startswith(case["displayed_true_solar_minute"]))
         self.assertEqual("TARGET_HISTORICAL_TIME_POLICY_DIFFERENCE", case["historical_time_compatibility"]["classification"])
+
+    def test_fire_bell_four_trine_classes_are_all_externally_discriminated(self):
+        discriminators = (
+            ("WENMO-CHARTDIFF-004", "戌", 0),
+            ("WENMO-CHARTDIFF-002", "子", 6),
+            ("WENMO-CHARTDIFF-006", "巳", 6),
+            ("WENMO-CHARTDIFF-005", "未", 6),
+        )
+        for case_id, year_branch, hour_index in discriminators:
+            case = self._case(case_id)
+            fire, bell = WenmoDefaultCoreAuxiliaryGenerator.fire_bell(year_branch, hour_index)
+            expected = case["observed_fire_bell"]
+            self.assertEqual(expected["STAR.HUOXING"], fire.address.branch, case_id)
+            self.assertEqual(expected["STAR.LINGXING"], bell.address.branch, case_id)
+        self.assertEqual("FOUR_TRINE_CLASSES_EXTERNALLY_COVERED", FIXTURE["fire_bell_reconstruction"]["status"])
+
+    def test_fire_bell_trine_class_and_hour_translation_properties(self):
+        groups = {
+            ("寅", "午", "戌"): ("丑", "卯"),
+            ("申", "子", "辰"): ("寅", "戌"),
+            ("巳", "酉", "丑"): ("卯", "戌"),
+            ("亥", "卯", "未"): ("酉", "戌"),
+        }
+        for branches, zi_starts in groups.items():
+            for year_branch in branches:
+                fire0, bell0 = WenmoDefaultCoreAuxiliaryGenerator.fire_bell(year_branch, 0)
+                self.assertEqual(zi_starts, (fire0.address.branch, bell0.address.branch))
+                for hour_index in range(1, 12):
+                    previous_fire, previous_bell = WenmoDefaultCoreAuxiliaryGenerator.fire_bell(year_branch, hour_index - 1)
+                    fire, bell = WenmoDefaultCoreAuxiliaryGenerator.fire_bell(year_branch, hour_index)
+                    self.assertEqual((previous_fire.address.index + 1) % 12, fire.address.index)
+                    self.assertEqual((previous_bell.address.index + 1) % 12, bell.address.index)
+
+    def test_new_si_year_fixture_closes_full_current_wenmo_scope(self):
+        case = self._case("WENMO-CHARTDIFF-006")
+        result = self._resolve(case)
+        self._assert_common_chart(case, result)
+        raw = result["time_calendar"]["branches"][0]["ziwei_calendar"]["local_solar_lunar_date"]
+        expected = case["gui_raw_lunar"]
+        self.assertEqual((11, 1, False), (raw["month"], raw["day"], raw["is_leap_month"]))
+        self.assertEqual((expected["month"], expected["day"], expected["is_leap_month"]), (raw["month"], raw["day"], raw["is_leap_month"]))
+        actual = {row["entity_id"]: row["address"]["branch"] for row in result["charts"][0]["placements"]}
+        self.assertEqual("酉", actual["STAR.HUOXING"])
+        self.assertEqual("辰", actual["STAR.LINGXING"])
 
     def test_external_exports_do_not_redefine_raw_lunar_identity(self):
         first = self._case("WENMO-CHARTDIFF-002")
