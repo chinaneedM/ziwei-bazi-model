@@ -4,6 +4,7 @@ from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, NatalStructureState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
+from .profile import ResolvedZiweiCalculationProfile
 
 __all__ = [
     "MainStarGenerator",
@@ -11,6 +12,7 @@ __all__ = [
     "NatalStructureGenerator",
     "NatalStructureInput",
     "NatalStructureState",
+    "ResolvedZiweiCalculationProfile",
     "Sex",
     "ZiweiChartFoundation",
     "ZiweiChartRequest",
