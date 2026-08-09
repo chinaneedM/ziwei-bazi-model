@@ -4,7 +4,7 @@ from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .derived_auxiliary import DerivedAuxiliaryGenerator
 from .dignity import (
     DignityRegistrySummary,
-    WenmoMainStarDignityGenerator,
+    OperationalMainStarDignityGenerator,
 )
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .integrity import (
@@ -70,6 +70,7 @@ __all__ = [
     "NatalStructureGenerator",
     "NatalStructureInput",
     "NatalStructureState",
+    "OperationalMainStarDignityGenerator",
     "PalaceViewCell",
     "PlainTextZiweiRenderer",
     "PresentationProfile",
@@ -87,7 +88,6 @@ __all__ = [
     "WenmoDefaultMinorStarGenerator",
     "WenmoDefaultRingGenerator",
     "WenmoDefaultRoleGenerator",
-    "WenmoMainStarDignityGenerator",
     "ZiweiChartFoundation",
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
