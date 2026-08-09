@@ -15,8 +15,9 @@ if TYPE_CHECKING:
 
 
 INTEGRITY_ALGORITHM_ID = "ZIWEI-INTEGRITY-HASH-V1"
-INTEGRITY_ALGORITHM_VERSION = "1.0.1"
+INTEGRITY_ALGORITHM_VERSION = "1.0.2"
 DIGNITY_GRADES = {"庙", "旺", "得", "利", "平", "不", "陷"}
+DIGNITY_STATUSES = {"GRADED", "UNRATED"}
 
 
 @dataclass(frozen=True)
@@ -100,6 +101,7 @@ def natal_fact_projection(chart: NatalChartState) -> dict[str, Any]:
                 "annotation_type": row.annotation_type,
                 "target_entity_id": row.target_entity_id,
                 "target_address": _address_fact(row.target_address),
+                "status": row.status,
                 "grade": row.grade,
                 "scale_id": row.scale_id,
                 "scale_version": row.scale_version,
@@ -384,8 +386,13 @@ def validate_natal_chart(chart: NatalChartState) -> IntegrityReport:
             _diag(diagnostics, "ANNOTATION_TARGET_MISSING", f"annotations[{index}]", row.target_entity_id)
         elif target.address != row.target_address:
             _diag(diagnostics, "ANNOTATION_TARGET_ADDRESS_MISMATCH", f"annotations[{index}].target_address", row.target_entity_id)
-        if row.grade not in DIGNITY_GRADES:
-            _diag(diagnostics, "INVALID_DIGNITY_GRADE", f"annotations[{index}].grade", row.grade)
+        if row.status not in DIGNITY_STATUSES:
+            _diag(diagnostics, "INVALID_DIGNITY_STATUS", f"annotations[{index}].status", row.status)
+        elif row.status == "GRADED":
+            if row.grade not in DIGNITY_GRADES:
+                _diag(diagnostics, "INVALID_DIGNITY_GRADE", f"annotations[{index}].grade", str(row.grade))
+        elif row.grade is not None:
+            _diag(diagnostics, "UNRATED_DIGNITY_MUST_NOT_HAVE_GRADE", f"annotations[{index}].grade", str(row.grade))
         if not row.scale_id or not row.scale_version or not row.rule_set_id or not row.rule_set_version:
             _diag(diagnostics, "MISSING_DIGNITY_IDENTITY", f"annotations[{index}]", row.annotation_id)
         if not row.generator_id or not row.algorithm_version:
