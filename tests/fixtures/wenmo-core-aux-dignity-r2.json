@@ -1,0 +1,51 @@
+{
+  "schema": "EXTERNAL-CORE-AUX-DIGNITY-CALIBRATION-R2",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "runtime_rule_set": "OPERATIONAL-ZIWEI-DIGNITY-R2",
+  "target": {
+    "app": "文墨天机",
+    "app_version": "2.5.9",
+    "api_version": "1.1.2",
+    "star_code": "C5VUC"
+  },
+  "sample_count": 16,
+  "reachable_cell_count": 134,
+  "graded_cell_count": 131,
+  "unrated_cell_count": 3,
+  "conflict_count": 0,
+  "unrated_cells": ["STAR.TIANKUI@寅", "STAR.TIANYUE@午", "STAR.DIJIE@亥"],
+  "sample_clock_times": [
+    "1991-06-15 12:00",
+    "1994-05-17 14:30",
+    "1994-05-17 23:30",
+    "1998-08-31 10:00",
+    "2001-12-15 12:00",
+    "2002-03-23 04:00",
+    "2005-07-15 08:00",
+    "2006-04-07 06:00",
+    "2008-02-16 02:00",
+    "2009-10-27 18:00",
+    "2012-09-25 16:00",
+    "2014-01-10 22:00",
+    "2017-02-16 04:00",
+    "2018-11-17 20:00",
+    "2020-05-23 12:00",
+    "2020-06-07 12:00"
+  ],
+  "cells": {
+    "STAR.WENCHANG": {"子": ["GRADED", "得"], "丑": ["GRADED", "庙"], "寅": ["GRADED", "陷"], "卯": ["GRADED", "利"], "辰": ["GRADED", "得"], "巳": ["GRADED", "庙"], "午": ["GRADED", "陷"], "未": ["GRADED", "利"], "申": ["GRADED", "得"], "酉": ["GRADED", "庙"], "戌": ["GRADED", "陷"], "亥": ["GRADED", "利"]},
+    "STAR.WENQU": {"子": ["GRADED", "得"], "丑": ["GRADED", "庙"], "寅": ["GRADED", "平"], "卯": ["GRADED", "旺"], "辰": ["GRADED", "得"], "巳": ["GRADED", "庙"], "午": ["GRADED", "陷"], "未": ["GRADED", "旺"], "申": ["GRADED", "得"], "酉": ["GRADED", "庙"], "戌": ["GRADED", "陷"], "亥": ["GRADED", "旺"]},
+    "STAR.ZUOFU": {"子": ["GRADED", "旺"], "丑": ["GRADED", "庙"], "寅": ["GRADED", "庙"], "卯": ["GRADED", "陷"], "辰": ["GRADED", "庙"], "巳": ["GRADED", "平"], "午": ["GRADED", "旺"], "未": ["GRADED", "庙"], "申": ["GRADED", "平"], "酉": ["GRADED", "陷"], "戌": ["GRADED", "庙"], "亥": ["GRADED", "不"]},
+    "STAR.YOUBI": {"子": ["GRADED", "庙"], "丑": ["GRADED", "庙"], "寅": ["GRADED", "旺"], "卯": ["GRADED", "陷"], "辰": ["GRADED", "庙"], "巳": ["GRADED", "平"], "午": ["GRADED", "旺"], "未": ["GRADED", "庙"], "申": ["GRADED", "不"], "酉": ["GRADED", "陷"], "戌": ["GRADED", "庙"], "亥": ["GRADED", "平"]},
+    "STAR.TIANKUI": {"子": ["GRADED", "旺"], "丑": ["GRADED", "旺"], "寅": ["UNRATED", null], "卯": ["GRADED", "庙"], "亥": ["GRADED", "旺"]},
+    "STAR.TIANYUE": {"巳": ["GRADED", "旺"], "午": ["UNRATED", null], "未": ["GRADED", "旺"], "申": ["GRADED", "庙"], "酉": ["GRADED", "庙"]},
+    "STAR.TIANMA": {"寅": ["GRADED", "旺"], "巳": ["GRADED", "平"], "申": ["GRADED", "旺"], "亥": ["GRADED", "平"]},
+    "STAR.LUCUN": {"子": ["GRADED", "庙"], "寅": ["GRADED", "庙"], "卯": ["GRADED", "庙"], "巳": ["GRADED", "庙"], "午": ["GRADED", "庙"], "申": ["GRADED", "庙"], "酉": ["GRADED", "庙"], "亥": ["GRADED", "庙"]},
+    "STAR.QINGYANG": {"子": ["GRADED", "陷"], "丑": ["GRADED", "庙"], "卯": ["GRADED", "陷"], "辰": ["GRADED", "庙"], "午": ["GRADED", "陷"], "未": ["GRADED", "庙"], "酉": ["GRADED", "陷"], "戌": ["GRADED", "庙"]},
+    "STAR.TUOLUO": {"丑": ["GRADED", "庙"], "寅": ["GRADED", "陷"], "辰": ["GRADED", "庙"], "巳": ["GRADED", "陷"], "未": ["GRADED", "庙"], "申": ["GRADED", "陷"], "戌": ["GRADED", "庙"], "亥": ["GRADED", "陷"]},
+    "STAR.DIKONG": {"子": ["GRADED", "平"], "丑": ["GRADED", "陷"], "寅": ["GRADED", "陷"], "卯": ["GRADED", "平"], "辰": ["GRADED", "陷"], "巳": ["GRADED", "庙"], "午": ["GRADED", "庙"], "未": ["GRADED", "平"], "申": ["GRADED", "庙"], "酉": ["GRADED", "庙"], "戌": ["GRADED", "陷"], "亥": ["GRADED", "陷"]},
+    "STAR.DIJIE": {"子": ["GRADED", "陷"], "丑": ["GRADED", "陷"], "寅": ["GRADED", "平"], "卯": ["GRADED", "平"], "辰": ["GRADED", "陷"], "巳": ["GRADED", "不"], "午": ["GRADED", "庙"], "未": ["GRADED", "平"], "申": ["GRADED", "庙"], "酉": ["GRADED", "平"], "戌": ["GRADED", "平"], "亥": ["UNRATED", null]},
+    "STAR.HUOXING": {"子": ["GRADED", "陷"], "丑": ["GRADED", "得"], "寅": ["GRADED", "庙"], "卯": ["GRADED", "利"], "辰": ["GRADED", "陷"], "巳": ["GRADED", "得"], "午": ["GRADED", "庙"], "未": ["GRADED", "利"], "申": ["GRADED", "陷"], "酉": ["GRADED", "得"], "戌": ["GRADED", "庙"], "亥": ["GRADED", "利"]},
+    "STAR.LINGXING": {"子": ["GRADED", "陷"], "丑": ["GRADED", "得"], "寅": ["GRADED", "庙"], "卯": ["GRADED", "利"], "辰": ["GRADED", "陷"], "巳": ["GRADED", "得"], "午": ["GRADED", "庙"], "未": ["GRADED", "利"], "申": ["GRADED", "陷"], "酉": ["GRADED", "得"], "戌": ["GRADED", "庙"], "亥": ["GRADED", "利"]}
+  }
+}
