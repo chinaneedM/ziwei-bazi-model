@@ -16,6 +16,7 @@ Implemented:
 - dependency-bound 三台/八座、恩光/天贵;
 - a 35-entity operational minor-star content pack calibrated against external fixtures;
 - typed `DignityAnnotation` with a complete project-owned 14-main-star × 12-address operational registry;
+- project-owned core-auxiliary Dignity closure over exactly 134 generator-reachable cells, including typed `GRADED` / `UNRATED` states;
 - typed `RoleBinding` for 命主/身主;
 - typed `RingInstance` / `RingMemberBinding` for 长生、岁前、将前、博士;
 - typed `TransformationActivation` using S08's 10-stem / 40-assignment runtime table;
@@ -32,7 +33,7 @@ Implemented:
 Still outside the current implementation slice:
 
 - unresolved operational content such as 天寿 and the 天伤/天使 profile split;
-- auxiliary/minor-star Dignity closure, including explicit no-display semantics, tracked by GitHub issue #180;
+- dependency/minor-star Dignity closure beyond the already closed main/core-aux layers, tracked by GitHub issue #180;
 - temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
   separately typed 斗君/月 frame runtime if promoted into V1;
 - graphical renderer / UI;
@@ -47,7 +48,7 @@ Placement
 
 DignityAnnotation
   = a typed static state attached to an existing entity/address under an explicit scale/rule set;
-    it does not rename or move the physical entity
+    status is GRADED or UNRATED; it does not rename or move the physical entity
 
 TransformationActivation
   = one causal stem/layer activates 禄/权/科/忌 on an existing physical entity;
@@ -122,7 +123,7 @@ Three hash layers are deliberately distinct:
 
 ```text
 FactHash
-  = canonical generated facts only, including typed static annotations such as dignity grades
+  = canonical generated facts only, including dignity status/grade annotations
 
 ComputationHash
   = FactHash + resolved profile + algorithm/generator versions + provenance lineage
@@ -131,9 +132,13 @@ ViewHash
   = source hashes + PresentationProfile + selected temporal projection + ViewProjection version
 ```
 
-Changing a dignity grade therefore changes `FactHash`; changing only the evidence
-lineage for the same grade preserves `FactHash` but changes `ComputationHash`.
-Showing or hiding dignity in a presentation changes `ViewHash` only.
+Changing a dignity status or grade therefore changes `FactHash`; changing only
+the evidence lineage for the same state preserves `FactHash` but changes
+`ComputationHash`. Showing or hiding dignity in a presentation changes `ViewHash` only.
+
+`UNRATED` is a first-class operational state with `grade=null`; it is not an
+alias for 平, 不 or missing evidence. Integrity rejects `UNRATED` carrying a grade
+and rejects `GRADED` without a valid seven-grade value.
 
 Display-label, palace-label, address-order or visibility changes are presentation
 changes only: they may change `ViewHash`, but they cannot rewrite `FactHash` or
@@ -186,16 +191,22 @@ therefore all 168 unique main-star/address cells with zero observed conflicts.
 The runtime identity is the project-owned `OPERATIONAL-ZIWEI-MAIN-STAR-DIGNITY-R1`;
 the external software name exists only in calibration provenance/fixtures.
 
+The core-auxiliary calibration pack combines sixteen external default-setting
+exports and closes exactly all 134 addresses reachable by the bound core-auxiliary
+Generator. It yields 131 `GRADED` cells plus three explicit `UNRATED` cells with
+zero observed conflicts. The project-owned runtime identity is
+`OPERATIONAL-ZIWEI-DIGNITY-R2`; impossible entity/address pairs are not invented.
+
 ## Dignity release boundary
 
-Dignity remains an operational-content blocker only for entities whose registry
-is still incomplete; it is no longer a blocker for the fourteen main stars.
+Dignity is no longer an operational-content blocker for the fourteen main stars
+or the fourteen core auxiliaries. Remaining Dignity work is limited to dependency
+and minor-star content plus future source-governance upgrades.
 
-S05 defines brightness semantics and S06 contains historical predicates, but the
-current Git canonical sources do not expose one complete deterministic seven-grade
-operational matrix for every required auxiliary/minor entity/address cell. Those
-missing cells must not be inferred from absence or from one external chart.
-Issue #180 tracks auxiliary/minor-star registry closure and explicit no-display semantics.
+Current Git canonical sources do not provide a complete deterministic seven-grade
+matrix for every remaining dependency/minor entity/address cell. Missing states
+must not be inferred from absence or silently copied from an external application's
+presentation. Issue #180 tracks that remaining closure.
 
 ## Validation
 
@@ -205,9 +216,11 @@ Regression coverage now includes:
 - all 150 canonical Ziwei-anchor cells;
 - Tianfu reflection and main-star covariance;
 - all 12 Ziwei-anchor configurations × 14 main stars = 168 operational main-star dignity cells;
+- all 134 generator-reachable core-auxiliary dignity cells derived from actual Generator input domains;
+- exactly 131 graded + 3 unrated core-auxiliary states, with no invented unreachable cells;
 - dignity as immutable annotation rather than placement mutation;
-- dignity target/address integrity failure;
-- dignity grade vs provenance hash-layer discrimination;
+- dignity target/address and status/grade integrity failures;
+- dignity fact vs provenance hash-layer discrimination;
 - presentation show/hide dignity without canonical-state mutation;
 - exhaustive core auxiliary, Fire/Bell and minor-star domains;
 - all 60 valid sexagenary Xunkong pairs;
@@ -238,6 +251,6 @@ fortune-train verify
 ## Release boundary
 
 Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The main remaining V1 gates are auxiliary/minor Dignity/content closure and wider
+The main remaining V1 gates are dependency/minor Dignity/content closure and wider
 operational compatibility regression. Graphical UI can remain post-core because
 the renderer boundary is now explicit and presentation-only.
