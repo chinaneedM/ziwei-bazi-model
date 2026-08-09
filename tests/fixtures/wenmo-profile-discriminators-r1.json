@@ -101,7 +101,17 @@
         "STAR.WENCHANG": "辰", "STAR.WENQU": "戌", "STAR.ZUOFU": "寅", "STAR.YOUBI": "子", "STAR.TIANKUI": "寅", "STAR.TIANYUE": "午", "STAR.TIANMA": "亥", "STAR.LUCUN": "酉", "STAR.QINGYANG": "戌", "STAR.TUOLUO": "申", "STAR.DIKONG": "巳", "STAR.DIJIE": "巳"
       },
       "observed_fire_bell": {"STAR.HUOXING": "酉", "STAR.LINGXING": "辰"},
-      "external_source_note": "User-provided Wenmo text export; used as the missing 巳酉丑 Fire/Bell discriminator."
+      "observed_dependent_auxiliary": {
+        "STAR.SANTAI": "寅",
+        "STAR.BAZUO": "子",
+        "STAR.ENGUANG": "卯",
+        "STAR.TIANGUI": "酉"
+      },
+      "observed_roles": {
+        "ROLE.MINGZHU": {"entity_id": "STAR.POJUN", "entity_display_name": "破军", "basis_type": "LIFE_PALACE_BRANCH", "basis_value": "午"},
+        "ROLE.SHENZHU": {"entity_id": "STAR.TIANJI", "entity_display_name": "天机", "basis_type": "ZIWEI_BIRTH_YEAR_BRANCH", "basis_value": "巳"}
+      },
+      "external_source_note": "User-provided Wenmo text export; used for Fire/Bell, dependent-star and role-binding compatibility checks."
     }
   ]
 }
