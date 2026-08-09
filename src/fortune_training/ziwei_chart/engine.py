@@ -17,6 +17,12 @@ from .auxiliary import (
     WenmoDefaultCoreAuxiliaryGenerator,
 )
 from .derived_auxiliary import DERIVED_AUXILIARY_ALGORITHM_VERSION, DerivedAuxiliaryGenerationError, DerivedAuxiliaryGenerator
+from .dignity import (
+    DIGNITY_ALGORITHM_VERSION,
+    DignityGenerationError,
+    WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID,
+    WenmoMainStarDignityGenerator,
+)
 from .integrity import natal_hash_bundle, validate_natal_chart
 from .main_stars import MainStarGenerator
 from .minor_stars import (
@@ -68,6 +74,7 @@ class ZiweiChartFoundation:
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
         self.derived_aux = DerivedAuxiliaryGenerator()
         self.wenmo_minor = WenmoDefaultMinorStarGenerator()
+        self.wenmo_main_dignity = WenmoMainStarDignityGenerator()
         self.transformations = TransformationGenerator()
         self.wenmo_rings = WenmoDefaultRingGenerator()
         self.qs_roles = QSRoleGenerator()
@@ -88,6 +95,11 @@ class ZiweiChartFoundation:
         if rule_set_id == WENMO_DEFAULT_MINOR_RULE_SET_ID:
             return self.wenmo_minor
         raise ValueError(f"unsupported minor-star rule set: {rule_set_id}")
+
+    def _dignity_generator(self, rule_set_id: str):
+        if rule_set_id == WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID:
+            return self.wenmo_main_dignity
+        raise ValueError(f"unsupported dignity rule set: {rule_set_id}")
 
     def _transformation_generator(self, rule_set_id: str):
         if rule_set_id == S08_TRANSFORMATION_RULE_SET_ID:
@@ -130,6 +142,7 @@ class ZiweiChartFoundation:
             )
         )
         placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
+        annotations = ()
         transformations = ()
         role_bindings = ()
         rings = ()
@@ -173,6 +186,10 @@ class ZiweiChartFoundation:
             )
             algorithm_versions["minor_stars"] = request.profile.minor_algorithm_version or MINOR_STAR_ALGORITHM_VERSION
 
+        if request.profile.dignity_rule_set_id is not None:
+            annotations = self._dignity_generator(request.profile.dignity_rule_set_id).generate(placements)
+            algorithm_versions["dignity"] = request.profile.dignity_algorithm_version or DIGNITY_ALGORITHM_VERSION
+
         if request.profile.transformation_rule_set_id is not None:
             transformations = self._transformation_generator(request.profile.transformation_rule_set_id).activate(
                 structure.ziwei_birth_year_stem,
@@ -208,6 +225,7 @@ class ZiweiChartFoundation:
             placements=tuple(placements),
             profile_id=request.profile.profile_id,
             profile_version=request.profile.profile_version,
+            annotations=tuple(annotations),
             transformations=tuple(transformations),
             role_bindings=tuple(role_bindings),
             rings=tuple(rings),
@@ -267,6 +285,7 @@ class ZiweiChartFoundation:
             AuxiliaryGenerationError,
             DerivedAuxiliaryGenerationError,
             MinorStarGenerationError,
+            DignityGenerationError,
             TransformationGenerationError,
             RingGenerationError,
             RoleGenerationError,
