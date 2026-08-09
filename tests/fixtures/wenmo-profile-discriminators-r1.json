@@ -60,6 +60,10 @@
       "input": "1991-06-15T12:00:00",
       "displayed_true_solar_minute": "1991-06-15T11:45",
       "gui_raw_lunar": {"year": 1991, "month": 5, "day": 4, "is_leap_month": false},
+      "historical_time_compatibility": {
+        "classification": "TARGET_HISTORICAL_TIME_POLICY_DIFFERENCE",
+        "note": "Wenmo display behaves as fixed UTC+8 for this 1991 summer input, while the engine preserves historical timezone/DST resolution. This case is not a full end-to-end time/chart equality oracle."
+      },
       "life_branch": "子",
       "body_branch": "子",
       "bureau": ["土", 5, "庚子"],
