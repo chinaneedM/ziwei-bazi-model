@@ -3,6 +3,15 @@
 from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .derived_auxiliary import DerivedAuxiliaryGenerator
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
+from .integrity import (
+    HashBundle,
+    IntegrityDiagnostic,
+    IntegrityReport,
+    natal_hash_bundle,
+    temporal_hash_bundle,
+    validate_natal_chart,
+    validate_temporal_state,
+)
 from .main_stars import MainStarGenerator
 from .minor_stars import MinorStarContext, WenmoDefaultMinorStarGenerator
 from .models import (
@@ -33,6 +42,9 @@ __all__ = [
     "AuxiliaryContext",
     "DaxianFrame",
     "DerivedAuxiliaryGenerator",
+    "HashBundle",
+    "IntegrityDiagnostic",
+    "IntegrityReport",
     "MainStarGenerator",
     "MinorLimitFrame",
     "MinorStarContext",
@@ -57,6 +69,10 @@ __all__ = [
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
     "ZiweiTemporalState",
+    "natal_hash_bundle",
+    "temporal_hash_bundle",
+    "validate_natal_chart",
+    "validate_temporal_state",
 ]
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"

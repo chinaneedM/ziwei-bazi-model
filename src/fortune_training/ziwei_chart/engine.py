@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -18,6 +17,7 @@ from .auxiliary import (
     WenmoDefaultCoreAuxiliaryGenerator,
 )
 from .derived_auxiliary import DERIVED_AUXILIARY_ALGORITHM_VERSION, DerivedAuxiliaryGenerationError, DerivedAuxiliaryGenerator
+from .integrity import natal_hash_bundle, validate_natal_chart
 from .main_stars import MainStarGenerator
 from .minor_stars import (
     MINOR_STAR_ALGORITHM_VERSION,
@@ -180,9 +180,7 @@ class ZiweiChartFoundation:
                 source_layer="NATAL_BIRTH_YEAR",
                 context_id="NATAL",
             )
-            algorithm_versions["transformations"] = (
-                request.profile.transformation_algorithm_version or TRANSFORMATION_ALGORITHM_VERSION
-            )
+            algorithm_versions["transformations"] = request.profile.transformation_algorithm_version or TRANSFORMATION_ALGORITHM_VERSION
 
         if request.profile.ring_rule_set_id is not None:
             lucun_rows = [row for row in placements if row.entity_id == "STAR.LUCUN"]
@@ -217,31 +215,53 @@ class ZiweiChartFoundation:
         )
 
     @staticmethod
-    def _chart_key(chart: dict[str, Any]) -> str:
-        return json.dumps(chart, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    def _failed_result(profile, time_result, diagnostics, *, integrity_reports=()):
+        return {
+            "schema": ZiweiChartFoundation.schema,
+            "status": "FAILED",
+            "diagnostics": list(diagnostics),
+            "events": [],
+            "calculation_profile": json_value(profile),
+            "time_calendar": time_result,
+            "charts": [],
+            "chart_branch_indices": [],
+            "integrity_reports": [json_value(row) for row in integrity_reports],
+            "hashes": [],
+        }
 
     def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
         profile = request.profile.validate(self.time_calendar.policy_registry)
         time_result = self.time_calendar.resolve(request.birth, profile.time_calendar_policies)
         if not time_result["branches"]:
-            return {
-                "schema": self.schema,
-                "status": "FAILED",
-                "diagnostics": ["TIME_CALENDAR_UNRESOLVED"],
-                "events": [],
-                "calculation_profile": json_value(profile),
-                "time_calendar": time_result,
-                "charts": [],
-                "chart_branch_indices": [],
-            }
+            return self._failed_result(profile, time_result, ["TIME_CALENDAR_UNRESOLVED"])
 
         unique: dict[str, dict[str, Any]] = {}
         try:
             for branch_index, branch in enumerate(time_result["branches"]):
-                chart = json_value(self._generate_chart(branch, request))
-                key = self._chart_key(chart)
+                typed_chart = self._generate_chart(branch, request)
+                integrity = validate_natal_chart(typed_chart)
+                if integrity.status != "PASS":
+                    return self._failed_result(
+                        profile,
+                        time_result,
+                        [f"INTEGRITY:{row.code}:{row.path}" for row in integrity.diagnostics],
+                        integrity_reports=(integrity,),
+                    )
+                hashes = natal_hash_bundle(typed_chart, profile)
+                key = hashes.fact_hash
                 if key not in unique:
-                    unique[key] = {"chart": chart, "branch_indices": []}
+                    unique[key] = {
+                        "chart": json_value(typed_chart),
+                        "integrity": json_value(integrity),
+                        "hashes": json_value(hashes),
+                        "branch_indices": [],
+                    }
+                elif unique[key]["hashes"]["computation_hash"] != hashes.computation_hash:
+                    return self._failed_result(
+                        profile,
+                        time_result,
+                        ["INTEGRITY:SAME_FACT_DIFFERENT_COMPUTATION_LINEAGE"],
+                    )
                 unique[key]["branch_indices"].append(branch_index)
         except (
             AuxiliaryGenerationError,
@@ -251,20 +271,13 @@ class ZiweiChartFoundation:
             RingGenerationError,
             RoleGenerationError,
         ) as exc:
-            return {
-                "schema": self.schema,
-                "status": "FAILED",
-                "diagnostics": [exc.diagnostic_code],
-                "events": [],
-                "calculation_profile": json_value(profile),
-                "time_calendar": time_result,
-                "charts": [],
-                "chart_branch_indices": [],
-            }
+            return self._failed_result(profile, time_result, [exc.diagnostic_code])
 
         candidates = list(unique.values())
         charts = [row["chart"] for row in candidates]
         chart_branch_indices = [row["branch_indices"] for row in candidates]
+        integrity_reports = [row["integrity"] for row in candidates]
+        hashes = [row["hashes"] for row in candidates]
         if len(charts) > 1:
             status = "MULTI_CANDIDATE"
             events = ["TIME_UNCERTAINTY_CHANGED_ZIWEI_CHART"]
@@ -282,6 +295,8 @@ class ZiweiChartFoundation:
             "time_calendar": time_result,
             "charts": charts,
             "chart_branch_indices": chart_branch_indices,
+            "integrity_reports": integrity_reports,
+            "hashes": hashes,
             "events": events,
             "diagnostics": [],
         }
