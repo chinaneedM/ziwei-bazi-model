@@ -2,9 +2,20 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime
+from pathlib import Path
 
+from fortune_training.calendar_foundation import BirthInput, PolicyRegistry, TimeCalendarFoundation
+from fortune_training.ziwei_chart import (
+    ResolvedZiweiCalculationProfile,
+    Sex,
+    ZiweiChartFoundation,
+    ZiweiChartRequest,
+)
 from fortune_training.ziwei_chart.main_stars import MainStarGenerator
 from fortune_training.ziwei_chart.natal import NatalStructureGenerator, NatalStructureInput
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class ZiweiNatalStructureTests(unittest.TestCase):
@@ -108,6 +119,48 @@ class ZiweiMainStarTests(unittest.TestCase):
                 {entity: (index + 6) % 12 for entity, index in first.items()},
                 second,
             )
+
+
+class ZiweiChartIntegrationTests(unittest.TestCase):
+    def test_beijing_smoke_chart_resolves_to_structure_and_fourteen_main_stars(self):
+        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
+        profile = ResolvedZiweiCalculationProfile(
+            profile_id="FOUNDATION-SMOKE-R1",
+            profile_version="1.0.0",
+            time_calendar_policy_registry_version=registry.version,
+            time_calendar_policies=registry.default_selection(),
+        )
+        engine = ZiweiChartFoundation(TimeCalendarFoundation(registry))
+        result = engine.resolve(
+            ZiweiChartRequest(
+                birth=BirthInput(
+                    reported_local_datetime=datetime(1994, 5, 17, 14, 30),
+                    birth_place="Beijing",
+                    latitude=39.9042,
+                    longitude=116.4074,
+                    timezone_id="Asia/Shanghai",
+                ),
+                sex=Sex.MALE,
+                profile=profile,
+            )
+        )
+        self.assertEqual("RESOLVED", result["status"])
+        self.assertEqual(1, len(result["charts"]))
+        chart = result["charts"][0]
+        self.assertEqual(12, len(chart["structure"]["designation_bindings"]))
+        self.assertEqual(14, len(chart["placements"]))
+        self.assertEqual(14, len({row["entity_id"] for row in chart["placements"]}))
+
+    def test_profile_registry_version_mismatch_fails_closed(self):
+        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
+        profile = ResolvedZiweiCalculationProfile(
+            profile_id="BROKEN-PROFILE",
+            profile_version="1.0.0",
+            time_calendar_policy_registry_version="WRONG",
+            time_calendar_policies=registry.default_selection(),
+        )
+        with self.assertRaisesRegex(ValueError, "registry version mismatch"):
+            profile.validate(registry)
 
 
 if __name__ == "__main__":
