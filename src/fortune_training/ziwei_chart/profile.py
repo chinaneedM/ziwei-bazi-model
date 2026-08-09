@@ -24,6 +24,7 @@ class ResolvedZiweiCalculationProfile:
     profile_version: str
     time_calendar_policy_registry_version: str
     time_calendar_policies: PolicySelection
+    ziwei_day_boundary_policy: str = "MIDNIGHT"
     natal_structure_algorithm_id: str = NATAL_STRUCTURE_ALGORITHM_ID
     natal_structure_algorithm_version: str = NATAL_STRUCTURE_ALGORITHM_VERSION
     main_star_algorithm_id: str = MAIN_STAR_ALGORITHM_ID
@@ -44,6 +45,13 @@ class ResolvedZiweiCalculationProfile:
                 f"profile={self.time_calendar_policy_registry_version} runtime={policy_registry.version}"
             )
         policy_registry.validate_selection(self.time_calendar_policies)
+        if self.ziwei_day_boundary_policy not in {"MIDNIGHT", "ZI_START_23"}:
+            raise ValueError(f"unsupported Ziwei day-boundary policy: {self.ziwei_day_boundary_policy}")
+        if (
+            self.ziwei_day_boundary_policy == "ZI_START_23"
+            and self.time_calendar_policies.ziwei_calendar_date_policy != "LOCAL_SOLAR_DATE_INDEXED"
+        ):
+            raise ValueError("ZI_START_23 currently requires LOCAL_SOLAR_DATE_INDEXED")
         if self.natal_structure_algorithm_id != NATAL_STRUCTURE_ALGORITHM_ID:
             raise ValueError("unsupported natal-structure algorithm id")
         if self.natal_structure_algorithm_version != NATAL_STRUCTURE_ALGORITHM_VERSION:
