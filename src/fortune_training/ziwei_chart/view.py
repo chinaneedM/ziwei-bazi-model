@@ -13,9 +13,9 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, TemporalNatalCo
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.0"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.1"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
-TEXT_RENDERER_VERSION = "1.0.0"
+TEXT_RENDERER_VERSION = "1.0.1"
 
 
 class ViewProjectionError(ValueError):
@@ -34,6 +34,7 @@ class PresentationProfile:
     profile_id: str
     profile_version: str
     address_order: str = "BRANCH_FORWARD"
+    show_dignity: bool = True
     show_transformations: bool = True
     show_rings: bool = True
     show_roles: bool = True
@@ -57,6 +58,7 @@ class PresentationProfile:
 class ViewPlacement:
     entity_id: str
     label: str
+    dignity_grade: str | None
     transformation_badges: tuple[str, ...]
 
 
@@ -199,6 +201,11 @@ class ZiweiViewProjectionCompiler:
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
+        dignity_by_entity = {
+            row.target_entity_id: row.grade
+            for row in chart.annotations
+            if row.annotation_type == "DIGNITY"
+        }
 
         transformation_by_entity: dict[str, list[str]] = {}
         if presentation.show_transformations:
@@ -219,6 +226,7 @@ class ZiweiViewProjectionCompiler:
                 ViewPlacement(
                     entity_id=row.entity_id,
                     label=self._label(overrides, "ENTITY", row.entity_id, row.display_name),
+                    dignity_grade=dignity_by_entity.get(row.entity_id) if presentation.show_dignity else None,
                     transformation_badges=tuple(sorted(transformation_by_entity.get(row.entity_id, ()))),
                 )
             )
@@ -335,7 +343,9 @@ class PlainTextZiweiRenderer:
             lines.append("roles=" + ", ".join(f"{row.label}:{row.entity_label}" for row in view.roles))
         for cell in view.cells:
             stars = ", ".join(
-                row.label + (f"[{'|'.join(row.transformation_badges)}]" if row.transformation_badges else "")
+                row.label
+                + (f"[{row.dignity_grade}]" if row.dignity_grade else "")
+                + (f"[{'|'.join(row.transformation_badges)}]" if row.transformation_badges else "")
                 for row in cell.placements
             ) or "-"
             rings = ", ".join(row.label for row in cell.ring_members) or "-"
