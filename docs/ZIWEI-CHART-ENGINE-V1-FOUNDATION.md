@@ -24,7 +24,7 @@ Implemented:
   transformation, temporal, ring and role rule identities/versions;
 - fail-closed natal and temporal integrity validation;
 - separate deterministic `FactHash` and `ComputationHash` semantics;
-- typed `PresentationProfile`, `ChartViewModel` and `ViewHash`;
+- typed `PresentationProfile`, renderer-neutral `ChartViewModel` and `ViewHash`;
 - a pure plain-text renderer that consumes only `ChartViewModel`;
 - machine-readable schemas, provenance and diagnostics.
 
@@ -61,7 +61,7 @@ DesignationBinding
   = a palace designation bound to an address inside one declared frame
 
 ChartViewModel
-  = presentation projection only; it cannot write back into canonical or temporal state
+  = renderer-neutral presentation projection only; it cannot write back into canonical or temporal state
 ```
 
 Same-label objects remain distinct across layers. Physical 华盖 is not the
@@ -94,14 +94,15 @@ validated NatalChartState (+ optional validated TemporalState)
 + HashBundle
 + PresentationProfile
 -> ZiweiViewProjectionCompiler
--> immutable ChartViewModel
+-> immutable renderer-neutral ChartViewModel
 -> ViewHash
--> Renderer
+-> any compatible Renderer
 ```
 
 Temporal state is deliberately separate from `NatalChartState`. Renderers are
 deliberately downstream from `ChartViewModel` and never receive mutable access
-to canonical state.
+to canonical state. A graphical square chart, circular chart and plain-text view
+may therefore consume the same ViewModel without requiring a second canonical state.
 
 ## Integrity and hash semantics
 
@@ -120,14 +121,18 @@ ComputationHash
   = FactHash + resolved profile + algorithm/generator versions + provenance lineage
 
 ViewHash
-  = source hashes + PresentationProfile + selected temporal projection + renderer contract
+  = source hashes + PresentationProfile + selected temporal projection + ViewProjection version
 ```
 
 Display-label, palace-label, address-order or visibility changes are presentation
 changes only: they may change `ViewHash`, but they cannot rewrite `FactHash` or
-`ComputationHash`. The View compiler re-validates its natal source; temporal
-projection additionally requires the explicit `TemporalNatalContext` used to
-validate that temporal state, rather than reconstructing hidden inputs.
+`ComputationHash`. Renderer-specific layout/pixel output is deliberately not part
+of the renderer-neutral ViewHash; a future renderer-specific `RenderHash` may be
+added downstream if required.
+
+The View compiler re-validates its natal source; temporal projection additionally
+requires the explicit `TemporalNatalContext` used to validate that temporal state,
+rather than reconstructing hidden inputs.
 
 ## Canonical and compatibility authority
 
@@ -196,7 +201,7 @@ Regression coverage now includes:
 - deterministic ViewModel/ViewHash generation;
 - lexeme and address-order presentation changes without canonical-state mutation;
 - explicit temporal-context requirement at the View projection boundary;
-- plain-text rendering from ViewModel only.
+- plain-text rendering from renderer-neutral ViewModel only.
 
 Run the full repository checks with:
 
