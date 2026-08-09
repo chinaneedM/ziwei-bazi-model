@@ -52,6 +52,23 @@ class Placement:
 
 
 @dataclass(frozen=True)
+class TransformationActivation:
+    activation_id: str
+    transformation_type: str
+    target_entity_id: str
+    target_display_name: str
+    target_address: Address
+    source_layer: str
+    source_stem: str
+    context_id: str
+    assignment_id: str
+    mechanism_id: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class RoleBinding:
     role_id: str
     display_name: str
@@ -118,6 +135,7 @@ class NatalChartState:
     placements: tuple[Placement, ...]
     profile_id: str
     profile_version: str
+    transformations: tuple[TransformationActivation, ...] = ()
     role_bindings: tuple[RoleBinding, ...] = ()
     rings: tuple[RingInstance, ...] = ()
     algorithm_versions: dict[str, str] = field(default_factory=dict)
