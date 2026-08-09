@@ -25,6 +25,10 @@ from .dignity import (
     OperationalMainStarDignityGenerator,
     OperationalZiweiDignityGenerator,
 )
+from .dignity_r3 import (
+    OPERATIONAL_FULL_DIGNITY_RULE_SET_ID,
+    OperationalFullZiweiDignityGenerator,
+)
 from .integrity import natal_hash_bundle, validate_natal_chart
 from .main_stars import MainStarGenerator
 from .minor_stars import (
@@ -78,6 +82,7 @@ class ZiweiChartFoundation:
         self.wenmo_minor = WenmoDefaultMinorStarGenerator()
         self.operational_main_dignity = OperationalMainStarDignityGenerator()
         self.operational_dignity = OperationalZiweiDignityGenerator()
+        self.operational_full_dignity = OperationalFullZiweiDignityGenerator()
         self.transformations = TransformationGenerator()
         self.wenmo_rings = WenmoDefaultRingGenerator()
         self.qs_roles = QSRoleGenerator()
@@ -104,6 +109,8 @@ class ZiweiChartFoundation:
             return self.operational_main_dignity
         if rule_set_id == OPERATIONAL_DIGNITY_RULE_SET_ID:
             return self.operational_dignity
+        if rule_set_id == OPERATIONAL_FULL_DIGNITY_RULE_SET_ID:
+            return self.operational_full_dignity
         raise ValueError(f"unsupported dignity rule set: {rule_set_id}")
 
     def _transformation_generator(self, rule_set_id: str):
