@@ -32,8 +32,8 @@ class ZiweiCalendarResolver:
         local_apparent_solar_datetime: datetime,
         *,
         calendar_date_policy: str,
-        day_boundary_policy: str,
-        life_body_leap_month_policy: str,
+        life_body_leap_month_policy: str = "FULLBOOK_NEXT_MONTH",
+        day_boundary_policy: str = "MIDNIGHT",
     ) -> ZiweiCalendarResult:
         civil_lunar = self.calendar.from_gregorian_date(reported_civil_date)
         local_solar_date = local_apparent_solar_datetime.date()
