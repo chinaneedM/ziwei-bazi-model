@@ -1,6 +1,6 @@
 {
   "schema": "TIME-CALENDAR-POLICY-REGISTRY-V1",
-  "registry_version": "PHASE-01-R2",
+  "registry_version": "PHASE-01-R1",
   "policies": {
     "civil.ambiguous_time_policy": {
       "class": "OPERATIONAL",
@@ -41,17 +41,8 @@
       "default": "LOCAL_SOLAR_DATE_INDEXED",
       "default_status": "CORE_CANDIDATE_NOT_SETTLED_CLASSICAL_TRUTH",
       "values": {
-        "LOCAL_SOLAR_DATE_INDEXED": "Map the local apparent-solar Gregorian date through the unified Chinese calendar, subject to the separately bound Ziwei day-boundary policy.",
+        "LOCAL_SOLAR_DATE_INDEXED": "Map the complete local apparent solar Gregorian date through the unified Chinese calendar.",
         "ABSOLUTE_CALENDAR": "Use the official Chinese-calendar mapping of the reported civil Gregorian date."
-      }
-    },
-    "ziwei.day_boundary_policy": {
-      "class": "MINGLI_POLICY",
-      "default": "MIDNIGHT",
-      "default_status": "CORE_CANDIDATE_NOT_SETTLED_CLASSICAL_TRUTH",
-      "values": {
-        "MIDNIGHT": "Ziwei calendar-date indexing changes at 00:00 on the selected date basis.",
-        "ZI_START_23": "For LOCAL_SOLAR_DATE_INDEXED only, local apparent-solar times from 23:00 through 23:59 index the following Gregorian date before Chinese-calendar mapping."
       }
     },
     "ziwei.life_body_leap_month_policy": {
@@ -71,7 +62,6 @@
     "facts_are_not_policies": true,
     "policy_ids_are_versioned": true,
     "leap_month_policy_must_not_escape_allowed_scope": true,
-    "ziwei_day_boundary_is_separate_from_bazi_day_boundary": true,
     "no_boolean_aliases": true
   }
 }
