@@ -12,6 +12,7 @@ class PolicySelection:
     bazi_late_zi_hour_stem_policy: str
     bazi_year_boundary_policy: str
     ziwei_calendar_date_policy: str
+    ziwei_day_boundary_policy: str
     ziwei_life_body_leap_month_policy: str
     civil_ambiguous_time_policy: str
 
@@ -59,6 +60,7 @@ class PolicyRegistry:
             bazi_late_zi_hour_stem_policy=values["bazi.late_zi_hour_stem_policy"],
             bazi_year_boundary_policy=values["bazi.year_boundary_policy"],
             ziwei_calendar_date_policy=values["ziwei.calendar_date_policy"],
+            ziwei_day_boundary_policy=values["ziwei.day_boundary_policy"],
             ziwei_life_body_leap_month_policy=values["ziwei.life_body_leap_month_policy"],
             civil_ambiguous_time_policy=values["civil.ambiguous_time_policy"],
         )
@@ -69,6 +71,7 @@ class PolicyRegistry:
             "bazi.late_zi_hour_stem_policy": selection.bazi_late_zi_hour_stem_policy,
             "bazi.year_boundary_policy": selection.bazi_year_boundary_policy,
             "ziwei.calendar_date_policy": selection.ziwei_calendar_date_policy,
+            "ziwei.day_boundary_policy": selection.ziwei_day_boundary_policy,
             "ziwei.life_body_leap_month_policy": selection.ziwei_life_body_leap_month_policy,
             "civil.ambiguous_time_policy": selection.civil_ambiguous_time_policy,
         }
@@ -79,4 +82,9 @@ class PolicyRegistry:
             and selection.bazi_day_boundary_policy != "ZI_START_23"
         ):
             raise ValueError("ZI_START_ROLLOVER requires bazi.day_boundary_policy=ZI_START_23")
+        if (
+            selection.ziwei_day_boundary_policy == "ZI_START_23"
+            and selection.ziwei_calendar_date_policy != "LOCAL_SOLAR_DATE_INDEXED"
+        ):
+            raise ValueError("Ziwei ZI_START_23 currently requires LOCAL_SOLAR_DATE_INDEXED")
         return selection
