@@ -1,0 +1,116 @@
+{
+  "schema": "ZIWEI-EXTERNAL-COMPATIBILITY-FIXTURE-V1",
+  "fixture_id": "WENMO-CHARTDIFF-001",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "source": {
+    "software": "文墨天机专业版",
+    "app_version": "2.5.9",
+    "api_version": "1.1.2",
+    "anxing_code": "C5VUC",
+    "settings_state": "USER_CONFIRMED_ALL_DEFAULT",
+    "relevant_default_settings": {
+      "mode": "三合",
+      "tianma_basis": "依据年支",
+      "hour_void_method": "常规排法",
+      "hour_void_add_birth_hour": false,
+      "dignity_basis": "斗数全书",
+      "jie_xun_void_method": "正副双星法",
+      "tianshi_tianshang_method": "常规排法",
+      "kui_yue_xin_pair": "虎马",
+      "mingzhu_basis": "斗数全书",
+      "changsheng_yin_yang_direction": true,
+      "water_earth_share_changsheng": true
+    }
+  },
+  "input": {
+    "sex": "MALE",
+    "birth_place": "Beijing",
+    "longitude": 116.4,
+    "latitude": 39.9042,
+    "timezone_id": "Asia/Shanghai",
+    "reported_local_datetime": "1994-05-17T14:30:00"
+  },
+  "wenmo_time_calendar": {
+    "displayed_true_solar_minute": "1994-05-17T14:19",
+    "lunar_year": 1994,
+    "lunar_month": 4,
+    "lunar_day": 7,
+    "is_leap_month": false,
+    "lunar_year_ganzhi": "甲戌",
+    "birth_hour_branch": "未"
+  },
+  "expected_current_common_scope": {
+    "life_branch": "戌",
+    "body_branch": "子",
+    "bureau": {
+      "element": "火",
+      "number": 6,
+      "life_palace_ganzhi": "甲戌"
+    },
+    "palace_ganzhi_by_designation": {
+      "命宫": "甲戌",
+      "兄弟宫": "癸酉",
+      "夫妻宫": "壬申",
+      "子女宫": "辛未",
+      "财帛宫": "庚午",
+      "疾厄宫": "己巳",
+      "迁移宫": "戊辰",
+      "交友宫": "丁卯",
+      "官禄宫": "丙寅",
+      "田宅宫": "丁丑",
+      "福德宫": "丙子",
+      "父母宫": "乙亥"
+    },
+    "placements": {
+      "STAR.ZIWEI": "戌",
+      "STAR.TIANJI": "酉",
+      "STAR.TAIYANG": "未",
+      "STAR.WUQU": "午",
+      "STAR.TIANTONG": "巳",
+      "STAR.LIANZHEN": "寅",
+      "STAR.TIANFU": "午",
+      "STAR.TAIYIN": "未",
+      "STAR.TANLANG": "申",
+      "STAR.JUMEN": "酉",
+      "STAR.TIANXIANG": "戌",
+      "STAR.TIANLIANG": "亥",
+      "STAR.QISHA": "子",
+      "STAR.POJUN": "辰",
+      "STAR.WENCHANG": "卯",
+      "STAR.WENQU": "亥",
+      "STAR.ZUOFU": "未",
+      "STAR.YOUBI": "未",
+      "STAR.TIANKUI": "丑",
+      "STAR.TIANYUE": "未",
+      "STAR.TIANMA": "申",
+      "STAR.LUCUN": "寅",
+      "STAR.QINGYANG": "卯",
+      "STAR.TUOLUO": "丑",
+      "STAR.DIKONG": "辰",
+      "STAR.DIJIE": "午"
+    }
+  },
+  "observed_beyond_current_engine_scope": {
+    "mingzhu": "禄存",
+    "shenzhu": "文昌",
+    "zi_year_doujun": "辰",
+    "natal_fire_star": "申",
+    "natal_bell_star": "戌",
+    "separate_tiankong_small_star": "亥",
+    "first_daxian": {
+      "branch": "戌",
+      "virtual_age_start": 6,
+      "virtual_age_end": 15
+    },
+    "second_daxian": {
+      "branch": "亥",
+      "virtual_age_start": 16,
+      "virtual_age_end": 25
+    },
+    "notes": [
+      "火星/铃星暂不用于当前严格QS auxiliary compatibility pass；其规则族需要独立Profile辨别。",
+      "文墨同时存在地空与另一颗小星天空，证明实体身份必须分离。",
+      "庙旺、四化、自化、长生十二神、太岁煞禄、小限、流年与大限完整动态层均留待对应V1模块实现后再扩展ChartDiff。"
+    ]
+  }
+}
