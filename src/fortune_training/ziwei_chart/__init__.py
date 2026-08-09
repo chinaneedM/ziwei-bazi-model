@@ -5,9 +5,10 @@ from .derived_auxiliary import DerivedAuxiliaryGenerator
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .main_stars import MainStarGenerator
 from .minor_stars import MinorStarContext, WenmoDefaultMinorStarGenerator
-from .models import NatalChartState, NatalStructureState, RoleBinding, Sex
+from .models import NatalChartState, NatalStructureState, RingInstance, RingMemberBinding, RoleBinding, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
+from .rings import WenmoDefaultRingGenerator
 from .roles import QSRoleGenerator, WenmoDefaultRoleGenerator
 
 __all__ = [
@@ -22,12 +23,15 @@ __all__ = [
     "QSCoreAuxiliaryGenerator",
     "QSRoleGenerator",
     "ResolvedZiweiCalculationProfile",
+    "RingInstance",
+    "RingMemberBinding",
     "RoleBinding",
     "Sex",
     "WenmoDefaultMinorStarGenerator",
+    "WenmoDefaultRingGenerator",
     "WenmoDefaultRoleGenerator",
     "ZiweiChartFoundation",
     "ZiweiChartRequest",
 ]
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
