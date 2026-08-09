@@ -9,6 +9,8 @@ from fortune_training.ziwei_chart import ResolvedZiweiCalculationProfile, Sex, Z
 from fortune_training.ziwei_chart.auxiliary import (
     AUXILIARY_ALGORITHM_ID,
     AUXILIARY_ALGORITHM_VERSION,
+    AuxiliaryContext,
+    AuxiliaryGenerationError,
     KUI_YUE_BY_STEM,
     LUCUN_BY_STEM,
     QS_CORE_AUX_RULE_SET_ID,
@@ -16,7 +18,7 @@ from fortune_training.ziwei_chart.auxiliary import (
     TIANMA_BY_BRANCH,
     QSCoreAuxiliaryGenerator,
 )
-from fortune_training.ziwei_chart.registries import EARTHLY_BRANCHES
+from fortune_training.ziwei_chart.registries import address
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -81,6 +83,18 @@ class QSCoreAuxiliaryTests(unittest.TestCase):
         lucun, yang, tuo = self.generator.lucun_yang_tuo("癸")
         self.assertEqual(("子", "丑", "亥"), (lucun.address.branch, yang.address.branch, tuo.address.branch))
 
+    def test_strict_qs_rule_set_does_not_guess_month_based_auxiliaries_in_leap_month(self):
+        with self.assertRaisesRegex(AuxiliaryGenerationError, "QS_CORE_AUX_LEAP_MONTH_POLICY_UNRESOLVED"):
+            self.generator.generate(
+                AuxiliaryContext(
+                    ziwei_birth_year_stem="庚",
+                    ziwei_birth_year_branch="子",
+                    raw_lunar_month=4,
+                    is_leap_month=True,
+                    birth_hour_branch=address(6),
+                )
+            )
+
 
 class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
     @staticmethod
@@ -133,6 +147,25 @@ class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(AUXILIARY_ALGORITHM_VERSION, chart["algorithm_versions"]["core_auxiliary"])
         self.assertTrue(all(row["source_refs"] for row in chart["placements"]))
+
+    def test_leap_month_qs_auxiliary_profile_fails_closed_with_machine_diagnostic(self):
+        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
+        result = ZiweiChartFoundation(TimeCalendarFoundation(registry)).resolve(
+            ZiweiChartRequest(
+                birth=BirthInput(
+                    reported_local_datetime=datetime(2020, 5, 23, 12, 0),
+                    birth_place="Beijing",
+                    latitude=39.9042,
+                    longitude=116.4074,
+                    timezone_id="Asia/Shanghai",
+                ),
+                sex=Sex.MALE,
+                profile=self._profile(registry),
+            )
+        )
+        self.assertEqual("FAILED", result["status"])
+        self.assertIn("QS_CORE_AUX_LEAP_MONTH_POLICY_UNRESOLVED", result["diagnostics"])
+        self.assertEqual([], result["charts"])
 
     def test_unsupported_auxiliary_rule_set_fails_closed_at_profile_validation(self):
         registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
