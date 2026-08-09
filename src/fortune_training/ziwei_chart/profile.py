@@ -9,6 +9,8 @@ from .auxiliary import (
     AUXILIARY_ALGORITHM_VERSION,
     QS_CORE_AUX_RULE_SET_ID,
     QS_CORE_AUX_RULE_SET_VERSION,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
 )
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
 from .natal import NATAL_STRUCTURE_ALGORITHM_ID, NATAL_STRUCTURE_ALGORITHM_VERSION
@@ -22,6 +24,7 @@ class ResolvedZiweiCalculationProfile:
     profile_version: str
     time_calendar_policy_registry_version: str
     time_calendar_policies: PolicySelection
+    ziwei_day_boundary_policy: str = "MIDNIGHT"
     natal_structure_algorithm_id: str = NATAL_STRUCTURE_ALGORITHM_ID
     natal_structure_algorithm_version: str = NATAL_STRUCTURE_ALGORITHM_VERSION
     main_star_algorithm_id: str = MAIN_STAR_ALGORITHM_ID
@@ -42,6 +45,13 @@ class ResolvedZiweiCalculationProfile:
                 f"profile={self.time_calendar_policy_registry_version} runtime={policy_registry.version}"
             )
         policy_registry.validate_selection(self.time_calendar_policies)
+        if self.ziwei_day_boundary_policy not in {"MIDNIGHT", "ZI_START_23"}:
+            raise ValueError(f"unsupported Ziwei day-boundary policy: {self.ziwei_day_boundary_policy}")
+        if (
+            self.ziwei_day_boundary_policy == "ZI_START_23"
+            and self.time_calendar_policies.ziwei_calendar_date_policy != "LOCAL_SOLAR_DATE_INDEXED"
+        ):
+            raise ValueError("ZI_START_23 currently requires LOCAL_SOLAR_DATE_INDEXED")
         if self.natal_structure_algorithm_id != NATAL_STRUCTURE_ALGORITHM_ID:
             raise ValueError("unsupported natal-structure algorithm id")
         if self.natal_structure_algorithm_version != NATAL_STRUCTURE_ALGORITHM_VERSION:
@@ -61,9 +71,15 @@ class ResolvedZiweiCalculationProfile:
             return self
         if any(value is None for value in aux_values):
             raise ValueError("auxiliary profile binding must be fully specified or fully disabled")
-        if self.auxiliary_rule_set_id != QS_CORE_AUX_RULE_SET_ID:
-            raise ValueError(f"unsupported auxiliary rule set: {self.auxiliary_rule_set_id}")
-        if self.auxiliary_rule_set_version != QS_CORE_AUX_RULE_SET_VERSION:
+        supported_rule_sets = {
+            QS_CORE_AUX_RULE_SET_ID: QS_CORE_AUX_RULE_SET_VERSION,
+            WENMO_DEFAULT_CORE_AUX_RULE_SET_ID: WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
+        }
+        try:
+            expected_rule_set_version = supported_rule_sets[self.auxiliary_rule_set_id]
+        except KeyError as exc:
+            raise ValueError(f"unsupported auxiliary rule set: {self.auxiliary_rule_set_id}") from exc
+        if self.auxiliary_rule_set_version != expected_rule_set_version:
             raise ValueError("unsupported auxiliary rule-set version")
         if self.auxiliary_algorithm_id != AUXILIARY_ALGORITHM_ID:
             raise ValueError("unsupported auxiliary algorithm id")

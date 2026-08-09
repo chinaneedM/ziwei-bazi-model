@@ -2,14 +2,21 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
 from fortune_training.calendar_foundation.models import json_value
 
-from .auxiliary import AuxiliaryContext, AuxiliaryGenerationError, QSCoreAuxiliaryGenerator
+from .auxiliary import (
+    AuxiliaryContext,
+    AuxiliaryGenerationError,
+    QS_CORE_AUX_RULE_SET_ID,
+    QSCoreAuxiliaryGenerator,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
+    WenmoDefaultCoreAuxiliaryGenerator,
+)
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -31,13 +38,35 @@ class ZiweiChartFoundation:
         self.natal = NatalStructureGenerator()
         self.main_stars = MainStarGenerator()
         self.qs_core_aux = QSCoreAuxiliaryGenerator()
+        self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
 
     @classmethod
     def from_repository(cls, repository_root: Path) -> "ZiweiChartFoundation":
         return cls(TimeCalendarFoundation.from_repository(repository_root))
 
+    def _auxiliary_generator(self, rule_set_id: str):
+        if rule_set_id == QS_CORE_AUX_RULE_SET_ID:
+            return self.qs_core_aux
+        if rule_set_id == WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
+            return self.wenmo_core_aux
+        raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
+
+    def _chart_lunar_coordinate(
+        self,
+        branch: dict[str, Any],
+        profile: ResolvedZiweiCalculationProfile,
+    ) -> dict[str, Any]:
+        raw = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        if profile.ziwei_day_boundary_policy == "MIDNIGHT":
+            return raw
+        local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
+        if profile.ziwei_day_boundary_policy == "ZI_START_23" and local_solar.hour == 23:
+            rolled = self.time_calendar.calendar.from_gregorian_date(local_solar.date() + timedelta(days=1))
+            return json_value(rolled)
+        return raw
+
     def _generate_chart(self, branch: dict[str, Any], request: ZiweiChartRequest) -> NatalChartState:
-        lunar = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        lunar = self._chart_lunar_coordinate(branch, request.profile)
         local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
         structure = self.natal.generate(
             NatalStructureInput(
@@ -56,14 +85,17 @@ class ZiweiChartFoundation:
             "main_stars": request.profile.main_star_algorithm_version,
         }
         if request.profile.auxiliary_rule_set_id is not None:
+            auxiliary_generator = self._auxiliary_generator(request.profile.auxiliary_rule_set_id)
             placements.extend(
-                self.qs_core_aux.generate(
+                auxiliary_generator.generate(
                     AuxiliaryContext(
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
                         raw_lunar_month=structure.raw_lunar_month,
                         is_leap_month=bool(lunar["is_leap_month"]),
                         birth_hour_branch=structure.birth_hour_branch,
+                        lunar_day=structure.lunar_birth_day,
+                        lunar_month_length_days=lunar["month_length_days"],
                     )
                 )
             )

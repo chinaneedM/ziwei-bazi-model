@@ -7,9 +7,11 @@ from .registries import address
 
 
 AUXILIARY_ALGORITHM_ID = "ZIWEI-CORE-AUXILIARY-V1"
-AUXILIARY_ALGORITHM_VERSION = "1.0.0"
+AUXILIARY_ALGORITHM_VERSION = "1.0.1"
 QS_CORE_AUX_RULE_SET_ID = "QS_EWITNESS_CORE_AUX_R1"
 QS_CORE_AUX_RULE_SET_VERSION = "1.0.0"
+WENMO_DEFAULT_CORE_AUX_RULE_SET_ID = "WENMO_DEFAULT_CORE_AUX_R1"
+WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION = "1.0.0"
 
 
 class AuxiliaryGenerationError(ValueError):
@@ -25,6 +27,8 @@ class AuxiliaryContext:
     raw_lunar_month: int
     is_leap_month: bool
     birth_hour_branch: Address
+    lunar_day: int | None = None
+    lunar_month_length_days: int | None = None
 
 
 KUI_YUE_BY_STEM = {
@@ -39,6 +43,8 @@ KUI_YUE_BY_STEM = {
     "丙": ("亥", "酉"),
     "丁": ("亥", "酉"),
 }
+
+WENMO_KUI_YUE_BY_STEM = dict(KUI_YUE_BY_STEM, 辛=("寅", "午"))
 
 LUCUN_BY_STEM = {
     "甲": "寅",
@@ -91,10 +97,10 @@ class QSCoreAuxiliaryGenerator:
         )
 
     @staticmethod
-    def fu_bi(raw_lunar_month: int) -> tuple[Placement, Placement]:
-        if not 1 <= raw_lunar_month <= 12:
-            raise ValueError("raw_lunar_month must be in [1, 12]")
-        offset = raw_lunar_month - 1
+    def fu_bi(lunar_month_coordinate: int) -> tuple[Placement, Placement]:
+        if not 1 <= lunar_month_coordinate <= 12:
+            raise ValueError("lunar_month_coordinate must be in [1, 12]")
+        offset = lunar_month_coordinate - 1
         return (
             _placement(
                 "STAR.ZUOFU", "左辅", 4 + offset,
@@ -149,10 +155,6 @@ class QSCoreAuxiliaryGenerator:
 
     @staticmethod
     def hour_void_robbery(hour_index: int) -> tuple[Placement, Placement]:
-        # The QS e-witness uses the historical label 天空 in this paired hour rule,
-        # while the canonical project primitive and modern charting vocabulary
-        # distinguish it as 地空 from the separate 天空 entity. Normalize the
-        # generated entity to 地空 and preserve the witness identity in source_refs.
         refs = ("S01:ZZQS-A-1847", "S01:ZZQS-A-1848", "S01:ZZZA-PR-018")
         return (
             _placement("STAR.DIKONG", "地空", 11 - hour_index, refs),
@@ -166,6 +168,55 @@ class QSCoreAuxiliaryGenerator:
         rows: list[Placement] = []
         rows.extend(self.chang_qu(hour_index))
         rows.extend(self.fu_bi(context.raw_lunar_month))
+        rows.extend(self.kui_yue(context.ziwei_birth_year_stem))
+        rows.extend(self.tianma(context.ziwei_birth_year_branch))
+        rows.extend(self.lucun_yang_tuo(context.ziwei_birth_year_stem))
+        rows.extend(self.hour_void_robbery(hour_index))
+        return tuple(rows)
+
+
+class WenmoDefaultCoreAuxiliaryGenerator(QSCoreAuxiliaryGenerator):
+    """Operational compatibility rule set reconstructed from Wenmo default fixtures.
+
+    This is not canonical-source authority. Shared rules inherit the canonical primitives;
+    the leap-month month-coordinate and 辛-year Kui/Yue differences are explicitly
+    provenance-bound to external compatibility fixtures.
+    """
+
+    rule_set_id = WENMO_DEFAULT_CORE_AUX_RULE_SET_ID
+    rule_set_version = WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION
+
+    @staticmethod
+    def _month_coordinate(context: AuxiliaryContext) -> int:
+        if not context.is_leap_month:
+            return context.raw_lunar_month
+        if context.lunar_day is None:
+            raise AuxiliaryGenerationError("WENMO_AUX_LEAP_MONTH_REQUIRES_LUNAR_DAY")
+        # Wenmo default 月中分界: 1-15 current month, 16+ following month.
+        return context.raw_lunar_month if context.lunar_day <= 15 else context.raw_lunar_month % 12 + 1
+
+    @staticmethod
+    def kui_yue(year_stem: str) -> tuple[Placement, Placement]:
+        if year_stem != "辛":
+            return QSCoreAuxiliaryGenerator.kui_yue(year_stem)
+        kui_branch, yue_branch = WENMO_KUI_YUE_BY_STEM[year_stem]
+        refs = ("COMPAT:WENMO-CHARTDIFF-005", "S01:ZZZA-PR-019")
+        return (
+            _placement("STAR.TIANKUI", "天魁", BRANCH_TO_INDEX[kui_branch], refs),
+            _placement("STAR.TIANYUE", "天钺", BRANCH_TO_INDEX[yue_branch], refs),
+        )
+
+    def generate(self, context: AuxiliaryContext) -> tuple[Placement, ...]:
+        hour_index = context.birth_hour_branch.index
+        month_coordinate = self._month_coordinate(context)
+        rows: list[Placement] = []
+        rows.extend(self.chang_qu(hour_index))
+        fu, bi = self.fu_bi(month_coordinate)
+        if context.is_leap_month:
+            compat_ref = "COMPAT:WENMO-CHARTDIFF-002" if (context.lunar_day or 0) <= 15 else "COMPAT:WENMO-CHARTDIFF-003"
+            fu = Placement(fu.entity_id, fu.display_name, fu.address, fu.generator_id, fu.algorithm_version, fu.source_refs + (compat_ref,))
+            bi = Placement(bi.entity_id, bi.display_name, bi.address, bi.generator_id, bi.algorithm_version, bi.source_refs + (compat_ref,))
+        rows.extend((fu, bi))
         rows.extend(self.kui_yue(context.ziwei_birth_year_stem))
         rows.extend(self.tianma(context.ziwei_birth_year_branch))
         rows.extend(self.lucun_yang_tuo(context.ziwei_birth_year_stem))
