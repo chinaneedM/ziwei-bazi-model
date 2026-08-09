@@ -101,8 +101,6 @@ class ChartViewModel:
     schema: str
     presentation_profile_id: str
     presentation_profile_version: str
-    renderer_contract_id: str
-    renderer_contract_version: str
     source_fact_hash: str
     source_computation_hash: str
     selected_temporal_frame_ids: tuple[str, ...]
@@ -302,8 +300,6 @@ class ZiweiViewProjectionCompiler:
             schema=self.schema,
             presentation_profile_id=presentation.profile_id,
             presentation_profile_version=presentation.profile_version,
-            renderer_contract_id=TEXT_RENDERER_ID,
-            renderer_contract_version=TEXT_RENDERER_VERSION,
             source_fact_hash=hashes.fact_hash,
             source_computation_hash=hashes.computation_hash,
             selected_temporal_frame_ids=selected_frames,
@@ -313,11 +309,9 @@ class ZiweiViewProjectionCompiler:
         )
         view_hash = object_sha256(
             {
-                "source_fact_hash": hashes.fact_hash,
                 "presentation_profile": json_value(presentation),
                 "view_payload": self._view_payload(provisional),
                 "projection_algorithm": f"{VIEW_PROJECTION_ALGORITHM_ID}@{VIEW_PROJECTION_ALGORITHM_VERSION}",
-                "renderer_contract": f"{TEXT_RENDERER_ID}@{TEXT_RENDERER_VERSION}",
             }
         )
         return replace(provisional, view_hash=view_hash)
@@ -326,10 +320,11 @@ class ZiweiViewProjectionCompiler:
 class PlainTextZiweiRenderer:
     renderer_id = TEXT_RENDERER_ID
     renderer_version = TEXT_RENDERER_VERSION
+    supported_view_schema = ZiweiViewProjectionCompiler.schema
 
     def render(self, view: ChartViewModel) -> str:
-        if view.renderer_contract_id != self.renderer_id or view.renderer_contract_version != self.renderer_version:
-            raise ViewProjectionError("VIEW_RENDERER_CONTRACT_MISMATCH")
+        if view.schema != self.supported_view_schema:
+            raise ViewProjectionError("VIEW_RENDERER_SCHEMA_MISMATCH")
         lines = [
             f"view={view.presentation_profile_id}@{view.presentation_profile_version}",
             f"fact_hash={view.source_fact_hash}",
