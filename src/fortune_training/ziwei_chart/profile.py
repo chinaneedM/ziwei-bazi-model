@@ -24,6 +24,10 @@ from .dignity_r3 import (
     OPERATIONAL_FULL_DIGNITY_RULE_SET_ID,
     OPERATIONAL_FULL_DIGNITY_RULE_SET_VERSION,
 )
+from .dignity_r4 import (
+    OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
+    OPERATIONAL_R4_DIGNITY_RULE_SET_VERSION,
+)
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
 from .minor_stars import (
     MINOR_STAR_ALGORITHM_ID,
@@ -31,6 +35,7 @@ from .minor_stars import (
     WENMO_DEFAULT_MINOR_RULE_SET_ID,
     WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
 )
+from .minor_stars_r4 import WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION
 from .natal import NATAL_STRUCTURE_ALGORITHM_ID, NATAL_STRUCTURE_ALGORITHM_VERSION
 from .rings import (
     RING_ALGORITHM_ID,
@@ -159,7 +164,10 @@ class ResolvedZiweiCalculationProfile:
         if self.minor_rule_set_id is not None:
             if self.minor_rule_set_id != WENMO_DEFAULT_MINOR_RULE_SET_ID:
                 raise ValueError(f"unsupported minor-star rule set: {self.minor_rule_set_id}")
-            if self.minor_rule_set_version != WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
+            if self.minor_rule_set_version not in {
+                WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
+                WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION,
+            }:
                 raise ValueError("unsupported minor-star rule-set version")
             if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID or self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
                 raise ValueError("unsupported minor-star algorithm identity/version")
@@ -169,6 +177,7 @@ class ResolvedZiweiCalculationProfile:
                 OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID: OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
                 OPERATIONAL_DIGNITY_RULE_SET_ID: OPERATIONAL_DIGNITY_RULE_SET_VERSION,
                 OPERATIONAL_FULL_DIGNITY_RULE_SET_ID: OPERATIONAL_FULL_DIGNITY_RULE_SET_VERSION,
+                OPERATIONAL_R4_DIGNITY_RULE_SET_ID: OPERATIONAL_R4_DIGNITY_RULE_SET_VERSION,
             }
             try:
                 expected_dignity_version = supported_dignity_rule_sets[self.dignity_rule_set_id]
@@ -178,7 +187,11 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported dignity rule-set version")
             if self.dignity_algorithm_id != DIGNITY_ALGORITHM_ID or self.dignity_algorithm_version != DIGNITY_ALGORITHM_VERSION:
                 raise ValueError("unsupported dignity algorithm identity/version")
-            if self.dignity_rule_set_id in {OPERATIONAL_DIGNITY_RULE_SET_ID, OPERATIONAL_FULL_DIGNITY_RULE_SET_ID}:
+            if self.dignity_rule_set_id in {
+                OPERATIONAL_DIGNITY_RULE_SET_ID,
+                OPERATIONAL_FULL_DIGNITY_RULE_SET_ID,
+                OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
+            }:
                 if self.auxiliary_rule_set_id != WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
                     raise ValueError("OPERATIONAL_DIGNITY_REQUIRES_COMPATIBLE_CORE_AUXILIARY_PROFILE")
                 if self.auxiliary_rule_set_version != WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION:
@@ -188,6 +201,11 @@ class ResolvedZiweiCalculationProfile:
                     raise ValueError("OPERATIONAL_DIGNITY_R3_REQUIRES_COMPATIBLE_MINOR_STAR_PROFILE")
                 if self.minor_rule_set_version != WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
                     raise ValueError("OPERATIONAL_DIGNITY_R3_MINOR_STAR_VERSION_MISMATCH")
+            if self.dignity_rule_set_id == OPERATIONAL_R4_DIGNITY_RULE_SET_ID:
+                if self.minor_rule_set_id != WENMO_DEFAULT_MINOR_RULE_SET_ID:
+                    raise ValueError("OPERATIONAL_DIGNITY_R4_REQUIRES_COMPATIBLE_MINOR_STAR_PROFILE")
+                if self.minor_rule_set_version != WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION:
+                    raise ValueError("OPERATIONAL_DIGNITY_R4_MINOR_STAR_VERSION_MISMATCH")
 
         if self.transformation_rule_set_id is not None:
             if self.transformation_rule_set_id != S08_TRANSFORMATION_RULE_SET_ID:
