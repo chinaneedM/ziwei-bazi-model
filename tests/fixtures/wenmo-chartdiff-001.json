@@ -2,6 +2,7 @@
   "schema": "ZIWEI-EXTERNAL-COMPATIBILITY-FIXTURE-V1",
   "fixture_id": "WENMO-CHARTDIFF-001",
   "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "profile_equivalence_claim": false,
   "source": {
     "software": "文墨天机专业版",
     "app_version": "2.5.9",
@@ -18,6 +19,8 @@
       "tianshi_tianshang_method": "常规排法",
       "kui_yue_xin_pair": "虎马",
       "mingzhu_basis": "斗数全书",
+      "natal_leap_month_policy": "月中分界",
+      "late_zi_23_to_00_policy": "视为次日（紫微+八字）",
       "changsheng_yin_yang_direction": true,
       "water_earth_share_changsheng": true
     }
@@ -89,6 +92,28 @@
       "STAR.DIKONG": "辰",
       "STAR.DIJIE": "午"
     }
+  },
+  "chartdiff_analysis": {
+    "known_profile_discriminators_not_triggered_by_this_birth": [
+      {
+        "axis": "natal_leap_month_policy",
+        "wenmo_default": "月中分界",
+        "current_runtime_default": "FULLBOOK_NEXT_MONTH",
+        "trigger": "leap-month birth"
+      },
+      {
+        "axis": "late_zi_rollover",
+        "wenmo_default": "23:00-00:00视为次日（紫微+八字）",
+        "current_runtime_default": "ZIWEI_LOCAL_SOLAR_DATE_INDEXED_AND_BAZI_MIDNIGHT",
+        "trigger": "23:xx local apparent solar time"
+      },
+      {
+        "axis": "kui_yue_xin_pair",
+        "wenmo_default": "辛年虎马",
+        "current_qs_rule_set": "辛年马虎",
+        "trigger": "辛 year"
+      }
+    ]
   },
   "observed_beyond_current_engine_scope": {
     "mingzhu": "禄存",
