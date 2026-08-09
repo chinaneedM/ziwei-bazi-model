@@ -48,6 +48,7 @@ class Placement:
     address: Address
     generator_id: str
     algorithm_version: str
+    source_refs: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -57,6 +58,7 @@ class GenerationStep:
     outputs: dict[str, Any]
     algorithm_id: str
     algorithm_version: str
+    source_refs: tuple[str, ...]
 
 
 @dataclass(frozen=True)
