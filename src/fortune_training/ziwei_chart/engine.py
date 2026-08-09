@@ -17,10 +17,22 @@ from .auxiliary import (
     WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
     WenmoDefaultCoreAuxiliaryGenerator,
 )
+from .derived_auxiliary import (
+    DERIVED_AUXILIARY_ALGORITHM_VERSION,
+    DerivedAuxiliaryGenerationError,
+    DerivedAuxiliaryGenerator,
+)
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
+from .roles import (
+    QS_ROLE_RULE_SET_ID,
+    QSRoleGenerator,
+    RoleGenerationError,
+    WENMO_DEFAULT_ROLE_RULE_SET_ID,
+    WenmoDefaultRoleGenerator,
+)
 
 
 @dataclass(frozen=True)
@@ -39,6 +51,9 @@ class ZiweiChartFoundation:
         self.main_stars = MainStarGenerator()
         self.qs_core_aux = QSCoreAuxiliaryGenerator()
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
+        self.derived_aux = DerivedAuxiliaryGenerator()
+        self.qs_roles = QSRoleGenerator()
+        self.wenmo_roles = WenmoDefaultRoleGenerator()
 
     @classmethod
     def from_repository(cls, repository_root: Path) -> "ZiweiChartFoundation":
@@ -50,6 +65,13 @@ class ZiweiChartFoundation:
         if rule_set_id == WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
             return self.wenmo_core_aux
         raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
+
+    def _role_generator(self, rule_set_id: str):
+        if rule_set_id == QS_ROLE_RULE_SET_ID:
+            return self.qs_roles
+        if rule_set_id == WENMO_DEFAULT_ROLE_RULE_SET_ID:
+            return self.wenmo_roles
+        raise ValueError(f"unsupported role rule set: {rule_set_id}")
 
     def _chart_lunar_coordinate(
         self,
@@ -80,6 +102,7 @@ class ZiweiChartFoundation:
             )
         )
         placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
+        role_bindings = ()
         algorithm_versions = {
             "natal_structure": request.profile.natal_structure_algorithm_version,
             "main_stars": request.profile.main_star_algorithm_version,
@@ -99,13 +122,24 @@ class ZiweiChartFoundation:
                     )
                 )
             )
+            placements.extend(self.derived_aux.generate(placements, structure.lunar_birth_day))
             algorithm_versions["core_auxiliary"] = request.profile.auxiliary_algorithm_version or ""
+            algorithm_versions["derived_auxiliary"] = DERIVED_AUXILIARY_ALGORITHM_VERSION
+
+        if request.profile.role_rule_set_id is not None:
+            role_generator = self._role_generator(request.profile.role_rule_set_id)
+            role_bindings = role_generator.generate(
+                structure.life_address.branch,
+                structure.ziwei_birth_year_branch,
+            )
+            algorithm_versions["roles"] = request.profile.role_algorithm_version or ""
 
         return NatalChartState(
             structure=structure,
             placements=tuple(placements),
             profile_id=request.profile.profile_id,
             profile_version=request.profile.profile_version,
+            role_bindings=tuple(role_bindings),
             algorithm_versions=algorithm_versions,
         )
 
@@ -137,7 +171,7 @@ class ZiweiChartFoundation:
                 if key not in unique:
                     unique[key] = {"chart": chart, "branch_indices": []}
                 unique[key]["branch_indices"].append(branch_index)
-        except AuxiliaryGenerationError as exc:
+        except (AuxiliaryGenerationError, DerivedAuxiliaryGenerationError, RoleGenerationError) as exc:
             return {
                 "schema": self.schema,
                 "status": "FAILED",

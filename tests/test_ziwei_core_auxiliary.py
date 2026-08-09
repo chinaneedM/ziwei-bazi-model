@@ -18,6 +18,7 @@ from fortune_training.ziwei_chart.auxiliary import (
     TIANMA_BY_BRANCH,
     QSCoreAuxiliaryGenerator,
 )
+from fortune_training.ziwei_chart.derived_auxiliary import DERIVED_AUXILIARY_ALGORITHM_VERSION
 from fortune_training.ziwei_chart.registries import address
 
 
@@ -112,7 +113,7 @@ class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
             auxiliary_algorithm_version=AUXILIARY_ALGORITHM_VERSION,
         )
 
-    def test_qs_auxiliary_profile_adds_twelve_typed_placements(self):
+    def test_qs_auxiliary_profile_adds_core_and_dependency_bound_placements(self):
         registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
         result = ZiweiChartFoundation(TimeCalendarFoundation(registry)).resolve(
             ZiweiChartRequest(
@@ -129,7 +130,7 @@ class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
         )
         self.assertEqual("RESOLVED", result["status"])
         chart = result["charts"][0]
-        self.assertEqual(26, len(chart["placements"]))
+        self.assertEqual(30, len(chart["placements"]))
         entity_ids = {row["entity_id"] for row in chart["placements"]}
         self.assertTrue(
             {
@@ -145,9 +146,14 @@ class QSCoreAuxiliaryIntegrationTests(unittest.TestCase):
                 "STAR.TUOLUO",
                 "STAR.DIKONG",
                 "STAR.DIJIE",
+                "STAR.SANTAI",
+                "STAR.BAZUO",
+                "STAR.ENGUANG",
+                "STAR.TIANGUI",
             }.issubset(entity_ids)
         )
         self.assertEqual(AUXILIARY_ALGORITHM_VERSION, chart["algorithm_versions"]["core_auxiliary"])
+        self.assertEqual(DERIVED_AUXILIARY_ALGORITHM_VERSION, chart["algorithm_versions"]["derived_auxiliary"])
         self.assertTrue(all(row["source_refs"] for row in chart["placements"]))
 
     def test_leap_month_qs_auxiliary_profile_fails_closed_with_machine_diagnostic(self):

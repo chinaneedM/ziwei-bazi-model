@@ -52,6 +52,19 @@ class Placement:
 
 
 @dataclass(frozen=True)
+class RoleBinding:
+    role_id: str
+    display_name: str
+    entity_id: str
+    entity_display_name: str
+    basis_type: str
+    basis_value: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class GenerationStep:
     operation: str
     inputs: dict[str, Any]
@@ -84,4 +97,5 @@ class NatalChartState:
     placements: tuple[Placement, ...]
     profile_id: str
     profile_version: str
+    role_bindings: tuple[RoleBinding, ...] = ()
     algorithm_versions: dict[str, str] = field(default_factory=dict)
