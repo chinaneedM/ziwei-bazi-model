@@ -3,6 +3,17 @@
   "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
   "software": "文墨天机专业版 2.5.9 / API 1.1.2",
   "settings": "USER_CONFIRMED_ALL_DEFAULT",
+  "fire_bell_reconstruction": {
+    "status": "FOUR_TRINE_CLASSES_EXTERNALLY_COVERED",
+    "rule": "year-branch trine class selects Zi-hour Fire/Bell start branches; both advance one palace per birth-hour index",
+    "zi_hour_starts": {
+      "寅午戌": {"STAR.HUOXING": "丑", "STAR.LINGXING": "卯", "fixture": "WENMO-CHARTDIFF-004"},
+      "申子辰": {"STAR.HUOXING": "寅", "STAR.LINGXING": "戌", "fixture": "WENMO-CHARTDIFF-002/003"},
+      "巳酉丑": {"STAR.HUOXING": "卯", "STAR.LINGXING": "戌", "fixture": "WENMO-CHARTDIFF-006"},
+      "亥卯未": {"STAR.HUOXING": "酉", "STAR.LINGXING": "戌", "fixture": "WENMO-CHARTDIFF-005"}
+    },
+    "authority_note": "Compatibility reconstruction only. It does not replace the divergent strict QS Fire/Bell witness family."
+  },
   "cases": [
     {
       "id": "WENMO-CHARTDIFF-002",
@@ -74,6 +85,23 @@
       },
       "strict_qs_kui_yue_counterfactual": {"STAR.TIANKUI": "午", "STAR.TIANYUE": "寅"},
       "observed_fire_bell": {"STAR.HUOXING": "卯", "STAR.LINGXING": "辰"}
+    },
+    {
+      "id": "WENMO-CHARTDIFF-006",
+      "input": "2001-12-15T12:00:00",
+      "displayed_true_solar_minute": "2001-12-15T11:50",
+      "gui_raw_lunar": {"year": 2001, "month": 11, "day": 1, "is_leap_month": false},
+      "text_export_lunar_label": "辛巳年冬月初一日午时",
+      "life_branch": "午",
+      "body_branch": "午",
+      "bureau": ["金", 4, "甲午"],
+      "placements": {
+        "STAR.ZIWEI": "亥", "STAR.TIANJI": "戌", "STAR.TAIYANG": "申", "STAR.WUQU": "未", "STAR.TIANTONG": "午", "STAR.LIANZHEN": "卯",
+        "STAR.TIANFU": "巳", "STAR.TAIYIN": "午", "STAR.TANLANG": "未", "STAR.JUMEN": "申", "STAR.TIANXIANG": "酉", "STAR.TIANLIANG": "戌", "STAR.QISHA": "亥", "STAR.POJUN": "卯",
+        "STAR.WENCHANG": "辰", "STAR.WENQU": "戌", "STAR.ZUOFU": "寅", "STAR.YOUBI": "子", "STAR.TIANKUI": "寅", "STAR.TIANYUE": "午", "STAR.TIANMA": "亥", "STAR.LUCUN": "酉", "STAR.QINGYANG": "戌", "STAR.TUOLUO": "申", "STAR.DIKONG": "巳", "STAR.DIJIE": "巳"
+      },
+      "observed_fire_bell": {"STAR.HUOXING": "酉", "STAR.LINGXING": "辰"},
+      "external_source_note": "User-provided Wenmo text export; used as the missing 巳酉丑 Fire/Bell discriminator."
     }
   ]
 }
