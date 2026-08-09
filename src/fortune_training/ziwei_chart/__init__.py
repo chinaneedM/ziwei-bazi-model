@@ -3,8 +3,10 @@
 from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .derived_auxiliary import DerivedAuxiliaryGenerator
 from .dignity import (
+    DignityRegistryCell,
     DignityRegistrySummary,
     OperationalMainStarDignityGenerator,
+    OperationalZiweiDignityGenerator,
 )
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .integrity import (
@@ -58,6 +60,7 @@ __all__ = [
     "DaxianFrame",
     "DerivedAuxiliaryGenerator",
     "DignityAnnotation",
+    "DignityRegistryCell",
     "DignityRegistrySummary",
     "HashBundle",
     "IntegrityDiagnostic",
@@ -71,6 +74,7 @@ __all__ = [
     "NatalStructureInput",
     "NatalStructureState",
     "OperationalMainStarDignityGenerator",
+    "OperationalZiweiDignityGenerator",
     "PalaceViewCell",
     "PlainTextZiweiRenderer",
     "PresentationProfile",
@@ -99,4 +103,4 @@ __all__ = [
     "validate_temporal_state",
 ]
 
-__version__ = "0.10.0"
+__version__ = "0.11.0"
