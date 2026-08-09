@@ -111,14 +111,17 @@ class WenmoChartDiff001Tests(unittest.TestCase):
             self.assertEqual(ganzhi[1], branch, wenmo_label)
             self.assertEqual(ganzhi[0], address_stem[branch], wenmo_label)
 
-    def test_all_twenty_six_current_scope_placements_match_wenmo(self):
+    def test_original_twenty_six_common_scope_placements_remain_exact(self):
         chart = self.result["charts"][0]
         actual = {
             row["entity_id"]: row["address"]["branch"]
             for row in chart["placements"]
         }
         expected = self.fixture["expected_current_common_scope"]["placements"]
-        self.assertEqual(expected, actual)
+        for entity_id, branch in expected.items():
+            self.assertEqual(branch, actual[entity_id], entity_id)
+        self.assertEqual(30, len(actual))
+        self.assertTrue({"STAR.SANTAI", "STAR.BAZUO", "STAR.ENGUANG", "STAR.TIANGUI"}.issubset(actual))
 
     def test_dikong_and_separate_tiankong_are_not_collapsed(self):
         chart = self.result["charts"][0]
