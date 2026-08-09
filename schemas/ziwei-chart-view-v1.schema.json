@@ -30,10 +30,11 @@
     "placement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["entity_id", "label", "transformation_badges"],
+      "required": ["entity_id", "label", "dignity_grade", "transformation_badges"],
       "properties": {
         "entity_id": {"type": "string", "minLength": 1},
         "label": {"type": "string", "minLength": 1},
+        "dignity_grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷", null]},
         "transformation_badges": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }
     },

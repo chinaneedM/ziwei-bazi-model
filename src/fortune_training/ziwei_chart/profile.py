@@ -12,6 +12,12 @@ from .auxiliary import (
     WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
     WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
 )
+from .dignity import (
+    DIGNITY_ALGORITHM_ID,
+    DIGNITY_ALGORITHM_VERSION,
+    OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID,
+    OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
+)
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
 from .minor_stars import (
     MINOR_STAR_ALGORITHM_ID,
@@ -69,6 +75,10 @@ class ResolvedZiweiCalculationProfile:
     minor_rule_set_version: str | None = None
     minor_algorithm_id: str | None = None
     minor_algorithm_version: str | None = None
+    dignity_rule_set_id: str | None = None
+    dignity_rule_set_version: str | None = None
+    dignity_algorithm_id: str | None = None
+    dignity_algorithm_version: str | None = None
     transformation_rule_set_id: str | None = None
     transformation_rule_set_version: str | None = None
     transformation_algorithm_id: str | None = None
@@ -116,6 +126,7 @@ class ResolvedZiweiCalculationProfile:
         bundles = (
             ("auxiliary", (self.auxiliary_rule_set_id, self.auxiliary_rule_set_version, self.auxiliary_algorithm_id, self.auxiliary_algorithm_version)),
             ("minor-star", (self.minor_rule_set_id, self.minor_rule_set_version, self.minor_algorithm_id, self.minor_algorithm_version)),
+            ("dignity", (self.dignity_rule_set_id, self.dignity_rule_set_version, self.dignity_algorithm_id, self.dignity_algorithm_version)),
             ("transformation", (self.transformation_rule_set_id, self.transformation_rule_set_version, self.transformation_algorithm_id, self.transformation_algorithm_version)),
             ("temporal", (self.temporal_rule_set_id, self.temporal_rule_set_version, self.temporal_algorithm_id, self.temporal_algorithm_version)),
             ("ring", (self.ring_rule_set_id, self.ring_rule_set_version, self.ring_algorithm_id, self.ring_algorithm_version)),
@@ -146,6 +157,14 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported minor-star rule-set version")
             if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID or self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
                 raise ValueError("unsupported minor-star algorithm identity/version")
+
+        if self.dignity_rule_set_id is not None:
+            if self.dignity_rule_set_id != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID:
+                raise ValueError(f"unsupported dignity rule set: {self.dignity_rule_set_id}")
+            if self.dignity_rule_set_version != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION:
+                raise ValueError("unsupported dignity rule-set version")
+            if self.dignity_algorithm_id != DIGNITY_ALGORITHM_ID or self.dignity_algorithm_version != DIGNITY_ALGORITHM_VERSION:
+                raise ValueError("unsupported dignity algorithm identity/version")
 
         if self.transformation_rule_set_id is not None:
             if self.transformation_rule_set_id != S08_TRANSFORMATION_RULE_SET_ID:

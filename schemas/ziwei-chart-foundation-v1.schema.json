@@ -69,6 +69,24 @@
       "type": "object", "additionalProperties": false, "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version", "source_refs"],
       "properties": {"entity_id": {"type": "string"}, "display_name": {"type": "string"}, "address": {"$ref": "#/$defs/address"}, "generator_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"}}
     },
+    "dignityAnnotation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["annotation_id", "annotation_type", "target_entity_id", "target_address", "grade", "scale_id", "scale_version", "rule_set_id", "rule_set_version", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "annotation_id": {"type": "string", "minLength": 1},
+        "annotation_type": {"const": "DIGNITY"},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷"]},
+        "scale_id": {"type": "string", "minLength": 1},
+        "scale_version": {"type": "string", "minLength": 1},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
     "transformationActivation": {
       "type": "object", "additionalProperties": false,
       "required": ["activation_id", "transformation_type", "target_entity_id", "target_display_name", "target_address", "source_layer", "source_stem", "context_id", "assignment_id", "mechanism_id", "generator_id", "algorithm_version", "source_refs"],
@@ -115,12 +133,13 @@
     },
     "natalChart": {
       "type": "object", "additionalProperties": false,
-      "required": ["structure", "placements", "profile_id", "profile_version", "transformations", "role_bindings", "rings", "algorithm_versions"],
+      "required": ["structure", "placements", "profile_id", "profile_version", "annotations", "transformations", "role_bindings", "rings", "algorithm_versions"],
       "properties": {
         "structure": {"$ref": "#/$defs/structure"},
         "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
         "profile_id": {"type": "string"},
         "profile_version": {"type": "string"},
+        "annotations": {"type": "array", "items": {"$ref": "#/$defs/dignityAnnotation"}},
         "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformationActivation"}},
         "role_bindings": {"type": "array", "items": {"$ref": "#/$defs/roleBinding"}},
         "rings": {"type": "array", "items": {"$ref": "#/$defs/ringInstance"}},

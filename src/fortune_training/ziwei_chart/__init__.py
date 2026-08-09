@@ -2,6 +2,10 @@
 
 from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .derived_auxiliary import DerivedAuxiliaryGenerator
+from .dignity import (
+    DignityRegistrySummary,
+    OperationalMainStarDignityGenerator,
+)
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .integrity import (
     HashBundle,
@@ -15,6 +19,7 @@ from .integrity import (
 from .main_stars import MainStarGenerator
 from .minor_stars import MinorStarContext, WenmoDefaultMinorStarGenerator
 from .models import (
+    DignityAnnotation,
     NatalChartState,
     NatalStructureState,
     RingInstance,
@@ -52,6 +57,8 @@ __all__ = [
     "ChartViewModel",
     "DaxianFrame",
     "DerivedAuxiliaryGenerator",
+    "DignityAnnotation",
+    "DignityRegistrySummary",
     "HashBundle",
     "IntegrityDiagnostic",
     "IntegrityReport",
@@ -63,6 +70,7 @@ __all__ = [
     "NatalStructureGenerator",
     "NatalStructureInput",
     "NatalStructureState",
+    "OperationalMainStarDignityGenerator",
     "PalaceViewCell",
     "PlainTextZiweiRenderer",
     "PresentationProfile",
@@ -91,4 +99,4 @@ __all__ = [
     "validate_temporal_state",
 ]
 
-__version__ = "0.9.0"
+__version__ = "0.10.0"
