@@ -52,6 +52,22 @@ class Placement:
 
 
 @dataclass(frozen=True)
+class DignityAnnotation:
+    annotation_id: str
+    annotation_type: str
+    target_entity_id: str
+    target_address: Address
+    grade: str
+    scale_id: str
+    scale_version: str
+    rule_set_id: str
+    rule_set_version: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class TransformationActivation:
     activation_id: str
     transformation_type: str
@@ -135,6 +151,7 @@ class NatalChartState:
     placements: tuple[Placement, ...]
     profile_id: str
     profile_version: str
+    annotations: tuple[DignityAnnotation, ...] = ()
     transformations: tuple[TransformationActivation, ...] = ()
     role_bindings: tuple[RoleBinding, ...] = ()
     rings: tuple[RingInstance, ...] = ()
