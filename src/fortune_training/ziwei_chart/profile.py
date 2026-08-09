@@ -9,6 +9,8 @@ from .auxiliary import (
     AUXILIARY_ALGORITHM_VERSION,
     QS_CORE_AUX_RULE_SET_ID,
     QS_CORE_AUX_RULE_SET_VERSION,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
 )
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
 from .natal import NATAL_STRUCTURE_ALGORITHM_ID, NATAL_STRUCTURE_ALGORITHM_VERSION
@@ -61,9 +63,15 @@ class ResolvedZiweiCalculationProfile:
             return self
         if any(value is None for value in aux_values):
             raise ValueError("auxiliary profile binding must be fully specified or fully disabled")
-        if self.auxiliary_rule_set_id != QS_CORE_AUX_RULE_SET_ID:
-            raise ValueError(f"unsupported auxiliary rule set: {self.auxiliary_rule_set_id}")
-        if self.auxiliary_rule_set_version != QS_CORE_AUX_RULE_SET_VERSION:
+        supported_rule_sets = {
+            QS_CORE_AUX_RULE_SET_ID: QS_CORE_AUX_RULE_SET_VERSION,
+            WENMO_DEFAULT_CORE_AUX_RULE_SET_ID: WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
+        }
+        try:
+            expected_rule_set_version = supported_rule_sets[self.auxiliary_rule_set_id]
+        except KeyError as exc:
+            raise ValueError(f"unsupported auxiliary rule set: {self.auxiliary_rule_set_id}") from exc
+        if self.auxiliary_rule_set_version != expected_rule_set_version:
             raise ValueError("unsupported auxiliary rule-set version")
         if self.auxiliary_algorithm_id != AUXILIARY_ALGORITHM_ID:
             raise ValueError("unsupported auxiliary algorithm id")
