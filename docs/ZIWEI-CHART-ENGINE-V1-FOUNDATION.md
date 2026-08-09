@@ -14,9 +14,13 @@ Implemented:
 - Ziwei anchor, Tianfu reflection and all fourteen main stars;
 - profile-bound core auxiliaries and a separate compatibility Fire/Bell family;
 - dependency-bound 三台/八座、恩光/天贵;
-- a 35-entity operational minor-star content pack calibrated against external fixtures;
-- typed `DignityAnnotation` with a complete project-owned 14-main-star × 12-address operational registry;
-- project-owned core-auxiliary Dignity closure over exactly 134 generator-reachable cells, including typed `GRADED` / `UNRATED` states;
+- a profile-versioned operational minor-star family: legacy R3 v1.0.0 emits 35 entities, while R4 v2.0.0 adds 天寿、天伤、天使 for 38 operational minor entities;
+- typed `DignityAnnotation` with complete project-owned operational coverage for every generator-reachable cell in the current 70-entity physical inventory;
+- main-star Dignity: 14 entities × 12 addresses = 168/168 `GRADED` cells;
+- core-auxiliary Dignity: 134 generator-reachable cells = 131 `GRADED` + 3 `UNRATED`;
+- dependency/minor R3 Dignity: 39 entities / 379 generator-reachable cells = 290 `GRADED` + 89 `UNRATED`;
+- R4 天寿/天伤/天使 Dignity: 36/36 generator-reachable cells, all `GRADED`, zero observed conflicts;
+- full R4 Dignity scope: 70 physical entities / 717 reachable cells / 625 `GRADED` / 92 `UNRATED`;
 - typed `RoleBinding` for 命主/身主;
 - typed `RingInstance` / `RingMemberBinding` for 长生、岁前、将前、博士;
 - typed `TransformationActivation` using S08's 10-stem / 40-assignment runtime table;
@@ -32,13 +36,13 @@ Implemented:
 
 Still outside the current implementation slice:
 
-- unresolved operational content such as 天寿 and the 天伤/天使 profile split;
-- dependency/minor-star Dignity closure beyond the already closed main/core-aux layers, tracked by GitHub issue #180;
-- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
-  separately typed 斗君/月 frame runtime if promoted into V1;
+- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a separately typed 斗君/月 frame runtime if promoted into V1;
 - graphical renderer / UI;
 - general ChartDiff automation beyond frozen compatibility fixtures;
+- wider compatibility regression for any additional physical entities before they are promoted into the V1 inventory;
 - interpretation or prediction.
+
+The former V1 blockers for dependency/minor Dignity, 天寿 placement, and the Wenmo-default 天伤/天使 profile discriminator are closed by R3/R4. Historical alternative source families remain preserved rather than overwritten.
 
 ## Fact-type boundaries
 
@@ -153,9 +157,18 @@ rather than reconstructing hidden inputs.
 ## Canonical and compatibility authority
 
 Key S01 source routes include `ZZZA-PR-008` through `ZZZA-PR-015` for natal
-structure/main stars, `ZZZA-PR-052`/`053` for dependency stars,
-`ZZZA-PR-054`/`055` for roles, and `ZZZA-PR-057` through `060` for the current
-ring families.
+structure/main stars, `ZZZA-PR-042` for 天寿, `ZZZA-PR-052`/`053` for dependency
+stars, `ZZZA-PR-054`/`055` for roles, and `ZZZA-PR-057` through `060` for the
+current ring families.
+
+For 天伤/天使, the source corpus deliberately preserves more than one family:
+
+- `ZZQS-A-1855` records the fixed traditional placement: 天伤在交友/奴仆，天使在疾厄;
+- `ZZZA-PR-051` records a yin/yang-sex swap family.
+
+The Wenmo-default operational profile selects the fixed family because the
+1975-05-20 yin-year male discriminator still displays 天伤 in 交友 and 天使 in 疾厄.
+The alternate family remains source knowledge and is not deleted or rewritten.
 
 S08's explicit `唯一运行四化表` supplies the transformation registry. One
 `TransformationGenerator` is reused for natal, Daxian and Annual contexts by
@@ -177,47 +190,98 @@ External software fixtures remain explicitly
 They can calibrate or discriminate an operational rule set, but they do not define
 ChartState, API field names, renderer layout, product UI, or historical-source truth.
 
-The 2001-12-15 辛巳 fixture externally checks:
+## Operational content versioning
 
-- Fire/Bell, dependency stars, roles and 35 operational minor stars;
-- all four rings / 48 ring members;
-- natal 辛四化;
-- all 12 Daxian active palace Ganzhi and age/year ranges;
-- Annual TaiSui/active-palace coordinates across Daxian boundaries;
-- Minor Limit ages 1-12.
+R3 remains an immutable replay target:
 
-The dedicated main-star dignity calibration pack covers all 12 Ziwei anchors and
-therefore all 168 unique main-star/address cells with zero observed conflicts.
-The runtime identity is the project-owned `OPERATIONAL-ZIWEI-MAIN-STAR-DIGNITY-R1`;
-the external software name exists only in calibration provenance/fixtures.
+```text
+WENMO_DEFAULT_MINOR_R1 v1.0.0
+OPERATIONAL-ZIWEI-DIGNITY-R3 v3.0.0
+67 physical entities
+681 reachable Dignity cells
+589 GRADED
+92 UNRATED
+```
 
-The core-auxiliary calibration pack combines sixteen external default-setting
-exports and closes exactly all 134 addresses reachable by the bound core-auxiliary
-Generator. It yields 131 `GRADED` cells plus three explicit `UNRATED` cells with
-zero observed conflicts. The project-owned runtime identity is
-`OPERATIONAL-ZIWEI-DIGNITY-R2`; impossible entity/address pairs are not invented.
+R4 extends the same minor-rule-set family without changing R3:
 
-## Dignity release boundary
+```text
+WENMO_DEFAULT_MINOR_R1 v2.0.0
+OPERATIONAL-ZIWEI-DIGNITY-R4 v4.0.0
+70 physical entities
+717 reachable Dignity cells
+625 GRADED
+92 UNRATED
+```
 
-Dignity is no longer an operational-content blocker for the fourteen main stars
-or the fourteen core auxiliaries. Remaining Dignity work is limited to dependency
-and minor-star content plus future source-governance upgrades.
+Profile validation binds R3 specifically to minor v1.0.0 and R4 specifically to
+minor v2.0.0. This prevents a newer physical inventory from silently changing an
+already frozen R3 computation snapshot.
 
-Current Git canonical sources do not provide a complete deterministic seven-grade
-matrix for every remaining dependency/minor entity/address cell. Missing states
-must not be inferred from absence or silently copied from an external application's
-presentation. Issue #180 tracks that remaining closure.
+TianShou uses the operational Body-basis formula selected by source route
+`ZZZA-PR-042` and the 1992-06-10 discriminator:
+
+```text
+TianShou = BodyAddress + BirthYearBranchIndex (mod 12)
+```
+
+The Wenmo-default TianShang/TianShi formulas are:
+
+```text
+TianShang = Life + 5 = 交友
+TianShi   = Life + 7 = 疾厄
+```
+
+## Dignity calibration and release boundary
+
+The dedicated main-star calibration pack covers all 12 Ziwei anchors and therefore
+all 168 unique main-star/address cells with zero observed conflicts.
+
+The core-auxiliary calibration pack closes exactly all 134 addresses reachable by
+the bound core-auxiliary Generator. It yields 131 `GRADED` cells plus three explicit
+`UNRATED` cells with zero observed conflicts.
+
+R3 closes the four dependency stars plus 35 legacy operational minor stars over
+exactly 379 generator-reachable cells: 290 `GRADED` + 89 `UNRATED`, with zero
+observed conflicts. Impossible entity/address pairs are not invented.
+
+R4 adds 天寿、天伤、天使. The prior 21 calibration exports already covered 32/36
+of their cells; two deliberately selected closure exports supply the four missing
+cells:
+
+```text
+2012-09-25 00:30 -> Life=酉 -> 天伤@寅=平, 天使@辰=陷
+2006-04-07 00:30 -> Life=辰 -> 天伤@酉=平, 天使@亥=旺
+```
+
+The resulting three-row R4 matrix is 36/36 `GRADED`, zero `UNRATED`, zero observed
+conflicts. Its added-row SHA256 is:
+
+```text
+5bac16b2f13d240f3adc7846a8aa45ce58f1c9bb2b89c6f7a450aef606b40e23
+```
+
+For the current 70-entity physical inventory, Dignity is therefore no longer a V1
+coverage blocker. Any future physical entity promoted into the active inventory
+must independently satisfy the same generator-reachable-domain closure rule before
+it can join a complete Dignity profile.
 
 ## Validation
 
 Regression coverage now includes:
 
-- all 12 natal months x 12 birth hours for Life/Body;
+- all 12 natal months × 12 birth hours for Life/Body;
 - all 150 canonical Ziwei-anchor cells;
 - Tianfu reflection and main-star covariance;
-- all 12 Ziwei-anchor configurations × 14 main stars = 168 operational main-star dignity cells;
-- all 134 generator-reachable core-auxiliary dignity cells derived from actual Generator input domains;
+- all 12 Ziwei-anchor configurations × 14 main stars = 168 operational main-star Dignity cells;
+- all 134 generator-reachable core-auxiliary Dignity cells;
 - exactly 131 graded + 3 unrated core-auxiliary states, with no invented unreachable cells;
+- exact R3 dependency/minor generator-domain equality over 379 reachable cells;
+- exactly 290 graded + 89 unrated R3 dependency/minor states;
+- exact R4 TianShou/TianShang/TianShi generator-domain equality over 36 reachable cells;
+- exact 36 graded + 0 unrated R4 added states and frozen matrix SHA256;
+- full R4 registry summary: 70 entities / 717 cells / 625 graded / 92 unrated;
+- R3 legacy-profile replay and R4 minor-version mismatch rejection;
 - dignity as immutable annotation rather than placement mutation;
 - dignity target/address and status/grade integrity failures;
 - dignity fact vs provenance hash-layer discrimination;
@@ -225,9 +289,9 @@ Regression coverage now includes:
 - exhaustive core auxiliary, Fire/Bell and minor-star domains;
 - all 60 valid sexagenary Xunkong pairs;
 - dependency-star, role and ring profile checks;
-- all 10 transformation stems x four ordered assignments, 40 assignments / 39 mechanisms;
+- all 10 transformation stems × four ordered assignments, 40 assignments / 39 mechanisms;
 - transformation missing/duplicate-target fail-closed behavior;
-- all five first-Daxian age values and the full yin/yang x sex direction matrix;
+- all five first-Daxian age values and the full yin/yang × sex direction matrix;
 - exact 12-Daxian external regression for the 2001 金四局 阴男 chart;
 - Annual samples proving year-stem 四化 is separate from Annual-Life palace stem;
 - Minor Limit male/female direction rules and exact age 1-12 external regression;
@@ -250,7 +314,10 @@ fortune-train verify
 
 ## Release boundary
 
-Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The main remaining V1 gates are dependency/minor Dignity/content closure and wider
-operational compatibility regression. Graphical UI can remain post-core because
-the renderer boundary is now explicit and presentation-only.
+Passing the R4 closure means the current 70-entity deterministic physical inventory
+and its Dignity layer are internally closed under the active profiles. It does not
+mean every future Ziwei feature belongs in V1. Remaining work should only re-open
+V1 architecture when it changes deterministic chart output, ChartState, Generator,
+Profile or Canonical Fact boundaries. Graphical UI, interpretation/prediction and
+non-promoted historical/content variants remain downstream or backlog work unless
+that criterion is met.
