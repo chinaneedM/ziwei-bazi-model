@@ -98,11 +98,11 @@ class ZiweiMainStarTests(unittest.TestCase):
         for ziwei in range(6):
             first = {
                 row.entity_id: row.address.index
-                for row in generator.generate_for_anchor_for_test(ziwei)
+                for row in generator.generate_from_ziwei_anchor(ziwei)
             }
             second = {
                 row.entity_id: row.address.index
-                for row in generator.generate_for_anchor_for_test(ziwei + 6)
+                for row in generator.generate_from_ziwei_anchor(ziwei + 6)
             }
             self.assertEqual(
                 {entity: (index + 6) % 12 for entity, index in first.items()},
