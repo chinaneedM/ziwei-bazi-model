@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -59,6 +60,11 @@ class ZiweiChartFoundation:
             },
         )
 
+    @staticmethod
+    def _chart_key(chart: dict[str, Any]) -> str:
+        """Stable equality key for canonical chart candidates in this foundation slice."""
+        return json.dumps(chart, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
     def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
         profile = request.profile.validate(self.time_calendar.policy_registry)
         time_result = self.time_calendar.resolve(request.birth, profile.time_calendar_policies)
@@ -67,18 +73,41 @@ class ZiweiChartFoundation:
                 "schema": self.schema,
                 "status": "FAILED",
                 "diagnostics": ["TIME_CALENDAR_UNRESOLVED"],
+                "events": [],
                 "calculation_profile": json_value(profile),
                 "time_calendar": time_result,
                 "charts": [],
+                "chart_branch_indices": [],
             }
 
-        charts = [json_value(self._generate_chart(branch, request)) for branch in time_result["branches"]]
-        status = "RESOLVED" if time_result["status"] == "RESOLVED" else "MULTI_CANDIDATE"
+        unique: dict[str, dict[str, Any]] = {}
+        for branch_index, branch in enumerate(time_result["branches"]):
+            chart = json_value(self._generate_chart(branch, request))
+            key = self._chart_key(chart)
+            if key not in unique:
+                unique[key] = {"chart": chart, "branch_indices": []}
+            unique[key]["branch_indices"].append(branch_index)
+
+        candidates = list(unique.values())
+        charts = [row["chart"] for row in candidates]
+        chart_branch_indices = [row["branch_indices"] for row in candidates]
+        if len(charts) > 1:
+            status = "MULTI_CANDIDATE"
+            events = ["TIME_UNCERTAINTY_CHANGED_ZIWEI_CHART"]
+        elif time_result["status"] == "RESOLVED":
+            status = "RESOLVED"
+            events = []
+        else:
+            status = "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"
+            events = ["TIME_UNCERTAINTY_DID_NOT_CHANGE_ZIWEI_CHART"]
+
         return {
             "schema": self.schema,
             "status": status,
             "calculation_profile": json_value(profile),
             "time_calendar": time_result,
             "charts": charts,
+            "chart_branch_indices": chart_branch_indices,
+            "events": events,
             "diagnostics": [],
         }
