@@ -9,6 +9,7 @@ from .dignity import (
     OperationalZiweiDignityGenerator,
 )
 from .dignity_r3 import OperationalFullZiweiDignityGenerator
+from .dignity_r4 import OperationalZiweiDignityR4Generator
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .integrity import (
     HashBundle,
@@ -21,6 +22,7 @@ from .integrity import (
 )
 from .main_stars import MainStarGenerator
 from .minor_stars import MinorStarContext, WenmoDefaultMinorStarGenerator
+from .minor_stars_r4 import WenmoDefaultMinorStarR4Generator
 from .models import (
     DignityAnnotation,
     NatalChartState,
@@ -77,6 +79,7 @@ __all__ = [
     "OperationalFullZiweiDignityGenerator",
     "OperationalMainStarDignityGenerator",
     "OperationalZiweiDignityGenerator",
+    "OperationalZiweiDignityR4Generator",
     "PalaceViewCell",
     "PlainTextZiweiRenderer",
     "PresentationProfile",
@@ -92,6 +95,7 @@ __all__ = [
     "TransformationGenerator",
     "ViewProjectionError",
     "WenmoDefaultMinorStarGenerator",
+    "WenmoDefaultMinorStarR4Generator",
     "WenmoDefaultRingGenerator",
     "WenmoDefaultRoleGenerator",
     "ZiweiChartFoundation",
@@ -105,4 +109,4 @@ __all__ = [
     "validate_temporal_state",
 ]
 
-__version__ = "0.12.0"
+__version__ = "0.13.0"
