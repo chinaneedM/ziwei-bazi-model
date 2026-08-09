@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Iterable
 
 from fortune_training.calendar_foundation.models import json_value
@@ -9,7 +9,7 @@ from fortune_training.util import object_sha256
 from .integrity import HashBundle, validate_natal_chart, validate_temporal_state
 from .models import NatalChartState
 from .registries import address
-from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, ZiweiTemporalState
+from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, TemporalNatalContext, ZiweiTemporalState
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
@@ -161,6 +161,10 @@ class ZiweiViewProjectionCompiler:
         payload.pop("view_hash", None)
         return payload
 
+    @staticmethod
+    def _placement_identity(rows) -> tuple[tuple[str, int], ...]:
+        return tuple(sorted((row.entity_id, row.address.index) for row in rows))
+
     def compile(
         self,
         chart: NatalChartState,
@@ -168,6 +172,7 @@ class ZiweiViewProjectionCompiler:
         presentation: PresentationProfile,
         *,
         temporal_state: ZiweiTemporalState | None = None,
+        temporal_context: TemporalNatalContext | None = None,
         daxian_frame_id: str | None = None,
         annual_year: int | None = None,
         minor_limit_age: int | None = None,
@@ -176,22 +181,23 @@ class ZiweiViewProjectionCompiler:
         natal_integrity = validate_natal_chart(chart)
         if natal_integrity.status != "PASS":
             raise ViewProjectionError("VIEW_SOURCE_NATAL_INTEGRITY_FAILED")
+
         if temporal_state is not None:
-            temporal_integrity = validate_temporal_state(
-                temporal_state,
-                natal_context=None,
-                natal_chart=chart,
-            )
+            if temporal_context is None:
+                raise ViewProjectionError("VIEW_TEMPORAL_CONTEXT_REQUIRED")
+            if self._placement_identity(temporal_context.placements) != self._placement_identity(chart.placements):
+                raise ViewProjectionError("VIEW_TEMPORAL_CONTEXT_CHART_MISMATCH")
+            temporal_integrity = validate_temporal_state(temporal_state, temporal_context)
             if temporal_integrity.status != "PASS":
                 raise ViewProjectionError("VIEW_SOURCE_TEMPORAL_INTEGRITY_FAILED")
+        elif temporal_context is not None:
+            raise ViewProjectionError("VIEW_TEMPORAL_STATE_REQUIRED")
 
         overrides = self._override_map(presentation)
         daxian = self._select_daxian(temporal_state, daxian_frame_id)
         annual = self._select_annual(temporal_state, annual_year)
         minor = self._select_minor(temporal_state, minor_limit_age)
-        selected_frames = tuple(
-            row.frame_id for row in (daxian, annual, minor) if row is not None
-        )
+        selected_frames = tuple(row.frame_id for row in (daxian, annual, minor) if row is not None)
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
@@ -314,7 +320,7 @@ class ZiweiViewProjectionCompiler:
                 "renderer_contract": f"{TEXT_RENDERER_ID}@{TEXT_RENDERER_VERSION}",
             }
         )
-        return ChartViewModel(**{**provisional.__dict__, "view_hash": view_hash})
+        return replace(provisional, view_hash=view_hash)
 
 
 class PlainTextZiweiRenderer:
@@ -338,9 +344,7 @@ class PlainTextZiweiRenderer:
                 for row in cell.placements
             ) or "-"
             rings = ", ".join(row.label for row in cell.ring_members) or "-"
-            temporal = ", ".join(
-                f"{row.frame_type}:{row.label}" for row in cell.temporal_designations
-            )
+            temporal = ", ".join(f"{row.frame_type}:{row.label}" for row in cell.temporal_designations)
             if cell.minor_limit_frame_ids:
                 temporal = ", ".join(filter(None, (temporal, "小限:" + "/".join(cell.minor_limit_frame_ids))))
             temporal = temporal or "-"
