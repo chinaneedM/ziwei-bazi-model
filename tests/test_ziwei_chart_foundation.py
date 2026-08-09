@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from datetime import datetime
 from pathlib import Path
@@ -13,6 +14,7 @@ from fortune_training.ziwei_chart import (
 )
 from fortune_training.ziwei_chart.main_stars import MainStarGenerator
 from fortune_training.ziwei_chart.natal import NatalStructureGenerator, NatalStructureInput
+from fortune_training.ziwei_chart.registries import EARTHLY_BRANCHES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,6 +98,20 @@ class ZiweiNatalStructureTests(unittest.TestCase):
 
 
 class ZiweiMainStarTests(unittest.TestCase):
+    def test_ziwei_anchor_formula_matches_all_150_canonical_table_cells(self):
+        fixture = json.loads(
+            (ROOT / "tests" / "fixtures" / "ziwei-main-star-anchor-r1.json").read_text(encoding="utf-8")
+        )
+        bureau_columns = fixture["bureau_columns"]
+        checked = 0
+        for row in fixture["rows"]:
+            lunar_day, *expected_branches = row
+            for bureau_number, expected_branch in zip(bureau_columns, expected_branches, strict=True):
+                actual_index = MainStarGenerator.ziwei_anchor(lunar_day, bureau_number)
+                self.assertEqual(expected_branch, EARTHLY_BRANCHES[actual_index])
+                checked += 1
+        self.assertEqual(150, checked)
+
     def test_fire_six_day_one_ziwei_is_you(self):
         self.assertEqual(9, MainStarGenerator.ziwei_anchor(1, 6))
 
