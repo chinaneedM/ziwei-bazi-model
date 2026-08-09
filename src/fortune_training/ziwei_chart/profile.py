@@ -34,6 +34,12 @@ from .roles import (
     WENMO_DEFAULT_ROLE_RULE_SET_ID,
     WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
 )
+from .transformations import (
+    S08_TRANSFORMATION_RULE_SET_ID,
+    S08_TRANSFORMATION_RULE_SET_VERSION,
+    TRANSFORMATION_ALGORITHM_ID,
+    TRANSFORMATION_ALGORITHM_VERSION,
+)
 
 
 @dataclass(frozen=True)
@@ -57,6 +63,10 @@ class ResolvedZiweiCalculationProfile:
     minor_rule_set_version: str | None = None
     minor_algorithm_id: str | None = None
     minor_algorithm_version: str | None = None
+    transformation_rule_set_id: str | None = None
+    transformation_rule_set_version: str | None = None
+    transformation_algorithm_id: str | None = None
+    transformation_algorithm_version: str | None = None
     ring_rule_set_id: str | None = None
     ring_rule_set_version: str | None = None
     ring_algorithm_id: str | None = None
@@ -103,6 +113,10 @@ class ResolvedZiweiCalculationProfile:
                 (self.minor_rule_set_id, self.minor_rule_set_version, self.minor_algorithm_id, self.minor_algorithm_version),
             ),
             (
+                "transformation",
+                (self.transformation_rule_set_id, self.transformation_rule_set_version, self.transformation_algorithm_id, self.transformation_algorithm_version),
+            ),
+            (
                 "ring",
                 (self.ring_rule_set_id, self.ring_rule_set_version, self.ring_algorithm_id, self.ring_algorithm_version),
             ),
@@ -136,6 +150,17 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported minor-star rule-set version")
             if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID or self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
                 raise ValueError("unsupported minor-star algorithm identity/version")
+
+        if self.transformation_rule_set_id is not None:
+            if self.transformation_rule_set_id != S08_TRANSFORMATION_RULE_SET_ID:
+                raise ValueError(f"unsupported transformation rule set: {self.transformation_rule_set_id}")
+            if self.transformation_rule_set_version != S08_TRANSFORMATION_RULE_SET_VERSION:
+                raise ValueError("unsupported transformation rule-set version")
+            if (
+                self.transformation_algorithm_id != TRANSFORMATION_ALGORITHM_ID
+                or self.transformation_algorithm_version != TRANSFORMATION_ALGORITHM_VERSION
+            ):
+                raise ValueError("unsupported transformation algorithm identity/version")
 
         if self.ring_rule_set_id is not None:
             if self.ring_rule_set_id != WENMO_DEFAULT_RING_RULE_SET_ID:

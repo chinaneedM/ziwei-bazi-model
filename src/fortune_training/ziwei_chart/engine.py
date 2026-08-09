@@ -42,6 +42,12 @@ from .roles import (
     WENMO_DEFAULT_ROLE_RULE_SET_ID,
     WenmoDefaultRoleGenerator,
 )
+from .transformations import (
+    S08_TRANSFORMATION_RULE_SET_ID,
+    TRANSFORMATION_ALGORITHM_VERSION,
+    TransformationGenerationError,
+    TransformationGenerator,
+)
 
 
 @dataclass(frozen=True)
@@ -62,6 +68,7 @@ class ZiweiChartFoundation:
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
         self.derived_aux = DerivedAuxiliaryGenerator()
         self.wenmo_minor = WenmoDefaultMinorStarGenerator()
+        self.transformations = TransformationGenerator()
         self.wenmo_rings = WenmoDefaultRingGenerator()
         self.qs_roles = QSRoleGenerator()
         self.wenmo_roles = WenmoDefaultRoleGenerator()
@@ -81,6 +88,11 @@ class ZiweiChartFoundation:
         if rule_set_id == WENMO_DEFAULT_MINOR_RULE_SET_ID:
             return self.wenmo_minor
         raise ValueError(f"unsupported minor-star rule set: {rule_set_id}")
+
+    def _transformation_generator(self, rule_set_id: str):
+        if rule_set_id == S08_TRANSFORMATION_RULE_SET_ID:
+            return self.transformations
+        raise ValueError(f"unsupported transformation rule set: {rule_set_id}")
 
     def _ring_generator(self, rule_set_id: str):
         if rule_set_id == WENMO_DEFAULT_RING_RULE_SET_ID:
@@ -118,6 +130,7 @@ class ZiweiChartFoundation:
             )
         )
         placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
+        transformations = ()
         role_bindings = ()
         rings = ()
         algorithm_versions = {
@@ -160,6 +173,17 @@ class ZiweiChartFoundation:
             )
             algorithm_versions["minor_stars"] = request.profile.minor_algorithm_version or MINOR_STAR_ALGORITHM_VERSION
 
+        if request.profile.transformation_rule_set_id is not None:
+            transformations = self._transformation_generator(request.profile.transformation_rule_set_id).activate(
+                structure.ziwei_birth_year_stem,
+                placements,
+                source_layer="NATAL_BIRTH_YEAR",
+                context_id="NATAL",
+            )
+            algorithm_versions["transformations"] = (
+                request.profile.transformation_algorithm_version or TRANSFORMATION_ALGORITHM_VERSION
+            )
+
         if request.profile.ring_rule_set_id is not None:
             lucun_rows = [row for row in placements if row.entity_id == "STAR.LUCUN"]
             if len(lucun_rows) > 1:
@@ -186,6 +210,7 @@ class ZiweiChartFoundation:
             placements=tuple(placements),
             profile_id=request.profile.profile_id,
             profile_version=request.profile.profile_version,
+            transformations=tuple(transformations),
             role_bindings=tuple(role_bindings),
             rings=tuple(rings),
             algorithm_versions=algorithm_versions,
@@ -222,6 +247,7 @@ class ZiweiChartFoundation:
             AuxiliaryGenerationError,
             DerivedAuxiliaryGenerationError,
             MinorStarGenerationError,
+            TransformationGenerationError,
             RingGenerationError,
             RoleGenerationError,
         ) as exc:
