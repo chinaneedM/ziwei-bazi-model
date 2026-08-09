@@ -19,7 +19,7 @@ The fixture intentionally omits the displayed personal name. It stores only the 
 
 ### Common deterministic scope: MATCH
 
-Current engine and Wenmo agree on all fields implemented in the shared comparison scope:
+Current engine and Wenmo agree on all fields implemented in the shared comparison scope for this fixture:
 
 1. true-solar minute: 14:19;
 2. lunar coordinate: 甲戌 year, lunar month 4, day 7, non-leap, 未 hour;
@@ -37,6 +37,29 @@ Current engine and Wenmo agree on all fields implemented in the shared compariso
 14. the hour-derived 地空/地劫 pair.
 
 The current common-scope placement regression therefore compares exactly 26 generated placement entities.
+
+This is a **case-output match**, not a claim that the Wenmo default Profile and the current runtime default/QS Profile are globally equivalent.
+
+## Profile discriminators exposed by the default-setting screenshots
+
+The default settings reveal at least three rule differences that this particular non-boundary, non-leap, 甲-year birth does not activate:
+
+1. **Leap-month natal policy**
+   - Wenmo default: 月中分界.
+   - current runtime default for Life/Body: `FULLBOOK_NEXT_MONTH`.
+   - consequence: a leap-month fixture is required before any Profile-equivalence claim.
+
+2. **Late-Zi rollover**
+   - Wenmo default: 23:00-00:00 is treated as the next day for Ziwei + Bazi.
+   - current runtime defaults use Ziwei `LOCAL_SOLAR_DATE_INDEXED` and Bazi `MIDNIGHT`, so the same 23:xx birth is not guaranteed to classify identically.
+   - consequence: dedicated 22:59 / 23:00 / 23:59 / 00:00 boundary fixtures are required.
+
+3. **辛-year Kui/Yue ordering**
+   - Wenmo default setting displays 辛年“虎马”.
+   - strict QS e-witness rule currently binds 辛 as “马虎”.
+   - consequence: this 甲-year fixture cannot validate cross-Profile Kui/Yue equivalence; a 辛-year discriminator fixture is required.
+
+These are Profile differences, not bugs in the current matched fixture.
 
 ## Entity correction discovered by the diff
 
