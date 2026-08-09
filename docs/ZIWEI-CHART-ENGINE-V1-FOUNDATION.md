@@ -3,25 +3,26 @@
 ## Status and scope
 
 The shared Time/Calendar Foundation and the Ziwei foundation core are stable.
-The implementation now extends through natal placements, operational content,
-typed roles/rings/transformations, temporal frames, fail-closed integrity/hash
-validation and a presentation-only ViewModel boundary.
+The implementation now extends through natal placements, typed static annotations,
+operational content, roles/rings/transformations, temporal frames, fail-closed
+integrity/hash validation and a presentation-only ViewModel boundary.
 
 Implemented:
 
 - Time/Calendar consumption without duplicating civil-time, astronomy or Chinese-calendar logic;
 - typed Z12, Life/Body, twelve-palace designations, address stems and Five Element Bureau;
 - Ziwei anchor, Tianfu reflection and all fourteen main stars;
-- profile-bound core auxiliaries and a separate Wenmo Fire/Bell family;
+- profile-bound core auxiliaries and a separate compatibility Fire/Bell family;
 - dependency-bound 三台/八座、恩光/天贵;
-- a 35-entity Wenmo operational minor-star content pack;
+- a 35-entity operational minor-star content pack calibrated against external fixtures;
+- typed `DignityAnnotation` with a complete project-owned 14-main-star × 12-address operational registry;
 - typed `RoleBinding` for 命主/身主;
 - typed `RingInstance` / `RingMemberBinding` for 长生、岁前、将前、博士;
 - typed `TransformationActivation` using S08's 10-stem / 40-assignment runtime table;
 - standalone `ZiweiTemporalEngine` with typed Daxian, Annual and Minor Limit frames;
 - Daxian and Annual reuse the same transformation generator without moving natal stars;
 - immutable resolved profile bindings for Time/Calendar, auxiliary, minor-star,
-  transformation, temporal, ring and role rule identities/versions;
+  dignity, transformation, temporal, ring and role rule identities/versions;
 - fail-closed natal and temporal integrity validation;
 - separate deterministic `FactHash` and `ComputationHash` semantics;
 - typed `PresentationProfile`, renderer-neutral `ChartViewModel` and `ViewHash`;
@@ -31,11 +32,11 @@ Implemented:
 Still outside the current implementation slice:
 
 - unresolved operational content such as 天寿 and the 天伤/天使 profile split;
-- a complete operational Dignity registry (tracked by GitHub issue #180);
+- auxiliary/minor-star Dignity closure, including explicit no-display semantics, tracked by GitHub issue #180;
 - temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
   separately typed 斗君/月 frame runtime if promoted into V1;
 - graphical renderer / UI;
-- general ChartDiff automation beyond frozen Wenmo fixtures;
+- general ChartDiff automation beyond frozen compatibility fixtures;
 - interpretation or prediction.
 
 ## Fact-type boundaries
@@ -43,6 +44,10 @@ Still outside the current implementation slice:
 ```text
 Placement
   = one physical entity occupies one Z12 address
+
+DignityAnnotation
+  = a typed static state attached to an existing entity/address under an explicit scale/rule set;
+    it does not rename or move the physical entity
 
 TransformationActivation
   = one causal stem/layer activates 禄/权/科/忌 on an existing physical entity;
@@ -76,6 +81,7 @@ BirthInput
 -> profile-bound Ziwei birth coordinates
 -> immutable NatalChartState
    -> physical placements
+   -> static DignityAnnotation state
    -> natal TransformationActivation overlay
    -> Ring state
    -> RoleBinding state
@@ -108,14 +114,15 @@ may therefore consume the same ViewModel without requiring a second canonical st
 
 Generated state is not returned as resolved merely because all generators ran.
 It must also pass typed integrity checks covering structure topology, unique
-physical entity identity, provenance, transformation-target immutability, ring
-cardinality/topology and temporal-frame invariants. Invalid generated state fails closed.
+physical entity identity, annotation-target/address consistency, provenance,
+transformation-target immutability, ring cardinality/topology and temporal-frame
+invariants. Invalid generated state fails closed.
 
 Three hash layers are deliberately distinct:
 
 ```text
 FactHash
-  = canonical generated facts only
+  = canonical generated facts only, including typed static annotations such as dignity grades
 
 ComputationHash
   = FactHash + resolved profile + algorithm/generator versions + provenance lineage
@@ -123,6 +130,10 @@ ComputationHash
 ViewHash
   = source hashes + PresentationProfile + selected temporal projection + ViewProjection version
 ```
+
+Changing a dignity grade therefore changes `FactHash`; changing only the evidence
+lineage for the same grade preserves `FactHash` but changes `ComputationHash`.
+Showing or hiding dignity in a presentation changes `ViewHash` only.
 
 Display-label, palace-label, address-order or visibility changes are presentation
 changes only: they may change `ViewHash`, but they cannot rewrite `FactHash` or
@@ -156,8 +167,10 @@ geometry:
 - Minor Limit age-one anchor is selected by the birth-year trine group and then
   moves male-forward / female-reverse, independent of year-stem yin/yang.
 
-Wenmo fixtures remain explicitly
+External software fixtures remain explicitly
 `EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY`.
+They can calibrate or discriminate an operational rule set, but they do not define
+ChartState, API field names, renderer layout, product UI, or historical-source truth.
 
 The 2001-12-15 辛巳 fixture externally checks:
 
@@ -168,14 +181,21 @@ The 2001-12-15 辛巳 fixture externally checks:
 - Annual TaiSui/active-palace coordinates across Daxian boundaries;
 - Minor Limit ages 1-12.
 
-## Dignity release blocker
+The dedicated main-star dignity calibration pack covers all 12 Ziwei anchors and
+therefore all 168 unique main-star/address cells with zero observed conflicts.
+The runtime identity is the project-owned `OPERATIONAL-ZIWEI-MAIN-STAR-DIGNITY-R1`;
+the external software name exists only in calibration provenance/fixtures.
 
-Dignity remains an operational-content blocker, not an architecture blocker.
-S05 defines brightness semantics and S06 contains many historical predicates,
-but current Git canonical sources do not expose one complete deterministic
-seven-grade operational matrix for every required entity/address cell. Missing
-cells must not be inferred from absence or from one external chart. Issue #180
-tracks explicit registry closure and optimized Wenmo calibration.
+## Dignity release boundary
+
+Dignity remains an operational-content blocker only for entities whose registry
+is still incomplete; it is no longer a blocker for the fourteen main stars.
+
+S05 defines brightness semantics and S06 contains historical predicates, but the
+current Git canonical sources do not expose one complete deterministic seven-grade
+operational matrix for every required auxiliary/minor entity/address cell. Those
+missing cells must not be inferred from absence or from one external chart.
+Issue #180 tracks auxiliary/minor-star registry closure and explicit no-display semantics.
 
 ## Validation
 
@@ -184,19 +204,24 @@ Regression coverage now includes:
 - all 12 natal months x 12 birth hours for Life/Body;
 - all 150 canonical Ziwei-anchor cells;
 - Tianfu reflection and main-star covariance;
+- all 12 Ziwei-anchor configurations × 14 main stars = 168 operational main-star dignity cells;
+- dignity as immutable annotation rather than placement mutation;
+- dignity target/address integrity failure;
+- dignity grade vs provenance hash-layer discrimination;
+- presentation show/hide dignity without canonical-state mutation;
 - exhaustive core auxiliary, Fire/Bell and minor-star domains;
 - all 60 valid sexagenary Xunkong pairs;
 - dependency-star, role and ring profile checks;
 - all 10 transformation stems x four ordered assignments, 40 assignments / 39 mechanisms;
 - transformation missing/duplicate-target fail-closed behavior;
 - all five first-Daxian age values and the full yin/yang x sex direction matrix;
-- exact 12-Daxian Wenmo regression for the 2001 金四局 阴男 chart;
+- exact 12-Daxian external regression for the 2001 金四局 阴男 chart;
 - Annual samples proving year-stem 四化 is separate from Annual-Life palace stem;
-- Minor Limit male/female direction rules and exact age 1-12 Wenmo regression;
+- Minor Limit male/female direction rules and exact age 1-12 external regression;
 - pre-first-Daxian Annual frames preserved with no invented Daxian parent;
 - natal and temporal integrity success/failure cases;
 - deterministic 64-hex fact/computation hashes;
-- display/provenance/profile/fact mutation tests proving the intended two-layer canonical hash semantics;
+- display/provenance/profile/fact mutation tests proving the intended canonical hash semantics;
 - injected invalid generated state proving the public chart engine fails closed before return;
 - deterministic ViewModel/ViewHash generation;
 - lexeme and address-order presentation changes without canonical-state mutation;
@@ -213,6 +238,6 @@ fortune-train verify
 ## Release boundary
 
 Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The main remaining V1 gates are Dignity/content closure and wider operational
-compatibility regression. Graphical UI can remain post-core because the renderer
-boundary is now explicit and presentation-only.
+The main remaining V1 gates are auxiliary/minor Dignity/content closure and wider
+operational compatibility regression. Graphical UI can remain post-core because
+the renderer boundary is now explicit and presentation-only.
