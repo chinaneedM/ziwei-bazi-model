@@ -15,7 +15,8 @@ if TYPE_CHECKING:
 
 
 INTEGRITY_ALGORITHM_ID = "ZIWEI-INTEGRITY-HASH-V1"
-INTEGRITY_ALGORITHM_VERSION = "1.0.0"
+INTEGRITY_ALGORITHM_VERSION = "1.0.1"
+DIGNITY_GRADES = {"庙", "旺", "得", "利", "平", "不", "陷"}
 
 
 @dataclass(frozen=True)
@@ -93,6 +94,18 @@ def natal_fact_projection(chart: NatalChartState) -> dict[str, Any]:
             {"entity_id": row.entity_id, "address": _address_fact(row.address)}
             for row in sorted(chart.placements, key=lambda item: item.entity_id)
         ],
+        "annotations": [
+            {
+                "annotation_id": row.annotation_id,
+                "annotation_type": row.annotation_type,
+                "target_entity_id": row.target_entity_id,
+                "target_address": _address_fact(row.target_address),
+                "grade": row.grade,
+                "scale_id": row.scale_id,
+                "scale_version": row.scale_version,
+            }
+            for row in sorted(chart.annotations, key=lambda item: item.annotation_id)
+        ],
         "transformations": [
             _transformation_fact(row)
             for row in sorted(chart.transformations, key=lambda item: item.activation_id)
@@ -144,6 +157,17 @@ def _natal_lineage_projection(chart: NatalChartState) -> dict[str, Any]:
                 "source_refs": sorted(row.source_refs),
             }
             for row in sorted(chart.placements, key=lambda item: item.entity_id)
+        ],
+        "annotations": [
+            {
+                "annotation_id": row.annotation_id,
+                "rule_set_id": row.rule_set_id,
+                "rule_set_version": row.rule_set_version,
+                "generator_id": row.generator_id,
+                "algorithm_version": row.algorithm_version,
+                "source_refs": sorted(row.source_refs),
+            }
+            for row in sorted(chart.annotations, key=lambda item: item.annotation_id)
         ],
         "transformations": [
             {
@@ -343,6 +367,30 @@ def validate_natal_chart(chart: NatalChartState) -> IntegrityReport:
         _validate_source_refs(diagnostics, row.source_refs, f"placements[{index}].source_refs")
         if not row.generator_id or not row.algorithm_version:
             _diag(diagnostics, "MISSING_ALGORITHM_IDENTITY", f"placements[{index}]", row.entity_id)
+
+    annotation_ids: set[str] = set()
+    dignity_targets: set[str] = set()
+    for index, row in enumerate(chart.annotations):
+        if row.annotation_id in annotation_ids:
+            _diag(diagnostics, "DUPLICATE_ANNOTATION_ID", f"annotations[{index}]", row.annotation_id)
+        annotation_ids.add(row.annotation_id)
+        if row.annotation_type != "DIGNITY":
+            _diag(diagnostics, "UNSUPPORTED_ANNOTATION_TYPE", f"annotations[{index}].annotation_type", row.annotation_type)
+        if row.target_entity_id in dignity_targets:
+            _diag(diagnostics, "DUPLICATE_DIGNITY_TARGET", f"annotations[{index}]", row.target_entity_id)
+        dignity_targets.add(row.target_entity_id)
+        target = placement_by_entity.get(row.target_entity_id)
+        if target is None:
+            _diag(diagnostics, "ANNOTATION_TARGET_MISSING", f"annotations[{index}]", row.target_entity_id)
+        elif target.address != row.target_address:
+            _diag(diagnostics, "ANNOTATION_TARGET_ADDRESS_MISMATCH", f"annotations[{index}].target_address", row.target_entity_id)
+        if row.grade not in DIGNITY_GRADES:
+            _diag(diagnostics, "INVALID_DIGNITY_GRADE", f"annotations[{index}].grade", row.grade)
+        if not row.scale_id or not row.scale_version or not row.rule_set_id or not row.rule_set_version:
+            _diag(diagnostics, "MISSING_DIGNITY_IDENTITY", f"annotations[{index}]", row.annotation_id)
+        if not row.generator_id or not row.algorithm_version:
+            _diag(diagnostics, "MISSING_ALGORITHM_IDENTITY", f"annotations[{index}]", row.annotation_id)
+        _validate_source_refs(diagnostics, row.source_refs, f"annotations[{index}].source_refs")
 
     activation_ids: set[str] = set()
     for index, row in enumerate(chart.transformations):
