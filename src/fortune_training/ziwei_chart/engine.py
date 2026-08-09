@@ -17,11 +17,7 @@ from .auxiliary import (
     WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
     WenmoDefaultCoreAuxiliaryGenerator,
 )
-from .derived_auxiliary import (
-    DERIVED_AUXILIARY_ALGORITHM_VERSION,
-    DerivedAuxiliaryGenerationError,
-    DerivedAuxiliaryGenerator,
-)
+from .derived_auxiliary import DERIVED_AUXILIARY_ALGORITHM_VERSION, DerivedAuxiliaryGenerationError, DerivedAuxiliaryGenerator
 from .main_stars import MainStarGenerator
 from .minor_stars import (
     MINOR_STAR_ALGORITHM_VERSION,
@@ -33,6 +29,12 @@ from .minor_stars import (
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
+from .rings import (
+    RING_ALGORITHM_VERSION,
+    RingGenerationError,
+    WENMO_DEFAULT_RING_RULE_SET_ID,
+    WenmoDefaultRingGenerator,
+)
 from .roles import (
     QS_ROLE_RULE_SET_ID,
     QSRoleGenerator,
@@ -60,6 +62,7 @@ class ZiweiChartFoundation:
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
         self.derived_aux = DerivedAuxiliaryGenerator()
         self.wenmo_minor = WenmoDefaultMinorStarGenerator()
+        self.wenmo_rings = WenmoDefaultRingGenerator()
         self.qs_roles = QSRoleGenerator()
         self.wenmo_roles = WenmoDefaultRoleGenerator()
 
@@ -79,6 +82,11 @@ class ZiweiChartFoundation:
             return self.wenmo_minor
         raise ValueError(f"unsupported minor-star rule set: {rule_set_id}")
 
+    def _ring_generator(self, rule_set_id: str):
+        if rule_set_id == WENMO_DEFAULT_RING_RULE_SET_ID:
+            return self.wenmo_rings
+        raise ValueError(f"unsupported ring rule set: {rule_set_id}")
+
     def _role_generator(self, rule_set_id: str):
         if rule_set_id == QS_ROLE_RULE_SET_ID:
             return self.qs_roles
@@ -86,18 +94,13 @@ class ZiweiChartFoundation:
             return self.wenmo_roles
         raise ValueError(f"unsupported role rule set: {rule_set_id}")
 
-    def _chart_lunar_coordinate(
-        self,
-        branch: dict[str, Any],
-        profile: ResolvedZiweiCalculationProfile,
-    ) -> dict[str, Any]:
+    def _chart_lunar_coordinate(self, branch: dict[str, Any], profile: ResolvedZiweiCalculationProfile) -> dict[str, Any]:
         raw = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
         if profile.ziwei_day_boundary_policy == "MIDNIGHT":
             return raw
         local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
         if profile.ziwei_day_boundary_policy == "ZI_START_23" and local_solar.hour == 23:
-            rolled = self.time_calendar.calendar.from_gregorian_date(local_solar.date() + timedelta(days=1))
-            return json_value(rolled)
+            return json_value(self.time_calendar.calendar.from_gregorian_date(local_solar.date() + timedelta(days=1)))
         return raw
 
     def _generate_chart(self, branch: dict[str, Any], request: ZiweiChartRequest) -> NatalChartState:
@@ -116,14 +119,15 @@ class ZiweiChartFoundation:
         )
         placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
         role_bindings = ()
+        rings = ()
         algorithm_versions = {
             "natal_structure": request.profile.natal_structure_algorithm_version,
             "main_stars": request.profile.main_star_algorithm_version,
         }
+
         if request.profile.auxiliary_rule_set_id is not None:
-            auxiliary_generator = self._auxiliary_generator(request.profile.auxiliary_rule_set_id)
             placements.extend(
-                auxiliary_generator.generate(
+                self._auxiliary_generator(request.profile.auxiliary_rule_set_id).generate(
                     AuxiliaryContext(
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
@@ -140,9 +144,8 @@ class ZiweiChartFoundation:
             algorithm_versions["derived_auxiliary"] = DERIVED_AUXILIARY_ALGORITHM_VERSION
 
         if request.profile.minor_rule_set_id is not None:
-            minor_generator = self._minor_generator(request.profile.minor_rule_set_id)
             placements.extend(
-                minor_generator.generate(
+                self._minor_generator(request.profile.minor_rule_set_id).generate(
                     MinorStarContext(
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
@@ -157,9 +160,22 @@ class ZiweiChartFoundation:
             )
             algorithm_versions["minor_stars"] = request.profile.minor_algorithm_version or MINOR_STAR_ALGORITHM_VERSION
 
+        if request.profile.ring_rule_set_id is not None:
+            lucun_rows = [row for row in placements if row.entity_id == "STAR.LUCUN"]
+            if len(lucun_rows) > 1:
+                raise RingGenerationError("BOSHI_RING_DUPLICATE_LUCUN_PLACEMENT")
+            lucun_address = lucun_rows[0].address if lucun_rows else None
+            rings = self._ring_generator(request.profile.ring_rule_set_id).generate(
+                structure.bureau.element,
+                structure.ziwei_birth_year_stem,
+                structure.ziwei_birth_year_branch,
+                request.sex,
+                lucun_address,
+            )
+            algorithm_versions["rings"] = request.profile.ring_algorithm_version or RING_ALGORITHM_VERSION
+
         if request.profile.role_rule_set_id is not None:
-            role_generator = self._role_generator(request.profile.role_rule_set_id)
-            role_bindings = role_generator.generate(
+            role_bindings = self._role_generator(request.profile.role_rule_set_id).generate(
                 structure.life_address.branch,
                 structure.ziwei_birth_year_branch,
             )
@@ -171,12 +187,12 @@ class ZiweiChartFoundation:
             profile_id=request.profile.profile_id,
             profile_version=request.profile.profile_version,
             role_bindings=tuple(role_bindings),
+            rings=tuple(rings),
             algorithm_versions=algorithm_versions,
         )
 
     @staticmethod
     def _chart_key(chart: dict[str, Any]) -> str:
-        """Stable equality key for canonical chart candidates in this foundation slice."""
         return json.dumps(chart, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
     def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
@@ -206,6 +222,7 @@ class ZiweiChartFoundation:
             AuxiliaryGenerationError,
             DerivedAuxiliaryGenerationError,
             MinorStarGenerationError,
+            RingGenerationError,
             RoleGenerationError,
         ) as exc:
             return {
