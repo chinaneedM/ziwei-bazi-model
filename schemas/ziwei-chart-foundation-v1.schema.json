@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-chart-foundation-v1.schema.json",
+  "title": "Ziwei Chart Foundation Result V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "calculation_profile",
+    "time_calendar",
+    "charts",
+    "chart_branch_indices",
+    "events",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-CHART-FOUNDATION-RESULT-V1"},
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY",
+        "MULTI_CANDIDATE",
+        "FAILED"
+      ]
+    },
+    "calculation_profile": {"$ref": "#/$defs/calculationProfile"},
+    "time_calendar": {"type": "object"},
+    "charts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/natalChart"}
+    },
+    "chart_branch_indices": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "integer", "minimum": 0},
+        "uniqueItems": true
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "$defs": {
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {
+          "enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+        }
+      }
+    },
+    "calculationProfile": {
+      "type": "object",
+      "required": [
+        "profile_id",
+        "profile_version",
+        "time_calendar_policy_registry_version",
+        "time_calendar_policies",
+        "natal_structure_algorithm_id",
+        "natal_structure_algorithm_version",
+        "main_star_algorithm_id",
+        "main_star_algorithm_version"
+      ]
+    },
+    "designation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["designation_id", "display_name", "address"],
+      "properties": {
+        "designation_id": {"type": "string"},
+        "display_name": {"type": "string"},
+        "address": {"$ref": "#/$defs/address"}
+      }
+    },
+    "addressAttribute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["address", "stem"],
+      "properties": {
+        "address": {"$ref": "#/$defs/address"},
+        "stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]}
+      }
+    },
+    "bureau": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["element", "number", "life_palace_ganzhi", "nayin_name"],
+      "properties": {
+        "element": {"enum": ["水", "木", "金", "土", "火"]},
+        "number": {"enum": [2, 3, 4, 5, 6]},
+        "life_palace_ganzhi": {"type": "string"},
+        "nayin_name": {"type": "string"}
+      }
+    },
+    "generationStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation", "inputs", "outputs", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "operation": {"type": "string"},
+        "inputs": {"type": "object"},
+        "outputs": {"type": "object"},
+        "algorithm_id": {"type": "string"},
+        "algorithm_version": {"type": "string"}
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ziwei_birth_year_stem",
+        "ziwei_birth_year_branch",
+        "raw_lunar_month",
+        "natal_month_coordinate",
+        "lunar_birth_day",
+        "birth_hour_branch",
+        "month_anchor",
+        "life_address",
+        "body_address",
+        "designation_bindings",
+        "address_attributes",
+        "bureau",
+        "trace"
+      ],
+      "properties": {
+        "ziwei_birth_year_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "ziwei_birth_year_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "raw_lunar_month": {"type": "integer", "minimum": 1, "maximum": 12},
+        "natal_month_coordinate": {"type": "integer", "minimum": 1, "maximum": 12},
+        "lunar_birth_day": {"type": "integer", "minimum": 1, "maximum": 30},
+        "birth_hour_branch": {"$ref": "#/$defs/address"},
+        "month_anchor": {"$ref": "#/$defs/address"},
+        "life_address": {"$ref": "#/$defs/address"},
+        "body_address": {"$ref": "#/$defs/address"},
+        "designation_bindings": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "items": {"$ref": "#/$defs/designation"}
+        },
+        "address_attributes": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "items": {"$ref": "#/$defs/addressAttribute"}
+        },
+        "bureau": {"$ref": "#/$defs/bureau"},
+        "trace": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/generationStep"}
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version"],
+      "properties": {
+        "entity_id": {"type": "string"},
+        "display_name": {"type": "string"},
+        "address": {"$ref": "#/$defs/address"},
+        "generator_id": {"type": "string"},
+        "algorithm_version": {"type": "string"}
+      }
+    },
+    "natalChart": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["structure", "placements", "profile_id", "profile_version", "algorithm_versions"],
+      "properties": {
+        "structure": {"$ref": "#/$defs/structure"},
+        "placements": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/placement"}
+        },
+        "profile_id": {"type": "string"},
+        "profile_version": {"type": "string"},
+        "algorithm_versions": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    }
+  }
+}
