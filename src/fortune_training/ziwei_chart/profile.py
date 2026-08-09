@@ -20,6 +20,12 @@ from .minor_stars import (
     WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
 )
 from .natal import NATAL_STRUCTURE_ALGORITHM_ID, NATAL_STRUCTURE_ALGORITHM_VERSION
+from .rings import (
+    RING_ALGORITHM_ID,
+    RING_ALGORITHM_VERSION,
+    WENMO_DEFAULT_RING_RULE_SET_ID,
+    WENMO_DEFAULT_RING_RULE_SET_VERSION,
+)
 from .roles import (
     QS_ROLE_RULE_SET_ID,
     QS_ROLE_RULE_SET_VERSION,
@@ -51,6 +57,10 @@ class ResolvedZiweiCalculationProfile:
     minor_rule_set_version: str | None = None
     minor_algorithm_id: str | None = None
     minor_algorithm_version: str | None = None
+    ring_rule_set_id: str | None = None
+    ring_rule_set_version: str | None = None
+    ring_algorithm_id: str | None = None
+    ring_algorithm_version: str | None = None
     role_rule_set_id: str | None = None
     role_rule_set_version: str | None = None
     role_algorithm_id: str | None = None
@@ -83,15 +93,29 @@ class ResolvedZiweiCalculationProfile:
         if self.main_star_algorithm_version != MAIN_STAR_ALGORITHM_VERSION:
             raise ValueError("unsupported main-star algorithm version")
 
-        aux_values = (
-            self.auxiliary_rule_set_id,
-            self.auxiliary_rule_set_version,
-            self.auxiliary_algorithm_id,
-            self.auxiliary_algorithm_version,
+        bundles = (
+            (
+                "auxiliary",
+                (self.auxiliary_rule_set_id, self.auxiliary_rule_set_version, self.auxiliary_algorithm_id, self.auxiliary_algorithm_version),
+            ),
+            (
+                "minor-star",
+                (self.minor_rule_set_id, self.minor_rule_set_version, self.minor_algorithm_id, self.minor_algorithm_version),
+            ),
+            (
+                "ring",
+                (self.ring_rule_set_id, self.ring_rule_set_version, self.ring_algorithm_id, self.ring_algorithm_version),
+            ),
+            (
+                "role",
+                (self.role_rule_set_id, self.role_rule_set_version, self.role_algorithm_id, self.role_algorithm_version),
+            ),
         )
-        if any(value is not None for value in aux_values):
-            if any(value is None for value in aux_values):
-                raise ValueError("auxiliary profile binding must be fully specified or fully disabled")
+        for label, values in bundles:
+            if any(value is not None for value in values) and any(value is None for value in values):
+                raise ValueError(f"{label} profile binding must be fully specified or fully disabled")
+
+        if self.auxiliary_rule_set_id is not None:
             supported_rule_sets = {
                 QS_CORE_AUX_RULE_SET_ID: QS_CORE_AUX_RULE_SET_VERSION,
                 WENMO_DEFAULT_CORE_AUX_RULE_SET_ID: WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
@@ -102,38 +126,26 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError(f"unsupported auxiliary rule set: {self.auxiliary_rule_set_id}") from exc
             if self.auxiliary_rule_set_version != expected_rule_set_version:
                 raise ValueError("unsupported auxiliary rule-set version")
-            if self.auxiliary_algorithm_id != AUXILIARY_ALGORITHM_ID:
-                raise ValueError("unsupported auxiliary algorithm id")
-            if self.auxiliary_algorithm_version != AUXILIARY_ALGORITHM_VERSION:
-                raise ValueError("unsupported auxiliary algorithm version")
+            if self.auxiliary_algorithm_id != AUXILIARY_ALGORITHM_ID or self.auxiliary_algorithm_version != AUXILIARY_ALGORITHM_VERSION:
+                raise ValueError("unsupported auxiliary algorithm identity/version")
 
-        minor_values = (
-            self.minor_rule_set_id,
-            self.minor_rule_set_version,
-            self.minor_algorithm_id,
-            self.minor_algorithm_version,
-        )
-        if any(value is not None for value in minor_values):
-            if any(value is None for value in minor_values):
-                raise ValueError("minor-star profile binding must be fully specified or fully disabled")
+        if self.minor_rule_set_id is not None:
             if self.minor_rule_set_id != WENMO_DEFAULT_MINOR_RULE_SET_ID:
                 raise ValueError(f"unsupported minor-star rule set: {self.minor_rule_set_id}")
             if self.minor_rule_set_version != WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
                 raise ValueError("unsupported minor-star rule-set version")
-            if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID:
-                raise ValueError("unsupported minor-star algorithm id")
-            if self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
-                raise ValueError("unsupported minor-star algorithm version")
+            if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID or self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
+                raise ValueError("unsupported minor-star algorithm identity/version")
 
-        role_values = (
-            self.role_rule_set_id,
-            self.role_rule_set_version,
-            self.role_algorithm_id,
-            self.role_algorithm_version,
-        )
-        if any(value is not None for value in role_values):
-            if any(value is None for value in role_values):
-                raise ValueError("role profile binding must be fully specified or fully disabled")
+        if self.ring_rule_set_id is not None:
+            if self.ring_rule_set_id != WENMO_DEFAULT_RING_RULE_SET_ID:
+                raise ValueError(f"unsupported ring rule set: {self.ring_rule_set_id}")
+            if self.ring_rule_set_version != WENMO_DEFAULT_RING_RULE_SET_VERSION:
+                raise ValueError("unsupported ring rule-set version")
+            if self.ring_algorithm_id != RING_ALGORITHM_ID or self.ring_algorithm_version != RING_ALGORITHM_VERSION:
+                raise ValueError("unsupported ring algorithm identity/version")
+
+        if self.role_rule_set_id is not None:
             supported_role_sets = {
                 QS_ROLE_RULE_SET_ID: QS_ROLE_RULE_SET_VERSION,
                 WENMO_DEFAULT_ROLE_RULE_SET_ID: WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
@@ -144,8 +156,6 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError(f"unsupported role rule set: {self.role_rule_set_id}") from exc
             if self.role_rule_set_version != expected_role_version:
                 raise ValueError("unsupported role rule-set version")
-            if self.role_algorithm_id != ROLE_ALGORITHM_ID:
-                raise ValueError("unsupported role algorithm id")
-            if self.role_algorithm_version != ROLE_ALGORITHM_VERSION:
-                raise ValueError("unsupported role algorithm version")
+            if self.role_algorithm_id != ROLE_ALGORITHM_ID or self.role_algorithm_version != ROLE_ALGORITHM_VERSION:
+                raise ValueError("unsupported role algorithm identity/version")
         return self
