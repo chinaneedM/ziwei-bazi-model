@@ -138,14 +138,17 @@ class ZiweiMainStarTests(unittest.TestCase):
 
 
 class ZiweiChartIntegrationTests(unittest.TestCase):
-    def test_beijing_smoke_chart_resolves_to_structure_and_fourteen_main_stars(self):
-        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
-        profile = ResolvedZiweiCalculationProfile(
+    @staticmethod
+    def _profile(registry: PolicyRegistry) -> ResolvedZiweiCalculationProfile:
+        return ResolvedZiweiCalculationProfile(
             profile_id="FOUNDATION-SMOKE-R1",
             profile_version="1.0.0",
             time_calendar_policy_registry_version=registry.version,
             time_calendar_policies=registry.default_selection(),
         )
+
+    def test_beijing_smoke_chart_resolves_to_structure_and_fourteen_main_stars(self):
+        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
         engine = ZiweiChartFoundation(TimeCalendarFoundation(registry))
         result = engine.resolve(
             ZiweiChartRequest(
@@ -157,7 +160,7 @@ class ZiweiChartIntegrationTests(unittest.TestCase):
                     timezone_id="Asia/Shanghai",
                 ),
                 sex=Sex.MALE,
-                profile=profile,
+                profile=self._profile(registry),
             )
         )
         self.assertEqual("RESOLVED", result["status"])
@@ -166,6 +169,28 @@ class ZiweiChartIntegrationTests(unittest.TestCase):
         self.assertEqual(12, len(chart["structure"]["designation_bindings"]))
         self.assertEqual(14, len(chart["placements"]))
         self.assertEqual(14, len({row["entity_id"] for row in chart["placements"]}))
+
+    def test_harmless_time_uncertainty_deduplicates_to_one_ziwei_chart(self):
+        registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
+        engine = ZiweiChartFoundation(TimeCalendarFoundation(registry))
+        result = engine.resolve(
+            ZiweiChartRequest(
+                birth=BirthInput(
+                    reported_local_datetime=datetime(1994, 5, 17, 14, 30),
+                    birth_place="Beijing",
+                    latitude=39.9042,
+                    longitude=116.4074,
+                    timezone_id="Asia/Shanghai",
+                    uncertainty_seconds=60,
+                ),
+                sex=Sex.MALE,
+                profile=self._profile(registry),
+            )
+        )
+        self.assertEqual("RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY", result["status"])
+        self.assertEqual(1, len(result["charts"]))
+        self.assertGreater(len(result["chart_branch_indices"][0]), 1)
+        self.assertIn("TIME_UNCERTAINTY_DID_NOT_CHANGE_ZIWEI_CHART", result["events"])
 
     def test_profile_registry_version_mismatch_fails_closed(self):
         registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
