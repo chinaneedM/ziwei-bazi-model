@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -51,8 +51,22 @@ class ZiweiChartFoundation:
             return self.wenmo_core_aux
         raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
 
+    def _chart_lunar_coordinate(
+        self,
+        branch: dict[str, Any],
+        profile: ResolvedZiweiCalculationProfile,
+    ) -> dict[str, Any]:
+        raw = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        if profile.ziwei_day_boundary_policy == "MIDNIGHT":
+            return raw
+        local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
+        if profile.ziwei_day_boundary_policy == "ZI_START_23" and local_solar.hour == 23:
+            rolled = self.time_calendar.calendar.from_gregorian_date(local_solar.date() + timedelta(days=1))
+            return json_value(rolled)
+        return raw
+
     def _generate_chart(self, branch: dict[str, Any], request: ZiweiChartRequest) -> NatalChartState:
-        lunar = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        lunar = self._chart_lunar_coordinate(branch, request.profile)
         local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
         structure = self.natal.generate(
             NatalStructureInput(
