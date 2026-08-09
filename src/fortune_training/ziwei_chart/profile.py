@@ -15,6 +15,8 @@ from .auxiliary import (
 from .dignity import (
     DIGNITY_ALGORITHM_ID,
     DIGNITY_ALGORITHM_VERSION,
+    OPERATIONAL_DIGNITY_RULE_SET_ID,
+    OPERATIONAL_DIGNITY_RULE_SET_VERSION,
     OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID,
     OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
 )
@@ -159,12 +161,23 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported minor-star algorithm identity/version")
 
         if self.dignity_rule_set_id is not None:
-            if self.dignity_rule_set_id != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID:
-                raise ValueError(f"unsupported dignity rule set: {self.dignity_rule_set_id}")
-            if self.dignity_rule_set_version != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION:
+            supported_dignity_rule_sets = {
+                OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID: OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
+                OPERATIONAL_DIGNITY_RULE_SET_ID: OPERATIONAL_DIGNITY_RULE_SET_VERSION,
+            }
+            try:
+                expected_dignity_version = supported_dignity_rule_sets[self.dignity_rule_set_id]
+            except KeyError as exc:
+                raise ValueError(f"unsupported dignity rule set: {self.dignity_rule_set_id}") from exc
+            if self.dignity_rule_set_version != expected_dignity_version:
                 raise ValueError("unsupported dignity rule-set version")
             if self.dignity_algorithm_id != DIGNITY_ALGORITHM_ID or self.dignity_algorithm_version != DIGNITY_ALGORITHM_VERSION:
                 raise ValueError("unsupported dignity algorithm identity/version")
+            if self.dignity_rule_set_id == OPERATIONAL_DIGNITY_RULE_SET_ID:
+                if self.auxiliary_rule_set_id != WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
+                    raise ValueError("OPERATIONAL_DIGNITY_R2_REQUIRES_COMPATIBLE_CORE_AUXILIARY_PROFILE")
+                if self.auxiliary_rule_set_version != WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION:
+                    raise ValueError("OPERATIONAL_DIGNITY_R2_CORE_AUXILIARY_VERSION_MISMATCH")
 
         if self.transformation_rule_set_id is not None:
             if self.transformation_rule_set_id != S08_TRANSFORMATION_RULE_SET_ID:
