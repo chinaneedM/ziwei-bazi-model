@@ -57,7 +57,7 @@ class DignityAnnotation:
     annotation_type: str
     target_entity_id: str
     target_address: Address
-    grade: str
+    grade: str | None
     scale_id: str
     scale_version: str
     rule_set_id: str
@@ -65,6 +65,7 @@ class DignityAnnotation:
     generator_id: str
     algorithm_version: str
     source_refs: tuple[str, ...]
+    status: str = "GRADED"
 
 
 @dataclass(frozen=True)
