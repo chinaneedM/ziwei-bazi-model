@@ -69,6 +69,25 @@
       "type": "object", "additionalProperties": false, "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version", "source_refs"],
       "properties": {"entity_id": {"type": "string"}, "display_name": {"type": "string"}, "address": {"$ref": "#/$defs/address"}, "generator_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"}}
     },
+    "transformationActivation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["activation_id", "transformation_type", "target_entity_id", "target_display_name", "target_address", "source_layer", "source_stem", "context_id", "assignment_id", "mechanism_id", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "activation_id": {"type": "string", "minLength": 1},
+        "transformation_type": {"enum": ["化禄", "化权", "化科", "化忌"]},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_display_name": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "source_layer": {"type": "string", "minLength": 1},
+        "source_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "context_id": {"type": "string", "minLength": 1},
+        "assignment_id": {"pattern": "^S08-ASG-[0-9]{2}$"},
+        "mechanism_id": {"pattern": "^S08-TN-[0-9]{2}$"},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
     "roleBinding": {
       "type": "object", "additionalProperties": false,
       "required": ["role_id", "display_name", "entity_id", "entity_display_name", "basis_type", "basis_value", "generator_id", "algorithm_version", "source_refs"],
@@ -96,11 +115,16 @@
     },
     "natalChart": {
       "type": "object", "additionalProperties": false,
-      "required": ["structure", "placements", "profile_id", "profile_version", "role_bindings", "rings", "algorithm_versions"],
+      "required": ["structure", "placements", "profile_id", "profile_version", "transformations", "role_bindings", "rings", "algorithm_versions"],
       "properties": {
-        "structure": {"$ref": "#/$defs/structure"}, "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
-        "profile_id": {"type": "string"}, "profile_version": {"type": "string"}, "role_bindings": {"type": "array", "items": {"$ref": "#/$defs/roleBinding"}},
-        "rings": {"type": "array", "items": {"$ref": "#/$defs/ringInstance"}}, "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string"}}
+        "structure": {"$ref": "#/$defs/structure"},
+        "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
+        "profile_id": {"type": "string"},
+        "profile_version": {"type": "string"},
+        "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformationActivation"}},
+        "role_bindings": {"type": "array", "items": {"$ref": "#/$defs/roleBinding"}},
+        "rings": {"type": "array", "items": {"$ref": "#/$defs/ringInstance"}},
+        "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string"}}
       }
     }
   }
