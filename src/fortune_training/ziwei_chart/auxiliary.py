@@ -12,11 +12,18 @@ QS_CORE_AUX_RULE_SET_ID = "QS_EWITNESS_CORE_AUX_R1"
 QS_CORE_AUX_RULE_SET_VERSION = "1.0.0"
 
 
+class AuxiliaryGenerationError(ValueError):
+    def __init__(self, diagnostic_code: str) -> None:
+        super().__init__(diagnostic_code)
+        self.diagnostic_code = diagnostic_code
+
+
 @dataclass(frozen=True)
 class AuxiliaryContext:
     ziwei_birth_year_stem: str
     ziwei_birth_year_branch: str
     raw_lunar_month: int
+    is_leap_month: bool
     birth_hour_branch: Address
 
 
@@ -79,18 +86,8 @@ class QSCoreAuxiliaryGenerator:
     @staticmethod
     def chang_qu(hour_index: int) -> tuple[Placement, Placement]:
         return (
-            _placement(
-                "STAR.WENCHANG",
-                "文昌",
-                10 - hour_index,
-                ("S01:ZZQS-A-1784", "S01:ZZZA-PR-017"),
-            ),
-            _placement(
-                "STAR.WENQU",
-                "文曲",
-                4 + hour_index,
-                ("S01:ZZQS-A-1785", "S01:ZZZA-PR-017"),
-            ),
+            _placement("STAR.WENCHANG", "文昌", 10 - hour_index, ("S01:ZZQS-A-1784", "S01:ZZZA-PR-017")),
+            _placement("STAR.WENQU", "文曲", 4 + hour_index, ("S01:ZZQS-A-1785", "S01:ZZZA-PR-017")),
         )
 
     @staticmethod
@@ -100,15 +97,11 @@ class QSCoreAuxiliaryGenerator:
         offset = raw_lunar_month - 1
         return (
             _placement(
-                "STAR.ZUOFU",
-                "左辅",
-                4 + offset,
+                "STAR.ZUOFU", "左辅", 4 + offset,
                 ("S01:ZZQS-A-1791", "S01:ZZQS-A-1793", "S01:ZZZA-PR-016"),
             ),
             _placement(
-                "STAR.YOUBI",
-                "右弼",
-                10 - offset,
+                "STAR.YOUBI", "右弼", 10 - offset,
                 ("S01:ZZQS-A-1792", "S01:ZZQS-A-1794", "S01:ZZZA-PR-016"),
             ),
         )
@@ -119,19 +112,10 @@ class QSCoreAuxiliaryGenerator:
             kui_branch, yue_branch = KUI_YUE_BY_STEM[year_stem]
         except KeyError as exc:
             raise ValueError(f"unsupported year stem for Kui/Yue: {year_stem}") from exc
+        refs = ("S01:ZZQS-A-1800", "S01:ZZQS-A-1801", "S01:ZZZA-PR-019")
         return (
-            _placement(
-                "STAR.TIANKUI",
-                "天魁",
-                BRANCH_TO_INDEX[kui_branch],
-                ("S01:ZZQS-A-1800", "S01:ZZQS-A-1801", "S01:ZZZA-PR-019"),
-            ),
-            _placement(
-                "STAR.TIANYUE",
-                "天钺",
-                BRANCH_TO_INDEX[yue_branch],
-                ("S01:ZZQS-A-1800", "S01:ZZQS-A-1801", "S01:ZZZA-PR-019"),
-            ),
+            _placement("STAR.TIANKUI", "天魁", BRANCH_TO_INDEX[kui_branch], refs),
+            _placement("STAR.TIANYUE", "天钺", BRANCH_TO_INDEX[yue_branch], refs),
         )
 
     @staticmethod
@@ -142,9 +126,7 @@ class QSCoreAuxiliaryGenerator:
             raise ValueError(f"unsupported year branch for Tianma: {year_branch}") from exc
         return (
             _placement(
-                "STAR.TIANMA",
-                "天马",
-                BRANCH_TO_INDEX[target],
+                "STAR.TIANMA", "天马", BRANCH_TO_INDEX[target],
                 ("S01:ZZQS-A-1808", "S01:ZZQS-A-1809"),
             ),
         )
@@ -158,43 +140,24 @@ class QSCoreAuxiliaryGenerator:
         lucun_index = BRANCH_TO_INDEX[lucun_branch]
         return (
             _placement(
-                "STAR.LUCUN",
-                "禄存",
-                lucun_index,
+                "STAR.LUCUN", "禄存", lucun_index,
                 ("S01:ZZQS-A-1816", "S01:ZZQS-A-1817", "S01:ZZZA-PR-020"),
             ),
-            _placement(
-                "STAR.QINGYANG",
-                "擎羊",
-                lucun_index + 1,
-                ("S01:ZZQS-A-1825", "S01:ZZZA-PR-020"),
-            ),
-            _placement(
-                "STAR.TUOLUO",
-                "陀罗",
-                lucun_index - 1,
-                ("S01:ZZQS-A-1825", "S01:ZZZA-PR-020"),
-            ),
+            _placement("STAR.QINGYANG", "擎羊", lucun_index + 1, ("S01:ZZQS-A-1825", "S01:ZZZA-PR-020")),
+            _placement("STAR.TUOLUO", "陀罗", lucun_index - 1, ("S01:ZZQS-A-1825", "S01:ZZZA-PR-020")),
         )
 
     @staticmethod
     def hour_void_robbery(hour_index: int) -> tuple[Placement, Placement]:
+        refs = ("S01:ZZQS-A-1847", "S01:ZZQS-A-1848", "S01:ZZZA-PR-018")
         return (
-            _placement(
-                "AUX.HOUR_VOID",
-                "天空",
-                11 - hour_index,
-                ("S01:ZZQS-A-1847", "S01:ZZQS-A-1848", "S01:ZZZA-PR-018"),
-            ),
-            _placement(
-                "STAR.DIJIE",
-                "地劫",
-                11 + hour_index,
-                ("S01:ZZQS-A-1847", "S01:ZZQS-A-1848", "S01:ZZZA-PR-018"),
-            ),
+            _placement("AUX.HOUR_VOID", "天空", 11 - hour_index, refs),
+            _placement("STAR.DIJIE", "地劫", 11 + hour_index, refs),
         )
 
     def generate(self, context: AuxiliaryContext) -> tuple[Placement, ...]:
+        if context.is_leap_month:
+            raise AuxiliaryGenerationError("QS_CORE_AUX_LEAP_MONTH_POLICY_UNRESOLVED")
         hour_index = context.birth_hour_branch.index
         rows: list[Placement] = []
         rows.extend(self.chang_qu(hour_index))
