@@ -9,6 +9,7 @@ from typing import Any
 from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
 from fortune_training.calendar_foundation.models import json_value
 
+from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -29,6 +30,7 @@ class ZiweiChartFoundation:
         self.time_calendar = time_calendar
         self.natal = NatalStructureGenerator()
         self.main_stars = MainStarGenerator()
+        self.qs_core_aux = QSCoreAuxiliaryGenerator()
 
     @classmethod
     def from_repository(cls, repository_root: Path) -> "ZiweiChartFoundation":
@@ -48,16 +50,30 @@ class ZiweiChartFoundation:
                 life_body_leap_month_policy=request.profile.time_calendar_policies.ziwei_life_body_leap_month_policy,
             )
         )
-        placements = self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number)
+        placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
+        algorithm_versions = {
+            "natal_structure": request.profile.natal_structure_algorithm_version,
+            "main_stars": request.profile.main_star_algorithm_version,
+        }
+        if request.profile.auxiliary_rule_set_id is not None:
+            placements.extend(
+                self.qs_core_aux.generate(
+                    AuxiliaryContext(
+                        ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
+                        ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
+                        raw_lunar_month=structure.raw_lunar_month,
+                        birth_hour_branch=structure.birth_hour_branch,
+                    )
+                )
+            )
+            algorithm_versions["core_auxiliary"] = request.profile.auxiliary_algorithm_version or ""
+
         return NatalChartState(
             structure=structure,
-            placements=placements,
+            placements=tuple(placements),
             profile_id=request.profile.profile_id,
             profile_version=request.profile.profile_version,
-            algorithm_versions={
-                "natal_structure": request.profile.natal_structure_algorithm_version,
-                "main_stars": request.profile.main_star_algorithm_version,
-            },
+            algorithm_versions=algorithm_versions,
         )
 
     @staticmethod
