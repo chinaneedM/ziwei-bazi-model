@@ -36,15 +36,26 @@ from .temporal import (
     ZiweiTemporalState,
 )
 from .transformations import TransformationGenerator
+from .view import (
+    ChartViewModel,
+    LexemeOverride,
+    PalaceViewCell,
+    PlainTextZiweiRenderer,
+    PresentationProfile,
+    ViewProjectionError,
+    ZiweiViewProjectionCompiler,
+)
 
 __all__ = [
     "AnnualFrame",
     "AuxiliaryContext",
+    "ChartViewModel",
     "DaxianFrame",
     "DerivedAuxiliaryGenerator",
     "HashBundle",
     "IntegrityDiagnostic",
     "IntegrityReport",
+    "LexemeOverride",
     "MainStarGenerator",
     "MinorLimitFrame",
     "MinorStarContext",
@@ -52,6 +63,9 @@ __all__ = [
     "NatalStructureGenerator",
     "NatalStructureInput",
     "NatalStructureState",
+    "PalaceViewCell",
+    "PlainTextZiweiRenderer",
+    "PresentationProfile",
     "QSCoreAuxiliaryGenerator",
     "QSRoleGenerator",
     "ResolvedZiweiCalculationProfile",
@@ -62,6 +76,7 @@ __all__ = [
     "TemporalNatalContext",
     "TransformationActivation",
     "TransformationGenerator",
+    "ViewProjectionError",
     "WenmoDefaultMinorStarGenerator",
     "WenmoDefaultRingGenerator",
     "WenmoDefaultRoleGenerator",
@@ -69,10 +84,11 @@ __all__ = [
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
     "ZiweiTemporalState",
+    "ZiweiViewProjectionCompiler",
     "natal_hash_bundle",
     "temporal_hash_bundle",
     "validate_natal_chart",
     "validate_temporal_state",
 ]
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"
