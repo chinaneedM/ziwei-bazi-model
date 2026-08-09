@@ -13,9 +13,9 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, TemporalNatalCo
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.1"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.2"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
-TEXT_RENDERER_VERSION = "1.0.1"
+TEXT_RENDERER_VERSION = "1.0.2"
 
 
 class ViewProjectionError(ValueError):
@@ -60,6 +60,7 @@ class ViewPlacement:
     label: str
     dignity_grade: str | None
     transformation_badges: tuple[str, ...]
+    dignity_status: str | None = None
 
 
 @dataclass(frozen=True)
@@ -202,7 +203,7 @@ class ZiweiViewProjectionCompiler:
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
         dignity_by_entity = {
-            row.target_entity_id: row.grade
+            row.target_entity_id: row
             for row in chart.annotations
             if row.annotation_type == "DIGNITY"
         }
@@ -222,12 +223,14 @@ class ZiweiViewProjectionCompiler:
 
         placements_by_address: dict[int, list[ViewPlacement]] = {index: [] for index in range(12)}
         for row in chart.placements:
+            dignity = dignity_by_entity.get(row.entity_id) if presentation.show_dignity else None
             placements_by_address[row.address.index].append(
                 ViewPlacement(
                     entity_id=row.entity_id,
                     label=self._label(overrides, "ENTITY", row.entity_id, row.display_name),
-                    dignity_grade=dignity_by_entity.get(row.entity_id) if presentation.show_dignity else None,
+                    dignity_grade=dignity.grade if dignity is not None else None,
                     transformation_badges=tuple(sorted(transformation_by_entity.get(row.entity_id, ()))),
+                    dignity_status=dignity.status if dignity is not None else None,
                 )
             )
         for rows in placements_by_address.values():
@@ -330,6 +333,12 @@ class PlainTextZiweiRenderer:
     renderer_version = TEXT_RENDERER_VERSION
     supported_view_schema = ZiweiViewProjectionCompiler.schema
 
+    @staticmethod
+    def _dignity_suffix(row: ViewPlacement) -> str:
+        if row.dignity_status == "UNRATED":
+            return "[未评级]"
+        return f"[{row.dignity_grade}]" if row.dignity_grade else ""
+
     def render(self, view: ChartViewModel) -> str:
         if view.schema != self.supported_view_schema:
             raise ViewProjectionError("VIEW_RENDERER_SCHEMA_MISMATCH")
@@ -344,7 +353,7 @@ class PlainTextZiweiRenderer:
         for cell in view.cells:
             stars = ", ".join(
                 row.label
-                + (f"[{row.dignity_grade}]" if row.dignity_grade else "")
+                + self._dignity_suffix(row)
                 + (f"[{'|'.join(row.transformation_badges)}]" if row.transformation_badges else "")
                 for row in cell.placements
             ) or "-"
