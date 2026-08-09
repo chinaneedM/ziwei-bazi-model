@@ -26,10 +26,7 @@
     },
     "calculation_profile": {"$ref": "#/$defs/calculationProfile"},
     "time_calendar": {"type": "object"},
-    "charts": {
-      "type": "array",
-      "items": {"$ref": "#/$defs/natalChart"}
-    },
+    "charts": {"type": "array", "items": {"$ref": "#/$defs/natalChart"}},
     "chart_branch_indices": {
       "type": "array",
       "items": {
@@ -38,25 +35,23 @@
         "uniqueItems": true
       }
     },
-    "events": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "diagnostics": {
-      "type": "array",
-      "items": {"type": "string"}
-    }
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
   },
   "$defs": {
+    "sourceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
     "address": {
       "type": "object",
       "additionalProperties": false,
       "required": ["index", "branch"],
       "properties": {
         "index": {"type": "integer", "minimum": 0, "maximum": 11},
-        "branch": {
-          "enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-        }
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
       }
     },
     "calculationProfile": {
@@ -105,13 +100,14 @@
     "generationStep": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["operation", "inputs", "outputs", "algorithm_id", "algorithm_version"],
+      "required": ["operation", "inputs", "outputs", "algorithm_id", "algorithm_version", "source_refs"],
       "properties": {
         "operation": {"type": "string"},
         "inputs": {"type": "object"},
         "outputs": {"type": "object"},
         "algorithm_id": {"type": "string"},
-        "algorithm_version": {"type": "string"}
+        "algorithm_version": {"type": "string"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
       }
     },
     "structure": {
@@ -155,22 +151,20 @@
           "items": {"$ref": "#/$defs/addressAttribute"}
         },
         "bureau": {"$ref": "#/$defs/bureau"},
-        "trace": {
-          "type": "array",
-          "items": {"$ref": "#/$defs/generationStep"}
-        }
+        "trace": {"type": "array", "items": {"$ref": "#/$defs/generationStep"}}
       }
     },
     "placement": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version"],
+      "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version", "source_refs"],
       "properties": {
         "entity_id": {"type": "string"},
         "display_name": {"type": "string"},
         "address": {"$ref": "#/$defs/address"},
         "generator_id": {"type": "string"},
-        "algorithm_version": {"type": "string"}
+        "algorithm_version": {"type": "string"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
       }
     },
     "natalChart": {
@@ -179,16 +173,10 @@
       "required": ["structure", "placements", "profile_id", "profile_version", "algorithm_versions"],
       "properties": {
         "structure": {"$ref": "#/$defs/structure"},
-        "placements": {
-          "type": "array",
-          "items": {"$ref": "#/$defs/placement"}
-        },
+        "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
         "profile_id": {"type": "string"},
         "profile_version": {"type": "string"},
-        "algorithm_versions": {
-          "type": "object",
-          "additionalProperties": {"type": "string"}
-        }
+        "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string"}}
       }
     }
   }
