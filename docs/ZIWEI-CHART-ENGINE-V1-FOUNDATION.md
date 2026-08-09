@@ -2,48 +2,39 @@
 
 ## Status and scope
 
-This document began as the first Ziwei chart-generation layer above the shared
-Time/Calendar Foundation R1. The foundation core remains stable while the
-implementation has grown upward through operational content, typed rings and a
-reusable transformation runtime.
-
-The chart layer consumes resolved civil/solar/calendar facts; it does not
-duplicate timezone, astronomy, Chinese-calendar or Bazi logic.
+The shared Time/Calendar Foundation and the Ziwei foundation core are stable.
+The implementation now extends through natal placements, operational content,
+typed roles/rings/transformations and a separate temporal-frame runtime.
 
 Implemented:
 
-- typed Z12 addresses and natal designation bindings;
-- Ziwei natal-month coordinate handling under explicit profile policy;
-- Life and Body placement, twelve-palace rebasing and address stems;
-- Life-palace Ganzhi -> NaYin -> Five Element Bureau;
-- Ziwei anchor, Tianfu reflection and all fourteen main-star placements;
-- profile-bound core auxiliaries, including a separate Wenmo Fire/Bell family;
-- dependency-bound 三台/八座 and 恩光/天贵;
+- Time/Calendar consumption without duplicating civil-time, astronomy or Chinese-calendar logic;
+- typed Z12, Life/Body, twelve-palace designations, address stems and Five Element Bureau;
+- Ziwei anchor, Tianfu reflection and all fourteen main stars;
+- profile-bound core auxiliaries and a separate Wenmo Fire/Bell family;
+- dependency-bound 三台/八座、恩光/天贵;
 - a 35-entity Wenmo operational minor-star content pack;
-- typed `RoleBinding` facts for 命主/身主, separate from physical placements;
-- typed `RingInstance` / `RingMemberBinding` state for 长生、岁前、将前、博士;
-- typed `TransformationActivation` facts using S08's current 40-assignment table;
-- a reusable transformation generator whose context is explicit, so future
-  palace-stem, Daxian, annual and monthly layers can reuse one mechanism without
-  moving physical stars;
-- a single immutable resolved calculation-profile snapshot binding exact
-  Time/Calendar, auxiliary, minor-star, transformation, ring and role identities;
-- typed provenance, machine-readable schema and fail-closed diagnostics.
+- typed `RoleBinding` for 命主/身主;
+- typed `RingInstance` / `RingMemberBinding` for 长生、岁前、将前、博士;
+- typed `TransformationActivation` using S08's 10-stem / 40-assignment runtime table;
+- standalone `ZiweiTemporalEngine` with typed Daxian, Annual and Minor Limit frames;
+- Daxian and Annual reuse the same transformation generator without moving natal stars;
+- immutable resolved profile bindings for Time/Calendar, auxiliary, minor-star,
+  transformation, temporal, ring and role rule identities/versions;
+- machine-readable schemas, provenance and fail-closed diagnostics.
 
 Still outside the current implementation slice:
 
 - unresolved operational content such as 天寿 and the 天伤/天使 profile split;
-- a complete operational Dignity registry;
-- Daxian, Annual and Minor Limit temporal frames;
-- integrity/hash completion;
+- a complete operational Dignity registry (tracked by GitHub issue #180);
+- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
+  separately typed 斗君/月 frame runtime if promoted into V1;
+- integrity/hash finalization;
 - renderer/UI;
 - general ChartDiff automation beyond frozen Wenmo fixtures;
 - interpretation or prediction.
 
 ## Fact-type boundaries
-
-The implementation lives in `src/fortune_training/ziwei_chart/` and consumes
-`src/fortune_training/calendar_foundation/`.
 
 ```text
 Placement
@@ -51,111 +42,106 @@ Placement
 
 TransformationActivation
   = one causal stem/layer activates 禄/权/科/忌 on an existing physical entity;
-    the activation references the entity's immutable address and never moves it
+    it references the immutable target address and never moves the star
 
 RoleBinding
-  = an existing entity is designated for a role such as 命主/身主
+  = an existing entity is designated as 命主/身主
 
 RingInstance / RingMemberBinding
-  = cyclic ring state; same-label ring members are not physical Placement facts
+  = cyclic ring state, not physical star placement
+
+DaxianFrame / AnnualFrame / MinorLimitFrame
+  = dynamic reference frames over the natal chart, not regenerated natal charts
 
 DesignationBinding
-  = a palace designation such as 命/兄弟/夫妻 is bound to an address
+  = a palace designation bound to an address inside one declared frame
 ```
 
-These objects are intentionally not interchangeable. In particular, physical
-华盖 and 将前华盖, or physical 大耗 and 博士环大耗, may coexist without entity
-collapse.
+Same-label objects remain distinct across layers. Physical 华盖 is not the
+将前-ring 华盖; Annual Life at a branch does not move the natal stars at that
+branch; a Daxian/Annual 四化 activation does not relocate its target entity.
 
 ## Deterministic vertical path
 
 ```text
 BirthInput
 -> TimeCalendarFoundation
--> raw/effective calendar facts + local apparent solar datetime
--> profile-bound Ziwei chart coordinates
--> Life / Body
--> twelve designations + address stems
--> Life Palace Ganzhi -> NaYin -> Five Element Bureau
--> Ziwei anchor -> Tianfu reflection -> fourteen main stars
--> profile-bound core auxiliary placements
--> dependency-bound placements
--> operational minor-star placements when explicitly enabled
--> TransformationActivation overlay when explicitly enabled
--> Ring state when explicitly enabled
--> RoleBinding state when explicitly enabled
+-> profile-bound Ziwei birth coordinates
 -> immutable NatalChartState
+   -> physical placements
+   -> natal TransformationActivation overlay
+   -> Ring state
+   -> RoleBinding state
+
+NatalChartState + absolute Ziwei birth year + Sex + resolved profile
+-> ZiweiTemporalEngine
+   -> DaxianFrame[]
+   -> AnnualFrame[]
+   -> MinorLimitFrame[]
 ```
 
-There is no runtime fallback to an unnamed modern default. Every optional
-content family is either fully bound by the resolved profile or disabled.
+Temporal state is deliberately separate from `NatalChartState`.
 
 ## Canonical and compatibility authority
 
-Canonical-backed deterministic rules remain bound to Git `main` sources without
-modifying them. Important S01 routes include:
+Key S01 source routes include `ZZZA-PR-008` through `ZZZA-PR-015` for natal
+structure/main stars, `ZZZA-PR-052`/`053` for dependency stars,
+`ZZZA-PR-054`/`055` for roles, and `ZZZA-PR-057` through `060` for the current
+ring families.
 
-- `ZZZA-PR-008` Life/Body;
-- `ZZZA-PR-009` twelve-palace order;
-- `ZZZA-PR-010` address stems;
-- `ZZZA-PR-011` NaYin -> Five Element Bureau;
-- `ZZZA-PR-012` Ziwei placement;
-- `ZZZA-PR-013` Tianfu placement;
-- `ZZZA-PR-014` / `ZZZA-PR-015` fourteen-main-star geometry;
-- `ZZZA-PR-052` 三台/八座;
-- `ZZZA-PR-053` 恩光/天贵;
-- `ZZZA-PR-054` 命主;
-- `ZZZA-PR-055` 身主;
-- `ZZZA-PR-057` through `ZZZA-PR-060` the four current ring families.
+S08's explicit `唯一运行四化表` supplies the transformation registry. One
+`TransformationGenerator` is reused for natal, Daxian and Annual contexts by
+changing the declared causal `source_layer`, `source_stem` and `context_id`.
 
-S08's explicit `唯一运行四化表` supplies the current 10-stem / 40-assignment
-transformation registry. The runtime preserves all assignment identities and 39
-mechanism identities rather than flattening them into display strings.
+S10's current dynamic-coordinate supplement supplies the implemented temporal
+geometry:
 
-Wenmo fixtures are explicitly tagged
-`EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY`. They may establish an
-operational profile or expose an engine defect, but they never silently replace
-Git canonical semantics.
+- Five Element Bureau number = first Daxian nominal age;
+- 阳男阴女 forward / 阴男阳女 reverse Daxian movement;
+- every ten years advances one Daxian address;
+- Annual TaiSui branch is Annual Life;
+- Annual 四化 uses the annual heavenly stem, not the natal stem of the Annual Life address;
+- Minor Limit age-one anchor is selected by the birth-year trine group and then
+  moves male-forward / female-reverse, independent of year-stem yin/yang.
 
-The 2001-12-15 辛巳 fixture now externally checks, among other things:
+Wenmo fixtures remain explicitly
+`EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY`.
 
-- Fire/Bell for the 巳酉丑 trine class;
-- 三台、八座、恩光、天贵;
-- 命主破军 / 身主天机;
-- 35 operational minor-star placements;
-- all four rings and 48 ring members;
-- natal 辛四化: 巨门禄、太阳权、文曲科、文昌忌.
+The 2001-12-15 辛巳 fixture now externally checks:
+
+- Fire/Bell, dependency stars, roles and 35 operational minor stars;
+- all four rings / 48 ring members;
+- natal 辛四化;
+- all 12 Daxian active palace Ganzhi and age/year ranges;
+- Annual TaiSui/active-palace coordinates across Daxian boundaries;
+- Minor Limit ages 1-12.
 
 ## Dignity release blocker
 
 Dignity remains an operational-content blocker, not an architecture blocker.
-S05 defines brightness semantics and S06 contains many historical brightness
-predicates, but the current Git canonical corpus does not expose one complete
-deterministic seven-grade operational matrix matching every required
-entity/address cell. The engine therefore must not infer missing cells from
-absence or from one Wenmo chart. GitHub issue #180 tracks explicit registry
-closure and optimized compatibility calibration.
+S05 defines brightness semantics and S06 contains many historical predicates,
+but current Git canonical sources do not expose one complete deterministic
+seven-grade operational matrix for every required entity/address cell. Missing
+cells must not be inferred from absence or from one external chart. Issue #180
+tracks explicit registry closure and optimized Wenmo calibration.
 
 ## Validation
 
-Regression coverage includes:
+Regression coverage now includes:
 
-- all 12 natal months x 12 birth-hour branches for Life/Body geometry;
+- all 12 natal months x 12 birth hours for Life/Body;
 - all 150 canonical Ziwei-anchor cells;
-- Tianfu reflection and fourteen-main-star covariance;
-- exhaustive core auxiliary, Fire/Bell and operational minor-star domains;
+- Tianfu reflection and main-star covariance;
+- exhaustive core auxiliary, Fire/Bell and minor-star domains;
 - all 60 valid sexagenary Xunkong pairs;
-- canonical dependency-star examples;
-- role-profile discrimination and fail-closed ambiguities;
-- all five Changsheng anchors, all TaiSui/Jiangqian branch domains and Boshi
-  Lucun dependency;
-- exact four-ring / 48-member Wenmo regression;
-- all 10 transformation stems x four ordered assignments;
-- exactly 40 transformation assignments and 39 mechanism identities;
-- missing/duplicate transformation-target fail-closed behavior;
-- proof that transformation contexts reuse physical coordinates without moving
-  target stars;
-- external Wenmo regression fixtures including the 2001 辛巳 chart.
+- dependency-star, role and ring profile checks;
+- all 10 transformation stems x four ordered assignments, 40 assignments / 39 mechanisms;
+- transformation missing/duplicate-target fail-closed behavior;
+- all five first-Daxian age values and the full yin/yang x sex direction matrix;
+- exact 12-Daxian Wenmo regression for the 2001 金四局 阴男 chart;
+- Annual samples proving year-stem 四化 is separate from Annual-Life palace stem;
+- Minor Limit male/female direction rules and exact age 1-12 Wenmo regression;
+- pre-first-Daxian Annual frames preserved with no invented Daxian parent.
 
 Run the full repository checks with:
 
@@ -167,6 +153,5 @@ fortune-train verify
 ## Release boundary
 
 Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The remaining V1 work is primarily temporal frames, Dignity/content closure,
-integrity/hash finalization, renderer separation and wider operational
-compatibility regression.
+The main remaining V1 gates are Dignity/content closure, integrity/hash
+finalization, renderer separation and wider operational compatibility regression.

@@ -34,6 +34,12 @@ from .roles import (
     WENMO_DEFAULT_ROLE_RULE_SET_ID,
     WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
 )
+from .temporal import (
+    S10_CURRENT_TEMPORAL_RULE_SET_ID,
+    S10_CURRENT_TEMPORAL_RULE_SET_VERSION,
+    TEMPORAL_ALGORITHM_ID,
+    TEMPORAL_ALGORITHM_VERSION,
+)
 from .transformations import (
     S08_TRANSFORMATION_RULE_SET_ID,
     S08_TRANSFORMATION_RULE_SET_VERSION,
@@ -67,6 +73,10 @@ class ResolvedZiweiCalculationProfile:
     transformation_rule_set_version: str | None = None
     transformation_algorithm_id: str | None = None
     transformation_algorithm_version: str | None = None
+    temporal_rule_set_id: str | None = None
+    temporal_rule_set_version: str | None = None
+    temporal_algorithm_id: str | None = None
+    temporal_algorithm_version: str | None = None
     ring_rule_set_id: str | None = None
     ring_rule_set_version: str | None = None
     ring_algorithm_id: str | None = None
@@ -104,26 +114,12 @@ class ResolvedZiweiCalculationProfile:
             raise ValueError("unsupported main-star algorithm version")
 
         bundles = (
-            (
-                "auxiliary",
-                (self.auxiliary_rule_set_id, self.auxiliary_rule_set_version, self.auxiliary_algorithm_id, self.auxiliary_algorithm_version),
-            ),
-            (
-                "minor-star",
-                (self.minor_rule_set_id, self.minor_rule_set_version, self.minor_algorithm_id, self.minor_algorithm_version),
-            ),
-            (
-                "transformation",
-                (self.transformation_rule_set_id, self.transformation_rule_set_version, self.transformation_algorithm_id, self.transformation_algorithm_version),
-            ),
-            (
-                "ring",
-                (self.ring_rule_set_id, self.ring_rule_set_version, self.ring_algorithm_id, self.ring_algorithm_version),
-            ),
-            (
-                "role",
-                (self.role_rule_set_id, self.role_rule_set_version, self.role_algorithm_id, self.role_algorithm_version),
-            ),
+            ("auxiliary", (self.auxiliary_rule_set_id, self.auxiliary_rule_set_version, self.auxiliary_algorithm_id, self.auxiliary_algorithm_version)),
+            ("minor-star", (self.minor_rule_set_id, self.minor_rule_set_version, self.minor_algorithm_id, self.minor_algorithm_version)),
+            ("transformation", (self.transformation_rule_set_id, self.transformation_rule_set_version, self.transformation_algorithm_id, self.transformation_algorithm_version)),
+            ("temporal", (self.temporal_rule_set_id, self.temporal_rule_set_version, self.temporal_algorithm_id, self.temporal_algorithm_version)),
+            ("ring", (self.ring_rule_set_id, self.ring_rule_set_version, self.ring_algorithm_id, self.ring_algorithm_version)),
+            ("role", (self.role_rule_set_id, self.role_rule_set_version, self.role_algorithm_id, self.role_algorithm_version)),
         )
         for label, values in bundles:
             if any(value is not None for value in values) and any(value is None for value in values):
@@ -156,11 +152,16 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError(f"unsupported transformation rule set: {self.transformation_rule_set_id}")
             if self.transformation_rule_set_version != S08_TRANSFORMATION_RULE_SET_VERSION:
                 raise ValueError("unsupported transformation rule-set version")
-            if (
-                self.transformation_algorithm_id != TRANSFORMATION_ALGORITHM_ID
-                or self.transformation_algorithm_version != TRANSFORMATION_ALGORITHM_VERSION
-            ):
+            if self.transformation_algorithm_id != TRANSFORMATION_ALGORITHM_ID or self.transformation_algorithm_version != TRANSFORMATION_ALGORITHM_VERSION:
                 raise ValueError("unsupported transformation algorithm identity/version")
+
+        if self.temporal_rule_set_id is not None:
+            if self.temporal_rule_set_id != S10_CURRENT_TEMPORAL_RULE_SET_ID:
+                raise ValueError(f"unsupported temporal rule set: {self.temporal_rule_set_id}")
+            if self.temporal_rule_set_version != S10_CURRENT_TEMPORAL_RULE_SET_VERSION:
+                raise ValueError("unsupported temporal rule-set version")
+            if self.temporal_algorithm_id != TEMPORAL_ALGORITHM_ID or self.temporal_algorithm_version != TEMPORAL_ALGORITHM_VERSION:
+                raise ValueError("unsupported temporal algorithm identity/version")
 
         if self.ring_rule_set_id is not None:
             if self.ring_rule_set_id != WENMO_DEFAULT_RING_RULE_SET_ID:
