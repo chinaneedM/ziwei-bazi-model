@@ -116,6 +116,7 @@ class TimeCalendarFoundation:
             birth.reported_local_datetime.date(),
             solar.local_apparent_solar_datetime,
             calendar_date_policy=selection.ziwei_calendar_date_policy,
+            day_boundary_policy=selection.ziwei_day_boundary_policy,
             life_body_leap_month_policy=selection.ziwei_life_body_leap_month_policy,
         )
         trace.add(
@@ -137,9 +138,13 @@ class TimeCalendarFoundation:
             "POLICY",
             {
                 "calendar_date_policy": selection.ziwei_calendar_date_policy,
+                "day_boundary_policy": selection.ziwei_day_boundary_policy,
                 "life_body_leap_month_policy": selection.ziwei_life_body_leap_month_policy,
             },
-            {"effective_ziwei_lunar_date": ziwei.effective_ziwei_lunar_date},
+            {
+                "effective_ziwei_gregorian_date": ziwei.effective_ziwei_gregorian_date,
+                "effective_ziwei_lunar_date": ziwei.effective_ziwei_lunar_date,
+            },
             {
                 "registry_version": self.policy_registry.version,
                 "leap_policy_applied": False,
@@ -241,7 +246,7 @@ class TimeCalendarFoundation:
             "branches": branches,
             "unresolved_samples": unresolved,
             "metadata": {
-                "foundation_version": "PHASE-01-R1",
+                "foundation_version": "PHASE-01-R2",
                 "facts_and_policies_separated": True,
                 "canonical_sources_modified": False,
             },
