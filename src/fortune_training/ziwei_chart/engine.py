@@ -9,7 +9,14 @@ from typing import Any
 from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
 from fortune_training.calendar_foundation.models import json_value
 
-from .auxiliary import AuxiliaryContext, AuxiliaryGenerationError, QSCoreAuxiliaryGenerator
+from .auxiliary import (
+    AuxiliaryContext,
+    AuxiliaryGenerationError,
+    QS_CORE_AUX_RULE_SET_ID,
+    QSCoreAuxiliaryGenerator,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
+    WenmoDefaultCoreAuxiliaryGenerator,
+)
 from .main_stars import MainStarGenerator
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -31,10 +38,18 @@ class ZiweiChartFoundation:
         self.natal = NatalStructureGenerator()
         self.main_stars = MainStarGenerator()
         self.qs_core_aux = QSCoreAuxiliaryGenerator()
+        self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
 
     @classmethod
     def from_repository(cls, repository_root: Path) -> "ZiweiChartFoundation":
         return cls(TimeCalendarFoundation.from_repository(repository_root))
+
+    def _auxiliary_generator(self, rule_set_id: str):
+        if rule_set_id == QS_CORE_AUX_RULE_SET_ID:
+            return self.qs_core_aux
+        if rule_set_id == WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
+            return self.wenmo_core_aux
+        raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
 
     def _generate_chart(self, branch: dict[str, Any], request: ZiweiChartRequest) -> NatalChartState:
         lunar = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
@@ -56,14 +71,17 @@ class ZiweiChartFoundation:
             "main_stars": request.profile.main_star_algorithm_version,
         }
         if request.profile.auxiliary_rule_set_id is not None:
+            auxiliary_generator = self._auxiliary_generator(request.profile.auxiliary_rule_set_id)
             placements.extend(
-                self.qs_core_aux.generate(
+                auxiliary_generator.generate(
                     AuxiliaryContext(
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
                         raw_lunar_month=structure.raw_lunar_month,
                         is_leap_month=bool(lunar["is_leap_month"]),
                         birth_hour_branch=structure.birth_hour_branch,
+                        lunar_day=structure.lunar_birth_day,
+                        lunar_month_length_days=lunar["month_length_days"],
                     )
                 )
             )
