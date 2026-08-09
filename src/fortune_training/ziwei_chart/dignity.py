@@ -7,17 +7,19 @@ from .models import DignityAnnotation, Placement
 
 DIGNITY_ALGORITHM_ID = "ZIWEI-DIGNITY-ANNOTATION-V1"
 DIGNITY_ALGORITHM_VERSION = "1.0.0"
-WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID = "WENMO-MAIN-STAR-DIGNITY-R1"
-WENMO_MAIN_STAR_DIGNITY_RULE_SET_VERSION = "1.0.0"
+OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID = "OPERATIONAL-ZIWEI-MAIN-STAR-DIGNITY-R1"
+OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION = "1.0.0"
 DIGNITY_SCALE_ID = "ZIWEI-SEVEN-GRADE-DIGNITY-R1"
 DIGNITY_SCALE_VERSION = "1.0.0"
 
 DIGNITY_GRADES = frozenset({"庙", "旺", "得", "利", "平", "不", "陷"})
 
 # Z12 order: 子 丑 寅 卯 辰 巳 午 未 申 酉 戌 亥.
-# These 168 cells are an external Wenmo Tianji 2.5.9 / API 1.1.2 /
-# star-code C5VUC compatibility registry. They are not canonical source authority.
-WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS: dict[str, tuple[str, ...]] = {
+# This is the project's own operational registry. Its current R1 values were
+# calibrated against an external Wenmo Tianji observation set, but the runtime
+# identity is vendor-neutral and may later be revalidated against additional
+# witnesses without changing ChartState or renderer semantics.
+OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS: dict[str, tuple[str, ...]] = {
     "STAR.ZIWEI": ("平", "庙", "旺", "旺", "得", "旺", "庙", "庙", "旺", "旺", "得", "旺"),
     "STAR.TIANJI": ("庙", "陷", "得", "旺", "利", "平", "庙", "陷", "得", "旺", "利", "平"),
     "STAR.TAIYANG": ("陷", "不", "旺", "庙", "旺", "旺", "旺", "得", "得", "平", "不", "陷"),
@@ -34,7 +36,7 @@ WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS: dict[str, tuple[str, ...]] = {
     "STAR.POJUN": ("庙", "旺", "得", "陷", "旺", "平", "庙", "旺", "得", "陷", "旺", "平"),
 }
 
-MAIN_STAR_ENTITY_IDS = frozenset(WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS)
+MAIN_STAR_ENTITY_IDS = frozenset(OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS)
 
 
 class DignityGenerationError(ValueError):
@@ -48,15 +50,15 @@ class DignityRegistrySummary:
     entity_count: int
     address_count: int
     cell_count: int
-    rule_set_id: str = WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID
-    rule_set_version: str = WENMO_MAIN_STAR_DIGNITY_RULE_SET_VERSION
+    rule_set_id: str = OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID
+    rule_set_version: str = OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION
 
 
-class WenmoMainStarDignityGenerator:
-    """Attach profile-bound dignity annotations without mutating placements."""
+class OperationalMainStarDignityGenerator:
+    """Attach project-owned profile-bound dignity annotations without mutating placements."""
 
-    rule_set_id = WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID
-    rule_set_version = WENMO_MAIN_STAR_DIGNITY_RULE_SET_VERSION
+    rule_set_id = OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID
+    rule_set_version = OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION
     algorithm_id = DIGNITY_ALGORITHM_ID
     algorithm_version = DIGNITY_ALGORITHM_VERSION
     scale_id = DIGNITY_SCALE_ID
@@ -65,18 +67,16 @@ class WenmoMainStarDignityGenerator:
     @classmethod
     def registry_summary(cls) -> DignityRegistrySummary:
         return DignityRegistrySummary(
-            entity_count=len(WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS),
+            entity_count=len(OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS),
             address_count=12,
-            cell_count=sum(len(row) for row in WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS.values()),
+            cell_count=sum(len(row) for row in OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS.values()),
         )
 
     @classmethod
     def validate_registry(cls) -> None:
-        if set(WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS) != set(MAIN_STAR_ENTITY_IDS):
-            raise DignityGenerationError("DIGNITY_MAIN_STAR_REGISTRY_IDENTITY_MISMATCH")
-        if len(WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS) != 14:
+        if len(OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS) != 14:
             raise DignityGenerationError("DIGNITY_MAIN_STAR_REGISTRY_ENTITY_COUNT")
-        for entity_id, row in WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS.items():
+        for entity_id, row in OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS.items():
             if len(row) != 12:
                 raise DignityGenerationError(f"DIGNITY_INCOMPLETE_ADDRESS_ROW:{entity_id}")
             if any(grade not in DIGNITY_GRADES for grade in row):
@@ -96,13 +96,14 @@ class WenmoMainStarDignityGenerator:
 
         ziwei_anchor = by_entity["STAR.ZIWEI"].address.branch
         source_refs = (
-            "EXTERNAL_COMPATIBILITY_ORACLE:WENMO_TIANJI:APP=2.5.9:API=1.1.2:STAR_CODE=C5VUC",
-            f"WENMO_MAIN_DIGNITY_CALIBRATION_R1:ZIWEI_ANCHOR={ziwei_anchor}",
+            "OPERATIONAL_REGISTRY:OPERATIONAL-ZIWEI-MAIN-STAR-DIGNITY-R1",
+            "CALIBRATION_EVIDENCE:WENMO_TIANJI:APP=2.5.9:API=1.1.2:STAR_CODE=C5VUC",
+            f"CALIBRATION_FIXTURE:WENMO_MAIN_DIGNITY_R1:ZIWEI_ANCHOR={ziwei_anchor}",
         )
         rows: list[DignityAnnotation] = []
         for entity_id in sorted(MAIN_STAR_ENTITY_IDS):
             placement = by_entity[entity_id]
-            grade = WENMO_MAIN_STAR_DIGNITY_BY_ADDRESS[entity_id][placement.address.index]
+            grade = OPERATIONAL_MAIN_STAR_DIGNITY_BY_ADDRESS[entity_id][placement.address.index]
             rows.append(
                 DignityAnnotation(
                     annotation_id=f"DIGNITY:{entity_id}:{placement.address.branch}",
