@@ -1,0 +1,75 @@
+{
+  "schema": "ZIWEI-EXTERNAL-PROFILE-DISCRIMINATORS-V1",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "software": "文墨天机专业版 2.5.9 / API 1.1.2",
+  "settings": "USER_CONFIRMED_ALL_DEFAULT",
+  "cases": [
+    {
+      "id": "WENMO-CHARTDIFF-002",
+      "input": "2020-05-23T12:00:00",
+      "displayed_true_solar_minute": "2020-05-23T11:48",
+      "gui_raw_lunar": {"year": 2020, "month": 4, "day": 1, "is_leap_month": true},
+      "text_export_lunar_label": "庚子年四月初一日午时",
+      "expected_natal_month_coordinate": 4,
+      "life_branch": "亥",
+      "body_branch": "亥",
+      "bureau": ["土", 5, "丁亥"],
+      "placements": {
+        "STAR.ZIWEI": "午", "STAR.TIANJI": "巳", "STAR.TAIYANG": "卯", "STAR.WUQU": "寅", "STAR.TIANTONG": "丑", "STAR.LIANZHEN": "戌",
+        "STAR.TIANFU": "戌", "STAR.TAIYIN": "亥", "STAR.TANLANG": "子", "STAR.JUMEN": "丑", "STAR.TIANXIANG": "寅", "STAR.TIANLIANG": "卯", "STAR.QISHA": "辰", "STAR.POJUN": "申",
+        "STAR.WENCHANG": "辰", "STAR.WENQU": "戌", "STAR.ZUOFU": "未", "STAR.YOUBI": "未", "STAR.TIANKUI": "丑", "STAR.TIANYUE": "未", "STAR.TIANMA": "寅", "STAR.LUCUN": "申", "STAR.QINGYANG": "酉", "STAR.TUOLUO": "未", "STAR.DIKONG": "巳", "STAR.DIJIE": "巳"
+      },
+      "observed_fire_bell": {"STAR.HUOXING": "申", "STAR.LINGXING": "辰"}
+    },
+    {
+      "id": "WENMO-CHARTDIFF-003",
+      "input": "2020-06-07T12:00:00",
+      "displayed_true_solar_minute": "2020-06-07T11:46",
+      "gui_raw_lunar": {"year": 2020, "month": 4, "day": 16, "is_leap_month": true},
+      "text_export_lunar_label": "庚子年五月十六日午时",
+      "expected_natal_month_coordinate": 5,
+      "life_branch": "子",
+      "body_branch": "子",
+      "bureau": ["火", 6, "戊子"],
+      "placements": {
+        "STAR.ZIWEI": "午", "STAR.TIANJI": "巳", "STAR.TAIYANG": "卯", "STAR.WUQU": "寅", "STAR.TIANTONG": "丑", "STAR.LIANZHEN": "戌",
+        "STAR.TIANFU": "戌", "STAR.TAIYIN": "亥", "STAR.TANLANG": "子", "STAR.JUMEN": "丑", "STAR.TIANXIANG": "寅", "STAR.TIANLIANG": "卯", "STAR.QISHA": "辰", "STAR.POJUN": "申",
+        "STAR.WENCHANG": "辰", "STAR.WENQU": "戌", "STAR.ZUOFU": "申", "STAR.YOUBI": "午", "STAR.TIANKUI": "丑", "STAR.TIANYUE": "未", "STAR.TIANMA": "寅", "STAR.LUCUN": "申", "STAR.QINGYANG": "酉", "STAR.TUOLUO": "未", "STAR.DIKONG": "巳", "STAR.DIJIE": "巳"
+      },
+      "observed_fire_bell": {"STAR.HUOXING": "申", "STAR.LINGXING": "辰"}
+    },
+    {
+      "id": "WENMO-CHARTDIFF-004",
+      "input": "1994-05-17T23:30:00",
+      "displayed_true_solar_minute": "1994-05-17T23:19",
+      "raw_local_solar_lunar": {"year": 1994, "month": 4, "day": 7, "is_leap_month": false},
+      "effective_ziwei_lunar": {"year": 1994, "month": 4, "day": 8, "is_leap_month": false},
+      "expected_bazi_day_pillar": "甲辰",
+      "life_branch": "巳",
+      "body_branch": "巳",
+      "bureau": ["木", 3, "己巳"],
+      "placements": {
+        "STAR.ZIWEI": "卯", "STAR.TIANJI": "寅", "STAR.TAIYANG": "子", "STAR.WUQU": "亥", "STAR.TIANTONG": "戌", "STAR.LIANZHEN": "未",
+        "STAR.TIANFU": "丑", "STAR.TAIYIN": "寅", "STAR.TANLANG": "卯", "STAR.JUMEN": "辰", "STAR.TIANXIANG": "巳", "STAR.TIANLIANG": "午", "STAR.QISHA": "未", "STAR.POJUN": "亥",
+        "STAR.WENCHANG": "戌", "STAR.WENQU": "辰", "STAR.ZUOFU": "未", "STAR.YOUBI": "未", "STAR.TIANKUI": "丑", "STAR.TIANYUE": "未", "STAR.TIANMA": "申", "STAR.LUCUN": "寅", "STAR.QINGYANG": "卯", "STAR.TUOLUO": "丑", "STAR.DIKONG": "亥", "STAR.DIJIE": "亥"
+      },
+      "observed_fire_bell": {"STAR.HUOXING": "丑", "STAR.LINGXING": "卯"}
+    },
+    {
+      "id": "WENMO-CHARTDIFF-005",
+      "input": "1991-06-15T12:00:00",
+      "displayed_true_solar_minute": "1991-06-15T11:45",
+      "gui_raw_lunar": {"year": 1991, "month": 5, "day": 4, "is_leap_month": false},
+      "life_branch": "子",
+      "body_branch": "子",
+      "bureau": ["土", 5, "庚子"],
+      "placements": {
+        "STAR.ZIWEI": "丑", "STAR.TIANJI": "子", "STAR.TAIYANG": "戌", "STAR.WUQU": "酉", "STAR.TIANTONG": "申", "STAR.LIANZHEN": "巳",
+        "STAR.TIANFU": "卯", "STAR.TAIYIN": "辰", "STAR.TANLANG": "巳", "STAR.JUMEN": "午", "STAR.TIANXIANG": "未", "STAR.TIANLIANG": "申", "STAR.QISHA": "酉", "STAR.POJUN": "丑",
+        "STAR.WENCHANG": "辰", "STAR.WENQU": "戌", "STAR.ZUOFU": "申", "STAR.YOUBI": "午", "STAR.TIANKUI": "寅", "STAR.TIANYUE": "午", "STAR.TIANMA": "巳", "STAR.LUCUN": "酉", "STAR.QINGYANG": "戌", "STAR.TUOLUO": "申", "STAR.DIKONG": "巳", "STAR.DIJIE": "巳"
+      },
+      "strict_qs_kui_yue_counterfactual": {"STAR.TIANKUI": "午", "STAR.TIANYUE": "寅"},
+      "observed_fire_bell": {"STAR.HUOXING": "卯", "STAR.LINGXING": "辰"}
+    }
+  ]
+}
