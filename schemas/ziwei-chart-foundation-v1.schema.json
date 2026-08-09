@@ -71,13 +71,14 @@
     },
     "dignityAnnotation": {
       "type": "object", "additionalProperties": false,
-      "required": ["annotation_id", "annotation_type", "target_entity_id", "target_address", "grade", "scale_id", "scale_version", "rule_set_id", "rule_set_version", "generator_id", "algorithm_version", "source_refs"],
+      "required": ["annotation_id", "annotation_type", "target_entity_id", "target_address", "status", "grade", "scale_id", "scale_version", "rule_set_id", "rule_set_version", "generator_id", "algorithm_version", "source_refs"],
       "properties": {
         "annotation_id": {"type": "string", "minLength": 1},
         "annotation_type": {"const": "DIGNITY"},
         "target_entity_id": {"type": "string", "minLength": 1},
         "target_address": {"$ref": "#/$defs/address"},
-        "grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷"]},
+        "status": {"enum": ["GRADED", "UNRATED"]},
+        "grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷", null]},
         "scale_id": {"type": "string", "minLength": 1},
         "scale_version": {"type": "string", "minLength": 1},
         "rule_set_id": {"type": "string", "minLength": 1},
@@ -85,7 +86,11 @@
         "generator_id": {"type": "string", "minLength": 1},
         "algorithm_version": {"type": "string", "minLength": 1},
         "source_refs": {"$ref": "#/$defs/sourceRefs"}
-      }
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "GRADED"}}}, "then": {"properties": {"grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷"]}}}},
+        {"if": {"properties": {"status": {"const": "UNRATED"}}}, "then": {"properties": {"grade": {"type": "null"}}}}
+      ]
     },
     "transformationActivation": {
       "type": "object", "additionalProperties": false,
