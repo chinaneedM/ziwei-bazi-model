@@ -47,8 +47,8 @@ class MainStarGenerator:
         # Reflection of the Ziwei anchor across the 寅申 diameter in Z12.
         return (4 - ziwei_index) % 12
 
-    def generate(self, lunar_day: int, bureau_number: int) -> tuple[Placement, ...]:
-        ziwei = self.ziwei_anchor(lunar_day, bureau_number)
+    def generate_from_ziwei_anchor(self, ziwei_index: int) -> tuple[Placement, ...]:
+        ziwei = ziwei_index % 12
         tianfu = self.tianfu_anchor(ziwei)
         rows: list[Placement] = []
         for entity_id, display_name, offset in ZIWEI_GROUP:
@@ -72,3 +72,6 @@ class MainStarGenerator:
                 )
             )
         return tuple(rows)
+
+    def generate(self, lunar_day: int, bureau_number: int) -> tuple[Placement, ...]:
+        return self.generate_from_ziwei_anchor(self.ziwei_anchor(lunar_day, bureau_number))
