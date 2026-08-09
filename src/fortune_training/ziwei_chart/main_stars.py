@@ -9,6 +9,9 @@ from .registries import address
 MAIN_STAR_ALGORITHM_ID = "ZIWEI-FOURTEEN-MAIN-STARS-V1"
 MAIN_STAR_ALGORITHM_VERSION = "1.0.0"
 
+ZIWEI_SOURCE_REFS = ("S01:ZZZA-PR-012", "S01:ZZZA-PR-014")
+TIANFU_SOURCE_REFS = ("S01:ZZZA-PR-013", "S01:ZZZA-PR-015")
+
 ZIWEI_GROUP = (
     ("STAR.ZIWEI", "紫微", 0),
     ("STAR.TIANJI", "天机", -1),
@@ -59,6 +62,7 @@ class MainStarGenerator:
                     address=address(ziwei + offset),
                     generator_id=MAIN_STAR_ALGORITHM_ID,
                     algorithm_version=MAIN_STAR_ALGORITHM_VERSION,
+                    source_refs=ZIWEI_SOURCE_REFS,
                 )
             )
         for entity_id, display_name, offset in TIANFU_GROUP:
@@ -69,6 +73,7 @@ class MainStarGenerator:
                     address=address(tianfu + offset),
                     generator_id=MAIN_STAR_ALGORITHM_ID,
                     algorithm_version=MAIN_STAR_ALGORITHM_VERSION,
+                    source_refs=TIANFU_SOURCE_REFS,
                 )
             )
         return tuple(rows)
