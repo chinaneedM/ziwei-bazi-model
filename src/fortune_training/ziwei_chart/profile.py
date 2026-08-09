@@ -13,6 +13,12 @@ from .auxiliary import (
     WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
 )
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
+from .minor_stars import (
+    MINOR_STAR_ALGORITHM_ID,
+    MINOR_STAR_ALGORITHM_VERSION,
+    WENMO_DEFAULT_MINOR_RULE_SET_ID,
+    WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
+)
 from .natal import NATAL_STRUCTURE_ALGORITHM_ID, NATAL_STRUCTURE_ALGORITHM_VERSION
 from .roles import (
     QS_ROLE_RULE_SET_ID,
@@ -41,6 +47,10 @@ class ResolvedZiweiCalculationProfile:
     auxiliary_rule_set_version: str | None = None
     auxiliary_algorithm_id: str | None = None
     auxiliary_algorithm_version: str | None = None
+    minor_rule_set_id: str | None = None
+    minor_rule_set_version: str | None = None
+    minor_algorithm_id: str | None = None
+    minor_algorithm_version: str | None = None
     role_rule_set_id: str | None = None
     role_rule_set_version: str | None = None
     role_algorithm_id: str | None = None
@@ -96,6 +106,24 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported auxiliary algorithm id")
             if self.auxiliary_algorithm_version != AUXILIARY_ALGORITHM_VERSION:
                 raise ValueError("unsupported auxiliary algorithm version")
+
+        minor_values = (
+            self.minor_rule_set_id,
+            self.minor_rule_set_version,
+            self.minor_algorithm_id,
+            self.minor_algorithm_version,
+        )
+        if any(value is not None for value in minor_values):
+            if any(value is None for value in minor_values):
+                raise ValueError("minor-star profile binding must be fully specified or fully disabled")
+            if self.minor_rule_set_id != WENMO_DEFAULT_MINOR_RULE_SET_ID:
+                raise ValueError(f"unsupported minor-star rule set: {self.minor_rule_set_id}")
+            if self.minor_rule_set_version != WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
+                raise ValueError("unsupported minor-star rule-set version")
+            if self.minor_algorithm_id != MINOR_STAR_ALGORITHM_ID:
+                raise ValueError("unsupported minor-star algorithm id")
+            if self.minor_algorithm_version != MINOR_STAR_ALGORITHM_VERSION:
+                raise ValueError("unsupported minor-star algorithm version")
 
         role_values = (
             self.role_rule_set_id,
