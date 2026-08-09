@@ -75,6 +75,7 @@ class ZiweiNatalStructureTests(unittest.TestCase):
         self.assertEqual("丙寅", result.bureau.life_palace_ganzhi)
         self.assertEqual("炉中火", result.bureau.nayin_name)
         self.assertEqual(("火", 6), (result.bureau.element, result.bureau.number))
+        self.assertTrue(all(step.source_refs for step in result.trace))
 
     def test_leap_month_policy_is_scoped_to_natal_month_coordinate(self):
         common = dict(
@@ -123,18 +124,15 @@ class ZiweiMainStarTests(unittest.TestCase):
     def test_main_star_configuration_covaries_under_half_turn(self):
         generator = MainStarGenerator()
         for ziwei in range(6):
-            first = {
-                row.entity_id: row.address.index
-                for row in generator.generate_from_ziwei_anchor(ziwei)
-            }
-            second = {
-                row.entity_id: row.address.index
-                for row in generator.generate_from_ziwei_anchor(ziwei + 6)
-            }
+            first_rows = generator.generate_from_ziwei_anchor(ziwei)
+            second_rows = generator.generate_from_ziwei_anchor(ziwei + 6)
+            first = {row.entity_id: row.address.index for row in first_rows}
+            second = {row.entity_id: row.address.index for row in second_rows}
             self.assertEqual(
                 {entity: (index + 6) % 12 for entity, index in first.items()},
                 second,
             )
+            self.assertTrue(all(row.source_refs for row in first_rows + second_rows))
 
 
 class ZiweiChartIntegrationTests(unittest.TestCase):
@@ -169,6 +167,8 @@ class ZiweiChartIntegrationTests(unittest.TestCase):
         self.assertEqual(12, len(chart["structure"]["designation_bindings"]))
         self.assertEqual(14, len(chart["placements"]))
         self.assertEqual(14, len({row["entity_id"] for row in chart["placements"]}))
+        self.assertTrue(all(row["source_refs"] for row in chart["placements"]))
+        self.assertTrue(all(step["source_refs"] for step in chart["structure"]["trace"]))
 
     def test_harmless_time_uncertainty_deduplicates_to_one_ziwei_chart(self):
         registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
