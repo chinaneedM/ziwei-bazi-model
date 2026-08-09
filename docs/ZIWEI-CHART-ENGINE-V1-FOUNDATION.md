@@ -4,7 +4,7 @@
 
 The shared Time/Calendar Foundation and the Ziwei foundation core are stable.
 The implementation now extends through natal placements, operational content,
-typed roles/rings/transformations and a separate temporal-frame runtime.
+typed roles/rings/transformations, temporal frames and fail-closed integrity/hash validation.
 
 Implemented:
 
@@ -21,7 +21,9 @@ Implemented:
 - Daxian and Annual reuse the same transformation generator without moving natal stars;
 - immutable resolved profile bindings for Time/Calendar, auxiliary, minor-star,
   transformation, temporal, ring and role rule identities/versions;
-- machine-readable schemas, provenance and fail-closed diagnostics.
+- fail-closed natal and temporal integrity validation;
+- separate deterministic `FactHash` and `ComputationHash` semantics;
+- machine-readable schemas, provenance and diagnostics.
 
 Still outside the current implementation slice:
 
@@ -29,8 +31,7 @@ Still outside the current implementation slice:
 - a complete operational Dignity registry (tracked by GitHub issue #180);
 - temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a
   separately typed 斗君/月 frame runtime if promoted into V1;
-- integrity/hash finalization;
-- renderer/UI;
+- renderer/ViewModel separation and UI;
 - general ChartDiff automation beyond frozen Wenmo fixtures;
 - interpretation or prediction.
 
@@ -72,15 +73,41 @@ BirthInput
    -> natal TransformationActivation overlay
    -> Ring state
    -> RoleBinding state
+   -> IntegrityReport
+   -> FactHash / ComputationHash
 
 NatalChartState + absolute Ziwei birth year + Sex + resolved profile
 -> ZiweiTemporalEngine
    -> DaxianFrame[]
    -> AnnualFrame[]
    -> MinorLimitFrame[]
+   -> IntegrityReport
+   -> FactHash / ComputationHash
 ```
 
 Temporal state is deliberately separate from `NatalChartState`.
+
+## Integrity and hash semantics
+
+Generated state is not returned as resolved merely because all generators ran.
+It must also pass typed integrity checks covering structure topology, unique
+physical entity identity, provenance, transformation-target immutability, ring
+cardinality/topology and temporal-frame invariants. Invalid generated state fails closed.
+
+Two hash layers are deliberately distinct:
+
+```text
+FactHash
+  = canonical generated facts only
+
+ComputationHash
+  = FactHash + resolved profile + algorithm/generator versions + provenance lineage
+```
+
+Display-label-only changes do not change either hash. A provenance, algorithm or
+profile identity change can preserve `FactHash` while changing `ComputationHash`.
+A physical chart fact change changes both. This allows two historical/operational
+profiles to produce identical chart facts without losing their distinct computation lineage.
 
 ## Canonical and compatibility authority
 
@@ -107,7 +134,7 @@ geometry:
 Wenmo fixtures remain explicitly
 `EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY`.
 
-The 2001-12-15 辛巳 fixture now externally checks:
+The 2001-12-15 辛巳 fixture externally checks:
 
 - Fire/Bell, dependency stars, roles and 35 operational minor stars;
 - all four rings / 48 ring members;
@@ -141,7 +168,11 @@ Regression coverage now includes:
 - exact 12-Daxian Wenmo regression for the 2001 金四局 阴男 chart;
 - Annual samples proving year-stem 四化 is separate from Annual-Life palace stem;
 - Minor Limit male/female direction rules and exact age 1-12 Wenmo regression;
-- pre-first-Daxian Annual frames preserved with no invented Daxian parent.
+- pre-first-Daxian Annual frames preserved with no invented Daxian parent;
+- natal and temporal integrity success/failure cases;
+- deterministic 64-hex fact/computation hashes;
+- display/provenance/profile/fact mutation tests proving the intended two-layer hash semantics;
+- injected invalid generated state proving the public chart engine fails closed before return.
 
 Run the full repository checks with:
 
@@ -153,5 +184,5 @@ fortune-train verify
 ## Release boundary
 
 Passing these stages still does **not** mean Ziwei Chart Engine V1 is complete.
-The main remaining V1 gates are Dignity/content closure, integrity/hash
-finalization, renderer separation and wider operational compatibility regression.
+The main remaining V1 gates are Dignity/content closure, renderer separation and
+wider operational compatibility regression.
