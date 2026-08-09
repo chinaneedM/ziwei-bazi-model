@@ -7,11 +7,11 @@ from .registries import address
 
 
 AUXILIARY_ALGORITHM_ID = "ZIWEI-CORE-AUXILIARY-V1"
-AUXILIARY_ALGORITHM_VERSION = "1.0.1"
+AUXILIARY_ALGORITHM_VERSION = "1.1.0"
 QS_CORE_AUX_RULE_SET_ID = "QS_EWITNESS_CORE_AUX_R1"
 QS_CORE_AUX_RULE_SET_VERSION = "1.0.0"
 WENMO_DEFAULT_CORE_AUX_RULE_SET_ID = "WENMO_DEFAULT_CORE_AUX_R1"
-WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION = "1.0.0"
+WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION = "1.1.0"
 
 
 class AuxiliaryGenerationError(ValueError):
@@ -69,6 +69,32 @@ TIANMA_BY_BRANCH = {
 BRANCH_TO_INDEX = {
     "子": 0, "丑": 1, "寅": 2, "卯": 3, "辰": 4, "巳": 5,
     "午": 6, "未": 7, "申": 8, "酉": 9, "戌": 10, "亥": 11,
+}
+
+# Wenmo default Fire/Bell behavior, reconstructed only after all four year-branch
+# trine classes received an external discriminator fixture. Values are the
+# Zi-hour starting branches; both stars then advance one address per hour.
+# This table is compatibility evidence, not canonical-source authority.
+WENMO_FIRE_BELL_BY_YEAR_BRANCH = {
+    # 寅午戌: CHARTDIFF-004 gives 戌年子时 -> 火丑 / 铃卯.
+    "寅": ("丑", "卯", ("COMPAT:WENMO-CHARTDIFF-004",)),
+    "午": ("丑", "卯", ("COMPAT:WENMO-CHARTDIFF-004",)),
+    "戌": ("丑", "卯", ("COMPAT:WENMO-CHARTDIFF-004",)),
+    # 申子辰: CHARTDIFF-002/003 give 子年午时 -> 火申 / 铃辰.
+    "申": ("寅", "戌", ("COMPAT:WENMO-CHARTDIFF-002", "COMPAT:WENMO-CHARTDIFF-003")),
+    "子": ("寅", "戌", ("COMPAT:WENMO-CHARTDIFF-002", "COMPAT:WENMO-CHARTDIFF-003")),
+    "辰": ("寅", "戌", ("COMPAT:WENMO-CHARTDIFF-002", "COMPAT:WENMO-CHARTDIFF-003")),
+    # 巳酉丑: CHARTDIFF-006 gives 巳年午时 -> 火酉 / 铃辰.
+    "巳": ("卯", "戌", ("COMPAT:WENMO-CHARTDIFF-006",)),
+    "酉": ("卯", "戌", ("COMPAT:WENMO-CHARTDIFF-006",)),
+    "丑": ("卯", "戌", ("COMPAT:WENMO-CHARTDIFF-006",)),
+    # 亥卯未: CHARTDIFF-005 directly reports 未年午时 -> 火卯 / 铃辰.
+    # That fixture is not an end-to-end time oracle because of historical DST,
+    # but its Wenmo-declared year/hour and displayed Fire/Bell pair remain a
+    # valid rule-family discriminator.
+    "亥": ("酉", "戌", ("COMPAT:WENMO-CHARTDIFF-005",)),
+    "卯": ("酉", "戌", ("COMPAT:WENMO-CHARTDIFF-005",)),
+    "未": ("酉", "戌", ("COMPAT:WENMO-CHARTDIFF-005",)),
 }
 
 
@@ -179,8 +205,8 @@ class WenmoDefaultCoreAuxiliaryGenerator(QSCoreAuxiliaryGenerator):
     """Operational compatibility rule set reconstructed from Wenmo default fixtures.
 
     This is not canonical-source authority. Shared rules inherit the canonical primitives;
-    the leap-month month-coordinate and 辛-year Kui/Yue differences are explicitly
-    provenance-bound to external compatibility fixtures.
+    Wenmo-only differences remain explicitly provenance-bound to external compatibility
+    fixtures instead of mutating the strict QS rule family.
     """
 
     rule_set_id = WENMO_DEFAULT_CORE_AUX_RULE_SET_ID
@@ -206,6 +232,19 @@ class WenmoDefaultCoreAuxiliaryGenerator(QSCoreAuxiliaryGenerator):
             _placement("STAR.TIANYUE", "天钺", BRANCH_TO_INDEX[yue_branch], refs),
         )
 
+    @staticmethod
+    def fire_bell(year_branch: str, hour_index: int) -> tuple[Placement, Placement]:
+        if not 0 <= hour_index < 12:
+            raise ValueError("hour_index must be in [0, 11]")
+        try:
+            fire_start, bell_start, refs = WENMO_FIRE_BELL_BY_YEAR_BRANCH[year_branch]
+        except KeyError as exc:
+            raise ValueError(f"unsupported year branch for Wenmo Fire/Bell: {year_branch}") from exc
+        return (
+            _placement("STAR.HUOXING", "火星", BRANCH_TO_INDEX[fire_start] + hour_index, refs),
+            _placement("STAR.LINGXING", "铃星", BRANCH_TO_INDEX[bell_start] + hour_index, refs),
+        )
+
     def generate(self, context: AuxiliaryContext) -> tuple[Placement, ...]:
         hour_index = context.birth_hour_branch.index
         month_coordinate = self._month_coordinate(context)
@@ -221,4 +260,5 @@ class WenmoDefaultCoreAuxiliaryGenerator(QSCoreAuxiliaryGenerator):
         rows.extend(self.tianma(context.ziwei_birth_year_branch))
         rows.extend(self.lucun_yang_tuo(context.ziwei_birth_year_stem))
         rows.extend(self.hour_void_robbery(hour_index))
+        rows.extend(self.fire_bell(context.ziwei_birth_year_branch, hour_index))
         return tuple(rows)
