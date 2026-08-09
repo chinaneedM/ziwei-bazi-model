@@ -8,6 +8,7 @@ from .dignity import (
     OperationalMainStarDignityGenerator,
     OperationalZiweiDignityGenerator,
 )
+from .dignity_r3 import OperationalFullZiweiDignityGenerator
 from .engine import ZiweiChartFoundation, ZiweiChartRequest
 from .integrity import (
     HashBundle,
@@ -73,6 +74,7 @@ __all__ = [
     "NatalStructureGenerator",
     "NatalStructureInput",
     "NatalStructureState",
+    "OperationalFullZiweiDignityGenerator",
     "OperationalMainStarDignityGenerator",
     "OperationalZiweiDignityGenerator",
     "PalaceViewCell",
@@ -103,4 +105,4 @@ __all__ = [
     "validate_temporal_state",
 ]
 
-__version__ = "0.11.0"
+__version__ = "0.12.0"
