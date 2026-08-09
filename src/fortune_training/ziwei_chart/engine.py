@@ -23,6 +23,13 @@ from .derived_auxiliary import (
     DerivedAuxiliaryGenerator,
 )
 from .main_stars import MainStarGenerator
+from .minor_stars import (
+    MINOR_STAR_ALGORITHM_VERSION,
+    MinorStarContext,
+    MinorStarGenerationError,
+    WENMO_DEFAULT_MINOR_RULE_SET_ID,
+    WenmoDefaultMinorStarGenerator,
+)
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
@@ -52,6 +59,7 @@ class ZiweiChartFoundation:
         self.qs_core_aux = QSCoreAuxiliaryGenerator()
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
         self.derived_aux = DerivedAuxiliaryGenerator()
+        self.wenmo_minor = WenmoDefaultMinorStarGenerator()
         self.qs_roles = QSRoleGenerator()
         self.wenmo_roles = WenmoDefaultRoleGenerator()
 
@@ -65,6 +73,11 @@ class ZiweiChartFoundation:
         if rule_set_id == WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
             return self.wenmo_core_aux
         raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
+
+    def _minor_generator(self, rule_set_id: str):
+        if rule_set_id == WENMO_DEFAULT_MINOR_RULE_SET_ID:
+            return self.wenmo_minor
+        raise ValueError(f"unsupported minor-star rule set: {rule_set_id}")
 
     def _role_generator(self, rule_set_id: str):
         if rule_set_id == QS_ROLE_RULE_SET_ID:
@@ -126,6 +139,24 @@ class ZiweiChartFoundation:
             algorithm_versions["core_auxiliary"] = request.profile.auxiliary_algorithm_version or ""
             algorithm_versions["derived_auxiliary"] = DERIVED_AUXILIARY_ALGORITHM_VERSION
 
+        if request.profile.minor_rule_set_id is not None:
+            minor_generator = self._minor_generator(request.profile.minor_rule_set_id)
+            placements.extend(
+                minor_generator.generate(
+                    MinorStarContext(
+                        ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
+                        ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
+                        raw_lunar_month=structure.raw_lunar_month,
+                        is_leap_month=bool(lunar["is_leap_month"]),
+                        lunar_day=structure.lunar_birth_day,
+                        birth_hour_branch=structure.birth_hour_branch,
+                        life_address=structure.life_address,
+                        body_address=structure.body_address,
+                    )
+                )
+            )
+            algorithm_versions["minor_stars"] = request.profile.minor_algorithm_version or MINOR_STAR_ALGORITHM_VERSION
+
         if request.profile.role_rule_set_id is not None:
             role_generator = self._role_generator(request.profile.role_rule_set_id)
             role_bindings = role_generator.generate(
@@ -171,7 +202,12 @@ class ZiweiChartFoundation:
                 if key not in unique:
                     unique[key] = {"chart": chart, "branch_indices": []}
                 unique[key]["branch_indices"].append(branch_index)
-        except (AuxiliaryGenerationError, DerivedAuxiliaryGenerationError, RoleGenerationError) as exc:
+        except (
+            AuxiliaryGenerationError,
+            DerivedAuxiliaryGenerationError,
+            MinorStarGenerationError,
+            RoleGenerationError,
+        ) as exc:
             return {
                 "schema": self.schema,
                 "status": "FAILED",
