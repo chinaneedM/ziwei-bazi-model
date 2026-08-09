@@ -32,7 +32,6 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
             defaults,
             bazi_day_boundary_policy="ZI_START_23",
             bazi_late_zi_hour_stem_policy="ZI_START_ROLLOVER",
-            ziwei_day_boundary_policy="ZI_START_23",
             ziwei_life_body_leap_month_policy="ZHONGZHOU_FIXED_15",
         )
         cls.wenmo_profile = ResolvedZiweiCalculationProfile(
@@ -40,6 +39,7 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
             profile_version="1.0.0",
             time_calendar_policy_registry_version=cls.registry.version,
             time_calendar_policies=cls.wenmo_policies,
+            ziwei_day_boundary_policy="ZI_START_23",
             auxiliary_rule_set_id=WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
             auxiliary_rule_set_version=WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
             auxiliary_algorithm_id=AUXILIARY_ALGORITHM_ID,
@@ -101,18 +101,20 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         self.assertEqual("申", case["placements"]["STAR.ZUOFU"])
         self.assertEqual("午", case["placements"]["STAR.YOUBI"])
 
-    def test_late_zi_rollover_keeps_raw_date_and_advances_effective_ziwei_date(self):
+    def test_late_zi_rollover_keeps_time_calendar_raw_and_advances_chart_coordinate(self):
         case = self._case("WENMO-CHARTDIFF-004")
         result = self._resolve(case)
         self._assert_common_chart(case, result)
         branch = result["time_calendar"]["branches"][0]
         raw = branch["ziwei_calendar"]["local_solar_lunar_date"]
-        effective = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        time_calendar_effective = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
         raw_expected = case["raw_local_solar_lunar"]
         effective_expected = case["effective_ziwei_lunar"]
         self.assertEqual((raw_expected["month"], raw_expected["day"]), (raw["month"], raw["day"]))
-        self.assertEqual((effective_expected["month"], effective_expected["day"]), (effective["month"], effective["day"]))
-        self.assertIn("ZIWEI_DAY_BOUNDARY_ROLLOVER", branch["ziwei_calendar"]["events"])
+        self.assertEqual((raw_expected["month"], raw_expected["day"]), (time_calendar_effective["month"], time_calendar_effective["day"]))
+        structure = result["charts"][0]["structure"]
+        self.assertEqual((effective_expected["month"], effective_expected["day"]), (structure["raw_lunar_month"], structure["lunar_birth_day"]))
+        self.assertEqual("ZI_START_23", result["calculation_profile"]["ziwei_day_boundary_policy"])
         self.assertEqual(case["expected_bazi_day_pillar"], branch["bazi_time"]["day_pillar"])
 
     def test_xin_year_kui_yue_is_profile_discriminating_not_a_global_override(self):
@@ -128,6 +130,7 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
             profile_version="1.0.0",
             time_calendar_policy_registry_version=self.registry.version,
             time_calendar_policies=self.wenmo_policies,
+            ziwei_day_boundary_policy="ZI_START_23",
             auxiliary_rule_set_id=QS_CORE_AUX_RULE_SET_ID,
             auxiliary_rule_set_version=QS_CORE_AUX_RULE_SET_VERSION,
             auxiliary_algorithm_id=AUXILIARY_ALGORITHM_ID,
