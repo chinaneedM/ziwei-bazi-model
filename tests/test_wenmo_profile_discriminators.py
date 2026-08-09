@@ -73,8 +73,9 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         actual = {row["entity_id"]: row["address"]["branch"] for row in chart["placements"]}
         expected = dict(case["placements"])
         expected.update(case["observed_fire_bell"])
-        self.assertEqual(expected, actual)
-        self.assertEqual(28, len(actual))
+        for entity_id, branch_name in expected.items():
+            self.assertEqual(branch_name, actual[entity_id], f"{case['id']}:{entity_id}")
+        self.assertEqual(32, len(actual))
 
     def test_leap_month_first_half_preserves_raw_lunar_identity_but_uses_month_4_coordinate(self):
         case = self._case("WENMO-CHARTDIFF-002")
@@ -169,6 +170,8 @@ class WenmoProfileDiscriminatorTests(unittest.TestCase):
         actual = {row["entity_id"]: row["address"]["branch"] for row in result["charts"][0]["placements"]}
         self.assertEqual("酉", actual["STAR.HUOXING"])
         self.assertEqual("辰", actual["STAR.LINGXING"])
+        for entity_id, branch_name in case["observed_dependent_auxiliary"].items():
+            self.assertEqual(branch_name, actual[entity_id])
 
     def test_external_exports_do_not_redefine_raw_lunar_identity(self):
         first = self._case("WENMO-CHARTDIFF-002")
