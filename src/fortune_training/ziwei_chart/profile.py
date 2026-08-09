@@ -15,8 +15,8 @@ from .auxiliary import (
 from .dignity import (
     DIGNITY_ALGORITHM_ID,
     DIGNITY_ALGORITHM_VERSION,
-    WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID,
-    WENMO_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
+    OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID,
+    OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION,
 )
 from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
 from .minor_stars import (
@@ -159,9 +159,9 @@ class ResolvedZiweiCalculationProfile:
                 raise ValueError("unsupported minor-star algorithm identity/version")
 
         if self.dignity_rule_set_id is not None:
-            if self.dignity_rule_set_id != WENMO_MAIN_STAR_DIGNITY_RULE_SET_ID:
+            if self.dignity_rule_set_id != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID:
                 raise ValueError(f"unsupported dignity rule set: {self.dignity_rule_set_id}")
-            if self.dignity_rule_set_version != WENMO_MAIN_STAR_DIGNITY_RULE_SET_VERSION:
+            if self.dignity_rule_set_version != OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_VERSION:
                 raise ValueError("unsupported dignity rule-set version")
             if self.dignity_algorithm_id != DIGNITY_ALGORITHM_ID or self.dignity_algorithm_version != DIGNITY_ALGORITHM_VERSION:
                 raise ValueError("unsupported dignity algorithm identity/version")
