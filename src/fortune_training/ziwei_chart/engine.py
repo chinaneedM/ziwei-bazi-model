@@ -29,6 +29,10 @@ from .dignity_r3 import (
     OPERATIONAL_FULL_DIGNITY_RULE_SET_ID,
     OperationalFullZiweiDignityGenerator,
 )
+from .dignity_r4 import (
+    OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
+    OperationalZiweiDignityR4Generator,
+)
 from .integrity import natal_hash_bundle, validate_natal_chart
 from .main_stars import MainStarGenerator
 from .minor_stars import (
@@ -36,7 +40,12 @@ from .minor_stars import (
     MinorStarContext,
     MinorStarGenerationError,
     WENMO_DEFAULT_MINOR_RULE_SET_ID,
+    WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
     WenmoDefaultMinorStarGenerator,
+)
+from .minor_stars_r4 import (
+    WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION,
+    WenmoDefaultMinorStarR4Generator,
 )
 from .models import NatalChartState, Sex
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -80,9 +89,11 @@ class ZiweiChartFoundation:
         self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
         self.derived_aux = DerivedAuxiliaryGenerator()
         self.wenmo_minor = WenmoDefaultMinorStarGenerator()
+        self.wenmo_minor_r4 = WenmoDefaultMinorStarR4Generator()
         self.operational_main_dignity = OperationalMainStarDignityGenerator()
         self.operational_dignity = OperationalZiweiDignityGenerator()
         self.operational_full_dignity = OperationalFullZiweiDignityGenerator()
+        self.operational_r4_dignity = OperationalZiweiDignityR4Generator()
         self.transformations = TransformationGenerator()
         self.wenmo_rings = WenmoDefaultRingGenerator()
         self.qs_roles = QSRoleGenerator()
@@ -99,10 +110,13 @@ class ZiweiChartFoundation:
             return self.wenmo_core_aux
         raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
 
-    def _minor_generator(self, rule_set_id: str):
+    def _minor_generator(self, rule_set_id: str, rule_set_version: str):
         if rule_set_id == WENMO_DEFAULT_MINOR_RULE_SET_ID:
-            return self.wenmo_minor
-        raise ValueError(f"unsupported minor-star rule set: {rule_set_id}")
+            if rule_set_version == WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
+                return self.wenmo_minor
+            if rule_set_version == WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION:
+                return self.wenmo_minor_r4
+        raise ValueError(f"unsupported minor-star rule set/version: {rule_set_id}:{rule_set_version}")
 
     def _dignity_generator(self, rule_set_id: str):
         if rule_set_id == OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID:
@@ -111,6 +125,8 @@ class ZiweiChartFoundation:
             return self.operational_dignity
         if rule_set_id == OPERATIONAL_FULL_DIGNITY_RULE_SET_ID:
             return self.operational_full_dignity
+        if rule_set_id == OPERATIONAL_R4_DIGNITY_RULE_SET_ID:
+            return self.operational_r4_dignity
         raise ValueError(f"unsupported dignity rule set: {rule_set_id}")
 
     def _transformation_generator(self, rule_set_id: str):
@@ -183,7 +199,10 @@ class ZiweiChartFoundation:
 
         if request.profile.minor_rule_set_id is not None:
             placements.extend(
-                self._minor_generator(request.profile.minor_rule_set_id).generate(
+                self._minor_generator(
+                    request.profile.minor_rule_set_id,
+                    request.profile.minor_rule_set_version or "",
+                ).generate(
                     MinorStarContext(
                         ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
                         ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
