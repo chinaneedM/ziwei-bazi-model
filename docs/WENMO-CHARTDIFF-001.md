@@ -17,7 +17,7 @@ The fixture intentionally omits the displayed personal name. It stores only the 
 
 ## Layered result
 
-### Common deterministic scope: MATCH
+### Common deterministic scope: MATCH after calibration fixes
 
 Current engine and Wenmo agree on all fields implemented in the shared comparison scope for this fixture:
 
@@ -40,6 +40,28 @@ The current common-scope placement regression therefore compares exactly 26 gene
 
 This is a **case-output match**, not a claim that the Wenmo default Profile and the current runtime default/QS Profile are globally equivalent.
 
+## Defects discovered and corrected by the first external diff
+
+### 1. 廉贞 relative-offset off-by-one
+
+The first machine comparison failed because the main-star generator used `STAR.LIANZHEN` offset `-7`, which put 廉贞 in 卯 when 紫微 was in 戌. Wenmo placed 廉贞 in 寅.
+
+Re-reading canonical `ZZZA-PR-014` shows the intended grammar: after 天同, **隔二**安廉贞. The two intervening addresses are 辰 and 卯, therefore 廉贞 itself is 寅. The correct relative offset is `-8`.
+
+The main-star algorithm version is bumped from `1.0.0` to `1.0.1`, and a new all-12-anchor relative-layout regression protects the interpretation of intervening-palace counts.
+
+### 2. 地空 / 天空 entity collision
+
+The strict QS e-witness uses the historical label `天空` in the paired hour rule with 地劫. The repository primitive `ZZZA-PR-018` and Wenmo both identify the corresponding modern normalized entity as 地空, while Wenmo separately places another small-star 天空 in 亥.
+
+Keeping the generated entity as `AUX.HOUR_VOID / 天空` would collapse two distinct entities. CHARTDIFF-001 therefore normalizes the paired hour entity to:
+
+- entity id: `STAR.DIKONG`
+- display name: `地空`
+- source refs: retain the QS e-witness plus the project primitive, so the historical alias remains auditable.
+
+The separate 天空 entity is not yet implemented and must receive its own identity/generator later.
+
 ## Profile discriminators exposed by the default-setting screenshots
 
 The default settings reveal at least three rule differences that this particular non-boundary, non-leap, 甲-year birth does not activate:
@@ -60,18 +82,6 @@ The default settings reveal at least three rule differences that this particular
    - consequence: this 甲-year fixture cannot validate cross-Profile Kui/Yue equivalence; a 辛-year discriminator fixture is required.
 
 These are Profile differences, not bugs in the current matched fixture.
-
-## Entity correction discovered by the diff
-
-The strict QS e-witness uses the historical label `天空` in the paired hour rule with 地劫. The repository primitive `ZZZA-PR-018` and Wenmo both identify the corresponding modern normalized entity as 地空, while Wenmo separately places another small-star 天空 in 亥.
-
-Keeping the generated entity as `AUX.HOUR_VOID / 天空` would collapse two distinct entities. CHARTDIFF-001 therefore normalizes the paired hour entity to:
-
-- entity id: `STAR.DIKONG`
-- display name: `地空`
-- source refs: retain the QS e-witness plus the project primitive, so the historical alias remains auditable.
-
-The separate 天空 entity is not yet implemented and must receive its own identity/generator later.
 
 ## Confirmed profile / scope differences, not bugs
 
