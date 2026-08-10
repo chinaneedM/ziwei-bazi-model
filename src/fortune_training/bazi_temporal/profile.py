@@ -13,7 +13,7 @@ DAYUN_SEQUENCE_RULE_SET_ID = "BAZI-DAYUN-MONTH-PILLAR-SEQUENCE-R1"
 DAYUN_SEQUENCE_RULE_SET_VERSION = "1.0.0"
 
 TEMPORAL_ALGORITHM_ID = "BAZI-DAYUN-TEMPORAL-ENGINE-V1"
-TEMPORAL_ALGORITHM_VERSION = "1.0.0"
+TEMPORAL_ALGORITHM_VERSION = "1.0.1"
 
 
 @dataclass(frozen=True)
@@ -26,6 +26,7 @@ class ResolvedBaziTemporalProfile:
     direction_rule_set_version: str = DIRECTION_RULE_SET_VERSION
     anchor_rule_set_id: str = ANCHOR_RULE_SET_ID
     anchor_rule_set_version: str = ANCHOR_RULE_SET_VERSION
+    exact_jie_tie_policy: str = "FAIL_CLOSED"
     interval_coordinate_policy: str = "ABSOLUTE_UTC_DURATION"
     interval_granularity_rule_set: str = "MODERN_CONTINUOUS_MICROSECOND"
     symbolic_age_rule_set_id: str = SYMBOLIC_AGE_RULE_SET_ID
@@ -47,6 +48,7 @@ class ResolvedBaziTemporalProfile:
             "direction_rule_set_version": DIRECTION_RULE_SET_VERSION,
             "anchor_rule_set_id": ANCHOR_RULE_SET_ID,
             "anchor_rule_set_version": ANCHOR_RULE_SET_VERSION,
+            "exact_jie_tie_policy": "FAIL_CLOSED",
             "interval_coordinate_policy": "ABSOLUTE_UTC_DURATION",
             "interval_granularity_rule_set": "MODERN_CONTINUOUS_MICROSECOND",
             "symbolic_age_rule_set_id": SYMBOLIC_AGE_RULE_SET_ID,
