@@ -5,15 +5,15 @@
 ```text
 RELEASE_ID=ZIWEI-CHART-ENGINE-V1
 RELEASE_VERSION=1.0.0
-STATUS=RELEASE_CANDIDATE
+STATUS=FROZEN_V1
 FOUNDATION_BASE=PHASE-01-R1
 ISSUE=#190
 PR=#191
 ```
 
-This document freezes the deterministic Ziwei chart-generation contract only after
-all release gates pass. It does not define interpretation, prediction, training,
-model-learning or graphical UI behavior.
+This document freezes the deterministic Ziwei chart-generation contract. It does
+not define interpretation, prediction, training, model-learning or graphical UI
+behavior.
 
 ## Frozen calculation profile
 
@@ -220,8 +220,7 @@ published V1 API/schema contract.
 
 ## Release gates
 
-The candidate becomes `FROZEN_V1` only when all of the following pass on the final
-PR head:
+The frozen release requires all of the following to pass on the final PR head:
 
 ```text
 python -m pip install -e .
@@ -243,3 +242,7 @@ view JSON validates against its schema
 legacy R3 replay remains valid
 changed-file scope does not touch canonical/training/model-learning
 ```
+
+`STATUS=FROZEN_V1` is valid only while those gates remain green for the released
+commit. Any deterministic-contract change requires an explicit later release rather
+than silently mutating this profile identity.
