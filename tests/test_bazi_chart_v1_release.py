@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 import unittest
+from dataclasses import replace
 from datetime import datetime
 from pathlib import Path
 
@@ -25,27 +26,38 @@ class BaziChartV1ReleaseTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.engine = BaziChartFoundation.from_repository(ROOT)
         cls.profile = bazi_foundation_v1_profile(cls.engine.time_calendar.policy_registry)
-        cls.request = BaziChartRequest(
-            birth=BirthInput(
-                reported_local_datetime=datetime(1990, 6, 15, 12, 0),
-                birth_place="Beijing",
-                latitude=39.9042,
-                longitude=116.4074,
-                timezone_id="Asia/Shanghai",
-            ),
-            profile=cls.profile,
+        cls.birth = BirthInput(
+            reported_local_datetime=datetime(1990, 6, 15, 12, 0),
+            birth_place="Beijing",
+            latitude=39.9042,
+            longitude=116.4074,
+            timezone_id="Asia/Shanghai",
+        )
+        cls.request = BaziChartRequest(birth=cls.birth, profile=cls.profile)
+        cls.schema = json.loads(
+            (ROOT / "schemas" / "bazi-chart-foundation-v1.schema.json").read_text(encoding="utf-8")
         )
 
     def test_public_json_resolution_validates_against_published_schema(self):
         result = self.engine.resolve(self.request)
-        schema = json.loads((ROOT / "schemas" / "bazi-chart-foundation-v1.schema.json").read_text(encoding="utf-8"))
-        jsonschema.Draft202012Validator.check_schema(schema)
-        jsonschema.validate(result, schema)
+        jsonschema.Draft202012Validator.check_schema(self.schema)
+        jsonschema.validate(result, self.schema)
         self.assertEqual("BAZI-CHART-FOUNDATION-RESULT-V1", result["schema"])
         self.assertEqual(1, len(result["charts"]))
         self.assertEqual(1, len(result["temporal_seeds"]))
         self.assertEqual(1, len(result["hashes"]))
         self.assertEqual(1, len(result["integrity_reports"]))
+
+    def test_schema_tracks_all_registered_civil_ambiguity_policy_names(self):
+        for policy_name in ("REJECT", "EARLIER_OFFSET", "LATER_OFFSET"):
+            policies = replace(
+                self.profile.time_calendar_policies,
+                civil_ambiguous_time_policy=policy_name,
+            )
+            profile = replace(self.profile, time_calendar_policies=policies)
+            result = self.engine.resolve(BaziChartRequest(birth=self.birth, profile=profile))
+            jsonschema.validate(result, self.schema)
+            self.assertEqual(policy_name, result["calculation_profile"]["time_calendar_policies"]["civil_ambiguous_time_policy"])
 
     def test_json_and_typed_contract_reference_same_natal_facts(self):
         typed = self.engine.resolve_typed(self.request)
@@ -84,8 +96,12 @@ class BaziChartV1ReleaseTests(unittest.TestCase):
             text=True,
         )
         payload = json.loads(process.stdout)
+        jsonschema.validate(payload, self.schema)
         self.assertEqual("BAZI-CHART-FOUNDATION-RESULT-V1", payload["schema"])
-        self.assertEqual(["庚午", "壬午", "辛亥", "癸巳"], [row["ganzhi"] for row in payload["charts"][0]["pillars"]])
+        self.assertEqual(
+            ["庚午", "壬午", "辛亥", "癸巳"],
+            [row["ganzhi"] for row in payload["charts"][0]["pillars"]],
+        )
 
     def test_profile_is_frozen_to_bazi_only_time_policy_view(self):
         profile = self.profile
