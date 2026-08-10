@@ -4,7 +4,7 @@ Status: release candidate.
 
 ## Scope
 
-This runtime consumes one validated `BaziChartCandidate` and its preserved `BaziTemporalSeed` values. R1 resolves Dayun direction, Jie anchor, symbolic luck age, one explicit calendar-realization profile, Pre-Dayun, and a sequence of ten-year Dayun frames.
+This runtime consumes one validated `BaziChartCandidate` and its preserved `BaziTemporalSeed` values. R1 resolves Dayun direction, Jie anchor, symbolic luck age, explicit calendar-realization profiles, Pre-Dayun, and a sequence of ten-year Dayun frames.
 
 It does **not** implement Annual/Monthly axes, dynamic relation composition, strength, pattern, useful-god selection, ShenSha, derived coordinates, event prediction, or UI.
 
@@ -105,11 +105,40 @@ TemporalSeed IDs are lineage, not fact identity. Time instants are normalized to
 
 `TemporalComputationHash` additionally binds the resolved Temporal Profile and rule/source lineage.
 
+## Wenzhen China compatibility profile
+
+The A7--A11 external differential fixtures add a second, explicitly isolated profile:
+
+```text
+BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1
+source_class = THIRD_PARTY_COMPATIBILITY_WITNESS
+```
+
+It does not replace the continuous profile and is not shared calendar truth. Its observed behavior is:
+
+```text
+direction       = year-stem polarity x sex
+FORWARD anchor  = next Jie
+REVERSE anchor  = previous Jie
+interval        = birth local-apparent-solar clock vs Jie China-standard clock
+symbolic ratio  = exact x120 / three days one year
+realization     = combined (year * 12 + month) calendar-month displacement,
+                  then day and sub-day residual
+```
+
+The interval is intentionally asymmetric: the birth endpoint uses the birthplace's apparent-solar wall clock, while the Jie endpoint uses a fixed UTC+8 China-standard wall clock. A7--A10 show that moving the same reported birth from Beijing to Kashgar changes the symbolic age, and reversing Dayun direction mirrors that change.
+
+A11 is the leap-day discriminator. For the observed `1y8m3d7h`, the model first applies one combined 20-month displacement to 2024-02-29, reaching 2025-10-29, and only then adds three days and seven hours. Applying `+1 year` first and clamping to 2025-02-28 would incorrectly produce the prior civil date.
+
+Wenzhen exposes symbolic age at year/month/day/hour precision. The captured UI does not independently certify the realized transition minute or second. Engine microseconds remain deterministic for replay and frame continuity, but provenance is capped with `PRECISION_CEILING:WENZHEN_UI_HOUR_ONLY`; they must not be described as exact Wenzhen truth.
+
+The fixture file `tests/fixtures/bazi-dayun-wenzhen-compatibility-r1.json` preserves the third-party observations separately from the calculation profile. The current mixed-clock model reproduces every certified year/month/day component and the observed hour within the explicit unresolved subminute/location-coordinate envelope. This envelope is regression metadata, not permission to rewrite an observed UI value.
+
 ## External compatibility
 
 The Wenzhen A1 fixture already confirms the Dayun **direction and pillar sequence** for the fixed-UTC+8 compatibility chart, while also exposing a historical China DST difference in the natal hour. That difference does not alter the A1 month pillar, so both the authoritative historical-time chart and Wenzhen compatibility chart produce the same Dayun Ganzhi sequence.
 
-The next external discriminator is A7. It is designed specifically to determine how Wenzhen realizes the symbolic luck age into a civil transition date. The result will inform a separate Wenzhen compatibility profile; it will not rewrite this engineering profile or shared calendar truth.
+A7--A11 now bind the separate Wenzhen China compatibility profile described above. They do not rewrite the engineering profile or shared Time/Calendar truth. Remaining boundary work includes exact-Jie UI behavior, overseas timezones, historical China DST, and independently observable transition minute/second precision.
 
 ## Release gates
 
@@ -127,4 +156,7 @@ R1 release requires:
 - typed and machine-readable public contracts
 - repository `fortune-train verify` PASS
 - full unittest suite PASS
+- A7--A10 birthplace/direction mirror regression PASS
+- A11 combined calendar-month leap-day regression PASS
+- Wenzhen provenance, integrity, schema and hash-boundary regression PASS
 - no changes to canonical sources, model-learning, training state, prediction controls, or Ziwei runtime

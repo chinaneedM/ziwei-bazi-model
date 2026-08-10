@@ -1,6 +1,11 @@
 """Typed Bazi Dayun temporal runtime."""
 
-from .engine import BaziTemporalEngine, BaziTemporalGenerationError, BaziTemporalRequest
+from .engine import (
+    BaziTemporalEngine,
+    BaziTemporalGenerationError,
+    BaziTemporalRequest,
+    realize_wenzhen_calendar_month_displacement_utc,
+)
 from .integrity import temporal_fact_projection, temporal_hash_bundle, validate_dayun_state
 from .models import (
     BaziDayunState,
@@ -15,7 +20,11 @@ from .models import (
     TemporalHashBundle,
     TemporalIntegrityReport,
 )
-from .profile import ResolvedBaziTemporalProfile, bazi_temporal_v1_continuous_profile
+from .profile import (
+    ResolvedBaziTemporalProfile,
+    bazi_temporal_v1_continuous_profile,
+    bazi_temporal_wenzhen_china_compatibility_r1_profile,
+)
 
 __all__ = [
     "BaziDayunState",
@@ -34,6 +43,8 @@ __all__ = [
     "TemporalHashBundle",
     "TemporalIntegrityReport",
     "bazi_temporal_v1_continuous_profile",
+    "bazi_temporal_wenzhen_china_compatibility_r1_profile",
+    "realize_wenzhen_calendar_month_displacement_utc",
     "temporal_fact_projection",
     "temporal_hash_bundle",
     "validate_dayun_state",

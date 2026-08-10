@@ -66,6 +66,26 @@
     "jiaoyun": {
       "type": "object",
       "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "interval_coordinate_policy": {"const": "ABSOLUTE_UTC_DURATION"},
+                "interval_granularity_rule_set": {"const": "MODERN_CONTINUOUS_MICROSECOND"},
+                "calendar_realization_rule_set": {"const": "MODERN_CONTINUOUS_RATIO_120X"}
+              }
+            },
+            {
+              "properties": {
+                "interval_coordinate_policy": {"const": "BIRTH_LOCAL_APPARENT_SOLAR_CLOCK_TO_JIE_CHINA_STANDARD_CLOCK"},
+                "interval_granularity_rule_set": {"const": "WENZHEN_UI_HOUR_OBSERVED_INTERNAL_MICROSECOND_R1"},
+                "calendar_realization_rule_set": {"const": "CALENDAR_MONTH_DISPLACEMENT_THEN_DAY_HOUR_R1"}
+              }
+            }
+          ]
+        }
+      ],
       "required": [
         "temporal_seed_id", "direction", "anchor_kind", "anchor_jie_name", "anchor_jie_utc", "birth_utc",
         "raw_interval_microseconds", "symbolic_age", "first_transition_utc", "interval_coordinate_policy",
@@ -81,9 +101,24 @@
         "raw_interval_microseconds": {"type": "integer", "minimum": 0},
         "symbolic_age": {"$ref": "#/$defs/symbolicAge"},
         "first_transition_utc": {"$ref": "#/$defs/utcInstant"},
-        "interval_coordinate_policy": {"const": "ABSOLUTE_UTC_DURATION"},
-        "interval_granularity_rule_set": {"const": "MODERN_CONTINUOUS_MICROSECOND"},
-        "calendar_realization_rule_set": {"const": "MODERN_CONTINUOUS_RATIO_120X"},
+        "interval_coordinate_policy": {
+          "enum": [
+            "ABSOLUTE_UTC_DURATION",
+            "BIRTH_LOCAL_APPARENT_SOLAR_CLOCK_TO_JIE_CHINA_STANDARD_CLOCK"
+          ]
+        },
+        "interval_granularity_rule_set": {
+          "enum": [
+            "MODERN_CONTINUOUS_MICROSECOND",
+            "WENZHEN_UI_HOUR_OBSERVED_INTERNAL_MICROSECOND_R1"
+          ]
+        },
+        "calendar_realization_rule_set": {
+          "enum": [
+            "MODERN_CONTINUOUS_RATIO_120X",
+            "CALENDAR_MONTH_DISPLACEMENT_THEN_DAY_HOUR_R1"
+          ]
+        },
         "source_refs": {"$ref": "#/$defs/sourceRefs"}
       }
     },
