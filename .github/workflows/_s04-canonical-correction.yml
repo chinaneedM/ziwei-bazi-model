@@ -1,9 +1,9 @@
 name: s04-canonical-correction-one-shot
 
 on:
-  push:
-    branches:
-      - agent/s04-sanfang-sizheng-canonical-correction
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [main]
     paths:
       - scripts/_apply_s04_sanfang_sizheng_correction.py
       - .github/workflows/_s04-canonical-correction.yml
@@ -13,11 +13,12 @@ permissions:
 
 jobs:
   apply-and-rebuild:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -38,4 +39,4 @@ jobs:
           git rm .github/workflows/_s04-canonical-correction.yml scripts/_apply_s04_sanfang_sizheng_correction.py
           git add -A
           git commit -m "Correct S04 Sanfang Sizheng canonical rows"
-          git push origin HEAD:${{ github.ref_name }}
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
