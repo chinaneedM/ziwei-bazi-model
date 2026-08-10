@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from fortune_training.util import object_sha256
-from fortune_training.ziwei_chart.dignity import MAIN_STAR_ENTITY_IDS
+from fortune_training.ziwei_chart.main_stars import TIANFU_GROUP, ZIWEI_GROUP
 from fortune_training.ziwei_chart.models import NatalChartState, Placement, TransformationActivation
 from fortune_training.ziwei_chart.registries import PALACE_DESIGNATIONS, address
 from fortune_training.ziwei_structural.r2.models import RelativePalaceFrameState
@@ -14,6 +14,13 @@ from .models import BORROW_MEMBER_OFFSETS, BorrowClosureMemberFact
 BORROW_PROJECTION_SOURCE_REFS = (
     "S06:ZZTERM_BORROW_CLOSURE",
     "S06:BORROW_RULE_01-05",
+)
+
+# Physical identity must come from the frozen fourteen-main-star placement generator,
+# not from the downstream Dignity annotation registry.  This keeps borrow eligibility
+# independent of whether a Dignity profile is enabled or how it evolves later.
+FOURTEEN_MAIN_STAR_ENTITY_IDS = frozenset(
+    row[0] for row in (*ZIWEI_GROUP, *TIANFU_GROUP)
 )
 
 
@@ -44,7 +51,7 @@ def _transformations_by_address(
 
 
 def _contains_main_star(rows: tuple[Placement, ...]) -> bool:
-    return any(row.entity_id in MAIN_STAR_ENTITY_IDS for row in rows)
+    return any(row.entity_id in FOURTEEN_MAIN_STAR_ENTITY_IDS for row in rows)
 
 
 def _physical_key(
