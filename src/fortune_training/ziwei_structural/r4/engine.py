@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from fortune_training.ziwei_structural.r2 import (
+    RELATIVE_FRAME_INTEGRITY_ALGORITHM_ID,
+    RELATIVE_FRAME_INTEGRITY_ALGORITHM_VERSION,
+    relative_frame_hash_bundle,
+)
 from fortune_training.ziwei_structural.r2.models import RelativePalaceFrameState
 
 from .integrity import (
@@ -36,6 +41,42 @@ class ZiweiNamedStructuralSemanticRuntime:
         first = report.diagnostics[0]
         raise NamedSemanticGenerationError(first.code, first.detail, report=report)
 
+    @staticmethod
+    def _validate_upstream_r2_self_consistency(frame_state: RelativePalaceFrameState) -> None:
+        try:
+            frame_state.profile.validate()
+        except ValueError as exc:
+            raise NamedSemanticGenerationError(
+                "UPSTREAM_R2_PROFILE_INVALID",
+                str(exc),
+            ) from exc
+
+        if frame_state.integrity.status != "PASS":
+            raise NamedSemanticGenerationError(
+                "UPSTREAM_R2_INTEGRITY_FAILED",
+                "R2 RelativePalaceFrameState must carry PASS integrity",
+            )
+        if (
+            frame_state.integrity.algorithm_id != RELATIVE_FRAME_INTEGRITY_ALGORITHM_ID
+            or frame_state.integrity.algorithm_version != RELATIVE_FRAME_INTEGRITY_ALGORITHM_VERSION
+        ):
+            raise NamedSemanticGenerationError(
+                "UPSTREAM_R2_INTEGRITY_LINEAGE_MISMATCH",
+                "R2 integrity algorithm identity does not match the frozen R2 release",
+            )
+
+        expected_hashes = relative_frame_hash_bundle(
+            frame_state.upstream_structural_fact_hash,
+            frame_state.upstream_structural_computation_hash,
+            frame_state.profile,
+            frame_state.frame_facts,
+        )
+        if frame_state.hashes != expected_hashes:
+            raise NamedSemanticGenerationError(
+                "UPSTREAM_R2_HASH_MISMATCH",
+                "R2 frame facts/profile/upstream lineage do not reproduce the stored R2 hashes",
+            )
+
     def generate(
         self,
         frame_state: RelativePalaceFrameState,
@@ -46,11 +87,8 @@ class ZiweiNamedStructuralSemanticRuntime:
         except ValueError as exc:
             raise NamedSemanticGenerationError("INVALID_R4_PROFILE", str(exc)) from exc
 
-        if frame_state.integrity.status != "PASS":
-            raise NamedSemanticGenerationError(
-                "UPSTREAM_R2_INTEGRITY_FAILED",
-                "R2 RelativePalaceFrameState must carry PASS integrity",
-            )
+        self._validate_upstream_r2_self_consistency(frame_state)
+
         if (
             frame_state.profile.profile_id != profile.upstream_r2_profile_id
             or frame_state.profile.profile_version != profile.upstream_r2_profile_version
