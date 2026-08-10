@@ -5,12 +5,15 @@
 ```text
 RUNTIME_ID=ZIWEI-STRUCTURAL-RUNTIME-V2-R5
 RUNTIME_VERSION=1.0.0
-STATUS=CANDIDATE_NOT_ACTIVE
+STATUS=ACTIVE_V2_R5
 ACTIVATION_CONDITION=MERGED_TO_MAIN
 UPSTREAM_R3=ZIWEI-STRUCTURAL-RUNTIME-V2-R3@1.0.0
 UPSTREAM_R4=ZIWEI-STRUCTURAL-RUNTIME-V2-R4@1.0.0
 ISSUE=#202
+PR=#203
 ```
+
+The status above is effective only when this document is present on `main`. A feature-branch copy is not an active release.
 
 V2-R5 is a pure composition layer joining the active R3 borrow-projection state with the active R4 named Sanfang/Sizheng semantic state. It introduces no new physical placement, geometry, borrowing rule, named semantic rule, interpretation, scoring, or prediction meaning.
 
@@ -89,6 +92,22 @@ R5 ComputationHash additionally commits to:
 - R5 composition/integrity/hash algorithm identity.
 
 Canonical source authority is inherited through the validated R3/R4 computation lineage; R5 does not duplicate S04/S06 source bindings.
+
+## Release integrity gate
+
+Before composition, R5 replays both upstream state hash bundles from their stored facts, profiles, and lineage, and checks the frozen R3/R4 integrity algorithm identities. Therefore stale `PASS` reports and stale hashes cannot hide tampered R3 member facts or tampered R4 semantic facts.
+
+The merge-candidate gate requires:
+
+- current-main base and `behind=0`;
+- only R5/schema/test/doc additions;
+- bootstrap PASS;
+- `fortune-train verify` PASS;
+- full unittest PASS;
+- R3/R4 stale-PASS/hash tamper rejection;
+- cross-R3/R4 R2 lineage rejection;
+- deterministic composition/hash ordering;
+- JSON Schema validation.
 
 ## Explicit non-goals
 
