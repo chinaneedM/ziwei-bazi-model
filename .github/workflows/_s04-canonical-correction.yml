@@ -1,0 +1,41 @@
+name: s04-canonical-correction-one-shot
+
+on:
+  push:
+    branches:
+      - agent/s04-sanfang-sizheng-canonical-correction
+    paths:
+      - scripts/_apply_s04_sanfang_sizheng_correction.py
+      - .github/workflows/_s04-canonical-correction.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -e .
+      - name: Apply guarded S04 correction and rebuild canonical runtime
+        run: python scripts/_apply_s04_sanfang_sizheng_correction.py
+      - name: Verify S04 correction regressions
+        run: python -m unittest discover -s tests -p 'test_s04_sanfang_sizheng_correction.py' -v
+      - name: Verify repository after source rebaseline
+        run: fortune-train verify
+      - name: Commit generated canonical correction and remove one-shot helpers
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/_s04-canonical-correction.yml scripts/_apply_s04_sanfang_sizheng_correction.py
+          git add -A
+          git commit -m "Correct S04 Sanfang Sizheng canonical rows"
+          git push origin HEAD:${{ github.ref_name }}
