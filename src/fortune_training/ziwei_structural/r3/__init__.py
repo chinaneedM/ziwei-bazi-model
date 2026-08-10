@@ -31,6 +31,7 @@ from .profile import (
 )
 from .projection import (
     BORROW_PROJECTION_SOURCE_REFS,
+    FOURTEEN_MAIN_STAR_ENTITY_IDS,
     BorrowProjectionError,
     BorrowProjectionGenerator,
 )
@@ -47,6 +48,7 @@ __all__ = [
     "BORROW_PROJECTION_RULE_SET_VERSION",
     "BORROW_PROJECTION_SOURCE_REFS",
     "BORROW_PROJECTION_STATE_SCHEMA",
+    "FOURTEEN_MAIN_STAR_ENTITY_IDS",
     "BorrowClosureMemberFact",
     "BorrowProjectionError",
     "BorrowProjectionGenerationError",
