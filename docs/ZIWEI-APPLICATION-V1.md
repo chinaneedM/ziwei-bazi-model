@@ -5,11 +5,14 @@
 ```text
 APPLICATION_ID=ZIWEI-APPLICATION-V1
 APPLICATION_VERSION=1.0.0
-STATUS=CANDIDATE_NOT_ACTIVE
+STATUS=ACTIVE_APPLICATION_V1
 ACTIVATION_CONDITION=MERGED_TO_MAIN
 FOUNDATION_EXIT=ZIWEI-FOUNDATION-EXIT-AUDIT-R1/PASS
 ISSUE=#206
+PR=#207
 ```
+
+The status above is effective only when this document is present on `main`. A feature-branch copy is not an active application release.
 
 Ziwei Application V1 is the first product-facing orchestration layer after Foundation Exit. It does not introduce a second calculation engine and does not alter V1 / Temporal / Structural R1-R5 semantics.
 
@@ -80,7 +83,10 @@ The hash therefore changes if the selected view or any upstream computation iden
 
 Before a bundle is returned, rendered or exported, Application V1 checks:
 
-- natal candidate PASS integrity;
+- fresh `validate_natal_chart()` replay;
+- exact natal FactHash / ComputationHash replay from `NatalChartState + ResolvedZiweiCalculationProfile`;
+- embedded natal integrity equality with the fresh report;
+- exact `TemporalNatalContext` reproduction from the candidate;
 - Temporal integrity and hash replay;
 - R1 integrity and natal binding;
 - R2 integrity;
@@ -90,6 +96,8 @@ Before a bundle is returned, rendered or exported, Application V1 checks:
 - ViewModel natal binding;
 - exact ViewModel replay from stored presentation/temporal selection;
 - exact application bundle hash replay.
+
+Therefore stale natal `PASS` / stale hashes cannot hide lineage mutation at the application boundary, and a substituted Temporal context cannot be composed with the bundle.
 
 Application validators delegate source-specific correctness to existing runtime validators. They do not duplicate placement, borrow or semantic rule logic.
 
@@ -120,15 +128,17 @@ Application V1 does not add:
 - Bazi integration;
 - persistence/auth/cloud deployment.
 
-## Candidate validation gate
+## Release validation gate
 
-Before activation:
+The exact merge-candidate head must pass:
 
 - branch based on current Foundation Exit `main`, behind=0;
 - application package/schema/test/doc additions only;
 - one-call end-to-end bundle fixture PASS;
 - deterministic replay PASS;
 - Temporal selection/ViewHash regression PASS;
+- stale-natal-PASS/hash tamper rejection PASS;
+- Temporal-context substitution rejection PASS;
 - R5 and View tamper rejection PASS;
 - application export schema PASS;
 - existing ViewModel schema PASS;
