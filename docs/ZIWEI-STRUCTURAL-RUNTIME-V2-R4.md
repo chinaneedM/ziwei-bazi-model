@@ -5,13 +5,18 @@
 ```text
 RUNTIME_ID=ZIWEI-STRUCTURAL-RUNTIME-V2-R4
 RUNTIME_VERSION=1.0.0
-STATUS=IMPLEMENTATION_CANDIDATE
+STATUS=ACTIVE_V2_R4
+ACTIVATION_CONDITION=MERGED_TO_MAIN
 UPSTREAM_FRAME_RELEASE=ZIWEI-STRUCTURAL-RUNTIME-V2-R2@1.0.0
 CANONICAL_SOURCE=S04
 CANONICAL_SOURCE_SHA256=f7720ee4a11ce36155007cc3846620bcebdeaf5d98447c4abe427b37348e6c4f
 SEMANTIC_RULE_SET=S04-SANFANG-SIZHENG-CORRECTION-R1@1.0.0
 ISSUE=#200
+PR=#201
 ```
+
+PR #201 is the activation change set. The status above is effective only when this
+document is present on `main`.
 
 V2-R4 is the first named Structural Runtime semantic layer. It binds the already-active
 V2-R2 relative-palace geometry to current-Git S04 semantics after the #194 canonical
@@ -97,7 +102,7 @@ semantic rule set             S04-SANFANG-SIZHENG-CORRECTION-R1@1.0.0
 ```
 
 Unsupported source, manifest, algorithm, rule-set or profile identities fail closed.
-Regression also verifies these constants against current `sources/canonical-manifest.json`,
+Regression verifies these constants against current `sources/canonical-manifest.json`,
 `config/source-policy.json`, and the active S04 runtime segment.
 
 ## Typed handoff
@@ -111,6 +116,12 @@ validated RelativePalaceFrameState(V2-R2)
 
 R4 requires R2 to retain its disabled semantic fields. A mutated R2 semantic profile is
 rejected because named semantics belong exclusively to R4.
+
+Before semantic compilation, R4 also re-validates R2 self-consistency without changing
+R2: it validates the frozen R2 profile, verifies R2 integrity-algorithm identity, and
+recomputes the R2 hash bundle from the stored upstream lineage and all 144 frame facts.
+A stale `PASS` flag and stale hashes therefore cannot hide a tampered R2 fact, including
+facts at offsets that R4 itself does not use.
 
 ## Hash contract
 
@@ -139,19 +150,21 @@ projection preserves FactHash but changes ComputationHash.
 
 R4 validates at least:
 
-1. complete PASS R2 frame state and compatible R2 profile;
-2. R2 remains interpretation-free;
-3. exactly 6 opposition axes covering all 12 designations once;
-4. every axis is a reciprocal physical `+6` relation;
-5. exactly 4 trine groups covering all 12 designations once;
-6. every group is the exact `{0,+4,+8}` orbit from R2;
-7. exactly 12 Sanfang/Sizheng frames, one per designation;
-8. frame trines are exact `+4/+8` R2 targets;
-9. frame opposition is exact `+6` R2 target;
-10. every frame references the correct canonical group and axis;
-11. each frame contains exactly four unique palace identities;
-12. state binds the exact supplied R2 FactHash and ComputationHash;
-13. stored hashes reproduce from canonical projections.
+1. R2 profile is valid and compatible with the R4 binding;
+2. R2 integrity status and integrity-algorithm identity match the frozen R2 release;
+3. all 144 R2 facts plus stored upstream lineage reproduce the stored R2 hashes;
+4. R2 remains interpretation-free;
+5. exactly 6 opposition axes covering all 12 designations once;
+6. every axis is a reciprocal physical `+6` relation;
+7. exactly 4 trine groups covering all 12 designations once;
+8. every group is the exact `{0,+4,+8}` orbit from R2;
+9. exactly 12 Sanfang/Sizheng frames, one per designation;
+10. frame trines are exact `+4/+8` R2 targets;
+11. frame opposition is exact `+6` R2 target;
+12. every frame references the correct canonical group and axis;
+13. each frame contains exactly four unique palace identities;
+14. state binds the exact supplied R2 FactHash and ComputationHash;
+15. stored R4 hashes reproduce from canonical projections.
 
 ## Schema
 
@@ -178,9 +191,9 @@ V2-R4 does not activate:
 - natural-language fortune interpretation;
 - prediction.
 
-## Candidate validation gate
+## Release validation gate
 
-Before activation, PR for Issue #200 must prove:
+PR #201 must pass on its final merge-candidate head:
 
 - current-main base and `behind=0`;
 - only R4/schema/test/doc additions;
@@ -191,10 +204,13 @@ Before activation, PR for Issue #200 must prove:
 - source/profile lineage separation between FactHash and ComputationHash;
 - axis/group/frame tamper rejection;
 - cross-R2 composition rejection;
+- stale-PASS/stale-hash R2 tamper rejection;
+- R2 integrity-algorithm lineage rejection;
 - JSON Schema validation;
 - repository bootstrap PASS;
 - `fortune-train verify` PASS;
 - full unittest PASS.
 
-This document becomes `ACTIVE_V2_R4` only after the final merge-candidate head passes the
-release review and is merged to `main`.
+No named structural semantics are active merely because this file exists on a feature
+branch. V2-R4 becomes active only when the final validated PR #201 head is merged to
+`main`.
