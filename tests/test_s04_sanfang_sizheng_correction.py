@@ -34,18 +34,29 @@ SOURCE_NAME_TO_DESIGNATION_ID = {
 }
 
 
+def exact_marker_index(raw: bytes) -> int:
+    offsets: list[int] = []
+    offset = 0
+    for line in raw.splitlines(keepends=True):
+        if line == RETAINED_MARKER:
+            offsets.append(offset)
+        offset += len(line)
+    if len(offsets) != 1:
+        raise AssertionError(f"expected one exact retained boundary line, found {len(offsets)}")
+    return offsets[0]
+
+
 class S04SanfangSizhengCorrectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.raw = S04_PATH.read_bytes()
-        cls.marker_index = cls.raw.index(RETAINED_MARKER)
+        cls.marker_index = exact_marker_index(cls.raw)
         cls.prefix = cls.raw[: cls.marker_index]
         cls.retained = cls.raw[cls.marker_index + len(RETAINED_MARKER) :]
         cls.prefix_text = cls.prefix.decode("utf-8")
         cls.retained_text = cls.retained.decode("utf-8")
 
     def test_retained_historical_payload_is_byte_exact(self) -> None:
-        self.assertEqual(1, self.raw.count(RETAINED_MARKER))
         self.assertEqual(RETAINED_SIZE_BYTES, len(self.retained))
         self.assertEqual(RETAINED_SHA256, hashlib.sha256(self.retained).hexdigest())
         self.assertIn(
