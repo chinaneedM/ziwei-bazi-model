@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-twelve-palace-svg-artifact-v1.schema.json",
+  "title": "Ziwei Twelve Palace SVG Render Artifact V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["renderer_profile", "source_view_hash", "render_hash", "svg", "schema"],
+  "properties": {
+    "renderer_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "width",
+        "height",
+        "margin",
+        "cell_padding",
+        "font_family",
+        "header_font_size",
+        "body_font_size",
+        "metadata_font_size",
+        "show_hashes",
+        "show_rings",
+        "show_temporal"
+      ],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "profile_version": {"type": "string", "minLength": 1},
+        "width": {"type": "integer", "minimum": 640, "maximum": 4096},
+        "height": {"type": "integer", "minimum": 480, "maximum": 4096},
+        "margin": {"type": "integer", "minimum": 0},
+        "cell_padding": {"type": "integer", "minimum": 0, "maximum": 64},
+        "font_family": {"type": "string", "minLength": 1},
+        "header_font_size": {"type": "integer", "minimum": 8, "maximum": 48},
+        "body_font_size": {"type": "integer", "minimum": 8, "maximum": 48},
+        "metadata_font_size": {"type": "integer", "minimum": 8, "maximum": 48},
+        "show_hashes": {"type": "boolean"},
+        "show_rings": {"type": "boolean"},
+        "show_temporal": {"type": "boolean"}
+      }
+    },
+    "source_view_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "render_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "svg": {"type": "string", "minLength": 100},
+    "schema": {"const": "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"}
+  }
+}
