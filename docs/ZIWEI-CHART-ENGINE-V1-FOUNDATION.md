@@ -2,25 +2,30 @@
 
 ## Status and scope
 
-The shared Time/Calendar Foundation and the Ziwei foundation core are stable.
-The implementation now extends through natal placements, typed static annotations,
+Ziwei Chart Engine V1 is frozen at the deterministic release profile
+`ZIWEI-CHART-ENGINE-V1@1.0.0`, built on Time/Calendar Foundation `PHASE-01-R1`.
+The implementation extends through natal placements, typed static annotations,
 operational content, roles/rings/transformations, temporal frames, fail-closed
-integrity/hash validation and a presentation-only ViewModel boundary.
+integrity/hash validation, a renderer-neutral ViewModel boundary, and a public typed
+end-to-end handoff. The corresponding release contract is documented in
+`docs/ZIWEI-CHART-ENGINE-V1-RELEASE.md`.
 
 Implemented:
 
 - Time/Calendar consumption without duplicating civil-time, astronomy or Chinese-calendar logic;
+- one frozen operational calculation profile with immutable component identities and versions;
+- public `resolve_typed()` handoff preserving validated `NatalChartState`, effective Ziwei birth year, sex, branch lineage, IntegrityReport and HashBundle;
 - typed Z12, Life/Body, twelve-palace designations, address stems and Five Element Bureau;
 - Ziwei anchor, Tianfu reflection and all fourteen main stars;
 - profile-bound core auxiliaries and a separate compatibility Fire/Bell family;
 - dependency-bound 三台/八座、恩光/天贵;
-- a profile-versioned operational minor-star family: legacy R3 v1.0.0 emits 35 entities, while R4 v2.0.0 adds 天寿、天伤、天使 for 38 operational minor entities;
+- a profile-versioned operational minor-star family: legacy R3 v1.0.0 emits 35 entities, while R4/V1 v2.0.0 adds 天寿、天伤、天使 for 38 operational minor entities;
 - typed `DignityAnnotation` with complete project-owned operational coverage for every generator-reachable cell in the current 70-entity physical inventory;
 - main-star Dignity: 14 entities × 12 addresses = 168/168 `GRADED` cells;
 - core-auxiliary Dignity: 134 generator-reachable cells = 131 `GRADED` + 3 `UNRATED`;
 - dependency/minor R3 Dignity: 39 entities / 379 generator-reachable cells = 290 `GRADED` + 89 `UNRATED`;
 - R4 天寿/天伤/天使 Dignity: 36/36 generator-reachable cells, all `GRADED`, zero observed conflicts;
-- full R4 Dignity scope: 70 physical entities / 717 reachable cells / 625 `GRADED` / 92 `UNRATED`;
+- full V1 Dignity scope: 70 physical entities / 717 reachable cells / 625 `GRADED` / 92 `UNRATED`;
 - typed `RoleBinding` for 命主/身主;
 - typed `RingInstance` / `RingMemberBinding` for 长生、岁前、将前、博士;
 - typed `TransformationActivation` using S08's 10-stem / 40-assignment runtime table;
@@ -32,17 +37,21 @@ Implemented:
 - separate deterministic `FactHash` and `ComputationHash` semantics;
 - typed `PresentationProfile`, renderer-neutral `ChartViewModel` and `ViewHash`;
 - a pure plain-text renderer that consumes only `ChartViewModel`;
-- machine-readable schemas, provenance and diagnostics.
+- machine-readable chart, temporal and view schemas validated against real emitted runtime payloads in CI.
 
-Still outside the current implementation slice:
+Explicitly post-V1 unless promoted by a new release/profile version:
 
-- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, such as a separately typed 斗君/月 frame runtime if promoted into V1;
+- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, including separately typed 斗君/月 frame families;
 - graphical renderer / UI;
 - general ChartDiff automation beyond frozen compatibility fixtures;
-- wider compatibility regression for any additional physical entities before they are promoted into the V1 inventory;
-- interpretation or prediction.
+- wider compatibility research for additional physical entities not in the V1 inventory;
+- interpretation or prediction;
+- Structural Runtime V2 and the later Query/Evidence/Warrant/Reality/Possible-Worlds runtime.
 
-The former V1 blockers for dependency/minor Dignity, 天寿 placement, and the Wenmo-default 天伤/天使 profile discriminator are closed by R3/R4. Historical alternative source families remain preserved rather than overwritten.
+The former V1 blockers for dependency/minor Dignity, 天寿 placement, the Wenmo-default
+天伤/天使 profile discriminator, typed runtime composition and published-schema drift
+are closed. Historical alternative source families remain preserved rather than
+overwritten.
 
 ## Fact-type boundaries
 
@@ -83,17 +92,20 @@ branch; a Daxian/Annual 四化 activation does not relocate its target entity.
 ```text
 BirthInput
 -> TimeCalendarFoundation
--> profile-bound Ziwei birth coordinates
--> immutable NatalChartState
-   -> physical placements
-   -> static DignityAnnotation state
-   -> natal TransformationActivation overlay
-   -> Ring state
-   -> RoleBinding state
+-> frozen ZIWEI-CHART-ENGINE-V1 calculation profile
+-> ZiweiChartFoundation.resolve_typed()
+-> ZiweiChartCandidate
+   -> effective absolute Ziwei birth year + Sex + branch lineage
+   -> immutable NatalChartState
+      -> physical placements
+      -> static DignityAnnotation state
+      -> natal TransformationActivation overlay
+      -> Ring state
+      -> RoleBinding state
    -> IntegrityReport
    -> FactHash / ComputationHash
 
-NatalChartState + absolute Ziwei birth year + Sex + resolved profile
+ZiweiChartCandidate.temporal_context()
 -> ZiweiTemporalEngine
    -> DaxianFrame[]
    -> AnnualFrame[]
@@ -110,10 +122,12 @@ validated NatalChartState (+ optional validated TemporalState)
 -> any compatible Renderer
 ```
 
-Temporal state is deliberately separate from `NatalChartState`. Renderers are
-deliberately downstream from `ChartViewModel` and never receive mutable access
-to canonical state. A graphical square chart, circular chart and plain-text view
-may therefore consume the same ViewModel without requiring a second canonical state.
+The stable JSON `resolve()` API remains available and serializes the same typed
+resolution envelope after validation. Temporal state is deliberately separate from
+`NatalChartState`. Renderers are deliberately downstream from `ChartViewModel` and
+never receive mutable access to canonical state. A graphical square chart, circular
+chart and plain-text view may therefore consume the same ViewModel without requiring
+a second canonical state.
 
 ## Integrity and hash semantics
 
@@ -166,7 +180,7 @@ For 天伤/天使, the source corpus deliberately preserves more than one family
 - `ZZQS-A-1855` records the fixed traditional placement: 天伤在交友/奴仆，天使在疾厄;
 - `ZZZA-PR-051` records a yin/yang-sex swap family.
 
-The Wenmo-default operational profile selects the fixed family because the
+The V1 operational profile selects the fixed Wenmo-compatible family because the
 1975-05-20 yin-year male discriminator still displays 天伤 in 交友 and 天使 in 疾厄.
 The alternate family remains source knowledge and is not deleted or rewritten.
 
@@ -174,8 +188,7 @@ S08's explicit `唯一运行四化表` supplies the transformation registry. One
 `TransformationGenerator` is reused for natal, Daxian and Annual contexts by
 changing the declared causal `source_layer`, `source_stem` and `context_id`.
 
-S10's current dynamic-coordinate supplement supplies the implemented temporal
-geometry:
+S10's current dynamic-coordinate supplement supplies the V1 temporal geometry:
 
 - Five Element Bureau number = first Daxian nominal age;
 - 阳男阴女 forward / 阴男阳女 reverse Daxian movement;
@@ -203,7 +216,7 @@ OPERATIONAL-ZIWEI-DIGNITY-R3 v3.0.0
 92 UNRATED
 ```
 
-R4 extends the same minor-rule-set family without changing R3:
+R4/V1 extends the same minor-rule-set family without changing R3:
 
 ```text
 WENMO_DEFAULT_MINOR_R1 v2.0.0
@@ -214,7 +227,7 @@ OPERATIONAL-ZIWEI-DIGNITY-R4 v4.0.0
 92 UNRATED
 ```
 
-Profile validation binds R3 specifically to minor v1.0.0 and R4 specifically to
+Profile validation binds R3 specifically to minor v1.0.0 and V1/R4 specifically to
 minor v2.0.0. This prevents a newer physical inventory from silently changing an
 already frozen R3 computation snapshot.
 
@@ -225,7 +238,7 @@ TianShou uses the operational Body-basis formula selected by source route
 TianShou = BodyAddress + BirthYearBranchIndex (mod 12)
 ```
 
-The Wenmo-default TianShang/TianShi formulas are:
+The V1 TianShang/TianShi formulas are:
 
 ```text
 TianShang = Life + 5 = 交友
@@ -245,7 +258,7 @@ R3 closes the four dependency stars plus 35 legacy operational minor stars over
 exactly 379 generator-reachable cells: 290 `GRADED` + 89 `UNRATED`, with zero
 observed conflicts. Impossible entity/address pairs are not invented.
 
-R4 adds 天寿、天伤、天使. The prior 21 calibration exports already covered 32/36
+R4/V1 adds 天寿、天伤、天使. The prior 21 calibration exports already covered 32/36
 of their cells; two deliberately selected closure exports supply the four missing
 cells:
 
@@ -254,21 +267,21 @@ cells:
 2006-04-07 00:30 -> Life=辰 -> 天伤@酉=平, 天使@亥=旺
 ```
 
-The resulting three-row R4 matrix is 36/36 `GRADED`, zero `UNRATED`, zero observed
+The resulting three-row matrix is 36/36 `GRADED`, zero `UNRATED`, zero observed
 conflicts. Its added-row SHA256 is:
 
 ```text
 5bac16b2f13d240f3adc7846a8aa45ce58f1c9bb2b89c6f7a450aef606b40e23
 ```
 
-For the current 70-entity physical inventory, Dignity is therefore no longer a V1
-coverage blocker. Any future physical entity promoted into the active inventory
-must independently satisfy the same generator-reachable-domain closure rule before
-it can join a complete Dignity profile.
+For the frozen 70-entity V1 physical inventory, Dignity is no longer a coverage
+blocker. Any future physical entity promoted into a later release must independently
+satisfy the same generator-reachable-domain closure rule before it can join a
+complete Dignity profile.
 
 ## Validation
 
-Regression coverage now includes:
+Regression coverage includes:
 
 - all 12 natal months × 12 birth hours for Life/Body;
 - all 150 canonical Ziwei-anchor cells;
@@ -278,10 +291,13 @@ Regression coverage now includes:
 - exactly 131 graded + 3 unrated core-auxiliary states, with no invented unreachable cells;
 - exact R3 dependency/minor generator-domain equality over 379 reachable cells;
 - exactly 290 graded + 89 unrated R3 dependency/minor states;
-- exact R4 TianShou/TianShang/TianShi generator-domain equality over 36 reachable cells;
-- exact 36 graded + 0 unrated R4 added states and frozen matrix SHA256;
-- full R4 registry summary: 70 entities / 717 cells / 625 graded / 92 unrated;
-- R3 legacy-profile replay and R4 minor-version mismatch rejection;
+- exact V1 TianShou/TianShang/TianShi generator-domain equality over 36 reachable cells;
+- exact 36 graded + 0 unrated V1 added states and frozen matrix SHA256;
+- full V1 registry summary: 70 entities / 717 cells / 625 graded / 92 unrated;
+- R3 legacy-profile replay and V1 minor-version mismatch rejection;
+- frozen `ZIWEI-CHART-ENGINE-V1@1.0.0` profile binding;
+- public `resolve_typed()` materialization of one complete 70-entity / 70-annotation chart;
+- typed time-uncertainty deduplication while preserving branch lineage;
 - dignity as immutable annotation rather than placement mutation;
 - dignity target/address and status/grade integrity failures;
 - dignity fact vs provenance hash-layer discrimination;
@@ -303,6 +319,10 @@ Regression coverage now includes:
 - deterministic ViewModel/ViewHash generation;
 - lexeme and address-order presentation changes without canonical-state mutation;
 - explicit temporal-context requirement at the View projection boundary;
+- full public BirthInput -> Natal -> Temporal -> View -> Renderer smoke with no private calls;
+- real emitted chart JSON validated against `ziwei-chart-foundation-v1.schema.json`;
+- real emitted temporal JSON validated against `ziwei-temporal-state-v1.schema.json`;
+- real emitted ViewModel JSON validated against `ziwei-chart-view-v1.schema.json`;
 - plain-text rendering from renderer-neutral ViewModel only.
 
 Run the full repository checks with:
@@ -312,12 +332,15 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 fortune-train verify
 ```
 
-## Release boundary
+## Frozen V1 release boundary
 
-Passing the R4 closure means the current 70-entity deterministic physical inventory
-and its Dignity layer are internally closed under the active profiles. It does not
-mean every future Ziwei feature belongs in V1. Remaining work should only re-open
-V1 architecture when it changes deterministic chart output, ChartState, Generator,
-Profile or Canonical Fact boundaries. Graphical UI, interpretation/prediction and
-non-promoted historical/content variants remain downstream or backlog work unless
-that criterion is met.
+Ziwei Chart Engine V1 is frozen around the current deterministic calculation profile,
+70-entity physical inventory, current Daxian/Annual/Minor-Limit temporal runtime,
+Integrity/Hash contracts and published chart/temporal/view schemas.
+
+Future work does not reopen V1 merely because more traditional content exists.
+A new release/profile version is required when a change alters deterministic chart
+facts, Generator behavior, calculation-profile identity, Canonical Fact boundaries,
+Integrity/Hash semantics, or the published V1 API/schema contract. Graphical UI,
+interpretation/prediction, Structural Runtime V2, non-promoted historical variants,
+and additional temporal families remain downstream until that threshold is met.
