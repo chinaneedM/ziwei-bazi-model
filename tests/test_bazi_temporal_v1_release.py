@@ -26,6 +26,10 @@ from fortune_training.calendar_foundation import BirthInput
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def parse_json_instant(value: str) -> datetime:
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
 class BaziTemporalV1ReleaseTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -73,8 +77,8 @@ class BaziTemporalV1ReleaseTests(unittest.TestCase):
         exported = self.engine.resolve(self.request)
         self.assertEqual(typed.candidates[0].hashes.fact_hash, exported["candidates"][0]["hashes"]["fact_hash"])
         self.assertEqual(
-            typed.candidates[0].state.jiaoyun.first_transition_utc.isoformat().replace("+00:00", "Z"),
-            exported["candidates"][0]["state"]["jiaoyun"]["first_transition_utc"],
+            typed.candidates[0].state.jiaoyun.first_transition_utc,
+            parse_json_instant(exported["candidates"][0]["state"]["jiaoyun"]["first_transition_utc"]),
         )
         self.assertEqual(
             [frame.ganzhi for frame in typed.candidates[0].state.dayun_frames],
