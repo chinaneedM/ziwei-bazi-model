@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from calendar import monthrange
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any
@@ -28,15 +29,20 @@ from .profile import (
     DIRECTION_RULE_SET_VERSION,
     SYMBOLIC_AGE_RULE_SET_ID,
     SYMBOLIC_AGE_RULE_SET_VERSION,
-    TEMPORAL_ALGORITHM_ID,
-    TEMPORAL_ALGORITHM_VERSION,
+    CONTINUOUS_CALENDAR_REALIZATION_RULE_SET,
+    CONTINUOUS_DAYUN_BOUNDARY_RULE_SET,
+    CONTINUOUS_INTERVAL_COORDINATE_POLICY,
     ResolvedBaziTemporalProfile,
+    WENZHEN_CALENDAR_REALIZATION_RULE_SET,
+    WENZHEN_DAYUN_BOUNDARY_RULE_SET,
+    WENZHEN_INTERVAL_COORDINATE_POLICY,
 )
 
 
 DAY_MICROSECONDS = 86_400_000_000
 SYMBOLIC_YEAR_MICROSECONDS = 360 * DAY_MICROSECONDS
 SYMBOLIC_MONTH_MICROSECONDS = 30 * DAY_MICROSECONDS
+CHINA_STANDARD_TIME = timezone(timedelta(hours=8), name="UTC+08:00")
 
 
 class BaziTemporalGenerationError(ValueError):
@@ -73,6 +79,59 @@ def _add_gregorian_years_utc(value: datetime, years: int) -> datetime:
         if value.month == 2 and value.day == 29:
             return value.replace(year=target_year, day=28)
         raise
+
+
+def _add_calendar_months_clamped(value: datetime, months: int) -> datetime:
+    """Add one combined month displacement, clamping only at the destination."""
+
+    absolute_month = value.year * 12 + (value.month - 1) + months
+    target_year, target_month_zero = divmod(absolute_month, 12)
+    target_month = target_month_zero + 1
+    target_day = min(value.day, monthrange(target_year, target_month)[1])
+    return value.replace(year=target_year, month=target_month, day=target_day)
+
+
+def realize_wenzhen_calendar_month_displacement_utc(
+    birth_utc: datetime,
+    symbolic_age: SymbolicLuckAge,
+) -> datetime:
+    """Realize Wenzhen R1 symbolic components on a fixed China clock.
+
+    Years and months are first unified into one month displacement.  Days and
+    the sub-day residual are applied afterwards.  The returned microsecond is
+    an engine realization; A7--A11 do not certify it as Wenzhen UI truth.
+    """
+
+    if birth_utc.tzinfo is None or birth_utc.utcoffset() is None:
+        raise ValueError("Wenzhen calendar realization birth must be timezone-aware")
+    china_birth = birth_utc.astimezone(CHINA_STANDARD_TIME)
+    month_displacement = symbolic_age.years_360 * 12 + symbolic_age.months_30
+    displaced = _add_calendar_months_clamped(china_birth, month_displacement)
+    realized = displaced + timedelta(
+        days=symbolic_age.days,
+        microseconds=symbolic_age.residual_microseconds,
+    )
+    return realized.astimezone(timezone.utc)
+
+
+def _dayun_anniversary(
+    value: datetime,
+    years: int,
+    profile: ResolvedBaziTemporalProfile,
+) -> datetime:
+    if profile.dayun_boundary_rule_set == CONTINUOUS_DAYUN_BOUNDARY_RULE_SET:
+        return _add_gregorian_years_utc(value, years)
+    if profile.dayun_boundary_rule_set == WENZHEN_DAYUN_BOUNDARY_RULE_SET:
+        china_value = value.astimezone(CHINA_STANDARD_TIME)
+        target_year = china_value.year + years
+        try:
+            realized = china_value.replace(year=target_year)
+        except ValueError:
+            if china_value.month != 2 or china_value.day != 29:
+                raise
+            realized = china_value.replace(year=target_year, day=28)
+        return realized.astimezone(timezone.utc)
+    raise ValueError(f"unsupported Dayun boundary rule: {profile.dayun_boundary_rule_set}")
 
 
 class BaziTemporalEngine:
@@ -140,18 +199,47 @@ class BaziTemporalEngine:
             anchor_kind = "NEXT_JIE"
             anchor_name = seed.next_jie_name
             anchor = following
-            delta = anchor - birth
         else:
             anchor_kind = "PREVIOUS_JIE"
             anchor_name = seed.previous_jie_name
             anchor = previous
-            delta = birth - anchor
+
+        if profile.interval_coordinate_policy == CONTINUOUS_INTERVAL_COORDINATE_POLICY:
+            delta = anchor - birth if direction.direction == "FORWARD" else birth - anchor
+            source_refs = ("S15", "ENGINEERING:MODERN_CONTINUOUS_RATIO_120X")
+        elif profile.interval_coordinate_policy == WENZHEN_INTERVAL_COORDINATE_POLICY:
+            birth_clock = seed.local_apparent_solar_datetime.replace(tzinfo=None)
+            jie_china_clock = anchor.astimezone(CHINA_STANDARD_TIME).replace(tzinfo=None)
+            delta = (
+                jie_china_clock - birth_clock
+                if direction.direction == "FORWARD"
+                else birth_clock - jie_china_clock
+            )
+            source_refs = (
+                "S15",
+                "EXTERNAL_COMPATIBILITY:WENZHEN:A7-A11",
+                "MODEL_INFERENCE:MIXED_APPARENT_SOLAR_TO_CHINA_STANDARD_CLOCK_R1",
+                "PRECISION_CEILING:WENZHEN_UI_HOUR_ONLY",
+            )
+        else:
+            raise BaziTemporalGenerationError(
+                "UNSUPPORTED_INTERVAL_COORDINATE_POLICY",
+                profile.interval_coordinate_policy,
+            )
         raw_microseconds = _timedelta_microseconds(delta)
         if raw_microseconds < 0:
             raise BaziTemporalGenerationError("INVALID_JIE_ANCHOR_ORDER", f"negative interval for {seed.seed_id}")
 
         symbolic = cls._symbolic_age(raw_microseconds)
-        first_transition = birth + timedelta(microseconds=symbolic.total_symbolic_microseconds)
+        if profile.calendar_realization_rule_set == CONTINUOUS_CALENDAR_REALIZATION_RULE_SET:
+            first_transition = birth + timedelta(microseconds=symbolic.total_symbolic_microseconds)
+        elif profile.calendar_realization_rule_set == WENZHEN_CALENDAR_REALIZATION_RULE_SET:
+            first_transition = realize_wenzhen_calendar_month_displacement_utc(birth, symbolic)
+        else:
+            raise BaziTemporalGenerationError(
+                "UNSUPPORTED_CALENDAR_REALIZATION_RULE",
+                profile.calendar_realization_rule_set,
+            )
         return JiaoyunResolution(
             temporal_seed_id=seed.seed_id,
             direction=direction.direction,
@@ -165,7 +253,7 @@ class BaziTemporalEngine:
             interval_coordinate_policy=profile.interval_coordinate_policy,
             interval_granularity_rule_set=profile.interval_granularity_rule_set,
             calendar_realization_rule_set=profile.calendar_realization_rule_set,
-            source_refs=("S15", "ENGINEERING:MODERN_CONTINUOUS_RATIO_120X"),
+            source_refs=source_refs,
         )
 
     @staticmethod
@@ -197,8 +285,12 @@ class BaziTemporalEngine:
         step = 1 if direction.direction == "FORWARD" else -1
         frames: list[DayunFrame] = []
         for index in range(1, dayun_count + 1):
-            start = _add_gregorian_years_utc(jiaoyun.first_transition_utc, (index - 1) * 10)
-            end = _add_gregorian_years_utc(jiaoyun.first_transition_utc, index * 10)
+            start = _dayun_anniversary(
+                jiaoyun.first_transition_utc,
+                (index - 1) * 10,
+                profile,
+            )
+            end = _dayun_anniversary(jiaoyun.first_transition_utc, index * 10, profile)
             ganzhi_index = (month_index + step * index) % 60
             ganzhi = SEXAGENARY_CYCLE[ganzhi_index]
             frames.append(
@@ -210,7 +302,11 @@ class BaziTemporalEngine:
                     start_utc=start,
                     end_utc=end,
                     interval_semantics=profile.interval_semantics,
-                    source_refs=("S15",),
+                    source_refs=(
+                        ("S15",)
+                        if profile.interval_coordinate_policy == CONTINUOUS_INTERVAL_COORDINATE_POLICY
+                        else ("S15", "EXTERNAL_COMPATIBILITY:WENZHEN:A7-A11")
+                    ),
                 )
             )
         return BaziDayunState(
@@ -222,7 +318,7 @@ class BaziTemporalEngine:
             profile_id=profile.profile_id,
             profile_version=profile.profile_version,
             algorithm_versions={
-                "temporal": TEMPORAL_ALGORITHM_VERSION,
+                "temporal": profile.algorithm_version,
                 "direction": DIRECTION_RULE_SET_VERSION,
                 "anchor": ANCHOR_RULE_SET_VERSION,
                 "symbolic_age": SYMBOLIC_AGE_RULE_SET_VERSION,
