@@ -1,4 +1,4 @@
-"""Deterministic Ziwei chart foundation consuming the shared Time/Calendar layer."""
+"""Deterministic Ziwei Chart Engine V1 consuming the shared Time/Calendar layer."""
 
 from .auxiliary import AuxiliaryContext, QSCoreAuxiliaryGenerator
 from .derived_auxiliary import DerivedAuxiliaryGenerator
@@ -10,7 +10,12 @@ from .dignity import (
 )
 from .dignity_r3 import OperationalFullZiweiDignityGenerator
 from .dignity_r4 import OperationalZiweiDignityR4Generator
-from .engine import ZiweiChartFoundation, ZiweiChartRequest
+from .engine import (
+    ZiweiChartCandidate,
+    ZiweiChartFoundation,
+    ZiweiChartRequest,
+    ZiweiTypedResolution,
+)
 from .integrity import (
     HashBundle,
     IntegrityDiagnostic,
@@ -35,6 +40,11 @@ from .models import (
 )
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
+from .release import (
+    ZIWEI_CHART_ENGINE_V1_PROFILE_ID,
+    ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION,
+    ziwei_chart_engine_v1_profile,
+)
 from .rings import WenmoDefaultRingGenerator
 from .roles import QSRoleGenerator, WenmoDefaultRoleGenerator
 from .temporal import (
@@ -98,15 +108,20 @@ __all__ = [
     "WenmoDefaultMinorStarR4Generator",
     "WenmoDefaultRingGenerator",
     "WenmoDefaultRoleGenerator",
+    "ZIWEI_CHART_ENGINE_V1_PROFILE_ID",
+    "ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION",
+    "ZiweiChartCandidate",
     "ZiweiChartFoundation",
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
     "ZiweiTemporalState",
+    "ZiweiTypedResolution",
     "ZiweiViewProjectionCompiler",
     "natal_hash_bundle",
     "temporal_hash_bundle",
     "validate_natal_chart",
     "validate_temporal_state",
+    "ziwei_chart_engine_v1_profile",
 ]
 
-__version__ = "0.13.0"
+__version__ = "1.0.0"
