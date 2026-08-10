@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-structural-state-v2-r1.schema.json",
+  "title": "Ziwei Structural Runtime V2-R1 State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "upstream_natal_fact_hash",
+    "upstream_natal_computation_hash",
+    "profile",
+    "topology_facts",
+    "integrity",
+    "hashes",
+    "schema"
+  ],
+  "properties": {
+    "upstream_natal_fact_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "upstream_natal_computation_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "natal_profile_id",
+        "natal_profile_version",
+        "topology_algorithm_id",
+        "topology_algorithm_version",
+        "semantic_rule_set_id",
+        "semantic_rule_set_version"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "natal_profile_id": {"const": "ZIWEI-CHART-ENGINE-V1"},
+        "natal_profile_version": {"const": "1.0.0"},
+        "topology_algorithm_id": {"const": "NEUTRAL-Z12-TOPOLOGY"},
+        "topology_algorithm_version": {"const": "1.0.0"},
+        "semantic_rule_set_id": {"type": ["string", "null"]},
+        "semantic_rule_set_version": {"type": ["string", "null"]}
+      }
+    },
+    "topology_facts": {
+      "type": "array",
+      "minItems": 144,
+      "maxItems": 144,
+      "items": {"$ref": "#/$defs/addressOffsetFact"}
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/integrityDiagnostic"}
+        },
+        "algorithm_id": {"const": "ZIWEI-STRUCTURAL-INTEGRITY-HASH-V2-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "computation_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "algorithm_id": {"const": "ZIWEI-STRUCTURAL-INTEGRITY-HASH-V2-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "schema": {"const": "ZIWEI-STRUCTURAL-STATE-V2-R1"}
+  },
+  "$defs": {
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {
+          "enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+        }
+      }
+    },
+    "addressOffsetFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "target", "clockwise_offset"],
+      "properties": {
+        "source": {"$ref": "#/$defs/address"},
+        "target": {"$ref": "#/$defs/address"},
+        "clockwise_offset": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
