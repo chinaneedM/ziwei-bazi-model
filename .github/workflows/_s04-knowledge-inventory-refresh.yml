@@ -1,0 +1,41 @@
+name: s04-knowledge-inventory-refresh-one-shot
+
+on:
+  pull_request:
+    types: [synchronize]
+    branches: [main]
+    paths:
+      - .github/workflows/_s04-knowledge-inventory-refresh.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-inventory:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -e .
+      - name: Rebuild derived knowledge source inventory
+        run: python tools/build_knowledge_inventory.py --repo .
+      - name: Verify knowledge inventory and S04 regressions
+        run: |
+          python -m unittest tests.test_knowledge_workbench -v
+          python -m unittest discover -s tests -p 'test_s04_sanfang_sizheng_correction.py' -v
+      - name: Commit refreshed inventory and remove one-shot workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/_s04-knowledge-inventory-refresh.yml
+          git add knowledge-workbench/source-inventory.json
+          git commit -m "Refresh knowledge inventory for corrected S04"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
