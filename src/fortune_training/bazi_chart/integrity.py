@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 INTEGRITY_ALGORITHM_ID = "BAZI-NATAL-INTEGRITY-V1"
 INTEGRITY_ALGORITHM_VERSION = "1.0.0"
 HASH_ALGORITHM_ID = "BAZI-NATAL-HASH-V1"
-HASH_ALGORITHM_VERSION = "1.0.0"
+HASH_ALGORITHM_VERSION = "1.0.1"
 
 
 def _diag(rows: list[IntegrityDiagnostic], code: str, path: str, detail: str) -> None:
@@ -162,15 +162,15 @@ def natal_fact_projection(chart: BaziNatalState) -> dict[str, Any]:
             }
             for row in chart.branches
         ],
+        # Hidden-stem membership is a fact; registry/display order is lineage.
         "hidden_stems": [
             {
                 "instance_id": row.instance_id,
                 "branch_instance_id": row.branch_instance_id,
                 "stem": row.stem,
                 "element": row.element,
-                "registry_ordinal": row.registry_ordinal,
             }
-            for row in chart.hidden_stems
+            for row in sorted(chart.hidden_stems, key=lambda item: item.instance_id)
         ],
         "ten_gods": [
             {
@@ -179,7 +179,7 @@ def natal_fact_projection(chart: BaziNatalState) -> dict[str, Any]:
                 "day_master_stem": row.day_master_stem,
                 "semantic_role_id": row.semantic_role_id,
             }
-            for row in chart.ten_gods
+            for row in sorted(chart.ten_gods, key=lambda item: item.target_instance_id)
         ],
         "exposures": [
             {
@@ -227,6 +227,15 @@ def _lineage_projection(chart: BaziNatalState) -> dict[str, Any]:
                 "source_refs": sorted(row.source_refs),
             }
             for row in chart.trace
+        ],
+        "hidden_stem_registry_order": [
+            {
+                "instance_id": row.instance_id,
+                "registry_ordinal": row.registry_ordinal,
+                "rule_set_id": row.rule_set_id,
+                "rule_set_version": row.rule_set_version,
+            }
+            for row in chart.hidden_stems
         ],
         "hidden_stem_sources": sorted({ref for row in chart.hidden_stems for ref in row.source_refs}),
         "ten_god_sources": sorted({ref for row in chart.ten_gods for ref in row.source_refs}),
