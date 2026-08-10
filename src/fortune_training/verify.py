@@ -23,6 +23,10 @@ from .classical_relation_evidence import (
     MATRIX_PATH as CLASSICAL_RELATION_EVIDENCE_MATRIX_PATH,
     validate_classical_relation_evidence,
 )
+from .bazi_five_combination_evidence_binding import (
+    BINDINGS_PATH as FIVE_COMBINATION_EVIDENCE_BINDINGS_PATH,
+    validate_five_combination_evidence_bindings,
+)
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -1021,6 +1025,9 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     classical_relation_evidence = None
     if (root / CLASSICAL_RELATION_EVIDENCE_MATRIX_PATH).exists():
         classical_relation_evidence = validate_classical_relation_evidence(root)
+    five_combination_evidence_binding = None
+    if (root / FIVE_COMBINATION_EVIDENCE_BINDINGS_PATH).exists():
+        five_combination_evidence_binding = validate_five_combination_evidence_bindings(root)
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
@@ -1325,6 +1332,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "canonical_sources_immutable": True,
         "canonical_source_access": source_access,
         "classical_relation_lifecycle_evidence": classical_relation_evidence,
+        "five_combination_evidence_binding": five_combination_evidence_binding,
         "model_learning_separate": True,
         "cases": case_bank.get("cases", len(case_order)),
         "questions": case_bank.get("questions", sum(question_counts.values())),
