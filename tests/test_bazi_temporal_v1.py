@@ -57,10 +57,10 @@ class BaziTemporalV1Tests(unittest.TestCase):
         candidate = self.chart_candidate(datetime(2025, 2, 7, 10, 10))
         self.assertEqual(("乙巳", "戊寅"), tuple(row.ganzhi for row in candidate.chart.pillars[:2]))
 
-        male = self.temporal.resolve(
+        male = self.temporal.resolve_typed(
             BaziTemporalRequest(candidate, BaziSex.MALE, self.temporal_profile, dayun_count=3)
         )
-        female = self.temporal.resolve(
+        female = self.temporal.resolve_typed(
             BaziTemporalRequest(candidate, BaziSex.FEMALE, self.temporal_profile, dayun_count=3)
         )
         self.assertEqual("RESOLVED", male.status)
@@ -75,7 +75,7 @@ class BaziTemporalV1Tests(unittest.TestCase):
     def test_a1_dayun_sequence_remains_month_pillar_based_despite_dst_hour_difference(self):
         candidate = self.chart_candidate(datetime(1990, 6, 15, 12, 0))
         self.assertEqual(("庚午", "壬午", "辛亥", "癸巳"), tuple(row.ganzhi for row in candidate.chart.pillars))
-        result = self.temporal.resolve(
+        result = self.temporal.resolve_typed(
             BaziTemporalRequest(candidate, BaziSex.MALE, self.temporal_profile, dayun_count=8)
         )
         self.assertEqual("RESOLVED", result.status)
@@ -103,7 +103,7 @@ class BaziTemporalV1Tests(unittest.TestCase):
             time_calendar_policy_registry_version=self.chart_profile.time_calendar_policy_registry_version,
         )
         synthetic_candidate = replace(candidate, temporal_seeds=(synthetic_seed,), branch_indices=(0,))
-        result = self.temporal.resolve(
+        result = self.temporal.resolve_typed(
             BaziTemporalRequest(synthetic_candidate, BaziSex.MALE, self.temporal_profile, dayun_count=2)
         )
         self.assertEqual("RESOLVED", result.status)
@@ -117,7 +117,7 @@ class BaziTemporalV1Tests(unittest.TestCase):
 
     def test_pre_dayun_and_dayun_frames_are_contiguous_half_open_intervals(self):
         candidate = self.chart_candidate(datetime(2025, 2, 7, 10, 10))
-        result = self.temporal.resolve(
+        result = self.temporal.resolve_typed(
             BaziTemporalRequest(candidate, BaziSex.MALE, self.temporal_profile, dayun_count=4)
         )
         state = result.candidates[0].state
@@ -132,7 +132,7 @@ class BaziTemporalV1Tests(unittest.TestCase):
     def test_time_uncertainty_that_keeps_natal_chart_can_change_dayun_boundary(self):
         candidate = self.chart_candidate(datetime(2025, 2, 7, 10, 10), uncertainty_seconds=120)
         self.assertGreater(len(candidate.temporal_seeds), 1)
-        result = self.temporal.resolve(
+        result = self.temporal.resolve_typed(
             BaziTemporalRequest(candidate, BaziSex.MALE, self.temporal_profile, dayun_count=2)
         )
         self.assertEqual("MULTI_CANDIDATE", result.status)
@@ -150,7 +150,7 @@ class BaziTemporalV1Tests(unittest.TestCase):
             birth_utc=seed.previous_jie_utc,
         )
         tie_candidate = replace(candidate, temporal_seeds=(tie_seed,), branch_indices=(0,))
-        result = self.temporal.resolve(
+        result = self.temporal.resolve_typed(
             BaziTemporalRequest(tie_candidate, BaziSex.MALE, self.temporal_profile, dayun_count=2)
         )
         self.assertEqual("FAILED", result.status)
@@ -159,8 +159,8 @@ class BaziTemporalV1Tests(unittest.TestCase):
     def test_temporal_hashes_are_deterministic(self):
         candidate = self.chart_candidate(datetime(2025, 2, 7, 10, 10))
         request = BaziTemporalRequest(candidate, BaziSex.MALE, self.temporal_profile, dayun_count=3)
-        first = self.temporal.resolve(request)
-        second = self.temporal.resolve(request)
+        first = self.temporal.resolve_typed(request)
+        second = self.temporal.resolve_typed(request)
         self.assertEqual(first, second)
         self.assertEqual(first.candidates[0].hashes, second.candidates[0].hashes)
 
