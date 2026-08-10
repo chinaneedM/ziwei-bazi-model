@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-application-chart-export-v1.schema.json",
+  "title": "Ziwei Application Chart Export V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "bundle_schema",
+    "application_profile",
+    "resolution_status",
+    "candidate_branch_indices",
+    "selection",
+    "state_refs",
+    "view_hash",
+    "bundle_hash",
+    "view_model"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-APPLICATION-CHART-EXPORT-V1"},
+    "bundle_schema": {"const": "ZIWEI-APPLICATION-CHART-BUNDLE-V1"},
+    "application_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "service_algorithm_id",
+        "service_algorithm_version",
+        "bundle_hash_algorithm_id",
+        "bundle_hash_algorithm_version"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-APPLICATION-V1"},
+        "profile_version": {"const": "1.0.0"},
+        "service_algorithm_id": {"const": "ZIWEI-APPLICATION-ORCHESTRATOR-V1"},
+        "service_algorithm_version": {"const": "1.0.0"},
+        "bundle_hash_algorithm_id": {"const": "ZIWEI-APPLICATION-BUNDLE-HASH-V1"},
+        "bundle_hash_algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "resolution_status": {
+      "enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"]
+    },
+    "candidate_branch_indices": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "integer", "minimum": 0}
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["daxian_frame_id", "annual_year", "minor_limit_age"],
+      "properties": {
+        "daxian_frame_id": {"type": ["string", "null"]},
+        "annual_year": {"type": ["integer", "null"]},
+        "minor_limit_age": {"anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]}
+      }
+    },
+    "state_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["natal", "temporal", "r1", "r2", "r3", "r4", "r5"],
+      "properties": {
+        "natal": {"$ref": "#/$defs/hashRef"},
+        "temporal": {"$ref": "#/$defs/hashRef"},
+        "r1": {"$ref": "#/$defs/hashRef"},
+        "r2": {"$ref": "#/$defs/hashRef"},
+        "r3": {"$ref": "#/$defs/hashRef"},
+        "r4": {"$ref": "#/$defs/hashRef"},
+        "r5": {"$ref": "#/$defs/hashRef"}
+      }
+    },
+    "view_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bundle_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "view_model": {"type": "object"}
+  },
+  "$defs": {
+    "hashRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}
