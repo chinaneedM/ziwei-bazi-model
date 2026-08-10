@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -12,7 +11,9 @@ from fortune_training.ziwei_chart import (
     ZiweiChartRequest,
     ZiweiTemporalEngine,
     ZiweiViewProjectionCompiler,
+    natal_hash_bundle,
     temporal_hash_bundle,
+    validate_natal_chart,
     validate_temporal_state,
 )
 from fortune_training.ziwei_structural import (
@@ -172,12 +173,38 @@ def validate_application_bundle(bundle: ApplicationChartBundle) -> None:
         bundle.presentation_profile.validate()
     except ValueError as exc:
         raise ApplicationResolutionError("APPLICATION_PROFILE_INVALID", str(exc)) from exc
-    if bundle.candidate.integrity.status != "PASS":
+
+    natal_report = validate_natal_chart(bundle.candidate.chart)
+    _require_pass(natal_report, "APPLICATION_NATAL_INTEGRITY_FAILED")
+    if bundle.candidate.integrity != natal_report:
         raise ApplicationResolutionError(
-            "APPLICATION_NATAL_INTEGRITY_FAILED",
-            "candidate must carry PASS natal integrity",
+            "APPLICATION_NATAL_EMBEDDED_INTEGRITY_MISMATCH",
+            "candidate embedded integrity report does not reproduce from NatalChartState",
+        )
+    if (
+        bundle.candidate.chart.profile_id != bundle.calculation_profile.profile_id
+        or bundle.candidate.chart.profile_version != bundle.calculation_profile.profile_version
+    ):
+        raise ApplicationResolutionError(
+            "APPLICATION_NATAL_PROFILE_BINDING_MISMATCH",
+            "candidate chart profile does not match the stored calculation profile",
+        )
+    expected_natal_hashes = natal_hash_bundle(
+        bundle.candidate.chart,
+        bundle.calculation_profile,
+    )
+    if bundle.candidate.hashes != expected_natal_hashes:
+        raise ApplicationResolutionError(
+            "APPLICATION_NATAL_HASH_MISMATCH",
+            "NatalChartState/profile do not reproduce candidate hashes",
         )
 
+    expected_temporal_context = bundle.candidate.temporal_context()
+    if bundle.temporal_context != expected_temporal_context:
+        raise ApplicationResolutionError(
+            "APPLICATION_TEMPORAL_CONTEXT_MISMATCH",
+            "TemporalNatalContext does not reproduce from the application candidate",
+        )
     _require_pass(
         validate_temporal_state(bundle.temporal_state, bundle.temporal_context),
         "APPLICATION_TEMPORAL_INTEGRITY_FAILED",
