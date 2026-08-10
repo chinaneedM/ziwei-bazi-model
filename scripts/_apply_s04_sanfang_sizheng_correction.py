@@ -49,6 +49,20 @@ def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
+def exact_marker_index(raw: bytes) -> int:
+    offsets: list[int] = []
+    offset = 0
+    for line in raw.splitlines(keepends=True):
+        if line == RETAINED_MARKER:
+            offsets.append(offset)
+        offset += len(line)
+    if len(offsets) != 1:
+        raise SystemExit(
+            f"refusing S04 correction: expected one exact retained boundary line, found {len(offsets)}"
+        )
+    return offsets[0]
+
+
 def write_json(path: Path, payload: object) -> None:
     path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
@@ -67,9 +81,8 @@ def main() -> None:
         raise SystemExit(
             f"refusing S04 correction: expected SHA {EXPECTED_CURRENT_S04_SHA256}, got {current_sha}"
         )
-    if raw.count(RETAINED_MARKER) != 1:
-        raise SystemExit("refusing S04 correction: retained payload marker is not unique")
-    marker_index = raw.index(RETAINED_MARKER)
+
+    marker_index = exact_marker_index(raw)
     retained = raw[marker_index + len(RETAINED_MARKER) :]
     if len(retained) != RETAINED_SIZE_BYTES or sha256_bytes(retained) != RETAINED_SHA256:
         raise SystemExit("refusing S04 correction: retained historical payload identity mismatch")
@@ -77,7 +90,7 @@ def main() -> None:
         raise SystemExit("refusing S04 correction: correction already present")
 
     corrected = raw[:marker_index] + CORRECTION_BLOCK.encode("utf-8") + raw[marker_index:]
-    corrected_marker_index = corrected.index(RETAINED_MARKER)
+    corrected_marker_index = exact_marker_index(corrected)
     corrected_retained = corrected[corrected_marker_index + len(RETAINED_MARKER) :]
     if corrected_retained != retained:
         raise SystemExit("refusing S04 correction: retained historical payload changed")
@@ -97,7 +110,7 @@ def main() -> None:
     write_json(SOURCE_POLICY_PATH, source_policy)
 
     new_raw = S04_PATH.read_bytes()
-    new_marker_index = new_raw.index(RETAINED_MARKER)
+    new_marker_index = exact_marker_index(new_raw)
     new_retained = new_raw[new_marker_index + len(RETAINED_MARKER) :]
     if len(new_retained) != RETAINED_SIZE_BYTES or sha256_bytes(new_retained) != RETAINED_SHA256:
         raise SystemExit("post-write retained payload verification failed")
