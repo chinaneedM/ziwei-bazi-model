@@ -2,9 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from typing import Any
 
 from fortune_training.bazi_chart import BaziChartCandidate, SEXAGENARY_CYCLE, sexagenary_index
 from fortune_training.bazi_chart.registries import STEM_POLARITY
+from fortune_training.calendar_foundation.models import json_value
 
 from .models import (
     BaziDayunState,
@@ -74,7 +76,8 @@ def _add_gregorian_years_utc(value: datetime, years: int) -> datetime:
 
 
 class BaziTemporalEngine:
-    schema = "BAZI-TEMPORAL-RESOLUTION-V1"
+    schema = "BAZI-TEMPORAL-RESULT-V1"
+    typed_schema = "BAZI-TEMPORAL-TYPED-RESOLUTION-V1"
 
     @staticmethod
     def resolve_direction(candidate: BaziChartCandidate, sex: BaziSex) -> DayunDirectionResolution:
@@ -227,13 +230,13 @@ class BaziTemporalEngine:
             },
         )
 
-    def resolve(self, request: BaziTemporalRequest) -> BaziTemporalResolution:
+    def resolve_typed(self, request: BaziTemporalRequest) -> BaziTemporalResolution:
         profile = request.profile.validate()
         try:
             sex = request.sex if isinstance(request.sex, BaziSex) else BaziSex(request.sex)
-        except ValueError as exc:
+        except ValueError:
             return BaziTemporalResolution(
-                schema=self.schema,
+                schema=self.typed_schema,
                 status="FAILED",
                 candidates=(),
                 events=(),
@@ -253,7 +256,7 @@ class BaziTemporalEngine:
             )
         except BaziTemporalGenerationError as exc:
             return BaziTemporalResolution(
-                schema=self.schema,
+                schema=self.typed_schema,
                 status="FAILED",
                 candidates=(),
                 events=(),
@@ -263,12 +266,12 @@ class BaziTemporalEngine:
         # Import here to keep models/profile independent from integrity hashing.
         from .integrity import temporal_hash_bundle, validate_dayun_state
 
-        unique: dict[str, dict] = {}
+        unique: dict[str, dict[str, Any]] = {}
         for state in states:
             report = validate_dayun_state(state, request.candidate, profile)
             if report.status != "PASS":
                 return BaziTemporalResolution(
-                    schema=self.schema,
+                    schema=self.typed_schema,
                     status="FAILED",
                     candidates=(),
                     events=(),
@@ -287,7 +290,7 @@ class BaziTemporalEngine:
                 row = unique[key]
                 if row["hashes"].computation_hash != hashes.computation_hash:
                     return BaziTemporalResolution(
-                        schema=self.schema,
+                        schema=self.typed_schema,
                         status="FAILED",
                         candidates=(),
                         events=(),
@@ -317,9 +320,34 @@ class BaziTemporalEngine:
             events = ("TIME_UNCERTAINTY_CHANGED_DAYUN_BOUNDARIES",)
             diagnostics = ()
         return BaziTemporalResolution(
-            schema=self.schema,
+            schema=self.typed_schema,
             status=status,
             candidates=candidates,
             events=events,
             diagnostics=diagnostics,
         )
+
+    def resolve(self, request: BaziTemporalRequest) -> dict[str, Any]:
+        """Return the stable machine-readable Dayun R1 envelope."""
+
+        typed = self.resolve_typed(request)
+        return {
+            "schema": self.schema,
+            "typed_schema": typed.schema,
+            "status": typed.status,
+            "calculation_profile": json_value(request.profile),
+            "sex": json_value(request.sex),
+            "dayun_count": request.dayun_count,
+            "upstream_natal_fact_hash": request.candidate.hashes.fact_hash,
+            "candidates": [
+                {
+                    "source_temporal_seed_ids": list(row.source_temporal_seed_ids),
+                    "state": json_value(row.state),
+                    "integrity": json_value(row.integrity),
+                    "hashes": json_value(row.hashes),
+                }
+                for row in typed.candidates
+            ],
+            "events": list(typed.events),
+            "diagnostics": list(typed.diagnostics),
+        }
