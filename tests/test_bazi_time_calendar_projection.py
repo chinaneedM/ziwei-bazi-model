@@ -16,32 +16,58 @@ class BaziTimeCalendarProjectionTests(unittest.TestCase):
         cls.foundation = TimeCalendarFoundation.from_repository(ROOT)
 
     @staticmethod
-    def beijing(local: datetime, **kwargs) -> BirthInput:
+    def beijing(local: datetime, *, timezone_id: str = "Asia/Shanghai", **kwargs) -> BirthInput:
         return BirthInput(
             reported_local_datetime=local,
             birth_place="Beijing",
             latitude=39.9042,
             longitude=116.4074,
-            timezone_id="Asia/Shanghai",
+            timezone_id=timezone_id,
             **kwargs,
         )
 
-    def test_a1_wenzhen_smoke_four_pillars(self):
+    def test_a1_authoritative_historical_timezone_four_pillars(self):
         result = self.foundation.resolve_bazi(self.beijing(datetime(1990, 6, 15, 12, 0)))
         self.assertEqual("TIME-CALENDAR-BAZI-PROJECTION-V1", result["schema"])
         self.assertEqual("RESOLVED", result["status"])
         self.assertEqual(1, result["classification_count"])
         self.assertEqual(1, len(result["branches"]))
-        bazi = result["branches"][0]["bazi_time"]
+        branch = result["branches"][0]
+        bazi = branch["bazi_time"]
         self.assertEqual(
-            ("庚午", "壬午", "辛亥", "甲午"),
+            ("庚午", "壬午", "辛亥", "癸巳"),
             tuple(
                 bazi[key]
                 for key in ("year_pillar", "month_pillar", "day_pillar", "hour_pillar")
             ),
         )
-        self.assertNotIn("ziwei_calendar", result["branches"][0])
+        self.assertEqual(9 * 3600, branch["selected_civil_candidate"]["utc_offset_seconds"])
+        self.assertEqual(3600, branch["selected_civil_candidate"]["daylight_saving_seconds"])
+        self.assertNotIn("ziwei_calendar", branch)
         self.assertTrue(result["metadata"]["ziwei_calendar_evaluated"] is False)
+
+    def test_a1_wenzhen_hour_is_fixed_utc8_compatibility_difference(self):
+        authoritative = self.foundation.resolve_bazi(
+            self.beijing(datetime(1990, 6, 15, 12, 0), timezone_id="Asia/Shanghai")
+        )["branches"][0]
+        fixed_utc8 = self.foundation.resolve_bazi(
+            self.beijing(datetime(1990, 6, 15, 12, 0), timezone_id="Etc/GMT-8")
+        )["branches"][0]
+        authoritative_pillars = tuple(
+            authoritative["bazi_time"][key]
+            for key in ("year_pillar", "month_pillar", "day_pillar", "hour_pillar")
+        )
+        fixed_pillars = tuple(
+            fixed_utc8["bazi_time"][key]
+            for key in ("year_pillar", "month_pillar", "day_pillar", "hour_pillar")
+        )
+        self.assertEqual(authoritative_pillars[:3], fixed_pillars[:3])
+        self.assertEqual("癸巳", authoritative_pillars[3])
+        self.assertEqual("甲午", fixed_pillars[3])
+        self.assertEqual(9 * 3600, authoritative["selected_civil_candidate"]["utc_offset_seconds"])
+        self.assertEqual(8 * 3600, fixed_utc8["selected_civil_candidate"]["utc_offset_seconds"])
+        self.assertEqual(3600, authoritative["selected_civil_candidate"]["daylight_saving_seconds"])
+        self.assertEqual(0, fixed_utc8["selected_civil_candidate"]["daylight_saving_seconds"])
 
     def test_projection_preserves_same_pillars_as_combined_resolver(self):
         request = self.beijing(datetime(1990, 6, 15, 12, 0))
@@ -54,7 +80,13 @@ class BaziTimeCalendarProjectionTests(unittest.TestCase):
         result = self.foundation.resolve_bazi(self.beijing(datetime(2200, 6, 15, 12, 0)))
         self.assertEqual("RESOLVED", result["status"])
         self.assertEqual(1, len(result["branches"]))
-        self.assertEqual(4, len(result["branches"][0]["bazi_time"]["year_pillar"] + result["branches"][0]["bazi_time"]["month_pillar"]))
+        self.assertEqual(
+            4,
+            len(
+                result["branches"][0]["bazi_time"]["year_pillar"]
+                + result["branches"][0]["bazi_time"]["month_pillar"]
+            ),
+        )
         self.assertNotIn("ziwei_calendar", result["branches"][0])
 
     def test_same_bazi_classification_keeps_all_time_samples(self):
