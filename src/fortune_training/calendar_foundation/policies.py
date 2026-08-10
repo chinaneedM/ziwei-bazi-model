@@ -16,6 +16,20 @@ class PolicySelection:
     civil_ambiguous_time_policy: str
 
 
+@dataclass(frozen=True)
+class BaziPolicySelection:
+    """Bazi-only view of shared Time/Calendar policies.
+
+    This keeps Bazi chart generation independent from Ziwei-only calendar
+    conventions without changing the existing combined PolicySelection API.
+    """
+
+    bazi_day_boundary_policy: str
+    bazi_late_zi_hour_stem_policy: str
+    bazi_year_boundary_policy: str
+    civil_ambiguous_time_policy: str
+
+
 class PolicyRegistry:
     """Single, versioned registry for disputed or operational conventions."""
 
@@ -63,6 +77,38 @@ class PolicyRegistry:
             civil_ambiguous_time_policy=values["civil.ambiguous_time_policy"],
         )
 
+    def default_bazi_selection(self) -> BaziPolicySelection:
+        values = {
+            policy_id: item["default"]
+            for policy_id, item in self.payload["policies"].items()
+        }
+        return BaziPolicySelection(
+            bazi_day_boundary_policy=values["bazi.day_boundary_policy"],
+            bazi_late_zi_hour_stem_policy=values["bazi.late_zi_hour_stem_policy"],
+            bazi_year_boundary_policy=values["bazi.year_boundary_policy"],
+            civil_ambiguous_time_policy=values["civil.ambiguous_time_policy"],
+        )
+
+    @staticmethod
+    def _validate_bazi_dependency(selection: BaziPolicySelection | PolicySelection) -> None:
+        if (
+            selection.bazi_late_zi_hour_stem_policy == "ZI_START_ROLLOVER"
+            and selection.bazi_day_boundary_policy != "ZI_START_23"
+        ):
+            raise ValueError("ZI_START_ROLLOVER requires bazi.day_boundary_policy=ZI_START_23")
+
+    def validate_bazi_selection(self, selection: BaziPolicySelection) -> BaziPolicySelection:
+        mapping = {
+            "bazi.day_boundary_policy": selection.bazi_day_boundary_policy,
+            "bazi.late_zi_hour_stem_policy": selection.bazi_late_zi_hour_stem_policy,
+            "bazi.year_boundary_policy": selection.bazi_year_boundary_policy,
+            "civil.ambiguous_time_policy": selection.civil_ambiguous_time_policy,
+        }
+        for policy_id, value in mapping.items():
+            self.validate_value(policy_id, value)
+        self._validate_bazi_dependency(selection)
+        return selection
+
     def validate_selection(self, selection: PolicySelection) -> PolicySelection:
         mapping = {
             "bazi.day_boundary_policy": selection.bazi_day_boundary_policy,
@@ -74,9 +120,5 @@ class PolicyRegistry:
         }
         for policy_id, value in mapping.items():
             self.validate_value(policy_id, value)
-        if (
-            selection.bazi_late_zi_hour_stem_policy == "ZI_START_ROLLOVER"
-            and selection.bazi_day_boundary_policy != "ZI_START_23"
-        ):
-            raise ValueError("ZI_START_ROLLOVER requires bazi.day_boundary_policy=ZI_START_23")
+        self._validate_bazi_dependency(selection)
         return selection
