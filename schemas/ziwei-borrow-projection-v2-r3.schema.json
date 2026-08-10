@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-borrow-projection-v2-r3.schema.json",
+  "title": "Ziwei Structural Runtime V2-R3 Borrow Projection State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "upstream_relative_frame_fact_hash",
+    "upstream_relative_frame_computation_hash",
+    "profile",
+    "time_layer",
+    "member_facts",
+    "integrity",
+    "hashes",
+    "schema"
+  ],
+  "properties": {
+    "upstream_relative_frame_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "upstream_relative_frame_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id", "profile_version", "natal_profile_id", "natal_profile_version",
+        "structural_r1_profile_id", "structural_r1_profile_version",
+        "structural_r2_profile_id", "structural_r2_profile_version",
+        "rule_set_id", "rule_set_version", "algorithm_id", "algorithm_version",
+        "supported_time_layer"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3"},
+        "profile_version": {"const": "1.0.0"},
+        "natal_profile_id": {"const": "ZIWEI-CHART-ENGINE-V1"},
+        "natal_profile_version": {"const": "1.0.0"},
+        "structural_r1_profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R1"},
+        "structural_r1_profile_version": {"const": "1.0.0"},
+        "structural_r2_profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R2"},
+        "structural_r2_profile_version": {"const": "1.0.0"},
+        "rule_set_id": {"const": "S06-BORROW-CLOSURE-R1"},
+        "rule_set_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "ZIWEI-BORROW-PROJECTION-V2-R3"},
+        "algorithm_version": {"const": "1.0.0"},
+        "supported_time_layer": {"const": "NATAL"}
+      }
+    },
+    "time_layer": {"const": "NATAL"},
+    "member_facts": {
+      "type": "array",
+      "minItems": 48,
+      "maxItems": 48,
+      "items": {"$ref": "#/$defs/memberFact"}
+    },
+    "integrity": {"$ref": "#/$defs/integrityReport"},
+    "hashes": {"$ref": "#/$defs/hashBundle"},
+    "schema": {"const": "ZIWEI-BORROW-PROJECTION-STATE-V2-R3"}
+  },
+  "$defs": {
+    "designationId": {
+      "enum": [
+        "LIFE", "SIBLINGS", "SPOUSE", "CHILDREN", "WEALTH", "HEALTH",
+        "TRAVEL", "SERVANTS_FRIENDS", "CAREER", "PROPERTY", "FORTUNE", "PARENTS"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "entity_id": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string", "minLength": 1},
+        "address": {"$ref": "#/$defs/address"},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activation_id", "transformation_type", "target_entity_id", "target_display_name",
+        "target_address", "source_layer", "source_stem", "context_id", "assignment_id",
+        "mechanism_id", "generator_id", "algorithm_version", "source_refs"
+      ],
+      "properties": {
+        "activation_id": {"type": "string", "minLength": 1},
+        "transformation_type": {"type": "string", "minLength": 1},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_display_name": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "source_layer": {"type": "string", "minLength": 1},
+        "source_stem": {"type": "string", "minLength": 1},
+        "context_id": {"type": "string", "minLength": 1},
+        "assignment_id": {"type": "string", "minLength": 1},
+        "mechanism_id": {"type": "string", "minLength": 1},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "memberFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_origin_designation_id", "evaluation_origin_address", "time_layer",
+        "member_offset", "target_designation_id", "target_raw_address",
+        "target_main_star_empty", "closure_status", "borrowed_from_raw_address",
+        "projected_placements", "projected_transformations", "structure_physical_key",
+        "zero_second_contribution"
+      ],
+      "properties": {
+        "evaluation_origin_designation_id": {"$ref": "#/$defs/designationId"},
+        "evaluation_origin_address": {"$ref": "#/$defs/address"},
+        "time_layer": {"const": "NATAL"},
+        "member_offset": {"enum": [0, 4, 6, 8]},
+        "target_designation_id": {"$ref": "#/$defs/designationId"},
+        "target_raw_address": {"$ref": "#/$defs/address"},
+        "target_main_star_empty": {"type": "boolean"},
+        "closure_status": {"enum": ["DIRECT_PHYSICAL", "BORROWED_DIRECT", "BORROW_SOURCE_EMPTY_OR_UNKNOWN"]},
+        "borrowed_from_raw_address": {"anyOf": [{"$ref": "#/$defs/address"}, {"type": "null"}]},
+        "projected_placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
+        "projected_transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},
+        "structure_physical_key": {"type": "string", "pattern": "^STRUCTURE-PHYSICAL:[0-9a-f]{64}$"},
+        "zero_second_contribution": {"type": "boolean"}
+      }
+    },
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    },
+    "integrityReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/integrityDiagnostic"}},
+        "algorithm_id": {"const": "ZIWEI-BORROW-PROJECTION-INTEGRITY-HASH-V2-R3"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "ZIWEI-BORROW-PROJECTION-INTEGRITY-HASH-V2-R3"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
