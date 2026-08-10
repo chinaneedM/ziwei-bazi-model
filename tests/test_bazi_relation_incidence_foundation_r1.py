@@ -29,8 +29,6 @@ from fortune_training.bazi_relation_incidence.generation import (
     _relation_pair_topology_facts,
 )
 from fortune_training.bazi_relation_transition import (
-    ENTERED,
-    EXITED,
     PERSISTING,
     BaziRelationTransitionEngine,
     BaziRelationTransitionRequest,
@@ -376,6 +374,115 @@ class BaziRelationIncidenceFoundationR1Tests(unittest.TestCase):
         )
         self.assertTrue(all(len(row.source_temporal_seed_ids) == 1 for row in result.candidates))
 
+    def test_identical_complete_upstream_contracts_preserve_all_lineage_indices(self):
+        target = self._target("baseline")
+        stack = self._stack(target)
+        flow = stack[0].candidates[0]
+        structural = replace(
+            stack[1].candidates[0],
+            source_flow_candidate_indices=(0, 1),
+        )
+        support = replace(
+            stack[2].candidates[0],
+            source_structural_candidate_indices=(0, 1),
+            source_flow_candidate_indices=(0, 1),
+        )
+        flows = (flow, flow)
+        structurals = (structural, structural)
+        supports = (support, support)
+        result = self.incidence_engine.resolve_typed(
+            BaziRelationIncidenceRequest(
+                self.natal,
+                target,
+                flows,
+                structurals,
+                supports,
+                self.incidence_profile,
+            )
+        )
+        self.assertEqual("RESOLVED", result.status)
+        candidate = result.candidates[0]
+        self.assertEqual((0, 1), candidate.source_flow_candidate_indices)
+        self.assertEqual((0, 1), candidate.source_structural_candidate_indices)
+        self.assertEqual((0, 1), candidate.source_support_candidate_indices)
+        self.assertEqual(
+            tuple(sorted(support.source_temporal_candidate_indices)),
+            candidate.source_temporal_candidate_indices,
+        )
+        self.assertEqual(
+            tuple(sorted(support.source_temporal_seed_ids)),
+            candidate.source_temporal_seed_ids,
+        )
+
+        chain = RelationIncidenceSnapshotInputs(
+            0,
+            0,
+            0,
+            flow,
+            structural,
+            support,
+            source_flow_candidate_indices=(0, 1),
+            source_structural_candidate_indices=(0, 1),
+            source_support_candidate_indices=(0, 1),
+            request_flow_candidates=flows,
+            request_structural_candidates=structurals,
+            request_support_candidates=supports,
+        )
+        tampered_flow_indices = (0,)
+        report = validate_relation_incidence_context(
+            candidate.context,
+            self.natal,
+            chain,
+            tampered_flow_indices,
+            candidate.source_structural_candidate_indices,
+            candidate.source_support_candidate_indices,
+            candidate.source_temporal_candidate_indices,
+            candidate.source_temporal_seed_ids,
+            candidate.lineage_binding_keys,
+            self.incidence_profile,
+            candidate.hashes,
+        )
+        codes = {row.code for row in report.diagnostics}
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("FLOW_CANDIDATE_LINEAGE_MISMATCH", codes)
+        self.assertIn("INCIDENCE_HASH_REPLAY_MISMATCH", codes)
+        self.assertNotEqual(
+            candidate.hashes.computation_hash,
+            relation_incidence_hash_bundle(
+                candidate.context,
+                self.natal,
+                chain,
+                tampered_flow_indices,
+                candidate.source_structural_candidate_indices,
+                candidate.source_support_candidate_indices,
+                candidate.source_temporal_candidate_indices,
+                candidate.source_temporal_seed_ids,
+                candidate.lineage_binding_keys,
+                self.incidence_profile,
+            ).computation_hash,
+        )
+
+        invalid_support = replace(
+            support,
+            source_structural_candidate_indices=(0, 2),
+        )
+        invalid = self.incidence_engine.resolve_typed(
+            BaziRelationIncidenceRequest(
+                self.natal,
+                target,
+                flows,
+                structurals,
+                (invalid_support,),
+                self.incidence_profile,
+            )
+        )
+        self.assertEqual("FAILED", invalid.status)
+        self.assertTrue(any(
+            "SUPPORT_STRUCTURAL_CANDIDATE_LINEAGE_INDEX_OUT_OF_RANGE"
+            in diagnostic
+            for diagnostic in invalid.diagnostics
+        ))
+
     def test_incidence_aligns_with_transition_without_becoming_dependency(self):
         before_target = self._target("baseline")
         after_target = self._target("transition_after")
@@ -415,7 +522,6 @@ class BaziRelationIncidenceFoundationR1Tests(unittest.TestCase):
             {PERSISTING},
             {row.transition_state for row in transition_context.transition_facts},
         )
-        self.assertEqual({PERSISTING, ENTERED, EXITED}, {PERSISTING, ENTERED, EXITED})
 
     def test_incidence_never_calls_generator_and_preserves_upstream_hashes(self):
         target = self._target("baseline")
@@ -479,6 +585,9 @@ class BaziRelationIncidenceFoundationR1Tests(unittest.TestCase):
             tampered,
             self.natal,
             chain,
+            candidate.source_flow_candidate_indices,
+            candidate.source_structural_candidate_indices,
+            candidate.source_support_candidate_indices,
             candidate.source_temporal_candidate_indices,
             candidate.source_temporal_seed_ids,
             candidate.lineage_binding_keys,
@@ -496,6 +605,9 @@ class BaziRelationIncidenceFoundationR1Tests(unittest.TestCase):
                 tampered,
                 self.natal,
                 chain,
+                candidate.source_flow_candidate_indices,
+                candidate.source_structural_candidate_indices,
+                candidate.source_support_candidate_indices,
                 candidate.source_temporal_candidate_indices,
                 candidate.source_temporal_seed_ids,
                 candidate.lineage_binding_keys,

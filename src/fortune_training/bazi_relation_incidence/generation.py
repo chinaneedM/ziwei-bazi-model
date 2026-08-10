@@ -50,6 +50,12 @@ class RelationIncidenceSnapshotInputs:
     flow: BaziFlowCandidate
     structural: BaziStructuralCandidate
     support: BaziStructuralSupportCandidate
+    source_flow_candidate_indices: tuple[int, ...] = ()
+    source_structural_candidate_indices: tuple[int, ...] = ()
+    source_support_candidate_indices: tuple[int, ...] = ()
+    request_flow_candidates: tuple[BaziFlowCandidate, ...] = ()
+    request_structural_candidates: tuple[BaziStructuralCandidate, ...] = ()
+    request_support_candidates: tuple[BaziStructuralSupportCandidate, ...] = ()
 
 
 def _instant_fact(value) -> str:

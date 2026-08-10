@@ -195,6 +195,9 @@ def relation_incidence_hash_bundle(
     context: BaziRelationIncidenceContext,
     natal: BaziChartCandidate,
     chain: RelationIncidenceSnapshotInputs,
+    source_flow_candidate_indices: tuple[int, ...],
+    source_structural_candidate_indices: tuple[int, ...],
+    source_support_candidate_indices: tuple[int, ...],
     source_temporal_candidate_indices: tuple[int, ...],
     source_temporal_seed_ids: tuple[str, ...],
     lineage_binding_keys: tuple[str, ...],
@@ -210,9 +213,9 @@ def relation_incidence_hash_bundle(
             "support": chain.support.hashes.computation_hash,
         },
         "source_candidate_indices": {
-            "flow": chain.flow_index,
-            "structural": chain.structural_index,
-            "support": chain.support_index,
+            "flow": sorted(source_flow_candidate_indices),
+            "structural": sorted(source_structural_candidate_indices),
+            "support": sorted(source_support_candidate_indices),
             "temporal": sorted(source_temporal_candidate_indices),
         },
         "source_temporal_seed_ids": sorted(source_temporal_seed_ids),
@@ -265,6 +268,9 @@ def validate_relation_incidence_context(
     context: BaziRelationIncidenceContext,
     natal: BaziChartCandidate,
     chain: RelationIncidenceSnapshotInputs,
+    source_flow_candidate_indices: tuple[int, ...],
+    source_structural_candidate_indices: tuple[int, ...],
+    source_support_candidate_indices: tuple[int, ...],
     source_temporal_candidate_indices: tuple[int, ...],
     source_temporal_seed_ids: tuple[str, ...],
     lineage_binding_keys: tuple[str, ...],
@@ -379,6 +385,106 @@ def validate_relation_incidence_context(
             str(sorted(temporal_hashes)),
         )
 
+    expected_flow_indices = tuple(sorted(
+        chain.source_flow_candidate_indices or (chain.flow_index,)
+    ))
+    expected_structural_indices = tuple(sorted(
+        chain.source_structural_candidate_indices or (chain.structural_index,)
+    ))
+    expected_support_indices = tuple(sorted(
+        chain.source_support_candidate_indices or (chain.support_index,)
+    ))
+    candidate_lineage_checks = (
+        (
+            "FLOW_CANDIDATE_LINEAGE_MISMATCH",
+            "source_flow_candidate_indices",
+            tuple(sorted(source_flow_candidate_indices)),
+            expected_flow_indices,
+        ),
+        (
+            "STRUCTURAL_CANDIDATE_LINEAGE_MISMATCH",
+            "source_structural_candidate_indices",
+            tuple(sorted(source_structural_candidate_indices)),
+            expected_structural_indices,
+        ),
+        (
+            "SUPPORT_CANDIDATE_LINEAGE_MISMATCH",
+            "source_support_candidate_indices",
+            tuple(sorted(source_support_candidate_indices)),
+            expected_support_indices,
+        ),
+    )
+    for code, path, actual, expected in candidate_lineage_checks:
+        if actual != expected:
+            _diag(diagnostics, code, path, str(actual))
+
+    request_candidate_groups = (
+        chain.request_flow_candidates,
+        chain.request_structural_candidates,
+        chain.request_support_candidates,
+    )
+    if any(request_candidate_groups) and not all(request_candidate_groups):
+        _diag(
+            diagnostics,
+            "UPSTREAM_REQUEST_CANDIDATE_SET_INCOMPLETE",
+            "candidate_lineage",
+            "Flow/Structural/Support request candidates must be supplied together",
+        )
+    elif all(request_candidate_groups):
+        from .engine import (
+            BaziRelationIncidenceGenerationError,
+            _validated_support_lineage,
+        )
+
+        for support_index in expected_support_indices:
+            try:
+                validated = _validated_support_lineage(
+                    natal,
+                    chain.flow.context.target_utc,
+                    chain.request_flow_candidates,
+                    chain.request_structural_candidates,
+                    chain.request_support_candidates,
+                    support_index,
+                )
+            except BaziRelationIncidenceGenerationError as exc:
+                _diag(
+                    diagnostics,
+                    "UPSTREAM_CANDIDATE_LINEAGE_INVALID",
+                    f"source_support_candidate_indices[{support_index}]",
+                    f"{exc.diagnostic_code}:{exc}",
+                )
+                continue
+            replayed = (
+                validated.flow_indices,
+                validated.structural_indices,
+                validated.temporal_indices,
+                validated.seed_ids,
+            )
+            expected_replayed = (
+                expected_flow_indices,
+                expected_structural_indices,
+                tuple(sorted(chain.support.source_temporal_candidate_indices)),
+                tuple(sorted(chain.support.source_temporal_seed_ids)),
+            )
+            if replayed != expected_replayed:
+                _diag(
+                    diagnostics,
+                    "UPSTREAM_CANDIDATE_LINEAGE_REPLAY_MISMATCH",
+                    f"source_support_candidate_indices[{support_index}]",
+                    "Support/Structural/Flow complete lineage does not replay",
+                )
+            request_support = chain.request_support_candidates[support_index]
+            if (
+                request_support.hashes != chain.support.hashes
+                or request_support.context != chain.support.context
+            ):
+                _diag(
+                    diagnostics,
+                    "SUPPORT_COMPLETE_CONTRACT_REPLAY_MISMATCH",
+                    f"source_support_candidate_indices[{support_index}]",
+                    request_support.hashes.fact_hash,
+                )
+
     expected_indices = tuple(sorted(chain.support.source_temporal_candidate_indices))
     expected_seeds = tuple(sorted(chain.support.source_temporal_seed_ids))
     if tuple(sorted(source_temporal_candidate_indices)) != expected_indices:
@@ -398,8 +504,17 @@ def validate_relation_incidence_context(
     expected_keys = (
         f"TEMPORAL_FACT:{chain.flow.context.upstream_temporal_fact_hash}",
         f"FLOW_FACT:{chain.flow.hashes.fact_hash}",
+        f"FLOW_COMPUTATION:{chain.flow.hashes.computation_hash}",
         f"STRUCTURAL_FACT:{chain.structural.hashes.fact_hash}",
+        f"STRUCTURAL_COMPUTATION:{chain.structural.hashes.computation_hash}",
         f"SUPPORT_FACT:{chain.support.hashes.fact_hash}",
+        f"SUPPORT_COMPUTATION:{chain.support.hashes.computation_hash}",
+        *(f"FLOW_CANDIDATE_INDEX:{item}" for item in expected_flow_indices),
+        *(
+            f"STRUCTURAL_CANDIDATE_INDEX:{item}"
+            for item in expected_structural_indices
+        ),
+        *(f"SUPPORT_CANDIDATE_INDEX:{item}" for item in expected_support_indices),
         *(f"TEMPORAL_CANDIDATE_INDEX:{item}" for item in expected_indices),
         *(f"TEMPORAL_SEED:{item}" for item in expected_seeds),
     )
@@ -743,6 +858,9 @@ def validate_relation_incidence_context(
             context,
             natal,
             chain,
+            source_flow_candidate_indices,
+            source_structural_candidate_indices,
+            source_support_candidate_indices,
             source_temporal_candidate_indices,
             source_temporal_seed_ids,
             lineage_binding_keys,
