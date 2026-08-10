@@ -1,6 +1,6 @@
 # Bazi Temporal Flow Context R1
 
-Status: release candidate for Issue #217.
+Status: released by Issue #217; consumed without mutation by Bazi Structural Context R1.
 
 ## Scope
 
@@ -81,4 +81,4 @@ The public contract is `schemas/bazi-flow-context-v1.schema.json`.
 
 ## Non-goals
 
-R1 does not implement dynamic stem/branch relation composition, relation suppression or activation, strength, seasonal scoring, pattern, useful-god selection, 调候, ShenSha, daily/hourly flow axes, prediction, UI, or Ziwei integration.
+R1 does not implement dynamic stem/branch relation composition, relation suppression or activation, strength, seasonal scoring, pattern, useful-god selection, 调候, ShenSha, daily/hourly flow axes, prediction, UI, or Ziwei integration. Neutral active occurrence materialization and the raw dynamic relation overlay are isolated in `BAZI-STRUCTURAL-CONTEXT-R1`.
