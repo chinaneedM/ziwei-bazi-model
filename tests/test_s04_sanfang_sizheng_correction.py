@@ -15,6 +15,8 @@ RETAINED_MARKER = b"BEGIN_S04_RETAINED_COMPLETE_PAYLOAD\n"
 RETAINED_SHA256 = "765caa9944161607b72bd7d7cc641332a65a4d9ac77bba7c9b884de50da7ccc8"
 RETAINED_SIZE_BYTES = 1430055
 CORRECTION_ID = "S04-SANFANG-SIZHENG-CORRECTION-R1"
+FIXED_TABLE_HEADING = "### 12.2 三方四正固定表"
+FIXED_TABLE_END = "固定规则：本宫坐守、对宫、三方、夹宫和借照必须分开标记；"
 
 
 SOURCE_NAME_TO_DESIGNATION_ID = {
@@ -46,6 +48,12 @@ def exact_marker_index(raw: bytes) -> int:
     return offsets[0]
 
 
+def retained_fixed_table(text: str) -> str:
+    start = text.index(FIXED_TABLE_HEADING)
+    end = text.index(FIXED_TABLE_END, start)
+    return text[start:end]
+
+
 class S04SanfangSizhengCorrectionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -55,6 +63,7 @@ class S04SanfangSizhengCorrectionTests(unittest.TestCase):
         cls.retained = cls.raw[cls.marker_index + len(RETAINED_MARKER) :]
         cls.prefix_text = cls.prefix.decode("utf-8")
         cls.retained_text = cls.retained.decode("utf-8")
+        cls.fixed_table_text = retained_fixed_table(cls.retained_text)
 
     def test_retained_historical_payload_is_byte_exact(self) -> None:
         self.assertEqual(RETAINED_SIZE_BYTES, len(self.retained))
@@ -77,24 +86,24 @@ class S04SanfangSizhengCorrectionTests(unittest.TestCase):
             self.prefix_text,
         )
         self.assertIn(
-            "S04-SF-07|迁移宫|夫妻宫、福德宫|福德宫",
-            self.retained_text,
+            "| S04-SF-07 | 迁移宫 | 命宫、夫妻宫 | 福德宫 |",
+            self.fixed_table_text,
         )
         self.assertIn(
-            "S04-SF-12|父母宫|子女宫、交友宫|交友宫",
-            self.retained_text,
+            "| S04-SF-12 | 父母宫 | 子女宫、疾厄宫 | 交友宫 |",
+            self.fixed_table_text,
         )
 
     @staticmethod
-    def _parse_plain_row(line: str) -> tuple[str, tuple[str, str], str]:
-        parts = line.split("|")
+    def _parse_markdown_row(line: str) -> tuple[str, tuple[str, str], str, str]:
+        parts = [part.strip() for part in line.strip().strip("|").split("|")]
         if len(parts) != 4:
             raise AssertionError(f"invalid retained S04-SF row: {line}")
-        _row_id, theme, trines, opposite = parts
+        row_id, theme, trines, opposite = parts
         pair = tuple(item.strip() for item in trines.split("、"))
         if len(pair) != 2:
             raise AssertionError(f"invalid trine pair: {line}")
-        return theme.strip(), pair, opposite.strip()
+        return row_id, pair, theme, opposite
 
     @staticmethod
     def _parse_correction_row(line: str) -> tuple[str, tuple[str, str], str, str]:
@@ -108,17 +117,17 @@ class S04SanfangSizhengCorrectionTests(unittest.TestCase):
         return theme.strip(), pair, opposite.strip(), override.split("=", 1)[1]
 
     def test_active_all_twelve_rows_normalize_to_z12_geometry(self) -> None:
+        expected_ids = {f"S04-SF-{index:02d}" for index in range(1, 13)}
         retained_rows: dict[str, tuple[str, tuple[str, str], str]] = {}
-        for line in self.retained_text.splitlines():
-            if line.startswith("S04-SF-") and len(line) > len("S04-SF-00"):
-                row_id = line.split("|", 1)[0]
-                if row_id in {f"S04-SF-{index:02d}" for index in range(1, 13)}:
-                    self.assertNotIn(row_id, retained_rows)
-                    retained_rows[row_id] = self._parse_plain_row(line)
-        self.assertEqual(
-            {f"S04-SF-{index:02d}" for index in range(1, 13)},
-            set(retained_rows),
-        )
+        for line in self.fixed_table_text.splitlines():
+            if not line.lstrip().startswith("| S04-SF-"):
+                continue
+            row_id, trines, theme, opposite = self._parse_markdown_row(line)
+            if row_id not in expected_ids:
+                continue
+            self.assertNotIn(row_id, retained_rows)
+            retained_rows[row_id] = (theme, trines, opposite)
+        self.assertEqual(expected_ids, set(retained_rows))
 
         corrections: dict[str, tuple[str, tuple[str, str], str]] = {}
         for line in self.prefix_text.splitlines():
