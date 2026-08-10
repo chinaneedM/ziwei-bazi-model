@@ -11,12 +11,13 @@ from .models import (
     LunarDate,
     TimePrecision,
 )
-from .policies import PolicyRegistry, PolicySelection
+from .policies import BaziPolicySelection, PolicyRegistry, PolicySelection
 from .solar import SolarTimeEngine
 from .timezone import CivilTimeResolver
 from .ziwei import ZiweiCalendarResolver
 
 __all__ = [
+    "BaziPolicySelection",
     "BaziTimeResolver",
     "BirthInput",
     "ChineseCalendarEngine",
@@ -33,4 +34,4 @@ __all__ = [
     "ZiweiCalendarResolver",
 ]
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
