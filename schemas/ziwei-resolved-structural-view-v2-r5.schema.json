@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-resolved-structural-view-v2-r5.schema.json",
+  "title": "Ziwei Structural Runtime V2-R5 Resolved Structural View State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "upstream_r3_fact_hash",
+    "upstream_r3_computation_hash",
+    "upstream_r4_fact_hash",
+    "upstream_r4_computation_hash",
+    "profile",
+    "time_layer",
+    "frames",
+    "integrity",
+    "hashes",
+    "schema"
+  ],
+  "properties": {
+    "upstream_r3_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "upstream_r3_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "upstream_r4_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "upstream_r4_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "upstream_r3_profile_id",
+        "upstream_r3_profile_version",
+        "upstream_r4_profile_id",
+        "upstream_r4_profile_version",
+        "composition_algorithm_id",
+        "composition_algorithm_version",
+        "supported_time_layer"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R5"},
+        "profile_version": {"const": "1.0.0"},
+        "upstream_r3_profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R3"},
+        "upstream_r3_profile_version": {"const": "1.0.0"},
+        "upstream_r4_profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R4"},
+        "upstream_r4_profile_version": {"const": "1.0.0"},
+        "composition_algorithm_id": {"const": "ZIWEI-BORROW-RESOLVED-SANFANG-SIZHENG"},
+        "composition_algorithm_version": {"const": "1.0.0"},
+        "supported_time_layer": {"const": "NATAL"}
+      }
+    },
+    "time_layer": {"const": "NATAL"},
+    "frames": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {"$ref": "#/$defs/frame"}
+    },
+    "integrity": {"$ref": "#/$defs/integrityReport"},
+    "hashes": {"$ref": "#/$defs/hashBundle"},
+    "schema": {"const": "ZIWEI-RESOLVED-STRUCTURAL-VIEW-STATE-V2-R5"}
+  },
+  "$defs": {
+    "designationId": {
+      "enum": [
+        "LIFE", "SIBLINGS", "SPOUSE", "CHILDREN", "WEALTH", "HEALTH",
+        "TRAVEL", "SERVANTS_FRIENDS", "CAREER", "PROPERTY", "FORTUNE", "PARENTS"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
+      }
+    },
+    "nullableAddress": {
+      "anyOf": [
+        {"$ref": "#/$defs/address"},
+        {"type": "null"}
+      ]
+    },
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_role",
+        "member_offset",
+        "target_designation_id",
+        "target_raw_address",
+        "closure_status",
+        "borrowed_from_raw_address",
+        "physical_source_address",
+        "structure_physical_key",
+        "r3_member_key"
+      ],
+      "properties": {
+        "semantic_role": {"enum": ["SELF", "TRINE_PLUS_4", "OPPOSITION", "TRINE_PLUS_8"]},
+        "member_offset": {"enum": [0, 4, 6, 8]},
+        "target_designation_id": {"$ref": "#/$defs/designationId"},
+        "target_raw_address": {"$ref": "#/$defs/address"},
+        "closure_status": {"enum": ["DIRECT_PHYSICAL", "BORROWED_DIRECT", "BORROW_SOURCE_EMPTY_OR_UNKNOWN"]},
+        "borrowed_from_raw_address": {"$ref": "#/$defs/nullableAddress"},
+        "physical_source_address": {"$ref": "#/$defs/nullableAddress"},
+        "structure_physical_key": {"type": "string", "pattern": "^STRUCTURE-PHYSICAL:[0-9a-f]{64}$"},
+        "r3_member_key": {"type": "string", "pattern": "^R3_MEMBER:[A-Z_]+:(0|4|6|8)$"}
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_designation_id",
+        "origin_address",
+        "trine_group_key",
+        "opposition_axis_key",
+        "members"
+      ],
+      "properties": {
+        "origin_designation_id": {"$ref": "#/$defs/designationId"},
+        "origin_address": {"$ref": "#/$defs/address"},
+        "trine_group_key": {"type": "string", "pattern": "^TRINE_GROUP:"},
+        "opposition_axis_key": {"type": "string", "pattern": "^OPPOSITION_AXIS:"},
+        "members": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"$ref": "#/$defs/member"}
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrityReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/diagnostic"}},
+        "algorithm_id": {"const": "ZIWEI-RESOLVED-STRUCTURAL-INTEGRITY-HASH-V2-R5"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "ZIWEI-RESOLVED-STRUCTURAL-INTEGRITY-HASH-V2-R5"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
