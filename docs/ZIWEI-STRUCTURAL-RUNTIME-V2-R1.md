@@ -5,10 +5,14 @@
 ```text
 RUNTIME_ID=ZIWEI-STRUCTURAL-RUNTIME-V2-R1
 RUNTIME_VERSION=1.0.0
-STATUS=IMPLEMENTATION_CANDIDATE
+STATUS=ACTIVE_V2_R1
 UPSTREAM_NATAL_RELEASE=ZIWEI-CHART-ENGINE-V1@1.0.0
 ISSUE=#192
+PR=#193
 ```
+
+PR #193 is the activation change set for this runtime. When this document is present
+on `main`, the neutral Structural Runtime V2-R1 contract described below is active.
 
 This runtime is a separately versioned layer after the frozen Ziwei Chart Engine V1.
 It does not redefine V1 NatalChartState, V1 calculation profiles, V1 hashes, V1
@@ -130,7 +134,9 @@ R1 enforces:
 
 Algebra tests additionally exhaustively verify shift closure, inverse shift, offset
 consistency and the pure geometric +6 involution without assigning it a traditional
-semantic label.
+semantic label. Hash-lineage tests explicitly verify both structural-profile and
+topology-algorithm version changes affect ComputationHash while leaving the fact
+projection unchanged.
 
 ## Schema
 
@@ -142,10 +148,10 @@ schemas/ziwei-structural-state-v2-r1.schema.json
 
 The frozen V1 chart, temporal and view schemas are not expanded.
 
-## Validation gate
+## Validation
 
-Before R1 can be marked active, the branch must pass the repository's existing
-bootstrap/verify/full-unittest checks plus the new exhaustive structural and schema
-tests. Any failure must be fixed within this separate V2 layer unless the failure
-proves a genuine upstream V1 defect; V1 must not be casually reopened to accommodate
-Structural Runtime implementation.
+Activation requires the repository's existing bootstrap/verify/full-unittest checks
+plus the new exhaustive structural and schema tests to pass on the PR merge candidate.
+PR #193 satisfies this gate before merge. Any future failure must be fixed within the
+separate V2 layer unless it proves a genuine upstream V1 defect; V1 must not be
+casually reopened to accommodate Structural Runtime implementation.
