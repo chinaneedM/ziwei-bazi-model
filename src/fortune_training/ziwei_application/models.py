@@ -59,6 +59,9 @@ class ApplicationChartBundle:
     resolution_status: str
     calculation_profile: ResolvedZiweiCalculationProfile
     presentation_profile: PresentationProfile
+    selected_daxian_frame_id: str | None
+    selected_annual_year: int | None
+    selected_minor_limit_age: int | None
     candidate: ZiweiChartCandidate
     temporal_context: TemporalNatalContext
     temporal_state: ZiweiTemporalState
