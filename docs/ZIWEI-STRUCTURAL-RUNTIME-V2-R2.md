@@ -5,12 +5,16 @@
 ```text
 RUNTIME_ID=ZIWEI-STRUCTURAL-RUNTIME-V2-R2
 RUNTIME_VERSION=1.0.0
-STATUS=IMPLEMENTATION_CANDIDATE
+STATUS=ACTIVE_V2_R2
 UPSTREAM_STRUCTURAL_RELEASE=ZIWEI-STRUCTURAL-RUNTIME-V2-R1@1.0.0
 UPSTREAM_NATAL_RELEASE=ZIWEI-CHART-ENGINE-V1@1.0.0
 ISSUE=#195
+PR=#196
 CANONICAL_SEMANTIC_BLOCKER=#194
 ```
+
+PR #196 is the activation change set for this runtime. When this document is present
+on `main`, the relative-palace frame contract described below is active.
 
 V2-R2 is a separately versioned relative-palace coordinate layer after the active
 neutral Structural Runtime V2-R1. It does not modify frozen V1 Natal state or active
@@ -186,6 +190,10 @@ R2 enforces at least:
 15. final state is bound to the exact supplied R1 hashes;
 16. stored R2 hashes reproduce from canonical projections.
 
+Regression coverage explicitly tampers target designation, target address, relative
+ordinal and geometric offset separately; each path must fail integrity rather than be
+silently normalized.
+
 ## Schema
 
 Runtime JSON is independently validated by:
@@ -225,9 +233,9 @@ V2-R2 does not activate:
 - auspicious/inauspicious meaning;
 - interpretation, scoring or prediction.
 
-## Activation gate
+## Validation
 
-Before V2-R2 is marked active, the merge-candidate branch must pass repository
-bootstrap, `fortune-train verify`, the full unittest suite, the new exhaustive R2
-algebra/integrity/hash/schema/cross-chart regressions, and a branch-to-main audit
-showing no unintended V1 or V2-R1 changes.
+Activation requires repository bootstrap, `fortune-train verify`, the full unittest
+suite, exhaustive R2 algebra/integrity/hash/schema/cross-chart/tamper regressions, and
+a branch-to-main audit showing no unintended V1 or V2-R1 changes. PR #196 must satisfy
+this gate on its final merge-candidate head before merge.
