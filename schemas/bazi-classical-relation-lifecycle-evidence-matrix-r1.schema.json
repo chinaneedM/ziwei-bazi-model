@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bazi-classical-relation-lifecycle-evidence-matrix-r1.schema.json",
+  "title": "Bazi Classical Relation Lifecycle Evidence Matrix R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "audit_id",
+    "authority",
+    "scope",
+    "method",
+    "closed_vocabularies",
+    "conflict_groups",
+    "records",
+    "summary"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-MATRIX-R1"},
+    "audit_id": {"const": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-MATRIX-R1"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "canonical_source_path",
+        "canonical_source_bytes",
+        "canonical_source_sha256",
+        "source_access_index_path",
+        "source_access_index_sha256",
+        "canonical_source_is_sole_authority",
+        "prediction_source_selection_allowed"
+      ],
+      "properties": {
+        "source_id": {"const": "S14"},
+        "canonical_source_path": {"const": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt"},
+        "canonical_source_bytes": {"const": 3354845},
+        "canonical_source_sha256": {"const": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407"},
+        "source_access_index_path": {"const": "sources/derived-access/S14/index.json"},
+        "source_access_index_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "canonical_source_is_sole_authority": {"const": true},
+        "prediction_source_selection_allowed": {"const": false}
+      }
+    },
+    "scope": {"type": "object"},
+    "method": {"type": "object"},
+    "closed_vocabularies": {"type": "object"},
+    "conflict_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_group_id", "relation_family", "evidence_ids", "resolution_status"],
+        "properties": {
+          "conflict_group_id": {"type": "string", "pattern": "^S14-CONFLICT-"},
+          "relation_family": {"type": "string"},
+          "evidence_ids": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^S14-EV-L[0-9]{5}-[0-9a-f]{12}$"}
+          },
+          "resolution_status": {"const": "UNRESOLVED_PROFILE_REVIEW_REQUIRED"}
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/evidenceRecord"}
+    },
+    "summary": {"type": "object"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidenceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "source_id",
+        "canonical_source_path",
+        "canonical_source_sha256",
+        "access_segment_id",
+        "access_segment_path",
+        "access_segment_sha256",
+        "canonical_line_start",
+        "canonical_line_end",
+        "segment_local_line_start",
+        "segment_local_line_end",
+        "canonical_byte_start",
+        "canonical_byte_end_exclusive",
+        "passage_includes_line_ending",
+        "passage_sha256",
+        "source_heading_path",
+        "source_record_type",
+        "source_role",
+        "exact_excerpt",
+        "excerpt_is_complete_source_record_text",
+        "relation_families",
+        "participant_kind",
+        "statement_class",
+        "secondary_statement_classes",
+        "condition_dependency_tags",
+        "conflict_group_ids",
+        "alternative_profile_labels",
+        "runtime_dependency_map",
+        "runtime_gap_tags",
+        "review_status",
+        "audit_notes"
+      ],
+      "properties": {
+        "evidence_id": {"type": "string", "pattern": "^S14-EV-L[0-9]{5}-[0-9a-f]{12}$"},
+        "source_id": {"const": "S14"},
+        "canonical_source_path": {"const": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt"},
+        "canonical_source_sha256": {"const": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407"},
+        "access_segment_id": {"type": "string", "pattern": "^S14-[0-9]{4}$"},
+        "access_segment_path": {"type": "string", "pattern": "^sources/derived-access/S14/segment-[0-9]{4}\\.txt$"},
+        "access_segment_sha256": {"$ref": "#/$defs/sha256"},
+        "canonical_line_start": {"type": "integer", "minimum": 1},
+        "canonical_line_end": {"type": "integer", "minimum": 1},
+        "segment_local_line_start": {"type": "integer", "minimum": 1},
+        "segment_local_line_end": {"type": "integer", "minimum": 1},
+        "canonical_byte_start": {"type": "integer", "minimum": 0},
+        "canonical_byte_end_exclusive": {"type": "integer", "minimum": 1},
+        "passage_includes_line_ending": {"type": "boolean"},
+        "passage_sha256": {"$ref": "#/$defs/sha256"},
+        "source_heading_path": {"type": "string"},
+        "source_record_type": {"type": "string"},
+        "source_role": {"type": "string"},
+        "exact_excerpt": {"type": "string", "maxLength": 240},
+        "excerpt_is_complete_source_record_text": {"type": "boolean"},
+        "relation_families": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "STEM_FIVE_COMBINATION",
+              "BRANCH_LIUHE",
+              "BRANCH_CHONG",
+              "BRANCH_SANHE_COMPLETE",
+              "BRANCH_ZIMAO_PUNISHMENT",
+              "BRANCH_DIRECTIONAL_PUNISHMENT",
+              "BRANCH_SELF_PUNISHMENT",
+              "BRANCH_HARM",
+              "BRANCH_BREAK",
+              "BRANCH_PARTIAL_TRINE",
+              "BRANCH_DIRECTIONAL_TRIAD",
+              "HIDDEN_COMBINATION",
+              "OTHER_UNRELEASED_RELATION",
+              "CROSS_FAMILY_RELATION_LIFECYCLE"
+            ]
+          }
+        },
+        "participant_kind": {"enum": ["STEM", "BRANCH", "MIXED", "OTHER"]},
+        "statement_class": {"type": "string"},
+        "secondary_statement_classes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "condition_dependency_tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "conflict_group_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "alternative_profile_labels": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "runtime_dependency_map": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["primitive", "status", "rationale"],
+            "properties": {
+              "primitive": {"type": "string"},
+              "status": {
+                "enum": [
+                  "AVAILABLE_EXACTLY",
+                  "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+                  "PARTIALLY_AVAILABLE",
+                  "MISSING_PRIMITIVE",
+                  "OUTSIDE_CURRENT_RELATION_REGISTRY",
+                  "SOURCE_SEMANTICS_AMBIGUOUS"
+                ]
+              },
+              "rationale": {"type": "string"}
+            }
+          }
+        },
+        "runtime_gap_tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "review_status": {
+          "enum": [
+            "REVIEWED_R1",
+            "CONFLICT_REQUIRES_REVIEW",
+            "SOURCE_SEMANTICS_AMBIGUOUS",
+            "RUNTIME_RELATION_GAP_DEFERRED"
+          ]
+        },
+        "audit_notes": {"type": "string"}
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bazi-classical-relation-lifecycle-evidence-coverage-r1.schema.json",
+  "title": "Bazi Classical Relation Lifecycle Evidence Coverage R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "audit_id", "source_id", "canonical_source_sha256", "index_path", "segments", "summary"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-COVERAGE-R1"},
+    "audit_id": {"const": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-MATRIX-R1"},
+    "source_id": {"const": "S14"},
+    "canonical_source_sha256": {"const": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407"},
+    "index_path": {"const": "sources/derived-access/S14/index.json"},
+    "segments": {
+      "type": "array",
+      "minItems": 52,
+      "maxItems": 52,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "segment_id", "segment_path", "segment_sha256", "sequence",
+          "canonical_line_start", "canonical_line_end", "scanned_line_count",
+          "scanned_byte_count", "candidate_passage_count",
+          "relation_family_terms_encountered", "new_vocabulary_discovered",
+          "scan_status", "review_completion_state"
+        ],
+        "properties": {
+          "segment_id": {"type": "string", "pattern": "^S14-[0-9]{4}$"},
+          "segment_path": {"type": "string", "pattern": "^sources/derived-access/S14/segment-[0-9]{4}\\.txt$"},
+          "segment_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "sequence": {"type": "integer", "minimum": 1, "maximum": 52},
+          "canonical_line_start": {"type": "integer", "minimum": 1},
+          "canonical_line_end": {"type": "integer", "minimum": 1},
+          "scanned_line_count": {"type": "integer", "minimum": 1},
+          "scanned_byte_count": {"type": "integer", "minimum": 1},
+          "candidate_passage_count": {"type": "integer", "minimum": 0},
+          "relation_family_terms_encountered": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "new_vocabulary_discovered": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "scan_status": {"const": "COMPLETE"},
+          "review_completion_state": {"const": "COMPLETE_R1"}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "segment_count", "terminal_segment_count", "total_scanned_lines",
+        "total_scanned_bytes", "total_candidate_passages", "all_segments_terminal"
+      ],
+      "properties": {
+        "segment_count": {"const": 52},
+        "terminal_segment_count": {"const": 52},
+        "total_scanned_lines": {"const": 15442},
+        "total_scanned_bytes": {"const": 3354845},
+        "total_candidate_passages": {"type": "integer", "minimum": 1},
+        "all_segments_terminal": {"const": true}
+      }
+    }
+  }
+}

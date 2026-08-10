@@ -11,6 +11,10 @@ from .case_bank import case_bank_report, validate_case_bank
 from .canonical_runtime import write_canonical_runtime
 from .source_access import write_source_access
 from .source_access_validator import validate_source_access
+from .classical_relation_evidence import (
+    validate_classical_relation_evidence,
+    write_classical_relation_evidence,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -86,6 +90,14 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "canonical-source-access-validate",
         help="independently replay and validate the S14 access mirror",
+    )
+    subparsers.add_parser(
+        "classical-relation-evidence-build",
+        help="build the source-bound S14 Classical relation evidence audit",
+    )
+    subparsers.add_parser(
+        "classical-relation-evidence-validate",
+        help="replay and validate the S14 Classical relation evidence audit",
     )
     subparsers.add_parser(
         "maintenance-status",
@@ -247,6 +259,10 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "canonical-source-access-validate":
             _print_json(validate_source_access(root))
+        elif args.command == "classical-relation-evidence-build":
+            _print_json(write_classical_relation_evidence(root))
+        elif args.command == "classical-relation-evidence-validate":
+            _print_json(validate_classical_relation_evidence(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(
