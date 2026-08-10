@@ -6,11 +6,14 @@
 RENDERER_ID=ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1
 RENDERER_VERSION=1.0.0
 APPLICATION_PACKAGE_VERSION=1.1.0
-STATUS=CANDIDATE_NOT_ACTIVE
+STATUS=ACTIVE_APPLICATION_V1_R2_SVG
 ACTIVATION_CONDITION=MERGED_TO_MAIN
 UPSTREAM_APPLICATION=ZIWEI-APPLICATION-V1@1.0.0
 ISSUE=#209
+PR=#210
 ```
+
+The status above is effective only when this document is present on `main`. A feature-branch copy is not an active renderer release.
 
 This slice is downstream presentation only. It does not reopen Ziwei Foundation and does not alter V1, Temporal, Structural R1-R5, canonical sources, training state, model-learning or prediction controls.
 
@@ -130,9 +133,9 @@ Generated SVG:
 - requires exactly twelve unique address cells;
 - canonicalizes cell and member ordering before rendering.
 
-## Validation gate
+## Release validation gate
 
-Before activation the exact merge-candidate head must pass:
+The exact merge-candidate head must pass:
 
 - application fixture `1994-05-17 14:30 Beijing male` renders valid standalone SVG;
 - exactly 12 unique palace groups;
