@@ -17,6 +17,8 @@ from .canonical_runtime import (
     RUNTIME_MANIFEST_PATH,
     validate_canonical_runtime,
 )
+from .source_access import DERIVED_ACCESS_ROOT
+from .source_access_validator import validate_source_access
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -1009,6 +1011,9 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         runtime_manifest
     ):
         raise TrainingError("canonical runtime manifest lock hash changed")
+    source_access = None
+    if (root / DERIVED_ACCESS_ROOT).exists():
+        source_access = validate_source_access(root, require_source_commit=False)
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
@@ -1311,6 +1316,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "sources": expected_manifest["source_count"],
         "runtime_source": "GIT_REPOSITORY_ONLY",
         "canonical_sources_immutable": True,
+        "canonical_source_access": source_access,
         "model_learning_separate": True,
         "cases": case_bank.get("cases", len(case_order)),
         "questions": case_bank.get("questions", sum(question_counts.values())),

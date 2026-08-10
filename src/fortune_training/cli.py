@@ -9,6 +9,8 @@ from typing import Any
 from .chat_input import write_chat_input
 from .case_bank import case_bank_report, validate_case_bank
 from .canonical_runtime import write_canonical_runtime
+from .source_access import write_source_access
+from .source_access_validator import validate_source_access
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -72,6 +74,18 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "canonical-runtime-build",
         help="rebuild the lossless Git canonical runtime segments",
+    )
+    source_access_build = subparsers.add_parser(
+        "canonical-source-access-build",
+        help="materialize the read-only lossless S14 access mirror",
+    )
+    source_access_build.add_argument(
+        "--source-commit",
+        help="exact Git commit containing the canonical identity used for materialization",
+    )
+    subparsers.add_parser(
+        "canonical-source-access-validate",
+        help="independently replay and validate the S14 access mirror",
     )
     subparsers.add_parser(
         "maintenance-status",
@@ -227,6 +241,12 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif args.command == "canonical-runtime-build":
             _print_json(write_canonical_runtime(root))
+        elif args.command == "canonical-source-access-build":
+            _print_json(
+                write_source_access(root, source_commit=args.source_commit)
+            )
+        elif args.command == "canonical-source-access-validate":
+            _print_json(validate_source_access(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(
