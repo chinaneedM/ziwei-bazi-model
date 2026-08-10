@@ -14,12 +14,14 @@ S04_PATH = ROOT / "sources" / "canonical" / "S04_十二宫主题太极与气数�
 MANIFEST_PATH = ROOT / "sources" / "canonical-manifest.json"
 RUNTIME_MANIFEST_PATH = ROOT / "sources" / "canonical-runtime-manifest.json"
 SOURCE_POLICY_PATH = ROOT / "config" / "source-policy.json"
+KNOWLEDGE_INVENTORY_PATH = ROOT / "knowledge-workbench" / "source-inventory.json"
 RETAINED_MARKER = b"BEGIN_S04_RETAINED_COMPLETE_PAYLOAD\n"
 RETAINED_SHA256 = "765caa9944161607b72bd7d7cc641332a65a4d9ac77bba7c9b884de50da7ccc8"
 RETAINED_SIZE_BYTES = 1430055
 CORRECTION_ID = "S04-SANFANG-SIZHENG-CORRECTION-R1"
 FIXED_TABLE_HEADING = "### 12.2 三方四正固定表"
 FIXED_TABLE_END = "固定规则：本宫坐守、对宫、三方、夹宫和借照必须分开标记；"
+CORRECTION_HEADING = "S04 三方四正内部一致性最高优先级修正（Issue #194）"
 
 
 SOURCE_NAME_TO_DESIGNATION_ID = {
@@ -182,6 +184,21 @@ class S04SanfangSizhengCorrectionTests(unittest.TestCase):
         self.assertEqual(
             object_sha256(runtime_manifest),
             source_policy["canonical_runtime_manifest_sha256"],
+        )
+
+    def test_knowledge_inventory_is_regenerated_for_corrected_s04(self) -> None:
+        inventory = json.loads(KNOWLEDGE_INVENTORY_PATH.read_text(encoding="utf-8"))
+        manifest_bytes = MANIFEST_PATH.read_bytes()
+        self.assertEqual(
+            hashlib.sha256(manifest_bytes).hexdigest(),
+            inventory["canonical_manifest_sha256"],
+        )
+        s04 = next(row for row in inventory["sources"] if row["source_id"] == "S04")
+        self.assertEqual(len(self.raw), s04["bytes"])
+        self.assertEqual(hashlib.sha256(self.raw).hexdigest(), s04["sha256"])
+        self.assertIn(
+            CORRECTION_HEADING,
+            {row["title"] for row in s04["active_prefix_headings"]},
         )
 
 
