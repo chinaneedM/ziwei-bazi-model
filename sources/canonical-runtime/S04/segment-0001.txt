@@ -98,6 +98,27 @@ FULL_RETAINED_PAYLOAD_PER_QUESTION_SCAN_PERMISSION=NO
 
 下文原S04按原始字节完整保留。所有宫名、太极、气数位、实体、关系、直接边、场景边、人物路线、来源正文、异文、冲突和恢复资料继续有效；只有当前题目拓扑触发或S00直接定位的段落才读取。
 
+# S04 三方四正内部一致性最高优先级修正（Issue #194）
+
+```text
+PATCH_ID=S04-SANFANG-SIZHENG-CORRECTION-R1
+PATCH_STATUS=ACTIVE_HIGHEST_PRECEDENCE
+PATCH_SCOPE=S04-SF-07..S04-SF-12
+PATCH_REASON=RETAINED_ROWS_CONFLICT_WITH_S04_OPPOSITION_TABLE_AND_Z12_GEOMETRY
+PATCH_RETAINED_PAYLOAD_MUTATION=FORBIDDEN
+RETAINED_PAYLOAD_SHA256_ASSERTION=765caa9944161607b72bd7d7cc641332a65a4d9ac77bba7c9b884de50da7ccc8
+RETAINED_PAYLOAD_SIZE_BYTES_ASSERTION=1430055
+ACTIVE_S04_SANFANG_SIZHENG_INVARIANT=OPPOSITION:+6;TRINE_SET:+4,+8
+ACTIVE_S04_SANFANG_SIZHENG_RESOLUTION=RETAINED_S04-SF-01..06_PLUS_CORRECTION_S04-SF-CORR-07..12
+LOWER_CONFLICTING_S04_SF_07_TO_12=HISTORICAL_AUDIT_ONLY
+S04-SF-CORR-07|迁移宫|夫妻宫、福德宫|命宫|OVERRIDES=S04-SF-07
+S04-SF-CORR-08|交友宫|子女宫、父母宫|兄弟宫|OVERRIDES=S04-SF-08
+S04-SF-CORR-09|官禄宫|命宫、财帛宫|夫妻宫|OVERRIDES=S04-SF-09
+S04-SF-CORR-10|田宅宫|兄弟宫、疾厄宫|子女宫|OVERRIDES=S04-SF-10
+S04-SF-CORR-11|福德宫|夫妻宫、迁移宫|财帛宫|OVERRIDES=S04-SF-11
+S04-SF-CORR-12|父母宫|子女宫、交友宫|疾厄宫|OVERRIDES=S04-SF-12
+```
+
 BEGIN_S04_RETAINED_COMPLETE_PAYLOAD
 # 当前原生家庭、资产负债、具体职业与手术解剖实体拓扑唯一权威
 
@@ -3989,5 +4010,3 @@ HL_SOURCE_CLAUSE_RECORD_HASH=6675928bf88702cfc07ba1c74828953b394f2b4b2af85068507
 {"clause_id":"HL-C-0523-01","source_root_atom_id":"HL-A-0523","primary_authority_library":"S04","clause_order":1,"clause_text":"一、子田线（子女宫/田宅宫）为阳宅之核心：田宅为房舍，子女为外","clause_text_sha256":"71a56f3da0d01e0876f309f24c3d5e674ddca2405973284615af2cdab39310a1","logical_operators":["ASSERTION"],"result_term_candidates":[],"result_occurrence_role":"CASE_EXAMPLE","reference_terms":[],"reference_target_clause_id":null,"reference_resolution_status":"NOT_APPLICABLE"}
 {"clause_id":"HL-C-0523-02","source_root_atom_id":"HL-A-0523","primary_authority_library":"S04","clause_order":2,"clause_text":"环境。","clause_text_sha256":"99fbda5c0734161c961283803666270abf3eb1d44b2bc25f547b4fcbdd2cecc4","logical_operators":["ASSERTION"],"result_term_candidates":[],"result_occurrence_role":"CASE_EXAMPLE","reference_terms":[],"reference_target_clause_id":null,"reference_resolution_status":"NOT_APPLICABLE"}
 {"clause_id":"HL-C-0523-03","source_root_atom_id":"HL-A-0523","primary_authority_library":"S04","clause_order":3,"clause_text":"二、兄弟宫为床位，其理路经由田宅","clause_text_sha256":"3f1212f0cc02d7bc11ff4011bb0a7579f6776ebbf79933e389661a878b663ba6","logical_operators":["ASSERTION"],"result_term_candidates":[],"result_occurrence_role":"CASE_EXAMPLE","reference_terms":["其"],"reference_target_clause_id":"HL-C-0523-02","reference_resolution_status":"HEURISTIC_PREVIOUS_CLAUSE"}
-{"clause_id":"HL-C-0523-04","source_root_atom_id":"HL-A-0523","primary_authority_library":"S04","clause_order":4,"clause_text":"迁移（卧室）","clause_text_sha256":"e74a281a55e8d18688b61557b5194129c96837f0ab46ee788045860922d9629c","logical_operators":["ASSERTION"],"result_term_candidates":[],"result_occurrence_role":"CASE_EXAMPLE","reference_terms":[],"reference_target_clause_id":null,"reference_resolution_status":"NOT_APPLICABLE"}
-{"clause_id":"HL-C-0523-05","source_root_atom_id":"HL-A-0523","primary_authority_library":"S04","clause_order":5,"clause_text":"兄弟（卧室之","clause_text_sha256":"0a7cc6ce876c61737bb43802ef3874a11ecd77586012f0094eb0dbcacd069678","logical_operators":["ASSERTION"],"result_term_candidates":[],"result_occurrence_role":"CASE_EXAMPLE","reference_terms":[],"reference_target_clause_id":null,"reference_resolution_status":"NOT_APPLICABLE"}
