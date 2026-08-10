@@ -18,7 +18,7 @@ from .registries import (
 
 
 HIDDEN_STEM_ALGORITHM_ID = "BAZI-HIDDEN-STEM-MEMBERSHIP-V1"
-HIDDEN_STEM_ALGORITHM_VERSION = "1.0.0"
+HIDDEN_STEM_ALGORITHM_VERSION = "1.0.1"
 AFFINITY_ALGORITHM_ID = "BAZI-STEM-BRANCH-AFFINITY-V1"
 AFFINITY_ALGORITHM_VERSION = "1.0.0"
 
@@ -29,7 +29,7 @@ def generate_hidden_stems(branches: tuple[BranchInstance, ...]) -> tuple[HiddenS
         for ordinal, stem in enumerate(HIDDEN_STEMS[branch.branch]):
             rows.append(
                 HiddenStemMembership(
-                    instance_id=f"{branch.instance_id}.HIDDEN.{ordinal}:{stem}",
+                    instance_id=f"{branch.instance_id}.HIDDEN:{stem}",
                     branch_instance_id=branch.instance_id,
                     branch_position=branch.position,
                     stem=stem,
@@ -79,8 +79,8 @@ def generate_affinities(
     for visible in visible_stems:
         for branch in branches:
             hidden = hidden_by_branch[branch.instance_id]
-            exact = tuple(row.instance_id for row in hidden if row.stem == visible.stem)
-            same_element = tuple(row.instance_id for row in hidden if row.element == visible.element)
+            exact = tuple(sorted(row.instance_id for row in hidden if row.stem == visible.stem))
+            same_element = tuple(sorted(row.instance_id for row in hidden if row.element == visible.element))
             rows.append(
                 StemBranchAffinityFact(
                     fact_id=f"AFFINITY:{visible.instance_id}<->{branch.instance_id}",
