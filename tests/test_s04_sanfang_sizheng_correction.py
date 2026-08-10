@@ -5,12 +5,15 @@ import json
 import unittest
 from pathlib import Path
 
+from fortune_training.util import object_sha256
 from fortune_training.ziwei_chart.registries import PALACE_DESIGNATIONS
 
 
 ROOT = Path(__file__).resolve().parents[1]
 S04_PATH = ROOT / "sources" / "canonical" / "S04_十二宫主题太极与气数位库.txt"
 MANIFEST_PATH = ROOT / "sources" / "canonical-manifest.json"
+RUNTIME_MANIFEST_PATH = ROOT / "sources" / "canonical-runtime-manifest.json"
+SOURCE_POLICY_PATH = ROOT / "config" / "source-policy.json"
 RETAINED_MARKER = b"BEGIN_S04_RETAINED_COMPLETE_PAYLOAD\n"
 RETAINED_SHA256 = "765caa9944161607b72bd7d7cc641332a65a4d9ac77bba7c9b884de50da7ccc8"
 RETAINED_SIZE_BYTES = 1430055
@@ -167,6 +170,19 @@ class S04SanfangSizhengCorrectionTests(unittest.TestCase):
         s04 = next(row for row in manifest["sources"] if row["source_id"] == "S04")
         self.assertEqual(len(self.raw), s04["bytes"])
         self.assertEqual(hashlib.sha256(self.raw).hexdigest(), s04["sha256"])
+
+    def test_source_policy_binds_regenerated_manifest_locks(self) -> None:
+        manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        runtime_manifest = json.loads(RUNTIME_MANIFEST_PATH.read_text(encoding="utf-8"))
+        source_policy = json.loads(SOURCE_POLICY_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(
+            object_sha256(manifest),
+            source_policy["canonical_manifest_sha256"],
+        )
+        self.assertEqual(
+            object_sha256(runtime_manifest),
+            source_policy["canonical_runtime_manifest_sha256"],
+        )
 
 
 if __name__ == "__main__":
