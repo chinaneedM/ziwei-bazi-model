@@ -350,10 +350,6 @@ def _bindings_for(record: dict[str, Any]) -> list[dict[str, Any]]:
                 and strength == "EXACT_IDENTITY_BINDING"
             ):
                 by_kind[predicate_kind] = candidate
-    if "TRANSFORMATION" in record["condition_dependency_tags"]:
-        by_kind["NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY"] = _binding_entry(
-            "NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY", "EXACT_IDENTITY_BINDING"
-        )
     return [by_kind[key] for key in sorted(by_kind)]
 
 

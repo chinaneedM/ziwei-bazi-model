@@ -53,7 +53,6 @@ Status: static source-to-released-neutral-runtime evidence binding only.
 | `NATAL_ORDINAL_DISTANCE` | 4 |
 | `NATAL_PILLAR_ORDINALS` | 4 |
 | `NATAL_POSITION_DOMAIN` | 4 |
-| `NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY` | 56 |
 | `PARTICIPANT_LAYER_IDENTITY` | 1 |
 | `PARTICIPANT_RELATION_DEGREE` | 7 |
 | `PARTICIPANT_STEM_IDENTITY` | 142 |
@@ -128,6 +127,6 @@ No per-chart Five-Combination condition evaluator or Classical relation outcome 
 
 ## Determinism
 
-- Records semantics SHA-256: `5187d1dcf05da8539514668361dbbfa64fb6fd89ab1a016ade44f671c0bc7158`
+- Records semantics SHA-256: `72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583`
 - Closed registry SHA-256: `5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92`
-- Catalog semantics SHA-256: `88d49e28e48ee954026c929ce73d1e096128449b1e1d0901c68d2e7024a3712d`
+- Catalog semantics SHA-256: `1fd5836ea7e2872436adfe376e2ea19e27487ea0ccc71dc142883e941491f9c4`

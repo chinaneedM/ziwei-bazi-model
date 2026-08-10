@@ -13,6 +13,7 @@ from fortune_training.bazi_five_combination_evidence_binding import (
     EXPECTED_EVIDENCE_COUNT,
     NEUTRAL_PREDICATE_KINDS,
     PREDICATE_SPECS,
+    PRIMITIVE_BINDINGS,
     REPORT_PATH,
     REQUIRED_UNRESOLVED_PRIMITIVES,
     _validate_runtime_field_path,
@@ -205,6 +206,61 @@ class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
                 if primitive in record["unresolved_runtime_primitives"]
             }
             self.assertTrue(source_ids.issubset(bound_ids), primitive)
+
+    def test_transformation_tag_does_not_infer_nominal_element_identity(self):
+        evidence_id = "S14-EV-L07720-be1e2719740f"
+        source = self.source_records[evidence_id]
+        self.assertIn("TRANSFORMATION", source["condition_dependency_tags"])
+        self.assertEqual(source["statement_class"], "TRANSFORMATION_CONDITION")
+        self.assertIn("方为真化", source["exact_excerpt"])
+        self.assertEqual(
+            {dependency["primitive"] for dependency in source["runtime_dependency_map"]},
+            {
+                "EXACT_RAW_RELATION_OCCURRENCES",
+                "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+                "TRANSFORMATION_SUCCESS",
+            },
+        )
+        binding = next(
+            record
+            for record in self.catalog["records"]
+            if record["source_evidence_id"] == evidence_id
+        )
+        self.assertNotIn(
+            "NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY",
+            {
+                predicate["predicate_kind"]
+                for predicate in binding["neutral_predicate_bindings"]
+            },
+        )
+        self.assertIn(
+            "TRANSFORMATION_SUCCESS", binding["unresolved_runtime_primitives"]
+        )
+
+    def test_nominal_element_identity_has_no_unreviewed_exact_binding(self):
+        source_primitives = {
+            dependency["primitive"]
+            for source in self.source_records.values()
+            for dependency in source["runtime_dependency_map"]
+        }
+        self.assertFalse(
+            any(
+                predicate_kind == "NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY"
+                for bindings in (
+                    PRIMITIVE_BINDINGS.get(primitive, ())
+                    for primitive in source_primitives
+                )
+                for predicate_kind, _strength in bindings
+            )
+        )
+        self.assertFalse(
+            any(
+                predicate["predicate_kind"]
+                == "NOMINAL_TRANSFORMATION_ELEMENT_IDENTITY"
+                for record in self.catalog["records"]
+                for predicate in record["neutral_predicate_bindings"]
+            )
+        )
 
     def test_non_conditions_are_retained_without_predicate_compilation(self):
         non_conditions = [
