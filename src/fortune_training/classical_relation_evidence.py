@@ -107,30 +107,14 @@ TEXT_KEYS = (
     "CHAPTER_TITLE",
 )
 
-DISCOVERY_VOCABULARY = (
-    "合而不合",
-    "合去",
-    "合住",
-    "合绊",
-    "羁绊",
-    "贪合忘冲",
-    "争合",
-    "妒合",
-    "冲开",
-    "冲散",
-    "冲破",
-    "解冲",
-    "刑合",
-    "暗冲",
-    "暗会",
-    "拱合",
-    "拱局",
-    "会局",
-    "方局",
-    "通根",
-    "根气",
-    "透干",
-    "司令",
+DISCOVERY_CONTROL_ROLE = "TECHNICAL_TERM"
+DISCOVERY_CONTROL_FIELD = "RAW_TERM"
+DISCOVERY_RELATION_MORPHEMES = tuple("合冲刑害破会化绊局")
+DISCOVERY_TERM_PATTERN = re.compile(r"^[\u3400-\u9fff]{2,8}$")
+CONFLICT_SOURCE_SIDE_FIELDS = (
+    "OTHER_SOURCE_POSITION",
+    "SHFTK_POSITION",
+    "COUNTEREVIDENCE_OR_DISQUALIFIER",
 )
 
 STEMS = "甲乙丙丁戊己庚辛壬癸"
@@ -177,6 +161,49 @@ def _extract_text(line: str) -> tuple[str, str, dict[str, Any]]:
             {},
         )
     return stripped, "PLAIN_TEXT", {}
+
+
+def _source_views(line: str) -> list[tuple[str, str, dict[str, Any], str | None]]:
+    text, record_type, metadata = _extract_text(line)
+    conflict_id = metadata.get("CONFLICT_ID")
+    if isinstance(conflict_id, str) and conflict_id:
+        explicit_sides = [
+            (value, f"JSON:{key}", metadata, key)
+            for key in CONFLICT_SOURCE_SIDE_FIELDS
+            if isinstance((value := metadata.get(key)), str) and value.strip()
+        ]
+        if len(explicit_sides) >= 2:
+            return explicit_sides
+        pairing_role = (
+            record_type.removeprefix("JSON:")
+            if record_type.startswith("JSON:")
+            else None
+        )
+        return [(text, record_type, metadata, pairing_role)]
+    return [(text, record_type, metadata, None)]
+
+
+def _discover_control_term(metadata: dict[str, Any]) -> str | None:
+    if not isinstance(metadata.get("SOURCE_TERM_OCCURRENCE_ID"), str):
+        return None
+    if metadata.get("RESULT_OCCURRENCE_ROLE") != DISCOVERY_CONTROL_ROLE:
+        return None
+    term = metadata.get(DISCOVERY_CONTROL_FIELD)
+    if not isinstance(term, str):
+        return None
+    term = term.strip()
+    if not DISCOVERY_TERM_PATTERN.fullmatch(term):
+        return None
+    if not _contains_any(term, DISCOVERY_RELATION_MORPHEMES):
+        return None
+    return term
+
+
+def _vocabulary_closure_sha256(terms: Iterable[str]) -> str:
+    payload = json.dumps(
+        sorted(set(terms)), ensure_ascii=False, separators=(",", ":")
+    ).encode("utf-8")
+    return _sha256(payload)
 
 
 def _relation_families(text: str, heading: str) -> tuple[list[str], list[str]]:
@@ -558,7 +585,14 @@ def _runtime_dependency_map(
     return sorted(rows, key=lambda row: row["primitive"]), sorted(missing)
 
 
-def _is_candidate(text: str, heading: str, families: list[str], gaps: list[str], tags: list[str]) -> bool:
+def _is_candidate(
+    text: str,
+    heading: str,
+    families: list[str],
+    gaps: list[str],
+    tags: list[str],
+    discovered_vocabulary: Iterable[str] = (),
+) -> bool:
     if not text or text.startswith("#") or text in {"```", "```text", "```json", "```jsonl"}:
         return False
     relation_signal = _contains_any(
@@ -570,7 +604,8 @@ def _is_candidate(text: str, heading: str, families: list[str], gaps: list[str],
         ),
     ) or bool(re.search(r"冲(?!突)", text))
     contextual = bool(families or gaps) and bool(tags) and len(text.strip()) >= 3
-    return relation_signal or contextual
+    discovered_signal = _contains_any(text, discovered_vocabulary)
+    return relation_signal or contextual or discovered_signal
 
 
 def _participant_kind(families: list[str], gaps: list[str]) -> str:
@@ -594,19 +629,21 @@ def _heading_path(headings: dict[int, str]) -> str:
     return " / ".join(headings[level] for level in sorted(headings))
 
 
-def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    records: list[dict[str, Any]] = []
-    coverage: list[dict[str, Any]] = []
+def _build_records(
+    root: Path, index: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
+    line_rows: list[dict[str, Any]] = []
+    segment_states: dict[str, dict[str, Any]] = {}
     headings: dict[int, str] = {}
     discovered: set[str] = set()
 
+    # Pass 1: consume every indexed line, retain exact locators, and derive a
+    # closed vocabulary only from explicitly typed source term-control rows.
     for segment in index["segments"]:
         payload = (root / segment["path"]).read_bytes()
         lines = payload.decode("utf-8", errors="strict").splitlines(keepends=True)
         local_offset = 0
-        segment_families: set[str] = set()
         segment_discoveries: list[str] = []
-        segment_record_start = len(records)
         for local_line_number, line in enumerate(lines, start=1):
             line_bytes = line.encode("utf-8")
             canonical_line = segment["line_start"] + local_line_number - 1
@@ -622,8 +659,49 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
                 for deeper in tuple(key for key in headings if key > level):
                     del headings[deeper]
 
-            text, record_type, metadata = _extract_text(line)
+            _, _, metadata = _extract_text(line)
             heading = _heading_path(headings)
+            term = _discover_control_term(metadata)
+            if term is not None and term not in discovered:
+                discovered.add(term)
+                segment_discoveries.append(term)
+            line_rows.append(
+                {
+                    "segment": segment,
+                    "line": line,
+                    "line_bytes": line_bytes,
+                    "heading": heading,
+                    "local_line_number": local_line_number,
+                    "canonical_line": canonical_line,
+                    "canonical_byte_start": canonical_byte_start,
+                    "canonical_byte_end": canonical_byte_end,
+                }
+            )
+
+        if local_offset != len(payload):
+            raise TrainingError(f"evidence audit segment byte replay failed: {segment['segment_id']}")
+        segment_states[segment["segment_id"]] = {
+            "segment": segment,
+            "line_count": len(lines),
+            "byte_count": len(payload),
+            "candidate_count": 0,
+            "families": set(),
+            "discoveries": sorted(set(segment_discoveries)),
+        }
+
+    vocabulary = tuple(sorted(discovered))
+    records: list[dict[str, Any]] = []
+    vocabulary_only_count = 0
+
+    # Pass 2: replay all retained lines in the same index order and expand the
+    # seed candidate predicate with the complete pass-1 vocabulary closure.
+    for row in line_rows:
+        segment = row["segment"]
+        state = segment_states[segment["segment_id"]]
+        source_views = _source_views(row["line"])
+        for view_index, (text, record_type, metadata, pairing_role) in enumerate(
+            source_views
+        ):
             analysis_text = text
             if metadata.get("CONFLICT_ID"):
                 analysis_text = " ".join(
@@ -634,20 +712,29 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
                         if isinstance(value, str) and re.search(r"[\u3400-\u9fff]", value)
                     ]
                 )
-            families, gaps = _relation_families(analysis_text, heading)
+            families, gaps = _relation_families(analysis_text, row["heading"])
             tags = _dependency_tags(analysis_text, families, gaps)
-            for term in DISCOVERY_VOCABULARY:
-                if term in text and term not in discovered:
-                    discovered.add(term)
-                    segment_discoveries.append(term)
-            if not metadata.get("CONFLICT_ID") and not _is_candidate(
-                analysis_text, heading, families, gaps, tags
-            ):
+            forced_conflict_candidate = bool(metadata.get("CONFLICT_ID"))
+            seed_candidate = forced_conflict_candidate or _is_candidate(
+                analysis_text, row["heading"], families, gaps, tags
+            )
+            expanded_candidate = forced_conflict_candidate or _is_candidate(
+                analysis_text,
+                row["heading"],
+                families,
+                gaps,
+                tags,
+                vocabulary,
+            )
+            if not expanded_candidate:
                 continue
+            if not seed_candidate:
+                vocabulary_only_count += 1
             if not families and not gaps:
                 families = ["CROSS_FAMILY_RELATION_LIFECYCLE"]
-            segment_families.update(families)
-            segment_families.update(gaps)
+            state["families"].update(families)
+            state["families"].update(gaps)
+            state["candidate_count"] += 1
 
             primary, secondary, review, profile_labels = _statement_classes(
                 analysis_text, metadata, families, gaps, tags, record_type
@@ -655,8 +742,16 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
             dependencies, missing = _runtime_dependency_map(
                 families, gaps, tags, analysis_text
             )
-            passage_hash = _sha256(line_bytes)
-            evidence_id = f"S14-EV-L{canonical_line:05d}-{passage_hash[:12]}"
+            passage_hash = _sha256(row["line_bytes"])
+            evidence_suffix = passage_hash[:12]
+            if view_index:
+                evidence_suffix = _sha256(
+                    row["line_bytes"] + b"\0" + record_type.encode("utf-8")
+                )[:12]
+            evidence_id = (
+                f"S14-EV-L{row['canonical_line']:05d}-{evidence_suffix}"
+            )
+            conflict_id = metadata.get("CONFLICT_ID")
             records.append(
                 {
                     "evidence_id": evidence_id,
@@ -666,17 +761,21 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
                     "access_segment_id": segment["segment_id"],
                     "access_segment_path": segment["path"],
                     "access_segment_sha256": segment["sha256"],
-                    "canonical_line_start": canonical_line,
-                    "canonical_line_end": canonical_line,
-                    "segment_local_line_start": local_line_number,
-                    "segment_local_line_end": local_line_number,
-                    "canonical_byte_start": canonical_byte_start,
-                    "canonical_byte_end_exclusive": canonical_byte_end,
-                    "passage_includes_line_ending": line.endswith(("\n", "\r")),
+                    "canonical_line_start": row["canonical_line"],
+                    "canonical_line_end": row["canonical_line"],
+                    "segment_local_line_start": row["local_line_number"],
+                    "segment_local_line_end": row["local_line_number"],
+                    "canonical_byte_start": row["canonical_byte_start"],
+                    "canonical_byte_end_exclusive": row["canonical_byte_end"],
+                    "passage_includes_line_ending": row["line"].endswith(("\n", "\r")),
                     "passage_sha256": passage_hash,
-                    "source_heading_path": heading,
+                    "source_heading_path": row["heading"],
                     "source_record_type": record_type,
                     "source_role": _source_role(metadata, record_type),
+                    "source_conflict_id": (
+                        conflict_id if isinstance(conflict_id, str) and conflict_id else None
+                    ),
+                    "source_pairing_role": pairing_role,
                     "exact_excerpt": _excerpt(text),
                     "excerpt_is_complete_source_record_text": len(text) <= 240,
                     "relation_families": families + gaps,
@@ -693,8 +792,9 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
                 }
             )
 
-        if local_offset != len(payload):
-            raise TrainingError(f"evidence audit segment byte replay failed: {segment['segment_id']}")
+    coverage: list[dict[str, Any]] = []
+    for segment in index["segments"]:
+        state = segment_states[segment["segment_id"]]
         coverage.append(
             {
                 "segment_id": segment["segment_id"],
@@ -703,46 +803,64 @@ def _build_records(root: Path, index: dict[str, Any]) -> tuple[list[dict[str, An
                 "sequence": segment["sequence"],
                 "canonical_line_start": segment["line_start"],
                 "canonical_line_end": segment["line_end_inclusive"],
-                "scanned_line_count": len(lines),
-                "scanned_byte_count": len(payload),
-                "candidate_passage_count": len(records) - segment_record_start,
-                "relation_family_terms_encountered": sorted(segment_families),
-                "new_vocabulary_discovered": sorted(set(segment_discoveries)),
+                "scanned_line_count": state["line_count"],
+                "scanned_byte_count": state["byte_count"],
+                "candidate_passage_count": state["candidate_count"],
+                "relation_family_terms_encountered": sorted(state["families"]),
+                "new_vocabulary_discovered": state["discoveries"],
                 "scan_status": "COMPLETE",
                 "review_completion_state": "COMPLETE_R1",
             }
         )
-    return records, coverage
+    discovery = {
+        "seed_candidate_rule_id": "S14_RELATION_SIGNAL_AND_TYPED_DEPENDENCY_R1",
+        "pass1_control_derivation_rule_id": "S14_TYPED_TECHNICAL_TERM_RELATION_MORPHEME_R1",
+        "pass1_control_field": DISCOVERY_CONTROL_FIELD,
+        "pass1_control_role": DISCOVERY_CONTROL_ROLE,
+        "pass1_relation_morphemes": list(DISCOVERY_RELATION_MORPHEMES),
+        "pass1_discovered_terms": list(vocabulary),
+        "vocabulary_closure_sha256": _vocabulary_closure_sha256(vocabulary),
+        "pass2_vocabulary_only_record_count": vocabulary_only_count,
+    }
+    return records, coverage, discovery
 
 
 def _bind_conflict_groups(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    by_family: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    by_source_conflict_id: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
-        for family in record["relation_families"]:
-            by_family[family].append(record)
+        source_conflict_id = record.get("source_conflict_id")
+        if (
+            isinstance(source_conflict_id, str)
+            and source_conflict_id
+            and record["review_status"] == "CONFLICT_REQUIRES_REVIEW"
+        ):
+            by_source_conflict_id[source_conflict_id].append(record)
     groups: list[dict[str, Any]] = []
-    for family, family_records in sorted(by_family.items()):
-        conflict_records = [
-            record
-            for record in family_records
-            if record["review_status"] == "CONFLICT_REQUIRES_REVIEW"
-        ]
-        if not conflict_records:
+    for source_conflict_id, linked in sorted(by_source_conflict_id.items()):
+        pairing_roles = {
+            record.get("source_pairing_role")
+            for record in linked
+            if record.get("source_pairing_role")
+        }
+        if len(linked) < 2 or len(pairing_roles) < 2:
             continue
-        linked = list(conflict_records)
-        counterpart = next(
-            (record for record in family_records if record not in conflict_records), None
+        common_families = set(linked[0]["relation_families"])
+        for record in linked[1:]:
+            common_families.intersection_update(record["relation_families"])
+        relation_family = (
+            sorted(common_families)[0]
+            if common_families
+            else "CROSS_FAMILY_RELATION_LIFECYCLE"
         )
-        if counterpart is not None:
-            linked.append(counterpart)
-        if len(linked) < 2:
-            continue
-        group_id = f"S14-CONFLICT-{family}"
+        safe_source_id = re.sub(r"[^A-Za-z0-9._-]", "-", source_conflict_id)
+        group_id = f"S14-CONFLICT-{safe_source_id}"
         evidence_ids = sorted({record["evidence_id"] for record in linked})
         groups.append(
             {
                 "conflict_group_id": group_id,
-                "relation_family": family,
+                "source_conflict_id": source_conflict_id,
+                "linkage_basis": "SHARED_EXPLICIT_SOURCE_CONFLICT_ID_AND_DISTINCT_SOURCE_ROLES",
+                "relation_family": relation_family,
                 "evidence_ids": evidence_ids,
                 "resolution_status": "UNRESOLVED_PROFILE_REVIEW_REQUIRED",
             }
@@ -777,7 +895,10 @@ def _build_report(matrix: dict[str, Any], coverage: dict[str, Any]) -> str:
         f"- Access segments reviewed in index order: `{coverage['summary']['terminal_segment_count']}/{coverage['summary']['segment_count']}`",
         f"- Evidence records: `{summary['evidence_record_count']}`",
         f"- Conflict groups: `{summary['source_conflict_group_count']}`",
+        f"- Unresolved one-sided conflict records: `{summary['unresolved_one_sided_conflict_record_count']}`",
         f"- Profile-candidate records: `{summary['profile_candidate_record_count']}`",
+        f"- Pass-1 vocabulary closure: `{', '.join(matrix['method']['vocabulary_expansion']['pass1_discovered_terms'])}`",
+        f"- Pass-2 vocabulary-only records: `{matrix['method']['vocabulary_expansion']['pass2_vocabulary_only_record_count']}`",
         "- Coverage claim: exhaustive for the declared R1 scan method and target relation/lifecycle scope, not for every Bazi doctrine.",
         "",
         "## Evidence distribution",
@@ -828,7 +949,7 @@ def _build_report(matrix: dict[str, Any], coverage: dict[str, Any]) -> str:
             "",
             "## Source conflicts and profile candidates",
             "",
-            "Alternative and contradictory statements remain linked through unresolved conflict groups. No majority vote, chronology guess, or universal default is selected. Records marked `PROFILE_CANDIDATE` require a later CHAT design decision.",
+            "Alternative and contradictory statements are linked only when a shared explicit source conflict identifier and distinct source-side roles prove the pairing. One-sided conflict markers remain `CONFLICT_REQUIRES_REVIEW` without an invented counterpart. No majority vote, chronology guess, or universal default is selected. Records marked `PROFILE_CANDIDATE` require a later CHAT design decision.",
             "",
             "## Semantic boundary",
             "",
@@ -856,7 +977,7 @@ def build_classical_relation_evidence(root: Path) -> tuple[dict[str, Any], dict[
     index = load_json(root / DERIVED_ACCESS_ROOT / SOURCE_ID / "index.json")
     if index["source"]["canonical_path"] != EXPECTED_SOURCE_PATH:
         raise TrainingError("classical relation evidence audit canonical path mismatch")
-    records, segment_rows = _build_records(root, index)
+    records, segment_rows, discovery = _build_records(root, index)
     conflict_groups = _bind_conflict_groups(records)
     if not records:
         raise TrainingError("classical relation evidence audit found no target evidence")
@@ -868,6 +989,11 @@ def build_classical_relation_evidence(root: Path) -> tuple[dict[str, Any], dict[
         "review_status_counts": _counter(records, "review_status"),
         "runtime_gap_tag_counts": _counter(records, "runtime_gap_tags"),
         "source_conflict_group_count": len(conflict_groups),
+        "unresolved_one_sided_conflict_record_count": sum(
+            record["review_status"] == "CONFLICT_REQUIRES_REVIEW"
+            and not record["conflict_group_ids"]
+            for record in records
+        ),
         "profile_candidate_record_count": sum(
             "PROFILE_CANDIDATE" in record["alternative_profile_labels"]
             for record in records
@@ -900,7 +1026,7 @@ def build_classical_relation_evidence(root: Path) -> tuple[dict[str, Any], dict[
             "all_indexed_segments_processed": True,
             "all_lines_considered": True,
             "format_support": ["MARKDOWN", "PLAIN_TEXT", "JSONL", "TSV", "CONTROL_ROWS"],
-            "vocabulary_expansion": "DECLARED_DISCOVERY_TERMS_RECORDED_AT_FIRST_SEGMENT_OCCURRENCE",
+            "vocabulary_expansion": discovery,
             "coverage_claim_limit": "TARGET_RELATION_AND_LIFECYCLE_SCOPE_ONLY",
         },
         "closed_vocabularies": {
@@ -981,10 +1107,26 @@ def validate_classical_relation_evidence(root: Path) -> dict[str, Any]:
     if matrix != expected_matrix or coverage != expected_coverage or report != expected_report:
         raise TrainingError("classical relation evidence artifacts are stale or non-deterministic")
 
+    discovery = matrix["method"]["vocabulary_expansion"]
+    coverage_vocabulary = sorted(
+        {
+            term
+            for segment in coverage["segments"]
+            for term in segment["new_vocabulary_discovered"]
+        }
+    )
+    if (
+        discovery["pass1_discovered_terms"] != coverage_vocabulary
+        or discovery["vocabulary_closure_sha256"]
+        != _vocabulary_closure_sha256(coverage_vocabulary)
+    ):
+        raise TrainingError("two-pass vocabulary closure replay failed")
+
     ids = {record["evidence_id"] for record in matrix["records"]}
     if len(ids) != len(matrix["records"]):
         raise TrainingError("duplicate classical relation evidence ID")
     groups = {group["conflict_group_id"]: group for group in matrix["conflict_groups"]}
+    records_by_id = {record["evidence_id"]: record for record in matrix["records"]}
     for record in matrix["records"]:
         if any(group_id not in groups for group_id in record["conflict_group_ids"]):
             raise TrainingError("evidence record references an absent conflict group")
@@ -1003,6 +1145,15 @@ def validate_classical_relation_evidence(root: Path) -> dict[str, Any]:
     for group in groups.values():
         if len(group["evidence_ids"]) < 2 or not set(group["evidence_ids"]).issubset(ids):
             raise TrainingError("conflict group evidence linkage is invalid")
+        linked = [records_by_id[evidence_id] for evidence_id in group["evidence_ids"]]
+        if (
+            group["linkage_basis"]
+            != "SHARED_EXPLICIT_SOURCE_CONFLICT_ID_AND_DISTINCT_SOURCE_ROLES"
+            or {record["source_conflict_id"] for record in linked}
+            != {group["source_conflict_id"]}
+            or len({record["source_pairing_role"] for record in linked}) < 2
+        ):
+            raise TrainingError("conflict group source-side proof is invalid")
     if coverage["summary"] != {
         "segment_count": EXPECTED_SEGMENT_COUNT,
         "terminal_segment_count": EXPECTED_SEGMENT_COUNT,

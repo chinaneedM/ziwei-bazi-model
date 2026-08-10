@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,7 +15,10 @@ from fortune_training.classical_relation_evidence import (
     EXPECTED_SOURCE_SHA256,
     MATRIX_PATH,
     REPORT_PATH,
+    _bind_conflict_groups,
+    _build_records,
     _dependency_tags,
+    _is_candidate,
     _relation_families,
     _runtime_dependency_map,
     _statement_classes,
@@ -31,6 +36,97 @@ def _dependency_status(rows: list[dict[str, str]], primitive: str) -> str:
 
 
 class ClassicalRelationEvidenceClassificationTests(unittest.TestCase):
+    def test_real_two_pass_discovers_control_term_and_replays_target_locator(self):
+        control = json.dumps(
+            {
+                "SOURCE_TERM_OCCURRENCE_ID": "FIXTURE-TERM-001",
+                "RAW_TERM": "牵合",
+                "RESULT_OCCURRENCE_ROLE": "TECHNICAL_TERM",
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ) + "\n"
+        target = "此局受牵合暂缓。\n"
+        payload = (control + target).encode("utf-8")
+        target_bytes = target.encode("utf-8")
+        self.assertFalse(_is_candidate(target.strip(), "", [], [], []))
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            segment_path = root / "fixture-segment.txt"
+            segment_path.write_bytes(payload)
+            index = {
+                "source": {
+                    "canonical_path": "fixture-canonical.txt",
+                    "canonical_sha256": hashlib.sha256(payload).hexdigest(),
+                },
+                "segments": [
+                    {
+                        "segment_id": "S14-0001",
+                        "path": "fixture-segment.txt",
+                        "sha256": hashlib.sha256(payload).hexdigest(),
+                        "sequence": 1,
+                        "line_start": 1,
+                        "line_end_inclusive": 2,
+                        "byte_start": 0,
+                    }
+                ],
+            }
+            first = _build_records(root, index)
+            second = _build_records(root, index)
+
+        self.assertEqual(first, second)
+        records, coverage, discovery = first
+        self.assertEqual(discovery["pass1_discovered_terms"], ["牵合"])
+        self.assertEqual(discovery["pass2_vocabulary_only_record_count"], 2)
+        self.assertEqual(
+            discovery["vocabulary_closure_sha256"],
+            hashlib.sha256('["牵合"]'.encode("utf-8")).hexdigest(),
+        )
+        target_record = next(
+            record for record in records if record["exact_excerpt"] == target.strip()
+        )
+        self.assertEqual(target_record["canonical_line_start"], 2)
+        self.assertEqual(target_record["canonical_byte_start"], len(control.encode("utf-8")))
+        self.assertEqual(target_record["canonical_byte_end_exclusive"], len(payload))
+        self.assertEqual(
+            target_record["passage_sha256"], hashlib.sha256(target_bytes).hexdigest()
+        )
+        self.assertEqual(coverage[0]["new_vocabulary_discovered"], ["牵合"])
+
+    def test_conflict_linkage_requires_explicit_id_and_distinct_source_roles(self):
+        def record(
+            evidence_id: str,
+            source_conflict_id: str | None,
+            source_pairing_role: str | None,
+        ) -> dict[str, object]:
+            return {
+                "evidence_id": evidence_id,
+                "relation_families": ["BRANCH_CHONG"],
+                "review_status": "CONFLICT_REQUIRES_REVIEW",
+                "source_conflict_id": source_conflict_id,
+                "source_pairing_role": source_pairing_role,
+                "conflict_group_ids": [],
+            }
+
+        paired_a = record("S14-EV-L00001-000000000001", "SOURCE-CONFLICT-1", "SOURCE_A")
+        paired_b = record("S14-EV-L00002-000000000002", "SOURCE-CONFLICT-1", "SOURCE_B")
+        unrelated = record("S14-EV-L00003-000000000003", None, None)
+        one_sided = record("S14-EV-L00004-000000000004", "SOURCE-CONFLICT-2", "SOURCE_A")
+        records = [paired_a, paired_b, unrelated, one_sided]
+
+        groups = _bind_conflict_groups(records)
+
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0]["source_conflict_id"], "SOURCE-CONFLICT-1")
+        self.assertEqual(
+            set(groups[0]["evidence_ids"]),
+            {paired_a["evidence_id"], paired_b["evidence_id"]},
+        )
+        self.assertEqual(unrelated["conflict_group_ids"], [])
+        self.assertEqual(one_sided["conflict_group_ids"], [])
+
     def test_direct_rule_and_example_remain_distinct(self):
         families, gaps = _relation_families("甲己相合。", "论十干合而不合")
         tags = _dependency_tags("甲己相合。", families, gaps)
@@ -168,6 +264,37 @@ class ClassicalRelationEvidenceReleaseTests(unittest.TestCase):
         self.assertGreater(classes["CONTRADICTORY_OR_ALTERNATIVE_STATEMENT"], 0)
         self.assertGreater(classes["RUNTIME_RELATION_GAP"], 0)
         self.assertTrue(self.matrix["conflict_groups"])
+
+    def test_two_pass_closure_and_source_conflict_links_are_published(self):
+        discovery = self.matrix["method"]["vocabulary_expansion"]
+        self.assertGreater(discovery["pass2_vocabulary_only_record_count"], 0)
+        self.assertEqual(
+            discovery["pass1_discovered_terms"],
+            sorted(
+                {
+                    term
+                    for segment in self.coverage["segments"]
+                    for term in segment["new_vocabulary_discovered"]
+                }
+            ),
+        )
+        records = {record["evidence_id"]: record for record in self.matrix["records"]}
+        for group in self.matrix["conflict_groups"]:
+            linked = [records[evidence_id] for evidence_id in group["evidence_ids"]]
+            self.assertEqual(
+                {record["source_conflict_id"] for record in linked},
+                {group["source_conflict_id"]},
+            )
+            self.assertGreaterEqual(
+                len({record["source_pairing_role"] for record in linked}), 2
+            )
+        one_sided = [
+            record
+            for record in records.values()
+            if record["review_status"] == "CONFLICT_REQUIRES_REVIEW"
+            and not record["conflict_group_ids"]
+        ]
+        self.assertEqual(len(one_sided), 1)
 
     def test_exact_source_identity_and_prediction_boundary(self):
         authority = self.matrix["authority"]

@@ -43,16 +43,74 @@
       }
     },
     "scope": {"type": "object"},
-    "method": {"type": "object"},
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm_id",
+        "all_indexed_segments_processed",
+        "all_lines_considered",
+        "format_support",
+        "vocabulary_expansion",
+        "coverage_claim_limit"
+      ],
+      "properties": {
+        "algorithm_id": {"const": "S14_INDEX_ORDER_FULL_LINE_TWO_PASS_AUDIT_R1"},
+        "all_indexed_segments_processed": {"const": true},
+        "all_lines_considered": {"const": true},
+        "format_support": {
+          "const": ["MARKDOWN", "PLAIN_TEXT", "JSONL", "TSV", "CONTROL_ROWS"]
+        },
+        "coverage_claim_limit": {"const": "TARGET_RELATION_AND_LIFECYCLE_SCOPE_ONLY"},
+        "vocabulary_expansion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "seed_candidate_rule_id",
+            "pass1_control_derivation_rule_id",
+            "pass1_control_field",
+            "pass1_control_role",
+            "pass1_relation_morphemes",
+            "pass1_discovered_terms",
+            "vocabulary_closure_sha256",
+            "pass2_vocabulary_only_record_count"
+          ],
+          "properties": {
+            "seed_candidate_rule_id": {"const": "S14_RELATION_SIGNAL_AND_TYPED_DEPENDENCY_R1"},
+            "pass1_control_derivation_rule_id": {"const": "S14_TYPED_TECHNICAL_TERM_RELATION_MORPHEME_R1"},
+            "pass1_control_field": {"const": "RAW_TERM"},
+            "pass1_control_role": {"const": "TECHNICAL_TERM"},
+            "pass1_relation_morphemes": {"const": ["合", "冲", "刑", "害", "破", "会", "化", "绊", "局"]},
+            "pass1_discovered_terms": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 2, "maxLength": 8}
+            },
+            "vocabulary_closure_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "pass2_vocabulary_only_record_count": {"type": "integer", "minimum": 1}
+          }
+        }
+      }
+    },
     "closed_vocabularies": {"type": "object"},
     "conflict_groups": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["conflict_group_id", "relation_family", "evidence_ids", "resolution_status"],
+        "required": [
+          "conflict_group_id",
+          "source_conflict_id",
+          "linkage_basis",
+          "relation_family",
+          "evidence_ids",
+          "resolution_status"
+        ],
         "properties": {
           "conflict_group_id": {"type": "string", "pattern": "^S14-CONFLICT-"},
+          "source_conflict_id": {"type": "string", "minLength": 1},
+          "linkage_basis": {"const": "SHARED_EXPLICIT_SOURCE_CONFLICT_ID_AND_DISTINCT_SOURCE_ROLES"},
           "relation_family": {"type": "string"},
           "evidence_ids": {
             "type": "array",
@@ -95,6 +153,8 @@
         "source_heading_path",
         "source_record_type",
         "source_role",
+        "source_conflict_id",
+        "source_pairing_role",
         "exact_excerpt",
         "excerpt_is_complete_source_record_text",
         "relation_families",
@@ -128,6 +188,8 @@
         "source_heading_path": {"type": "string"},
         "source_record_type": {"type": "string"},
         "source_role": {"type": "string"},
+        "source_conflict_id": {"type": ["string", "null"], "minLength": 1},
+        "source_pairing_role": {"type": ["string", "null"], "minLength": 1},
         "exact_excerpt": {"type": "string", "maxLength": 240},
         "excerpt_is_complete_source_record_text": {"type": "boolean"},
         "relation_families": {
