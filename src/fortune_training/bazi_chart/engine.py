@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
+from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
 from .hidden_stems import (
@@ -288,12 +289,10 @@ class BaziChartFoundation:
             return self._failed_result(profile, time_result, ["TIME_CALENDAR_UNRESOLVED"])
 
         unique: dict[str, dict[str, Any]] = {}
-        integrity_reports: list[IntegrityReport] = []
         try:
             for branch_index, branch in enumerate(time_result["branches"]):
                 chart = self._generate_chart(branch, profile)
                 integrity = validate_natal_state(chart)
-                integrity_reports.append(integrity)
                 if integrity.status != "PASS":
                     return self._failed_result(
                         profile,
@@ -352,7 +351,28 @@ class BaziChartFoundation:
             calculation_profile=profile,
             time_calendar=time_result,
             candidates=candidates,
-            integrity_reports=tuple(integrity_reports),
+            integrity_reports=tuple(row.integrity for row in candidates),
             events=events,
             diagnostics=(),
         )
+
+    def resolve(self, request: BaziChartRequest) -> dict[str, Any]:
+        """Resolve the stable machine-readable Bazi Foundation envelope."""
+
+        typed = self.resolve_typed(request)
+        return {
+            "schema": self.schema,
+            "status": typed.status,
+            "calculation_profile": json_value(typed.calculation_profile),
+            "time_calendar": typed.time_calendar,
+            "charts": [json_value(row.chart) for row in typed.candidates],
+            "chart_branch_indices": [list(row.branch_indices) for row in typed.candidates],
+            "temporal_seeds": [
+                [json_value(seed) for seed in row.temporal_seeds]
+                for row in typed.candidates
+            ],
+            "integrity_reports": [json_value(row.integrity) for row in typed.candidates],
+            "hashes": [json_value(row.hashes) for row in typed.candidates],
+            "events": list(typed.events),
+            "diagnostics": list(typed.diagnostics),
+        }
