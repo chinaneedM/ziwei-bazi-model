@@ -83,7 +83,7 @@ class BaziChartFoundationTests(unittest.TestCase):
             self.assertEqual(10, len(set(roles)))
         self.assertEqual(set(TEN_GOD_DISPLAY), seen)
 
-    def test_a1_wenzhen_natal_core_exact_match(self):
+    def test_a1_authoritative_historical_timezone_natal_core(self):
         result = self.resolve_a1()
         self.assertEqual("RESOLVED", result.status)
         self.assertEqual(1, len(result.candidates))
@@ -92,7 +92,7 @@ class BaziChartFoundationTests(unittest.TestCase):
         self.assertEqual("PASS", candidate.integrity.status)
         self.assertEqual("PASS", validate_natal_state(chart).status)
         self.assertEqual(
-            ("庚午", "壬午", "辛亥", "甲午"),
+            ("庚午", "壬午", "辛亥", "癸巳"),
             tuple(row.ganzhi for row in chart.pillars),
         )
         self.assertEqual("辛", chart.day_master_stem)
@@ -103,7 +103,7 @@ class BaziChartFoundationTests(unittest.TestCase):
         self.assertEqual(["丁", "己"], hidden["YEAR"])
         self.assertEqual(["丁", "己"], hidden["MONTH"])
         self.assertEqual(["壬", "甲"], hidden["DAY"])
-        self.assertEqual(["丁", "己"], hidden["HOUR"])
+        self.assertEqual(["丙", "戊", "庚"], hidden["HOUR"])
 
         visible_ten_gods = {
             row.target_instance_id: row.display_name
@@ -113,7 +113,7 @@ class BaziChartFoundationTests(unittest.TestCase):
         self.assertEqual("劫财", visible_ten_gods["YEAR.STEM"])
         self.assertEqual("伤官", visible_ten_gods["MONTH.STEM"])
         self.assertEqual("比肩", visible_ten_gods["DAY.STEM"])
-        self.assertEqual("正财", visible_ten_gods["HOUR.STEM"])
+        self.assertEqual("食神", visible_ten_gods["HOUR.STEM"])
         self.assertEqual(16, len(chart.affinities))
 
     def test_a1_exposure_links_are_explicit_and_not_root_claims(self):
@@ -125,7 +125,7 @@ class BaziChartFoundationTests(unittest.TestCase):
         self.assertEqual(
             {
                 ("DAY.BRANCH.HIDDEN:壬", "MONTH.STEM"),
-                ("DAY.BRANCH.HIDDEN:甲", "HOUR.STEM"),
+                ("HOUR.BRANCH.HIDDEN:庚", "YEAR.STEM"),
             },
             exposure_pairs,
         )
@@ -137,13 +137,17 @@ class BaziChartFoundationTests(unittest.TestCase):
     def test_repeated_branch_instances_remain_distinct(self):
         chart = self.resolve_a1().candidates[0].chart
         noon = [row for row in chart.branches if row.branch == "午"]
-        self.assertEqual(3, len(noon))
-        self.assertEqual(3, len({row.instance_id for row in noon}))
+        self.assertEqual(2, len(noon))
+        self.assertEqual(2, len({row.instance_id for row in noon}))
         self_punishments = [
             row for row in chart.raw_relations
             if row.semantic_relation_id == "BRANCH.PUNISHMENT.SELF.午"
         ]
-        self.assertEqual(3, len(self_punishments))
+        self.assertEqual(1, len(self_punishments))
+        self.assertEqual(
+            {"YEAR.BRANCH", "MONTH.BRANCH"},
+            set(self_punishments[0].participant_instance_ids),
+        )
 
     def test_directed_punishment_preserves_orientation(self):
         branches = (
