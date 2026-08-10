@@ -126,12 +126,12 @@ class BaziTemporalWenzhenCompatibilityR1Tests(unittest.TestCase):
         a8 = self.rows["A8"][2].state.jiaoyun.symbolic_age.total_symbolic_microseconds
         a9 = self.rows["A9"][2].state.jiaoyun.symbolic_age.total_symbolic_microseconds
         a10 = self.rows["A10"][2].state.jiaoyun.symbolic_age.total_symbolic_microseconds
-        self.assertEqual(a7 - a8, a9 - a10)
+        self.assertEqual(a7 - a8, a10 - a9)
         observed_reverse_delta = observed_symbolic_hours(self.rows["A7"][0]) - observed_symbolic_hours(
             self.rows["A8"][0]
         )
-        observed_forward_delta = observed_symbolic_hours(self.rows["A9"][0]) - observed_symbolic_hours(
-            self.rows["A10"][0]
+        observed_forward_delta = observed_symbolic_hours(self.rows["A10"][0]) - observed_symbolic_hours(
+            self.rows["A9"][0]
         )
         self.assertEqual(13 * 24 + 12, observed_reverse_delta)
         self.assertEqual(observed_reverse_delta, observed_forward_delta)
