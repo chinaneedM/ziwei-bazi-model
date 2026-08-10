@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 from fortune_training.canonical_runtime import validate_canonical_runtime, write_canonical_runtime
@@ -108,6 +110,17 @@ def main() -> None:
     source_policy["canonical_manifest_sha256"] = object_sha256(canonical_manifest)
     source_policy["canonical_runtime_manifest_sha256"] = object_sha256(runtime_manifest)
     write_json(SOURCE_POLICY_PATH, source_policy)
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "tools" / "audit_case_source_overlap.py"),
+            "--repo",
+            str(ROOT),
+        ],
+        check=True,
+        cwd=ROOT,
+    )
 
     new_raw = S04_PATH.read_bytes()
     new_marker_index = exact_marker_index(new_raw)
