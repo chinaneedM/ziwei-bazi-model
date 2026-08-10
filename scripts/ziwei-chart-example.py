@@ -7,10 +7,10 @@ from pathlib import Path
 
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry, TimeCalendarFoundation
 from fortune_training.ziwei_chart import (
-    ResolvedZiweiCalculationProfile,
     Sex,
     ZiweiChartFoundation,
     ZiweiChartRequest,
+    ziwei_chart_engine_v1_profile,
 )
 
 
@@ -19,12 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
-    profile = ResolvedZiweiCalculationProfile(
-        profile_id="FOUNDATION-SMOKE-R1",
-        profile_version="1.0.0",
-        time_calendar_policy_registry_version=registry.version,
-        time_calendar_policies=registry.default_selection(),
-    )
+    profile = ziwei_chart_engine_v1_profile(registry)
     engine = ZiweiChartFoundation(TimeCalendarFoundation(registry))
     result = engine.resolve(
         ZiweiChartRequest(

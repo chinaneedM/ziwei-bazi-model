@@ -33,7 +33,7 @@ from .dignity_r4 import (
     OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
     OperationalZiweiDignityR4Generator,
 )
-from .integrity import natal_hash_bundle, validate_natal_chart
+from .integrity import HashBundle, IntegrityReport, natal_hash_bundle, validate_natal_chart
 from .main_stars import MainStarGenerator
 from .minor_stars import (
     MINOR_STAR_ALGORITHM_VERSION,
@@ -78,8 +78,42 @@ class ZiweiChartRequest:
     profile: ResolvedZiweiCalculationProfile
 
 
+@dataclass(frozen=True)
+class ZiweiChartCandidate:
+    """One deduplicated typed natal candidate plus the data needed downstream."""
+
+    ziwei_birth_year: int
+    sex: Sex
+    branch_indices: tuple[int, ...]
+    chart: NatalChartState
+    integrity: IntegrityReport
+    hashes: HashBundle
+
+    def temporal_context(self):
+        """Build the public typed Temporal context without private engine calls."""
+
+        from .temporal import TemporalNatalContext
+
+        return TemporalNatalContext.from_natal_chart(self.ziwei_birth_year, self.sex, self.chart)
+
+
+@dataclass(frozen=True)
+class ZiweiTypedResolution:
+    """Typed counterpart of the stable JSON resolution envelope."""
+
+    schema: str
+    status: str
+    calculation_profile: ResolvedZiweiCalculationProfile
+    time_calendar: dict[str, Any]
+    candidates: tuple[ZiweiChartCandidate, ...]
+    integrity_reports: tuple[IntegrityReport, ...]
+    events: tuple[str, ...]
+    diagnostics: tuple[str, ...]
+
+
 class ZiweiChartFoundation:
     schema = "ZIWEI-CHART-FOUNDATION-RESULT-V1"
+    typed_schema = "ZIWEI-CHART-TYPED-RESOLUTION-V1"
 
     def __init__(self, time_calendar: TimeCalendarFoundation) -> None:
         self.time_calendar = time_calendar
@@ -264,33 +298,40 @@ class ZiweiChartFoundation:
         )
 
     @staticmethod
-    def _failed_result(profile, time_result, diagnostics, *, integrity_reports=()):
-        return {
-            "schema": ZiweiChartFoundation.schema,
-            "status": "FAILED",
-            "diagnostics": list(diagnostics),
-            "events": [],
-            "calculation_profile": json_value(profile),
-            "time_calendar": time_result,
-            "charts": [],
-            "chart_branch_indices": [],
-            "integrity_reports": [json_value(row) for row in integrity_reports],
-            "hashes": [],
-        }
+    def _failed_typed_result(
+        profile: ResolvedZiweiCalculationProfile,
+        time_result: dict[str, Any],
+        diagnostics,
+        *,
+        integrity_reports=(),
+    ) -> ZiweiTypedResolution:
+        return ZiweiTypedResolution(
+            schema=ZiweiChartFoundation.typed_schema,
+            status="FAILED",
+            calculation_profile=profile,
+            time_calendar=time_result,
+            candidates=(),
+            integrity_reports=tuple(integrity_reports),
+            events=(),
+            diagnostics=tuple(diagnostics),
+        )
 
-    def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
+    def resolve_typed(self, request: ZiweiChartRequest) -> ZiweiTypedResolution:
+        """Resolve chart candidates while preserving typed state for downstream runtime layers."""
+
         profile = request.profile.validate(self.time_calendar.policy_registry)
         time_result = self.time_calendar.resolve(request.birth, profile.time_calendar_policies)
         if not time_result["branches"]:
-            return self._failed_result(profile, time_result, ["TIME_CALENDAR_UNRESOLVED"])
+            return self._failed_typed_result(profile, time_result, ["TIME_CALENDAR_UNRESOLVED"])
 
         unique: dict[str, dict[str, Any]] = {}
         try:
             for branch_index, branch in enumerate(time_result["branches"]):
+                lunar = self._chart_lunar_coordinate(branch, profile)
                 typed_chart = self._generate_chart(branch, request)
                 integrity = validate_natal_chart(typed_chart)
                 if integrity.status != "PASS":
-                    return self._failed_result(
+                    return self._failed_typed_result(
                         profile,
                         time_result,
                         [f"INTEGRITY:{row.code}:{row.path}" for row in integrity.diagnostics],
@@ -300,17 +341,25 @@ class ZiweiChartFoundation:
                 key = hashes.fact_hash
                 if key not in unique:
                     unique[key] = {
-                        "chart": json_value(typed_chart),
-                        "integrity": json_value(integrity),
-                        "hashes": json_value(hashes),
+                        "ziwei_birth_year": int(lunar["year"]),
+                        "chart": typed_chart,
+                        "integrity": integrity,
+                        "hashes": hashes,
                         "branch_indices": [],
                     }
-                elif unique[key]["hashes"]["computation_hash"] != hashes.computation_hash:
-                    return self._failed_result(
-                        profile,
-                        time_result,
-                        ["INTEGRITY:SAME_FACT_DIFFERENT_COMPUTATION_LINEAGE"],
-                    )
+                else:
+                    if unique[key]["hashes"].computation_hash != hashes.computation_hash:
+                        return self._failed_typed_result(
+                            profile,
+                            time_result,
+                            ["INTEGRITY:SAME_FACT_DIFFERENT_COMPUTATION_LINEAGE"],
+                        )
+                    if unique[key]["ziwei_birth_year"] != int(lunar["year"]):
+                        return self._failed_typed_result(
+                            profile,
+                            time_result,
+                            ["INTEGRITY:SAME_FACT_DIFFERENT_ZIWEI_BIRTH_YEAR"],
+                        )
                 unique[key]["branch_indices"].append(branch_index)
         except (
             AuxiliaryGenerationError,
@@ -321,32 +370,53 @@ class ZiweiChartFoundation:
             RingGenerationError,
             RoleGenerationError,
         ) as exc:
-            return self._failed_result(profile, time_result, [exc.diagnostic_code])
+            return self._failed_typed_result(profile, time_result, [exc.diagnostic_code])
 
-        candidates = list(unique.values())
-        charts = [row["chart"] for row in candidates]
-        chart_branch_indices = [row["branch_indices"] for row in candidates]
-        integrity_reports = [row["integrity"] for row in candidates]
-        hashes = [row["hashes"] for row in candidates]
-        if len(charts) > 1:
+        candidates = tuple(
+            ZiweiChartCandidate(
+                ziwei_birth_year=row["ziwei_birth_year"],
+                sex=request.sex,
+                branch_indices=tuple(row["branch_indices"]),
+                chart=row["chart"],
+                integrity=row["integrity"],
+                hashes=row["hashes"],
+            )
+            for row in unique.values()
+        )
+        if len(candidates) > 1:
             status = "MULTI_CANDIDATE"
-            events = ["TIME_UNCERTAINTY_CHANGED_ZIWEI_CHART"]
+            events = ("TIME_UNCERTAINTY_CHANGED_ZIWEI_CHART",)
         elif time_result["status"] == "RESOLVED":
             status = "RESOLVED"
-            events = []
+            events = ()
         else:
             status = "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"
-            events = ["TIME_UNCERTAINTY_DID_NOT_CHANGE_ZIWEI_CHART"]
+            events = ("TIME_UNCERTAINTY_DID_NOT_CHANGE_ZIWEI_CHART",)
 
+        return ZiweiTypedResolution(
+            schema=self.typed_schema,
+            status=status,
+            calculation_profile=profile,
+            time_calendar=time_result,
+            candidates=candidates,
+            integrity_reports=tuple(row.integrity for row in candidates),
+            events=events,
+            diagnostics=(),
+        )
+
+    def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
+        """Resolve the stable machine-readable JSON envelope."""
+
+        typed = self.resolve_typed(request)
         return {
             "schema": self.schema,
-            "status": status,
-            "calculation_profile": json_value(profile),
-            "time_calendar": time_result,
-            "charts": charts,
-            "chart_branch_indices": chart_branch_indices,
-            "integrity_reports": integrity_reports,
-            "hashes": hashes,
-            "events": events,
-            "diagnostics": [],
+            "status": typed.status,
+            "calculation_profile": json_value(typed.calculation_profile),
+            "time_calendar": typed.time_calendar,
+            "charts": [json_value(row.chart) for row in typed.candidates],
+            "chart_branch_indices": [list(row.branch_indices) for row in typed.candidates],
+            "integrity_reports": [json_value(row) for row in typed.integrity_reports],
+            "hashes": [json_value(row.hashes) for row in typed.candidates],
+            "events": list(typed.events),
+            "diagnostics": list(typed.diagnostics),
         }
