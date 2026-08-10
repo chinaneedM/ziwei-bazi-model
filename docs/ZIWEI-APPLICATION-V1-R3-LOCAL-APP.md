@@ -6,12 +6,15 @@
 LOCAL_APP_ID=ZIWEI-LOCAL-BROWSER-APP-V1
 LOCAL_APP_VERSION=1.0.0
 APPLICATION_PACKAGE_VERSION=1.2.0
-STATUS=CANDIDATE_NOT_ACTIVE
+STATUS=ACTIVE_APPLICATION_V1_R3_LOCAL_APP
 ACTIVATION_CONDITION=MERGED_TO_MAIN
 UPSTREAM_APPLICATION=ZIWEI-APPLICATION-V1@1.0.0
 UPSTREAM_RENDERER=ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1@1.0.0
 ISSUE=#211
+PR=#212
 ```
+
+The status above is effective only when this document is present on `main`. A feature-branch copy is not an active local-application release.
 
 This slice turns the active Ziwei application/runtime stack into a usable local browser tool. It does not alter calculation, Temporal, Structural R1-R5, canonical source, training, model-learning or prediction contracts.
 
@@ -144,9 +147,9 @@ The first UI is intentionally functional rather than final:
 
 Visual styling is not a calculation correctness signal. Wenmo acceptance remains tracked separately in Issue #208.
 
-## Candidate validation gate
+## Release validation gate
 
-Before activation the exact merge-candidate head must pass:
+The exact merge-candidate head must pass:
 
 - server binds to `127.0.0.1` on an ephemeral test port;
 - `/health` returns fixed versioned status and security headers;
@@ -167,7 +170,7 @@ Before activation the exact merge-candidate head must pass:
 
 ## Post-R3
 
-After activation the repository will contain an actually operable local Ziwei chart application shell. The next priority should not be another large architecture layer.
+After activation the repository contains an actually operable local Ziwei chart application shell. The next priority should not be another large architecture layer.
 
 Two bounded follow-ups remain:
 
