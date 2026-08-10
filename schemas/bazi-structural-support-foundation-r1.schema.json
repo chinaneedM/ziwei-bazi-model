@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-structural-support-foundation-r1.schema.json",
+  "title": "Bazi Structural Support Foundation R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "typed_schema", "status", "upstream_natal_fact_hash",
+    "support_profile", "flow_candidate_count", "structural_candidate_count",
+    "candidates", "events", "diagnostics"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-RESULT-V1"},
+    "typed_schema": {"const": "BAZI-STRUCTURAL-SUPPORT-TYPED-RESOLUTION-V1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+    "support_profile": {"$ref": "#/$defs/profile"},
+    "flow_candidate_count": {"type": "integer", "minimum": 0},
+    "structural_candidate_count": {"type": "integer", "minimum": 0},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sourceRefs": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "seedIds": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "string", "pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"}
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id", "profile_version", "algorithm_id", "algorithm_version",
+        "seasonal_role_rule_set_id", "seasonal_role_rule_set_version",
+        "support_evidence_rule_set_id", "support_evidence_rule_set_version"
+      ],
+      "properties": {
+        "profile_id": {"const": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-SUPPORT-ENGINE-V1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "seasonal_role_rule_set_id": {"const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"},
+        "seasonal_role_rule_set_version": {"const": "1.0.0"},
+        "support_evidence_rule_set_id": {"const": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1"},
+        "support_evidence_rule_set_version": {"const": "1.0.0"}
+      }
+    },
+    "natalMonthCommand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_id", "role_id", "upstream_natal_fact_hash",
+        "source_branch_instance_id", "natal_month_ganzhi", "branch",
+        "natal_profile_id", "natal_profile_version", "source_temporal_seed_ids",
+        "time_calendar_policy_registry_versions", "rule_set_id",
+        "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "reference_id": {"type": "string", "pattern": "^SEASONAL_ROLE:NATAL_MONTH_COMMAND:"},
+        "role_id": {"const": "NATAL_MONTH_COMMAND"},
+        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_branch_instance_id": {"const": "MONTH.BRANCH"},
+        "natal_month_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "natal_profile_id": {"type": "string", "minLength": 1},
+        "natal_profile_version": {"type": "string", "minLength": 1},
+        "source_temporal_seed_ids": {"$ref": "#/$defs/seedIds"},
+        "time_calendar_policy_registry_versions": {
+          "type": "array", "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "rule_set_id": {"const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"},
+        "rule_set_version": {"const": "1.0.0"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "activeFlowMonth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_id", "role_id", "upstream_flow_fact_hash",
+        "source_monthly_frame_id", "source_temporal_branch_instance_id",
+        "active_month_ganzhi", "branch", "start_jie_name",
+        "start_jie_chinese_name", "start_jie_longitude_degrees", "start_utc",
+        "end_jie_name", "end_jie_chinese_name", "end_jie_longitude_degrees",
+        "end_utc", "interval_semantics", "rule_set_id", "rule_set_version",
+        "source_refs"
+      ],
+      "properties": {
+        "reference_id": {"type": "string", "pattern": "^SEASONAL_ROLE:ACTIVE_FLOW_SOLAR_MONTH:"},
+        "role_id": {"const": "ACTIVE_FLOW_SOLAR_MONTH"},
+        "upstream_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_monthly_frame_id": {"type": "string", "minLength": 1},
+        "source_temporal_branch_instance_id": {"type": "string", "pattern": "\\.BRANCH$"},
+        "active_month_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "start_jie_name": {"type": "string", "minLength": 1},
+        "start_jie_chinese_name": {"type": "string", "minLength": 1},
+        "start_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
+        "start_utc": {"type": "string", "format": "date-time"},
+        "end_jie_name": {"type": "string", "minLength": 1},
+        "end_jie_chinese_name": {"type": "string", "minLength": 1},
+        "end_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
+        "end_utc": {"type": "string", "format": "date-time"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "rule_set_id": {"const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"},
+        "rule_set_version": {"const": "1.0.0"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "supportEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id", "visible_stem_instance_id", "supporting_branch_instance_id",
+        "matching_hidden_stem_instance_ids", "evidence_class",
+        "visible_participant_layer", "supporting_branch_participant_layer",
+        "participant_layers", "supporting_branch_role_ids",
+        "source_affinity_fact_id", "source_exposure_link_ids", "rule_set_id",
+        "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "pattern": "^SUPPORT:"},
+        "visible_stem_instance_id": {"type": "string", "minLength": 1},
+        "supporting_branch_instance_id": {"type": "string", "minLength": 1},
+        "matching_hidden_stem_instance_ids": {
+          "type": "array", "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_class": {
+          "enum": ["EXACT_HIDDEN_STEM_MATCH", "SAME_ELEMENT_HIDDEN_SUPPORT"]
+        },
+        "visible_participant_layer": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]},
+        "supporting_branch_participant_layer": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]},
+        "participant_layers": {
+          "type": "array", "minItems": 1, "maxItems": 2,
+          "items": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]}
+        },
+        "supporting_branch_role_ids": {
+          "type": "array", "maxItems": 1,
+          "items": {"enum": ["NATAL_MONTH_COMMAND", "ACTIVE_FLOW_SOLAR_MONTH"]}
+        },
+        "source_affinity_fact_id": {"type": "string", "pattern": "^AFFINITY:"},
+        "source_exposure_link_ids": {
+          "type": "array", "items": {"type": "string", "pattern": "^EXPOSE:"}
+        },
+        "rule_set_id": {"const": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1"},
+        "rule_set_version": {"const": "1.0.0"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_natal_fact_hash", "upstream_temporal_fact_hash",
+        "upstream_flow_fact_hash", "upstream_structural_fact_hash",
+        "natal_month_command", "active_flow_solar_month",
+        "support_evidence_candidates", "natal_month_command_support_candidate_ids",
+        "active_flow_solar_month_support_candidate_ids", "profile_id",
+        "profile_version", "algorithm_versions"
+      ],
+      "properties": {
+        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_temporal_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_structural_fact_hash": {"$ref": "#/$defs/hash"},
+        "natal_month_command": {"$ref": "#/$defs/natalMonthCommand"},
+        "active_flow_solar_month": {"$ref": "#/$defs/activeFlowMonth"},
+        "support_evidence_candidates": {
+          "type": "array", "items": {"$ref": "#/$defs/supportEvidence"}
+        },
+        "natal_month_command_support_candidate_ids": {
+          "type": "array", "items": {"type": "string", "pattern": "^SUPPORT:"}
+        },
+        "active_flow_solar_month_support_candidate_ids": {
+          "type": "array", "items": {"type": "string", "pattern": "^SUPPORT:"}
+        },
+        "profile_id": {"const": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_versions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["support", "seasonal_roles", "support_evidence"],
+          "properties": {
+            "support": {"const": "1.0.0"},
+            "seasonal_roles": {"const": "1.0.0"},
+            "support_evidence": {"const": "1.0.0"}
+          }
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/diagnostic"}},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-SUPPORT-INTEGRITY-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-SUPPORT-HASH-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_structural_candidate_indices", "source_flow_candidate_indices",
+        "source_temporal_candidate_indices", "source_temporal_seed_ids",
+        "context", "integrity", "hashes"
+      ],
+      "properties": {
+        "source_structural_candidate_indices": {
+          "type": "array", "minItems": 1,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "source_flow_candidate_indices": {
+          "type": "array", "minItems": 1,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "source_temporal_candidate_indices": {
+          "type": "array", "minItems": 1,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "source_temporal_seed_ids": {"$ref": "#/$defs/seedIds"},
+        "context": {"$ref": "#/$defs/context"},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  }
+}
