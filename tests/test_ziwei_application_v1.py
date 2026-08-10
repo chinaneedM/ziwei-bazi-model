@@ -9,7 +9,6 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry
-from fortune_training.calendar_foundation.models import json_value
 from fortune_training.ziwei_application import (
     ApplicationBirthRequest,
     ApplicationResolutionError,
@@ -125,6 +124,36 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
         self.assertEqual(self.bundle.r5_state.hashes, replay.r5_state.hashes)
         self.assertEqual(self.bundle.view_model, replay.view_model)
         self.assertEqual(self.service.export(self.bundle), self.service.export(replay))
+
+    def test_stale_natal_pass_and_hashes_cannot_hide_lineage_tamper(self) -> None:
+        placement = self.bundle.candidate.chart.placements[0]
+        tampered_placement = replace(placement, source_refs=("TAMPERED:SOURCE",))
+        tampered_chart = replace(
+            self.bundle.candidate.chart,
+            placements=(tampered_placement, *self.bundle.candidate.chart.placements[1:]),
+        )
+        tampered_candidate = replace(self.bundle.candidate, chart=tampered_chart)
+        self.assertEqual("PASS", tampered_candidate.integrity.status)
+        self.assertEqual(self.bundle.candidate.hashes, tampered_candidate.hashes)
+        tampered_bundle = replace(self.bundle, candidate=tampered_candidate)
+        with self.assertRaises(ApplicationResolutionError) as caught:
+            self.service.export(tampered_bundle)
+        self.assertEqual("APPLICATION_NATAL_HASH_MISMATCH", caught.exception.diagnostic_code)
+
+    def test_temporal_context_must_reproduce_from_candidate(self) -> None:
+        tampered_context = replace(
+            self.bundle.temporal_context,
+            bureau_number=(self.bundle.temporal_context.bureau_number % 5) + 2,
+        )
+        if tampered_context.bureau_number == self.bundle.temporal_context.bureau_number:
+            tampered_context = replace(
+                self.bundle.temporal_context,
+                bureau_number=2 if self.bundle.temporal_context.bureau_number != 2 else 3,
+            )
+        tampered_bundle = replace(self.bundle, temporal_context=tampered_context)
+        with self.assertRaises(ApplicationResolutionError) as caught:
+            self.service.export(tampered_bundle)
+        self.assertEqual("APPLICATION_TEMPORAL_CONTEXT_MISMATCH", caught.exception.diagnostic_code)
 
     def test_tampered_r5_substitution_fails_closed_before_export(self) -> None:
         tampered_r5 = replace(
