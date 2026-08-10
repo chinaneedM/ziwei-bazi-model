@@ -4,7 +4,18 @@
   "title": "Ziwei Chart Foundation Result V1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "status", "calculation_profile", "time_calendar", "charts", "chart_branch_indices", "events", "diagnostics"],
+  "required": [
+    "schema",
+    "status",
+    "calculation_profile",
+    "time_calendar",
+    "charts",
+    "chart_branch_indices",
+    "integrity_reports",
+    "hashes",
+    "events",
+    "diagnostics"
+  ],
   "properties": {
     "schema": {"const": "ZIWEI-CHART-FOUNDATION-RESULT-V1"},
     "status": {"enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY", "MULTI_CANDIDATE", "FAILED"]},
@@ -12,11 +23,45 @@
     "time_calendar": {"type": "object"},
     "charts": {"type": "array", "items": {"$ref": "#/$defs/natalChart"}},
     "chart_branch_indices": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0}, "uniqueItems": true}},
+    "integrity_reports": {"type": "array", "items": {"$ref": "#/$defs/integrityReport"}},
+    "hashes": {"type": "array", "items": {"$ref": "#/$defs/hashBundle"}},
     "events": {"type": "array", "items": {"type": "string"}},
     "diagnostics": {"type": "array", "items": {"type": "string"}}
   },
   "$defs": {
     "sourceRefs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrityReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/integrityDiagnostic"}},
+        "algorithm_id": {"const": "ZIWEI-INTEGRITY-HASH-V1"},
+        "algorithm_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "hashBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "ZIWEI-INTEGRITY-HASH-V1"},
+        "algorithm_version": {"type": "string", "minLength": 1}
+      }
+    },
     "address": {
       "type": "object", "additionalProperties": false, "required": ["index", "branch"],
       "properties": {
