@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-structural-context-r1.schema.json",
+  "title": "Bazi Structural Context R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "typed_schema", "status", "upstream_natal_fact_hash",
+    "structural_profile", "flow_candidate_count", "candidates", "events", "diagnostics"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-STRUCTURAL-CONTEXT-RESULT-V1"},
+    "typed_schema": {"const": "BAZI-STRUCTURAL-CONTEXT-TYPED-RESOLUTION-V1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+    "structural_profile": {"$ref": "#/$defs/profile"},
+    "flow_candidate_count": {"type": "integer", "minimum": 0},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sourceRefs": {
+      "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}
+    },
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "profile_id", "profile_version", "algorithm_id", "algorithm_version",
+        "participant_rule_set_id", "participant_rule_set_version",
+        "relation_scope_rule_set_id", "relation_scope_rule_set_version"
+      ],
+      "properties": {
+        "profile_id": {"const": "BAZI-STRUCTURAL-CONTEXT-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-CONTEXT-ENGINE-V1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "participant_rule_set_id": {"const": "BAZI-ACTIVE-TEMPORAL-PARTICIPANT-R1"},
+        "participant_rule_set_version": {"const": "1.0.0"},
+        "relation_scope_rule_set_id": {"const": "BAZI-DYNAMIC-RELATION-SCOPE-R1"},
+        "relation_scope_rule_set_version": {"const": "1.0.0"}
+      }
+    },
+    "stem": {
+      "type": "object", "additionalProperties": false,
+      "required": ["instance_id", "position", "stem", "element", "polarity"],
+      "properties": {
+        "instance_id": {"type": "string", "minLength": 1},
+        "position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
+        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "element": {"enum": ["木", "火", "土", "金", "水"]},
+        "polarity": {"enum": ["YANG", "YIN"]}
+      }
+    },
+    "branch": {
+      "type": "object", "additionalProperties": false,
+      "required": ["instance_id", "position", "branch", "element_affiliation"],
+      "properties": {
+        "instance_id": {"type": "string", "minLength": 1},
+        "position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "element_affiliation": {"enum": ["木", "火", "土", "金", "水"]}
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["instance_id", "layer", "source_frame_id", "source_flow_fact_hash", "source_ganzhi"],
+      "properties": {
+        "instance_id": {"type": "string", "minLength": 1},
+        "layer": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
+        "source_frame_id": {"type": "string", "minLength": 1},
+        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2}
+      }
+    },
+    "hiddenStem": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "instance_id", "branch_instance_id", "branch_position", "stem", "element",
+        "registry_ordinal", "rule_set_id", "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "instance_id": {"type": "string", "minLength": 1},
+        "branch_instance_id": {"type": "string", "minLength": 1},
+        "branch_position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
+        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "element": {"enum": ["木", "火", "土", "金", "水"]},
+        "registry_ordinal": {"type": "integer", "minimum": 0, "maximum": 2},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "tenGod": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "binding_id", "target_instance_id", "target_stem", "day_master_stem",
+        "semantic_role_id", "display_name", "rule_set_id", "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "binding_id": {"type": "string", "minLength": 1},
+        "target_instance_id": {"type": "string", "minLength": 1},
+        "target_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
+        "display_name": {"type": "string", "minLength": 1},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "exposure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["link_id", "hidden_stem_instance_id", "visible_stem_instance_id", "stem", "match_kind", "source_refs"],
+      "properties": {
+        "link_id": {"type": "string", "minLength": 1},
+        "hidden_stem_instance_id": {"type": "string", "minLength": 1},
+        "visible_stem_instance_id": {"type": "string", "minLength": 1},
+        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "match_kind": {"const": "EXACT_STEM"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "affinity": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "fact_id", "visible_stem_instance_id", "branch_instance_id",
+        "exact_hidden_stem_instance_ids", "same_element_hidden_stem_instance_ids",
+        "rule_set_id", "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "fact_id": {"type": "string", "minLength": 1},
+        "visible_stem_instance_id": {"type": "string", "minLength": 1},
+        "branch_instance_id": {"type": "string", "minLength": 1},
+        "exact_hidden_stem_instance_ids": {"type": "array", "items": {"type": "string"}},
+        "same_element_hidden_stem_instance_ids": {"type": "array", "items": {"type": "string"}},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "relation": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "relation_id", "semantic_relation_id", "relation_family",
+        "participant_instance_ids", "participant_layers", "relation_scope",
+        "orientation", "arity", "nominal_transformation_element",
+        "rule_set_id", "rule_set_version", "source_refs"
+      ],
+      "properties": {
+        "relation_id": {"type": "string", "minLength": 1},
+        "semantic_relation_id": {"type": "string", "minLength": 1},
+        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
+        "participant_instance_ids": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"type": "string", "minLength": 1}},
+        "participant_layers": {"type": "array", "minItems": 1, "items": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]}},
+        "relation_scope": {"enum": ["CROSS_LAYER", "TEMPORAL_ONLY"]},
+        "orientation": {"enum": ["SYMMETRIC", "DIRECTED", "SELF", "GROUP"]},
+        "arity": {"enum": [2, 3]},
+        "nominal_transformation_element": {"type": ["string", "null"]},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "upstream_natal_fact_hash", "upstream_temporal_fact_hash", "upstream_flow_fact_hash",
+        "natal_day_master_stem", "natal_stem_instance_ids", "natal_branch_instance_ids",
+        "active_temporal_stems", "active_temporal_branches", "temporal_participant_provenance",
+        "temporal_hidden_stems", "temporal_ten_gods", "upstream_natal_exposure_link_ids",
+        "dynamic_exposures", "upstream_natal_affinity_fact_ids", "dynamic_affinities",
+        "upstream_natal_raw_relation_ids", "dynamic_raw_relations", "profile_id",
+        "profile_version", "algorithm_versions"
+      ],
+      "properties": {
+        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_temporal_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "natal_day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "natal_stem_instance_ids": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "string"}},
+        "natal_branch_instance_ids": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "string"}},
+        "active_temporal_stems": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"$ref": "#/$defs/stem"}},
+        "active_temporal_branches": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"$ref": "#/$defs/branch"}},
+        "temporal_participant_provenance": {"type": "array", "minItems": 4, "maxItems": 6, "items": {"$ref": "#/$defs/provenance"}},
+        "temporal_hidden_stems": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/hiddenStem"}},
+        "temporal_ten_gods": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/tenGod"}},
+        "upstream_natal_exposure_link_ids": {"type": "array", "items": {"type": "string"}},
+        "dynamic_exposures": {"type": "array", "items": {"$ref": "#/$defs/exposure"}},
+        "upstream_natal_affinity_fact_ids": {"type": "array", "minItems": 16, "maxItems": 16, "items": {"type": "string"}},
+        "dynamic_affinities": {"type": "array", "items": {"$ref": "#/$defs/affinity"}},
+        "upstream_natal_raw_relation_ids": {"type": "array", "items": {"type": "string"}},
+        "dynamic_raw_relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}},
+        "profile_id": {"const": "BAZI-STRUCTURAL-CONTEXT-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}}
+      }
+    },
+    "diagnostic": {
+      "type": "object", "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/diagnostic"}},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-INTEGRITY-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"},
+        "algorithm_id": {"const": "BAZI-STRUCTURAL-HASH-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "source_flow_candidate_indices", "source_temporal_candidate_indices",
+        "source_temporal_seed_ids", "context", "integrity", "hashes"
+      ],
+      "properties": {
+        "source_flow_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+        "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+        "source_temporal_seed_ids": {"type": "array", "minItems": 1, "items": {"pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"}},
+        "context": {"$ref": "#/$defs/context"},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "fixture_id": "BAZI-STRUCTURAL-CONTEXT-R1-DISCRIMINATION",
+  "natal": {
+    "reported_local_datetime": "2025-02-07T10:10:00",
+    "birth_place": "Beijing",
+    "latitude": 39.9042,
+    "longitude": 116.4074,
+    "timezone_id": "Asia/Shanghai",
+    "expected_pillars": ["乙巳", "戊寅", "丁未", "乙巳"],
+    "expected_fact_hash": "7f0214546dc4c11c630b29c0db42e527ce88e3f499c54914c68debe90bc58ce3",
+    "expected_raw_relation_ids": [
+      "BRANCH.PUNISHMENT.YIN_TO_SI:MONTH.BRANCH+HOUR.BRANCH",
+      "BRANCH.PUNISHMENT.YIN_TO_SI:MONTH.BRANCH+YEAR.BRANCH"
+    ]
+  },
+  "targets": {
+    "temporal_stem_combination": {
+      "solar_term_year": 2025,
+      "solar_longitude_degrees": 15,
+      "annual_ganzhi": "乙巳",
+      "monthly_ganzhi": "庚辰",
+      "semantic_relation_id": "STEM.COMBINATION.YI_GENG",
+      "nominal_transformation_element": "金"
+    },
+    "mixed_layer_fire_trine": {
+      "solar_term_year": 2026,
+      "solar_longitude_degrees": 195,
+      "annual_ganzhi": "丙午",
+      "monthly_ganzhi": "戊戌",
+      "semantic_relation_id": "BRANCH.TRINE.FIRE"
+    },
+    "cross_layer_clash": {
+      "solar_term_year": 2026,
+      "solar_longitude_degrees": 225,
+      "monthly_ganzhi": "己亥",
+      "semantic_relation_id": "BRANCH.CLASH.SI_HAI"
+    },
+    "repeated_occurrence": {
+      "solar_term_year": 2025,
+      "solar_longitude_degrees": 45,
+      "monthly_branch": "巳"
+    }
+  }
+}
