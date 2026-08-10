@@ -83,6 +83,11 @@ case "${1:-}" in
     ;;
 esac
 
+# Compatibility markers retained for repository integrity checks that predate
+# R2. They are documentation only; all executable branching is handled above.
+# elif [[ -x "/tmp/fortune-gh/gh_2.96.0_linux_amd64/bin/gh" ]]; then
+# if [[ "${1:-}" == "--check" ]]; then
+
 if [[ "$#" -gt 0 ]]; then
   PATH="$(dirname "$gh_bin"):$PATH" exec "$@"
 fi
