@@ -1,7 +1,7 @@
 """Deterministic time and calendar foundation for Ziwei and Bazi charting."""
 
 from .astronomy import SolarTermEngine
-from .bazi import BaziTimeResolver
+from .bazi import BaziTimeResolver, BaziYearMonthResult
 from .calendar import ChineseCalendarEngine
 from .engine import TimeCalendarFoundation
 from .models import (
@@ -19,6 +19,7 @@ from .ziwei import ZiweiCalendarResolver
 __all__ = [
     "BaziPolicySelection",
     "BaziTimeResolver",
+    "BaziYearMonthResult",
     "BirthInput",
     "ChineseCalendarEngine",
     "CivilResolution",

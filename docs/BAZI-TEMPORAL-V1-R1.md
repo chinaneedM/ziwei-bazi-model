@@ -6,7 +6,10 @@ Status: release candidate.
 
 This runtime consumes one validated `BaziChartCandidate` and its preserved `BaziTemporalSeed` values. R1 resolves Dayun direction, Jie anchor, symbolic luck age, explicit calendar-realization profiles, Pre-Dayun, and a sequence of ten-year Dayun frames.
 
-It does **not** implement Annual/Monthly axes, dynamic relation composition, strength, pattern, useful-god selection, ShenSha, derived coordinates, event prediction, or UI.
+Annual/Monthly target-time axes are implemented by the separate downstream
+`Bazi Temporal Flow Context R1` runtime. This Dayun schedule itself still does
+**not** embed those axes, dynamic relation composition, strength, pattern,
+useful-god selection, ShenSha, derived coordinates, event prediction, or UI.
 
 ## Inputs
 

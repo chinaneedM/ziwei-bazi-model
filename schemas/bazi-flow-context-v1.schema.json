@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-flow-context-v1.schema.json",
+  "title": "Bazi Temporal Flow Context R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "typed_schema", "status", "target_utc", "upstream_natal_fact_hash",
+    "calculation_profile", "temporal_candidate_count", "candidates", "events", "diagnostics"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-FLOW-CONTEXT-RESULT-V1"},
+    "typed_schema": {"const": "BAZI-FLOW-CONTEXT-TYPED-RESOLUTION-V1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "target_utc": {"type": "string", "minLength": 1},
+    "upstream_natal_fact_hash": {"pattern": "^[0-9a-f]{64}$"},
+    "calculation_profile": {"type": "object"},
+    "temporal_candidate_count": {"type": "integer", "minimum": 0},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "utcInstant": {"type": "string", "pattern": "Z$"},
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sourceRefs": {
+      "type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}
+    },
+    "preDayunFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "start_utc", "end_utc", "interval_semantics"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "start_utc": {"$ref": "#/$defs/utcInstant"},
+        "end_utc": {"$ref": "#/$defs/utcInstant"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"}
+      }
+    },
+    "dayunFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id", "index", "ganzhi", "sexagenary_index", "start_utc", "end_utc",
+        "interval_semantics", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "index": {"type": "integer", "minimum": 1},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_utc": {"$ref": "#/$defs/utcInstant"},
+        "end_utc": {"$ref": "#/$defs/utcInstant"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "annualFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id", "pillar_year", "ganzhi", "sexagenary_index", "start_term_name",
+        "start_term_chinese_name", "start_utc", "end_term_name", "end_term_chinese_name",
+        "end_utc", "interval_semantics", "year_boundary_policy", "solar_term_algorithm_id",
+        "solar_term_algorithm_version", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"pattern": "^ANNUAL:[0-9a-f]{64}$"},
+        "pillar_year": {"type": "integer", "minimum": 1599, "maximum": 2400},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_term_name": {"const": "START_OF_SPRING"},
+        "start_term_chinese_name": {"const": "立春"},
+        "start_utc": {"$ref": "#/$defs/utcInstant"},
+        "end_term_name": {"const": "START_OF_SPRING"},
+        "end_term_chinese_name": {"const": "立春"},
+        "end_utc": {"$ref": "#/$defs/utcInstant"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "year_boundary_policy": {"const": "START_OF_SPRING"},
+        "solar_term_algorithm_id": {"type": "string", "minLength": 1},
+        "solar_term_algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "monthlyFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id", "ganzhi", "sexagenary_index", "start_jie_name",
+        "start_jie_chinese_name", "start_jie_longitude_degrees", "start_utc",
+        "end_jie_name", "end_jie_chinese_name", "end_jie_longitude_degrees", "end_utc",
+        "interval_semantics", "solar_term_algorithm_id", "solar_term_algorithm_version", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"pattern": "^MONTHLY:[0-9a-f]{64}$"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_jie_name": {"type": "string", "minLength": 1},
+        "start_jie_chinese_name": {"type": "string", "minLength": 1},
+        "start_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
+        "start_utc": {"$ref": "#/$defs/utcInstant"},
+        "end_jie_name": {"type": "string", "minLength": 1},
+        "end_jie_chinese_name": {"type": "string", "minLength": 1},
+        "end_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
+        "end_utc": {"$ref": "#/$defs/utcInstant"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "solar_term_algorithm_id": {"type": "string", "minLength": 1},
+        "solar_term_algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "upstream_natal_fact_hash", "upstream_temporal_fact_hash", "target_utc",
+        "active_dayun_kind", "active_dayun_frame", "annual_frame", "monthly_frame",
+        "natal_profile_id", "natal_profile_version", "temporal_profile_id",
+        "temporal_profile_version", "time_calendar_policy_registry_version",
+        "year_boundary_policy", "algorithm_versions"
+      ],
+      "properties": {
+        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
+        "upstream_temporal_fact_hash": {"$ref": "#/$defs/hash"},
+        "target_utc": {"$ref": "#/$defs/utcInstant"},
+        "active_dayun_kind": {"enum": ["PRE_DAYUN", "DAYUN"]},
+        "active_dayun_frame": {
+          "oneOf": [
+            {"$ref": "#/$defs/preDayunFrame"},
+            {"$ref": "#/$defs/dayunFrame"}
+          ]
+        },
+        "annual_frame": {"$ref": "#/$defs/annualFrame"},
+        "monthly_frame": {"$ref": "#/$defs/monthlyFrame"},
+        "natal_profile_id": {"type": "string", "minLength": 1},
+        "natal_profile_version": {"type": "string", "minLength": 1},
+        "temporal_profile_id": {"type": "string", "minLength": 1},
+        "temporal_profile_version": {"type": "string", "minLength": 1},
+        "time_calendar_policy_registry_version": {"type": "string", "minLength": 1},
+        "year_boundary_policy": {"const": "START_OF_SPRING"},
+        "algorithm_versions": {
+          "type": "object",
+          "additionalProperties": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"type": "object"}},
+        "algorithm_id": {"const": "BAZI-FLOW-INTEGRITY-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"},
+        "algorithm_id": {"const": "BAZI-FLOW-HASH-V1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_temporal_candidate_indices", "source_temporal_seed_ids", "context",
+        "integrity", "hashes"
+      ],
+      "properties": {
+        "source_temporal_candidate_indices": {
+          "type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}
+        },
+        "source_temporal_seed_ids": {
+          "type": "array", "minItems": 1,
+          "items": {"pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"}
+        },
+        "context": {"$ref": "#/$defs/context"},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  }
+}
