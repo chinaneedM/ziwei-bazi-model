@@ -42,6 +42,25 @@ class BaziTimeResult:
     algorithm_id: str = "BAZI-TIME-RESOLVER-V1"
 
 
+@dataclass(frozen=True)
+class BaziYearMonthResult:
+    """Shared Bazi year/month coordinates for any UTC query instant."""
+
+    year_pillar: str
+    year_sexagenary_index: int
+    pillar_year: int
+    annual_start_boundary: SolarTerm
+    annual_end_boundary: SolarTerm
+    month_pillar: str
+    month_sexagenary_index: int
+    active_month_boundary: SolarTerm
+    next_month_boundary: SolarTerm
+    year_boundary_policy: str
+    interval_semantics: str = "START_INCLUSIVE_END_EXCLUSIVE"
+    algorithm_id: str = "BAZI-YEAR-MONTH-RESOLVER-V1"
+    algorithm_version: str = "1.0.0"
+
+
 def _sexagenary_day_index(gregorian_date: date) -> int:
     # Proleptic-Gregorian JDN at noon; JDN 2451551 (2000-01-07) is 甲子.
     julian_day_number = gregorian_date.toordinal() + 1_721_425
@@ -56,6 +75,57 @@ class BaziTimeResolver:
     def __init__(self, solar_terms: SolarTermEngine | None = None) -> None:
         self.solar_terms = solar_terms or SolarTermEngine()
 
+    def resolve_year_month(
+        self,
+        utc_instant: datetime,
+        *,
+        year_boundary_policy: str,
+    ) -> BaziYearMonthResult:
+        """Resolve the active annual and monthly half-open solar-term frames.
+
+        This is the single shared path used by natal pillar generation and by
+        downstream target-time flow queries.  It deliberately contains the
+        only Five-Tiger month-stem calculation in the runtime.
+        """
+
+        if year_boundary_policy != "START_OF_SPRING":
+            raise ValueError(f"unsupported year boundary policy: {year_boundary_policy}")
+        if utc_instant.tzinfo is None or utc_instant.utcoffset() is None:
+            raise ValueError("utc_instant must be timezone-aware")
+        utc = utc_instant.astimezone(timezone.utc)
+
+        spring_this_year = self.solar_terms.term(utc.year, 315)
+        pillar_year = utc.year if utc >= spring_this_year.utc_instant else utc.year - 1
+        annual_start = self.solar_terms.term(pillar_year, 315)
+        annual_end = self.solar_terms.term(pillar_year + 1, 315)
+        year_index = (pillar_year - 4) % 60
+        year_pillar = _pillar(year_index)
+
+        active_jie, next_jie = self.solar_terms.adjacent_terms(utc, jie_only=True)
+        month_branch_index = _JIE_TO_MONTH_BRANCH[active_jie.longitude_degrees]
+        tiger_month_stem_index = ((year_index % 10) * 2 + 2) % 10
+        month_offset = (month_branch_index - 2) % 12
+        month_stem_index = (tiger_month_stem_index + month_offset) % 10
+        month_pillar = HEAVENLY_STEMS[month_stem_index] + EARTHLY_BRANCHES[month_branch_index]
+        month_sexagenary_index = next(
+            index
+            for index in range(60)
+            if index % 10 == month_stem_index and index % 12 == month_branch_index
+        )
+
+        return BaziYearMonthResult(
+            year_pillar=year_pillar,
+            year_sexagenary_index=year_index,
+            pillar_year=pillar_year,
+            annual_start_boundary=annual_start,
+            annual_end_boundary=annual_end,
+            month_pillar=month_pillar,
+            month_sexagenary_index=month_sexagenary_index,
+            active_month_boundary=active_jie,
+            next_month_boundary=next_jie,
+            year_boundary_policy=year_boundary_policy,
+        )
+
     def resolve(
         self,
         utc_instant: datetime,
@@ -65,8 +135,6 @@ class BaziTimeResolver:
         day_boundary_policy: str,
         late_zi_hour_stem_policy: str,
     ) -> BaziTimeResult:
-        if year_boundary_policy != "START_OF_SPRING":
-            raise ValueError(f"unsupported year boundary policy: {year_boundary_policy}")
         if day_boundary_policy not in {"MIDNIGHT", "ZI_START_23"}:
             raise ValueError(f"unsupported day boundary policy: {day_boundary_policy}")
         if late_zi_hour_stem_policy not in {
@@ -81,17 +149,16 @@ class BaziTimeResolver:
             raise ValueError("utc_instant must be timezone-aware")
         utc = utc_instant.astimezone(timezone.utc)
 
-        spring = self.solar_terms.term(local_apparent_solar_datetime.year, 315)
-        pillar_year = local_apparent_solar_datetime.year if utc >= spring.utc_instant else local_apparent_solar_datetime.year - 1
-        year_index = (pillar_year - 4) % 60
-        year_pillar = _pillar(year_index)
-
-        active_jie, next_jie = self.solar_terms.adjacent_terms(utc, jie_only=True)
-        month_branch_index = _JIE_TO_MONTH_BRANCH[active_jie.longitude_degrees]
-        tiger_month_stem_index = ((year_index % 10) * 2 + 2) % 10
-        month_offset = (month_branch_index - 2) % 12
-        month_stem_index = (tiger_month_stem_index + month_offset) % 10
-        month_pillar = HEAVENLY_STEMS[month_stem_index] + EARTHLY_BRANCHES[month_branch_index]
+        year_month = self.resolve_year_month(
+            utc,
+            year_boundary_policy=year_boundary_policy,
+        )
+        # Preserve the V1 public field's original reference-year boundary.
+        # Active annual start/end boundaries live on BaziYearMonthResult.
+        reference_year_boundary = self.solar_terms.term(
+            local_apparent_solar_datetime.year,
+            315,
+        )
 
         clock_date = local_apparent_solar_datetime.date()
         late_zi = local_apparent_solar_datetime.hour == 23
@@ -113,15 +180,15 @@ class BaziTimeResolver:
         hour_pillar = HEAVENLY_STEMS[hour_stem_index] + EARTHLY_BRANCHES[hour_branch_index]
 
         return BaziTimeResult(
-            year_pillar=year_pillar,
-            month_pillar=month_pillar,
+            year_pillar=year_month.year_pillar,
+            month_pillar=year_month.month_pillar,
             day_pillar=day_pillar,
             hour_pillar=hour_pillar,
             effective_day_date=effective_day_date,
             hour_stem_source_date=hour_stem_source_date,
-            year_boundary=spring,
-            active_month_boundary=active_jie,
-            next_month_boundary=next_jie,
+            year_boundary=reference_year_boundary,
+            active_month_boundary=year_month.active_month_boundary,
+            next_month_boundary=year_month.next_month_boundary,
             year_boundary_policy=year_boundary_policy,
             day_boundary_policy=day_boundary_policy,
             late_zi_hour_stem_policy=late_zi_hour_stem_policy,
