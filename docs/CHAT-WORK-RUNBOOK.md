@@ -28,7 +28,9 @@
 Work读取唯一交接Issue，核对全部绑定并预检完整推理。评分必须晚于冻结；PASS不生成修正，FAIL使用`MODEL-LEARNING-CORRECTION-V3`。复训继续从零推理，但不计首次盲测、独立规则证据或阶段门。
 
 Work开始时由系统运行`scripts/bootstrap-work-env.sh`，自动补齐稀疏检出所需目录并在
-`gh`缺失时安装固定版本、校验下载哈希。该环境初始化不得要求用户执行命令。
+`gh`缺失时安装固定版本、校验下载哈希。binary/auth能力分离及connector-first路由见
+`docs/WORK-GITHUB-ACCESS-R2.md`；connector已覆盖任务时，本地`gh`未认证不是环境失败。
+该环境初始化不得要求用户执行命令。
 
 若交接Schema或长度预检失败，必须在读取答案前停止。Schema修复只允许把已冻结内容机械映射
 到精确字段或压缩重复措辞，严禁改变Top1、Top2或借答案重新推理。

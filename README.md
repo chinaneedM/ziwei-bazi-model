@@ -78,6 +78,7 @@
 ```bash
 python -m pip install -e .
 ./scripts/bootstrap-work-env.sh --check
+python scripts/check-no-github-credentials.py
 fortune-train verify
 fortune-handoff-preflight --help  # GitHub controller/Work维护使用；CHAT与用户不运行
 fortune-train case-bank-verify
