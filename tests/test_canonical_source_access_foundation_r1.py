@@ -22,6 +22,7 @@ from fortune_training.util import TrainingError
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 S14_PATH = "sources/canonical/S14_test.txt"
+S14_SOURCE_COMMIT = "85acdd339538283a989d4843c1a826c7920c323e"
 
 
 def _sha256(payload: bytes) -> str:
@@ -286,12 +287,31 @@ class CanonicalSourceAccessUnitTests(unittest.TestCase):
 
 class CanonicalSourceAccessReleaseTests(unittest.TestCase):
     def test_materialized_s14_is_small_readable_and_exact(self):
-        report = validate_source_access(PROJECT_ROOT)
+        source_commit_available = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(PROJECT_ROOT),
+                "rev-parse",
+                f"{S14_SOURCE_COMMIT}^{{commit}}",
+            ],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode == 0
+        report = validate_source_access(
+            PROJECT_ROOT,
+            require_source_commit=source_commit_available,
+        )
         index_path = PROJECT_ROOT / DERIVED_ACCESS_ROOT / "S14/index.json"
         index = json.loads(index_path.read_text(encoding="utf-8"))
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["source_id"], "S14")
-        self.assertTrue(report["source_commit_verified"])
+        self.assertEqual(report["source_commit"], S14_SOURCE_COMMIT)
+        self.assertEqual(
+            report["source_commit_verified"],
+            source_commit_available,
+        )
         self.assertEqual(report["canonical_bytes"], 3354845)
         self.assertEqual(
             report["canonical_sha256"],
