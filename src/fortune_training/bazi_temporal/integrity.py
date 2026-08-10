@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import timedelta, timezone
 from typing import Any
 
 from fortune_training.bazi_chart import BaziChartCandidate, SEXAGENARY_CYCLE, sexagenary_index
@@ -18,9 +19,9 @@ from .profile import ResolvedBaziTemporalProfile
 
 
 INTEGRITY_ALGORITHM_ID = "BAZI-TEMPORAL-INTEGRITY-V1"
-INTEGRITY_ALGORITHM_VERSION = "1.0.0"
+INTEGRITY_ALGORITHM_VERSION = "1.0.1"
 HASH_ALGORITHM_ID = "BAZI-TEMPORAL-HASH-V1"
-HASH_ALGORITHM_VERSION = "1.0.0"
+HASH_ALGORITHM_VERSION = "1.0.1"
 DAY_MICROSECONDS = 86_400_000_000
 SYMBOLIC_YEAR_MICROSECONDS = 360 * DAY_MICROSECONDS
 SYMBOLIC_MONTH_MICROSECONDS = 30 * DAY_MICROSECONDS
@@ -42,6 +43,14 @@ def _add_years(value, years: int):
         if value.month == 2 and value.day == 29:
             return value.replace(year=target_year, day=28)
         raise
+
+
+def _instant_fact(value) -> str:
+    """Canonical UTC instant representation used inside temporal FactHash."""
+
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise ValueError("temporal fact instant must be timezone-aware")
+    return value.astimezone(timezone.utc).isoformat(timespec="microseconds")
 
 
 def validate_dayun_state(
@@ -117,7 +126,7 @@ def validate_dayun_state(
             or symbolic.residual_microseconds != residual
         ):
             _diag(diagnostics, "SYMBOLIC_AGE_REPLAY_MISMATCH", "jiaoyun.symbolic_age", str(expected_total))
-        expected_transition = seed.birth_utc + __import__("datetime").timedelta(microseconds=expected_total)
+        expected_transition = seed.birth_utc + timedelta(microseconds=expected_total)
         if state.jiaoyun.first_transition_utc != expected_transition:
             _diag(diagnostics, "FIRST_TRANSITION_MISMATCH", "jiaoyun.first_transition_utc", expected_transition.isoformat())
 
@@ -163,6 +172,12 @@ def validate_dayun_state(
 
 
 def temporal_fact_projection(state: BaziDayunState) -> dict[str, Any]:
+    """JSON-safe canonical projection of Dayun facts.
+
+    TemporalSeed identity is intentionally absent: equivalent seeds may support
+    the same temporal fact state without changing its FactHash.
+    """
+
     return {
         "upstream_natal_fact_hash": state.upstream_natal_fact_hash,
         "direction": {
@@ -174,8 +189,8 @@ def temporal_fact_projection(state: BaziDayunState) -> dict[str, Any]:
         "jiaoyun": {
             "anchor_kind": state.jiaoyun.anchor_kind,
             "anchor_jie_name": state.jiaoyun.anchor_jie_name,
-            "anchor_jie_utc": state.jiaoyun.anchor_jie_utc,
-            "birth_utc": state.jiaoyun.birth_utc,
+            "anchor_jie_utc": _instant_fact(state.jiaoyun.anchor_jie_utc),
+            "birth_utc": _instant_fact(state.jiaoyun.birth_utc),
             "raw_interval_microseconds": state.jiaoyun.raw_interval_microseconds,
             "symbolic_age": {
                 "total_symbolic_microseconds": state.jiaoyun.symbolic_age.total_symbolic_microseconds,
@@ -184,14 +199,14 @@ def temporal_fact_projection(state: BaziDayunState) -> dict[str, Any]:
                 "days": state.jiaoyun.symbolic_age.days,
                 "residual_microseconds": state.jiaoyun.symbolic_age.residual_microseconds,
             },
-            "first_transition_utc": state.jiaoyun.first_transition_utc,
+            "first_transition_utc": _instant_fact(state.jiaoyun.first_transition_utc),
             "interval_coordinate_policy": state.jiaoyun.interval_coordinate_policy,
             "interval_granularity_rule_set": state.jiaoyun.interval_granularity_rule_set,
             "calendar_realization_rule_set": state.jiaoyun.calendar_realization_rule_set,
         },
         "pre_dayun": {
-            "start_utc": state.pre_dayun.start_utc,
-            "end_utc": state.pre_dayun.end_utc,
+            "start_utc": _instant_fact(state.pre_dayun.start_utc),
+            "end_utc": _instant_fact(state.pre_dayun.end_utc),
             "interval_semantics": state.pre_dayun.interval_semantics,
         },
         "dayun_frames": [
@@ -199,8 +214,8 @@ def temporal_fact_projection(state: BaziDayunState) -> dict[str, Any]:
                 "index": frame.index,
                 "ganzhi": frame.ganzhi,
                 "sexagenary_index": frame.sexagenary_index,
-                "start_utc": frame.start_utc,
-                "end_utc": frame.end_utc,
+                "start_utc": _instant_fact(frame.start_utc),
+                "end_utc": _instant_fact(frame.end_utc),
                 "interval_semantics": frame.interval_semantics,
             }
             for frame in state.dayun_frames
