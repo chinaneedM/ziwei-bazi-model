@@ -1,5 +1,18 @@
 """Application-facing Ziwei V1 orchestration over frozen computation runtimes."""
 
+from .local_app import (
+    DEFAULT_HOST,
+    DEFAULT_PORT,
+    LOCAL_APP_ERROR_SCHEMA,
+    LOCAL_APP_HEALTH_SCHEMA,
+    LOCAL_APP_ID,
+    LOCAL_APP_RESOLVE_SCHEMA,
+    LOCAL_APP_VERSION,
+    MAX_REQUEST_BYTES,
+    LocalAppRequestError,
+    LocalZiweiApplication,
+    build_server,
+)
 from .models import (
     APPLICATION_CHART_BUNDLE_SCHEMA,
     ApplicationBirthRequest,
@@ -42,6 +55,16 @@ __all__ = [
     "ApplicationBirthRequest",
     "ApplicationChartBundle",
     "ApplicationResolutionError",
+    "DEFAULT_HOST",
+    "DEFAULT_PORT",
+    "LOCAL_APP_ERROR_SCHEMA",
+    "LOCAL_APP_HEALTH_SCHEMA",
+    "LOCAL_APP_ID",
+    "LOCAL_APP_RESOLVE_SCHEMA",
+    "LOCAL_APP_VERSION",
+    "LocalAppRequestError",
+    "LocalZiweiApplication",
+    "MAX_REQUEST_BYTES",
     "PALACE_GRID_COORDINATES",
     "SUPPORTED_VIEW_SCHEMA",
     "SVG_RENDER_ARTIFACT_SCHEMA",
@@ -61,9 +84,10 @@ __all__ = [
     "ZiweiTwelvePalaceSvgRenderer",
     "application_bundle_hash",
     "application_export",
+    "build_server",
     "validate_application_bundle",
     "ziwei_application_default_presentation_profile",
     "ziwei_application_v1_profile",
 ]
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
