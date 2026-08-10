@@ -5,11 +5,12 @@
 ```text
 RUNTIME_ID=ZIWEI-STRUCTURAL-RUNTIME-V2-R3
 RUNTIME_VERSION=1.0.0
-STATUS=IMPLEMENTATION_CANDIDATE
+STATUS=ACTIVE_V2_R3
 UPSTREAM_R2=ZIWEI-STRUCTURAL-RUNTIME-V2-R2@1.0.0
 UPSTREAM_R1=ZIWEI-STRUCTURAL-RUNTIME-V2-R1@1.0.0
 UPSTREAM_NATAL=ZIWEI-CHART-ENGINE-V1@1.0.0
 ISSUE=#197
+ACTIVATION_PR=#198
 S04_SEMANTIC_BLOCKER=#194
 ```
 
@@ -19,7 +20,7 @@ named S04 Sanfang/Sizheng semantics.
 
 ## Current source contract
 
-Current Git S06 supplies the active borrow-closure rules used by this candidate:
+Current Git S06 supplies the active borrow-closure rules used by this runtime:
 
 - a member palace is borrow-eligible only when it contains no fourteen principal stars;
 - auxiliary, assistant, malefic and miscellaneous physical stars do not make the palace non-empty;
@@ -87,8 +88,10 @@ be joined downstream if a view requires it.
 
 ## Main-star emptiness
 
-The emptiness predicate uses the active V1 fourteen-principal-star entity set only.
-Presence of non-main physical stars does not block borrowing.
+The emptiness predicate uses exactly the fourteen physical entity identities published by
+the frozen V1 main-star placement generator (`ZIWEI_GROUP` + `TIANFU_GROUP`, 6 + 8 = 14).
+It deliberately does not depend on the downstream Dignity registry. Presence of non-main
+physical stars does not block borrowing.
 
 ## Physical deduplication key
 
@@ -156,12 +159,13 @@ R3 does not activate:
 - physical relocation of stars;
 - dynamic temporal borrowing beyond `NATAL`.
 
-## Candidate validation gate
+## Release validation
 
-Before activation, the candidate must pass:
+The activation gate requires:
 
 - exact 12 x 4 = 48 member coverage;
 - `{0,4,6,8}` member geometry for every origin;
+- physical-generator-derived fourteen-main-star identity;
 - principal-star-only emptiness tests;
 - auxiliary-only target borrow eligibility;
 - exact all-Placement source projection;
