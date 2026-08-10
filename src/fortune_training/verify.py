@@ -19,6 +19,10 @@ from .canonical_runtime import (
 )
 from .source_access import DERIVED_ACCESS_ROOT
 from .source_access_validator import validate_source_access
+from .classical_relation_evidence import (
+    MATRIX_PATH as CLASSICAL_RELATION_EVIDENCE_MATRIX_PATH,
+    validate_classical_relation_evidence,
+)
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -1014,6 +1018,9 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
     source_access = None
     if (root / DERIVED_ACCESS_ROOT).exists():
         source_access = validate_source_access(root, require_source_commit=False)
+    classical_relation_evidence = None
+    if (root / CLASSICAL_RELATION_EVIDENCE_MATRIX_PATH).exists():
+        classical_relation_evidence = validate_classical_relation_evidence(root)
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
@@ -1317,6 +1324,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "runtime_source": "GIT_REPOSITORY_ONLY",
         "canonical_sources_immutable": True,
         "canonical_source_access": source_access,
+        "classical_relation_lifecycle_evidence": classical_relation_evidence,
         "model_learning_separate": True,
         "cases": case_bank.get("cases", len(case_order)),
         "questions": case_bank.get("questions", sum(question_counts.values())),
