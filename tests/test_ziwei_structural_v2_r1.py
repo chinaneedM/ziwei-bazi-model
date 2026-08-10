@@ -200,6 +200,21 @@ class ZiweiStructuralV2R1Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             unsupported_profile.validate()
 
+        unsupported_topology = replace(
+            self.structural_profile,
+            topology_algorithm_version="1.0.1",
+        )
+        changed_topology = structural_hash_bundle(
+            self.candidate.hashes.fact_hash,
+            self.candidate.hashes.computation_hash,
+            unsupported_topology,
+            facts,
+        )
+        self.assertEqual(self.state.hashes.fact_hash, changed_topology.fact_hash)
+        self.assertNotEqual(self.state.hashes.computation_hash, changed_topology.computation_hash)
+        with self.assertRaises(ValueError):
+            unsupported_topology.validate()
+
     def test_named_structural_semantics_remain_fail_closed_in_r1(self) -> None:
         named = replace(
             self.structural_profile,
