@@ -97,7 +97,6 @@ def build_release_contract(root: Path) -> dict[str, Any]:
             "source_graph_artifact_semantics_sha256": graph["determinism"]["artifact_semantics_sha256"],
             "source_graph_record_hash_chain_sha256": graph["determinism"]["graph_record_hash_chain_sha256"],
             "source_scope_artifact_path": SCOPE_ARTIFACT_PATH.as_posix(),
-            "source_scope_artifact_file_sha256": sha256_file(root / SCOPE_ARTIFACT_PATH),
             "source_scope_specifications_semantics_sha256": source_scope["source_scope_specifications_semantics_sha256"],
             "upstream_projection_profile_id": profile.upstream_projection_profile_id,
             "upstream_projection_profile_version": profile.upstream_projection_profile_version,
