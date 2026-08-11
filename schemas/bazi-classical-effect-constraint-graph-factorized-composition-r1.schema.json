@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-effect-constraint-graph-factorized-composition-r1.schema.json",
+  "title": "Bazi Classical Effect Constraint Graph & Factorized Composition R1 Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "audit_id", "authority", "profile", "closed_vocabularies", "composition_contract", "summary", "hard_exclusions", "determinism"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-CONTRACT-R1"},
+    "audit_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-R1"},
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_graph_path", "source_graph_file_sha256", "source_graph_artifact_semantics_sha256", "source_graph_record_hash_chain_sha256", "source_scope_artifact_path", "source_scope_specifications_semantics_sha256", "upstream_projection_profile_id", "upstream_projection_profile_version"],
+      "properties": {
+        "source_graph_path": {"const": "audits/bazi-structured-source-interaction-pattern-graph-r1/graph.json"},
+        "source_graph_file_sha256": {"const": "cf580bca30f8aaed0b8d1e2fb60a7bb96789c44cb2adae3155bf463214fcde21"},
+        "source_graph_artifact_semantics_sha256": {"const": "837835ec60c2baabffaff2ba730e71e73e803b4f4c49cc582c87ebf03e3af7a4"},
+        "source_graph_record_hash_chain_sha256": {"const": "040df8fcd40b11b0019f837e41ab15dafe6c5fe81ff553e457f2ca2bd1e93c6b"},
+        "source_scope_artifact_path": {"const": "audits/bazi-chart-bound-classical-interaction-projection-foundation-r1/source-scope-specifications.json"},
+        "source_scope_specifications_semantics_sha256": {"const": "949009f0521f3d8710e9f11c1341d0961324f1d6b4f197eeeeb8c25279f2daec"},
+        "upstream_projection_profile_id": {"const": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1"},
+        "upstream_projection_profile_version": {"const": "1.0.0"}
+      }
+    },
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "graph_algorithm_id", "graph_algorithm_version", "composition_algorithm_id", "composition_algorithm_version", "upstream_projection_profile_id", "upstream_projection_profile_version", "source_graph_artifact_semantics_sha256", "source_graph_record_hash_chain_sha256", "source_scope_semantics_sha256"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "graph_algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-PROJECTION-R1"},
+        "graph_algorithm_version": {"const": "1.0.0"},
+        "composition_algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-FRAGMENT-FACTORIZED-COMPOSITION-R1"},
+        "composition_algorithm_version": {"const": "1.0.0"},
+        "upstream_projection_profile_id": {"const": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1"},
+        "upstream_projection_profile_version": {"const": "1.0.0"},
+        "source_graph_artifact_semantics_sha256": {"const": "837835ec60c2baabffaff2ba730e71e73e803b4f4c49cc582c87ebf03e3af7a4"},
+        "source_graph_record_hash_chain_sha256": {"const": "040df8fcd40b11b0019f837e41ab15dafe6c5fe81ff553e457f2ca2bd1e93c6b"},
+        "source_scope_semantics_sha256": {"const": "949009f0521f3d8710e9f11c1341d0961324f1d6b4f197eeeeb8c25279f2daec"}
+      }
+    },
+    "closed_vocabularies": {
+      "type": "object", "additionalProperties": false,
+      "required": ["effect_facets", "graph_node_classes", "graph_edge_classes", "source_claim_to_effect_facet"],
+      "properties": {
+        "effect_facets": {"const": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]},
+        "graph_node_classes": {"const": ["RawRelationReferenceNode", "ClassicalEffectFacetChannelNode", "ClassicalEffectConstraintNode"]},
+        "graph_edge_classes": {"const": ["RAW_RELATION_ACTOR_REFERENCE", "CONSTRAINT_TARGETS_EFFECT_CHANNEL", "EFFECT_CHANNEL_REFERENCES_RAW_RELATION", "SOURCE_NARRATIVE_PRECEDES"]},
+        "source_claim_to_effect_facet": {"const": {"SOURCE_ASSERTED_RESOLUTION": "RELATION_EFFECT_DISPOSITION", "SOURCE_ASSERTED_RESOLUTION_FAILURE": "RELATION_EFFECT_DISPOSITION", "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": "RELATION_EFFECT_DISPOSITION", "SOURCE_ASSERTED_ATTENUATION": "RELATION_EFFECT_GRADE", "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": "RELATION_PARTICIPANT_ALLOCATION"}}
+      }
+    },
+    "composition_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding_candidate_to_graph_fragment", "source_claim_to_effect_constraint", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics", "cross_source_layer_composition", "cartesian_expansion", "shared_indexes", "raw_relation_immutability_contract", "lifecycle_global_admission_gate"],
+      "properties": {
+        "binding_candidate_to_graph_fragment": {"const": "EXACTLY_ONE"},
+        "source_claim_to_effect_constraint": {"const": "EXACTLY_ONE"},
+        "member_selection_semantics": {"const": "NOT_RELEASED"},
+        "member_coexistence_semantics": {"const": "NOT_RELEASED"},
+        "member_exclusivity_semantics": {"const": "NOT_RELEASED"},
+        "cross_source_layer_composition": {"const": "NOT_RELEASED"},
+        "cartesian_expansion": {"const": "NOT_RELEASED"},
+        "shared_indexes": {"const": "EXACT_IDENTITY_ONLY"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "lifecycle_global_admission_gate": {"const": "NOT_RELEASED"}
+      }
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["exact_source_record_count", "source_layers", "projected_claim_template_count", "projected_claim_class_counts", "source_narrative_chain_count", "effect_facet_count", "graph_node_class_count", "graph_edge_class_count"],
+      "properties": {
+        "exact_source_record_count": {"const": 13},
+        "source_layers": {"const": ["SHEN_CLASSICAL_SOURCE"]},
+        "projected_claim_template_count": {"const": 19},
+        "projected_claim_class_counts": {"const": {"SOURCE_ASSERTED_ATTENUATION": 1, "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": 1, "SOURCE_ASSERTED_RESOLUTION": 12, "SOURCE_ASSERTED_RESOLUTION_FAILURE": 2, "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": 3}},
+        "source_narrative_chain_count": {"const": 3},
+        "effect_facet_count": {"const": 3},
+        "graph_node_class_count": {"const": 3},
+        "graph_edge_class_count": {"const": 4}
+      }
+    },
+    "hard_exclusions": {
+      "const": ["SUPPRESSES", "ACTIVATES", "DEACTIVATES", "RELEASES", "CANCELS", "OVERRIDES", "NEGATES", "DEFEATS", "WINS_OVER", "LOSES_TO", "SELECTS_PARTICIPANT", "SELECTS_PATH", "HAS_PRIORITY_OVER", "TRANSITIONS_TO", "CAUSES_STATE_CHANGE", "CONFLICTS_WITH", "RESOLVER_ADMISSION", "SOURCE_SEMANTIC_PROFILE", "SEMANTIC_ATOM", "REWRITE_RULE", "MECHANISM_CANDIDATE_MATRIX", "CLOSURE_GAP_MATRIX", "G6_ALLOCATION_ELABORATION", "LIFECYCLE_ELIGIBILITY_SOLVING", "RELATION_STATE", "FIXPOINT_RESOLUTION", "FINAL_CLASSICAL_VERDICT"]
+    },
+    "determinism": {
+      "type": "object", "additionalProperties": false,
+      "required": ["contract_semantics_sha256"],
+      "properties": {"contract_semantics_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}}
+    }
+  }
+}
