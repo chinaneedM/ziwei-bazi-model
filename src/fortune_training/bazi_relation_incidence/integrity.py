@@ -576,8 +576,20 @@ def validate_relation_incidence_context(
             "relation_occurrences",
             "one reference per released relation occurrence required",
         )
+    allowed_relation_types = {
+        "STEM_FIVE_COMBINATION",
+        "BRANCH_LIUHE",
+        "BRANCH_CHONG",
+        "BRANCH_CHUAN",
+        "BRANCH_SANHE_COMPLETE",
+        "BRANCH_ZIMAO_PUNISHMENT",
+        "BRANCH_DIRECTIONAL_PUNISHMENT",
+        "BRANCH_SELF_PUNISHMENT",
+    }
     for index, row in enumerate(context.relation_occurrences):
         path = f"relation_occurrences[{index}]"
+        if row.relation_type not in allowed_relation_types:
+            _diag(diagnostics, "RELATION_TYPE_INVALID", path, row.relation_type)
         if row.arity != len(row.participant_instance_ids):
             _diag(diagnostics, "RELATION_ARITY_MISMATCH", path, row.relation_id)
         if tuple(item.instance_id for item in row.participant_provenance) != row.participant_instance_ids:

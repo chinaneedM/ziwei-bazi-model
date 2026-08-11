@@ -27,7 +27,7 @@ from .ten_gods import TEN_GOD_ALGORITHM_ID, TEN_GOD_ALGORITHM_VERSION
 
 
 NATAL_ALGORITHM_ID = "BAZI-NATAL-GENERATOR-V1"
-NATAL_ALGORITHM_VERSION = "1.0.0"
+NATAL_ALGORITHM_VERSION = "1.1.0"
 
 
 @dataclass(frozen=True)
@@ -103,7 +103,7 @@ class ResolvedBaziCalculationProfile:
 def bazi_foundation_v1_profile(policy_registry: PolicyRegistry) -> ResolvedBaziCalculationProfile:
     return ResolvedBaziCalculationProfile(
         profile_id="BAZI-FOUNDATION-V1-R1",
-        profile_version="1.0.0",
+        profile_version="1.1.0",
         time_calendar_policy_registry_version=policy_registry.version,
         time_calendar_policies=policy_registry.default_bazi_selection(),
     )

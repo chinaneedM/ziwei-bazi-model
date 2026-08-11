@@ -303,6 +303,34 @@ class BaziRelationTransitionFoundationR1Tests(unittest.TestCase):
             self.assertTrue(sanhe)
             self.assertTrue(all(not hasattr(row, "transformation_success") for row in sanhe))
 
+    def test_chuan_transition_is_exact_entered_persisting_exited_set_replay(self):
+        exact = self._term("lichun")
+        _, _, result = self._transition_resolution(
+            exact - timedelta(microseconds=1), exact
+        )
+        rows = [
+            row
+            for row in result.candidates[0].context.transition_facts
+            if row.relation_family == "BRANCH_CHUAN"
+        ]
+        self.assertTrue(rows)
+        self.assertEqual(
+            {ENTERED, PERSISTING, EXITED},
+            {row.transition_state for row in rows},
+        )
+        self.assertTrue(all(row.relation_type == "BRANCH_CHUAN" for row in rows))
+        self.assertTrue(all(row.arity == 2 for row in rows))
+        self.assertTrue(
+            all(row.nominal_transformation_element is None for row in rows)
+        )
+        prohibited = {
+            "activated", "effective", "suppressed", "cancelled", "released",
+            "severity", "strength", "priority", "outcome", "event",
+        }
+        self.assertTrue(all(
+            prohibited.isdisjoint(row.__dataclass_fields__) for row in rows
+        ))
+
     def test_repeated_characters_across_layers_do_not_collapse_occurrences(self):
         exact = self._term("sanhe_entry")
         _, _, result = self._transition_resolution(

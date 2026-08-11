@@ -61,9 +61,9 @@
       ],
       "properties": {
         "profile_id": {"const": "BAZI-RELATION-INCIDENCE-FOUNDATION-R1"},
-        "profile_version": {"const": "1.0.0"},
+        "profile_version": {"const": "1.1.0"},
         "algorithm_id": {"const": "BAZI-RELATION-INCIDENCE-ENGINE-V1"},
-        "algorithm_version": {"const": "1.0.0"},
+        "algorithm_version": {"const": "1.1.0"},
         "snapshot_rule_set_id": {"const": "BAZI-RELATION-INCIDENCE-SNAPSHOT-R1"},
         "snapshot_rule_set_version": {"const": "1.0.0"},
         "occurrence_reference_rule_set_id": {"const": "BAZI-RELEASED-RELATION-OCCURRENCE-REFERENCE-R1"},
@@ -148,12 +148,12 @@
         "relation_id": {"type": "string", "minLength": 1},
         "semantic_relation_id": {"type": "string", "minLength": 1},
         "relation_type": {"enum": [
-          "STEM_FIVE_COMBINATION", "BRANCH_LIUHE", "BRANCH_CHONG",
+          "STEM_FIVE_COMBINATION", "BRANCH_LIUHE", "BRANCH_CHONG", "BRANCH_CHUAN",
           "BRANCH_SANHE_COMPLETE", "BRANCH_ZIMAO_PUNISHMENT",
           "BRANCH_DIRECTIONAL_PUNISHMENT", "BRANCH_SELF_PUNISHMENT"
         ]},
         "relation_family": {"enum": [
-          "STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH",
+          "STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN",
           "BRANCH_PUNISHMENT", "BRANCH_TRINE"
         ]},
         "participant_instance_ids": {
@@ -250,7 +250,7 @@
         "source_snapshot_id": {"type": "string", "pattern": "^RELATION_INCIDENCE_SNAPSHOT:"},
         "source_snapshot_fact_hash": {"$ref": "#/$defs/hash"},
         "profile_id": {"const": "BAZI-RELATION-INCIDENCE-FOUNDATION-R1"},
-        "profile_version": {"const": "1.0.0"},
+        "profile_version": {"const": "1.1.0"},
         "rule_set_id": {"const": "BAZI-EXACT-RELATION-PAIR-TOPOLOGY-R1"},
         "rule_set_version": {"const": "1.0.0"},
         "source_refs": {"$ref": "#/$defs/sourceRefs"}
@@ -269,7 +269,7 @@
         "participant_incidence_facts": {"type": "array", "items": {"$ref": "#/$defs/participantIncidence"}},
         "relation_pair_topology_facts": {"type": "array", "items": {"$ref": "#/$defs/pairTopology"}},
         "profile_id": {"const": "BAZI-RELATION-INCIDENCE-FOUNDATION-R1"},
-        "profile_version": {"const": "1.0.0"},
+        "profile_version": {"const": "1.1.0"},
         "algorithm_versions": {
           "type": "object", "additionalProperties": false,
           "required": [
@@ -278,7 +278,7 @@
             "candidate_pairing"
           ],
           "properties": {
-            "incidence": {"const": "1.0.0"},
+            "incidence": {"const": "1.1.0"},
             "snapshot": {"const": "1.0.0"},
             "occurrence_reference": {"const": "1.0.0"},
             "participant_incidence": {"const": "1.0.0"},

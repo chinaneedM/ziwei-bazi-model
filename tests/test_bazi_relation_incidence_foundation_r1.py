@@ -288,6 +288,49 @@ class BaziRelationIncidenceFoundationR1Tests(unittest.TestCase):
             {field for row in relation_by_id.values() for field in row.__dataclass_fields__},
         )
 
+    def test_chuan_occurrence_degree_and_topology_remain_exact_and_neutral(self):
+        _, result = self._resolution(self._target("baseline"))
+        context = result.candidates[0].context
+        chuan = [
+            row
+            for row in context.relation_occurrences
+            if row.relation_family == "BRANCH_CHUAN"
+        ]
+        self.assertTrue(chuan)
+        self.assertEqual(
+            {"NATAL_RELATION_CANDIDATE", "STRUCTURAL_DYNAMIC_RELATION_OCCURRENCE"},
+            {row.source_occurrence_kind for row in chuan},
+        )
+        self.assertTrue(all(row.relation_type == "BRANCH_CHUAN" for row in chuan))
+        self.assertTrue(all("YHZP-CH-010" in row.source_refs for row in chuan))
+        incidence = {
+            row.participant_instance_id: row
+            for row in context.participant_incidence_facts
+        }
+        for occurrence in chuan:
+            for participant_id in occurrence.participant_instance_ids:
+                fact = incidence[participant_id]
+                self.assertIn(occurrence.relation_id, fact.relation_ids)
+                self.assertEqual(len(fact.relation_ids), fact.relation_count)
+        chuan_ids = {row.relation_id for row in chuan}
+        chuan_pairs = [
+            row
+            for row in context.relation_pair_topology_facts
+            if set(row.relation_ids) & chuan_ids
+        ]
+        self.assertTrue(chuan_pairs)
+        self.assertEqual(
+            {SHARED_PARTICIPANT, DISJOINT},
+            {row.topology_kind for row in chuan_pairs},
+        )
+        prohibited = {
+            "competition", "precedence", "activated", "effective", "severity",
+            "strength", "priority", "outcome", "event",
+        }
+        self.assertTrue(all(
+            prohibited.isdisjoint(row.__dataclass_fields__) for row in chuan
+        ))
+
     def test_self_punishment_preserves_exact_participant_multiplicity(self):
         _, result = self._resolution(self._target("self_punishment"))
         context = result.candidates[0].context

@@ -157,6 +157,33 @@ class BaziStructuralContextR1Tests(unittest.TestCase):
         self.assertEqual(expected["nominal_transformation_element"], rows[0].nominal_transformation_element)
         self.assertFalse(hasattr(rows[0], "transformation_succeeded"))
 
+    def test_chuan_replays_as_cross_layer_and_temporal_only_neutral_occurrences(self):
+        cross_layer = [
+            row
+            for row in self._resolve(
+                self._fixture_target("temporal_stem_combination")
+            ).candidates[0].context.dynamic_raw_relations
+            if row.relation_family == "BRANCH_CHUAN"
+        ]
+        temporal_only = [
+            row
+            for row in self._resolve(
+                self._fixture_target("mixed_layer_fire_trine")
+            ).candidates[0].context.dynamic_raw_relations
+            if row.relation_family == "BRANCH_CHUAN"
+        ]
+        self.assertTrue(cross_layer)
+        self.assertTrue(temporal_only)
+        self.assertTrue(all(row.relation_scope == "CROSS_LAYER" for row in cross_layer))
+        self.assertTrue(all(row.relation_scope == "TEMPORAL_ONLY" for row in temporal_only))
+        for row in cross_layer + temporal_only:
+            self.assertEqual("SYMMETRIC", row.orientation)
+            self.assertEqual(2, row.arity)
+            self.assertIsNone(row.nominal_transformation_element)
+            self.assertEqual(("S14", "YHZP-CH-010"), row.source_refs)
+            self.assertFalse(hasattr(row, "effect"))
+            self.assertFalse(hasattr(row, "severity"))
+
     def test_three_member_relation_spans_natal_annual_monthly(self):
         expected = FIXTURE["targets"]["mixed_layer_fire_trine"]
         context = self._resolve(

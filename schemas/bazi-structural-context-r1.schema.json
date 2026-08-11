@@ -33,9 +33,9 @@
       ],
       "properties": {
         "profile_id": {"const": "BAZI-STRUCTURAL-CONTEXT-R1"},
-        "profile_version": {"const": "1.0.0"},
+        "profile_version": {"const": "1.1.0"},
         "algorithm_id": {"const": "BAZI-STRUCTURAL-CONTEXT-ENGINE-V1"},
-        "algorithm_version": {"const": "1.0.0"},
+        "algorithm_version": {"const": "1.1.0"},
         "participant_rule_set_id": {"const": "BAZI-ACTIVE-TEMPORAL-PARTICIPANT-R1"},
         "participant_rule_set_version": {"const": "1.0.0"},
         "relation_scope_rule_set_id": {"const": "BAZI-DYNAMIC-RELATION-SCOPE-R1"},
@@ -151,7 +151,7 @@
       "properties": {
         "relation_id": {"type": "string", "minLength": 1},
         "semantic_relation_id": {"type": "string", "minLength": 1},
-        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
+        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
         "participant_instance_ids": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"type": "string", "minLength": 1}},
         "participant_layers": {"type": "array", "minItems": 1, "items": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]}},
         "relation_scope": {"enum": ["CROSS_LAYER", "TEMPORAL_ONLY"]},
@@ -193,7 +193,7 @@
         "upstream_natal_raw_relation_ids": {"type": "array", "items": {"type": "string"}},
         "dynamic_raw_relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}},
         "profile_id": {"const": "BAZI-STRUCTURAL-CONTEXT-R1"},
-        "profile_version": {"const": "1.0.0"},
+        "profile_version": {"const": "1.1.0"},
         "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}}
       }
     },

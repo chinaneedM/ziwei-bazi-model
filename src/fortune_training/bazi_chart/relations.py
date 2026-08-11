@@ -7,7 +7,7 @@ from .registries import RAW_RELATION_RULE_SET_ID, RAW_RELATION_RULE_SET_VERSION
 
 
 RAW_RELATION_ALGORITHM_ID = "BAZI-RAW-RELATION-GENERATOR-V1"
-RAW_RELATION_ALGORITHM_VERSION = "1.0.0"
+RAW_RELATION_ALGORITHM_VERSION = "1.1.0"
 
 _STEM_COMBINATIONS = {
     frozenset(("甲", "己")): ("STEM.COMBINATION.JIA_JI", "土"),
@@ -33,6 +33,18 @@ _BRANCH_CLASH = {
     frozenset(("卯", "酉")): "BRANCH.CLASH.MAO_YOU",
     frozenset(("辰", "戌")): "BRANCH.CLASH.CHEN_XU",
     frozenset(("巳", "亥")): "BRANCH.CLASH.SI_HAI",
+}
+
+# Source-faithful YHZP-CH-010 / 论十二支相穿 membership.  相穿为害 is
+# preserved by the source identity, but this registry publishes only the
+# neutral CHUAN occurrence fact and no Classical effect semantics.
+_BRANCH_CHUAN = {
+    frozenset(("子", "未")): "BRANCH.CHUAN.ZI_WEI",
+    frozenset(("丑", "午")): "BRANCH.CHUAN.CHOU_WU",
+    frozenset(("寅", "巳")): "BRANCH.CHUAN.YIN_SI",
+    frozenset(("卯", "辰")): "BRANCH.CHUAN.MAO_CHEN",
+    frozenset(("申", "亥")): "BRANCH.CHUAN.SHEN_HAI",
+    frozenset(("酉", "戌")): "BRANCH.CHUAN.YOU_XU",
 }
 
 _BRANCH_TRINES = {
@@ -89,6 +101,7 @@ def generate_raw_relations(
         for family, registry in (
             ("BRANCH_SIX_HARMONY", _BRANCH_SIX_HARMONY),
             ("BRANCH_CLASH", _BRANCH_CLASH),
+            ("BRANCH_CHUAN", _BRANCH_CHUAN),
         ):
             semantic_id = registry.get(pair)
             if semantic_id is None:
@@ -105,7 +118,11 @@ def generate_raw_relations(
                     nominal_transformation_element=None,
                     rule_set_id=RAW_RELATION_RULE_SET_ID,
                     rule_set_version=RAW_RELATION_RULE_SET_VERSION,
-                    source_refs=("S14",),
+                    source_refs=(
+                        ("S14", "YHZP-CH-010")
+                        if family == "BRANCH_CHUAN"
+                        else ("S14",)
+                    ),
                 )
             )
 
