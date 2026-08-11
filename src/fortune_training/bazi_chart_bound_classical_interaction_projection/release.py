@@ -46,7 +46,6 @@ RUNTIME_SCHEMA_PATH = Path("schemas/bazi-chart-bound-classical-interaction-proje
 UPSTREAM_CONTRACT_FILE_SHA256 = {
     GRAPH_PATH.as_posix(): EXPECTED_GRAPH_FILE_SHA256,
     MATRIX_PATH.as_posix(): EXPECTED_MATRIX_FILE_SHA256,
-    "schemas/bazi-classical-relation-interaction-assertion-matrix-r1.schema.json": "b79c9037b323bcccc03304e7634d707c3ec55b8f60b14192a53e476111dac9e4",
     "schemas/bazi-structured-source-interaction-pattern-graph-r1.schema.json": "a85bbad1a7a7a438ee43f4e52a46a25349ce807e226721c872bb48eafc6c70d1",
     "schemas/bazi-chart-foundation-v1.schema.json": "b9465e7b7bd496ad47372452de0173d6a34c9fe0a9f2362dbc668394ce40d60f",
     "schemas/bazi-relation-incidence-foundation-r1.schema.json": "89af6132dcaafae4d337ce913e12c7a8e031c402ebfdc1206e40f11607cca8c6",
