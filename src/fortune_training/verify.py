@@ -35,6 +35,10 @@ from .bazi_structured_source_interaction_pattern_graph import (
     GRAPH_PATH as STRUCTURED_SOURCE_INTERACTION_PATTERN_GRAPH_PATH,
     validate_structured_source_interaction_pattern_graph,
 )
+from .bazi_chart_source_pattern_binding.release import (
+    PLAN_PATH as CHART_SOURCE_PATTERN_BINDING_PLAN_PATH,
+    validate_bindability_plan_artifact,
+)
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -1046,6 +1050,9 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         structured_source_interaction_pattern_graph = (
             validate_structured_source_interaction_pattern_graph(root)
         )
+    chart_source_pattern_binding_candidates = None
+    if (root / CHART_SOURCE_PATTERN_BINDING_PLAN_PATH).exists():
+        chart_source_pattern_binding_candidates = validate_bindability_plan_artifact(root)
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
@@ -1353,6 +1360,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "five_combination_evidence_binding": five_combination_evidence_binding,
         "classical_relation_interaction_assertion": classical_relation_interaction_assertion,
         "structured_source_interaction_pattern_graph": structured_source_interaction_pattern_graph,
+        "chart_source_pattern_binding_candidates": chart_source_pattern_binding_candidates,
         "model_learning_separate": True,
         "cases": case_bank.get("cases", len(case_order)),
         "questions": case_bank.get("questions", sum(question_counts.values())),

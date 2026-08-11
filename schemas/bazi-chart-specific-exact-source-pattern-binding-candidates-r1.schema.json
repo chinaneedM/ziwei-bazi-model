@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bazi-chart-specific-exact-source-pattern-binding-candidates-r1.schema.json",
+  "title": "Bazi Chart-Specific Exact Source Pattern Binding Candidates R1 release plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "audit_id", "authority", "binding_profile", "bindability_plan", "summary", "determinism"],
+  "properties": {
+    "schema": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDABILITY-PLAN-R1"},
+    "audit_id": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-CANDIDATES-R1"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_graph_path", "source_graph_file_sha256", "source_graph_artifact_semantics_sha256", "source_graph_record_hash_chain_sha256", "upstream_contract_file_sha256"],
+      "properties": {
+        "source_graph_path": {"const": "audits/bazi-structured-source-interaction-pattern-graph-r1/graph.json"},
+        "source_graph_file_sha256": {"$ref": "#/$defs/sha256"},
+        "source_graph_artifact_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "source_graph_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"},
+        "upstream_contract_file_sha256": {
+          "type": "object",
+          "minProperties": 8,
+          "maxProperties": 8,
+          "additionalProperties": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "binding_profile": {"$ref": "#/$defs/profile"},
+    "bindability_plan": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {"$ref": "#/$defs/planRow"}
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_record_count", "class_counts", "class_source_occurrence_ids"],
+      "properties": {
+        "graph_record_count": {"const": 24},
+        "class_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"],
+          "properties": {
+            "FULL_EXACT_BINDING_ENUMERATION": {"const": 11},
+            "PARTIAL_EXACT_BINDING_ENUMERATION": {"const": 2},
+            "NOT_R1_EXACT_BINDABLE": {"const": 11}
+          }
+        },
+        "class_source_occurrence_ids": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"],
+          "properties": {
+            "FULL_EXACT_BINDING_ENUMERATION": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"type": "string"}},
+            "PARTIAL_EXACT_BINDING_ENUMERATION": {"type": "array", "prefixItems": [{"const": "ZPZQ-CL-09-007-002"}, {"const": "ZPZQ-CL-09-007-003"}], "items": false},
+            "NOT_R1_EXACT_BINDABLE": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "determinism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bindability_plan_semantics_sha256"],
+      "properties": {"bindability_plan_semantics_sha256": {"$ref": "#/$defs/sha256"}}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "algorithm_id", "algorithm_version", "bindability_rule_set_id", "bindability_rule_set_version", "lineage_rule_set_id", "lineage_rule_set_version", "exchangeability_algorithm_id", "exchangeability_algorithm_version", "graph_artifact_semantics_sha256", "graph_record_hash_chain_sha256"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-CANDIDATES-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-CHART-SOURCE-PATTERN-EXACT-BINDING-ENUMERATOR-R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "bindability_rule_set_id": {"const": "BAZI-SOURCE-GRAPH-BINDABILITY-PLAN-R1"},
+        "bindability_rule_set_version": {"const": "1.0.0"},
+        "lineage_rule_set_id": {"const": "BAZI-SOURCE-PATTERN-BINDING-LINEAGE-R1"},
+        "lineage_rule_set_version": {"const": "1.0.0"},
+        "exchangeability_algorithm_id": {"const": "BAZI-SOURCE-SLOT-EXCHANGEABILITY-CANONICALIZATION-R1"},
+        "exchangeability_algorithm_version": {"const": "1.0.0"},
+        "graph_artifact_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "graph_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "planRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "source_unresolved_graph_requirements", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
+      "properties": {
+        "graph_record_id": {"type": "string"},
+        "source_occurrence_id": {"type": "string"},
+        "graph_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
+        "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
+        "exact_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "exact_position_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "structural_reason_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    }
+  }
+}
