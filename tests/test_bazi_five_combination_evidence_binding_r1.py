@@ -27,6 +27,42 @@ from fortune_training.util import TrainingError, object_sha256, sha256_file
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PRE_CHUAN_RUNTIME_CONTRACT_FILE_SHA256 = {
+    "schemas/bazi-chart-foundation-v1.schema.json":
+        "7b8503fd490d5e8c2a1c4d63c1f3fb4f4d5944a6876665406239f238056869e9",
+    "schemas/bazi-relation-incidence-foundation-r1.schema.json":
+        "96e127f7e64020e8ce1d209fc49cf50a4f00ef2697da7b63c36f99410e34f761",
+    "schemas/bazi-relation-transition-foundation-r1.schema.json":
+        "9bb85ca7c6a0c5705794d0238781f4e2954f7cb1bc326debbb3ccc587ba73966",
+    "schemas/bazi-stem-relation-positional-context-foundation-r1.schema.json":
+        "4ee1b9d4a5e287acaf05b790ed01c3344eef6c1deeab4d0ad41358180264c3a5",
+    "schemas/bazi-structural-context-r1.schema.json":
+        "3eefdba7579b3fba9d78a9e25dd9cbc667cc33761006dc9d3f2be962868ca527",
+    "schemas/bazi-structural-support-foundation-r1.schema.json":
+        "5f714581b04968a3f3b23a87db6c2b92fd4b0a279633677d74147cc1a1b26ba8",
+    "src/fortune_training/bazi_chart/models.py":
+        "84e3fcc29b60835bfe489d1d67eecd32884119a7a74a8c3412c5a3be21496108",
+    "src/fortune_training/bazi_relation_incidence/models.py":
+        "cb7d095a756a48e7dadd3091406bde109a78feb8982bcf2ebe06b93c7da1c270",
+    "src/fortune_training/bazi_relation_transition/models.py":
+        "0bf8cea0cd5944a986a7a4d1b2005e6ea70109602a5bdeccf2f090fef660476c",
+    "src/fortune_training/bazi_stem_relation_positional/models.py":
+        "97e50c9ad537a63ee3ecb8d8ffda14b7f1261a480790a50e02fbe8ac21d9bda7",
+    "src/fortune_training/bazi_structural_support/models.py":
+        "2de0c805d5fa781850bba5dac65cf5cf2cd574357a127055cf2beae159022978",
+}
+CHUAN_CHANGED_RUNTIME_CONTRACTS = {
+    "schemas/bazi-chart-foundation-v1.schema.json",
+    "schemas/bazi-structural-context-r1.schema.json",
+    "schemas/bazi-relation-transition-foundation-r1.schema.json",
+    "schemas/bazi-relation-incidence-foundation-r1.schema.json",
+}
+FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256 = (
+    "72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583"
+)
+FIVE_COMBINATION_CLOSED_REGISTRY_SHA256 = (
+    "5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92"
+)
 
 
 class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
@@ -321,6 +357,56 @@ class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
         self.assertEqual(
             (PROJECT_ROOT / REPORT_PATH).read_text(encoding="utf-8"),
             first_report,
+        )
+
+    def test_chuan_refresh_changes_only_four_runtime_contract_hashes(self):
+        manifest = self.catalog["authority"]["runtime_contract_file_sha256"]
+        changed_contracts = {
+            path
+            for path, old_sha256 in PRE_CHUAN_RUNTIME_CONTRACT_FILE_SHA256.items()
+            if manifest[path] != old_sha256
+        }
+        self.assertEqual(CHUAN_CHANGED_RUNTIME_CONTRACTS, changed_contracts)
+        self.assertEqual(set(PRE_CHUAN_RUNTIME_CONTRACT_FILE_SHA256), set(manifest))
+        for path, sha256 in manifest.items():
+            self.assertEqual(sha256_file(PROJECT_ROOT / path), sha256)
+
+        self.assertEqual(EXPECTED_EVIDENCE_COUNT, len(self.catalog["records"]))
+        self.assertEqual(
+            FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256,
+            self.catalog["determinism"]["records_semantics_sha256"],
+        )
+        self.assertEqual(
+            FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256,
+            object_sha256(self.catalog["records"]),
+        )
+        self.assertEqual(PREDICATE_SPECS, self.catalog["runtime_predicate_registry"])
+        self.assertEqual(
+            FIVE_COMBINATION_CLOSED_REGISTRY_SHA256,
+            self.catalog["determinism"]["closed_registry_sha256"],
+        )
+        self.assertEqual(
+            FIVE_COMBINATION_CLOSED_REGISTRY_SHA256,
+            object_sha256(self.catalog["runtime_predicate_registry"]),
+        )
+
+        manifest_sha256 = object_sha256(manifest)
+        self.assertEqual(
+            manifest_sha256,
+            self.catalog["authority"]["runtime_contract_manifest_sha256"],
+        )
+        self.assertEqual(
+            object_sha256(
+                {
+                    "records": self.catalog["records"],
+                    "summary": self.catalog["summary"],
+                    "runtime_predicate_registry": self.catalog[
+                        "runtime_predicate_registry"
+                    ],
+                    "runtime_contract_manifest_sha256": manifest_sha256,
+                }
+            ),
+            self.catalog["determinism"]["catalog_semantics_sha256"],
         )
 
     def test_cli_exposes_build_and_validate(self):
