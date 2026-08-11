@@ -74,8 +74,27 @@ class StructuredSourceInteractionPatternGraphR1Tests(unittest.TestCase):
         self.assertEqual(actual_roles, expected_roles)
         for oid in ("ZPZQ-CL-09-005-001", "ZPZQ-CL-09-007-001", "ZPZQ-CL-09-009-001"):
             self.assertEqual(self.records[oid]["graph_status"], "CONTEXTUAL_UNRESOLVED_GRAPH")
-            self.assertTrue(self.records[oid]["relation_pattern_node_ids"])
             self.assertTrue(self.records[oid]["interaction_claim_edge_ids"])
+        self.assertFalse(self.records["ZPZQ-CL-09-005-001"]["relation_pattern_node_ids"])
+
+    def test_every_claim_edge_replays_upstream_reference_kinds_and_unresolved_bindings(self):
+        matrix = {row["source_occurrence_id"]: row for row in self.matrix["records"]}
+        for edge in self.graph["interaction_claim_edges"]:
+            with self.subTest(edge=edge["interaction_claim_edge_id"]):
+                upstream = matrix[edge["source_occurrence_id"]]
+                self.assertEqual(edge["actor_reference_kind"], upstream["actor_reference_kind"])
+                self.assertEqual(edge["target_reference_kind"], upstream["target_reference_kind"])
+                if upstream["actor_reference_kind"] == "UNRESOLVED_ACTOR":
+                    self.assertFalse(edge["actor_relation_pattern_node_ids"])
+                    self.assertFalse(edge["actor_participant_pattern_node_ids"])
+                if upstream["target_reference_kind"] == "UNRESOLVED_TARGET":
+                    self.assertFalse(edge["target_relation_pattern_node_ids"])
+                    self.assertFalse(edge["target_participant_pattern_node_ids"])
+
+        unresolved = self.rows("interaction_claim_edges", "ZPZQ-CL-09-005-001")[0]
+        self.assertEqual(unresolved["actor_reference_kind"], "UNRESOLVED_ACTOR")
+        self.assertEqual(unresolved["target_reference_kind"], "UNRESOLVED_TARGET")
+        self.assertFalse(unresolved["context_participant_pattern_node_ids"])
 
     def test_003_002_preserves_month_clash_harmony_and_source_claim(self):
         positions = self.rows("position_pattern_constraints", "ZPZQ-CL-09-003-002")
@@ -241,6 +260,13 @@ class StructuredSourceInteractionPatternGraphR1Tests(unittest.TestCase):
             with self.subTest(index=mutations.index(value)):
                 with self.assertRaises(TrainingError):
                     validate_structured_source_interaction_pattern_graph_value(PROJECT_ROOT, value)
+
+    def test_validator_rejects_unresolved_actor_or_target_binding_upgrade(self):
+        tampered = copy.deepcopy(self.graph)
+        edge = next(row for row in tampered["interaction_claim_edges"] if row["source_occurrence_id"] == "ZPZQ-CL-09-005-001")
+        edge["actor_participant_pattern_node_ids"] = ["BSSIPG-R1-P-INVENTED-01"]
+        with self.assertRaises(TrainingError):
+            validate_structured_source_interaction_pattern_graph_value(PROJECT_ROOT, tampered)
 
     def test_cli_exposes_deterministic_build_and_validate_tooling(self):
         parser = build_parser()

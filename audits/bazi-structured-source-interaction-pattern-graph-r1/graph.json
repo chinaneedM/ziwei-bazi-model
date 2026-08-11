@@ -251,10 +251,10 @@
     }
   ],
   "determinism": {
-    "artifact_semantics_sha256": "38f73429ef87b92456cdcb7dec40512f5903825e189f8eb64119e971107ddd98",
+    "artifact_semantics_sha256": "837835ec60c2baabffaff2ba730e71e73e803b4f4c49cc582c87ebf03e3af7a4",
     "closed_registry_sha256": "d1ab6280a2123393b5d3e36fc52c442023f73f54ae9f5a0cb751c37d7310560e",
-    "graph_record_hash_chain_sha256": "b14898be7b072084b22ef72876469d39a37b8d98754a90bd83406507da444299",
-    "node_edge_constraint_semantics_sha256": "8aa6baa78cf642a53321e7ce43d7f94d6755f58b26ce17b1d0d9054ed91eed08",
+    "graph_record_hash_chain_sha256": "040df8fcd40b11b0019f837e41ab15dafe6c5fe81ff553e457f2ca2bd1e93c6b",
+    "node_edge_constraint_semantics_sha256": "3d277862d1f25131cd759deb49cae981916fbf8e8f832507fb461d06168e1f65",
     "source_inventory_sha256": "8c427d901c79e2a6b099668e22d7c7400865aa9bf3a2e5e84c83dbba9bf49014"
   },
   "graph_profile": {
@@ -766,9 +766,9 @@
         "因解而反得刑冲"
       ],
       "exact_source_text": "又有因解而反得刑冲者,何也？",
-      "graph_bundle_semantics_sha256": "cdd84602bc88cdaa5b51bfb19e0f2e8447131d8ea528243bb6cc833b515d2c01",
+      "graph_bundle_semantics_sha256": "52c76bb6a87140417f4df4a87957467bdf741f0ea8366328585542e1871f81fa",
       "graph_record_id": "BSSIPG-R1-G-ZPZQ-CL-09-005-001",
-      "graph_record_sha256": "1e8eddb2b55b96d0b53538ddaded5bdd62e19ed4b457f27427bb25746c92b661",
+      "graph_record_sha256": "912af65e4c18e40d55026b9415b56646974b105d3732a6fb44acec0ad1ee5663",
       "graph_status": "CONTEXTUAL_UNRESOLVED_GRAPH",
       "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-005-001",
       "interaction_claim_edge_ids": [
@@ -781,10 +781,7 @@
       "participant_pattern_node_ids": [],
       "position_constraint_ids": [],
       "primary_assertion_class": "REVERSAL_OR_REAPPEARANCE_ASSERTION",
-      "relation_pattern_node_ids": [
-        "BSSIPG-R1-R-ZPZQ-CL-09-005-001-01",
-        "BSSIPG-R1-R-ZPZQ-CL-09-005-001-02"
-      ],
+      "relation_pattern_node_ids": [],
       "secondary_assertion_classes": [],
       "source_assertion_role": "CONTEXTUAL_QUESTION",
       "source_chapter_id": "ZPZQ-CH-09",
@@ -793,10 +790,7 @@
       "source_record_sha256": "1186c65541851df78b17880ada73c08e872313536dec6978e7d1f20d4ae73695",
       "source_text_sha256": "a47b7b1b8c63fe72b9dc9401915376a5c822f583be846e10c2ada0840af7f27d",
       "unresolved_graph_requirements": [
-        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
-        "GENERIC_SOURCE_RELATION_FAMILY",
-        "GENERIC_SOURCE_RELATION_TARGET",
-        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS"
       ]
     },
     {
@@ -1864,15 +1858,12 @@
     },
     {
       "actor_participant_pattern_node_ids": [],
-      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
-      "actor_relation_pattern_node_ids": [
-        "BSSIPG-R1-R-ZPZQ-CL-09-005-001-01"
-      ],
+      "actor_reference_kind": "UNRESOLVED_ACTOR",
+      "actor_relation_pattern_node_ids": [],
       "context_participant_pattern_node_ids": [],
       "edge_class": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE",
       "exact_source_fragments": [
-        "因解",
-        "反得刑冲"
+        "因解而反得刑冲"
       ],
       "graph_record_id": "BSSIPG-R1-G-ZPZQ-CL-09-005-001",
       "interaction_claim_edge_id": "BSSIPG-R1-E-ZPZQ-CL-09-005-001-01",
@@ -1885,17 +1876,15 @@
         "source_text_sha256": "a47b7b1b8c63fe72b9dc9401915376a5c822f583be846e10c2ada0840af7f27d"
       },
       "raw_relation_mutation_emitted": false,
-      "semantic_sha256": "0082ec1e6aec3fec4074d696ed8e3a3080d8bdf8e67e89a75e26c0f6ed418351",
+      "semantic_sha256": "0b5b8aaed4e072b836c43f5459d498f88a87d3e69a6225b425c8f11d15fc88c5",
       "source_assertion_class": "REVERSAL_OR_REAPPEARANCE_ASSERTION",
       "source_evidence_mode": "DIRECT_SOURCE_TEXT",
       "source_occurrence_id": "ZPZQ-CL-09-005-001",
       "target_participant_pattern_node_ids": [],
-      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
-      "target_relation_pattern_node_ids": [
-        "BSSIPG-R1-R-ZPZQ-CL-09-005-001-02"
-      ],
+      "target_reference_kind": "UNRESOLVED_TARGET",
+      "target_relation_pattern_node_ids": [],
       "unresolved_requirements": [
-        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS"
       ]
     },
     {
@@ -5211,54 +5200,6 @@
       "unresolved_relation_marker": "GENERIC_SOURCE_RELATION_TARGET"
     },
     {
-      "compatible_symbolic_participant_paths": [],
-      "graph_record_id": "BSSIPG-R1-G-ZPZQ-CL-09-005-001",
-      "pattern_resolution_status": "SOURCE_RELATION_FAMILY_PATTERN_ONLY",
-      "provenance": {
-        "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-005-001",
-        "matrix_record_sha256": "89cb5a18c3c4be18dc5e4fbda391481783e1ef6ec8e2993f5929884767d3b36c",
-        "parent_source_block_id": "ZPZQ-B-09-005",
-        "source_evidence_mode": "DIRECT_SOURCE_TEXT",
-        "source_occurrence_id": "ZPZQ-CL-09-005-001",
-        "source_text_sha256": "a47b7b1b8c63fe72b9dc9401915376a5c822f583be846e10c2ada0840af7f27d"
-      },
-      "relation_pattern_node_id": "BSSIPG-R1-R-ZPZQ-CL-09-005-001-01",
-      "released_neutral_relation_family": null,
-      "released_neutral_semantic_relation_id": null,
-      "semantic_sha256": "c776359ae99ed682746120cbedab69acc1d2725fefb132a9b6960af36fbb4d30",
-      "source_arity": null,
-      "source_evidence_mode": "DIRECT_SOURCE_TEXT",
-      "source_fragment": "因解",
-      "source_occurrence_id": "ZPZQ-CL-09-005-001",
-      "source_orientation": "UNRESOLVED",
-      "symbolic_ordered_participant_node_ids": [],
-      "unresolved_relation_marker": "GENERIC_SOURCE_RELATION_FAMILY"
-    },
-    {
-      "compatible_symbolic_participant_paths": [],
-      "graph_record_id": "BSSIPG-R1-G-ZPZQ-CL-09-005-001",
-      "pattern_resolution_status": "SOURCE_LEXEME_RELATION_TARGET_ONLY",
-      "provenance": {
-        "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-005-001",
-        "matrix_record_sha256": "89cb5a18c3c4be18dc5e4fbda391481783e1ef6ec8e2993f5929884767d3b36c",
-        "parent_source_block_id": "ZPZQ-B-09-005",
-        "source_evidence_mode": "DIRECT_SOURCE_TEXT",
-        "source_occurrence_id": "ZPZQ-CL-09-005-001",
-        "source_text_sha256": "a47b7b1b8c63fe72b9dc9401915376a5c822f583be846e10c2ada0840af7f27d"
-      },
-      "relation_pattern_node_id": "BSSIPG-R1-R-ZPZQ-CL-09-005-001-02",
-      "released_neutral_relation_family": null,
-      "released_neutral_semantic_relation_id": null,
-      "semantic_sha256": "c96b5caccb4f00ac104a8ff157afb47175958374c8b1a947e3929b7160748ab1",
-      "source_arity": null,
-      "source_evidence_mode": "DIRECT_SOURCE_TEXT",
-      "source_fragment": "反得刑冲",
-      "source_occurrence_id": "ZPZQ-CL-09-005-001",
-      "source_orientation": "UNRESOLVED",
-      "symbolic_ordered_participant_node_ids": [],
-      "unresolved_relation_marker": "GENERIC_SOURCE_RELATION_TARGET"
-    },
-    {
       "compatible_symbolic_participant_paths": [
         [
           "BSSIPG-R1-P-ZPZQ-CL-09-005-002-03",
@@ -5943,8 +5884,8 @@
     },
     "relation_resolution_status_counts": {
       "EXACT_RELEASED_RELATION_PATTERN": 28,
-      "SOURCE_LEXEME_RELATION_TARGET_ONLY": 9,
-      "SOURCE_RELATION_FAMILY_PATTERN_ONLY": 9,
+      "SOURCE_LEXEME_RELATION_TARGET_ONLY": 8,
+      "SOURCE_RELATION_FAMILY_PATTERN_ONLY": 8,
       "UNRESOLVED_RELATION_PATTERN": 2
     },
     "released_relation_family_counts": {
@@ -5985,7 +5926,6 @@
       "ZPZQ-CL-09-003-001",
       "ZPZQ-CL-09-003-006",
       "ZPZQ-CL-09-003-011",
-      "ZPZQ-CL-09-005-001",
       "ZPZQ-CL-09-007-001",
       "ZPZQ-CL-09-007-004",
       "ZPZQ-CL-09-009-001",

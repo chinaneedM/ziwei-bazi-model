@@ -275,6 +275,28 @@ def _abstract_spec(
     }
 
 
+def _contextual_unresolved_spec(
+    source_fragment: str,
+    assertion_class: str,
+) -> dict[str, Any]:
+    return {
+        "status": "CONTEXTUAL_UNRESOLVED_GRAPH",
+        "participants": (),
+        "positions": (),
+        "relations": (),
+        "claims": (
+            _claim(
+                "claim",
+                assertion_class,
+                (source_fragment,),
+                actor_kind="UNRESOLVED_ACTOR",
+                target_kind="UNRESOLVED_TARGET",
+                unresolved=("CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",),
+            ),
+        ),
+    }
+
+
 GRAPH_SPECS: dict[str, dict[str, Any]] = {
     "ZPZQ-CL-09-003-001": _abstract_spec("ABSTRACT_SOURCE_PATTERN_GRAPH", "三合六合", "刑冲", "RESOLUTION_ASSERTION"),
     "ZPZQ-CL-09-003-002": {
@@ -356,7 +378,7 @@ GRAPH_SPECS: dict[str, dict[str, Any]] = {
         "inheritance": {"antecedent": "ZPZQ-CL-09-003-007", "participant_keys": ("mao_inherited",), "relation_keys": ("target_inherited",), "position_keys": ("month",), "reason": "The clause remains in the regression-locked 子卯 punishment example chain."},
     },
     "ZPZQ-CL-09-003-011": _abstract_spec("ABSTRACT_SOURCE_PATTERN_GRAPH", "会合", "刑", "RESOLUTION_ASSERTION"),
-    "ZPZQ-CL-09-005-001": _abstract_spec("CONTEXTUAL_UNRESOLVED_GRAPH", "因解", "反得刑冲", "REVERSAL_OR_REAPPEARANCE_ASSERTION"),
+    "ZPZQ-CL-09-005-001": _contextual_unresolved_spec("因解而反得刑冲", "REVERSAL_OR_REAPPEARANCE_ASSERTION"),
     "ZPZQ-CL-09-007-001": _abstract_spec("CONTEXTUAL_UNRESOLVED_GRAPH", "会合", "刑冲", "RESOLUTION_FAILURE_ASSERTION"),
     "ZPZQ-CL-09-007-004": _abstract_spec("ABSTRACT_SOURCE_PATTERN_GRAPH", "会合", "刑冲", "RESOLUTION_FAILURE_ASSERTION"),
     "ZPZQ-CL-09-009-001": _abstract_spec("CONTEXTUAL_UNRESOLVED_GRAPH", "刑冲", "刑", "RESOLUTION_ASSERTION"),
@@ -701,6 +723,27 @@ def _summary(artifact: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _validate_claim_edge_matrix_replay(artifact: dict[str, Any], matrix: dict[str, Any]) -> None:
+    matrix_by_oid = {row["source_occurrence_id"]: row for row in matrix["records"]}
+    for edge in artifact["interaction_claim_edges"]:
+        oid = edge["source_occurrence_id"]
+        upstream = matrix_by_oid.get(oid)
+        if upstream is None:
+            raise TrainingError(f"interaction claim edge has no upstream matrix record: {oid}")
+        if edge["actor_reference_kind"] != upstream["actor_reference_kind"]:
+            raise TrainingError(f"interaction claim actor reference kind does not replay upstream matrix: {oid}")
+        if edge["target_reference_kind"] != upstream["target_reference_kind"]:
+            raise TrainingError(f"interaction claim target reference kind does not replay upstream matrix: {oid}")
+        if upstream["actor_reference_kind"] == "UNRESOLVED_ACTOR" and (
+            edge["actor_relation_pattern_node_ids"] or edge["actor_participant_pattern_node_ids"]
+        ):
+            raise TrainingError(f"unresolved upstream actor was upgraded to a graph node binding: {oid}")
+        if upstream["target_reference_kind"] == "UNRESOLVED_TARGET" and (
+            edge["target_relation_pattern_node_ids"] or edge["target_participant_pattern_node_ids"]
+        ):
+            raise TrainingError(f"unresolved upstream target was upgraded to a graph node binding: {oid}")
+
+
 def build_structured_source_interaction_pattern_graph(root: Path) -> tuple[dict[str, Any], str]:
     root = root.resolve()
     upstream = validate_classical_relation_interaction_assertion_matrix(root)
@@ -777,6 +820,7 @@ def build_structured_source_interaction_pattern_graph(root: Path) -> tuple[dict[
         "interaction_chain_patterns": [row for bundle in bundles for row in bundle["chains"]],
         "multiplicity_constraints": [row for bundle in bundles for row in bundle["multiplicities"]],
     }
+    _validate_claim_edge_matrix_replay(artifact, matrix)
     artifact["summary"] = _summary(artifact)
     artifact["determinism"] = {
         "source_inventory_sha256": object_sha256([row["source_occurrence_id"] for row in artifact["graph_records"]]),
@@ -834,6 +878,8 @@ def validate_structured_source_interaction_pattern_graph_value(root: Path, artif
     if errors:
         first = errors[0]
         raise TrainingError(f"structured pattern graph schema failure at {list(first.path)}: {first.message}")
+    matrix = load_json(root / MATRIX_PATH)
+    _validate_claim_edge_matrix_replay(artifact, matrix)
     expected, expected_report = build_structured_source_interaction_pattern_graph(root)
     if artifact != expected:
         raise TrainingError("structured pattern graph deterministic replay mismatch")
@@ -856,7 +902,6 @@ def validate_structured_source_interaction_pattern_graph_value(root: Path, artif
     by_oid = {row["source_occurrence_id"]: row for row in records}
     if set(INHERITANCE_REGISTRY) != set(artifact["summary"]["context_inheritance_source_occurrence_ids"]):
         raise TrainingError("source context inheritance inventory changed")
-    matrix = load_json(root / MATRIX_PATH)
     matrix_by_oid = {row["source_occurrence_id"]: row for row in matrix["records"]}
     for edge in artifact["context_inheritance_edges"]:
         oid = edge["inheriting_source_occurrence_id"]

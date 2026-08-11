@@ -20,7 +20,7 @@ Status: static, source-level interaction pattern graph only.
 | `ZPZQ-CL-09-003-009` | `CONCRETE_SOURCE_PATTERN_GRAPH` | 4 | 2 | 1 | 1 | 1 | 0 | 0 |
 | `ZPZQ-CL-09-003-010` | `CONCRETE_SOURCE_PATTERN_GRAPH` | 4 | 2 | 1 | 1 | 1 | 0 | 0 |
 | `ZPZQ-CL-09-003-011` | `ABSTRACT_SOURCE_PATTERN_GRAPH` | 0 | 2 | 0 | 1 | 0 | 0 | 0 |
-| `ZPZQ-CL-09-005-001` | `CONTEXTUAL_UNRESOLVED_GRAPH` | 0 | 2 | 0 | 1 | 0 | 0 | 0 |
+| `ZPZQ-CL-09-005-001` | `CONTEXTUAL_UNRESOLVED_GRAPH` | 0 | 0 | 0 | 1 | 0 | 0 | 0 |
 | `ZPZQ-CL-09-005-002` | `CONCRETE_SOURCE_PATTERN_GRAPH` | 5 | 2 | 2 | 3 | 0 | 1 | 1 |
 | `ZPZQ-CL-09-007-001` | `CONTEXTUAL_UNRESOLVED_GRAPH` | 0 | 2 | 0 | 1 | 0 | 0 | 0 |
 | `ZPZQ-CL-09-007-002` | `CONCRETE_SOURCE_PATTERN_GRAPH` | 5 | 3 | 4 | 3 | 0 | 1 | 0 |
@@ -57,8 +57,8 @@ Status: static, source-level interaction pattern graph only.
 | Value | Count |
 |---|---:|
 | `EXACT_RELEASED_RELATION_PATTERN` | 28 |
-| `SOURCE_LEXEME_RELATION_TARGET_ONLY` | 9 |
-| `SOURCE_RELATION_FAMILY_PATTERN_ONLY` | 9 |
+| `SOURCE_LEXEME_RELATION_TARGET_ONLY` | 8 |
+| `SOURCE_RELATION_FAMILY_PATTERN_ONLY` | 8 |
 | `UNRESOLVED_RELATION_PATTERN` | 2 |
 
 ## Released neutral relation family mappings
@@ -99,7 +99,7 @@ Status: static, source-level interaction pattern graph only.
 
 Records retaining unresolved graph requirements: `ZPZQ-CL-09-003-001`, `ZPZQ-CL-09-003-002`, `ZPZQ-CL-09-003-003`, `ZPZQ-CL-09-003-004`, `ZPZQ-CL-09-003-005`, `ZPZQ-CL-09-003-006`, `ZPZQ-CL-09-003-007`, `ZPZQ-CL-09-003-008`, `ZPZQ-CL-09-003-009`, `ZPZQ-CL-09-003-010`, `ZPZQ-CL-09-003-011`, `ZPZQ-CL-09-005-001`, `ZPZQ-CL-09-005-002`, `ZPZQ-CL-09-007-001`, `ZPZQ-CL-09-007-002`, `ZPZQ-CL-09-007-003`, `ZPZQ-CL-09-007-004`, `ZPZQ-CL-09-009-001`, `ZPZQ-CL-09-009-002`, `ZPZQ-CL-09-009-003`, `ZPZQ-CL-09-009-004`, `ZPZQ-CL-09-009-005`, `QTBJ-CL-05347`, `QTBJ-CL-05370`.
 
-Records containing relation family/target nodes that are intentionally not exact released mappings: `QTBJ-CL-05347`, `QTBJ-CL-05370`, `ZPZQ-CL-09-003-001`, `ZPZQ-CL-09-003-006`, `ZPZQ-CL-09-003-011`, `ZPZQ-CL-09-005-001`, `ZPZQ-CL-09-007-001`, `ZPZQ-CL-09-007-004`, `ZPZQ-CL-09-009-001`, `ZPZQ-CL-09-009-002`, `ZPZQ-CL-09-009-005`.
+Records containing relation family/target nodes that are intentionally not exact released mappings: `QTBJ-CL-05347`, `QTBJ-CL-05370`, `ZPZQ-CL-09-003-001`, `ZPZQ-CL-09-003-006`, `ZPZQ-CL-09-003-011`, `ZPZQ-CL-09-007-001`, `ZPZQ-CL-09-007-004`, `ZPZQ-CL-09-009-001`, `ZPZQ-CL-09-009-002`, `ZPZQ-CL-09-009-005`.
 
 ## Release boundary
 
