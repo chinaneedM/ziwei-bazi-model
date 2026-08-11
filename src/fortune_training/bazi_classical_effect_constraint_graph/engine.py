@@ -168,6 +168,7 @@ def _project_outer(
         )
     envelope_id = "CLASSICAL_EFFECT_CONSTRAINT_COMPOSITION_ENVELOPE:" + object_sha256({
         "source_projection_fact_hash": source_projection_outer.hashes.fact_hash,
+        "source_projection_computation_hash": source_projection_outer.hashes.computation_hash,
         "fact_hash": hashes.fact_hash,
     })
     return ClassicalEffectConstraintCompositionEnvelopeCandidate(
@@ -216,16 +217,21 @@ class BaziClassicalEffectConstraintGraphEngine:
             _validate_authority(request)
             graph_record_by_source, graph_chain_by_id = _graph_indices(request.source_graph)
             rows = []
-            seen_binding_outer_fact_hashes: set[str] = set()
+            seen_outer_lineages: set[tuple[str, str]] = set()
             for source_projection_outer in request.source_projection_resolution.candidates:
                 source_binding_outer = match_source_binding_outer(
                     source_projection_outer, request.source_binding_resolution
                 )
-                if source_binding_outer.hashes.fact_hash in seen_binding_outer_fact_hashes:
+                outer_lineage = (
+                    source_binding_outer.hashes.fact_hash,
+                    source_binding_outer.hashes.computation_hash,
+                )
+                if outer_lineage in seen_outer_lineages:
                     raise BaziClassicalEffectConstraintGraphError(
-                        "UPSTREAM_OUTER_LINEAGE_COMPOSED_MORE_THAN_ONCE", source_binding_outer.hashes.fact_hash
+                        "UPSTREAM_OUTER_LINEAGE_COMPOSED_MORE_THAN_ONCE",
+                        f"{outer_lineage[0]}:{outer_lineage[1]}",
                     )
-                seen_binding_outer_fact_hashes.add(source_binding_outer.hashes.fact_hash)
+                seen_outer_lineages.add(outer_lineage)
                 rows.append(_project_outer(
                     source_projection_outer,
                     source_binding_outer,
