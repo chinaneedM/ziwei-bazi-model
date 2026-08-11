@@ -355,9 +355,14 @@ def enumerate_graph_inventory(
         record = records[plan_row.graph_record_id]
         if plan_row.bindability_class == NOT_R1_EXACT_BINDABLE:
             inventories.append(SourceGraphBindingInventory(
-                plan_row.graph_record_id, plan_row.source_occurrence_id,
-                plan_row.bindability_class, "SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE",
-                plan_row.structural_reason_ids, plan_row.unresolved_structural_constraint_ids, (),
+                graph_record_id=plan_row.graph_record_id,
+                source_occurrence_id=plan_row.source_occurrence_id,
+                bindability_class=plan_row.bindability_class,
+                inventory_status="SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE",
+                source_unresolved_graph_requirements=plan_row.source_unresolved_graph_requirements,
+                structural_reason_ids=plan_row.structural_reason_ids,
+                unresolved_structural_constraint_ids=plan_row.unresolved_structural_constraint_ids,
+                binding_candidates=(),
             ))
             continue
         relation_nodes = tuple(relations[value] for value in record["relation_pattern_node_ids"])
@@ -404,8 +409,13 @@ def enumerate_graph_inventory(
         else:
             raise ValueError(f"unsupported bindability class: {plan_row.bindability_class}")
         inventories.append(SourceGraphBindingInventory(
-            plan_row.graph_record_id, plan_row.source_occurrence_id, plan_row.bindability_class,
-            status, plan_row.structural_reason_ids, plan_row.unresolved_structural_constraint_ids,
-            candidates,
+            graph_record_id=plan_row.graph_record_id,
+            source_occurrence_id=plan_row.source_occurrence_id,
+            bindability_class=plan_row.bindability_class,
+            inventory_status=status,
+            source_unresolved_graph_requirements=plan_row.source_unresolved_graph_requirements,
+            structural_reason_ids=plan_row.structural_reason_ids,
+            unresolved_structural_constraint_ids=plan_row.unresolved_structural_constraint_ids,
+            binding_candidates=candidates,
         ))
     return tuple(inventories)

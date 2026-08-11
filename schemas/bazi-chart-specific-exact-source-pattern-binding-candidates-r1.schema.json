@@ -92,11 +92,12 @@
     "planRow": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
+      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "source_unresolved_graph_requirements", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
       "properties": {
         "graph_record_id": {"type": "string"},
         "source_occurrence_id": {"type": "string"},
         "graph_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
         "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
         "exact_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
         "exact_position_constraint_ids": {"$ref": "#/$defs/stringArray"},

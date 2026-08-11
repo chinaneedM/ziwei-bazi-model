@@ -36,6 +36,10 @@ from fortune_training.bazi_chart_source_pattern_binding.enumeration import (
     _runtime_participants,
     enumerate_graph_inventory,
 )
+from fortune_training.bazi_chart_source_pattern_binding.integrity import (
+    binding_hash_bundle,
+    validate_outer_candidate,
+)
 from fortune_training.bazi_chart_source_pattern_binding.models import SourceRelationExactBinding
 from fortune_training.bazi_flow import BaziFlowEngine, BaziFlowRequest
 from fortune_training.bazi_relation_incidence import (
@@ -103,6 +107,43 @@ class BaziChartSpecificExactSourcePatternBindingCandidatesR1Tests(unittest.TestC
         self.assertEqual(["ZPZQ-CL-09-007-002", "ZPZQ-CL-09-007-003"], partial)
         not_bindable = {row.source_occurrence_id for row in plan if row.bindability_class == NOT_R1_EXACT_BINDABLE}
         self.assertTrue({"ZPZQ-CL-09-005-001", "QTBJ-CL-05347", "QTBJ-CL-05370"} <= not_bindable)
+
+    def test_upstream_unresolved_graph_requirements_replay_for_all_24_inventory_rows(self):
+        source_by_id = {row["graph_record_id"]: row for row in self.graph["graph_records"]}
+        plan = derive_bindability_plan(self.graph, self.profile)
+        self.assertEqual(
+            [tuple(source_by_id[row.graph_record_id]["unresolved_graph_requirements"]) for row in plan],
+            [row.source_unresolved_graph_requirements for row in plan],
+        )
+
+        inventory_by_occurrence = {
+            row.source_occurrence_id: row
+            for row in self.exact[-1].candidates[0].graph_binding_inventory
+        }
+        self.assertEqual(24, len(inventory_by_occurrence))
+        for plan_row in plan:
+            inventory = inventory_by_occurrence[plan_row.source_occurrence_id]
+            self.assertEqual(
+                tuple(source_by_id[plan_row.graph_record_id]["unresolved_graph_requirements"]),
+                inventory.source_unresolved_graph_requirements,
+            )
+
+        reversal = inventory_by_occurrence["ZPZQ-CL-09-005-001"]
+        self.assertEqual("SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE", reversal.inventory_status)
+        self.assertEqual((), reversal.unresolved_structural_constraint_ids)
+        self.assertEqual(
+            ("CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",),
+            reversal.source_unresolved_graph_requirements,
+        )
+        for source_occurrence_id in ("QTBJ-CL-05347", "QTBJ-CL-05370"):
+            inventory = inventory_by_occurrence[source_occurrence_id]
+            source = next(row for row in self.graph["graph_records"] if row["source_occurrence_id"] == source_occurrence_id)
+            self.assertEqual("SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE", inventory.inventory_status)
+            self.assertEqual((), inventory.binding_candidates)
+            self.assertEqual(
+                tuple(source["unresolved_graph_requirements"]),
+                inventory.source_unresolved_graph_requirements,
+            )
 
     def test_release_plan_schema_and_deterministic_replay_pass(self):
         report = validate_bindability_plan_artifact(ROOT)
@@ -207,6 +248,118 @@ class BaziChartSpecificExactSourcePatternBindingCandidatesR1Tests(unittest.TestC
         tampered_candidate = replace(candidate, hashes=replace(candidate.hashes, fact_hash="0" * 64))
         tampered = replace(result, candidates=(tampered_candidate,))
         self.assertFalse(validate_binding_resolution_replay(request, tampered))
+
+    def test_upstream_requirement_tamper_changes_hashes_and_fails_integrity_and_complete_replay(self):
+        request, result = self.exact[-2], self.exact[-1]
+        candidate = result.candidates[0]
+        original_inventory = candidate.graph_binding_inventory[0]
+        tampered_inventory = replace(
+            original_inventory,
+            source_unresolved_graph_requirements=tuple(reversed(original_inventory.source_unresolved_graph_requirements)),
+        )
+        tampered_inventories = (tampered_inventory,) + candidate.graph_binding_inventory[1:]
+        tampered_hashes = binding_hash_bundle(
+            candidate.snapshot,
+            tampered_inventories,
+            candidate.source_incidence_candidate_indices,
+            candidate.source_branch_positional_candidate_index,
+            candidate.source_stem_positional_candidate_index,
+            candidate.source_flow_candidate_indices,
+            candidate.source_structural_candidate_indices,
+            candidate.source_support_candidate_indices,
+            candidate.source_temporal_candidate_indices,
+            candidate.source_temporal_seed_ids,
+            candidate.source_incidence_lineage_binding_keys,
+            candidate.lineage_binding_keys,
+            self.profile,
+        )
+        self.assertNotEqual(candidate.hashes.fact_hash, tampered_hashes.fact_hash)
+        self.assertNotEqual(candidate.hashes.computation_hash, tampered_hashes.computation_hash)
+        integrity = validate_outer_candidate(
+            candidate.snapshot,
+            tampered_inventories,
+            result.bindability_plan,
+            request.natal_candidate,
+            request.incidence_candidates[candidate.source_incidence_candidate_indices[0]],
+            request.branch_positional_candidates[candidate.source_branch_positional_candidate_index],
+            request.stem_positional_candidates[candidate.source_stem_positional_candidate_index],
+            candidate.source_incidence_candidate_indices,
+            candidate.source_branch_positional_candidate_index,
+            candidate.source_stem_positional_candidate_index,
+            candidate.source_flow_candidate_indices,
+            candidate.source_structural_candidate_indices,
+            candidate.source_support_candidate_indices,
+            candidate.source_temporal_candidate_indices,
+            candidate.source_temporal_seed_ids,
+            candidate.source_incidence_lineage_binding_keys,
+            candidate.lineage_binding_keys,
+            self.profile,
+            tampered_hashes,
+        )
+        self.assertEqual("FAIL", integrity.status)
+        self.assertIn("BINDABILITY_PLAN_PROVENANCE_REPLAY_MISMATCH", {row.code for row in integrity.diagnostics})
+        tampered_candidate = replace(
+            candidate,
+            graph_binding_inventory=tampered_inventories,
+            hashes=tampered_hashes,
+            integrity=integrity,
+        )
+        self.assertFalse(validate_binding_resolution_replay(request, replace(result, candidates=(tampered_candidate,))))
+
+    def test_context_inherited_relation_and_position_provenance_survives_exact_binding(self):
+        target = datetime.fromisoformat("2035-10-15T00:00:00+00:00")
+        scenarios = (
+            (datetime.fromisoformat("2024-09-08T14:00:00"), ("ZPZQ-CL-09-003-003", "ZPZQ-CL-09-003-004")),
+            (datetime.fromisoformat("2024-09-10T10:00:00"), ("ZPZQ-CL-09-003-005",)),
+            (datetime.fromisoformat("2024-12-09T22:00:00"), ("ZPZQ-CL-09-003-008", "ZPZQ-CL-09-003-009")),
+            (datetime.fromisoformat("2024-12-07T16:00:00"), ("ZPZQ-CL-09-003-010",)),
+        )
+        graph_records = {row["source_occurrence_id"]: row for row in self.graph["graph_records"]}
+        relation_nodes = {row["relation_pattern_node_id"]: row for row in self.graph["relation_pattern_nodes"]}
+        position_nodes = {row["position_constraint_id"]: row for row in self.graph["position_pattern_constraints"]}
+        covered: set[str] = set()
+        for birth, source_occurrence_ids in scenarios:
+            result = self._stack(birth, target)[-1]
+            inventories = {row.source_occurrence_id: row for row in result.candidates[0].graph_binding_inventory}
+            for source_occurrence_id in source_occurrence_ids:
+                inventory = inventories[source_occurrence_id]
+                self.assertEqual("EXACT_BINDING_CANDIDATES_PRESENT", inventory.inventory_status)
+                record = graph_records[source_occurrence_id]
+                inherited_relation_ids = {
+                    value for value in record["relation_pattern_node_ids"]
+                    if relation_nodes[value]["source_evidence_mode"] == "SOURCE_CONTEXT_INHERITED"
+                }
+                inherited_position_ids = {
+                    value for value in record["position_constraint_ids"]
+                    if position_nodes[value]["evidence_mode"] == "SOURCE_CONTEXT_INHERITED"
+                }
+                self.assertTrue(inherited_relation_ids)
+                self.assertTrue(inherited_position_ids)
+                for binding_candidate in inventory.binding_candidates:
+                    relation_modes = {
+                        row.relation_pattern_node_id: row.source_evidence_mode
+                        for row in binding_candidate.relation_bindings
+                    }
+                    position_modes = {
+                        row.position_constraint_id: row.evidence_mode
+                        for row in binding_candidate.position_constraint_bindings
+                    }
+                    self.assertEqual(
+                        {value: "SOURCE_CONTEXT_INHERITED" for value in inherited_relation_ids},
+                        {value: relation_modes[value] for value in inherited_relation_ids},
+                    )
+                    self.assertEqual(
+                        {value: "SOURCE_CONTEXT_INHERITED" for value in inherited_position_ids},
+                        {value: position_modes[value] for value in inherited_position_ids},
+                    )
+                covered.add(source_occurrence_id)
+        self.assertEqual(
+            {
+                "ZPZQ-CL-09-003-003", "ZPZQ-CL-09-003-004", "ZPZQ-CL-09-003-005",
+                "ZPZQ-CL-09-003-008", "ZPZQ-CL-09-003-009", "ZPZQ-CL-09-003-010",
+            },
+            covered,
+        )
 
     def test_public_payload_has_no_operability_resolver_or_transition_leakage(self):
         payload = json.dumps(json_value(self.exact[-1]), ensure_ascii=False)

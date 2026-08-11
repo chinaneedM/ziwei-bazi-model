@@ -135,6 +135,17 @@ def validate_outer_candidate(
     for index, (inventory, plan_row) in enumerate(zip(inventories, plan)):
         if inventory.source_occurrence_id != plan_row.source_occurrence_id or inventory.bindability_class != plan_row.bindability_class:
             _diag(diagnostics, "BINDABILITY_PLAN_REPLAY_MISMATCH", f"graph_binding_inventory[{index}]", inventory.graph_record_id)
+        if (
+            inventory.source_unresolved_graph_requirements != plan_row.source_unresolved_graph_requirements
+            or inventory.structural_reason_ids != plan_row.structural_reason_ids
+            or inventory.unresolved_structural_constraint_ids != plan_row.unresolved_structural_constraint_ids
+        ):
+            _diag(
+                diagnostics,
+                "BINDABILITY_PLAN_PROVENANCE_REPLAY_MISMATCH",
+                f"graph_binding_inventory[{index}]",
+                inventory.graph_record_id,
+            )
         if plan_row.bindability_class == "NOT_R1_EXACT_BINDABLE" and (inventory.inventory_status != "SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE" or inventory.binding_candidates):
             _diag(diagnostics, "NON_BINDABLE_GRAPH_ENUMERATED", f"graph_binding_inventory[{index}]", inventory.graph_record_id)
         for candidate in inventory.binding_candidates:

@@ -175,6 +175,7 @@ def derive_bindability_plan(
             graph_record_id=record["graph_record_id"],
             source_occurrence_id=record["source_occurrence_id"],
             graph_record_sha256=record["graph_record_sha256"],
+            source_unresolved_graph_requirements=tuple(record["unresolved_graph_requirements"]),
             bindability_class=binding_class,
             exact_relation_pattern_node_ids=tuple(row["relation_pattern_node_id"] for row in exact_relations),
             exact_position_constraint_ids=tuple(

@@ -10,6 +10,7 @@ class SourceGraphBindabilityPlan:
     graph_record_id: str
     source_occurrence_id: str
     graph_record_sha256: str
+    source_unresolved_graph_requirements: tuple[str, ...]
     bindability_class: str
     exact_relation_pattern_node_ids: tuple[str, ...]
     exact_position_constraint_ids: tuple[str, ...]
@@ -91,6 +92,7 @@ class SourceGraphBindingInventory:
     source_occurrence_id: str
     bindability_class: str
     inventory_status: str
+    source_unresolved_graph_requirements: tuple[str, ...]
     structural_reason_ids: tuple[str, ...]
     unresolved_structural_constraint_ids: tuple[str, ...]
     binding_candidates: tuple[ChartSpecificExactBindingCandidate, ...]

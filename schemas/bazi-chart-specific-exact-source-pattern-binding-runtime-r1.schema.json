@@ -40,10 +40,11 @@
     },
     "planRow": {
       "type": "object", "additionalProperties": false,
-      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
+      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "source_unresolved_graph_requirements", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
       "properties": {
         "graph_record_id": {"type": "string"}, "source_occurrence_id": {"type": "string"},
         "graph_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
         "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
         "exact_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
         "exact_position_constraint_ids": {"$ref": "#/$defs/stringArray"},
@@ -101,11 +102,11 @@
     },
     "inventory": {
       "type": "object", "additionalProperties": false,
-      "required": ["graph_record_id", "source_occurrence_id", "bindability_class", "inventory_status", "structural_reason_ids", "unresolved_structural_constraint_ids", "binding_candidates"],
+      "required": ["graph_record_id", "source_occurrence_id", "bindability_class", "inventory_status", "source_unresolved_graph_requirements", "structural_reason_ids", "unresolved_structural_constraint_ids", "binding_candidates"],
       "properties": {
         "graph_record_id": {"type": "string"}, "source_occurrence_id": {"type": "string"}, "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
         "inventory_status": {"enum": ["EXACT_BINDING_CANDIDATES_PRESENT", "PARTIAL_EXACT_BINDING_CANDIDATES_PRESENT", "NO_COMPATIBLE_EXACT_BINDING_ASSIGNMENT", "NO_COMPATIBLE_PARTIAL_EXACT_BINDING_ASSIGNMENT", "SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE"]},
-        "structural_reason_ids": {"$ref": "#/$defs/stringArray"}, "unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"}, "binding_candidates": {"type": "array", "items": {"$ref": "#/$defs/assignmentCandidate"}}
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"}, "structural_reason_ids": {"$ref": "#/$defs/stringArray"}, "unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"}, "binding_candidates": {"type": "array", "items": {"$ref": "#/$defs/assignmentCandidate"}}
       }
     },
     "snapshot": {
