@@ -129,4 +129,4 @@ No per-chart Five-Combination condition evaluator or Classical relation outcome 
 
 - Records semantics SHA-256: `72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583`
 - Closed registry SHA-256: `5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92`
-- Catalog semantics SHA-256: `1fd5836ea7e2872436adfe376e2ea19e27487ea0ccc71dc142883e941491f9c4`
+- Catalog semantics SHA-256: `ea072777690a0e38fc610ba27060d8685625220f6ffd0912155bb075c92f15ac`

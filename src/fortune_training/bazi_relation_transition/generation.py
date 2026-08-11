@@ -61,6 +61,8 @@ def _relation_type(row) -> str:
         return "BRANCH_LIUHE"
     if row.relation_family == "BRANCH_CLASH":
         return "BRANCH_CHONG"
+    if row.relation_family == "BRANCH_CHUAN":
+        return "BRANCH_CHUAN"
     if row.relation_family == "BRANCH_TRINE":
         return "BRANCH_SANHE_COMPLETE"
     if row.semantic_relation_id == "BRANCH.PUNISHMENT.ZI_MAO":

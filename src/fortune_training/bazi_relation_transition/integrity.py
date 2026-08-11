@@ -378,6 +378,7 @@ def validate_relation_transition_context(
         "STEM_FIVE_COMBINATION",
         "BRANCH_LIUHE",
         "BRANCH_CHONG",
+        "BRANCH_CHUAN",
         "BRANCH_SANHE_COMPLETE",
         "BRANCH_ZIMAO_PUNISHMENT",
         "BRANCH_DIRECTIONAL_PUNISHMENT",

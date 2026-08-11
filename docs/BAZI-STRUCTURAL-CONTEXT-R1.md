@@ -60,7 +60,7 @@ Dynamic relations expose canonical participant layers and one neutral scope:
 - `CROSS_LAYER` when Natal and temporal occurrences participate;
 - `TEMPORAL_ONLY` when every participant is Dayun/Annual/Monthly.
 
-Directed punishment orientation and participant order are preserved exactly. Symmetric/group relations retain the shared generator's existing participant semantics. A nominal transformation element on a stem combination or trine is only registry metadata, not a successful transformation claim.
+Directed punishment orientation and participant order are preserved exactly. Symmetric/group relations, including source-faithful `相穿 / CHUAN`, retain the shared generator's existing participant semantics. `CHUAN` remains an exact binary occurrence fact with S14 / `YHZP-CH-010` provenance; it carries no modernized `HARM` identity or Classical harm/effect semantics. A nominal transformation element on a stem combination or trine is only registry metadata, not a successful transformation claim.
 
 ## Candidate preservation
 
@@ -89,4 +89,4 @@ The public contract is `schemas/bazi-structural-context-r1.schema.json`. Require
 
 ## Non-goals
 
-R1 does not implement 害, 破, 半合, 三会, hidden combinations, combination-transformation success, cancellation, suppression, rescue, release, reactivation, interpretive priority, strength/root weights, seasonal scoring, 旺衰, 格局, 用神, 忌神, 调候, 病药, ShenSha, prediction, Ziwei fusion, or UI.
+R1 does not implement any 害/相穿 effect, 破, 半合, 三会, hidden combinations, combination-transformation success, cancellation, suppression, rescue, release, reactivation, interpretive priority, strength/root weights, seasonal scoring, 旺衰, 格局, 用神, 忌神, 调候, 病药, ShenSha, prediction, Ziwei fusion, or UI.

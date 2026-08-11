@@ -92,12 +92,13 @@ V1 raw relations are occurrence facts only. The initial default registry include
 - Five Stem Combinations, with a nominal transformation element but no claim of successful transformation
 - Six Harmonies
 - Six Clashes
+- the six source-faithful `相穿 / CHUAN` pairs from S14 `YHZP-CH-010`
 - complete Three-Combination trines
 - Zi-Mao punishment
 - directed Yin-Si-Shen and Chou-Xu-Wei punishment cycles
 - self-punishment for Chen/Wu/You/Hai when distinct branch instances repeat
 
-V1 deliberately does not make Harm, Break, partial-trine, directional-triad, hidden-combination or transformation-success claims part of the default Foundation relation registry. Those require separately versioned rule-set certification.
+`CHUAN` is the primary source identity; the source commentary's attested `相穿为害` wording is provenance, not a renamed `HARM` relation or a harm/effect conclusion. V1 deliberately does not make Break, partial-trine, directional-triad, hidden-combination, transformation-success, severity, good/bad, or Classical outcome claims part of the default Foundation relation registry. Those require separately versioned rule-set certification.
 
 ## Explicit exclusions from `BaziNatalState`
 

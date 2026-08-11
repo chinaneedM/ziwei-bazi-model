@@ -158,7 +158,7 @@
       "required": ["relation_id", "semantic_relation_id", "relation_family", "participant_instance_ids", "orientation", "arity", "nominal_transformation_element", "rule_set_id", "rule_set_version", "source_refs"],
       "properties": {
         "relation_id": {"type": "string", "minLength": 1}, "semantic_relation_id": {"type": "string", "minLength": 1},
-        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
+        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
         "participant_instance_ids": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"type": "string"}},
         "orientation": {"enum": ["SYMMETRIC", "DIRECTED", "SELF", "GROUP"]}, "arity": {"enum": [2, 3]},
         "nominal_transformation_element": {"oneOf": [{"$ref": "#/$defs/element"}, {"type": "null"}]},
