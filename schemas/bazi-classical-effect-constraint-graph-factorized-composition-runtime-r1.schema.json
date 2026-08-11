@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-effect-constraint-graph-factorized-composition-runtime-r1.schema.json",
+  "title": "Bazi Classical Effect Constraint Graph & Factorized Composition Runtime R1",
+  "$defs": {
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "graph_algorithm_id", "graph_algorithm_version", "composition_algorithm_id", "composition_algorithm_version", "upstream_projection_profile_id", "upstream_projection_profile_version", "source_graph_artifact_semantics_sha256", "source_graph_record_hash_chain_sha256", "source_scope_semantics_sha256"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "graph_algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-PROJECTION-R1"},
+        "graph_algorithm_version": {"const": "1.0.0"},
+        "composition_algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-FRAGMENT-FACTORIZED-COMPOSITION-R1"},
+        "composition_algorithm_version": {"const": "1.0.0"},
+        "upstream_projection_profile_id": {"const": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1"},
+        "upstream_projection_profile_version": {"const": "1.0.0"},
+        "source_graph_artifact_semantics_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_graph_record_hash_chain_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_scope_semantics_sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"}
+      }
+    },
+    "stringArray": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "intArray": {"type": "array", "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+    "multiplicity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "alternative_path_requirement"],
+      "properties": {
+        "multiplicity_constraint_id": {"type": "string"},
+        "exchangeable_symbolic_slot_node_ids": {"$ref": "#/$defs/stringArray"},
+        "exact_runtime_instance_ids": {"$ref": "#/$defs/stringArray"},
+        "required_symbolic_cardinality": {"type": "integer", "minimum": 1},
+        "slot_equivalence": {"const": "EXCHANGEABLE_SOURCE_EQUIVALENT"},
+        "alternative_path_requirement": {"const": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"}
+      }
+    },
+    "rawRelation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["raw_relation_node_id", "binding_candidate_id", "exact_relation_id", "exact_semantic_relation_id", "relation_type", "relation_family", "participant_instance_ids"],
+      "properties": {
+        "raw_relation_node_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "exact_relation_id": {"type": "string"},
+        "exact_semantic_relation_id": {"type": "string"},
+        "relation_type": {"type": "string"},
+        "relation_family": {"type": "string"},
+        "participant_instance_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "effectChannel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["effect_channel_id", "binding_candidate_id", "target_exact_relation_id", "effect_facet"],
+      "properties": {
+        "effect_channel_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "target_exact_relation_id": {"type": "string"},
+        "effect_facet": {"enum": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]}
+      }
+    },
+    "constraint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["effect_constraint_id", "binding_candidate_id", "source_occurrence_id", "graph_record_id", "interaction_assertion_id", "source_claim_edge_id", "source_claim_edge_class", "source_assertion_class", "source_evidence_mode", "exact_source_fragments", "target_effect_channel_id", "target_exact_relation_id", "actor_exact_relation_ids", "actor_exact_participant_ids", "context_exact_participant_ids", "effect_facet", "constraint_kind", "structural_binding_class", "source_scope_compatibility", "residual_unresolved_structural_constraint_ids", "unresolved_classical_semantic_requirements", "source_unresolved_graph_requirements", "multiplicity_references", "source_narrative_chain_ids"],
+      "properties": {
+        "effect_constraint_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "source_occurrence_id": {"type": "string"},
+        "graph_record_id": {"type": "string"},
+        "interaction_assertion_id": {"type": "string"},
+        "source_claim_edge_id": {"type": "string"},
+        "source_claim_edge_class": {"enum": ["SOURCE_ASSERTED_RESOLUTION", "SOURCE_ASSERTED_RESOLUTION_FAILURE", "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE", "SOURCE_ASSERTED_ATTENUATION", "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION"]},
+        "source_assertion_class": {"enum": ["RESOLUTION_ASSERTION", "RESOLUTION_FAILURE_ASSERTION", "REVERSAL_OR_REAPPEARANCE_ASSERTION", "ATTENUATION_ASSERTION", "PARTICIPANT_ALLOCATION_ASSERTION"]},
+        "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "DIRECT_CLAIM_WITH_INHERITED_CONTEXT"]},
+        "exact_source_fragments": {"$ref": "#/$defs/stringArray"},
+        "target_effect_channel_id": {"type": "string"},
+        "target_exact_relation_id": {"type": "string"},
+        "actor_exact_relation_ids": {"$ref": "#/$defs/stringArray"},
+        "actor_exact_participant_ids": {"$ref": "#/$defs/stringArray"},
+        "context_exact_participant_ids": {"$ref": "#/$defs/stringArray"},
+        "effect_facet": {"enum": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]},
+        "constraint_kind": {"enum": ["SOURCE_ASSERTED_RESOLUTION", "SOURCE_ASSERTED_RESOLUTION_FAILURE", "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE", "SOURCE_ASSERTED_ATTENUATION", "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION"]},
+        "structural_binding_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION"]},
+        "source_scope_compatibility": {"enum": ["DIRECT_SOURCE_SCOPE_MATCH", "CROSS_LAYER_EXTENSION_UNRESOLVED"]},
+        "residual_unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "unresolved_classical_semantic_requirements": {"$ref": "#/$defs/stringArray"},
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
+        "multiplicity_references": {"type": "array", "items": {"$ref": "#/$defs/multiplicity"}},
+        "source_narrative_chain_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "constraintNode": {
+      "type": "object", "additionalProperties": false,
+      "required": ["constraint_node_id", "constraint"],
+      "properties": {"constraint_node_id": {"type": "string"}, "constraint": {"$ref": "#/$defs/constraint"}}
+    },
+    "edge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["edge_id", "edge_kind", "source_node_id", "target_node_id", "source_claim_edge_id", "source_chain_pattern_id"],
+      "properties": {
+        "edge_id": {"type": "string"},
+        "edge_kind": {"enum": ["RAW_RELATION_ACTOR_REFERENCE", "CONSTRAINT_TARGETS_EFFECT_CHANNEL", "EFFECT_CHANNEL_REFERENCES_RAW_RELATION", "SOURCE_NARRATIVE_PRECEDES"]},
+        "source_node_id": {"type": "string"},
+        "target_node_id": {"type": "string"},
+        "source_claim_edge_id": {"type": ["string", "null"]},
+        "source_chain_pattern_id": {"type": ["string", "null"]}
+      }
+    },
+    "fragmentHashes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "computation_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FRAGMENT-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "fragment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fragment_id", "binding_candidate_id", "source_occurrence_id", "graph_record_id", "interaction_assertion_id", "source_layer", "structural_binding_class", "source_scope_compatibility", "raw_relation_reference_nodes", "effect_channel_nodes", "effect_constraint_nodes", "graph_edges", "multiplicity_references", "residual_unresolved_structural_constraint_ids", "source_unresolved_graph_requirements", "source_narrative_chain_ids", "hashes"],
+      "properties": {
+        "fragment_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "source_occurrence_id": {"type": "string"},
+        "graph_record_id": {"type": "string"},
+        "interaction_assertion_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "structural_binding_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION"]},
+        "source_scope_compatibility": {"enum": ["DIRECT_SOURCE_SCOPE_MATCH", "CROSS_LAYER_EXTENSION_UNRESOLVED"]},
+        "raw_relation_reference_nodes": {"type": "array", "items": {"$ref": "#/$defs/rawRelation"}},
+        "effect_channel_nodes": {"type": "array", "items": {"$ref": "#/$defs/effectChannel"}},
+        "effect_constraint_nodes": {"type": "array", "items": {"$ref": "#/$defs/constraintNode"}, "minItems": 1},
+        "graph_edges": {"type": "array", "items": {"$ref": "#/$defs/edge"}},
+        "multiplicity_references": {"type": "array", "items": {"$ref": "#/$defs/multiplicity"}},
+        "residual_unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "source_unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
+        "source_narrative_chain_ids": {"$ref": "#/$defs/stringArray"},
+        "hashes": {"$ref": "#/$defs/fragmentHashes"}
+      }
+    },
+    "recordSet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_record_candidate_set_id", "source_layer", "source_occurrence_id", "fragment_ids", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics"],
+      "properties": {
+        "source_record_candidate_set_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_occurrence_id": {"type": "string"},
+        "fragment_ids": {"$ref": "#/$defs/stringArray"},
+        "member_selection_semantics": {"const": "NOT_RELEASED"},
+        "member_coexistence_semantics": {"const": "NOT_RELEASED"},
+        "member_exclusivity_semantics": {"const": "NOT_RELEASED"}
+      }
+    },
+    "partition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_layer_partition_id", "source_layer", "source_record_candidate_sets"],
+      "properties": {
+        "source_layer_partition_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_record_candidate_sets": {"type": "array", "items": {"$ref": "#/$defs/recordSet"}}
+      }
+    },
+    "rawIndex": {
+      "type": "object", "additionalProperties": false,
+      "required": ["exact_relation_id", "referencing_fragment_ids", "actor_constraint_ids", "target_effect_channel_ids"],
+      "properties": {
+        "exact_relation_id": {"type": "string"},
+        "referencing_fragment_ids": {"$ref": "#/$defs/stringArray"},
+        "actor_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "target_effect_channel_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "channelIndex": {
+      "type": "object", "additionalProperties": false,
+      "required": ["exact_relation_id", "effect_facet", "referencing_fragment_ids", "fragment_local_effect_channel_ids"],
+      "properties": {
+        "exact_relation_id": {"type": "string"},
+        "effect_facet": {"enum": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]},
+        "referencing_fragment_ids": {"$ref": "#/$defs/stringArray"},
+        "fragment_local_effect_channel_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-COMPOSITION-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "compositionHashes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "computation_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-COMPOSITION-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["envelope_id", "source_projection_fact_hash", "source_projection_computation_hash", "source_binding_snapshot_id", "source_binding_snapshot_fact_hash", "source_binding_fact_hash", "source_binding_computation_hash", "source_incidence_candidate_indices", "source_branch_positional_candidate_index", "source_stem_positional_candidate_index", "source_flow_candidate_indices", "source_structural_candidate_indices", "source_support_candidate_indices", "source_temporal_candidate_indices", "source_temporal_seed_ids", "source_incidence_lineage_binding_keys", "lineage_binding_keys", "fragments", "source_layer_partitions", "raw_relation_reference_index", "effect_channel_coordinate_index", "cross_source_layer_composition", "cartesian_expansion", "raw_relation_immutability_contract", "algorithm_versions", "integrity", "hashes"],
+      "properties": {
+        "envelope_id": {"type": "string"},
+        "source_projection_fact_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_projection_computation_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_binding_snapshot_id": {"type": "string"},
+        "source_binding_snapshot_fact_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_binding_fact_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_binding_computation_hash": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+        "source_incidence_candidate_indices": {"$ref": "#/$defs/intArray"},
+        "source_branch_positional_candidate_index": {"type": "integer", "minimum": 0},
+        "source_stem_positional_candidate_index": {"type": "integer", "minimum": 0},
+        "source_flow_candidate_indices": {"$ref": "#/$defs/intArray"},
+        "source_structural_candidate_indices": {"$ref": "#/$defs/intArray"},
+        "source_support_candidate_indices": {"$ref": "#/$defs/intArray"},
+        "source_temporal_candidate_indices": {"$ref": "#/$defs/intArray"},
+        "source_temporal_seed_ids": {"$ref": "#/$defs/stringArray"},
+        "source_incidence_lineage_binding_keys": {"$ref": "#/$defs/stringArray"},
+        "lineage_binding_keys": {"$ref": "#/$defs/stringArray"},
+        "fragments": {"type": "array", "items": {"$ref": "#/$defs/fragment"}},
+        "source_layer_partitions": {"type": "array", "items": {"$ref": "#/$defs/partition"}},
+        "raw_relation_reference_index": {"type": "array", "items": {"$ref": "#/$defs/rawIndex"}},
+        "effect_channel_coordinate_index": {"type": "array", "items": {"$ref": "#/$defs/channelIndex"}},
+        "cross_source_layer_composition": {"const": "NOT_RELEASED"},
+        "cartesian_expansion": {"const": "NOT_RELEASED"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "algorithm_versions": {"const": {"graph_projection": "1.0.0", "factorized_composition": "1.0.0"}},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/compositionHashes"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "typed_schema", "status", "effect_graph_profile", "candidates", "events", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-RESULT-R1"},
+    "typed_schema": {"const": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-TYPED-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "effect_graph_profile": {"$ref": "#/$defs/profile"},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"$ref": "#/$defs/stringArray"},
+    "diagnostics": {"$ref": "#/$defs/stringArray"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "FAILED"}}}, "then": {"properties": {"candidates": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]}}}, "then": {"properties": {"candidates": {"minItems": 1}, "diagnostics": {"maxItems": 0}}}}
+  ]
+}

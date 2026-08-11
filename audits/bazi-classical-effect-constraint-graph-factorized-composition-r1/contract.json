@@ -1,0 +1,114 @@
+{
+  "audit_id": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-R1",
+  "authority": {
+    "source_graph_artifact_semantics_sha256": "837835ec60c2baabffaff2ba730e71e73e803b4f4c49cc582c87ebf03e3af7a4",
+    "source_graph_file_sha256": "cf580bca30f8aaed0b8d1e2fb60a7bb96789c44cb2adae3155bf463214fcde21",
+    "source_graph_path": "audits/bazi-structured-source-interaction-pattern-graph-r1/graph.json",
+    "source_graph_record_hash_chain_sha256": "040df8fcd40b11b0019f837e41ab15dafe6c5fe81ff553e457f2ca2bd1e93c6b",
+    "source_scope_artifact_path": "audits/bazi-chart-bound-classical-interaction-projection-foundation-r1/source-scope-specifications.json",
+    "source_scope_specifications_semantics_sha256": "949009f0521f3d8710e9f11c1341d0961324f1d6b4f197eeeeb8c25279f2daec",
+    "upstream_projection_profile_id": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1",
+    "upstream_projection_profile_version": "1.0.0"
+  },
+  "closed_vocabularies": {
+    "effect_facets": [
+      "RELATION_EFFECT_DISPOSITION",
+      "RELATION_EFFECT_GRADE",
+      "RELATION_PARTICIPANT_ALLOCATION"
+    ],
+    "graph_edge_classes": [
+      "RAW_RELATION_ACTOR_REFERENCE",
+      "CONSTRAINT_TARGETS_EFFECT_CHANNEL",
+      "EFFECT_CHANNEL_REFERENCES_RAW_RELATION",
+      "SOURCE_NARRATIVE_PRECEDES"
+    ],
+    "graph_node_classes": [
+      "RawRelationReferenceNode",
+      "ClassicalEffectFacetChannelNode",
+      "ClassicalEffectConstraintNode"
+    ],
+    "source_claim_to_effect_facet": {
+      "SOURCE_ASSERTED_ATTENUATION": "RELATION_EFFECT_GRADE",
+      "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": "RELATION_PARTICIPANT_ALLOCATION",
+      "SOURCE_ASSERTED_RESOLUTION": "RELATION_EFFECT_DISPOSITION",
+      "SOURCE_ASSERTED_RESOLUTION_FAILURE": "RELATION_EFFECT_DISPOSITION",
+      "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": "RELATION_EFFECT_DISPOSITION"
+    }
+  },
+  "composition_contract": {
+    "binding_candidate_to_graph_fragment": "EXACTLY_ONE",
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_source_layer_composition": "NOT_RELEASED",
+    "lifecycle_global_admission_gate": "NOT_RELEASED",
+    "member_coexistence_semantics": "NOT_RELEASED",
+    "member_exclusivity_semantics": "NOT_RELEASED",
+    "member_selection_semantics": "NOT_RELEASED",
+    "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+    "shared_indexes": "EXACT_IDENTITY_ONLY",
+    "source_claim_to_effect_constraint": "EXACTLY_ONE"
+  },
+  "determinism": {
+    "contract_semantics_sha256": "0c6dfccb89710c57f96a762406df32a70395b8fef2bb15ab6654445a22108950"
+  },
+  "hard_exclusions": [
+    "SUPPRESSES",
+    "ACTIVATES",
+    "DEACTIVATES",
+    "RELEASES",
+    "CANCELS",
+    "OVERRIDES",
+    "NEGATES",
+    "DEFEATS",
+    "WINS_OVER",
+    "LOSES_TO",
+    "SELECTS_PARTICIPANT",
+    "SELECTS_PATH",
+    "HAS_PRIORITY_OVER",
+    "TRANSITIONS_TO",
+    "CAUSES_STATE_CHANGE",
+    "CONFLICTS_WITH",
+    "RESOLVER_ADMISSION",
+    "SOURCE_SEMANTIC_PROFILE",
+    "SEMANTIC_ATOM",
+    "REWRITE_RULE",
+    "MECHANISM_CANDIDATE_MATRIX",
+    "CLOSURE_GAP_MATRIX",
+    "G6_ALLOCATION_ELABORATION",
+    "LIFECYCLE_ELIGIBILITY_SOLVING",
+    "RELATION_STATE",
+    "FIXPOINT_RESOLUTION",
+    "FINAL_CLASSICAL_VERDICT"
+  ],
+  "profile": {
+    "composition_algorithm_id": "BAZI-CLASSICAL-EFFECT-FRAGMENT-FACTORIZED-COMPOSITION-R1",
+    "composition_algorithm_version": "1.0.0",
+    "graph_algorithm_id": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-PROJECTION-R1",
+    "graph_algorithm_version": "1.0.0",
+    "profile_id": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-R1",
+    "profile_version": "1.0.0",
+    "source_graph_artifact_semantics_sha256": "837835ec60c2baabffaff2ba730e71e73e803b4f4c49cc582c87ebf03e3af7a4",
+    "source_graph_record_hash_chain_sha256": "040df8fcd40b11b0019f837e41ab15dafe6c5fe81ff553e457f2ca2bd1e93c6b",
+    "source_scope_semantics_sha256": "949009f0521f3d8710e9f11c1341d0961324f1d6b4f197eeeeb8c25279f2daec",
+    "upstream_projection_profile_id": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1",
+    "upstream_projection_profile_version": "1.0.0"
+  },
+  "schema": "BAZI-CLASSICAL-EFFECT-CONSTRAINT-GRAPH-FACTORIZED-COMPOSITION-CONTRACT-R1",
+  "summary": {
+    "effect_facet_count": 3,
+    "exact_source_record_count": 13,
+    "graph_edge_class_count": 4,
+    "graph_node_class_count": 3,
+    "projected_claim_class_counts": {
+      "SOURCE_ASSERTED_ATTENUATION": 1,
+      "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": 1,
+      "SOURCE_ASSERTED_RESOLUTION": 12,
+      "SOURCE_ASSERTED_RESOLUTION_FAILURE": 2,
+      "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": 3
+    },
+    "projected_claim_template_count": 19,
+    "source_layers": [
+      "SHEN_CLASSICAL_SOURCE"
+    ],
+    "source_narrative_chain_count": 3
+  }
+}
