@@ -227,6 +227,43 @@ class ClassicalRelationEvidenceClassificationTests(unittest.TestCase):
         )
         self.assertEqual(missing, [])
 
+    def test_chuan_harm_and_anhe_taxonomy_is_source_faithful(self):
+        families, gaps = _relation_families("子未相穿。", "论十二支相穿")
+        self.assertIn("BRANCH_CHUAN", families)
+        self.assertNotIn("BRANCH_HARM", gaps)
+
+        families, gaps = _relation_families("犹六害之生于六合也。", "")
+        self.assertNotIn("BRANCH_CHUAN", families)
+        self.assertIn("BRANCH_HARM", gaps)
+
+        families, gaps = _relation_families("辛暗合丙。", "论十干合而不合")
+        tags = _dependency_tags("辛暗合丙。", families, gaps)
+        dependencies, missing = _runtime_dependency_map(families, gaps, tags, "辛暗合丙。")
+        self.assertIn("STEM_FIVE_COMBINATION", families)
+        self.assertNotIn("HIDDEN_COMBINATION", gaps)
+        self.assertIn("SOURCE_MODIFIER_ANHE_UNRESOLVED", tags)
+        self.assertIn("SOURCE_MODIFIER:ANHE_UNRESOLVED", missing)
+        self.assertEqual(
+            _dependency_status(dependencies, "SOURCE_MODIFIER:ANHE_UNRESOLVED"),
+            "SOURCE_SEMANTICS_AMBIGUOUS",
+        )
+
+    def test_ganzhi_anhe_is_separate_from_bare_anhe_and_fail_closed(self):
+        families, gaps = _relation_families("干支暗合尚待考。", "")
+        tags = _dependency_tags("干支暗合尚待考。", families, gaps)
+        self.assertNotIn("HIDDEN_COMBINATION", gaps)
+        self.assertIn("SOURCE_TERM_GANZHI_ANHE_UNRESOLVED", tags)
+        self.assertNotIn("SOURCE_MODIFIER_ANHE_UNRESOLVED", tags)
+
+    def test_directional_triad_and_break_remain_unreleased(self):
+        families, gaps = _relation_families(
+            "三会、六破仍未闭合，故不得自行补表。", ""
+        )
+        self.assertNotIn("BRANCH_DIRECTIONAL_TRIAD", families)
+        self.assertNotIn("BRANCH_BREAK", families)
+        self.assertIn("BRANCH_DIRECTIONAL_TRIAD", gaps)
+        self.assertIn("BRANCH_BREAK", gaps)
+
 
 class ClassicalRelationEvidenceReleaseTests(unittest.TestCase):
     @classmethod
@@ -256,6 +293,50 @@ class ClassicalRelationEvidenceReleaseTests(unittest.TestCase):
         for family in CURRENT_RELATION_FAMILIES:
             with self.subTest(family=family):
                 self.assertGreater(counts.get(family, 0), 0)
+
+    def test_exact_taxonomy_regression_records(self):
+        records = {record["evidence_id"]: record for record in self.matrix["records"]}
+
+        chuan = records["S14-EV-L00185-79b57ffb360a"]
+        self.assertIn("BRANCH_CHUAN", chuan["relation_families"])
+        self.assertNotIn("BRANCH_HARM", chuan["relation_families"])
+        self.assertFalse(
+            any(
+                row["primitive"] == "RELATION_REGISTRY:BRANCH_HARM"
+                for row in chuan["runtime_dependency_map"]
+            )
+        )
+        self.assertIn("BRANCH_DIRECTIONAL_TRIAD", chuan["runtime_gap_tags"])
+        self.assertIn("BRANCH_BREAK", chuan["runtime_gap_tags"])
+
+        anhe = records["S14-EV-L08142-51881373bd64"]
+        self.assertEqual("STEM", anhe["participant_kind"])
+        self.assertIn("STEM_FIVE_COMBINATION", anhe["relation_families"])
+        self.assertNotIn("HIDDEN_COMBINATION", anhe["relation_families"])
+        self.assertIn(
+            "SOURCE_MODIFIER:ANHE_UNRESOLVED", anhe["runtime_gap_tags"]
+        )
+        self.assertFalse(
+            any(
+                "HIDDEN_COMBINATION" in row["primitive"]
+                or "HIDDEN_STEM" in row["primitive"]
+                for row in anhe["runtime_dependency_map"]
+            )
+        )
+
+        for evidence_id in (
+            "S14-EV-L04220-a467ea005e84",
+            "S14-EV-L15422-b529f26d6cdb",
+        ):
+            with self.subTest(evidence_id=evidence_id):
+                harm = records[evidence_id]
+                self.assertIn("六害", harm["exact_excerpt"])
+                self.assertIn("BRANCH_HARM", harm["relation_families"])
+                self.assertIn("BRANCH_HARM", harm["runtime_gap_tags"])
+
+        self.assertEqual(0, self.matrix["summary"]["relation_family_counts"].get(
+            "HIDDEN_COMBINATION", 0
+        ))
 
     def test_examples_rules_conflicts_and_gaps_are_not_flattened(self):
         classes = self.matrix["summary"]["statement_class_counts"]

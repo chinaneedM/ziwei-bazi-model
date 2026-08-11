@@ -22,22 +22,22 @@ Status: source-grounded audit artifact; no Classical lifecycle semantic evaluato
 | Statement class | Records |
 |---|---:|
 | `AMBIGUOUS` | 1 |
-| `CLASH_OR_RELEASE_DEPENDENCY` | 25 |
+| `CLASH_OR_RELEASE_DEPENDENCY` | 26 |
 | `COEXISTING_RELATION_DEPENDENCY` | 24 |
 | `COMMENTARY_OR_EXPLANATION` | 73 |
 | `CONTRADICTORY_OR_ALTERNATIVE_STATEMENT` | 5 |
-| `DEFINITION_OR_NOMINAL_RELATION` | 86 |
-| `ELIGIBILITY_CONDITION` | 58 |
+| `DEFINITION_OR_NOMINAL_RELATION` | 91 |
+| `ELIGIBILITY_CONDITION` | 59 |
 | `EXAMPLE_ONLY` | 19 |
-| `EXCEPTION_OR_LIMIT` | 35 |
+| `EXCEPTION_OR_LIMIT` | 37 |
 | `EXPOSURE_OR_HIDDEN_STEM_DEPENDENCY` | 12 |
 | `MULTIPLICITY_OR_COMPETITION` | 15 |
-| `NON_TRANSFORMATION_OR_BINDING_CONDITION` | 88 |
-| `ORDER_OR_PROXIMITY_DEPENDENCY` | 7 |
+| `NON_TRANSFORMATION_OR_BINDING_CONDITION` | 89 |
+| `ORDER_OR_PROXIMITY_DEPENDENCY` | 8 |
 | `PUNISHMENT_DEPENDENCY` | 113 |
 | `RESULT_OR_EFFECT_STATEMENT` | 60 |
 | `ROOT_OR_SUPPORT_DEPENDENCY` | 7 |
-| `RUNTIME_RELATION_GAP` | 53 |
+| `RUNTIME_RELATION_GAP` | 42 |
 | `SEASONAL_OR_MONTH_COMMAND_DEPENDENCY` | 21 |
 | `TEMPORAL_CONTEXT_HINT` | 1 |
 | `TRANSFORMATION_CONDITION` | 72 |
@@ -48,16 +48,16 @@ Status: source-grounded audit artifact; no Classical lifecycle semantic evaluato
 |---|---:|
 | `BRANCH_BREAK` | 5 |
 | `BRANCH_CHONG` | 86 |
+| `BRANCH_CHUAN` | 7 |
 | `BRANCH_DIRECTIONAL_PUNISHMENT` | 21 |
 | `BRANCH_DIRECTIONAL_TRIAD` | 26 |
-| `BRANCH_HARM` | 13 |
+| `BRANCH_HARM` | 6 |
 | `BRANCH_LIUHE` | 28 |
 | `BRANCH_PARTIAL_TRINE` | 3 |
 | `BRANCH_SANHE_COMPLETE` | 62 |
 | `BRANCH_SELF_PUNISHMENT` | 9 |
 | `BRANCH_ZIMAO_PUNISHMENT` | 14 |
-| `CROSS_FAMILY_RELATION_LIFECYCLE` | 354 |
-| `HIDDEN_COMBINATION` | 5 |
+| `CROSS_FAMILY_RELATION_LIFECYCLE` | 357 |
 | `OTHER_UNRELEASED_RELATION` | 8 |
 | `STEM_FIVE_COMBINATION` | 215 |
 
@@ -74,22 +74,23 @@ Status: source-grounded audit artifact; no Classical lifecycle semantic evaluato
 | Root / support / exposure | hidden-stem membership and exact exposure | `EXACT_HIDDEN_STEM_MATCH`, `SAME_ELEMENT_HIDDEN_SUPPORT` | root/strength grades | independent root semantics issue |
 | Temporal layer | Dayun/Annual/Monthly frame identities | neutral frame-change evidence | automatic layer priority | profile-explicit temporal interaction issue |
 | Unreleased relation families | none in current registry | none | Harm, Break, partial trine, directional triad, hidden combination | separate registry-governance issues only |
+| Literal `暗合` modifier | ordinary released relation identity where independently explicit | exact source text | meaning of `暗`; no hidden-stem participant inference | source-semantics review only |
 
 ## Missing primitives
 
 - `BINDING_OR_NON_TRANSFORMATION_OUTCOME`: 91 evidence record(s)
 - `BRANCH_BREAK`: 5 evidence record(s)
 - `BRANCH_DIRECTIONAL_TRIAD`: 26 evidence record(s)
-- `BRANCH_HARM`: 13 evidence record(s)
+- `BRANCH_HARM`: 6 evidence record(s)
 - `BRANCH_PARTIAL_TRINE`: 3 evidence record(s)
 - `CLASH_RELEASE_OR_CANCELLATION_SEMANTICS`: 30 evidence record(s)
 - `CLASSICAL_COMPETITION_SEMANTICS`: 22 evidence record(s)
 - `CLASSICAL_ORDER_OR_PROXIMITY`: 17 evidence record(s)
 - `COEXISTING_RELATION_PRECEDENCE`: 33 evidence record(s)
-- `HIDDEN_COMBINATION`: 5 evidence record(s)
 - `OTHER_UNRELEASED_RELATION`: 8 evidence record(s)
 - `PUNISHMENT_INTERACTION_OR_PRECEDENCE`: 195 evidence record(s)
 - `ROOT_OR_SUPPORT_GRADE`: 13 evidence record(s)
+- `SOURCE_MODIFIER:ANHE_UNRESOLVED`: 5 evidence record(s)
 - `STRENGTH_OR_WANGSHUAI_GRADE`: 21 evidence record(s)
 - `TEMPORAL_LAYER_PRIORITY_SEMANTICS`: 11 evidence record(s)
 - `TRANSFORMATION_SUCCESS`: 82 evidence record(s)
@@ -100,6 +101,6 @@ Alternative and contradictory statements are linked only when a shared explicit 
 
 ## Semantic boundary
 
-This audit does not rename neutral runtime facts. In particular, participant degree is not strength; `SHARED_PARTICIPANT` is not competition; `ENTERED` is not activation; `EXITED` is not release or cancellation; and active Flow month never replaces Natal month command.
+This audit does not rename neutral runtime facts. In particular, source-faithful `相穿` is `BRANCH_CHUAN`, not an inferred `BRANCH_HARM`; bare `暗合` retains an unresolved literal source modifier and does not prove hidden-stem participants; participant degree is not strength; `SHARED_PARTICIPANT` is not competition; `ENTERED` is not activation; `EXITED` is not release or cancellation; and active Flow month never replaces Natal month command.
 
 No canonical source, model-learning, training state, prediction control, relation registry, or existing Natal/Temporal/Flow/Structural/Support/Incidence/Transition semantic contract is changed by this artifact.

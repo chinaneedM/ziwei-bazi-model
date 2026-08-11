@@ -366,9 +366,21 @@ def _unresolved_for(record: dict[str, Any]) -> list[str]:
 def _decision(record: dict[str, Any]) -> tuple[str, list[dict[str, Any]], list[str], bool, bool, str]:
     unresolved = _unresolved_for(record)
     profile_required = bool(record["conflict_group_ids"] or record["alternative_profile_labels"])
-    source_ambiguous = record["review_status"] == "SOURCE_SEMANTICS_AMBIGUOUS" or any(
-        dependency["status"] == "SOURCE_SEMANTICS_AMBIGUOUS"
+    ambiguous_dependencies = [
+        dependency
         for dependency in record["runtime_dependency_map"]
+        if dependency["status"] == "SOURCE_SEMANTICS_AMBIGUOUS"
+    ]
+    source_ambiguous = (
+        record["review_status"] == "SOURCE_SEMANTICS_AMBIGUOUS"
+        or bool(ambiguous_dependencies)
+    )
+    binding_blocking_ambiguity = (
+        record["review_status"] == "SOURCE_SEMANTICS_AMBIGUOUS"
+        or any(
+            not dependency["primitive"].startswith(("SOURCE_MODIFIER:", "SOURCE_TERM:"))
+            for dependency in ambiguous_dependencies
+        )
     )
 
     if record["statement_class"] in NON_CONDITION_STATEMENT_CLASSES:
@@ -389,7 +401,7 @@ def _decision(record: dict[str, Any]) -> tuple[str, list[dict[str, Any]], list[s
             True,
             "Source alternative metadata is preserved without selecting a profile.",
         )
-    if source_ambiguous or record["statement_class"] in UNMAPPED_SOURCE_CONDITION_CLASSES:
+    if binding_blocking_ambiguity or record["statement_class"] in UNMAPPED_SOURCE_CONDITION_CLASSES:
         if record["statement_class"] in UNMAPPED_SOURCE_CONDITION_CLASSES:
             unresolved = sorted(set(unresolved) | {"SOURCE_CONDITION_SEMANTICS"})
         return (

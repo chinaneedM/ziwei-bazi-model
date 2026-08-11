@@ -21,7 +21,7 @@
     "source_id": "S14",
     "source_matrix_audit_id": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-MATRIX-R1",
     "source_matrix_path": "audits/bazi-classical-relation-lifecycle-evidence-r1/matrix.json",
-    "source_matrix_sha256": "5a39570a7677d245911a10b3cecb104fe68255e5d71322f93678a107de3cbb1e"
+    "source_matrix_sha256": "29757d48010c57851d2c7db81d9183065006ecfd071dfb603a2d38cb64a42304"
   },
   "closed_vocabularies": {
     "binding_assertion_strengths": [
@@ -74,9 +74,9 @@
     ]
   },
   "determinism": {
-    "catalog_semantics_sha256": "ea072777690a0e38fc610ba27060d8685625220f6ffd0912155bb075c92f15ac",
+    "catalog_semantics_sha256": "38e59cb06be242e3b537d390417c3a7f3dce23655c30f6b0bfb809138587cbd2",
     "closed_registry_sha256": "5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92",
-    "records_semantics_sha256": "72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583"
+    "records_semantics_sha256": "59ce0b99328c4025f3c51742f78017600d0a2c044bf80ecab6370c4f6488cfa5"
   },
   "method": {
     "algorithm_id": "S14_FIVE_COMBINATION_MATRIX_METADATA_BINDING_R1",
@@ -168,11 +168,6 @@
           "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
         },
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
-        },
-        {
           "primitive": "TRANSFORMATION_SUCCESS",
           "rationale": "Nominal transformation metadata does not establish successful transformation.",
           "status": "MISSING_PRIMITIVE"
@@ -190,7 +185,6 @@
       "unresolved_runtime_primitives": [
         "BRANCH_BREAK",
         "BRANCH_DIRECTIONAL_TRIAD",
-        "BRANCH_HARM",
         "PUNISHMENT_INTERACTION_OR_PRECEDENCE",
         "TRANSFORMATION_SUCCESS"
       ]
@@ -14142,13 +14136,13 @@
       "source_alternative_profile_labels": [],
       "source_condition_dependency_tags": [
         "NON_TRANSFORMATION_OR_BINDING",
-        "RUNTIME_RELATION_GAP",
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED",
         "TRANSFORMATION"
       ],
       "source_conflict_group_ids": [],
       "source_evidence_id": "S14-EV-L08142-51881373bd64",
       "source_id": "S14",
-      "source_review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "source_review_status": "REVIEWED_R1",
       "source_runtime_dependency_map": [
         {
           "primitive": "BINDING_OR_NON_TRANSFORMATION_OUTCOME",
@@ -14166,9 +14160,9 @@
           "status": "AVAILABLE_EXACTLY"
         },
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         },
         {
           "primitive": "TRANSFORMATION_SUCCESS",
@@ -14179,15 +14173,14 @@
       "source_secondary_statement_classes": [
         "ELIGIBILITY_CONDITION",
         "EXCEPTION_OR_LIMIT",
-        "NON_TRANSFORMATION_OR_BINDING_CONDITION",
         "RESULT_OR_EFFECT_STATEMENT",
         "TRANSFORMATION_CONDITION"
       ],
-      "source_semantics_ambiguous": false,
-      "source_statement_class": "RUNTIME_RELATION_GAP",
+      "source_semantics_ambiguous": true,
+      "source_statement_class": "NON_TRANSFORMATION_OR_BINDING_CONDITION",
       "unresolved_runtime_primitives": [
         "BINDING_OR_NON_TRANSFORMATION_OUTCOME",
-        "HIDDEN_COMBINATION",
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED",
         "TRANSFORMATION_SUCCESS"
       ]
     },
@@ -15372,16 +15365,16 @@
       "BINDING_OR_NON_TRANSFORMATION_OUTCOME": 60,
       "BRANCH_BREAK": 1,
       "BRANCH_DIRECTIONAL_TRIAD": 3,
-      "BRANCH_HARM": 3,
+      "BRANCH_HARM": 2,
       "CLASH_RELEASE_OR_CANCELLATION_SEMANTICS": 1,
       "CLASSICAL_COMPETITION_SEMANTICS": 6,
       "CLASSICAL_ORDER_OR_PROXIMITY": 4,
       "COEXISTING_RELATION_PRECEDENCE": 1,
-      "HIDDEN_COMBINATION": 1,
       "PUNISHMENT_INTERACTION_OR_PRECEDENCE": 10,
       "ROOT_OR_SUPPORT_GRADE": 3,
       "SEASONAL_ROLE_SELECTION": 4,
       "SOURCE_CONDITION_SEMANTICS": 21,
+      "SOURCE_MODIFIER:ANHE_UNRESOLVED": 1,
       "STRENGTH_OR_WANGSHUAI_GRADE": 4,
       "TEMPORAL_LAYER_PRIORITY_SEMANTICS": 1,
       "TRANSFORMATION_SUCCESS": 56
@@ -15410,7 +15403,7 @@
     "relevant_conflict_group_ids": [],
     "relevant_profile_label_count": 0,
     "relevant_profile_labels": [],
-    "source_semantics_ambiguous_count": 25,
+    "source_semantics_ambiguous_count": 26,
     "source_semantics_ambiguous_evidence_ids": [
       "S14-EV-L04341-1045d5e3b123",
       "S14-EV-L04402-1915917f646c",
@@ -15433,6 +15426,7 @@
       "S14-EV-L08102-fdfc1b000e80",
       "S14-EV-L08134-eef1edba1082",
       "S14-EV-L08136-ffdf2f303ae8",
+      "S14-EV-L08142-51881373bd64",
       "S14-EV-L08143-986699aa6075",
       "S14-EV-L08172-bcad8a4bf4a3",
       "S14-EV-L08181-696db4ff0c73",
@@ -15447,11 +15441,11 @@
       "EXCEPTION_OR_LIMIT": 13,
       "EXPOSURE_OR_HIDDEN_STEM_DEPENDENCY": 3,
       "MULTIPLICITY_OR_COMPETITION": 2,
-      "NON_TRANSFORMATION_OR_BINDING_CONDITION": 59,
+      "NON_TRANSFORMATION_OR_BINDING_CONDITION": 60,
       "ORDER_OR_PROXIMITY_DEPENDENCY": 1,
       "RESULT_OR_EFFECT_STATEMENT": 17,
       "ROOT_OR_SUPPORT_DEPENDENCY": 2,
-      "RUNTIME_RELATION_GAP": 5,
+      "RUNTIME_RELATION_GAP": 4,
       "SEASONAL_OR_MONTH_COMMAND_DEPENDENCY": 7,
       "TRANSFORMATION_CONDITION": 50
     },
