@@ -36,6 +36,7 @@ CURRENT_RELATION_FAMILIES = (
     "STEM_FIVE_COMBINATION",
     "BRANCH_LIUHE",
     "BRANCH_CHONG",
+    "BRANCH_CHUAN",
     "BRANCH_SANHE_COMPLETE",
     "BRANCH_ZIMAO_PUNISHMENT",
     "BRANCH_DIRECTIONAL_PUNISHMENT",
@@ -255,7 +256,10 @@ def _relation_families(text: str, heading: str) -> tuple[list[str], list[str]]:
     if _contains_any(text, ("自刑", "辰辰", "午午", "酉酉", "亥亥")):
         current.add("BRANCH_SELF_PUNISHMENT")
 
-    if _contains_any(text, ("六害", "相害", "穿害", "相穿")):
+    if "相穿" in text:
+        current.add("BRANCH_CHUAN")
+
+    if _contains_any(text, ("六害", "相害", "穿害")):
         gaps.add("BRANCH_HARM")
     if _contains_any(text, ("六破", "相破")):
         gaps.add("BRANCH_BREAK")
@@ -263,8 +267,6 @@ def _relation_families(text: str, heading: str) -> tuple[list[str], list[str]]:
         gaps.add("BRANCH_PARTIAL_TRINE")
     if _contains_any(text, ("三会", "会方", "方局")):
         gaps.add("BRANCH_DIRECTIONAL_TRIAD")
-    if _contains_any(text, ("暗合", "干支暗合")):
-        gaps.add("HIDDEN_COMBINATION")
     if _contains_any(text, ("暗冲", "暗会")):
         gaps.add("OTHER_UNRELEASED_RELATION")
     generic_relation = (
@@ -313,6 +315,10 @@ DEPENDENCY_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
 
 def _dependency_tags(text: str, families: list[str], gaps: list[str]) -> list[str]:
     tags = [name for name, terms in DEPENDENCY_PATTERNS if _contains_any(text, terms)]
+    if "干支暗合" in text:
+        tags.append("SOURCE_TERM_GANZHI_ANHE_UNRESOLVED")
+    elif "暗合" in text:
+        tags.append("SOURCE_MODIFIER_ANHE_UNRESOLVED")
     if _contains_any(text, ("合化", "化神", "化气", "化成", "成化", "化局")):
         tags.append("TRANSFORMATION")
     if _contains_any(text, ("合而不化", "不化", "合绊", "羁绊", "合去", "合住", "不以合论", "合而不合")):
@@ -582,6 +588,20 @@ def _runtime_dependency_map(
             "Released punishment occurrence IDs preserve participant identity and direction where applicable.",
         )
         missing.add("PUNISHMENT_INTERACTION_OR_PRECEDENCE")
+    if "SOURCE_MODIFIER_ANHE_UNRESOLVED" in tags:
+        add(
+            "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+            "SOURCE_SEMANTICS_AMBIGUOUS",
+            "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+        )
+        missing.add("SOURCE_MODIFIER:ANHE_UNRESOLVED")
+    if "SOURCE_TERM_GANZHI_ANHE_UNRESOLVED" in tags:
+        add(
+            "SOURCE_TERM:GANZHI_ANHE_UNRESOLVED",
+            "SOURCE_SEMANTICS_AMBIGUOUS",
+            "The explicit 干支暗合 term is retained separately for future source research and does not inherit the bare 暗合 rule.",
+        )
+        missing.add("SOURCE_TERM:GANZHI_ANHE_UNRESOLVED")
     return sorted(rows, key=lambda row: row["primitive"]), sorted(missing)
 
 
@@ -598,7 +618,7 @@ def _is_candidate(
     relation_signal = _contains_any(
         text,
         (
-            "五合", "六合", "六冲", "三合", "相合", "相冲", "冲破", "冲开", "冲散", "解冲", "刑冲", "刑合", "相刑", "三刑", "自刑", "带刑", "合化",
+            "五合", "六合", "六冲", "三合", "相合", "暗合", "相冲", "相穿", "冲破", "冲开", "冲散", "解冲", "刑冲", "刑合", "相刑", "三刑", "自刑", "带刑", "合化",
             "合而", "争合", "妒合", "甲己", "乙庚", "丙辛", "丁壬", "戊癸",
             "子丑", "寅亥", "卯戌", "辰酉", "巳申", "午未",
         ),
@@ -937,6 +957,7 @@ def _build_report(matrix: dict[str, Any], coverage: dict[str, Any]) -> str:
         "| Root / support / exposure | hidden-stem membership and exact exposure | `EXACT_HIDDEN_STEM_MATCH`, `SAME_ELEMENT_HIDDEN_SUPPORT` | root/strength grades | independent root semantics issue |",
         "| Temporal layer | Dayun/Annual/Monthly frame identities | neutral frame-change evidence | automatic layer priority | profile-explicit temporal interaction issue |",
         "| Unreleased relation families | none in current registry | none | Harm, Break, partial trine, directional triad, hidden combination | separate registry-governance issues only |",
+        "| Literal `暗合` modifier | ordinary released relation identity where independently explicit | exact source text | meaning of `暗`; no hidden-stem participant inference | source-semantics review only |",
         "",
         "## Missing primitives",
         "",
@@ -953,7 +974,7 @@ def _build_report(matrix: dict[str, Any], coverage: dict[str, Any]) -> str:
             "",
             "## Semantic boundary",
             "",
-            "This audit does not rename neutral runtime facts. In particular, participant degree is not strength; `SHARED_PARTICIPANT` is not competition; `ENTERED` is not activation; `EXITED` is not release or cancellation; and active Flow month never replaces Natal month command.",
+            "This audit does not rename neutral runtime facts. In particular, source-faithful `相穿` is `BRANCH_CHUAN`, not an inferred `BRANCH_HARM`; bare `暗合` retains an unresolved literal source modifier and does not prove hidden-stem participants; participant degree is not strength; `SHARED_PARTICIPANT` is not competition; `ENTERED` is not activation; `EXITED` is not release or cancellation; and active Flow month never replaces Natal month command.",
             "",
             "No canonical source, model-learning, training state, prediction control, relation registry, or existing Natal/Temporal/Flow/Structural/Support/Incidence/Transition semantic contract is changed by this artifact.",
             "",

@@ -600,12 +600,12 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "79b57ffb360a009f87ddf8ec72b2704a806eb28d90530d2fb291bffd45d6460c",
       "relation_families": [
+        "BRANCH_CHUAN",
         "BRANCH_LIUHE",
         "BRANCH_SANHE_COMPLETE",
         "STEM_FIVE_COMBINATION",
         "BRANCH_BREAK",
-        "BRANCH_DIRECTIONAL_TRIAD",
-        "BRANCH_HARM"
+        "BRANCH_DIRECTIONAL_TRIAD"
       ],
       "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
       "runtime_dependency_map": [
@@ -635,11 +635,6 @@
           "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
         },
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
-        },
-        {
           "primitive": "TRANSFORMATION_SUCCESS",
           "rationale": "Nominal transformation metadata does not establish successful transformation.",
           "status": "MISSING_PRIMITIVE"
@@ -648,7 +643,6 @@
       "runtime_gap_tags": [
         "BRANCH_BREAK",
         "BRANCH_DIRECTIONAL_TRIAD",
-        "BRANCH_HARM",
         "PUNISHMENT_INTERACTION_OR_PRECEDENCE",
         "TRANSFORMATION_SUCCESS"
       ],
@@ -6347,9 +6341,7 @@
       "canonical_line_start": 2102,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02102-00e2f13a2594",
       "exact_excerpt": "论十二支相穿",
@@ -6358,19 +6350,22 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "00e2f13a259400b9f031892ea7a95dda85d46cc8ed78e291fa96b8e7de9522c1",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
+      "runtime_gap_tags": [],
       "secondary_statement_classes": [],
       "segment_local_line_end": 441,
       "segment_local_line_start": 441,
@@ -6380,7 +6375,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:TITLE",
       "source_role": "JSON:TITLE",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "DEFINITION_OR_NOMINAL_RELATION"
     },
     {
       "access_segment_id": "S14-0008",
@@ -7149,9 +7144,7 @@
       "canonical_line_start": 2143,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02143-db04cc7cd02f",
       "exact_excerpt": "论十二支相穿渊海子平卷一论十二支相穿子未相穿，",
@@ -7160,19 +7153,22 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "db04cc7cd02fa2fb15e9efe826c56bfbdb8817eeae66b584426b51368ae06f6f",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
+      "runtime_gap_tags": [],
       "secondary_statement_classes": [],
       "segment_local_line_end": 15,
       "segment_local_line_start": 15,
@@ -7182,7 +7178,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:RAW_TEXT",
       "source_role": "SOURCE_LAYER:SOURCE_HEADING",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "DEFINITION_OR_NOMINAL_RELATION"
     },
     {
       "access_segment_id": "S14-0009",
@@ -7196,9 +7192,7 @@
       "canonical_line_start": 2144,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02144-e495da7a93de",
       "exact_excerpt": "丑午相穿，寅巳相穿，卯辰相穿，申亥相穿，酉戌相穿。",
@@ -7207,19 +7201,22 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "e495da7a93de9c957cf0b788afd69baf09b39dab8fc793e2d828e060a8246bd2",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
+      "runtime_gap_tags": [],
       "secondary_statement_classes": [],
       "segment_local_line_end": 16,
       "segment_local_line_start": 16,
@@ -7229,7 +7226,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:RAW_TEXT",
       "source_role": "SOURCE_LAYER:CLASSICAL_ORIGINAL",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "DEFINITION_OR_NOMINAL_RELATION"
     },
     {
       "access_segment_id": "S14-0009",
@@ -7243,9 +7240,7 @@
       "canonical_line_start": 2145,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02145-34ff17217545",
       "exact_excerpt": "眉批：相穿为害，犯此者损六亲，不作困蹇而论。",
@@ -7254,22 +7249,24 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "34ff17217545f0ffbbfa7cf7a5a9d0a962643f4f7cc6cbb26617a7fd9f6a0a1b",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
+      "runtime_gap_tags": [],
       "secondary_statement_classes": [
-        "COMMENTARY_OR_EXPLANATION",
-        "EXCEPTION_OR_LIMIT"
+        "COMMENTARY_OR_EXPLANATION"
       ],
       "segment_local_line_end": 17,
       "segment_local_line_start": 17,
@@ -7279,7 +7276,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:RAW_TEXT",
       "source_role": "SOURCE_LAYER:CLASSICAL_COMMENTARY",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "EXCEPTION_OR_LIMIT"
     },
     {
       "access_segment_id": "S14-0009",
@@ -8665,9 +8662,7 @@
       "canonical_line_start": 2253,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02253-f9a9c3e8e576",
       "exact_excerpt": "丑午相穿，寅巳相穿，卯辰相穿，申亥相穿，酉戌相穿。",
@@ -8676,19 +8671,22 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "f9a9c3e8e57694770734262888f46dde96d5cd6b0a658ef27a391f250a5e20e4",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
+      "runtime_gap_tags": [],
       "secondary_statement_classes": [],
       "segment_local_line_end": 125,
       "segment_local_line_start": 125,
@@ -8698,7 +8696,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:T",
       "source_role": "JSON:T",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "DEFINITION_OR_NOMINAL_RELATION"
     },
     {
       "access_segment_id": "S14-0009",
@@ -8712,9 +8710,7 @@
       "canonical_line_start": 2254,
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
-      "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
-      ],
+      "condition_dependency_tags": [],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L02254-a279d3a4903e",
       "exact_excerpt": "眉批：相穿为害，犯此者损六亲，不作困蹇而论。",
@@ -8723,22 +8719,23 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "a279d3a4903e6901e646763bb29c27c2d58b95cc9c42e3dd2efba503db48715c",
       "relation_families": [
-        "BRANCH_HARM"
+        "BRANCH_CHUAN"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:BRANCH_HARM",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
+          "rationale": "Released Natal and Structural relation occurrences preserve exact relation and participant IDs.",
+          "status": "AVAILABLE_EXACTLY"
+        },
+        {
+          "primitive": "EXACT_STEM_BRANCH_OCCURRENCE_IDS",
+          "rationale": "Occurrence-scoped StemInstance and BranchInstance identities are released.",
+          "status": "AVAILABLE_EXACTLY"
         }
       ],
-      "runtime_gap_tags": [
-        "BRANCH_HARM"
-      ],
-      "secondary_statement_classes": [
-        "EXCEPTION_OR_LIMIT"
-      ],
+      "runtime_gap_tags": [],
+      "secondary_statement_classes": [],
       "segment_local_line_end": 126,
       "segment_local_line_start": 126,
       "source_conflict_id": null,
@@ -8747,7 +8744,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:T",
       "source_role": "JSON:T",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "EXCEPTION_OR_LIMIT"
     },
     {
       "access_segment_id": "S14-0009",
@@ -25458,7 +25455,7 @@
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
       "condition_dependency_tags": [
         "CLASH_OR_RELEASE",
-        "RUNTIME_RELATION_GAP"
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED"
       ],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L04650-9a257e2bb484",
@@ -25468,10 +25465,9 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "9a257e2bb484984b939c63b65fcb8f0b373343504952c8fcf5499d4206e62c4c",
       "relation_families": [
-        "BRANCH_CHONG",
-        "HIDDEN_COMBINATION"
+        "BRANCH_CHONG"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
           "primitive": "EXACT_RAW_RELATION_OCCURRENCES",
@@ -25484,22 +25480,21 @@
           "status": "AVAILABLE_EXACTLY"
         },
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
-        },
-        {
           "primitive": "RELATION_TRANSITION_BEFORE_AFTER",
           "rationale": "PERSISTING/ENTERED/EXITED are exact set changes and are not release or cancellation verdicts.",
           "status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY"
+        },
+        {
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         }
       ],
       "runtime_gap_tags": [
         "CLASH_RELEASE_OR_CANCELLATION_SEMANTICS",
-        "HIDDEN_COMBINATION"
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED"
       ],
       "secondary_statement_classes": [
-        "CLASH_OR_RELEASE_DEPENDENCY",
         "COMMENTARY_OR_EXPLANATION",
         "RESULT_OR_EFFECT_STATEMENT"
       ],
@@ -25511,7 +25506,7 @@
       "source_pairing_role": null,
       "source_record_type": "JSON:RAW_CLAUSE_TEXT",
       "source_role": "CLAUSE_ROLE:INTERPRETATION_CANDIDATE",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "CLASH_OR_RELEASE_DEPENDENCY"
     },
     {
       "access_segment_id": "S14-0025",
@@ -30999,7 +30994,7 @@
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
       "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED"
       ],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L07711-0dbbf75c8b53",
@@ -31009,21 +31004,25 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "0dbbf75c8b53e1000cc80c66f59e7519c9e9bfe7afee1d742c7c70250fa876ed",
       "relation_families": [
-        "HIDDEN_COMBINATION"
+        "CROSS_FAMILY_RELATION_LIFECYCLE"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "CROSS_FAMILY_RELATION_CONTEXT",
+          "rationale": "The passage is relation-lifecycle relevant but does not identify one released exact relation family.",
+          "status": "PARTIALLY_AVAILABLE"
+        },
+        {
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         }
       ],
       "runtime_gap_tags": [
-        "HIDDEN_COMBINATION"
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED"
       ],
       "secondary_statement_classes": [
-        "ELIGIBILITY_CONDITION",
         "RESULT_OR_EFFECT_STATEMENT"
       ],
       "segment_local_line_end": 211,
@@ -31034,7 +31033,7 @@
       "source_pairing_role": null,
       "source_record_type": "TSV:CJK_FIELD",
       "source_role": "TSV:CJK_FIELD",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "ELIGIBILITY_CONDITION"
     },
     {
       "access_segment_id": "S14-0042",
@@ -36973,7 +36972,7 @@
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
       "condition_dependency_tags": [
         "ORDER_OR_PROXIMITY",
-        "RUNTIME_RELATION_GAP"
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED"
       ],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L08023-28ff9c6498cc",
@@ -36983,28 +36982,32 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "28ff9c6498cc9a995135b50d87e03630368d3f0413a1ff16a6753fa9d8ccb112",
       "relation_families": [
-        "HIDDEN_COMBINATION"
+        "CROSS_FAMILY_RELATION_LIFECYCLE"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
+        {
+          "primitive": "CROSS_FAMILY_RELATION_CONTEXT",
+          "rationale": "The passage is relation-lifecycle relevant but does not identify one released exact relation family.",
+          "status": "PARTIALLY_AVAILABLE"
+        },
         {
           "primitive": "PARTICIPANT_POSITION_LINEAGE",
           "rationale": "Occurrence IDs retain pillar/frame positions but no Classical proximity/ordering primitive is released.",
           "status": "PARTIALLY_AVAILABLE"
         },
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         }
       ],
       "runtime_gap_tags": [
         "CLASSICAL_ORDER_OR_PROXIMITY",
-        "HIDDEN_COMBINATION"
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED"
       ],
       "secondary_statement_classes": [
         "ELIGIBILITY_CONDITION",
-        "ORDER_OR_PROXIMITY_DEPENDENCY",
         "RESULT_OR_EFFECT_STATEMENT"
       ],
       "segment_local_line_end": 150,
@@ -37015,7 +37018,7 @@
       "source_pairing_role": null,
       "source_record_type": "TSV:CJK_FIELD",
       "source_role": "TSV:CJK_FIELD",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "ORDER_OR_PROXIMITY_DEPENDENCY"
     },
     {
       "access_segment_id": "S14-0043",
@@ -39087,7 +39090,7 @@
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
       "condition_dependency_tags": [
         "NON_TRANSFORMATION_OR_BINDING",
-        "RUNTIME_RELATION_GAP",
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED",
         "TRANSFORMATION"
       ],
       "conflict_group_ids": [],
@@ -39098,10 +39101,9 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "51881373bd645371ef5b7ec0ab5a3055bfc40ba622eb29d0887d291108ef81b1",
       "relation_families": [
-        "STEM_FIVE_COMBINATION",
-        "HIDDEN_COMBINATION"
+        "STEM_FIVE_COMBINATION"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
           "primitive": "BINDING_OR_NON_TRANSFORMATION_OUTCOME",
@@ -39119,9 +39121,9 @@
           "status": "AVAILABLE_EXACTLY"
         },
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         },
         {
           "primitive": "TRANSFORMATION_SUCCESS",
@@ -39131,13 +39133,12 @@
       ],
       "runtime_gap_tags": [
         "BINDING_OR_NON_TRANSFORMATION_OUTCOME",
-        "HIDDEN_COMBINATION",
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED",
         "TRANSFORMATION_SUCCESS"
       ],
       "secondary_statement_classes": [
         "ELIGIBILITY_CONDITION",
         "EXCEPTION_OR_LIMIT",
-        "NON_TRANSFORMATION_OR_BINDING_CONDITION",
         "RESULT_OR_EFFECT_STATEMENT",
         "TRANSFORMATION_CONDITION"
       ],
@@ -39149,7 +39150,7 @@
       "source_pairing_role": null,
       "source_record_type": "TSV:CJK_FIELD",
       "source_role": "TSV:CJK_FIELD",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "NON_TRANSFORMATION_OR_BINDING_CONDITION"
     },
     {
       "access_segment_id": "S14-0044",
@@ -39579,7 +39580,7 @@
       "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
       "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
       "condition_dependency_tags": [
-        "RUNTIME_RELATION_GAP"
+        "SOURCE_MODIFIER_ANHE_UNRESOLVED"
       ],
       "conflict_group_ids": [],
       "evidence_id": "S14-EV-L08154-0fe149a2bbe0",
@@ -39589,18 +39590,23 @@
       "passage_includes_line_ending": true,
       "passage_sha256": "0fe149a2bbe0b6d94ab8a43e1e3944e3afffafea87968b4b95f94078fa26309d",
       "relation_families": [
-        "HIDDEN_COMBINATION"
+        "CROSS_FAMILY_RELATION_LIFECYCLE"
       ],
-      "review_status": "RUNTIME_RELATION_GAP_DEFERRED",
+      "review_status": "REVIEWED_R1",
       "runtime_dependency_map": [
         {
-          "primitive": "RELATION_REGISTRY:HIDDEN_COMBINATION",
-          "rationale": "The source relation family is recorded for audit only and is not released by the current registry.",
-          "status": "OUTSIDE_CURRENT_RELATION_REGISTRY"
+          "primitive": "CROSS_FAMILY_RELATION_CONTEXT",
+          "rationale": "The passage is relation-lifecycle relevant but does not identify one released exact relation family.",
+          "status": "PARTIALLY_AVAILABLE"
+        },
+        {
+          "primitive": "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+          "rationale": "The literal 暗 modifier is retained for source audit without inferring a hidden-stem participant or HIDDEN_COMBINATION runtime relation.",
+          "status": "SOURCE_SEMANTICS_AMBIGUOUS"
         }
       ],
       "runtime_gap_tags": [
-        "HIDDEN_COMBINATION"
+        "SOURCE_MODIFIER:ANHE_UNRESOLVED"
       ],
       "secondary_statement_classes": [],
       "segment_local_line_end": 51,
@@ -39611,7 +39617,7 @@
       "source_pairing_role": null,
       "source_record_type": "TSV:CJK_FIELD",
       "source_role": "TSV:CJK_FIELD",
-      "statement_class": "RUNTIME_RELATION_GAP"
+      "statement_class": "DEFINITION_OR_NOMINAL_RELATION"
     },
     {
       "access_segment_id": "S14-0044",
@@ -41760,6 +41766,7 @@
       "STEM_FIVE_COMBINATION",
       "BRANCH_LIUHE",
       "BRANCH_CHONG",
+      "BRANCH_CHUAN",
       "BRANCH_SANHE_COMPLETE",
       "BRANCH_ZIMAO_PUNISHMENT",
       "BRANCH_DIRECTIONAL_PUNISHMENT",
@@ -41781,39 +41788,39 @@
     "relation_family_counts": {
       "BRANCH_BREAK": 5,
       "BRANCH_CHONG": 86,
+      "BRANCH_CHUAN": 7,
       "BRANCH_DIRECTIONAL_PUNISHMENT": 21,
       "BRANCH_DIRECTIONAL_TRIAD": 26,
-      "BRANCH_HARM": 13,
+      "BRANCH_HARM": 6,
       "BRANCH_LIUHE": 28,
       "BRANCH_PARTIAL_TRINE": 3,
       "BRANCH_SANHE_COMPLETE": 62,
       "BRANCH_SELF_PUNISHMENT": 9,
       "BRANCH_ZIMAO_PUNISHMENT": 14,
-      "CROSS_FAMILY_RELATION_LIFECYCLE": 354,
-      "HIDDEN_COMBINATION": 5,
+      "CROSS_FAMILY_RELATION_LIFECYCLE": 357,
       "OTHER_UNRELEASED_RELATION": 8,
       "STEM_FIVE_COMBINATION": 215
     },
     "review_status_counts": {
       "CONFLICT_REQUIRES_REVIEW": 5,
-      "REVIEWED_R1": 716,
-      "RUNTIME_RELATION_GAP_DEFERRED": 53,
+      "REVIEWED_R1": 727,
+      "RUNTIME_RELATION_GAP_DEFERRED": 42,
       "SOURCE_SEMANTICS_AMBIGUOUS": 1
     },
     "runtime_gap_tag_counts": {
       "BINDING_OR_NON_TRANSFORMATION_OUTCOME": 91,
       "BRANCH_BREAK": 5,
       "BRANCH_DIRECTIONAL_TRIAD": 26,
-      "BRANCH_HARM": 13,
+      "BRANCH_HARM": 6,
       "BRANCH_PARTIAL_TRINE": 3,
       "CLASH_RELEASE_OR_CANCELLATION_SEMANTICS": 30,
       "CLASSICAL_COMPETITION_SEMANTICS": 22,
       "CLASSICAL_ORDER_OR_PROXIMITY": 17,
       "COEXISTING_RELATION_PRECEDENCE": 33,
-      "HIDDEN_COMBINATION": 5,
       "OTHER_UNRELEASED_RELATION": 8,
       "PUNISHMENT_INTERACTION_OR_PRECEDENCE": 195,
       "ROOT_OR_SUPPORT_GRADE": 13,
+      "SOURCE_MODIFIER:ANHE_UNRESOLVED": 5,
       "STRENGTH_OR_WANGSHUAI_GRADE": 21,
       "TEMPORAL_LAYER_PRIORITY_SEMANTICS": 11,
       "TRANSFORMATION_SUCCESS": 82
@@ -41821,22 +41828,22 @@
     "source_conflict_group_count": 2,
     "statement_class_counts": {
       "AMBIGUOUS": 1,
-      "CLASH_OR_RELEASE_DEPENDENCY": 25,
+      "CLASH_OR_RELEASE_DEPENDENCY": 26,
       "COEXISTING_RELATION_DEPENDENCY": 24,
       "COMMENTARY_OR_EXPLANATION": 73,
       "CONTRADICTORY_OR_ALTERNATIVE_STATEMENT": 5,
-      "DEFINITION_OR_NOMINAL_RELATION": 86,
-      "ELIGIBILITY_CONDITION": 58,
+      "DEFINITION_OR_NOMINAL_RELATION": 91,
+      "ELIGIBILITY_CONDITION": 59,
       "EXAMPLE_ONLY": 19,
-      "EXCEPTION_OR_LIMIT": 35,
+      "EXCEPTION_OR_LIMIT": 37,
       "EXPOSURE_OR_HIDDEN_STEM_DEPENDENCY": 12,
       "MULTIPLICITY_OR_COMPETITION": 15,
-      "NON_TRANSFORMATION_OR_BINDING_CONDITION": 88,
-      "ORDER_OR_PROXIMITY_DEPENDENCY": 7,
+      "NON_TRANSFORMATION_OR_BINDING_CONDITION": 89,
+      "ORDER_OR_PROXIMITY_DEPENDENCY": 8,
       "PUNISHMENT_DEPENDENCY": 113,
       "RESULT_OR_EFFECT_STATEMENT": 60,
       "ROOT_OR_SUPPORT_DEPENDENCY": 7,
-      "RUNTIME_RELATION_GAP": 53,
+      "RUNTIME_RELATION_GAP": 42,
       "SEASONAL_OR_MONTH_COMMAND_DEPENDENCY": 21,
       "TEMPORAL_CONTEXT_HINT": 1,
       "TRANSFORMATION_CONDITION": 72

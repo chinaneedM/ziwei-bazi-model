@@ -6,7 +6,7 @@ Status: static source-to-released-neutral-runtime evidence binding only.
 
 - Current `STEM_FIVE_COMBINATION` evidence records: `215`
 - Coverage: exactly once by source evidence ID.
-- Source-semantics ambiguous records: `25`
+- Source-semantics ambiguous records: `26`
 - Records with no neutral predicate binding: `73`
 - Relevant conflict groups: `0`
 - Relevant alternative profile labels: `0`
@@ -23,11 +23,11 @@ Status: static source-to-released-neutral-runtime evidence binding only.
 | `EXCEPTION_OR_LIMIT` | 13 |
 | `EXPOSURE_OR_HIDDEN_STEM_DEPENDENCY` | 3 |
 | `MULTIPLICITY_OR_COMPETITION` | 2 |
-| `NON_TRANSFORMATION_OR_BINDING_CONDITION` | 59 |
+| `NON_TRANSFORMATION_OR_BINDING_CONDITION` | 60 |
 | `ORDER_OR_PROXIMITY_DEPENDENCY` | 1 |
 | `RESULT_OR_EFFECT_STATEMENT` | 17 |
 | `ROOT_OR_SUPPORT_DEPENDENCY` | 2 |
-| `RUNTIME_RELATION_GAP` | 5 |
+| `RUNTIME_RELATION_GAP` | 4 |
 | `SEASONAL_OR_MONTH_COMMAND_DEPENDENCY` | 7 |
 | `TRANSFORMATION_CONDITION` | 50 |
 
@@ -70,16 +70,16 @@ Status: static source-to-released-neutral-runtime evidence binding only.
 | `BINDING_OR_NON_TRANSFORMATION_OUTCOME` | 60 |
 | `BRANCH_BREAK` | 1 |
 | `BRANCH_DIRECTIONAL_TRIAD` | 3 |
-| `BRANCH_HARM` | 3 |
+| `BRANCH_HARM` | 2 |
 | `CLASH_RELEASE_OR_CANCELLATION_SEMANTICS` | 1 |
 | `CLASSICAL_COMPETITION_SEMANTICS` | 6 |
 | `CLASSICAL_ORDER_OR_PROXIMITY` | 4 |
 | `COEXISTING_RELATION_PRECEDENCE` | 1 |
-| `HIDDEN_COMBINATION` | 1 |
 | `PUNISHMENT_INTERACTION_OR_PRECEDENCE` | 10 |
 | `ROOT_OR_SUPPORT_GRADE` | 3 |
 | `SEASONAL_ROLE_SELECTION` | 4 |
 | `SOURCE_CONDITION_SEMANTICS` | 21 |
+| `SOURCE_MODIFIER:ANHE_UNRESOLVED` | 1 |
 | `STRENGTH_OR_WANGSHUAI_GRADE` | 4 |
 | `TEMPORAL_LAYER_PRIORITY_SEMANTICS` | 1 |
 | `TRANSFORMATION_SUCCESS` | 56 |
@@ -112,6 +112,7 @@ Status: static source-to-released-neutral-runtime evidence binding only.
 - `S14-EV-L08102-fdfc1b000e80`
 - `S14-EV-L08134-eef1edba1082`
 - `S14-EV-L08136-ffdf2f303ae8`
+- `S14-EV-L08142-51881373bd64`
 - `S14-EV-L08143-986699aa6075`
 - `S14-EV-L08172-bcad8a4bf4a3`
 - `S14-EV-L08181-696db4ff0c73`
@@ -127,6 +128,6 @@ No per-chart Five-Combination condition evaluator or Classical relation outcome 
 
 ## Determinism
 
-- Records semantics SHA-256: `72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583`
+- Records semantics SHA-256: `59ce0b99328c4025f3c51742f78017600d0a2c044bf80ecab6370c4f6488cfa5`
 - Closed registry SHA-256: `5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92`
-- Catalog semantics SHA-256: `ea072777690a0e38fc610ba27060d8685625220f6ffd0912155bb075c92f15ac`
+- Catalog semantics SHA-256: `38e59cb06be242e3b537d390417c3a7f3dce23655c30f6b0bfb809138587cbd2`

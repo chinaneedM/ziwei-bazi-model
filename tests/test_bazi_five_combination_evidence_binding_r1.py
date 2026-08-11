@@ -57,8 +57,14 @@ CHUAN_CHANGED_RUNTIME_CONTRACTS = {
     "schemas/bazi-relation-transition-foundation-r1.schema.json",
     "schemas/bazi-relation-incidence-foundation-r1.schema.json",
 }
-FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256 = (
+PRE_TAXONOMY_FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256 = (
     "72f1d181ffa0a2bf3d54498e188faf4fcf6ebe1c5a0b0aab7d85e661553b6583"
+)
+FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256 = (
+    "59ce0b99328c4025f3c51742f78017600d0a2c044bf80ecab6370c4f6488cfa5"
+)
+FIVE_COMBINATION_SOURCE_INVENTORY_SHA256 = (
+    "5582a6bbeffc0ddb37531214bca8b3a1ea8c539709f7d0731990c3a453407005"
 )
 FIVE_COMBINATION_CLOSED_REGISTRY_SHA256 = (
     "5e76af616f855c1e2fd3c59c12e5d329ee806875b5e64fb6cfb1cc8039d24a92"
@@ -91,6 +97,31 @@ class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
         self.assertEqual(len(evidence_ids), EXPECTED_EVIDENCE_COUNT)
         self.assertEqual(len(set(evidence_ids)), EXPECTED_EVIDENCE_COUNT)
         self.assertEqual(set(evidence_ids), set(self.source_records))
+
+        locator_fields = (
+            "evidence_id",
+            "source_id",
+            "canonical_source_path",
+            "canonical_source_sha256",
+            "access_segment_id",
+            "access_segment_path",
+            "access_segment_sha256",
+            "canonical_line_start",
+            "canonical_line_end",
+            "segment_local_line_start",
+            "segment_local_line_end",
+            "canonical_byte_start",
+            "canonical_byte_end_exclusive",
+            "passage_sha256",
+        )
+        inventory = [
+            {field: self.source_records[evidence_id][field] for field in locator_fields}
+            for evidence_id in sorted(self.source_records)
+        ]
+        self.assertEqual(
+            FIVE_COMBINATION_SOURCE_INVENTORY_SHA256,
+            object_sha256(inventory),
+        )
 
     def test_source_locator_segment_and_passage_metadata_is_preserved(self):
         fields = (
@@ -273,6 +304,43 @@ class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
             "TRANSFORMATION_SUCCESS", binding["unresolved_runtime_primitives"]
         )
 
+    def test_taxonomy_correction_counts_and_exact_records(self):
+        counts = self.catalog["summary"]["missing_primitive_counts"]
+        self.assertEqual(0, counts.get("HIDDEN_COMBINATION", 0))
+        self.assertEqual(2, counts["BRANCH_HARM"])
+        self.assertEqual(1, counts["BRANCH_BREAK"])
+        self.assertEqual(3, counts["BRANCH_DIRECTIONAL_TRIAD"])
+
+        by_id = {
+            record["source_evidence_id"]: record
+            for record in self.catalog["records"]
+        }
+        chuan = by_id["S14-EV-L00185-79b57ffb360a"]
+        self.assertNotIn("BRANCH_HARM", chuan["unresolved_runtime_primitives"])
+
+        anhe = by_id["S14-EV-L08142-51881373bd64"]
+        self.assertIn(
+            "SOURCE_MODIFIER:ANHE_UNRESOLVED",
+            anhe["unresolved_runtime_primitives"],
+        )
+        self.assertTrue(anhe["source_semantics_ambiguous"])
+        self.assertEqual("PARTIAL_BINDING", anhe["binding_disposition"])
+        self.assertFalse(
+            any(
+                predicate["predicate_kind"]
+                in {"EXACT_HIDDEN_STEM_MATCH_REFERENCE", "EXPOSURE_LINK_REFERENCE"}
+                for predicate in anhe["neutral_predicate_bindings"]
+            )
+        )
+
+        for evidence_id in (
+            "S14-EV-L04220-a467ea005e84",
+            "S14-EV-L15422-b529f26d6cdb",
+        ):
+            self.assertIn(
+                "BRANCH_HARM", by_id[evidence_id]["unresolved_runtime_primitives"]
+            )
+
     def test_nominal_element_identity_has_no_unreviewed_exact_binding(self):
         source_primitives = {
             dependency["primitive"]
@@ -372,6 +440,10 @@ class FiveCombinationEvidenceBindingReleaseTests(unittest.TestCase):
             self.assertEqual(sha256_file(PROJECT_ROOT / path), sha256)
 
         self.assertEqual(EXPECTED_EVIDENCE_COUNT, len(self.catalog["records"]))
+        self.assertNotEqual(
+            PRE_TAXONOMY_FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256,
+            self.catalog["determinism"]["records_semantics_sha256"],
+        )
         self.assertEqual(
             FIVE_COMBINATION_RECORDS_SEMANTICS_SHA256,
             self.catalog["determinism"]["records_semantics_sha256"],
