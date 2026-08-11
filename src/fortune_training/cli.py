@@ -27,6 +27,10 @@ from .bazi_structured_source_interaction_pattern_graph import (
     validate_structured_source_interaction_pattern_graph,
     write_structured_source_interaction_pattern_graph,
 )
+from .bazi_chart_source_pattern_binding.release import (
+    validate_bindability_plan_artifact,
+    write_bindability_plan_artifact,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -134,6 +138,14 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "structured-source-interaction-pattern-graph-validate",
         help="replay and validate the static source-level interaction pattern graph",
+    )
+    subparsers.add_parser(
+        "chart-source-pattern-binding-plan-build",
+        help="build the chart-specific exact source-pattern bindability plan",
+    )
+    subparsers.add_parser(
+        "chart-source-pattern-binding-plan-validate",
+        help="replay and validate the chart-specific exact source-pattern bindability plan",
     )
     subparsers.add_parser(
         "maintenance-status",
@@ -311,6 +323,10 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(write_structured_source_interaction_pattern_graph(root))
         elif args.command == "structured-source-interaction-pattern-graph-validate":
             _print_json(validate_structured_source_interaction_pattern_graph(root))
+        elif args.command == "chart-source-pattern-binding-plan-build":
+            _print_json(write_bindability_plan_artifact(root))
+        elif args.command == "chart-source-pattern-binding-plan-validate":
+            _print_json(validate_bindability_plan_artifact(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(

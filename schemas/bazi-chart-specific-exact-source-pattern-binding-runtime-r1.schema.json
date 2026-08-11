@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bazi-chart-specific-exact-source-pattern-binding-runtime-r1.schema.json",
+  "title": "Bazi Chart-Specific Exact Source Pattern Binding Runtime R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "typed_schema", "status", "binding_profile", "bindability_plan", "candidates", "events", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-CANDIDATES-RESULT-R1"},
+    "typed_schema": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-TYPED-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "binding_profile": {"$ref": "#/$defs/profile"},
+    "bindability_plan": {"type": "array", "items": {"$ref": "#/$defs/planRow"}},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/outerCandidate"}},
+    "events": {"$ref": "#/$defs/stringArray"},
+    "diagnostics": {"$ref": "#/$defs/stringArray"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stringArray": {"type": "array", "items": {"type": "string"}},
+    "integerArray": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+    "nullableStringArray": {"type": "array", "items": {"type": ["string", "null"]}},
+    "profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "algorithm_id", "algorithm_version", "bindability_rule_set_id", "bindability_rule_set_version", "lineage_rule_set_id", "lineage_rule_set_version", "exchangeability_algorithm_id", "exchangeability_algorithm_version", "graph_artifact_semantics_sha256", "graph_record_hash_chain_sha256"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-CANDIDATES-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-CHART-SOURCE-PATTERN-EXACT-BINDING-ENUMERATOR-R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "bindability_rule_set_id": {"const": "BAZI-SOURCE-GRAPH-BINDABILITY-PLAN-R1"},
+        "bindability_rule_set_version": {"const": "1.0.0"},
+        "lineage_rule_set_id": {"const": "BAZI-SOURCE-PATTERN-BINDING-LINEAGE-R1"},
+        "lineage_rule_set_version": {"const": "1.0.0"},
+        "exchangeability_algorithm_id": {"const": "BAZI-SOURCE-SLOT-EXCHANGEABILITY-CANONICALIZATION-R1"},
+        "exchangeability_algorithm_version": {"const": "1.0.0"},
+        "graph_artifact_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "graph_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "planRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["graph_record_id", "source_occurrence_id", "graph_record_sha256", "bindability_class", "exact_relation_pattern_node_ids", "exact_position_constraint_ids", "unresolved_structural_constraint_ids", "structural_reason_ids"],
+      "properties": {
+        "graph_record_id": {"type": "string"}, "source_occurrence_id": {"type": "string"},
+        "graph_record_sha256": {"$ref": "#/$defs/sha256"},
+        "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
+        "exact_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "exact_position_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "structural_reason_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "participantBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["participant_pattern_node_ids", "participant_kind", "literal_value", "runtime_instance_ids", "position_reference_ids", "participant_layers", "source_frame_ids", "raw_position_tokens", "source_evidence_mode"],
+      "properties": {
+        "participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "participant_kind": {"enum": ["BRANCH_LITERAL_PATTERN", "STEM_LITERAL_PATTERN", "DAY_MASTER_STEM_PATTERN"]},
+        "literal_value": {"type": "string"}, "runtime_instance_ids": {"$ref": "#/$defs/stringArray"}, "position_reference_ids": {"$ref": "#/$defs/stringArray"},
+        "participant_layers": {"$ref": "#/$defs/stringArray"}, "source_frame_ids": {"$ref": "#/$defs/nullableStringArray"}, "raw_position_tokens": {"$ref": "#/$defs/stringArray"},
+        "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED"]}
+      }
+    },
+    "relationBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["relation_pattern_node_id", "source_relation_reference_id", "source_relation_id", "source_semantic_relation_id", "positional_fact_id", "source_relation_type", "source_relation_family", "source_orientation", "source_arity", "source_participant_pattern_path", "runtime_participant_instance_ids", "participant_position_reference_ids", "source_evidence_mode"],
+      "properties": {
+        "relation_pattern_node_id": {"type": "string"}, "source_relation_reference_id": {"type": "string"}, "source_relation_id": {"type": "string"}, "source_semantic_relation_id": {"type": "string"}, "positional_fact_id": {"type": "string"},
+        "source_relation_type": {"type": "string"}, "source_relation_family": {"type": "string"}, "source_orientation": {"enum": ["DIRECTED", "SYMMETRIC", "GROUP", "SELF"]}, "source_arity": {"enum": [2, 3]},
+        "source_participant_pattern_path": {"$ref": "#/$defs/stringArray"}, "runtime_participant_instance_ids": {"$ref": "#/$defs/stringArray"}, "participant_position_reference_ids": {"$ref": "#/$defs/stringArray"},
+        "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED"]}
+      }
+    },
+    "positionBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["position_constraint_id", "constraint_status", "evidence_mode", "natal_pillar", "participant_pattern_node_ids", "runtime_instance_ids", "position_reference_ids", "raw_position_tokens", "replay_status"],
+      "properties": {
+        "position_constraint_id": {"type": "string"}, "constraint_status": {"enum": ["EXACT_SYMBOLIC_PARTICIPANT_PILLAR_CONSTRAINT", "SOURCE_PILLAR_CONTEXT_ONLY", "UNRESOLVED_SOURCE_TIME_CONTEXT"]},
+        "evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED", "SOURCE_POSITION_CONTEXT_UNRESOLVED"]}, "natal_pillar": {"type": ["string", "null"]},
+        "participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "runtime_instance_ids": {"$ref": "#/$defs/stringArray"}, "position_reference_ids": {"$ref": "#/$defs/stringArray"}, "raw_position_tokens": {"$ref": "#/$defs/stringArray"},
+        "replay_status": {"enum": ["EXACT_COORDINATE_EQUALITY_REPLAYED", "SOURCE_POSITION_CONTEXT_UNRESOLVED"]}
+      }
+    },
+    "multiplicityBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "alternative_path_requirement"],
+      "properties": {
+        "multiplicity_constraint_id": {"type": "string"}, "exchangeable_symbolic_slot_node_ids": {"$ref": "#/$defs/stringArray"}, "exact_runtime_instance_ids": {"$ref": "#/$defs/stringArray"},
+        "required_symbolic_cardinality": {"type": "integer", "minimum": 2}, "slot_equivalence": {"const": "EXCHANGEABLE_SOURCE_EQUIVALENT"}, "alternative_path_requirement": {"const": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"}
+      }
+    },
+    "assignmentCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding_candidate_id", "normalized_assignment_signature", "graph_record_id", "source_occurrence_id", "relation_bindings", "participant_bindings", "position_constraint_bindings", "multiplicity_bindings", "residual_unresolved_structural_constraint_ids", "source_interaction_claim_edge_ids", "source_interaction_chain_pattern_ids"],
+      "properties": {
+        "binding_candidate_id": {"type": "string"}, "normalized_assignment_signature": {"$ref": "#/$defs/sha256"}, "graph_record_id": {"type": "string"}, "source_occurrence_id": {"type": "string"},
+        "relation_bindings": {"type": "array", "items": {"$ref": "#/$defs/relationBinding"}}, "participant_bindings": {"type": "array", "items": {"$ref": "#/$defs/participantBinding"}},
+        "position_constraint_bindings": {"type": "array", "items": {"$ref": "#/$defs/positionBinding"}}, "multiplicity_bindings": {"type": "array", "items": {"$ref": "#/$defs/multiplicityBinding"}},
+        "residual_unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"}, "source_interaction_claim_edge_ids": {"$ref": "#/$defs/stringArray"}, "source_interaction_chain_pattern_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "inventory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["graph_record_id", "source_occurrence_id", "bindability_class", "inventory_status", "structural_reason_ids", "unresolved_structural_constraint_ids", "binding_candidates"],
+      "properties": {
+        "graph_record_id": {"type": "string"}, "source_occurrence_id": {"type": "string"}, "bindability_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION", "NOT_R1_EXACT_BINDABLE"]},
+        "inventory_status": {"enum": ["EXACT_BINDING_CANDIDATES_PRESENT", "PARTIAL_EXACT_BINDING_CANDIDATES_PRESENT", "NO_COMPATIBLE_EXACT_BINDING_ASSIGNMENT", "NO_COMPATIBLE_PARTIAL_EXACT_BINDING_ASSIGNMENT", "SOURCE_GRAPH_NOT_R1_EXACT_BINDABLE"]},
+        "structural_reason_ids": {"$ref": "#/$defs/stringArray"}, "unresolved_structural_constraint_ids": {"$ref": "#/$defs/stringArray"}, "binding_candidates": {"type": "array", "items": {"$ref": "#/$defs/assignmentCandidate"}}
+      }
+    },
+    "snapshot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["snapshot_id", "snapshot_fact_hash", "target_utc", "source_graph_artifact_semantics_sha256", "source_graph_record_hash_chain_sha256", "source_natal_fact_hash", "source_natal_computation_hash", "source_incidence_snapshot_id", "source_incidence_snapshot_fact_hash", "source_incidence_fact_hash", "source_incidence_computation_hash", "source_branch_positional_snapshot_id", "source_branch_positional_fact_hash", "source_branch_positional_computation_hash", "source_stem_positional_snapshot_id", "source_stem_positional_fact_hash", "source_stem_positional_computation_hash", "profile_id", "profile_version", "rule_set_id", "rule_set_version"],
+      "properties": {
+        "snapshot_id": {"type": "string"}, "snapshot_fact_hash": {"$ref": "#/$defs/sha256"}, "target_utc": {"type": "string", "format": "date-time"},
+        "source_graph_artifact_semantics_sha256": {"$ref": "#/$defs/sha256"}, "source_graph_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"},
+        "source_natal_fact_hash": {"$ref": "#/$defs/sha256"}, "source_natal_computation_hash": {"$ref": "#/$defs/sha256"},
+        "source_incidence_snapshot_id": {"type": "string"}, "source_incidence_snapshot_fact_hash": {"$ref": "#/$defs/sha256"}, "source_incidence_fact_hash": {"$ref": "#/$defs/sha256"}, "source_incidence_computation_hash": {"$ref": "#/$defs/sha256"},
+        "source_branch_positional_snapshot_id": {"type": "string"}, "source_branch_positional_fact_hash": {"$ref": "#/$defs/sha256"}, "source_branch_positional_computation_hash": {"$ref": "#/$defs/sha256"},
+        "source_stem_positional_snapshot_id": {"type": "string"}, "source_stem_positional_fact_hash": {"$ref": "#/$defs/sha256"}, "source_stem_positional_computation_hash": {"$ref": "#/$defs/sha256"},
+        "profile_id": {"type": "string"}, "profile_version": {"type": "string"}, "rule_set_id": {"type": "string"}, "rule_set_version": {"type": "string"}
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]}, "diagnostics": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["code", "path", "detail"], "properties": {"code": {"type": "string"}, "path": {"type": "string"}, "detail": {"type": "string"}}}},
+        "algorithm_id": {"const": "BAZI-CHART-SOURCE-PATTERN-BINDING-INTEGRITY-R1"}, "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {"fact_hash": {"$ref": "#/$defs/sha256"}, "computation_hash": {"$ref": "#/$defs/sha256"}, "algorithm_id": {"const": "BAZI-CHART-SOURCE-PATTERN-BINDING-HASH-R1"}, "algorithm_version": {"const": "1.0.0"}}
+    },
+    "algorithmVersions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding", "bindability", "lineage", "exchangeability"],
+      "properties": {"binding": {"type": "string"}, "bindability": {"type": "string"}, "lineage": {"type": "string"}, "exchangeability": {"type": "string"}}
+    },
+    "outerCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_incidence_candidate_indices", "source_branch_positional_candidate_index", "source_stem_positional_candidate_index", "source_flow_candidate_indices", "source_structural_candidate_indices", "source_support_candidate_indices", "source_temporal_candidate_indices", "source_temporal_seed_ids", "source_incidence_lineage_binding_keys", "lineage_binding_keys", "snapshot", "graph_binding_inventory", "algorithm_versions", "integrity", "hashes"],
+      "properties": {
+        "source_incidence_candidate_indices": {"$ref": "#/$defs/integerArray"}, "source_branch_positional_candidate_index": {"type": "integer", "minimum": 0}, "source_stem_positional_candidate_index": {"type": "integer", "minimum": 0},
+        "source_flow_candidate_indices": {"$ref": "#/$defs/integerArray"}, "source_structural_candidate_indices": {"$ref": "#/$defs/integerArray"}, "source_support_candidate_indices": {"$ref": "#/$defs/integerArray"}, "source_temporal_candidate_indices": {"$ref": "#/$defs/integerArray"},
+        "source_temporal_seed_ids": {"$ref": "#/$defs/stringArray"}, "source_incidence_lineage_binding_keys": {"$ref": "#/$defs/stringArray"}, "lineage_binding_keys": {"$ref": "#/$defs/stringArray"},
+        "snapshot": {"$ref": "#/$defs/snapshot"}, "graph_binding_inventory": {"type": "array", "minItems": 24, "maxItems": 24, "items": {"$ref": "#/$defs/inventory"}},
+        "algorithm_versions": {"$ref": "#/$defs/algorithmVersions"}, "integrity": {"$ref": "#/$defs/integrity"}, "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  }
+}
