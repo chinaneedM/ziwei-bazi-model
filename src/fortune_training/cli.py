@@ -19,6 +19,10 @@ from .bazi_five_combination_evidence_binding import (
     validate_five_combination_evidence_bindings,
     write_five_combination_evidence_bindings,
 )
+from .bazi_classical_relation_interaction_assertion import (
+    validate_classical_relation_interaction_assertion_matrix,
+    write_classical_relation_interaction_assertion_matrix,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -110,6 +114,14 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "five-combination-evidence-binding-validate",
         help="replay and validate the S14 Five-Combination neutral-runtime binding catalog",
+    )
+    subparsers.add_parser(
+        "classical-relation-interaction-assertion-build",
+        help="build the exact-source Classical relation interaction assertion matrix",
+    )
+    subparsers.add_parser(
+        "classical-relation-interaction-assertion-validate",
+        help="replay and validate the Classical relation interaction assertion matrix",
     )
     subparsers.add_parser(
         "maintenance-status",
@@ -279,6 +291,10 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(write_five_combination_evidence_bindings(root))
         elif args.command == "five-combination-evidence-binding-validate":
             _print_json(validate_five_combination_evidence_bindings(root))
+        elif args.command == "classical-relation-interaction-assertion-build":
+            _print_json(write_classical_relation_interaction_assertion_matrix(root))
+        elif args.command == "classical-relation-interaction-assertion-validate":
+            _print_json(validate_classical_relation_interaction_assertion_matrix(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(

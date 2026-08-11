@@ -1,0 +1,432 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/bazi-classical-relation-interaction-assertion-matrix-r1.schema.json",
+  "title": "Bazi Classical Relation Interaction Assertion Matrix R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "audit_id",
+    "authority",
+    "scope",
+    "method",
+    "mandatory_source_universe",
+    "closed_vocabularies",
+    "neutral_runtime_dependency_registry",
+    "records",
+    "summary",
+    "determinism"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-RELATION-INTERACTION-ASSERTION-MATRIX-R1"},
+    "audit_id": {"const": "BAZI-CLASSICAL-RELATION-INTERACTION-ASSERTION-MATRIX-R1"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "scope": {"$ref": "#/$defs/scope"},
+    "method": {"$ref": "#/$defs/method"},
+    "mandatory_source_universe": {"$ref": "#/$defs/sourceUniverse"},
+    "closed_vocabularies": {"$ref": "#/$defs/closedVocabularies"},
+    "neutral_runtime_dependency_registry": {"$ref": "#/$defs/dependencyRegistry"},
+    "records": {
+      "type": "array",
+      "minItems": 24,
+      "maxItems": 24,
+      "items": {"$ref": "#/$defs/assertionRecord"}
+    },
+    "summary": {"$ref": "#/$defs/summary"},
+    "determinism": {"$ref": "#/$defs/determinism"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "assertionClass": {
+      "enum": [
+        "RESOLUTION_ASSERTION",
+        "REVERSAL_OR_REAPPEARANCE_ASSERTION",
+        "RESOLUTION_FAILURE_ASSERTION",
+        "ATTENUATION_ASSERTION",
+        "PARTICIPANT_ALLOCATION_ASSERTION",
+        "PARTICIPANT_MEDIATED_RELEASE_ASSERTION"
+      ]
+    },
+    "sourceAssertionRole": {
+      "enum": [
+        "CONTEXTUAL_QUESTION",
+        "GENERAL_SOURCE_ASSERTION",
+        "EXEMPLIFYING_SOURCE_ASSERTION",
+        "SUMMARY_SOURCE_ASSERTION"
+      ]
+    },
+    "actorReferenceKind": {
+      "enum": [
+        "RELATION_PATTERN_ACTOR",
+        "PARTICIPANT_OR_CONTEXT_ACTOR",
+        "UNRESOLVED_ACTOR"
+      ]
+    },
+    "targetReferenceKind": {
+      "enum": [
+        "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+        "UNRESOLVED_TARGET"
+      ]
+    },
+    "neutralPrimitive": {
+      "enum": [
+        "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+        "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+        "RELATION_INCIDENCE_DEGREE",
+        "RELATION_PAIR_TOPOLOGY",
+        "EXACT_TEMPORAL_LAYER_FRAME",
+        "RELATION_TRANSITION_SET_CHANGE"
+      ]
+    },
+    "unresolvedRequirement": {
+      "enum": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+        "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+        "CLASSICAL_ATTENUATION_GRADE",
+        "CLASSICAL_PARTICIPANT_ALLOCATION",
+        "CLASSICAL_PARTICIPANT_MEDIATED_RELEASE_SEMANTICS",
+        "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING",
+        "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "canonical_source_path",
+        "canonical_source_bytes",
+        "canonical_source_sha256",
+        "source_access_index_path",
+        "source_access_index_sha256",
+        "canonical_source_is_sole_authority",
+        "derived_access_is_read_only_lossless_view",
+        "prediction_source_selection_allowed"
+      ],
+      "properties": {
+        "source_id": {"const": "S14"},
+        "canonical_source_path": {"const": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt"},
+        "canonical_source_bytes": {"const": 3354845},
+        "canonical_source_sha256": {"const": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407"},
+        "source_access_index_path": {"const": "sources/derived-access/S14/index.json"},
+        "source_access_index_sha256": {"$ref": "#/$defs/sha256"},
+        "canonical_source_is_sole_authority": {"const": true},
+        "derived_access_is_read_only_lossless_view": {"const": true},
+        "prediction_source_selection_allowed": {"const": false}
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_role",
+        "chart_specific_runtime_verdicts_released",
+        "classical_operability_evaluator_released",
+        "graph_or_fixpoint_resolver_released",
+        "global_relation_precedence_released",
+        "winner_selection_released",
+        "participant_auto_allocation_released",
+        "raw_relation_mutation_released",
+        "activation_suppression_or_cancellation_runtime_released",
+        "three_meeting_or_six_break_runtime_tables_released",
+        "hidden_combination_or_hidden_stem_relation_ontology_released",
+        "five_combination_outcome_semantics_released"
+      ],
+      "properties": {
+        "artifact_role": {"const": "STATIC_SOURCE_INTERACTION_ASSERTION_EVIDENCE_ONLY"},
+        "chart_specific_runtime_verdicts_released": {"const": false},
+        "classical_operability_evaluator_released": {"const": false},
+        "graph_or_fixpoint_resolver_released": {"const": false},
+        "global_relation_precedence_released": {"const": false},
+        "winner_selection_released": {"const": false},
+        "participant_auto_allocation_released": {"const": false},
+        "raw_relation_mutation_released": {"const": false},
+        "activation_suppression_or_cancellation_runtime_released": {"const": false},
+        "three_meeting_or_six_break_runtime_tables_released": {"const": false},
+        "hidden_combination_or_hidden_stem_relation_ontology_released": {"const": false},
+        "five_combination_outcome_semantics_released": {"const": false}
+      }
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm_id",
+        "algorithm_version",
+        "source_selection",
+        "source_row_selection",
+        "qtbj_extension_review",
+        "keyword_to_runtime_ontology_compilation_used",
+        "record_order",
+        "multi_assertion_representation"
+      ],
+      "properties": {
+        "algorithm_id": {"const": "S14_EXACT_SOURCE_ID_INTERACTION_ASSERTION_NORMALIZATION_R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "source_selection": {"const": "CLOSED_EXACT_SOURCE_OCCURRENCE_ID_UNIVERSE"},
+        "source_row_selection": {"const": "AUTHORITATIVE_CLAUSE_ROW_WITH_EXACT_SOURCE_TEXT"},
+        "qtbj_extension_review": {"const": "QTBJ_SOURCE_CLAUSE_ID_PLUS_EXACT_LEXEME_JIEHE_ONLY"},
+        "keyword_to_runtime_ontology_compilation_used": {"const": false},
+        "record_order": {"const": "MANDATORY_SOURCE_UNIVERSE_ORDER"},
+        "multi_assertion_representation": {"const": "PRIMARY_PLUS_SORTED_SECONDARY"}
+      }
+    },
+    "sourceUniverse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shen_chapter_id",
+        "shen_chapter_title",
+        "shen_block_counts",
+        "shen_source_occurrence_ids",
+        "qtbj_explicit_release_source_occurrence_ids"
+      ],
+      "properties": {
+        "shen_chapter_id": {"const": "ZPZQ-CH-09"},
+        "shen_chapter_title": {"const": "论刑冲会合解法"},
+        "shen_block_counts": {
+          "const": {
+            "ZPZQ-B-09-003": 11,
+            "ZPZQ-B-09-005": 2,
+            "ZPZQ-B-09-007": 4,
+            "ZPZQ-B-09-009": 5
+          }
+        },
+        "shen_source_occurrence_ids": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 22,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^ZPZQ-CL-09-(003|005|007|009)-[0-9]{3}$"}
+        },
+        "qtbj_explicit_release_source_occurrence_ids": {
+          "const": ["QTBJ-CL-05347", "QTBJ-CL-05370"]
+        }
+      }
+    },
+    "closedVocabularies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_classes",
+        "source_assertion_roles",
+        "actor_reference_kinds",
+        "target_reference_kinds",
+        "multiplicity_signals",
+        "alternative_path_signals",
+        "neutral_runtime_primitives",
+        "unresolved_semantic_requirements"
+      ],
+      "properties": {
+        "assertion_classes": {"const": ["RESOLUTION_ASSERTION", "REVERSAL_OR_REAPPEARANCE_ASSERTION", "RESOLUTION_FAILURE_ASSERTION", "ATTENUATION_ASSERTION", "PARTICIPANT_ALLOCATION_ASSERTION", "PARTICIPANT_MEDIATED_RELEASE_ASSERTION"]},
+        "source_assertion_roles": {"const": ["CONTEXTUAL_QUESTION", "GENERAL_SOURCE_ASSERTION", "EXEMPLIFYING_SOURCE_ASSERTION", "SUMMARY_SOURCE_ASSERTION"]},
+        "actor_reference_kinds": {"const": ["RELATION_PATTERN_ACTOR", "PARTICIPANT_OR_CONTEXT_ACTOR", "UNRESOLVED_ACTOR"]},
+        "target_reference_kinds": {"const": ["SOURCE_NAMED_RELATION_OR_EFFECT_TARGET", "UNRESOLVED_TARGET"]},
+        "multiplicity_signals": {"const": ["NONE", "EXPLICIT_SOURCE_MULTIPLICITY_AND_UNRESOLVED_ALLOCATION"]},
+        "alternative_path_signals": {"const": ["NONE", "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"]},
+        "neutral_runtime_primitives": {"const": ["EXACT_RAW_RELATION_OCCURRENCE_IDENTITY", "EXACT_PARTICIPANT_INSTANCE_IDENTITY", "RELATION_INCIDENCE_DEGREE", "RELATION_PAIR_TOPOLOGY", "EXACT_TEMPORAL_LAYER_FRAME", "RELATION_TRANSITION_SET_CHANGE"]},
+        "unresolved_semantic_requirements": {"const": ["CLASSICAL_RESOLUTION_SEMANTICS", "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS", "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS", "CLASSICAL_ATTENUATION_GRADE", "CLASSICAL_PARTICIPANT_ALLOCATION", "CLASSICAL_PARTICIPANT_MEDIATED_RELEASE_SEMANTICS", "CLASSICAL_INTERACTION_CHAIN_RESOLUTION", "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING", "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION"]}
+      }
+    },
+    "dependencySpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_refs", "semantic_boundary"],
+      "properties": {
+        "contract_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "semantic_boundary": {"type": "string", "minLength": 1}
+      }
+    },
+    "dependencyRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+        "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+        "RELATION_INCIDENCE_DEGREE",
+        "RELATION_PAIR_TOPOLOGY",
+        "EXACT_TEMPORAL_LAYER_FRAME",
+        "RELATION_TRANSITION_SET_CHANGE"
+      ],
+      "properties": {
+        "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY": {"$ref": "#/$defs/dependencySpec"},
+        "EXACT_PARTICIPANT_INSTANCE_IDENTITY": {"$ref": "#/$defs/dependencySpec"},
+        "RELATION_INCIDENCE_DEGREE": {"$ref": "#/$defs/dependencySpec"},
+        "RELATION_PAIR_TOPOLOGY": {"$ref": "#/$defs/dependencySpec"},
+        "EXACT_TEMPORAL_LAYER_FRAME": {"$ref": "#/$defs/dependencySpec"},
+        "RELATION_TRANSITION_SET_CHANGE": {"$ref": "#/$defs/dependencySpec"}
+      }
+    },
+    "multiplicity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signal", "source_named_multiplicity", "allocation_lexemes", "exact_instance_selection", "alternative_path_signal"],
+      "properties": {
+        "signal": {"enum": ["NONE", "EXPLICIT_SOURCE_MULTIPLICITY_AND_UNRESOLVED_ALLOCATION"]},
+        "source_named_multiplicity": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["participant_lexeme", "count"],
+            "properties": {
+              "participant_lexeme": {"type": "string", "minLength": 1},
+              "count": {"type": "integer", "minimum": 2}
+            }
+          }
+        },
+        "allocation_lexemes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "exact_instance_selection": {"enum": ["NOT_APPLICABLE", "NOT_SELECTED"]},
+        "alternative_path_signal": {"enum": ["NONE", "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"]}
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primitive", "binding_status", "semantic_boundary"],
+      "properties": {
+        "primitive": {"$ref": "#/$defs/neutralPrimitive"},
+        "binding_status": {"const": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY"},
+        "semantic_boundary": {"type": "string", "minLength": 1}
+      }
+    },
+    "runtimeBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_relation_mutation_allowed", "relation_presence_verdict", "classical_operability_verdict", "exact_winner_selection"],
+      "properties": {
+        "raw_relation_mutation_allowed": {"const": false},
+        "relation_presence_verdict": {"const": "NOT_EMITTED"},
+        "classical_operability_verdict": {"const": "NOT_EMITTED"},
+        "exact_winner_selection": {"const": "NOT_EMITTED"}
+      }
+    },
+    "assertionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interaction_assertion_id",
+        "source_id",
+        "source_occurrence_id",
+        "parent_source_block_id",
+        "parent_source_segment_id",
+        "source_chapter_id",
+        "source_chapter_title",
+        "source_layer",
+        "source_record_role",
+        "source_record_format",
+        "canonical_source_path",
+        "canonical_source_sha256",
+        "access_segment_id",
+        "access_segment_path",
+        "access_segment_sha256",
+        "segment_local_line",
+        "canonical_line",
+        "canonical_byte_start",
+        "canonical_byte_end_exclusive",
+        "source_record_sha256",
+        "source_text_sha256",
+        "exact_source_text",
+        "source_assertion_fragments",
+        "source_assertion_role",
+        "primary_assertion_class",
+        "secondary_assertion_classes",
+        "actor_reference_kind",
+        "target_reference_kind",
+        "source_named_participant_patterns",
+        "source_named_relation_or_effect_patterns",
+        "multiplicity_and_alternative_path",
+        "neutral_runtime_dependency_map",
+        "unresolved_semantic_requirements",
+        "runtime_semantic_boundary",
+        "record_sha256"
+      ],
+      "properties": {
+        "interaction_assertion_id": {"type": "string", "pattern": "^BCRIA-R1-(ZPZQ|QTBJ)-CL-"},
+        "source_id": {"const": "S14"},
+        "source_occurrence_id": {"type": "string", "pattern": "^(ZPZQ|QTBJ)-CL-"},
+        "parent_source_block_id": {"type": ["string", "null"]},
+        "parent_source_segment_id": {"type": ["string", "null"]},
+        "source_chapter_id": {"type": ["string", "null"]},
+        "source_chapter_title": {"type": ["string", "null"]},
+        "source_layer": {"enum": ["SHEN_CLASSICAL_SOURCE", "QTBJ_CORE_SOURCE", "XU_COMMENTARY_SOURCE"]},
+        "source_record_role": {"type": "string", "minLength": 1},
+        "source_record_format": {"enum": ["JSONL_SOURCE_CLAUSE", "QTBJ_SOURCE_CLAUSE_TSV"]},
+        "canonical_source_path": {"const": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt"},
+        "canonical_source_sha256": {"const": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407"},
+        "access_segment_id": {"type": "string", "pattern": "^S14-[0-9]{4}$"},
+        "access_segment_path": {"type": "string", "pattern": "^sources/derived-access/S14/segment-[0-9]{4}\\.txt$"},
+        "access_segment_sha256": {"$ref": "#/$defs/sha256"},
+        "segment_local_line": {"type": "integer", "minimum": 1},
+        "canonical_line": {"type": "integer", "minimum": 1},
+        "canonical_byte_start": {"type": "integer", "minimum": 0},
+        "canonical_byte_end_exclusive": {"type": "integer", "minimum": 1},
+        "source_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_text_sha256": {"$ref": "#/$defs/sha256"},
+        "exact_source_text": {"type": "string", "minLength": 1},
+        "source_assertion_fragments": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_assertion_role": {"$ref": "#/$defs/sourceAssertionRole"},
+        "primary_assertion_class": {"$ref": "#/$defs/assertionClass"},
+        "secondary_assertion_classes": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/assertionClass"}},
+        "actor_reference_kind": {"$ref": "#/$defs/actorReferenceKind"},
+        "target_reference_kind": {"$ref": "#/$defs/targetReferenceKind"},
+        "source_named_participant_patterns": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_named_relation_or_effect_patterns": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "multiplicity_and_alternative_path": {"$ref": "#/$defs/multiplicity"},
+        "neutral_runtime_dependency_map": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/dependency"}},
+        "unresolved_semantic_requirements": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/unresolvedRequirement"}},
+        "runtime_semantic_boundary": {"$ref": "#/$defs/runtimeBoundary"},
+        "record_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "countMap": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_count",
+        "shen_record_count",
+        "qtbj_explicit_release_record_count",
+        "shen_block_counts",
+        "assertion_class_occurrence_counts",
+        "source_assertion_role_counts",
+        "actor_reference_kind_counts",
+        "target_reference_kind_counts",
+        "source_layer_counts",
+        "explicit_multiplicity_record_count",
+        "qtbj_exact_lexeme_review_source_occurrence_ids"
+      ],
+      "properties": {
+        "record_count": {"const": 24},
+        "shen_record_count": {"const": 22},
+        "qtbj_explicit_release_record_count": {"const": 2},
+        "shen_block_counts": {"const": {"ZPZQ-B-09-003": 11, "ZPZQ-B-09-005": 2, "ZPZQ-B-09-007": 4, "ZPZQ-B-09-009": 5}},
+        "assertion_class_occurrence_counts": {"$ref": "#/$defs/countMap"},
+        "source_assertion_role_counts": {"$ref": "#/$defs/countMap"},
+        "actor_reference_kind_counts": {"$ref": "#/$defs/countMap"},
+        "target_reference_kind_counts": {"$ref": "#/$defs/countMap"},
+        "source_layer_counts": {"$ref": "#/$defs/countMap"},
+        "explicit_multiplicity_record_count": {"const": 1},
+        "qtbj_exact_lexeme_review_source_occurrence_ids": {"const": ["QTBJ-CL-05347", "QTBJ-CL-05370"]}
+      }
+    },
+    "determinism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_inventory_sha256", "record_hash_chain_sha256", "records_semantics_sha256", "closed_registry_sha256", "artifact_semantics_sha256"],
+      "properties": {
+        "source_inventory_sha256": {"$ref": "#/$defs/sha256"},
+        "record_hash_chain_sha256": {"$ref": "#/$defs/sha256"},
+        "records_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "closed_registry_sha256": {"$ref": "#/$defs/sha256"},
+        "artifact_semantics_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}
