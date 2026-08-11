@@ -23,6 +23,10 @@ from .bazi_classical_relation_interaction_assertion import (
     validate_classical_relation_interaction_assertion_matrix,
     write_classical_relation_interaction_assertion_matrix,
 )
+from .bazi_structured_source_interaction_pattern_graph import (
+    validate_structured_source_interaction_pattern_graph,
+    write_structured_source_interaction_pattern_graph,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -122,6 +126,14 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser(
         "classical-relation-interaction-assertion-validate",
         help="replay and validate the Classical relation interaction assertion matrix",
+    )
+    subparsers.add_parser(
+        "structured-source-interaction-pattern-graph-build",
+        help="build the static source-level Classical interaction pattern graph",
+    )
+    subparsers.add_parser(
+        "structured-source-interaction-pattern-graph-validate",
+        help="replay and validate the static source-level interaction pattern graph",
     )
     subparsers.add_parser(
         "maintenance-status",
@@ -295,6 +307,10 @@ def main(argv: list[str] | None = None) -> int:
             _print_json(write_classical_relation_interaction_assertion_matrix(root))
         elif args.command == "classical-relation-interaction-assertion-validate":
             _print_json(validate_classical_relation_interaction_assertion_matrix(root))
+        elif args.command == "structured-source-interaction-pattern-graph-build":
+            _print_json(write_structured_source_interaction_pattern_graph(root))
+        elif args.command == "structured-source-interaction-pattern-graph-validate":
+            _print_json(validate_structured_source_interaction_pattern_graph(root))
         elif args.command == "maintenance-status":
             due = maintenance_due(root)
             _print_json(

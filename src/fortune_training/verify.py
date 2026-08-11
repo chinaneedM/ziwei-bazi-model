@@ -31,6 +31,10 @@ from .bazi_classical_relation_interaction_assertion import (
     MATRIX_PATH as CLASSICAL_RELATION_INTERACTION_ASSERTION_MATRIX_PATH,
     validate_classical_relation_interaction_assertion_matrix,
 )
+from .bazi_structured_source_interaction_pattern_graph import (
+    GRAPH_PATH as STRUCTURED_SOURCE_INTERACTION_PATTERN_GRAPH_PATH,
+    validate_structured_source_interaction_pattern_graph,
+)
 from .learning import (
     LEDGER_RELATIVE_PATH,
     load_rule_catalog,
@@ -1037,6 +1041,11 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         classical_relation_interaction_assertion = (
             validate_classical_relation_interaction_assertion_matrix(root)
         )
+    structured_source_interaction_pattern_graph = None
+    if (root / STRUCTURED_SOURCE_INTERACTION_PATTERN_GRAPH_PATH).exists():
+        structured_source_interaction_pattern_graph = (
+            validate_structured_source_interaction_pattern_graph(root)
+        )
 
     legacy_group = load_json(root / "examples" / "DEV-GROUP-002" / "group.json")
     legacy_case_order = legacy_group.get("case_order")
@@ -1343,6 +1352,7 @@ def verify_repository(root: Path, *, require_answers: bool = False) -> dict[str,
         "classical_relation_lifecycle_evidence": classical_relation_evidence,
         "five_combination_evidence_binding": five_combination_evidence_binding,
         "classical_relation_interaction_assertion": classical_relation_interaction_assertion,
+        "structured_source_interaction_pattern_graph": structured_source_interaction_pattern_graph,
         "model_learning_separate": True,
         "cases": case_bank.get("cases", len(case_order)),
         "questions": case_bank.get("questions", sum(question_counts.values())),
