@@ -1,0 +1,134 @@
+{
+  "audit_id": "BAZI-CLASSICAL-FINAL-EFFECT-CANDIDATE-ENVELOPE-ASSEMBLY-R1",
+  "authority": {
+    "unit4_contract_path": "audits/bazi-classical-effect-semantic-candidate-projection-r1/contract.json",
+    "unit4_contract_semantics_sha256": "d96ea5a66bea6ff5b71b280723c460954d80ed8da6d05008f909cef30a13a3c8",
+    "unit5_contract_path": "audits/bazi-classical-semantic-mechanism-closure-governance-r1/contract.json",
+    "unit5_contract_semantics_sha256": "358fcf00ef1c09321639c0df80e837fc2fd3dba0332cb82aea573b0a13ced998",
+    "unit6_contract_path": "audits/bazi-classical-non-selecting-participant-allocation-r1/contract.json",
+    "unit6_contract_semantics_sha256": "dd85bf571a5cf106321bfb0366ffeee5023563dfe099664fdecaefc3cbe15fea"
+  },
+  "candidate_assembly_contract": {
+    "execution_readiness_inference": "NOT_RELEASED",
+    "non_allocation_unit6_domain_count": 0,
+    "unit4_candidate_chain_to_unit7_candidate": "EXACTLY_ONE_TO_ONE",
+    "unit4_candidate_to_unit5_proposal": "EXACTLY_ONE_TO_ONE",
+    "unit4_multiplicity_references": "EXACT_PASS_THROUGH_UNCHANGED",
+    "unit5_closure_rows": "EXACT_PASS_THROUGH_UNCHANGED",
+    "unit5_proposal_to_unit6_proposal_sidecar": "EXACTLY_ONE_TO_ONE",
+    "unit6_allocation_domains": "EXACT_PASS_THROUGH_UNCHANGED",
+    "unit6_path_candidates": "EXACT_PASS_THROUGH_NO_SYNTHESIS"
+  },
+  "closed_vocabularies": {
+    "fragment_final_statuses": [
+      "FINAL_EFFECT_CANDIDATES_ASSEMBLED",
+      "PRESERVED_ZERO_FINAL_EFFECT_CANDIDATES"
+    ],
+    "index_semantics": "IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_OR_SELECTION",
+    "semantic_to_mechanism": {
+      "SOURCE_GROUNDED_ATTENUATION_CANDIDATE": "ATTENUATION_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE": "PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_RESOLUTION_CANDIDATE": "RESOLUTION_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE": "RESOLUTION_FAILURE_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE": "REVERSAL_OR_REAPPEARANCE_MECHANISM_PROPOSAL"
+    }
+  },
+  "determinism": {
+    "contract_semantics_sha256": "41cd0acc91e6fa16ee4bca8ac46e96a7eb42cfe453edde5cab75b0c35b766354"
+  },
+  "final_effect_profile": {
+    "algorithm_id": "BAZI-CLASSICAL-FINAL-EFFECT-CANDIDATE-ENVELOPE-ASSEMBLY-R1",
+    "algorithm_version": "1.0.0",
+    "candidate_applicability_semantics": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+    "candidate_coexistence_semantics": "NOT_RELEASED",
+    "candidate_conflict_semantics": "NOT_RELEASED",
+    "candidate_exclusivity_semantics": "NOT_RELEASED",
+    "candidate_operability_semantics": "NOT_RELEASED",
+    "candidate_truth_semantics": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "execution_readiness_semantics": "NOT_RELEASED",
+    "final_candidate_semantics": "SOURCE_GROUNDED_PRE_RESOLVER_ENVELOPE_ASSEMBLY_ONLY",
+    "fragment_selection_semantics": "NOT_RELEASED",
+    "graph_mutation_fixpoint_semantics": "NOT_RELEASED",
+    "inferred_slot_instance_compatibility": "FORBIDDEN",
+    "lifecycle_truth_gate": "NOT_RELEASED",
+    "mechanism_execution_semantics": "NOT_RELEASED",
+    "participant_path_selection_semantics": "NOT_RELEASED",
+    "precedence_semantics": "NOT_RELEASED",
+    "priority_semantics": "NOT_RELEASED",
+    "profile_id": "BAZI-CLASSICAL-FINAL-EFFECT-CANDIDATE-ENVELOPE-ASSEMBLY-R1",
+    "profile_version": "1.0.0",
+    "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+    "relation_effect_state_semantics": "NOT_RELEASED",
+    "rewrite_application_semantics": "NOT_RELEASED",
+    "source_narrative_policy": "PROVENANCE_ONLY",
+    "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY",
+    "synthetic_combination_generation": "FORBIDDEN",
+    "synthetic_permutation_generation": "FORBIDDEN",
+    "winner_loser_semantics": "NOT_RELEASED"
+  },
+  "hard_exclusions": [
+    "CANDIDATE_TRUTH_SELECTION",
+    "EXECUTION_READINESS_INFERENCE",
+    "APPLIED_SEMANTIC_REWRITE",
+    "EXECUTABLE_REWRITE_RULES",
+    "GRAPH_MUTATION_OR_FIXPOINT",
+    "MONOTONICITY_LATTICE_TERMINATION_SOLVER",
+    "LIFECYCLE_TRUTH",
+    "CLASSICAL_OPERABILITY_TRUTH",
+    "SOURCE_ARBITRATION_OR_TRUTH_SELECTION",
+    "CONTRADICTION_OR_CONFLICT_RESOLUTION",
+    "COEXISTENCE_OR_EXCLUSIVITY_INFERENCE",
+    "PRECEDENCE",
+    "PRIORITY",
+    "WINNER_OR_LOSER",
+    "SUPPRESSION_OR_ACTIVATION_OR_RELEASE",
+    "CANCELLATION_OR_OVERRIDE_OR_NEGATION",
+    "PARTICIPANT_OR_PATH_SELECTION",
+    "INFERRED_SLOT_INSTANCE_COMPATIBILITY",
+    "SYNTHETIC_PERMUTATION_OR_COMBINATION_GENERATION",
+    "NUMERIC_ATTENUATION_STRENGTH_OR_WANGSHUAI_GRADE",
+    "RELATION_OR_EFFECT_STATE",
+    "CROSS_SOURCE_COMPOSITION",
+    "CARTESIAN_CANDIDATE_WORLDS",
+    "RESOLVED_CLASSICAL_EFFECT_DISPOSITION",
+    "FINAL_CLASSICAL_VERDICT",
+    "PREDICTION_SEMANTICS"
+  ],
+  "preservation_contract": {
+    "cartesian_expansion": "NOT_RELEASED",
+    "coexistence_exclusivity": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "inferred_slot_instance_compatibility": "FORBIDDEN",
+    "participant_path_selection": "NOT_RELEASED",
+    "precedence_priority_winner": "NOT_RELEASED",
+    "relation_effect_state": "NOT_RELEASED",
+    "rewrite_application": "NOT_RELEASED",
+    "same_effect_channel_candidates": "PRESERVE_SEPARATE_UNRANKED",
+    "source_narrative_order": "PROVENANCE_ONLY",
+    "source_record_factorization": "PRESERVE_UNCHANGED",
+    "source_unresolved_graph_requirements": "PROVENANCE_ONLY",
+    "synthetic_combination_generation": "FORBIDDEN",
+    "synthetic_permutation_generation": "FORBIDDEN",
+    "unit6_fragment_to_unit7_fragment": "EXACTLY_ONE_TO_ONE",
+    "unit6_outer_to_unit7_outer": "EXACTLY_ONE_TO_ONE",
+    "zero_candidate_fragment": "PRESERVE_ZERO_FINAL_EFFECT_CANDIDATES"
+  },
+  "record_specific_locks": {
+    "ZPZQ-CL-09-005-002": {
+      "allocation_closure_status": "MISSING_PRIMITIVE",
+      "compatible_path_enumeration_status": "PARTIALLY_AVAILABLE",
+      "participant_path_selection": "NOT_RELEASED",
+      "semantic_candidates": [
+        "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
+        "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+        "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"
+      ],
+      "synthetic_path_generation": "FORBIDDEN"
+    }
+  },
+  "schema": "BAZI-CLASSICAL-FINAL-EFFECT-CANDIDATE-ENVELOPE-CONTRACT-R1"
+}
