@@ -2,6 +2,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from fortune_training.bazi_classical_effect_constraint_graph.integrity import replay_fragment_hashes
+from fortune_training.bazi_classical_effect_constraint_graph.models import EffectCompositionHashBundle
+from fortune_training.bazi_classical_effect_constraint_graph.profile import (
+    bazi_classical_effect_constraint_graph_factorized_composition_r1_profile,
+)
 from fortune_training.bazi_classical_resolver_admission.integrity import admission_hash_bundle
 from fortune_training.bazi_classical_resolver_admission.profile import (
     bazi_classical_resolver_admission_strict_r1_profile,
@@ -30,11 +35,70 @@ def match_effect_envelope(source_admission_envelope: Any, source_effect_resoluti
     return matches[0]
 
 
+def replay_effect_envelope_self_contained(source_effect_envelope: Any) -> bool:
+    """Replay the complete Unit 2 payload without requiring the earlier #249 projection input."""
+    if source_effect_envelope.integrity.status != "PASS":
+        return False
+    profile = bazi_classical_effect_constraint_graph_factorized_composition_r1_profile()
+    expected_profile_key = f"EFFECT_GRAPH_PROFILE:{profile.profile_id}:{profile.profile_version}"
+    if (
+        not source_effect_envelope.lineage_binding_keys
+        or source_effect_envelope.lineage_binding_keys[-1] != expected_profile_key
+        or source_effect_envelope.cross_source_layer_composition != "NOT_RELEASED"
+        or source_effect_envelope.cartesian_expansion != "NOT_RELEASED"
+        or source_effect_envelope.raw_relation_immutability_contract != "IMMUTABLE_EXACT_REFERENCE_ONLY"
+        or source_effect_envelope.algorithm_versions != {
+            "graph_projection": profile.graph_algorithm_version,
+            "factorized_composition": profile.composition_algorithm_version,
+        }
+    ):
+        return False
+
+    if any(
+        replay_fragment_hashes(
+            fragment,
+            source_effect_envelope.source_projection_fact_hash,
+            profile,
+        ) != fragment.hashes
+        for fragment in source_effect_envelope.fragments
+    ):
+        return False
+
+    fact_payload = {
+        "source_projection_fact_hash": source_effect_envelope.source_projection_fact_hash,
+        "source_binding_snapshot_id": source_effect_envelope.source_binding_snapshot_id,
+        "source_binding_snapshot_fact_hash": source_effect_envelope.source_binding_snapshot_fact_hash,
+        "fragments": json_value(source_effect_envelope.fragments),
+        "source_layer_partitions": json_value(source_effect_envelope.source_layer_partitions),
+        "raw_relation_reference_index": json_value(source_effect_envelope.raw_relation_reference_index),
+        "effect_channel_coordinate_index": json_value(source_effect_envelope.effect_channel_coordinate_index),
+        "cross_source_layer_composition": "NOT_RELEASED",
+        "cartesian_expansion": "NOT_RELEASED",
+        "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+    }
+    source_projection_lineage_binding_keys = source_effect_envelope.lineage_binding_keys[:-1]
+    computation_payload = {
+        "facts": fact_payload,
+        "source_projection_computation_hash": source_effect_envelope.source_projection_computation_hash,
+        "source_projection_lineage_binding_keys": source_projection_lineage_binding_keys,
+        "lineage_binding_keys": source_effect_envelope.lineage_binding_keys,
+        "profile": json_value(profile),
+    }
+    expected = EffectCompositionHashBundle(
+        fact_hash=object_sha256(fact_payload),
+        computation_hash=object_sha256(computation_payload),
+    )
+    return expected == source_effect_envelope.hashes
+
+
 def replay_admission_envelope_against_effect(
     source_admission_envelope: Any,
     source_effect_envelope: Any,
 ) -> bool:
-    if source_admission_envelope.integrity.status != "PASS":
+    if (
+        source_admission_envelope.integrity.status != "PASS"
+        or not replay_effect_envelope_self_contained(source_effect_envelope)
+    ):
         return False
     if (
         source_admission_envelope.source_effect_envelope_id != source_effect_envelope.envelope_id
@@ -124,6 +188,8 @@ def validate_semantic_projection_envelope(
     def diag(code: str, path: str, detail: str) -> None:
         diagnostics.append(SemanticCandidateIntegrityDiagnostic(code, path, detail))
 
+    if not replay_effect_envelope_self_contained(source_effect_envelope):
+        diag("UPSTREAM_EFFECT_ENVELOPE_SELF_REPLAY_MISMATCH", "source_effect_envelope", source_effect_envelope.envelope_id)
     if not replay_admission_envelope_against_effect(source_admission_envelope, source_effect_envelope):
         diag("UPSTREAM_ADMISSION_ENVELOPE_REPLAY_MISMATCH", "source_admission_envelope", source_admission_envelope.admission_envelope_id)
 
