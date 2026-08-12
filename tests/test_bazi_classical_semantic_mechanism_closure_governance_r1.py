@@ -146,7 +146,7 @@ class BaziClassicalSemanticMechanismClosureGovernanceR1Tests(unittest.TestCase):
             candidate,
             self.closure_profile,
         )
-        return candidate, proposal
+        return semantic_outer, fragment_projection, candidate, proposal
 
     def test_resolution_failure_reversal_and_attenuation_closure_rows(self):
         cases = [
@@ -184,7 +184,7 @@ class BaziClassicalSemanticMechanismClosureGovernanceR1Tests(unittest.TestCase):
             ),
         ]
         for claim, assertion, facet, requirements, proposal_kind, statuses in cases:
-            candidate, proposal = self._controlled_candidate(
+            _, _, candidate, proposal = self._controlled_candidate(
                 claim, assertion, facet, requirements
             )
             self.assertEqual(proposal_kind, proposal.mechanism_proposal_kind)
@@ -249,25 +249,22 @@ class BaziClassicalSemanticMechanismClosureGovernanceR1Tests(unittest.TestCase):
         self.assertTrue(found)
 
     def test_source_graph_provenance_does_not_change_closure_rows(self):
-        _, proposal = self._controlled_candidate(
+        semantic_outer, fragment_projection, candidate, proposal = self._controlled_candidate(
             "SOURCE_ASSERTED_RESOLUTION",
             "RESOLUTION_ASSERTION",
             "RELATION_EFFECT_DISPOSITION",
             ("CLASSICAL_RESOLUTION_SEMANTICS",),
         )
-        effect, admission, semantic, _, _ = self.cross
-        semantic_outer = semantic.candidates[0]
-        fragment_projection = semantic_outer.fragment_projections[0]
-        source_candidate = replace(
-            fragment_projection.semantic_candidates[0],
-            semantic_candidate_kind="SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
-            unresolved_classical_semantic_requirements=("CLASSICAL_RESOLUTION_SEMANTICS",),
-            source_unresolved_graph_requirements_provenance=("TOTALLY_DIFFERENT_PROVENANCE",),
+        changed_candidate = replace(
+            candidate,
+            source_unresolved_graph_requirements_provenance=(
+                "TOTALLY_DIFFERENT_PROVENANCE",
+            ),
         )
         changed = project_mechanism_proposal(
             semantic_outer,
             fragment_projection,
-            source_candidate,
+            changed_candidate,
             self.closure_profile,
         )
         self.assertEqual(
