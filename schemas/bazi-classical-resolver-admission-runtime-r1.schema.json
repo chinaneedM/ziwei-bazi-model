@@ -3,6 +3,7 @@
   "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-resolver-admission-runtime-r1.schema.json",
   "$defs": {
     "strings": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "neutralPrimitive": {"enum": ["EXACT_RAW_RELATION_OCCURRENCE_IDENTITY", "EXACT_PARTICIPANT_INSTANCE_IDENTITY", "RELATION_INCIDENCE_DEGREE", "RELATION_PAIR_TOPOLOGY", "EXACT_TEMPORAL_LAYER_FRAME"]},
     "sourceProfile": {
       "type": "object", "additionalProperties": false,
       "required": ["profile_id", "profile_version", "partition_id", "source_layer", "source_id", "source_chapter_id", "source_chapter_title", "member_source_occurrence_ids", "semantic_role"],
@@ -14,7 +15,7 @@
         "source_id": {"const": "S14"},
         "source_chapter_id": {"const": "ZPZQ-CH-09"},
         "source_chapter_title": {"const": "论刑冲会合解法"},
-        "member_source_occurrence_ids": {"$ref": "#/$defs/strings"},
+        "member_source_occurrence_ids": {"const": ["ZPZQ-CL-09-003-002", "ZPZQ-CL-09-003-003", "ZPZQ-CL-09-003-004", "ZPZQ-CL-09-003-005", "ZPZQ-CL-09-003-007", "ZPZQ-CL-09-003-008", "ZPZQ-CL-09-003-009", "ZPZQ-CL-09-003-010", "ZPZQ-CL-09-005-002", "ZPZQ-CL-09-007-002", "ZPZQ-CL-09-007-003", "ZPZQ-CL-09-009-003", "ZPZQ-CL-09-009-004"]},
         "semantic_role": {"const": "PARTITION_IDENTITY_ONLY"}
       }
     },
@@ -49,7 +50,7 @@
       "type": "object", "additionalProperties": false,
       "required": ["primitive", "observation_ids", "materialization_status"],
       "properties": {
-        "primitive": {"enum": ["EXACT_RAW_RELATION_OCCURRENCE_IDENTITY", "EXACT_PARTICIPANT_INSTANCE_IDENTITY", "RELATION_INCIDENCE_DEGREE", "RELATION_PAIR_TOPOLOGY", "EXACT_TEMPORAL_LAYER_FRAME"]},
+        "primitive": {"$ref": "#/$defs/neutralPrimitive"},
         "observation_ids": {"$ref": "#/$defs/strings"},
         "materialization_status": {"enum": ["EXACTLY_MATERIALIZED", "MISSING_REQUIRED_MATERIALIZATION", "UNEXPECTED_MATERIALIZATION"]}
       }
@@ -67,7 +68,7 @@
         "source_fragment_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "binding_candidate_id": {"type": "string"},
         "source_occurrence_id": {"type": "string"},
-        "source_layer": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
         "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
         "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
         "partition_match": {"type": "boolean"},
@@ -75,7 +76,7 @@
         "source_scope_compatibility": {"enum": ["DIRECT_SOURCE_SCOPE_MATCH", "CROSS_LAYER_EXTENSION_UNRESOLVED"]},
         "residual_unresolved_structural_constraint_ids": {"$ref": "#/$defs/strings"},
         "neutral_observation_bundle_id": {"type": "string"},
-        "required_neutral_primitives": {"$ref": "#/$defs/strings"},
+        "required_neutral_primitives": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/neutralPrimitive"}},
         "dependency_materialization_evidence": {"type": "array", "items": {"$ref": "#/$defs/dependencyEvidence"}},
         "unresolved_classical_semantic_requirements": {"$ref": "#/$defs/strings"},
         "source_unresolved_graph_requirements_provenance": {"$ref": "#/$defs/strings"},
@@ -83,8 +84,9 @@
         "admission_status": {"enum": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]}
       },
       "allOf": [
-        {"if": {"properties": {"admission_status": {"const": "ADMITTED"}}}, "then": {"properties": {"partition_match": {"const": true}, "admission_blocker_ids": {"maxItems": 0}, "structural_binding_class": {"const": "FULL_EXACT_BINDING_ENUMERATION"}, "source_scope_compatibility": {"const": "DIRECT_SOURCE_SCOPE_MATCH"}, "residual_unresolved_structural_constraint_ids": {"maxItems": 0}}}},
-        {"if": {"properties": {"admission_status": {"const": "PRESERVED_OUTSIDE_PROFILE"}}}, "then": {"properties": {"partition_match": {"const": false}}}}
+        {"if": {"properties": {"admission_status": {"const": "ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": true}, "admission_blocker_ids": {"maxItems": 0}, "structural_binding_class": {"const": "FULL_EXACT_BINDING_ENUMERATION"}, "source_scope_compatibility": {"const": "DIRECT_SOURCE_SCOPE_MATCH"}, "residual_unresolved_structural_constraint_ids": {"maxItems": 0}, "dependency_materialization_evidence": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/dependencyEvidence"}, {"properties": {"materialization_status": {"const": "EXACTLY_MATERIALIZED"}}}]}}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_NOT_ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": true}, "admission_blocker_ids": {"minItems": 1}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_OUTSIDE_PROFILE"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": false}, "admission_blocker_ids": {"const": ["SOURCE_SEMANTIC_PARTITION_MISMATCH"]}}}}
       ]
     },
     "recordSet": {
@@ -92,7 +94,7 @@
       "required": ["source_record_candidate_set_id", "source_layer", "source_occurrence_id", "source_fragment_ids", "admission_projection_ids", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics"],
       "properties": {
         "source_record_candidate_set_id": {"type": "string"},
-        "source_layer": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
         "source_occurrence_id": {"type": "string"},
         "source_fragment_ids": {"$ref": "#/$defs/strings"},
         "admission_projection_ids": {"$ref": "#/$defs/strings"},
@@ -164,7 +166,7 @@
     "diagnostics": {"$ref": "#/$defs/strings"}
   },
   "allOf": [
-    {"if": {"properties": {"status": {"const": "FAILED"}}}, "then": {"properties": {"candidates": {"maxItems": 0}}}},
-    {"if": {"properties": {"status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]}}}, "then": {"properties": {"candidates": {"minItems": 1}, "diagnostics": {"maxItems": 0}}}}
+    {"if": {"properties": {"status": {"const": "FAILED"}}, "required": ["status"]}, "then": {"properties": {"candidates": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]}}, "required": ["status"]}, "then": {"properties": {"candidates": {"minItems": 1}, "diagnostics": {"maxItems": 0}}}}
   ]
 }
