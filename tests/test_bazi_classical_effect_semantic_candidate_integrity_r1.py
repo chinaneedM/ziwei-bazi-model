@@ -9,6 +9,9 @@ from fortune_training.bazi_classical_effect_semantic_candidate import (
     bazi_classical_effect_semantic_candidate_projection_r1_profile,
     project_fragment_semantic_candidates,
 )
+from fortune_training.bazi_classical_effect_semantic_candidate.integrity import (
+    replay_effect_envelope_self_contained,
+)
 from fortune_training.bazi_classical_resolver_admission import (
     BaziClassicalResolverAdmissionEngine,
     BaziClassicalResolverAdmissionRequest,
@@ -40,6 +43,34 @@ class BaziClassicalEffectSemanticCandidateIntegrityR1Tests(unittest.TestCase):
         cls.request = BaziClassicalEffectSemanticCandidateProjectionRequest(
             cls.effect, cls.admission, cls.profile
         )
+
+    def test_stale_tampered_unit2_fragment_payload_fails_self_replay(self):
+        effect_outer = self.effect.candidates[0]
+        fragment = effect_outer.fragments[0]
+        changed_fragment = replace(
+            fragment,
+            source_unresolved_graph_requirements=(
+                *fragment.source_unresolved_graph_requirements,
+                "TAMPERED_STALE_PAYLOAD",
+            ),
+        )
+        changed_outer = replace(
+            effect_outer,
+            fragments=(changed_fragment, *effect_outer.fragments[1:]),
+        )
+        self.assertFalse(replay_effect_envelope_self_contained(changed_outer))
+        changed_effect = replace(
+            self.effect,
+            candidates=(changed_outer, *self.effect.candidates[1:]),
+        )
+        result = BaziClassicalEffectSemanticCandidateProjectionEngine().resolve_typed(
+            replace(self.request, source_effect_constraint_resolution=changed_effect)
+        )
+        self.assertEqual("FAILED", result.status)
+        self.assertTrue(any(
+            "UPSTREAM_ADMISSION_ENVELOPE_REPLAY_MISMATCH" in row
+            for row in result.diagnostics
+        ))
 
     def test_stale_tampered_admission_payload_fails_hash_replay(self):
         outer = self.admission.candidates[0]
