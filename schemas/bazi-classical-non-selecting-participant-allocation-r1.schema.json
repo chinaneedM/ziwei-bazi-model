@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-non-selecting-participant-allocation-r1.schema.json",
+  "const": {
+    "schema": "BAZI-CLASSICAL-NON-SELECTING-PARTICIPANT-ALLOCATION-CONTRACT-R1",
+    "audit_id": "BAZI-CLASSICAL-NON-SELECTING-PARTICIPANT-ALLOCATION-R1",
+    "authority": {
+      "unit4_contract_path": "audits/bazi-classical-effect-semantic-candidate-projection-r1/contract.json",
+      "unit4_contract_semantics_sha256": "d96ea5a66bea6ff5b71b280723c460954d80ed8da6d05008f909cef30a13a3c8",
+      "unit5_contract_path": "audits/bazi-classical-semantic-mechanism-closure-governance-r1/contract.json",
+      "unit5_contract_semantics_sha256": "358fcf00ef1c09321639c0df80e837fc2fd3dba0332cb82aea573b0a13ced998"
+    },
+    "allocation_profile": {
+      "profile_id": "BAZI-CLASSICAL-NON-SELECTING-PARTICIPANT-ALLOCATION-R1",
+      "profile_version": "1.0.0",
+      "algorithm_id": "BAZI-CLASSICAL-NON-SELECTING-PARTICIPANT-ALLOCATION-R1",
+      "algorithm_version": "1.0.0",
+      "path_candidate_semantics": "UPSTREAM_IDENTITY_CARDINALITY_ELABORATION_ONLY",
+      "slot_assignment_semantics": "NOT_RELEASED",
+      "path_ordering_semantics": "NOT_RELEASED",
+      "compatibility_semantics": "NOT_RELEASED_BEYOND_UPSTREAM_IDENTITY",
+      "participant_path_selection_semantics": "NOT_RELEASED",
+      "allocation_truth_semantics": "NOT_RELEASED",
+      "allocation_operability_semantics": "NOT_RELEASED",
+      "coexistence_semantics": "NOT_RELEASED",
+      "exclusivity_semantics": "NOT_RELEASED",
+      "precedence_semantics": "NOT_RELEASED",
+      "priority_semantics": "NOT_RELEASED",
+      "winner_loser_semantics": "NOT_RELEASED",
+      "relation_effect_state_semantics": "NOT_RELEASED",
+      "rewrite_application_semantics": "NOT_RELEASED",
+      "synthetic_permutation_generation": "FORBIDDEN",
+      "synthetic_combination_generation": "FORBIDDEN",
+      "inferred_slot_instance_compatibility": "FORBIDDEN",
+      "source_narrative_policy": "PROVENANCE_ONLY",
+      "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY",
+      "fragment_selection_semantics": "NOT_RELEASED",
+      "cross_outer_composition": "NOT_RELEASED",
+      "cartesian_expansion": "NOT_RELEASED",
+      "cross_source_composition": "NOT_RELEASED",
+      "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY"
+    },
+    "closed_vocabularies": {
+      "allocation_domain_classifications": ["EXACT_INSTANCE_SET_CARDINALITY_MATCH", "EXACT_INSTANCE_POOL_REQUIRES_COMPATIBILITY_RELATION", "INSUFFICIENT_EXACT_INSTANCE_CARDINALITY"],
+      "domain_blocker_ids": ["SLOT_INSTANCE_COMPATIBILITY_RELATION_NOT_RELEASED", "SYNTHETIC_COMBINATORIAL_ENUMERATION_FORBIDDEN", "INSUFFICIENT_EXACT_RUNTIME_INSTANCE_CARDINALITY"],
+      "path_candidate_kind": "UNORDERED_EXACT_INSTANCE_SET_PATH_CANDIDATE",
+      "slot_equivalence_values": ["EXCHANGEABLE_SOURCE_EQUIVALENT"],
+      "alternative_path_requirement": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS",
+      "fragment_allocation_statuses": ["ALLOCATION_DOMAIN_ELABORATION_PROJECTED", "PRESERVED_NO_ALLOCATION_DOMAINS", "PRESERVED_ZERO_PROPOSALS_NO_ALLOCATION_DOMAINS"],
+      "expected_allocation_closure_rows": {"CLASSICAL_PARTICIPANT_ALLOCATION": "MISSING_PRIMITIVE", "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION": "PARTIALLY_AVAILABLE"}
+    },
+    "classification_contract": {
+      "EXACT_INSTANCE_SET_CARDINALITY_MATCH": {"predicate": "UNIQUE_EXACT_RUNTIME_INSTANCE_COUNT_EQUALS_REQUIRED_SYMBOLIC_CARDINALITY", "path_candidate_cardinality": 1, "path_candidate_kind": "UNORDERED_EXACT_INSTANCE_SET_PATH_CANDIDATE", "blocker_ids": [], "slot_assignment": "NOT_RELEASED", "path_ordering": "NOT_RELEASED"},
+      "EXACT_INSTANCE_POOL_REQUIRES_COMPATIBILITY_RELATION": {"predicate": "UNIQUE_EXACT_RUNTIME_INSTANCE_COUNT_GREATER_THAN_REQUIRED_SYMBOLIC_CARDINALITY", "path_candidate_cardinality": 0, "blocker_ids": ["SLOT_INSTANCE_COMPATIBILITY_RELATION_NOT_RELEASED", "SYNTHETIC_COMBINATORIAL_ENUMERATION_FORBIDDEN"]},
+      "INSUFFICIENT_EXACT_INSTANCE_CARDINALITY": {"predicate": "UNIQUE_EXACT_RUNTIME_INSTANCE_COUNT_LESS_THAN_REQUIRED_SYMBOLIC_CARDINALITY", "path_candidate_cardinality": 0, "blocker_ids": ["INSUFFICIENT_EXACT_RUNTIME_INSTANCE_CARDINALITY"]}
+    },
+    "multiplicity_contract": {"symbolic_slot_ids": "NON_EMPTY_DISTINCT", "required_symbolic_cardinality": "POSITIVE_AND_EQUALS_SYMBOLIC_SLOT_COUNT", "exact_runtime_instance_ids": "DISTINCT_EXACT_IDENTITIES", "slot_equivalence": "EXCHANGEABLE_SOURCE_EQUIVALENT_ONLY", "alternative_path_requirement": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS", "deduplication_repair": "FORBIDDEN", "inferred_default_repair": "FORBIDDEN"},
+    "preservation_contract": {"unit5_outer_to_unit6_outer": "EXACTLY_ONE_TO_ONE", "unit5_fragment_to_unit6_fragment": "EXACTLY_ONE_TO_ONE", "unit5_proposal_to_unit6_proposal_sidecar": "EXACTLY_ONE_TO_ONE", "allocation_multiplicity_reference_to_domain_observation": "EXACTLY_ONE_TO_ONE", "non_allocation_proposal_domain_count": 0, "zero_proposal_fragment_domain_count": 0, "synthetic_permutation_generation": "FORBIDDEN", "synthetic_combination_generation": "FORBIDDEN", "inferred_slot_instance_compatibility": "FORBIDDEN", "participant_path_selection": "NOT_RELEASED", "coexistence_exclusivity": "NOT_RELEASED", "precedence_priority_winner": "NOT_RELEASED", "relation_effect_state": "NOT_RELEASED", "rewrite_application": "NOT_RELEASED", "cross_outer_composition": "NOT_RELEASED", "cartesian_expansion": "NOT_RELEASED"},
+    "record_specific_locks": {"ZPZQ-CL-09-005-002": {"slot_equivalence": "EXCHANGEABLE_SOURCE_EQUIVALENT", "required_symbolic_cardinality": 2, "allocation_closure_status": "MISSING_PRIMITIVE", "compatible_path_enumeration_status": "PARTIALLY_AVAILABLE", "participant_path_selection": "NOT_RELEASED", "synthetic_path_generation": "FORBIDDEN"}},
+    "hard_exclusions": ["SYNTHETIC_PERMUTATION_OR_COMBINATION_GENERATION", "INFERRED_SLOT_INSTANCE_COMPATIBILITY_RELATION", "SLOT_ASSIGNMENT", "PATH_ORDERING", "PARTICIPANT_OR_PATH_SELECTION", "COEXISTENCE_OR_EXCLUSIVITY_INFERENCE", "ALLOCATION_TRUTH_OR_OPERABILITY", "LIFECYCLE_TRUTH", "SOURCE_ARBITRATION", "CONFLICT_RESOLUTION", "PRECEDENCE", "PRIORITY", "WINNER_OR_LOSER", "SUPPRESSION", "ACTIVATION", "RELEASE", "CANCELLATION", "OVERRIDE", "RELATION_OR_EFFECT_STATE", "APPLIED_REWRITE", "GRAPH_MUTATION_OR_FIXPOINT", "UNIT7_FINAL_EFFECT_ENVELOPE", "CROSS_SOURCE_COMPOSITION", "CARTESIAN_CANDIDATE_WORLDS", "FINAL_CLASSICAL_VERDICT", "PREDICTION_SEMANTICS"],
+    "determinism": {"contract_semantics_sha256": "dd85bf571a5cf106321bfb0366ffeee5023563dfe099664fdecaefc3cbe15fea"}
+  }
+}
