@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-source-semantic-profile-resolver-admission-r1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "audit_id", "authority", "source_semantic_profile", "resolver_admission_profile", "closed_vocabularies", "strict_admission_contract", "preservation_contract", "regression_matrix", "hard_exclusions", "determinism"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-SOURCE-SEMANTIC-PROFILE-RESOLVER-ADMISSION-CONTRACT-R1"},
+    "audit_id": {"const": "BAZI-CLASSICAL-SOURCE-SEMANTIC-PROFILE-RESOLVER-ADMISSION-R1"},
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["unit2_effect_contract_path", "unit2_effect_contract_semantics_sha256", "source_scope_artifact_path", "source_scope_specifications_semantics_sha256"],
+      "properties": {
+        "unit2_effect_contract_path": {"const": "audits/bazi-classical-effect-constraint-graph-factorized-composition-r1/contract.json"},
+        "unit2_effect_contract_semantics_sha256": {"const": "0c6dfccb89710c57f96a762406df32a70395b8fef2bb15ab6654445a22108950"},
+        "source_scope_artifact_path": {"const": "audits/bazi-chart-bound-classical-interaction-projection-foundation-r1/source-scope-specifications.json"},
+        "source_scope_specifications_semantics_sha256": {"const": "949009f0521f3d8710e9f11c1341d0961324f1d6b4f197eeeeb8c25279f2daec"}
+      }
+    },
+    "source_semantic_profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "partition_id", "source_layer", "source_id", "source_chapter_id", "source_chapter_title", "member_source_occurrence_ids", "semantic_role"],
+      "properties": {
+        "profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_id": {"const": "S14"},
+        "source_chapter_id": {"const": "ZPZQ-CH-09"},
+        "source_chapter_title": {"const": "论刑冲会合解法"},
+        "member_source_occurrence_ids": {"type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true, "items": {"type": "string"}},
+        "semantic_role": {"const": "PARTITION_IDENTITY_ONLY"}
+      }
+    },
+    "resolver_admission_profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "algorithm_id", "algorithm_version", "source_semantic_profile_id", "source_semantic_partition_id", "allowed_source_layers", "allowed_scope_compatibility_classes", "allowed_structural_binding_classes", "partial_fragment_policy", "cross_layer_extension_policy", "source_layer_composition_policy", "lifecycle_dependency_policy", "unresolved_requirement_policy", "fragment_candidate_set_policy", "declared_dependency_policy", "source_unresolved_graph_requirement_policy", "raw_relation_immutability_contract", "transition_separation_contract", "cartesian_expansion_policy", "cross_source_composition_policy"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-STRICT-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-SIDECAR-R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "allowed_source_layers": {"const": ["SHEN_CLASSICAL_SOURCE"]},
+        "allowed_scope_compatibility_classes": {"const": ["DIRECT_SOURCE_SCOPE_MATCH"]},
+        "allowed_structural_binding_classes": {"const": ["FULL_EXACT_BINDING_ENUMERATION"]},
+        "partial_fragment_policy": {"const": "PRESERVE_NOT_ADMIT"},
+        "cross_layer_extension_policy": {"const": "PRESERVE_NOT_ADMIT"},
+        "source_layer_composition_policy": {"const": "SINGLE_PROFILE_PARTITION_ONLY"},
+        "lifecycle_dependency_policy": {"const": "PARALLEL_NOT_GLOBAL_ADMISSION_GATE"},
+        "unresolved_requirement_policy": {"const": "PASS_THROUGH_CLASSICAL_REQUIREMENTS"},
+        "fragment_candidate_set_policy": {"const": "PRESERVE_ALL_NO_SELECTION"},
+        "declared_dependency_policy": {"const": "REQUIRE_EXACT_MATERIALIZATION"},
+        "source_unresolved_graph_requirement_policy": {"const": "PROVENANCE_ONLY_NEVER_DIRECT_PREDICATE"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "transition_separation_contract": {"const": "RAW_SET_CHANGE_NOT_CLASSICAL_ADMISSION_TRUTH"},
+        "cartesian_expansion_policy": {"const": "NOT_RELEASED"},
+        "cross_source_composition_policy": {"const": "NOT_RELEASED"}
+      }
+    },
+    "closed_vocabularies": {"type": "object", "additionalProperties": false, "required": ["admission_statuses", "admission_blocker_classes", "neutral_dependency_observation_map"], "properties": {
+      "admission_statuses": {"const": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]},
+      "admission_blocker_classes": {"const": ["SOURCE_SEMANTIC_PARTITION_MISMATCH", "STRUCTURAL_BINDING_PARTIAL", "CROSS_LAYER_EXTENSION_UNRESOLVED", "RESIDUAL_STRUCTURAL_CONSTRAINT", "MATERIALIZED_DEPENDENCY_MISSING", "UNEXPECTED_MATERIALIZED_DEPENDENCY"]},
+      "neutral_dependency_observation_map": {"const": {"EXACT_RAW_RELATION_OCCURRENCE_IDENTITY": "relation_identity_observations", "EXACT_PARTICIPANT_INSTANCE_IDENTITY": "participant_identity_observations", "RELATION_INCIDENCE_DEGREE": "participant_incidence_observations", "RELATION_PAIR_TOPOLOGY": "relation_pair_topology_observations", "EXACT_TEMPORAL_LAYER_FRAME": "temporal_layer_frame_observations"}}
+    }},
+    "strict_admission_contract": {"type": "object"},
+    "preservation_contract": {"type": "object"},
+    "regression_matrix": {"type": "array", "minItems": 4, "maxItems": 4},
+    "hard_exclusions": {"type": "array", "minItems": 20, "uniqueItems": true, "items": {"type": "string"}},
+    "determinism": {"type": "object", "additionalProperties": false, "required": ["contract_semantics_sha256"], "properties": {"contract_semantics_sha256": {"const": "869916b557dcc889831b4775679cf1bd0db9e786f280ec42493cafd188e9bec6"}}}
+  }
+}
