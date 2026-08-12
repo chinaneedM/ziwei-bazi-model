@@ -83,6 +83,8 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         )
         semantic_envelope = SimpleNamespace(
             semantic_projection_envelope_id="CONTROLLED-UNIT4-ENVELOPE",
+            source_admission_envelope_id="CONTROLLED-UNIT3-ADMISSION-ENVELOPE",
+            source_effect_envelope_id="CONTROLLED-UNIT2-EFFECT-ENVELOPE",
             hashes=SimpleNamespace(fact_hash="0" * 64, computation_hash="1" * 64),
         )
         mechanism_envelope = SimpleNamespace(
