@@ -40,18 +40,14 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         cls.multiplicity = cls._unit7(
             unit6_tests.BaziClassicalNonSelectingParticipantAllocationR1Tests.multiplicity
         )
-        cls.controlled_fragment = cls._controlled_candidate_fragment()
+        cls.controlled = cls._controlled_candidate_fixture()
+        cls.controlled_fragment = cls.controlled.final_fragment
 
     @classmethod
     def _unit7(cls, stack):
         effect, admission, semantic, mechanism, _, allocation = stack
         request = BaziClassicalFinalEffectCandidateEnvelopeRequest(
-            effect,
-            admission,
-            semantic,
-            mechanism,
-            allocation,
-            cls.profile,
+            effect, admission, semantic, mechanism, allocation, cls.profile
         )
         result = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve_typed(request)
         if result.status == "FAILED":
@@ -59,10 +55,8 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         return effect, admission, semantic, mechanism, allocation, request, result
 
     @classmethod
-    def _controlled_candidate_fragment(cls):
-        helper_cls = (
-            unit6_integrity_tests.BaziClassicalNonSelectingParticipantAllocationIntegrityR1Tests
-        )
+    def _controlled_candidate_fixture(cls):
+        helper_cls = unit6_integrity_tests.BaziClassicalNonSelectingParticipantAllocationIntegrityR1Tests
         helper_cls.setUpClass()
         helper = helper_cls(methodName="test_recomputed_hash_does_not_hide_synthetic_extra_path")
         _, unit5_fragment, candidate, proposal, elaboration, _ = helper._controlled_allocation()
@@ -73,12 +67,8 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         )
         allocation_fragment = FragmentAllocationElaborationProjection(
             fragment_allocation_projection_id="CONTROLLED-UNIT7-ALLOCATION-FRAGMENT",
-            source_fragment_governance_projection_id=(
-                unit5_fragment.fragment_governance_projection_id
-            ),
-            source_fragment_semantic_projection_id=(
-                unit5_fragment.source_fragment_semantic_projection_id
-            ),
+            source_fragment_governance_projection_id=unit5_fragment.fragment_governance_projection_id,
+            source_fragment_semantic_projection_id=unit5_fragment.source_fragment_semantic_projection_id,
             source_fragment_id=unit5_fragment.source_fragment_id,
             source_occurrence_id=unit5_fragment.source_occurrence_id,
             binding_candidate_id=unit5_fragment.binding_candidate_id,
@@ -103,7 +93,7 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             allocation_envelope_id="CONTROLLED-UNIT6-ENVELOPE",
             hashes=SimpleNamespace(fact_hash="4" * 64, computation_hash="5" * 64),
         )
-        return _project_fragment(
+        final_fragment = _project_fragment(
             allocation_fragment,
             unit5_fragment,
             semantic_fragment,
@@ -111,6 +101,18 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             mechanism_envelope,
             allocation_envelope,
             cls.profile,
+        )
+        return SimpleNamespace(
+            final_fragment=final_fragment,
+            semantic_candidate=candidate,
+            mechanism_proposal=proposal,
+            allocation_elaboration=elaboration,
+            semantic_envelope=semantic_envelope,
+            mechanism_envelope=mechanism_envelope,
+            allocation_envelope=allocation_envelope,
+            semantic_fragment=semantic_fragment,
+            mechanism_fragment=unit5_fragment,
+            allocation_fragment=allocation_fragment,
         )
 
     def test_release_contract_is_exact_and_closed(self):
@@ -121,12 +123,8 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             "41cd0acc91e6fa16ee4bca8ac46e96a7eb42cfe453edde5cab75b0c35b766354",
             report["contract_semantics_sha256"],
         )
-        contract = json.loads(
-            (ROOT / "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json").read_text(encoding="utf-8")
-        )
-        schema = json.loads(
-            (ROOT / "schemas/bazi-classical-final-effect-candidate-envelope-r1.schema.json").read_text(encoding="utf-8")
-        )
+        contract = json.loads((ROOT / "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json").read_text(encoding="utf-8"))
+        schema = json.loads((ROOT / "schemas/bazi-classical-final-effect-candidate-envelope-r1.schema.json").read_text(encoding="utf-8"))
         validator = Draft202012Validator(schema)
         validator.validate(contract)
         for path, value in (
@@ -150,11 +148,7 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
                 mechanism_outer = mechanism_by_id[final_outer.source_mechanism_closure_envelope_id]
                 semantic_fragments = {row.fragment_semantic_projection_id: row for row in semantic_outer.fragment_projections}
                 mechanism_fragments = {row.fragment_governance_projection_id: row for row in mechanism_outer.fragment_governance_projections}
-                for allocation_fragment, final_fragment in zip(
-                    allocation_outer.fragment_allocation_projections,
-                    final_outer.fragment_envelopes,
-                    strict=True,
-                ):
+                for allocation_fragment, final_fragment in zip(allocation_outer.fragment_allocation_projections, final_outer.fragment_envelopes, strict=True):
                     semantic_fragment = semantic_fragments[final_fragment.source_fragment_semantic_projection_id]
                     mechanism_fragment = mechanism_fragments[final_fragment.source_fragment_governance_projection_id]
                     self.assertEqual(tuple(row.semantic_candidate_id for row in semantic_fragment.semantic_candidates), final_fragment.source_semantic_candidate_ids)
@@ -165,13 +159,10 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         fragment = self.controlled_fragment
         self.assertEqual("FINAL_EFFECT_CANDIDATES_ASSEMBLED", fragment.final_fragment_status)
         self.assertEqual(1, len(fragment.final_candidates))
-        self.assertEqual(1, len(fragment.source_semantic_candidate_ids))
-        self.assertEqual(1, len(fragment.source_mechanism_proposal_ids))
-        self.assertEqual(1, len(fragment.source_allocation_elaboration_ids))
         candidate = fragment.final_candidates[0]
-        self.assertEqual(fragment.source_semantic_candidate_ids[0], candidate.source_semantic_candidate_id)
-        self.assertEqual(fragment.source_mechanism_proposal_ids[0], candidate.source_mechanism_proposal_id)
-        self.assertEqual(fragment.source_allocation_elaboration_ids[0], candidate.source_allocation_elaboration_id)
+        self.assertEqual(fragment.source_semantic_candidate_ids, (candidate.source_semantic_candidate_id,))
+        self.assertEqual(fragment.source_mechanism_proposal_ids, (candidate.source_mechanism_proposal_id,))
+        self.assertEqual(fragment.source_allocation_elaboration_ids, (candidate.source_allocation_elaboration_id,))
         self.assertEqual("SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE", candidate.semantic_candidate_kind)
         self.assertEqual("PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL", candidate.mechanism_proposal_kind)
         self.assertEqual(1, len(candidate.multiplicity_references))
@@ -214,12 +205,7 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
                 self.assertEqual("FORBIDDEN", outer.synthetic_permutation_generation)
                 self.assertEqual("FORBIDDEN", outer.synthetic_combination_generation)
                 self.assertEqual("FORBIDDEN", outer.inferred_slot_instance_compatibility)
-                for field in (
-                    "truth", "operative", "ready_for_execution", "selected_candidate",
-                    "selected_participant_id", "selected_path", "winner", "loser",
-                    "priority", "precedence", "relation_state", "effect_state",
-                    "rewrite_result", "final_classical_verdict",
-                ):
+                for field in ("truth", "operative", "ready_for_execution", "selected_candidate", "selected_participant_id", "selected_path", "winner", "loser", "priority", "precedence", "relation_state", "effect_state", "rewrite_result", "final_classical_verdict"):
                     self.assertFalse(hasattr(outer, field), field)
 
     def test_same_effect_channel_index_preserves_separate_unranked_candidates(self):
@@ -233,15 +219,9 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         self.assertTrue(any(len(row.final_candidate_ids) == 2 for row in mechanism_index))
 
     def test_record_specific_005_002_lock_remains_non_selecting(self):
-        contract = json.loads(
-            (ROOT / "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json").read_text(encoding="utf-8")
-        )
+        contract = json.loads((ROOT / "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json").read_text(encoding="utf-8"))
         lock = contract["record_specific_locks"]["ZPZQ-CL-09-005-002"]
-        self.assertEqual([
-            "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
-            "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
-            "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE",
-        ], lock["semantic_candidates"])
+        self.assertEqual(["SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE", "SOURCE_GROUNDED_RESOLUTION_CANDIDATE", "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"], lock["semantic_candidates"])
         self.assertEqual("MISSING_PRIMITIVE", lock["allocation_closure_status"])
         self.assertEqual("PARTIALLY_AVAILABLE", lock["compatible_path_enumeration_status"])
         self.assertEqual("NOT_RELEASED", lock["participant_path_selection"])
@@ -249,19 +229,10 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
 
     def test_runtime_schema_is_closed_against_resolver_surface(self):
         payload = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve(self.cross[-2])
-        schema = json.loads(
-            (ROOT / "schemas/bazi-classical-final-effect-candidate-envelope-runtime-r1.schema.json").read_text(encoding="utf-8")
-        )
+        schema = json.loads((ROOT / "schemas/bazi-classical-final-effect-candidate-envelope-runtime-r1.schema.json").read_text(encoding="utf-8"))
         validator = Draft202012Validator(schema)
         validator.validate(payload)
-        forbidden = [
-            "truth", "operative", "applicable", "ready_for_execution",
-            "selected_candidate", "selected_participant_id", "selected_path",
-            "slot_assignment", "path_order", "winner", "loser", "priority",
-            "precedence", "conflict_result", "relation_state", "effect_state",
-            "rewrite_result", "activated", "suppressed", "released", "cancelled",
-            "overridden", "fixpoint", "final_verdict", "final_classical_verdict",
-        ]
+        forbidden = ["truth", "operative", "applicable", "ready_for_execution", "selected_candidate", "selected_participant_id", "selected_path", "slot_assignment", "path_order", "winner", "loser", "priority", "precedence", "conflict_result", "relation_state", "effect_state", "rewrite_result", "activated", "suppressed", "released", "cancelled", "overridden", "fixpoint", "final_verdict", "final_classical_verdict"]
         for field in forbidden:
             changed = copy.deepcopy(payload)
             changed["candidates"][0][field] = True
