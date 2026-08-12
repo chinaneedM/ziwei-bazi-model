@@ -30,6 +30,9 @@ from .integrity import (
     expected_fragment_projection,
     replay_unit7_resolution,
     resolution_effect_hash_bundle,
+)
+from .strict_integrity import (
+    expected_lineage_binding_keys,
     validate_resolution_effect_envelope,
 )
 from .models import (
@@ -82,12 +85,7 @@ def _project_envelope(
         for row in candidate_projections
         for disposition_id in row.resolution_effect_disposition_ids
     )
-    lineage = (
-        *source_final_envelope.lineage_binding_keys,
-        f"SOURCE_FINAL_EFFECT_FACT:{source_final_envelope.hashes.fact_hash}",
-        f"SOURCE_FINAL_EFFECT_COMPUTATION:{source_final_envelope.hashes.computation_hash}",
-        f"RESOLUTION_EFFECT_DISPOSITION_PROFILE:{profile.profile_id}:{profile.profile_version}",
-    )
+    lineage = expected_lineage_binding_keys(source_final_envelope, profile)
     hashes = resolution_effect_hash_bundle(
         source_final_envelope,
         fragment_projections,
