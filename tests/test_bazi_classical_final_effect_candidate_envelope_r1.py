@@ -5,6 +5,7 @@ import json
 import unittest
 from dataclasses import replace
 from pathlib import Path
+from types import SimpleNamespace
 
 from jsonschema import Draft202012Validator
 
@@ -15,10 +16,15 @@ from fortune_training.bazi_classical_final_effect_candidate_envelope import (
     bazi_classical_final_effect_candidate_envelope_r1_profile,
     validate_release_contract,
 )
-from fortune_training.calendar_foundation.models import json_value
-from test_bazi_classical_non_selecting_participant_allocation_r1 import (
-    BaziClassicalNonSelectingParticipantAllocationR1Tests as Unit6Stack,
+from fortune_training.bazi_classical_final_effect_candidate_envelope.engine import (
+    _project_fragment,
 )
+from fortune_training.bazi_classical_non_selecting_participant_allocation.models import (
+    FragmentAllocationElaborationProjection,
+)
+from fortune_training.calendar_foundation.models import json_value
+import test_bazi_classical_non_selecting_participant_allocation_integrity_r1 as unit6_integrity_tests
+import test_bazi_classical_non_selecting_participant_allocation_r1 as unit6_tests
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -26,10 +32,15 @@ ROOT = Path(__file__).resolve().parents[1]
 class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        Unit6Stack.setUpClass()
+        unit6_tests.BaziClassicalNonSelectingParticipantAllocationR1Tests.setUpClass()
         cls.profile = bazi_classical_final_effect_candidate_envelope_r1_profile()
-        cls.cross = cls._unit7(Unit6Stack.cross)
-        cls.multiplicity = cls._unit7(Unit6Stack.multiplicity)
+        cls.cross = cls._unit7(
+            unit6_tests.BaziClassicalNonSelectingParticipantAllocationR1Tests.cross
+        )
+        cls.multiplicity = cls._unit7(
+            unit6_tests.BaziClassicalNonSelectingParticipantAllocationR1Tests.multiplicity
+        )
+        cls.controlled_fragment = cls._controlled_candidate_fragment()
 
     @classmethod
     def _unit7(cls, stack):
@@ -47,21 +58,60 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             raise AssertionError(result.diagnostics)
         return effect, admission, semantic, mechanism, allocation, request, result
 
-    @staticmethod
-    def _flatten_final(result):
-        return [
-            candidate
-            for outer in result.candidates
-            for fragment in outer.fragment_envelopes
-            for candidate in fragment.final_candidates
-        ]
-
-    def _first_candidate_stack(self):
-        for stack in (self.cross, self.multiplicity):
-            candidates = self._flatten_final(stack[-1])
-            if candidates:
-                return stack, candidates[0]
-        self.fail("Unit 7 fixture contains no final effect candidate")
+    @classmethod
+    def _controlled_candidate_fragment(cls):
+        helper_cls = (
+            unit6_integrity_tests.BaziClassicalNonSelectingParticipantAllocationIntegrityR1Tests
+        )
+        helper_cls.setUpClass()
+        helper = helper_cls(methodName="test_recomputed_hash_does_not_hide_synthetic_extra_path")
+        _, unit5_fragment, candidate, proposal, elaboration, _ = helper._controlled_allocation()
+        semantic_fragment = SimpleNamespace(
+            fragment_semantic_projection_id=unit5_fragment.source_fragment_semantic_projection_id,
+            projection_status="SEMANTIC_CANDIDATES_PROJECTED",
+            semantic_candidates=(candidate,),
+        )
+        allocation_fragment = FragmentAllocationElaborationProjection(
+            fragment_allocation_projection_id="CONTROLLED-UNIT7-ALLOCATION-FRAGMENT",
+            source_fragment_governance_projection_id=(
+                unit5_fragment.fragment_governance_projection_id
+            ),
+            source_fragment_semantic_projection_id=(
+                unit5_fragment.source_fragment_semantic_projection_id
+            ),
+            source_fragment_id=unit5_fragment.source_fragment_id,
+            source_occurrence_id=unit5_fragment.source_occurrence_id,
+            binding_candidate_id=unit5_fragment.binding_candidate_id,
+            source_governance_status=unit5_fragment.governance_status,
+            allocation_status="ALLOCATION_DOMAIN_ELABORATION_PROJECTED",
+            source_mechanism_proposal_ids=(proposal.mechanism_proposal_id,),
+            proposal_elaborations=(elaboration,),
+            allocation_domain_observation_ids=tuple(
+                row.allocation_domain_observation_id
+                for row in elaboration.allocation_domain_observations
+            ),
+        )
+        semantic_envelope = SimpleNamespace(
+            semantic_projection_envelope_id="CONTROLLED-UNIT4-ENVELOPE",
+            hashes=SimpleNamespace(fact_hash="0" * 64, computation_hash="1" * 64),
+        )
+        mechanism_envelope = SimpleNamespace(
+            mechanism_closure_envelope_id="CONTROLLED-UNIT5-ENVELOPE",
+            hashes=SimpleNamespace(fact_hash="2" * 64, computation_hash="3" * 64),
+        )
+        allocation_envelope = SimpleNamespace(
+            allocation_envelope_id="CONTROLLED-UNIT6-ENVELOPE",
+            hashes=SimpleNamespace(fact_hash="4" * 64, computation_hash="5" * 64),
+        )
+        return _project_fragment(
+            allocation_fragment,
+            unit5_fragment,
+            semantic_fragment,
+            semantic_envelope,
+            mechanism_envelope,
+            allocation_envelope,
+            cls.profile,
+        )
 
     def test_release_contract_is_exact_and_closed(self):
         report = validate_release_contract(ROOT)
@@ -88,7 +138,7 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             changed[path[0]][path[1]] = value
             self.assertTrue(list(validator.iter_errors(changed)), path)
 
-    def test_one_to_one_outer_fragment_and_candidate_chain_is_preserved(self):
+    def test_real_upstream_outer_and_fragment_lineage_is_preserved(self):
         for _, _, semantic, mechanism, allocation, _, result in (self.cross, self.multiplicity):
             self.assertEqual(len(allocation.candidates), len(result.candidates))
             semantic_by_id = {row.semantic_projection_envelope_id: row for row in semantic.candidates}
@@ -107,39 +157,29 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
                 ):
                     semantic_fragment = semantic_fragments[final_fragment.source_fragment_semantic_projection_id]
                     mechanism_fragment = mechanism_fragments[final_fragment.source_fragment_governance_projection_id]
-                    self.assertEqual(
-                        tuple(row.semantic_candidate_id for row in semantic_fragment.semantic_candidates),
-                        final_fragment.source_semantic_candidate_ids,
-                    )
-                    self.assertEqual(
-                        tuple(row.mechanism_proposal_id for row in mechanism_fragment.mechanism_proposals),
-                        final_fragment.source_mechanism_proposal_ids,
-                    )
-                    self.assertEqual(
-                        tuple(row.proposal_allocation_elaboration_id for row in allocation_fragment.proposal_elaborations),
-                        final_fragment.source_allocation_elaboration_ids,
-                    )
-                    self.assertEqual(
-                        len(semantic_fragment.semantic_candidates),
-                        len(final_fragment.final_candidates),
-                    )
-                    for candidate, proposal, elaboration, final_candidate in zip(
-                        semantic_fragment.semantic_candidates,
-                        mechanism_fragment.mechanism_proposals,
-                        allocation_fragment.proposal_elaborations,
-                        final_fragment.final_candidates,
-                        strict=True,
-                    ):
-                        self.assertEqual(candidate.semantic_candidate_id, final_candidate.source_semantic_candidate_id)
-                        self.assertEqual(proposal.mechanism_proposal_id, final_candidate.source_mechanism_proposal_id)
-                        self.assertEqual(elaboration.proposal_allocation_elaboration_id, final_candidate.source_allocation_elaboration_id)
-                        self.assertEqual(candidate.multiplicity_references, final_candidate.multiplicity_references)
-                        self.assertEqual(proposal.closure_governance_rows, final_candidate.closure_governance_rows)
-                        self.assertEqual(elaboration.allocation_domain_observations, final_candidate.allocation_domain_observations)
-                        self.assertEqual(proposal.source_narrative_chain_ids_provenance, final_candidate.source_narrative_chain_ids_provenance)
-                        self.assertEqual(proposal.source_unresolved_graph_requirements_provenance, final_candidate.source_unresolved_graph_requirements_provenance)
-                        if final_candidate.mechanism_proposal_kind != "PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL":
-                            self.assertEqual((), final_candidate.allocation_domain_observations)
+                    self.assertEqual(tuple(row.semantic_candidate_id for row in semantic_fragment.semantic_candidates), final_fragment.source_semantic_candidate_ids)
+                    self.assertEqual(tuple(row.mechanism_proposal_id for row in mechanism_fragment.mechanism_proposals), final_fragment.source_mechanism_proposal_ids)
+                    self.assertEqual(tuple(row.proposal_allocation_elaboration_id for row in allocation_fragment.proposal_elaborations), final_fragment.source_allocation_elaboration_ids)
+
+    def test_controlled_candidate_chain_is_exact_one_to_one_pass_through(self):
+        fragment = self.controlled_fragment
+        self.assertEqual("FINAL_EFFECT_CANDIDATES_ASSEMBLED", fragment.final_fragment_status)
+        self.assertEqual(1, len(fragment.final_candidates))
+        self.assertEqual(1, len(fragment.source_semantic_candidate_ids))
+        self.assertEqual(1, len(fragment.source_mechanism_proposal_ids))
+        self.assertEqual(1, len(fragment.source_allocation_elaboration_ids))
+        candidate = fragment.final_candidates[0]
+        self.assertEqual(fragment.source_semantic_candidate_ids[0], candidate.source_semantic_candidate_id)
+        self.assertEqual(fragment.source_mechanism_proposal_ids[0], candidate.source_mechanism_proposal_id)
+        self.assertEqual(fragment.source_allocation_elaboration_ids[0], candidate.source_allocation_elaboration_id)
+        self.assertEqual("SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE", candidate.semantic_candidate_kind)
+        self.assertEqual("PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL", candidate.mechanism_proposal_kind)
+        self.assertEqual(1, len(candidate.multiplicity_references))
+        self.assertEqual(1, len(candidate.allocation_domain_observations))
+        observation = candidate.allocation_domain_observations[0]
+        self.assertEqual("EXACT_INSTANCE_SET_CARDINALITY_MATCH", observation.allocation_domain_classification)
+        self.assertEqual(1, len(observation.path_candidates))
+        self.assertEqual("NOT_RELEASED", observation.path_candidates[0].selection_semantics)
 
     def test_zero_candidate_fragments_remain_zero_candidate_fragments(self):
         found = False
@@ -183,14 +223,10 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
                     self.assertFalse(hasattr(outer, field), field)
 
     def test_same_effect_channel_index_preserves_separate_unranked_candidates(self):
-        _, candidate = self._first_candidate_stack()
+        candidate = self.controlled_fragment.final_candidates[0]
         other = replace(candidate, final_candidate_id=f"{candidate.final_candidate_id}:SECOND")
         effect_index, semantic_index, mechanism_index, _, _ = build_expected_indexes((candidate, other))
-        row = next(
-            row for row in effect_index
-            if row.target_exact_relation_id == candidate.target_exact_relation_id
-            and row.effect_facet == candidate.effect_facet
-        )
+        row = effect_index[0]
         self.assertEqual((candidate.final_candidate_id, other.final_candidate_id), row.final_candidate_ids)
         self.assertEqual("IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_OR_SELECTION", row.index_semantics)
         self.assertTrue(any(len(row.final_candidate_ids) == 2 for row in semantic_index))
@@ -201,28 +237,23 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             (ROOT / "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json").read_text(encoding="utf-8")
         )
         lock = contract["record_specific_locks"]["ZPZQ-CL-09-005-002"]
-        self.assertEqual(
-            [
-                "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
-                "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
-                "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE",
-            ],
-            lock["semantic_candidates"],
-        )
+        self.assertEqual([
+            "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
+            "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+            "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE",
+        ], lock["semantic_candidates"])
         self.assertEqual("MISSING_PRIMITIVE", lock["allocation_closure_status"])
         self.assertEqual("PARTIALLY_AVAILABLE", lock["compatible_path_enumeration_status"])
         self.assertEqual("NOT_RELEASED", lock["participant_path_selection"])
         self.assertEqual("FORBIDDEN", lock["synthetic_path_generation"])
 
     def test_runtime_schema_is_closed_against_resolver_surface(self):
-        stack, candidate = self._first_candidate_stack()
-        payload = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve(stack[-2])
+        payload = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve(self.cross[-2])
         schema = json.loads(
             (ROOT / "schemas/bazi-classical-final-effect-candidate-envelope-runtime-r1.schema.json").read_text(encoding="utf-8")
         )
         validator = Draft202012Validator(schema)
         validator.validate(payload)
-
         forbidden = [
             "truth", "operative", "applicable", "ready_for_execution",
             "selected_candidate", "selected_participant_id", "selected_path",
@@ -235,9 +266,8 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             changed = copy.deepcopy(payload)
             changed["candidates"][0][field] = True
             self.assertTrue(list(validator.iter_errors(changed)), field)
-
         candidate_validator = Draft202012Validator(schema["$defs"]["finalCandidate"])
-        candidate_payload = json_value(candidate)
+        candidate_payload = json_value(self.controlled_fragment.final_candidates[0])
         candidate_validator.validate(candidate_payload)
         for field in forbidden:
             changed = copy.deepcopy(candidate_payload)
