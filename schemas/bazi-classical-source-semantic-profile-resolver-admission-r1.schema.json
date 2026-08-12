@@ -28,7 +28,7 @@
         "source_id": {"const": "S14"},
         "source_chapter_id": {"const": "ZPZQ-CH-09"},
         "source_chapter_title": {"const": "论刑冲会合解法"},
-        "member_source_occurrence_ids": {"type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true, "items": {"type": "string"}},
+        "member_source_occurrence_ids": {"const": ["ZPZQ-CL-09-003-002", "ZPZQ-CL-09-003-003", "ZPZQ-CL-09-003-004", "ZPZQ-CL-09-003-005", "ZPZQ-CL-09-003-007", "ZPZQ-CL-09-003-008", "ZPZQ-CL-09-003-009", "ZPZQ-CL-09-003-010", "ZPZQ-CL-09-005-002", "ZPZQ-CL-09-007-002", "ZPZQ-CL-09-007-003", "ZPZQ-CL-09-009-003", "ZPZQ-CL-09-009-004"]},
         "semantic_role": {"const": "PARTITION_IDENTITY_ONLY"}
       }
     },
@@ -59,15 +59,28 @@
         "cross_source_composition_policy": {"const": "NOT_RELEASED"}
       }
     },
-    "closed_vocabularies": {"type": "object", "additionalProperties": false, "required": ["admission_statuses", "admission_blocker_classes", "neutral_dependency_observation_map"], "properties": {
-      "admission_statuses": {"const": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]},
-      "admission_blocker_classes": {"const": ["SOURCE_SEMANTIC_PARTITION_MISMATCH", "STRUCTURAL_BINDING_PARTIAL", "CROSS_LAYER_EXTENSION_UNRESOLVED", "RESIDUAL_STRUCTURAL_CONSTRAINT", "MATERIALIZED_DEPENDENCY_MISSING", "UNEXPECTED_MATERIALIZED_DEPENDENCY"]},
-      "neutral_dependency_observation_map": {"const": {"EXACT_RAW_RELATION_OCCURRENCE_IDENTITY": "relation_identity_observations", "EXACT_PARTICIPANT_INSTANCE_IDENTITY": "participant_identity_observations", "RELATION_INCIDENCE_DEGREE": "participant_incidence_observations", "RELATION_PAIR_TOPOLOGY": "relation_pair_topology_observations", "EXACT_TEMPORAL_LAYER_FRAME": "temporal_layer_frame_observations"}}
-    }},
-    "strict_admission_contract": {"type": "object"},
-    "preservation_contract": {"type": "object"},
-    "regression_matrix": {"type": "array", "minItems": 4, "maxItems": 4},
-    "hard_exclusions": {"type": "array", "minItems": 20, "uniqueItems": true, "items": {"type": "string"}},
-    "determinism": {"type": "object", "additionalProperties": false, "required": ["contract_semantics_sha256"], "properties": {"contract_semantics_sha256": {"const": "869916b557dcc889831b4775679cf1bd0db9e786f280ec42493cafd188e9bec6"}}}
+    "closed_vocabularies": {
+      "type": "object", "additionalProperties": false,
+      "required": ["admission_statuses", "admission_blocker_classes", "neutral_dependency_observation_map"],
+      "properties": {
+        "admission_statuses": {"const": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]},
+        "admission_blocker_classes": {"const": ["SOURCE_SEMANTIC_PARTITION_MISMATCH", "STRUCTURAL_BINDING_PARTIAL", "CROSS_LAYER_EXTENSION_UNRESOLVED", "RESIDUAL_STRUCTURAL_CONSTRAINT", "MATERIALIZED_DEPENDENCY_MISSING", "UNEXPECTED_MATERIALIZED_DEPENDENCY"]},
+        "neutral_dependency_observation_map": {"const": {"EXACT_RAW_RELATION_OCCURRENCE_IDENTITY": "relation_identity_observations", "EXACT_PARTICIPANT_INSTANCE_IDENTITY": "participant_identity_observations", "RELATION_INCIDENCE_DEGREE": "participant_incidence_observations", "RELATION_PAIR_TOPOLOGY": "relation_pair_topology_observations", "EXACT_TEMPORAL_LAYER_FRAME": "temporal_layer_frame_observations"}}
+      }
+    },
+    "strict_admission_contract": {"const": {"partition_match_required": true, "structural_binding_class_required": "FULL_EXACT_BINDING_ENUMERATION", "residual_unresolved_structural_constraint_ids_required": "EMPTY", "source_scope_compatibility_required": "DIRECT_SOURCE_SCOPE_MATCH", "declared_neutral_dependencies_required": "EXACTLY_MATERIALIZED", "source_unresolved_graph_requirements": "PROVENANCE_ONLY_NEVER_DIRECT_PREDICATE", "unresolved_classical_semantic_requirements": "PASS_THROUGH_NOT_SOLVED", "lifecycle_global_truth_gate": "NOT_RELEASED"}},
+    "preservation_contract": {"const": {"one_unit2_envelope_to_one_admission_envelope": true, "one_unit2_fragment_to_one_admission_projection": true, "fragment_deletion": "FORBIDDEN", "fragment_merge": "FORBIDDEN", "fragment_selection": "NOT_RELEASED", "member_selection_semantics": "NOT_RELEASED", "member_coexistence_semantics": "NOT_RELEASED", "member_exclusivity_semantics": "NOT_RELEASED", "cross_outer_composition": "NOT_RELEASED", "cartesian_expansion": "NOT_RELEASED"}},
+    "regression_matrix": {"const": [
+      {"structural_binding_class": "FULL_EXACT_BINDING_ENUMERATION", "source_scope_compatibility": "DIRECT_SOURCE_SCOPE_MATCH", "expected_status": "ADMITTED_IF_DECLARED_DEPENDENCIES_EXACTLY_MATERIALIZED", "required_blockers": []},
+      {"structural_binding_class": "FULL_EXACT_BINDING_ENUMERATION", "source_scope_compatibility": "CROSS_LAYER_EXTENSION_UNRESOLVED", "expected_status": "PRESERVED_NOT_ADMITTED", "required_blockers": ["CROSS_LAYER_EXTENSION_UNRESOLVED"]},
+      {"structural_binding_class": "PARTIAL_EXACT_BINDING_ENUMERATION", "source_scope_compatibility": "DIRECT_SOURCE_SCOPE_MATCH", "expected_status": "PRESERVED_NOT_ADMITTED", "required_blockers": ["STRUCTURAL_BINDING_PARTIAL"]},
+      {"structural_binding_class": "PARTIAL_EXACT_BINDING_ENUMERATION", "source_scope_compatibility": "CROSS_LAYER_EXTENSION_UNRESOLVED", "expected_status": "PRESERVED_NOT_ADMITTED", "required_blockers": ["STRUCTURAL_BINDING_PARTIAL", "CROSS_LAYER_EXTENSION_UNRESOLVED"]}
+    ]},
+    "hard_exclusions": {"const": ["CANDIDATE_PRESERVING_RESOLVER", "SEMANTIC_ATOM", "REWRITE_RULE", "MECHANISM_CANDIDATE_MATRIX", "CLOSURE_GAP_MATRIX", "G6_ALLOCATION_ELABORATION", "LIFECYCLE_ELIGIBILITY_SOLVING", "SOURCE_CLAIM_ARBITRATION", "SOURCE_TRUTH_OR_APPLICABILITY_SELECTION", "RELATION_OPERABILITY_TRUTH", "PRECEDENCE", "WINNER_OR_LOSER", "CONFLICT_RESOLUTION", "SUPPRESSION", "ACTIVATION", "DEACTIVATION", "RELEASE", "CANCELLATION", "OVERRIDE", "NEGATION", "RELATION_OR_EFFECT_STATE", "GRAPH_REWRITE", "FIXPOINT", "CYCLE_HANDLING", "MONOTONICITY_LATTICE_TERMINATION_SOLVING", "FINAL_CLASSICAL_VERDICT", "CROSS_SOURCE_COMPOSITION", "CARTESIAN_CANDIDATE_WORLD_GENERATION"]},
+    "determinism": {
+      "type": "object", "additionalProperties": false,
+      "required": ["contract_semantics_sha256"],
+      "properties": {"contract_semantics_sha256": {"const": "869916b557dcc889831b4775679cf1bd0db9e786f280ec42493cafd188e9bec6"}}
+    }
   }
 }
