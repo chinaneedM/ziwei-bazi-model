@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-resolver-admission-runtime-r1.schema.json",
+  "$defs": {
+    "strings": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "neutralPrimitive": {"enum": ["EXACT_RAW_RELATION_OCCURRENCE_IDENTITY", "EXACT_PARTICIPANT_INSTANCE_IDENTITY", "RELATION_INCIDENCE_DEGREE", "RELATION_PAIR_TOPOLOGY", "EXACT_TEMPORAL_LAYER_FRAME"]},
+    "sourceProfile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "partition_id", "source_layer", "source_id", "source_chapter_id", "source_chapter_title", "member_source_occurrence_ids", "semantic_role"],
+      "properties": {
+        "profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_id": {"const": "S14"},
+        "source_chapter_id": {"const": "ZPZQ-CH-09"},
+        "source_chapter_title": {"const": "论刑冲会合解法"},
+        "member_source_occurrence_ids": {"const": ["ZPZQ-CL-09-003-002", "ZPZQ-CL-09-003-003", "ZPZQ-CL-09-003-004", "ZPZQ-CL-09-003-005", "ZPZQ-CL-09-003-007", "ZPZQ-CL-09-003-008", "ZPZQ-CL-09-003-009", "ZPZQ-CL-09-003-010", "ZPZQ-CL-09-005-002", "ZPZQ-CL-09-007-002", "ZPZQ-CL-09-007-003", "ZPZQ-CL-09-009-003", "ZPZQ-CL-09-009-004"]},
+        "semantic_role": {"const": "PARTITION_IDENTITY_ONLY"}
+      }
+    },
+    "admissionProfile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "algorithm_id", "algorithm_version", "source_semantic_profile_id", "source_semantic_partition_id", "allowed_source_layers", "allowed_scope_compatibility_classes", "allowed_structural_binding_classes", "partial_fragment_policy", "cross_layer_extension_policy", "source_layer_composition_policy", "lifecycle_dependency_policy", "unresolved_requirement_policy", "fragment_candidate_set_policy", "declared_dependency_policy", "source_unresolved_graph_requirement_policy", "raw_relation_immutability_contract", "transition_separation_contract", "cartesian_expansion_policy", "cross_source_composition_policy"],
+      "properties": {
+        "profile_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-STRICT-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-SIDECAR-R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "allowed_source_layers": {"const": ["SHEN_CLASSICAL_SOURCE"]},
+        "allowed_scope_compatibility_classes": {"const": ["DIRECT_SOURCE_SCOPE_MATCH"]},
+        "allowed_structural_binding_classes": {"const": ["FULL_EXACT_BINDING_ENUMERATION"]},
+        "partial_fragment_policy": {"const": "PRESERVE_NOT_ADMIT"},
+        "cross_layer_extension_policy": {"const": "PRESERVE_NOT_ADMIT"},
+        "source_layer_composition_policy": {"const": "SINGLE_PROFILE_PARTITION_ONLY"},
+        "lifecycle_dependency_policy": {"const": "PARALLEL_NOT_GLOBAL_ADMISSION_GATE"},
+        "unresolved_requirement_policy": {"const": "PASS_THROUGH_CLASSICAL_REQUIREMENTS"},
+        "fragment_candidate_set_policy": {"const": "PRESERVE_ALL_NO_SELECTION"},
+        "declared_dependency_policy": {"const": "REQUIRE_EXACT_MATERIALIZATION"},
+        "source_unresolved_graph_requirement_policy": {"const": "PROVENANCE_ONLY_NEVER_DIRECT_PREDICATE"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "transition_separation_contract": {"const": "RAW_SET_CHANGE_NOT_CLASSICAL_ADMISSION_TRUTH"},
+        "cartesian_expansion_policy": {"const": "NOT_RELEASED"},
+        "cross_source_composition_policy": {"const": "NOT_RELEASED"}
+      }
+    },
+    "dependencyEvidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["primitive", "observation_ids", "materialization_status"],
+      "properties": {
+        "primitive": {"$ref": "#/$defs/neutralPrimitive"},
+        "observation_ids": {"$ref": "#/$defs/strings"},
+        "materialization_status": {"enum": ["EXACTLY_MATERIALIZED", "MISSING_REQUIRED_MATERIALIZATION", "UNEXPECTED_MATERIALIZATION"]}
+      }
+    },
+    "fragmentAdmission": {
+      "type": "object", "additionalProperties": false,
+      "required": ["admission_projection_id", "source_envelope_id", "source_envelope_fact_hash", "source_envelope_computation_hash", "source_fragment_id", "source_fragment_fact_hash", "source_fragment_computation_hash", "binding_candidate_id", "source_occurrence_id", "source_layer", "source_semantic_profile_id", "source_semantic_partition_id", "partition_match", "structural_binding_class", "source_scope_compatibility", "residual_unresolved_structural_constraint_ids", "neutral_observation_bundle_id", "required_neutral_primitives", "dependency_materialization_evidence", "unresolved_classical_semantic_requirements", "source_unresolved_graph_requirements_provenance", "admission_blocker_ids", "admission_status"],
+      "properties": {
+        "admission_projection_id": {"type": "string"},
+        "source_envelope_id": {"type": "string"},
+        "source_envelope_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_envelope_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_fragment_id": {"type": "string"},
+        "source_fragment_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_fragment_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "binding_candidate_id": {"type": "string"},
+        "source_occurrence_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "partition_match": {"type": "boolean"},
+        "structural_binding_class": {"enum": ["FULL_EXACT_BINDING_ENUMERATION", "PARTIAL_EXACT_BINDING_ENUMERATION"]},
+        "source_scope_compatibility": {"enum": ["DIRECT_SOURCE_SCOPE_MATCH", "CROSS_LAYER_EXTENSION_UNRESOLVED"]},
+        "residual_unresolved_structural_constraint_ids": {"$ref": "#/$defs/strings"},
+        "neutral_observation_bundle_id": {"type": "string"},
+        "required_neutral_primitives": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/neutralPrimitive"}},
+        "dependency_materialization_evidence": {"type": "array", "items": {"$ref": "#/$defs/dependencyEvidence"}},
+        "unresolved_classical_semantic_requirements": {"$ref": "#/$defs/strings"},
+        "source_unresolved_graph_requirements_provenance": {"$ref": "#/$defs/strings"},
+        "admission_blocker_ids": {"$ref": "#/$defs/strings"},
+        "admission_status": {"enum": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"admission_status": {"const": "ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": true}, "admission_blocker_ids": {"maxItems": 0}, "structural_binding_class": {"const": "FULL_EXACT_BINDING_ENUMERATION"}, "source_scope_compatibility": {"const": "DIRECT_SOURCE_SCOPE_MATCH"}, "residual_unresolved_structural_constraint_ids": {"maxItems": 0}, "dependency_materialization_evidence": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/dependencyEvidence"}, {"properties": {"materialization_status": {"const": "EXACTLY_MATERIALIZED"}}}]}}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_NOT_ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": true}, "admission_blocker_ids": {"minItems": 1}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_OUTSIDE_PROFILE"}}, "required": ["admission_status"]}, "then": {"properties": {"partition_match": {"const": false}, "admission_blocker_ids": {"const": ["SOURCE_SEMANTIC_PARTITION_MISMATCH"]}}}}
+      ]
+    },
+    "recordSet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_record_candidate_set_id", "source_layer", "source_occurrence_id", "source_fragment_ids", "admission_projection_ids", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics"],
+      "properties": {
+        "source_record_candidate_set_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_occurrence_id": {"type": "string"},
+        "source_fragment_ids": {"$ref": "#/$defs/strings"},
+        "admission_projection_ids": {"$ref": "#/$defs/strings"},
+        "member_selection_semantics": {"const": "NOT_RELEASED"},
+        "member_coexistence_semantics": {"const": "NOT_RELEASED"},
+        "member_exclusivity_semantics": {"const": "NOT_RELEASED"}
+      }
+    },
+    "integrity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["admission_envelope_id", "source_effect_envelope_id", "source_effect_fact_hash", "source_effect_computation_hash", "source_projection_fact_hash", "source_projection_computation_hash", "source_binding_fact_hash", "source_binding_computation_hash", "lineage_binding_keys", "fragment_admissions", "source_record_candidate_sets", "admitted_fragment_ids", "preserved_not_admitted_fragment_ids", "preserved_outside_profile_fragment_ids", "fragment_selection_semantics", "cross_outer_composition", "cartesian_expansion", "raw_relation_immutability_contract", "transition_separation_contract", "algorithm_versions", "integrity", "hashes"],
+      "properties": {
+        "admission_envelope_id": {"type": "string"},
+        "source_effect_envelope_id": {"type": "string"},
+        "source_effect_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_effect_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_projection_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_projection_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_binding_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_binding_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "lineage_binding_keys": {"$ref": "#/$defs/strings"},
+        "fragment_admissions": {"type": "array", "items": {"$ref": "#/$defs/fragmentAdmission"}},
+        "source_record_candidate_sets": {"type": "array", "items": {"$ref": "#/$defs/recordSet"}},
+        "admitted_fragment_ids": {"$ref": "#/$defs/strings"},
+        "preserved_not_admitted_fragment_ids": {"$ref": "#/$defs/strings"},
+        "preserved_outside_profile_fragment_ids": {"$ref": "#/$defs/strings"},
+        "fragment_selection_semantics": {"const": "NOT_RELEASED"},
+        "cross_outer_composition": {"const": "NOT_RELEASED"},
+        "cartesian_expansion": {"const": "NOT_RELEASED"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "transition_separation_contract": {"const": "RAW_SET_CHANGE_NOT_CLASSICAL_ADMISSION_TRUTH"},
+        "algorithm_versions": {"const": {"admission": "1.0.0"}},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "typed_schema", "status", "source_semantic_profile", "admission_profile", "candidates", "events", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-RESULT-R1"},
+    "typed_schema": {"const": "BAZI-CLASSICAL-RESOLVER-ADMISSION-TYPED-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "source_semantic_profile": {"$ref": "#/$defs/sourceProfile"},
+    "admission_profile": {"$ref": "#/$defs/admissionProfile"},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"$ref": "#/$defs/strings"},
+    "diagnostics": {"$ref": "#/$defs/strings"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "FAILED"}}, "required": ["status"]}, "then": {"properties": {"candidates": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]}}, "required": ["status"]}, "then": {"properties": {"candidates": {"minItems": 1}, "diagnostics": {"maxItems": 0}}}}
+  ]
+}
