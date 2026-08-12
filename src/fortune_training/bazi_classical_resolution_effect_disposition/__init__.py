@@ -11,6 +11,9 @@ from .integrity import (
     replay_unit7_resolution,
     resolution_effect_disposition_id,
     resolution_effect_hash_bundle,
+)
+from .strict_integrity import (
+    expected_lineage_binding_keys,
     validate_resolution_effect_envelope,
 )
 from .models import (
@@ -56,6 +59,7 @@ __all__ = [
     "candidate_is_handled_resolution",
     "expected_candidate_projection",
     "expected_fragment_projection",
+    "expected_lineage_binding_keys",
     "replay_unit7_resolution",
     "resolution_effect_disposition_id",
     "resolution_effect_hash_bundle",
