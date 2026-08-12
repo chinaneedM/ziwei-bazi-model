@@ -46,6 +46,9 @@ from .bazi_classical_non_selecting_participant_allocation.release import (
 from .bazi_classical_final_effect_candidate_envelope.release import (
     validate_release_contract as validate_classical_final_effect_candidate_envelope_release_contract,
 )
+from .bazi_classical_resolution_effect_disposition.release import (
+    validate_release_contract as validate_classical_resolution_effect_disposition_release_contract,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -282,6 +285,7 @@ def main(argv: list[str] | None = None) -> int:
             result["classical_semantic_mechanism_closure_governance"] = validate_classical_semantic_closure_governance_release_contract(root)
             result["classical_non_selecting_participant_allocation"] = validate_classical_non_selecting_participant_allocation_release_contract(root)
             result["classical_final_effect_candidate_envelope"] = validate_classical_final_effect_candidate_envelope_release_contract(root)
+            result["classical_resolution_effect_disposition"] = validate_classical_resolution_effect_disposition_release_contract(root)
             _print_json(result)
         elif args.command == "status":
             _print_json(status(root))
