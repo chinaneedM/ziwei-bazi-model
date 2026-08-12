@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import unittest
 from dataclasses import replace
@@ -44,6 +45,27 @@ class BaziClassicalSourceProfileResolverAdmissionR1Tests(unittest.TestCase):
         self.assertEqual("PARTITION_IDENTITY_ONLY", self.source_profile.semantic_role)
         self.assertIn("ZPZQ-CL-09-007-002", self.source_profile.member_source_occurrence_ids)
         self.assertNotIn("QTBJ-CL-05347", self.source_profile.member_source_occurrence_ids)
+
+    def test_release_schema_rejects_nested_policy_and_regression_drift(self):
+        contract = json.loads((ROOT / "audits/bazi-classical-source-semantic-profile-resolver-admission-r1/contract.json").read_text(encoding="utf-8"))
+        schema = json.loads((ROOT / "schemas/bazi-classical-source-semantic-profile-resolver-admission-r1.schema.json").read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema)
+        validator.validate(contract)
+        mutations = []
+        changed = copy.deepcopy(contract)
+        changed["strict_admission_contract"]["lifecycle_global_truth_gate"] = "RELEASED"
+        mutations.append(changed)
+        changed = copy.deepcopy(contract)
+        changed["preservation_contract"]["fragment_selection"] = "FIRST"
+        mutations.append(changed)
+        changed = copy.deepcopy(contract)
+        changed["regression_matrix"][0]["expected_status"] = "ADMITTED"
+        mutations.append(changed)
+        changed = copy.deepcopy(contract)
+        changed["hard_exclusions"].remove("PRECEDENCE")
+        mutations.append(changed)
+        for changed in mutations:
+            self.assertTrue(list(validator.iter_errors(changed)))
 
     def test_007_002_is_upstream_partial(self):
         plan = json.loads((ROOT / "audits/bazi-chart-specific-exact-source-pattern-binding-candidates-r1/bindability-plan.json").read_text(encoding="utf-8"))
