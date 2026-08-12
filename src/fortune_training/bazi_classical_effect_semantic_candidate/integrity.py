@@ -40,10 +40,14 @@ def replay_effect_envelope_self_contained(source_effect_envelope: Any) -> bool:
     if source_effect_envelope.integrity.status != "PASS":
         return False
     profile = bazi_classical_effect_constraint_graph_factorized_composition_r1_profile()
-    expected_profile_key = f"EFFECT_GRAPH_PROFILE:{profile.profile_id}:{profile.profile_version}"
+    expected_lineage_tail = (
+        f"SOURCE_PROJECTION_FACT:{source_effect_envelope.source_projection_fact_hash}",
+        f"SOURCE_PROJECTION_COMPUTATION:{source_effect_envelope.source_projection_computation_hash}",
+        f"EFFECT_GRAPH_PROFILE:{profile.profile_id}:{profile.profile_version}",
+    )
     if (
-        not source_effect_envelope.lineage_binding_keys
-        or source_effect_envelope.lineage_binding_keys[-1] != expected_profile_key
+        len(source_effect_envelope.lineage_binding_keys) < 3
+        or source_effect_envelope.lineage_binding_keys[-3:] != expected_lineage_tail
         or source_effect_envelope.cross_source_layer_composition != "NOT_RELEASED"
         or source_effect_envelope.cartesian_expansion != "NOT_RELEASED"
         or source_effect_envelope.raw_relation_immutability_contract != "IMMUTABLE_EXACT_REFERENCE_ONLY"
@@ -76,7 +80,7 @@ def replay_effect_envelope_self_contained(source_effect_envelope: Any) -> bool:
         "cartesian_expansion": "NOT_RELEASED",
         "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
     }
-    source_projection_lineage_binding_keys = source_effect_envelope.lineage_binding_keys[:-1]
+    source_projection_lineage_binding_keys = source_effect_envelope.lineage_binding_keys[:-3]
     computation_payload = {
         "facts": fact_payload,
         "source_projection_computation_hash": source_effect_envelope.source_projection_computation_hash,
