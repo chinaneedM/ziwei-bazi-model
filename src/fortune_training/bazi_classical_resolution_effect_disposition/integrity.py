@@ -23,6 +23,7 @@ from .models import (
     ResolutionEffectDispositionIntegrityReport,
     ResolutionEffectFragmentProjection,
     SourceOccurrenceResolutionDispositionIndexEntry,
+    SourceRecordResolutionEffectCandidateSet,
 )
 from .profile import (
     CANDIDATE_PROJECTION_STATUSES,
@@ -220,6 +221,58 @@ def expected_fragment_projection(
     )
 
 
+def build_expected_source_record_candidate_sets(
+    source_final_envelope: Any,
+    fragment_projections: tuple[ResolutionEffectFragmentProjection, ...],
+) -> tuple[SourceRecordResolutionEffectCandidateSet, ...]:
+    by_final_fragment_id = {
+        row.source_final_fragment_id: row for row in fragment_projections
+    }
+    if len(by_final_fragment_id) != len(fragment_projections):
+        raise ValueError("DUPLICATE_UNIT8_SOURCE_FINAL_FRAGMENT_ID")
+    rows: list[SourceRecordResolutionEffectCandidateSet] = []
+    for source_set in source_final_envelope.source_record_candidate_sets:
+        try:
+            selected = tuple(
+                by_final_fragment_id[fragment_id]
+                for fragment_id in source_set.final_fragment_ids
+            )
+        except KeyError as exc:
+            raise ValueError(
+                f"UNIT8_SOURCE_RECORD_FRAGMENT_LINEAGE_MISSING:{exc.args[0]}"
+            ) from exc
+        candidate_projection_ids = tuple(
+            candidate_id
+            for fragment in selected
+            for candidate_id in fragment.candidate_projection_ids
+        )
+        disposition_ids = tuple(
+            disposition_id
+            for fragment in selected
+            for disposition_id in fragment.resolution_effect_disposition_ids
+        )
+        set_id = "CLASSICAL_RESOLUTION_EFFECT_SOURCE_RECORD_SET:" + object_sha256({
+            "source_final_candidate_set_id": source_set.source_record_candidate_set_id,
+            "source_final_fragment_ids": source_set.final_fragment_ids,
+            "fragment_projection_ids": tuple(
+                row.fragment_projection_id for row in selected
+            ),
+            "candidate_projection_ids": candidate_projection_ids,
+            "resolution_effect_disposition_ids": disposition_ids,
+        })
+        rows.append(SourceRecordResolutionEffectCandidateSet(
+            source_record_candidate_set_id=set_id,
+            source_final_candidate_set_id=source_set.source_record_candidate_set_id,
+            source_layer=source_set.source_layer,
+            source_occurrence_id=source_set.source_occurrence_id,
+            source_final_fragment_ids=source_set.final_fragment_ids,
+            fragment_projection_ids=tuple(row.fragment_projection_id for row in selected),
+            candidate_projection_ids=candidate_projection_ids,
+            resolution_effect_disposition_ids=disposition_ids,
+        ))
+    return tuple(rows)
+
+
 def build_expected_indexes(
     candidate_projections: tuple[ResolutionEffectCandidateProjection, ...],
 ) -> tuple[tuple[Any, ...], tuple[Any, ...], tuple[Any, ...]]:
@@ -366,6 +419,16 @@ def validate_resolution_effect_envelope(
             "UNIT8_FRAGMENT_SEMANTIC_REPLAY_MISMATCH",
             "fragment_projections",
             "Unit 8 fragments do not replay exactly from Unit 7",
+        ))
+    expected_source_sets = build_expected_source_record_candidate_sets(
+        source_final_envelope,
+        expected_fragments,
+    )
+    if source_record_candidate_sets != expected_source_sets:
+        diagnostics.append(ResolutionEffectDispositionIntegrityDiagnostic(
+            "UNIT8_SOURCE_RECORD_FACTORIZATION_REPLAY_MISMATCH",
+            "source_record_candidate_sets",
+            "Unit 8 source-record factorization differs from exact Unit 7 lineage replay",
         ))
     expected_candidate_projections = tuple(
         candidate
