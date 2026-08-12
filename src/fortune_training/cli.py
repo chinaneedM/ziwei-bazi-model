@@ -37,6 +37,9 @@ from .bazi_classical_resolver_admission.release import (
 from .bazi_classical_effect_semantic_candidate.release import (
     validate_release_contract as validate_classical_effect_semantic_candidate_release_contract,
 )
+from .bazi_classical_semantic_closure_governance.release import (
+    validate_release_contract as validate_classical_semantic_closure_governance_release_contract,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -270,6 +273,7 @@ def main(argv: list[str] | None = None) -> int:
             result = verify_repository(root, require_answers=args.require_answers)
             result["classical_resolver_admission"] = validate_classical_resolver_admission_release_contract(root)
             result["classical_effect_semantic_candidate"] = validate_classical_effect_semantic_candidate_release_contract(root)
+            result["classical_semantic_mechanism_closure_governance"] = validate_classical_semantic_closure_governance_release_contract(root)
             _print_json(result)
         elif args.command == "status":
             _print_json(status(root))
