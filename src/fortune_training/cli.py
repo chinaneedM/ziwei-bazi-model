@@ -31,6 +31,9 @@ from .bazi_chart_source_pattern_binding.release import (
     validate_bindability_plan_artifact,
     write_bindability_plan_artifact,
 )
+from .bazi_classical_resolver_admission.release import (
+    validate_release_contract as validate_classical_resolver_admission_release_contract,
+)
 from .formal import (
     activate_formal_controller,
     import_answer_batch,
@@ -261,7 +264,9 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         root = _repo_root(args.root)
         if args.command == "verify":
-            _print_json(verify_repository(root, require_answers=args.require_answers))
+            result = verify_repository(root, require_answers=args.require_answers)
+            result["classical_resolver_admission"] = validate_classical_resolver_admission_release_contract(root)
+            _print_json(result)
         elif args.command == "status":
             _print_json(status(root))
         elif args.command == "report":
