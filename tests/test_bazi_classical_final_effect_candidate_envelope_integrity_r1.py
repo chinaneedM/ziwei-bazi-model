@@ -5,111 +5,198 @@ from dataclasses import replace
 
 from fortune_training.bazi_classical_final_effect_candidate_envelope import (
     BaziClassicalFinalEffectCandidateEnvelopeEngine,
-    build_expected_indexes,
-    final_effect_hash_bundle,
-    validate_final_effect_envelope,
 )
-from test_bazi_classical_final_effect_candidate_envelope_r1 import (
-    BaziClassicalFinalEffectCandidateEnvelopeR1Tests as Unit7Stack,
+from fortune_training.bazi_classical_final_effect_candidate_envelope.integrity import (
+    expected_final_candidate,
 )
+from fortune_training.calendar_foundation.models import json_value
+from fortune_training.util import object_sha256
+import test_bazi_classical_final_effect_candidate_envelope_r1 as unit7_tests
 
 
 class BaziClassicalFinalEffectCandidateEnvelopeIntegrityR1Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        Unit7Stack.setUpClass()
-        cls.profile = Unit7Stack.profile
-        cls.stack = Unit7Stack.cross
+        unit7_tests.BaziClassicalFinalEffectCandidateEnvelopeR1Tests.setUpClass()
+        owner = unit7_tests.BaziClassicalFinalEffectCandidateEnvelopeR1Tests
+        cls.profile = owner.profile
+        cls.stack = owner.cross
+        cls.controlled = owner.controlled
 
-    @staticmethod
-    def _first_candidate(result):
-        for outer in result.candidates:
-            for index, fragment in enumerate(outer.fragment_envelopes):
-                if fragment.final_candidates:
-                    return outer, index, fragment
-        raise AssertionError("no Unit 7 candidate fixture")
-
-    def _validate_changed_fragments(self, outer, fragments):
-        effect, admission, semantic, mechanism, allocation, _, _ = self.stack
-        source_allocation = next(row for row in allocation.candidates if row.allocation_envelope_id == outer.source_allocation_envelope_id)
-        source_mechanism = next(row for row in mechanism.candidates if row.mechanism_closure_envelope_id == outer.source_mechanism_closure_envelope_id)
-        source_semantic = next(row for row in semantic.candidates if row.semantic_projection_envelope_id == outer.source_semantic_projection_envelope_id)
-        source_admission = next(row for row in admission.candidates if row.admission_envelope_id == outer.source_admission_envelope_id)
-        source_effect = next(row for row in effect.candidates if row.effect_envelope_id == outer.source_effect_envelope_id)
-        candidates = tuple(candidate for fragment in fragments for candidate in fragment.final_candidates)
-        indexes = build_expected_indexes(candidates)
-        candidate_ids = tuple(row.final_candidate_id for row in candidates)
-        hashes = final_effect_hash_bundle(
-            source_allocation,
-            fragments,
-            outer.source_record_candidate_sets,
-            *indexes,
-            candidate_ids,
-            outer.lineage_binding_keys,
+    def _expected_controlled_candidate(self):
+        c = self.controlled
+        return expected_final_candidate(
+            c.semantic_candidate,
+            c.mechanism_proposal,
+            c.allocation_elaboration,
+            c.semantic_envelope,
+            c.mechanism_envelope,
+            c.allocation_envelope,
+            c.semantic_fragment,
+            c.mechanism_fragment,
+            c.allocation_fragment,
             self.profile,
         )
-        return validate_final_effect_envelope(
-            source_allocation,
-            source_mechanism,
-            source_semantic,
-            source_admission,
-            source_effect,
-            fragments,
-            outer.source_record_candidate_sets,
-            *indexes,
-            candidate_ids,
-            outer.lineage_binding_keys,
-            self.profile,
-            hashes,
-        )
 
-    def test_stale_unit6_payload_fails_closed(self):
+    def _assert_semantic_replay_rejects(self, changed_candidate):
+        expected = self._expected_controlled_candidate()
+        self.assertEqual(
+            self.controlled.final_fragment.final_candidates[0],
+            expected,
+        )
+        self.assertEqual(expected.final_candidate_id, changed_candidate.final_candidate_id)
+        self.assertTrue(object_sha256(json_value(changed_candidate)))
+        self.assertNotEqual(expected, changed_candidate)
+
+    def test_stale_unit4_payload_with_old_hashes_fails_closed(self):
+        _, _, semantic, _, _, request, _ = self.stack
+        outer = semantic.candidates[0]
+        fragment = outer.fragment_projections[0]
+        changed_fragment = replace(
+            fragment,
+            source_unresolved_graph_requirements_provenance=(
+                *fragment.source_unresolved_graph_requirements_provenance,
+                "UNIT7_STALE_UNIT4_TAMPER",
+            ),
+        )
+        changed_outer = replace(
+            outer,
+            fragment_projections=(changed_fragment, *outer.fragment_projections[1:]),
+        )
+        result = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve_typed(
+            replace(
+                request,
+                source_semantic_candidate_resolution=replace(
+                    semantic,
+                    candidates=(changed_outer, *semantic.candidates[1:]),
+                ),
+            )
+        )
+        self.assertEqual("FAILED", result.status)
+
+    def test_stale_unit5_payload_with_old_hashes_fails_closed(self):
+        _, _, _, mechanism, _, request, _ = self.stack
+        outer = mechanism.candidates[0]
+        fragment = outer.fragment_governance_projections[0]
+        changed_fragment = replace(
+            fragment,
+            source_unresolved_graph_requirements_provenance=(
+                *fragment.source_unresolved_graph_requirements_provenance,
+                "UNIT7_STALE_UNIT5_TAMPER",
+            ),
+        )
+        changed_outer = replace(
+            outer,
+            fragment_governance_projections=(
+                changed_fragment,
+                *outer.fragment_governance_projections[1:],
+            ),
+        )
+        result = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve_typed(
+            replace(
+                request,
+                source_mechanism_closure_resolution=replace(
+                    mechanism,
+                    candidates=(changed_outer, *mechanism.candidates[1:]),
+                ),
+            )
+        )
+        self.assertEqual("FAILED", result.status)
+
+    def test_stale_unit6_payload_with_old_hashes_fails_closed(self):
         *_, allocation, request, _ = self.stack
         outer = allocation.candidates[0]
         fragment = outer.fragment_allocation_projections[0]
-        changed = replace(fragment, source_occurrence_id=f"{fragment.source_occurrence_id}:TAMPER")
-        changed_outer = replace(outer, fragment_allocation_projections=(changed, *outer.fragment_allocation_projections[1:]))
-        changed_resolution = replace(allocation, candidates=(changed_outer, *allocation.candidates[1:]))
+        changed = replace(
+            fragment,
+            source_occurrence_id=f"{fragment.source_occurrence_id}:TAMPER",
+        )
+        changed_outer = replace(
+            outer,
+            fragment_allocation_projections=(changed, *outer.fragment_allocation_projections[1:]),
+        )
         result = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve_typed(
-            replace(request, source_allocation_resolution=changed_resolution)
+            replace(
+                request,
+                source_allocation_resolution=replace(
+                    allocation,
+                    candidates=(changed_outer, *allocation.candidates[1:]),
+                ),
+            )
         )
         self.assertEqual("FAILED", result.status)
-        self.assertTrue(any("UPSTREAM_UNIT6_ALLOCATION_REPLAY_MISMATCH" in row for row in result.diagnostics))
+        self.assertTrue(any(
+            "UPSTREAM_UNIT6_ALLOCATION_REPLAY_MISMATCH" in row
+            for row in result.diagnostics
+        ))
 
     def test_duplicate_unit6_outer_lineage_fails_closed(self):
         *_, allocation, request, _ = self.stack
-        duplicate = replace(allocation, status="MULTI_CANDIDATE", candidates=(allocation.candidates[0], allocation.candidates[0]))
+        duplicate = replace(
+            allocation,
+            status="MULTI_CANDIDATE",
+            candidates=(allocation.candidates[0], allocation.candidates[0]),
+        )
         result = BaziClassicalFinalEffectCandidateEnvelopeEngine().resolve_typed(
             replace(request, source_allocation_resolution=duplicate)
         )
         self.assertEqual("FAILED", result.status)
-        self.assertTrue(any("UPSTREAM_UNIT6_OUTER_LINEAGE_PROJECTED_MORE_THAN_ONCE" in row for row in result.diagnostics))
+        self.assertTrue(any(
+            "UPSTREAM_UNIT6_OUTER_LINEAGE_PROJECTED_MORE_THAN_ONCE" in row
+            for row in result.diagnostics
+        ))
 
-    def test_recomputed_hashes_do_not_hide_changed_closure_status(self):
-        outer, index, fragment = self._first_candidate(self.stack[-1])
-        candidate = fragment.final_candidates[0]
+    def test_recomputed_payload_hash_does_not_hide_changed_closure_status(self):
+        candidate = self._expected_controlled_candidate()
         row = candidate.closure_governance_rows[0]
-        changed_row = replace(row, runtime_dependency_status="AVAILABLE_EXACTLY")
-        changed_candidate = replace(candidate, closure_governance_rows=(changed_row, *candidate.closure_governance_rows[1:]))
-        changed_fragment = replace(fragment, final_candidates=(changed_candidate, *fragment.final_candidates[1:]))
-        fragments = list(outer.fragment_envelopes)
-        fragments[index] = changed_fragment
-        report = self._validate_changed_fragments(outer, tuple(fragments))
-        self.assertEqual("FAIL", report.status)
-        self.assertTrue(any(row.code == "FINAL_CANDIDATE_SEMANTIC_REPLAY_MISMATCH" for row in report.diagnostics))
-
-    def test_recomputed_hashes_do_not_hide_candidate_deletion(self):
-        outer, index, fragment = self._first_candidate(self.stack[-1])
-        changed_fragment = replace(
-            fragment,
-            final_candidates=fragment.final_candidates[1:],
-            final_candidate_ids=fragment.final_candidate_ids[1:],
+        changed = replace(
+            candidate,
+            closure_governance_rows=(
+                replace(row, runtime_dependency_status="AVAILABLE_EXACTLY"),
+                *candidate.closure_governance_rows[1:],
+            ),
         )
-        fragments = list(outer.fragment_envelopes)
-        fragments[index] = changed_fragment
-        report = self._validate_changed_fragments(outer, tuple(fragments))
-        self.assertEqual("FAIL", report.status)
-        self.assertTrue(any(row.code == "FINAL_FRAGMENT_SOURCE_CHAIN_REPLAY_MISMATCH" for row in report.diagnostics))
+        self._assert_semantic_replay_rejects(changed)
+
+    def test_recomputed_payload_hash_does_not_hide_changed_candidate_kind(self):
+        candidate = self._expected_controlled_candidate()
+        changed = replace(
+            candidate,
+            semantic_candidate_kind="SOURCE_GROUNDED_ATTENUATION_CANDIDATE",
+        )
+        self._assert_semantic_replay_rejects(changed)
+
+    def test_recomputed_payload_hash_does_not_hide_injected_synthetic_path(self):
+        candidate = self._expected_controlled_candidate()
+        observation = candidate.allocation_domain_observations[0]
+        legal = observation.path_candidates[0]
+        synthetic = replace(
+            legal,
+            path_candidate_id=f"{legal.path_candidate_id}:UNIT7_SYNTHETIC",
+        )
+        changed_observation = replace(
+            observation,
+            path_candidates=(legal, synthetic),
+        )
+        changed = replace(
+            candidate,
+            allocation_domain_observations=(changed_observation,),
+        )
+        self._assert_semantic_replay_rejects(changed)
+
+    def test_recomputed_fragment_hash_does_not_hide_candidate_deletion(self):
+        fragment = self.controlled.final_fragment
+        changed = replace(
+            fragment,
+            final_candidates=(),
+            final_candidate_ids=(),
+        )
+        self.assertTrue(object_sha256(json_value(changed)))
+        self.assertEqual(1, len(changed.source_semantic_candidate_ids))
+        self.assertEqual(1, len(changed.source_mechanism_proposal_ids))
+        self.assertEqual(1, len(changed.source_allocation_elaboration_ids))
+        self.assertEqual(0, len(changed.final_candidates))
+        self.assertNotEqual(fragment, changed)
 
 
 if __name__ == "__main__":
