@@ -9,6 +9,9 @@ from types import SimpleNamespace
 
 from jsonschema import Draft202012Validator
 
+from fortune_training.bazi_classical_effect_semantic_candidate.models import (
+    ClassicalFragmentSemanticCandidateProjection,
+)
 from fortune_training.bazi_classical_final_effect_candidate_envelope import (
     BaziClassicalFinalEffectCandidateEnvelopeEngine,
     BaziClassicalFinalEffectCandidateEnvelopeRequest,
@@ -60,10 +63,26 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
         helper_cls.setUpClass()
         helper = helper_cls(methodName="test_recomputed_hash_does_not_hide_synthetic_extra_path")
         _, unit5_fragment, candidate, proposal, elaboration, _ = helper._controlled_allocation()
-        semantic_fragment = SimpleNamespace(
+        semantic_fragment = ClassicalFragmentSemanticCandidateProjection(
             fragment_semantic_projection_id=unit5_fragment.source_fragment_semantic_projection_id,
+            source_admission_projection_id=candidate.source_admission_projection_id,
+            source_fragment_id=candidate.source_fragment_id,
+            source_fragment_fact_hash=candidate.source_fragment_fact_hash,
+            source_fragment_computation_hash=candidate.source_fragment_computation_hash,
+            source_occurrence_id=candidate.source_occurrence_id,
+            binding_candidate_id=candidate.binding_candidate_id,
+            admission_status="ADMITTED",
+            admission_blocker_ids=(),
+            source_semantic_profile_id=candidate.source_semantic_profile_id,
+            source_semantic_partition_id=candidate.source_semantic_partition_id,
             projection_status="SEMANTIC_CANDIDATES_PROJECTED",
             semantic_candidates=(candidate,),
+            source_unresolved_graph_requirements_provenance=(
+                candidate.source_unresolved_graph_requirements_provenance
+            ),
+            unresolved_classical_semantic_requirements=(
+                candidate.unresolved_classical_semantic_requirements
+            ),
         )
         allocation_fragment = FragmentAllocationElaborationProjection(
             fragment_allocation_projection_id="CONTROLLED-UNIT7-ALLOCATION-FRAGMENT",
