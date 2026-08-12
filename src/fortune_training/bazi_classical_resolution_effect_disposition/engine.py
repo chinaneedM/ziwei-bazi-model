@@ -26,6 +26,7 @@ from fortune_training.util import object_sha256
 
 from .integrity import (
     build_expected_indexes,
+    build_expected_source_record_candidate_sets,
     expected_fragment_projection,
     replay_unit7_resolution,
     resolution_effect_hash_bundle,
@@ -34,7 +35,6 @@ from .integrity import (
 from .models import (
     BaziClassicalResolutionEffectDispositionResolution,
     ClassicalResolutionEffectDispositionEnvelope,
-    SourceRecordResolutionEffectCandidateSet,
 )
 from .profile import ClassicalResolutionEffectDispositionProfile
 
@@ -56,56 +56,6 @@ class BaziClassicalResolutionEffectDispositionRequest:
     resolution_effect_profile: ClassicalResolutionEffectDispositionProfile
 
 
-def _source_record_sets(
-    source_final_envelope: Any,
-    fragment_projections: tuple[Any, ...],
-) -> tuple[SourceRecordResolutionEffectCandidateSet, ...]:
-    by_source_fragment = {
-        row.source_final_fragment_id: row for row in fragment_projections
-    }
-    if len(by_source_fragment) != len(fragment_projections):
-        raise BaziClassicalResolutionEffectDispositionError(
-            "DUPLICATE_UNIT8_SOURCE_FINAL_FRAGMENT_ID",
-            str(len(fragment_projections)),
-        )
-    rows = []
-    for source_set in source_final_envelope.source_record_candidate_sets:
-        selected = tuple(
-            by_source_fragment[fragment_id]
-            for fragment_id in source_set.final_fragment_ids
-        )
-        candidate_projection_ids = tuple(
-            candidate_id
-            for fragment in selected
-            for candidate_id in fragment.candidate_projection_ids
-        )
-        disposition_ids = tuple(
-            disposition_id
-            for fragment in selected
-            for disposition_id in fragment.resolution_effect_disposition_ids
-        )
-        set_id = "CLASSICAL_RESOLUTION_EFFECT_SOURCE_RECORD_SET:" + object_sha256({
-            "source_final_candidate_set_id": source_set.source_record_candidate_set_id,
-            "source_final_fragment_ids": source_set.final_fragment_ids,
-            "fragment_projection_ids": tuple(
-                row.fragment_projection_id for row in selected
-            ),
-            "candidate_projection_ids": candidate_projection_ids,
-            "resolution_effect_disposition_ids": disposition_ids,
-        })
-        rows.append(SourceRecordResolutionEffectCandidateSet(
-            source_record_candidate_set_id=set_id,
-            source_final_candidate_set_id=source_set.source_record_candidate_set_id,
-            source_layer=source_set.source_layer,
-            source_occurrence_id=source_set.source_occurrence_id,
-            source_final_fragment_ids=source_set.final_fragment_ids,
-            fragment_projection_ids=tuple(row.fragment_projection_id for row in selected),
-            candidate_projection_ids=candidate_projection_ids,
-            resolution_effect_disposition_ids=disposition_ids,
-        ))
-    return tuple(rows)
-
-
 def _project_envelope(
     source_final_envelope: Any,
     profile: ClassicalResolutionEffectDispositionProfile,
@@ -114,7 +64,10 @@ def _project_envelope(
         expected_fragment_projection(fragment, profile)
         for fragment in source_final_envelope.fragment_envelopes
     )
-    source_sets = _source_record_sets(source_final_envelope, fragment_projections)
+    source_sets = build_expected_source_record_candidate_sets(
+        source_final_envelope,
+        fragment_projections,
+    )
     candidate_projections = tuple(
         candidate
         for fragment in fragment_projections
