@@ -103,7 +103,7 @@ class BaziClassicalNonSelectingParticipantAllocationIntegrityR1Tests(unittest.Te
                         node
                         for node in fragment.effect_constraint_nodes
                         if node.constraint.source_claim_edge_class
-                        == "SOURCE_ASSERTED_PARTICIP_ALLOCATION"
+                        == "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION"
                     ),
                     None,
                 )
