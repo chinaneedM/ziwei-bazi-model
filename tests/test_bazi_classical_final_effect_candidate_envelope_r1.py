@@ -258,7 +258,7 @@ class BaziClassicalFinalEffectCandidateEnvelopeR1Tests(unittest.TestCase):
             changed = copy.deepcopy(payload)
             changed["candidates"][0][field] = True
             self.assertTrue(list(validator.iter_errors(changed)), field)
-        candidate_validator = Draft202012Validator(schema["$defs"]["finalCandidate"])
+        candidate_validator = validator.evolve(schema=schema["$defs"]["finalCandidate"])
         candidate_payload = json_value(self.controlled_fragment.final_candidates[0])
         candidate_validator.validate(candidate_payload)
         for field in forbidden:
