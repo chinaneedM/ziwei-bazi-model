@@ -66,6 +66,7 @@ class ResolutionEffectFragmentProjection:
 @dataclass(frozen=True)
 class SourceRecordResolutionEffectCandidateSet:
     source_record_candidate_set_id: str
+    source_final_candidate_set_id: str
     source_layer: str
     source_occurrence_id: str
     source_final_fragment_ids: tuple[str, ...]
