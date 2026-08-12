@@ -1,0 +1,126 @@
+{
+  "schema": "BAZI-CLASSICAL-SEMANTIC-MECHANISM-CLOSURE-GOVERNANCE-CONTRACT-R1",
+  "audit_id": "BAZI-CLASSICAL-SEMANTIC-MECHANISM-CLOSURE-GOVERNANCE-R1",
+  "authority": {
+    "unit4_contract_path": "audits/bazi-classical-effect-semantic-candidate-projection-r1/contract.json",
+    "unit4_contract_semantics_sha256": "d96ea5a66bea6ff5b71b280723c460954d80ed8da6d05008f909cef30a13a3c8",
+    "lifecycle_audit_id": "BAZI-CLASSICAL-RELATION-LIFECYCLE-EVIDENCE-MATRIX-R1",
+    "lifecycle_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+    "lifecycle_matrix_path": "audits/bazi-classical-relation-lifecycle-evidence-r1/matrix.json",
+    "lifecycle_matrix_git_blob_sha1": "f4adc67e97581cb0fc64118b87e4c146818522c7",
+    "lifecycle_runtime_dependency_statuses": [
+      "AVAILABLE_EXACTLY",
+      "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+      "PARTIALLY_AVAILABLE",
+      "MISSING_PRIMITIVE",
+      "OUTSIDE_CURRENT_RELATION_REGISTRY",
+      "SOURCE_SEMANTICS_AMBIGUOUS"
+    ],
+    "lifecycle_evidence_record_count": 775,
+    "candidate_specific_lifecycle_evidence_binding": "NOT_RELEASED"
+  },
+  "mechanism_closure_profile": {
+    "profile_id": "BAZI-CLASSICAL-SEMANTIC-MECHANISM-CLOSURE-GOVERNANCE-R1",
+    "profile_version": "1.0.0",
+    "algorithm_id": "BAZI-CLASSICAL-SEMANTIC-MECHANISM-CLOSURE-GOVERNANCE-R1",
+    "algorithm_version": "1.0.0",
+    "mechanism_proposal_semantics": "SOURCE_GROUNDED_IDENTITY_ONLY",
+    "mechanism_execution_semantics": "NOT_RELEASED",
+    "rewrite_application_semantics": "NOT_RELEASED",
+    "candidate_truth_semantics": "NOT_RELEASED",
+    "candidate_applicability_semantics": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+    "candidate_coexistence_semantics": "NOT_RELEASED",
+    "candidate_exclusivity_semantics": "NOT_RELEASED",
+    "candidate_conflict_semantics": "NOT_RELEASED",
+    "precedence_semantics": "NOT_RELEASED",
+    "priority_semantics": "NOT_RELEASED",
+    "winner_loser_semantics": "NOT_RELEASED",
+    "state_transition_semantics": "NOT_RELEASED",
+    "lifecycle_truth_gate": "NOT_RELEASED",
+    "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY_NEVER_CLOSURE_PREDICATE",
+    "source_narrative_policy": "PROVENANCE_ORDER_ONLY_NEVER_STATE_TRANSITION",
+    "candidate_specific_lifecycle_evidence_binding": "NOT_RELEASED",
+    "participant_path_selection_semantics": "NOT_RELEASED",
+    "attenuation_numeric_grade_semantics": "NOT_RELEASED",
+    "fragment_selection_semantics": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY"
+  },
+  "closed_vocabularies": {
+    "mechanism_proposal_kinds": [
+      "RESOLUTION_MECHANISM_PROPOSAL",
+      "RESOLUTION_FAILURE_MECHANISM_PROPOSAL",
+      "REVERSAL_OR_REAPPEARANCE_MECHANISM_PROPOSAL",
+      "ATTENUATION_MECHANISM_PROPOSAL",
+      "PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL"
+    ],
+    "fragment_governance_statuses": [
+      "MECHANISM_CLOSURE_GOVERNANCE_PROJECTED",
+      "PRESERVED_ZERO_MECHANISM_PROPOSALS",
+      "PRESERVED_OUTSIDE_PROFILE_ZERO_MECHANISM_PROPOSALS"
+    ],
+    "runtime_dependency_statuses": [
+      "AVAILABLE_EXACTLY",
+      "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+      "PARTIALLY_AVAILABLE",
+      "MISSING_PRIMITIVE",
+      "OUTSIDE_CURRENT_RELATION_REGISTRY",
+      "SOURCE_SEMANTICS_AMIGUOUS"
+    ],
+    "semantic_candidate_to_mechanism_proposal": {
+      "SOURCE_GROUNDED_RESOLUTION_CANDIDATE": "RESOLUTION_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE": "RESOLUTION_FAILURE_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE": "REVERSAL_OR_REAPPEARANCE_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_ATTENUATION_CANDIDATE": "ATTENUATION_MECHANISM_PROPOSAL",
+      "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE": "PARTICIPANT_ALLOCATION_MECHANISM_PROPOSAL"
+    },
+    "closure_requirement_registry": {
+      "CLASSICAL_RESOLUTION_SEMANTICS": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "SEMANTIC_EFFECT_DISPOSITION_CLOSURE", "future_owner": "FUTURE_EXECUTION_CAPABLE_SEMANTIC_REWRITE_OR_RESOLVER"},
+      "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "SEMANTIC_EFFECT_DISPOSITION_CLOSURE", "future_owner": "FUTURE_EXECUTION_CAPABLE_SEMANTIC_REWRITE_OR_RESOLVER"},
+      "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "SEMANTIC_EFFECT_DISPOSITION_CLOSURE", "future_owner": "FUTURE_EXECUTION_CAPABLE_SEMANTIC_REWRITE_OR_RESOLVER"},
+      "CLASSICAL_INTERACTION_CHAIN_RESOLUTION": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "INTERACTION_CHAIN_SEMANTIC_CLOSURE", "future_owner": "FUTURE_EXECUTION_CAPABLE_SEMANTIC_REWRITE_OR_RESOLVER"},
+      "CLASSICAL_ATTENUATION_GRADE": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "EFFECT_GRADE_SEMANTIC_CLOSURE", "future_owner": "FUTURE_EFFECT_GRADE_SEMANTICS"},
+      "CLASSICAL_PARTICIPANT_ALLOCATION": {"runtime_dependency_status": "MISSING_PRIMITIVE", "governance_class": "PARTICIPANT_ALLOCATION_SEMANTIC_CLOSURE", "future_owner": "UNIT6_NON_SELECTING_ALLOCATION_ELABORATION"},
+      "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION": {"runtime_dependency_status": "PARTIALLY_AVAILABLE", "governance_class": "PARTICIPANT_ALLOCATION_PATH_CLOSURE", "future_owner": "UNIT6_NON_SELECTING_ALLOCATION_ELABORATION"}
+    }
+  },
+  "closure_input_contract": {
+    "claim_level_input": "UNIT4_UNRESOLVED_CLASSICAL_SEMANTIC_REQUIREMENTS_ONLY",
+    "source_unresolved_graph_requirements": "PROVENANCE_ONLY_NEVER_CLOSURE_PREDICATE",
+    "source_narrative_chain_ids": "PROVENANCE_ORDER_ONLY_NEVER_STATE_TRANSITION",
+    "unknown_requirement": "FAIL_CLOSED",
+    "empty_requirement_set": "FAIL_CLOSED_FOR_MECHANISM_PROPOSAL"
+  },
+  "proposal_preservation_contract": {
+    "candidate_to_proposal_cardinality": "EXACTLY_ONE_TO_ONE",
+    "candidate_drop": "FORBIDDEN",
+    "candidate_merge": "FORBIDDEN",
+    "candidate_split": "FORBIDDEN",
+    "proposal_execution": "NOT_RELEASED",
+    "rewrite_application": "NOT_RELEASED",
+    "proposal_selection": "NOT_RELEASED",
+    "proposal_truth": "NOT_RELEASED",
+    "proposal_applicability": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+    "proposal_conflict_resolution": "NOT_RELEASED",
+    "precedence": "NOT_RELEASED",
+    "priority": "NOT_RELEASED",
+    "winner_loser": "NOT_RELEASED",
+    "state_transition": "NOT_RELEASED",
+    "lifecycle_truth_gate": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED"
+  },
+  "record_specific_locks": {
+    "ZPZQ-CL-09-005-002": {"allocation_semantics_status": "MISSING_PRIMITIVE", "compatible_path_enumeration_status": "PARTIALLY_AVAILABLE", "participant_path_selection": "NOT_RELEASED", "future_owner": "UNIT6_NON_SELECTING_ALLOCATION_ELABORATION"},
+    "ZPZQ-CL-09-007-002_003": {"interaction_chain_resolution_status": "MISSING_PRIMITIVE", "source_narrative_order": "PROVENANCE_ONLY", "arbitration": "NOT_RELEASED"},
+    "ZPZQ-CL-09-009-004": {"attenuation_grade_status": "MISSING_PRIMITIVE", "numeric_grade": "NOT_RELEASED", "disposition_synthesis": "FORBIDDEN"}
+  },
+  "hard_exclusions": [
+    "APPLIED_SEMANTIC_REWRITE", "GRAPH_MUTATION", "RELATION_OR_EFFECT_STATE_TRANSITION", "SOURCE_CLAIM_ARBITRATION", "CONTRADICTION_RESOLUTION", "SOURCE_TRUTH_SELECTION", "CANDIDATE_TRUTH_OR_APPLICABILITY_SELECTION", "CLASSICAL_OPERABILITY_TRUTH", "LIFECYCLE_TRUTH_GATE", "PRECEDENCE", "PRIORITY", "WINNER_OR_LOSER", "COMPETITION_OR_DOMINANCE_VERDICT", "SUPPRESSION", "ACTIVATION", "DEACTIVATION", "RELEASE", "CANCELLATION", "OVERRIDE", "NEGATION", "RESCUE_SEMANTICS", "NUMERIC_ATTENUATION_STRENGTH_OR_WANGSHUAI_GRADE", "PARTICIPANT_OR_PATH_SELECTION", "UNIT6_ALLOCATION_ELABORATION", "UNIT7_FINAL_EFFECT_CANDIDATE_ENVELOPE", "EXECUTABLE_REWRITE_RULES", "GRAPH_FIXPOINT_OR_CYCLE_HANDLING", "MONOTONICITY_LATTICE_TERMINATION_SOLVING", "CROSS_SOURCE_COMPOSITION", "CARTESIAN_CANDIDATE_WORLD_GENERATION", "FINAL_CLASSICAL_VERDICT", "PREDICTION_SEMANTICS"
+  ],
+  "determinism": {
+    "contract_semantics_sha256": "358fcf00ef1c09321639c0df80e837fc2fd3dba0332cb82aea573b0a13ced998"
+  }
+}
