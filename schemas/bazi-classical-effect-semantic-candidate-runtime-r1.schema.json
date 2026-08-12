@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-effect-semantic-candidate-runtime-r1.schema.json",
+  "$defs": {
+    "strings": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "profile": {
+      "const": {
+        "profile_id": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-R1",
+        "profile_version": "1.0.0",
+        "algorithm_id": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-R1",
+        "algorithm_version": "1.0.0",
+        "candidate_truth_semantics": "NOT_RELEASED",
+        "candidate_applicability_semantics": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+        "candidate_coexistence_semantics": "NOT_RELEASED",
+        "candidate_exclusivity_semantics": "NOT_RELEASED",
+        "candidate_priority_semantics": "NOT_RELEASED",
+        "candidate_conflict_semantics": "NOT_RELEASED",
+        "candidate_rewrite_semantics": "NOT_RELEASED",
+        "candidate_state_transition_semantics": "NOT_RELEASED",
+        "candidate_winner_loser_semantics": "NOT_RELEASED",
+        "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+        "source_narrative_semantics": "PROVENANCE_ORDER_ONLY",
+        "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY_NEVER_DIRECT_PREDICATE",
+        "unresolved_classical_requirement_policy": "PASS_THROUGH_UNSOLVED",
+        "participant_allocation_policy": "PRESERVE_UPSTREAM_MULTIPLICITY_NO_SELECTION",
+        "attenuation_grade_policy": "CANDIDATE_ONLY_NO_NUMERIC_GRADE",
+        "fragment_selection_semantics": "NOT_RELEASED",
+        "cross_outer_composition": "NOT_RELEASED",
+        "cartesian_expansion": "NOT_RELEASED",
+        "cross_source_composition": "NOT_RELEASED"
+      }
+    },
+    "multiplicity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "alternative_path_requirement"],
+      "properties": {
+        "multiplicity_constraint_id": {"type": "string"},
+        "exchangeable_symbolic_slot_node_ids": {"$ref": "#/$defs/strings"},
+        "exact_runtime_instance_ids": {"$ref": "#/$defs/strings"},
+        "required_symbolic_cardinality": {"type": "integer", "minimum": 1},
+        "slot_equivalence": {"type": "string"},
+        "alternative_path_requirement": {"const": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"}
+      }
+    },
+    "semanticCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_candidate_id", "source_admission_projection_id", "source_effect_envelope_id", "source_effect_envelope_fact_hash", "source_effect_envelope_computation_hash", "source_fragment_id", "source_fragment_fact_hash", "source_fragment_computation_hash", "source_effect_constraint_id", "binding_candidate_id", "source_occurrence_id", "graph_record_id", "interaction_assertion_id", "source_claim_edge_id", "source_claim_edge_class", "source_assertion_class", "source_evidence_mode", "exact_source_fragments", "target_effect_channel_id", "target_exact_relation_id", "actor_exact_relation_ids", "actor_exact_participant_ids", "context_exact_participant_ids", "effect_facet", "semantic_candidate_kind", "multiplicity_references", "source_narrative_chain_ids", "unresolved_classical_semantic_requirements", "source_unresolved_graph_requirements_provenance", "source_semantic_profile_id", "source_semantic_partition_id", "candidate_truth_semantics", "candidate_applicability_semantics"],
+      "properties": {
+        "semantic_candidate_id": {"type": "string"},
+        "source_admission_projection_id": {"type": "string"},
+        "source_effect_envelope_id": {"type": "string"},
+        "source_effect_envelope_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_effect_envelope_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_fragment_id": {"type": "string"},
+        "source_fragment_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_fragment_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_effect_constraint_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "source_occurrence_id": {"type": "string"},
+        "graph_record_id": {"type": "string"},
+        "interaction_assertion_id": {"type": "string"},
+        "source_claim_edge_id": {"type": "string"},
+        "source_claim_edge_class": {"enum": ["SOURCE_ASSERTED_RESOLUTION", "SOURCE_ASSERTED_RESOLUTION_FAILURE", "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE", "SOURCE_ASSERTED_ATTENUATION", "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION"]},
+        "source_assertion_class": {"enum": ["RESOLUTION_ASSERTION", "RESOLUTION_FAILURE_ASSERTION", "REVERSAL_OR_REAPPEARANCE_ASSERTION", "ATTENUATION_ASSERTION", "PARTICIPANT_ALLOCATION_ASSERTION"]},
+        "source_evidence_mode": {"type": "string"},
+        "exact_source_fragments": {"$ref": "#/$defs/strings"},
+        "target_effect_channel_id": {"type": "string"},
+        "target_exact_relation_id": {"type": "string"},
+        "actor_exact_relation_ids": {"$ref": "#/$defs/strings"},
+        "actor_exact_participant_ids": {"$ref": "#/$defs/strings"},
+        "context_exact_participant_ids": {"$ref": "#/$defs/strings"},
+        "effect_facet": {"enum": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]},
+        "semantic_candidate_kind": {"enum": ["SOURCE_GROUNDED_RESOLUTION_CANDIDATE", "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE", "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE", "SOURCE_GROUNDED_ATTENUATION_CANDIDATE", "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"]},
+        "multiplicity_references": {"type": "array", "items": {"$ref": "#/$defs/multiplicity"}},
+        "source_narrative_chain_ids": {"$ref": "#/$defs/strings"},
+        "unresolved_classical_semantic_requirements": {"$ref": "#/$defs/strings"},
+        "source_unresolved_graph_requirements_provenance": {"$ref": "#/$defs/strings"},
+        "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "candidate_truth_semantics": {"const": "NOT_RELEASED"},
+        "candidate_applicability_semantics": {"const": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION"}
+      },
+      "allOf": [
+        {"if": {"properties": {"source_claim_edge_class": {"const": "SOURCE_ASSERTED_RESOLUTION"}}, "required": ["source_claim_edge_class"]}, "then": {"properties": {"effect_facet": {"const": "RELATION_EFFECT_DISPOSITION"}, "semantic_candidate_kind": {"const": "SOURCE_GROUNDED_RESOLUTION_CANDIDATE"}, "source_assertion_class": {"const": "RESOLUTION_ASSERTION"}, "multiplicity_references": {"maxItems": 0}}}},
+        {"if": {"properties": {"source_claim_edge_class": {"const": "SOURCE_ASSERTED_RESOLUTION_FAILURE"}}, "required": ["source_claim_edge_class"]}, "then": {"properties": {"effect_facet": {"const": "RELATION_EFFECT_DISPOSITION"}, "semantic_candidate_kind": {"const": "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE"}, "source_assertion_class": {"const": "RESOLUTION_FAILURE_ASSERTION"}, "multiplicity_references": {"maxItems": 0}}}},
+        {"if": {"properties": {"source_claim_edge_class": {"const": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE"}}, "required": ["source_claim_edge_class"]}, "then": {"properties": {"effect_facet": {"const": "RELATION_EFFECT_DISPOSITION"}, "semantic_candidate_kind": {"const": "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE"}, "source_assertion_class": {"const": "REVERSAL_OR_REAPPEARANCE_ASSERTION"}, "multiplicity_references": {"maxItems": 0}}}},
+        {"if": {"properties": {"source_claim_edge_class": {"const": "SOURCE_ASSERTED_ATTENUATION"}}, "required": ["source_claim_edge_class"]}, "then": {"properties": {"effect_facet": {"const": "RELATION_EFFECT_GRADE"}, "semantic_candidate_kind": {"const": "SOURCE_GROUNDED_ATTENUATION_CANDIDATE"}, "source_assertion_class": {"const": "ATTENUATION_ASSERTION"}, "multiplicity_references": {"maxItems": 0}}}},
+        {"if": {"properties": {"source_claim_edge_class": {"const": "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION"}}, "required": ["source_claim_edge_class"]}, "then": {"properties": {"effect_facet": {"const": "RELATION_PARTICIPANT_ALLOCATION"}, "semantic_candidate_kind": {"const": "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"}, "source_assertion_class": {"const": "PARTICIPANT_ALLOCATION_ASSERTION"}, "multiplicity_references": {"minItems": 1}}}}
+      ]
+    },
+    "fragmentProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fragment_semantic_projection_id", "source_admission_projection_id", "source_fragment_id", "source_fragment_fact_hash", "source_fragment_computation_hash", "source_occurrence_id", "binding_candidate_id", "admission_status", "admission_blocker_ids", "source_semantic_profile_id", "source_semantic_partition_id", "projection_status", "semantic_candidates", "source_unresolved_graph_requirements_provenance", "unresolved_classical_semantic_requirements"],
+      "properties": {
+        "fragment_semantic_projection_id": {"type": "string"},
+        "source_admission_projection_id": {"type": "string"},
+        "source_fragment_id": {"type": "string"},
+        "source_fragment_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_fragment_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_occurrence_id": {"type": "string"},
+        "binding_candidate_id": {"type": "string"},
+        "admission_status": {"enum": ["ADMITTED", "PRESERVED_NOT_ADMITTED", "PRESERVED_OUTSIDE_PROFILE"]},
+        "admission_blocker_ids": {"$ref": "#/$defs/strings"},
+        "source_semantic_profile_id": {"const": "SHEN-ZPZQ-CH-09-CLASSICAL-INTERACTION-R1"},
+        "source_semantic_partition_id": {"const": "SHEN_CLASSICAL_SOURCE:ZPZQ-CH-09:R1"},
+        "projection_status": {"enum": ["SEMANTIC_CANDIDATES_PROJECTED", "PRESERVED_NO_SEMANTIC_CANDIDATES", "PRESERVED_OUTSIDE_PROFILE_NO_SEMANTIC_CANDIDATES"]},
+        "semantic_candidates": {"type": "array", "items": {"$ref": "#/$defs/semanticCandidate"}},
+        "source_unresolved_graph_requirements_provenance": {"$ref": "#/$defs/strings"},
+        "unresolved_classical_semantic_requirements": {"$ref": "#/$defs/strings"}
+      },
+      "allOf": [
+        {"if": {"properties": {"admission_status": {"const": "ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"projection_status": {"const": "SEMANTIC_CANDIDATES_PROJECTED"}, "admission_blocker_ids": {"maxItems": 0}, "semantic_candidates": {"minItems": 1}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_NOT_ADMITTED"}}, "required": ["admission_status"]}, "then": {"properties": {"projection_status": {"const": "PRESERVED_NO_SEMANTIC_CANDIDATES"}, "admission_blocker_ids": {"minItems": 1}, "semantic_candidates": {"maxItems": 0}}}},
+        {"if": {"properties": {"admission_status": {"const": "PRESERVED_OUTSIDE_PROFILE"}}, "required": ["admission_status"]}, "then": {"properties": {"projection_status": {"const": "PRESERVED_OUTSIDE_PROFILE_NO_SEMANTIC_CANDIDATES"}, "semantic_candidates": {"maxItems": 0}}}}
+      ]
+    },
+    "recordSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_record_candidate_set_id", "source_layer", "source_occurrence_id", "source_fragment_ids", "fragment_semantic_projection_ids", "semantic_candidate_ids", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics", "semantic_candidate_priority_semantics", "semantic_candidate_conflict_semantics"],
+      "properties": {
+        "source_record_candidate_set_id": {"type": "string"},
+        "source_layer": {"const": "SHEN_CLASSICAL_SOURCE"},
+        "source_occurrence_id": {"type": "string"},
+        "source_fragment_ids": {"$ref": "#/$defs/strings"},
+        "fragment_semantic_projection_ids": {"$ref": "#/$defs/strings"},
+        "semantic_candidate_ids": {"$ref": "#/$defs/strings"},
+        "member_selection_semantics": {"const": "NOT_RELEASED"},
+        "member_coexistence_semantics": {"const": "NOT_RELEASED"},
+        "member_exclusivity_semantics": {"const": "NOT_RELEASED"},
+        "semantic_candidate_priority_semantics": {"const": "NOT_RELEASED"},
+        "semantic_candidate_conflict_semantics": {"const": "NOT_RELEASED"}
+      }
+    },
+    "channelIndex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_exact_relation_id", "effect_facet", "source_fragment_ids", "semantic_candidate_ids", "index_semantics"],
+      "properties": {
+        "target_exact_relation_id": {"type": "string"},
+        "effect_facet": {"enum": ["RELATION_EFFECT_DISPOSITION", "RELATION_EFFECT_GRADE", "RELATION_PARTICIPANT_ALLOCATION"]},
+        "source_fragment_ids": {"$ref": "#/$defs/strings"},
+        "semantic_candidate_ids": {"$ref": "#/$defs/strings"},
+        "index_semantics": {"const": "IDENTITY_ONLY_NO_MERGE_OR_ARBITRATION"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "envelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_projection_envelope_id", "source_admission_envelope_id", "source_admission_fact_hash", "source_admission_computation_hash", "source_effect_envelope_id", "source_effect_fact_hash", "source_effect_computation_hash", "lineage_binding_keys", "fragment_projections", "source_record_candidate_sets", "effect_channel_candidate_index", "projected_semantic_candidate_ids", "fragment_selection_semantics", "cross_outer_composition", "cartesian_expansion", "raw_relation_immutability_contract", "candidate_truth_semantics", "candidate_coexistence_semantics", "candidate_exclusivity_semantics", "candidate_priority_semantics", "candidate_conflict_semantics", "candidate_rewrite_semantics", "candidate_state_transition_semantics", "candidate_winner_loser_semantics", "algorithm_versions", "integrity", "hashes"],
+      "properties": {
+        "semantic_projection_envelope_id": {"type": "string"},
+        "source_admission_envelope_id": {"type": "string"},
+        "source_admission_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_admission_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_effect_envelope_id": {"type": "string"},
+        "source_effect_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_effect_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "lineage_binding_keys": {"$ref": "#/$defs/strings"},
+        "fragment_projections": {"type": "array", "items": {"$ref": "#/$defs/fragmentProjection"}},
+        "source_record_candidate_sets": {"type": "array", "items": {"$ref": "#/$defs/recordSet"}},
+        "effect_channel_candidate_index": {"type": "array", "items": {"$ref": "#/$defs/channelIndex"}},
+        "projected_semantic_candidate_ids": {"$ref": "#/$defs/strings"},
+        "fragment_selection_semantics": {"const": "NOT_RELEASED"},
+        "cross_outer_composition": {"const": "NOT_RELEASED"},
+        "cartesian_expansion": {"const": "NOT_RELEASED"},
+        "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "candidate_truth_semantics": {"const": "NOT_RELEASED"},
+        "candidate_coexistence_semantics": {"const": "NOT_RELEASED"},
+        "candidate_exclusivity_semantics": {"const": "NOT_RELEASED"},
+        "candidate_priority_semantics": {"const": "NOT_RELEASED"},
+        "candidate_conflict_semantics": {"const": "NOT_RELEASED"},
+        "candidate_rewrite_semantics": {"const": "NOT_RELEASED"},
+        "candidate_state_transition_semantics": {"const": "NOT_RELEASED"},
+        "candidate_winner_loser_semantics": {"const": "NOT_RELEASED"},
+        "algorithm_versions": {"const": {"semantic_candidate_projection": "1.0.0"}},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "typed_schema", "status", "semantic_candidate_profile", "candidates", "events", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-RESULT-R1"},
+    "typed_schema": {"const": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-TYPED-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "semantic_candidate_profile": {"$ref": "#/$defs/profile"},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/envelope"}},
+    "events": {"$ref": "#/$defs/strings"},
+    "diagnostics": {"$ref": "#/$defs/strings"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "FAILED"}}, "required": ["status"]}, "then": {"properties": {"candidates": {"maxItems": 0}}}},
+    {"if": {"properties": {"status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]}}, "required": ["status"]}, "then": {"properties": {"candidates": {"minItems": 1}, "diagnostics": {"maxItems": 0}}}}
+  ]
+}
