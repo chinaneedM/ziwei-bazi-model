@@ -47,6 +47,13 @@ def _error_payload(error: CombinedSubsystemError | None) -> dict[str, str] | Non
     return {"code": error.code, "detail": error.detail}
 
 
+def _profile_ref(profile: Any) -> dict[str, str]:
+    return {
+        "profile_id": str(profile.profile_id),
+        "profile_version": str(profile.profile_version),
+    }
+
+
 def combined_manifest_payload(
     resolution: CombinedChartApplicationResolution,
 ) -> dict[str, Any]:
@@ -54,14 +61,19 @@ def combined_manifest_payload(
         "manifest_schema": resolution.combined_profile.manifest_schema,
         "birth": json_value(resolution.birth),
         "sex": resolution.sex,
-        "combined_profile": json_value(resolution.combined_profile),
+        "combined_profile": {
+            **_profile_ref(resolution.combined_profile),
+            "algorithm_id": resolution.combined_profile.algorithm_id,
+            "algorithm_version": resolution.combined_profile.algorithm_version,
+            "composition_semantics": resolution.combined_profile.composition_semantics,
+        },
         "profiles": {
-            "ziwei_calculation": json_value(resolution.ziwei_calculation_profile),
-            "ziwei_application": json_value(resolution.ziwei_application_profile),
-            "ziwei_presentation": json_value(resolution.ziwei_presentation_profile),
-            "bazi_natal": json_value(resolution.bazi_natal_profile),
-            "bazi_temporal": json_value(resolution.bazi_temporal_profile),
-            "bazi_application": json_value(resolution.bazi_application_profile),
+            "ziwei_calculation": _profile_ref(resolution.ziwei_calculation_profile),
+            "ziwei_application": _profile_ref(resolution.ziwei_application_profile),
+            "ziwei_presentation": _profile_ref(resolution.ziwei_presentation_profile),
+            "bazi_natal": _profile_ref(resolution.bazi_natal_profile),
+            "bazi_temporal": _profile_ref(resolution.bazi_temporal_profile),
+            "bazi_application": _profile_ref(resolution.bazi_application_profile),
         },
         "subsystems": {
             "ziwei": {
