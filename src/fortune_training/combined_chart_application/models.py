@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from fortune_training.bazi_application import (
     BaziApplicationProfile,
     BaziApplicationResolution,
-    bazi_local_application_v1_profile,
 )
 from fortune_training.bazi_chart import ResolvedBaziCalculationProfile
 from fortune_training.bazi_temporal import ResolvedBaziTemporalProfile
@@ -13,8 +12,6 @@ from fortune_training.calendar_foundation import BirthInput
 from fortune_training.ziwei_application import (
     ApplicationChartBundle,
     ZiweiApplicationProfile,
-    ziwei_application_default_presentation_profile,
-    ziwei_application_v1_profile,
 )
 from fortune_training.ziwei_chart import PresentationProfile, ResolvedZiweiCalculationProfile
 
@@ -32,18 +29,12 @@ class CombinedChartApplicationRequest:
     birth: BirthInput
     sex: str
     ziwei_calculation_profile: ResolvedZiweiCalculationProfile
+    ziwei_application_profile: ZiweiApplicationProfile
+    ziwei_presentation_profile: PresentationProfile
     bazi_natal_profile: ResolvedBaziCalculationProfile
     bazi_temporal_profile: ResolvedBaziTemporalProfile
+    bazi_application_profile: BaziApplicationProfile
     combined_profile: CombinedChartApplicationProfile
-    ziwei_application_profile: ZiweiApplicationProfile = field(
-        default_factory=ziwei_application_v1_profile
-    )
-    ziwei_presentation_profile: PresentationProfile = field(
-        default_factory=ziwei_application_default_presentation_profile
-    )
-    bazi_application_profile: BaziApplicationProfile = field(
-        default_factory=bazi_local_application_v1_profile
-    )
     ziwei_daxian_frame_id: str | None = None
     ziwei_annual_year: int | None = None
     ziwei_minor_limit_age: int | None = None
