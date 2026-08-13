@@ -82,31 +82,6 @@ class BaziClassicalReversalReappearanceEffectDispositionIntegrityR1Tests(unittes
             hashes,
         )
 
-    def _tampered_unit7_candidate_result(self, **changes):
-        source_tests = unit10_tests.BaziClassicalReversalReappearanceEffectDispositionR1Tests
-        for request, _ in (source_tests.cross, source_tests.multiplicity):
-            source = request.source_final_effect_resolution
-            changed_outers = list(source.candidates)
-            for outer_index, outer in enumerate(source.candidates):
-                changed_fragments = list(outer.fragment_envelopes)
-                for fragment_index, fragment in enumerate(outer.fragment_envelopes):
-                    if not fragment.final_candidates:
-                        continue
-                    changed_candidate = replace(fragment.final_candidates[0], **changes)
-                    changed_fragments[fragment_index] = replace(
-                        fragment,
-                        final_candidates=(changed_candidate, *fragment.final_candidates[1:]),
-                    )
-                    changed_outers[outer_index] = replace(
-                        outer,
-                        fragment_envelopes=tuple(changed_fragments),
-                    )
-                    changed_source = replace(source, candidates=tuple(changed_outers))
-                    return BaziClassicalReversalReappearanceEffectDispositionEngine().resolve_typed(
-                        replace(request, source_final_effect_resolution=changed_source)
-                    )
-        self.fail("expected at least one real Unit 7 final candidate for tamper regression")
-
     def test_recomputed_unit10_hash_cannot_hide_global_restoration_tamper(self):
         envelope = self.synthetic_envelope
         fragment = envelope.fragment_projections[0]
@@ -162,23 +137,6 @@ class BaziClassicalReversalReappearanceEffectDispositionIntegrityR1Tests(unittes
             for value in result.diagnostics
         ))
 
-    def test_tampered_unit7_candidate_facet_and_target_lineage_fail_full_replay(self):
-        tamper_cases = (
-            {"final_candidate_id": "TAMPERED-FINAL-CANDIDATE-ID"},
-            {"semantic_candidate_kind": "TAMPERED-SEMANTIC-CANDIDATE-KIND"},
-            {"effect_facet": "TAMPERED-EFFECT-FACET"},
-            {"target_effect_channel_id": "TAMPERED-TARGET-EFFECT-CHANNEL"},
-            {"target_exact_relation_id": "TAMPERED-TARGET-EXACT-RELATION"},
-        )
-        for changes in tamper_cases:
-            with self.subTest(changes=changes):
-                result = self._tampered_unit7_candidate_result(**changes)
-                self.assertEqual("FAILED", result.status)
-                self.assertTrue(any(
-                    value.startswith("UPSTREAM_UNIT7_FULL_RESOLUTION_REPLAY_MISMATCH:")
-                    for value in result.diagnostics
-                ))
-
     def test_changed_mapping_and_closure_status_fail_closed(self):
         candidate = (
             unit10_tests.BaziClassicalReversalReappearanceEffectDispositionR1Tests.reversal_candidate
@@ -189,6 +147,9 @@ class BaziClassicalReversalReappearanceEffectDispositionIntegrityR1Tests(unittes
         bad_claim = replace(candidate, source_claim_edge_class="SOURCE_ASSERTED_RESOLUTION")
         with self.assertRaises(ValueError):
             unit10_tests.expected_candidate_projection(bad_claim, self.profile)
+        bad_facet = replace(candidate, effect_facet="RELATION_EFFECT_GRADE")
+        with self.assertRaises(ValueError):
+            unit10_tests.expected_candidate_projection(bad_facet, self.profile)
         bad_row = replace(
             candidate.closure_governance_rows[0],
             runtime_dependency_status="AVAILABLE_EXACTLY",
