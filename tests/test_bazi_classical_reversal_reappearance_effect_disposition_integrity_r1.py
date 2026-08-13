@@ -83,28 +83,29 @@ class BaziClassicalReversalReappearanceEffectDispositionIntegrityR1Tests(unittes
         )
 
     def _tampered_unit7_candidate_result(self, **changes):
-        request = self.real_request
-        source = request.source_final_effect_resolution
-        changed_outers = list(source.candidates)
-        for outer_index, outer in enumerate(source.candidates):
-            changed_fragments = list(outer.fragment_envelopes)
-            for fragment_index, fragment in enumerate(outer.fragment_envelopes):
-                if not fragment.final_candidates:
-                    continue
-                changed_candidate = replace(fragment.final_candidates[0], **changes)
-                changed_fragments[fragment_index] = replace(
-                    fragment,
-                    final_candidates=(changed_candidate, *fragment.final_candidates[1:]),
-                )
-                changed_outers[outer_index] = replace(
-                    outer,
-                    fragment_envelopes=tuple(changed_fragments),
-                )
-                changed_source = replace(source, candidates=tuple(changed_outers))
-                return BaziClassicalReversalReappearanceEffectDispositionEngine().resolve_typed(
-                    replace(request, source_final_effect_resolution=changed_source)
-                )
-        self.fail("expected at least one Unit 7 final candidate for tamper regression")
+        source_tests = unit10_tests.BaziClassicalReversalReappearanceEffectDispositionR1Tests
+        for request, _ in (source_tests.cross, source_tests.multiplicity):
+            source = request.source_final_effect_resolution
+            changed_outers = list(source.candidates)
+            for outer_index, outer in enumerate(source.candidates):
+                changed_fragments = list(outer.fragment_envelopes)
+                for fragment_index, fragment in enumerate(outer.fragment_envelopes):
+                    if not fragment.final_candidates:
+                        continue
+                    changed_candidate = replace(fragment.final_candidates[0], **changes)
+                    changed_fragments[fragment_index] = replace(
+                        fragment,
+                        final_candidates=(changed_candidate, *fragment.final_candidates[1:]),
+                    )
+                    changed_outers[outer_index] = replace(
+                        outer,
+                        fragment_envelopes=tuple(changed_fragments),
+                    )
+                    changed_source = replace(source, candidates=tuple(changed_outers))
+                    return BaziClassicalReversalReappearanceEffectDispositionEngine().resolve_typed(
+                        replace(request, source_final_effect_resolution=changed_source)
+                    )
+        self.fail("expected at least one real Unit 7 final candidate for tamper regression")
 
     def test_recomputed_unit10_hash_cannot_hide_global_restoration_tamper(self):
         envelope = self.synthetic_envelope
