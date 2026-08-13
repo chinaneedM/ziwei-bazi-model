@@ -166,6 +166,17 @@ class BaziClassicalFinalEffectCandidateEnvelopeIntegrityR1Tests(unittest.TestCas
         )
         self._assert_semantic_replay_rejects(changed)
 
+    def test_recomputed_payload_hash_does_not_hide_changed_facet_or_target_lineage(self):
+        candidate = self._expected_controlled_candidate()
+        changes = (
+            {"effect_facet": "TAMPERED_EFFECT_FACET"},
+            {"target_effect_channel_id": "TAMPERED_TARGET_EFFECT_CHANNEL"},
+            {"target_exact_relation_id": "TAMPERED_TARGET_EXACT_RELATION"},
+        )
+        for fields in changes:
+            with self.subTest(fields=fields):
+                self._assert_semantic_replay_rejects(replace(candidate, **fields))
+
     def test_recomputed_payload_hash_does_not_hide_injected_synthetic_path(self):
         candidate = self._expected_controlled_candidate()
         observation = candidate.allocation_domain_observations[0]
