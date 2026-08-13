@@ -7,6 +7,7 @@ from typing import Any
 
 from fortune_training.bazi_chart import BaziChartCandidate, SEXAGENARY_CYCLE, sexagenary_index
 from fortune_training.bazi_chart.registries import STEM_POLARITY
+from fortune_training.calendar_foundation import SolarTermEngine
 from fortune_training.calendar_foundation.models import json_value
 
 from .models import (
@@ -43,6 +44,9 @@ DAY_MICROSECONDS = 86_400_000_000
 SYMBOLIC_YEAR_MICROSECONDS = 360 * DAY_MICROSECONDS
 SYMBOLIC_MONTH_MICROSECONDS = 30 * DAY_MICROSECONDS
 CHINA_STANDARD_TIME = timezone(timedelta(hours=8), name="UTC+08:00")
+WENZHEN_MIXED_CLOCK_ANCHOR_RESELECTION_REF = (
+    "ENGINEERING:WENZHEN_MIXED_CLOCK_JIE_ANCHOR_RESELECTION_R1"
+)
 
 
 class BaziTemporalGenerationError(ValueError):
@@ -134,6 +138,70 @@ def _dayun_anniversary(
     raise ValueError(f"unsupported Dayun boundary rule: {profile.dayun_boundary_rule_set}")
 
 
+def _wenzhen_mixed_clock_delta(seed, anchor: datetime, direction: str) -> timedelta:
+    birth_clock = seed.local_apparent_solar_datetime.replace(tzinfo=None)
+    jie_china_clock = anchor.astimezone(CHINA_STANDARD_TIME).replace(tzinfo=None)
+    return (
+        jie_china_clock - birth_clock
+        if direction == "FORWARD"
+        else birth_clock - jie_china_clock
+    )
+
+
+def _select_jiaoyun_anchor(
+    seed,
+    direction: DayunDirectionResolution,
+    profile: ResolvedBaziTemporalProfile,
+) -> tuple[str, str, datetime, timedelta, bool]:
+    """Select the Jiaoyun Jie in the interval profile's own ordering coordinate.
+
+    Shared Time/Calendar seeds deliberately carry UTC-adjacent Jie boundaries.
+    That ordering is already correct for the continuous profile.  The Wenzhen
+    compatibility profile compares a birthplace apparent-solar wall clock to a
+    China-standard Jie wall clock; immediately around a Jie, that mixed-clock
+    ordering can be the opposite of UTC ordering.  Only in that compatibility
+    profile, step one Jie when the upstream UTC-adjacent candidate falls on the
+    wrong side of the declared interval coordinate.
+    """
+
+    birth = seed.birth_utc.astimezone(timezone.utc)
+    if direction.direction == "FORWARD":
+        anchor_kind = "NEXT_JIE"
+        anchor_name = seed.next_jie_name
+        anchor = seed.next_jie_utc.astimezone(timezone.utc)
+    else:
+        anchor_kind = "PREVIOUS_JIE"
+        anchor_name = seed.previous_jie_name
+        anchor = seed.previous_jie_utc.astimezone(timezone.utc)
+
+    if profile.interval_coordinate_policy == CONTINUOUS_INTERVAL_COORDINATE_POLICY:
+        delta = anchor - birth if direction.direction == "FORWARD" else birth - anchor
+        return anchor_kind, anchor_name, anchor, delta, False
+
+    if profile.interval_coordinate_policy != WENZHEN_INTERVAL_COORDINATE_POLICY:
+        raise BaziTemporalGenerationError(
+            "UNSUPPORTED_INTERVAL_COORDINATE_POLICY",
+            profile.interval_coordinate_policy,
+        )
+
+    delta = _wenzhen_mixed_clock_delta(seed, anchor, direction.direction)
+    if _timedelta_microseconds(delta) >= 0:
+        return anchor_kind, anchor_name, anchor, delta, False
+
+    solar_terms = SolarTermEngine()
+    if direction.direction == "FORWARD":
+        _, replacement = solar_terms.adjacent_terms(anchor, jie_only=True)
+    else:
+        replacement, _ = solar_terms.adjacent_terms(
+            anchor - timedelta(microseconds=1),
+            jie_only=True,
+        )
+    anchor_name = replacement.name
+    anchor = replacement.utc_instant.astimezone(timezone.utc)
+    delta = _wenzhen_mixed_clock_delta(seed, anchor, direction.direction)
+    return anchor_kind, anchor_name, anchor, delta, True
+
+
 class BaziTemporalEngine:
     schema = "BAZI-TEMPORAL-RESULT-V1"
     typed_schema = "BAZI-TEMPORAL-TYPED-RESOLUTION-V1"
@@ -188,39 +256,28 @@ class BaziTemporalEngine:
     ) -> JiaoyunResolution:
         birth = seed.birth_utc.astimezone(timezone.utc)
         previous = seed.previous_jie_utc.astimezone(timezone.utc)
-        following = seed.next_jie_utc.astimezone(timezone.utc)
         if birth == previous and profile.exact_jie_tie_policy == "FAIL_CLOSED":
             raise BaziTemporalGenerationError(
                 "EXACT_JIE_TIE_UNRESOLVED",
                 f"birth instant equals Jie boundary {seed.previous_jie_name}@{previous.isoformat()}",
             )
 
-        if direction.direction == "FORWARD":
-            anchor_kind = "NEXT_JIE"
-            anchor_name = seed.next_jie_name
-            anchor = following
-        else:
-            anchor_kind = "PREVIOUS_JIE"
-            anchor_name = seed.previous_jie_name
-            anchor = previous
-
+        anchor_kind, anchor_name, anchor, delta, reselected = _select_jiaoyun_anchor(
+            seed,
+            direction,
+            profile,
+        )
         if profile.interval_coordinate_policy == CONTINUOUS_INTERVAL_COORDINATE_POLICY:
-            delta = anchor - birth if direction.direction == "FORWARD" else birth - anchor
             source_refs = ("S15", "ENGINEERING:MODERN_CONTINUOUS_RATIO_120X")
         elif profile.interval_coordinate_policy == WENZHEN_INTERVAL_COORDINATE_POLICY:
-            birth_clock = seed.local_apparent_solar_datetime.replace(tzinfo=None)
-            jie_china_clock = anchor.astimezone(CHINA_STANDARD_TIME).replace(tzinfo=None)
-            delta = (
-                jie_china_clock - birth_clock
-                if direction.direction == "FORWARD"
-                else birth_clock - jie_china_clock
-            )
             source_refs = (
                 "S15",
                 "EXTERNAL_COMPATIBILITY:WENZHEN:A7-A11",
                 "MODEL_INFERENCE:MIXED_APPARENT_SOLAR_TO_CHINA_STANDARD_CLOCK_R1",
                 "PRECISION_CEILING:WENZHEN_UI_HOUR_ONLY",
             )
+            if reselected:
+                source_refs += (WENZHEN_MIXED_CLOCK_ANCHOR_RESELECTION_REF,)
         else:
             raise BaziTemporalGenerationError(
                 "UNSUPPORTED_INTERVAL_COORDINATE_POLICY",
@@ -228,7 +285,10 @@ class BaziTemporalEngine:
             )
         raw_microseconds = _timedelta_microseconds(delta)
         if raw_microseconds < 0:
-            raise BaziTemporalGenerationError("INVALID_JIE_ANCHOR_ORDER", f"negative interval for {seed.seed_id}")
+            raise BaziTemporalGenerationError(
+                "INVALID_JIE_ANCHOR_ORDER",
+                f"negative interval after coordinate-consistent anchor selection for {seed.seed_id}",
+            )
 
         symbolic = cls._symbolic_age(raw_microseconds)
         if profile.calendar_realization_rule_set == CONTINUOUS_CALENDAR_REALIZATION_RULE_SET:
