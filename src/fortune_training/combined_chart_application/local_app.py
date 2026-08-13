@@ -14,7 +14,11 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from fortune_training.bazi_application import (
     bazi_local_application_v1_profile,
 )
-from fortune_training.bazi_chart import bazi_foundation_v1_profile
+from fortune_training.bazi_chart import (
+    ZI_START_23_PROFILE_ID,
+    bazi_foundation_v1_profile,
+    bazi_foundation_zi_start_23_r1_profile,
+)
 from fortune_training.bazi_temporal import (
     bazi_temporal_v1_continuous_profile,
     bazi_temporal_wenzhen_china_compatibility_r1_profile,
@@ -78,6 +82,7 @@ INDEX_HTML = """<!doctype html>
         <label>紫微大限 Frame（可选）<input id="ziwei-daxian-frame-id" placeholder="DAXIAN:index=1"></label>
         <label>紫微流年（可选）<input id="ziwei-annual-year" type="number" min="1" max="9999"></label>
         <label>紫微小限岁数（可选）<input id="ziwei-minor-limit-age" type="number" min="1" max="200"></label>
+        <label>八字 Natal Profile<select id="bazi-natal-profile"><option value="BAZI-FOUNDATION-V1-R1">MIDNIGHT / CLASSICAL_CONTINUOUS</option><option value="BAZI-FOUNDATION-ZI-START-23-R1">ZI_START_23 / ZI_START_ROLLOVER</option></select></label>
         <label>八字大运 Profile<select id="bazi-temporal-profile"><option value="BAZI-TEMPORAL-V1-CONTINUOUS-R1">CONTINUOUS-R1</option><option value="BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1">WENZHEN-COMPATIBILITY-R1</option></select></label>
         <label>八字大运数量<input id="bazi-dayun-count" type="number" min="1" max="20" value="12"></label>
       </div>
@@ -152,7 +157,7 @@ APP_JS = """
   function renderBazi(bundle){ const root=$('bazi-chart'); clear(root); root.className=''; if(!bundle){root.className='placeholder'; root.textContent='八字未解析'; return;} const view=bundle.candidates[0]?.view; if(!view){root.textContent='无八字候选'; return;} const pwrap=node('div',undefined,'pillars'); view.pillars.forEach((p)=>{const box=node('div',undefined,'pillar'); box.append(node('div',p.position,'pos'),node('div',p.ganzhi,'ganzhi'),node('div',p.visible_ten_god,'ten')); box.append(node('div',p.hidden_stems.map((h)=>`${h.stem}·${h.ten_god}`).join(' / '),'hidden')); pwrap.append(box);}); root.append(pwrap); const t=view.time_provenance[0]; root.append(node('div',`日主：${view.day_master_stem}　真太阳时：${t?.local_apparent_solar_datetime||'-'}　大运：${view.dayun.direction}`,'bazi-meta')); const j=view.dayun.jiaoyun; root.append(node('div',`交运：${j.first_transition_utc}　锚点：${j.anchor_jie_name}`,'bazi-meta')); const wrap=node('div',undefined,'dayun'); const table=node('table'); const h=node('tr'); ['序','大运','开始 UTC','结束 UTC'].forEach((x)=>h.append(node('th',x))); const th=node('thead'); th.append(h); table.append(th); const body=node('tbody'); view.dayun.frames.forEach((f)=>{const tr=node('tr'); [f.index,f.ganzhi,f.start_utc,f.end_utc].forEach((x)=>tr.append(node('td',String(x)))); body.append(tr);}); table.append(body); wrap.append(table); root.append(wrap); }
   function showSubError(id,error){ const box=$(id); if(!error){box.hidden=true; box.textContent=''; return;} box.hidden=false; box.textContent=`${error.code}: ${error.detail}`; }
   async function loadProfiles(){ try{ const r=await fetch('/api/profiles'); const d=await r.json(); $('profile-list').textContent=Object.entries(d.profiles).map(([k,v])=>`${k}: ${v}`).join('　|　'); }catch(_){ $('profile-list').textContent='Profile metadata unavailable'; } }
-  $('chart-form').addEventListener('submit',async(e)=>{ e.preventDefault(); $('global-error').hidden=true; $('submit').disabled=true; ['download-manifest','download-ziwei','download-bazi'].forEach((id)=>$(id).disabled=true); const payload={birth_datetime:$('birth-datetime').value,birth_place:$('birth-place').value.trim(),latitude:Number.parseFloat($('latitude').value),longitude:Number.parseFloat($('longitude').value),timezone_id:$('timezone-id').value.trim(),sex:$('sex').value,precision:$('precision').value,uncertainty_seconds:Number.parseInt($('uncertainty-seconds').value,10),ziwei_daxian_count:Number.parseInt($('ziwei-daxian-count').value,10),ziwei_daxian_frame_id:optionalText('ziwei-daxian-frame-id'),ziwei_annual_year:optionalInt('ziwei-annual-year'),ziwei_minor_limit_age:optionalInt('ziwei-minor-limit-age'),bazi_temporal_profile_id:$('bazi-temporal-profile').value,bazi_dayun_count:Number.parseInt($('bazi-dayun-count').value,10),combined_profile_id:'ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1'}; try{ const r=await fetch('/api/resolve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const d=await r.json(); if(!r.ok)throw d.error||{code:`HTTP_${r.status}`,detail:'Request failed'}; last=d; const res=d.combined_resolution; $('combined-status').textContent=res.status; $('manifest-hash').textContent=shortHash(res.manifest_hash); $('manifest-hash').title=res.manifest_hash; const z=res.ziwei_bundle; const b=res.bazi_bundle; $('ziwei-status').textContent=z?z.resolution_status:'FAILED'; $('ziwei-hash').textContent=shortHash(z?.bundle_hash); $('bazi-status').textContent=b?b.status:'FAILED'; $('bazi-hash').textContent=shortHash(b?.bundle_hash); showSubError('ziwei-error',res.ziwei_error); showSubError('bazi-error',res.bazi_error); const zroot=$('ziwei-chart'); clear(zroot); if(d.ziwei_svg){zroot.className=''; zroot.innerHTML=d.ziwei_svg;}else{zroot.className='placeholder'; zroot.textContent='紫微未解析';} renderBazi(b); $('download-manifest').disabled=false; $('download-ziwei').disabled=!d.combined_export.ziwei_export; $('download-bazi').disabled=!d.combined_export.bazi_export; }catch(error){last=null; $('combined-status').textContent='失败'; $('global-error').hidden=false; $('global-error').textContent=`${error.code||'LOCAL_APP_REQUEST_FAILED'}: ${error.detail||String(error)}`;}finally{$('submit').disabled=false;} });
+  $('chart-form').addEventListener('submit',async(e)=>{ e.preventDefault(); $('global-error').hidden=true; $('submit').disabled=true; ['download-manifest','download-ziwei','download-bazi'].forEach((id)=>$(id).disabled=true); const payload={birth_datetime:$('birth-datetime').value,birth_place:$('birth-place').value.trim(),latitude:Number.parseFloat($('latitude').value),longitude:Number.parseFloat($('longitude').value),timezone_id:$('timezone-id').value.trim(),sex:$('sex').value,precision:$('precision').value,uncertainty_seconds:Number.parseInt($('uncertainty-seconds').value,10),ziwei_daxian_count:Number.parseInt($('ziwei-daxian-count').value,10),ziwei_daxian_frame_id:optionalText('ziwei-daxian-frame-id'),ziwei_annual_year:optionalInt('ziwei-annual-year'),ziwei_minor_limit_age:optionalInt('ziwei-minor-limit-age'),bazi_natal_profile_id:$('bazi-natal-profile').value,bazi_temporal_profile_id:$('bazi-temporal-profile').value,bazi_dayun_count:Number.parseInt($('bazi-dayun-count').value,10),combined_profile_id:'ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1'}; try{ const r=await fetch('/api/resolve',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}); const d=await r.json(); if(!r.ok)throw d.error||{code:`HTTP_${r.status}`,detail:'Request failed'}; last=d; const res=d.combined_resolution; $('combined-status').textContent=res.status; $('manifest-hash').textContent=shortHash(res.manifest_hash); $('manifest-hash').title=res.manifest_hash; const z=res.ziwei_bundle; const b=res.bazi_bundle; $('ziwei-status').textContent=z?z.resolution_status:'FAILED'; $('ziwei-hash').textContent=shortHash(z?.bundle_hash); $('bazi-status').textContent=b?b.status:'FAILED'; $('bazi-hash').textContent=shortHash(b?.bundle_hash); showSubError('ziwei-error',res.ziwei_error); showSubError('bazi-error',res.bazi_error); const zroot=$('ziwei-chart'); clear(zroot); if(d.ziwei_svg){zroot.className=''; zroot.innerHTML=d.ziwei_svg;}else{zroot.className='placeholder'; zroot.textContent='紫微未解析';} renderBazi(b); $('download-manifest').disabled=false; $('download-ziwei').disabled=!d.combined_export.ziwei_export; $('download-bazi').disabled=!d.combined_export.bazi_export; }catch(error){last=null; $('combined-status').textContent='失败'; $('global-error').hidden=false; $('global-error').textContent=`${error.code||'LOCAL_APP_REQUEST_FAILED'}: ${error.detail||String(error)}`;}finally{$('submit').disabled=false;} });
   $('download-manifest').addEventListener('click',()=>{if(last)download('ziwei-bazi-manifest.json',last.combined_export.manifest);});
   $('download-ziwei').addEventListener('click',()=>{if(last?.combined_export?.ziwei_export)download('ziwei-chart.json',last.combined_export.ziwei_export);});
   $('download-bazi').addEventListener('click',()=>{if(last?.combined_export?.bazi_export)download('bazi-chart.json',last.combined_export.bazi_export);});
@@ -245,6 +250,10 @@ class LocalCombinedChartApplication:
         self.ziwei_application_profile = ziwei_application_v1_profile()
         self.ziwei_presentation_profile = ziwei_application_default_presentation_profile()
         self.bazi_natal_profile = bazi_foundation_v1_profile(self.registry)
+        self.bazi_natal_profiles = {
+            self.bazi_natal_profile.profile_id: bazi_foundation_v1_profile,
+            ZI_START_23_PROFILE_ID: bazi_foundation_zi_start_23_r1_profile,
+        }
         self.bazi_application_profile = bazi_local_application_v1_profile()
         self.combined_profile = combined_chart_application_v1_profile()
         self.service = CombinedChartService.from_repository(self.repository_root)
@@ -260,6 +269,7 @@ class LocalCombinedChartApplication:
                 "ziwei_application": self.ziwei_application_profile.profile_id,
                 "ziwei_presentation": self.ziwei_presentation_profile.profile_id,
                 "bazi_natal": self.bazi_natal_profile.profile_id,
+                "bazi_natal_options": "BAZI-FOUNDATION-V1-R1 | BAZI-FOUNDATION-ZI-START-23-R1",
                 "bazi_application": self.bazi_application_profile.profile_id,
                 "bazi_temporal_options": "BAZI-TEMPORAL-V1-CONTINUOUS-R1 | BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
             },
@@ -289,13 +299,17 @@ class LocalCombinedChartApplication:
         ziwei_minor_limit_age = _optional_int(payload,"ziwei_minor_limit_age",1,200)
         combined_profile_id = _required_text(payload,"combined_profile_id",max_length=100)
         if combined_profile_id != COMBINED_PROFILE_ID: raise LocalCombinedAppRequestError("LOCAL_APP_UNSUPPORTED_COMBINED_PROFILE",combined_profile_id)
+        natal_id = payload.get("bazi_natal_profile_id", self.bazi_natal_profile.profile_id)
+        if not isinstance(natal_id, str) or not natal_id.strip(): raise LocalCombinedAppRequestError("LOCAL_APP_INVALID_INPUT","bazi_natal_profile_id must be non-empty text")
+        natal_factory = self.bazi_natal_profiles.get(natal_id.strip())
+        if natal_factory is None: raise LocalCombinedAppRequestError("LOCAL_APP_UNSUPPORTED_BAZI_NATAL_PROFILE",natal_id.strip())
         temporal_id = _required_text(payload,"bazi_temporal_profile_id",max_length=120)
         temporal_factories = {"BAZI-TEMPORAL-V1-CONTINUOUS-R1":bazi_temporal_v1_continuous_profile,"BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1":bazi_temporal_wenzhen_china_compatibility_r1_profile}
         factory = temporal_factories.get(temporal_id)
         if factory is None: raise LocalCombinedAppRequestError("LOCAL_APP_UNSUPPORTED_BAZI_TEMPORAL_PROFILE",temporal_id)
         try:
             birth = BirthInput(reported_local_datetime=birth_datetime,birth_place=birth_place,latitude=latitude,longitude=longitude,timezone_id=timezone_id,precision=precision,uncertainty_seconds=uncertainty_seconds)
-            request = CombinedChartApplicationRequest(birth=birth,sex=sex,ziwei_calculation_profile=self.ziwei_calculation_profile,bazi_natal_profile=self.bazi_natal_profile,bazi_temporal_profile=factory(),combined_profile=self.combined_profile,ziwei_application_profile=self.ziwei_application_profile,ziwei_presentation_profile=self.ziwei_presentation_profile,bazi_application_profile=self.bazi_application_profile,ziwei_daxian_frame_id=ziwei_daxian_frame_id,ziwei_annual_year=ziwei_annual_year,ziwei_minor_limit_age=ziwei_minor_limit_age,ziwei_daxian_count=ziwei_daxian_count,bazi_dayun_count=bazi_dayun_count)
+            request = CombinedChartApplicationRequest(birth=birth,sex=sex,ziwei_calculation_profile=self.ziwei_calculation_profile,bazi_natal_profile=natal_factory(self.registry),bazi_temporal_profile=factory(),combined_profile=self.combined_profile,ziwei_application_profile=self.ziwei_application_profile,ziwei_presentation_profile=self.ziwei_presentation_profile,bazi_application_profile=self.bazi_application_profile,ziwei_daxian_frame_id=ziwei_daxian_frame_id,ziwei_annual_year=ziwei_annual_year,ziwei_minor_limit_age=ziwei_minor_limit_age,ziwei_daxian_count=ziwei_daxian_count,bazi_dayun_count=bazi_dayun_count)
             resolution = self.service.resolve(request)
             export = self.service.export(resolution)
             ziwei_svg = None
