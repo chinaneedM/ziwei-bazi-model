@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -18,8 +19,10 @@ from fortune_training.bazi_temporal import (
 from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
+from .integrity import validate_application_resolution
 from .models import (
     BaziApplicationCandidate,
+    BaziApplicationIntegrityReport,
     BaziApplicationRequest,
     BaziApplicationResolution,
 )
@@ -313,9 +316,10 @@ class BaziChartService:
             status = "RESOLVED_WITH_TIME_UNCERTAINTY"
         else:
             status = "RESOLVED"
-        return BaziApplicationResolution(
+        resolution = BaziApplicationResolution(
             schema=self.schema,
             status=status,
+            birth=request.birth,
             application_profile=app_profile,
             natal_profile=request.natal_profile,
             temporal_profile=request.temporal_profile,
@@ -327,7 +331,15 @@ class BaziChartService:
             source_fact_hash=source_fact_hash,
             view_hash=aggregate_view_hash,
             bundle_hash=bundle_hash,
+            integrity=BaziApplicationIntegrityReport(status="PENDING", diagnostics=()),
         )
+        report = validate_application_resolution(resolution)
+        if report.status != "PASS":
+            raise BaziApplicationResolutionError(
+                "BAZI_APP_BUNDLE_INTEGRITY_FAILED",
+                ";".join(report.diagnostics),
+            )
+        return replace(resolution, integrity=report)
 
     def export(self, request: BaziApplicationRequest) -> dict[str, Any]:
         return json_value(self.resolve(request))
