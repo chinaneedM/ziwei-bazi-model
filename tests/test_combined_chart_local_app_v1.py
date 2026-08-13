@@ -56,7 +56,8 @@ class CombinedChartLocalAppV1Tests(unittest.TestCase):
             resolution["bazi_bundle"]["bundle_hash"],
             exported["bazi_export"]["bundle_hash"],
         )
-        self.assertTrue(response["ziwei_svg"].startswith("<svg"))
+        self.assertTrue(response["ziwei_svg"].startswith('<?xml version="1.0" encoding="UTF-8"?>'))
+        self.assertIn('<svg xmlns="http://www.w3.org/2000/svg"', response["ziwei_svg"])
 
     def test_profile_metadata_is_explicit_and_independent(self):
         metadata = self.app.profile_metadata()
