@@ -16,7 +16,13 @@ from .models import (
     StemInstance,
     TenGodBinding,
 )
-from .profile import ResolvedBaziCalculationProfile, bazi_foundation_v1_profile
+from .profile import (
+    ResolvedBaziCalculationProfile,
+    ZI_START_23_PROFILE_ID,
+    ZI_START_23_PROFILE_VERSION,
+    bazi_foundation_v1_profile,
+    bazi_foundation_zi_start_23_r1_profile,
+)
 from .registries import SEXAGENARY_CYCLE, sexagenary_index
 
 __all__ = [
@@ -38,7 +44,10 @@ __all__ = [
     "StemBranchAffinityFact",
     "StemInstance",
     "TenGodBinding",
+    "ZI_START_23_PROFILE_ID",
+    "ZI_START_23_PROFILE_VERSION",
     "bazi_foundation_v1_profile",
+    "bazi_foundation_zi_start_23_r1_profile",
     "natal_fact_projection",
     "natal_hash_bundle",
     "sexagenary_index",

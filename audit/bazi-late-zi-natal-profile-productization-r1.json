@@ -1,0 +1,29 @@
+{
+  "schema": "BAZI-LATE-ZI-NATAL-PROFILE-PRODUCTIZATION-AUDIT-R1",
+  "issue": 273,
+  "legacy_profile": {
+    "profile_id": "BAZI-FOUNDATION-V1-R1",
+    "day_boundary_policy": "MIDNIGHT",
+    "late_zi_hour_stem_policy": "CLASSICAL_CONTINUOUS",
+    "preserved": true
+  },
+  "added_profile": {
+    "profile_id": "BAZI-FOUNDATION-ZI-START-23-R1",
+    "profile_version": "1.0.0",
+    "day_boundary_policy": "ZI_START_23",
+    "late_zi_hour_stem_policy": "ZI_START_ROLLOVER"
+  },
+  "calibration_fixture": {
+    "reported_local_datetime": "2008-11-03T22:50:00",
+    "birth_place": "Shanghai",
+    "latitude": 31.2304,
+    "longitude": 121.4737,
+    "timezone_id": "Asia/Shanghai",
+    "legacy_pillars": ["戊子", "壬戌", "丁未", "壬子"],
+    "zi_start_23_pillars": ["戊子", "壬戌", "戊申", "壬子"]
+  },
+  "policy_registry_defaults_changed": false,
+  "ziwei_changed": false,
+  "dayun_algorithm_changed": false,
+  "prediction_semantics_added": false
+}
