@@ -28,6 +28,8 @@ from .ten_gods import TEN_GOD_ALGORITHM_ID, TEN_GOD_ALGORITHM_VERSION
 
 NATAL_ALGORITHM_ID = "BAZI-NATAL-GENERATOR-V1"
 NATAL_ALGORITHM_VERSION = "1.1.0"
+ZI_START_23_PROFILE_ID = "BAZI-FOUNDATION-ZI-START-23-R1"
+ZI_START_23_PROFILE_VERSION = "1.0.0"
 
 
 @dataclass(frozen=True)
@@ -106,4 +108,22 @@ def bazi_foundation_v1_profile(policy_registry: PolicyRegistry) -> ResolvedBaziC
         profile_version="1.1.0",
         time_calendar_policy_registry_version=policy_registry.version,
         time_calendar_policies=policy_registry.default_bazi_selection(),
+    )
+
+
+def bazi_foundation_zi_start_23_r1_profile(
+    policy_registry: PolicyRegistry,
+) -> ResolvedBaziCalculationProfile:
+    defaults = policy_registry.default_bazi_selection()
+    policies = BaziPolicySelection(
+        bazi_day_boundary_policy="ZI_START_23",
+        bazi_late_zi_hour_stem_policy="ZI_START_ROLLOVER",
+        bazi_year_boundary_policy=defaults.bazi_year_boundary_policy,
+        civil_ambiguous_time_policy=defaults.civil_ambiguous_time_policy,
+    )
+    return ResolvedBaziCalculationProfile(
+        profile_id=ZI_START_23_PROFILE_ID,
+        profile_version=ZI_START_23_PROFILE_VERSION,
+        time_calendar_policy_registry_version=policy_registry.version,
+        time_calendar_policies=policies,
     )
