@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-bazi-combined-manifest-v1.schema.json",
+  "title": "Ziwei + Bazi Combined Manifest V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_schema",
+    "birth",
+    "sex",
+    "combined_profile",
+    "profiles",
+    "subsystems",
+    "composition_status"
+  ],
+  "properties": {
+    "manifest_schema": {"const": "ZIWEI-BAZI-COMBINED-MANIFEST-V1"},
+    "birth": {"$ref": "#/$defs/birthInput"},
+    "sex": {"enum": ["MALE", "FEMALE"]},
+    "combined_profile": {"$ref": "#/$defs/combinedProfileRef"},
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ziwei_calculation",
+        "ziwei_application",
+        "ziwei_presentation",
+        "bazi_natal",
+        "bazi_temporal",
+        "bazi_application"
+      ],
+      "properties": {
+        "ziwei_calculation": {"$ref": "#/$defs/profileRef"},
+        "ziwei_application": {"$ref": "#/$defs/profileRef"},
+        "ziwei_presentation": {"$ref": "#/$defs/profileRef"},
+        "bazi_natal": {"$ref": "#/$defs/profileRef"},
+        "bazi_temporal": {"$ref": "#/$defs/profileRef"},
+        "bazi_application": {"$ref": "#/$defs/profileRef"}
+      }
+    },
+    "subsystems": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ziwei", "bazi"],
+      "properties": {
+        "ziwei": {"$ref": "#/$defs/subsystemRef"},
+        "bazi": {"$ref": "#/$defs/subsystemRef"}
+      }
+    },
+    "composition_status": {
+      "enum": ["RESOLVED_BOTH", "UNCERTAINTY_PRESENT", "PARTIAL", "FAILED"]
+    }
+  },
+  "$defs": {
+    "birthInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_local_datetime",
+        "birth_place",
+        "latitude",
+        "longitude",
+        "timezone_id",
+        "precision",
+        "uncertainty_seconds",
+        "input_time_type"
+      ],
+      "properties": {
+        "reported_local_datetime": {"type": "string", "minLength": 1},
+        "birth_place": {"type": "string", "minLength": 1},
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "timezone_id": {"type": "string", "minLength": 1},
+        "precision": {
+          "enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]
+        },
+        "uncertainty_seconds": {"type": "integer", "minimum": 0},
+        "input_time_type": {"enum": ["CIVIL", "ALREADY_TRUE_SOLAR", "UNKNOWN"]}
+      }
+    },
+    "profileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "profile_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "combinedProfileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "algorithm_id",
+        "algorithm_version",
+        "composition_semantics"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "algorithm_id": {"const": "ZIWEI-BAZI-INDEPENDENT-BUNDLE-COMPOSER-V1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "composition_semantics": {"const": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY"}
+      }
+    },
+    "subsystemRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bundle_hash", "error"],
+      "properties": {
+        "bundle_hash": {"type": ["string", "null"]},
+        "error": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["code", "detail"],
+              "properties": {
+                "code": {"type": "string", "minLength": 1},
+                "detail": {"type": "string"}
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
