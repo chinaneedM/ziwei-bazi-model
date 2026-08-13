@@ -16,16 +16,14 @@ from .models import (
     TemporalIntegrityReport,
 )
 from .engine import (
-    CHINA_STANDARD_TIME,
     _dayun_anniversary,
+    _select_jiaoyun_anchor,
     realize_wenzhen_calendar_month_displacement_utc,
 )
 from .profile import (
     CONTINUOUS_CALENDAR_REALIZATION_RULE_SET,
-    CONTINUOUS_INTERVAL_COORDINATE_POLICY,
     ResolvedBaziTemporalProfile,
     WENZHEN_CALENDAR_REALIZATION_RULE_SET,
-    WENZHEN_INTERVAL_COORDINATE_POLICY,
 )
 
 
@@ -101,37 +99,13 @@ def validate_dayun_state(
     if seed is None:
         _diag(diagnostics, "TEMPORAL_SEED_MISSING", "jiaoyun.temporal_seed_id", state.jiaoyun.temporal_seed_id)
     else:
-        if state.direction.direction == "FORWARD":
-            expected_anchor_kind = "NEXT_JIE"
-            expected_anchor_name = seed.next_jie_name
-            expected_anchor = seed.next_jie_utc
-        else:
-            expected_anchor_kind = "PREVIOUS_JIE"
-            expected_anchor_name = seed.previous_jie_name
-            expected_anchor = seed.previous_jie_utc
-
-        if profile.interval_coordinate_policy == CONTINUOUS_INTERVAL_COORDINATE_POLICY:
-            expected_delta = (
-                expected_anchor - seed.birth_utc
-                if state.direction.direction == "FORWARD"
-                else seed.birth_utc - expected_anchor
-            )
-        elif profile.interval_coordinate_policy == WENZHEN_INTERVAL_COORDINATE_POLICY:
-            birth_clock = seed.local_apparent_solar_datetime.replace(tzinfo=None)
-            jie_china_clock = expected_anchor.astimezone(CHINA_STANDARD_TIME).replace(tzinfo=None)
-            expected_delta = (
-                jie_china_clock - birth_clock
-                if state.direction.direction == "FORWARD"
-                else birth_clock - jie_china_clock
-            )
-        else:
-            expected_delta = timedelta(microseconds=-1)
-            _diag(
-                diagnostics,
-                "UNSUPPORTED_INTERVAL_COORDINATE_POLICY",
-                "jiaoyun.interval_coordinate_policy",
-                profile.interval_coordinate_policy,
-            )
+        (
+            expected_anchor_kind,
+            expected_anchor_name,
+            expected_anchor,
+            expected_delta,
+            _,
+        ) = _select_jiaoyun_anchor(seed, state.direction, profile)
         expected_raw = _delta_microseconds(expected_delta)
         if state.jiaoyun.anchor_kind != expected_anchor_kind:
             _diag(diagnostics, "JIAOYUN_ANCHOR_KIND_MISMATCH", "jiaoyun.anchor_kind", expected_anchor_kind)
