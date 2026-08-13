@@ -36,9 +36,18 @@ class BaziApplicationCandidate:
 
 
 @dataclass(frozen=True)
+class BaziApplicationIntegrityReport:
+    status: str
+    diagnostics: tuple[str, ...]
+    algorithm_id: str = "BAZI-LOCAL-APPLICATION-INTEGRITY-V1"
+    algorithm_version: str = "1.0.0"
+
+
+@dataclass(frozen=True)
 class BaziApplicationResolution:
     schema: str
     status: str
+    birth: BirthInput
     application_profile: BaziApplicationProfile
     natal_profile: ResolvedBaziCalculationProfile
     temporal_profile: ResolvedBaziTemporalProfile
@@ -50,3 +59,4 @@ class BaziApplicationResolution:
     source_fact_hash: str
     view_hash: str
     bundle_hash: str
+    integrity: BaziApplicationIntegrityReport
