@@ -11,7 +11,11 @@ from typing import Any
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from fortune_training.bazi_chart import bazi_foundation_v1_profile
+from fortune_training.bazi_chart import (
+    ZI_START_23_PROFILE_ID,
+    bazi_foundation_v1_profile,
+    bazi_foundation_zi_start_23_r1_profile,
+)
 from fortune_training.bazi_temporal import (
     BaziSex,
     bazi_temporal_v1_continuous_profile,
@@ -62,7 +66,7 @@ INDEX_HTML = """<!doctype html>
         <label>性别<select id="sex"><option value="MALE">男</option><option value="FEMALE">女</option></select></label>
         <label>时间精度<select id="precision"><option value="EXACT_SECOND">精确到秒</option><option value="NEAREST_MINUTE">约到分钟</option><option value="NEAREST_HOUR">约到小时</option><option value="APPROXIMATE">约略时间</option></select></label>
         <label>不确定范围 ±秒<input id="uncertainty-seconds" type="number" min="0" max="86400" value="0"></label>
-        <label>Natal Profile<select id="natal-profile"><option value="BAZI-FOUNDATION-V1-R1">BAZI-FOUNDATION-V1-R1</option></select></label>
+        <label>Natal Profile<select id="natal-profile"><option value="BAZI-FOUNDATION-V1-R1">MIDNIGHT / CLASSICAL_CONTINUOUS</option><option value="BAZI-FOUNDATION-ZI-START-23-R1">ZI_START_23 / ZI_START_ROLLOVER</option></select></label>
         <label>大运 Profile<select id="temporal-profile"><option value="BAZI-TEMPORAL-V1-CONTINUOUS-R1">CONTINUOUS-R1</option><option value="BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1">WENZHEN-COMPATIBILITY-R1</option></select></label>
         <label>大运数量<input id="dayun-count" type="number" min="1" max="20" value="12"></label>
       </div>
@@ -262,7 +266,12 @@ class LocalBaziApplication:
         natal_profile_id = _required_text(payload, "natal_profile_id", max_length=80)
         temporal_profile_id = _required_text(payload, "temporal_profile_id", max_length=100)
         application_profile_id = _required_text(payload, "application_profile_id", max_length=80)
-        if natal_profile_id != "BAZI-FOUNDATION-V1-R1":
+        natal_profiles = {
+            "BAZI-FOUNDATION-V1-R1": bazi_foundation_v1_profile,
+            ZI_START_23_PROFILE_ID: bazi_foundation_zi_start_23_r1_profile,
+        }
+        natal_factory = natal_profiles.get(natal_profile_id)
+        if natal_factory is None:
             raise LocalAppRequestError("LOCAL_APP_UNSUPPORTED_NATAL_PROFILE", natal_profile_id)
         if application_profile_id != APPLICATION_PROFILE_ID:
             raise LocalAppRequestError("LOCAL_APP_UNSUPPORTED_APPLICATION_PROFILE", application_profile_id)
@@ -286,7 +295,7 @@ class LocalBaziApplication:
             request = BaziApplicationRequest(
                 birth=birth,
                 sex=sex,
-                natal_profile=bazi_foundation_v1_profile(self.registry),
+                natal_profile=natal_factory(self.registry),
                 temporal_profile=factory(),
                 application_profile=bazi_local_application_v1_profile(),
                 dayun_count=dayun_count,
