@@ -22,9 +22,14 @@ class TimeCalendarApproximateSamplingR1Tests(unittest.TestCase):
         cls.registry = cls.foundation.policy_registry
 
     @staticmethod
-    def beijing(*, precision: TimePrecision, uncertainty_seconds: int) -> BirthInput:
+    def beijing(
+        *,
+        precision: TimePrecision,
+        uncertainty_seconds: int,
+        local: datetime = datetime(1994, 5, 17, 23, 11),
+    ) -> BirthInput:
         return BirthInput(
-            reported_local_datetime=datetime(1994, 5, 17, 23, 11),
+            reported_local_datetime=local,
             birth_place="Beijing",
             latitude=39.9042,
             longitude=116.4074,
@@ -96,6 +101,7 @@ class TimeCalendarApproximateSamplingR1Tests(unittest.TestCase):
         request = self.beijing(
             precision=TimePrecision.NEAREST_MINUTE,
             uncertainty_seconds=0,
+            local=datetime(1994, 5, 17, 14, 30),
         )
 
         result = self.foundation.resolve_bazi(request)
