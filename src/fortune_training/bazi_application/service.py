@@ -23,6 +23,7 @@ from .integrity import validate_application_resolution
 from .models import (
     BaziApplicationCandidate,
     BaziApplicationIntegrityReport,
+    BaziApplicationLegalTimeRealization,
     BaziApplicationRequest,
     BaziApplicationResolution,
     BaziApplicationTimeCalendarProvenance,
@@ -83,6 +84,36 @@ class BaziChartService:
         time_result: dict[str, Any],
     ) -> BaziApplicationTimeCalendarProvenance:
         interval = time_result.get("input_interval", {})
+
+        legal_realizations: list[BaziApplicationLegalTimeRealization] = []
+        for branch_index, row in enumerate(time_result.get("branches", [])):
+            civil = row.get("civil_time", {})
+            selected = row.get("selected_civil_candidate", {})
+            legal_realizations.append(
+                BaziApplicationLegalTimeRealization(
+                    source_time_branch_index=branch_index,
+                    sample_reported_local_datetime=str(
+                        row.get("sample_reported_local_datetime", "")
+                    ),
+                    civil_status=str(civil.get("status", "UNKNOWN")),
+                    timezone_id=str(civil.get("timezone_id", "")),
+                    tzdb_version=str(civil.get("tzdb_version", "")),
+                    historical_confidence=str(
+                        civil.get("historical_confidence", "")
+                    ),
+                    warnings=tuple(str(item) for item in civil.get("warnings", [])),
+                    birth_utc=str(selected.get("utc_instant", "")),
+                    fold=int(selected.get("fold", 0)),
+                    utc_offset_seconds=int(selected.get("utc_offset_seconds", 0)),
+                    daylight_saving_seconds=int(
+                        selected.get("daylight_saving_seconds", 0)
+                    ),
+                    timezone_abbreviation=str(
+                        selected.get("timezone_abbreviation", "")
+                    ),
+                )
+            )
+
         unresolved_samples: list[BaziApplicationUnresolvedTimeSample] = []
         for row in time_result.get("unresolved_samples", []):
             civil = row.get("civil_time", {})
@@ -107,6 +138,8 @@ class BaziChartService:
             ),
             sample_count=int(interval.get("sample_count", 0)),
             ambiguous_sample_count=int(interval.get("ambiguous_sample_count", 0)),
+            legal_realization_count=len(legal_realizations),
+            legal_realizations=tuple(legal_realizations),
             unresolved_sample_count=len(unresolved_samples),
             unresolved_samples=tuple(unresolved_samples),
         )
@@ -169,6 +202,7 @@ class BaziChartService:
             time_provenance.append(
                 {
                     "seed_id": seed.seed_id,
+                    "source_time_branch_index": seed.source_time_branch_index,
                     "sample_reported_local_datetime": json_value(
                         seed.sample_reported_local_datetime
                     ),
