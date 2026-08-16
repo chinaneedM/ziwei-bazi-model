@@ -36,6 +36,26 @@ class BaziApplicationCandidate:
 
 
 @dataclass(frozen=True)
+class BaziApplicationUnresolvedTimeSample:
+    sample_reported_local_datetime: str
+    civil_status: str
+    timezone_id: str
+    tzdb_version: str
+    historical_confidence: str
+    warnings: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class BaziApplicationTimeCalendarProvenance:
+    status: str
+    effective_uncertainty_seconds_each_side: int
+    sample_count: int
+    ambiguous_sample_count: int
+    unresolved_sample_count: int
+    unresolved_samples: tuple[BaziApplicationUnresolvedTimeSample, ...]
+
+
+@dataclass(frozen=True)
 class BaziApplicationIntegrityReport:
     status: str
     diagnostics: tuple[str, ...]
@@ -53,6 +73,7 @@ class BaziApplicationResolution:
     temporal_profile: ResolvedBaziTemporalProfile
     sex: BaziSex
     dayun_count: int
+    time_calendar_provenance: BaziApplicationTimeCalendarProvenance
     candidates: tuple[BaziApplicationCandidate, ...]
     events: tuple[str, ...]
     diagnostics: tuple[str, ...]
