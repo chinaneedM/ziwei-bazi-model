@@ -15,6 +15,10 @@ def validate_application_resolution(
     except ValueError as exc:
         diagnostics.append(f"APPLICATION_PROFILE_INVALID:{exc}")
 
+    provenance = resolution.time_calendar_provenance
+    if provenance.unresolved_sample_count != len(provenance.unresolved_samples):
+        diagnostics.append("TIME_CALENDAR_UNRESOLVED_SAMPLE_COUNT_MISMATCH")
+
     for index, candidate in enumerate(resolution.candidates):
         expected_view_hash = object_sha256(
             {
@@ -42,6 +46,9 @@ def validate_application_resolution(
         {
             "birth": json_value(resolution.birth),
             "sex": resolution.sex.value,
+            "time_calendar_provenance": json_value(
+                resolution.time_calendar_provenance
+            ),
             "natal_fact_hashes": [row.natal_fact_hash for row in resolution.candidates],
             "temporal_fact_hashes": [row.temporal_fact_hash for row in resolution.candidates],
         }

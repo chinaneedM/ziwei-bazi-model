@@ -25,6 +25,8 @@ from .models import (
     BaziApplicationIntegrityReport,
     BaziApplicationRequest,
     BaziApplicationResolution,
+    BaziApplicationTimeCalendarProvenance,
+    BaziApplicationUnresolvedTimeSample,
 )
 
 
@@ -75,6 +77,39 @@ class BaziChartService:
                 "BAZI_APP_TEMPORAL_HASH_REPLAY_MISMATCH",
                 temporal.hashes.fact_hash,
             )
+
+    @staticmethod
+    def _build_time_calendar_provenance(
+        time_result: dict[str, Any],
+    ) -> BaziApplicationTimeCalendarProvenance:
+        interval = time_result.get("input_interval", {})
+        unresolved_samples: list[BaziApplicationUnresolvedTimeSample] = []
+        for row in time_result.get("unresolved_samples", []):
+            civil = row.get("civil_time", {})
+            unresolved_samples.append(
+                BaziApplicationUnresolvedTimeSample(
+                    sample_reported_local_datetime=str(
+                        row.get("sample_reported_local_datetime", "")
+                    ),
+                    civil_status=str(civil.get("status", "UNKNOWN")),
+                    timezone_id=str(civil.get("timezone_id", "")),
+                    tzdb_version=str(civil.get("tzdb_version", "")),
+                    historical_confidence=str(
+                        civil.get("historical_confidence", "")
+                    ),
+                    warnings=tuple(str(item) for item in civil.get("warnings", [])),
+                )
+            )
+        return BaziApplicationTimeCalendarProvenance(
+            status=str(time_result.get("status", "UNKNOWN")),
+            effective_uncertainty_seconds_each_side=int(
+                interval.get("uncertainty_seconds_each_side", 0)
+            ),
+            sample_count=int(interval.get("sample_count", 0)),
+            ambiguous_sample_count=int(interval.get("ambiguous_sample_count", 0)),
+            unresolved_sample_count=len(unresolved_samples),
+            unresolved_samples=tuple(unresolved_samples),
+        )
 
     @staticmethod
     def _build_view(request: BaziApplicationRequest, natal, temporal) -> dict[str, Any]:
@@ -224,6 +259,9 @@ class BaziChartService:
                 "BAZI_APP_NATAL_RESOLUTION_FAILED",
                 ";".join(natal_resolution.diagnostics) or natal_resolution.status,
             )
+        time_calendar_provenance = self._build_time_calendar_provenance(
+            natal_resolution.time_calendar
+        )
 
         rows: list[BaziApplicationCandidate] = []
         events: list[str] = list(natal_resolution.events)
@@ -287,6 +325,7 @@ class BaziChartService:
             {
                 "birth": json_value(request.birth),
                 "sex": request.sex.value,
+                "time_calendar_provenance": json_value(time_calendar_provenance),
                 "natal_fact_hashes": [row.natal_fact_hash for row in candidates],
                 "temporal_fact_hashes": [row.temporal_fact_hash for row in candidates],
             }
@@ -325,6 +364,7 @@ class BaziChartService:
             temporal_profile=request.temporal_profile,
             sex=request.sex,
             dayun_count=request.dayun_count,
+            time_calendar_provenance=time_calendar_provenance,
             candidates=candidates,
             events=unique_events,
             diagnostics=(),
