@@ -36,6 +36,22 @@ class BaziApplicationCandidate:
 
 
 @dataclass(frozen=True)
+class BaziApplicationLegalTimeRealization:
+    source_time_branch_index: int
+    sample_reported_local_datetime: str
+    civil_status: str
+    timezone_id: str
+    tzdb_version: str
+    historical_confidence: str
+    warnings: tuple[str, ...]
+    birth_utc: str
+    fold: int
+    utc_offset_seconds: int
+    daylight_saving_seconds: int
+    timezone_abbreviation: str
+
+
+@dataclass(frozen=True)
 class BaziApplicationUnresolvedTimeSample:
     sample_reported_local_datetime: str
     civil_status: str
@@ -51,6 +67,8 @@ class BaziApplicationTimeCalendarProvenance:
     effective_uncertainty_seconds_each_side: int
     sample_count: int
     ambiguous_sample_count: int
+    legal_realization_count: int
+    legal_realizations: tuple[BaziApplicationLegalTimeRealization, ...]
     unresolved_sample_count: int
     unresolved_samples: tuple[BaziApplicationUnresolvedTimeSample, ...]
 
