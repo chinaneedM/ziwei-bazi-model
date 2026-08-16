@@ -16,8 +16,16 @@ def validate_application_resolution(
         diagnostics.append(f"APPLICATION_PROFILE_INVALID:{exc}")
 
     provenance = resolution.time_calendar_provenance
+    if provenance.legal_realization_count != len(provenance.legal_realizations):
+        diagnostics.append("TIME_CALENDAR_LEGAL_REALIZATION_COUNT_MISMATCH")
     if provenance.unresolved_sample_count != len(provenance.unresolved_samples):
         diagnostics.append("TIME_CALENDAR_UNRESOLVED_SAMPLE_COUNT_MISMATCH")
+
+    legal_by_index = {
+        row.source_time_branch_index: row for row in provenance.legal_realizations
+    }
+    if len(legal_by_index) != len(provenance.legal_realizations):
+        diagnostics.append("TIME_CALENDAR_LEGAL_REALIZATION_INDEX_DUPLICATE")
 
     for index, candidate in enumerate(resolution.candidates):
         expected_view_hash = object_sha256(
@@ -41,6 +49,23 @@ def validate_application_resolution(
         )
         if candidate.candidate_id != expected_candidate_id:
             diagnostics.append(f"CANDIDATE_ID_MISMATCH:{index}")
+
+        for time_index, time_row in enumerate(candidate.view.get("time_provenance", [])):
+            branch_index = time_row.get("source_time_branch_index")
+            legal = legal_by_index.get(branch_index)
+            if legal is None:
+                diagnostics.append(
+                    f"TIME_CALENDAR_LEGAL_REALIZATION_LINEAGE_MISSING:{index}:{time_index}"
+                )
+                continue
+            if (
+                time_row.get("sample_reported_local_datetime")
+                != legal.sample_reported_local_datetime
+                or time_row.get("birth_utc") != legal.birth_utc
+            ):
+                diagnostics.append(
+                    f"TIME_CALENDAR_LEGAL_REALIZATION_LINEAGE_MISMATCH:{index}:{time_index}"
+                )
 
     expected_source_fact_hash = object_sha256(
         {
