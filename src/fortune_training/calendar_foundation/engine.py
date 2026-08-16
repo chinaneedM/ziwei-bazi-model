@@ -8,7 +8,7 @@ from typing import Any
 from .astronomy import SolarTermEngine
 from .bazi import BaziTimeResolver
 from .calendar import ChineseCalendarEngine
-from .models import AuditTrace, BirthInput, CivilCandidate, CivilTimeStatus, json_value
+from .models import AuditTrace, BirthInput, CivilCandidate, CivilTimeStatus, TimePrecision, json_value
 from .policies import BaziPolicySelection, PolicyRegistry, PolicySelection
 from .solar import SolarTimeEngine
 from .timezone import CivilTimeResolver
@@ -50,6 +50,28 @@ class TimeCalendarFoundation:
             rows.add(cursor)
             cursor += timedelta(seconds=step_seconds)
         return tuple(sorted(rows))
+
+    @staticmethod
+    def _point_sample_birth(birth: BirthInput, wall_time: datetime) -> BirthInput:
+        """Build one deterministic point from a broader uncertainty interval.
+
+        APPROXIMATE is a source-input precision contract and requires positive
+        uncertainty. Once the interval has been sampled, an individual point is
+        exact for downstream civil/solar/calendar resolution. Other precision
+        modes keep their existing internal representation.
+        """
+
+        precision = (
+            TimePrecision.EXACT_SECOND
+            if birth.precision is TimePrecision.APPROXIMATE
+            else birth.precision
+        )
+        return replace(
+            birth,
+            reported_local_datetime=wall_time,
+            precision=precision,
+            uncertainty_seconds=0,
+        )
 
     def _resolve_candidate(
         self,
@@ -325,7 +347,7 @@ class TimeCalendarFoundation:
         ambiguous_samples = 0
         sampled_wall_times = self._sample_wall_times(birth)
         for wall_time in sampled_wall_times:
-            sampled_birth = replace(birth, reported_local_datetime=wall_time, uncertainty_seconds=0)
+            sampled_birth = self._point_sample_birth(birth, wall_time)
             civil = self.civil.resolve(sampled_birth, selected.civil_ambiguous_time_policy)
             if civil.status is CivilTimeStatus.AMBIGUOUS:
                 ambiguous_samples += 1
@@ -378,8 +400,9 @@ class TimeCalendarFoundation:
         branches: list[dict[str, Any]] = []
         unresolved: list[dict[str, Any]] = []
         ambiguous_samples = 0
-        for wall_time in self._sample_wall_times(birth):
-            sampled_birth = replace(birth, reported_local_datetime=wall_time, uncertainty_seconds=0)
+        sampled_wall_times = self._sample_wall_times(birth)
+        for wall_time in sampled_wall_times:
+            sampled_birth = self._point_sample_birth(birth, wall_time)
             civil = self.civil.resolve(sampled_birth, selected.civil_ambiguous_time_policy)
             if civil.status is CivilTimeStatus.AMBIGUOUS:
                 ambiguous_samples += 1
@@ -406,7 +429,7 @@ class TimeCalendarFoundation:
             "input": json_value(birth),
             "input_interval": {
                 "uncertainty_seconds_each_side": birth.effective_uncertainty_seconds,
-                "sample_count": len(self._sample_wall_times(birth)),
+                "sample_count": len(sampled_wall_times),
                 "ambiguous_sample_count": ambiguous_samples,
             },
             "policy_registry_version": self.policy_registry.version,
