@@ -205,10 +205,29 @@ def validate_target_temporal_resolution(
         if candidate.target_utc.tzinfo is None or candidate.target_utc.utcoffset() is None:
             _diag(diagnostics, "TARGET_UTC_NOT_AWARE", f"candidates[{index}].target_utc", "timezone-aware UTC required")
 
-    if not resolution.candidates and resolution.status != "FAILED":
-        _diag(diagnostics, "EMPTY_CANDIDATES_NOT_FAILED", "status", resolution.status)
-    if resolution.candidates and resolution.status == "FAILED":
-        _diag(diagnostics, "LEGAL_CANDIDATES_MARKED_FAILED", "status", resolution.status)
+    if not expected_candidates:
+        expected_status = "FAILED"
+    elif (
+        len(expected_candidates) == 1
+        and not expected_unresolved
+        and expected_ambiguous == 0
+        and target.effective_uncertainty_seconds == 0
+    ):
+        expected_status = "RESOLVED"
+    else:
+        expected_status = "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY"
+    if resolution.status != expected_status:
+        _diag(diagnostics, "STATUS_REPLAY_MISMATCH", "status", expected_status)
+
+    if resolution.hashes.fact_hash or resolution.hashes.computation_hash:
+        expected_hashes = target_hash_bundle(resolution, profile)
+        if resolution.hashes != expected_hashes:
+            _diag(
+                diagnostics,
+                "TARGET_HASH_REPLAY_MISMATCH",
+                "hashes",
+                f"expected={expected_hashes.fact_hash}/{expected_hashes.computation_hash}",
+            )
 
     return TargetTemporalIntegrityReport(
         status="PASS" if not diagnostics else "FAIL",
