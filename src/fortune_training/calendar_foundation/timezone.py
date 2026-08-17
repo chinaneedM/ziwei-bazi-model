@@ -67,8 +67,6 @@ class CivilTimeResolver:
 
         if local_datetime.tzinfo is not None:
             raise ValueError("local_datetime must be a naive wall-clock value")
-        if not timezone_id.strip():
-            raise ValueError("timezone_id must not be empty")
         if ambiguous_time_policy not in AMBIGUOUS_TIME_POLICIES:
             raise ValueError(f"unknown ambiguous_time_policy: {ambiguous_time_policy}")
         if input_time_type is not InputTimeType.CIVIL:
