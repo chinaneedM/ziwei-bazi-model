@@ -13,6 +13,7 @@ from .flow_models import (
     BaziApplicationFlowRequest,
     BaziApplicationFlowResolution,
 )
+from .flow_replay import validate_application_flow_full_replay
 from .flow_service import BaziApplicationFlowService
 from .integrity import validate_application_resolution
 from .models import (
@@ -42,6 +43,7 @@ __all__ = [
     "application_flow_source_fact_hash",
     "application_flow_view_hash",
     "bazi_local_application_v1_profile",
+    "validate_application_flow_full_replay",
     "validate_application_flow_resolution",
     "validate_application_resolution",
 ]
