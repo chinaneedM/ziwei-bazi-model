@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/target-temporal-coordinate-r1.schema.json",
+  "title": "Target Temporal Coordinate Resolution R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "target_input",
+    "profile",
+    "effective_uncertainty_seconds_each_side",
+    "sample_count",
+    "ambiguous_sample_count",
+    "legal_realization_count",
+    "candidates",
+    "unresolved_samples",
+    "events",
+    "diagnostics",
+    "fact_hash",
+    "computation_hash"
+  ],
+  "properties": {
+    "schema": {"const": "TARGET-TEMPORAL-COORDINATE-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "RESOLVED_RANGE_SINGLE_COORDINATE", "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY", "FAILED"]},
+    "target_input": {"type": "object"},
+    "profile": {"type": "object"},
+    "effective_uncertainty_seconds_each_side": {"type": "integer", "minimum": 0},
+    "sample_count": {"type": "integer", "minimum": 1},
+    "ambiguous_sample_count": {"type": "integer", "minimum": 0},
+    "legal_realization_count": {"type": "integer", "minimum": 0},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["coordinate", "integrity", "hashes"],
+        "properties": {
+          "coordinate": {"type": "object"},
+          "integrity": {"type": "object"},
+          "hashes": {"type": "object"}
+        }
+      }
+    },
+    "unresolved_samples": {"type": "array", "items": {"type": "object"}},
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}},
+    "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
