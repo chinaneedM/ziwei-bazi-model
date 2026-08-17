@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 from fortune_training.bazi_application.flow_local_app import build_flow_server
+from fortune_training.bazi_application.local_app import LOCAL_APP_RESOLVE_SCHEMA
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -87,7 +88,7 @@ class BaziApplicationFlowHttpR1Tests(unittest.TestCase):
             ) as response:
                 self.assertEqual(200, response.status)
                 legacy_payload = json.loads(response.read().decode("utf-8"))
-            self.assertEqual("BAZI-LOCAL-APP-RESOLVE-V1", legacy_payload["schema"])
+            self.assertEqual(LOCAL_APP_RESOLVE_SCHEMA, legacy_payload["schema"])
             self.assertEqual(
                 "PASS", legacy_payload["application_bundle"]["integrity"]["status"]
             )
