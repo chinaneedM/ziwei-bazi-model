@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta
 from typing import Iterable
 
 from fortune_training.calendar_foundation import CivilTimeResolver, SolarTimeEngine
@@ -17,6 +16,7 @@ from .models import (
     TargetTemporalUnresolvedSample,
 )
 from .profile import validate_target_temporal_profile
+from .sampling import sample_target_wall_times
 
 
 class TargetTemporalCoordinateEngine:
@@ -29,25 +29,6 @@ class TargetTemporalCoordinateEngine:
     ) -> None:
         self.civil = civil or CivilTimeResolver()
         self.solar = solar or SolarTimeEngine()
-
-    @staticmethod
-    def _sample_wall_times(target_input: TargetTemporalInput) -> tuple[datetime, ...]:
-        uncertainty = target_input.effective_uncertainty_seconds
-        center = target_input.reported_local_datetime
-        if uncertainty == 0:
-            return (center,)
-        start = center - timedelta(seconds=uncertainty)
-        end = center + timedelta(seconds=uncertainty)
-        span_seconds = (end - start).total_seconds()
-        step_seconds = 60 if span_seconds <= 86_400 else max(3600, int(span_seconds / 1998))
-        rows = {start, center, end}
-        cursor = start.replace(second=0, microsecond=0) + timedelta(minutes=1)
-        if step_seconds >= 3600:
-            cursor = start.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
-        while cursor < end and len(rows) < 2001:
-            rows.add(cursor)
-            cursor += timedelta(seconds=step_seconds)
-        return tuple(sorted(rows))
 
     @staticmethod
     def _resolution_hashes(
@@ -80,7 +61,7 @@ class TargetTemporalCoordinateEngine:
         profile: TargetTemporalProfile,
     ) -> TargetTemporalCoordinateResolution:
         validated_profile = validate_target_temporal_profile(profile)
-        sampled_wall_times = self._sample_wall_times(target_input)
+        sampled_wall_times = sample_target_wall_times(target_input)
         ambiguous_sample_count = 0
         unresolved: list[TargetTemporalUnresolvedSample] = []
         resolved_candidates: list[TargetTemporalResolvedCandidate] = []
