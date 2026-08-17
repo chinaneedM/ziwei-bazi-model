@@ -54,6 +54,7 @@ class BaziDailyHourlyFlowContext:
     upstream_temporal_fact_hash: str
     source_flow_fact_hash: str
     source_flow_computation_hash: str
+    source_flow_candidate_index: int
     source_target_coordinate_fact_hash: str
     source_target_coordinate_computation_hash: str
     source_target_coordinate_candidate_id: str
