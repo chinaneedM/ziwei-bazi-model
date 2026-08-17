@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
 import unittest
 from dataclasses import replace
 from datetime import datetime
+from pathlib import Path
+
+import jsonschema
 
 from fortune_training.bazi_target_temporal import (
     TargetTemporalCoordinateFoundation,
@@ -11,8 +15,10 @@ from fortune_training.bazi_target_temporal import (
     validate_target_temporal_resolution,
 )
 from fortune_training.calendar_foundation import BaziTimeResolver, TimePrecision
+from fortune_training.calendar_foundation.models import json_value
 
 
+ROOT = Path(__file__).resolve().parents[1]
 PRE_1970_WARNING = "IANA tzdb does not guarantee complete pre-1970 historical coverage"
 
 
@@ -21,6 +27,11 @@ class BaziTargetTemporalCoordinateFoundationR1Tests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.foundation = TargetTemporalCoordinateFoundation()
         cls.profile = bazi_target_temporal_coordinate_r1_profile()
+        cls.schema = json.loads(
+            (ROOT / "schemas" / "bazi-target-temporal-coordinate-foundation-r1.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
 
     @staticmethod
     def target(
@@ -43,7 +54,7 @@ class BaziTargetTemporalCoordinateFoundationR1Tests(unittest.TestCase):
             uncertainty_seconds=uncertainty_seconds,
         )
 
-    def test_greenwich_exact_target_resolves_deterministically(self) -> None:
+    def test_greenwich_exact_target_resolves_deterministically_and_validates_schema(self) -> None:
         target = self.target(
             datetime(2025, 1, 15, 12, 0),
             place="Greenwich",
@@ -61,6 +72,7 @@ class BaziTargetTemporalCoordinateFoundationR1Tests(unittest.TestCase):
         self.assertEqual(first.hashes, second.hashes)
         self.assertEqual(first.candidates, second.candidates)
         self.assertEqual(target.reported_local_datetime, first.candidates[0].sample_reported_local_datetime)
+        jsonschema.Draft202012Validator(self.schema).validate(json_value(first))
 
     def test_same_utc_different_longitude_changes_las_not_annual_monthly(self) -> None:
         greenwich = self.foundation.resolve(
@@ -153,6 +165,7 @@ class BaziTargetTemporalCoordinateFoundationR1Tests(unittest.TestCase):
         self.assertEqual(1, len(resolved.unresolved_samples))
         self.assertEqual("NONEXISTENT", resolved.unresolved_samples[0].civil_status)
         self.assertIn("TARGET_CIVIL_TIME_UNRESOLVED", resolved.diagnostics)
+        jsonschema.Draft202012Validator(self.schema).validate(json_value(resolved))
 
     def test_explicit_uncertainty_preserves_sample_identity(self) -> None:
         resolved = self.foundation.resolve(
