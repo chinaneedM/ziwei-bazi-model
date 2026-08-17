@@ -11,7 +11,7 @@
       "type": "object",
       "required": ["schema", "status", "source_fact_hash", "view_hash", "bundle_hash", "integrity"],
       "properties": {
-        "schema": {"const": "BAZI-APPLICATION-RESOLUTION-V1"},
+        "schema": {"const": "BAZI-LOCAL-APPLICATION-RESOLUTION-V1"},
         "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
         "source_fact_hash": {"$ref": "#/$defs/hash"},
         "view_hash": {"$ref": "#/$defs/hash"},
