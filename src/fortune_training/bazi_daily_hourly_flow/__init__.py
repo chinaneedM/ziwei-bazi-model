@@ -17,6 +17,7 @@ from .models import (
     DailyHourlyIntegrityReport,
     HourlyFrame,
 )
+from .resolution_integrity import validate_daily_hourly_resolution
 
 __all__ = [
     "BaziDailyHourlyFlowCandidate",
@@ -33,6 +34,7 @@ __all__ = [
     "daily_hourly_fact_projection",
     "daily_hourly_hash_bundle",
     "validate_daily_hourly_context",
+    "validate_daily_hourly_resolution",
 ]
 
 __version__ = "0.1.0"
