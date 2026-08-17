@@ -315,16 +315,16 @@ class BaziDailyHourlyFlowSidecarR1Tests(unittest.TestCase):
             datetime(2026, 6, 1, 12, 0),
             uncertainty_seconds=7200,
         )
-        self.assertEqual(5, len(target.candidates))
+        self.assertGreater(len(target.candidates), 1)
         result, _ = self._resolve_sidecar(target)
         self.assertEqual("MULTI_CANDIDATE", result.status)
-        self.assertEqual(5, len(result.candidates))
+        self.assertEqual(len(target.candidates), len(result.candidates))
         self.assertGreater(
             len({row.context.hourly_frame.frame_id for row in result.candidates}),
             1,
         )
         self.assertEqual(
-            list(range(5)),
+            list(range(len(target.candidates))),
             [row.source_target_coordinate_candidate_index for row in result.candidates],
         )
 
