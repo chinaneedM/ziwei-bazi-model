@@ -19,6 +19,17 @@ class TimePrecision(str, Enum):
     APPROXIMATE = "APPROXIMATE"
 
 
+def effective_uncertainty_seconds(precision: TimePrecision, uncertainty_seconds: int) -> int:
+    """Return the shared deterministic uncertainty half-width for a time input."""
+    floors = {
+        TimePrecision.EXACT_SECOND: 0,
+        TimePrecision.NEAREST_MINUTE: 30,
+        TimePrecision.NEAREST_HOUR: 1800,
+        TimePrecision.APPROXIMATE: 0,
+    }
+    return max(uncertainty_seconds, floors[precision])
+
+
 class CivilTimeStatus(str, Enum):
     UNIQUE = "UNIQUE"
     AMBIGUOUS = "AMBIGUOUS"
@@ -59,13 +70,7 @@ class BirthInput:
 
     @property
     def effective_uncertainty_seconds(self) -> int:
-        floors = {
-            TimePrecision.EXACT_SECOND: 0,
-            TimePrecision.NEAREST_MINUTE: 30,
-            TimePrecision.NEAREST_HOUR: 1800,
-            TimePrecision.APPROXIMATE: 0,
-        }
-        return max(self.uncertainty_seconds, floors[self.precision])
+        return effective_uncertainty_seconds(self.precision, self.uncertainty_seconds)
 
 
 @dataclass(frozen=True)
