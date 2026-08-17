@@ -1,16 +1,22 @@
 from __future__ import annotations
 
+import json
 import unittest
 from dataclasses import replace
 from datetime import datetime
+from pathlib import Path
 
 from fortune_training.calendar_foundation import InputTimeType, TimePrecision
+from fortune_training.calendar_foundation.models import json_value
 from fortune_training.target_temporal_coordinate import (
     TargetTemporalCoordinateEngine,
     TargetTemporalInput,
     target_temporal_coordinate_r1_profile,
     validate_target_coordinate,
 )
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class TargetTemporalCoordinateR1Tests(unittest.TestCase):
@@ -22,14 +28,20 @@ class TargetTemporalCoordinateR1Tests(unittest.TestCase):
     def resolve(self, target: TargetTemporalInput):
         return self.engine.resolve(target, self.profile)
 
+    @staticmethod
+    def greenwich_target(**overrides) -> TargetTemporalInput:
+        values = {
+            "reported_local_datetime": datetime(2025, 2, 3, 14, 10),
+            "target_place": "Greenwich",
+            "latitude": 51.4769,
+            "longitude": 0.0,
+            "timezone_id": "Europe/London",
+        }
+        values.update(overrides)
+        return TargetTemporalInput(**values)
+
     def test_greenwich_point_resolves_deterministically(self) -> None:
-        target = TargetTemporalInput(
-            reported_local_datetime=datetime(2025, 2, 3, 14, 10),
-            target_place="Greenwich",
-            latitude=51.4769,
-            longitude=0.0,
-            timezone_id="Europe/London",
-        )
+        target = self.greenwich_target()
         first = self.resolve(target)
         second = self.resolve(target)
         self.assertEqual("RESOLVED", first.status)
@@ -38,6 +50,19 @@ class TargetTemporalCoordinateR1Tests(unittest.TestCase):
         self.assertEqual(first.fact_hash, second.fact_hash)
         self.assertEqual(first.computation_hash, second.computation_hash)
         self.assertEqual("PASS", first.candidates[0].integrity.status)
+
+    def test_schema_required_keys_match_public_resolution_projection(self) -> None:
+        result = self.resolve(self.greenwich_target())
+        schema = json.loads(
+            (ROOT / "schemas" / "target-temporal-coordinate-r1.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        projection = json_value(result)
+        self.assertEqual("TARGET-TEMPORAL-COORDINATE-RESOLUTION-R1", projection["schema"])
+        self.assertEqual(set(schema["required"]), set(projection))
+        self.assertEqual(schema["properties"]["schema"]["const"], projection["schema"])
+        self.assertIn(projection["status"], schema["properties"]["status"]["enum"])
 
     def test_same_utc_different_longitude_changes_las_and_identity(self) -> None:
         base = dict(
@@ -84,6 +109,7 @@ class TargetTemporalCoordinateR1Tests(unittest.TestCase):
         self.assertEqual(2, result.legal_realization_count)
         self.assertEqual({0, 1}, {row.coordinate.civil_candidate.fold for row in result.candidates})
         self.assertEqual(2, len({row.hashes.fact_hash for row in result.candidates}))
+        self.assertEqual({0, 1}, {row.coordinate.source_civil_candidate_index for row in result.candidates})
 
     def test_lord_howe_gap_exact_fails_closed(self) -> None:
         result = self.resolve(
@@ -132,12 +158,7 @@ class TargetTemporalCoordinateR1Tests(unittest.TestCase):
         self.assertTrue(any("pre-1970" in warning for warning in coordinate.warnings))
 
     def test_approximate_sampling_uses_shared_precision_contract(self) -> None:
-        target = TargetTemporalInput(
-            reported_local_datetime=datetime(2025, 2, 3, 14, 10),
-            target_place="Greenwich",
-            latitude=51.4769,
-            longitude=0.0,
-            timezone_id="Europe/London",
+        target = self.greenwich_target(
             precision=TimePrecision.APPROXIMATE,
             uncertainty_seconds=120,
         )
@@ -145,35 +166,50 @@ class TargetTemporalCoordinateR1Tests(unittest.TestCase):
         self.assertEqual(120, result.effective_uncertainty_seconds_each_side)
         self.assertEqual(5, result.sample_count)
         self.assertEqual(5, result.legal_realization_count)
+        self.assertEqual(set(range(5)), {row.coordinate.source_sample_index for row in result.candidates})
 
     def test_non_civil_input_fails_closed(self) -> None:
-        result = self.resolve(
-            TargetTemporalInput(
-                reported_local_datetime=datetime(2025, 2, 3, 14, 10),
-                target_place="Greenwich",
-                latitude=51.4769,
-                longitude=0.0,
-                timezone_id="Europe/London",
-                input_time_type=InputTimeType.UNKNOWN,
-            )
-        )
+        result = self.resolve(self.greenwich_target(input_time_type=InputTimeType.UNKNOWN))
         self.assertEqual("FAILED", result.status)
         self.assertEqual("NOT_APPLICABLE", result.unresolved_samples[0].civil_status)
 
     def test_integrity_rejects_tampered_longitude(self) -> None:
-        target = TargetTemporalInput(
-            reported_local_datetime=datetime(2025, 2, 3, 14, 10),
-            target_place="Greenwich",
-            latitude=51.4769,
-            longitude=0.0,
-            timezone_id="Europe/London",
-        )
-        result = self.resolve(target)
-        coordinate = result.candidates[0].coordinate
-        tampered = replace(coordinate, longitude=1.0)
-        report = validate_target_coordinate(target, tampered, self.profile)
+        target = self.greenwich_target()
+        coordinate = self.resolve(target).candidates[0].coordinate
+        report = validate_target_coordinate(target, replace(coordinate, longitude=1.0), self.profile)
         self.assertEqual("FAIL", report.status)
         self.assertIn("LONGITUDE_MISMATCH", {row.code for row in report.diagnostics})
+
+    def test_integrity_rejects_tampered_sample_lineage(self) -> None:
+        target = self.greenwich_target(
+            precision=TimePrecision.APPROXIMATE,
+            uncertainty_seconds=120,
+        )
+        coordinate = self.resolve(target).candidates[0].coordinate
+        report = validate_target_coordinate(
+            target,
+            replace(coordinate, source_sample_index=999),
+            self.profile,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SOURCE_SAMPLE_INDEX_OUT_OF_RANGE", {row.code for row in report.diagnostics})
+
+    def test_integrity_rejects_tampered_fold_lineage(self) -> None:
+        target = TargetTemporalInput(
+            reported_local_datetime=datetime(2024, 11, 3, 1, 30),
+            target_place="New York",
+            latitude=40.7128,
+            longitude=-74.0060,
+            timezone_id="America/New_York",
+        )
+        coordinate = self.resolve(target).candidates[0].coordinate
+        report = validate_target_coordinate(
+            target,
+            replace(coordinate, source_civil_candidate_index=1),
+            self.profile,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SOURCE_CIVIL_CANDIDATE_MISMATCH", {row.code for row in report.diagnostics})
 
 
 if __name__ == "__main__":
