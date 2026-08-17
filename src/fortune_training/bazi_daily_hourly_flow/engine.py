@@ -67,7 +67,7 @@ class BaziDailyHourlyFlowEngine:
 
     schema = "BAZI-DAILY-HOURLY-FLOW-RESOLUTION-R1"
 
-    def _context(self, request: BaziDailyHourlyFlowRequest, flow, target, target_index: int):
+    def _context(self, request: BaziDailyHourlyFlowRequest, flow, flow_index: int, target, target_index: int):
         context = flow.context
         profile = request.calculation_profile
         target_resolution = request.target_coordinate_resolution
@@ -183,6 +183,7 @@ class BaziDailyHourlyFlowEngine:
             upstream_temporal_fact_hash=context.upstream_temporal_fact_hash,
             source_flow_fact_hash=flow.hashes.fact_hash,
             source_flow_computation_hash=flow.hashes.computation_hash,
+            source_flow_candidate_index=flow_index,
             source_target_coordinate_fact_hash=target_resolution.hashes.fact_hash,
             source_target_coordinate_computation_hash=target_resolution.hashes.computation_hash,
             source_target_coordinate_candidate_id=target.candidate_id,
@@ -248,7 +249,7 @@ class BaziDailyHourlyFlowEngine:
                     continue
                 matched = True
                 try:
-                    context = self._context(request, flow, target, target_index)
+                    context = self._context(request, flow, flow_index, target, target_index)
                     report = validate_daily_hourly_context(
                         context,
                         flow,
