@@ -55,35 +55,44 @@ class CivilTimeResolver:
             timezone_abbreviation=aware.tzname() or "",
         )
 
-    def resolve(
+    def resolve_local_time(
         self,
-        birth: BirthInput,
+        local_datetime: datetime,
+        timezone_id: str,
+        *,
+        input_time_type: InputTimeType = InputTimeType.CIVIL,
         ambiguous_time_policy: str = "REJECT",
     ) -> CivilResolution:
+        """Resolve a generic local wall-time coordinate without birth semantics."""
+
+        if local_datetime.tzinfo is not None:
+            raise ValueError("local_datetime must be a naive wall-clock value")
+        if not timezone_id.strip():
+            raise ValueError("timezone_id must not be empty")
         if ambiguous_time_policy not in AMBIGUOUS_TIME_POLICIES:
             raise ValueError(f"unknown ambiguous_time_policy: {ambiguous_time_policy}")
-        if birth.input_time_type is not InputTimeType.CIVIL:
+        if input_time_type is not InputTimeType.CIVIL:
             return CivilResolution(
                 status=CivilTimeStatus.NOT_APPLICABLE,
                 candidates=(),
                 selected_candidate=None,
-                timezone_id=birth.timezone_id,
+                timezone_id=timezone_id,
                 tzdb_version=self._tzdb_version(),
                 historical_confidence=HistoricalTimezoneConfidence.NOT_RESOLVED,
                 warnings=("UTC cannot be derived unless input_time_type is CIVIL",),
             )
         try:
-            zone = ZoneInfo(birth.timezone_id)
+            zone = ZoneInfo(timezone_id)
         except ZoneInfoNotFoundError as exc:
-            raise ValueError(f"unknown IANA timezone id: {birth.timezone_id}") from exc
+            raise ValueError(f"unknown IANA timezone id: {timezone_id}") from exc
 
         candidates_by_utc: dict[datetime, CivilCandidate] = {}
         for fold in (0, 1):
-            candidate = self._candidate(birth.reported_local_datetime, zone, fold)
+            candidate = self._candidate(local_datetime, zone, fold)
             if candidate is not None:
                 candidates_by_utc.setdefault(candidate.utc_instant, candidate)
         candidates = tuple(sorted(candidates_by_utc.values(), key=lambda item: item.utc_instant))
-        confidence = self._confidence(birth.reported_local_datetime)
+        confidence = self._confidence(local_datetime)
         warnings: list[str] = []
         if confidence is HistoricalTimezoneConfidence.TZDB_PRE_1970_REDUCED:
             warnings.append("IANA tzdb does not guarantee complete pre-1970 historical coverage")
@@ -93,7 +102,7 @@ class CivilTimeResolver:
                 status=CivilTimeStatus.NONEXISTENT,
                 candidates=(),
                 selected_candidate=None,
-                timezone_id=birth.timezone_id,
+                timezone_id=timezone_id,
                 tzdb_version=self._tzdb_version(),
                 historical_confidence=confidence,
                 warnings=tuple(warnings + ["reported wall time falls in a timezone gap"]),
@@ -103,7 +112,7 @@ class CivilTimeResolver:
                 status=CivilTimeStatus.UNIQUE,
                 candidates=candidates,
                 selected_candidate=candidates[0],
-                timezone_id=birth.timezone_id,
+                timezone_id=timezone_id,
                 tzdb_version=self._tzdb_version(),
                 historical_confidence=confidence,
                 warnings=tuple(warnings),
@@ -118,8 +127,20 @@ class CivilTimeResolver:
             status=CivilTimeStatus.AMBIGUOUS,
             candidates=candidates,
             selected_candidate=selected,
-            timezone_id=birth.timezone_id,
+            timezone_id=timezone_id,
             tzdb_version=self._tzdb_version(),
             historical_confidence=confidence,
             warnings=tuple(warnings + (["ambiguous wall time requires an explicit fold policy"] if selected is None else [])),
+        )
+
+    def resolve(
+        self,
+        birth: BirthInput,
+        ambiguous_time_policy: str = "REJECT",
+    ) -> CivilResolution:
+        return self.resolve_local_time(
+            birth.reported_local_datetime,
+            birth.timezone_id,
+            input_time_type=birth.input_time_type,
+            ambiguous_time_policy=ambiguous_time_policy,
         )
