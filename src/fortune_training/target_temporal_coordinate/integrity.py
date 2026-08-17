@@ -12,6 +12,7 @@ from .models import (
     TargetTemporalIntegrityReport,
     TargetTemporalProfile,
 )
+from .sampling import sample_target_wall_times
 
 
 def _fact_payload(target_input: TargetTemporalInput, coordinate: TargetTemporalCoordinate) -> dict:
@@ -34,7 +35,7 @@ def target_coordinate_hash_bundle(
             "coordinate_algorithm_id": profile.coordinate_algorithm_id,
             "coordinate_algorithm_version": profile.coordinate_algorithm_version,
             "civil_algorithm_id": profile.civil_algorithm_id,
-            "civil_algorithm_version": coordinate.tzdb_version,
+            "tzdb_version": coordinate.tzdb_version,
             "solar_algorithm_id": coordinate.solar_time.algorithm_id,
             "solar_algorithm_version": coordinate.solar_time.algorithm_version,
         }
@@ -68,6 +69,23 @@ def validate_target_coordinate(
     mismatch("LONGITUDE_MISMATCH", "longitude", target_input.longitude, coordinate.longitude)
     mismatch("TIMEZONE_MISMATCH", "timezone_id", target_input.timezone_id, coordinate.timezone_id)
 
+    samples = sample_target_wall_times(target_input)
+    if not 0 <= coordinate.source_sample_index < len(samples):
+        diagnostics.append(
+            TargetTemporalIntegrityDiagnostic(
+                code="SOURCE_SAMPLE_INDEX_OUT_OF_RANGE",
+                path="source_sample_index",
+                detail=f"index={coordinate.source_sample_index} sample_count={len(samples)}",
+            )
+        )
+    else:
+        mismatch(
+            "SOURCE_SAMPLE_DATETIME_MISMATCH",
+            "sample_reported_local_datetime",
+            samples[coordinate.source_sample_index],
+            coordinate.sample_reported_local_datetime,
+        )
+
     try:
         resolved = civil_engine.resolve_wall_time(
             coordinate.sample_reported_local_datetime,
@@ -96,6 +114,25 @@ def validate_target_coordinate(
     mismatch("WARNINGS_MISMATCH", "warnings", resolved.warnings, coordinate.warnings)
 
     legal = tuple(resolved.candidates)
+    if not 0 <= coordinate.source_civil_candidate_index < len(legal):
+        diagnostics.append(
+            TargetTemporalIntegrityDiagnostic(
+                code="SOURCE_CIVIL_CANDIDATE_INDEX_OUT_OF_RANGE",
+                path="source_civil_candidate_index",
+                detail=(
+                    f"index={coordinate.source_civil_candidate_index} "
+                    f"candidate_count={len(legal)}"
+                ),
+            )
+        )
+    else:
+        mismatch(
+            "SOURCE_CIVIL_CANDIDATE_MISMATCH",
+            "civil_candidate",
+            legal[coordinate.source_civil_candidate_index],
+            coordinate.civil_candidate,
+        )
+
     if coordinate.civil_candidate not in legal:
         diagnostics.append(
             TargetTemporalIntegrityDiagnostic(
