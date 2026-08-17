@@ -48,6 +48,7 @@ from .service import BaziApplicationResolutionError
 
 FLOW_LOCAL_APP_ID = "BAZI-LOCAL-BROWSER-FLOW-APP-R1"
 FLOW_LOCAL_APP_VERSION = "1.0.0"
+FLOW_LOCAL_APP_HEALTH_SCHEMA = "BAZI-LOCAL-APP-FLOW-HEALTH-R1"
 FLOW_LOCAL_APP_RESOLVE_SCHEMA = "BAZI-LOCAL-APP-FLOW-RESOLVE-R1"
 FLOW_DEFAULT_PORT = 8768
 
@@ -61,6 +62,7 @@ class FlowLocalBaziApplication(LocalBaziApplication):
         payload = super().health()
         return {
             **payload,
+            "schema": FLOW_LOCAL_APP_HEALTH_SCHEMA,
             "application_id": FLOW_LOCAL_APP_ID,
             "application_version": FLOW_LOCAL_APP_VERSION,
             "target_flow_endpoint": "/api/resolve-flow",
