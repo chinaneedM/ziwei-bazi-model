@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-application-flow-integration-r1.schema.json",
+  "title": "Bazi Application Flow Integration R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "base_application_bundle_hash", "base_application_source_fact_hash",
+    "application_profile_id", "application_profile_version", "natal_profile_id", "natal_profile_version",
+    "temporal_profile_id", "temporal_profile_version", "target_coordinate_profile_id",
+    "target_coordinate_profile_version", "dayun_count", "target_input", "target_coordinate_status",
+    "target_coordinate_effective_uncertainty_seconds_each_side", "target_coordinate_sample_count",
+    "target_coordinate_ambiguous_sample_count", "target_coordinate_unresolved_samples",
+    "target_coordinate_fact_hash", "target_coordinate_computation_hash", "candidates", "events",
+    "diagnostics", "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
+    "base_application_source_fact_hash": {"$ref": "#/$defs/hash"},
+    "application_profile_id": {"type": "string", "minLength": 1},
+    "application_profile_version": {"type": "string", "minLength": 1},
+    "natal_profile_id": {"type": "string", "minLength": 1},
+    "natal_profile_version": {"type": "string", "minLength": 1},
+    "temporal_profile_id": {"type": "string", "minLength": 1},
+    "temporal_profile_version": {"type": "string", "minLength": 1},
+    "target_coordinate_profile_id": {"const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"},
+    "target_coordinate_profile_version": {"const": "1.0.0"},
+    "dayun_count": {"type": "integer", "minimum": 1, "maximum": 20},
+    "target_input": {"$ref": "#/$defs/targetInput"},
+    "target_coordinate_status": {"enum": ["RESOLVED", "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY"]},
+    "target_coordinate_effective_uncertainty_seconds_each_side": {"type": "integer", "minimum": 0},
+    "target_coordinate_sample_count": {"type": "integer", "minimum": 1},
+    "target_coordinate_ambiguous_sample_count": {"type": "integer", "minimum": 0},
+    "target_coordinate_unresolved_samples": {"type": "array", "items": {"$ref": "#/$defs/unresolvedSample"}},
+    "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
+    "candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/candidate"}},
+    "events": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "diagnostics": {"type": "array", "maxItems": 0},
+    "source_fact_hash": {"$ref": "#/$defs/hash"},
+    "view_hash": {"$ref": "#/$defs/hash"},
+    "bundle_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "targetCandidateId": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
+    "applicationCandidateId": {"type": "string", "pattern": "^BAZI-APPLICATION-CANDIDATE:[0-9a-f]{64}$"},
+    "targetInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reported_local_datetime", "target_place", "latitude", "longitude", "timezone_id", "precision", "uncertainty_seconds"],
+      "properties": {
+        "reported_local_datetime": {"type": "string"},
+        "target_place": {"type": "string", "minLength": 1},
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "timezone_id": {"type": "string", "minLength": 1},
+        "precision": {"enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]},
+        "uncertainty_seconds": {"type": "integer", "minimum": 0}
+      }
+    },
+    "unresolvedSample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_sample_index", "sample_reported_local_datetime", "civil_status", "timezone_id", "tzdb_version", "historical_confidence", "warnings"],
+      "properties": {
+        "source_sample_index": {"type": "integer", "minimum": 0},
+        "sample_reported_local_datetime": {"type": "string"},
+        "civil_status": {"type": "string", "minLength": 1},
+        "timezone_id": {"type": "string", "minLength": 1},
+        "tzdb_version": {"type": "string", "minLength": 1},
+        "historical_confidence": {"type": "string", "minLength": 1},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "activePreDayun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "start_utc", "end_utc", "interval_semantics"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "start_utc": {"type": "string"},
+        "end_utc": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"}
+      }
+    },
+    "activeDayun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "index", "ganzhi", "sexagenary_index", "start_utc", "end_utc", "interval_semantics", "source_refs"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "index": {"type": "integer", "minimum": 1},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_utc": {"type": "string"},
+        "end_utc": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "annual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "pillar_year", "ganzhi", "sexagenary_index", "start_term_name", "start_term_chinese_name", "start_utc", "end_term_name", "end_term_chinese_name", "end_utc", "interval_semantics", "year_boundary_policy", "solar_term_algorithm_id", "solar_term_algorithm_version", "source_refs"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "pillar_year": {"type": "integer"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_term_name": {"type": "string"},
+        "start_term_chinese_name": {"type": "string"},
+        "start_utc": {"type": "string"},
+        "end_term_name": {"type": "string"},
+        "end_term_chinese_name": {"type": "string"},
+        "end_utc": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "year_boundary_policy": {"const": "START_OF_SPRING"},
+        "solar_term_algorithm_id": {"type": "string"},
+        "solar_term_algorithm_version": {"type": "string"},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "monthly": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "ganzhi", "sexagenary_index", "start_jie_name", "start_jie_chinese_name", "start_jie_longitude_degrees", "start_utc", "end_jie_name", "end_jie_chinese_name", "end_jie_longitude_degrees", "end_utc", "interval_semantics", "solar_term_algorithm_id", "solar_term_algorithm_version", "source_refs"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "start_jie_name": {"type": "string"},
+        "start_jie_chinese_name": {"type": "string"},
+        "start_jie_longitude_degrees": {"type": "integer"},
+        "start_utc": {"type": "string"},
+        "end_jie_name": {"type": "string"},
+        "end_jie_chinese_name": {"type": "string"},
+        "end_jie_longitude_degrees": {"type": "integer"},
+        "end_utc": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "solar_term_algorithm_id": {"type": "string"},
+        "solar_term_algorithm_version": {"type": "string"},
+        "source_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "daily": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "ganzhi", "sexagenary_index", "effective_day_date", "start_las", "end_las", "interval_semantics", "day_boundary_policy", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "properties": {
+        "frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "effective_day_date": {"type": "string"},
+        "start_las": {"type": "string"},
+        "end_las": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
+        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
+        "natal_profile_id": {"type": "string"},
+        "natal_profile_version": {"type": "string"}
+      }
+    },
+    "hourly": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "ganzhi", "sexagenary_index", "branch", "start_las", "end_las", "interval_semantics", "hour_stem_source_date", "late_zi_hour_stem_policy", "daily_frame_id", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "properties": {
+        "frame_id": {"type": "string", "pattern": "^HOURLY:[0-9a-f]{64}$"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "start_las": {"type": "string"},
+        "end_las": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "hour_stem_source_date": {"type": "string"},
+        "late_zi_hour_stem_policy": {"enum": ["CLASSICAL_CONTINUOUS", "CURRENT_DAY_STEM", "ZI_START_ROLLOVER"]},
+        "daily_frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
+        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+        "source_target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
+        "natal_profile_id": {"type": "string"},
+        "natal_profile_version": {"type": "string"}
+      }
+    },
+    "targetView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_place", "reported_local_datetime", "latitude", "longitude", "timezone_id", "precision", "uncertainty_seconds", "target_coordinate_candidate_index", "target_coordinate_candidate_id", "source_sample_index", "sample_reported_local_datetime", "civil_status", "fold", "utc_offset_seconds", "target_utc", "local_apparent_solar_datetime"],
+      "properties": {
+        "target_place": {"type": "string"},
+        "reported_local_datetime": {"type": "string"},
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "timezone_id": {"type": "string"},
+        "precision": {"enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]},
+        "uncertainty_seconds": {"type": "integer", "minimum": 0},
+        "target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
+        "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
+        "source_sample_index": {"type": "integer", "minimum": 0},
+        "sample_reported_local_datetime": {"type": "string"},
+        "civil_status": {"type": "string"},
+        "fold": {"type": "integer", "minimum": 0, "maximum": 1},
+        "utc_offset_seconds": {"type": "integer"},
+        "target_utc": {"type": "string"},
+        "local_apparent_solar_datetime": {"type": "string"}
+      }
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "flow", "daily", "hourly", "lineage", "integrity", "source_hashes"],
+      "properties": {
+        "target": {"$ref": "#/$defs/targetView"},
+        "flow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["active_dayun_kind", "active_dayun_frame", "annual", "monthly"],
+          "properties": {
+            "active_dayun_kind": {"enum": ["PRE_DAYUN", "DAYUN"]},
+            "active_dayun_frame": {"oneOf": [{"$ref": "#/$defs/activePreDayun"}, {"$ref": "#/$defs/activeDayun"}]},
+            "annual": {"$ref": "#/$defs/annual"},
+            "monthly": {"$ref": "#/$defs/monthly"}
+          }
+        },
+        "daily": {"$ref": "#/$defs/daily"},
+        "hourly": {"$ref": "#/$defs/hourly"},
+        "lineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["natal_candidate_index", "source_temporal_candidate_indices", "source_application_candidate_ids", "source_flow_candidate_index", "source_target_coordinate_candidate_index"],
+          "properties": {
+            "natal_candidate_index": {"type": "integer", "minimum": 0},
+            "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+            "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
+            "source_flow_candidate_index": {"type": "integer", "minimum": 0},
+            "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0}
+          }
+        },
+        "integrity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["target_coordinate", "flow", "daily_hourly"],
+          "properties": {
+            "target_coordinate": {"const": "PASS"},
+            "flow": {"const": "PASS"},
+            "daily_hourly": {"const": "PASS"}
+          }
+        },
+        "source_hashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["natal_fact_hash", "temporal_fact_hash", "flow_fact_hash", "flow_computation_hash", "target_coordinate_fact_hash", "target_coordinate_computation_hash", "daily_hourly_fact_hash", "daily_hourly_computation_hash"],
+          "properties": {
+            "natal_fact_hash": {"$ref": "#/$defs/hash"},
+            "temporal_fact_hash": {"$ref": "#/$defs/hash"},
+            "flow_fact_hash": {"$ref": "#/$defs/hash"},
+            "flow_computation_hash": {"$ref": "#/$defs/hash"},
+            "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+            "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
+            "daily_hourly_fact_hash": {"$ref": "#/$defs/hash"},
+            "daily_hourly_computation_hash": {"$ref": "#/$defs/hash"}
+          }
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "natal_candidate_index", "source_temporal_candidate_indices", "source_application_candidate_ids", "source_flow_candidate_index", "source_target_coordinate_candidate_index", "target_coordinate_candidate_id", "natal_fact_hash", "temporal_fact_hash", "flow_fact_hash", "flow_computation_hash", "daily_hourly_fact_hash", "daily_hourly_computation_hash", "view_schema", "view", "view_hash"],
+      "properties": {
+        "candidate_id": {"type": "string", "pattern": "^BAZI-APPLICATION-FLOW-CANDIDATE:[0-9a-f]{64}$"},
+        "natal_candidate_index": {"type": "integer", "minimum": 0},
+        "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
+        "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
+        "source_flow_candidate_index": {"type": "integer", "minimum": 0},
+        "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
+        "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
+        "natal_fact_hash": {"$ref": "#/$defs/hash"},
+        "temporal_fact_hash": {"$ref": "#/$defs/hash"},
+        "flow_fact_hash": {"$ref": "#/$defs/hash"},
+        "flow_computation_hash": {"$ref": "#/$defs/hash"},
+        "daily_hourly_fact_hash": {"$ref": "#/$defs/hash"},
+        "daily_hourly_computation_hash": {"$ref": "#/$defs/hash"},
+        "view_schema": {"const": "BAZI-APPLICATION-FLOW-VIEW-R1"},
+        "view": {"$ref": "#/$defs/view"},
+        "view_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-APPLICATION-FLOW-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
