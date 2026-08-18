@@ -18,6 +18,15 @@ from .local_app import (
     INDEX_HTML,
     LocalCombinedChartApplication,
 )
+from .shared_apply_assets import (
+    SHARED_APPLY_CSS,
+    SHARED_APPLY_JS,
+    shared_apply_index_html,
+)
+from .shared_apply_local_app import (
+    SharedZiweiProjectionLocalMixin,
+    _SharedZiweiProjectionHandlerMixin,
+)
 from .target_flow_assets import (
     TARGET_FLOW_CSS,
     TARGET_FLOW_JS,
@@ -27,6 +36,7 @@ from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
 
 
 class CombinedChartWorkbenchApplication(
+    SharedZiweiProjectionLocalMixin,
     InteractionLocalCombinedChartApplication,
     FlowLocalCombinedChartApplication,
 ):
@@ -35,24 +45,31 @@ class CombinedChartWorkbenchApplication(
     def __init__(self, repository_root: Path) -> None:
         # Cooperative MRO is intentional:
         # Interaction -> Flow -> Local initializes both released sidecar services
-        # over the same CombinedChartService instance.
+        # over the same CombinedChartService instance. The shared projection mixin
+        # is stateless and consumes those released services/contracts.
         super().__init__(repository_root)
 
     def health(self):
         # `fortune-chart-app` keeps the browser-app health contract released before
-        # target-flow browser composition. The Flow app keeps its own health on its
-        # separate `fortune-chart-flow-app` entry point.
+        # target-flow/shared-time browser composition. Additive sidecars expose
+        # separate endpoints without rewriting legacy health identity.
         return LocalCombinedChartApplication.health(self)
 
 
-class _WorkbenchHandler(_InteractionHandler, _FlowHandler):
+class _WorkbenchHandler(
+    _SharedZiweiProjectionHandlerMixin,
+    _InteractionHandler,
+    _FlowHandler,
+):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.0"
+    server_version = "CombinedChartWorkbenchLocalApp/1.1"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = target_flow_index_html(interaction_index_html(INDEX_HTML))
+            html = shared_apply_index_html(
+                target_flow_index_html(interaction_index_html(INDEX_HTML))
+            )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
             return
         if path == "/target-flow.css":
@@ -68,6 +85,20 @@ class _WorkbenchHandler(_InteractionHandler, _FlowHandler):
                 200,
                 "application/javascript; charset=utf-8",
                 combined_js.encode(),
+            )
+            return
+        if path == "/shared-apply.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                SHARED_APPLY_CSS.encode(),
+            )
+            return
+        if path == "/shared-apply.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                SHARED_APPLY_JS.encode(),
             )
             return
         super().do_GET()
@@ -107,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe and Bazi target-flow sidecars"
+            "Ziwei Sanhe and Bazi target-flow sidecars plus explicit shared-time apply"
         )
     )
     parser.add_argument(
@@ -123,8 +154,8 @@ def main(argv: list[str] | None = None) -> int:
     url = f"http://{host}:{port}/"
     print(f"Combined chart local workbench: {url}")
     print("Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow sidecar.")
-    print("No cross-system temporal synchronization. Bind policy: 127.0.0.1 only.")
-    print("Press Ctrl+C to stop.")
+    print("Shared target synchronization is explicit opt-in only; no automatic cross-system sync.")
+    print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:
         webbrowser.open(url)
     try:
