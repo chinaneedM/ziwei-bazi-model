@@ -158,6 +158,22 @@ SHARED_APPLY_JS = """
     return `#${row.source_target_candidate_index} · ${row.sample_reported_local_datetime} · fold=${row.fold} · ${row.annual_year}年 / ${row.minor_limit_age}岁 / ${daxian}`;
   }
 
+  function responseLineageIsConsistent(data) {
+    const projection = data?.projection;
+    if (!projection) return false;
+    if (data.source_ziwei_bundle_hash !== projection.source_ziwei_application_bundle_hash) return false;
+    if (data.target_coordinate_fact_hash !== projection.source_target_coordinate_fact_hash) return false;
+    if (data.target_coordinate_computation_hash !== projection.source_target_coordinate_computation_hash) return false;
+    if (!Array.isArray(projection.candidates) || projection.candidates.length === 0) return false;
+    return projection.candidates.every((row, index) => (
+      row.source_target_candidate_index === index
+      && typeof row.source_target_candidate_id === 'string'
+      && row.source_target_candidate_id.length > 0
+      && typeof row.candidate_hash === 'string'
+      && row.candidate_hash.length === 64
+    ));
+  }
+
   function renderCandidateDetail() {
     if (!projectionResponse || candidateSelect.value === '') {
       lineage.textContent = '';
@@ -180,6 +196,10 @@ SHARED_APPLY_JS = """
   }
 
   function renderProjection(data) {
+    if (!responseLineageIsConsistent(data)) {
+      invalidate('Projection source/hash lineage 不一致；已拒绝使用服务端响应。');
+      return;
+    }
     projectionResponse = data;
     projectionSourceFingerprint = sourceFingerprint();
     projectionTargetFingerprint = targetFingerprint();
@@ -241,6 +261,10 @@ SHARED_APPLY_JS = """
         || projectionSourceFingerprint !== sourceFingerprint()
         || projectionTargetFingerprint !== targetFingerprint()) {
       invalidate('源盘或目标输入已变化；旧 Projection 已失效，不能应用。');
+      return;
+    }
+    if (!responseLineageIsConsistent(projectionResponse)) {
+      invalidate('Projection source/hash lineage 已失效；拒绝应用。');
       return;
     }
     const index = Number.parseInt(candidateSelect.value, 10);
