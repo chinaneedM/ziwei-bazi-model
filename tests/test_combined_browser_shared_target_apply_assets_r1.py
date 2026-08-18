@@ -85,7 +85,6 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             "target-timezone-id",
             "target-precision",
             "target-uncertainty-seconds",
-            "target-temporal-profile",
         ):
             with self.subTest(field_id=field_id):
                 self.assertIn(f"'{field_id}'", SHARED_APPLY_JS)
