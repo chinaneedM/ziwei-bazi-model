@@ -55,6 +55,19 @@ FLOW_LOCAL_APP_RESOLVE_SCHEMA = "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-RESOLVE-R1"
 FLOW_DEFAULT_PORT = 8769
 
 
+def _validate_coordinates(latitude: float, longitude: float, *, prefix: str) -> None:
+    if not -90.0 <= latitude <= 90.0:
+        raise LocalCombinedAppRequestError(
+            "LOCAL_APP_INVALID_INPUT",
+            f"{prefix}latitude must be in [-90, 90]",
+        )
+    if not -180.0 <= longitude <= 180.0:
+        raise LocalCombinedAppRequestError(
+            "LOCAL_APP_INVALID_INPUT",
+            f"{prefix}longitude must be in [-180, 180]",
+        )
+
+
 class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
     def __init__(self, repository_root: Path) -> None:
         super().__init__(repository_root)
@@ -98,6 +111,7 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
         birth_place = _required_text(payload, "birth_place", max_length=160)
         latitude = _finite_float(payload, "latitude")
         longitude = _finite_float(payload, "longitude")
+        _validate_coordinates(latitude, longitude, prefix="")
         timezone_id = _required_text(payload, "timezone_id", max_length=120)
         try:
             ZoneInfo(timezone_id)
@@ -213,6 +227,11 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
         target_place = _required_text(payload, "target_place", max_length=160)
         target_latitude = _finite_float(payload, "target_latitude")
         target_longitude = _finite_float(payload, "target_longitude")
+        _validate_coordinates(
+            target_latitude,
+            target_longitude,
+            prefix="target_",
+        )
         target_timezone_id = _required_text(
             payload, "target_timezone_id", max_length=120
         )
