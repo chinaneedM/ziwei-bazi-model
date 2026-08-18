@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+from fortune_training.combined_chart_application.flow_local_app import (
+    FLOW_LOCAL_APP_RESOLVE_SCHEMA,
+)
+from fortune_training.combined_chart_application.interaction_local_app import (
+    LOCAL_ZIWEI_INTERACTION_SCHEMA,
+)
+from fortune_training.combined_chart_application.local_app import (
+    LOCAL_APP_HEALTH_SCHEMA,
+    LOCAL_APP_RESOLVE_SCHEMA,
+)
+from fortune_training.combined_chart_application.shared_apply_local_app import (
+    LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA,
+)
+from fortune_training.combined_chart_application.workbench_local_app import (
+    CombinedChartWorkbenchApplication,
+)
+
+
+RECEIPT_SCHEMA = "COMBINED-WORKBENCH-SMOKE-RECEIPT-R1"
+
+
+def _repository_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def _base_payload() -> dict[str, object]:
+    return {
+        "birth_datetime": "1994-05-17T14:30:00",
+        "birth_place": "Beijing",
+        "latitude": 39.9042,
+        "longitude": 116.4074,
+        "timezone_id": "Asia/Shanghai",
+        "sex": "MALE",
+        "precision": "EXACT_SECOND",
+        "uncertainty_seconds": 0,
+        "ziwei_daxian_count": 12,
+        "ziwei_daxian_frame_id": None,
+        "ziwei_annual_year": 2025,
+        "ziwei_minor_limit_age": None,
+        "bazi_temporal_profile_id": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+        "bazi_dayun_count": 12,
+        "combined_profile_id": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
+    }
+
+
+def _target_payload() -> dict[str, object]:
+    return {
+        **_base_payload(),
+        "target_datetime": "2026-06-01T12:00:00",
+        "target_place": "Greenwich",
+        "target_latitude": 51.4769,
+        "target_longitude": 0.0,
+        "target_timezone_id": "Etc/UTC",
+        "target_precision": "EXACT_SECOND",
+        "target_uncertainty_seconds": 0,
+        "target_temporal_profile_id": (
+            "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"
+        ),
+    }
+
+
+def _require(condition: bool, diagnostic: str) -> None:
+    if not condition:
+        raise RuntimeError(diagnostic)
+
+
+def run_smoke(repository_root: Path) -> dict[str, Any]:
+    """Exercise released combined-workbench application boundaries without writes."""
+
+    app = CombinedChartWorkbenchApplication(repository_root)
+
+    health = app.health()
+    _require(health.get("schema") == LOCAL_APP_HEALTH_SCHEMA, "health schema mismatch")
+    _require(health.get("status") == "ok", "health status is not ok")
+    _require(health.get("bind_policy") == "LOOPBACK_ONLY", "health bind policy is not loopback-only")
+    _require(health.get("location_lookup_network_access") is False, "location lookup unexpectedly requires network access")
+
+    base_payload = _base_payload()
+    base = app.resolve_payload(base_payload)
+    _require(base.get("schema") == LOCAL_APP_RESOLVE_SCHEMA, "base resolve schema mismatch")
+    combined = base["combined_resolution"]
+    _require(combined["integrity"]["status"] == "PASS", "base combined integrity did not PASS")
+    _require(combined["ziwei_bundle"] is not None, "base combined resolution has no Ziwei bundle")
+    _require(combined["bazi_bundle"] is not None, "base combined resolution has no Bazi bundle")
+    _require(base.get("ziwei_svg"), "base combined resolution produced no Ziwei SVG")
+
+    manifest_hash = combined["manifest_hash"]
+    ziwei_bundle_hash = combined["ziwei_bundle"]["bundle_hash"]
+    bazi_bundle_hash = combined["bazi_bundle"]["bundle_hash"]
+
+    interaction_payload = {
+        **base_payload,
+        "ziwei_origin_designation_id": "LIFE",
+    }
+    interaction = app.resolve_ziwei_interaction_payload(interaction_payload)
+    _require(interaction.get("schema") == LOCAL_ZIWEI_INTERACTION_SCHEMA, "Ziwei interaction schema mismatch")
+    _require(interaction["source_combined_manifest_hash"] == manifest_hash, "Ziwei interaction manifest binding mismatch")
+    _require(interaction["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "Ziwei interaction bundle binding mismatch")
+    _require(interaction["interaction"]["integrity"]["status"] == "PASS", "Ziwei interaction integrity did not PASS")
+    _require(len(interaction["interaction"]["relative_roles"]) == 12, "Ziwei interaction did not expose 12 relative roles")
+    _require(len(interaction["interaction"]["sanfang_sizheng_frame"]["members"]) == 4, "Ziwei interaction did not expose four Sanfang/Sizheng members")
+
+    target_payload = _target_payload()
+    flow = app.resolve_flow_payload(target_payload)
+    _require(flow.get("schema") == FLOW_LOCAL_APP_RESOLVE_SCHEMA, "Bazi target-flow local schema mismatch")
+    combined_flow = flow["combined_target_flow_resolution"]
+    _require(combined_flow["integrity"]["status"] == "PASS", "combined target-flow integrity did not PASS")
+    _require(combined_flow["base_combined_manifest_hash"] == manifest_hash, "target-flow base manifest binding mismatch")
+    _require(combined_flow["ziwei_bundle_hash"] == ziwei_bundle_hash, "target-flow Ziwei bundle binding mismatch")
+    _require(combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash, "target-flow Bazi bundle binding mismatch")
+    _require(flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS", "Bazi target-flow bundle integrity did not PASS")
+    _require(len(flow["bazi_target_flow_bundle"]["candidates"]) >= 1, "Bazi target-flow produced no candidates")
+
+    projection = app.resolve_shared_ziwei_projection_payload(target_payload)
+    _require(projection.get("schema") == LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA, "shared projection local schema mismatch")
+    _require(projection["source_combined_manifest_hash"] == manifest_hash, "shared projection manifest binding mismatch")
+    _require(projection["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "shared projection Ziwei bundle binding mismatch")
+    _require(projection["projection"]["integrity"]["status"] == "PASS", "shared projection integrity did not PASS")
+    _require(len(projection["projection"]["candidates"]) >= 1, "shared projection produced no candidates")
+    _require(
+        projection["target_coordinate_fact_hash"] == combined_flow["target_coordinate_fact_hash"],
+        "shared projection and Bazi flow disagree on target-coordinate FactHash",
+    )
+    _require(
+        projection["target_coordinate_computation_hash"] == combined_flow["target_coordinate_computation_hash"],
+        "shared projection and Bazi flow disagree on target-coordinate ComputationHash",
+    )
+
+    return {
+        "schema": RECEIPT_SCHEMA,
+        "status": "PASS",
+        "health_schema": health["schema"],
+        "bind_policy": health["bind_policy"],
+        "combined_manifest_hash": manifest_hash,
+        "ziwei_bundle_hash": ziwei_bundle_hash,
+        "bazi_bundle_hash": bazi_bundle_hash,
+        "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
+        "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
+        "target_coordinate_fact_hash": combined_flow["target_coordinate_fact_hash"],
+        "shared_projection_fact_hash": projection["projection"]["hashes"]["fact_hash"],
+        "bazi_target_flow_candidate_count": len(flow["bazi_target_flow_bundle"]["candidates"]),
+        "shared_projection_candidate_count": len(projection["projection"]["candidates"]),
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Run a deterministic, read-only smoke check of the released combined chart workbench"
+    )
+    parser.add_argument(
+        "--repository-root",
+        type=Path,
+        default=_repository_root(),
+        help="repository root containing config/time-calendar-policies.json",
+    )
+    args = parser.parse_args(argv)
+
+    try:
+        receipt = run_smoke(args.repository_root.resolve())
+    except Exception as exc:  # deliberate command-level fail-closed boundary
+        print(
+            json.dumps(
+                {
+                    "schema": RECEIPT_SCHEMA,
+                    "status": "FAIL",
+                    "diagnostic": f"{type(exc).__name__}: {exc}",
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+            ),
+            file=sys.stderr,
+        )
+        return 1
+
+    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
