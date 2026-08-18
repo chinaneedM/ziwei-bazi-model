@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/combined-local-target-flow-health-r1.schema.json",
+  "title": "Ziwei+Bazi Combined Local Target-Flow Health R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "application_id", "application_version", "bind_policy",
+    "location_lookup_network_access", "target_flow_endpoint", "legacy_resolve_endpoint"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-HEALTH-R1"},
+    "status": {"const": "ok"},
+    "application_id": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-APP-R1"},
+    "application_version": {"const": "1.0.0"},
+    "bind_policy": {"const": "LOOPBACK_ONLY"},
+    "location_lookup_network_access": {"const": false},
+    "target_flow_endpoint": {"const": "/api/resolve-flow"},
+    "legacy_resolve_endpoint": {"const": "/api/resolve"}
+  }
+}
