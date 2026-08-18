@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/combined-local-ziwei-sanhe-interaction-response-r1.schema.json",
+  "title": "Combined Local Ziwei Sanhe Interaction Response R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "source_combined_manifest_hash",
+    "source_ziwei_bundle_hash",
+    "source_bazi_bundle_hash",
+    "interaction",
+    "origin_options",
+    "temporal_options",
+    "ziwei_svg"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ZIWEI-BAZI-COMBINED-LOCAL-ZIWEI-SANHE-INTERACTION-R1"
+    },
+    "source_combined_manifest_hash": {"$ref": "#/$defs/hash"},
+    "source_ziwei_bundle_hash": {"$ref": "#/$defs/hash"},
+    "source_bazi_bundle_hash": {
+      "anyOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]
+    },
+    "interaction": {
+      "type": "object",
+      "required": [
+        "schema",
+        "status",
+        "interaction_mode",
+        "source_application_bundle_hash",
+        "selected_daxian_frame_id",
+        "selected_annual_year",
+        "selected_minor_limit_age",
+        "selected_origin_designation_id",
+        "selected_origin_address",
+        "relative_roles",
+        "sanfang_sizheng_frame",
+        "bundle_hash",
+        "integrity"
+      ],
+      "properties": {
+        "schema": {"const": "ZIWEI-SANHE-INTERACTION-RESOLUTION-R1"},
+        "status": {"const": "RESOLVED"},
+        "interaction_mode": {"const": "SANHE"},
+        "source_application_bundle_hash": {"$ref": "#/$defs/hash"},
+        "selected_daxian_frame_id": {"type": ["string", "null"]},
+        "selected_annual_year": {"type": ["integer", "null"], "minimum": 1},
+        "selected_minor_limit_age": {"type": ["integer", "null"], "minimum": 1},
+        "selected_origin_designation_id": {"type": "string", "minLength": 1},
+        "selected_origin_address": {"$ref": "#/$defs/address"},
+        "relative_roles": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12
+        },
+        "sanfang_sizheng_frame": {"type": "object"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {"$ref": "#/$defs/passIntegrity"}
+      }
+    },
+    "origin_options": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "address_index",
+          "branch",
+          "designation_id",
+          "designation_label"
+        ],
+        "properties": {
+          "address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+          "branch": {"type": "string", "minLength": 1},
+          "designation_id": {"type": "string", "minLength": 1},
+          "designation_label": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "temporal_options": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["daxian", "annual", "minor_limit"],
+      "properties": {
+        "daxian": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/daxian"}
+        },
+        "annual": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/annual"}
+        },
+        "minor_limit": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/minor"}
+        }
+      }
+    },
+    "ziwei_svg": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "<svg"
+    }
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "passIntegrity": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {"status": {"const": "PASS"}}
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"type": "string", "minLength": 1}
+      }
+    },
+    "daxian": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "index",
+        "nominal_age_start",
+        "nominal_age_end",
+        "absolute_year_start",
+        "absolute_year_end",
+        "active_address",
+        "active_palace_ganzhi"
+      ],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "index": {"type": "integer", "minimum": 1},
+        "nominal_age_start": {"type": "integer", "minimum": 1},
+        "nominal_age_end": {"type": "integer", "minimum": 1},
+        "absolute_year_start": {"type": "integer", "minimum": 1},
+        "absolute_year_end": {"type": "integer", "minimum": 1},
+        "active_address": {"$ref": "#/$defs/address"},
+        "active_palace_ganzhi": {"type": "string", "minLength": 1}
+      }
+    },
+    "annual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "absolute_year",
+        "nominal_age",
+        "year_stem",
+        "year_branch",
+        "active_address",
+        "active_palace_ganzhi",
+        "parent_daxian_frame_id"
+      ],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "absolute_year": {"type": "integer", "minimum": 1},
+        "nominal_age": {"type": "integer", "minimum": 1},
+        "year_stem": {"type": "string", "minLength": 1},
+        "year_branch": {"type": "string", "minLength": 1},
+        "active_address": {"$ref": "#/$defs/address"},
+        "active_palace_ganzhi": {"type": "string", "minLength": 1},
+        "parent_daxian_frame_id": {"type": ["string", "null"]}
+      }
+    },
+    "minor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "nominal_age", "active_address"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "nominal_age": {"type": "integer", "minimum": 1},
+        "active_address": {"$ref": "#/$defs/address"}
+      }
+    }
+  }
+}
