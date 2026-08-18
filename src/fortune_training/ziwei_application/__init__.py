@@ -1,5 +1,25 @@
 """Application-facing Ziwei V1 orchestration over frozen computation runtimes."""
 
+from .interaction_integrity import (
+    sanhe_interaction_bundle_hash,
+    sanhe_interaction_source_fact_hash,
+    sanhe_interaction_view_hash,
+    validate_sanhe_interaction_resolution,
+)
+from .interaction_models import (
+    SANHE_INTERACTION_ALGORITHM_ID,
+    SANHE_INTERACTION_ALGORITHM_VERSION,
+    SANHE_INTERACTION_MODE,
+    SANHE_INTERACTION_SCHEMA,
+    SanheInteractionIntegrityReport,
+    SanheInteractionRequest,
+    SanheInteractionResolution,
+)
+from .interaction_replay import validate_sanhe_interaction_full_replay
+from .interaction_service import (
+    SanheInteractionResolutionError,
+    ZiweiSanheInteractionService,
+)
 from .local_app import (
     DEFAULT_HOST,
     DEFAULT_PORT,
@@ -66,10 +86,18 @@ __all__ = [
     "LocalZiweiApplication",
     "MAX_REQUEST_BYTES",
     "PALACE_GRID_COORDINATES",
+    "SANHE_INTERACTION_ALGORITHM_ID",
+    "SANHE_INTERACTION_ALGORITHM_VERSION",
+    "SANHE_INTERACTION_MODE",
+    "SANHE_INTERACTION_SCHEMA",
     "SUPPORTED_VIEW_SCHEMA",
     "SVG_RENDER_ARTIFACT_SCHEMA",
     "SVG_RENDERER_ID",
     "SVG_RENDERER_VERSION",
+    "SanheInteractionIntegrityReport",
+    "SanheInteractionRequest",
+    "SanheInteractionResolution",
+    "SanheInteractionResolutionError",
     "SvgRenderArtifact",
     "SvgRenderError",
     "SvgRendererProfile",
@@ -81,13 +109,19 @@ __all__ = [
     "ZIWEI_APPLICATION_V1_PROFILE_VERSION",
     "ZiweiApplicationProfile",
     "ZiweiChartService",
+    "ZiweiSanheInteractionService",
     "ZiweiTwelvePalaceSvgRenderer",
     "application_bundle_hash",
     "application_export",
     "build_server",
+    "sanhe_interaction_bundle_hash",
+    "sanhe_interaction_source_fact_hash",
+    "sanhe_interaction_view_hash",
     "validate_application_bundle",
+    "validate_sanhe_interaction_full_replay",
+    "validate_sanhe_interaction_resolution",
     "ziwei_application_default_presentation_profile",
     "ziwei_application_v1_profile",
 ]
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
