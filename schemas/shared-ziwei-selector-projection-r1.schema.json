@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/shared-ziwei-selector-projection-r1.schema.json",
+  "title": "Shared Target to Ziwei Selector Projection R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "source_ziwei_application_bundle_hash",
+    "source_ziwei_temporal_fact_hash", "source_ziwei_temporal_computation_hash",
+    "source_target_coordinate_fact_hash", "source_target_coordinate_computation_hash",
+    "source_target_coordinate_profile_id", "source_target_coordinate_profile_version",
+    "candidates", "hashes", "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"},
+    "status": {"const": "RESOLVED"},
+    "source_ziwei_application_bundle_hash": {"$ref": "#/$defs/hash"},
+    "source_ziwei_temporal_fact_hash": {"$ref": "#/$defs/hash"},
+    "source_ziwei_temporal_computation_hash": {"$ref": "#/$defs/hash"},
+    "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+    "source_target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
+    "source_target_coordinate_profile_id": {"type": "string", "minLength": 1},
+    "source_target_coordinate_profile_version": {"type": "string", "minLength": 1},
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/candidate"}
+    },
+    "hashes": {"$ref": "#/$defs/hashes"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "dateTime": {"type": "string", "minLength": 19},
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_target_candidate_index", "source_target_candidate_id", "source_sample_index",
+        "sample_reported_local_datetime", "target_utc", "fold", "civil_year",
+        "source_annual_frame_id", "annual_year", "minor_limit_age", "daxian_frame_id",
+        "candidate_hash"
+      ],
+      "properties": {
+        "source_target_candidate_index": {"type": "integer", "minimum": 0},
+        "source_target_candidate_id": {"type": "string", "minLength": 1},
+        "source_sample_index": {"type": "integer", "minimum": 0},
+        "sample_reported_local_datetime": {"$ref": "#/$defs/dateTime"},
+        "target_utc": {"$ref": "#/$defs/dateTime"},
+        "fold": {"enum": [0, 1]},
+        "civil_year": {"type": "integer", "minimum": 1},
+        "source_annual_frame_id": {"type": "string", "pattern": "^ANNUAL:[0-9]+$"},
+        "annual_year": {"type": "integer", "minimum": 1},
+        "minor_limit_age": {"type": "integer", "minimum": 1},
+        "daxian_frame_id": {
+          "anyOf": [
+            {"type": "string", "pattern": "^DAXIAN:index=[1-9][0-9]*$"},
+            {"type": "null"}
+          ]
+        },
+        "candidate_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"},
+        "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
