@@ -5,6 +5,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from fortune_training.desktop_application.distribution import (
     DESKTOP_APPLICATION_ID,
@@ -83,25 +84,27 @@ class WindowsPortableDesktopLauncherR1Test(unittest.TestCase):
         with self.assertRaises(ValueError):
             build_metadata("abc123")
 
-    def test_desktop_server_uses_ephemeral_loopback_port(self) -> None:
-        # Source-mode launcher must use the same audited repository data but bind
-        # to an OS-selected loopback port rather than the legacy fixed port.
+    def test_desktop_server_requests_ephemeral_loopback_binding(self) -> None:
         from fortune_training.desktop_application import launcher
 
-        original = launcher.resolve_runtime_repository_root
-        launcher.resolve_runtime_repository_root = lambda: REPO_ROOT
-        try:
-            server = build_desktop_server()
-        finally:
-            launcher.resolve_runtime_repository_root = original
-        try:
-            host, port = server.server_address[:2]
-            self.assertEqual(host, "127.0.0.1")
-            self.assertIsInstance(port, int)
-            self.assertGreater(port, 0)
-            self.assertNotEqual(port, 8767)
-        finally:
-            server.server_close()
+        server = _FakeServer()
+        calls: list[tuple[Path, int]] = []
+
+        def fake_builder(repository_root: Path, *, port: int):
+            calls.append((repository_root, port))
+            return server
+
+        with patch.object(launcher, "resolve_runtime_repository_root", return_value=REPO_ROOT), patch.object(
+            launcher,
+            "build_workbench_server",
+            side_effect=fake_builder,
+        ):
+            built = build_desktop_server()
+
+        self.assertIs(built, server)
+        self.assertEqual(calls, [(REPO_ROOT, 0)])
+        self.assertEqual(server.server_address[0], "127.0.0.1")
+        self.assertGreater(server.server_address[1], 0)
 
     def test_browser_launch_can_be_suppressed_and_server_closes(self) -> None:
         server = _FakeServer()
