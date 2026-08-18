@@ -155,3 +155,13 @@ AuditTrace、依赖审计、边界测试和开放问题见
 ```bash
 PYTHONPATH=src python scripts/time-calendar-example.py
 ```
+
+## 紫微＋八字联合排盘工作台
+
+当前日常联合排盘入口为 `fortune-chart-app`。它组合已发布的紫微三合交互、八字显式目标时点 flow 与显式 Shared Target → Ziwei Apply，不执行预测或训练。
+
+真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
+
+```bash
+python scripts/combined-workbench-smoke.py
+```
