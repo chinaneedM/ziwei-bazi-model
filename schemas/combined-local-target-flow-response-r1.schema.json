@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/combined-local-target-flow-response-r1.schema.json",
+  "title": "Ziwei+Bazi Combined Local Target-Flow Response R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "location_selection", "combined_resolution",
+    "bazi_target_flow_bundle", "combined_target_flow_resolution"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-RESOLVE-R1"},
+    "location_selection": {"type": "object"},
+    "combined_resolution": {
+      "type": "object",
+      "required": ["schema", "status", "manifest_hash", "integrity"],
+      "properties": {
+        "schema": {"const": "ZIWEI-BAZI-COMBINED-APPLICATION-RESOLUTION-V1"},
+        "status": {"enum": ["RESOLVED_BOTH", "UNCERTAINTY_PRESENT"]},
+        "manifest_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {"$ref": "#/$defs/passIntegrity"}
+      }
+    },
+    "bazi_target_flow_bundle": {
+      "type": "object",
+      "required": [
+        "schema", "status", "base_application_bundle_hash",
+        "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+      ],
+      "properties": {
+        "schema": {"const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"},
+        "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+        "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
+        "source_fact_hash": {"$ref": "#/$defs/hash"},
+        "view_hash": {"$ref": "#/$defs/hash"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {"$ref": "#/$defs/passIntegrity"}
+      }
+    },
+    "combined_target_flow_resolution": {
+      "type": "object",
+      "required": [
+        "schema", "status", "base_combined_manifest_hash", "ziwei_bundle_hash",
+        "bazi_base_bundle_hash", "bazi_target_flow_bundle_hash",
+        "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+      ],
+      "properties": {
+        "schema": {"const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-RESOLUTION-R1"},
+        "status": {"enum": ["RESOLVED", "UNCERTAINTY_PRESENT"]},
+        "base_combined_manifest_hash": {"$ref": "#/$defs/hash"},
+        "ziwei_bundle_hash": {"$ref": "#/$defs/hash"},
+        "bazi_base_bundle_hash": {"$ref": "#/$defs/hash"},
+        "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+        "source_fact_hash": {"$ref": "#/$defs/hash"},
+        "view_hash": {"$ref": "#/$defs/hash"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {"$ref": "#/$defs/passIntegrity"}
+      }
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "passIntegrity": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {"status": {"const": "PASS"}}
+    }
+  }
+}

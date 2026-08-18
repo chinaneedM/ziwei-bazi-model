@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/combined-target-flow-composition-r1.schema.json",
+  "title": "Ziwei+Bazi Combined Target-Flow Composition R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "combined_profile_id", "combined_profile_version",
+    "composition_semantics", "base_combined_status", "base_combined_manifest_hash",
+    "ziwei_bundle_hash", "ziwei_resolution_status", "ziwei_selected_daxian_frame_id",
+    "ziwei_selected_annual_year", "ziwei_selected_minor_limit_age",
+    "bazi_base_bundle_hash", "bazi_dayun_count", "bazi_target_flow_status",
+    "bazi_target_flow_source_fact_hash", "bazi_target_flow_view_hash",
+    "bazi_target_flow_bundle_hash", "target_coordinate_fact_hash",
+    "target_coordinate_computation_hash", "target_coordinate_profile_id",
+    "target_coordinate_profile_version", "target_input", "source_fact_hash",
+    "view_hash", "bundle_hash", "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "UNCERTAINTY_PRESENT"]},
+    "combined_profile_id": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1"},
+    "combined_profile_version": {"const": "1.0.0"},
+    "composition_semantics": {"const": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY"},
+    "base_combined_status": {"enum": ["RESOLVED_BOTH", "UNCERTAINTY_PRESENT"]},
+    "base_combined_manifest_hash": {"$ref": "#/$defs/hash"},
+    "ziwei_bundle_hash": {"$ref": "#/$defs/hash"},
+    "ziwei_resolution_status": {"enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"]},
+    "ziwei_selected_daxian_frame_id": {"type": ["string", "null"], "minLength": 1},
+    "ziwei_selected_annual_year": {"type": ["integer", "null"], "minimum": 1},
+    "ziwei_selected_minor_limit_age": {"type": ["integer", "null"], "minimum": 1},
+    "bazi_base_bundle_hash": {"$ref": "#/$defs/hash"},
+    "bazi_dayun_count": {"type": "integer", "minimum": 1, "maximum": 20},
+    "bazi_target_flow_status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "bazi_target_flow_source_fact_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_view_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_profile_id": {"const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"},
+    "target_coordinate_profile_version": {"const": "1.0.0"},
+    "target_input": {"$ref": "#/$defs/targetInput"},
+    "source_fact_hash": {"$ref": "#/$defs/hash"},
+    "view_hash": {"$ref": "#/$defs/hash"},
+    "bundle_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "targetInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_local_datetime", "target_place", "latitude", "longitude",
+        "timezone_id", "precision", "uncertainty_seconds"
+      ],
+      "properties": {
+        "reported_local_datetime": {"type": "string"},
+        "target_place": {"type": "string", "minLength": 1},
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "timezone_id": {"type": "string", "minLength": 1},
+        "precision": {"enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]},
+        "uncertainty_seconds": {"type": "integer", "minimum": 0}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
