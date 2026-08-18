@@ -69,7 +69,6 @@ SHARED_APPLY_JS = r"""
   const targetFieldIds = [
     'target-datetime', 'target-place', 'target-latitude', 'target-longitude',
     'target-timezone-id', 'target-precision', 'target-uncertainty-seconds',
-    'target-temporal-profile',
   ];
 
   let displayedSourceFingerprint = null;
@@ -149,7 +148,7 @@ SHARED_APPLY_JS = r"""
       target_timezone_id: $('target-timezone-id').value.trim(),
       target_precision: $('target-precision').value,
       target_uncertainty_seconds: Number.parseInt($('target-uncertainty-seconds').value, 10),
-      target_temporal_profile_id: $('target-temporal-profile').value,
+      target_temporal_profile_id: 'BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1',
     };
   }
 
