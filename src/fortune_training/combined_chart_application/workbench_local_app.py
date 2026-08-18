@@ -23,6 +23,7 @@ from .target_flow_assets import (
     TARGET_FLOW_JS,
     target_flow_index_html,
 )
+from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
 
 
 class CombinedChartWorkbenchApplication(
@@ -62,10 +63,11 @@ class _WorkbenchHandler(_InteractionHandler, _FlowHandler):
             )
             return
         if path == "/target-flow.js":
+            combined_js = f"{TARGET_FLOW_JS}\n{TARGET_FLOW_GUARD_JS}"
             self._send_bytes(
                 200,
                 "application/javascript; charset=utf-8",
-                TARGET_FLOW_JS.encode(),
+                combined_js.encode(),
             )
             return
         super().do_GET()
