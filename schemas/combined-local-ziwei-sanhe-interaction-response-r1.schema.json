@@ -25,11 +25,13 @@
     },
     "interaction": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "schema",
         "status",
         "interaction_mode",
         "source_application_bundle_hash",
+        "source_application_resolution_status",
         "selected_daxian_frame_id",
         "selected_annual_year",
         "selected_minor_limit_age",
@@ -37,6 +39,16 @@
         "selected_origin_address",
         "relative_roles",
         "sanfang_sizheng_frame",
+        "r2_fact_hash",
+        "r2_computation_hash",
+        "r3_fact_hash",
+        "r3_computation_hash",
+        "r4_fact_hash",
+        "r4_computation_hash",
+        "r5_fact_hash",
+        "r5_computation_hash",
+        "source_fact_hash",
+        "view_hash",
         "bundle_hash",
         "integrity"
       ],
@@ -45,6 +57,9 @@
         "status": {"const": "RESOLVED"},
         "interaction_mode": {"const": "SANHE"},
         "source_application_bundle_hash": {"$ref": "#/$defs/hash"},
+        "source_application_resolution_status": {
+          "enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"]
+        },
         "selected_daxian_frame_id": {"type": ["string", "null"]},
         "selected_annual_year": {"type": ["integer", "null"], "minimum": 1},
         "selected_minor_limit_age": {"type": ["integer", "null"], "minimum": 1},
@@ -56,6 +71,16 @@
           "maxItems": 12
         },
         "sanfang_sizheng_frame": {"type": "object"},
+        "r2_fact_hash": {"$ref": "#/$defs/hash"},
+        "r2_computation_hash": {"$ref": "#/$defs/hash"},
+        "r3_fact_hash": {"$ref": "#/$defs/hash"},
+        "r3_computation_hash": {"$ref": "#/$defs/hash"},
+        "r4_fact_hash": {"$ref": "#/$defs/hash"},
+        "r4_computation_hash": {"$ref": "#/$defs/hash"},
+        "r5_fact_hash": {"$ref": "#/$defs/hash"},
+        "r5_computation_hash": {"$ref": "#/$defs/hash"},
+        "source_fact_hash": {"$ref": "#/$defs/hash"},
+        "view_hash": {"$ref": "#/$defs/hash"},
         "bundle_hash": {"$ref": "#/$defs/hash"},
         "integrity": {"$ref": "#/$defs/passIntegrity"}
       }
