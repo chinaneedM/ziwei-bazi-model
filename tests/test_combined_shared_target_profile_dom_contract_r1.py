@@ -12,7 +12,7 @@ TARGET_TEMPORAL_PROFILE_ID = "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"
 
 class CombinedSharedTargetProfileDomContractR1Tests(unittest.TestCase):
     def test_shared_apply_direct_target_value_reads_exist_in_target_flow_dom(self) -> None:
-        target_dom_ids = set(re.findall(r'id=\\"(target-[^\\"]+)\\"', TARGET_FLOW_JS))
+        target_dom_ids = set(re.findall(r'id="(target-[^"]+)"', TARGET_FLOW_JS))
         direct_target_reads = {
             field_id
             for field_id in re.findall(r"\$\('([^']+)'\)\.value", SHARED_APPLY_JS)
@@ -28,7 +28,7 @@ class CombinedSharedTargetProfileDomContractR1Tests(unittest.TestCase):
         self.assertIn(expected, SHARED_APPLY_JS)
         self.assertNotIn("$('target-temporal-profile').value", SHARED_APPLY_JS)
         self.assertNotIn("'target-temporal-profile'", SHARED_APPLY_JS)
-        self.assertNotIn('id=\\"target-temporal-profile\\"', TARGET_FLOW_JS)
+        self.assertNotIn('id="target-temporal-profile"', TARGET_FLOW_JS)
 
     def test_actual_editable_target_fields_remain_stale_guard_inputs(self) -> None:
         target_field_block = SHARED_APPLY_JS.split("const targetFieldIds = [", 1)[1].split("];", 1)[0]
