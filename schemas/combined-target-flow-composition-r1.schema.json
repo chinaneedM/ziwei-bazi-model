@@ -25,7 +25,7 @@
     "base_combined_status": {"enum": ["RESOLVED_BOTH", "UNCERTAINTY_PRESENT"]},
     "base_combined_manifest_hash": {"$ref": "#/$defs/hash"},
     "ziwei_bundle_hash": {"$ref": "#/$defs/hash"},
-    "ziwei_resolution_status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "ziwei_resolution_status": {"enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"]},
     "ziwei_selected_daxian_frame_id": {"type": ["string", "null"], "minLength": 1},
     "ziwei_selected_annual_year": {"type": ["integer", "null"], "minimum": 1},
     "ziwei_selected_minor_limit_age": {"type": ["integer", "null"], "minimum": 1},
