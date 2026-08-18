@@ -13,18 +13,17 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+UNSAFE_JS_JOIN_FRAGMENT = "].join('\n');"
+SAFE_JS_JOIN_FRAGMENT = r"].join('\n');"
 
 
 class CombinedWorkbenchBrowserPanelVisibilityR1Tests(unittest.TestCase):
     def test_embedded_browser_javascript_preserves_backslash_n_literals(self) -> None:
         # Python must not turn JS string-literal \n escapes into literal line breaks.
-        unsafe_runtime_fragment = "].join('\n');"
-        safe_runtime_fragment = r"].join('\n');"
-
-        self.assertNotIn(unsafe_runtime_fragment, TARGET_FLOW_JS)
-        self.assertIn(safe_runtime_fragment, TARGET_FLOW_JS)
-        self.assertNotIn(unsafe_runtime_fragment, SHARED_APPLY_JS)
-        self.assertIn(safe_runtime_fragment, SHARED_APPLY_JS)
+        self.assertNotIn(UNSAFE_JS_JOIN_FRAGMENT, TARGET_FLOW_JS)
+        self.assertIn(SAFE_JS_JOIN_FRAGMENT, TARGET_FLOW_JS)
+        self.assertNotIn(UNSAFE_JS_JOIN_FRAGMENT, SHARED_APPLY_JS)
+        self.assertIn(SAFE_JS_JOIN_FRAGMENT, SHARED_APPLY_JS)
 
     def test_actual_workbench_root_and_assets_expose_both_sidecars(self) -> None:
         server = build_workbench_server(ROOT, port=0)
@@ -43,14 +42,14 @@ class CombinedWorkbenchBrowserPanelVisibilityR1Tests(unittest.TestCase):
             with urlopen(f"{base}/target-flow.js", timeout=10) as response:  # noqa: S310
                 target_js = response.read().decode("utf-8")
             self.assertIn("panel.id = 'bazi-target-flow-panel'", target_js)
-            self.assertIn(r"].join('\n');", target_js)
-            self.assertNotIn("].join('\n');".replace("\\n", "\n"), target_js)
+            self.assertIn(SAFE_JS_JOIN_FRAGMENT, target_js)
+            self.assertNotIn(UNSAFE_JS_JOIN_FRAGMENT, target_js)
 
             with urlopen(f"{base}/shared-apply.js", timeout=10) as response:  # noqa: S310
                 shared_js = response.read().decode("utf-8")
             self.assertIn("panel.id = 'shared-ziwei-apply-panel'", shared_js)
-            self.assertIn(r"].join('\n');", shared_js)
-            self.assertNotIn("].join('\n');".replace("\\n", "\n"), shared_js)
+            self.assertIn(SAFE_JS_JOIN_FRAGMENT, shared_js)
+            self.assertNotIn(UNSAFE_JS_JOIN_FRAGMENT, shared_js)
         finally:
             server.shutdown()
             server.server_close()
