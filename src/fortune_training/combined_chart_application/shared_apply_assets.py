@@ -26,7 +26,7 @@ SHARED_APPLY_CSS = """
 """
 
 
-SHARED_APPLY_JS = """
+SHARED_APPLY_JS = r"""
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);
@@ -39,7 +39,7 @@ SHARED_APPLY_JS = """
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/小限。解析八字 flow 或编辑目标时间不会自动同步。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年、小限。解析八字 flow 或编辑目标时间不会自动同步。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
