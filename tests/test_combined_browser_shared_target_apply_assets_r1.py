@@ -128,8 +128,6 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             "late_zi",
             "sexagenary",
             "jiaoyun",
-            "dayun",
-            "annual_frame",
             "monthly_frame",
             "daily_frame",
             "hourly_frame",
@@ -141,6 +139,7 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         self.assertIn("row.annual_year", SHARED_APPLY_JS)
         self.assertIn("row.minor_limit_age", SHARED_APPLY_JS)
         self.assertIn("row.daxian_frame_id", SHARED_APPLY_JS)
+        self.assertIn("row.source_annual_frame_id", SHARED_APPLY_JS)
 
 
 if __name__ == "__main__":
