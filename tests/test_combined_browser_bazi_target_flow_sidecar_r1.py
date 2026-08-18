@@ -241,7 +241,7 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
             host, port = server.server_address[:2]
 
             with urllib.request.urlopen(
-                f"http://{host}:{port}/api/health", timeout=10
+                f"http://{host}:{port}/health", timeout=10
             ) as response:
                 health = json.loads(response.read().decode("utf-8"))
             self.assertEqual(LOCAL_APP_HEALTH_SCHEMA, health["schema"])
@@ -269,7 +269,10 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
             )
             with urllib.request.urlopen(interaction_request, timeout=20) as response:
                 interaction = json.loads(response.read().decode("utf-8"))
-            self.assertEqual("ZIWEI-SANHE-INTERACTION-RESOLUTION-R1", interaction["interaction"]["schema"])
+            self.assertEqual(
+                "ZIWEI-SANHE-INTERACTION-RESOLUTION-R1",
+                interaction["interaction"]["schema"],
+            )
 
             base_request = urllib.request.Request(
                 f"http://{host}:{port}/api/resolve",
