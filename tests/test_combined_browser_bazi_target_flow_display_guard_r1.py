@@ -17,28 +17,38 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CombinedBrowserBaziTargetFlowDisplayGuardR1Tests(unittest.TestCase):
-    def test_guard_freezes_source_fingerprint_when_bazi_chart_is_actually_redrawn(self) -> None:
+    def test_guard_freezes_only_bazi_base_source_fingerprint_when_chart_is_redrawn(self) -> None:
         self.assertIn("let displayedSourceFingerprint = null", TARGET_FLOW_GUARD_JS)
         self.assertIn("function captureDisplayedSource()", TARGET_FLOW_GUARD_JS)
         self.assertIn("sourceObserver.observe(baziRoot", TARGET_FLOW_GUARD_JS)
         self.assertIn("displayedSourceFingerprint === sourceFingerprint()", TARGET_FLOW_GUARD_JS)
+        source_block = TARGET_FLOW_GUARD_JS.split("const sourceFieldIds = [", 1)[1].split(
+            "];", 1
+        )[0]
         for field_id in (
             "birth-datetime",
             "birth-place",
             "latitude",
             "longitude",
             "timezone-id",
+            "location-manual",
             "sex",
             "precision",
-            "ziwei-daxian-frame-id",
-            "ziwei-annual-year",
-            "ziwei-minor-limit-age",
+            "uncertainty-seconds",
             "bazi-natal-profile",
             "bazi-temporal-profile",
             "bazi-dayun-count",
         ):
             with self.subTest(field_id=field_id):
-                self.assertIn(f"'{field_id}'", TARGET_FLOW_GUARD_JS)
+                self.assertIn(f"'{field_id}'", source_block)
+        for field_id in (
+            "ziwei-daxian-count",
+            "ziwei-daxian-frame-id",
+            "ziwei-annual-year",
+            "ziwei-minor-limit-age",
+        ):
+            with self.subTest(ziwei_only_field_id=field_id):
+                self.assertNotIn(f"'{field_id}'", source_block)
 
     def test_guard_blocks_flow_request_against_stale_visible_bazi_chart(self) -> None:
         self.assertIn("document.addEventListener('click'", TARGET_FLOW_GUARD_JS)

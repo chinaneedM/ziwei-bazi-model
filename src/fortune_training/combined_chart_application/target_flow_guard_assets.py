@@ -18,9 +18,7 @@ TARGET_FLOW_GUARD_JS = """
   const sourceFieldIds = [
     'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
     'location-manual', 'sex', 'precision', 'uncertainty-seconds',
-    'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
-    'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
-    'bazi-dayun-count',
+    'bazi-natal-profile', 'bazi-temporal-profile', 'bazi-dayun-count',
   ];
   let displayedSourceFingerprint = null;
 
