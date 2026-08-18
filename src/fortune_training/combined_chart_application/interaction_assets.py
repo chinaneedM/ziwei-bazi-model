@@ -49,6 +49,7 @@ INTERACTION_JS = """
     response: null,
     serial: 0,
     sidecarDirty: false,
+    displayedInputFingerprint: null,
   };
 
   const panel = document.createElement('section');
@@ -96,6 +97,29 @@ INTERACTION_JS = """
     if (cls) element.className = cls;
     return element;
   };
+
+  function inputFingerprint() {
+    const ids = [
+      'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
+      'location-manual', 'sex', 'precision', 'uncertainty-seconds',
+      'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
+      'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
+      'bazi-dayun-count',
+    ];
+    return JSON.stringify(ids.map((id) => {
+      const element = $(id);
+      return [id, element?.value ?? '', element?.checked ?? null];
+    }));
+  }
+
+  function displayedInputIsCurrent() {
+    return state.displayedInputFingerprint !== null
+      && state.displayedInputFingerprint === inputFingerprint();
+  }
+
+  function staleSourceMessage() {
+    status.textContent = '当前表单已改变，但画面仍是上一次排盘。请先点击“联合排盘”，再进行三合交互。';
+  }
 
   function requestPayload() {
     return {
@@ -234,6 +258,7 @@ INTERACTION_JS = """
     if (observer) observer.disconnect();
     root.className = '';
     root.innerHTML = svg;
+    state.displayedInputFingerprint = inputFingerprint();
     if (observer) observer.observe(root, {childList: true});
   }
 
@@ -245,6 +270,10 @@ INTERACTION_JS = """
       group.setAttribute('role', 'button');
       group.setAttribute('tabindex', '0');
       const activate = () => {
+        if (!displayedInputIsCurrent()) {
+          staleSourceMessage();
+          return;
+        }
         const addressIndex = Number.parseInt(group.dataset.addressIndex, 10);
         const row = maps.byAddress.get(addressIndex);
         if (!row) return;
@@ -294,6 +323,11 @@ INTERACTION_JS = """
   }
 
   function commitTemporalNavigation() {
+    if (!displayedInputIsCurrent()) {
+      staleSourceMessage();
+      if (state.response) renderTemporalOptions(state.response);
+      return;
+    }
     $('ziwei-daxian-frame-id').value = daxianNav.value;
     $('ziwei-annual-year').value = annualNav.value;
     $('ziwei-minor-limit-age').value = minorNav.value;
@@ -307,15 +341,18 @@ INTERACTION_JS = """
     if (!root.querySelector('svg')) {
       panel.hidden = true;
       state.response = null;
+      state.displayedInputFingerprint = null;
       return;
     }
     state.sidecarDirty = false;
+    state.displayedInputFingerprint = inputFingerprint();
     resolveInteraction({replaceSvg: false, temporalChange: false});
   });
   observer.observe(root, {childList: true});
 
   if (root.querySelector('svg')) {
     panel.hidden = false;
+    state.displayedInputFingerprint = inputFingerprint();
     resolveInteraction({replaceSvg: false, temporalChange: false});
   }
 })();
