@@ -26,7 +26,7 @@ SHARED_APPLY_CSS = """
 """
 
 
-SHARED_APPLY_JS = """
+SHARED_APPLY_JS = r"""
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);

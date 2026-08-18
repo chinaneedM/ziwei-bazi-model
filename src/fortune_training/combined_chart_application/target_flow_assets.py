@@ -35,7 +35,7 @@ TARGET_FLOW_CSS = """
 """
 
 
-TARGET_FLOW_JS = """
+TARGET_FLOW_JS = r"""
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);
