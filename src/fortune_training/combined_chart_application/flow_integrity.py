@@ -87,7 +87,10 @@ def validate_combined_target_flow_resolution(
         "UNCERTAINTY_PRESENT",
     }:
         diagnostics.append("BASE_COMBINED_STATUS_NOT_BOTH")
-    if resolution.ziwei_resolution_status not in {"RESOLVED", "MULTI_CANDIDATE"}:
+    if resolution.ziwei_resolution_status not in {
+        "RESOLVED",
+        "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY",
+    }:
         diagnostics.append("ZIWEI_RESOLUTION_STATUS_INVALID")
     if resolution.bazi_target_flow_status not in {"RESOLVED", "MULTI_CANDIDATE"}:
         diagnostics.append("BAZI_TARGET_FLOW_STATUS_INVALID")
