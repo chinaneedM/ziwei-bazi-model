@@ -8,7 +8,7 @@ from pathlib import Path
 DESKTOP_DISTRIBUTION_SCHEMA = "ZIWEI-BAZI-WINDOWS-PORTABLE-DISTRIBUTION-R1"
 DESKTOP_BUILD_METADATA_SCHEMA = "ZIWEI-BAZI-WINDOWS-PORTABLE-BUILD-METADATA-R1"
 DESKTOP_APPLICATION_ID = "FORTUNE-CHART-WINDOWS-PORTABLE-R1"
-DESKTOP_APPLICATION_VERSION = "0.2.2"
+DESKTOP_APPLICATION_VERSION = "0.2.3"
 
 # Repository data intentionally admitted into the desktop package. Python modules
 # and third-party package data are collected separately by PyInstaller.
