@@ -26,12 +26,14 @@ from fortune_training.desktop_application.updates import (
     UPDATE_MANIFEST_SCHEMA,
     UPDATE_MANIFEST_URL,
     UPDATE_PROTOCOL_VERSION,
+    PreparedUpdate,
     UpdateSecurityError,
     _stream_download_asset,
     extract_verified_archive,
     is_newer_version,
     maybe_launch_verified_update,
     release_update_manifest,
+    spawn_standalone_updater,
     validate_update_manifest,
     verify_staged_bundle,
 )
@@ -269,6 +271,48 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             self.assertEqual(close_stale_same_install_processes(Path(temp_dir)), 0)
 
+    def test_standalone_updater_launch_cwd_is_outside_install_root(self) -> None:
+        manifest = validate_update_manifest(_manifest_payload(version="0.2.2"))
+        with tempfile.TemporaryDirectory() as temp_dir:
+            parent = Path(temp_dir)
+            install = parent / "FortuneChart"
+            install.mkdir()
+            updater_source = install / "FortuneChartUpdater.exe"
+            updater_source.write_bytes(b"updater")
+            staging = parent / ".FortuneChart.update-test"
+            staged = staging / "FortuneChart"
+            staged.mkdir(parents=True)
+            prepared = PreparedUpdate(
+                manifest=manifest,
+                staging_root=staging,
+                staged_bundle=staged,
+            )
+            temp_updater_root = parent / "standalone-updater"
+            temp_updater_root.mkdir()
+            calls: list[tuple[list[str], dict[str, object]]] = []
+
+            def fake_popen(args, **kwargs):
+                calls.append((args, kwargs))
+                return object()
+
+            with patch(
+                "fortune_training.desktop_application.updates.tempfile.mkdtemp",
+                return_value=str(temp_updater_root),
+            ):
+                spawn_standalone_updater(
+                    prepared,
+                    install_root=install,
+                    updater_source=updater_source,
+                    parent_pid=12345,
+                    popen=fake_popen,
+                )
+
+            self.assertEqual(len(calls), 1)
+            args, kwargs = calls[0]
+            self.assertEqual(Path(args[0]).parent.resolve(), temp_updater_root.resolve())
+            self.assertEqual(Path(str(kwargs["cwd"])).resolve(), install.parent.resolve())
+            self.assertNotEqual(Path(str(kwargs["cwd"])).resolve(), install.resolve())
+
     def test_source_execution_and_explicit_recovery_switch_never_touch_network(self) -> None:
         self.assertFalse(maybe_launch_verified_update(packaged=False))
         with patch("fortune_training.desktop_application.launcher.maybe_launch_verified_update") as updater:
@@ -329,7 +373,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("--clobber", workflow)
         self.assertIn("test_windows_verified_auto_update_r1.py", workflow)
         self.assertIn("asset_sha256", workflow)
-        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.1")
+        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.2")
 
 
 if __name__ == "__main__":
