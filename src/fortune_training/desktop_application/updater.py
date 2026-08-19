@@ -24,6 +24,19 @@ def _creationflags_no_window() -> int:
     return int(getattr(subprocess, "CREATE_NO_WINDOW", 0))
 
 
+def _configure_process_handle_api(kernel32) -> None:
+    from ctypes import wintypes
+
+    kernel32.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+    kernel32.OpenProcess.restype = wintypes.HANDLE
+    kernel32.WaitForSingleObject.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+    kernel32.WaitForSingleObject.restype = wintypes.DWORD
+    kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+    kernel32.CloseHandle.restype = wintypes.BOOL
+    kernel32.TerminateProcess.argtypes = [wintypes.HANDLE, wintypes.UINT]
+    kernel32.TerminateProcess.restype = wintypes.BOOL
+
+
 def wait_for_process_exit(pid: int, timeout_seconds: float = 30.0) -> bool:
     if pid <= 0:
         return True
@@ -32,6 +45,7 @@ def wait_for_process_exit(pid: int, timeout_seconds: float = 30.0) -> bool:
         WAIT_OBJECT_0 = 0x00000000
         WAIT_TIMEOUT = 0x00000102
         kernel32 = ctypes.windll.kernel32
+        _configure_process_handle_api(kernel32)
         handle = kernel32.OpenProcess(SYNCHRONIZE, False, pid)
         if not handle:
             return True
@@ -94,12 +108,13 @@ def close_stale_same_install_processes(install_root: Path) -> int:
         ]
 
     kernel32 = ctypes.windll.kernel32
+    _configure_process_handle_api(kernel32)
+    kernel32.CreateToolhelp32Snapshot.argtypes = [wintypes.DWORD, wintypes.DWORD]
     kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
     kernel32.Process32FirstW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PROCESSENTRY32W)]
     kernel32.Process32FirstW.restype = wintypes.BOOL
     kernel32.Process32NextW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PROCESSENTRY32W)]
     kernel32.Process32NextW.restype = wintypes.BOOL
-    kernel32.OpenProcess.restype = wintypes.HANDLE
     kernel32.QueryFullProcessImageNameW.argtypes = [
         wintypes.HANDLE,
         wintypes.DWORD,
