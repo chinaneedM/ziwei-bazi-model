@@ -11,6 +11,7 @@ from fortune_training.combined_chart_application.workbench_local_app import (
     build_workbench_server,
 )
 
+from .distribution import DESKTOP_APPLICATION_VERSION
 from .runtime import resolve_runtime_repository_root
 from .updates import (
     UpdateSecurityError,
@@ -76,6 +77,29 @@ def _notify_update_integrity_failure(message: str) -> None:
         pass
 
 
+def _notify_post_update_version() -> None:
+    """Show the activated build version only on an updater-owned relaunch.
+
+    The wording is deliberately neutral rather than claiming the preceding
+    transaction succeeded: the same hidden recovery switch may also be used to
+    relaunch a known-good build after a failed future activation.  For the
+    real-machine calibration it still gives visible proof of the activated
+    package version without touching chart semantics or update authority.
+    """
+
+    if os.name != "nt":
+        return
+    try:
+        ctypes.windll.user32.MessageBoxW(
+            None,
+            f"FortuneChart 已启动。\n\n当前版本：{DESKTOP_APPLICATION_VERSION}",
+            "FortuneChart 版本",
+            0x40,
+        )
+    except Exception:
+        pass
+
+
 def run_startup_update_check(*, disabled: bool = False) -> bool:
     """Return True only when a verified updater process was launched.
 
@@ -110,6 +134,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-update", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--post-update", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
+    if args.post_update:
+        _notify_post_update_version()
     if run_startup_update_check(disabled=args.no_update or args.post_update):
         # The temporary standalone updater now owns activation. Exit so Windows
         # can rotate the complete portable directory without locked app files.

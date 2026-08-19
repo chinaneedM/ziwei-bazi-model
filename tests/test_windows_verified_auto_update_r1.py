@@ -275,6 +275,44 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
             self.assertFalse(run_startup_update_check(disabled=True))
             updater.assert_not_called()
 
+    def test_post_update_version_notice_is_gated_to_post_update_relaunch(self) -> None:
+        from fortune_training.desktop_application import launcher
+
+        fake_server = object()
+        with patch.object(launcher, "_notify_post_update_version") as notice, patch.object(
+            launcher,
+            "run_startup_update_check",
+            return_value=False,
+        ) as update_check, patch.object(
+            launcher,
+            "build_desktop_server",
+            return_value=fake_server,
+        ), patch.object(
+            launcher,
+            "serve_desktop",
+            return_value=0,
+        ):
+            self.assertEqual(launcher.main(["--post-update", "--no-browser"]), 0)
+            notice.assert_called_once_with()
+            update_check.assert_called_once_with(disabled=True)
+
+        with patch.object(launcher, "_notify_post_update_version") as notice, patch.object(
+            launcher,
+            "run_startup_update_check",
+            return_value=False,
+        ) as update_check, patch.object(
+            launcher,
+            "build_desktop_server",
+            return_value=fake_server,
+        ), patch.object(
+            launcher,
+            "serve_desktop",
+            return_value=0,
+        ):
+            self.assertEqual(launcher.main(["--no-browser"]), 0)
+            notice.assert_not_called()
+            update_check.assert_called_once_with(disabled=False)
+
     def test_build_and_release_contract_produces_standalone_updater_and_verified_manifest(self) -> None:
         script = (REPO_ROOT / "scripts" / "build-windows-portable.ps1").read_text(encoding="utf-8")
         workflow = (REPO_ROOT / ".github" / "workflows" / "windows-portable.yml").read_text(encoding="utf-8")
@@ -291,7 +329,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("--clobber", workflow)
         self.assertIn("test_windows_verified_auto_update_r1.py", workflow)
         self.assertIn("asset_sha256", workflow)
-        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.0")
+        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.1")
 
 
 if __name__ == "__main__":
