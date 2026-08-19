@@ -56,6 +56,110 @@ def wait_for_process_exit(pid: int, timeout_seconds: float = 30.0) -> bool:
     return False
 
 
+def close_stale_same_install_processes(install_root: Path) -> int:
+    """Terminate only stale FortuneChart processes executing from this install.
+
+    The external-browser R1 workbench intentionally keeps its local HTTP server
+    alive after the browser tab is closed. A later launch must therefore clear
+    any older process from the *same exact portable directory* before rotating
+    that directory for an update. Processes from other FortuneChart copies are
+    never targeted.
+    """
+
+    if os.name != "nt":
+        return 0
+
+    from ctypes import wintypes
+
+    TH32CS_SNAPPROCESS = 0x00000002
+    PROCESS_TERMINATE = 0x0001
+    PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+    SYNCHRONIZE = 0x00100000
+    WAIT_OBJECT_0 = 0x00000000
+    MAX_PATH_BUFFER = 32768
+    INVALID_HANDLE_VALUE = ctypes.c_void_p(-1).value
+
+    class PROCESSENTRY32W(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wintypes.DWORD),
+            ("cntUsage", wintypes.DWORD),
+            ("th32ProcessID", wintypes.DWORD),
+            ("th32DefaultHeapID", ctypes.c_size_t),
+            ("th32ModuleID", wintypes.DWORD),
+            ("cntThreads", wintypes.DWORD),
+            ("th32ParentProcessID", wintypes.DWORD),
+            ("pcPriClassBase", wintypes.LONG),
+            ("dwFlags", wintypes.DWORD),
+            ("szExeFile", wintypes.WCHAR * 260),
+        ]
+
+    kernel32 = ctypes.windll.kernel32
+    kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
+    kernel32.Process32FirstW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PROCESSENTRY32W)]
+    kernel32.Process32FirstW.restype = wintypes.BOOL
+    kernel32.Process32NextW.argtypes = [wintypes.HANDLE, ctypes.POINTER(PROCESSENTRY32W)]
+    kernel32.Process32NextW.restype = wintypes.BOOL
+    kernel32.OpenProcess.restype = wintypes.HANDLE
+    kernel32.QueryFullProcessImageNameW.argtypes = [
+        wintypes.HANDLE,
+        wintypes.DWORD,
+        wintypes.LPWSTR,
+        ctypes.POINTER(wintypes.DWORD),
+    ]
+    kernel32.QueryFullProcessImageNameW.restype = wintypes.BOOL
+
+    expected = os.path.normcase(str((Path(install_root).resolve() / "FortuneChart.exe")))
+    snapshot = kernel32.CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    snapshot_value = ctypes.cast(snapshot, ctypes.c_void_p).value
+    if snapshot_value == INVALID_HANDLE_VALUE:
+        return 0
+
+    terminated = 0
+    failures: list[int] = []
+    current_pid = os.getpid()
+    try:
+        entry = PROCESSENTRY32W()
+        entry.dwSize = ctypes.sizeof(PROCESSENTRY32W)
+        has_entry = bool(kernel32.Process32FirstW(snapshot, ctypes.byref(entry)))
+        while has_entry:
+            pid = int(entry.th32ProcessID)
+            if pid > 0 and pid != current_pid:
+                rights = PROCESS_QUERY_LIMITED_INFORMATION | PROCESS_TERMINATE | SYNCHRONIZE
+                handle = kernel32.OpenProcess(rights, False, pid)
+                if handle:
+                    try:
+                        capacity = wintypes.DWORD(MAX_PATH_BUFFER)
+                        buffer = ctypes.create_unicode_buffer(MAX_PATH_BUFFER)
+                        if kernel32.QueryFullProcessImageNameW(
+                            handle,
+                            0,
+                            buffer,
+                            ctypes.byref(capacity),
+                        ):
+                            candidate = os.path.normcase(buffer.value)
+                            if candidate == expected:
+                                if kernel32.TerminateProcess(handle, 0):
+                                    if kernel32.WaitForSingleObject(handle, 5000) == WAIT_OBJECT_0:
+                                        terminated += 1
+                                    else:
+                                        failures.append(pid)
+                                else:
+                                    failures.append(pid)
+                    finally:
+                        kernel32.CloseHandle(handle)
+            entry.dwSize = ctypes.sizeof(PROCESSENTRY32W)
+            has_entry = bool(kernel32.Process32NextW(snapshot, ctypes.byref(entry)))
+    finally:
+        kernel32.CloseHandle(snapshot)
+
+    if failures:
+        raise UpdateApplyError(
+            "could not close stale FortuneChart process(es) from this installation: "
+            + ", ".join(str(pid) for pid in failures)
+        )
+    return terminated
+
+
 def _read_metadata(install_root: Path) -> dict[str, object]:
     path = install_root / "_internal" / "runtime" / "desktop-build-metadata.json"
     try:
@@ -227,6 +331,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         if not wait_for_process_exit(args.parent_pid):
             raise UpdateApplyError("running FortuneChart did not exit before update timeout")
+        close_stale_same_install_processes(install)
         apply_update_transaction(
             install_root=install,
             staged_bundle=staged,
