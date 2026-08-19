@@ -10,10 +10,15 @@ DESKTOP_BUILD_METADATA_SCHEMA = "ZIWEI-BAZI-WINDOWS-PORTABLE-BUILD-METADATA-R1"
 DESKTOP_APPLICATION_ID = "FORTUNE-CHART-WINDOWS-PORTABLE-R1"
 DESKTOP_APPLICATION_VERSION = "0.2.0"
 
+# Repository data intentionally admitted into the desktop package. Python modules
+# and third-party package data are collected separately by PyInstaller.
 REQUIRED_RUNTIME_REPOSITORY_FILES: tuple[str, ...] = (
     "config/time-calendar-policies.json",
 )
 
+# These repository data domains are not part of the local chart runtime. Keep
+# them out of the package even when future build scripts grow additional data
+# admissions.
 FORBIDDEN_REPOSITORY_DATA_PREFIXES: tuple[str, ...] = (
     "training/",
     "answers/",
