@@ -168,7 +168,7 @@ def release_update_manifest(
     normalized_commit = source_commit.strip().lower()
     normalized_hash = asset_sha256.strip().lower()
     if not _SOURCE_COMMIT_RE.fullmatch(normalized_commit):
-        raise ValueError("source_commit must be a full 40-character Git SHA")
+        raise ValueError("source_commit must be a full 40-character lowercase/uppercase Git SHA")
     if not _SHA256_RE.fullmatch(normalized_hash):
         raise ValueError("asset_sha256 must be 64 lowercase/uppercase hex characters")
     if not isinstance(asset_size, int) or isinstance(asset_size, bool) or not (0 < asset_size <= MAX_ASSET_BYTES):
@@ -416,7 +416,12 @@ def spawn_standalone_updater(
             "--expected-source-commit",
             prepared.manifest.source_commit,
         ]
-        popen(args, close_fds=True, creationflags=_creationflags_no_window())
+        popen(
+            args,
+            close_fds=True,
+            creationflags=_creationflags_no_window(),
+            cwd=str(install_root.parent),
+        )
     except Exception:
         shutil.rmtree(temp_root, ignore_errors=True)
         raise
