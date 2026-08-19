@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
+import os
 import webbrowser
 from collections.abc import Callable
 from typing import Protocol
@@ -10,6 +12,11 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 )
 
 from .runtime import resolve_runtime_repository_root
+from .updates import (
+    UpdateSecurityError,
+    UpdateUnavailable,
+    maybe_launch_verified_update,
+)
 
 
 class _DesktopServer(Protocol):
@@ -55,6 +62,42 @@ def serve_desktop(
     return 0
 
 
+def _notify_update_integrity_failure(message: str) -> None:
+    if os.name != "nt":
+        return
+    try:
+        ctypes.windll.user32.MessageBoxW(
+            None,
+            f"自动更新校验失败，当前版本不会被替换，将继续启动。\n\n{message}",
+            "FortuneChart 更新",
+            0x30,
+        )
+    except Exception:
+        pass
+
+
+def run_startup_update_check(*, disabled: bool = False) -> bool:
+    """Return True only when a verified updater process was launched.
+
+    Development/source execution is a no-op inside ``maybe_launch_verified_update``.
+    Network unavailability deliberately continues the current known-good build.
+    Integrity failures never apply remote bytes and leave the installation intact.
+    """
+
+    if disabled:
+        return False
+    try:
+        return maybe_launch_verified_update()
+    except UpdateUnavailable:
+        return False
+    except UpdateSecurityError as exc:
+        _notify_update_integrity_failure(str(exc))
+        return False
+    except Exception as exc:
+        _notify_update_integrity_failure(str(exc))
+        return False
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Run the portable Windows Ziwei + Bazi chart workbench"
@@ -64,7 +107,13 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Start the loopback workbench without opening the default browser",
     )
+    parser.add_argument("--no-update", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--post-update", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
+    if run_startup_update_check(disabled=args.no_update or args.post_update):
+        # The temporary standalone updater now owns activation. Exit so Windows
+        # can rotate the complete portable directory without locked app files.
+        return 0
     return serve_desktop(build_desktop_server(), open_browser=not args.no_browser)
 
 
