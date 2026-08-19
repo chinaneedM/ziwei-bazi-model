@@ -1,0 +1,151 @@
+name: windows-stable-promote-control
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  promote-exact-main:
+    if: >-
+      github.event.issue.number == 330 &&
+      github.event.comment.user.login == github.repository_owner &&
+      github.event.comment.user.login == 'chinaneedM' &&
+      startsWith(github.event.comment.body, '/fortune-chart-promote ')
+    runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Resolve closed promotion command
+        id: resolve
+        shell: pwsh
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENTER: ${{ github.event.comment.user.login }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          if ($env:ISSUE_NUMBER -ne '330') { throw 'promotion issue gate failed' }
+          if ($env:COMMENTER -ne $env:REPOSITORY_OWNER -or $env:COMMENTER -ne 'chinaneedM') {
+            throw 'promotion actor gate failed'
+          }
+          $match = [regex]::Match(
+            $env:COMMENT_BODY,
+            '^/fortune-chart-promote ([0-9]+\.[0-9]+\.[0-9]+) ([0-9a-f]{40})\s*$'
+          )
+          if (-not $match.Success) { throw 'malformed FortuneChart promotion command' }
+          $version = $match.Groups[1].Value
+          $sourceCommit = $match.Groups[2].Value.ToLowerInvariant()
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "source_commit=$sourceCommit" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "release_tag=fortune-chart-v$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.resolve.outputs.source_commit }}
+          fetch-depth: 0
+
+      - name: Verify exact current main and packaged version
+        shell: pwsh
+        env:
+          SOURCE_COMMIT: ${{ steps.resolve.outputs.source_commit }}
+          REQUESTED_VERSION: ${{ steps.resolve.outputs.version }}
+          RELEASE_TAG: ${{ steps.resolve.outputs.release_tag }}
+        run: |
+          $head = (git rev-parse HEAD).Trim().ToLowerInvariant()
+          if ($head -ne $env:SOURCE_COMMIT) {
+            throw "promotion checkout mismatch: head=$head requested=$env:SOURCE_COMMIT"
+          }
+          git fetch origin main --depth=1
+          if ($LASTEXITCODE -ne 0) { throw 'unable to fetch current main for promotion gate' }
+          $main = (git rev-parse FETCH_HEAD).Trim().ToLowerInvariant()
+          if ($main -ne $env:SOURCE_COMMIT) {
+            throw "promotion source is not exact current main: main=$main requested=$env:SOURCE_COMMIT"
+          }
+          $version = (python -c "from pathlib import Path; import re; text=Path('src/fortune_training/desktop_application/distribution.py').read_text(encoding='utf-8'); m=re.search(r'DESKTOP_APPLICATION_VERSION = \"([^\"]+)\"', text); print(m.group(1) if m else '')").Trim()
+          if ($version -ne $env:REQUESTED_VERSION) {
+            throw "promotion version/main mismatch: requested=$env:REQUESTED_VERSION source=$version"
+          }
+          if ($env:RELEASE_TAG -ne "fortune-chart-v$version") {
+            throw "promotion tag/version mismatch: tag=$env:RELEASE_TAG version=$version"
+          }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: python -m pip install -e ".[desktop-build]"
+
+      - name: Run Windows portable/update focused tests
+        shell: pwsh
+        run: |
+          python -m unittest discover -s tests -p "test_windows_portable_desktop_launcher_r1.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p "test_windows_verified_auto_update_r1.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p "test_windows_stable_release_promotion_branch_r1.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Build exact-main portable bundle and manifest
+        shell: pwsh
+        env:
+          SOURCE_COMMIT: ${{ steps.resolve.outputs.source_commit }}
+          RELEASE_TAG: ${{ steps.resolve.outputs.release_tag }}
+        run: ./scripts/build-windows-portable.ps1 -SourceCommit "$env:SOURCE_COMMIT" -ReleaseTag "$env:RELEASE_TAG"
+
+      - name: Verify exact release payload
+        shell: pwsh
+        env:
+          SOURCE_COMMIT: ${{ steps.resolve.outputs.source_commit }}
+          REQUESTED_VERSION: ${{ steps.resolve.outputs.version }}
+          RELEASE_TAG: ${{ steps.resolve.outputs.release_tag }}
+        run: |
+          $manifest = Get-Content 'dist/fortune-chart-update.json' -Raw | ConvertFrom-Json
+          if ($manifest.version -ne $env:REQUESTED_VERSION) { throw 'promotion manifest version mismatch' }
+          if ($manifest.source_commit -ne $env:SOURCE_COMMIT) { throw 'promotion manifest source commit mismatch' }
+          $expectedUrl = "https://github.com/chinaneedM/ziwei-bazi-model/releases/download/$env:RELEASE_TAG/FortuneChart-windows-x64.zip"
+          if ($manifest.asset_url -ne $expectedUrl) { throw 'promotion manifest immutable asset URL mismatch' }
+          $actual = (Get-FileHash 'dist/FortuneChart-windows-x64.zip' -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $manifest.asset_sha256) { throw 'promotion release ZIP SHA-256 mismatch' }
+          $size = (Get-Item 'dist/FortuneChart-windows-x64.zip').Length
+          if ($size -ne $manifest.asset_size) { throw 'promotion release ZIP size mismatch' }
+
+      - name: Publish immutable release then stable manifest pointer
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_COMMIT: ${{ steps.resolve.outputs.source_commit }}
+          REQUESTED_VERSION: ${{ steps.resolve.outputs.version }}
+          RELEASE_TAG: ${{ steps.resolve.outputs.release_tag }}
+        run: |
+          gh release view "$env:RELEASE_TAG" --json tagName 1>$null 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            throw "immutable FortuneChart release already exists: $env:RELEASE_TAG"
+          }
+
+          gh release create "$env:RELEASE_TAG" `
+            'dist/FortuneChart-windows-x64.zip' `
+            'dist/fortune-chart-update.json' `
+            --target "$env:SOURCE_COMMIT" `
+            --title "FortuneChart $env:REQUESTED_VERSION" `
+            --notes "Verified Windows portable FortuneChart release promoted from exact accepted main. Update metadata is bound to this exact release asset and source commit."
+          if ($LASTEXITCODE -ne 0) { throw 'immutable FortuneChart release publication failed' }
+
+          gh release view fortune-chart-stable --json tagName 1>$null 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create fortune-chart-stable `
+              --target "$env:SOURCE_COMMIT" `
+              --title "FortuneChart Stable Update Channel" `
+              --notes "Mutable stable-channel manifest pointer. Versioned FortuneChart ZIP releases remain immutable." `
+              --prerelease
+            if ($LASTEXITCODE -ne 0) { throw 'stable update channel creation failed' }
+          }
+
+          gh release upload fortune-chart-stable `
+            'dist/fortune-chart-update.json' `
+            --clobber
+          if ($LASTEXITCODE -ne 0) { throw 'stable update manifest publication failed' }
