@@ -17,6 +17,7 @@ from fortune_training.desktop_application.distribution import (
 from fortune_training.desktop_application.launcher import run_startup_update_check
 from fortune_training.desktop_application.updater import (
     apply_update_transaction,
+    close_stale_same_install_processes,
 )
 from fortune_training.desktop_application.updates import (
     UPDATE_ARCHIVE_ROOT,
@@ -264,6 +265,10 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
             self.assertTrue((install / "FortuneChart.exe").is_file())
             self.assertFalse((install / "old-marker.txt").exists())
 
+    def test_stale_process_scan_is_safe_noop_without_same_install_process(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            self.assertEqual(close_stale_same_install_processes(Path(temp_dir)), 0)
+
     def test_source_execution_and_explicit_recovery_switch_never_touch_network(self) -> None:
         self.assertFalse(maybe_launch_verified_update(packaged=False))
         with patch("fortune_training.desktop_application.launcher.maybe_launch_verified_update") as updater:
@@ -284,6 +289,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("fortune-chart-stable", workflow)
         self.assertIn("gh release upload", workflow)
         self.assertIn("--clobber", workflow)
+        self.assertIn("test_windows_verified_auto_update_r1.py", workflow)
         self.assertIn("asset_sha256", workflow)
         self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.0")
 
