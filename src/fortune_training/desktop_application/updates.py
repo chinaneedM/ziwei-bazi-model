@@ -29,9 +29,10 @@ UPDATE_ARCHIVE_ROOT = "FortuneChart"
 UPDATE_ASSET_NAME = "FortuneChart-windows-x64.zip"
 UPDATE_MANIFEST_ASSET_NAME = "fortune-chart-update.json"
 UPDATE_REPOSITORY = "chinaneedM/ziwei-bazi-model"
+UPDATE_CHANNEL_RELEASE_TAG = "fortune-chart-stable"
 UPDATE_MANIFEST_URL = (
     "https://github.com/chinaneedM/ziwei-bazi-model/"
-    "releases/latest/download/fortune-chart-update.json"
+    "releases/download/fortune-chart-stable/fortune-chart-update.json"
 )
 
 MAX_MANIFEST_BYTES = 64 * 1024
