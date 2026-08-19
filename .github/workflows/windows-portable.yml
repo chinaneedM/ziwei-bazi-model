@@ -14,6 +14,7 @@ on:
       - "src/fortune_training/combined_chart_application/**"
       - "tests/test_windows_portable_desktop_launcher_r1.py"
       - "tests/test_windows_verified_auto_update_r1.py"
+      - "tests/test_windows_stable_release_promotion_branch_r1.py"
   push:
     branches:
       - "release/fortune-chart-v*"
@@ -50,6 +51,8 @@ jobs:
           python -m unittest discover -s tests -p "test_windows_portable_desktop_launcher_r1.py" -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest discover -s tests -p "test_windows_verified_auto_update_r1.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p "test_windows_stable_release_promotion_branch_r1.py" -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Validate release ref matches packaged version
         if: startsWith(github.ref, 'refs/tags/fortune-chart-v') || startsWith(github.ref, 'refs/heads/release/fortune-chart-v')
