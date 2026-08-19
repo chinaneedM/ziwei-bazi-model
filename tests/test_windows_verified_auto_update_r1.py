@@ -100,7 +100,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertEqual(manifest.version, "0.2.1")
         self.assertEqual(
             UPDATE_MANIFEST_URL,
-            "https://github.com/chinaneedM/ziwei-bazi-model/releases/latest/download/fortune-chart-update.json",
+            "https://github.com/chinaneedM/ziwei-bazi-model/releases/download/fortune-chart-stable/fortune-chart-update.json",
         )
 
         extra = _manifest_payload()
@@ -281,6 +281,9 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("tags:", workflow)
         self.assertIn('"fortune-chart-v*"', workflow)
         self.assertIn("gh release create", workflow)
+        self.assertIn("fortune-chart-stable", workflow)
+        self.assertIn("gh release upload", workflow)
+        self.assertIn("--clobber", workflow)
         self.assertIn("asset_sha256", workflow)
         self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.0")
 
