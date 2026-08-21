@@ -151,6 +151,17 @@ def validate_nayin_resolution(
             algorithm_version=NAYIN_INTEGRITY_ALGORITHM_VERSION,
         )
 
+    if natal.profile_id != profile.profile_id or natal.profile_version != profile.profile_version:
+        _diag(
+            diagnostics,
+            "SOURCE_NATAL_PROFILE_MISMATCH",
+            "natal.profile",
+            (
+                f"natal={natal.profile_id}@{natal.profile_version} "
+                f"profile={profile.profile_id}@{profile.profile_version}"
+            ),
+        )
+
     try:
         validate_released_registry()
     except ValueError as exc:
