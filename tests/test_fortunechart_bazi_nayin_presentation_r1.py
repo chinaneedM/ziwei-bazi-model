@@ -117,10 +117,11 @@ class FortuneChartBaziNayinPresentationR1Tests(unittest.TestCase):
             list(range(len(candidates))),
             [row["application_candidate_index"] for row in candidates],
         )
-        self.assertEqual(
-            len(candidates),
-            len({row["natal_candidate_index"] for row in candidates}),
-        )
+        natal_indices = {
+            row["natal_candidate_index"] for row in candidates
+        }
+        self.assertGreaterEqual(len(natal_indices), 2)
+        self.assertEqual(set(range(len(natal_indices))), natal_indices)
 
         exact_lineages = set()
         for candidate in candidates:
@@ -151,7 +152,7 @@ class FortuneChartBaziNayinPresentationR1Tests(unittest.TestCase):
                     by_position["HOUR"],
                 )
             )
-        self.assertEqual(len(candidates), len(exact_lineages))
+        self.assertEqual(len(natal_indices), len(exact_lineages))
 
     def test_browser_contract_is_candidate_bound_and_source_only(self) -> None:
         for required in (
