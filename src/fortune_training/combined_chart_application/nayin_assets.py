@@ -37,8 +37,12 @@ window.renderBaziNayinPresentation = function(response) {
   if (!rows) return;
   while (rows.firstChild) rows.removeChild(rows.firstChild);
   const candidates = response.candidates || [];
-  if (!candidates.length) return;
-  const annotations = candidates[0].nayin_resolution.annotations || [];
+  const selectedIndex = response.selected_candidate_index;
+  if (!Number.isInteger(selectedIndex)) return;
+  if (selectedIndex < 0 || selectedIndex >= candidates.length) return;
+  const selectedCandidate = candidates[selectedIndex];
+  if (!selectedCandidate || !selectedCandidate.nayin_resolution) return;
+  const annotations = selectedCandidate.nayin_resolution.annotations || [];
   annotations.forEach((item) => {
     const cell = document.createElement('div');
     cell.className = 'bazi-nayin-item';
