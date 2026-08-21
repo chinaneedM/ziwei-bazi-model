@@ -18,6 +18,11 @@ from .local_app import (
     INDEX_HTML,
     LocalCombinedChartApplication,
 )
+from .nayin_assets import NAYIN_CSS, NAYIN_JS, nayin_index_html
+from .nayin_local_app import (
+    BaziNayinPresentationLocalMixin,
+    _NayinPresentationHandlerMixin,
+)
 from .shared_apply_assets import (
     SHARED_APPLY_CSS,
     SHARED_APPLY_JS,
@@ -36,6 +41,7 @@ from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
 
 
 class CombinedChartWorkbenchApplication(
+    BaziNayinPresentationLocalMixin,
     SharedZiweiProjectionLocalMixin,
     InteractionLocalCombinedChartApplication,
     FlowLocalCombinedChartApplication,
@@ -45,32 +51,49 @@ class CombinedChartWorkbenchApplication(
     def __init__(self, repository_root: Path) -> None:
         # Cooperative MRO is intentional:
         # Interaction -> Flow -> Local initializes both released sidecar services
-        # over the same CombinedChartService instance. The shared projection mixin
-        # is stateless and consumes those released services/contracts.
+        # over the same CombinedChartService instance. Presentation/shared mixins
+        # are stateless and consume those released services/contracts.
         super().__init__(repository_root)
 
     def health(self):
         # `fortune-chart-app` keeps the browser-app health contract released before
-        # target-flow/shared-time browser composition. Additive sidecars expose
-        # separate endpoints without rewriting legacy health identity.
+        # additive browser composition. Sidecars expose separate endpoints without
+        # rewriting legacy health identity.
         return LocalCombinedChartApplication.health(self)
 
 
 class _WorkbenchHandler(
+    _NayinPresentationHandlerMixin,
     _SharedZiweiProjectionHandlerMixin,
     _InteractionHandler,
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.1"
+    server_version = "CombinedChartWorkbenchLocalApp/1.2"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = shared_apply_index_html(
-                target_flow_index_html(interaction_index_html(INDEX_HTML))
+            html = nayin_index_html(
+                shared_apply_index_html(
+                    target_flow_index_html(interaction_index_html(INDEX_HTML))
+                )
             )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
+            return
+        if path == "/nayin.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                NAYIN_CSS.encode(),
+            )
+            return
+        if path == "/nayin.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                NAYIN_JS.encode(),
+            )
             return
         if path == "/target-flow.css":
             self._send_bytes(
@@ -138,7 +161,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe and Bazi target-flow sidecars plus explicit shared-time apply"
+            "Ziwei Sanhe, Bazi target-flow, Bazi Nayin presentation, and explicit "
+            "shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -153,7 +177,10 @@ def main(argv: list[str] | None = None) -> int:
     host, port = server.server_address[:2]
     url = f"http://{host}:{port}/"
     print(f"Combined chart local workbench: {url}")
-    print("Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow sidecar.")
+    print(
+        "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
+        "sidecar. Bazi Nayin: released annotation presentation sidecar."
+    )
     print("Shared target synchronization is explicit opt-in only; no automatic cross-system sync.")
     print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:

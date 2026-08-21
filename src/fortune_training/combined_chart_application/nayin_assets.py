@@ -14,42 +14,198 @@ def nayin_index_html(base_html: str) -> str:
 
 
 NAYIN_CSS = """
-.bazi-nayin-panel { margin: 10px 0; padding: 10px; border: 1px solid #d8dde2; border-radius: 9px; background: #fafbfc; }
-.bazi-nayin-row { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px; }
-.bazi-nayin-item { padding: 7px; border: 1px solid #e0e3e6; border-radius: 7px; background: #fff; font-size: 12px; }
-@media (max-width:900px) { .bazi-nayin-row { grid-template-columns: 1fr 1fr; } }
+.pillar .bazi-nayin {
+  margin-top:6px;
+  padding-top:5px;
+  border-top:1px dashed #e1e4e7;
+  color:#5c6670;
+  font-size:11px;
+  line-height:1.35;
+}
 """
 
 
-NAYIN_JS = """
+NAYIN_JS = r"""
 (() => {
-'use strict';
-const root = document.querySelector('#bazi-chart') || document.body;
-if (!root) return;
-const panel = document.createElement('section');
-panel.id = 'bazi-nayin-panel';
-panel.className = 'bazi-nayin-panel';
-panel.hidden = true;
-panel.innerHTML = '<strong>四柱纳音</strong><div class="bazi-nayin-row" id="bazi-nayin-row"></div>';
-root.parentNode.insertBefore(panel, root);
-window.renderBaziNayinPresentation = function(response) {
-  const rows = document.querySelector('#bazi-nayin-row');
-  if (!rows) return;
-  while (rows.firstChild) rows.removeChild(rows.firstChild);
-  const candidates = response.candidates || [];
-  const selectedIndex = response.selected_candidate_index;
-  if (!Number.isInteger(selectedIndex)) return;
-  if (selectedIndex < 0 || selectedIndex >= candidates.length) return;
-  const selectedCandidate = candidates[selectedIndex];
-  if (!selectedCandidate || !selectedCandidate.nayin_resolution) return;
-  const annotations = selectedCandidate.nayin_resolution.annotations || [];
-  annotations.forEach((item) => {
-    const cell = document.createElement('div');
-    cell.className = 'bazi-nayin-item';
-    cell.textContent = `${item.source_pillar_position}: ${item.nayin_name}`;
-    rows.appendChild(cell);
+  'use strict';
+
+  const $ = (id) => document.getElementById(id);
+  const baziRoot = $('bazi-chart');
+  if (!baziRoot) return;
+
+  const expectedPositions = ['YEAR', 'MONTH', 'DAY', 'HOUR'];
+  const sourceFieldIds = [
+    'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
+    'location-manual', 'sex', 'precision', 'uncertainty-seconds',
+    'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
+    'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
+    'bazi-dayun-count',
+  ];
+  const state = {
+    response: null,
+    responseFingerprint: null,
+    serial: 0,
+    refreshTimer: null,
+  };
+
+  const optionalInt = (id) => {
+    const value = $(id).value.trim();
+    return value === '' ? null : Number.parseInt(value, 10);
+  };
+  const optionalText = (id) => {
+    const value = $(id).value.trim();
+    return value === '' ? null : value;
+  };
+
+  function fingerprint() {
+    return JSON.stringify(sourceFieldIds.map((id) => {
+      const element = $(id);
+      return [id, element?.value ?? '', element?.checked ?? null];
+    }));
+  }
+
+  function payload() {
+    return {
+      birth_datetime: $('birth-datetime').value,
+      birth_place: $('birth-place').value.trim(),
+      latitude: Number.parseFloat($('latitude').value),
+      longitude: Number.parseFloat($('longitude').value),
+      timezone_id: $('timezone-id').value.trim(),
+      sex: $('sex').value,
+      precision: $('precision').value,
+      uncertainty_seconds: Number.parseInt($('uncertainty-seconds').value, 10),
+      ziwei_daxian_count: Number.parseInt($('ziwei-daxian-count').value, 10),
+      ziwei_daxian_frame_id: optionalText('ziwei-daxian-frame-id'),
+      ziwei_annual_year: optionalInt('ziwei-annual-year'),
+      ziwei_minor_limit_age: optionalInt('ziwei-minor-limit-age'),
+      bazi_natal_profile_id: $('bazi-natal-profile').value,
+      bazi_temporal_profile_id: $('bazi-temporal-profile').value,
+      bazi_dayun_count: Number.parseInt($('bazi-dayun-count').value, 10),
+      combined_profile_id: 'ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1',
+    };
+  }
+
+  function clearLabels() {
+    baziRoot.querySelectorAll('.bazi-nayin').forEach((label) => label.remove());
+  }
+
+  function sourceChartIsPresent() {
+    return baziRoot.querySelectorAll('.pillars .pillar').length === 4;
+  }
+
+  function selectedApplicationCandidateIndex() {
+    const selector = baziRoot.querySelector('.bazi-candidate-select');
+    if (!selector) return 0;
+    const index = Number.parseInt(selector.value, 10);
+    return Number.isInteger(index) ? index : null;
+  }
+
+  function renderFromResponse(response) {
+    clearLabels();
+    if (!response || !Array.isArray(response.candidates)) return;
+
+    const selectedIndex = selectedApplicationCandidateIndex();
+    if (!Number.isInteger(selectedIndex)) return;
+
+    const selectedCandidate = response.candidates.find(
+      (row) => row && row.application_candidate_index === selectedIndex
+    );
+    if (
+      !selectedCandidate ||
+      !Number.isInteger(selectedCandidate.natal_candidate_index) ||
+      !selectedCandidate.nayin_resolution
+    ) {
+      return;
+    }
+
+    const annotations = selectedCandidate.nayin_resolution.annotations;
+    const pillars = Array.from(baziRoot.querySelectorAll('.pillars .pillar'));
+    if (!Array.isArray(annotations) || annotations.length !== 4 || pillars.length !== 4) {
+      return;
+    }
+
+    const validated = [];
+    for (let index = 0; index < expectedPositions.length; index += 1) {
+      const annotation = annotations[index];
+      const pillar = pillars[index];
+      const position = pillar.querySelector('.pos')?.textContent?.trim();
+      const ganzhi = pillar.querySelector('.ganzhi')?.textContent?.trim();
+      if (
+        !annotation ||
+        annotation.source_pillar_position !== expectedPositions[index] ||
+        position !== expectedPositions[index] ||
+        ganzhi !== annotation.source_pillar_ganzhi ||
+        typeof annotation.display_name !== 'string' ||
+        annotation.display_name.trim() === ''
+      ) {
+        return;
+      }
+      validated.push([pillar, annotation.display_name.trim()]);
+    }
+
+    validated.forEach(([pillar, displayName]) => {
+      const label = document.createElement('div');
+      label.className = 'bazi-nayin';
+      label.dataset.natalCandidateIndex = String(selectedCandidate.natal_candidate_index);
+      label.textContent = `纳音：${displayName}`;
+      pillar.append(label);
+    });
+  }
+
+  async function refresh() {
+    clearLabels();
+    if (!sourceChartIsPresent()) return;
+
+    const currentFingerprint = fingerprint();
+    if (
+      state.response &&
+      state.responseFingerprint === currentFingerprint
+    ) {
+      renderFromResponse(state.response);
+      return;
+    }
+
+    const serial = ++state.serial;
+    try {
+      const response = await fetch('/api/bazi-nayin-presentation', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload()),
+      });
+      const data = await response.json();
+      if (!response.ok) return;
+      if (serial !== state.serial || currentFingerprint !== fingerprint()) return;
+      state.response = data;
+      state.responseFingerprint = currentFingerprint;
+      renderFromResponse(data);
+    } catch (_error) {
+      if (serial === state.serial) clearLabels();
+    }
+  }
+
+  function scheduleRefresh() {
+    if (state.refreshTimer !== null) window.clearTimeout(state.refreshTimer);
+    state.refreshTimer = window.setTimeout(() => {
+      state.refreshTimer = null;
+      void refresh();
+    }, 0);
+  }
+
+  sourceFieldIds.forEach((id) => {
+    const element = $(id);
+    if (!element) return;
+    const invalidate = () => {
+      state.serial += 1;
+      state.response = null;
+      state.responseFingerprint = null;
+      clearLabels();
+    };
+    element.addEventListener('input', invalidate);
+    element.addEventListener('change', invalidate);
   });
-  panel.hidden = false;
-};
+
+  const observer = new MutationObserver(() => scheduleRefresh());
+  observer.observe(baziRoot, {childList: true});
+  scheduleRefresh();
 })();
 """
