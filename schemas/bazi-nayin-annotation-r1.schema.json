@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-nayin-annotation-r1.schema.json",
+  "title": "Bazi Nayin Annotation R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "annotation_profile_id",
+    "annotation_profile_version",
+    "registry_id",
+    "registry_version",
+    "registry_origin",
+    "registry_hash",
+    "source_natal_fact_hash",
+    "source_natal_computation_hash",
+    "annotations",
+    "fact_hash",
+    "computation_hash",
+    "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-NAYIN-ANNOTATION-RESOLUTION-R1"},
+    "annotation_profile_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
+    "annotation_profile_version": {"const": "1.0.0"},
+    "registry_id": {"const": "BAZI-NAYIN-REGISTRY-R1"},
+    "registry_version": {"const": "1.0.0"},
+    "registry_origin": {"const": "fortune_training.ziwei_chart.registries.NAYIN_PAIRS"},
+    "registry_hash": {"const": "662e834dfb9ed85eb6a36596b1f088628200c26d7ee10f1f2815c497352198d2"},
+    "source_natal_fact_hash": {"$ref": "#/$defs/hash"},
+    "source_natal_computation_hash": {"$ref": "#/$defs/hash"},
+    "annotations": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/annotation"}
+    },
+    "fact_hash": {"$ref": "#/$defs/hash"},
+    "computation_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "annotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "annotation_id",
+        "source_pillar_position",
+        "source_pillar_ganzhi",
+        "source_pillar_sexagenary_index",
+        "source_stem_instance_id",
+        "source_branch_instance_id",
+        "nayin_semantic_id",
+        "display_name",
+        "element",
+        "registry_id",
+        "registry_version",
+        "source_refs"
+      ],
+      "properties": {
+        "annotation_id": {"type": "string", "pattern": "^BAZI-NAYIN:(YEAR|MONTH|DAY|HOUR):[0-5][0-9]$"},
+        "source_pillar_position": {"enum": ["YEAR", "MONTH", "DAY", "HOUR"]},
+        "source_pillar_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "source_pillar_sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "source_stem_instance_id": {"type": "string", "minLength": 1},
+        "source_branch_instance_id": {"type": "string", "minLength": 1},
+        "nayin_semantic_id": {"type": "string", "pattern": "^NAYIN:PAIR:(0[0-9]|1[0-9]|2[0-9])$"},
+        "display_name": {
+          "enum": [
+            "海中金", "炉中火", "大林木", "路旁土", "剑锋金", "山头火",
+            "涧下水", "城头土", "白蜡金", "杨柳木", "泉中水", "屋上土",
+            "霹雳火", "松柏木", "长流水", "沙中金", "山下火", "平地木",
+            "壁上土", "金箔金", "覆灯火", "天河水", "大驿土", "钗钏金",
+            "桑柘木", "大溪水", "沙中土", "天上火", "石榴木", "大海水"
+          ]
+        },
+        "element": {"enum": ["木", "火", "土", "金", "水"]},
+        "registry_id": {"const": "BAZI-NAYIN-REGISTRY-R1"},
+        "registry_version": {"const": "1.0.0"},
+        "source_refs": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {"const": "S01:ZZZA-PR-010"},
+            {"const": "S01:ZZZA-PR-011"}
+          ],
+          "items": false
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-NAYIN-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}
