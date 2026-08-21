@@ -178,6 +178,10 @@ class FortuneChartBaziNayinPresentationR1Tests(unittest.TestCase):
             self.assertEqual(1, html.count("/nayin.css"))
             self.assertEqual(1, html.count("/nayin.js"))
 
+            with urllib.request.urlopen(f"{base_url}/nayin.css", timeout=10) as response:
+                css = response.read().decode("utf-8")
+            self.assertIn(".pillar .bazi-nayin", css)
+
             with urllib.request.urlopen(f"{base_url}/nayin.js", timeout=10) as response:
                 js = response.read().decode("utf-8")
             self.assertIn("/api/bazi-nayin-presentation", js)
