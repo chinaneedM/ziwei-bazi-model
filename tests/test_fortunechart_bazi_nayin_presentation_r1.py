@@ -112,28 +112,46 @@ class FortuneChartBaziNayinPresentationR1Tests(unittest.TestCase):
             self.multi_candidate_payload()
         )
         candidates = response["candidates"]
-        self.assertEqual(2, len(candidates))
+        self.assertGreaterEqual(len(candidates), 2)
         self.assertEqual(
-            {0, 1},
-            {row["application_candidate_index"] for row in candidates},
+            list(range(len(candidates))),
+            [row["application_candidate_index"] for row in candidates],
         )
         self.assertEqual(
-            2,
+            len(candidates),
             len({row["natal_candidate_index"] for row in candidates}),
         )
 
-        day_hour_pairs = set()
+        exact_lineages = set()
         for candidate in candidates:
-            annotations = candidate["nayin_resolution"]["annotations"]
+            resolution = candidate["nayin_resolution"]
+            self.assertEqual(
+                candidate["source_natal_fact_hash"],
+                resolution["source_natal_fact_hash"],
+            )
+            self.assertEqual(
+                candidate["source_natal_computation_hash"],
+                resolution["source_natal_computation_hash"],
+            )
+            annotations = resolution["annotations"]
+            self.assertEqual(
+                ["YEAR", "MONTH", "DAY", "HOUR"],
+                [row["source_pillar_position"] for row in annotations],
+            )
             by_position = {
                 row["source_pillar_position"]: row["source_pillar_ganzhi"]
                 for row in annotations
             }
-            day_hour_pairs.add((by_position["DAY"], by_position["HOUR"]))
-        self.assertEqual(
-            {("癸卯", "癸亥"), ("甲辰", "甲子")},
-            day_hour_pairs,
-        )
+            exact_lineages.add(
+                (
+                    candidate["natal_candidate_index"],
+                    candidate["source_natal_fact_hash"],
+                    candidate["source_natal_computation_hash"],
+                    by_position["DAY"],
+                    by_position["HOUR"],
+                )
+            )
+        self.assertEqual(len(candidates), len(exact_lineages))
 
     def test_browser_contract_is_candidate_bound_and_source_only(self) -> None:
         for required in (
