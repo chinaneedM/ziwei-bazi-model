@@ -241,8 +241,8 @@ def validate_nayin_resolution(
             )
 
     expected_fact_hash, expected_computation_hash = compute_nayin_hashes(
-        source_natal_fact_hash=upstream_hashes.fact_hash,
-        source_natal_computation_hash=upstream_hashes.computation_hash,
+        source_natal_fact_hash=resolution.source_natal_fact_hash,
+        source_natal_computation_hash=resolution.source_natal_computation_hash,
         annotations=resolution.annotations,
     )
     if resolution.fact_hash != expected_fact_hash:
