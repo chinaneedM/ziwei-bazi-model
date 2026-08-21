@@ -1,0 +1,29 @@
+{
+  "contract": "CHAT_SESSION_RECOVERY_R1",
+  "version": "R1",
+  "purpose": "restore_chat_execution_context_from_git_authority",
+  "authority": {
+    "primary": "git_main",
+    "forbidden_state_sources": [
+      "old_chat_memory",
+      "previous_assistant_output",
+      "historical_context_guess"
+    ]
+  },
+  "startup_sequence": [
+    "verify_github_access",
+    "identify_repository",
+    "identify_main_branch_state",
+    "read_active_runtime_state",
+    "read_active_issue_or_pull_request",
+    "resume_next_authorized_action"
+  ],
+  "failure_policy": {
+    "github_unavailable": "fail_closed",
+    "state_ambiguous": "request_recovery_audit"
+  },
+  "scope": {
+    "engineering_recovery": true,
+    "prediction_authorization": false
+  }
+}
