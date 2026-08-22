@@ -1,17 +1,40 @@
 {
-  "schema": "CHAT_WORK_SESSION_STATE_R1",
+  "schema": "CHAT_WORK_SESSION_STATE_R2",
   "repository": "chinaneedM/ziwei-bazi-model",
-  "authority": "git_main_and_active_pr_state",
-  "active_task": {
-    "pull_request": 346,
-    "title": "FortuneChart Bazi Nayin Presentation R1",
-    "phase": "CI_FIX"
+  "authority": "checkpoint_only_must_reconcile_with_live_github_state",
+  "task_resolution": {
+    "strategy": "LIVE_GITHUB_DISCOVERY_REQUIRED",
+    "checkpoint_hint": {
+      "issue": 348,
+      "pull_request": 349,
+      "title": "CHAT Autonomous Engineering Continuity R2"
+    },
+    "required_live_reads": [
+      "main_head",
+      "open_pull_requests",
+      "active_issue",
+      "pull_request_head",
+      "workflow_runs",
+      "review_threads",
+      "mergeability"
+    ]
   },
-  "next_actions": [
-    "repair_candidate_lineage_test",
-    "run_ci",
-    "complete_pr_346_acceptance"
-  ],
+  "next_action_resolution": "derive_from_live_issue_pr_head_checks_and_reviews",
+  "staleness_policy": {
+    "checkpoint_is_never_sufficient_for_execution": true,
+    "head_mismatch": "STALE_REBUILD",
+    "pr_state_mismatch": "STALE_REBUILD",
+    "ci_state_mismatch": "STALE_REBUILD",
+    "completed_action_in_checkpoint": "DO_NOT_REPEAT"
+  },
+  "continuity": {
+    "execution_mode": "CHAT_AUTONOMOUS_ENGINEERING",
+    "mode_switch_required": false,
+    "user_continue_required": false,
+    "status_updates_are_non_final": true,
+    "stop_only_on_completion_or_hard_blocker": true,
+    "context_limit_requires_durable_handoff": true
+  },
   "recovery_scope": "engineering_recovery_only",
   "prediction_runtime": false
 }
