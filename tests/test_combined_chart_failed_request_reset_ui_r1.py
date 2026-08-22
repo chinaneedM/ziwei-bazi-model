@@ -15,6 +15,9 @@ class CombinedChartFailedRequestResetUiR1Tests(unittest.TestCase):
         self.assertIn("$('ziwei-hash').textContent='-';", APP_JS)
         self.assertIn("$('bazi-status').textContent='-';", APP_JS)
         self.assertIn("$('bazi-hash').textContent='-';", APP_JS)
+        self.assertIn("$('shared-time-status').textContent='-';", APP_JS)
+        self.assertIn("$('shared-time-hash').textContent='-';", APP_JS)
+        self.assertIn("renderSharedTime(null,null);", APP_JS)
 
     def test_failed_request_reset_clears_prior_subsystem_presentation(self) -> None:
         self.assertIn("showSubError('ziwei-error',null);", APP_JS)
@@ -26,7 +29,7 @@ class CombinedChartFailedRequestResetUiR1Tests(unittest.TestCase):
         catch_marker = "}catch(error){resetRenderedResolution(); $('combined-status').textContent='失败';"
         self.assertIn(catch_marker, APP_JS)
         self.assertIn("$('global-error').hidden=false;", APP_JS)
-        self.assertIn("['download-manifest','download-ziwei','download-bazi'].forEach((id)=>$(id).disabled=true);", APP_JS)
+        self.assertIn("['download-manifest','download-combined','download-ziwei','download-bazi'].forEach((id)=>$(id).disabled=true);", APP_JS)
 
 
 if __name__ == "__main__":
