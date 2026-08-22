@@ -32,6 +32,7 @@ from .models import (
     BaziApplicationUnresolvedTimeSample,
 )
 from .xiaoyun import xiaoyun_candidates
+from .shensha import classical_shensha_for_pillars
 
 
 class BaziApplicationResolutionError(ValueError):
@@ -253,6 +254,7 @@ class BaziChartService:
                 request.sex,
                 count=request.dayun_count * 10,
             ),
+            "shensha": classical_shensha_for_pillars(pillar_ganzhi),
             "dayun": {
                 "direction": state.direction.direction,
                 "year_stem": state.direction.year_stem,

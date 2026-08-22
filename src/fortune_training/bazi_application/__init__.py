@@ -57,6 +57,17 @@ from .xiaoyun import (
     validate_xiaoyun_profiles,
     xiaoyun_candidates,
 )
+from .shensha import (
+    HUAGAI_BY_BRANCH,
+    LU_BY_STEM,
+    SHENSHA_CANDIDATE_SET_ID,
+    SHENSHA_PROFILE_ID,
+    SHENSHA_PROFILE_VERSION,
+    TIANYI_BY_STEM,
+    YIMA_BY_BRANCH,
+    classical_shensha_for_pillars,
+    validate_shensha_registries,
+)
 
 __all__ = [
     "BaziApplicationCandidate",
@@ -85,6 +96,13 @@ __all__ = [
     "TWELVE_GROWTH_START_BRANCH",
     "XUNKONG_PROFILE_ID",
     "XUNKONG_PROFILE_VERSION",
+    "SHENSHA_CANDIDATE_SET_ID",
+    "SHENSHA_PROFILE_ID",
+    "SHENSHA_PROFILE_VERSION",
+    "TIANYI_BY_STEM",
+    "LU_BY_STEM",
+    "YIMA_BY_BRANCH",
+    "HUAGAI_BY_BRANCH",
     "application_flow_bundle_hash",
     "application_flow_candidate_id",
     "application_flow_source_fact_hash",
@@ -106,6 +124,8 @@ __all__ = [
     "xunkong_for_ganzhi",
     "xunkong_for_sexagenary_index",
     "xiaoyun_candidates",
+    "classical_shensha_for_pillars",
+    "validate_shensha_registries",
 ]
 
 __version__ = "0.2.0"

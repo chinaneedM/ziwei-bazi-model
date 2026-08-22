@@ -189,6 +189,29 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 )
             )
 
+    def test_shensha_anchor_alternatives_are_source_bound_and_unmerged(self):
+        for candidate in self.bundle.candidates:
+            shensha = candidate.view["shensha"]
+            self.assertEqual(
+                "UNRESOLVED_CLASSICAL_ANCHOR_ALTERNATIVES",
+                shensha["resolution_status"],
+            )
+            self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
+            self.assertEqual(8, len(shensha["candidates"]))
+            self.assertTrue(
+                all(row["source_refs"] for row in shensha["candidates"])
+            )
+
+    def test_shensha_tamper_fails_semantic_replay(self):
+        candidate = self.bundle.candidates[0]
+        changed_view = copy.deepcopy(candidate.view)
+        changed_view["shensha"]["candidates"][0]["target_branches"] = ["子"]
+        changed_candidate = replace(candidate, view=changed_view)
+        changed_bundle = replace(self.bundle, candidates=(changed_candidate,))
+        report = validate_application_resolution(changed_bundle)
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SHENSHA_REPLAY_MISMATCH:0", report.diagnostics)
+
     def test_dayun_direction_jiaoyun_and_frames_replay_exactly(self):
         view = self.bundle.candidates[0].view["dayun"]
         state = self.temporal.state
