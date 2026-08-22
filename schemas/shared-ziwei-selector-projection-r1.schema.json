@@ -39,6 +39,10 @@
         "source_target_candidate_index", "source_target_candidate_id", "source_sample_index",
         "sample_reported_local_datetime", "target_utc", "fold", "civil_year",
         "source_annual_frame_id", "annual_year", "minor_limit_age", "daxian_frame_id",
+        "ziwei_calendar_date_policy", "ziwei_day_boundary_policy",
+        "effective_lunar_year", "effective_lunar_month", "effective_lunar_day",
+        "effective_lunar_is_leap_month", "monthly_projection_status",
+        "monthly_frame_id", "monthly_ganzhi", "monthly_active_address_branch",
         "candidate_hash"
       ],
       "properties": {
@@ -58,6 +62,16 @@
             {"type": "null"}
           ]
         },
+        "ziwei_calendar_date_policy": {"enum": ["LOCAL_SOLAR_DATE_INDEXED", "ABSOLUTE_CALENDAR"]},
+        "ziwei_day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
+        "effective_lunar_year": {"type": "integer", "minimum": 1},
+        "effective_lunar_month": {"type": "integer", "minimum": 1, "maximum": 12},
+        "effective_lunar_day": {"type": "integer", "minimum": 1, "maximum": 30},
+        "effective_lunar_is_leap_month": {"type": "boolean"},
+        "monthly_projection_status": {"enum": ["REGULAR_LUNAR_MONTH_RESOLVED", "LEAP_MONTH_UNRESOLVED_NO_FRAME"]},
+        "monthly_frame_id": {"type": ["string", "null"], "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"},
+        "monthly_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
+        "monthly_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
         "candidate_hash": {"$ref": "#/$defs/hash"}
       }
     },
@@ -69,7 +83,7 @@
         "fact_hash": {"$ref": "#/$defs/hash"},
         "computation_hash": {"$ref": "#/$defs/hash"},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
-        "algorithm_version": {"const": "1.0.0"}
+        "algorithm_version": {"const": "1.1.0"}
       }
     },
     "integrity": {
@@ -80,7 +94,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.0.0"}
+        "algorithm_version": {"const": "1.1.0"}
       }
     }
   }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import timedelta
 
 from fortune_training.bazi_target_temporal import (
     ResolvedTargetTemporalCoordinateProfile,
@@ -8,11 +9,13 @@ from fortune_training.bazi_target_temporal import (
     TargetTemporalCoordinateResolution,
     validate_target_temporal_resolution,
 )
+from fortune_training.calendar_foundation import ZiweiCalendarResolver
 from fortune_training.ziwei_application import (
     ApplicationChartBundle,
     ApplicationResolutionError,
     validate_application_bundle,
 )
+from fortune_training.ziwei_chart import ZiweiTemporalEngine
 
 from .shared_time_integrity import (
     shared_selector_candidate_hash,
@@ -37,6 +40,31 @@ class SharedZiweiSelectorProjectionError(ValueError):
 
 class SharedZiweiSelectorProjectionService:
     schema = SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA
+
+    @staticmethod
+    def _effective_lunar_date(ziwei_bundle, target_candidate):
+        profile = ziwei_bundle.calculation_profile
+        resolver = ZiweiCalendarResolver()
+        resolved = resolver.resolve(
+            target_candidate.sample_reported_local_datetime.date(),
+            target_candidate.local_apparent_solar_datetime,
+            calendar_date_policy=(
+                profile.time_calendar_policies.ziwei_calendar_date_policy
+            ),
+            life_body_leap_month_policy=(
+                profile.time_calendar_policies.ziwei_life_body_leap_month_policy
+            ),
+        )
+        effective = resolved.effective_ziwei_lunar_date
+        if (
+            profile.ziwei_day_boundary_policy == "ZI_START_23"
+            and target_candidate.local_apparent_solar_datetime.hour == 23
+        ):
+            effective = resolver.calendar.from_gregorian_date(
+                target_candidate.local_apparent_solar_datetime.date()
+                + timedelta(days=1)
+            )
+        return effective
 
     @staticmethod
     def _validate_upstream(
@@ -109,6 +137,18 @@ class SharedZiweiSelectorProjectionService:
                     f"candidate_index={index};civil_year={civil_year};matches={len(annual_matches)}",
                 )
             annual = annual_matches[0]
+            lunar = self._effective_lunar_date(ziwei_bundle, target_candidate)
+            if lunar.is_leap_month:
+                monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
+                monthly = None
+            else:
+                monthly_status = "REGULAR_LUNAR_MONTH_RESOLVED"
+                monthly = ZiweiTemporalEngine().monthly_frame(
+                    ziwei_bundle.temporal_context,
+                    ziwei_bundle.calculation_profile,
+                    annual,
+                    lunar.month,
+                )
             candidate = SharedZiweiSelectorProjectionCandidate(
                 source_target_candidate_index=index,
                 source_target_candidate_id=target_candidate.candidate_id,
@@ -121,6 +161,22 @@ class SharedZiweiSelectorProjectionService:
                 annual_year=annual.absolute_year,
                 minor_limit_age=annual.nominal_age,
                 daxian_frame_id=annual.parent_daxian_frame_id,
+                ziwei_calendar_date_policy=(
+                    ziwei_bundle.calculation_profile.time_calendar_policies.ziwei_calendar_date_policy
+                ),
+                ziwei_day_boundary_policy=(
+                    ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
+                ),
+                effective_lunar_year=lunar.year,
+                effective_lunar_month=lunar.month,
+                effective_lunar_day=lunar.day,
+                effective_lunar_is_leap_month=lunar.is_leap_month,
+                monthly_projection_status=monthly_status,
+                monthly_frame_id=monthly.frame_id if monthly is not None else None,
+                monthly_ganzhi=monthly.month_ganzhi if monthly is not None else None,
+                monthly_active_address_branch=(
+                    monthly.active_address.branch if monthly is not None else None
+                ),
                 candidate_hash="",
             )
             candidates.append(

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import timedelta
+
 from fortune_training.bazi_target_temporal import (
     ResolvedTargetTemporalCoordinateProfile,
     TargetTemporalCoordinateFoundation,
@@ -7,12 +9,14 @@ from fortune_training.bazi_target_temporal import (
     validate_target_temporal_resolution,
 )
 from fortune_training.calendar_foundation.models import json_value
+from fortune_training.calendar_foundation import ZiweiCalendarResolver
 from fortune_training.util import object_sha256
 from fortune_training.ziwei_application import (
     ApplicationChartBundle,
     ApplicationResolutionError,
     validate_application_bundle,
 )
+from fortune_training.ziwei_chart import ZiweiTemporalEngine
 
 from .shared_time_models import (
     SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID,
@@ -41,6 +45,16 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "annual_year": candidate.annual_year,
             "minor_limit_age": candidate.minor_limit_age,
             "daxian_frame_id": candidate.daxian_frame_id,
+            "ziwei_calendar_date_policy": candidate.ziwei_calendar_date_policy,
+            "ziwei_day_boundary_policy": candidate.ziwei_day_boundary_policy,
+            "effective_lunar_year": candidate.effective_lunar_year,
+            "effective_lunar_month": candidate.effective_lunar_month,
+            "effective_lunar_day": candidate.effective_lunar_day,
+            "effective_lunar_is_leap_month": candidate.effective_lunar_is_leap_month,
+            "monthly_projection_status": candidate.monthly_projection_status,
+            "monthly_frame_id": candidate.monthly_frame_id,
+            "monthly_ganzhi": candidate.monthly_ganzhi,
+            "monthly_active_address_branch": candidate.monthly_active_address_branch,
         }
     )
 
@@ -151,6 +165,38 @@ def validate_shared_ziwei_selector_projection(
             diagnostics.append(f"ANNUAL_FRAME_CARDINALITY_MISMATCH:{index}:{civil_year}:{len(matches)}")
             continue
         annual = matches[0]
+        profile = ziwei_bundle.calculation_profile
+        resolver = ZiweiCalendarResolver()
+        calendar_result = resolver.resolve(
+            target_candidate.sample_reported_local_datetime.date(),
+            target_candidate.local_apparent_solar_datetime,
+            calendar_date_policy=(
+                profile.time_calendar_policies.ziwei_calendar_date_policy
+            ),
+            life_body_leap_month_policy=(
+                profile.time_calendar_policies.ziwei_life_body_leap_month_policy
+            ),
+        )
+        lunar = calendar_result.effective_ziwei_lunar_date
+        if (
+            profile.ziwei_day_boundary_policy == "ZI_START_23"
+            and target_candidate.local_apparent_solar_datetime.hour == 23
+        ):
+            lunar = resolver.calendar.from_gregorian_date(
+                target_candidate.local_apparent_solar_datetime.date()
+                + timedelta(days=1)
+            )
+        if lunar.is_leap_month:
+            monthly = None
+            monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
+        else:
+            monthly = ZiweiTemporalEngine().monthly_frame(
+                ziwei_bundle.temporal_context,
+                profile,
+                annual,
+                lunar.month,
+            )
+            monthly_status = "REGULAR_LUNAR_MONTH_RESOLVED"
         expected = {
             "source_target_candidate_index": index,
             "source_target_candidate_id": target_candidate.candidate_id,
@@ -163,6 +209,20 @@ def validate_shared_ziwei_selector_projection(
             "annual_year": annual.absolute_year,
             "minor_limit_age": annual.nominal_age,
             "daxian_frame_id": annual.parent_daxian_frame_id,
+            "ziwei_calendar_date_policy": (
+                profile.time_calendar_policies.ziwei_calendar_date_policy
+            ),
+            "ziwei_day_boundary_policy": profile.ziwei_day_boundary_policy,
+            "effective_lunar_year": lunar.year,
+            "effective_lunar_month": lunar.month,
+            "effective_lunar_day": lunar.day,
+            "effective_lunar_is_leap_month": lunar.is_leap_month,
+            "monthly_projection_status": monthly_status,
+            "monthly_frame_id": monthly.frame_id if monthly is not None else None,
+            "monthly_ganzhi": monthly.month_ganzhi if monthly is not None else None,
+            "monthly_active_address_branch": (
+                monthly.active_address.branch if monthly is not None else None
+            ),
         }
         for field_name, expected_value in expected.items():
             if getattr(projected, field_name) != expected_value:

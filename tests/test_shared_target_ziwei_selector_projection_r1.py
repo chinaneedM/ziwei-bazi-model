@@ -120,12 +120,27 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(annual.nominal_age, row.minor_limit_age)
         self.assertEqual(annual.parent_daxian_frame_id, row.daxian_frame_id)
         self.assertEqual(annual.frame_id, row.source_annual_frame_id)
+        self.assertEqual("LOCAL_SOLAR_DATE_INDEXED", row.ziwei_calendar_date_policy)
+        self.assertEqual("ZI_START_23", row.ziwei_day_boundary_policy)
+        self.assertEqual("REGULAR_LUNAR_MONTH_RESOLVED", row.monthly_projection_status)
+        self.assertEqual(f"MONTH:2026:{row.effective_lunar_month}", row.monthly_frame_id)
+        self.assertEqual(2, len(row.monthly_ganzhi))
+        self.assertIn(row.monthly_active_address_branch, "子丑寅卯辰巳午未申酉戌亥")
         Draft202012Validator(self.schema).validate(json_value(first))
 
         injected = copy.deepcopy(json_value(first))
         injected["prediction"] = "FORBIDDEN"
         with self.assertRaises(ValidationError):
             Draft202012Validator(self.schema).validate(injected)
+
+    def test_leap_month_is_preserved_without_fabricating_a_regular_month_frame(self) -> None:
+        target = self._target(datetime(2025, 8, 1, 12, 0))
+        row = self._project(target).candidates[0]
+        self.assertTrue(row.effective_lunar_is_leap_month)
+        self.assertEqual("LEAP_MONTH_UNRESOLVED_NO_FRAME", row.monthly_projection_status)
+        self.assertIsNone(row.monthly_frame_id)
+        self.assertIsNone(row.monthly_ganzhi)
+        self.assertIsNone(row.monthly_active_address_branch)
 
     def test_pre_daxian_year_preserves_none_parent(self) -> None:
         pre = next(

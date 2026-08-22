@@ -6,15 +6,15 @@ from datetime import datetime
 
 SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA = "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
 SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID = "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-R1"
-SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.0.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.1.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.0.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.1.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.0.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.1.0"
 
 
 @dataclass(frozen=True)
@@ -30,6 +30,16 @@ class SharedZiweiSelectorProjectionCandidate:
     annual_year: int
     minor_limit_age: int
     daxian_frame_id: str | None
+    ziwei_calendar_date_policy: str
+    ziwei_day_boundary_policy: str
+    effective_lunar_year: int
+    effective_lunar_month: int
+    effective_lunar_day: int
+    effective_lunar_is_leap_month: bool
+    monthly_projection_status: str
+    monthly_frame_id: str | None
+    monthly_ganzhi: str | None
+    monthly_active_address_branch: str | None
     candidate_hash: str
 
 

@@ -203,6 +203,11 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
         self.assertIn("if (candidates.length === 1)", TARGET_FLOW_JS)
         self.assertNotIn("candidateSelect.value = '0'", TARGET_FLOW_JS)
 
+    def test_browser_renders_both_xiaoyun_candidates_without_selecting_a_winner(self) -> None:
+        self.assertIn("view.timeline.xiaoyun.candidates.forEach", TARGET_FLOW_JS)
+        self.assertIn("小运候选", TARGET_FLOW_JS)
+        self.assertIn("row.activation_status", TARGET_FLOW_JS)
+
     def test_browser_flow_never_writes_ziwei_selector_or_svg_state(self) -> None:
         for forbidden in (
             "$('ziwei-daxian-frame-id').value =",

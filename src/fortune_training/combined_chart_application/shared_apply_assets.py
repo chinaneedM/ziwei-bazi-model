@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/小限。解析八字 flow 或编辑目标时间不会自动同步。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。闰月不伪造常规月盘；解析八字 flow 或编辑目标时间不会自动同步。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -63,7 +63,7 @@ SHARED_APPLY_JS = r"""
     'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
     'location-manual', 'sex', 'precision', 'uncertainty-seconds',
     'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
-    'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
+    'ziwei-lunar-month', 'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
     'bazi-dayun-count',
   ];
   const targetFieldIds = [
@@ -136,6 +136,7 @@ SHARED_APPLY_JS = r"""
       ziwei_daxian_count: Number.parseInt($('ziwei-daxian-count').value, 10),
       ziwei_daxian_frame_id: textOrNull('ziwei-daxian-frame-id'),
       ziwei_annual_year: intOrNull('ziwei-annual-year'),
+      ziwei_lunar_month: intOrNull('ziwei-lunar-month'),
       ziwei_minor_limit_age: intOrNull('ziwei-minor-limit-age'),
       bazi_natal_profile_id: $('bazi-natal-profile').value,
       bazi_temporal_profile_id: $('bazi-temporal-profile').value,
@@ -154,7 +155,10 @@ SHARED_APPLY_JS = r"""
 
   function candidateLabel(row) {
     const daxian = row.daxian_frame_id || 'PRE_DAXIAN';
-    return `#${row.source_target_candidate_index} · ${row.sample_reported_local_datetime} · fold=${row.fold} · ${row.annual_year}年 / ${row.minor_limit_age}岁 / ${daxian}`;
+    const month = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? `农历${row.effective_lunar_month}月`
+      : `闰${row.effective_lunar_month}月待裁决`;
+    return `#${row.source_target_candidate_index} · ${row.sample_reported_local_datetime} · fold=${row.fold} · ${row.annual_year}年 / ${month} / ${row.minor_limit_age}岁 / ${daxian}`;
   }
 
   function responseLineageIsConsistent(data) {
@@ -170,6 +174,15 @@ SHARED_APPLY_JS = r"""
       && row.source_target_candidate_id.length > 0
       && typeof row.candidate_hash === 'string'
       && row.candidate_hash.length === 64
+      && Number.isInteger(row.effective_lunar_month)
+      && row.effective_lunar_month >= 1
+      && row.effective_lunar_month <= 12
+      && (
+        (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+          && typeof row.monthly_frame_id === 'string')
+        || (row.monthly_projection_status === 'LEAP_MONTH_UNRESOLVED_NO_FRAME'
+          && row.monthly_frame_id === null)
+      )
     ));
   }
 
@@ -189,6 +202,8 @@ SHARED_APPLY_JS = r"""
       `target_candidate=${row.source_target_candidate_id}`,
       `sample_index=${row.source_sample_index} · UTC=${row.target_utc}`,
       `annual_frame=${row.source_annual_frame_id}`,
+      `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
+      `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');
     applyButton.disabled = false;
@@ -274,21 +289,30 @@ SHARED_APPLY_JS = r"""
     }
     const daxianNav = $('ziwei-daxian-nav');
     const annualNav = $('ziwei-annual-nav');
+    const monthNav = $('ziwei-month-nav');
     const minorNav = $('ziwei-minor-nav');
-    if (!daxianNav || !annualNav || !minorNav) {
+    if (!daxianNav || !annualNav || !monthNav || !minorNav) {
       invalidate('Ziwei interaction navigator 尚未就绪。');
       return;
     }
     daxianNav.value = row.daxian_frame_id || '';
     annualNav.value = String(row.annual_year);
+    monthNav.value = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? String(row.effective_lunar_month)
+      : '';
     minorNav.value = String(row.minor_limit_age);
     if (annualNav.value !== String(row.annual_year)
         || minorNav.value !== String(row.minor_limit_age)
+        || monthNav.value !== (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+          ? String(row.effective_lunar_month)
+          : '')
         || daxianNav.value !== (row.daxian_frame_id || '')) {
       invalidate('服务端 projection 不在当前 Ziwei navigator materialized domain；拒绝应用。');
       return;
     }
-    status.textContent = '已显式应用所选 Projection；正在复用现有 Ziwei interaction 刷新。';
+    status.textContent = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? '已显式应用所选 Projection（含常规流月）；正在复用现有 Ziwei interaction 刷新。'
+      : '已应用大限/流年/小限；目标为闰月，常规流月保持未选且等待门派规则裁决。';
     annualNav.dispatchEvent(new Event('change', {bubbles: true}));
   }
 

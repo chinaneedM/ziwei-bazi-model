@@ -54,7 +54,7 @@ TARGET_FLOW_JS = r"""
   panel.hidden = true;
   panel.innerHTML = `
     <div class="bazi-target-flow-head">
-      <div><strong>八字目标时点</strong><div class="bazi-target-flow-note">显式解析大运 / 流年 / 流月 / 流日 / 流时。不会自动同步或改写紫微大限、流年、小限。</div></div>
+      <div><strong>八字目标时点</strong><div class="bazi-target-flow-note">显式解析大运 / 小运候选 / 流年 / 流月 / 流日 / 流时。不会自动同步或改写紫微时间选择器。</div></div>
       <code id="bazi-flow-hash">-</code>
     </div>
     <div class="bazi-target-flow-grid">
@@ -195,8 +195,15 @@ TARGET_FLOW_JS = r"""
 
     const flow = view.flow;
     const dayun = flow.active_dayun_frame;
+    framesRoot.append(frameCard('大运', dayun, flow.active_dayun_kind));
+    view.timeline.xiaoyun.candidates.forEach((row) => {
+      framesRoot.append(frameCard(
+        `小运候选 · ${row.profile_id}`,
+        row.active_frame,
+        `${row.direction} · ${row.activation_status}`,
+      ));
+    });
     framesRoot.append(
-      frameCard('大运', dayun, flow.active_dayun_kind),
       frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`),
       frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`),
       frameCard('流日', view.daily, display(view.daily?.effective_day_date)),

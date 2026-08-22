@@ -193,6 +193,7 @@ def validate_application_flow_resolution(
         lineage = candidate.view.get("lineage", {})
         hashes = candidate.view.get("source_hashes", {})
         integrity = candidate.view.get("integrity", {})
+        timeline = candidate.view.get("timeline", {})
         if target.get("target_coordinate_candidate_index") != (
             candidate.source_target_coordinate_candidate_index
         ):
@@ -247,6 +248,28 @@ def validate_application_flow_resolution(
             "daily_hourly": "PASS",
         }:
             diagnostics.append(f"{prefix}:VIEW_UPSTREAM_INTEGRITY_NOT_PASS")
+        if timeline.get("schema") != "BAZI-UNIFIED-TARGET-TIMELINE-R1":
+            diagnostics.append(f"{prefix}:TIMELINE_SCHEMA_MISMATCH")
+        if timeline.get("target_coordinate_candidate_id") != (
+            candidate.target_coordinate_candidate_id
+        ):
+            diagnostics.append(f"{prefix}:TIMELINE_TARGET_LINEAGE_MISMATCH")
+        if timeline.get("layer_order") != [
+            "NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"
+        ]:
+            diagnostics.append(f"{prefix}:TIMELINE_LAYER_ORDER_MISMATCH")
+        if timeline.get("annual") != candidate.view.get("flow", {}).get("annual"):
+            diagnostics.append(f"{prefix}:TIMELINE_ANNUAL_MISMATCH")
+        if timeline.get("monthly") != candidate.view.get("flow", {}).get("monthly"):
+            diagnostics.append(f"{prefix}:TIMELINE_MONTHLY_MISMATCH")
+        if timeline.get("daily") != candidate.view.get("daily"):
+            diagnostics.append(f"{prefix}:TIMELINE_DAILY_MISMATCH")
+        if timeline.get("hourly") != candidate.view.get("hourly"):
+            diagnostics.append(f"{prefix}:TIMELINE_HOURLY_MISMATCH")
+        if timeline.get("xiaoyun", {}).get("selection_status") != (
+            "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES"
+        ):
+            diagnostics.append(f"{prefix}:TIMELINE_XIAOYUN_SELECTION_MISMATCH")
 
     expected_source_fact_hash = application_flow_source_fact_hash(resolution)
     if resolution.source_fact_hash != expected_source_fact_hash:

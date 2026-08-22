@@ -24,6 +24,7 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         )[0]
         self.assertNotIn("daxianNav.value =", calculate)
         self.assertNotIn("annualNav.value =", calculate)
+        self.assertNotIn("monthNav.value =", calculate)
         self.assertNotIn("minorNav.value =", calculate)
         self.assertNotIn("applyProjection()", calculate)
         self.assertIn("fetch('/api/shared-ziwei-projection'", calculate)
@@ -36,12 +37,13 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         self.assertNotIn("new Set", SHARED_APPLY_JS)
         self.assertNotIn(".filter((row", SHARED_APPLY_JS)
 
-    def test_apply_uses_server_returned_three_selectors_and_existing_change_path(self) -> None:
+    def test_apply_uses_server_returned_four_selectors_and_existing_change_path(self) -> None:
         apply_block = SHARED_APPLY_JS.split("function applyProjection()", 1)[1].split(
             "candidateSelect.addEventListener", 1
         )[0]
         self.assertIn("daxianNav.value = row.daxian_frame_id || ''", apply_block)
         self.assertIn("annualNav.value = String(row.annual_year)", apply_block)
+        self.assertIn("monthNav.value = row.monthly_projection_status", apply_block)
         self.assertIn("minorNav.value = String(row.minor_limit_age)", apply_block)
         self.assertIn("annualNav.dispatchEvent(new Event('change'", apply_block)
         self.assertNotIn("fetch('/api/ziwei-interaction'", SHARED_APPLY_JS)
@@ -78,6 +80,7 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             "precision",
             "uncertainty-seconds",
             "ziwei-daxian-count",
+            "ziwei-lunar-month",
             "target-datetime",
             "target-place",
             "target-latitude",
@@ -127,7 +130,6 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             "late_zi",
             "sexagenary",
             "jiaoyun",
-            "monthly_frame",
             "daily_frame",
             "hourly_frame",
         )
@@ -139,6 +141,13 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         self.assertIn("row.minor_limit_age", SHARED_APPLY_JS)
         self.assertIn("row.daxian_frame_id", SHARED_APPLY_JS)
         self.assertIn("row.source_annual_frame_id", SHARED_APPLY_JS)
+        self.assertIn("row.effective_lunar_month", SHARED_APPLY_JS)
+        self.assertIn("row.monthly_projection_status", SHARED_APPLY_JS)
+
+    def test_leap_month_projection_is_not_silently_applied_as_regular_month(self) -> None:
+        self.assertIn("LEAP_MONTH_UNRESOLVED_NO_FRAME", SHARED_APPLY_JS)
+        self.assertIn("闰月，常规流月保持未选", SHARED_APPLY_JS)
+        self.assertIn(": '';", SHARED_APPLY_JS)
 
 
 if __name__ == "__main__":

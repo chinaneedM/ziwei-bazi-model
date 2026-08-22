@@ -159,6 +159,21 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         self.assertTrue(row.view["flow"]["monthly"]["ganzhi"])
         self.assertTrue(row.view["daily"]["ganzhi"])
         self.assertTrue(row.view["hourly"]["ganzhi"])
+        timeline = row.view["timeline"]
+        self.assertEqual("BAZI-UNIFIED-TARGET-TIMELINE-R1", timeline["schema"])
+        self.assertEqual(
+            ["NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"],
+            timeline["layer_order"],
+        )
+        self.assertEqual(row.view["flow"]["annual"], timeline["annual"])
+        self.assertEqual(row.view["flow"]["monthly"], timeline["monthly"])
+        self.assertEqual(row.view["daily"], timeline["daily"])
+        self.assertEqual(row.view["hourly"], timeline["hourly"])
+        self.assertEqual(
+            "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+            timeline["xiaoyun"]["selection_status"],
+        )
+        self.assertEqual(2, len(timeline["xiaoyun"]["candidates"]))
         jsonschema.Draft202012Validator(self.schema).validate(json_value(first))
 
         injected = copy.deepcopy(json_value(first))

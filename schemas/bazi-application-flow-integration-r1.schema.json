@@ -214,7 +214,7 @@
     "view": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["target", "flow", "daily", "hourly", "lineage", "integrity", "source_hashes"],
+      "required": ["target", "flow", "daily", "hourly", "timeline", "lineage", "integrity", "source_hashes"],
       "properties": {
         "target": {"$ref": "#/$defs/targetView"},
         "flow": {
@@ -230,6 +230,73 @@
         },
         "daily": {"$ref": "#/$defs/daily"},
         "hourly": {"$ref": "#/$defs/hourly"},
+        "timeline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema", "target_coordinate_candidate_id", "layer_order", "natal", "dayun", "xiaoyun", "annual", "monthly", "daily", "hourly", "semantic_scope"],
+          "properties": {
+            "schema": {"const": "BAZI-UNIFIED-TARGET-TIMELINE-R1"},
+            "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
+            "layer_order": {"const": ["NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"]},
+            "natal": {
+              "type": "object", "additionalProperties": false,
+              "required": ["source_application_candidate_ids", "natal_fact_hash"],
+              "properties": {
+                "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
+                "natal_fact_hash": {"$ref": "#/$defs/hash"}
+              }
+            },
+            "dayun": {
+              "type": "object", "additionalProperties": false,
+              "required": ["kind", "frame"],
+              "properties": {
+                "kind": {"enum": ["PRE_DAYUN", "DAYUN"]},
+                "frame": {"oneOf": [{"$ref": "#/$defs/activePreDayun"}, {"$ref": "#/$defs/activeDayun"}]}
+              }
+            },
+            "xiaoyun": {
+              "type": "object", "additionalProperties": false,
+              "required": ["selection_status", "age_coordinate", "candidates"],
+              "properties": {
+                "selection_status": {"const": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES"},
+                "age_coordinate": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["nominal_age", "profile_id", "source_class", "formula", "classical_age_boundary_status"],
+                  "properties": {
+                    "nominal_age": {"type": "integer", "minimum": 1},
+                    "profile_id": {"const": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1"},
+                    "source_class": {"const": "ENGINEERING_LINKAGE_COORDINATE"},
+                    "formula": {"const": "target_local_civil_year-birth_local_civil_year+1"},
+                    "classical_age_boundary_status": {"const": "NOT_ARBITRATED"}
+                  }
+                },
+                "candidates": {
+                  "type": "array", "minItems": 2,
+                  "items": {
+                    "type": "object", "additionalProperties": false,
+                    "required": ["profile_id", "direction", "source_refs", "active_frame", "activation_status"],
+                    "properties": {
+                      "profile_id": {"type": "string"},
+                      "direction": {"enum": ["FORWARD", "REVERSE"]},
+                      "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+                      "active_frame": {
+                        "type": ["object", "null"],
+                        "properties": {"nominal_age": {"type": "integer"}, "ganzhi": {"type": "string"}},
+                        "required": ["nominal_age", "ganzhi"]
+                      },
+                      "activation_status": {"enum": ["OPERATIONAL_CIVIL_NOMINAL_AGE_MATCH", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]}
+                    }
+                  }
+                }
+              }
+            },
+            "annual": {"$ref": "#/$defs/annual"},
+            "monthly": {"$ref": "#/$defs/monthly"},
+            "daily": {"$ref": "#/$defs/daily"},
+            "hourly": {"$ref": "#/$defs/hourly"},
+            "semantic_scope": {"const": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION"}
+          }
+        },
         "lineage": {
           "type": "object",
           "additionalProperties": false,
@@ -300,7 +367,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "BAZI-APPLICATION-FLOW-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.0.0"}
+        "algorithm_version": {"const": "1.1.0"}
       }
     }
   }

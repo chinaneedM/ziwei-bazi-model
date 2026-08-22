@@ -141,13 +141,13 @@ Resolving target-flow preserves released candidate lineage. A fold or uncertaint
 
 `计算共享 Projection` consumes the released target-coordinate candidates and the released Ziwei application bundle to calculate candidate-preserving Ziwei selector projections.
 
-**Calculation alone does not change Ziwei Daxian / Annual / Minor selectors.**
+**Calculation alone does not change Ziwei Daxian / Annual / Minor selectors.** It also does not change the regular-Lunar-Month selector.
 
 When more than one projection candidate exists, each lineage remains separately selectable even when visible Ziwei selector values happen to be identical.
 
 ### E. Explicit Apply to Ziwei
 
-Only the explicit `应用目标时间到紫微` action may apply one selected server-returned projection candidate to the Ziwei Daxian / Annual / Minor selectors.
+Only the explicit `应用目标时间到紫微` action may apply one selected server-returned projection candidate to the Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors. A projected leap month leaves the regular-month selector empty and visibly unresolved.
 
 Apply is one-way and opt-in:
 
@@ -171,6 +171,7 @@ After the command-level smoke passes, perform this short visual/interaction chec
 
 - [ ] Changing Daxian updates the Ziwei interaction view without relocating natal physical placements.
 - [ ] Changing Annual updates the Ziwei interaction view.
+- [ ] Changing regular Lunar Month updates the Ziwei interaction view.
 - [ ] Changing Minor-limit updates the Ziwei interaction view.
 - [ ] Clicking a natal palace changes the current palace-origin / 立太极.
 - [ ] The highlighted Sanfang/Sizheng set contains SELF, two trines and one opposition at the released +0/+4/+8/+6 geometry.
@@ -180,15 +181,16 @@ After the command-level smoke passes, perform this short visual/interaction chec
 
 - [ ] Target-flow cannot be resolved from an old/stale base after source birth fields are edited.
 - [ ] Explicit target datetime/place/coordinates/timezone are shown as a separate target input from birth input.
-- [ ] An ordinary exact target produces at least one Bazi flow candidate with Daily/Hourly frames and lineage/hash display.
+- [ ] An ordinary exact target produces at least one Bazi flow candidate with both Xiaoyun candidates, Daily/Hourly frames, and lineage/hash display.
 - [ ] If a fold/uncertainty fixture produces multiple candidates, the candidate selector preserves them individually.
 
 ### Shared projection and Apply
 
-- [ ] Clicking `计算共享 Projection` does **not** change Ziwei Daxian / Annual / Minor selectors.
+- [ ] Clicking `计算共享 Projection` does **not** change Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors.
 - [ ] A one-candidate projection may be preselected, but Ziwei still does not change until Apply is clicked.
 - [ ] A multi-candidate projection requires explicit candidate selection; candidate 0 is not auto-applied.
-- [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / Minor selectors and refreshes the existing Ziwei interaction view.
+- [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors and refreshes the existing Ziwei interaction view.
+- [ ] A leap-month target does not fabricate or apply a regular Ziwei monthly frame.
 - [ ] Apply does not change target datetime/place/coordinates/timezone, Bazi profile fields, or Bazi target-flow result.
 - [ ] Manual Ziwei navigation after Apply does not rewrite target fields.
 - [ ] Editing any birth/source input invalidates stale target-flow/projection eligibility.
