@@ -166,6 +166,29 @@ class BaziApplicationV1Tests(unittest.TestCase):
                     coordinates[key]["semantic_scope"],
                 )
 
+    def test_xiaoyun_alternatives_are_preserved_in_candidate_view_hash(self):
+        for candidate in self.bundle.candidates:
+            xiaoyun = candidate.view["xiaoyun"]
+            self.assertEqual(
+                "UNRESOLVED_CLASSICAL_ALTERNATIVES",
+                xiaoyun["selection_status"],
+            )
+            self.assertEqual(2, len(xiaoyun["candidates"]))
+            self.assertTrue(
+                all(
+                    row["status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in xiaoyun["candidates"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    frame["semantic_scope"]
+                    == "ANNUAL_COORDINATE_ONLY_NO_INTERPRETATION"
+                    for row in xiaoyun["candidates"]
+                    for frame in row["frames"]
+                )
+            )
+
     def test_dayun_direction_jiaoyun_and_frames_replay_exactly(self):
         view = self.bundle.candidates[0].view["dayun"]
         state = self.temporal.state

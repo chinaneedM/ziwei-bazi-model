@@ -48,6 +48,12 @@ class CombinedSharedTimeUiR1Tests(unittest.TestCase):
         self.assertIn("['身宫',derived.shengong]", APP_JS)
         self.assertIn(".bazi-derived-card", STYLE_CSS)
 
+    def test_xiaoyun_classical_alternatives_are_visible_without_arbitration(self) -> None:
+        self.assertIn("function renderXiaoyun(root,set)", APP_JS)
+        self.assertIn("小运候选 · ${candidate.profile_id}", APP_JS)
+        self.assertIn("renderXiaoyun(root,view.xiaoyun)", APP_JS)
+        self.assertIn(".xiaoyun-candidate", STYLE_CSS)
+
 
 if __name__ == "__main__":
     unittest.main()

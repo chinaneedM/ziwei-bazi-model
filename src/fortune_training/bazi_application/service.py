@@ -31,6 +31,7 @@ from .models import (
     BaziApplicationTimeCalendarProvenance,
     BaziApplicationUnresolvedTimeSample,
 )
+from .xiaoyun import xiaoyun_candidates
 
 
 class BaziApplicationResolutionError(ValueError):
@@ -245,6 +246,12 @@ class BaziChartService:
                 pillar_ganzhi["YEAR"],
                 pillar_ganzhi["MONTH"],
                 pillar_ganzhi["HOUR"],
+            ),
+            "xiaoyun": xiaoyun_candidates(
+                pillar_ganzhi["YEAR"],
+                pillar_ganzhi["HOUR"],
+                request.sex,
+                count=request.dayun_count * 10,
             ),
             "dayun": {
                 "direction": state.direction.direction,

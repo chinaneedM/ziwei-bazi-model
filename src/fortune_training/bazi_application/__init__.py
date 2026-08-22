@@ -48,6 +48,15 @@ from .models import (
 )
 from .profile import BaziApplicationProfile, bazi_local_application_v1_profile
 from .service import BaziApplicationResolutionError, BaziChartService
+from .xiaoyun import (
+    FIXED_SEX_PROFILE_ID,
+    HOUR_PILLAR_PROFILE_ID,
+    XIAOYUN_CANDIDATE_SET_ID,
+    fixed_sex_xiaoyun,
+    hour_pillar_xiaoyun,
+    validate_xiaoyun_profiles,
+    xiaoyun_candidates,
+)
 
 __all__ = [
     "BaziApplicationCandidate",
@@ -62,6 +71,9 @@ __all__ = [
     "BaziApplicationResolution",
     "BaziApplicationResolutionError",
     "BaziChartService",
+    "FIXED_SEX_PROFILE_ID",
+    "HOUR_PILLAR_PROFILE_ID",
+    "XIAOYUN_CANDIDATE_SET_ID",
     "DERIVED_COORDINATE_PROFILE_ID",
     "DERIVED_COORDINATE_PROFILE_VERSION",
     "MINGGONG_RULE_ID",
@@ -79,17 +91,21 @@ __all__ = [
     "application_flow_view_hash",
     "bazi_local_application_v1_profile",
     "derived_coordinates_for_pillars",
+    "fixed_sex_xiaoyun",
+    "hour_pillar_xiaoyun",
     "minggong_from_pillars",
     "shengong_from_pillars",
     "taiyuan_from_month_pillar",
     "twelve_growth_for",
     "validate_classical_annotation_registries",
     "validate_derived_coordinate_profile",
+    "validate_xiaoyun_profiles",
     "validate_application_flow_full_replay",
     "validate_application_flow_resolution",
     "validate_application_resolution",
     "xunkong_for_ganzhi",
     "xunkong_for_sexagenary_index",
+    "xiaoyun_candidates",
 ]
 
 __version__ = "0.2.0"

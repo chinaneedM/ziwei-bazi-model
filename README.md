@@ -168,6 +168,8 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 紫微流年帧现已补充斗君／正月宫坐标，并纳入时限事实哈希、完整性复算和 SVG 宫位标记；算法只读取紫微自己的农历生月与出生时支。详见 `docs/ZIWEI-DOUJUN-R1.md`。
 
+八字小运现按古籍同时保留“时柱起、年性别定顺逆”与“男丙寅女壬申固定起点”两套候选，不静默选边；两套都只输出虚岁干支坐标。详见 `docs/BAZI-XIAOYUN-CANDIDATES-R1.md`。
+
 真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
 
 ```bash
