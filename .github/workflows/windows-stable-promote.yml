@@ -65,7 +65,11 @@ jobs:
           if ($main -ne $env:SOURCE_COMMIT) {
             throw "promotion source is not exact current main: main=$main requested=$env:SOURCE_COMMIT"
           }
-          $version = (python -c "from pathlib import Path; import re; text=Path('src/fortune_training/desktop_application/distribution.py').read_text(encoding='utf-8'); m=re.search(r'DESKTOP_APPLICATION_VERSION = \"([^\"]+)\"', text); print(m.group(1) if m else '')").Trim()
+          $versionMatch = Select-String `
+            -Path 'src/fortune_training/desktop_application/distribution.py' `
+            -Pattern '^DESKTOP_APPLICATION_VERSION = "([^"]+)"$'
+          if ($versionMatch.Matches.Count -ne 1) { throw 'unable to resolve packaged version' }
+          $version = $versionMatch.Matches[0].Groups[1].Value
           if ($version -ne $env:REQUESTED_VERSION) {
             throw "promotion version/main mismatch: requested=$env:REQUESTED_VERSION source=$version"
           }
