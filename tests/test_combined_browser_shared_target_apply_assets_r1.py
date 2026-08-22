@@ -69,6 +69,16 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             with self.subTest(assignment=assignment):
                 self.assertNotIn(assignment, SHARED_APPLY_JS)
 
+    def test_daily_fact_and_hourly_candidates_are_read_only_and_visible(self) -> None:
+        self.assertIn("daily_projection=${row.daily_projection_status}", SHARED_APPLY_JS)
+        self.assertIn("row.hourly_method_candidates.map", SHARED_APPLY_JS)
+        self.assertIn("CANDIDATES_PRESERVED_NO_SELECTED_FRAME", SHARED_APPLY_JS)
+        apply_block = SHARED_APPLY_JS.split("function applyProjection()", 1)[1].split(
+            "candidateSelect.addEventListener", 1
+        )[0]
+        self.assertNotIn("daily_frame_id", apply_block)
+        self.assertNotIn("hourly_method_candidates", apply_block)
+
     def test_birth_and_target_edits_invalidate_projection(self) -> None:
         for field_id in (
             "birth-datetime",
@@ -130,7 +140,6 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
             "late_zi",
             "sexagenary",
             "jiaoyun",
-            "daily_frame",
             "hourly_frame",
         )
         lowered = SHARED_APPLY_JS.lower()

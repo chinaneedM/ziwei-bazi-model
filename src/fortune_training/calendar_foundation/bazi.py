@@ -4,10 +4,14 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 
 from .astronomy import SolarTerm, SolarTermEngine
+from .sexagenary import (
+    EARTHLY_BRANCHES,
+    HEAVENLY_STEMS,
+    five_rats_hour_pillar,
+    sexagenary_day_index,
+    sexagenary_pillar,
+)
 
-
-HEAVENLY_STEMS = "甲乙丙丁戊己庚辛壬癸"
-EARTHLY_BRANCHES = "子丑寅卯辰巳午未申酉戌亥"
 
 _JIE_TO_MONTH_BRANCH = {
     315: 2,
@@ -61,14 +65,8 @@ class BaziYearMonthResult:
     algorithm_version: str = "1.0.0"
 
 
-def _sexagenary_day_index(gregorian_date: date) -> int:
-    # Proleptic-Gregorian JDN at noon; JDN 2451551 (2000-01-07) is 甲子.
-    julian_day_number = gregorian_date.toordinal() + 1_721_425
-    return (julian_day_number + 49) % 60
-
-
 def _pillar(index: int) -> str:
-    return HEAVENLY_STEMS[index % 10] + EARTHLY_BRANCHES[index % 12]
+    return sexagenary_pillar(index)
 
 
 class BaziTimeResolver:
@@ -165,7 +163,7 @@ class BaziTimeResolver:
         effective_day_date = clock_date
         if day_boundary_policy == "ZI_START_23" and late_zi:
             effective_day_date += timedelta(days=1)
-        day_index = _sexagenary_day_index(effective_day_date)
+        day_index = sexagenary_day_index(effective_day_date)
         day_pillar = _pillar(day_index)
 
         hour_stem_source_date = effective_day_date
@@ -173,11 +171,10 @@ class BaziTimeResolver:
             hour_stem_source_date = clock_date + timedelta(days=1)
         elif late_zi and late_zi_hour_stem_policy == "CURRENT_DAY_STEM":
             hour_stem_source_date = clock_date
-        hour_day_stem_index = _sexagenary_day_index(hour_stem_source_date) % 10
-        hour_branch_index = ((local_apparent_solar_datetime.hour + 1) // 2) % 12
-        zi_hour_stem_index = (hour_day_stem_index % 5) * 2
-        hour_stem_index = (zi_hour_stem_index + hour_branch_index) % 10
-        hour_pillar = HEAVENLY_STEMS[hour_stem_index] + EARTHLY_BRANCHES[hour_branch_index]
+        hour_pillar = five_rats_hour_pillar(
+            local_apparent_solar_datetime,
+            hour_stem_source_date,
+        )
 
         return BaziTimeResult(
             year_pillar=year_month.year_pillar,

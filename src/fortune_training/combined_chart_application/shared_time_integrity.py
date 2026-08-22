@@ -16,7 +16,7 @@ from fortune_training.ziwei_application import (
     ApplicationResolutionError,
     validate_application_bundle,
 )
-from fortune_training.ziwei_chart import ZiweiTemporalEngine
+from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
 
 from .shared_time_models import (
     SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID,
@@ -55,6 +55,15 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "monthly_frame_id": candidate.monthly_frame_id,
             "monthly_ganzhi": candidate.monthly_ganzhi,
             "monthly_active_address_branch": candidate.monthly_active_address_branch,
+            "daily_projection_status": candidate.daily_projection_status,
+            "daily_frame_id": candidate.daily_frame_id,
+            "daily_effective_gregorian_date": candidate.daily_effective_gregorian_date,
+            "daily_ganzhi": candidate.daily_ganzhi,
+            "daily_active_address_branch": candidate.daily_active_address_branch,
+            "daily_rule_id": candidate.daily_rule_id,
+            "daily_source_refs": candidate.daily_source_refs,
+            "hourly_projection_status": candidate.hourly_projection_status,
+            "hourly_method_candidates": [json_value(row) for row in candidate.hourly_method_candidates],
         }
     )
 
@@ -155,6 +164,7 @@ def validate_shared_ziwei_selector_projection(
             f"{len(target_resolution.candidates)}"
         )
 
+    target_temporal = ZiweiTargetTemporalEngine()
     for index, target_candidate in enumerate(target_resolution.candidates):
         if index >= len(resolution.candidates):
             break
@@ -189,6 +199,8 @@ def validate_shared_ziwei_selector_projection(
         if lunar.is_leap_month:
             monthly = None
             monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
+            daily = None
+            daily_status = "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"
         else:
             monthly = ZiweiTemporalEngine().monthly_frame(
                 ziwei_bundle.temporal_context,
@@ -197,6 +209,12 @@ def validate_shared_ziwei_selector_projection(
                 lunar.month,
             )
             monthly_status = "REGULAR_LUNAR_MONTH_RESOLVED"
+            daily = target_temporal.daily_frame(
+                monthly,
+                effective_gregorian_date=lunar.source_gregorian_date,
+                effective_lunar_day=lunar.day,
+            )
+            daily_status = "REGULAR_LUNAR_DAY_RESOLVED"
         expected = {
             "source_target_candidate_index": index,
             "source_target_candidate_id": target_candidate.candidate_id,
@@ -223,10 +241,53 @@ def validate_shared_ziwei_selector_projection(
             "monthly_active_address_branch": (
                 monthly.active_address.branch if monthly is not None else None
             ),
+            "daily_projection_status": daily_status,
+            "daily_frame_id": daily.frame_id if daily is not None else None,
+            "daily_effective_gregorian_date": (
+                daily.effective_gregorian_date.isoformat() if daily is not None else None
+            ),
+            "daily_ganzhi": daily.day_ganzhi if daily is not None else None,
+            "daily_active_address_branch": (
+                daily.active_address.branch if daily is not None else None
+            ),
+            "daily_rule_id": daily.rule_id if daily is not None else None,
+            "daily_source_refs": daily.source_refs if daily is not None else (),
+            "hourly_projection_status": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
         }
         for field_name, expected_value in expected.items():
             if getattr(projected, field_name) != expected_value:
                 diagnostics.append(f"CANDIDATE_{index}_{field_name.upper()}_MISMATCH")
+        hourly_expected = target_temporal.hourly_method_candidates(
+            target_utc=target_candidate.target_utc,
+            local_apparent_solar_datetime=target_candidate.local_apparent_solar_datetime,
+            ziwei_day_boundary_policy=profile.ziwei_day_boundary_policy,
+        )
+        if len(projected.hourly_method_candidates) != len(hourly_expected):
+            diagnostics.append(f"CANDIDATE_{index}_HOURLY_CANDIDATE_COUNT_MISMATCH")
+        for hourly_index, expected_hourly in enumerate(hourly_expected):
+            if hourly_index >= len(projected.hourly_method_candidates):
+                break
+            actual_hourly = projected.hourly_method_candidates[hourly_index]
+            hourly_fields = {
+                "candidate_id": expected_hourly.candidate_id,
+                "time_standard": expected_hourly.time_standard,
+                "source_local_datetime": expected_hourly.source_local_datetime,
+                "ziwei_day_boundary_policy": expected_hourly.ziwei_day_boundary_policy,
+                "effective_gregorian_date": expected_hourly.effective_gregorian_date.isoformat(),
+                "day_ganzhi": expected_hourly.day_ganzhi,
+                "hour_branch": expected_hourly.hour_branch,
+                "hour_ganzhi": expected_hourly.hour_ganzhi,
+                "frame_status": expected_hourly.frame_status,
+                "active_address_branch": None,
+                "rule_id": expected_hourly.rule_id,
+                "authority_status": expected_hourly.authority_status,
+                "source_refs": expected_hourly.source_refs,
+            }
+            for field_name, expected_value in hourly_fields.items():
+                if getattr(actual_hourly, field_name) != expected_value:
+                    diagnostics.append(
+                        f"CANDIDATE_{index}_HOURLY_{hourly_index}_{field_name.upper()}_MISMATCH"
+                    )
         if projected.candidate_hash != shared_selector_candidate_hash(projected):
             diagnostics.append(f"CANDIDATE_{index}_HASH_MISMATCH")
 

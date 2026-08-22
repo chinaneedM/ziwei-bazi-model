@@ -15,7 +15,7 @@ from fortune_training.ziwei_application import (
     ApplicationResolutionError,
     validate_application_bundle,
 )
-from fortune_training.ziwei_chart import ZiweiTemporalEngine
+from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
 
 from .shared_time_integrity import (
     shared_selector_candidate_hash,
@@ -24,6 +24,7 @@ from .shared_time_integrity import (
 )
 from .shared_time_models import (
     SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA,
+    SharedZiweiHourlyMethodCandidate,
     SharedZiweiSelectorProjectionCandidate,
     SharedZiweiSelectorProjectionHashBundle,
     SharedZiweiSelectorProjectionIntegrityReport,
@@ -128,6 +129,7 @@ class SharedZiweiSelectorProjectionService:
             annual_by_year.setdefault(frame.absolute_year, []).append(frame)
 
         candidates: list[SharedZiweiSelectorProjectionCandidate] = []
+        target_temporal = ZiweiTargetTemporalEngine()
         for index, target_candidate in enumerate(target_resolution.candidates):
             civil_year = target_candidate.sample_reported_local_datetime.year
             annual_matches = annual_by_year.get(civil_year, [])
@@ -141,6 +143,8 @@ class SharedZiweiSelectorProjectionService:
             if lunar.is_leap_month:
                 monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
                 monthly = None
+                daily_status = "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"
+                daily = None
             else:
                 monthly_status = "REGULAR_LUNAR_MONTH_RESOLVED"
                 monthly = ZiweiTemporalEngine().monthly_frame(
@@ -149,6 +153,38 @@ class SharedZiweiSelectorProjectionService:
                     annual,
                     lunar.month,
                 )
+                daily_status = "REGULAR_LUNAR_DAY_RESOLVED"
+                daily = target_temporal.daily_frame(
+                    monthly,
+                    effective_gregorian_date=lunar.source_gregorian_date,
+                    effective_lunar_day=lunar.day,
+                )
+            hourly_candidates = tuple(
+                SharedZiweiHourlyMethodCandidate(
+                    candidate_id=row.candidate_id,
+                    time_standard=row.time_standard,
+                    source_local_datetime=row.source_local_datetime,
+                    ziwei_day_boundary_policy=row.ziwei_day_boundary_policy,
+                    effective_gregorian_date=row.effective_gregorian_date.isoformat(),
+                    day_ganzhi=row.day_ganzhi,
+                    hour_branch=row.hour_branch,
+                    hour_ganzhi=row.hour_ganzhi,
+                    frame_status=row.frame_status,
+                    active_address_branch=(
+                        row.active_address.branch if row.active_address is not None else None
+                    ),
+                    rule_id=row.rule_id,
+                    authority_status=row.authority_status,
+                    source_refs=row.source_refs,
+                )
+                for row in target_temporal.hourly_method_candidates(
+                    target_utc=target_candidate.target_utc,
+                    local_apparent_solar_datetime=target_candidate.local_apparent_solar_datetime,
+                    ziwei_day_boundary_policy=(
+                        ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
+                    ),
+                )
+            )
             candidate = SharedZiweiSelectorProjectionCandidate(
                 source_target_candidate_index=index,
                 source_target_candidate_id=target_candidate.candidate_id,
@@ -177,6 +213,19 @@ class SharedZiweiSelectorProjectionService:
                 monthly_active_address_branch=(
                     monthly.active_address.branch if monthly is not None else None
                 ),
+                daily_projection_status=daily_status,
+                daily_frame_id=daily.frame_id if daily is not None else None,
+                daily_effective_gregorian_date=(
+                    daily.effective_gregorian_date.isoformat() if daily is not None else None
+                ),
+                daily_ganzhi=daily.day_ganzhi if daily is not None else None,
+                daily_active_address_branch=(
+                    daily.active_address.branch if daily is not None else None
+                ),
+                daily_rule_id=daily.rule_id if daily is not None else None,
+                daily_source_refs=daily.source_refs if daily is not None else (),
+                hourly_projection_status="CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
+                hourly_method_candidates=hourly_candidates,
                 candidate_hash="",
             )
             candidates.append(

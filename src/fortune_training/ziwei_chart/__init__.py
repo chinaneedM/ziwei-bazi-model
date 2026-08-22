@@ -65,6 +65,11 @@ from .temporal import (
     ZiweiTemporalEngine,
     ZiweiTemporalState,
 )
+from .target_temporal import (
+    ZiweiTargetDailyFrame,
+    ZiweiTargetHourlyMethodCandidate,
+    ZiweiTargetTemporalEngine,
+)
 from .transformations import TransformationGenerator
 from .view import (
     ChartViewModel,
@@ -129,6 +134,9 @@ __all__ = [
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
     "ZiweiTemporalState",
+    "ZiweiTargetDailyFrame",
+    "ZiweiTargetHourlyMethodCandidate",
+    "ZiweiTargetTemporalEngine",
     "ZiweiTypedResolution",
     "ZiweiViewProjectionCompiler",
     "OPERATIONAL_ZIWEI_V1_PROFILE_ID",

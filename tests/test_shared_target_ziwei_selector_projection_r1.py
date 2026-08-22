@@ -126,6 +126,23 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(f"MONTH:2026:{row.effective_lunar_month}", row.monthly_frame_id)
         self.assertEqual(2, len(row.monthly_ganzhi))
         self.assertIn(row.monthly_active_address_branch, "子丑寅卯辰巳午未申酉戌亥")
+        self.assertEqual("REGULAR_LUNAR_DAY_RESOLVED", row.daily_projection_status)
+        self.assertEqual(f"DAY:{row.daily_effective_gregorian_date}", row.daily_frame_id)
+        self.assertEqual(2, len(row.daily_ganzhi))
+        self.assertIn(row.daily_active_address_branch, "子丑寅卯辰巳午未申酉戌亥")
+        self.assertEqual("S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1", row.daily_rule_id)
+        self.assertIn("S10:ZZTERM-P-0274", row.daily_source_refs)
+        self.assertEqual(
+            "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
+            row.hourly_projection_status,
+        )
+        self.assertEqual(
+            ["ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", "LOCAL_APPARENT_SOLAR_TIME"],
+            [candidate.time_standard for candidate in row.hourly_method_candidates],
+        )
+        self.assertTrue(all(candidate.active_address_branch is None for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(candidate.authority_status == "CASE_METHOD_ONLY_NOT_GLOBAL_RULE" for candidate in row.hourly_method_candidates))
+        self.assertTrue(all("S01:ZZZA-CF-002" in candidate.source_refs for candidate in row.hourly_method_candidates))
         Draft202012Validator(self.schema).validate(json_value(first))
 
         injected = copy.deepcopy(json_value(first))
@@ -141,6 +158,41 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertIsNone(row.monthly_frame_id)
         self.assertIsNone(row.monthly_ganzhi)
         self.assertIsNone(row.monthly_active_address_branch)
+        self.assertEqual("PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME", row.daily_projection_status)
+        self.assertIsNone(row.daily_frame_id)
+        self.assertIsNone(row.daily_effective_gregorian_date)
+        self.assertIsNone(row.daily_ganzhi)
+        self.assertIsNone(row.daily_active_address_branch)
+        self.assertIsNone(row.daily_rule_id)
+        self.assertEqual((), row.daily_source_refs)
+        self.assertEqual(2, len(row.hourly_method_candidates))
+
+    def test_daily_active_address_counts_forward_from_month_first_day(self) -> None:
+        row = self._project(self._target(datetime(2026, 8, 18, 12, 0))).candidates[0]
+        branches = "子丑寅卯辰巳午未申酉戌亥"
+        expected_index = (
+            branches.index(row.monthly_active_address_branch)
+            + row.effective_lunar_day
+            - 1
+        ) % 12
+        self.assertEqual(branches[expected_index], row.daily_active_address_branch)
+
+    def test_hourly_time_standard_conflict_remains_two_named_candidates(self) -> None:
+        row = self._project(self._target(datetime(2026, 11, 15, 13, 15))).candidates[0]
+        mean, apparent = row.hourly_method_candidates
+        self.assertEqual("ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", mean.time_standard)
+        self.assertEqual("LOCAL_APPARENT_SOLAR_TIME", apparent.time_standard)
+        self.assertNotEqual(mean.source_local_datetime, apparent.source_local_datetime)
+        self.assertNotEqual(mean.hour_branch, apparent.hour_branch)
+        self.assertEqual("ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY", mean.frame_status)
+        self.assertEqual("ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY", apparent.frame_status)
+        self.assertIn("S01:ZZZA-PR-004", mean.source_refs)
+
+    def test_ziwei_late_zi_daily_date_uses_ziwei_policy_not_bazi_flow(self) -> None:
+        row = self._project(self._target(datetime(2026, 8, 18, 23, 30))).candidates[0]
+        self.assertEqual("2026-08-19", row.daily_effective_gregorian_date)
+        self.assertEqual("ZI_START_23", row.ziwei_day_boundary_policy)
+        self.assertNotIn("bazi", row.daily_rule_id.lower())
 
     def test_pre_daxian_year_preserves_none_parent(self) -> None:
         pre = next(

@@ -43,6 +43,9 @@
         "effective_lunar_year", "effective_lunar_month", "effective_lunar_day",
         "effective_lunar_is_leap_month", "monthly_projection_status",
         "monthly_frame_id", "monthly_ganzhi", "monthly_active_address_branch",
+        "daily_projection_status", "daily_frame_id", "daily_effective_gregorian_date",
+        "daily_ganzhi", "daily_active_address_branch", "daily_rule_id",
+        "daily_source_refs", "hourly_projection_status", "hourly_method_candidates",
         "candidate_hash"
       ],
       "properties": {
@@ -72,7 +75,50 @@
         "monthly_frame_id": {"type": ["string", "null"], "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"},
         "monthly_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
         "monthly_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
+        "daily_projection_status": {"enum": ["REGULAR_LUNAR_DAY_RESOLVED", "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"]},
+        "daily_frame_id": {"type": ["string", "null"], "pattern": "^DAY:[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "daily_effective_gregorian_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "daily_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
+        "daily_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
+        "daily_rule_id": {"type": ["string", "null"]},
+        "daily_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "hourly_projection_status": {"const": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME"},
+        "hourly_method_candidates": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/hourlyCandidate"}
+        },
         "candidate_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "hourlyCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id", "time_standard", "source_local_datetime",
+        "ziwei_day_boundary_policy", "effective_gregorian_date", "day_ganzhi",
+        "hour_branch", "hour_ganzhi", "frame_status", "active_address_branch",
+        "rule_id", "authority_status", "source_refs"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "time_standard": {"enum": ["ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", "LOCAL_APPARENT_SOLAR_TIME"]},
+        "source_local_datetime": {"$ref": "#/$defs/dateTime"},
+        "ziwei_day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
+        "effective_gregorian_date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "day_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "hour_branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "hour_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "frame_status": {"const": "ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY"},
+        "active_address_branch": {"type": "null"},
+        "rule_id": {"const": "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"},
+        "authority_status": {"const": "CASE_METHOD_ONLY_NOT_GLOBAL_RULE"},
+        "source_refs": {
+          "type": "array",
+          "minItems": 6,
+          "items": {"type": "string", "minLength": 1}
+        }
       }
     },
     "hashes": {
@@ -83,7 +129,7 @@
         "fact_hash": {"$ref": "#/$defs/hash"},
         "computation_hash": {"$ref": "#/$defs/hash"},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
-        "algorithm_version": {"const": "1.1.0"}
+        "algorithm_version": {"const": "1.2.0"}
       }
     },
     "integrity": {
@@ -94,7 +140,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.1.0"}
+        "algorithm_version": {"const": "1.2.0"}
       }
     }
   }

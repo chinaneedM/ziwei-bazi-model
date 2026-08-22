@@ -31,9 +31,11 @@ The same target-coordinate candidate can be projected into the existing Ziwei se
 - life/body leap-month policy;
 - target local apparent solar time.
 
-The projection preserves the existing civil-year annual selector behavior and adds the regular lunar-month frame identity, Ganzhi, and active address. A regular lunar month can be explicitly applied to the existing Ziwei interaction refresh path.
+The projection preserves the existing civil-year annual selector behavior and adds the regular lunar-month frame identity, Ganzhi, and active address. For a regular month it also emits a read-only daily frame: the flow-month life address is lunar day one and the target lunar day is counted forward. Its day Ganzhi is calculated from the effective Gregorian date selected by the Ziwei profile, not copied from the Bazi daily frame. A regular lunar month can be explicitly applied to the existing Ziwei interaction refresh path; the daily fact is displayed but is not written into a selector that the current interaction UI does not materialize.
 
-If the effective date is in a leap month, R1 returns `LEAP_MONTH_UNRESOLVED_NO_FRAME`. It does not silently map the leap month to a regular-month frame; the browser leaves the regular lunar-month selector empty while still allowing the annual, Daxian, and minor-limit coordinates to be applied.
+S10's general rule text does not provide a runtime-authoritative flow-hour active-address rule. The only available Five-Rats description is case-method evidence. R1 therefore preserves two named hour-coordinate candidates, `ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME` (fixed at S01's 112°26′ reference longitude) and `LOCAL_APPARENT_SOLAR_TIME`, with their own clocks, effective dates, day/hour Ganzhi, and S01 conflict references. Both remain `ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY`; neither is silently selected or promoted to a complete hourly chart.
+
+If the effective date is in a leap month, R1 returns `LEAP_MONTH_UNRESOLVED_NO_FRAME` and `PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME` for the daily layer. It does not silently map the leap month to a regular-month or daily frame; the browser leaves the regular lunar-month selector empty while still allowing the annual, Daxian, and minor-limit coordinates to be applied.
 
 ## Candidate and lineage preservation
 
@@ -47,7 +49,7 @@ The link is therefore a shared target identity, not a shared calendar verdict:
 
 ## Integrity and schemas
 
-The application-flow replay validates all seven Bazi layers, Xiaoyun candidate preservation, and exact equality with the upstream Dayun/Flow/Daily-Hourly facts. The shared Ziwei projection replay independently reconstructs its effective lunar date and regular-month frame (or the unresolved leap-month state).
+The application-flow replay validates all seven Bazi layers, Xiaoyun candidate preservation, and exact equality with the upstream Dayun/Flow/Daily-Hourly facts. The shared Ziwei projection replay independently reconstructs its effective lunar date, regular-month and daily frames, and both time-standard hour candidates (or the unresolved leap-month parent state).
 
 Machine-readable contracts:
 
@@ -56,4 +58,4 @@ Machine-readable contracts:
 
 ## Non-goals
 
-R1 does not decide a Xiaoyun school, decide leap-month Ziwei flow doctrine, merge Bazi and Ziwei day boundaries, calculate strength/pattern/useful-god/favorable elements, activate ShenSha meanings, or produce event judgments, interpretations, training data, or predictions.
+R1 does not decide a Xiaoyun school, decide leap-month Ziwei flow doctrine, promote case-only flow-hour evidence into a global active-address rule, merge Bazi and Ziwei day boundaries, calculate strength/pattern/useful-god/favorable elements, activate ShenSha meanings, or produce event judgments, interpretations, training data, or predictions.

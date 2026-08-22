@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。闰月不伪造常规月盘；解析八字 flow 或编辑目标时间不会自动同步。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -177,11 +177,18 @@ SHARED_APPLY_JS = r"""
       && Number.isInteger(row.effective_lunar_month)
       && row.effective_lunar_month >= 1
       && row.effective_lunar_month <= 12
+      && row.hourly_projection_status === 'CANDIDATES_PRESERVED_NO_SELECTED_FRAME'
+      && Array.isArray(row.hourly_method_candidates)
+      && row.hourly_method_candidates.length === 2
       && (
         (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
-          && typeof row.monthly_frame_id === 'string')
+          && typeof row.monthly_frame_id === 'string'
+          && row.daily_projection_status === 'REGULAR_LUNAR_DAY_RESOLVED'
+          && typeof row.daily_frame_id === 'string')
         || (row.monthly_projection_status === 'LEAP_MONTH_UNRESOLVED_NO_FRAME'
-          && row.monthly_frame_id === null)
+          && row.monthly_frame_id === null
+          && row.daily_projection_status === 'PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME'
+          && row.daily_frame_id === null)
       )
     ));
   }
@@ -204,6 +211,10 @@ SHARED_APPLY_JS = r"""
       `annual_frame=${row.source_annual_frame_id}`,
       `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
       `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
+      `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · ${row.daily_active_address_branch || '-'}`,
+      ...row.hourly_method_candidates.map((hour) => (
+        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · ${hour.frame_status}`
+      )),
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');
     applyButton.disabled = false;
