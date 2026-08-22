@@ -170,7 +170,7 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 八字小运现按古籍同时保留“时柱起、年性别定顺逆”与“男丙寅女壬申固定起点”两套候选，不静默选边；两套都只输出虚岁干支坐标。详见 `docs/BAZI-XIAOYUN-CANDIDATES-R1.md`。
 
-八字神煞首批以 S11《渊海子平》稳定原文段落为事实注册表，发布天乙贵人、禄神、驿马、华盖；年柱与日柱锚点分别作为未裁决候选保存，界面、导出及完整性复算均不隐式合并，也不输出吉凶断语。详见 `docs/BAZI-SHENSHA-FACTS-R1.md`。
+八字神煞事实注册表以 S11《渊海子平》稳定原文段落为权威，现发布天乙、禄神、驿马、华盖、月德、月德合、天德、天厨、福星、太极、三奇、天赦、学堂、金舆、羊刃。年干、日干、月令、纳音与落柱范围按来源分别保存；争议候选不隐式合并，三奇附加条件不伪装为已裁决，也不输出吉凶断语。详见 `docs/BAZI-SHENSHA-FACTS-R1.md`。
 
 真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
 

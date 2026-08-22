@@ -149,10 +149,10 @@ APP_JS = """
     const shensha = candidate.view.shensha;
     if (shensha?.candidates?.length) {
       const section = el('section', undefined, 'shensha');
-      section.append(el('strong', '神煞事实候选（年柱法 / 日柱法分列，不裁决、不合并）'));
+      section.append(el('strong', '神煞事实候选（年、日、月令及落柱口径分列，不裁决、不合并）'));
       const items = el('div', undefined, 'shensha-items');
-      const basis = {DAY_STEM:'日干',YEAR_STEM:'年干',DAY_BRANCH:'日支',YEAR_BRANCH:'年支'};
-      shensha.candidates.filter((row) => row.present).forEach((row) => items.append(el('span', `${row.display_name}｜${basis[row.anchor_basis] || row.anchor_basis} ${row.anchor_value} → ${row.occurrences.map((hit) => hit.pillar_position).join('、')}`, 'shensha-item')));
+      const basis = {DAY_STEM:'日干',YEAR_STEM:'年干',DAY_BRANCH:'日支',YEAR_BRANCH:'年支',MONTH_BRANCH:'月令',MONTH_BRANCH_SEASON:'月令季节',YEAR_NAYIN_ELEMENT:'年柱纳音',DAY_NAYIN_ELEMENT:'日柱纳音',PILLAR_STEM_SEQUENCE:'顺序天干'};
+      shensha.candidates.filter((row) => row.present).forEach((row) => { const positions=row.occurrences.flatMap((hit)=>hit.pillar_positions||[hit.pillar_position]).join('、'); items.append(el('span', `${row.display_name}｜${basis[row.anchor_basis] || row.anchor_basis} ${row.anchor_value} → ${positions}`, 'shensha-item')); });
       if (!items.childElementCount) items.append(el('span', '当前四柱无匹配', 'shensha-item'));
       section.append(items); card.append(section);
     }

@@ -25,8 +25,16 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
             if row["shensha_id"] == shensha_id and row["anchor_basis"] == anchor_basis
         )
 
-    def test_four_source_definitions_preserve_two_anchor_candidates_each(self) -> None:
-        self.assertEqual(8, len(self.result["candidates"]))
+    def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
+        self.assertEqual(27, len(self.result["candidates"]))
+        self.assertEqual(
+            {
+                "TIANYI", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
+                "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
+                "TIANSHE", "XUETANG", "JINYU", "YANGREN",
+            },
+            {row["shensha_id"] for row in self.result["candidates"]},
+        )
         self.assertEqual("UNRESOLVED_CLASSICAL_ANCHOR_ALTERNATIVES", self.result["resolution_status"])
         self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", self.result["selection_semantics"])
 
@@ -60,6 +68,75 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             classical_shensha_for_pillars({"YEAR": "甲戌"})
+
+    def test_month_commanded_rules_keep_source_match_scope(self) -> None:
+        yuede = self.candidate("YUEDE", "MONTH_BRANCH")
+        self.assertEqual("巳", yuede["anchor_value"])
+        self.assertEqual("STEM", yuede["target_kind"])
+        self.assertEqual(["庚"], yuede["target_values"])
+        self.assertEqual("ONLY_DAY", yuede["match_scope"])
+
+        yuedehe = [
+            row for row in self.result["candidates"]
+            if row["shensha_id"] == "YUEDEHE"
+        ]
+        self.assertEqual({"ONLY_DAY", "ALL_PILLARS"}, {row["match_scope"] for row in yuedehe})
+        self.assertTrue(all(row["selection_status"] == "CANDIDATE_NOT_ARBITRATED" for row in yuedehe))
+
+        tiande = self.candidate("TIANDE", "MONTH_BRANCH")
+        self.assertEqual("STEM", tiande["target_kind"])
+        self.assertEqual(["辛"], tiande["target_values"])
+
+    def test_stem_anchor_alternatives_never_merge(self) -> None:
+        day_kitchen = self.candidate("TIANCHU", "DAY_STEM")
+        year_kitchen = self.candidate("TIANCHU", "YEAR_STEM")
+        self.assertEqual(["卯"], day_kitchen["target_branches"])
+        self.assertEqual(["巳"], year_kitchen["target_branches"])
+        self.assertNotEqual(day_kitchen["candidate_id"], year_kitchen["candidate_id"])
+
+        day_jinyu = self.candidate("JINYU", "DAY_STEM")
+        self.assertEqual(["寅"], day_jinyu["target_branches"])
+        self.assertFalse(day_jinyu["present"])
+
+    def test_taiji_tianshe_and_xuetang_preserve_distinct_anchor_types(self) -> None:
+        taiji = self.candidate("TAIJI", "YEAR_STEM")
+        self.assertEqual(["子", "午"], taiji["target_branches"])
+        self.assertEqual("SOURCE_EXPLICIT", taiji["selection_status"])
+
+        tianshe = self.candidate("TIANSHE", "MONTH_BRANCH_SEASON")
+        self.assertEqual("GANZHI", tianshe["target_kind"])
+        self.assertEqual(["甲午"], tianshe["target_values"])
+        self.assertEqual("ONLY_DAY", tianshe["match_scope"])
+
+        xuetang = [row for row in self.result["candidates"] if row["shensha_id"] == "XUETANG"]
+        self.assertEqual(
+            {"YEAR_NAYIN_ELEMENT", "DAY_NAYIN_ELEMENT"},
+            {row["anchor_basis"] for row in xuetang},
+        )
+        self.assertTrue(all(row["qualification_status"].startswith("ORTHODOX_GANZHI:") for row in xuetang))
+
+    def test_sanqi_requires_ordered_consecutive_stems_and_keeps_qualifier_open(self) -> None:
+        result = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "戊辰", "DAY": "庚申", "HOUR": "壬午",
+        })
+        heaven = next(
+            row for row in result["candidates"]
+            if row["shensha_id"] == "SANQI" and row["anchor_value"] == "HEAVEN"
+        )
+        self.assertTrue(heaven["present"])
+        self.assertEqual(["YEAR", "MONTH", "DAY"], heaven["occurrences"][0]["pillar_positions"])
+        self.assertEqual(
+            "BASE_SEQUENCE_ONLY_AUXILIARY_CONDITIONS_NOT_ARBITRATED",
+            heaven["qualification_status"],
+        )
+        reversed_result = classical_shensha_for_pillars({
+            "YEAR": "庚子", "MONTH": "戊辰", "DAY": "甲申", "HOUR": "壬午",
+        })
+        reversed_heaven = next(
+            row for row in reversed_result["candidates"]
+            if row["shensha_id"] == "SANQI" and row["anchor_value"] == "HEAVEN"
+        )
+        self.assertFalse(reversed_heaven["present"])
 
 
 if __name__ == "__main__":
