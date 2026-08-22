@@ -147,6 +147,24 @@ class BaziApplicationV1Tests(unittest.TestCase):
                     "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION",
                     growth["semantic_scope"],
                 )
+                self.assertEqual(
+                    pillar["stem"],
+                    pillar["self_twelve_growth"]["source_stem"],
+                )
+
+    def test_derived_coordinates_are_profiled_and_identity_only(self):
+        for candidate in self.bundle.candidates:
+            coordinates = candidate.view["derived_coordinates"]
+            self.assertEqual(
+                "BAZI-DERIVED-COORDINATES-YHZP-R1",
+                coordinates["profile_id"],
+            )
+            for key in ("taiyuan", "minggong", "shengong"):
+                self.assertEqual(2, len(coordinates[key]["ganzhi"]))
+                self.assertEqual(
+                    "DERIVED_COORDINATE_IDENTITY_ONLY_NO_INTERPRETATION",
+                    coordinates[key]["semantic_scope"],
+                )
 
     def test_dayun_direction_jiaoyun_and_frames_replay_exactly(self):
         view = self.bundle.candidates[0].view["dayun"]
