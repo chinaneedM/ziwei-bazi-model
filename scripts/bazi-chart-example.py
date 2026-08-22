@@ -8,7 +8,7 @@ from pathlib import Path
 from fortune_training.bazi_chart import (
     BaziChartFoundation,
     BaziChartRequest,
-    bazi_foundation_v1_profile,
+    build_production_bazi_profile,
 )
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry, TimeCalendarFoundation
 
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
-    profile = bazi_foundation_v1_profile(registry)
+    profile = build_production_bazi_profile(registry)
     engine = BaziChartFoundation(TimeCalendarFoundation(registry))
     result = engine.resolve(
         BaziChartRequest(

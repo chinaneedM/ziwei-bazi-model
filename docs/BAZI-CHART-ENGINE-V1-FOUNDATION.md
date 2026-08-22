@@ -1,6 +1,12 @@
 # Bazi Chart Engine V1 Foundation
 
-Status: release candidate on the Bazi Foundation development branch.
+Status: released and frozen on `main` as the deterministic Natal foundation.
+
+The formal release/freeze contract is
+[`BAZI-CHART-ENGINE-V1-RELEASE.md`](BAZI-CHART-ENGINE-V1-RELEASE.md). The
+subsequent Foundation Exit Audit also passed; new product, annotation or
+interpretive requirements do not reopen this layer unless they invalidate a
+deterministic fact, identity, hash, integrity or typed-handoff contract.
 
 ## Purpose
 
@@ -186,7 +192,7 @@ This is classified as a historical-time compatibility difference, not a Bazi eng
 
 ## Validation matrix
 
-Current release-candidate tests include:
+Current release tests include:
 
 - exactly 60 legal identities among all 120 stem x branch pairs
 - complete 10 x 10 Ten-God matrix
@@ -204,12 +210,15 @@ Current release-candidate tests include:
 - repository `fortune-train verify`
 - full unittest suite
 
-## Next layers
+## Released downstream layers
 
-The next implementation layer after Foundation release is not ShenSha or prediction. It is separately scoped work:
+The layers originally planned after Natal Foundation are now separately released:
 
-1. Bazi Structural Runtime: relation composition / suppression / reactivation and profile-specific root resolution.
-2. Bazi Temporal Runtime: direction, Jie anchor, Jiaoyun conversion profiles, Pre-Dayun, Dayun frames, Annual/Monthly axes and temporal intersections.
-3. Optional derived coordinates and annotations.
-4. Bazi Application / ViewModel.
-5. Only after both applications are stable: unified Ziwei + Bazi application shell.
+1. neutral Structural Context, Support, Incidence, Transition and positional foundations;
+2. Jiaoyun/Dayun, Annual/Monthly, target-coordinate and Daily/Hourly temporal layers;
+3. Bazi Application/target-flow composition;
+4. the identity-only combined Ziwei + Bazi application shell;
+5. optional Nayin annotation.
+
+Strength, Pattern, Useful God, final Classical resolution and prediction remain
+outside the frozen Chart Engine V1 Foundation.

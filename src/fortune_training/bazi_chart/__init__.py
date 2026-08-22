@@ -23,6 +23,11 @@ from .profile import (
     bazi_foundation_v1_profile,
     bazi_foundation_zi_start_23_r1_profile,
 )
+from .production_profile import (
+    PRODUCTION_BAZI_PROFILE_ID,
+    PRODUCTION_BAZI_PROFILE_VERSION,
+    build_production_bazi_profile,
+)
 from .registries import SEXAGENARY_CYCLE, sexagenary_index
 
 __all__ = [
@@ -38,6 +43,8 @@ __all__ = [
     "HiddenStemMembership",
     "IntegrityReport",
     "PillarState",
+    "PRODUCTION_BAZI_PROFILE_ID",
+    "PRODUCTION_BAZI_PROFILE_VERSION",
     "RelationCandidate",
     "ResolvedBaziCalculationProfile",
     "SEXAGENARY_CYCLE",
@@ -48,6 +55,7 @@ __all__ = [
     "ZI_START_23_PROFILE_VERSION",
     "bazi_foundation_v1_profile",
     "bazi_foundation_zi_start_23_r1_profile",
+    "build_production_bazi_profile",
     "natal_fact_projection",
     "natal_hash_bundle",
     "sexagenary_index",
