@@ -11,8 +11,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from fortune_training.bazi_chart import (
     ZI_START_23_PROFILE_ID,
-    bazi_foundation_v1_profile,
     bazi_foundation_zi_start_23_r1_profile,
+    build_production_bazi_profile,
 )
 from fortune_training.bazi_target_temporal import (
     TargetTemporalInput,
@@ -149,7 +149,7 @@ class FlowLocalBaziApplication(LocalBaziApplication):
         )
 
         natal_profiles = {
-            "BAZI-FOUNDATION-V1-R1": bazi_foundation_v1_profile,
+            "BAZI-FOUNDATION-V1-R1": build_production_bazi_profile,
             ZI_START_23_PROFILE_ID: bazi_foundation_zi_start_23_r1_profile,
         }
         natal_factory = natal_profiles.get(natal_profile_id)

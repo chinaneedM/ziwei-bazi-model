@@ -14,8 +14,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from fortune_training.bazi_application import bazi_local_application_v1_profile
 from fortune_training.bazi_chart import (
     ZI_START_23_PROFILE_ID,
-    bazi_foundation_v1_profile,
     bazi_foundation_zi_start_23_r1_profile,
+    build_production_bazi_profile,
 )
 from fortune_training.bazi_temporal import (
     bazi_temporal_v1_continuous_profile,
@@ -162,9 +162,9 @@ class LocalCombinedChartApplication:
         self.ziwei_calculation_profile = build_production_ziwei_profile(self.registry)
         self.ziwei_application_profile = ziwei_application_v1_profile()
         self.ziwei_presentation_profile = ziwei_application_default_presentation_profile()
-        self.bazi_natal_profile = bazi_foundation_v1_profile(self.registry)
+        self.bazi_natal_profile = build_production_bazi_profile(self.registry)
         self.bazi_natal_profiles = {
-            self.bazi_natal_profile.profile_id: bazi_foundation_v1_profile,
+            self.bazi_natal_profile.profile_id: build_production_bazi_profile,
             ZI_START_23_PROFILE_ID: bazi_foundation_zi_start_23_r1_profile,
         }
         self.bazi_application_profile = bazi_local_application_v1_profile()
