@@ -7,17 +7,18 @@
   "required": [
     "rule_set_id", "rule_set_version", "algorithm_id", "algorithm_version",
     "daxian_direction", "first_daxian_nominal_age",
-    "daxian_frames", "annual_frames", "minor_limit_frames"
+    "daxian_frames", "annual_frames", "monthly_frames", "minor_limit_frames"
   ],
   "properties": {
     "rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
-    "rule_set_version": {"const": "1.1.0"},
+    "rule_set_version": {"const": "1.2.0"},
     "algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
-    "algorithm_version": {"const": "1.1.0"},
+    "algorithm_version": {"const": "1.2.0"},
     "daxian_direction": {"enum": ["FORWARD", "REVERSE"]},
     "first_daxian_nominal_age": {"type": "integer", "minimum": 2, "maximum": 6},
     "daxian_frames": {"type": "array", "items": {"$ref": "#/$defs/daxian"}},
     "annual_frames": {"type": "array", "items": {"$ref": "#/$defs/annual"}},
+    "monthly_frames": {"type": "array", "items": {"$ref": "#/$defs/monthly"}},
     "minor_limit_frames": {"type": "array", "items": {"$ref": "#/$defs/minor"}}
   },
   "$defs": {
@@ -48,7 +49,7 @@
         "transformation_type": {"enum": ["化禄","化权","化科","化忌"]},
         "target_entity_id": {"type": "string"}, "target_display_name": {"type": "string"},
         "target_address": {"$ref": "#/$defs/address"},
-        "source_layer": {"enum": ["DAXIAN", "ANNUAL"]},
+        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
         "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
         "context_id": {"type": "string"}, "assignment_id": {"type": "string"},
         "mechanism_id": {"type": "string"}, "generator_id": {"type": "string"},
@@ -94,6 +95,31 @@
         "doujun_rule_id": {"const": "S10-SUIJIAN-REVERSE-BIRTH-MONTH-FORWARD-BIRTH-HOUR-R1"},
         "designation_overlay": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
         "parent_daxian_frame_id": {"type": ["string", "null"]},
+        "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "monthly": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "frame_id", "absolute_year", "lunar_month", "month_stem", "month_branch",
+        "month_ganzhi", "active_address", "designation_overlay", "parent_annual_frame_id",
+        "monthly_rule_id", "month_ganzhi_rule_id", "calendar_scope",
+        "leap_month_policy_status", "transformations", "source_refs"
+      ],
+      "properties": {
+        "frame_id": {"type": "string"}, "absolute_year": {"type": "integer"},
+        "lunar_month": {"type": "integer", "minimum": 1, "maximum": 12},
+        "month_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "month_branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]},
+        "month_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "active_address": {"$ref": "#/$defs/address"},
+        "designation_overlay": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
+        "parent_annual_frame_id": {"type": "string"},
+        "monthly_rule_id": {"const": "S10-DOUJUN-FIRST-MONTH-FORWARD-TWELVE-R1"},
+        "month_ganzhi_rule_id": {"const": "FIVE-TIGERS-YEAR-STEM-MONTH-GANZHI-R1"},
+        "calendar_scope": {"const": "REGULAR_LUNAR_MONTH_COORDINATE"},
+        "leap_month_policy_status": {"const": "UNRESOLVED_NOT_GENERATED"},
         "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},
         "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
       }

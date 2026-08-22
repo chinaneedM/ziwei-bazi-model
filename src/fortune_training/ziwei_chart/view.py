@@ -9,7 +9,7 @@ from fortune_training.util import object_sha256
 from .integrity import HashBundle, validate_natal_chart, validate_temporal_state
 from .models import NatalChartState
 from .registries import address
-from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, TemporalNatalContext, ZiweiTemporalState
+from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, TemporalNatalContext, ZiweiTemporalState
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
@@ -158,6 +158,27 @@ class ZiweiViewProjectionCompiler:
         return rows[0]
 
     @staticmethod
+    def _select_monthly(
+        state: ZiweiTemporalState | None,
+        annual_year: int | None,
+        lunar_month: int | None,
+    ) -> MonthlyFrame | None:
+        if lunar_month is None:
+            return None
+        if annual_year is None:
+            raise ViewProjectionError("VIEW_MONTH_REQUIRES_ANNUAL_YEAR")
+        if state is None:
+            raise ViewProjectionError("VIEW_TEMPORAL_STATE_REQUIRED")
+        rows = [
+            row
+            for row in state.monthly_frames
+            if row.absolute_year == annual_year and row.lunar_month == lunar_month
+        ]
+        if len(rows) != 1:
+            raise ViewProjectionError("VIEW_MONTHLY_FRAME_NOT_FOUND")
+        return rows[0]
+
+    @staticmethod
     def _view_payload(model: ChartViewModel) -> dict:
         payload = json_value(model)
         payload.pop("view_hash", None)
@@ -177,6 +198,7 @@ class ZiweiViewProjectionCompiler:
         temporal_context: TemporalNatalContext | None = None,
         daxian_frame_id: str | None = None,
         annual_year: int | None = None,
+        lunar_month: int | None = None,
         minor_limit_age: int | None = None,
     ) -> ChartViewModel:
         presentation.validate()
@@ -198,8 +220,9 @@ class ZiweiViewProjectionCompiler:
         overrides = self._override_map(presentation)
         daxian = self._select_daxian(temporal_state, daxian_frame_id)
         annual = self._select_annual(temporal_state, annual_year)
+        monthly = self._select_monthly(temporal_state, annual_year, lunar_month)
         minor = self._select_minor(temporal_state, minor_limit_age)
-        selected_frames = tuple(row.frame_id for row in (daxian, annual, minor) if row is not None)
+        selected_frames = tuple(row.frame_id for row in (daxian, annual, monthly, minor) if row is not None)
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
@@ -216,6 +239,8 @@ class ZiweiViewProjectionCompiler:
                 activation_sets.append(daxian.transformations)
             if annual is not None:
                 activation_sets.append(annual.transformations)
+            if monthly is not None:
+                activation_sets.append(monthly.transformations)
             for rows in activation_sets:
                 for row in rows:
                     transformation_by_entity.setdefault(row.target_entity_id, []).append(
@@ -253,7 +278,7 @@ class ZiweiViewProjectionCompiler:
 
         overlays_by_address: dict[int, list[ViewDesignationOverlay]] = {index: [] for index in range(12)}
         if presentation.show_temporal_overlays:
-            for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual)):
+            for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual), ("MONTH", monthly)):
                 if frame is None:
                     continue
                 for row in frame.designation_overlay:

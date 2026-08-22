@@ -8,7 +8,16 @@ from fortune_training.util import object_sha256
 
 from .models import NatalChartState, TransformationActivation
 from .registries import sexagenary_for_year
-from .temporal import DOUJUN_RULE_ID, TemporalNatalContext, ZiweiTemporalState
+from .temporal import (
+    DOUJUN_RULE_ID,
+    LEAP_MONTH_POLICY_STATUS,
+    MONTH_GANZHI_RULE_ID,
+    MONTHLY_RULE_ID,
+    REGULAR_MONTH_CALENDAR_SCOPE,
+    TemporalNatalContext,
+    ZiweiTemporalEngine,
+    ZiweiTemporalState,
+)
 
 if TYPE_CHECKING:
     from .profile import ResolvedZiweiCalculationProfile
@@ -264,6 +273,28 @@ def temporal_fact_projection(state: ZiweiTemporalState) -> dict[str, Any]:
             }
             for frame in sorted(state.annual_frames, key=lambda item: item.absolute_year)
         ],
+        "monthly_frames": [
+            {
+                "frame_id": frame.frame_id,
+                "absolute_year": frame.absolute_year,
+                "lunar_month": frame.lunar_month,
+                "month_stem": frame.month_stem,
+                "month_branch": frame.month_branch,
+                "month_ganzhi": frame.month_ganzhi,
+                "active_address": _address_fact(frame.active_address),
+                "designation_overlay": _designation_facts(frame.designation_overlay),
+                "parent_annual_frame_id": frame.parent_annual_frame_id,
+                "monthly_rule_id": frame.monthly_rule_id,
+                "month_ganzhi_rule_id": frame.month_ganzhi_rule_id,
+                "calendar_scope": frame.calendar_scope,
+                "leap_month_policy_status": frame.leap_month_policy_status,
+                "transformations": [
+                    _transformation_fact(row)
+                    for row in sorted(frame.transformations, key=lambda item: item.activation_id)
+                ],
+            }
+            for frame in sorted(state.monthly_frames, key=lambda item: (item.absolute_year, item.lunar_month))
+        ],
         "minor_limit_frames": [
             {
                 "frame_id": frame.frame_id,
@@ -309,6 +340,14 @@ def _temporal_lineage_projection(state: ZiweiTemporalState) -> dict[str, Any]:
                 "transformations": transformations(frame.transformations),
             }
             for frame in sorted(state.annual_frames, key=lambda item: item.absolute_year)
+        ],
+        "monthly": [
+            {
+                "frame_id": frame.frame_id,
+                "source_refs": sorted(frame.source_refs),
+                "transformations": transformations(frame.transformations),
+            }
+            for frame in sorted(state.monthly_frames, key=lambda item: (item.absolute_year, item.lunar_month))
         ],
         "minor": [
             {"frame_id": frame.frame_id, "source_refs": sorted(frame.source_refs)}
@@ -527,6 +566,60 @@ def validate_temporal_state(
         _diag(diagnostics, "ANNUAL_BIRTH_YEAR_INCONSISTENCY", "annual_frames", str(sorted(birth_year_candidates)))
     elif birth_year_candidates and next(iter(birth_year_candidates)) != context.ziwei_birth_year:
         _diag(diagnostics, "ANNUAL_BIRTH_YEAR_MISMATCH", "annual_frames", f"expected {context.ziwei_birth_year}")
+
+    annual_by_id = {frame.frame_id: frame for frame in state.annual_frames}
+    monthly_coordinates: set[tuple[int, int]] = set()
+    months_by_year: dict[int, set[int]] = {}
+    for index, frame in enumerate(state.monthly_frames):
+        path = f"monthly_frames[{index}]"
+        coordinate = (frame.absolute_year, frame.lunar_month)
+        if coordinate in monthly_coordinates:
+            _diag(diagnostics, "DUPLICATE_MONTHLY_COORDINATE", path, str(coordinate))
+        monthly_coordinates.add(coordinate)
+        months_by_year.setdefault(frame.absolute_year, set()).add(frame.lunar_month)
+        parent = annual_by_id.get(frame.parent_annual_frame_id)
+        if parent is None:
+            _diag(diagnostics, "MONTHLY_UNKNOWN_ANNUAL_PARENT", path, frame.parent_annual_frame_id)
+        else:
+            if frame.absolute_year != parent.absolute_year:
+                _diag(diagnostics, "MONTHLY_ANNUAL_PARENT_YEAR_MISMATCH", path, frame.frame_id)
+            expected_active_index = (parent.doujun_address.index + frame.lunar_month - 1) % 12
+            if frame.active_address.index != expected_active_index:
+                _diag(diagnostics, "MONTHLY_ADDRESS_MISMATCH", path, frame.frame_id)
+        try:
+            expected_stem, expected_branch = ZiweiTemporalEngine.month_ganzhi(
+                parent.year_stem if parent is not None else sexagenary_for_year(frame.absolute_year)[0],
+                frame.lunar_month,
+            )
+        except ValueError:
+            _diag(diagnostics, "INVALID_MONTHLY_NUMBER", path, str(frame.lunar_month))
+        else:
+            if (frame.month_stem, frame.month_branch, frame.month_ganzhi) != (
+                expected_stem,
+                expected_branch,
+                f"{expected_stem}{expected_branch}",
+            ):
+                _diag(diagnostics, "MONTHLY_GANZHI_MISMATCH", path, frame.frame_id)
+        if frame.designation_overlay[0].address != frame.active_address:
+            _diag(diagnostics, "MONTHLY_LIFE_OVERLAY_MISMATCH", path, frame.frame_id)
+        validate_overlay(frame.designation_overlay, f"{path}.designation_overlay")
+        validate_transformations(frame.transformations, f"{path}.transformations")
+        if any(row.source_layer != "MONTH" or row.source_stem != frame.month_stem for row in frame.transformations):
+            _diag(diagnostics, "MONTHLY_TRANSFORMATION_SOURCE_MISMATCH", path, frame.frame_id)
+        if frame.monthly_rule_id != MONTHLY_RULE_ID:
+            _diag(diagnostics, "MONTHLY_RULE_ID_MISMATCH", path, frame.frame_id)
+        if frame.month_ganzhi_rule_id != MONTH_GANZHI_RULE_ID:
+            _diag(diagnostics, "MONTHLY_GANZHI_RULE_ID_MISMATCH", path, frame.frame_id)
+        if frame.calendar_scope != REGULAR_MONTH_CALENDAR_SCOPE:
+            _diag(diagnostics, "MONTHLY_CALENDAR_SCOPE_MISMATCH", path, frame.frame_id)
+        if frame.leap_month_policy_status != LEAP_MONTH_POLICY_STATUS:
+            _diag(diagnostics, "MONTHLY_LEAP_POLICY_STATUS_MISMATCH", path, frame.frame_id)
+        _validate_source_refs(diagnostics, frame.source_refs, f"{path}.source_refs")
+    for year, months in months_by_year.items():
+        if months != set(range(1, 13)):
+            _diag(diagnostics, "INCOMPLETE_REGULAR_MONTHLY_YEAR", "monthly_frames", f"{year}: {sorted(months)}")
+    if not set(months_by_year).issubset(annual_years):
+        _diag(diagnostics, "MONTHLY_ANNUAL_COVERAGE_MISMATCH", "monthly_frames", "monthly years must be a subset of annual frames")
 
     minor_ages: set[int] = set()
     for index, frame in enumerate(state.minor_limit_frames):

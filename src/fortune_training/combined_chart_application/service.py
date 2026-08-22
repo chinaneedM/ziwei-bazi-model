@@ -322,6 +322,7 @@ class CombinedChartService:
                     presentation_profile=request.ziwei_presentation_profile,
                     daxian_frame_id=request.ziwei_daxian_frame_id,
                     annual_year=request.ziwei_annual_year,
+                    lunar_month=request.ziwei_lunar_month,
                     minor_limit_age=request.ziwei_minor_limit_age,
                     daxian_count=request.ziwei_daxian_count,
                 )

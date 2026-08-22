@@ -38,6 +38,7 @@ class CombinedChartApplicationRequest:
     combined_profile: CombinedChartApplicationProfile
     ziwei_daxian_frame_id: str | None = None
     ziwei_annual_year: int | None = None
+    ziwei_lunar_month: int | None = None
     ziwei_minor_limit_age: int | None = None
     ziwei_daxian_count: int = 12
     bazi_dayun_count: int = 12

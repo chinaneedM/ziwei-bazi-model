@@ -178,7 +178,7 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
             temporal_algorithm_version=TEMPORAL_ALGORITHM_VERSION,
         ).validate(self.registry)
         context = TemporalNatalContext.from_natal_chart(2001, Sex.MALE, self.typed_chart)
-        state = ZiweiTemporalEngine().generate(context, temporal_profile)
+        state = ZiweiTemporalEngine().generate(context, temporal_profile, monthly_years=(2001,))
         report = validate_temporal_state(state, context)
         self.assertEqual("PASS", report.status)
         first = temporal_hash_bundle(state, temporal_profile)
@@ -213,6 +213,19 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         self.assertNotEqual(
             first.fact_hash,
             temporal_hash_bundle(tampered, temporal_profile).fact_hash,
+        )
+
+        month0 = state.monthly_frames[0]
+        moved_month = replace(month0, active_address=state.monthly_frames[1].active_address)
+        tampered_months = replace(
+            state,
+            monthly_frames=(moved_month,) + state.monthly_frames[1:],
+        )
+        report = validate_temporal_state(tampered_months, context)
+        self.assertIn("MONTHLY_ADDRESS_MISMATCH", {row.code for row in report.diagnostics})
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered_months, temporal_profile).fact_hash,
         )
 
     def test_engine_fails_closed_when_generated_chart_breaks_integrity(self):

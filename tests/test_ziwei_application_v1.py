@@ -40,6 +40,7 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             presentation_profile=ziwei_application_default_presentation_profile(),
             daxian_frame_id="DAXIAN:index=1",
             annual_year=2001,
+            lunar_month=5,
             minor_limit_age=8,
         )
         cls.bundle = cls.service.resolve(cls.request)
@@ -78,7 +79,7 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
 
     def test_temporal_selection_is_reflected_in_view(self) -> None:
         self.assertEqual(
-            ("DAXIAN:index=1", "ANNUAL:2001", "MINOR:age=8"),
+            ("DAXIAN:index=1", "ANNUAL:2001", "MONTH:2001:5", "MINOR:age=8"),
             self.bundle.view_model.selected_temporal_frame_ids,
         )
         self.assertEqual(self.bundle.candidate.hashes.fact_hash, self.bundle.view_model.source_fact_hash)
@@ -91,6 +92,18 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
         ]
         self.assertEqual(1, len(doujun_cells))
         self.assertEqual(("ANNUAL:2001",), doujun_cells[0].doujun_frame_ids)
+        month_overlays = [
+            row
+            for cell in self.bundle.view_model.cells
+            for row in cell.temporal_designations
+            if row.frame_type == "MONTH" and row.designation_id == "LIFE"
+        ]
+        self.assertEqual(1, len(month_overlays))
+        self.assertEqual("MONTH:2001:5", month_overlays[0].frame_id)
+
+    def test_month_selection_requires_parent_annual_year(self) -> None:
+        with self.assertRaisesRegex(ValueError, "lunar_month requires annual_year"):
+            replace(self.request, annual_year=None, lunar_month=5)
 
     def test_plain_text_renderer_is_immediately_usable(self) -> None:
         rendered = self.service.render_plain_text(self.bundle)

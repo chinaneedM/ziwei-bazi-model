@@ -223,6 +223,19 @@ class CombinedChartApplicationV1Tests(unittest.TestCase):
         self.assertIsNotNone(result.bazi_bundle)
         self.assertIsNone(result.bazi_error)
 
+    def test_ziwei_month_selection_is_bound_without_cross_overwriting_bazi(self):
+        result = self.combined_service.resolve(
+            replace(
+                self.request,
+                ziwei_annual_year=2001,
+                ziwei_lunar_month=5,
+            )
+        )
+        self.assertEqual("RESOLVED_BOTH", result.status)
+        self.assertEqual(5, result.ziwei_bundle.selected_lunar_month)
+        self.assertIn("MONTH:2001:5", result.ziwei_bundle.view_model.selected_temporal_frame_ids)
+        self.assertEqual(self.combined.bazi_bundle.bundle_hash, result.bazi_bundle.bundle_hash)
+
     def test_bazi_uncertainty_is_not_cross_collapsed_by_ziwei(self):
         uncertain_birth = replace(self.birth, uncertainty_seconds=7200)
         result = self.combined_service.resolve(

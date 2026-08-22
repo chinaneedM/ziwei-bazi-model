@@ -42,6 +42,7 @@ class ZiweiLocalAppV1Tests(unittest.TestCase):
             "sex": "MALE",
             "daxian_frame_id": "DAXIAN:index=1",
             "annual_year": 2001,
+            "lunar_month": 5,
             "minor_limit_age": 8,
         }
 

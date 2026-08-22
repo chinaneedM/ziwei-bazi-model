@@ -38,6 +38,7 @@ class ApplicationBirthRequest:
     )
     daxian_frame_id: str | None = None
     annual_year: int | None = None
+    lunar_month: int | None = None
     minor_limit_age: int | None = None
     daxian_count: int = 12
     max_nominal_age: int | None = None
@@ -47,6 +48,11 @@ class ApplicationBirthRequest:
             raise ValueError("daxian_count must be positive")
         if self.minor_limit_age is not None and self.minor_limit_age < 1:
             raise ValueError("minor_limit_age must be positive")
+        if self.lunar_month is not None:
+            if self.annual_year is None:
+                raise ValueError("lunar_month requires annual_year")
+            if not 1 <= self.lunar_month <= 12:
+                raise ValueError("lunar_month must be in [1, 12]")
         if self.max_nominal_age is not None and self.max_nominal_age < 1:
             raise ValueError("max_nominal_age must be positive")
         if self.daxian_frame_id is not None and not self.daxian_frame_id.strip():
@@ -61,6 +67,7 @@ class ApplicationChartBundle:
     presentation_profile: PresentationProfile
     selected_daxian_frame_id: str | None
     selected_annual_year: int | None
+    selected_lunar_month: int | None
     selected_minor_limit_age: int | None
     candidate: ZiweiChartCandidate
     temporal_context: TemporalNatalContext

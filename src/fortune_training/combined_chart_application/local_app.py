@@ -298,6 +298,11 @@ class LocalCombinedChartApplication:
         bazi_dayun_count = _bounded_int(payload, "bazi_dayun_count", 1, 20)
         ziwei_daxian_frame_id = _optional_text(payload, "ziwei_daxian_frame_id", 80)
         ziwei_annual_year = _optional_int(payload, "ziwei_annual_year", 1, 9999)
+        ziwei_lunar_month = _optional_int(payload, "ziwei_lunar_month", 1, 12)
+        if ziwei_lunar_month is not None and ziwei_annual_year is None:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_INVALID_INPUT", "ziwei_lunar_month requires ziwei_annual_year"
+            )
         ziwei_minor_limit_age = _optional_int(payload, "ziwei_minor_limit_age", 1, 200)
         combined_profile_id = _required_text(
             payload, "combined_profile_id", max_length=100
@@ -356,6 +361,7 @@ class LocalCombinedChartApplication:
                 bazi_application_profile=self.bazi_application_profile,
                 ziwei_daxian_frame_id=ziwei_daxian_frame_id,
                 ziwei_annual_year=ziwei_annual_year,
+                ziwei_lunar_month=ziwei_lunar_month,
                 ziwei_minor_limit_age=ziwei_minor_limit_age,
                 ziwei_daxian_count=ziwei_daxian_count,
                 bazi_dayun_count=bazi_dayun_count,

@@ -54,7 +54,7 @@
       "additionalProperties": false,
       "required": ["frame_type", "frame_id", "designation_id", "label"],
       "properties": {
-        "frame_type": {"enum": ["DAXIAN", "ANNUAL"]},
+        "frame_type": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
         "frame_id": {"type": "string", "minLength": 1},
         "designation_id": {"type": "string", "minLength": 1},
         "label": {"type": "string", "minLength": 1}

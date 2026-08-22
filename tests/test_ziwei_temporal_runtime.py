@@ -183,6 +183,48 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(expected, frame.doujun_address)
             self.assertTrue(frame.doujun_rule_id)
 
+    def test_classical_monthly_example_replays_doujun_and_five_tigers(self):
+        context = _context(natal_month_coordinate=3, birth_hour_branch=address(4))
+        annual = self.engine.annual_frame(context, self.profile, 2022, ())
+        self.assertEqual("壬寅", f"{annual.year_stem}{annual.year_branch}")
+        self.assertEqual("辰", annual.doujun_address.branch)
+        months = tuple(
+            self.engine.monthly_frame(context, self.profile, annual, lunar_month)
+            for lunar_month in range(1, 13)
+        )
+        self.assertEqual("辰", months[0].active_address.branch)
+        self.assertEqual("巳", months[1].active_address.branch)
+        self.assertEqual("卯", months[11].active_address.branch)
+        self.assertEqual("壬寅", months[0].month_ganzhi)
+        self.assertEqual("丙午", months[4].month_ganzhi)
+        self.assertTrue(all(row.calendar_scope == "REGULAR_LUNAR_MONTH_COORDINATE" for row in months))
+        self.assertTrue(all(row.leap_month_policy_status == "UNRESOLVED_NOT_GENERATED" for row in months))
+
+    def test_yi_year_month_five_matches_source_example(self):
+        annual = self.engine.annual_frame(_context(), self.profile, 2035, ())
+        self.assertEqual("乙卯", f"{annual.year_stem}{annual.year_branch}")
+        month_five = self.engine.monthly_frame(_context(), self.profile, annual, 5)
+        self.assertEqual("壬午", month_five.month_ganzhi)
+
+    def test_generated_state_has_twelve_regular_months_per_annual_year(self):
+        selected = self.engine.generate(_context(), self.profile, monthly_years=(2001,))
+        self.assertEqual(12, len(selected.monthly_frames))
+        year_2001 = [row for row in selected.monthly_frames if row.absolute_year == 2001]
+        self.assertEqual(list(range(1, 13)), [row.lunar_month for row in year_2001])
+        self.assertEqual(
+            [address(year_2001[0].active_address.index + offset) for offset in range(12)],
+            [row.active_address for row in year_2001],
+        )
+        for row in year_2001:
+            self.assertTrue(all(item.source_layer == "MONTH" for item in row.transformations))
+            self.assertTrue(all(item.source_stem == row.month_stem for item in row.transformations))
+
+    def test_monthly_frames_are_materialized_only_for_requested_years(self):
+        self.assertEqual((), self.state.monthly_frames)
+        selected = self.engine.generate(_context(), self.profile, monthly_years=(2001, 2002))
+        self.assertEqual({2001, 2002}, {row.absolute_year for row in selected.monthly_frames})
+        self.assertEqual(24, len(selected.monthly_frames))
+
     def test_minor_limit_age_one_to_twelve_matches_wenmo_and_male_forward_rule(self):
         frames = {row.nominal_age: row for row in self.state.minor_limit_frames}
         for age_text, expected_branch in FIXTURE["expected_minor_age_1_to_12"].items():
@@ -227,6 +269,7 @@ class TemporalRuntimeTests(unittest.TestCase):
         self.assertEqual(5, len(state.annual_frames))
         self.assertEqual((), state.daxian_frames[0].transformations)
         self.assertTrue(all(frame.transformations == () for frame in state.annual_frames))
+        self.assertTrue(all(frame.transformations == () for frame in state.monthly_frames))
 
     def test_unknown_temporal_rule_set_rejected_at_profile_validation(self):
         broken = ResolvedZiweiCalculationProfile(

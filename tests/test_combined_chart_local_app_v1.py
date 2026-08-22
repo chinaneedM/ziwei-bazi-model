@@ -28,6 +28,7 @@ class CombinedChartLocalAppV1Tests(unittest.TestCase):
             "ziwei_daxian_count": 12,
             "ziwei_daxian_frame_id": None,
             "ziwei_annual_year": None,
+            "ziwei_lunar_month": None,
             "ziwei_minor_limit_age": None,
             "bazi_temporal_profile_id": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
             "bazi_dayun_count": 12,
@@ -106,6 +107,26 @@ class CombinedChartLocalAppV1Tests(unittest.TestCase):
         self.assertIsNone(response["ziwei_svg"])
         self.assertIsNone(response["combined_export"]["ziwei_export"])
         self.assertIsNotNone(response["combined_export"]["bazi_export"])
+
+    def test_regular_lunar_month_selection_reaches_ziwei_without_changing_bazi(self):
+        payload = dict(self.payload)
+        payload["ziwei_annual_year"] = 2001
+        payload["ziwei_lunar_month"] = 5
+        response = self.app.resolve_payload(payload)
+        resolution = response["combined_resolution"]
+        self.assertEqual("RESOLVED_BOTH", resolution["status"])
+        self.assertEqual(5, resolution["ziwei_bundle"]["selected_lunar_month"])
+        self.assertIn(
+            "MONTH:2001:5",
+            resolution["ziwei_bundle"]["view_model"]["selected_temporal_frame_ids"],
+        )
+        self.assertIsNotNone(resolution["bazi_bundle"])
+
+    def test_month_without_parent_year_fails_at_local_boundary(self):
+        payload = dict(self.payload)
+        payload["ziwei_lunar_month"] = 5
+        with self.assertRaisesRegex(LocalCombinedAppRequestError, "requires ziwei_annual_year"):
+            self.app.resolve_payload(payload)
 
 
 if __name__ == "__main__":
