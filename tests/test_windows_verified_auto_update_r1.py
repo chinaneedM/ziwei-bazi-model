@@ -373,7 +373,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("--clobber", workflow)
         self.assertIn("test_windows_verified_auto_update_r1.py", workflow)
         self.assertIn("asset_sha256", workflow)
-        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.3")
+        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.4")
 
 
 if __name__ == "__main__":
