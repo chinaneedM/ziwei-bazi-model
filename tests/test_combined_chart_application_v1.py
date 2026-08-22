@@ -280,6 +280,49 @@ class CombinedChartApplicationV1Tests(unittest.TestCase):
         )
         self.assertEqual(self.combined.manifest_hash, exported["manifest"]["manifest_hash"])
 
+    def test_shared_time_credential_binds_physical_facts_and_candidate_lineage(self):
+        credential = self.combined.shared_time_credential
+        self.assertEqual(
+            "ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-V1",
+            credential["schema"],
+        )
+        self.assertEqual("LOCAL_APPARENT_SOLAR", credential["selected_policies"]["shared_physical"]["time_coordinate_policy"])
+        self.assertEqual(1, len(credential["realizations"]))
+        realization = credential["realizations"][0]
+        self.assertEqual(
+            self.combined.bazi_bundle.candidates[0].view["time_provenance"][0]["birth_utc"],
+            realization["birth_utc"],
+        )
+        self.assertEqual(
+            "LINKED_BOTH",
+            self.combined.candidate_lineage["branches"][0]["status"],
+        )
+
+    def test_bazi_and_ziwei_keep_distinct_day_boundary_conventions(self):
+        policies = self.combined.shared_time_credential["selected_policies"]
+        self.assertEqual("ZI_START_23", policies["ziwei"]["day_boundary_policy"])
+        self.assertEqual("MIDNIGHT", policies["bazi"]["bazi_day_boundary_policy"])
+        self.assertEqual(
+            "CLASSICAL_CONTINUOUS",
+            policies["bazi"]["bazi_late_zi_hour_stem_policy"],
+        )
+        self.assertEqual("PASS", self.combined.integrity.status)
+
+    def test_tampered_shared_time_credential_or_lineage_fails_replay(self):
+        credential = copy.deepcopy(self.combined.shared_time_credential)
+        credential["realizations"][0]["birth_utc"] = "2000-01-01T00:00:00Z"
+        changed = replace(self.combined, shared_time_credential=credential)
+        report = validate_combined_resolution(changed)
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SHARED_TIME_REALIZATION_HASH_MISMATCH:0", report.diagnostics)
+
+        lineage = copy.deepcopy(self.combined.candidate_lineage)
+        lineage["branches"][0]["status"] = "UNBOUND"
+        changed = replace(self.combined, candidate_lineage=lineage)
+        report = validate_combined_resolution(changed)
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SHARED_TIME_CANDIDATE_LINEAGE_MISMATCH", report.diagnostics)
+
 
 if __name__ == "__main__":
     unittest.main()

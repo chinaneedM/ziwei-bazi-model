@@ -1,4 +1,15 @@
-"""Thin local composition shell for independent Ziwei and Bazi application bundles."""
+"""Deterministic Ziwei and Bazi composition with shared time lineage."""
+
+from .fusion_time import (
+    SHARED_TIME_CREDENTIAL_SCHEMA,
+    SHARED_TIME_LINEAGE_SCHEMA,
+    build_candidate_lineage,
+    build_shared_time_credential,
+    validate_candidate_lineage,
+    validate_shared_policy_contract,
+    validate_subsystem_time_binding,
+    validate_shared_time_credential,
+)
 
 from .flow_integrity import (
     combined_target_flow_bundle_hash,
@@ -69,6 +80,8 @@ __all__ = [
     "SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID",
     "SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION",
     "SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA",
+    "SHARED_TIME_CREDENTIAL_SCHEMA",
+    "SHARED_TIME_LINEAGE_SCHEMA",
     "CombinedApplicationIntegrityReport",
     "CombinedApplicationResolutionError",
     "CombinedChartApplicationProfile",
@@ -87,6 +100,8 @@ __all__ = [
     "SharedZiweiSelectorProjectionIntegrityReport",
     "SharedZiweiSelectorProjectionResolution",
     "SharedZiweiSelectorProjectionService",
+    "build_candidate_lineage",
+    "build_shared_time_credential",
     "combined_chart_application_v1_profile",
     "combined_manifest_hash",
     "combined_manifest_payload",
@@ -96,10 +111,14 @@ __all__ = [
     "shared_selector_candidate_hash",
     "shared_selector_hash_bundle",
     "validate_combined_resolution",
+    "validate_candidate_lineage",
     "validate_combined_target_flow_full_replay",
     "validate_combined_target_flow_resolution",
     "validate_shared_ziwei_selector_full_replay",
     "validate_shared_ziwei_selector_projection",
+    "validate_shared_policy_contract",
+    "validate_subsystem_time_binding",
+    "validate_shared_time_credential",
 ]
 
 __version__ = "0.3.0"

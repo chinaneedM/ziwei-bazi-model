@@ -28,6 +28,14 @@ from .models import (
     CombinedChartApplicationResolution,
     CombinedSubsystemError,
 )
+from .fusion_time import (
+    build_candidate_lineage,
+    build_shared_time_credential,
+    validate_candidate_lineage,
+    validate_shared_policy_contract,
+    validate_subsystem_time_binding,
+    validate_shared_time_credential,
+)
 
 
 COMBINED_RESOLUTION_SCHEMA = "ZIWEI-BAZI-COMBINED-APPLICATION-RESOLUTION-V1"
@@ -75,6 +83,8 @@ def combined_manifest_payload(
             "bazi_temporal": _profile_ref(resolution.bazi_temporal_profile),
             "bazi_application": _profile_ref(resolution.bazi_application_profile),
         },
+        "shared_time_credential": dict(resolution.shared_time_credential),
+        "candidate_lineage": dict(resolution.candidate_lineage),
         "subsystems": {
             "ziwei": {
                 "bundle_hash": (
@@ -112,8 +122,37 @@ def validate_combined_resolution(
         resolution.ziwei_application_profile.validate()
         resolution.ziwei_presentation_profile.validate()
         resolution.bazi_application_profile.validate()
+        validate_shared_policy_contract(
+            resolution.ziwei_calculation_profile,
+            resolution.bazi_natal_profile,
+        )
     except ValueError as exc:
         diagnostics.append(f"PROFILE_INVALID:{exc}")
+
+    diagnostics.extend(
+        validate_shared_time_credential(
+            resolution.birth,
+            dict(resolution.shared_time_credential),
+        )
+    )
+    if resolution.shared_time_credential.get("policy_registry_version") != (
+        resolution.ziwei_calculation_profile.time_calendar_policy_registry_version
+    ):
+        diagnostics.append("SHARED_TIME_PROFILE_REGISTRY_BINDING_MISMATCH")
+    expected_shared_policies = {
+        "shared_physical": {
+            "civil_ambiguous_time_policy": resolution.ziwei_calculation_profile.time_calendar_policies.civil_ambiguous_time_policy,
+            "time_coordinate_policy": "LOCAL_APPARENT_SOLAR",
+        },
+        "ziwei": {
+            "calendar_date_policy": resolution.ziwei_calculation_profile.time_calendar_policies.ziwei_calendar_date_policy,
+            "life_body_leap_month_policy": resolution.ziwei_calculation_profile.time_calendar_policies.ziwei_life_body_leap_month_policy,
+            "day_boundary_policy": resolution.ziwei_calculation_profile.ziwei_day_boundary_policy,
+        },
+        "bazi": json_value(resolution.bazi_natal_profile.time_calendar_policies),
+    }
+    if resolution.shared_time_credential.get("selected_policies") != expected_shared_policies:
+        diagnostics.append("SHARED_TIME_SELECTED_POLICIES_BINDING_MISMATCH")
 
     if resolution.sex not in {"MALE", "FEMALE"}:
         diagnostics.append("SHARED_SEX_INVALID")
@@ -154,6 +193,22 @@ def validate_combined_resolution(
             diagnostics.append("BAZI_SHARED_SEX_BINDING_MISMATCH")
     elif resolution.bazi_error is None:
         diagnostics.append("BAZI_RESULT_MISSING")
+
+    diagnostics.extend(
+        validate_candidate_lineage(
+            dict(resolution.shared_time_credential),
+            dict(resolution.candidate_lineage),
+            resolution.ziwei_bundle,
+            resolution.bazi_bundle,
+        )
+    )
+    diagnostics.extend(
+        validate_subsystem_time_binding(
+            dict(resolution.shared_time_credential),
+            resolution.ziwei_bundle,
+            resolution.bazi_bundle,
+        )
+    )
 
     present_count = int(resolution.ziwei_bundle is not None) + int(
         resolution.bazi_bundle is not None
@@ -213,6 +268,16 @@ class CombinedChartService:
         request.ziwei_application_profile.validate()
         request.ziwei_presentation_profile.validate()
         request.bazi_application_profile.validate()
+        try:
+            validate_shared_policy_contract(
+                request.ziwei_calculation_profile,
+                request.bazi_natal_profile,
+            )
+        except ValueError as exc:
+            raise CombinedApplicationResolutionError(
+                "COMBINED_SHARED_TIME_POLICY_MISMATCH",
+                str(exc),
+            ) from exc
         sex = self._normalize_sex(request.sex)
         if request.ziwei_daxian_count < 1 or request.ziwei_daxian_count > 20:
             raise CombinedApplicationResolutionError(
@@ -224,6 +289,23 @@ class CombinedChartService:
                 "COMBINED_INVALID_BAZI_DAYUN_COUNT",
                 str(request.bazi_dayun_count),
             )
+
+        ziwei_time_result = self.ziwei_foundation.time_calendar.resolve(
+            request.birth,
+            request.ziwei_calculation_profile.time_calendar_policies,
+        )
+        bazi_time_result = self.ziwei_foundation.time_calendar.resolve_bazi(
+            request.birth,
+            request.bazi_natal_profile.time_calendar_policies,
+        )
+        shared_time_credential = build_shared_time_credential(
+            request.birth,
+            ziwei_time_result,
+            bazi_time_result,
+            ziwei_day_boundary_policy=(
+                request.ziwei_calculation_profile.ziwei_day_boundary_policy
+            ),
+        )
 
         ziwei_bundle = None
         ziwei_error = None
@@ -295,6 +377,11 @@ class CombinedChartService:
             )
             status = "UNCERTAINTY_PRESENT" if uncertainty else "RESOLVED_BOTH"
 
+        candidate_lineage = build_candidate_lineage(
+            shared_time_credential,
+            ziwei_bundle,
+            bazi_bundle,
+        )
         resolution = CombinedChartApplicationResolution(
             schema=COMBINED_RESOLUTION_SCHEMA,
             status=status,
@@ -311,6 +398,8 @@ class CombinedChartService:
             bazi_bundle=bazi_bundle,
             ziwei_error=ziwei_error,
             bazi_error=bazi_error,
+            shared_time_credential=shared_time_credential,
+            candidate_lineage=candidate_lineage,
             manifest_hash="PENDING",
             integrity=CombinedApplicationIntegrityReport(
                 status="PENDING",
