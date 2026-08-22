@@ -35,6 +35,12 @@ class CombinedSharedTimeUiR1Tests(unittest.TestCase):
         self.assertIn(".shared-time-facts", STYLE_CSS)
         self.assertNotIn("预测结论", APP_JS)
 
+    def test_bazi_classical_fact_annotations_are_visible_without_interpretation(self) -> None:
+        self.assertIn("旬空：${p.xunkong?.display_name||'-'}", APP_JS)
+        self.assertIn("日主十二长生：${p.day_master_twelve_growth?.phase||'-'}", APP_JS)
+        self.assertIn(".pillar .classical-annotations", STYLE_CSS)
+        self.assertNotIn("旺衰结论", APP_JS)
+
 
 if __name__ == "__main__":
     unittest.main()

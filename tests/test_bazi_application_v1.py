@@ -128,6 +128,26 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 [row["ten_god"] for row in pillar["hidden_stems"]],
             )
 
+    def test_xunkong_and_twelve_growth_are_identity_only_annotations(self):
+        for candidate in self.bundle.candidates:
+            for pillar in candidate.view["pillars"]:
+                xunkong = pillar["xunkong"]
+                growth = pillar["day_master_twelve_growth"]
+                self.assertEqual(2, len(xunkong["void_branches"]))
+                self.assertEqual(
+                    "IDENTITY_ONLY_NO_AUSPICIOUSNESS",
+                    xunkong["semantic_scope"],
+                )
+                self.assertEqual(
+                    self.natal.chart.day_master_stem,
+                    growth["source_stem"],
+                )
+                self.assertEqual(pillar["branch"], growth["target_branch"])
+                self.assertEqual(
+                    "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION",
+                    growth["semantic_scope"],
+                )
+
     def test_dayun_direction_jiaoyun_and_frames_replay_exactly(self):
         view = self.bundle.candidates[0].view["dayun"]
         state = self.temporal.state

@@ -20,6 +20,7 @@ from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
 from .integrity import validate_application_resolution
+from .classical_annotations import twelve_growth_for, xunkong_for_sexagenary_index
 from .models import (
     BaziApplicationCandidate,
     BaziApplicationIntegrityReport,
@@ -187,6 +188,13 @@ class BaziChartService:
                     "branch": branch.branch,
                     "branch_element_affiliation": branch.element_affiliation,
                     "hidden_stems": hidden,
+                    "xunkong": xunkong_for_sexagenary_index(
+                        pillar.sexagenary_index
+                    ),
+                    "day_master_twelve_growth": twelve_growth_for(
+                        chart.day_master_stem,
+                        branch.branch,
+                    ),
                 }
             )
 
