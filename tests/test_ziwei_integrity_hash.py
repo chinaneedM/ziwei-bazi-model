@@ -192,6 +192,29 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         self.assertEqual(first.fact_hash, changed_hash.fact_hash)
         self.assertNotEqual(first.computation_hash, changed_hash.computation_hash)
 
+        annual0 = state.annual_frames[0]
+        moved_doujun = replace(
+            annual0,
+            doujun_address=replace(
+                annual0.doujun_address,
+                index=(annual0.doujun_address.index + 1) % 12,
+                branch="丑" if annual0.doujun_address.branch == "子" else "子",
+            ),
+        )
+        tampered = replace(
+            state,
+            annual_frames=(moved_doujun,) + state.annual_frames[1:],
+        )
+        report = validate_temporal_state(tampered, context)
+        self.assertIn(
+            "ANNUAL_DOUJUN_ADDRESS_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered, temporal_profile).fact_hash,
+        )
+
     def test_engine_fails_closed_when_generated_chart_breaks_integrity(self):
         class DuplicateMainStarGenerator:
             def __init__(self, delegate):

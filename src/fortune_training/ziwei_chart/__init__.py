@@ -58,6 +58,7 @@ from .roles import QSRoleGenerator, WenmoDefaultRoleGenerator
 from .temporal import (
     AnnualFrame,
     DaxianFrame,
+    DOUJUN_RULE_ID,
     MinorLimitFrame,
     TemporalNatalContext,
     ZiweiTemporalEngine,
@@ -79,6 +80,7 @@ __all__ = [
     "AuxiliaryContext",
     "ChartViewModel",
     "DaxianFrame",
+    "DOUJUN_RULE_ID",
     "DerivedAuxiliaryGenerator",
     "DignityAnnotation",
     "DignityRegistryCell",

@@ -77,6 +77,8 @@ def _context(**changes) -> TemporalNatalContext:
         address_attributes=WENMO_2001_ADDRESS_STEMS,
         placements=WENMO_2001_TRANSFORMATION_TARGETS,
         sex=Sex.MALE,
+        natal_month_coordinate=11,
+        birth_hour_branch=address(5),
     )
     return replace(base, **changes)
 
@@ -160,6 +162,26 @@ class TemporalRuntimeTests(unittest.TestCase):
         self.assertEqual("丙申", frame.active_palace_ganzhi)
         self.assertTrue(all(row.source_stem == "甲" for row in frame.transformations))
         self.assertNotEqual(frame.year_stem, frame.active_palace_ganzhi[0])
+
+    def test_classical_doujun_source_example_replays_exactly(self):
+        context = _context(
+            natal_month_coordinate=3,
+            birth_hour_branch=address(4),
+        )
+        self.assertEqual("辰", self.engine.doujun_address(context, "寅").branch)
+
+    def test_wenmo_1994_zi_year_doujun_replays_exactly(self):
+        context = _context(
+            natal_month_coordinate=4,
+            birth_hour_branch=address(7),
+        )
+        self.assertEqual("辰", self.engine.doujun_address(context, "子").branch)
+
+    def test_all_annual_frames_carry_hashed_doujun_identity(self):
+        for frame in self.state.annual_frames:
+            expected = self.engine.doujun_address(_context(), frame.year_branch)
+            self.assertEqual(expected, frame.doujun_address)
+            self.assertTrue(frame.doujun_rule_id)
 
     def test_minor_limit_age_one_to_twelve_matches_wenmo_and_male_forward_rule(self):
         frames = {row.nominal_age: row for row in self.state.minor_limit_frames}

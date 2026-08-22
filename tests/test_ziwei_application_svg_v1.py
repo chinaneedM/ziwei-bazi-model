@@ -79,6 +79,7 @@ class ZiweiApplicationSvgV1Tests(unittest.TestCase):
         self.assertIn("DAXIAN:", svg)
         self.assertIn("ANNUAL:", svg)
         self.assertIn("小限:", svg)
+        self.assertIn("斗君:", svg)
         self.assertTrue(any(token in svg for token in ("[庙]", "[旺]", "[得]", "[利]", "[平]", "[不]", "[陷]", "[未评级]")))
         self.assertTrue(any(token in svg for token in ("化禄", "化权", "化科", "化忌")))
 

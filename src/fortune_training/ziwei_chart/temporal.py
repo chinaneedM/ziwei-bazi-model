@@ -20,12 +20,18 @@ if TYPE_CHECKING:
 
 
 TEMPORAL_ALGORITHM_ID = "ZIWEI-TEMPORAL-FRAMES-V1"
-TEMPORAL_ALGORITHM_VERSION = "1.0.0"
+TEMPORAL_ALGORITHM_VERSION = "1.1.0"
 S10_CURRENT_TEMPORAL_RULE_SET_ID = "S10_CURRENT_TEMPORAL_R1"
-S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.0.0"
+S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.1.0"
 
 DAXIAN_SOURCE_REFS = ("S10:中州派动态坐标生成补充:大限",)
 ANNUAL_SOURCE_REFS = ("S10:中州派动态坐标生成补充:流年太岁与斗君",)
+DOUJUN_SOURCE_REFS = (
+    "S01:ZZQS-A-1935",
+    "S10:ZZZA-A-1127",
+    "S10:ZZZA-A-1128",
+)
+DOUJUN_RULE_ID = "S10-SUIJIAN-REVERSE-BIRTH-MONTH-FORWARD-BIRTH-HOUR-R1"
 MINOR_LIMIT_SOURCE_REFS = ("S10:中州派动态坐标生成补充:小限",)
 
 YANG_STEMS = {"甲", "丙", "戊", "庚", "壬"}
@@ -54,6 +60,8 @@ class TemporalNatalContext:
     address_attributes: tuple[AddressAttribute, ...]
     placements: tuple[Placement, ...]
     sex: Sex
+    natal_month_coordinate: int
+    birth_hour_branch: Address
 
     @classmethod
     def from_natal_chart(
@@ -73,6 +81,8 @@ class TemporalNatalContext:
             address_attributes=structure.address_attributes,
             placements=chart.placements,
             sex=sex,
+            natal_month_coordinate=structure.natal_month_coordinate,
+            birth_hour_branch=structure.birth_hour_branch,
         )
 
 
@@ -101,6 +111,8 @@ class AnnualFrame:
     year_branch: str
     active_address: Address
     active_palace_ganzhi: str
+    doujun_address: Address
+    doujun_rule_id: str
     designation_overlay: tuple[DesignationBinding, ...]
     parent_daxian_frame_id: str | None
     transformations: tuple[TransformationActivation, ...]
@@ -257,6 +269,7 @@ class ZiweiTemporalEngine:
         active = address(branch_index(year_branch))
         stems = self._address_stem_map(context.address_attributes)
         active_stem = stems[active.index]
+        doujun = self.doujun_address(context, year_branch)
         frame_id = f"ANNUAL:{absolute_year}"
         return AnnualFrame(
             frame_id=frame_id,
@@ -266,6 +279,8 @@ class ZiweiTemporalEngine:
             year_branch=year_branch,
             active_address=active,
             active_palace_ganzhi=f"{active_stem}{active.branch}",
+            doujun_address=doujun,
+            doujun_rule_id=DOUJUN_RULE_ID,
             designation_overlay=self._designation_overlay(active),
             parent_daxian_frame_id=self._parent_daxian(nominal_age, daxian_frames),
             transformations=self._activate_transformations(
@@ -275,7 +290,24 @@ class ZiweiTemporalEngine:
                 source_layer="ANNUAL",
                 context_id=frame_id,
             ),
-            source_refs=ANNUAL_SOURCE_REFS,
+            source_refs=ANNUAL_SOURCE_REFS + DOUJUN_SOURCE_REFS,
+        )
+
+    @staticmethod
+    def doujun_address(context: TemporalNatalContext, annual_branch: str) -> Address:
+        """Return the annual 正月 address without interpreting its quality.
+
+        流年岁建起正月，逆数至本生月，再从该宫起子顺数至本生时。
+        Both counts are inclusive, hence their zero-based offsets are month-1
+        and the birth-hour branch index respectively.
+        """
+
+        if not 1 <= context.natal_month_coordinate <= 12:
+            raise ValueError("natal_month_coordinate must be in [1, 12]")
+        return address(
+            branch_index(annual_branch)
+            - (context.natal_month_coordinate - 1)
+            + context.birth_hour_branch.index
         )
 
     def annual_frames(

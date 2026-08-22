@@ -97,6 +97,7 @@ class PalaceViewCell:
     ring_members: tuple[ViewRingMember, ...]
     temporal_designations: tuple[ViewDesignationOverlay, ...]
     minor_limit_frame_ids: tuple[str, ...]
+    doujun_frame_ids: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -269,6 +270,10 @@ class ZiweiViewProjectionCompiler:
         if presentation.show_temporal_overlays and minor is not None:
             minor_by_address[minor.active_address.index].append(minor.frame_id)
 
+        doujun_by_address: dict[int, list[str]] = {index: [] for index in range(12)}
+        if presentation.show_temporal_overlays and annual is not None:
+            doujun_by_address[annual.doujun_address.index].append(annual.frame_id)
+
         roles: list[ViewRole] = []
         if presentation.show_roles:
             for row in chart.role_bindings:
@@ -304,6 +309,7 @@ class ZiweiViewProjectionCompiler:
                     ring_members=tuple(ring_by_address[index]),
                     temporal_designations=tuple(overlays_by_address[index]),
                     minor_limit_frame_ids=tuple(minor_by_address[index]),
+                    doujun_frame_ids=tuple(doujun_by_address[index]),
                 )
             )
 
@@ -361,6 +367,8 @@ class PlainTextZiweiRenderer:
             temporal = ", ".join(f"{row.frame_type}:{row.label}" for row in cell.temporal_designations)
             if cell.minor_limit_frame_ids:
                 temporal = ", ".join(filter(None, (temporal, "小限:" + "/".join(cell.minor_limit_frame_ids))))
+            if cell.doujun_frame_ids:
+                temporal = ", ".join(filter(None, (temporal, "斗君:" + "/".join(cell.doujun_frame_ids))))
             temporal = temporal or "-"
             lines.append(
                 f"{cell.stem}{cell.branch} {cell.natal_designation_label} | stars={stars} | rings={rings} | temporal={temporal}"

@@ -86,6 +86,11 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             self.bundle.candidate.hashes.computation_hash,
             self.bundle.view_model.source_computation_hash,
         )
+        doujun_cells = [
+            cell for cell in self.bundle.view_model.cells if cell.doujun_frame_ids
+        ]
+        self.assertEqual(1, len(doujun_cells))
+        self.assertEqual(("ANNUAL:2001",), doujun_cells[0].doujun_frame_ids)
 
     def test_plain_text_renderer_is_immediately_usable(self) -> None:
         rendered = self.service.render_plain_text(self.bundle)

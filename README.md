@@ -166,6 +166,8 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 八字候选视图同时补充胎元、命宫、身宫与每柱“自坐”十二长生；古籍中的三百日前胎元异法以未选择 profile 保留，默认结果不会覆盖异本，也不会影响紫微自己的换日与历法口径。详见 `docs/BAZI-DERIVED-COORDINATES-R1.md`。
 
+紫微流年帧现已补充斗君／正月宫坐标，并纳入时限事实哈希、完整性复算和 SVG 宫位标记；算法只读取紫微自己的农历生月与出生时支。详见 `docs/ZIWEI-DOUJUN-R1.md`。
+
 真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
 
 ```bash

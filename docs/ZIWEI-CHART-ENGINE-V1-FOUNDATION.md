@@ -41,7 +41,7 @@ Implemented:
 
 Explicitly post-V1 unless promoted by a new release/profile version:
 
-- temporal extensions beyond current Daxian/Annual/Minor-Limit scope, including separately typed 斗君/月 frame families;
+- temporal extensions beyond current Daxian/Annual/Minor-Limit and annual 斗君 scope, including separately typed month/day/hour frame families;
 - graphical renderer / UI;
 - general ChartDiff automation beyond frozen compatibility fixtures;
 - wider compatibility research for additional physical entities not in the V1 inventory;

@@ -11,9 +11,9 @@
   ],
   "properties": {
     "rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
-    "rule_set_version": {"const": "1.0.0"},
+    "rule_set_version": {"const": "1.1.0"},
     "algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
-    "algorithm_version": {"const": "1.0.0"},
+    "algorithm_version": {"const": "1.1.0"},
     "daxian_direction": {"enum": ["FORWARD", "REVERSE"]},
     "first_daxian_nominal_age": {"type": "integer", "minimum": 2, "maximum": 6},
     "daxian_frames": {"type": "array", "items": {"$ref": "#/$defs/daxian"}},
@@ -80,7 +80,8 @@
       "type": "object", "additionalProperties": false,
       "required": [
         "frame_id", "absolute_year", "nominal_age", "year_stem", "year_branch",
-        "active_address", "active_palace_ganzhi", "designation_overlay",
+        "active_address", "active_palace_ganzhi", "doujun_address",
+        "doujun_rule_id", "designation_overlay",
         "parent_daxian_frame_id", "transformations", "source_refs"
       ],
       "properties": {
@@ -89,6 +90,8 @@
         "year_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
         "year_branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]},
         "active_address": {"$ref": "#/$defs/address"}, "active_palace_ganzhi": {"type": "string"},
+        "doujun_address": {"$ref": "#/$defs/address"},
+        "doujun_rule_id": {"const": "S10-SUIJIAN-REVERSE-BIRTH-MONTH-FORWARD-BIRTH-HOUR-R1"},
         "designation_overlay": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
         "parent_daxian_frame_id": {"type": ["string", "null"]},
         "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformation"}},

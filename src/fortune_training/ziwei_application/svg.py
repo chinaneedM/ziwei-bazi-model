@@ -155,6 +155,11 @@ class ZiweiTwelvePalaceSvgRenderer:
                     "小限: " + row
                     for row in _chunks(tuple(sorted(cell.minor_limit_frame_ids)), max_chars=25)
                 )
+            if cell.doujun_frame_ids:
+                lines.extend(
+                    "斗君: " + row
+                    for row in _chunks(tuple(sorted(cell.doujun_frame_ids)), max_chars=24)
+                )
         return tuple(lines)
 
     @staticmethod
@@ -175,9 +180,10 @@ class ZiweiTwelvePalaceSvgRenderer:
             )
         ) or "-"
         minor = ", ".join(sorted(cell.minor_limit_frame_ids)) or "-"
+        doujun = ", ".join(sorted(cell.doujun_frame_ids)) or "-"
         return (
             f"{cell.stem}{cell.branch} {cell.natal_designation_label}; "
-            f"stars={placements}; rings={rings}; temporal={temporal}; minor={minor}"
+            f"stars={placements}; rings={rings}; temporal={temporal}; minor={minor}; doujun={doujun}"
         )
 
     def render(

@@ -8,7 +8,7 @@ from fortune_training.util import object_sha256
 
 from .models import NatalChartState, TransformationActivation
 from .registries import sexagenary_for_year
-from .temporal import TemporalNatalContext, ZiweiTemporalState
+from .temporal import DOUJUN_RULE_ID, TemporalNatalContext, ZiweiTemporalState
 
 if TYPE_CHECKING:
     from .profile import ResolvedZiweiCalculationProfile
@@ -253,6 +253,8 @@ def temporal_fact_projection(state: ZiweiTemporalState) -> dict[str, Any]:
                 "year_branch": frame.year_branch,
                 "active_address": _address_fact(frame.active_address),
                 "active_palace_ganzhi": frame.active_palace_ganzhi,
+                "doujun_address": _address_fact(frame.doujun_address),
+                "doujun_rule_id": frame.doujun_rule_id,
                 "designation_overlay": _designation_facts(frame.designation_overlay),
                 "parent_daxian_frame_id": frame.parent_daxian_frame_id,
                 "transformations": [
@@ -500,6 +502,15 @@ def validate_temporal_state(
             _diag(diagnostics, "ANNUAL_GANZHI_MISMATCH", path, f"expected {expected_stem}{expected_branch}")
         if frame.active_address.branch != frame.year_branch:
             _diag(diagnostics, "ANNUAL_TAISUI_ADDRESS_MISMATCH", path, frame.frame_id)
+        expected_doujun = (
+            frame.active_address.index
+            - (context.natal_month_coordinate - 1)
+            + context.birth_hour_branch.index
+        ) % 12
+        if frame.doujun_address.index != expected_doujun:
+            _diag(diagnostics, "ANNUAL_DOUJUN_ADDRESS_MISMATCH", path, frame.frame_id)
+        if frame.doujun_rule_id != DOUJUN_RULE_ID:
+            _diag(diagnostics, "ANNUAL_DOUJUN_RULE_ID_MISMATCH", path, frame.frame_id)
         if frame.designation_overlay[0].address != frame.active_address:
             _diag(diagnostics, "ANNUAL_LIFE_OVERLAY_MISMATCH", path, frame.frame_id)
         validate_overlay(frame.designation_overlay, f"{path}.designation_overlay")
