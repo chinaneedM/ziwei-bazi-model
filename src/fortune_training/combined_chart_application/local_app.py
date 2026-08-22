@@ -29,7 +29,7 @@ from fortune_training.ziwei_application import (
     ziwei_application_default_presentation_profile,
     ziwei_application_v1_profile,
 )
-from fortune_training.ziwei_chart import ziwei_chart_engine_v1_profile
+from fortune_training.ziwei_chart import build_production_ziwei_profile
 
 from .local_app_assets import APP_JS, INDEX_HTML, STYLE_CSS
 from .location_catalog import OfflineLocationCatalog
@@ -159,7 +159,7 @@ class LocalCombinedChartApplication:
                 status=500,
             )
         self.registry = PolicyRegistry.from_file(registry_path)
-        self.ziwei_calculation_profile = ziwei_chart_engine_v1_profile(self.registry)
+        self.ziwei_calculation_profile = build_production_ziwei_profile(self.registry)
         self.ziwei_application_profile = ziwei_application_v1_profile()
         self.ziwei_presentation_profile = ziwei_application_default_presentation_profile()
         self.bazi_natal_profile = bazi_foundation_v1_profile(self.registry)

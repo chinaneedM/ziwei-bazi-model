@@ -1,101 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import replace
-
-from fortune_training.calendar_foundation.policies import PolicyRegistry
-
-from .auxiliary import (
-    AUXILIARY_ALGORITHM_ID,
-    AUXILIARY_ALGORITHM_VERSION,
-    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
-    WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
-)
-from .dignity import DIGNITY_ALGORITHM_ID, DIGNITY_ALGORITHM_VERSION
-from .dignity_r4 import (
-    OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
-    OPERATIONAL_R4_DIGNITY_RULE_SET_VERSION,
-)
-from .minor_stars import MINOR_STAR_ALGORITHM_ID, MINOR_STAR_ALGORITHM_VERSION, WENMO_DEFAULT_MINOR_RULE_SET_ID
-from .minor_stars_r4 import WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION
-from .profile import ResolvedZiweiCalculationProfile
-from .rings import (
-    RING_ALGORITHM_ID,
-    RING_ALGORITHM_VERSION,
-    WENMO_DEFAULT_RING_RULE_SET_ID,
-    WENMO_DEFAULT_RING_RULE_SET_VERSION,
-)
-from .roles import (
-    ROLE_ALGORITHM_ID,
-    ROLE_ALGORITHM_VERSION,
-    WENMO_DEFAULT_ROLE_RULE_SET_ID,
-    WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
-)
-from .temporal import (
-    S10_CURRENT_TEMPORAL_RULE_SET_ID,
-    S10_CURRENT_TEMPORAL_RULE_SET_VERSION,
-    TEMPORAL_ALGORITHM_ID,
-    TEMPORAL_ALGORITHM_VERSION,
-)
-from .transformations import (
-    S08_TRANSFORMATION_RULE_SET_ID,
-    S08_TRANSFORMATION_RULE_SET_VERSION,
-    TRANSFORMATION_ALGORITHM_ID,
-    TRANSFORMATION_ALGORITHM_VERSION,
+from .production_profile import (
+    PRODUCTION_ZIWEI_PROFILE_ID,
+    PRODUCTION_ZIWEI_PROFILE_VERSION,
+    build_production_ziwei_profile,
 )
 
 
-ZIWEI_CHART_ENGINE_V1_PROFILE_ID = "ZIWEI-CHART-ENGINE-V1"
-ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION = "1.0.0"
-
-
-def ziwei_chart_engine_v1_profile(policy_registry: PolicyRegistry) -> ResolvedZiweiCalculationProfile:
-    """Return the frozen operational calculation profile for Ziwei Chart Engine V1.
-
-    The profile selects the already-calibrated Wenmo-default operational families
-    without elevating the external application to canonical authority. Historical
-    alternative RuleSets remain separately addressable through
-    ``ResolvedZiweiCalculationProfile`` and are not overwritten by this release.
-    """
-
-    policies = replace(
-        policy_registry.default_selection(),
-        bazi_day_boundary_policy="ZI_START_23",
-        bazi_late_zi_hour_stem_policy="ZI_START_ROLLOVER",
-        ziwei_life_body_leap_month_policy="ZHONGZHOU_FIXED_15",
-    )
-    profile = ResolvedZiweiCalculationProfile(
-        profile_id=ZIWEI_CHART_ENGINE_V1_PROFILE_ID,
-        profile_version=ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION,
-        time_calendar_policy_registry_version=policy_registry.version,
-        time_calendar_policies=policies,
-        ziwei_day_boundary_policy="ZI_START_23",
-        auxiliary_rule_set_id=WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
-        auxiliary_rule_set_version=WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
-        auxiliary_algorithm_id=AUXILIARY_ALGORITHM_ID,
-        auxiliary_algorithm_version=AUXILIARY_ALGORITHM_VERSION,
-        minor_rule_set_id=WENMO_DEFAULT_MINOR_RULE_SET_ID,
-        minor_rule_set_version=WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION,
-        minor_algorithm_id=MINOR_STAR_ALGORITHM_ID,
-        minor_algorithm_version=MINOR_STAR_ALGORITHM_VERSION,
-        dignity_rule_set_id=OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
-        dignity_rule_set_version=OPERATIONAL_R4_DIGNITY_RULE_SET_VERSION,
-        dignity_algorithm_id=DIGNITY_ALGORITHM_ID,
-        dignity_algorithm_version=DIGNITY_ALGORITHM_VERSION,
-        transformation_rule_set_id=S08_TRANSFORMATION_RULE_SET_ID,
-        transformation_rule_set_version=S08_TRANSFORMATION_RULE_SET_VERSION,
-        transformation_algorithm_id=TRANSFORMATION_ALGORITHM_ID,
-        transformation_algorithm_version=TRANSFORMATION_ALGORITHM_VERSION,
-        temporal_rule_set_id=S10_CURRENT_TEMPORAL_RULE_SET_ID,
-        temporal_rule_set_version=S10_CURRENT_TEMPORAL_RULE_SET_VERSION,
-        temporal_algorithm_id=TEMPORAL_ALGORITHM_ID,
-        temporal_algorithm_version=TEMPORAL_ALGORITHM_VERSION,
-        ring_rule_set_id=WENMO_DEFAULT_RING_RULE_SET_ID,
-        ring_rule_set_version=WENMO_DEFAULT_RING_RULE_SET_VERSION,
-        ring_algorithm_id=RING_ALGORITHM_ID,
-        ring_algorithm_version=RING_ALGORITHM_VERSION,
-        role_rule_set_id=WENMO_DEFAULT_ROLE_RULE_SET_ID,
-        role_rule_set_version=WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
-        role_algorithm_id=ROLE_ALGORITHM_ID,
-        role_algorithm_version=ROLE_ALGORITHM_VERSION,
-    )
-    return profile.validate(policy_registry)
+# Frozen V1 names remain public compatibility aliases. The implementation lives
+# only in production_profile so release and product callers cannot drift apart.
+ZIWEI_CHART_ENGINE_V1_PROFILE_ID = PRODUCTION_ZIWEI_PROFILE_ID
+ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION = PRODUCTION_ZIWEI_PROFILE_VERSION
+ziwei_chart_engine_v1_profile = build_production_ziwei_profile

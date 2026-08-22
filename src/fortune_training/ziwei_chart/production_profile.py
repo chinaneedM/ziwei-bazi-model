@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from fortune_training.calendar_foundation.policies import PolicyRegistry
 
 from .auxiliary import (
@@ -13,8 +15,11 @@ from .dignity_r4 import (
     OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
     OPERATIONAL_R4_DIGNITY_RULE_SET_VERSION,
 )
-from .main_stars import MAIN_STAR_ALGORITHM_ID, MAIN_STAR_ALGORITHM_VERSION
-from .minor_stars import MINOR_STAR_ALGORITHM_ID
+from .minor_stars import (
+    MINOR_STAR_ALGORITHM_ID,
+    MINOR_STAR_ALGORITHM_VERSION,
+    WENMO_DEFAULT_MINOR_RULE_SET_ID,
+)
 from .minor_stars_r4 import WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION
 from .profile import ResolvedZiweiCalculationProfile
 from .rings import (
@@ -24,10 +29,10 @@ from .rings import (
     WENMO_DEFAULT_RING_RULE_SET_VERSION,
 )
 from .roles import (
-    QS_ROLE_RULE_SET_ID,
-    QS_ROLE_RULE_SET_VERSION,
     ROLE_ALGORITHM_ID,
     ROLE_ALGORITHM_VERSION,
+    WENMO_DEFAULT_ROLE_RULE_SET_ID,
+    WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
 )
 from .temporal import (
     S10_CURRENT_TEMPORAL_RULE_SET_ID,
@@ -41,24 +46,31 @@ from .transformations import (
     TRANSFORMATION_ALGORITHM_ID,
     TRANSFORMATION_ALGORITHM_VERSION,
 )
-from .minor_stars import WENMO_DEFAULT_MINOR_RULE_SET_ID
 
 
-OPERATIONAL_ZIWEI_V1_PROFILE_ID = "OPERATIONAL_ZIWEI_V1_R1"
-OPERATIONAL_ZIWEI_V1_PROFILE_VERSION = "1.0.0"
+# These identities are already frozen into V1 computation hashes. Production
+# authority must select that release; it must not mint a competing profile.
+PRODUCTION_ZIWEI_PROFILE_ID = "ZIWEI-CHART-ENGINE-V1"
+PRODUCTION_ZIWEI_PROFILE_VERSION = "1.0.0"
 
 
-def build_operational_ziwei_v1_profile(
+def build_production_ziwei_profile(
     policy_registry: PolicyRegistry,
 ) -> ResolvedZiweiCalculationProfile:
-    """Build the default production Ziwei V1 immutable profile."""
+    """Build the sole operational Ziwei calculation profile used by products."""
+
+    policies = replace(
+        policy_registry.default_selection(),
+        bazi_day_boundary_policy="ZI_START_23",
+        bazi_late_zi_hour_stem_policy="ZI_START_ROLLOVER",
+        ziwei_life_body_leap_month_policy="ZHONGZHOU_FIXED_15",
+    )
     profile = ResolvedZiweiCalculationProfile(
-        profile_id=OPERATIONAL_ZIWEI_V1_PROFILE_ID,
-        profile_version=OPERATIONAL_ZIWEI_V1_PROFILE_VERSION,
+        profile_id=PRODUCTION_ZIWEI_PROFILE_ID,
+        profile_version=PRODUCTION_ZIWEI_PROFILE_VERSION,
         time_calendar_policy_registry_version=policy_registry.version,
-        time_calendar_policies=policy_registry.default_selection(),
-        main_star_algorithm_id=MAIN_STAR_ALGORITHM_ID,
-        main_star_algorithm_version=MAIN_STAR_ALGORITHM_VERSION,
+        time_calendar_policies=policies,
+        ziwei_day_boundary_policy="ZI_START_23",
         auxiliary_rule_set_id=WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
         auxiliary_rule_set_version=WENMO_DEFAULT_CORE_AUX_RULE_SET_VERSION,
         auxiliary_algorithm_id=AUXILIARY_ALGORITHM_ID,
@@ -83,9 +95,15 @@ def build_operational_ziwei_v1_profile(
         ring_rule_set_version=WENMO_DEFAULT_RING_RULE_SET_VERSION,
         ring_algorithm_id=RING_ALGORITHM_ID,
         ring_algorithm_version=RING_ALGORITHM_VERSION,
-        role_rule_set_id=QS_ROLE_RULE_SET_ID,
-        role_rule_set_version=QS_ROLE_RULE_SET_VERSION,
+        role_rule_set_id=WENMO_DEFAULT_ROLE_RULE_SET_ID,
+        role_rule_set_version=WENMO_DEFAULT_ROLE_RULE_SET_VERSION,
         role_algorithm_id=ROLE_ALGORITHM_ID,
         role_algorithm_version=ROLE_ALGORITHM_VERSION,
     )
     return profile.validate(policy_registry)
+
+
+# Descriptive compatibility name retained for the branch's initial public API.
+build_operational_ziwei_v1_profile = build_production_ziwei_profile
+OPERATIONAL_ZIWEI_V1_PROFILE_ID = PRODUCTION_ZIWEI_PROFILE_ID
+OPERATIONAL_ZIWEI_V1_PROFILE_VERSION = PRODUCTION_ZIWEI_PROFILE_VERSION

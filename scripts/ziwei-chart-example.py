@@ -10,7 +10,7 @@ from fortune_training.ziwei_chart import (
     Sex,
     ZiweiChartFoundation,
     ZiweiChartRequest,
-    ziwei_chart_engine_v1_profile,
+    build_production_ziwei_profile,
 )
 
 
@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     registry = PolicyRegistry.from_file(ROOT / "config" / "time-calendar-policies.json")
-    profile = ziwei_chart_engine_v1_profile(registry)
+    profile = build_production_ziwei_profile(registry)
     engine = ZiweiChartFoundation(TimeCalendarFoundation(registry))
     result = engine.resolve(
         ZiweiChartRequest(

@@ -40,6 +40,14 @@ from .models import (
 )
 from .natal import NatalStructureGenerator, NatalStructureInput
 from .profile import ResolvedZiweiCalculationProfile
+from .production_profile import (
+    OPERATIONAL_ZIWEI_V1_PROFILE_ID,
+    OPERATIONAL_ZIWEI_V1_PROFILE_VERSION,
+    PRODUCTION_ZIWEI_PROFILE_ID,
+    PRODUCTION_ZIWEI_PROFILE_VERSION,
+    build_operational_ziwei_v1_profile,
+    build_production_ziwei_profile,
+)
 from .release import (
     ZIWEI_CHART_ENGINE_V1_PROFILE_ID,
     ZIWEI_CHART_ENGINE_V1_PROFILE_VERSION,
@@ -93,6 +101,8 @@ __all__ = [
     "PalaceViewCell",
     "PlainTextZiweiRenderer",
     "PresentationProfile",
+    "PRODUCTION_ZIWEI_PROFILE_ID",
+    "PRODUCTION_ZIWEI_PROFILE_VERSION",
     "QSCoreAuxiliaryGenerator",
     "QSRoleGenerator",
     "ResolvedZiweiCalculationProfile",
@@ -117,6 +127,10 @@ __all__ = [
     "ZiweiTemporalState",
     "ZiweiTypedResolution",
     "ZiweiViewProjectionCompiler",
+    "OPERATIONAL_ZIWEI_V1_PROFILE_ID",
+    "OPERATIONAL_ZIWEI_V1_PROFILE_VERSION",
+    "build_operational_ziwei_v1_profile",
+    "build_production_ziwei_profile",
     "natal_hash_bundle",
     "temporal_hash_bundle",
     "validate_natal_chart",

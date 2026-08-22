@@ -17,11 +17,16 @@ behavior.
 
 ## Frozen calculation profile
 
-The single operational release profile is constructed by:
+The single production profile authority is
+`fortune_training.ziwei_chart.production_profile` and is constructed by:
 
 ```python
-ziwei_chart_engine_v1_profile(policy_registry)
+build_production_ziwei_profile(policy_registry)
 ```
+
+`ziwei_chart_engine_v1_profile` remains an exact compatibility alias to that
+builder. It is not a second profile definition. Product entry points consume the
+production builder directly, while existing integrations retain the frozen V1 API.
 
 Its immutable identity is:
 
