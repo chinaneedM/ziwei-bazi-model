@@ -1,12 +1,18 @@
 {
-  "contract": "CHAT_SESSION_RECOVERY_R1",
-  "version": "R1",
-  "purpose": "restore_chat_execution_context_from_git_authority",
+  "contract": "CHAT_SESSION_RECOVERY_R2",
+  "version": "R2",
+  "purpose": "restore_and_continue_chat_engineering_from_git_authority",
   "authority": {
-    "primary": "git_main",
+    "primary": "git_main_and_live_github_state",
+    "precedence": [
+      "live_github_pull_request_issue_head_checks_and_reviews",
+      "git_main_recovery_contract",
+      "stored_work_session_checkpoint",
+      "historical_chat_context"
+    ],
     "forbidden_state_sources": [
-      "old_chat_memory",
-      "previous_assistant_output",
+      "old_chat_memory_as_authority",
+      "previous_assistant_output_as_authority",
       "historical_context_guess"
     ]
   },
@@ -14,16 +20,71 @@
     "verify_github_access",
     "identify_repository",
     "identify_main_branch_state",
-    "read_active_runtime_state",
-    "read_active_issue_or_pull_request",
-    "resume_next_authorized_action"
+    "read_work_session_checkpoint",
+    "discover_live_active_issue_or_pull_request",
+    "read_live_head_checks_reviews_and_mergeability",
+    "reconcile_checkpoint_with_live_github_state",
+    "derive_next_authorized_action",
+    "execute_until_completion_or_hard_blocker"
   ],
+  "live_reconciliation": {
+    "required": true,
+    "live_objects": [
+      "pull_request_state",
+      "pull_request_head_sha",
+      "workflow_runs",
+      "review_threads",
+      "mergeability",
+      "issue_state"
+    ],
+    "conflict_rule": "live_github_state_overrides_stored_checkpoint",
+    "stale_checkpoint_action": "rebuild_runtime_checkpoint_before_execution",
+    "completed_action_policy": "never_repeat"
+  },
+  "execution_continuity": {
+    "mode": "CHAT_AUTONOMOUS_ENGINEERING",
+    "mode_switch_required": false,
+    "work_mode_required": false,
+    "user_continue_required": false,
+    "progress_updates_are_non_final": true,
+    "after_each_action": "derive_and_execute_next_authorized_action",
+    "final_response_allowed_when": [
+      "completion_criteria_satisfied",
+      "hard_blocker_requires_user_decision",
+      "user_explicitly_pauses_or_replaces_task"
+    ],
+    "final_response_forbidden_when": [
+      "only_status_was_reported",
+      "authorized_next_action_exists",
+      "ci_is_running_and_can_be_polled",
+      "recoverable_tool_or_test_failure_exists"
+    ]
+  },
+  "context_boundary": {
+    "near_limit_action": "persist_durable_handoff_before_final_response",
+    "required_handoff_fields": [
+      "repository",
+      "main_sha",
+      "active_issue_or_pull_request",
+      "head_sha",
+      "completed_actions",
+      "current_blocker_or_running_check",
+      "next_authorized_action",
+      "scope_constraints",
+      "completion_criteria"
+    ],
+    "new_chat_action": "restart_from_startup_sequence",
+    "unsummarized_context_exit": "forbidden_when_handoff_can_be_persisted"
+  },
   "failure_policy": {
     "github_unavailable": "fail_closed",
-    "state_ambiguous": "request_recovery_audit"
+    "state_ambiguous": "perform_recovery_audit",
+    "recoverable_failure": "continue_autonomous_diagnosis_and_fix",
+    "hard_blocker": "report_exact_blocker_and_required_user_decision"
   },
   "scope": {
     "engineering_recovery": true,
+    "chat_only_continuity": true,
     "prediction_authorization": false
   }
 }
