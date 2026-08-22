@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry
 from fortune_training.calendar_foundation.models import json_value
-from fortune_training.ziwei_chart import Sex, ziwei_chart_engine_v1_profile
+from fortune_training.ziwei_chart import Sex, build_production_ziwei_profile
 
 from .models import ApplicationBirthRequest
 from .service import ApplicationResolutionError, ZiweiChartService
@@ -356,7 +356,7 @@ class LocalZiweiApplication:
                 status=500,
             )
         self.registry = PolicyRegistry.from_file(registry_path)
-        self.calculation_profile = ziwei_chart_engine_v1_profile(self.registry)
+        self.calculation_profile = build_production_ziwei_profile(self.registry)
         self.service = ZiweiChartService.from_repository(self.repository_root)
         self.renderer = ZiweiTwelvePalaceSvgRenderer()
         self.renderer_profile = SvgRendererProfile()
