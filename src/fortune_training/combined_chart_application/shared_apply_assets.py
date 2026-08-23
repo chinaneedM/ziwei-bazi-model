@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化与禄羊陀按来源层只读显示；流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -168,6 +168,23 @@ SHARED_APPLY_JS = r"""
     if (data.target_coordinate_fact_hash !== projection.source_target_coordinate_fact_hash) return false;
     if (data.target_coordinate_computation_hash !== projection.source_target_coordinate_computation_hash) return false;
     if (!Array.isArray(projection.candidates) || projection.candidates.length === 0) return false;
+    const validLayer = (layer, expectedLayer, expectedFrame, expectedParent) => (
+      layer !== null
+      && layer.source_layer === expectedLayer
+      && layer.frame_id === expectedFrame
+      && layer.parent_frame_id === expectedParent
+      && typeof layer.source_stem === 'string'
+      && typeof layer.frame_rule_set_id === 'string'
+      && typeof layer.frame_algorithm_id === 'string'
+      && Array.isArray(layer.source_refs)
+      && Array.isArray(layer.transformations)
+      && Array.isArray(layer.auxiliary_activations)
+      && layer.auxiliary_activations.length === 3
+      && typeof layer.fact_hash === 'string'
+      && layer.fact_hash.length === 64
+      && typeof layer.computation_hash === 'string'
+      && layer.computation_hash.length === 64
+    );
     return projection.candidates.every((row, index) => (
       row.source_target_candidate_index === index
       && typeof row.source_target_candidate_id === 'string'
@@ -177,6 +194,10 @@ SHARED_APPLY_JS = r"""
       && Number.isInteger(row.effective_lunar_month)
       && row.effective_lunar_month >= 1
       && row.effective_lunar_month <= 12
+      && validLayer(row.annual_layer_projection, 'ANNUAL', row.source_annual_frame_id, row.daxian_frame_id)
+      && (row.daxian_frame_id === null
+        ? row.daxian_layer_projection === null
+        : validLayer(row.daxian_layer_projection, 'DAXIAN', row.daxian_frame_id, null))
       && row.hourly_projection_status === 'CANDIDATES_PRESERVED_NO_SELECTED_FRAME'
       && Array.isArray(row.hourly_method_candidates)
       && row.hourly_method_candidates.length === 2
@@ -194,10 +215,12 @@ SHARED_APPLY_JS = r"""
       && (
         (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
           && typeof row.monthly_frame_id === 'string'
+          && validLayer(row.monthly_layer_projection, 'MONTH', row.monthly_frame_id, row.source_annual_frame_id)
           && row.daily_projection_status === 'REGULAR_LUNAR_DAY_RESOLVED'
           && typeof row.daily_frame_id === 'string')
         || (row.monthly_projection_status === 'LEAP_MONTH_UNRESOLVED_NO_FRAME'
           && row.monthly_frame_id === null
+          && row.monthly_layer_projection === null
           && row.daily_projection_status === 'PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME'
           && row.daily_frame_id === null)
       )
@@ -216,12 +239,18 @@ SHARED_APPLY_JS = r"""
       invalidate('候选 lineage 与索引不一致；已拒绝应用。请重新计算。');
       return;
     }
+    const layerLine = (label, layer) => layer
+      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
+      : `${label}=NONE`;
     lineage.textContent = [
       `target_candidate=${row.source_target_candidate_id}`,
       `sample_index=${row.source_sample_index} · UTC=${row.target_utc}`,
       `annual_frame=${row.source_annual_frame_id}`,
+      layerLine('daxian_layer', row.daxian_layer_projection),
+      layerLine('annual_layer', row.annual_layer_projection),
       `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
       `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
+      layerLine('monthly_layer', row.monthly_layer_projection),
       `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · 命宫=${row.daily_active_address_branch || '-'} · 宫职=${row.daily_designation_overlay.map((item) => `${item.display_name}@${item.address.branch}`).join(' / ') || 'NONE'}`,
       `daily_auxiliary=${row.daily_auxiliary_status} · ${row.daily_auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
       `daily_transformations=${row.daily_transformation_status} · ${row.daily_transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,

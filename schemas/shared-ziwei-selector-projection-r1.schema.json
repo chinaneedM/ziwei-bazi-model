@@ -39,10 +39,12 @@
         "source_target_candidate_index", "source_target_candidate_id", "source_sample_index",
         "sample_reported_local_datetime", "target_utc", "fold", "civil_year",
         "source_annual_frame_id", "annual_year", "minor_limit_age", "daxian_frame_id",
+        "daxian_layer_projection", "annual_layer_projection",
         "ziwei_calendar_date_policy", "ziwei_day_boundary_policy",
         "effective_lunar_year", "effective_lunar_month", "effective_lunar_day",
         "effective_lunar_is_leap_month", "monthly_projection_status",
         "monthly_frame_id", "monthly_ganzhi", "monthly_active_address_branch",
+        "monthly_layer_projection",
         "daily_projection_status", "daily_frame_id", "daily_effective_gregorian_date",
         "daily_ganzhi", "daily_active_address_branch", "daily_designation_overlay",
         "daily_auxiliary_status", "daily_auxiliary_activations", "daily_auxiliary_source_refs", "daily_rule_id",
@@ -69,6 +71,13 @@
             {"type": "null"}
           ]
         },
+        "daxian_layer_projection": {
+          "anyOf": [
+            {"$ref": "#/$defs/temporalLayerProjection"},
+            {"type": "null"}
+          ]
+        },
+        "annual_layer_projection": {"$ref": "#/$defs/temporalLayerProjection"},
         "ziwei_calendar_date_policy": {"enum": ["LOCAL_SOLAR_DATE_INDEXED", "ABSOLUTE_CALENDAR"]},
         "ziwei_day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
         "effective_lunar_year": {"type": "integer", "minimum": 1},
@@ -79,6 +88,12 @@
         "monthly_frame_id": {"type": ["string", "null"], "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"},
         "monthly_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
         "monthly_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
+        "monthly_layer_projection": {
+          "anyOf": [
+            {"$ref": "#/$defs/temporalLayerProjection"},
+            {"type": "null"}
+          ]
+        },
         "daily_projection_status": {"enum": ["REGULAR_LUNAR_DAY_RESOLVED", "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"]},
         "daily_frame_id": {"type": ["string", "null"], "pattern": "^DAY:[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
         "daily_effective_gregorian_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
@@ -175,6 +190,31 @@
         }
       }
     },
+    "temporalLayerProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_layer", "frame_id", "parent_frame_id", "source_stem",
+        "frame_rule_set_id", "frame_rule_set_version", "frame_algorithm_id",
+        "frame_algorithm_version", "source_refs", "transformations",
+        "auxiliary_activations", "fact_hash", "computation_hash"
+      ],
+      "properties": {
+        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
+        "frame_id": {"type": "string", "minLength": 1},
+        "parent_frame_id": {"type": ["string", "null"]},
+        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "frame_rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
+        "frame_rule_set_version": {"const": "1.3.0"},
+        "frame_algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
+        "frame_algorithm_version": {"const": "1.3.0"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
+        "auxiliary_activations": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/temporalAuxiliaryActivation"}},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
     "address": {
       "type": "object",
       "additionalProperties": false,
@@ -210,7 +250,7 @@
         "target_entity_id": {"type": "string", "minLength": 1},
         "target_display_name": {"type": "string", "minLength": 1},
         "target_address": {"$ref": "#/$defs/address"},
-        "source_layer": {"enum": ["DAY", "HOUR_CANDIDATE"]},
+        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH", "DAY", "HOUR_CANDIDATE"]},
         "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
         "context_id": {"type": "string", "minLength": 1},
         "assignment_id": {"type": "string", "minLength": 1},
@@ -232,7 +272,7 @@
         "entity_id": {"enum": ["STAR.LUCUN", "STAR.QINGYANG", "STAR.TUOLUO"]},
         "display_name": {"enum": ["禄存", "擎羊", "陀罗"]},
         "target_address": {"$ref": "#/$defs/address"},
-        "source_layer": {"enum": ["DAY", "HOUR_CANDIDATE"]},
+        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH", "DAY", "HOUR_CANDIDATE"]},
         "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
         "context_id": {"type": "string", "minLength": 1},
         "rule_id": {"const": "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1"},
@@ -249,7 +289,7 @@
         "fact_hash": {"$ref": "#/$defs/hash"},
         "computation_hash": {"$ref": "#/$defs/hash"},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
-        "algorithm_version": {"const": "1.5.0"}
+        "algorithm_version": {"const": "1.6.0"}
       }
     },
     "integrity": {
@@ -260,7 +300,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.5.0"}
+        "algorithm_version": {"const": "1.6.0"}
       }
     }
   }

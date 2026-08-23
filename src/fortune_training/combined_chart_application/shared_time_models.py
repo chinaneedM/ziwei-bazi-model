@@ -12,15 +12,36 @@ from fortune_training.ziwei_chart.models import (
 
 SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA = "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
 SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID = "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-R1"
-SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.5.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.6.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.5.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.6.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.5.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.6.0"
+SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_ID = (
+    "SHARED-TARGET-ZIWEI-TEMPORAL-LAYER-HASH-R1"
+)
+SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_VERSION = "1.0.0"
+
+
+@dataclass(frozen=True)
+class SharedZiweiTemporalLayerProjection:
+    source_layer: str
+    frame_id: str
+    parent_frame_id: str | None
+    source_stem: str
+    frame_rule_set_id: str
+    frame_rule_set_version: str
+    frame_algorithm_id: str
+    frame_algorithm_version: str
+    source_refs: tuple[str, ...]
+    transformations: tuple[TransformationActivation, ...]
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
+    fact_hash: str
+    computation_hash: str
 
 
 @dataclass(frozen=True)
@@ -64,6 +85,8 @@ class SharedZiweiSelectorProjectionCandidate:
     annual_year: int
     minor_limit_age: int
     daxian_frame_id: str | None
+    daxian_layer_projection: SharedZiweiTemporalLayerProjection | None
+    annual_layer_projection: SharedZiweiTemporalLayerProjection
     ziwei_calendar_date_policy: str
     ziwei_day_boundary_policy: str
     effective_lunar_year: int
@@ -74,6 +97,7 @@ class SharedZiweiSelectorProjectionCandidate:
     monthly_frame_id: str | None
     monthly_ganzhi: str | None
     monthly_active_address_branch: str | None
+    monthly_layer_projection: SharedZiweiTemporalLayerProjection | None
     daily_projection_status: str
     daily_frame_id: str | None
     daily_effective_gregorian_date: str | None

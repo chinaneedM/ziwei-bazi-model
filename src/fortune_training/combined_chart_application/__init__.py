@@ -51,8 +51,11 @@ from .service import (
     validate_combined_resolution,
 )
 from .shared_time_integrity import (
+    project_shared_ziwei_temporal_layer,
     shared_selector_candidate_hash,
     shared_selector_hash_bundle,
+    shared_ziwei_temporal_layer_hashes,
+    validate_shared_ziwei_temporal_layer_projection,
     validate_shared_ziwei_selector_projection,
 )
 from .shared_time_models import (
@@ -64,6 +67,7 @@ from .shared_time_models import (
     SharedZiweiSelectorProjectionHashBundle,
     SharedZiweiSelectorProjectionIntegrityReport,
     SharedZiweiSelectorProjectionResolution,
+    SharedZiweiTemporalLayerProjection,
 )
 from .shared_time_replay import validate_shared_ziwei_selector_full_replay
 from .shared_time_service import (
@@ -102,6 +106,7 @@ __all__ = [
     "SharedZiweiSelectorProjectionIntegrityReport",
     "SharedZiweiSelectorProjectionResolution",
     "SharedZiweiSelectorProjectionService",
+    "SharedZiweiTemporalLayerProjection",
     "build_candidate_lineage",
     "build_shared_time_credential",
     "combined_chart_application_v1_profile",
@@ -112,12 +117,15 @@ __all__ = [
     "combined_target_flow_view_hash",
     "shared_selector_candidate_hash",
     "shared_selector_hash_bundle",
+    "shared_ziwei_temporal_layer_hashes",
+    "project_shared_ziwei_temporal_layer",
     "validate_combined_resolution",
     "validate_candidate_lineage",
     "validate_combined_target_flow_full_replay",
     "validate_combined_target_flow_resolution",
     "validate_shared_ziwei_selector_full_replay",
     "validate_shared_ziwei_selector_projection",
+    "validate_shared_ziwei_temporal_layer_projection",
     "validate_shared_policy_contract",
     "validate_subsystem_time_binding",
     "validate_shared_time_credential",

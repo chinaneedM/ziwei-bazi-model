@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import timedelta
 
 from fortune_training.bazi_target_temporal import (
@@ -24,11 +25,108 @@ from .shared_time_models import (
     SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID,
     SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION,
     SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA,
+    SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_ID,
+    SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_VERSION,
     SharedZiweiSelectorProjectionCandidate,
     SharedZiweiSelectorProjectionHashBundle,
     SharedZiweiSelectorProjectionIntegrityReport,
     SharedZiweiSelectorProjectionResolution,
+    SharedZiweiTemporalLayerProjection,
 )
+
+
+def _temporal_layer_projection_payload(
+    projection: SharedZiweiTemporalLayerProjection,
+) -> dict[str, object]:
+    return {
+        "source_layer": projection.source_layer,
+        "frame_id": projection.frame_id,
+        "parent_frame_id": projection.parent_frame_id,
+        "source_stem": projection.source_stem,
+        "transformations": [json_value(row) for row in projection.transformations],
+        "auxiliary_activations": [json_value(row) for row in projection.auxiliary_activations],
+    }
+
+
+def shared_ziwei_temporal_layer_hashes(
+    projection: SharedZiweiTemporalLayerProjection,
+) -> tuple[str, str]:
+    fact_hash = object_sha256(_temporal_layer_projection_payload(projection))
+    computation_hash = object_sha256(
+        {
+            "fact_hash": fact_hash,
+            "frame_rule_set_id": projection.frame_rule_set_id,
+            "frame_rule_set_version": projection.frame_rule_set_version,
+            "frame_algorithm_id": projection.frame_algorithm_id,
+            "frame_algorithm_version": projection.frame_algorithm_version,
+            "source_refs": projection.source_refs,
+            "transformation_lineage": [json_value(row) for row in projection.transformations],
+            "auxiliary_lineage": [json_value(row) for row in projection.auxiliary_activations],
+            "hash_algorithm": (
+                f"{SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_ID}@"
+                f"{SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_VERSION}"
+            ),
+        }
+    )
+    return fact_hash, computation_hash
+
+
+def project_shared_ziwei_temporal_layer(
+    source_layer: str,
+    frame,
+    temporal_state,
+) -> SharedZiweiTemporalLayerProjection:
+    if source_layer == "DAXIAN":
+        parent_frame_id = None
+        source_stem = frame.source_stem
+    elif source_layer == "ANNUAL":
+        parent_frame_id = frame.parent_daxian_frame_id
+        source_stem = frame.year_stem
+    elif source_layer == "MONTH":
+        parent_frame_id = frame.parent_annual_frame_id
+        source_stem = frame.month_stem
+    else:
+        raise ValueError(f"unsupported shared Ziwei temporal layer: {source_layer}")
+    provisional = SharedZiweiTemporalLayerProjection(
+        source_layer=source_layer,
+        frame_id=frame.frame_id,
+        parent_frame_id=parent_frame_id,
+        source_stem=source_stem,
+        frame_rule_set_id=temporal_state.rule_set_id,
+        frame_rule_set_version=temporal_state.rule_set_version,
+        frame_algorithm_id=temporal_state.algorithm_id,
+        frame_algorithm_version=temporal_state.algorithm_version,
+        source_refs=frame.source_refs,
+        transformations=frame.transformations,
+        auxiliary_activations=frame.auxiliary_activations,
+        fact_hash="",
+        computation_hash="",
+    )
+    fact_hash, computation_hash = shared_ziwei_temporal_layer_hashes(provisional)
+    return replace(
+        provisional,
+        fact_hash=fact_hash,
+        computation_hash=computation_hash,
+    )
+
+
+def validate_shared_ziwei_temporal_layer_projection(
+    projection: SharedZiweiTemporalLayerProjection,
+    *,
+    source_layer: str,
+    source_frame,
+    temporal_state,
+) -> SharedZiweiSelectorProjectionIntegrityReport:
+    expected = project_shared_ziwei_temporal_layer(source_layer, source_frame, temporal_state)
+    diagnostics = tuple(
+        f"TEMPORAL_LAYER_{field_name.upper()}_REPLAY_MISMATCH"
+        for field_name in projection.__dataclass_fields__
+        if getattr(projection, field_name) != getattr(expected, field_name)
+    )
+    return SharedZiweiSelectorProjectionIntegrityReport(
+        status="PASS" if not diagnostics else "FAIL",
+        diagnostics=diagnostics,
+    )
 
 
 def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandidate) -> str:
@@ -45,6 +143,8 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "annual_year": candidate.annual_year,
             "minor_limit_age": candidate.minor_limit_age,
             "daxian_frame_id": candidate.daxian_frame_id,
+            "daxian_layer_projection": json_value(candidate.daxian_layer_projection),
+            "annual_layer_projection": json_value(candidate.annual_layer_projection),
             "ziwei_calendar_date_policy": candidate.ziwei_calendar_date_policy,
             "ziwei_day_boundary_policy": candidate.ziwei_day_boundary_policy,
             "effective_lunar_year": candidate.effective_lunar_year,
@@ -55,6 +155,7 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "monthly_frame_id": candidate.monthly_frame_id,
             "monthly_ganzhi": candidate.monthly_ganzhi,
             "monthly_active_address_branch": candidate.monthly_active_address_branch,
+            "monthly_layer_projection": json_value(candidate.monthly_layer_projection),
             "daily_projection_status": candidate.daily_projection_status,
             "daily_frame_id": candidate.daily_frame_id,
             "daily_effective_gregorian_date": candidate.daily_effective_gregorian_date,
@@ -166,6 +267,9 @@ def validate_shared_ziwei_selector_projection(
     annual_by_year: dict[int, list[object]] = {}
     for frame in ziwei_bundle.temporal_state.annual_frames:
         annual_by_year.setdefault(frame.absolute_year, []).append(frame)
+    daxian_by_id = {
+        frame.frame_id: frame for frame in ziwei_bundle.temporal_state.daxian_frames
+    }
 
     if len(resolution.candidates) != len(target_resolution.candidates):
         diagnostics.append(
@@ -184,6 +288,14 @@ def validate_shared_ziwei_selector_projection(
             diagnostics.append(f"ANNUAL_FRAME_CARDINALITY_MISMATCH:{index}:{civil_year}:{len(matches)}")
             continue
         annual = matches[0]
+        daxian = (
+            daxian_by_id.get(annual.parent_daxian_frame_id)
+            if annual.parent_daxian_frame_id is not None
+            else None
+        )
+        if annual.parent_daxian_frame_id is not None and daxian is None:
+            diagnostics.append(f"DAXIAN_FRAME_MISSING:{index}:{annual.parent_daxian_frame_id}")
+            continue
         profile = ziwei_bundle.calculation_profile
         resolver = ZiweiCalendarResolver()
         calendar_result = resolver.resolve(
@@ -238,6 +350,16 @@ def validate_shared_ziwei_selector_projection(
             "annual_year": annual.absolute_year,
             "minor_limit_age": annual.nominal_age,
             "daxian_frame_id": annual.parent_daxian_frame_id,
+            "daxian_layer_projection": (
+                project_shared_ziwei_temporal_layer(
+                    "DAXIAN", daxian, ziwei_bundle.temporal_state
+                )
+                if daxian is not None
+                else None
+            ),
+            "annual_layer_projection": project_shared_ziwei_temporal_layer(
+                "ANNUAL", annual, ziwei_bundle.temporal_state
+            ),
             "ziwei_calendar_date_policy": (
                 profile.time_calendar_policies.ziwei_calendar_date_policy
             ),
@@ -251,6 +373,13 @@ def validate_shared_ziwei_selector_projection(
             "monthly_ganzhi": monthly.month_ganzhi if monthly is not None else None,
             "monthly_active_address_branch": (
                 monthly.active_address.branch if monthly is not None else None
+            ),
+            "monthly_layer_projection": (
+                project_shared_ziwei_temporal_layer(
+                    "MONTH", monthly, ziwei_bundle.temporal_state
+                )
+                if monthly is not None
+                else None
             ),
             "daily_projection_status": daily_status,
             "daily_frame_id": daily.frame_id if daily is not None else None,

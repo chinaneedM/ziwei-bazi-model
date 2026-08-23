@@ -19,7 +19,9 @@ from fortune_training.calendar_foundation.models import json_value
 from fortune_training.combined_chart_application.shared_time_integrity import (
     shared_selector_candidate_hash,
     shared_selector_hash_bundle,
+    shared_ziwei_temporal_layer_hashes,
     validate_shared_ziwei_selector_projection,
+    validate_shared_ziwei_temporal_layer_projection,
 )
 from fortune_training.combined_chart_application.shared_time_models import (
     SharedZiweiSelectorProjectionCandidate,
@@ -120,10 +122,62 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(annual.nominal_age, row.minor_limit_age)
         self.assertEqual(annual.parent_daxian_frame_id, row.daxian_frame_id)
         self.assertEqual(annual.frame_id, row.source_annual_frame_id)
+        self.assertIsNotNone(row.daxian_layer_projection)
+        self.assertEqual("DAXIAN", row.daxian_layer_projection.source_layer)
+        self.assertEqual(row.daxian_frame_id, row.daxian_layer_projection.frame_id)
+        self.assertIsNone(row.daxian_layer_projection.parent_frame_id)
+        self.assertEqual("ANNUAL", row.annual_layer_projection.source_layer)
+        self.assertEqual(annual.frame_id, row.annual_layer_projection.frame_id)
+        self.assertEqual(row.daxian_frame_id, row.annual_layer_projection.parent_frame_id)
+        self.assertEqual(annual.year_stem, row.annual_layer_projection.source_stem)
         self.assertEqual("LOCAL_SOLAR_DATE_INDEXED", row.ziwei_calendar_date_policy)
         self.assertEqual("ZI_START_23", row.ziwei_day_boundary_policy)
         self.assertEqual("REGULAR_LUNAR_MONTH_RESOLVED", row.monthly_projection_status)
         self.assertEqual(f"MONTH:2026:{row.effective_lunar_month}", row.monthly_frame_id)
+        self.assertIsNotNone(row.monthly_layer_projection)
+        self.assertEqual("MONTH", row.monthly_layer_projection.source_layer)
+        self.assertEqual(row.monthly_frame_id, row.monthly_layer_projection.frame_id)
+        self.assertEqual(row.source_annual_frame_id, row.monthly_layer_projection.parent_frame_id)
+        for layer in (
+            row.daxian_layer_projection,
+            row.annual_layer_projection,
+            row.monthly_layer_projection,
+        ):
+            self.assertEqual("S10_CURRENT_TEMPORAL_R1", layer.frame_rule_set_id)
+            self.assertEqual("ZIWEI-TEMPORAL-FRAMES-V1", layer.frame_algorithm_id)
+            self.assertEqual(4, len(layer.transformations))
+            self.assertEqual(3, len(layer.auxiliary_activations))
+            self.assertTrue(layer.source_refs)
+            self.assertEqual({layer.source_layer}, {item.source_layer for item in layer.transformations})
+            self.assertEqual({layer.source_stem}, {item.source_stem for item in layer.transformations})
+            self.assertEqual({layer.source_layer}, {item.source_layer for item in layer.auxiliary_activations})
+            self.assertEqual({layer.source_stem}, {item.source_stem for item in layer.auxiliary_activations})
+            self.assertEqual(64, len(layer.fact_hash))
+            self.assertEqual(64, len(layer.computation_hash))
+        self.assertEqual(
+            12,
+            len({
+                item.activation_id
+                for layer in (
+                    row.daxian_layer_projection,
+                    row.annual_layer_projection,
+                    row.monthly_layer_projection,
+                )
+                for item in layer.transformations
+            }),
+        )
+        self.assertEqual(
+            9,
+            len({
+                item.activation_id
+                for layer in (
+                    row.daxian_layer_projection,
+                    row.annual_layer_projection,
+                    row.monthly_layer_projection,
+                )
+                for item in layer.auxiliary_activations
+            }),
+        )
         self.assertEqual(2, len(row.monthly_ganzhi))
         self.assertIn(row.monthly_active_address_branch, "子丑寅卯辰巳午未申酉戌亥")
         self.assertEqual("REGULAR_LUNAR_DAY_RESOLVED", row.daily_projection_status)
@@ -192,6 +246,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertIsNone(row.monthly_frame_id)
         self.assertIsNone(row.monthly_ganzhi)
         self.assertIsNone(row.monthly_active_address_branch)
+        self.assertIsNone(row.monthly_layer_projection)
         self.assertEqual("PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME", row.daily_projection_status)
         self.assertIsNone(row.daily_frame_id)
         self.assertIsNone(row.daily_effective_gregorian_date)
@@ -249,6 +304,87 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(pre.frame_id, row.source_annual_frame_id)
         self.assertEqual(pre.nominal_age, row.minor_limit_age)
         self.assertIsNone(row.daxian_frame_id)
+        self.assertIsNone(row.daxian_layer_projection)
+        self.assertIsNone(row.annual_layer_projection.parent_frame_id)
+
+    def test_layer_projection_replay_rejects_rehashed_lineage_and_fact_tamper(self) -> None:
+        target = self._target(datetime(2026, 8, 18, 12, 0))
+        result = self._project(target)
+        original = result.candidates[0]
+        annual_layer = original.annual_layer_projection
+        changed_layer = replace(
+            annual_layer,
+            parent_frame_id="DAXIAN:index=999",
+            source_stem="癸" if annual_layer.source_stem != "癸" else "甲",
+            frame_rule_set_id="TAMPERED-RULE-SET",
+            source_refs=("S10:TAMPERED",),
+            transformations=(
+                replace(
+                    annual_layer.transformations[0],
+                    source_stem="癸" if annual_layer.source_stem != "癸" else "甲",
+                ),
+                *annual_layer.transformations[1:],
+            ),
+            auxiliary_activations=(
+                replace(
+                    annual_layer.auxiliary_activations[0],
+                    source_stem="癸" if annual_layer.source_stem != "癸" else "甲",
+                ),
+                *annual_layer.auxiliary_activations[1:],
+            ),
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = shared_ziwei_temporal_layer_hashes(changed_layer)
+        changed_layer = replace(
+            changed_layer,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+        changed_candidate = replace(
+            original,
+            annual_layer_projection=changed_layer,
+            candidate_hash="",
+        )
+        changed_candidate = replace(
+            changed_candidate,
+            candidate_hash=shared_selector_candidate_hash(changed_candidate),
+        )
+        tampered = replace(
+            result,
+            candidates=(changed_candidate,),
+            hashes=replace(result.hashes, fact_hash="", computation_hash=""),
+        )
+        tampered = replace(tampered, hashes=shared_selector_hash_bundle(tampered))
+
+        report = validate_shared_ziwei_selector_projection(
+            self.ziwei_bundle,
+            target,
+            self.target_profile,
+            tampered,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertIn(
+            "CANDIDATE_0_ANNUAL_LAYER_PROJECTION_MISMATCH",
+            report.diagnostics,
+        )
+
+        annual_frame = next(
+            frame
+            for frame in self.ziwei_bundle.temporal_state.annual_frames
+            if frame.frame_id == original.source_annual_frame_id
+        )
+        replay = validate_shared_ziwei_temporal_layer_projection(
+            changed_layer,
+            source_layer="ANNUAL",
+            source_frame=annual_frame,
+            temporal_state=self.ziwei_bundle.temporal_state,
+        )
+        self.assertEqual("FAIL", replay.status)
+        self.assertIn("TEMPORAL_LAYER_PARENT_FRAME_ID_REPLAY_MISMATCH", replay.diagnostics)
+        self.assertIn("TEMPORAL_LAYER_SOURCE_STEM_REPLAY_MISMATCH", replay.diagnostics)
+        self.assertIn("TEMPORAL_LAYER_FRAME_RULE_SET_ID_REPLAY_MISMATCH", replay.diagnostics)
+        self.assertIn("TEMPORAL_LAYER_SOURCE_REFS_REPLAY_MISMATCH", replay.diagnostics)
 
     def test_first_and_later_daxian_boundary_years_reuse_released_parent(self) -> None:
         daxian = self.ziwei_bundle.temporal_state.daxian_frames

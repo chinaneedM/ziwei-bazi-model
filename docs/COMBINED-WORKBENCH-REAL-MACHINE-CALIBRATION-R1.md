@@ -141,6 +141,8 @@ Resolving target-flow preserves released candidate lineage. A fold or uncertaint
 
 `计算共享 Projection` consumes the released target-coordinate candidates and the released Ziwei application bundle to calculate candidate-preserving Ziwei selector projections.
 
+The selected target candidate's Daxian, Annual, and regular-Month layers are shown as read-only source projections. Each line exposes the source stem, parent frame, four transformations, independent 禄存／擎羊／陀罗 instances, temporal rule identity, and layer FactHash. A pre-Daxian target has no fabricated Daxian layer; a leap-month target has no fabricated regular-Month layer.
+
 **Calculation alone does not change Ziwei Daxian / Annual / Minor selectors.** It also does not change the regular-Lunar-Month selector.
 
 When more than one projection candidate exists, each lineage remains separately selectable even when visible Ziwei selector values happen to be identical.
@@ -191,6 +193,8 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] A multi-candidate projection requires explicit candidate selection; candidate 0 is not auto-applied.
 - [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors and refreshes the existing Ziwei interaction view.
 - [ ] A leap-month target does not fabricate or apply a regular Ziwei monthly frame.
+- [ ] Daxian / Annual / regular-Month read-only lines expose separate source stems, parent frames, four transformations, 禄羊陀 instances, rule identities and 64-character hashes.
+- [ ] Same-named transformations and auxiliaries in different layers remain separate instances rather than collapsing into one display fact.
 - [ ] Apply does not change target datetime/place/coordinates/timezone, Bazi profile fields, or Bazi target-flow result.
 - [ ] Manual Ziwei navigation after Apply does not rewrite target fields.
 - [ ] Editing any birth/source input invalidates stale target-flow/projection eligibility.

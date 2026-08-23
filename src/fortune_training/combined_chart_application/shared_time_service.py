@@ -18,6 +18,7 @@ from fortune_training.ziwei_application import (
 from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
 
 from .shared_time_integrity import (
+    project_shared_ziwei_temporal_layer,
     shared_selector_candidate_hash,
     shared_selector_hash_bundle,
     validate_shared_ziwei_selector_projection,
@@ -127,6 +128,9 @@ class SharedZiweiSelectorProjectionService:
         annual_by_year: dict[int, list[object]] = {}
         for frame in ziwei_bundle.temporal_state.annual_frames:
             annual_by_year.setdefault(frame.absolute_year, []).append(frame)
+        daxian_by_id = {
+            frame.frame_id: frame for frame in ziwei_bundle.temporal_state.daxian_frames
+        }
 
         candidates: list[SharedZiweiSelectorProjectionCandidate] = []
         target_temporal = ZiweiTargetTemporalEngine()
@@ -139,6 +143,16 @@ class SharedZiweiSelectorProjectionService:
                     f"candidate_index={index};civil_year={civil_year};matches={len(annual_matches)}",
                 )
             annual = annual_matches[0]
+            daxian = (
+                daxian_by_id.get(annual.parent_daxian_frame_id)
+                if annual.parent_daxian_frame_id is not None
+                else None
+            )
+            if annual.parent_daxian_frame_id is not None and daxian is None:
+                raise SharedZiweiSelectorProjectionError(
+                    "SHARED_ZIWEI_DAXIAN_FRAME_NOT_EXACTLY_ONE",
+                    f"candidate_index={index};frame_id={annual.parent_daxian_frame_id}",
+                )
             lunar = self._effective_lunar_date(ziwei_bundle, target_candidate)
             if lunar.is_leap_month:
                 monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
@@ -212,6 +226,16 @@ class SharedZiweiSelectorProjectionService:
                 annual_year=annual.absolute_year,
                 minor_limit_age=annual.nominal_age,
                 daxian_frame_id=annual.parent_daxian_frame_id,
+                daxian_layer_projection=(
+                    project_shared_ziwei_temporal_layer(
+                        "DAXIAN", daxian, ziwei_bundle.temporal_state
+                    )
+                    if daxian is not None
+                    else None
+                ),
+                annual_layer_projection=project_shared_ziwei_temporal_layer(
+                    "ANNUAL", annual, ziwei_bundle.temporal_state
+                ),
                 ziwei_calendar_date_policy=(
                     ziwei_bundle.calculation_profile.time_calendar_policies.ziwei_calendar_date_policy
                 ),
@@ -227,6 +251,13 @@ class SharedZiweiSelectorProjectionService:
                 monthly_ganzhi=monthly.month_ganzhi if monthly is not None else None,
                 monthly_active_address_branch=(
                     monthly.active_address.branch if monthly is not None else None
+                ),
+                monthly_layer_projection=(
+                    project_shared_ziwei_temporal_layer(
+                        "MONTH", monthly, ziwei_bundle.temporal_state
+                    )
+                    if monthly is not None
+                    else None
                 ),
                 daily_projection_status=daily_status,
                 daily_frame_id=daily.frame_id if daily is not None else None,

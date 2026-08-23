@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SMOKE_PATH = ROOT / "scripts" / "combined-workbench-smoke.py"
 RUNBOOK_PATH = ROOT / "docs" / "COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md"
 README_PATH = ROOT / "README.md"
+SHARED_APPLY_ASSETS_PATH = (
+    ROOT / "src" / "fortune_training" / "combined_chart_application" / "shared_apply_assets.py"
+)
 
 
 def _load_smoke_module():
@@ -79,6 +82,17 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
         self.assertIn("应用目标时间到紫微", text)
         self.assertIn("does not rewrite target fields", text)
         self.assertIn("Manual Ziwei navigation after Apply does not rewrite target fields", text)
+
+    def test_shared_projection_ui_exposes_layer_facts_read_only(self) -> None:
+        source = SHARED_APPLY_ASSETS_PATH.read_text(encoding="utf-8")
+        self.assertIn("daxian_layer_projection", source)
+        self.assertIn("annual_layer_projection", source)
+        self.assertIn("monthly_layer_projection", source)
+        self.assertIn("来源干=", source)
+        self.assertIn("四化=", source)
+        self.assertIn("禄羊陀=", source)
+        self.assertIn("layer.fact_hash", source)
+        self.assertIn("按来源层只读显示", source)
 
     def test_calibration_workflow_contains_no_training_write_commands(self) -> None:
         text = RUNBOOK_PATH.read_text(encoding="utf-8")

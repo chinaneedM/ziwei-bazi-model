@@ -94,6 +94,20 @@ class CombinedBrowserSharedTargetApplyHttpR1Tests(unittest.TestCase):
                 data = json.loads(response.read().decode("utf-8"))
             self.assertEqual(SHARED_SCHEMA, data["schema"])
             self.assertEqual("PASS", data["projection"]["integrity"]["status"])
+            projected = data["projection"]["candidates"][0]
+            self.assertEqual("DAXIAN", projected["daxian_layer_projection"]["source_layer"])
+            self.assertEqual("ANNUAL", projected["annual_layer_projection"]["source_layer"])
+            self.assertEqual("MONTH", projected["monthly_layer_projection"]["source_layer"])
+            for layer_name in (
+                "daxian_layer_projection",
+                "annual_layer_projection",
+                "monthly_layer_projection",
+            ):
+                layer = projected[layer_name]
+                self.assertEqual(4, len(layer["transformations"]))
+                self.assertEqual(3, len(layer["auxiliary_activations"]))
+                self.assertEqual(64, len(layer["fact_hash"]))
+                self.assertEqual(64, len(layer["computation_hash"]))
 
             with self._post(
                 f"http://{host}:{port}/api/resolve",
@@ -162,6 +176,8 @@ class CombinedBrowserSharedTargetApplyHttpR1Tests(unittest.TestCase):
         self.assertEqual(1994, row["annual_year"])
         self.assertEqual(1, row["minor_limit_age"])
         self.assertIsNone(row["daxian_frame_id"])
+        self.assertIsNone(row["daxian_layer_projection"])
+        self.assertIsNone(row["annual_layer_projection"]["parent_frame_id"])
 
     def test_candidate_local_civil_year_wins_over_utc_year(self) -> None:
         app = CombinedChartWorkbenchApplication(ROOT)
