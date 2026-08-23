@@ -181,11 +181,14 @@ SHARED_APPLY_JS = r"""
       && Array.isArray(row.hourly_method_candidates)
       && row.hourly_method_candidates.length === 2
       && Array.isArray(row.daily_designation_overlay)
+      && Array.isArray(row.daily_auxiliary_activations)
       && Array.isArray(row.daily_transformations)
       && row.hourly_method_candidates.every((hour) => (
         typeof hour.active_address_branch === 'string'
         && Array.isArray(hour.designation_overlay)
         && hour.designation_overlay.length === 12
+        && Array.isArray(hour.auxiliary_activations)
+        && hour.auxiliary_activations.length === 3
         && Array.isArray(hour.transformations)
       ))
       && (
@@ -220,9 +223,10 @@ SHARED_APPLY_JS = r"""
       `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
       `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
       `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · 命宫=${row.daily_active_address_branch || '-'} · 宫职=${row.daily_designation_overlay.map((item) => `${item.display_name}@${item.address.branch}`).join(' / ') || 'NONE'}`,
+      `daily_auxiliary=${row.daily_auxiliary_status} · ${row.daily_auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
       `daily_transformations=${row.daily_transformation_status} · ${row.daily_transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
       ...row.hourly_method_candidates.map((hour) => (
-        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · 候选命宫=${hour.active_address_branch} · ${hour.frame_status} · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
+        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · 候选命宫=${hour.active_address_branch} · ${hour.frame_status} · ${hour.auxiliary_status}(${hour.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')}) · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
       )),
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');

@@ -61,6 +61,9 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "daily_ganzhi": candidate.daily_ganzhi,
             "daily_active_address_branch": candidate.daily_active_address_branch,
             "daily_designation_overlay": [json_value(row) for row in candidate.daily_designation_overlay],
+            "daily_auxiliary_status": candidate.daily_auxiliary_status,
+            "daily_auxiliary_activations": [json_value(row) for row in candidate.daily_auxiliary_activations],
+            "daily_auxiliary_source_refs": candidate.daily_auxiliary_source_refs,
             "daily_rule_id": candidate.daily_rule_id,
             "daily_source_refs": candidate.daily_source_refs,
             "daily_transformation_status": candidate.daily_transformation_status,
@@ -259,6 +262,13 @@ def validate_shared_ziwei_selector_projection(
                 daily.active_address.branch if daily is not None else None
             ),
             "daily_designation_overlay": daily.designation_overlay if daily is not None else (),
+            "daily_auxiliary_status": (
+                daily.auxiliary_status if daily is not None else "PARENT_DAILY_FRAME_UNRESOLVED"
+            ),
+            "daily_auxiliary_activations": (
+                daily.auxiliary_activations if daily is not None else ()
+            ),
+            "daily_auxiliary_source_refs": daily.auxiliary_source_refs if daily is not None else (),
             "daily_rule_id": daily.rule_id if daily is not None else None,
             "daily_source_refs": daily.source_refs if daily is not None else (),
             "daily_transformation_status": (
@@ -308,6 +318,9 @@ def validate_shared_ziwei_selector_projection(
                 "designation_overlay": expected_hourly.designation_overlay,
                 "active_address_rule_id": expected_hourly.active_address_rule_id,
                 "active_address_source_refs": expected_hourly.active_address_source_refs,
+                "auxiliary_status": expected_hourly.auxiliary_status,
+                "auxiliary_activations": expected_hourly.auxiliary_activations,
+                "auxiliary_source_refs": expected_hourly.auxiliary_source_refs,
                 "transformation_status": expected_hourly.transformation_status,
                 "transformation_rule_set_id": expected_hourly.transformation_rule_set_id,
                 "transformation_rule_set_version": expected_hourly.transformation_rule_set_version,

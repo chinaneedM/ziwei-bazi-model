@@ -45,6 +45,16 @@ class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
         self.assertTrue(all(row.frame_status == "CASE_METHOD_ACTIVE_ADDRESS_CANDIDATE_NO_COMPLETE_CHART" for row in rows))
         self.assertTrue(all(row.active_address_rule_id == "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1" for row in rows))
         self.assertTrue(all("S10:ZZTERM-P-0316" in row.active_address_source_refs for row in rows))
+        self.assertTrue(all(row.auxiliary_status == "CASE_METHOD_SOURCE_RULE_RESOLVED" for row in rows))
+        self.assertTrue(all(len(row.auxiliary_activations) == 3 for row in rows))
+        self.assertTrue(all(
+            [item.display_name for item in row.auxiliary_activations] == ["禄存", "擎羊", "陀罗"]
+            for row in rows
+        ))
+        self.assertTrue(all(
+            {item.source_stem for item in row.auxiliary_activations} == {row.hour_ganzhi[0]}
+            for row in rows
+        ))
         self.assertTrue(all(row.authority_status == "CASE_METHOD_ONLY_NOT_GLOBAL_RULE" for row in rows))
         self.assertTrue(all("S01:ZZZA-CF-001" in row.source_refs for row in rows))
         self.assertEqual("ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", rows[0].time_standard)

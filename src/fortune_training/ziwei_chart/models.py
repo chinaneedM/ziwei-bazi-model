@@ -86,6 +86,21 @@ class TransformationActivation:
 
 
 @dataclass(frozen=True)
+class TemporalAuxiliaryActivation:
+    activation_id: str
+    entity_id: str
+    display_name: str
+    target_address: Address
+    source_layer: str
+    source_stem: str
+    context_id: str
+    rule_id: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class RoleBinding:
     role_id: str
     display_name: str

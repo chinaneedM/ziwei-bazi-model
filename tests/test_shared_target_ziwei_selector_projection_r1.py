@@ -134,6 +134,11 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual("LIFE", row.daily_designation_overlay[0].designation_id)
         self.assertEqual(row.daily_active_address_branch, row.daily_designation_overlay[0].address.branch)
         self.assertEqual(12, len({item.address.branch for item in row.daily_designation_overlay}))
+        self.assertEqual("SOURCE_RULE_RESOLVED", row.daily_auxiliary_status)
+        self.assertEqual(["禄存", "擎羊", "陀罗"], [item.display_name for item in row.daily_auxiliary_activations])
+        self.assertEqual({row.daily_ganzhi[0]}, {item.source_stem for item in row.daily_auxiliary_activations})
+        self.assertTrue(all(item.source_layer == "DAY" for item in row.daily_auxiliary_activations))
+        self.assertIn("S10:ZZTERM-P-0278", row.daily_auxiliary_source_refs)
         self.assertEqual("S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1", row.daily_rule_id)
         self.assertIn("S10:ZZTERM-P-0274", row.daily_source_refs)
         self.assertEqual("PROFILE_RULE_SET_RESOLVED", row.daily_transformation_status)
@@ -161,6 +166,12 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertTrue(all(len(candidate.designation_overlay) == 12 for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.designation_overlay[0].address.branch == candidate.active_address_branch for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.active_address_rule_id == "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1" for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(candidate.auxiliary_status == "CASE_METHOD_SOURCE_RULE_RESOLVED" for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(len(candidate.auxiliary_activations) == 3 for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(
+            {item.source_stem for item in candidate.auxiliary_activations} == {candidate.hour_ganzhi[0]}
+            for candidate in row.hourly_method_candidates
+        ))
         self.assertTrue(all(candidate.authority_status == "CASE_METHOD_ONLY_NOT_GLOBAL_RULE" for candidate in row.hourly_method_candidates))
         self.assertTrue(all("S01:ZZZA-CF-002" in candidate.source_refs for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.transformation_status == "CASE_METHOD_PROFILE_RULE_SET_RESOLVED" for candidate in row.hourly_method_candidates))
@@ -187,6 +198,9 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertIsNone(row.daily_ganzhi)
         self.assertIsNone(row.daily_active_address_branch)
         self.assertEqual((), row.daily_designation_overlay)
+        self.assertEqual("PARENT_DAILY_FRAME_UNRESOLVED", row.daily_auxiliary_status)
+        self.assertEqual((), row.daily_auxiliary_activations)
+        self.assertEqual((), row.daily_auxiliary_source_refs)
         self.assertIsNone(row.daily_rule_id)
         self.assertEqual((), row.daily_source_refs)
         self.assertEqual("PARENT_DAILY_FRAME_UNRESOLVED", row.daily_transformation_status)
@@ -432,6 +446,13 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
                 ),
                 *original.hourly_method_candidates[0].designation_overlay[1:],
             ),
+            auxiliary_activations=(
+                replace(
+                    original.hourly_method_candidates[0].auxiliary_activations[0],
+                    source_stem="癸" if original.hourly_method_candidates[0].auxiliary_activations[0].source_stem != "癸" else "甲",
+                ),
+                *original.hourly_method_candidates[0].auxiliary_activations[1:],
+            ),
             transformations=(
                 changed_hour_activation,
                 *original.hourly_method_candidates[0].transformations[1:],
@@ -445,6 +466,13 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
                     address=original.daily_designation_overlay[1].address,
                 ),
                 *original.daily_designation_overlay[1:],
+            ),
+            daily_auxiliary_activations=(
+                replace(
+                    original.daily_auxiliary_activations[0],
+                    source_stem="癸" if original.daily_auxiliary_activations[0].source_stem != "癸" else "甲",
+                ),
+                *original.daily_auxiliary_activations[1:],
             ),
             daily_transformations=(changed_daily_activation, *original.daily_transformations[1:]),
             hourly_method_candidates=(changed_hour, original.hourly_method_candidates[1]),
@@ -470,8 +498,10 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual("FAIL", report.status)
         self.assertTrue(any("DAILY_TRANSFORMATIONS_MISMATCH" in row for row in report.diagnostics))
         self.assertTrue(any("DAILY_DESIGNATION_OVERLAY_MISMATCH" in row for row in report.diagnostics))
+        self.assertTrue(any("DAILY_AUXILIARY_ACTIVATIONS_MISMATCH" in row for row in report.diagnostics))
         self.assertTrue(any("HOURLY_0_TRANSFORMATIONS_MISMATCH" in row for row in report.diagnostics))
         self.assertTrue(any("HOURLY_0_DESIGNATION_OVERLAY_MISMATCH" in row for row in report.diagnostics))
+        self.assertTrue(any("HOURLY_0_AUXILIARY_ACTIVATIONS_MISMATCH" in row for row in report.diagnostics))
 
     def test_contract_has_no_bazi_flow_reinterpretation_or_prediction_surface(self) -> None:
         candidate_names = {field.name for field in fields(SharedZiweiSelectorProjectionCandidate)}

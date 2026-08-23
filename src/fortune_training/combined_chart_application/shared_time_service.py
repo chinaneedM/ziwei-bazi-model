@@ -178,6 +178,9 @@ class SharedZiweiSelectorProjectionService:
                     designation_overlay=row.designation_overlay,
                     active_address_rule_id=row.active_address_rule_id,
                     active_address_source_refs=row.active_address_source_refs,
+                    auxiliary_status=row.auxiliary_status,
+                    auxiliary_activations=row.auxiliary_activations,
+                    auxiliary_source_refs=row.auxiliary_source_refs,
                     transformation_status=row.transformation_status,
                     transformation_rule_set_id=row.transformation_rule_set_id,
                     transformation_rule_set_version=row.transformation_rule_set_version,
@@ -236,6 +239,17 @@ class SharedZiweiSelectorProjectionService:
                 ),
                 daily_designation_overlay=(
                     daily.designation_overlay if daily is not None else ()
+                ),
+                daily_auxiliary_status=(
+                    daily.auxiliary_status
+                    if daily is not None
+                    else "PARENT_DAILY_FRAME_UNRESOLVED"
+                ),
+                daily_auxiliary_activations=(
+                    daily.auxiliary_activations if daily is not None else ()
+                ),
+                daily_auxiliary_source_refs=(
+                    daily.auxiliary_source_refs if daily is not None else ()
                 ),
                 daily_rule_id=daily.rule_id if daily is not None else None,
                 daily_source_refs=daily.source_refs if daily is not None else (),

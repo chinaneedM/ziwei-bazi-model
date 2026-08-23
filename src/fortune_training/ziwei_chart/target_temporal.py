@@ -9,7 +9,14 @@ from fortune_training.calendar_foundation import (
     sexagenary_day_pillar,
 )
 
-from .models import Address, DesignationBinding, Placement, TransformationActivation
+from .auxiliary import QSCoreAuxiliaryGenerator
+from .models import (
+    Address,
+    DesignationBinding,
+    Placement,
+    TemporalAuxiliaryActivation,
+    TransformationActivation,
+)
 from .registries import PALACE_DESIGNATIONS, address, branch_index
 from .temporal import MonthlyFrame
 from .transformations import TransformationGenerator
@@ -19,7 +26,7 @@ if TYPE_CHECKING:
 
 
 ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_ID = "ZIWEI-TARGET-DAILY-HOURLY-R1"
-ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.2.0"
+ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.3.0"
 
 DAILY_RULE_ID = "S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1"
 DAILY_SOURCE_REFS = ("S10:ZZTERM-P-0274", "S10:ZZTERM-P-0275", "S10:ZZTERM-P-0277")
@@ -27,6 +34,11 @@ HOURLY_RULE_ID = "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"
 HOURLY_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
 HOURLY_ACTIVE_ADDRESS_RULE_ID = "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1"
 HOURLY_ACTIVE_ADDRESS_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
+TEMPORAL_AUXILIARY_RULE_ID = "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1"
+TEMPORAL_AUXILIARY_GENERATOR_ID = "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1"
+TEMPORAL_AUXILIARY_ALGORITHM_VERSION = "1.0.0"
+DAILY_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-P-0277", "S10:ZZTERM-P-0278")
+HOURLY_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-P-0317",)
 TIME_STANDARD_CONFLICT_REF = "S01:ZZZA-CF-002"
 ZI_HOUR_DATE_CONFLICT_REF = "S01:ZZZA-CF-001"
 LUOYANG_TIME_SOURCE_REFS = ("S01:ZZZA-PR-004", "S01:ZZZA-A-0027")
@@ -51,6 +63,9 @@ class ZiweiTargetDailyFrame:
     day_ganzhi: str
     active_address: Address
     designation_overlay: tuple[DesignationBinding, ...]
+    auxiliary_status: str
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
+    auxiliary_source_refs: tuple[str, ...]
     transformation_status: str
     transformation_rule_set_id: str | None
     transformation_rule_set_version: str | None
@@ -75,6 +90,9 @@ class ZiweiTargetHourlyMethodCandidate:
     designation_overlay: tuple[DesignationBinding, ...]
     active_address_rule_id: str
     active_address_source_refs: tuple[str, ...]
+    auxiliary_status: str
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
+    auxiliary_source_refs: tuple[str, ...]
     transformation_status: str
     transformation_rule_set_id: str | None
     transformation_rule_set_version: str | None
@@ -103,6 +121,32 @@ class ZiweiTargetTemporalEngine:
         return tuple(
             DesignationBinding(designation_id, display_name, address(active_life.index - offset))
             for offset, (designation_id, display_name) in enumerate(PALACE_DESIGNATIONS)
+        )
+
+    @staticmethod
+    def _auxiliary_activations(
+        source_stem: str,
+        *,
+        source_layer: str,
+        context_id: str,
+        temporal_source_refs: tuple[str, ...],
+    ) -> tuple[TemporalAuxiliaryActivation, ...]:
+        placements = QSCoreAuxiliaryGenerator.lucun_yang_tuo(source_stem)
+        return tuple(
+            TemporalAuxiliaryActivation(
+                activation_id=f"{context_id}:{row.entity_id}",
+                entity_id=row.entity_id,
+                display_name=row.display_name,
+                target_address=row.address,
+                source_layer=source_layer,
+                source_stem=source_stem,
+                context_id=context_id,
+                rule_id=TEMPORAL_AUXILIARY_RULE_ID,
+                generator_id=TEMPORAL_AUXILIARY_GENERATOR_ID,
+                algorithm_version=TEMPORAL_AUXILIARY_ALGORITHM_VERSION,
+                source_refs=temporal_source_refs + row.source_refs,
+            )
+            for row in placements
         )
 
     def _activate_transformations(
@@ -174,6 +218,14 @@ class ZiweiTargetTemporalEngine:
             day_ganzhi=day_ganzhi,
             active_address=active,
             designation_overlay=self._designation_overlay(active),
+            auxiliary_status="SOURCE_RULE_RESOLVED",
+            auxiliary_activations=self._auxiliary_activations(
+                day_ganzhi[0],
+                source_layer="DAY",
+                context_id=frame_id,
+                temporal_source_refs=DAILY_AUXILIARY_SOURCE_REFS,
+            ),
+            auxiliary_source_refs=DAILY_AUXILIARY_SOURCE_REFS,
             transformation_status=transformation_status,
             transformation_rule_set_id=profile.transformation_rule_set_id,
             transformation_rule_set_version=profile.transformation_rule_set_version,
@@ -230,6 +282,14 @@ class ZiweiTargetTemporalEngine:
                     designation_overlay=self._designation_overlay(active),
                     active_address_rule_id=HOURLY_ACTIVE_ADDRESS_RULE_ID,
                     active_address_source_refs=HOURLY_ACTIVE_ADDRESS_SOURCE_REFS,
+                    auxiliary_status="CASE_METHOD_SOURCE_RULE_RESOLVED",
+                    auxiliary_activations=self._auxiliary_activations(
+                        hour_ganzhi[0],
+                        source_layer="HOUR_CANDIDATE",
+                        context_id=candidate_id,
+                        temporal_source_refs=HOURLY_AUXILIARY_SOURCE_REFS,
+                    ),
+                    auxiliary_source_refs=HOURLY_AUXILIARY_SOURCE_REFS,
                     transformation_status=(
                         "CASE_METHOD_" + transformation_status
                     ),
