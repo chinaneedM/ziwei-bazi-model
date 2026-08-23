@@ -9,8 +9,8 @@ from fortune_training.calendar_foundation import (
     sexagenary_day_pillar,
 )
 
-from .models import Address, Placement, TransformationActivation
-from .registries import address
+from .models import Address, DesignationBinding, Placement, TransformationActivation
+from .registries import PALACE_DESIGNATIONS, address, branch_index
 from .temporal import MonthlyFrame
 from .transformations import TransformationGenerator
 
@@ -19,12 +19,14 @@ if TYPE_CHECKING:
 
 
 ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_ID = "ZIWEI-TARGET-DAILY-HOURLY-R1"
-ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.1.0"
+ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.2.0"
 
 DAILY_RULE_ID = "S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1"
 DAILY_SOURCE_REFS = ("S10:ZZTERM-P-0274", "S10:ZZTERM-P-0275", "S10:ZZTERM-P-0277")
 HOURLY_RULE_ID = "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"
 HOURLY_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
+HOURLY_ACTIVE_ADDRESS_RULE_ID = "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1"
+HOURLY_ACTIVE_ADDRESS_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
 TIME_STANDARD_CONFLICT_REF = "S01:ZZZA-CF-002"
 ZI_HOUR_DATE_CONFLICT_REF = "S01:ZZZA-CF-001"
 LUOYANG_TIME_SOURCE_REFS = ("S01:ZZZA-PR-004", "S01:ZZZA-A-0027")
@@ -48,6 +50,7 @@ class ZiweiTargetDailyFrame:
     effective_lunar_day: int
     day_ganzhi: str
     active_address: Address
+    designation_overlay: tuple[DesignationBinding, ...]
     transformation_status: str
     transformation_rule_set_id: str | None
     transformation_rule_set_version: str | None
@@ -69,6 +72,9 @@ class ZiweiTargetHourlyMethodCandidate:
     hour_ganzhi: str
     frame_status: str
     active_address: Address | None
+    designation_overlay: tuple[DesignationBinding, ...]
+    active_address_rule_id: str
+    active_address_source_refs: tuple[str, ...]
     transformation_status: str
     transformation_rule_set_id: str | None
     transformation_rule_set_version: str | None
@@ -91,6 +97,13 @@ class ZiweiTargetTemporalEngine:
 
     def __init__(self, transformation_generator: TransformationGenerator | None = None) -> None:
         self.transformations = transformation_generator or TransformationGenerator()
+
+    @staticmethod
+    def _designation_overlay(active_life: Address) -> tuple[DesignationBinding, ...]:
+        return tuple(
+            DesignationBinding(designation_id, display_name, address(active_life.index - offset))
+            for offset, (designation_id, display_name) in enumerate(PALACE_DESIGNATIONS)
+        )
 
     def _activate_transformations(
         self,
@@ -160,6 +173,7 @@ class ZiweiTargetTemporalEngine:
             effective_lunar_day=effective_lunar_day,
             day_ganzhi=day_ganzhi,
             active_address=active,
+            designation_overlay=self._designation_overlay(active),
             transformation_status=transformation_status,
             transformation_rule_set_id=profile.transformation_rule_set_id,
             transformation_rule_set_version=profile.transformation_rule_set_version,
@@ -193,6 +207,7 @@ class ZiweiTargetTemporalEngine:
             )
             hour_ganzhi = five_rats_hour_pillar(local_datetime, effective_date)
             candidate_id = f"{HOURLY_RULE_ID}:{time_standard}"
+            active = address(branch_index(hour_ganzhi[1]))
             transformation_status, transformations = self._activate_transformations(
                 profile,
                 placements,
@@ -210,8 +225,11 @@ class ZiweiTargetTemporalEngine:
                     day_ganzhi=sexagenary_day_pillar(effective_date),
                     hour_branch=hour_ganzhi[1],
                     hour_ganzhi=hour_ganzhi,
-                    frame_status="ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY",
-                    active_address=None,
+                    frame_status="CASE_METHOD_ACTIVE_ADDRESS_CANDIDATE_NO_COMPLETE_CHART",
+                    active_address=active,
+                    designation_overlay=self._designation_overlay(active),
+                    active_address_rule_id=HOURLY_ACTIVE_ADDRESS_RULE_ID,
+                    active_address_source_refs=HOURLY_ACTIVE_ADDRESS_SOURCE_REFS,
                     transformation_status=(
                         "CASE_METHOD_" + transformation_status
                     ),

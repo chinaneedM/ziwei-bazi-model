@@ -3,20 +3,20 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from fortune_training.ziwei_chart.models import TransformationActivation
+from fortune_training.ziwei_chart.models import DesignationBinding, TransformationActivation
 
 
 SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA = "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
 SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID = "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-R1"
-SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.3.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.4.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.3.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.4.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.3.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.4.0"
 
 
 @dataclass(frozen=True)
@@ -31,6 +31,9 @@ class SharedZiweiHourlyMethodCandidate:
     hour_ganzhi: str
     frame_status: str
     active_address_branch: str | None
+    designation_overlay: tuple[DesignationBinding, ...]
+    active_address_rule_id: str
+    active_address_source_refs: tuple[str, ...]
     transformation_status: str
     transformation_rule_set_id: str | None
     transformation_rule_set_version: str | None
@@ -69,6 +72,7 @@ class SharedZiweiSelectorProjectionCandidate:
     daily_effective_gregorian_date: str | None
     daily_ganzhi: str | None
     daily_active_address_branch: str | None
+    daily_designation_overlay: tuple[DesignationBinding, ...]
     daily_rule_id: str | None
     daily_source_refs: tuple[str, ...]
     daily_transformation_status: str

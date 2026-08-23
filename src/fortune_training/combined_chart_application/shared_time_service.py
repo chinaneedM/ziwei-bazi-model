@@ -175,6 +175,9 @@ class SharedZiweiSelectorProjectionService:
                     active_address_branch=(
                         row.active_address.branch if row.active_address is not None else None
                     ),
+                    designation_overlay=row.designation_overlay,
+                    active_address_rule_id=row.active_address_rule_id,
+                    active_address_source_refs=row.active_address_source_refs,
                     transformation_status=row.transformation_status,
                     transformation_rule_set_id=row.transformation_rule_set_id,
                     transformation_rule_set_version=row.transformation_rule_set_version,
@@ -230,6 +233,9 @@ class SharedZiweiSelectorProjectionService:
                 daily_ganzhi=daily.day_ganzhi if daily is not None else None,
                 daily_active_address_branch=(
                     daily.active_address.branch if daily is not None else None
+                ),
+                daily_designation_overlay=(
+                    daily.designation_overlay if daily is not None else ()
                 ),
                 daily_rule_id=daily.rule_id if daily is not None else None,
                 daily_source_refs=daily.source_refs if daily is not None else (),

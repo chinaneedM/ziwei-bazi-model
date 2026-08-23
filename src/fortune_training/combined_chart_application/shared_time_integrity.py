@@ -60,6 +60,7 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "daily_effective_gregorian_date": candidate.daily_effective_gregorian_date,
             "daily_ganzhi": candidate.daily_ganzhi,
             "daily_active_address_branch": candidate.daily_active_address_branch,
+            "daily_designation_overlay": [json_value(row) for row in candidate.daily_designation_overlay],
             "daily_rule_id": candidate.daily_rule_id,
             "daily_source_refs": candidate.daily_source_refs,
             "daily_transformation_status": candidate.daily_transformation_status,
@@ -257,6 +258,7 @@ def validate_shared_ziwei_selector_projection(
             "daily_active_address_branch": (
                 daily.active_address.branch if daily is not None else None
             ),
+            "daily_designation_overlay": daily.designation_overlay if daily is not None else (),
             "daily_rule_id": daily.rule_id if daily is not None else None,
             "daily_source_refs": daily.source_refs if daily is not None else (),
             "daily_transformation_status": (
@@ -302,7 +304,10 @@ def validate_shared_ziwei_selector_projection(
                 "hour_branch": expected_hourly.hour_branch,
                 "hour_ganzhi": expected_hourly.hour_ganzhi,
                 "frame_status": expected_hourly.frame_status,
-                "active_address_branch": None,
+                "active_address_branch": expected_hourly.active_address.branch,
+                "designation_overlay": expected_hourly.designation_overlay,
+                "active_address_rule_id": expected_hourly.active_address_rule_id,
+                "active_address_source_refs": expected_hourly.active_address_source_refs,
                 "transformation_status": expected_hourly.transformation_status,
                 "transformation_rule_set_id": expected_hourly.transformation_rule_set_id,
                 "transformation_rule_set_version": expected_hourly.transformation_rule_set_version,
