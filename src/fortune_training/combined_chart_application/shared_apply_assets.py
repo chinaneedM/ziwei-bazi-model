@@ -180,6 +180,8 @@ SHARED_APPLY_JS = r"""
       && row.hourly_projection_status === 'CANDIDATES_PRESERVED_NO_SELECTED_FRAME'
       && Array.isArray(row.hourly_method_candidates)
       && row.hourly_method_candidates.length === 2
+      && Array.isArray(row.daily_transformations)
+      && row.hourly_method_candidates.every((hour) => Array.isArray(hour.transformations))
       && (
         (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
           && typeof row.monthly_frame_id === 'string'
@@ -212,8 +214,9 @@ SHARED_APPLY_JS = r"""
       `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
       `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
       `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · ${row.daily_active_address_branch || '-'}`,
+      `daily_transformations=${row.daily_transformation_status} · ${row.daily_transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
       ...row.hourly_method_candidates.map((hour) => (
-        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · ${hour.frame_status}`
+        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · ${hour.frame_status} · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
       )),
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');

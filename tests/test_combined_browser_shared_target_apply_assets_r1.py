@@ -71,7 +71,9 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
 
     def test_daily_fact_and_hourly_candidates_are_read_only_and_visible(self) -> None:
         self.assertIn("daily_projection=${row.daily_projection_status}", SHARED_APPLY_JS)
+        self.assertIn("daily_transformations=${row.daily_transformation_status}", SHARED_APPLY_JS)
         self.assertIn("row.hourly_method_candidates.map", SHARED_APPLY_JS)
+        self.assertIn("hour.transformations.map", SHARED_APPLY_JS)
         self.assertIn("CANDIDATES_PRESERVED_NO_SELECTED_FRAME", SHARED_APPLY_JS)
         apply_block = SHARED_APPLY_JS.split("function applyProjection()", 1)[1].split(
             "candidateSelect.addEventListener", 1

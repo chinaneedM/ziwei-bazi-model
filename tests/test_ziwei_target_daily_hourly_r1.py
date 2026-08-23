@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from datetime import date, datetime, timezone
+from types import SimpleNamespace
 
 from fortune_training.calendar_foundation import (
     BaziTimeResolver,
@@ -30,6 +31,11 @@ class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
             target_utc=datetime(2026, 11, 15, 5, 15, tzinfo=timezone.utc),
             local_apparent_solar_datetime=datetime(2026, 11, 15, 13, 1),
             ziwei_day_boundary_policy="ZI_START_23",
+            profile=SimpleNamespace(
+                transformation_rule_set_id=None,
+                transformation_rule_set_version=None,
+            ),
+            placements=(),
         )
         self.assertEqual(2, len(rows))
         self.assertEqual({"未", "午"}, {row.hour_branch for row in rows})
@@ -38,6 +44,8 @@ class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
         self.assertTrue(all("S01:ZZZA-CF-001" in row.source_refs for row in rows))
         self.assertEqual("ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", rows[0].time_standard)
         self.assertEqual(datetime(2026, 11, 15, 12, 44, 44), rows[0].source_local_datetime)
+        self.assertTrue(all(row.transformation_status == "CASE_METHOD_PROFILE_TRANSFORMATIONS_DISABLED" for row in rows))
+        self.assertTrue(all(row.transformations == () for row in rows))
 
 
 if __name__ == "__main__":

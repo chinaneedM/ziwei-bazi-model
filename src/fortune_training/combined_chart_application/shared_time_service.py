@@ -158,6 +158,8 @@ class SharedZiweiSelectorProjectionService:
                     monthly,
                     effective_gregorian_date=lunar.source_gregorian_date,
                     effective_lunar_day=lunar.day,
+                    profile=ziwei_bundle.calculation_profile,
+                    placements=ziwei_bundle.temporal_context.placements,
                 )
             hourly_candidates = tuple(
                 SharedZiweiHourlyMethodCandidate(
@@ -173,6 +175,11 @@ class SharedZiweiSelectorProjectionService:
                     active_address_branch=(
                         row.active_address.branch if row.active_address is not None else None
                     ),
+                    transformation_status=row.transformation_status,
+                    transformation_rule_set_id=row.transformation_rule_set_id,
+                    transformation_rule_set_version=row.transformation_rule_set_version,
+                    transformations=row.transformations,
+                    transformation_source_refs=row.transformation_source_refs,
                     rule_id=row.rule_id,
                     authority_status=row.authority_status,
                     source_refs=row.source_refs,
@@ -183,6 +190,8 @@ class SharedZiweiSelectorProjectionService:
                     ziwei_day_boundary_policy=(
                         ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
                     ),
+                    profile=ziwei_bundle.calculation_profile,
+                    placements=ziwei_bundle.temporal_context.placements,
                 )
             )
             candidate = SharedZiweiSelectorProjectionCandidate(
@@ -224,6 +233,21 @@ class SharedZiweiSelectorProjectionService:
                 ),
                 daily_rule_id=daily.rule_id if daily is not None else None,
                 daily_source_refs=daily.source_refs if daily is not None else (),
+                daily_transformation_status=(
+                    daily.transformation_status
+                    if daily is not None
+                    else "PARENT_DAILY_FRAME_UNRESOLVED"
+                ),
+                daily_transformation_rule_set_id=(
+                    daily.transformation_rule_set_id if daily is not None else None
+                ),
+                daily_transformation_rule_set_version=(
+                    daily.transformation_rule_set_version if daily is not None else None
+                ),
+                daily_transformations=daily.transformations if daily is not None else (),
+                daily_transformation_source_refs=(
+                    daily.transformation_source_refs if daily is not None else ()
+                ),
                 hourly_projection_status="CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
                 hourly_method_candidates=hourly_candidates,
                 candidate_hash="",

@@ -62,6 +62,11 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "daily_active_address_branch": candidate.daily_active_address_branch,
             "daily_rule_id": candidate.daily_rule_id,
             "daily_source_refs": candidate.daily_source_refs,
+            "daily_transformation_status": candidate.daily_transformation_status,
+            "daily_transformation_rule_set_id": candidate.daily_transformation_rule_set_id,
+            "daily_transformation_rule_set_version": candidate.daily_transformation_rule_set_version,
+            "daily_transformations": [json_value(row) for row in candidate.daily_transformations],
+            "daily_transformation_source_refs": candidate.daily_transformation_source_refs,
             "hourly_projection_status": candidate.hourly_projection_status,
             "hourly_method_candidates": [json_value(row) for row in candidate.hourly_method_candidates],
         }
@@ -213,6 +218,8 @@ def validate_shared_ziwei_selector_projection(
                 monthly,
                 effective_gregorian_date=lunar.source_gregorian_date,
                 effective_lunar_day=lunar.day,
+                profile=profile,
+                placements=ziwei_bundle.temporal_context.placements,
             )
             daily_status = "REGULAR_LUNAR_DAY_RESOLVED"
         expected = {
@@ -252,6 +259,21 @@ def validate_shared_ziwei_selector_projection(
             ),
             "daily_rule_id": daily.rule_id if daily is not None else None,
             "daily_source_refs": daily.source_refs if daily is not None else (),
+            "daily_transformation_status": (
+                daily.transformation_status
+                if daily is not None
+                else "PARENT_DAILY_FRAME_UNRESOLVED"
+            ),
+            "daily_transformation_rule_set_id": (
+                daily.transformation_rule_set_id if daily is not None else None
+            ),
+            "daily_transformation_rule_set_version": (
+                daily.transformation_rule_set_version if daily is not None else None
+            ),
+            "daily_transformations": daily.transformations if daily is not None else (),
+            "daily_transformation_source_refs": (
+                daily.transformation_source_refs if daily is not None else ()
+            ),
             "hourly_projection_status": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
         }
         for field_name, expected_value in expected.items():
@@ -261,6 +283,8 @@ def validate_shared_ziwei_selector_projection(
             target_utc=target_candidate.target_utc,
             local_apparent_solar_datetime=target_candidate.local_apparent_solar_datetime,
             ziwei_day_boundary_policy=profile.ziwei_day_boundary_policy,
+            profile=profile,
+            placements=ziwei_bundle.temporal_context.placements,
         )
         if len(projected.hourly_method_candidates) != len(hourly_expected):
             diagnostics.append(f"CANDIDATE_{index}_HOURLY_CANDIDATE_COUNT_MISMATCH")
@@ -279,6 +303,11 @@ def validate_shared_ziwei_selector_projection(
                 "hour_ganzhi": expected_hourly.hour_ganzhi,
                 "frame_status": expected_hourly.frame_status,
                 "active_address_branch": None,
+                "transformation_status": expected_hourly.transformation_status,
+                "transformation_rule_set_id": expected_hourly.transformation_rule_set_id,
+                "transformation_rule_set_version": expected_hourly.transformation_rule_set_version,
+                "transformations": expected_hourly.transformations,
+                "transformation_source_refs": expected_hourly.transformation_source_refs,
                 "rule_id": expected_hourly.rule_id,
                 "authority_status": expected_hourly.authority_status,
                 "source_refs": expected_hourly.source_refs,

@@ -132,6 +132,19 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertIn(row.daily_active_address_branch, "子丑寅卯辰巳午未申酉戌亥")
         self.assertEqual("S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1", row.daily_rule_id)
         self.assertIn("S10:ZZTERM-P-0274", row.daily_source_refs)
+        self.assertEqual("PROFILE_RULE_SET_RESOLVED", row.daily_transformation_status)
+        self.assertEqual("S08_CURRENT_40_ASSIGNMENT_R1", row.daily_transformation_rule_set_id)
+        self.assertEqual(4, len(row.daily_transformations))
+        self.assertEqual(
+            ["化禄", "化权", "化科", "化忌"],
+            [activation.transformation_type for activation in row.daily_transformations],
+        )
+        self.assertEqual(
+            {row.daily_ganzhi[0]},
+            {activation.source_stem for activation in row.daily_transformations},
+        )
+        self.assertTrue(all(activation.source_layer == "DAY" for activation in row.daily_transformations))
+        self.assertIn("S01:ZZZA-CF-008", row.daily_transformation_source_refs)
         self.assertEqual(
             "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
             row.hourly_projection_status,
@@ -143,6 +156,9 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertTrue(all(candidate.active_address_branch is None for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.authority_status == "CASE_METHOD_ONLY_NOT_GLOBAL_RULE" for candidate in row.hourly_method_candidates))
         self.assertTrue(all("S01:ZZZA-CF-002" in candidate.source_refs for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(candidate.transformation_status == "CASE_METHOD_PROFILE_RULE_SET_RESOLVED" for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(len(candidate.transformations) == 4 for candidate in row.hourly_method_candidates))
+        self.assertTrue(all("S01:ZZZA-CF-008" in candidate.transformation_source_refs for candidate in row.hourly_method_candidates))
         Draft202012Validator(self.schema).validate(json_value(first))
 
         injected = copy.deepcopy(json_value(first))
@@ -165,6 +181,10 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertIsNone(row.daily_active_address_branch)
         self.assertIsNone(row.daily_rule_id)
         self.assertEqual((), row.daily_source_refs)
+        self.assertEqual("PARENT_DAILY_FRAME_UNRESOLVED", row.daily_transformation_status)
+        self.assertIsNone(row.daily_transformation_rule_set_id)
+        self.assertEqual((), row.daily_transformations)
+        self.assertEqual((), row.daily_transformation_source_refs)
         self.assertEqual(2, len(row.hourly_method_candidates))
 
     def test_daily_active_address_counts_forward_from_month_first_day(self) -> None:
@@ -375,6 +395,57 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         )
         self.assertEqual("FAIL", replay.status)
         self.assertIn("SHARED_ZIWEI_SELECTOR_FULL_REPLAY_MISMATCH", replay.diagnostics)
+
+    def test_recomputed_hashes_cannot_hide_daily_or_hourly_transformation_tamper(self) -> None:
+        target = self._target(datetime(2026, 8, 18, 12, 0))
+        result = self._project(target)
+        original = result.candidates[0]
+
+        changed_daily_activation = replace(
+            original.daily_transformations[0],
+            source_stem="癸" if original.daily_transformations[0].source_stem != "癸" else "甲",
+        )
+        changed_hour_activation = replace(
+            original.hourly_method_candidates[0].transformations[0],
+            source_stem=(
+                "癸"
+                if original.hourly_method_candidates[0].transformations[0].source_stem != "癸"
+                else "甲"
+            ),
+        )
+        changed_hour = replace(
+            original.hourly_method_candidates[0],
+            transformations=(
+                changed_hour_activation,
+                *original.hourly_method_candidates[0].transformations[1:],
+            ),
+        )
+        changed_candidate = replace(
+            original,
+            daily_transformations=(changed_daily_activation, *original.daily_transformations[1:]),
+            hourly_method_candidates=(changed_hour, original.hourly_method_candidates[1]),
+            candidate_hash="",
+        )
+        changed_candidate = replace(
+            changed_candidate,
+            candidate_hash=shared_selector_candidate_hash(changed_candidate),
+        )
+        tampered = replace(
+            result,
+            candidates=(changed_candidate,),
+            hashes=replace(result.hashes, fact_hash="", computation_hash=""),
+        )
+        tampered = replace(tampered, hashes=shared_selector_hash_bundle(tampered))
+
+        report = validate_shared_ziwei_selector_projection(
+            self.ziwei_bundle,
+            target,
+            self.target_profile,
+            tampered,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertTrue(any("DAILY_TRANSFORMATIONS_MISMATCH" in row for row in report.diagnostics))
+        self.assertTrue(any("HOURLY_0_TRANSFORMATIONS_MISMATCH" in row for row in report.diagnostics))
 
     def test_contract_has_no_bazi_flow_reinterpretation_or_prediction_surface(self) -> None:
         candidate_names = {field.name for field in fields(SharedZiweiSelectorProjectionCandidate)}

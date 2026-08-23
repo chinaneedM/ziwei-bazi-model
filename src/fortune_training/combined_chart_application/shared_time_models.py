@@ -3,18 +3,20 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
+from fortune_training.ziwei_chart.models import TransformationActivation
+
 
 SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA = "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
 SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID = "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-R1"
-SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.2.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.3.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.2.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.3.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.2.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.3.0"
 
 
 @dataclass(frozen=True)
@@ -29,6 +31,11 @@ class SharedZiweiHourlyMethodCandidate:
     hour_ganzhi: str
     frame_status: str
     active_address_branch: str | None
+    transformation_status: str
+    transformation_rule_set_id: str | None
+    transformation_rule_set_version: str | None
+    transformations: tuple[TransformationActivation, ...]
+    transformation_source_refs: tuple[str, ...]
     rule_id: str
     authority_status: str
     source_refs: tuple[str, ...]
@@ -64,6 +71,11 @@ class SharedZiweiSelectorProjectionCandidate:
     daily_active_address_branch: str | None
     daily_rule_id: str | None
     daily_source_refs: tuple[str, ...]
+    daily_transformation_status: str
+    daily_transformation_rule_set_id: str | None
+    daily_transformation_rule_set_version: str | None
+    daily_transformations: tuple[TransformationActivation, ...]
+    daily_transformation_source_refs: tuple[str, ...]
     hourly_projection_status: str
     hourly_method_candidates: tuple[SharedZiweiHourlyMethodCandidate, ...]
     candidate_hash: str

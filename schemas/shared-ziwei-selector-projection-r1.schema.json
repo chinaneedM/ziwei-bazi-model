@@ -45,7 +45,10 @@
         "monthly_frame_id", "monthly_ganzhi", "monthly_active_address_branch",
         "daily_projection_status", "daily_frame_id", "daily_effective_gregorian_date",
         "daily_ganzhi", "daily_active_address_branch", "daily_rule_id",
-        "daily_source_refs", "hourly_projection_status", "hourly_method_candidates",
+        "daily_source_refs", "daily_transformation_status",
+        "daily_transformation_rule_set_id", "daily_transformation_rule_set_version",
+        "daily_transformations", "daily_transformation_source_refs",
+        "hourly_projection_status", "hourly_method_candidates",
         "candidate_hash"
       ],
       "properties": {
@@ -82,6 +85,11 @@
         "daily_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
         "daily_rule_id": {"type": ["string", "null"]},
         "daily_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "daily_transformation_status": {"enum": ["PROFILE_RULE_SET_RESOLVED", "PROFILE_TRANSFORMATIONS_DISABLED", "PARENT_DAILY_FRAME_UNRESOLVED"]},
+        "daily_transformation_rule_set_id": {"type": ["string", "null"]},
+        "daily_transformation_rule_set_version": {"type": ["string", "null"]},
+        "daily_transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
+        "daily_transformation_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "hourly_projection_status": {"const": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME"},
         "hourly_method_candidates": {
           "type": "array",
@@ -99,6 +107,8 @@
         "candidate_id", "time_standard", "source_local_datetime",
         "ziwei_day_boundary_policy", "effective_gregorian_date", "day_ganzhi",
         "hour_branch", "hour_ganzhi", "frame_status", "active_address_branch",
+        "transformation_status", "transformation_rule_set_id",
+        "transformation_rule_set_version", "transformations", "transformation_source_refs",
         "rule_id", "authority_status", "source_refs"
       ],
       "properties": {
@@ -112,6 +122,15 @@
         "hour_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
         "frame_status": {"const": "ACTIVE_ADDRESS_NOT_GENERATED_CASE_METHOD_ONLY"},
         "active_address_branch": {"type": "null"},
+        "transformation_status": {"enum": ["CASE_METHOD_PROFILE_RULE_SET_RESOLVED", "CASE_METHOD_PROFILE_TRANSFORMATIONS_DISABLED"]},
+        "transformation_rule_set_id": {"type": ["string", "null"]},
+        "transformation_rule_set_version": {"type": ["string", "null"]},
+        "transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
+        "transformation_source_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "string", "minLength": 1}
+        },
         "rule_id": {"const": "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"},
         "authority_status": {"const": "CASE_METHOD_ONLY_NOT_GLOBAL_RULE"},
         "source_refs": {
@@ -119,6 +138,39 @@
           "minItems": 6,
           "items": {"type": "string", "minLength": 1}
         }
+      }
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]}
+      }
+    },
+    "transformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activation_id", "transformation_type", "target_entity_id", "target_display_name",
+        "target_address", "source_layer", "source_stem", "context_id", "assignment_id",
+        "mechanism_id", "generator_id", "algorithm_version", "source_refs"
+      ],
+      "properties": {
+        "activation_id": {"type": "string", "minLength": 1},
+        "transformation_type": {"enum": ["化禄","化权","化科","化忌"]},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_display_name": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "source_layer": {"enum": ["DAY", "HOUR_CANDIDATE"]},
+        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
+        "context_id": {"type": "string", "minLength": 1},
+        "assignment_id": {"type": "string", "minLength": 1},
+        "mechanism_id": {"type": "string", "minLength": 1},
+        "generator_id": {"const": "ZIWEI-TRANSFORMATION-ACTIVATION-V1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "source_refs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}}
       }
     },
     "hashes": {
@@ -129,7 +181,7 @@
         "fact_hash": {"$ref": "#/$defs/hash"},
         "computation_hash": {"$ref": "#/$defs/hash"},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
-        "algorithm_version": {"const": "1.2.0"}
+        "algorithm_version": {"const": "1.3.0"}
       }
     },
     "integrity": {
@@ -140,7 +192,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.2.0"}
+        "algorithm_version": {"const": "1.3.0"}
       }
     }
   }
