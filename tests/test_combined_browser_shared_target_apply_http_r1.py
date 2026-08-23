@@ -105,7 +105,7 @@ class CombinedBrowserSharedTargetApplyHttpR1Tests(unittest.TestCase):
             ):
                 layer = projected[layer_name]
                 self.assertEqual(4, len(layer["transformations"]))
-                self.assertEqual(3, len(layer["auxiliary_activations"]))
+                self.assertEqual(5, len(layer["auxiliary_activations"]))
                 self.assertEqual(64, len(layer["fact_hash"]))
                 self.assertEqual(64, len(layer["computation_hash"]))
 

@@ -572,7 +572,7 @@ def validate_temporal_state(
         )
         if tuple(rows) != expected:
             _diag(diagnostics, "TEMPORAL_AUXILIARY_REPLAY_MISMATCH", path, context_id)
-        if len(rows) != 3 or len({row.activation_id for row in rows}) != 3:
+        if len(rows) != 5 or len({row.activation_id for row in rows}) != 5:
             _diag(diagnostics, "INVALID_TEMPORAL_AUXILIARY_SET", path, context_id)
         for index, row in enumerate(rows):
             _validate_source_refs(diagnostics, row.source_refs, f"{path}[{index}].source_refs")

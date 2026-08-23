@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化与禄羊陀按来源层只读显示；流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -179,7 +179,7 @@ SHARED_APPLY_JS = r"""
       && Array.isArray(layer.source_refs)
       && Array.isArray(layer.transformations)
       && Array.isArray(layer.auxiliary_activations)
-      && layer.auxiliary_activations.length === 3
+      && layer.auxiliary_activations.length === 5
       && typeof layer.fact_hash === 'string'
       && layer.fact_hash.length === 64
       && typeof layer.computation_hash === 'string'
@@ -209,7 +209,7 @@ SHARED_APPLY_JS = r"""
         && Array.isArray(hour.designation_overlay)
         && hour.designation_overlay.length === 12
         && Array.isArray(hour.auxiliary_activations)
-        && hour.auxiliary_activations.length === 3
+        && hour.auxiliary_activations.length === 5
         && Array.isArray(hour.transformations)
       ))
       && (
@@ -240,7 +240,7 @@ SHARED_APPLY_JS = r"""
       return;
     }
     const layerLine = (label, layer) => layer
-      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
+      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
       : `${label}=NONE`;
     lineage.textContent = [
       `target_candidate=${row.source_target_candidate_id}`,

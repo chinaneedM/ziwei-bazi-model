@@ -10,9 +10,36 @@ from fortune_training.calendar_foundation import (
     sexagenary_day_pillar,
 )
 from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine
+from fortune_training.ziwei_chart.temporal_auxiliary import TemporalAuxiliaryGenerator
 
 
 class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
+    def test_s10_flow_chang_qu_table_is_exact_for_all_ten_stems(self) -> None:
+        expected = {
+            "甲": ("巳", "酉"), "乙": ("午", "申"), "丙": ("申", "午"),
+            "丁": ("酉", "巳"), "戊": ("申", "午"), "己": ("酉", "巳"),
+            "庚": ("亥", "卯"), "辛": ("子", "寅"), "壬": ("寅", "子"),
+            "癸": ("卯", "亥"),
+        }
+        for stem, branches in expected.items():
+            with self.subTest(stem=stem):
+                rows = TemporalAuxiliaryGenerator.activate(
+                    stem,
+                    source_layer="ANNUAL",
+                    context_id=f"ANNUAL:{stem}",
+                    temporal_source_refs=("S10:TEST-CONTEXT",),
+                )
+                self.assertEqual(5, len(rows))
+                self.assertEqual(branches, tuple(row.target_address.branch for row in rows[-2:]))
+                self.assertEqual(("STAR.WENCHANG", "STAR.WENQU"), tuple(row.entity_id for row in rows[-2:]))
+                self.assertEqual(
+                    {"S10-STEM-FLOW-WENCHANG-WENQU-R1"},
+                    {row.rule_id for row in rows[-2:]},
+                )
+                self.assertTrue(all("S10:ZZZA-A-1103" in row.source_refs for row in rows[-2:]))
+                self.assertNotIn(rows[-2].target_address.branch, "丑辰未戌")
+                self.assertNotIn(rows[-1].target_address.branch, "丑辰未戌")
+
     def test_shared_sexagenary_primitives_preserve_bazi_outputs(self) -> None:
         resolver = BaziTimeResolver()
         local = datetime(2026, 8, 18, 23, 30)
@@ -46,9 +73,9 @@ class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
         self.assertTrue(all(row.active_address_rule_id == "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1" for row in rows))
         self.assertTrue(all("S10:ZZTERM-P-0316" in row.active_address_source_refs for row in rows))
         self.assertTrue(all(row.auxiliary_status == "CASE_METHOD_SOURCE_RULE_RESOLVED" for row in rows))
-        self.assertTrue(all(len(row.auxiliary_activations) == 3 for row in rows))
+        self.assertTrue(all(len(row.auxiliary_activations) == 5 for row in rows))
         self.assertTrue(all(
-            [item.display_name for item in row.auxiliary_activations] == ["禄存", "擎羊", "陀罗"]
+            [item.display_name for item in row.auxiliary_activations] == ["禄存", "擎羊", "陀罗", "文昌", "文曲"]
             for row in rows
         ))
         self.assertTrue(all(

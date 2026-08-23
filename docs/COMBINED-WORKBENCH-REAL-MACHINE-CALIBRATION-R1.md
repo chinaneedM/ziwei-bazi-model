@@ -193,7 +193,7 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] A multi-candidate projection requires explicit candidate selection; candidate 0 is not auto-applied.
 - [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors and refreshes the existing Ziwei interaction view.
 - [ ] A leap-month target does not fabricate or apply a regular Ziwei monthly frame.
-- [ ] Daxian / Annual / regular-Month read-only lines expose separate source stems, parent frames, four transformations, 禄羊陀 instances, rule identities and 64-character hashes.
+- [ ] Daxian / Annual / regular-Month read-only lines expose separate source stems, parent frames, four transformations, 禄羊陀／流昌曲 instances, rule identities and 64-character hashes.
 - [ ] Same-named transformations and auxiliaries in different layers remain separate instances rather than collapsing into one display fact.
 - [ ] Apply does not change target datetime/place/coordinates/timezone, Bazi profile fields, or Bazi target-flow result.
 - [ ] Manual Ziwei navigation after Apply does not rewrite target fields.

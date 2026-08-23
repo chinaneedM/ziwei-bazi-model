@@ -146,7 +146,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             self.assertEqual("S10_CURRENT_TEMPORAL_R1", layer.frame_rule_set_id)
             self.assertEqual("ZIWEI-TEMPORAL-FRAMES-V1", layer.frame_algorithm_id)
             self.assertEqual(4, len(layer.transformations))
-            self.assertEqual(3, len(layer.auxiliary_activations))
+            self.assertEqual(5, len(layer.auxiliary_activations))
             self.assertTrue(layer.source_refs)
             self.assertEqual({layer.source_layer}, {item.source_layer for item in layer.transformations})
             self.assertEqual({layer.source_stem}, {item.source_stem for item in layer.transformations})
@@ -167,7 +167,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             }),
         )
         self.assertEqual(
-            9,
+            15,
             len({
                 item.activation_id
                 for layer in (
@@ -189,7 +189,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(row.daily_active_address_branch, row.daily_designation_overlay[0].address.branch)
         self.assertEqual(12, len({item.address.branch for item in row.daily_designation_overlay}))
         self.assertEqual("SOURCE_RULE_RESOLVED", row.daily_auxiliary_status)
-        self.assertEqual(["禄存", "擎羊", "陀罗"], [item.display_name for item in row.daily_auxiliary_activations])
+        self.assertEqual(["禄存", "擎羊", "陀罗", "文昌", "文曲"], [item.display_name for item in row.daily_auxiliary_activations])
         self.assertEqual({row.daily_ganzhi[0]}, {item.source_stem for item in row.daily_auxiliary_activations})
         self.assertTrue(all(item.source_layer == "DAY" for item in row.daily_auxiliary_activations))
         self.assertIn("S10:ZZTERM-P-0278", row.daily_auxiliary_source_refs)
@@ -221,7 +221,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertTrue(all(candidate.designation_overlay[0].address.branch == candidate.active_address_branch for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.active_address_rule_id == "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1" for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.auxiliary_status == "CASE_METHOD_SOURCE_RULE_RESOLVED" for candidate in row.hourly_method_candidates))
-        self.assertTrue(all(len(candidate.auxiliary_activations) == 3 for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(len(candidate.auxiliary_activations) == 5 for candidate in row.hourly_method_candidates))
         self.assertTrue(all(
             {item.source_stem for item in candidate.auxiliary_activations} == {candidate.hour_ganzhi[0]}
             for candidate in row.hourly_method_candidates
@@ -326,11 +326,12 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
                 *annual_layer.transformations[1:],
             ),
             auxiliary_activations=(
+                *annual_layer.auxiliary_activations[:3],
                 replace(
-                    annual_layer.auxiliary_activations[0],
+                    annual_layer.auxiliary_activations[3],
                     source_stem="癸" if annual_layer.source_stem != "癸" else "甲",
                 ),
-                *annual_layer.auxiliary_activations[1:],
+                *annual_layer.auxiliary_activations[4:],
             ),
             fact_hash="",
             computation_hash="",

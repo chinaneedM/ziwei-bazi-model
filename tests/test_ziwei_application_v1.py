@@ -105,9 +105,9 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             for cell in self.bundle.view_model.cells
             for row in cell.temporal_auxiliaries
         ]
-        self.assertEqual(9, len(moving))
+        self.assertEqual(15, len(moving))
         self.assertEqual({"DAXIAN", "ANNUAL", "MONTH"}, {row.frame_type for row in moving})
-        self.assertEqual({"禄存", "擎羊", "陀罗"}, {row.label for row in moving})
+        self.assertEqual({"禄存", "擎羊", "陀罗", "文昌", "文曲"}, {row.label for row in moving})
 
     def test_month_selection_requires_parent_annual_year(self) -> None:
         with self.assertRaisesRegex(ValueError, "lunar_month requires annual_year"):

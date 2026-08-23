@@ -228,7 +228,7 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
             temporal_hash_bundle(tampered_months, temporal_profile).fact_hash,
         )
 
-        auxiliary = state.annual_frames[0].auxiliary_activations[0]
+        auxiliary = state.annual_frames[0].auxiliary_activations[-1]
         tampered_auxiliary = replace(
             auxiliary,
             source_stem="癸" if auxiliary.source_stem != "癸" else "甲",
@@ -236,8 +236,8 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         tampered_annual = replace(
             state.annual_frames[0],
             auxiliary_activations=(
+                *state.annual_frames[0].auxiliary_activations[:-1],
                 tampered_auxiliary,
-                *state.annual_frames[0].auxiliary_activations[1:],
             ),
         )
         tampered_auxiliary_state = replace(
