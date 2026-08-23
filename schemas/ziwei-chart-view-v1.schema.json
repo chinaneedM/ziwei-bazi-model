@@ -60,6 +60,17 @@
         "label": {"type": "string", "minLength": 1}
       }
     },
+    "temporalAuxiliary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_type", "frame_id", "entity_id", "label"],
+      "properties": {
+        "frame_type": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
+        "frame_id": {"type": "string", "minLength": 1},
+        "entity_id": {"enum": ["STAR.LUCUN", "STAR.QINGYANG", "STAR.TUOLUO"]},
+        "label": {"type": "string", "minLength": 1}
+      }
+    },
     "role": {
       "type": "object",
       "additionalProperties": false,
@@ -83,6 +94,7 @@
         "placements",
         "ring_members",
         "temporal_designations",
+        "temporal_auxiliaries",
         "minor_limit_frame_ids",
         "doujun_frame_ids"
       ],
@@ -95,6 +107,7 @@
         "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
         "ring_members": {"type": "array", "items": {"$ref": "#/$defs/ringMember"}},
         "temporal_designations": {"type": "array", "items": {"$ref": "#/$defs/temporalDesignation"}},
+        "temporal_auxiliaries": {"type": "array", "items": {"$ref": "#/$defs/temporalAuxiliary"}},
         "minor_limit_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "doujun_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }

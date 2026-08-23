@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.0.0"
+SVG_RENDERER_VERSION = "1.1.0"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -150,6 +150,14 @@ class ZiweiTwelvePalaceSvgRenderer:
                 )
             )
             lines.extend("时: " + row for row in _chunks(temporal_tokens, max_chars=27))
+            auxiliary_tokens = tuple(
+                f"{row.frame_type}:{row.label}"
+                for row in sorted(
+                    cell.temporal_auxiliaries,
+                    key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+                )
+            )
+            lines.extend("流曜: " + row for row in _chunks(auxiliary_tokens, max_chars=25))
             if cell.minor_limit_frame_ids:
                 lines.extend(
                     "小限: " + row
@@ -179,11 +187,18 @@ class ZiweiTwelvePalaceSvgRenderer:
                 key=lambda item: (item.frame_type, item.frame_id, item.designation_id),
             )
         ) or "-"
+        auxiliary = ", ".join(
+            f"{row.frame_type}:{row.label}"
+            for row in sorted(
+                cell.temporal_auxiliaries,
+                key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+            )
+        ) or "-"
         minor = ", ".join(sorted(cell.minor_limit_frame_ids)) or "-"
         doujun = ", ".join(sorted(cell.doujun_frame_ids)) or "-"
         return (
             f"{cell.stem}{cell.branch} {cell.natal_designation_label}; "
-            f"stars={placements}; rings={rings}; temporal={temporal}; minor={minor}; doujun={doujun}"
+            f"stars={placements}; rings={rings}; temporal={temporal}; moving={auxiliary}; minor={minor}; doujun={doujun}"
         )
 
     def render(

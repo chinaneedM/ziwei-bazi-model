@@ -118,6 +118,9 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(actual.active_address, actual.designation_overlay[0].address)
             self.assertEqual(12, len({row.address.index for row in actual.designation_overlay}))
             self.assertEqual(4, len(actual.transformations))
+            self.assertEqual(["禄存", "擎羊", "陀罗"], [row.display_name for row in actual.auxiliary_activations])
+            self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.auxiliary_activations))
+            self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.transformations))
 
@@ -153,6 +156,9 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(expected["parent_daxian"], actual.parent_daxian_frame_id)
             self.assertEqual(actual.active_address, actual.designation_overlay[0].address)
             self.assertEqual(4, len(actual.transformations))
+            self.assertEqual(3, len(actual.auxiliary_activations))
+            self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.auxiliary_activations))
+            self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.transformations))
 
@@ -216,6 +222,9 @@ class TemporalRuntimeTests(unittest.TestCase):
             [row.active_address for row in year_2001],
         )
         for row in year_2001:
+            self.assertEqual(3, len(row.auxiliary_activations))
+            self.assertTrue(all(item.source_layer == "MONTH" for item in row.auxiliary_activations))
+            self.assertTrue(all(item.source_stem == row.month_stem for item in row.auxiliary_activations))
             self.assertTrue(all(item.source_layer == "MONTH" for item in row.transformations))
             self.assertTrue(all(item.source_stem == row.month_stem for item in row.transformations))
 

@@ -10,6 +10,7 @@ from .models import (
     NatalChartState,
     Placement,
     Sex,
+    TemporalAuxiliaryActivation,
     TransformationActivation,
 )
 from .registries import (
@@ -22,15 +23,16 @@ from .registries import (
     stem_index,
 )
 from .transformations import TransformationGenerator
+from .temporal_auxiliary import TemporalAuxiliaryGenerator
 
 if TYPE_CHECKING:
     from .profile import ResolvedZiweiCalculationProfile
 
 
 TEMPORAL_ALGORITHM_ID = "ZIWEI-TEMPORAL-FRAMES-V1"
-TEMPORAL_ALGORITHM_VERSION = "1.2.0"
+TEMPORAL_ALGORITHM_VERSION = "1.3.0"
 S10_CURRENT_TEMPORAL_RULE_SET_ID = "S10_CURRENT_TEMPORAL_R1"
-S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.2.0"
+S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.3.0"
 
 DAXIAN_SOURCE_REFS = ("S10:中州派动态坐标生成补充:大限",)
 ANNUAL_SOURCE_REFS = ("S10:中州派动态坐标生成补充:流年太岁与斗君",)
@@ -50,6 +52,9 @@ MONTH_GANZHI_RULE_ID = "FIVE-TIGERS-YEAR-STEM-MONTH-GANZHI-R1"
 REGULAR_MONTH_CALENDAR_SCOPE = "REGULAR_LUNAR_MONTH_COORDINATE"
 LEAP_MONTH_POLICY_STATUS = "UNRESOLVED_NOT_GENERATED"
 MINOR_LIMIT_SOURCE_REFS = ("S10:中州派动态坐标生成补充:小限",)
+DAXIAN_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-TIME-04", "S10:ZZTERM-P-0125")
+ANNUAL_AUXILIARY_SOURCE_REFS = ("S10:ZZQS-A-2039", "S10:ZZTERM-P-0127")
+MONTHLY_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-TIME-10", "S10:ZZTERM-P-0304")
 
 YANG_STEMS = {"甲", "丙", "戊", "庚", "壬"}
 MINOR_AGE_ONE_START_BY_YEAR_BRANCH = {
@@ -115,6 +120,7 @@ class DaxianFrame:
     active_palace_ganzhi: str
     designation_overlay: tuple[DesignationBinding, ...]
     source_stem: str
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
 
@@ -132,6 +138,7 @@ class AnnualFrame:
     doujun_rule_id: str
     designation_overlay: tuple[DesignationBinding, ...]
     parent_daxian_frame_id: str | None
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
 
@@ -151,6 +158,7 @@ class MonthlyFrame:
     month_ganzhi_rule_id: str
     calendar_scope: str
     leap_month_policy_status: str
+    auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
 
@@ -185,8 +193,13 @@ class ZiweiTemporalEngine:
     algorithm_id = TEMPORAL_ALGORITHM_ID
     algorithm_version = TEMPORAL_ALGORITHM_VERSION
 
-    def __init__(self, transformation_generator: TransformationGenerator | None = None) -> None:
+    def __init__(
+        self,
+        transformation_generator: TransformationGenerator | None = None,
+        auxiliary_generator: TemporalAuxiliaryGenerator | None = None,
+    ) -> None:
         self.transformations = transformation_generator or TransformationGenerator()
+        self.auxiliaries = auxiliary_generator or TemporalAuxiliaryGenerator()
 
     @staticmethod
     def _daxian_direction(year_stem: str, sex: Sex) -> int:
@@ -273,6 +286,12 @@ class ZiweiTemporalEngine:
                     active_palace_ganzhi=f"{source_stem}{active.branch}",
                     designation_overlay=self._designation_overlay(active),
                     source_stem=source_stem,
+                    auxiliary_activations=self.auxiliaries.activate(
+                        source_stem,
+                        source_layer="DAXIAN",
+                        context_id=frame_id,
+                        temporal_source_refs=DAXIAN_AUXILIARY_SOURCE_REFS,
+                    ),
                     transformations=self._activate_transformations(
                         profile,
                         source_stem,
@@ -320,6 +339,12 @@ class ZiweiTemporalEngine:
             doujun_rule_id=DOUJUN_RULE_ID,
             designation_overlay=self._designation_overlay(active),
             parent_daxian_frame_id=self._parent_daxian(nominal_age, daxian_frames),
+            auxiliary_activations=self.auxiliaries.activate(
+                year_stem,
+                source_layer="ANNUAL",
+                context_id=frame_id,
+                temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
+            ),
             transformations=self._activate_transformations(
                 profile,
                 year_stem,
@@ -405,6 +430,12 @@ class ZiweiTemporalEngine:
             month_ganzhi_rule_id=MONTH_GANZHI_RULE_ID,
             calendar_scope=REGULAR_MONTH_CALENDAR_SCOPE,
             leap_month_policy_status=LEAP_MONTH_POLICY_STATUS,
+            auxiliary_activations=self.auxiliaries.activate(
+                month_stem,
+                source_layer="MONTH",
+                context_id=frame_id,
+                temporal_source_refs=MONTHLY_AUXILIARY_SOURCE_REFS,
+            ),
             transformations=self._activate_transformations(
                 profile,
                 month_stem,

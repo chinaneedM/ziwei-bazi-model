@@ -6,18 +6,22 @@ from typing import TYPE_CHECKING, Any
 from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
-from .models import NatalChartState, TransformationActivation
+from .models import NatalChartState, TemporalAuxiliaryActivation, TransformationActivation
 from .registries import sexagenary_for_year
 from .temporal import (
     DOUJUN_RULE_ID,
+    ANNUAL_AUXILIARY_SOURCE_REFS,
+    DAXIAN_AUXILIARY_SOURCE_REFS,
     LEAP_MONTH_POLICY_STATUS,
     MONTH_GANZHI_RULE_ID,
     MONTHLY_RULE_ID,
+    MONTHLY_AUXILIARY_SOURCE_REFS,
     REGULAR_MONTH_CALENDAR_SCOPE,
     TemporalNatalContext,
     ZiweiTemporalEngine,
     ZiweiTemporalState,
 )
+from .temporal_auxiliary import TemporalAuxiliaryGenerator
 
 if TYPE_CHECKING:
     from .profile import ResolvedZiweiCalculationProfile
@@ -68,6 +72,17 @@ def _transformation_fact(row: TransformationActivation) -> dict[str, Any]:
         "activation_id": row.activation_id,
         "transformation_type": row.transformation_type,
         "target_entity_id": row.target_entity_id,
+        "target_address": _address_fact(row.target_address),
+        "source_layer": row.source_layer,
+        "source_stem": row.source_stem,
+        "context_id": row.context_id,
+    }
+
+
+def _temporal_auxiliary_fact(row: TemporalAuxiliaryActivation) -> dict[str, Any]:
+    return {
+        "activation_id": row.activation_id,
+        "entity_id": row.entity_id,
         "target_address": _address_fact(row.target_address),
         "source_layer": row.source_layer,
         "source_stem": row.source_stem,
@@ -246,6 +261,10 @@ def temporal_fact_projection(state: ZiweiTemporalState) -> dict[str, Any]:
                 "active_palace_ganzhi": frame.active_palace_ganzhi,
                 "designation_overlay": _designation_facts(frame.designation_overlay),
                 "source_stem": frame.source_stem,
+                "auxiliary_activations": [
+                    _temporal_auxiliary_fact(row)
+                    for row in sorted(frame.auxiliary_activations, key=lambda item: item.activation_id)
+                ],
                 "transformations": [
                     _transformation_fact(row)
                     for row in sorted(frame.transformations, key=lambda item: item.activation_id)
@@ -266,6 +285,10 @@ def temporal_fact_projection(state: ZiweiTemporalState) -> dict[str, Any]:
                 "doujun_rule_id": frame.doujun_rule_id,
                 "designation_overlay": _designation_facts(frame.designation_overlay),
                 "parent_daxian_frame_id": frame.parent_daxian_frame_id,
+                "auxiliary_activations": [
+                    _temporal_auxiliary_fact(row)
+                    for row in sorted(frame.auxiliary_activations, key=lambda item: item.activation_id)
+                ],
                 "transformations": [
                     _transformation_fact(row)
                     for row in sorted(frame.transformations, key=lambda item: item.activation_id)
@@ -288,6 +311,10 @@ def temporal_fact_projection(state: ZiweiTemporalState) -> dict[str, Any]:
                 "month_ganzhi_rule_id": frame.month_ganzhi_rule_id,
                 "calendar_scope": frame.calendar_scope,
                 "leap_month_policy_status": frame.leap_month_policy_status,
+                "auxiliary_activations": [
+                    _temporal_auxiliary_fact(row)
+                    for row in sorted(frame.auxiliary_activations, key=lambda item: item.activation_id)
+                ],
                 "transformations": [
                     _transformation_fact(row)
                     for row in sorted(frame.transformations, key=lambda item: item.activation_id)
@@ -320,6 +347,18 @@ def _temporal_lineage_projection(state: ZiweiTemporalState) -> dict[str, Any]:
             for row in sorted(rows, key=lambda item: item.activation_id)
         ]
 
+    def auxiliaries(rows) -> list[dict[str, Any]]:
+        return [
+            {
+                "activation_id": row.activation_id,
+                "rule_id": row.rule_id,
+                "generator_id": row.generator_id,
+                "algorithm_version": row.algorithm_version,
+                "source_refs": sorted(row.source_refs),
+            }
+            for row in sorted(rows, key=lambda item: item.activation_id)
+        ]
+
     return {
         "rule_set_id": state.rule_set_id,
         "rule_set_version": state.rule_set_version,
@@ -329,6 +368,7 @@ def _temporal_lineage_projection(state: ZiweiTemporalState) -> dict[str, Any]:
             {
                 "frame_id": frame.frame_id,
                 "source_refs": sorted(frame.source_refs),
+                "auxiliary_activations": auxiliaries(frame.auxiliary_activations),
                 "transformations": transformations(frame.transformations),
             }
             for frame in sorted(state.daxian_frames, key=lambda item: item.index)
@@ -337,6 +377,7 @@ def _temporal_lineage_projection(state: ZiweiTemporalState) -> dict[str, Any]:
             {
                 "frame_id": frame.frame_id,
                 "source_refs": sorted(frame.source_refs),
+                "auxiliary_activations": auxiliaries(frame.auxiliary_activations),
                 "transformations": transformations(frame.transformations),
             }
             for frame in sorted(state.annual_frames, key=lambda item: item.absolute_year)
@@ -345,6 +386,7 @@ def _temporal_lineage_projection(state: ZiweiTemporalState) -> dict[str, Any]:
             {
                 "frame_id": frame.frame_id,
                 "source_refs": sorted(frame.source_refs),
+                "auxiliary_activations": auxiliaries(frame.auxiliary_activations),
                 "transformations": transformations(frame.transformations),
             }
             for frame in sorted(state.monthly_frames, key=lambda item: (item.absolute_year, item.lunar_month))
@@ -513,6 +555,28 @@ def validate_temporal_state(
                 _diag(diagnostics, "TEMPORAL_TRANSFORMATION_MOVED_PHYSICAL_STAR", f"{path}[{index}]", row.target_entity_id)
             _validate_source_refs(diagnostics, row.source_refs, f"{path}[{index}].source_refs")
 
+    def validate_auxiliaries(
+        rows,
+        *,
+        source_stem: str,
+        source_layer: str,
+        context_id: str,
+        temporal_source_refs: tuple[str, ...],
+        path: str,
+    ) -> None:
+        expected = TemporalAuxiliaryGenerator.activate(
+            source_stem,
+            source_layer=source_layer,
+            context_id=context_id,
+            temporal_source_refs=temporal_source_refs,
+        )
+        if tuple(rows) != expected:
+            _diag(diagnostics, "TEMPORAL_AUXILIARY_REPLAY_MISMATCH", path, context_id)
+        if len(rows) != 3 or len({row.activation_id for row in rows}) != 3:
+            _diag(diagnostics, "INVALID_TEMPORAL_AUXILIARY_SET", path, context_id)
+        for index, row in enumerate(rows):
+            _validate_source_refs(diagnostics, row.source_refs, f"{path}[{index}].source_refs")
+
     daxian_ids = {frame.frame_id for frame in state.daxian_frames}
     if len(daxian_ids) != len(state.daxian_frames):
         _diag(diagnostics, "DUPLICATE_DAXIAN_FRAME_ID", "daxian_frames", "frame IDs must be unique")
@@ -525,6 +589,14 @@ def validate_temporal_state(
         if frame.designation_overlay[0].address != frame.active_address:
             _diag(diagnostics, "DAXIAN_LIFE_OVERLAY_MISMATCH", path, frame.frame_id)
         validate_overlay(frame.designation_overlay, f"{path}.designation_overlay")
+        validate_auxiliaries(
+            frame.auxiliary_activations,
+            source_stem=frame.source_stem,
+            source_layer="DAXIAN",
+            context_id=frame.frame_id,
+            temporal_source_refs=DAXIAN_AUXILIARY_SOURCE_REFS,
+            path=f"{path}.auxiliary_activations",
+        )
         validate_transformations(frame.transformations, f"{path}.transformations")
         _validate_source_refs(diagnostics, frame.source_refs, f"{path}.source_refs")
 
@@ -553,6 +625,14 @@ def validate_temporal_state(
         if frame.designation_overlay[0].address != frame.active_address:
             _diag(diagnostics, "ANNUAL_LIFE_OVERLAY_MISMATCH", path, frame.frame_id)
         validate_overlay(frame.designation_overlay, f"{path}.designation_overlay")
+        validate_auxiliaries(
+            frame.auxiliary_activations,
+            source_stem=frame.year_stem,
+            source_layer="ANNUAL",
+            context_id=frame.frame_id,
+            temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
+            path=f"{path}.auxiliary_activations",
+        )
         validate_transformations(frame.transformations, f"{path}.transformations")
         if frame.parent_daxian_frame_id is not None:
             if frame.parent_daxian_frame_id not in daxian_ids:
@@ -603,6 +683,14 @@ def validate_temporal_state(
         if frame.designation_overlay[0].address != frame.active_address:
             _diag(diagnostics, "MONTHLY_LIFE_OVERLAY_MISMATCH", path, frame.frame_id)
         validate_overlay(frame.designation_overlay, f"{path}.designation_overlay")
+        validate_auxiliaries(
+            frame.auxiliary_activations,
+            source_stem=frame.month_stem,
+            source_layer="MONTH",
+            context_id=frame.frame_id,
+            temporal_source_refs=MONTHLY_AUXILIARY_SOURCE_REFS,
+            path=f"{path}.auxiliary_activations",
+        )
         validate_transformations(frame.transformations, f"{path}.transformations")
         if any(row.source_layer != "MONTH" or row.source_stem != frame.month_stem for row in frame.transformations):
             _diag(diagnostics, "MONTHLY_TRANSFORMATION_SOURCE_MISMATCH", path, frame.frame_id)

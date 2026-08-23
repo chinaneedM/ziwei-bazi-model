@@ -228,6 +228,32 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
             temporal_hash_bundle(tampered_months, temporal_profile).fact_hash,
         )
 
+        auxiliary = state.annual_frames[0].auxiliary_activations[0]
+        tampered_auxiliary = replace(
+            auxiliary,
+            source_stem="癸" if auxiliary.source_stem != "癸" else "甲",
+        )
+        tampered_annual = replace(
+            state.annual_frames[0],
+            auxiliary_activations=(
+                tampered_auxiliary,
+                *state.annual_frames[0].auxiliary_activations[1:],
+            ),
+        )
+        tampered_auxiliary_state = replace(
+            state,
+            annual_frames=(tampered_annual, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(tampered_auxiliary_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered_auxiliary_state, temporal_profile).fact_hash,
+        )
+
     def test_engine_fails_closed_when_generated_chart_breaks_integrity(self):
         class DuplicateMainStarGenerator:
             def __init__(self, delegate):

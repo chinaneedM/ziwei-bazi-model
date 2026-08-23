@@ -13,9 +13,9 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, T
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.2"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.3"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
-TEXT_RENDERER_VERSION = "1.0.2"
+TEXT_RENDERER_VERSION = "1.0.3"
 
 
 class ViewProjectionError(ValueError):
@@ -79,6 +79,14 @@ class ViewDesignationOverlay:
 
 
 @dataclass(frozen=True)
+class ViewTemporalAuxiliary:
+    frame_type: str
+    frame_id: str
+    entity_id: str
+    label: str
+
+
+@dataclass(frozen=True)
 class ViewRole:
     role_id: str
     label: str
@@ -96,6 +104,7 @@ class PalaceViewCell:
     placements: tuple[ViewPlacement, ...]
     ring_members: tuple[ViewRingMember, ...]
     temporal_designations: tuple[ViewDesignationOverlay, ...]
+    temporal_auxiliaries: tuple[ViewTemporalAuxiliary, ...]
     minor_limit_frame_ids: tuple[str, ...]
     doujun_frame_ids: tuple[str, ...]
 
@@ -277,6 +286,7 @@ class ZiweiViewProjectionCompiler:
             rows.sort(key=lambda item: (item.ring_id, item.member_id))
 
         overlays_by_address: dict[int, list[ViewDesignationOverlay]] = {index: [] for index in range(12)}
+        auxiliaries_by_address: dict[int, list[ViewTemporalAuxiliary]] = {index: [] for index in range(12)}
         if presentation.show_temporal_overlays:
             for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual), ("MONTH", monthly)):
                 if frame is None:
@@ -288,6 +298,15 @@ class ZiweiViewProjectionCompiler:
                             frame_id=frame.frame_id,
                             designation_id=row.designation_id,
                             label=self._label(overrides, "DESIGNATION", row.designation_id, row.display_name),
+                        )
+                    )
+                for row in frame.auxiliary_activations:
+                    auxiliaries_by_address[row.target_address.index].append(
+                        ViewTemporalAuxiliary(
+                            frame_type=frame_type,
+                            frame_id=frame.frame_id,
+                            entity_id=row.entity_id,
+                            label=self._label(overrides, "ENTITY", row.entity_id, row.display_name),
                         )
                     )
 
@@ -333,6 +352,12 @@ class ZiweiViewProjectionCompiler:
                     placements=tuple(placements_by_address[index]),
                     ring_members=tuple(ring_by_address[index]),
                     temporal_designations=tuple(overlays_by_address[index]),
+                    temporal_auxiliaries=tuple(
+                        sorted(
+                            auxiliaries_by_address[index],
+                            key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+                        )
+                    ),
                     minor_limit_frame_ids=tuple(minor_by_address[index]),
                     doujun_frame_ids=tuple(doujun_by_address[index]),
                 )
@@ -390,6 +415,11 @@ class PlainTextZiweiRenderer:
             ) or "-"
             rings = ", ".join(row.label for row in cell.ring_members) or "-"
             temporal = ", ".join(f"{row.frame_type}:{row.label}" for row in cell.temporal_designations)
+            if cell.temporal_auxiliaries:
+                moving = ", ".join(
+                    f"{row.frame_type}:{row.label}" for row in cell.temporal_auxiliaries
+                )
+                temporal = ", ".join(filter(None, (temporal, moving)))
             if cell.minor_limit_frame_ids:
                 temporal = ", ".join(filter(None, (temporal, "小限:" + "/".join(cell.minor_limit_frame_ids))))
             if cell.doujun_frame_ids:

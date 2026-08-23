@@ -100,6 +100,14 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
         ]
         self.assertEqual(1, len(month_overlays))
         self.assertEqual("MONTH:2001:5", month_overlays[0].frame_id)
+        moving = [
+            row
+            for cell in self.bundle.view_model.cells
+            for row in cell.temporal_auxiliaries
+        ]
+        self.assertEqual(9, len(moving))
+        self.assertEqual({"DAXIAN", "ANNUAL", "MONTH"}, {row.frame_type for row in moving})
+        self.assertEqual({"禄存", "擎羊", "陀罗"}, {row.label for row in moving})
 
     def test_month_selection_requires_parent_annual_year(self) -> None:
         with self.assertRaisesRegex(ValueError, "lunar_month requires annual_year"):
@@ -110,6 +118,7 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
         self.assertIn("view=ZIWEI-APPLICATION-V1-DEFAULT-VIEW@1.0.0", rendered)
         self.assertIn("fact_hash=", rendered)
         self.assertIn("temporal=", rendered)
+        self.assertIn("DAXIAN:禄存", rendered)
         self.assertGreaterEqual(len(rendered.splitlines()), 16)
 
     def test_application_export_and_view_model_schemas(self) -> None:

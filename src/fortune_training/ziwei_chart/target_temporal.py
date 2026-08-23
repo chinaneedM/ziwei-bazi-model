@@ -9,7 +9,6 @@ from fortune_training.calendar_foundation import (
     sexagenary_day_pillar,
 )
 
-from .auxiliary import QSCoreAuxiliaryGenerator
 from .models import (
     Address,
     DesignationBinding,
@@ -19,6 +18,7 @@ from .models import (
 )
 from .registries import PALACE_DESIGNATIONS, address, branch_index
 from .temporal import MonthlyFrame
+from .temporal_auxiliary import TemporalAuxiliaryGenerator
 from .transformations import TransformationGenerator
 
 if TYPE_CHECKING:
@@ -34,9 +34,6 @@ HOURLY_RULE_ID = "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"
 HOURLY_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
 HOURLY_ACTIVE_ADDRESS_RULE_ID = "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1"
 HOURLY_ACTIVE_ADDRESS_SOURCE_REFS = ("S10:ZZTERM-P-0316", "S10:ZZTERM-P-0317")
-TEMPORAL_AUXILIARY_RULE_ID = "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1"
-TEMPORAL_AUXILIARY_GENERATOR_ID = "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1"
-TEMPORAL_AUXILIARY_ALGORITHM_VERSION = "1.0.0"
 DAILY_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-P-0277", "S10:ZZTERM-P-0278")
 HOURLY_AUXILIARY_SOURCE_REFS = ("S10:ZZTERM-P-0317",)
 TIME_STANDARD_CONFLICT_REF = "S01:ZZZA-CF-002"
@@ -131,22 +128,11 @@ class ZiweiTargetTemporalEngine:
         context_id: str,
         temporal_source_refs: tuple[str, ...],
     ) -> tuple[TemporalAuxiliaryActivation, ...]:
-        placements = QSCoreAuxiliaryGenerator.lucun_yang_tuo(source_stem)
-        return tuple(
-            TemporalAuxiliaryActivation(
-                activation_id=f"{context_id}:{row.entity_id}",
-                entity_id=row.entity_id,
-                display_name=row.display_name,
-                target_address=row.address,
-                source_layer=source_layer,
-                source_stem=source_stem,
-                context_id=context_id,
-                rule_id=TEMPORAL_AUXILIARY_RULE_ID,
-                generator_id=TEMPORAL_AUXILIARY_GENERATOR_ID,
-                algorithm_version=TEMPORAL_AUXILIARY_ALGORITHM_VERSION,
-                source_refs=temporal_source_refs + row.source_refs,
-            )
-            for row in placements
+        return TemporalAuxiliaryGenerator.activate(
+            source_stem,
+            source_layer=source_layer,
+            context_id=context_id,
+            temporal_source_refs=temporal_source_refs,
         )
 
     def _activate_transformations(
