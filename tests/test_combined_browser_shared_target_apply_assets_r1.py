@@ -77,6 +77,8 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         self.assertIn("daily_auxiliary=${row.daily_auxiliary_status}", SHARED_APPLY_JS)
         self.assertIn("hour.auxiliary_activations.map", SHARED_APPLY_JS)
         self.assertIn("流昌曲=", SHARED_APPLY_JS)
+        self.assertIn("流魁钺候选=", SHARED_APPLY_JS)
+        self.assertIn("CANDIDATES_PRESERVED_NO_SELECTION", SHARED_APPLY_JS)
         self.assertIn("row.hourly_method_candidates.map", SHARED_APPLY_JS)
         self.assertIn("hour.transformations.map", SHARED_APPLY_JS)
         self.assertIn("CANDIDATES_PRESERVED_NO_SELECTED_FRAME", SHARED_APPLY_JS)

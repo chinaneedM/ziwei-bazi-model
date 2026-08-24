@@ -71,6 +71,22 @@
         "label": {"type": "string", "minLength": 1}
       }
     },
+    "temporalAuxiliaryCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_type", "frame_id", "candidate_set_id", "candidate_id", "method_id", "authority_status", "entity_id", "label", "candidate_fact_hash"],
+      "properties": {
+        "frame_type": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
+        "frame_id": {"type": "string", "minLength": 1},
+        "candidate_set_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": "string", "minLength": 1},
+        "method_id": {"enum": ["S01-QS-STRICT-KUI-YUE-R1", "COMPAT-WENMO-KUI-YUE-R1"]},
+        "authority_status": {"enum": ["CANONICAL_SOURCE_TABLE", "EXTERNAL_CASE_COMPATIBILITY"]},
+        "entity_id": {"enum": ["STAR.TIANKUI", "STAR.TIANYUE"]},
+        "label": {"enum": ["天魁", "天钺"]},
+        "candidate_fact_hash": {"pattern": "^[0-9a-f]{64}$"}
+      }
+    },
     "role": {
       "type": "object",
       "additionalProperties": false,
@@ -95,6 +111,7 @@
         "ring_members",
         "temporal_designations",
         "temporal_auxiliaries",
+        "temporal_auxiliary_candidates",
         "minor_limit_frame_ids",
         "doujun_frame_ids"
       ],
@@ -108,6 +125,7 @@
         "ring_members": {"type": "array", "items": {"$ref": "#/$defs/ringMember"}},
         "temporal_designations": {"type": "array", "items": {"$ref": "#/$defs/temporalDesignation"}},
         "temporal_auxiliaries": {"type": "array", "items": {"$ref": "#/$defs/temporalAuxiliary"}},
+        "temporal_auxiliary_candidates": {"type": "array", "items": {"$ref": "#/$defs/temporalAuxiliaryCandidate"}},
         "minor_limit_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "doujun_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
       }

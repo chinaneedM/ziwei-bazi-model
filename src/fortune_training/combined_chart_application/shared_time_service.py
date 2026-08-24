@@ -195,6 +195,7 @@ class SharedZiweiSelectorProjectionService:
                     auxiliary_status=row.auxiliary_status,
                     auxiliary_activations=row.auxiliary_activations,
                     auxiliary_source_refs=row.auxiliary_source_refs,
+                    auxiliary_candidate_sets=row.auxiliary_candidate_sets,
                     transformation_status=row.transformation_status,
                     transformation_rule_set_id=row.transformation_rule_set_id,
                     transformation_rule_set_version=row.transformation_rule_set_version,
@@ -281,6 +282,9 @@ class SharedZiweiSelectorProjectionService:
                 ),
                 daily_auxiliary_source_refs=(
                     daily.auxiliary_source_refs if daily is not None else ()
+                ),
+                daily_auxiliary_candidate_sets=(
+                    daily.auxiliary_candidate_sets if daily is not None else ()
                 ),
                 daily_rule_id=daily.rule_id if daily is not None else None,
                 daily_source_refs=daily.source_refs if daily is not None else (),

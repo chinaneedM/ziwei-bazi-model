@@ -24,6 +24,6 @@
 - 坐标规则：`S10-DOUJUN-FIRST-MONTH-FORWARD-TWELVE-R1`
 - 月干支规则：`FIVE-TIGERS-YEAR-STEM-MONTH-GANZHI-R1`
 - 来源索引：`S10:ZZZA-A-1123`、`S10:ZZZA-A-1127`、`S10:ZZZA-A-1128`
-- 时限规则集与算法版本：`1.4.0`
+- 时限规则集与算法版本：`1.5.0`
 
 动态禄羊陀的来源、身份隔离和完整性规则见 `docs/ZIWEI-TEMPORAL-MOVING-AUXILIARIES-R1.md`。

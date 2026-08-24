@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -168,6 +168,26 @@ SHARED_APPLY_JS = r"""
     if (data.target_coordinate_fact_hash !== projection.source_target_coordinate_fact_hash) return false;
     if (data.target_coordinate_computation_hash !== projection.source_target_coordinate_computation_hash) return false;
     if (!Array.isArray(projection.candidates) || projection.candidates.length === 0) return false;
+    const validAuxiliaryCandidateSet = (set) => (
+      set?.selection_status === 'CANDIDATES_PRESERVED_NO_SELECTION'
+      && Array.isArray(set.entity_ids)
+      && set.entity_ids.length === 2
+      && Array.isArray(set.method_candidates)
+      && set.method_candidates.length === 2
+      && set.method_candidates.every((candidate) => (
+        typeof candidate.method_id === 'string'
+        && Array.isArray(candidate.activations)
+        && candidate.activations.length === 2
+        && typeof candidate.fact_hash === 'string'
+        && candidate.fact_hash.length === 64
+        && typeof candidate.computation_hash === 'string'
+        && candidate.computation_hash.length === 64
+      ))
+      && typeof set.fact_hash === 'string'
+      && set.fact_hash.length === 64
+      && typeof set.computation_hash === 'string'
+      && set.computation_hash.length === 64
+    );
     const validLayer = (layer, expectedLayer, expectedFrame, expectedParent) => (
       layer !== null
       && layer.source_layer === expectedLayer
@@ -180,6 +200,9 @@ SHARED_APPLY_JS = r"""
       && Array.isArray(layer.transformations)
       && Array.isArray(layer.auxiliary_activations)
       && layer.auxiliary_activations.length === 5
+      && Array.isArray(layer.auxiliary_candidate_sets)
+      && layer.auxiliary_candidate_sets.length === 1
+      && validAuxiliaryCandidateSet(layer.auxiliary_candidate_sets[0])
       && typeof layer.fact_hash === 'string'
       && layer.fact_hash.length === 64
       && typeof layer.computation_hash === 'string'
@@ -203,6 +226,7 @@ SHARED_APPLY_JS = r"""
       && row.hourly_method_candidates.length === 2
       && Array.isArray(row.daily_designation_overlay)
       && Array.isArray(row.daily_auxiliary_activations)
+      && Array.isArray(row.daily_auxiliary_candidate_sets)
       && Array.isArray(row.daily_transformations)
       && row.hourly_method_candidates.every((hour) => (
         typeof hour.active_address_branch === 'string'
@@ -210,6 +234,9 @@ SHARED_APPLY_JS = r"""
         && hour.designation_overlay.length === 12
         && Array.isArray(hour.auxiliary_activations)
         && hour.auxiliary_activations.length === 5
+        && Array.isArray(hour.auxiliary_candidate_sets)
+        && hour.auxiliary_candidate_sets.length === 1
+        && validAuxiliaryCandidateSet(hour.auxiliary_candidate_sets[0])
         && Array.isArray(hour.transformations)
       ))
       && (
@@ -217,12 +244,15 @@ SHARED_APPLY_JS = r"""
           && typeof row.monthly_frame_id === 'string'
           && validLayer(row.monthly_layer_projection, 'MONTH', row.monthly_frame_id, row.source_annual_frame_id)
           && row.daily_projection_status === 'REGULAR_LUNAR_DAY_RESOLVED'
-          && typeof row.daily_frame_id === 'string')
+          && typeof row.daily_frame_id === 'string'
+          && row.daily_auxiliary_candidate_sets.length === 1
+          && validAuxiliaryCandidateSet(row.daily_auxiliary_candidate_sets[0]))
         || (row.monthly_projection_status === 'LEAP_MONTH_UNRESOLVED_NO_FRAME'
           && row.monthly_frame_id === null
           && row.monthly_layer_projection === null
           && row.daily_projection_status === 'PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME'
-          && row.daily_frame_id === null)
+          && row.daily_frame_id === null
+          && row.daily_auxiliary_candidate_sets.length === 0)
       )
     ));
   }
@@ -240,7 +270,7 @@ SHARED_APPLY_JS = r"""
       return;
     }
     const layerLine = (label, layer) => layer
-      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
+      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流魁钺候选=${layer.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
       : `${label}=NONE`;
     lineage.textContent = [
       `target_candidate=${row.source_target_candidate_id}`,
@@ -253,9 +283,10 @@ SHARED_APPLY_JS = r"""
       layerLine('monthly_layer', row.monthly_layer_projection),
       `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · 命宫=${row.daily_active_address_branch || '-'} · 宫职=${row.daily_designation_overlay.map((item) => `${item.display_name}@${item.address.branch}`).join(' / ') || 'NONE'}`,
       `daily_auxiliary=${row.daily_auxiliary_status} · ${row.daily_auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
+      `daily_kui_yue_candidates=${row.daily_auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ') || 'NONE'}`,
       `daily_transformations=${row.daily_transformation_status} · ${row.daily_transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
       ...row.hourly_method_candidates.map((hour) => (
-        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · 候选命宫=${hour.active_address_branch} · ${hour.frame_status} · ${hour.auxiliary_status}(${hour.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')}) · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
+        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · 候选命宫=${hour.active_address_branch} · ${hour.frame_status} · ${hour.auxiliary_status}(${hour.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')}) · 流魁钺候选=${hour.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
       )),
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');

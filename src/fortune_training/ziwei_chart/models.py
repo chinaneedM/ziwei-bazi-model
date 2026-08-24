@@ -101,6 +101,31 @@ class TemporalAuxiliaryActivation:
 
 
 @dataclass(frozen=True)
+class TemporalAuxiliaryMethodCandidate:
+    candidate_id: str
+    method_id: str
+    authority_status: str
+    activations: tuple[TemporalAuxiliaryActivation, ...]
+    source_refs: tuple[str, ...]
+    fact_hash: str
+    computation_hash: str
+
+
+@dataclass(frozen=True)
+class TemporalAuxiliaryCandidateSet:
+    candidate_set_id: str
+    source_layer: str
+    source_stem: str
+    context_id: str
+    entity_ids: tuple[str, ...]
+    selection_status: str
+    method_candidates: tuple[TemporalAuxiliaryMethodCandidate, ...]
+    source_refs: tuple[str, ...]
+    fact_hash: str
+    computation_hash: str
+
+
+@dataclass(frozen=True)
 class RoleBinding:
     role_id: str
     display_name: str

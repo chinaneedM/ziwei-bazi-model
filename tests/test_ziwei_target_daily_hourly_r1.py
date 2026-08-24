@@ -14,6 +14,39 @@ from fortune_training.ziwei_chart.temporal_auxiliary import TemporalAuxiliaryGen
 
 
 class ZiweiTargetDailyHourlyR1Tests(unittest.TestCase):
+    def test_kui_yue_methods_are_preserved_without_result_deduplication(self) -> None:
+        for stem in "甲乙丙丁戊己庚辛壬癸":
+            with self.subTest(stem=stem):
+                candidate_set = TemporalAuxiliaryGenerator.kui_yue_candidate_set(
+                    stem,
+                    source_layer="ANNUAL",
+                    context_id=f"ANNUAL:{stem}",
+                    temporal_source_refs=("S10:TEST-CONTEXT",),
+                )
+                self.assertEqual("CANDIDATES_PRESERVED_NO_SELECTION", candidate_set.selection_status)
+                self.assertEqual(("STAR.TIANKUI", "STAR.TIANYUE"), candidate_set.entity_ids)
+                self.assertEqual(2, len(candidate_set.method_candidates))
+                strict, wenmo = candidate_set.method_candidates
+                self.assertEqual("S01-QS-STRICT-KUI-YUE-R1", strict.method_id)
+                self.assertEqual("COMPAT-WENMO-KUI-YUE-R1", wenmo.method_id)
+                self.assertNotEqual(strict.candidate_id, wenmo.candidate_id)
+                self.assertEqual(4, len({row.activation_id for method in candidate_set.method_candidates for row in method.activations}))
+                self.assertTrue(all(len(value) == 64 for value in (
+                    candidate_set.fact_hash,
+                    candidate_set.computation_hash,
+                    strict.fact_hash,
+                    strict.computation_hash,
+                    wenmo.fact_hash,
+                    wenmo.computation_hash,
+                )))
+                strict_branches = tuple(row.target_address.branch for row in strict.activations)
+                wenmo_branches = tuple(row.target_address.branch for row in wenmo.activations)
+                if stem == "辛":
+                    self.assertEqual(("午", "寅"), strict_branches)
+                    self.assertEqual(("寅", "午"), wenmo_branches)
+                else:
+                    self.assertEqual(strict_branches, wenmo_branches)
+
     def test_s10_flow_chang_qu_table_is_exact_for_all_ten_stems(self) -> None:
         expected = {
             "甲": ("巳", "酉"), "乙": ("午", "申"), "丙": ("申", "午"),

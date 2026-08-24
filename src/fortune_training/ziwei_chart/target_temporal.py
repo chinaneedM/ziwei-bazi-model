@@ -14,6 +14,7 @@ from .models import (
     DesignationBinding,
     Placement,
     TemporalAuxiliaryActivation,
+    TemporalAuxiliaryCandidateSet,
     TransformationActivation,
 )
 from .registries import PALACE_DESIGNATIONS, address, branch_index
@@ -26,7 +27,7 @@ if TYPE_CHECKING:
 
 
 ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_ID = "ZIWEI-TARGET-DAILY-HOURLY-R1"
-ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.4.0"
+ZIWEI_TARGET_DAILY_HOURLY_ALGORITHM_VERSION = "1.5.0"
 
 DAILY_RULE_ID = "S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1"
 DAILY_SOURCE_REFS = ("S10:ZZTERM-P-0274", "S10:ZZTERM-P-0275", "S10:ZZTERM-P-0277")
@@ -70,6 +71,7 @@ class ZiweiTargetDailyFrame:
     transformation_source_refs: tuple[str, ...]
     rule_id: str = DAILY_RULE_ID
     source_refs: tuple[str, ...] = DAILY_SOURCE_REFS
+    auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -102,6 +104,7 @@ class ZiweiTargetHourlyMethodCandidate:
         + LUOYANG_TIME_SOURCE_REFS
         + (TIME_STANDARD_CONFLICT_REF, ZI_HOUR_DATE_CONFLICT_REF)
     )
+    auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...] = ()
 
 
 class ZiweiTargetTemporalEngine:
@@ -217,6 +220,14 @@ class ZiweiTargetTemporalEngine:
             transformation_rule_set_version=profile.transformation_rule_set_version,
             transformations=transformations,
             transformation_source_refs=DAILY_TRANSFORMATION_SOURCE_REFS,
+            auxiliary_candidate_sets=(
+                TemporalAuxiliaryGenerator.kui_yue_candidate_set(
+                    day_ganzhi[0],
+                    source_layer="DAY",
+                    context_id=frame_id,
+                    temporal_source_refs=DAILY_AUXILIARY_SOURCE_REFS,
+                ),
+            ),
         )
 
     def hourly_method_candidates(
@@ -287,6 +298,14 @@ class ZiweiTargetTemporalEngine:
                         HOURLY_SOURCE_REFS
                         + LUOYANG_TIME_SOURCE_REFS
                         + (TIME_STANDARD_CONFLICT_REF, ZI_HOUR_DATE_CONFLICT_REF)
+                    ),
+                    auxiliary_candidate_sets=(
+                        TemporalAuxiliaryGenerator.kui_yue_candidate_set(
+                            hour_ganzhi[0],
+                            source_layer="HOUR_CANDIDATE",
+                            context_id=candidate_id,
+                            temporal_source_refs=HOURLY_AUXILIARY_SOURCE_REFS,
+                        ),
                     ),
                 )
             )

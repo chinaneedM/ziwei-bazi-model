@@ -121,6 +121,8 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(["禄存", "擎羊", "陀罗", "文昌", "文曲"], [row.display_name for row in actual.auxiliary_activations])
             self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.auxiliary_activations))
+            self.assertEqual(1, len(actual.auxiliary_candidate_sets))
+            self.assertEqual(2, len(actual.auxiliary_candidate_sets[0].method_candidates))
             self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.transformations))
 
@@ -159,6 +161,7 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(5, len(actual.auxiliary_activations))
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.auxiliary_activations))
+            self.assertEqual(1, len(actual.auxiliary_candidate_sets))
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.transformations))
 
@@ -225,6 +228,7 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(5, len(row.auxiliary_activations))
             self.assertTrue(all(item.source_layer == "MONTH" for item in row.auxiliary_activations))
             self.assertTrue(all(item.source_stem == row.month_stem for item in row.auxiliary_activations))
+            self.assertEqual(1, len(row.auxiliary_candidate_sets))
             self.assertTrue(all(item.source_layer == "MONTH" for item in row.transformations))
             self.assertTrue(all(item.source_stem == row.month_stem for item in row.transformations))
 

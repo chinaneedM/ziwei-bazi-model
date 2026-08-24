@@ -40,6 +40,10 @@ from fortune_training.ziwei_application import (
     ziwei_application_default_presentation_profile,
 )
 from fortune_training.ziwei_chart import Sex, ziwei_chart_engine_v1_profile
+from fortune_training.ziwei_chart.temporal_auxiliary import (
+    temporal_auxiliary_candidate_set_hashes,
+    temporal_auxiliary_method_candidate_hashes,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -147,6 +151,17 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             self.assertEqual("ZIWEI-TEMPORAL-FRAMES-V1", layer.frame_algorithm_id)
             self.assertEqual(4, len(layer.transformations))
             self.assertEqual(5, len(layer.auxiliary_activations))
+            self.assertEqual(1, len(layer.auxiliary_candidate_sets))
+            kui_yue = layer.auxiliary_candidate_sets[0]
+            self.assertEqual("CANDIDATES_PRESERVED_NO_SELECTION", kui_yue.selection_status)
+            self.assertEqual(2, len(kui_yue.method_candidates))
+            self.assertEqual(
+                {"S01-QS-STRICT-KUI-YUE-R1", "COMPAT-WENMO-KUI-YUE-R1"},
+                {candidate.method_id for candidate in kui_yue.method_candidates},
+            )
+            self.assertTrue(all(len(candidate.activations) == 2 for candidate in kui_yue.method_candidates))
+            self.assertEqual(64, len(kui_yue.fact_hash))
+            self.assertEqual(64, len(kui_yue.computation_hash))
             self.assertTrue(layer.source_refs)
             self.assertEqual({layer.source_layer}, {item.source_layer for item in layer.transformations})
             self.assertEqual({layer.source_stem}, {item.source_stem for item in layer.transformations})
@@ -192,6 +207,11 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(["禄存", "擎羊", "陀罗", "文昌", "文曲"], [item.display_name for item in row.daily_auxiliary_activations])
         self.assertEqual({row.daily_ganzhi[0]}, {item.source_stem for item in row.daily_auxiliary_activations})
         self.assertTrue(all(item.source_layer == "DAY" for item in row.daily_auxiliary_activations))
+        self.assertEqual(1, len(row.daily_auxiliary_candidate_sets))
+        self.assertEqual(
+            "DAY",
+            row.daily_auxiliary_candidate_sets[0].source_layer,
+        )
         self.assertIn("S10:ZZTERM-P-0278", row.daily_auxiliary_source_refs)
         self.assertEqual("S10-FLOW-MONTH-FIRST-DAY-FORWARD-R1", row.daily_rule_id)
         self.assertIn("S10:ZZTERM-P-0274", row.daily_source_refs)
@@ -222,6 +242,11 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertTrue(all(candidate.active_address_rule_id == "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1" for candidate in row.hourly_method_candidates))
         self.assertTrue(all(candidate.auxiliary_status == "CASE_METHOD_SOURCE_RULE_RESOLVED" for candidate in row.hourly_method_candidates))
         self.assertTrue(all(len(candidate.auxiliary_activations) == 5 for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(len(candidate.auxiliary_candidate_sets) == 1 for candidate in row.hourly_method_candidates))
+        self.assertTrue(all(
+            candidate.auxiliary_candidate_sets[0].source_layer == "HOUR_CANDIDATE"
+            for candidate in row.hourly_method_candidates
+        ))
         self.assertTrue(all(
             {item.source_stem for item in candidate.auxiliary_activations} == {candidate.hour_ganzhi[0]}
             for candidate in row.hourly_method_candidates
@@ -401,6 +426,81 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
                 self.assertEqual(source.frame_id, annual.parent_daxian_frame_id)
                 self.assertEqual(annual.parent_daxian_frame_id, row.daxian_frame_id)
                 self.assertEqual(annual.nominal_age, row.minor_limit_age)
+
+    def test_layer_projection_rejects_rehashed_kui_yue_candidate_tamper(self) -> None:
+        target = self._target(datetime(2026, 8, 18, 12, 0))
+        result = self._project(target)
+        original = result.candidates[0]
+        layer = original.annual_layer_projection
+        candidate_set = layer.auxiliary_candidate_sets[0]
+        strict, compat = candidate_set.method_candidates
+        changed_compat = replace(
+            compat,
+            activations=(
+                replace(
+                    compat.activations[0],
+                    target_address=compat.activations[1].target_address,
+                ),
+                compat.activations[1],
+            ),
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = temporal_auxiliary_method_candidate_hashes(
+            changed_compat
+        )
+        changed_compat = replace(
+            changed_compat,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+        changed_set = replace(
+            candidate_set,
+            method_candidates=(strict, changed_compat),
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = temporal_auxiliary_candidate_set_hashes(changed_set)
+        changed_set = replace(
+            changed_set,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+        changed_layer = replace(
+            layer,
+            auxiliary_candidate_sets=(changed_set,),
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = shared_ziwei_temporal_layer_hashes(changed_layer)
+        changed_layer = replace(
+            changed_layer,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+        changed_candidate = replace(
+            original,
+            annual_layer_projection=changed_layer,
+            candidate_hash="",
+        )
+        changed_candidate = replace(
+            changed_candidate,
+            candidate_hash=shared_selector_candidate_hash(changed_candidate),
+        )
+        tampered = replace(
+            result,
+            candidates=(changed_candidate,),
+            hashes=replace(result.hashes, fact_hash="", computation_hash=""),
+        )
+        tampered = replace(tampered, hashes=shared_selector_hash_bundle(tampered))
+        report = validate_shared_ziwei_selector_projection(
+            self.ziwei_bundle,
+            target,
+            self.target_profile,
+            tampered,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("CANDIDATE_0_ANNUAL_LAYER_PROJECTION_MISMATCH", report.diagnostics)
 
     def test_dst_fold_preserves_both_target_lineages_without_selector_dedup(self) -> None:
         target = self._target(

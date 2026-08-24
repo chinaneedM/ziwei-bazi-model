@@ -13,9 +13,9 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, T
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.3"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.4"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
-TEXT_RENDERER_VERSION = "1.0.3"
+TEXT_RENDERER_VERSION = "1.0.4"
 
 
 class ViewProjectionError(ValueError):
@@ -87,6 +87,19 @@ class ViewTemporalAuxiliary:
 
 
 @dataclass(frozen=True)
+class ViewTemporalAuxiliaryCandidate:
+    frame_type: str
+    frame_id: str
+    candidate_set_id: str
+    candidate_id: str
+    method_id: str
+    authority_status: str
+    entity_id: str
+    label: str
+    candidate_fact_hash: str
+
+
+@dataclass(frozen=True)
 class ViewRole:
     role_id: str
     label: str
@@ -105,6 +118,7 @@ class PalaceViewCell:
     ring_members: tuple[ViewRingMember, ...]
     temporal_designations: tuple[ViewDesignationOverlay, ...]
     temporal_auxiliaries: tuple[ViewTemporalAuxiliary, ...]
+    temporal_auxiliary_candidates: tuple[ViewTemporalAuxiliaryCandidate, ...]
     minor_limit_frame_ids: tuple[str, ...]
     doujun_frame_ids: tuple[str, ...]
 
@@ -287,6 +301,9 @@ class ZiweiViewProjectionCompiler:
 
         overlays_by_address: dict[int, list[ViewDesignationOverlay]] = {index: [] for index in range(12)}
         auxiliaries_by_address: dict[int, list[ViewTemporalAuxiliary]] = {index: [] for index in range(12)}
+        auxiliary_candidates_by_address: dict[int, list[ViewTemporalAuxiliaryCandidate]] = {
+            index: [] for index in range(12)
+        }
         if presentation.show_temporal_overlays:
             for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual), ("MONTH", monthly)):
                 if frame is None:
@@ -309,6 +326,27 @@ class ZiweiViewProjectionCompiler:
                             label=self._label(overrides, "ENTITY", row.entity_id, row.display_name),
                         )
                     )
+                for candidate_set in frame.auxiliary_candidate_sets:
+                    for candidate in candidate_set.method_candidates:
+                        for row in candidate.activations:
+                            auxiliary_candidates_by_address[row.target_address.index].append(
+                                ViewTemporalAuxiliaryCandidate(
+                                    frame_type=frame_type,
+                                    frame_id=frame.frame_id,
+                                    candidate_set_id=candidate_set.candidate_set_id,
+                                    candidate_id=candidate.candidate_id,
+                                    method_id=candidate.method_id,
+                                    authority_status=candidate.authority_status,
+                                    entity_id=row.entity_id,
+                                    label=self._label(
+                                        overrides,
+                                        "ENTITY",
+                                        row.entity_id,
+                                        row.display_name,
+                                    ),
+                                    candidate_fact_hash=candidate.fact_hash,
+                                )
+                            )
 
         minor_by_address: dict[int, list[str]] = {index: [] for index in range(12)}
         if presentation.show_temporal_overlays and minor is not None:
@@ -356,6 +394,17 @@ class ZiweiViewProjectionCompiler:
                         sorted(
                             auxiliaries_by_address[index],
                             key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+                        )
+                    ),
+                    temporal_auxiliary_candidates=tuple(
+                        sorted(
+                            auxiliary_candidates_by_address[index],
+                            key=lambda item: (
+                                item.frame_type,
+                                item.frame_id,
+                                item.method_id,
+                                item.entity_id,
+                            ),
                         )
                     ),
                     minor_limit_frame_ids=tuple(minor_by_address[index]),
@@ -420,6 +469,12 @@ class PlainTextZiweiRenderer:
                     f"{row.frame_type}:{row.label}" for row in cell.temporal_auxiliaries
                 )
                 temporal = ", ".join(filter(None, (temporal, moving)))
+            if cell.temporal_auxiliary_candidates:
+                candidates = ", ".join(
+                    f"{row.frame_type}:候选[{row.method_id}]:{row.label}"
+                    for row in cell.temporal_auxiliary_candidates
+                )
+                temporal = ", ".join(filter(None, (temporal, candidates)))
             if cell.minor_limit_frame_ids:
                 temporal = ", ".join(filter(None, (temporal, "小限:" + "/".join(cell.minor_limit_frame_ids))))
             if cell.doujun_frame_ids:

@@ -37,6 +37,8 @@ from .models import (
     RoleBinding,
     Sex,
     TemporalAuxiliaryActivation,
+    TemporalAuxiliaryCandidateSet,
+    TemporalAuxiliaryMethodCandidate,
     TransformationActivation,
 )
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -71,7 +73,11 @@ from .target_temporal import (
     ZiweiTargetHourlyMethodCandidate,
     ZiweiTargetTemporalEngine,
 )
-from .temporal_auxiliary import TemporalAuxiliaryGenerator
+from .temporal_auxiliary import (
+    TemporalAuxiliaryGenerator,
+    temporal_auxiliary_candidate_set_hashes,
+    temporal_auxiliary_method_candidate_hashes,
+)
 from .transformations import TransformationGenerator
 from .view import (
     ChartViewModel,
@@ -80,6 +86,7 @@ from .view import (
     PlainTextZiweiRenderer,
     PresentationProfile,
     ViewTemporalAuxiliary,
+    ViewTemporalAuxiliaryCandidate,
     ViewProjectionError,
     ZiweiViewProjectionCompiler,
 )
@@ -124,11 +131,16 @@ __all__ = [
     "Sex",
     "TemporalNatalContext",
     "TemporalAuxiliaryActivation",
+    "TemporalAuxiliaryCandidateSet",
+    "TemporalAuxiliaryMethodCandidate",
     "TemporalAuxiliaryGenerator",
+    "temporal_auxiliary_candidate_set_hashes",
+    "temporal_auxiliary_method_candidate_hashes",
     "TransformationActivation",
     "TransformationGenerator",
     "ViewProjectionError",
     "ViewTemporalAuxiliary",
+    "ViewTemporalAuxiliaryCandidate",
     "WenmoDefaultMinorStarGenerator",
     "WenmoDefaultMinorStarR4Generator",
     "WenmoDefaultRingGenerator",

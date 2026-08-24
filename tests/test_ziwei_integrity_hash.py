@@ -45,6 +45,10 @@ from fortune_training.ziwei_chart.temporal import (
     TemporalNatalContext,
     ZiweiTemporalEngine,
 )
+from fortune_training.ziwei_chart.temporal_auxiliary import (
+    temporal_auxiliary_candidate_set_hashes,
+    temporal_auxiliary_method_candidate_hashes,
+)
 from fortune_training.ziwei_chart.transformations import (
     S08_TRANSFORMATION_RULE_SET_ID,
     S08_TRANSFORMATION_RULE_SET_VERSION,
@@ -252,6 +256,58 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         self.assertNotEqual(
             first.fact_hash,
             temporal_hash_bundle(tampered_auxiliary_state, temporal_profile).fact_hash,
+        )
+
+        candidate_set = state.annual_frames[0].auxiliary_candidate_sets[0]
+        strict, compat = candidate_set.method_candidates
+        changed_activation = replace(
+            compat.activations[0],
+            target_address=compat.activations[1].target_address,
+        )
+        changed_compat = replace(
+            compat,
+            activations=(changed_activation, compat.activations[1]),
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(changed_compat)
+        )
+        changed_compat = replace(
+            changed_compat,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        changed_set = replace(
+            candidate_set,
+            method_candidates=(strict, changed_compat),
+            fact_hash="",
+            computation_hash="",
+        )
+        set_fact_hash, set_computation_hash = temporal_auxiliary_candidate_set_hashes(
+            changed_set
+        )
+        changed_set = replace(
+            changed_set,
+            fact_hash=set_fact_hash,
+            computation_hash=set_computation_hash,
+        )
+        changed_frame = replace(
+            state.annual_frames[0],
+            auxiliary_candidate_sets=(changed_set,),
+        )
+        changed_state = replace(
+            state,
+            annual_frames=(changed_frame, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(changed_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_CANDIDATE_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(changed_state, temporal_profile).fact_hash,
         )
 
     def test_engine_fails_closed_when_generated_chart_breaks_integrity(self):

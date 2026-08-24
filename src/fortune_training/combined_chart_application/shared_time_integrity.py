@@ -45,6 +45,9 @@ def _temporal_layer_projection_payload(
         "source_stem": projection.source_stem,
         "transformations": [json_value(row) for row in projection.transformations],
         "auxiliary_activations": [json_value(row) for row in projection.auxiliary_activations],
+        "auxiliary_candidate_sets": [
+            json_value(row) for row in projection.auxiliary_candidate_sets
+        ],
     }
 
 
@@ -62,6 +65,9 @@ def shared_ziwei_temporal_layer_hashes(
             "source_refs": projection.source_refs,
             "transformation_lineage": [json_value(row) for row in projection.transformations],
             "auxiliary_lineage": [json_value(row) for row in projection.auxiliary_activations],
+            "auxiliary_candidate_lineage": [
+                json_value(row) for row in projection.auxiliary_candidate_sets
+            ],
             "hash_algorithm": (
                 f"{SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_ID}@"
                 f"{SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_VERSION}"
@@ -99,6 +105,7 @@ def project_shared_ziwei_temporal_layer(
         source_refs=frame.source_refs,
         transformations=frame.transformations,
         auxiliary_activations=frame.auxiliary_activations,
+        auxiliary_candidate_sets=frame.auxiliary_candidate_sets,
         fact_hash="",
         computation_hash="",
     )
@@ -165,6 +172,9 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "daily_auxiliary_status": candidate.daily_auxiliary_status,
             "daily_auxiliary_activations": [json_value(row) for row in candidate.daily_auxiliary_activations],
             "daily_auxiliary_source_refs": candidate.daily_auxiliary_source_refs,
+            "daily_auxiliary_candidate_sets": [
+                json_value(row) for row in candidate.daily_auxiliary_candidate_sets
+            ],
             "daily_rule_id": candidate.daily_rule_id,
             "daily_source_refs": candidate.daily_source_refs,
             "daily_transformation_status": candidate.daily_transformation_status,
@@ -398,6 +408,9 @@ def validate_shared_ziwei_selector_projection(
                 daily.auxiliary_activations if daily is not None else ()
             ),
             "daily_auxiliary_source_refs": daily.auxiliary_source_refs if daily is not None else (),
+            "daily_auxiliary_candidate_sets": (
+                daily.auxiliary_candidate_sets if daily is not None else ()
+            ),
             "daily_rule_id": daily.rule_id if daily is not None else None,
             "daily_source_refs": daily.source_refs if daily is not None else (),
             "daily_transformation_status": (
@@ -450,6 +463,7 @@ def validate_shared_ziwei_selector_projection(
                 "auxiliary_status": expected_hourly.auxiliary_status,
                 "auxiliary_activations": expected_hourly.auxiliary_activations,
                 "auxiliary_source_refs": expected_hourly.auxiliary_source_refs,
+                "auxiliary_candidate_sets": expected_hourly.auxiliary_candidate_sets,
                 "transformation_status": expected_hourly.transformation_status,
                 "transformation_rule_set_id": expected_hourly.transformation_rule_set_id,
                 "transformation_rule_set_version": expected_hourly.transformation_rule_set_version,

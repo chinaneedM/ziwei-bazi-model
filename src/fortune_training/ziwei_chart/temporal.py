@@ -11,6 +11,7 @@ from .models import (
     Placement,
     Sex,
     TemporalAuxiliaryActivation,
+    TemporalAuxiliaryCandidateSet,
     TransformationActivation,
 )
 from .registries import (
@@ -30,9 +31,9 @@ if TYPE_CHECKING:
 
 
 TEMPORAL_ALGORITHM_ID = "ZIWEI-TEMPORAL-FRAMES-V1"
-TEMPORAL_ALGORITHM_VERSION = "1.4.0"
+TEMPORAL_ALGORITHM_VERSION = "1.5.0"
 S10_CURRENT_TEMPORAL_RULE_SET_ID = "S10_CURRENT_TEMPORAL_R1"
-S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.4.0"
+S10_CURRENT_TEMPORAL_RULE_SET_VERSION = "1.5.0"
 
 DAXIAN_SOURCE_REFS = ("S10:中州派动态坐标生成补充:大限",)
 ANNUAL_SOURCE_REFS = ("S10:中州派动态坐标生成补充:流年太岁与斗君",)
@@ -123,6 +124,7 @@ class DaxianFrame:
     auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
+    auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -141,6 +143,7 @@ class AnnualFrame:
     auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
+    auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -161,6 +164,7 @@ class MonthlyFrame:
     auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     transformations: tuple[TransformationActivation, ...]
     source_refs: tuple[str, ...]
+    auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -300,6 +304,14 @@ class ZiweiTemporalEngine:
                         context_id=frame_id,
                     ),
                     source_refs=DAXIAN_SOURCE_REFS,
+                    auxiliary_candidate_sets=(
+                        self.auxiliaries.kui_yue_candidate_set(
+                            source_stem,
+                            source_layer="DAXIAN",
+                            context_id=frame_id,
+                            temporal_source_refs=DAXIAN_AUXILIARY_SOURCE_REFS,
+                        ),
+                    ),
                 )
             )
         return tuple(rows)
@@ -353,6 +365,14 @@ class ZiweiTemporalEngine:
                 context_id=frame_id,
             ),
             source_refs=ANNUAL_SOURCE_REFS + DOUJUN_SOURCE_REFS,
+            auxiliary_candidate_sets=(
+                self.auxiliaries.kui_yue_candidate_set(
+                    year_stem,
+                    source_layer="ANNUAL",
+                    context_id=frame_id,
+                    temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
+                ),
+            ),
         )
 
     @staticmethod
@@ -444,6 +464,14 @@ class ZiweiTemporalEngine:
                 context_id=frame_id,
             ),
             source_refs=MONTHLY_SOURCE_REFS,
+            auxiliary_candidate_sets=(
+                self.auxiliaries.kui_yue_candidate_set(
+                    month_stem,
+                    source_layer="MONTH",
+                    context_id=frame_id,
+                    temporal_source_refs=MONTHLY_AUXILIARY_SOURCE_REFS,
+                ),
+            ),
         )
 
     def monthly_frames(
