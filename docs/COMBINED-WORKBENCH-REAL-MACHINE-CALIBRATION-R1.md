@@ -184,6 +184,7 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] Target-flow cannot be resolved from an old/stale base after source birth fields are edited.
 - [ ] Explicit target datetime/place/coordinates/timezone are shown as a separate target input from birth input.
 - [ ] An ordinary exact target produces at least one Bazi flow candidate with both Xiaoyun candidates, Daily/Hourly frames, and lineage/hash display.
+- [ ] Every resolved Bazi temporal layer shows read-only Ten God, hidden-stem Ten Gods, Nayin, Xunkong, day-master Twelve Growth, self Twelve Growth and an annotation FactHash; both Xiaoyun candidates remain separate.
 - [ ] If a fold/uncertainty fixture produces multiple candidates, the candidate selector preserves them individually.
 
 ### Shared projection and Apply

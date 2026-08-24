@@ -15,7 +15,13 @@ from fortune_training.bazi_application import (
     BaziApplicationRequest,
     BaziApplicationResolutionError,
     BaziChartService,
+    application_flow_bundle_hash,
+    application_flow_candidate_id,
+    application_flow_view_hash,
     bazi_local_application_v1_profile,
+    temporal_classical_annotation_hashes,
+    temporal_classical_projection_hashes,
+    validate_application_flow_full_replay,
     validate_application_flow_resolution,
 )
 from fortune_training.bazi_application.flow_local_app import (
@@ -38,6 +44,7 @@ from fortune_training.bazi_temporal import (
 )
 from fortune_training.calendar_foundation import BirthInput
 from fortune_training.calendar_foundation.models import json_value
+from fortune_training.util import object_sha256
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -180,6 +187,55 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         injected["candidates"][0]["view"]["prediction"] = "FORBIDDEN"
         with self.assertRaises(jsonschema.ValidationError):
             jsonschema.Draft202012Validator(self.schema).validate(injected)
+
+    def test_temporal_classical_annotations_cover_all_resolved_layers(self) -> None:
+        result = self._resolve(self._target(datetime(2026, 6, 1, 12, 0)))
+        projection = result.candidates[0].view["timeline"]["classical_annotations"]
+        self.assertEqual("丁", projection["day_master_stem"])
+        self.assertEqual(
+            "XIAOYUN_CANDIDATES_PRESERVED_NO_WINNER",
+            projection["selection_semantics"],
+        )
+        for layer in ("dayun", "annual", "monthly", "daily", "hourly"):
+            slot = projection[layer]
+            self.assertEqual("RESOLVED", slot["status"])
+            self.assertEqual(64, len(slot["annotation"]["fact_hash"]))
+            self.assertEqual(64, len(slot["annotation"]["computation_hash"]))
+        self.assertEqual(2, len(projection["xiaoyun_candidates"]))
+        self.assertEqual(
+            2,
+            len(
+                {
+                    row["annotation"]["fact_hash"]
+                    for row in projection["xiaoyun_candidates"]
+                }
+            ),
+        )
+        daily = projection["daily"]["annotation"]
+        self.assertEqual("丙午", daily["ganzhi"])
+        self.assertEqual("劫财", daily["visible_ten_god"]["display_name"])
+        self.assertEqual(
+            [("丁", "比肩"), ("己", "食神")],
+            [(row["stem"], row["ten_god"]) for row in daily["hidden_stems"]],
+        )
+        self.assertEqual("天河水", daily["nayin"]["display_name"])
+        self.assertEqual("寅卯", daily["xunkong"]["display_name"])
+        self.assertEqual("临官", daily["day_master_twelve_growth"]["phase"])
+        self.assertEqual("帝旺", daily["self_twelve_growth"]["phase"])
+        self.assertEqual(64, len(projection["fact_hash"]))
+        self.assertEqual(64, len(projection["computation_hash"]))
+
+    def test_pre_dayun_keeps_explicit_no_ganzhi_annotation_status(self) -> None:
+        result = self._resolve(self._target(datetime(2025, 6, 1, 12, 0)))
+        projection = result.candidates[0].view["timeline"]["classical_annotations"]
+        self.assertEqual(
+            "PRE_DAYUN_NO_GANZHI_ANNOTATION",
+            projection["dayun"]["status"],
+        )
+        self.assertIsNone(projection["dayun"]["annotation"])
+        for layer in ("annual", "monthly", "daily", "hourly"):
+            self.assertEqual("RESOLVED", projection[layer]["status"])
+        jsonschema.Draft202012Validator(self.schema).validate(json_value(result))
 
     def test_legacy_application_v1_is_byte_and_hash_stable(self) -> None:
         base_request = self._base_request()
@@ -465,6 +521,51 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
             "CANDIDATE:0:VIEW_TARGET_INDEX_LINEAGE_MISMATCH",
             index_report.diagnostics,
         )
+
+    def test_rehashed_temporal_annotation_tamper_fails_replay(self) -> None:
+        request = self._request(self._target(datetime(2026, 6, 1, 12, 0)))
+        result = self.flow_service.resolve(request)
+        row = result.candidates[0]
+        changed_view = copy.deepcopy(row.view)
+        projection = changed_view["timeline"]["classical_annotations"]
+        daily = projection["daily"]["annotation"]
+        daily["hidden_stems"][0]["ten_god"] = "正官"
+        daily["fact_hash"], daily["computation_hash"] = (
+            temporal_classical_annotation_hashes(daily)
+        )
+        projection["fact_hash"], projection["computation_hash"] = (
+            temporal_classical_projection_hashes(projection)
+        )
+        changed_view_hash = object_sha256(
+            {"view_schema": row.view_schema, "view": changed_view}
+        )
+        changed_row = replace(row, view=changed_view, view_hash=changed_view_hash)
+        changed_row = replace(
+            changed_row,
+            candidate_id=application_flow_candidate_id(changed_row),
+        )
+        tampered = replace(result, candidates=(changed_row,))
+        tampered = replace(
+            tampered,
+            view_hash=application_flow_view_hash(tampered),
+        )
+        tampered = replace(
+            tampered,
+            bundle_hash=application_flow_bundle_hash(tampered),
+        )
+        structural = validate_application_flow_resolution(tampered)
+        self.assertEqual("FAIL", structural.status)
+        self.assertIn(
+            "CANDIDATE:0:TIMELINE_CLASSICAL_ANNOTATION_REPLAY_MISMATCH",
+            structural.diagnostics,
+        )
+        full_replay = validate_application_flow_full_replay(
+            self.flow_service,
+            request,
+            tampered,
+        )
+        self.assertEqual("FAIL", full_replay.status)
+        self.assertIn("FULL_REPLAY_MISMATCH", full_replay.diagnostics)
 
     def test_flow_local_api_is_separate_and_validates_explicit_target_fields(self) -> None:
         app = FlowLocalBaziApplication(ROOT)

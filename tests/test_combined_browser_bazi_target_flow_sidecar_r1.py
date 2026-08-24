@@ -21,6 +21,7 @@ from fortune_training.combined_chart_application.local_app import (
     LocalCombinedChartApplication,
 )
 from fortune_training.combined_chart_application.target_flow_assets import (
+    TARGET_FLOW_CSS,
     TARGET_FLOW_JS,
     target_flow_index_html,
 )
@@ -207,6 +208,20 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
         self.assertIn("view.timeline.xiaoyun.candidates.forEach", TARGET_FLOW_JS)
         self.assertIn("小运候选", TARGET_FLOW_JS)
         self.assertIn("row.activation_status", TARGET_FLOW_JS)
+
+    def test_browser_renders_temporal_classical_annotations_read_only(self) -> None:
+        self.assertIn("view.timeline.classical_annotations", TARGET_FLOW_JS)
+        self.assertIn("annotation.visible_ten_god.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.hidden_stems.map", TARGET_FLOW_JS)
+        self.assertIn("annotation.nayin.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.xunkong.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.day_master_twelve_growth.phase", TARGET_FLOW_JS)
+        self.assertIn("annotation.self_twelve_growth.phase", TARGET_FLOW_JS)
+        self.assertIn("annotation_fact=${annotation.fact_hash}", TARGET_FLOW_JS)
+        self.assertIn(".bazi-flow-annotation", TARGET_FLOW_CSS)
+        for forbidden in ("旺衰", "格局", "用神", "喜忌", "预测"):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, TARGET_FLOW_JS)
 
     def test_browser_flow_never_writes_ziwei_selector_or_svg_state(self) -> None:
         for forbidden in (

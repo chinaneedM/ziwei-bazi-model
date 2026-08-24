@@ -12,6 +12,7 @@ from .flow_models import (
     BaziApplicationFlowIntegrityReport,
     BaziApplicationFlowResolution,
 )
+from .temporal_annotations import validate_temporal_classical_annotation_projection
 
 
 def application_flow_candidate_id(candidate: BaziApplicationFlowCandidate) -> str:
@@ -270,6 +271,22 @@ def validate_application_flow_resolution(
             "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES"
         ):
             diagnostics.append(f"{prefix}:TIMELINE_XIAOYUN_SELECTION_MISMATCH")
+        annotations = timeline.get("classical_annotations")
+        if not isinstance(annotations, dict) or not (
+            validate_temporal_classical_annotation_projection(
+                annotations,
+                dayun_kind=str(timeline.get("dayun", {}).get("kind", "")),
+                dayun_frame=timeline.get("dayun", {}).get("frame", {}),
+                xiaoyun_candidates=timeline.get("xiaoyun", {}).get("candidates", ()),
+                annual_frame=timeline.get("annual", {}),
+                monthly_frame=timeline.get("monthly", {}),
+                daily_frame=timeline.get("daily", {}),
+                hourly_frame=timeline.get("hourly", {}),
+            )
+        ):
+            diagnostics.append(
+                f"{prefix}:TIMELINE_CLASSICAL_ANNOTATION_REPLAY_MISMATCH"
+            )
 
     expected_source_fact_hash = application_flow_source_fact_hash(resolution)
     if resolution.source_fact_hash != expected_source_fact_hash:

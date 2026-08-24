@@ -30,6 +30,7 @@ TARGET_FLOW_CSS = """
 .bazi-flow-frame { padding:7px; border:1px solid #e0e3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.5; min-width:0; }
 .bazi-flow-frame strong { display:block; margin-bottom:3px; }
 .bazi-flow-frame code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bazi-flow-annotation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#4f5863; }
 @media (max-width:900px) { .bazi-target-flow-grid { grid-template-columns:1fr; } .bazi-flow-frames { grid-template-columns:1fr 1fr; } }
 @media (max-width:620px) { .bazi-flow-frames { grid-template-columns:1fr; } }
 """
@@ -154,7 +155,7 @@ TARGET_FLOW_JS = r"""
     };
   }
 
-  function frameCard(label, frame, extra = '') {
+  function frameCard(label, frame, extra = '', annotationSlot = null) {
     const box = node('div', undefined, 'bazi-flow-frame');
     box.append(node('strong', label));
     if (!frame) {
@@ -168,6 +169,18 @@ TARGET_FLOW_JS = r"""
     if (frame.end_utc) box.append(node('code', `止 ${frame.end_utc}`));
     if (frame.start_las) box.append(node('code', `LAS 起 ${frame.start_las}`));
     if (frame.end_las) box.append(node('code', `LAS 止 ${frame.end_las}`));
+    if (annotationSlot?.status === 'RESOLVED' && annotationSlot.annotation) {
+      const annotation = annotationSlot.annotation;
+      const hidden = annotation.hidden_stems.map((row) => `${row.stem}·${row.ten_god}`).join(' / ');
+      box.append(node(
+        'div',
+        `十神 ${annotation.visible_ten_god.display_name} · 藏干 ${hidden} · 纳音 ${annotation.nayin.display_name} · 旬空 ${annotation.xunkong.display_name} · 星运 ${annotation.day_master_twelve_growth.phase} · 自坐 ${annotation.self_twelve_growth.phase}`,
+        'bazi-flow-annotation',
+      ));
+      box.append(node('code', `annotation_fact=${annotation.fact_hash}`));
+    } else if (annotationSlot?.status) {
+      box.append(node('div', `注释状态 ${annotationSlot.status}`, 'bazi-flow-annotation'));
+    }
     return box;
   }
 
@@ -195,19 +208,21 @@ TARGET_FLOW_JS = r"""
 
     const flow = view.flow;
     const dayun = flow.active_dayun_frame;
-    framesRoot.append(frameCard('大运', dayun, flow.active_dayun_kind));
-    view.timeline.xiaoyun.candidates.forEach((row) => {
+    const annotations = view.timeline.classical_annotations;
+    framesRoot.append(frameCard('大运', dayun, flow.active_dayun_kind, annotations.dayun));
+    view.timeline.xiaoyun.candidates.forEach((row, rowIndex) => {
       framesRoot.append(frameCard(
         `小运候选 · ${row.profile_id}`,
         row.active_frame,
         `${row.direction} · ${row.activation_status}`,
+        annotations.xiaoyun_candidates[rowIndex],
       ));
     });
     framesRoot.append(
-      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`),
-      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`),
-      frameCard('流日', view.daily, display(view.daily?.effective_day_date)),
-      frameCard('流时', view.hourly, display(view.hourly?.branch)),
+      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`, annotations.annual),
+      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`, annotations.monthly),
+      frameCard('流日', view.daily, display(view.daily?.effective_day_date), annotations.daily),
+      frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly),
     );
 
     lineageRoot.hidden = false;
@@ -218,6 +233,7 @@ TARGET_FLOW_JS = r"""
       `temporal_fact=${candidate.temporal_fact_hash}`,
       `flow_fact=${candidate.flow_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
+      `temporal_annotation_fact=${display(annotations.fact_hash)}`,
       `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
     ].join('\n');
   }

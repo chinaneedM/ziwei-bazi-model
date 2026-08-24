@@ -43,6 +43,7 @@ from .flow_models import (
 )
 from .models import BaziApplicationResolution
 from .service import BaziApplicationResolutionError, BaziChartService
+from .temporal_annotations import temporal_classical_annotation_projection
 
 
 class BaziApplicationFlowService:
@@ -101,6 +102,7 @@ class BaziApplicationFlowService:
         source_application_candidate_ids: tuple[str, ...],
         xiaoyun: dict[str, Any],
         birth_civil_year: int,
+        day_master_stem: str,
     ) -> dict[str, Any]:
         context = daily_hourly.context
         target_index = daily_hourly.source_target_coordinate_candidate_index
@@ -169,6 +171,16 @@ class BaziApplicationFlowService:
             "hourly": json_value(context.hourly_frame),
             "semantic_scope": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION",
         }
+        timeline["classical_annotations"] = temporal_classical_annotation_projection(
+            day_master_stem,
+            dayun_kind=flow.context.active_dayun_kind,
+            dayun_frame=json_value(flow.context.active_dayun_frame),
+            xiaoyun_candidates=active_xiaoyun,
+            annual_frame=json_value(flow.context.annual_frame),
+            monthly_frame=json_value(flow.context.monthly_frame),
+            daily_frame=json_value(context.daily_frame),
+            hourly_frame=json_value(context.hourly_frame),
+        )
         return {
             "target": BaziApplicationFlowService._target_view(
                 target_resolution, target_index
@@ -449,6 +461,7 @@ class BaziApplicationFlowService:
                     source_application_candidate_ids,
                     xiaoyun_views[0],
                     base_request.birth.reported_local_datetime.year,
+                    natal.chart.day_master_stem,
                 )
                 view_hash = object_sha256(
                     {"view_schema": FLOW_APPLICATION_VIEW_SCHEMA, "view": view}

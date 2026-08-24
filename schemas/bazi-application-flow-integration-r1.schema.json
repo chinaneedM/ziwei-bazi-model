@@ -188,6 +188,163 @@
         "natal_profile_version": {"type": "string"}
       }
     },
+    "temporalHiddenStem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stem", "element", "registry_ordinal", "ten_god_semantic_role_id", "ten_god"],
+      "properties": {
+        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "element": {"enum": ["木", "火", "土", "金", "水"]},
+        "registry_ordinal": {"type": "integer", "minimum": 0, "maximum": 2},
+        "ten_god_semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
+        "ten_god": {"type": "string", "minLength": 1}
+      }
+    },
+    "temporalGrowth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "source_stem", "target_branch", "stem_polarity", "direction", "growth_start_branch", "phase_ordinal", "phase", "source_refs", "semantic_scope"],
+      "properties": {
+        "profile_id": {"const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "source_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "target_branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "stem_polarity": {"enum": ["YANG", "YIN"]},
+        "direction": {"enum": ["FORWARD", "REVERSE"]},
+        "growth_start_branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "phase_ordinal": {"type": "integer", "minimum": 0, "maximum": 11},
+        "phase": {"enum": ["长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养"]},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "semantic_scope": {"const": "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION"}
+      }
+    },
+    "temporalAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "source_layer", "context_id", "day_master_stem", "ganzhi", "sexagenary_index", "stem", "branch", "visible_ten_god", "hidden_stems", "nayin", "xunkong", "day_master_twelve_growth", "self_twelve_growth", "rule_bindings", "semantic_scope", "source_refs", "fact_hash", "computation_hash"],
+      "properties": {
+        "profile_id": {"const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "source_layer": {"enum": ["DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"]},
+        "context_id": {"type": "string", "minLength": 1},
+        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "visible_ten_god": {
+          "type": "object", "additionalProperties": false,
+          "required": ["semantic_role_id", "display_name"],
+          "properties": {
+            "semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
+            "display_name": {"type": "string", "minLength": 1}
+          }
+        },
+        "hidden_stems": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/temporalHiddenStem"}},
+        "nayin": {
+          "type": "object", "additionalProperties": false,
+          "required": ["profile_id", "profile_version", "registry_id", "registry_version", "semantic_id", "display_name", "element"],
+          "properties": {
+            "profile_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
+            "profile_version": {"const": "1.0.0"},
+            "registry_id": {"const": "BAZI-NAYIN-REGISTRY-R1"},
+            "registry_version": {"const": "1.0.0"},
+            "semantic_id": {"type": "string", "pattern": "^NAYIN:PAIR:(0[0-9]|1[0-9]|2[0-9])$"},
+            "display_name": {"type": "string", "minLength": 1},
+            "element": {"enum": ["木", "火", "土", "金", "水"]}
+          }
+        },
+        "xunkong": {
+          "type": "object", "additionalProperties": false,
+          "required": ["profile_id", "profile_version", "xun_index", "xun_start_ganzhi", "void_branches", "display_name", "source_refs", "semantic_scope"],
+          "properties": {
+            "profile_id": {"const": "BAZI-XUNKONG-YHZP-R1"},
+            "profile_version": {"const": "1.0.0"},
+            "xun_index": {"type": "integer", "minimum": 0, "maximum": 5},
+            "xun_start_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+            "void_branches": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string", "minLength": 1, "maxLength": 1}},
+            "display_name": {"type": "string", "minLength": 2, "maxLength": 2},
+            "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "semantic_scope": {"const": "IDENTITY_ONLY_NO_AUSPICIOUSNESS"}
+          }
+        },
+        "day_master_twelve_growth": {"$ref": "#/$defs/temporalGrowth"},
+        "self_twelve_growth": {"$ref": "#/$defs/temporalGrowth"},
+        "rule_bindings": {
+          "type": "object", "additionalProperties": false,
+          "required": ["hidden_stem_rule_set_id", "hidden_stem_rule_set_version", "ten_god_rule_set_id", "ten_god_rule_set_version", "ten_god_algorithm_id", "ten_god_algorithm_version", "nayin_algorithm_id", "nayin_algorithm_version", "xunkong_profile_id", "xunkong_profile_version", "twelve_growth_profile_id", "twelve_growth_profile_version"],
+          "properties": {
+            "hidden_stem_rule_set_id": {"const": "S11-STANDARD-HIDDEN-STEM-MEMBERSHIP-R1"},
+            "hidden_stem_rule_set_version": {"const": "1.0.0"},
+            "ten_god_rule_set_id": {"const": "S11-TEN-GOD-RELATION-R1"},
+            "ten_god_rule_set_version": {"const": "1.0.0"},
+            "ten_god_algorithm_id": {"const": "BAZI-TEN-GOD-GENERATOR-V1"},
+            "ten_god_algorithm_version": {"const": "1.0.0"},
+            "nayin_algorithm_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
+            "nayin_algorithm_version": {"const": "1.0.0"},
+            "xunkong_profile_id": {"const": "BAZI-XUNKONG-YHZP-R1"},
+            "xunkong_profile_version": {"const": "1.0.0"},
+            "twelve_growth_profile_id": {"const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"},
+            "twelve_growth_profile_version": {"const": "1.0.0"}
+          }
+        },
+        "semantic_scope": {"const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "temporalAnnotationResolvedSlot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "annotation"],
+      "properties": {"status": {"const": "RESOLVED"}, "annotation": {"$ref": "#/$defs/temporalAnnotation"}}
+    },
+    "temporalAnnotationOptionalSlot": {
+      "oneOf": [
+        {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "annotation"],
+          "properties": {
+            "status": {"enum": ["PRE_DAYUN_NO_GANZHI_ANNOTATION", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]},
+            "annotation": {"type": "null"}
+          }
+        }
+      ]
+    },
+    "temporalAnnotationProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "day_master_stem", "dayun", "xiaoyun_candidates", "annual", "monthly", "daily", "hourly", "selection_semantics", "semantic_scope", "source_refs", "fact_hash", "computation_hash"],
+      "properties": {
+        "profile_id": {"const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
+        "dayun": {"$ref": "#/$defs/temporalAnnotationOptionalSlot"},
+        "xiaoyun_candidates": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["profile_id", "direction", "status", "annotation"],
+            "properties": {
+              "profile_id": {"type": "string", "minLength": 1},
+              "direction": {"enum": ["FORWARD", "REVERSE"]},
+              "status": {"enum": ["RESOLVED", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]},
+              "annotation": {"oneOf": [{"$ref": "#/$defs/temporalAnnotation"}, {"type": "null"}]}
+            }
+          }
+        },
+        "annual": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
+        "monthly": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
+        "daily": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
+        "hourly": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
+        "selection_semantics": {"const": "XIAOYUN_CANDIDATES_PRESERVED_NO_WINNER"},
+        "semantic_scope": {"const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
     "targetView": {
       "type": "object",
       "additionalProperties": false,
@@ -233,7 +390,7 @@
         "timeline": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["schema", "target_coordinate_candidate_id", "layer_order", "natal", "dayun", "xiaoyun", "annual", "monthly", "daily", "hourly", "semantic_scope"],
+          "required": ["schema", "target_coordinate_candidate_id", "layer_order", "natal", "dayun", "xiaoyun", "annual", "monthly", "daily", "hourly", "classical_annotations", "semantic_scope"],
           "properties": {
             "schema": {"const": "BAZI-UNIFIED-TARGET-TIMELINE-R1"},
             "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
@@ -294,6 +451,7 @@
             "monthly": {"$ref": "#/$defs/monthly"},
             "daily": {"$ref": "#/$defs/daily"},
             "hourly": {"$ref": "#/$defs/hourly"},
+            "classical_annotations": {"$ref": "#/$defs/temporalAnnotationProjection"},
             "semantic_scope": {"const": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION"}
           }
         },
@@ -367,7 +525,7 @@
         "status": {"const": "PASS"},
         "diagnostics": {"type": "array", "maxItems": 0},
         "algorithm_id": {"const": "BAZI-APPLICATION-FLOW-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.1.0"}
+        "algorithm_version": {"const": "1.2.0"}
       }
     }
   }
