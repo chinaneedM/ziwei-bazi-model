@@ -31,6 +31,9 @@ TARGET_FLOW_CSS = """
 .bazi-flow-frame strong { display:block; margin-bottom:3px; }
 .bazi-flow-frame code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .bazi-flow-annotation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#4f5863; }
+.bazi-flow-structural { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.55; }
+.bazi-flow-structural strong,.bazi-flow-structural code { display:block; }
+.bazi-flow-relation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; word-break:break-word; }
 @media (max-width:900px) { .bazi-target-flow-grid { grid-template-columns:1fr; } .bazi-flow-frames { grid-template-columns:1fr 1fr; } }
 @media (max-width:620px) { .bazi-flow-frames { grid-template-columns:1fr; } }
 """
@@ -74,6 +77,7 @@ TARGET_FLOW_JS = r"""
     <div id="bazi-target-flow-status" class="bazi-target-flow-status">请先完成联合排盘，再显式输入目标时点。</div>
     <div id="bazi-flow-target-meta" class="bazi-flow-target-meta" hidden></div>
     <div id="bazi-flow-frames" class="bazi-flow-frames"></div>
+    <div id="bazi-flow-structural" class="bazi-flow-structural" hidden></div>
     <div id="bazi-flow-lineage" class="bazi-flow-lineage" hidden></div>
   `;
   baziRoot.parentNode.insertBefore(panel, baziRoot);
@@ -83,6 +87,7 @@ TARGET_FLOW_JS = r"""
   const status = $('bazi-target-flow-status');
   const targetMeta = $('bazi-flow-target-meta');
   const framesRoot = $('bazi-flow-frames');
+  const structuralRoot = $('bazi-flow-structural');
   const lineageRoot = $('bazi-flow-lineage');
   const hashBox = $('bazi-flow-hash');
 
@@ -186,10 +191,40 @@ TARGET_FLOW_JS = r"""
 
   function clearCandidateView() {
     clear(framesRoot);
+    clear(structuralRoot);
+    structuralRoot.hidden = true;
     targetMeta.hidden = true;
     targetMeta.textContent = '';
     lineageRoot.hidden = true;
     lineageRoot.textContent = '';
+  }
+
+  function renderStructural(structural) {
+    structuralRoot.hidden = false;
+    structuralRoot.append(node('strong', '中性干支关系（当前版本仅大运 / 流年 / 流月）'));
+    structuralRoot.append(node(
+      'div',
+      `覆盖 ${structural.active_layers.join(' / ')} · 未覆盖 ${structural.excluded_layers.join(' / ')} · 不判强弱、作用或合化成败`,
+    ));
+    if (structural.relations.length === 0) {
+      structuralRoot.append(node('div', '当前层组合没有结构关系事实。'));
+    }
+    structural.relations.forEach((relation) => {
+      const nominal = relation.nominal_transformation_element
+        ? ` · 名义目标五行 ${relation.nominal_transformation_element}（非成化结论）`
+        : '';
+      const row = node(
+        'div',
+        `${relation.relation_family} · ${relation.participant_layers.join(' + ')} · ${relation.relation_scope}${nominal}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `participants=${relation.participant_instance_ids.join(',')}`));
+      row.append(node('code', `relation_id=${relation.relation_id}`));
+      row.append(node('code', `rule=${relation.rule_set_id}@${relation.rule_set_version}`));
+      row.append(node('code', `sources=${relation.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
+    structuralRoot.append(node('code', `structural_projection_fact=${structural.fact_hash}`));
   }
 
   function renderCandidate(candidate, index, count) {
@@ -224,6 +259,7 @@ TARGET_FLOW_JS = r"""
       frameCard('流日', view.daily, display(view.daily?.effective_day_date), annotations.daily),
       frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly),
     );
+    renderStructural(view.structural);
 
     lineageRoot.hidden = false;
     lineageRoot.textContent = [
@@ -232,9 +268,10 @@ TARGET_FLOW_JS = r"""
       `natal_fact=${candidate.natal_fact_hash}`,
       `temporal_fact=${candidate.temporal_fact_hash}`,
       `flow_fact=${candidate.flow_fact_hash}`,
+      `structural_fact=${candidate.structural_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
       `temporal_annotation_fact=${display(annotations.fact_hash)}`,
-      `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
+      `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} structural=${display(view.integrity?.structural)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
     ].join('\n');
   }
 

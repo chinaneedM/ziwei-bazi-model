@@ -21,6 +21,7 @@ from fortune_training.bazi_application import (
     bazi_local_application_v1_profile,
     temporal_classical_annotation_hashes,
     temporal_classical_projection_hashes,
+    structural_projection_hashes,
     validate_application_flow_full_replay,
     validate_application_flow_resolution,
 )
@@ -236,6 +237,57 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         for layer in ("annual", "monthly", "daily", "hourly"):
             self.assertEqual("RESOLVED", projection[layer]["status"])
         jsonschema.Draft202012Validator(self.schema).validate(json_value(result))
+
+    def test_structural_projection_preserves_neutral_relation_lineage(self) -> None:
+        result = self._resolve(self._target(datetime(2026, 6, 1, 12, 0)))
+        row = result.candidates[0]
+        projection = row.view["structural"]
+        self.assertEqual(
+            "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1",
+            projection["schema"],
+        )
+        self.assertEqual(["DAYUN", "ANNUAL", "MONTHLY"], projection["active_layers"])
+        self.assertEqual(["XIAOYUN", "DAILY", "HOURLY"], projection["excluded_layers"])
+        self.assertIn(row.source_flow_candidate_index, projection["source_flow_candidate_indices"])
+        self.assertEqual(row.structural_fact_hash, projection["source_structural_fact_hash"])
+        self.assertEqual(
+            row.structural_computation_hash,
+            projection["source_structural_computation_hash"],
+        )
+        self.assertTrue(projection["relations"])
+        self.assertEqual(
+            (projection["fact_hash"], projection["computation_hash"]),
+            structural_projection_hashes(projection),
+        )
+        provenance = {
+            item["instance_id"]: item for item in projection["participant_provenance"]
+        }
+        for relation in projection["relations"]:
+            self.assertTrue(relation["rule_set_id"])
+            self.assertTrue(relation["source_refs"])
+            self.assertIn(relation["relation_scope"], {"CROSS_LAYER", "TEMPORAL_ONLY"})
+            for participant_id in relation["participant_instance_ids"]:
+                if participant_id in provenance:
+                    self.assertTrue(provenance[participant_id]["source_frame_id"])
+                    self.assertEqual(
+                        row.flow_fact_hash,
+                        provenance[participant_id]["source_flow_fact_hash"],
+                    )
+            for forbidden in (
+                "effect", "severity", "strength", "winner",
+                "transformation_succeeded", "prediction",
+            ):
+                self.assertNotIn(forbidden, relation)
+        jsonschema.Draft202012Validator(self.schema).validate(json_value(result))
+
+    def test_pre_dayun_structural_projection_excludes_dayun_participants(self) -> None:
+        result = self._resolve(self._target(datetime(2025, 6, 1, 12, 0)))
+        projection = result.candidates[0].view["structural"]
+        self.assertEqual(["ANNUAL", "MONTHLY"], projection["active_layers"])
+        self.assertNotIn(
+            "DAYUN",
+            {item["layer"] for item in projection["participant_provenance"]},
+        )
 
     def test_legacy_application_v1_is_byte_and_hash_stable(self) -> None:
         base_request = self._base_request()
@@ -559,6 +611,36 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
             "CANDIDATE:0:TIMELINE_CLASSICAL_ANNOTATION_REPLAY_MISMATCH",
             structural.diagnostics,
         )
+        full_replay = validate_application_flow_full_replay(
+            self.flow_service,
+            request,
+            tampered,
+        )
+        self.assertEqual("FAIL", full_replay.status)
+        self.assertIn("FULL_REPLAY_MISMATCH", full_replay.diagnostics)
+
+    def test_rehashed_structural_projection_tamper_fails_full_replay(self) -> None:
+        request = self._request(self._target(datetime(2026, 6, 1, 12, 0)))
+        result = self.flow_service.resolve(request)
+        row = result.candidates[0]
+        changed_view = copy.deepcopy(row.view)
+        projection = changed_view["structural"]
+        projection["relations"][0]["semantic_relation_id"] += ":TAMPERED"
+        projection["fact_hash"], projection["computation_hash"] = (
+            structural_projection_hashes(projection)
+        )
+        changed_view_hash = object_sha256(
+            {"view_schema": row.view_schema, "view": changed_view}
+        )
+        changed_row = replace(row, view=changed_view, view_hash=changed_view_hash)
+        changed_row = replace(
+            changed_row,
+            candidate_id=application_flow_candidate_id(changed_row),
+        )
+        tampered = replace(result, candidates=(changed_row,))
+        tampered = replace(tampered, view_hash=application_flow_view_hash(tampered))
+        tampered = replace(tampered, bundle_hash=application_flow_bundle_hash(tampered))
+        self.assertEqual("PASS", validate_application_flow_resolution(tampered).status)
         full_replay = validate_application_flow_full_replay(
             self.flow_service,
             request,

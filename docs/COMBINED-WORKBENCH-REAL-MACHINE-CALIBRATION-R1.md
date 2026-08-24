@@ -137,6 +137,12 @@ The Bazi target-flow pane uses an explicit target local datetime/place/coordinat
 
 Resolving target-flow preserves released candidate lineage. A fold or uncertainty window may therefore expose more than one candidate. No visible-equality deduplication or candidate-0 winner is implied.
 
+The same pane also shows the released neutral structural occurrences for active
+Dayun/Annual/Monthly layers. It exposes participant layers and frame-bound
+instances, relation/rule/source identity, neutral scope, and hashes. Xiaoyun,
+Daily, and Hourly are visibly outside this Structural R1 coverage; nominal
+transformation elements are not displayed as successful transformations.
+
 ### D. Shared Target projection calculation
 
 `计算共享 Projection` consumes the released target-coordinate candidates and the released Ziwei application bundle to calculate candidate-preserving Ziwei selector projections.
@@ -185,6 +191,8 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] Explicit target datetime/place/coordinates/timezone are shown as a separate target input from birth input.
 - [ ] An ordinary exact target produces at least one Bazi flow candidate with both Xiaoyun candidates, Daily/Hourly frames, and lineage/hash display.
 - [ ] Every resolved Bazi temporal layer shows read-only Ten God, hidden-stem Ten Gods, Nayin, Xunkong, day-master Twelve Growth, self Twelve Growth and an annotation FactHash; both Xiaoyun candidates remain separate.
+- [ ] Neutral Dayun/Annual/Monthly structural relations show frame-bound participants, layers, scope, rule/source identity, Structural FactHash and projection FactHash; no effect, strength, winner or transformation-success conclusion appears.
+- [ ] A pre-Dayun target has no fabricated Dayun structural participant, and Xiaoyun/Daily/Hourly remain explicitly outside Structural R1 coverage.
 - [ ] If a fold/uncertainty fixture produces multiple candidates, the candidate selector preserves them individually.
 
 ### Shared projection and Apply

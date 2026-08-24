@@ -59,6 +59,14 @@ from .temporal_annotations import (
     temporal_classical_projection_hashes,
     validate_temporal_classical_annotation_projection,
 )
+from .structural_projection import (
+    STRUCTURAL_PROJECTION_ALGORITHM_ID,
+    STRUCTURAL_PROJECTION_ALGORITHM_VERSION,
+    STRUCTURAL_PROJECTION_SCHEMA,
+    structural_projection,
+    structural_projection_hashes,
+    validate_structural_projection,
+)
 from .xiaoyun import (
     FIXED_SEX_PROFILE_ID,
     HOUR_PILLAR_PROFILE_ID,
@@ -126,6 +134,9 @@ __all__ = [
     "TEMPORAL_CLASSICAL_ANNOTATION_ALGORITHM_VERSION",
     "TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_ID",
     "TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION",
+    "STRUCTURAL_PROJECTION_ALGORITHM_ID",
+    "STRUCTURAL_PROJECTION_ALGORITHM_VERSION",
+    "STRUCTURAL_PROJECTION_SCHEMA",
     "TIANYI_BY_STEM",
     "LU_BY_STEM",
     "YIMA_BY_BRANCH",
@@ -157,6 +168,8 @@ __all__ = [
     "temporal_classical_annotation_hashes",
     "temporal_classical_annotation_projection",
     "temporal_classical_projection_hashes",
+    "structural_projection",
+    "structural_projection_hashes",
     "twelve_growth_for",
     "validate_classical_annotation_registries",
     "validate_derived_coordinate_profile",
@@ -170,6 +183,7 @@ __all__ = [
     "classical_shensha_for_pillars",
     "validate_shensha_registries",
     "validate_temporal_classical_annotation_projection",
+    "validate_structural_projection",
 ]
 
 __version__ = "0.2.0"

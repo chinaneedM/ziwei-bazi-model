@@ -13,6 +13,7 @@ from .flow_models import (
     BaziApplicationFlowResolution,
 )
 from .temporal_annotations import validate_temporal_classical_annotation_projection
+from .structural_projection import validate_structural_projection
 
 
 def application_flow_candidate_id(candidate: BaziApplicationFlowCandidate) -> str:
@@ -34,6 +35,8 @@ def application_flow_candidate_id(candidate: BaziApplicationFlowCandidate) -> st
             "temporal_fact_hash": candidate.temporal_fact_hash,
             "flow_fact_hash": candidate.flow_fact_hash,
             "flow_computation_hash": candidate.flow_computation_hash,
+            "structural_fact_hash": candidate.structural_fact_hash,
+            "structural_computation_hash": candidate.structural_computation_hash,
             "daily_hourly_fact_hash": candidate.daily_hourly_fact_hash,
             "daily_hourly_computation_hash": candidate.daily_hourly_computation_hash,
             "view_hash": candidate.view_hash,
@@ -64,6 +67,7 @@ def application_flow_source_fact_hash(
                     "natal_fact_hash": row.natal_fact_hash,
                     "temporal_fact_hash": row.temporal_fact_hash,
                     "flow_fact_hash": row.flow_fact_hash,
+                    "structural_fact_hash": row.structural_fact_hash,
                     "daily_hourly_fact_hash": row.daily_hourly_fact_hash,
                 }
                 for row in resolution.candidates
@@ -114,6 +118,7 @@ def application_flow_bundle_hash(resolution: BaziApplicationFlowResolution) -> s
             "candidate_computation_hashes": [
                 {
                     "flow": row.flow_computation_hash,
+                    "structural": row.structural_computation_hash,
                     "daily_hourly": row.daily_hourly_computation_hash,
                 }
                 for row in resolution.candidates
@@ -195,6 +200,7 @@ def validate_application_flow_resolution(
         hashes = candidate.view.get("source_hashes", {})
         integrity = candidate.view.get("integrity", {})
         timeline = candidate.view.get("timeline", {})
+        structural = candidate.view.get("structural", {})
         if target.get("target_coordinate_candidate_index") != (
             candidate.source_target_coordinate_candidate_index
         ):
@@ -234,6 +240,8 @@ def validate_application_flow_resolution(
             "temporal_fact_hash": candidate.temporal_fact_hash,
             "flow_fact_hash": candidate.flow_fact_hash,
             "flow_computation_hash": candidate.flow_computation_hash,
+            "structural_fact_hash": candidate.structural_fact_hash,
+            "structural_computation_hash": candidate.structural_computation_hash,
             "target_coordinate_fact_hash": resolution.target_coordinate_fact_hash,
             "target_coordinate_computation_hash": (
                 resolution.target_coordinate_computation_hash
@@ -247,6 +255,7 @@ def validate_application_flow_resolution(
             "target_coordinate": "PASS",
             "flow": "PASS",
             "daily_hourly": "PASS",
+            "structural": "PASS",
         }:
             diagnostics.append(f"{prefix}:VIEW_UPSTREAM_INTEGRITY_NOT_PASS")
         if timeline.get("schema") != "BAZI-UNIFIED-TARGET-TIMELINE-R1":
@@ -287,6 +296,14 @@ def validate_application_flow_resolution(
             diagnostics.append(
                 f"{prefix}:TIMELINE_CLASSICAL_ANNOTATION_REPLAY_MISMATCH"
             )
+        if not isinstance(structural, dict) or not validate_structural_projection(
+            structural,
+            source_flow_candidate_index=candidate.source_flow_candidate_index,
+            flow_fact_hash=candidate.flow_fact_hash,
+            structural_fact_hash=candidate.structural_fact_hash,
+            structural_computation_hash=candidate.structural_computation_hash,
+        ):
+            diagnostics.append(f"{prefix}:STRUCTURAL_PROJECTION_REPLAY_MISMATCH")
 
     expected_source_fact_hash = application_flow_source_fact_hash(resolution)
     if resolution.source_fact_hash != expected_source_fact_hash:
