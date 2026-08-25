@@ -35,18 +35,23 @@ See `docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md`.
 ## Bazi neutral structural projection
 
 Each target-flow candidate now also projects the released Structural Context
-for active Dayun, Annual, and Monthly participants. It preserves occurrence
-identity, source layer, parent frame, upstream Flow hash, relation rule/source
-identity, neutral scope, and both source-Structural and projection hashes.
+for active Dayun, Annual, and Monthly participants. It preserves the complete
+neutral active fact surface: visible stem/branch instances, ordered hidden
+stems, visible/hidden Ten God bindings, dynamic exposure links, dynamic
+stem-branch affinities, raw relation occurrences, referenced natal fact IDs,
+source layer, parent frame, upstream Flow hash, rule/source identity, neutral
+scope, and both source-Structural and projection hashes.
 Pre-Dayun candidates contain only Annual and Monthly structural participants.
 Xiaoyun, Daily, and Hourly remain explicitly outside this Structural R1
 coverage rather than being inferred.
 
-The workbench renders these occurrences as read-only neutral facts. A nominal
+The workbench renders all of these occurrences as read-only neutral facts. A nominal
 transformation element is metadata, not a successful transformation claim; no
 effect, strength, priority, winner, or interpretation is generated. Structural
 projection hashes are locally replayed and the full application replay rebuilds
-the exact projection from Natal and Flow facts. See
+the exact projection from Natal and Flow facts. Structural Support remains an
+independent downstream evidence layer rather than being folded into this
+projection. See
 `docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md`.
 
 ## Xiaoyun linkage boundary

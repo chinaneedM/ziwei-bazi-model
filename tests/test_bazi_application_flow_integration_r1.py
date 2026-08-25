@@ -248,12 +248,19 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         )
         self.assertEqual(["DAYUN", "ANNUAL", "MONTHLY"], projection["active_layers"])
         self.assertEqual(["XIAOYUN", "DAILY", "HOURLY"], projection["excluded_layers"])
+        self.assertEqual("丁", projection["natal_day_master_stem"])
         self.assertIn(row.source_flow_candidate_index, projection["source_flow_candidate_indices"])
         self.assertEqual(row.structural_fact_hash, projection["source_structural_fact_hash"])
         self.assertEqual(
             row.structural_computation_hash,
             projection["source_structural_computation_hash"],
         )
+        self.assertEqual(3, len(projection["active_temporal_stems"]))
+        self.assertEqual(3, len(projection["active_temporal_branches"]))
+        self.assertEqual(8, len(projection["temporal_hidden_stems"]))
+        self.assertEqual(11, len(projection["temporal_ten_gods"]))
+        self.assertTrue(projection["dynamic_exposures"])
+        self.assertTrue(projection["dynamic_affinities"])
         self.assertTrue(projection["relations"])
         self.assertEqual(
             (projection["fact_hash"], projection["computation_hash"]),
@@ -262,6 +269,32 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         provenance = {
             item["instance_id"]: item for item in projection["participant_provenance"]
         }
+        temporal_ids = {
+            item["instance_id"]
+            for key in ("active_temporal_stems", "active_temporal_branches")
+            for item in projection[key]
+        }
+        self.assertEqual(temporal_ids, set(provenance))
+        hidden_ids = {
+            item["instance_id"] for item in projection["temporal_hidden_stems"]
+        }
+        ten_god_target_ids = {
+            item["target_instance_id"] for item in projection["temporal_ten_gods"]
+        }
+        self.assertEqual(
+            (temporal_ids & ten_god_target_ids) | hidden_ids,
+            ten_god_target_ids,
+        )
+        self.assertEqual(
+            16,
+            len(projection["upstream_reference_ids"]["natal_affinity_fact_ids"]),
+        )
+        for exposure in projection["dynamic_exposures"]:
+            self.assertEqual("EXACT_STEM", exposure["match_kind"])
+            self.assertTrue(exposure["source_refs"])
+        for affinity in projection["dynamic_affinities"]:
+            self.assertTrue(affinity["rule_set_id"])
+            self.assertTrue(affinity["source_refs"])
         for relation in projection["relations"]:
             self.assertTrue(relation["rule_set_id"])
             self.assertTrue(relation["source_refs"])
@@ -284,6 +317,8 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         result = self._resolve(self._target(datetime(2025, 6, 1, 12, 0)))
         projection = result.candidates[0].view["structural"]
         self.assertEqual(["ANNUAL", "MONTHLY"], projection["active_layers"])
+        self.assertEqual(2, len(projection["active_temporal_stems"]))
+        self.assertEqual(2, len(projection["active_temporal_branches"]))
         self.assertNotIn(
             "DAYUN",
             {item["layer"] for item in projection["participant_provenance"]},
@@ -648,6 +683,33 @@ class BaziApplicationFlowIntegrationR1Tests(unittest.TestCase):
         )
         self.assertEqual("FAIL", full_replay.status)
         self.assertIn("FULL_REPLAY_MISMATCH", full_replay.diagnostics)
+
+    def test_rehashed_structural_registry_tamper_fails_local_integrity(self) -> None:
+        result = self._resolve(self._target(datetime(2026, 6, 1, 12, 0)))
+        row = result.candidates[0]
+        changed_view = copy.deepcopy(row.view)
+        projection = changed_view["structural"]
+        projection["temporal_hidden_stems"][0]["stem"] = "甲"
+        projection["fact_hash"], projection["computation_hash"] = (
+            structural_projection_hashes(projection)
+        )
+        changed_view_hash = object_sha256(
+            {"view_schema": row.view_schema, "view": changed_view}
+        )
+        changed_row = replace(row, view=changed_view, view_hash=changed_view_hash)
+        changed_row = replace(
+            changed_row,
+            candidate_id=application_flow_candidate_id(changed_row),
+        )
+        tampered = replace(result, candidates=(changed_row,))
+        tampered = replace(tampered, view_hash=application_flow_view_hash(tampered))
+        tampered = replace(tampered, bundle_hash=application_flow_bundle_hash(tampered))
+        report = validate_application_flow_resolution(tampered)
+        self.assertEqual("FAIL", report.status)
+        self.assertIn(
+            "CANDIDATE:0:STRUCTURAL_PROJECTION_REPLAY_MISMATCH",
+            report.diagnostics,
+        )
 
     def test_flow_local_api_is_separate_and_validates_explicit_target_fields(self) -> None:
         app = FlowLocalBaziApplication(ROOT)

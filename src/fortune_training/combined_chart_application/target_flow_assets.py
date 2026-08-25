@@ -33,6 +33,7 @@ TARGET_FLOW_CSS = """
 .bazi-flow-annotation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#4f5863; }
 .bazi-flow-structural { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.55; }
 .bazi-flow-structural strong,.bazi-flow-structural code { display:block; }
+.bazi-flow-structural-layer { margin-top:6px; padding:6px; border:1px solid #edf0f2; border-radius:5px; background:#fafbfb; }
 .bazi-flow-relation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; word-break:break-word; }
 @media (max-width:900px) { .bazi-target-flow-grid { grid-template-columns:1fr; } .bazi-flow-frames { grid-template-columns:1fr 1fr; } }
 @media (max-width:620px) { .bazi-flow-frames { grid-template-columns:1fr; } }
@@ -201,11 +202,60 @@ TARGET_FLOW_JS = r"""
 
   function renderStructural(structural) {
     structuralRoot.hidden = false;
-    structuralRoot.append(node('strong', '中性干支关系（当前版本仅大运 / 流年 / 流月）'));
+    structuralRoot.append(node('strong', '中性结构事实（当前版本仅大运 / 流年 / 流月）'));
     structuralRoot.append(node(
       'div',
       `覆盖 ${structural.active_layers.join(' / ')} · 未覆盖 ${structural.excluded_layers.join(' / ')} · 不判强弱、作用或合化成败`,
     ));
+    const tenGodByTarget = new Map(
+      structural.temporal_ten_gods.map((binding) => [binding.target_instance_id, binding]),
+    );
+    structural.active_temporal_stems.forEach((stem) => {
+      const branch = structural.active_temporal_branches.find(
+        (candidate) => candidate.position === stem.position,
+      );
+      const hidden = structural.temporal_hidden_stems.filter(
+        (candidate) => candidate.branch_instance_id === branch?.instance_id,
+      );
+      const visibleTenGod = tenGodByTarget.get(stem.instance_id);
+      const hiddenText = hidden.map((candidate) => {
+        const binding = tenGodByTarget.get(candidate.instance_id);
+        return `${candidate.stem}·${display(binding?.display_name)}`;
+      }).join(' / ');
+      const box = node('div', undefined, 'bazi-flow-structural-layer');
+      box.append(node(
+        'div',
+        `${stem.position} ${stem.stem}${display(branch?.branch)} · 十神 ${display(visibleTenGod?.display_name)} · 藏干 ${hiddenText}`,
+      ));
+      box.append(node('code', `stem=${stem.instance_id}`));
+      box.append(node('code', `branch=${display(branch?.instance_id)}`));
+      structuralRoot.append(box);
+    });
+    structural.dynamic_exposures.forEach((exposure) => {
+      const row = node(
+        'div',
+        `透干事实 ${exposure.stem} · ${exposure.hidden_stem_instance_id} → ${exposure.visible_stem_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `link_id=${exposure.link_id}`));
+      row.append(node('code', `sources=${exposure.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
+    structural.dynamic_affinities.forEach((affinity) => {
+      const exact = affinity.exact_hidden_stem_instance_ids.join(',') || '-';
+      const sameElement = affinity.same_element_hidden_stem_instance_ids.join(',') || '-';
+      const row = node(
+        'div',
+        `干支亲和 ${affinity.visible_stem_instance_id} ↔ ${affinity.branch_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `exact_hidden=${exact}`));
+      row.append(node('code', `same_element_hidden=${sameElement}`));
+      row.append(node('code', `fact_id=${affinity.fact_id}`));
+      row.append(node('code', `rule=${affinity.rule_set_id}@${affinity.rule_set_version}`));
+      row.append(node('code', `sources=${affinity.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
     if (structural.relations.length === 0) {
       structuralRoot.append(node('div', '当前层组合没有结构关系事实。'));
     }

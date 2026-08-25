@@ -85,7 +85,7 @@ Every supplied `BaziFlowCandidate` is replayed independently. The Structural Fac
 - Structural FactHash binds upstream fact identities and the complete neutral active structural payload;
 - Structural ComputationHash additionally binds upstream computation hashes, the resolved Structural profile, algorithm versions, rule-set lineage, sources, and hash algorithm version.
 
-The public contract is `schemas/bazi-structural-context-r1.schema.json`. Required discrimination data is in `tests/fixtures/bazi-structural-context-r1.json`. The separate application composition in `docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md` now exposes a strict read-only subset of this released context; it does not change this generator or its coverage.
+The public contract is `schemas/bazi-structural-context-r1.schema.json`. Required discrimination data is in `tests/fixtures/bazi-structural-context-r1.json`. The separate application composition in `docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md` now exposes the complete neutral active fact surface plus compact upstream reference IDs as a read-only projection; it does not change this generator or its coverage.
 
 ## Non-goals
 

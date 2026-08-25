@@ -225,6 +225,14 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
 
     def test_browser_renders_structural_projection_as_neutral_read_only_facts(self) -> None:
         self.assertIn("renderStructural(view.structural)", TARGET_FLOW_JS)
+        self.assertIn("structural.active_temporal_stems.forEach", TARGET_FLOW_JS)
+        self.assertIn("structural.temporal_hidden_stems.filter", TARGET_FLOW_JS)
+        self.assertIn("structural.temporal_ten_gods.map", TARGET_FLOW_JS)
+        self.assertIn("structural.dynamic_exposures.forEach", TARGET_FLOW_JS)
+        self.assertIn("structural.dynamic_affinities.forEach", TARGET_FLOW_JS)
+        self.assertIn("exposure.link_id", TARGET_FLOW_JS)
+        self.assertIn("affinity.fact_id", TARGET_FLOW_JS)
+        self.assertIn("affinity.rule_set_id", TARGET_FLOW_JS)
         self.assertIn("structural.relations.forEach", TARGET_FLOW_JS)
         self.assertIn("relation.participant_instance_ids.join", TARGET_FLOW_JS)
         self.assertIn("relation.rule_set_id", TARGET_FLOW_JS)
@@ -234,6 +242,7 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
         self.assertIn("不判强弱、作用或合化成败", TARGET_FLOW_JS)
         self.assertIn("structural_projection_fact", TARGET_FLOW_JS)
         self.assertIn(".bazi-flow-structural", TARGET_FLOW_CSS)
+        self.assertIn(".bazi-flow-structural-layer", TARGET_FLOW_CSS)
 
     def test_browser_flow_never_writes_ziwei_selector_or_svg_state(self) -> None:
         for forbidden in (
