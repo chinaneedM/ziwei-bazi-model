@@ -145,6 +145,12 @@ and hashes. Xiaoyun,
 Daily, and Hourly are visibly outside this Structural R1 coverage; nominal
 transformation elements are not displayed as successful transformations.
 
+The following independent support pane shows the fixed Natal month-command and
+active Flow solar-month roles separately. It lists exact hidden-stem matches and
+same-element/different-stem candidates with occurrence, affinity, exposure,
+rule/source, and hash lineage. It must not label any candidate as root/no-root,
+strong/weak, weighted, scored, or 得令.
+
 ### D. Shared Target projection calculation
 
 `计算共享 Projection` consumes the released target-coordinate candidates and the released Ziwei application bundle to calculate candidate-preserving Ziwei selector projections.
@@ -195,6 +201,8 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] Every resolved Bazi temporal layer shows read-only Ten God, hidden-stem Ten Gods, Nayin, Xunkong, day-master Twelve Growth, self Twelve Growth and an annotation FactHash; both Xiaoyun candidates remain separate.
 - [ ] Neutral Dayun/Annual/Monthly structure shows frame-bound visible stems/branches, ordered hidden stems and Ten Gods, dynamic exposure/affinity facts, raw relations, layers, rule/source identity, Structural FactHash and projection FactHash; no effect, strength, winner or transformation-success conclusion appears.
 - [ ] A pre-Dayun target has no fabricated Dayun structural participant, and Xiaoyun/Daily/Hourly remain explicitly outside Structural R1 coverage.
+- [ ] Structural Support is a separate read-only pane: Natal month command and active Flow month are distinct; exact and same-element candidates retain affinity/exposure/rule/source IDs and projection hash.
+- [ ] Structural Support shows no root/no-root, strength, weight, score, 得令, pattern, useful-god, interpretation or prediction verdict.
 - [ ] If a fold/uncertainty fixture produces multiple candidates, the candidate selector preserves them individually.
 
 ### Shared projection and Apply

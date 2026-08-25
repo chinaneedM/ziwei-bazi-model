@@ -34,6 +34,9 @@ TARGET_FLOW_CSS = """
 .bazi-flow-structural { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.55; }
 .bazi-flow-structural strong,.bazi-flow-structural code { display:block; }
 .bazi-flow-structural-layer { margin-top:6px; padding:6px; border:1px solid #edf0f2; border-radius:5px; background:#fafbfb; }
+.bazi-flow-support { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fffdf8; font-size:11px; line-height:1.55; }
+.bazi-flow-support strong,.bazi-flow-support code { display:block; }
+.bazi-flow-support-role { margin-top:5px; padding:5px; border:1px solid #eee6d8; border-radius:5px; background:#fff; }
 .bazi-flow-relation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; word-break:break-word; }
 @media (max-width:900px) { .bazi-target-flow-grid { grid-template-columns:1fr; } .bazi-flow-frames { grid-template-columns:1fr 1fr; } }
 @media (max-width:620px) { .bazi-flow-frames { grid-template-columns:1fr; } }
@@ -79,6 +82,7 @@ TARGET_FLOW_JS = r"""
     <div id="bazi-flow-target-meta" class="bazi-flow-target-meta" hidden></div>
     <div id="bazi-flow-frames" class="bazi-flow-frames"></div>
     <div id="bazi-flow-structural" class="bazi-flow-structural" hidden></div>
+    <div id="bazi-flow-structural-support" class="bazi-flow-support" hidden></div>
     <div id="bazi-flow-lineage" class="bazi-flow-lineage" hidden></div>
   `;
   baziRoot.parentNode.insertBefore(panel, baziRoot);
@@ -89,6 +93,7 @@ TARGET_FLOW_JS = r"""
   const targetMeta = $('bazi-flow-target-meta');
   const framesRoot = $('bazi-flow-frames');
   const structuralRoot = $('bazi-flow-structural');
+  const structuralSupportRoot = $('bazi-flow-structural-support');
   const lineageRoot = $('bazi-flow-lineage');
   const hashBox = $('bazi-flow-hash');
 
@@ -194,6 +199,8 @@ TARGET_FLOW_JS = r"""
     clear(framesRoot);
     clear(structuralRoot);
     structuralRoot.hidden = true;
+    clear(structuralSupportRoot);
+    structuralSupportRoot.hidden = true;
     targetMeta.hidden = true;
     targetMeta.textContent = '';
     lineageRoot.hidden = true;
@@ -277,6 +284,46 @@ TARGET_FLOW_JS = r"""
     structuralRoot.append(node('code', `structural_projection_fact=${structural.fact_hash}`));
   }
 
+  function renderStructuralSupport(support) {
+    structuralSupportRoot.hidden = false;
+    structuralSupportRoot.append(node('strong', '中性支持证据（原局月令与当前流月分列）'));
+    structuralSupportRoot.append(node(
+      'div',
+      '仅列精确藏干匹配／同五行藏干候选；不判有根、强弱、权重或得令。',
+    ));
+    [support.natal_month_command, support.active_flow_solar_month].forEach((role) => {
+      const label = role.role_id === 'NATAL_MONTH_COMMAND' ? '原局月令' : '当前流月';
+      const ganzhi = role.natal_month_ganzhi || role.active_month_ganzhi;
+      const box = node('div', `${label} · ${ganzhi} · ${role.branch}`, 'bazi-flow-support-role');
+      box.append(node('code', `reference_id=${role.reference_id}`));
+      box.append(node('code', `rule=${role.rule_set_id}@${role.rule_set_version}`));
+      box.append(node('code', `sources=${role.source_refs.join(',')}`));
+      structuralSupportRoot.append(box);
+    });
+    structuralSupportRoot.append(node(
+      'div',
+      `月令候选 ${support.natal_month_command_support_candidate_ids.length} · 当前流月候选 ${support.active_flow_solar_month_support_candidate_ids.length} · 全部候选 ${support.support_evidence_candidates.length}`,
+    ));
+    support.support_evidence_candidates.forEach((candidate) => {
+      const roles = candidate.supporting_branch_role_ids.join(',') || '-';
+      const exposures = candidate.source_exposure_link_ids.join(',') || '-';
+      const row = node(
+        'div',
+        `${candidate.evidence_class} · ${candidate.visible_participant_layer} ${candidate.visible_stem_instance_id} ↔ ${candidate.supporting_branch_participant_layer} ${candidate.supporting_branch_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `hidden=${candidate.matching_hidden_stem_instance_ids.join(',')}`));
+      row.append(node('code', `seasonal_roles=${roles}`));
+      row.append(node('code', `affinity=${candidate.source_affinity_fact_id}`));
+      row.append(node('code', `exposures=${exposures}`));
+      row.append(node('code', `candidate_id=${candidate.candidate_id}`));
+      row.append(node('code', `rule=${candidate.rule_set_id}@${candidate.rule_set_version}`));
+      row.append(node('code', `sources=${candidate.source_refs.join(',')}`));
+      structuralSupportRoot.append(row);
+    });
+    structuralSupportRoot.append(node('code', `support_projection_fact=${support.fact_hash}`));
+  }
+
   function renderCandidate(candidate, index, count) {
     clearCandidateView();
     const view = candidate.view;
@@ -310,6 +357,7 @@ TARGET_FLOW_JS = r"""
       frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly),
     );
     renderStructural(view.structural);
+    renderStructuralSupport(view.structural_support);
 
     lineageRoot.hidden = false;
     lineageRoot.textContent = [
@@ -319,6 +367,7 @@ TARGET_FLOW_JS = r"""
       `temporal_fact=${candidate.temporal_fact_hash}`,
       `flow_fact=${candidate.flow_fact_hash}`,
       `structural_fact=${candidate.structural_fact_hash}`,
+      `structural_support_fact=${candidate.structural_support_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
       `temporal_annotation_fact=${display(annotations.fact_hash)}`,
       `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} structural=${display(view.integrity?.structural)} daily_hourly=${display(view.integrity?.daily_hourly)}`,

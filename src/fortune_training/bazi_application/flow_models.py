@@ -14,9 +14,9 @@ from .models import BaziApplicationRequest
 FLOW_APPLICATION_SCHEMA = "BAZI-APPLICATION-FLOW-RESOLUTION-R1"
 FLOW_APPLICATION_VIEW_SCHEMA = "BAZI-APPLICATION-FLOW-VIEW-R1"
 FLOW_APPLICATION_ALGORITHM_ID = "BAZI-APPLICATION-FLOW-COMPOSER-R1"
-FLOW_APPLICATION_ALGORITHM_VERSION = "1.4.0"
+FLOW_APPLICATION_ALGORITHM_VERSION = "1.5.0"
 FLOW_APPLICATION_INTEGRITY_ALGORITHM_ID = "BAZI-APPLICATION-FLOW-INTEGRITY-R1"
-FLOW_APPLICATION_INTEGRITY_ALGORITHM_VERSION = "1.4.0"
+FLOW_APPLICATION_INTEGRITY_ALGORITHM_VERSION = "1.5.0"
 
 
 @dataclass(frozen=True)
@@ -41,6 +41,8 @@ class BaziApplicationFlowCandidate:
     flow_computation_hash: str
     structural_fact_hash: str
     structural_computation_hash: str
+    structural_support_fact_hash: str
+    structural_support_computation_hash: str
     daily_hourly_fact_hash: str
     daily_hourly_computation_hash: str
     view_schema: str

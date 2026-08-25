@@ -54,6 +54,22 @@ independent downstream evidence layer rather than being folded into this
 projection. See
 `docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md`.
 
+## Bazi neutral structural-support projection
+
+Each target-flow candidate separately composes the released Structural Support
+Foundation. The fixed Natal month-command reference and active Flow solar-month
+reference remain distinct and retain their parent occurrence/frame, interval,
+rule, source, candidate lineage, and hashes. Exact hidden-stem matches and
+same-element/different-stem support remain separate evidence candidates with
+their affinity and exposure IDs; the month-command and active-flow-month scoped
+candidate sets are never merged.
+
+The workbench presents this evidence read-only and explicitly makes no root,
+strength, weight, score, or 得令 conclusion. Application integrity validates the
+projection independently, while full replay reconstructs the exact Support
+Foundation from Natal, Flow, and Structural inputs. See
+`docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`.
+
 ## Xiaoyun linkage boundary
 
 Both released Xiaoyun methods remain separate candidates. For target-time display, the application layer uses
@@ -93,7 +109,7 @@ The link is therefore a shared target identity, not a shared calendar verdict:
 
 ## Integrity and schemas
 
-The application-flow replay validates all seven Bazi layers, Xiaoyun candidate preservation, exact equality with the upstream Dayun/Flow/Daily-Hourly facts, the complete temporal classical annotation projection, and the neutral Dayun/Annual/Monthly Structural projection with its independent source and projection hashes. The shared Ziwei projection replay independently reconstructs its Daxian/Annual/regular-Month layer projections and their hashes from source frames, then reconstructs its effective lunar date, daily frame, daily twelve-designation and 禄羊陀／流昌曲 facts, and both time-standard hour candidates with their case-scoped address/designation/禄羊陀／流昌曲 facts (or the unresolved leap-month parent state).
+The application-flow replay validates all seven Bazi layers, Xiaoyun candidate preservation, exact equality with the upstream Dayun/Flow/Daily-Hourly facts, the complete temporal classical annotation projection, the neutral Dayun/Annual/Monthly Structural projection, and the separate Structural Support projection with their independent source and projection hashes. The shared Ziwei projection replay independently reconstructs its Daxian/Annual/regular-Month layer projections and their hashes from source frames, then reconstructs its effective lunar date, daily frame, daily twelve-designation and 禄羊陀／流昌曲 facts, and both time-standard hour candidates with their case-scoped address/designation/禄羊陀／流昌曲 facts (or the unresolved leap-month parent state).
 
 Machine-readable contracts:
 

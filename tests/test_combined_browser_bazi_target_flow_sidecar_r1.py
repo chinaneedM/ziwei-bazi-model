@@ -244,6 +244,18 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
         self.assertIn(".bazi-flow-structural", TARGET_FLOW_CSS)
         self.assertIn(".bazi-flow-structural-layer", TARGET_FLOW_CSS)
 
+    def test_browser_renders_structural_support_as_separate_neutral_facts(self) -> None:
+        self.assertIn("renderStructuralSupport(view.structural_support)", TARGET_FLOW_JS)
+        self.assertIn("support.natal_month_command", TARGET_FLOW_JS)
+        self.assertIn("support.active_flow_solar_month", TARGET_FLOW_JS)
+        self.assertIn("support.support_evidence_candidates.forEach", TARGET_FLOW_JS)
+        self.assertIn("candidate.source_affinity_fact_id", TARGET_FLOW_JS)
+        self.assertIn("candidate.source_exposure_link_ids.join", TARGET_FLOW_JS)
+        self.assertIn("candidate.rule_set_id", TARGET_FLOW_JS)
+        self.assertIn("不判有根、强弱、权重或得令", TARGET_FLOW_JS)
+        self.assertIn("support_projection_fact", TARGET_FLOW_JS)
+        self.assertIn(".bazi-flow-support", TARGET_FLOW_CSS)
+
     def test_browser_flow_never_writes_ziwei_selector_or_svg_state(self) -> None:
         for forbidden in (
             "$('ziwei-daxian-frame-id').value =",

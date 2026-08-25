@@ -125,4 +125,7 @@ hidden-stem percentages or weights, 得令/得地/得势 verdicts, seasonal scor
 Day-Master strength, 格局, 用神/忌神, 调候, 病药, combination-transformation
 success, relation suppression/cancellation/rescue/release/reactivation, automatic
 temporal priority, Harm, Break, partial trines, directional triads, hidden
-combinations, ShenSha, prediction, Ziwei fusion, or UI.
+combinations, ShenSha, prediction, Ziwei fusion, or mutable/verdict UI behavior.
+The separate read-only application composition is documented in
+`docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`; it does not change
+this generator or its coverage.

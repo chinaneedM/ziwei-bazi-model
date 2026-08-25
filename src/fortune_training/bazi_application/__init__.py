@@ -67,6 +67,14 @@ from .structural_projection import (
     structural_projection_hashes,
     validate_structural_projection,
 )
+from .structural_support_projection import (
+    SUPPORT_PROJECTION_ALGORITHM_ID,
+    SUPPORT_PROJECTION_ALGORITHM_VERSION,
+    SUPPORT_PROJECTION_SCHEMA,
+    structural_support_projection,
+    structural_support_projection_hashes,
+    validate_structural_support_projection,
+)
 from .xiaoyun import (
     FIXED_SEX_PROFILE_ID,
     HOUR_PILLAR_PROFILE_ID,
@@ -137,6 +145,9 @@ __all__ = [
     "STRUCTURAL_PROJECTION_ALGORITHM_ID",
     "STRUCTURAL_PROJECTION_ALGORITHM_VERSION",
     "STRUCTURAL_PROJECTION_SCHEMA",
+    "SUPPORT_PROJECTION_ALGORITHM_ID",
+    "SUPPORT_PROJECTION_ALGORITHM_VERSION",
+    "SUPPORT_PROJECTION_SCHEMA",
     "TIANYI_BY_STEM",
     "LU_BY_STEM",
     "YIMA_BY_BRANCH",
@@ -170,6 +181,8 @@ __all__ = [
     "temporal_classical_projection_hashes",
     "structural_projection",
     "structural_projection_hashes",
+    "structural_support_projection",
+    "structural_support_projection_hashes",
     "twelve_growth_for",
     "validate_classical_annotation_registries",
     "validate_derived_coordinate_profile",
@@ -184,6 +197,7 @@ __all__ = [
     "validate_shensha_registries",
     "validate_temporal_classical_annotation_projection",
     "validate_structural_projection",
+    "validate_structural_support_projection",
 ]
 
 __version__ = "0.2.0"

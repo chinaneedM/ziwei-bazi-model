@@ -94,4 +94,5 @@ judgments, training data, or predictions. It does not extend Structural Context
 to Xiaoyun, Daily, or Hourly without a separately sourced and versioned runtime
 contract. The downstream `Bazi Structural Support Foundation R1` remains a
 separate evidence layer and is not mixed into this Structural Context
-projection.
+projection; its own target-flow projection is documented in
+`docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`.
