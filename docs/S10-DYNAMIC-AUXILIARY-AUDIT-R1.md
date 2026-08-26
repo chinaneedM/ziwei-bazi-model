@@ -90,8 +90,52 @@ hashes are replayed independently; changing a member, ring lineage, frame or
 rule remains detectable even after local rehashing. No ring nature,
 auspiciousness or prediction text enters the runtime.
 
+## Dynamic-star closure decision
+
+The S10 implementation audit is now closed for the formal dynamic-star set.
+No additional dynamic star is eligible merely because its name occurs in S10
+prose, examples, or interpretive passages.
+
+The source-closed set is:
+
+| Dynamic item | Rule basis | Runtime disposition |
+|---|---|---|
+| 四化 | source-layer stem | implemented at every legal layer |
+| 流禄存 | source-layer stem | implemented |
+| 流擎羊 | source-layer stem / 禄存 relation | implemented |
+| 流陀罗 | source-layer stem / 禄存 relation | implemented |
+| 流天魁 | source-layer stem | strict S01 + compatibility candidates, unselected |
+| 流天钺 | source-layer stem | strict S01 + compatibility candidates, unselected |
+| 流文昌 | source-layer stem | implemented |
+| 流文曲 | source-layer stem | implemented |
+
+Counting the four independent transformation activations, the formal released
+dynamic entity/type inventory is eleven. Every member is already represented
+by a released deterministic activation or an explicit unselected candidate.
+
+### Explicit non-implementation findings
+
+- `流天马` is not promoted into the formal source-closed set. S10 only supports
+  the separately recorded Daxian-palace-branch and Annual-branch case methods.
+  They remain case candidates and do not authorize Month/Day/Hour expansion.
+- Names or groups such as `天月`, `月解`, `日月` do not create a temporal
+  placement rule by themselves. S10 explicitly distinguishes star names from
+  flow-layer labels; no Month/Day activation is inferred from wording.
+- The unresolved flow-hour discussion and editorial note that the source did
+  not fully elaborate the section do not constitute an executable table.
+- No explanatory judgment, example outcome, customary mnemonic, or external
+  software display is allowed to fill a missing placement matrix.
+- A future S10 addition requires all three gates: a complete placement table,
+  an explicit temporal-layer input/basis, and stable source identity. If any
+  gate is missing, the item remains `NOT_IMPLEMENTED_SOURCE_NOT_CLOSED`.
+
 ## Excluded
 
 S10 names no further dynamic star for implementation here unless it has a
-complete placement table, an explicit time-layer stem basis, and stable source
+complete placement table, an explicit time-layer basis, and stable source
 identity. No rule is completed from customary knowledge or from interpretation.
+
+This closure is intentionally about implementation eligibility, not historical
+correctness or school preference. Historical criticism, correctness comparison,
+and school selection remain a later project phase after the deterministic
+Ziwei+Bazi fusion chart is structurally complete.
