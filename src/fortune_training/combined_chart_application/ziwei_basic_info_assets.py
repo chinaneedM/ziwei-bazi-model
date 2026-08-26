@@ -1,0 +1,135 @@
+from __future__ import annotations
+
+
+def ziwei_basic_info_index_html(base_html: str) -> str:
+    """Add a read-only Ziwei natal basic-information projection to the workbench."""
+
+    if "/ziwei-basic-info.css" in base_html or "/ziwei-basic-info.js" in base_html:
+        raise ValueError("ziwei-basic-info assets already injected")
+    return base_html.replace(
+        "</head>",
+        '  <link rel="stylesheet" href="/ziwei-basic-info.css">\n</head>',
+    ).replace(
+        "</body>",
+        '<script src="/ziwei-basic-info.js" defer></script>\n</body>',
+    )
+
+
+ZIWEI_BASIC_INFO_CSS = """
+.ziwei-basic-info { margin:0 0 9px; padding:8px; border:1px solid #dfe3e6; border-radius:8px; background:#fafbfc; }
+.ziwei-basic-info-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:6px; font-size:11px; }
+.ziwei-basic-info-head span { color:#6e7680; }
+.ziwei-basic-info-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+.ziwei-basic-info-item { min-width:0; padding:6px 7px; border:1px solid #e5e8eb; border-radius:6px; background:#fff; }
+.ziwei-basic-info-item span { display:block; color:#777; font-size:9px; margin-bottom:2px; }
+.ziwei-basic-info-item strong,.ziwei-basic-info-item code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
+@media (max-width:620px) { .ziwei-basic-info-grid { grid-template-columns:1fr 1fr; } }
+"""
+
+
+ZIWEI_BASIC_INFO_JS = r"""
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const chartRoot = $('ziwei-chart');
+  if (!chartRoot || typeof window.fetch !== 'function') return;
+
+  const panel = document.createElement('section');
+  panel.id = 'ziwei-basic-info';
+  panel.className = 'ziwei-basic-info';
+  panel.hidden = true;
+  panel.innerHTML = `
+    <div class="ziwei-basic-info-head">
+      <strong>紫微基本信息</strong>
+      <span>直接读取已发布 Natal Bundle · 不在浏览器重算</span>
+    </div>
+    <div id="ziwei-basic-info-grid" class="ziwei-basic-info-grid"></div>
+  `;
+  chartRoot.parentNode.insertBefore(panel, chartRoot);
+  const grid = $('ziwei-basic-info-grid');
+
+  const elementLabels = {
+    WOOD: '木', FIRE: '火', EARTH: '土', METAL: '金', WATER: '水',
+    木: '木', 火: '火', 土: '土', 金: '金', 水: '水',
+  };
+  const clear = (node) => { while (node.firstChild) node.removeChild(node.firstChild); };
+  const item = (label, value, useCode = false) => {
+    const box = document.createElement('div');
+    box.className = 'ziwei-basic-info-item';
+    const key = document.createElement('span');
+    key.textContent = label;
+    const content = document.createElement(useCode ? 'code' : 'strong');
+    content.textContent = value ?? '-';
+    content.title = content.textContent;
+    box.append(key, content);
+    return box;
+  };
+
+  function role(chart, roleId) {
+    const row = (chart?.role_bindings || []).find((candidate) => candidate.role_id === roleId);
+    return row?.entity_display_name || '-';
+  }
+
+  function renderFromResolvePayload(payload) {
+    const candidate = payload?.combined_resolution?.ziwei_bundle?.candidate;
+    const chart = candidate?.chart;
+    const structure = chart?.structure;
+    if (!chart || !structure) {
+      clear(grid);
+      panel.hidden = true;
+      return;
+    }
+    const bureau = structure.bureau || {};
+    const element = elementLabels[bureau.element] || bureau.element || '-';
+    const bureauText = bureau.number ? `${element}${bureau.number}局` : '-';
+    clear(grid);
+    grid.append(
+      item('五行局', bureauText),
+      item('命主', role(chart, 'ROLE.MINGZHU')),
+      item('身主', role(chart, 'ROLE.SHENZHU')),
+      item('命宫', structure.life_address?.branch || '-'),
+      item('身宫', structure.body_address?.branch || '-'),
+      item('紫微年', `${structure.ziwei_birth_year_stem || ''}${structure.ziwei_birth_year_branch || ''}` || '-'),
+      item('农历月坐标', String(structure.natal_month_coordinate ?? '-')),
+      item('农历日', String(structure.lunar_birth_day ?? '-')),
+      item('出生时支', structure.birth_hour_branch?.branch || '-'),
+      item('Natal FactHash', candidate.hashes?.fact_hash || '-', true),
+      item('Natal ComputationHash', candidate.hashes?.computation_hash || '-', true),
+    );
+    panel.hidden = false;
+  }
+
+  const nativeFetch = window.fetch.bind(window);
+  window.fetch = async (...args) => {
+    const response = await nativeFetch(...args);
+    const input = args[0];
+    const rawUrl = typeof input === 'string' ? input : input?.url;
+    let path = '';
+    try {
+      path = new URL(rawUrl, window.location.href).pathname;
+    } catch (_) {
+      return response;
+    }
+    if (path === '/api/resolve' && response.ok) {
+      const copy = response.clone();
+      window.setTimeout(async () => {
+        try {
+          renderFromResolvePayload(await copy.json());
+        } catch (_) {
+          clear(grid);
+          panel.hidden = true;
+        }
+      }, 0);
+    }
+    return response;
+  };
+
+  const form = $('chart-form');
+  if (form) {
+    form.addEventListener('submit', () => {
+      clear(grid);
+      panel.hidden = true;
+    });
+  }
+})();
+"""
