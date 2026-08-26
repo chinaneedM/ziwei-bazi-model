@@ -116,12 +116,13 @@ class BaziTemporalShenshaProjectionR1Tests(unittest.TestCase):
         self.assertNotIn(yuede_id, self.match_ids(yuede_projection["annual"]))
         self.assertIn(yuede_id, self.match_ids(yuede_projection["daily"]))
 
+        yuedehe_projection = self.project(annual="乙丑", daily="乙丑")
         daily_only_yuedehe = self.source_candidate_id("YUEDEHE", match_scope="ONLY_DAY")
         all_pillars_yuedehe = self.source_candidate_id("YUEDEHE", match_scope="ALL_PILLARS")
-        self.assertNotIn(daily_only_yuedehe, self.match_ids(yuede_projection["annual"]))
-        self.assertIn(daily_only_yuedehe, self.match_ids(yuede_projection["daily"]))
-        self.assertIn(all_pillars_yuedehe, self.match_ids(yuede_projection["annual"]))
-        self.assertIn(all_pillars_yuedehe, self.match_ids(yuede_projection["daily"]))
+        self.assertNotIn(daily_only_yuedehe, self.match_ids(yuedehe_projection["annual"]))
+        self.assertIn(daily_only_yuedehe, self.match_ids(yuedehe_projection["daily"]))
+        self.assertIn(all_pillars_yuedehe, self.match_ids(yuedehe_projection["annual"]))
+        self.assertIn(all_pillars_yuedehe, self.match_ids(yuedehe_projection["daily"]))
 
     def test_xiaoyun_candidates_and_pre_dayun_status_remain_unmerged(self) -> None:
         result = self.project(dayun_kind="PRE_DAYUN")
