@@ -26,13 +26,14 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual("1.5.0", self.result["profile_version"])
-        self.assertEqual(34, len(self.result["candidates"]))
+        self.assertEqual("1.6.0", self.result["profile_version"])
+        self.assertEqual(35, len(self.result["candidates"]))
         self.assertEqual(
             {
                 "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
                 "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
-                "TIANSHE", "XUETANG", "JINYU", "ANLU", "JIALU", "GONGLU", "YANGREN",
+                "TIANSHE", "XUETANG", "JINYU", "ANLU", "JIALU", "GONGLU",
+                "YUANCHENG", "YANGREN",
             },
             {row["shensha_id"] for row in self.result["candidates"]},
         )
@@ -231,6 +232,46 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
             ],
             day_reciprocal["source_refs"],
         )
+
+    def test_yuancheng_requires_hour_at_day_stem_longsheng_and_liuhe_with_day_branch_yima(self) -> None:
+        result = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "丙寅", "DAY": "甲辰", "HOUR": "乙亥",
+        })
+        yuancheng = next(
+            row for row in result["candidates"]
+            if row["shensha_id"] == "YUANCHENG"
+        )
+        self.assertEqual("DAY_GANZHI", yuancheng["anchor_basis"])
+        self.assertEqual("甲辰", yuancheng["anchor_value"])
+        self.assertEqual("HOUR_BRANCH_LONGSHENG_LIUHE_YIMA", yuancheng["target_kind"])
+        self.assertEqual(["亥", "寅"], yuancheng["target_branches"])
+        self.assertEqual("ONLY_HOUR_WITH_DERIVED_LIUHE", yuancheng["match_scope"])
+        self.assertTrue(yuancheng["present"])
+        self.assertEqual("SOURCE_EXPLICIT", yuancheng["selection_status"])
+        self.assertEqual("BASE_IDENTITY_ONLY_INTERPRETATION_EXCLUDED", yuancheng["qualification_status"])
+        occurrence = yuancheng["occurrences"][0]
+        self.assertEqual("HOUR", occurrence["pillar_position"])
+        self.assertEqual("亥", occurrence["day_stem_growth_start_branch"])
+        self.assertEqual("寅", occurrence["day_branch_yima_branch"])
+        self.assertEqual(["亥", "寅"], occurrence["liuhe_pair"])
+        self.assertEqual(
+            [
+                "S11:YHZP-USR-S00330", "S11:YHZP-CH-045",
+                "S12:YHZP-CH-016", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
+            ],
+            yuancheng["source_refs"],
+        )
+
+        longsheng_only = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "丙寅", "DAY": "甲午", "HOUR": "乙亥",
+        })
+        longsheng_only_yuancheng = next(
+            row for row in longsheng_only["candidates"]
+            if row["shensha_id"] == "YUANCHENG"
+        )
+        self.assertEqual(["亥", "申"], longsheng_only_yuancheng["target_branches"])
+        self.assertFalse(longsheng_only_yuancheng["present"])
+        self.assertEqual([], longsheng_only_yuancheng["occurrences"])
 
     def test_taiji_tianshe_and_xuetang_preserve_distinct_anchor_types(self) -> None:
         taiji = self.candidate("TAIJI", "YEAR_STEM")
