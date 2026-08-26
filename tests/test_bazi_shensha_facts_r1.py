@@ -26,13 +26,13 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual("1.2.0", self.result["profile_version"])
-        self.assertEqual(28, len(self.result["candidates"]))
+        self.assertEqual("1.3.0", self.result["profile_version"])
+        self.assertEqual(30, len(self.result["candidates"]))
         self.assertEqual(
             {
                 "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
                 "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
-                "TIANSHE", "XUETANG", "JINYU", "YANGREN",
+                "TIANSHE", "XUETANG", "JINYU", "GONGLU", "YANGREN",
             },
             {row["shensha_id"] for row in self.result["candidates"]},
         )
@@ -109,6 +109,44 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         day_jinyu = self.candidate("JINYU", "DAY_STEM")
         self.assertEqual(["寅"], day_jinyu["target_branches"])
         self.assertFalse(day_jinyu["present"])
+
+    def test_gonglu_preserves_exact_four_cases_and_anchor_ambiguity(self) -> None:
+        result = classical_shensha_for_pillars({
+            "YEAR": "戊辰", "MONTH": "丙午", "DAY": "甲子", "HOUR": "己巳",
+        })
+        year_gonglu = next(
+            row for row in result["candidates"]
+            if row["shensha_id"] == "GONGLU" and row["anchor_basis"] == "YEAR_GANZHI"
+        )
+        day_gonglu = next(
+            row for row in result["candidates"]
+            if row["shensha_id"] == "GONGLU" and row["anchor_basis"] == "DAY_GANZHI"
+        )
+        self.assertEqual("戊辰", year_gonglu["anchor_value"])
+        self.assertEqual("GANZHI", year_gonglu["target_kind"])
+        self.assertEqual(["丙午"], year_gonglu["target_values"])
+        self.assertEqual(["MONTH"], [row["pillar_position"] for row in year_gonglu["occurrences"]])
+        self.assertTrue(year_gonglu["present"])
+        self.assertEqual("CANDIDATE_NOT_ARBITRATED", year_gonglu["selection_status"])
+        self.assertEqual([], day_gonglu["target_values"])
+        self.assertFalse(day_gonglu["present"])
+
+        reciprocal = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "丁巳", "DAY": "己未", "HOUR": "丙寅",
+        })
+        day_reciprocal = next(
+            row for row in reciprocal["candidates"]
+            if row["shensha_id"] == "GONGLU" and row["anchor_basis"] == "DAY_GANZHI"
+        )
+        self.assertEqual(["丁巳"], day_reciprocal["target_values"])
+        self.assertEqual(["MONTH"], [row["pillar_position"] for row in day_reciprocal["occurrences"]])
+        self.assertEqual(
+            [
+                "S11:YHZP-USR-S00315", "S11:YHZP-USR-S00316",
+                "S11:YHZP-USR-S00317", "S11:YHZP-CH-041",
+            ],
+            day_reciprocal["source_refs"],
+        )
 
     def test_taiji_tianshe_and_xuetang_preserve_distinct_anchor_types(self) -> None:
         taiji = self.candidate("TAIJI", "YEAR_STEM")
