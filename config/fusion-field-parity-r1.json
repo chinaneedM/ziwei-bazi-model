@@ -158,28 +158,28 @@
       "field_id": "ZIWEI_ROLE_BINDINGS",
       "system": "ZIWEI",
       "display_name": "命主、身主",
-      "classification": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "runtime_evidence": ["ziwei_chart/models.py:RoleBinding", "ziwei_chart/models.py:NatalChartState.role_bindings"],
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:RoleBinding", "ziwei_chart/models.py:NatalChartState.role_bindings", "combined_chart_application/ziwei_basic_info_assets.py"],
       "reference_evidence": ["WENMO:LIFE_MASTER_BODY_MASTER"],
-      "next_action": "ADD_READ_ONLY_BASIC_INFO_PRESENTATION"
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
     },
     {
       "field_id": "ZIWEI_FIVE_ELEMENT_BUREAU",
       "system": "ZIWEI",
       "display_name": "五行局数",
-      "classification": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "runtime_evidence": ["ziwei_chart/models.py:FiveElementBureau", "ziwei_chart/models.py:NatalStructureState.bureau"],
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:FiveElementBureau", "ziwei_chart/models.py:NatalStructureState.bureau", "combined_chart_application/ziwei_basic_info_assets.py"],
       "reference_evidence": ["WENMO:FIVE_ELEMENT_BUREAU"],
-      "next_action": "ADD_READ_ONLY_BASIC_INFO_PRESENTATION"
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
     },
     {
       "field_id": "ZIWEI_BODY_PALACE",
       "system": "ZIWEI",
       "display_name": "身宫位置",
-      "classification": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "runtime_evidence": ["ziwei_chart/models.py:NatalStructureState.body_address"],
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:NatalStructureState.body_address", "combined_chart_application/ziwei_basic_info_assets.py"],
       "reference_evidence": ["WENMO:BODY_PALACE"],
-      "next_action": "ADD_EXPLICIT_BODY_PALACE_BADGE"
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
     },
     {
       "field_id": "ZIWEI_RING_RUNTIME",
@@ -240,18 +240,18 @@
       "system": "ZIWEI",
       "display_name": "离心自化/向心自化",
       "classification": "DETERMINISTIC_RUNTIME_MISSING",
-      "runtime_evidence": [],
+      "runtime_evidence": ["sources/canonical-runtime/S08:SELF_TRANSFORMATION_DIRECTION_ENUM"],
       "reference_evidence": ["WENMO:OUTWARD_SELF_TRANSFORMATION", "WENMO:INWARD_SELF_TRANSFORMATION"],
-      "next_action": "SOURCE_AUDIT_BEFORE_IMPLEMENTATION"
+      "next_action": "SOURCE_AUDIT_DIRECTION_TRIGGER_BEFORE_IMPLEMENTATION"
     },
     {
       "field_id": "ZIWEI_LIMIT_FLOW_OVERLAP_LABEL",
       "system": "ZIWEI",
       "display_name": "限流叠宫显式标签",
-      "classification": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "runtime_evidence": ["ziwei_temporal:typed frame designations"],
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal:typed frame designations", "combined_chart_application/ziwei_basic_info_assets.py"],
       "reference_evidence": ["WENMO:LIMIT_FLOW_OVERLAP"],
-      "next_action": "DERIVE_PRESENTATION_FROM_TYPED_FRAME_IDENTITY_ONLY"
+      "next_action": "KEEP_PRESENTATION_DERIVED_FROM_TYPED_LIFE_FRAME_IDENTITY_ONLY"
     },
     {
       "field_id": "ZIWEI_QISHU_POSITION",
@@ -291,10 +291,6 @@
     }
   ],
   "priority_queue": [
-    "ZIWEI_ROLE_BINDINGS",
-    "ZIWEI_FIVE_ELEMENT_BUREAU",
-    "ZIWEI_BODY_PALACE",
-    "ZIWEI_LIMIT_FLOW_OVERLAP_LABEL",
     "ZIWEI_SELF_TRANSFORMATION"
   ]
 }
