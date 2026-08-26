@@ -26,13 +26,13 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual("1.4.0", self.result["profile_version"])
-        self.assertEqual(32, len(self.result["candidates"]))
+        self.assertEqual("1.5.0", self.result["profile_version"])
+        self.assertEqual(34, len(self.result["candidates"]))
         self.assertEqual(
             {
                 "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
                 "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
-                "TIANSHE", "XUETANG", "JINYU", "JIALU", "GONGLU", "YANGREN",
+                "TIANSHE", "XUETANG", "JINYU", "ANLU", "JIALU", "GONGLU", "YANGREN",
             },
             {row["shensha_id"] for row in self.result["candidates"]},
         )
@@ -109,6 +109,48 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         day_jinyu = self.candidate("JINYU", "DAY_STEM")
         self.assertEqual(["寅"], day_jinyu["target_branches"])
         self.assertFalse(day_jinyu["present"])
+
+    def test_anlu_is_lu_liuhe_partner_and_commentary_qualification_does_not_filter_identity(self) -> None:
+        qualified = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "丁亥", "DAY": "丙子", "HOUR": "戊辰",
+        })
+        qualified_year = next(
+            row for row in qualified["candidates"]
+            if row["shensha_id"] == "ANLU" and row["anchor_basis"] == "YEAR_STEM"
+        )
+        self.assertEqual("甲", qualified_year["anchor_value"])
+        self.assertEqual("BRANCH", qualified_year["target_kind"])
+        self.assertEqual(["亥"], qualified_year["target_branches"])
+        self.assertTrue(qualified_year["present"])
+        self.assertEqual(["MONTH"], [row["pillar_position"] for row in qualified_year["occurrences"]])
+        self.assertEqual("COMMENTARY_NO_VISIBLE_ANCHOR_LU:SATISFIED", qualified_year["qualification_status"])
+        self.assertEqual("CANDIDATE_NOT_ARBITRATED", qualified_year["selection_status"])
+        self.assertEqual(
+            [
+                "S11:YHZP-USR-S00324", "S11:YHZP-USR-S00278",
+                "S11:YHZP-CH-043", "S11:YHZP-CH-034", "S14:YHZP-CH-007",
+            ],
+            qualified_year["source_refs"],
+        )
+
+        visible_lu = classical_shensha_for_pillars({
+            "YEAR": "甲子", "MONTH": "丁亥", "DAY": "丙寅", "HOUR": "戊辰",
+        })
+        visible_lu_year = next(
+            row for row in visible_lu["candidates"]
+            if row["shensha_id"] == "ANLU" and row["anchor_basis"] == "YEAR_STEM"
+        )
+        self.assertTrue(visible_lu_year["present"])
+        self.assertEqual("COMMENTARY_NO_VISIBLE_ANCHOR_LU:NOT_SATISFIED", visible_lu_year["qualification_status"])
+
+        day_anlu = next(
+            row for row in visible_lu["candidates"]
+            if row["shensha_id"] == "ANLU" and row["anchor_basis"] == "DAY_STEM"
+        )
+        self.assertEqual("丙", day_anlu["anchor_value"])
+        self.assertEqual(["申"], day_anlu["target_branches"])
+        self.assertFalse(day_anlu["present"])
+        self.assertNotEqual(day_anlu["candidate_id"], visible_lu_year["candidate_id"])
 
     def test_jialu_requires_both_lu_neighbours_and_preserves_anchor_ambiguity(self) -> None:
         result = classical_shensha_for_pillars({
