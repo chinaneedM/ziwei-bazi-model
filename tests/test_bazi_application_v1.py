@@ -197,7 +197,7 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 shensha["resolution_status"],
             )
             self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
-            self.assertEqual(34, len(shensha["candidates"]))
+            self.assertEqual(35, len(shensha["candidates"]))
             candidate_keys = {
                 (row["shensha_id"], row["anchor_basis"])
                 for row in shensha["candidates"]
@@ -209,6 +209,7 @@ class BaziApplicationV1Tests(unittest.TestCase):
             self.assertIn(("JIALU", "DAY_STEM"), candidate_keys)
             self.assertIn(("GONGLU", "YEAR_GANZHI"), candidate_keys)
             self.assertIn(("GONGLU", "DAY_GANZHI"), candidate_keys)
+            self.assertIn(("YUANCHENG", "DAY_GANZHI"), candidate_keys)
             anlu = [
                 row for row in shensha["candidates"]
                 if row["shensha_id"] == "ANLU"
@@ -249,6 +250,17 @@ class BaziApplicationV1Tests(unittest.TestCase):
                     row["selection_status"] == "CANDIDATE_NOT_ARBITRATED"
                     for row in gonglu
                 )
+            )
+            yuancheng = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "YUANCHENG"
+            ]
+            self.assertEqual(1, len(yuancheng))
+            self.assertEqual("HOUR_BRANCH_LONGSHENG_LIUHE_YIMA", yuancheng[0]["target_kind"])
+            self.assertEqual("SOURCE_EXPLICIT", yuancheng[0]["selection_status"])
+            self.assertEqual(
+                "BASE_IDENTITY_ONLY_INTERPRETATION_EXCLUDED",
+                yuancheng[0]["qualification_status"],
             )
             self.assertTrue(
                 all(row["source_refs"] for row in shensha["candidates"])
