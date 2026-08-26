@@ -310,7 +310,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     # 月德合原文未限定落柱，日干法与四干扫描法分列，禁止合并。
     for scope in ("ONLY_DAY", "ALL_PILLARS"):
         candidates.append(_candidate(
-            "YUEHE", "月德合", "MONTH_BRANCH", month_branch, "STEM",
+            "YUEDEHE", "月德合", "MONTH_BRANCH", month_branch, "STEM",
             YUEDEHE_BY_MONTH_BRANCH[month_branch], pillar_ganzhi,
             match_scope=scope, selection_status="CANDIDATE_NOT_ARBITRATED",
         ))
