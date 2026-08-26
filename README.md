@@ -178,6 +178,8 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 共享目标时间到紫微的 Projection 现同时保存目标所对应的大限、流年与常规流月完整层事实：父帧、来源层、来源干、时限规则／算法身份、稳定来源、四化、禄存／擎羊／陀罗及层级双哈希。各层同名星曜保持独立 activation 身份；完整性验证从已发布源帧逐层复算，浏览器只读展示而不改写事实。大限前与闰月边界分别保持空层，不伪造不存在的帧。
 
+共享目标时间到紫微的 Projection 另只读保存选中小限与原局博士、将前、岁前三环的交会；每环保留原锚点、方向、生成器、成员来源与独立双哈希，不按小限宫重起动态环。
+
 真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
 
 ```bash

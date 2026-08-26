@@ -17,10 +17,12 @@ from fortune_training.bazi_target_temporal import (
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry, TimePrecision
 from fortune_training.calendar_foundation.models import json_value
 from fortune_training.combined_chart_application.shared_time_integrity import (
+    shared_ziwei_minor_limit_ring_hashes,
     shared_selector_candidate_hash,
     shared_selector_hash_bundle,
     shared_ziwei_temporal_layer_hashes,
     validate_shared_ziwei_selector_projection,
+    validate_shared_ziwei_minor_limit_ring_projection,
     validate_shared_ziwei_temporal_layer_projection,
 )
 from fortune_training.combined_chart_application.shared_time_models import (
@@ -124,6 +126,25 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         self.assertEqual(2026, row.civil_year)
         self.assertEqual(annual.absolute_year, row.annual_year)
         self.assertEqual(annual.nominal_age, row.minor_limit_age)
+        minor_ring = row.minor_limit_ring_projection
+        self.assertEqual("MINOR_LIMIT", minor_ring.source_layer)
+        self.assertEqual(f"MINOR:age={annual.nominal_age}", minor_ring.frame_id)
+        self.assertEqual(annual.nominal_age, minor_ring.nominal_age)
+        self.assertEqual(
+            "SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION",
+            minor_ring.authority_status,
+        )
+        self.assertEqual(
+            ["RING.BOSHI12", "RING.JIANGQIAN12", "RING.TAISUI12"],
+            [item.source_ring_id for item in minor_ring.encounters],
+        )
+        self.assertEqual(
+            {minor_ring.active_address},
+            {item.member.address for item in minor_ring.encounters},
+        )
+        self.assertTrue(all(item.source_ring_refs for item in minor_ring.encounters))
+        self.assertEqual(64, len(minor_ring.fact_hash))
+        self.assertEqual(64, len(minor_ring.computation_hash))
         self.assertEqual(annual.parent_daxian_frame_id, row.daxian_frame_id)
         self.assertEqual(annual.frame_id, row.source_annual_frame_id)
         self.assertIsNotNone(row.daxian_layer_projection)
@@ -444,6 +465,75 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
                 self.assertEqual(source.frame_id, annual.parent_daxian_frame_id)
                 self.assertEqual(annual.parent_daxian_frame_id, row.daxian_frame_id)
                 self.assertEqual(annual.nominal_age, row.minor_limit_age)
+
+    def test_minor_limit_ring_projection_rejects_rehashed_member_and_lineage_tamper(self) -> None:
+        target = self._target(datetime(2026, 8, 18, 12, 0))
+        result = self._project(target)
+        original = result.candidates[0]
+        projection = original.minor_limit_ring_projection
+        first_encounter = projection.encounters[0]
+        changed_projection = replace(
+            projection,
+            rule_id="TAMPERED-MINOR-RING-RULE",
+            encounters=(
+                replace(
+                    first_encounter,
+                    member=replace(first_encounter.member, display_name="篡改"),
+                ),
+                *projection.encounters[1:],
+            ),
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = shared_ziwei_minor_limit_ring_hashes(
+            changed_projection
+        )
+        changed_projection = replace(
+            changed_projection,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+        changed_candidate = replace(
+            original,
+            minor_limit_ring_projection=changed_projection,
+            candidate_hash="",
+        )
+        changed_candidate = replace(
+            changed_candidate,
+            candidate_hash=shared_selector_candidate_hash(changed_candidate),
+        )
+        tampered = replace(
+            result,
+            candidates=(changed_candidate,),
+            hashes=replace(result.hashes, fact_hash="", computation_hash=""),
+        )
+        tampered = replace(tampered, hashes=shared_selector_hash_bundle(tampered))
+        report = validate_shared_ziwei_selector_projection(
+            self.ziwei_bundle,
+            target,
+            self.target_profile,
+            tampered,
+        )
+        self.assertEqual("FAIL", report.status)
+        self.assertIn(
+            "CANDIDATE_0_MINOR_LIMIT_RING_PROJECTION_MISMATCH",
+            report.diagnostics,
+        )
+
+        minor_frame = next(
+            frame
+            for frame in self.ziwei_bundle.temporal_state.minor_limit_frames
+            if frame.nominal_age == original.minor_limit_age
+        )
+        replay = validate_shared_ziwei_minor_limit_ring_projection(
+            changed_projection,
+            minor_frame=minor_frame,
+            temporal_state=self.ziwei_bundle.temporal_state,
+            rings=self.ziwei_bundle.candidate.chart.rings,
+        )
+        self.assertEqual("FAIL", replay.status)
+        self.assertIn("MINOR_LIMIT_RING_RULE_ID_REPLAY_MISMATCH", replay.diagnostics)
+        self.assertIn("MINOR_LIMIT_RING_ENCOUNTERS_REPLAY_MISMATCH", replay.diagnostics)
 
     def test_layer_projection_rejects_rehashed_kui_yue_candidate_tamper(self) -> None:
         target = self._target(datetime(2026, 8, 18, 12, 0))

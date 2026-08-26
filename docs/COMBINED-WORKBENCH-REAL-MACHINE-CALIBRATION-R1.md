@@ -213,6 +213,7 @@ After the command-level smoke passes, perform this short visual/interaction chec
 - [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors and refreshes the existing Ziwei interaction view.
 - [ ] A leap-month target does not fabricate or apply a regular Ziwei monthly frame.
 - [ ] Daxian / Annual / regular-Month read-only lines expose separate source stems, parent frames, four transformations, 禄羊陀／流昌曲 instances, unselected strict/compatibility 流魁钺 candidates, and Daxian/Annual-only branch-basis 流天马 case candidates with rule identities and 64-character hashes.
+- [ ] Minor-limit read-only output shows exactly one natal-ring encounter from each of 博士／将前／岁前, including the Minor frame/address, original ring anchor/direction/source and independent 64-character hashes; it does not claim to regenerate a moving ring.
 - [ ] Same-named transformations and auxiliaries in different layers remain separate instances rather than collapsing into one display fact.
 - [ ] Apply does not change target datetime/place/coordinates/timezone, Bazi profile fields, or Bazi target-flow result.
 - [ ] Manual Ziwei navigation after Apply does not rewrite target fields.

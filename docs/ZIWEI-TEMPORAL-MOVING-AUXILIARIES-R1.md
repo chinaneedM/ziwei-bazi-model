@@ -14,6 +14,8 @@
 
 流天马只按 S10 已闭合的案例层保存候选：大限以大限命宫宫支为基准，流年以流年地支为基准。两者分别使用 `S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1` 与 `S10-ANNUAL-BRANCH-TIANMA-CASE-R1`，均标记 `CASE_METHOD_ONLY`，不选择、不合并，也不扩展到流月、流日或流时。
 
+小限所用博士、将前、岁前三环不作为新动态安星表生成。S05 仅明确“小限逢之”，因此共享目标投影在选中小限宫读取三组原局环成员，并保留原环锚点、方向、生成器与来源；状态固定为 `SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION`。
+
 ## 来源
 
 - 大限动态规则：`S10:ZZTERM-TIME-04`、`S10:ZZTERM-P-0125`。

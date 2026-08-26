@@ -18,6 +18,7 @@ from fortune_training.ziwei_application import (
 from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
 
 from .shared_time_integrity import (
+    project_shared_ziwei_minor_limit_ring_encounters,
     project_shared_ziwei_temporal_layer,
     shared_selector_candidate_hash,
     shared_selector_hash_bundle,
@@ -131,6 +132,10 @@ class SharedZiweiSelectorProjectionService:
         daxian_by_id = {
             frame.frame_id: frame for frame in ziwei_bundle.temporal_state.daxian_frames
         }
+        minor_by_age = {
+            frame.nominal_age: frame
+            for frame in ziwei_bundle.temporal_state.minor_limit_frames
+        }
 
         candidates: list[SharedZiweiSelectorProjectionCandidate] = []
         target_temporal = ZiweiTargetTemporalEngine()
@@ -143,6 +148,12 @@ class SharedZiweiSelectorProjectionService:
                     f"candidate_index={index};civil_year={civil_year};matches={len(annual_matches)}",
                 )
             annual = annual_matches[0]
+            minor = minor_by_age.get(annual.nominal_age)
+            if minor is None:
+                raise SharedZiweiSelectorProjectionError(
+                    "SHARED_ZIWEI_MINOR_LIMIT_FRAME_NOT_EXACTLY_ONE",
+                    f"candidate_index={index};nominal_age={annual.nominal_age}",
+                )
             daxian = (
                 daxian_by_id.get(annual.parent_daxian_frame_id)
                 if annual.parent_daxian_frame_id is not None
@@ -226,6 +237,13 @@ class SharedZiweiSelectorProjectionService:
                 source_annual_frame_id=annual.frame_id,
                 annual_year=annual.absolute_year,
                 minor_limit_age=annual.nominal_age,
+                minor_limit_ring_projection=(
+                    project_shared_ziwei_minor_limit_ring_encounters(
+                        minor,
+                        ziwei_bundle.temporal_state,
+                        ziwei_bundle.candidate.chart.rings,
+                    )
+                ),
                 daxian_frame_id=annual.parent_daxian_frame_id,
                 daxian_layer_projection=(
                     project_shared_ziwei_temporal_layer(

@@ -70,6 +70,10 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
                 self.assertNotIn(assignment, SHARED_APPLY_JS)
 
     def test_daily_fact_and_hourly_candidates_are_read_only_and_visible(self) -> None:
+        self.assertIn("minor_limit_ring=${row.minor_limit_ring_projection.frame_id}", SHARED_APPLY_JS)
+        self.assertIn("原局环交会=", SHARED_APPLY_JS)
+        self.assertIn("SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION", SHARED_APPLY_JS)
+        self.assertIn("projection.encounters.length === 3", SHARED_APPLY_JS)
         self.assertIn("daily_projection=${row.daily_projection_status}", SHARED_APPLY_JS)
         self.assertIn("daily_transformations=${row.daily_transformation_status}", SHARED_APPLY_JS)
         self.assertIn("row.daily_designation_overlay.map", SHARED_APPLY_JS)
@@ -89,6 +93,7 @@ class CombinedBrowserSharedTargetApplyAssetsR1Tests(unittest.TestCase):
         )[0]
         self.assertNotIn("daily_frame_id", apply_block)
         self.assertNotIn("hourly_method_candidates", apply_block)
+        self.assertNotIn("minor_limit_ring_projection", apply_block)
 
     def test_birth_and_target_edits_invalidate_projection(self) -> None:
         for field_id in (

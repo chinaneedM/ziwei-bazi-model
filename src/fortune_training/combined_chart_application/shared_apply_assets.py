@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。大限宫支流天马与流年地支流天马分别保留为案例法候选，不扩展到月、日、时。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。小限只读显示其与原局博士、将前、岁前三环的交会，不按小限宫重起环。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。大限宫支流天马与流年地支流天马分别保留为案例法候选，不扩展到月、日、时。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -212,6 +212,22 @@ SHARED_APPLY_JS = r"""
       && typeof layer.computation_hash === 'string'
       && layer.computation_hash.length === 64
     );
+    const validMinorRing = (projection, expectedAge) => (
+      projection !== null
+      && projection.source_layer === 'MINOR_LIMIT'
+      && projection.frame_id === `MINOR:age=${expectedAge}`
+      && projection.authority_status === 'SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION'
+      && Array.isArray(projection.encounters)
+      && projection.encounters.length === 3
+      && projection.encounters.every((encounter) => (
+        typeof encounter.source_ring_id === 'string'
+        && encounter.member?.address?.branch === projection.active_address?.branch
+      ))
+      && typeof projection.fact_hash === 'string'
+      && projection.fact_hash.length === 64
+      && typeof projection.computation_hash === 'string'
+      && projection.computation_hash.length === 64
+    );
     return projection.candidates.every((row, index) => (
       row.source_target_candidate_index === index
       && typeof row.source_target_candidate_id === 'string'
@@ -221,6 +237,7 @@ SHARED_APPLY_JS = r"""
       && Number.isInteger(row.effective_lunar_month)
       && row.effective_lunar_month >= 1
       && row.effective_lunar_month <= 12
+      && validMinorRing(row.minor_limit_ring_projection, row.minor_limit_age)
       && validLayer(row.annual_layer_projection, 'ANNUAL', row.source_annual_frame_id, row.daxian_frame_id)
       && (row.daxian_frame_id === null
         ? row.daxian_layer_projection === null
@@ -280,6 +297,7 @@ SHARED_APPLY_JS = r"""
       `target_candidate=${row.source_target_candidate_id}`,
       `sample_index=${row.source_sample_index} · UTC=${row.target_utc}`,
       `annual_frame=${row.source_annual_frame_id}`,
+      `minor_limit_ring=${row.minor_limit_ring_projection.frame_id} · 小限宫=${row.minor_limit_ring_projection.active_address.branch} · 原局环交会=${row.minor_limit_ring_projection.encounters.map((item) => `${item.source_ring_display_name}:${item.member.display_name}@${item.member.address.branch}`).join(' / ')} · ${row.minor_limit_ring_projection.authority_status} · fact=${row.minor_limit_ring_projection.fact_hash}`,
       layerLine('daxian_layer', row.daxian_layer_projection),
       layerLine('annual_layer', row.annual_layer_projection),
       `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,

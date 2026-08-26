@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from fortune_training.ziwei_chart.models import (
+    Address,
     DesignationBinding,
+    RingMemberBinding,
     TemporalAuxiliaryActivation,
     TemporalAuxiliaryCandidateSet,
     TransformationActivation,
@@ -13,19 +15,31 @@ from fortune_training.ziwei_chart.models import (
 
 SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA = "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
 SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID = "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-R1"
-SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "1.9.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION = "2.0.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "1.9.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_INTEGRITY_ALGORITHM_VERSION = "2.0.0"
 SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
 )
-SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "1.9.0"
+SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_VERSION = "2.0.0"
 SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_ID = (
     "SHARED-TARGET-ZIWEI-TEMPORAL-LAYER-HASH-R1"
 )
 SHARED_ZIWEI_TEMPORAL_LAYER_HASH_ALGORITHM_VERSION = "1.2.0"
+SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_ID = (
+    "SHARED-TARGET-ZIWEI-MINOR-LIMIT-RING-ENCOUNTER-R1"
+)
+SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_VERSION = "1.0.0"
+SHARED_ZIWEI_MINOR_LIMIT_RING_RULE_ID = "S05-MINOR-LIMIT-NATAL-RING-ENCOUNTER-R1"
+SHARED_ZIWEI_MINOR_LIMIT_RING_AUTHORITY_STATUS = (
+    "SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION"
+)
+SHARED_ZIWEI_MINOR_LIMIT_RING_SOURCE_REFS = (
+    "S05:S05-AUX-P-0537",
+    "S05:S05-AUX-P-0542",
+)
 
 
 @dataclass(frozen=True)
@@ -42,6 +56,37 @@ class SharedZiweiTemporalLayerProjection:
     transformations: tuple[TransformationActivation, ...]
     auxiliary_activations: tuple[TemporalAuxiliaryActivation, ...]
     auxiliary_candidate_sets: tuple[TemporalAuxiliaryCandidateSet, ...]
+    fact_hash: str
+    computation_hash: str
+
+
+@dataclass(frozen=True)
+class SharedZiweiMinorLimitRingEncounter:
+    source_ring_id: str
+    source_ring_display_name: str
+    source_ring_anchor_address: Address
+    source_ring_direction: str
+    source_ring_generator_id: str
+    source_ring_algorithm_version: str
+    source_ring_refs: tuple[str, ...]
+    member: RingMemberBinding
+
+
+@dataclass(frozen=True)
+class SharedZiweiMinorLimitRingProjection:
+    source_layer: str
+    frame_id: str
+    nominal_age: int
+    active_address: Address
+    frame_rule_set_id: str
+    frame_rule_set_version: str
+    frame_algorithm_id: str
+    frame_algorithm_version: str
+    frame_source_refs: tuple[str, ...]
+    rule_id: str
+    authority_status: str
+    source_refs: tuple[str, ...]
+    encounters: tuple[SharedZiweiMinorLimitRingEncounter, ...]
     fact_hash: str
     computation_hash: str
 
@@ -87,6 +132,7 @@ class SharedZiweiSelectorProjectionCandidate:
     source_annual_frame_id: str
     annual_year: int
     minor_limit_age: int
+    minor_limit_ring_projection: SharedZiweiMinorLimitRingProjection
     daxian_frame_id: str | None
     daxian_layer_projection: SharedZiweiTemporalLayerProjection | None
     annual_layer_projection: SharedZiweiTemporalLayerProjection

@@ -98,6 +98,14 @@ class CombinedBrowserSharedTargetApplyHttpR1Tests(unittest.TestCase):
             self.assertEqual("DAXIAN", projected["daxian_layer_projection"]["source_layer"])
             self.assertEqual("ANNUAL", projected["annual_layer_projection"]["source_layer"])
             self.assertEqual("MONTH", projected["monthly_layer_projection"]["source_layer"])
+            self.assertEqual(
+                "MINOR_LIMIT",
+                projected["minor_limit_ring_projection"]["source_layer"],
+            )
+            self.assertEqual(
+                3,
+                len(projected["minor_limit_ring_projection"]["encounters"]),
+            )
             for layer_name in (
                 "daxian_layer_projection",
                 "annual_layer_projection",

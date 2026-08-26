@@ -73,6 +73,23 @@ source branch. Daxian and Annual candidates have separate method, activation,
 source and hash identities. No Month, Day, or Hour Tianma is generated because
 S10 does not close those layer rules.
 
+## Implemented as a read-only Minor-Limit encounter: 博士／将前／岁前三环
+
+S05 explicitly names the natal 博士十二神、将前十二神、岁前十二神 rings as
+the three groups used when a Minor Limit encounters them (`S05:S05-AUX-P-0537`,
+`S05:S05-AUX-P-0542`). It does not provide a rule that re-anchors or regenerates
+those rings from the Minor-Limit palace. The shared target projection therefore
+intersects the selected Minor-Limit address with the three already generated
+natal rings and returns exactly one source member per ring.
+
+The projection preserves the Minor-Limit frame, active address and frame source,
+plus each natal ring's ID, anchor, direction, generator/version, source chain and
+original member fact. Its authority status is
+`SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION`. Fact and computation
+hashes are replayed independently; changing a member, ring lineage, frame or
+rule remains detectable even after local rehashing. No ring nature,
+auspiciousness or prediction text enters the runtime.
+
 ## Excluded
 
 S10 names no further dynamic star for implementation here unless it has a

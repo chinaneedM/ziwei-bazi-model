@@ -20,6 +20,11 @@ from fortune_training.ziwei_application import (
 from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
 
 from .shared_time_models import (
+    SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_ID,
+    SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_VERSION,
+    SHARED_ZIWEI_MINOR_LIMIT_RING_AUTHORITY_STATUS,
+    SHARED_ZIWEI_MINOR_LIMIT_RING_RULE_ID,
+    SHARED_ZIWEI_MINOR_LIMIT_RING_SOURCE_REFS,
     SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_ID,
     SHARED_ZIWEI_SELECTOR_PROJECTION_ALGORITHM_VERSION,
     SHARED_ZIWEI_SELECTOR_PROJECTION_HASH_ALGORITHM_ID,
@@ -31,7 +36,16 @@ from .shared_time_models import (
     SharedZiweiSelectorProjectionHashBundle,
     SharedZiweiSelectorProjectionIntegrityReport,
     SharedZiweiSelectorProjectionResolution,
+    SharedZiweiMinorLimitRingEncounter,
+    SharedZiweiMinorLimitRingProjection,
     SharedZiweiTemporalLayerProjection,
+)
+
+
+MINOR_LIMIT_RING_IDS = (
+    "RING.BOSHI12",
+    "RING.JIANGQIAN12",
+    "RING.TAISUI12",
 )
 
 
@@ -136,6 +150,114 @@ def validate_shared_ziwei_temporal_layer_projection(
     )
 
 
+def shared_ziwei_minor_limit_ring_hashes(
+    projection: SharedZiweiMinorLimitRingProjection,
+) -> tuple[str, str]:
+    fact_hash = object_sha256(
+        {
+            "source_layer": projection.source_layer,
+            "frame_id": projection.frame_id,
+            "nominal_age": projection.nominal_age,
+            "active_address": json_value(projection.active_address),
+            "encounters": [json_value(row) for row in projection.encounters],
+        }
+    )
+    computation_hash = object_sha256(
+        {
+            "fact_hash": fact_hash,
+            "frame_rule_set_id": projection.frame_rule_set_id,
+            "frame_rule_set_version": projection.frame_rule_set_version,
+            "frame_algorithm_id": projection.frame_algorithm_id,
+            "frame_algorithm_version": projection.frame_algorithm_version,
+            "frame_source_refs": projection.frame_source_refs,
+            "rule_id": projection.rule_id,
+            "authority_status": projection.authority_status,
+            "source_refs": projection.source_refs,
+            "algorithm": (
+                f"{SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_ID}@"
+                f"{SHARED_ZIWEI_MINOR_LIMIT_RING_ALGORITHM_VERSION}"
+            ),
+        }
+    )
+    return fact_hash, computation_hash
+
+
+def project_shared_ziwei_minor_limit_ring_encounters(
+    minor_frame,
+    temporal_state,
+    rings,
+) -> SharedZiweiMinorLimitRingProjection:
+    rings_by_id = {ring.ring_id: ring for ring in rings}
+    encounters: list[SharedZiweiMinorLimitRingEncounter] = []
+    for ring_id in MINOR_LIMIT_RING_IDS:
+        ring = rings_by_id.get(ring_id)
+        if ring is None:
+            raise ValueError(f"required natal ring missing: {ring_id}")
+        members = tuple(
+            member
+            for member in ring.members
+            if member.address == minor_frame.active_address
+        )
+        if len(members) != 1:
+            raise ValueError(
+                f"minor-limit ring encounter cardinality mismatch: {ring_id}:{len(members)}"
+            )
+        encounters.append(
+            SharedZiweiMinorLimitRingEncounter(
+                source_ring_id=ring.ring_id,
+                source_ring_display_name=ring.display_name,
+                source_ring_anchor_address=ring.anchor_address,
+                source_ring_direction=ring.direction,
+                source_ring_generator_id=ring.generator_id,
+                source_ring_algorithm_version=ring.algorithm_version,
+                source_ring_refs=ring.source_refs,
+                member=members[0],
+            )
+        )
+    provisional = SharedZiweiMinorLimitRingProjection(
+        source_layer="MINOR_LIMIT",
+        frame_id=minor_frame.frame_id,
+        nominal_age=minor_frame.nominal_age,
+        active_address=minor_frame.active_address,
+        frame_rule_set_id=temporal_state.rule_set_id,
+        frame_rule_set_version=temporal_state.rule_set_version,
+        frame_algorithm_id=temporal_state.algorithm_id,
+        frame_algorithm_version=temporal_state.algorithm_version,
+        frame_source_refs=minor_frame.source_refs,
+        rule_id=SHARED_ZIWEI_MINOR_LIMIT_RING_RULE_ID,
+        authority_status=SHARED_ZIWEI_MINOR_LIMIT_RING_AUTHORITY_STATUS,
+        source_refs=SHARED_ZIWEI_MINOR_LIMIT_RING_SOURCE_REFS,
+        encounters=tuple(encounters),
+        fact_hash="",
+        computation_hash="",
+    )
+    fact_hash, computation_hash = shared_ziwei_minor_limit_ring_hashes(provisional)
+    return replace(provisional, fact_hash=fact_hash, computation_hash=computation_hash)
+
+
+def validate_shared_ziwei_minor_limit_ring_projection(
+    projection: SharedZiweiMinorLimitRingProjection,
+    *,
+    minor_frame,
+    temporal_state,
+    rings,
+) -> SharedZiweiSelectorProjectionIntegrityReport:
+    expected = project_shared_ziwei_minor_limit_ring_encounters(
+        minor_frame,
+        temporal_state,
+        rings,
+    )
+    diagnostics = tuple(
+        f"MINOR_LIMIT_RING_{field_name.upper()}_REPLAY_MISMATCH"
+        for field_name in projection.__dataclass_fields__
+        if getattr(projection, field_name) != getattr(expected, field_name)
+    )
+    return SharedZiweiSelectorProjectionIntegrityReport(
+        status="PASS" if not diagnostics else "FAIL",
+        diagnostics=diagnostics,
+    )
+
+
 def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandidate) -> str:
     return object_sha256(
         {
@@ -149,6 +271,7 @@ def shared_selector_candidate_hash(candidate: SharedZiweiSelectorProjectionCandi
             "source_annual_frame_id": candidate.source_annual_frame_id,
             "annual_year": candidate.annual_year,
             "minor_limit_age": candidate.minor_limit_age,
+            "minor_limit_ring_projection": json_value(candidate.minor_limit_ring_projection),
             "daxian_frame_id": candidate.daxian_frame_id,
             "daxian_layer_projection": json_value(candidate.daxian_layer_projection),
             "annual_layer_projection": json_value(candidate.annual_layer_projection),
@@ -280,6 +403,10 @@ def validate_shared_ziwei_selector_projection(
     daxian_by_id = {
         frame.frame_id: frame for frame in ziwei_bundle.temporal_state.daxian_frames
     }
+    minor_by_age = {
+        frame.nominal_age: frame
+        for frame in ziwei_bundle.temporal_state.minor_limit_frames
+    }
 
     if len(resolution.candidates) != len(target_resolution.candidates):
         diagnostics.append(
@@ -298,6 +425,12 @@ def validate_shared_ziwei_selector_projection(
             diagnostics.append(f"ANNUAL_FRAME_CARDINALITY_MISMATCH:{index}:{civil_year}:{len(matches)}")
             continue
         annual = matches[0]
+        minor = minor_by_age.get(annual.nominal_age)
+        if minor is None:
+            diagnostics.append(
+                f"MINOR_LIMIT_FRAME_MISSING:{index}:{annual.nominal_age}"
+            )
+            continue
         daxian = (
             daxian_by_id.get(annual.parent_daxian_frame_id)
             if annual.parent_daxian_frame_id is not None
@@ -359,6 +492,13 @@ def validate_shared_ziwei_selector_projection(
             "source_annual_frame_id": annual.frame_id,
             "annual_year": annual.absolute_year,
             "minor_limit_age": annual.nominal_age,
+            "minor_limit_ring_projection": (
+                project_shared_ziwei_minor_limit_ring_encounters(
+                    minor,
+                    ziwei_bundle.temporal_state,
+                    ziwei_bundle.candidate.chart.rings,
+                )
+            ),
             "daxian_frame_id": annual.parent_daxian_frame_id,
             "daxian_layer_projection": (
                 project_shared_ziwei_temporal_layer(
