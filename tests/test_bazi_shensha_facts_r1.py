@@ -26,10 +26,11 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual(27, len(self.result["candidates"]))
+        self.assertEqual("1.2.0", self.result["profile_version"])
+        self.assertEqual(28, len(self.result["candidates"]))
         self.assertEqual(
             {
-                "TIANYI", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
+                "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
                 "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
                 "TIANSHE", "XUETANG", "JINYU", "YANGREN",
             },
@@ -46,6 +47,17 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         lu = self.candidate("LU", "DAY_STEM")
         self.assertEqual(["子"], lu["target_branches"])
         self.assertFalse(lu["present"])
+
+    def test_tianguan_uses_source_explicit_birth_year_stem_anchor(self) -> None:
+        tianguan = self.candidate("TIANGUAN", "YEAR_STEM")
+        self.assertEqual("甲", tianguan["anchor_value"])
+        self.assertEqual(["未"], tianguan["target_branches"])
+        self.assertEqual(["HOUR"], [row["pillar_position"] for row in tianguan["occurrences"]])
+        self.assertEqual("SOURCE_EXPLICIT", tianguan["selection_status"])
+        self.assertEqual(
+            ["S11:YHZP-USR-S00240", "S11:YHZP-CH-025"],
+            tianguan["source_refs"],
+        )
 
     def test_yima_and_huagai_keep_day_and_year_branch_candidates_separate(self) -> None:
         day_yima = self.candidate("YIMA", "DAY_BRANCH")
