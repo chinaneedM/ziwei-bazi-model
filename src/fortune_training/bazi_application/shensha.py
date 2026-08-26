@@ -11,7 +11,7 @@ from fortune_training.bazi_chart.registries import (
 
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.2.0"
+SHENSHA_PROFILE_VERSION = "1.3.0"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -113,6 +113,13 @@ JINYU_BY_STEM = {
     stem: (EARTHLY_BRANCHES[(EARTHLY_BRANCHES.index(branches[0]) + 2) % 12],)
     for stem, branches in LU_BY_STEM.items()
 }
+# S11:YHZP-CH-041 explicitly closes this set: only these four reciprocal cases.
+GONGLU_BY_GANZHI = {
+    "戊辰": ("丙午",),
+    "丙午": ("戊辰",),
+    "丁巳": ("己未",),
+    "己未": ("丁巳",),
+}
 # S11 identifies Yangren as the Yang stem's blade and supplies these examples.
 YANGREN_BY_STEM = {
     "甲": ("卯",), "丙": ("午",), "戊": ("午",),
@@ -135,6 +142,10 @@ SOURCE_REFS = {
     "TIANSHE": ("S11:YHZP-USR-S00293", "S11:YHZP-CH-036"),
     "XUETANG": ("S11:YHZP-USR-S00301", "S11:YHZP-CH-014", "S11:YHZP-CH-038"),
     "JINYU": ("S11:YHZP-USR-S00312", "S11:YHZP-USR-S00278", "S11:YHZP-CH-040"),
+    "GONGLU": (
+        "S11:YHZP-USR-S00315", "S11:YHZP-USR-S00316",
+        "S11:YHZP-USR-S00317", "S11:YHZP-CH-041",
+    ),
     "YANGREN": ("S11:YHZP-USR-S00282", "S11:YHZP-USR-S02740", "S11:YHZP-CH-224"),
 }
 
@@ -255,6 +266,26 @@ def _branch_anchor_candidates(
     return rows
 
 
+def _ganzhi_anchor_candidates(
+    shensha_id: str,
+    display_name: str,
+    registry: Mapping[str, Sequence[str]],
+    pillar_ganzhi: Mapping[str, str],
+) -> list[dict[str, Any]]:
+    rows = []
+    for basis in ("DAY_GANZHI", "YEAR_GANZHI"):
+        position = basis.split("_")[0]
+        anchor = pillar_ganzhi[position]
+        rows.append(
+            _candidate(
+                shensha_id, display_name, basis, anchor, "GANZHI",
+                registry.get(anchor, ()), pillar_ganzhi,
+                selection_status="CANDIDATE_NOT_ARBITRATED",
+            )
+        )
+    return rows
+
+
 def _sanqi_candidates(stems: Mapping[str, str], pillar_ganzhi: Mapping[str, str]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     windows = (("YEAR", "MONTH", "DAY"), ("MONTH", "DAY", "HOUR"))
@@ -341,6 +372,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
             qualification_status=f"ORTHODOX_GANZHI:{exact_ganzhi}",
         ))
     candidates.extend(_stem_anchor_candidates("JINYU", "金舆禄", JINYU_BY_STEM, stems, pillar_ganzhi))
+    candidates.extend(_ganzhi_anchor_candidates("GONGLU", "拱禄", GONGLU_BY_GANZHI, pillar_ganzhi))
     candidates.extend(_stem_anchor_candidates("YANGREN", "羊刃", YANGREN_BY_STEM, stems, pillar_ganzhi))
 
     return {
@@ -391,6 +423,15 @@ def validate_shensha_registries() -> None:
     for ganzhi in TIANSHE_BY_MONTH_BRANCH.values():
         if ganzhi not in NAYIN_ELEMENT_BY_GANZHI:
             raise ValueError(f"invalid Tianshe Ganzhi: {ganzhi}")
+    expected_gonglu = {"戊辰", "丙午", "丁巳", "己未"}
+    if set(GONGLU_BY_GANZHI) != expected_gonglu:
+        raise ValueError("Gonglu registry must preserve the four source-explicit cases")
+    for anchor, targets in GONGLU_BY_GANZHI.items():
+        if anchor not in NAYIN_ELEMENT_BY_GANZHI or len(targets) != 1:
+            raise ValueError("invalid Gonglu anchor or target cardinality")
+        target = targets[0]
+        if target not in NAYIN_ELEMENT_BY_GANZHI or GONGLU_BY_GANZHI.get(target) != (anchor,):
+            raise ValueError("Gonglu registry must be reciprocal and sexagenary-valid")
 
 
 validate_shensha_registries()
