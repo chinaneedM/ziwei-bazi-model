@@ -9,9 +9,11 @@ from fortune_training.bazi_chart.registries import (
     validate_stem,
 )
 
+from .classical_annotations import twelve_growth_for
+
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.5.0"
+SHENSHA_PROFILE_VERSION = "1.6.0"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -179,6 +181,10 @@ SOURCE_REFS = {
     "GONGLU": (
         "S11:YHZP-USR-S00315", "S11:YHZP-USR-S00316",
         "S11:YHZP-USR-S00317", "S11:YHZP-CH-041",
+    ),
+    "YUANCHENG": (
+        "S11:YHZP-USR-S00330", "S11:YHZP-CH-045",
+        "S12:YHZP-CH-016", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
     ),
     "YANGREN": ("S11:YHZP-USR-S00282", "S11:YHZP-USR-S02740", "S11:YHZP-CH-224"),
 }
@@ -415,6 +421,49 @@ def _ganzhi_anchor_candidates(
     return rows
 
 
+def _yuancheng_candidate(
+    stems: Mapping[str, str],
+    branches: Mapping[str, str],
+    pillar_ganzhi: Mapping[str, str],
+) -> dict[str, Any]:
+    day_stem = stems["DAY"]
+    day_branch = branches["DAY"]
+    hour_branch = branches["HOUR"]
+    growth = twelve_growth_for(day_stem, hour_branch)
+    growth_branch = str(growth["growth_start_branch"])
+    yima_branch = YIMA_BY_BRANCH[day_branch][0]
+    liuhe_partner = LIUHE_PARTNER_BY_BRANCH[hour_branch]
+    present = growth["phase"] == "长生" and liuhe_partner == yima_branch
+    occurrences: list[dict[str, Any]] = []
+    if present:
+        occurrences.append({
+            "pillar_position": "HOUR",
+            "pillar_ganzhi": pillar_ganzhi["HOUR"],
+            "matched_value": hour_branch,
+            "matched_branch": hour_branch,
+            "day_stem_growth_start_branch": growth_branch,
+            "day_branch_yima_branch": yima_branch,
+            "liuhe_pair": [hour_branch, yima_branch],
+        })
+    return {
+        "candidate_id": f"YUANCHENG:DAY_GANZHI:{pillar_ganzhi['DAY']}:ONLY_HOUR",
+        "shensha_id": "YUANCHENG",
+        "display_name": "垣城",
+        "anchor_basis": "DAY_GANZHI",
+        "anchor_value": pillar_ganzhi["DAY"],
+        "target_kind": "HOUR_BRANCH_LONGSHENG_LIUHE_YIMA",
+        "target_values": [growth_branch, yima_branch],
+        "target_branches": [growth_branch, yima_branch],
+        "match_scope": "ONLY_HOUR_WITH_DERIVED_LIUHE",
+        "occurrences": occurrences,
+        "present": present,
+        "selection_status": "SOURCE_EXPLICIT",
+        "qualification_status": "BASE_IDENTITY_ONLY_INTERPRETATION_EXCLUDED",
+        "source_refs": list(SOURCE_REFS["YUANCHENG"]),
+        "semantic_scope": "IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS",
+    }
+
+
 def _sanqi_candidates(stems: Mapping[str, str], pillar_ganzhi: Mapping[str, str]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     windows = (("YEAR", "MONTH", "DAY"), ("MONTH", "DAY", "HOUR"))
@@ -504,6 +553,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     candidates.extend(_anlu_candidates(stems, pillar_ganzhi))
     candidates.extend(_stem_pair_anchor_candidates("JIALU", "夹禄", JIALU_BY_STEM, stems, pillar_ganzhi))
     candidates.extend(_ganzhi_anchor_candidates("GONGLU", "拱禄", GONGLU_BY_GANZHI, pillar_ganzhi))
+    candidates.append(_yuancheng_candidate(stems, branches, pillar_ganzhi))
     candidates.extend(_stem_anchor_candidates("YANGREN", "羊刃", YANGREN_BY_STEM, stems, pillar_ganzhi))
 
     return {
