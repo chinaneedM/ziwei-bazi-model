@@ -197,14 +197,28 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 shensha["resolution_status"],
             )
             self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
-            self.assertEqual(30, len(shensha["candidates"]))
+            self.assertEqual(32, len(shensha["candidates"]))
             candidate_keys = {
                 (row["shensha_id"], row["anchor_basis"])
                 for row in shensha["candidates"]
             }
             self.assertIn(("TIANGUAN", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("JIALU", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("JIALU", "DAY_STEM"), candidate_keys)
             self.assertIn(("GONGLU", "YEAR_GANZHI"), candidate_keys)
             self.assertIn(("GONGLU", "DAY_GANZHI"), candidate_keys)
+            jialu = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "JIALU"
+            ]
+            self.assertEqual(2, len(jialu))
+            self.assertTrue(all(row["target_kind"] == "BRANCH_PAIR" for row in jialu))
+            self.assertTrue(
+                all(
+                    row["selection_status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in jialu
+                )
+            )
             gonglu = [
                 row for row in shensha["candidates"]
                 if row["shensha_id"] == "GONGLU"
