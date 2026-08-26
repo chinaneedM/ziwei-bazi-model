@@ -11,7 +11,7 @@ from fortune_training.bazi_chart.registries import (
 
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.4.0"
+SHENSHA_PROFILE_VERSION = "1.5.0"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -113,6 +113,22 @@ JINYU_BY_STEM = {
     stem: (EARTHLY_BRANCHES[(EARTHLY_BRANCHES.index(branches[0]) + 2) % 12],)
     for stem, branches in LU_BY_STEM.items()
 }
+# S14's YHZP-CH-007 relation fact table preserves the exact six Liuhe pairs.
+LIUHE_PAIRS = (
+    ("子", "丑"), ("寅", "亥"), ("卯", "戌"),
+    ("辰", "酉"), ("巳", "申"), ("午", "未"),
+)
+LIUHE_PARTNER_BY_BRANCH = {
+    branch: partner
+    for left, right in LIUHE_PAIRS
+    for branch, partner in ((left, right), (right, left))
+}
+# S11:YHZP-CH-043 gives Jia/Yi examples and explicitly says "其余仿此".
+# The base identity is the Liuhe partner of the source-bound Lu branch.
+ANLU_BY_STEM = {
+    stem: (LIUHE_PARTNER_BY_BRANCH[branches[0]],)
+    for stem, branches in LU_BY_STEM.items()
+}
 # S11:YHZP-CH-044 gives Jia/Yi examples and explicitly says "其他仿此".
 # The pair is therefore generated mechanically from the two cyclic neighbours
 # of each stem's source-bound Lu branch; no auspiciousness semantics are added.
@@ -152,6 +168,10 @@ SOURCE_REFS = {
     "TIANSHE": ("S11:YHZP-USR-S00293", "S11:YHZP-CH-036"),
     "XUETANG": ("S11:YHZP-USR-S00301", "S11:YHZP-CH-014", "S11:YHZP-CH-038"),
     "JINYU": ("S11:YHZP-USR-S00312", "S11:YHZP-USR-S00278", "S11:YHZP-CH-040"),
+    "ANLU": (
+        "S11:YHZP-USR-S00324", "S11:YHZP-USR-S00278",
+        "S11:YHZP-CH-043", "S11:YHZP-CH-034", "S14:YHZP-CH-007",
+    ),
     "JIALU": (
         "S11:YHZP-USR-S00327", "S11:YHZP-USR-S00278",
         "S11:YHZP-CH-044", "S11:YHZP-CH-034",
@@ -309,6 +329,32 @@ def _stem_anchor_candidates(
     return rows
 
 
+def _anlu_candidates(
+    stems: Mapping[str, str],
+    pillar_ganzhi: Mapping[str, str],
+) -> list[dict[str, Any]]:
+    visible_branches = {pillar_ganzhi[position][1] for position in POSITIONS}
+    rows: list[dict[str, Any]] = []
+    for basis in ("DAY_STEM", "YEAR_STEM"):
+        position = basis.split("_")[0]
+        anchor = stems[position]
+        direct_lu_branch = LU_BY_STEM[anchor][0]
+        qualification_status = (
+            "COMMENTARY_NO_VISIBLE_ANCHOR_LU:SATISFIED"
+            if direct_lu_branch not in visible_branches
+            else "COMMENTARY_NO_VISIBLE_ANCHOR_LU:NOT_SATISFIED"
+        )
+        rows.append(
+            _candidate(
+                "ANLU", "暗禄", basis, anchor, "BRANCH", ANLU_BY_STEM[anchor],
+                pillar_ganzhi,
+                selection_status="CANDIDATE_NOT_ARBITRATED",
+                qualification_status=qualification_status,
+            )
+        )
+    return rows
+
+
 def _stem_pair_anchor_candidates(
     shensha_id: str,
     display_name: str,
@@ -455,6 +501,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
             qualification_status=f"ORTHODOX_GANZHI:{exact_ganzhi}",
         ))
     candidates.extend(_stem_anchor_candidates("JINYU", "金舆禄", JINYU_BY_STEM, stems, pillar_ganzhi))
+    candidates.extend(_anlu_candidates(stems, pillar_ganzhi))
     candidates.extend(_stem_pair_anchor_candidates("JIALU", "夹禄", JIALU_BY_STEM, stems, pillar_ganzhi))
     candidates.extend(_ganzhi_anchor_candidates("GONGLU", "拱禄", GONGLU_BY_GANZHI, pillar_ganzhi))
     candidates.extend(_stem_anchor_candidates("YANGREN", "羊刃", YANGREN_BY_STEM, stems, pillar_ganzhi))
@@ -488,12 +535,27 @@ def validate_shensha_registries() -> None:
     branches = set(EARTHLY_BRANCHES)
     for registry in (
         TIANYI_BY_STEM, TIANGUAN_BY_YEAR_STEM, LU_BY_STEM, TIANCHU_BY_STEM,
-        FUXING_BY_STEM, TAIJI_BY_YEAR_STEM, JINYU_BY_STEM, JIALU_BY_STEM,
+        FUXING_BY_STEM, TAIJI_BY_YEAR_STEM, JINYU_BY_STEM, ANLU_BY_STEM,
+        JIALU_BY_STEM,
     ):
         _validate_registry(registry, stems, "branch")
+    if set(LIUHE_PARTNER_BY_BRANCH) != branches:
+        raise ValueError("Liuhe partner registry must cover all twelve branches")
+    for branch, partner in LIUHE_PARTNER_BY_BRANCH.items():
+        validate_branch(partner)
+        if partner == branch or LIUHE_PARTNER_BY_BRANCH.get(partner) != branch:
+            raise ValueError("Liuhe partner registry must be reciprocal without self-pairs")
+    if {
+        frozenset((branch, partner))
+        for branch, partner in LIUHE_PARTNER_BY_BRANCH.items()
+    } != {frozenset(pair) for pair in LIUHE_PAIRS}:
+        raise ValueError("Liuhe partner registry must preserve the six source pairs")
     for stem, lu_targets in LU_BY_STEM.items():
         if len(lu_targets) != 1:
             raise ValueError("Lu registry must remain single-branch per stem")
+        expected_anlu = (LIUHE_PARTNER_BY_BRANCH[lu_targets[0]],)
+        if ANLU_BY_STEM.get(stem) != expected_anlu:
+            raise ValueError("Anlu registry must be the Liuhe partner of Lu")
         lu_index = EARTHLY_BRANCHES.index(lu_targets[0])
         expected_pair = (
             EARTHLY_BRANCHES[(lu_index - 1) % 12],
