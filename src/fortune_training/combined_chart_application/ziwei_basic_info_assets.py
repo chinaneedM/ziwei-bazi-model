@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def ziwei_basic_info_index_html(base_html: str) -> str:
-    """Add a read-only Ziwei natal basic-information projection to the workbench."""
+    """Add a read-only Ziwei natal/basic temporal projection to the workbench."""
 
     if "/ziwei-basic-info.css" in base_html or "/ziwei-basic-info.js" in base_html:
         raise ValueError("ziwei-basic-info assets already injected")
@@ -41,7 +41,7 @@ ZIWEI_BASIC_INFO_JS = r"""
   panel.innerHTML = `
     <div class="ziwei-basic-info-head">
       <strong>紫微基本信息</strong>
-      <span>直接读取已发布 Natal Bundle · 不在浏览器重算</span>
+      <span>直接读取已发布 Natal / Temporal Bundle · 不在浏览器重算</span>
     </div>
     <div id="ziwei-basic-info-grid" class="ziwei-basic-info-grid"></div>
   `;
@@ -52,6 +52,8 @@ ZIWEI_BASIC_INFO_JS = r"""
     WOOD: '木', FIRE: '火', EARTH: '土', METAL: '金', WATER: '水',
     木: '木', 火: '火', 土: '土', 金: '金', 水: '水',
   };
+  const temporalFrameOrder = ['DAXIAN', 'ANNUAL', 'MONTH'];
+  const temporalFrameLabels = {DAXIAN: '大限', ANNUAL: '流年', MONTH: '流月'};
   const clear = (node) => { while (node.firstChild) node.removeChild(node.firstChild); };
   const item = (label, value, useCode = false) => {
     const box = document.createElement('div');
@@ -70,8 +72,31 @@ ZIWEI_BASIC_INFO_JS = r"""
     return row?.entity_display_name || '-';
   }
 
+  function limitFlowOverlap(view) {
+    const grouped = new Map();
+    (view?.cells || []).forEach((cell) => {
+      const byType = new Map();
+      (cell.temporal_designations || []).forEach((row) => {
+        if (row.designation_id !== 'LIFE' || !temporalFrameOrder.includes(row.frame_type)) return;
+        if (!byType.has(row.frame_type)) byType.set(row.frame_type, row.frame_id);
+      });
+      if (byType.size >= 2) {
+        const types = temporalFrameOrder.filter((frameType) => byType.has(frameType));
+        grouped.set(cell.address_index, {
+          types,
+          address: `${cell.stem || ''}${cell.branch || ''}` || String(cell.address_index),
+        });
+      }
+    });
+    const overlaps = [...grouped.entries()]
+      .sort(([left], [right]) => left - right)
+      .map(([, row]) => `${row.types.map((frameType) => temporalFrameLabels[frameType]).join('/')}@${row.address}`);
+    return overlaps.length ? overlaps.join('；') : '无';
+  }
+
   function renderFromResolvePayload(payload) {
-    const candidate = payload?.combined_resolution?.ziwei_bundle?.candidate;
+    const ziweiBundle = payload?.combined_resolution?.ziwei_bundle;
+    const candidate = ziweiBundle?.candidate;
     const chart = candidate?.chart;
     const structure = chart?.structure;
     if (!chart || !structure) {
@@ -93,6 +118,7 @@ ZIWEI_BASIC_INFO_JS = r"""
       item('农历月坐标', String(structure.natal_month_coordinate ?? '-')),
       item('农历日', String(structure.lunar_birth_day ?? '-')),
       item('出生时支', structure.birth_hour_branch?.branch || '-'),
+      item('限流叠宫', limitFlowOverlap(ziweiBundle?.view_model)),
       item('Natal FactHash', candidate.hashes?.fact_hash || '-', true),
       item('Natal ComputationHash', candidate.hashes?.computation_hash || '-', true),
     );
