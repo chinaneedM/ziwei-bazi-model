@@ -6,6 +6,10 @@ from http.server import HTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from .flow_fusion_local_app import (
+    FlowFusionR2LocalMixin,
+    _FlowFusionR2HandlerMixin,
+)
 from .flow_local_app import FlowLocalCombinedChartApplication, _FlowHandler
 from .interaction_assets import interaction_index_html
 from .interaction_local_app import (
@@ -42,6 +46,7 @@ from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
 
 class CombinedChartWorkbenchApplication(
     BaziNayinPresentationLocalMixin,
+    FlowFusionR2LocalMixin,
     SharedZiweiProjectionLocalMixin,
     InteractionLocalCombinedChartApplication,
     FlowLocalCombinedChartApplication,
@@ -51,8 +56,8 @@ class CombinedChartWorkbenchApplication(
     def __init__(self, repository_root: Path) -> None:
         # Cooperative MRO is intentional:
         # Interaction -> Flow -> Local initializes both released sidecar services
-        # over the same CombinedChartService instance. Presentation/shared mixins
-        # are stateless and consume those released services/contracts.
+        # over the same CombinedChartService instance. Presentation/shared/fusion
+        # mixins are stateless and consume those released services/contracts.
         super().__init__(repository_root)
 
     def health(self):
@@ -64,12 +69,13 @@ class CombinedChartWorkbenchApplication(
 
 class _WorkbenchHandler(
     _NayinPresentationHandlerMixin,
+    _FlowFusionR2HandlerMixin,
     _SharedZiweiProjectionHandlerMixin,
     _InteractionHandler,
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.2"
+    server_version = "CombinedChartWorkbenchLocalApp/1.3"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -161,8 +167,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe, Bazi target-flow, Bazi Nayin presentation, and explicit "
-            "shared-time apply sidecars"
+            "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
+            "Bazi Nayin presentation, and explicit shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -179,9 +185,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Combined chart local workbench: {url}")
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
-        "sidecar. Bazi Nayin: released annotation presentation sidecar."
+        "sidecar. Fusion: additive R2 target-flow endpoint. Bazi Nayin: released "
+        "annotation presentation sidecar."
     )
-    print("Shared target synchronization is explicit opt-in only; no automatic cross-system sync.")
+    print(
+        "Shared target synchronization is explicit opt-in only; no automatic "
+        "cross-system sync."
+    )
     print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:
         webbrowser.open(url)

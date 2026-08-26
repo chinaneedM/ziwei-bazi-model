@@ -7,6 +7,9 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from fortune_training.combined_chart_application.flow_fusion_local_app import (
+    FLOW_FUSION_R2_LOCAL_RESOLVE_SCHEMA,
+)
 from fortune_training.combined_chart_application.flow_local_app import (
     FLOW_LOCAL_APP_RESOLVE_SCHEMA,
 )
@@ -25,7 +28,7 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 )
 
 
-RECEIPT_SCHEMA = "COMBINED-WORKBENCH-SMOKE-RECEIPT-R1"
+RECEIPT_SCHEMA = "COMBINED-WORKBENCH-SMOKE-RECEIPT-R2"
 
 
 def _repository_root() -> Path:
@@ -81,16 +84,34 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
     health = app.health()
     _require(health.get("schema") == LOCAL_APP_HEALTH_SCHEMA, "health schema mismatch")
     _require(health.get("status") == "ok", "health status is not ok")
-    _require(health.get("bind_policy") == "LOOPBACK_ONLY", "health bind policy is not loopback-only")
-    _require(health.get("location_lookup_network_access") is False, "location lookup unexpectedly requires network access")
+    _require(
+        health.get("bind_policy") == "LOOPBACK_ONLY",
+        "health bind policy is not loopback-only",
+    )
+    _require(
+        health.get("location_lookup_network_access") is False,
+        "location lookup unexpectedly requires network access",
+    )
 
     base_payload = _base_payload()
     base = app.resolve_payload(base_payload)
-    _require(base.get("schema") == LOCAL_APP_RESOLVE_SCHEMA, "base resolve schema mismatch")
+    _require(
+        base.get("schema") == LOCAL_APP_RESOLVE_SCHEMA,
+        "base resolve schema mismatch",
+    )
     combined = base["combined_resolution"]
-    _require(combined["integrity"]["status"] == "PASS", "base combined integrity did not PASS")
-    _require(combined["ziwei_bundle"] is not None, "base combined resolution has no Ziwei bundle")
-    _require(combined["bazi_bundle"] is not None, "base combined resolution has no Bazi bundle")
+    _require(
+        combined["integrity"]["status"] == "PASS",
+        "base combined integrity did not PASS",
+    )
+    _require(
+        combined["ziwei_bundle"] is not None,
+        "base combined resolution has no Ziwei bundle",
+    )
+    _require(
+        combined["bazi_bundle"] is not None,
+        "base combined resolution has no Bazi bundle",
+    )
     _require(base.get("ziwei_svg"), "base combined resolution produced no Ziwei SVG")
 
     manifest_hash = combined["manifest_hash"]
@@ -102,37 +123,151 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "ziwei_origin_designation_id": "LIFE",
     }
     interaction = app.resolve_ziwei_interaction_payload(interaction_payload)
-    _require(interaction.get("schema") == LOCAL_ZIWEI_INTERACTION_SCHEMA, "Ziwei interaction schema mismatch")
-    _require(interaction["source_combined_manifest_hash"] == manifest_hash, "Ziwei interaction manifest binding mismatch")
-    _require(interaction["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "Ziwei interaction bundle binding mismatch")
-    _require(interaction["interaction"]["integrity"]["status"] == "PASS", "Ziwei interaction integrity did not PASS")
-    _require(len(interaction["interaction"]["relative_roles"]) == 12, "Ziwei interaction did not expose 12 relative roles")
-    _require(len(interaction["interaction"]["sanfang_sizheng_frame"]["members"]) == 4, "Ziwei interaction did not expose four Sanfang/Sizheng members")
+    _require(
+        interaction.get("schema") == LOCAL_ZIWEI_INTERACTION_SCHEMA,
+        "Ziwei interaction schema mismatch",
+    )
+    _require(
+        interaction["source_combined_manifest_hash"] == manifest_hash,
+        "Ziwei interaction manifest binding mismatch",
+    )
+    _require(
+        interaction["source_ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "Ziwei interaction bundle binding mismatch",
+    )
+    _require(
+        interaction["interaction"]["integrity"]["status"] == "PASS",
+        "Ziwei interaction integrity did not PASS",
+    )
+    _require(
+        len(interaction["interaction"]["relative_roles"]) == 12,
+        "Ziwei interaction did not expose 12 relative roles",
+    )
+    _require(
+        len(interaction["interaction"]["sanfang_sizheng_frame"]["members"]) == 4,
+        "Ziwei interaction did not expose four Sanfang/Sizheng members",
+    )
 
     target_payload = _target_payload()
     flow = app.resolve_flow_payload(target_payload)
-    _require(flow.get("schema") == FLOW_LOCAL_APP_RESOLVE_SCHEMA, "Bazi target-flow local schema mismatch")
+    _require(
+        flow.get("schema") == FLOW_LOCAL_APP_RESOLVE_SCHEMA,
+        "Bazi target-flow local schema mismatch",
+    )
     combined_flow = flow["combined_target_flow_resolution"]
-    _require(combined_flow["integrity"]["status"] == "PASS", "combined target-flow integrity did not PASS")
-    _require(combined_flow["base_combined_manifest_hash"] == manifest_hash, "target-flow base manifest binding mismatch")
-    _require(combined_flow["ziwei_bundle_hash"] == ziwei_bundle_hash, "target-flow Ziwei bundle binding mismatch")
-    _require(combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash, "target-flow Bazi bundle binding mismatch")
-    _require(flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS", "Bazi target-flow bundle integrity did not PASS")
-    _require(len(flow["bazi_target_flow_bundle"]["candidates"]) >= 1, "Bazi target-flow produced no candidates")
+    _require(
+        combined_flow["integrity"]["status"] == "PASS",
+        "combined target-flow integrity did not PASS",
+    )
+    _require(
+        combined_flow["base_combined_manifest_hash"] == manifest_hash,
+        "target-flow base manifest binding mismatch",
+    )
+    _require(
+        combined_flow["ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "target-flow Ziwei bundle binding mismatch",
+    )
+    _require(
+        combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash,
+        "target-flow Bazi bundle binding mismatch",
+    )
+    _require(
+        flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS",
+        "Bazi target-flow bundle integrity did not PASS",
+    )
+    _require(
+        len(flow["bazi_target_flow_bundle"]["candidates"]) >= 1,
+        "Bazi target-flow produced no candidates",
+    )
 
     projection = app.resolve_shared_ziwei_projection_payload(target_payload)
-    _require(projection.get("schema") == LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA, "shared projection local schema mismatch")
-    _require(projection["source_combined_manifest_hash"] == manifest_hash, "shared projection manifest binding mismatch")
-    _require(projection["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "shared projection Ziwei bundle binding mismatch")
-    _require(projection["projection"]["integrity"]["status"] == "PASS", "shared projection integrity did not PASS")
-    _require(len(projection["projection"]["candidates"]) >= 1, "shared projection produced no candidates")
     _require(
-        projection["target_coordinate_fact_hash"] == combined_flow["target_coordinate_fact_hash"],
+        projection.get("schema") == LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA,
+        "shared projection local schema mismatch",
+    )
+    _require(
+        projection["source_combined_manifest_hash"] == manifest_hash,
+        "shared projection manifest binding mismatch",
+    )
+    _require(
+        projection["source_ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "shared projection Ziwei bundle binding mismatch",
+    )
+    _require(
+        projection["projection"]["integrity"]["status"] == "PASS",
+        "shared projection integrity did not PASS",
+    )
+    _require(
+        len(projection["projection"]["candidates"]) >= 1,
+        "shared projection produced no candidates",
+    )
+    _require(
+        projection["target_coordinate_fact_hash"]
+        == combined_flow["target_coordinate_fact_hash"],
         "shared projection and Bazi flow disagree on target-coordinate FactHash",
     )
     _require(
-        projection["target_coordinate_computation_hash"] == combined_flow["target_coordinate_computation_hash"],
+        projection["target_coordinate_computation_hash"]
+        == combined_flow["target_coordinate_computation_hash"],
         "shared projection and Bazi flow disagree on target-coordinate ComputationHash",
+    )
+
+    fusion = app.resolve_flow_fusion_r2_payload(target_payload)
+    _require(
+        fusion.get("schema") == FLOW_FUSION_R2_LOCAL_RESOLVE_SCHEMA,
+        "fusion R2 local schema mismatch",
+    )
+    fusion_r2 = fusion["combined_target_flow_fusion_r2"]
+    _require(
+        fusion_r2["integrity"]["status"] == "PASS",
+        "combined target-flow fusion R2 integrity did not PASS",
+    )
+    _require(
+        fusion_r2["base_combined_manifest_hash"] == manifest_hash,
+        "fusion R2 base manifest binding mismatch",
+    )
+    _require(
+        fusion_r2["r1_target_flow_bundle_hash"] == combined_flow["bundle_hash"],
+        "fusion R2 did not bind the released R1 target-flow bundle",
+    )
+    _require(
+        fusion_r2["target_coordinate_fact_hash"]
+        == combined_flow["target_coordinate_fact_hash"]
+        == projection["target_coordinate_fact_hash"],
+        "fusion R2 target-coordinate FactHash diverged across sidecars",
+    )
+    _require(
+        fusion_r2["target_coordinate_computation_hash"]
+        == combined_flow["target_coordinate_computation_hash"]
+        == projection["target_coordinate_computation_hash"],
+        "fusion R2 target-coordinate ComputationHash diverged across sidecars",
+    )
+    _require(
+        fusion_r2["bazi_target_flow_bundle_hash"]
+        == flow["bazi_target_flow_bundle"]["bundle_hash"],
+        "fusion R2 Bazi target-flow binding mismatch",
+    )
+    _require(
+        fusion_r2["ziwei_selector_fact_hash"]
+        == projection["projection"]["hashes"]["fact_hash"],
+        "fusion R2 Ziwei selector FactHash mismatch",
+    )
+    _require(
+        fusion_r2["ziwei_selector_computation_hash"]
+        == projection["projection"]["hashes"]["computation_hash"],
+        "fusion R2 Ziwei selector ComputationHash mismatch",
+    )
+    _require(
+        fusion["target_coordinate_resolution"]["integrity"]["status"] == "PASS",
+        "fusion R2 target-coordinate integrity did not PASS",
+    )
+    _require(
+        fusion["ziwei_selector_projection"]["integrity"]["status"] == "PASS",
+        "fusion R2 Ziwei selector integrity did not PASS",
+    )
+    _require(
+        fusion["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS",
+        "fusion R2 Bazi target-flow integrity did not PASS",
     )
 
     return {
@@ -147,14 +282,25 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
         "target_coordinate_fact_hash": combined_flow["target_coordinate_fact_hash"],
         "shared_projection_fact_hash": projection["projection"]["hashes"]["fact_hash"],
-        "bazi_target_flow_candidate_count": len(flow["bazi_target_flow_bundle"]["candidates"]),
-        "shared_projection_candidate_count": len(projection["projection"]["candidates"]),
+        "fusion_r2_bundle_hash": fusion_r2["bundle_hash"],
+        "bazi_target_flow_candidate_count": len(
+            flow["bazi_target_flow_bundle"]["candidates"]
+        ),
+        "shared_projection_candidate_count": len(
+            projection["projection"]["candidates"]
+        ),
+        "fusion_r2_ziwei_selector_candidate_count": fusion_r2[
+            "ziwei_selector_candidate_count"
+        ],
     }
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Run a deterministic, read-only smoke check of the released combined chart workbench"
+        description=(
+            "Run a deterministic, read-only smoke check of the released "
+            "combined chart workbench"
+        )
     )
     parser.add_argument(
         "--repository-root",
