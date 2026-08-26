@@ -6,6 +6,11 @@ from http.server import HTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from .flow_fusion_assets import (
+    FLOW_FUSION_CSS,
+    FLOW_FUSION_JS,
+    flow_fusion_index_html,
+)
 from .flow_fusion_local_app import (
     FlowFusionR2LocalMixin,
     _FlowFusionR2HandlerMixin,
@@ -75,14 +80,16 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.3"
+    server_version = "CombinedChartWorkbenchLocalApp/1.4"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = nayin_index_html(
-                shared_apply_index_html(
-                    target_flow_index_html(interaction_index_html(INDEX_HTML))
+            html = flow_fusion_index_html(
+                nayin_index_html(
+                    shared_apply_index_html(
+                        target_flow_index_html(interaction_index_html(INDEX_HTML))
+                    )
                 )
             )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
@@ -128,6 +135,20 @@ class _WorkbenchHandler(
                 200,
                 "application/javascript; charset=utf-8",
                 SHARED_APPLY_JS.encode(),
+            )
+            return
+        if path == "/flow-fusion.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                FLOW_FUSION_CSS.encode(),
+            )
+            return
+        if path == "/flow-fusion.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                FLOW_FUSION_JS.encode(),
             )
             return
         super().do_GET()
@@ -185,8 +206,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Combined chart local workbench: {url}")
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
-        "sidecar. Fusion: additive R2 target-flow endpoint. Bazi Nayin: released "
-        "annotation presentation sidecar."
+        "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
+        "Bazi Nayin: released annotation presentation sidecar."
     )
     print(
         "Shared target synchronization is explicit opt-in only; no automatic "
