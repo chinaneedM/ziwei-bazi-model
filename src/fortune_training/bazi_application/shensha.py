@@ -11,7 +11,7 @@ from fortune_training.bazi_chart.registries import (
 
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.1.0"
+SHENSHA_PROFILE_VERSION = "1.2.0"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -20,6 +20,12 @@ TIANYI_BY_STEM = {
     "丁": ("亥", "酉"), "戊": ("丑", "未"), "己": ("子", "申"),
     "庚": ("午", "寅"), "辛": ("午", "寅"), "壬": ("卯", "巳"),
     "癸": ("卯", "巳"),
+}
+# S11:YHZP-CH-025 explicitly says to anchor this rule on the birth-year stem.
+TIANGUAN_BY_YEAR_STEM = {
+    "甲": ("未",), "乙": ("辰",), "丙": ("巳",), "丁": ("酉",),
+    "戊": ("戌",), "己": ("卯",), "庚": ("亥",), "辛": ("申",),
+    "壬": ("寅",), "癸": ("午",),
 }
 LU_BY_STEM = {
     "甲": ("寅",), "乙": ("卯",), "丙": ("巳",), "丁": ("午",),
@@ -115,6 +121,7 @@ YANGREN_BY_STEM = {
 
 SOURCE_REFS = {
     "TIANYI": ("S11:YHZP-USR-S00235", "S11:YHZP-CH-024"),
+    "TIANGUAN": ("S11:YHZP-USR-S00240", "S11:YHZP-CH-025"),
     "LU": ("S11:YHZP-USR-S00278", "S11:YHZP-CH-034"),
     "YIMA": ("S11:YHZP-USR-S00285", "S11:YHZP-CH-035"),
     "HUAGAI": ("S11:YHZP-USR-S00296", "S11:YHZP-CH-037"),
@@ -287,6 +294,10 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     stems, branches = _pillar_parts(pillar_ganzhi)
     candidates: list[dict[str, Any]] = []
     candidates.extend(_stem_anchor_candidates("TIANYI", "天乙贵人", TIANYI_BY_STEM, stems, pillar_ganzhi))
+    candidates.append(_candidate(
+        "TIANGUAN", "天官贵人", "YEAR_STEM", stems["YEAR"], "BRANCH",
+        TIANGUAN_BY_YEAR_STEM[stems["YEAR"]], pillar_ganzhi,
+    ))
     candidates.extend(_stem_anchor_candidates("LU", "禄神", LU_BY_STEM, stems, pillar_ganzhi))
     candidates.extend(_branch_anchor_candidates("YIMA", "驿马", YIMA_BY_BRANCH, branches, pillar_ganzhi))
     candidates.extend(_branch_anchor_candidates("HUAGAI", "华盖", HUAGAI_BY_BRANCH, branches, pillar_ganzhi))
@@ -299,7 +310,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     # 月德合原文未限定落柱，日干法与四干扫描法分列，禁止合并。
     for scope in ("ONLY_DAY", "ALL_PILLARS"):
         candidates.append(_candidate(
-            "YUEDEHE", "月德合", "MONTH_BRANCH", month_branch, "STEM",
+            "YUEHE", "月德合", "MONTH_BRANCH", month_branch, "STEM",
             YUEDEHE_BY_MONTH_BRANCH[month_branch], pillar_ganzhi,
             match_scope=scope, selection_status="CANDIDATE_NOT_ARBITRATED",
         ))
@@ -360,8 +371,8 @@ def validate_shensha_registries() -> None:
     stems = set("甲乙丙丁戊己庚辛壬癸")
     branches = set(EARTHLY_BRANCHES)
     for registry in (
-        TIANYI_BY_STEM, LU_BY_STEM, TIANCHU_BY_STEM, FUXING_BY_STEM,
-        TAIJI_BY_YEAR_STEM, JINYU_BY_STEM,
+        TIANYI_BY_STEM, TIANGUAN_BY_YEAR_STEM, LU_BY_STEM, TIANCHU_BY_STEM,
+        FUXING_BY_STEM, TAIJI_BY_YEAR_STEM, JINYU_BY_STEM,
     ):
         _validate_registry(registry, stems, "branch")
     _validate_registry(YANGREN_BY_STEM, set("甲丙戊庚壬"), "branch")
