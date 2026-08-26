@@ -8,6 +8,7 @@ from fortune_training.util import object_sha256
 from .auxiliary import (
     BRANCH_TO_INDEX,
     KUI_YUE_BY_STEM,
+    TIANMA_BY_BRANCH,
     WENMO_KUI_YUE_BY_STEM,
     QSCoreAuxiliaryGenerator,
 )
@@ -28,12 +29,15 @@ TEMPORAL_CHANG_QU_ALGORITHM_VERSION = "1.0.0"
 TEMPORAL_KUI_YUE_RULE_ID = "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1"
 TEMPORAL_KUI_YUE_GENERATOR_ID = "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1"
 TEMPORAL_KUI_YUE_ALGORITHM_VERSION = "1.0.0"
-TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_ID = "ZIWEI-TEMPORAL-AUX-CANDIDATE-SET-HASH-R1"
-TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_VERSION = "1.0.0"
+TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_ID = (
+    "ZIWEI-TEMPORAL-AUX-CANDIDATE-SET-HASH-R2"
+)
+TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_VERSION = "1.1.0"
 STRICT_KUI_YUE_METHOD_ID = "S01-QS-STRICT-KUI-YUE-R1"
 WENMO_KUI_YUE_METHOD_ID = "COMPAT-WENMO-KUI-YUE-R1"
 KUI_YUE_SELECTION_STATUS = "CANDIDATES_PRESERVED_NO_SELECTION"
 KUI_YUE_ENTITY_IDS = ("STAR.TIANKUI", "STAR.TIANYUE")
+TIANMA_ENTITY_IDS = ("STAR.TIANMA",)
 KUI_YUE_SOURCE_REFS = (
     "S10:ZZZA-A-1097",
     "S10:ZZZA-A-1098",
@@ -43,6 +47,12 @@ KUI_YUE_SOURCE_REFS = (
     "S01:ZZZA-PR-019",
     "COMPAT:WENMO-CHARTDIFF-005",
 )
+TEMPORAL_TIANMA_RULE_ID = "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"
+TEMPORAL_TIANMA_GENERATOR_ID = "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"
+TEMPORAL_TIANMA_ALGORITHM_VERSION = "1.0.0"
+LIMIT_TIANMA_METHOD_ID = "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1"
+ANNUAL_TIANMA_METHOD_ID = "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"
+TIANMA_SELECTION_STATUS = "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"
 
 
 # S10:ZZZA-A-1101 / S10:ZZZA-A-1102. The source table intentionally has no
@@ -77,8 +87,8 @@ def temporal_auxiliary_method_candidate_hashes(
             "fact_hash": fact_hash,
             "source_refs": candidate.source_refs,
             "algorithm": (
-                f"{TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_ID}@"
-                f"{TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_VERSION}"
+                f"{TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_ID}@"
+                f"{TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_VERSION}"
             ),
         }
     )
@@ -93,6 +103,8 @@ def temporal_auxiliary_candidate_set_hashes(
             "candidate_set_id": candidate_set.candidate_set_id,
             "source_layer": candidate_set.source_layer,
             "source_stem": candidate_set.source_stem,
+            "source_basis_type": candidate_set.source_basis_type,
+            "source_basis_value": candidate_set.source_basis_value,
             "context_id": candidate_set.context_id,
             "entity_ids": candidate_set.entity_ids,
             "selection_status": candidate_set.selection_status,
@@ -110,8 +122,8 @@ def temporal_auxiliary_candidate_set_hashes(
             ),
             "source_refs": candidate_set.source_refs,
             "algorithm": (
-                f"{TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_ID}@"
-                f"{TEMPORAL_KUI_YUE_CANDIDATE_SET_HASH_VERSION}"
+                f"{TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_ID}@"
+                f"{TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_VERSION}"
             ),
         }
     )
@@ -290,6 +302,8 @@ class TemporalAuxiliaryGenerator:
             candidate_set_id=candidate_set_id,
             source_layer=source_layer,
             source_stem=source_stem,
+            source_basis_type="STEM",
+            source_basis_value=source_stem,
             context_id=context_id,
             entity_ids=KUI_YUE_ENTITY_IDS,
             selection_status=KUI_YUE_SELECTION_STATUS,
@@ -301,6 +315,100 @@ class TemporalAuxiliaryGenerator:
         fact_hash, computation_hash = temporal_auxiliary_candidate_set_hashes(provisional)
         return replace(
             provisional,
+            fact_hash=fact_hash,
+            computation_hash=computation_hash,
+        )
+
+    @classmethod
+    def tianma_candidate_set(
+        cls,
+        source_branch: str,
+        *,
+        source_stem: str,
+        source_layer: str,
+        context_id: str,
+        temporal_source_refs: tuple[str, ...],
+    ) -> TemporalAuxiliaryCandidateSet:
+        try:
+            target_branch = TIANMA_BY_BRANCH[source_branch]
+        except KeyError as exc:
+            raise ValueError(
+                f"unsupported temporal source branch for Tianma: {source_branch}"
+            ) from exc
+        if source_layer == "DAXIAN":
+            method_id = LIMIT_TIANMA_METHOD_ID
+            method_source_refs = (
+                "S10:ZZTERM-P-0121",
+                "S10:ZZTERM-P-0122",
+                "S10:ZZTERM-TIME-05",
+                "S01:ZZQS-A-1808",
+                "S01:ZZQS-A-1809",
+            )
+        elif source_layer == "ANNUAL":
+            method_id = ANNUAL_TIANMA_METHOD_ID
+            method_source_refs = (
+                "S10:ZZTERM-P-0204",
+                "S10:ZZTERM-P-0205",
+                "S10:ZZTERM-P-0206",
+                "S01:ZZQS-A-1808",
+                "S01:ZZQS-A-1809",
+            )
+        else:
+            raise ValueError(
+                f"unsupported temporal layer for Tianma case candidate: {source_layer}"
+            )
+
+        candidate_id = f"{context_id}:TIANMA:{method_id}"
+        source_refs = temporal_source_refs + method_source_refs
+        activation = TemporalAuxiliaryActivation(
+            activation_id=f"{candidate_id}:STAR.TIANMA",
+            entity_id="STAR.TIANMA",
+            display_name="天马",
+            target_address=address(BRANCH_TO_INDEX[target_branch]),
+            source_layer=source_layer,
+            source_stem=source_stem,
+            context_id=context_id,
+            rule_id=TEMPORAL_TIANMA_RULE_ID,
+            generator_id=TEMPORAL_TIANMA_GENERATOR_ID,
+            algorithm_version=TEMPORAL_TIANMA_ALGORITHM_VERSION,
+            source_refs=source_refs,
+        )
+        provisional_method = TemporalAuxiliaryMethodCandidate(
+            candidate_id=candidate_id,
+            method_id=method_id,
+            authority_status="CASE_METHOD_ONLY",
+            activations=(activation,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(provisional_method)
+        )
+        method = replace(
+            provisional_method,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        provisional_set = TemporalAuxiliaryCandidateSet(
+            candidate_set_id=f"{context_id}:TIANMA:CANDIDATE_SET:{method_id}",
+            source_layer=source_layer,
+            source_stem=source_stem,
+            source_basis_type="BRANCH",
+            source_basis_value=source_branch,
+            context_id=context_id,
+            entity_ids=TIANMA_ENTITY_IDS,
+            selection_status=TIANMA_SELECTION_STATUS,
+            method_candidates=(method,),
+            source_refs=source_refs,
+            fact_hash="",
+            computation_hash="",
+        )
+        fact_hash, computation_hash = temporal_auxiliary_candidate_set_hashes(
+            provisional_set
+        )
+        return replace(
+            provisional_set,
             fact_hash=fact_hash,
             computation_hash=computation_hash,
         )

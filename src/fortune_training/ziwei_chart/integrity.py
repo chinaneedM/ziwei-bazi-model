@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 
 
 INTEGRITY_ALGORITHM_ID = "ZIWEI-INTEGRITY-HASH-V1"
-INTEGRITY_ALGORITHM_VERSION = "1.0.3"
+INTEGRITY_ALGORITHM_VERSION = "1.0.4"
 DIGNITY_GRADES = {"庙", "旺", "得", "利", "平", "不", "陷"}
 DIGNITY_STATUSES = {"GRADED", "UNRATED"}
 
@@ -650,6 +650,7 @@ def validate_temporal_state(
         rows,
         *,
         source_stem: str,
+        source_branch: str | None,
         source_layer: str,
         context_id: str,
         temporal_source_refs: tuple[str, ...],
@@ -663,6 +664,24 @@ def validate_temporal_state(
                 temporal_source_refs=temporal_source_refs,
             ),
         )
+        if source_layer in {"DAXIAN", "ANNUAL"}:
+            if source_branch is None:
+                _diag(
+                    diagnostics,
+                    "TEMPORAL_TIANMA_SOURCE_BRANCH_MISSING",
+                    path,
+                    context_id,
+                )
+            else:
+                expected += (
+                    TemporalAuxiliaryGenerator.tianma_candidate_set(
+                        source_branch,
+                        source_stem=source_stem,
+                        source_layer=source_layer,
+                        context_id=context_id,
+                        temporal_source_refs=temporal_source_refs,
+                    ),
+                )
         if tuple(rows) != expected:
             _diag(
                 diagnostics,
@@ -670,7 +689,7 @@ def validate_temporal_state(
                 path,
                 context_id,
             )
-        if len(rows) != 1:
+        if len(rows) != len(expected):
             _diag(
                 diagnostics,
                 "INVALID_TEMPORAL_AUXILIARY_CANDIDATE_SET",
@@ -713,6 +732,7 @@ def validate_temporal_state(
         validate_auxiliary_candidate_sets(
             frame.auxiliary_candidate_sets,
             source_stem=frame.source_stem,
+            source_branch=frame.active_address.branch,
             source_layer="DAXIAN",
             context_id=frame.frame_id,
             temporal_source_refs=DAXIAN_AUXILIARY_SOURCE_REFS,
@@ -757,6 +777,7 @@ def validate_temporal_state(
         validate_auxiliary_candidate_sets(
             frame.auxiliary_candidate_sets,
             source_stem=frame.year_stem,
+            source_branch=frame.year_branch,
             source_layer="ANNUAL",
             context_id=frame.frame_id,
             temporal_source_refs=ANNUAL_AUXILIARY_SOURCE_REFS,
@@ -823,6 +844,7 @@ def validate_temporal_state(
         validate_auxiliary_candidate_sets(
             frame.auxiliary_candidate_sets,
             source_stem=frame.month_stem,
+            source_branch=None,
             source_layer="MONTH",
             context_id=frame.frame_id,
             temporal_source_refs=MONTHLY_AUXILIARY_SOURCE_REFS,

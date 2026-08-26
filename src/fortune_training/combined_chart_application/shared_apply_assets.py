@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。大限宫支流天马与流年地支流天马分别保留为案例法候选，不扩展到月、日、时。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -173,11 +173,15 @@ SHARED_APPLY_JS = r"""
       && Array.isArray(set.entity_ids)
       && set.entity_ids.length === 2
       && Array.isArray(set.method_candidates)
-      && set.method_candidates.length === 2
+      && set.method_candidates.length >= 1
+      && set.method_candidates.length <= 2
+      && ['STEM', 'BRANCH'].includes(set.source_basis_type)
+      && typeof set.source_basis_value === 'string'
       && set.method_candidates.every((candidate) => (
         typeof candidate.method_id === 'string'
         && Array.isArray(candidate.activations)
-        && candidate.activations.length === 2
+        && candidate.activations.length >= 1
+        && candidate.activations.length <= 2
         && typeof candidate.fact_hash === 'string'
         && candidate.fact_hash.length === 64
         && typeof candidate.computation_hash === 'string'
@@ -201,8 +205,8 @@ SHARED_APPLY_JS = r"""
       && Array.isArray(layer.auxiliary_activations)
       && layer.auxiliary_activations.length === 5
       && Array.isArray(layer.auxiliary_candidate_sets)
-      && layer.auxiliary_candidate_sets.length === 1
-      && validAuxiliaryCandidateSet(layer.auxiliary_candidate_sets[0])
+      && layer.auxiliary_candidate_sets.length === (expectedLayer === 'MONTH' ? 1 : 2)
+      && layer.auxiliary_candidate_sets.every(validAuxiliaryCandidateSet)
       && typeof layer.fact_hash === 'string'
       && layer.fact_hash.length === 64
       && typeof layer.computation_hash === 'string'
@@ -270,7 +274,7 @@ SHARED_APPLY_JS = r"""
       return;
     }
     const layerLine = (label, layer) => layer
-      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流魁钺候选=${layer.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
+      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 动态辅助候选=${layer.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${set.source_basis_type}:${set.source_basis_value}:${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
       : `${label}=NONE`;
     lineage.textContent = [
       `target_candidate=${row.source_target_candidate_id}`,

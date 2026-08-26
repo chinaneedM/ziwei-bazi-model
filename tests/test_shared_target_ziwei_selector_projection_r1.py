@@ -151,8 +151,13 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             self.assertEqual("ZIWEI-TEMPORAL-FRAMES-V1", layer.frame_algorithm_id)
             self.assertEqual(4, len(layer.transformations))
             self.assertEqual(5, len(layer.auxiliary_activations))
-            self.assertEqual(1, len(layer.auxiliary_candidate_sets))
+            self.assertEqual(
+                1 if layer.source_layer == "MONTH" else 2,
+                len(layer.auxiliary_candidate_sets),
+            )
             kui_yue = layer.auxiliary_candidate_sets[0]
+            self.assertEqual("STEM", kui_yue.source_basis_type)
+            self.assertEqual(layer.source_stem, kui_yue.source_basis_value)
             self.assertEqual("CANDIDATES_PRESERVED_NO_SELECTION", kui_yue.selection_status)
             self.assertEqual(2, len(kui_yue.method_candidates))
             self.assertEqual(
@@ -162,6 +167,19 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
             self.assertTrue(all(len(candidate.activations) == 2 for candidate in kui_yue.method_candidates))
             self.assertEqual(64, len(kui_yue.fact_hash))
             self.assertEqual(64, len(kui_yue.computation_hash))
+            if layer.source_layer in {"DAXIAN", "ANNUAL"}:
+                tianma = layer.auxiliary_candidate_sets[1]
+                self.assertEqual("BRANCH", tianma.source_basis_type)
+                self.assertEqual(("STAR.TIANMA",), tianma.entity_ids)
+                self.assertEqual(
+                    "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION",
+                    tianma.selection_status,
+                )
+                self.assertEqual(1, len(tianma.method_candidates))
+                self.assertEqual(
+                    "CASE_METHOD_ONLY",
+                    tianma.method_candidates[0].authority_status,
+                )
             self.assertTrue(layer.source_refs)
             self.assertEqual({layer.source_layer}, {item.source_layer for item in layer.transformations})
             self.assertEqual({layer.source_stem}, {item.source_stem for item in layer.transformations})
@@ -468,7 +486,7 @@ class SharedTargetZiweiSelectorProjectionR1Tests(unittest.TestCase):
         )
         changed_layer = replace(
             layer,
-            auxiliary_candidate_sets=(changed_set,),
+            auxiliary_candidate_sets=(changed_set, layer.auxiliary_candidate_sets[1]),
             fact_hash="",
             computation_hash="",
         )

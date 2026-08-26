@@ -116,6 +116,8 @@ class TemporalAuxiliaryCandidateSet:
     candidate_set_id: str
     source_layer: str
     source_stem: str
+    source_basis_type: str
+    source_basis_value: str
     context_id: str
     entity_ids: tuple[str, ...]
     selection_status: str

@@ -80,10 +80,10 @@
         "frame_id": {"type": "string", "minLength": 1},
         "candidate_set_id": {"type": "string", "minLength": 1},
         "candidate_id": {"type": "string", "minLength": 1},
-        "method_id": {"enum": ["S01-QS-STRICT-KUI-YUE-R1", "COMPAT-WENMO-KUI-YUE-R1"]},
-        "authority_status": {"enum": ["CANONICAL_SOURCE_TABLE", "EXTERNAL_CASE_COMPATIBILITY"]},
-        "entity_id": {"enum": ["STAR.TIANKUI", "STAR.TIANYUE"]},
-        "label": {"enum": ["天魁", "天钺"]},
+        "method_id": {"enum": ["S01-QS-STRICT-KUI-YUE-R1", "COMPAT-WENMO-KUI-YUE-R1", "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1", "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"]},
+        "authority_status": {"enum": ["CANONICAL_SOURCE_TABLE", "EXTERNAL_CASE_COMPATIBILITY", "CASE_METHOD_ONLY"]},
+        "entity_id": {"enum": ["STAR.TIANKUI", "STAR.TIANYUE", "STAR.TIANMA"]},
+        "label": {"enum": ["天魁", "天钺", "天马"]},
         "candidate_fact_hash": {"pattern": "^[0-9a-f]{64}$"}
       }
     },

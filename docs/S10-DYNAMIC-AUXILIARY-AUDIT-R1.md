@@ -51,8 +51,30 @@ Frame and shared-projection integrity replay reconstructs the candidates from
 the source stem and method tables, so a locally rehashed placement mutation is
 still rejected.
 
+## Implemented as case-method candidates: 流天马
+
+S01 supplies a complete twelve-branch Tianma placement table, while S10 keeps
+two different temporal uses only at case-method authority. They are therefore
+preserved as separate, unselected branch-basis candidates rather than promoted
+to universal facts.
+
+- Daxian method: `S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1`; its basis is the
+  Daxian life-palace branch (`S10:ZZTERM-P-0121`, `S10:ZZTERM-P-0122`,
+  `S10:ZZTERM-TIME-05`).
+- Annual method: `S10-ANNUAL-BRANCH-TIANMA-CASE-R1`; its basis is the annual
+  branch, preserved from the 庚申→寅 example (`S10:ZZTERM-P-0204` through
+  `S10:ZZTERM-P-0206`).
+- Placement table: `S01:ZZQS-A-1808`, `S01:ZZQS-A-1809`.
+- authority status: `CASE_METHOD_ONLY`.
+- selection status: `CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION`.
+
+The candidate-set contract records `source_basis_type=BRANCH` and the exact
+source branch. Daxian and Annual candidates have separate method, activation,
+source and hash identities. No Month, Day, or Hour Tianma is generated because
+S10 does not close those layer rules.
+
 ## Excluded
 
-S10 names no additional dynamic star for implementation here unless it has a
+S10 names no further dynamic star for implementation here unless it has a
 complete placement table, an explicit time-layer stem basis, and stable source
 identity. No rule is completed from customary knowledge or from interpretation.

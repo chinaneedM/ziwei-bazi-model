@@ -121,8 +121,13 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(["禄存", "擎羊", "陀罗", "文昌", "文曲"], [row.display_name for row in actual.auxiliary_activations])
             self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.auxiliary_activations))
-            self.assertEqual(1, len(actual.auxiliary_candidate_sets))
+            self.assertEqual(2, len(actual.auxiliary_candidate_sets))
             self.assertEqual(2, len(actual.auxiliary_candidate_sets[0].method_candidates))
+            tianma = actual.auxiliary_candidate_sets[1]
+            self.assertEqual("BRANCH", tianma.source_basis_type)
+            self.assertEqual(actual.active_address.branch, tianma.source_basis_value)
+            self.assertEqual(("STAR.TIANMA",), tianma.entity_ids)
+            self.assertEqual(1, len(tianma.method_candidates))
             self.assertTrue(all(row.source_layer == "DAXIAN" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.source_stem for row in actual.transformations))
 
@@ -161,7 +166,13 @@ class TemporalRuntimeTests(unittest.TestCase):
             self.assertEqual(5, len(actual.auxiliary_activations))
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.auxiliary_activations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.auxiliary_activations))
-            self.assertEqual(1, len(actual.auxiliary_candidate_sets))
+            self.assertEqual(2, len(actual.auxiliary_candidate_sets))
+            tianma = actual.auxiliary_candidate_sets[1]
+            self.assertEqual(actual.year_branch, tianma.source_basis_value)
+            self.assertEqual(
+                "S10-ANNUAL-BRANCH-TIANMA-CASE-R1",
+                tianma.method_candidates[0].method_id,
+            )
             self.assertTrue(all(row.source_layer == "ANNUAL" for row in actual.transformations))
             self.assertTrue(all(row.source_stem == actual.year_stem for row in actual.transformations))
 

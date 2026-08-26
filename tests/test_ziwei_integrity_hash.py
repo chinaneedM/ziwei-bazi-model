@@ -31,6 +31,7 @@ from fortune_training.ziwei_chart.rings import (
     WENMO_DEFAULT_RING_RULE_SET_ID,
     WENMO_DEFAULT_RING_RULE_SET_VERSION,
 )
+from fortune_training.ziwei_chart.registries import address
 from fortune_training.ziwei_chart.roles import (
     ROLE_ALGORITHM_ID,
     ROLE_ALGORITHM_VERSION,
@@ -294,7 +295,68 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         )
         changed_frame = replace(
             state.annual_frames[0],
-            auxiliary_candidate_sets=(changed_set,),
+            auxiliary_candidate_sets=(
+                changed_set,
+                state.annual_frames[0].auxiliary_candidate_sets[1],
+            ),
+        )
+        changed_state = replace(
+            state,
+            annual_frames=(changed_frame, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(changed_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_CANDIDATE_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(changed_state, temporal_profile).fact_hash,
+        )
+
+        tianma_set = state.annual_frames[0].auxiliary_candidate_sets[1]
+        tianma_method = tianma_set.method_candidates[0]
+        changed_tianma_method = replace(
+            tianma_method,
+            activations=(
+                replace(
+                    tianma_method.activations[0],
+                    target_address=address(
+                        tianma_method.activations[0].target_address.index + 1
+                    ),
+                ),
+            ),
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(changed_tianma_method)
+        )
+        changed_tianma_method = replace(
+            changed_tianma_method,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        changed_tianma_set = replace(
+            tianma_set,
+            method_candidates=(changed_tianma_method,),
+            fact_hash="",
+            computation_hash="",
+        )
+        set_fact_hash, set_computation_hash = temporal_auxiliary_candidate_set_hashes(
+            changed_tianma_set
+        )
+        changed_tianma_set = replace(
+            changed_tianma_set,
+            fact_hash=set_fact_hash,
+            computation_hash=set_computation_hash,
+        )
+        changed_frame = replace(
+            state.annual_frames[0],
+            auxiliary_candidate_sets=(
+                state.annual_frames[0].auxiliary_candidate_sets[0],
+                changed_tianma_set,
+            ),
         )
         changed_state = replace(
             state,
