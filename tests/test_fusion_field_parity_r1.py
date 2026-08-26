@@ -84,6 +84,31 @@ class FusionFieldParityR1Tests(unittest.TestCase):
             rows["BAZI_XIAOYUN"]["classification"],
         )
 
+    def test_closed_ziwei_basic_and_overlap_fields_are_visible(self) -> None:
+        rows = {row["field_id"]: row for row in self.matrix["rows"]}
+        for field_id in (
+            "ZIWEI_ROLE_BINDINGS",
+            "ZIWEI_FIVE_ELEMENT_BUREAU",
+            "ZIWEI_BODY_PALACE",
+            "ZIWEI_LIMIT_FLOW_OVERLAP_LABEL",
+        ):
+            with self.subTest(field_id=field_id):
+                self.assertEqual(
+                    "ALREADY_RELEASED_AND_VISIBLE",
+                    rows[field_id]["classification"],
+                )
+                self.assertTrue(
+                    any(
+                        "ziwei_basic_info_assets.py" in evidence
+                        for evidence in rows[field_id]["runtime_evidence"]
+                    )
+                )
+        self.assertEqual(
+            "DETERMINISTIC_RUNTIME_MISSING",
+            rows["ZIWEI_SELF_TRANSFORMATION"]["classification"],
+        )
+        self.assertEqual(["ZIWEI_SELF_TRANSFORMATION"], self.matrix["priority_queue"])
+
     def test_reference_only_differences_cannot_enter_runtime_as_authority(self) -> None:
         for row in self.matrix["rows"]:
             with self.subTest(field_id=row["field_id"]):
