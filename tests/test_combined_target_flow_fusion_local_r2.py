@@ -204,7 +204,7 @@ class CombinedTargetFlowFusionLocalR2Tests(unittest.TestCase):
             thread.join(timeout=10)
             server.server_close()
 
-    def test_out_of_materialized_ziwei_range_fails_closed(self) -> None:
+    def test_out_of_materialized_flow_range_fails_closed_before_fusion(self) -> None:
         server = build_workbench_server(ROOT, port=0)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -218,7 +218,7 @@ class CombinedTargetFlowFusionLocalR2Tests(unittest.TestCase):
             self.assertEqual(422, caught.exception.code)
             error = json.loads(caught.exception.read().decode("utf-8"))["error"]
             self.assertEqual(
-                "SHARED_ZIWEI_ANNUAL_FRAME_NOT_EXACTLY_ONE",
+                "BAZI_APP_FLOW_CONTEXT_RESOLUTION_FAILED",
                 error["code"],
             )
         finally:

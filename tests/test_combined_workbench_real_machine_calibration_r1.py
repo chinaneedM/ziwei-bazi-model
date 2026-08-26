@@ -27,7 +27,7 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
     def test_smoke_receipt_exercises_all_released_workbench_surfaces(self) -> None:
         smoke = _load_smoke_module()
         receipt = smoke.run_smoke(ROOT)
-        self.assertEqual("COMBINED-WORKBENCH-SMOKE-RECEIPT-R1", receipt["schema"])
+        self.assertEqual("COMBINED-WORKBENCH-SMOKE-RECEIPT-R2", receipt["schema"])
         self.assertEqual("PASS", receipt["status"])
         self.assertEqual("LOOPBACK_ONLY", receipt["bind_policy"])
         for key in (
@@ -38,11 +38,13 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
             "bazi_target_flow_bundle_hash",
             "target_coordinate_fact_hash",
             "shared_projection_fact_hash",
+            "fusion_r2_bundle_hash",
         ):
             with self.subTest(key=key):
                 self.assertEqual(64, len(receipt[key]))
         self.assertGreaterEqual(receipt["bazi_target_flow_candidate_count"], 1)
         self.assertGreaterEqual(receipt["shared_projection_candidate_count"], 1)
+        self.assertGreaterEqual(receipt["fusion_r2_ziwei_selector_candidate_count"], 1)
 
     def test_smoke_harness_uses_workbench_boundary_not_temporal_algorithms(self) -> None:
         source = SMOKE_PATH.read_text(encoding="utf-8")
@@ -52,6 +54,7 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
         self.assertIn("app.resolve_ziwei_interaction_payload(interaction_payload)", source)
         self.assertIn("app.resolve_flow_payload(target_payload)", source)
         self.assertIn("app.resolve_shared_ziwei_projection_payload(target_payload)", source)
+        self.assertIn("app.resolve_flow_fusion_r2_payload(target_payload)", source)
         for forbidden in (
             "BaziTimeResolver",
             "TargetTemporalCoordinateFoundation",
