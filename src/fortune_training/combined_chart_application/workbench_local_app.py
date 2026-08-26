@@ -47,6 +47,11 @@ from .target_flow_assets import (
     target_flow_index_html,
 )
 from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
+from .ziwei_basic_info_assets import (
+    ZIWEI_BASIC_INFO_CSS,
+    ZIWEI_BASIC_INFO_JS,
+    ziwei_basic_info_index_html,
+)
 
 
 class CombinedChartWorkbenchApplication(
@@ -80,15 +85,17 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.4"
+    server_version = "CombinedChartWorkbenchLocalApp/1.5"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = flow_fusion_index_html(
-                nayin_index_html(
-                    shared_apply_index_html(
-                        target_flow_index_html(interaction_index_html(INDEX_HTML))
+            html = ziwei_basic_info_index_html(
+                flow_fusion_index_html(
+                    nayin_index_html(
+                        shared_apply_index_html(
+                            target_flow_index_html(interaction_index_html(INDEX_HTML))
+                        )
                     )
                 )
             )
@@ -151,6 +158,20 @@ class _WorkbenchHandler(
                 FLOW_FUSION_JS.encode(),
             )
             return
+        if path == "/ziwei-basic-info.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                ZIWEI_BASIC_INFO_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-basic-info.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                ZIWEI_BASIC_INFO_JS.encode(),
+            )
+            return
         super().do_GET()
 
 
@@ -189,7 +210,8 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
             "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
-            "Bazi Nayin presentation, and explicit shared-time apply sidecars"
+            "Ziwei natal basic-info presentation, Bazi Nayin presentation, and "
+            "explicit shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -207,7 +229,7 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
         "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
-        "Bazi Nayin: released annotation presentation sidecar."
+        "Ziwei natal basics and Bazi Nayin are read-only presentation projections."
     )
     print(
         "Shared target synchronization is explicit opt-in only; no automatic "
