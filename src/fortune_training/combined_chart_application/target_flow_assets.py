@@ -31,6 +31,8 @@ TARGET_FLOW_CSS = """
 .bazi-flow-frame strong { display:block; margin-bottom:3px; }
 .bazi-flow-frame code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .bazi-flow-annotation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#4f5863; }
+.bazi-flow-shensha-hit { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#3f4852; }
+.bazi-flow-shensha-note { margin-top:3px; color:#68707a; font-size:10px; line-height:1.45; }
 .bazi-flow-structural { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.55; }
 .bazi-flow-structural strong,.bazi-flow-structural code { display:block; }
 .bazi-flow-structural-layer { margin-top:6px; padding:6px; border:1px solid #edf0f2; border-radius:5px; background:#fafbfb; }
@@ -166,11 +168,37 @@ TARGET_FLOW_JS = r"""
     };
   }
 
-  function frameCard(label, frame, extra = '', annotationSlot = null) {
+  function renderTemporalShenshaHit(box, slot) {
+    if (!slot) {
+      box.append(node('div', '神煞候选目标命中：侧车绑定不可用', 'bazi-flow-shensha-hit'));
+      box.append(node(
+        'div',
+        '仅为目标身份匹配；岁运神煞适用性尚未作古法/流派裁决。',
+        'bazi-flow-shensha-note',
+      ));
+      return;
+    }
+    const matches = Array.isArray(slot.matches) ? slot.matches : [];
+    const hitText = matches.length
+      ? matches.map((row) => `${display(row.display_name)}(${display(row.matched_value)})`).join(' / ')
+      : '无';
+    const statusText = slot.status === 'RESOLVED'
+      ? hitText
+      : `未投影（${display(slot.status)}）`;
+    box.append(node('div', `神煞候选目标命中：${statusText}`, 'bazi-flow-shensha-hit'));
+    box.append(node(
+      'div',
+      '仅为目标身份匹配；岁运神煞适用性尚未作古法/流派裁决。',
+      'bazi-flow-shensha-note',
+    ));
+  }
+
+  function frameCard(label, frame, extra = '', annotationSlot = null, shenshaSlot = null) {
     const box = node('div', undefined, 'bazi-flow-frame');
     box.append(node('strong', label));
     if (!frame) {
       box.append(node('span', '-'));
+      renderTemporalShenshaHit(box, shenshaSlot);
       return box;
     }
     const ganzhi = frame.ganzhi || frame.frame_id || '-';
@@ -192,7 +220,17 @@ TARGET_FLOW_JS = r"""
     } else if (annotationSlot?.status) {
       box.append(node('div', `注释状态 ${annotationSlot.status}`, 'bazi-flow-annotation'));
     }
+    renderTemporalShenshaHit(box, shenshaSlot);
     return box;
+  }
+
+  function temporalShenshaCandidateFor(candidate) {
+    const bundle = state.response?.bazi_temporal_shensha_projection_bundle;
+    const rows = Array.isArray(bundle?.candidates) ? bundle.candidates : [];
+    const matches = rows.filter(
+      (row) => row.source_bazi_target_flow_candidate_id === candidate.candidate_id,
+    );
+    return matches.length === 1 ? matches[0] : null;
   }
 
   function clearCandidateView() {
@@ -341,20 +379,25 @@ TARGET_FLOW_JS = r"""
     const flow = view.flow;
     const dayun = flow.active_dayun_frame;
     const annotations = view.timeline.classical_annotations;
-    framesRoot.append(frameCard('大运', dayun, flow.active_dayun_kind, annotations.dayun));
+    const shenshaSidecarCandidate = temporalShenshaCandidateFor(candidate);
+    const shenshaProjection = shenshaSidecarCandidate?.projection || null;
+    framesRoot.append(frameCard(
+      '大运', dayun, flow.active_dayun_kind, annotations.dayun, shenshaProjection?.dayun,
+    ));
     view.timeline.xiaoyun.candidates.forEach((row, rowIndex) => {
       framesRoot.append(frameCard(
         `小运候选 · ${row.profile_id}`,
         row.active_frame,
         `${row.direction} · ${row.activation_status}`,
         annotations.xiaoyun_candidates[rowIndex],
+        shenshaProjection?.xiaoyun_candidates?.[rowIndex],
       ));
     });
     framesRoot.append(
-      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`, annotations.annual),
-      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`, annotations.monthly),
-      frameCard('流日', view.daily, display(view.daily?.effective_day_date), annotations.daily),
-      frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly),
+      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`, annotations.annual, shenshaProjection?.annual),
+      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`, annotations.monthly, shenshaProjection?.monthly),
+      frameCard('流日', view.daily, display(view.daily?.effective_day_date), annotations.daily, shenshaProjection?.daily),
+      frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly, shenshaProjection?.hourly),
     );
     renderStructural(view.structural);
     renderStructuralSupport(view.structural_support);
@@ -370,6 +413,8 @@ TARGET_FLOW_JS = r"""
       `structural_support_fact=${candidate.structural_support_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
       `temporal_annotation_fact=${display(annotations.fact_hash)}`,
+      `temporal_shensha_sidecar_candidate=${display(shenshaSidecarCandidate?.candidate_id)}`,
+      `temporal_shensha_sidecar_fact=${display(shenshaSidecarCandidate?.fact_hash)}`,
       `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} structural=${display(view.integrity?.structural)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
     ].join('\n');
   }

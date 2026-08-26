@@ -6,7 +6,8 @@
   "additionalProperties": false,
   "required": [
     "schema", "location_selection", "combined_resolution",
-    "bazi_target_flow_bundle", "combined_target_flow_resolution"
+    "bazi_target_flow_bundle", "bazi_temporal_shensha_projection_bundle",
+    "combined_target_flow_resolution"
   ],
   "properties": {
     "schema": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-RESOLVE-R1"},
@@ -33,6 +34,27 @@
         "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
         "source_fact_hash": {"$ref": "#/$defs/hash"},
         "view_hash": {"$ref": "#/$defs/hash"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {"$ref": "#/$defs/passIntegrity"}
+      }
+    },
+    "bazi_temporal_shensha_projection_bundle": {
+      "type": "object",
+      "required": [
+        "schema", "status", "base_application_bundle_hash",
+        "bazi_target_flow_bundle_hash", "projection_profile_id", "projection_profile_version",
+        "candidates", "fact_hash", "computation_hash", "bundle_hash", "integrity"
+      ],
+      "properties": {
+        "schema": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
+        "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+        "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
+        "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+        "projection_profile_id": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
+        "projection_profile_version": {"const": "1.0.0"},
+        "candidates": {"type": "array", "minItems": 1},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"},
         "bundle_hash": {"$ref": "#/$defs/hash"},
         "integrity": {"$ref": "#/$defs/passIntegrity"}
       }

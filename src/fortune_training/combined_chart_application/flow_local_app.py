@@ -21,6 +21,10 @@ from fortune_training.bazi_temporal import (
     bazi_temporal_v1_continuous_profile,
     bazi_temporal_wenzhen_china_compatibility_r1_profile,
 )
+from fortune_training.bazi_temporal_shensha_sidecar import (
+    BaziTemporalShenshaSidecarService,
+    TemporalShenshaSidecarResolutionError,
+)
 from fortune_training.calendar_foundation import BirthInput
 from fortune_training.calendar_foundation.models import json_value
 
@@ -72,6 +76,7 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
     def __init__(self, repository_root: Path) -> None:
         super().__init__(repository_root)
         self.flow_service = CombinedTargetFlowService(self.service)
+        self.temporal_shensha_sidecar_service = BaziTemporalShenshaSidecarService()
 
     def health(self) -> dict[str, Any]:
         payload = super().health()
@@ -285,11 +290,28 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
                 "LOCAL_APP_FLOW_RESOLUTION_FAILED", str(exc), status=422
             ) from exc
 
+        if base.bazi_bundle is None:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_TEMPORAL_SHENSHA_BASE_BUNDLE_MISSING",
+                "combined target-flow resolution did not retain the Bazi base bundle",
+                status=422,
+            )
+        try:
+            temporal_shensha_sidecar = self.temporal_shensha_sidecar_service.resolve(
+                base.bazi_bundle,
+                bazi_flow,
+            )
+        except TemporalShenshaSidecarResolutionError as exc:
+            raise LocalCombinedAppRequestError(exc.code, exc.detail, status=422) from exc
+
         return {
             "schema": FLOW_LOCAL_APP_RESOLVE_SCHEMA,
             "location_selection": location_selection,
             "combined_resolution": json_value(base),
             "bazi_target_flow_bundle": json_value(bazi_flow),
+            "bazi_temporal_shensha_projection_bundle": json_value(
+                temporal_shensha_sidecar
+            ),
             "combined_target_flow_resolution": json_value(combined_flow),
         }
 
