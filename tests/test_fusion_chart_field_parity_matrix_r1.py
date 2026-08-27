@@ -10,6 +10,9 @@ from fortune_training.combined_chart_application.bazi_pillar_metadata_assets imp
 from fortune_training.combined_chart_application.target_flow_ziwei_projection_assets import (
     TARGET_FLOW_ZIWEI_PROJECTION_JS,
 )
+from fortune_training.combined_chart_application.ziwei_basic_info_assets import (
+    ZIWEI_BASIC_INFO_JS,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -116,11 +119,34 @@ class FusionChartFieldParityMatrixR1Tests(unittest.TestCase):
             TARGET_FLOW_ZIWEI_PROJECTION_JS,
         )
 
+    def test_released_ziwei_bureau_metadata_is_visible_read_only(self) -> None:
+        fields = {
+            "ZIWEI_LIFE_PALACE_GANZHI": ("bureau.life_palace_ganzhi", "命宫干支"),
+            "ZIWEI_BUREAU_NAYIN": ("bureau.nayin_name", "局纳音"),
+        }
+        for field_id, (source_key, label) in fields.items():
+            with self.subTest(field_id=field_id):
+                row = self.rows[field_id]
+                self.assertEqual(row["status"], "ALREADY_VISIBLE")
+                self.assertEqual(row["system"], "ZIWEI")
+                self.assertEqual(
+                    row["workbench_evidence"]["path"],
+                    "src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py",
+                )
+                self.assertIn(source_key, ZIWEI_BASIC_INFO_JS)
+                self.assertIn(f"item('{label}'", ZIWEI_BASIC_INFO_JS)
+
+        self.assertIn("response.clone()", ZIWEI_BASIC_INFO_JS)
+        self.assertNotIn("NayinRegistry", ZIWEI_BASIC_INFO_JS)
+        self.assertNotIn("NatalStructureGenerator", ZIWEI_BASIC_INFO_JS)
+
     def test_closed_p1_metadata_rows_leave_no_stale_ui_gap_claim(self) -> None:
         closed_ids = {
             "BAZI_STEM_ELEMENT",
             "BAZI_STEM_POLARITY",
             "BAZI_BRANCH_ELEMENT_AFFILIATION",
+            "ZIWEI_LIFE_PALACE_GANZHI",
+            "ZIWEI_BUREAU_NAYIN",
         }
         stale = {
             row["field_id"]
