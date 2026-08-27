@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import threading
 import unittest
 import urllib.request
@@ -74,7 +75,10 @@ class CombinedBrowserZiweiTargetProjectionR1Tests(unittest.TestCase):
         self.assertIn("invalidateProjectionOnly", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertIn("observer.observe(ziweiRoot", TARGET_FLOW_ZIWEI_PROJECTION_JS)
         self.assertNotIn("$('ziwei-chart').innerHTML", TARGET_FLOW_ZIWEI_PROJECTION_JS)
-        self.assertNotIn("candidateSelect.value =", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIsNone(
+            re.search(r"candidateSelect\.value\s*=(?!=)", TARGET_FLOW_ZIWEI_PROJECTION_JS),
+            "read-only projection asset must not assign candidateSelect.value",
+        )
 
     def test_projection_assets_have_independent_visual_contract(self) -> None:
         self.assertIn(".ziwei-target-projection", TARGET_FLOW_ZIWEI_PROJECTION_CSS)
