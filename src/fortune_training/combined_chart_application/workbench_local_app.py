@@ -20,6 +20,15 @@ from .bazi_pillar_metadata_assets import (
     BAZI_PILLAR_METADATA_JS,
     bazi_pillar_metadata_index_html,
 )
+from .bazi_stem_relation_assets import (
+    BAZI_STEM_RELATION_CSS,
+    BAZI_STEM_RELATION_JS,
+    bazi_stem_relation_index_html,
+)
+from .bazi_stem_relation_local_app import (
+    BaziStemRelationPresentationLocalMixin,
+    _BaziStemRelationPresentationHandlerMixin,
+)
 from .flow_fusion_assets import (
     FLOW_FUSION_CSS,
     FLOW_FUSION_JS,
@@ -73,6 +82,7 @@ from .ziwei_basic_info_assets import (
 
 
 class CombinedChartWorkbenchApplication(
+    BaziStemRelationPresentationLocalMixin,
     BaziBranchRelationPresentationLocalMixin,
     BaziNayinPresentationLocalMixin,
     FlowFusionR2LocalMixin,
@@ -97,6 +107,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _BaziStemRelationPresentationHandlerMixin,
     _BaziBranchRelationPresentationHandlerMixin,
     _NayinPresentationHandlerMixin,
     _FlowFusionR2HandlerMixin,
@@ -105,19 +116,21 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.7"
+    server_version = "CombinedChartWorkbenchLocalApp/1.8"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = bazi_branch_relation_index_html(
-                bazi_pillar_metadata_index_html(
-                    ziwei_basic_info_index_html(
-                        flow_fusion_index_html(
-                            nayin_index_html(
-                                shared_apply_index_html(
-                                    target_flow_index_html(
-                                        interaction_index_html(INDEX_HTML)
+            html = bazi_stem_relation_index_html(
+                bazi_branch_relation_index_html(
+                    bazi_pillar_metadata_index_html(
+                        ziwei_basic_info_index_html(
+                            flow_fusion_index_html(
+                                nayin_index_html(
+                                    shared_apply_index_html(
+                                        target_flow_index_html(
+                                            interaction_index_html(INDEX_HTML)
+                                        )
                                     )
                                 )
                             )
@@ -126,6 +139,20 @@ class _WorkbenchHandler(
                 )
             )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
+            return
+        if path == "/bazi-stem-relations.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                BAZI_STEM_RELATION_CSS.encode(),
+            )
+            return
+        if path == "/bazi-stem-relations.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                BAZI_STEM_RELATION_JS.encode(),
+            )
             return
         if path == "/bazi-branch-relations.css":
             self._send_bytes(
@@ -269,7 +296,8 @@ def main(argv: list[str] | None = None) -> int:
             "Run the local-only Ziwei + Bazi chart workbench with independent "
             "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
             "Ziwei natal basic-info presentation, Bazi Nayin/pillar-metadata/"
-            "branch-relation presentation, and explicit shared-time apply sidecars"
+            "stem-relation/branch-relation presentation, and explicit shared-time "
+            "apply sidecars"
         )
     )
     parser.add_argument(
@@ -287,8 +315,8 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
         "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
-        "Ziwei natal basics plus Bazi Nayin, pillar metadata and natal branch-relation "
-        "facts are read-only presentation projections."
+        "Ziwei natal basics plus Bazi Nayin, pillar metadata and natal stem/branch "
+        "relation facts are read-only presentation projections."
     )
     print(
         "Shared target synchronization is explicit opt-in only; no automatic "
