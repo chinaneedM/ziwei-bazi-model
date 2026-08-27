@@ -50,6 +50,9 @@ class CombinedWorkbenchZiweiBasicInfoR1Tests(unittest.TestCase):
         self.assertIn("bureau", structure)
         self.assertIn("life_address", structure)
         self.assertIn("body_address", structure)
+        bureau = structure["bureau"]
+        self.assertTrue(bureau["life_palace_ganzhi"])
+        self.assertTrue(bureau["nayin_name"])
         roles = {row["role_id"]: row for row in chart["role_bindings"]}
         self.assertIn("ROLE.MINGZHU", roles)
         self.assertIn("ROLE.SHENZHU", roles)
@@ -59,15 +62,22 @@ class CombinedWorkbenchZiweiBasicInfoR1Tests(unittest.TestCase):
     def test_browser_projection_reads_released_fields_without_recomputation(self) -> None:
         self.assertIn("candidate?.chart", ZIWEI_BASIC_INFO_JS)
         self.assertIn("structure.bureau", ZIWEI_BASIC_INFO_JS)
+        self.assertIn("bureau.life_palace_ganzhi", ZIWEI_BASIC_INFO_JS)
+        self.assertIn("bureau.nayin_name", ZIWEI_BASIC_INFO_JS)
+        self.assertIn("item('命宫干支'", ZIWEI_BASIC_INFO_JS)
+        self.assertIn("item('局纳音'", ZIWEI_BASIC_INFO_JS)
         self.assertIn("ROLE.MINGZHU", ZIWEI_BASIC_INFO_JS)
         self.assertIn("ROLE.SHENZHU", ZIWEI_BASIC_INFO_JS)
         self.assertIn("structure.body_address", ZIWEI_BASIC_INFO_JS)
+        self.assertIn("response.clone()", ZIWEI_BASIC_INFO_JS)
         for forbidden in (
             "NatalStructureGenerator",
             "WenmoDefaultRoleGenerator",
             "MINGZHU_BY_LIFE_BRANCH",
             "WENMO_SHENZHU_BY_YEAR_BRANCH",
             "TimeCalendarFoundation",
+            "NayinRegistry",
+            "lifePalaceGanzhi",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, ZIWEI_BASIC_INFO_JS)
@@ -93,6 +103,8 @@ class CombinedWorkbenchZiweiBasicInfoR1Tests(unittest.TestCase):
             with urlopen(f"{base}/ziwei-basic-info.js", timeout=10) as response:  # noqa: S310
                 js = response.read().decode("utf-8")
             self.assertIn("panel.id = 'ziwei-basic-info'", js)
+            self.assertIn("item('命宫干支'", js)
+            self.assertIn("item('局纳音'", js)
             with urlopen(f"{base}/ziwei-basic-info.css", timeout=10) as response:  # noqa: S310
                 css = response.read().decode("utf-8")
             self.assertIn(".ziwei-basic-info-grid", css)
