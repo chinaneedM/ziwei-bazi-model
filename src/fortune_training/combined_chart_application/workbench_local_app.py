@@ -47,6 +47,10 @@ from .target_flow_assets import (
     target_flow_index_html,
 )
 from .target_flow_guard_assets import TARGET_FLOW_GUARD_JS
+from .target_flow_ziwei_projection_assets import (
+    TARGET_FLOW_ZIWEI_PROJECTION_CSS,
+    TARGET_FLOW_ZIWEI_PROJECTION_JS,
+)
 from .ziwei_basic_info_assets import (
     ZIWEI_BASIC_INFO_CSS,
     ZIWEI_BASIC_INFO_JS,
@@ -116,14 +120,20 @@ class _WorkbenchHandler(
             )
             return
         if path == "/target-flow.css":
+            combined_css = (
+                f"{TARGET_FLOW_CSS}\n{TARGET_FLOW_ZIWEI_PROJECTION_CSS}"
+            )
             self._send_bytes(
                 200,
                 "text/css; charset=utf-8",
-                TARGET_FLOW_CSS.encode(),
+                combined_css.encode(),
             )
             return
         if path == "/target-flow.js":
-            combined_js = f"{TARGET_FLOW_JS}\n{TARGET_FLOW_GUARD_JS}"
+            combined_js = (
+                f"{TARGET_FLOW_JS}\n{TARGET_FLOW_GUARD_JS}\n"
+                f"{TARGET_FLOW_ZIWEI_PROJECTION_JS}"
+            )
             self._send_bytes(
                 200,
                 "application/javascript; charset=utf-8",
