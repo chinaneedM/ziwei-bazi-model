@@ -22,6 +22,16 @@ BAZI_PILLAR_METADATA_CSS = """
   font-size:10px;
   line-height:1.45;
 }
+.bazi-jiaoyun-symbolic-age {
+  margin:8px 0;
+  padding:7px 9px;
+  border:1px solid #e1e4e7;
+  border-radius:7px;
+  background:#fafbfc;
+  color:#4f5863;
+  font-size:11px;
+  line-height:1.5;
+}
 """
 
 
@@ -42,6 +52,7 @@ BAZI_PILLAR_METADATA_JS = r"""
 
   function clearMetadata() {
     baziRoot.querySelectorAll('.bazi-pillar-metadata').forEach((row) => row.remove());
+    baziRoot.querySelectorAll('.bazi-jiaoyun-symbolic-age').forEach((row) => row.remove());
   }
 
   function selectedApplicationCandidateIndex() {
@@ -87,6 +98,40 @@ BAZI_PILLAR_METADATA_JS = r"""
     return bindings;
   }
 
+  function validNonNegativeInteger(value) {
+    return Number.isInteger(value) && value >= 0;
+  }
+
+  function renderJiaoyunSymbolicAge(candidate, selectedIndex) {
+    const jiaoyun = candidate?.view?.dayun?.jiaoyun;
+    const symbolic = jiaoyun?.symbolic_age;
+    if (
+      !symbolic ||
+      !validNonNegativeInteger(symbolic.years_360) ||
+      !validNonNegativeInteger(symbolic.months_30) ||
+      !validNonNegativeInteger(symbolic.days) ||
+      !validNonNegativeInteger(symbolic.residual_microseconds)
+    ) {
+      return;
+    }
+
+    const row = document.createElement('div');
+    row.className = 'bazi-jiaoyun-symbolic-age';
+    row.dataset.applicationCandidateIndex = String(selectedIndex);
+    row.textContent = (
+      `起运岁数（符号年龄；360日年 / 30日月）：` +
+      `${symbolic.years_360}年 ${symbolic.months_30}月 ${symbolic.days}日`
+    );
+    row.title = (
+      `原始符号年龄余量：${symbolic.residual_microseconds} 微秒；` +
+      `交运时点：${jiaoyun.first_transition_utc || '-'}；` +
+      `节气锚点：${jiaoyun.anchor_jie_name || '-'}`
+    );
+
+    const dayunTable = baziRoot.querySelector('.dayun');
+    baziRoot.insertBefore(row, dayunTable || null);
+  }
+
   function renderFromResponse(response) {
     clearMetadata();
     const bundle = response?.combined_resolution?.bazi_bundle;
@@ -116,6 +161,7 @@ BAZI_PILLAR_METADATA_JS = r"""
       );
       pillar.append(row);
     });
+    renderJiaoyunSymbolicAge(candidate, selectedIndex);
   }
 
   function scheduleRender() {
