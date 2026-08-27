@@ -110,6 +110,8 @@ ZIWEI_BASIC_INFO_JS = r"""
     clear(grid);
     grid.append(
       item('五行局', bureauText),
+      item('命宫干支', bureau.life_palace_ganzhi || '-'),
+      item('局纳音', bureau.nayin_name || '-'),
       item('命主', role(chart, 'ROLE.MINGZHU')),
       item('身主', role(chart, 'ROLE.SHENZHU')),
       item('命宫', structure.life_address?.branch || '-'),
