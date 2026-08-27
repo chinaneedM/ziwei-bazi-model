@@ -112,15 +112,24 @@ class FortuneChartBaziBranchRelationPresentationR1Tests(unittest.TestCase):
         natal_indices = {row["natal_candidate_index"] for row in candidates}
         self.assertGreaterEqual(len(natal_indices), 2)
         self.assertEqual(set(range(len(natal_indices))), natal_indices)
-        lineages = {
-            (
+
+        exact_lineages: dict[tuple[int, str, str], str] = {}
+        for row in candidates:
+            lineage = (
                 row["natal_candidate_index"],
                 row["source_natal_fact_hash"],
                 row["source_natal_computation_hash"],
             )
-            for row in candidates
-        }
-        self.assertEqual(len(candidates), len(lineages))
+            relation_json = json.dumps(
+                row["branch_relations"],
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            previous = exact_lineages.setdefault(lineage, relation_json)
+            self.assertEqual(previous, relation_json)
+
+        self.assertEqual(len(natal_indices), len(exact_lineages))
 
     def test_browser_contract_is_candidate_bound_and_non_judgmental(self) -> None:
         for required in (
