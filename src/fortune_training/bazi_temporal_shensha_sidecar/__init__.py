@@ -10,6 +10,7 @@ from .models import (
 from .service import (
     BaziTemporalShenshaSidecarService,
     TemporalShenshaSidecarResolutionError,
+    bound_source_application_candidates,
     coherent_source_shensha_for_candidates,
     validate_temporal_shensha_sidecar_full_replay,
 )
@@ -23,6 +24,7 @@ __all__ = [
     "TemporalShenshaSidecarIntegrityReport",
     "TemporalShenshaSidecarResolution",
     "TemporalShenshaSidecarResolutionError",
+    "bound_source_application_candidates",
     "coherent_source_shensha_for_candidates",
     "validate_temporal_shensha_sidecar_full_replay",
     "validate_temporal_shensha_sidecar_resolution",

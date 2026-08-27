@@ -40,19 +40,24 @@
     },
     "bazi_temporal_shensha_projection_bundle": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
-        "schema", "status", "base_application_bundle_hash",
-        "bazi_target_flow_bundle_hash", "projection_profile_id", "projection_profile_version",
-        "candidates", "fact_hash", "computation_hash", "bundle_hash", "integrity"
+        "schema", "status", "base_application_bundle_hash", "base_application_source_fact_hash",
+        "bazi_target_flow_bundle_hash", "bazi_target_flow_source_fact_hash",
+        "projection_profile_id", "projection_profile_version", "candidates", "diagnostics",
+        "fact_hash", "computation_hash", "bundle_hash", "integrity"
       ],
       "properties": {
         "schema": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
         "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
         "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
+        "base_application_source_fact_hash": {"$ref": "#/$defs/hash"},
         "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+        "bazi_target_flow_source_fact_hash": {"$ref": "#/$defs/hash"},
         "projection_profile_id": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
         "projection_profile_version": {"const": "1.0.0"},
         "candidates": {"type": "array", "minItems": 1},
+        "diagnostics": {"type": "array", "maxItems": 0},
         "fact_hash": {"$ref": "#/$defs/hash"},
         "computation_hash": {"$ref": "#/$defs/hash"},
         "bundle_hash": {"$ref": "#/$defs/hash"},

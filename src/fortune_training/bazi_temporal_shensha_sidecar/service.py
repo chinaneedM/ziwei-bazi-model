@@ -4,7 +4,10 @@ from dataclasses import replace
 from typing import Any, Mapping, Sequence
 
 from fortune_training.bazi_application.flow_integrity import validate_application_flow_resolution
-from fortune_training.bazi_application.flow_models import BaziApplicationFlowResolution
+from fortune_training.bazi_application.flow_models import (
+    BaziApplicationFlowCandidate,
+    BaziApplicationFlowResolution,
+)
 from fortune_training.bazi_application.integrity import validate_application_resolution
 from fortune_training.bazi_application.models import BaziApplicationCandidate, BaziApplicationResolution
 from fortune_training.bazi_application.temporal_shensha import temporal_shensha_target_projection
@@ -63,6 +66,69 @@ def coherent_source_shensha_for_candidates(
     return first, first_hash
 
 
+def bound_source_application_candidates(
+    base_candidates: Sequence[BaziApplicationCandidate],
+    flow_candidate: BaziApplicationFlowCandidate,
+) -> tuple[BaziApplicationCandidate, ...]:
+    source_by_id: dict[str, BaziApplicationCandidate] = {}
+    source_by_lineage: dict[tuple[int, int], BaziApplicationCandidate] = {}
+    for source in base_candidates:
+        if source.candidate_id in source_by_id:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_CANDIDATE_ID_DUPLICATE",
+                source.candidate_id,
+            )
+        source_by_id[source.candidate_id] = source
+        lineage_key = (source.natal_candidate_index, source.temporal_candidate_index)
+        if lineage_key in source_by_lineage:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_COORDINATE_DUPLICATE",
+                f"natal={lineage_key[0]};temporal={lineage_key[1]}",
+            )
+        source_by_lineage[lineage_key] = source
+
+    source_ids = flow_candidate.source_application_candidate_ids
+    temporal_indices = flow_candidate.source_temporal_candidate_indices
+    if len(source_ids) != len(temporal_indices):
+        raise TemporalShenshaSidecarResolutionError(
+            "BAZI_TEMPORAL_SHENSHA_FLOW_APPLICATION_LINEAGE_COUNT_MISMATCH",
+            f"flow={flow_candidate.candidate_id};ids={len(source_ids)};temporal={len(temporal_indices)}",
+        )
+
+    bound: list[BaziApplicationCandidate] = []
+    for position, (source_id, temporal_index) in enumerate(
+        zip(source_ids, temporal_indices, strict=True)
+    ):
+        source = source_by_id.get(source_id)
+        if source is None:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_MISSING",
+                f"flow={flow_candidate.candidate_id};source={source_id}",
+            )
+        lineage_key = (flow_candidate.natal_candidate_index, temporal_index)
+        expected = source_by_lineage.get(lineage_key)
+        if expected is None:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_COORDINATE_MISSING",
+                f"flow={flow_candidate.candidate_id};position={position};natal={lineage_key[0]};temporal={lineage_key[1]}",
+            )
+        if expected.candidate_id != source_id:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_COORDINATE_MISMATCH",
+                f"flow={flow_candidate.candidate_id};position={position};expected={expected.candidate_id};actual={source_id}",
+            )
+        if (
+            source.natal_candidate_index != flow_candidate.natal_candidate_index
+            or source.temporal_candidate_index != temporal_index
+        ):
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_COORDINATE_MISMATCH",
+                f"flow={flow_candidate.candidate_id};position={position};source={source_id}",
+            )
+        bound.append(source)
+    return tuple(bound)
+
+
 def _mapping_or_none(value: Any) -> Mapping[str, Any] | None:
     return value if isinstance(value, Mapping) else None
 
@@ -71,6 +137,20 @@ class BaziTemporalShenshaSidecarService:
     schema = TEMPORAL_SHENSHA_SIDECAR_SCHEMA
 
     def resolve(
+        self,
+        base_application: BaziApplicationResolution,
+        bazi_target_flow: BaziApplicationFlowResolution,
+    ) -> TemporalShenshaSidecarResolution:
+        first = self._resolve_once(base_application, bazi_target_flow)
+        replay = self._resolve_once(base_application, bazi_target_flow)
+        if replay != first:
+            raise TemporalShenshaSidecarResolutionError(
+                "BAZI_TEMPORAL_SHENSHA_FULL_REPLAY_FAILED",
+                "public sidecar resolution was not byte-stable under immediate replay",
+            )
+        return first
+
+    def _resolve_once(
         self,
         base_application: BaziApplicationResolution,
         bazi_target_flow: BaziApplicationFlowResolution,
@@ -93,24 +173,12 @@ class BaziTemporalShenshaSidecarService:
                 f"base={base_application.bundle_hash};flow={bazi_target_flow.base_application_bundle_hash}",
             )
 
-        source_by_id = {row.candidate_id: row for row in base_application.candidates}
-        if len(source_by_id) != len(base_application.candidates):
-            raise TemporalShenshaSidecarResolutionError(
-                "BAZI_TEMPORAL_SHENSHA_SOURCE_CANDIDATE_ID_DUPLICATE",
-                str(len(base_application.candidates)),
-            )
-
         candidates: list[TemporalShenshaSidecarCandidate] = []
         for flow_candidate_index, flow_candidate in enumerate(bazi_target_flow.candidates):
-            source_candidates: list[BaziApplicationCandidate] = []
-            for source_id in flow_candidate.source_application_candidate_ids:
-                source = source_by_id.get(source_id)
-                if source is None:
-                    raise TemporalShenshaSidecarResolutionError(
-                        "BAZI_TEMPORAL_SHENSHA_SOURCE_LINEAGE_MISSING",
-                        f"flow={flow_candidate.candidate_id};source={source_id}",
-                    )
-                source_candidates.append(source)
+            source_candidates = bound_source_application_candidates(
+                base_application.candidates,
+                flow_candidate,
+            )
             source_shensha, source_shensha_hash = coherent_source_shensha_for_candidates(
                 source_candidates
             )
