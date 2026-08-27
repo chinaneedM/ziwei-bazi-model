@@ -39,7 +39,14 @@ The existing Workbench shared-apply panel remains the user-facing explicit Ziwei
 
 ## Full replay gate
 
-After projection, `/api/resolve-flow` calls `validate_shared_ziwei_selector_full_replay(...)`. A byte-for-byte dataclass mismatch between the original result and an independent service replay fails closed with `LOCAL_APP_SHARED_ZIWEI_FULL_REPLAY_FAILED`.
+Both public Ziwei target-projection paths execute the same full replay gate before returning projection data:
+
+- `/api/resolve-flow`
+- `/api/shared-ziwei-projection`
+
+Each path calls `validate_shared_ziwei_selector_full_replay(...)` against the exact released Ziwei application bundle, resolved shared target coordinate, resolved target profile, and generated projection. A dataclass mismatch between the original result and an independent service replay fails closed with `LOCAL_APP_SHARED_ZIWEI_FULL_REPLAY_FAILED`.
+
+The standalone endpoint therefore cannot return a projection that has not passed the same deterministic replay requirement as the unified target-flow endpoint. Its successful response envelope and projection serialization remain unchanged.
 
 This sits on top of the existing structural integrity checks, candidate hashes, projection fact/computation hashes, and exact source-lineage replay in `shared_time_integrity.py`.
 
@@ -55,8 +62,9 @@ Regression coverage verifies:
 4. deterministic daily rule lineage;
 5. preservation of both hourly case-method candidates with no selected hour;
 6. DST fold candidate preservation;
-7. fail-closed full replay;
-8. rejection of injected prediction fields by the unified response schema.
+7. fail-closed full replay on the unified endpoint;
+8. rejection of injected prediction fields by the unified response schema;
+9. fail-closed full replay on the standalone `/api/shared-ziwei-projection` endpoint while retaining the pre-existing successful response contract.
 
 ## Compatibility boundary
 
