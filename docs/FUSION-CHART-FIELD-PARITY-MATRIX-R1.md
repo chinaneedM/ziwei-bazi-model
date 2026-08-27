@@ -36,7 +36,8 @@ The register records as visible:
 - Dayun / Jiaoyun;
 - 天干五行、天干阴阳、地支五行归属;
 - shared time credentials with separate Zi Wei and Ba Zi policy labels;
-- deterministic Zi Wei target daily projection.
+- deterministic Zi Wei target daily projection;
+- Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure.
 
 Zi Wei target hourly methods remain `DISPUTED_CANDIDATE_ONLY`: all released candidates are shown and no winner may be synthesized by the Workbench.
 
@@ -49,6 +50,13 @@ The first three rows originally classified `ALREADY_RELEASED_NOT_YET_VISIBLE` we
 - `branch_element_affiliation` — 地支五行归属
 
 They are now `ALREADY_VISIBLE`. The closure is presentation-only: `bazi_pillar_metadata_assets.py` reuses the exact successful combined response, binds to the explicitly selected Ba Zi application candidate, validates pillar position and Ganzhi identity, then renders the three released values. No natal formula, Five-Element strength rule, polarity rule, prediction rule, or candidate winner was added.
+
+The same product-closure principle now covers two Zi Wei natal fields that were already released in `FiveElementBureau` but hidden from the Workbench:
+
+- `life_palace_ganzhi` — 命宫干支
+- `nayin_name` — 局纳音
+
+Both are now `ALREADY_VISIBLE`. `ziwei_basic_info_assets.py` consumes the exact successful `/api/resolve` response and renders those two fields from `combined_resolution.ziwei_bundle.candidate.chart.structure.bureau`. No Life-Palace stem derivation, Nayin lookup, chart regeneration, interpretation, or selector mutation occurs in the browser.
 
 The matrix may therefore temporarily contain no `ALREADY_RELEASED_NOT_YET_VISIBLE` row. The status remains part of the R1 contract because future parity audits may identify additional released-but-hidden fields.
 
@@ -67,4 +75,4 @@ Internal hashes, registry ordinals and semantic-role IDs are not automatically p
 
 ## Validation
 
-`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the evidence claims. It verifies that currently visible fields are not regressed into a missing category, proves the three closed Ba Zi pillar metadata rows are consumed by the read-only sidecar from released source fields with exact-candidate/pillar validation, and preserves candidate-only Zi Wei hourly semantics.
+`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the evidence claims. It verifies that currently visible fields are not regressed into a missing category, proves the closed Ba Zi pillar metadata rows are consumed by the read-only sidecar from released source fields with exact-candidate/pillar validation, proves the Zi Wei 命宫干支 / 局纳音 rows are consumed directly from the released bureau structure without browser-side recomputation, and preserves candidate-only Zi Wei hourly semantics.
