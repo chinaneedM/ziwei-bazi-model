@@ -201,6 +201,30 @@
       "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/bazi_pillar_metadata_assets.py", "symbol": "renderFromResponse", "claim": "The read-only pillar metadata sidecar validates the exact selected application candidate and renders branch_element_affiliation."},
       "compatibility_relevance": "Useful deterministic presentation metadata for branch identity.",
       "notes": "UI closure completed while preserving the existing branch-element registry semantics."
+    },
+    {
+      "field_id": "ZIWEI_LIFE_PALACE_GANZHI",
+      "system": "ZIWEI",
+      "display_name": "命宫干支",
+      "status": "ALREADY_VISIBLE",
+      "priority": "REFERENCE",
+      "backend_evidence": {"path": "src/fortune_training/ziwei_chart/models.py", "symbol": "FiveElementBureau.life_palace_ganzhi", "claim": "The released natal structure carries the deterministic Life-Palace Ganzhi inside FiveElementBureau."},
+      "api_evidence": {"path": "src/fortune_training/combined_chart_application/service.py", "symbol": "CombinedChartService", "claim": "The exact Zi Wei natal candidate chart structure is preserved in combined_resolution.ziwei_bundle.candidate."},
+      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py", "symbol": "renderFromResolvePayload", "claim": "Workbench renders bureau.life_palace_ganzhi directly as 命宫干支 from the successful /api/resolve response."},
+      "compatibility_relevance": "Useful deterministic natal identity metadata for a complete Zi Wei chart presentation.",
+      "notes": "Presentation-only closure; no Life-Palace stem derivation is performed in the browser."
+    },
+    {
+      "field_id": "ZIWEI_BUREAU_NAYIN",
+      "system": "ZIWEI",
+      "display_name": "局纳音",
+      "status": "ALREADY_VISIBLE",
+      "priority": "REFERENCE",
+      "backend_evidence": {"path": "src/fortune_training/ziwei_chart/models.py", "symbol": "FiveElementBureau.nayin_name", "claim": "The released natal structure carries the deterministic bureau Nayin name inside FiveElementBureau."},
+      "api_evidence": {"path": "src/fortune_training/combined_chart_application/service.py", "symbol": "CombinedChartService", "claim": "The exact Zi Wei natal candidate chart structure is preserved in combined_resolution.ziwei_bundle.candidate."},
+      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py", "symbol": "renderFromResolvePayload", "claim": "Workbench renders bureau.nayin_name directly as 局纳音 from the successful /api/resolve response."},
+      "compatibility_relevance": "Useful deterministic bureau metadata for a complete Zi Wei natal presentation.",
+      "notes": "Presentation-only closure; no Nayin lookup or doctrinal interpretation is performed in the browser."
     }
   ]
 }
