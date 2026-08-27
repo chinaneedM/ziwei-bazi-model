@@ -35,6 +35,8 @@ The register records as visible:
 - Nayin presentation;
 - Dayun / Jiaoyun;
 - 天干五行、天干阴阳、地支五行归属;
+- 本命地支六合 / 三合 / 六冲 / 相穿（六害）/ 相刑关系事实;
+- 本命天干五合关系事实;
 - shared time credentials with separate Zi Wei and Ba Zi policy labels;
 - deterministic Zi Wei target daily projection;
 - Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure;
@@ -59,6 +61,19 @@ The same product-closure principle now covers two Zi Wei natal fields that were 
 - `nayin_name` — 局纳音
 
 Both are now `ALREADY_VISIBLE`. `ziwei_basic_info_assets.py` consumes the exact successful `/api/resolve` response and renders those two fields from `combined_resolution.ziwei_bundle.candidate.chart.structure.bureau`. No Life-Palace stem derivation, Nayin lookup, chart regeneration, interpretation, or selector mutation occurs in the browser.
+
+## Visible Ba Zi natal relation inventory closure
+
+A source-backed audit of `BaziNatalState.raw_relations` found two deterministic relation surfaces that were already released by the natal engine and are now rendered through read-only Workbench sidecars:
+
+- `BAZI_NATAL_BRANCH_RELATIONS` — 本命地支六合、三合、六冲、相穿 / 六害、相刑关系身份;
+- `BAZI_NATAL_STEM_FIVE_COMBINATIONS` — 本命天干五合关系身份.
+
+Both rows are `ALREADY_VISIBLE`. Their backend source is the released `generate_raw_relations()` implementation in `src/fortune_training/bazi_chart/relations.py`. The branch sidecar binds to S14 sections 7.2 through 7.6; the stem sidecar binds to S14 section 7.1. Each presentation endpoint replays the exact natal candidate and requires equality of both natal FactHash and natal ComputationHash before exposing the relation participant instances.
+
+The semantic boundary is intentionally narrow. The Workbench displays relation identity only. It does not expose `nominal_transformation_element`, does not decide whether a combination transforms, and does not synthesize structure success/failure, Five-Element strength, auspiciousness, winner selection or predictive interpretation. Multiple application candidates may legally reuse one natal candidate, so the sidecars preserve every application candidate while requiring reused natal lineages to project identical natal relation facts.
+
+S14 does not provide a complete source table for 三会 or 破 under the current canonical closure. Those relations remain outside this productized surface rather than being filled from unsourced common mnemonics.
 
 ## Visible Zi Wei natal inventory closure
 
@@ -92,3 +107,5 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 ## Validation
 
 `tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` additionally proves that the seven Zi Wei natal inventory rows are registered as already visible, that the basic-info rows consume released natal payload values without a second chart/time calculation path, and that the twelve-palace SVG already renders palace Ganzhi, dignity state/grade and transformation badges from the released view model.
+
+`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics.
