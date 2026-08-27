@@ -6,6 +6,11 @@ from http.server import HTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from .bazi_pillar_metadata_assets import (
+    BAZI_PILLAR_METADATA_CSS,
+    BAZI_PILLAR_METADATA_JS,
+    bazi_pillar_metadata_index_html,
+)
 from .flow_fusion_assets import (
     FLOW_FUSION_CSS,
     FLOW_FUSION_JS,
@@ -89,21 +94,37 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.5"
+    server_version = "CombinedChartWorkbenchLocalApp/1.6"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = ziwei_basic_info_index_html(
-                flow_fusion_index_html(
-                    nayin_index_html(
-                        shared_apply_index_html(
-                            target_flow_index_html(interaction_index_html(INDEX_HTML))
+            html = bazi_pillar_metadata_index_html(
+                ziwei_basic_info_index_html(
+                    flow_fusion_index_html(
+                        nayin_index_html(
+                            shared_apply_index_html(
+                                target_flow_index_html(interaction_index_html(INDEX_HTML))
+                            )
                         )
                     )
                 )
             )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
+            return
+        if path == "/bazi-pillar-metadata.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                BAZI_PILLAR_METADATA_CSS.encode(),
+            )
+            return
+        if path == "/bazi-pillar-metadata.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                BAZI_PILLAR_METADATA_JS.encode(),
+            )
             return
         if path == "/nayin.css":
             self._send_bytes(
@@ -220,8 +241,8 @@ def main(argv: list[str] | None = None) -> int:
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
             "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
-            "Ziwei natal basic-info presentation, Bazi Nayin presentation, and "
-            "explicit shared-time apply sidecars"
+            "Ziwei natal basic-info presentation, Bazi Nayin/pillar-metadata "
+            "presentation, and explicit shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -239,7 +260,8 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
         "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
-        "Ziwei natal basics and Bazi Nayin are read-only presentation projections."
+        "Ziwei natal basics plus Bazi Nayin and pillar metadata are read-only "
+        "presentation projections."
     )
     print(
         "Shared target synchronization is explicit opt-in only; no automatic "
