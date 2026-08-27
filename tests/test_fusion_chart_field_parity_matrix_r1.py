@@ -4,7 +4,9 @@ import json
 import unittest
 from pathlib import Path
 
-from fortune_training.combined_chart_application.local_app_assets import APP_JS
+from fortune_training.combined_chart_application.bazi_pillar_metadata_assets import (
+    BAZI_PILLAR_METADATA_JS,
+)
 from fortune_training.combined_chart_application.target_flow_ziwei_projection_assets import (
     TARGET_FLOW_ZIWEI_PROJECTION_JS,
 )
@@ -60,26 +62,40 @@ class FusionChartFieldParityMatrixR1Tests(unittest.TestCase):
             "BAZI_SHENSHA_FACT_CANDIDATES",
             "BAZI_NAYIN",
             "BAZI_DAYUN",
+            "BAZI_STEM_ELEMENT",
+            "BAZI_STEM_POLARITY",
+            "BAZI_BRANCH_ELEMENT_AFFILIATION",
             "SHARED_TIME_CREDENTIAL",
         }
         for field_id in expected_visible:
             with self.subTest(field_id=field_id):
                 self.assertEqual(self.rows[field_id]["status"], "ALREADY_VISIBLE")
 
-    def test_released_bazi_pillar_metadata_is_a_real_workbench_gap(self) -> None:
-        gaps = {
+    def test_released_bazi_pillar_metadata_is_now_visible_read_only(self) -> None:
+        fields = {
             "BAZI_STEM_ELEMENT": "stem_element",
             "BAZI_STEM_POLARITY": "stem_polarity",
             "BAZI_BRANCH_ELEMENT_AFFILIATION": "branch_element_affiliation",
         }
-        for field_id, key in gaps.items():
+        for field_id, key in fields.items():
             with self.subTest(field_id=field_id):
+                row = self.rows[field_id]
+                self.assertEqual(row["status"], "ALREADY_VISIBLE")
+                self.assertEqual(row["priority"], "REFERENCE")
                 self.assertEqual(
-                    self.rows[field_id]["status"],
-                    "ALREADY_RELEASED_NOT_YET_VISIBLE",
+                    row["workbench_evidence"]["path"],
+                    "src/fortune_training/combined_chart_application/bazi_pillar_metadata_assets.py",
                 )
                 self.assertIn(f'"{key}"', self.bazi_service)
-                self.assertNotIn(f"p.{key}", APP_JS)
+                self.assertIn(f"source.{key}", BAZI_PILLAR_METADATA_JS)
+
+        self.assertIn("response?.combined_resolution?.bazi_bundle", BAZI_PILLAR_METADATA_JS)
+        self.assertIn("selectedApplicationCandidateIndex()", BAZI_PILLAR_METADATA_JS)
+        self.assertIn("source.position !== expectedPositions[index]", BAZI_PILLAR_METADATA_JS)
+        self.assertIn("renderedGanzhi !== source.ganzhi", BAZI_PILLAR_METADATA_JS)
+        self.assertNotIn("五行强弱", BAZI_PILLAR_METADATA_JS)
+        self.assertNotIn("旺衰", BAZI_PILLAR_METADATA_JS)
+        self.assertNotIn("喜用神", BAZI_PILLAR_METADATA_JS)
 
     def test_ziwei_daily_is_visible_but_hourly_remains_candidate_only(self) -> None:
         self.assertEqual(
@@ -100,16 +116,20 @@ class FusionChartFieldParityMatrixR1Tests(unittest.TestCase):
             TARGET_FLOW_ZIWEI_PROJECTION_JS,
         )
 
-    def test_missing_ui_is_not_treated_as_missing_core(self) -> None:
-        statuses = {row["status"] for row in self.matrix["fields"]}
-        self.assertIn("ALREADY_RELEASED_NOT_YET_VISIBLE", statuses)
-        for field_id in (
+    def test_closed_p1_metadata_rows_leave_no_stale_ui_gap_claim(self) -> None:
+        closed_ids = {
             "BAZI_STEM_ELEMENT",
             "BAZI_STEM_POLARITY",
             "BAZI_BRANCH_ELEMENT_AFFILIATION",
-        ):
-            self.assertEqual(self.rows[field_id]["priority"], "P1")
-            self.assertIn("UI-only", self.rows[field_id]["notes"])
+        }
+        stale = {
+            row["field_id"]
+            for row in self.matrix["fields"]
+            if row["status"] == "ALREADY_RELEASED_NOT_YET_VISIBLE"
+        }
+        self.assertTrue(closed_ids.isdisjoint(stale))
+        for field_id in closed_ids:
+            self.assertNotIn("UI-only closure candidate", self.rows[field_id]["notes"])
 
 
 if __name__ == "__main__":

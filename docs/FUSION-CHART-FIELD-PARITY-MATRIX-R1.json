@@ -170,37 +170,37 @@
       "field_id": "BAZI_STEM_ELEMENT",
       "system": "BAZI",
       "display_name": "天干五行",
-      "status": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "priority": "P1",
+      "status": "ALREADY_VISIBLE",
+      "priority": "REFERENCE",
       "backend_evidence": {"path": "src/fortune_training/bazi_application/service.py", "symbol": "BaziChartService._build_view", "claim": "Each pillar emits stem_element."},
       "api_evidence": {"path": "src/fortune_training/combined_chart_application/service.py", "symbol": "CombinedChartService", "claim": "The complete Ba Zi candidate view reaches the combined Workbench response."},
-      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/local_app_assets.py", "symbol": "renderBazi", "claim": "The current pillar renderer consumes ganzhi, ten gods, hidden stems and classical annotations but does not consume p.stem_element."},
+      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/bazi_pillar_metadata_assets.py", "symbol": "renderFromResponse", "claim": "The read-only pillar metadata sidecar validates the exact selected application candidate and renders stem_element."},
       "compatibility_relevance": "Useful chart-reading metadata and a natural parity field for a complete Ba Zi presentation.",
-      "notes": "UI-only closure candidate; do not modify the natal calculation engine."
+      "notes": "UI closure completed without modifying the natal calculation engine."
     },
     {
       "field_id": "BAZI_STEM_POLARITY",
       "system": "BAZI",
       "display_name": "天干阴阳",
-      "status": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "priority": "P1",
+      "status": "ALREADY_VISIBLE",
+      "priority": "REFERENCE",
       "backend_evidence": {"path": "src/fortune_training/bazi_application/service.py", "symbol": "BaziChartService._build_view", "claim": "Each pillar emits stem_polarity."},
       "api_evidence": {"path": "src/fortune_training/combined_chart_application/service.py", "symbol": "CombinedChartService", "claim": "The complete Ba Zi candidate view reaches the combined Workbench response."},
-      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/local_app_assets.py", "symbol": "renderBazi", "claim": "The current pillar renderer does not consume p.stem_polarity."},
+      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/bazi_pillar_metadata_assets.py", "symbol": "renderFromResponse", "claim": "The read-only pillar metadata sidecar validates the exact selected application candidate and renders stem_polarity."},
       "compatibility_relevance": "Useful deterministic presentation metadata for stem identity.",
-      "notes": "UI-only closure candidate."
+      "notes": "UI closure completed without adding a new polarity formula."
     },
     {
       "field_id": "BAZI_BRANCH_ELEMENT_AFFILIATION",
       "system": "BAZI",
       "display_name": "地支五行归属",
-      "status": "ALREADY_RELEASED_NOT_YET_VISIBLE",
-      "priority": "P1",
+      "status": "ALREADY_VISIBLE",
+      "priority": "REFERENCE",
       "backend_evidence": {"path": "src/fortune_training/bazi_application/service.py", "symbol": "BaziChartService._build_view", "claim": "Each pillar emits branch_element_affiliation."},
       "api_evidence": {"path": "src/fortune_training/combined_chart_application/service.py", "symbol": "CombinedChartService", "claim": "The complete Ba Zi candidate view reaches the combined Workbench response."},
-      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/local_app_assets.py", "symbol": "renderBazi", "claim": "The current pillar renderer does not consume p.branch_element_affiliation."},
+      "workbench_evidence": {"path": "src/fortune_training/combined_chart_application/bazi_pillar_metadata_assets.py", "symbol": "renderFromResponse", "claim": "The read-only pillar metadata sidecar validates the exact selected application candidate and renders branch_element_affiliation."},
       "compatibility_relevance": "Useful deterministic presentation metadata for branch identity.",
-      "notes": "UI-only closure candidate; preserve the existing branch-element registry semantics."
+      "notes": "UI closure completed while preserving the existing branch-element registry semantics."
     }
   ]
 }

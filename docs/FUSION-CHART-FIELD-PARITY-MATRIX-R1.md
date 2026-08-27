@@ -23,9 +23,9 @@ A missing UI field is therefore not evidence of a missing calculation rule.
 
 ## R1 evidence baseline
 
-The first matrix is audited against commit `bea613f332a236bc4a8fde8b20d8023539fe33e5`, immediately after the R1.11 read-only Zi Wei target-projection Workbench closure.
+The matrix originated from the audit at commit `bea613f332a236bc4a8fde8b20d8023539fe33e5`, immediately after the R1.11 read-only Zi Wei target-projection Workbench closure. `evidence_baseline_commit` intentionally remains that initial audit anchor; individual rows may subsequently move from a gap state to a closed state when their Workbench evidence changes.
 
-The baseline explicitly records as already visible:
+The register records as visible:
 
 - Ba Zi four pillars, visible Ten Gods and hidden stems;
 - Xunkong and both twelve-growth annotations (`星运` / `自坐`);
@@ -34,20 +34,23 @@ The baseline explicitly records as already visible:
 - natal ShenSha fact candidates;
 - Nayin presentation;
 - Dayun / Jiaoyun;
+- 天干五行、天干阴阳、地支五行归属;
 - shared time credentials with separate Zi Wei and Ba Zi policy labels;
 - deterministic Zi Wei target daily projection.
 
 Zi Wei target hourly methods remain `DISPUTED_CANDIDATE_ONLY`: all released candidates are shown and no winner may be synthesized by the Workbench.
 
-## First confirmed product-closure gaps
+## Closed first product-closure gaps
 
-The first three `ALREADY_RELEASED_NOT_YET_VISIBLE` rows are narrow Ba Zi pillar metadata already emitted by `BaziChartService._build_view`:
+The first three rows originally classified `ALREADY_RELEASED_NOT_YET_VISIBLE` were narrow Ba Zi pillar metadata already emitted by `BaziChartService._build_view`:
 
 - `stem_element` — 天干五行
 - `stem_polarity` — 天干阴阳
 - `branch_element_affiliation` — 地支五行归属
 
-The unified `renderBazi` does not currently consume those keys. They are therefore UI-only closure work. The natal engine must not be modified to add them again.
+They are now `ALREADY_VISIBLE`. The closure is presentation-only: `bazi_pillar_metadata_assets.py` reuses the exact successful combined response, binds to the explicitly selected Ba Zi application candidate, validates pillar position and Ganzhi identity, then renders the three released values. No natal formula, Five-Element strength rule, polarity rule, prediction rule, or candidate winner was added.
+
+The matrix may therefore temporarily contain no `ALREADY_RELEASED_NOT_YET_VISIBLE` row. The status remains part of the R1 contract because future parity audits may identify additional released-but-hidden fields.
 
 ## Governance
 
@@ -64,4 +67,4 @@ Internal hashes, registry ordinals and semantic-role IDs are not automatically p
 
 ## Validation
 
-`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the initial evidence claims. In particular it ensures that fields already visible in the Workbench are not regressed into the missing category, verifies the three first UI-only gaps against the backend and renderer source, and preserves candidate-only Zi Wei hourly semantics.
+`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the evidence claims. It verifies that currently visible fields are not regressed into a missing category, proves the three closed Ba Zi pillar metadata rows are consumed by the read-only sidecar from released source fields with exact-candidate/pillar validation, and preserves candidate-only Zi Wei hourly semantics.
