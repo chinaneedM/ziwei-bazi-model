@@ -15,6 +15,15 @@ from .bazi_branch_relation_local_app import (
     BaziBranchRelationPresentationLocalMixin,
     _BaziBranchRelationPresentationHandlerMixin,
 )
+from .bazi_hidden_exposure_assets import (
+    BAZI_HIDDEN_EXPOSURE_CSS,
+    BAZI_HIDDEN_EXPOSURE_JS,
+    bazi_hidden_exposure_index_html,
+)
+from .bazi_hidden_exposure_local_app import (
+    BaziHiddenExposurePresentationLocalMixin,
+    _BaziHiddenExposurePresentationHandlerMixin,
+)
 from .bazi_pillar_metadata_assets import (
     BAZI_PILLAR_METADATA_CSS,
     BAZI_PILLAR_METADATA_JS,
@@ -82,6 +91,7 @@ from .ziwei_basic_info_assets import (
 
 
 class CombinedChartWorkbenchApplication(
+    BaziHiddenExposurePresentationLocalMixin,
     BaziStemRelationPresentationLocalMixin,
     BaziBranchRelationPresentationLocalMixin,
     BaziNayinPresentationLocalMixin,
@@ -107,6 +117,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _BaziHiddenExposurePresentationHandlerMixin,
     _BaziStemRelationPresentationHandlerMixin,
     _BaziBranchRelationPresentationHandlerMixin,
     _NayinPresentationHandlerMixin,
@@ -116,20 +127,22 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.8"
+    server_version = "CombinedChartWorkbenchLocalApp/1.9"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = bazi_stem_relation_index_html(
-                bazi_branch_relation_index_html(
-                    bazi_pillar_metadata_index_html(
-                        ziwei_basic_info_index_html(
-                            flow_fusion_index_html(
-                                nayin_index_html(
-                                    shared_apply_index_html(
-                                        target_flow_index_html(
-                                            interaction_index_html(INDEX_HTML)
+            html = bazi_hidden_exposure_index_html(
+                bazi_stem_relation_index_html(
+                    bazi_branch_relation_index_html(
+                        bazi_pillar_metadata_index_html(
+                            ziwei_basic_info_index_html(
+                                flow_fusion_index_html(
+                                    nayin_index_html(
+                                        shared_apply_index_html(
+                                            target_flow_index_html(
+                                                interaction_index_html(INDEX_HTML)
+                                            )
                                         )
                                     )
                                 )
@@ -139,6 +152,20 @@ class _WorkbenchHandler(
                 )
             )
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
+            return
+        if path == "/bazi-hidden-exposure.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                BAZI_HIDDEN_EXPOSURE_CSS.encode(),
+            )
+            return
+        if path == "/bazi-hidden-exposure.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                BAZI_HIDDEN_EXPOSURE_JS.encode(),
+            )
             return
         if path == "/bazi-stem-relations.css":
             self._send_bytes(
@@ -296,8 +323,8 @@ def main(argv: list[str] | None = None) -> int:
             "Run the local-only Ziwei + Bazi chart workbench with independent "
             "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
             "Ziwei natal basic-info presentation, Bazi Nayin/pillar-metadata/"
-            "stem-relation/branch-relation presentation, and explicit shared-time "
-            "apply sidecars"
+            "hidden-exposure/stem-relation/branch-relation presentation, and "
+            "explicit shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -315,8 +342,8 @@ def main(argv: list[str] | None = None) -> int:
     print(
         "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
         "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
-        "Ziwei natal basics plus Bazi Nayin, pillar metadata and natal stem/branch "
-        "relation facts are read-only presentation projections."
+        "Ziwei natal basics plus Bazi Nayin, pillar metadata, exact hidden-stem exposure "
+        "and natal stem/branch relation facts are read-only presentation projections."
     )
     print(
         "Shared target synchronization is explicit opt-in only; no automatic "

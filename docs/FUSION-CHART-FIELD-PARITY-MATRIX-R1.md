@@ -37,6 +37,7 @@ The register records as visible:
 - 天干五行、天干阴阳、地支五行归属;
 - 本命地支六合 / 三合 / 六冲 / 相穿（六害）/ 相刑关系事实;
 - 本命天干五合关系事实;
+- 本命藏干与四柱显干的 EXACT_STEM 同干匹配事实;
 - shared time credentials with separate Zi Wei and Ba Zi policy labels;
 - deterministic Zi Wei target daily projection;
 - Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure;
@@ -75,6 +76,14 @@ The semantic boundary is intentionally narrow. The Workbench displays relation i
 
 S14 does not provide a complete source table for 三会 or 破 under the current canonical closure. Those relations remain outside this productized surface rather than being filled from unsourced common mnemonics.
 
+## Visible Ba Zi hidden-stem exact-match closure
+
+`BaziNatalState.exposures` is also a released, hash-participating natal fact layer. `generate_exposures()` emits a link only when one concrete hidden-stem instance and one concrete visible four-pillar stem have exactly the same stem identity. `validate_natal_state()` mechanically replays the exposure set, so the presentation layer does not invent a new calculation.
+
+`BAZI_NATAL_HIDDEN_STEM_EXPOSURE_MATCHES` records this surface as `ALREADY_VISIBLE`. The source basis is S11 section 7.3 (`地支藏干表`, current rows anchored to `YHZP-CH-061`) plus the already-released exact equality algorithm. The Workbench sidecar replays the exact natal candidate, validates natal FactHash and ComputationHash, and then renders only `match_kind=EXACT_STEM` links.
+
+This is an identity match, not a strength judgment. The UI does not label the match as successful rooting, does not grade 通根 / 得地 / 旺衰, and does not expose the separate `affinities.same_element_hidden_stem_instance_ids` layer. Same-element affinity remains outside this closure until a distinct source-backed product semantics is justified.
+
 ## Visible Zi Wei natal inventory closure
 
 A second audit compared the released natal model, the combined response, the basic-info renderer and `ZiweiTwelvePalaceSvgRenderer`. It found no new released-but-hidden product field in that audited surface. Instead, seven deterministic fields were already visible but absent from the Matrix inventory:
@@ -108,4 +117,4 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 `tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` additionally proves that the seven Zi Wei natal inventory rows are registered as already visible, that the basic-info rows consume released natal payload values without a second chart/time calculation path, and that the twelve-palace SVG already renders palace Ganzhi, dignity state/grade and transformation badges from the released view model.
 
-`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics.
+`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics.
