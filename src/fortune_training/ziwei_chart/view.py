@@ -13,7 +13,7 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, T
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.1.0"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.2.0"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
 TEXT_RENDERER_VERSION = "1.0.4"
 
@@ -155,6 +155,12 @@ class ViewSelectedTemporalFrameSummary:
 
 
 @dataclass(frozen=True)
+class ViewDaxianSequenceMetadata:
+    daxian_direction: str
+    first_daxian_nominal_age: int
+
+
+@dataclass(frozen=True)
 class ViewRole:
     role_id: str
     label: str
@@ -190,6 +196,7 @@ class ChartViewModel:
     cells: tuple[PalaceViewCell, ...]
     view_hash: str
     selected_temporal_frame_summary: ViewSelectedTemporalFrameSummary = ViewSelectedTemporalFrameSummary()
+    daxian_sequence_metadata: ViewDaxianSequenceMetadata | None = None
 
 
 class ZiweiViewProjectionCompiler:
@@ -323,6 +330,15 @@ class ZiweiViewProjectionCompiler:
         )
 
     @staticmethod
+    def _daxian_sequence_metadata(state: ZiweiTemporalState | None) -> ViewDaxianSequenceMetadata | None:
+        if state is None:
+            return None
+        return ViewDaxianSequenceMetadata(
+            daxian_direction=state.daxian_direction,
+            first_daxian_nominal_age=state.first_daxian_nominal_age,
+        )
+
+    @staticmethod
     def _view_payload(model: ChartViewModel) -> dict:
         payload = json_value(model)
         payload.pop("view_hash", None)
@@ -368,6 +384,7 @@ class ZiweiViewProjectionCompiler:
         minor = self._select_minor(temporal_state, minor_limit_age)
         selected_frames = tuple(row.frame_id for row in (daxian, annual, monthly, minor) if row is not None)
         selected_summary = self._selected_temporal_summary(daxian, annual, monthly, minor)
+        daxian_sequence_metadata = self._daxian_sequence_metadata(temporal_state)
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
@@ -545,6 +562,7 @@ class ZiweiViewProjectionCompiler:
             cells=tuple(cells),
             view_hash="",
             selected_temporal_frame_summary=selected_summary,
+            daxian_sequence_metadata=daxian_sequence_metadata,
         )
         view_hash = object_sha256(
             {

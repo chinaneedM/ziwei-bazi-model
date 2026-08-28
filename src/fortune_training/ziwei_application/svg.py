@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.3.0"
+SVG_RENDERER_VERSION = "1.4.0"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -228,6 +228,15 @@ class ZiweiTwelvePalaceSvgRenderer:
         return tuple(lines)
 
     @staticmethod
+    def _daxian_sequence_metadata_lines(view: ChartViewModel) -> tuple[str, ...]:
+        metadata = view.daxian_sequence_metadata
+        if metadata is None:
+            return ()
+        return (
+            f"大限序列: {metadata.daxian_direction}  起限虚岁{metadata.first_daxian_nominal_age}",
+        )
+
+    @staticmethod
     def _full_cell_title(cell) -> str:
         placements = ", ".join(
             _placement_label(row)
@@ -383,7 +392,8 @@ class ZiweiTwelvePalaceSvgRenderer:
                 f'ViewHash: {_xml(_short_hash(view.view_hash))}</text>'
             )
         if render_profile.show_temporal:
-            for index, line in enumerate(self._selected_temporal_summary_lines(view)):
+            temporal_lines = self._daxian_sequence_metadata_lines(view) + self._selected_temporal_summary_lines(view)
+            for index, line in enumerate(temporal_lines):
                 parts.append(
                     f'<text x="{center_x + 20:.2f}" y="{center_y + 178 + index * 22:.2f}" '
                     f'font-size="{render_profile.metadata_font_size}" fill="#333333">'

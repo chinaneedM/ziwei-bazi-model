@@ -12,6 +12,7 @@
     "source_computation_hash",
     "selected_temporal_frame_ids",
     "selected_temporal_frame_summary",
+    "daxian_sequence_metadata",
     "roles",
     "cells",
     "view_hash"
@@ -24,6 +25,7 @@
     "source_computation_hash": {"pattern": "^[0-9a-f]{64}$"},
     "selected_temporal_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "selected_temporal_frame_summary": {"$ref": "#/$defs/selectedTemporalFrameSummary"},
+    "daxian_sequence_metadata": {"anyOf": [{"$ref": "#/$defs/daxianSequenceMetadata"}, {"type": "null"}]},
     "roles": {"type": "array", "items": {"$ref": "#/$defs/role"}},
     "cells": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/cell"}},
     "view_hash": {"pattern": "^[0-9a-f]{64}$"}
@@ -157,6 +159,15 @@
         "annual": {"anyOf": [{"$ref": "#/$defs/annualFrameSummary"}, {"type": "null"}]},
         "monthly": {"anyOf": [{"$ref": "#/$defs/monthlyFrameSummary"}, {"type": "null"}]},
         "minor_limit": {"anyOf": [{"$ref": "#/$defs/minorLimitFrameSummary"}, {"type": "null"}]}
+      }
+    },
+    "daxianSequenceMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["daxian_direction", "first_daxian_nominal_age"],
+      "properties": {
+        "daxian_direction": {"enum": ["FORWARD", "REVERSE"]},
+        "first_daxian_nominal_age": {"type": "integer", "minimum": 1}
       }
     },
     "role": {
