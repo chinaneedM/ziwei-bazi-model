@@ -11,6 +11,7 @@
     "source_fact_hash",
     "source_computation_hash",
     "selected_temporal_frame_ids",
+    "selected_temporal_frame_summary",
     "roles",
     "cells",
     "view_hash"
@@ -22,6 +23,7 @@
     "source_fact_hash": {"pattern": "^[0-9a-f]{64}$"},
     "source_computation_hash": {"pattern": "^[0-9a-f]{64}$"},
     "selected_temporal_frame_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "selected_temporal_frame_summary": {"$ref": "#/$defs/selectedTemporalFrameSummary"},
     "roles": {"type": "array", "items": {"$ref": "#/$defs/role"}},
     "cells": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/cell"}},
     "view_hash": {"pattern": "^[0-9a-f]{64}$"}
@@ -85,6 +87,76 @@
         "entity_id": {"enum": ["STAR.TIANKUI", "STAR.TIANYUE", "STAR.TIANMA"]},
         "label": {"enum": ["天魁", "天钺", "天马"]},
         "candidate_fact_hash": {"pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "daxianFrameSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "index", "nominal_age_start", "nominal_age_end", "absolute_year_start", "absolute_year_end", "active_address_index", "active_branch", "active_palace_ganzhi"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "index": {"type": "integer", "minimum": 0},
+        "nominal_age_start": {"type": "integer", "minimum": 1},
+        "nominal_age_end": {"type": "integer", "minimum": 1},
+        "absolute_year_start": {"type": "integer"},
+        "absolute_year_end": {"type": "integer"},
+        "active_address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "active_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "active_palace_ganzhi": {"type": "string", "minLength": 2}
+      }
+    },
+    "annualFrameSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "absolute_year", "nominal_age", "year_stem", "year_branch", "active_address_index", "active_branch", "active_palace_ganzhi"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "absolute_year": {"type": "integer"},
+        "nominal_age": {"type": "integer", "minimum": 1},
+        "year_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "year_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "active_address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "active_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "active_palace_ganzhi": {"type": "string", "minLength": 2}
+      }
+    },
+    "monthlyFrameSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "absolute_year", "lunar_month", "month_stem", "month_branch", "month_ganzhi", "active_address_index", "active_branch", "calendar_scope", "leap_month_policy_status"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "absolute_year": {"type": "integer"},
+        "lunar_month": {"type": "integer", "minimum": 1, "maximum": 12},
+        "month_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "month_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "month_ganzhi": {"type": "string", "minLength": 2},
+        "active_address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "active_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "calendar_scope": {"type": "string", "minLength": 1},
+        "leap_month_policy_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "minorLimitFrameSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "nominal_age", "active_address_index", "active_branch"],
+      "properties": {
+        "frame_id": {"type": "string", "minLength": 1},
+        "nominal_age": {"type": "integer", "minimum": 1},
+        "active_address_index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "active_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
+      }
+    },
+    "selectedTemporalFrameSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["daxian", "annual", "monthly", "minor_limit"],
+      "properties": {
+        "daxian": {"anyOf": [{"$ref": "#/$defs/daxianFrameSummary"}, {"type": "null"}]},
+        "annual": {"anyOf": [{"$ref": "#/$defs/annualFrameSummary"}, {"type": "null"}]},
+        "monthly": {"anyOf": [{"$ref": "#/$defs/monthlyFrameSummary"}, {"type": "null"}]},
+        "minor_limit": {"anyOf": [{"$ref": "#/$defs/minorLimitFrameSummary"}, {"type": "null"}]}
       }
     },
     "role": {

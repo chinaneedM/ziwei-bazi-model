@@ -13,7 +13,7 @@ from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, T
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.4"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.1.0"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
 TEXT_RENDERER_VERSION = "1.0.4"
 
@@ -100,6 +100,61 @@ class ViewTemporalAuxiliaryCandidate:
 
 
 @dataclass(frozen=True)
+class ViewDaxianFrameSummary:
+    frame_id: str
+    index: int
+    nominal_age_start: int
+    nominal_age_end: int
+    absolute_year_start: int
+    absolute_year_end: int
+    active_address_index: int
+    active_branch: str
+    active_palace_ganzhi: str
+
+
+@dataclass(frozen=True)
+class ViewAnnualFrameSummary:
+    frame_id: str
+    absolute_year: int
+    nominal_age: int
+    year_stem: str
+    year_branch: str
+    active_address_index: int
+    active_branch: str
+    active_palace_ganzhi: str
+
+
+@dataclass(frozen=True)
+class ViewMonthlyFrameSummary:
+    frame_id: str
+    absolute_year: int
+    lunar_month: int
+    month_stem: str
+    month_branch: str
+    month_ganzhi: str
+    active_address_index: int
+    active_branch: str
+    calendar_scope: str
+    leap_month_policy_status: str
+
+
+@dataclass(frozen=True)
+class ViewMinorLimitFrameSummary:
+    frame_id: str
+    nominal_age: int
+    active_address_index: int
+    active_branch: str
+
+
+@dataclass(frozen=True)
+class ViewSelectedTemporalFrameSummary:
+    daxian: ViewDaxianFrameSummary | None = None
+    annual: ViewAnnualFrameSummary | None = None
+    monthly: ViewMonthlyFrameSummary | None = None
+    minor_limit: ViewMinorLimitFrameSummary | None = None
+
+
+@dataclass(frozen=True)
 class ViewRole:
     role_id: str
     label: str
@@ -134,6 +189,7 @@ class ChartViewModel:
     roles: tuple[ViewRole, ...]
     cells: tuple[PalaceViewCell, ...]
     view_hash: str
+    selected_temporal_frame_summary: ViewSelectedTemporalFrameSummary = ViewSelectedTemporalFrameSummary()
 
 
 class ZiweiViewProjectionCompiler:
@@ -202,6 +258,71 @@ class ZiweiViewProjectionCompiler:
         return rows[0]
 
     @staticmethod
+    def _selected_temporal_summary(
+        daxian: DaxianFrame | None,
+        annual: AnnualFrame | None,
+        monthly: MonthlyFrame | None,
+        minor: MinorLimitFrame | None,
+    ) -> ViewSelectedTemporalFrameSummary:
+        return ViewSelectedTemporalFrameSummary(
+            daxian=(
+                None
+                if daxian is None
+                else ViewDaxianFrameSummary(
+                    frame_id=daxian.frame_id,
+                    index=daxian.index,
+                    nominal_age_start=daxian.nominal_age_start,
+                    nominal_age_end=daxian.nominal_age_end,
+                    absolute_year_start=daxian.absolute_year_start,
+                    absolute_year_end=daxian.absolute_year_end,
+                    active_address_index=daxian.active_address.index,
+                    active_branch=daxian.active_address.branch,
+                    active_palace_ganzhi=daxian.active_palace_ganzhi,
+                )
+            ),
+            annual=(
+                None
+                if annual is None
+                else ViewAnnualFrameSummary(
+                    frame_id=annual.frame_id,
+                    absolute_year=annual.absolute_year,
+                    nominal_age=annual.nominal_age,
+                    year_stem=annual.year_stem,
+                    year_branch=annual.year_branch,
+                    active_address_index=annual.active_address.index,
+                    active_branch=annual.active_address.branch,
+                    active_palace_ganzhi=annual.active_palace_ganzhi,
+                )
+            ),
+            monthly=(
+                None
+                if monthly is None
+                else ViewMonthlyFrameSummary(
+                    frame_id=monthly.frame_id,
+                    absolute_year=monthly.absolute_year,
+                    lunar_month=monthly.lunar_month,
+                    month_stem=monthly.month_stem,
+                    month_branch=monthly.month_branch,
+                    month_ganzhi=monthly.month_ganzhi,
+                    active_address_index=monthly.active_address.index,
+                    active_branch=monthly.active_address.branch,
+                    calendar_scope=monthly.calendar_scope,
+                    leap_month_policy_status=monthly.leap_month_policy_status,
+                )
+            ),
+            minor_limit=(
+                None
+                if minor is None
+                else ViewMinorLimitFrameSummary(
+                    frame_id=minor.frame_id,
+                    nominal_age=minor.nominal_age,
+                    active_address_index=minor.active_address.index,
+                    active_branch=minor.active_address.branch,
+                )
+            ),
+        )
+
+    @staticmethod
     def _view_payload(model: ChartViewModel) -> dict:
         payload = json_value(model)
         payload.pop("view_hash", None)
@@ -246,6 +367,7 @@ class ZiweiViewProjectionCompiler:
         monthly = self._select_monthly(temporal_state, annual_year, lunar_month)
         minor = self._select_minor(temporal_state, minor_limit_age)
         selected_frames = tuple(row.frame_id for row in (daxian, annual, monthly, minor) if row is not None)
+        selected_summary = self._selected_temporal_summary(daxian, annual, monthly, minor)
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
@@ -422,6 +544,7 @@ class ZiweiViewProjectionCompiler:
             roles=tuple(roles),
             cells=tuple(cells),
             view_hash="",
+            selected_temporal_frame_summary=selected_summary,
         )
         view_hash = object_sha256(
             {

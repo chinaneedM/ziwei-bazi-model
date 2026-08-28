@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.2.1"
+SVG_RENDERER_VERSION = "1.3.0"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -185,6 +185,49 @@ class ZiweiTwelvePalaceSvgRenderer:
         return tuple(lines)
 
     @staticmethod
+    def _selected_temporal_summary_lines(view: ChartViewModel) -> tuple[str, ...]:
+        summary = view.selected_temporal_frame_summary
+        lines: list[str] = []
+        if summary.daxian is not None:
+            row = summary.daxian
+            tokens = (
+                f"第{row.index}限",
+                f"虚岁{row.nominal_age_start}-{row.nominal_age_end}",
+                f"公历{row.absolute_year_start}-{row.absolute_year_end}",
+                f"宫位{row.active_branch}",
+                f"宫干支{row.active_palace_ganzhi}",
+            )
+            lines.extend("大限: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        if summary.annual is not None:
+            row = summary.annual
+            tokens = (
+                f"{row.absolute_year}年",
+                f"虚岁{row.nominal_age}",
+                f"年干{row.year_stem}",
+                f"年支{row.year_branch}",
+                f"宫位{row.active_branch}",
+                f"宫干支{row.active_palace_ganzhi}",
+            )
+            lines.extend("流年: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        if summary.monthly is not None:
+            row = summary.monthly
+            tokens = (
+                f"{row.absolute_year}年农历{row.lunar_month}月",
+                f"月干{row.month_stem}",
+                f"月支{row.month_branch}",
+                f"月干支{row.month_ganzhi}",
+                f"宫位{row.active_branch}",
+            )
+            lines.extend("流月: " + chunk for chunk in _chunks(tokens, max_chars=48))
+            lines.append(f"月历: {row.calendar_scope}")
+            lines.append(f"闰月策略: {row.leap_month_policy_status}")
+        if summary.minor_limit is not None:
+            row = summary.minor_limit
+            tokens = (f"虚岁{row.nominal_age}", f"宫位{row.active_branch}")
+            lines.extend("小限: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        return tuple(lines)
+
+    @staticmethod
     def _full_cell_title(cell) -> str:
         placements = ", ".join(
             _placement_label(row)
@@ -339,6 +382,13 @@ class ZiweiTwelvePalaceSvgRenderer:
                 f'font-size="{render_profile.metadata_font_size}" fill="#555555">'
                 f'ViewHash: {_xml(_short_hash(view.view_hash))}</text>'
             )
+        if render_profile.show_temporal:
+            for index, line in enumerate(self._selected_temporal_summary_lines(view)):
+                parts.append(
+                    f'<text x="{center_x + 20:.2f}" y="{center_y + 178 + index * 22:.2f}" '
+                    f'font-size="{render_profile.metadata_font_size}" fill="#333333">'
+                    f'{_xml(line)}</text>'
+                )
         parts.extend(['</g>', '</svg>'])
         svg = "\n".join(parts) + "\n"
 
