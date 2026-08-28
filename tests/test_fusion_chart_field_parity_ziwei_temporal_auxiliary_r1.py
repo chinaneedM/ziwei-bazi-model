@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = json.loads((ROOT / "docs" / "FUSION-CHART-FIELD-PARITY-MATRIX-R1.json").read_text(encoding="utf-8"))
 RINGS = (ROOT / "src" / "fortune_training" / "ziwei_chart" / "rings.py").read_text(encoding="utf-8")
 TEMPORAL_AUX = (ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py").read_text(encoding="utf-8")
+VIEW = (ROOT / "src" / "fortune_training" / "ziwei_chart" / "view.py").read_text(encoding="utf-8")
 SVG = (ROOT / "src" / "fortune_training" / "ziwei_application" / "svg.py").read_text(encoding="utf-8")
 
 
@@ -42,14 +43,35 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
         self.assertEqual("DISPUTED_CANDIDATE_ONLY", row["status"])
         self.assertEqual("src/fortune_training/ziwei_chart/temporal_auxiliary.py", row["backend_evidence"]["path"])
         self.assertEqual("src/fortune_training/ziwei_application/svg.py", row["workbench_evidence"]["path"])
+        self.assertIn("ViewTemporalAuxiliaryCandidate", row["api_evidence"]["symbol"])
+        for field_name in (
+            "candidate_set_id",
+            "candidate_id",
+            "candidate_fact_hash",
+            "frame_type",
+            "frame_id",
+            "entity_id",
+            "method_id",
+            "authority_status",
+        ):
+            self.assertIn(field_name, row["api_evidence"]["claim"])
+        self.assertIn("candidate_set_hash", row["api_evidence"]["claim"])
+        self.assertIn("star_id", row["api_evidence"]["claim"])
         self.assertIn('semantic_status = "CANDIDATES_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
         self.assertIn('method_policy = "MULTI_METHOD_CANDIDATES_NO_RANKING"', TEMPORAL_AUX)
         self.assertIn('strict_method_id = "ZIWEI-QS-STRICT-S01-R1"', TEMPORAL_AUX)
         self.assertIn('wenmo_method_id = "ZIWEI-QS-WENMO-COMPAT-S01-R1"', TEMPORAL_AUX)
         self.assertIn('case_method_id = "ZIWEI-CASE-TIANMA-S01-R1"', TEMPORAL_AUX)
+        self.assertIn("class ViewTemporalAuxiliaryCandidate:", VIEW)
+        self.assertIn("    frame_id: str", VIEW)
+        self.assertIn("    entity_id: str", VIEW)
         self.assertIn('class="temporal-auxiliary-candidate"', SVG)
+        self.assertIn('data-frame-id=', SVG)
+        self.assertIn('data-entity-id=', SVG)
         self.assertIn('data-method-id=', SVG)
         self.assertIn('data-authority-status=', SVG)
+        self.assertNotIn('data-candidate-set-hash=', SVG)
+        self.assertNotIn('data-star-id=', SVG)
         self.assertNotIn('data-selected=', SVG)
         self.assertNotIn('data-winner=', SVG)
         self.assertNotIn('data-rank=', SVG)

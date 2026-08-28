@@ -108,7 +108,7 @@ The SVG view already projected and rendered four released ring families but the 
 - `ZIWEI_RING_JIANGQIAN12` — `RING.JIANGQIAN12` / 将前十二神;
 - `ZIWEI_RING_BOSHI12` — `RING.BOSHI12` / 博士十二神.
 
-The same audit identified one genuine presentation gap: `PalaceViewCell.temporal_auxiliary_candidates` already carried released dynamic auxiliary-star candidates, but the SVG did not consume them. Renderer `1.2.0` now displays each candidate with its method identity and embeds the released candidate-set hash/id, candidate hash/id, frame, star, method and authority status as read-only SVG metadata.
+The same audit identified one genuine presentation gap: `PalaceViewCell.temporal_auxiliary_candidates` already carried released dynamic auxiliary-star candidates, but the SVG did not consume them. Renderer `1.2.1` now displays each candidate with its method identity and emits only identity fields that already exist on `ViewTemporalAuxiliaryCandidate`: `candidate_set_id`, `candidate_id`, `candidate_fact_hash`, `frame_type`, `frame_id`, `entity_id`, `method_id` and `authority_status`. It does not synthesize `candidate_set_hash` or a separate `star_id`.
 
 `ZIWEI_TEMPORAL_AUXILIARY_CANDIDATES` remains `DISPUTED_CANDIDATE_ONLY`. The generator contract is still `CANDIDATES_PRESERVED_NO_SELECTION` with `MULTI_METHOD_CANDIDATES_NO_RANKING`: strict S01 Kui/Yue and WenMo-compatible Kui/Yue candidates remain side by side, and the case-method Tianma candidate remains a candidate when applicable. Neither SVG nor Workbench adds `selected`, `winner`, `rank`, priority or an inferred doctrinal verdict.
 
@@ -131,6 +131,6 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 ## Validation
 
-`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row.
+`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row, including exact released view-field parity for the SVG metadata.
 
 `tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics.
