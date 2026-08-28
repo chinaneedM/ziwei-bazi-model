@@ -17,7 +17,7 @@ The matrix is deliberately conservative. A row is added only when backend, API a
 - `ALREADY_VISIBLE`: released deterministic data is already visible in the unified Workbench.
 - `ALREADY_RELEASED_NOT_YET_VISIBLE`: released deterministic data reaches the product response but the Workbench does not yet consume it. These rows are the highest-value product-closure targets.
 - `NOT_YET_FORMALIZED`: no released deterministic contract has been confirmed. Such a row requires source-backed rule formalization before UI work.
-- `DISPUTED_CANDIDATE_ONLY`: the contract intentionally preserves multiple candidates. Product parity must not collapse them into a winner.
+- `DISPUTED_CANDIDATE_ONLY`: the contract intentionally preserves multiple candidates. Product parity must not collapse them into a winner. A candidate-only row may be visible; the status records governance, not UI absence.
 
 A missing UI field is therefore not evidence of a missing calculation rule.
 
@@ -42,9 +42,10 @@ The register records as visible:
 - deterministic Zi Wei target daily projection;
 - Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure;
 - Zi Wei 五行局、命主/身主、命宫支/身宫支 and natal lunar coordinates already rendered by `ziwei_basic_info_assets.py`;
-- Zi Wei 十二宫干支、星曜落宫/庙旺评级 and 四化标记 already rendered by the released twelve-palace SVG view.
+- Zi Wei 十二宫干支、星曜落宫/庙旺评级 and 四化标记 already rendered by the released twelve-palace SVG view;
+- Zi Wei 长生十二神、岁前十二神、将前十二神、博士十二神 ring members already rendered by the released SVG view.
 
-Zi Wei target hourly methods remain `DISPUTED_CANDIDATE_ONLY`: all released candidates are shown and no winner may be synthesized by the Workbench.
+Zi Wei target hourly methods remain `DISPUTED_CANDIDATE_ONLY`: all released candidates are shown and no winner may be synthesized by the Workbench. Zi Wei dynamic Kui/Yue and Tianma method candidates are also `DISPUTED_CANDIDATE_ONLY` even after becoming visible, because visibility must not erase the no-selection contract.
 
 ## Closed first product-closure gaps
 
@@ -98,6 +99,21 @@ A second audit compared the released natal model, the combined response, the bas
 
 These rows are classified `ALREADY_VISIBLE`. This milestone changes the parity inventory and its tests only; it does not alter the natal engine, selector, temporal coordinate lineage, SVG projection semantics or browser-side calculations. In particular, the basic-info sidecar continues to read the successful `/api/resolve` payload, while the SVG renderer continues to consume the released `ChartViewModel`.
 
+## Visible Zi Wei ring and temporal-candidate closure
+
+The SVG view already projected and rendered four released ring families but the parity inventory did not name them separately. They are now registered as `ALREADY_VISIBLE`:
+
+- `ZIWEI_RING_CHANGSHENG12` — `RING.CHANGSHENG12` / 长生十二神;
+- `ZIWEI_RING_TAISUI12` — `RING.TAISUI12` / 岁前十二神;
+- `ZIWEI_RING_JIANGQIAN12` — `RING.JIANGQIAN12` / 将前十二神;
+- `ZIWEI_RING_BOSHI12` — `RING.BOSHI12` / 博士十二神.
+
+The same audit identified one genuine presentation gap: `PalaceViewCell.temporal_auxiliary_candidates` already carried released dynamic auxiliary-star candidates, but the SVG did not consume them. Renderer `1.2.0` now displays each candidate with its method identity and embeds the released candidate-set hash/id, candidate hash/id, frame, star, method and authority status as read-only SVG metadata.
+
+`ZIWEI_TEMPORAL_AUXILIARY_CANDIDATES` remains `DISPUTED_CANDIDATE_ONLY`. The generator contract is still `CANDIDATES_PRESERVED_NO_SELECTION` with `MULTI_METHOD_CANDIDATES_NO_RANKING`: strict S01 Kui/Yue and WenMo-compatible Kui/Yue candidates remain side by side, and the case-method Tianma candidate remains a candidate when applicable. Neither SVG nor Workbench adds `selected`, `winner`, `rank`, priority or an inferred doctrinal verdict.
+
+The combined Workbench already injects the backend-provided `ziwei_svg` directly, so this closure adds no second browser-side rule engine, time computation or selector.
+
 The Matrix may therefore legitimately contain no `ALREADY_RELEASED_NOT_YET_VISIBLE` row. The status remains part of the R1 contract because future parity audits may identify additional released-but-hidden fields.
 
 ## Governance
@@ -115,6 +131,6 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 ## Validation
 
-`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` additionally proves that the seven Zi Wei natal inventory rows are registered as already visible, that the basic-info rows consume released natal payload values without a second chart/time calculation path, and that the twelve-palace SVG already renders palace Ganzhi, dignity state/grade and transformation badges from the released view model.
+`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row.
 
 `tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics.
