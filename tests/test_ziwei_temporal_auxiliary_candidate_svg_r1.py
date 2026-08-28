@@ -85,8 +85,10 @@ class ZiweiTemporalAuxiliaryCandidateSvgR1Tests(unittest.TestCase):
 
     def test_disputed_method_identity_is_visible_side_by_side(self) -> None:
         methods = {row.method_id for row in self.expected}
-        self.assertIn("ZIWEI-QS-STRICT-S01-R1", methods)
-        self.assertIn("ZIWEI-QS-WENMO-COMPAT-S01-R1", methods)
+        self.assertIn("S01-QS-STRICT-KUI-YUE-R1", methods)
+        self.assertIn("COMPAT-WENMO-KUI-YUE-R1", methods)
+        self.assertIn("S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1", methods)
+        self.assertIn("S10-ANNUAL-BRANCH-TIANMA-CASE-R1", methods)
         self.assertIn("候选流曜:", self.artifact.svg)
         for row in self.expected:
             self.assertIn(row.method_id, self.artifact.svg)
