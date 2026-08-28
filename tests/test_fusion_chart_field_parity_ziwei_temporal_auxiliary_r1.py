@@ -47,6 +47,7 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
         for field_name in (
             "candidate_set_id",
             "candidate_id",
+            "candidate_fact_hash",
             "frame_type",
             "frame_id",
             "entity_id",
@@ -54,7 +55,6 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
             "authority_status",
         ):
             self.assertIn(field_name, row["api_evidence"]["claim"])
-        self.assertIn("fact hash", row["api_evidence"]["claim"])
         self.assertIn("candidate_set_hash", row["api_evidence"]["claim"])
         self.assertIn("star_id", row["api_evidence"]["claim"])
         self.assertIn('KUI_YUE_SELECTION_STATUS = "CANDIDATES_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
