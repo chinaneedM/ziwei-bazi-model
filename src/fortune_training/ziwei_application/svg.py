@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.1.0"
+SVG_RENDERER_VERSION = "1.2.0"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -112,6 +112,15 @@ def _placement_label(row) -> str:
     return f"{row.label}{suffix}{badges}"
 
 
+def _candidate_title(row) -> str:
+    return (
+        f"{row.frame_type}:{row.label}; star={row.star_id}; method={row.method_id}; "
+        f"authority={row.authority_status}; candidate={row.candidate_id}; "
+        f"candidate_fact_hash={row.candidate_fact_hash}; set={row.candidate_set_id}; "
+        f"set_hash={row.candidate_set_hash}"
+    )
+
+
 def _canonical_cells(view: ChartViewModel):
     cells = sorted(view.cells, key=lambda row: row.address_index)
     if len(cells) != 12 or {row.address_index for row in cells} != set(range(12)):
@@ -158,6 +167,11 @@ class ZiweiTwelvePalaceSvgRenderer:
                 )
             )
             lines.extend("流曜: " + row for row in _chunks(auxiliary_tokens, max_chars=25))
+            candidate_tokens = tuple(
+                f"{row.frame_type}:{row.label}[{row.method_id}]"
+                for row in cell.temporal_auxiliary_candidates
+            )
+            lines.extend("候选流曜: " + row for row in _chunks(candidate_tokens, max_chars=25))
             if cell.minor_limit_frame_ids:
                 lines.extend(
                     "小限: " + row
@@ -194,11 +208,13 @@ class ZiweiTwelvePalaceSvgRenderer:
                 key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
             )
         ) or "-"
+        candidates = ", ".join(_candidate_title(row) for row in cell.temporal_auxiliary_candidates) or "-"
         minor = ", ".join(sorted(cell.minor_limit_frame_ids)) or "-"
         doujun = ", ".join(sorted(cell.doujun_frame_ids)) or "-"
         return (
             f"{cell.stem}{cell.branch} {cell.natal_designation_label}; "
-            f"stars={placements}; rings={rings}; temporal={temporal}; moving={auxiliary}; minor={minor}; doujun={doujun}"
+            f"stars={placements}; rings={rings}; temporal={temporal}; moving={auxiliary}; "
+            f"moving_candidates={candidates}; minor={minor}; doujun={doujun}"
         )
 
     def render(
@@ -246,6 +262,20 @@ class ZiweiTwelvePalaceSvgRenderer:
                 f'data-branch="{_xml(cell.branch)}">'
             )
             parts.append(f'<title>{_xml(title)}</title>')
+            if render_profile.show_temporal:
+                for candidate in cell.temporal_auxiliary_candidates:
+                    parts.append(
+                        '<g class="temporal-auxiliary-candidate" '
+                        f'data-candidate-set-id="{_xml(candidate.candidate_set_id)}" '
+                        f'data-candidate-set-hash="{_xml(candidate.candidate_set_hash)}" '
+                        f'data-candidate-id="{_xml(candidate.candidate_id)}" '
+                        f'data-candidate-fact-hash="{_xml(candidate.candidate_fact_hash)}" '
+                        f'data-frame-type="{_xml(candidate.frame_type)}" '
+                        f'data-star-id="{_xml(candidate.star_id)}" '
+                        f'data-method-id="{_xml(candidate.method_id)}" '
+                        f'data-authority-status="{_xml(candidate.authority_status)}">'
+                        f'<title>{_xml(_candidate_title(candidate))}</title></g>'
+                    )
             parts.append(
                 f'<rect x="{x:.2f}" y="{y:.2f}" width="{cell_w:.2f}" height="{cell_h:.2f}" '
                 'fill="#ffffff" stroke="#222222" stroke-width="1"/>'
