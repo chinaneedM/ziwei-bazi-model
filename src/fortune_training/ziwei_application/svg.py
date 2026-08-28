@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.2.0"
+SVG_RENDERER_VERSION = "1.2.1"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -114,10 +114,10 @@ def _placement_label(row) -> str:
 
 def _candidate_title(row) -> str:
     return (
-        f"{row.frame_type}:{row.label}; star={row.star_id}; method={row.method_id}; "
-        f"authority={row.authority_status}; candidate={row.candidate_id}; "
-        f"candidate_fact_hash={row.candidate_fact_hash}; set={row.candidate_set_id}; "
-        f"set_hash={row.candidate_set_hash}"
+        f"{row.frame_type}:{row.label}; frame={row.frame_id}; entity={row.entity_id}; "
+        f"method={row.method_id}; authority={row.authority_status}; "
+        f"candidate={row.candidate_id}; candidate_fact_hash={row.candidate_fact_hash}; "
+        f"set={row.candidate_set_id}"
     )
 
 
@@ -267,11 +267,11 @@ class ZiweiTwelvePalaceSvgRenderer:
                     parts.append(
                         '<g class="temporal-auxiliary-candidate" '
                         f'data-candidate-set-id="{_xml(candidate.candidate_set_id)}" '
-                        f'data-candidate-set-hash="{_xml(candidate.candidate_set_hash)}" '
                         f'data-candidate-id="{_xml(candidate.candidate_id)}" '
                         f'data-candidate-fact-hash="{_xml(candidate.candidate_fact_hash)}" '
                         f'data-frame-type="{_xml(candidate.frame_type)}" '
-                        f'data-star-id="{_xml(candidate.star_id)}" '
+                        f'data-frame-id="{_xml(candidate.frame_id)}" '
+                        f'data-entity-id="{_xml(candidate.entity_id)}" '
                         f'data-method-id="{_xml(candidate.method_id)}" '
                         f'data-authority-status="{_xml(candidate.authority_status)}">'
                         f'<title>{_xml(_candidate_title(candidate))}</title></g>'

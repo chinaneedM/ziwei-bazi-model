@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from fortune_training.calendar_foundation import BirthInput, PolicyRegistry
-from fortune_training.ziwei_application import ApplicationBirthRequest, ZiweiChartService, ZiweiTwelvePalaceSvgRenderer, ziwei_application_default_presentation_profile
+from fortune_training.ziwei_application import ApplicationBirthRequest, SvgRendererProfile, ZiweiChartService, ZiweiTwelvePalaceSvgRenderer, ziwei_application_default_presentation_profile
 from fortune_training.ziwei_chart import Sex, ziwei_chart_engine_v1_profile
 
 
@@ -55,11 +55,11 @@ class ZiweiTemporalAuxiliaryCandidateSvgR1Tests(unittest.TestCase):
         actual = tuple(
             (
                 row.attrib["data-candidate-set-id"],
-                row.attrib["data-candidate-set-hash"],
                 row.attrib["data-candidate-id"],
                 row.attrib["data-candidate-fact-hash"],
                 row.attrib["data-frame-type"],
-                row.attrib["data-star-id"],
+                row.attrib["data-frame-id"],
+                row.attrib["data-entity-id"],
                 row.attrib["data-method-id"],
                 row.attrib["data-authority-status"],
             )
@@ -68,11 +68,11 @@ class ZiweiTemporalAuxiliaryCandidateSvgR1Tests(unittest.TestCase):
         expected = tuple(
             (
                 row.candidate_set_id,
-                row.candidate_set_hash,
                 row.candidate_id,
                 row.candidate_fact_hash,
                 row.frame_type,
-                row.star_id,
+                row.frame_id,
+                row.entity_id,
                 row.method_id,
                 row.authority_status,
             )
@@ -92,8 +92,6 @@ class ZiweiTemporalAuxiliaryCandidateSvgR1Tests(unittest.TestCase):
             self.assertIn(row.method_id, self.artifact.svg)
 
     def test_candidate_metadata_disappears_when_temporal_rendering_is_disabled(self) -> None:
-        from fortune_training.ziwei_application import SvgRendererProfile
-
         hidden = ZiweiTwelvePalaceSvgRenderer().render(
             self.bundle.view_model,
             SvgRendererProfile(show_temporal=False),

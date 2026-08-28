@@ -16,16 +16,18 @@ The generator contract remains:
 - semantic status: `CANDIDATES_PRESERVED_NO_SELECTION`
 - method policy: `MULTI_METHOD_CANDIDATES_NO_RANKING`
 
-The SVG therefore exposes every projected candidate in existing view order and preserves the released presentation identity:
+The SVG exposes every projected candidate in the existing `PalaceViewCell.temporal_auxiliary_candidates` order and preserves only identity fields that are already present in the released view contract:
 
 - `candidate_set_id`
-- `candidate_set_hash`
 - `candidate_id`
 - `candidate_fact_hash`
 - `frame_type`
-- `star_id`
+- `frame_id`
+- `entity_id`
 - `method_id`
 - `authority_status`
+
+No candidate-set hash, separately named star ID, or other field absent from `ViewTemporalAuxiliaryCandidate` is synthesized by the renderer. `entity_id` is the released view identity for the auxiliary entity.
 
 Visible labels include the method identity. No `selected`, `winner`, `rank`, priority, merge, or transformation verdict is introduced.
 
@@ -56,4 +58,5 @@ This milestone does not:
 - change target frame or day-switch semantics;
 - modify `ZiweiTemporalAuxiliaryCandidateGenerator`;
 - modify `ChartViewModel` or its hash contract;
+- synthesize fields that the released view does not contain;
 - add unsupported ZiWei rules from compatibility software.
