@@ -43,7 +43,9 @@ The register records as visible:
 - Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure;
 - Zi Wei 五行局、命主/身主、命宫支/身宫支 and natal lunar coordinates already rendered by `ziwei_basic_info_assets.py`;
 - Zi Wei 十二宫干支、星曜落宫/庙旺评级 and 四化标记 already rendered by the released twelve-palace SVG view;
-- Zi Wei 长生十二神、岁前十二神、将前十二神、博士十二神 ring members already rendered by the released SVG view.
+- Zi Wei 长生十二神、岁前十二神、将前十二神、博士十二神 ring members already rendered by the released SVG view;
+- Zi Wei selected Daxian/annual/month palace designations, temporal transformation badges and deterministic temporal auxiliaries;
+- Zi Wei selected 小限 and annual 斗君 palace markers.
 
 Zi Wei target hourly methods remain `DISPUTED_CANDIDATE_ONLY`: all released candidates are shown and no winner may be synthesized by the Workbench. Zi Wei dynamic Kui/Yue and Tianma method candidates are also `DISPUTED_CANDIDATE_ONLY` even after becoming visible, because visibility must not erase the no-selection contract.
 
@@ -114,6 +116,20 @@ The same audit identified one genuine presentation gap: `PalaceViewCell.temporal
 
 The combined Workbench already injects the backend-provided `ziwei_svg` directly, so this closure adds no second browser-side rule engine, time computation or selector.
 
+## Visible Zi Wei temporal released-surface inventory closure
+
+A subsequent engine → released view → SVG audit found five temporal surfaces that were already visible but had not been registered as separate Matrix rows:
+
+- `ZIWEI_TEMPORAL_DESIGNATIONS` — selected 大限 / 流年 / 流月宫位动态标记;
+- `ZIWEI_TEMPORAL_TRANSFORMATION_BADGES` — selected 大限 / 流年 / 流月 dynamic 四化 badges;
+- `ZIWEI_TEMPORAL_AUXILIARIES` — deterministic non-candidate 动态流曜;
+- `ZIWEI_MINOR_LIMIT_PALACE` — selected 小限落宫 marker;
+- `ZIWEI_DOUJUN_PALACE` — selected annual 斗君落宫 marker.
+
+All five are `ALREADY_VISIBLE`. `ZiweiViewProjectionCompiler` is the release boundary: it projects designation overlays to `ViewDesignationOverlay`, aggregates selected temporal transformations into `ViewPlacement.transformation_badges`, projects ordinary auxiliary activations to `ViewTemporalAuxiliary`, and places selected Minor Limit / annual Doujun frame IDs on the corresponding `PalaceViewCell`. `ZiweiTwelvePalaceSvgRenderer` only formats those released values as `时`, transformation badges, `流曜`, `小限` and `斗君` labels.
+
+This closure intentionally does not add algorithms. In particular, ordinary `ViewTemporalAuxiliary` releases only `frame_type`, `frame_id`, `entity_id` and `label`; the Matrix must not invent candidate hashes, source metadata or ranking fields for it. The separate `ZIWEI_TEMPORAL_AUXILIARY_CANDIDATES` row remains `DISPUTED_CANDIDATE_ONLY`, and no candidate winner or priority is introduced.
+
 The Matrix may therefore legitimately contain no `ALREADY_RELEASED_NOT_YET_VISIBLE` row. The status remains part of the R1 contract because future parity audits may identify additional released-but-hidden fields.
 
 ## Governance
@@ -131,6 +147,6 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 ## Validation
 
-`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row, including exact released view-field parity for the SVG metadata.
+`tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row, including exact released view-field parity for the SVG metadata. `tests/test_fusion_chart_field_parity_ziwei_temporal_released_surface_r1.py` guards the five already-visible temporal released-surface rows and the no-recalculation boundary from temporal engine through released view to SVG.
 
 `tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics.
