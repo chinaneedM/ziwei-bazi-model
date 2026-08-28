@@ -47,7 +47,6 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
         for field_name in (
             "candidate_set_id",
             "candidate_id",
-            "candidate_fact_hash",
             "frame_type",
             "frame_id",
             "entity_id",
@@ -55,16 +54,19 @@ class FusionChartFieldParityZiweiTemporalAuxiliaryR1Tests(unittest.TestCase):
             "authority_status",
         ):
             self.assertIn(field_name, row["api_evidence"]["claim"])
+        self.assertIn("fact hash", row["api_evidence"]["claim"])
         self.assertIn("candidate_set_hash", row["api_evidence"]["claim"])
         self.assertIn("star_id", row["api_evidence"]["claim"])
-        self.assertIn('semantic_status = "CANDIDATES_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
-        self.assertIn('method_policy = "MULTI_METHOD_CANDIDATES_NO_RANKING"', TEMPORAL_AUX)
-        self.assertIn('strict_method_id = "ZIWEI-QS-STRICT-S01-R1"', TEMPORAL_AUX)
-        self.assertIn('wenmo_method_id = "ZIWEI-QS-WENMO-COMPAT-S01-R1"', TEMPORAL_AUX)
-        self.assertIn('case_method_id = "ZIWEI-CASE-TIANMA-S01-R1"', TEMPORAL_AUX)
+        self.assertIn('KUI_YUE_SELECTION_STATUS = "CANDIDATES_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
+        self.assertIn('STRICT_KUI_YUE_METHOD_ID = "S01-QS-STRICT-KUI-YUE-R1"', TEMPORAL_AUX)
+        self.assertIn('WENMO_KUI_YUE_METHOD_ID = "COMPAT-WENMO-KUI-YUE-R1"', TEMPORAL_AUX)
+        self.assertIn('LIMIT_TIANMA_METHOD_ID = "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1"', TEMPORAL_AUX)
+        self.assertIn('ANNUAL_TIANMA_METHOD_ID = "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"', TEMPORAL_AUX)
+        self.assertIn('TIANMA_SELECTION_STATUS = "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"', TEMPORAL_AUX)
         self.assertIn("class ViewTemporalAuxiliaryCandidate:", VIEW)
         self.assertIn("    frame_id: str", VIEW)
         self.assertIn("    entity_id: str", VIEW)
+        self.assertIn("    candidate_fact_hash: str", VIEW)
         self.assertIn('class="temporal-auxiliary-candidate"', SVG)
         self.assertIn('data-frame-id=', SVG)
         self.assertIn('data-entity-id=', SVG)
