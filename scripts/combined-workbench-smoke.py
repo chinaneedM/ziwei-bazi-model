@@ -114,6 +114,26 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
     )
     _require(base.get("ziwei_svg"), "base combined resolution produced no Ziwei SVG")
 
+    zi_year_doujun_rows = [
+        row
+        for row in combined["ziwei_bundle"]["temporal_state"]["annual_frames"]
+        if row["year_branch"] == "子"
+    ]
+    _require(zi_year_doujun_rows, "base Ziwei bundle produced no 子-year AnnualFrame")
+    zi_year_doujun_identities = {
+        (row["doujun_address"]["index"], row["doujun_address"]["branch"])
+        for row in zi_year_doujun_rows
+    }
+    _require(
+        len(zi_year_doujun_identities) == 1,
+        "released 子-year Doujun address identity is inconsistent",
+    )
+    zi_year_doujun_branch = next(iter(zi_year_doujun_identities))[1]
+    _require(
+        zi_year_doujun_branch == "辰",
+        "1994 Beijing compatibility fixture 子年斗君 is not 辰",
+    )
+
     manifest_hash = combined["manifest_hash"]
     ziwei_bundle_hash = combined["ziwei_bundle"]["bundle_hash"]
     bazi_bundle_hash = combined["bazi_bundle"]["bundle_hash"]
@@ -278,6 +298,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "combined_manifest_hash": manifest_hash,
         "ziwei_bundle_hash": ziwei_bundle_hash,
         "bazi_bundle_hash": bazi_bundle_hash,
+        "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
         "target_coordinate_fact_hash": combined_flow["target_coordinate_fact_hash"],

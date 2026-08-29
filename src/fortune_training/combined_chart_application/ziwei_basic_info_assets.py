@@ -89,6 +89,22 @@ ZIWEI_BASIC_INFO_JS = r"""
     return `${matches[0].stem}${palaceAddress.branch}`;
   }
 
+  function ziYearDoujun(temporalState) {
+    const rows = (temporalState?.annual_frames || []).filter((row) => row?.year_branch === '子');
+    if (!rows.length) return '-';
+    if (rows.some((row) => (
+      !Number.isInteger(row?.doujun_address?.index) ||
+      typeof row?.doujun_address?.branch !== 'string' ||
+      !row.doujun_address.branch
+    ))) return '-';
+    const expected = rows[0].doujun_address;
+    if (!rows.every((row) => (
+      row.doujun_address.index === expected.index &&
+      row.doujun_address.branch === expected.branch
+    ))) return '-';
+    return expected.branch;
+  }
+
   function limitFlowOverlap(view) {
     const grouped = new Map();
     (view?.cells || []).forEach((cell) => {
@@ -134,6 +150,7 @@ ZIWEI_BASIC_INFO_JS = r"""
       item('命宫', structure.life_address?.branch || '-'),
       item('身宫', structure.body_address?.branch || '-'),
       item('身宫干支', palaceGanzhi(structure, structure.body_address)),
+      item('子年斗君', ziYearDoujun(ziweiBundle?.temporal_state)),
       item('紫微年', `${structure.ziwei_birth_year_stem || ''}${structure.ziwei_birth_year_branch || ''}` || '-'),
       item('农历月坐标', String(structure.natal_month_coordinate ?? '-')),
       item('农历日', String(structure.lunar_birth_day ?? '-')),
