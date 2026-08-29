@@ -55,7 +55,7 @@ ZIWEI_BASIC_INFO_JS = r"""
     <div id="ziwei-daxian-sequence" class="ziwei-daxian-sequence" hidden>
       <div class="ziwei-daxian-sequence-head">
         <strong>完整大限序列</strong>
-        <span>released DaxianFrame · 只读</span>
+        <span>released 大限帧 · 只读</span>
       </div>
       <div id="ziwei-daxian-sequence-list" class="ziwei-daxian-sequence-list"></div>
     </div>
