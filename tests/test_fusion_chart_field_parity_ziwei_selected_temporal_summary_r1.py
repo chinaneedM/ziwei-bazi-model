@@ -51,7 +51,7 @@ class FusionChartFieldParityZiweiSelectedTemporalSummaryR1Tests(unittest.TestCas
                 self.assertIn("server ziwei_svg", row["workbench_evidence"]["claim"])
 
     def test_released_summary_contract_copies_only_canonical_frame_fields(self) -> None:
-        self.assertIn('VIEW_PROJECTION_ALGORITHM_VERSION = "1.1.0"', VIEW)
+        self.assertIn('VIEW_PROJECTION_ALGORITHM_VERSION = "1.2.0"', VIEW)
         self.assertIn("class ViewSelectedTemporalFrameSummary:", VIEW)
         self.assertIn("selected_temporal_frame_summary=selected_summary", VIEW)
         self.assertIn("selected_summary = self._selected_temporal_summary(daxian, annual, monthly, minor)", VIEW)
@@ -125,7 +125,7 @@ class FusionChartFieldParityZiweiSelectedTemporalSummaryR1Tests(unittest.TestCas
         minor = VIEW_SCHEMA["$defs"]["minorLimitFrameSummary"]["properties"]
         self.assertNotIn("direction", minor)
 
-        self.assertIn('SVG_RENDERER_VERSION = "1.3.0"', SVG)
+        self.assertIn('SVG_RENDERER_VERSION = "1.4.0"', SVG)
         self.assertIn("view.selected_temporal_frame_summary", SVG)
         self.assertIn("_selected_temporal_summary_lines", SVG)
         self.assertIn("月历: ", SVG)
