@@ -23,7 +23,15 @@ ZIWEI_BASIC_INFO_CSS = """
 .ziwei-basic-info-item { min-width:0; padding:6px 7px; border:1px solid #e5e8eb; border-radius:6px; background:#fff; }
 .ziwei-basic-info-item span { display:block; color:#777; font-size:9px; margin-bottom:2px; }
 .ziwei-basic-info-item strong,.ziwei-basic-info-item code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
-@media (max-width:620px) { .ziwei-basic-info-grid { grid-template-columns:1fr 1fr; } }
+.ziwei-daxian-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
+.ziwei-daxian-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
+.ziwei-daxian-sequence-head span { color:#777; }
+.ziwei-daxian-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
+.ziwei-daxian-sequence-row { min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+.ziwei-daxian-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
+@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list { grid-template-columns:1fr 1fr; } }
+@media (max-width:440px) { .ziwei-daxian-sequence-list { grid-template-columns:1fr; } }
 """
 
 
@@ -44,9 +52,18 @@ ZIWEI_BASIC_INFO_JS = r"""
       <span>直接读取已发布 Natal / Temporal Bundle · 不在浏览器重算</span>
     </div>
     <div id="ziwei-basic-info-grid" class="ziwei-basic-info-grid"></div>
+    <div id="ziwei-daxian-sequence" class="ziwei-daxian-sequence" hidden>
+      <div class="ziwei-daxian-sequence-head">
+        <strong>完整大限序列</strong>
+        <span>released DaxianFrame · 只读</span>
+      </div>
+      <div id="ziwei-daxian-sequence-list" class="ziwei-daxian-sequence-list"></div>
+    </div>
   `;
   chartRoot.parentNode.insertBefore(panel, chartRoot);
   const grid = $('ziwei-basic-info-grid');
+  const daxianSection = $('ziwei-daxian-sequence');
+  const daxianList = $('ziwei-daxian-sequence-list');
 
   const elementLabels = {
     WOOD: '木', FIRE: '火', EARTH: '土', METAL: '金', WATER: '水',
@@ -105,6 +122,67 @@ ZIWEI_BASIC_INFO_JS = r"""
     return expected.branch;
   }
 
+  function daxianSequence(temporalState) {
+    const rows = temporalState?.daxian_frames;
+    if (!Array.isArray(rows) || !rows.length) return null;
+    const frameIds = new Set();
+    const indexes = new Set();
+    const released = [];
+    for (const row of rows) {
+      if (
+        typeof row?.frame_id !== 'string' || !row.frame_id ||
+        !Number.isInteger(row?.index) ||
+        !Number.isInteger(row?.nominal_age_start) ||
+        !Number.isInteger(row?.nominal_age_end) ||
+        !Number.isInteger(row?.absolute_year_start) ||
+        !Number.isInteger(row?.absolute_year_end) ||
+        !Number.isInteger(row?.active_address?.index) ||
+        typeof row?.active_address?.branch !== 'string' || !row.active_address.branch ||
+        typeof row?.active_palace_ganzhi !== 'string' || !row.active_palace_ganzhi ||
+        row.nominal_age_start > row.nominal_age_end ||
+        row.absolute_year_start > row.absolute_year_end ||
+        frameIds.has(row.frame_id) || indexes.has(row.index)
+      ) return null;
+      frameIds.add(row.frame_id);
+      indexes.add(row.index);
+      released.push({
+        frameId: row.frame_id,
+        index: row.index,
+        nominalAgeStart: row.nominal_age_start,
+        nominalAgeEnd: row.nominal_age_end,
+        absoluteYearStart: row.absolute_year_start,
+        absoluteYearEnd: row.absolute_year_end,
+        activeAddressIndex: row.active_address.index,
+        activeBranch: row.active_address.branch,
+        activePalaceGanzhi: row.active_palace_ganzhi,
+      });
+    }
+    return released;
+  }
+
+  function renderDaxianSequence(temporalState) {
+    clear(daxianList);
+    const rows = daxianSequence(temporalState);
+    if (!rows) {
+      daxianSection.hidden = true;
+      return;
+    }
+    rows.forEach((row) => {
+      const box = document.createElement('div');
+      box.className = 'ziwei-daxian-sequence-row';
+      box.dataset.frameId = row.frameId;
+      box.dataset.frameIndex = String(row.index);
+      box.dataset.addressIndex = String(row.activeAddressIndex);
+      const period = document.createElement('strong');
+      period.textContent = `${row.frameId} · 虚岁 ${row.nominalAgeStart}–${row.nominalAgeEnd}`;
+      const coordinate = document.createElement('span');
+      coordinate.textContent = `${row.absoluteYearStart}–${row.absoluteYearEnd} · 落宫 ${row.activePalaceGanzhi}（${row.activeBranch}）`;
+      box.append(period, coordinate);
+      daxianList.appendChild(box);
+    });
+    daxianSection.hidden = false;
+  }
+
   function limitFlowOverlap(view) {
     const grouped = new Map();
     (view?.cells || []).forEach((cell) => {
@@ -134,6 +212,8 @@ ZIWEI_BASIC_INFO_JS = r"""
     const structure = chart?.structure;
     if (!chart || !structure) {
       clear(grid);
+      clear(daxianList);
+      daxianSection.hidden = true;
       panel.hidden = true;
       return;
     }
@@ -159,6 +239,7 @@ ZIWEI_BASIC_INFO_JS = r"""
       item('Natal FactHash', candidate.hashes?.fact_hash || '-', true),
       item('Natal ComputationHash', candidate.hashes?.computation_hash || '-', true),
     );
+    renderDaxianSequence(ziweiBundle?.temporal_state);
     panel.hidden = false;
   }
 
@@ -180,6 +261,8 @@ ZIWEI_BASIC_INFO_JS = r"""
           renderFromResolvePayload(await copy.json());
         } catch (_) {
           clear(grid);
+          clear(daxianList);
+          daxianSection.hidden = true;
           panel.hidden = true;
         }
       }, 0);
@@ -191,6 +274,8 @@ ZIWEI_BASIC_INFO_JS = r"""
   if (form) {
     form.addEventListener('submit', () => {
       clear(grid);
+      clear(daxianList);
+      daxianSection.hidden = true;
       panel.hidden = true;
     });
   }

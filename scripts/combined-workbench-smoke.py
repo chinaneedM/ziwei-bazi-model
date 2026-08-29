@@ -114,9 +114,42 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
     )
     _require(base.get("ziwei_svg"), "base combined resolution produced no Ziwei SVG")
 
+    ziwei_temporal_state = combined["ziwei_bundle"]["temporal_state"]
+    daxian_rows = ziwei_temporal_state["daxian_frames"]
+    _require(
+        isinstance(daxian_rows, list) and len(daxian_rows) == base_payload["ziwei_daxian_count"],
+        "released Ziwei Daxian sequence count mismatch",
+    )
+    daxian_frame_ids: set[str] = set()
+    daxian_indexes: set[int] = set()
+    for row in daxian_rows:
+        _require(isinstance(row.get("frame_id"), str) and bool(row["frame_id"]), "Daxian frame_id missing")
+        _require(isinstance(row.get("index"), int), "Daxian index missing")
+        _require(isinstance(row.get("nominal_age_start"), int), "Daxian nominal_age_start missing")
+        _require(isinstance(row.get("nominal_age_end"), int), "Daxian nominal_age_end missing")
+        _require(isinstance(row.get("absolute_year_start"), int), "Daxian absolute_year_start missing")
+        _require(isinstance(row.get("absolute_year_end"), int), "Daxian absolute_year_end missing")
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Daxian active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("active_palace_ganzhi"), str) and bool(row["active_palace_ganzhi"]),
+            "Daxian active_palace_ganzhi missing",
+        )
+        _require(row["nominal_age_start"] <= row["nominal_age_end"], "Daxian nominal age range is invalid")
+        _require(row["absolute_year_start"] <= row["absolute_year_end"], "Daxian absolute year range is invalid")
+        _require(row["frame_id"] not in daxian_frame_ids, "released Daxian frame_id is duplicated")
+        _require(row["index"] not in daxian_indexes, "released Daxian index is duplicated")
+        daxian_frame_ids.add(row["frame_id"])
+        daxian_indexes.add(row["index"])
+
     zi_year_doujun_rows = [
         row
-        for row in combined["ziwei_bundle"]["temporal_state"]["annual_frames"]
+        for row in ziwei_temporal_state["annual_frames"]
         if row["year_branch"] == "子"
     ]
     _require(zi_year_doujun_rows, "base Ziwei bundle produced no 子-year AnnualFrame")
@@ -189,7 +222,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
     )
     _require(
         combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash,
-        "target-flow Bazi bundle binding mismatch",
+        "target-flow Bazi base bundle binding mismatch",
     )
     _require(
         flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS",
@@ -298,6 +331,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "combined_manifest_hash": manifest_hash,
         "ziwei_bundle_hash": ziwei_bundle_hash,
         "bazi_bundle_hash": bazi_bundle_hash,
+        "ziwei_daxian_sequence_count": len(daxian_rows),
         "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
