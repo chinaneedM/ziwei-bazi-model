@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def ziwei_basic_info_index_html(base_html: str) -> str:
-    """Add a read-only Ziwei natal/basic temporal projection to the workbench."""
+    """Add released Ziwei natal/basic temporal projections to the workbench."""
 
     if "/ziwei-basic-info.css" in base_html or "/ziwei-basic-info.js" in base_html:
         raise ValueError("ziwei-basic-info assets already injected")
@@ -23,16 +23,17 @@ ZIWEI_BASIC_INFO_CSS = """
 .ziwei-basic-info-item { min-width:0; padding:6px 7px; border:1px solid #e5e8eb; border-radius:6px; background:#fff; }
 .ziwei-basic-info-item span { display:block; color:#777; font-size:9px; margin-bottom:2px; }
 .ziwei-basic-info-item strong,.ziwei-basic-info-item code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
-.ziwei-daxian-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
-.ziwei-daxian-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
-.ziwei-daxian-sequence-head span { color:#777; }
-.ziwei-daxian-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
-.ziwei-daxian-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
-.ziwei-daxian-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
-.ziwei-daxian-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
-.ziwei-daxian-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
-@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list { grid-template-columns:1fr 1fr; } }
-@media (max-width:440px) { .ziwei-daxian-sequence-list { grid-template-columns:1fr; } }
+.ziwei-daxian-sequence,.ziwei-annual-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
+.ziwei-daxian-sequence-head,.ziwei-annual-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
+.ziwei-daxian-sequence-head span,.ziwei-annual-sequence-head span { color:#777; }
+.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
+.ziwei-annual-sequence-list { max-height:280px; overflow:auto; padding-right:2px; }
+.ziwei-daxian-sequence-row[type=button],.ziwei-annual-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row[type=button]:focus-visible,.ziwei-annual-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
+.ziwei-daxian-sequence-row strong,.ziwei-annual-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+.ziwei-daxian-sequence-row span,.ziwei-annual-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
+@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { grid-template-columns:1fr 1fr; } }
+@media (max-width:440px) { .ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { grid-template-columns:1fr; } }
 """
 
 
@@ -60,11 +61,20 @@ ZIWEI_BASIC_INFO_JS = r"""
       </div>
       <div id="ziwei-daxian-sequence-list" class="ziwei-daxian-sequence-list"></div>
     </div>
+    <div id="ziwei-annual-sequence" class="ziwei-annual-sequence" hidden>
+      <div class="ziwei-annual-sequence-head">
+        <strong>完整流年序列</strong>
+        <span>released AnnualFrame · 点击填入流年目标</span>
+      </div>
+      <div id="ziwei-annual-sequence-list" class="ziwei-annual-sequence-list"></div>
+    </div>
   `;
   chartRoot.parentNode.insertBefore(panel, chartRoot);
   const grid = $('ziwei-basic-info-grid');
   const daxianSection = $('ziwei-daxian-sequence');
   const daxianList = $('ziwei-daxian-sequence-list');
+  const annualSection = $('ziwei-annual-sequence');
+  const annualList = $('ziwei-annual-sequence-list');
 
   const elementLabels = {
     WOOD: '木', FIRE: '火', EARTH: '土', METAL: '金', WATER: '水',
@@ -195,6 +205,87 @@ ZIWEI_BASIC_INFO_JS = r"""
     daxianSection.hidden = false;
   }
 
+  function annualSequence(temporalState) {
+    const rows = temporalState?.annual_frames;
+    if (!Array.isArray(rows) || !rows.length) return null;
+    const frameIds = new Set();
+    const years = new Set();
+    const released = [];
+    for (const row of rows) {
+      const parentDaxianFrameId = row?.parent_daxian_frame_id;
+      if (
+        typeof row?.frame_id !== 'string' || !row.frame_id ||
+        !Number.isInteger(row?.absolute_year) ||
+        !Number.isInteger(row?.nominal_age) || row.nominal_age < 1 ||
+        typeof row?.year_stem !== 'string' || !row.year_stem ||
+        typeof row?.year_branch !== 'string' || !row.year_branch ||
+        !Number.isInteger(row?.active_address?.index) ||
+        typeof row?.active_address?.branch !== 'string' || !row.active_address.branch ||
+        typeof row?.active_palace_ganzhi !== 'string' || !row.active_palace_ganzhi ||
+        !Number.isInteger(row?.doujun_address?.index) ||
+        typeof row?.doujun_address?.branch !== 'string' || !row.doujun_address.branch ||
+        typeof row?.doujun_rule_id !== 'string' || !row.doujun_rule_id ||
+        (parentDaxianFrameId !== null && (
+          typeof parentDaxianFrameId !== 'string' || !parentDaxianFrameId
+        )) ||
+        frameIds.has(row.frame_id) || years.has(row.absolute_year)
+      ) return null;
+      frameIds.add(row.frame_id);
+      years.add(row.absolute_year);
+      released.push({
+        frameId: row.frame_id,
+        absoluteYear: row.absolute_year,
+        nominalAge: row.nominal_age,
+        yearStem: row.year_stem,
+        yearBranch: row.year_branch,
+        activeAddressIndex: row.active_address.index,
+        activeBranch: row.active_address.branch,
+        activePalaceGanzhi: row.active_palace_ganzhi,
+        doujunAddressIndex: row.doujun_address.index,
+        doujunBranch: row.doujun_address.branch,
+        doujunRuleId: row.doujun_rule_id,
+        parentDaxianFrameId,
+      });
+    }
+    return released;
+  }
+
+  function fillAnnualTarget(absoluteYear) {
+    const target = $('ziwei-annual-year');
+    if (!target || !Number.isInteger(absoluteYear)) return;
+    target.value = String(absoluteYear);
+    target.dispatchEvent(new Event('input', { bubbles: true }));
+    target.dispatchEvent(new Event('change', { bubbles: true }));
+    target.focus();
+  }
+
+  function renderAnnualSequence(temporalState) {
+    clear(annualList);
+    const rows = annualSequence(temporalState);
+    if (!rows) {
+      annualSection.hidden = true;
+      return;
+    }
+    rows.forEach((row) => {
+      const box = document.createElement('button');
+      box.type = 'button';
+      box.className = 'ziwei-annual-sequence-row';
+      box.dataset.frameId = row.frameId;
+      box.dataset.absoluteYear = String(row.absoluteYear);
+      box.dataset.nominalAge = String(row.nominalAge);
+      box.dataset.addressIndex = String(row.activeAddressIndex);
+      if (row.parentDaxianFrameId) box.dataset.parentDaxianFrameId = row.parentDaxianFrameId;
+      box.addEventListener('click', () => fillAnnualTarget(row.absoluteYear));
+      const period = document.createElement('strong');
+      period.textContent = `${row.frameId} · ${row.yearStem}${row.yearBranch} · 虚岁 ${row.nominalAge}`;
+      const coordinate = document.createElement('span');
+      coordinate.textContent = `${row.absoluteYear} · 落宫 ${row.activePalaceGanzhi}（${row.activeBranch}） · 斗君 ${row.doujunBranch}`;
+      box.append(period, coordinate);
+      annualList.appendChild(box);
+    });
+    annualSection.hidden = false;
+  }
+
   function limitFlowOverlap(view) {
     const grouped = new Map();
     (view?.cells || []).forEach((cell) => {
@@ -217,6 +308,13 @@ ZIWEI_BASIC_INFO_JS = r"""
     return overlaps.length ? overlaps.join('；') : '无';
   }
 
+  function clearTemporalSequences() {
+    clear(daxianList);
+    clear(annualList);
+    daxianSection.hidden = true;
+    annualSection.hidden = true;
+  }
+
   function renderFromResolvePayload(payload) {
     const ziweiBundle = payload?.combined_resolution?.ziwei_bundle;
     const candidate = ziweiBundle?.candidate;
@@ -224,8 +322,7 @@ ZIWEI_BASIC_INFO_JS = r"""
     const structure = chart?.structure;
     if (!chart || !structure) {
       clear(grid);
-      clear(daxianList);
-      daxianSection.hidden = true;
+      clearTemporalSequences();
       panel.hidden = true;
       return;
     }
@@ -252,6 +349,7 @@ ZIWEI_BASIC_INFO_JS = r"""
       item('Natal ComputationHash', candidate.hashes?.computation_hash || '-', true),
     );
     renderDaxianSequence(ziweiBundle?.temporal_state);
+    renderAnnualSequence(ziweiBundle?.temporal_state);
     panel.hidden = false;
   }
 
@@ -273,8 +371,7 @@ ZIWEI_BASIC_INFO_JS = r"""
           renderFromResolvePayload(await copy.json());
         } catch (_) {
           clear(grid);
-          clear(daxianList);
-          daxianSection.hidden = true;
+          clearTemporalSequences();
           panel.hidden = true;
         }
       }, 0);
@@ -286,8 +383,7 @@ ZIWEI_BASIC_INFO_JS = r"""
   if (form) {
     form.addEventListener('submit', () => {
       clear(grid);
-      clear(daxianList);
-      daxianSection.hidden = true;
+      clearTemporalSequences();
       panel.hidden = true;
     });
   }

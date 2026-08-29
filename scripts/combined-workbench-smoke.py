@@ -147,9 +147,77 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         daxian_frame_ids.add(row["frame_id"])
         daxian_indexes.add(row["index"])
 
+    annual_rows = ziwei_temporal_state["annual_frames"]
+    _require(
+        isinstance(annual_rows, list) and bool(annual_rows),
+        "released Ziwei Annual sequence is empty",
+    )
+    annual_frame_ids: set[str] = set()
+    annual_years: set[int] = set()
+    for row in annual_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Annual frame_id missing",
+        )
+        _require(isinstance(row.get("absolute_year"), int), "Annual absolute_year missing")
+        _require(
+            isinstance(row.get("nominal_age"), int) and row["nominal_age"] >= 1,
+            "Annual nominal_age missing",
+        )
+        _require(
+            isinstance(row.get("year_stem"), str) and bool(row["year_stem"]),
+            "Annual year_stem missing",
+        )
+        _require(
+            isinstance(row.get("year_branch"), str) and bool(row["year_branch"]),
+            "Annual year_branch missing",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Annual active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("active_palace_ganzhi"), str)
+            and bool(row["active_palace_ganzhi"]),
+            "Annual active_palace_ganzhi missing",
+        )
+        _require(
+            isinstance(row.get("doujun_address"), dict)
+            and isinstance(row["doujun_address"].get("index"), int)
+            and isinstance(row["doujun_address"].get("branch"), str)
+            and bool(row["doujun_address"]["branch"]),
+            "Annual doujun_address identity missing",
+        )
+        _require(
+            isinstance(row.get("doujun_rule_id"), str) and bool(row["doujun_rule_id"]),
+            "Annual doujun_rule_id missing",
+        )
+        parent_daxian_frame_id = row.get("parent_daxian_frame_id")
+        _require(
+            parent_daxian_frame_id is None
+            or (
+                isinstance(parent_daxian_frame_id, str)
+                and parent_daxian_frame_id in daxian_frame_ids
+            ),
+            "Annual parent_daxian_frame_id is not a released Daxian identity",
+        )
+        _require(
+            row["frame_id"] not in annual_frame_ids,
+            "released Annual frame_id is duplicated",
+        )
+        _require(
+            row["absolute_year"] not in annual_years,
+            "released Annual absolute_year is duplicated",
+        )
+        annual_frame_ids.add(row["frame_id"])
+        annual_years.add(row["absolute_year"])
+
     zi_year_doujun_rows = [
         row
-        for row in ziwei_temporal_state["annual_frames"]
+        for row in annual_rows
         if row["year_branch"] == "子"
     ]
     _require(zi_year_doujun_rows, "base Ziwei bundle produced no 子-year AnnualFrame")
@@ -332,6 +400,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "ziwei_bundle_hash": ziwei_bundle_hash,
         "bazi_bundle_hash": bazi_bundle_hash,
         "ziwei_daxian_sequence_count": len(daxian_rows),
+        "ziwei_annual_sequence_count": len(annual_rows),
         "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
