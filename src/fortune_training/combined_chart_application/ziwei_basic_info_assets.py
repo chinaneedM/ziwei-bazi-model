@@ -72,6 +72,23 @@ ZIWEI_BASIC_INFO_JS = r"""
     return row?.entity_display_name || '-';
   }
 
+  function palaceGanzhi(structure, palaceAddress) {
+    if (
+      !structure ||
+      !Number.isInteger(palaceAddress?.index) ||
+      typeof palaceAddress?.branch !== 'string' ||
+      !palaceAddress.branch
+    ) return '-';
+    const matches = (structure.address_attributes || []).filter((row) => (
+      row?.address?.index === palaceAddress.index &&
+      row?.address?.branch === palaceAddress.branch &&
+      typeof row?.stem === 'string' &&
+      row.stem
+    ));
+    if (matches.length !== 1) return '-';
+    return `${matches[0].stem}${palaceAddress.branch}`;
+  }
+
   function limitFlowOverlap(view) {
     const grouped = new Map();
     (view?.cells || []).forEach((cell) => {
@@ -116,6 +133,7 @@ ZIWEI_BASIC_INFO_JS = r"""
       item('身主', role(chart, 'ROLE.SHENZHU')),
       item('命宫', structure.life_address?.branch || '-'),
       item('身宫', structure.body_address?.branch || '-'),
+      item('身宫干支', palaceGanzhi(structure, structure.body_address)),
       item('紫微年', `${structure.ziwei_birth_year_stem || ''}${structure.ziwei_birth_year_branch || ''}` || '-'),
       item('农历月坐标', String(structure.natal_month_coordinate ?? '-')),
       item('农历日', String(structure.lunar_birth_day ?? '-')),
