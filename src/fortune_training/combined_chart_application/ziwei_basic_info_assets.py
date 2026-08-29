@@ -27,7 +27,8 @@ ZIWEI_BASIC_INFO_CSS = """
 .ziwei-daxian-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
 .ziwei-daxian-sequence-head span { color:#777; }
 .ziwei-daxian-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
-.ziwei-daxian-sequence-row { min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
 .ziwei-daxian-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
 .ziwei-daxian-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
 @media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list { grid-template-columns:1fr 1fr; } }
@@ -55,7 +56,7 @@ ZIWEI_BASIC_INFO_JS = r"""
     <div id="ziwei-daxian-sequence" class="ziwei-daxian-sequence" hidden>
       <div class="ziwei-daxian-sequence-head">
         <strong>完整大限序列</strong>
-        <span>released 大限帧 · 只读</span>
+        <span>released 大限帧 · 点击填入目标</span>
       </div>
       <div id="ziwei-daxian-sequence-list" class="ziwei-daxian-sequence-list"></div>
     </div>
@@ -160,6 +161,15 @@ ZIWEI_BASIC_INFO_JS = r"""
     return released;
   }
 
+  function fillDaxianTarget(frameId) {
+    const target = $('ziwei-daxian-frame-id');
+    if (!target || typeof frameId !== 'string' || !frameId) return;
+    target.value = frameId;
+    target.dispatchEvent(new Event('input', { bubbles: true }));
+    target.dispatchEvent(new Event('change', { bubbles: true }));
+    target.focus();
+  }
+
   function renderDaxianSequence(temporalState) {
     clear(daxianList);
     const rows = daxianSequence(temporalState);
@@ -168,11 +178,13 @@ ZIWEI_BASIC_INFO_JS = r"""
       return;
     }
     rows.forEach((row) => {
-      const box = document.createElement('div');
+      const box = document.createElement('button');
+      box.type = 'button';
       box.className = 'ziwei-daxian-sequence-row';
       box.dataset.frameId = row.frameId;
       box.dataset.frameIndex = String(row.index);
       box.dataset.addressIndex = String(row.activeAddressIndex);
+      box.addEventListener('click', () => fillDaxianTarget(row.frameId));
       const period = document.createElement('strong');
       period.textContent = `${row.frameId} · 虚岁 ${row.nominalAgeStart}–${row.nominalAgeEnd}`;
       const coordinate = document.createElement('span');
