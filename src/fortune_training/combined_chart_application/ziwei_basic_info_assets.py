@@ -64,7 +64,7 @@ ZIWEI_BASIC_INFO_JS = r"""
     <div id="ziwei-annual-sequence" class="ziwei-annual-sequence" hidden>
       <div class="ziwei-annual-sequence-head">
         <strong>完整流年序列</strong>
-        <span>released AnnualFrame · 点击填入流年目标</span>
+        <span>released 流年帧 · 点击填入流年目标</span>
       </div>
       <div id="ziwei-annual-sequence-list" class="ziwei-annual-sequence-list"></div>
     </div>
