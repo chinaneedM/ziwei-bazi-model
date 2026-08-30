@@ -23,17 +23,18 @@ ZIWEI_BASIC_INFO_CSS = """
 .ziwei-basic-info-item { min-width:0; padding:6px 7px; border:1px solid #e5e8eb; border-radius:6px; background:#fff; }
 .ziwei-basic-info-item span { display:block; color:#777; font-size:9px; margin-bottom:2px; }
 .ziwei-basic-info-item strong,.ziwei-basic-info-item code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
-.ziwei-daxian-sequence,.ziwei-annual-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
-.ziwei-daxian-sequence-head,.ziwei-annual-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
-.ziwei-daxian-sequence-head span,.ziwei-annual-sequence-head span { color:#777; }
-.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
-.ziwei-annual-sequence-list { max-height:280px; overflow:auto; padding-right:2px; }
-.ziwei-daxian-sequence-row[type=button],.ziwei-annual-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
-.ziwei-daxian-sequence-row[type=button]:focus-visible,.ziwei-annual-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
-.ziwei-daxian-sequence-row strong,.ziwei-annual-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
-.ziwei-daxian-sequence-row span,.ziwei-annual-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
-@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { grid-template-columns:1fr 1fr; } }
-@media (max-width:440px) { .ziwei-daxian-sequence-list,.ziwei-annual-sequence-list { grid-template-columns:1fr; } }
+.ziwei-daxian-sequence,.ziwei-annual-sequence,.ziwei-minor-limit-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
+.ziwei-daxian-sequence-head,.ziwei-annual-sequence-head,.ziwei-minor-limit-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
+.ziwei-daxian-sequence-head span,.ziwei-annual-sequence-head span,.ziwei-minor-limit-sequence-head span { color:#777; }
+.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
+.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { max-height:280px; overflow:auto; padding-right:2px; }
+.ziwei-daxian-sequence-row[type=button],.ziwei-annual-sequence-row[type=button],.ziwei-minor-limit-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row[type=button]:focus-visible,.ziwei-annual-sequence-row[type=button]:focus-visible,.ziwei-minor-limit-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
+.ziwei-minor-limit-sequence-row[data-selected=true] { border-width:2px; font-weight:600; }
+.ziwei-daxian-sequence-row strong,.ziwei-annual-sequence-row strong,.ziwei-minor-limit-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+.ziwei-daxian-sequence-row span,.ziwei-annual-sequence-row span,.ziwei-minor-limit-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
+@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr 1fr; } }
+@media (max-width:440px) { .ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr; } }
 """
 
 
@@ -68,6 +69,13 @@ ZIWEI_BASIC_INFO_JS = r"""
       </div>
       <div id="ziwei-annual-sequence-list" class="ziwei-annual-sequence-list"></div>
     </div>
+    <div id="ziwei-minor-limit-sequence" class="ziwei-minor-limit-sequence" hidden>
+      <div class="ziwei-minor-limit-sequence-head">
+        <strong>完整小限序列</strong>
+        <span>released 小限帧 · 点击填入小限岁数</span>
+      </div>
+      <div id="ziwei-minor-limit-sequence-list" class="ziwei-minor-limit-sequence-list"></div>
+    </div>
   `;
   chartRoot.parentNode.insertBefore(panel, chartRoot);
   const grid = $('ziwei-basic-info-grid');
@@ -75,6 +83,8 @@ ZIWEI_BASIC_INFO_JS = r"""
   const daxianList = $('ziwei-daxian-sequence-list');
   const annualSection = $('ziwei-annual-sequence');
   const annualList = $('ziwei-annual-sequence-list');
+  const minorLimitSection = $('ziwei-minor-limit-sequence');
+  const minorLimitList = $('ziwei-minor-limit-sequence-list');
 
   const elementLabels = {
     WOOD: '木', FIRE: '火', EARTH: '土', METAL: '金', WATER: '水',
@@ -286,6 +296,78 @@ ZIWEI_BASIC_INFO_JS = r"""
     annualSection.hidden = false;
   }
 
+  function minorLimitSequence(temporalState) {
+    const rows = temporalState?.minor_limit_frames;
+    if (!Array.isArray(rows) || !rows.length) return null;
+    const frameIds = new Set();
+    const ages = new Set();
+    const released = [];
+    for (const row of rows) {
+      const sourceRefs = row?.source_refs;
+      if (
+        typeof row?.frame_id !== 'string' || !row.frame_id ||
+        !Number.isInteger(row?.nominal_age) || row.nominal_age < 1 ||
+        !Number.isInteger(row?.active_address?.index) ||
+        typeof row?.active_address?.branch !== 'string' || !row.active_address.branch ||
+        !Array.isArray(sourceRefs) || !sourceRefs.length ||
+        sourceRefs.some((sourceRef) => typeof sourceRef !== 'string' || !sourceRef) ||
+        frameIds.has(row.frame_id) || ages.has(row.nominal_age)
+      ) return null;
+      frameIds.add(row.frame_id);
+      ages.add(row.nominal_age);
+      released.push({
+        frameId: row.frame_id,
+        nominalAge: row.nominal_age,
+        activeAddressIndex: row.active_address.index,
+        activeBranch: row.active_address.branch,
+        sourceRefs: [...sourceRefs],
+      });
+    }
+    return released;
+  }
+
+  function fillMinorLimitTarget(nominalAge) {
+    const target = $('ziwei-minor-limit-age');
+    if (!target || !Number.isInteger(nominalAge) || nominalAge < 1) return;
+    target.value = String(nominalAge);
+    target.dispatchEvent(new Event('input', { bubbles: true }));
+    target.dispatchEvent(new Event('change', { bubbles: true }));
+    target.focus();
+  }
+
+  function renderMinorLimitSequence(temporalState, selectedMinorLimit) {
+    clear(minorLimitList);
+    const rows = minorLimitSequence(temporalState);
+    if (!rows) {
+      minorLimitSection.hidden = true;
+      return;
+    }
+    rows.forEach((row) => {
+      const box = document.createElement('button');
+      box.type = 'button';
+      box.className = 'ziwei-minor-limit-sequence-row';
+      box.dataset.frameId = row.frameId;
+      box.dataset.nominalAge = String(row.nominalAge);
+      box.dataset.addressIndex = String(row.activeAddressIndex);
+      const selected = (
+        selectedMinorLimit?.frame_id === row.frameId &&
+        selectedMinorLimit?.nominal_age === row.nominalAge
+      );
+      if (selected) {
+        box.dataset.selected = 'true';
+        box.setAttribute('aria-current', 'true');
+      }
+      box.addEventListener('click', () => fillMinorLimitTarget(row.nominalAge));
+      const period = document.createElement('strong');
+      period.textContent = `${row.frameId} · 虚岁 ${row.nominalAge}`;
+      const coordinate = document.createElement('span');
+      coordinate.textContent = `落宫 ${row.activeBranch} · 来源 ${row.sourceRefs.join(' / ')}`;
+      box.append(period, coordinate);
+      minorLimitList.appendChild(box);
+    });
+    minorLimitSection.hidden = false;
+  }
+
   function limitFlowOverlap(view) {
     const grouped = new Map();
     (view?.cells || []).forEach((cell) => {
@@ -311,8 +393,10 @@ ZIWEI_BASIC_INFO_JS = r"""
   function clearTemporalSequences() {
     clear(daxianList);
     clear(annualList);
+    clear(minorLimitList);
     daxianSection.hidden = true;
     annualSection.hidden = true;
+    minorLimitSection.hidden = true;
   }
 
   function renderFromResolvePayload(payload) {
@@ -350,6 +434,10 @@ ZIWEI_BASIC_INFO_JS = r"""
     );
     renderDaxianSequence(ziweiBundle?.temporal_state);
     renderAnnualSequence(ziweiBundle?.temporal_state);
+    renderMinorLimitSequence(
+      ziweiBundle?.temporal_state,
+      ziweiBundle?.view_model?.selected_temporal_frame_summary?.minor_limit,
+    );
     panel.hidden = false;
   }
 
