@@ -215,6 +215,47 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         annual_frame_ids.add(row["frame_id"])
         annual_years.add(row["absolute_year"])
 
+    minor_limit_rows = ziwei_temporal_state["minor_limit_frames"]
+    _require(
+        isinstance(minor_limit_rows, list) and bool(minor_limit_rows),
+        "released Ziwei Minor-Limit sequence is empty",
+    )
+    minor_limit_frame_ids: set[str] = set()
+    minor_limit_ages: set[int] = set()
+    for row in minor_limit_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Minor-Limit frame_id missing",
+        )
+        _require(
+            isinstance(row.get("nominal_age"), int) and row["nominal_age"] >= 1,
+            "Minor-Limit nominal_age missing",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Minor-Limit active_address identity missing",
+        )
+        source_refs = row.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            "Minor-Limit source_refs missing",
+        )
+        _require(
+            row["frame_id"] not in minor_limit_frame_ids,
+            "released Minor-Limit frame_id is duplicated",
+        )
+        _require(
+            row["nominal_age"] not in minor_limit_ages,
+            "released Minor-Limit nominal_age is duplicated",
+        )
+        minor_limit_frame_ids.add(row["frame_id"])
+        minor_limit_ages.add(row["nominal_age"])
+
     zi_year_doujun_rows = [
         row
         for row in annual_rows
@@ -401,6 +442,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "bazi_bundle_hash": bazi_bundle_hash,
         "ziwei_daxian_sequence_count": len(daxian_rows),
         "ziwei_annual_sequence_count": len(annual_rows),
+        "ziwei_minor_limit_sequence_count": len(minor_limit_rows),
         "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],

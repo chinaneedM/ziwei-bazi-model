@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from pathlib import Path
 
@@ -8,6 +9,7 @@ from fortune_training.combined_chart_application.ziwei_basic_info_assets import 
 
 
 ROOT = Path(__file__).resolve().parents[1]
+MATRIX_PATH = ROOT / "docs" / "FUSION-CHART-FIELD-PARITY-MATRIX-R1.json"
 
 
 class CombinedWorkbenchZiweiMinorLimitSequenceR1Tests(unittest.TestCase):
@@ -103,6 +105,22 @@ class CombinedWorkbenchZiweiMinorLimitSequenceR1Tests(unittest.TestCase):
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, ZIWEI_BASIC_INFO_JS)
+
+    def test_field_parity_separates_full_sequence_from_selected_summary(self) -> None:
+        matrix = json.loads(MATRIX_PATH.read_text(encoding="utf-8"))
+        rows = {row["field_id"]: row for row in matrix["fields"]}
+        selected = rows["ZIWEI_SELECTED_MINOR_LIMIT_FRAME_SUMMARY"]
+        sequence = rows["ZIWEI_MINOR_LIMIT_SEQUENCE_FRAMES"]
+        self.assertEqual("ALREADY_VISIBLE", selected["status"])
+        self.assertEqual("ALREADY_VISIBLE", sequence["status"])
+        self.assertEqual("ZIWEI", sequence["system"])
+        self.assertEqual("REFERENCE", sequence["priority"])
+        self.assertIn("ZiweiTemporalState.minor_limit_frames", sequence["backend_evidence"]["symbol"])
+        self.assertIn("ApplicationChartBundle.temporal_state", sequence["api_evidence"]["symbol"])
+        self.assertIn("minorLimitSequence", sequence["workbench_evidence"]["symbol"])
+        self.assertIn("does not derive", sequence["notes"])
+        self.assertIn("nominal_age", sequence["notes"])
+        self.assertNotEqual(selected["display_name"], sequence["display_name"])
 
 
 if __name__ == "__main__":
