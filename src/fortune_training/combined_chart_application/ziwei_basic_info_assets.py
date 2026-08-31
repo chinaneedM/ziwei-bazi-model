@@ -23,18 +23,18 @@ ZIWEI_BASIC_INFO_CSS = """
 .ziwei-basic-info-item { min-width:0; padding:6px 7px; border:1px solid #e5e8eb; border-radius:6px; background:#fff; }
 .ziwei-basic-info-item span { display:block; color:#777; font-size:9px; margin-bottom:2px; }
 .ziwei-basic-info-item strong,.ziwei-basic-info-item code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; }
-.ziwei-daxian-sequence,.ziwei-annual-sequence,.ziwei-minor-limit-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
-.ziwei-daxian-sequence-head,.ziwei-annual-sequence-head,.ziwei-minor-limit-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
-.ziwei-daxian-sequence-head span,.ziwei-annual-sequence-head span,.ziwei-minor-limit-sequence-head span { color:#777; }
-.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
-.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { max-height:280px; overflow:auto; padding-right:2px; }
-.ziwei-daxian-sequence-row[type=button],.ziwei-annual-sequence-row[type=button],.ziwei-minor-limit-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
-.ziwei-daxian-sequence-row[type=button]:focus-visible,.ziwei-annual-sequence-row[type=button]:focus-visible,.ziwei-minor-limit-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
-.ziwei-minor-limit-sequence-row[data-selected=true] { border-width:2px; font-weight:600; }
-.ziwei-daxian-sequence-row strong,.ziwei-annual-sequence-row strong,.ziwei-minor-limit-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
-.ziwei-daxian-sequence-row span,.ziwei-annual-sequence-row span,.ziwei-minor-limit-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
-@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr 1fr; } }
-@media (max-width:440px) { .ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr; } }
+.ziwei-daxian-sequence,.ziwei-annual-sequence,.ziwei-monthly-sequence,.ziwei-minor-limit-sequence { margin-top:8px; padding-top:7px; border-top:1px solid #e5e8eb; }
+.ziwei-daxian-sequence-head,.ziwei-annual-sequence-head,.ziwei-monthly-sequence-head,.ziwei-minor-limit-sequence-head { display:flex; justify-content:space-between; gap:8px; margin-bottom:5px; font-size:10px; }
+.ziwei-daxian-sequence-head span,.ziwei-annual-sequence-head span,.ziwei-monthly-sequence-head span,.ziwei-minor-limit-sequence-head span { color:#777; }
+.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-monthly-sequence-list,.ziwei-minor-limit-sequence-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 6px; }
+.ziwei-annual-sequence-list,.ziwei-monthly-sequence-list,.ziwei-minor-limit-sequence-list { max-height:280px; overflow:auto; padding-right:2px; }
+.ziwei-daxian-sequence-row[type=button],.ziwei-annual-sequence-row[type=button],.ziwei-monthly-sequence-row[type=button],.ziwei-minor-limit-sequence-row[type=button] { width:100%; min-width:0; padding:5px 6px; border:1px solid #e8ebee; border-radius:5px; background:#fff; color:inherit; text-align:left; cursor:pointer; font:inherit; font-size:10px; line-height:1.35; }
+.ziwei-daxian-sequence-row[type=button]:focus-visible,.ziwei-annual-sequence-row[type=button]:focus-visible,.ziwei-monthly-sequence-row[type=button]:focus-visible,.ziwei-minor-limit-sequence-row[type=button]:focus-visible { outline:2px solid #6b7280; outline-offset:1px; }
+.ziwei-monthly-sequence-row[data-selected=true],.ziwei-minor-limit-sequence-row[data-selected=true] { border-width:2px; font-weight:600; }
+.ziwei-daxian-sequence-row strong,.ziwei-annual-sequence-row strong,.ziwei-monthly-sequence-row strong,.ziwei-minor-limit-sequence-row strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+.ziwei-daxian-sequence-row span,.ziwei-annual-sequence-row span,.ziwei-monthly-sequence-row span,.ziwei-minor-limit-sequence-row span { display:block; color:#666; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:9px; }
+@media (max-width:620px) { .ziwei-basic-info-grid,.ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-monthly-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr 1fr; } }
+@media (max-width:440px) { .ziwei-daxian-sequence-list,.ziwei-annual-sequence-list,.ziwei-monthly-sequence-list,.ziwei-minor-limit-sequence-list { grid-template-columns:1fr; } }
 """
 
 
@@ -69,6 +69,13 @@ ZIWEI_BASIC_INFO_JS = r"""
       </div>
       <div id="ziwei-annual-sequence-list" class="ziwei-annual-sequence-list"></div>
     </div>
+    <div id="ziwei-monthly-sequence" class="ziwei-monthly-sequence" hidden>
+      <div class="ziwei-monthly-sequence-head">
+        <strong>完整流月序列</strong>
+        <span>released 常规农历月帧 · 点击填入流月目标</span>
+      </div>
+      <div id="ziwei-monthly-sequence-list" class="ziwei-monthly-sequence-list"></div>
+    </div>
     <div id="ziwei-minor-limit-sequence" class="ziwei-minor-limit-sequence" hidden>
       <div class="ziwei-minor-limit-sequence-head">
         <strong>完整小限序列</strong>
@@ -83,6 +90,8 @@ ZIWEI_BASIC_INFO_JS = r"""
   const daxianList = $('ziwei-daxian-sequence-list');
   const annualSection = $('ziwei-annual-sequence');
   const annualList = $('ziwei-annual-sequence-list');
+  const monthlySection = $('ziwei-monthly-sequence');
+  const monthlyList = $('ziwei-monthly-sequence-list');
   const minorLimitSection = $('ziwei-minor-limit-sequence');
   const minorLimitList = $('ziwei-minor-limit-sequence-list');
 
@@ -296,6 +305,104 @@ ZIWEI_BASIC_INFO_JS = r"""
     annualSection.hidden = false;
   }
 
+  function monthlySequence(temporalState) {
+    const rows = temporalState?.monthly_frames;
+    if (!Array.isArray(rows) || rows.length !== 12) return null;
+    const frameIds = new Set();
+    const lunarMonths = new Set();
+    const years = new Set();
+    const parentAnnualFrameIds = new Set();
+    const released = [];
+    for (const row of rows) {
+      const sourceRefs = row?.source_refs;
+      if (
+        typeof row?.frame_id !== 'string' || !row.frame_id ||
+        !Number.isInteger(row?.absolute_year) ||
+        !Number.isInteger(row?.lunar_month) || row.lunar_month < 1 || row.lunar_month > 12 ||
+        typeof row?.month_stem !== 'string' || !row.month_stem ||
+        typeof row?.month_branch !== 'string' || !row.month_branch ||
+        typeof row?.month_ganzhi !== 'string' || !row.month_ganzhi ||
+        !Number.isInteger(row?.active_address?.index) ||
+        typeof row?.active_address?.branch !== 'string' || !row.active_address.branch ||
+        typeof row?.parent_annual_frame_id !== 'string' || !row.parent_annual_frame_id ||
+        typeof row?.monthly_rule_id !== 'string' || !row.monthly_rule_id ||
+        typeof row?.month_ganzhi_rule_id !== 'string' || !row.month_ganzhi_rule_id ||
+        typeof row?.calendar_scope !== 'string' || !row.calendar_scope ||
+        typeof row?.leap_month_policy_status !== 'string' || !row.leap_month_policy_status ||
+        !Array.isArray(sourceRefs) || !sourceRefs.length ||
+        sourceRefs.some((sourceRef) => typeof sourceRef !== 'string' || !sourceRef) ||
+        frameIds.has(row.frame_id) || lunarMonths.has(row.lunar_month)
+      ) return null;
+      frameIds.add(row.frame_id);
+      lunarMonths.add(row.lunar_month);
+      years.add(row.absolute_year);
+      parentAnnualFrameIds.add(row.parent_annual_frame_id);
+      released.push({
+        frameId: row.frame_id,
+        absoluteYear: row.absolute_year,
+        lunarMonth: row.lunar_month,
+        monthStem: row.month_stem,
+        monthBranch: row.month_branch,
+        monthGanzhi: row.month_ganzhi,
+        activeAddressIndex: row.active_address.index,
+        activeBranch: row.active_address.branch,
+        parentAnnualFrameId: row.parent_annual_frame_id,
+        monthlyRuleId: row.monthly_rule_id,
+        monthGanzhiRuleId: row.month_ganzhi_rule_id,
+        calendarScope: row.calendar_scope,
+        leapMonthPolicyStatus: row.leap_month_policy_status,
+        sourceRefs: [...sourceRefs],
+      });
+    }
+    if (years.size !== 1 || parentAnnualFrameIds.size !== 1 || lunarMonths.size !== 12) return null;
+    return released;
+  }
+
+  function fillMonthlyTarget(lunarMonth) {
+    const target = $('ziwei-lunar-month');
+    if (!target || !Number.isInteger(lunarMonth) || lunarMonth < 1 || lunarMonth > 12) return;
+    target.value = String(lunarMonth);
+    target.dispatchEvent(new Event('input', { bubbles: true }));
+    target.dispatchEvent(new Event('change', { bubbles: true }));
+    target.focus();
+  }
+
+  function renderMonthlySequence(temporalState, selectedMonthly) {
+    clear(monthlyList);
+    const rows = monthlySequence(temporalState);
+    if (!rows) {
+      monthlySection.hidden = true;
+      return;
+    }
+    rows.forEach((row) => {
+      const box = document.createElement('button');
+      box.type = 'button';
+      box.className = 'ziwei-monthly-sequence-row';
+      box.dataset.frameId = row.frameId;
+      box.dataset.absoluteYear = String(row.absoluteYear);
+      box.dataset.lunarMonth = String(row.lunarMonth);
+      box.dataset.addressIndex = String(row.activeAddressIndex);
+      box.dataset.parentAnnualFrameId = row.parentAnnualFrameId;
+      const selected = (
+        selectedMonthly?.frame_id === row.frameId &&
+        selectedMonthly?.absolute_year === row.absoluteYear &&
+        selectedMonthly?.lunar_month === row.lunarMonth
+      );
+      if (selected) {
+        box.dataset.selected = 'true';
+        box.setAttribute('aria-current', 'true');
+      }
+      box.addEventListener('click', () => fillMonthlyTarget(row.lunarMonth));
+      const period = document.createElement('strong');
+      period.textContent = `${row.frameId} · ${row.monthGanzhi} · 农历 ${row.lunarMonth}月`;
+      const coordinate = document.createElement('span');
+      coordinate.textContent = `${row.absoluteYear} · 落宫 ${row.activeBranch} · ${row.calendarScope} · 闰月 ${row.leapMonthPolicyStatus}`;
+      box.append(period, coordinate);
+      monthlyList.appendChild(box);
+    });
+    monthlySection.hidden = false;
+  }
+
   function minorLimitSequence(temporalState) {
     const rows = temporalState?.minor_limit_frames;
     if (!Array.isArray(rows) || !rows.length) return null;
@@ -393,9 +500,11 @@ ZIWEI_BASIC_INFO_JS = r"""
   function clearTemporalSequences() {
     clear(daxianList);
     clear(annualList);
+    clear(monthlyList);
     clear(minorLimitList);
     daxianSection.hidden = true;
     annualSection.hidden = true;
+    monthlySection.hidden = true;
     minorLimitSection.hidden = true;
   }
 
@@ -434,6 +543,10 @@ ZIWEI_BASIC_INFO_JS = r"""
     );
     renderDaxianSequence(ziweiBundle?.temporal_state);
     renderAnnualSequence(ziweiBundle?.temporal_state);
+    renderMonthlySequence(
+      ziweiBundle?.temporal_state,
+      ziweiBundle?.view_model?.selected_temporal_frame_summary?.monthly,
+    );
     renderMinorLimitSequence(
       ziweiBundle?.temporal_state,
       ziweiBundle?.view_model?.selected_temporal_frame_summary?.minor_limit,
