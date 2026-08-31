@@ -76,6 +76,15 @@ def _require(condition: bool, diagnostic: str) -> None:
         raise RuntimeError(diagnostic)
 
 
+def _require_sha256(value: object, diagnostic: str) -> None:
+    _require(
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value.lower()),
+        diagnostic,
+    )
+
+
 def run_smoke(repository_root: Path) -> dict[str, Any]:
     """Exercise released combined-workbench application boundaries without writes."""
 
@@ -421,13 +430,222 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash,
         "target-flow Bazi base bundle binding mismatch",
     )
+    bazi_target_flow = flow["bazi_target_flow_bundle"]
     _require(
-        flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS",
+        bazi_target_flow["integrity"]["status"] == "PASS",
         "Bazi target-flow bundle integrity did not PASS",
     )
+    bazi_target_candidates = bazi_target_flow["candidates"]
     _require(
-        len(flow["bazi_target_flow_bundle"]["candidates"]) >= 1,
+        len(bazi_target_candidates) >= 1,
         "Bazi target-flow produced no candidates",
+    )
+
+    temporal_shensha = flow.get("bazi_temporal_shensha_projection_bundle")
+    _require(
+        isinstance(temporal_shensha, dict),
+        "Bazi Temporal ShenSha projection sidecar missing",
+    )
+    _require(
+        temporal_shensha.get("schema")
+        == "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1",
+        "Bazi Temporal ShenSha sidecar schema mismatch",
+    )
+    _require(
+        temporal_shensha.get("status") in {"RESOLVED", "MULTI_CANDIDATE"},
+        "Bazi Temporal ShenSha sidecar status invalid",
+    )
+    _require(
+        temporal_shensha.get("integrity", {}).get("status") == "PASS",
+        "Bazi Temporal ShenSha sidecar integrity did not PASS",
+    )
+    _require(
+        temporal_shensha.get("base_application_bundle_hash") == bazi_bundle_hash,
+        "Bazi Temporal ShenSha base application binding mismatch",
+    )
+    _require(
+        temporal_shensha.get("bazi_target_flow_bundle_hash")
+        == bazi_target_flow["bundle_hash"],
+        "Bazi Temporal ShenSha target-flow bundle binding mismatch",
+    )
+    _require(
+        temporal_shensha.get("bazi_target_flow_source_fact_hash")
+        == bazi_target_flow["source_fact_hash"],
+        "Bazi Temporal ShenSha target-flow source FactHash mismatch",
+    )
+    _require(
+        temporal_shensha.get("projection_profile_id")
+        == "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1",
+        "Bazi Temporal ShenSha sidecar profile mismatch",
+    )
+    _require(
+        temporal_shensha.get("projection_profile_version") == "1.0.0",
+        "Bazi Temporal ShenSha sidecar profile version mismatch",
+    )
+    for key in ("fact_hash", "computation_hash", "bundle_hash"):
+        _require_sha256(
+            temporal_shensha.get(key),
+            f"Bazi Temporal ShenSha sidecar {key} missing",
+        )
+    temporal_shensha_candidates = temporal_shensha.get("candidates")
+    _require(
+        isinstance(temporal_shensha_candidates, list)
+        and len(temporal_shensha_candidates) == len(bazi_target_candidates),
+        "Bazi Temporal ShenSha candidate count does not match Bazi target-flow",
+    )
+    temporal_shensha_candidate_ids: set[str] = set()
+    temporal_shensha_projection_slot_count = 0
+    temporal_shensha_hit_count = 0
+    for index, (source_candidate, sidecar_candidate) in enumerate(
+        zip(bazi_target_candidates, temporal_shensha_candidates, strict=True)
+    ):
+        _require(
+            sidecar_candidate.get("source_bazi_target_flow_candidate_id")
+            == source_candidate["candidate_id"],
+            f"Bazi Temporal ShenSha source candidate binding mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_bazi_target_flow_candidate_index") == index,
+            f"Bazi Temporal ShenSha source candidate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_flow_candidate_index")
+            == source_candidate["source_flow_candidate_index"],
+            f"Bazi Temporal ShenSha source flow candidate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_target_coordinate_candidate_index")
+            == source_candidate["source_target_coordinate_candidate_index"],
+            f"Bazi Temporal ShenSha target coordinate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("target_coordinate_candidate_id")
+            == source_candidate["target_coordinate_candidate_id"],
+            f"Bazi Temporal ShenSha target coordinate identity mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_application_candidate_ids")
+            == source_candidate["source_application_candidate_ids"],
+            f"Bazi Temporal ShenSha application lineage mismatch at {index}",
+        )
+        source_view_hashes = sidecar_candidate.get("source_application_view_hashes")
+        _require(
+            isinstance(source_view_hashes, list)
+            and len(source_view_hashes)
+            == len(source_candidate["source_application_candidate_ids"])
+            and all(isinstance(value, str) and bool(value) for value in source_view_hashes),
+            f"Bazi Temporal ShenSha application view hashes invalid at {index}",
+        )
+        _require_sha256(
+            sidecar_candidate.get("source_shensha_hash"),
+            f"Bazi Temporal ShenSha source ShenSha hash missing at {index}",
+        )
+        for key in ("fact_hash", "computation_hash"):
+            _require_sha256(
+                sidecar_candidate.get(key),
+                f"Bazi Temporal ShenSha candidate {key} missing at {index}",
+            )
+        candidate_id = sidecar_candidate.get("candidate_id")
+        _require(
+            isinstance(candidate_id, str)
+            and bool(candidate_id)
+            and candidate_id not in temporal_shensha_candidate_ids,
+            f"Bazi Temporal ShenSha candidate id missing or duplicated at {index}",
+        )
+        temporal_shensha_candidate_ids.add(candidate_id)
+
+        shensha_projection = sidecar_candidate.get("projection")
+        _require(
+            isinstance(shensha_projection, dict),
+            f"Bazi Temporal ShenSha projection missing at {index}",
+        )
+        _require(
+            shensha_projection.get("profile_id")
+            == "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1",
+            f"Bazi Temporal ShenSha projection profile mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("projection_policy")
+            == "ENGINEERING_TARGET_MATCH_NOT_CLASSICAL_TEMPORAL_APPLICABILITY",
+            f"Bazi Temporal ShenSha projection policy mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("selection_semantics")
+            == "SOURCE_CANDIDATES_PRESERVED_NO_WINNER",
+            f"Bazi Temporal ShenSha selection semantics mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("semantic_scope")
+            == "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
+            f"Bazi Temporal ShenSha semantic scope mismatch at {index}",
+        )
+        source_refs = shensha_projection.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            f"Bazi Temporal ShenSha projection source refs missing at {index}",
+        )
+        for key in ("fact_hash", "computation_hash"):
+            _require_sha256(
+                shensha_projection.get(key),
+                f"Bazi Temporal ShenSha projection {key} missing at {index}",
+            )
+        xiaoyun_slots = shensha_projection.get("xiaoyun_candidates")
+        _require(
+            isinstance(xiaoyun_slots, list),
+            f"Bazi Temporal ShenSha Xiaoyun projections invalid at {index}",
+        )
+        slots = [
+            shensha_projection.get("dayun"),
+            *xiaoyun_slots,
+            shensha_projection.get("annual"),
+            shensha_projection.get("monthly"),
+            shensha_projection.get("daily"),
+            shensha_projection.get("hourly"),
+        ]
+        for slot in slots:
+            _require(
+                isinstance(slot, dict)
+                and isinstance(slot.get("status"), str)
+                and bool(slot["status"])
+                and isinstance(slot.get("matches"), list),
+                f"Bazi Temporal ShenSha projection slot invalid at {index}",
+            )
+            temporal_shensha_projection_slot_count += 1
+            for match in slot["matches"]:
+                _require(
+                    isinstance(match.get("source_candidate_id"), str)
+                    and bool(match["source_candidate_id"]),
+                    f"Bazi Temporal ShenSha match source identity missing at {index}",
+                )
+                _require(
+                    isinstance(match.get("shensha_id"), str) and bool(match["shensha_id"]),
+                    f"Bazi Temporal ShenSha match identity missing at {index}",
+                )
+                _require(
+                    isinstance(match.get("matched_value"), str) and bool(match["matched_value"]),
+                    f"Bazi Temporal ShenSha matched value missing at {index}",
+                )
+                _require(
+                    match.get("temporal_applicability_status")
+                    == "NOT_CLASSICALLY_ARBITRATED",
+                    f"Bazi Temporal ShenSha applicability semantics changed at {index}",
+                )
+                match_source_refs = match.get("source_refs")
+                _require(
+                    isinstance(match_source_refs, list)
+                    and bool(match_source_refs)
+                    and all(
+                        isinstance(ref, str) and bool(ref)
+                        for ref in match_source_refs
+                    ),
+                    f"Bazi Temporal ShenSha match source refs missing at {index}",
+                )
+                temporal_shensha_hit_count += 1
+    _require(
+        temporal_shensha_projection_slot_count >= len(temporal_shensha_candidates) * 5,
+        "Bazi Temporal ShenSha projection released too few temporal slots",
     )
 
     projection = app.resolve_shared_ziwei_projection_payload(target_payload)
@@ -541,6 +759,14 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "bazi_target_flow_candidate_count": len(
             flow["bazi_target_flow_bundle"]["candidates"]
         ),
+        "bazi_temporal_shensha_bundle_hash": temporal_shensha["bundle_hash"],
+        "bazi_temporal_shensha_candidate_count": len(
+            temporal_shensha_candidates
+        ),
+        "bazi_temporal_shensha_projection_slot_count": (
+            temporal_shensha_projection_slot_count
+        ),
+        "bazi_temporal_shensha_hit_count": temporal_shensha_hit_count,
         "shared_projection_candidate_count": len(
             projection["projection"]["candidates"]
         ),

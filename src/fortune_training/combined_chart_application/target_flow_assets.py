@@ -186,6 +186,19 @@ TARGET_FLOW_JS = r"""
       ? hitText
       : `未投影（${display(slot.status)}）`;
     box.append(node('div', `神煞候选目标命中：${statusText}`, 'bazi-flow-shensha-hit'));
+    if (matches.length) {
+      box.append(node(
+        'div',
+        `命中来源：${matches.map((row) => `${display(row.source_candidate_id)} · ${display(row.target_kind)}=${display(row.matched_value)} · scope=${display(row.source_match_scope)} · ${display(row.temporal_applicability_status)}`).join(' / ')}`,
+        'bazi-flow-shensha-note',
+      ));
+      const sourceRefs = [...new Set(matches.flatMap(
+        (row) => Array.isArray(row.source_refs) ? row.source_refs : [],
+      ))];
+      if (sourceRefs.length) {
+        box.append(node('div', `来源：${sourceRefs.join(' | ')}`, 'bazi-flow-shensha-note'));
+      }
+    }
     box.append(node(
       'div',
       '仅为目标身份匹配；岁运神煞适用性尚未作古法/流派裁决。',
@@ -379,6 +392,7 @@ TARGET_FLOW_JS = r"""
     const flow = view.flow;
     const dayun = flow.active_dayun_frame;
     const annotations = view.timeline.classical_annotations;
+    const shenshaBundle = state.response?.bazi_temporal_shensha_projection_bundle || null;
     const shenshaSidecarCandidate = temporalShenshaCandidateFor(candidate);
     const shenshaProjection = shenshaSidecarCandidate?.projection || null;
     framesRoot.append(frameCard(
@@ -413,8 +427,27 @@ TARGET_FLOW_JS = r"""
       `structural_support_fact=${candidate.structural_support_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
       `temporal_annotation_fact=${display(annotations.fact_hash)}`,
+      `temporal_shensha_sidecar_schema=${display(shenshaBundle?.schema)}`,
+      `temporal_shensha_sidecar_status=${display(shenshaBundle?.status)}`,
+      `temporal_shensha_sidecar_profile=${display(shenshaBundle?.projection_profile_id)}@${display(shenshaBundle?.projection_profile_version)}`,
+      `temporal_shensha_base_application_bundle=${display(shenshaBundle?.base_application_bundle_hash)}`,
+      `temporal_shensha_base_application_fact=${display(shenshaBundle?.base_application_source_fact_hash)}`,
+      `temporal_shensha_source_bazi_flow_bundle=${display(shenshaBundle?.bazi_target_flow_bundle_hash)}`,
+      `temporal_shensha_source_bazi_flow_fact=${display(shenshaBundle?.bazi_target_flow_source_fact_hash)}`,
       `temporal_shensha_sidecar_candidate=${display(shenshaSidecarCandidate?.candidate_id)}`,
-      `temporal_shensha_sidecar_fact=${display(shenshaSidecarCandidate?.fact_hash)}`,
+      `temporal_shensha_source_flow_candidate=${display(shenshaSidecarCandidate?.source_bazi_target_flow_candidate_id)}`,
+      `temporal_shensha_target_coordinate_candidate=${display(shenshaSidecarCandidate?.target_coordinate_candidate_id)}`,
+      `temporal_shensha_source_application_candidates=${Array.isArray(shenshaSidecarCandidate?.source_application_candidate_ids) ? shenshaSidecarCandidate.source_application_candidate_ids.join(',') : '-'}`,
+      `temporal_shensha_source_application_view_hashes=${Array.isArray(shenshaSidecarCandidate?.source_application_view_hashes) ? shenshaSidecarCandidate.source_application_view_hashes.join(',') : '-'}`,
+      `temporal_shensha_source_shensha_hash=${display(shenshaSidecarCandidate?.source_shensha_hash)}`,
+      `temporal_shensha_projection_fact=${display(shenshaProjection?.fact_hash)}`,
+      `temporal_shensha_projection_computation=${display(shenshaProjection?.computation_hash)}`,
+      `temporal_shensha_sidecar_candidate_fact=${display(shenshaSidecarCandidate?.fact_hash)}`,
+      `temporal_shensha_sidecar_candidate_computation=${display(shenshaSidecarCandidate?.computation_hash)}`,
+      `temporal_shensha_sidecar_fact=${display(shenshaBundle?.fact_hash)}`,
+      `temporal_shensha_sidecar_computation=${display(shenshaBundle?.computation_hash)}`,
+      `temporal_shensha_sidecar_bundle=${display(shenshaBundle?.bundle_hash)}`,
+      `temporal_shensha_integrity=${display(shenshaBundle?.integrity?.status)}`,
       `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} structural=${display(view.integrity?.structural)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
     ].join('\n');
   }
