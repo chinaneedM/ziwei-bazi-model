@@ -36,6 +36,7 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
             "bazi_bundle_hash",
             "ziwei_interaction_bundle_hash",
             "bazi_target_flow_bundle_hash",
+            "bazi_temporal_shensha_bundle_hash",
             "target_coordinate_fact_hash",
             "shared_projection_fact_hash",
             "fusion_r2_bundle_hash",
@@ -44,6 +45,11 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
                 self.assertEqual(64, len(receipt[key]))
         self.assertEqual(12, receipt["ziwei_monthly_sequence_count"])
         self.assertGreaterEqual(receipt["bazi_target_flow_candidate_count"], 1)
+        self.assertGreaterEqual(receipt["bazi_temporal_shensha_candidate_count"], 1)
+        self.assertGreaterEqual(
+            receipt["bazi_temporal_shensha_projection_slot_count"],
+            receipt["bazi_temporal_shensha_candidate_count"] * 5,
+        )
         self.assertGreaterEqual(receipt["shared_projection_candidate_count"], 1)
         self.assertGreaterEqual(receipt["fusion_r2_ziwei_selector_candidate_count"], 1)
 
@@ -61,6 +67,10 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
             "TargetTemporalCoordinateFoundation",
             "SharedZiweiSelectorProjectionService",
             "ZiweiTemporal",
+            "temporal_shensha_target_projection(",
+            "validate_temporal_shensha_target_projection(",
+            "_target_value(",
+            "_layer_policy(",
             "sexagenary_index",
             "nominal_age =",
             "DaxianFrame(",

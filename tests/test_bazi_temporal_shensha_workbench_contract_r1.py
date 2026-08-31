@@ -16,6 +16,9 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
         for released_field in (
             "bazi_temporal_shensha_projection_bundle",
             "source_bazi_target_flow_candidate_id",
+            "source_bazi_target_flow_candidate_index",
+            "source_flow_candidate_index",
+            "source_target_coordinate_candidate_index",
             "target_coordinate_candidate_id",
             "source_application_candidate_ids",
             "source_application_view_hashes",
@@ -23,6 +26,11 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
             "projection_profile_id",
             "base_application_bundle_hash",
             "bazi_target_flow_bundle_hash",
+            "temporal_shensha_projection_profile",
+            "temporal_shensha_projection_policy",
+            "temporal_shensha_projection_selection_semantics",
+            "temporal_shensha_projection_semantic_scope",
+            "temporal_shensha_projection_source_refs",
             "temporal_shensha_projection_fact",
             "temporal_shensha_projection_computation",
             "temporal_shensha_integrity",
@@ -36,11 +44,18 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
         )
         self.assertIn("row.temporal_applicability_status", TARGET_FLOW_JS)
         self.assertIn("row.source_refs", TARGET_FLOW_JS)
+        self.assertIn("SOURCE_CANDIDATES_PRESERVED_NO_WINNER", TARGET_FLOW_JS)
+        self.assertIn(
+            "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
+            TARGET_FLOW_JS,
+        )
         for forbidden in (
             "temporal_shensha_target_projection(",
             "project_temporal_shensha(",
             "SEXAGENARY_INDEX",
             "matched_value not in",
+            "_target_value(",
+            "_layer_policy(",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, TARGET_FLOW_JS)
@@ -51,6 +66,7 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
             "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1",
             "SOURCE_CANDIDATES_PRESERVED_NO_WINNER",
             "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
+            "bazi_temporal_shensha_bundle_hash",
             "bazi_temporal_shensha_candidate_count",
             "bazi_temporal_shensha_projection_slot_count",
         ):
@@ -60,6 +76,8 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
             "temporal_shensha_target_projection",
             "validate_temporal_shensha_target_projection",
             "SEXAGENARY_INDEX",
+            "_target_value(",
+            "_layer_policy(",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, source)
@@ -67,9 +85,9 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
     def test_field_parity_matrix_registers_temporal_shensha_product_surface(self) -> None:
         text = MATRIX_PATH.read_text(encoding="utf-8")
         self.assertIn('"field_id":"BAZI_TARGET_TEMPORAL_SHENSHA_PROJECTION"', text)
-        self.assertIn('"status":"ALREADY_VISIBLE"', text)
         self.assertIn("TARGET_IDENTITY_MATCH_ONLY", text)
         self.assertIn("no winner", text.lower())
+        self.assertIn("browser never derives", text.lower())
 
 
 if __name__ == "__main__":
