@@ -215,6 +215,94 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         annual_frame_ids.add(row["frame_id"])
         annual_years.add(row["absolute_year"])
 
+    monthly_rows = ziwei_temporal_state["monthly_frames"]
+    _require(
+        isinstance(monthly_rows, list) and len(monthly_rows) == 12,
+        "released Ziwei Monthly sequence count mismatch",
+    )
+    selected_annual_year = base_payload["ziwei_annual_year"]
+    _require(
+        isinstance(selected_annual_year, int),
+        "smoke fixture Ziwei annual year is not an integer",
+    )
+    monthly_frame_ids: set[str] = set()
+    monthly_lunar_months: set[int] = set()
+    for row in monthly_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Monthly frame_id missing",
+        )
+        _require(
+            row.get("absolute_year") == selected_annual_year,
+            "Monthly absolute_year does not match the released selected annual year",
+        )
+        _require(
+            isinstance(row.get("lunar_month"), int) and 1 <= row["lunar_month"] <= 12,
+            "Monthly lunar_month missing or out of range",
+        )
+        _require(
+            isinstance(row.get("month_stem"), str) and bool(row["month_stem"]),
+            "Monthly month_stem missing",
+        )
+        _require(
+            isinstance(row.get("month_branch"), str) and bool(row["month_branch"]),
+            "Monthly month_branch missing",
+        )
+        _require(
+            row.get("month_ganzhi") == row["month_stem"] + row["month_branch"],
+            "Monthly month_ganzhi does not match released stem/branch identity",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Monthly active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("parent_annual_frame_id"), str)
+            and row["parent_annual_frame_id"] in annual_frame_ids,
+            "Monthly parent_annual_frame_id is not a released Annual identity",
+        )
+        _require(
+            isinstance(row.get("monthly_rule_id"), str) and bool(row["monthly_rule_id"]),
+            "Monthly monthly_rule_id missing",
+        )
+        _require(
+            isinstance(row.get("month_ganzhi_rule_id"), str)
+            and bool(row["month_ganzhi_rule_id"]),
+            "Monthly month_ganzhi_rule_id missing",
+        )
+        _require(
+            row.get("calendar_scope") == "REGULAR_LUNAR_MONTH_COORDINATE",
+            "Monthly calendar_scope is not the released regular-lunar-month coordinate",
+        )
+        _require(
+            row.get("leap_month_policy_status") == "UNRESOLVED_NOT_GENERATED",
+            "Monthly leap-month policy status is not explicitly unresolved",
+        )
+        source_refs = row.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            "Monthly source_refs missing",
+        )
+        _require(
+            row["frame_id"] not in monthly_frame_ids,
+            "released Monthly frame_id is duplicated",
+        )
+        _require(
+            row["lunar_month"] not in monthly_lunar_months,
+            "released Monthly lunar_month is duplicated",
+        )
+        monthly_frame_ids.add(row["frame_id"])
+        monthly_lunar_months.add(row["lunar_month"])
+    _require(
+        monthly_lunar_months == set(range(1, 13)),
+        "released Ziwei Monthly sequence does not contain lunar months 1-12 exactly",
+    )
+
     minor_limit_rows = ziwei_temporal_state["minor_limit_frames"]
     _require(
         isinstance(minor_limit_rows, list) and bool(minor_limit_rows),
@@ -442,6 +530,7 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "bazi_bundle_hash": bazi_bundle_hash,
         "ziwei_daxian_sequence_count": len(daxian_rows),
         "ziwei_annual_sequence_count": len(annual_rows),
+        "ziwei_monthly_sequence_count": len(monthly_rows),
         "ziwei_minor_limit_sequence_count": len(minor_limit_rows),
         "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],

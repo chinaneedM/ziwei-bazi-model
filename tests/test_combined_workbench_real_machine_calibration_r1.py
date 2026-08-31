@@ -42,6 +42,7 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
         ):
             with self.subTest(key=key):
                 self.assertEqual(64, len(receipt[key]))
+        self.assertEqual(12, receipt["ziwei_monthly_sequence_count"])
         self.assertGreaterEqual(receipt["bazi_target_flow_candidate_count"], 1)
         self.assertGreaterEqual(receipt["shared_projection_candidate_count"], 1)
         self.assertGreaterEqual(receipt["fusion_r2_ziwei_selector_candidate_count"], 1)
@@ -64,6 +65,7 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
             "nominal_age =",
             "DaxianFrame(",
             "AnnualFrame(",
+            "MonthlyFrame(",
             "MinorLimitFrame(",
         ):
             with self.subTest(forbidden=forbidden):
