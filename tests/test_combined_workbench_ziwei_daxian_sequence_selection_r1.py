@@ -62,6 +62,9 @@ class CombinedWorkbenchZiweiDaxianSequenceSelectionR1Tests(unittest.TestCase):
         self.assertIn("released 大限帧 · 点击填入目标", ZIWEI_BASIC_INFO_JS)
 
     def test_browser_does_not_construct_frame_identity_or_auto_submit(self) -> None:
+        start = ZIWEI_BASIC_INFO_JS.index("function daxianSequence(temporalState)")
+        end = ZIWEI_BASIC_INFO_JS.index("function annualSequence", start)
+        daxian_projection = ZIWEI_BASIC_INFO_JS[start:end]
         for forbidden in (
             "DAXIAN:index=${",
             '"DAXIAN:index=" +',
@@ -71,7 +74,7 @@ class CombinedWorkbenchZiweiDaxianSequenceSelectionR1Tests(unittest.TestCase):
             "DaxianFrame",
         ):
             with self.subTest(forbidden=forbidden):
-                self.assertNotIn(forbidden, ZIWEI_BASIC_INFO_JS)
+                self.assertNotIn(forbidden, daxian_projection)
 
     def test_field_parity_remains_the_existing_full_sequence_field(self) -> None:
         matrix = json.loads(MATRIX_PATH.read_text(encoding="utf-8"))

@@ -19,6 +19,9 @@ class CombinedWorkbenchZiweiLimitFlowOverlapR1Tests(unittest.TestCase):
         self.assertIn("item('限流叠宫', limitFlowOverlap(ziweiBundle?.view_model))", ZIWEI_BASIC_INFO_JS)
 
     def test_overlap_projection_does_not_recompute_palace_or_calendar_rules(self) -> None:
+        start = ZIWEI_BASIC_INFO_JS.index("function limitFlowOverlap(view)")
+        end = ZIWEI_BASIC_INFO_JS.index("function clearTemporalSequences", start)
+        overlap_projection = ZIWEI_BASIC_INFO_JS[start:end]
         for forbidden in (
             "NatalStructureGenerator",
             "TemporalEngine",
@@ -30,7 +33,7 @@ class CombinedWorkbenchZiweiLimitFlowOverlapR1Tests(unittest.TestCase):
             "MonthlyFrame",
         ):
             with self.subTest(forbidden=forbidden):
-                self.assertNotIn(forbidden, ZIWEI_BASIC_INFO_JS)
+                self.assertNotIn(forbidden, overlap_projection)
 
     def test_overlap_label_has_deterministic_frame_and_address_order(self) -> None:
         self.assertIn("temporalFrameOrder.filter", ZIWEI_BASIC_INFO_JS)

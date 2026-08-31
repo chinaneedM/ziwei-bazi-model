@@ -62,7 +62,9 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
             "ZiweiTemporal",
             "sexagenary_index",
             "nominal_age =",
-            "parent_daxian_frame_id =",
+            "DaxianFrame(",
+            "AnnualFrame(",
+            "MinorLimitFrame(",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, source)
