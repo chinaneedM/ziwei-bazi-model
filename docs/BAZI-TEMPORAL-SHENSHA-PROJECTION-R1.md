@@ -101,15 +101,26 @@ R1 与现有统一时间链保持同构：
 
 任何对匹配值、候选身份、范围或排除状态的静默修改都应导致 replay 失败。
 
-## 8. 阶段状态
+## 8. 当前发布状态
 
-R1.7 只发布内部 target-match 内核与专项回归，不立即修改联合 timeline/schema/UI。
+R1.7 首先发布本文件描述的内部 target-match 内核；该阶段历史边界已经完成，不再代表当前产品状态。
 
-R1.7 全量门禁通过后，下一阶段 R1.8 才允许把该 sidecar 接入：
+后续发布已经完成：
 
-1. `BAZI-UNIFIED-TARGET-TIMELINE-R1`；
-2. application flow full replay；
-3. JSON Schema；
-4. combined read-only workbench。
+1. R1.8 将投影产品化为独立 `BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1`，接入 `/api/resolve-flow` 与联合只读 Workbench；
+2. R1.9 收紧 source application lineage、public resolve full replay、DST fold 多候选、PRE_DAYUN 与 wrapper schema 的 fail-closed 完整性；
+3. 当前 Workbench 按 `source_bazi_target_flow_candidate_id` 精确绑定 sidecar candidate，并只读取后端释放的 projection、source refs、候选 lineage、FactHash、ComputationHash、BundleHash 与 integrity，不在浏览器重算神煞规则；
+4. 当前 smoke/contract tests 校验 source candidate 保留、target-flow 一对一绑定、目标坐标 lineage、投影语义、各时间层 target identity、hash/integrity 与无浏览器重算边界。
 
-在 R1.8 之前，现有公开融合盘契约保持不变。
+当前产品语义固定为：
+
+- `SOURCE_CANDIDATES_PRESERVED_NO_WINNER`；
+- `TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION`；
+- `temporal_applicability_status = NOT_CLASSICALLY_ARBITRATED`。
+
+因此，“R1.8 之后再接 timeline/schema/UI”已经是历史计划，不应继续被当作待办。当前后续工作若扩展岁运神煞，只能在新增来源可审计、候选可保留、且不越过上述语义边界的前提下进行；不得把现有 target-match 升格为已裁决的流年/流月/流日/流时神煞结论。
+
+产品化与 replay 细节分别见：
+
+- `docs/BAZI-TEMPORAL-SHENSHA-SIDECAR-R1.md`；
+- `docs/BAZI-TEMPORAL-SHENSHA-SIDECAR-HARDENING-R1.md`。
