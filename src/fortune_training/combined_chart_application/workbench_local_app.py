@@ -97,9 +97,19 @@ from .ziwei_basic_info_assets import (
     ZIWEI_BASIC_INFO_JS,
     ziwei_basic_info_index_html,
 )
+from .ziwei_dignity_provenance_assets import (
+    ZIWEI_DIGNITY_PROVENANCE_CSS,
+    ZIWEI_DIGNITY_PROVENANCE_JS,
+    ziwei_dignity_provenance_index_html,
+)
+from .ziwei_dignity_provenance_local_app import (
+    ZiweiDignityProvenanceLocalMixin,
+    _ZiweiDignityProvenanceHandlerMixin,
+)
 
 
 class CombinedChartWorkbenchApplication(
+    ZiweiDignityProvenanceLocalMixin,
     ZiweiPalaceStemTopologyLocalMixin,
     BaziHiddenExposurePresentationLocalMixin,
     BaziStemRelationPresentationLocalMixin,
@@ -113,11 +123,10 @@ class CombinedChartWorkbenchApplication(
     """One loopback workspace over released independent Ziwei/Bazi sidecars."""
 
     def __init__(self, repository_root: Path) -> None:
-        # Cooperative MRO is intentional:
-        # topology/presentation/shared/fusion mixins compose over Interaction ->
-        # Flow -> Local, sharing the same CombinedChartService instance. The
-        # palace-stem topology sidecar binds to the already released Ziwei
-        # application bundle and never mutates NatalChartState.
+        # Cooperative MRO is intentional: provenance/topology/presentation/shared/
+        # fusion mixins compose over Interaction -> Flow -> Local, sharing the same
+        # CombinedChartService instance. Read-only Ziwei sidecars bind to the exact
+        # released application bundle and never mutate NatalChartState.
         super().__init__(repository_root)
 
     def health(self):
@@ -128,6 +137,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _ZiweiDignityProvenanceHandlerMixin,
     _ZiweiPalaceStemTopologyHandlerMixin,
     _BaziHiddenExposurePresentationHandlerMixin,
     _BaziStemRelationPresentationHandlerMixin,
@@ -139,7 +149,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.10"
+    server_version = "CombinedChartWorkbenchLocalApp/1.11"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -153,8 +163,10 @@ class _WorkbenchHandler(
                                     nayin_index_html(
                                         shared_apply_index_html(
                                             target_flow_index_html(
-                                                palace_stem_topology_index_html(
-                                                    interaction_index_html(INDEX_HTML)
+                                                ziwei_dignity_provenance_index_html(
+                                                    palace_stem_topology_index_html(
+                                                        interaction_index_html(INDEX_HTML)
+                                                    )
                                                 )
                                             )
                                         )
@@ -312,6 +324,20 @@ class _WorkbenchHandler(
                 PALACE_STEM_TOPOLOGY_JS.encode(),
             )
             return
+        if path == "/ziwei-dignity-provenance.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                ZIWEI_DIGNITY_PROVENANCE_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-dignity-provenance.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                ZIWEI_DIGNITY_PROVENANCE_JS.encode(),
+            )
+            return
         super().do_GET()
 
 
@@ -349,10 +375,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe and palace-stem transformation-topology sidecars, Bazi "
-            "target-flow, R2 cross-system target-flow fusion, Ziwei natal basic-info "
-            "presentation, Bazi Nayin/pillar-metadata/hidden-exposure/stem-relation/"
-            "branch-relation presentation, and explicit shared-time apply sidecars"
+            "Ziwei Sanhe, palace-stem topology, star provenance and Dignity-provenance "
+            "sidecars, Bazi target-flow, R2 cross-system target-flow fusion, Ziwei natal "
+            "basic-info presentation, Bazi Nayin/pillar-metadata/hidden-exposure/"
+            "stem-relation/branch-relation presentation, and explicit shared-time apply "
+            "sidecars"
         )
     )
     parser.add_argument(
@@ -368,16 +395,17 @@ def main(argv: list[str] | None = None) -> int:
     url = f"http://{host}:{port}/"
     print(f"Combined chart local workbench: {url}")
     print(
-        "Ziwei interaction: SANHE plus read-only palace-stem transformation topology. "
-        "Bazi interaction: explicit target-flow sidecar. Fusion: additive R2 target-flow "
-        "endpoint + read-only browser panel. Ziwei natal basics plus Bazi Nayin, pillar "
-        "metadata, exact hidden-stem exposure and natal stem/branch relation facts are "
-        "read-only presentation projections."
+        "Ziwei interaction: SANHE plus read-only palace-stem, star-placement and Dignity "
+        "annotation provenance. Bazi interaction: explicit target-flow sidecar. Fusion: "
+        "additive R2 target-flow endpoint + read-only browser panel. Ziwei natal basics "
+        "plus Bazi Nayin, pillar metadata, exact hidden-stem exposure and natal stem/"
+        "branch relation facts are read-only presentation projections."
     )
     print(
         "Palace-stem SAME/OPPOSITE/OTHER topology is not promoted to outward/inward "
-        "self-transformation direction. Shared target synchronization is explicit "
-        "opt-in only; no automatic cross-system sync."
+        "self-transformation direction. Operational Dignity provenance is not S01 frozen "
+        "brightness authority. Shared target synchronization is explicit opt-in only; no "
+        "automatic cross-system sync."
     )
     print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:
