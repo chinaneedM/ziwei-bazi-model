@@ -43,31 +43,46 @@ class CombinedWorkbenchZiweiRawLunarMonthR1Tests(unittest.TestCase):
         )
         return response["combined_resolution"]["ziwei_bundle"]["candidate"]["chart"]["structure"]
 
-    def test_released_structure_exposes_raw_lunar_month_distinct_from_month_coordinate(self) -> None:
+    def test_released_structure_exposes_raw_lunar_month_and_month_anchor(self) -> None:
         structure = self._resolve_structure()
         self.assertIsInstance(structure["raw_lunar_month"], int)
         self.assertGreaterEqual(structure["raw_lunar_month"], 1)
         self.assertLessEqual(structure["raw_lunar_month"], 12)
         self.assertIn("natal_month_coordinate", structure)
+        month_anchor = structure["month_anchor"]
+        self.assertIsInstance(month_anchor, dict)
+        self.assertIn("index", month_anchor)
+        self.assertIn("branch", month_anchor)
+        self.assertIsInstance(month_anchor["index"], int)
+        self.assertGreaterEqual(month_anchor["index"], 0)
+        self.assertLess(month_anchor["index"], 12)
+        self.assertTrue(month_anchor["branch"])
 
-    def test_asset_copy_projects_released_raw_lunar_month_only(self) -> None:
+    def test_asset_copy_projects_released_natal_coordinates_only(self) -> None:
         self.assertIn("structure?.raw_lunar_month", ZIWEI_RAW_LUNAR_MONTH_JS)
         self.assertIn("Number.isInteger(rawLunarMonth)", ZIWEI_RAW_LUNAR_MONTH_JS)
-        self.assertIn("label.textContent = '原始农历月'", ZIWEI_RAW_LUNAR_MONTH_JS)
-        self.assertIn("content.textContent = String(rawLunarMonth)", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("'原始农历月'", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("String(rawLunarMonth)", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("structure?.month_anchor", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("Number.isInteger(monthAnchor?.index)", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("'命身月锚'", ZIWEI_RAW_LUNAR_MONTH_JS)
+        self.assertIn("monthAnchor.branch", ZIWEI_RAW_LUNAR_MONTH_JS)
         self.assertIn("ziwei-basic-info-grid", ZIWEI_RAW_LUNAR_MONTH_JS)
         self.assertIn("structure.natal_month_coordinate", ZIWEI_BASIC_INFO_JS)
 
-    def test_asset_does_not_reimplement_calendar_or_month_coordinate_rules(self) -> None:
+    def test_asset_does_not_reimplement_calendar_life_body_or_month_coordinate_rules(self) -> None:
         for forbidden in (
             "natal_month_coordinate =",
             "raw_lunar_month =",
+            "month_anchor =",
             "fromSolar",
             "fromLunar",
             "Lunar.from",
             "Solar.from",
             "day_boundary",
             "apparent_solar",
+            "monthAnchor.index -",
+            "monthAnchor.index +",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, ZIWEI_RAW_LUNAR_MONTH_JS)
@@ -79,7 +94,7 @@ class CombinedWorkbenchZiweiRawLunarMonthR1Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "already injected"):
             ziwei_raw_lunar_month_index_html(injected)
 
-    def test_workbench_publishes_raw_lunar_month_asset_over_loopback_http(self) -> None:
+    def test_workbench_publishes_natal_coordinate_asset_over_loopback_http(self) -> None:
         server = build_workbench_server(ROOT, port=0)
         host, port = server.server_address[:2]
         self.assertEqual("127.0.0.1", host)
@@ -94,6 +109,8 @@ class CombinedWorkbenchZiweiRawLunarMonthR1Tests(unittest.TestCase):
                 asset = response.read().decode("utf-8")
                 self.assertEqual(200, response.status)
                 self.assertIn("structure?.raw_lunar_month", asset)
+                self.assertIn("structure?.month_anchor", asset)
+                self.assertIn("'命身月锚'", asset)
         finally:
             server.shutdown()
             server.server_close()

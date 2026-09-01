@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def ziwei_raw_lunar_month_index_html(base_html: str) -> str:
-    """Inject the released Ziwei raw-lunar-month copy projection into the Workbench."""
+    """Inject released Ziwei natal-coordinate copy projections into the Workbench."""
 
     if "/ziwei-raw-lunar-month.js" in base_html:
         raise ValueError("Ziwei raw lunar month asset already injected")
@@ -19,35 +19,50 @@ ZIWEI_RAW_LUNAR_MONTH_JS = r"""
   const chartRoot = $('ziwei-chart');
   if (!chartRoot || typeof window.fetch !== 'function') return;
 
-  const ITEM_ID = 'ziwei-raw-lunar-month-item';
+  const RAW_MONTH_ITEM_ID = 'ziwei-raw-lunar-month-item';
+  const MONTH_ANCHOR_ITEM_ID = 'ziwei-month-anchor-item';
 
-  function clearItem() {
-    const existing = $(ITEM_ID);
-    if (existing) existing.remove();
+  function clearItems() {
+    [RAW_MONTH_ITEM_ID, MONTH_ANCHOR_ITEM_ID].forEach((itemId) => {
+      const existing = $(itemId);
+      if (existing) existing.remove();
+    });
   }
 
-  function renderFromResolvePayload(payload) {
-    clearItem();
-    const structure = payload?.combined_resolution?.ziwei_bundle?.candidate?.chart?.structure;
-    const rawLunarMonth = structure?.raw_lunar_month;
-    if (!Number.isInteger(rawLunarMonth) || rawLunarMonth < 1 || rawLunarMonth > 12) return;
-
-    const grid = $('ziwei-basic-info-grid');
-    if (!grid) return;
-
+  function appendItem(grid, itemId, labelText, valueText) {
     const box = document.createElement('div');
-    box.id = ITEM_ID;
+    box.id = itemId;
     box.className = 'ziwei-basic-info-item';
 
     const label = document.createElement('span');
-    label.textContent = '原始农历月';
+    label.textContent = labelText;
 
     const content = document.createElement('strong');
-    content.textContent = String(rawLunarMonth);
+    content.textContent = valueText;
     content.title = content.textContent;
 
     box.append(label, content);
     grid.append(box);
+  }
+
+  function renderFromResolvePayload(payload) {
+    clearItems();
+    const structure = payload?.combined_resolution?.ziwei_bundle?.candidate?.chart?.structure;
+    const grid = $('ziwei-basic-info-grid');
+    if (!structure || !grid) return;
+
+    const rawLunarMonth = structure?.raw_lunar_month;
+    if (Number.isInteger(rawLunarMonth) && rawLunarMonth >= 1 && rawLunarMonth <= 12) {
+      appendItem(grid, RAW_MONTH_ITEM_ID, '原始农历月', String(rawLunarMonth));
+    }
+
+    const monthAnchor = structure?.month_anchor;
+    if (
+      Number.isInteger(monthAnchor?.index) && monthAnchor.index >= 0 && monthAnchor.index < 12 &&
+      typeof monthAnchor?.branch === 'string' && monthAnchor.branch
+    ) {
+      appendItem(grid, MONTH_ANCHOR_ITEM_ID, '命身月锚', monthAnchor.branch);
+    }
   }
 
   const nativeFetch = window.fetch.bind(window);
@@ -67,7 +82,7 @@ ZIWEI_RAW_LUNAR_MONTH_JS = r"""
         try {
           renderFromResolvePayload(await copy.json());
         } catch (_) {
-          clearItem();
+          clearItems();
         }
       }, 0);
     }
@@ -75,6 +90,6 @@ ZIWEI_RAW_LUNAR_MONTH_JS = r"""
   };
 
   const form = $('chart-form');
-  if (form) form.addEventListener('submit', clearItem);
+  if (form) form.addEventListener('submit', clearItems);
 })();
 """
