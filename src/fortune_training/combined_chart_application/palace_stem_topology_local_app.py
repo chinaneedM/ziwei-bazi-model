@@ -44,6 +44,10 @@ class ZiweiPalaceStemTopologyLocalMixin:
     def _resolve_ziwei_sidecar_source(
         self,
         payload: dict[str, Any],
+        *,
+        source_unavailable_code: str = (
+            "LOCAL_APP_ZIWEI_PALACE_STEM_TOPOLOGY_SOURCE_UNAVAILABLE"
+        ),
     ):
         if not isinstance(payload, dict):
             raise LocalCombinedAppRequestError(
@@ -57,7 +61,7 @@ class ZiweiPalaceStemTopologyLocalMixin:
         if source_ziwei is None:
             error = combined_resolution.get("ziwei_error") or {}
             raise LocalCombinedAppRequestError(
-                "LOCAL_APP_ZIWEI_PALACE_STEM_TOPOLOGY_SOURCE_UNAVAILABLE",
+                source_unavailable_code,
                 str(error.get("detail") or "combined resolution has no Ziwei bundle"),
                 status=422,
             )
@@ -140,7 +144,12 @@ class ZiweiPalaceStemTopologyLocalMixin:
         payload: dict[str, Any],
     ) -> dict[str, Any]:
         combined_resolution, expected_ziwei_hash, bundle = (
-            self._resolve_ziwei_sidecar_source(payload)
+            self._resolve_ziwei_sidecar_source(
+                payload,
+                source_unavailable_code=(
+                    "LOCAL_APP_ZIWEI_STAR_PROVENANCE_SOURCE_UNAVAILABLE"
+                ),
+            )
         )
         try:
             provenance = self.ziwei_star_provenance_service.resolve(bundle)

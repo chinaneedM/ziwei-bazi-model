@@ -3,7 +3,11 @@ from __future__ import annotations
 import unittest
 from dataclasses import replace
 from pathlib import Path
+from unittest.mock import patch
 
+from fortune_training.combined_chart_application.local_app import (
+    LocalCombinedAppRequestError,
+)
 from fortune_training.combined_chart_application.workbench_local_app import (
     CombinedChartWorkbenchApplication,
 )
@@ -142,6 +146,22 @@ class ZiweiStarPlacementProvenanceR1Tests(unittest.TestCase):
         self.assertEqual(report.status, "FAIL")
         self.assertIn("COMPUTATION_HASH_MISMATCH", report.diagnostics)
         self.assertIn("BUNDLE_HASH_MISMATCH", report.diagnostics)
+
+    def test_star_provenance_source_unavailable_has_dedicated_diagnostic(self) -> None:
+        combined = {
+            "combined_resolution": {
+                "ziwei_bundle": None,
+                "ziwei_error": {"detail": "fixture source unavailable"},
+            }
+        }
+        with patch.object(self.app, "resolve_payload", return_value=combined):
+            with self.assertRaises(LocalCombinedAppRequestError) as raised:
+                self.app.resolve_ziwei_star_provenance_payload(dict(self.payload))
+        self.assertEqual(
+            raised.exception.code,
+            "LOCAL_APP_ZIWEI_STAR_PROVENANCE_SOURCE_UNAVAILABLE",
+        )
+        self.assertEqual(raised.exception.status, 422)
 
     def test_full_replay_is_stable(self) -> None:
         replay = self.app.resolve_ziwei_star_provenance_payload(dict(self.payload))
