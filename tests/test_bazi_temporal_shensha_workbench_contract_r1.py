@@ -44,11 +44,14 @@ class BaziTemporalShenshaWorkbenchContractR1Tests(unittest.TestCase):
         )
         self.assertIn("row.temporal_applicability_status", TARGET_FLOW_JS)
         self.assertIn("row.source_refs", TARGET_FLOW_JS)
-        self.assertIn("SOURCE_CANDIDATES_PRESERVED_NO_WINNER", TARGET_FLOW_JS)
-        self.assertIn(
-            "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
-            TARGET_FLOW_JS,
-        )
+        for backend_projection_field in (
+            "shenshaProjection?.projection_policy",
+            "shenshaProjection?.selection_semantics",
+            "shenshaProjection?.semantic_scope",
+            "shenshaProjection?.source_refs",
+        ):
+            with self.subTest(backend_projection_field=backend_projection_field):
+                self.assertIn(backend_projection_field, TARGET_FLOW_JS)
         for forbidden in (
             "temporal_shensha_target_projection(",
             "project_temporal_shensha(",
