@@ -167,7 +167,7 @@ PALACE_STEM_TOPOLOGY_JS = """
     ].join(' · ');
   }
 
-  function renderProvenance(response) {
+  function renderStarProvenance(response) {
     const provenance = response.ziwei_star_placement_provenance;
     provenancePanel.hidden = false;
     provenanceHash.textContent = provenance.bundle_hash.slice(0, 16);
@@ -250,7 +250,7 @@ PALACE_STEM_TOPOLOGY_JS = """
     topologyStatus.textContent = '读取宫干四化目标拓扑…';
     provenanceStatus.textContent = '读取星曜生成来源…';
     readSidecar('/api/ziwei-palace-stem-topology', ticket, renderTopology, topologyPanel, topologyStatus, '宫干四化目标拓扑读取失败');
-    readSidecar('/api/ziwei-star-provenance', ticket, renderProvenance, provenancePanel, provenanceStatus, '星曜生成来源读取失败');
+    readSidecar('/api/ziwei-star-provenance', ticket, renderStarProvenance, provenancePanel, provenanceStatus, '星曜生成来源读取失败');
   }
 
   const originalFetch = window.fetch.bind(window);

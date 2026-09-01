@@ -12,6 +12,7 @@ class ZiweiStarProvenanceWorkbenchContractR1Tests(unittest.TestCase):
         for expected in (
             "/api/ziwei-star-provenance",
             "ziwei_star_placement_provenance",
+            "renderStarProvenance",
             "generator_family_id",
             "generator_family_label",
             "main_star_system_id",
