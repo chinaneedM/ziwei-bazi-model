@@ -352,33 +352,49 @@ class CombinedChartService:
                         profile=request.ziwei_calculation_profile,
                     )
                 )
-                if (
-                    replay.status != "MULTI_CANDIDATE"
-                    or len(replay.candidates) < 2
-                    or replay.time_calendar != ziwei_time_result
-                ):
+                time_binding_matches = replay.time_calendar == ziwei_time_result
+                if not time_binding_matches:
                     raise CombinedApplicationResolutionError(
                         "COMBINED_ZIWEI_MULTI_CANDIDATE_REPLAY_MISMATCH",
                         (
                             f"status={replay.status} candidates={len(replay.candidates)} "
-                            f"time_binding={replay.time_calendar == ziwei_time_result}"
+                            f"time_binding={time_binding_matches}"
                         ),
                     ) from exc
-                ziwei_fact_hash_by_branch = {}
-                for candidate in replay.candidates:
-                    for branch_index in candidate.branch_indices:
-                        existing = ziwei_fact_hash_by_branch.get(branch_index)
-                        if (
-                            existing is not None
-                            and existing != candidate.hashes.fact_hash
-                        ):
-                            raise CombinedApplicationResolutionError(
-                                "COMBINED_ZIWEI_BRANCH_FACT_HASH_CONFLICT",
-                                str(branch_index),
-                            ) from exc
-                        ziwei_fact_hash_by_branch[branch_index] = (
-                            candidate.hashes.fact_hash
-                        )
+                if replay.status == "MULTI_CANDIDATE" and len(replay.candidates) >= 2:
+                    ziwei_fact_hash_by_branch = {}
+                    for candidate in replay.candidates:
+                        for branch_index in candidate.branch_indices:
+                            existing = ziwei_fact_hash_by_branch.get(branch_index)
+                            if (
+                                existing is not None
+                                and existing != candidate.hashes.fact_hash
+                            ):
+                                raise CombinedApplicationResolutionError(
+                                    "COMBINED_ZIWEI_BRANCH_FACT_HASH_CONFLICT",
+                                    str(branch_index),
+                                ) from exc
+                            ziwei_fact_hash_by_branch[branch_index] = (
+                                candidate.hashes.fact_hash
+                            )
+                elif (
+                    replay.status == "FAILED"
+                    and not replay.candidates
+                    and replay.diagnostics == ("TIME_CALENDAR_UNRESOLVED",)
+                    and not ziwei_time_result.get("branches")
+                ):
+                    ziwei_error = CombinedSubsystemError(
+                        code="COMBINED_ZIWEI_TIME_CALENDAR_UNRESOLVED",
+                        detail=str(exc),
+                    )
+                else:
+                    raise CombinedApplicationResolutionError(
+                        "COMBINED_ZIWEI_MULTI_CANDIDATE_REPLAY_MISMATCH",
+                        (
+                            f"status={replay.status} candidates={len(replay.candidates)} "
+                            f"time_binding={time_binding_matches}"
+                        ),
+                    ) from exc
 
         bazi_bundle = None
         bazi_error = None
