@@ -11,6 +11,10 @@ from fortune_training.ziwei_application.palace_stem_topology import (
     ZiweiPalaceStemTransformationTopologyService,
 )
 from fortune_training.ziwei_application.service import ApplicationResolutionError
+from fortune_training.ziwei_application.star_provenance import (
+    ZiweiStarPlacementProvenanceService,
+    ZiweiStarProvenanceResolutionError,
+)
 
 from .local_app import (
     MAX_REQUEST_BYTES,
@@ -22,21 +26,25 @@ from .local_app import (
 LOCAL_ZIWEI_PALACE_STEM_TOPOLOGY_SCHEMA = (
     "ZIWEI-BAZI-COMBINED-LOCAL-ZIWEI-PALACE-STEM-TOPOLOGY-R1"
 )
+LOCAL_ZIWEI_STAR_PROVENANCE_SCHEMA = (
+    "ZIWEI-BAZI-COMBINED-LOCAL-ZIWEI-STAR-PROVENANCE-R1"
+)
 
 
 class ZiweiPalaceStemTopologyLocalMixin:
-    """Additive palace-stem transformation topology sidecar for the Workbench."""
+    """Additive deterministic Ziwei sidecars for the local Workbench."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.ziwei_palace_stem_topology_service = (
             ZiweiPalaceStemTransformationTopologyService()
         )
+        self.ziwei_star_provenance_service = ZiweiStarPlacementProvenanceService()
 
-    def resolve_ziwei_palace_stem_topology_payload(
+    def _resolve_ziwei_sidecar_source(
         self,
         payload: dict[str, Any],
-    ) -> dict[str, Any]:
+    ):
         if not isinstance(payload, dict):
             raise LocalCombinedAppRequestError(
                 "LOCAL_APP_INVALID_JSON",
@@ -63,16 +71,39 @@ class ZiweiPalaceStemTopologyLocalMixin:
                 "ziwei_lunar_month requires ziwei_annual_year",
             )
         request = replace(request, lunar_month=lunar_month)
-
         try:
             bundle = self.ziwei_service.resolve(request)
-            topology = self.ziwei_palace_stem_topology_service.resolve(bundle)
         except ApplicationResolutionError as exc:
             raise LocalCombinedAppRequestError(
                 exc.diagnostic_code,
                 str(exc),
                 status=422,
             ) from exc
+        return combined_resolution, expected_ziwei_hash, bundle
+
+    @staticmethod
+    def _source_hash_envelope(
+        combined_resolution: dict[str, Any],
+        expected_ziwei_hash: str,
+    ) -> dict[str, Any]:
+        source_bazi = combined_resolution.get("bazi_bundle")
+        return {
+            "source_combined_manifest_hash": combined_resolution["manifest_hash"],
+            "source_ziwei_bundle_hash": expected_ziwei_hash,
+            "source_bazi_bundle_hash": (
+                source_bazi["bundle_hash"] if source_bazi is not None else None
+            ),
+        }
+
+    def resolve_ziwei_palace_stem_topology_payload(
+        self,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        combined_resolution, expected_ziwei_hash, bundle = (
+            self._resolve_ziwei_sidecar_source(payload)
+        )
+        try:
+            topology = self.ziwei_palace_stem_topology_service.resolve(bundle)
         except ZiweiPalaceStemTopologyResolutionError as exc:
             raise LocalCombinedAppRequestError(
                 exc.diagnostic_code,
@@ -98,16 +129,50 @@ class ZiweiPalaceStemTopologyLocalMixin:
                 ),
                 status=500,
             )
-
-        source_bazi = combined_resolution.get("bazi_bundle")
         return {
             "schema": LOCAL_ZIWEI_PALACE_STEM_TOPOLOGY_SCHEMA,
-            "source_combined_manifest_hash": combined_resolution["manifest_hash"],
-            "source_ziwei_bundle_hash": expected_ziwei_hash,
-            "source_bazi_bundle_hash": (
-                source_bazi["bundle_hash"] if source_bazi is not None else None
-            ),
+            **self._source_hash_envelope(combined_resolution, expected_ziwei_hash),
             "ziwei_palace_stem_transformation_topology": json_value(topology),
+        }
+
+    def resolve_ziwei_star_provenance_payload(
+        self,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        combined_resolution, expected_ziwei_hash, bundle = (
+            self._resolve_ziwei_sidecar_source(payload)
+        )
+        try:
+            provenance = self.ziwei_star_provenance_service.resolve(bundle)
+        except ZiweiStarProvenanceResolutionError as exc:
+            raise LocalCombinedAppRequestError(
+                exc.diagnostic_code,
+                exc.detail,
+                status=422,
+            ) from exc
+        except ValueError as exc:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_ZIWEI_STAR_PROVENANCE_FAILED",
+                str(exc),
+                status=422,
+            ) from exc
+
+        if (
+            bundle.bundle_hash != expected_ziwei_hash
+            or provenance.source_application_bundle_hash != expected_ziwei_hash
+        ):
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_ZIWEI_STAR_PROVENANCE_SOURCE_BINDING_MISMATCH",
+                (
+                    f"combined={expected_ziwei_hash};controller_bundle={bundle.bundle_hash};"
+                    f"provenance_source={provenance.source_application_bundle_hash}"
+                ),
+                status=500,
+            )
+        return {
+            "schema": LOCAL_ZIWEI_STAR_PROVENANCE_SCHEMA,
+            **self._source_hash_envelope(combined_resolution, expected_ziwei_hash),
+            "ziwei_star_placement_provenance": json_value(provenance),
         }
 
 
@@ -115,7 +180,11 @@ class _ZiweiPalaceStemTopologyHandlerMixin:
     application: ZiweiPalaceStemTopologyLocalMixin
 
     def do_POST(self) -> None:  # noqa: N802
-        if urlsplit(self.path).path != "/api/ziwei-palace-stem-topology":
+        path = urlsplit(self.path).path
+        if path not in {
+            "/api/ziwei-palace-stem-topology",
+            "/api/ziwei-star-provenance",
+        }:
             super().do_POST()
             return
         if (
@@ -168,9 +237,10 @@ class _ZiweiPalaceStemTopologyHandlerMixin:
             )
             return
         try:
-            response = self.application.resolve_ziwei_palace_stem_topology_payload(
-                payload
-            )
+            if path == "/api/ziwei-star-provenance":
+                response = self.application.resolve_ziwei_star_provenance_payload(payload)
+            else:
+                response = self.application.resolve_ziwei_palace_stem_topology_payload(payload)
         except LocalCombinedAppRequestError as exc:
             self._error(exc)
             return
