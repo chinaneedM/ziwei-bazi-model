@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from collections import defaultdict
+from dataclasses import replace
 from pathlib import Path
 
 from fortune_training.combined_chart_application.workbench_local_app import (
@@ -13,6 +14,10 @@ from fortune_training.ziwei_application.palace_stem_topology import (
     PALACE_STEM_TOPOLOGY_SELECTION_SEMANTICS,
     PALACE_STEM_TOPOLOGY_SEMANTIC_SCOPE,
     TRANSFORMATION_TYPES,
+    ZiweiPalaceStemTopologyIntegrityReport,
+    ZiweiPalaceStemTopologyResolution,
+    ZiweiPalaceStemTopologyRow,
+    validate_palace_stem_topology,
 )
 
 
@@ -40,6 +45,25 @@ def _payload() -> dict[str, object]:
     }
 
 
+def _resolution_from_json(
+    payload: dict[str, object],
+) -> ZiweiPalaceStemTopologyResolution:
+    row_values = []
+    for raw_row in payload["rows"]:
+        row_payload = dict(raw_row)
+        row_payload["source_refs"] = tuple(row_payload["source_refs"])
+        row_values.append(ZiweiPalaceStemTopologyRow(**row_payload))
+
+    integrity_payload = dict(payload["integrity"])
+    integrity_payload["diagnostics"] = tuple(integrity_payload["diagnostics"])
+    resolution_payload = dict(payload)
+    resolution_payload["rows"] = tuple(row_values)
+    resolution_payload["integrity"] = ZiweiPalaceStemTopologyIntegrityReport(
+        **integrity_payload
+    )
+    return ZiweiPalaceStemTopologyResolution(**resolution_payload)
+
+
 class ZiweiPalaceStemTransformationTopologyR1Tests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -52,6 +76,7 @@ class ZiweiPalaceStemTransformationTopologyR1Tests(unittest.TestCase):
         cls.topology = cls.response[
             "ziwei_palace_stem_transformation_topology"
         ]
+        cls.resolution = _resolution_from_json(cls.topology)
 
     def test_sidecar_is_bound_to_exact_released_application_bundle(self) -> None:
         combined = self.base["combined_resolution"]
@@ -113,6 +138,35 @@ class ZiweiPalaceStemTransformationTopologyR1Tests(unittest.TestCase):
             self.assertNotIn("self_transformation_kind", row)
         self.assertNotIn("OUTWARD_DISSIPATION", str(self.topology))
         self.assertNotIn("INWARD_RECEPTION", str(self.topology))
+
+    def test_resolution_integrity_recomputes_top_level_hash_chain(self) -> None:
+        genuine = validate_palace_stem_topology(self.resolution)
+        self.assertEqual(genuine.status, "PASS")
+        self.assertEqual(genuine.diagnostics, ())
+
+        for field_name, diagnostic in (
+            ("fact_hash", "FACT_HASH_MISMATCH"),
+            ("computation_hash", "COMPUTATION_HASH_MISMATCH"),
+            ("bundle_hash", "BUNDLE_HASH_MISMATCH"),
+        ):
+            with self.subTest(field_name=field_name):
+                tampered = replace(
+                    self.resolution,
+                    **{field_name: "0" * 64},
+                )
+                report = validate_palace_stem_topology(tampered)
+                self.assertEqual(report.status, "FAIL")
+                self.assertIn(diagnostic, report.diagnostics)
+
+    def test_resolution_integrity_rejects_source_bundle_rebinding(self) -> None:
+        tampered = replace(
+            self.resolution,
+            source_application_bundle_hash="1" * 64,
+        )
+        report = validate_palace_stem_topology(tampered)
+        self.assertEqual(report.status, "FAIL")
+        self.assertIn("COMPUTATION_HASH_MISMATCH", report.diagnostics)
+        self.assertIn("BUNDLE_HASH_MISMATCH", report.diagnostics)
 
     def test_full_replay_is_stable(self) -> None:
         replay = self.app.resolve_ziwei_palace_stem_topology_payload(

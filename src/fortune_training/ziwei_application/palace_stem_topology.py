@@ -192,32 +192,44 @@ def _compose_row(source_attribute, activation) -> ZiweiPalaceStemTopologyRow:
     )
 
 
-def _resolution_hashes(
-    base_application: ApplicationChartBundle,
-    rows: tuple[ZiweiPalaceStemTopologyRow, ...],
+def _aggregate_resolution_hashes(
+    *,
+    schema: str,
+    status: str,
+    source_application_bundle_hash: str,
+    source_natal_fact_hash: str,
+    source_natal_computation_hash: str,
+    source_transformation_rule_set_id: str,
+    source_transformation_rule_set_version: str,
+    profile_id: str,
+    profile_version: str,
+    classification_policy: str,
+    selection_semantics: str,
+    semantic_scope: str,
+    row_fact_hashes: tuple[str, ...],
+    row_computation_hashes: tuple[str, ...],
+    row_ids: tuple[str, ...],
 ) -> tuple[str, str, str]:
     fact_hash = object_sha256(
         {
-            "schema": PALACE_STEM_TOPOLOGY_SCHEMA,
-            "source_natal_fact_hash": base_application.candidate.hashes.fact_hash,
-            "source_transformation_rule_set_id": S08_TRANSFORMATION_RULE_SET_ID,
-            "source_transformation_rule_set_version": S08_TRANSFORMATION_RULE_SET_VERSION,
-            "profile_id": PALACE_STEM_TOPOLOGY_PROFILE_ID,
-            "profile_version": PALACE_STEM_TOPOLOGY_PROFILE_VERSION,
-            "classification_policy": PALACE_STEM_TOPOLOGY_CLASSIFICATION_POLICY,
-            "selection_semantics": PALACE_STEM_TOPOLOGY_SELECTION_SEMANTICS,
-            "semantic_scope": PALACE_STEM_TOPOLOGY_SEMANTIC_SCOPE,
-            "row_fact_hashes": [row.fact_hash for row in rows],
+            "schema": schema,
+            "source_natal_fact_hash": source_natal_fact_hash,
+            "source_transformation_rule_set_id": source_transformation_rule_set_id,
+            "source_transformation_rule_set_version": source_transformation_rule_set_version,
+            "profile_id": profile_id,
+            "profile_version": profile_version,
+            "classification_policy": classification_policy,
+            "selection_semantics": selection_semantics,
+            "semantic_scope": semantic_scope,
+            "row_fact_hashes": list(row_fact_hashes),
         }
     )
     computation_hash = object_sha256(
         {
             "fact_hash": fact_hash,
-            "source_application_bundle_hash": base_application.bundle_hash,
-            "source_natal_computation_hash": (
-                base_application.candidate.hashes.computation_hash
-            ),
-            "row_computation_hashes": [row.computation_hash for row in rows],
+            "source_application_bundle_hash": source_application_bundle_hash,
+            "source_natal_computation_hash": source_natal_computation_hash,
+            "row_computation_hashes": list(row_computation_hashes),
             "algorithm": (
                 f"{PALACE_STEM_TOPOLOGY_ALGORITHM_ID}@"
                 f"{PALACE_STEM_TOPOLOGY_ALGORITHM_VERSION}"
@@ -226,16 +238,41 @@ def _resolution_hashes(
     )
     bundle_hash = object_sha256(
         {
-            "schema": PALACE_STEM_TOPOLOGY_SCHEMA,
-            "status": "COMPLETE",
-            "profile_id": PALACE_STEM_TOPOLOGY_PROFILE_ID,
-            "profile_version": PALACE_STEM_TOPOLOGY_PROFILE_VERSION,
+            "schema": schema,
+            "status": status,
+            "profile_id": profile_id,
+            "profile_version": profile_version,
             "fact_hash": fact_hash,
             "computation_hash": computation_hash,
-            "row_ids": [row.row_id for row in rows],
+            "row_ids": list(row_ids),
         }
     )
     return fact_hash, computation_hash, bundle_hash
+
+
+def _resolution_hashes(
+    base_application: ApplicationChartBundle,
+    rows: tuple[ZiweiPalaceStemTopologyRow, ...],
+) -> tuple[str, str, str]:
+    return _aggregate_resolution_hashes(
+        schema=PALACE_STEM_TOPOLOGY_SCHEMA,
+        status="COMPLETE",
+        source_application_bundle_hash=base_application.bundle_hash,
+        source_natal_fact_hash=base_application.candidate.hashes.fact_hash,
+        source_natal_computation_hash=(
+            base_application.candidate.hashes.computation_hash
+        ),
+        source_transformation_rule_set_id=S08_TRANSFORMATION_RULE_SET_ID,
+        source_transformation_rule_set_version=S08_TRANSFORMATION_RULE_SET_VERSION,
+        profile_id=PALACE_STEM_TOPOLOGY_PROFILE_ID,
+        profile_version=PALACE_STEM_TOPOLOGY_PROFILE_VERSION,
+        classification_policy=PALACE_STEM_TOPOLOGY_CLASSIFICATION_POLICY,
+        selection_semantics=PALACE_STEM_TOPOLOGY_SELECTION_SEMANTICS,
+        semantic_scope=PALACE_STEM_TOPOLOGY_SEMANTIC_SCOPE,
+        row_fact_hashes=tuple(row.fact_hash for row in rows),
+        row_computation_hashes=tuple(row.computation_hash for row in rows),
+        row_ids=tuple(row.row_id for row in rows),
+    )
 
 
 def validate_palace_stem_topology(
@@ -266,6 +303,9 @@ def validate_palace_stem_topology(
 
     ids: set[str] = set()
     by_source: dict[int, list[ZiweiPalaceStemTopologyRow]] = {}
+    expected_row_fact_hashes: list[str] = []
+    expected_row_computation_hashes: list[str] = []
+    expected_row_ids: list[str] = []
     for row in resolution.rows:
         if row.row_id in ids:
             diagnostics.append(f"DUPLICATE_ROW_ID:{row.row_id}")
@@ -302,6 +342,7 @@ def validate_palace_stem_topology(
                 source_refs=row.source_refs,
             )
         )
+        expected_row_fact_hashes.append(expected_fact_hash)
         if row.fact_hash != expected_fact_hash:
             diagnostics.append(f"ROW_FACT_HASH_MISMATCH:{row.row_id}")
         expected_computation_hash = object_sha256(
@@ -316,12 +357,14 @@ def validate_palace_stem_topology(
                 ),
             }
         )
+        expected_row_computation_hashes.append(expected_computation_hash)
         if row.computation_hash != expected_computation_hash:
             diagnostics.append(f"ROW_COMPUTATION_HASH_MISMATCH:{row.row_id}")
         expected_row_id = (
             f"ZIWEI-PALACE-STEM-TOPOLOGY:"
             f"{object_sha256({'fact_hash': expected_fact_hash})}"
         )
+        expected_row_ids.append(expected_row_id)
         if row.row_id != expected_row_id:
             diagnostics.append(f"ROW_ID_MISMATCH:{row.row_id}")
 
@@ -339,6 +382,36 @@ def validate_palace_stem_topology(
             diagnostics.append(f"SOURCE_BRANCH_NOT_STABLE:{source_index}")
         if len({row.context_id for row in rows}) != 1:
             diagnostics.append(f"SOURCE_CONTEXT_NOT_STABLE:{source_index}")
+
+    expected_fact_hash, expected_computation_hash, expected_bundle_hash = (
+        _aggregate_resolution_hashes(
+            schema=resolution.schema,
+            status=resolution.status,
+            source_application_bundle_hash=resolution.source_application_bundle_hash,
+            source_natal_fact_hash=resolution.source_natal_fact_hash,
+            source_natal_computation_hash=resolution.source_natal_computation_hash,
+            source_transformation_rule_set_id=(
+                resolution.source_transformation_rule_set_id
+            ),
+            source_transformation_rule_set_version=(
+                resolution.source_transformation_rule_set_version
+            ),
+            profile_id=resolution.profile_id,
+            profile_version=resolution.profile_version,
+            classification_policy=resolution.classification_policy,
+            selection_semantics=resolution.selection_semantics,
+            semantic_scope=resolution.semantic_scope,
+            row_fact_hashes=tuple(expected_row_fact_hashes),
+            row_computation_hashes=tuple(expected_row_computation_hashes),
+            row_ids=tuple(expected_row_ids),
+        )
+    )
+    if resolution.fact_hash != expected_fact_hash:
+        diagnostics.append("FACT_HASH_MISMATCH")
+    if resolution.computation_hash != expected_computation_hash:
+        diagnostics.append("COMPUTATION_HASH_MISMATCH")
+    if resolution.bundle_hash != expected_bundle_hash:
+        diagnostics.append("BUNDLE_HASH_MISMATCH")
 
     return ZiweiPalaceStemTopologyIntegrityReport(
         status="PASS" if not diagnostics else "FAIL",
