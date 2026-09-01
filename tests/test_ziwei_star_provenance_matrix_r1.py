@@ -21,7 +21,7 @@ class ZiweiStarProvenanceMatrixR1Tests(unittest.TestCase):
     def test_matrix_registers_green_feature_baseline(self) -> None:
         self.assertEqual(
             self.payload["evidence_baseline_commit"],
-            "d8b801a7152b1ee03ddd4189c40b61337cfc01ff",
+            "17989e8769bfdb9f20c11ba227b86966d261f373",
         )
         row = self.rows["ZIWEI_STAR_PLACEMENT_PROVENANCE"]
         self.assertEqual(row["status"], "ALREADY_VISIBLE")
