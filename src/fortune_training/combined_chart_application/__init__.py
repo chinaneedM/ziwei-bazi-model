@@ -65,6 +65,7 @@ from .service import (
     combined_manifest_payload,
     validate_combined_resolution,
 )
+from .base_replay import validate_combined_application_full_replay
 from .shared_time_integrity import (
     project_shared_ziwei_minor_limit_ring_encounters,
     project_shared_ziwei_temporal_layer,
@@ -154,6 +155,7 @@ __all__ = [
     "shared_ziwei_temporal_layer_hashes",
     "project_shared_ziwei_temporal_layer",
     "project_shared_ziwei_minor_limit_ring_encounters",
+    "validate_combined_application_full_replay",
     "validate_combined_resolution",
     "validate_candidate_lineage",
     "validate_combined_target_flow_full_replay",
