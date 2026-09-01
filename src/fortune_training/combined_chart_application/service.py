@@ -20,7 +20,7 @@ from fortune_training.ziwei_application import (
     application_export,
     validate_application_bundle,
 )
-from fortune_training.ziwei_chart import Sex, ZiweiChartFoundation
+from fortune_training.ziwei_chart import Sex, ZiweiChartFoundation, ZiweiChartRequest
 
 from .models import (
     CombinedApplicationIntegrityReport,
@@ -200,6 +200,11 @@ def validate_combined_resolution(
             dict(resolution.candidate_lineage),
             resolution.ziwei_bundle,
             resolution.bazi_bundle,
+            ziwei_error_code=(
+                resolution.ziwei_error.code
+                if resolution.ziwei_error is not None
+                else None
+            ),
         )
     )
     diagnostics.extend(
@@ -309,6 +314,7 @@ class CombinedChartService:
 
         ziwei_bundle = None
         ziwei_error = None
+        ziwei_fact_hash_by_branch: dict[int, str] | None = None
         try:
             ziwei_service = ZiweiChartService(
                 self.ziwei_foundation,
@@ -329,14 +335,50 @@ class CombinedChartService:
             )
             validate_application_bundle(ziwei_bundle)
         except (ApplicationResolutionError, ValueError) as exc:
+            error_code = str(
+                getattr(exc, "diagnostic_code", None)
+                or "COMBINED_ZIWEI_RESOLUTION_FAILED"
+            )
             ziwei_error = CombinedSubsystemError(
-                code=str(
-                    getattr(exc, "diagnostic_code", None)
-                    or "COMBINED_ZIWEI_RESOLUTION_FAILED"
-                ),
+                code=error_code,
                 detail=str(exc),
             )
             ziwei_bundle = None
+            if error_code == "APPLICATION_UNIQUE_NATAL_CANDIDATE_REQUIRED":
+                replay = self.ziwei_foundation.resolve_typed(
+                    ZiweiChartRequest(
+                        birth=request.birth,
+                        sex=Sex(sex),
+                        profile=request.ziwei_calculation_profile,
+                    )
+                )
+                if (
+                    replay.status != "MULTI_CANDIDATE"
+                    or len(replay.candidates) < 2
+                    or replay.time_calendar != ziwei_time_result
+                ):
+                    raise CombinedApplicationResolutionError(
+                        "COMBINED_ZIWEI_MULTI_CANDIDATE_REPLAY_MISMATCH",
+                        (
+                            f"status={replay.status} candidates={len(replay.candidates)} "
+                            f"time_binding={replay.time_calendar == ziwei_time_result}"
+                        ),
+                    ) from exc
+                ziwei_fact_hash_by_branch = {}
+                for candidate in replay.candidates:
+                    for branch_index in candidate.branch_indices:
+                        existing = ziwei_fact_hash_by_branch.get(branch_index)
+                        if (
+                            existing is not None
+                            and existing != candidate.hashes.fact_hash
+                        ):
+                            raise CombinedApplicationResolutionError(
+                                "COMBINED_ZIWEI_BRANCH_FACT_HASH_CONFLICT",
+                                str(branch_index),
+                            ) from exc
+                        ziwei_fact_hash_by_branch[branch_index] = (
+                            candidate.hashes.fact_hash
+                        )
 
         bazi_bundle = None
         bazi_error = None
@@ -382,6 +424,7 @@ class CombinedChartService:
             shared_time_credential,
             ziwei_bundle,
             bazi_bundle,
+            ziwei_fact_hash_by_branch=ziwei_fact_hash_by_branch,
         )
         resolution = CombinedChartApplicationResolution(
             schema=COMBINED_RESOLUTION_SCHEMA,
