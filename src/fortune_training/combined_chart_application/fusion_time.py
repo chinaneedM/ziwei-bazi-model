@@ -9,6 +9,7 @@ from fortune_training.util import object_sha256
 SHARED_TIME_CREDENTIAL_SCHEMA = "ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-V1"
 SHARED_TIME_LINEAGE_SCHEMA = "ZIWEI-BAZI-SHARED-TIME-LINEAGE-V1"
 
+
 def validate_shared_policy_contract(ziwei_profile: Any, bazi_profile: Any) -> None:
     """Unify physical time facts without collapsing system-specific conventions."""
 
@@ -220,32 +221,55 @@ def validate_shared_time_credential(
     return tuple(diagnostics)
 
 
+def _bazi_candidate_ids_by_branch(bazi_bundle: Any | None) -> dict[int, list[str]]:
+    bazi_by_index: dict[int, list[str]] = {}
+    if bazi_bundle is None:
+        return bazi_by_index
+    for candidate in bazi_bundle.candidates:
+        indices = {
+            int(row["source_time_branch_index"])
+            for row in candidate.view.get("time_provenance", [])
+        }
+        for index in indices:
+            bazi_by_index.setdefault(index, []).append(candidate.candidate_id)
+    return {
+        index: sorted(set(candidate_ids))
+        for index, candidate_ids in bazi_by_index.items()
+    }
+
+
 def build_candidate_lineage(
     credential: dict[str, Any],
     ziwei_bundle: Any | None,
     bazi_bundle: Any | None,
+    *,
+    ziwei_fact_hash_by_branch: dict[int, str] | None = None,
 ) -> dict[str, Any]:
-    ziwei_indices = (
-        set(ziwei_bundle.candidate.branch_indices) if ziwei_bundle is not None else set()
-    )
-    bazi_by_index: dict[int, list[str]] = {}
-    if bazi_bundle is not None:
-        for candidate in bazi_bundle.candidates:
-            indices = {
-                int(row["source_time_branch_index"])
-                for row in candidate.view.get("time_provenance", [])
-            }
-            for index in indices:
-                bazi_by_index.setdefault(index, []).append(candidate.candidate_id)
+    ziwei_by_index: dict[int, str] = {}
+    if ziwei_bundle is not None:
+        fact_hash = str(ziwei_bundle.candidate.hashes.fact_hash)
+        for index in ziwei_bundle.candidate.branch_indices:
+            ziwei_by_index[int(index)] = fact_hash
+    if ziwei_fact_hash_by_branch is not None:
+        for raw_index, raw_fact_hash in ziwei_fact_hash_by_branch.items():
+            index = int(raw_index)
+            fact_hash = str(raw_fact_hash)
+            existing = ziwei_by_index.get(index)
+            if existing is not None and existing != fact_hash:
+                raise ValueError(
+                    f"Ziwei candidate fact hash conflict at shared branch {index}"
+                )
+            ziwei_by_index[index] = fact_hash
 
+    bazi_by_index = _bazi_candidate_ids_by_branch(bazi_bundle)
     rows = []
     for realization in credential["realizations"]:
         index = realization["source_time_branch_index"]
-        ziwei_bound = index in ziwei_indices
-        bazi_ids = sorted(set(bazi_by_index.get(index, [])))
-        if ziwei_bound and bazi_ids:
+        ziwei_fact_hash = ziwei_by_index.get(index)
+        bazi_ids = bazi_by_index.get(index, [])
+        if ziwei_fact_hash is not None and bazi_ids:
             status = "LINKED_BOTH"
-        elif ziwei_bound:
+        elif ziwei_fact_hash is not None:
             status = "ZIWEI_ONLY"
         elif bazi_ids:
             status = "BAZI_ONLY"
@@ -255,9 +279,7 @@ def build_candidate_lineage(
             {
                 "source_time_branch_index": index,
                 "shared_time_realization_hash": realization["realization_hash"],
-                "ziwei_natal_fact_hash": (
-                    ziwei_bundle.candidate.hashes.fact_hash if ziwei_bound else None
-                ),
+                "ziwei_natal_fact_hash": ziwei_fact_hash,
                 "bazi_candidate_ids": bazi_ids,
                 "status": status,
             }
@@ -270,12 +292,104 @@ def build_candidate_lineage(
     return {**payload, "lineage_hash": object_sha256(payload)}
 
 
+def _valid_sha256(value: Any) -> bool:
+    if not isinstance(value, str) or len(value) != 64:
+        return False
+    try:
+        int(value, 16)
+    except ValueError:
+        return False
+    return True
+
+
+def _validate_multi_ziwei_candidate_lineage(
+    credential: dict[str, Any],
+    lineage: dict[str, Any],
+    bazi_bundle: Any | None,
+) -> tuple[str, ...]:
+    diagnostics: list[str] = []
+    if lineage.get("schema") != SHARED_TIME_LINEAGE_SCHEMA:
+        diagnostics.append("SHARED_TIME_CANDIDATE_LINEAGE_SCHEMA_MISMATCH")
+    if lineage.get("shared_time_computation_hash") != credential.get(
+        "computation_hash"
+    ):
+        diagnostics.append("SHARED_TIME_CANDIDATE_LINEAGE_CREDENTIAL_MISMATCH")
+
+    realizations = credential.get("realizations", [])
+    branches = lineage.get("branches")
+    if not isinstance(branches, list) or len(branches) != len(realizations):
+        diagnostics.append("SHARED_TIME_CANDIDATE_LINEAGE_BRANCH_COUNT_MISMATCH")
+        branches = branches if isinstance(branches, list) else []
+
+    bazi_by_index = _bazi_candidate_ids_by_branch(bazi_bundle)
+    ziwei_fact_hashes: set[str] = set()
+    for position, realization in enumerate(realizations):
+        if position >= len(branches) or not isinstance(branches[position], dict):
+            diagnostics.append(f"SHARED_TIME_CANDIDATE_LINEAGE_BRANCH_MISSING:{position}")
+            continue
+        row = branches[position]
+        index = realization["source_time_branch_index"]
+        if row.get("source_time_branch_index") != index:
+            diagnostics.append(f"SHARED_TIME_CANDIDATE_LINEAGE_BRANCH_INDEX_MISMATCH:{position}")
+        if row.get("shared_time_realization_hash") != realization.get(
+            "realization_hash"
+        ):
+            diagnostics.append(f"SHARED_TIME_CANDIDATE_LINEAGE_REALIZATION_MISMATCH:{position}")
+
+        ziwei_fact_hash = row.get("ziwei_natal_fact_hash")
+        if not _valid_sha256(ziwei_fact_hash):
+            diagnostics.append(f"SHARED_TIME_ZIWEI_FACT_HASH_INVALID:{position}")
+            ziwei_bound = False
+        else:
+            ziwei_fact_hashes.add(ziwei_fact_hash)
+            ziwei_bound = True
+
+        expected_bazi_ids = bazi_by_index.get(index, [])
+        if row.get("bazi_candidate_ids") != expected_bazi_ids:
+            diagnostics.append(f"SHARED_TIME_BAZI_CANDIDATE_LINEAGE_MISMATCH:{position}")
+        if ziwei_bound and expected_bazi_ids:
+            expected_status = "LINKED_BOTH"
+        elif ziwei_bound:
+            expected_status = "ZIWEI_ONLY"
+        elif expected_bazi_ids:
+            expected_status = "BAZI_ONLY"
+        else:
+            expected_status = "UNBOUND"
+        if row.get("status") != expected_status:
+            diagnostics.append(f"SHARED_TIME_CANDIDATE_LINEAGE_STATUS_MISMATCH:{position}")
+
+    if len(branches) > len(realizations):
+        diagnostics.append("SHARED_TIME_CANDIDATE_LINEAGE_EXTRA_BRANCHES")
+    if len(ziwei_fact_hashes) < 2:
+        diagnostics.append("SHARED_TIME_ZIWEI_MULTI_CANDIDATE_FACT_HASHES_MISSING")
+
+    payload = {
+        "schema": lineage.get("schema"),
+        "shared_time_computation_hash": lineage.get("shared_time_computation_hash"),
+        "branches": branches,
+    }
+    if lineage.get("lineage_hash") != object_sha256(payload):
+        diagnostics.append("SHARED_TIME_CANDIDATE_LINEAGE_HASH_MISMATCH")
+    return tuple(diagnostics)
+
+
 def validate_candidate_lineage(
     credential: dict[str, Any],
     lineage: dict[str, Any],
     ziwei_bundle: Any | None,
     bazi_bundle: Any | None,
+    *,
+    ziwei_error_code: str | None = None,
 ) -> tuple[str, ...]:
+    if (
+        ziwei_bundle is None
+        and ziwei_error_code == "APPLICATION_UNIQUE_NATAL_CANDIDATE_REQUIRED"
+    ):
+        return _validate_multi_ziwei_candidate_lineage(
+            credential,
+            lineage,
+            bazi_bundle,
+        )
     expected = build_candidate_lineage(credential, ziwei_bundle, bazi_bundle)
     if lineage != expected:
         return ("SHARED_TIME_CANDIDATE_LINEAGE_MISMATCH",)
