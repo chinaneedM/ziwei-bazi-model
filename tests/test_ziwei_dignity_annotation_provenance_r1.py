@@ -204,7 +204,7 @@ class ZiweiDignityAnnotationProvenanceR1Tests(unittest.TestCase):
         self.assertEqual(replay, self.response)
 
     def test_workbench_contract_is_read_only_and_s01_boundary_is_visible(self) -> None:
-        self.assertEqual(_WorkbenchHandler.server_version, "CombinedChartWorkbenchLocalApp/1.11")
+        self.assertEqual(_WorkbenchHandler.server_version, "CombinedChartWorkbenchLocalApp/1.12")
         self.assertIn("/api/ziwei-dignity-provenance", ZIWEI_DIGNITY_PROVENANCE_JS)
         self.assertIn("s01_brightness_authority", ZIWEI_DIGNITY_PROVENANCE_JS)
         self.assertIn("不是 S01 冻结原盘亮度权威", ZIWEI_DIGNITY_PROVENANCE_JS)
