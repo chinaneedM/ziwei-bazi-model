@@ -64,6 +64,15 @@ from .nayin_local_app import (
     BaziNayinPresentationLocalMixin,
     _NayinPresentationHandlerMixin,
 )
+from .palace_stem_topology_assets import (
+    PALACE_STEM_TOPOLOGY_CSS,
+    PALACE_STEM_TOPOLOGY_JS,
+    palace_stem_topology_index_html,
+)
+from .palace_stem_topology_local_app import (
+    ZiweiPalaceStemTopologyLocalMixin,
+    _ZiweiPalaceStemTopologyHandlerMixin,
+)
 from .shared_apply_assets import (
     SHARED_APPLY_CSS,
     SHARED_APPLY_JS,
@@ -91,6 +100,7 @@ from .ziwei_basic_info_assets import (
 
 
 class CombinedChartWorkbenchApplication(
+    ZiweiPalaceStemTopologyLocalMixin,
     BaziHiddenExposurePresentationLocalMixin,
     BaziStemRelationPresentationLocalMixin,
     BaziBranchRelationPresentationLocalMixin,
@@ -104,9 +114,10 @@ class CombinedChartWorkbenchApplication(
 
     def __init__(self, repository_root: Path) -> None:
         # Cooperative MRO is intentional:
-        # Interaction -> Flow -> Local initializes both released sidecar services
-        # over the same CombinedChartService instance. Presentation/shared/fusion
-        # mixins are stateless and consume those released services/contracts.
+        # topology/presentation/shared/fusion mixins compose over Interaction ->
+        # Flow -> Local, sharing the same CombinedChartService instance. The
+        # palace-stem topology sidecar binds to the already released Ziwei
+        # application bundle and never mutates NatalChartState.
         super().__init__(repository_root)
 
     def health(self):
@@ -117,6 +128,7 @@ class CombinedChartWorkbenchApplication(
 
 
 class _WorkbenchHandler(
+    _ZiweiPalaceStemTopologyHandlerMixin,
     _BaziHiddenExposurePresentationHandlerMixin,
     _BaziStemRelationPresentationHandlerMixin,
     _BaziBranchRelationPresentationHandlerMixin,
@@ -127,7 +139,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.9"
+    server_version = "CombinedChartWorkbenchLocalApp/1.10"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -141,7 +153,9 @@ class _WorkbenchHandler(
                                     nayin_index_html(
                                         shared_apply_index_html(
                                             target_flow_index_html(
-                                                interaction_index_html(INDEX_HTML)
+                                                palace_stem_topology_index_html(
+                                                    interaction_index_html(INDEX_HTML)
+                                                )
                                             )
                                         )
                                     )
@@ -284,6 +298,20 @@ class _WorkbenchHandler(
                 ZIWEI_BASIC_INFO_JS.encode(),
             )
             return
+        if path == "/ziwei-palace-stem-topology.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                PALACE_STEM_TOPOLOGY_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-palace-stem-topology.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                PALACE_STEM_TOPOLOGY_JS.encode(),
+            )
+            return
         super().do_GET()
 
 
@@ -321,10 +349,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe, Bazi target-flow, R2 cross-system target-flow fusion, "
-            "Ziwei natal basic-info presentation, Bazi Nayin/pillar-metadata/"
-            "hidden-exposure/stem-relation/branch-relation presentation, and "
-            "explicit shared-time apply sidecars"
+            "Ziwei Sanhe and palace-stem transformation-topology sidecars, Bazi "
+            "target-flow, R2 cross-system target-flow fusion, Ziwei natal basic-info "
+            "presentation, Bazi Nayin/pillar-metadata/hidden-exposure/stem-relation/"
+            "branch-relation presentation, and explicit shared-time apply sidecars"
         )
     )
     parser.add_argument(
@@ -340,14 +368,16 @@ def main(argv: list[str] | None = None) -> int:
     url = f"http://{host}:{port}/"
     print(f"Combined chart local workbench: {url}")
     print(
-        "Ziwei interaction: SANHE sidecar. Bazi interaction: explicit target-flow "
-        "sidecar. Fusion: additive R2 target-flow endpoint + read-only browser panel. "
-        "Ziwei natal basics plus Bazi Nayin, pillar metadata, exact hidden-stem exposure "
-        "and natal stem/branch relation facts are read-only presentation projections."
+        "Ziwei interaction: SANHE plus read-only palace-stem transformation topology. "
+        "Bazi interaction: explicit target-flow sidecar. Fusion: additive R2 target-flow "
+        "endpoint + read-only browser panel. Ziwei natal basics plus Bazi Nayin, pillar "
+        "metadata, exact hidden-stem exposure and natal stem/branch relation facts are "
+        "read-only presentation projections."
     )
     print(
-        "Shared target synchronization is explicit opt-in only; no automatic "
-        "cross-system sync."
+        "Palace-stem SAME/OPPOSITE/OTHER topology is not promoted to outward/inward "
+        "self-transformation direction. Shared target synchronization is explicit "
+        "opt-in only; no automatic cross-system sync."
     )
     print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:
