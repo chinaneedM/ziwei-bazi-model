@@ -34,6 +34,7 @@ The register records as visible:
 - natal ShenSha fact candidates;
 - Nayin presentation;
 - Dayun / Jiaoyun;
+- Ba Zi target-flow timeline：大运 / 小运候选 / 流年 / 流月 / 流日 / 流时;
 - 日主天干（直接消费 released `day_master_stem`）；
 - 天干五行、天干阴阳、地支五行归属;
 - 本命地支六合 / 三合 / 六冲 / 相穿（六害）/ 相刑关系事实;
@@ -139,6 +140,14 @@ A differential audit of `BaziChartService._build_view` and the unified `renderBa
 
 The application view copies `chart.day_master_stem` into `view["day_master_stem"]`. The Workbench renders `日主：${view.day_master_stem}` directly from the released candidate view. It does not recover the value from the DAY pillar in browser code and adds no strength, favorable-element, auspiciousness or prediction semantics.
 
+## Visible Ba Zi target-flow timeline inventory closure
+
+A differential audit of `BaziApplicationFlowService._build_view`, `/api/resolve-flow` and `target_flow_assets.py` confirms that the unified Ba Zi target timeline was already released and already visible, but had no separate Matrix inventory row. `BAZI_TARGET_FLOW_TIMELINE` therefore records this product surface as `ALREADY_VISIBLE`.
+
+The application flow emits `BAZI-UNIFIED-TARGET-TIMELINE-R1` with explicit layer order `NATAL → DAYUN → XIAOYUN → ANNUAL → MONTHLY → DAILY → HOURLY`. Dayun is the released active frame; Xiaoyun preserves every released method candidate and explicitly marks `UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES`; annual/monthly/daily/hourly are released deterministic target frames. The semantic scope remains `TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION`.
+
+`FlowLocalCombinedChartApplication.resolve_flow_payload` returns the exact replay-validated `bazi_target_flow_bundle`. Workbench `renderCandidate` consumes `view.flow`, `view.timeline.xiaoyun.candidates`, `view.daily`, `view.hourly` and released classical annotations directly. It does not recompute Ganzhi, frame boundaries or Xiaoyun selection in browser code. This inventory closure introduces no strength, favorable-element, auspiciousness, winner or prediction semantics.
+
 ## Governance
 
 Future field-parity work follows this order:
@@ -156,4 +165,4 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 `tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row, including exact released view-field parity for the SVG metadata. `tests/test_fusion_chart_field_parity_ziwei_temporal_released_surface_r1.py` guards the five already-visible temporal released-surface rows and the no-recalculation boundary from temporal engine through released view to SVG.
 
-`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics. `tests/test_bazi_day_master_stem_product_closure_r1.py` guards the day-master Matrix row, application copy projection, direct Workbench consumption, and the no browser re-derivation / interpretive-semantics boundary.
+`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics. `tests/test_bazi_day_master_stem_product_closure_r1.py` guards the day-master Matrix row, application copy projection, direct Workbench consumption, and the no browser re-derivation / interpretive-semantics boundary. `tests/test_bazi_target_flow_timeline_product_closure_r1.py` guards the target-flow Matrix row, released timeline schema/layer order, exact `/api/resolve-flow` bundle exposure, direct Workbench consumption and non-interpretive boundary.
