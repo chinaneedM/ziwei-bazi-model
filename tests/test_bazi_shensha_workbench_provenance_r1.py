@@ -22,15 +22,14 @@ class BaziShenshaWorkbenchProvenanceR1Test(unittest.TestCase):
             "semantic_scope",
             "occurrences",
         ):
-            self.assertIn(f"{field}:", APP_JS)
+            self.assertIn(f"row.{field}", APP_JS)
 
         self.assertIn("(set?.candidates||[]).forEach((row)=>{", APP_JS)
         self.assertNotIn("set.candidates.filter((row)=>row.present)", APP_JS)
         self.assertNotIn("const basis={DAY_STEM:", APP_JS)
         self.assertIn("value===undefined||value===null||value===''?'—':String(value)", APP_JS)
-        self.assertIn("row.matched_pillars", APP_JS)
-        self.assertIn("row.source_refs", APP_JS)
-        self.assertIn("row.occurrences", APP_JS)
+        self.assertIn("`${label}: ${value}`", APP_JS)
+        self.assertIn("`occurrences: ${occurrences}`", APP_JS)
 
 
 if __name__ == "__main__":
