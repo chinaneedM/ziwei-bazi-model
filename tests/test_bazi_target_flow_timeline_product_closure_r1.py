@@ -108,7 +108,7 @@ class BaziTargetFlowTimelineProductClosureR1Tests(unittest.TestCase):
         notes = self.rows["BAZI_TARGET_FLOW_TIMELINE"]["notes"]
         for expected in (
             "no browser recomputation",
-            "candidate-preserved Xiaoyun",
+            "Candidate-preserved Xiaoyun",
             "strength",
             "favorable-element",
             "auspiciousness",
