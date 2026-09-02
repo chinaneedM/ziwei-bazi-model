@@ -115,6 +115,11 @@ from .ziwei_raw_lunar_month_assets import (
     ZIWEI_RAW_LUNAR_MONTH_JS,
     ziwei_raw_lunar_month_index_html,
 )
+from .ziwei_transformation_provenance_assets import (
+    ZIWEI_TRANSFORMATION_PROVENANCE_CSS,
+    ZIWEI_TRANSFORMATION_PROVENANCE_JS,
+    ziwei_transformation_provenance_index_html,
+)
 
 
 class CombinedChartWorkbenchApplication(
@@ -163,20 +168,22 @@ class _WorkbenchHandler(
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
         if path == "/":
-            html = ziwei_raw_lunar_month_index_html(
-                resolved_profile_lineage_index_html(
-                    bazi_hidden_exposure_index_html(
-                        bazi_stem_relation_index_html(
-                            bazi_branch_relation_index_html(
-                                bazi_pillar_metadata_index_html(
-                                    ziwei_basic_info_index_html(
-                                        flow_fusion_index_html(
-                                            nayin_index_html(
-                                                shared_apply_index_html(
-                                                    target_flow_index_html(
-                                                        ziwei_dignity_provenance_index_html(
-                                                            palace_stem_topology_index_html(
-                                                                interaction_index_html(INDEX_HTML)
+            html = ziwei_transformation_provenance_index_html(
+                ziwei_raw_lunar_month_index_html(
+                    resolved_profile_lineage_index_html(
+                        bazi_hidden_exposure_index_html(
+                            bazi_stem_relation_index_html(
+                                bazi_branch_relation_index_html(
+                                    bazi_pillar_metadata_index_html(
+                                        ziwei_basic_info_index_html(
+                                            flow_fusion_index_html(
+                                                nayin_index_html(
+                                                    shared_apply_index_html(
+                                                        target_flow_index_html(
+                                                            ziwei_dignity_provenance_index_html(
+                                                                palace_stem_topology_index_html(
+                                                                    interaction_index_html(INDEX_HTML)
+                                                                )
                                                             )
                                                         )
                                                     )
@@ -251,6 +258,20 @@ class _WorkbenchHandler(
         if path == "/ziwei-raw-lunar-month.js":
             self._send_bytes(200, "application/javascript; charset=utf-8", ZIWEI_RAW_LUNAR_MONTH_JS.encode())
             return
+        if path == "/ziwei-transformation-provenance.css":
+            self._send_bytes(
+                200,
+                "text/css; charset=utf-8",
+                ZIWEI_TRANSFORMATION_PROVENANCE_CSS.encode(),
+            )
+            return
+        if path == "/ziwei-transformation-provenance.js":
+            self._send_bytes(
+                200,
+                "application/javascript; charset=utf-8",
+                ZIWEI_TRANSFORMATION_PROVENANCE_JS.encode(),
+            )
+            return
         if path == "/ziwei-palace-stem-topology.css":
             self._send_bytes(200, "text/css; charset=utf-8", PALACE_STEM_TOPOLOGY_CSS.encode())
             return
@@ -302,11 +323,12 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Run the local-only Ziwei + Bazi chart workbench with independent "
-            "Ziwei Sanhe, palace-stem topology, star provenance and Dignity-provenance "
-            "sidecars, Bazi target-flow, R2 cross-system target-flow fusion, resolved "
-            "profile/rule/algorithm lineage, Ziwei natal basic-info and raw-lunar-month "
-            "presentation, Bazi Nayin/pillar-metadata/hidden-exposure/stem-relation/"
-            "branch-relation presentation, and explicit shared-time apply sidecars"
+            "Ziwei Sanhe, palace-stem topology, star provenance, Dignity-provenance and "
+            "transformation-provenance sidecars, Bazi target-flow, R2 cross-system "
+            "target-flow fusion, resolved profile/rule/algorithm lineage, Ziwei natal "
+            "basic-info and raw-lunar-month presentation, Bazi Nayin/pillar-metadata/"
+            "hidden-exposure/stem-relation/branch-relation presentation, and explicit "
+            "shared-time apply sidecars"
         )
     )
     parser.add_argument("--repository-root", type=Path, default=_default_repository_root())
@@ -318,19 +340,21 @@ def main(argv: list[str] | None = None) -> int:
     url = f"http://{host}:{port}/"
     print(f"Combined chart local workbench: {url}")
     print(
-        "Ziwei interaction: SANHE plus read-only palace-stem, star-placement and Dignity "
-        "annotation provenance. Bazi interaction: explicit target-flow sidecar. Fusion: "
-        "additive R2 target-flow endpoint + read-only browser panel. Resolved combined, "
-        "Ziwei and Bazi profile/rule/algorithm identities are shown from validated backend "
-        "snapshots. Ziwei natal basics including the released raw lunar month plus Bazi "
-        "Nayin, pillar metadata, exact hidden-stem exposure and natal stem/branch relation "
-        "facts are read-only presentation projections."
+        "Ziwei interaction: SANHE plus read-only palace-stem, star-placement, Dignity "
+        "annotation and transformation-activation provenance. Bazi interaction: explicit "
+        "target-flow sidecar. Fusion: additive R2 target-flow endpoint + read-only browser "
+        "panel. Resolved combined, Ziwei and Bazi profile/rule/algorithm identities are "
+        "shown from validated backend snapshots. Ziwei natal basics including the released "
+        "raw lunar month plus Bazi Nayin, pillar metadata, exact hidden-stem exposure and "
+        "natal stem/branch relation facts are read-only presentation projections."
     )
     print(
         "Palace-stem SAME/OPPOSITE/OTHER topology is not promoted to outward/inward "
         "self-transformation direction. Operational Dignity provenance is not S01 frozen "
-        "brightness authority. Profile identity is not a doctrine winner. Shared target "
-        "synchronization is explicit opt-in only; no automatic cross-system sync."
+        "brightness authority. Transformation provenance copies canonical activations and "
+        "does not select a doctrine or infer self-transformation direction. Profile identity "
+        "is not a doctrine winner. Shared target synchronization is explicit opt-in only; "
+        "no automatic cross-system sync."
     )
     print("Bind policy: 127.0.0.1 only. Press Ctrl+C to stop.")
     if not args.no_browser:
