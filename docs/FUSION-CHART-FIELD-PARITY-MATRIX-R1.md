@@ -34,6 +34,7 @@ The register records as visible:
 - natal ShenSha fact candidates;
 - Nayin presentation;
 - Dayun / Jiaoyun;
+- 日主天干（直接消费 released `day_master_stem`）；
 - 天干五行、天干阴阳、地支五行归属;
 - 本命地支六合 / 三合 / 六冲 / 相穿（六害）/ 相刑关系事实;
 - 本命天干五合关系事实;
@@ -132,6 +133,12 @@ This closure intentionally does not add algorithms. In particular, ordinary `Vie
 
 The Matrix may therefore legitimately contain no `ALREADY_RELEASED_NOT_YET_VISIBLE` row. The status remains part of the R1 contract because future parity audits may identify additional released-but-hidden fields.
 
+## Visible Ba Zi day-master inventory closure
+
+A differential audit of `BaziChartService._build_view` and the unified `renderBazi` consumer confirms that `day_master_stem` was already released and already visible, but had no separate Matrix inventory row. `BAZI_DAY_MASTER_STEM` therefore records the field as `ALREADY_VISIBLE`.
+
+The application view copies `chart.day_master_stem` into `view["day_master_stem"]`. The Workbench renders `日主：${view.day_master_stem}` directly from the released candidate view. It does not recover the value from the DAY pillar in browser code and adds no strength, favorable-element, auspiciousness or prediction semantics.
+
 ## Governance
 
 Future field-parity work follows this order:
@@ -149,4 +156,4 @@ Internal hashes, registry ordinals, generator/rule trace IDs and source anchors 
 
 `tests/test_fusion_chart_field_parity_matrix_r1.py` guards the original evidence claims. `tests/test_fusion_chart_field_parity_ziwei_natal_visible_r1.py` proves that the seven Zi Wei natal inventory rows are registered as already visible. `tests/test_fusion_chart_field_parity_ziwei_temporal_auxiliary_r1.py` guards the four visible ring rows and the candidate-only dynamic auxiliary row, including exact released view-field parity for the SVG metadata. `tests/test_fusion_chart_field_parity_ziwei_temporal_released_surface_r1.py` guards the five already-visible temporal released-surface rows and the no-recalculation boundary from temporal engine through released view to SVG.
 
-`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics.
+`tests/test_fusion_chart_field_parity_bazi_relations_visible_r1.py` guards the two Ba Zi natal relation rows, exact sidecar lineage/hash binding, and the non-judgmental presentation boundary that excludes transformation-element, winner, strength and prediction semantics. `tests/test_fortunechart_bazi_hidden_exposure_presentation_r1.py` guards the exact hidden/visible same-stem product surface and its exclusion of affinity/strength semantics. `tests/test_bazi_day_master_stem_product_closure_r1.py` guards the day-master Matrix row, application copy projection, direct Workbench consumption, and the no browser re-derivation / interpretive-semantics boundary.
