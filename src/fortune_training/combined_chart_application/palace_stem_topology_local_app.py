@@ -15,6 +15,10 @@ from fortune_training.ziwei_application.star_provenance import (
     ZiweiStarPlacementProvenanceService,
     ZiweiStarProvenanceResolutionError,
 )
+from fortune_training.ziwei_application.structural_relations import (
+    ZiweiStructuralRelationProjectionResolutionError,
+    ZiweiStructuralRelationProjectionService,
+)
 
 from .local_app import (
     MAX_REQUEST_BYTES,
@@ -29,6 +33,9 @@ LOCAL_ZIWEI_PALACE_STEM_TOPOLOGY_SCHEMA = (
 LOCAL_ZIWEI_STAR_PROVENANCE_SCHEMA = (
     "ZIWEI-BAZI-COMBINED-LOCAL-ZIWEI-STAR-PROVENANCE-R1"
 )
+LOCAL_ZIWEI_STRUCTURAL_RELATIONS_SCHEMA = (
+    "ZIWEI-BAZI-COMBINED-LOCAL-ZIWEI-STRUCTURAL-RELATIONS-R1"
+)
 
 
 class ZiweiPalaceStemTopologyLocalMixin:
@@ -40,6 +47,9 @@ class ZiweiPalaceStemTopologyLocalMixin:
             ZiweiPalaceStemTransformationTopologyService()
         )
         self.ziwei_star_provenance_service = ZiweiStarPlacementProvenanceService()
+        self.ziwei_structural_relation_service = (
+            ZiweiStructuralRelationProjectionService()
+        )
 
     def _resolve_ziwei_sidecar_source(
         self,
@@ -184,6 +194,51 @@ class ZiweiPalaceStemTopologyLocalMixin:
             "ziwei_star_placement_provenance": json_value(provenance),
         }
 
+    def resolve_ziwei_structural_relations_payload(
+        self,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        combined_resolution, expected_ziwei_hash, bundle = (
+            self._resolve_ziwei_sidecar_source(
+                payload,
+                source_unavailable_code=(
+                    "LOCAL_APP_ZIWEI_STRUCTURAL_RELATIONS_SOURCE_UNAVAILABLE"
+                ),
+            )
+        )
+        try:
+            resolution = self.ziwei_structural_relation_service.resolve(bundle)
+        except ZiweiStructuralRelationProjectionResolutionError as exc:
+            raise LocalCombinedAppRequestError(
+                exc.diagnostic_code,
+                exc.detail,
+                status=422,
+            ) from exc
+        except ValueError as exc:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_ZIWEI_STRUCTURAL_RELATIONS_FAILED",
+                str(exc),
+                status=422,
+            ) from exc
+
+        if (
+            bundle.bundle_hash != expected_ziwei_hash
+            or resolution.source_application_bundle_hash != expected_ziwei_hash
+        ):
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_ZIWEI_STRUCTURAL_RELATIONS_SOURCE_BINDING_MISMATCH",
+                (
+                    f"combined={expected_ziwei_hash};controller_bundle={bundle.bundle_hash};"
+                    f"structural_source={resolution.source_application_bundle_hash}"
+                ),
+                status=500,
+            )
+        return {
+            "schema": LOCAL_ZIWEI_STRUCTURAL_RELATIONS_SCHEMA,
+            **self._source_hash_envelope(combined_resolution, expected_ziwei_hash),
+            "ziwei_structural_relation_projections": json_value(resolution),
+        }
+
 
 class _ZiweiPalaceStemTopologyHandlerMixin:
     application: ZiweiPalaceStemTopologyLocalMixin
@@ -193,6 +248,7 @@ class _ZiweiPalaceStemTopologyHandlerMixin:
         if path not in {
             "/api/ziwei-palace-stem-topology",
             "/api/ziwei-star-provenance",
+            "/api/ziwei-structural-relations",
         }:
             super().do_POST()
             return
@@ -248,8 +304,14 @@ class _ZiweiPalaceStemTopologyHandlerMixin:
         try:
             if path == "/api/ziwei-star-provenance":
                 response = self.application.resolve_ziwei_star_provenance_payload(payload)
+            elif path == "/api/ziwei-structural-relations":
+                response = self.application.resolve_ziwei_structural_relations_payload(
+                    payload
+                )
             else:
-                response = self.application.resolve_ziwei_palace_stem_topology_payload(payload)
+                response = self.application.resolve_ziwei_palace_stem_topology_payload(
+                    payload
+                )
         except LocalCombinedAppRequestError as exc:
             self._error(exc)
             return

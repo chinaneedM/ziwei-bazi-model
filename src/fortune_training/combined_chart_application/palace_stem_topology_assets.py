@@ -2,7 +2,7 @@ from __future__ import annotations
 
 
 def palace_stem_topology_index_html(base_html: str) -> str:
-    """Inject read-only Ziwei topology/provenance assets into the combined Workbench."""
+    """Inject read-only Ziwei topology/provenance/structural assets into the combined Workbench."""
 
     if "/ziwei-palace-stem-topology.css" in base_html or "/ziwei-palace-stem-topology.js" in base_html:
         raise ValueError("palace-stem topology assets already injected")
@@ -16,17 +16,17 @@ def palace_stem_topology_index_html(base_html: str) -> str:
 
 
 PALACE_STEM_TOPOLOGY_CSS = """
-.ziwei-palace-stem-topology-panel,.ziwei-star-provenance-panel { margin-bottom:10px; padding:10px; border:1px solid #d8dde2; border-radius:9px; background:#fafbfc; }
-.ziwei-palace-stem-topology-head,.ziwei-star-provenance-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
-.ziwei-palace-stem-topology-head strong,.ziwei-star-provenance-head strong { font-size:13px; }
-.ziwei-palace-stem-topology-note,.ziwei-palace-stem-topology-status,.ziwei-palace-stem-topology-lineage,.ziwei-star-provenance-note,.ziwei-star-provenance-status,.ziwei-star-provenance-lineage { color:#68707a; font-size:11px; line-height:1.45; }
-.ziwei-palace-stem-topology-grid,.ziwei-star-provenance-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:8px; }
-.ziwei-palace-stem-topology-card,.ziwei-star-provenance-card { padding:7px; border:1px solid #e0e3e6; border-radius:7px; background:#fff; }
-.ziwei-palace-stem-topology-card strong,.ziwei-star-provenance-card strong { display:block; margin-bottom:4px; font-size:12px; }
-.ziwei-palace-stem-topology-row,.ziwei-star-provenance-row { font-size:11px; line-height:1.5; white-space:pre-wrap; }
-.ziwei-palace-stem-topology-lineage,.ziwei-star-provenance-lineage { margin-top:8px; overflow-wrap:anywhere; }
+.ziwei-palace-stem-topology-panel,.ziwei-star-provenance-panel,.ziwei-structural-relations-panel { margin-bottom:10px; padding:10px; border:1px solid #d8dde2; border-radius:9px; background:#fafbfc; }
+.ziwei-palace-stem-topology-head,.ziwei-star-provenance-head,.ziwei-structural-relations-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.ziwei-palace-stem-topology-head strong,.ziwei-star-provenance-head strong,.ziwei-structural-relations-head strong { font-size:13px; }
+.ziwei-palace-stem-topology-note,.ziwei-palace-stem-topology-status,.ziwei-palace-stem-topology-lineage,.ziwei-star-provenance-note,.ziwei-star-provenance-status,.ziwei-star-provenance-lineage,.ziwei-structural-relations-note,.ziwei-structural-relations-status,.ziwei-structural-relations-lineage { color:#68707a; font-size:11px; line-height:1.45; }
+.ziwei-palace-stem-topology-grid,.ziwei-star-provenance-grid,.ziwei-structural-relations-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:8px; }
+.ziwei-palace-stem-topology-card,.ziwei-star-provenance-card,.ziwei-structural-relations-card { padding:7px; border:1px solid #e0e3e6; border-radius:7px; background:#fff; }
+.ziwei-palace-stem-topology-card strong,.ziwei-star-provenance-card strong,.ziwei-structural-relations-card strong { display:block; margin-bottom:4px; font-size:12px; }
+.ziwei-palace-stem-topology-row,.ziwei-star-provenance-row,.ziwei-structural-relations-row { font-size:11px; line-height:1.5; white-space:pre-wrap; }
+.ziwei-palace-stem-topology-lineage,.ziwei-star-provenance-lineage,.ziwei-structural-relations-lineage { margin-top:8px; overflow-wrap:anywhere; }
 .ziwei-star-provenance-system { margin:5px 0 2px; font-size:11px; font-weight:600; }
-@media (max-width:900px) { .ziwei-palace-stem-topology-grid,.ziwei-star-provenance-grid { grid-template-columns:1fr; } }
+@media (max-width:900px) { .ziwei-palace-stem-topology-grid,.ziwei-star-provenance-grid,.ziwei-structural-relations-grid { grid-template-columns:1fr; } }
 """
 
 
@@ -73,6 +73,24 @@ PALACE_STEM_TOPOLOGY_JS = """
   `;
   root.parentNode.insertBefore(provenancePanel, topologyPanel);
 
+  const structuralPanel = document.createElement('section');
+  structuralPanel.id = 'ziwei-structural-relations-panel';
+  structuralPanel.className = 'ziwei-structural-relations-panel';
+  structuralPanel.hidden = true;
+  structuralPanel.innerHTML = `
+    <div class="ziwei-structural-relations-head">
+      <div>
+        <strong>结构关系 R6–R8</strong>
+        <div class="ziwei-structural-relations-note">只读展示已发布的气数位、一六共宗与邻宫双侧几何。这里不成立夹宫/夹格，不作事件、端点、评分或吉凶判断。</div>
+      </div>
+      <code id="ziwei-structural-relations-hash">-</code>
+    </div>
+    <div id="ziwei-structural-relations-status" class="ziwei-structural-relations-status">等待紫微盘</div>
+    <div id="ziwei-structural-relations-grid" class="ziwei-structural-relations-grid"></div>
+    <div id="ziwei-structural-relations-lineage" class="ziwei-structural-relations-lineage"></div>
+  `;
+  root.parentNode.insertBefore(structuralPanel, provenancePanel);
+
   const topologyStatus = $('ziwei-palace-stem-topology-status');
   const topologyGrid = $('ziwei-palace-stem-topology-grid');
   const topologyLineage = $('ziwei-palace-stem-topology-lineage');
@@ -81,6 +99,10 @@ PALACE_STEM_TOPOLOGY_JS = """
   const provenanceGrid = $('ziwei-star-provenance-grid');
   const provenanceLineage = $('ziwei-star-provenance-lineage');
   const provenanceHash = $('ziwei-star-provenance-hash');
+  const structuralStatus = $('ziwei-structural-relations-status');
+  const structuralGrid = $('ziwei-structural-relations-grid');
+  const structuralLineage = $('ziwei-structural-relations-lineage');
+  const structuralHash = $('ziwei-structural-relations-hash');
   let serial = 0;
 
   const optionalInt = (id) => {
@@ -223,6 +245,51 @@ PALACE_STEM_TOPOLOGY_JS = """
     ].join(' · ');
   }
 
+  function relationCard(titleText, facts, lineBuilder) {
+    const card = document.createElement('div');
+    card.className = 'ziwei-structural-relations-card';
+    const title = document.createElement('strong');
+    title.textContent = `${titleText} · ${facts.length}`;
+    card.append(title);
+    facts.forEach((fact) => {
+      const line = document.createElement('div');
+      line.className = 'ziwei-structural-relations-row';
+      line.textContent = lineBuilder(fact);
+      card.append(line);
+    });
+    structuralGrid.append(card);
+  }
+
+  function renderStructuralRelations(response) {
+    const resolution = response.ziwei_structural_relation_projections;
+    structuralPanel.hidden = false;
+    structuralHash.textContent = resolution.bundle_hash.slice(0, 16);
+    structuralHash.title = resolution.bundle_hash;
+    structuralStatus.textContent = '后端事实：R6 气数位 · R7 一六共宗 · R8 邻宫双侧';
+    clear(structuralGrid);
+
+    relationCard('R6 气数位', resolution.qishu.qishu_facts, (fact) =>
+      `${fact.origin_address.branch} → ${fact.target_address.branch} · 第${fact.relative_ordinal}位 · 顺时针偏移${fact.clockwise_offset}`
+    );
+    relationCard('R7 一六共宗', resolution.one_six.one_six_facts, (fact) =>
+      `${fact.origin_address.branch} → ${fact.target_address.branch} · 第${fact.relative_ordinal}位 · 顺时针偏移${fact.clockwise_offset}`
+    );
+    relationCard('R8 邻宫双侧', resolution.adjacent_palace.adjacent_palace_pairs, (fact) =>
+      `${fact.origin_address.branch} · 逆邻${fact.counterclockwise_address.branch} / 顺邻${fact.clockwise_address.branch}`
+    );
+
+    structuralLineage.textContent = [
+      `semantic_scope=${resolution.semantic_scope}`,
+      `source_application_bundle_hash=${resolution.source_application_bundle_hash}`,
+      `source_r2_fact_hash=${resolution.source_r2_fact_hash}`,
+      `source_r2_computation_hash=${resolution.source_r2_computation_hash}`,
+      `r6=${resolution.qishu.hashes.fact_hash}`,
+      `r7=${resolution.one_six.hashes.fact_hash}`,
+      `r8=${resolution.adjacent_palace.hashes.fact_hash}`,
+      `integrity=${resolution.integrity?.status || '-'}`,
+    ].join(' · ');
+  }
+
   async function readSidecar(url, ticket, onSuccess, panel, statusNode, errorLabel) {
     try {
       const response = await fetch(url, {
@@ -249,8 +316,10 @@ PALACE_STEM_TOPOLOGY_JS = """
     const ticket = ++serial;
     topologyStatus.textContent = '读取宫干四化目标拓扑…';
     provenanceStatus.textContent = '读取星曜生成来源…';
+    structuralStatus.textContent = '读取结构关系 R6–R8…';
     readSidecar('/api/ziwei-palace-stem-topology', ticket, renderTopology, topologyPanel, topologyStatus, '宫干四化目标拓扑读取失败');
     readSidecar('/api/ziwei-star-provenance', ticket, renderStarProvenance, provenancePanel, provenanceStatus, '星曜生成来源读取失败');
+    readSidecar('/api/ziwei-structural-relations', ticket, renderStructuralRelations, structuralPanel, structuralStatus, '结构关系读取失败');
   }
 
   const originalFetch = window.fetch.bind(window);
