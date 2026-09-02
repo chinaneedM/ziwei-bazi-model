@@ -150,3 +150,16 @@ R1.7 将该表直接冻结为独立 `FEIREN_BRANCH_BY_STEM`。即使原文同时
 - `将星`：已定位文本中还可作七杀/偏官别称，不能据名称直接等同现代神煞“将星”安法。
 
 解释性原文仍留在知识库，当前确定性排盘内核不调用。
+
+## Workbench candidate provenance presentation closure
+
+Workbench 对所选八字 application candidate 的 `view.shensha.candidates[]` 逐项呈现 backend 已发布事实，并保持数组顺序和候选身份。当前展示字段包括 `shensha_id`、`display_name`、`target_kind`、`target_values`、`anchor_basis`、`anchor_value`、`match_scope`、`matched_pillars`、`present`、`selection_status`、`qualification_status`、`source_refs`、`semantic_scope` 与 `occurrences`。
+
+Presentation 层遵守以下边界：
+
+- 所有值直接来自 backend candidate；前端不重算神煞公式、不重新匹配目标、不推断锚点口径、不裁决 winner；
+- `null`、空值、缺失字段或空列表统一显示为 `—`，不以展示逻辑补造事实；
+- `candidates[]` 不再按 `present` 过滤，因此未命中候选的 provenance 同样可审计；
+- 同名候选不合并，飞刃 `YEAR_STEM` 与 `DAY_STEM` 等独立候选继续分别显示；
+- `occurrences` 只展开 backend 已给出的柱位、天干、地支事实，不做浏览器侧 rematch；
+- 本闭合只改变 Workbench presentation，不修改 ShenSha registry、显式表、公式、candidate arbitration 或 `SHENSHA_PROFILE_VERSION = 1.7.0`。
