@@ -197,7 +197,7 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 shensha["resolution_status"],
             )
             self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
-            self.assertEqual(35, len(shensha["candidates"]))
+            self.assertEqual(37, len(shensha["candidates"]))
             candidate_keys = {
                 (row["shensha_id"], row["anchor_basis"])
                 for row in shensha["candidates"]
@@ -210,6 +210,8 @@ class BaziApplicationV1Tests(unittest.TestCase):
             self.assertIn(("GONGLU", "YEAR_GANZHI"), candidate_keys)
             self.assertIn(("GONGLU", "DAY_GANZHI"), candidate_keys)
             self.assertIn(("YUANCHENG", "DAY_GANZHI"), candidate_keys)
+            self.assertIn(("FEIREN", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("FEIREN", "DAY_STEM"), candidate_keys)
             anlu = [
                 row for row in shensha["candidates"]
                 if row["shensha_id"] == "ANLU"

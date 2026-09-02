@@ -26,14 +26,14 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual("1.6.0", self.result["profile_version"])
-        self.assertEqual(35, len(self.result["candidates"]))
+        self.assertEqual("1.7.0", self.result["profile_version"])
+        self.assertEqual(37, len(self.result["candidates"]))
         self.assertEqual(
             {
                 "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
                 "TIANDE", "TIANCHU", "FUXING", "TAIJI", "SANQI",
                 "TIANSHE", "XUETANG", "JINYU", "ANLU", "JIALU", "GONGLU",
-                "YUANCHENG", "YANGREN",
+                "YUANCHENG", "YANGREN", "FEIREN",
             },
             {row["shensha_id"] for row in self.result["candidates"]},
         )

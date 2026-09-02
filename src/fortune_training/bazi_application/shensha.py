@@ -13,7 +13,7 @@ from .classical_annotations import twelve_growth_for
 
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.6.0"
+SHENSHA_PROFILE_VERSION = "1.7.0"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -153,6 +153,14 @@ YANGREN_BY_STEM = {
     "甲": ("卯",), "丙": ("午",), "戊": ("午",),
     "庚": ("酉",), "壬": ("子",),
 }
+# S11:YHZP-USR-S00378..S00388 explicitly enumerates Feiren for all ten stems.
+# Keep this table independent from Yangren runtime derivation so its provenance
+# and future candidate evolution remain isolated.
+FEIREN_BRANCH_BY_STEM = {
+    "甲": ("酉",), "乙": ("戌",), "丙": ("子",), "丁": ("丑",),
+    "戊": ("子",), "己": ("丑",), "庚": ("卯",), "辛": ("辰",),
+    "壬": ("午",), "癸": ("未",),
+}
 
 SOURCE_REFS = {
     "TIANYI": ("S11:YHZP-USR-S00235", "S11:YHZP-CH-024"),
@@ -187,6 +195,12 @@ SOURCE_REFS = {
         "S12:YHZP-CH-016", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
     ),
     "YANGREN": ("S11:YHZP-USR-S00282", "S11:YHZP-USR-S02740", "S11:YHZP-CH-224"),
+    "FEIREN": (
+        "S11:YHZP-USR-S00378", "S11:YHZP-USR-S00379", "S11:YHZP-USR-S00380",
+        "S11:YHZP-USR-S00381", "S11:YHZP-USR-S00382", "S11:YHZP-USR-S00383",
+        "S11:YHZP-USR-S00384", "S11:YHZP-USR-S00385", "S11:YHZP-USR-S00386",
+        "S11:YHZP-USR-S00387", "S11:YHZP-USR-S00388",
+    ),
 }
 
 
@@ -555,6 +569,7 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     candidates.extend(_ganzhi_anchor_candidates("GONGLU", "拱禄", GONGLU_BY_GANZHI, pillar_ganzhi))
     candidates.append(_yuancheng_candidate(stems, branches, pillar_ganzhi))
     candidates.extend(_stem_anchor_candidates("YANGREN", "羊刃", YANGREN_BY_STEM, stems, pillar_ganzhi))
+    candidates.extend(_stem_anchor_candidates("FEIREN", "飞刃", FEIREN_BRANCH_BY_STEM, stems, pillar_ganzhi))
 
     return {
         "profile_id": SHENSHA_PROFILE_ID,
@@ -586,7 +601,7 @@ def validate_shensha_registries() -> None:
     for registry in (
         TIANYI_BY_STEM, TIANGUAN_BY_YEAR_STEM, LU_BY_STEM, TIANCHU_BY_STEM,
         FUXING_BY_STEM, TAIJI_BY_YEAR_STEM, JINYU_BY_STEM, ANLU_BY_STEM,
-        JIALU_BY_STEM,
+        JIALU_BY_STEM, FEIREN_BRANCH_BY_STEM,
     ):
         _validate_registry(registry, stems, "branch")
     if set(LIUHE_PARTNER_BY_BRANCH) != branches:
