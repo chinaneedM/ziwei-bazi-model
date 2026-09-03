@@ -44,6 +44,7 @@ The register records as visible:
 - 本命天干五合关系事实;
 - 本命藏干与四柱显干的 EXACT_STEM 同干匹配事实;
 - shared time credentials with separate Zi Wei and Ba Zi policy labels;
+- resolved combined / Zi Wei / Ba Zi Profile, RuleSet and Algorithm identities plus exact ManifestHash;
 - deterministic Zi Wei target daily projection;
 - Zi Wei 命宫干支 and 局纳音, read directly from the released `FiveElementBureau` natal structure;
 - Zi Wei 五行局、命主/身主、命宫支/身宫支 and natal lunar coordinates already rendered by `ziwei_basic_info_assets.py`;
@@ -169,6 +170,14 @@ The same Application → `/api/resolve-flow` → Workbench audit confirms two ad
 `BaziApplicationFlowService._build_view` composes both projections into each exact target-flow candidate and binds their source and projection hashes. `FlowLocalCombinedChartApplication.resolve_flow_payload` releases that replay-validated candidate unchanged inside `bazi_target_flow_bundle`. Workbench `renderStructural` and `renderStructuralSupport` consume the two objects separately, exposing participant, relation, seasonal-role, affinity/exposure, rule/source and hash identity without running a second relation or support algorithm in browser code.
 
 This is inventory closure only. Structural coverage remains limited to `DAYUN`, `ANNUAL` and `MONTHLY`; `XIAOYUN`, `DAILY` and `HOURLY` remain explicit exclusions. A nominal transformation element is not a transformation-success conclusion, and support evidence is not a `ROOT/NO_ROOT`, 得令, strength, weight, score, rank, winner, auspiciousness or prediction verdict.
+
+## Visible combined resolved-profile lineage inventory closure
+
+`COMBINED_RESOLVED_PROFILE_LINEAGE` records the already released and visible calculation-identity surface as `ALREADY_VISIBLE`. `CombinedChartApplicationResolution` carries the combined profile and the six resolved subsystem profiles for Zi Wei calculation/application/presentation and Ba Zi natal/temporal/application. The combined service validates those exact profile objects, their subsystem bindings and the final `ManifestHash`; the resolved profile snapshots separately retain their released RuleSet and Algorithm identities and versions.
+
+`LocalCombinedChartApplication.resolve_payload` exposes the validated resolution and matching combined manifest through `/api/resolve`. Workbench `resolved_profile_lineage_assets.py` reads that successful response, requires combined integrity `PASS` plus a non-empty `manifest_hash`, then displays the backend-provided Profile / RuleSet / Algorithm identities and versions. It neither calls another calculation endpoint nor maintains a browser-side profile or rule registry.
+
+This is inventory closure only. Profile identity means that one exact deterministic chart used one versioned calculation snapshot. It does not select a canonical doctrine winner, promote a compatibility profile to classical authority, unify Zi Wei and Ba Zi rules, formalize self-transformation direction, or add strength, auspiciousness, interpretation or prediction semantics.
 
 ## Governance
 
