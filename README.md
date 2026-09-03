@@ -185,3 +185,15 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 ```bash
 python scripts/combined-workbench-smoke.py
 ```
+
+## Fusion Chart Product R1 收口状态
+
+```text
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+```
+
+R1 的确定性排盘产品已经完成字段可见性、Workbench/desktop 运行契约、完整性/更新机制及 CI/release 门禁收口。Windows portable 的生成 `.exe` 仍需单独的平台级启动与更新激活验收，因此标记为 `PENDING_PLATFORM_ACCEPTANCE`；该状态不会重开时间历法、八字本命/flow、紫微本命/Structural R1–R8 或 Combined Fusion R2。
+
+所有 disputed candidates 继续保留多候选、不得选 winner；紫微离心/向心自化方向仍不得由现有宫干拓扑或结构几何推导。最终审计见 `docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md`。

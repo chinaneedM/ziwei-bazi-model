@@ -7,13 +7,19 @@ on:
       - ".github/workflows/windows-portable.yml"
       - ".github/workflows/windows-stable-promote-push.yml"
       - ".github/workflows/windows-stable-promote-pr.yml"
+      - ".github/workflows/ci.yml"
       - "pyproject.toml"
       - "config/time-calendar-policies.json"
       - "scripts/build-windows-portable.ps1"
       - "scripts/fortune_chart_desktop.py"
       - "scripts/fortune_chart_updater.py"
+      - "scripts/verify-fusion-chart-product-r1.py"
       - "src/fortune_training/desktop_application/**"
       - "src/fortune_training/combined_chart_application/**"
+      - "docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md"
+      - "docs/FUSION-CHART-FIELD-CLOSURE-AUDIT-R1.md"
+      - "docs/FUSION-CHART-FIELD-PARITY-MATRIX-R1.json"
+      - "README.md"
       - "tests/test_windows_portable_desktop_launcher_r1.py"
       - "tests/test_windows_verified_auto_update_r1.py"
       - "tests/test_windows_stable_release_promotion_branch_r1.py"
@@ -49,6 +55,9 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: python -m pip install -e ".[desktop-build]"
+      - name: Run Fusion Chart Product R1 machine gate
+        shell: pwsh
+        run: python scripts/verify-fusion-chart-product-r1.py
       - name: Run Windows portable/update focused tests
         shell: pwsh
         run: |

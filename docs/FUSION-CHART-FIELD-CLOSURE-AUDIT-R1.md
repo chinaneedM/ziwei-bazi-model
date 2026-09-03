@@ -4,277 +4,128 @@
 
 ```text
 AUDIT_ID=FUSION-CHART-FIELD-CLOSURE-AUDIT-R1
-STATUS=PASS_WITH_EXPLICIT_PRODUCT_BACKLOG
+STATUS=PASS
 BASELINE_BRANCH=agent/fusion-chart-core-r1-20260822
-BASELINE_COMMIT=cf6a4fa952d242384f0dce6083cb5a13802a1af0
+FINAL_ACCEPTANCE_AUDIT=docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md
 CURRENT_STRUCTURAL_CLOSURE=R1-R8
 MANDATORY_DETERMINISTIC_CORE=CLOSED
-NEXT_PHASE=FIELD_PARITY_AND_PRODUCT_CLOSURE
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+DISPUTED_CANDIDATE_POLICY=NO_WINNER
+NEXT_PHASE=WINDOWS_BINARY_PLATFORM_ACCEPTANCE_ONLY
 ```
 
-This audit freezes the deterministic Ziwei + Bazi fusion charting baseline and classifies remaining work by field family. The original baseline commit remains historical evidence; the active branch has subsequently extended the read-only Ziwei structural surface through R8 and productized R6-R8 through an additive application sidecar. This audit is a product/charting audit only. It does not authorize prediction, interpretation, model training, winner selection among disputed schools, or silent reconciliation of Ziwei and Bazi time conventions.
+This audit freezes the deterministic Ziwei + Bazi fusion chart product at R1. The final product acceptance is evidence-bound in `docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md`. Windows executable platform validation is intentionally tracked as a separate release-acceptance domain and does not reopen deterministic chart algorithms.
 
-The audit uses the repository contracts as authority for what is already released. Wenmo Tianji and Wenzhen Bazi are compatibility/reference products only; their displayed fields may identify product-parity gaps but do not override canonical source rules or existing typed runtime contracts.
+Wenmo Tianji and Wenzhen Bazi remain compatibility/reference products only. Their display choices may identify candidate parity questions, but they do not override source-backed profiles or authorize winner selection.
 
-## Core invariant
+## Core invariant — CLOSED
 
-The fusion product has one shared physical target-time credential, but each subsystem keeps its own deterministic policy projection:
+The product has one shared physical time/location credential while Ziwei and Bazi retain independent policy projections for calendar, day boundary, late-Zi and other subsystem-specific conventions. No fusion, Workbench, desktop or packaging layer may silently make one subsystem overwrite the other.
 
-```text
-shared civil / UTC / location / solar-time credential
-        ├── Bazi calculation profile
-        │      ├── Bazi day boundary
-        │      ├── late-Zi stem policy
-        │      └── Start-of-Spring / Jie flow coordinates
-        └── Ziwei calculation profile
-               ├── Ziwei chart-date policy
-               ├── leap-month policy
-               └── Ziwei daily/hourly selector projection
-```
-
-No fusion layer may make one subsystem's day-boundary, leap-month, or late-Zi convention overwrite the other subsystem.
+Status: **CLOSED**.
 
 ## A. Shared time / calendar / candidate lineage — CLOSED
 
-Released coverage includes:
-
-- civil local datetime, timezone and location identity;
-- historical timezone handling;
-- UTC resolution;
-- true/local-apparent-solar-time provenance;
-- DST fold/gap handling;
-- uncertainty candidate preservation;
-- shared time credential and candidate-lineage hashes;
-- subsystem-specific policy projections;
-- explicit target-time / target-place coordinates;
-- target-time replay into both Ziwei and Bazi without cross-overwrite.
-
-The R2 combined target-flow fusion binds the exact same target-coordinate resolution into the released Bazi target-flow bundle and Ziwei selector projection while preserving independent subsystem semantics.
+Released coverage includes legal civil realizations, UTC/timezone provenance, location and apparent-solar-time provenance, DST fold/gap handling, uncertainty candidates, shared hashes and subsystem-specific policy projections. Combined target-flow composition reuses the same target coordinate without cross-system semantic overwrite.
 
 Status: **CLOSED**.
 
-## B. Bazi natal identity fields — CLOSED
+## B. Bazi deterministic chart product — CLOSED
 
-Released deterministic natal/application coverage includes:
+The released product covers Bazi natal identity, hidden stems, Ten Gods, Nayin, Xunkong, Twelve Growth, derived coordinates, neutral relation identities, ShenSha fact candidates, Jiaoyun/Dayun, candidate-preserving Xiaoyun, Annual/Monthly/Daily/Hourly flow, temporal classical annotations and the released neutral structural/support projections.
 
-- four pillars;
-- hidden stems;
-- visible and hidden Ten Gods;
-- Nayin annotation;
-- Xunkong;
-- Twelve Growth / Changsheng annotations;
-- Taiyuan;
-- Minggong;
-- Shenggong;
-- neutral stem/branch relation identities;
-- explicit candidate identity and integrity hashes.
-
-These are chart facts or profiled annotations. They do not imply strength, pattern, favorable element, or event interpretation.
-
-Status: **CLOSED for deterministic chart identity**.
-
-## C. Bazi temporal chain — CLOSED
-
-Released typed chain:
-
-```text
-Natal
-  -> Jiaoyun / Dayun
-  -> Annual
-  -> Monthly
-  -> Daily
-  -> Hourly
-```
-
-The target-flow application integration preserves PRE_DAYUN, Dayun, Annual, Monthly, Daily and Hourly identities, target-coordinate provenance, structural projections and candidate lineage.
-
-Xiaoyun remains explicitly candidate-preserving where source methods differ. The product must not silently select one school as universal truth.
+All such surfaces remain facts or profiled annotations. Product closure adds no strength, pattern, favorable-element, auspiciousness, interpretation or prediction verdict.
 
 Status: **CLOSED**.
 
-## D. Bazi ShenSha — RELEASED CORE, PRODUCT EXPANSION OPEN
+## C. Ziwei deterministic chart product — CLOSED for released scope
 
-The repository already contains a source-bound deterministic ShenSha fact registry and preserves alternate anchors separately where source rules differ.
+The released product covers the twelve-palace natal structure, physical star/ring inventory, transformations, operational dignity annotations with explicit authority boundaries, Daxian/Annual/Minor/Doujun/monthly/target projections, temporal auxiliary candidates, palace-stem transformation topology, and Structural Runtime R1–R8 with application/Workbench sidecars.
 
-Current status does not mean "all ShenSha ever used by every commercial product". New ShenSha items should be added only when:
+`ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION` remains `NOT_YET_FORMALIZED`. SAME/OPPOSITE/OTHER topology, Qishu, One-Six Common-Root and adjacency geometry are not selectors for OUTWARD_DISSIPATION / INWARD_RECEPTION.
 
-1. the rule is source-identifiable;
-2. the anchor domain is explicit;
-3. conflicting source methods are represented as distinct profiles/candidates rather than merged;
-4. the output remains a fact annotation and not an interpretive verdict.
+Status: **CLOSED for the released deterministic scope**.
 
-Status: **CORE RELEASED; PARITY EXPANSION OPEN**.
+## D. Combined Fusion R2 — CLOSED
 
-## E. Ziwei natal structure and physical inventory — CLOSED
-
-Released deterministic Ziwei coverage includes:
-
-- twelve-palace structure and palace Ganzhi;
-- Life/Body palace geometry;
-- Five Bureau;
-- fourteen main stars;
-- released auxiliary / dependent / minor-star inventory;
-- role bindings;
-- four ring runtimes;
-- natal transformations;
-- dignity annotations, including explicit unrated states where the released registry has no grade;
-- deterministic fact/computation hashes and integrity replay.
-
-Status: **CLOSED for current released physical inventory**.
-
-## F. Ziwei structural relations — CLOSED FOR RELEASED R1-R8
-
-Released chain:
-
-```text
-R1 neutral Z12 topology
--> R2 relative palace frame
--> R3 borrow projection
--> R4 named opposition / trine / Sanfang-Sizheng semantics
--> R5 borrow-resolved composition view
--> R6 Qishu position projection
--> R7 One-Six Common-Root projection
--> R8 adjacent-palace pair geometry
-```
-
-R3 preserves physical-resolution identity through `structure_physical_key`. R4 preserves canonical semantic identity through `axis_key` and `group_key`. R5 composes both without creating a second physical inventory or a second independent semantic cause.
-
-R6 is a separately versioned S04-backed directed Qishu relation over R2 ordinal 9 / clockwise offset 4. R7 is a separately versioned S04-backed One-Six Common-Root relation. R8 exposes the two mechanically adjacent palace identities around each origin while explicitly withholding flank/夹宫/夹格 semantics.
-
-The application-facing `ZiweiStructuralRelationProjectionService` composes R6-R8 as a read-only sidecar bound to the exact released `ApplicationChartBundle` and R2 hashes. The unified Workbench consumes that sidecar through `/api/ziwei-structural-relations`; it does not recompute structural geometry in browser JavaScript.
-
-Each structural layer remains independently versioned, hashed and integrity-validated. The R6-R8 sidecar additionally performs full replay and publishes a composition bundle hash without changing the frozen V1 application-bundle hash contract.
-
-The following remain outside this closure unless separately formalized from source-backed mechanical rules:
-
-- 夹宫 / 夹格成立判断;
-- pair-geometry strength;
-- motif/configuration compiler;
-- dynamic structural projection beyond the time layers explicitly released by each profile;
-- event, endpoint, score, auspiciousness or predictive interpretation.
-
-`ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION` remains `NOT_YET_FORMALIZED`. SAME/OPPOSITE/OTHER palace topology and R8 adjacency geometry are not selectors for OUTWARD_DISSIPATION / INWARD_RECEPTION.
-
-Status: **CLOSED for released R1-R8; interpretive/flank extensions remain unclaimed**.
-
-## G. Ziwei temporal fields — CORE CLOSED, FULL PRODUCT PARITY OPEN
-
-Released temporal/runtime coverage includes:
-
-- Daxian;
-- Annual frames;
-- Minor Limit;
-- Doujun;
-- regular monthly frames;
-- temporal designation overlays;
-- temporal transformations;
-- target daily/hourly Ziwei selector projection;
-- case-scoped hourly-method alternatives where source/time-standard rules differ.
-
-The fusion R2 target-flow layer exposes Ziwei selector candidates from the same explicit target coordinate used by Bazi flow.
-
-Remaining work is chiefly product-surface closure: ensure all deterministic temporal facts intended for the daily charting workflow are exposed consistently in the workbench and portable desktop application.
-
-Status: **CORE CLOSED; PRESENTATION/PARITY OPEN**.
-
-## H. Fusion application composition — R2 CLOSED
-
-The combined application has these independent, hash-bound layers:
-
-```text
-Combined birth chart identity
-  + Bazi target-flow application bundle
-  + explicit TargetCoordinate resolution
-  + Ziwei shared-target selector projection
-  -> Combined Target-Flow Fusion R2
-```
-
-R2 composition semantics are fixed to:
-
-`INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY`
-
-It does not synthesize a new astrological doctrine, infer a cross-system verdict, or rewrite upstream subsystem objects.
-
-The workbench exposes the additive R2 endpoint and the CI smoke exercises the released R1 and R2 surfaces together.
+Combined Target-Flow Fusion R2 remains an independent hash-bound composition of released Ziwei, Bazi and target-coordinate identities. Its semantic contract remains `INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY`; it does not create a cross-system doctrine or predictive verdict.
 
 Status: **CLOSED**.
 
-## I. Product field-parity backlog — OPEN
+## E. Field parity — CLOSED for current R1 inventory
 
-This is the active development class. It should be handled as a field-by-field audit against the actual workbench, Wenmo reference screenshots and Wenzhen reference screenshots.
+`docs/FUSION-CHART-FIELD-PARITY-MATRIX-R1.json` contains zero actual rows with `status=ALREADY_RELEASED_NOT_YET_VISIBLE`. The status definition remains available for future audits, but there is no current released deterministic field waiting only for Workbench visibility.
 
-Each candidate field must be classified as one of:
+`NOT_YET_FORMALIZED` is not a hidden released field. `DISPUTED_CANDIDATE_ONLY` is also not a gap: it is an intentional product contract requiring preservation of multiple methods without a winner.
 
-- `ALREADY_RELEASED_AND_VISIBLE`
-- `ALREADY_RELEASED_NOT_YET_VISIBLE`
-- `DETERMINISTIC_RUNTIME_MISSING`
-- `SOURCE_PROFILE_OR_SCHOOL_CONFLICT`
-- `REFERENCE_PRODUCT_ONLY`
-- `INTERPRETIVE_OR_PREDICTIVE_OUT_OF_SCOPE`
+Status: **CLOSED for current R1 deterministic field inventory**.
 
-Priority order:
+## F. Workbench / desktop product boundary — CLOSED
 
-1. expose already-released deterministic fields that are currently hidden in the application UI;
-2. add missing deterministic fields whose source rule is clear and testable;
-3. preserve disputed source methods as explicit candidates/profiles;
-4. reject product-only labels that cannot be traced to a deterministic rule;
-5. keep interpretation/prediction out of the charting release.
+The Workbench consumes released typed objects and sidecars rather than reimplementing chart rules in browser JavaScript. Existing stale-view gates, candidate selectors and explicit Shared Target → Ziwei Apply behavior preserve source/target independence and require explicit user action where selection is meaningful.
 
-R6 Qishu, R7 One-Six Common-Root and R8 adjacent-palace geometry are now product-visible and therefore belong in the Field Parity register as `ALREADY_VISIBLE`; they are no longer open UI gaps.
+The portable desktop launcher is a packaging shell over that Workbench. It resolves packaged runtime resources, binds loopback-only, uses an ephemeral port, carries exact source-commit/version metadata and excludes training/answer/source domains from the runtime data inventory. The verified updater checks a closed manifest, exact release route, version/source identity, asset SHA-256/size, safe archive extraction and staged bundle metadata before activation, with rollback behavior tested.
 
-## J. UI / desktop closure — OPEN
+Status: **CLOSED as a deterministic product/runtime contract**.
 
-The current workbench and portable Windows launcher are operational, but visual parity and information density are not yet final.
+## G. Release / CI product gate — CLOSED
 
-UI work must consume released typed objects and must not duplicate calculation logic in browser JavaScript. In particular:
+Normal CI now has an explicit `Fusion Chart Product R1 machine gate`, focused desktop acceptance tests, `fortune-train verify`, full unittest, Workbench smoke and Workbench HTTP smoke as separately visible steps. The Windows portable workflow also requires the R1 machine gate before building or promoting the PyInstaller artifact.
 
-- browser code must not recompute time/calendar rules;
-- browser code must not select candidate zero silently;
-- browser code must not rewrite Ziwei selectors while computing Bazi flow;
-- browser code must keep system-specific time conventions visible;
-- stale-view guards must invalidate derived panels after source/target edits;
-- future field panels should be read-only projections of released runtime objects.
+The machine gate fails closed if:
 
-Status: **OPEN**.
+- any actual matrix row returns to `ALREADY_RELEASED_NOT_YET_VISIBLE`;
+- `ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION` is promoted from `NOT_YET_FORMALIZED`;
+- candidate-only rows disappear;
+- final acceptance status markers drift;
+- required desktop/update/release evidence disappears;
+- the CI/release workflows stop invoking the R1 gate.
 
-## Explicit non-goals for this phase
+Status: **CLOSED**.
 
-The following remain out of scope until the fusion charting product is complete:
+## H. Windows binary platform acceptance — PENDING, separate domain
 
-- AI interpretation;
-- prediction;
-- event verdicts;
-- strength/pattern/favorable-element arbitration unless separately released as deterministic profiled research;
-- cross-system semantic synthesis;
-- training-system work unrelated to deterministic chart correctness or packaging.
+The Windows release workflow runs on `windows-latest`, executes the focused source-level desktop/update contracts and builds the portable PyInstaller bundle. It validates release version/ref, source commit, ZIP SHA-256 and size before publication.
 
-## Next implementation sequence
+However, the current evidence does not prove a full end-user launch/activation acceptance of the generated `FortuneChart.exe` and `FortuneChartUpdater.exe` from the emitted ZIP. That remains a platform-distribution acceptance task covering packaged dependency loading, executable startup, loopback/browser behavior and updater process replacement on Windows.
 
 ```text
-1. Keep the machine-readable field parity register synchronized with released backend/API/Workbench surfaces.
-2. Mark every current workbench field as visible / hidden / missing.
-3. Close ALREADY_RELEASED_NOT_YET_VISIBLE items first.
-4. Implement deterministic missing fields one family at a time only when the source rule is mechanically closed.
-5. Preserve disputed methods as explicit profiles/candidates rather than selecting a winner.
-6. Add ChartDiff fixtures for disputed/edge cases.
-7. Re-run full verify + unit suite + workbench smoke after each atomic slice.
-8. Only after field closure, perform the final UI density/layout pass.
+WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+```
+
+This pending state must not be used to reopen time/calendar, Bazi natal/flow, Ziwei natal/Structural R1–R8 or Combined Fusion R2 without independent deterministic-failure evidence.
+
+## Explicit non-goals and preserved disputes
+
+The following remain outside deterministic product R1 closure:
+
+- AI interpretation and prediction;
+- strength/pattern/favorable-element or auspiciousness arbitration unless separately formalized as a deterministic research contract;
+- doctrinal winner selection among disputed schools;
+- product-reference labels that lack a deterministic source rule;
+- self/inward transformation direction until a canonical mechanical selector is recovered and replay-tested.
+
+Every `DISPUTED_CANDIDATE_ONLY` contract remains no-winner:
+
+```text
+DISPUTED_CANDIDATE_POLICY=NO_WINNER
 ```
 
 ## Reopen rule
 
-A previously closed deterministic layer is reopened only if evidence shows one of:
+A closed deterministic layer is reopened only if evidence shows incorrect deterministic output, broken candidate preservation, broken replay/hash integrity, a missing field required to reproduce an already-claimed released contract, or an incorrect typed handoff between released layers.
 
-- incorrect deterministic chart/time output;
-- broken candidate preservation;
-- invalid frozen hash/integrity lineage;
-- missing field required to reproduce an already-claimed deterministic contract;
-- incorrect typed handoff between released layers.
-
-A commercial-product display difference, a traditional interpretive term, or a new school opinion alone is not sufficient.
+A Windows packaging/platform issue reopens the desktop/build/updater/platform contract first. It does not by itself reopen chart semantics.
 
 ## Exit statement
 
-The original `cf6a4fa952d242384f0dce6083cb5a13802a1af0` audit baseline closed the mandatory deterministic fusion core through Combined Target-Flow Fusion R2. The active branch has since added source-backed Ziwei Structural Runtime R6-R8 and productized those relations through a read-only application/Workbench sidecar without reopening or rewriting the frozen foundation.
+The deterministic fusion-chart product is now formally closed at R1. The only release acceptance explicitly left open by this audit is the separate Windows binary platform acceptance.
 
-The active development frontier remains **field parity and product closure**, not another rewrite of the time/calendar, Bazi natal/flow, Ziwei natal/structural, or fusion identity foundations.
+```text
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+DISPUTED_CANDIDATE_POLICY=NO_WINNER
+```
