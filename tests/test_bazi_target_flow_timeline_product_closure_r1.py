@@ -95,7 +95,7 @@ class BaziTargetFlowTimelineProductClosureR1Tests(unittest.TestCase):
             "const flow = view.flow;",
             "const annotations = view.timeline.classical_annotations;",
             "view.timeline.xiaoyun.candidates.forEach",
-            "frameCard('大运', dayun",
+            "'大运', dayun, flow.active_dayun_kind",
             "frameCard('流年', flow.annual",
             "frameCard('流月', flow.monthly",
             "frameCard('流日', view.daily",
