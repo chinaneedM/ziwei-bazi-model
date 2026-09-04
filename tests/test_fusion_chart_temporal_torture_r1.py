@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import unittest
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 from fortune_training.calendar_foundation import (
     BirthInput,
@@ -53,7 +53,7 @@ class FusionChartTemporalBoundaryTortureR1Tests(unittest.TestCase):
             "day_boundary_policy": "MIDNIGHT",
             "late_zi_hour_stem_policy": "CLASSICAL_CONTINUOUS",
         }
-        utc_anchor = datetime(2000, 1, 7, 15, 0)
+        utc_anchor = datetime(2000, 1, 7, 15, 0, tzinfo=timezone.utc)
         before = resolver.resolve(
             utc_anchor - timedelta(seconds=1),
             datetime(2000, 1, 7, 22, 59, 59),
