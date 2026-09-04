@@ -46,10 +46,10 @@
     "row_count": 119,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 32,
-      "DISPUTED_MULTIPLE_CANDIDATES": 22,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 27,
+      "DISPUTED_MULTIPLE_CANDIDATES": 23,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 5,
-      "HISTORICALLY_SUPPORTED": 34,
+      "HISTORICALLY_SUPPORTED": 38,
       "SOURCE_INSUFFICIENT": 2,
       "NOT_YET_FORMALIZED": 1,
       "MISSING_FROM_PRODUCT": 5
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 64
+    "audited_row_count": 69
   },
   "rows": [
     {
@@ -1491,20 +1491,27 @@
       "rule_or_field": "Ziwei day-boundary policy",
       "current_implementation": "Production sets ziwei_day_boundary_policy=ZI_START_23.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 routes pending extraction",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/production_profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "S01 normalized candidate layer; claimed Fullbook attribution not closed against frozen ZZQS received-text layer",
+      "source_quote": "《紫微斗数全书》载：“子时乃一日之始，当从新日计。”（normalized-layer attribution under quarantine; not treated as verified Fullbook verbatim）",
+      "source_quote_location": "S01:ZZZA-A-0053 / ZZZZA-PR-005; exact sentence not found in frozen S01 ZZQS received-Fullbook text during Batch 06",
+      "historical_period": "SOURCE_ATTRIBUTION_UNVERIFIED; production rule is a preserved policy choice, not a uniquely dated classical fact",
+      "later_witnesses": "Later Zhongzhou-school teaching explicitly acknowledges 23:00-vs-midnight dispute and selects midnight by school experience; further edition/facsimile search required.",
+      "school_attribution": "DISPUTED_DAY_BOUNDARY_TRADITIONS; PRODUCTION_ZI_START_23_NOT_ELEVATED_TO_UNIQUE_CLASSICAL_WINNER",
       "competing_methods": [
+        "ZI_START_23",
         "MIDNIGHT"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit Ziwei-specific late-Zi tradition independently.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "PRODUCTION_SELECTS_ZI_START_23; HISTORICAL_AUTHORITY_FOR_UNIQUE_WINNER_NOT_CLOSED",
+      "confidence": "HIGH_FOR_EXISTENCE_OF_DISPUTE_LOW_FOR_CLAIMED_FULLBOOK_ATTRIBUTION",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep production closed and candidates separate. Seek edition/facsimile evidence for the attributed Fullbook sentence; do not cite the normalized attribution as primary until closed.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS",
+      "defect_id": "PROV-DEFECT-005",
+      "defect_type": "UNVERIFIED_FULLBOOK_ATTRIBUTION_FOR_ZIWEI_DAY_BOUNDARY",
+      "defect_scope": "S01 normalized layer attributes an exact Zi-hour day-boundary sentence to 《紫微斗数全书》, but Batch 06 did not locate that sentence in the repository-frozen ZZQS received-text layer or checked external received transcription.",
+      "repair_status": "REPAIRED_BY_PROVENANCE_QUARANTINE_IN_BATCH_06",
+      "repair_action": "Preserved canonical source text unchanged but removed the attribution from primary-authority use in the Historical Audit Matrix; production algorithm was not reopened."
     },
     {
       "rule_id": "HPA-ZIWEI-002",
@@ -1513,20 +1520,21 @@
       "rule_or_field": "Life/Body palace placement",
       "current_implementation": "Natal structure algorithm places 命宫/身宫 from lunar month/hour under scoped leap policy.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 normalized primitives",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-CHART-ENGINE-V1-FOUNDATION.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "S01 frozen received Fullbook: ZZQS-A-1744..1746",
+      "source_quote": "大抵人命，俱从寅上起正月，顺数至本生月止。又自人生月上起子时，逆至本生时安命，顺至本生时安身。",
+      "source_quote_location": "S01:ZZQS-A-1744; worked examples S01:ZZQS-A-1745; leap-month Fullbook method S01:ZZQS-A-1746",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION; exact edition dating remains separate bibliographic work",
+      "later_witnesses": "Later Zhongzhou-school manuals preserve the same ordinary-month/hour base geometry while differing on leap-month policy.",
+      "school_attribution": "RECEIVED_FULLBOOK_BASE_GEOMETRY_WITH_SEPARATE_LEAP_MONTH_SCHOOL_PROFILES",
       "competing_methods": [
-        "leap-month methods"
+        "leap-month methods audited separately"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Extract primary passages and test all month/hour combinations.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MATCHES_ALL_12X12_ORDINARY_MONTH_HOUR_GEOMETRY; LEAP_POLICY_SCOPED_SEPARATELY",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No base-geometry reopen. Continue preserving leap-month methods as separately sourced policies.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
     },
     {
       "rule_id": "HPA-ZIWEI-003",
@@ -1535,18 +1543,21 @@
       "rule_or_field": "Twelve palace designations",
       "current_implementation": "Natal/ring geometry assigns the 12 palace functions from Life palace.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01/S04",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-CHART-ENGINE-V1-FOUNDATION.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Trace ordering and terminology witnesses.",
-      "algorithm_reopen_authorized": false
+      "primary_source": "S01 frozen received Fullbook: ZZQS-A-1749 / ZZQS-A-1751",
+      "source_quote": "一命宫 二兄弟 三妻妾 四子女 五财帛 六疾厄 七迁移 八奴仆 九官禄 十田宅 十一福德 十二父母",
+      "source_quote_location": "S01:ZZQS-A-1749; S01:ZZQS-A-1751",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "Later Zhongzhou presentation commonly modernizes 妻妾→夫妻 and 奴仆→交友 while retaining the same reverse palace geometry.",
+      "school_attribution": "COMMON_BASE_GEOMETRY_WITH_PRESENTATION_TERMINOLOGY_NORMALIZATION",
+      "competing_methods": [
+        "historical display labels vs modernized display labels; geometry unchanged"
+      ],
+      "current_implementation_match": "GEOMETRY_MATCHES; CURRENT 夫妻 DISPLAY IS A TERMINOLOGY_NORMALIZATION_OF_RECEIVED 妻妾",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No geometry reopen. Keep historical/modern display-label distinction in provenance/presentation documentation.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
     },
     {
       "rule_id": "HPA-ZIWEI-004",
@@ -1555,20 +1566,19 @@
       "rule_or_field": "Palace stem assignment",
       "current_implementation": "Natal structure assigns palace stems; later palace-stem transformations read these released stems.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01/S08 routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-PALACE-STEM-TRANSFORMATION-TOPOLOGY-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [
-        "Five-Tigers derivation formulations"
-      ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit palace-stem formula and source relationship to transformations.",
-      "algorithm_reopen_authorized": false
+      "primary_source": "S01 frozen received Fullbook: 起五寅例 ZZQS-A-1755..1756",
+      "source_quote": "甲己之岁起丙寅，乙庚之岁起戊寅，丙辛之岁起庚寅；丁壬之岁起壬寅，戊癸之岁起甲寅。",
+      "source_quote_location": "S01:ZZQS-A-1755; S01:ZZQS-A-1756",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized Five-Tigers projection and later Zhongzhou manuals preserve the same five start pairs and forward cyclic stem assignment.",
+      "school_attribution": "FIVE_TIGERS_PALACE_STEM_TRADITION",
+      "competing_methods": [],
+      "current_implementation_match": "YEAR_STEM_TO_YIN_START_STEM_MATCHES_ALL_FIVE_SOURCE_PAIRS; CYCLIC_PALACE_STEMS_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Use the direct ZZQS atoms as historical authority; S08 may consume released palace stems but does not define them.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
     },
     {
       "rule_id": "HPA-ZIWEI-005",
@@ -1577,18 +1587,19 @@
       "rule_or_field": "Five-element bureau",
       "current_implementation": "Natal structure derives 五行局 / bureau number used by main-star and first-Daxian age.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-BUREAU-METADATA-WORKBENCH-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "S01 frozen received Fullbook: ZZQS-A-1747 + 六十花甲子纳音歌 ZZQS-A-1760..1767",
+      "source_quote": "如甲生人安命在寅……丙寅丁卯炉中火，就去火局寻某日生期起紫微帝主。",
+      "source_quote_location": "S01:ZZQS-A-1747; NaYin table S01:ZZQS-A-1760..1767",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION; named bureau families also witnessed in the 1581 Jielan tradition",
+      "later_witnesses": "1581 Jielan and later received Fullbook/star-table witnesses preserve named bureau families and bureau-dependent Ziwei placement.",
+      "school_attribution": "LIFE_PALACE_GANZHI_TO_NAYIN_TO_FIVE_BUREAU_TRADITION",
       "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Trace bureau table and transmission.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MATCHES_SOURCE_DEPENDENCY_CHAIN_AND_WORKED 丙寅→炉中火→火局 EXAMPLE; CURRENT BUREAU NUMBER MAPPING IS CONSISTENT_WITH_RECEIVED_TABLE_FAMILY",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Continue bibliographic collation of exact bureau-table editions, but current deterministic derivation has no reproduced mismatch.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
     },
     {
       "rule_id": "HPA-ZIWEI-006",
@@ -2754,7 +2765,8 @@
     "BATCH-02-BAZI-NATAL-DERIVED",
     "BATCH-03-BAZI-SHENSHA",
     "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
-    "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
+    "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
+    "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -2820,12 +2832,17 @@
     "HPA-ZT-008",
     "HPA-ZIWEI-022",
     "HPA-ZIWEI-023",
-    "HPA-ZIWEI-024"
+    "HPA-ZIWEI-024",
+    "HPA-ZIWEI-001",
+    "HPA-ZIWEI-002",
+    "HPA-ZIWEI-003",
+    "HPA-ZIWEI-004",
+    "HPA-ZIWEI-005"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 4,
-    "repaired_provenance_metadata_defect_count": 4,
+    "confirmed_provenance_metadata_defect_count": 5,
+    "repaired_provenance_metadata_defect_count": 5,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 3,
