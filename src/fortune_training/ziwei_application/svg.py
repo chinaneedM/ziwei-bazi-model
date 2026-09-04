@@ -11,7 +11,7 @@ from fortune_training.ziwei_chart import ChartViewModel
 
 SVG_RENDER_ARTIFACT_SCHEMA = "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"
 SVG_RENDERER_ID = "ZIWEI-TWELVE-PALACE-SVG-RENDERER-V1"
-SVG_RENDERER_VERSION = "1.0.0"
+SVG_RENDERER_VERSION = "1.4.0"
 SUPPORTED_VIEW_SCHEMA = "ZIWEI-CHART-VIEW-MODEL-V1"
 
 # Conventional Ziwei square-board coordinates inside a 4 x 4 outer ring.
@@ -112,6 +112,15 @@ def _placement_label(row) -> str:
     return f"{row.label}{suffix}{badges}"
 
 
+def _candidate_title(row) -> str:
+    return (
+        f"{row.frame_type}:{row.label}; frame={row.frame_id}; entity={row.entity_id}; "
+        f"method={row.method_id}; authority={row.authority_status}; "
+        f"candidate={row.candidate_id}; candidate_fact_hash={row.candidate_fact_hash}; "
+        f"set={row.candidate_set_id}"
+    )
+
+
 def _canonical_cells(view: ChartViewModel):
     cells = sorted(view.cells, key=lambda row: row.address_index)
     if len(cells) != 12 or {row.address_index for row in cells} != set(range(12)):
@@ -150,12 +159,82 @@ class ZiweiTwelvePalaceSvgRenderer:
                 )
             )
             lines.extend("时: " + row for row in _chunks(temporal_tokens, max_chars=27))
+            auxiliary_tokens = tuple(
+                f"{row.frame_type}:{row.label}"
+                for row in sorted(
+                    cell.temporal_auxiliaries,
+                    key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+                )
+            )
+            lines.extend("流曜: " + row for row in _chunks(auxiliary_tokens, max_chars=25))
+            candidate_tokens = tuple(
+                f"{row.frame_type}:{row.label}[{row.method_id}]"
+                for row in cell.temporal_auxiliary_candidates
+            )
+            lines.extend("候选流曜: " + row for row in _chunks(candidate_tokens, max_chars=25))
             if cell.minor_limit_frame_ids:
                 lines.extend(
                     "小限: " + row
                     for row in _chunks(tuple(sorted(cell.minor_limit_frame_ids)), max_chars=25)
                 )
+            if cell.doujun_frame_ids:
+                lines.extend(
+                    "斗君: " + row
+                    for row in _chunks(tuple(sorted(cell.doujun_frame_ids)), max_chars=24)
+                )
         return tuple(lines)
+
+    @staticmethod
+    def _selected_temporal_summary_lines(view: ChartViewModel) -> tuple[str, ...]:
+        summary = view.selected_temporal_frame_summary
+        lines: list[str] = []
+        if summary.daxian is not None:
+            row = summary.daxian
+            tokens = (
+                f"第{row.index}限",
+                f"虚岁{row.nominal_age_start}-{row.nominal_age_end}",
+                f"公历{row.absolute_year_start}-{row.absolute_year_end}",
+                f"宫位{row.active_branch}",
+                f"宫干支{row.active_palace_ganzhi}",
+            )
+            lines.extend("大限: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        if summary.annual is not None:
+            row = summary.annual
+            tokens = (
+                f"{row.absolute_year}年",
+                f"虚岁{row.nominal_age}",
+                f"年干{row.year_stem}",
+                f"年支{row.year_branch}",
+                f"宫位{row.active_branch}",
+                f"宫干支{row.active_palace_ganzhi}",
+            )
+            lines.extend("流年: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        if summary.monthly is not None:
+            row = summary.monthly
+            tokens = (
+                f"{row.absolute_year}年农历{row.lunar_month}月",
+                f"月干{row.month_stem}",
+                f"月支{row.month_branch}",
+                f"月干支{row.month_ganzhi}",
+                f"宫位{row.active_branch}",
+            )
+            lines.extend("流月: " + chunk for chunk in _chunks(tokens, max_chars=48))
+            lines.append(f"月历: {row.calendar_scope}")
+            lines.append(f"闰月策略: {row.leap_month_policy_status}")
+        if summary.minor_limit is not None:
+            row = summary.minor_limit
+            tokens = (f"虚岁{row.nominal_age}", f"宫位{row.active_branch}")
+            lines.extend("小限: " + chunk for chunk in _chunks(tokens, max_chars=48))
+        return tuple(lines)
+
+    @staticmethod
+    def _daxian_sequence_metadata_lines(view: ChartViewModel) -> tuple[str, ...]:
+        metadata = view.daxian_sequence_metadata
+        if metadata is None:
+            return ()
+        return (
+            f"大限序列: {metadata.daxian_direction}  起限虚岁{metadata.first_daxian_nominal_age}",
+        )
 
     @staticmethod
     def _full_cell_title(cell) -> str:
@@ -174,10 +253,20 @@ class ZiweiTwelvePalaceSvgRenderer:
                 key=lambda item: (item.frame_type, item.frame_id, item.designation_id),
             )
         ) or "-"
+        auxiliary = ", ".join(
+            f"{row.frame_type}:{row.label}"
+            for row in sorted(
+                cell.temporal_auxiliaries,
+                key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+            )
+        ) or "-"
+        candidates = ", ".join(_candidate_title(row) for row in cell.temporal_auxiliary_candidates) or "-"
         minor = ", ".join(sorted(cell.minor_limit_frame_ids)) or "-"
+        doujun = ", ".join(sorted(cell.doujun_frame_ids)) or "-"
         return (
             f"{cell.stem}{cell.branch} {cell.natal_designation_label}; "
-            f"stars={placements}; rings={rings}; temporal={temporal}; minor={minor}"
+            f"stars={placements}; rings={rings}; temporal={temporal}; moving={auxiliary}; "
+            f"moving_candidates={candidates}; minor={minor}; doujun={doujun}"
         )
 
     def render(
@@ -225,6 +314,20 @@ class ZiweiTwelvePalaceSvgRenderer:
                 f'data-branch="{_xml(cell.branch)}">'
             )
             parts.append(f'<title>{_xml(title)}</title>')
+            if render_profile.show_temporal:
+                for candidate in cell.temporal_auxiliary_candidates:
+                    parts.append(
+                        '<g class="temporal-auxiliary-candidate" '
+                        f'data-candidate-set-id="{_xml(candidate.candidate_set_id)}" '
+                        f'data-candidate-id="{_xml(candidate.candidate_id)}" '
+                        f'data-candidate-fact-hash="{_xml(candidate.candidate_fact_hash)}" '
+                        f'data-frame-type="{_xml(candidate.frame_type)}" '
+                        f'data-frame-id="{_xml(candidate.frame_id)}" '
+                        f'data-entity-id="{_xml(candidate.entity_id)}" '
+                        f'data-method-id="{_xml(candidate.method_id)}" '
+                        f'data-authority-status="{_xml(candidate.authority_status)}">'
+                        f'<title>{_xml(_candidate_title(candidate))}</title></g>'
+                    )
             parts.append(
                 f'<rect x="{x:.2f}" y="{y:.2f}" width="{cell_w:.2f}" height="{cell_h:.2f}" '
                 'fill="#ffffff" stroke="#222222" stroke-width="1"/>'
@@ -288,6 +391,14 @@ class ZiweiTwelvePalaceSvgRenderer:
                 f'font-size="{render_profile.metadata_font_size}" fill="#555555">'
                 f'ViewHash: {_xml(_short_hash(view.view_hash))}</text>'
             )
+        if render_profile.show_temporal:
+            temporal_lines = self._daxian_sequence_metadata_lines(view) + self._selected_temporal_summary_lines(view)
+            for index, line in enumerate(temporal_lines):
+                parts.append(
+                    f'<text x="{center_x + 20:.2f}" y="{center_y + 178 + index * 22:.2f}" '
+                    f'font-size="{render_profile.metadata_font_size}" fill="#333333">'
+                    f'{_xml(line)}</text>'
+                )
         parts.extend(['</g>', '</svg>'])
         svg = "\n".join(parts) + "\n"
 

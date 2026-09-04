@@ -13,6 +13,13 @@ from .models import (
 )
 from .policies import BaziPolicySelection, PolicyRegistry, PolicySelection
 from .solar import SolarTimeEngine
+from .sexagenary import (
+    double_hour_branch_index,
+    five_rats_hour_pillar,
+    sexagenary_day_index,
+    sexagenary_day_pillar,
+    sexagenary_pillar,
+)
 from .timezone import CivilTimeResolver
 from .ziwei import ZiweiCalendarResolver
 
@@ -24,12 +31,17 @@ __all__ = [
     "ChineseCalendarEngine",
     "CivilResolution",
     "CivilTimeResolver",
+    "double_hour_branch_index",
+    "five_rats_hour_pillar",
     "InputTimeType",
     "LunarDate",
     "PolicyRegistry",
     "PolicySelection",
     "SolarTermEngine",
     "SolarTimeEngine",
+    "sexagenary_day_index",
+    "sexagenary_day_pillar",
+    "sexagenary_pillar",
     "TimeCalendarFoundation",
     "TimePrecision",
     "ZiweiCalendarResolver",

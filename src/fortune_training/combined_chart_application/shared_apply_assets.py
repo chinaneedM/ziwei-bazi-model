@@ -39,7 +39,7 @@ SHARED_APPLY_JS = r"""
   panel.className = 'shared-apply-panel';
   panel.innerHTML = `
     <div class="shared-apply-head">
-      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/小限。解析八字 flow 或编辑目标时间不会自动同步。</div></div>
+      <div><strong>共享目标时间 → 紫微</strong><div class="shared-apply-note">仅在你显式点击“应用到紫微”后，才把服务端 projection 写入紫微大限/流年/常规流月/小限。小限只读显示其与原局博士、将前、岁前三环的交会，不按小限宫重起环。大限、流年、流月四化、禄羊陀与流昌曲按来源层只读显示；流魁钺严格表与兼容案例法始终作为未选择候选并列显示。大限宫支流天马与流年地支流天马分别保留为案例法候选，不扩展到月、日、时。流日作为只读事实显示；流时保留平太阳时/真太阳时候选但不伪造唯一时盘。闰月不伪造常规月盘。</div></div>
       <code id="shared-ziwei-projection-hash">-</code>
     </div>
     <div class="shared-apply-controls">
@@ -63,7 +63,7 @@ SHARED_APPLY_JS = r"""
     'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
     'location-manual', 'sex', 'precision', 'uncertainty-seconds',
     'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
-    'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
+    'ziwei-lunar-month', 'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
     'bazi-dayun-count',
   ];
   const targetFieldIds = [
@@ -136,6 +136,7 @@ SHARED_APPLY_JS = r"""
       ziwei_daxian_count: Number.parseInt($('ziwei-daxian-count').value, 10),
       ziwei_daxian_frame_id: textOrNull('ziwei-daxian-frame-id'),
       ziwei_annual_year: intOrNull('ziwei-annual-year'),
+      ziwei_lunar_month: intOrNull('ziwei-lunar-month'),
       ziwei_minor_limit_age: intOrNull('ziwei-minor-limit-age'),
       bazi_natal_profile_id: $('bazi-natal-profile').value,
       bazi_temporal_profile_id: $('bazi-temporal-profile').value,
@@ -154,7 +155,10 @@ SHARED_APPLY_JS = r"""
 
   function candidateLabel(row) {
     const daxian = row.daxian_frame_id || 'PRE_DAXIAN';
-    return `#${row.source_target_candidate_index} · ${row.sample_reported_local_datetime} · fold=${row.fold} · ${row.annual_year}年 / ${row.minor_limit_age}岁 / ${daxian}`;
+    const month = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? `农历${row.effective_lunar_month}月`
+      : `闰${row.effective_lunar_month}月待裁决`;
+    return `#${row.source_target_candidate_index} · ${row.sample_reported_local_datetime} · fold=${row.fold} · ${row.annual_year}年 / ${month} / ${row.minor_limit_age}岁 / ${daxian}`;
   }
 
   function responseLineageIsConsistent(data) {
@@ -164,12 +168,113 @@ SHARED_APPLY_JS = r"""
     if (data.target_coordinate_fact_hash !== projection.source_target_coordinate_fact_hash) return false;
     if (data.target_coordinate_computation_hash !== projection.source_target_coordinate_computation_hash) return false;
     if (!Array.isArray(projection.candidates) || projection.candidates.length === 0) return false;
+    const validAuxiliaryCandidateSet = (set) => (
+      set?.selection_status === 'CANDIDATES_PRESERVED_NO_SELECTION'
+      && Array.isArray(set.entity_ids)
+      && set.entity_ids.length === 2
+      && Array.isArray(set.method_candidates)
+      && set.method_candidates.length >= 1
+      && set.method_candidates.length <= 2
+      && ['STEM', 'BRANCH'].includes(set.source_basis_type)
+      && typeof set.source_basis_value === 'string'
+      && set.method_candidates.every((candidate) => (
+        typeof candidate.method_id === 'string'
+        && Array.isArray(candidate.activations)
+        && candidate.activations.length >= 1
+        && candidate.activations.length <= 2
+        && typeof candidate.fact_hash === 'string'
+        && candidate.fact_hash.length === 64
+        && typeof candidate.computation_hash === 'string'
+        && candidate.computation_hash.length === 64
+      ))
+      && typeof set.fact_hash === 'string'
+      && set.fact_hash.length === 64
+      && typeof set.computation_hash === 'string'
+      && set.computation_hash.length === 64
+    );
+    const validLayer = (layer, expectedLayer, expectedFrame, expectedParent) => (
+      layer !== null
+      && layer.source_layer === expectedLayer
+      && layer.frame_id === expectedFrame
+      && layer.parent_frame_id === expectedParent
+      && typeof layer.source_stem === 'string'
+      && typeof layer.frame_rule_set_id === 'string'
+      && typeof layer.frame_algorithm_id === 'string'
+      && Array.isArray(layer.source_refs)
+      && Array.isArray(layer.transformations)
+      && Array.isArray(layer.auxiliary_activations)
+      && layer.auxiliary_activations.length === 5
+      && Array.isArray(layer.auxiliary_candidate_sets)
+      && layer.auxiliary_candidate_sets.length === (expectedLayer === 'MONTH' ? 1 : 2)
+      && layer.auxiliary_candidate_sets.every(validAuxiliaryCandidateSet)
+      && typeof layer.fact_hash === 'string'
+      && layer.fact_hash.length === 64
+      && typeof layer.computation_hash === 'string'
+      && layer.computation_hash.length === 64
+    );
+    const validMinorRing = (projection, expectedAge) => (
+      projection !== null
+      && projection.source_layer === 'MINOR_LIMIT'
+      && projection.frame_id === `MINOR:age=${expectedAge}`
+      && projection.authority_status === 'SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION'
+      && Array.isArray(projection.encounters)
+      && projection.encounters.length === 3
+      && projection.encounters.every((encounter) => (
+        typeof encounter.source_ring_id === 'string'
+        && encounter.member?.address?.branch === projection.active_address?.branch
+      ))
+      && typeof projection.fact_hash === 'string'
+      && projection.fact_hash.length === 64
+      && typeof projection.computation_hash === 'string'
+      && projection.computation_hash.length === 64
+    );
     return projection.candidates.every((row, index) => (
       row.source_target_candidate_index === index
       && typeof row.source_target_candidate_id === 'string'
       && row.source_target_candidate_id.length > 0
       && typeof row.candidate_hash === 'string'
       && row.candidate_hash.length === 64
+      && Number.isInteger(row.effective_lunar_month)
+      && row.effective_lunar_month >= 1
+      && row.effective_lunar_month <= 12
+      && validMinorRing(row.minor_limit_ring_projection, row.minor_limit_age)
+      && validLayer(row.annual_layer_projection, 'ANNUAL', row.source_annual_frame_id, row.daxian_frame_id)
+      && (row.daxian_frame_id === null
+        ? row.daxian_layer_projection === null
+        : validLayer(row.daxian_layer_projection, 'DAXIAN', row.daxian_frame_id, null))
+      && row.hourly_projection_status === 'CANDIDATES_PRESERVED_NO_SELECTED_FRAME'
+      && Array.isArray(row.hourly_method_candidates)
+      && row.hourly_method_candidates.length === 2
+      && Array.isArray(row.daily_designation_overlay)
+      && Array.isArray(row.daily_auxiliary_activations)
+      && Array.isArray(row.daily_auxiliary_candidate_sets)
+      && Array.isArray(row.daily_transformations)
+      && row.hourly_method_candidates.every((hour) => (
+        typeof hour.active_address_branch === 'string'
+        && Array.isArray(hour.designation_overlay)
+        && hour.designation_overlay.length === 12
+        && Array.isArray(hour.auxiliary_activations)
+        && hour.auxiliary_activations.length === 5
+        && Array.isArray(hour.auxiliary_candidate_sets)
+        && hour.auxiliary_candidate_sets.length === 1
+        && validAuxiliaryCandidateSet(hour.auxiliary_candidate_sets[0])
+        && Array.isArray(hour.transformations)
+      ))
+      && (
+        (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+          && typeof row.monthly_frame_id === 'string'
+          && validLayer(row.monthly_layer_projection, 'MONTH', row.monthly_frame_id, row.source_annual_frame_id)
+          && row.daily_projection_status === 'REGULAR_LUNAR_DAY_RESOLVED'
+          && typeof row.daily_frame_id === 'string'
+          && row.daily_auxiliary_candidate_sets.length === 1
+          && validAuxiliaryCandidateSet(row.daily_auxiliary_candidate_sets[0]))
+        || (row.monthly_projection_status === 'LEAP_MONTH_UNRESOLVED_NO_FRAME'
+          && row.monthly_frame_id === null
+          && row.monthly_layer_projection === null
+          && row.daily_projection_status === 'PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME'
+          && row.daily_frame_id === null
+          && row.daily_auxiliary_candidate_sets.length === 0)
+      )
     ));
   }
 
@@ -185,10 +290,26 @@ SHARED_APPLY_JS = r"""
       invalidate('候选 lineage 与索引不一致；已拒绝应用。请重新计算。');
       return;
     }
+    const layerLine = (label, layer) => layer
+      ? `${label}=${layer.frame_id} · parent=${layer.parent_frame_id || 'NONE'} · 来源干=${layer.source_stem} · 四化=${layer.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'} · 禄羊陀=${layer.auxiliary_activations.filter((item) => !['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 流昌曲=${layer.auxiliary_activations.filter((item) => ['STAR.WENCHANG', 'STAR.WENQU'].includes(item.entity_id)).map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')} · 动态辅助候选=${layer.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${set.source_basis_type}:${set.source_basis_value}:${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · rule=${layer.frame_rule_set_id}@${layer.frame_rule_set_version} · fact=${layer.fact_hash}`
+      : `${label}=NONE`;
     lineage.textContent = [
       `target_candidate=${row.source_target_candidate_id}`,
       `sample_index=${row.source_sample_index} · UTC=${row.target_utc}`,
       `annual_frame=${row.source_annual_frame_id}`,
+      `minor_limit_ring=${row.minor_limit_ring_projection.frame_id} · 小限宫=${row.minor_limit_ring_projection.active_address.branch} · 原局环交会=${row.minor_limit_ring_projection.encounters.map((item) => `${item.source_ring_display_name}:${item.member.display_name}@${item.member.address.branch}`).join(' / ')} · ${row.minor_limit_ring_projection.authority_status} · fact=${row.minor_limit_ring_projection.fact_hash}`,
+      layerLine('daxian_layer', row.daxian_layer_projection),
+      layerLine('annual_layer', row.annual_layer_projection),
+      `ziwei_lunar=${row.effective_lunar_year}-${row.effective_lunar_month}-${row.effective_lunar_day} leap=${row.effective_lunar_is_leap_month}`,
+      `monthly_projection=${row.monthly_projection_status} · ${row.monthly_frame_id || 'NO_FRAME'}`,
+      layerLine('monthly_layer', row.monthly_layer_projection),
+      `daily_projection=${row.daily_projection_status} · ${row.daily_frame_id || 'NO_FRAME'} · ${row.daily_ganzhi || '-'} · 命宫=${row.daily_active_address_branch || '-'} · 宫职=${row.daily_designation_overlay.map((item) => `${item.display_name}@${item.address.branch}`).join(' / ') || 'NONE'}`,
+      `daily_auxiliary=${row.daily_auxiliary_status} · ${row.daily_auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
+      `daily_kui_yue_candidates=${row.daily_auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ') || 'NONE'}`,
+      `daily_transformations=${row.daily_transformation_status} · ${row.daily_transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`,
+      ...row.hourly_method_candidates.map((hour) => (
+        `hour_candidate=${hour.time_standard} · ${hour.hour_ganzhi}/${hour.hour_branch} · 候选命宫=${hour.active_address_branch} · ${hour.frame_status} · ${hour.auxiliary_status}(${hour.auxiliary_activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join(' / ')}) · 流魁钺候选=${hour.auxiliary_candidate_sets.flatMap((set) => set.method_candidates.map((candidate) => `${candidate.method_id}[${candidate.activations.map((item) => `${item.display_name}@${item.target_address.branch}`).join('/')}]#${candidate.fact_hash.slice(0, 12)}`)).join(' / ')} · ${hour.transformation_status} · ${hour.transformations.map((item) => `${item.target_display_name}${item.transformation_type}@${item.target_address.branch}`).join(' / ') || 'NONE'}`
+      )),
       `projection_candidate_hash=${row.candidate_hash}`,
     ].join('\n');
     applyButton.disabled = false;
@@ -274,21 +395,30 @@ SHARED_APPLY_JS = r"""
     }
     const daxianNav = $('ziwei-daxian-nav');
     const annualNav = $('ziwei-annual-nav');
+    const monthNav = $('ziwei-month-nav');
     const minorNav = $('ziwei-minor-nav');
-    if (!daxianNav || !annualNav || !minorNav) {
+    if (!daxianNav || !annualNav || !monthNav || !minorNav) {
       invalidate('Ziwei interaction navigator 尚未就绪。');
       return;
     }
     daxianNav.value = row.daxian_frame_id || '';
     annualNav.value = String(row.annual_year);
+    monthNav.value = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? String(row.effective_lunar_month)
+      : '';
     minorNav.value = String(row.minor_limit_age);
     if (annualNav.value !== String(row.annual_year)
         || minorNav.value !== String(row.minor_limit_age)
+        || monthNav.value !== (row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+          ? String(row.effective_lunar_month)
+          : '')
         || daxianNav.value !== (row.daxian_frame_id || '')) {
       invalidate('服务端 projection 不在当前 Ziwei navigator materialized domain；拒绝应用。');
       return;
     }
-    status.textContent = '已显式应用所选 Projection；正在复用现有 Ziwei interaction 刷新。';
+    status.textContent = row.monthly_projection_status === 'REGULAR_LUNAR_MONTH_RESOLVED'
+      ? '已显式应用所选 Projection（含常规流月）；正在复用现有 Ziwei interaction 刷新。'
+      : '已应用大限/流年/小限；目标为闰月，常规流月保持未选且等待门派规则裁决。';
     annualNav.dispatchEvent(new Event('change', {bubbles: true}));
   }
 

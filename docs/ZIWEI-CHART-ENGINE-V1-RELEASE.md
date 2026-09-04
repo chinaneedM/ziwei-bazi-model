@@ -215,7 +215,7 @@ Structural Runtime V2
 Query/Evidence/Warrant/Reality/Possible-Worlds runtime
 additional historical/profile variants
 non-promoted physical stars
-斗君/month temporal families beyond the current Daxian/Annual/Minor-Limit V1 scope
+month/day/hour temporal families beyond the current Daxian/Annual/Minor-Limit plus annual 斗君 scope
 Bazi chart engine
 ```
 

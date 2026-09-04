@@ -20,7 +20,7 @@ INTERACTION_CSS = """
 .ziwei-interaction-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:8px; }
 .ziwei-interaction-head strong { font-size:13px; }
 .ziwei-interaction-note,.ziwei-interaction-status { color:#68707a; font-size:11px; line-height:1.45; }
-.ziwei-interaction-controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-bottom:8px; }
+.ziwei-interaction-controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-bottom:8px; }
 .ziwei-interaction-controls label { font-size:11px; }
 .ziwei-interaction-origin { margin:7px 0; font-size:12px; font-weight:600; }
 .ziwei-interaction-members { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:7px 0; }
@@ -64,6 +64,7 @@ INTERACTION_JS = """
     <div class="ziwei-interaction-controls">
       <label>大限<select id="ziwei-daxian-nav"></select></label>
       <label>流年<select id="ziwei-annual-nav"></select></label>
+      <label>流月（常规月）<select id="ziwei-month-nav"></select></label>
       <label>小限<select id="ziwei-minor-nav"></select></label>
     </div>
     <div id="ziwei-interaction-status" class="ziwei-interaction-status">等待紫微盘</div>
@@ -75,6 +76,7 @@ INTERACTION_JS = """
 
   const daxianNav = $('ziwei-daxian-nav');
   const annualNav = $('ziwei-annual-nav');
+  const monthNav = $('ziwei-month-nav');
   const minorNav = $('ziwei-minor-nav');
   const status = $('ziwei-interaction-status');
   const originBox = $('ziwei-interaction-origin');
@@ -103,7 +105,7 @@ INTERACTION_JS = """
       'birth-datetime', 'birth-place', 'latitude', 'longitude', 'timezone-id',
       'location-manual', 'sex', 'precision', 'uncertainty-seconds',
       'ziwei-daxian-count', 'ziwei-daxian-frame-id', 'ziwei-annual-year',
-      'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
+      'ziwei-lunar-month', 'ziwei-minor-limit-age', 'bazi-natal-profile', 'bazi-temporal-profile',
       'bazi-dayun-count',
     ];
     return JSON.stringify(ids.map((id) => {
@@ -134,6 +136,7 @@ INTERACTION_JS = """
       ziwei_daxian_count: Number.parseInt($('ziwei-daxian-count').value, 10),
       ziwei_daxian_frame_id: optionalText('ziwei-daxian-frame-id'),
       ziwei_annual_year: optionalInt('ziwei-annual-year'),
+      ziwei_lunar_month: optionalInt('ziwei-lunar-month'),
       ziwei_minor_limit_age: optionalInt('ziwei-minor-limit-age'),
       bazi_natal_profile_id: $('bazi-natal-profile').value,
       bazi_temporal_profile_id: $('bazi-temporal-profile').value,
@@ -174,6 +177,13 @@ INTERACTION_JS = """
       (row) => row.absolute_year,
       (row) => `${row.absolute_year} · ${row.year_stem}${row.year_branch} · ${row.nominal_age}岁`,
       interaction.selected_annual_year,
+    );
+    setOptions(
+      monthNav,
+      Array.from({length: 12}, (_, index) => index + 1),
+      (month) => month,
+      (month) => `${month}月`,
+      optionalInt('ziwei-lunar-month'),
     );
     setOptions(
       minorNav,
@@ -330,11 +340,13 @@ INTERACTION_JS = """
     }
     $('ziwei-daxian-frame-id').value = daxianNav.value;
     $('ziwei-annual-year').value = annualNav.value;
+    $('ziwei-lunar-month').value = monthNav.value;
     $('ziwei-minor-limit-age').value = minorNav.value;
     resolveInteraction({replaceSvg: true, temporalChange: true});
   }
   daxianNav.addEventListener('change', commitTemporalNavigation);
   annualNav.addEventListener('change', commitTemporalNavigation);
+  monthNav.addEventListener('change', commitTemporalNavigation);
   minorNav.addEventListener('change', commitTemporalNavigation);
 
   observer = new MutationObserver(() => {

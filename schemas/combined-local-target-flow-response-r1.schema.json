@@ -5,65 +5,321 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema", "location_selection", "combined_resolution",
-    "bazi_target_flow_bundle", "combined_target_flow_resolution"
+    "schema",
+    "location_selection",
+    "combined_resolution",
+    "bazi_target_flow_bundle",
+    "bazi_temporal_shensha_projection_bundle",
+    "shared_ziwei_selector_projection",
+    "combined_target_flow_resolution"
   ],
   "properties": {
-    "schema": {"const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-RESOLVE-R1"},
-    "location_selection": {"type": "object"},
+    "schema": {
+      "const": "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-RESOLVE-R1"
+    },
+    "location_selection": {
+      "type": "object"
+    },
     "combined_resolution": {
       "type": "object",
-      "required": ["schema", "status", "manifest_hash", "integrity"],
+      "required": [
+        "schema",
+        "status",
+        "manifest_hash",
+        "integrity"
+      ],
       "properties": {
-        "schema": {"const": "ZIWEI-BAZI-COMBINED-APPLICATION-RESOLUTION-V1"},
-        "status": {"enum": ["RESOLVED_BOTH", "UNCERTAINTY_PRESENT"]},
-        "manifest_hash": {"$ref": "#/$defs/hash"},
-        "integrity": {"$ref": "#/$defs/passIntegrity"}
+        "schema": {
+          "const": "ZIWEI-BAZI-COMBINED-APPLICATION-RESOLUTION-V1"
+        },
+        "status": {
+          "enum": [
+            "RESOLVED_BOTH",
+            "UNCERTAINTY_PRESENT"
+          ]
+        },
+        "manifest_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "integrity": {
+          "$ref": "#/$defs/passIntegrity"
+        }
       }
     },
     "bazi_target_flow_bundle": {
       "type": "object",
       "required": [
-        "schema", "status", "base_application_bundle_hash",
-        "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+        "schema",
+        "status",
+        "base_application_bundle_hash",
+        "source_fact_hash",
+        "view_hash",
+        "bundle_hash",
+        "integrity"
       ],
       "properties": {
-        "schema": {"const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"},
-        "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
-        "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
-        "source_fact_hash": {"$ref": "#/$defs/hash"},
-        "view_hash": {"$ref": "#/$defs/hash"},
-        "bundle_hash": {"$ref": "#/$defs/hash"},
-        "integrity": {"$ref": "#/$defs/passIntegrity"}
+        "schema": {
+          "const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"
+        },
+        "status": {
+          "enum": [
+            "RESOLVED",
+            "MULTI_CANDIDATE"
+          ]
+        },
+        "base_application_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "view_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "integrity": {
+          "$ref": "#/$defs/passIntegrity"
+        }
+      }
+    },
+    "bazi_temporal_shensha_projection_bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "status",
+        "base_application_bundle_hash",
+        "base_application_source_fact_hash",
+        "bazi_target_flow_bundle_hash",
+        "bazi_target_flow_source_fact_hash",
+        "projection_profile_id",
+        "projection_profile_version",
+        "candidates",
+        "diagnostics",
+        "fact_hash",
+        "computation_hash",
+        "bundle_hash",
+        "integrity"
+      ],
+      "properties": {
+        "schema": {
+          "const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"
+        },
+        "status": {
+          "enum": [
+            "RESOLVED",
+            "MULTI_CANDIDATE"
+          ]
+        },
+        "base_application_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "base_application_source_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bazi_target_flow_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bazi_target_flow_source_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "projection_profile_id": {
+          "const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"
+        },
+        "projection_profile_version": {
+          "const": "1.0.0"
+        },
+        "candidates": {
+          "type": "array",
+          "minItems": 1
+        },
+        "diagnostics": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "integrity": {
+          "$ref": "#/$defs/passIntegrity"
+        }
+      }
+    },
+    "shared_ziwei_selector_projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "status",
+        "source_ziwei_application_bundle_hash",
+        "source_ziwei_temporal_fact_hash",
+        "source_ziwei_temporal_computation_hash",
+        "source_target_coordinate_fact_hash",
+        "source_target_coordinate_computation_hash",
+        "source_target_coordinate_profile_id",
+        "source_target_coordinate_profile_version",
+        "candidates",
+        "hashes",
+        "integrity"
+      ],
+      "properties": {
+        "schema": {
+          "const": "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
+        },
+        "status": {
+          "const": "RESOLVED"
+        },
+        "source_ziwei_application_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_ziwei_temporal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_ziwei_temporal_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_profile_id": {
+          "const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"
+        },
+        "source_target_coordinate_profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidates": {
+          "type": "array",
+          "minItems": 1
+        },
+        "hashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fact_hash",
+            "computation_hash",
+            "algorithm_id",
+            "algorithm_version"
+          ],
+          "properties": {
+            "fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "computation_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "algorithm_id": {
+              "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
+            },
+            "algorithm_version": {
+              "const": "2.0.0"
+            }
+          }
+        },
+        "integrity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "diagnostics",
+            "algorithm_id",
+            "algorithm_version"
+          ],
+          "properties": {
+            "status": {
+              "const": "PASS"
+            },
+            "diagnostics": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "algorithm_id": {
+              "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
+            },
+            "algorithm_version": {
+              "const": "2.0.0"
+            }
+          }
+        }
       }
     },
     "combined_target_flow_resolution": {
       "type": "object",
       "required": [
-        "schema", "status", "base_combined_manifest_hash", "ziwei_bundle_hash",
-        "bazi_base_bundle_hash", "bazi_target_flow_bundle_hash",
-        "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+        "schema",
+        "status",
+        "base_combined_manifest_hash",
+        "ziwei_bundle_hash",
+        "bazi_base_bundle_hash",
+        "bazi_target_flow_bundle_hash",
+        "source_fact_hash",
+        "view_hash",
+        "bundle_hash",
+        "integrity"
       ],
       "properties": {
-        "schema": {"const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-RESOLUTION-R1"},
-        "status": {"enum": ["RESOLVED", "UNCERTAINTY_PRESENT"]},
-        "base_combined_manifest_hash": {"$ref": "#/$defs/hash"},
-        "ziwei_bundle_hash": {"$ref": "#/$defs/hash"},
-        "bazi_base_bundle_hash": {"$ref": "#/$defs/hash"},
-        "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
-        "source_fact_hash": {"$ref": "#/$defs/hash"},
-        "view_hash": {"$ref": "#/$defs/hash"},
-        "bundle_hash": {"$ref": "#/$defs/hash"},
-        "integrity": {"$ref": "#/$defs/passIntegrity"}
+        "schema": {
+          "const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-RESOLUTION-R1"
+        },
+        "status": {
+          "enum": [
+            "RESOLVED",
+            "UNCERTAINTY_PRESENT"
+          ]
+        },
+        "base_combined_manifest_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "ziwei_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bazi_base_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bazi_target_flow_bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "view_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "bundle_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "integrity": {
+          "$ref": "#/$defs/passIntegrity"
+        }
       }
     }
   },
   "$defs": {
-    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
     "passIntegrity": {
       "type": "object",
-      "required": ["status"],
-      "properties": {"status": {"const": "PASS"}}
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "const": "PASS"
+        }
+      }
     }
   }
 }

@@ -100,6 +100,7 @@ def application_bundle_hash(
     *,
     selected_daxian_frame_id: str | None,
     selected_annual_year: int | None,
+    selected_lunar_month: int | None,
     selected_minor_limit_age: int | None,
 ) -> str:
     return object_sha256(
@@ -120,6 +121,7 @@ def application_bundle_hash(
             "selection": {
                 "daxian_frame_id": selected_daxian_frame_id,
                 "annual_year": selected_annual_year,
+                "lunar_month": selected_lunar_month,
                 "minor_limit_age": selected_minor_limit_age,
             },
             "view_hash": view_model.view_hash,
@@ -142,6 +144,7 @@ def application_export(bundle: ApplicationChartBundle) -> dict[str, Any]:
         "selection": {
             "daxian_frame_id": bundle.selected_daxian_frame_id,
             "annual_year": bundle.selected_annual_year,
+            "lunar_month": bundle.selected_lunar_month,
             "minor_limit_age": bundle.selected_minor_limit_age,
         },
         "state_refs": _state_refs(
@@ -282,6 +285,7 @@ def validate_application_bundle(bundle: ApplicationChartBundle) -> None:
             temporal_context=bundle.temporal_context,
             daxian_frame_id=bundle.selected_daxian_frame_id,
             annual_year=bundle.selected_annual_year,
+            lunar_month=bundle.selected_lunar_month,
             minor_limit_age=bundle.selected_minor_limit_age,
         )
     except ValueError as exc:
@@ -305,6 +309,7 @@ def validate_application_bundle(bundle: ApplicationChartBundle) -> None:
         bundle.view_model,
         selected_daxian_frame_id=bundle.selected_daxian_frame_id,
         selected_annual_year=bundle.selected_annual_year,
+        selected_lunar_month=bundle.selected_lunar_month,
         selected_minor_limit_age=bundle.selected_minor_limit_age,
     )
     if bundle.bundle_hash != expected_bundle_hash:
@@ -401,6 +406,7 @@ class ZiweiChartService:
                 typed.calculation_profile,
                 daxian_count=request.daxian_count,
                 max_nominal_age=max_age,
+                monthly_years=(request.annual_year,) if request.annual_year is not None else (),
             )
             _require_pass(
                 validate_temporal_state(temporal_state, context),
@@ -443,6 +449,7 @@ class ZiweiChartService:
                 temporal_context=context,
                 daxian_frame_id=request.daxian_frame_id,
                 annual_year=request.annual_year,
+                lunar_month=request.lunar_month,
                 minor_limit_age=request.minor_limit_age,
             )
         except ValueError as exc:
@@ -461,6 +468,7 @@ class ZiweiChartService:
             view_model,
             selected_daxian_frame_id=request.daxian_frame_id,
             selected_annual_year=request.annual_year,
+            selected_lunar_month=request.lunar_month,
             selected_minor_limit_age=request.minor_limit_age,
         )
         bundle = ApplicationChartBundle(
@@ -470,6 +478,7 @@ class ZiweiChartService:
             presentation_profile=request.presentation_profile,
             selected_daxian_frame_id=request.daxian_frame_id,
             selected_annual_year=request.annual_year,
+            selected_lunar_month=request.lunar_month,
             selected_minor_limit_age=request.minor_limit_age,
             candidate=candidate,
             temporal_context=context,

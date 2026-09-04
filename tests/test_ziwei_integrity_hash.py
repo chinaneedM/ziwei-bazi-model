@@ -31,6 +31,7 @@ from fortune_training.ziwei_chart.rings import (
     WENMO_DEFAULT_RING_RULE_SET_ID,
     WENMO_DEFAULT_RING_RULE_SET_VERSION,
 )
+from fortune_training.ziwei_chart.registries import address
 from fortune_training.ziwei_chart.roles import (
     ROLE_ALGORITHM_ID,
     ROLE_ALGORITHM_VERSION,
@@ -44,6 +45,10 @@ from fortune_training.ziwei_chart.temporal import (
     TEMPORAL_ALGORITHM_VERSION,
     TemporalNatalContext,
     ZiweiTemporalEngine,
+)
+from fortune_training.ziwei_chart.temporal_auxiliary import (
+    temporal_auxiliary_candidate_set_hashes,
+    temporal_auxiliary_method_candidate_hashes,
 )
 from fortune_training.ziwei_chart.transformations import (
     S08_TRANSFORMATION_RULE_SET_ID,
@@ -178,7 +183,7 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
             temporal_algorithm_version=TEMPORAL_ALGORITHM_VERSION,
         ).validate(self.registry)
         context = TemporalNatalContext.from_natal_chart(2001, Sex.MALE, self.typed_chart)
-        state = ZiweiTemporalEngine().generate(context, temporal_profile)
+        state = ZiweiTemporalEngine().generate(context, temporal_profile, monthly_years=(2001,))
         report = validate_temporal_state(state, context)
         self.assertEqual("PASS", report.status)
         first = temporal_hash_bundle(state, temporal_profile)
@@ -191,6 +196,181 @@ class ZiweiIntegrityHashTests(unittest.TestCase):
         changed_hash = temporal_hash_bundle(changed_state, temporal_profile)
         self.assertEqual(first.fact_hash, changed_hash.fact_hash)
         self.assertNotEqual(first.computation_hash, changed_hash.computation_hash)
+
+        annual0 = state.annual_frames[0]
+        moved_doujun = replace(
+            annual0,
+            doujun_address=replace(
+                annual0.doujun_address,
+                index=(annual0.doujun_address.index + 1) % 12,
+                branch="丑" if annual0.doujun_address.branch == "子" else "子",
+            ),
+        )
+        tampered = replace(
+            state,
+            annual_frames=(moved_doujun,) + state.annual_frames[1:],
+        )
+        report = validate_temporal_state(tampered, context)
+        self.assertIn(
+            "ANNUAL_DOUJUN_ADDRESS_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered, temporal_profile).fact_hash,
+        )
+
+        month0 = state.monthly_frames[0]
+        moved_month = replace(month0, active_address=state.monthly_frames[1].active_address)
+        tampered_months = replace(
+            state,
+            monthly_frames=(moved_month,) + state.monthly_frames[1:],
+        )
+        report = validate_temporal_state(tampered_months, context)
+        self.assertIn("MONTHLY_ADDRESS_MISMATCH", {row.code for row in report.diagnostics})
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered_months, temporal_profile).fact_hash,
+        )
+
+        auxiliary = state.annual_frames[0].auxiliary_activations[-1]
+        tampered_auxiliary = replace(
+            auxiliary,
+            source_stem="癸" if auxiliary.source_stem != "癸" else "甲",
+        )
+        tampered_annual = replace(
+            state.annual_frames[0],
+            auxiliary_activations=(
+                *state.annual_frames[0].auxiliary_activations[:-1],
+                tampered_auxiliary,
+            ),
+        )
+        tampered_auxiliary_state = replace(
+            state,
+            annual_frames=(tampered_annual, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(tampered_auxiliary_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(tampered_auxiliary_state, temporal_profile).fact_hash,
+        )
+
+        candidate_set = state.annual_frames[0].auxiliary_candidate_sets[0]
+        strict, compat = candidate_set.method_candidates
+        changed_activation = replace(
+            compat.activations[0],
+            target_address=compat.activations[1].target_address,
+        )
+        changed_compat = replace(
+            compat,
+            activations=(changed_activation, compat.activations[1]),
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(changed_compat)
+        )
+        changed_compat = replace(
+            changed_compat,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        changed_set = replace(
+            candidate_set,
+            method_candidates=(strict, changed_compat),
+            fact_hash="",
+            computation_hash="",
+        )
+        set_fact_hash, set_computation_hash = temporal_auxiliary_candidate_set_hashes(
+            changed_set
+        )
+        changed_set = replace(
+            changed_set,
+            fact_hash=set_fact_hash,
+            computation_hash=set_computation_hash,
+        )
+        changed_frame = replace(
+            state.annual_frames[0],
+            auxiliary_candidate_sets=(
+                changed_set,
+                state.annual_frames[0].auxiliary_candidate_sets[1],
+            ),
+        )
+        changed_state = replace(
+            state,
+            annual_frames=(changed_frame, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(changed_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_CANDIDATE_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(changed_state, temporal_profile).fact_hash,
+        )
+
+        tianma_set = state.annual_frames[0].auxiliary_candidate_sets[1]
+        tianma_method = tianma_set.method_candidates[0]
+        changed_tianma_method = replace(
+            tianma_method,
+            activations=(
+                replace(
+                    tianma_method.activations[0],
+                    target_address=address(
+                        tianma_method.activations[0].target_address.index + 1
+                    ),
+                ),
+            ),
+            fact_hash="",
+            computation_hash="",
+        )
+        method_fact_hash, method_computation_hash = (
+            temporal_auxiliary_method_candidate_hashes(changed_tianma_method)
+        )
+        changed_tianma_method = replace(
+            changed_tianma_method,
+            fact_hash=method_fact_hash,
+            computation_hash=method_computation_hash,
+        )
+        changed_tianma_set = replace(
+            tianma_set,
+            method_candidates=(changed_tianma_method,),
+            fact_hash="",
+            computation_hash="",
+        )
+        set_fact_hash, set_computation_hash = temporal_auxiliary_candidate_set_hashes(
+            changed_tianma_set
+        )
+        changed_tianma_set = replace(
+            changed_tianma_set,
+            fact_hash=set_fact_hash,
+            computation_hash=set_computation_hash,
+        )
+        changed_frame = replace(
+            state.annual_frames[0],
+            auxiliary_candidate_sets=(
+                state.annual_frames[0].auxiliary_candidate_sets[0],
+                changed_tianma_set,
+            ),
+        )
+        changed_state = replace(
+            state,
+            annual_frames=(changed_frame, *state.annual_frames[1:]),
+        )
+        report = validate_temporal_state(changed_state, context)
+        self.assertIn(
+            "TEMPORAL_AUXILIARY_CANDIDATE_REPLAY_MISMATCH",
+            {row.code for row in report.diagnostics},
+        )
+        self.assertNotEqual(
+            first.fact_hash,
+            temporal_hash_bundle(changed_state, temporal_profile).fact_hash,
+        )
 
     def test_engine_fails_closed_when_generated_chart_breaks_integrity(self):
         class DuplicateMainStarGenerator:

@@ -128,6 +128,156 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 [row["ten_god"] for row in pillar["hidden_stems"]],
             )
 
+    def test_xunkong_and_twelve_growth_are_identity_only_annotations(self):
+        for candidate in self.bundle.candidates:
+            for pillar in candidate.view["pillars"]:
+                xunkong = pillar["xunkong"]
+                growth = pillar["day_master_twelve_growth"]
+                self.assertEqual(2, len(xunkong["void_branches"]))
+                self.assertEqual(
+                    "IDENTITY_ONLY_NO_AUSPICIOUSNESS",
+                    xunkong["semantic_scope"],
+                )
+                self.assertEqual(
+                    self.natal.chart.day_master_stem,
+                    growth["source_stem"],
+                )
+                self.assertEqual(pillar["branch"], growth["target_branch"])
+                self.assertEqual(
+                    "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION",
+                    growth["semantic_scope"],
+                )
+                self.assertEqual(
+                    pillar["stem"],
+                    pillar["self_twelve_growth"]["source_stem"],
+                )
+
+    def test_derived_coordinates_are_profiled_and_identity_only(self):
+        for candidate in self.bundle.candidates:
+            coordinates = candidate.view["derived_coordinates"]
+            self.assertEqual(
+                "BAZI-DERIVED-COORDINATES-YHZP-R1",
+                coordinates["profile_id"],
+            )
+            for key in ("taiyuan", "minggong", "shengong"):
+                self.assertEqual(2, len(coordinates[key]["ganzhi"]))
+                self.assertEqual(
+                    "DERIVED_COORDINATE_IDENTITY_ONLY_NO_INTERPRETATION",
+                    coordinates[key]["semantic_scope"],
+                )
+
+    def test_xiaoyun_alternatives_are_preserved_in_candidate_view_hash(self):
+        for candidate in self.bundle.candidates:
+            xiaoyun = candidate.view["xiaoyun"]
+            self.assertEqual(
+                "UNRESOLVED_CLASSICAL_ALTERNATIVES",
+                xiaoyun["selection_status"],
+            )
+            self.assertEqual(2, len(xiaoyun["candidates"]))
+            self.assertTrue(
+                all(
+                    row["status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in xiaoyun["candidates"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    frame["semantic_scope"]
+                    == "ANNUAL_COORDINATE_ONLY_NO_INTERPRETATION"
+                    for row in xiaoyun["candidates"]
+                    for frame in row["frames"]
+                )
+            )
+
+    def test_shensha_anchor_alternatives_are_source_bound_and_unmerged(self):
+        for candidate in self.bundle.candidates:
+            shensha = candidate.view["shensha"]
+            self.assertEqual(
+                "UNRESOLVED_CLASSICAL_ANCHOR_ALTERNATIVES",
+                shensha["resolution_status"],
+            )
+            self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
+            self.assertEqual(37, len(shensha["candidates"]))
+            candidate_keys = {
+                (row["shensha_id"], row["anchor_basis"])
+                for row in shensha["candidates"]
+            }
+            self.assertIn(("TIANGUAN", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("ANLU", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("ANLU", "DAY_STEM"), candidate_keys)
+            self.assertIn(("JIALU", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("JIALU", "DAY_STEM"), candidate_keys)
+            self.assertIn(("GONGLU", "YEAR_GANZHI"), candidate_keys)
+            self.assertIn(("GONGLU", "DAY_GANZHI"), candidate_keys)
+            self.assertIn(("YUANCHENG", "DAY_GANZHI"), candidate_keys)
+            self.assertIn(("FEIREN", "YEAR_STEM"), candidate_keys)
+            self.assertIn(("FEIREN", "DAY_STEM"), candidate_keys)
+            anlu = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "ANLU"
+            ]
+            self.assertEqual(2, len(anlu))
+            self.assertTrue(all(row["target_kind"] == "BRANCH" for row in anlu))
+            self.assertTrue(
+                all(
+                    row["selection_status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in anlu
+                )
+            )
+            self.assertTrue(
+                all(
+                    row["qualification_status"].startswith("COMMENTARY_NO_VISIBLE_ANCHOR_LU:")
+                    for row in anlu
+                )
+            )
+            jialu = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "JIALU"
+            ]
+            self.assertEqual(2, len(jialu))
+            self.assertTrue(all(row["target_kind"] == "BRANCH_PAIR" for row in jialu))
+            self.assertTrue(
+                all(
+                    row["selection_status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in jialu
+                )
+            )
+            gonglu = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "GONGLU"
+            ]
+            self.assertEqual(2, len(gonglu))
+            self.assertTrue(
+                all(
+                    row["selection_status"] == "CANDIDATE_NOT_ARBITRATED"
+                    for row in gonglu
+                )
+            )
+            yuancheng = [
+                row for row in shensha["candidates"]
+                if row["shensha_id"] == "YUANCHENG"
+            ]
+            self.assertEqual(1, len(yuancheng))
+            self.assertEqual("HOUR_BRANCH_LONGSHENG_LIUHE_YIMA", yuancheng[0]["target_kind"])
+            self.assertEqual("SOURCE_EXPLICIT", yuancheng[0]["selection_status"])
+            self.assertEqual(
+                "BASE_IDENTITY_ONLY_INTERPRETATION_EXCLUDED",
+                yuancheng[0]["qualification_status"],
+            )
+            self.assertTrue(
+                all(row["source_refs"] for row in shensha["candidates"])
+            )
+
+    def test_shensha_tamper_fails_semantic_replay(self):
+        candidate = self.bundle.candidates[0]
+        changed_view = copy.deepcopy(candidate.view)
+        changed_view["shensha"]["candidates"][0]["target_branches"] = ["子"]
+        changed_candidate = replace(candidate, view=changed_view)
+        changed_bundle = replace(self.bundle, candidates=(changed_candidate,))
+        report = validate_application_resolution(changed_bundle)
+        self.assertEqual("FAIL", report.status)
+        self.assertIn("SHENSHA_REPLAY_MISMATCH:0", report.diagnostics)
+
     def test_dayun_direction_jiaoyun_and_frames_replay_exactly(self):
         view = self.bundle.candidates[0].view["dayun"]
         state = self.temporal.state

@@ -160,8 +160,47 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 当前日常联合排盘入口为 `fortune-chart-app`。它组合已发布的紫微三合交互、八字显式目标时点 flow 与显式 Shared Target → Ziwei Apply，不执行预测或训练。
 
+桌面呈现已进入 **Desktop Productization R1**：在不重开任何已闭合确定性算法的前提下，新的 presentation-only product shell 把既有 Workbench 重组为“本命总览 / 时运联动 / 融合视图 / 专业审计”四个工作区；基础出生资料保持主操作，地点/时区/时间精度/Profile 收入高级设置，ManifestHash、RuleSet、Algorithm 与 provenance 下沉到审计区。实现与边界见 `docs/FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md`。
+
+生成后的 Windows `FortuneChart.exe` 也会验证该 Product Shell 的静态 schema 标记以及 CSS/JavaScript 资源后再执行确定性联合排盘 smoke，防止源码已经产品化而最终 ZIP 仍意外携带旧 Workbench 外壳。
+
+桌面 Product Shell 的首个稳定版本候选为 `0.2.5`；版本提升只改变 Windows 分发身份，不重开任何已闭合排盘算法。稳定发布必须绑定通过完整 CI 与最终 ZIP Windows smoke 的精确 source commit。
+
+联合排盘现在生成共享时间凭证与候选分支联动哈希；它统一时区、UTC、真太阳时和节气事实，但保留紫微与八字各自的换日、历法及晚子时规则，不允许一方规则覆盖另一方。设计与完整性门禁见 `docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md`。
+
+八字候选视图现已补充旬空与日主十二长生事实注记，并将其纳入视图哈希；两者仅作身份展示，不生成旺衰或吉凶结论。冻结口径、来源与语义边界见 `docs/BAZI-XUNKONG-TWELVE-GROWTH-R1.md`。
+
+八字候选视图同时补充胎元、命宫、身宫与每柱“自坐”十二长生；古籍中的三百日前胎元异法以未选择 profile 保留，默认结果不会覆盖异本，也不会影响紫微自己的换日与历法口径。详见 `docs/BAZI-DERIVED-COORDINATES-R1.md`。
+
+紫微流年帧现已补充斗君／正月宫坐标，并纳入时限事实哈希、完整性复算和 SVG 宫位标记；算法只读取紫微自己的农历生月与出生时支。详见 `docs/ZIWEI-DOUJUN-R1.md`。
+
+紫微大限、流年和常规流月现按各层来源干分别生成禄存、擎羊、陀罗动态位置事实；同名星曜按原局／大限／流年／流月保持独立身份，并进入哈希、完整性复算、视图与 SVG，不输出力量或吉凶结论。详见 `docs/ZIWEI-TEMPORAL-MOVING-AUXILIARIES-R1.md`。
+
+八字小运现按古籍同时保留“时柱起、年性别定顺逆”与“男丙寅女壬申固定起点”两套候选，不静默选边；两套都只输出虚岁干支坐标。详见 `docs/BAZI-XIAOYUN-CANDIDATES-R1.md`。
+
+八字神煞事实注册表以 S11《渊海子平》稳定原文段落为权威，现发布天乙、禄神、驿马、华盖、月德、月德合、天德、天厨、福星、太极、三奇、天赦、学堂、金舆、羊刃。年干、日干、月令、纳音与落柱范围按来源分别保存；争议候选不隐式合并，三奇附加条件不伪装为已裁决，也不输出吉凶断语。详见 `docs/BAZI-SHENSHA-FACTS-R1.md`。
+
+八字目标时点现已组成“原局 → 大运 → 小运候选 → 流年 → 流月 → 流日 → 流时”的统一审计时间轴；每个有合法干支的时间层另按原局日主投影十神、藏干十神、纳音、旬空、日主十二长生与自坐十二长生，分别保存事实／计算哈希并由应用完整性路径独立复算。小运两法的注释仍是两个候选，交运前也不会伪造大运干支。目标时点还会只读投影已发布 Structural Context 所支持的大运／流年／流月完整中性事实面，包括帧绑定干支实例、藏干与十神、动态透干、干支亲和及原始关系，全部保留层级、父帧、规则、稳定来源、引用 ID 与独立哈希；Structural Support 同时作为独立下游 Projection 分列原局月令与当前流月，并保留精确藏干匹配／同五行支持候选及其亲和、透干、规则、来源和双哈希，不输出有根、强弱、权重或得令结论。小运／流日／流时明确不在该结构与支持版本覆盖范围。同一目标候选可显式投影到紫微大限、流年、常规流月、小限及只读流日事实。紫微各合法时间层按来源干分别保存四化、禄存／擎羊／陀罗及 S10 完整十干表所载流文昌／流文曲；流魁／流钺同时保存严格 S01 表与文墨兼容案例法两套未选择、独立哈希的候选，即使非辛干结果相同也不合并方法身份。流天马仅按 S10 已闭合的案例层保存为未选择候选：大限绑定大限命宫宫支，流年绑定流年地支，两者方法、来源和哈希独立，且不扩展到流月、流日或流时。流日另输出十二宫宫职。紫微流时因全局规则证据不足，仅在洛阳平太阳时／地方真太阳时两套未选择案例法候选内分别保存命宫、十二宫宫职、干支、动态辅助星及四化，不生成唯一或完整时盘。两系仍分别执行自己的历法与换日规则；小运门派不选边，紫微闰月不伪造常规月盘、流日盘或流日四化。详见 `docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md`、`docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md`、`docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md`、`docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md` 与 `docs/S10-DYNAMIC-AUXILIARY-AUDIT-R1.md`。
+
+共享目标时间到紫微的 Projection 现同时保存目标所对应的大限、流年与常规流月完整层事实：父帧、来源层、来源干、时限规则／算法身份、稳定来源、四化、禄存／擎羊／陀罗及层级双哈希。各层同名星曜保持独立 activation 身份；完整性验证从已发布源帧逐层复算，浏览器只读展示而不改写事实。大限前与闰月边界分别保持空层，不伪造不存在的帧。
+
+共享目标时间到紫微的 Projection 另只读保存选中小限与原局博士、将前、岁前三环的交会；每环保留原锚点、方向、生成器、成员来源与独立双哈希，不按小限宫重起动态环。
+
 真实机器启动、只读 smoke、浏览器验收步骤与问题留证格式见 `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`。安装后可先运行：
 
 ```bash
 python scripts/combined-workbench-smoke.py
 ```
+
+## Fusion Chart Product R1 收口状态
+
+```text
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+DESKTOP_PRODUCT_SHELL_R1=IMPLEMENTED
+WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+```
+
+R1 的确定性排盘产品已经完成字段可见性、Workbench/desktop 运行契约、完整性/更新机制及 CI/release 门禁收口。Windows runner 会从最终 ZIP 启动两个 `.exe`，验证打包依赖、loopback health、确定性联合排盘及 updater 非变更启动；默认浏览器交互和真实两版本升级/回滚仍需单独平台验收，因此保持 `PENDING_PLATFORM_ACCEPTANCE`。该状态不会重开时间历法、八字本命/flow、紫微本命/Structural R1–R8 或 Combined Fusion R2。
+
+所有 disputed candidates 继续保留多候选、不得选 winner；紫微离心/向心自化方向仍不得由现有宫干拓扑或结构几何推导。最终审计见 `docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md`，Windows 剩余实机条件见 `docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md`。

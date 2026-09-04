@@ -4,6 +4,7 @@ from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
 from .models import BaziApplicationIntegrityReport, BaziApplicationResolution
+from .shensha import classical_shensha_for_pillars
 
 
 def validate_application_resolution(
@@ -49,6 +50,17 @@ def validate_application_resolution(
         )
         if candidate.candidate_id != expected_candidate_id:
             diagnostics.append(f"CANDIDATE_ID_MISMATCH:{index}")
+
+        try:
+            pillar_ganzhi = {
+                row["position"]: row["ganzhi"]
+                for row in candidate.view.get("pillars", [])
+            }
+            expected_shensha = classical_shensha_for_pillars(pillar_ganzhi)
+            if candidate.view.get("shensha") != expected_shensha:
+                diagnostics.append(f"SHENSHA_REPLAY_MISMATCH:{index}")
+        except (KeyError, TypeError, ValueError):
+            diagnostics.append(f"SHENSHA_REPLAY_INVALID:{index}")
 
         for time_index, time_row in enumerate(candidate.view.get("time_provenance", [])):
             branch_index = time_row.get("source_time_branch_index")

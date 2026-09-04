@@ -19,6 +19,8 @@ from fortune_training.bazi_temporal import (
 from fortune_training.calendar_foundation.models import json_value
 from fortune_training.util import object_sha256
 
+from .classical_annotations import twelve_growth_for, xunkong_for_sexagenary_index
+from .derived_coordinates import derived_coordinates_for_pillars
 from .integrity import validate_application_resolution
 from .models import (
     BaziApplicationCandidate,
@@ -29,6 +31,8 @@ from .models import (
     BaziApplicationTimeCalendarProvenance,
     BaziApplicationUnresolvedTimeSample,
 )
+from .xiaoyun import xiaoyun_candidates
+from .shensha import classical_shensha_for_pillars
 
 
 class BaziApplicationResolutionError(ValueError):
@@ -187,6 +191,17 @@ class BaziChartService:
                     "branch": branch.branch,
                     "branch_element_affiliation": branch.element_affiliation,
                     "hidden_stems": hidden,
+                    "xunkong": xunkong_for_sexagenary_index(
+                        pillar.sexagenary_index
+                    ),
+                    "day_master_twelve_growth": twelve_growth_for(
+                        chart.day_master_stem,
+                        branch.branch,
+                    ),
+                    "self_twelve_growth": twelve_growth_for(
+                        stem.stem,
+                        branch.branch,
+                    ),
                 }
             )
 
@@ -222,11 +237,24 @@ class BaziChartService:
 
         state = temporal.state
         symbolic = state.jiaoyun.symbolic_age
+        pillar_ganzhi = {row.position: row.ganzhi for row in chart.pillars}
         return {
             "birth": json_value(request.birth),
             "time_provenance": time_provenance,
             "pillars": pillars,
             "day_master_stem": chart.day_master_stem,
+            "derived_coordinates": derived_coordinates_for_pillars(
+                pillar_ganzhi["YEAR"],
+                pillar_ganzhi["MONTH"],
+                pillar_ganzhi["HOUR"],
+            ),
+            "xiaoyun": xiaoyun_candidates(
+                pillar_ganzhi["YEAR"],
+                pillar_ganzhi["HOUR"],
+                request.sex,
+                count=request.dayun_count * 10,
+            ),
+            "shensha": classical_shensha_for_pillars(pillar_ganzhi),
             "dayun": {
                 "direction": state.direction.direction,
                 "year_stem": state.direction.year_stem,

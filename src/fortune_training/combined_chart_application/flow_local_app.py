@@ -21,6 +21,10 @@ from fortune_training.bazi_temporal import (
     bazi_temporal_v1_continuous_profile,
     bazi_temporal_wenzhen_china_compatibility_r1_profile,
 )
+from fortune_training.bazi_temporal_shensha_sidecar import (
+    BaziTemporalShenshaSidecarService,
+    TemporalShenshaSidecarResolutionError,
+)
 from fortune_training.calendar_foundation import BirthInput
 from fortune_training.calendar_foundation.models import json_value
 
@@ -46,6 +50,11 @@ from .local_app import (
 from .models import CombinedChartApplicationRequest
 from .profile import COMBINED_PROFILE_ID
 from .service import CombinedApplicationResolutionError
+from .shared_time_replay import validate_shared_ziwei_selector_full_replay
+from .shared_time_service import (
+    SharedZiweiSelectorProjectionError,
+    SharedZiweiSelectorProjectionService,
+)
 
 
 FLOW_LOCAL_APP_ID = "ZIWEI-BAZI-COMBINED-LOCAL-FLOW-APP-R1"
@@ -72,6 +81,8 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
     def __init__(self, repository_root: Path) -> None:
         super().__init__(repository_root)
         self.flow_service = CombinedTargetFlowService(self.service)
+        self.temporal_shensha_sidecar_service = BaziTemporalShenshaSidecarService()
+        self.shared_ziwei_projection_service = SharedZiweiSelectorProjectionService()
 
     def health(self) -> dict[str, Any]:
         payload = super().health()
@@ -285,11 +296,86 @@ class FlowLocalCombinedChartApplication(LocalCombinedChartApplication):
                 "LOCAL_APP_FLOW_RESOLUTION_FAILED", str(exc), status=422
             ) from exc
 
+        if base.bazi_bundle is None:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_TEMPORAL_SHENSHA_BASE_BUNDLE_MISSING",
+                "combined target-flow resolution did not retain the Bazi base bundle",
+                status=422,
+            )
+        try:
+            temporal_shensha_sidecar = self.temporal_shensha_sidecar_service.resolve(
+                base.bazi_bundle,
+                bazi_flow,
+            )
+        except TemporalShenshaSidecarResolutionError as exc:
+            raise LocalCombinedAppRequestError(exc.code, exc.detail, status=422) from exc
+
+        if base.ziwei_bundle is None:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_SHARED_ZIWEI_SOURCE_UNAVAILABLE",
+                "combined target-flow resolution did not retain the Ziwei base bundle",
+                status=422,
+            )
+        target_profile = request.target_coordinate_profile.validate()
+        target_foundation = self.flow_service.bazi_flow_service.target_foundation
+        try:
+            target_resolution = target_foundation.resolve(target_input, target_profile)
+            if (
+                target_resolution.hashes.fact_hash
+                != bazi_flow.target_coordinate_fact_hash
+                or target_resolution.hashes.computation_hash
+                != bazi_flow.target_coordinate_computation_hash
+            ):
+                raise LocalCombinedAppRequestError(
+                    "LOCAL_APP_SHARED_ZIWEI_TARGET_COORDINATE_MISMATCH",
+                    (
+                        f"bazi={bazi_flow.target_coordinate_fact_hash}:"
+                        f"{bazi_flow.target_coordinate_computation_hash};"
+                        f"ziwei={target_resolution.hashes.fact_hash}:"
+                        f"{target_resolution.hashes.computation_hash}"
+                    ),
+                    status=422,
+                )
+            shared_ziwei_projection = self.shared_ziwei_projection_service.project(
+                base.ziwei_bundle,
+                target_resolution,
+                target_profile,
+            )
+            replay = validate_shared_ziwei_selector_full_replay(
+                self.shared_ziwei_projection_service,
+                base.ziwei_bundle,
+                target_resolution,
+                target_profile,
+                shared_ziwei_projection,
+            )
+            if replay.status != "PASS":
+                raise LocalCombinedAppRequestError(
+                    "LOCAL_APP_SHARED_ZIWEI_FULL_REPLAY_FAILED",
+                    ";".join(replay.diagnostics) or replay.status,
+                    status=422,
+                )
+        except LocalCombinedAppRequestError:
+            raise
+        except SharedZiweiSelectorProjectionError as exc:
+            raise LocalCombinedAppRequestError(exc.code, exc.detail, status=422) from exc
+        except ValueError as exc:
+            raise LocalCombinedAppRequestError(
+                "LOCAL_APP_SHARED_ZIWEI_PROJECTION_FAILED",
+                str(exc),
+                status=422,
+            ) from exc
+
         return {
             "schema": FLOW_LOCAL_APP_RESOLVE_SCHEMA,
             "location_selection": location_selection,
             "combined_resolution": json_value(base),
             "bazi_target_flow_bundle": json_value(bazi_flow),
+            "bazi_temporal_shensha_projection_bundle": json_value(
+                temporal_shensha_sidecar
+            ),
+            "shared_ziwei_selector_projection": json_value(
+                shared_ziwei_projection
+            ),
             "combined_target_flow_resolution": json_value(combined_flow),
         }
 

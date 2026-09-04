@@ -23,6 +23,7 @@ from .local_app import (
     _required_text,
 )
 from .service import validate_combined_resolution
+from .shared_time_replay import validate_shared_ziwei_selector_full_replay
 from .shared_time_service import (
     SharedZiweiSelectorProjectionError,
     SharedZiweiSelectorProjectionService,
@@ -128,13 +129,29 @@ class SharedZiweiProjectionLocalMixin:
             )
 
         target_foundation = TargetTemporalCoordinateFoundation()
+        projection_service = SharedZiweiSelectorProjectionService()
         try:
             target_resolution = target_foundation.resolve(target_input, target_profile)
-            projection = SharedZiweiSelectorProjectionService().project(
+            projection = projection_service.project(
                 base.ziwei_bundle,
                 target_resolution,
                 target_profile,
             )
+            replay = validate_shared_ziwei_selector_full_replay(
+                projection_service,
+                base.ziwei_bundle,
+                target_resolution,
+                target_profile,
+                projection,
+            )
+            if replay.status != "PASS":
+                raise LocalCombinedAppRequestError(
+                    "LOCAL_APP_SHARED_ZIWEI_FULL_REPLAY_FAILED",
+                    ";".join(replay.diagnostics) or replay.status,
+                    status=422,
+                )
+        except LocalCombinedAppRequestError:
+            raise
         except SharedZiweiSelectorProjectionError as exc:
             raise LocalCombinedAppRequestError(exc.code, exc.detail, status=422) from exc
         except ValueError as exc:

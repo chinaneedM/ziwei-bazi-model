@@ -10,6 +10,8 @@
     "sex",
     "combined_profile",
     "profiles",
+    "shared_time_credential",
+    "candidate_lineage",
     "subsystems",
     "composition_status"
   ],
@@ -38,6 +40,8 @@
         "bazi_application": {"$ref": "#/$defs/profileRef"}
       }
     },
+    "shared_time_credential": {"$ref": "#/$defs/sharedTimeCredential"},
+    "candidate_lineage": {"$ref": "#/$defs/candidateLineage"},
     "subsystems": {
       "type": "object",
       "additionalProperties": false,
@@ -85,6 +89,104 @@
       "properties": {
         "profile_id": {"type": "string", "minLength": 1},
         "profile_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "sharedTimeCredential": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "status",
+        "policy_registry_version",
+        "selected_policies",
+        "input_interval",
+        "realizations",
+        "unresolved_samples",
+        "fact_hash",
+        "computation_hash"
+      ],
+      "properties": {
+        "schema": {"const": "ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-V1"},
+        "status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ziwei", "bazi"],
+          "properties": {
+            "ziwei": {"type": "string", "minLength": 1},
+            "bazi": {"type": "string", "minLength": 1}
+          }
+        },
+        "policy_registry_version": {"type": "string", "minLength": 1},
+        "selected_policies": {"type": "object"},
+        "input_interval": {"type": "object"},
+        "realizations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/sharedTimeRealization"}
+        },
+        "unresolved_samples": {"type": "array", "items": {"type": "object"}},
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "sharedTimeRealization": {
+      "type": "object",
+      "required": [
+        "source_time_branch_index",
+        "sample_reported_local_datetime",
+        "birth_utc",
+        "local_apparent_solar_datetime",
+        "effective_ziwei_lunar_date",
+        "bazi_pillars",
+        "active_jie",
+        "next_jie",
+        "realization_hash"
+      ],
+      "properties": {
+        "source_time_branch_index": {"type": "integer", "minimum": 0},
+        "sample_reported_local_datetime": {"type": "string", "minLength": 1},
+        "birth_utc": {"type": "string", "minLength": 1},
+        "local_apparent_solar_datetime": {"type": "string", "minLength": 1},
+        "effective_ziwei_lunar_date": {"type": "object"},
+        "bazi_pillars": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"type": "string", "minLength": 2, "maxLength": 2}
+        },
+        "active_jie": {"type": "object"},
+        "next_jie": {"type": "object"},
+        "realization_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "candidateLineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "shared_time_computation_hash", "branches", "lineage_hash"],
+      "properties": {
+        "schema": {"const": "ZIWEI-BAZI-SHARED-TIME-LINEAGE-V1"},
+        "shared_time_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "branches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "source_time_branch_index",
+              "shared_time_realization_hash",
+              "ziwei_natal_fact_hash",
+              "bazi_candidate_ids",
+              "status"
+            ],
+            "properties": {
+              "source_time_branch_index": {"type": "integer", "minimum": 0},
+              "shared_time_realization_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "ziwei_natal_fact_hash": {"type": ["string", "null"]},
+              "bazi_candidate_ids": {"type": "array", "items": {"type": "string"}},
+              "status": {"enum": ["LINKED_BOTH", "ZIWEI_ONLY", "BAZI_ONLY", "UNBOUND"]}
+            }
+          }
+        },
+        "lineage_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
       }
     },
     "combinedProfileRef": {

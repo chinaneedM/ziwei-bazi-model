@@ -36,6 +36,9 @@ from .models import (
     RingMemberBinding,
     RoleBinding,
     Sex,
+    TemporalAuxiliaryActivation,
+    TemporalAuxiliaryCandidateSet,
+    TemporalAuxiliaryMethodCandidate,
     TransformationActivation,
 )
 from .natal import NatalStructureGenerator, NatalStructureInput
@@ -58,10 +61,22 @@ from .roles import QSRoleGenerator, WenmoDefaultRoleGenerator
 from .temporal import (
     AnnualFrame,
     DaxianFrame,
+    DOUJUN_RULE_ID,
     MinorLimitFrame,
+    MonthlyFrame,
     TemporalNatalContext,
     ZiweiTemporalEngine,
     ZiweiTemporalState,
+)
+from .target_temporal import (
+    ZiweiTargetDailyFrame,
+    ZiweiTargetHourlyMethodCandidate,
+    ZiweiTargetTemporalEngine,
+)
+from .temporal_auxiliary import (
+    TemporalAuxiliaryGenerator,
+    temporal_auxiliary_candidate_set_hashes,
+    temporal_auxiliary_method_candidate_hashes,
 )
 from .transformations import TransformationGenerator
 from .view import (
@@ -70,6 +85,8 @@ from .view import (
     PalaceViewCell,
     PlainTextZiweiRenderer,
     PresentationProfile,
+    ViewTemporalAuxiliary,
+    ViewTemporalAuxiliaryCandidate,
     ViewProjectionError,
     ZiweiViewProjectionCompiler,
 )
@@ -79,6 +96,7 @@ __all__ = [
     "AuxiliaryContext",
     "ChartViewModel",
     "DaxianFrame",
+    "DOUJUN_RULE_ID",
     "DerivedAuxiliaryGenerator",
     "DignityAnnotation",
     "DignityRegistryCell",
@@ -89,6 +107,7 @@ __all__ = [
     "LexemeOverride",
     "MainStarGenerator",
     "MinorLimitFrame",
+    "MonthlyFrame",
     "MinorStarContext",
     "NatalChartState",
     "NatalStructureGenerator",
@@ -111,9 +130,17 @@ __all__ = [
     "RoleBinding",
     "Sex",
     "TemporalNatalContext",
+    "TemporalAuxiliaryActivation",
+    "TemporalAuxiliaryCandidateSet",
+    "TemporalAuxiliaryMethodCandidate",
+    "TemporalAuxiliaryGenerator",
+    "temporal_auxiliary_candidate_set_hashes",
+    "temporal_auxiliary_method_candidate_hashes",
     "TransformationActivation",
     "TransformationGenerator",
     "ViewProjectionError",
+    "ViewTemporalAuxiliary",
+    "ViewTemporalAuxiliaryCandidate",
     "WenmoDefaultMinorStarGenerator",
     "WenmoDefaultMinorStarR4Generator",
     "WenmoDefaultRingGenerator",
@@ -125,6 +152,9 @@ __all__ = [
     "ZiweiChartRequest",
     "ZiweiTemporalEngine",
     "ZiweiTemporalState",
+    "ZiweiTargetDailyFrame",
+    "ZiweiTargetHourlyMethodCandidate",
+    "ZiweiTargetTemporalEngine",
     "ZiweiTypedResolution",
     "ZiweiViewProjectionCompiler",
     "OPERATIONAL_ZIWEI_V1_PROFILE_ID",

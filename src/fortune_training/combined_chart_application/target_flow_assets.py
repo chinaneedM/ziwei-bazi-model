@@ -30,6 +30,16 @@ TARGET_FLOW_CSS = """
 .bazi-flow-frame { padding:7px; border:1px solid #e0e3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.5; min-width:0; }
 .bazi-flow-frame strong { display:block; margin-bottom:3px; }
 .bazi-flow-frame code { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bazi-flow-annotation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#4f5863; }
+.bazi-flow-shensha-hit { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; color:#3f4852; }
+.bazi-flow-shensha-note { margin-top:3px; color:#68707a; font-size:10px; line-height:1.45; }
+.bazi-flow-structural { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fff; font-size:11px; line-height:1.55; }
+.bazi-flow-structural strong,.bazi-flow-structural code { display:block; }
+.bazi-flow-structural-layer { margin-top:6px; padding:6px; border:1px solid #edf0f2; border-radius:5px; background:#fafbfb; }
+.bazi-flow-support { margin:8px 0; padding:8px; border:1px solid #dfe3e6; border-radius:7px; background:#fffdf8; font-size:11px; line-height:1.55; }
+.bazi-flow-support strong,.bazi-flow-support code { display:block; }
+.bazi-flow-support-role { margin-top:5px; padding:5px; border:1px solid #eee6d8; border-radius:5px; background:#fff; }
+.bazi-flow-relation { margin-top:5px; padding-top:5px; border-top:1px dashed #e1e4e7; word-break:break-word; }
 @media (max-width:900px) { .bazi-target-flow-grid { grid-template-columns:1fr; } .bazi-flow-frames { grid-template-columns:1fr 1fr; } }
 @media (max-width:620px) { .bazi-flow-frames { grid-template-columns:1fr; } }
 """
@@ -54,7 +64,7 @@ TARGET_FLOW_JS = r"""
   panel.hidden = true;
   panel.innerHTML = `
     <div class="bazi-target-flow-head">
-      <div><strong>八字目标时点</strong><div class="bazi-target-flow-note">显式解析大运 / 流年 / 流月 / 流日 / 流时。不会自动同步或改写紫微大限、流年、小限。</div></div>
+      <div><strong>八字目标时点</strong><div class="bazi-target-flow-note">显式解析大运 / 小运候选 / 流年 / 流月 / 流日 / 流时。不会自动同步或改写紫微时间选择器。</div></div>
       <code id="bazi-flow-hash">-</code>
     </div>
     <div class="bazi-target-flow-grid">
@@ -73,6 +83,8 @@ TARGET_FLOW_JS = r"""
     <div id="bazi-target-flow-status" class="bazi-target-flow-status">请先完成联合排盘，再显式输入目标时点。</div>
     <div id="bazi-flow-target-meta" class="bazi-flow-target-meta" hidden></div>
     <div id="bazi-flow-frames" class="bazi-flow-frames"></div>
+    <div id="bazi-flow-structural" class="bazi-flow-structural" hidden></div>
+    <div id="bazi-flow-structural-support" class="bazi-flow-support" hidden></div>
     <div id="bazi-flow-lineage" class="bazi-flow-lineage" hidden></div>
   `;
   baziRoot.parentNode.insertBefore(panel, baziRoot);
@@ -82,6 +94,8 @@ TARGET_FLOW_JS = r"""
   const status = $('bazi-target-flow-status');
   const targetMeta = $('bazi-flow-target-meta');
   const framesRoot = $('bazi-flow-frames');
+  const structuralRoot = $('bazi-flow-structural');
+  const structuralSupportRoot = $('bazi-flow-structural-support');
   const lineageRoot = $('bazi-flow-lineage');
   const hashBox = $('bazi-flow-hash');
 
@@ -154,11 +168,50 @@ TARGET_FLOW_JS = r"""
     };
   }
 
-  function frameCard(label, frame, extra = '') {
+  function renderTemporalShenshaHit(box, slot) {
+    if (!slot) {
+      box.append(node('div', '神煞候选目标命中：侧车绑定不可用', 'bazi-flow-shensha-hit'));
+      box.append(node(
+        'div',
+        '仅为目标身份匹配；岁运神煞适用性尚未作古法/流派裁决。',
+        'bazi-flow-shensha-note',
+      ));
+      return;
+    }
+    const matches = Array.isArray(slot.matches) ? slot.matches : [];
+    const hitText = matches.length
+      ? matches.map((row) => `${display(row.display_name)}(${display(row.matched_value)})`).join(' / ')
+      : '无';
+    const statusText = slot.status === 'RESOLVED'
+      ? hitText
+      : `未投影（${display(slot.status)}）`;
+    box.append(node('div', `神煞候选目标命中：${statusText}`, 'bazi-flow-shensha-hit'));
+    if (matches.length) {
+      box.append(node(
+        'div',
+        `命中来源：${matches.map((row) => `${display(row.source_candidate_id)} · ${display(row.target_kind)}=${display(row.matched_value)} · scope=${display(row.source_match_scope)} · ${display(row.temporal_applicability_status)}`).join(' / ')}`,
+        'bazi-flow-shensha-note',
+      ));
+      const sourceRefs = [...new Set(matches.flatMap(
+        (row) => Array.isArray(row.source_refs) ? row.source_refs : [],
+      ))];
+      if (sourceRefs.length) {
+        box.append(node('div', `来源：${sourceRefs.join(' | ')}`, 'bazi-flow-shensha-note'));
+      }
+    }
+    box.append(node(
+      'div',
+      '仅为目标身份匹配；岁运神煞适用性尚未作古法/流派裁决。',
+      'bazi-flow-shensha-note',
+    ));
+  }
+
+  function frameCard(label, frame, extra = '', annotationSlot = null, shenshaSlot = null) {
     const box = node('div', undefined, 'bazi-flow-frame');
     box.append(node('strong', label));
     if (!frame) {
       box.append(node('span', '-'));
+      renderTemporalShenshaHit(box, shenshaSlot);
       return box;
     }
     const ganzhi = frame.ganzhi || frame.frame_id || '-';
@@ -168,15 +221,158 @@ TARGET_FLOW_JS = r"""
     if (frame.end_utc) box.append(node('code', `止 ${frame.end_utc}`));
     if (frame.start_las) box.append(node('code', `LAS 起 ${frame.start_las}`));
     if (frame.end_las) box.append(node('code', `LAS 止 ${frame.end_las}`));
+    if (annotationSlot?.status === 'RESOLVED' && annotationSlot.annotation) {
+      const annotation = annotationSlot.annotation;
+      const hidden = annotation.hidden_stems.map((row) => `${row.stem}·${row.ten_god}`).join(' / ');
+      box.append(node(
+        'div',
+        `十神 ${annotation.visible_ten_god.display_name} · 藏干 ${hidden} · 纳音 ${annotation.nayin.display_name} · 旬空 ${annotation.xunkong.display_name} · 星运 ${annotation.day_master_twelve_growth.phase} · 自坐 ${annotation.self_twelve_growth.phase}`,
+        'bazi-flow-annotation',
+      ));
+      box.append(node('code', `annotation_fact=${annotation.fact_hash}`));
+    } else if (annotationSlot?.status) {
+      box.append(node('div', `注释状态 ${annotationSlot.status}`, 'bazi-flow-annotation'));
+    }
+    renderTemporalShenshaHit(box, shenshaSlot);
     return box;
+  }
+
+  function temporalShenshaCandidateFor(candidate) {
+    const bundle = state.response?.bazi_temporal_shensha_projection_bundle;
+    const rows = Array.isArray(bundle?.candidates) ? bundle.candidates : [];
+    const matches = rows.filter(
+      (row) => row.source_bazi_target_flow_candidate_id === candidate.candidate_id,
+    );
+    return matches.length === 1 ? matches[0] : null;
   }
 
   function clearCandidateView() {
     clear(framesRoot);
+    clear(structuralRoot);
+    structuralRoot.hidden = true;
+    clear(structuralSupportRoot);
+    structuralSupportRoot.hidden = true;
     targetMeta.hidden = true;
     targetMeta.textContent = '';
     lineageRoot.hidden = true;
     lineageRoot.textContent = '';
+  }
+
+  function renderStructural(structural) {
+    structuralRoot.hidden = false;
+    structuralRoot.append(node('strong', '中性结构事实（当前版本仅大运 / 流年 / 流月）'));
+    structuralRoot.append(node(
+      'div',
+      `覆盖 ${structural.active_layers.join(' / ')} · 未覆盖 ${structural.excluded_layers.join(' / ')} · 不判强弱、作用或合化成败`,
+    ));
+    const tenGodByTarget = new Map(
+      structural.temporal_ten_gods.map((binding) => [binding.target_instance_id, binding]),
+    );
+    structural.active_temporal_stems.forEach((stem) => {
+      const branch = structural.active_temporal_branches.find(
+        (candidate) => candidate.position === stem.position,
+      );
+      const hidden = structural.temporal_hidden_stems.filter(
+        (candidate) => candidate.branch_instance_id === branch?.instance_id,
+      );
+      const visibleTenGod = tenGodByTarget.get(stem.instance_id);
+      const hiddenText = hidden.map((candidate) => {
+        const binding = tenGodByTarget.get(candidate.instance_id);
+        return `${candidate.stem}·${display(binding?.display_name)}`;
+      }).join(' / ');
+      const box = node('div', undefined, 'bazi-flow-structural-layer');
+      box.append(node(
+        'div',
+        `${stem.position} ${stem.stem}${display(branch?.branch)} · 十神 ${display(visibleTenGod?.display_name)} · 藏干 ${hiddenText}`,
+      ));
+      box.append(node('code', `stem=${stem.instance_id}`));
+      box.append(node('code', `branch=${display(branch?.instance_id)}`));
+      structuralRoot.append(box);
+    });
+    structural.dynamic_exposures.forEach((exposure) => {
+      const row = node(
+        'div',
+        `透干事实 ${exposure.stem} · ${exposure.hidden_stem_instance_id} → ${exposure.visible_stem_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `link_id=${exposure.link_id}`));
+      row.append(node('code', `sources=${exposure.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
+    structural.dynamic_affinities.forEach((affinity) => {
+      const exact = affinity.exact_hidden_stem_instance_ids.join(',') || '-';
+      const sameElement = affinity.same_element_hidden_stem_instance_ids.join(',') || '-';
+      const row = node(
+        'div',
+        `干支亲和 ${affinity.visible_stem_instance_id} ↔ ${affinity.branch_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `exact_hidden=${exact}`));
+      row.append(node('code', `same_element_hidden=${sameElement}`));
+      row.append(node('code', `fact_id=${affinity.fact_id}`));
+      row.append(node('code', `rule=${affinity.rule_set_id}@${affinity.rule_set_version}`));
+      row.append(node('code', `sources=${affinity.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
+    if (structural.relations.length === 0) {
+      structuralRoot.append(node('div', '当前层组合没有结构关系事实。'));
+    }
+    structural.relations.forEach((relation) => {
+      const nominal = relation.nominal_transformation_element
+        ? ` · 名义目标五行 ${relation.nominal_transformation_element}（非成化结论）`
+        : '';
+      const row = node(
+        'div',
+        `${relation.relation_family} · ${relation.participant_layers.join(' + ')} · ${relation.relation_scope}${nominal}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `participants=${relation.participant_instance_ids.join(',')}`));
+      row.append(node('code', `relation_id=${relation.relation_id}`));
+      row.append(node('code', `rule=${relation.rule_set_id}@${relation.rule_set_version}`));
+      row.append(node('code', `sources=${relation.source_refs.join(',')}`));
+      structuralRoot.append(row);
+    });
+    structuralRoot.append(node('code', `structural_projection_fact=${structural.fact_hash}`));
+  }
+
+  function renderStructuralSupport(support) {
+    structuralSupportRoot.hidden = false;
+    structuralSupportRoot.append(node('strong', '中性支持证据（原局月令与当前流月分列）'));
+    structuralSupportRoot.append(node(
+      'div',
+      '仅列精确藏干匹配／同五行藏干候选；不判有根、强弱、权重或得令。',
+    ));
+    [support.natal_month_command, support.active_flow_solar_month].forEach((role) => {
+      const label = role.role_id === 'NATAL_MONTH_COMMAND' ? '原局月令' : '当前流月';
+      const ganzhi = role.natal_month_ganzhi || role.active_month_ganzhi;
+      const box = node('div', `${label} · ${ganzhi} · ${role.branch}`, 'bazi-flow-support-role');
+      box.append(node('code', `reference_id=${role.reference_id}`));
+      box.append(node('code', `rule=${role.rule_set_id}@${role.rule_set_version}`));
+      box.append(node('code', `sources=${role.source_refs.join(',')}`));
+      structuralSupportRoot.append(box);
+    });
+    structuralSupportRoot.append(node(
+      'div',
+      `月令候选 ${support.natal_month_command_support_candidate_ids.length} · 当前流月候选 ${support.active_flow_solar_month_support_candidate_ids.length} · 全部候选 ${support.support_evidence_candidates.length}`,
+    ));
+    support.support_evidence_candidates.forEach((candidate) => {
+      const roles = candidate.supporting_branch_role_ids.join(',') || '-';
+      const exposures = candidate.source_exposure_link_ids.join(',') || '-';
+      const row = node(
+        'div',
+        `${candidate.evidence_class} · ${candidate.visible_participant_layer} ${candidate.visible_stem_instance_id} ↔ ${candidate.supporting_branch_participant_layer} ${candidate.supporting_branch_instance_id}`,
+        'bazi-flow-relation',
+      );
+      row.append(node('code', `hidden=${candidate.matching_hidden_stem_instance_ids.join(',')}`));
+      row.append(node('code', `seasonal_roles=${roles}`));
+      row.append(node('code', `affinity=${candidate.source_affinity_fact_id}`));
+      row.append(node('code', `exposures=${exposures}`));
+      row.append(node('code', `candidate_id=${candidate.candidate_id}`));
+      row.append(node('code', `rule=${candidate.rule_set_id}@${candidate.rule_set_version}`));
+      row.append(node('code', `sources=${candidate.source_refs.join(',')}`));
+      structuralSupportRoot.append(row);
+    });
+    structuralSupportRoot.append(node('code', `support_projection_fact=${support.fact_hash}`));
   }
 
   function renderCandidate(candidate, index, count) {
@@ -195,13 +391,30 @@ TARGET_FLOW_JS = r"""
 
     const flow = view.flow;
     const dayun = flow.active_dayun_frame;
+    const annotations = view.timeline.classical_annotations;
+    const shenshaBundle = state.response?.bazi_temporal_shensha_projection_bundle || null;
+    const shenshaSidecarCandidate = temporalShenshaCandidateFor(candidate);
+    const shenshaProjection = shenshaSidecarCandidate?.projection || null;
+    framesRoot.append(frameCard(
+      '大运', dayun, flow.active_dayun_kind, annotations.dayun, shenshaProjection?.dayun,
+    ));
+    view.timeline.xiaoyun.candidates.forEach((row, rowIndex) => {
+      framesRoot.append(frameCard(
+        `小运候选 · ${row.profile_id}`,
+        row.active_frame,
+        `${row.direction} · ${row.activation_status}`,
+        annotations.xiaoyun_candidates[rowIndex],
+        shenshaProjection?.xiaoyun_candidates?.[rowIndex],
+      ));
+    });
     framesRoot.append(
-      frameCard('大运', dayun, flow.active_dayun_kind),
-      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`),
-      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`),
-      frameCard('流日', view.daily, display(view.daily?.effective_day_date)),
-      frameCard('流时', view.hourly, display(view.hourly?.branch)),
+      frameCard('流年', flow.annual, `${display(flow.annual?.start_term_chinese_name)} → ${display(flow.annual?.end_term_chinese_name)}`, annotations.annual, shenshaProjection?.annual),
+      frameCard('流月', flow.monthly, `${display(flow.monthly?.start_jie_chinese_name)} → ${display(flow.monthly?.end_jie_chinese_name)}`, annotations.monthly, shenshaProjection?.monthly),
+      frameCard('流日', view.daily, display(view.daily?.effective_day_date), annotations.daily, shenshaProjection?.daily),
+      frameCard('流时', view.hourly, display(view.hourly?.branch), annotations.hourly, shenshaProjection?.hourly),
     );
+    renderStructural(view.structural);
+    renderStructuralSupport(view.structural_support);
 
     lineageRoot.hidden = false;
     lineageRoot.textContent = [
@@ -210,8 +423,40 @@ TARGET_FLOW_JS = r"""
       `natal_fact=${candidate.natal_fact_hash}`,
       `temporal_fact=${candidate.temporal_fact_hash}`,
       `flow_fact=${candidate.flow_fact_hash}`,
+      `structural_fact=${candidate.structural_fact_hash}`,
+      `structural_support_fact=${candidate.structural_support_fact_hash}`,
       `daily_hourly_fact=${candidate.daily_hourly_fact_hash}`,
-      `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
+      `temporal_annotation_fact=${display(annotations.fact_hash)}`,
+      `temporal_shensha_sidecar_schema=${display(shenshaBundle?.schema)}`,
+      `temporal_shensha_sidecar_status=${display(shenshaBundle?.status)}`,
+      `temporal_shensha_sidecar_profile=${display(shenshaBundle?.projection_profile_id)}@${display(shenshaBundle?.projection_profile_version)}`,
+      `temporal_shensha_base_application_bundle=${display(shenshaBundle?.base_application_bundle_hash)}`,
+      `temporal_shensha_base_application_fact=${display(shenshaBundle?.base_application_source_fact_hash)}`,
+      `temporal_shensha_source_bazi_flow_bundle=${display(shenshaBundle?.bazi_target_flow_bundle_hash)}`,
+      `temporal_shensha_source_bazi_flow_fact=${display(shenshaBundle?.bazi_target_flow_source_fact_hash)}`,
+      `temporal_shensha_sidecar_candidate=${display(shenshaSidecarCandidate?.candidate_id)}`,
+      `temporal_shensha_source_flow_candidate=${display(shenshaSidecarCandidate?.source_bazi_target_flow_candidate_id)}`,
+      `temporal_shensha_source_bazi_flow_candidate_index=${display(shenshaSidecarCandidate?.source_bazi_target_flow_candidate_index)}`,
+      `temporal_shensha_source_flow_candidate_index=${display(shenshaSidecarCandidate?.source_flow_candidate_index)}`,
+      `temporal_shensha_source_target_coordinate_candidate_index=${display(shenshaSidecarCandidate?.source_target_coordinate_candidate_index)}`,
+      `temporal_shensha_target_coordinate_candidate=${display(shenshaSidecarCandidate?.target_coordinate_candidate_id)}`,
+      `temporal_shensha_source_application_candidates=${Array.isArray(shenshaSidecarCandidate?.source_application_candidate_ids) ? shenshaSidecarCandidate.source_application_candidate_ids.join(',') : '-'}`,
+      `temporal_shensha_source_application_view_hashes=${Array.isArray(shenshaSidecarCandidate?.source_application_view_hashes) ? shenshaSidecarCandidate.source_application_view_hashes.join(',') : '-'}`,
+      `temporal_shensha_source_shensha_hash=${display(shenshaSidecarCandidate?.source_shensha_hash)}`,
+      `temporal_shensha_projection_profile=${display(shenshaProjection?.profile_id)}@${display(shenshaProjection?.profile_version)}`,
+      `temporal_shensha_projection_policy=${display(shenshaProjection?.projection_policy)}`,
+      `temporal_shensha_projection_selection_semantics=${display(shenshaProjection?.selection_semantics)}`,
+      `temporal_shensha_projection_semantic_scope=${display(shenshaProjection?.semantic_scope)}`,
+      `temporal_shensha_projection_source_refs=${Array.isArray(shenshaProjection?.source_refs) ? shenshaProjection.source_refs.join(',') : '-'}`,
+      `temporal_shensha_projection_fact=${display(shenshaProjection?.fact_hash)}`,
+      `temporal_shensha_projection_computation=${display(shenshaProjection?.computation_hash)}`,
+      `temporal_shensha_sidecar_candidate_fact=${display(shenshaSidecarCandidate?.fact_hash)}`,
+      `temporal_shensha_sidecar_candidate_computation=${display(shenshaSidecarCandidate?.computation_hash)}`,
+      `temporal_shensha_sidecar_fact=${display(shenshaBundle?.fact_hash)}`,
+      `temporal_shensha_sidecar_computation=${display(shenshaBundle?.computation_hash)}`,
+      `temporal_shensha_sidecar_bundle=${display(shenshaBundle?.bundle_hash)}`,
+      `temporal_shensha_integrity=${display(shenshaBundle?.integrity?.status)}`,
+      `integrity target=${display(view.integrity?.target_coordinate)} flow=${display(view.integrity?.flow)} structural=${display(view.integrity?.structural)} daily_hourly=${display(view.integrity?.daily_hourly)}`,
     ].join('\n');
   }
 

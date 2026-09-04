@@ -86,6 +86,48 @@ class TransformationActivation:
 
 
 @dataclass(frozen=True)
+class TemporalAuxiliaryActivation:
+    activation_id: str
+    entity_id: str
+    display_name: str
+    target_address: Address
+    source_layer: str
+    source_stem: str
+    context_id: str
+    rule_id: str
+    generator_id: str
+    algorithm_version: str
+    source_refs: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class TemporalAuxiliaryMethodCandidate:
+    candidate_id: str
+    method_id: str
+    authority_status: str
+    activations: tuple[TemporalAuxiliaryActivation, ...]
+    source_refs: tuple[str, ...]
+    fact_hash: str
+    computation_hash: str
+
+
+@dataclass(frozen=True)
+class TemporalAuxiliaryCandidateSet:
+    candidate_set_id: str
+    source_layer: str
+    source_stem: str
+    source_basis_type: str
+    source_basis_value: str
+    context_id: str
+    entity_ids: tuple[str, ...]
+    selection_status: str
+    method_candidates: tuple[TemporalAuxiliaryMethodCandidate, ...]
+    source_refs: tuple[str, ...]
+    fact_hash: str
+    computation_hash: str
+
+
+@dataclass(frozen=True)
 class RoleBinding:
     role_id: str
     display_name: str

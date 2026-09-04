@@ -85,8 +85,8 @@ Every supplied `BaziFlowCandidate` is replayed independently. The Structural Fac
 - Structural FactHash binds upstream fact identities and the complete neutral active structural payload;
 - Structural ComputationHash additionally binds upstream computation hashes, the resolved Structural profile, algorithm versions, rule-set lineage, sources, and hash algorithm version.
 
-The public contract is `schemas/bazi-structural-context-r1.schema.json`. Required discrimination data is in `tests/fixtures/bazi-structural-context-r1.json`.
+The public contract is `schemas/bazi-structural-context-r1.schema.json`. Required discrimination data is in `tests/fixtures/bazi-structural-context-r1.json`. The separate application composition in `docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md` now exposes the complete neutral active fact surface plus compact upstream reference IDs as a read-only projection; it does not change this generator or its coverage.
 
 ## Non-goals
 
-R1 does not implement any 害/相穿 effect, 破, 半合, 三会, hidden combinations, combination-transformation success, cancellation, suppression, rescue, release, reactivation, interpretive priority, strength/root weights, seasonal scoring, 旺衰, 格局, 用神, 忌神, 调候, 病药, ShenSha, prediction, Ziwei fusion, or UI.
+R1 does not implement any 害/相穿 effect, 破, 半合, 三会, hidden combinations, combination-transformation success, cancellation, suppression, rescue, release, reactivation, interpretive priority, strength/root weights, seasonal scoring, 旺衰, 格局, 用神, 忌神, 调候, 病药, ShenSha, prediction, Ziwei fusion, or direct mutable UI behavior.

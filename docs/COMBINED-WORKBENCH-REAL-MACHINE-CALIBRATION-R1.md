@@ -137,17 +137,33 @@ The Bazi target-flow pane uses an explicit target local datetime/place/coordinat
 
 Resolving target-flow preserves released candidate lineage. A fold or uncertainty window may therefore expose more than one candidate. No visible-equality deduplication or candidate-0 winner is implied.
 
+The same pane also shows the complete released neutral structural fact surface
+for active Dayun/Annual/Monthly layers. It exposes frame-bound visible
+stem/branch instances, hidden stems and Ten Gods, dynamic exposure/affinity
+facts, raw relations, participant layers, rule/source identity, neutral scope,
+and hashes. Xiaoyun,
+Daily, and Hourly are visibly outside this Structural R1 coverage; nominal
+transformation elements are not displayed as successful transformations.
+
+The following independent support pane shows the fixed Natal month-command and
+active Flow solar-month roles separately. It lists exact hidden-stem matches and
+same-element/different-stem candidates with occurrence, affinity, exposure,
+rule/source, and hash lineage. It must not label any candidate as root/no-root,
+strong/weak, weighted, scored, or 得令.
+
 ### D. Shared Target projection calculation
 
 `计算共享 Projection` consumes the released target-coordinate candidates and the released Ziwei application bundle to calculate candidate-preserving Ziwei selector projections.
 
-**Calculation alone does not change Ziwei Daxian / Annual / Minor selectors.**
+The selected target candidate's Daxian, Annual, and regular-Month layers are shown as read-only source projections. Each line exposes the source stem, parent frame, four transformations, independent 禄存／擎羊／陀罗 instances, temporal rule identity, and layer FactHash. A pre-Daxian target has no fabricated Daxian layer; a leap-month target has no fabricated regular-Month layer.
+
+**Calculation alone does not change Ziwei Daxian / Annual / Minor selectors.** It also does not change the regular-Lunar-Month selector.
 
 When more than one projection candidate exists, each lineage remains separately selectable even when visible Ziwei selector values happen to be identical.
 
 ### E. Explicit Apply to Ziwei
 
-Only the explicit `应用目标时间到紫微` action may apply one selected server-returned projection candidate to the Ziwei Daxian / Annual / Minor selectors.
+Only the explicit `应用目标时间到紫微` action may apply one selected server-returned projection candidate to the Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors. A projected leap month leaves the regular-month selector empty and visibly unresolved.
 
 Apply is one-way and opt-in:
 
@@ -160,6 +176,16 @@ Apply is one-way and opt-in:
 
 After the command-level smoke passes, perform this short visual/interaction check in the actual browser.
 
+### Product shell composition
+
+- [ ] The header reads `紫微 · 八字融合排盘` and the page exposes the four product work areas `本命总览 / 时运联动 / 融合视图 / 专业审计`.
+- [ ] Ordinary birth time, birth place and sex remain in the primary input row; coordinates/timezone and explicit calculation Profiles are grouped under advanced details rather than dominating the default surface.
+- [ ] The natal fusion bridge visibly shows Ziwei, shared-time and Bazi status as one composition while explicitly stating that the two chart systems keep independent day-boundary/calendar rules.
+- [ ] The two main chart cards read `紫微斗数本命盘` and `四柱八字本命盘`; engineering hashes and provenance do not replace the natal charts as the default view.
+- [ ] `进入时运联动`, `进入融合视图`, and `查看专业审计` navigate between product areas without causing a new calculation by themselves.
+- [ ] A validation/input error is visible directly below the input/status area rather than being hidden below the full chart workspace.
+- [ ] The professional audit area still exposes ManifestHash/Profile/RuleSet/Algorithm/provenance information and does not silently drop an integrity failure.
+
 ### Base composition
 
 - [ ] `fortune-chart-app` starts and opens/binds only to `127.0.0.1`.
@@ -171,6 +197,7 @@ After the command-level smoke passes, perform this short visual/interaction chec
 
 - [ ] Changing Daxian updates the Ziwei interaction view without relocating natal physical placements.
 - [ ] Changing Annual updates the Ziwei interaction view.
+- [ ] Changing regular Lunar Month updates the Ziwei interaction view.
 - [ ] Changing Minor-limit updates the Ziwei interaction view.
 - [ ] Clicking a natal palace changes the current palace-origin / 立太极.
 - [ ] The highlighted Sanfang/Sizheng set contains SELF, two trines and one opposition at the released +0/+4/+8/+6 geometry.
@@ -180,15 +207,24 @@ After the command-level smoke passes, perform this short visual/interaction chec
 
 - [ ] Target-flow cannot be resolved from an old/stale base after source birth fields are edited.
 - [ ] Explicit target datetime/place/coordinates/timezone are shown as a separate target input from birth input.
-- [ ] An ordinary exact target produces at least one Bazi flow candidate with Daily/Hourly frames and lineage/hash display.
+- [ ] An ordinary exact target produces at least one Bazi flow candidate with both Xiaoyun candidates, Daily/Hourly frames, and lineage/hash display.
+- [ ] Every resolved Bazi temporal layer shows read-only Ten God, hidden-stem Ten Gods, Nayin, Xunkong, day-master Twelve Growth, self Twelve Growth and an annotation FactHash; both Xiaoyun candidates remain separate.
+- [ ] Neutral Dayun/Annual/Monthly structure shows frame-bound visible stems/branches, ordered hidden stems and Ten Gods, dynamic exposure/affinity facts, raw relations, layers, rule/source identity, Structural FactHash and projection FactHash; no effect, strength, winner or transformation-success conclusion appears.
+- [ ] A pre-Dayun target has no fabricated Dayun structural participant, and Xiaoyun/Daily/Hourly remain explicitly outside Structural R1 coverage.
+- [ ] Structural Support is a separate read-only pane: Natal month command and active Flow month are distinct; exact and same-element candidates retain affinity/exposure/rule/source IDs and projection hash.
+- [ ] Structural Support shows no root/no-root, strength, weight, score, 得令, pattern, useful-god, interpretation or prediction verdict.
 - [ ] If a fold/uncertainty fixture produces multiple candidates, the candidate selector preserves them individually.
 
 ### Shared projection and Apply
 
-- [ ] Clicking `计算共享 Projection` does **not** change Ziwei Daxian / Annual / Minor selectors.
+- [ ] Clicking `计算共享 Projection` does **not** change Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors.
 - [ ] A one-candidate projection may be preselected, but Ziwei still does not change until Apply is clicked.
 - [ ] A multi-candidate projection requires explicit candidate selection; candidate 0 is not auto-applied.
-- [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / Minor selectors and refreshes the existing Ziwei interaction view.
+- [ ] Clicking `应用目标时间到紫微` changes exactly the server-returned Ziwei Daxian / Annual / regular-Lunar-Month / Minor selectors and refreshes the existing Ziwei interaction view.
+- [ ] A leap-month target does not fabricate or apply a regular Ziwei monthly frame.
+- [ ] Daxian / Annual / regular-Month read-only lines expose separate source stems, parent frames, four transformations, 禄羊陀／流昌曲 instances, unselected strict/compatibility 流魁钺 candidates, and Daxian/Annual-only branch-basis 流天马 case candidates with rule identities and 64-character hashes.
+- [ ] Minor-limit read-only output shows exactly one natal-ring encounter from each of 博士／将前／岁前, including the Minor frame/address, original ring anchor/direction/source and independent 64-character hashes; it does not claim to regenerate a moving ring.
+- [ ] Same-named transformations and auxiliaries in different layers remain separate instances rather than collapsing into one display fact.
 - [ ] Apply does not change target datetime/place/coordinates/timezone, Bazi profile fields, or Bazi target-flow result.
 - [ ] Manual Ziwei navigation after Apply does not rewrite target fields.
 - [ ] Editing any birth/source input invalidates stale target-flow/projection eligibility.
@@ -210,7 +246,7 @@ The automated test suite already contains exact DST-fold and Dec-31/Jan-1 discri
 
 If the browser result disagrees with an external reference application or behaves unexpectedly, record the smallest reproducible packet:
 
-- current Git `main` commit;
+- exact source commit bound to the running checkout or packaged build;
 - OS / Python / browser version;
 - exact birth input and selected profiles;
 - exact target input when target-flow/shared projection is involved;
@@ -226,7 +262,8 @@ Open a new narrow calibration issue for that discrepancy. Do not change canonica
 This calibration runbook treats the current released workbench as a deterministic application composition:
 
 ```text
-Birth Input
+Desktop Product Shell
+  -> Birth Input / advanced explicit profiles
   -> Combined base Ziwei + Bazi bundles
   -> Ziwei Sanhe interaction sidecar
   -> Bazi explicit Target-Flow sidecar

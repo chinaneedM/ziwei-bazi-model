@@ -244,6 +244,9 @@ class CombinedBrowserZiweiSanheInteractionSidecarR1Tests(unittest.TestCase):
         self.assertNotIn("renderBazi", INTERACTION_JS)
         self.assertNotIn("target_datetime", INTERACTION_JS)
         self.assertNotIn("target_longitude", INTERACTION_JS)
+        self.assertIn('id="ziwei-month-nav"', INTERACTION_JS)
+        self.assertIn("ziwei_lunar_month: optionalInt('ziwei-lunar-month')", INTERACTION_JS)
+        self.assertIn("$('ziwei-lunar-month').value = monthNav.value", INTERACTION_JS)
 
     def test_real_loopback_server_exposes_additive_interaction_route(self) -> None:
         server = build_interaction_server(ROOT, port=0)

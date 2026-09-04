@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any, Mapping
 
 from fortune_training.bazi_application import (
     BaziApplicationProfile,
@@ -37,6 +38,7 @@ class CombinedChartApplicationRequest:
     combined_profile: CombinedChartApplicationProfile
     ziwei_daxian_frame_id: str | None = None
     ziwei_annual_year: int | None = None
+    ziwei_lunar_month: int | None = None
     ziwei_minor_limit_age: int | None = None
     ziwei_daxian_count: int = 12
     bazi_dayun_count: int = 12
@@ -67,5 +69,7 @@ class CombinedChartApplicationResolution:
     bazi_bundle: BaziApplicationResolution | None
     ziwei_error: CombinedSubsystemError | None
     bazi_error: CombinedSubsystemError | None
+    shared_time_credential: Mapping[str, Any]
+    candidate_lineage: Mapping[str, Any]
     manifest_hash: str
     integrity: CombinedApplicationIntegrityReport

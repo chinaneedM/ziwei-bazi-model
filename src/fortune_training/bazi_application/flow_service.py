@@ -17,6 +17,16 @@ from fortune_training.bazi_flow import (
     flow_hash_bundle,
     validate_flow_context,
 )
+from fortune_training.bazi_structural import (
+    BaziStructuralEngine,
+    BaziStructuralRequest,
+    bazi_structural_context_r1_profile,
+)
+from fortune_training.bazi_structural_support import (
+    BaziStructuralSupportEngine,
+    BaziStructuralSupportRequest,
+    bazi_structural_support_foundation_r1_profile,
+)
 from fortune_training.bazi_target_temporal import (
     TargetTemporalCoordinateFoundation,
     target_hash_bundle,
@@ -43,6 +53,9 @@ from .flow_models import (
 )
 from .models import BaziApplicationResolution
 from .service import BaziApplicationResolutionError, BaziChartService
+from .temporal_annotations import temporal_classical_annotation_projection
+from .structural_projection import structural_projection
+from .structural_support_projection import structural_support_projection
 
 
 class BaziApplicationFlowService:
@@ -54,11 +67,17 @@ class BaziApplicationFlowService:
         target_foundation: TargetTemporalCoordinateFoundation | None = None,
         flow_engine: BaziFlowEngine | None = None,
         daily_hourly_engine: BaziDailyHourlyFlowEngine | None = None,
+        structural_engine: BaziStructuralEngine | None = None,
+        structural_support_engine: BaziStructuralSupportEngine | None = None,
     ) -> None:
         self.base_service = base_service
         self.target_foundation = target_foundation or TargetTemporalCoordinateFoundation()
         self.flow_engine = flow_engine or BaziFlowEngine()
         self.daily_hourly_engine = daily_hourly_engine or BaziDailyHourlyFlowEngine()
+        self.structural_engine = structural_engine or BaziStructuralEngine()
+        self.structural_support_engine = (
+            structural_support_engine or BaziStructuralSupportEngine()
+        )
 
     @classmethod
     def from_repository(cls, repository_root: Path) -> "BaziApplicationFlowService":
@@ -97,11 +116,91 @@ class BaziApplicationFlowService:
         flow,
         flow_index: int,
         daily_hourly,
+        structural,
+        structural_support,
         target_resolution,
         source_application_candidate_ids: tuple[str, ...],
+        xiaoyun: dict[str, Any],
+        birth_civil_year: int,
+        day_master_stem: str,
     ) -> dict[str, Any]:
         context = daily_hourly.context
         target_index = daily_hourly.source_target_coordinate_candidate_index
+        target_candidate = target_resolution.candidates[target_index]
+        nominal_age = (
+            target_candidate.sample_reported_local_datetime.year
+            - birth_civil_year
+            + 1
+        )
+        active_xiaoyun = []
+        for candidate in xiaoyun["candidates"]:
+            matches = [
+                frame
+                for frame in candidate["frames"]
+                if frame["nominal_age"] == nominal_age
+            ]
+            active_xiaoyun.append(
+                {
+                    "profile_id": candidate["profile_id"],
+                    "direction": candidate["direction"],
+                    "source_refs": candidate["source_refs"],
+                    "active_frame": matches[0] if len(matches) == 1 else None,
+                    "activation_status": (
+                        "OPERATIONAL_CIVIL_NOMINAL_AGE_MATCH"
+                        if len(matches) == 1
+                        else "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"
+                    ),
+                }
+            )
+        timeline = {
+            "schema": "BAZI-UNIFIED-TARGET-TIMELINE-R1",
+            "target_coordinate_candidate_id": target_candidate.candidate_id,
+            "layer_order": [
+                "NATAL",
+                "DAYUN",
+                "XIAOYUN",
+                "ANNUAL",
+                "MONTHLY",
+                "DAILY",
+                "HOURLY",
+            ],
+            "natal": {
+                "source_application_candidate_ids": list(
+                    source_application_candidate_ids
+                ),
+                "natal_fact_hash": flow.context.upstream_natal_fact_hash,
+            },
+            "dayun": {
+                "kind": flow.context.active_dayun_kind,
+                "frame": json_value(flow.context.active_dayun_frame),
+            },
+            "xiaoyun": {
+                "selection_status": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES",
+                "age_coordinate": {
+                    "nominal_age": nominal_age,
+                    "profile_id": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1",
+                    "source_class": "ENGINEERING_LINKAGE_COORDINATE",
+                    "formula": "target_local_civil_year-birth_local_civil_year+1",
+                    "classical_age_boundary_status": "NOT_ARBITRATED",
+                },
+                "candidates": active_xiaoyun,
+            },
+            "annual": json_value(flow.context.annual_frame),
+            "monthly": json_value(flow.context.monthly_frame),
+            "daily": json_value(context.daily_frame),
+            "hourly": json_value(context.hourly_frame),
+            "semantic_scope": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION",
+        }
+        timeline["classical_annotations"] = temporal_classical_annotation_projection(
+            day_master_stem,
+            dayun_kind=flow.context.active_dayun_kind,
+            dayun_frame=json_value(flow.context.active_dayun_frame),
+            xiaoyun_candidates=active_xiaoyun,
+            annual_frame=json_value(flow.context.annual_frame),
+            monthly_frame=json_value(flow.context.monthly_frame),
+            daily_frame=json_value(context.daily_frame),
+            hourly_frame=json_value(context.hourly_frame),
+        )
         return {
             "target": BaziApplicationFlowService._target_view(
                 target_resolution, target_index
@@ -114,6 +213,11 @@ class BaziApplicationFlowService:
             },
             "daily": json_value(context.daily_frame),
             "hourly": json_value(context.hourly_frame),
+            "timeline": timeline,
+            "structural": structural_projection(structural),
+            "structural_support": structural_support_projection(
+                structural_support
+            ),
             "lineage": {
                 "natal_candidate_index": natal_index,
                 "source_temporal_candidate_indices": list(
@@ -129,12 +233,20 @@ class BaziApplicationFlowService:
                 "target_coordinate": target_resolution.integrity.status,
                 "flow": flow.integrity.status,
                 "daily_hourly": daily_hourly.integrity.status,
+                "structural": structural.integrity.status,
+                "structural_support": structural_support.integrity.status,
             },
             "source_hashes": {
                 "natal_fact_hash": flow.context.upstream_natal_fact_hash,
                 "temporal_fact_hash": flow.context.upstream_temporal_fact_hash,
                 "flow_fact_hash": flow.hashes.fact_hash,
                 "flow_computation_hash": flow.hashes.computation_hash,
+                "structural_fact_hash": structural.hashes.fact_hash,
+                "structural_computation_hash": structural.hashes.computation_hash,
+                "structural_support_fact_hash": structural_support.hashes.fact_hash,
+                "structural_support_computation_hash": (
+                    structural_support.hashes.computation_hash
+                ),
                 "target_coordinate_fact_hash": target_resolution.hashes.fact_hash,
                 "target_coordinate_computation_hash": (
                     target_resolution.hashes.computation_hash
@@ -312,6 +424,72 @@ class BaziApplicationFlowService:
                             flow.hashes.fact_hash,
                         )
 
+            structural_resolution = self.structural_engine.resolve_typed(
+                BaziStructuralRequest(
+                    natal_candidate=natal,
+                    flow_candidates=flow_tuple,
+                    structural_profile=bazi_structural_context_r1_profile(),
+                )
+            )
+            if (
+                structural_resolution.status == "FAILED"
+                or not structural_resolution.candidates
+            ):
+                raise BaziApplicationResolutionError(
+                    "BAZI_APP_FLOW_STRUCTURAL_RESOLUTION_FAILED",
+                    ";".join(structural_resolution.diagnostics)
+                    or structural_resolution.status,
+                )
+            structural_by_flow_index = {}
+            for structural in structural_resolution.candidates:
+                for source_flow_index in structural.source_flow_candidate_indices:
+                    if source_flow_index in structural_by_flow_index:
+                        raise BaziApplicationResolutionError(
+                            "BAZI_APP_FLOW_STRUCTURAL_LINEAGE_DUPLICATE",
+                            str(source_flow_index),
+                        )
+                    structural_by_flow_index[source_flow_index] = structural
+            if set(structural_by_flow_index) != set(range(len(flow_tuple))):
+                raise BaziApplicationResolutionError(
+                    "BAZI_APP_FLOW_STRUCTURAL_LINEAGE_INCOMPLETE",
+                    str(sorted(structural_by_flow_index)),
+                )
+
+            support_resolution = self.structural_support_engine.resolve_typed(
+                BaziStructuralSupportRequest(
+                    natal_candidate=natal,
+                    flow_candidates=flow_tuple,
+                    structural_candidates=structural_resolution.candidates,
+                    support_profile=bazi_structural_support_foundation_r1_profile(),
+                )
+            )
+            if support_resolution.status == "FAILED" or not support_resolution.candidates:
+                raise BaziApplicationResolutionError(
+                    "BAZI_APP_FLOW_STRUCTURAL_SUPPORT_RESOLUTION_FAILED",
+                    ";".join(support_resolution.diagnostics)
+                    or support_resolution.status,
+                )
+            support_by_flow_index = {}
+            for support in support_resolution.candidates:
+                if support.integrity.status != "PASS":
+                    raise BaziApplicationResolutionError(
+                        "BAZI_APP_FLOW_STRUCTURAL_SUPPORT_INTEGRITY_FAILED",
+                        support.hashes.fact_hash,
+                    )
+                for source_flow_index in support.source_flow_candidate_indices:
+                    if source_flow_index in support_by_flow_index:
+                        raise BaziApplicationResolutionError(
+                            "BAZI_APP_FLOW_STRUCTURAL_SUPPORT_LINEAGE_DUPLICATE",
+                            str(source_flow_index),
+                        )
+                    support_by_flow_index[source_flow_index] = support
+            if set(support_by_flow_index) != set(range(len(flow_tuple))):
+                raise BaziApplicationResolutionError(
+                    "BAZI_APP_FLOW_STRUCTURAL_SUPPORT_LINEAGE_INCOMPLETE",
+                    str(sorted(support_by_flow_index)),
+                )
+            events.extend(support_resolution.events)
+
             daily_hourly_resolution = self.daily_hourly_engine.resolve(
                 BaziDailyHourlyFlowRequest(
                     flow_candidates=flow_tuple,
@@ -353,17 +531,39 @@ class BaziApplicationFlowService:
                         str(flow_index),
                     )
                 flow = flow_tuple[flow_index]
+                structural = structural_by_flow_index[flow_index]
+                structural_support = support_by_flow_index[flow_index]
                 source_application_candidate_ids = tuple(
                     base_candidate_by_lineage[(natal_index, temporal_index)].candidate_id
                     for temporal_index in flow.source_temporal_candidate_indices
                 )
+                source_application_candidates = tuple(
+                    base_candidate_by_lineage[(natal_index, temporal_index)]
+                    for temporal_index in flow.source_temporal_candidate_indices
+                )
+                xiaoyun_views = tuple(
+                    candidate.view["xiaoyun"]
+                    for candidate in source_application_candidates
+                )
+                if not xiaoyun_views or any(
+                    row != xiaoyun_views[0] for row in xiaoyun_views[1:]
+                ):
+                    raise BaziApplicationResolutionError(
+                        "BAZI_APP_FLOW_XIAOYUN_LINEAGE_MISMATCH",
+                        f"natal={natal_index};flow={flow_index}",
+                    )
                 view = self._build_view(
                     natal_index,
                     flow,
                     flow_index,
                     daily_hourly,
+                    structural,
+                    structural_support,
                     target_resolution,
                     source_application_candidate_ids,
+                    xiaoyun_views[0],
+                    base_request.birth.reported_local_datetime.year,
+                    natal.chart.day_master_stem,
                 )
                 view_hash = object_sha256(
                     {"view_schema": FLOW_APPLICATION_VIEW_SCHEMA, "view": view}
@@ -386,6 +586,14 @@ class BaziApplicationFlowService:
                     temporal_fact_hash=flow.context.upstream_temporal_fact_hash,
                     flow_fact_hash=flow.hashes.fact_hash,
                     flow_computation_hash=flow.hashes.computation_hash,
+                    structural_fact_hash=structural.hashes.fact_hash,
+                    structural_computation_hash=structural.hashes.computation_hash,
+                    structural_support_fact_hash=(
+                        structural_support.hashes.fact_hash
+                    ),
+                    structural_support_computation_hash=(
+                        structural_support.hashes.computation_hash
+                    ),
                     daily_hourly_fact_hash=daily_hourly.hashes.fact_hash,
                     daily_hourly_computation_hash=(
                         daily_hourly.hashes.computation_hash

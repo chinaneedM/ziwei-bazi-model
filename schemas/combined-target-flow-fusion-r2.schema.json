@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/combined-target-flow-fusion-r2.schema.json",
+  "title": "Ziwei+Bazi Combined Target-Flow Fusion R2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "composition_semantics",
+    "base_combined_manifest_hash",
+    "r1_target_flow_bundle_hash",
+    "target_coordinate_status",
+    "target_coordinate_fact_hash",
+    "target_coordinate_computation_hash",
+    "target_coordinate_profile_id",
+    "target_coordinate_profile_version",
+    "target_input",
+    "bazi_target_flow_status",
+    "bazi_target_flow_source_fact_hash",
+    "bazi_target_flow_view_hash",
+    "bazi_target_flow_bundle_hash",
+    "ziwei_selector_status",
+    "ziwei_selector_candidate_count",
+    "ziwei_selector_fact_hash",
+    "ziwei_selector_computation_hash",
+    "source_fact_hash",
+    "view_hash",
+    "bundle_hash",
+    "integrity"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-FUSION-RESOLUTION-R2"
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "UNCERTAINTY_PRESENT"
+      ]
+    },
+    "composition_semantics": {
+      "const": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY"
+    },
+    "base_combined_manifest_hash": {"$ref": "#/$defs/hash"},
+    "r1_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_status": {
+      "enum": [
+        "RESOLVED",
+        "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY"
+      ]
+    },
+    "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
+    "target_coordinate_profile_id": {
+      "const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"
+    },
+    "target_coordinate_profile_version": {"const": "1.0.0"},
+    "target_input": {"$ref": "#/$defs/targetInput"},
+    "bazi_target_flow_status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "bazi_target_flow_source_fact_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_view_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+    "ziwei_selector_status": {"const": "RESOLVED"},
+    "ziwei_selector_candidate_count": {"type": "integer", "minimum": 1},
+    "ziwei_selector_fact_hash": {"$ref": "#/$defs/hash"},
+    "ziwei_selector_computation_hash": {"$ref": "#/$defs/hash"},
+    "source_fact_hash": {"$ref": "#/$defs/hash"},
+    "view_hash": {"$ref": "#/$defs/hash"},
+    "bundle_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "targetInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reported_local_datetime",
+        "target_place",
+        "latitude",
+        "longitude",
+        "timezone_id",
+        "precision",
+        "uncertainty_seconds"
+      ],
+      "properties": {
+        "reported_local_datetime": {"type": "string"},
+        "target_place": {"type": "string", "minLength": 1},
+        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
+        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "timezone_id": {"type": "string", "minLength": 1},
+        "precision": {
+          "enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]
+        },
+        "uncertainty_seconds": {"type": "integer", "minimum": 0}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {
+          "const": "ZIWEI-BAZI-COMBINED-TARGET-FLOW-FUSION-INTEGRITY-R2"
+        },
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}

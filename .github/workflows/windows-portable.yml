@@ -7,14 +7,24 @@ on:
       - ".github/workflows/windows-portable.yml"
       - ".github/workflows/windows-stable-promote-push.yml"
       - ".github/workflows/windows-stable-promote-pr.yml"
+      - ".github/workflows/ci.yml"
       - "pyproject.toml"
       - "config/time-calendar-policies.json"
       - "scripts/build-windows-portable.ps1"
       - "scripts/fortune_chart_desktop.py"
       - "scripts/fortune_chart_updater.py"
+      - "scripts/verify-fusion-chart-product-r1.py"
       - "src/fortune_training/desktop_application/**"
       - "src/fortune_training/combined_chart_application/**"
+      - "docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md"
+      - "docs/FUSION-CHART-FIELD-CLOSURE-AUDIT-R1.md"
+      - "docs/FUSION-CHART-FIELD-PARITY-MATRIX-R1.json"
+      - "docs/FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md"
+      - "docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md"
+      - "README.md"
       - "tests/test_windows_portable_desktop_launcher_r1.py"
+      - "tests/test_fusion_chart_desktop_product_shell_r1.py"
+      - "tests/test_combined_workbench_real_machine_calibration_r1.py"
       - "tests/test_windows_verified_auto_update_r1.py"
       - "tests/test_windows_stable_release_promotion_branch_r1.py"
       - "tests/test_windows_stable_release_promotion_push_control_r3.py"
@@ -49,12 +59,17 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: python -m pip install -e ".[desktop-build]"
+      - name: Run Fusion Chart Product R1 machine gate
+        shell: pwsh
+        run: python scripts/verify-fusion-chart-product-r1.py
       - name: Run Windows portable/update focused tests
         shell: pwsh
         run: |
           python -m unittest discover -s tests -p "test_windows_portable_desktop_launcher_r1.py" -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest discover -s tests -p "test_windows_verified_auto_update_r1.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p "test_fusion_chart_desktop_product_shell_r1.py" -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest discover -s tests -p "test_windows_stable_release_promotion_branch_r1.py" -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -86,6 +101,49 @@ jobs:
       - name: Build portable Windows bundle and update manifest
         shell: pwsh
         run: ./scripts/build-windows-portable.ps1 -SourceCommit "$env:SOURCE_COMMIT"
+      - name: Run emitted Windows binary platform smoke
+        shell: pwsh
+        run: |
+          $zip = (Resolve-Path 'dist/FortuneChart-windows-x64.zip').Path
+          $manifest = Get-Content 'dist/fortune-chart-update.json' -Raw | ConvertFrom-Json
+          $actualHash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          $actualSize = (Get-Item $zip).Length
+          if ($actualHash -ne $manifest.asset_sha256) { throw 'binary smoke ZIP SHA-256 mismatch' }
+          if ($actualSize -ne $manifest.asset_size) { throw 'binary smoke ZIP size mismatch' }
+
+          $smokeRoot = Join-Path $env:RUNNER_TEMP 'fortune-chart-emitted-zip-smoke'
+          $receiptRoot = Join-Path (Resolve-Path 'dist').Path 'platform-acceptance'
+          New-Item -ItemType Directory -Force -Path $smokeRoot, $receiptRoot | Out-Null
+          Expand-Archive -LiteralPath $zip -DestinationPath $smokeRoot -Force
+          $bundle = Join-Path $smokeRoot 'FortuneChart'
+          $appReceipt = Join-Path $receiptRoot 'windows-binary-smoke.json'
+          $updaterReceipt = Join-Path $receiptRoot 'windows-updater-binary-smoke.json'
+
+          $app = Start-Process -FilePath (Join-Path $bundle 'FortuneChart.exe') `
+            -ArgumentList @('--platform-smoke-receipt', $appReceipt) -Wait -PassThru
+          if ($app.ExitCode -ne 0) { throw "FortuneChart binary smoke failed: $($app.ExitCode)" }
+          $updater = Start-Process -FilePath (Join-Path $bundle 'FortuneChartUpdater.exe') `
+            -ArgumentList @('--platform-smoke-receipt', $updaterReceipt) -Wait -PassThru
+          if ($updater.ExitCode -ne 0) { throw "FortuneChartUpdater binary smoke failed: $($updater.ExitCode)" }
+
+          $appResult = Get-Content $appReceipt -Raw | ConvertFrom-Json
+          $updaterResult = Get-Content $updaterReceipt -Raw | ConvertFrom-Json
+          if ($appResult.schema -ne 'FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1' -or $appResult.status -ne 'PASS') {
+            throw 'invalid FortuneChart binary smoke receipt'
+          }
+          if ($appResult.source_commit -ne $env:SOURCE_COMMIT) { throw 'binary smoke source commit mismatch' }
+          if ($appResult.application_version -ne $manifest.version) { throw 'binary smoke version mismatch' }
+          if ($appResult.bind_policy -ne 'LOOPBACK_ONLY') { throw 'binary smoke bind policy mismatch' }
+          if ($appResult.desktop_product_shell_schema -ne 'FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1') {
+            throw 'binary product shell schema mismatch'
+          }
+          if ($appResult.desktop_product_shell_asset_count -ne 3) {
+            throw 'binary product shell asset count mismatch'
+          }
+          if ($updaterResult.schema -ne 'FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1' -or $updaterResult.status -ne 'PASS') {
+            throw 'invalid updater binary smoke receipt'
+          }
+          if ($updaterResult.mutation_performed -ne $false) { throw 'updater binary smoke performed mutation' }
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4
         with:
@@ -93,6 +151,7 @@ jobs:
           path: |
             dist/FortuneChart-windows-x64.zip
             dist/fortune-chart-update.json
+            dist/platform-acceptance/*.json
           if-no-files-found: error
 
   publish-stable-release:

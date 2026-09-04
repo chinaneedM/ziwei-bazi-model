@@ -7,6 +7,9 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from fortune_training.combined_chart_application.product_shell_assets import (
+    DESKTOP_PRODUCT_SHELL_SCHEMA,
+)
 from fortune_training.desktop_application.distribution import (
     DESKTOP_APPLICATION_ID,
     DESKTOP_APPLICATION_VERSION,
@@ -18,6 +21,10 @@ from fortune_training.desktop_application.distribution import (
 from fortune_training.desktop_application.launcher import (
     build_desktop_server,
     serve_desktop,
+)
+from fortune_training.desktop_application.platform_acceptance import (
+    WINDOWS_BINARY_SMOKE_SCHEMA,
+    run_windows_binary_smoke,
 )
 from fortune_training.desktop_application.runtime import resolve_runtime_repository_root
 
@@ -138,6 +145,41 @@ class WindowsPortableDesktopLauncherR1Test(unittest.TestCase):
             self.assertTrue(path.is_file(), relative)
             if path.suffix == ".json":
                 json.loads(path.read_text(encoding="utf-8"))
+
+    def test_binary_smoke_runs_loopback_health_and_combined_resolution(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            metadata_root = Path(temp_dir)
+            (metadata_root / "desktop-build-metadata.json").write_text(
+                json.dumps(build_metadata("a" * 40)),
+                encoding="utf-8",
+            )
+            server = build_desktop_server()
+            receipt = run_windows_binary_smoke(server, runtime_root=metadata_root)
+        self.assertEqual(receipt["schema"], WINDOWS_BINARY_SMOKE_SCHEMA)
+        self.assertEqual(receipt["status"], "PASS")
+        self.assertEqual(receipt["source_commit"], "a" * 40)
+        self.assertEqual(receipt["bind_policy"], "LOOPBACK_ONLY")
+        self.assertEqual(len(receipt["combined_manifest_hash"]), 64)
+        self.assertEqual(receipt["desktop_product_shell_schema"], DESKTOP_PRODUCT_SHELL_SCHEMA)
+        self.assertEqual(receipt["desktop_product_shell_asset_count"], 3)
+
+    def test_windows_workflow_smokes_executables_from_emitted_zip(self) -> None:
+        workflow = (REPO_ROOT / ".github" / "workflows" / "windows-portable.yml").read_text(
+            encoding="utf-8"
+        )
+        for expected in (
+            "Run emitted Windows binary platform smoke",
+            "Expand-Archive -LiteralPath $zip",
+            "FortuneChart.exe",
+            "FortuneChartUpdater.exe",
+            "--platform-smoke-receipt",
+            "FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1",
+            "FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1",
+            "binary smoke ZIP SHA-256 mismatch",
+            "binary smoke source commit mismatch",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, workflow)
 
 
 if __name__ == "__main__":

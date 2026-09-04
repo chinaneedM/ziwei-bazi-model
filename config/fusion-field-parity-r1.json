@@ -1,0 +1,296 @@
+{
+  "schema": "FUSION-CHART-FIELD-PARITY-R1",
+  "audit_id": "FUSION-CHART-FIELD-CLOSURE-AUDIT-R1",
+  "baseline_branch": "agent/fusion-chart-core-r1-20260822",
+  "baseline_commit": "22c86a3d3a85d99837f7dbe693e88bd0e5f63722",
+  "authority_policy": {
+    "repository_runtime_contracts": "AUTHORITATIVE_FOR_RELEASED_SOFTWARE_STATE",
+    "canonical_sources": "AUTHORITATIVE_FOR_SOURCE_BOUND_RULES",
+    "wenmo_tianji": "REFERENCE_COMPATIBILITY_ONLY",
+    "wenzhen_bazi": "REFERENCE_COMPATIBILITY_ONLY",
+    "no_reference_product_may_override_source_profile": true
+  },
+  "classification_vocabulary": [
+    "ALREADY_RELEASED_AND_VISIBLE",
+    "ALREADY_RELEASED_NOT_YET_VISIBLE",
+    "DETERMINISTIC_RUNTIME_MISSING",
+    "SOURCE_PROFILE_OR_SCHOOL_CONFLICT",
+    "REFERENCE_PRODUCT_ONLY",
+    "INTERPRETIVE_OR_PREDICTIVE_OUT_OF_SCOPE"
+  ],
+  "rows": [
+    {
+      "field_id": "SHARED_TIME_CREDENTIAL",
+      "system": "FUSION",
+      "display_name": "共享时间凭证",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["combined_chart_application/fusion_time.py", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": ["WENMO:CLOCK_TIME", "WENMO:TRUE_SOLAR_TIME"],
+      "next_action": "KEEP_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "SHARED_TARGET_FUSION_R2",
+      "system": "FUSION",
+      "display_name": "联合目标时点 R2",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["combined_chart_application/flow_fusion_r2.py", "combined_chart_application/flow_fusion_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_READ_ONLY_AND_CANDIDATE_PRESERVING"
+    },
+    {
+      "field_id": "BAZI_FOUR_PILLARS",
+      "system": "BAZI",
+      "display_name": "四柱干支",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_chart", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": ["WENMO:SOLAR_TERM_FOUR_PILLARS"],
+      "next_action": "KEEP_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "BAZI_HIDDEN_STEMS_TEN_GODS",
+      "system": "BAZI",
+      "display_name": "藏干与十神",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_chart", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "BAZI_NAYIN",
+      "system": "BAZI",
+      "display_name": "纳音",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["combined_chart_application/nayin_assets.py", "combined_chart_application/nayin_local_app.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_SIDECAR_SOURCE_BOUND"
+    },
+    {
+      "field_id": "BAZI_XUNKONG_GROWTH",
+      "system": "BAZI",
+      "display_name": "旬空、星运、自坐",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_classical_annotations", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_FACT_ONLY"
+    },
+    {
+      "field_id": "BAZI_DERIVED_COORDINATES",
+      "system": "BAZI",
+      "display_name": "胎元、命宫、身宫",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_derived_coordinates", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_PROFILE_ALTERNATIVES_EXPLICIT"
+    },
+    {
+      "field_id": "BAZI_SHENSHA_CORE",
+      "system": "BAZI",
+      "display_name": "神煞事实候选",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_shensha_facts", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "EXPAND_ONLY_WITH_SOURCE_BOUND_RULES"
+    },
+    {
+      "field_id": "BAZI_XIAOYUN",
+      "system": "BAZI",
+      "display_name": "小运候选",
+      "classification": "SOURCE_PROFILE_OR_SCHOOL_CONFLICT",
+      "runtime_evidence": ["bazi_xiaoyun_candidates", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "PRESERVE_MULTIPLE_METHOD_CANDIDATES"
+    },
+    {
+      "field_id": "BAZI_DAYUN",
+      "system": "BAZI",
+      "display_name": "交运与大运",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_temporal", "combined_chart_application/local_app_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_PROFILE_ID_VISIBLE"
+    },
+    {
+      "field_id": "BAZI_TARGET_FLOW_CHAIN",
+      "system": "BAZI",
+      "display_name": "大运/流年/流月/流日/流时目标流",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["bazi_application_flow", "combined_chart_application/target_flow_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_EXPLICIT_TARGET_COORDINATE"
+    },
+    {
+      "field_id": "ZIWEI_TWELVE_PALACES",
+      "system": "ZIWEI",
+      "display_name": "十二宫与宫干支",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:TWELVE_PALACES"],
+      "next_action": "KEEP_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "ZIWEI_PHYSICAL_STAR_INVENTORY",
+      "system": "ZIWEI",
+      "display_name": "主星、辅星、小星物理星曜",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:MAIN_AUX_MINOR_STARS"],
+      "next_action": "CONTINUE_REFERENCE_CHARTDIFF_COVERAGE"
+    },
+    {
+      "field_id": "ZIWEI_DIGNITY",
+      "system": "ZIWEI",
+      "display_name": "庙旺得利平陷与未评级状态",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/dignity.py", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:STAR_DIGNITY"],
+      "next_action": "NEVER_COERCE_UNRATED_TO_PING"
+    },
+    {
+      "field_id": "ZIWEI_NATAL_TRANSFORMATIONS",
+      "system": "ZIWEI",
+      "display_name": "生年四化",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:BIRTH_YEAR_TRANSFORMATIONS"],
+      "next_action": "KEEP_TARGET_PHYSICAL_IDENTITY"
+    },
+    {
+      "field_id": "ZIWEI_ROLE_BINDINGS",
+      "system": "ZIWEI",
+      "display_name": "命主、身主",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:RoleBinding", "ziwei_chart/models.py:NatalChartState.role_bindings", "combined_chart_application/ziwei_basic_info_assets.py"],
+      "reference_evidence": ["WENMO:LIFE_MASTER_BODY_MASTER"],
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "ZIWEI_FIVE_ELEMENT_BUREAU",
+      "system": "ZIWEI",
+      "display_name": "五行局数",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:FiveElementBureau", "ziwei_chart/models.py:NatalStructureState.bureau", "combined_chart_application/ziwei_basic_info_assets.py"],
+      "reference_evidence": ["WENMO:FIVE_ELEMENT_BUREAU"],
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "ZIWEI_BODY_PALACE",
+      "system": "ZIWEI",
+      "display_name": "身宫位置",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:NatalStructureState.body_address", "combined_chart_application/ziwei_basic_info_assets.py"],
+      "reference_evidence": ["WENMO:BODY_PALACE"],
+      "next_action": "KEEP_READ_ONLY_PRESENTATION_REGRESSION_LOCKED"
+    },
+    {
+      "field_id": "ZIWEI_RING_RUNTIME",
+      "system": "ZIWEI",
+      "display_name": "博士/长生/岁前/将前等环系成员",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_chart/models.py:RingInstance", "ziwei_application/svg.py:show_rings"],
+      "reference_evidence": ["WENMO:SUIQIAN", "WENMO:JIANGQIAN", "WENMO:TWELVE_GROWTH", "WENMO:TAISUI_SHALU"],
+      "next_action": "IMPROVE_GROUP_LABELS_WITHOUT_RECOMPUTATION"
+    },
+    {
+      "field_id": "ZIWEI_DAXIAN",
+      "system": "ZIWEI",
+      "display_name": "大限",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:DAXIAN"],
+      "next_action": "KEEP_TYPED_FRAME_IDENTITY"
+    },
+    {
+      "field_id": "ZIWEI_MINOR_LIMIT",
+      "system": "ZIWEI",
+      "display_name": "小限",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal", "ziwei_application/svg.py:minor_limit_frame_ids"],
+      "reference_evidence": ["WENMO:XIAOXIAN"],
+      "next_action": "KEEP_TYPED_FRAME_IDENTITY"
+    },
+    {
+      "field_id": "ZIWEI_DOUJUN",
+      "system": "ZIWEI",
+      "display_name": "斗君",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal", "ziwei_application/svg.py:doujun_frame_ids"],
+      "reference_evidence": ["WENMO:ZI_YEAR_DOUJUN"],
+      "next_action": "ADD_FRIENDLIER_CENTER_SUMMARY_LATER"
+    },
+    {
+      "field_id": "ZIWEI_ANNUAL_MONTHLY_TRANSFORMATIONS",
+      "system": "ZIWEI",
+      "display_name": "大限/流年/流月动态四化",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal", "ziwei_application/svg.py"],
+      "reference_evidence": ["WENMO:DAXIAN_TRANSFORMATIONS", "WENMO:ANNUAL_TRANSFORMATIONS"],
+      "next_action": "KEEP_TEMPORAL_LAYER_PROVENANCE"
+    },
+    {
+      "field_id": "ZIWEI_SANHE_INTERACTION",
+      "system": "ZIWEI",
+      "display_name": "三方四正交互",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_structural:R1-R5", "combined_chart_application/interaction_assets.py"],
+      "reference_evidence": [],
+      "next_action": "KEEP_TYPED_STRUCTURE_NOT_SVG_GEOMETRY"
+    },
+    {
+      "field_id": "ZIWEI_SELF_TRANSFORMATION",
+      "system": "ZIWEI",
+      "display_name": "离心自化/向心自化",
+      "classification": "DETERMINISTIC_RUNTIME_MISSING",
+      "runtime_evidence": ["sources/canonical-runtime/S08:SELF_TRANSFORMATION_DIRECTION_ENUM"],
+      "reference_evidence": ["WENMO:OUTWARD_SELF_TRANSFORMATION", "WENMO:INWARD_SELF_TRANSFORMATION"],
+      "next_action": "SOURCE_AUDIT_DIRECTION_TRIGGER_BEFORE_IMPLEMENTATION"
+    },
+    {
+      "field_id": "ZIWEI_LIMIT_FLOW_OVERLAP_LABEL",
+      "system": "ZIWEI",
+      "display_name": "限流叠宫显式标签",
+      "classification": "ALREADY_RELEASED_AND_VISIBLE",
+      "runtime_evidence": ["ziwei_temporal:typed frame designations", "combined_chart_application/ziwei_basic_info_assets.py"],
+      "reference_evidence": ["WENMO:LIMIT_FLOW_OVERLAP"],
+      "next_action": "KEEP_PRESENTATION_DERIVED_FROM_TYPED_LIFE_FRAME_IDENTITY_ONLY"
+    },
+    {
+      "field_id": "ZIWEI_QISHU_POSITION",
+      "system": "ZIWEI",
+      "display_name": "气数位",
+      "classification": "DETERMINISTIC_RUNTIME_MISSING",
+      "runtime_evidence": ["docs/ZIWEI-FOUNDATION-EXIT-AUDIT-R1.md:backlog"],
+      "reference_evidence": [],
+      "next_action": "DEFER_UNTIL_HIGHER_PRIORITY_VISIBLE_GAPS_CLOSE"
+    },
+    {
+      "field_id": "ZIWEI_YILIU_GONGZONG",
+      "system": "ZIWEI",
+      "display_name": "一六共宗",
+      "classification": "DETERMINISTIC_RUNTIME_MISSING",
+      "runtime_evidence": ["docs/ZIWEI-FOUNDATION-EXIT-AUDIT-R1.md:backlog"],
+      "reference_evidence": [],
+      "next_action": "DEFER_UNTIL_HIGHER_PRIORITY_VISIBLE_GAPS_CLOSE"
+    },
+    {
+      "field_id": "ZIWEI_JIAGONG",
+      "system": "ZIWEI",
+      "display_name": "夹宫",
+      "classification": "DETERMINISTIC_RUNTIME_MISSING",
+      "runtime_evidence": ["docs/ZIWEI-FOUNDATION-EXIT-AUDIT-R1.md:backlog"],
+      "reference_evidence": [],
+      "next_action": "DEFER_UNTIL_HIGHER_PRIORITY_VISIBLE_GAPS_CLOSE"
+    },
+    {
+      "field_id": "PREDICTION_INTERPRETATION",
+      "system": "FUSION",
+      "display_name": "吉凶、旺衰、格局、事件预测与跨系统断语",
+      "classification": "INTERPRETIVE_OR_PREDICTIVE_OUT_OF_SCOPE",
+      "runtime_evidence": [],
+      "reference_evidence": [],
+      "next_action": "DO_NOT_IMPLEMENT_IN_CHARTING_PHASE"
+    }
+  ],
+  "priority_queue": [
+    "ZIWEI_SELF_TRANSFORMATION"
+  ]
+}

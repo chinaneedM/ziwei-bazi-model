@@ -21,6 +21,7 @@ from fortune_training.combined_chart_application.local_app import (
     LocalCombinedChartApplication,
 )
 from fortune_training.combined_chart_application.target_flow_assets import (
+    TARGET_FLOW_CSS,
     TARGET_FLOW_JS,
     target_flow_index_html,
 )
@@ -202,6 +203,58 @@ class CombinedBrowserBaziTargetFlowSidecarR1Tests(unittest.TestCase):
         self.assertIn("candidateSelect.value === ''", TARGET_FLOW_JS)
         self.assertIn("if (candidates.length === 1)", TARGET_FLOW_JS)
         self.assertNotIn("candidateSelect.value = '0'", TARGET_FLOW_JS)
+
+    def test_browser_renders_both_xiaoyun_candidates_without_selecting_a_winner(self) -> None:
+        self.assertIn("view.timeline.xiaoyun.candidates.forEach", TARGET_FLOW_JS)
+        self.assertIn("小运候选", TARGET_FLOW_JS)
+        self.assertIn("row.activation_status", TARGET_FLOW_JS)
+
+    def test_browser_renders_temporal_classical_annotations_read_only(self) -> None:
+        self.assertIn("view.timeline.classical_annotations", TARGET_FLOW_JS)
+        self.assertIn("annotation.visible_ten_god.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.hidden_stems.map", TARGET_FLOW_JS)
+        self.assertIn("annotation.nayin.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.xunkong.display_name", TARGET_FLOW_JS)
+        self.assertIn("annotation.day_master_twelve_growth.phase", TARGET_FLOW_JS)
+        self.assertIn("annotation.self_twelve_growth.phase", TARGET_FLOW_JS)
+        self.assertIn("annotation_fact=${annotation.fact_hash}", TARGET_FLOW_JS)
+        self.assertIn(".bazi-flow-annotation", TARGET_FLOW_CSS)
+        for forbidden in ("旺衰", "格局", "用神", "喜忌", "预测"):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, TARGET_FLOW_JS)
+
+    def test_browser_renders_structural_projection_as_neutral_read_only_facts(self) -> None:
+        self.assertIn("renderStructural(view.structural)", TARGET_FLOW_JS)
+        self.assertIn("structural.active_temporal_stems.forEach", TARGET_FLOW_JS)
+        self.assertIn("structural.temporal_hidden_stems.filter", TARGET_FLOW_JS)
+        self.assertIn("structural.temporal_ten_gods.map", TARGET_FLOW_JS)
+        self.assertIn("structural.dynamic_exposures.forEach", TARGET_FLOW_JS)
+        self.assertIn("structural.dynamic_affinities.forEach", TARGET_FLOW_JS)
+        self.assertIn("exposure.link_id", TARGET_FLOW_JS)
+        self.assertIn("affinity.fact_id", TARGET_FLOW_JS)
+        self.assertIn("affinity.rule_set_id", TARGET_FLOW_JS)
+        self.assertIn("structural.relations.forEach", TARGET_FLOW_JS)
+        self.assertIn("relation.participant_instance_ids.join", TARGET_FLOW_JS)
+        self.assertIn("relation.rule_set_id", TARGET_FLOW_JS)
+        self.assertIn("relation.source_refs.join", TARGET_FLOW_JS)
+        self.assertIn("名义目标五行", TARGET_FLOW_JS)
+        self.assertIn("非成化结论", TARGET_FLOW_JS)
+        self.assertIn("不判强弱、作用或合化成败", TARGET_FLOW_JS)
+        self.assertIn("structural_projection_fact", TARGET_FLOW_JS)
+        self.assertIn(".bazi-flow-structural", TARGET_FLOW_CSS)
+        self.assertIn(".bazi-flow-structural-layer", TARGET_FLOW_CSS)
+
+    def test_browser_renders_structural_support_as_separate_neutral_facts(self) -> None:
+        self.assertIn("renderStructuralSupport(view.structural_support)", TARGET_FLOW_JS)
+        self.assertIn("support.natal_month_command", TARGET_FLOW_JS)
+        self.assertIn("support.active_flow_solar_month", TARGET_FLOW_JS)
+        self.assertIn("support.support_evidence_candidates.forEach", TARGET_FLOW_JS)
+        self.assertIn("candidate.source_affinity_fact_id", TARGET_FLOW_JS)
+        self.assertIn("candidate.source_exposure_link_ids.join", TARGET_FLOW_JS)
+        self.assertIn("candidate.rule_set_id", TARGET_FLOW_JS)
+        self.assertIn("不判有根、强弱、权重或得令", TARGET_FLOW_JS)
+        self.assertIn("support_projection_fact", TARGET_FLOW_JS)
+        self.assertIn(".bazi-flow-support", TARGET_FLOW_CSS)
 
     def test_browser_flow_never_writes_ziwei_selector_or_svg_state(self) -> None:
         for forbidden in (

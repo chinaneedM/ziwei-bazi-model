@@ -110,6 +110,10 @@ button[type=button] { background:#fff; color:#222; border-color:#ccd2d8; } butto
 .pillars { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:12px 0; }
 .pillar { border:1px solid #e0e3e7; border-radius:9px; padding:12px; text-align:center; } .pillar .pos { font-size:11px; color:#777; } .pillar .ganzhi { font-size:25px; margin:5px 0; } .pillar .ten { font-size:12px; }
 .hidden { margin-top:7px; font-size:12px; color:#555; line-height:1.7; }
+.shensha { margin:10px 0; padding:10px; border:1px solid #e2d7bd; border-radius:9px; background:#fffdf7; }
+.shensha strong { display:block; margin-bottom:6px; font-size:12px; color:#795548; }
+.shensha-items { display:flex; flex-wrap:wrap; gap:6px; }
+.shensha-item { padding:5px 7px; border:1px solid #eadfc8; border-radius:6px; background:#fff; font-size:11px; }
 .dayun { overflow:auto; } table { width:100%; border-collapse:collapse; font-size:12px; } th,td { padding:7px 8px; border-bottom:1px solid #e5e7ea; text-align:left; white-space:nowrap; }
 .placeholder { min-height:260px; display:grid; place-items:center; color:#888; }
 @media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } .pillars { grid-template-columns:1fr 1fr; } .status-grid { grid-template-columns:1fr; } }
@@ -142,6 +146,16 @@ APP_JS = """
       box.append(hidden); pillars.append(box);
     });
     card.append(pillars);
+    const shensha = candidate.view.shensha;
+    if (shensha?.candidates?.length) {
+      const section = el('section', undefined, 'shensha');
+      section.append(el('strong', '神煞事实候选（年、日、月令及落柱口径分列，不裁决、不合并）'));
+      const items = el('div', undefined, 'shensha-items');
+      const basis = {DAY_STEM:'日干',YEAR_STEM:'年干',DAY_BRANCH:'日支',YEAR_BRANCH:'年支',MONTH_BRANCH:'月令',MONTH_BRANCH_SEASON:'月令季节',YEAR_NAYIN_ELEMENT:'年柱纳音',DAY_NAYIN_ELEMENT:'日柱纳音',PILLAR_STEM_SEQUENCE:'顺序天干'};
+      shensha.candidates.filter((row) => row.present).forEach((row) => { const positions=row.occurrences.flatMap((hit)=>hit.pillar_positions||[hit.pillar_position]).join('、'); items.append(el('span', `${row.display_name}｜${basis[row.anchor_basis] || row.anchor_basis} ${row.anchor_value} → ${positions}`, 'shensha-item')); });
+      if (!items.childElementCount) items.append(el('span', '当前四柱无匹配', 'shensha-item'));
+      section.append(items); card.append(section);
+    }
     const j = candidate.view.dayun.jiaoyun;
     card.append(el('div', `交运：${j.first_transition_utc}　锚点：${j.anchor_jie_name}　象征岁数：${j.symbolic_age.years_360}年${j.symbolic_age.months_30}月${j.symbolic_age.days}日`, 'meta'));
     const wrap = el('div', undefined, 'dayun'); const table = el('table');

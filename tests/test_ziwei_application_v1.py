@@ -40,6 +40,7 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             presentation_profile=ziwei_application_default_presentation_profile(),
             daxian_frame_id="DAXIAN:index=1",
             annual_year=2001,
+            lunar_month=5,
             minor_limit_age=8,
         )
         cls.bundle = cls.service.resolve(cls.request)
@@ -78,7 +79,7 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
 
     def test_temporal_selection_is_reflected_in_view(self) -> None:
         self.assertEqual(
-            ("DAXIAN:index=1", "ANNUAL:2001", "MINOR:age=8"),
+            ("DAXIAN:index=1", "ANNUAL:2001", "MONTH:2001:5", "MINOR:age=8"),
             self.bundle.view_model.selected_temporal_frame_ids,
         )
         self.assertEqual(self.bundle.candidate.hashes.fact_hash, self.bundle.view_model.source_fact_hash)
@@ -86,12 +87,55 @@ class ZiweiApplicationV1Tests(unittest.TestCase):
             self.bundle.candidate.hashes.computation_hash,
             self.bundle.view_model.source_computation_hash,
         )
+        doujun_cells = [
+            cell for cell in self.bundle.view_model.cells if cell.doujun_frame_ids
+        ]
+        self.assertEqual(1, len(doujun_cells))
+        self.assertEqual(("ANNUAL:2001",), doujun_cells[0].doujun_frame_ids)
+        month_overlays = [
+            row
+            for cell in self.bundle.view_model.cells
+            for row in cell.temporal_designations
+            if row.frame_type == "MONTH" and row.designation_id == "LIFE"
+        ]
+        self.assertEqual(1, len(month_overlays))
+        self.assertEqual("MONTH:2001:5", month_overlays[0].frame_id)
+        moving = [
+            row
+            for cell in self.bundle.view_model.cells
+            for row in cell.temporal_auxiliaries
+        ]
+        self.assertEqual(15, len(moving))
+        self.assertEqual({"DAXIAN", "ANNUAL", "MONTH"}, {row.frame_type for row in moving})
+        self.assertEqual({"禄存", "擎羊", "陀罗", "文昌", "文曲"}, {row.label for row in moving})
+        candidates = [
+            row
+            for cell in self.bundle.view_model.cells
+            for row in cell.temporal_auxiliary_candidates
+        ]
+        self.assertEqual(14, len(candidates))
+        self.assertEqual({"DAXIAN", "ANNUAL", "MONTH"}, {row.frame_type for row in candidates})
+        self.assertEqual({"天魁", "天钺", "天马"}, {row.label for row in candidates})
+        self.assertEqual(
+            {
+                "S01-QS-STRICT-KUI-YUE-R1",
+                "COMPAT-WENMO-KUI-YUE-R1",
+                "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1",
+                "S10-ANNUAL-BRANCH-TIANMA-CASE-R1",
+            },
+            {row.method_id for row in candidates},
+        )
+
+    def test_month_selection_requires_parent_annual_year(self) -> None:
+        with self.assertRaisesRegex(ValueError, "lunar_month requires annual_year"):
+            replace(self.request, annual_year=None, lunar_month=5)
 
     def test_plain_text_renderer_is_immediately_usable(self) -> None:
         rendered = self.service.render_plain_text(self.bundle)
         self.assertIn("view=ZIWEI-APPLICATION-V1-DEFAULT-VIEW@1.0.0", rendered)
         self.assertIn("fact_hash=", rendered)
         self.assertIn("temporal=", rendered)
+        self.assertIn("DAXIAN:禄存", rendered)
         self.assertGreaterEqual(len(rendered.splitlines()), 16)
 
     def test_application_export_and_view_model_schemas(self) -> None:

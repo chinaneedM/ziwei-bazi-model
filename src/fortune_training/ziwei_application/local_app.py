@@ -89,6 +89,9 @@ INDEX_HTML = """<!doctype html>
           <label>流年（可选）
             <input id="annual-year" type="number" value="2001" min="1" max="9999">
           </label>
+          <label>流月（常规农历月）
+            <input id="lunar-month" type="number" value="5" min="1" max="12" placeholder="1-12；闰月未裁决">
+          </label>
           <label>小限岁数（可选）
             <input id="minor-limit-age" type="number" value="8" min="1" max="200">
           </label>
@@ -218,6 +221,7 @@ APP_JS = """
       sex: $('sex').value,
       daxian_frame_id: optionalText('daxian-frame-id'),
       annual_year: optionalInteger('annual-year'),
+      lunar_month: optionalInteger('lunar-month'),
       minor_limit_age: optionalInteger('minor-limit-age')
     };
 
@@ -386,6 +390,9 @@ class LocalZiweiApplication:
         sex = _parse_sex(_required_text(payload, "sex", max_length=16))
         daxian_frame_id = _optional_text(payload, "daxian_frame_id", max_length=80)
         annual_year = _optional_int(payload, "annual_year", minimum=1, maximum=9999)
+        lunar_month = _optional_int(payload, "lunar_month", minimum=1, maximum=12)
+        if lunar_month is not None and annual_year is None:
+            raise LocalAppRequestError("LOCAL_APP_INVALID_INPUT", "lunar_month requires annual_year")
         minor_limit_age = _optional_int(payload, "minor_limit_age", minimum=1, maximum=200)
 
         try:
@@ -402,6 +409,7 @@ class LocalZiweiApplication:
                 calculation_profile=self.calculation_profile,
                 daxian_frame_id=daxian_frame_id,
                 annual_year=annual_year,
+                lunar_month=lunar_month,
                 minor_limit_age=minor_limit_age,
             )
             bundle = self.service.resolve(request)

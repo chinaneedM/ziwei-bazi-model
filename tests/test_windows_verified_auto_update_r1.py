@@ -16,8 +16,10 @@ from fortune_training.desktop_application.distribution import (
 )
 from fortune_training.desktop_application.launcher import run_startup_update_check
 from fortune_training.desktop_application.updater import (
+    WINDOWS_UPDATER_BINARY_SMOKE_SCHEMA,
     apply_update_transaction,
     close_stale_same_install_processes,
+    main as updater_main,
 )
 from fortune_training.desktop_application.updates import (
     UPDATE_ARCHIVE_ROOT,
@@ -98,6 +100,19 @@ class _AliveProcess:
 
 
 class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
+    def test_updater_binary_smoke_receipt_is_non_mutating(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            receipt_path = Path(temp_dir) / "updater-smoke.json"
+            self.assertEqual(
+                updater_main(["--platform-smoke-receipt", str(receipt_path)]),
+                0,
+            )
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        self.assertEqual(receipt["schema"], WINDOWS_UPDATER_BINARY_SMOKE_SCHEMA)
+        self.assertEqual(receipt["status"], "PASS")
+        self.assertEqual(receipt["application_version"], DESKTOP_APPLICATION_VERSION)
+        self.assertFalse(receipt["mutation_performed"])
+
     def test_manifest_is_closed_stable_and_fixed_to_repository_release_route(self) -> None:
         manifest = validate_update_manifest(_manifest_payload())
         self.assertEqual(manifest.version, "0.2.1")
@@ -373,7 +388,7 @@ class WindowsVerifiedAutoUpdateR1Tests(unittest.TestCase):
         self.assertIn("--clobber", workflow)
         self.assertIn("test_windows_verified_auto_update_r1.py", workflow)
         self.assertIn("asset_sha256", workflow)
-        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.4")
+        self.assertEqual(DESKTOP_APPLICATION_VERSION, "0.2.5")
 
 
 if __name__ == "__main__":

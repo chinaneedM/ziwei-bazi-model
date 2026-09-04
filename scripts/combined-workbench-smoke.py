@@ -7,6 +7,9 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from fortune_training.combined_chart_application.flow_fusion_local_app import (
+    FLOW_FUSION_R2_LOCAL_RESOLVE_SCHEMA,
+)
 from fortune_training.combined_chart_application.flow_local_app import (
     FLOW_LOCAL_APP_RESOLVE_SCHEMA,
 )
@@ -25,7 +28,7 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 )
 
 
-RECEIPT_SCHEMA = "COMBINED-WORKBENCH-SMOKE-RECEIPT-R1"
+RECEIPT_SCHEMA = "COMBINED-WORKBENCH-SMOKE-RECEIPT-R2"
 
 
 def _repository_root() -> Path:
@@ -73,6 +76,15 @@ def _require(condition: bool, diagnostic: str) -> None:
         raise RuntimeError(diagnostic)
 
 
+def _require_sha256(value: object, diagnostic: str) -> None:
+    _require(
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value.lower()),
+        diagnostic,
+    )
+
+
 def run_smoke(repository_root: Path) -> dict[str, Any]:
     """Exercise released combined-workbench application boundaries without writes."""
 
@@ -81,17 +93,285 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
     health = app.health()
     _require(health.get("schema") == LOCAL_APP_HEALTH_SCHEMA, "health schema mismatch")
     _require(health.get("status") == "ok", "health status is not ok")
-    _require(health.get("bind_policy") == "LOOPBACK_ONLY", "health bind policy is not loopback-only")
-    _require(health.get("location_lookup_network_access") is False, "location lookup unexpectedly requires network access")
+    _require(
+        health.get("bind_policy") == "LOOPBACK_ONLY",
+        "health bind policy is not loopback-only",
+    )
+    _require(
+        health.get("location_lookup_network_access") is False,
+        "location lookup unexpectedly requires network access",
+    )
 
     base_payload = _base_payload()
     base = app.resolve_payload(base_payload)
-    _require(base.get("schema") == LOCAL_APP_RESOLVE_SCHEMA, "base resolve schema mismatch")
+    _require(
+        base.get("schema") == LOCAL_APP_RESOLVE_SCHEMA,
+        "base resolve schema mismatch",
+    )
     combined = base["combined_resolution"]
-    _require(combined["integrity"]["status"] == "PASS", "base combined integrity did not PASS")
-    _require(combined["ziwei_bundle"] is not None, "base combined resolution has no Ziwei bundle")
-    _require(combined["bazi_bundle"] is not None, "base combined resolution has no Bazi bundle")
+    _require(
+        combined["integrity"]["status"] == "PASS",
+        "base combined integrity did not PASS",
+    )
+    _require(
+        combined["ziwei_bundle"] is not None,
+        "base combined resolution has no Ziwei bundle",
+    )
+    _require(
+        combined["bazi_bundle"] is not None,
+        "base combined resolution has no Bazi bundle",
+    )
     _require(base.get("ziwei_svg"), "base combined resolution produced no Ziwei SVG")
+
+    ziwei_temporal_state = combined["ziwei_bundle"]["temporal_state"]
+    daxian_rows = ziwei_temporal_state["daxian_frames"]
+    _require(
+        isinstance(daxian_rows, list) and len(daxian_rows) == base_payload["ziwei_daxian_count"],
+        "released Ziwei Daxian sequence count mismatch",
+    )
+    daxian_frame_ids: set[str] = set()
+    daxian_indexes: set[int] = set()
+    for row in daxian_rows:
+        _require(isinstance(row.get("frame_id"), str) and bool(row["frame_id"]), "Daxian frame_id missing")
+        _require(isinstance(row.get("index"), int), "Daxian index missing")
+        _require(isinstance(row.get("nominal_age_start"), int), "Daxian nominal_age_start missing")
+        _require(isinstance(row.get("nominal_age_end"), int), "Daxian nominal_age_end missing")
+        _require(isinstance(row.get("absolute_year_start"), int), "Daxian absolute_year_start missing")
+        _require(isinstance(row.get("absolute_year_end"), int), "Daxian absolute_year_end missing")
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Daxian active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("active_palace_ganzhi"), str) and bool(row["active_palace_ganzhi"]),
+            "Daxian active_palace_ganzhi missing",
+        )
+        _require(row["nominal_age_start"] <= row["nominal_age_end"], "Daxian nominal age range is invalid")
+        _require(row["absolute_year_start"] <= row["absolute_year_end"], "Daxian absolute year range is invalid")
+        _require(row["frame_id"] not in daxian_frame_ids, "released Daxian frame_id is duplicated")
+        _require(row["index"] not in daxian_indexes, "released Daxian index is duplicated")
+        daxian_frame_ids.add(row["frame_id"])
+        daxian_indexes.add(row["index"])
+
+    annual_rows = ziwei_temporal_state["annual_frames"]
+    _require(
+        isinstance(annual_rows, list) and bool(annual_rows),
+        "released Ziwei Annual sequence is empty",
+    )
+    annual_frame_ids: set[str] = set()
+    annual_years: set[int] = set()
+    for row in annual_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Annual frame_id missing",
+        )
+        _require(isinstance(row.get("absolute_year"), int), "Annual absolute_year missing")
+        _require(
+            isinstance(row.get("nominal_age"), int) and row["nominal_age"] >= 1,
+            "Annual nominal_age missing",
+        )
+        _require(
+            isinstance(row.get("year_stem"), str) and bool(row["year_stem"]),
+            "Annual year_stem missing",
+        )
+        _require(
+            isinstance(row.get("year_branch"), str) and bool(row["year_branch"]),
+            "Annual year_branch missing",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Annual active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("active_palace_ganzhi"), str)
+            and bool(row["active_palace_ganzhi"]),
+            "Annual active_palace_ganzhi missing",
+        )
+        _require(
+            isinstance(row.get("doujun_address"), dict)
+            and isinstance(row["doujun_address"].get("index"), int)
+            and isinstance(row["doujun_address"].get("branch"), str)
+            and bool(row["doujun_address"]["branch"]),
+            "Annual doujun_address identity missing",
+        )
+        _require(
+            isinstance(row.get("doujun_rule_id"), str) and bool(row["doujun_rule_id"]),
+            "Annual doujun_rule_id missing",
+        )
+        parent_daxian_frame_id = row.get("parent_daxian_frame_id")
+        _require(
+            parent_daxian_frame_id is None
+            or (
+                isinstance(parent_daxian_frame_id, str)
+                and parent_daxian_frame_id in daxian_frame_ids
+            ),
+            "Annual parent_daxian_frame_id is not a released Daxian identity",
+        )
+        _require(
+            row["frame_id"] not in annual_frame_ids,
+            "released Annual frame_id is duplicated",
+        )
+        _require(
+            row["absolute_year"] not in annual_years,
+            "released Annual absolute_year is duplicated",
+        )
+        annual_frame_ids.add(row["frame_id"])
+        annual_years.add(row["absolute_year"])
+
+    monthly_rows = ziwei_temporal_state["monthly_frames"]
+    _require(
+        isinstance(monthly_rows, list) and len(monthly_rows) == 12,
+        "released Ziwei Monthly sequence count mismatch",
+    )
+    selected_annual_year = base_payload["ziwei_annual_year"]
+    _require(
+        isinstance(selected_annual_year, int),
+        "smoke fixture Ziwei annual year is not an integer",
+    )
+    monthly_frame_ids: set[str] = set()
+    monthly_lunar_months: set[int] = set()
+    for row in monthly_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Monthly frame_id missing",
+        )
+        _require(
+            row.get("absolute_year") == selected_annual_year,
+            "Monthly absolute_year does not match the released selected annual year",
+        )
+        _require(
+            isinstance(row.get("lunar_month"), int) and 1 <= row["lunar_month"] <= 12,
+            "Monthly lunar_month missing or out of range",
+        )
+        _require(
+            isinstance(row.get("month_stem"), str) and bool(row["month_stem"]),
+            "Monthly month_stem missing",
+        )
+        _require(
+            isinstance(row.get("month_branch"), str) and bool(row["month_branch"]),
+            "Monthly month_branch missing",
+        )
+        _require(
+            row.get("month_ganzhi") == row["month_stem"] + row["month_branch"],
+            "Monthly month_ganzhi does not match released stem/branch identity",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Monthly active_address identity missing",
+        )
+        _require(
+            isinstance(row.get("parent_annual_frame_id"), str)
+            and row["parent_annual_frame_id"] in annual_frame_ids,
+            "Monthly parent_annual_frame_id is not a released Annual identity",
+        )
+        _require(
+            isinstance(row.get("monthly_rule_id"), str) and bool(row["monthly_rule_id"]),
+            "Monthly monthly_rule_id missing",
+        )
+        _require(
+            isinstance(row.get("month_ganzhi_rule_id"), str)
+            and bool(row["month_ganzhi_rule_id"]),
+            "Monthly month_ganzhi_rule_id missing",
+        )
+        _require(
+            row.get("calendar_scope") == "REGULAR_LUNAR_MONTH_COORDINATE",
+            "Monthly calendar_scope is not the released regular-lunar-month coordinate",
+        )
+        _require(
+            row.get("leap_month_policy_status") == "UNRESOLVED_NOT_GENERATED",
+            "Monthly leap-month policy status is not explicitly unresolved",
+        )
+        source_refs = row.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            "Monthly source_refs missing",
+        )
+        _require(
+            row["frame_id"] not in monthly_frame_ids,
+            "released Monthly frame_id is duplicated",
+        )
+        _require(
+            row["lunar_month"] not in monthly_lunar_months,
+            "released Monthly lunar_month is duplicated",
+        )
+        monthly_frame_ids.add(row["frame_id"])
+        monthly_lunar_months.add(row["lunar_month"])
+    _require(
+        monthly_lunar_months == set(range(1, 13)),
+        "released Ziwei Monthly sequence does not contain lunar months 1-12 exactly",
+    )
+
+    minor_limit_rows = ziwei_temporal_state["minor_limit_frames"]
+    _require(
+        isinstance(minor_limit_rows, list) and bool(minor_limit_rows),
+        "released Ziwei Minor-Limit sequence is empty",
+    )
+    minor_limit_frame_ids: set[str] = set()
+    minor_limit_ages: set[int] = set()
+    for row in minor_limit_rows:
+        _require(
+            isinstance(row.get("frame_id"), str) and bool(row["frame_id"]),
+            "Minor-Limit frame_id missing",
+        )
+        _require(
+            isinstance(row.get("nominal_age"), int) and row["nominal_age"] >= 1,
+            "Minor-Limit nominal_age missing",
+        )
+        _require(
+            isinstance(row.get("active_address"), dict)
+            and isinstance(row["active_address"].get("index"), int)
+            and isinstance(row["active_address"].get("branch"), str)
+            and bool(row["active_address"]["branch"]),
+            "Minor-Limit active_address identity missing",
+        )
+        source_refs = row.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            "Minor-Limit source_refs missing",
+        )
+        _require(
+            row["frame_id"] not in minor_limit_frame_ids,
+            "released Minor-Limit frame_id is duplicated",
+        )
+        _require(
+            row["nominal_age"] not in minor_limit_ages,
+            "released Minor-Limit nominal_age is duplicated",
+        )
+        minor_limit_frame_ids.add(row["frame_id"])
+        minor_limit_ages.add(row["nominal_age"])
+
+    zi_year_doujun_rows = [
+        row
+        for row in annual_rows
+        if row["year_branch"] == "子"
+    ]
+    _require(zi_year_doujun_rows, "base Ziwei bundle produced no 子-year AnnualFrame")
+    zi_year_doujun_identities = {
+        (row["doujun_address"]["index"], row["doujun_address"]["branch"])
+        for row in zi_year_doujun_rows
+    }
+    _require(
+        len(zi_year_doujun_identities) == 1,
+        "released 子-year Doujun address identity is inconsistent",
+    )
+    zi_year_doujun_branch = next(iter(zi_year_doujun_identities))[1]
+    _require(
+        zi_year_doujun_branch == "辰",
+        "1994 Beijing compatibility fixture 子年斗君 is not 辰",
+    )
 
     manifest_hash = combined["manifest_hash"]
     ziwei_bundle_hash = combined["ziwei_bundle"]["bundle_hash"]
@@ -102,37 +382,360 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "ziwei_origin_designation_id": "LIFE",
     }
     interaction = app.resolve_ziwei_interaction_payload(interaction_payload)
-    _require(interaction.get("schema") == LOCAL_ZIWEI_INTERACTION_SCHEMA, "Ziwei interaction schema mismatch")
-    _require(interaction["source_combined_manifest_hash"] == manifest_hash, "Ziwei interaction manifest binding mismatch")
-    _require(interaction["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "Ziwei interaction bundle binding mismatch")
-    _require(interaction["interaction"]["integrity"]["status"] == "PASS", "Ziwei interaction integrity did not PASS")
-    _require(len(interaction["interaction"]["relative_roles"]) == 12, "Ziwei interaction did not expose 12 relative roles")
-    _require(len(interaction["interaction"]["sanfang_sizheng_frame"]["members"]) == 4, "Ziwei interaction did not expose four Sanfang/Sizheng members")
+    _require(
+        interaction.get("schema") == LOCAL_ZIWEI_INTERACTION_SCHEMA,
+        "Ziwei interaction schema mismatch",
+    )
+    _require(
+        interaction["source_combined_manifest_hash"] == manifest_hash,
+        "Ziwei interaction manifest binding mismatch",
+    )
+    _require(
+        interaction["source_ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "Ziwei interaction bundle binding mismatch",
+    )
+    _require(
+        interaction["interaction"]["integrity"]["status"] == "PASS",
+        "Ziwei interaction integrity did not PASS",
+    )
+    _require(
+        len(interaction["interaction"]["relative_roles"]) == 12,
+        "Ziwei interaction did not expose 12 relative roles",
+    )
+    _require(
+        len(interaction["interaction"]["sanfang_sizheng_frame"]["members"]) == 4,
+        "Ziwei interaction did not expose four Sanfang/Sizheng members",
+    )
 
     target_payload = _target_payload()
     flow = app.resolve_flow_payload(target_payload)
-    _require(flow.get("schema") == FLOW_LOCAL_APP_RESOLVE_SCHEMA, "Bazi target-flow local schema mismatch")
+    _require(
+        flow.get("schema") == FLOW_LOCAL_APP_RESOLVE_SCHEMA,
+        "Bazi target-flow local schema mismatch",
+    )
     combined_flow = flow["combined_target_flow_resolution"]
-    _require(combined_flow["integrity"]["status"] == "PASS", "combined target-flow integrity did not PASS")
-    _require(combined_flow["base_combined_manifest_hash"] == manifest_hash, "target-flow base manifest binding mismatch")
-    _require(combined_flow["ziwei_bundle_hash"] == ziwei_bundle_hash, "target-flow Ziwei bundle binding mismatch")
-    _require(combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash, "target-flow Bazi bundle binding mismatch")
-    _require(flow["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS", "Bazi target-flow bundle integrity did not PASS")
-    _require(len(flow["bazi_target_flow_bundle"]["candidates"]) >= 1, "Bazi target-flow produced no candidates")
+    _require(
+        combined_flow["integrity"]["status"] == "PASS",
+        "combined target-flow integrity did not PASS",
+    )
+    _require(
+        combined_flow["base_combined_manifest_hash"] == manifest_hash,
+        "target-flow base manifest binding mismatch",
+    )
+    _require(
+        combined_flow["ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "target-flow Ziwei bundle binding mismatch",
+    )
+    _require(
+        combined_flow["bazi_base_bundle_hash"] == bazi_bundle_hash,
+        "target-flow Bazi base bundle binding mismatch",
+    )
+    bazi_target_flow = flow["bazi_target_flow_bundle"]
+    _require(
+        bazi_target_flow["integrity"]["status"] == "PASS",
+        "Bazi target-flow bundle integrity did not PASS",
+    )
+    bazi_target_candidates = bazi_target_flow["candidates"]
+    _require(
+        len(bazi_target_candidates) >= 1,
+        "Bazi target-flow produced no candidates",
+    )
+
+    temporal_shensha = flow.get("bazi_temporal_shensha_projection_bundle")
+    _require(
+        isinstance(temporal_shensha, dict),
+        "Bazi Temporal ShenSha projection sidecar missing",
+    )
+    _require(
+        temporal_shensha.get("schema")
+        == "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1",
+        "Bazi Temporal ShenSha sidecar schema mismatch",
+    )
+    _require(
+        temporal_shensha.get("status") in {"RESOLVED", "MULTI_CANDIDATE"},
+        "Bazi Temporal ShenSha sidecar status invalid",
+    )
+    _require(
+        temporal_shensha.get("integrity", {}).get("status") == "PASS",
+        "Bazi Temporal ShenSha sidecar integrity did not PASS",
+    )
+    _require(
+        temporal_shensha.get("base_application_bundle_hash") == bazi_bundle_hash,
+        "Bazi Temporal ShenSha base application binding mismatch",
+    )
+    _require(
+        temporal_shensha.get("bazi_target_flow_bundle_hash")
+        == bazi_target_flow["bundle_hash"],
+        "Bazi Temporal ShenSha target-flow bundle binding mismatch",
+    )
+    _require(
+        temporal_shensha.get("bazi_target_flow_source_fact_hash")
+        == bazi_target_flow["source_fact_hash"],
+        "Bazi Temporal ShenSha target-flow source FactHash mismatch",
+    )
+    _require(
+        temporal_shensha.get("projection_profile_id")
+        == "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1",
+        "Bazi Temporal ShenSha sidecar profile mismatch",
+    )
+    _require(
+        temporal_shensha.get("projection_profile_version") == "1.0.0",
+        "Bazi Temporal ShenSha sidecar profile version mismatch",
+    )
+    for key in ("fact_hash", "computation_hash", "bundle_hash"):
+        _require_sha256(
+            temporal_shensha.get(key),
+            f"Bazi Temporal ShenSha sidecar {key} missing",
+        )
+    temporal_shensha_candidates = temporal_shensha.get("candidates")
+    _require(
+        isinstance(temporal_shensha_candidates, list)
+        and len(temporal_shensha_candidates) == len(bazi_target_candidates),
+        "Bazi Temporal ShenSha candidate count does not match Bazi target-flow",
+    )
+    temporal_shensha_candidate_ids: set[str] = set()
+    temporal_shensha_projection_slot_count = 0
+    temporal_shensha_hit_count = 0
+    for index, (source_candidate, sidecar_candidate) in enumerate(
+        zip(bazi_target_candidates, temporal_shensha_candidates, strict=True)
+    ):
+        _require(
+            sidecar_candidate.get("source_bazi_target_flow_candidate_id")
+            == source_candidate["candidate_id"],
+            f"Bazi Temporal ShenSha source candidate binding mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_bazi_target_flow_candidate_index") == index,
+            f"Bazi Temporal ShenSha source candidate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_flow_candidate_index")
+            == source_candidate["source_flow_candidate_index"],
+            f"Bazi Temporal ShenSha source flow candidate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_target_coordinate_candidate_index")
+            == source_candidate["source_target_coordinate_candidate_index"],
+            f"Bazi Temporal ShenSha target coordinate index mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("target_coordinate_candidate_id")
+            == source_candidate["target_coordinate_candidate_id"],
+            f"Bazi Temporal ShenSha target coordinate identity mismatch at {index}",
+        )
+        _require(
+            sidecar_candidate.get("source_application_candidate_ids")
+            == source_candidate["source_application_candidate_ids"],
+            f"Bazi Temporal ShenSha application lineage mismatch at {index}",
+        )
+        source_view_hashes = sidecar_candidate.get("source_application_view_hashes")
+        _require(
+            isinstance(source_view_hashes, list)
+            and len(source_view_hashes)
+            == len(source_candidate["source_application_candidate_ids"])
+            and all(isinstance(value, str) and bool(value) for value in source_view_hashes),
+            f"Bazi Temporal ShenSha application view hashes invalid at {index}",
+        )
+        _require_sha256(
+            sidecar_candidate.get("source_shensha_hash"),
+            f"Bazi Temporal ShenSha source ShenSha hash missing at {index}",
+        )
+        for key in ("fact_hash", "computation_hash"):
+            _require_sha256(
+                sidecar_candidate.get(key),
+                f"Bazi Temporal ShenSha candidate {key} missing at {index}",
+            )
+        candidate_id = sidecar_candidate.get("candidate_id")
+        _require(
+            isinstance(candidate_id, str)
+            and bool(candidate_id)
+            and candidate_id not in temporal_shensha_candidate_ids,
+            f"Bazi Temporal ShenSha candidate id missing or duplicated at {index}",
+        )
+        temporal_shensha_candidate_ids.add(candidate_id)
+
+        shensha_projection = sidecar_candidate.get("projection")
+        _require(
+            isinstance(shensha_projection, dict),
+            f"Bazi Temporal ShenSha projection missing at {index}",
+        )
+        _require(
+            shensha_projection.get("profile_id")
+            == "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1",
+            f"Bazi Temporal ShenSha projection profile mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("projection_policy")
+            == "ENGINEERING_TARGET_MATCH_NOT_CLASSICAL_TEMPORAL_APPLICABILITY",
+            f"Bazi Temporal ShenSha projection policy mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("selection_semantics")
+            == "SOURCE_CANDIDATES_PRESERVED_NO_WINNER",
+            f"Bazi Temporal ShenSha selection semantics mismatch at {index}",
+        )
+        _require(
+            shensha_projection.get("semantic_scope")
+            == "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
+            f"Bazi Temporal ShenSha semantic scope mismatch at {index}",
+        )
+        source_refs = shensha_projection.get("source_refs")
+        _require(
+            isinstance(source_refs, list)
+            and bool(source_refs)
+            and all(isinstance(ref, str) and bool(ref) for ref in source_refs),
+            f"Bazi Temporal ShenSha projection source refs missing at {index}",
+        )
+        for key in ("fact_hash", "computation_hash"):
+            _require_sha256(
+                shensha_projection.get(key),
+                f"Bazi Temporal ShenSha projection {key} missing at {index}",
+            )
+        xiaoyun_slots = shensha_projection.get("xiaoyun_candidates")
+        _require(
+            isinstance(xiaoyun_slots, list),
+            f"Bazi Temporal ShenSha Xiaoyun projections invalid at {index}",
+        )
+        slots = [
+            shensha_projection.get("dayun"),
+            *xiaoyun_slots,
+            shensha_projection.get("annual"),
+            shensha_projection.get("monthly"),
+            shensha_projection.get("daily"),
+            shensha_projection.get("hourly"),
+        ]
+        for slot in slots:
+            _require(
+                isinstance(slot, dict)
+                and isinstance(slot.get("status"), str)
+                and bool(slot["status"])
+                and isinstance(slot.get("matches"), list),
+                f"Bazi Temporal ShenSha projection slot invalid at {index}",
+            )
+            temporal_shensha_projection_slot_count += 1
+            for match in slot["matches"]:
+                _require(
+                    isinstance(match.get("source_candidate_id"), str)
+                    and bool(match["source_candidate_id"]),
+                    f"Bazi Temporal ShenSha match source identity missing at {index}",
+                )
+                _require(
+                    isinstance(match.get("shensha_id"), str) and bool(match["shensha_id"]),
+                    f"Bazi Temporal ShenSha match identity missing at {index}",
+                )
+                _require(
+                    isinstance(match.get("matched_value"), str) and bool(match["matched_value"]),
+                    f"Bazi Temporal ShenSha matched value missing at {index}",
+                )
+                _require(
+                    match.get("temporal_applicability_status")
+                    == "NOT_CLASSICALLY_ARBITRATED",
+                    f"Bazi Temporal ShenSha applicability semantics changed at {index}",
+                )
+                match_source_refs = match.get("source_refs")
+                _require(
+                    isinstance(match_source_refs, list)
+                    and bool(match_source_refs)
+                    and all(
+                        isinstance(ref, str) and bool(ref)
+                        for ref in match_source_refs
+                    ),
+                    f"Bazi Temporal ShenSha match source refs missing at {index}",
+                )
+                temporal_shensha_hit_count += 1
+    _require(
+        temporal_shensha_projection_slot_count >= len(temporal_shensha_candidates) * 5,
+        "Bazi Temporal ShenSha projection released too few temporal slots",
+    )
 
     projection = app.resolve_shared_ziwei_projection_payload(target_payload)
-    _require(projection.get("schema") == LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA, "shared projection local schema mismatch")
-    _require(projection["source_combined_manifest_hash"] == manifest_hash, "shared projection manifest binding mismatch")
-    _require(projection["source_ziwei_bundle_hash"] == ziwei_bundle_hash, "shared projection Ziwei bundle binding mismatch")
-    _require(projection["projection"]["integrity"]["status"] == "PASS", "shared projection integrity did not PASS")
-    _require(len(projection["projection"]["candidates"]) >= 1, "shared projection produced no candidates")
     _require(
-        projection["target_coordinate_fact_hash"] == combined_flow["target_coordinate_fact_hash"],
+        projection.get("schema") == LOCAL_SHARED_ZIWEI_PROJECTION_SCHEMA,
+        "shared projection local schema mismatch",
+    )
+    _require(
+        projection["source_combined_manifest_hash"] == manifest_hash,
+        "shared projection manifest binding mismatch",
+    )
+    _require(
+        projection["source_ziwei_bundle_hash"] == ziwei_bundle_hash,
+        "shared projection Ziwei bundle binding mismatch",
+    )
+    _require(
+        projection["projection"]["integrity"]["status"] == "PASS",
+        "shared projection integrity did not PASS",
+    )
+    _require(
+        len(projection["projection"]["candidates"]) >= 1,
+        "shared projection produced no candidates",
+    )
+    _require(
+        projection["target_coordinate_fact_hash"]
+        == combined_flow["target_coordinate_fact_hash"],
         "shared projection and Bazi flow disagree on target-coordinate FactHash",
     )
     _require(
-        projection["target_coordinate_computation_hash"] == combined_flow["target_coordinate_computation_hash"],
+        projection["target_coordinate_computation_hash"]
+        == combined_flow["target_coordinate_computation_hash"],
         "shared projection and Bazi flow disagree on target-coordinate ComputationHash",
+    )
+
+    fusion = app.resolve_flow_fusion_r2_payload(target_payload)
+    _require(
+        fusion.get("schema") == FLOW_FUSION_R2_LOCAL_RESOLVE_SCHEMA,
+        "fusion R2 local schema mismatch",
+    )
+    fusion_r2 = fusion["combined_target_flow_fusion_r2"]
+    _require(
+        fusion_r2["integrity"]["status"] == "PASS",
+        "combined target-flow fusion R2 integrity did not PASS",
+    )
+    _require(
+        fusion_r2["base_combined_manifest_hash"] == manifest_hash,
+        "fusion R2 base manifest binding mismatch",
+    )
+    _require(
+        fusion_r2["r1_target_flow_bundle_hash"] == combined_flow["bundle_hash"],
+        "fusion R2 did not bind the released R1 target-flow bundle",
+    )
+    _require(
+        fusion_r2["target_coordinate_fact_hash"]
+        == combined_flow["target_coordinate_fact_hash"]
+        == projection["target_coordinate_fact_hash"],
+        "fusion R2 target-coordinate FactHash diverged across sidecars",
+    )
+    _require(
+        fusion_r2["target_coordinate_computation_hash"]
+        == combined_flow["target_coordinate_computation_hash"]
+        == projection["target_coordinate_computation_hash"],
+        "fusion R2 target-coordinate ComputationHash diverged across sidecars",
+    )
+    _require(
+        fusion_r2["bazi_target_flow_bundle_hash"]
+        == flow["bazi_target_flow_bundle"]["bundle_hash"],
+        "fusion R2 Bazi target-flow binding mismatch",
+    )
+    _require(
+        fusion_r2["ziwei_selector_fact_hash"]
+        == projection["projection"]["hashes"]["fact_hash"],
+        "fusion R2 Ziwei selector FactHash mismatch",
+    )
+    _require(
+        fusion_r2["ziwei_selector_computation_hash"]
+        == projection["projection"]["hashes"]["computation_hash"],
+        "fusion R2 Ziwei selector ComputationHash mismatch",
+    )
+    _require(
+        fusion["target_coordinate_resolution"]["integrity"]["status"] == "PASS",
+        "fusion R2 target-coordinate integrity did not PASS",
+    )
+    _require(
+        fusion["ziwei_selector_projection"]["integrity"]["status"] == "PASS",
+        "fusion R2 Ziwei selector integrity did not PASS",
+    )
+    _require(
+        fusion["bazi_target_flow_bundle"]["integrity"]["status"] == "PASS",
+        "fusion R2 Bazi target-flow integrity did not PASS",
     )
 
     return {
@@ -143,18 +746,42 @@ def run_smoke(repository_root: Path) -> dict[str, Any]:
         "combined_manifest_hash": manifest_hash,
         "ziwei_bundle_hash": ziwei_bundle_hash,
         "bazi_bundle_hash": bazi_bundle_hash,
+        "ziwei_daxian_sequence_count": len(daxian_rows),
+        "ziwei_annual_sequence_count": len(annual_rows),
+        "ziwei_monthly_sequence_count": len(monthly_rows),
+        "ziwei_minor_limit_sequence_count": len(minor_limit_rows),
+        "zi_year_doujun_branch": zi_year_doujun_branch,
         "ziwei_interaction_bundle_hash": interaction["interaction"]["bundle_hash"],
         "bazi_target_flow_bundle_hash": combined_flow["bazi_target_flow_bundle_hash"],
         "target_coordinate_fact_hash": combined_flow["target_coordinate_fact_hash"],
         "shared_projection_fact_hash": projection["projection"]["hashes"]["fact_hash"],
-        "bazi_target_flow_candidate_count": len(flow["bazi_target_flow_bundle"]["candidates"]),
-        "shared_projection_candidate_count": len(projection["projection"]["candidates"]),
+        "fusion_r2_bundle_hash": fusion_r2["bundle_hash"],
+        "bazi_target_flow_candidate_count": len(
+            flow["bazi_target_flow_bundle"]["candidates"]
+        ),
+        "bazi_temporal_shensha_bundle_hash": temporal_shensha["bundle_hash"],
+        "bazi_temporal_shensha_candidate_count": len(
+            temporal_shensha_candidates
+        ),
+        "bazi_temporal_shensha_projection_slot_count": (
+            temporal_shensha_projection_slot_count
+        ),
+        "bazi_temporal_shensha_hit_count": temporal_shensha_hit_count,
+        "shared_projection_candidate_count": len(
+            projection["projection"]["candidates"]
+        ),
+        "fusion_r2_ziwei_selector_candidate_count": fusion_r2[
+            "ziwei_selector_candidate_count"
+        ],
     }
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Run a deterministic, read-only smoke check of the released combined chart workbench"
+        description=(
+            "Run a deterministic, read-only smoke check of the released "
+            "combined chart workbench"
+        )
     )
     parser.add_argument(
         "--repository-root",

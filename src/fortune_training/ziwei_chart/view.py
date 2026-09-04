@@ -9,13 +9,13 @@ from fortune_training.util import object_sha256
 from .integrity import HashBundle, validate_natal_chart, validate_temporal_state
 from .models import NatalChartState
 from .registries import address
-from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, TemporalNatalContext, ZiweiTemporalState
+from .temporal import AnnualFrame, DaxianFrame, MinorLimitFrame, MonthlyFrame, TemporalNatalContext, ZiweiTemporalState
 
 
 VIEW_PROJECTION_ALGORITHM_ID = "ZIWEI-VIEW-PROJECTION-V1"
-VIEW_PROJECTION_ALGORITHM_VERSION = "1.0.2"
+VIEW_PROJECTION_ALGORITHM_VERSION = "1.2.0"
 TEXT_RENDERER_ID = "ZIWEI-PLAIN-TEXT-RENDERER-V1"
-TEXT_RENDERER_VERSION = "1.0.2"
+TEXT_RENDERER_VERSION = "1.0.4"
 
 
 class ViewProjectionError(ValueError):
@@ -79,6 +79,88 @@ class ViewDesignationOverlay:
 
 
 @dataclass(frozen=True)
+class ViewTemporalAuxiliary:
+    frame_type: str
+    frame_id: str
+    entity_id: str
+    label: str
+
+
+@dataclass(frozen=True)
+class ViewTemporalAuxiliaryCandidate:
+    frame_type: str
+    frame_id: str
+    candidate_set_id: str
+    candidate_id: str
+    method_id: str
+    authority_status: str
+    entity_id: str
+    label: str
+    candidate_fact_hash: str
+
+
+@dataclass(frozen=True)
+class ViewDaxianFrameSummary:
+    frame_id: str
+    index: int
+    nominal_age_start: int
+    nominal_age_end: int
+    absolute_year_start: int
+    absolute_year_end: int
+    active_address_index: int
+    active_branch: str
+    active_palace_ganzhi: str
+
+
+@dataclass(frozen=True)
+class ViewAnnualFrameSummary:
+    frame_id: str
+    absolute_year: int
+    nominal_age: int
+    year_stem: str
+    year_branch: str
+    active_address_index: int
+    active_branch: str
+    active_palace_ganzhi: str
+
+
+@dataclass(frozen=True)
+class ViewMonthlyFrameSummary:
+    frame_id: str
+    absolute_year: int
+    lunar_month: int
+    month_stem: str
+    month_branch: str
+    month_ganzhi: str
+    active_address_index: int
+    active_branch: str
+    calendar_scope: str
+    leap_month_policy_status: str
+
+
+@dataclass(frozen=True)
+class ViewMinorLimitFrameSummary:
+    frame_id: str
+    nominal_age: int
+    active_address_index: int
+    active_branch: str
+
+
+@dataclass(frozen=True)
+class ViewSelectedTemporalFrameSummary:
+    daxian: ViewDaxianFrameSummary | None = None
+    annual: ViewAnnualFrameSummary | None = None
+    monthly: ViewMonthlyFrameSummary | None = None
+    minor_limit: ViewMinorLimitFrameSummary | None = None
+
+
+@dataclass(frozen=True)
+class ViewDaxianSequenceMetadata:
+    daxian_direction: str
+    first_daxian_nominal_age: int
+
+
+@dataclass(frozen=True)
 class ViewRole:
     role_id: str
     label: str
@@ -96,7 +178,10 @@ class PalaceViewCell:
     placements: tuple[ViewPlacement, ...]
     ring_members: tuple[ViewRingMember, ...]
     temporal_designations: tuple[ViewDesignationOverlay, ...]
+    temporal_auxiliaries: tuple[ViewTemporalAuxiliary, ...]
+    temporal_auxiliary_candidates: tuple[ViewTemporalAuxiliaryCandidate, ...]
     minor_limit_frame_ids: tuple[str, ...]
+    doujun_frame_ids: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -110,6 +195,8 @@ class ChartViewModel:
     roles: tuple[ViewRole, ...]
     cells: tuple[PalaceViewCell, ...]
     view_hash: str
+    selected_temporal_frame_summary: ViewSelectedTemporalFrameSummary = ViewSelectedTemporalFrameSummary()
+    daxian_sequence_metadata: ViewDaxianSequenceMetadata | None = None
 
 
 class ZiweiViewProjectionCompiler:
@@ -157,6 +244,101 @@ class ZiweiViewProjectionCompiler:
         return rows[0]
 
     @staticmethod
+    def _select_monthly(
+        state: ZiweiTemporalState | None,
+        annual_year: int | None,
+        lunar_month: int | None,
+    ) -> MonthlyFrame | None:
+        if lunar_month is None:
+            return None
+        if annual_year is None:
+            raise ViewProjectionError("VIEW_MONTH_REQUIRES_ANNUAL_YEAR")
+        if state is None:
+            raise ViewProjectionError("VIEW_TEMPORAL_STATE_REQUIRED")
+        rows = [
+            row
+            for row in state.monthly_frames
+            if row.absolute_year == annual_year and row.lunar_month == lunar_month
+        ]
+        if len(rows) != 1:
+            raise ViewProjectionError("VIEW_MONTHLY_FRAME_NOT_FOUND")
+        return rows[0]
+
+    @staticmethod
+    def _selected_temporal_summary(
+        daxian: DaxianFrame | None,
+        annual: AnnualFrame | None,
+        monthly: MonthlyFrame | None,
+        minor: MinorLimitFrame | None,
+    ) -> ViewSelectedTemporalFrameSummary:
+        return ViewSelectedTemporalFrameSummary(
+            daxian=(
+                None
+                if daxian is None
+                else ViewDaxianFrameSummary(
+                    frame_id=daxian.frame_id,
+                    index=daxian.index,
+                    nominal_age_start=daxian.nominal_age_start,
+                    nominal_age_end=daxian.nominal_age_end,
+                    absolute_year_start=daxian.absolute_year_start,
+                    absolute_year_end=daxian.absolute_year_end,
+                    active_address_index=daxian.active_address.index,
+                    active_branch=daxian.active_address.branch,
+                    active_palace_ganzhi=daxian.active_palace_ganzhi,
+                )
+            ),
+            annual=(
+                None
+                if annual is None
+                else ViewAnnualFrameSummary(
+                    frame_id=annual.frame_id,
+                    absolute_year=annual.absolute_year,
+                    nominal_age=annual.nominal_age,
+                    year_stem=annual.year_stem,
+                    year_branch=annual.year_branch,
+                    active_address_index=annual.active_address.index,
+                    active_branch=annual.active_address.branch,
+                    active_palace_ganzhi=annual.active_palace_ganzhi,
+                )
+            ),
+            monthly=(
+                None
+                if monthly is None
+                else ViewMonthlyFrameSummary(
+                    frame_id=monthly.frame_id,
+                    absolute_year=monthly.absolute_year,
+                    lunar_month=monthly.lunar_month,
+                    month_stem=monthly.month_stem,
+                    month_branch=monthly.month_branch,
+                    month_ganzhi=monthly.month_ganzhi,
+                    active_address_index=monthly.active_address.index,
+                    active_branch=monthly.active_address.branch,
+                    calendar_scope=monthly.calendar_scope,
+                    leap_month_policy_status=monthly.leap_month_policy_status,
+                )
+            ),
+            minor_limit=(
+                None
+                if minor is None
+                else ViewMinorLimitFrameSummary(
+                    frame_id=minor.frame_id,
+                    nominal_age=minor.nominal_age,
+                    active_address_index=minor.active_address.index,
+                    active_branch=minor.active_address.branch,
+                )
+            ),
+        )
+
+    @staticmethod
+    def _daxian_sequence_metadata(state: ZiweiTemporalState | None) -> ViewDaxianSequenceMetadata | None:
+        if state is None:
+            return None
+        return ViewDaxianSequenceMetadata(
+            daxian_direction=state.daxian_direction,
+            first_daxian_nominal_age=state.first_daxian_nominal_age,
+        )
+
+    @staticmethod
     def _view_payload(model: ChartViewModel) -> dict:
         payload = json_value(model)
         payload.pop("view_hash", None)
@@ -176,6 +358,7 @@ class ZiweiViewProjectionCompiler:
         temporal_context: TemporalNatalContext | None = None,
         daxian_frame_id: str | None = None,
         annual_year: int | None = None,
+        lunar_month: int | None = None,
         minor_limit_age: int | None = None,
     ) -> ChartViewModel:
         presentation.validate()
@@ -197,8 +380,11 @@ class ZiweiViewProjectionCompiler:
         overrides = self._override_map(presentation)
         daxian = self._select_daxian(temporal_state, daxian_frame_id)
         annual = self._select_annual(temporal_state, annual_year)
+        monthly = self._select_monthly(temporal_state, annual_year, lunar_month)
         minor = self._select_minor(temporal_state, minor_limit_age)
-        selected_frames = tuple(row.frame_id for row in (daxian, annual, minor) if row is not None)
+        selected_frames = tuple(row.frame_id for row in (daxian, annual, monthly, minor) if row is not None)
+        selected_summary = self._selected_temporal_summary(daxian, annual, monthly, minor)
+        daxian_sequence_metadata = self._daxian_sequence_metadata(temporal_state)
 
         stem_by_address = {row.address.index: row.stem for row in chart.structure.address_attributes}
         natal_designation_by_address = {row.address.index: row for row in chart.structure.designation_bindings}
@@ -215,6 +401,8 @@ class ZiweiViewProjectionCompiler:
                 activation_sets.append(daxian.transformations)
             if annual is not None:
                 activation_sets.append(annual.transformations)
+            if monthly is not None:
+                activation_sets.append(monthly.transformations)
             for rows in activation_sets:
                 for row in rows:
                     transformation_by_entity.setdefault(row.target_entity_id, []).append(
@@ -251,8 +439,12 @@ class ZiweiViewProjectionCompiler:
             rows.sort(key=lambda item: (item.ring_id, item.member_id))
 
         overlays_by_address: dict[int, list[ViewDesignationOverlay]] = {index: [] for index in range(12)}
+        auxiliaries_by_address: dict[int, list[ViewTemporalAuxiliary]] = {index: [] for index in range(12)}
+        auxiliary_candidates_by_address: dict[int, list[ViewTemporalAuxiliaryCandidate]] = {
+            index: [] for index in range(12)
+        }
         if presentation.show_temporal_overlays:
-            for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual)):
+            for frame_type, frame in (("DAXIAN", daxian), ("ANNUAL", annual), ("MONTH", monthly)):
                 if frame is None:
                     continue
                 for row in frame.designation_overlay:
@@ -264,10 +456,44 @@ class ZiweiViewProjectionCompiler:
                             label=self._label(overrides, "DESIGNATION", row.designation_id, row.display_name),
                         )
                     )
+                for row in frame.auxiliary_activations:
+                    auxiliaries_by_address[row.target_address.index].append(
+                        ViewTemporalAuxiliary(
+                            frame_type=frame_type,
+                            frame_id=frame.frame_id,
+                            entity_id=row.entity_id,
+                            label=self._label(overrides, "ENTITY", row.entity_id, row.display_name),
+                        )
+                    )
+                for candidate_set in frame.auxiliary_candidate_sets:
+                    for candidate in candidate_set.method_candidates:
+                        for row in candidate.activations:
+                            auxiliary_candidates_by_address[row.target_address.index].append(
+                                ViewTemporalAuxiliaryCandidate(
+                                    frame_type=frame_type,
+                                    frame_id=frame.frame_id,
+                                    candidate_set_id=candidate_set.candidate_set_id,
+                                    candidate_id=candidate.candidate_id,
+                                    method_id=candidate.method_id,
+                                    authority_status=candidate.authority_status,
+                                    entity_id=row.entity_id,
+                                    label=self._label(
+                                        overrides,
+                                        "ENTITY",
+                                        row.entity_id,
+                                        row.display_name,
+                                    ),
+                                    candidate_fact_hash=candidate.fact_hash,
+                                )
+                            )
 
         minor_by_address: dict[int, list[str]] = {index: [] for index in range(12)}
         if presentation.show_temporal_overlays and minor is not None:
             minor_by_address[minor.active_address.index].append(minor.frame_id)
+
+        doujun_by_address: dict[int, list[str]] = {index: [] for index in range(12)}
+        if presentation.show_temporal_overlays and annual is not None:
+            doujun_by_address[annual.doujun_address.index].append(annual.frame_id)
 
         roles: list[ViewRole] = []
         if presentation.show_roles:
@@ -303,7 +529,25 @@ class ZiweiViewProjectionCompiler:
                     placements=tuple(placements_by_address[index]),
                     ring_members=tuple(ring_by_address[index]),
                     temporal_designations=tuple(overlays_by_address[index]),
+                    temporal_auxiliaries=tuple(
+                        sorted(
+                            auxiliaries_by_address[index],
+                            key=lambda item: (item.frame_type, item.frame_id, item.entity_id),
+                        )
+                    ),
+                    temporal_auxiliary_candidates=tuple(
+                        sorted(
+                            auxiliary_candidates_by_address[index],
+                            key=lambda item: (
+                                item.frame_type,
+                                item.frame_id,
+                                item.method_id,
+                                item.entity_id,
+                            ),
+                        )
+                    ),
                     minor_limit_frame_ids=tuple(minor_by_address[index]),
+                    doujun_frame_ids=tuple(doujun_by_address[index]),
                 )
             )
 
@@ -317,6 +561,8 @@ class ZiweiViewProjectionCompiler:
             roles=tuple(roles),
             cells=tuple(cells),
             view_hash="",
+            selected_temporal_frame_summary=selected_summary,
+            daxian_sequence_metadata=daxian_sequence_metadata,
         )
         view_hash = object_sha256(
             {
@@ -359,8 +605,21 @@ class PlainTextZiweiRenderer:
             ) or "-"
             rings = ", ".join(row.label for row in cell.ring_members) or "-"
             temporal = ", ".join(f"{row.frame_type}:{row.label}" for row in cell.temporal_designations)
+            if cell.temporal_auxiliaries:
+                moving = ", ".join(
+                    f"{row.frame_type}:{row.label}" for row in cell.temporal_auxiliaries
+                )
+                temporal = ", ".join(filter(None, (temporal, moving)))
+            if cell.temporal_auxiliary_candidates:
+                candidates = ", ".join(
+                    f"{row.frame_type}:候选[{row.method_id}]:{row.label}"
+                    for row in cell.temporal_auxiliary_candidates
+                )
+                temporal = ", ".join(filter(None, (temporal, candidates)))
             if cell.minor_limit_frame_ids:
                 temporal = ", ".join(filter(None, (temporal, "小限:" + "/".join(cell.minor_limit_frame_ids))))
+            if cell.doujun_frame_ids:
+                temporal = ", ".join(filter(None, (temporal, "斗君:" + "/".join(cell.doujun_frame_ids))))
             temporal = temporal or "-"
             lines.append(
                 f"{cell.stem}{cell.branch} {cell.natal_designation_label} | stars={stars} | rings={rings} | temporal={temporal}"

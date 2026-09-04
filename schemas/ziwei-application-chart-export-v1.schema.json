@@ -50,10 +50,11 @@
     "selection": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["daxian_frame_id", "annual_year", "minor_limit_age"],
+      "required": ["daxian_frame_id", "annual_year", "lunar_month", "minor_limit_age"],
       "properties": {
         "daxian_frame_id": {"type": ["string", "null"]},
         "annual_year": {"type": ["integer", "null"]},
+        "lunar_month": {"anyOf": [{"type": "integer", "minimum": 1, "maximum": 12}, {"type": "null"}]},
         "minor_limit_age": {"anyOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]}
       }
     },
