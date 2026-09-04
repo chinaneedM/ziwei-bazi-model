@@ -43,15 +43,16 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 108,
+    "row_count": 116,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 17,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 38,
-      "DISPUTED_MULTIPLE_CANDIDATES": 20,
+      "MODERN_COMPATIBILITY_ONLY": 18,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 34,
+      "DISPUTED_MULTIPLE_CANDIDATES": 21,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 10,
-      "HISTORICALLY_SUPPORTED": 21,
+      "HISTORICALLY_SUPPORTED": 27,
       "SOURCE_INSUFFICIENT": 1,
-      "NOT_YET_FORMALIZED": 1
+      "NOT_YET_FORMALIZED": 1,
+      "MISSING_FROM_PRODUCT": 4
     },
     "module_counts": {
       "Time / Calendar": 11,
@@ -61,13 +62,13 @@
       "小运": 2,
       "神煞": 21,
       "八字动态时限": 8,
-      "紫微本命": 5,
+      "紫微本命": 6,
       "十二宫": 3,
-      "主星": 1,
-      "辅星": 1,
-      "杂曜": 1,
-      "庙旺落陷": 1,
-      "四化": 2,
+      "主星": 2,
+      "辅星": 4,
+      "杂曜": 2,
+      "庙旺落陷": 2,
+      "四化": 3,
       "大限": 3,
       "流年": 2,
       "流月": 3,
@@ -80,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 40
+    "audited_row_count": 54
   },
   "rows": [
     {
@@ -1596,20 +1597,21 @@
       "rule_or_field": "Fourteen main-star placement",
       "current_implementation": "MAIN_STAR algorithm places main stars from bureau/lunar day anchors.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 source routes ZZZA-PR-008..015 and anchor tables",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-STAR-PLACEMENT-PROVENANCE-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《新刻纂集紫微斗数捷览》1581 卷一·安紫微天府诀 / 布南北二斗诸星诀",
+      "source_quote": "紫微天机星逆行；天府太阴顺贪狼",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH20|CH22; S01:ZZZA-PR-012..015",
+      "historical_period": "MING_WANLI_9_1581_PRINT_WITNESS",
+      "later_witnesses": "received 《紫微斗数全书》 preserves the same principal-star sequencing family",
+      "school_attribution": "EARLY_EXTANT_PRINT_CORE_PLACEMENT_FAMILY",
       "competing_methods": [
-        "alternate tables if source corpus records them"
+        "table/algorithm realization variants for Ziwei anchor day calculation require separate audit"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit each anchor/sequence table against dated witnesses.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MAIN_STAR_SEQUENCE_AND_TIANFU_RELATION_MATCH_1581_TEXT",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Continue exact Ziwei-anchor day/table provenance audit separately.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-007",
@@ -1618,21 +1620,25 @@
       "rule_or_field": "Core auxiliary placement",
       "current_implementation": "Production selects WENMO_DEFAULT_CORE_AUX_RULE_SET family; QS source family also exists.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 canonical routes + compatibility fixtures",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/production_profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Mixed: 1581 Jielan/received Fullbook source rules plus Wenmo compatibility deltas",
+      "source_quote": "辰上顺正寻左辅，戌上逆正右弼当；庚辛逢马虎 (Jielan variant)",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH22|CH25|CH27; S01:ZZZA-PR-016..021",
+      "historical_period": "MING_1581_PLUS_LATER_RECEIVED_AND_MODERN_COMPATIBILITY",
+      "later_witnesses": "received Fullbook differs from Jielan for selected Kui/Yue and Fire/Bell cells; Wenmo adds an additional Xin Kui/Yue ordering discriminator",
+      "school_attribution": "MIXED_RULE_FAMILIES_MUST_BE_PROFILE_SEPARATED",
       "competing_methods": [
-        "QS_CORE_AUX_RULE_SET",
-        "WENMO_DEFAULT_CORE_AUX_RULE_SET"
+        "JIELAN_1581_KUI_YUE",
+        "QS_RECEIVED_KUI_YUE",
+        "WENMO_XIN_KUI_YUE",
+        "JIELAN_1581_FIRE_BELL",
+        "FULLBOOK_WENMO_FIRE_BELL"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Priority audit: determine which entries are classical, school-specific, or compatibility-only; split profile labels if needed.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MOST_CORE_AUX_SOURCE_RULES_MATCH_EARLY_TEXT; KUI_YUE_GENG_AND_FIRE_BELL_SI_YOU_CHOU_HAVE_HISTORICAL_VARIANTS_NOT_RUNTIME_PRODUCTIZED",
+      "confidence": "HIGH_FOR_IDENTIFIED_VARIANTS",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Preserve current production, add source-scoped historical candidates; never label Wenmo discriminator as ancient canonical.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-008",
@@ -1641,21 +1647,23 @@
       "rule_or_field": "Operational minor-star family R4",
       "current_implementation": "Production uses WENMO_DEFAULT_MINOR rule-set family v2.0.0 including 天寿/天伤/天使.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "mixed source families preserved in corpus + Wenmo compatibility evidence",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-CHART-ENGINE-V1-FOUNDATION.md §Canonical and compatibility authority",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "S01 received Fullbook/source routes plus Wenmo compatibility; 1581 Jielan directly witnesses selected minor-star rules",
+      "source_quote": "命前六位为天殇，命后六位为天使",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH24; S01:ZZQS-A-1854/1855; minor-star rule routes",
+      "historical_period": "MING_1581_AND_RECEIVED_TEXT_PLUS_MODERN_COMPATIBILITY",
+      "later_witnesses": "received Fullbook fixed TianShang/TianShi agrees with 1581; later sex-dependent family also exists in S01 summary/conflict material",
+      "school_attribution": "MINOR_STAR_SUBFAMILIES_REQUIRE_INDIVIDUAL_AUDIT",
       "competing_methods": [
-        "legacy R3 v1.0.0",
-        "alternate 天伤/天使 family"
+        "fixed TianShang/TianShi around migration",
+        "sex-dependent TianShang/TianShi family",
+        "minor-star route variants"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "R4_FIXED_TIANSHANG_TIANSHI_MATCH_1581_EXACTLY; REMAINING_MINOR_FAMILIES_STILL_MIX_SOURCE_AND_COMPATIBILITY",
+      "confidence": "HIGH_FOR_TIANSHANG_TIANSHI_MEDIUM_FOR_WHOLE_MINOR_SET",
       "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Priority audit: assign historical authority per star instead of treating WENMO compatibility label as canonical.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep R4 fixed TianShang/TianShi; split remaining minor-star families into separate historical rows.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-009",
@@ -1664,20 +1672,23 @@
       "rule_or_field": "Operational R4 dignity states",
       "current_implementation": "Production binds OPERATIONAL_R4_DIGNITY_RULE_SET; provenance sidecar preserves source/compat identity.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 brightness routes + compatibility calibration",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/ZIWEI-DIGNITY-ANNOTATION-PROVENANCE-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Project-owned operational dignity registry calibrated with Wenmo; historical dignity tables exist separately",
+      "source_quote": "PROJECT_OPERATIONAL_REGISTRY / s01_brightness_authority=NOT_CLAIMED",
+      "source_quote_location": "docs/ZIWEI-DIGNITY-ANNOTATION-PROVENANCE-R1.md; EXT-ZIWEI-JIELAN-1581:CH69|CH70",
+      "historical_period": "CURRENT_RUNTIME_MODERN; HISTORICAL_TABLE_WITNESS_1581",
+      "later_witnesses": "1581 Jielan has explicit palace-by-star 庙/旺/得地/平/陷 rules that differ from current operational registry in multiple cells",
+      "school_attribution": "CURRENT_RUNTIME=MODERN_OPERATIONAL_COMPATIBILITY",
       "competing_methods": [
-        "alternate dignity tables"
+        "JIELAN_1581 historical dignity table",
+        "received Fullbook/Quanshu dignity families",
+        "current operational/Wenmo-calibrated registry"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Priority audit: establish historical source family, completeness and school attribution for every entity/address cell.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "CURRENT_R4_IS_NOT_A_REPLAY_OF_JIELAN_1581_AND_ALREADY_DECLINES_S01_HISTORICAL_AUTHORITY",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Do not relabel R4 as classical. Build edition-collated historical dignity profiles; preserve R4 as compatibility/operational profile.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-010",
@@ -1686,20 +1697,23 @@
       "rule_or_field": "Ten-stem four-transformation assignment",
       "current_implementation": "S08_CURRENT_40_ASSIGNMENT_R1 activates 40 assignments for natal and legal temporal source stems.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S08 唯一运行四化表; S08-ASG-01..40",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/transformations.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《新刻纂集紫微斗数捷览》1581 卷一·安禄权科忌四化诀",
+      "source_quote": "甲廉破武阳，乙机梁微月……壬梁紫左武，癸破门阴狼",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH23; S08-ASG-01..40",
+      "historical_period": "MING_WANLI_9_1581_PRINT_WITNESS",
+      "later_witnesses": "received 《紫微斗数全书》 and later school tables preserve competing cells, especially selected 化科 assignments",
+      "school_attribution": "CURRENT_S08_MATCHES_JIELAN_1581_TABLE",
       "competing_methods": [
-        "other school ten-stem four-transform tables"
+        "received Fullbook variant(s)",
+        "Zhongzhou four-transformation family",
+        "other school-specific four-transformation tables"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit S08's source genealogy and competing school tables; keep table identity explicit.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "ALL_40_ASSIGNMENTS_MATCH_1581_JIELAN_TABLE",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep current S08 table as an explicitly Jielan-1581-supported profile; separately formalize competing historical/school tables rather than mixing cells.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-011",
@@ -1708,20 +1722,21 @@
       "rule_or_field": "博士/将前/岁前三环",
       "current_implementation": "Production ring generator creates natal ring identities.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S05/S01 source routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/S10-DYNAMIC-AUXILIARY-AUDIT-R1.md §Minor-Limit encounter",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Mixed ring families; Changsheng ring directly witnessed by 1581 Jielan; Boshi and others have received Fullbook routes",
+      "source_quote": "金生在巳，木生在亥，火生在寅，水土长生居申",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH19; S01:ZZZA-PR-057..060",
+      "historical_period": "MING_1581_PLUS_RECEIVED_TEXT",
+      "later_witnesses": "received Fullbook includes Boshi ring order/direction; Taisui/Jiangqian remain to be separately edition-audited",
+      "school_attribution": "RING_SUBFAMILIES_REQUIRE_SEPARATE_LINEAGE",
       "competing_methods": [
-        "school-specific ring anchors/directions"
+        "school-specific ring anchors/directions where attested"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "CHANGSHENG_RING_MATCHES_1581; WHOLE_RING_BUNDLE_NOT_YET_FULLY_AUDITED",
+      "confidence": "HIGH_FOR_CHANGSHENG_MEDIUM_FOR_WHOLE_RING_BUNDLE",
       "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Trace each ring anchor/direction separately.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Split Changsheng/Boshi/Taisui/Jiangqian into independent matrix rows and audit each source family.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
     {
       "rule_id": "HPA-ZIWEI-012",
@@ -2462,12 +2477,201 @@
       "proposed_action": "Do not change chart semantics; trace ordering genealogy and decide whether it is presentation-only or school-specific metadata.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-02-BAZI-NATAL-DERIVED"
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-014",
+      "module": "四化",
+      "rule_or_field": "Competing Four-Transformation table families",
+      "current_implementation": "Current runtime only activates S08_CURRENT_40_ASSIGNMENT_R1; alternate historical/school tables are known but not selectable runtime profiles.",
+      "current_profile": "NOT_RUNTIME_PRODUCTIZED",
+      "primary_source": "received 《紫微斗数全书》 variants + later Zhongzhou/school tables",
+      "source_quote": "壬梁紫府武 (received Fullbook variant witness)",
+      "source_quote_location": "EXT-ZIWEI-QUANSHU-RECEIVED:FourTransformations; S01:ZZZA-CF-008",
+      "historical_period": "RECEIVED_TEXT_AND_LATER_SCHOOL_TRANSMISSIONS",
+      "later_witnesses": "multiple modern school tables explicitly differ at selected 化科/化忌 cells",
+      "school_attribution": "MULTIPLE_SCHOOLS",
+      "competing_methods": [
+        "JIELAN_1581=current S08",
+        "received Fullbook variants",
+        "Zhongzhou variants"
+      ],
+      "current_implementation_match": "CURRENT_TABLE_IS_HISTORICALLY_VALID_BUT_COMPETING_TABLES_ARE_NOT_RUNTIME_CANDIDATES",
+      "confidence": "HIGH_FOR_EXISTENCE_OF_VARIANTS",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Formalize each fully sourced table as an immutable school-specific candidate profile; no cell-by-cell hybrid table."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-015",
+      "module": "辅星",
+      "rule_or_field": "1581 Jielan Kui/Yue Geng-stem variant",
+      "current_implementation": "Historical registry preserves Jielan 1581 庚辛→午寅, while current QS family uses 庚→丑未 and Wenmo additionally reverses 辛 pair.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 (PRESERVED_NOT_SELECTED)",
+      "primary_source": "《紫微斗数捷览》1581·安天魁天钺诀",
+      "source_quote": "庚辛逢马虎，午寅二宫",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH25",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook/other recensions preserve 甲戊庚牛羊 family; modern Wenmo has a further Xin-order discriminator",
+      "school_attribution": "JIELAN_1581_VARIANT",
+      "competing_methods": [
+        "Jielan 庚辛午寅",
+        "received/QS 庚丑未 辛午寅",
+        "Wenmo 辛寅午"
+      ],
+      "current_implementation_match": "HISTORICAL_VARIANT_NOT_SELECTED_IN_PRODUCTION",
+      "confidence": "HIGH",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Expose as source-scoped runtime candidate only after candidate-profile UI/API lineage is wired."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-016",
+      "module": "辅星",
+      "rule_or_field": "1581 Jielan Fire/Bell 巳酉丑 starting-branch variant",
+      "current_implementation": "Historical registry preserves 巳酉丑 子时起 火戌/铃卯; current Wenmo-compatible production uses 火卯/铃戌.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 (PRESERVED_NOT_SELECTED)",
+      "primary_source": "《紫微斗数捷览》1581·安火铃星诀",
+      "source_quote": "巳酉丑人戌火卯铃",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH27",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "same Jielan chapter explicitly notes received Fullbook alternate 巳酉丑卯戌位",
+      "school_attribution": "JIELAN_1581_VS_FULLBOOK_VARIANT",
+      "competing_methods": [
+        "Jielan 火戌铃卯",
+        "received Fullbook/Wenmo 火卯铃戌"
+      ],
+      "current_implementation_match": "PRODUCTION_MATCHES_FULLBOOK_WENMO_FAMILY_NOT_JIELAN_FOR_SI_YOU_CHOU",
+      "confidence": "HIGH",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Productize both source-closed families as candidates; preserve current production default until profile governance decides scope."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-017",
+      "module": "杂曜",
+      "rule_or_field": "TianShang/TianShi fixed Life-palace geometry",
+      "current_implementation": "R4 uses life_address+5 for 天伤 and +7 for 天使.",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0",
+      "primary_source": "《紫微斗数捷览》1581·安天殇天使诀 + received Fullbook",
+      "source_quote": "命前六位为天殇，命后六位为天使",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH24; S01:ZZQS-A-1854/1855",
+      "historical_period": "MING_WANLI_9_1581_AND_RECEIVED_TEXT",
+      "later_witnesses": "later sex-dependent reversal family exists separately",
+      "school_attribution": "FIXED_LIFE_GEOMETRY_EARLY_PRINT_FAMILY",
+      "competing_methods": [
+        "fixed Life-palace geometry",
+        "sex-dependent swap family"
+      ],
+      "current_implementation_match": "EXACT_MATCH_TO_1581_WORKED_EXAMPLE_LIFE_YIN_TO_TIANSHANG_WEI_TIANSHI_YOU",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Retain fixed method but amend provenance docs: Wenmo is a compatibility witness, not its historical origin."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-018",
+      "module": "庙旺落陷",
+      "rule_or_field": "1581 Jielan historical dignity table",
+      "current_implementation": "Historical source family is registered but intentionally not normalized into runtime 7-grade cells.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 / SOURCE_TABLE_PRESENT_NORMALIZATION_PENDING",
+      "primary_source": "《紫微斗数捷览》1581 卷二·辨十二宫诸星庙陷诀 / 与前诀参看",
+      "source_quote": "天机…卯辰戌亥入庙庭；子午二宫皆得地",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH69|CH70",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook/Quanshu and modern operational tables require cell-by-cell collation",
+      "school_attribution": "JIELAN_1581_DIGNITY_FAMILY",
+      "competing_methods": [
+        "Jielan 1581",
+        "received Fullbook/Quanshu",
+        "current operational/Wenmo-calibrated"
+      ],
+      "current_implementation_match": "CURRENT_R4_DIFFERS_AND_DOES_NOT_CLAIM_HISTORICAL_AUTHORITY",
+      "confidence": "HIGH_FOR_SOURCE_EXISTENCE_MEDIUM_FOR_NORMALIZATION",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Collate editions and build a source-faithful historical dignity profile without coercing ambiguous words into the modern seven-grade scale."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-019",
+      "module": "紫微本命",
+      "rule_or_field": "Five-bureau Changsheng ring anchor and direction",
+      "current_implementation": "Current Changsheng ring uses 金巳/木亥/火寅/水土申 and 阳男阴女顺、阴男阳女逆.",
+      "current_profile": "WENMO_DEFAULT_RING_R1",
+      "primary_source": "《紫微斗数捷览》1581·定五局长生例",
+      "source_quote": "金生在巳，木生在亥，火生在寅，水土长生居申",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH19; S01:ZZZA-PR-057",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook ring tradition",
+      "school_attribution": "EARLY_PRINT_CHANGSHENG_RING_FAMILY",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; relabel provenance so Wenmo is not implied as origin."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-020",
+      "module": "主星",
+      "rule_or_field": "North/South Dipper main-star sequence geometry",
+      "current_implementation": "Ziwei sequence and Tianfu sequence use the released fixed offsets.",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1",
+      "primary_source": "《紫微斗数捷览》1581·布南北二斗诸星诀",
+      "source_quote": "紫微天机星逆行……天府太阴顺贪狼",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH22",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook preserves same sequence",
+      "school_attribution": "EARLY_PRINT_MAIN_STAR_SEQUENCE",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "rule_id": "HPA-ZIWEI-021",
+      "module": "辅星",
+      "rule_or_field": "Fu/Bi, Chang/Qu, DiKong/DiJie early-print placement geometry",
+      "current_implementation": "Core source placements use month/hour geometry from the released QS family.",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1",
+      "primary_source": "《紫微斗数捷览》1581·布南北二斗诸星诀",
+      "source_quote": "辰上顺正寻左辅，戌上逆正右弼当；辰上顺时寻文曲，戌上逆时觅文昌",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH22",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook agrees for these core geometries",
+      "school_attribution": "EARLY_PRINT_CORE_AUX_GEOMETRY",
+      "competing_methods": [
+        "leap-month coordinate handling remains separately school-scoped"
+      ],
+      "current_implementation_match": "BASE_PLACEMENT_GEOMETRY_MATCHES_1581",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No base-rule reopen; audit leap-month month-coordinate policy separately."
     }
   ],
   "historical_research_batches": [
     "BATCH-01-TIME-DAYUN-XIAOYUN",
     "BATCH-02-BAZI-NATAL-DERIVED",
-    "BATCH-03-BAZI-SHENSHA"
+    "BATCH-03-BAZI-SHENSHA",
+    "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -2509,7 +2713,21 @@
     "HPA-SHENSHA-018",
     "HPA-SHENSHA-019",
     "HPA-SHENSHA-020",
-    "HPA-SHENSHA-021"
+    "HPA-SHENSHA-021",
+    "HPA-ZIWEI-006",
+    "HPA-ZIWEI-007",
+    "HPA-ZIWEI-008",
+    "HPA-ZIWEI-009",
+    "HPA-ZIWEI-010",
+    "HPA-ZIWEI-011",
+    "HPA-ZIWEI-014",
+    "HPA-ZIWEI-015",
+    "HPA-ZIWEI-016",
+    "HPA-ZIWEI-017",
+    "HPA-ZIWEI-018",
+    "HPA-ZIWEI-019",
+    "HPA-ZIWEI-020",
+    "HPA-ZIWEI-021"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -2517,7 +2735,8 @@
     "repaired_provenance_metadata_defect_count": 3,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 1,
-    "identified_missing_candidate_family_count": 1
+    "historical_candidate_extension_count": 2,
+    "identified_missing_candidate_family_count": 5,
+    "historical_candidate_registry_count": 1
   }
 }
