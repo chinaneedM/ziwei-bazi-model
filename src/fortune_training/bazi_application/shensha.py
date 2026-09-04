@@ -13,7 +13,7 @@ from .classical_annotations import twelve_growth_for
 
 
 SHENSHA_PROFILE_ID = "BAZI-CLASSICAL-SHENSHA-FACTS-R1"
-SHENSHA_PROFILE_VERSION = "1.7.0"
+SHENSHA_PROFILE_VERSION = "1.7.1"
 SHENSHA_CANDIDATE_SET_ID = "BAZI-SHENSHA-ANCHOR-CANDIDATES-R1"
 POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 
@@ -67,6 +67,7 @@ TIANDE_BY_MONTH_BRANCH = {
     "戌": ("STEM", "丙"), "亥": ("STEM", "乙"),
     "子": ("BRANCH", "巳"), "丑": ("STEM", "庚"),
 }
+SANMING_TIANDE_SOURCE_REFS = ("EXT:CTEXT-SMTHE-V3-TIANYUEDE",)
 # Zodiac-palace wording in S11 resolves to the food-god's Lu branch.
 TIANCHU_BY_STEM = {
     "甲": ("巳",), "乙": ("午",), "丙": ("巳",), "丁": ("午",),
@@ -192,7 +193,7 @@ SOURCE_REFS = {
     ),
     "YUANCHENG": (
         "S11:YHZP-USR-S00330", "S11:YHZP-CH-045",
-        "S12:YHZP-CH-016", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
+        "S11:YHZP-CH-015", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
     ),
     "YANGREN": ("S11:YHZP-USR-S00282", "S11:YHZP-USR-S02740", "S11:YHZP-CH-224"),
     "FEIREN": (
@@ -242,6 +243,7 @@ def _candidate(
     match_scope: str = "ALL_PILLARS",
     selection_status: str = "SOURCE_EXPLICIT",
     qualification_status: str = "NOT_APPLICABLE",
+    source_refs: Sequence[str] | None = None,
 ) -> dict[str, Any]:
     occurrences: list[dict[str, Any]] = []
     for position in _positions_for_scope(match_scope):
@@ -274,7 +276,7 @@ def _candidate(
         "present": bool(occurrences),
         "selection_status": selection_status,
         "qualification_status": qualification_status,
-        "source_refs": list(SOURCE_REFS[shensha_id]),
+        "source_refs": list(SOURCE_REFS[shensha_id] if source_refs is None else source_refs),
         "semantic_scope": "IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS",
     }
 
@@ -541,6 +543,17 @@ def classical_shensha_for_pillars(pillar_ganzhi: Mapping[str, str]) -> dict[str,
     candidates.append(_candidate(
         "TIANDE", "天德贵人", "MONTH_BRANCH", month_branch, tiande_kind,
         (tiande_value,), pillar_ganzhi,
+        match_scope="ALL_PILLARS",
+        selection_status="CANDIDATE_NOT_ARBITRATED",
+        qualification_status="YHZP_ALL_PILLARS_COMMENTARY_SCOPE",
+    ))
+    candidates.append(_candidate(
+        "TIANDE", "天德贵人", "MONTH_BRANCH", month_branch, tiande_kind,
+        (tiande_value,), pillar_ganzhi,
+        match_scope="ONLY_DAY",
+        selection_status="CANDIDATE_NOT_ARBITRATED",
+        qualification_status="SANMING_DAY_ONLY_SCOPE",
+        source_refs=SANMING_TIANDE_SOURCE_REFS,
     ))
     candidates.extend(_stem_anchor_candidates("TIANCHU", "天厨贵人", TIANCHU_BY_STEM, stems, pillar_ganzhi))
     candidates.extend(_stem_anchor_candidates("FUXING", "福星贵人", FUXING_BY_STEM, stems, pillar_ganzhi))
