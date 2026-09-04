@@ -60,8 +60,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 11)
-        self.assertGreaterEqual(receipt["audited_row_count"], 118)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 12)
+        self.assertGreaterEqual(receipt["audited_row_count"], 121)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
@@ -122,6 +122,15 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(by_id["HPA-ZTEMP-005"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
         self.assertEqual(by_id["HPA-ZTEMP-006"]["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+
+    def test_batch_08c_time_standards_are_not_conflated(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        self.assertEqual(by_id["HPA-ZTIME-001"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(by_id["HPA-ZTIME-002"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertEqual(by_id["HPA-TIME-003"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertIn("NO_EQUATION_OF_TIME_IS_ADDED", by_id["HPA-ZTIME-001"]["current_implementation_match"])
+        self.assertIn("ASTRONOMICAL_DEFINITION_MATCH", by_id["HPA-ZTIME-002"]["current_implementation_match"])
         self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:

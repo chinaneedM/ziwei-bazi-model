@@ -67,6 +67,10 @@ def main() -> int:
         raise SystemExit("Batch 08B Zhongzhou temporal witness is missing")
     if by_source_id.get("EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI") is None:
         raise SystemExit("Batch 08B Zhongzhou bibliographic witness is missing")
+    if by_source_id.get("EXT-USNO-EQUATION-OF-TIME") is None:
+        raise SystemExit("Batch 08C USNO solar-time witness is missing")
+    if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
+        raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -127,7 +131,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 118:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 121:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -142,6 +146,8 @@ def main() -> int:
         raise SystemExit("Batch 08A Ziwei dynamic auxiliary audit is missing")
     if "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B" not in batches:
         raise SystemExit("Batch 08B Ziwei temporal-frame audit is missing")
+    if "BATCH-08-ZIWEI-TIME-STANDARDS-C" not in batches:
+        raise SystemExit("Batch 08C Ziwei time-standard audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -162,6 +168,14 @@ def main() -> int:
         raise SystemExit("1581 day-anchored flow-hour product gap was not preserved")
     if temporal_by_id["HPA-ZTEMP-006"]["audit_status"]!="MISSING_FROM_PRODUCT":
         raise SystemExit("Zhongzhou leap-month product gap was not preserved")
+    time_standard_child_ids={"HPA-ZTIME-001","HPA-ZTIME-002"}
+    if not time_standard_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 08C Ziwei time-standard child rows are incomplete")
+    time_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-ZTIME-")}
+    if time_by_id["HPA-ZTIME-001"]["audit_status"]!="SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        raise SystemExit("Luoyang time standard lost school-specific scope")
+    if time_by_id["HPA-ZTIME-002"]["audit_status"]!="MODERN_COMPATIBILITY_ONLY":
+        raise SystemExit("local apparent solar time was incorrectly upgraded to historical authority")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
