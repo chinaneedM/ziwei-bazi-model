@@ -197,7 +197,7 @@ class BaziApplicationV1Tests(unittest.TestCase):
                 shensha["resolution_status"],
             )
             self.assertEqual("NO_WINNER_NO_IMPLICIT_MERGE", shensha["selection_semantics"])
-            self.assertEqual(37, len(shensha["candidates"]))
+            self.assertEqual(38, len(shensha["candidates"]))
             candidate_keys = {
                 (row["shensha_id"], row["anchor_basis"])
                 for row in shensha["candidates"]
