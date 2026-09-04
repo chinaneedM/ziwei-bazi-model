@@ -81,10 +81,12 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 3:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 4:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 3:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 4:
         raise SystemExit("known provenance metadata repairs are missing")
+    if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 1:
+        raise SystemExit("source-scoped historical candidate runtime resolver is missing")
     if audit_summary.get("historical_candidate_registry_count", 0) < 1:
         raise SystemExit("historical candidate registry is missing")
     if audit_summary.get("identified_missing_candidate_family_count", 0) < 6:
@@ -117,6 +119,7 @@ def main() -> int:
         "confirmed_provenance_metadata_defect_count":audit_summary.get("confirmed_provenance_metadata_defect_count"),
         "repaired_provenance_metadata_defect_count":audit_summary.get("repaired_provenance_metadata_defect_count"),
         "historical_candidate_registry_count":audit_summary.get("historical_candidate_registry_count"),
+        "historical_candidate_runtime_resolver_count":audit_summary.get("historical_candidate_runtime_resolver_count"),
         "identified_missing_candidate_family_count":audit_summary.get("identified_missing_candidate_family_count"),
     }, ensure_ascii=False, sort_keys=True))
     return 0
