@@ -1,0 +1,88 @@
+{
+  "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
+  "schema_version": "1.0.0",
+  "repository": "chinaneedM/ziwei-bazi-model",
+  "development_branch": "agent/fusion-chart-core-r1-20260822",
+  "github_remote_is_only_live_state_source": true,
+  "embedded_commit_sha_is_authoritative": false,
+  "startup_requires_live_remote_refresh": true,
+  "current_stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
+  "state_sync_policy": "UPDATE_THIS_FILE_WHEN_A_RESEARCH_BATCH_OR_PROJECT_INVARIANT_CHANGES; CI_MUST_MATCH_HISTORICAL_AUDIT_MATRIX",
+  "source_authority_policy": {
+    "policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+    "s00_s19_status": "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY",
+    "canonical_path_semantics": "LEGACY_STORAGE_AND_FREEZE_IDENTITY_NOT_EPISTEMIC_TRUTH",
+    "primary_source_preference": "EDITION_SCOPED_PRIMARY_OR_NEAR_PRIMARY_TEXTUAL_WITNESS",
+    "modern_software_status": "COMPATIBILITY_WITNESS_ONLY",
+    "disputed_methods": "PRESERVE_SEPARATE_CANDIDATES_UNLESS_EXPLICITLY_GOVERNED",
+    "external_research_required_when_material": true
+  },
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "ziwei_self_inward_transformation_direction": "NOT_YET_FORMALIZED",
+    "prediction_ai_interpretation_scope": "OUT_OF_SCOPE_FOR_CURRENT_STAGE"
+  },
+  "historical_audit": {
+    "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
+    "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
+    "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+    "row_count": 127,
+    "audited_row_count": 77,
+    "confirmed_provenance_metadata_defect_count": 6,
+    "repaired_provenance_metadata_defect_count": 6,
+    "historical_candidate_registry_count": 1,
+    "historical_candidate_runtime_resolver_count": 1,
+    "identified_missing_candidate_family_count": 6,
+    "completed_batches": [
+      "BATCH-01-TIME-DAYUN-XIAOYUN",
+      "BATCH-02-BAZI-NATAL-DERIVED",
+      "BATCH-03-BAZI-SHENSHA",
+      "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+      "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
+      "BATCH-06-ZIWEI-NATAL-FOUNDATIONS",
+      "BATCH-07-ZIWEI-MINOR-STARS-A"
+    ],
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-07-ZIWEI-MINOR-STARS-A.md",
+    "current_focus": [
+      "continue granular Ziwei minor-star historical audit after Batch 07A",
+      "split over-broad ring/minor-star families before judging source authority",
+      "continue Ziwei temporal and dynamic auxiliary historical audit after natal families",
+      "promote source-closed historical variants into explicit candidates without changing production default",
+      "repair provenance/source-scope defects forward-only when discovered"
+    ]
+  },
+  "new_chat_bootstrap_order": [
+    "read live GitHub branch HEAD and tree SHA",
+    "read recent commit history from live branch",
+    "read current GitHub Actions for exact live HEAD",
+    "read docs/PROJECT-CONTINUITY-PROTOCOL-R1.md",
+    "read docs/PROJECT-CURRENT-STATE-R1.json",
+    "read docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+    "read historical provenance matrix JSON and MD",
+    "read external historical source registry",
+    "read latest completed batch document and any newer batch documents found in commit history",
+    "read README historical-audit section",
+    "read source/tests/docs only for the next affected rule family",
+    "continue from live remote state; never reset to a SHA embedded in a handoff"
+  ],
+  "forward_only_repository_rules": [
+    "no reset of shared development branch",
+    "no revert of accepted historical-audit progress without explicit defect evidence",
+    "no force push",
+    "do not overwrite commits that appeared after a previous chat snapshot",
+    "re-read live remote before every new work session",
+    "do not reopen deterministic algorithms from reference-software disagreement alone",
+    "do not treat S00-S19 wording as automatically correct",
+    "do not select a winner for a genuinely disputed school rule merely to simplify output"
+  ],
+  "continuity_contract": {
+    "protocol_doc": "docs/PROJECT-CONTINUITY-PROTOCOL-R1.md",
+    "verifier": "scripts/verify-project-continuity-state-r1.py",
+    "ci_gate_required": true,
+    "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
+    "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
+  }
+}
