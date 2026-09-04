@@ -43,19 +43,19 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 159,
+    "row_count": 161,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 19,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 21,
+      "MODERN_COMPATIBILITY_ONLY": 21,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 20,
       "DISPUTED_MULTIPLE_CANDIDATES": 25,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 15,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
       "HISTORICALLY_SUPPORTED": 63,
       "SOURCE_INSUFFICIENT": 7,
       "MISSING_FROM_PRODUCT": 8,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
-      "Time / Calendar": 11,
+      "Time / Calendar": 13,
       "四柱本命": 1,
       "八字派生字段": 14,
       "大运": 7,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 118
+    "audited_row_count": 121
   },
   "rows": [
     {
@@ -136,21 +136,24 @@
       "rule_or_field": "Local apparent solar time correction",
       "current_implementation": "calendar foundation computes true/local apparent solar time before system-specific day policies.",
       "current_profile": "TIME-CALENDAR-FOUNDATION-R1",
-      "primary_source": "Astronomical equation-of-time + longitude correction; repository canonical routes pending historical doctrine audit",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "EXT-USNO-EQUATION-OF-TIME for astronomical definition; EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022 + S01 project corpus for modern Ziwei adoption",
+      "source_quote": "USNO defines equation of time as apparent solar time minus mean solar time. Current SolarTimeEngine computes local mean solar time from longitude and then adds equation-of-time to obtain local apparent solar time.",
+      "source_quote_location": "EXT-USNO-EQUATION-OF-TIME; src/fortune_training/calendar_foundation/solar.py; S01:ZZZA-PR-002..003",
+      "historical_period": "MODERN_ASTRONOMICAL_REALIZATION; MODERN_ZIWEI_ADOPTION",
+      "later_witnesses": "Modern Ziwei software/manuals often expose 真太阳时, but practice is not uniform and terminology is sometimes used loosely for longitude-only correction.",
+      "school_attribution": "MODERN_ASTRONOMICAL_INPUT_CANDIDATE_NOT_EARLY_ZIWEI_AUTHORITY",
       "competing_methods": [
-        "civil clock time",
-        "local mean solar time"
+        "civil/standard time",
+        "local mean solar time",
+        "Zhongzhou Luoyang mean solar time",
+        "local apparent/true solar time"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Separate astronomical correctness from school doctrine about whether charting uses true solar time.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "ASTRONOMICAL_FORMULA_MATCH: LMT=UTC+longitude*4min; apparent=LMT+equation_of_time. DOCTRINAL_USE_AS_ZIWEI_INPUT_REMAINS_MODERN_CANDIDATE.",
+      "confidence": "HIGH_FOR_ASTRONOMICAL_MECHANICS; LOW_FOR_UNIVERSAL_ZIWEI_DOCTRINE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Keep astronomical computation. Do not relabel it as ancient Ziwei doctrine; preserve it as an explicit modern time-standard candidate.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-TIME-STANDARDS-C"
     },
     {
       "rule_id": "HPA-TIME-004",
@@ -2106,23 +2109,24 @@
       "rule_or_field": "Flow-hour method candidates",
       "current_implementation": "Only explicit Luoyang mean-solar / local apparent-solar case-method candidates are emitted; no unique hour chart.",
       "current_profile": "ZIWEI target temporal runtime",
-      "primary_source": "EXT-ZIWEI-JIELAN-1581 + EXT-WANGTINGZHI-ZHONGZHOU-CHUJI + S10 case text",
+      "primary_source": "EXT-ZIWEI-JIELAN-1581 for day-anchored hour geometry; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI for Zhongzhou hour/time wording; EXT-USNO-EQUATION-OF-TIME for modern solar-time terminology",
       "source_quote": "1581 reads 日上起子时皆顺行, which philologically anchors 子时 on the already-established flow-day palace. Wang Tingzhi material also preserves 流时推法是以流日子宫起子时, but elsewhere gives a case wording 命盘的子垣起子时; these mechanically diverge unless the flow-day palace is 子.",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581 chapter 54; EXT-WANGTINGZHI-ZHONGZHOU-CHUJI flow-hour passages; S10:ZZTERM-P-0316..0317",
       "historical_period": "1581 EARLY_PRINT_LAYERED_HOUR_METHOD_PLUS_MODERN_ZHONGZHOU_VARIANT_WORDINGS",
-      "later_witnesses": "Modern Zhongzhou material contains both layered and fixed-branch wordings. This is a philological/mechanical dispute, not a reason to overwrite either.",
-      "school_attribution": "EARLY_PRINT_FLOW_DAY_ANCHORED_HOUR_SEQUENCE_VS_ZHONGZHOU_FIXED_BRANCH_CASE_READING",
+      "later_witnesses": "Wang Tingzhi explicitly requires Zhongzhou/Luoyang time as a school standard. Modern Ziwei practice also uses local apparent solar time, but that is a separate modern candidate and not synonymous with Luoyang mean solar time.",
+      "school_attribution": "ACTIVE_ADDRESS_METHOD_DISPUTE_AND_TIME_STANDARD_DISPUTE_ARE_ORTHOGONAL",
       "competing_methods": [
-        "JIELAN_1581_DAY_ANCHORED_HOUR: flow-day active palace = 子时, then advance by hour branch ordinal",
-        "S10_ZHONGZHOU_FIXED_BRANCH_CASE: 子时→子宫, 丑时→丑宫 ... independent of flow-day active palace",
-        "time standard candidates: Luoyang mean solar vs local apparent solar remain a separate orthogonal dimension"
+        "ACTIVE_ADDRESS:JIELAN_1581_DAY_ANCHORED_HOUR",
+        "ACTIVE_ADDRESS:S10_ZHONGZHOU_FIXED_BRANCH_CASE",
+        "TIME_STANDARD:ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME",
+        "TIME_STANDARD:LOCAL_APPARENT_SOLAR_TIME"
       ],
-      "current_implementation_match": "CURRENT_RUNTIME_MATCHES_THE_FIXED_BRANCH_S10_CASE_METHOD_AND_PRESERVES_TWO_TIME_STANDARDS; IT_DOES_NOT_YET_EMIT_THE_SOURCE_CLOSED_1581_DAY_ANCHORED_ACTIVE_ADDRESS_METHOD",
+      "current_implementation_match": "CURRENT_RUNTIME_PRESERVES_TWO_TIME_STANDARDS AND THE_FIXED_BRANCH_ACTIVE_ADDRESS_METHOD; TIME STANDARD MUST NOT BE USED_TO_IMPLY_ACTIVE_ADDRESS_METHOD_WINNER",
       "confidence": "HIGH_FOR_TEXTUAL_SPLIT; MEDIUM_HIGH_FOR_PHILOLOGICAL_MECHANICAL_READING",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Add a source-scoped Jielan day-anchored active-address candidate only when each time-standard candidate can bind to its own correctly resolved parent daily frame. Do not replace or rank the current S10 fixed-branch case method.",
+      "proposed_action": "Keep time-standard and active-address dimensions orthogonal. Add the 1581 day-anchored address candidate only with its own parent-daily binding; never conflate Luoyang mean solar time with local apparent solar time.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B"
+      "audit_batch": "BATCH-08-ZIWEI-TIME-STANDARDS-C"
     },
     {
       "rule_id": "HPA-ZT-015",
@@ -3681,6 +3685,54 @@
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
       "proposed_action": "Implement as explicit school-scoped candidate; preserve current fail-closed behavior until candidate path is wired."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI target temporal runtime",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-TIME-STANDARDS-C",
+      "rule_id": "HPA-ZTIME-001",
+      "rule_or_field": "Zhongzhou Luoyang mean-solar-time candidate",
+      "current_implementation": "hourly_method_candidates computes Luoyang clock as UTC + 112°26′ × 240 seconds/degree, without equation-of-time.",
+      "primary_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI; S01:ZZZA-PR-004 / ZZZA-A-0027",
+      "source_quote": "Wang Tingzhi states Zhongzhou Ziwei uses ancient Luoyang-region time as its standard and describes longitude-based conversion; project route normalizes this as Luoyang local mean solar time.",
+      "source_quote_location": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI birth-time section; S01:ZZZA-PR-004; src/fortune_training/ziwei_chart/target_temporal.py",
+      "historical_period": "MODERN_ZHONGZHOU_SCHOOL_TRANSMISSION",
+      "later_witnesses": "Multiple modern transcriptions of Wang Tingzhi repeat the Luoyang-time requirement.",
+      "school_attribution": "ZHONGZHOU_LUOYANG_TIME_STANDARD",
+      "competing_methods": [
+        "LOCAL_APPARENT_SOLAR_TIME",
+        "civil/standard time in other practices"
+      ],
+      "current_implementation_match": "MECHANICAL_MATCH_TO_LONGITUDE_BASED_LUOYANG_MEAN_SOLAR_TIME; NO_EQUATION_OF_TIME_IS_ADDED",
+      "confidence": "HIGH_FOR_SCHOOL_METHOD; MEDIUM_FOR_EXACT_HISTORICAL_LONGITUDE_NORMALIZATION",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Retain as named Zhongzhou candidate. Keep 'mean solar' explicit; do not rename it true/apparent solar time."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI target temporal runtime",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-TIME-STANDARDS-C",
+      "rule_id": "HPA-ZTIME-002",
+      "rule_or_field": "Local apparent / true solar time candidate",
+      "current_implementation": "shared target time foundation computes local apparent solar datetime by longitude local-mean correction plus equation-of-time; hourly runtime preserves it as an unselected candidate.",
+      "primary_source": "EXT-USNO-EQUATION-OF-TIME for mechanics; EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022 + S01 project corpus for modern Ziwei practice",
+      "source_quote": "Apparent solar time is local mean solar time plus equation-of-time; modern Ziwei practitioners apply this as 真太阳时 near hour boundaries.",
+      "source_quote_location": "EXT-USNO-EQUATION-OF-TIME; EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022; src/fortune_training/calendar_foundation/solar.py",
+      "historical_period": "MODERN_ASTRONOMICAL_METHOD_AND_MODERN_ZIWEI_PRACTICE",
+      "later_witnesses": "Modern software commonly offers a 'true solar time' option, with inconsistent implementation detail across products.",
+      "school_attribution": "MODERN_ZIWEI_TIME_STANDARD_CANDIDATE_NOT_CLASSICAL_WINNER",
+      "competing_methods": [
+        "ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME",
+        "civil/standard time"
+      ],
+      "current_implementation_match": "ASTRONOMICAL_DEFINITION_MATCH; HISTORICAL_ZIWEI_UNIVERSALITY_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_ASTRONOMY; MEDIUM_FOR_MODERN_PRACTICE; LOW_FOR_PREMODERN_ZIWEI_AUTHORITY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Preserve candidate and astronomical provenance; never upgrade modern astronomical correctness into historical doctrinal authority."
     }
   ],
   "historical_research_batches": [
@@ -3694,7 +3746,8 @@
     "BATCH-07-ZIWEI-MINOR-STARS-B",
     "BATCH-07-ZIWEI-MINOR-STARS-C",
     "BATCH-08-ZIWEI-DYNAMIC-AUXILIARIES-A",
-    "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B"
+    "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
+    "BATCH-08-ZIWEI-TIME-STANDARDS-C"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -3814,7 +3867,10 @@
     "HPA-ZTEMP-003",
     "HPA-ZTEMP-004",
     "HPA-ZTEMP-005",
-    "HPA-ZTEMP-006"
+    "HPA-ZTEMP-006",
+    "HPA-TIME-003",
+    "HPA-ZTIME-001",
+    "HPA-ZTIME-002"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
