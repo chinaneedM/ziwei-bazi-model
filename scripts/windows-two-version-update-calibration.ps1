@@ -171,8 +171,7 @@ $failureStagedMeta = Read-BuildMetadata $failureStagedBundle
 Assert-True ($failureStagedMeta.application_version -eq $NewVersion) "failure staged version mismatch"
 Assert-True ($failureStagedMeta.source_commit -eq $NewSourceCommit) "failure staged source mismatch"
 
-$corruptExe = Join-Path $failureStagedBundle "FortuneChart.exe"
-[System.IO.File]::WriteAllText($corruptExe, "intentionally corrupted executable for rollback calibration")
+$failureExpectedSourceCommit = "0000000000000000000000000000000000000000"
 
 $tempUpdaterRoot = Join-Path $root "failure-standalone-updater"
 New-Item -ItemType Directory -Force -Path $tempUpdaterRoot | Out-Null
@@ -188,7 +187,7 @@ $failureArgs = @(
     "--staging-root", $failureStaging,
     "--staged-bundle", $failureStagedBundle,
     "--expected-version", $NewVersion,
-    "--expected-source-commit", $NewSourceCommit
+    "--expected-source-commit", $failureExpectedSourceCommit
 )
 $failureUpdater = Start-Process -FilePath $tempUpdater -ArgumentList $failureArgs -PassThru
 
@@ -268,7 +267,7 @@ $receipt = [ordered]@{
     activation_old_sentinel_removed = $true
     activation_new_metadata_verified = $true
     activation_relaunch_observed = $activationRelaunchObserved
-    rollback_path = "RELEASED_0_2_4_UPDATER_CORRUPTED_0_2_5_EXECUTABLE"
+    rollback_path = "RELEASED_0_2_4_UPDATER_EXPECTED_SOURCE_MISMATCH"
     rollback_rotation_observed = $rotationObserved
     rollback_complete_old_tree_restored = $rollbackObserved
     rollback_failed_staging_removed = $stagingRemovedAfterRollback
