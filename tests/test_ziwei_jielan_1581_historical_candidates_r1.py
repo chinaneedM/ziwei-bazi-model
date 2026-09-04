@@ -20,10 +20,13 @@ from fortune_training.ziwei_chart.historical_candidates import (
     JIELAN_1581_DAXIAN_RULE,
     JIELAN_1581_MINOR_LIMIT_START_BY_YEAR_BRANCH,
     JIELAN_1581_MINOR_LIMIT_DIRECTION,
+    JIELAN_1581_RUNTIME_RESOLVER_ID,
+    JIELAN_1581_RUNTIME_RESOLVER_VERSION,
     JIELAN_1581_BOSHI_MEMBERS,
     JIELAN_1581_SELECTION_STATUS,
     JIELAN_1581_TIANSHANG_TIANSHI_OFFSETS,
     historical_candidate_hash,
+    resolve_jielan_1581_source_scoped_candidate,
     validate_historical_candidate_registry,
 )
 from fortune_training.ziwei_chart.rings import (
@@ -129,5 +132,50 @@ class ZiweiJielan1581HistoricalCandidatesR1Test(unittest.TestCase):
         current = tuple(display_name for _member_id, display_name in BOSHI_MEMBERS)
         self.assertEqual(JIELAN_1581_BOSHI_MEMBERS, current)
 
+    def test_source_scoped_runtime_resolves_replayable_1581_facts_without_selecting(self) -> None:
+        resolved = resolve_jielan_1581_source_scoped_candidate(
+            year_stem="庚",
+            year_branch="巳",
+            birth_hour_branch="午",
+            life_palace_branch="寅",
+            bureau_element="木",
+            sex="MALE",
+        )
+        self.assertEqual(resolved["selection_status"], "PRESERVED_NOT_SELECTED")
+        self.assertEqual(resolved["runtime_resolver_id"], JIELAN_1581_RUNTIME_RESOLVER_ID)
+        self.assertEqual(resolved["runtime_resolver_version"], JIELAN_1581_RUNTIME_RESOLVER_VERSION)
+        self.assertEqual(len(resolved["runtime_hash"]), 64)
+        facts = resolved["facts"]
+        self.assertEqual(facts["kui_yue"]["branches"], ("午", "寅"))
+        self.assertEqual(facts["fire_bell"]["start_branches"], ("戌", "卯"))
+        self.assertEqual(facts["fire_bell"]["resolved_branches"], ("辰", "酉"))
+        self.assertEqual(
+            facts["tianshang_tianshi"]["resolved_branches"],
+            {"STAR.TIANSHANG": "未", "STAR.TIANSHI": "酉"},
+        )
+        self.assertEqual(facts["changsheng"]["direction"], "FORWARD")
+        self.assertEqual(facts["mingzhu"]["basis"], "ZIWEI_BIRTH_YEAR_BRANCH")
+        self.assertEqual(facts["mingzhu"]["display_name"], "武曲")
+        self.assertFalse(facts["shenzhu"]["winner_selected"])
+        self.assertEqual(facts["daxian"]["direction"], "FORWARD")
+        self.assertEqual(facts["minor_limit"]["age_one_start_branch"], "未")
+        self.assertEqual(facts["minor_limit"]["direction"], "FORWARD")
+        self.assertEqual(facts["boshi"]["anchor_branch"], "申")
+        self.assertEqual(facts["boshi"]["members"][0]["display_name"], "博士")
+        self.assertEqual(facts["boshi"]["members"][0]["branch"], "申")
+        self.assertFalse(facts["dignity"]["runtime_normalized"])
+
+    def test_source_scoped_runtime_is_deterministic_and_fail_closed(self) -> None:
+        kwargs = dict(
+            year_stem="辛", year_branch="子", birth_hour_branch="子",
+            life_palace_branch="午", bureau_element="金", sex="FEMALE",
+        )
+        first = resolve_jielan_1581_source_scoped_candidate(**kwargs)
+        second = resolve_jielan_1581_source_scoped_candidate(**kwargs)
+        self.assertEqual(first["runtime_hash"], second["runtime_hash"])
+        with self.assertRaises(ValueError):
+            resolve_jielan_1581_source_scoped_candidate(**{**kwargs, "sex": "UNKNOWN"})
+        with self.assertRaises(ValueError):
+            resolve_jielan_1581_source_scoped_candidate(**{**kwargs, "bureau_element": "风"})
 if __name__ == "__main__":
     unittest.main()
