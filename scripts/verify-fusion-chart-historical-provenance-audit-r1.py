@@ -94,9 +94,9 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 4:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 5:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 4:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 5:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 1:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
@@ -110,6 +110,11 @@ def main() -> int:
     summary=data.get("inventory_summary",{})
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
+    audited_ids=data.get("audited_row_ids",())
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 69:
+        raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 06")
+    if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in data.get("historical_research_batches",()):
+        raise SystemExit("Batch 06 Ziwei natal foundations audit is missing")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
