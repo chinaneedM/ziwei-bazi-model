@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contains **107 rule/field families**. It intentionally uses `PENDING_VERBATIM_EXTRACTION` and `PENDING_BIBLIOGRAPHIC_DATING` where the repository currently has source IDs but has not yet established a bibliographic historical chain. Those values mean “historical research pending”, not “algorithm defective”.
+The initial inventory contained **107 rule/field families**. After Batches 01–05 and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **119 rows**, with **64 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **4 confirmed/repaired provenance metadata defects, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
 
 ## Allowed audit statuses
 
@@ -85,3 +85,14 @@ Historical research proceeds in evidence-risk order:
 8. Final missing-product scan against audited historical rule families.
 
 No winner is selected for a genuinely disputed school rule solely to simplify product output.
+
+
+## Progress through Batch 05
+
+- Batch 01: Time / Dayun / Xiaoyun.
+- Batch 02: Bazi natal / derived foundations; repaired Twelve-Growth and NaYin provenance metadata.
+- Batch 03: Bazi ShenSha; repaired Yuancheng lineage and preserved source-scoped variants.
+- Batch 04: Ziwei early-print core; registered the 1581 Jielan candidate family and isolated historically distinct Kui/Yue, Fire/Bell, dignity and Four-Transformation families.
+- Batch 05: Ziwei roles / limits / rings; distinguished Jielan birth-year Mingzhu from received-Fullbook Life-palace Mingzhu, kept Zi/Wu Shenzhu unresolved, verified Daxian/Xiaoxian/Boshi geometry, repaired stale Jielan registry-version lineage, and added a source-scoped deterministic candidate runtime that remains `PRESERVED_NOT_SELECTED`.
+
+The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
