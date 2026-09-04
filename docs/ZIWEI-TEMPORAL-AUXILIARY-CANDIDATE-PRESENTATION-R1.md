@@ -41,7 +41,7 @@ The existing generator declares the following source closure and this presentati
 - S01 §十七/步骤6（大限、流年动态星）
 - S19（天魁、天钺、天马标准ID/别名）
 
-Compatibility evidence is descriptive only; it does not override the canonical candidate policy.
+Compatibility evidence is descriptive only; it does not override the repository's evidence-gated candidate policy.
 
 ## Workbench behavior
 
@@ -60,3 +60,10 @@ This milestone does not:
 - modify `ChartViewModel` or its hash contract;
 - synthesize fields that the released view does not contain;
 - add unsupported ZiWei rules from compatibility software.
+
+
+## Historical authority repair — Batch 08A
+
+The strict Kui/Yue method is a strict **project-corpus method**, not a declaration of canonical historical authority. Runtime metadata therefore uses `S01_STRICT_PROJECT_CORPUS_METHOD` instead of the former `CANONICAL_SOURCE_TABLE` label.
+
+This is provenance metadata only. The strict coordinates, Wenmo-compatible coordinates, method IDs, unranked candidate-set policy and visible selection semantics are unchanged.

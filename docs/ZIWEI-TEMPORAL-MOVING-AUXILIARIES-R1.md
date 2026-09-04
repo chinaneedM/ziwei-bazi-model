@@ -28,3 +28,14 @@
 时限完整性验证会从每层来源干独立复算三颗动态星，并验证层级、父帧、位置、规则身份与来源。事实哈希包含位置和层级；计算哈希另包含完整来源链。选择大限、流年或流月时，视图和 SVG 以独立的“流曜”标记显示对应层实例，不改写本命星曜。
 
 流昌曲依据 S10 完整十干表发布确定事实；流魁钺依据 S10 对 S01 原局安法的指向和既有兼容证据发布候选，但不选择门派；流天马按大限与流年两个案例层分列候选。其他动态星仍须同时具备完整安星表、明确时间层基准与稳定来源才可进入运行时，不从常识补猜。
+
+
+## Historical authority note — Batch 08A
+
+The placement/runtime behavior above is now authority-scoped rather than described generically as source-closed.
+
+- Annual 流禄/流羊/流陀 has a received 《紫微斗数全书》 witness.
+- Daxian and finer-layer 流禄羊陀, the 流昌/流曲 table, dynamic 魁钺 reuse, and 运马/流马 are Zhongzhou-school methods witnessed by `EXT-WANGTINGZHI-ANXING-2013`.
+- `COMPAT-WENMO-KUI-YUE-R1` remains compatibility-only.
+- Fine-layer use must not be described as a universal classical Ziwei rule.
+- No coordinates or candidate selection were changed by this audit.
