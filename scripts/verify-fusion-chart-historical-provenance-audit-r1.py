@@ -87,7 +87,7 @@ def main() -> int:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_registry_count", 0) < 1:
         raise SystemExit("historical candidate registry is missing")
-    if audit_summary.get("identified_missing_candidate_family_count", 0) < 5:
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 6:
         raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
