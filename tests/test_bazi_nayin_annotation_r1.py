@@ -107,6 +107,8 @@ class BaziNayinAnnotationR1Tests(unittest.TestCase):
             self.assertEqual(annotation.element, entry.element)
             self.assertEqual(annotation.registry_id, NAYIN_REGISTRY_ID)
             self.assertEqual(annotation.registry_version, NAYIN_REGISTRY_VERSION)
+            self.assertEqual(annotation.registry_version, "1.0.1")
+            self.assertEqual(annotation.source_refs, ("S11:YHZP-CH-014",))
 
     def test_resolution_is_deterministic_and_full_replay_passes(self) -> None:
         second = self.service.resolve(self.natal, self.profile)
