@@ -4305,9 +4305,9 @@
       "rule_id": "HPA-BREL-012",
       "rule_or_field": "Same-pillar visible-stem ↔ hidden-stem five-combination: 座下自化 / later 干支暗合",
       "current_implementation": "Affinity/exposure records the primitive stem-hidden identities, but no raw relation candidate identifies the same-pillar five-combination relation.",
-      "primary_source": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI page family/《命理探源》卷五化合刑冲",
+      "primary_source": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-RELATIONS",
       "source_quote": "《三命通会》 lists 壬午、丁亥、戊子、甲午、辛巳、癸巳 under 座下自化; later 《命理探源》 explicitly calls the mechanism 干支暗合 and explains the hidden stem combining with the visible stem.",
-      "source_quote_location": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; https://ctext.org/wiki.pl?chapter=435028&if=gb",
+      "source_quote_location": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-RELATIONS",
       "historical_period": "MING_SOURCE_FAMILY_WITH_LATER_EXPLICIT_TERMINOLOGY_GLOSS",
       "later_witnesses": "《命理探源》 preserves the same examples and labels the mechanism 干支暗合.",
       "school_attribution": "NORMALIZED_LABEL_BRIDGE: 座下自化 ↔ same-pillar stem-hidden combination / later 干支暗合",
@@ -4317,7 +4317,11 @@
       "current_implementation_match": "SOURCE_CLOSED_SAME_PILLAR_RELATION_MISSING; REQUIRED_PRIMITIVE_HIDDEN_STEM_IDENTITIES_ALREADY_EXIST",
       "confidence": "HIGH_FOR_SIX_EXAMPLES_AND_MECHANISM; MEDIUM_HIGH_FOR_GENERIC_SAME_PILLAR_RULE",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add a source-scoped same-pillar STEM_HIDDEN_COMBINATION occurrence candidate derived from the five stem-combination registry and the branch's hidden stems; do not assert successful 化."
+      "proposed_action": "Add a source-scoped same-pillar STEM_HIDDEN_COMBINATION occurrence candidate derived from the five stem-combination registry and the branch's hidden stems; do not assert successful 化.",
+      "defect_id": "PROV-DEFECT-008",
+      "defect_type": "SOURCE_ID_SCOPE_MISMATCH",
+      "defect_status": "REPAIRED_FORWARD_ONLY",
+      "defect_detail": "Batch 10B initially reused the unrelated EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI source ID while referring to 《命理探源》卷五《化合刑冲》. A dedicated relation-chapter source ID is now registered; rule mechanics and audit verdict are unchanged."
     }
   ],
   "historical_research_batches": [
@@ -4496,8 +4500,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 7,
-    "repaired_provenance_metadata_defect_count": 7,
+    "confirmed_provenance_metadata_defect_count": 8,
+    "repaired_provenance_metadata_defect_count": 8,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 3,
