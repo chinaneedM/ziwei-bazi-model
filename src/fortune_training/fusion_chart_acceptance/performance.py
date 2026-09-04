@@ -3,6 +3,7 @@ from __future__ import annotations
 import gc
 import time
 import tracemalloc
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable
 
@@ -38,21 +39,16 @@ def _measure_callable(
     }
 
 
-def benchmark_source_runtime(
+def benchmark_runtime(
     repository_root: Path,
     *,
     iterations: int = 7,
+    schema: str = PERFORMANCE_RECEIPT_SCHEMA,
 ) -> dict[str, Any]:
     harness = AcceptanceHarness(repository_root)
     beijing = AcceptanceLocation("Beijing", 39.9042, 116.4074, "Asia/Shanghai")
-    birth = harness.birth(
-        __import__("datetime").datetime(1994, 5, 17, 14, 30),
-        beijing,
-    )
-    target = harness.target(
-        __import__("datetime").datetime(2026, 8, 18, 12, 0),
-        beijing,
-    )
+    birth = harness.birth(datetime(1994, 5, 17, 14, 30), beijing)
+    target = harness.target(datetime(2026, 8, 18, 12, 0), beijing)
 
     operations = {
         "ziwei_natal_application": lambda: harness.resolve_ziwei(birth),
@@ -66,10 +62,22 @@ def benchmark_source_runtime(
         for name, fn in operations.items()
     }
     return {
-        "schema": PERFORMANCE_RECEIPT_SCHEMA,
+        "schema": schema,
         "status": "PASS",
         "iterations_per_operation": iterations,
         "metrics": metrics,
         "memory_metric_scope": "PYTHON_TRACEMALLOC_PEAK_PER_OPERATION",
         "latency_clock": "time.perf_counter",
     }
+
+
+def benchmark_source_runtime(
+    repository_root: Path,
+    *,
+    iterations: int = 7,
+) -> dict[str, Any]:
+    return benchmark_runtime(
+        repository_root,
+        iterations=iterations,
+        schema=PERFORMANCE_RECEIPT_SCHEMA,
+    )

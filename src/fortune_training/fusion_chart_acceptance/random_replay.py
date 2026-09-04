@@ -52,6 +52,9 @@ def run_random_replay(
     statuses: Counter[str] = Counter()
     first_latencies_ms: list[float] = []
     replay_latencies_ms: list[float] = []
+    deterministic_mismatch_count = 0
+    invariant_failure_count = 0
+    execution_error_count = 0
     deterministic_mismatches: list[dict[str, object]] = []
     invariant_failures: list[dict[str, object]] = []
     execution_errors: list[dict[str, object]] = []
@@ -81,6 +84,7 @@ def run_random_replay(
             first_signature = deterministic_resolution_signature(first)
             second_signature = deterministic_resolution_signature(second)
             if first != second or first_signature != second_signature:
+                deterministic_mismatch_count += 1
                 if len(deterministic_mismatches) < max_failure_examples:
                     deterministic_mismatches.append(
                         {
@@ -92,11 +96,14 @@ def run_random_replay(
                         }
                     )
             violations = combined_invariant_violations(first)
-            if violations and len(invariant_failures) < max_failure_examples:
-                invariant_failures.append(
-                    {**case_identity, "violations": list(violations)}
-                )
+            if violations:
+                invariant_failure_count += 1
+                if len(invariant_failures) < max_failure_examples:
+                    invariant_failures.append(
+                        {**case_identity, "violations": list(violations)}
+                    )
         except Exception as exc:
+            execution_error_count += 1
             if len(execution_errors) < max_failure_examples:
                 execution_errors.append(
                     {
@@ -107,12 +114,12 @@ def run_random_replay(
                 )
 
     elapsed = time.perf_counter() - started
-    completed = samples - len(execution_errors)
+    completed = samples - execution_error_count
     status = (
         "PASS"
-        if not deterministic_mismatches
-        and not invariant_failures
-        and not execution_errors
+        if deterministic_mismatch_count == 0
+        and invariant_failure_count == 0
+        and execution_error_count == 0
         else "FAIL"
     )
     return {
@@ -122,12 +129,13 @@ def run_random_replay(
         "requested_samples": samples,
         "completed_samples": completed,
         "status_counts": dict(sorted(statuses.items())),
-        "deterministic_mismatch_count": len(deterministic_mismatches),
-        "invariant_failure_count": len(invariant_failures),
-        "execution_error_count": len(execution_errors),
+        "deterministic_mismatch_count": deterministic_mismatch_count,
+        "invariant_failure_count": invariant_failure_count,
+        "execution_error_count": execution_error_count,
         "deterministic_mismatch_examples": deterministic_mismatches,
         "invariant_failure_examples": invariant_failures,
         "execution_error_examples": execution_errors,
+        "failure_examples_capped_at": max_failure_examples,
         "first_resolution_latency": summarize_latencies_ms(
             first_latencies_ms
         ).as_dict()

@@ -7,6 +7,8 @@ on:
       - agent/fusion-chart-core-r1-20260822
     paths:
       - "src/fortune_training/fusion_chart_acceptance/**"
+      - "src/fortune_training/desktop_application/launcher.py"
+      - "src/fortune_training/desktop_application/platform_acceptance.py"
       - "scripts/fusion-chart-*.py"
       - "tests/fixtures/fusion-chart-capability-golden-r1.json"
       - "tests/test_fusion_chart_*r1.py"
@@ -36,17 +38,93 @@ jobs:
       - name: Deterministic 10k replay with conditional 100k escalation
         run: |
           mkdir -p acceptance-artifacts
-          python scripts/fusion-chart-deterministic-replay.py             --samples 10000             --seed 20260904             --escalate-to 100000             --max-projected-seconds 3600             --receipt acceptance-artifacts/deterministic-replay.json
+          python scripts/fusion-chart-deterministic-replay.py --samples 10000 --seed 20260904 --escalate-to 100000 --max-projected-seconds 3600 --receipt acceptance-artifacts/deterministic-replay.json
       - name: Source performance benchmark
         run: |
-          python scripts/fusion-chart-source-benchmark.py             --iterations 7             --cold-start-iterations 3             --receipt acceptance-artifacts/source-performance.json
+          python scripts/fusion-chart-source-benchmark.py --iterations 7 --cold-start-iterations 3 --receipt acceptance-artifacts/source-performance.json
       - name: Soak and resource leak acceptance
         run: |
-          python scripts/fusion-chart-soak.py             --iterations 1000             --receipt acceptance-artifacts/soak.json
+          python scripts/fusion-chart-soak.py --iterations 1000 --receipt acceptance-artifacts/soak.json
       - name: Upload acceptance receipts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fusion-chart-capability-performance-r1
+          name: fusion-chart-capability-performance-r1-source
           path: acceptance-artifacts/*.json
+          if-no-files-found: warn
+
+  windows-packaged-performance:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install desktop build dependencies
+        run: python -m pip install -e ".[desktop-build]"
+      - name: Build exact Windows portable bundle
+        shell: pwsh
+        run: ./scripts/build-windows-portable.ps1 -SourceCommit "$env:GITHUB_SHA"
+      - name: Benchmark emitted FortuneChart EXE
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'fortune-chart-performance'
+          New-Item -ItemType Directory -Force -Path $root | Out-Null
+          Expand-Archive -LiteralPath 'dist/FortuneChart-windows-x64.zip' -DestinationPath $root -Force
+          $exe = Join-Path $root 'FortuneChart/FortuneChart.exe'
+          $receiptRoot = Join-Path (Resolve-Path 'dist').Path 'performance-acceptance'
+          New-Item -ItemType Directory -Force -Path $receiptRoot | Out-Null
+
+          $cold = @()
+          $coldPeak = @()
+          1..3 | ForEach-Object {
+            $readyReceipt = Join-Path $receiptRoot "windows-ready-$_.json"
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $process = Start-Process -FilePath $exe -ArgumentList @('--platform-ready-receipt', $readyReceipt) -Wait -PassThru
+            $timer.Stop()
+            if ($process.ExitCode -ne 0) { throw "ready probe failed: $($process.ExitCode)" }
+            $ready = Get-Content $readyReceipt -Raw | ConvertFrom-Json
+            if ($ready.status -ne 'PASS' -or $ready.source_commit -ne $env:GITHUB_SHA.ToLowerInvariant()) {
+              throw 'ready receipt identity mismatch'
+            }
+            $cold += [double]$timer.Elapsed.TotalMilliseconds
+            $coldPeak += [int64]$process.PeakWorkingSet64
+          }
+
+          $performanceReceipt = Join-Path $receiptRoot 'windows-packaged-performance.json'
+          $process = Start-Process -FilePath $exe -ArgumentList @(
+            '--platform-performance-receipt', $performanceReceipt,
+            '--platform-performance-iterations', '5'
+          ) -Wait -PassThru
+          if ($process.ExitCode -ne 0) { throw "packaged performance probe failed: $($process.ExitCode)" }
+          $payload = Get-Content $performanceReceipt -Raw | ConvertFrom-Json
+          if ($payload.schema -ne 'FORTUNE-CHART-WINDOWS-BINARY-PERFORMANCE-R1' -or $payload.status -ne 'PASS') {
+            throw 'packaged performance receipt mismatch'
+          }
+          if ($payload.source_commit -ne $env:GITHUB_SHA.ToLowerInvariant()) {
+            throw 'packaged performance source commit mismatch'
+          }
+
+          $sorted = @($cold | Sort-Object)
+          $coldSummary = [ordered]@{
+            count = $sorted.Count
+            min_ms = $sorted[0]
+            p50_ms = $sorted[[int][Math]::Floor(($sorted.Count - 1) * 0.50)]
+            p95_ms = $sorted[[int][Math]::Ceiling(($sorted.Count - 1) * 0.95)]
+            p99_ms = $sorted[[int][Math]::Ceiling(($sorted.Count - 1) * 0.99)]
+            max_ms = $sorted[-1]
+            samples_ms = $cold
+            peak_working_set_samples_bytes = $coldPeak
+          }
+          $payload | Add-Member -NotePropertyName cold_start_process -NotePropertyValue $coldSummary
+          $payload | Add-Member -NotePropertyName process_peak_working_set_bytes -NotePropertyValue ([int64]$process.PeakWorkingSet64)
+          $payload | ConvertTo-Json -Depth 20 | Set-Content -Path $performanceReceipt -Encoding utf8
+      - name: Upload packaged performance receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-capability-performance-r1-windows
+          path: dist/performance-acceptance/*.json
           if-no-files-found: warn

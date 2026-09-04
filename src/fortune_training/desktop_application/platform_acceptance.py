@@ -13,6 +13,7 @@ from fortune_training.combined_chart_application.local_app import (
 from fortune_training.combined_chart_application.product_shell_assets import (
     DESKTOP_PRODUCT_SHELL_SCHEMA,
 )
+from fortune_training.fusion_chart_acceptance.performance import benchmark_runtime
 
 from .distribution import (
     DESKTOP_APPLICATION_ID,
@@ -22,6 +23,8 @@ from .distribution import (
 
 
 WINDOWS_BINARY_SMOKE_SCHEMA = "FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1"
+WINDOWS_BINARY_READY_SCHEMA = "FORTUNE-CHART-WINDOWS-BINARY-READY-R1"
+WINDOWS_BINARY_PERFORMANCE_SCHEMA = "FORTUNE-CHART-WINDOWS-BINARY-PERFORMANCE-R1"
 
 
 class _DesktopServer(Protocol):
@@ -84,6 +87,51 @@ def _base_payload() -> dict[str, object]:
         "bazi_dayun_count": 12,
         "combined_profile_id": "ZIWEI-BAZI-COMBINED-LOCAL-SHELL-V1-R1",
     }
+
+
+def run_windows_binary_ready(
+    server: _DesktopServer,
+    *,
+    runtime_root: Path,
+) -> dict[str, object]:
+    metadata = _read_build_metadata(runtime_root)
+    host, port = server.server_address[:2]
+    try:
+        _require(host == "127.0.0.1", "binary ready server is not loopback-only")
+        _require(isinstance(port, int) and port > 0, "binary ready server has no ephemeral port")
+        return {
+            "schema": WINDOWS_BINARY_READY_SCHEMA,
+            "status": "PASS",
+            "application_id": metadata["application_id"],
+            "application_version": metadata["application_version"],
+            "source_commit": metadata["source_commit"],
+            "bind_policy": "LOOPBACK_ONLY",
+            "server_ready": True,
+        }
+    finally:
+        server.server_close()
+
+
+def run_windows_binary_performance(
+    *,
+    runtime_root: Path,
+    iterations: int = 5,
+) -> dict[str, object]:
+    metadata = _read_build_metadata(runtime_root)
+    payload = benchmark_runtime(
+        runtime_root,
+        iterations=iterations,
+        schema=WINDOWS_BINARY_PERFORMANCE_SCHEMA,
+    )
+    payload.update(
+        {
+            "application_id": metadata["application_id"],
+            "application_version": metadata["application_version"],
+            "source_commit": metadata["source_commit"],
+            "runtime_kind": "PYINSTALLER_WINDOWS_PORTABLE_EXE",
+        }
+    )
+    return payload
 
 
 def run_windows_binary_smoke(
@@ -176,6 +224,30 @@ def run_windows_binary_smoke(
         _require(not thread.is_alive(), "binary smoke server did not stop cleanly")
 
 
+def write_windows_binary_ready_receipt(
+    path: Path,
+    *,
+    server: _DesktopServer,
+    runtime_root: Path,
+) -> None:
+    _write_receipt(path, run_windows_binary_ready(server, runtime_root=runtime_root))
+
+
+def write_windows_binary_performance_receipt(
+    path: Path,
+    *,
+    runtime_root: Path,
+    iterations: int = 5,
+) -> None:
+    _write_receipt(
+        path,
+        run_windows_binary_performance(
+            runtime_root=runtime_root,
+            iterations=iterations,
+        ),
+    )
+
+
 def write_windows_binary_smoke_receipt(
     path: Path,
     *,
@@ -183,4 +255,3 @@ def write_windows_binary_smoke_receipt(
     runtime_root: Path,
 ) -> None:
     _write_receipt(path, run_windows_binary_smoke(server, runtime_root=runtime_root))
-

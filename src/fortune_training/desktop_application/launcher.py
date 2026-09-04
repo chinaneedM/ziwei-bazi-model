@@ -13,7 +13,11 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 )
 
 from .distribution import DESKTOP_APPLICATION_VERSION
-from .platform_acceptance import write_windows_binary_smoke_receipt
+from .platform_acceptance import (
+    write_windows_binary_performance_receipt,
+    write_windows_binary_ready_receipt,
+    write_windows_binary_smoke_receipt,
+)
 from .runtime import resolve_runtime_repository_root
 from .updates import (
     UpdateSecurityError,
@@ -80,14 +84,7 @@ def _notify_update_integrity_failure(message: str) -> None:
 
 
 def _notify_post_update_version() -> None:
-    """Show the activated build version only on an updater-owned relaunch.
-
-    The wording is deliberately neutral rather than claiming the preceding
-    transaction succeeded: the same hidden recovery switch may also be used to
-    relaunch a known-good build after a failed future activation.  For the
-    real-machine calibration it still gives visible proof of the activated
-    package version without touching chart semantics or update authority.
-    """
+    """Show the activated build version only on an updater-owned relaunch."""
 
     if os.name != "nt":
         return
@@ -103,12 +100,7 @@ def _notify_post_update_version() -> None:
 
 
 def run_startup_update_check(*, disabled: bool = False) -> bool:
-    """Return True only when a verified updater process was launched.
-
-    Development/source execution is a no-op inside ``maybe_launch_verified_update``.
-    Network unavailability deliberately continues the current known-good build.
-    Integrity failures never apply remote bytes and leave the installation intact.
-    """
+    """Return True only when a verified updater process was launched."""
 
     if disabled:
         return False
@@ -136,6 +128,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-update", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--post-update", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--platform-smoke-receipt", type=Path, help=argparse.SUPPRESS)
+    parser.add_argument("--platform-ready-receipt", type=Path, help=argparse.SUPPRESS)
+    parser.add_argument("--platform-performance-receipt", type=Path, help=argparse.SUPPRESS)
+    parser.add_argument(
+        "--platform-performance-iterations",
+        type=int,
+        default=5,
+        help=argparse.SUPPRESS,
+    )
     args = parser.parse_args(argv)
     if args.platform_smoke_receipt is not None:
         runtime_root = resolve_runtime_repository_root()
@@ -145,11 +145,25 @@ def main(argv: list[str] | None = None) -> int:
             runtime_root=runtime_root,
         )
         return 0
+    if args.platform_ready_receipt is not None:
+        runtime_root = resolve_runtime_repository_root()
+        write_windows_binary_ready_receipt(
+            args.platform_ready_receipt,
+            server=build_desktop_server(),
+            runtime_root=runtime_root,
+        )
+        return 0
+    if args.platform_performance_receipt is not None:
+        runtime_root = resolve_runtime_repository_root()
+        write_windows_binary_performance_receipt(
+            args.platform_performance_receipt,
+            runtime_root=runtime_root,
+            iterations=args.platform_performance_iterations,
+        )
+        return 0
     if args.post_update:
         _notify_post_update_version()
     if run_startup_update_check(disabled=args.no_update or args.post_update):
-        # The temporary standalone updater now owns activation. Exit so Windows
-        # can rotate the complete portable directory without locked app files.
         return 0
     return serve_desktop(build_desktop_server(), open_browser=not args.no_browser)
 
