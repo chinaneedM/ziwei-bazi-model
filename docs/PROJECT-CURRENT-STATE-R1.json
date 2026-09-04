@@ -33,13 +33,13 @@
     "matrix_json": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
     "matrix_md": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md",
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
-    "row_count": 172,
-    "audited_row_count": 136,
+    "row_count": 181,
+    "audited_row_count": 148,
     "confirmed_provenance_metadata_defect_count": 7,
     "repaired_provenance_metadata_defect_count": 7,
     "historical_candidate_registry_count": 1,
     "historical_candidate_runtime_resolver_count": 1,
-    "identified_missing_candidate_family_count": 8,
+    "identified_missing_candidate_family_count": 9,
     "completed_batches": [
       "BATCH-01-TIME-DAYUN-XIAOYUN",
       "BATCH-02-BAZI-NATAL-DERIVED",
@@ -55,16 +55,18 @@
       "BATCH-08-ZIWEI-TIME-STANDARDS-C",
       "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
       "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
-      "BATCH-09-BAZI-DAYUN-SEQUENCE-B"
+      "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
+      "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A.md",
     "current_focus": [
-      "audit remaining Bazi Dayun rule families still marked implementation-review, especially calendar realization/boundary semantics separately from classical sequence identity",
-      "audit Bazi raw stem/branch relation families and affinity abstractions after time/dynamic foundations",
-      "productize the two source-closed Ziwei temporal candidate gaps through explicit unranked candidate APIs",
-      "continue edition/facsimile research for Ziwei late-Zi attribution and unresolved minor-star sources",
-      "apply philological normalization across 月建/月柱/运元/大运 terminology before rule identity mapping",
-      "repair provenance/source-scope defects forward-only when discovered"
+      "productize HPA-BREL-007 辰戌丑未 four-earth bureau as an explicit arity-4 source-scoped candidate without changing current trine defaults",
+      "audit remaining Bazi relation families excluded from the foundation core: six break, partial trine, directional triad, hidden combination, and source scope for each",
+      "audit hidden-stem display/order ordinal separately from membership and affinity facts",
+      "audit remaining Dayun calendar-realization/boundary semantics independently of the now-closed Ganzhi sequence",
+      "productize the source-closed Ziwei day-anchored flow-hour and Zhongzhou leap-month candidates through explicit unranked APIs",
+      "continue Ziwei late-Zi facsimile/source research and unresolved minor-star evidence gaps",
+      "preserve terminology bridges (穿/害, punishment category names) without duplicate mechanical events"
     ]
   },
   "new_chat_bootstrap_order": [
