@@ -43,15 +43,15 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 186,
+    "row_count": 187,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 28,
-      "HISTORICALLY_SUPPORTED": 80,
-      "DISPUTED_MULTIPLE_CANDIDATES": 28,
+      "HISTORICALLY_SUPPORTED": 84,
+      "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
       "IMPLEMENTATION_REVIEW_REQUIRED": 13,
-      "MISSING_FROM_PRODUCT": 13,
       "SOURCE_INSUFFICIENT": 7,
+      "MISSING_FROM_PRODUCT": 8,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
@@ -78,10 +78,10 @@
       "流时": 3,
       "Structural R1–R8": 8,
       "Combined Fusion": 4,
-      "candidate/profile rules": 1,
+      "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 153
+    "audited_row_count": 154
   },
   "rows": [
     {
@@ -437,8 +437,8 @@
       "system": "BAZI",
       "module": "八字派生字段",
       "rule_or_field": "Raw stem/branch relations",
-      "current_implementation": "BAZI-RAW-RELATION-CLASSICAL-CORE-R1 includes source-faithful relations including CHUAN.",
-      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "current_implementation": "BAZI-RAW-RELATION-CLASSICAL-CORE-R1 emits the released raw core; BAZI-HISTORICAL-RELATION-CANDIDATES-R1 separately emits all currently source-closed excluded historical candidate families.",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 + BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
       "primary_source": "S14 frozen YHZP chapters 4/7/8/9/10/11 + EXT-CTEXT-YHZP-RECEIVED; corroboration EXT-CTEXT-SANMING-V2-RELATIONS and EXT-CTEXT-XINGLI-KAOYUAN-RELATIONS",
       "source_quote": "Current included core relations replay five stem combinations, six harmonies, six clashes, 相穿, four standard three-combination bureaus and directed/self punishments. S14 YHZP chapter 8 additionally preserves 辰戌丑未土局, which current runtime does not emit.",
       "source_quote_location": "sources/canonical-runtime/S14/segment-0001.txt lines 1876–1964; segment-0002.txt opening source atoms; src/fortune_training/bazi_chart/relations.py",
@@ -452,12 +452,13 @@
         "modern half-trine / arched-trine distinctions",
         "same-pillar 座下自化 / later 干支暗合"
       ],
-      "current_implementation_match": "ALL_CURRENTLY_EMITTED_RELATION_GEOMETRIES_ARE_SOURCE_SUPPORTED; SOURCE_CLOSED_GAPS_NOW_INCLUDE_FOUR_EARTH_BUREAU, FOUR_DIRECTIONAL_TRIADS, EARLY_FOUR_BREAK, AND_SAME_PILLAR_STEM_HIDDEN_COMBINATION; MODERN_HALF_TRINE_ARCH_RULES_REMAIN_COMPATIBILITY_ONLY",
+      "current_implementation_match": "CURRENT_RAW_CORE_REMAINS_SOURCE_SUPPORTED; FOUR_EARTH_BUREAU, DIRECTIONAL_TRIADS, EARLY_FOUR_BREAK, AND_SAME_PILLAR_STEM_HIDDEN_COMBINATION_ARE_NOW_AVAILABLE_IN_AN_UNSELECTED_SOURCE_SCOPED_SIDECAR; LATER_SIX_BREAK_AND_MODERN_PARTIAL_TRINE_REMAIN_SEPARATE_UNCLOSED_OR_COMPATIBILITY_FAMILIES",
       "confidence": "HIGH",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Design one explicit source-scoped relation-candidate sidecar/API covering arity-2/3/4 and stem-hidden relations before productizing individual gaps; do not alter BAZI-RAW-RELATION-CLASSICAL-CORE-R1 defaults.",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep core and historical sidecar separate. Continue research on later six-break and modern partial-trine genealogies without changing production defaults.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B"
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
     },
     {
       "rule_id": "HPA-BAZI-006",
@@ -4182,12 +4183,12 @@
     {
       "system": "BAZI",
       "module": "八字派生字段",
-      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "current_profile": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A",
       "rule_id": "HPA-BREL-007",
       "rule_or_field": "辰戌丑未 four-earth bureau candidate",
-      "current_implementation": "NOT EMITTED by BAZI-RAW-RELATION-CLASSICAL-CORE-R1.",
+      "current_implementation": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 source-scoped sidecar now emits arity-4 辰戌丑未土局 as relation_family=FOUR_EARTH_BUREAU; raw core default remains unchanged.",
       "primary_source": "S14 YHZP-CH-008 + EXT-CTEXT-SANMING-V1-FOUR-EARTH-BUREAU",
       "source_quote": "Frozen YHZP relation chapter lists 辰戌丑未土局; Ming 三命通会 independently uses the expression 辰戌丑未土局.",
       "source_quote_location": "S14 relation fact table 7.3 / YHZP source atom S00076; EXT-CTEXT-SANMING-V1-FOUR-EARTH-BUREAU",
@@ -4197,20 +4198,21 @@
       "competing_methods": [
         "Do not classify as BRANCH_TRINE because arity is four, not three."
       ],
-      "current_implementation_match": "SOURCE_CLOSED_CANDIDATE_MISSING_FROM_RUNTIME",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; CORE_RAW_RELATION_DEFAULT_AND_EXISTING_FACT_HASH_SEMANTICS_UNCHANGED",
       "confidence": "HIGH_FOR_SOURCE_EXISTENCE; MEDIUM_HIGH_FOR_RUNTIME_SEMANTIC_TYPE",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add a source-scoped arity-4 FOUR_EARTH_BUREAU candidate without changing the four standard BRANCH_TRINE relations or any default interpretation."
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the source-scoped candidate available and unranked. Do not merge it into BAZI-RAW-RELATION-CLASSICAL-CORE-R1 without a separately governed product decision.",
+      "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
     },
     {
       "system": "BAZI",
       "module": "八字派生字段",
-      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "current_profile": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
       "rule_id": "HPA-BREL-008",
       "rule_or_field": "Four directional three-branch groups: 方 / modern 三会 terminology bridge",
-      "current_implementation": "NOT EMITTED by raw relation foundation.",
+      "current_implementation": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 source-scoped sidecar now emits four source-scoped 方/三会 directional triples as relation_family=DIRECTIONAL_TRIAD; raw core default remains unchanged.",
       "primary_source": "EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS; S14 Ren-commentary candidate table as later/source-scoped corroboration",
       "source_quote": "《三命通会》 groups 寅卯辰东方木、巳午未南方火、申酉戌西方金、亥子丑北方水 as branches belonging to one direction; later commentary calls the same mechanical groups 方/三会.",
       "source_quote_location": "EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS; S14三会与墓库来源候选运行表",
@@ -4220,20 +4222,21 @@
       "competing_methods": [
         "Do not merge with 三合: members, geometry and historical rationale differ."
       ],
-      "current_implementation_match": "SOURCE_CLOSED_DIRECTIONAL_TRIPLE_GEOMETRY_MISSING_FROM_RUNTIME",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; CORE_RAW_RELATION_DEFAULT_AND_EXISTING_FACT_HASH_SEMANTICS_UNCHANGED",
       "confidence": "HIGH_FOR_MEMBERSHIP_AND_DIRECTION; MEDIUM_HIGH_FOR_MODERN_LABEL_BRIDGE",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add as an unranked source-scoped arity-3 DIRECTIONAL_TRIAD/FOUR_DIRECTIONS candidate, with historical-name metadata; do not call it BRANCH_TRINE."
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the source-scoped candidate available and unranked. Do not merge it into BAZI-RAW-RELATION-CLASSICAL-CORE-R1 without a separately governed product decision.",
+      "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
     },
     {
       "system": "BAZI",
       "module": "八字派生字段",
-      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "current_profile": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
       "rule_id": "HPA-BREL-009",
       "rule_or_field": "Early four-break relation family",
-      "current_implementation": "No break relations are emitted by the raw relation foundation.",
+      "current_implementation": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 source-scoped sidecar now emits Song/李虚中 four-break table only as relation_family=BRANCH_BREAK_EARLY_FOUR; raw core default remains unchanged.",
       "primary_source": "EXT-CTEXT-WUXING-JINGJI-V23-BREAK",
       "source_quote": "《五行精纪》引《李虚中书》: 卯午、丑辰、子酉、未戌皆相破；寅申巳亥无破，以其合故.",
       "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V23-BREAK line 45",
@@ -4243,10 +4246,11 @@
       "competing_methods": [
         "later six-break convention adds 寅亥 and 巳申, both of which are 六合 pairs"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_EARLY_FOUR_PAIR_METHOD_MISSING_FROM_RUNTIME",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; CORE_RAW_RELATION_DEFAULT_AND_EXISTING_FACT_HASH_SEMANTICS_UNCHANGED",
       "confidence": "HIGH_FOR_EARLY_WITNESS",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add the four-pair method only as source-scoped candidate. Do not label it universally as 六破."
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the source-scoped candidate available and unranked. Do not merge it into BAZI-RAW-RELATION-CLASSICAL-CORE-R1 without a separately governed product decision.",
+      "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
     },
     {
       "system": "BAZI",
@@ -4299,12 +4303,12 @@
     {
       "system": "BAZI",
       "module": "八字派生字段",
-      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "current_profile": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
       "rule_id": "HPA-BREL-012",
       "rule_or_field": "Same-pillar visible-stem ↔ hidden-stem five-combination: 座下自化 / later 干支暗合",
-      "current_implementation": "Affinity/exposure records the primitive stem-hidden identities, but no raw relation candidate identifies the same-pillar five-combination relation.",
+      "current_implementation": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 source-scoped sidecar now emits same-pillar visible-stem ↔ hidden-stem five-combination as relation_family=STEM_HIDDEN_COMBINATION; raw core default remains unchanged.",
       "primary_source": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-RELATIONS",
       "source_quote": "《三命通会》 lists 壬午、丁亥、戊子、甲午、辛巳、癸巳 under 座下自化; later 《命理探源》 explicitly calls the mechanism 干支暗合 and explains the hidden stem combining with the visible stem.",
       "source_quote_location": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-RELATIONS",
@@ -4314,14 +4318,40 @@
       "competing_methods": [
         "Do not generalize this source to arbitrary cross-pillar visible-stem ↔ hidden-stem combinations without separate evidence."
       ],
-      "current_implementation_match": "SOURCE_CLOSED_SAME_PILLAR_RELATION_MISSING; REQUIRED_PRIMITIVE_HIDDEN_STEM_IDENTITIES_ALREADY_EXIST",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; CORE_RAW_RELATION_DEFAULT_AND_EXISTING_FACT_HASH_SEMANTICS_UNCHANGED",
       "confidence": "HIGH_FOR_SIX_EXAMPLES_AND_MECHANISM; MEDIUM_HIGH_FOR_GENERIC_SAME_PILLAR_RULE",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add a source-scoped same-pillar STEM_HIDDEN_COMBINATION occurrence candidate derived from the five stem-combination registry and the branch's hidden stems; do not assert successful 化.",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the source-scoped candidate available and unranked. Do not merge it into BAZI-RAW-RELATION-CLASSICAL-CORE-R1 without a separately governed product decision.",
       "defect_id": "PROV-DEFECT-008",
       "defect_type": "SOURCE_ID_SCOPE_MISMATCH",
-      "defect_status": "REPAIRED_FORWARD_ONLY",
-      "defect_detail": "Batch 10B initially reused the unrelated EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI source ID while referring to 《命理探源》卷五《化合刑冲》. A dedicated relation-chapter source ID is now registered; rule mechanics and audit verdict are unchanged."
+      "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C",
+      "defect_scope": "Batch 10B initially reused the unrelated EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI source ID while citing 《命理探源》卷五《化合刑冲》.",
+      "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_10C",
+      "repair_action": "Registered EXT-CTEXT-MINGLI-TANYUAN-RELATIONS and rebound HPA-BREL-012 plus the runtime sidecar to the correct relation-chapter source scope; mechanics and candidate selection policy unchanged."
+    },
+    {
+      "rule_id": "HPA-BCAND-001",
+      "system": "BAZI",
+      "module": "candidate/profile rules",
+      "rule_or_field": "Source-scoped historical relation candidate registry/runtime",
+      "current_implementation": "historical_relation_candidates.py registers and resolves four-earth bureau, directional triads, early four-break, and same-pillar stem-hidden five-combination as a pure sidecar.",
+      "current_profile": "BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
+      "primary_source": "HPA-BREL-007/008/009/012 source families",
+      "source_quote": "The sidecar materializes only source-closed relation occurrences; it does not add later six-break pairs, modern half-trines, strength, transformation success, auspiciousness, or event semantics.",
+      "source_quote_location": "src/fortune_training/bazi_chart/historical_relation_candidates.py; tests/test_bazi_historical_relation_candidates_r1.py",
+      "historical_period": "MODERN_SOURCE_SCOPED_SOFTWARE_REALIZATION_OF_MULTIPLE_HISTORICAL_RULE_FAMILIES",
+      "later_witnesses": "N/A; each emitted family retains its own source_refs.",
+      "school_attribution": "MULTI_SOURCE_CANDIDATE_REGISTRY_WITH_NO_WINNER",
+      "competing_methods": [
+        "later six-break convention",
+        "modern half-trine/arched-trine compatibility family"
+      ],
+      "current_implementation_match": "REGISTRY_AND_RUNTIME_EXIST; SELECTION_STATUS=PRESERVED_NOT_SELECTED; RAW_CORE_NOT_MUTATED; ARITY2_3_4_AND_STEM_HIDDEN_PARTICIPANTS_SUPPORTED",
+      "confidence": "HIGH",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep resolver opt-in and source-scoped. Any future UI exposure must show source/rule-set identity and must not silently merge candidates into raw core.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
     }
   ],
   "historical_research_batches": [
@@ -4341,7 +4371,8 @@
     "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
     "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
     "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A",
-    "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B"
+    "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+    "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -4496,7 +4527,8 @@
     "HPA-BREL-009",
     "HPA-BREL-010",
     "HPA-BREL-011",
-    "HPA-BREL-012"
+    "HPA-BREL-012",
+    "HPA-BCAND-001"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -4504,10 +4536,10 @@
     "repaired_provenance_metadata_defect_count": 8,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 3,
+    "historical_candidate_extension_count": 4,
     "identified_missing_candidate_family_count": 12,
-    "historical_candidate_registry_count": 1,
-    "historical_candidate_runtime_resolver_count": 1
+    "historical_candidate_registry_count": 2,
+    "historical_candidate_runtime_resolver_count": 2
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 }
