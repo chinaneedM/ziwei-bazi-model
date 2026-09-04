@@ -95,6 +95,22 @@ body.fortune-chart-product-shell .actions button[type=button] { padding:8px 10px
 .product-view-heading p { margin:2px 0 0; color:var(--fc-muted); font-size:11px; line-height:1.45; }
 .product-view-heading code { color:#7d674e; font-size:10px; }
 .product-view-hint { margin:0 0 10px; padding:9px 11px; border:1px dashed #d9dee2; border-radius:9px; background:#fafbfb; color:#6c757e; font-size:11px; }
+.product-fusion-bridge {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(230px,.72fr) minmax(0,1fr);
+  gap:8px; align-items:stretch; margin:0 0 10px;
+}
+.product-system-card,.product-shared-core {
+  min-width:0; padding:11px 12px; border:1px solid var(--fc-line); border-radius:10px; background:#fff;
+}
+.product-shared-core { background:linear-gradient(135deg,#1f2b35,#293947); color:#fff; border-color:#1f2b35; text-align:center; }
+.product-system-card span,.product-shared-core span { display:block; margin-bottom:4px; color:var(--fc-muted); font-size:10px; }
+.product-shared-core span { color:#cbd4dc; }
+.product-system-card strong,.product-shared-core strong { display:block; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.product-system-card small,.product-shared-core small { display:block; margin-top:5px; color:#75808a; font-size:10px; line-height:1.45; }
+.product-shared-core small { color:#d4dde4; }
+.product-quick-actions { display:flex; justify-content:flex-end; gap:7px; flex-wrap:wrap; margin:-2px 0 10px; }
+.product-quick-actions button { padding:7px 10px; border:1px solid #d7dde2; background:#fff; color:#35414c; font-size:11px; }
+.product-quick-actions button:hover { border-color:#9aa5af; }
 
 body.fortune-chart-product-shell .charts { grid-template-columns:minmax(0,1.16fr) minmax(420px,.84fr); gap:10px; }
 body.fortune-chart-product-shell .chart-card { padding:12px; box-shadow:var(--fc-shadow); }
@@ -124,6 +140,7 @@ body.fortune-chart-product-shell .status-grid > div { box-shadow:none; }
   .product-primary-grid { grid-template-columns:1fr 1fr; }
   .product-option-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .product-resolution-summary { grid-template-columns:1fr 1fr; }
+  .product-fusion-bridge { grid-template-columns:1fr; }
   body.fortune-chart-product-shell .charts { grid-template-columns:1fr; }
 }
 @media (max-width:720px) {
@@ -230,8 +247,12 @@ PRODUCT_SHELL_JS = r"""
   }
 
   const chartCards = charts.querySelectorAll('.chart-card');
+  const ziweiCardTitle = chartCards[0]?.querySelector('.card-head h2');
+  const baziCardTitle = chartCards[1]?.querySelector('.card-head h2');
   const ziweiCardMeta = chartCards[0]?.querySelector('.card-head span');
   const baziCardMeta = chartCards[1]?.querySelector('.card-head span');
+  if (ziweiCardTitle) ziweiCardTitle.textContent = '紫微斗数本命盘';
+  if (baziCardTitle) baziCardTitle.textContent = '四柱八字本命盘';
   if (ziweiCardMeta) ziweiCardMeta.textContent = '共享出生事实 · 紫微独立规则';
   if (baziCardMeta) baziCardMeta.textContent = '共享出生事实 · 八字独立规则';
 
@@ -313,6 +334,34 @@ PRODUCT_SHELL_JS = r"""
   }
 
   const natalView = makeView('natal','联合本命盘','紫微十二宫与八字四柱在同一出生事实下并列，保留各自历法与换日规则。','NATAL');
+  const bridge = document.createElement('section');
+  bridge.className = 'product-fusion-bridge';
+  bridge.innerHTML = `
+    <div class="product-system-card">
+      <span>紫微斗数本命</span>
+      <strong id="product-bridge-ziwei">等待排盘</strong>
+      <small>十二宫 · 运限 · Structural R1–R8</small>
+    </div>
+    <div class="product-shared-core">
+      <span>共享出生时间凭证</span>
+      <strong id="product-bridge-time">等待排盘</strong>
+      <small>同一物理时间底座 · 两套换日/历法规则保持独立</small>
+    </div>
+    <div class="product-system-card">
+      <span>四柱八字本命</span>
+      <strong id="product-bridge-bazi">等待排盘</strong>
+      <small>四柱 · 十神 · 神煞 · 大运/小运候选</small>
+    </div>
+  `;
+  natalView.append(bridge);
+  const quickActions = document.createElement('div');
+  quickActions.className = 'product-quick-actions';
+  quickActions.innerHTML = `
+    <button type="button" data-product-jump="flow">进入时运联动</button>
+    <button type="button" data-product-jump="fusion">进入融合视图</button>
+    <button type="button" data-product-jump="audit">查看专业审计</button>
+  `;
+  natalView.append(quickActions);
   const flowView = makeView('flow','时运与目标时点','以显式目标时间驱动八字 flow、紫微运限导航及共享目标 Projection。','TARGET TIME');
   const fusionView = makeView('fusion','跨系统融合','只组合已经发布并通过完整性验证的紫微与八字事实，不执行预测判断。','FUSION R2');
   const auditView = makeView('audit','规则、谱系与完整性','Profile、RuleSet、Algorithm、Hash 与 provenance 集中到专业审计区。','AUDIT');
@@ -336,7 +385,7 @@ PRODUCT_SHELL_JS = r"""
   auditView.append(auditStack);
 
   summary.insertAdjacentElement('afterend', workspace);
-  if (globalError) workspace.insertAdjacentElement('afterend', globalError);
+  if (globalError) summary.insertAdjacentElement('afterend', globalError);
 
   if (sharedTime) natalView.append(sharedTime);
   natalView.append(charts);
@@ -383,18 +432,29 @@ PRODUCT_SHELL_JS = r"""
     const button = event.target.closest('button[data-product-view]');
     if (button) activateView(button.dataset.productView);
   });
+  workspace.addEventListener('click', (event) => {
+    const jump = event.target.closest('button[data-product-jump]');
+    if (jump) activateView(jump.dataset.productJump);
+  });
 
   const bindings = [
     ['combined-status','product-summary-combined'],
     ['ziwei-status','product-summary-ziwei'],
+    ['ziwei-status','product-bridge-ziwei'],
     ['bazi-status','product-summary-bazi'],
+    ['bazi-status','product-bridge-bazi'],
     ['shared-time-status','product-summary-time'],
+    ['shared-time-status','product-bridge-time'],
   ];
   function mirrorStatus() {
     bindings.forEach(([sourceId, targetId]) => {
       const source = $(sourceId);
       const target = $(targetId);
-      if (source && target) target.textContent = source.textContent || '-';
+      if (!source || !target) return;
+      const value = source.textContent || '-';
+      target.textContent = targetId.startsWith('product-bridge-') && value === '-'
+        ? '等待排盘'
+        : value;
     });
   }
   mirrorStatus();

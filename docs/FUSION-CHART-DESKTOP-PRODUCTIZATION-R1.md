@@ -24,6 +24,10 @@ The desktop product shell now composes the same released facts into four user-fa
 
 The base birth form is reorganized so ordinary birth inputs remain primary while location/time calibration and explicit Profile controls remain available under advanced sections. Existing element IDs and backend request contracts are preserved.
 
+### Natal fusion bridge
+
+The natal workspace includes a visible fusion bridge above the two chart cards. It mirrors the released Ziwei, Bazi, and shared-time statuses and makes the relationship explicit: one physical birth-time credential feeds two independently governed chart systems. Quick actions move directly from the natal surface to target-time flow, Fusion R2, or the audit workspace without changing any backend calculation contract.
+
 ## Architectural rule
 
 `product_shell_assets.py` is a presentation-only composition layer.

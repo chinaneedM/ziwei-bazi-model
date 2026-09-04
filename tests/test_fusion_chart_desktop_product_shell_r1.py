@@ -35,6 +35,12 @@ class FusionChartDesktopProductShellR1Tests(unittest.TestCase):
         self.assertIn("'fusion','融合视图'", PRODUCT_SHELL_JS)
         self.assertIn("'audit','专业审计'", PRODUCT_SHELL_JS)
         self.assertIn("'product-view-' + id", PRODUCT_SHELL_JS)
+        self.assertIn("product-bridge-ziwei", PRODUCT_SHELL_JS)
+        self.assertIn("product-bridge-time", PRODUCT_SHELL_JS)
+        self.assertIn("product-bridge-bazi", PRODUCT_SHELL_JS)
+        self.assertIn('data-product-jump="fusion"', PRODUCT_SHELL_JS)
+        self.assertIn("紫微斗数本命盘", PRODUCT_SHELL_JS)
+        self.assertIn("四柱八字本命盘", PRODUCT_SHELL_JS)
         for mount_id in (
             "ziwei-interaction-panel",
             "bazi-target-flow-panel",
@@ -58,6 +64,9 @@ class FusionChartDesktopProductShellR1Tests(unittest.TestCase):
             ".product-view",
             ".product-primary-grid",
             ".product-option-details",
+            ".product-fusion-bridge",
+            ".product-shared-core",
+            ".product-quick-actions",
             ".product-fusion-intro",
             ".product-audit-stack",
         ):
