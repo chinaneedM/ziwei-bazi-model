@@ -43,16 +43,16 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 116,
+    "row_count": 119,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 34,
-      "DISPUTED_MULTIPLE_CANDIDATES": 21,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 10,
-      "HISTORICALLY_SUPPORTED": 27,
-      "SOURCE_INSUFFICIENT": 1,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 32,
+      "DISPUTED_MULTIPLE_CANDIDATES": 22,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 5,
+      "HISTORICALLY_SUPPORTED": 34,
+      "SOURCE_INSUFFICIENT": 2,
       "NOT_YET_FORMALIZED": 1,
-      "MISSING_FROM_PRODUCT": 4
+      "MISSING_FROM_PRODUCT": 5
     },
     "module_counts": {
       "Time / Calendar": 11,
@@ -62,8 +62,8 @@
       "小运": 2,
       "神煞": 21,
       "八字动态时限": 8,
-      "紫微本命": 6,
-      "十二宫": 3,
+      "紫微本命": 8,
+      "十二宫": 4,
       "主星": 2,
       "辅星": 4,
       "杂曜": 2,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 54
+    "audited_row_count": 64
   },
   "rows": [
     {
@@ -1745,21 +1745,24 @@
       "rule_or_field": "Star role/dependency identities",
       "current_implementation": "Production role rule set currently carries WENMO_DEFAULT_ROLE identity with QS alternative family.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01/S05 source routes + compatibility evidence",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/production_profile.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》定命主/定身主诀 + received 《紫微斗数全书》安命主/安身主",
+      "source_quote": "Jielan: 凡命俱以生年十二支为主；Fullbook Mingzhu worked examples use 命宫 branch",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH31|CH32; S01:ZZQS-A-1995..1997|2003..2004",
+      "historical_period": "MING_1581_AND_RECEIVED_FULLBOOK_TRADITIONS",
+      "later_witnesses": "modern Wenmo production follows the Fullbook Life-palace Mingzhu basis and resolves Zi/Wu Shenzhu to Fire as a compatibility choice",
+      "school_attribution": "JIELAN_1581_ROLE_BASIS_VS_RECEIVED_FULLBOOK_ROLE_BASIS",
       "competing_methods": [
-        "QS_ROLE_RULE_SET",
-        "WENMO_DEFAULT_ROLE_RULE_SET"
+        "Jielan Mingzhu by birth-year branch",
+        "Fullbook Mingzhu by Life-palace branch",
+        "Zi/Wu Shenzhu textual Fire/Bell composite",
+        "Wenmo compatibility Zi/Wu -> Fire"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit each role classification; compatibility naming must not imply classical authority.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "CURRENT_MINGZHU_MATCHES_FULLBOOK_NOT_JIELAN; SHENZHU_BASIS_MATCHES_BOTH_YEAR_BRANCH_TRADITIONS; STRICT_QS_FAILS_CLOSED_ON_ZI_WU_WHILE_PRODUCTION_COMPAT_SELECTS_FIRE",
+      "confidence": "HIGH",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep current Fullbook production profile; productize Jielan birth-year Mingzhu as a separate historical candidate. Do not claim a unique classical Zi/Wu Shenzhu until a source closes Fire vs Bell.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZIWEI-013",
@@ -1788,20 +1791,21 @@
       "rule_or_field": "Daxian direction",
       "current_implementation": "Temporal engine derives direction from birth-year stem yin/yang and sex.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S10 中州派动态坐标补充",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/temporal.py DAXIAN_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》定大限诀",
+      "source_quote": "阳男阴女顺推毂，阴男阳女逆行真",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH51",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received 《紫微斗数全书》 preserves the same forward/reverse sex-yin-yang direction family",
+      "school_attribution": "EARLY_PRINT_DAXIAN_DIRECTION_FAMILY",
       "competing_methods": [
-        "other Daxian direction schools"
+        "other later school Daxian systems remain separately auditable"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Audit Zhongzhou provenance and competing schools.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-002",
@@ -1810,18 +1814,19 @@
       "rule_or_field": "First Daxian nominal age equals bureau number",
       "current_implementation": "Temporal state uses first_daxian_nominal_age=context.bureau_number.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S10 / bureau tradition",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/temporal.py",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》定大限诀 worked example",
+      "source_quote": "金四局，即在子宫起四岁",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH51",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook's concise Daxian wording is compatible with the same first-limit convention",
+      "school_attribution": "EARLY_PRINT_BUREAU_AGE_DAXIAN_FAMILY",
       "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Verify textual rule and whether age is nominal/actual across schools.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "first_daxian_nominal_age=context.bureau_number EXACTLY_MATCHES_WORKED_EXAMPLE",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-003",
@@ -1830,20 +1835,19 @@
       "rule_or_field": "Daxian palace sequence",
       "current_implementation": "Daxian frames step palace addresses and palace Ganzhi under direction.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S10 中州派动态坐标补充",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/FUSION-CHART-ZIWEI-DAXIAN-SEQUENCE-SELECTION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [
-        "other Daxian sequence conventions"
-      ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Audit exact stepping formula and age conventions.",
-      "algorithm_reopen_authorized": false
+      "primary_source": "1581 《紫微斗数捷览》定大限诀 worked example",
+      "source_quote": "在子宫起四岁，顺行，丑宫为十四，每十年过一宫",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH51",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook gives parent/sibling next-palace direction wording",
+      "school_attribution": "EARLY_PRINT_DAXIAN_SEQUENCE_FAMILY",
+      "competing_methods": [],
+      "current_implementation_match": "LIFE_PALACE_FIRST_THEN_ONE_ADDRESS_PER_TEN_YEARS_EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-004",
@@ -1872,20 +1876,21 @@
       "rule_or_field": "子年斗君 / Doujun",
       "current_implementation": "S10-SUIJIAN-REVERSE-BIRTH-MONTH-FORWARD-BIRTH-HOUR-R1.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S01:ZZQS-A-1935; S10:ZZZA-A-1127/1128",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/temporal.py DOUJUN_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》安流年斗君法 + received Fullbook Doujun rule",
+      "source_quote": "太岁宫中便起正，逆回数至生月分。本月顺起子时位",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:流年斗君; S01:ZZQS-A-1935; S10:ZZZA-A-1127/1128",
+      "historical_period": "MING_WANLI_9_1581_AND_RECEIVED_FULLBOOK",
+      "later_witnesses": "later Zhongzhou dynamic layers reuse the same natal month/hour coordinate family",
+      "school_attribution": "EARLY_PRINT_DOUJUN_FAMILY",
       "competing_methods": [
-        "alternate Doujun formulas"
+        "other Doujun formulas must be independently sourced"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Extract source wording and date/edition witnesses.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT_MATCH_TO_REVERSE_BIRTH_MONTH_FORWARD_BIRTH_HOUR_FORMULA",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-006",
@@ -1894,20 +1899,21 @@
       "rule_or_field": "Regular lunar-month palace sequence",
       "current_implementation": "S10-DOUJUN-FIRST-MONTH-FORWARD-TWELVE-R1 uses annual Doujun as first month.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S10:ZZZA-A-1123/1127/1128",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/temporal.py MONTHLY_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》安流年斗君法",
+      "source_quote": "即于时上安斗君，起流年正月，顺行逐月",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:流年斗君; S10:ZZZA-A-1123/1127/1128",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received and later dynamic traditions preserve Doujun-first-month forward progression",
+      "school_attribution": "EARLY_PRINT_DOUJUN_MONTHLY_FAMILY",
       "competing_methods": [
-        "alternate flow-month methods"
+        "school-specific flow-month systems may differ"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Audit Zhongzhou attribution and alternatives.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "REGULAR_MONTH_ACTIVE_ADDRESS_EQUALS_DOUJUN_PLUS_MONTH_MINUS_ONE_EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No regular-month reopen; leap-month temporal policy remains independently unresolved.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-007",
@@ -1936,20 +1942,21 @@
       "rule_or_field": "Minor-Limit sequence",
       "current_implementation": "Temporal engine emits age-indexed active palace sequence.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1 / S10_CURRENT_TEMPORAL_R1",
-      "primary_source": "S10 中州派动态坐标补充",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/ziwei_chart/temporal.py MINOR_LIMIT_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "1581 《紫微斗数捷览》定小限诀 + received Fullbook",
+      "source_quote": "寅午戌人辰上起，申子辰人戌上推；男顺行，女逆行",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH52; received Fullbook 安小限诀",
+      "historical_period": "MING_WANLI_9_1581_AND_RECEIVED_FULLBOOK",
+      "later_witnesses": "later software conventions commonly retain the same start groups",
+      "school_attribution": "EARLY_PRINT_MINOR_LIMIT_FAMILY",
       "competing_methods": [
-        "other Xiaoxian start/direction methods"
+        "other school Xiaoxian systems require separate evidence"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Audit age-one anchor and sex direction variants.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "ALL_FOUR_START_GROUPS_AND_MALE_FORWARD_FEMALE_REVERSE_EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
     },
     {
       "rule_id": "HPA-ZT-009",
@@ -2665,13 +2672,84 @@
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
       "proposed_action": "No base-rule reopen; audit leap-month month-coordinate policy separately."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
+      "rule_id": "HPA-ZIWEI-022",
+      "module": "紫微本命",
+      "rule_or_field": "1581 Jielan Mingzhu birth-year-branch basis",
+      "current_implementation": "Historical registry v1.1.0 preserves the same seven-star mapping values as current Mingzhu but keyed by Ziwei birth-year branch; production instead keys by Life-palace branch.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED)",
+      "primary_source": "1581 《紫微斗数捷览》定命主诀",
+      "source_quote": "凡命俱以生年十二支为主",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH31",
+      "historical_period": "MING_WANLI_9_1581",
+      "later_witnesses": "received Fullbook instead gives Life-palace worked examples; modern Wenmo follows Fullbook basis",
+      "school_attribution": "JIELAN_1581_ROLE_BASIS",
+      "competing_methods": [
+        "Jielan birth-year branch",
+        "Fullbook Life-palace branch"
+      ],
+      "current_implementation_match": "MAPPING_VALUES_MATCH_BUT_LOOKUP_BASIS_DIFFERS_AND_CAN_CHANGE_OUTPUT",
+      "confidence": "HIGH",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Expose Jielan role profile/candidate with explicit birth-year basis; never merge the two lookup bases."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
+      "rule_id": "HPA-ZIWEI-023",
+      "module": "紫微本命",
+      "rule_or_field": "Zi/Wu Shenzhu Fire/Bell textual composite",
+      "current_implementation": "Strict QS raises QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY; production Wenmo profile resolves Zi/Wu to Fire.",
+      "current_profile": "QS_EWITNESS_ROLE_R1 + WENMO_DEFAULT_ROLE_R1",
+      "primary_source": "1581 Jielan and received Fullbook both use a composite 火铃/铃火 wording for Zi/Wu Shenzhu",
+      "source_quote": "子午生人铃火宿 / 子午人火铃星",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH32; S01:ZZQS-A-2003",
+      "historical_period": "MING_1581_AND_RECEIVED_FULLBOOK",
+      "later_witnesses": "current Wenmo compatibility profile selects Fire, but existing repository fixture does not independently discriminate Zi/Wu Fire vs Bell",
+      "school_attribution": "TEXTUAL_AMBIGUITY_WITH_MODERN_COMPATIBILITY_SELECTION",
+      "competing_methods": [
+        "Fire",
+        "Bell",
+        "composite Fire/Bell role semantics"
+      ],
+      "current_implementation_match": "STRICT_SOURCE_PROFILE_CORRECTLY_FAILS_CLOSED; PRODUCTION_FIRE_IS_COMPATIBILITY_NOT_HISTORICAL_CLOSURE",
+      "confidence": "HIGH_FOR_AMBIGUITY_LOW_FOR_UNIQUE_FIRE_HISTORICAL_CLAIM",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Keep strict fail-closed and production compatibility labeling. Seek edition/commentary evidence or an explicit compatibility fixture before promoting Fire as a sourced candidate."
+    },
+    {
+      "system": "ZIWEI",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
+      "rule_id": "HPA-ZIWEI-024",
+      "module": "十二宫",
+      "rule_or_field": "Boshi Twelve-God ring",
+      "current_implementation": "BOSHI_MEMBERS starts at Lucun and follows yang-male/yin-female forward, yin-male/yang-female reverse.",
+      "current_profile": "WENMO_DEFAULT_RING_R1",
+      "primary_source": "1581 Jielan 安生年博士十二神诀 + received Fullbook 安十二宫太岁杀禄诀",
+      "source_quote": "凡命俱以禄存宫为主……阳男阴女顺行……阴男阳女逆行",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581:BOSHI12; S01:ZZQS-A-1862..1866",
+      "historical_period": "MING_1581_AND_RECEIVED_FULLBOOK",
+      "later_witnesses": "received Fullbook preserves same order/direction",
+      "school_attribution": "EARLY_PRINT_BOSHI_RING_FAMILY",
+      "competing_methods": [],
+      "current_implementation_match": "ANCHOR_DIRECTION_AND_TWELVE_MEMBER_ORDER_EXACT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; correct provenance interpretation so WENMO_DEFAULT name is not mistaken for historical origin."
     }
   ],
   "historical_research_batches": [
     "BATCH-01-TIME-DAYUN-XIAOYUN",
     "BATCH-02-BAZI-NATAL-DERIVED",
     "BATCH-03-BAZI-SHENSHA",
-    "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
+    "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
+    "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -2727,7 +2805,17 @@
     "HPA-ZIWEI-018",
     "HPA-ZIWEI-019",
     "HPA-ZIWEI-020",
-    "HPA-ZIWEI-021"
+    "HPA-ZIWEI-021",
+    "HPA-ZIWEI-012",
+    "HPA-ZT-001",
+    "HPA-ZT-002",
+    "HPA-ZT-003",
+    "HPA-ZT-005",
+    "HPA-ZT-006",
+    "HPA-ZT-008",
+    "HPA-ZIWEI-022",
+    "HPA-ZIWEI-023",
+    "HPA-ZIWEI-024"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -2735,8 +2823,8 @@
     "repaired_provenance_metadata_defect_count": 3,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 2,
-    "identified_missing_candidate_family_count": 5,
+    "historical_candidate_extension_count": 3,
+    "identified_missing_candidate_family_count": 6,
     "historical_candidate_registry_count": 1
   }
 }
