@@ -168,7 +168,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.13"
+    server_version = "CombinedChartWorkbenchLocalApp/1.12"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path

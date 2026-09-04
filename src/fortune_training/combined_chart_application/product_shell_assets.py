@@ -219,7 +219,15 @@ PRODUCT_SHELL_JS = r"""
     oldGrid.replaceWith(primary);
     primary.insertAdjacentElement('afterend', locationDetails);
     locationDetails.insertAdjacentElement('afterend', ruleDetails);
+    const profileDetails = form.querySelector('.profiles');
+    if (profileDetails) ruleDetails.append(profileDetails);
   }
+
+  const chartCards = charts.querySelectorAll('.chart-card');
+  const ziweiCardMeta = chartCards[0]?.querySelector('.card-head span');
+  const baziCardMeta = chartCards[1]?.querySelector('.card-head span');
+  if (ziweiCardMeta) ziweiCardMeta.textContent = '共享出生事实 · 紫微独立规则';
+  if (baziCardMeta) baziCardMeta.textContent = '共享出生事实 · 八字独立规则';
 
   const statusGrid = document.querySelector('.status-grid');
   const sharedTime = $('shared-time-panel');
@@ -328,9 +336,9 @@ PRODUCT_SHELL_JS = r"""
   natalView.append(charts);
 
   [
-    'ziwei-interaction-panel',
     'bazi-target-flow-panel',
     'shared-ziwei-apply-panel',
+    'ziwei-interaction-panel',
   ].forEach((id) => {
     const panel = $(id);
     if (panel) flowStack.append(panel);
