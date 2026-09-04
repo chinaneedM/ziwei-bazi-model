@@ -2517,8 +2517,8 @@
       "rule_id": "HPA-ZIWEI-015",
       "module": "辅星",
       "rule_or_field": "1581 Jielan Kui/Yue Geng-stem variant",
-      "current_implementation": "Historical registry preserves Jielan 1581 庚辛→午寅, while current QS family uses 庚→丑未 and Wenmo additionally reverses 辛 pair.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 (PRESERVED_NOT_SELECTED)",
+      "current_implementation": "Historical registry v1.1.0 preserves Jielan 1581 庚辛→午寅 and a source-scoped deterministic runtime resolver materializes the pair without selecting it for production; current QS family uses 庚→丑未 and Wenmo additionally reverses 辛 pair.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
       "primary_source": "《紫微斗数捷览》1581·安天魁天钺诀",
       "source_quote": "庚辛逢马虎，午寅二宫",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH25",
@@ -2530,10 +2530,15 @@
         "received/QS 庚丑未 辛午寅",
         "Wenmo 辛寅午"
       ],
-      "current_implementation_match": "HISTORICAL_VARIANT_NOT_SELECTED_IN_PRODUCTION",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Expose as source-scoped runtime candidate only after candidate-profile UI/API lineage is wired."
+      "proposed_action": "Wire the existing source-scoped runtime resolver into candidate-profile API/UI lineage; preserve production default and method identity.",
+      "defect_id": "PROV-DEFECT-004",
+      "defect_type": "STALE_CANDIDATE_REGISTRY_VERSION_IN_AUDIT_MATRIX",
+      "defect_scope": "HPA-ZIWEI-015/HPA-ZIWEI-016 previously referenced registry 1.0.0 after the source registry advanced to 1.1.0.",
+      "repair_status": "REPAIRED_IN_BATCH_05_FORWARD_ONLY",
+      "repair_action": "Updated affected Matrix profile identities to Jielan registry 1.1.0 and bound the new source-scoped runtime resolver; no chart algorithm changed."
     },
     {
       "system": "ZIWEI",
@@ -2542,8 +2547,8 @@
       "rule_id": "HPA-ZIWEI-016",
       "module": "辅星",
       "rule_or_field": "1581 Jielan Fire/Bell 巳酉丑 starting-branch variant",
-      "current_implementation": "Historical registry preserves 巳酉丑 子时起 火戌/铃卯; current Wenmo-compatible production uses 火卯/铃戌.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.0.0 (PRESERVED_NOT_SELECTED)",
+      "current_implementation": "Historical registry v1.1.0 preserves 巳酉丑 子时起 火戌/铃卯 and a source-scoped deterministic runtime resolver advances both by birth-hour ordinal; current Wenmo-compatible production uses 火卯/铃戌.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
       "primary_source": "《紫微斗数捷览》1581·安火铃星诀",
       "source_quote": "巳酉丑人戌火卯铃",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH27",
@@ -2554,10 +2559,10 @@
         "Jielan 火戌铃卯",
         "received Fullbook/Wenmo 火卯铃戌"
       ],
-      "current_implementation_match": "PRODUCTION_MATCHES_FULLBOOK_WENMO_FAMILY_NOT_JIELAN_FOR_SI_YOU_CHOU",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Productize both source-closed families as candidates; preserve current production default until profile governance decides scope."
+      "proposed_action": "Wire both source-closed Fire/Bell families into candidate-profile API/UI lineage; preserve current production default until profile governance closes scope."
     },
     {
       "system": "ZIWEI",
@@ -2680,8 +2685,8 @@
       "rule_id": "HPA-ZIWEI-022",
       "module": "紫微本命",
       "rule_or_field": "1581 Jielan Mingzhu birth-year-branch basis",
-      "current_implementation": "Historical registry v1.1.0 preserves the same seven-star mapping values as current Mingzhu but keyed by Ziwei birth-year branch; production instead keys by Life-palace branch.",
-      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED)",
+      "current_implementation": "Historical registry v1.1.0 preserves the same seven-star mapping values as current Mingzhu but keyed by Ziwei birth-year branch; the source-scoped runtime resolver materializes that basis explicitly while production remains keyed by Life-palace branch.",
+      "current_profile": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 (PRESERVED_NOT_SELECTED) + ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0",
       "primary_source": "1581 《紫微斗数捷览》定命主诀",
       "source_quote": "凡命俱以生年十二支为主",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581:CH31",
@@ -2692,10 +2697,10 @@
         "Jielan birth-year branch",
         "Fullbook Life-palace branch"
       ],
-      "current_implementation_match": "MAPPING_VALUES_MATCH_BUT_LOOKUP_BASIS_DIFFERS_AND_CAN_CHANGE_OUTPUT",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_CANDIDATE_EXISTS_AND_BASIS_IS_EXPLICIT_BUT_USER_SELECTABLE_PRODUCT_PROFILE_NOT_YET_WIRED",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Expose Jielan role profile/candidate with explicit birth-year basis; never merge the two lookup bases."
+      "proposed_action": "Wire the existing Jielan role candidate into candidate-profile API/UI lineage with explicit birth-year basis; never merge the two lookup bases."
     },
     {
       "system": "ZIWEI",
@@ -2819,12 +2824,13 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 3,
-    "repaired_provenance_metadata_defect_count": 3,
+    "confirmed_provenance_metadata_defect_count": 4,
+    "repaired_provenance_metadata_defect_count": 4,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 3,
     "identified_missing_candidate_family_count": 6,
-    "historical_candidate_registry_count": 1
+    "historical_candidate_registry_count": 1,
+    "historical_candidate_runtime_resolver_count": 1
   }
 }
