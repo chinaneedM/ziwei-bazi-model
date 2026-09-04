@@ -43,11 +43,15 @@ second doctrine:
 - hidden stems and Ten Gods: S11-bound Bazi Chart Foundation registries,
   traced to `S11:YHZP-CH-061` and the released
   `S11:YHZP-CH-016|017|057|065` relation set;
-- Nayin: `BAZI-NAYIN-REGISTRY-R1`, bound to `S01:ZZZA-PR-010` and
-  `S01:ZZZA-PR-011`;
+- Nayin: `BAZI-NAYIN-REGISTRY-R1@1.0.1`, bound to `S11:YHZP-CH-014`;
 - Xunkong: `BAZI-XUNKONG-YHZP-R1`, bound to `S14:YHZP-CH-047` and `S14:7.7`;
-- Twelve Growth: `BAZI-TWELVE-GROWTH-YIN-YANG-R1`, bound to the released S12
-  source set.
+- Twelve Growth: `BAZI-TWELVE-GROWTH-YIN-YANG-R1@1.0.1`, with primary source
+  `S11:YHZP-CH-015` and later ZPZQ witnesses `S12:ZPZQ-CH-05` /
+  `S12:ZPZQ-R-0006`.
+
+### Historical provenance follow-up
+
+Historical Audit Batch 07 CI closure found that the composed temporal layer still carried the pre-repair Nayin and Twelve-Growth source refs even after their component registries had been corrected. `BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1` was therefore bumped from `1.0.0` to `1.0.1` as a provenance-only repair. Placement/identity formulas were not reopened.
 
 ## Hash and replay contract
 
