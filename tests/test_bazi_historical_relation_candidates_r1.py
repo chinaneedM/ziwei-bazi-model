@@ -133,7 +133,11 @@ class BaziHistoricalRelationCandidateR1Tests(unittest.TestCase):
         self.assertEqual(before, chart.raw_relations)
         self.assertEqual(first["runtime_hash"], second["runtime_hash"])
         self.assertEqual("PRESERVED_NOT_SELECTED", first["selection_status"])
-        self.assertEqual(1, first["candidate_count"])
+        self.assertEqual(3, first["candidate_count"])
+        self.assertEqual(
+            {"FOUR_EARTH_BUREAU", "BRANCH_BREAK_EARLY_FOUR"},
+            {row["relation_family"] for row in first["candidates"]},
+        )
 
 
 if __name__ == "__main__":
