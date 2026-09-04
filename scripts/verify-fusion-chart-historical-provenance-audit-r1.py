@@ -76,6 +76,18 @@ def main() -> int:
     special=[r for r in rows if r["rule_id"]=="HPA-ZT-016"]
     if len(special)!=1 or special[0]["audit_status"]!="NOT_YET_FORMALIZED":
         raise SystemExit("ZIWEI self/inward transformation audit state mismatch")
+    audit_summary=data.get("audit_summary",{})
+    if audit_summary.get("confirmed_chart_algorithm_defect_count") != 0:
+        raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
+    if audit_summary.get("algorithm_reopen_count") != 0:
+        raise SystemExit("historical audit unexpectedly reopened an algorithm")
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 2:
+        raise SystemExit("known provenance metadata defects are missing")
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 2:
+        raise SystemExit("known provenance metadata repairs are missing")
+    defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
+    if len(defect_ids)!=len(set(defect_ids)):
+        raise SystemExit("duplicate historical provenance defect_id")
     summary=data.get("inventory_summary",{})
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
@@ -97,6 +109,9 @@ def main() -> int:
         "algorithm_reopen_authorized_count":sum(bool(r["algorithm_reopen_authorized"]) for r in rows),
         "historical_research_batch_count":len(data.get("historical_research_batches",())),
         "audited_row_count":len(data.get("audited_row_ids",())),
+        "confirmed_chart_algorithm_defect_count":audit_summary.get("confirmed_chart_algorithm_defect_count"),
+        "confirmed_provenance_metadata_defect_count":audit_summary.get("confirmed_provenance_metadata_defect_count"),
+        "repaired_provenance_metadata_defect_count":audit_summary.get("repaired_provenance_metadata_defect_count"),
     }, ensure_ascii=False, sort_keys=True))
     return 0
 
