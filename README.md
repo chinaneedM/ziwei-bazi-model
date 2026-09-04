@@ -211,11 +211,11 @@ R1 的确定性排盘产品已经完成字段可见性、Workbench/desktop 运�
 ## Fusion Chart Capability & Performance Acceptance R1
 
 ```text
-FUSION_CHART_CAPABILITY_PERFORMANCE_ACCEPTANCE_R1=IN_PROGRESS
+FUSION_CHART_CAPABILITY_PERFORMANCE_ACCEPTANCE_R1=ACCEPTED
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 ```
 
-确定性融合排盘已经从功能开发切换到能力/性能验收。当前新增 Golden Case Corpus、秒级 Temporal Boundary Torture、固定种子随机 deterministic replay/property invariants、文墨天机/问真 reference-only differential、源码与 Windows 最终 EXE 的性能基准，以及 HTTP/server/thread/fd/memory soak。reference implementation 的差异不能直接触发算法修改；任何失败必须先按六类 defect taxonomy 归档，只有有明确 canonical/replay 证据的 `IMPLEMENTATION_DEFECT` 才能局部重开对应算法。
+Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执行证据绑定 source SHA `0b20a9cf6e058f096582e09b72142077399e1ac3` 与 workflow `33867682199`：Golden/Temporal/Reference focused acceptance、source performance、Windows 最终 EXE performance、10,000 固定种子随机 deterministic replay 以及 1,000 次 HTTP/Target Flow/Fusion R2 soak 全部 PASS；10k 结果为 deterministic mismatch=0、invariant failure=0、execution error=0。100k 因实测并行投影约 8,875 秒超过预设 3,600 秒预算而按规则 skipped，不属于失败。reference implementation 的差异不能直接触发算法修改；本轮确认的 implementation defect=0、algorithm reopen=0。
 
 验收总说明见 `docs/FUSION-CHART-CAPABILITY-PERFORMANCE-ACCEPTANCE-R1.md`，机器可读 capability matrix 见 `docs/FUSION-CHART-CAPABILITY-MATRIX-R1.json`，性能基线和 defect ledger 分别见 `docs/FUSION-CHART-PERFORMANCE-BASELINE-R1.md` 与 `docs/FUSION-CHART-DEFECT-REPORT-R1.md`。
