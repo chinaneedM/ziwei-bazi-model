@@ -1,0 +1,70 @@
+{
+  "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
+  "schema_version": "1.0.0",
+  "access_date": "2026-09-04",
+  "authority_policy": "External sources corroborate/differentiate repository canonical evidence; modern software and secondary research never become historical authority by observation alone.",
+  "sources": [
+    {
+      "source_id": "EXT-CTEXT-SMTHE-SIKU-V2",
+      "title": "《三命通会》卷二",
+      "author": "万民英",
+      "historical_period": "明",
+      "digital_base_edition": "《钦定四库全书》本",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=578162&if=gb&remap=gb",
+      "source_role": "PRIMARY_HISTORICAL_WITNESS_FOR_MING_TRANSMISSION",
+      "quality_notes": "CText exposes both editable transcription and Siku image/OCR witnesses; verbatim-critical conclusions should be checked against the page image because OCR can err."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-ZWDSQS-V2",
+      "title": "《紫微斗数全书》卷二《安身命例》",
+      "author_attribution": "received text traditionally attributed; authorship/transmission not assumed from title alone",
+      "historical_period": "RECEIVED_TEXT_DATING_REQUIRES_SEPARATE_BIBLIOGRAPHIC_AUDIT",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hans/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%BA%8C",
+      "source_role": "EXTERNAL_TEXTUAL_CORROBORATION_OF_REPOSITORY_S01",
+      "quality_notes": "Used to corroborate S01 wording, not to settle authorship or earliest-edition date."
+    },
+    {
+      "source_id": "EXT-DOUSHUXUANWEI-1935",
+      "title": "《斗数宣微》（初集）",
+      "author": "王裁珊",
+      "historical_period": "民国",
+      "first_edition": "民国二十四年（1935）刊本",
+      "provider": "Google Books metadata / Heart & Yi Tang reprint bibliography",
+      "url": "https://books.google.com/books/about/%E6%96%97%E6%95%B8%E5%AE%A3%E5%BE%AE_%E6%96%B0%E4%BF%AE%E8%A8%82%E7%89%88.html?id=b7GTBgAAQBAJ",
+      "source_role": "LATER_SCHOOL_WITNESS",
+      "quality_notes": "Bibliography is strong for the 1935 edition identity; exact leap-month wording still requires primary-page verification."
+    },
+    {
+      "source_id": "EXT-XINYI-LEAP-RESEARCH-2013",
+      "title": "谭冰：斗数闰月起盘探究",
+      "author": "谭冰",
+      "publication_date": "2013-11-13",
+      "provider": "星易图书 / 心一堂专栏",
+      "url": "https://www.xinyi.hk/article-241.html",
+      "source_role": "SECONDARY_HISTORICAL_METHOD_SURVEY",
+      "quality_notes": "Useful for locating competing methods and 《斗数宣微》 references; not accepted as primary authority."
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI",
+      "title": "《命理探源》卷五《论时刻及夜子时与子时正不同》",
+      "author": "袁树珊",
+      "historical_period": "CText metadata does not provide dating; treat as later witness",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=435028&if=gb",
+      "source_role": "LATER_WITNESS_AND_SOURCE_POINTER_TO_XINGPING_DACHENG",
+      "quality_notes": "Supports existence of a day-old/hour-new night-Zi convention and cites 《星平大成》; primary 《星平大成》 scan remains required."
+    },
+    {
+      "source_id": "EXT-GBOOKS-XINGPING-DACHENG-1722",
+      "title": "《星平大成》七卷",
+      "author": "沈义方",
+      "edition": "怀德堂 1722",
+      "provider": "Google Books bibliographic record",
+      "url": "https://books.google.com/books/about/%E6%98%9F%E5%B9%B3%E5%A4%A7%E6%88%90.html?id=k2XqswEACAAJ",
+      "source_role": "BIBLIOGRAPHIC_WITNESS_ONLY_IN_BATCH_01",
+      "quality_notes": "Confirms an extant 1722 edition identity; Batch 01 has not yet verified the relevant night-Zi page directly."
+    }
+  ]
+}

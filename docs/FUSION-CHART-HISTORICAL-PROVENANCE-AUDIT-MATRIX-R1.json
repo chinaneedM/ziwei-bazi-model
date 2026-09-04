@@ -46,12 +46,12 @@
     "row_count": 107,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 17,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 69,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 66,
       "DISPUTED_MULTIPLE_CANDIDATES": 9,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 7,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 8,
+      "HISTORICALLY_SUPPORTED": 5,
       "SOURCE_INSUFFICIENT": 1,
-      "NOT_YET_FORMALIZED": 1,
-      "HISTORICALLY_SUPPORTED": 3
+      "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
       "Time / Calendar": 11,
@@ -79,7 +79,8 @@
       "Combined Fusion": 4,
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
-    }
+    },
+    "audited_row_count": 9
   },
   "rows": [
     {
@@ -223,21 +224,22 @@
       "rule_or_field": "Day-pillar boundary",
       "current_implementation": "Default MIDNIGHT; candidate ZI_START_23 preserved.",
       "current_profile": "BAZI-FOUNDATION-V1-R1; BAZI-FOUNDATION-ZI-START-23-R1",
-      "primary_source": "S11/S12 routes pending extraction",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json bazi.day_boundary_policy",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论时刻》；《渊海子平》received-text tradition as corroborating witness",
+      "source_quote": "上半时在夜半前属昨日，下半时在夜半后属今日",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论时刻》; repository policy config/time-calendar-policies.json",
+      "historical_period": "MING witness; CText base edition: Qinding Siku Quanshu",
+      "later_witnesses": "《命理探源》卷五 repeats the Wan Yuwu/Ming tradition; later schools also preserve Zi-start alternatives",
+      "school_attribution": "MING_ZIPING_MIDNIGHT_SPLIT_WITNESS; ALTERNATE_ZI_START_SCHOOLS_PRESERVED",
       "competing_methods": [
         "MIDNIGHT",
         "ZI_START_23"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "DEFAULT_MIDNIGHT_MATCHES_MING_WITNESS; ZI_START_23_REMAINS_EXPLICIT_ALTERNATE",
+      "confidence": "HIGH_FOR_MING_MIDNIGHT_WITNESS_MEDIUM_FOR_FULL_GENEALOGY",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Build historical lineage for both conventions; no winner until evidence supports a scoped default.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Keep MIDNIGHT default and ZI_START_23 candidate. Continue earlier-witness genealogy; no algorithm reopen.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-TIME-008",
@@ -246,22 +248,23 @@
       "rule_or_field": "Late-Zi hour-stem derivation",
       "current_implementation": "Default CLASSICAL_CONTINUOUS; CURRENT_DAY_STEM and ZI_START_ROLLOVER alternatives exist with dependency checks.",
       "current_profile": "BAZI-FOUNDATION-V1-R1 / ZI-START-23 profile",
-      "primary_source": "Canonical source routes pending extraction",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json bazi.late_zi_hour_stem_policy",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Night-Zi hour-stem tradition reported via 《命理探源》 citing 《星平大成》; primary image verification still pending",
+      "source_quote": "日用今日，时用明日",
+      "source_quote_location": "EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI / 卷五《论时刻及夜子时与子时正不同》",
+      "historical_period": "Later received tradition; 《星平大成》 bibliographic witness has Qing 1722 edition; exact origin of rule pending",
+      "later_witnesses": "《命理探源》 records the dispute; later Zi-hour practice is not uniform",
+      "school_attribution": "LATE_ZI_SPLIT_TRADITION; COMPETING_DAY/STEM_CONVENTIONS_EXIST",
       "competing_methods": [
         "CLASSICAL_CONTINUOUS",
         "CURRENT_DAY_STEM",
         "ZI_START_ROLLOVER"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "CLASSICAL_CONTINUOUS_IS_COMPATIBLE_WITH_REPORTED_DAY_OLD_HOUR_NEW_TRADITION; NOT_PROVEN_UNIQUE",
+      "confidence": "MEDIUM",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Audit classical texts and modern school practice; preserve candidates.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Preserve CLASSICAL_CONTINUOUS/CURRENT_DAY_STEM/ZI_START_ROLLOVER candidates; verify primary 《星平大成》 scan before stronger canonical claim.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-TIME-009",
@@ -293,22 +296,23 @@
       "rule_or_field": "Life/Body leap-month treatment",
       "current_implementation": "Production selects ZHONGZHOU_FIXED_15 although registry default is FULLBOOK_NEXT_MONTH; CURRENT_MONTH remains available.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01/S10 source families; exact historical witness pending",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json ziwei.life_body_leap_month_policy",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "ZHONGZHOU_PRODUCTION_SELECTION",
+      "primary_source": "S01 received text of 《紫微斗数全书》安身命例 for FULLBOOK_NEXT_MONTH; 1935 《斗数宣微》 is a later documented competing family",
+      "source_quote": "又若闰正月生者，要在二月内起安身命。凡有闰月，俱要依此为例。",
+      "source_quote_location": "S01:ZZQS-A-1746 / EXT-WIKISOURCE-ZWDSQS-V2; competing method bibliography EXT-DOUSHUXUANWEI-1935",
+      "historical_period": "Received 《紫微斗数全书》 textual tradition; competing 《斗数宣微》 first edition 1935",
+      "later_witnesses": "2013 historical-method survey reports 《斗数宣微》 both half-month split and next-month alternative; primary 1935 scan still required for exact wording",
+      "school_attribution": "FULLBOOK_NEXT_MONTH=ZIWEI_DOU_SHU_QUANSHU_TEXTUAL; ZHONGZHOU_FIXED_15=MODERN_SCHOOL_PROFILE_REQUIRING_PRIMARY_GENEALOGY",
       "competing_methods": [
         "FULLBOOK_NEXT_MONTH",
         "ZHONGZHOU_FIXED_15",
         "CURRENT_MONTH"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "MEDIUM",
+      "current_implementation_match": "PRODUCTION_MATCHES_DECLARED_ZHONGZHOU_PROFILE_NOT_FULLBOOK_TEXT; BOTH METHODS_PRESERVED_SO_NO_IMPLEMENTATION_DEFECT_ESTABLISHED",
+      "confidence": "HIGH_FOR_FULLBOOK_TEXT_MEDIUM_FOR_HALF_MONTH_GENEALOGY",
       "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
-      "proposed_action": "Establish provenance for each leap-month method and explain why production selects Zhongzhou-scoped method.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Preserve FULLBOOK_NEXT_MONTH and ZHONGZHOU_FIXED_15 separately; verify 1935 primary scan and Zhongzhou transmission before any default-profile reconsideration.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-TIME-011",
@@ -637,20 +641,21 @@
       "rule_or_field": "Dayun direction by year-stem yin/yang and sex",
       "current_implementation": "BAZI-DAYUN-DIRECTION-YEAR-STEM-SEX-R1.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "S15/S12 source routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py DIRECTION_RULE_SET_ID",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论大运》",
+      "source_quote": "阳男阴女…顺而行之；阴男阳女…逆而行之",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》",
+      "historical_period": "MING; CText base edition: Qinding Siku Quanshu",
+      "later_witnesses": "Received 《渊海子平》 tradition gives the same direction classes; exact earliest witness still under audit",
+      "school_attribution": "MING_ZIPING_YEAR_SEX_DIRECTION_FAMILY; competing day-stem-based practices require separate evidence",
       "competing_methods": [
         "day-stem based schools if attested"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit classical wording, gender convention and school variants.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MATCHES_MING_DIRECTION_CLASS; YEAR_STEM_BINDING_SUPPORTED_BY_BIRTH_YEAR_EXAMPLES_BUT_EARLIER_GENEALOGY_PENDING",
+      "confidence": "HIGH_FOR_DIRECTION_CLASS_MEDIUM_HIGH_FOR_EXPLICIT_YEAR_STEM_GENEALOGY",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Keep current year-stem/sex profile; audit earlier source chain and any documented day-stem school as a separate candidate, not a silent replacement.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-DAYUN-002",
@@ -659,20 +664,21 @@
       "rule_or_field": "Jie anchor for Jiaoyun",
       "current_implementation": "BAZI-DAYUN-JIE-ANCHOR-R1 selects preceding/following Jie by direction.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "S15 canonical routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py ANCHOR_RULE_SET_ID",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论大运》",
+      "source_quote": "未来节气…过去节气",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》",
+      "historical_period": "MING; CText base edition: Qinding Siku Quanshu",
+      "later_witnesses": "Received 《渊海子平》大运法 likewise uses future/past 节",
+      "school_attribution": "MING_ZIPING_JIE_ANCHOR_FAMILY",
       "competing_methods": [
         "Qi anchor variants"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit Jie-versus-Qi historical usage.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MATCHES_SOURCE_DIRECTIONAL_JIE_ANCHOR",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Continue earlier-witness dating and separately inventory any Qi-anchor school if primary evidence is found.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-DAYUN-003",
@@ -681,21 +687,22 @@
       "rule_or_field": "Three-days-one-year symbolic-age conversion",
       "current_implementation": "BAZI-THREE-DAYS-ONE-YEAR-360D-R1.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "S15/S12 canonical routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py SYMBOLIC_AGE_RULE_SET_ID",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论大运》",
+      "source_quote": "折除以三日为年",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》",
+      "historical_period": "MING; CText base edition: Qinding Siku Quanshu",
+      "later_witnesses": "Received 《渊海子平》论起大运法 also preserves 三日为一岁",
+      "school_attribution": "MING_ZIPING_THREE_DAYS_ONE_YEAR_FAMILY",
       "competing_methods": [
         "1 day=4 months formulations",
         "calendarized variants"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Trace equivalent formulations and rounding conventions.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "SYMBOLIC_RATIO_MATCHES_SOURCE; MODERN_CONTINUOUS_REALIZATION_AUDITED_SEPARATELY",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep historical symbolic ratio distinct from modern UTC/microsecond realization mechanics.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-DAYUN-004",
@@ -724,20 +731,21 @@
       "rule_or_field": "Continuous temporal realization of Jiaoyun interval",
       "current_implementation": "ABSOLUTE_UTC_DURATION + MODERN_CONTINUOUS_MICROSECOND + MODERN_CONTINUOUS_RATIO_120X.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "Modern realization of symbolic ratio",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py",
-      "historical_period": "MODERN_STANDARD",
-      "later_witnesses": "N/A",
+      "primary_source": "Modern computational realization of historically attested 三日为年 and source-described real elapsed day/hour counting",
+      "source_quote": "PENDING_PRIMARY_QUOTE_FOR_MODERN_REALIZATION_NOT_APPLICABLE",
+      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py; historical comparison EXT-CTEXT-SMTHE-SIKU-V2",
+      "historical_period": "MODERN COMPUTATIONAL REALIZATION over MING-attested symbolic rule",
+      "later_witnesses": "《三命通会》 explicitly discusses 实历过日/时数, but does not define UTC, microseconds, or modern timezone arithmetic",
       "school_attribution": "MODERN_COMPUTATIONAL_REALIZATION",
       "competing_methods": [
         "calendarized traditional age realization"
       ],
-      "current_implementation_match": "MATCHES_DECLARED_MODERN_SCOPE",
+      "current_implementation_match": "HISTORICAL_RATIO_SUPPORTED; ABSOLUTE_UTC_DURATION_AND_MICROSECOND_MAPPING_ARE_MODERN_IMPLEMENTATION_CHOICES",
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Keep labeled as modern realization, not ancient canonical text.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "Retain modern realization label. Add a future historical-calendar realization candidate only if an exact reproducible traditional calendar algorithm is source-closed.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-DAYUN-006",
@@ -788,20 +796,21 @@
       "rule_or_field": "Hour-pillar start + year yin/yang/sex direction Xiaoyun",
       "current_implementation": "Candidate profile SMTH-HOUR-PILLAR-YEAR-YINYANG-DIRECTION-R1.",
       "current_profile": "BAZI-XIAOYUN-CLASSICAL-CANDIDATES-R1",
-      "primary_source": "S12:SMTH-SEG-01200; S12:YHZP-USR-S03778",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_application/xiaoyun.py HOUR_PILLAR_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论小运》 preserving 醉醒子 method",
+      "source_quote": "男女小运皆由时生而行之，逆顺亦以年定",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论小运》; repository S12:SMTH-SEG-01200 and S12:YHZP-USR-S03778",
+      "historical_period": "MING compilation preserving an attributed earlier method; earlier 醉醒子 textual genealogy pending",
+      "later_witnesses": "The same chapter juxtaposes the fixed male/female method rather than collapsing the two",
+      "school_attribution": "ZUIXINGZI_HOUR_PILLAR_YEAR_DIRECTION_FAMILY",
       "competing_methods": [
         "fixed male Bingyin / female Renshen"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "MATCHES_SOURCE_METHOD_AS_AN_UNRANKED_CANDIDATE",
+      "confidence": "HIGH_FOR_MING_WITNESS_MEDIUM_FOR_EARLIER_ATTRIBUTION",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Extract full passages, identify books/editions, date and school lineage; keep unranked.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "No reopen. Preserve this candidate independently and continue tracing the attributed 醉醒子 source.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-XIAOYUN-002",
@@ -810,20 +819,21 @@
       "rule_or_field": "Fixed male Bingyin / female Renshen Xiaoyun",
       "current_implementation": "Candidate profile SMTH-MALE-BINGYIN-FEMALE-RENSHEN-R1.",
       "current_profile": "BAZI-XIAOYUN-CLASSICAL-CANDIDATES-R1",
-      "primary_source": "S12:SMTH-SEG-01199",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_application/xiaoyun.py FIXED_SEX_SOURCE_REFS",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "《三命通会》卷二《论小运》 fixed-sex method",
+      "source_quote": "男起丙寅顺行，女起壬申逆行",
+      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论小运》; repository S12:SMTH-SEG-01199",
+      "historical_period": "MING witness explicitly characterizing the method as 古人 usage",
+      "later_witnesses": "Same chapter preserves 醉醒子 hour-pillar/year-direction method as a competing method",
+      "school_attribution": "FIXED_SEX_BINGYIN_RENSHEN_FAMILY",
       "competing_methods": [
         "hour-pillar year-yinyang direction"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
+      "current_implementation_match": "MATCHES_SOURCE_METHOD_AS_AN_UNRANKED_CANDIDATE",
+      "confidence": "HIGH_FOR_MING_WITNESS",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Extract full passage and identify transmission; keep unranked.",
-      "algorithm_reopen_authorized": false
+      "proposed_action": "No reopen. Preserve beside hour-pillar candidate; do not select a winner from coexistence alone.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
     },
     {
       "rule_id": "HPA-SHENSHA-001",
@@ -2390,5 +2400,19 @@
       "proposed_action": "Add historical-source bibliographic hashes/edition IDs without changing deterministic facts unless audited defect is proven.",
       "algorithm_reopen_authorized": false
     }
+  ],
+  "historical_research_batches": [
+    "BATCH-01-TIME-DAYUN-XIAOYUN"
+  ],
+  "audited_row_ids": [
+    "HPA-TIME-007",
+    "HPA-TIME-008",
+    "HPA-TIME-010",
+    "HPA-DAYUN-001",
+    "HPA-DAYUN-002",
+    "HPA-DAYUN-003",
+    "HPA-DAYUN-005",
+    "HPA-XIAOYUN-001",
+    "HPA-XIAOYUN-002"
   ]
 }

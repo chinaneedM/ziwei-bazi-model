@@ -58,6 +58,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["status"], "PASS")
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
+        self.assertGreaterEqual(receipt["audited_row_count"], 9)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

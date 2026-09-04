@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
+SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -31,6 +32,15 @@ REQUIRED_FIELDS = {
 
 def main() -> int:
     data=json.loads(MATRIX.read_text(encoding="utf-8"))
+    source_registry=json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    if source_registry.get("schema")!="FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1":
+        raise SystemExit("external historical source registry schema mismatch")
+    source_ids=[item.get("source_id") for item in source_registry.get("sources",())]
+    if len(source_ids)!=len(set(source_ids)) or not source_ids:
+        raise SystemExit("external historical source registry has invalid/duplicate IDs")
+    for item in source_registry["sources"]:
+        if not item.get("url","").startswith("https://"):
+            raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
     if data.get("schema")!="FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1":
         raise SystemExit("historical provenance matrix schema mismatch")
     if data.get("deterministic_product_state")!="CLOSED":
@@ -85,6 +95,8 @@ def main() -> int:
         "deterministic_product":"CLOSED",
         "self_inward_transformation":"NOT_YET_FORMALIZED",
         "algorithm_reopen_authorized_count":sum(bool(r["algorithm_reopen_authorized"]) for r in rows),
+        "historical_research_batch_count":len(data.get("historical_research_batches",())),
+        "audited_row_count":len(data.get("audited_row_ids",())),
     }, ensure_ascii=False, sort_keys=True))
     return 0
 
