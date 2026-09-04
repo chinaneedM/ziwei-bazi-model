@@ -78,6 +78,9 @@ def main() -> int:
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
+    for source_id in ("EXT-CTEXT-QIANLI-MINGGAO-DAYUN","EXT-CTEXT-MINGLI-TANYUAN-DAYUN","EXT-CTEXT-SANMING-V2-DAYUN"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 09B Dayun source witness missing: {source_id}")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -138,7 +141,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 133:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 136:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -159,6 +162,8 @@ def main() -> int:
         raise SystemExit("Batch 08D Ziwei calendar-date/day-boundary audit is missing")
     if "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A" not in batches:
         raise SystemExit("Batch 09A solar-term/Bazi year-month audit is missing")
+    if "BATCH-09-BAZI-DAYUN-SEQUENCE-B" not in batches:
+        raise SystemExit("Batch 09B Bazi Dayun sequence audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -204,6 +209,17 @@ def main() -> int:
     for rule_id in ("HPA-BTIME-002","HPA-BTIME-003","HPA-BTIME-004"):
         if btime_by_id[rule_id]["audit_status"]!="HISTORICALLY_SUPPORTED":
             raise SystemExit(f"historically supported Bazi time rule regressed: {rule_id}")
+    dayun_sequence_child_ids={"HPA-DAYUN-SEQ-001","HPA-DAYUN-SEQ-002"}
+    if not dayun_sequence_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 09B Dayun sequence child rows are incomplete")
+    dayun_sequence_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-DAYUN-SEQ-")}
+    for rule_id in dayun_sequence_child_ids:
+        if dayun_sequence_by_id[rule_id]["audit_status"]!="HISTORICALLY_SUPPORTED":
+            raise SystemExit(f"historically supported Dayun sequence rule regressed: {rule_id}")
+    dayun_parent=next(row for row in rows if row["rule_id"]=="HPA-DAYUN-004")
+    if dayun_parent["audit_status"]!="HISTORICALLY_SUPPORTED" or "month index ±n" not in dayun_parent["current_implementation_match"].lower().replace("+","±").replace("-","±"):
+        if dayun_parent["audit_status"]!="HISTORICALLY_SUPPORTED":
+            raise SystemExit("Dayun sequence parent did not close historically")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

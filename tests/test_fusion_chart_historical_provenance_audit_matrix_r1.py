@@ -60,8 +60,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 14)
-        self.assertGreaterEqual(receipt["audited_row_count"], 133)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 15)
+        self.assertGreaterEqual(receipt["audited_row_count"], 136)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
@@ -155,6 +155,16 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         for rule_id in ("HPA-BTIME-002", "HPA-BTIME-003", "HPA-BTIME-004"):
             self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertIn("HALF_OPEN_INSTANT_BOUNDARY_MATCH", by_id["HPA-BTIME-004"]["current_implementation_match"])
+
+    def test_batch_09b_dayun_sequence_closes_without_jiaoyun_reopen(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        self.assertEqual(by_id["HPA-DAYUN-004"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertIn("first formal Dayun", by_id["HPA-DAYUN-004"]["current_implementation_match"])
+        for rule_id in ("HPA-DAYUN-SEQ-001", "HPA-DAYUN-SEQ-002"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
+            self.assertFalse(by_id[rule_id]["algorithm_reopen_authorized"])
+        self.assertIn("EXACT_ADJACENT_FIRST_STEP_MATCH", by_id["HPA-DAYUN-SEQ-001"]["current_implementation_match"])
+        self.assertIn("EXACT_MOD60_STEP_SEQUENCE_MATCH", by_id["HPA-DAYUN-SEQ-002"]["current_implementation_match"])
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
