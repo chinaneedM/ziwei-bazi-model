@@ -26,8 +26,8 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         )
 
     def test_source_definitions_and_alternatives_are_all_materialized(self) -> None:
-        self.assertEqual("1.7.0", self.result["profile_version"])
-        self.assertEqual(37, len(self.result["candidates"]))
+        self.assertEqual("1.7.1", self.result["profile_version"])
+        self.assertEqual(38, len(self.result["candidates"]))
         self.assertEqual(
             {
                 "TIANYI", "TIANGUAN", "LU", "YIMA", "HUAGAI", "YUEDE", "YUEDEHE",
@@ -96,9 +96,17 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         self.assertEqual({"ONLY_DAY", "ALL_PILLARS"}, {row["match_scope"] for row in yuedehe})
         self.assertTrue(all(row["selection_status"] == "CANDIDATE_NOT_ARBITRATED" for row in yuedehe))
 
-        tiande = self.candidate("TIANDE", "MONTH_BRANCH")
-        self.assertEqual("STEM", tiande["target_kind"])
-        self.assertEqual(["辛"], tiande["target_values"])
+        tiande = [
+            row for row in self.result["candidates"]
+            if row["shensha_id"] == "TIANDE" and row["anchor_basis"] == "MONTH_BRANCH"
+        ]
+        self.assertEqual({"ALL_PILLARS", "ONLY_DAY"}, {row["match_scope"] for row in tiande})
+        self.assertTrue(all(row["target_kind"] == "STEM" for row in tiande))
+        self.assertTrue(all(row["target_values"] == ["辛"] for row in tiande))
+        self.assertTrue(all(row["selection_status"] == "CANDIDATE_NOT_ARBITRATED" for row in tiande))
+        day_only = next(row for row in tiande if row["match_scope"] == "ONLY_DAY")
+        self.assertEqual(["EXT:CTEXT-SMTHE-V3-TIANYUEDE"], day_only["source_refs"])
+        self.assertEqual("SANMING_DAY_ONLY_SCOPE", day_only["qualification_status"])
 
     def test_stem_anchor_alternatives_never_merge(self) -> None:
         day_kitchen = self.candidate("TIANCHU", "DAY_STEM")
@@ -257,7 +265,7 @@ class BaziShenshaFactsR1Tests(unittest.TestCase):
         self.assertEqual(
             [
                 "S11:YHZP-USR-S00330", "S11:YHZP-CH-045",
-                "S12:YHZP-CH-016", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
+                "S11:YHZP-CH-015", "S11:YHZP-USR-S00285", "S14:YHZP-CH-007",
             ],
             yuancheng["source_refs"],
         )
