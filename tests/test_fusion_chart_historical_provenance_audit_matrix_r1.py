@@ -13,6 +13,7 @@ README = ROOT / "README.md"
 CI = ROOT / ".github" / "workflows" / "ci.yml"
 TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
+BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
 
 
 class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
@@ -61,11 +62,11 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 18)
-        self.assertGreaterEqual(receipt["audited_row_count"], 154)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 19)
+        self.assertGreaterEqual(receipt["audited_row_count"], 158)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
-        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 8)
-        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 8)
+        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 9)
+        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 9)
         self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 2)
         self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 2)
         self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 12)
@@ -207,6 +208,21 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("FOUR_EARTH_BUREAU", source)
         self.assertIn("BRANCH_BREAK_EARLY_FOUR", source)
         self.assertIn("STEM_HIDDEN_COMBINATION", source)
+
+    def test_batch_11a_hidden_stem_order_is_lineage_not_strength(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        self.assertEqual(by_id["HPA-BHIDDEN-001"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertEqual(by_id["HPA-BHIDDEN-002"]["audit_status"], "SOURCE_INSUFFICIENT")
+        self.assertEqual(by_id["HPA-BHIDDEN-003"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(by_id["HPA-BAZI-015"]["audit_status"], "SOURCE_INSUFFICIENT")
+        self.assertIn("FULLY_DECOMPOSED", by_id["HPA-BAZI-015"]["current_implementation_match"])
+        self.assertEqual(by_id["HPA-BAZI-FLOW-003"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertEqual(by_id["HPA-BAZI-FLOW-003"]["defect_id"], "PROV-DEFECT-009")
+        self.assertEqual(by_id["HPA-BAZI-FLOW-003"]["repair_status"], "REPAIRED_FORWARD_ONLY_DURING_BATCH_11A")
+        source = BAZI_TEMPORAL_ANNOTATIONS.read_text(encoding="utf-8")
+        self.assertIn('TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION = "1.0.2"', source)
+        self.assertIn('TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION = "1.0.1"', source)
+        self.assertIn('"hidden_stem_registry_order"', source)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

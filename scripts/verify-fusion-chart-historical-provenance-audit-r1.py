@@ -8,6 +8,8 @@ MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.jso
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
+BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
+BAZI_TEMPORAL_HIDDEN_ORDER_TEST = ROOT / "tests" / "test_bazi_temporal_hidden_stem_order_lineage_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -89,6 +91,8 @@ def main() -> int:
     for source_id in ("EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS","EXT-CTEXT-WUXING-JINGJI-V23-BREAK","EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA","EXT-MODERN-OPENFATE-HALF-TRINE-2026"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
+    if by_source_id.get("EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI") is None:
+        raise SystemExit("Batch 11A later hidden-stem hierarchy witness is missing")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -132,9 +136,9 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 8:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 9:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 8:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 9:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 2:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
@@ -151,7 +155,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 154:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 158:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -180,6 +184,8 @@ def main() -> int:
         raise SystemExit("Batch 10B excluded Bazi relation-family audit is missing")
     if "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C" not in batches:
         raise SystemExit("Batch 10C Bazi historical relation candidate runtime is missing")
+    if "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A" not in batches:
+        raise SystemExit("Batch 11A Bazi hidden-stem order audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -281,6 +287,29 @@ def main() -> int:
     defect8=by_rule_id["HPA-BREL-012"]
     if defect8.get("defect_id")!="PROV-DEFECT-008" or defect8.get("repair_status")!="REPAIRED_FORWARD_ONLY_DURING_BATCH_10C":
         raise SystemExit("PROV-DEFECT-008 source-scope repair is incomplete")
+    hidden_order_ids={"HPA-BHIDDEN-001","HPA-BHIDDEN-002","HPA-BHIDDEN-003"}
+    if not hidden_order_ids.issubset(set(ids)):
+        raise SystemExit("Batch 11A hidden-stem decomposition is incomplete")
+    if by_rule_id["HPA-BHIDDEN-001"]["audit_status"]!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("YHZP hidden-stem textual sequence lost historical support")
+    if by_rule_id["HPA-BHIDDEN-002"]["audit_status"]!="SOURCE_INSUFFICIENT":
+        raise SystemExit("normalized registry order was incorrectly upgraded to historical authority")
+    if by_rule_id["HPA-BHIDDEN-003"]["audit_status"]!="SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        raise SystemExit("later main-qi hierarchy lost scoped status")
+    if by_rule_id["HPA-BAZI-015"]["audit_status"]!="SOURCE_INSUFFICIENT" or "FULLY_DECOMPOSED" not in by_rule_id["HPA-BAZI-015"]["current_implementation_match"]:
+        raise SystemExit("hidden-stem order parent was not fully decomposed")
+    flow_hidden=by_rule_id["HPA-BAZI-FLOW-003"]
+    if flow_hidden["audit_status"]!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("temporal hidden-stem registry reuse did not close")
+    if flow_hidden.get("defect_id")!="PROV-DEFECT-009" or flow_hidden.get("repair_status")!="REPAIRED_FORWARD_ONLY_DURING_BATCH_11A":
+        raise SystemExit("PROV-DEFECT-009 temporal hidden-stem hash repair is incomplete")
+    temporal_source=BAZI_TEMPORAL_ANNOTATIONS.read_text(encoding="utf-8")
+    temporal_test=BAZI_TEMPORAL_HIDDEN_ORDER_TEST.read_text(encoding="utf-8")
+    for token in ('TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION = "1.0.2"', 'TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION = "1.0.1"', '"hidden_stem_registry_order"'):
+        if token not in temporal_source:
+            raise SystemExit(f"Batch 11A temporal hash-lineage token missing: {token}")
+    if "test_order_is_lineage_not_fact_identity" not in temporal_test or "test_membership_change_still_changes_fact_identity" not in temporal_test:
+        raise SystemExit("Batch 11A temporal hidden-stem order tests are missing")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–10B and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **186 rows**, with **153 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **7 confirmed provenance metadata defects repaired or quarantined at the provenance layer, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
+The initial inventory contained **107 rule/field families**. After Batches 01–11A and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **190 rows**, with **158 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **9 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 2 source-scoped historical candidate registries, and 2 runtime resolvers**.
 
 ## Research-corpus authority
 
@@ -108,7 +108,7 @@ Historical research proceeds in evidence-risk order:
 No winner is selected for a genuinely disputed school rule solely to simplify product output.
 
 
-## Progress through Batch 07A
+## Progress through Batch 11A
 
 - Batch 01: Time / Dayun / Xiaoyun.
 - Batch 02: Bazi natal / derived foundations; repaired Twelve-Growth and NaYin provenance metadata.
@@ -127,6 +127,8 @@ No winner is selected for a genuinely disputed school rule solely to simplify pr
 - Batch 09B: closed the Bazi Dayun Ganzhi sequence independently of Jiaoyun timing. Explicit Ziping examples take the natal month pillar as sequence base, use the adjacent sexagenary pillar as formal Dayun #1 in the resolved direction, then advance one pillar per subsequent luck frame. Runtime `month_index ± index` matches exactly; no algorithm reopen.
 - Batch 10A: audited neutral Bazi affinity/exposure projections and the raw relation core. Exact hidden-stem/same-element affinity remains a neutral identity projection rather than 通根/strength doctrine. Five stem combinations, six harmonies, six clashes, four standard trines, 相穿 and punishment geometries are historically supported. `穿/害` is recorded as a terminology bridge over one mechanical geometry, and the 无恩/恃势 label swap across received texts is preserved instead of normalized. A new source-closed candidate gap was identified: `辰戌丑未土局`, which must be modeled as an arity-4 four-earth bureau rather than forced into a three-member trine. No existing coordinate defect.
 - Batch 10B: audited relation families intentionally excluded from the raw core. Ming `属象/一方之气` is normalized to the later `方/三会` mechanical groups without merging them with 三合. Song 《五行精纪》 preserves an early four-break method and explicitly excludes the later-added harmony pairs, so a universal six-break table remains disputed. Modern 半合/拱合 remains compatibility-only while the classical complete-trine boundary stays strict. Ming `座下自化` and later `干支暗合` close a same-pillar stem↔hidden-stem combination candidate. Three new source-closed product gaps were added; no existing algorithm reopened.
+- Batch 10C: productized four source-closed Bazi relation families through `BAZI-HISTORICAL-RELATION-CANDIDATES-R1`, an opt-in `PRESERVED_NOT_SELECTED` sidecar: four-earth bureau, directional triads, early four-break, and same-pillar stem-hidden five-combination. Raw-core defaults remain unchanged. `PROV-DEFECT-008` repaired the 《命理探源》 relation-chapter source-ID scope.
+- Batch 11A: decomposed hidden-stem membership from textual/display ordering. Received YHZP source order is historically attested; the repository normalized tuple remains lineage-only with no root-strength meaning; later `本气/余气` language is preserved as a distinct hierarchy concept rather than inferred from ordinal. Dynamic layers are confirmed to reuse the natal membership table. `PROV-DEFECT-009` moved dynamic hidden-stem order out of FactHash and into ComputationHash lineage, with no chart-coordinate change.
 
 The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
 
