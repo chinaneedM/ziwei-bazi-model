@@ -116,7 +116,10 @@
       "provider": "Tianji digitized transcription; Xinyi/Heart & Yi Tang bibliographic facsimile description",
       "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan",
       "source_role": "EARLY_EXTANT_PRINT_WITNESS_FOR_ZIWEI_DETERMINISTIC_RULES",
-      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions and are cross-checked against bibliographic description of the 1581 print. Exact facsimile-page verification remains preferred for any glyph-critical dispute."
+      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute.",
+      "bibliographic_witnesses": [
+        "EXT-SHANGHAI-LIB-JIELAN-1581"
+      ]
     },
     {
       "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
@@ -127,6 +130,18 @@
       "url": "https://tianjihq.com/en/learn/books/ziwei-doushu-quanshu",
       "source_role": "LATER_OR_PARALLEL_HISTORICAL_WITNESS_AND_VARIANT_SOURCE",
       "quality_notes": "Used to identify exact variant readings versus the 1581 Jielan; not assumed to be earlier merely from preface attribution."
+    },
+    {
+      "source_id": "EXT-SHANGHAI-LIB-JIELAN-1581",
+      "title": "《新刻纂集紫微斗数捷览》四卷",
+      "author_attribution": "题[宋]陈摶撰、宋白玉蟾增辑",
+      "historical_period": "明",
+      "edition": "明万历九年金陵书坊王洛川刻本",
+      "catalog_identifier": "子4051",
+      "provider": "上海图书馆古籍联合目录 / linked-data cloud",
+      "url": "https://data.library.sh.cn/gj/resource/instance/l611spx62774srpb",
+      "source_role": "LIBRARY_CATALOG_BIBLIOGRAPHIC_WITNESS_FOR_JIELAN_1581_EDITION",
+      "quality_notes": "Library-catalog witness records 明万历9年, begin=1581, title 新刻纂集紫微斗数捷览四卷, edition label 明万历九年金陵书坊王洛川刻本. Use for bibliographic identity, not as a substitute for rule-text facsimile collation."
     }
   ]
 }
