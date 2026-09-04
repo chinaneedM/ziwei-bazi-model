@@ -91,6 +91,21 @@ class CombinedWorkbenchRealMachineCalibrationR1Tests(unittest.TestCase):
         self.assertIn("fortune-chart-app --port 8877", text)
         self.assertIn("Ctrl+C", text)
 
+    def test_runbook_covers_productized_desktop_shell(self) -> None:
+        text = RUNBOOK_PATH.read_text(encoding="utf-8")
+        for expected in (
+            "紫微 · 八字融合排盘",
+            "本命总览 / 时运联动 / 融合视图 / 专业审计",
+            "紫微斗数本命盘",
+            "四柱八字本命盘",
+            "进入时运联动",
+            "进入融合视图",
+            "查看专业审计",
+            "exact source commit bound to the running checkout or packaged build",
+        ):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, text)
+
     def test_runbook_preserves_explicit_apply_and_candidate_semantics(self) -> None:
         text = RUNBOOK_PATH.read_text(encoding="utf-8")
         self.assertIn("Calculation alone does not change Ziwei Daxian / Annual / Minor selectors", text)

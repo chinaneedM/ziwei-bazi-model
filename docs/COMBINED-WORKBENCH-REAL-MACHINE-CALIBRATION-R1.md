@@ -176,6 +176,16 @@ Apply is one-way and opt-in:
 
 After the command-level smoke passes, perform this short visual/interaction check in the actual browser.
 
+### Product shell composition
+
+- [ ] The header reads `紫微 · 八字融合排盘` and the page exposes the four product work areas `本命总览 / 时运联动 / 融合视图 / 专业审计`.
+- [ ] Ordinary birth time, birth place and sex remain in the primary input row; coordinates/timezone and explicit calculation Profiles are grouped under advanced details rather than dominating the default surface.
+- [ ] The natal fusion bridge visibly shows Ziwei, shared-time and Bazi status as one composition while explicitly stating that the two chart systems keep independent day-boundary/calendar rules.
+- [ ] The two main chart cards read `紫微斗数本命盘` and `四柱八字本命盘`; engineering hashes and provenance do not replace the natal charts as the default view.
+- [ ] `进入时运联动`, `进入融合视图`, and `查看专业审计` navigate between product areas without causing a new calculation by themselves.
+- [ ] A validation/input error is visible directly below the input/status area rather than being hidden below the full chart workspace.
+- [ ] The professional audit area still exposes ManifestHash/Profile/RuleSet/Algorithm/provenance information and does not silently drop an integrity failure.
+
 ### Base composition
 
 - [ ] `fortune-chart-app` starts and opens/binds only to `127.0.0.1`.
@@ -236,7 +246,7 @@ The automated test suite already contains exact DST-fold and Dec-31/Jan-1 discri
 
 If the browser result disagrees with an external reference application or behaves unexpectedly, record the smallest reproducible packet:
 
-- current Git `main` commit;
+- exact source commit bound to the running checkout or packaged build;
 - OS / Python / browser version;
 - exact birth input and selected profiles;
 - exact target input when target-flow/shared projection is involved;
@@ -252,7 +262,8 @@ Open a new narrow calibration issue for that discrepancy. Do not change canonica
 This calibration runbook treats the current released workbench as a deterministic application composition:
 
 ```text
-Birth Input
+Desktop Product Shell
+  -> Birth Input / advanced explicit profiles
   -> Combined base Ziwei + Bazi bundles
   -> Ziwei Sanhe interaction sidecar
   -> Bazi explicit Target-Flow sidecar
