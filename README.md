@@ -206,3 +206,16 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 R1 的确定性排盘产品已经完成字段可见性、Workbench/desktop 运行契约、完整性/更新机制及 CI/release 门禁收口。Windows runner 会从最终 ZIP 启动两个 `.exe`，验证打包依赖、loopback health、确定性联合排盘及 updater 非变更启动；默认浏览器交互和真实两版本升级/回滚仍需单独平台验收，因此保持 `PENDING_PLATFORM_ACCEPTANCE`。该状态不会重开时间历法、八字本命/flow、紫微本命/Structural R1–R8 或 Combined Fusion R2。
 
 所有 disputed candidates 继续保留多候选、不得选 winner；紫微离心/向心自化方向仍不得由现有宫干拓扑或结构几何推导。最终审计见 `docs/FUSION-CHART-PRODUCT-R1-FINAL-ACCEPTANCE-20260904.md`，Windows 剩余实机条件见 `docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md`。
+
+
+## Fusion Chart Capability & Performance Acceptance R1
+
+```text
+FUSION_CHART_CAPABILITY_PERFORMANCE_ACCEPTANCE_R1=IN_PROGRESS
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+```
+
+确定性融合排盘已经从功能开发切换到能力/性能验收。当前新增 Golden Case Corpus、秒级 Temporal Boundary Torture、固定种子随机 deterministic replay/property invariants、文墨天机/问真 reference-only differential、源码与 Windows 最终 EXE 的性能基准，以及 HTTP/server/thread/fd/memory soak。reference implementation 的差异不能直接触发算法修改；任何失败必须先按六类 defect taxonomy 归档，只有有明确 canonical/replay 证据的 `IMPLEMENTATION_DEFECT` 才能局部重开对应算法。
+
+验收总说明见 `docs/FUSION-CHART-CAPABILITY-PERFORMANCE-ACCEPTANCE-R1.md`，机器可读 capability matrix 见 `docs/FUSION-CHART-CAPABILITY-MATRIX-R1.json`，性能基线和 defect ledger 分别见 `docs/FUSION-CHART-PERFORMANCE-BASELINE-R1.md` 与 `docs/FUSION-CHART-DEFECT-REPORT-R1.md`。

@@ -1,0 +1,136 @@
+{
+  "schema": "FUSION-CHART-CAPABILITY-MATRIX-R1",
+  "acceptance_state": "IN_PROGRESS",
+  "deterministic_product_state": "CLOSED",
+  "canonical_rule_mutation_policy": "IMPLEMENTATION_DEFECT_WITH_EXPLICIT_EVIDENCE_ONLY",
+  "reference_implementation_authority": false,
+  "failure_taxonomy": [
+    "IMPLEMENTATION_DEFECT",
+    "EXPECTED_PROFILE_DIFFERENCE",
+    "DISPUTED_CANDIDATE",
+    "REFERENCE_DIFFERENCE",
+    "TEST_ORACLE_DEFECT",
+    "UNRESOLVED"
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-TIME-CIVIL-TZDB",
+      "scope": "civil timezone/DST unique-fold-gap resolution",
+      "method": "Golden Corpus + second-level torture",
+      "evidence": ["tests/test_fusion_chart_capability_acceptance_r1.py", "tests/test_fusion_chart_temporal_torture_r1.py"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-TIME-TRUE-SOLAR",
+      "scope": "local apparent solar time and date crossing",
+      "method": "Kashgar golden case + adjacent-second torture",
+      "evidence": ["tests/fixtures/fusion-chart-capability-golden-r1.json"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-CALENDAR-LUNAR-LEAP",
+      "scope": "Chinese lunar date and leap-month entry",
+      "method": "HKO date oracle + leap-month boundary",
+      "evidence": ["tests/fixtures/fusion-chart-capability-golden-r1.json"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-SOLAR-TERM-LICHUN",
+      "scope": "solar-term and Start of Spring boundary",
+      "method": "exact term instant ±1 second",
+      "evidence": ["tests/test_fusion_chart_temporal_torture_r1.py"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-BAZI-LATE-ZI",
+      "scope": "Bazi late-Zi day/hour policy separation",
+      "method": "Golden profiles + 23:00/midnight torture",
+      "evidence": ["tests/fixtures/fusion-chart-capability-golden-r1.json"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-BAZI-NATAL",
+      "scope": "four pillars, stems/branches, hidden stems, ten-gods and chart hashes",
+      "method": "combined replay + product invariants",
+      "evidence": ["src/fortune_training/fusion_chart_acceptance/invariants.py"],
+      "status": "ACTIVE_ACCEPTANCE"
+    },
+    {
+      "capability_id": "CAP-BAZI-DAYUN",
+      "scope": "direction, Jiaoyun and Dayun sequence",
+      "method": "1990 male golden sequence + existing temporal integrity",
+      "evidence": ["tests/fixtures/fusion-chart-capability-golden-r1.json"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-ZIWEI-NATAL",
+      "scope": "12-palace designations, star placements, structural R1-R5 bundle",
+      "method": "application full replay + product invariants",
+      "evidence": ["src/fortune_training/fusion_chart_acceptance/invariants.py"],
+      "status": "ACTIVE_ACCEPTANCE"
+    },
+    {
+      "capability_id": "CAP-ZIWEI-DAXIAN-XIAOXIAN",
+      "scope": "Daxian and minor-limit sequence identity/coverage",
+      "method": "1994 golden sequence + uniqueness invariants",
+      "evidence": ["tests/fixtures/fusion-chart-capability-golden-r1.json"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-COMBINED-LINEAGE-MANIFEST",
+      "scope": "shared-time credential, candidate lineage, subsystem hashes, manifest",
+      "method": "full combined replay + hash regeneration",
+      "evidence": ["src/fortune_training/fusion_chart_acceptance/invariants.py"],
+      "status": "ACTIVE_ACCEPTANCE"
+    },
+    {
+      "capability_id": "CAP-TARGET-FLOW",
+      "scope": "Bazi target flow over released combined base",
+      "method": "deterministic benchmark/soak plus existing full replay",
+      "evidence": ["scripts/fusion-chart-source-benchmark.py", "scripts/fusion-chart-soak.py"],
+      "status": "EXECUTION_PENDING"
+    },
+    {
+      "capability_id": "CAP-FUSION-R2",
+      "scope": "cross-system target-time Fusion R2",
+      "method": "deterministic benchmark/soak plus existing full replay",
+      "evidence": ["scripts/fusion-chart-source-benchmark.py", "scripts/fusion-chart-soak.py"],
+      "status": "EXECUTION_PENDING"
+    },
+    {
+      "capability_id": "CAP-DETERMINISTIC-RANDOM-REPLAY",
+      "scope": "10,000 random combined charts; conditional 100,000 escalation",
+      "method": "fixed-seed exact replay + structural invariants",
+      "evidence": ["scripts/fusion-chart-deterministic-replay.py"],
+      "status": "RUNNING"
+    },
+    {
+      "capability_id": "CAP-REFERENCE-DIFFERENTIAL",
+      "scope": "Wenmo/Wenzhen differential comparison",
+      "method": "reference-only structured diff; never auto-promotes to implementation defect",
+      "evidence": ["src/fortune_training/fusion_chart_acceptance/reference_diff.py", "scripts/fusion-chart-reference-diff.py"],
+      "status": "FRAMEWORK_ACCEPTED"
+    },
+    {
+      "capability_id": "CAP-SOURCE-PERFORMANCE",
+      "scope": "cold start, Ziwei, Bazi, Combined, Target Flow, Fusion R2, P50/P95/P99, throughput, tracemalloc",
+      "method": "source benchmark receipt",
+      "evidence": ["scripts/fusion-chart-source-benchmark.py"],
+      "status": "EXECUTION_PENDING"
+    },
+    {
+      "capability_id": "CAP-WINDOWS-PACKAGED-PERFORMANCE",
+      "scope": "emitted FortuneChart.exe cold start and operation benchmark",
+      "method": "Windows ZIP extraction + hidden ready/performance receipts",
+      "evidence": [".github/workflows/fusion-chart-capability-performance-r1.yml"],
+      "status": "EXECUTION_PENDING"
+    },
+    {
+      "capability_id": "CAP-SOAK-RESOURCE-STABILITY",
+      "scope": "HTTP/server/thread/fd/memory stability",
+      "method": "1000-iteration soak with Target Flow/Fusion R2 probes",
+      "evidence": ["scripts/fusion-chart-soak.py"],
+      "status": "EXECUTION_PENDING"
+    }
+  ]
+}
