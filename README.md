@@ -160,6 +160,8 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 当前日常联合排盘入口为 `fortune-chart-app`。它组合已发布的紫微三合交互、八字显式目标时点 flow 与显式 Shared Target → Ziwei Apply，不执行预测或训练。
 
+桌面呈现已进入 **Desktop Productization R1**：在不重开任何已闭合确定性算法的前提下，新的 presentation-only product shell 把既有 Workbench 重组为“本命总览 / 时运联动 / 融合视图 / 专业审计”四个工作区；基础出生资料保持主操作，地点/时区/时间精度/Profile 收入高级设置，ManifestHash、RuleSet、Algorithm 与 provenance 下沉到审计区。实现与边界见 `docs/FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md`。
+
 联合排盘现在生成共享时间凭证与候选分支联动哈希；它统一时区、UTC、真太阳时和节气事实，但保留紫微与八字各自的换日、历法及晚子时规则，不允许一方规则覆盖另一方。设计与完整性门禁见 `docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md`。
 
 八字候选视图现已补充旬空与日主十二长生事实注记，并将其纳入视图哈希；两者仅作身份展示，不生成旺衰或吉凶结论。冻结口径、来源与语义边界见 `docs/BAZI-XUNKONG-TWELVE-GROWTH-R1.md`。
@@ -190,6 +192,7 @@ python scripts/combined-workbench-smoke.py
 
 ```text
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+DESKTOP_PRODUCT_SHELL_R1=IMPLEMENTED
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 ```

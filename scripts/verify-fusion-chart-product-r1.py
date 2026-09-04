@@ -11,11 +11,13 @@ CLOSURE_PATH = ROOT / "docs" / "FUSION-CHART-FIELD-CLOSURE-AUDIT-R1.md"
 README_PATH = ROOT / "README.md"
 CI_PATH = ROOT / ".github" / "workflows" / "ci.yml"
 WINDOWS_WORKFLOW_PATH = ROOT / ".github" / "workflows" / "windows-portable.yml"
+PRODUCTIZATION_PATH = ROOT / "docs" / "FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md"
 
 CLOSED_MARKER = "DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED"
 WINDOWS_PENDING_MARKER = "WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE"
 SELF_DIRECTION_MARKER = "ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED"
 NO_WINNER_MARKER = "DISPUTED_CANDIDATE_POLICY=NO_WINNER"
+PRODUCT_SHELL_MARKER = "DESKTOP_PRODUCT_SHELL_R1=IMPLEMENTED"
 
 
 def require_text(path: Path, needle: str) -> str:
@@ -61,12 +63,13 @@ def main() -> int:
     if not disputed:
         raise SystemExit("expected disputed candidate rows are missing from the field matrix")
 
-    for path in (ACCEPTANCE_PATH, CLOSURE_PATH, README_PATH):
+    for path in (ACCEPTANCE_PATH, CLOSURE_PATH, README_PATH, PRODUCTIZATION_PATH):
         require_text(path, CLOSED_MARKER)
         require_text(path, WINDOWS_PENDING_MARKER)
         require_text(path, SELF_DIRECTION_MARKER)
     require_text(ACCEPTANCE_PATH, NO_WINNER_MARKER)
     require_text(CLOSURE_PATH, NO_WINNER_MARKER)
+    require_text(PRODUCTIZATION_PATH, PRODUCT_SHELL_MARKER)
 
     required_paths = (
         "scripts/build-windows-portable.ps1",
@@ -77,7 +80,9 @@ def main() -> int:
         "src/fortune_training/desktop_application/platform_acceptance.py",
         "src/fortune_training/desktop_application/updates.py",
         "src/fortune_training/desktop_application/updater.py",
+        "src/fortune_training/combined_chart_application/product_shell_assets.py",
         "tests/test_windows_portable_desktop_launcher_r1.py",
+        "tests/test_fusion_chart_desktop_product_shell_r1.py",
         "tests/test_windows_verified_auto_update_r1.py",
         "tests/test_windows_stable_release_promotion_branch_r1.py",
         "tests/test_windows_stable_release_promotion_push_control_r3.py",
@@ -86,6 +91,7 @@ def main() -> int:
         "tests/test_real_machine_calibration_regression_closure_r1.py",
         "docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md",
         "docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md",
+        "docs/FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md",
         ".github/workflows/windows-portable.yml",
     )
     missing = [relative for relative in required_paths if not (ROOT / relative).is_file()]
@@ -103,6 +109,8 @@ def main() -> int:
     ):
         if step not in ci:
             raise SystemExit(f"ci.yml: missing required R1 gate step {step!r}")
+
+    require_text(CI_PATH, "test_fusion_chart_desktop_product_shell_r1.py")
 
     windows_workflow = require_text(
         WINDOWS_WORKFLOW_PATH,
@@ -129,6 +137,7 @@ def main() -> int:
         "disputed_candidate_count": len(disputed),
         "self_inward_transformation_direction": "NOT_YET_FORMALIZED",
         "disputed_candidate_policy": "NO_WINNER",
+        "desktop_product_shell_r1": "IMPLEMENTED",
     }
     print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
     return 0

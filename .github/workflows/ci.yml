@@ -29,6 +29,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p "test_windows_portable_desktop_launcher_r1.py" -v
           python -m unittest discover -s tests -p "test_windows_verified_auto_update_r1.py" -v
+          python -m unittest discover -s tests -p "test_fusion_chart_desktop_product_shell_r1.py" -v
           python -m unittest discover -s tests -p "test_combined_workbench_real_machine_calibration_r1.py" -v
           python -m unittest discover -s tests -p "test_real_machine_calibration_regression_closure_r1.py" -v
       - name: Verify

@@ -73,6 +73,11 @@ from .palace_stem_topology_local_app import (
     ZiweiPalaceStemTopologyLocalMixin,
     _ZiweiPalaceStemTopologyHandlerMixin,
 )
+from .product_shell_assets import (
+    PRODUCT_SHELL_CSS,
+    PRODUCT_SHELL_JS,
+    product_shell_index_html,
+)
 from .resolved_profile_lineage_assets import (
     RESOLVED_PROFILE_LINEAGE_CSS,
     RESOLVED_PROFILE_LINEAGE_JS,
@@ -163,7 +168,7 @@ class _WorkbenchHandler(
     _FlowHandler,
 ):
     application: CombinedChartWorkbenchApplication
-    server_version = "CombinedChartWorkbenchLocalApp/1.12"
+    server_version = "CombinedChartWorkbenchLocalApp/1.13"
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlsplit(self.path).path
@@ -197,6 +202,7 @@ class _WorkbenchHandler(
                     )
                 )
             )
+            html = product_shell_index_html(html)
             self._send_bytes(200, "text/html; charset=utf-8", html.encode())
             return
         if path == "/bazi-hidden-exposure.css":
@@ -284,6 +290,12 @@ class _WorkbenchHandler(
         if path == "/ziwei-dignity-provenance.js":
             self._send_bytes(200, "application/javascript; charset=utf-8", ZIWEI_DIGNITY_PROVENANCE_JS.encode())
             return
+        if path == "/product-shell.css":
+            self._send_bytes(200, "text/css; charset=utf-8", PRODUCT_SHELL_CSS.encode())
+            return
+        if path == "/product-shell.js":
+            self._send_bytes(200, "application/javascript; charset=utf-8", PRODUCT_SHELL_JS.encode())
+            return
         if path == "/resolved-profile-lineage.css":
             self._send_bytes(200, "text/css; charset=utf-8", RESOLVED_PROFILE_LINEAGE_CSS.encode())
             return
@@ -328,7 +340,7 @@ def main(argv: list[str] | None = None) -> int:
             "target-flow fusion, resolved profile/rule/algorithm lineage, Ziwei natal "
             "basic-info and raw-lunar-month presentation, Bazi Nayin/pillar-metadata/"
             "hidden-exposure/stem-relation/branch-relation presentation, and explicit "
-            "shared-time apply sidecars"
+            "shared-time apply sidecars, composed through the presentation-only desktop product shell"
         )
     )
     parser.add_argument("--repository-root", type=Path, default=_default_repository_root())
