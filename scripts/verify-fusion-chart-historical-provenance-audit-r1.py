@@ -84,6 +84,9 @@ def main() -> int:
     for source_id in ("EXT-CTEXT-SANMING-V2-RELATIONS","EXT-CTEXT-XINGLI-KAOYUAN-RELATIONS","EXT-CTEXT-SANMING-V1-FOUR-EARTH-BUREAU"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 10A relation source witness missing: {source_id}")
+    for source_id in ("EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS","EXT-CTEXT-WUXING-JINGJI-V23-BREAK","EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA","EXT-MODERN-OPENFATE-HALF-TRINE-2026"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -135,7 +138,7 @@ def main() -> int:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
     if audit_summary.get("historical_candidate_registry_count", 0) < 1:
         raise SystemExit("historical candidate registry is missing")
-    if audit_summary.get("identified_missing_candidate_family_count", 0) < 9:
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 12:
         raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
@@ -144,7 +147,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 148:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 153:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -169,6 +172,8 @@ def main() -> int:
         raise SystemExit("Batch 09B Bazi Dayun sequence audit is missing")
     if "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A" not in batches:
         raise SystemExit("Batch 10A Bazi raw-relation/affinity audit is missing")
+    if "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B" not in batches:
+        raise SystemExit("Batch 10B excluded Bazi relation-family audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -239,6 +244,18 @@ def main() -> int:
         raise SystemExit("four-earth bureau lost separate arity-4 typing requirement")
     if "LIUHAI_ALIAS_RECORDED_IN_PROVENANCE_ONLY" not in by_rule_id["HPA-BREL-004"]["current_implementation_match"]:
         raise SystemExit("穿/害 terminology bridge regressed into duplicate mechanics")
+    batch10b_ids={f"HPA-BREL-{index:03d}" for index in range(8,13)}
+    if not batch10b_ids.issubset(set(ids)):
+        raise SystemExit("Batch 10B excluded relation rows are incomplete")
+    for rule_id in ("HPA-BREL-008","HPA-BREL-009","HPA-BREL-012"):
+        if by_rule_id[rule_id]["audit_status"]!="MISSING_FROM_PRODUCT":
+            raise SystemExit(f"source-closed Batch 10B product gap regressed: {rule_id}")
+    if by_rule_id["HPA-BREL-010"]["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
+        raise SystemExit("later six-break table lost disputed status")
+    if by_rule_id["HPA-BREL-011"]["audit_status"]!="MODERN_COMPATIBILITY_ONLY":
+        raise SystemExit("modern half-trine/arched-trine family was incorrectly upgraded")
+    if "DIFFERENT_WORDING_SAME_MECHANICAL_RULE" not in by_rule_id["HPA-BREL-008"]["school_attribution"]:
+        raise SystemExit("属象/方/三会 philological bridge regressed")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
