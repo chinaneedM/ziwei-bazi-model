@@ -68,6 +68,9 @@ class BaziClassicalAnnotationsR1Tests(unittest.TestCase):
                     "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION",
                     start["semantic_scope"],
                 )
+                self.assertEqual("1.0.1", start["profile_version"])
+                self.assertIn("S11:YHZP-CH-015", start["source_refs"])
+                self.assertNotIn("S12:YHZP-CH-016", start["source_refs"])
 
     def test_registry_integrity_and_invalid_inputs_fail_closed(self) -> None:
         validate_classical_annotation_registries()
