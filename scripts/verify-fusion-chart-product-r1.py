@@ -116,6 +116,17 @@ def main() -> int:
         WINDOWS_WORKFLOW_PATH,
         "python scripts/verify-fusion-chart-product-r1.py",
     )
+    for path_trigger in (
+        'src/fortune_training/combined_chart_application/**',
+        'docs/FUSION-CHART-DESKTOP-PRODUCTIZATION-R1.md',
+        'docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md',
+        'tests/test_fusion_chart_desktop_product_shell_r1.py',
+    ):
+        if path_trigger not in windows_workflow:
+            raise SystemExit(
+                f"windows-portable.yml: missing windows product-shell path trigger {path_trigger!r}"
+            )
+
     for contract in (
         "runs-on: windows-latest",
         "./scripts/build-windows-portable.ps1 -SourceCommit",
