@@ -94,9 +94,9 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 6:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 7:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 6:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 7:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 1:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
@@ -111,7 +111,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 95:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 107:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -122,12 +122,20 @@ def main() -> int:
         raise SystemExit("Batch 07B Ziwei minor-star early-print closure is missing")
     if "BATCH-07-ZIWEI-MINOR-STARS-C" not in batches:
         raise SystemExit("Batch 07C Ziwei minor-star source-gap closure is missing")
+    if "BATCH-08-ZIWEI-DYNAMIC-AUXILIARIES-A" not in batches:
+        raise SystemExit("Batch 08A Ziwei dynamic auxiliary audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
     minor_parent=next((row for row in rows if row["rule_id"]=="HPA-ZIWEI-008"), None)
     if minor_parent is None or minor_parent["audit_status"]!="SOURCE_INSUFFICIENT" or "FULLY_DECOMPOSED" not in minor_parent["current_implementation_match"]:
         raise SystemExit("operational minor-star parent was not fully decomposed after Batch 07C")
+    dynamic_child_ids={f"HPA-ZAUX-{index:03d}" for index in range(1,9)}
+    if not dynamic_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 08A dynamic auxiliary child rows are incomplete")
+    kui_yue_parent=next((row for row in rows if row["rule_id"]=="HPA-ZT-011"), None)
+    if kui_yue_parent is None or kui_yue_parent.get("defect_id")!="PROV-DEFECT-007":
+        raise SystemExit("Batch 08A Kui/Yue provenance-label repair is missing")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 README = ROOT / "README.md"
 CI = ROOT / ".github" / "workflows" / "ci.yml"
+TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
 
 
 class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
@@ -59,11 +60,11 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 9)
-        self.assertGreaterEqual(receipt["audited_row_count"], 95)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 10)
+        self.assertGreaterEqual(receipt["audited_row_count"], 107)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
-        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 6)
-        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 6)
+        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
+        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 1)
         self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 1)
         self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 6)
@@ -95,6 +96,21 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         parent = by_id["HPA-ZIWEI-008"]
         self.assertEqual(parent["audit_status"], "SOURCE_INSUFFICIENT")
         self.assertIn("FULLY_DECOMPOSED", parent["current_implementation_match"])
+
+    def test_batch_08a_dynamic_auxiliary_authority_is_scoped(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        expected = {f"HPA-ZAUX-{index:03d}" for index in range(1, 9)}
+        self.assertTrue(expected.issubset(by_id))
+        self.assertEqual(by_id["HPA-ZAUX-001"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        for rule_id in ("HPA-ZAUX-002", "HPA-ZAUX-003", "HPA-ZAUX-004", "HPA-ZAUX-005", "HPA-ZAUX-007", "HPA-ZAUX-008"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(by_id["HPA-ZAUX-006"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertEqual(by_id["HPA-ZT-011"]["defect_id"], "PROV-DEFECT-007")
+        source = TEMPORAL_AUX.read_text(encoding="utf-8")
+        self.assertNotIn('authority_status="CANONICAL_SOURCE_TABLE"', source)
+        self.assertIn('authority_status="S01_STRICT_PROJECT_CORPUS_METHOD"', source)
+        self.assertIn('TEMPORAL_KUI_YUE_ALGORITHM_VERSION = "1.0.1"', source)
+        self.assertIn('TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_VERSION = "1.2.0"', source)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
