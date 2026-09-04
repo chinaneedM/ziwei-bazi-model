@@ -111,10 +111,16 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 69:
-        raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 06")
-    if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in data.get("historical_research_batches",()):
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 77:
+        raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
+    batches=data.get("historical_research_batches",())
+    if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
         raise SystemExit("Batch 06 Ziwei natal foundations audit is missing")
+    if "BATCH-07-ZIWEI-MINOR-STARS-A" not in batches:
+        raise SystemExit("Batch 07A Ziwei minor-star decomposition is missing")
+    minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,9)}
+    if not minor_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 07A minor-star child rows are incomplete")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
