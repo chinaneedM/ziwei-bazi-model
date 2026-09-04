@@ -43,11 +43,11 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 161,
+    "row_count": 166,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 21,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 20,
-      "DISPUTED_MULTIPLE_CANDIDATES": 25,
+      "MODERN_COMPATIBILITY_ONLY": 25,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 19,
+      "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
       "HISTORICALLY_SUPPORTED": 63,
       "SOURCE_INSUFFICIENT": 7,
@@ -55,7 +55,7 @@
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
-      "Time / Calendar": 13,
+      "Time / Calendar": 18,
       "四柱本命": 1,
       "八字派生字段": 14,
       "大运": 7,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 121
+    "audited_row_count": 127
   },
   "rows": [
     {
@@ -277,21 +277,24 @@
       "rule_or_field": "Ziwei effective calendar date",
       "current_implementation": "Production uses LOCAL_SOLAR_DATE_INDEXED and Ziwei day boundary ZI_START_23.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 source routes pending extraction",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json ziwei.calendar_date_policy",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "Modern operational calendar-date policies + EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI / EXT-XUANMEN-LINGDONGLAI-LATE-ZI for late-Zi dispute; claimed Fullbook quote remains quarantined under HPA-ZIWEI-001",
+      "source_quote": "Two separate decisions are currently composed: (A) map either the local-apparent-solar Gregorian date or the reported civil Gregorian date into the Chinese calendar; (B) optionally roll Ziwei's effective chart date at 23:00. Modern Ziwei witnesses preserve disagreement on B.",
+      "source_quote_location": "config/time-calendar-policies.json; src/fortune_training/calendar_foundation/ziwei.py; src/fortune_training/ziwei_chart/engine.py; EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "historical_period": "MODERN_OPERATIONAL_DATE_INDEXING_PLUS_UNRESOLVED_ZIWEI_LATE_ZI_TRADITION",
+      "later_witnesses": "Modern Ziwei references explicitly preserve both late-Zi current-day and next-day methods. No edition-scoped early witness has yet closed a unique 23:00 rollover winner.",
+      "school_attribution": "TWO_ORTHOGONAL_POLICY_AXES: GREGORIAN_DATE_INDEX_BASIS × ZIWEI_DAY_BOUNDARY",
       "competing_methods": [
-        "civil-date indexed",
-        "midnight boundary"
+        "DATE_INDEX:LOCAL_SOLAR_DATE_INDEXED",
+        "DATE_INDEX:ABSOLUTE_CALENDAR",
+        "DAY_BOUNDARY:ZI_START_23",
+        "DAY_BOUNDARY:MIDNIGHT"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit Ziwei-specific date-change lineage independently of Bazi.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "RUNTIME_CORRECTLY_SEPARATES_DATE_INDEX_POLICY_FROM_ZIWEI_DAY_BOUNDARY; PRODUCTION_SELECTS_LOCAL_SOLAR_DATE_INDEXED_PLUS_ZI_START_23; HISTORICAL_UNIQUE_WINNER_NOT_CLOSED",
+      "confidence": "HIGH_FOR_RUNTIME_DECOMPOSITION_AND_MODERN_DISPUTE; LOW_FOR_UNIQUE_PREMODERN_WINNER",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep the two axes explicit. Do not use 1581 Jielan `日上起子时` (a flow-hour palace instruction) as evidence for 23:00 calendar-date rollover. Preserve production closure and alternative profile capability.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D"
     },
     {
       "rule_id": "HPA-TIME-010",
@@ -1499,22 +1502,22 @@
       "rule_or_field": "Ziwei day-boundary policy",
       "current_implementation": "Production sets ziwei_day_boundary_policy=ZI_START_23.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 normalized candidate layer; claimed Fullbook attribution not closed against frozen ZZQS received-text layer",
-      "source_quote": "《紫微斗数全书》载：“子时乃一日之始，当从新日计。”（normalized-layer attribution under quarantine; not treated as verified Fullbook verbatim）",
-      "source_quote_location": "S01:ZZZA-A-0053 / ZZZZA-PR-005; exact sentence not found in frozen S01 ZZQS received-Fullbook text during Batch 06",
-      "historical_period": "SOURCE_ATTRIBUTION_UNVERIFIED; production rule is a preserved policy choice, not a uniquely dated classical fact",
-      "later_witnesses": "Later Zhongzhou-school teaching explicitly acknowledges 23:00-vs-midnight dispute and selects midnight by school experience; further edition/facsimile search required.",
-      "school_attribution": "DISPUTED_DAY_BOUNDARY_TRADITIONS; PRODUCTION_ZI_START_23_NOT_ELEVATED_TO_UNIQUE_CLASSICAL_WINNER",
+      "primary_source": "S01 normalized candidate layer under provenance quarantine; no edition-scoped Fullbook witness established for the attributed sentence; modern dispute witnesses EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI and EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "source_quote": "Normalized S01 attributes `子时乃一日之始，当从新日计` to 《紫微斗数全书》, but Batch 06/08D do not treat that attribution as verified Fullbook verbatim. Modern sources explicitly preserve both current-day and next-day late-Zi methods.",
+      "source_quote_location": "S01:ZZZA-A-0052..0057; S01:ZZZA-CF-001; EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "historical_period": "ATTRIBUTED_FULLBOOK_SENTENCE_UNVERIFIED; MODERN_DISPUTE_WELL_ATTESTED",
+      "later_witnesses": "Modern practice includes both methods; production ZI_START_23 is a selected profile policy, not a historically proven unique winner.",
+      "school_attribution": "ZIWEI_LATE_ZI_DATE_ATTRIBUTION_DISPUTE",
       "competing_methods": [
-        "ZI_START_23",
-        "MIDNIGHT"
+        "ZI_START_23_NEXT_DAY",
+        "MIDNIGHT_LATE_ZI_CURRENT_DAY"
       ],
-      "current_implementation_match": "PRODUCTION_SELECTS_ZI_START_23; HISTORICAL_AUTHORITY_FOR_UNIQUE_WINNER_NOT_CLOSED",
-      "confidence": "HIGH_FOR_EXISTENCE_OF_DISPUTE_LOW_FOR_CLAIMED_FULLBOOK_ATTRIBUTION",
+      "current_implementation_match": "PRODUCTION_SELECTS_ZI_START_23; MIDNIGHT_IS_SUPPORTED_BY_PROFILE_RUNTIME; NO_CROSS_SYSTEM_BAZI_COUPLING_IN_COMBINED_EXECUTION",
+      "confidence": "HIGH_FOR_DISPUTE_AND_RUNTIME_CAPABILITY; LOW_FOR_QUARANTINED_FULLBOOK_ATTRIBUTION",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Keep production closed and candidates separate. Seek edition/facsimile evidence for the attributed Fullbook sentence; do not cite the normalized attribution as primary until closed.",
+      "proposed_action": "Continue edition/facsimile research for the claimed Fullbook sentence. Do not backfill authority from modern consensus or from Jielan flow-hour wording.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-06-ZIWEI-NATAL-FOUNDATIONS",
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
       "defect_id": "PROV-DEFECT-005",
       "defect_type": "UNVERIFIED_FULLBOOK_ATTRIBUTION_FOR_ZIWEI_DAY_BOUNDARY",
       "defect_scope": "S01 normalized layer attributes an exact Zi-hour day-boundary sentence to 《紫微斗数全书》, but Batch 06 did not locate that sentence in the repository-frozen ZZQS received-text layer or checked external received transcription.",
@@ -3733,6 +3736,119 @@
       "confidence": "HIGH_FOR_ASTRONOMY; MEDIUM_FOR_MODERN_PRACTICE; LOW_FOR_PREMODERN_ZIWEI_AUTHORITY",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Preserve candidate and astronomical provenance; never upgrade modern astronomical correctness into historical doctrinal authority."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / time-calendar policy registry",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+      "rule_id": "HPA-ZDATE-001",
+      "rule_or_field": "LOCAL_SOLAR_DATE_INDEXED Chinese-calendar date basis",
+      "current_implementation": "ZiweiCalendarResolver maps local_apparent_solar_datetime.date() through the unified Chinese calendar and uses that lunar date as the pre-day-boundary Ziwei coordinate.",
+      "primary_source": "Modern astronomical/time-normalization architecture; EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022 as modern Ziwei practice witness",
+      "source_quote": "The policy takes the complete local apparent-solar Gregorian date as the calendar-index date before any separate 23:00 Ziwei rollover is applied.",
+      "source_quote_location": "config/time-calendar-policies.json; src/fortune_training/calendar_foundation/ziwei.py",
+      "historical_period": "MODERN_OPERATIONAL_POLICY",
+      "later_witnesses": "Modern Ziwei practice uses local/true-solar correction, but no early witness has been established for this exact Gregorian-date-indexing abstraction.",
+      "school_attribution": "MODERN_ZIWEI_DATE_INDEX_CANDIDATE",
+      "competing_methods": [
+        "ABSOLUTE_CALENDAR"
+      ],
+      "current_implementation_match": "EXACT_POLICY_REALIZATION; NOT_CLASSICAL_AUTHORITY",
+      "confidence": "HIGH_FOR_SOFTWARE_MECHANICS; LOW_FOR_PREMODERN_DOCTRINE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Retain explicit label and divergence event; never call this an ancient calendar rule."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / time-calendar policy registry",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+      "rule_id": "HPA-ZDATE-002",
+      "rule_or_field": "ABSOLUTE_CALENDAR reported-civil-date Chinese-calendar basis",
+      "current_implementation": "ZiweiCalendarResolver can map reported_civil_date directly through the official/unified Chinese-calendar realization.",
+      "primary_source": "Modern civil-calendar operational alternative",
+      "source_quote": "The alternate policy indexes the Chinese calendar by the reported civil Gregorian date rather than the local-apparent-solar date.",
+      "source_quote_location": "config/time-calendar-policies.json; src/fortune_training/calendar_foundation/ziwei.py",
+      "historical_period": "MODERN_OPERATIONAL_POLICY",
+      "later_witnesses": "Modern software commonly uses civil/standard date inputs, but this does not establish a unique historical Ziwei doctrine.",
+      "school_attribution": "MODERN_CIVIL_DATE_INDEX_CANDIDATE",
+      "competing_methods": [
+        "LOCAL_SOLAR_DATE_INDEXED"
+      ],
+      "current_implementation_match": "EXACT_POLICY_REALIZATION; NOT_CLASSICAL_AUTHORITY",
+      "confidence": "HIGH_FOR_SOFTWARE_MECHANICS",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Retain as an explicit alternate date-index basis."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / time-calendar policy registry",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+      "rule_id": "HPA-ZDATE-003",
+      "rule_or_field": "ZI_START_23 Ziwei effective chart-date rollover",
+      "current_implementation": "When local apparent solar clock hour is 23, ZiweiChartEngine advances the local-solar Gregorian date by one day before converting to the chart lunar coordinate.",
+      "primary_source": "S01 normalized attribution under PROV-DEFECT-005 quarantine; modern dispute witnesses only",
+      "source_quote": "Current production behavior treats 23:00–23:59 local apparent solar time as the next Ziwei chart date. The attributed Fullbook sentence is not source-closed.",
+      "source_quote_location": "src/fortune_training/ziwei_chart/engine.py _chart_lunar_coordinate; S01:ZZZA-A-0053; HPA-ZIWEI-001",
+      "historical_period": "CURRENT_PRODUCTION_PROFILE_WITH_UNRESOLVED_HISTORICAL_GENEALOGY",
+      "later_witnesses": "EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI says next-day treatment is modern mainstream; EXT-XUANMEN-LINGDONGLAI-LATE-ZI preserves both methods.",
+      "school_attribution": "ONE_ZIWEI_LATE_ZI_CANDIDATE_NOT_UNIQUE_WINNER",
+      "competing_methods": [
+        "MIDNIGHT_LATE_ZI_CURRENT_DAY"
+      ],
+      "current_implementation_match": "EXACT_PRODUCTION_MATCH; HISTORICAL_AUTHORITY_INSUFFICIENT_FOR_UNIQUE_WINNER",
+      "confidence": "HIGH_FOR_RUNTIME; LOW_FOR_ATTRIBUTED_CLASSICAL_SOURCE",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Keep as selected production candidate but not historical winner. Continue source research."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / time-calendar policy registry",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+      "rule_id": "HPA-ZDATE-004",
+      "rule_or_field": "MIDNIGHT / late-Zi-current-day Ziwei chart-date candidate",
+      "current_implementation": "ResolvedZiweiCalculationProfile supports MIDNIGHT; _chart_lunar_coordinate then leaves the pre-resolved lunar date unchanged through 23:00–23:59.",
+      "primary_source": "Modern dispute witnesses EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI and EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "source_quote": "Modern Ziwei practice explicitly records a method that keeps late Zi on the current day until midnight.",
+      "source_quote_location": "EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI; src/fortune_training/ziwei_chart/profile.py",
+      "historical_period": "MODERN_RECEIVED_PRACTICE; EARLIER_GENEALOGY_UNRESOLVED",
+      "later_witnesses": "Modern software/practitioner implementations support this candidate.",
+      "school_attribution": "ALTERNATE_ZIWEI_LATE_ZI_CANDIDATE",
+      "competing_methods": [
+        "ZI_START_23_NEXT_DAY"
+      ],
+      "current_implementation_match": "RUNTIME_PROFILE_CAPABILITY_EXISTS; NOT_SELECTED_BY_PRODUCTION_PROFILE",
+      "confidence": "HIGH_FOR_MODERN_PRACTICE",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Preserve as explicit alternate; do not rank from anecdotal accuracy."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / time-calendar policy registry",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+      "rule_id": "HPA-ZDATE-005",
+      "rule_or_field": "Ziwei/Bazi late-Zi independence in combined runtime",
+      "current_implementation": "Combined runtime projects Ziwei's independent ziwei_day_boundary_policy and Bazi's independent BaziPolicySelection onto the same physical local-apparent-solar realization.",
+      "primary_source": "Software provenance/integrity contract; no classical doctrine claim",
+      "source_quote": "A shared physical instant may resolve Ziwei as next chart date under ZI_START_23 while Bazi remains on the current day under MIDNIGHT.",
+      "source_quote_location": "tests/test_combined_late_zi_day_boundary_independence_r1.py; shared time credential selected_policies",
+      "historical_period": "MODERN_SOFTWARE_ARCHITECTURE",
+      "later_witnesses": "N/A",
+      "school_attribution": "CROSS_SYSTEM_INDEPENDENCE_GUARD",
+      "competing_methods": [],
+      "current_implementation_match": "INDEPENDENCE_TESTED; FROZEN_ZIWEI_PROFILE_CARRIES_UNUSED_BAZI_POLICY_FIELDS_BUT_COMBINED_BAZI_EXECUTION_USES_ITS_OWN_PROFILE",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Do not reopen V1 identity merely to rename frozen shared payload fields. Preserve behavioral independence and treat unused Bazi fields inside the Ziwei profile as legacy metadata debt."
     }
   ],
   "historical_research_batches": [
@@ -3747,7 +3863,8 @@
     "BATCH-07-ZIWEI-MINOR-STARS-C",
     "BATCH-08-ZIWEI-DYNAMIC-AUXILIARIES-A",
     "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
-    "BATCH-08-ZIWEI-TIME-STANDARDS-C"
+    "BATCH-08-ZIWEI-TIME-STANDARDS-C",
+    "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -3870,7 +3987,13 @@
     "HPA-ZTEMP-006",
     "HPA-TIME-003",
     "HPA-ZTIME-001",
-    "HPA-ZTIME-002"
+    "HPA-ZTIME-002",
+    "HPA-TIME-009",
+    "HPA-ZDATE-001",
+    "HPA-ZDATE-002",
+    "HPA-ZDATE-003",
+    "HPA-ZDATE-004",
+    "HPA-ZDATE-005"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
