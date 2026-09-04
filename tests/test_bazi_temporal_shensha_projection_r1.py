@@ -65,7 +65,7 @@ class BaziTemporalShenshaProjectionR1Tests(unittest.TestCase):
         result = self.project()
         self.assertEqual(TEMPORAL_SHENSHA_PROFILE_ID, result["profile_id"])
         self.assertEqual("1.0.0", result["profile_version"])
-        self.assertEqual("1.7.0", result["source_shensha_profile_version"])
+        self.assertEqual("1.7.1", result["source_shensha_profile_version"])
         self.assertEqual(
             "ENGINEERING_TARGET_MATCH_NOT_CLASSICAL_TEMPORAL_APPLICABILITY",
             result["projection_policy"],
@@ -82,10 +82,10 @@ class BaziTemporalShenshaProjectionR1Tests(unittest.TestCase):
 
     def test_simple_source_targets_project_but_structural_rules_are_explicitly_excluded(self) -> None:
         result = self.project()
-        self.assertEqual(31, len(result["eligible_source_candidates"]))
+        self.assertEqual(32, len(result["eligible_source_candidates"]))
         self.assertEqual(6, len(result["excluded_source_candidates"]))
         self.assertEqual(28, result["dayun"]["evaluated_candidate_count"])
-        self.assertEqual(31, result["daily"]["evaluated_candidate_count"])
+        self.assertEqual(32, result["daily"]["evaluated_candidate_count"])
 
         excluded_ids = {row["shensha_id"] for row in result["excluded_source_candidates"]}
         self.assertEqual({"SANQI", "JIALU", "YUANCHENG"}, excluded_ids)
