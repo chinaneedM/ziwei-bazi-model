@@ -34,7 +34,28 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–07A and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **127 rows**, with **77 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **5 confirmed provenance metadata defects repaired or quarantined at the provenance layer, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
+The initial inventory contained **107 rule/field families**. After Batches 01–07A and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **127 rows**, with **77 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **6 confirmed provenance metadata defects repaired or quarantined at the provenance layer, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
+
+## Research-corpus authority
+
+S00–S19 are now explicitly classified as the **project research corpus**, not as
+infallible historical authority. The repository path `sources/canonical/` retains
+its legacy storage/freeze meaning only. For historical claims, each S00–S19 rule
+must be traced to the underlying witness it actually contains or cites, and that
+witness remains externally auditable.
+
+Accordingly:
+
+- an S-number alone cannot close a historical claim;
+- internal transcription, attribution and normalization can be wrong;
+- a stronger edition-specific or bibliographic witness may refine or contradict
+  the project corpus;
+- conflicting historical witnesses remain scoped candidates rather than being
+  collapsed to whichever rule happened to be in S00–S19 first;
+- modern software remains compatibility evidence only.
+
+The governing policy is
+`docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md`.
 
 ## Allowed audit statuses
 
@@ -98,3 +119,7 @@ No winner is selected for a genuinely disputed school rule solely to simplify pr
 - Batch 07A: Ziwei minor-star decomposition; split eight independent minor-star families out of the broad R4 bundle. TianKu/TianXu, HongLuan/TianXi, LongChi/FengGe, TaiFu/FengGao, TianXing/TianYao and the year-based TianDe/JieShen geometry are directly received-text supported; TianChu and TianShou remain disputed candidates.
 
 The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
+
+## Cross-chat continuity
+
+Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` and restored according to `docs/PROJECT-CONTINUITY-PROTOCOL-R1.md`. CI runs `scripts/verify-project-continuity-state-r1.py` so Matrix progress, completed batches, defect counts and non-negotiable invariants cannot drift from the handoff state unnoticed.
