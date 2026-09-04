@@ -234,6 +234,6 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 
 初版矩阵只建立审计账本，不重开任何已 CLOSED 的确定性算法。只有明确的一手/高质量历史证据与可复现实现不一致同时成立，才允许对对应 rule/profile 做局部 forward-only reopen。机器可读矩阵、人工说明和门禁分别见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json`、`docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md` 与 `scripts/verify-fusion-chart-historical-provenance-audit-r1.py`。
 
-截至 Batch 09A，Matrix 已扩展到 170 个 rule/field families，其中 133 行完成实审；provenance defects 仍为 7/7，chart algorithm defect=0，algorithm reopen=0。09A 把“节气算得准”和“八字如何用节气”严格拆开：现代程序按太阳视黄经每 15°求二十四节气瞬时属于 modern astronomical realization；而八字年柱以立春实际交节瞬时换年、月柱以十二个“节”而非中气/农历初一切月、同一公历日以交节前后时刻分柱，则有《三命通会》的月令/节气框架及《命理探源》《千里命稿》的明确操作例证。Batch 09A 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A.md`。
+截至 Batch 09B，Matrix 已扩展到 172 个 rule/field families，其中 136 行完成实审；chart algorithm defect=0，algorithm reopen=0。09B 单独闭合“大运干支序列”：以出生月柱为 sequence base，顺行时正式第一运取月柱下一干支，逆行时取上一干支，随后每运按六十甲子同方向推进一位；代码 `month_index ± index` 与《命理探源》《千里命稿》实例逐位一致。此结论不替代起运岁数、交节锚点或现代 calendar realization 的独立审计。Batch 09B 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md`。
 
 为避免长对话触发上下文限制导致工作断层，仓库现建立固定跨对话机制：`docs/PROJECT-CONTINUITY-PROTOCOL-R1.md` 定义新对话启动顺序，`docs/PROJECT-CURRENT-STATE-R1.json` 保存机器可读当前阶段/批次/计数/下一工作重点，`scripts/verify-project-continuity-state-r1.py` 在 CI 中强制校验它与 Historical Audit Matrix 一致。新对话不再依赖旧聊天总结或旧 SHA，只需先读取 GitHub 远端最新 HEAD，再按该协议恢复工作。
