@@ -43,21 +43,21 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 181,
+    "row_count": 186,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 27,
+      "MODERN_COMPATIBILITY_ONLY": 28,
       "HISTORICALLY_SUPPORTED": 80,
-      "DISPUTED_MULTIPLE_CANDIDATES": 27,
+      "DISPUTED_MULTIPLE_CANDIDATES": 28,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
       "IMPLEMENTATION_REVIEW_REQUIRED": 13,
-      "MISSING_FROM_PRODUCT": 10,
+      "MISSING_FROM_PRODUCT": 13,
       "SOURCE_INSUFFICIENT": 7,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
       "Time / Calendar": 22,
       "四柱本命": 1,
-      "八字派生字段": 23,
+      "八字派生字段": 28,
       "大运": 9,
       "小运": 2,
       "神煞": 21,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 148
+    "audited_row_count": 153
   },
   "rows": [
     {
@@ -446,18 +446,18 @@
       "later_witnesses": "《三命通会》 corroborates relation geometry and independently uses 辰戌丑未土局; 《星历考原》 corroborates five-combination/six-harmony/four-trine geometry.",
       "school_attribution": "RAW_RELATION_OCCURRENCE_FACTS_ONLY",
       "competing_methods": [
-        "six break",
-        "partial trine",
-        "directional triad",
-        "hidden combination",
-        "four-earth bureau 辰戌丑未土局"
+        "four-earth bureau 辰戌丑未土局",
+        "four directional triads / 方 (modern label 三会)",
+        "break family: early four-break witness vs later six-break convention",
+        "modern half-trine / arched-trine distinctions",
+        "same-pillar 座下自化 / later 干支暗合"
       ],
-      "current_implementation_match": "ALL_CURRENTLY_EMITTED_RELATION_GEOMETRIES_ARE_SOURCE_SUPPORTED; SOURCE_CLOSED_FOUR_EARTH_BUREAU_IS_MISSING_AS_A_SEPARATE_ARITY4_CANDIDATE; NO_EXISTING_COORDINATE_DEFECT",
+      "current_implementation_match": "ALL_CURRENTLY_EMITTED_RELATION_GEOMETRIES_ARE_SOURCE_SUPPORTED; SOURCE_CLOSED_GAPS_NOW_INCLUDE_FOUR_EARTH_BUREAU, FOUR_DIRECTIONAL_TRIADS, EARLY_FOUR_BREAK, AND_SAME_PILLAR_STEM_HIDDEN_COMBINATION; MODERN_HALF_TRINE_ARCH_RULES_REMAIN_COMPATIBILITY_ONLY",
       "confidence": "HIGH",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add 辰戌丑未土局 as a separately typed arity-4 source-scoped candidate; do not force it into BRANCH_TRINE and do not change existing relation outputs/defaults.",
+      "proposed_action": "Design one explicit source-scoped relation-candidate sidecar/API covering arity-2/3/4 and stem-hidden relations before productizing individual gaps; do not alter BAZI-RAW-RELATION-CLASSICAL-CORE-R1 defaults.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A"
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B"
     },
     {
       "rule_id": "HPA-BAZI-006",
@@ -4201,6 +4201,123 @@
       "confidence": "HIGH_FOR_SOURCE_EXISTENCE; MEDIUM_HIGH_FOR_RUNTIME_SEMANTIC_TYPE",
       "audit_status": "MISSING_FROM_PRODUCT",
       "proposed_action": "Add a source-scoped arity-4 FOUR_EARTH_BUREAU candidate without changing the four standard BRANCH_TRINE relations or any default interpretation."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "rule_id": "HPA-BREL-008",
+      "rule_or_field": "Four directional three-branch groups: 方 / modern 三会 terminology bridge",
+      "current_implementation": "NOT EMITTED by raw relation foundation.",
+      "primary_source": "EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS; S14 Ren-commentary candidate table as later/source-scoped corroboration",
+      "source_quote": "《三命通会》 groups 寅卯辰东方木、巳午未南方火、申酉戌西方金、亥子丑北方水 as branches belonging to one direction; later commentary calls the same mechanical groups 方/三会.",
+      "source_quote_location": "EXT-CTEXT-SANMING-V6-DIRECTIONAL-TRIADS; S14三会与墓库来源候选运行表",
+      "historical_period": "MING_DIRECT_GROUPING_WITH_LATER_TERMINOLOGY_NORMALIZATION",
+      "later_witnesses": "《滴天髓阐微》任氏 commentary explicitly calls the four triples 方 and discusses their three-member completeness.",
+      "school_attribution": "DIFFERENT_WORDING_SAME_MECHANICAL_RULE: 属象/一方之气 ↔ 方/三会",
+      "competing_methods": [
+        "Do not merge with 三合: members, geometry and historical rationale differ."
+      ],
+      "current_implementation_match": "SOURCE_CLOSED_DIRECTIONAL_TRIPLE_GEOMETRY_MISSING_FROM_RUNTIME",
+      "confidence": "HIGH_FOR_MEMBERSHIP_AND_DIRECTION; MEDIUM_HIGH_FOR_MODERN_LABEL_BRIDGE",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Add as an unranked source-scoped arity-3 DIRECTIONAL_TRIAD/FOUR_DIRECTIONS candidate, with historical-name metadata; do not call it BRANCH_TRINE."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "rule_id": "HPA-BREL-009",
+      "rule_or_field": "Early four-break relation family",
+      "current_implementation": "No break relations are emitted by the raw relation foundation.",
+      "primary_source": "EXT-CTEXT-WUXING-JINGJI-V23-BREAK",
+      "source_quote": "《五行精纪》引《李虚中书》: 卯午、丑辰、子酉、未戌皆相破；寅申巳亥无破，以其合故.",
+      "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V23-BREAK line 45",
+      "historical_period": "SONG_RECEIVED_MINGLI_WITNESS",
+      "later_witnesses": "Later divination and modern Bazi tables often expand to six break pairs, creating a lineage conflict rather than a safe silent extension.",
+      "school_attribution": "EARLY_FOUR_BREAK_METHOD",
+      "competing_methods": [
+        "later six-break convention adds 寅亥 and 巳申, both of which are 六合 pairs"
+      ],
+      "current_implementation_match": "SOURCE_CLOSED_EARLY_FOUR_PAIR_METHOD_MISSING_FROM_RUNTIME",
+      "confidence": "HIGH_FOR_EARLY_WITNESS",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Add the four-pair method only as source-scoped candidate. Do not label it universally as 六破."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "rule_id": "HPA-BREL-010",
+      "rule_or_field": "Later six-break convention",
+      "current_implementation": "No break relations are emitted.",
+      "primary_source": "MODERN_BAZI_CONVENTION; no qualifying complete early Ziping/Bazi table closed in this audit",
+      "source_quote": "Modern six-break tables typically add 寅亥 and 巳申 to the four early pairs; the early 《五行精纪》 witness explicitly says the branches in 寅申巳亥 have no break because of their combinations.",
+      "source_quote_location": "Contrast EXT-CTEXT-WUXING-JINGJI-V23-BREAK with modern compatibility tables; cross-system 六壬 tables are not Bazi authority.",
+      "historical_period": "LATER/MODERN_CONVENTION_WITH_EARLY_COUNTERWITNESS",
+      "later_witnesses": "Modern Bazi websites/manuals commonly repeat six pairs; 六壬 also has six-pair break tables but is a different system.",
+      "school_attribution": "SAME_TERM_DIFFERENT_TRANSMISSION_TABLE",
+      "competing_methods": [
+        "EARLY_FOUR_BREAK_METHOD"
+      ],
+      "current_implementation_match": "NOT_IMPLEMENTED; CORRECTLY_NOT_BACKFILLED_FROM_CROSS_SYSTEM_OR_MODERN_REPETITION",
+      "confidence": "HIGH_FOR_CONFLICT_EXISTENCE; LOW_FOR_EARLY_BAZI_AUTHORITY_OF_SIX_PAIR_TABLE",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Preserve as a later candidate family only after an edition/school-specific Bazi witness is registered; never overwrite the early four-break candidate."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "rule_id": "HPA-BREL-011",
+      "rule_or_field": "Branch half-trine / arched-trine modern relation family",
+      "current_implementation": "Not emitted. Complete trines require all three distinct members.",
+      "primary_source": "EXT-MODERN-OPENFATE-HALF-TRINE-2026 as compatibility witness; historical source closure insufficient",
+      "source_quote": "Modern practice distinguishes center-containing 半合 from outer-pair 拱合, while 《三命通会》 explicitly says a three-combination bureau missing one member does not form the completed bureau.",
+      "source_quote_location": "EXT-MODERN-OPENFATE-HALF-TRINE-2026; EXT-CTEXT-SANMING-V2-RELATIONS《论支元三合》",
+      "historical_period": "MODERN_COMPATIBILITY_TAXONOMY_WITH_CLASSICAL_FULL_BUREAU_BOUNDARY",
+      "later_witnesses": "Modern manuals are consistent about standard half-trine pair sets but differ on strength/adjacency/transformation conditions.",
+      "school_attribution": "MODERN_COMPATIBILITY_ONLY_NOT_COMPLETE_TRINE",
+      "competing_methods": [
+        "生旺半合",
+        "旺墓半合",
+        "outer-pair 拱合; conditions vary by school"
+      ],
+      "current_implementation_match": "CURRENT_COMPLETE_TRINE_LOGIC_CORRECTLY_REJECTS_MISSING_MEMBER; MODERN_PARTIAL_RELATION_SIDE_CAR_NOT_IMPLEMENTED",
+      "confidence": "HIGH_FOR_COMPLETE_TRINE_BOUNDARY; MODERATE_FOR_MODERN_TAXONOMY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Do not add to historical core. If product parity later requires it, expose a separately versioned modern/school compatibility sidecar."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1 / historical candidate audit",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+      "rule_id": "HPA-BREL-012",
+      "rule_or_field": "Same-pillar visible-stem ↔ hidden-stem five-combination: 座下自化 / later 干支暗合",
+      "current_implementation": "Affinity/exposure records the primitive stem-hidden identities, but no raw relation candidate identifies the same-pillar five-combination relation.",
+      "primary_source": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; EXT-CTEXT-MINGLI-TANYUAN-NIGHT-ZI page family/《命理探源》卷五化合刑冲",
+      "source_quote": "《三命通会》 lists 壬午、丁亥、戊子、甲午、辛巳、癸巳 under 座下自化; later 《命理探源》 explicitly calls the mechanism 干支暗合 and explains the hidden stem combining with the visible stem.",
+      "source_quote_location": "EXT-CTEXT-SANMING-V2-ZUOXIA-ZIHUA; https://ctext.org/wiki.pl?chapter=435028&if=gb",
+      "historical_period": "MING_SOURCE_FAMILY_WITH_LATER_EXPLICIT_TERMINOLOGY_GLOSS",
+      "later_witnesses": "《命理探源》 preserves the same examples and labels the mechanism 干支暗合.",
+      "school_attribution": "NORMALIZED_LABEL_BRIDGE: 座下自化 ↔ same-pillar stem-hidden combination / later 干支暗合",
+      "competing_methods": [
+        "Do not generalize this source to arbitrary cross-pillar visible-stem ↔ hidden-stem combinations without separate evidence."
+      ],
+      "current_implementation_match": "SOURCE_CLOSED_SAME_PILLAR_RELATION_MISSING; REQUIRED_PRIMITIVE_HIDDEN_STEM_IDENTITIES_ALREADY_EXIST",
+      "confidence": "HIGH_FOR_SIX_EXAMPLES_AND_MECHANISM; MEDIUM_HIGH_FOR_GENERIC_SAME_PILLAR_RULE",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Add a source-scoped same-pillar STEM_HIDDEN_COMBINATION occurrence candidate derived from the five stem-combination registry and the branch's hidden stems; do not assert successful 化."
     }
   ],
   "historical_research_batches": [
@@ -4219,7 +4336,8 @@
     "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
     "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
     "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
-    "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A"
+    "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A",
+    "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -4369,7 +4487,12 @@
     "HPA-BREL-004",
     "HPA-BREL-005",
     "HPA-BREL-006",
-    "HPA-BREL-007"
+    "HPA-BREL-007",
+    "HPA-BREL-008",
+    "HPA-BREL-009",
+    "HPA-BREL-010",
+    "HPA-BREL-011",
+    "HPA-BREL-012"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -4378,7 +4501,7 @@
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 3,
-    "identified_missing_candidate_family_count": 9,
+    "identified_missing_candidate_family_count": 12,
     "historical_candidate_registry_count": 1,
     "historical_candidate_runtime_resolver_count": 1
   },
