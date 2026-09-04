@@ -43,19 +43,19 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 166,
+    "row_count": 170,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 25,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 19,
+      "MODERN_COMPATIBILITY_ONLY": 27,
+      "HISTORICALLY_SUPPORTED": 67,
       "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
-      "HISTORICALLY_SUPPORTED": 63,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 17,
       "SOURCE_INSUFFICIENT": 7,
       "MISSING_FROM_PRODUCT": 8,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
-      "Time / Calendar": 18,
+      "Time / Calendar": 22,
       "四柱本命": 1,
       "八字派生字段": 14,
       "大运": 7,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 127
+    "audited_row_count": 133
   },
   "rows": [
     {
@@ -184,20 +184,21 @@
       "rule_or_field": "Solar-term/Jie astronomical instants",
       "current_implementation": "Astronomical solar-longitude events drive Jie and Start of Spring boundaries.",
       "current_profile": "TIME-CALENDAR-FOUNDATION-R1",
-      "primary_source": "Astronomical solar longitude; canonical doctrinal use audited per downstream rule",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/TIME-CALENDAR-FOUNDATION-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "EXT-HKO-24-SOLAR-TERMS / EXT-HKO-SOLAR-TERM-TIMES for modern astronomy; historical doctrinal consumers audited separately",
+      "source_quote": "HKO defines the 24 solar terms as 15° divisions of solar ecliptic longitude, with 立春 at 315° and 惊蛰 at 345°. Runtime uses apparent geocentric solar-longitude search for those instants.",
+      "source_quote_location": "EXT-HKO-24-SOLAR-TERMS; src/fortune_training/calendar_foundation/astronomy.py",
+      "historical_period": "MODERN_ASTRONOMICAL_REALIZATION_OF_TRADITIONAL_TERM_NAMES",
+      "later_witnesses": "HKO timing tables provide a modern external ephemeris oracle.",
+      "school_attribution": "ASTRONOMICAL_COORDINATE_LAYER_NOT_ASTROLOGICAL_DOCTRINE",
       "competing_methods": [
-        "ephemeris/table approximations"
+        "historical almanac/tabular ephemerides may realize the same named terms with different computational models/precision"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Verify astronomical implementation separately from Bazi doctrine that consumes Jie/Lichun.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "MODERN_GEOMETRY_MATCH: 24 TERMS AT 15_DEGREE LONGITUDE STEPS; JIE SUBSET AT 30_DEGREE SPACING; CURRENT SECOND_LEVEL_TIMING_IS_MODERN_COMPUTATION",
+      "confidence": "HIGH_FOR_MODERN_ASTRONOMY",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Keep modern astronomical realization and external oracle validation. Audit each downstream doctrinal use independently.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A"
     },
     {
       "rule_id": "HPA-TIME-006",
@@ -206,20 +207,21 @@
       "rule_or_field": "Year-pillar boundary at Start of Spring",
       "current_implementation": "bazi.year_boundary_policy default START_OF_SPRING at solar longitude 315°.",
       "current_profile": "BAZI-FOUNDATION-V1-R1",
-      "primary_source": "S11/S15 routes pending verbatim extraction",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "config/time-calendar-policies.json bazi.year_boundary_policy",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH; EXT-CTEXT-QIANLI-MINGGAO-YEAR; Ming seasonal framework EXT-CTEXT-SANMING-V2-SEASONS",
+      "source_quote": "《命理探源》: 推年以立春节为纲，立春前用上一年干支，交立春后用本/下一年干支；same-day examples distinguish before and after the listed 立春 hour.",
+      "source_quote_location": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH lines 2–10; EXT-CTEXT-QIANLI-MINGGAO-YEAR lines 178–187",
+      "historical_period": "LATER_EXPLICIT_ZIPING_WITNESS_WITH_MING_SEASONAL_CONTEXT",
+      "later_witnesses": "《千里命稿》 independently repeats the exact Lichun-before/after year-pillar rule.",
+      "school_attribution": "RECEIVED_ZIPING_LICHUN_YEAR_BOUNDARY",
       "competing_methods": [
-        "lunar-new-year boundary"
+        "civil/lunar-new-year year naming exists outside this Bazi pillar convention; earlier genealogy of the exact pillar boundary remains researchable"
       ],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Audit earliest/major Bazi witnesses and school exceptions.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT_RULE_MATCH: year pillar changes at the computed Lichun instant, not at Gregorian midnight or Lunar New Year",
+      "confidence": "HIGH_FOR_RECEIVED_RULE; MEDIUM_FOR_EARLIEST_GENEALOGY",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Keep modern ephemeris computation provenance separate from the historically supported Bazi boundary rule.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A"
     },
     {
       "rule_id": "HPA-TIME-007",
@@ -3849,6 +3851,98 @@
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Do not reopen V1 identity merely to rename frozen shared payload fields. Preserve behavioral independence and treat unused Bazi fields inside the Ziwei profile as legacy metadata debt."
+    },
+    {
+      "system": "BAZI",
+      "module": "Time / Calendar",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
+      "rule_id": "HPA-BTIME-001",
+      "rule_or_field": "Modern astronomical instant realization of 24 solar terms / Jie",
+      "current_implementation": "SolarTermEngine searches apparent geocentric solar longitude at 15° steps; Bazi consumes the Jie subset.",
+      "primary_source": "EXT-HKO-24-SOLAR-TERMS; EXT-HKO-SOLAR-TERM-TIMES",
+      "source_quote": "Solar terms are defined at 15° ecliptic-longitude intervals; modern HKO tables provide their date/time instants.",
+      "source_quote_location": "EXT-HKO-24-SOLAR-TERMS; src/fortune_training/calendar_foundation/astronomy.py",
+      "historical_period": "MODERN_ASTRONOMICAL_REALIZATION",
+      "later_witnesses": "HKO ephemerides.",
+      "school_attribution": "MODERN_PHYSICAL_TIME_COORDINATE",
+      "competing_methods": [
+        "historical ephemeris algorithms"
+      ],
+      "current_implementation_match": "GEOMETRY_MATCH; NUMERICAL_ENGINE_IS_MODERN",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Retain as modern astronomical infrastructure."
+    },
+    {
+      "system": "BAZI",
+      "module": "Time / Calendar",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
+      "rule_id": "HPA-BTIME-002",
+      "rule_or_field": "Bazi year pillar switches at the Lichun instant",
+      "current_implementation": "resolve_year_month compares the UTC birth instant with solar-term 315° and assigns previous/current pillar year accordingly.",
+      "primary_source": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH; EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+      "source_quote": "推年以立春节为纲；交节前后即分上一年与本/下一年干支。",
+      "source_quote_location": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH; EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+      "historical_period": "LATER_EXPLICIT_RECEIVED_ZIPING_RULE",
+      "later_witnesses": "Modern Bazi manuals widely retain it.",
+      "school_attribution": "ZIPING_LICHUN_YEAR_PILLAR",
+      "competing_methods": [
+        "non-Bazi civil/lunar year labels"
+      ],
+      "current_implementation_match": "EXACT_BEFORE_AFTER_INSTANT_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "BAZI",
+      "module": "Time / Calendar",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
+      "rule_id": "HPA-BTIME-003",
+      "rule_or_field": "Bazi month branch switches at each Jie, not Zhongqi or lunar-month day",
+      "current_implementation": "resolve_year_month selects adjacent Jie only and maps 315°→寅, 345°→卯, 15°→辰 ... through the 12 Jie.",
+      "primary_source": "EXT-CTEXT-SANMING-V2-SEASONS; EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH",
+      "source_quote": "《三命通会》 pairs 正月寅 with 立春/雨水 and 二月卯 with 惊蛰/春分; 《命理探源》 explicitly says 推月以节令为纲 and switches before/after the month Jie.",
+      "source_quote_location": "EXT-CTEXT-SANMING-V2-SEASONS; EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH lines 11–20",
+      "historical_period": "MING_MONTH-SEASON_FRAMEWORK_WITH_LATER_EXPLICIT_BOUNDARY_RULE",
+      "later_witnesses": "Later ZiPing manuals.",
+      "school_attribution": "ZIPING_JIE_MONTH_BOUNDARY",
+      "competing_methods": [
+        "lunar-month labels are separate calendar coordinates, not silently substituted"
+      ],
+      "current_implementation_match": "EXACT_JIE_ONLY_SEQUENCE_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "BAZI",
+      "module": "Time / Calendar",
+      "current_profile": "TIME-CALENDAR-FOUNDATION / BAZI-TIME-RESOLVER-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
+      "rule_id": "HPA-BTIME-004",
+      "rule_or_field": "Year/month pillar boundary uses the actual 交节 instant, not the whole civil date",
+      "current_implementation": "Year and month frames are half-open intervals at computed global term instants.",
+      "primary_source": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH",
+      "source_quote": "Worked examples on the same civil day assign different year/month pillars according to whether the birth hour falls before or after the almanac's stated Lichun hour.",
+      "source_quote_location": "EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH examples 7–10 and 18–20",
+      "historical_period": "LATER_EXPLICIT_RECEIVED_ZIPING_RULE",
+      "later_witnesses": "EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+      "school_attribution": "ZIPING_INSTANT_BOUNDARY_SEMANTICS",
+      "competing_methods": [
+        "date-only software approximations are compatibility shortcuts, not this rule"
+      ],
+      "current_implementation_match": "HALF_OPEN_INSTANT_BOUNDARY_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; preserve exact-instant uncertainty branching near boundaries."
     }
   ],
   "historical_research_batches": [
@@ -3864,7 +3958,8 @@
     "BATCH-08-ZIWEI-DYNAMIC-AUXILIARIES-A",
     "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
     "BATCH-08-ZIWEI-TIME-STANDARDS-C",
-    "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D"
+    "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
+    "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -3993,7 +4088,13 @@
     "HPA-ZDATE-002",
     "HPA-ZDATE-003",
     "HPA-ZDATE-004",
-    "HPA-ZDATE-005"
+    "HPA-ZDATE-005",
+    "HPA-TIME-005",
+    "HPA-TIME-006",
+    "HPA-BTIME-001",
+    "HPA-BTIME-002",
+    "HPA-BTIME-003",
+    "HPA-BTIME-004"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
