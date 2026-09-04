@@ -32,6 +32,7 @@ def main() -> int:
     parser.add_argument("--repository-root", type=Path, default=_root())
     parser.add_argument("--samples", type=int, default=10000)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    parser.add_argument("--start-index", type=int, default=0)
     parser.add_argument("--receipt", type=Path)
     parser.add_argument("--escalate-to", type=int, default=0)
     parser.add_argument("--max-projected-seconds", type=float, default=3600.0)
@@ -41,6 +42,7 @@ def main() -> int:
         args.repository_root.resolve(),
         samples=args.samples,
         seed=args.seed,
+        start_index=args.start_index,
     )
     payload: dict[str, object] = {
         "schema": "FUSION-CHART-DETERMINISTIC-REPLAY-ACCEPTANCE-R1",
@@ -54,7 +56,8 @@ def main() -> int:
         },
     }
     if (
-        args.escalate_to > args.samples
+        args.start_index == 0
+        and args.escalate_to > args.samples
         and first["status"] == "PASS"
         and first["elapsed_seconds"] > 0
     ):

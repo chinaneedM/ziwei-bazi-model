@@ -30,6 +30,12 @@ class FusionChartAcceptanceMetricsR1Tests(unittest.TestCase):
         self.assertTrue(all(row[0].year >= 1971 for row in first))
         self.assertTrue(all(row[0].year <= 2035 for row in first))
 
+    def test_random_case_shards_are_exact_slices_of_global_sequence(self) -> None:
+        full = deterministic_random_cases(40, seed=20260904)
+        left = deterministic_random_cases(20, seed=20260904, start_index=0)
+        right = deterministic_random_cases(20, seed=20260904, start_index=20)
+        self.assertEqual(full, left + right)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,9 +18,9 @@ permissions:
   contents: read
 
 jobs:
-  capability-performance:
+  focused-capability:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,28 +29,202 @@ jobs:
           cache: pip
       - name: Install package
         run: python -m pip install -e .
+      - name: Capability acceptance machine gate
+        run: python scripts/verify-fusion-chart-capability-performance-r1.py
       - name: Focused capability acceptance
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
           python -m unittest discover -s tests -p "test_fusion_chart_temporal_torture_r1.py" -v
           python -m unittest discover -s tests -p "test_fusion_chart_reference_diff_framework_r1.py" -v
           python -m unittest discover -s tests -p "test_fusion_chart_acceptance_metrics_r1.py" -v
-      - name: Deterministic 10k replay with conditional 100k escalation
-        run: |
-          mkdir -p acceptance-artifacts
-          python scripts/fusion-chart-deterministic-replay.py --samples 10000 --seed 20260904 --escalate-to 100000 --max-projected-seconds 3600 --receipt acceptance-artifacts/deterministic-replay.json
+
+  source-performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install package
+        run: python -m pip install -e .
       - name: Source performance benchmark
         run: |
+          mkdir -p acceptance-artifacts
           python scripts/fusion-chart-source-benchmark.py --iterations 7 --cold-start-iterations 3 --receipt acceptance-artifacts/source-performance.json
-      - name: Soak and resource leak acceptance
-        run: |
-          python scripts/fusion-chart-soak.py --iterations 1000 --receipt acceptance-artifacts/soak.json
-      - name: Upload acceptance receipts
-        if: always()
+      - name: Upload source performance receipt
         uses: actions/upload-artifact@v4
         with:
           name: fusion-chart-capability-performance-r1-source
-          path: acceptance-artifacts/*.json
+          path: acceptance-artifacts/source-performance.json
+
+  replay-10k:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run 1000-case deterministic replay shard
+        id: replay
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p acceptance-artifacts
+          START_INDEX=$(( ${{ matrix.shard }} * 1000 ))
+          python scripts/fusion-chart-deterministic-replay.py --samples 1000 --start-index "$START_INDEX" --seed 20260904 --receipt "acceptance-artifacts/replay-10k-${{ matrix.shard }}.json"
+      - name: Upload 10k shard receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-replay-10k-${{ matrix.shard }}
+          path: acceptance-artifacts/replay-10k-${{ matrix.shard }}.json
+          if-no-files-found: error
+      - name: Preserve replay failure
+        if: steps.replay.outcome == 'failure'
+        run: exit 1
+
+  merge-replay-10k:
+    if: always()
+    needs: replay-10k
+    runs-on: ubuntu-latest
+    outputs:
+      escalate_100k: ${{ steps.decision.outputs.escalate_100k }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: fusion-chart-replay-10k-*
+          path: replay-shards
+          merge-multiple: true
+      - name: Merge exact 10k coverage
+        id: merge
+        continue-on-error: true
+        run: |
+          mkdir -p acceptance-artifacts
+          python scripts/fusion-chart-merge-replay.py replay-shards --expected-samples 10000 --receipt acceptance-artifacts/deterministic-replay-10k.json
+      - name: Decide 100k escalation from measured slowest shard
+        id: decision
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          payload = json.loads(Path("acceptance-artifacts/deterministic-replay-10k.json").read_text(encoding="utf-8"))
+          projected = float(payload["projected_100k_parallel_wall_seconds"])
+          escalate = payload["status"] == "PASS" and projected <= 3600.0
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as handle:
+              handle.write(f"escalate_100k={'true' if escalate else 'false'}\n")
+          print(json.dumps({"projected_100k_parallel_wall_seconds": projected, "escalate_100k": escalate}))
+          PY
+      - name: Upload merged 10k receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-deterministic-replay-10k
+          path: acceptance-artifacts/deterministic-replay-10k.json
+          if-no-files-found: error
+      - name: Preserve merged replay failure
+        if: steps.merge.outcome == 'failure'
+        run: exit 1
+
+  replay-100k:
+    needs: merge-replay-10k
+    if: needs.merge-replay-10k.outputs.escalate_100k == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run 5000-case deterministic replay shard
+        id: replay
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p acceptance-artifacts
+          START_INDEX=$(( ${{ matrix.shard }} * 5000 ))
+          python scripts/fusion-chart-deterministic-replay.py --samples 5000 --start-index "$START_INDEX" --seed 20260904 --receipt "acceptance-artifacts/replay-100k-${{ matrix.shard }}.json"
+      - name: Upload 100k shard receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-replay-100k-${{ matrix.shard }}
+          path: acceptance-artifacts/replay-100k-${{ matrix.shard }}.json
+          if-no-files-found: error
+      - name: Preserve replay failure
+        if: steps.replay.outcome == 'failure'
+        run: exit 1
+
+  merge-replay-100k:
+    if: always() && needs.replay-100k.result != 'skipped'
+    needs: replay-100k
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: fusion-chart-replay-100k-*
+          path: replay-shards
+          merge-multiple: true
+      - name: Merge exact 100k coverage
+        run: |
+          mkdir -p acceptance-artifacts
+          python scripts/fusion-chart-merge-replay.py replay-shards --expected-samples 100000 --receipt acceptance-artifacts/deterministic-replay-100k.json
+      - name: Upload merged 100k receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-deterministic-replay-100k
+          path: acceptance-artifacts/deterministic-replay-100k.json
+          if-no-files-found: error
+
+  soak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Soak and resource leak acceptance
+        run: |
+          mkdir -p acceptance-artifacts
+          python scripts/fusion-chart-soak.py --iterations 1000 --receipt acceptance-artifacts/soak.json
+      - name: Upload soak receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fusion-chart-capability-performance-r1-soak
+          path: acceptance-artifacts/soak.json
           if-no-files-found: warn
 
   windows-packaged-performance:
@@ -138,6 +312,7 @@ jobs:
           $payload | Add-Member -NotePropertyName cold_start_process -NotePropertyValue $coldSummary
           $payload | Add-Member -NotePropertyName process_peak_working_set_bytes -NotePropertyValue ([int64]$probe.PeakWorkingSetBytes)
           $payload | ConvertTo-Json -Depth 20 | Set-Content -Path $performanceReceipt -Encoding utf8
+          Write-Host ($payload | ConvertTo-Json -Depth 20 -Compress)
       - name: Upload packaged performance receipt
         if: always()
         uses: actions/upload-artifact@v4

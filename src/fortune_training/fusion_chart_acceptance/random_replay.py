@@ -26,18 +26,22 @@ def deterministic_random_cases(
     count: int,
     *,
     seed: int = DEFAULT_SEED,
+    start_index: int = 0,
 ) -> list[tuple[datetime, Any, str]]:
     if count < 1:
         raise ValueError("count must be positive")
+    if start_index < 0:
+        raise ValueError("start_index must be non-negative")
     rng = random.Random(seed)
     rows: list[tuple[datetime, Any, str]] = []
-    for _ in range(count):
+    for index in range(start_index + count):
         local = START + timedelta(seconds=rng.randrange(SPAN_SECONDS + 1))
         location = DEFAULT_ACCEPTANCE_LOCATIONS[
             rng.randrange(len(DEFAULT_ACCEPTANCE_LOCATIONS))
         ]
         sex = "MALE" if rng.getrandbits(1) == 0 else "FEMALE"
-        rows.append((local, location, sex))
+        if index >= start_index:
+            rows.append((local, location, sex))
     return rows
 
 
@@ -46,6 +50,7 @@ def run_random_replay(
     *,
     samples: int,
     seed: int = DEFAULT_SEED,
+    start_index: int = 0,
     max_failure_examples: int = 20,
 ) -> dict[str, Any]:
     harness = AcceptanceHarness(repository_root)
@@ -60,9 +65,14 @@ def run_random_replay(
     execution_errors: list[dict[str, object]] = []
 
     started = time.perf_counter()
-    for index, (local, location, sex) in enumerate(
-        deterministic_random_cases(samples, seed=seed)
+    for offset, (local, location, sex) in enumerate(
+        deterministic_random_cases(
+            samples,
+            seed=seed,
+            start_index=start_index,
+        )
     ):
+        index = start_index + offset
         case_identity = {
             "index": index,
             "local": local.isoformat(),
@@ -126,6 +136,8 @@ def run_random_replay(
         "schema": RANDOM_REPLAY_SCHEMA,
         "status": status,
         "seed": seed,
+        "start_index": start_index,
+        "end_index_exclusive": start_index + samples,
         "requested_samples": samples,
         "completed_samples": completed,
         "status_counts": dict(sorted(statuses.items())),
