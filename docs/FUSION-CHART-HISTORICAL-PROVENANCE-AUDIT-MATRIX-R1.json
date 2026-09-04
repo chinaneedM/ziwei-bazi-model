@@ -43,21 +43,21 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 187,
+    "row_count": 190,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 28,
-      "HISTORICALLY_SUPPORTED": 84,
+      "HISTORICALLY_SUPPORTED": 86,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 13,
-      "SOURCE_INSUFFICIENT": 7,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 17,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 11,
+      "SOURCE_INSUFFICIENT": 9,
       "MISSING_FROM_PRODUCT": 8,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
       "Time / Calendar": 22,
       "四柱本命": 1,
-      "八字派生字段": 28,
+      "八字派生字段": 31,
       "大运": 9,
       "小运": 2,
       "神煞": 21,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 154
+    "audited_row_count": 158
   },
   "rows": [
     {
@@ -1406,18 +1406,24 @@
       "rule_or_field": "Target-layer hidden stems",
       "current_implementation": "Projects source-bound hidden-stem memberships into target branch.",
       "current_profile": "BAZI target annotations",
-      "primary_source": "S11 hidden-stem registry",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+      "primary_source": "HPA-BAZI-002 audited hidden-stem membership; runtime directly reuses HIDDEN_STEMS and HIDDEN_STEM_RULE_SET_ID/VERSION",
+      "source_quote": "Each Dayun/Xiaoyun/annual/monthly/daily/hourly annotation enumerates the same branch hidden-stem membership table; no flow-specific hidden-stem composition is introduced.",
+      "source_quote_location": "src/fortune_training/bazi_application/temporal_annotations.py temporal_classical_annotation; docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md",
+      "historical_period": "DERIVED_REUSE_OF_HISTORICALLY_SUPPORTED_NATAL_MEMBERSHIP",
+      "later_witnesses": "No independent dynamic hidden-stem doctrine is required because the target layer only instantiates the same branch identity table.",
+      "school_attribution": "PURE_REGISTRY_REUSE_NO_DYNAMIC_RECOMPOSITION",
       "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Confirm pure reuse of natal hidden-stem table.",
-      "algorithm_reopen_authorized": false
+      "current_implementation_match": "EXACT_MEMBERSHIP_REUSE; REGISTRY_ORDER_RETAINED_AS_LINEAGE_ONLY_AFTER_PROV_DEFECT_009_REPAIR; NO_STRENGTH_OR_PATTERN_SEMANTICS",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Preserve pure natal-table reuse at every temporal layer.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+      "defect_id": "PROV-DEFECT-009",
+      "defect_type": "DISPLAY_ORDER_INCLUDED_IN_TEMPORAL_FACT_HASH",
+      "defect_scope": "Temporal classical annotation FactHash previously included registry_ordinal and list order even though natal FactHash explicitly treats hidden-stem registry/display order as lineage rather than fact identity.",
+      "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_11A",
+      "repair_action": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1 bumped to 1.0.2 and hash version to 1.0.1. Fact projection now removes registry_ordinal and canonicalizes hidden-stem membership order; ComputationHash explicitly binds hidden_stem_registry_order. Output order and all chart coordinates remain unchanged."
     },
     {
       "rule_id": "HPA-BAZI-FLOW-004",
@@ -2525,22 +2531,24 @@
       "rule_or_field": "Hidden-stem display/order ordinal",
       "current_implementation": "HIDDEN_STEMS tuple order is main-qi-first for several multi-stem branches; code explicitly denies root-strength authority to order.",
       "current_profile": "BAZI-FOUNDATION-V1-R1",
-      "primary_source": "S11 received 《渊海子平》藏遁歌 preserves the same members but a different textual order in several branches",
-      "source_quote": "辰藏乙戊三分癸，巳中庚金丙戊丛",
-      "source_quote_location": "S11:YHZP-CH-061; YHZP-COL-S00049..54",
-      "historical_period": "RECEIVED_YUANHAI_ZIPING_TRADITION",
-      "later_witnesses": "main-qi-first modern tables require separate genealogy",
-      "school_attribution": "ORDERING_GENEALOGY_PENDING",
+      "primary_source": "S11:YHZP-CH-061 / EXT-CTEXT-YHZP-RECEIVED for source-text order; EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI as later main-qi-first conceptual witness",
+      "source_quote": "YHZP text order includes 丑癸辛己、辰乙戊癸、巳庚丙戊、未乙己丁、戌辛丁戊. The later ZPZQ received passage says 辰本藏戊 while separately naming water storage and 乙余气.",
+      "source_quote_location": "S11 canonical-runtime §7.3 / YHZP-CH-061; EXT-CTEXT-YHZP-RECEIVED; EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI",
+      "historical_period": "RECEIVED_YUANHAI_TEXT_SEQUENCE_PLUS_LATER_MAIN_QI_CONCEPT",
+      "later_witnesses": "Modern 本气/中气/余气 tables use several second/third-position conventions. Exact current repository tuple genealogy is not source-closed.",
+      "school_attribution": "TEXT_SEQUENCE_VS_NORMALIZED_DISPLAY_ORDER_VS_LATER_QI_HIERARCHY_MUST_REMAIN_SEPARATE",
       "competing_methods": [
-        "source-text order",
-        "main-qi-first display order"
+        "YHZP source-text sequence",
+        "repository normalized display order",
+        "later main-qi-first / 本气 hierarchy",
+        "modern 本中余 exact second/third ordering variants"
       ],
-      "current_implementation_match": "MEMBERSHIP_MATCHES; ORDINAL_PRESENTATION_DIFFERS_FROM_SOURCE_TEXT_ORDER_FOR_SOME_BRANCHES",
-      "confidence": "HIGH_FOR_DIFFERENCE_MEDIUM_FOR_HISTORICAL_SIGNIFICANCE",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Do not change chart semantics; trace ordering genealogy and decide whether it is presentation-only or school-specific metadata.",
+      "current_implementation_match": "FULLY_DECOMPOSED: MEMBERSHIP_IS_HISTORICAL_FACT; SOURCE_TEXT_SEQUENCE_IS_HISTORICALLY_ATTESTED; CURRENT_REGISTRY_ORDER_IS_LINEAGE_ONLY_AND_EXACT_GENEALOGY_REMAINS_SOURCE_INSUFFICIENT; NO_ROOT_STRENGTH_AUTHORITY",
+      "confidence": "HIGH_FOR_DECOMPOSITION_AND_SOURCE_SEQUENCE; MEDIUM_FOR_LATER_ORDER_GENEALOGY",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Keep current tuple order stable for compatibility/lineage only. Do not label ordinal 0/1/2 as 本气/中气/余气 or strength unless a separately versioned source-scoped hierarchy is introduced.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-02-BAZI-NATAL-DERIVED"
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A"
     },
     {
       "system": "ZIWEI",
@@ -4352,6 +4360,77 @@
       "proposed_action": "Keep resolver opt-in and source-scoped. Any future UI exposure must show source/rule-set identity and must not silently merge candidates into raw core.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+      "rule_id": "HPA-BHIDDEN-001",
+      "rule_or_field": "Received YHZP hidden-stem textual sequence",
+      "current_implementation": "Not selected as runtime display order; preserved in provenance.",
+      "primary_source": "S11:YHZP-CH-061; EXT-CTEXT-YHZP-RECEIVED",
+      "source_quote": "子癸；丑癸辛己；寅甲丙戊；卯乙；辰乙戊癸；巳庚丙戊；午丁己；未乙己丁；申庚壬戊；酉辛；戌辛丁戊；亥壬甲.",
+      "source_quote_location": "S11 canonical-runtime §7.3; EXT-CTEXT-YHZP-RECEIVED《又地支藏遁歌》",
+      "historical_period": "RECEIVED_YUANHAI_ZIPING_TRADITION",
+      "later_witnesses": "《命理探源》卷二 reproduces the same 古歌 sequence.",
+      "school_attribution": "SOURCE_TEXT_SEQUENCE",
+      "competing_methods": [
+        "later reordered presentation tables"
+      ],
+      "current_implementation_match": "MEMBERSHIP_SETS_MATCH; RUNTIME_DISPLAY_ORDER_DIFFERS_FOR_SELECTED_MULTI_STEM_BRANCHES",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Preserve as source-text lineage. Do not infer strength merely from textual word order."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+      "rule_id": "HPA-BHIDDEN-002",
+      "rule_or_field": "Current normalized hidden-stem registry/display order",
+      "current_implementation": "HIDDEN_STEMS tuples are 子癸、丑己癸辛、寅甲丙戊、卯乙、辰戊乙癸、巳丙戊庚、午丁己、未己丁乙、申庚壬戊、酉辛、戌戊辛丁、亥壬甲.",
+      "primary_source": "Repository compatibility normalization over the historically supported membership set",
+      "source_quote": "The registry comment explicitly states: Membership/order only. Registry order is not a root-strength scale.",
+      "source_quote_location": "src/fortune_training/bazi_chart/registries.py HIDDEN_STEMS",
+      "historical_period": "MODERN_REPOSITORY_NORMALIZATION",
+      "later_witnesses": "Modern tables frequently put a main qi first but disagree on some second/third positions; no exact qualifying historical table has been bound to the repository tuple.",
+      "school_attribution": "NORMALIZED_DISPLAY_LINEAGE_NOT_HISTORICAL_WINNER",
+      "competing_methods": [
+        "YHZP textual order",
+        "other modern 本中余 orderings"
+      ],
+      "current_implementation_match": "DETERMINISTIC_AND_NON_SEMANTIC; EXACT_ORDER_GENEALOGY_NOT_SOURCE_CLOSED",
+      "confidence": "HIGH_FOR_RUNTIME_FACT; LOW_MEDIUM_FOR_GENEALOGY",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Keep stable for compatibility. Never promote ordinal to root/strength semantics without a separate source-scoped rule set."
+    },
+    {
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+      "rule_id": "HPA-BHIDDEN-003",
+      "rule_or_field": "Later main-qi-first / 本气 hierarchy concept",
+      "current_implementation": "Not encoded as a semantic label or strength grade.",
+      "primary_source": "EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI",
+      "source_quote": "Received ZPZQ passage: 辰本藏戊，而又为水库，为乙余气.",
+      "source_quote_location": "EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI《论杂气如何取用》",
+      "historical_period": "LATER_RECEIVED_ZIPING_HIERARCHY_LANGUAGE",
+      "later_witnesses": "Modern 本气/中气/余气 tables systematize the terminology but differ in detailed ordering/weights.",
+      "school_attribution": "LATER_QI_HIERARCHY_CONCEPT_NOT_A_COMPLETE_12_BRANCH_ORDINAL_TABLE",
+      "competing_methods": [
+        "text-order-only reading",
+        "modern exact 本中余 tables and weight models"
+      ],
+      "current_implementation_match": "CURRENT_RUNTIME_DOES_NOT_ASSERT_BENQI_ZHONGQI_YUQI_LABELS_OR_WEIGHTS",
+      "confidence": "HIGH_FOR_ZPZQ_CHEN_EXAMPLE; INSUFFICIENT_FOR_UNIVERSAL_EXACT_ORDINAL_TABLE",
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "If exposed later, build a separately versioned source-scoped hierarchy table; do not derive it from registry_ordinal."
     }
   ],
   "historical_research_batches": [
@@ -4372,7 +4451,8 @@
     "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
     "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A",
     "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
-    "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
+    "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C",
+    "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -4528,12 +4608,16 @@
     "HPA-BREL-010",
     "HPA-BREL-011",
     "HPA-BREL-012",
-    "HPA-BCAND-001"
+    "HPA-BCAND-001",
+    "HPA-BAZI-FLOW-003",
+    "HPA-BHIDDEN-001",
+    "HPA-BHIDDEN-002",
+    "HPA-BHIDDEN-003"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 8,
-    "repaired_provenance_metadata_defect_count": 8,
+    "confirmed_provenance_metadata_defect_count": 9,
+    "repaired_provenance_metadata_defect_count": 9,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 4,

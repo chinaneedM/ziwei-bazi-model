@@ -82,3 +82,24 @@ This release does not calculate or infer:
 Dynamic ShenSha requires a separately sourced rule about which Natal and flow
 anchors interact at each layer. It is not inferred merely because Natal
 ShenSha registries exist.
+
+
+### Batch 11A hidden-stem order/hash semantics
+
+Historical provenance audit separated hidden-stem **membership** from registry/display
+**order**. The received YHZP hidden-stem verse preserves a textual sequence that
+differs from the repository display tuple for several branches. Later Ziping
+material also introduces main-qi / residual-qi distinctions, but no exact
+twelve-branch hierarchy is inferred from the repository ordinal.
+
+A provenance/hash defect was therefore repaired forward-only:
+
+- `BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1` is now `1.0.2`;
+- `BAZI-TEMPORAL-CLASSICAL-ANNOTATION-HASH-R1` is now `1.0.1`;
+- `registry_ordinal` and hidden-stem list ordering no longer alter annotation
+  FactHash when membership and semantic bindings are unchanged;
+- ComputationHash explicitly binds `hidden_stem_registry_order`;
+- output order, hidden-stem membership, Ten Gods and all temporal coordinates are unchanged.
+
+This matches the natal foundation contract: membership is a fact, display order
+is lineage. No ordinal is a root-strength grade.
