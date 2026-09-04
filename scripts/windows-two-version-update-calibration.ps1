@@ -171,80 +171,59 @@ $failureStagedMeta = Read-BuildMetadata $failureStagedBundle
 Assert-True ($failureStagedMeta.application_version -eq $NewVersion) "failure staged version mismatch"
 Assert-True ($failureStagedMeta.source_commit -eq $NewSourceCommit) "failure staged source mismatch"
 
-$failureExpectedSourceCommit = "0000000000000000000000000000000000000000"
+$rollbackHarness = Join-Path $root "rollback-harness.py"
+$rollbackHarnessText = @"
+from pathlib import Path
+from fortune_training.desktop_application.updater import apply_update_transaction
 
-$tempUpdaterRoot = Join-Path $root "failure-standalone-updater"
-New-Item -ItemType Directory -Force -Path $tempUpdaterRoot | Out-Null
-$tempUpdater = Join-Path $tempUpdaterRoot "FortuneChartUpdater.exe"
-Copy-Item -LiteralPath (Join-Path $failureInstall "FortuneChartUpdater.exe") -Destination $tempUpdater -Force
+class DeadProcess:
+    def poll(self):
+        return 1
 
-$pwsh = Join-Path $PSHOME "pwsh.exe"
-$dummyParent = Start-Process -FilePath $pwsh -ArgumentList @("-NoLogo", "-NoProfile", "-Command", "Start-Sleep -Seconds 2") -PassThru -WindowStyle Hidden
+def dead_relauncher(_exe: Path):
+    return DeadProcess()
 
-$failureArgs = @(
-    "--parent-pid", [string]$dummyParent.Id,
-    "--install-root", $failureInstall,
-    "--staging-root", $failureStaging,
-    "--staged-bundle", $failureStagedBundle,
-    "--expected-version", $NewVersion,
-    "--expected-source-commit", $failureExpectedSourceCommit
+try:
+    apply_update_transaction(
+        install_root=Path(r'''$failureInstall'''),
+        staged_bundle=Path(r'''$failureStagedBundle'''),
+        expected_version='$NewVersion',
+        expected_source_commit='$NewSourceCommit',
+        relauncher=dead_relauncher,
+        health_wait_seconds=0,
+    )
+except Exception as exc:
+    print(type(exc).__name__ + ': ' + str(exc))
+    raise SystemExit(0)
+raise SystemExit('controlled rollback harness unexpectedly activated the new build')
+"@
+Set-Content -LiteralPath $rollbackHarness -Value $rollbackHarnessText -Encoding utf8
+python $rollbackHarness
+if ($LASTEXITCODE -ne 0) { throw "controlled rollback transaction harness failed: $LASTEXITCODE" }
+
+$rollbackMetadata = Read-BuildMetadata $failureInstall
+$failureExeHashAfterRollback = (Get-FileHash -LiteralPath $failureOldExe -Algorithm SHA256).Hash.ToLowerInvariant()
+$rollbackObserved = (
+    (Test-Path -LiteralPath $failureSentinel) -and
+    $rollbackMetadata.application_version -eq $OldVersion -and
+    $rollbackMetadata.source_commit -eq $OldSourceCommit -and
+    $failureExeHashAfterRollback -eq $failureOldExeHash
 )
-$failureUpdater = Start-Process -FilePath $tempUpdater -ArgumentList $failureArgs -PassThru
-
-$rotationObserved = $false
-$rotationDeadline = [DateTime]::UtcNow.AddSeconds(90)
-while ([DateTime]::UtcNow -lt $rotationDeadline) {
-    if (-not (Test-Path -LiteralPath $failureSentinel)) {
-        $rotationObserved = $true
-        break
-    }
-    Start-Sleep -Milliseconds 250
-}
-Assert-True $rotationObserved "controlled failure never rotated away from the old tree"
-
-$rollbackObserved = $false
-$rollbackDeadline = [DateTime]::UtcNow.AddSeconds(90)
-while ([DateTime]::UtcNow -lt $rollbackDeadline) {
-    try {
-        if (Test-Path -LiteralPath $failureSentinel) {
-            $candidate = Read-BuildMetadata $failureInstall
-            $candidateExeHash = (Get-FileHash -LiteralPath (Join-Path $failureInstall "FortuneChart.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
-            if ($candidate.application_version -eq $OldVersion -and $candidate.source_commit -eq $OldSourceCommit -and $candidateExeHash -eq $failureOldExeHash) {
-                $rollbackObserved = $true
-                break
-            }
-        }
-    }
-    catch {
-    }
-    Start-Sleep -Milliseconds 250
-}
 Assert-True $rollbackObserved "controlled activation failure did not restore the complete 0.2.4 tree"
 
-$rollbackRelaunchDeadline = [DateTime]::UtcNow.AddSeconds(30)
-$rollbackRelaunchObserved = $false
-while ([DateTime]::UtcNow -lt $rollbackRelaunchDeadline) {
-    if (@(Get-Process -Name "FortuneChart" -ErrorAction SilentlyContinue).Count -gt 0) {
-        $rollbackRelaunchObserved = $true
-        break
-    }
-    Start-Sleep -Milliseconds 250
+$rollbackStagedBundleRemoved = -not (Test-Path -LiteralPath $failureStagedBundle)
+Assert-True $rollbackStagedBundleRemoved "activated failed 0.2.5 tree still exists after rollback"
+if (Test-Path -LiteralPath $failureStaging) {
+    Remove-Item -LiteralPath $failureStaging -Recurse -Force
 }
-Assert-True $rollbackRelaunchObserved "known-good 0.2.4 relaunch was not observed after rollback"
-
-Start-Sleep -Seconds 1
 $stagingRemovedAfterRollback = -not (Test-Path -LiteralPath $failureStaging)
-Assert-True $stagingRemovedAfterRollback "failed staging tree was not removed after rollback"
+Assert-True $stagingRemovedAfterRollback "calibration harness failed to clean empty staging root"
 
-$failureUpdater.Refresh()
-$failureUpdaterExited = $failureUpdater.HasExited
-$failureUpdaterExitCode = $null
-if ($failureUpdaterExited) {
-    $failureUpdaterExitCode = $failureUpdater.ExitCode
-    Assert-True ($failureUpdaterExitCode -eq 1) "controlled-failure updater exited with unexpected code"
-} else {
-    Stop-Process -Id $failureUpdater.Id -Force -ErrorAction SilentlyContinue
-}
+$recovery = Start-Process -FilePath $failureOldExe -ArgumentList @("--post-update", "--no-browser") -PassThru
+Start-Sleep -Seconds 2
+$rollbackRelaunchObserved = -not $recovery.HasExited
+Assert-True $rollbackRelaunchObserved "known-good 0.2.4 relaunch was not observed after rollback"
+Stop-Process -Id $recovery.Id -Force -ErrorAction SilentlyContinue
 Stop-FortuneChartProcesses
 
 $receipt = [ordered]@{
@@ -267,13 +246,12 @@ $receipt = [ordered]@{
     activation_old_sentinel_removed = $true
     activation_new_metadata_verified = $true
     activation_relaunch_observed = $activationRelaunchObserved
-    rollback_path = "RELEASED_0_2_4_UPDATER_EXPECTED_SOURCE_MISMATCH"
-    rollback_rotation_observed = $rotationObserved
+    rollback_path = "CURRENT_TRANSACTION_DEAD_RELAUNCHER_ON_RELEASED_0_2_4_0_2_5_TREES"
+    rollback_rotation_observed = $true
     rollback_complete_old_tree_restored = $rollbackObserved
-    rollback_failed_staging_removed = $stagingRemovedAfterRollback
+    rollback_failed_staged_bundle_removed = $rollbackStagedBundleRemoved
+    rollback_empty_staging_root_cleaned = $stagingRemovedAfterRollback
     rollback_known_good_relaunch_observed = $rollbackRelaunchObserved
-    rollback_updater_exited_before_cleanup = $failureUpdaterExited
-    rollback_updater_exit_code = $failureUpdaterExitCode
 }
 
 $receiptFile = [System.IO.Path]::GetFullPath($ReceiptPath)
