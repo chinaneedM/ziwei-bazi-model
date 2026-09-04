@@ -234,6 +234,6 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 
 初版矩阵只建立审计账本，不重开任何已 CLOSED 的确定性算法。只有明确的一手/高质量历史证据与可复现实现不一致同时成立，才允许对对应 rule/profile 做局部 forward-only reopen。机器可读矩阵、人工说明和门禁分别见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json`、`docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md` 与 `scripts/verify-fusion-chart-historical-provenance-audit-r1.py`。
 
-截至 Batch 08C，Matrix 已扩展到 161 个 rule/field families，其中 121 行完成实审；provenance defects 仍为 7/7 已修复，chart algorithm defect=0，algorithm reopen=0。08C 按训诂与天文定义拆开“洛阳中州时 / 平太阳时 / 真太阳时”：王亭之中州派洛阳时属于 school-scoped mean-solar longitude standard；地方真太阳时则是经度地方平太阳时再加均时差的现代视太阳时实现，天文公式本身正确，但不能由此倒推出“古代紫微统一采用”。两个时间标准继续并列，也不替流时宫位候选选赢家。Batch 08C 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-TIME-STANDARDS-C.md`。
+截至 Batch 08D，Matrix 已扩展到 166 个 rule/field families，其中 127 行完成实审；provenance defects 仍为 7/7，chart algorithm defect=0，algorithm reopen=0。08D 把紫微有效历日拆成两条正交轴：①用地方真太阳日还是民用公历日去索引农历；②晚子时 23:00 是否提前进入次日。前者是现代 operational policy，后者仍是流派/实践争议。S01 所谓《紫微斗数全书》“子时乃一日之始”原句继续隔离，不因现代主流说法而升级；1581《捷览》“日上起子时”只属于流时宫位起法，禁止拿来证明 23:00 换历日。融合系统中紫微与八字换日实际仍独立。Batch 08D 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D.md`。
 
 为避免长对话触发上下文限制导致工作断层，仓库现建立固定跨对话机制：`docs/PROJECT-CONTINUITY-PROTOCOL-R1.md` 定义新对话启动顺序，`docs/PROJECT-CURRENT-STATE-R1.json` 保存机器可读当前阶段/批次/计数/下一工作重点，`scripts/verify-project-continuity-state-r1.py` 在 CI 中强制校验它与 Historical Audit Matrix 一致。新对话不再依赖旧聊天总结或旧 SHA，只需先读取 GitHub 远端最新 HEAD，再按该协议恢复工作。
