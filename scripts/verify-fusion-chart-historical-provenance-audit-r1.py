@@ -111,7 +111,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 88:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 95:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -120,9 +120,14 @@ def main() -> int:
         raise SystemExit("Batch 07A Ziwei minor-star decomposition is missing")
     if "BATCH-07-ZIWEI-MINOR-STARS-B" not in batches:
         raise SystemExit("Batch 07B Ziwei minor-star early-print closure is missing")
-    minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,20)}
+    if "BATCH-07-ZIWEI-MINOR-STARS-C" not in batches:
+        raise SystemExit("Batch 07C Ziwei minor-star source-gap closure is missing")
+    minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
-        raise SystemExit("Batch 07A/07B minor-star child rows are incomplete")
+        raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
+    minor_parent=next((row for row in rows if row["rule_id"]=="HPA-ZIWEI-008"), None)
+    if minor_parent is None or minor_parent["audit_status"]!="SOURCE_INSUFFICIENT" or "FULLY_DECOMPOSED" not in minor_parent["current_implementation_match"]:
+        raise SystemExit("operational minor-star parent was not fully decomposed after Batch 07C")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

@@ -59,8 +59,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 8)
-        self.assertGreaterEqual(receipt["audited_row_count"], 88)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 9)
+        self.assertGreaterEqual(receipt["audited_row_count"], 95)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 6)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 6)
@@ -82,6 +82,19 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("PRIMARY_SECONDARY_DISPLAY_ORDER_NOT_UPGRADED", xunkong["current_implementation_match"])
         xianchi = by_id["HPA-ZMINOR-016"]
         self.assertIn("LABEL_IS_A_DOCUMENTED_NORMALIZATION_BRIDGE", xianchi["current_implementation_match"])
+
+    def test_batch_07c_completes_minor_star_family_decomposition(self) -> None:
+        expected = {f"HPA-ZMINOR-{index:03d}" for index in range(20, 27)}
+        by_id = {row["rule_id"]: row for row in self.rows}
+        self.assertTrue(expected.issubset(by_id))
+        self.assertEqual(by_id["HPA-ZMINOR-021"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertEqual(by_id["HPA-ZMINOR-022"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        for rule_id in ("HPA-ZMINOR-020", "HPA-ZMINOR-023", "HPA-ZMINOR-024", "HPA-ZMINOR-025", "HPA-ZMINOR-026"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "SOURCE_INSUFFICIENT")
+            self.assertFalse(by_id[rule_id]["algorithm_reopen_authorized"])
+        parent = by_id["HPA-ZIWEI-008"]
+        self.assertEqual(parent["audit_status"], "SOURCE_INSUFFICIENT")
+        self.assertIn("FULLY_DECOMPOSED", parent["current_implementation_match"])
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

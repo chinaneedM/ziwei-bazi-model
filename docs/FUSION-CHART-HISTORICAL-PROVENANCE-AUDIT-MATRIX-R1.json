@@ -43,14 +43,14 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 138,
+    "row_count": 145,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 18,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 27,
-      "DISPUTED_MULTIPLE_CANDIDATES": 25,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 26,
+      "DISPUTED_MULTIPLE_CANDIDATES": 26,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 5,
-      "HISTORICALLY_SUPPORTED": 55,
-      "SOURCE_INSUFFICIENT": 2,
+      "HISTORICALLY_SUPPORTED": 56,
+      "SOURCE_INSUFFICIENT": 8,
       "NOT_YET_FORMALIZED": 1,
       "MISSING_FROM_PRODUCT": 5
     },
@@ -66,7 +66,7 @@
       "十二宫": 4,
       "主星": 2,
       "辅星": 4,
-      "杂曜": 21,
+      "杂曜": 28,
       "庙旺落陷": 2,
       "四化": 3,
       "大限": 3,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 88
+    "audited_row_count": 95
   },
   "rows": [
     {
@@ -1670,14 +1670,15 @@
       "later_witnesses": "received Fullbook fixed TianShang/TianShi agrees with 1581; later sex-dependent family also exists in S01 summary/conflict material",
       "school_attribution": "MINOR_STAR_SUBFAMILIES_REQUIRE_INDIVIDUAL_AUDIT",
       "competing_methods": [
-        "fixed TianShang/TianShi around migration",
-        "sex-dependent TianShang/TianShi family",
-        "minor-star route variants"
+        "TianChu table families (HPA-ZMINOR-007)",
+        "TianShou basis families (HPA-ZMINOR-008)",
+        "YueDe 巳-start vs received-Fullbook 子-start families (HPA-ZMINOR-022)",
+        "standalone/minor-star source gaps HPA-ZMINOR-020/023/024/025/026"
       ],
-      "current_implementation_match": "PARTIALLY_DECOMPOSED: HPA-ZMINOR-001..008 AUDITED; REMAINING_MINOR_FAMILIES_STILL_MIX_SOURCE_AND_COMPATIBILITY",
+      "current_implementation_match": "FULLY_DECOMPOSED_AT_RULE_FAMILY_LEVEL: HPA-ZMINOR-001..026 plus HPA-ZIWEI-017; child verdicts include HISTORICALLY_SUPPORTED, DISPUTED_MULTIPLE_CANDIDATES and SOURCE_INSUFFICIENT with no chart algorithm defect",
       "confidence": "HIGH_FOR_TIANSHANG_TIANSHI_MEDIUM_FOR_WHOLE_MINOR_SET",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Continue child-row decomposition in Batch 07B; do not assign one historical verdict to the whole R4 bundle.",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Broad R4 review is decomposed/closed. Continue evidence work only on disputed or source-insufficient child rows; do not reopen production by analogy.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
@@ -3182,6 +3183,169 @@
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
       "proposed_action": "No reopen; close TianCai independently while leaving TianShou candidate conflict untouched."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-020",
+      "rule_or_field": "Standalone 蜚廉 birth-year-branch table vs 博士十二神 飞/蜚廉 identity",
+      "current_implementation": "Standalone STAR.FEILIAN uses 子丑寅→申酉戌、卯辰巳→巳午未、午未申→寅卯辰、酉戌亥→亥子丑. Product separately implements RING.BOSHI12.FEILIAN from 禄存 and sex/year-polarity direction.",
+      "primary_source": "S01:ZZZA-PR-033 for the standalone table (project research corpus only); EXT-ZIWEI-JIELAN-1581 and EXT-ZIWEI-QUANSHU-RECEIVED witness a distinct 博士十二神 飞/蜚廉 member",
+      "source_quote": "Current project route supplies the standalone four-sector table; early Ziwei witnesses instead place 飞/蜚廉 inside 博士十二神.",
+      "source_quote_location": "S01:ZZZA-PR-033; EXT-ZIWEI-JIELAN-1581 / 卷一第50章《安生年博士十二神诀》; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安十二宫太岁杀禄诀》",
+      "historical_period": "STANDALONE_TABLE_HISTORICAL_BINDING_NOT_ESTABLISHED; EARLY_PRINT_RING_HOMONYM_SEPARATELY_WITNESSED",
+      "later_witnesses": "Modern setup manuals reproduce the standalone table, but they are not promoted to historical authority. Runtime keeps standalone STAR.FEILIAN and RING.BOSHI12.FEILIAN as distinct identities.",
+      "school_attribution": "CURRENT_STANDALONE_ZHONGZHOU_STYLE_TABLE_VS_EARLY_BOSHI_RING_HOMONYM",
+      "competing_methods": [
+        "standalone birth-year-branch 蜚廉 table",
+        "博士十二神 飞/蜚廉 anchored at 禄存 with directional traversal"
+      ],
+      "current_implementation_match": "STANDALONE_RUNTIME_IS_DETERMINISTIC_BUT_QUALIFYING_HISTORICAL_PLACEMENT_WITNESS_NOT_ESTABLISHED; RING_HOMONYM_IS_SEPARATE",
+      "confidence": "HIGH_FOR_SOURCE_GAP_AND_IDENTITY_COLLISION; LOW_FOR_STANDALONE_TABLE_GENEALOGY",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Do not reopen coordinates. Keep STAR.FEILIAN and RING.BOSHI12.FEILIAN identity-separated; seek an edition-bound historical witness for the standalone table."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-021",
+      "rule_or_field": "龙德 birth-year-branch +7 geometry / 岁前十二神 projection",
+      "current_implementation": "STAR.LONGDE uses birth-year branch +7. RING.TAISUI12 also places 龙德 at ordinal 7 from the year-branch anchor.",
+      "primary_source": "EXT-ZIWEI-JIELAN-1581; edition identity independently corroborated by EXT-SHANGHAI-LIB-JIELAN-1581",
+      "source_quote": "1581《捷览》生年太岁十二神 sequence places 龙德 after 岁破 and traverses forward from the birth-year 太岁 palace.",
+      "source_quote_location": "EXT-ZIWEI-JIELAN-1581 / 卷一第49章《安生年太岁十二神诀》; S01:ZZZA-PR-037",
+      "historical_period": "MING_WANLI_1581_JIELAN_TAISUI12_TRADITION",
+      "later_witnesses": "Current RING.TAISUI12 independently encodes the same ordinal-7 coordinate; standalone STAR.LONGDE is a compatibility projection of that coordinate.",
+      "school_attribution": "JIELAN_1581_TAISUI12_LONGDE_SLOT",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_ORDINAL_7_GEOMETRY_MATCH; STANDALONE_AND_RING_IDENTITIES_SHARE_COORDINATE",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No coordinate reopen; make the standalone-to-ring identity relation explicit in provenance/UI to avoid apparent duplicate-star ambiguity."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-022",
+      "rule_or_field": "月德 year-branch geometry: 巳起 vs 子起 historical families",
+      "current_implementation": "STAR.YUEDE uses 子年巳宫起、随年支顺行 (year_branch index + 5).",
+      "primary_source": "EXT-CTEXT-SHENFENG-TONGKAO (current-method witness) versus EXT-ZIWEI-QUANSHU-RECEIVED (competing received-Ziwei witness)",
+      "source_quote": "《神峰通考》保存“月德要依巳顺逢”一系；received《斗数全书》则记月德从子起子顺至太岁。",
+      "source_quote_location": "EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》; S01:ZZZA-PR-038",
+      "historical_period": "MULTIPLE_HISTORICAL_FAMILIES_WITH_DIFFERENT_START_ANCHORS_AND_POSSIBLE_TEMPORAL_SCOPE_DIFFERENCE",
+      "later_witnesses": "S01 PR-038 and current production select the 巳起 family. The received Fullbook witness supplies a materially different 子起 family and explicitly phrases it against 流年太岁.",
+      "school_attribution": "CURRENT_SI_START_FAMILY_VS_RECEIVED_FULLBOOK_ZI_START_FAMILY",
+      "competing_methods": [
+        "子年巳宫起，按年支顺行（current/S01; compatible with 神峰通考 verse family）",
+        "子宫起子，顺至流年太岁（received Fullbook）"
+      ],
+      "current_implementation_match": "MATCHES_SI_START_HISTORICAL_FAMILY; DOES_NOT_MATCH_RECEIVED_FULLBOOK_ZI_START_FAMILY; TEMPORAL_SCOPE_REQUIRES_SEPARATE CANDIDATE MODEL",
+      "confidence": "HIGH_FOR_TEXTUAL_CONFLICT; MEDIUM_FOR_CROSS_TEXT_GENEALOGY",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Do not change production default. Preserve both start-anchor families; resolve natal-vs-flow temporal scope before promoting the received-Fullbook branch into a replayable candidate."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-023",
+      "rule_or_field": "月解 / month-based 解神 two-month table",
+      "current_implementation": "STAR.JIESHEN uses 正二申、三四戌、五六子、七八寅、九十辰、十一十二午.",
+      "primary_source": "S01:ZZZA-PR-047 (project research corpus only); no qualifying early/received Ziwei witness for this month table established in Batch 07C",
+      "source_quote": "The project route records a two-month-per-palace 月解 table; received Fullbook's 解神 is instead year-based and already mapped separately to 年解.",
+      "source_quote_location": "S01:ZZZA-PR-047; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》",
+      "historical_period": "MODERN_OR_LATER_MONTH_JIESHEN_RULE_GENEALOGY_UNRESOLVED",
+      "later_witnesses": "Modern Zhongzhou-derived manuals reproduce the month table. The early received Fullbook evidence found in this batch supports the distinct year-based 解神, not this 月解 table.",
+      "school_attribution": "CURRENT_MONTH_JIESHEN_YUEJIE_COMPATIBILITY_RULE",
+      "competing_methods": [
+        "month-based 月解 two-month table",
+        "year-based 解神/modern 年解 (separate entity already audited)"
+      ],
+      "current_implementation_match": "CURRENT_MONTH_RULE_IS_INTERNALLY_CONSISTENT; HISTORICAL_ZIWEI_BINDING_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_SOURCE_GAP_AND_YEAR_MONTH_DISTINCTION",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "No coordinate reopen; keep 月解 and 年解 as separate identities and seek edition-bound provenance for the month table."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-024",
+      "rule_or_field": "天巫 lunar-month table",
+      "current_implementation": "正五九月巳、二六十月申、三七十一月寅、四八十二月亥.",
+      "primary_source": "S01:ZZZA-PR-048 (project research corpus only); no qualifying Ziwei historical placement witness established",
+      "source_quote": "The current four-palace monthly table is present in the project corpus; the classical same-name material found externally belongs to calendrical/Qizheng contexts and uses different logic.",
+      "source_quote_location": "S01:ZZZA-PR-048; external negative/source-domain check: Tianji Ziwei glossary 天巫",
+      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; SAME_NAME_CLASSICAL_NON_ZIWEI_MATERIAL_EXISTS",
+      "later_witnesses": "Modern Ziwei implementations reproduce the current table. 《御定星历考原》 contains a same-name monthly deity but does not establish this Ziwei coordinate table.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE_WITH_CROSS_SYSTEM_HOMONYM_RISK",
+      "competing_methods": [
+        "current Ziwei four-palace monthly table",
+        "non-Ziwei calendrical 天巫 rules (not imported as candidates)"
+      ],
+      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_SOURCE_DOMAIN_MISMATCH",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Do not use same-name Qizheng/calendar material as proof. Retain current behavior as compatibility/profile data pending Ziwei-specific historical evidence."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-025",
+      "rule_or_field": "天月 lunar-month twelve-value table",
+      "current_implementation": "一戌二巳三辰、四寅五未六卯、七亥八未九寅、十午十一戌十二寅.",
+      "primary_source": "S01:ZZZA-PR-049 (project research corpus only); qualifying Ziwei historical placement witness not established in Batch 07C",
+      "source_quote": "Current project route contains the familiar twelve-month mnemonic; external historical hits for 天月 are dominated by different systems/terms such as 天月德合.",
+      "source_quote_location": "S01:ZZZA-PR-049; external source-domain check: Tianji Ziwei glossary 天月",
+      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; HISTORICAL_HOMONYM_NOISE_HIGH",
+      "later_witnesses": "Modern Ziwei code/manuals reproduce the same table, but modern repetition is compatibility evidence rather than historical authority.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE",
+      "competing_methods": [
+        "same-name/near-name historical concepts from Bazi/calendar traditions are not treated as the same rule"
+      ],
+      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_HOMONYM_RISK; LOW_FOR_PREMODERN_ZIWEI_GENEALOGY",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Retain as profile-scoped compatibility rule; seek a Ziwei-specific edition-bound witness before upgrading historical status."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-C",
+      "rule_id": "HPA-ZMINOR-026",
+      "rule_or_field": "阴煞 lunar-month six-palace cycle",
+      "current_implementation": "正七寅、二八子、三九戌、四十申、五十一午、六十二辰.",
+      "primary_source": "S01:ZZZA-PR-050 (project research corpus only); qualifying Ziwei historical placement witness not established in Batch 07C",
+      "source_quote": "Current project route gives a six-palace month cycle; external classical hits under 阴煞 refer to other systems and incompatible definitions.",
+      "source_quote_location": "S01:ZZZA-PR-050; external source-domain check: Tianji Ziwei glossary 阴煞",
+      "historical_period": "CURRENT_ZIWEI_MONTH_TABLE_GENEALOGY_UNRESOLVED; CROSS_SYSTEM_HOMONYM_COLLISION",
+      "later_witnesses": "Modern Ziwei implementations reproduce the cycle; classical Bazi/astrological 阴煞 references found externally are not evidence for this Ziwei placement rule.",
+      "school_attribution": "CURRENT_MODERN_ZIWEI_MONTH_TABLE",
+      "competing_methods": [
+        "same-name non-Ziwei 阴煞 definitions are explicitly excluded from candidate inference"
+      ],
+      "current_implementation_match": "DETERMINISTIC_OPERATIONAL_MATCH_ONLY; CLASSICAL_ZIWEI_PROVENANCE_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_SOURCE_DOMAIN_MISMATCH",
+      "audit_status": "SOURCE_INSUFFICIENT",
+      "proposed_action": "Retain as compatibility/profile rule pending a Ziwei-specific historical placement witness."
     }
   ],
   "historical_research_batches": [
@@ -3192,7 +3356,8 @@
     "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
     "BATCH-06-ZIWEI-NATAL-FOUNDATIONS",
     "BATCH-07-ZIWEI-MINOR-STARS-A",
-    "BATCH-07-ZIWEI-MINOR-STARS-B"
+    "BATCH-07-ZIWEI-MINOR-STARS-B",
+    "BATCH-07-ZIWEI-MINOR-STARS-C"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -3282,7 +3447,14 @@
     "HPA-ZMINOR-016",
     "HPA-ZMINOR-017",
     "HPA-ZMINOR-018",
-    "HPA-ZMINOR-019"
+    "HPA-ZMINOR-019",
+    "HPA-ZMINOR-020",
+    "HPA-ZMINOR-021",
+    "HPA-ZMINOR-022",
+    "HPA-ZMINOR-023",
+    "HPA-ZMINOR-024",
+    "HPA-ZMINOR-025",
+    "HPA-ZMINOR-026"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
