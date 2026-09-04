@@ -124,6 +124,8 @@ def main() -> int:
         "Run emitted Windows binary platform smoke",
         "FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1",
         "FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1",
+        "FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1",
+        "binary product shell schema mismatch",
     ):
         if contract not in windows_workflow:
             raise SystemExit(f"windows-portable.yml: missing release contract {contract!r}")

@@ -7,6 +7,9 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from fortune_training.combined_chart_application.product_shell_assets import (
+    DESKTOP_PRODUCT_SHELL_SCHEMA,
+)
 from fortune_training.desktop_application.distribution import (
     DESKTOP_APPLICATION_ID,
     DESKTOP_APPLICATION_VERSION,
@@ -157,6 +160,8 @@ class WindowsPortableDesktopLauncherR1Test(unittest.TestCase):
         self.assertEqual(receipt["source_commit"], "a" * 40)
         self.assertEqual(receipt["bind_policy"], "LOOPBACK_ONLY")
         self.assertEqual(len(receipt["combined_manifest_hash"]), 64)
+        self.assertEqual(receipt["desktop_product_shell_schema"], DESKTOP_PRODUCT_SHELL_SCHEMA)
+        self.assertEqual(receipt["desktop_product_shell_asset_count"], 3)
 
     def test_windows_workflow_smokes_executables_from_emitted_zip(self) -> None:
         workflow = (REPO_ROOT / ".github" / "workflows" / "windows-portable.yml").read_text(

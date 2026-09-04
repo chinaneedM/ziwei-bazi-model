@@ -47,6 +47,10 @@ The shell preserves the established IDs used by browser regression tests and sid
 
 The product shell is injected last in the Workbench asset chain so all released sidecar mount points exist before it composes them into the four product views.
 
+## Emitted-binary evidence
+
+The page carries the static schema marker `FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1`. Normal HTTP smoke requires that marker and both `/product-shell.css` and `/product-shell.js`. The Windows emitted-ZIP smoke performs the same checks from the packaged `FortuneChart.exe` before resolving the deterministic combined chart. This closes the gap where source-level productization could pass while the packaged executable still served an older Workbench shell.
+
 ## Remaining desktop work
 
 This milestone is the first desktop productization closure, not the final Windows release acceptance. Remaining work is limited to product/distribution concerns, principally:

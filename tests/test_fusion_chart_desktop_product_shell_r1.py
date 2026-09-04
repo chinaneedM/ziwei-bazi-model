@@ -6,6 +6,7 @@ from pathlib import Path
 from urllib.request import urlopen
 
 from fortune_training.combined_chart_application.product_shell_assets import (
+    DESKTOP_PRODUCT_SHELL_SCHEMA,
     PRODUCT_SHELL_CSS,
     PRODUCT_SHELL_JS,
     product_shell_index_html,
@@ -24,6 +25,8 @@ class FusionChartDesktopProductShellR1Tests(unittest.TestCase):
         rendered = product_shell_index_html(source)
         self.assertEqual(rendered.count('/product-shell.css'), 1)
         self.assertEqual(rendered.count('/product-shell.js'), 1)
+        self.assertEqual(rendered.count('name="fortune-chart-product-shell"'), 1)
+        self.assertIn(DESKTOP_PRODUCT_SHELL_SCHEMA, rendered)
         self.assertNotIn("fetch(", PRODUCT_SHELL_JS)
         self.assertNotIn("/api/", PRODUCT_SHELL_JS)
         self.assertIn("fortune-chart-product-shell", PRODUCT_SHELL_JS)
@@ -72,6 +75,8 @@ class FusionChartDesktopProductShellR1Tests(unittest.TestCase):
                 html = response.read().decode("utf-8")
             self.assertEqual(html.count('/product-shell.css'), 1)
             self.assertEqual(html.count('/product-shell.js'), 1)
+            self.assertEqual(html.count('name="fortune-chart-product-shell"'), 1)
+            self.assertIn(DESKTOP_PRODUCT_SHELL_SCHEMA, html)
             self.assertGreater(
                 html.rfind('/product-shell.js'),
                 html.rfind('/ziwei-transformation-provenance.js'),

@@ -10,6 +10,9 @@ from fortune_training.combined_chart_application.local_app import (
     LOCAL_APP_HEALTH_SCHEMA,
     LOCAL_APP_RESOLVE_SCHEMA,
 )
+from fortune_training.combined_chart_application.product_shell_assets import (
+    DESKTOP_PRODUCT_SHELL_SCHEMA,
+)
 
 from .distribution import (
     DESKTOP_APPLICATION_ID,
@@ -104,6 +107,39 @@ def run_windows_binary_smoke(
         _require(health.get("status") == "ok", "binary health status mismatch")
         _require(health.get("bind_policy") == "LOOPBACK_ONLY", "binary bind policy mismatch")
 
+        with urlopen(f"{base_url}/", timeout=30) as response:
+            index_content_type = response.headers.get("Content-Type", "")
+            index_text = response.read().decode("utf-8")
+        _require(
+            index_content_type.split(";", 1)[0].strip().lower() == "text/html",
+            "binary product shell index content type mismatch",
+        )
+        index_marker = (
+            f'name="fortune-chart-product-shell" content="{DESKTOP_PRODUCT_SHELL_SCHEMA}"'
+        )
+        _require(index_marker in index_text, "binary product shell index marker is missing")
+
+        with urlopen(f"{base_url}/product-shell.css", timeout=30) as response:
+            product_css_type = response.headers.get("Content-Type", "")
+            product_css = response.read().decode("utf-8")
+        _require(
+            product_css_type.split(";", 1)[0].strip().lower() == "text/css",
+            "binary product shell CSS content type mismatch",
+        )
+        _require(".product-workspace" in product_css, "binary product shell CSS marker is missing")
+
+        with urlopen(f"{base_url}/product-shell.js", timeout=30) as response:
+            product_js_type = response.headers.get("Content-Type", "")
+            product_js = response.read().decode("utf-8")
+        _require(
+            product_js_type.split(";", 1)[0].strip().lower() == "application/javascript",
+            "binary product shell JavaScript content type mismatch",
+        )
+        _require(
+            "fortune-chart-product-shell" in product_js,
+            "binary product shell JavaScript marker is missing",
+        )
+
         body = json.dumps(_base_payload(), ensure_ascii=False, separators=(",", ":")).encode("utf-8")
         request = Request(
             f"{base_url}/api/resolve",
@@ -130,6 +166,8 @@ def run_windows_binary_smoke(
             "health_schema": health["schema"],
             "resolve_schema": resolved["schema"],
             "combined_manifest_hash": manifest_hash,
+            "desktop_product_shell_schema": DESKTOP_PRODUCT_SHELL_SCHEMA,
+            "desktop_product_shell_asset_count": 3,
         }
     finally:
         server.shutdown()

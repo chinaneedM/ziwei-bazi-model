@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 
+DESKTOP_PRODUCT_SHELL_SCHEMA = "FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1"
+
+
 def product_shell_index_html(base_html: str) -> str:
     """Inject the presentation-only desktop product shell over released Workbench surfaces."""
 
@@ -8,7 +11,10 @@ def product_shell_index_html(base_html: str) -> str:
         raise ValueError("product shell assets already injected")
     return base_html.replace(
         "</head>",
-        '  <link rel="stylesheet" href="/product-shell.css">\n</head>',
+        (
+            f'  <meta name="fortune-chart-product-shell" content="{DESKTOP_PRODUCT_SHELL_SCHEMA}">\n'
+            '  <link rel="stylesheet" href="/product-shell.css">\n</head>'
+        ),
     ).replace(
         "</body>",
         '<script src="/product-shell.js" defer></script>\n</body>',

@@ -130,6 +130,12 @@ jobs:
           if ($appResult.source_commit -ne $env:SOURCE_COMMIT) { throw 'binary smoke source commit mismatch' }
           if ($appResult.application_version -ne $manifest.version) { throw 'binary smoke version mismatch' }
           if ($appResult.bind_policy -ne 'LOOPBACK_ONLY') { throw 'binary smoke bind policy mismatch' }
+          if ($appResult.desktop_product_shell_schema -ne 'FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1') {
+            throw 'binary product shell schema mismatch'
+          }
+          if ($appResult.desktop_product_shell_asset_count -ne 3) {
+            throw 'binary product shell asset count mismatch'
+          }
           if ($updaterResult.schema -ne 'FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1' -or $updaterResult.status -ne 'PASS') {
             throw 'invalid updater binary smoke receipt'
           }

@@ -28,6 +28,9 @@ from fortune_training.combined_chart_application.palace_stem_topology_local_app 
     LOCAL_ZIWEI_PALACE_STEM_TOPOLOGY_SCHEMA,
     LOCAL_ZIWEI_STAR_PROVENANCE_SCHEMA,
 )
+from fortune_training.combined_chart_application.product_shell_assets import (
+    DESKTOP_PRODUCT_SHELL_SCHEMA,
+)
 from fortune_training.combined_chart_application.workbench_local_app import (
     build_workbench_server,
 )
@@ -172,6 +175,7 @@ def run_http_smoke(repository_root: Path) -> dict[str, Any]:
         )
         index_text = index_body.decode("utf-8")
         for marker in (
+            f'name="fortune-chart-product-shell" content="{DESKTOP_PRODUCT_SHELL_SCHEMA}"',
             "resolved-profile-lineage-panel",
             "ziwei-dignity-provenance",
             "ziwei-palace-stem-topology",
@@ -183,6 +187,8 @@ def run_http_smoke(repository_root: Path) -> dict[str, Any]:
             _require(marker in index_text, f"Workbench index is missing {marker}")
 
         asset_paths = (
+            "/product-shell.css",
+            "/product-shell.js",
             "/resolved-profile-lineage.css",
             "/resolved-profile-lineage.js",
             "/ziwei-dignity-provenance.css",
@@ -204,6 +210,22 @@ def run_http_smoke(repository_root: Path) -> dict[str, Any]:
         )
         for path in asset_paths:
             _get(base_url, path)
+
+        product_css, product_css_type = _get(base_url, "/product-shell.css")
+        _require(
+            product_css_type.split(";", 1)[0].strip().lower() == "text/css",
+            "Product shell CSS content type mismatch",
+        )
+        _require(b".product-workspace" in product_css, "Product shell CSS marker is missing")
+        product_js, product_js_type = _get(base_url, "/product-shell.js")
+        _require(
+            product_js_type.split(";", 1)[0].strip().lower() == "application/javascript",
+            "Product shell JavaScript content type mismatch",
+        )
+        _require(
+            b"fortune-chart-product-shell" in product_js,
+            "Product shell JavaScript marker is missing",
+        )
 
         base_payload = _base_payload()
         base = _post_json(base_url, "/api/resolve", base_payload)
@@ -349,6 +371,8 @@ def run_http_smoke(repository_root: Path) -> dict[str, Any]:
             "source_bazi_bundle_hash": bazi_bundle_hash,
             "http_asset_count": len(asset_paths) + 1,
             "http_sidecar_count": len(ziwei_sidecars) + len(bazi_sidecars),
+            "desktop_product_shell_schema": DESKTOP_PRODUCT_SHELL_SCHEMA,
+            "desktop_product_shell_asset_count": 3,
         }
     finally:
         server.shutdown()

@@ -14,7 +14,7 @@ This record is the platform-distribution acceptance boundary for the Windows por
 
 `.github/workflows/windows-portable.yml` must build the PyInstaller executables, create the final `FortuneChart-windows-x64.zip`, verify that ZIP against `fortune-chart-update.json`, extract that exact emitted archive into a fresh runner directory, and launch both executables from the extracted bundle.
 
-`FortuneChart.exe --platform-smoke-receipt <path>` must prove packaged dependency loading, exact application/version/source metadata, ephemeral loopback binding, `/health`, and an ordinary deterministic `/api/resolve` whose combined integrity passes. `FortuneChartUpdater.exe --platform-smoke-receipt <path>` must prove that the standalone updater executable loads and exits without mutation. Both JSON receipts are uploaded with the build artifact.
+`FortuneChart.exe --platform-smoke-receipt <path>` must prove packaged dependency loading, exact application/version/source metadata, ephemeral loopback binding, `/health`, the `FUSION-CHART-DESKTOP-PRODUCT-SHELL-R1` index marker, packaged product-shell CSS/JavaScript, and an ordinary deterministic `/api/resolve` whose combined integrity passes. `FortuneChartUpdater.exe --platform-smoke-receipt <path>` must prove that the standalone updater executable loads and exits without mutation. Both JSON receipts are uploaded with the build artifact.
 
 This evidence is bound to the workflow's exact `SOURCE_COMMIT`, asset SHA-256, asset size, application version and combined manifest hash. A source-level test or a smoke against the pre-archive build directory is not a substitute.
 
