@@ -95,6 +95,43 @@ jobs:
       - name: Build portable Windows bundle and update manifest
         shell: pwsh
         run: ./scripts/build-windows-portable.ps1 -SourceCommit "$env:SOURCE_COMMIT"
+      - name: Run emitted Windows binary platform smoke
+        shell: pwsh
+        run: |
+          $zip = (Resolve-Path 'dist/FortuneChart-windows-x64.zip').Path
+          $manifest = Get-Content 'dist/fortune-chart-update.json' -Raw | ConvertFrom-Json
+          $actualHash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          $actualSize = (Get-Item $zip).Length
+          if ($actualHash -ne $manifest.asset_sha256) { throw 'binary smoke ZIP SHA-256 mismatch' }
+          if ($actualSize -ne $manifest.asset_size) { throw 'binary smoke ZIP size mismatch' }
+
+          $smokeRoot = Join-Path $env:RUNNER_TEMP 'fortune-chart-emitted-zip-smoke'
+          $receiptRoot = Join-Path (Resolve-Path 'dist').Path 'platform-acceptance'
+          New-Item -ItemType Directory -Force -Path $smokeRoot, $receiptRoot | Out-Null
+          Expand-Archive -LiteralPath $zip -DestinationPath $smokeRoot -Force
+          $bundle = Join-Path $smokeRoot 'FortuneChart'
+          $appReceipt = Join-Path $receiptRoot 'windows-binary-smoke.json'
+          $updaterReceipt = Join-Path $receiptRoot 'windows-updater-binary-smoke.json'
+
+          $app = Start-Process -FilePath (Join-Path $bundle 'FortuneChart.exe') `
+            -ArgumentList @('--platform-smoke-receipt', $appReceipt) -Wait -PassThru
+          if ($app.ExitCode -ne 0) { throw "FortuneChart binary smoke failed: $($app.ExitCode)" }
+          $updater = Start-Process -FilePath (Join-Path $bundle 'FortuneChartUpdater.exe') `
+            -ArgumentList @('--platform-smoke-receipt', $updaterReceipt) -Wait -PassThru
+          if ($updater.ExitCode -ne 0) { throw "FortuneChartUpdater binary smoke failed: $($updater.ExitCode)" }
+
+          $appResult = Get-Content $appReceipt -Raw | ConvertFrom-Json
+          $updaterResult = Get-Content $updaterReceipt -Raw | ConvertFrom-Json
+          if ($appResult.schema -ne 'FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1' -or $appResult.status -ne 'PASS') {
+            throw 'invalid FortuneChart binary smoke receipt'
+          }
+          if ($appResult.source_commit -ne $env:SOURCE_COMMIT) { throw 'binary smoke source commit mismatch' }
+          if ($appResult.application_version -ne $manifest.version) { throw 'binary smoke version mismatch' }
+          if ($appResult.bind_policy -ne 'LOOPBACK_ONLY') { throw 'binary smoke bind policy mismatch' }
+          if ($updaterResult.schema -ne 'FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1' -or $updaterResult.status -ne 'PASS') {
+            throw 'invalid updater binary smoke receipt'
+          }
+          if ($updaterResult.mutation_performed -ne $false) { throw 'updater binary smoke performed mutation' }
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4
         with:
@@ -102,6 +139,7 @@ jobs:
           path: |
             dist/FortuneChart-windows-x64.zip
             dist/fortune-chart-update.json
+            dist/platform-acceptance/*.json
           if-no-files-found: error
 
   publish-stable-release:

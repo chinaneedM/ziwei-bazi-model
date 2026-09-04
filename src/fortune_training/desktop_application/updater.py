@@ -12,12 +12,35 @@ import uuid
 from pathlib import Path
 from typing import Callable
 
-from .distribution import DESKTOP_APPLICATION_ID
+from .distribution import DESKTOP_APPLICATION_ID, DESKTOP_APPLICATION_VERSION
 from .updates import UpdateSecurityError, parse_semver
 
 
 class UpdateApplyError(RuntimeError):
     pass
+
+
+WINDOWS_UPDATER_BINARY_SMOKE_SCHEMA = "FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1"
+
+
+def write_windows_updater_binary_smoke_receipt(path: Path) -> None:
+    destination = Path(path).resolve()
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(
+            {
+                "schema": WINDOWS_UPDATER_BINARY_SMOKE_SCHEMA,
+                "status": "PASS",
+                "application_id": DESKTOP_APPLICATION_ID,
+                "application_version": DESKTOP_APPLICATION_VERSION,
+                "mutation_performed": False,
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def _creationflags_no_window() -> int:
@@ -329,13 +352,28 @@ def _schedule_self_cleanup() -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Apply a verified FortuneChart portable update")
-    parser.add_argument("--parent-pid", type=int, required=True)
-    parser.add_argument("--install-root", type=Path, required=True)
-    parser.add_argument("--staging-root", type=Path, required=True)
-    parser.add_argument("--staged-bundle", type=Path, required=True)
-    parser.add_argument("--expected-version", required=True)
-    parser.add_argument("--expected-source-commit", required=True)
+    parser.add_argument("--platform-smoke-receipt", type=Path, help=argparse.SUPPRESS)
+    parser.add_argument("--parent-pid", type=int)
+    parser.add_argument("--install-root", type=Path)
+    parser.add_argument("--staging-root", type=Path)
+    parser.add_argument("--staged-bundle", type=Path)
+    parser.add_argument("--expected-version")
+    parser.add_argument("--expected-source-commit")
     args = parser.parse_args(argv)
+    if args.platform_smoke_receipt is not None:
+        write_windows_updater_binary_smoke_receipt(args.platform_smoke_receipt)
+        return 0
+    required = {
+        "--parent-pid": args.parent_pid,
+        "--install-root": args.install_root,
+        "--staging-root": args.staging_root,
+        "--staged-bundle": args.staged_bundle,
+        "--expected-version": args.expected_version,
+        "--expected-source-commit": args.expected_source_commit,
+    }
+    missing = [name for name, value in required.items() if value is None]
+    if missing:
+        parser.error("the following arguments are required: " + ", ".join(missing))
     install = args.install_root.resolve()
     staging = args.staging_root.resolve()
     try:

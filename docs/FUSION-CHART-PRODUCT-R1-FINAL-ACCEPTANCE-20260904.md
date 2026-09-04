@@ -77,7 +77,7 @@ These contracts are covered by `tests/test_windows_verified_auto_update_r1.py` a
 
 ### Build and release gates
 
-`.github/workflows/windows-portable.yml` builds on `windows-latest`, checks out the exact source commit, runs the Windows-focused contract tests, validates the release ref against the packaged application version, builds the PyInstaller onedir portable bundle, and validates source commit / SHA-256 / size before release publication.
+`.github/workflows/windows-portable.yml` builds on `windows-latest`, checks out the exact source commit, runs the Windows-focused contract tests, validates the release ref against the packaged application version, builds the PyInstaller onedir portable bundle, and validates source commit / SHA-256 / size before release publication. It then extracts the exact emitted ZIP and launches both `FortuneChart.exe` and `FortuneChartUpdater.exe`; the application binary exercises loopback `/health` and a deterministic combined `/api/resolve`, while both executables emit machine-readable receipts uploaded with the artifact.
 
 The stable release is split into an immutable versioned release plus a mutable stable-channel manifest pointer. The final R1 machine gate is also required by the normal CI and Windows release workflow so future field-status or acceptance-state drift fails closed.
 
@@ -87,7 +87,7 @@ The stable release is split into an immutable versioned release plus a mutable s
 
 ## Why Windows binary platform acceptance remains pending
 
-The current Windows workflow proves that a portable artifact can be built and structurally validated on a Windows GitHub runner. It does not currently provide acceptance evidence that the generated `FortuneChart.exe` and `FortuneChartUpdater.exe` were launched from the emitted ZIP as end-user binaries and completed the full platform interaction/update activation contract.
+The Windows workflow now proves that a portable artifact can be built, extracted from the final emitted ZIP, and launched on a Windows GitHub runner with packaged dependencies, loopback health, deterministic combined resolution, exact build identity and non-mutating standalone-updater startup. It does not prove default-browser interaction by an end user or a complete manifest-driven two-version updater activation and rollback on a target Windows machine.
 
 Therefore the correct state is:
 
@@ -95,7 +95,7 @@ Therefore the correct state is:
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
 ```
 
-This is deliberately narrower than product closure. It concerns PyInstaller/Windows runtime behavior such as executable launch, packaged dependency loading, browser/loopback behavior from the binary, process replacement and updater activation on Windows. It is not evidence that Ziwei, Bazi, time/calendar or fusion algorithms are incomplete.
+This is deliberately narrower than product closure. The automated runner now covers executable launch, packaged dependency loading and loopback behavior from the binary. Browser interaction, process replacement and updater activation/rollback remain platform acceptance work. This is not evidence that Ziwei, Bazi, time/calendar or fusion algorithms are incomplete. The exact residual checklist is maintained in `docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md`.
 
 ## Platform acceptance exit criteria
 

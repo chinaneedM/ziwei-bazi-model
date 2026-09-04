@@ -44,6 +44,12 @@ Status: **CLOSED**.
 
 The released product covers the twelve-palace natal structure, physical star/ring inventory, transformations, operational dignity annotations with explicit authority boundaries, Daxian/Annual/Minor/Doujun/monthly/target projections, temporal auxiliary candidates, palace-stem transformation topology, and Structural Runtime R1–R8 with application/Workbench sidecars.
 
+### Ziwei structural relations — CLOSED FOR RELEASED R1-R8
+
+The released structural chain remains R1 neutral topology, R2 relative palace frame, R3 borrow projection, R4 named opposition/trine/Sanfang-Sizheng semantics, R5 borrow-resolved composition, R6 Qishu position projection, R7 One-Six Common-Root projection, and R8 adjacent-palace pair geometry. The application exposes the R6–R8 read-only sidecar through `/api/ziwei-structural-relations`; the Workbench consumes the released facts and does not recompute their geometry.
+
+R8 visibility is limited to mechanical adjacency. It does not establish 夹宫 / 夹格成立判断, pair-geometry strength, an event or endpoint score, auspiciousness, or predictive judgment. These unclaimed semantics remain outside field parity and product closure unless separately formalized from source-backed rules.
+
 `ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION` remains `NOT_YET_FORMALIZED`. SAME/OPPOSITE/OTHER topology, Qishu, One-Six Common-Root and adjacency geometry are not selectors for OUTWARD_DISSIPATION / INWARD_RECEPTION.
 
 Status: **CLOSED for the released deterministic scope**.
@@ -87,9 +93,9 @@ Status: **CLOSED**.
 
 ## H. Windows binary platform acceptance — PENDING, separate domain
 
-The Windows release workflow runs on `windows-latest`, executes the focused source-level desktop/update contracts and builds the portable PyInstaller bundle. It validates release version/ref, source commit, ZIP SHA-256 and size before publication.
+The Windows release workflow runs on `windows-latest`, executes the focused source-level desktop/update contracts and builds the portable PyInstaller bundle. It validates release version/ref, source commit, ZIP SHA-256 and size, then extracts the emitted ZIP and runs both packaged executables. The application binary verifies loopback health and a deterministic combined resolution; the updater binary performs a non-mutating startup self-check.
 
-However, the current evidence does not prove a full end-user launch/activation acceptance of the generated `FortuneChart.exe` and `FortuneChartUpdater.exe` from the emitted ZIP. That remains a platform-distribution acceptance task covering packaged dependency loading, executable startup, loopback/browser behavior and updater process replacement on Windows.
+However, automated runner evidence does not prove default-browser interaction or full two-version update activation/rollback on a target end-user Windows machine. Those residual platform-distribution tasks are defined in `docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md`.
 
 ```text
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE

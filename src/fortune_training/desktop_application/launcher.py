@@ -5,6 +5,7 @@ import ctypes
 import os
 import webbrowser
 from collections.abc import Callable
+from pathlib import Path
 from typing import Protocol
 
 from fortune_training.combined_chart_application.workbench_local_app import (
@@ -12,6 +13,7 @@ from fortune_training.combined_chart_application.workbench_local_app import (
 )
 
 from .distribution import DESKTOP_APPLICATION_VERSION
+from .platform_acceptance import write_windows_binary_smoke_receipt
 from .runtime import resolve_runtime_repository_root
 from .updates import (
     UpdateSecurityError,
@@ -133,7 +135,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--no-update", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--post-update", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--platform-smoke-receipt", type=Path, help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
+    if args.platform_smoke_receipt is not None:
+        runtime_root = resolve_runtime_repository_root()
+        write_windows_binary_smoke_receipt(
+            args.platform_smoke_receipt,
+            server=build_desktop_server(),
+            runtime_root=runtime_root,
+        )
+        return 0
     if args.post_update:
         _notify_post_update_version()
     if run_startup_update_check(disabled=args.no_update or args.post_update):

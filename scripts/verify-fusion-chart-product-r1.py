@@ -74,6 +74,7 @@ def main() -> int:
         "scripts/fortune_chart_updater.py",
         "src/fortune_training/desktop_application/distribution.py",
         "src/fortune_training/desktop_application/launcher.py",
+        "src/fortune_training/desktop_application/platform_acceptance.py",
         "src/fortune_training/desktop_application/updates.py",
         "src/fortune_training/desktop_application/updater.py",
         "tests/test_windows_portable_desktop_launcher_r1.py",
@@ -84,6 +85,7 @@ def main() -> int:
         "tests/test_combined_workbench_real_machine_calibration_r1.py",
         "tests/test_real_machine_calibration_regression_closure_r1.py",
         "docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md",
+        "docs/WINDOWS-BINARY-PLATFORM-ACCEPTANCE-R1.md",
         ".github/workflows/windows-portable.yml",
     )
     missing = [relative for relative in required_paths if not (ROOT / relative).is_file()]
@@ -111,6 +113,9 @@ def main() -> int:
         "./scripts/build-windows-portable.ps1 -SourceCommit",
         "FortuneChart-windows-x64.zip",
         "fortune-chart-update.json",
+        "Run emitted Windows binary platform smoke",
+        "FORTUNE-CHART-WINDOWS-BINARY-SMOKE-R1",
+        "FORTUNE-CHART-WINDOWS-UPDATER-BINARY-SMOKE-R1",
     ):
         if contract not in windows_workflow:
             raise SystemExit(f"windows-portable.yml: missing release contract {contract!r}")
