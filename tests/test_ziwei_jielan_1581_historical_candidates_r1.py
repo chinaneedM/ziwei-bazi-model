@@ -13,12 +13,25 @@ from fortune_training.ziwei_chart.historical_candidates import (
     JIELAN_1581_FIRE_BELL_START_BY_YEAR_BRANCH,
     JIELAN_1581_FOUR_TRANSFORMATIONS,
     JIELAN_1581_KUI_YUE_BY_STEM,
+    JIELAN_1581_MINGZHU_BASIS,
+    JIELAN_1581_MINGZHU_BY_BIRTH_YEAR_BRANCH,
+    JIELAN_1581_SHENZHU_BASIS,
+    JIELAN_1581_SHENZHU_ZI_WU_STATUS,
+    JIELAN_1581_DAXIAN_RULE,
+    JIELAN_1581_MINOR_LIMIT_START_BY_YEAR_BRANCH,
+    JIELAN_1581_MINOR_LIMIT_DIRECTION,
+    JIELAN_1581_BOSHI_MEMBERS,
     JIELAN_1581_SELECTION_STATUS,
     JIELAN_1581_TIANSHANG_TIANSHI_OFFSETS,
     historical_candidate_hash,
     validate_historical_candidate_registry,
 )
-from fortune_training.ziwei_chart.rings import CHANGSHENG_ANCHOR_BY_ELEMENT
+from fortune_training.ziwei_chart.rings import (
+    BOSHI_MEMBERS,
+    CHANGSHENG_ANCHOR_BY_ELEMENT,
+)
+from fortune_training.ziwei_chart.roles import MINGZHU_BY_LIFE_BRANCH
+from fortune_training.ziwei_chart.temporal import MINOR_AGE_ONE_START_BY_YEAR_BRANCH
 from fortune_training.ziwei_chart.transformations import ASSIGNMENTS_BY_STEM
 
 
@@ -78,6 +91,43 @@ class ZiweiJielan1581HistoricalCandidatesR1Test(unittest.TestCase):
             CHANGSHENG_ANCHOR_BY_ELEMENT,
         )
 
+
+    def test_1581_mingzhu_preserves_birth_year_basis_variant(self) -> None:
+        self.assertEqual(JIELAN_1581_MINGZHU_BASIS, "ZIWEI_BIRTH_YEAR_BRANCH")
+        current_values = {
+            branch: display_name
+            for branch, (_entity_id, display_name) in MINGZHU_BY_LIFE_BRANCH.items()
+        }
+        self.assertEqual(JIELAN_1581_MINGZHU_BY_BIRTH_YEAR_BRANCH, current_values)
+        # Same lookup table, materially different key/basis from current Fullbook production.
+        self.assertNotEqual(JIELAN_1581_MINGZHU_BASIS, "LIFE_PALACE_BRANCH")
+
+    def test_1581_shenzhu_keeps_birth_year_basis_and_zi_wu_ambiguity(self) -> None:
+        self.assertEqual(JIELAN_1581_SHENZHU_BASIS, "ZIWEI_BIRTH_YEAR_BRANCH")
+        self.assertEqual(
+            JIELAN_1581_SHENZHU_ZI_WU_STATUS,
+            "TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED",
+        )
+
+    def test_1581_daxian_matches_current_core_geometry(self) -> None:
+        self.assertEqual(JIELAN_1581_DAXIAN_RULE["first_active_address"], "LIFE_PALACE")
+        self.assertEqual(JIELAN_1581_DAXIAN_RULE["first_nominal_age"], "BUREAU_NUMBER")
+        self.assertEqual(JIELAN_1581_DAXIAN_RULE["step_years"], 10)
+        self.assertEqual(JIELAN_1581_DAXIAN_RULE["step_addresses"], 1)
+
+    def test_1581_minor_limit_matches_current_start_table_and_direction(self) -> None:
+        self.assertEqual(
+            JIELAN_1581_MINOR_LIMIT_START_BY_YEAR_BRANCH,
+            MINOR_AGE_ONE_START_BY_YEAR_BRANCH,
+        )
+        self.assertEqual(
+            JIELAN_1581_MINOR_LIMIT_DIRECTION,
+            {"MALE": "FORWARD", "FEMALE": "REVERSE"},
+        )
+
+    def test_1581_boshi_ring_matches_current_member_order(self) -> None:
+        current = tuple(display_name for _member_id, display_name in BOSHI_MEMBERS)
+        self.assertEqual(JIELAN_1581_BOSHI_MEMBERS, current)
 
 if __name__ == "__main__":
     unittest.main()
