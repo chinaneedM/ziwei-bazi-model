@@ -164,6 +164,8 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 生成后的 Windows `FortuneChart.exe` 也会验证该 Product Shell 的静态 schema 标记以及 CSS/JavaScript 资源后再执行确定性联合排盘 smoke，防止源码已经产品化而最终 ZIP 仍意外携带旧 Workbench 外壳。
 
+桌面 Product Shell 的首个稳定版本候选为 `0.2.5`；版本提升只改变 Windows 分发身份，不重开任何已闭合排盘算法。稳定发布必须绑定通过完整 CI 与最终 ZIP Windows smoke 的精确 source commit。
+
 联合排盘现在生成共享时间凭证与候选分支联动哈希；它统一时区、UTC、真太阳时和节气事实，但保留紫微与八字各自的换日、历法及晚子时规则，不允许一方规则覆盖另一方。设计与完整性门禁见 `docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md`。
 
 八字候选视图现已补充旬空与日主十二长生事实注记，并将其纳入视图哈希；两者仅作身份展示，不生成旺衰或吉凶结论。冻结口径、来源与语义边界见 `docs/BAZI-XUNKONG-TWELVE-GROWTH-R1.md`。

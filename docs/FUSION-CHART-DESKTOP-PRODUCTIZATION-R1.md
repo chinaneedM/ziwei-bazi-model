@@ -4,6 +4,7 @@
 
 ```text
 DESKTOP_PRODUCT_SHELL_R1=IMPLEMENTED
+DESKTOP_PRODUCT_RELEASE_VERSION=0.2.5
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
@@ -65,3 +66,7 @@ This milestone is the first desktop productization closure, not the final Window
 - final release packaging/version promotion once the productized shell is accepted.
 
 None of those items is evidence that the deterministic chart engine is incomplete.
+
+## 0.2.5 release candidate
+
+Version `0.2.5` is the first stable-version candidate carrying Desktop Product Shell R1. The version bump changes distribution identity only; it does not alter any deterministic chart rule. Promotion must remain bound to the exact source commit that passes the full CI and Windows emitted-ZIP smoke, and `WINDOWS_BINARY_PLATFORM_ACCEPTANCE` remains pending until the separate real-machine two-version activation/rollback checklist is completed.
