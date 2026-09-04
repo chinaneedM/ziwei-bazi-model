@@ -59,10 +59,12 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["audited_row_count"], 40)
+        self.assertGreaterEqual(receipt["audited_row_count"], 54)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 3)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 3)
+        self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 1)
+        self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 5)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
