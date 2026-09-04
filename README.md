@@ -233,3 +233,5 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 第一版确定性融合排盘已经进入规则历史考据与流派审计阶段。当前先建立全量 Historical Provenance Audit Matrix，逐项绑定当前实现、Profile、主要来源、原文位置、时代/版本、后续见证、流派归属、竞争方法、实现一致性与处置状态。S00–S19 仍是仓库主要 canonical corpus，但不会因为进入 canonical corpus 就自动被视为唯一历史答案；文墨天机与问真八字继续只作为现代实现/兼容性 witness。
 
 初版矩阵只建立审计账本，不重开任何已 CLOSED 的确定性算法。只有明确的一手/高质量历史证据与可复现实现不一致同时成立，才允许对对应 rule/profile 做局部 forward-only reopen。机器可读矩阵、人工说明和门禁分别见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json`、`docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md` 与 `scripts/verify-fusion-chart-historical-provenance-audit-r1.py`。
+
+截至 Batch 05，Matrix 已扩展到 119 个 rule/field families，其中 64 行完成实审；已确认并 forward-only 修复 4 个 provenance metadata defects，仍未发现 chart algorithm defect，也没有任何 algorithm reopen。1581《新刻纂集紫微斗数捷览》候选族现有独立 source-scoped runtime resolver，可机械回放魁钺、火铃、命主、长生、大小限与博士环等已闭合规则，同时明确保持 `PRESERVED_NOT_SELECTED`；其版本身份另由上海图书馆古籍联合目录“明万历九年金陵书坊王洛川刻本（子4051）”独立书目见证。Batch 05 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-05-ZIWEI-ROLES-LIMITS-RINGS.md`。
