@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–07A and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **127 rows**, with **77 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **6 confirmed provenance metadata defects repaired or quarantined at the provenance layer, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
+The initial inventory contained **107 rule/field families**. After Batches 01–07B and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **138 rows**, with **88 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **6 confirmed provenance metadata defects repaired or quarantined at the provenance layer, 0 chart algorithm defects, 0 algorithm reopens, and 1 source-scoped historical candidate runtime resolver**.
 
 ## Research-corpus authority
 
@@ -117,6 +117,7 @@ No winner is selected for a genuinely disputed school rule solely to simplify pr
 - Batch 05: Ziwei roles / limits / rings; distinguished Jielan birth-year Mingzhu from received-Fullbook Life-palace Mingzhu, kept Zi/Wu Shenzhu unresolved, verified Daxian/Xiaoxian/Boshi geometry, repaired stale Jielan registry-version lineage, and added a source-scoped deterministic candidate runtime that remains `PRESERVED_NOT_SELECTED`.
 - Batch 06: Ziwei natal foundations; promoted Life/Body placement, the twelve-palace sequence, Five-Tigers palace stems and the Life-palace NaYin bureau chain to direct received-text support, while quarantining the normalized Fullbook attribution for the 23:00 day-boundary sentence until edition/facsimile evidence closes it.
 - Batch 07A: Ziwei minor-star decomposition; split eight independent minor-star families out of the broad R4 bundle. TianKu/TianXu, HongLuan/TianXi, LongChi/FengGe, TaiFu/FengGao, TianXing/TianYao and the year-based TianDe/JieShen geometry are directly received-text supported; TianChu and TianShou remain disputed candidates.
+- Batch 07B: Ziwei early-print minor-star closure; added eleven granular families bound to the 1581 《新刻纂集紫微斗数捷览》 witness: TianGuan/TianFu, TianKong, Xun void-pair geometry, JieLu KongWang/JieKong, GuChen/GuaSu, JieSha, HuaGai, the TaoHuaSha→XianChi geometry/name bridge, DaHao, PoSui and TianCai. All eleven current placement geometries match the scoped witness; XunKong main/sub display ordering remains explicitly outside the 1581 claim, and TianShou remains disputed under 07A.
 
 The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
 
