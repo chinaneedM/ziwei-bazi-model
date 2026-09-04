@@ -2,6 +2,14 @@
 
 from .engine import BaziChartCandidate, BaziChartFoundation, BaziChartRequest, BaziTypedResolution
 from .integrity import natal_fact_projection, natal_hash_bundle, validate_natal_state
+from .historical_relation_candidates import (
+    HISTORICAL_RELATION_CANDIDATE_RULE_SET_ID,
+    HISTORICAL_RELATION_CANDIDATE_RULE_SET_VERSION,
+    HISTORICAL_RELATION_CANDIDATE_SELECTION_STATUS,
+    historical_relation_candidate_registry_hash,
+    historical_relation_candidate_registry_payload,
+    resolve_bazi_historical_relation_candidates,
+)
 from .models import (
     BaziNatalState,
     BaziTemporalSeed,
@@ -39,6 +47,9 @@ __all__ = [
     "BaziTypedResolution",
     "BranchInstance",
     "HashBundle",
+    "HISTORICAL_RELATION_CANDIDATE_RULE_SET_ID",
+    "HISTORICAL_RELATION_CANDIDATE_RULE_SET_VERSION",
+    "HISTORICAL_RELATION_CANDIDATE_SELECTION_STATUS",
     "HiddenStemExposureLink",
     "HiddenStemMembership",
     "IntegrityReport",
@@ -56,8 +67,11 @@ __all__ = [
     "bazi_foundation_v1_profile",
     "bazi_foundation_zi_start_23_r1_profile",
     "build_production_bazi_profile",
+    "historical_relation_candidate_registry_hash",
+    "historical_relation_candidate_registry_payload",
     "natal_fact_projection",
     "natal_hash_bundle",
+    "resolve_bazi_historical_relation_candidates",
     "sexagenary_index",
     "validate_natal_state",
 ]
