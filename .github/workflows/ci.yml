@@ -25,6 +25,14 @@ jobs:
         run: python scripts/check-no-github-credentials.py
       - name: Fusion Chart Product R1 machine gate
         run: python scripts/verify-fusion-chart-product-r1.py
+      - name: Fusion Chart Capability & Performance R1 machine gate
+        run: python scripts/verify-fusion-chart-capability-performance-r1.py
+      - name: Focused capability acceptance tests
+        run: |
+          python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
+          python -m unittest discover -s tests -p "test_fusion_chart_temporal_torture_r1.py" -v
+          python -m unittest discover -s tests -p "test_fusion_chart_reference_diff_framework_r1.py" -v
+          python -m unittest discover -s tests -p "test_fusion_chart_acceptance_metrics_r1.py" -v
       - name: Focused desktop acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_windows_portable_desktop_launcher_r1.py" -v
