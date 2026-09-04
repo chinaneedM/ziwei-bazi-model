@@ -22,9 +22,9 @@
   "properties": {
     "schema": {"const": "BAZI-NAYIN-ANNOTATION-RESOLUTION-R1"},
     "annotation_profile_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
-    "annotation_profile_version": {"const": "1.0.0"},
+    "annotation_profile_version": {"const": "1.0.1"},
     "registry_id": {"const": "BAZI-NAYIN-REGISTRY-R1"},
-    "registry_version": {"const": "1.0.0"},
+    "registry_version": {"const": "1.0.1"},
     "registry_origin": {"const": "fortune_training.ziwei_chart.registries.NAYIN_PAIRS"},
     "registry_hash": {"const": "662e834dfb9ed85eb6a36596b1f088628200c26d7ee10f1f2815c497352198d2"},
     "source_natal_fact_hash": {"$ref": "#/$defs/hash"},
@@ -83,11 +83,10 @@
         "registry_version": {"const": "1.0.0"},
         "source_refs": {
           "type": "array",
-          "minItems": 2,
-          "maxItems": 2,
+          "minItems": 1,
+          "maxItems": 1,
           "prefixItems": [
-            {"const": "S01:ZZZA-PR-010"},
-            {"const": "S01:ZZZA-PR-011"}
+            {"const": "S11:YHZP-CH-014"}
           ],
           "items": false
         }
