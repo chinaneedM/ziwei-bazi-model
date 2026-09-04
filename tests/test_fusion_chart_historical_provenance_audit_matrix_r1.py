@@ -60,8 +60,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 12)
-        self.assertGreaterEqual(receipt["audited_row_count"], 121)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 13)
+        self.assertGreaterEqual(receipt["audited_row_count"], 127)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
@@ -132,6 +132,18 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("NO_EQUATION_OF_TIME_IS_ADDED", by_id["HPA-ZTIME-001"]["current_implementation_match"])
         self.assertIn("ASTRONOMICAL_DEFINITION_MATCH", by_id["HPA-ZTIME-002"]["current_implementation_match"])
         self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+
+    def test_batch_08d_date_index_and_late_zi_are_separate_axes(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        expected = {f"HPA-ZDATE-{index:03d}" for index in range(1, 6)}
+        self.assertTrue(expected.issubset(by_id))
+        self.assertEqual(by_id["HPA-TIME-009"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        self.assertEqual(by_id["HPA-ZDATE-001"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertEqual(by_id["HPA-ZDATE-002"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertEqual(by_id["HPA-ZDATE-003"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        self.assertEqual(by_id["HPA-ZDATE-004"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertIn("Jielan", by_id["HPA-TIME-009"]["proposed_action"])
+        self.assertIn("INDEPENDENCE_TESTED", by_id["HPA-ZDATE-005"]["current_implementation_match"])
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

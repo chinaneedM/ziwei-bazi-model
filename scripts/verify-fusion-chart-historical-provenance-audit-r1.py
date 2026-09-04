@@ -71,6 +71,10 @@ def main() -> int:
         raise SystemExit("Batch 08C USNO solar-time witness is missing")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
+    if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
+        raise SystemExit("Batch 08D late-Zi dispute witness is missing")
+    if by_source_id.get("EXT-XUANMEN-LINGDONGLAI-LATE-ZI") is None:
+        raise SystemExit("Batch 08D late-Zi practice witness is missing")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -131,7 +135,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 121:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 127:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -148,6 +152,8 @@ def main() -> int:
         raise SystemExit("Batch 08B Ziwei temporal-frame audit is missing")
     if "BATCH-08-ZIWEI-TIME-STANDARDS-C" not in batches:
         raise SystemExit("Batch 08C Ziwei time-standard audit is missing")
+    if "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D" not in batches:
+        raise SystemExit("Batch 08D Ziwei calendar-date/day-boundary audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -176,6 +182,14 @@ def main() -> int:
         raise SystemExit("Luoyang time standard lost school-specific scope")
     if time_by_id["HPA-ZTIME-002"]["audit_status"]!="MODERN_COMPATIBILITY_ONLY":
         raise SystemExit("local apparent solar time was incorrectly upgraded to historical authority")
+    date_child_ids={f"HPA-ZDATE-{index:03d}" for index in range(1,6)}
+    if not date_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 08D Ziwei date-boundary child rows are incomplete")
+    date_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-ZDATE-")}
+    if date_by_id["HPA-ZDATE-003"]["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
+        raise SystemExit("Ziwei 23:00 rollover was incorrectly upgraded to historical winner")
+    if next(row for row in rows if row["rule_id"]=="HPA-TIME-009")["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
+        raise SystemExit("Ziwei effective calendar-date parent lost candidate dispute")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
