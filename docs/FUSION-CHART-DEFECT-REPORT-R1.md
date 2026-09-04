@@ -29,6 +29,14 @@ No acceptance failure has yet produced evidence sufficient to classify a determi
 
 The first packaged performance receipt is retained as calibration evidence but is not accepted as the formal R1 performance baseline.
 
+### ACC-R1-ORACLE-003 — full-soak tracemalloc caused runner timeout
+
+- Classification: `TEST_ORACLE_DEFECT`
+- Evidence: workflow `33862724150`, soak job `100990609290`, ran from 10:20:27Z until the 60-minute hard timeout at 11:20:22Z. The job was cancelled without an engine exception or integrity failure, and the original script had not yet written its final receipt.
+- Root cause: the soak kept Python `tracemalloc` active across all 1,000 HTTP Combined resolutions plus periodic Target Flow/Fusion R2 probes. Earlier performance calibration already established that `tracemalloc` materially inflates CPU-heavy chart latency, so the timeout is a measurement-design artifact rather than evidence of a deterministic chart defect.
+- Disposition: keep the 1,000-iteration HTTP soak and periodic Target Flow/Fusion R2 probes, but move the long loop to low-overhead RSS/thread/fd checkpoints, run `tracemalloc` only in a bounded memory probe, and checkpoint the receipt every 100 iterations.
+- Algorithm reopen: **No**.
+
 ## Required classifications
 
 | Classification | Meaning | May reopen algorithm? |
