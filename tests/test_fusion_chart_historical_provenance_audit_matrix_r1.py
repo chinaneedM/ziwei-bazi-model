@@ -60,14 +60,14 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 10)
-        self.assertGreaterEqual(receipt["audited_row_count"], 107)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 11)
+        self.assertGreaterEqual(receipt["audited_row_count"], 118)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 1)
         self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 1)
-        self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 6)
+        self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 8)
 
     def test_batch_07b_early_print_minor_rows_are_closed_without_reopen(self) -> None:
         expected = {f"HPA-ZMINOR-{index:03d}" for index in range(9, 20)}
@@ -111,6 +111,18 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn('authority_status="S01_STRICT_PROJECT_CORPUS_METHOD"', source)
         self.assertIn('TEMPORAL_KUI_YUE_ALGORITHM_VERSION = "1.0.1"', source)
         self.assertIn('TEMPORAL_AUXILIARY_CANDIDATE_SET_HASH_VERSION = "1.2.0"', source)
+
+    def test_batch_08b_temporal_philology_preserves_distinct_mechanics(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        expected = {f"HPA-ZTEMP-{index:03d}" for index in range(1, 7)}
+        self.assertTrue(expected.issubset(by_id))
+        for rule_id in ("HPA-ZTEMP-001", "HPA-ZTEMP-002", "HPA-ZTEMP-003"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertEqual(by_id["HPA-ZTEMP-004"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZTEMP-005"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(by_id["HPA-ZTEMP-006"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

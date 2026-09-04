@@ -61,6 +61,12 @@ def main() -> int:
         raise SystemExit("Wang Tingzhi library witness role mismatch")
     if wang.get("isbn")!="978-7-309-09665-1" or uibe.get("isbn")!="978-7-309-09665-1":
         raise SystemExit("Wang Tingzhi edition ISBN mismatch")
+    if by_source_id.get("EXT-CTEXT-WUXING-JINGJI-V28") is None:
+        raise SystemExit("Batch 08B Five-Tigers witness is missing")
+    if by_source_id.get("EXT-WANGTINGZHI-ZHONGZHOU-CHUJI") is None:
+        raise SystemExit("Batch 08B Zhongzhou temporal witness is missing")
+    if by_source_id.get("EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI") is None:
+        raise SystemExit("Batch 08B Zhongzhou bibliographic witness is missing")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -112,7 +118,7 @@ def main() -> int:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
     if audit_summary.get("historical_candidate_registry_count", 0) < 1:
         raise SystemExit("historical candidate registry is missing")
-    if audit_summary.get("identified_missing_candidate_family_count", 0) < 6:
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 8:
         raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
@@ -121,7 +127,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 107:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 118:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -134,6 +140,8 @@ def main() -> int:
         raise SystemExit("Batch 07C Ziwei minor-star source-gap closure is missing")
     if "BATCH-08-ZIWEI-DYNAMIC-AUXILIARIES-A" not in batches:
         raise SystemExit("Batch 08A Ziwei dynamic auxiliary audit is missing")
+    if "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B" not in batches:
+        raise SystemExit("Batch 08B Ziwei temporal-frame audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -146,6 +154,14 @@ def main() -> int:
     kui_yue_parent=next((row for row in rows if row["rule_id"]=="HPA-ZT-011"), None)
     if kui_yue_parent is None or kui_yue_parent.get("defect_id")!="PROV-DEFECT-007":
         raise SystemExit("Batch 08A Kui/Yue provenance-label repair is missing")
+    temporal_child_ids={f"HPA-ZTEMP-{index:03d}" for index in range(1,7)}
+    if not temporal_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 08B temporal-frame child rows are incomplete")
+    temporal_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-ZTEMP-")}
+    if temporal_by_id["HPA-ZTEMP-004"]["audit_status"]!="MISSING_FROM_PRODUCT":
+        raise SystemExit("1581 day-anchored flow-hour product gap was not preserved")
+    if temporal_by_id["HPA-ZTEMP-006"]["audit_status"]!="MISSING_FROM_PRODUCT":
+        raise SystemExit("Zhongzhou leap-month product gap was not preserved")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
