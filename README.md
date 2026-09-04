@@ -234,6 +234,6 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 
 初版矩阵只建立审计账本，不重开任何已 CLOSED 的确定性算法。只有明确的一手/高质量历史证据与可复现实现不一致同时成立，才允许对对应 rule/profile 做局部 forward-only reopen。机器可读矩阵、人工说明和门禁分别见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json`、`docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md` 与 `scripts/verify-fusion-chart-historical-provenance-audit-r1.py`。
 
-截至 Batch 08B，Matrix 已扩展到 159 个 rule/field families，其中 118 行完成实审；provenance metadata defects 仍为 7/7 已修复，chart algorithm defect 仍为 0，algorithm reopen 仍为 0。Batch 08B 正式把训诂纳入历史审计：不同措辞只有在语境、句法、层级与机械结果一致时才归并；同词若机械结果不同则拆开。1581《捷览》的流年太岁宫、五虎遁月干支、流日“月上起初一”已闭合；“日上起子时”作为流日宫锚定的流时候选与中州派“命盘子垣起子时”固定支宫案例法分开保留。中州派闰月“前十五属上月、后半属下月、流日不断”已从 SOURCE_INSUFFICIENT 升级为 source-closed MISSING_FROM_PRODUCT candidate。Batch 08B 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-TEMPORAL-FRAMES-B.md`。
+截至 Batch 08C，Matrix 已扩展到 161 个 rule/field families，其中 121 行完成实审；provenance defects 仍为 7/7 已修复，chart algorithm defect=0，algorithm reopen=0。08C 按训诂与天文定义拆开“洛阳中州时 / 平太阳时 / 真太阳时”：王亭之中州派洛阳时属于 school-scoped mean-solar longitude standard；地方真太阳时则是经度地方平太阳时再加均时差的现代视太阳时实现，天文公式本身正确，但不能由此倒推出“古代紫微统一采用”。两个时间标准继续并列，也不替流时宫位候选选赢家。Batch 08C 见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-TIME-STANDARDS-C.md`。
 
 为避免长对话触发上下文限制导致工作断层，仓库现建立固定跨对话机制：`docs/PROJECT-CONTINUITY-PROTOCOL-R1.md` 定义新对话启动顺序，`docs/PROJECT-CURRENT-STATE-R1.json` 保存机器可读当前阶段/批次/计数/下一工作重点，`scripts/verify-project-continuity-state-r1.py` 在 CI 中强制校验它与 Historical Audit Matrix 一致。新对话不再依赖旧聊天总结或旧 SHA，只需先读取 GitHub 远端最新 HEAD，再按该协议恢复工作。
