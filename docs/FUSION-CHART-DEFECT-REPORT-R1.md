@@ -11,6 +11,24 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 
 No acceptance failure has yet produced evidence sufficient to classify a deterministic chart rule as an `IMPLEMENTATION_DEFECT`.
 
+## Acceptance tooling defects
+
+### ACC-R1-ORACLE-001 — latency probe contaminated by tracemalloc
+
+- Classification: `TEST_ORACLE_DEFECT`
+- Evidence: packaged Windows receipt from workflow `33862090610` showed operation latency measured while Python `tracemalloc` was active.
+- Disposition: latency and memory probes are now separated; the memory probe is excluded from latency samples.
+- Algorithm reopen: **No**.
+
+### ACC-R1-ORACLE-002 — post-exit Windows working-set sample returned zero
+
+- Classification: `TEST_ORACLE_DEFECT`
+- Evidence: the same receipt recorded `process_peak_working_set_bytes=0` and zero cold-start working-set samples, which is not a physically meaningful process-memory baseline.
+- Disposition: the workflow now polls `WorkingSet64` while the EXE is alive and keeps the observed maximum.
+- Algorithm reopen: **No**.
+
+The first packaged performance receipt is retained as calibration evidence but is not accepted as the formal R1 performance baseline.
+
 ## Required classifications
 
 | Classification | Meaning | May reopen algorithm? |

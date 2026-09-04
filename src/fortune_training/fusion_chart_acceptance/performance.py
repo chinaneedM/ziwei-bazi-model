@@ -24,18 +24,25 @@ def _measure_callable(
         raise ValueError("iterations must be positive")
     for _ in range(warmups):
         operation()
-    gc.collect()
-    tracemalloc.start()
+    # Latency and memory are measured in separate phases.  Running tracemalloc
+    # during latency samples materially distorts this CPU-heavy pure-Python
+    # workload and therefore is a test-oracle defect, not a product metric.
     durations: list[float] = []
     for _ in range(iterations):
         started = time.perf_counter()
         operation()
         durations.append((time.perf_counter() - started) * 1000.0)
+
+    gc.collect()
+    tracemalloc.start()
+    operation()
     _, peak = tracemalloc.get_traced_memory()
     tracemalloc.stop()
     return {
         **summarize_latencies_ms(durations).as_dict(),
         "tracemalloc_peak_bytes": peak,
+        "memory_probe_iterations": 1,
+        "memory_probe_excluded_from_latency": True,
     }
 
 

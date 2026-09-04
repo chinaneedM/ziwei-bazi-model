@@ -77,28 +77,45 @@ jobs:
           $receiptRoot = Join-Path (Resolve-Path 'dist').Path 'performance-acceptance'
           New-Item -ItemType Directory -Force -Path $receiptRoot | Out-Null
 
+          function Invoke-MonitoredProcess([string]$FilePath, [object[]]$ArgumentList) {
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -PassThru
+            $peakWorkingSet = [int64]0
+            while (-not $process.HasExited) {
+              $process.Refresh()
+              $workingSet = [int64]$process.WorkingSet64
+              if ($workingSet -gt $peakWorkingSet) { $peakWorkingSet = $workingSet }
+              Start-Sleep -Milliseconds 25
+            }
+            $process.WaitForExit()
+            $timer.Stop()
+            return [pscustomobject]@{
+              ExitCode = $process.ExitCode
+              ElapsedMilliseconds = [double]$timer.Elapsed.TotalMilliseconds
+              PeakWorkingSetBytes = $peakWorkingSet
+            }
+          }
+
           $cold = @()
           $coldPeak = @()
           1..3 | ForEach-Object {
             $readyReceipt = Join-Path $receiptRoot "windows-ready-$_.json"
-            $timer = [System.Diagnostics.Stopwatch]::StartNew()
-            $process = Start-Process -FilePath $exe -ArgumentList @('--platform-ready-receipt', $readyReceipt) -Wait -PassThru
-            $timer.Stop()
-            if ($process.ExitCode -ne 0) { throw "ready probe failed: $($process.ExitCode)" }
+            $probe = Invoke-MonitoredProcess $exe @('--platform-ready-receipt', $readyReceipt)
+            if ($probe.ExitCode -ne 0) { throw "ready probe failed: $($probe.ExitCode)" }
             $ready = Get-Content $readyReceipt -Raw | ConvertFrom-Json
             if ($ready.status -ne 'PASS' -or $ready.source_commit -ne $env:GITHUB_SHA.ToLowerInvariant()) {
               throw 'ready receipt identity mismatch'
             }
-            $cold += [double]$timer.Elapsed.TotalMilliseconds
-            $coldPeak += [int64]$process.PeakWorkingSet64
+            $cold += [double]$probe.ElapsedMilliseconds
+            $coldPeak += [int64]$probe.PeakWorkingSetBytes
           }
 
           $performanceReceipt = Join-Path $receiptRoot 'windows-packaged-performance.json'
-          $process = Start-Process -FilePath $exe -ArgumentList @(
+          $probe = Invoke-MonitoredProcess $exe @(
             '--platform-performance-receipt', $performanceReceipt,
             '--platform-performance-iterations', '5'
-          ) -Wait -PassThru
-          if ($process.ExitCode -ne 0) { throw "packaged performance probe failed: $($process.ExitCode)" }
+          )
+          if ($probe.ExitCode -ne 0) { throw "packaged performance probe failed: $($probe.ExitCode)" }
           $payload = Get-Content $performanceReceipt -Raw | ConvertFrom-Json
           if ($payload.schema -ne 'FORTUNE-CHART-WINDOWS-BINARY-PERFORMANCE-R1' -or $payload.status -ne 'PASS') {
             throw 'packaged performance receipt mismatch'
@@ -119,7 +136,7 @@ jobs:
             peak_working_set_samples_bytes = $coldPeak
           }
           $payload | Add-Member -NotePropertyName cold_start_process -NotePropertyValue $coldSummary
-          $payload | Add-Member -NotePropertyName process_peak_working_set_bytes -NotePropertyValue ([int64]$process.PeakWorkingSet64)
+          $payload | Add-Member -NotePropertyName process_peak_working_set_bytes -NotePropertyValue ([int64]$probe.PeakWorkingSetBytes)
           $payload | ConvertTo-Json -Depth 20 | Set-Content -Path $performanceReceipt -Encoding utf8
       - name: Upload packaged performance receipt
         if: always()
