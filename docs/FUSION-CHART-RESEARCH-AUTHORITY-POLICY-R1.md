@@ -161,3 +161,45 @@ For historical/provenance work, use:
 
 This policy supersedes earlier wording that could imply S00–S19 were
 infallible or uniquely authoritative for historical chart rules.
+
+## 8. Philology / 训诂 and terminology normalization
+
+Historical chart research must include philological interpretation before
+mechanical rule extraction.
+
+The same mechanical concept can be written with different vocabulary across
+editions, periods or schools. Conversely, the same written term can carry
+different technical meanings in different contexts. Therefore rule matching
+must not rely on surface-string equality alone.
+
+For every materially chart-affecting passage, distinguish:
+
+1. **字词形态** — variant glyphs, traditional/simplified forms, scribal or
+   editorial variants, aliases and historical spellings;
+2. **训诂义** — what the word or phrase means in that edition and sentence,
+   not what a modern software label happens to call it;
+3. **句法角色** — anchor, direction, count, inclusion/exclusion, temporal
+   layer, subject and object;
+4. **mechanical concept identity** — whether differently worded passages
+   actually describe the same algorithm;
+5. **homonym separation** — whether identical names belong to different
+   systems, stars, rings, calendar deities or rule families;
+6. **school transmission** — whether later wording is a renamed inheritance,
+   a scoped extension, or a genuinely different method.
+
+Examples of terms requiring contextual normalization include `垣/宫`,
+`岁建/太岁`, `运马/流马`, `起/从/加`, `月上/日上`, and historical
+`杀/煞` spellings.
+
+Allowed conclusion patterns include:
+
+- `DIFFERENT_WORDING_SAME_MECHANICAL_RULE`;
+- `SAME_TERM_DIFFERENT_TECHNICAL_CONCEPT`;
+- `NORMALIZED_LABEL_WITH_EXPLICIT_HISTORICAL_NAME_BRIDGE`;
+- `PHILOLOGICALLY_AMBIGUOUS_PRESERVE_CANDIDATES`.
+
+训诂 is evidence interpretation, not evidence invention. If two readings are
+both grammatically and historically viable and imply different coordinates,
+preserve them as competing candidates until stronger evidence closes the
+reading.
+

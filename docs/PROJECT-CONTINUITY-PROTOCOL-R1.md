@@ -103,6 +103,23 @@ A future chat must not infer “S01 says X, therefore X is historically correct.
 It must inspect the underlying source identity and, when material, seek outside
 bibliographic/textual corroboration.
 
+
+## Philological continuity rule
+
+Every new research session must preserve the project's 训诂 layer:
+
+```text
+surface wording != mechanical identity
+different wording may encode the same rule
+same wording may encode different concepts
+philological ambiguity => preserve candidates, do not force a winner
+```
+
+When comparing historical passages, the session must normalize terminology only
+after checking edition context, syntax, temporal layer and school usage. Any
+normalization bridge that affects rule identity should be recorded in the
+Matrix or batch document so a future chat can reproduce the interpretation.
+
 ## Historical audit continuation rule
 
 For each batch:

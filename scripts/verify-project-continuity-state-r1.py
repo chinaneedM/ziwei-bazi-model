@@ -46,6 +46,12 @@ def main() -> int:
         fail("canonical path is being conflated with epistemic truth")
     if authority.get("modern_software_status") != "COMPATIBILITY_WITNESS_ONLY":
         fail("modern software authority classification regressed")
+    if authority.get("philology_required") is not True:
+        fail("philological interpretation requirement regressed")
+    if authority.get("terminology_normalization_policy") != "CONTEXTUAL_PHILOLOGY_BEFORE_MECHANICAL_RULE_IDENTITY":
+        fail("terminology normalization policy regressed")
+    if authority.get("homonym_policy") != "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM":
+        fail("historical homonym separation policy regressed")
 
     matrix_policy = matrix.get("canonical_source_policy", "")
     if "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY" not in matrix_policy:
@@ -110,6 +116,13 @@ def main() -> int:
     for fragment in required_bootstrap_fragments:
         if fragment not in joined:
             fail(f"new-chat bootstrap order missing required step: {fragment}")
+
+    authority_text = AUTHORITY.read_text(encoding="utf-8")
+    protocol_text = PROTOCOL.read_text(encoding="utf-8")
+    if "Philology / 训诂" not in authority_text or "PHILOLOGICALLY_AMBIGUOUS_PRESERVE_CANDIDATES" not in authority_text:
+        fail("research authority policy lost its philology/训诂 method")
+    if "Philological continuity rule" not in protocol_text:
+        fail("continuity protocol lost philological continuity rule")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

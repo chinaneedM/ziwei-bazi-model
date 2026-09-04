@@ -15,7 +15,11 @@
     "primary_source_preference": "EDITION_SCOPED_PRIMARY_OR_NEAR_PRIMARY_TEXTUAL_WITNESS",
     "modern_software_status": "COMPATIBILITY_WITNESS_ONLY",
     "disputed_methods": "PRESERVE_SEPARATE_CANDIDATES_UNLESS_EXPLICITLY_GOVERNED",
-    "external_research_required_when_material": true
+    "external_research_required_when_material": true,
+    "philology_required": true,
+    "terminology_normalization_policy": "CONTEXTUAL_PHILOLOGY_BEFORE_MECHANICAL_RULE_IDENTITY",
+    "homonym_policy": "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM",
+    "synonym_policy": "DIFFERENT_WORDING_MAY_MAP_TO_SAME_MECHANICAL_CONCEPT_WITH_EXPLICIT_BRIDGE"
   },
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -82,7 +86,8 @@
     "re-read live remote before every new work session",
     "do not reopen deterministic algorithms from reference-software disagreement alone",
     "do not treat S00-S19 wording as automatically correct",
-    "do not select a winner for a genuinely disputed school rule merely to simplify output"
+    "do not select a winner for a genuinely disputed school rule merely to simplify output",
+    "apply contextual philology before equating or separating historical rule terminology"
   ],
   "continuity_contract": {
     "protocol_doc": "docs/PROJECT-CONTINUITY-PROTOCOL-R1.md",
