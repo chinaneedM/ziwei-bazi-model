@@ -85,6 +85,10 @@ def main() -> int:
         raise SystemExit("known provenance metadata defects are missing")
     if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 3:
         raise SystemExit("known provenance metadata repairs are missing")
+    if audit_summary.get("historical_candidate_registry_count", 0) < 1:
+        raise SystemExit("historical candidate registry is missing")
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 5:
+        raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
@@ -112,6 +116,8 @@ def main() -> int:
         "confirmed_chart_algorithm_defect_count":audit_summary.get("confirmed_chart_algorithm_defect_count"),
         "confirmed_provenance_metadata_defect_count":audit_summary.get("confirmed_provenance_metadata_defect_count"),
         "repaired_provenance_metadata_defect_count":audit_summary.get("repaired_provenance_metadata_defect_count"),
+        "historical_candidate_registry_count":audit_summary.get("historical_candidate_registry_count"),
+        "identified_missing_candidate_family_count":audit_summary.get("identified_missing_candidate_family_count"),
     }, ensure_ascii=False, sort_keys=True))
     return 0
 
