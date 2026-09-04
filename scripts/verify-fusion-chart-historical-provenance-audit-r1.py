@@ -18,7 +18,7 @@ ALLOWED = {
 }
 REQUIRED_MODULES = {
     "Time / Calendar","四柱本命","八字派生字段","大运","小运","神煞","八字动态时限",
-    "紫微本命","十二宫","主星","辅星","杂曜","四化","庙旺落陷","流年","流月",
+    "紫微本命","十二宫","主星","辅星","杂曜","四化","庙旺落陷","大限","小限","流年","流月",
     "流日","流时","动态辅助星","Structural R1–R8","Combined Fusion",
     "candidate/profile rules","provenance / hashes / lineage",
 }
@@ -69,6 +69,15 @@ def main() -> int:
     summary=data.get("inventory_summary",{})
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
+    actual_status_counts={}
+    actual_module_counts={}
+    for row in rows:
+        actual_status_counts[row["audit_status"]]=actual_status_counts.get(row["audit_status"],0)+1
+        actual_module_counts[row["module"]]=actual_module_counts.get(row["module"],0)+1
+    if summary.get("status_counts")!=actual_status_counts:
+        raise SystemExit("inventory status_counts mismatch")
+    if summary.get("module_counts")!=actual_module_counts:
+        raise SystemExit("inventory module_counts mismatch")
     print(json.dumps({
         "schema":"FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-R1-MACHINE-GATE",
         "status":"PASS",

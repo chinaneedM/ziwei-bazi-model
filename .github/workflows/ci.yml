@@ -27,6 +27,10 @@ jobs:
         run: python scripts/verify-fusion-chart-product-r1.py
       - name: Fusion Chart Capability & Performance R1 machine gate
         run: python scripts/verify-fusion-chart-capability-performance-r1.py
+      - name: Fusion Chart Historical Provenance Audit R1 machine gate
+        run: python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+      - name: Focused historical provenance audit tests
+        run: python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v

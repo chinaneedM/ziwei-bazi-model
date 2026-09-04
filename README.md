@@ -219,3 +219,17 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 Fusion Chart Capability & Performance Acceptance R1 已正式收口。最终执行证据绑定 source SHA `0b20a9cf6e058f096582e09b72142077399e1ac3` 与 workflow `33867682199`：Golden/Temporal/Reference focused acceptance、source performance、Windows 最终 EXE performance、10,000 固定种子随机 deterministic replay 以及 1,000 次 HTTP/Target Flow/Fusion R2 soak 全部 PASS；10k 结果为 deterministic mismatch=0、invariant failure=0、execution error=0。100k 因实测并行投影约 8,875 秒超过预设 3,600 秒预算而按规则 skipped，不属于失败。reference implementation 的差异不能直接触发算法修改；本轮确认的 implementation defect=0、algorithm reopen=0。
 
 验收总说明见 `docs/FUSION-CHART-CAPABILITY-PERFORMANCE-ACCEPTANCE-R1.md`，机器可读 capability matrix 见 `docs/FUSION-CHART-CAPABILITY-MATRIX-R1.json`，性能基线和 defect ledger 分别见 `docs/FUSION-CHART-PERFORMANCE-BASELINE-R1.md` 与 `docs/FUSION-CHART-DEFECT-REPORT-R1.md`。
+
+
+## Fusion Chart Historical Provenance & School Audit R1
+
+```text
+FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
+HISTORICAL_PROVENANCE_INVENTORY=COMPLETE
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
+```
+
+第一版确定性融合排盘已经进入规则历史考据与流派审计阶段。当前先建立全量 Historical Provenance Audit Matrix，逐项绑定当前实现、Profile、主要来源、原文位置、时代/版本、后续见证、流派归属、竞争方法、实现一致性与处置状态。S00–S19 仍是仓库主要 canonical corpus，但不会因为进入 canonical corpus 就自动被视为唯一历史答案；文墨天机与问真八字继续只作为现代实现/兼容性 witness。
+
+初版矩阵只建立审计账本，不重开任何已 CLOSED 的确定性算法。只有明确的一手/高质量历史证据与可复现实现不一致同时成立，才允许对对应 rule/profile 做局部 forward-only reopen。机器可读矩阵、人工说明和门禁分别见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json`、`docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md` 与 `scripts/verify-fusion-chart-historical-provenance-audit-r1.py`。
