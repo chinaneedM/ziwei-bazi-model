@@ -43,13 +43,13 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 119,
+    "row_count": 127,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 18,
       "IMPLEMENTATION_REVIEW_REQUIRED": 27,
-      "DISPUTED_MULTIPLE_CANDIDATES": 23,
+      "DISPUTED_MULTIPLE_CANDIDATES": 25,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 5,
-      "HISTORICALLY_SUPPORTED": 38,
+      "HISTORICALLY_SUPPORTED": 44,
       "SOURCE_INSUFFICIENT": 2,
       "NOT_YET_FORMALIZED": 1,
       "MISSING_FROM_PRODUCT": 5
@@ -66,7 +66,7 @@
       "十二宫": 4,
       "主星": 2,
       "辅星": 4,
-      "杂曜": 2,
+      "杂曜": 10,
       "庙旺落陷": 2,
       "四化": 3,
       "大限": 3,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 69
+    "audited_row_count": 77
   },
   "rows": [
     {
@@ -1669,10 +1669,10 @@
         "sex-dependent TianShang/TianShi family",
         "minor-star route variants"
       ],
-      "current_implementation_match": "R4_FIXED_TIANSHANG_TIANSHI_MATCH_1581_EXACTLY; REMAINING_MINOR_FAMILIES_STILL_MIX_SOURCE_AND_COMPATIBILITY",
+      "current_implementation_match": "PARTIALLY_DECOMPOSED: HPA-ZMINOR-001..008 AUDITED; REMAINING_MINOR_FAMILIES_STILL_MIX_SOURCE_AND_COMPATIBILITY",
       "confidence": "HIGH_FOR_TIANSHANG_TIANSHI_MEDIUM_FOR_WHOLE_MINOR_SET",
       "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Keep R4 fixed TianShang/TianShi; split remaining minor-star families into separate historical rows.",
+      "proposed_action": "Continue child-row decomposition in Batch 07B; do not assign one historical verdict to the whole R4 bundle.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-04-ZIWEI-EARLY-PRINT-CORE"
     },
@@ -2758,6 +2758,186 @@
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
       "proposed_action": "No reopen; correct provenance interpretation so WENMO_DEFAULT name is not mistaken for historical origin."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-001",
+      "rule_or_field": "天哭 / 天虚 birth-year-branch geometry",
+      "current_implementation": "午宫起子；天哭逆数年支，天虚顺数年支。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "天哭天虚起午宫，午宫起子两分踪。哭逆巳兮虚顺未，数到生年便居中。",
+      "source_quote_location": "S01:ZZQS-A-1886; S01:ZZQS-A-1887",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized route ZZZZA-PR-028 preserves the same geometry.",
+      "school_attribution": "RECEIVED_FULLBOOK_YEAR_BRANCH_MINOR_STAR_GEOMETRY",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_GEOMETRY_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; retain direct ZZQS atoms as historical authority."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-002",
+      "rule_or_field": "红鸾 / 天喜 birth-year-branch geometry",
+      "current_implementation": "卯宫起子逆数年支安红鸾；对宫安天喜。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "卯上起子逆数之，数到当生太岁支。坐守此宫红鸾位，对宫天喜不差移。",
+      "source_quote_location": "S01:ZZQS-A-1918; S01:ZZQS-A-1919",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized route ZZZZA-PR-029 preserves the same geometry.",
+      "school_attribution": "RECEIVED_FULLBOOK_YEAR_BRANCH_MINOR_STAR_GEOMETRY",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_GEOMETRY_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-003",
+      "rule_or_field": "龙池 / 凤阁 birth-year-branch geometry",
+      "current_implementation": "子年龙池辰起顺行；凤阁戌起逆行。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "龙池子顺辰，凤阁子戌逆。",
+      "source_quote_location": "S01:ZZQS-A-1893",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized routes ZZZZA-PR-043/044 preserve the same geometry.",
+      "school_attribution": "RECEIVED_FULLBOOK_YEAR_BRANCH_MINOR_STAR_GEOMETRY",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_GEOMETRY_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-004",
+      "rule_or_field": "台辅 / 封诰 birth-hour geometry",
+      "current_implementation": "台辅午宫起子顺数生时；封诰寅宫起子顺数生时。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "从午宫起子，顺数至本生时安之。 / 从寅宫起子，顺数至本生时安之。",
+      "source_quote_location": "S01:ZZQS-A-1899; S01:ZZQS-A-1905",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "Modern normalized route ZZZZA-PR-045 expresses the same relationship through WenQu offsets.",
+      "school_attribution": "RECEIVED_FULLBOOK_HOUR_MINOR_STAR_GEOMETRY",
+      "competing_methods": [
+        "direct hour anchors vs equivalent WenQu-relative formulation"
+      ],
+      "current_implementation_match": "DIRECT_ANCHOR_RUNTIME_MATCHES_RECEIVED_TEXT",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; prefer direct hour anchors in provenance."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-005",
+      "rule_or_field": "天刑 / 天姚 lunar-month geometry",
+      "current_implementation": "天刑酉起正月顺数生月；天姚丑起正月顺数生月。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "天刑星从酉上起正月，顺至本生月安之。天姚从丑上起正月，顺至本生月安之。",
+      "source_quote_location": "S01:ZZQS-A-1872; S01:ZZQS-A-1873",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized route ZZZZA-PR-046 preserves the same ordinary-month geometry.",
+      "school_attribution": "RECEIVED_FULLBOOK_MONTH_MINOR_STAR_GEOMETRY",
+      "competing_methods": [
+        "leap-month coordinate policies remain separately profile-scoped"
+      ],
+      "current_implementation_match": "EXACT_ORDINARY_MONTH_GEOMETRY_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No base-rule reopen; keep leap-month coordinate policy separate."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-006",
+      "rule_or_field": "天德 + year-based 解神 geometry (modern 年解 display)",
+      "current_implementation": "子年天德酉起顺行；年解戌起逆行。",
+      "primary_source": "S01 frozen received Fullbook",
+      "source_quote": "天德星从酉上起子，顺数至流年太岁上是也。解神从戌上起子，逆数至当生年太岁上是也。",
+      "source_quote_location": "S01:ZZQS-A-1943; S01:ZZQS-A-1945",
+      "historical_period": "RECEIVED_FULLBOOK_TEXT_TRADITION",
+      "later_witnesses": "S01 normalized routes ZZZZA-PR-039/040 distinguish the year-based 解神 as modern 年解 to avoid collision with a separate month 解神/月解 rule.",
+      "school_attribution": "RECEIVED_FULLBOOK_YEAR_BRANCH_GEOMETRY_WITH_MODERN_LABEL_DISAMBIGUATION",
+      "competing_methods": [
+        "S01 normalized conflict notes preserve alternate textual/table statements for 天德/年解; direct received QQS geometry matches the selected coordinates."
+      ],
+      "current_implementation_match": "GEOMETRY_MATCHES_DIRECT_RECEIVED_TEXT; DISPLAY_NAME 年解 IS A MODERN_DISAMBIGUATION_LABEL",
+      "confidence": "HIGH_FOR_GEOMETRY_MEDIUM_FOR_LATER_NAME_STANDARDIZATION",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No coordinate reopen; keep the historical 解神 -> modern 年解 naming bridge explicit."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-007",
+      "rule_or_field": "天厨 stem table competing source families",
+      "current_implementation": "Operational table: 甲丁巳、乙戊辛午、丙子、己申、庚寅、壬酉、癸亥。",
+      "primary_source": "S01 normalized route ZZZZA-PR-023; direct competing tables require edition-bound extraction",
+      "source_quote": "甲丁巳、乙戊辛午、丙子、己申、庚寅、壬酉、癸亥；标记与全书异表。",
+      "source_quote_location": "S01:ZZZA-PR-023; src/fortune_training/ziwei_chart/minor_stars.py:TIANCHU_BY_STEM",
+      "historical_period": "MULTIPLE_RECEIVED_AND_LATER_TABLE_FAMILIES_PENDING_EDITION_COLLATION",
+      "later_witnesses": "Wenmo compatibility selects the currently operational table.",
+      "school_attribution": "CURRENT_WENMO_ZHONGZHOU_COMPATIBILITY_TABLE_VS_FULLBOOK_VARIANT",
+      "competing_methods": [
+        "current stem table",
+        "Fullbook variant table pending verbatim extraction"
+      ],
+      "current_implementation_match": "MATCHES_SELECTED_COMPATIBILITY_TABLE; UNIQUE_HISTORICAL_WINNER_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_EXISTENCE_OF_TABLE_CONFLICT",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Extract and edition-bind both TianChu tables; preserve candidates and do not collapse to the operational winner."
+    },
+    {
+      "system": "ZIWEI",
+      "module": "杂曜",
+      "current_profile": "WENMO_DEFAULT_MINOR_R4_RULE_SET@2.0.0 inside ZIWEI-CHART-ENGINE-V1",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-07-ZIWEI-MINOR-STARS-A",
+      "rule_id": "HPA-ZMINOR-008",
+      "rule_or_field": "天寿 Body/Life basis conflict",
+      "current_implementation": "R4 uses Body palace as 子位 and advances by birth-year branch; Wenmo fixture selects Body basis.",
+      "primary_source": "S01 normalized route ZZZZA-PR-042 plus frozen Wenmo discriminator",
+      "source_quote": "身宫所在地支作为子位，顺布十二支至生年支；来源正文/表头基础字段冲突需保留。",
+      "source_quote_location": "S01:ZZZA-PR-042; src/fortune_training/ziwei_chart/minor_stars_r4.py",
+      "historical_period": "SOURCE_CONFLICT_PRESERVED; HISTORICAL_EDITION_BINDING_PENDING",
+      "later_witnesses": "COMPAT:WENMO-TIANSHOU-BODY-BASIS selects Body-basis operational behavior.",
+      "school_attribution": "SOURCE_BASIS_CONFLICT_WITH_MODERN_COMPATIBILITY_SELECTION",
+      "competing_methods": [
+        "Body-palace basis",
+        "competing source/table-header basis pending extraction"
+      ],
+      "current_implementation_match": "MATCHES_WENMO_SELECTED_BODY_BASIS; UNIQUE_CLASSICAL_WINNER_NOT_ESTABLISHED",
+      "confidence": "HIGH_FOR_OPERATIONAL_SELECTION_AND_EXISTENCE_OF_SOURCE_CONFLICT",
+      "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+      "proposed_action": "Preserve Body-basis production behavior but extract both source sides into versioned candidates before any historical winner claim."
     }
   ],
   "historical_research_batches": [
@@ -2766,7 +2946,8 @@
     "BATCH-03-BAZI-SHENSHA",
     "BATCH-04-ZIWEI-EARLY-PRINT-CORE",
     "BATCH-05-ZIWEI-ROLES-LIMITS-RINGS",
-    "BATCH-06-ZIWEI-NATAL-FOUNDATIONS"
+    "BATCH-06-ZIWEI-NATAL-FOUNDATIONS",
+    "BATCH-07-ZIWEI-MINOR-STARS-A"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -2837,7 +3018,15 @@
     "HPA-ZIWEI-002",
     "HPA-ZIWEI-003",
     "HPA-ZIWEI-004",
-    "HPA-ZIWEI-005"
+    "HPA-ZIWEI-005",
+    "HPA-ZMINOR-001",
+    "HPA-ZMINOR-002",
+    "HPA-ZMINOR-003",
+    "HPA-ZMINOR-004",
+    "HPA-ZMINOR-005",
+    "HPA-ZMINOR-006",
+    "HPA-ZMINOR-007",
+    "HPA-ZMINOR-008"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
