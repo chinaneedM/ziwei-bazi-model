@@ -60,8 +60,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 13)
-        self.assertGreaterEqual(receipt["audited_row_count"], 127)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 14)
+        self.assertGreaterEqual(receipt["audited_row_count"], 133)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
@@ -144,6 +144,17 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(by_id["HPA-ZDATE-004"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
         self.assertIn("Jielan", by_id["HPA-TIME-009"]["proposed_action"])
         self.assertIn("INDEPENDENCE_TESTED", by_id["HPA-ZDATE-005"]["current_implementation_match"])
+
+    def test_batch_09a_astronomy_and_bazi_doctrine_are_separate(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        expected = {f"HPA-BTIME-{index:03d}" for index in range(1, 5)}
+        self.assertTrue(expected.issubset(by_id))
+        self.assertEqual(by_id["HPA-TIME-005"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        self.assertEqual(by_id["HPA-TIME-006"]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertEqual(by_id["HPA-BTIME-001"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
+        for rule_id in ("HPA-BTIME-002", "HPA-BTIME-003", "HPA-BTIME-004"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
+        self.assertIn("HALF_OPEN_INSTANT_BOUNDARY_MATCH", by_id["HPA-BTIME-004"]["current_implementation_match"])
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")

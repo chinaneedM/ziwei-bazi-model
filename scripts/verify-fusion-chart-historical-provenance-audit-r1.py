@@ -75,6 +75,9 @@ def main() -> int:
         raise SystemExit("Batch 08D late-Zi dispute witness is missing")
     if by_source_id.get("EXT-XUANMEN-LINGDONGLAI-LATE-ZI") is None:
         raise SystemExit("Batch 08D late-Zi practice witness is missing")
+    for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 09A source witness missing: {source_id}")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -135,7 +138,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 127:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 133:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -154,6 +157,8 @@ def main() -> int:
         raise SystemExit("Batch 08C Ziwei time-standard audit is missing")
     if "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D" not in batches:
         raise SystemExit("Batch 08D Ziwei calendar-date/day-boundary audit is missing")
+    if "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A" not in batches:
+        raise SystemExit("Batch 09A solar-term/Bazi year-month audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -190,6 +195,15 @@ def main() -> int:
         raise SystemExit("Ziwei 23:00 rollover was incorrectly upgraded to historical winner")
     if next(row for row in rows if row["rule_id"]=="HPA-TIME-009")["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
         raise SystemExit("Ziwei effective calendar-date parent lost candidate dispute")
+    btime_child_ids={f"HPA-BTIME-{index:03d}" for index in range(1,5)}
+    if not btime_child_ids.issubset(set(ids)):
+        raise SystemExit("Batch 09A Bazi time child rows are incomplete")
+    btime_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-BTIME-")}
+    if btime_by_id["HPA-BTIME-001"]["audit_status"]!="MODERN_COMPATIBILITY_ONLY":
+        raise SystemExit("solar-term numerical realization was incorrectly upgraded to classical doctrine")
+    for rule_id in ("HPA-BTIME-002","HPA-BTIME-003","HPA-BTIME-004"):
+        if btime_by_id[rule_id]["audit_status"]!="HISTORICALLY_SUPPORTED":
+            raise SystemExit(f"historically supported Bazi time rule regressed: {rule_id}")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
