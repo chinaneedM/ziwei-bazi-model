@@ -38,6 +38,19 @@ def main() -> int:
     source_ids=[item.get("source_id") for item in source_registry.get("sources",())]
     if len(source_ids)!=len(set(source_ids)) or not source_ids:
         raise SystemExit("external historical source registry has invalid/duplicate IDs")
+    by_source_id={item.get("source_id"): item for item in source_registry["sources"]}
+    jielan=by_source_id.get("EXT-ZIWEI-JIELAN-1581")
+    shlib=by_source_id.get("EXT-SHANGHAI-LIB-JIELAN-1581")
+    if jielan is None or shlib is None:
+        raise SystemExit("Jielan 1581 historical/bibliographic source pair is missing")
+    if "EXT-SHANGHAI-LIB-JIELAN-1581" not in jielan.get("bibliographic_witnesses",()):
+        raise SystemExit("Jielan 1581 source is not bound to its library bibliographic witness")
+    if shlib.get("source_role")!="LIBRARY_CATALOG_BIBLIOGRAPHIC_WITNESS_FOR_JIELAN_1581_EDITION":
+        raise SystemExit("Jielan 1581 library witness role mismatch")
+    if shlib.get("catalog_identifier")!="子4051":
+        raise SystemExit("Jielan 1581 library catalog identifier mismatch")
+    if shlib.get("edition")!="明万历九年金陵书坊王洛川刻本":
+        raise SystemExit("Jielan 1581 library edition identity mismatch")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
