@@ -32,6 +32,7 @@ jobs:
           python -m unittest discover -s tests -p "test_fusion_chart_desktop_product_shell_r1.py" -v
           python -m unittest discover -s tests -p "test_combined_workbench_real_machine_calibration_r1.py" -v
           python -m unittest discover -s tests -p "test_real_machine_calibration_regression_closure_r1.py" -v
+          python -m unittest discover -s tests -p "test_windows_platform_calibration_evidence_r1.py" -v
       - name: Verify
         run: fortune-train verify
       - name: Full unittest

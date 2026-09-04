@@ -164,7 +164,7 @@ PYTHONPATH=src python scripts/time-calendar-example.py
 
 生成后的 Windows `FortuneChart.exe` 也会验证该 Product Shell 的静态 schema 标记以及 CSS/JavaScript 资源后再执行确定性联合排盘 smoke，防止源码已经产品化而最终 ZIP 仍意外携带旧 Workbench 外壳。
 
-桌面 Product Shell 的首个稳定版本候选为 `0.2.5`；版本提升只改变 Windows 分发身份，不重开任何已闭合排盘算法。稳定发布必须绑定通过完整 CI 与最终 ZIP Windows smoke 的精确 source commit。
+桌面 Product Shell 的首个稳定版本 `0.2.5` 已正式发布，绑定 source commit `2b6b836879700a2ff8f20d75c7d7af76dc867b1a`。真实 0.2.4 → 0.2.5 在线更新、完整目录替换与受控失败回滚已在 `windows-latest` 校准通过；版本提升只改变 Windows 分发身份，不重开任何已闭合排盘算法。最终仍只剩真实用户 Windows 桌面的默认浏览器/可视交互验收。
 
 联合排盘现在生成共享时间凭证与候选分支联动哈希；它统一时区、UTC、真太阳时和节气事实，但保留紫微与八字各自的换日、历法及晚子时规则，不允许一方规则覆盖另一方。设计与完整性门禁见 `docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md`。
 
@@ -198,6 +198,8 @@ python scripts/combined-workbench-smoke.py
 DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 DESKTOP_PRODUCT_SHELL_R1=IMPLEMENTED
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
+AUTOMATED_TWO_VERSION_UPDATE_CALIBRATION=ACCEPTED
+MANUAL_WINDOWS_BROWSER_ACCEPTANCE=PENDING
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 ```
 

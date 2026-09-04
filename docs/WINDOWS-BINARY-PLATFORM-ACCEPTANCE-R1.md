@@ -4,8 +4,9 @@
 
 ```text
 WINDOWS_BINARY_PLATFORM_ACCEPTANCE=PENDING_PLATFORM_ACCEPTANCE
-AUTOMATED_EMITTED_ZIP_BINARY_SMOKE=REQUIRED
-MANUAL_WINDOWS_UPDATE_ACTIVATION_ACCEPTANCE=PENDING
+AUTOMATED_EMITTED_ZIP_BINARY_SMOKE=ACCEPTED
+AUTOMATED_TWO_VERSION_UPDATE_CALIBRATION=ACCEPTED
+MANUAL_WINDOWS_BROWSER_ACCEPTANCE=PENDING
 ```
 
 This record is the platform-distribution acceptance boundary for the Windows portable build. It does not reopen the deterministic chart product, whose separate state remains `DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED`.
@@ -18,16 +19,18 @@ This record is the platform-distribution acceptance boundary for the Windows por
 
 This evidence is bound to the workflow's exact `SOURCE_COMMIT`, asset SHA-256, asset size, application version and combined manifest hash. A source-level test or a smoke against the pre-archive build directory is not a substitute.
 
+## Two-version calibration now accepted
+
+The released 0.2.4 → stable 0.2.5 activation and controlled rollback calibration is recorded in `docs/WINDOWS-PLATFORM-CALIBRATION-0.2.4-TO-0.2.5-20260904.md`. The Windows runner used the published immutable artifacts and live stable manifest, observed complete-tree activation to 0.2.5, then separately forced an activation-health failure on the exact release trees and verified complete restoration/relaunch of 0.2.4.
+
 ## Why acceptance remains pending
 
-The hosted-runner smoke closes several earlier evidence gaps, but it deliberately does not claim an end-user Windows release acceptance. The following still require a controlled two-version calibration and, for the visible interaction, a Windows operator:
+Automated binary, live-channel activation and rollback evidence is now accepted. The only remaining platform boundary is the visible/default-browser operator check on an actual user Windows desktop:
 
-1. launch the released ZIP on the target Windows edition/build and architecture with the default browser path enabled;
-2. confirm the visible Workbench loads and complete the real-machine interaction checklist in `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`;
-3. serve or publish a manifest-bound newer calibration build and allow the installed old build to launch the standalone updater;
-4. verify parent-process exit, complete-tree replacement, relaunch, visible new version/source identity and absence of mixed old/new files;
-5. induce one controlled activation failure and verify restoration/relaunch of the complete known-good tree;
-6. record Windows build, architecture, old/new versions, both source commits, ZIP hashes/sizes, receipt artifacts, observations and final operator disposition.
+1. launch the released 0.2.5 ZIP on the target Windows edition/build and architecture with the default browser path enabled;
+2. confirm the visible Product Shell loads and complete the real-machine interaction checklist in `docs/COMBINED-WORKBENCH-REAL-MACHINE-CALIBRATION-R1.md`;
+3. confirm the post-update visible version/source identity and ordinary user interaction after the already-verified 0.2.4 → 0.2.5 activation path;
+4. record Windows build, architecture, browser, observations and final operator disposition.
 
 Signing, SmartScreen reputation and installer-specific behavior are not claimed by the current unsigned portable ZIP. If code signing or an installer becomes part of the release contract, it requires its own platform evidence.
 
