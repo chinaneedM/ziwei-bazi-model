@@ -51,6 +51,16 @@ def main() -> int:
         raise SystemExit("Jielan 1581 library catalog identifier mismatch")
     if shlib.get("edition")!="明万历九年金陵书坊王洛川刻本":
         raise SystemExit("Jielan 1581 library edition identity mismatch")
+    wang=by_source_id.get("EXT-WANGTINGZHI-ANXING-2013")
+    uibe=by_source_id.get("EXT-UIBE-WANGTINGZHI-ANXING-2013")
+    if wang is None or uibe is None:
+        raise SystemExit("Wang Tingzhi Zhongzhou dynamic-auxiliary source pair is missing")
+    if "EXT-UIBE-WANGTINGZHI-ANXING-2013" not in wang.get("bibliographic_witnesses",()):
+        raise SystemExit("Wang Tingzhi rule-text witness is not bound to its library bibliographic witness")
+    if uibe.get("source_role")!="LIBRARY_CATALOG_BIBLIOGRAPHIC_WITNESS_FOR_WANGTINGZHI_ANXING_2013":
+        raise SystemExit("Wang Tingzhi library witness role mismatch")
+    if wang.get("isbn")!="978-7-309-09665-1" or uibe.get("isbn")!="978-7-309-09665-1":
+        raise SystemExit("Wang Tingzhi edition ISBN mismatch")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
