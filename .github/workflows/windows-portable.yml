@@ -144,6 +144,10 @@ jobs:
             throw 'invalid updater binary smoke receipt'
           }
           if ($updaterResult.mutation_performed -ne $false) { throw 'updater binary smoke performed mutation' }
+      - name: Run released 0.2.4 to 0.2.5 activation and rollback calibration
+        shell: pwsh
+        run: ./scripts/windows-two-version-update-calibration.ps1
+
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4
         with:
