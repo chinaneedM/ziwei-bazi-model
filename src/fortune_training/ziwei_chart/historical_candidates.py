@@ -2,11 +2,16 @@ from __future__ import annotations
 
 from fortune_training.util import object_sha256
 
+from .auxiliary import LUCUN_BY_STEM
+from .registries import EARTHLY_BRANCHES, branch_index
+
 
 JIELAN_1581_RULE_SET_ID = "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1"
 JIELAN_1581_RULE_SET_VERSION = "1.1.0"
 JIELAN_1581_SELECTION_STATUS = "PRESERVED_NOT_SELECTED"
 JIELAN_1581_SOURCE_ID = "EXT-ZIWEI-JIELAN-1581"
+JIELAN_1581_RUNTIME_RESOLVER_ID = "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1"
+JIELAN_1581_RUNTIME_RESOLVER_VERSION = "1.0.0"
 
 # 《新刻纂集紫微斗数捷览》卷一·安禄权科忌四化诀.
 # Order is 禄、权、科、忌.
@@ -209,6 +214,152 @@ def historical_candidate_payload() -> dict[str, object]:
 def historical_candidate_hash() -> str:
     return object_sha256(historical_candidate_payload())
 
+
+_YANG_STEMS = frozenset(("甲", "丙", "戊", "庚", "壬"))
+
+
+def _jielan_direction_key(year_stem: str, sex: str) -> str:
+    if year_stem not in JIELAN_1581_FOUR_TRANSFORMATIONS:
+        raise ValueError(f"unsupported Jielan year stem: {year_stem}")
+    if sex not in {"MALE", "FEMALE"}:
+        raise ValueError(f"unsupported Jielan sex: {sex}")
+    polarity = "YANG" if year_stem in _YANG_STEMS else "YIN"
+    return f"{polarity}_{sex}"
+
+
+def _advance_branch(start_branch: str, offset: int) -> str:
+    return EARTHLY_BRANCHES[(branch_index(start_branch) + offset) % 12]
+
+
+def resolve_jielan_1581_source_scoped_candidate(
+    *,
+    year_stem: str,
+    year_branch: str,
+    birth_hour_branch: str,
+    life_palace_branch: str,
+    bureau_element: str,
+    sex: str,
+) -> dict[str, object]:
+    """Resolve replayable 1581 Jielan facts without selecting them for production.
+
+    This sidecar deliberately does not mutate the production calculation profile.
+    It materializes only rules whose Jielan source family is closed enough for
+    deterministic replay. Dignity normalization and Zi/Wu Shenzhu stay unresolved.
+    """
+
+    if year_branch not in JIELAN_1581_FIRE_BELL_START_BY_YEAR_BRANCH:
+        raise ValueError(f"unsupported Jielan year branch: {year_branch}")
+    branch_index(birth_hour_branch)
+    branch_index(life_palace_branch)
+    if bureau_element not in JIELAN_1581_CHANGSHENG_ANCHOR_BY_ELEMENT:
+        raise ValueError(f"unsupported Jielan bureau element: {bureau_element}")
+
+    direction_key = _jielan_direction_key(year_stem, sex)
+    direction = JIELAN_1581_CHANGSHENG_DIRECTION_RULE[direction_key]
+    hour_offset = branch_index(birth_hour_branch)
+    fire_start, bell_start = JIELAN_1581_FIRE_BELL_START_BY_YEAR_BRANCH[year_branch]
+    lucun_branch = LUCUN_BY_STEM[year_stem]
+    boshi_step = 1 if JIELAN_1581_BOSHI_DIRECTION_RULE[direction_key] == "FORWARD" else -1
+    boshi_anchor_index = branch_index(lucun_branch)
+
+    payload: dict[str, object] = {
+        "schema": "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+        "rule_set_id": JIELAN_1581_RULE_SET_ID,
+        "rule_set_version": JIELAN_1581_RULE_SET_VERSION,
+        "selection_status": JIELAN_1581_SELECTION_STATUS,
+        "runtime_resolver_id": JIELAN_1581_RUNTIME_RESOLVER_ID,
+        "runtime_resolver_version": JIELAN_1581_RUNTIME_RESOLVER_VERSION,
+        "source_id": JIELAN_1581_SOURCE_ID,
+        "registry_hash": historical_candidate_hash(),
+        "inputs": {
+            "year_stem": year_stem,
+            "year_branch": year_branch,
+            "birth_hour_branch": birth_hour_branch,
+            "life_palace_branch": life_palace_branch,
+            "bureau_element": bureau_element,
+            "sex": sex,
+        },
+        "facts": {
+            "four_transformations": {
+                "targets": JIELAN_1581_FOUR_TRANSFORMATIONS[year_stem],
+                "source_refs": JIELAN_1581_FOUR_TRANSFORMATION_SOURCE_REFS,
+            },
+            "kui_yue": {
+                "branches": JIELAN_1581_KUI_YUE_BY_STEM[year_stem],
+                "source_refs": JIELAN_1581_KUI_YUE_SOURCE_REFS,
+            },
+            "fire_bell": {
+                "start_branches": (fire_start, bell_start),
+                "resolved_branches": (
+                    _advance_branch(fire_start, hour_offset),
+                    _advance_branch(bell_start, hour_offset),
+                ),
+                "hour_offset_from_zi": hour_offset,
+                "source_refs": JIELAN_1581_FIRE_BELL_SOURCE_REFS,
+            },
+            "tianshang_tianshi": {
+                "resolved_branches": {
+                    entity_id: _advance_branch(life_palace_branch, offset)
+                    for entity_id, offset in JIELAN_1581_TIANSHANG_TIANSHI_OFFSETS.items()
+                },
+                "basis": "LIFE_PALACE_BRANCH",
+                "source_refs": JIELAN_1581_TIANSHANG_TIANSHI_SOURCE_REFS,
+            },
+            "changsheng": {
+                "anchor_branch": JIELAN_1581_CHANGSHENG_ANCHOR_BY_ELEMENT[bureau_element],
+                "direction": direction,
+                "direction_key": direction_key,
+                "source_refs": JIELAN_1581_CHANGSHENG_SOURCE_REFS,
+            },
+            "mingzhu": {
+                "basis": JIELAN_1581_MINGZHU_BASIS,
+                "basis_value": year_branch,
+                "display_name": JIELAN_1581_MINGZHU_BY_BIRTH_YEAR_BRANCH[year_branch],
+                "source_refs": JIELAN_1581_MINGZHU_SOURCE_REFS,
+            },
+            "shenzhu": {
+                "basis": JIELAN_1581_SHENZHU_BASIS,
+                "basis_value": year_branch,
+                "zi_wu_status": JIELAN_1581_SHENZHU_ZI_WU_STATUS,
+                "winner_selected": False,
+                "source_refs": JIELAN_1581_SHENZHU_SOURCE_REFS,
+            },
+            "daxian": {
+                **JIELAN_1581_DAXIAN_RULE,
+                "direction": JIELAN_1581_DAXIAN_RULE[direction_key],
+                "direction_key": direction_key,
+                "source_refs": JIELAN_1581_DAXIAN_SOURCE_REFS,
+            },
+            "minor_limit": {
+                "age_one_start_branch": JIELAN_1581_MINOR_LIMIT_START_BY_YEAR_BRANCH[year_branch],
+                "direction": JIELAN_1581_MINOR_LIMIT_DIRECTION[sex],
+                "source_refs": JIELAN_1581_MINOR_LIMIT_SOURCE_REFS,
+            },
+            "boshi": {
+                "anchor_basis": JIELAN_1581_BOSHI_ANCHOR,
+                "anchor_branch": lucun_branch,
+                "direction": JIELAN_1581_BOSHI_DIRECTION_RULE[direction_key],
+                "members": tuple(
+                    {
+                        "display_name": display_name,
+                        "ordinal": ordinal,
+                        "branch": EARTHLY_BRANCHES[(boshi_anchor_index + boshi_step * ordinal) % 12],
+                    }
+                    for ordinal, display_name in enumerate(JIELAN_1581_BOSHI_MEMBERS)
+                ),
+                "source_refs": JIELAN_1581_BOSHI_SOURCE_REFS,
+            },
+            "dignity": {
+                "status": JIELAN_1581_DIGNITY_SOURCE_STATUS,
+                "runtime_normalized": False,
+                "source_refs": JIELAN_1581_DIGNITY_SOURCE_REFS,
+            },
+        },
+    }
+    return {
+        **payload,
+        "runtime_hash": object_sha256(payload),
+    }
 
 def validate_historical_candidate_registry() -> None:
     if tuple(JIELAN_1581_FOUR_TRANSFORMATIONS) != tuple("甲乙丙丁戊己庚辛壬癸"):
