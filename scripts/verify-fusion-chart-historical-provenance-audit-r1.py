@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
+BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
+BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -130,14 +132,16 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 7:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 8:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 7:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 8:
         raise SystemExit("known provenance metadata repairs are missing")
-    if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 1:
+    if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 2:
         raise SystemExit("source-scoped historical candidate runtime resolver is missing")
-    if audit_summary.get("historical_candidate_registry_count", 0) < 1:
+    if audit_summary.get("historical_candidate_registry_count", 0) < 2:
         raise SystemExit("historical candidate registry is missing")
+    if audit_summary.get("historical_candidate_extension_count", 0) < 4:
+        raise SystemExit("historical candidate extension accounting regressed")
     if audit_summary.get("identified_missing_candidate_family_count", 0) < 12:
         raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
@@ -147,7 +151,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 153:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 154:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -174,6 +178,8 @@ def main() -> int:
         raise SystemExit("Batch 10A Bazi raw-relation/affinity audit is missing")
     if "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B" not in batches:
         raise SystemExit("Batch 10B excluded Bazi relation-family audit is missing")
+    if "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C" not in batches:
+        raise SystemExit("Batch 10C Bazi historical relation candidate runtime is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -256,6 +262,25 @@ def main() -> int:
         raise SystemExit("modern half-trine/arched-trine family was incorrectly upgraded")
     if "DIFFERENT_WORDING_SAME_MECHANICAL_RULE" not in by_rule_id["HPA-BREL-008"]["school_attribution"]:
         raise SystemExit("属象/方/三会 philological bridge regressed")
+    candidate_source=BAZI_RELATION_CANDIDATES.read_text(encoding="utf-8")
+    candidate_test=BAZI_RELATION_CANDIDATE_TEST.read_text(encoding="utf-8")
+    for token in ("BAZI-HISTORICAL-RELATION-CANDIDATES-R1","PRESERVED_NOT_SELECTED","FOUR_EARTH_BUREAU","DIRECTIONAL_TRIAD","BRANCH_BREAK_EARLY_FOUR","STEM_HIDDEN_COMBINATION"):
+        if token not in candidate_source:
+            raise SystemExit(f"Batch 10C candidate runtime token missing: {token}")
+    if "test_four_earth_bureau_is_arity_four_and_not_raw_trine" not in candidate_test:
+        raise SystemExit("Batch 10C historical relation candidate tests are missing")
+    for rule_id in ("HPA-BREL-007","HPA-BREL-008","HPA-BREL-009","HPA-BREL-012"):
+        if by_rule_id[rule_id]["audit_status"]!="HISTORICALLY_SUPPORTED":
+            raise SystemExit(f"productized historical relation candidate did not close: {rule_id}")
+        if "PRESERVED_NOT_SELECTED" not in by_rule_id[rule_id]["current_profile"]:
+            raise SystemExit(f"productized relation candidate lost unselected profile: {rule_id}")
+    if by_rule_id["HPA-BAZI-005"]["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
+        raise SystemExit("raw relation parent did not close to candidate-preserving state")
+    if by_rule_id["HPA-BCAND-001"]["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
+        raise SystemExit("Bazi historical candidate registry row missing/disposition mismatch")
+    defect8=by_rule_id["HPA-BREL-012"]
+    if defect8.get("defect_id")!="PROV-DEFECT-008" or defect8.get("repair_status")!="REPAIRED_FORWARD_ONLY_DURING_BATCH_10C":
+        raise SystemExit("PROV-DEFECT-008 source-scope repair is incomplete")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

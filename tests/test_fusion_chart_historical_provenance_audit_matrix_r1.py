@@ -12,6 +12,7 @@ MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.jso
 README = ROOT / "README.md"
 CI = ROOT / ".github" / "workflows" / "ci.yml"
 TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
+BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 
 
 class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
@@ -60,13 +61,13 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 17)
-        self.assertGreaterEqual(receipt["audited_row_count"], 153)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 18)
+        self.assertGreaterEqual(receipt["audited_row_count"], 154)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
-        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 7)
-        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 7)
-        self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 1)
-        self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 1)
+        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 8)
+        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 8)
+        self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 2)
+        self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 2)
         self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 12)
 
     def test_batch_07b_early_print_minor_rows_are_closed_without_reopen(self) -> None:
@@ -191,6 +192,21 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("DIFFERENT_WORDING_SAME_MECHANICAL_RULE", by_id["HPA-BREL-008"]["school_attribution"])
         self.assertIn("EARLY_FOUR_BREAK_METHOD", by_id["HPA-BREL-009"]["school_attribution"])
         self.assertIn("same-pillar", by_id["HPA-BREL-012"]["rule_or_field"])
+
+    def test_batch_10c_productizes_candidates_without_core_mutation(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        for rule_id in ("HPA-BREL-007", "HPA-BREL-008", "HPA-BREL-009", "HPA-BREL-012"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
+            self.assertIn("PRESERVED_NOT_SELECTED", by_id[rule_id]["current_profile"])
+        self.assertEqual(by_id["HPA-BAZI-005"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        self.assertEqual(by_id["HPA-BCAND-001"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
+        self.assertEqual(by_id["HPA-BREL-012"]["defect_id"], "PROV-DEFECT-008")
+        self.assertEqual(by_id["HPA-BREL-012"]["repair_status"], "REPAIRED_FORWARD_ONLY_DURING_BATCH_10C")
+        source = BAZI_RELATION_CANDIDATES.read_text(encoding="utf-8")
+        self.assertIn("PRESERVED_NOT_SELECTED", source)
+        self.assertIn("FOUR_EARTH_BUREAU", source)
+        self.assertIn("BRANCH_BREAK_EARLY_FOUR", source)
+        self.assertIn("STEM_HIDDEN_COMBINATION", source)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
