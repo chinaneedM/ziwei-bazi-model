@@ -124,9 +124,9 @@ class BaziTemporalShenshaSidecarR1Tests(unittest.TestCase):
                 "SOURCE_CANDIDATES_PRESERVED_NO_WINNER",
                 projection["selection_semantics"],
             )
-            self.assertEqual(31, len(projection["eligible_source_candidates"]))
+            self.assertEqual(32, len(projection["eligible_source_candidates"]))
             self.assertEqual(28, projection["annual"]["evaluated_candidate_count"])
-            self.assertEqual(31, projection["daily"]["evaluated_candidate_count"])
+            self.assertEqual(32, projection["daily"]["evaluated_candidate_count"])
             self.assertEqual(2, len(projection["xiaoyun_candidates"]))
 
     def test_full_replay_passes_and_projection_tamper_fails(self) -> None:
