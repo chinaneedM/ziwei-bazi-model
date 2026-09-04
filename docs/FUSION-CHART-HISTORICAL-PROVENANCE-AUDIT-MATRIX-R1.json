@@ -43,22 +43,22 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 190,
+    "row_count": 197,
     "status_counts": {
-      "MODERN_COMPATIBILITY_ONLY": 28,
-      "HISTORICALLY_SUPPORTED": 86,
+      "MODERN_COMPATIBILITY_ONLY": 31,
+      "HISTORICALLY_SUPPORTED": 87,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 17,
       "IMPLEMENTATION_REVIEW_REQUIRED": 11,
       "SOURCE_INSUFFICIENT": 9,
-      "MISSING_FROM_PRODUCT": 8,
+      "MISSING_FROM_PRODUCT": 11,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
       "Time / Calendar": 22,
       "四柱本命": 1,
       "八字派生字段": 31,
-      "大运": 9,
+      "大运": 16,
       "小运": 2,
       "神煞": 21,
       "八字动态时限": 8,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 158
+    "audited_row_count": 165
   },
   "rows": [
     {
@@ -720,22 +720,23 @@
       "rule_or_field": "Three-days-one-year symbolic-age conversion",
       "current_implementation": "BAZI-THREE-DAYS-ONE-YEAR-360D-R1.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "《三命通会》卷二《论大运》",
-      "source_quote": "折除以三日为年",
-      "source_quote_location": "EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》",
-      "historical_period": "MING; CText base edition: Qinding Siku Quanshu",
+      "primary_source": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN; received YHZP",
+      "source_quote": "Early and Ming witnesses preserve one Dayun branch per ten years, three source days as one symbolic year, and actual elapsed day/shichen counting rather than rough integer-year rounding.",
+      "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN",
+      "historical_period": "SONG_TO_MING_RECEIVED_MINGLI_DAYUN_RATIO",
       "later_witnesses": "Received 《渊海子平》论起大运法 also preserves 三日为一岁",
       "school_attribution": "MING_ZIPING_THREE_DAYS_ONE_YEAR_FAMILY",
       "competing_methods": [
         "1 day=4 months formulations",
         "calendarized variants"
       ],
-      "current_implementation_match": "SYMBOLIC_RATIO_MATCHES_SOURCE; MODERN_CONTINUOUS_REALIZATION_AUDITED_SEPARATELY",
+      "current_implementation_match": "SYMBOLIC_RATIO_MATCHES_AT_SOURCE_RESOLUTION; MICROSECOND_CONTINUOUS_EXTENSION_AND_CALENDAR_REALIZATION_ARE_AUDITED_SEPARATELY",
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
       "proposed_action": "No reopen. Keep historical symbolic ratio distinct from modern UTC/microsecond realization mechanics.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN",
+      "reaudit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B"
     },
     {
       "rule_id": "HPA-DAYUN-004",
@@ -767,21 +768,26 @@
       "rule_or_field": "Continuous temporal realization of Jiaoyun interval",
       "current_implementation": "ABSOLUTE_UTC_DURATION + MODERN_CONTINUOUS_MICROSECOND + MODERN_CONTINUOUS_RATIO_120X.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "Modern computational realization of historically attested 三日为年 and source-described real elapsed day/hour counting",
-      "source_quote": "PENDING_PRIMARY_QUOTE_FOR_MODERN_REALIZATION_NOT_APPLICABLE",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py; historical comparison EXT-CTEXT-SMTHE-SIKU-V2",
-      "historical_period": "MODERN COMPUTATIONAL REALIZATION over MING-attested symbolic rule",
+      "primary_source": "Modern engineering realization over HPA-DAYUN-003; contrasted with EXT-CTEXT-SANMING-V2-DAYUN and EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+      "source_quote": "Current continuous profile multiplies the exact UTC interval by 120 at microsecond precision and places the result as an absolute duration from birth; historical texts instead preserve discrete day/shichen rules and calendarized handover conventions.",
+      "source_quote_location": "src/fortune_training/bazi_temporal/engine.py _symbolic_age/_jiaoyun_for_seed; profile.py; Batch 11B sources",
+      "historical_period": "MODERN_ENGINEERING_REALIZATION_OVER_HISTORICAL_RATIO",
       "later_witnesses": "《三命通会》 explicitly discusses 实历过日/时数, but does not define UTC, microseconds, or modern timezone arithmetic",
       "school_attribution": "MODERN_COMPUTATIONAL_REALIZATION",
       "competing_methods": [
-        "calendarized traditional age realization"
+        "SMTH discrete 360/30/10 symbolic coordinate",
+        "SMTH classical lunisolar small/leap-month handover adjustment",
+        "Qianli calendar-age years plus remainder days",
+        "absolute UTC duration x120",
+        "Wenzhen calendar-month displacement compatibility realization"
       ],
-      "current_implementation_match": "HISTORICAL_RATIO_SUPPORTED; ABSOLUTE_UTC_DURATION_AND_MICROSECOND_MAPPING_ARE_MODERN_IMPLEMENTATION_CHOICES",
+      "current_implementation_match": "FULLY_DECOMPOSED: HISTORICAL_RATIO_PRIMITIVE_SUPPORTED; ABSOLUTE_MICROSECOND_REALIZATION_IS_MODERN; CLASSICAL_LUNISOLAR_AND_QIANLI_CALENDARIZED_SCHEDULE_VARIANTS_ARE_NOT_RUNTIME_PRODUCTIZED",
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Retain modern realization label. Add a future historical-calendar realization candidate only if an exact reproducible traditional calendar algorithm is source-closed.",
+      "proposed_action": "Keep continuous profile explicitly modern. Add historical calendarized schedule candidates only after an appropriate historical-calendar adapter and source-scoped invalid-date/leap policy are available.",
       "algorithm_reopen_authorized": false,
-      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN"
+      "audit_batch": "BATCH-01-TIME-DAYUN-XIAOYUN",
+      "reaudit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B"
     },
     {
       "rule_id": "HPA-DAYUN-006",
@@ -4431,6 +4437,173 @@
       "confidence": "HIGH_FOR_ZPZQ_CHEN_EXAMPLE; INSUFFICIENT_FOR_UNIVERSAL_EXACT_ORDINAL_TABLE",
       "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
       "proposed_action": "If exposed later, build a separately versioned source-scoped hierarchy table; do not derive it from registry_ordinal."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-001",
+      "rule_or_field": "Discrete source-resolution Dayun remainder conversion",
+      "current_implementation": "_symbolic_age is mathematically equivalent at whole-day/whole-shichen source resolution but also interpolates sub-shichen microseconds.",
+      "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1 / primitive ratio comparison",
+      "primary_source": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN",
+      "source_quote": "Three source days correspond to one 360-day symbolic year; one shichen contributes ten symbolic days. Sources require actual elapsed days/shichen and reject rough integer-year rounding.",
+      "source_quote_location": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN《论大运》",
+      "historical_period": "SONG_TO_MING_RECEIVED_MINGLI",
+      "later_witnesses": "《千里命稿》 explicitly restates one day=120 days and one shichen=10 days.",
+      "school_attribution": "DISCRETE_360_30_10_DAYUN_REMAINDER_FAMILY",
+      "competing_methods": [
+        "sub-shichen continuous interpolation is a modern extension"
+      ],
+      "current_implementation_match": "EXACT_AT_WHOLE_SHICHEN_SOURCE_RESOLUTION; SUB_SHICHEN_MICROSECOND_EXTENSION_NOT_HISTORICAL_SOURCE_FACT",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep source-domain result separate from finer modern interpolation."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-002",
+      "rule_or_field": "Classical lunisolar first Jiaoyun calendarization with small/leap-month correction",
+      "current_implementation": "NOT IMPLEMENTED. S15 preserves LHV-04 as fail-closed source-context candidate.",
+      "current_profile": "S15:LHV-04 CLASSICAL_LUNISOLAR_ANNIVERSARY_ADJUST / NO_WINNER",
+      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; S15 SMTH public capture family",
+      "source_quote": "The Ming passage instructs adjustment for small months and a leap month when converting symbolic age into the actual handover date.",
+      "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN《论大运》; S15 LHV-04",
+      "historical_period": "MING",
+      "later_witnesses": "Later worked examples continue to insist on a concrete year/month/day/hour handover.",
+      "school_attribution": "CLASSICAL_LUNISOLAR_HANDOVER_CALENDARIZATION",
+      "competing_methods": [
+        "modern Gregorian calendar-age method",
+        "absolute-duration method"
+      ],
+      "current_implementation_match": "SOURCE_CLOSED_RULE_FAMILY_MISSING_FROM_RUNTIME; CURRENT_CHINESE_CALENDAR_ENGINE_EXPLICITLY_EXCLUDES_HISTORICAL_CALENDAR_REGIMES",
+      "confidence": "HIGH_FOR_RULE_FAMILY; INSUFFICIENT_FOR_UNIQUE_HISTORICAL_CALENDAR_ADAPTER",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Implement only after a source-scoped historical lunisolar calendar adapter can represent month lengths, leap months and invalid-date rules. Do not reuse the modern ChineseCalendarEngine as ancient authority."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-003",
+      "rule_or_field": "Later calendar-age years plus remainder-days Jiaoyun method",
+      "current_implementation": "NOT IMPLEMENTED as a source-scoped method; Wenzhen compatibility uses a different Gregorian month-displacement algorithm.",
+      "current_profile": "PRESERVED_SOURCE_METHOD_CANDIDATE_NOT_SELECTED",
+      "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+      "source_quote": "Worked examples first advance the stated whole age in calendar years, then add the remaining converted days to obtain a concrete handover date.",
+      "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN worked examples",
+      "historical_period": "REPUBLICAN_ERA_LATER_EXPLICIT_METHOD",
+      "later_witnesses": "Modern manuals often reproduce similar calendar-age calculations with varying rounding details.",
+      "school_attribution": "QIANLI_CALENDAR_AGE_PLUS_REMAINDER_DAYS_METHOD",
+      "competing_methods": [
+        "SMTH classical lunisolar adjustment",
+        "absolute duration x120",
+        "Wenzhen month displacement"
+      ],
+      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME",
+      "confidence": "HIGH_FOR_WORKED_METHOD",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "If productized, preserve as a later source-scoped candidate distinct from classical lunisolar and Wenzhen methods."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-004",
+      "rule_or_field": "Ten-year Dayun exchange recurrence from first handover",
+      "current_implementation": "Runtime adds ten proleptic-Gregorian years per frame; historical-calendar recurrence is not separately implemented.",
+      "current_profile": "Current profiles use Gregorian anniversary rules; classical source family remains unselected.",
+      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+      "source_quote": "Ming text says after the first handover, count ten anniversaries before changing one luck frame; later examples abbreviate the schedule as exchanging on the same cyclical year/lunar month/day/hour.",
+      "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+      "historical_period": "MING_RULE_WITH_LATER_EXPLICIT_SCHEDULE_EXAMPLES",
+      "later_witnesses": "《千里命稿》 gives successive first/second/third Dayun years and a fixed month/day/hour exchange expression.",
+      "school_attribution": "TEN_CALENDAR_YEAR_FRAME_RECURRENCE_FROM_FIRST_HANDOVER",
+      "competing_methods": [
+        "proleptic Gregorian UTC anniversary",
+        "proleptic Gregorian China-standard anniversary"
+      ],
+      "current_implementation_match": "TEN_YEAR_FRAME_CONCEPT_MATCHES; CALENDAR_SYSTEM_AND_CLOCK_REALIZATION_DO_NOT_MATCH_A_SOURCE_SCOPED_CLASSICAL_CALENDAR",
+      "confidence": "HIGH_FOR_TEN_YEAR_RECURRENCE; MEDIUM_FOR_EXACT_HISTORICAL_CALENDAR_REALIZATION",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Bind to the same future historical calendarized-schedule candidate family as first Jiaoyun; do not equate Gregorian anniversary with the classical calendar mechanically."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-005",
+      "rule_or_field": "Continuous microsecond x120 absolute-duration Jiaoyun realization",
+      "current_implementation": "raw UTC interval microseconds ×120; first_transition = birth UTC + resulting duration.",
+      "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "primary_source": "ENGINEERING:MODERN_CONTINUOUS_RATIO_120X over historical ratio primitive",
+      "source_quote": "No classical text specifies UTC, microseconds or linear interpolation below the source's day/shichen resolution.",
+      "source_quote_location": "src/fortune_training/bazi_temporal/engine.py _symbolic_age/_jiaoyun_for_seed",
+      "historical_period": "MODERN_COMPUTATIONAL_REALIZATION",
+      "later_witnesses": "N/A",
+      "school_attribution": "ENGINEERING_INTERPOLATION",
+      "competing_methods": [
+        "discrete historical conversion",
+        "calendarized historical/later methods"
+      ],
+      "current_implementation_match": "DETERMINISTIC_MODERN_REALIZATION_NOT_HISTORICAL_CALENDAR_AUTHORITY",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Retain explicit modern labeling; never cite it as classical."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-006",
+      "rule_or_field": "Wenzhen Gregorian month-displacement Jiaoyun realization",
+      "current_implementation": "Symbolic years/months become one Gregorian month displacement on UTC+8; remainder days/sub-day residual follow.",
+      "current_profile": "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1",
+      "primary_source": "EXTERNAL_COMPATIBILITY:WENZHEN:A7-A11",
+      "source_quote": "Compatibility behavior is an observed modern software target, not a classical calendar witness.",
+      "source_quote_location": "src/fortune_training/bazi_temporal/engine.py realize_wenzhen_calendar_month_displacement_utc",
+      "historical_period": "MODERN_SOFTWARE_COMPATIBILITY",
+      "later_witnesses": "Wenzhen fixtures only.",
+      "school_attribution": "WENZHEN_COMPATIBILITY",
+      "competing_methods": [
+        "Qianli whole-years+remainder-days",
+        "classical lunisolar adjustment"
+      ],
+      "current_implementation_match": "MATCHES_DECLARED_COMPATIBILITY_SCOPE_ONLY",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Keep comparison-only."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+      "rule_id": "HPA-DAYUN-CAL-007",
+      "rule_or_field": "Proleptic-Gregorian ten-year Dayun boundary anniversaries",
+      "current_implementation": "Continuous profile adds Gregorian years in UTC; Wenzhen profile adds Gregorian years in fixed China standard time; Feb-29 clamps to Feb-28.",
+      "current_profile": "BAZI temporal profiles",
+      "primary_source": "Modern operational policy in profile.py / engine.py",
+      "source_quote": "No historical source in scope specifies proleptic Gregorian anniversaries, UTC or the Feb-29 clamp.",
+      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py dayun_boundary_rule_set; engine.py _dayun_anniversary",
+      "historical_period": "MODERN_OPERATIONAL",
+      "later_witnesses": "N/A",
+      "school_attribution": "MODERN_BOUNDARY_REALIZATION",
+      "competing_methods": [
+        "classical lunisolar ten-anniversary recurrence"
+      ],
+      "current_implementation_match": "DETERMINISTIC_MODERN_BOUNDARY_POLICY; NOT_HISTORICAL_CALENDAR_AUTHORITY",
+      "confidence": "HIGH",
+      "audit_status": "MODERN_COMPATIBILITY_ONLY",
+      "proposed_action": "Retain explicit profile identity; future historical calendar schedule must be a separate candidate."
     }
   ],
   "historical_research_batches": [
@@ -4452,7 +4625,8 @@
     "BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A",
     "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
     "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C",
-    "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A"
+    "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+    "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -4612,7 +4786,14 @@
     "HPA-BAZI-FLOW-003",
     "HPA-BHIDDEN-001",
     "HPA-BHIDDEN-002",
-    "HPA-BHIDDEN-003"
+    "HPA-BHIDDEN-003",
+    "HPA-DAYUN-CAL-001",
+    "HPA-DAYUN-CAL-002",
+    "HPA-DAYUN-CAL-003",
+    "HPA-DAYUN-CAL-004",
+    "HPA-DAYUN-CAL-005",
+    "HPA-DAYUN-CAL-006",
+    "HPA-DAYUN-CAL-007"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -4621,7 +4802,7 @@
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 4,
-    "identified_missing_candidate_family_count": 12,
+    "identified_missing_candidate_family_count": 13,
     "historical_candidate_registry_count": 2,
     "historical_candidate_runtime_resolver_count": 2
   },
