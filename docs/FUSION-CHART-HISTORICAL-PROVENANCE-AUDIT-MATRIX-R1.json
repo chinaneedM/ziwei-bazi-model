@@ -43,13 +43,13 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 170,
+    "row_count": 172,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 27,
-      "HISTORICALLY_SUPPORTED": 67,
+      "HISTORICALLY_SUPPORTED": 70,
       "DISPUTED_MULTIPLE_CANDIDATES": 27,
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 16,
-      "IMPLEMENTATION_REVIEW_REQUIRED": 17,
+      "IMPLEMENTATION_REVIEW_REQUIRED": 16,
       "SOURCE_INSUFFICIENT": 7,
       "MISSING_FROM_PRODUCT": 8,
       "NOT_YET_FORMALIZED": 1
@@ -58,7 +58,7 @@
       "Time / Calendar": 22,
       "四柱本命": 1,
       "八字派生字段": 14,
-      "大运": 7,
+      "大运": 9,
       "小运": 2,
       "神煞": 21,
       "八字动态时限": 8,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 1,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 133
+    "audited_row_count": 136
   },
   "rows": [
     {
@@ -735,18 +735,21 @@
       "rule_or_field": "Dayun Ganzhi sequence from month pillar",
       "current_implementation": "BAZI-DAYUN-MONTH-PILLAR-SEQUENCE-R1.",
       "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
-      "primary_source": "S15 canonical routes",
-      "source_quote": "PENDING_VERBATIM_EXTRACTION",
-      "source_quote_location": "src/fortune_training/bazi_temporal/profile.py DAYUN_SEQUENCE_RULE_SET_ID",
-      "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
-      "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
-      "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
-      "competing_methods": [],
-      "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
-      "confidence": "INVENTORY_CONFIDENCE_HIGH",
-      "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
-      "proposed_action": "Verify sequence direction and initial-step convention.",
-      "algorithm_reopen_authorized": false
+      "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN; EXT-CTEXT-MINGLI-TANYUAN-DAYUN; earlier framework EXT-CTEXT-SANMING-V2-DAYUN",
+      "source_quote": "Later explicit Ziping examples take the natal month pillar as the sequence base: forward first formal Dayun is the next sexagenary pillar, reverse first is the previous pillar, then continue one pillar per ten-year luck frame.",
+      "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN lines 242–258; EXT-CTEXT-MINGLI-TANYUAN-DAYUN examples 42–47",
+      "historical_period": "MING_DIRECTION_AND_TEN_YEAR_FRAMEWORK_WITH_LATER_EXPLICIT_SEQUENCE_WITNESSES",
+      "later_witnesses": "《千里命稿》《命理探源》 independently give full forward/reverse sequences.",
+      "school_attribution": "RECEIVED_ZIPING_MONTH_PILLAR_DAYUN_SEQUENCE",
+      "competing_methods": [
+        "Pre-Dayun natal-month phase is a separate temporal interval; it is not counted as formal Dayun #1 in the current runtime."
+      ],
+      "current_implementation_match": "EXACT: first formal Dayun = natal month sexagenary index ±1; Dayun n = month index ±n; direction is supplied by the separately audited direction rule.",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen. Keep sequence identity independent of Jiaoyun calendar-realization candidates and Dayun anniversary implementation.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-BAZI-DAYUN-SEQUENCE-B"
     },
     {
       "rule_id": "HPA-DAYUN-005",
@@ -3943,6 +3946,50 @@
       "confidence": "HIGH",
       "audit_status": "HISTORICALLY_SUPPORTED",
       "proposed_action": "No reopen; preserve exact-instant uncertainty branching near boundaries."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1 / shared sequence rule",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
+      "rule_id": "HPA-DAYUN-SEQ-001",
+      "rule_or_field": "First formal Dayun is adjacent to natal month pillar in resolved direction",
+      "current_implementation": "month_index +1 for FORWARD, -1 for REVERSE at Dayun index 1; natal month itself belongs to pre-Dayun context rather than formal Dayun #1.",
+      "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN; EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+      "source_quote": "丙寅月顺行第一部运丁卯；戊寅月逆行第一部运丁丑；壬寅月逆布始行辛丑.",
+      "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN lines 242–258; EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+      "historical_period": "LATER_EXPLICIT_RECEIVED_ZIPING_RULE",
+      "later_witnesses": "Modern Bazi implementations widely retain this convention.",
+      "school_attribution": "ZIPING_FORMAL_DAYUN_FIRST_STEP",
+      "competing_methods": [
+        "Interfaces may display the natal month before Jiaoyun as a pre-luck row; do not renumber it as formal Dayun #1."
+      ],
+      "current_implementation_match": "EXACT_ADJACENT_FIRST_STEP_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen."
+    },
+    {
+      "system": "BAZI",
+      "module": "大运",
+      "current_profile": "BAZI-TEMPORAL-V1-CONTINUOUS-R1 / shared sequence rule",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-09-BAZI-DAYUN-SEQUENCE-B",
+      "rule_id": "HPA-DAYUN-SEQ-002",
+      "rule_or_field": "Subsequent Dayun Ganzhi advance one sexagenary step in the same direction",
+      "current_implementation": "Dayun n uses (month_index + direction_step*n) mod 60, yielding a continuous sexagenary sequence.",
+      "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN; EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+      "source_quote": "Forward examples continue 丁卯→戊辰→己巳…; reverse examples continue 丁丑→丙子→乙亥…",
+      "source_quote_location": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN lines 244–258",
+      "historical_period": "LATER_EXPLICIT_RECEIVED_ZIPING_RULE",
+      "later_witnesses": "EXT-CTEXT-SANMING-V2-DAYUN supplies the earlier one-辰-ten-year framework.",
+      "school_attribution": "ZIPING_DAYUN_SEXAGENARY_SEQUENCE",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_MOD60_STEP_SEQUENCE_MATCH",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; keep frame-date realization independently profiled."
     }
   ],
   "historical_research_batches": [
@@ -3959,7 +4006,8 @@
     "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
     "BATCH-08-ZIWEI-TIME-STANDARDS-C",
     "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
-    "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A"
+    "BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A",
+    "BATCH-09-BAZI-DAYUN-SEQUENCE-B"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
@@ -4094,7 +4142,10 @@
     "HPA-BTIME-001",
     "HPA-BTIME-002",
     "HPA-BTIME-003",
-    "HPA-BTIME-004"
+    "HPA-BTIME-004",
+    "HPA-DAYUN-004",
+    "HPA-DAYUN-SEQ-001",
+    "HPA-DAYUN-SEQ-002"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
