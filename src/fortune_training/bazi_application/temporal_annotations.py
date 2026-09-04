@@ -42,7 +42,7 @@ from .classical_annotations import (
 TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_ID = (
     "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"
 )
-TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION = "1.0.1"
+TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION = "1.0.2"
 TEMPORAL_CLASSICAL_ANNOTATION_ALGORITHM_ID = (
     "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-COMPOSER-R1"
 )
@@ -50,7 +50,7 @@ TEMPORAL_CLASSICAL_ANNOTATION_ALGORITHM_VERSION = "1.0.0"
 TEMPORAL_CLASSICAL_ANNOTATION_HASH_ID = (
     "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-HASH-R1"
 )
-TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION = "1.0.0"
+TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION = "1.0.1"
 TEMPORAL_CLASSICAL_ANNOTATION_SOURCE_REFS = (
     "S11:YHZP-CH-061",
     "S11:YHZP-CH-016",
@@ -72,13 +72,45 @@ def _fact_projection(annotation: Mapping[str, Any]) -> dict[str, Any]:
             return {
                 key: strip_lineage(item)
                 for key, item in value.items()
-                if key not in {"source_refs", "fact_hash", "computation_hash"}
+                if key not in {
+                    "source_refs",
+                    "fact_hash",
+                    "computation_hash",
+                    "registry_ordinal",
+                }
             }
         if isinstance(value, list):
             return [strip_lineage(item) for item in value]
         return value
 
-    return strip_lineage(annotation)
+    projected = strip_lineage(annotation)
+    hidden_stems = projected.get("hidden_stems")
+    if isinstance(hidden_stems, list):
+        projected["hidden_stems"] = sorted(
+            hidden_stems,
+            key=lambda row: (
+                row.get("stem", "") if isinstance(row, Mapping) else "",
+                row.get("element", "") if isinstance(row, Mapping) else "",
+                row.get("ten_god_semantic_role_id", "")
+                if isinstance(row, Mapping)
+                else "",
+            ),
+        )
+    return projected
+
+
+def _hidden_stem_order_lineage(annotation: Mapping[str, Any]) -> list[dict[str, Any]]:
+    hidden_stems = annotation.get("hidden_stems")
+    if not isinstance(hidden_stems, list):
+        return []
+    return [
+        {
+            "stem": row.get("stem"),
+            "registry_ordinal": row.get("registry_ordinal"),
+        }
+        for row in hidden_stems
+        if isinstance(row, Mapping)
+    ]
 
 
 def temporal_classical_annotation_hashes(
@@ -89,6 +121,7 @@ def temporal_classical_annotation_hashes(
         {
             "fact_hash": fact_hash,
             "source_refs": annotation["source_refs"],
+            "hidden_stem_registry_order": _hidden_stem_order_lineage(annotation),
             "algorithm": (
                 f"{TEMPORAL_CLASSICAL_ANNOTATION_HASH_ID}@"
                 f"{TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION}"
