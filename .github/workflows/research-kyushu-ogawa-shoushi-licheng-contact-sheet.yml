@@ -1,0 +1,35 @@
+name: research-kyushu-ogawa-shoushi-licheng-contact-sheet
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-kyushu-ogawa-shoushi-licheng-contact-sheet.yml"
+      - "scripts/research_kyushu_ogawa_shoushi_licheng_contact_sheet.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install research image dependency
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Fetch Kyushu same-year Ogawa IIIF manifest and contact sheet
+        run: |
+          python scripts/research_kyushu_ogawa_shoushi_licheng_contact_sheet.py \
+            --output artifacts/kyushu-ogawa-contact-sheet
+      - name: Upload no-OCR contact sheet and page map
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyushu-ogawa-contact-sheet-${{ github.sha }}
+          path: artifacts/kyushu-ogawa-contact-sheet/
+          if-no-files-found: warn
+          retention-days: 7
