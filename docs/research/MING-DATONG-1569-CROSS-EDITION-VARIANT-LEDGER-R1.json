@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_KRDB_LAYER_SEMANTICS_CORRECTED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -209,10 +209,14 @@
     "earlier_cross_regional_physical_witness_as_ming_1569_edition_authority": "FORBIDDEN",
     "catalog_original_image_availability_as_direct_target_glyph_reading": "FORBIDDEN",
     "modern_version_study_as_direct_g893_glyph_reading": "FORBIDDEN",
-    "print_history_year_as_copy_specific_colophon_date": "FORBIDDEN"
+    "print_history_year_as_copy_specific_colophon_date": "FORBIDDEN",
+    "textual_volume_localization_as_target_folio_certification": "FORBIDDEN",
+    "secondary_reproduced_non_target_page_as_target_glyph_reading": "FORBIDDEN",
+    "mediated_1998_version_claim_as_direct_article_transcription": "FORBIDDEN"
   },
   "next_work": [
-    "BIND_KYUJANGGAK_G893_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
+    "BIND_KYUJANGGAK_G893_JUANSHANG_EXACT_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
+    "USE_LI_2018_FIGURE_6_ONLY_AS_JUANSHANG_LAYOUT_LOCALIZATION_NOT_AS_D16_OR_LUNAR_TARGET_VALUE",
     "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_GORYEOSA_VARIANTS_WHERE_G893_DOES_NOT_RESOLVE_TRANSMISSION_STAGE",
     "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION_AND_SOURCE_LAYER_SEMANTICS",
     "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
@@ -275,42 +279,61 @@
   "philological_normalization_control_count": 1,
   "independent_physical_image_adjudication": {
     "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
-    "status": "SOURCE_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
+    "status": "SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
     "purpose": "Adjudicate the five numeric variant controls and the L101 positional-normalization bridge against an independent early physical Shoushi-table print.",
     "targets": [
       {
         "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
         "target_table": "太陽冬至前後二象盈初縮末限",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       },
       {
         "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
         "target_table": "太陰限數遲疾度",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       },
       {
         "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
         "target_table": "太陰限數遲疾度",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       },
       {
         "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
         "target_table": "太陰限數遲疾度 / associated line-speed table if separately printed",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       },
       {
         "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
         "target_table": "太陰限數遲疾度",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       },
       {
         "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
         "target_table": "太陰限數遲疾度",
-        "target_reading_status": "PENDING_DIRECT_IMAGE"
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
       }
     ],
     "no_prepopulation_rule": "NO_NUMERIC_VALUE_MAY_BE_ENTERED_FOR_G893_BEFORE_DIRECT_TARGET_IMAGE_READING",
-    "provenance_strengthening": "EARLY_PHYSICAL_TARGET_IS_NOW_SUPPORTED_BY_KYUJANGGAK_COPY_CATALOG_PLUS_1434_GAPJA_PRINT_HISTORY_PLUS_PEER_REVIEWED_KOREAN_SHOUSHI_TRANSMISSION_STUDY"
+    "provenance_strengthening": "EARLY_PHYSICAL_TARGET_IS_SUPPORTED_BY_KYUJANGGAK_COPY_CATALOG_1434_GAPJA_PRINT_HISTORY_SHI_YUNLI_1998_TRANSMISSION_STUDY_LI_LIANG_2018_VERSION_STRUCTURE_AND_LEE_JING_1998_SPECIALIST_VERSION_STUDY",
+    "search_space_reduction": "ALL_SIX_TARGETS_LOCALIZED_TO_SHOUSHI_LICHENG_JUANSHANG; DO_NOT_SCAN_SUNRISE_SUNSET_VOLUME"
   },
   "transmission_history_evidence": [
     {
@@ -332,6 +355,52 @@
       ],
       "direct_glyph_authority": false,
       "exact_surviving_copy_year_authorized": false
+    },
+    {
+      "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+      "role": "PEER_REVIEWED_VERSION_STRUCTURE_AND_SECONDARY_FIGURE_REPRODUCTION",
+      "findings": [
+        "EXTANT_KYUJANGGAK_SHOUSHI_LICHENG_REPRINTED_1434_AND_ASSOCIATED_WITH_KING_SEJONG_REPRINT",
+        "TEXTUAL_VOLUME_WITH_SUN_MOON_FIVE_PLANETS_IS_SEPARATE_FROM_SUNRISE_SUNSET_VOLUME",
+        "FIGURE_6_REPRODUCES_SOLAR_PICKUP_TABLE_WITH_VISIBLE_TITLE_SHOUSHI_LICHENG_JUANSHANG",
+        "LI_2018_REPORTS_LEE_JING_1998_ESTABLISHED_IDENTITY_WITH_MINGSHI_MENTIONED_LICHENG_VERSION"
+      ],
+      "direct_target_glyph_authority": false,
+      "target_folio_certification_authorized": false
+    },
+    {
+      "source_id": "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998",
+      "role": "SPECIALIST_VERSION_STUDY_BIBLIOGRAPHIC_AND_MEDIATED_FINDING",
+      "findings": [
+        "SPECIALIST_1998_STUDY_EXISTS_AND_IS_CITED_BY_LI_2018_FOR_VERSION_IDENTITY"
+      ],
+      "direct_full_text_retrieved_in_current_workflow": false,
+      "direct_target_glyph_authority": false
     }
-  ]
+  ],
+  "textual_volume_localization": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "target_textual_volume": "卷上",
+    "status": "CLOSED_AT_TEXTUAL_VOLUME_LEVEL_EXACT_FOLIOS_OPEN",
+    "evidence": [
+      {
+        "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+        "evidence_class": "PEER_REVIEWED_TEXT_PLUS_SECONDARY_PAGE_REPRODUCTION",
+        "finding": "Sun/Moon/five-planet tables occupy one textual volume; Figure 6's reproduced solar page visibly carries 授時曆立成卷上."
+      },
+      {
+        "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+        "evidence_class": "INSTITUTIONAL_CATALOG",
+        "finding": "Catalog contents explicitly include 太陽冬至前後二象盈初縮末限 and 太陰限數遲疾度 in the same physical copy."
+      }
+    ],
+    "figure_6_scope": {
+      "visible_table_family": "SOLAR_PICKUP_TABLE",
+      "visible_day_block": "初日_TO_八日",
+      "target_control_directly_visible": false,
+      "use_as_target_value": false
+    },
+    "exact_folio_status": "UNRESOLVED",
+    "exact_image_filename_status": "UNRESOLVED"
+  }
 }

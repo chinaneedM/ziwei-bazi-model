@@ -740,8 +740,17 @@
       "quality_notes": "High-value independent physical witness for the Shoushi table transmission. Kyujanggak catalogs it as a 15th-century first-half 甲寅字 precious-book copy with original images; KOSTMA independently records a 1434 first-cast 甲寅字 printing tradition for 授時曆立成, while Shi Yunli's 1998 peer-reviewed study places the independent Korean Shoushi licheng and the Goryeosa calendrical tables in a substantive early transmission lineage. These witnesses strengthen provenance but do not supply direct glyph readings for the six pending controls. The copy must not overwrite edition-specific Ming 1569 primary readings merely because the tradition is earlier.",
       "bibliographic_witnesses": [
         "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
-        "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434"
-      ]
+        "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+        "EXT-LI-LIANG-LICHENG-TABLES-2018",
+        "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998"
+      ],
+      "textual_volume_localization": {
+        "table_volume": "卷上",
+        "localization_status": "HIGH_CONFIDENCE_TEXTUAL_VOLUME_ONLY_EXACT_FOLIO_UNRESOLVED",
+        "evidence_source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+        "basis": "Li 2018 states one volume contains Sun/Moon/five-planet tables and Figure 6 reproduces the solar table under the visible title 授時曆立成卷上; the Kyujanggak catalog lists the target solar and lunar table families.",
+        "direct_target_glyph_status": "NOT_READ"
+      }
     },
     {
       "source_id": "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
@@ -762,6 +771,29 @@
       "url": "https://kostma.aks.ac.kr/history_table/history_list3.aspx",
       "source_role": "BIBLIOGRAPHIC_PRINT_HISTORY_WITNESS_FOR_1434_GAPJA_TYPE_SHOUSHI_LICHENG_TRADITION",
       "quality_notes": "The print-history table lists 授時曆立成 under 1434 (Sejong 16) among works printed with first-cast 甲寅字. This is a bibliographic print-tradition witness, not proof that every surviving G893 leaf was impressed in that exact year. Kyujanggak's own catalog date range remains the controlling copy-level catalog metadata unless a copy-specific colophon or institutional catalog statement closes the exact year."
+    },
+    {
+      "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+      "title": "Astronomical Tables in the “Lü-li zhi”: On the Characteristics and Adoption of “Licheng” Pick-up Tables",
+      "author": "Li Liang 李亮",
+      "publication": "Chinese Annals of History of Science and Technology 2(2), 2018, 41–67",
+      "doi": "10.3724/SP.J.1461.2018.02041",
+      "historical_period": "modern international peer-reviewed scholarship",
+      "provider": "Chinese Annals of History of Science and Technology / ScienceEngine",
+      "url": "https://www.sciengine.com/parse/pdf/2096-4226/D9ED8D22B1044E2EBFE3917E17EF42DD.pdf?attname=D9ED8D22B1044E2EBFE3917E17EF42DD.pdf",
+      "source_role": "PEER_REVIEWED_VERSION_STRUCTURE_AND_SECONDARY_FIGURE_REPRODUCTION_FOR_KYUJANGGAK_SHOUSHI_LICHENG",
+      "quality_notes": "The indexed full text states that the extant Kyujanggak Shoushi li licheng was reprinted in 1434, contains two textual volumes, and was a King Sejong-period reprint. It explicitly reports Lee Eun-Hee and Jing Bing 1998 as establishing identity with the version mentioned in Mingshi. Page 55 states that one volume contains the Sun, Moon and five-planet pick-up tables while the other contains sunrise/sunset tables. Figure 6 reproduces a Kyujanggak solar-table page whose visible title is 授時曆立成卷上 and whose displayed block covers 初日 through 八日. This is strong localization/version evidence, but a secondary reproduction of a non-target page cannot certify any of the six pending target glyphs."
+    },
+    {
+      "source_id": "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998",
+      "title": "《朝鮮奎章閣本的〈授時曆立成〉》",
+      "author": "李銀姬（Lee Eun-Hee）; 景冰（Jing Bing）",
+      "publication": "《中國科技史料》19(2), 1998, 73–77",
+      "historical_period": "modern specialist version study",
+      "provider": "Bibliographic identity corroborated by Li Liang 2018, KCI/RISS references and later scholarship; direct article full text not retrieved in current workflow",
+      "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001942876",
+      "source_role": "SPECIALIST_KYUJANGGAK_SHOUSHI_LICHENG_VERSION_STUDY_BIBLIOGRAPHIC_WITNESS",
+      "quality_notes": "Bibliographic identity is independently visible in KCI/RISS reference records and Li Liang 2018. Li Liang 2018 attributes to this paper the conclusion that the Kyujanggak copy is identical to the Shoushi licheng version mentioned in Mingshi. Because the 1998 article's own full text has not yet been directly retrieved here, that conclusion is stored as a mediated scholarly finding rather than a direct quotation or glyph authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

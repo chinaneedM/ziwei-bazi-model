@@ -111,6 +111,37 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_g893_targets_are_localized_to_juanshang_without_folio_or_glyph_promotion(self) -> None:
+        loc=self.data["textual_volume_localization"]
+        self.assertEqual(loc["target_textual_volume"],"卷上")
+        self.assertEqual(loc["status"],"CLOSED_AT_TEXTUAL_VOLUME_LEVEL_EXACT_FOLIOS_OPEN")
+        self.assertFalse(loc["figure_6_scope"]["target_control_directly_visible"])
+        self.assertFalse(loc["figure_6_scope"]["use_as_target_value"])
+        self.assertEqual(loc["exact_folio_status"],"UNRESOLVED")
+        adjudication=self.data["independent_physical_image_adjudication"]
+        self.assertEqual(
+            adjudication["status"],
+            "SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
+        )
+        self.assertEqual(len(adjudication["targets"]),6)
+        for target in adjudication["targets"]:
+            self.assertEqual(target["target_textual_volume"],"卷上")
+            self.assertEqual(target["volume_localization_confidence"],"HIGH")
+            self.assertEqual(target["exact_target_folio_status"],"UNRESOLVED")
+            self.assertEqual(target["target_reading_status"],"PENDING_DIRECT_IMAGE")
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["textual_volume_localization_as_target_folio_certification"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["secondary_reproduced_non_target_page_as_target_glyph_reading"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["mediated_1998_version_claim_as_direct_article_transcription"],
+            "FORBIDDEN",
+        )
+
     def test_early_physical_shoushi_witness_is_bound_without_prepopulated_readings(self) -> None:
         source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
@@ -118,7 +149,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(witnesses[source]["direct_target_image_status"],"PENDING_FOLIO_BINDING")
         adjudication=self.data["independent_physical_image_adjudication"]
         self.assertEqual(adjudication["source_id"],source)
-        self.assertEqual(adjudication["status"],"SOURCE_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND")
+        self.assertEqual(adjudication["status"],"SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND")
         self.assertEqual(len(adjudication["targets"]),6)
         self.assertTrue(all(t["target_reading_status"]=="PENDING_DIRECT_IMAGE" for t in adjudication["targets"]))
         self.assertEqual(
