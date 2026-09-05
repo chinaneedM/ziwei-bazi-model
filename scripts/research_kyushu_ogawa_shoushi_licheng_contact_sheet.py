@@ -6,15 +6,17 @@ import io
 import json
 import math
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 MANIFEST_URL = "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
+CONTACT_WIDTH = 320
 
 
-def fetch(url: str, timeout: int = 60) -> bytes:
+def fetch(url: str, timeout: int = 45) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json,image/*,*/*;q=0.8"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
@@ -30,7 +32,6 @@ def manifest_canvases(manifest: dict) -> tuple[str, list[dict]]:
 
 
 def canvas_image_url(canvas: dict) -> str | None:
-    # IIIF Presentation 2
     images = canvas.get("images") or []
     if images:
         resource = (images[0] or {}).get("resource") or {}
@@ -39,10 +40,9 @@ def canvas_image_url(canvas: dict) -> str | None:
             service = service[0] if service else {}
         service_id = service.get("@id") or service.get("id")
         if service_id:
-            return service_id.rstrip("/") + "/full/600,/0/default.jpg"
+            return service_id.rstrip("/") + f"/full/{CONTACT_WIDTH},/0/default.jpg"
         return resource.get("@id") or resource.get("id")
 
-    # IIIF Presentation 3: Canvas -> AnnotationPage -> Annotation -> body
     pages = canvas.get("items") or []
     if not pages:
         return None
@@ -56,18 +56,42 @@ def canvas_image_url(canvas: dict) -> str | None:
     if service:
         service_id = (service[0] or {}).get("id") or (service[0] or {}).get("@id")
         if service_id:
-            return service_id.rstrip("/") + "/full/600,/0/default.jpg"
+            return service_id.rstrip("/") + f"/full/{CONTACT_WIDTH},/0/default.jpg"
     body_id = body.get("id") or body.get("@id")
     if body_id:
         if "/full/max/" in body_id:
-            return body_id.replace("/full/max/", "/full/600,/")
+            return body_id.replace("/full/max/", f"/full/{CONTACT_WIDTH},/")
         return body_id
     return None
+
+
+def fetch_canvas(index: int, canvas: dict) -> tuple[int, dict, Image.Image | None]:
+    url = canvas_image_url(canvas)
+    rec = {
+        "canvas_index": index,
+        "canvas_id": canvas.get("@id") or canvas.get("id"),
+        "label": canvas.get("label"),
+        "image_url": url,
+        "ocr_used": False,
+        "target_value_authorized": False,
+    }
+    if not url:
+        rec["status"] = "NO_IMAGE"
+        return index, rec, None
+    try:
+        body = fetch(url)
+        im = Image.open(io.BytesIO(body)).convert("RGB")
+        rec.update({"status": "OK", "size": [im.width, im.height], "bytes": len(body)})
+        return index, rec, im
+    except Exception as exc:
+        rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
+        return index, rec, None
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/kyushu-ogawa-contact-sheet")
+    ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -77,33 +101,21 @@ def main() -> int:
     (out / "manifest.json").write_bytes(raw)
     presentation_version, canvases = manifest_canvases(manifest)
 
-    records: list[dict] = []
-    thumbs: list[tuple[int, Image.Image]] = []
-    for index, canvas in enumerate(canvases):
-        url = canvas_image_url(canvas)
-        rec = {
-            "canvas_index": index,
-            "canvas_id": canvas.get("@id") or canvas.get("id"),
-            "label": canvas.get("label"),
-            "image_url": url,
-            "ocr_used": False,
-            "target_value_authorized": False,
-        }
-        if not url:
-            rec["status"] = "NO_IMAGE"
-            records.append(rec)
-            continue
-        try:
-            body = fetch(url)
-            im = Image.open(io.BytesIO(body)).convert("RGB")
-            rec.update({"status": "OK", "size": [im.width, im.height], "bytes": len(body)})
-            thumbs.append((index, im))
-        except Exception as exc:
-            rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
-        records.append(rec)
+    records_by_index: dict[int, dict] = {}
+    images_by_index: dict[int, Image.Image] = {}
+    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
+        futures = [pool.submit(fetch_canvas, index, canvas) for index, canvas in enumerate(canvases)]
+        for future in as_completed(futures):
+            index, rec, im = future.result()
+            records_by_index[index] = rec
+            if im is not None:
+                images_by_index[index] = im
 
-    cell_w, cell_h = 620, 500
-    cols = 4
+    records = [records_by_index[i] for i in range(len(canvases))]
+    thumbs = [(i, images_by_index[i]) for i in sorted(images_by_index)]
+
+    cell_w, cell_h = 340, 280
+    cols = 5
     rows = max(1, math.ceil(len(thumbs) / cols))
     sheet = Image.new("RGB", (cols * cell_w, rows * cell_h), "white")
     draw = ImageDraw.Draw(sheet)
@@ -124,6 +136,8 @@ def main() -> int:
         "presentation_version": presentation_version,
         "viewing_direction": manifest.get("viewingDirection"),
         "canvas_count": len(canvases),
+        "contact_width_px": CONTACT_WIDTH,
+        "workers": max(1, args.workers),
         "fetched_image_count": len(thumbs),
         "ocr_used": False,
         "page_offset_assumption": False,
