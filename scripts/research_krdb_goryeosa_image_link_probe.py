@@ -19,7 +19,7 @@ KNOWN_VIEWER_IMAGE_START = 1034
 KNOWN_VIEWER_IMAGE_END = 1134
 # Full-resolution control pages already localized by the CADAL↔KRDB page-order bridge.
 # The bridge only selects pages; glyph conclusions still require direct inspection of these pixels.
-FULL_IMAGE_TARGETS = (1036, 1078, 1087, 1098, 1109, 1114, 1117, 1120)
+FULL_IMAGE_TARGETS = (1114,)
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
@@ -45,11 +45,17 @@ def fetch(url: str, attempts: int = 3, timeout: int = 30) -> tuple[str, dict[str
     raise last
 
 
-def fetch_bytes(url: str, attempts: int = 3, timeout: int = 30) -> tuple[bytes, dict[str, str]]:
+def fetch_bytes(url: str, attempts: int = 3, timeout: int = 30, referer: str | None = None) -> tuple[bytes, dict[str, str]]:
     last: Exception | None = None
     for attempt in range(1, attempts + 1):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"})
+            headers = {
+                "User-Agent": UA,
+                "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+            }
+            if referer:
+                headers["Referer"] = referer
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 return resp.read(), dict(resp.headers.items())
         except Exception as exc:
@@ -248,7 +254,7 @@ def main() -> int:
         })
         rec: dict[str, object] = {"image_no": image_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
         try:
-            body, img_headers = fetch_bytes(url, attempts=2, timeout=15)
+            body, img_headers = fetch_bytes(url, attempts=1, timeout=120, referer=VIEWER)
             (full_dir / Path(rel_path).name).write_bytes(body)
             is_placeholder = b"NO IMAGE AVAILABLE" in body
             rec.update({
