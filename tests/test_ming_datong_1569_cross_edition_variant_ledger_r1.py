@@ -90,6 +90,27 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["independent_textual_witness"])
         self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["direct_original_image_glyph_inspection"])
 
+    def test_modern_transmission_studies_strengthen_provenance_without_prejudging_glyphs(self) -> None:
+        evidence={x["source_id"]:x for x in self.data["transmission_history_evidence"]}
+        shi=evidence["EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998"]
+        self.assertFalse(shi["direct_glyph_authority"])
+        self.assertFalse(shi["numeric_variant_adjudication_authorized"])
+        self.assertIn(
+            "GORYEOSA_CALENDRICAL_TRADITION_PRESERVES_ATTACHED_SHOUSHI_LICHENG_TABLE_FAMILY",
+            shi["findings"],
+        )
+        kostma=evidence["EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434"]
+        self.assertFalse(kostma["direct_glyph_authority"])
+        self.assertFalse(kostma["exact_surviving_copy_year_authorized"])
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["modern_version_study_as_direct_g893_glyph_reading"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["print_history_year_as_copy_specific_colophon_date"],
+            "FORBIDDEN",
+        )
+
     def test_early_physical_shoushi_witness_is_bound_without_prepopulated_readings(self) -> None:
         source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
