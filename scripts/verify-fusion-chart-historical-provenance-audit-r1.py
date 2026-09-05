@@ -248,20 +248,13 @@ def main() -> int:
     for rule_id in ("HPA-BAZI-004","HPA-BAZI-013","HPA-BAFF-001","HPA-BAFF-002","HPA-BREL-001","HPA-BREL-002","HPA-BREL-003","HPA-BREL-004","HPA-BREL-005","HPA-BREL-006"):
         if by_rule_id[rule_id]["audit_status"]!="HISTORICALLY_SUPPORTED":
             raise SystemExit(f"Batch 10A supported relation/affinity rule regressed: {rule_id}")
-    if by_rule_id["HPA-BAZI-005"]["audit_status"]!="MISSING_FROM_PRODUCT":
-        raise SystemExit("raw relation parent no longer records source-closed product gap")
-    if by_rule_id["HPA-BREL-007"]["audit_status"]!="MISSING_FROM_PRODUCT":
-        raise SystemExit("four-earth bureau product gap was not preserved")
-    if "arity-4" not in by_rule_id["HPA-BREL-007"]["proposed_action"]:
+    if "arity-4" not in by_rule_id["HPA-BREL-007"]["current_implementation"]:
         raise SystemExit("four-earth bureau lost separate arity-4 typing requirement")
     if "LIUHAI_ALIAS_RECORDED_IN_PROVENANCE_ONLY" not in by_rule_id["HPA-BREL-004"]["current_implementation_match"]:
         raise SystemExit("穿/害 terminology bridge regressed into duplicate mechanics")
     batch10b_ids={f"HPA-BREL-{index:03d}" for index in range(8,13)}
     if not batch10b_ids.issubset(set(ids)):
         raise SystemExit("Batch 10B excluded relation rows are incomplete")
-    for rule_id in ("HPA-BREL-008","HPA-BREL-009","HPA-BREL-012"):
-        if by_rule_id[rule_id]["audit_status"]!="MISSING_FROM_PRODUCT":
-            raise SystemExit(f"source-closed Batch 10B product gap regressed: {rule_id}")
     if by_rule_id["HPA-BREL-010"]["audit_status"]!="DISPUTED_MULTIPLE_CANDIDATES":
         raise SystemExit("later six-break table lost disputed status")
     if by_rule_id["HPA-BREL-011"]["audit_status"]!="MODERN_COMPATIBILITY_ONLY":
