@@ -113,7 +113,11 @@
     ],
     "reform_memorial_as_qishuo_meridian_proof": "FORBIDDEN",
     "nanjing_sunrise_parameter_as_qishuo_meridian_proof": "FORBIDDEN",
-    "hongzhi_10_almanac_issuance_without_physical_copy": "ISSUANCE_ONLY_NOT_VALUE_CERTIFICATION"
+    "hongzhi_10_almanac_issuance_without_physical_copy": "ISSUANCE_ONLY_NOT_VALUE_CERTIFICATION",
+    "collection_catalog_absence_as_global_nonexistence": "FORBIDDEN",
+    "search_result_absence_as_historical_nonexistence": "FORBIDDEN",
+    "hongzhi_8_eclipse_failure_as_cause_of_month_7_qishuo_conflict": "FORBIDDEN_WITHOUT_DIRECT_MECHANICAL_EVIDENCE",
+    "joseon_gift_as_surviving_hongzhi_10_copy": "UNRESOLVED_NOT_CERTIFIED"
   },
   "historical_operational_context": [
     {
@@ -158,6 +162,67 @@
       "nanjing_sunrise_parameter_use_supported": true,
       "qishuo_meridian_explicitly_defined": false,
       "inference_scope": "STRONG_SUPPORT_FOR_MODULE_SPECIFIC_MIXED_GEOGRAPHY_NOT_QISHUO_MERIDIAN_CLOSURE"
+    },
+    {
+      "context_id": "MING-1494-ISSUE-HONGZHI-8-ALMANAC",
+      "date": "弘治七年十一月丙戌朔",
+      "source": "《明孝宗敬皇帝實錄》卷九十四",
+      "record": "欽天監進弘治八年大統曆；上御奉天殿受之，給賜文武群臣，頒行天下",
+      "implication": "TARGET_HONGZHI_8_DATONG_ALMANAC_WAS_OFFICIALLY_ISSUED_AND_DISTRIBUTED",
+      "physical_copy_located": false,
+      "inference_scope": "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION",
+      "source_url": "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6to1t6kqpl6"
+    },
+    {
+      "context_id": "MING-1495-H8-LUNAR-ECLIPSE-NON-EVENT",
+      "date": "弘治八年八月十六日望",
+      "source": "《萬曆野獲編》卷二十九",
+      "witness_period": "LATER_MING",
+      "record": "弘治八年八月十六日望當月食不應",
+      "implication": "LATER_MING_WITNESS_TO_A_CALENDAR_ECLIPSE_PREDICTION_FAILURE_IN_THE_SAME_YEAR",
+      "causal_link_to_hongzhi_8_month_7_qishuo_conflict": "FORBIDDEN_WITHOUT_DIRECT_MECHANICAL_EVIDENCE",
+      "qishuo_meridian_evidence": false,
+      "source_url": "https://ctext.org/wiki.pl?chapter=130949&if=gb&remap=gb"
+    },
+    {
+      "context_id": "COLLECTION-NLC-2007-MING-DATONG-FACSIMILES",
+      "source": "國家圖書館出版社《國家圖書館藏明代大統曆日彙編》",
+      "publication_year": 2007,
+      "collection_size_kinds": 99,
+      "collection_size_fascicles": 105,
+      "earliest_year": 1446,
+      "latest_year": 1641,
+      "published_toc_transition_before_target": "1484 成化二十年",
+      "published_toc_transition_after_target": "1508 正德三年",
+      "hongzhi_8_present": false,
+      "hongzhi_10_present": false,
+      "negative_evidence_scope": "THIS_COLLECTION_ONLY",
+      "global_nonexistence_inference": "FORBIDDEN",
+      "source_url": "https://www.nlcpress.com/productview.aspx?id=4027"
+    },
+    {
+      "context_id": "COLLECTION-KYUJANGGAK-MING-PRINTED-DATONG",
+      "source": "서울대학교 규장각한국학연구원 calendar-holdings feature",
+      "identified_ming_printed_datong": "大明崇禎十年大統曆",
+      "identified_year": 1637,
+      "shelfmark": "奎中 5567",
+      "institutional_description": "규장각한국학연구원에 소장되어 있는 유일한 明나라 印本 大統曆書",
+      "hongzhi_8_present_in_identified_ming_printed_holding": false,
+      "hongzhi_10_present_in_identified_ming_printed_holding": false,
+      "negative_evidence_scope": "KYUJANGGAK_INSTITUTIONAL_HOLDING_DESCRIPTION_ONLY",
+      "korea_wide_nonexistence_inference": "FORBIDDEN",
+      "source_url": "https://kyudb.snu.ac.kr/brd/viewBrd.do?book_cate=HEJ32&focus=d3sd33&listChk=tree&menuId=10246&mid=HEJ&postSeq=20220&siteCd=DBSP"
+    },
+    {
+      "context_id": "MING-1497-JOSEON-DATONG-GIFT",
+      "date": "弘治十年十二月二十二日",
+      "source": "《明孝宗敬皇帝實錄》卷一百三十二 / Korean Ming-Qing Shilu interface",
+      "record": "己丑賜朝鮮國大統曆一百本",
+      "implication": "OFFICIAL_MING_TO_JOSEON_DATONG_TRANSMISSION_CHANNEL_CONFIRMED",
+      "specific_gift_copy_identity_with_hongzhi_10_target": "UNRESOLVED",
+      "survival_of_gifted_copies": "UNRESOLVED",
+      "inference_scope": "TRANSMISSION_LEAD_NOT_PHYSICAL_COPY_CERTIFICATION",
+      "source_url": "https://sillok.history.go.kr/mc/id/msilok_007_1320_0010_0010_0210_0010"
     }
   ]
 }

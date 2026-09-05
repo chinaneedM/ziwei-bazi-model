@@ -287,3 +287,105 @@ The next highest-value evidence is now:
 5. comparison with eclipse/new-moon observations as a diagnostic layer only.
 
 The 1497 and 1521 memorials demonstrate why a single-cause longitude model is historically unsafe: Ming officials themselves discussed accumulated error, eclipse mismatch, inherited Shoushi rules, instruments, and Nanjing location parameters as distinct interacting problems.
+
+
+## 12. Hongzhi-8 target issuance and 1495 eclipse-warning context
+
+### 12.1 The exact Hongzhi-8 calendar was officially issued
+
+`《明孝宗敬皇帝實錄》卷九十四` records on `弘治七年十一月丙戌朔`:
+
+```text
+欽天監進弘治八年大統曆，上御奉天殿受之，給賜文武群臣，頒行天下
+```
+
+Therefore the 1495 target, like the 1497 target, was an actually produced and promulgated Qintianjian almanac. The missing evidence is the surviving physical/page-level copy, not whether such an official calendar existed.
+
+```text
+HONGZHI_8_DATONG_ALMANAC_OFFICIALLY_ISSUED = TRUE
+HONGZHI_8_DATONG_ALMANAC_PHYSICAL_COPY_LOCATED = FALSE
+```
+
+### 12.2 A later Ming witness records a Hongzhi-8 lunar-eclipse prediction failure
+
+Shen Defu's later Ming `《萬曆野獲編》卷二十九` records that on `弘治八年八月十六日望` a predicted lunar eclipse did not occur, and groups it with two later Hongzhi failures.
+
+This is relevant operational evidence because the unresolved D1/Shilu qishuo conflict occurs in the preceding month of the same calendar year.
+
+But temporal proximity is not causation. The later witness does not identify the computational defect, does not link it to the month-7 new moon, and does not define a qishuo meridian.
+
+Therefore:
+
+```text
+HONGZHI_8_ECLIPSE_NON_EVENT = LATER_MING_OPERATIONAL_WARNING
+CAUSALLY_LINK_HONGZHI_8_M07_QISHUO_CONFLICT_TO_M08_ECLIPSE_FAILURE = FORBIDDEN
+```
+
+## 13. Collection-scoped physical-copy screening
+
+### 13.1 National Library of China 2007 facsimile collection
+
+The official National Library of China Press description states that `《國家圖書館藏明代大統曆日彙編》` contains 99 kinds / 105 fascicles of Ming Datong almanacs, spanning 1446–1641.
+
+The published contents list reaches:
+
+- 成化二十年 / 1484;
+- then jumps to 正德三年 / 1508.
+
+No Hongzhi-year annual almanac appears in that collection's published contents. Consequently:
+
+```text
+NLC_2007_COLLECTION_HAS_HONGZHI_8 = FALSE
+NLC_2007_COLLECTION_HAS_HONGZHI_10 = FALSE
+INFER_GLOBAL_NONEXISTENCE_FROM_NLC_2007_ABSENCE = FORBIDDEN
+```
+
+This is a **collection-scoped negative**, not a claim that no copy survives elsewhere.
+
+### 13.2 Seoul National University Kyujanggak
+
+Kyujanggak's institutional feature on its calendar holdings identifies its `大明崇禎十年大統曆` (1637, 奎中 5567) as the institute's only Ming printed Datong almanac. The author further suggests it may be the only such Ming printed almanac then known in Korea.
+
+The project uses only the institution-scoped part as a research control:
+
+```text
+KYUJANGGAK_MING_PRINTED_DATONG_TARGET_HONGZHI_8 = NOT_IN_IDENTIFIED_HOLDING
+KYUJANGGAK_MING_PRINTED_DATONG_TARGET_HONGZHI_10 = NOT_IN_IDENTIFIED_HOLDING
+INFER_KOREA_WIDE_NONEXISTENCE = FORBIDDEN
+```
+
+Other Korean institutional, private, and family collections remain searchable.
+
+## 14. Joseon transmission lead
+
+`《明孝宗敬皇帝實錄》卷一百三十二`, preserved in the Korean Ming-Qing Shilu interface, records on `弘治十年十二月二十二日`:
+
+```text
+己丑，賜朝鮮國大統曆一百本
+```
+
+This confirms a substantial official calendar-transmission channel from Ming to Joseon during the exact research period.
+
+It does **not** by itself establish that a surviving copy is the Hongzhi-10 target annual, nor that the gifted copies remained in the present Kyujanggak/Jangseogak collections.
+
+```text
+JOSEON_DATONG_TRANSMISSION_CHANNEL_1497 = CONFIRMED
+SPECIFIC_GIFT_COPY_IDENTITY_WITH_HONGZHI_10_TARGET = UNRESOLVED
+SURVIVAL_OF_GIFTED_COPIES = UNRESOLVED
+```
+
+The Korean search path therefore remains active: Kyujanggak, Jangseogak, National Library of Korea, Academy of Korean Studies collections, institutional catalogues, and family-document corpora.
+
+## 15. Negative-evidence discipline
+
+The artifact search now uses a strict rule:
+
+```text
+SEARCH_RESULT_ABSENCE != HISTORICAL_NONEXISTENCE
+COLLECTION_CATALOG_ABSENCE = COLLECTION_SCOPED_NEGATIVE_ONLY
+INSTITUTIONAL_ONLY_COPY_STATEMENT = INSTITUTION_SCOPED_UNLESS EXHAUSTIVE NATIONAL SURVEY IS PROVEN
+```
+
+This matters because the target almanacs are ephemeral annual publications. Their documented issue and distribution can be source-closed even while currently indexed surviving copies remain unknown.
+
+The next decisive objective remains the same: locate a physical/page-level Hongzhi-8 or Hongzhi-10 Datong almanac, with the 1495 target especially diagnostic because its D1/Shilu disagreement lies far outside any plausible Beijing–Nanjing longitude shift.

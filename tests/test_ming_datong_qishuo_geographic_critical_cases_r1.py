@@ -114,5 +114,56 @@ class MingDatongQishuoGeographicCriticalCasesR1Test(unittest.TestCase):
         )
 
 
+    def test_hongzhi_8_target_calendar_was_issued(self):
+        ctx = self.contexts["MING-1494-ISSUE-HONGZHI-8-ALMANAC"]
+        self.assertIn("弘治八年大統曆", ctx["record"])
+        self.assertFalse(ctx["physical_copy_located"])
+        self.assertEqual(
+            ctx["inference_scope"],
+            "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION",
+        )
+
+    def test_hongzhi_8_eclipse_warning_has_causal_firewall(self):
+        ctx = self.contexts["MING-1495-H8-LUNAR-ECLIPSE-NON-EVENT"]
+        self.assertEqual(ctx["witness_period"], "LATER_MING")
+        self.assertIn("月食不應", ctx["record"])
+        self.assertFalse(ctx["qishuo_meridian_evidence"])
+        self.assertEqual(
+            self.data["adjudication"]["hongzhi_8_eclipse_failure_as_cause_of_month_7_qishuo_conflict"],
+            "FORBIDDEN_WITHOUT_DIRECT_MECHANICAL_EVIDENCE",
+        )
+
+    def test_collection_negatives_are_scoped_not_global(self):
+        nlc = self.contexts["COLLECTION-NLC-2007-MING-DATONG-FACSIMILES"]
+        self.assertFalse(nlc["hongzhi_8_present"])
+        self.assertFalse(nlc["hongzhi_10_present"])
+        self.assertEqual(nlc["negative_evidence_scope"], "THIS_COLLECTION_ONLY")
+        self.assertEqual(nlc["global_nonexistence_inference"], "FORBIDDEN")
+
+        kyu = self.contexts["COLLECTION-KYUJANGGAK-MING-PRINTED-DATONG"]
+        self.assertEqual(kyu["identified_year"], 1637)
+        self.assertFalse(kyu["hongzhi_8_present_in_identified_ming_printed_holding"])
+        self.assertFalse(kyu["hongzhi_10_present_in_identified_ming_printed_holding"])
+        self.assertEqual(kyu["korea_wide_nonexistence_inference"], "FORBIDDEN")
+
+        self.assertEqual(
+            self.data["adjudication"]["search_result_absence_as_historical_nonexistence"],
+            "FORBIDDEN",
+        )
+
+    def test_joseon_gift_is_transmission_lead_not_survival_proof(self):
+        ctx = self.contexts["MING-1497-JOSEON-DATONG-GIFT"]
+        self.assertIn("大統曆一百本", ctx["record"])
+        self.assertEqual(
+            ctx["specific_gift_copy_identity_with_hongzhi_10_target"],
+            "UNRESOLVED",
+        )
+        self.assertEqual(ctx["survival_of_gifted_copies"], "UNRESOLVED")
+        self.assertEqual(
+            self.data["adjudication"]["joseon_gift_as_surviving_hongzhi_10_copy"],
+            "UNRESOLVED_NOT_CERTIFIED",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
