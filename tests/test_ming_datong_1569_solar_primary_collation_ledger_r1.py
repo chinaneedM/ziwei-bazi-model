@@ -21,13 +21,10 @@ class MingDatong1569SolarPrimaryCollationLedgerR1Tests(unittest.TestCase):
         )
         self.assertEqual(self.data["structural_findings"]["omitted_column_discovered"], "消息分")
 
-    def test_ledger_never_false_closes_pending_glyph_work(self) -> None:
-        self.assertFalse(self.data["full_row_by_row_primary_collation_complete"])
-        self.assertGreater(self.data["pending_rows"], 0)
-        self.assertEqual(
-            self.data["directly_collated_rows"] + self.data["pending_rows"],
-            self.data["total_rows"],
-        )
+    def test_completed_ledger_closes_only_direct_primary_glyph_work(self) -> None:
+        self.assertTrue(self.data["full_row_by_row_primary_collation_complete"])
+        self.assertEqual(self.data["directly_collated_rows"], self.data["total_rows"])
+        self.assertEqual(self.data["pending_rows"], 0)
         self.assertEqual(self.data["variant_rows"], 0)
         self.assertEqual(self.data["glyph_ambiguous_rows"], 0)
         self.assertEqual(
@@ -62,11 +59,12 @@ class MingDatong1569SolarPrimaryCollationLedgerR1Tests(unittest.TestCase):
         self.assertEqual(direct[("SUO_INITIAL_YING_TERMINAL",92)]["primary_reading"]["message_source_table_units"],"5.9266")
         self.assertTrue(direct[("SUO_INITIAL_YING_TERMINAL",93)]["primary_reading"]["message_blank"])
 
-    def test_every_page_13_to_22_is_registered_as_reviewed_not_completed(self) -> None:
+    def test_every_page_13_to_22_is_fully_directly_collated(self) -> None:
         pages=self.data["page_summaries"]
         self.assertEqual([p["pdf_page_index_zero_based"] for p in pages],list(range(13,23)))
         self.assertTrue(all(p["page_image_reviewed"] for p in pages))
-        self.assertTrue(any(p["pending_direct_glyph_collation_count"] > 0 for p in pages))
+        self.assertTrue(all(p["pending_direct_glyph_collation_count"] == 0 for p in pages))
+        self.assertTrue(all(p["page_collation_status"] == "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE" for p in pages))
 
     def test_research_only(self) -> None:
         self.assertFalse(self.data["runtime_selection_authorized"])
