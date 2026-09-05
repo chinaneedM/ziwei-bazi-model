@@ -17,9 +17,10 @@ KNOWN_VIEWER_CAPTURE_HEAD = "8ef0565fc215a266ca3c7c1138ed592dad869a4c"
 KNOWN_VIEWER_CAPTURE_ARTIFACT_ID = 9970511498
 KNOWN_VIEWER_IMAGE_START = 1034
 KNOWN_VIEWER_IMAGE_END = 1134
-# Full-resolution control pages already localized by the CADAL↔KRDB page-order bridge.
-# The bridge only selects pages; glyph conclusions still require direct inspection of these pixels.
-FULL_IMAGE_TARGETS = (1114,)
+# Full-resolution local neighborhood selected after direct inspection showed kr_052_1114
+# contains limits 108-110. Fetch adjacent pages and locate L114 by the printed limit headings
+# themselves; do not assume a fixed CADAL-to-KRDB scan-number offset.
+FULL_IMAGE_TARGETS = (1115, 1116, 1117)
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
