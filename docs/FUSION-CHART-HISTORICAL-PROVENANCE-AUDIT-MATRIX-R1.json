@@ -4468,7 +4468,7 @@
       "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
       "rule_id": "HPA-DAYUN-CAL-002",
       "rule_or_field": "Classical lunisolar first Jiaoyun calendarization with small/leap-month correction",
-      "current_implementation": "NOT IMPLEMENTED. S15 preserves LHV-04 as fail-closed source-context candidate.",
+      "current_implementation": "NOT IMPLEMENTED. HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 now supplies a fail-closed regime-scoped boundary; no certified Ming Datong calendar arithmetic adapter exists.",
       "current_profile": "S15:LHV-04 CLASSICAL_LUNISOLAR_ANNIVERSARY_ADJUST / NO_WINNER",
       "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; S15 SMTH public capture family",
       "source_quote": "The Ming passage instructs adjustment for small months and a leap month when converting symbolic age into the actual handover date.",
@@ -4480,10 +4480,13 @@
         "modern Gregorian calendar-age method",
         "absolute-duration method"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_RULE_FAMILY_MISSING_FROM_RUNTIME; CURRENT_CHINESE_CALENDAR_ENGINE_EXPLICITLY_EXCLUDES_HISTORICAL_CALENDAR_REGIMES",
+      "current_implementation_match": "SOURCE_CLOSED_RULE_FAMILY_MISSING_FROM_RUNTIME; ADAPTER_CONTRACT_ONLY; MING_DATONG_CONTEXT_IDENTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
       "confidence": "HIGH_FOR_RULE_FAMILY; INSUFFICIENT_FOR_UNIQUE_HISTORICAL_CALENDAR_ADAPTER",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Implement only after a source-scoped historical lunisolar calendar adapter can represent month lengths, leap months and invalid-date rules. Do not reuse the modern ChineseCalendarEngine as ancient authority."
+      "proposed_action": "Source-close and implement a Ming-Datong period adapter with explicit month/leap arithmetic, day/time coordinate, enforcement scope and oracle cases. Keep fail-closed until then.",
+      "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
+      "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
+      "calendar_regime_context": "MING_DATONG_OFFICIAL_CONTEXT_RESEARCH_TARGET_NOT_ALGORITHM_WINNER"
     },
     {
       "system": "BAZI",
@@ -4492,7 +4495,7 @@
       "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
       "rule_id": "HPA-DAYUN-CAL-003",
       "rule_or_field": "Later calendar-age years plus remainder-days Jiaoyun method",
-      "current_implementation": "NOT IMPLEMENTED as a source-scoped method; Wenzhen compatibility uses a different Gregorian month-displacement algorithm.",
+      "current_implementation": "NOT IMPLEMENTED. The historical-calendar contract can represent an unresolved later source method without silently borrowing Ming, Shixian, modern Chinese-calendar or Wenzhen arithmetic.",
       "current_profile": "PRESERVED_SOURCE_METHOD_CANDIDATE_NOT_SELECTED",
       "primary_source": "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
       "source_quote": "Worked examples first advance the stated whole age in calendar years, then add the remaining converted days to obtain a concrete handover date.",
@@ -4505,10 +4508,13 @@
         "absolute duration x120",
         "Wenzhen month displacement"
       ],
-      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME",
+      "current_implementation_match": "SOURCE_SCOPED_LATER_METHOD_MISSING_FROM_RUNTIME; ADAPTER_CONTRACT_PRESERVES_UNRESOLVED_REGIME_WITHOUT_FALLBACK",
       "confidence": "HIGH_FOR_WORKED_METHOD",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "If productized, preserve as a later source-scoped candidate distinct from classical lunisolar and Wenzhen methods."
+      "proposed_action": "Determine the Qianli worked examples' exact calendar coordinate and invalid-date policy before binding any concrete adapter.",
+      "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
+      "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
+      "calendar_regime_context": "REPUBLICAN_ERA_METHOD_CALENDAR_REGIME_STILL_SOURCE_SCOPED_UNRESOLVED"
     },
     {
       "system": "BAZI",
@@ -4517,7 +4523,7 @@
       "audit_batch": "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
       "rule_id": "HPA-DAYUN-CAL-004",
       "rule_or_field": "Ten-year Dayun exchange recurrence from first handover",
-      "current_implementation": "Runtime adds ten proleptic-Gregorian years per frame; historical-calendar recurrence is not separately implemented.",
+      "current_implementation": "Runtime still uses modern proleptic-Gregorian boundaries for current profiles. Historical recurrence is now guarded by the source/regime-scoped adapter contract and remains unimplemented.",
       "current_profile": "Current profiles use Gregorian anniversary rules; classical source family remains unselected.",
       "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
       "source_quote": "Ming text says after the first handover, count ten anniversaries before changing one luck frame; later examples abbreviate the schedule as exchanging on the same cyclical year/lunar month/day/hour.",
@@ -4529,10 +4535,13 @@
         "proleptic Gregorian UTC anniversary",
         "proleptic Gregorian China-standard anniversary"
       ],
-      "current_implementation_match": "TEN_YEAR_FRAME_CONCEPT_MATCHES; CALENDAR_SYSTEM_AND_CLOCK_REALIZATION_DO_NOT_MATCH_A_SOURCE_SCOPED_CLASSICAL_CALENDAR",
+      "current_implementation_match": "TEN_YEAR_FRAME_CONCEPT_MATCHES; HISTORICAL_CALENDAR_RECURRENCE_REQUIRES_THE_SAME_CERTIFIED_REGIME_AS_FIRST_HANDOVER; NO_CROSS_REGIME_ANNIVERSARY_SUBSTITUTION",
       "confidence": "HIGH_FOR_TEN_YEAR_RECURRENCE; MEDIUM_FOR_EXACT_HISTORICAL_CALENDAR_REALIZATION",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Bind to the same future historical calendarized-schedule candidate family as first Jiaoyun; do not equate Gregorian anniversary with the classical calendar mechanically."
+      "proposed_action": "When a historical first-handover adapter closes, reuse that exact regime for ten-year recurrence; never switch to Gregorian or another historical regime implicitly.",
+      "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
+      "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
+      "calendar_regime_context": "INHERITS_THE_SELECTED_FIRST_HANDOVER_CANDIDATE_REGIME; NO_INDEPENDENT_CALENDAR_SUBSTITUTION"
     },
     {
       "system": "BAZI",
@@ -4626,7 +4635,8 @@
     "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
     "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C",
     "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
-    "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B"
+    "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
+    "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
