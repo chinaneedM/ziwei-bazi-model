@@ -30,7 +30,8 @@ class MingDatong1569InterpolationReplayR1Tests(unittest.TestCase):
     def test_source_day_radix_and_limit_width_are_not_modern_time_units(self) -> None:
         radix = self.data["source_radices"]
         self.assertEqual(Decimal(radix["day_source_units_per_day"]), Decimal("10000"))
-        self.assertEqual(Decimal(radix["lunar_table_day_rate_increment_source_units"]), Decimal("820.08"))\n        self.assertEqual(Decimal(radix["lunar_interpolation_denominator_source_units"]), Decimal("820"))
+        self.assertEqual(Decimal(radix["lunar_table_day_rate_increment_source_units"]), Decimal("820.08"))
+        self.assertEqual(Decimal(radix["lunar_interpolation_denominator_source_units"]), Decimal("820"))
         self.assertEqual(
             self.data["epistemic_firewalls"]["modern_decimal_as_historical_notation"],
             "FORBIDDEN",
