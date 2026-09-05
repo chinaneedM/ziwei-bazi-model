@@ -174,20 +174,20 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertTrue(expected.issubset(by_id))
         self.assertEqual(by_id["HPA-BAZI-004"]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertEqual(by_id["HPA-BAZI-013"]["audit_status"], "HISTORICALLY_SUPPORTED")
-        self.assertEqual(by_id["HPA-BAZI-005"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-BAZI-005"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
         for rule_id in ("HPA-BREL-001", "HPA-BREL-002", "HPA-BREL-003", "HPA-BREL-004", "HPA-BREL-005", "HPA-BREL-006"):
             self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
-        self.assertEqual(by_id["HPA-BREL-007"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-BREL-007"]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertIn("LIUHAI_ALIAS_RECORDED_IN_PROVENANCE_ONLY", by_id["HPA-BREL-004"]["current_implementation_match"])
         self.assertIn("RUNTIME_AVOIDS_DISPUTED_CATEGORY_LABELS", by_id["HPA-BREL-006"]["current_implementation_match"])
-        self.assertIn("arity-4", by_id["HPA-BREL-007"]["proposed_action"])
+        self.assertIn("arity-4", by_id["HPA-BREL-007"]["current_implementation"])
 
     def test_batch_10b_excluded_relations_preserve_source_scope(self) -> None:
         by_id = {row["rule_id"]: row for row in self.rows}
         expected = {f"HPA-BREL-{index:03d}" for index in range(8, 13)}
         self.assertTrue(expected.issubset(by_id))
         for rule_id in ("HPA-BREL-008", "HPA-BREL-009", "HPA-BREL-012"):
-            self.assertEqual(by_id[rule_id]["audit_status"], "MISSING_FROM_PRODUCT")
+            self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertEqual(by_id["HPA-BREL-010"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
         self.assertEqual(by_id["HPA-BREL-011"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
         self.assertIn("DIFFERENT_WORDING_SAME_MECHANICAL_RULE", by_id["HPA-BREL-008"]["school_attribution"])
