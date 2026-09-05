@@ -15,6 +15,7 @@ BASE = "https://dl.ndl.go.jp/api/iiif"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 TARGETS = {
     4: ["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"],
+    13: ["STRUCT-LUNAR-CHIJI-TABLE-HEADER"],
     14: ["VAR-NUM-LUNAR-L8-LOSSGAIN"],
     18: ["NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING"],
     19: ["VAR-NUM-LUNAR-L114-DAYRATE"],
@@ -46,7 +47,7 @@ def fetch(url: str, attempts: int = 3, timeout: int = 60) -> tuple[bytes, dict[s
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/ndl-ogawa-target-pages")
-    ap.add_argument("--width", type=int, default=3000)
+    ap.add_argument("--width", type=int, default=7392)
     args = ap.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -90,6 +91,14 @@ def main() -> int:
         "ocr_used": False,
         "localization_basis": "DIRECT_PRINTED_VOLUME_TABLE_AND_LIMIT_HEADINGS_FROM_PRIOR_1000PX_CONTACT_SHEET_INSPECTION",
         "cross_copy_page_offset_used": False,
+        "native_canvas_width_px": 7392,
+        "structural_header_binding": {
+            "canvas_index": 13,
+            "image_id": "R0000013",
+            "printed_title": "太陰遲疾立成",
+            "visible_fields": ["限數", "遲疾曆日率", "損益分", "遲疾積"],
+            "purpose": "FIELD_CONTEXT_ONLY_NOT_A_TARGET_NUMERIC_READING",
+        },
         "target_values_authorized_by_fetch": False,
         "unresolved_controls": UNRESOLVED_CONTROLS,
         "pages": records,

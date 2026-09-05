@@ -21,11 +21,11 @@ jobs:
           python-version: "3.12"
       - name: Install research image dependency
         run: python -m pip install --disable-pip-version-check pillow
-      - name: Fetch five localized NDL target pages at high resolution
+      - name: Fetch structural header and localized NDL pages at native resolution
         run: |
           python scripts/research_ndl_ogawa_shoushi_licheng_target_pages.py \
             --output artifacts/ndl-ogawa-target-pages \
-            --width 3000
+            --width 7392
       - name: Upload no-OCR localized target pages
         if: always()
         uses: actions/upload-artifact@v4
