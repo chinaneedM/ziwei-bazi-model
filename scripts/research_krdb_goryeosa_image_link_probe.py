@@ -5,6 +5,7 @@ import argparse
 import html
 import json
 import re
+import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -19,12 +20,21 @@ VIEWER_KEYS = (
 )
 
 
-def fetch(url: str) -> tuple[str, dict[str, str]]:
-    req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=45) as resp:
-        data = resp.read()
-        ctype = resp.headers.get_content_charset() or "utf-8"
-        return data.decode(ctype, errors="replace"), dict(resp.headers.items())
+def fetch(url: str, attempts: int = 3, timeout: int = 30) -> tuple[str, dict[str, str]]:
+    last: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml,*/*;q=0.8"})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = resp.read()
+                ctype = resp.headers.get_content_charset() or "utf-8"
+                return data.decode(ctype, errors="replace"), dict(resp.headers.items())
+        except Exception as exc:
+            last = exc
+            if attempt < attempts:
+                time.sleep(attempt * 2)
+    assert last is not None
+    raise last
 
 
 def contexts(text: str, needle: str, radius: int = 900) -> list[str]:
@@ -72,7 +82,7 @@ def script_probe(base_url: str, page: str, keys: tuple[str, ...], out: Path, pre
         seen.add(url)
         rec: dict[str, object] = {"url": url, "status": "NOT_FETCHED", "hits": []}
         try:
-            body, _ = fetch(url)
+            body, _ = fetch(url, attempts=2, timeout=20)
             rec["status"] = "FETCHED"
             rec["bytes"] = len(body.encode("utf-8"))
             hits = []
@@ -105,17 +115,20 @@ def main() -> int:
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
 
-    page, headers = fetch(TARGET)
-    (out / "target-page.html").write_text(page, encoding="utf-8")
-    page_tags = matching_tags(page, PAGE_KEYS)
-    page_contexts = []
-    for k in PAGE_KEYS:
-        for c in contexts(page, k):
-            if c not in page_contexts:
-                page_contexts.append(c)
-    page_scripts = script_probe(TARGET, page, PAGE_KEYS, out, "target")
+    attempt = {
+        "schema": "KRDB-GORYEOSA-IMAGE-LINK-PROBE-ATTEMPT-R1",
+        "target": TARGET,
+        "viewer": VIEWER,
+        "known_holding_label": "규장각한국학연구원 소장본(규귀5553[을해자])",
+        "known_level_id": "kr_052_0010_0010_0020",
+        "known_begin": "kr_052_1034",
+        "read_only": True,
+        "ocr_used": False,
+    }
+    (out / "attempt.json").write_text(json.dumps(attempt, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
 
-    viewer, viewer_headers = fetch(VIEWER)
+    # Viewer first: the target-page DOM contract is already captured by the prior R1 run.
+    viewer, viewer_headers = fetch(VIEWER, attempts=4, timeout=30)
     (out / "image-viewer.html").write_text(viewer, encoding="utf-8")
     viewer_tags = matching_tags(viewer, VIEWER_KEYS)
     viewer_contexts = []
@@ -135,23 +148,36 @@ def main() -> int:
                 fields.append(a)
         forms.append({"form": attrs(frag.split(">", 1)[0] + ">"), "fields": fields})
 
-    js_bodies = "\n".join(
-        str(h.get("context", ""))
-        for s in viewer_scripts
-        for h in (s.get("hits") or [])
-    )
+    js_bodies = "\n".join(str(h.get("context", "")) for s in viewer_scripts for h in (s.get("hits") or []))
     endpoint_urls = endpoint_candidates(viewer + "\n" + js_bodies, VIEWER)
     relevant_endpoints = [u for u in endpoint_urls if any(k.lower() in u.lower() for k in ("image", "img", "viewer", "page", "kyudb", "goryeo"))]
 
+    # Re-fetch the source article only as best-effort corroboration; its prior exact DOM is already archived.
+    target_status: dict[str, object] = {"status": "SKIPPED_AFTER_PRIOR_R1_CAPTURE"}
+    page_tags: list[dict[str, object]] = []
+    page_contexts: list[str] = []
+    page_scripts: list[dict[str, object]] = []
+    try:
+        page, headers = fetch(TARGET, attempts=1, timeout=15)
+        (out / "target-page.html").write_text(page, encoding="utf-8")
+        page_tags = matching_tags(page, PAGE_KEYS)
+        for k in PAGE_KEYS:
+            for c in contexts(page, k):
+                if c not in page_contexts:
+                    page_contexts.append(c)
+        page_scripts = script_probe(TARGET, page, PAGE_KEYS, out, "target")
+        target_status = {"status": "FETCHED", "bytes": len(page.encode("utf-8")), "headers": headers}
+    except Exception as exc:
+        target_status = {"status": "BEST_EFFORT_ERROR_PRIOR_R1_CAPTURE_REMAINS_VALID", "error": f"{type(exc).__name__}: {exc}"}
+
     manifest = {
-        "schema": "KRDB-GORYEOSA-IMAGE-LINK-PROBE-R2",
+        "schema": "KRDB-GORYEOSA-IMAGE-LINK-PROBE-R3",
         "target": TARGET,
         "viewer": VIEWER,
         "read_only": True,
         "ocr_used": False,
-        "target_page_bytes": len(page.encode("utf-8")),
+        "target_status": target_status,
         "viewer_page_bytes": len(viewer.encode("utf-8")),
-        "target_headers": headers,
         "viewer_headers": viewer_headers,
         "target_matching_tags": page_tags,
         "target_inline_contexts": page_contexts,
@@ -167,14 +193,14 @@ def main() -> int:
             "begin": "kr_052_1034",
             "viewer_path": "/common/imageViewer.do",
             "kyujanggak_catalog_candidate": "GK05553_00",
-            "catalog_candidate_status": "CATALOG_IDENTITY_MATCH_REQUIRES_VIEWER_OR_CATALOG_BINDING_BEFORE_PAGE_INFERENCE",
+            "catalog_candidate_status": "KYUJANGGAK_CATALOG_MATCHES_TITLE_CALL_NUMBER_EDITION; VIEWER_PAGE_MAPPING_STILL_TO_BE_EXTRACTED",
         },
         "evidence_scope": "FRONTEND_AND_VIEWER_LINK_CONTRACT_ONLY_NOT_GLYPH_EVIDENCE",
     }
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print(json.dumps({
-        "target": TARGET,
         "viewer": VIEWER,
+        "target_status": target_status,
         "viewer_matching_tag_count": len(viewer_tags),
         "viewer_form_count": len(forms),
         "viewer_scripts_with_hits": [x["url"] for x in viewer_scripts if x.get("hits")],
