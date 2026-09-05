@@ -4470,20 +4470,20 @@
       "rule_or_field": "Classical lunisolar first Jiaoyun calendarization with small/leap-month correction",
       "current_implementation": "NOT IMPLEMENTED. HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 now supplies a fail-closed regime-scoped boundary; no certified Ming Datong calendar arithmetic adapter exists.",
       "current_profile": "S15:LHV-04 CLASSICAL_LUNISOLAR_ANNIVERSARY_ADJUST / NO_WINNER",
-      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-KOTENMON-DAMING-DATONG-1569; EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG; EXT-NCL-DATONG-1578-ALMANAC; EXT-MINGSHILU-WANLI-1578-MONTH-STARTS; S15 SMTH public capture family",
+      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-KOTENMON-DAMING-DATONG-1569; EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG; EXT-NCL-DATONG-1578-ALMANAC; EXT-MINGSHILU-WANLI-1578-MONTH-STARTS; S15 SMTH public capture family; EXT-PKU-DATONG-1578-ALMANAC",
       "source_quote": "The Ming passage instructs adjustment for small months and a leap month when converting symbolic age into the actual handover date.",
       "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN《论大运》; S15 LHV-04",
       "historical_period": "MING",
-      "later_witnesses": "Batch 11F resolves the D1/D2 text conflict rather than preserving false equivalence. The 1569 Zhou Xiang facsimile directly uses corresponding lunar 迟/疾行度 as the divisor in 推加减差分法; Xing Yunlu's Ming Datong worked example independently divides by 迟行度. The Qing-compiled 《明史》 received text instead subtracts 820 to create 定限度. Modern comparison of 56 conjunction times in six surviving official Ming Datong almanacs reports 56/56 agreement for D1 and widespread D2 mismatch, including a near-midnight wrong-day case. D2 is therefore retained as a later received textual variant, not an equal Ming production candidate. Batch 11G closes the source-internal event-time coordinate: the 1569 primary facsimile directly counts 定朔小餘 from 子正 through the 12-shichen/100-ke system, and Xing Yunlu supplies a worked replay to 午正初刻. Received Ming-history text independently states 日周一萬=一百刻. Geographic realization is kept separate: Nanjing/Beijing sunrise-sunset tables changed historically, but no evidence yet authorizes assuming that table geography is the conjunction meridian reference.",
+      "later_witnesses": "Batch 11F resolves the D1/D2 text conflict rather than preserving false equivalence. The 1569 Zhou Xiang facsimile directly uses corresponding lunar 迟/疾行度 as the divisor in 推加减差分法; Xing Yunlu's Ming Datong worked example independently divides by 迟行度. The Qing-compiled 《明史》 received text instead subtracts 820 to create 定限度. Modern comparison of 56 conjunction times in six surviving official Ming Datong almanacs reports 56/56 agreement for D1 and widespread D2 mismatch, including a near-midnight wrong-day case. D2 is therefore retained as a later received textual variant, not an equal Ming production candidate. Batch 11G closes the source-internal event-time coordinate: the 1569 primary facsimile directly counts 定朔小餘 from 子正 through the 12-shichen/100-ke system, and Xing Yunlu supplies a worked replay to 午正初刻. Received Ming-history text independently states 日周一萬=一百刻. Geographic realization is kept separate: Nanjing/Beijing sunrise-sunset tables changed historically, but no evidence yet authorizes assuming that table geography is the conjunction meridian reference. Batch 11H reconstructs the 1569 solar 盈缩 and lunar 迟疾/D1 numeric paths into a source-derived 1578 replay: all twelve Wanli-6 month starts plus the Wanli-7 first-month anchor match the independent official-reign-record oracle, 13/13 with zero day-level mismatch. The exact same-year NCL 06313 Qintianjian physical scan is now directly collated for eleven of twelve month-calendar pages with eleven large/small month-label matches and zero mismatch; the June page remains an explicit renderer/access gap rather than inferred evidence. A second 1578 copy is independently catalogued by Peking University Library (528.7/1578), but no page image is currently bound to this batch. These results close a target-year D1 day-level replay milestone only; they do not certify universal precision/carry policy, the qishuo meridian, multi-year leap handling or executable historical-calendar runtime.",
       "school_attribution": "CLASSICAL_LUNISOLAR_HANDOVER_CALENDARIZATION",
       "competing_methods": [
         "modern Gregorian calendar-age method",
         "absolute-duration method"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; D1_CONJUNCTION_SUBRULE_HISTORICALLY_ADJUDICATED; 1569_PRIMARY_FACSIMILE_CLOSES_INTERNAL_TIME_COORDINATE_DAY_CYCLE_10000_100_KE_AND_ZI_ZHENG_COMPUTATIONAL_DAY_BOUNDARY; MING_WORKED_EXAMPLE_REPLAYS_EVENT_TIME_LABEL; LATE_ZI_BEFORE_ZI_ZHENG_REMAINS_PREVIOUS_COMPUTATIONAL_DAY; GEOGRAPHIC_MERIDIAN_REFERENCE_FOR_QISHUO_REMAINS_UNRESOLVED; COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_MACHINE_FIXTURED; GENERAL_DATONG_ARITHMETIC_NOT_YET_CERTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
-      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_MING_REGIME_1578_MONTH_STRUCTURE_D1_CONJUNCTION_METHOD_AND_INTERNAL_DATONG_TIME_COORDINATE; MEDIUM_FOR_FULL_TABLE_INTERPOLATION; INSUFFICIENT_FOR_QISHUO_GEOGRAPHIC_MERIDIAN_AND_CERTIFIED_GENERAL_EXECUTABLE_ADAPTER",
+      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; D1_CONJUNCTION_SUBRULE_HISTORICALLY_ADJUDICATED; 1569_PRIMARY_FACSIMILE_CLOSES_INTERNAL_TIME_COORDINATE_DAY_CYCLE_10000_100_KE_AND_ZI_ZHENG_COMPUTATIONAL_DAY_BOUNDARY; FULL_NUMERIC_RECONSTRUCTIONS_EXIST_FOR_1569_SOLAR_YINGSUO_AND_LUNAR_CHIJI_D1_TABLE_PATHS_WITH_VERBATIM_ROW_COLLATION_STILL_PENDING; SOURCE_DERIVED_1578_D1_REPLAY_MATCHES_12_MONTHS_PLUS_NEXT_YEAR_ANCHOR_13_OF_13_DAY_LEVEL_ZERO_MISMATCH; SAME_YEAR_QINTIANJIAN_NCL_06313_PHYSICAL_SCAN_DIRECT_MONTH_PAGE_COLLATION_11_OF_12_ZERO_MISMATCH_WITH_MONTH6_RENDER_GAP_PRESERVED; GEOGRAPHIC_MERIDIAN_REFERENCE_FOR_QISHUO_REMAINS_UNRESOLVED; GENERAL_DATONG_ARITHMETIC_NOT_YET_CERTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
+      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_MING_REGIME_1578_MONTH_STRUCTURE_D1_CONJUNCTION_METHOD_INTERNAL_DATONG_TIME_COORDINATE_AND_1578_DAY_LEVEL_D1_REPLAY; HIGH_FOR_11_OF_12_DIRECT_NCL_MONTH_PAGE_SIZE_COLLATION_WITH_ZERO_MISMATCH; MEDIUM_FOR_FULL_TABLE_NUMERIC_RECONSTRUCTION_PENDING_VERBATIM_ROW_COLLATION_AND_GENERAL_PRECISION_CARRY; INSUFFICIENT_FOR_QISHUO_GEOGRAPHIC_MERIDIAN_AND_CERTIFIED_GENERAL_EXECUTABLE_ADAPTER",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Use the source-closed 子正/100-ke computational coordinate in all future Ming replay work, but do not map it to UTC or a modern zone yet. Next close the conjunction meridian/geographic reference, fully transcribe 1569 盈缩/迟疾 tables and carry/interpolation rules, replay D1 through the 1578 oracle and exact almanac pages, then close invalid-date and multi-year recurrence semantics.",
+      "proposed_action": "Preserve the 13/13 1578 D1 replay and 11/12 same-year physical-page collation as closed research milestones while keeping runtime fail-closed. Next obtain a direct alternate render or second-copy image for the NCL June page, finish row-by-row 1569 primary-table collation/variant ledger and general precision/carry semantics, then close qishuo geographic reference, invalid-date/month-length addition semantics, multi-year leap-month behavior and ten-year Dayun recurrence.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "calendar_regime_context": "MING_DATONG_OFFICIAL_CONTEXT_RESEARCH_TARGET_NOT_ALGORITHM_WINNER",
@@ -4499,7 +4499,18 @@
       "historical_time_coordinate_status": "INTERNAL_DAY_AND_CLOCK_COORDINATE_CLOSED_GEOGRAPHIC_QISHUO_REFERENCE_UNRESOLVED",
       "historical_computational_day_boundary": "ZI_ZHENG",
       "astrological_day_boundary_inference_forbidden": true,
-      "time_coordinate_research_batch": "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G"
+      "time_coordinate_research_batch": "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G",
+      "d1_source_replay_batch": "BATCH-11-BAZI-MING-DATONG-1578-D1-SOURCE-REPLAY-H",
+      "d1_source_replay_artifact": "docs/research/MING-DATONG-1578-D1-SOURCE-REPLAY-R1.json",
+      "d1_source_replay_result": "1578_MONTHS_1_TO_12_PLUS_1579_MONTH_1_ANCHOR_13_OF_13_DAY_LEVEL_MATCH_ZERO_MISMATCH",
+      "physical_almanac_collation_artifact": "docs/research/MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json",
+      "physical_almanac_direct_month_page_match_count": 11,
+      "physical_almanac_direct_month_page_mismatch_count": 0,
+      "physical_almanac_unresolved_direct_months": [
+        6
+      ],
+      "physical_almanac_complete_12_month_page_collation": false,
+      "general_historical_calendar_runtime_authorized": false
     },
     {
       "system": "BAZI",
@@ -4653,7 +4664,8 @@
     "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D",
     "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E",
     "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F",
-    "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G"
+    "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G",
+    "BATCH-11-BAZI-MING-DATONG-1578-D1-SOURCE-REPLAY-H"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",
