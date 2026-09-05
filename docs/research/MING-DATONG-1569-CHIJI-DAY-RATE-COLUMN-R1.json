@@ -1,0 +1,1663 @@
+{
+  "schema": "MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1",
+  "schema_version": "1.0.0",
+  "status": "FULL_168_ROW_COLUMN_DERIVED_PRIMARY_CONTROLS_COLLATED_NOT_FULL_CHIJI_TABLE_TRANSCRIPTION",
+  "runtime_selection_authorized": false,
+  "source_scope": {
+    "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "primary_table": "太陰立成 · 遲疾日率 column",
+    "primary_pdf_page_index_zero_based_start": 24,
+    "primary_pdf_page_index_zero_based_end": 32,
+    "corroborating_worked_source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+    "received_formula_cross_checks": [
+      "EXT-CTEXT-MINGSHI-DATONG-CALENDAR"
+    ]
+  },
+  "reconstruction_rule": {
+    "nominal_day_rate_increment_source_units": "820.08",
+    "printed_row_rule": "floor(limit * 820.08) to integral historical day-source 分 for the printed day-rate column",
+    "formula_integer_form": "printed_total = floor(limit * 82008 / 100)",
+    "day_radix_source_units": 10000,
+    "distinction_from_interpolation_denominator": "The within-limit 遲疾差 interpolation denominator in the 1569/Ming Datong path is 820, not this 820.08 day-rate increment."
+  },
+  "page_row_ranges": [
+    {
+      "page": 24,
+      "limits": [
+        1,
+        7
+      ]
+    },
+    {
+      "page": 25,
+      "limits": [
+        8,
+        29
+      ]
+    },
+    {
+      "page": 26,
+      "limits": [
+        30,
+        51
+      ]
+    },
+    {
+      "page": 27,
+      "limits": [
+        52,
+        73
+      ]
+    },
+    {
+      "page": 28,
+      "limits": [
+        74,
+        95
+      ]
+    },
+    {
+      "page": 29,
+      "limits": [
+        96,
+        117
+      ]
+    },
+    {
+      "page": 30,
+      "limits": [
+        118,
+        139
+      ]
+    },
+    {
+      "page": 31,
+      "limits": [
+        140,
+        161
+      ]
+    },
+    {
+      "page": 32,
+      "limits": [
+        162,
+        168
+      ]
+    }
+  ],
+  "primary_control_rows": [
+    {
+      "limit": 1,
+      "primary_pdf_page_index_zero_based": 24,
+      "expected_printed_days": 0,
+      "expected_printed_source_fraction": "0820",
+      "collation_status": "VISUALLY_CONSISTENT_WITH_1569_PRIMARY_TABLE",
+      "note": "Primary table boundary/control row."
+    },
+    {
+      "limit": 7,
+      "primary_pdf_page_index_zero_based": 24,
+      "expected_printed_days": 0,
+      "expected_printed_source_fraction": "5740",
+      "collation_status": "VISUALLY_CONSISTENT_WITH_1569_PRIMARY_TABLE",
+      "note": "Primary table boundary/control row."
+    },
+    {
+      "limit": 13,
+      "primary_pdf_page_index_zero_based": 25,
+      "expected_printed_days": 1,
+      "expected_printed_source_fraction": "0661",
+      "collation_status": "VISUALLY_CONSISTENT_WITH_1569_PRIMARY_TABLE",
+      "note": "Primary table boundary/control row."
+    },
+    {
+      "limit": 116,
+      "primary_pdf_page_index_zero_based": 29,
+      "expected_printed_days": 9,
+      "expected_printed_source_fraction": "5129",
+      "collation_status": "VISUALLY_CONSISTENT_WITH_1569_PRIMARY_TABLE",
+      "note": "Also independently reproduced by the Ming-authorial Datong worked example as 九日五一二九."
+    },
+    {
+      "limit": 168,
+      "primary_pdf_page_index_zero_based": 32,
+      "expected_printed_days": 13,
+      "expected_printed_source_fraction": "7773",
+      "collation_status": "VISUALLY_CONSISTENT_WITH_1569_PRIMARY_TABLE",
+      "note": "Closes at 十三日七七七三, matching the printed transition scale."
+    }
+  ],
+  "rows": [
+    {
+      "limit": 1,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "820.08",
+      "printed_total_day_rate_source_units": 820,
+      "printed_days": 0,
+      "printed_source_fraction": "0820",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 2,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "1640.16",
+      "printed_total_day_rate_source_units": 1640,
+      "printed_days": 0,
+      "printed_source_fraction": "1640",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 3,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "2460.24",
+      "printed_total_day_rate_source_units": 2460,
+      "printed_days": 0,
+      "printed_source_fraction": "2460",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 4,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "3280.32",
+      "printed_total_day_rate_source_units": 3280,
+      "printed_days": 0,
+      "printed_source_fraction": "3280",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 5,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "4100.40",
+      "printed_total_day_rate_source_units": 4100,
+      "printed_days": 0,
+      "printed_source_fraction": "4100",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 6,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "4920.48",
+      "printed_total_day_rate_source_units": 4920,
+      "printed_days": 0,
+      "printed_source_fraction": "4920",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 7,
+      "primary_pdf_page_index_zero_based": 24,
+      "nominal_raw_day_rate_source_units": "5740.56",
+      "printed_total_day_rate_source_units": 5740,
+      "printed_days": 0,
+      "printed_source_fraction": "5740",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 8,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "6560.64",
+      "printed_total_day_rate_source_units": 6560,
+      "printed_days": 0,
+      "printed_source_fraction": "6560",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 9,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "7380.72",
+      "printed_total_day_rate_source_units": 7380,
+      "printed_days": 0,
+      "printed_source_fraction": "7380",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 10,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "8200.80",
+      "printed_total_day_rate_source_units": 8200,
+      "printed_days": 0,
+      "printed_source_fraction": "8200",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 11,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "9020.88",
+      "printed_total_day_rate_source_units": 9020,
+      "printed_days": 0,
+      "printed_source_fraction": "9020",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 12,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "9840.96",
+      "printed_total_day_rate_source_units": 9840,
+      "printed_days": 0,
+      "printed_source_fraction": "9840",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 13,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "10661.04",
+      "printed_total_day_rate_source_units": 10661,
+      "printed_days": 1,
+      "printed_source_fraction": "0661",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 14,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "11481.12",
+      "printed_total_day_rate_source_units": 11481,
+      "printed_days": 1,
+      "printed_source_fraction": "1481",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 15,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "12301.20",
+      "printed_total_day_rate_source_units": 12301,
+      "printed_days": 1,
+      "printed_source_fraction": "2301",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 16,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "13121.28",
+      "printed_total_day_rate_source_units": 13121,
+      "printed_days": 1,
+      "printed_source_fraction": "3121",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 17,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "13941.36",
+      "printed_total_day_rate_source_units": 13941,
+      "printed_days": 1,
+      "printed_source_fraction": "3941",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 18,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "14761.44",
+      "printed_total_day_rate_source_units": 14761,
+      "printed_days": 1,
+      "printed_source_fraction": "4761",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 19,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "15581.52",
+      "printed_total_day_rate_source_units": 15581,
+      "printed_days": 1,
+      "printed_source_fraction": "5581",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 20,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "16401.60",
+      "printed_total_day_rate_source_units": 16401,
+      "printed_days": 1,
+      "printed_source_fraction": "6401",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 21,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "17221.68",
+      "printed_total_day_rate_source_units": 17221,
+      "printed_days": 1,
+      "printed_source_fraction": "7221",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 22,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "18041.76",
+      "printed_total_day_rate_source_units": 18041,
+      "printed_days": 1,
+      "printed_source_fraction": "8041",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 23,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "18861.84",
+      "printed_total_day_rate_source_units": 18861,
+      "printed_days": 1,
+      "printed_source_fraction": "8861",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 24,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "19681.92",
+      "printed_total_day_rate_source_units": 19681,
+      "printed_days": 1,
+      "printed_source_fraction": "9681",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 25,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "20502.00",
+      "printed_total_day_rate_source_units": 20502,
+      "printed_days": 2,
+      "printed_source_fraction": "0502",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 26,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "21322.08",
+      "printed_total_day_rate_source_units": 21322,
+      "printed_days": 2,
+      "printed_source_fraction": "1322",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 27,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "22142.16",
+      "printed_total_day_rate_source_units": 22142,
+      "printed_days": 2,
+      "printed_source_fraction": "2142",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 28,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "22962.24",
+      "printed_total_day_rate_source_units": 22962,
+      "printed_days": 2,
+      "printed_source_fraction": "2962",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 29,
+      "primary_pdf_page_index_zero_based": 25,
+      "nominal_raw_day_rate_source_units": "23782.32",
+      "printed_total_day_rate_source_units": 23782,
+      "printed_days": 2,
+      "printed_source_fraction": "3782",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 30,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "24602.40",
+      "printed_total_day_rate_source_units": 24602,
+      "printed_days": 2,
+      "printed_source_fraction": "4602",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 31,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "25422.48",
+      "printed_total_day_rate_source_units": 25422,
+      "printed_days": 2,
+      "printed_source_fraction": "5422",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 32,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "26242.56",
+      "printed_total_day_rate_source_units": 26242,
+      "printed_days": 2,
+      "printed_source_fraction": "6242",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 33,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "27062.64",
+      "printed_total_day_rate_source_units": 27062,
+      "printed_days": 2,
+      "printed_source_fraction": "7062",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 34,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "27882.72",
+      "printed_total_day_rate_source_units": 27882,
+      "printed_days": 2,
+      "printed_source_fraction": "7882",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 35,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "28702.80",
+      "printed_total_day_rate_source_units": 28702,
+      "printed_days": 2,
+      "printed_source_fraction": "8702",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 36,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "29522.88",
+      "printed_total_day_rate_source_units": 29522,
+      "printed_days": 2,
+      "printed_source_fraction": "9522",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 37,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "30342.96",
+      "printed_total_day_rate_source_units": 30342,
+      "printed_days": 3,
+      "printed_source_fraction": "0342",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 38,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "31163.04",
+      "printed_total_day_rate_source_units": 31163,
+      "printed_days": 3,
+      "printed_source_fraction": "1163",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 39,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "31983.12",
+      "printed_total_day_rate_source_units": 31983,
+      "printed_days": 3,
+      "printed_source_fraction": "1983",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 40,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "32803.20",
+      "printed_total_day_rate_source_units": 32803,
+      "printed_days": 3,
+      "printed_source_fraction": "2803",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 41,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "33623.28",
+      "printed_total_day_rate_source_units": 33623,
+      "printed_days": 3,
+      "printed_source_fraction": "3623",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 42,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "34443.36",
+      "printed_total_day_rate_source_units": 34443,
+      "printed_days": 3,
+      "printed_source_fraction": "4443",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 43,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "35263.44",
+      "printed_total_day_rate_source_units": 35263,
+      "printed_days": 3,
+      "printed_source_fraction": "5263",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 44,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "36083.52",
+      "printed_total_day_rate_source_units": 36083,
+      "printed_days": 3,
+      "printed_source_fraction": "6083",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 45,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "36903.60",
+      "printed_total_day_rate_source_units": 36903,
+      "printed_days": 3,
+      "printed_source_fraction": "6903",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 46,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "37723.68",
+      "printed_total_day_rate_source_units": 37723,
+      "printed_days": 3,
+      "printed_source_fraction": "7723",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 47,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "38543.76",
+      "printed_total_day_rate_source_units": 38543,
+      "printed_days": 3,
+      "printed_source_fraction": "8543",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 48,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "39363.84",
+      "printed_total_day_rate_source_units": 39363,
+      "printed_days": 3,
+      "printed_source_fraction": "9363",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 49,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "40183.92",
+      "printed_total_day_rate_source_units": 40183,
+      "printed_days": 4,
+      "printed_source_fraction": "0183",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 50,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "41004.00",
+      "printed_total_day_rate_source_units": 41004,
+      "printed_days": 4,
+      "printed_source_fraction": "1004",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 51,
+      "primary_pdf_page_index_zero_based": 26,
+      "nominal_raw_day_rate_source_units": "41824.08",
+      "printed_total_day_rate_source_units": 41824,
+      "printed_days": 4,
+      "printed_source_fraction": "1824",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 52,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "42644.16",
+      "printed_total_day_rate_source_units": 42644,
+      "printed_days": 4,
+      "printed_source_fraction": "2644",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 53,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "43464.24",
+      "printed_total_day_rate_source_units": 43464,
+      "printed_days": 4,
+      "printed_source_fraction": "3464",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 54,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "44284.32",
+      "printed_total_day_rate_source_units": 44284,
+      "printed_days": 4,
+      "printed_source_fraction": "4284",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 55,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "45104.40",
+      "printed_total_day_rate_source_units": 45104,
+      "printed_days": 4,
+      "printed_source_fraction": "5104",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 56,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "45924.48",
+      "printed_total_day_rate_source_units": 45924,
+      "printed_days": 4,
+      "printed_source_fraction": "5924",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 57,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "46744.56",
+      "printed_total_day_rate_source_units": 46744,
+      "printed_days": 4,
+      "printed_source_fraction": "6744",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 58,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "47564.64",
+      "printed_total_day_rate_source_units": 47564,
+      "printed_days": 4,
+      "printed_source_fraction": "7564",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 59,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "48384.72",
+      "printed_total_day_rate_source_units": 48384,
+      "printed_days": 4,
+      "printed_source_fraction": "8384",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 60,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "49204.80",
+      "printed_total_day_rate_source_units": 49204,
+      "printed_days": 4,
+      "printed_source_fraction": "9204",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 61,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "50024.88",
+      "printed_total_day_rate_source_units": 50024,
+      "printed_days": 5,
+      "printed_source_fraction": "0024",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 62,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "50844.96",
+      "printed_total_day_rate_source_units": 50844,
+      "printed_days": 5,
+      "printed_source_fraction": "0844",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 63,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "51665.04",
+      "printed_total_day_rate_source_units": 51665,
+      "printed_days": 5,
+      "printed_source_fraction": "1665",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 64,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "52485.12",
+      "printed_total_day_rate_source_units": 52485,
+      "printed_days": 5,
+      "printed_source_fraction": "2485",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 65,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "53305.20",
+      "printed_total_day_rate_source_units": 53305,
+      "printed_days": 5,
+      "printed_source_fraction": "3305",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 66,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "54125.28",
+      "printed_total_day_rate_source_units": 54125,
+      "printed_days": 5,
+      "printed_source_fraction": "4125",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 67,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "54945.36",
+      "printed_total_day_rate_source_units": 54945,
+      "printed_days": 5,
+      "printed_source_fraction": "4945",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 68,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "55765.44",
+      "printed_total_day_rate_source_units": 55765,
+      "printed_days": 5,
+      "printed_source_fraction": "5765",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 69,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "56585.52",
+      "printed_total_day_rate_source_units": 56585,
+      "printed_days": 5,
+      "printed_source_fraction": "6585",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 70,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "57405.60",
+      "printed_total_day_rate_source_units": 57405,
+      "printed_days": 5,
+      "printed_source_fraction": "7405",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 71,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "58225.68",
+      "printed_total_day_rate_source_units": 58225,
+      "printed_days": 5,
+      "printed_source_fraction": "8225",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 72,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "59045.76",
+      "printed_total_day_rate_source_units": 59045,
+      "printed_days": 5,
+      "printed_source_fraction": "9045",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 73,
+      "primary_pdf_page_index_zero_based": 27,
+      "nominal_raw_day_rate_source_units": "59865.84",
+      "printed_total_day_rate_source_units": 59865,
+      "printed_days": 5,
+      "printed_source_fraction": "9865",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 74,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "60685.92",
+      "printed_total_day_rate_source_units": 60685,
+      "printed_days": 6,
+      "printed_source_fraction": "0685",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 75,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "61506.00",
+      "printed_total_day_rate_source_units": 61506,
+      "printed_days": 6,
+      "printed_source_fraction": "1506",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 76,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "62326.08",
+      "printed_total_day_rate_source_units": 62326,
+      "printed_days": 6,
+      "printed_source_fraction": "2326",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 77,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "63146.16",
+      "printed_total_day_rate_source_units": 63146,
+      "printed_days": 6,
+      "printed_source_fraction": "3146",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 78,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "63966.24",
+      "printed_total_day_rate_source_units": 63966,
+      "printed_days": 6,
+      "printed_source_fraction": "3966",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 79,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "64786.32",
+      "printed_total_day_rate_source_units": 64786,
+      "printed_days": 6,
+      "printed_source_fraction": "4786",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 80,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "65606.40",
+      "printed_total_day_rate_source_units": 65606,
+      "printed_days": 6,
+      "printed_source_fraction": "5606",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 81,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "66426.48",
+      "printed_total_day_rate_source_units": 66426,
+      "printed_days": 6,
+      "printed_source_fraction": "6426",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 82,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "67246.56",
+      "printed_total_day_rate_source_units": 67246,
+      "printed_days": 6,
+      "printed_source_fraction": "7246",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 83,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "68066.64",
+      "printed_total_day_rate_source_units": 68066,
+      "printed_days": 6,
+      "printed_source_fraction": "8066",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 84,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "68886.72",
+      "printed_total_day_rate_source_units": 68886,
+      "printed_days": 6,
+      "printed_source_fraction": "8886",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 85,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "69706.80",
+      "printed_total_day_rate_source_units": 69706,
+      "printed_days": 6,
+      "printed_source_fraction": "9706",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 86,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "70526.88",
+      "printed_total_day_rate_source_units": 70526,
+      "printed_days": 7,
+      "printed_source_fraction": "0526",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 87,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "71346.96",
+      "printed_total_day_rate_source_units": 71346,
+      "printed_days": 7,
+      "printed_source_fraction": "1346",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 88,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "72167.04",
+      "printed_total_day_rate_source_units": 72167,
+      "printed_days": 7,
+      "printed_source_fraction": "2167",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 89,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "72987.12",
+      "printed_total_day_rate_source_units": 72987,
+      "printed_days": 7,
+      "printed_source_fraction": "2987",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 90,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "73807.20",
+      "printed_total_day_rate_source_units": 73807,
+      "printed_days": 7,
+      "printed_source_fraction": "3807",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 91,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "74627.28",
+      "printed_total_day_rate_source_units": 74627,
+      "printed_days": 7,
+      "printed_source_fraction": "4627",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 92,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "75447.36",
+      "printed_total_day_rate_source_units": 75447,
+      "printed_days": 7,
+      "printed_source_fraction": "5447",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 93,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "76267.44",
+      "printed_total_day_rate_source_units": 76267,
+      "printed_days": 7,
+      "printed_source_fraction": "6267",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 94,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "77087.52",
+      "printed_total_day_rate_source_units": 77087,
+      "printed_days": 7,
+      "printed_source_fraction": "7087",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 95,
+      "primary_pdf_page_index_zero_based": 28,
+      "nominal_raw_day_rate_source_units": "77907.60",
+      "printed_total_day_rate_source_units": 77907,
+      "printed_days": 7,
+      "printed_source_fraction": "7907",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 96,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "78727.68",
+      "printed_total_day_rate_source_units": 78727,
+      "printed_days": 7,
+      "printed_source_fraction": "8727",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 97,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "79547.76",
+      "printed_total_day_rate_source_units": 79547,
+      "printed_days": 7,
+      "printed_source_fraction": "9547",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 98,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "80367.84",
+      "printed_total_day_rate_source_units": 80367,
+      "printed_days": 8,
+      "printed_source_fraction": "0367",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 99,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "81187.92",
+      "printed_total_day_rate_source_units": 81187,
+      "printed_days": 8,
+      "printed_source_fraction": "1187",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 100,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "82008.00",
+      "printed_total_day_rate_source_units": 82008,
+      "printed_days": 8,
+      "printed_source_fraction": "2008",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 101,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "82828.08",
+      "printed_total_day_rate_source_units": 82828,
+      "printed_days": 8,
+      "printed_source_fraction": "2828",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 102,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "83648.16",
+      "printed_total_day_rate_source_units": 83648,
+      "printed_days": 8,
+      "printed_source_fraction": "3648",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 103,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "84468.24",
+      "printed_total_day_rate_source_units": 84468,
+      "printed_days": 8,
+      "printed_source_fraction": "4468",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 104,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "85288.32",
+      "printed_total_day_rate_source_units": 85288,
+      "printed_days": 8,
+      "printed_source_fraction": "5288",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 105,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "86108.40",
+      "printed_total_day_rate_source_units": 86108,
+      "printed_days": 8,
+      "printed_source_fraction": "6108",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 106,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "86928.48",
+      "printed_total_day_rate_source_units": 86928,
+      "printed_days": 8,
+      "printed_source_fraction": "6928",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 107,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "87748.56",
+      "printed_total_day_rate_source_units": 87748,
+      "printed_days": 8,
+      "printed_source_fraction": "7748",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 108,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "88568.64",
+      "printed_total_day_rate_source_units": 88568,
+      "printed_days": 8,
+      "printed_source_fraction": "8568",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 109,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "89388.72",
+      "printed_total_day_rate_source_units": 89388,
+      "printed_days": 8,
+      "printed_source_fraction": "9388",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 110,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "90208.80",
+      "printed_total_day_rate_source_units": 90208,
+      "printed_days": 9,
+      "printed_source_fraction": "0208",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 111,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "91028.88",
+      "printed_total_day_rate_source_units": 91028,
+      "printed_days": 9,
+      "printed_source_fraction": "1028",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 112,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "91848.96",
+      "printed_total_day_rate_source_units": 91848,
+      "printed_days": 9,
+      "printed_source_fraction": "1848",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 113,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "92669.04",
+      "printed_total_day_rate_source_units": 92669,
+      "printed_days": 9,
+      "printed_source_fraction": "2669",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 114,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "93489.12",
+      "printed_total_day_rate_source_units": 93489,
+      "printed_days": 9,
+      "printed_source_fraction": "3489",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 115,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "94309.20",
+      "printed_total_day_rate_source_units": 94309,
+      "printed_days": 9,
+      "printed_source_fraction": "4309",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 116,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "95129.28",
+      "printed_total_day_rate_source_units": 95129,
+      "printed_days": 9,
+      "printed_source_fraction": "5129",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 117,
+      "primary_pdf_page_index_zero_based": 29,
+      "nominal_raw_day_rate_source_units": "95949.36",
+      "printed_total_day_rate_source_units": 95949,
+      "printed_days": 9,
+      "printed_source_fraction": "5949",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 118,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "96769.44",
+      "printed_total_day_rate_source_units": 96769,
+      "printed_days": 9,
+      "printed_source_fraction": "6769",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 119,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "97589.52",
+      "printed_total_day_rate_source_units": 97589,
+      "printed_days": 9,
+      "printed_source_fraction": "7589",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 120,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "98409.60",
+      "printed_total_day_rate_source_units": 98409,
+      "printed_days": 9,
+      "printed_source_fraction": "8409",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 121,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "99229.68",
+      "printed_total_day_rate_source_units": 99229,
+      "printed_days": 9,
+      "printed_source_fraction": "9229",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 122,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "100049.76",
+      "printed_total_day_rate_source_units": 100049,
+      "printed_days": 10,
+      "printed_source_fraction": "0049",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 123,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "100869.84",
+      "printed_total_day_rate_source_units": 100869,
+      "printed_days": 10,
+      "printed_source_fraction": "0869",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 124,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "101689.92",
+      "printed_total_day_rate_source_units": 101689,
+      "printed_days": 10,
+      "printed_source_fraction": "1689",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 125,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "102510.00",
+      "printed_total_day_rate_source_units": 102510,
+      "printed_days": 10,
+      "printed_source_fraction": "2510",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 126,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "103330.08",
+      "printed_total_day_rate_source_units": 103330,
+      "printed_days": 10,
+      "printed_source_fraction": "3330",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 127,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "104150.16",
+      "printed_total_day_rate_source_units": 104150,
+      "printed_days": 10,
+      "printed_source_fraction": "4150",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 128,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "104970.24",
+      "printed_total_day_rate_source_units": 104970,
+      "printed_days": 10,
+      "printed_source_fraction": "4970",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 129,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "105790.32",
+      "printed_total_day_rate_source_units": 105790,
+      "printed_days": 10,
+      "printed_source_fraction": "5790",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 130,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "106610.40",
+      "printed_total_day_rate_source_units": 106610,
+      "printed_days": 10,
+      "printed_source_fraction": "6610",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 131,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "107430.48",
+      "printed_total_day_rate_source_units": 107430,
+      "printed_days": 10,
+      "printed_source_fraction": "7430",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 132,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "108250.56",
+      "printed_total_day_rate_source_units": 108250,
+      "printed_days": 10,
+      "printed_source_fraction": "8250",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 133,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "109070.64",
+      "printed_total_day_rate_source_units": 109070,
+      "printed_days": 10,
+      "printed_source_fraction": "9070",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 134,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "109890.72",
+      "printed_total_day_rate_source_units": 109890,
+      "printed_days": 10,
+      "printed_source_fraction": "9890",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 135,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "110710.80",
+      "printed_total_day_rate_source_units": 110710,
+      "printed_days": 11,
+      "printed_source_fraction": "0710",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 136,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "111530.88",
+      "printed_total_day_rate_source_units": 111530,
+      "printed_days": 11,
+      "printed_source_fraction": "1530",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 137,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "112350.96",
+      "printed_total_day_rate_source_units": 112350,
+      "printed_days": 11,
+      "printed_source_fraction": "2350",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 138,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "113171.04",
+      "printed_total_day_rate_source_units": 113171,
+      "printed_days": 11,
+      "printed_source_fraction": "3171",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 139,
+      "primary_pdf_page_index_zero_based": 30,
+      "nominal_raw_day_rate_source_units": "113991.12",
+      "printed_total_day_rate_source_units": 113991,
+      "printed_days": 11,
+      "printed_source_fraction": "3991",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 140,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "114811.20",
+      "printed_total_day_rate_source_units": 114811,
+      "printed_days": 11,
+      "printed_source_fraction": "4811",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 141,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "115631.28",
+      "printed_total_day_rate_source_units": 115631,
+      "printed_days": 11,
+      "printed_source_fraction": "5631",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 142,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "116451.36",
+      "printed_total_day_rate_source_units": 116451,
+      "printed_days": 11,
+      "printed_source_fraction": "6451",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 143,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "117271.44",
+      "printed_total_day_rate_source_units": 117271,
+      "printed_days": 11,
+      "printed_source_fraction": "7271",
+      "dropped_hundredths": 44
+    },
+    {
+      "limit": 144,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "118091.52",
+      "printed_total_day_rate_source_units": 118091,
+      "printed_days": 11,
+      "printed_source_fraction": "8091",
+      "dropped_hundredths": 52
+    },
+    {
+      "limit": 145,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "118911.60",
+      "printed_total_day_rate_source_units": 118911,
+      "printed_days": 11,
+      "printed_source_fraction": "8911",
+      "dropped_hundredths": 60
+    },
+    {
+      "limit": 146,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "119731.68",
+      "printed_total_day_rate_source_units": 119731,
+      "printed_days": 11,
+      "printed_source_fraction": "9731",
+      "dropped_hundredths": 68
+    },
+    {
+      "limit": 147,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "120551.76",
+      "printed_total_day_rate_source_units": 120551,
+      "printed_days": 12,
+      "printed_source_fraction": "0551",
+      "dropped_hundredths": 76
+    },
+    {
+      "limit": 148,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "121371.84",
+      "printed_total_day_rate_source_units": 121371,
+      "printed_days": 12,
+      "printed_source_fraction": "1371",
+      "dropped_hundredths": 84
+    },
+    {
+      "limit": 149,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "122191.92",
+      "printed_total_day_rate_source_units": 122191,
+      "printed_days": 12,
+      "printed_source_fraction": "2191",
+      "dropped_hundredths": 92
+    },
+    {
+      "limit": 150,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "123012.00",
+      "printed_total_day_rate_source_units": 123012,
+      "printed_days": 12,
+      "printed_source_fraction": "3012",
+      "dropped_hundredths": 0
+    },
+    {
+      "limit": 151,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "123832.08",
+      "printed_total_day_rate_source_units": 123832,
+      "printed_days": 12,
+      "printed_source_fraction": "3832",
+      "dropped_hundredths": 8
+    },
+    {
+      "limit": 152,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "124652.16",
+      "printed_total_day_rate_source_units": 124652,
+      "printed_days": 12,
+      "printed_source_fraction": "4652",
+      "dropped_hundredths": 16
+    },
+    {
+      "limit": 153,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "125472.24",
+      "printed_total_day_rate_source_units": 125472,
+      "printed_days": 12,
+      "printed_source_fraction": "5472",
+      "dropped_hundredths": 24
+    },
+    {
+      "limit": 154,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "126292.32",
+      "printed_total_day_rate_source_units": 126292,
+      "printed_days": 12,
+      "printed_source_fraction": "6292",
+      "dropped_hundredths": 32
+    },
+    {
+      "limit": 155,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "127112.40",
+      "printed_total_day_rate_source_units": 127112,
+      "printed_days": 12,
+      "printed_source_fraction": "7112",
+      "dropped_hundredths": 40
+    },
+    {
+      "limit": 156,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "127932.48",
+      "printed_total_day_rate_source_units": 127932,
+      "printed_days": 12,
+      "printed_source_fraction": "7932",
+      "dropped_hundredths": 48
+    },
+    {
+      "limit": 157,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "128752.56",
+      "printed_total_day_rate_source_units": 128752,
+      "printed_days": 12,
+      "printed_source_fraction": "8752",
+      "dropped_hundredths": 56
+    },
+    {
+      "limit": 158,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "129572.64",
+      "printed_total_day_rate_source_units": 129572,
+      "printed_days": 12,
+      "printed_source_fraction": "9572",
+      "dropped_hundredths": 64
+    },
+    {
+      "limit": 159,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "130392.72",
+      "printed_total_day_rate_source_units": 130392,
+      "printed_days": 13,
+      "printed_source_fraction": "0392",
+      "dropped_hundredths": 72
+    },
+    {
+      "limit": 160,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "131212.80",
+      "printed_total_day_rate_source_units": 131212,
+      "printed_days": 13,
+      "printed_source_fraction": "1212",
+      "dropped_hundredths": 80
+    },
+    {
+      "limit": 161,
+      "primary_pdf_page_index_zero_based": 31,
+      "nominal_raw_day_rate_source_units": "132032.88",
+      "printed_total_day_rate_source_units": 132032,
+      "printed_days": 13,
+      "printed_source_fraction": "2032",
+      "dropped_hundredths": 88
+    },
+    {
+      "limit": 162,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "132852.96",
+      "printed_total_day_rate_source_units": 132852,
+      "printed_days": 13,
+      "printed_source_fraction": "2852",
+      "dropped_hundredths": 96
+    },
+    {
+      "limit": 163,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "133673.04",
+      "printed_total_day_rate_source_units": 133673,
+      "printed_days": 13,
+      "printed_source_fraction": "3673",
+      "dropped_hundredths": 4
+    },
+    {
+      "limit": 164,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "134493.12",
+      "printed_total_day_rate_source_units": 134493,
+      "printed_days": 13,
+      "printed_source_fraction": "4493",
+      "dropped_hundredths": 12
+    },
+    {
+      "limit": 165,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "135313.20",
+      "printed_total_day_rate_source_units": 135313,
+      "printed_days": 13,
+      "printed_source_fraction": "5313",
+      "dropped_hundredths": 20
+    },
+    {
+      "limit": 166,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "136133.28",
+      "printed_total_day_rate_source_units": 136133,
+      "printed_days": 13,
+      "printed_source_fraction": "6133",
+      "dropped_hundredths": 28
+    },
+    {
+      "limit": 167,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "136953.36",
+      "printed_total_day_rate_source_units": 136953,
+      "printed_days": 13,
+      "printed_source_fraction": "6953",
+      "dropped_hundredths": 36
+    },
+    {
+      "limit": 168,
+      "primary_pdf_page_index_zero_based": 32,
+      "nominal_raw_day_rate_source_units": "137773.44",
+      "printed_total_day_rate_source_units": 137773,
+      "printed_days": 13,
+      "printed_source_fraction": "7773",
+      "dropped_hundredths": 44
+    }
+  ],
+  "invariants": {
+    "row_count": 168,
+    "first_row_printed": "0日0820",
+    "limit_116_printed": "9日5129",
+    "final_row_printed": "13日7773",
+    "strictly_increasing": true
+  },
+  "epistemic_firewalls": {
+    "derived_column_as_verbatim_full_table_transcription": "FORBIDDEN",
+    "this_column_as_complete_yingsuo_chiji_table_closure": "FORBIDDEN",
+    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN"
+  },
+  "next_required_work": [
+    "TRANSCRIBE_AND_COLLATE_ALL_168_LOSS_GAIN_VALUES",
+    "TRANSCRIBE_AND_COLLATE_ALL_168_ACCUMULATED_CHIJI_DEGREES",
+    "TRANSCRIBE_AND_COLLATE_ALL_168_CHI_AND_JI_XINGDU_DIVISORS",
+    "VERIFY_SPECIAL_83_84_LIMIT_TRANSITION_HANDLING",
+    "CROSS_EDITION_CHECK_AGAINST_MING_AUTHORIAL_AND_RECEIVED_TABLES"
+  ]
+}
