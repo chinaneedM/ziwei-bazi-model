@@ -33,8 +33,8 @@
   },
   "source_vs_reconstruction_policy": "Formula values remain PENDING until directly read from the primary page. Only DIRECT_PRIMARY_MATCH counts as glyph-collated.",
   "total_rows": 169,
-  "directly_collated_rows": 49,
-  "pending_rows": 120,
+  "directly_collated_rows": 72,
+  "pending_rows": 97,
   "variant_rows": 0,
   "glyph_ambiguous_rows": 0,
   "full_row_by_row_primary_collation_complete": false,
@@ -99,12 +99,12 @@
     {
       "pdf_page_index_zero_based": 35,
       "row_count": 23,
-      "direct_primary_match_count": 0,
-      "pending_direct_glyph_collation_count": 23,
+      "direct_primary_match_count": 23,
+      "pending_direct_glyph_collation_count": 0,
       "variant_count": 0,
       "glyph_ambiguous_count": 0,
       "page_image_reviewed": true,
-      "page_collation_status": "IN_PROGRESS"
+      "page_collation_status": "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE"
     },
     {
       "pdf_page_index_zero_based": 36,
@@ -1355,11 +1355,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0702475",
       "expected_chi_xingdu_degree": "1.0253",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0799765",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1673",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0702475",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0253",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0799765",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 42,
@@ -1369,11 +1384,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0703319",
       "expected_chi_xingdu_degree": "1.0267",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0798675",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1659",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0703319",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0267",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0798675",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 43,
@@ -1383,11 +1413,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0704164",
       "expected_chi_xingdu_degree": "1.0281",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0797587",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1645",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0704164",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0281",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0797587",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 44,
@@ -1397,11 +1442,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0705012",
       "expected_chi_xingdu_degree": "1.0295",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0796503",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1631",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0705012",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0295",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0796503",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 45,
@@ -1411,11 +1471,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0705922",
       "expected_chi_xingdu_degree": "1.0309",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0795421",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1616",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0705922",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0309",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0795421",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 46,
@@ -1425,11 +1500,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0706774",
       "expected_chi_xingdu_degree": "1.0324",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0794265",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1602",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0706774",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0324",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0794265",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 47,
@@ -1439,11 +1529,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0707689",
       "expected_chi_xingdu_degree": "1.0339",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0793113",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1587",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0707689",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0339",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0793113",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 48,
@@ -1453,11 +1558,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0708606",
       "expected_chi_xingdu_degree": "1.0354",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0791964",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1572",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0708606",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0354",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0791964",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 49,
@@ -1467,11 +1587,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0709526",
       "expected_chi_xingdu_degree": "1.0369",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0790818",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1557",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0709526",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0369",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0790818",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 50,
@@ -1481,11 +1616,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0710510",
       "expected_chi_xingdu_degree": "1.0384",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0789676",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1541",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0710510",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0384",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0789676",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 51,
@@ -1495,11 +1645,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0711435",
       "expected_chi_xingdu_degree": "1.0400",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0788461",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1526",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0711435",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0400",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0788461",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 52,
@@ -1509,11 +1674,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0712423",
       "expected_chi_xingdu_degree": "1.0416",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0787250",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1510",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0712423",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0416",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0787250",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 53,
@@ -1523,11 +1703,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0713415",
       "expected_chi_xingdu_degree": "1.0432",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0786042",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1494",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0713415",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0432",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0786042",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 54,
@@ -1537,11 +1732,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0714410",
       "expected_chi_xingdu_degree": "1.0448",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0784839",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1478",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0714410",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0448",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0784839",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 55,
@@ -1551,11 +1761,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0715407",
       "expected_chi_xingdu_degree": "1.0464",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0783639",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1462",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0715407",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0464",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0783639",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 56,
@@ -1565,11 +1790,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0716470",
       "expected_chi_xingdu_degree": "1.0481",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0782368",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1445",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0716470",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0481",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0782368",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 57,
@@ -1579,11 +1819,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0717535",
       "expected_chi_xingdu_degree": "1.0497",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0781175",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1428",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0717535",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0497",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0781175",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 58,
@@ -1593,11 +1848,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0718604",
       "expected_chi_xingdu_degree": "1.0514",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0779912",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1411",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0718604",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0514",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0779912",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 59,
@@ -1607,11 +1877,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0719677",
       "expected_chi_xingdu_degree": "1.0531",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0778653",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1394",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0719677",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0531",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0778653",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 60,
@@ -1621,11 +1906,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0720752",
       "expected_chi_xingdu_degree": "1.0549",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0777324",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1377",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0720752",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0549",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0777324",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 61,
@@ -1635,11 +1935,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0721894",
       "expected_chi_xingdu_degree": "1.0566",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0776074",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1359",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0721894",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0566",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0776074",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 62,
@@ -1649,11 +1964,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0722976",
       "expected_chi_xingdu_degree": "1.0584",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0774754",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1342",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0722976",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0584",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0774754",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 63,
@@ -1663,11 +1993,26 @@
       "expected_ji_xingdu_shortcut_source_ratio": "0.0724125",
       "expected_chi_xingdu_degree": "1.0602",
       "expected_chi_xingdu_shortcut_source_ratio": "0.0773438",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "ji_xingdu",
+        "ji_shortcut",
+        "chi_xingdu",
+        "chi_shortcut"
+      ],
+      "primary_reading": {
+        "ji_xingdu_degree": "1.1324",
+        "ji_xingdu_blank": null,
+        "ji_xingdu_shortcut_source_ratio": "0.0724125",
+        "ji_shortcut_blank": null,
+        "chi_xingdu_degree": "1.0602",
+        "chi_xingdu_blank": null,
+        "chi_xingdu_shortcut_source_ratio": "0.0773438",
+        "chi_shortcut_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p35; no numeric variant observed."
     },
     {
       "limit": 64,
