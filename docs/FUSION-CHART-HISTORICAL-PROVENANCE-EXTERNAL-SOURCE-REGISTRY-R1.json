@@ -503,7 +503,7 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/zh-hans/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B749",
       "source_role": "MING_AUTHORIAL_DATONG_WORKED_EXAMPLE_PRESERVED_IN_LATER_SIKU_EDITION",
-      "quality_notes": "The worked example is explicitly labeled 大统. At 求加减差 it multiplies the residual correction by 820 and divides by 迟行度, then obtains 加差 and 定朔. This independently agrees with the 1569 Zhou Xiang facsimile's D1 denominator. Because the digital witness is a later Siku recension, it corroborates Ming authorial practice but does not supersede the primary Ming facsimile. The same worked example converts 定朔 small remainder by 發斂法 (1分20秒 multiplier shorthand) and explicitly obtains 乙丑日午正初刻, providing a deterministic time-coordinate replay case."
+      "quality_notes": "The worked example is explicitly labelled 大統. It independently agrees with the 1569 Zhou Xiang D1 denominator and supplies a local dynamic-precision replay: the within-limit 遲差 prints as 4.546285 after a longer raw division, and D1 加差 prints as 1526.64 after a longer raw quotient. These are controls for that worked example only, not a universal Datong precision rule. The same example converts 定朔 to 乙丑日午正初刻."
     },
     {
       "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
@@ -705,6 +705,17 @@
       "source_role": "KRDB_GORYEOSA_HAN_TEXT_TRANSCRIPTION_WITH_KOREAN_TRANSLATION_OR_NORMALIZED_RENDERING_AND_SEPARATE_ORIGINAL_IMAGE_ENTRY",
       "quality_notes": "KRDB layer semantics are explicitly separated. `types=o` is the Han-text transcription layer; `types=r / kr_052r_*` is a Korean translation/normalized numeric rendering and is NOT an independent edition witness; `원문이미지` is a separate UI entry whose underlying scan has not yet been directly retrieved in this workflow. Numeric controls therefore use r only as evidence of KRDB's editorial interpretation. Current controls: solar winter D16, lunar L8, L124 and L132 remain shared received/digital divergences against Ming 1569; L114 is an o-surface divergence because r/Wikisource/Ming show 3489, but it is no longer labeled a proven KRDB transcription error before direct image inspection. L101 remains a philological normalization bridge, not a numeric variant.",
       "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION",
+      "title": "《古今律曆考》卷五十·萬曆三十三年乙巳歲二月望月食曆〈授時〉",
+      "author": "邢雲路",
+      "historical_period": "明；卷中實例標萬曆三十三年（1605）",
+      "digital_base_edition": "《欽定四庫全書》received text",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hans/古今律历考_(四库全书本)/卷50",
+      "source_role": "MING_AUTHORIAL_SHOUSHI_WORKED_EXAMPLE_CROSS_CONTEXT_PRECISION_CONTROL_NOT_DATONG_PRODUCTION_AUTHORITY",
+      "quality_notes": "The worked example is explicitly labelled 〈授時〉, not 〈大統〉. It preserves unequal intermediate precision widths in 盈差、遲差、合差 and 推加減差. Use only to reject an author-wide/context-free fixed-width assumption. The following 定望 line requires image-level checking before stronger arithmetic conclusions. It cannot overwrite the 1569 Zhou Xiang Datong primary or define Datong runtime precision."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

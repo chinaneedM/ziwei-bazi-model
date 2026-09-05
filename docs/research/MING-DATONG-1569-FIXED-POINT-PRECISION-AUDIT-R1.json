@@ -1,0 +1,175 @@
+{
+  "schema": "MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "status": "PRIMARY_1569_TABLE_GENERATION_PRECISION_MAP_CLOSED_DYNAMIC_INTERPOLATION_GENERALIZATION_OPEN",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "primary_edition_scope": "周相《大明大統曆法》隆慶三年（1569）刊本",
+  "source_ids": [
+    "EXT-KOTENMON-DAMING-DATONG-1569",
+    "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+    "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION"
+  ],
+  "evidence_layers": {
+    "primary_table_layer": "1569 direct row-by-row primary collation ledgers",
+    "reconstructed_numeric_layer": "machine reconstruction artifacts independently recomputed from source formulas",
+    "ming_datong_worked_example_layer": "Xing Yunlu volume 49, Wanli 24 / 1596, explicitly labelled 大統",
+    "cross_context_precision_control": "Xing Yunlu volume 50, Wanli 33 / 1605, explicitly labelled 授時; not Datong production authority"
+  },
+  "primary_collation_binding": {
+    "solar": {
+      "direct_rows": 185,
+      "total_rows": 185,
+      "variant_rows": 0,
+      "glyph_ambiguous_rows": 0
+    },
+    "lunar_chiji": {
+      "direct_rows": 169,
+      "total_rows": 169,
+      "variant_rows": 0,
+      "glyph_ambiguous_rows": 0
+    },
+    "lunar_xingdu": {
+      "direct_rows": 169,
+      "total_rows": 169,
+      "variant_rows": 0,
+      "glyph_ambiguous_rows": 0
+    }
+  },
+  "table_generation_precision_rules": [
+    {
+      "rule_id": "PREC-DAY-RATE-FLOOR",
+      "stage": "LUNAR_CHIJI_DAY_RATE_COLUMN",
+      "operator": "FLOOR_TO_INTEGRAL_HISTORICAL_DAY_SOURCE_UNIT",
+      "formula": "printed_total = floor(limit * 82008 / 100)",
+      "evaluated_rows": 168,
+      "primary_match_count": 168,
+      "half_up_match_count": 90,
+      "discriminating_against_half_up_count": 78,
+      "result": "CLOSED_FOR_1569_PRIMARY_COLUMN"
+    },
+    {
+      "rule_id": "PREC-LOSS-GAIN-SHORTCUT-TRUNCATE",
+      "stage": "LUNAR_CHIJI_LOSS_GAIN_SHORTCUT",
+      "operator": "TRUNCATE_TOWARD_ZERO_TO_4_DECIMAL_SOURCE_SECONDS",
+      "formula": "shortcut = truncate((loss_gain_source_fen * 100 / 820), 4 decimal places)",
+      "evaluated_rows": 168,
+      "primary_match_count": 168,
+      "half_up_match_count": 92,
+      "discriminating_against_half_up_count": 76,
+      "result": "CLOSED_FOR_1569_PRIMARY_COLUMN"
+    },
+    {
+      "rule_id": "PREC-LINE-SPEED-CEILING",
+      "stage": "LUNAR_CHI_JI_XINGDU",
+      "operator": "CEILING_TO_1E_MINUS_4_DEGREE_WITH_TWO_PRIMARY_CENTRAL_OVERRIDES",
+      "mean_limit_motion_degree": "1.09623750",
+      "generic_evaluated_cells": 334,
+      "generic_ceiling_match_count": 334,
+      "generic_floor_match_count": 0,
+      "generic_half_up_match_count": 154,
+      "discriminating_against_half_up_count": 180,
+      "central_overrides": [
+        {
+          "limit": 82,
+          "field": "chi_xingdu_degree",
+          "primary_value": "1.0960"
+        },
+        {
+          "limit": 85,
+          "field": "ji_xingdu_degree",
+          "primary_value": "1.0960"
+        }
+      ],
+      "total_primary_cells_after_overrides": 336,
+      "total_primary_match_count": 336,
+      "result": "CLOSED_FOR_1569_PRIMARY_COLUMN"
+    },
+    {
+      "rule_id": "PREC-XINGDU-SHORTCUT-TRUNCATE",
+      "stage": "LUNAR_XINGDU_RECIPROCAL_SHORTCUT_COLUMNS",
+      "operator": "TRUNCATE_TOWARD_ZERO_TO_1E_MINUS_7",
+      "formula": "shortcut = truncate(820 / integer(line_speed_degree * 10000), 7 decimal places)",
+      "evaluated_cells": 336,
+      "primary_match_count": 336,
+      "half_up_match_count": 158,
+      "discriminating_against_half_up_count": 178,
+      "result": "CLOSED_FOR_1569_PRIMARY_COLUMNS"
+    }
+  ],
+  "exact_fixed_point_relations": [
+    {
+      "relation_id": "PREC-SOLAR-THREE-DIFFERENCE-EXACT",
+      "scope": "BOTH_SOLAR_YINGSUO_TABLE_FAMILIES",
+      "accumulated_cells_compared": 183,
+      "accumulated_primary_match_count": 183,
+      "add_cells_compared": 183,
+      "add_primary_match_count": 183,
+      "message_cells_compared": 181,
+      "message_primary_match_count": 181,
+      "disposition": "EXACT_FIXED_POINT_RELATION_AT_STORED_SOURCE_PRECISION; NO_GLOBAL_ROUNDING_OPERATOR_INFERRED"
+    },
+    {
+      "relation_id": "PREC-LUNAR-CHIJI-EXACT",
+      "scope": "LUNAR_ACCUMULATED_CHIJI_AND_ADJACENT_LOSS_GAIN",
+      "accumulated_cells_compared": 167,
+      "accumulated_primary_match_count": 167,
+      "loss_gain_cells_compared": 168,
+      "loss_gain_primary_match_count": 168,
+      "disposition": "EXACT_FIXED_POINT_RELATION_AT_STORED_SOURCE_PRECISION; CENTRAL_83_84_TRANSITION_PRESERVED"
+    }
+  ],
+  "dynamic_worked_precision_controls": [
+    {
+      "control_id": "DATONG-1596-V49-LOCAL-TRUNCATION",
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+      "source_scope": "萬曆二十四年丙申歲閏八月朔日食曆〈大統〉",
+      "within_limit_raw_chiji_degree": "4.5462859928475609756097560975609756097561",
+      "printed_chiji_difference_degree": "4.546285",
+      "within_limit_observed_operator": "TRUNCATE_TOWARD_ZERO_TO_6_DECIMAL_DEGREE_PLACES_IN_THIS_WORKED_EXAMPLE",
+      "d1_raw_add_correction_source_units": "1526.648481693562380704494187055353114697",
+      "printed_add_correction_source_units": "1526.64",
+      "d1_observed_operator": "TRUNCATE_TOWARD_ZERO_TO_2_DECIMAL_SOURCE_UNITS_IN_THIS_WORKED_EXAMPLE",
+      "generalization_status": "LOCAL_DATONG_WORKED_EXAMPLE_ONLY"
+    },
+    {
+      "control_id": "SHOUSHI-1605-V50-PRECISION-WIDTH-CONTROL",
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION",
+      "source_scope": "萬曆三十三年乙巳歲二月望月食曆〈授時〉",
+      "exact_received_surfaces": [
+        "盈差：二度三十三分九○三○六",
+        "遲差：二度九十六分八三九○四八",
+        "合差：五度三十○分七四二一○八",
+        "乘八百二十：四十三刻五二○八五二八五六",
+        "除遲行度一度一八二三：三十六刻八一○三二九"
+      ],
+      "inference": "SAME_MING_AUTHOR_PRESERVES_DIFFERENT_INTERMEDIATE_PRECISION_WIDTHS_IN_A_SHOUSHI_CONTEXT; AUTHOR_WIDE_OR_CONTEXT_FREE_FIXED_WIDTH_ASSUMPTION_IS_FORBIDDEN",
+      "datong_authority": false,
+      "downstream_arithmetic_consistency_status": "FOLLOWING_DINGWANG_LINE_REQUIRES_SEPARATE_IMAGE_LEVEL_CHECK_BEFORE_ANY_STRONGER_PRECISION_INFERENCE"
+    }
+  ],
+  "adjudication": {
+    "single_global_rounding_rule": "REJECTED_BY_PRIMARY_TABLE_EVIDENCE",
+    "reason": "The directly collated 1569 tables require incompatible stage-scoped operators: floor, truncation, ceiling plus central overrides, and exact fixed-point relations.",
+    "table_generation_precision_map": "CLOSED_FOR_1569_PRIMARY_TABLES",
+    "dynamic_interpolation_and_d1_conjunction_precision": "OPEN_BEYOND_THE_1596_DATONG_WORKED_EXAMPLE",
+    "carry_semantics": "SOURCE_DAY_CARRY_REPLAYED_IN_WORKED_AND_1578_CASES_BUT_NOT_YET_GENERALIZED_AS_A_COMPLETE_RUNTIME_POLICY",
+    "runtime_effect": "NONE"
+  },
+  "epistemic_firewalls": {
+    "table_precision_map_as_single_global_rounding_function": "FORBIDDEN",
+    "table_generation_precision_as_dynamic_interpolation_precision": "FORBIDDEN",
+    "one_datong_worked_example_as_universal_dynamic_precision_rule": "FORBIDDEN",
+    "shoushi_worked_example_as_1569_ming_datong_production_authority": "FORBIDDEN",
+    "reconstructed_numeric_value_as_primary_glyph_without_ledger_match": "FORBIDDEN",
+    "precision_audit_as_runtime_activation": "FORBIDDEN"
+  },
+  "remaining_gates": [
+    "EXPAND_DYNAMIC_DATONG_INTERPOLATION_AND_D1_PRECISION_CONTROLS_BEYOND_THE_1596_WORKED_EXAMPLE",
+    "COMPLETE_CROSS_EDITION_VARIANT_IMAGE_CAUSE_ADJUDICATION",
+    "QISHUO_GEOGRAPHIC_REFERENCE",
+    "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
+    "MULTI_YEAR_LEAP_MONTH_GENERALIZATION",
+    "TEN_YEAR_DAYUN_RECURRENCE_UNDER_SAME_HISTORICAL_REGIME"
+  ]
+}
