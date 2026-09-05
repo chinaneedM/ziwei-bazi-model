@@ -60,15 +60,42 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(s16["wikisource_goryeosa_value"],"5.1362")
         self.assertEqual(s16["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
 
+    def test_limit_132_is_variant_but_not_force_normalized(self) -> None:
+        v=self.variants["VAR-NUM-LUNAR-L132-LOSSGAIN"]
+        self.assertEqual(v["ming_1569_primary_normalized"],"7.886075")
+        self.assertEqual(v["krdb_o_exact_surface"],"七分八八六七五")
+        self.assertEqual(v["krdb_r_exact_grouped_surface"],"7″88‴67''''5'''''")
+        self.assertEqual(v["wikisource_exact_surface"],"七分八八六七五")
+        self.assertEqual(v["symmetric_control_limit_35"]["krdb_o_exact_surface"],"七分八八六〇七五")
+        self.assertEqual(v["symmetric_control_limit_35"]["ming_1569_primary_normalized"],"7.886075")
+        self.assertEqual(v["normalized_cross_witness_value"],"NOT_FORCED_PENDING_PLACE_VALUE_AND_IMAGE_ADJUDICATION")
+        self.assertEqual(v["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
+        self.assertFalse(v["propagate_to_ming_primary"])
+
+    def test_limit_101_compact_surface_is_a_philological_bridge_not_a_variant(self) -> None:
+        controls=self.data["philological_normalization_controls"]
+        self.assertEqual(len(controls),1)
+        c=controls[0]
+        self.assertEqual(c["id"],"NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING")
+        self.assertEqual(c["ming_1569_primary_normalized"],"5.20481125")
+        self.assertEqual(c["krdb_o_surface"],"五度二十四八一一二五")
+        self.assertEqual(c["explicit_place_groups"],["5","20","48","11","25"])
+        self.assertEqual(c["classification"],"SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE")
+        self.assertEqual(c["variant_count_effect"],0)
+        self.assertEqual(self.data["epistemic_firewalls"]["compact_han_numeric_surface_as_simple_decimal_digits"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["philological_normalization_bridge_as_numeric_variant"],"FORBIDDEN")
+
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
-        self.assertEqual(self.data["current_variant_count"],4)
+        self.assertEqual(self.data["current_variant_count"],5)
         self.assertEqual(self.data["epistemic_firewalls"]["digital_transcript_difference_as_manuscript_variant_without_image"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_reading_layer_as_direct_original_image_glyph"],"FORBIDDEN")
         self.assertTrue(self.data["reading_layer_comparison_complete_for_current_controls"])
-        self.assertEqual(self.data["current_classification_summary"]["shared_cross_regional_received_or_digital_variant_count"],3)
+        self.assertEqual(self.data["current_classification_summary"]["shared_cross_regional_received_or_digital_variant_count"],4)
         self.assertEqual(self.data["current_classification_summary"]["krdb_o_view_transcription_layer_error_strongly_indicated_count"],1)
+        self.assertEqual(self.data["current_classification_summary"]["philological_same_mechanical_value_bridge_count"],1)
+        self.assertEqual(self.data["philological_normalization_control_count"],1)
         self.assertFalse(self.data["runtime_selection_authorized"])
         self.assertFalse(self.data["general_calendar_arithmetic_certified"])
 

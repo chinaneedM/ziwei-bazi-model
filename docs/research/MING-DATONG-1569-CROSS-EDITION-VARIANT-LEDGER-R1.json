@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.1.0",
-  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_READING_LAYERS_RESOLVED_IMAGE_CAUSES_PENDING",
+  "schema_version": "1.2.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_PHILOLOGY_BRIDGES_ACTIVE_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_reference": {
@@ -136,6 +136,25 @@
       "note": "KRDB o-view, the KRDB r image-entry reading layer and Wikisource all currently agree at 1.0821, whereas the directly collated Ming 1569 primary is 1.0281 and its local sequence is continuous. The transmission stage of this shared divergence remains unresolved.",
       "propagate_to_ming_primary": false,
       "krdb_r_original_image_entry_reading_layer": "1.0821"
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "field": "LUNAR_LIMIT_132_LOSS_GAIN_FEN",
+      "ming_1569_primary_normalized": "7.886075",
+      "krdb_o_exact_surface": "七分八八六七五",
+      "krdb_r_exact_grouped_surface": "7″88‴67''''5'''''",
+      "wikisource_exact_surface": "七分八八六七五",
+      "symmetric_control_limit_35": {
+        "ming_1569_primary_normalized": "7.886075",
+        "krdb_o_exact_surface": "七分八八六〇七五",
+        "krdb_r_exact_grouped_surface": "7″88‴60''''75'''''",
+        "wikisource_exact_surface": "七分八八六〇七五"
+      },
+      "normalized_cross_witness_value": "NOT_FORCED_PENDING_PLACE_VALUE_AND_IMAGE_ADJUDICATION",
+      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
+      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "propagate_to_ming_primary": false,
+      "note": "Limit 132 is not silently decimal-normalized from the compact surface. KRDB o/r and Wikisource share a 67/5-style presentation while symmetric limit 35 and the directly collated Ming 1569 primary preserve 60/75 grouping. The difference is therefore a real control for transmission research, but its exact print-versus-digital cause and normalized historical value remain open pending direct image adjudication."
     }
   ],
   "matching_numeric_controls": [
@@ -165,7 +184,7 @@
       "witness": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG"
     }
   ],
-  "current_variant_count": 4,
+  "current_variant_count": 5,
   "exhaustive_cross_witness_row_comparison_complete": false,
   "image_level_variant_cause_adjudication_complete": false,
   "primary_ming_numeric_layer_changed_by_cross_witness_variants": false,
@@ -176,11 +195,13 @@
     "similar_numeric_series_as_automatic_term_equivalence": "FORBIDDEN",
     "shared_digital_variant_as_formula_defect": "FORBIDDEN",
     "runtime_activation_from_variant_ledger": "FORBIDDEN",
-    "krdb_r_reading_layer_as_direct_original_image_glyph": "FORBIDDEN"
+    "krdb_r_reading_layer_as_direct_original_image_glyph": "FORBIDDEN",
+    "compact_han_numeric_surface_as_simple_decimal_digits": "FORBIDDEN",
+    "philological_normalization_bridge_as_numeric_variant": "FORBIDDEN"
   },
   "next_work": [
-    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_THE_FOUR_CURRENT_GORYEOSA_CONTROLS",
-    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_BEYOND_CURRENT_CONTROL_RANGES",
+    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_ALL_FIVE_CURRENT_NUMERIC_VARIANT_CONTROLS",
+    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_BEYOND_CURRENT_CONTROL_RANGES_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION",
     "DISTINGUISH_RECEIVED_PRINT_VARIANTS_FROM_SHARED_DIGITAL_TRANSCRIPTION_VARIANTS",
     "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
     "ONLY_AFTER_DIRECT_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
@@ -200,7 +221,30 @@
   },
   "reading_layer_comparison_complete_for_current_controls": true,
   "current_classification_summary": {
-    "shared_cross_regional_received_or_digital_variant_count": 3,
-    "krdb_o_view_transcription_layer_error_strongly_indicated_count": 1
-  }
+    "shared_cross_regional_received_or_digital_variant_count": 4,
+    "krdb_o_view_transcription_layer_error_strongly_indicated_count": 1,
+    "philological_same_mechanical_value_bridge_count": 1
+  },
+  "philological_normalization_controls": [
+    {
+      "id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "field": "LUNAR_LIMIT_101_ACCUMULATED_CHIJI_DEGREE",
+      "ming_1569_primary_normalized": "5.20481125",
+      "krdb_o_surface": "五度二十四八一一二五",
+      "krdb_r_grouped_surface": "5′20″48‴11''''25'''''",
+      "wikisource_surface": "五度二十四八一一二五",
+      "explicit_place_groups": [
+        "5",
+        "20",
+        "48",
+        "11",
+        "25"
+      ],
+      "classification": "SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE",
+      "philological_disposition": "DO_NOT_TREAT 二十四八... AS A SIMPLE_DECIMAL_DIGIT_STRING; KRDB_R_EXPLICIT_GROUPING_RESOLVES_THE_POSITIONAL_PARSE",
+      "variant_count_effect": 0,
+      "note": "The compact Han-character surface can be parsed by historical place groups as 5 | 20 | 48 | 11 | 25. KRDB r exposes those groups explicitly and agrees with the directly collated Ming 1569 normalized value. This is a normalization bridge, not a numeric variant."
+    }
+  ],
+  "philological_normalization_control_count": 1
 }
