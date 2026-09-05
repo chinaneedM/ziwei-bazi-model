@@ -1,0 +1,37 @@
+name: research-goryeosa-cadal-facsimile-probe
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-goryeosa-cadal-facsimile-probe.yml"
+      - "scripts/research_goryeosa_cadal_facsimile_probe.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install DjVu text tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends djvulibre-bin
+      - name: Probe existing Commons DjVu text layer
+        run: |
+          python scripts/research_goryeosa_cadal_facsimile_probe.py \
+            --output artifacts/goryeosa-cadal-probe
+      - name: Upload localization evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: goryeosa-cadal-facsimile-probe-${{ github.sha }}
+          path: artifacts/goryeosa-cadal-probe/
+          if-no-files-found: warn
+          retention-days: 7
