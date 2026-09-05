@@ -25,6 +25,27 @@ class NdlOgawa1673ShoushiLichengDirectControlReadingsR1Tests(unittest.TestCase):
         self.assertEqual(r["full_probe_artifact_id"], 9972186258)
         self.assertEqual(r["page_fetch_workflow_run_id"], 33975870344)
         self.assertEqual(r["page_fetch_artifact_id"], 9972290306)
+        self.assertEqual(r["native_page_fetch_head_sha"], "f90477b4247f6c7bfc70f58f68082c0638947cf5")
+        self.assertEqual(r["native_page_fetch_workflow_run_id"], 33977235461)
+        self.assertEqual(r["native_page_fetch_artifact_id"], 9972676923)
+        self.assertEqual(r["native_page_fetch_width_px"], 7392)
+        self.assertEqual(
+            r["native_page_fetch_artifact_sha256"],
+            "81c99a8952dfbabf80c9d2cb9e95093b06aca734bf9a7d19e1c70d3ec567e216",
+        )
+        self.assertFalse(r["native_fetch_authorizes_target_values"])
+
+    def test_independent_same_edition_holding_does_not_promote_glyph_evidence(self) -> None:
+        b = self.data["bibliographic_corroboration"]
+        kyushu = b["kyushu_university_independent_holding"]
+        self.assertEqual(kyushu["publication_date"], "寛文13年 [1673]")
+        self.assertTrue(kyushu["public_domain"])
+        self.assertIn("manifest", kyushu["iiif_manifest"])
+        self.assertIn("NOT_YET_TARGET_GLYPH_EVIDENCE", kyushu["role"])
+        self.assertEqual(
+            self.data["epistemic_boundaries"]["independent_same_edition_catalog_as_target_glyph"],
+            "FORBIDDEN",
+        )
 
     def test_l114_direct_reading_is_3489(self) -> None:
         v = self.controls["VAR-NUM-LUNAR-L114-DAYRATE"]
@@ -54,10 +75,12 @@ class NdlOgawa1673ShoushiLichengDirectControlReadingsR1Tests(unittest.TestCase):
             "VAR-NUM-LUNAR-L132-LOSSGAIN",
         ):
             self.assertFalse(self.controls[cid]["target_value_authorized"], cid)
+            self.assertIn("7392PX", self.controls[cid]["direct_page_status"])
 
     def test_runtime_and_authority_firewalls_hold(self) -> None:
         b = self.data["epistemic_boundaries"]
         self.assertEqual(b["page_fetch_as_target_value"], "FORBIDDEN")
+        self.assertEqual(b["native_resolution_fetch_as_target_value"], "FORBIDDEN")
         self.assertEqual(b["later_1673_japanese_witness_as_early_g893_substitute"], "FORBIDDEN")
         self.assertEqual(b["later_1673_japanese_witness_as_ming_1569_edition_authority"], "FORBIDDEN")
         self.assertEqual(b["algorithm_or_runtime_selection_effect"], "NONE")
