@@ -1,0 +1,181 @@
+{
+  "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
+  "schema_version": "1.0.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_CROSS_WITNESS_IMAGE_CAUSES_PENDING",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "primary_reference": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "edition": "周相《大明大統曆法》隆慶三年（1569）刊本",
+    "solar_primary_collation": "185_OF_185_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "lunar_chiji_primary_collation": "169_OF_169_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "lunar_xingdu_primary_collation": "169_OF_169_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "authority_role": "EDITION_SCOPED_PRIMARY_REFERENCE_FOR_THIS_LEDGER"
+  },
+  "comparison_witnesses": [
+    {
+      "source_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "role": "CROSS_REGIONAL_SHOUSHI_TRANSMISSION_TRANSCRIPT_WITH_ORIGINAL_IMAGE_ACCESS",
+      "date_context": "《高麗史》1451 compilation preserving earlier Goryeo Shoushi material",
+      "authority_disposition": "DO_NOT_OVERRIDE_MING_1569_PRIMARY"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "role": "SECOND_DIGITAL_TRANSCRIPTION_OF_SAME_CROSS_REGIONAL_RECEIVED_TRADITION",
+      "authority_disposition": "USE_TO_SEPARATE_SINGLE_DATABASE_TRANSCRIPTION_ERRORS_FROM_SHARED_RECEIVED_OR_DIGITAL_VARIANTS"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V45-LICHENG",
+      "role": "MING_AUTHORIAL_LATER_RECEIVED_EXPLANATORY_WITNESS",
+      "authority_disposition": "EXPLAINS_TABLE_CONSTRUCTION_NOT_PRIMARY_GLYPH_REPLACEMENT"
+    }
+  ],
+  "structural_variants": [
+    {
+      "id": "VAR-STRUCT-SOLAR-001",
+      "system": "SOLAR_YINGSUO",
+      "ming_1569_schema": [
+        "積日",
+        "消息分",
+        "盈縮加分",
+        "盈縮積度"
+      ],
+      "goryeosa_schema": [
+        "積日",
+        "日差加一秒八十六少/六十二少",
+        "盈縮加分",
+        "盈縮積",
+        "行度"
+      ],
+      "observed_relation": "The first numeric series aligns with the Ming message/difference series on checked controls, while Goryeosa additionally prints a line-speed column.",
+      "philological_disposition": "TERMINOLOGY_AND_TABLE_SCHEMA_VARIANT; DO_NOT_DECLARE 消息分 AND 日差加一秒... FULLY_IDENTICAL_WITHOUT_EXPLICIT_BRIDGE",
+      "numeric_authority_effect": "NONE"
+    },
+    {
+      "id": "VAR-STRUCT-LUNAR-001",
+      "system": "LUNAR_CHIJI_XINGDU",
+      "ming_1569_schema": {
+        "chiji": [
+          "限數",
+          "遲疾日率分",
+          "損益捷法",
+          "損益分",
+          "遲疾度"
+        ],
+        "xingdu": [
+          "限數",
+          "疾曆行度",
+          "疾曆捷法",
+          "遲曆行度",
+          "遲曆捷法"
+        ]
+      },
+      "goryeosa_schema": [
+        "限數",
+        "遲疾曆日率",
+        "損益分",
+        "遲疾度",
+        "疾曆限行度",
+        "遲曆限行度"
+      ],
+      "observed_relation": "Goryeosa combines the two line-speed columns into the main lunar table and omits the shortcut columns; Zhou 1569 separates the line-speed table and prints shortcut columns.",
+      "philological_disposition": "TABLE_ORGANIZATION_AND_DERIVED_COLUMN_VARIANT_WITH_SHARED_CORE_NUMERIC_LINEAGE",
+      "numeric_authority_effect": "NONE"
+    }
+  ],
+  "numeric_variant_controls": [
+    {
+      "id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "field": "WINTER_SOLAR_SECOND_COLUMN_DAY_16",
+      "ming_1569_primary": "5.2362",
+      "krdb_goryeosa_current_transcript": "5.1362",
+      "neighboring_sequence_controls": {
+        "day15": "5.2176",
+        "day17": "5.2548",
+        "increment": "0.0186"
+      },
+      "wikisource_goryeosa_value": "NOT_YET_VERIFIED",
+      "classification": "KRDB_DIGITAL_TRANSCRIPT_SUSPECTED_ERROR",
+      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
+      "propagate_to_ming_primary": false
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "field": "LUNAR_LIMIT_8_LOSS_GAIN_FEN",
+      "ming_1569_primary": "10.561775",
+      "krdb_goryeosa_current_transcript": "10.5601775",
+      "wikisource_goryeosa_current_transcript": "10.5601775",
+      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
+      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
+      "note": "Both current digital transcriptions share the longer anomalous digit sequence; do not reduce it to a single-site OCR error without image evidence.",
+      "propagate_to_ming_primary": false
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "field": "LUNAR_LIMIT_114_DAY_RATE",
+      "ming_1569_primary": "9日3489",
+      "krdb_goryeosa_current_transcript": "9日2489",
+      "wikisource_goryeosa_current_transcript": "9日3489",
+      "classification": "KRDB_SPECIFIC_DIGITAL_TRANSCRIPTION_ERROR_STRONGLY_INDICATED",
+      "image_level_cause_status": "OPTIONAL_IMAGE_CONFIRMATION_PENDING",
+      "propagate_to_ming_primary": false
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "field": "LUNAR_LIMIT_124_JI_XINGDU",
+      "ming_1569_primary": "1.0281",
+      "krdb_goryeosa_current_transcript": "1.0821",
+      "wikisource_goryeosa_current_transcript": "1.0821",
+      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
+      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
+      "note": "The 1569 Ming primary page is directly collated as 1.0281 and its surrounding sequence is continuous. Current Goryeosa digital witnesses agree with each other at 1.0821, so the transmission stage of the divergence remains unresolved.",
+      "propagate_to_ming_primary": false
+    }
+  ],
+  "matching_numeric_controls": [
+    {
+      "scope": "SOLAR_WINTER_INITIAL_ROWS_0_TO_7",
+      "result": "YINGSUO_ADD_AND_ACCUMULATED_VALUES_ALIGN_ON_CHECKED_ROWS",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "SOLAR_SUMMER_INITIAL_ROWS_0_TO_7",
+      "result": "YINGSUO_ADD_AND_ACCUMULATED_VALUES_ALIGN_ON_CHECKED_ROWS",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_INITIAL_ROWS_0_TO_7",
+      "result": "DAY_RATE_LOSS_GAIN_ACCUMULATED_AND_CHI_JI_SPEEDS_ALIGN",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_LIMIT_116",
+      "result": "9日5129 / 5.629675 / accumulated 4.56040000 / chi 1.1526 / ji 1.0400 ALIGN",
+      "witness": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_LIMITS_140_TO_168_EXCEPT_NO_NEW_VARIANT_OBSERVED_IN_REVIEWED_DIGITAL_ROWS",
+      "result": "CORE_VALUES_ALIGN_AND_TERMINAL_LIMIT_168_IS_BLANK_EXCEPT_DAY_RATE",
+      "witness": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG"
+    }
+  ],
+  "current_variant_count": 4,
+  "exhaustive_cross_witness_row_comparison_complete": false,
+  "image_level_variant_cause_adjudication_complete": false,
+  "primary_ming_numeric_layer_changed_by_cross_witness_variants": false,
+  "epistemic_firewalls": {
+    "cross_regional_source_as_ming_edition_authority": "FORBIDDEN",
+    "digital_transcript_difference_as_manuscript_variant_without_image": "FORBIDDEN",
+    "matching_numeric_lineage_as_identical_table_schema": "FORBIDDEN",
+    "similar_numeric_series_as_automatic_term_equivalence": "FORBIDDEN",
+    "shared_digital_variant_as_formula_defect": "FORBIDDEN",
+    "runtime_activation_from_variant_ledger": "FORBIDDEN"
+  },
+  "next_work": [
+    "CHECK_GORYEOSA_ORIGINAL_IMAGES_FOR_THE_FOUR_CURRENT_NUMERIC_VARIANT_CONTROLS",
+    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_BEYOND_CURRENT_CONTROL_RANGES",
+    "DISTINGUISH_RECEIVED_PRINT_VARIANTS_FROM_DATABASE_OR_OCR_TRANSCRIPTION_ERRORS",
+    "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
+    "ONLY_AFTER_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
+  ]
+}

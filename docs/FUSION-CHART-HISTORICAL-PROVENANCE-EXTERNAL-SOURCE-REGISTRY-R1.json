@@ -628,7 +628,8 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/zh-hans/高丽史/卷五十二",
       "source_role": "CROSS_REGIONAL_TRANSMISSION_WITNESS_FOR_SHOUSHI_LUNAR_CHIJI_LICHENG",
-      "quality_notes": "Preserves a complete 168-limit table with headings 限數/遲疾曆日率/遲疾度/遲曆限行度/損益分/疾曆限行度. Central rows 81–86 match the Zhou Xiang 1569 facsimile values used in this audit. It is a Korean received-transmission witness, not authority to overwrite the Ming edition."
+      "quality_notes": "Preserves a complete 168-limit table with headings 限數/遲疾曆日率/遲疾度/遲曆限行度/損益分/疾曆限行度. Central rows 81–86 match the Zhou Xiang 1569 facsimile values used in this audit. It is a Korean received-transmission witness, not authority to overwrite the Ming edition. Current live comparison shows limit 124 as 1.0821 against Zhou 1569 primary 1.0281; the transmission stage of this difference is unresolved pending original-image adjudication.",
+      "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
     },
     {
       "source_id": "EXT-CTEXT-LISUAN-QUANSHU-V21",
@@ -694,6 +695,15 @@
       "url": "https://zh.wikisource.org/zh-hant/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B745",
       "source_role": "MING_AUTHORIAL_EXPLANATORY_WITNESS_FOR_SHOUSHI_LICHENG_TABLE_CONSTRUCTION",
       "quality_notes": "Preserves the table headings 太陰限度/遲疾日率分/損益捷法/損益分/遲疾度 and 限行度/疾曆行度/疾曆捷法/遲曆行度/遲曆捷法, plus the explanatory statements that accumulated differences yield 損益, 損益 divided by the day rate yields its shortcut, and 820 divided by the line speed yields the line-speed shortcut. Used to explain table construction only; Zhou Xiang 1569 remains primary for edition-specific glyph readings."
+    },
+    {
+      "source_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "title": "《高麗史》卷五十二·授時曆立成",
+      "historical_period": "朝鮮王朝官修《高麗史》1451；保存高麗受授時曆資料",
+      "provider": "韓國史資料庫 / 고려시대사료 DB",
+      "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_052_0010_0010_0020&types=o",
+      "source_role": "CROSS_REGIONAL_SHOUSHI_TRANSMISSION_DATABASE_TRANSCRIPT_WITH_ORIGINAL_IMAGE_ACCESS",
+      "quality_notes": "Structured transcript exposes both solar table families and the lunar 168-limit table and links an original-image view. It is valuable for row-level comparison but contains apparent digital transcription anomalies, including winter solar day 16 second-column 5.1362, lunar limit 114 day rate 9日2489 and lunar limit 124 疾曆限行度 1.0821. Do not treat database text as image-equivalent; image-level adjudication remains required."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
