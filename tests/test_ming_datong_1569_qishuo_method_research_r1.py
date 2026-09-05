@@ -66,6 +66,27 @@ class MingDatong1569QishuoMethodResearchR1Tests(unittest.TestCase):
         self.assertIn("D2_MOSTLY_OUTSIDE", observed)
         self.assertTrue(self.oracle["months"])
         self.assertIn("SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE", self.data["unresolved_before_runtime"])
+    
+    def test_formula_semantics_artifact_refines_remaining_gates(self) -> None:
+        self.assertEqual(
+            self.data["formula_semantics_artifact"],
+            "docs/research/MING-DATONG-1569-INTERPOLATION-REPLAY-R1.json",
+        )
+        self.assertEqual(
+            self.data["formula_semantics_status"]["ming_d1_worked_replay"],
+            "MACHINE_REPLAYED_AT_PRINTED_SOURCE_PRECISION",
+        )
+        unresolved = set(self.data["unresolved_before_runtime"])
+        self.assertIn("QISHUO_GEOGRAPHIC_REFERENCE", unresolved)
+        self.assertNotIn("HISTORICAL_DAY_BOUNDARY_AND_CLOCK_COORDINATE", unresolved)
+        self.assertIn(
+            "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
+            unresolved,
+        )
+        self.assertIn(
+            "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
+            unresolved,
+        )
 
 
 if __name__ == "__main__":

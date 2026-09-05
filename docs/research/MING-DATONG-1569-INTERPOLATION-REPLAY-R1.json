@@ -1,0 +1,125 @@
+{
+  "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_MACHINE_REPLAYED_FULL_TABLE_PENDING",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "authority_scope": "PRIMARY_1569_FORMULA_PAGES_PLUS_MING_AUTHORIAL_WORKED_DATONG_REPLAY",
+  "source_ids": [
+    "EXT-KOTENMON-DAMING-DATONG-1569",
+    "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG"
+  ],
+  "source_radices": {
+    "day_source_units_per_day": "10000",
+    "day_source_subunit_radix": "100",
+    "lunar_limit_width_day_source_units": "820",
+    "note": "All arithmetic remains in historical fixed-point source units. Decimal normalization below is a machine representation of source place value, not a modern timezone/day model."
+  },
+  "primary_formula_pages": {
+    "solar_yingsuo_limit_and_interpolation": {
+      "pdf_page_index_zero_based": 13,
+      "method_labels": [
+        "推盈縮曆初末限分法",
+        "推盈縮差度分法"
+      ],
+      "normalized_mechanics": [
+        "Classify 盈/縮 into initial or terminal limit using the printed threshold and half-year complement rule.",
+        "Use the whole-day row in the solar table, multiply the residual day fraction by that row's 盈縮加分, normalize by the 10000-unit day radix, and add the row's accumulated 盈縮 degree."
+      ]
+    },
+    "lunar_chiji_history_and_row_interpolation": {
+      "pdf_page_index_zero_based": 24,
+      "method_label": "推遲疾差度分法",
+      "normalized_mechanics": [
+        "Locate the corresponding 太陰立成 limit row by its 遲疾日率.",
+        "Subtract the row day-rate from the target 遲疾曆; if the nominal row exceeds the target, step back one limit before subtraction.",
+        "Multiply the residual by the row 損益分 and divide by 820.",
+        "Apply the interpolated quantity to the row 遲疾度: 益 adds, 損 subtracts."
+      ]
+    },
+    "d1_conjunction_correction": {
+      "pdf_page_index_zero_based": 32,
+      "method_label": "推加減差分法",
+      "normalized_mechanics": [
+        "Combine 盈縮差 and 遲疾差 by same-name addition or different-name subtraction.",
+        "Multiply the residual difference by 820.",
+        "Divide directly by the same-limit lunar 遲行度 or 疾行度."
+      ],
+      "received_d2_subtraction_of_820_used": false
+    },
+    "lunar_chiji_xingdu_table": {
+      "pdf_page_index_zero_based_start": 33,
+      "pdf_page_index_zero_based_end": 40,
+      "table_label": "太陰遲疾行度立成",
+      "role": "D1_DIVISOR_TABLE",
+      "full_numeric_transcription_complete": false
+    }
+  },
+  "solar_limit_thresholds": {
+    "ying_initial_shuo_terminal": {
+      "days": 88,
+      "source_fraction": "9092.25"
+    },
+    "shuo_initial_ying_terminal": {
+      "days": 93,
+      "source_fraction": "7120.25"
+    },
+    "certainty": "HIGH_PRIMARY_FACSIMILE"
+  },
+  "lunar_interpolation_semantics": {
+    "row_selection": "GREATEST_PRINTED_CHIJI_DAY_RATE_NOT_EXCEEDING_TARGET; STEP_BACK_ONE_LIMIT_IF_NOMINAL_ROW_IS_TOO_LARGE",
+    "residual_formula": "target_chiji_history_source_units - selected_row_day_rate_source_units",
+    "within_limit_formula": "residual_source_units * row_loss_gain / 820",
+    "sign_rule": {
+      "益": "ADD_TO_ROW_ACCUMULATED_CHIJI_DEGREE",
+      "損": "SUBTRACT_FROM_ROW_ACCUMULATED_CHIJI_DEGREE"
+    },
+    "full_table_transcription_complete": false
+  },
+  "ming_worked_d1_replay": {
+    "scope": "萬曆二十四年丙申歲閏八月朔日食曆〈大統〉",
+    "chiji_history": {
+      "days": 9,
+      "source_fraction": "5334.58",
+      "normalized_days": "9.533458"
+    },
+    "selected_limit": 116,
+    "selected_row_day_rate": {
+      "days": 9,
+      "source_fraction": "5129",
+      "normalized_days": "9.5129"
+    },
+    "residual_source_units": "205.58",
+    "selected_row_loss_gain_source_fen": "5.629675",
+    "selected_row_accumulated_chiji_degree": "4.5604",
+    "raw_within_limit_loss_source_fen": "1.41140071524390243902439024390",
+    "raw_within_limit_loss_degree": "0.0141140071524390243902439024390",
+    "printed_chiji_difference_degree": "4.546285",
+    "observed_degree_precision_policy": "TRUNCATE_TOWARD_ZERO_TO_6_DECIMAL_DEGREE_PLACES_IN_THIS_WORKED_EXAMPLE",
+    "yingsuo_difference_degree": "2.400413",
+    "combined_difference_degree": "2.145872",
+    "d1_multiplier": "820",
+    "corresponding_chi_xingdu_degree": "1.1526",
+    "raw_add_correction_source_units": "1526.64848169356238070449418706",
+    "printed_add_correction_source_units": "1526.64",
+    "observed_add_correction_precision_policy": "TRUNCATE_TOWARD_ZERO_TO_2_DECIMAL_SOURCE_UNITS_IN_THIS_WORKED_EXAMPLE",
+    "mean_conjunction_source_units": "13512.58",
+    "true_conjunction_source_units": "15039.22",
+    "day_carry_count": 1,
+    "true_conjunction_small_remainder_source_units": "5039.22",
+    "replay_status": "EXACT_AT_PRINTED_SOURCE_PRECISION"
+  },
+  "epistemic_firewalls": {
+    "worked_example_truncation_as_universal_precision_rule": "NOT_YET_AUTHORIZED",
+    "full_1569_table_transcription_claim": "FORBIDDEN",
+    "modern_decimal_as_historical_notation": "FORBIDDEN",
+    "qishuo_geographic_reference_inference": "FORBIDDEN"
+  },
+  "remaining_gates": [
+    "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
+    "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
+    "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
+    "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
+    "QISHUO_GEOGRAPHIC_REFERENCE"
+  ]
+}
