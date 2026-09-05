@@ -37,6 +37,21 @@ def fetch(url: str, attempts: int = 3, timeout: int = 30) -> tuple[str, dict[str
     raise last
 
 
+def fetch_bytes(url: str, attempts: int = 3, timeout: int = 30) -> tuple[bytes, dict[str, str]]:
+    last: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8"})
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.read(), dict(resp.headers.items())
+        except Exception as exc:
+            last = exc
+            if attempt < attempts:
+                time.sleep(attempt * 2)
+    assert last is not None
+    raise last
+
+
 def contexts(text: str, needle: str, radius: int = 900) -> list[str]:
     out = []
     lower = text.lower()
@@ -138,6 +153,38 @@ def main() -> int:
                 viewer_contexts.append(c)
     viewer_scripts = script_probe(VIEWER, viewer, VIEWER_KEYS, out, "viewer")
 
+    # Capture the viewer's exact page array as bounded, read-only thumbnail evidence.
+    # These artifacts are intentionally not committed to the repository and are not OCRed.
+    img_paths = re.findall(r'"(kr/052/kr_052_\\d+\\.jpg)"', viewer)
+    thumb_dir = out / "viewer-thumbs"
+    thumb_dir.mkdir(parents=True, exist_ok=True)
+    thumb_capture = []
+    for page_no, rel_path in enumerate(img_paths, start=1):
+        url = "https://db.history.go.kr/common/imageProxy.do?" + urllib.parse.urlencode({
+            "mode": "thumb",
+            "filePath": "/" + rel_path,
+        })
+        rec: dict[str, object] = {"page_no": page_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
+        try:
+            body, img_headers = fetch_bytes(url, attempts=3, timeout=30)
+            suffix = Path(rel_path).name
+            (thumb_dir / suffix).write_bytes(body)
+            rec.update({
+                "status": "FETCHED",
+                "bytes": len(body),
+                "content_type": img_headers.get("Content-Type"),
+            })
+        except Exception as exc:
+            rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
+        thumb_capture.append(rec)
+    (out / "viewer-page-map.json").write_text(json.dumps({
+        "schema": "KRDB-GORYEOSA-VIEWER-PAGE-MAP-R1",
+        "viewer": VIEWER,
+        "ocr_used": False,
+        "page_count": len(img_paths),
+        "pages": thumb_capture,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     forms = []
     for m in re.finditer(r"<form\b.*?</form>", viewer, re.I | re.S):
         frag = m.group(0)
@@ -171,7 +218,7 @@ def main() -> int:
         target_status = {"status": "BEST_EFFORT_ERROR_PRIOR_R1_CAPTURE_REMAINS_VALID", "error": f"{type(exc).__name__}: {exc}"}
 
     manifest = {
-        "schema": "KRDB-GORYEOSA-IMAGE-LINK-PROBE-R3",
+        "schema": "KRDB-GORYEOSA-IMAGE-LINK-PROBE-R4",
         "target": TARGET,
         "viewer": VIEWER,
         "read_only": True,
@@ -186,6 +233,8 @@ def main() -> int:
         "viewer_inline_contexts": viewer_contexts,
         "viewer_forms": forms,
         "viewer_scripts": viewer_scripts,
+        "viewer_page_count": len(img_paths),
+        "viewer_thumbnail_capture": thumb_capture,
         "viewer_endpoint_candidates": relevant_endpoints,
         "known_link_contract": {
             "holding_label": "규장각한국학연구원 소장본(규귀5553[을해자])",
@@ -201,6 +250,8 @@ def main() -> int:
     print(json.dumps({
         "viewer": VIEWER,
         "target_status": target_status,
+        "viewer_page_count": len(img_paths),
+        "viewer_thumbnail_fetch_success_count": sum(1 for x in thumb_capture if x["status"] == "FETCHED"),
         "viewer_matching_tag_count": len(viewer_tags),
         "viewer_form_count": len(forms),
         "viewer_scripts_with_hits": [x["url"] for x in viewer_scripts if x.get("hits")],
