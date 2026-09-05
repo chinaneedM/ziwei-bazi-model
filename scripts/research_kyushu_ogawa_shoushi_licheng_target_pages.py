@@ -12,6 +12,17 @@ from PIL import Image
 MANIFEST_URL = "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 TARGETS = {
+    40: {
+        "table_identity": "SOLAR_YINGSUO_CONTEXT",
+        "controls": ["STRUCT-SOLAR-YINGSUO-TABLE-OPENING"],
+        "binding": "PRINTED_SOLAR_TABLE_OPENING_AND_SCHEMA_CONTEXT; STRUCTURE_ONLY",
+        "purpose": "FIELD_CONTEXT_ONLY_NOT_A_TARGET_NUMERIC_READING",
+    },
+    41: {
+        "table_identity": "SOLAR_YINGSUO_CONTEXT",
+        "controls": ["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"],
+        "binding": "PRINTED_SOLAR_TABLE_CONTINUATION_CONTAINS_DAY_16; TEST_FIELD_PRESENCE_NOT_VALUE_INFERENCE",
+    },
     50: {
         "controls": ["STRUCT-LUNAR-CHIJI-TABLE-HEADER"],
         "binding": "PRINTED_TITLE_TAIYIN_CHIJI_LICHENG_AND_FIELDS_LIMIT_DAYRATE_LOSSGAIN_ACCUMULATED",
@@ -30,13 +41,26 @@ TARGETS = {
         "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_106_TO_125_INCLUDE_L114",
     },
     57: {
+        "table_identity": "LUNAR_CHIJI",
         "controls": ["VAR-NUM-LUNAR-L132-LOSSGAIN"],
         "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_126_TO_145_INCLUDE_L132",
+    },
+    68: {
+        "table_identity": "LUNAR_LIMIT_XINGDU",
+        "controls": ["STRUCT-LUNAR-LIMIT-XINGDU-TABLE-HEADER"],
+        "binding": "PRINTED_HEADER_READS_CHIJI_XIAN_XINGDU; THIS_IS_A_DISTINCT_TABLE_FAMILY_FROM_TAIYIN_CHIJI",
+        "purpose": "FIELD_CONTEXT_ONLY_NOT_A_TARGET_NUMERIC_READING",
+    },
+    70: {
+        "table_identity": "LUNAR_LIMIT_XINGDU",
+        "controls": ["VAR-NUM-LUNAR-L124-JI-XINGDU"],
+        "binding": "SAME_CHIJI_XIAN_XINGDU_TABLE; PRINTED_LOWER_BAND_LIMITS_INCLUDE_118_TO_137; L124_MUST_BE_READ_FROM_JI_XINGDU_FIELD",
     },
 }
 REJECTED_PRIOR_BINDING = {
     "canvases": [68, 69, 70],
-    "reason": "THESE_CANVASES_BELONG_TO_A_DIFFERENT_LIMIT_BASED_TABLE_FAMILY; SHARED_LIMIT_NUMBERING_DOES_NOT_ESTABLISH_FIELD_IDENTITY",
+    "reason": "THESE_CANVASES_BELONG_TO_THE_DISTINCT_CHIJI_XIAN_XINGDU_TABLE; THE_PRIOR L8/L101/L114/L132 CHIJI_BINDINGS_ARE_REJECTED_BECAUSE_SHARED_LIMIT_NUMBERING_DOES_NOT_ESTABLISH_FIELD_IDENTITY",
+    "scope": "REJECT_PRIOR_CROSS_TABLE_CHIJI_BINDINGS_ONLY; CANVAS_68_REMAINS_STRUCTURAL_XINGDU_EVIDENCE_AND_CANVAS_70_IS_A_VALID_LOCATOR_FOR_L124_JI_XINGDU",
     "target_value_authorized": False,
 }
 
@@ -93,6 +117,7 @@ def main() -> int:
             "canvas_index": index,
             "canvas_id": canvas.get("id"),
             "canvas_label": canvas.get("label"),
+            "table_identity": target.get("table_identity", "LUNAR_CHIJI"),
             "controls": target["controls"],
             "printed_binding": target["binding"],
             "purpose": target.get("purpose", "TARGET_PAGE_LOCALIZATION_ONLY"),
@@ -118,6 +143,8 @@ def main() -> int:
         "ocr_used": False,
         "cross_copy_page_offset_used": False,
         "localization_basis": "DIRECT_CONTACT_SHEET_INSPECTION_OF_PRINTED_TABLE_TITLE_FIELD_HEADERS_AND_LIMIT_HEADINGS_IN_THIS_KYUSHU_COPY",
+        "binding_invariant": "TABLE_IDENTITY_AND_FIELD_IDENTITY_MUST_MATCH_CONTROL_BEFORE_ANY_TARGET_READING",
+        "cross_table_field_substitution_allowed": False,
         "target_values_authorized_by_fetch": False,
         "rejected_prior_binding": REJECTED_PRIOR_BINDING,
         "pages": records,
