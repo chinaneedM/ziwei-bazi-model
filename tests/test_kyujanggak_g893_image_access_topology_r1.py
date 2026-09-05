@@ -30,6 +30,22 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["secondary_article_figure_as_target_glyph_authority"],"FORBIDDEN")
         self.assertEqual(b["algorithm_or_runtime_selection_effect"],"NONE")
 
+    def test_documented_renderer_imageservlet_protocol_is_bound_without_claiming_response(self) -> None:
+        p=self.data["access_protocol_evidence"]
+        self.assertEqual(p["adapter_source"]["repository"],"deweizhu/bookget")
+        self.assertEqual(p["adapter_source"]["repository_commit"],"2cdbf6d6c3ce70355a5c4411c0faf3450e9ae877")
+        self.assertEqual(p["adapter_source"]["blob_sha"],"d5ebadc1ba11bb35d9205e136599dffa1197708e")
+        self.assertEqual(p["image_delivery"]["endpoint"],"https://kyudb.snu.ac.kr/ImageServlet.do")
+        candidate=p["g893_protocol_candidate"]
+        self.assertEqual(candidate["item_cd"],"SIC")
+        self.assertEqual(candidate["book_cd"],"GK00893_00")
+        self.assertFalse(candidate["response_observed_in_project"])
+        self.assertEqual(candidate["target_folio_effect"],"NONE")
+        b=self.data["epistemic_boundaries"]
+        self.assertEqual(b["documented_protocol_candidate_as_observed_g893_response"],"FORBIDDEN")
+        self.assertEqual(b["modern_download_adapter_as_historical_authority"],"FORBIDDEN")
+        self.assertEqual(b["image_url_construction_as_target_glyph_reading"],"FORBIDDEN")
+
     def test_all_six_targets_remain_explicitly_pending(self) -> None:
         self.assertEqual(len(self.data["target_controls"]),6)
         self.assertIn("VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",self.data["target_controls"])

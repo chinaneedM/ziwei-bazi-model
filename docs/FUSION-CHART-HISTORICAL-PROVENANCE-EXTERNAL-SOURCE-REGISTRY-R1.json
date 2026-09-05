@@ -760,7 +760,8 @@
         "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
         "EXT-LI-LIANG-LICHENG-TABLES-2018",
         "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998",
-        "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023"
+        "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+        "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY"
       ],
       "textual_volume_localization": {
         "table_volume": "卷上",
@@ -769,7 +770,7 @@
         "basis": "Li 2018 states one volume contains Sun/Moon/five-planet tables and Figure 6 reproduces the solar table under the visible title 授時曆立成卷上; the Kyujanggak catalog lists the target solar and lunar table families.",
         "direct_target_glyph_status": "NOT_READ"
       },
-      "direct_image_access_status": "CATALOG_EXPOSES_REAL_THUMBNAIL_FILENAMES_AND_ITEM_CD; GITHUB_HOSTED_UBUNTU_RENDERER_PATH_BLOCKED; TARGET_FOLIOS_STILL_UNRESOLVED",
+      "direct_image_access_status": "CATALOG_EXPOSES_REAL_FILENAMES_AND_PUBLIC_ADAPTER_DOCUMENTS_RENDERER_IMAGESERVLET_PROTOCOL; GITHUB_HOSTED_UBUNTU_NETWORK_PATH_BLOCKED; TARGET_FOLIOS_STILL_UNRESOLVED",
       "hosted_runner_access_attempts": [
         {
           "workflow_run_id": 33962192868,
@@ -798,7 +799,10 @@
           "GK00893_00IH_0001_004b.jpg"
         ],
         "filename_prefix": "GK00893_00IH_0001_",
-        "target_folio_effect": "NONE_UNTIL_EXACT_TARGET_PAGE_IS_BOUND_BY_PRINTED_CONTENT"
+        "target_folio_effect": "NONE_UNTIL_EXACT_TARGET_PAGE_IS_BOUND_BY_PRINTED_CONTENT",
+        "protocol_source_id": "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+        "renderer_get_candidate": "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=SIC&book_cd=GK00893_00&vol_no=0001&page_no=000a",
+        "renderer_candidate_response_observed": false
       },
       "related_candidate_witnesses": [
         {
@@ -809,7 +813,19 @@
           "source_id_for_identification": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
           "direct_catalog_and_image_status": "PENDING"
         }
-      ]
+      ],
+      "technical_access_witnesses": [
+        "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER"
+      ],
+      "version_identity_bridge": {
+        "historical_received_source_id": "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
+        "aligned_features": [
+          "TWO_TEXTUAL_VOLUMES",
+          "WANG_XUN_IMPERIAL_COMMISSION_ATTRIBUTION"
+        ],
+        "physical_copy_identity_proven": false,
+        "target_glyph_effect": "NONE"
+      }
     },
     {
       "source_id": "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
@@ -935,6 +951,31 @@
       ],
       "quality_notes": "The entry describes a surviving one-book 46-leaf old movable-type copy used as a quick-reference table work for Shoushi calendrical calculation, reports a 1346 colophon context and a 1444 Gapinja reprint, and publicly exposes images captioned as the upper-volume opening page, the cover, and a double-page table spread. Treat the historical details as a modern specialist reference description unless independently rebound to the primary catalog/colophon; the public media are direct object-level visual evidence for the surviving printed work and tabular format, not evidence for any G893 target row.",
       "reading_artifact": "docs/research/KANG-BO-SHOUSHI-JIEFA-LICHENG-PUBLIC-MEDIA-WITNESS-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
+      "title": "《明史》卷三十四·志第十·曆四·大統曆法二〈立成〉所記《授時曆》立成成書與欽天監本身份",
+      "historical_period": "清修《明史》received dynastic-history witness describing an earlier Qintianjian Shoushi-licheng copy",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/%E6%98%8E%E5%8F%B2/%E5%8D%B734",
+      "source_role": "RECEIVED_DYNASTIC_HISTORY_WITNESS_FOR_SHOUSHI_LICHENG_COMPILATION_AND_VERSION_IDENTITY_NOT_DIRECT_G893_COPY",
+      "quoted_identity_fragments": [
+        "郭守敬比類編次，整齊分秒，裁為二卷",
+        "嘉議大夫太史令臣王恂奉敕撰"
+      ],
+      "quality_notes": "The received Mingshi text reports that Guo Shoujing classified and regularized the unfinished licheng numbers into two textual volumes after Wang Xun's death, and that the then-current Qintianjian copy bore an imperial-commission attribution to Wang Xun. These two features align with modern scholarly descriptions of the extant Kyujanggak Shoushi licheng, strengthening version provenance. Because Mingshi is a Qing-compiled received witness and does not image the extant G893 copy, it cannot prove physical-copy identity, exact folios or target glyph values."
+    },
+    {
+      "source_id": "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+      "title": "deweizhu/bookget 奎章閣下載適配器與支持 URL 文檔",
+      "provider": "GitHub / deweizhu/bookget",
+      "url": "https://github.com/deweizhu/bookget/blob/2cdbf6d6c3ce70355a5c4411c0faf3450e9ae877/app/kyudbsnu.go",
+      "documentation_url": "https://github.com/deweizhu/bookget/wiki/04-%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%BE%E4%B9%A6%E9%A6%86URL",
+      "source_role": "MODERN_TECHNICAL_ACCESS_PROTOCOL_WITNESS_FOR_KYUJANGGAK_RENDERER_AND_IMAGESERVLET_ONLY",
+      "repository_commit": "2cdbf6d6c3ce70355a5c4411c0faf3450e9ae877",
+      "adapter_path": "app/kyudbsnu.go",
+      "adapter_blob_sha": "d5ebadc1ba11bb35d9205e136599dffa1197708e",
+      "quality_notes": "Public adapter code implements Kyujanggak volume discovery and page discovery through /pf01/rendererImg.do, parses first_page_no, imgFileNm and fn_goPageJumpWithMokIdxClear page identifiers, then constructs full-image requests through /ImageServlet.do?imgFileNm=...&path=.... The project uses this only as reproducible technical-access evidence. It has no historical, bibliographic, target-folio or glyph authority, and the protocol-derived G893 renderer URL remains an unobserved candidate until successfully fetched through a non-blocked network path."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

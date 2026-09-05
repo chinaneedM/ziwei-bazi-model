@@ -193,6 +193,26 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(self.data["epistemic_firewalls"]["g893_thumbnail_filename_as_target_folio_binding"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["kang_bo_jiefa_licheng_as_same_text_as_g893"],"FORBIDDEN")
 
+    def test_mingshi_version_bridge_and_bookget_protocol_have_separate_authority_roles(self) -> None:
+        hist={x["source_id"]:x for x in self.data["transmission_history_evidence"]}
+        ms=hist["EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY"]
+        self.assertFalse(ms["direct_physical_g893_copy_identity"])
+        self.assertFalse(ms["direct_target_glyph_authority"])
+        self.assertFalse(ms["target_folio_certification_authorized"])
+        tech={x["source_id"]:x for x in self.data["technical_access_evidence"]}
+        bg=tech["EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER"]
+        self.assertFalse(bg["historical_authority"])
+        self.assertFalse(bg["glyph_authority"])
+        self.assertFalse(bg["g893_response_observed"])
+        self.assertEqual(bg["runtime_or_algorithm_effect"],"NONE")
+        bridge=self.data["g893_version_identity_bridge"]
+        self.assertEqual(bridge["aligned_features"],["TWO_TEXTUAL_VOLUMES","WANG_XUN_IMPERIAL_COMMISSION_ATTRIBUTION"])
+        self.assertFalse(bridge["direct_same_physical_copy_proven"])
+        self.assertEqual(bridge["target_glyph_effect"],"NONE")
+        self.assertEqual(self.data["epistemic_firewalls"]["mingshi_received_copy_description_as_g893_physical_copy_identity"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["modern_download_adapter_as_historical_or_glyph_authority"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["documented_g893_renderer_candidate_as_observed_response"],"FORBIDDEN")
+
     def test_early_physical_shoushi_witness_is_bound_without_prepopulated_readings(self) -> None:
         source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
