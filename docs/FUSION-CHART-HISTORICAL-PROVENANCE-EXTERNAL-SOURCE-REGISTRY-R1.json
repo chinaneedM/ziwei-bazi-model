@@ -750,7 +750,28 @@
         "evidence_source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
         "basis": "Li 2018 states one volume contains Sun/Moon/five-planet tables and Figure 6 reproduces the solar table under the visible title 授時曆立成卷上; the Kyujanggak catalog lists the target solar and lunar table families.",
         "direct_target_glyph_status": "NOT_READ"
-      }
+      },
+      "direct_image_access_status": "CATALOG_AND_PUBLIC_WEB_IMAGE_ENDPOINTS_EXIST; GITHUB_HOSTED_UBUNTU_RUNNER_NETWORK_PATH_BLOCKED_BEFORE_APPLICATION_LAYER; DIRECT_TARGET_FOLIOS_STILL_UNRESOLVED",
+      "hosted_runner_access_attempts": [
+        {
+          "workflow_run_id": 33962192868,
+          "head_sha": "c9fd47ed1ec4893806486fb5d27001733498c496",
+          "transport": "python requests / urllib3",
+          "endpoint_stage": "initial Kyujanggak HTTPS GET",
+          "result": "CONNECTION_RESET_DURING_TLS_HANDSHAKE",
+          "source_availability_inference": "NONE"
+        },
+        {
+          "workflow_run_id": 33962291588,
+          "head_sha": "9bfb06a8cd4e3c789fa8e2aa9dc5302eb1fbd3db",
+          "transport": "curl_cffi Chrome impersonation",
+          "endpoint_stage": "POST /pf01/rendererImg.do with item_cd=SIC",
+          "result": "LIBCURL_35_SEND_FAILURE_CONNECTION_RESET_BY_PEER",
+          "diagnostic_artifact_id": 9968309178,
+          "source_availability_inference": "NONE"
+        }
+      ],
+      "access_disposition": "Treat the two GitHub-hosted-runner failures as an execution-environment network restriction only. Kyujanggak's catalog and public web/thumbnail layer remain independently reachable and continue to establish the copy and original-image service. Do not infer missing images, missing folios, corrupt source, or any target value from runner resets."
     },
     {
       "source_id": "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",

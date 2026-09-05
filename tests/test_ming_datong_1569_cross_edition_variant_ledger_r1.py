@@ -111,6 +111,31 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_github_hosted_runner_network_block_is_not_source_evidence(self) -> None:
+        diag=self.data["hosted_runner_access_diagnostics"]
+        self.assertEqual(
+            diag["status"],
+            "ENVIRONMENT_SCOPED_NETWORK_BLOCK_CONFIRMED_FOR_GITHUB_HOSTED_UBUNTU_RUNNER",
+        )
+        self.assertEqual(len(diag["attempts"]),2)
+        self.assertEqual(diag["attempts"][0]["workflow_run_id"],33962192868)
+        self.assertEqual(diag["attempts"][1]["workflow_run_id"],33962291588)
+        self.assertTrue(all(x["evidence_scope"]=="NETWORK_ENVIRONMENT_ONLY" for x in diag["attempts"]))
+        self.assertEqual(diag["target_folio_effect"],"NONE")
+        self.assertEqual(diag["target_reading_effect"],"NONE")
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["hosted_runner_connection_reset_as_source_unavailable"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["hosted_runner_connection_reset_as_target_folio_or_glyph_evidence"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["independent_physical_image_adjudication"]["hosted_runner_access_status"],
+            "NETWORK_BLOCKED_ON_GITHUB_HOSTED_UBUNTU_RUNNER_ONLY",
+        )
+
     def test_g893_targets_are_localized_to_juanshang_without_folio_or_glyph_promotion(self) -> None:
         loc=self.data["textual_volume_localization"]
         self.assertEqual(loc["target_textual_volume"],"卷上")

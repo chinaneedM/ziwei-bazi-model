@@ -2,10 +2,6 @@ name: research-kyujanggak-g893-probe
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/research-kyujanggak-g893-probe.yml"
-      - "scripts/research_kyujanggak_g893_probe.py"
 
 permissions:
   contents: read
@@ -22,6 +18,7 @@ jobs:
       - name: Install isolated research dependencies
         run: python -m pip install --disable-pip-version-check curl_cffi pillow
       - name: Probe Kyujanggak G893 read-only viewer
+        continue-on-error: true
         run: |
           python scripts/research_kyujanggak_g893_probe.py \
             --output artifacts/g893-probe \

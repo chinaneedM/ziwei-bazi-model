@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_KRDB_LAYER_SEMANTICS_CORRECTED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -212,9 +212,12 @@
     "print_history_year_as_copy_specific_colophon_date": "FORBIDDEN",
     "textual_volume_localization_as_target_folio_certification": "FORBIDDEN",
     "secondary_reproduced_non_target_page_as_target_glyph_reading": "FORBIDDEN",
-    "mediated_1998_version_claim_as_direct_article_transcription": "FORBIDDEN"
+    "mediated_1998_version_claim_as_direct_article_transcription": "FORBIDDEN",
+    "hosted_runner_connection_reset_as_source_unavailable": "FORBIDDEN",
+    "hosted_runner_connection_reset_as_target_folio_or_glyph_evidence": "FORBIDDEN"
   },
   "next_work": [
+    "USE_NON_GITHUB_HOSTED_DIRECT_IMAGE_CHANNELS_OR_PUBLIC_IMAGE_MIRRORS_TO_BIND_G893_JUANSHANG_TARGET_FOLIOS",
     "BIND_KYUJANGGAK_G893_JUANSHANG_EXACT_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
     "USE_LI_2018_FIGURE_6_ONLY_AS_JUANSHANG_LAYOUT_LOCALIZATION_NOT_AS_D16_OR_LUNAR_TARGET_VALUE",
     "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_GORYEOSA_VARIANTS_WHERE_G893_DOES_NOT_RESOLVE_TRANSMISSION_STAGE",
@@ -333,7 +336,9 @@
     ],
     "no_prepopulation_rule": "NO_NUMERIC_VALUE_MAY_BE_ENTERED_FOR_G893_BEFORE_DIRECT_TARGET_IMAGE_READING",
     "provenance_strengthening": "EARLY_PHYSICAL_TARGET_IS_SUPPORTED_BY_KYUJANGGAK_COPY_CATALOG_1434_GAPJA_PRINT_HISTORY_SHI_YUNLI_1998_TRANSMISSION_STUDY_LI_LIANG_2018_VERSION_STRUCTURE_AND_LEE_JING_1998_SPECIALIST_VERSION_STUDY",
-    "search_space_reduction": "ALL_SIX_TARGETS_LOCALIZED_TO_SHOUSHI_LICHENG_JUANSHANG; DO_NOT_SCAN_SUNRISE_SUNSET_VOLUME"
+    "search_space_reduction": "ALL_SIX_TARGETS_LOCALIZED_TO_SHOUSHI_LICHENG_JUANSHANG; DO_NOT_SCAN_SUNRISE_SUNSET_VOLUME",
+    "hosted_runner_access_status": "NETWORK_BLOCKED_ON_GITHUB_HOSTED_UBUNTU_RUNNER_ONLY",
+    "direct_image_source_status": "SOURCE_AND_ORIGINAL_IMAGE_SERVICE_REMAIN_VALID_TARGET_FOLIOS_UNRESOLVED"
   },
   "transmission_history_evidence": [
     {
@@ -402,5 +407,32 @@
     },
     "exact_folio_status": "UNRESOLVED",
     "exact_image_filename_status": "UNRESOLVED"
+  },
+  "hosted_runner_access_diagnostics": {
+    "status": "ENVIRONMENT_SCOPED_NETWORK_BLOCK_CONFIRMED_FOR_GITHUB_HOSTED_UBUNTU_RUNNER",
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "attempts": [
+      {
+        "workflow_run_id": 33962192868,
+        "transport": "REQUESTS_URLLIB3_DEFAULT_TLS",
+        "result": "CONNECTION_RESET_BEFORE_APPLICATION_RESPONSE",
+        "evidence_scope": "NETWORK_ENVIRONMENT_ONLY"
+      },
+      {
+        "workflow_run_id": 33962291588,
+        "transport": "CURL_CFFI_CHROME_TLS_IMPERSONATION",
+        "result": "CONNECTION_RESET_BEFORE_APPLICATION_RESPONSE",
+        "diagnostic_artifact_id": 9968309178,
+        "evidence_scope": "NETWORK_ENVIRONMENT_ONLY"
+      }
+    ],
+    "public_web_counterevidence": [
+      "Kyujanggak institutional catalog page remains reachable in ordinary web retrieval.",
+      "Kyujanggak public thumbnail URLs expose GK00893_00IH_0001_000a.jpg and ...004b.jpg with item_cd=SIC.",
+      "Li Liang 2018 reproduces a Kyujanggak solar-table page, independently confirming physical/image accessibility outside the hosted-runner path."
+    ],
+    "conclusion": "DO_NOT_RETRY_EQUIVALENT_GITHUB_HOSTED_RUNNER_TRANSPORTS_AS_PRIMARY_RESEARCH_PATH; USE_MANUAL_PROBE_ONLY_IF_NETWORK_ENVIRONMENT_CHANGES_OR_USE_OTHER_DIRECT_IMAGE_CHANNELS",
+    "target_folio_effect": "NONE",
+    "target_reading_effect": "NONE"
   }
 }
