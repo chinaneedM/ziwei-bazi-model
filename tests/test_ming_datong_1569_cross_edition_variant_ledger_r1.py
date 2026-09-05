@@ -40,7 +40,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["krdb_r_korean_normalized_rendering"],"1.0821")
         self.assertFalse(v["propagate_to_ming_primary"])
 
-    def test_db_specific_limit_114_error_is_distinguished_from_shared_variant(self) -> None:
+    def test_limit_114_o_surface_divergence_is_not_promoted_to_proven_transcription_error(self) -> None:
         v=self.variants["VAR-NUM-LUNAR-L114-DAYRATE"]
         self.assertEqual(v["ming_1569_primary"],"9日3489")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"9日3489")
