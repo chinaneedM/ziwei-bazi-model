@@ -1,0 +1,115 @@
+{
+  "schema": "MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1",
+  "schema_version": "1.0.0",
+  "status": "RESEARCH_ONLY_DIAGNOSTIC_NOT_RUNTIME",
+  "runtime_selection_authorized": false,
+  "geographic_reference_closed": false,
+  "authority_statement": "Reign-record month-start dates are official-historiography corroboration, not substitutes for a surviving same-year Qintianjian almanac. A known 1462 conflict proves that Ming Shilu can disagree with the physical Datong almanac.",
+  "geographic_firewall": {
+    "ming_datong_qishuo_geographic_reference": "UNRESOLVED",
+    "do_not_assume_d1_raw_coordinate_is_beijing": true,
+    "do_not_assume_d1_raw_coordinate_is_nanjing": true,
+    "no_modern_timezone_substitution": true,
+    "no_single_longitude_shift_adjudication_without_physical_almanac": true
+  },
+  "modern_comparison_coordinates": {
+    "source": "Mihn, Lee & Ahn 2014, Research in Astronomy and Astrophysics 14(4):485-496",
+    "beijing_longitude_east_deg": 116.4166666667,
+    "nanjing_longitude_east_deg": 118.8833333333,
+    "longitude_delta_deg_nanjing_minus_beijing": 2.4666666666,
+    "local_apparent_solar_time_delta_minutes": 9.8666666664,
+    "scope": "MODERN_DIAGNOSTIC_CONVERSION_ONLY_NOT_HISTORICAL_AUTHORITY"
+  },
+  "cases": [
+    {
+      "case_id": "MING-1370-M02",
+      "reign_year": "洪武三年",
+      "month": 2,
+      "d1_value": 57.0024,
+      "d1_ganzhi": "辛酉",
+      "d1_minutes_after_zi_zheng": 3.456,
+      "later_table_ganzhi": "庚申",
+      "ming_shilu_ganzhi": "辛酉",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "MING_SHILU_SUPPORTS_D1_DAY_BUT_NO_PHYSICAL_ALMANAC_CERTIFICATION",
+      "source_urls": [
+        "https://zh.wikisource.org/wiki/大明太祖高皇帝實錄/卷049",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1462-M11",
+      "reign_year": "天順六年",
+      "month": 11,
+      "d1_value": 27.8143,
+      "d1_ganzhi": "辛卯",
+      "later_table_ganzhi": "壬辰",
+      "ming_shilu_ganzhi": "壬辰",
+      "surviving_same_year_almanac_ganzhi": "辛卯",
+      "evidence_result": "PHYSICAL_ALMANAC_AND_D1_OVERRIDE_REIGN_RECORD_AND_LATER_TABLES",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=327683&if=gb",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1495-M07",
+      "reign_year": "弘治八年",
+      "month": 7,
+      "d1_value": 18.1775,
+      "d1_ganzhi": "壬午",
+      "d1_minutes_after_zi_zheng": 255.6,
+      "later_table_ganzhi": "辛巳",
+      "ming_shilu_ganzhi": "辛巳",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "REIGN_RECORD_CONFLICTS_WITH_D1_FAR_FROM_DAY_BOUNDARY; SIMPLE_BEIJING_NANJING_LONGITUDE_SHIFT_CANNOT_EXPLAIN",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=277695&if=en",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1497-M10",
+      "reign_year": "弘治十年",
+      "month": 10,
+      "d1_value": 4.9997,
+      "d1_ganzhi": "戊辰",
+      "d1_minutes_before_next_zi_zheng": 0.432,
+      "later_table_ganzhi": "己巳",
+      "ming_shilu_ganzhi": "己巳",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "REIGN_RECORD_MATCHES_LATER_TABLES; EASTWARD_SHIFT_GREATER_THAN_0.432_MINUTES_WOULD_FLIP_D1_DAY, BUT THIS DOES_NOT_IDENTIFY_THE_HISTORICAL_MERIDIAN",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=577819&if=en",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1581-M10",
+      "reign_year": "萬曆九年",
+      "month": 10,
+      "d1_value": 27.9349,
+      "d1_ganzhi": "辛卯",
+      "later_table_ganzhi": "壬辰",
+      "ming_shilu_ganzhi": "辛卯",
+      "surviving_same_year_almanac_ganzhi": "辛卯",
+      "evidence_result": "REIGN_RECORD_PHYSICAL_ALMANAC_AND_D1_CONVERGE; LATER_TABLES_WRONG",
+      "source_urls": [
+        "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6q5cxjqsbnt",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    }
+  ],
+  "adjudication": {
+    "reign_record_as_same_year_almanac_substitute": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN",
+    "known_common_error_signal": "The 1462 case shows that Ming Shilu plus multiple later tables can share the wrong day against a surviving official almanac.",
+    "geographic_conclusion": "UNRESOLVED",
+    "next_required_evidence": [
+      "physical or page-level same-year Datong almanac for 1370, 1378, 1495 or 1497",
+      "source-faithful D1 replay from 1569 tables including interpolation/carry semantics",
+      "explicit primary text defining the qishuo geographic/meridian reference",
+      "comparison against modern conjunction times only as a diagnostic layer"
+    ]
+  }
+}

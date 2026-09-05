@@ -130,12 +130,79 @@ CONFIRMED_CHART_ALGORITHM_DEFECT_COUNT = 0
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION = NOT_YET_FORMALIZED
 ```
 
+## 6. Critical-day controls from Ming reign records — new in this pass
+
+The previously unresolved boundary cases were checked against `《明實錄》` rather than only later calendrical tables.
+
+### 6.1 1370 month 2
+
+`《明太祖高皇帝實錄》卷四十九` records:
+
+```text
+洪武三年二月辛酉朔
+```
+
+The D1 replay is `57.0024 = 辛酉`, only 3.456 minutes after 子正. The four later historical tables instead give 庚申.
+
+This upgrades 辛酉 from a modern computational prediction to official-historiography corroboration, but **not** to same-year almanac certification.
+
+### 6.2 1495 month 7
+
+`《明孝宗敬皇帝實錄》卷一百二` records `弘治八年七月辛巳朔`. The D1 replay is `18.1775 = 壬午`, about 255.6 minutes after 子正.
+
+This difference is far too large to be explained by the Beijing–Nanjing longitude difference. Therefore a simple fixed longitude shift cannot be used to “repair” every reign-record/D1 mismatch.
+
+### 6.3 1497 month 10
+
+`《明孝宗敬皇帝實錄》卷一百三十` records `弘治十年十月己巳朔`. The D1 replay is `4.9997 = 戊辰`, only 25.92 seconds before the next 子正.
+
+A positive/eastward shift greater than 0.432 minutes would move this event into 己巳. The Beijing→Nanjing modern local-apparent-solar-time difference calculated from Mihn et al.'s coordinates is about 9 minutes 52 seconds, so it is **numerically compatible** with such a crossing.
+
+But numerical compatibility is not historical identification. The source coordinate embedded in D1 is itself unresolved, and 1495 proves that longitude alone cannot explain all reign-record conflicts.
+
+### 6.4 A known falsification control: 1462
+
+This is the decisive warning against treating reign records as the physical calendar.
+
+`《明英宗睿皇帝實錄》卷三百四十六` records `天順六年十一月壬辰朔`.
+
+A surviving official Datong almanac, however, gives **辛卯**, and D1 gives `27.8143 = 辛卯`. The physical almanac therefore overrides both the reign record and the repeated later-table value.
+
+### 6.5 A convergence control: 1581
+
+`《明神宗顯皇帝實錄》卷一百一十七` records `萬曆九年十月辛卯朔`, agreeing with the surviving official almanac and D1 `27.9349 = 辛卯`, while the later tables give 壬辰.
+
+Together, 1462 and 1581 prove that the evidential role of `《明實錄》` is **corroboration requiring case-by-case collation**, not automatic calendar certification.
+
+## 7. Evidence-independence consequence
+
+The fact that several later calendrical tables agree with one another is not equivalent to several independent witnesses. The 1462 case demonstrates a shared wrong day across multiple later tables while a surviving official almanac and source-faithful D1 replay agree against them.
+
+Therefore:
+
+```text
+SOURCE_COUNT_VOTING = FORBIDDEN
+REIGN_RECORD_AS_SAME_YEAR_ALMANAC_SUBSTITUTE = FORBIDDEN
+LATER_TABLE_CONSENSUS_REQUIRES_GENEALOGY_AUDIT = TRUE
+```
+
+The machine-auditable companion artifact is:
+
+`docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1.json`
+
+Its regression test deliberately preserves the unresolved geographic conclusion.
+
 ## References consulted in this research pass
 
 - `《元史·志第七·曆四·授時曆經下》`, Chinese Text Project / received historical text.
 - `《明會要》卷二十七`, received Ming institutional-history witness.
+- `《明太祖高皇帝實錄》卷四十九`.
+- `《明英宗睿皇帝實錄》卷三百四十六`.
+- `《明孝宗敬皇帝實錄》卷一百二、卷一百三十`.
+- `《明神宗顯皇帝實錄》卷一百一十七`.
 - Mihn, Byeong-Hee; Lee, Ki-Won; Ahn, Young-Sook. 2014. “Analysis of interval constants in calendars affiliated with the Shoushili.” *Research in Astronomy and Astrophysics* 14(4): 485–496. DOI: 10.1088/1674-4527/14/4/009.
 - Lee, Ki-Won; Ahn, Young-Sook; Mihn, Byeong-Hee; Lim, Young-Ran. 2010. “Study on the Period of the Use of Datong-li in Korea.” *Journal of Astronomy and Space Sciences* 27(1): 55–68.
 - Li, Yong; Zhang, Chengzhi. 1998. “Chinese syzygy calculation established in the 13th century.” *Astronomy & Astrophysics* 332: 1142–1146.
+- Yuk Tung Liu, “明朝的定朔計算及曆表朔日訂正”, modern computational/source-collation research.
 
-Research principle: modern reconstruction may test and discriminate historical hypotheses, but it does not become primary historical authority by numerical fit alone.
+Research principle: modern reconstruction may test and discriminate historical hypotheses, but it does not become primary historical authority by numerical fit alone. Reign records are closer to official historical production than modern tables, but a surviving same-year Qintianjian almanac remains the stronger oracle for the calendar actually promulgated.
