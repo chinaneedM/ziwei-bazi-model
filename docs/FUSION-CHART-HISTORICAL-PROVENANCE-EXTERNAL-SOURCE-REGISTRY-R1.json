@@ -822,15 +822,37 @@
       "historical_period": "PUBLIC_DIGITAL_FACSIMILE_CONTAINER_OF_GORYEOSA_RECEIVED_TEXT; COPY_LEVEL_DATE_NOT_ADJUDICATED_HERE",
       "provider": "Wikimedia Commons mirror of CADAL / Peking University source",
       "url": "https://commons.wikimedia.org/wiki/File:CADAL02050311_%E9%AB%98%E9%BA%97%E5%8F%B2%EF%BC%88%E5%9B%9B%E5%8D%81%E4%B9%9D%EF%BC%89.djvu",
-      "source_role": "PUBLIC_FACSIMILE_CONTAINER_FOR_GORYEOSA_V52_VOLUME_IDENTITY_NOT_COPY_DATING_OR_TARGET_GLYPH_AUTHORITY",
+      "source_role": "PUBLIC_FACSIMILE_WITNESS_FOR_GORYEOSA_V52_RECEIVED_SURFACES_NOT_COPY_DATING_OR_EARLY_TRANSMISSION_AUTHORITY",
       "direct_image_control": {
         "checked_scan_page": 2,
         "visible_internal_heading": "志卷第六 / 高麗史五十二 / 曆三 / 授時曆經下 / 步五星第七",
         "wrapper_filename": "高麗史（四十九）",
         "wrapper_number_is_internal_volume_number": false,
-        "target_licheng_control_page_bound": false
+        "target_licheng_control_page_bound": true,
+        "ocr_used": false,
+        "reading_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json",
+        "exact_control_pages": {
+          "solar_d16": 39,
+          "lunar_l8": 81,
+          "symmetric_l35": 90,
+          "symmetric_l67": 101,
+          "lunar_l101": 112,
+          "lunar_l114": 117,
+          "lunar_l124": 120,
+          "lunar_l132": 123
+        },
+        "direct_surface_summary": {
+          "solar_d16": "五分一三六二",
+          "lunar_l8": "一十〇分五六〇一七七五",
+          "symmetric_l35": "七分八八六〇七五",
+          "symmetric_l67": "五度二十〇四八一一二五",
+          "lunar_l101": "五度二十四八一一二五",
+          "lunar_l114": "九日三四八九",
+          "lunar_l124": "一度〇八二一",
+          "lunar_l132": "七分八八六七五"
+        }
       },
-      "quality_notes": "Direct inspection of scan page 2 establishes that the CADAL wrapper labelled 四十九 contains internal 《高麗史》卷五十二·志第六·曆三. This is a high-value public facsimile container for page-level adjudication. It does not by itself date the physical copy, locate the later 授時曆立成 target tables, or authorize any of the five numeric variant values or L101 normalization reading."
+      "quality_notes": "Direct inspection first established that the external wrapper 四十九 contains internal 《高麗史》卷五十二·志第六·曆三. A reproducible no-OCR Commons/DjVu workflow has now bound and visually read the current controls at scans 39/81/112/117/120/123 plus same-copy symmetric controls 90/101. This public received facsimile confirms D16=5.1362, L8=10.5601775, L124=1.0821, L132 surface 七分八八六七五, L114=九日三四八九 and L101 surface 五度二十四八一一二五. It still does not establish copy-level date, early transmission stage, G893 readings or causal genealogy."
     },
     {
       "source_id": "EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE",

@@ -46,7 +46,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"9日3489")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"9日2489")
         self.assertEqual(v["krdb_r_korean_normalized_rendering"],"9日3489")
-        self.assertEqual(v["classification"],"KRDB_O_TEXT_SURFACE_DIVERGENCE_R_NORMALIZATION_AND_WIKISOURCE_ALIGN_WITH_MING")
+        self.assertEqual(v["classification"],"KRDB_O_TEXT_SURFACE_ISOLATED_CADAL_WIKISOURCE_MING_AND_KRDB_R_ALIGN_AT_3489_KRDB_OWN_SCAN_PENDING")
 
     def test_limit_8_and_solar_day16_are_not_silently_normalized(self) -> None:
         l8=self.variants["VAR-NUM-LUNAR-L8-LOSSGAIN"]
@@ -58,7 +58,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(s16["krdb_goryeosa_current_transcript"],"5.1362")
         self.assertEqual(s16["krdb_r_korean_normalized_rendering"],"5.1362")
         self.assertEqual(s16["wikisource_goryeosa_value"],"5.1362")
-        self.assertEqual(s16["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
+        self.assertEqual(s16["classification"],"PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569")
 
     def test_limit_132_is_variant_but_not_force_normalized(self) -> None:
         v=self.variants["VAR-NUM-LUNAR-L132-LOSSGAIN"]
@@ -69,7 +69,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["symmetric_control_limit_35"]["krdb_o_exact_surface"],"七分八八六〇七五")
         self.assertEqual(v["symmetric_control_limit_35"]["ming_1569_primary_normalized"],"7.886075")
         self.assertEqual(v["normalized_cross_witness_value"],"NOT_FORCED_PENDING_PLACE_VALUE_AND_IMAGE_ADJUDICATION")
-        self.assertEqual(v["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
+        self.assertEqual(v["classification"],"PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_COMPACT_SURFACE_VARIANT_NORMALIZATION_UNRESOLVED")
         self.assertFalse(v["propagate_to_ming_primary"])
 
     def test_limit_101_compact_surface_is_a_philological_bridge_not_a_variant(self) -> None:
@@ -193,21 +193,42 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
     def test_public_goryeosa_facsimile_containers_do_not_prejudge_target_glyphs(self) -> None:
         containers={x["source_id"]:x for x in self.data["public_facsimile_containers"]}
         cadal=containers["EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE"]
-        self.assertEqual(cadal["status"],"DIRECT_CONTAINER_IDENTITY_CONFIRMED_TARGET_TABLE_PAGES_UNBOUND")
+        self.assertEqual(cadal["status"],"DIRECT_TARGET_PAGE_BINDING_AND_SURFACE_READING_COMPLETE_FOR_CURRENT_CONTROLS")
         self.assertEqual(cadal["direct_evidence"]["scan_page"],2)
         self.assertIn("高麗史五十二",cadal["direct_evidence"]["visible_heading"])
-        self.assertEqual(cadal["target_effect"],"NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING")
+        self.assertEqual(cadal["target_effect"],"VISIBLE_SURFACES_CONFIRMED_FOR_THIS_RECEIVED_FACSIMILE; TRANSMISSION_CAUSE_G893_AND_RUNTIME_SELECTION_REMAIN_OPEN")
         nlc=containers["EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE"]
         self.assertEqual(nlc["direct_evidence"]["edition"],"1909")
         self.assertEqual(nlc["direct_evidence"]["catalogued_contents_unit"],"第六 高麗史五十二 曆三")
         self.assertEqual(nlc["target_effect"],"NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING")
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
-        self.assertEqual(witnesses["EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE"]["direct_target_image_status"],"V52_CONTAINER_CONFIRMED_TARGET_LICHENG_PAGES_PENDING")
+        self.assertEqual(witnesses["EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE"]["direct_target_image_status"],"CURRENT_CONTROL_PAGES_DIRECTLY_READ_NO_OCR")
         self.assertEqual(witnesses["EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE"]["direct_target_image_status"],"V52_UNIT_CATALOGUED_TARGET_LICHENG_PAGES_PENDING")
         self.assertEqual(self.data["epistemic_firewalls"]["external_wrapper_volume_number_as_internal_goryeosa_volume_number"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["public_facsimile_container_as_target_glyph_reading_before_page_binding"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["later_reprint_facsimile_as_early_physical_transmission_witness"],"FORBIDDEN")
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
+
+    def test_cadal_direct_readings_upgrade_surface_evidence_without_closing_cause(self) -> None:
+        s16=self.variants["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"]
+        self.assertEqual(s16["cadal_direct_facsime"]["scan_page"],39)
+        self.assertEqual(s16["cadal_direct_facsime"]["surface"],"五分一三六二")
+        l8=self.variants["VAR-NUM-LUNAR-L8-LOSSGAIN"]
+        self.assertEqual(l8["cadal_direct_facsime"]["normalized"],"10.5601775")
+        l114=self.variants["VAR-NUM-LUNAR-L114-DAYRATE"]
+        self.assertEqual(l114["cadal_direct_facsime"]["surface"],"九日三四八九")
+        l124=self.variants["VAR-NUM-LUNAR-L124-JI-XINGDU"]
+        self.assertEqual(l124["cadal_direct_facsime"]["surface"],"一度〇八二一")
+        l132=self.variants["VAR-NUM-LUNAR-L132-LOSSGAIN"]
+        self.assertEqual(l132["cadal_direct_facsime"]["surface"],"七分八八六七五")
+        self.assertEqual(l132["cadal_direct_facsime"]["same_copy_l35"]["surface"],"七分八八六〇七五")
+        norm=self.data["philological_normalization_controls"][0]
+        self.assertEqual(norm["cadal_direct_facsime"]["surface"],"五度二十四八一一二五")
+        self.assertEqual(norm["cadal_direct_facsime"]["same_copy_l67"]["surface"],"五度二十〇四八一一二五")
+        self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
+        self.assertFalse(self.data["runtime_selection_authorized"])
+        self.assertEqual(self.data["epistemic_firewalls"]["cadal_direct_surface_as_transmission_cause_proof"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["cadal_l114_3489_as_proven_krdb_transcription_error_without_krdb_scan"],"FORBIDDEN")
 
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])

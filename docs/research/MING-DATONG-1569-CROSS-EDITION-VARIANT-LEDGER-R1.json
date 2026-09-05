@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.8.0",
+  "schema_version": "1.9.0",
   "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_KRDB_LAYER_SEMANTICS_CORRECTED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -38,9 +38,10 @@
     },
     {
       "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
-      "role": "PUBLIC_GORYEOSA_V52_FACSIMILE_CONTAINER_WITH_DIRECT_INTERNAL_VOLUME_HEADING",
-      "authority_disposition": "USE_TO_BIND_RECEIVED_TEXT_SCAN_PAGES; DO_NOT TREAT WRAPPER 四十九 AS INTERNAL VOLUME OR PREPOPULATE TARGET VALUES",
-      "direct_target_image_status": "V52_CONTAINER_CONFIRMED_TARGET_LICHENG_PAGES_PENDING"
+      "role": "PUBLIC_GORYEOSA_V52_RECEIVED_FACSIMILE_WITH_CURRENT_CONTROL_PAGES_DIRECTLY_READ",
+      "authority_disposition": "USE_FOR_VISIBLE_SURFACE_AND_PAGE_LEVEL_RECEIVED_COPY_EVIDENCE; DO_NOT_EQUATE_WITH_G893_EARLY_GORYEO_ORIGINAL_OR_MING_1569_AUTHORITY",
+      "direct_target_image_status": "CURRENT_CONTROL_PAGES_DIRECTLY_READ_NO_OCR",
+      "reading_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json"
     },
     {
       "source_id": "EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE",
@@ -114,11 +115,17 @@
         "increment": "0.0186"
       },
       "wikisource_goryeosa_value": "5.1362",
-      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
       "propagate_to_ming_primary": false,
-      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource all currently preserve 5.1362, while the directly collated Ming 1569 primary is 5.2362 and the adjacent 5.2176/5.2548 sequence advances by 0.0186. The difference is therefore not isolated to the KRDB o transcript; its received-print versus shared-digital transmission stage remains unresolved.",
-      "krdb_r_korean_normalized_rendering": "5.1362"
+      "note": "KRDB o/r and Wikisource preserve 5.1362; CADAL Goryeosa V52 scan 39 directly confirms 五分一三六二 in a public received facsimile, while Ming 1569 directly reads 5.2362. The disagreement is therefore not digital-transcription-only. Its earlier transmission stage/cause and G893 reading remain open.",
+      "krdb_r_korean_normalized_rendering": "5.1362",
+      "cadal_direct_facsime": {
+        "scan_page": 39,
+        "surface": "五分一三六二",
+        "normalized": "5.1362",
+        "reading_confidence": "HIGH"
+      }
     },
     {
       "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
@@ -126,11 +133,17 @@
       "ming_1569_primary": "10.561775",
       "krdb_goryeosa_current_transcript": "10.5601775",
       "wikisource_goryeosa_current_transcript": "10.5601775",
-      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
-      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource currently agree at 10.5601775 against Ming 1569 primary 10.561775. Do not reduce this to a single-site OCR error without direct image evidence.",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_SUPPORTS_GLYPH_SEQUENCE_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "note": "KRDB o/r and Wikisource agree at 10.5601775; CADAL Goryeosa V52 scan 81 visually supports the same printed sequence 一十〇分五六〇一七七五 against Ming 1569 10.561775. The print is faint, so the direct reading is marked medium-high rather than absolute; transmission cause remains open.",
       "propagate_to_ming_primary": false,
-      "krdb_r_korean_normalized_rendering": "10.5601775"
+      "krdb_r_korean_normalized_rendering": "10.5601775",
+      "cadal_direct_facsime": {
+        "scan_page": 81,
+        "surface": "一十〇分五六〇一七七五",
+        "normalized": "10.5601775",
+        "reading_confidence": "MEDIUM_HIGH_FAINT_PRINT"
+      }
     },
     {
       "id": "VAR-NUM-LUNAR-L114-DAYRATE",
@@ -138,11 +151,17 @@
       "ming_1569_primary": "9日3489",
       "krdb_goryeosa_current_transcript": "9日2489",
       "wikisource_goryeosa_current_transcript": "9日3489",
-      "classification": "KRDB_O_TEXT_SURFACE_DIVERGENCE_R_NORMALIZATION_AND_WIKISOURCE_ALIGN_WITH_MING",
-      "image_level_cause_status": "DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK_STILL_PENDING",
+      "classification": "KRDB_O_TEXT_SURFACE_ISOLATED_CADAL_WIKISOURCE_MING_AND_KRDB_R_ALIGN_AT_3489_KRDB_OWN_SCAN_PENDING",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_READS_3489_KRDB_OWN_ORIGINAL_IMAGE_STILL_PENDING",
       "propagate_to_ming_primary": false,
-      "note": "KRDB o Han-text transcription reads 9日2489, while KRDB r Korean normalized rendering, Wikisource and the Ming 1569 primary read 9日3489. Because r is an editorial/translation rendering rather than an independent edition witness, present evidence isolates an o-surface divergence but does NOT yet prove whether the cause lies in KRDB transcription, its underlying Goryeosa print, or another editorial normalization stage. Direct original-image glyph inspection remains required.",
-      "krdb_r_korean_normalized_rendering": "9日3489"
+      "note": "CADAL Goryeosa V52 scan 117 directly reads 九日三四八九, aligning with Ming 1569, Wikisource and KRDB r. KRDB o alone reads 九日二四八九. This isolates the KRDB-o surface against the current comparison set, but does not prove a KRDB transcription error until the exact KRDB underlying scan is inspected.",
+      "krdb_r_korean_normalized_rendering": "9日3489",
+      "cadal_direct_facsime": {
+        "scan_page": 117,
+        "surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH"
+      }
     },
     {
       "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
@@ -150,11 +169,17 @@
       "ming_1569_primary": "1.0281",
       "krdb_goryeosa_current_transcript": "1.0821",
       "wikisource_goryeosa_current_transcript": "1.0821",
-      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
-      "note": "KRDB o-view, the KRDB r image-entry reading layer and Wikisource all currently agree at 1.0821, whereas the directly collated Ming 1569 primary is 1.0281 and its local sequence is continuous. The transmission stage of this shared divergence remains unresolved.",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "note": "CADAL Goryeosa V52 scan 120 directly reads 一度〇八二一 (1.0821), aligning with KRDB o/r and Wikisource against Ming 1569 1.0281. The disagreement is therefore not digital-transcription-only; transmission stage/cause remains open.",
       "propagate_to_ming_primary": false,
-      "krdb_r_korean_normalized_rendering": "1.0821"
+      "krdb_r_korean_normalized_rendering": "1.0821",
+      "cadal_direct_facsime": {
+        "scan_page": 120,
+        "surface": "一度〇八二一",
+        "normalized": "1.0821",
+        "reading_confidence": "HIGH"
+      }
     },
     {
       "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
@@ -169,11 +194,22 @@
         "wikisource_exact_surface": "七分八八六〇七五"
       },
       "normalized_cross_witness_value": "NOT_FORCED_PENDING_PLACE_VALUE_AND_IMAGE_ADJUDICATION",
-      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_COMPACT_SURFACE_VARIANT_NORMALIZATION_UNRESOLVED",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_SURFACE_CONFIRMED_SAME_COPY_L35_ZERO_CONTROL_CONFIRMED_CAUSE_OPEN",
       "propagate_to_ming_primary": false,
-      "note": "Limit 132 is not silently decimal-normalized from the compact surface. KRDB o and Wikisource share `七分八八六七五`; KRDB r's Korean normalized rendering presents a corresponding 67/5-style grouping, while symmetric limit 35 and the directly collated Ming 1569 primary preserve 60/75 grouping. Since r is not an independent textual witness, the transmission stage remains unresolved; direct image adjudication is required before assigning a print-level cause or normalized historical value.",
-      "krdb_r_korean_normalized_surface": "7″88‴67''''5'''''"
+      "note": "CADAL scan 123 directly preserves L132 七分八八六七五, while same-copy scan 90 directly preserves symmetric L35 七分八八六〇七五. Thus the visible zero-practice difference is physical in this received copy, not merely a digital transcription artifact. L132 is still not silently decimal-normalized and its transmission cause remains unresolved.",
+      "krdb_r_korean_normalized_surface": "7″88‴67''''5'''''",
+      "cadal_direct_facsime": {
+        "scan_page": 123,
+        "surface": "七分八八六七五",
+        "reading_confidence": "HIGH",
+        "same_copy_l35": {
+          "scan_page": 90,
+          "surface": "七分八八六〇七五",
+          "normalized": "7.886075",
+          "reading_confidence": "HIGH"
+        }
+      }
     }
   ],
   "matching_numeric_controls": [
@@ -229,11 +265,15 @@
     "hosted_runner_connection_reset_as_target_folio_or_glyph_evidence": "FORBIDDEN",
     "external_wrapper_volume_number_as_internal_goryeosa_volume_number": "FORBIDDEN",
     "public_facsimile_container_as_target_glyph_reading_before_page_binding": "FORBIDDEN",
-    "later_reprint_facsimile_as_early_physical_transmission_witness": "FORBIDDEN"
+    "later_reprint_facsimile_as_early_physical_transmission_witness": "FORBIDDEN",
+    "cadal_received_facsime_as_early_goryeo_original": "FORBIDDEN",
+    "cadal_received_facsime_as_g893_substitute": "FORBIDDEN",
+    "cadal_direct_surface_as_transmission_cause_proof": "FORBIDDEN",
+    "cadal_l114_3489_as_proven_krdb_transcription_error_without_krdb_scan": "FORBIDDEN"
   },
   "next_work": [
+    "BIND_KRDB_GORYEOSA_V52_OWN_UNDERLYING_SCAN_FOR_L114_AND_CURRENT_VARIANT_CONTROLS_BEFORE_DATABASE_TRANSCRIPTION_CAUSE_CLAIMS",
     "BIND_NLC_1909_GORYEOSA_V52_TARGET_SCAN_PAGES_AS_LATER_RECEIVED_IMAGE_CROSSCHECK_WITHOUT_EARLY_WITNESS_PROMOTION",
-    "BIND_CADAL02050311_INTERNAL_GORYEOSA_V52_LICHENG_TARGET_SCAN_PAGES_AND_COMPARE_FIVE_NUMERIC_VARIANTS_PLUS_L101",
     "USE_NON_GITHUB_HOSTED_DIRECT_IMAGE_CHANNELS_OR_PUBLIC_IMAGE_MIRRORS_TO_BIND_G893_JUANSHANG_TARGET_FOLIOS",
     "BIND_KYUJANGGAK_G893_JUANSHANG_EXACT_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
     "USE_LI_2018_FIGURE_6_ONLY_AS_JUANSHANG_LAYOUT_LOCALIZATION_NOT_AS_D16_OR_LUNAR_TARGET_VALUE",
@@ -267,7 +307,11 @@
   "current_classification_summary": {
     "shared_cross_regional_received_or_digital_variant_count": 4,
     "krdb_o_text_surface_divergence_pending_image_adjudication_count": 1,
-    "philological_same_mechanical_value_bridge_count": 1
+    "philological_same_mechanical_value_bridge_count": 1,
+    "public_goryeosa_facsimile_confirmed_received_numeric_variant_count": 3,
+    "public_goryeosa_facsimile_confirmed_received_compact_surface_variant_count": 1,
+    "krdb_o_surface_isolated_against_cadal_wikisource_ming_and_r_count": 1,
+    "same_copy_symmetric_zero_control_count": 2
   },
   "philological_normalization_controls": [
     {
@@ -286,13 +330,31 @@
       "classification": "SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE",
       "philological_disposition": "DO_NOT_TREAT_COMPACT_HAN_SURFACE_AS_A_SIMPLE_DECIMAL_DIGIT_STRING_OR_AS_A_NUMERIC_VARIANT_WITHOUT_POSITIONAL_ANALYSIS; KRDB_R_SHOWS_KRDBS_OWN_NORMALIZED_INTERPRETATION_BUT_IS_NOT_AN_INDEPENDENT_TEXTUAL_WITNESS",
       "variant_count_effect": 0,
-      "note": "The compact L101 Han surface `五度二十四八一一二五` and the L67 surface with an extra 〇 are editorially rendered by KRDB r as the same positional groups 5|20|48|11|25, matching Ming 1569 normalized 5.20481125. This supports a philological normalization bridge and blocks a premature numeric-variant claim. It does not prove the underlying original-image glyphs or edition-level punctuation/zero practice.",
+      "note": "CADAL scan 112 directly preserves L101 `五度二十四八一一二五`, while same-copy scan 101 directly preserves symmetric L67 `五度二十〇四八一一二五`. The zero-present/zero-omitted contrast exists in the physical received facsimile while both map to positional groups 5|20|48|11|25 and Ming 1569 normalized 5.20481125. This strengthens the philological normalization bridge and does not create a numeric variant.",
       "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
       "symmetric_control_limit_67": {
         "krdb_o_surface": "五度二十〇四八一一二五",
         "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
         "wikisource_surface": "五度二十〇四八一一二五",
         "ming_1569_primary_normalized": "5.20481125"
+      },
+      "cadal_direct_facsime": {
+        "scan_page": 112,
+        "surface": "五度二十四八一一二五",
+        "reading_confidence": "HIGH",
+        "same_copy_l67": {
+          "scan_page": 101,
+          "surface": "五度二十〇四八一一二五",
+          "explicit_place_groups": [
+            "5",
+            "20",
+            "48",
+            "11",
+            "25"
+          ],
+          "normalized": "5.20481125",
+          "reading_confidence": "HIGH"
+        }
       }
     }
   ],
@@ -455,13 +517,25 @@
   "public_facsimile_containers": [
     {
       "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
-      "status": "DIRECT_CONTAINER_IDENTITY_CONFIRMED_TARGET_TABLE_PAGES_UNBOUND",
+      "status": "DIRECT_TARGET_PAGE_BINDING_AND_SURFACE_READING_COMPLETE_FOR_CURRENT_CONTROLS",
       "direct_evidence": {
         "scan_page": 2,
-        "visible_heading": "志卷第六 / 高麗史五十二 / 曆三 / 授時曆經下 / 步五星第七"
+        "visible_heading": "志卷第六 / 高麗史五十二 / 曆三 / 授時曆經下 / 步五星第七",
+        "control_pages": [
+          39,
+          81,
+          90,
+          101,
+          112,
+          117,
+          120,
+          123
+        ],
+        "reading_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json",
+        "ocr_used": false
       },
       "philological_boundary": "The external CADAL wrapper number 四十九 is a container sequence label and is not mechanically equated with the internal 高麗史卷 number.",
-      "target_effect": "NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING"
+      "target_effect": "VISIBLE_SURFACES_CONFIRMED_FOR_THIS_RECEIVED_FACSIMILE; TRANSMISSION_CAUSE_G893_AND_RUNTIME_SELECTION_REMAIN_OPEN"
     },
     {
       "source_id": "EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE",
@@ -474,5 +548,6 @@
       "philological_boundary": "This received reprint can test later image/transcription surfaces but cannot be back-projected as a 15th-century original witness.",
       "target_effect": "NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING"
     }
-  ]
+  ],
+  "public_facsimile_control_readings_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json"
 }
