@@ -1,7 +1,7 @@
 {
   "schema": "NDL-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-CONTROL-READINGS-R1",
-  "schema_version": "1.2.0",
-  "status": "DIRECT_PAGE_BINDINGS_PARTIAL_TARGET_READINGS_IN_PROGRESS",
+  "schema_version": "1.3.0",
+  "status": "DIRECT_PAGE_BINDINGS_D16_STRUCTURALLY_NONCOMPARABLE_L114_READ_THREE_LUNAR_TARGETS_PENDING",
   "source_id": "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
   "title": "大元授時暦經立成 6卷",
   "creator": "小川正意 新勘",
@@ -27,6 +27,11 @@
     "native_page_fetch_artifact_id": 9972676923,
     "native_page_fetch_width_px": 7392,
     "native_page_fetch_artifact_sha256": "81c99a8952dfbabf80c9d2cb9e95093b06aca734bf9a7d19e1c70d3ec567e216",
+    "d16_locator_revision_head_sha": "f5b1b362a3fcb5816da9231b2eb43824d50b8c6e",
+    "d16_locator_revision_workflow_run_id": 33978788314,
+    "d16_locator_revision_artifact_id": 9973124845,
+    "d16_locator_revision_artifact_sha256": "1e259e9ba7c8c6393b8b9d9674981022e23f27bda7823868714e2320189232f8",
+    "d16_locator_revision_width_px": 7392,
     "script": "scripts/research_ndl_ogawa_shoushi_licheng_target_pages.py",
     "native_fetch_authorizes_target_values": false
   },
@@ -50,7 +55,13 @@
     }
   },
   "structural_scope": {
-    "pid_14488128": "direct inspection covers the complete first digital volume container; its second textual volume begins with 太陰遲疾立成 and proceeds through limit 168 before explanatory text",
+    "pid_14488128": "direct inspection covers the complete first digital volume container; its solar table begins on R0000003 and its second textual volume begins with 太陰遲疾立成 and proceeds through limit 168 before explanatory text",
+    "solar_table_title": "太陽盈縮立成",
+    "solar_table_opening_canvas": 3,
+    "solar_table_opening_image_id": "R0000003",
+    "solar_visible_schema": ["積日", "盈縮積度", "盈縮加分"],
+    "solar_d16_difference_status": "NO_SEPARATE_DAY_DIFFERENCE_OR_MESSAGE_DIFFERENCE_COLUMN_VISIBLE_IN_THE_OGAWA_SOLAR_TABLE_OPENING_OR_D16_CONTINUATION_FIELD_NOT_DIRECTLY_COMPARABLE",
+    "solar_d16_reason": "R0000003 directly shows the opening and printed schema of 太陽盈縮立成. R0000004 is the continuation containing day 16. Native-resolution inspection binds day 16 to the visible derived accumulated/add columns, but the separate 日差/消息分-type field used by the active cross-edition control is not printed as an independent column in this Ogawa table structure. Absence of that field cannot be converted into either 5.1362 or 5.2362.",
     "pid_14488129": "direct opening-page inspection is textual volume 3",
     "pid_14488130": "direct opening-page inspection is textual volume 5",
     "l124_ji_xingdu_status": "NO_SEPARATE_JI_XINGDU_TABLE_IDENTIFIED_IN_COMPLETE_PID_14488128_VOLUME2_SEQUENCE_FIELD_NOT_DIRECTLY_COMPARABLE_YET",
@@ -61,19 +72,22 @@
     {
       "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
       "pid": "14488128",
-      "canvas_index": 4,
-      "image_id": "R0000004",
-      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE",
-      "diplomatic_reading_status": "PENDING_EXACT_FIELD_COLUMN_BINDING",
-      "target_value_authorized": false
+      "table_opening_canvas_index": 3,
+      "table_opening_image_id": "R0000003",
+      "day16_context_canvas_index": 4,
+      "day16_context_image_id": "R0000004",
+      "direct_page_status": "7392PX_OPENING_AND_D16_CONTINUATION_DIRECTLY_INSPECTED",
+      "diplomatic_reading_status": "FIELD_STRUCTURALLY_NOT_PRINTED_AS_SEPARATE_COLUMN_IN_OGAWA_SOLAR_SCHEMA_NOT_DIRECTLY_COMPARABLE",
+      "target_value_authorized": false,
+      "finding": "DO_NOT_ASSIGN_OGAWA_D16_DIFFERENCE_VALUE_FROM_NEIGHBORING_DERIVED_COLUMNS_OR_OTHER_EDITIONS"
     },
     {
       "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
       "pid": "14488128",
       "canvas_index": 14,
       "image_id": "R0000014",
-      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE",
-      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE_AND_DIRECTLY_VISUALLY_INSPECTED",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION_FROM_SPLIT_VERTICAL_TYPESETTING",
       "target_value_authorized": false
     },
     {
@@ -81,8 +95,8 @@
       "pid": "14488128",
       "canvas_index": 18,
       "image_id": "R0000018",
-      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE",
-      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE_AND_DIRECTLY_VISUALLY_INSPECTED",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION_FROM_SPLIT_VERTICAL_TYPESETTING",
       "target_value_authorized": false
     },
     {
@@ -94,7 +108,7 @@
       "direct_surface": "九日三四八九",
       "normalized_value": "9日3489",
       "reading_confidence": "HIGH",
-      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE_AND_PREVIOUSLY_DIRECTLY_READ_AT_3000PX",
+      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE_AND_DIRECTLY_RECONFIRMED_AT_NATIVE_RESOLUTION",
       "target_value_authorized": true,
       "finding": "OGAWA_1673_ALIGNS_WITH_MING_1569_KRDB_DIRECT_CADAL_AND_WIKISOURCE_AT_3489"
     },
@@ -113,8 +127,8 @@
       "pid": "14488128",
       "canvas_index": 20,
       "image_id": "R0000020",
-      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE",
-      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "direct_page_status": "FETCHED_7392PX_NATIVE_ARTIFACT_AVAILABLE_AND_DIRECTLY_VISUALLY_INSPECTED",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION_FROM_SPLIT_VERTICAL_TYPESETTING",
       "target_value_authorized": false
     }
   ],
@@ -123,6 +137,7 @@
     "native_resolution_fetch_as_target_value": "FORBIDDEN",
     "independent_same_edition_catalog_as_target_glyph": "FORBIDDEN",
     "nearby_limit_number_as_field_identity": "FORBIDDEN",
+    "absent_solar_difference_column_as_inferred_numeric_value": "FORBIDDEN",
     "chiji_page_as_ji_xingdu_evidence": "FORBIDDEN",
     "absence_of_separate_column_as_numeric_zero_or_variant": "FORBIDDEN",
     "later_1673_japanese_witness_as_early_g893_substitute": "FORBIDDEN",
@@ -130,9 +145,9 @@
     "algorithm_or_runtime_selection_effect": "NONE"
   },
   "next_work": [
-    "MANUALLY_INSPECT_THE_7392PX_ARTIFACT_AND_COMPLETE_NO_OCR_DIPLOMATIC_TRANSCRIPTION_FOR_D16_L8_L101_L132_FROM_EXACT_FIELD_COLUMNS",
+    "COMPLETE_NO_OCR_DIPLOMATIC_TRANSCRIPTION_FOR_L8_L101_L132_BY_ESTABLISHING_THE_OGAWA_SPLIT_VERTICAL_PLACE_GROUP_TYPOGRAPHY_FROM_INTERNAL_CONTROLS",
     "USE_THE_KYUSHU_UNIVERSITY_1673_IIIF_COPY_AS_AN_INDEPENDENT_SAME_EDITION_IMAGE_COLLATION_ROUTE_WITHOUT_ASSUMING_SCAN_OFFSETS",
-    "CONFIRM_FROM_TABLE_HEADINGS_OR_BIBLIOGRAPHIC_DESCRIPTION_WHETHER_OGAWA_1673_STRUCTURALLY_OMITS_SEPARATE_JI_XINGDU",
+    "CONFIRM_FROM_THE_INDEPENDENT_1673_COPY_WHETHER_THE_SAME_SOLAR_DIFFERENCE_AND_SEPARATE_JI_XINGDU_FIELDS_ARE_STRUCTURALLY_ABSENT",
     "COMPARE_THE_1673_JAPANESE_RECEIVED_SURFACES_WITH_GORYEOSA_G893_AND_MING_1569_WITHOUT_SOURCE_RANK_COLLAPSE"
   ]
 }
