@@ -110,11 +110,40 @@ def make_contact_sheets(source: Path, page_count: int, out: Path) -> list[dict[s
         sheets.append({"file": f"contact-sheets/{name}", "start_page": start, "end_page": end})
     return sheets
 
+def render_target_pages(source: Path, pages: list[int], out: Path) -> list[dict[str, object]]:
+    target_dir = out / "target-pages"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    records = []
+    for page in pages:
+        ppm = out / f"target-{page:04d}.ppm"
+        subprocess.run(
+            ["ddjvu", "-format=ppm", f"-page={page}", "-scale=100", str(source), str(ppm)],
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.PIPE,
+        )
+        with Image.open(ppm) as im:
+            rgb = im.convert("RGB")
+            name = f"scan-{page:03d}-full.jpg"
+            dest = target_dir / name
+            rgb.save(dest, quality=96, optimize=True)
+            records.append({
+                "page": page,
+                "file": f"target-pages/{name}",
+                "size": [rgb.width, rgb.height],
+                "ocr_used": False,
+                "target_glyph_authority": "DIRECT_PAGE_IMAGE_REQUIRES_HUMAN_VISUAL_READING",
+            })
+        ppm.unlink(missing_ok=True)
+    return records
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/goryeosa-cadal-probe")
     ap.add_argument("--filename", default=DEFAULT_FILE)
+    ap.add_argument("--target-pages", default="")
     args = ap.parse_args()
+    target_pages = [int(x) for x in args.target_pages.split(",") if x.strip()]
 
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -164,6 +193,8 @@ def main() -> int:
     if text_pages == 0:
         contact_sheets = make_contact_sheets(source, page_count, out)
 
+    target_page_records = render_target_pages(source, target_pages, out) if target_pages else []
+
     manifest = {
         "schema": "GORYEOSA-CADAL-FACSIMILE-PROBE-R2",
         "source_filename": args.filename,
@@ -174,6 +205,7 @@ def main() -> int:
         "probe_scope": "EXISTING_DJVU_TEXT_LAYER_THEN_LOW_RES_VISUAL_CONTACT_SHEETS_IF_TEXT_ABSENT",
         "visual_contact_sheets_generated": bool(contact_sheets),
         "contact_sheets": contact_sheets,
+        "target_pages": target_page_records,
         "target_glyph_authority": False,
         "target_value_prepopulation_authorized": False,
         "note": "No OCR is run. Text-layer hits localize candidates when present; otherwise low-resolution contact sheets are visual navigation aids only. Exact target glyph conclusions require direct full-page image inspection.",

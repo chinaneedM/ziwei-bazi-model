@@ -28,7 +28,8 @@ jobs:
       - name: Probe Commons DjVu text layer and visual fallback
         run: |
           python scripts/research_goryeosa_cadal_facsimile_probe.py \
-            --output artifacts/goryeosa-cadal-probe
+            --output artifacts/goryeosa-cadal-probe \
+            --target-pages 39,81,112,117,120,123
       - name: Upload localization evidence
         if: always()
         uses: actions/upload-artifact@v4
