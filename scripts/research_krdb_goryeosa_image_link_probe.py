@@ -17,9 +17,9 @@ KNOWN_VIEWER_CAPTURE_HEAD = "8ef0565fc215a266ca3c7c1138ed592dad869a4c"
 KNOWN_VIEWER_CAPTURE_ARTIFACT_ID = 9970511498
 KNOWN_VIEWER_IMAGE_START = 1034
 KNOWN_VIEWER_IMAGE_END = 1134
-# Candidate full-resolution window selected only for page localization from the received-copy
-# section order; it carries no glyph conclusion until the returned pixels are inspected.
-FULL_IMAGE_TARGETS = tuple(range(1119, 1131))
+# Full-resolution viewer set. These images stay in the transient Actions artifact and are
+# inspected manually without OCR; no glyph conclusion is produced by the fetch itself.
+FULL_IMAGE_TARGETS = tuple(range(KNOWN_VIEWER_IMAGE_START, KNOWN_VIEWER_IMAGE_END + 1))
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
@@ -229,23 +229,27 @@ def main() -> int:
 
     def capture_full(image_no: int) -> dict[str, object]:
         rel_path = f"kr/052/kr_052_{image_no}.jpg"
+        # The live viewer JS builds full-image requests as imgFileRootDir + "/" + imgFileList.
+        # With an empty root this leading slash is required; omitting it returns a 200 placeholder.
         url = "https://db.history.go.kr/common/imageProxy.do?" + urllib.parse.urlencode({
-            "filePath": rel_path,
+            "filePath": "/" + rel_path,
         })
         rec: dict[str, object] = {"image_no": image_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
         try:
             body, img_headers = fetch_bytes(url, attempts=3, timeout=25)
             (full_dir / Path(rel_path).name).write_bytes(body)
+            is_placeholder = b"NO IMAGE AVAILABLE" in body
             rec.update({
-                "status": "FETCHED",
+                "status": "PLACEHOLDER" if is_placeholder else "FETCHED",
                 "bytes": len(body),
                 "content_type": img_headers.get("Content-Type"),
+                "placeholder_no_image": is_placeholder,
             })
         except Exception as exc:
             rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
         return rec
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         full_capture = list(pool.map(capture_full, FULL_IMAGE_TARGETS))
     (out / "viewer-full-candidate-map.json").write_text(json.dumps({
         "schema": "KRDB-GORYEOSA-FULL-CANDIDATE-MAP-R1",
@@ -325,6 +329,7 @@ def main() -> int:
         "viewer_page_count": len(img_paths),
         "viewer_thumbnail_fetch_success_count": sum(1 for x in thumb_capture if x["status"] == "FETCHED"),
         "viewer_full_candidate_fetch_success_count": sum(1 for x in full_capture if x["status"] == "FETCHED"),
+        "viewer_full_candidate_placeholder_count": sum(1 for x in full_capture if x["status"] == "PLACEHOLDER"),
         "viewer_matching_tag_count": len(viewer_tags),
         "viewer_form_count": len(forms),
         "viewer_scripts_with_hits": [x["url"] for x in viewer_scripts if x.get("hits")],
