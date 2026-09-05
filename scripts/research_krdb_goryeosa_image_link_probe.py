@@ -13,6 +13,10 @@ from pathlib import Path
 
 TARGET = "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_052_0010_0010_0020&types=o"
 VIEWER = "https://db.history.go.kr/common/imageViewer.do?levelId=kr_052_0010_0010_0020&begin=kr_052_1034"
+KNOWN_VIEWER_CAPTURE_HEAD = "8ef0565fc215a266ca3c7c1138ed592dad869a4c"
+KNOWN_VIEWER_CAPTURE_ARTIFACT_ID = 9970511498
+KNOWN_VIEWER_IMAGE_START = 1034
+KNOWN_VIEWER_IMAGE_END = 1134
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
@@ -143,20 +147,47 @@ def main() -> int:
     }
     (out / "attempt.json").write_text(json.dumps(attempt, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
 
-    # Viewer first: the target-page DOM contract is already captured by the prior R1 run.
-    viewer, viewer_headers = fetch(VIEWER, attempts=4, timeout=30)
-    (out / "image-viewer.html").write_text(viewer, encoding="utf-8")
-    viewer_tags = matching_tags(viewer, VIEWER_KEYS)
-    viewer_contexts = []
-    for k in VIEWER_KEYS:
-        for c in contexts(viewer, k):
-            if c not in viewer_contexts:
-                viewer_contexts.append(c)
-    viewer_scripts = script_probe(VIEWER, viewer, VIEWER_KEYS, out, "viewer")
+    # Viewer first. If the live viewer is transiently unavailable, fall back only to the
+    # exact 101-image sequence archived by the successful 8ef0565f workflow artifact.
+    # The fallback is provenance-labeled and is not represented as a fresh HTTP capture.
+    viewer_status: dict[str, object]
+    try:
+        viewer, viewer_headers = fetch(VIEWER, attempts=2, timeout=20)
+        (out / "image-viewer.html").write_text(viewer, encoding="utf-8")
+        viewer_status = {
+            "status": "FETCHED_LIVE",
+            "bytes": len(viewer.encode("utf-8")),
+        }
+        img_paths = re.findall(r'"(kr/052/kr_052_\d+\.jpg)"', viewer)
+        if not img_paths:
+            raise ValueError("live viewer returned no kr_052 image array")
+    except Exception as exc:
+        viewer = ""
+        viewer_headers = {}
+        viewer_status = {
+            "status": "FALLBACK_TO_PRIOR_EXACT_VIEWER_CAPTURE",
+            "error": f"{type(exc).__name__}: {exc}",
+            "source_head": KNOWN_VIEWER_CAPTURE_HEAD,
+            "source_artifact_id": KNOWN_VIEWER_CAPTURE_ARTIFACT_ID,
+            "source_image_start": KNOWN_VIEWER_IMAGE_START,
+            "source_image_end": KNOWN_VIEWER_IMAGE_END,
+        }
+        img_paths = [
+            f"kr/052/kr_052_{n}.jpg"
+            for n in range(KNOWN_VIEWER_IMAGE_START, KNOWN_VIEWER_IMAGE_END + 1)
+        ]
 
-    # Capture the viewer's exact page array as bounded, read-only thumbnail evidence.
+    viewer_tags = matching_tags(viewer, VIEWER_KEYS) if viewer else []
+    viewer_contexts = []
+    if viewer:
+        for k in VIEWER_KEYS:
+            for ctx in contexts(viewer, k):
+                if ctx not in viewer_contexts:
+                    viewer_contexts.append(ctx)
+    viewer_scripts = script_probe(VIEWER, viewer, VIEWER_KEYS, out, "viewer") if viewer else []
+
+    # Capture the exact page array as bounded, read-only thumbnail evidence.
     # These artifacts are intentionally not committed to the repository and are not OCRed.
-    img_paths = re.findall(r'"(kr/052/kr_052_\d+\.jpg)"', viewer)
     thumb_dir = out / "viewer-thumbs"
     thumb_dir.mkdir(parents=True, exist_ok=True)
     def capture_thumb(item: tuple[int, str]) -> dict[str, object]:
@@ -228,6 +259,7 @@ def main() -> int:
         "read_only": True,
         "ocr_used": False,
         "target_status": target_status,
+        "viewer_status": viewer_status,
         "viewer_page_bytes": len(viewer.encode("utf-8")),
         "viewer_headers": viewer_headers,
         "target_matching_tags": page_tags,
@@ -253,6 +285,7 @@ def main() -> int:
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print(json.dumps({
         "viewer": VIEWER,
+        "viewer_status": viewer_status,
         "target_status": target_status,
         "viewer_page_count": len(img_paths),
         "viewer_thumbnail_fetch_success_count": sum(1 for x in thumb_capture if x["status"] == "FETCHED"),
