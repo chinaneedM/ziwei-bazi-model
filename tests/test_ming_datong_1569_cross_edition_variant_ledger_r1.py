@@ -90,6 +90,29 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["independent_textual_witness"])
         self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["direct_original_image_glyph_inspection"])
 
+    def test_early_physical_shoushi_witness_is_bound_without_prepopulated_readings(self) -> None:
+        source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
+        witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
+        self.assertIn(source,witnesses)
+        self.assertEqual(witnesses[source]["direct_target_image_status"],"PENDING_FOLIO_BINDING")
+        adjudication=self.data["independent_physical_image_adjudication"]
+        self.assertEqual(adjudication["source_id"],source)
+        self.assertEqual(adjudication["status"],"SOURCE_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND")
+        self.assertEqual(len(adjudication["targets"]),6)
+        self.assertTrue(all(t["target_reading_status"]=="PENDING_DIRECT_IMAGE" for t in adjudication["targets"]))
+        self.assertEqual(
+            adjudication["no_prepopulation_rule"],
+            "NO_NUMERIC_VALUE_MAY_BE_ENTERED_FOR_G893_BEFORE_DIRECT_TARGET_IMAGE_READING",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["catalog_original_image_availability_as_direct_target_glyph_reading"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["earlier_cross_regional_physical_witness_as_ming_1569_edition_authority"],
+            "FORBIDDEN",
+        )
+
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])

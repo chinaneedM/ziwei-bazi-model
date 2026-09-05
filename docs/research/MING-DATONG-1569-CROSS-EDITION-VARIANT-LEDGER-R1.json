@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.3.1",
+  "schema_version": "1.4.0",
   "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_KRDB_LAYER_SEMANTICS_CORRECTED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -28,6 +28,13 @@
       "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V45-LICHENG",
       "role": "MING_AUTHORIAL_LATER_RECEIVED_EXPLANATORY_WITNESS",
       "authority_disposition": "EXPLAINS_TABLE_CONSTRUCTION_NOT_PRIMARY_GLYPH_REPLACEMENT"
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+      "role": "EARLY_15C_JOSEON_PHYSICAL_SHOUSHI_LICHENG_PRINT_WITH_CATALOGUED_ORIGINAL_IMAGES",
+      "date_context": "15th-century first half Joseon gapja movable-type print preserving the Shoushi table tradition",
+      "authority_disposition": "INDEPENDENT_PHYSICAL_TRANSMISSION_WITNESS; DO_NOT_OVERRIDE_MING_1569_EDITION_PRIMARY",
+      "direct_target_image_status": "PENDING_FOLIO_BINDING"
     }
   ],
   "structural_variants": [
@@ -198,12 +205,14 @@
     "compact_han_numeric_surface_as_simple_decimal_digits": "FORBIDDEN",
     "philological_normalization_bridge_as_numeric_variant": "FORBIDDEN",
     "krdb_r_normalized_rendering_as_independent_textual_witness": "FORBIDDEN",
-    "krdb_r_normalized_rendering_as_direct_original_image_glyph": "FORBIDDEN"
+    "krdb_r_normalized_rendering_as_direct_original_image_glyph": "FORBIDDEN",
+    "earlier_cross_regional_physical_witness_as_ming_1569_edition_authority": "FORBIDDEN",
+    "catalog_original_image_availability_as_direct_target_glyph_reading": "FORBIDDEN"
   },
   "next_work": [
-    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_ALL_FIVE_CURRENT_NUMERIC_VARIANT_CONTROLS",
+    "BIND_KYUJANGGAK_G893_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
+    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_GORYEOSA_VARIANTS_WHERE_G893_DOES_NOT_RESOLVE_TRANSMISSION_STAGE",
     "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION_AND_SOURCE_LAYER_SEMANTICS",
-    "DISTINGUISH_KRDB_O_TRANSCRIPTION_FROM_UNDERLYING_GORYEOSA_PRINT_VARIANTS_BEFORE_ANY_ERROR_LABEL",
     "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
     "ONLY_AFTER_DIRECT_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
   ],
@@ -261,5 +270,43 @@
       }
     }
   ],
-  "philological_normalization_control_count": 1
+  "philological_normalization_control_count": 1,
+  "independent_physical_image_adjudication": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "status": "SOURCE_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
+    "purpose": "Adjudicate the five numeric variant controls and the L101 positional-normalization bridge against an independent early physical Shoushi-table print.",
+    "targets": [
+      {
+        "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+        "target_table": "太陽冬至前後二象盈初縮末限",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+        "target_table": "太陰限數遲疾度 / associated line-speed table if separately printed",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      },
+      {
+        "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE"
+      }
+    ],
+    "no_prepopulation_rule": "NO_NUMERIC_VALUE_MAY_BE_ENTERED_FOR_G893_BEFORE_DIRECT_TARGET_IMAGE_READING"
+  }
 }
