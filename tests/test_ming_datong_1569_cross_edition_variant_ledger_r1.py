@@ -40,13 +40,19 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["krdb_r_korean_normalized_rendering"],"1.0821")
         self.assertFalse(v["propagate_to_ming_primary"])
 
-    def test_limit_114_o_surface_divergence_is_not_promoted_to_proven_transcription_error(self) -> None:
+    def test_limit_114_o_transcription_error_is_confirmed_by_krdb_own_scan(self) -> None:
         v=self.variants["VAR-NUM-LUNAR-L114-DAYRATE"]
         self.assertEqual(v["ming_1569_primary"],"9日3489")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"9日3489")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"9日2489")
         self.assertEqual(v["krdb_r_korean_normalized_rendering"],"9日3489")
-        self.assertEqual(v["classification"],"KRDB_O_TEXT_SURFACE_ISOLATED_CADAL_WIKISOURCE_MING_AND_KRDB_R_ALIGN_AT_3489_KRDB_OWN_SCAN_PENDING")
+        self.assertEqual(v["classification"],"KRDB_O_TRANSCRIPTION_ERROR_CONFIRMED_BY_KRDB_OWN_UNDERLYING_SCAN")
+        direct=v["krdb_direct_image"]
+        self.assertEqual(direct["image_no"],1116)
+        self.assertEqual(direct["printed_limit_headings"],["一百十四","一百十五","一百十六"])
+        self.assertEqual(direct["surface"],"九日三四八九")
+        self.assertEqual(direct["workflow_run_id"],33971921953)
+        self.assertEqual(direct["artifact_id"],9971177420)
 
     def test_limit_8_and_solar_day16_are_not_silently_normalized(self) -> None:
         l8=self.variants["VAR-NUM-LUNAR-L8-LOSSGAIN"]
@@ -233,13 +239,14 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
-        self.assertEqual(self.data["current_variant_count"],5)
+        self.assertEqual(self.data["current_variant_count"],4)
         self.assertEqual(self.data["epistemic_firewalls"]["digital_transcript_difference_as_manuscript_variant_without_image"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_normalized_rendering_as_independent_textual_witness"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_normalized_rendering_as_direct_original_image_glyph"],"FORBIDDEN")
         self.assertTrue(self.data["reading_layer_comparison_complete_for_current_controls"])
         self.assertEqual(self.data["current_classification_summary"]["shared_cross_regional_received_or_digital_variant_count"],4)
-        self.assertEqual(self.data["current_classification_summary"]["krdb_o_text_surface_divergence_pending_image_adjudication_count"],1)
+        self.assertEqual(self.data["current_classification_summary"]["krdb_o_text_surface_divergence_pending_image_adjudication_count"],0)
+        self.assertEqual(self.data["current_classification_summary"]["confirmed_krdb_o_transcription_error_count"],1)
         self.assertEqual(self.data["current_classification_summary"]["philological_same_mechanical_value_bridge_count"],1)
         self.assertEqual(self.data["philological_normalization_control_count"],1)
         self.assertFalse(self.data["runtime_selection_authorized"])

@@ -702,9 +702,26 @@
       "historical_period": "朝鮮王朝官修《高麗史》1451；保存高麗受授時曆資料",
       "provider": "韓國史資料庫 / 고려시대사료 DB",
       "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_052_0010_0010_0020&types=o",
-      "source_role": "KRDB_GORYEOSA_HAN_TEXT_TRANSCRIPTION_WITH_KOREAN_TRANSLATION_OR_NORMALIZED_RENDERING_AND_SEPARATE_ORIGINAL_IMAGE_ENTRY",
-      "quality_notes": "KRDB layer semantics are explicitly separated. `types=o` is the Han-text transcription layer; `types=r / kr_052r_*` is a Korean translation/normalized numeric rendering and is NOT an independent edition witness; `원문이미지` is a separate UI entry whose underlying scan has not yet been directly retrieved in this workflow. Numeric controls therefore use r only as evidence of KRDB's editorial interpretation. Current controls: solar winter D16, lunar L8, L124 and L132 remain shared received/digital divergences against Ming 1569; L114 is an o-surface divergence because r/Wikisource/Ming show 3489, but it is no longer labeled a proven KRDB transcription error before direct image inspection. L101 remains a philological normalization bridge, not a numeric variant.",
-      "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
+      "source_role": "KRDB_GORYEOSA_HAN_TEXT_TRANSCRIPTION_WITH_KOREAN_NORMALIZATION_AND_DIRECT_ORIGINAL_IMAGE_CONTROL",
+      "quality_notes": "KRDB layers are now directly separated by evidence. `types=o` is the Han-text database transcription; `types=r / kr_052r_*` is a Korean translation/normalized rendering and is not an independent edition witness. The original-image viewer has now been directly retrieved for L114: kr_052_1116.jpg visibly prints limits 114-116 and reads 九日三四八九 at L114. Therefore the o-layer 九日二四八九 is a confirmed KRDB transcription error rather than a transmission variant. This adjudication is scoped to L114 only; it does not silently normalize D16/L8/L124/L132, certify other KRDB image pages, substitute for the independent early G893 witness, or change Ming 1569 edition authority.",
+      "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+      "direct_image_control": {
+        "viewer_level_id": "kr_052_0010_0010_0020",
+        "image_no": 1116,
+        "printed_limit_headings": [
+          "一百十四",
+          "一百十五",
+          "一百十六"
+        ],
+        "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+        "direct_surface": "九日三四八九",
+        "o_transcription_surface": "九日二四八九",
+        "finding": "KRDB_O_TRANSCRIPTION_ERROR_CONFIRMED_BY_KRDB_OWN_UNDERLYING_SCAN",
+        "ocr_used": false,
+        "workflow_run_id": 33971921953,
+        "artifact_id": 9971177420,
+        "reading_artifact": "docs/research/GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1.json"
+      }
     },
     {
       "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION",

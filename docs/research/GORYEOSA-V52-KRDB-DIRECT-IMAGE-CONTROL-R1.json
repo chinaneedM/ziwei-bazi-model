@@ -1,0 +1,73 @@
+{
+  "schema": "GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "status": "L114_DIRECT_IMAGE_ADJUDICATION_COMPLETE",
+  "source_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+  "source_identity": "《高麗史》卷五十二·授時曆立成",
+  "holding_label": "규장각한국학연구원 소장본(규귀5553[을해자])",
+  "viewer_level_id": "kr_052_0010_0010_0020",
+  "viewer_begin": "kr_052_1034",
+  "ocr_used": false,
+  "original_image_committed_to_repository": false,
+  "evidence_scope": "KRDB_OWN_UNDERLYING_SCAN_DIRECT_GLYPH_CONTROL_FOR_L114_ONLY",
+  "reproduction": {
+    "head_sha": "0afa57f0407b2f6da557096ec78f35cfc5719f65",
+    "workflow_run_id": 33971921953,
+    "artifact_id": 9971177420,
+    "workflow": ".github/workflows/research-krdb-goryeosa-image-link-probe.yml",
+    "script": "scripts/research_krdb_goryeosa_image_link_probe.py",
+    "artifact_image_path": "viewer-full-candidates/kr_052_1116.jpg"
+  },
+  "page_localization": {
+    "image_no": 1116,
+    "direct_image_url": "https://db.history.go.kr/common/imageProxy.do?filePath=/kr/052/kr_052_1116.jpg",
+    "printed_limit_headings": [
+      "一百十四",
+      "一百十五",
+      "一百十六"
+    ],
+    "localization_basis": "PRINTED_LIMIT_HEADINGS_ON_KRDB_IMAGE_NOT_CROSS_COPY_PAGE_OFFSET",
+    "neighboring_controls": {
+      "kr_052_1114.jpg": "一百〇八至一百十",
+      "kr_052_1115.jpg": "一百十一至一百十三",
+      "kr_052_1116.jpg": "一百十四至一百十六",
+      "kr_052_1117.jpg": "一百十七至一百十九"
+    }
+  },
+  "controls": [
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "field": "LUNAR_LIMIT_114_DAY_RATE",
+      "krdb_o_transcription_surface": "九日二四八九",
+      "krdb_r_normalized_rendering": "9日3489",
+      "krdb_direct_image_surface": "九日三四八九",
+      "normalized_direct_image_value": "9日3489",
+      "cadal_direct_facsime_surface": "九日三四八九",
+      "wikisource_surface": "九日三四八九",
+      "ming_1569_primary": "9日3489",
+      "reading_confidence": "HIGH",
+      "finding": "KRDB_O_TRANSCRIPTION_ERROR_CONFIRMED_BY_KRDB_OWN_UNDERLYING_SCAN",
+      "transmission_variant_effect": "NONE_FOR_THE_2489_O_SURFACE"
+    }
+  ],
+  "arithmetic_crosscheck": {
+    "limit_113": "9日2669",
+    "limit_114_direct": "9日3489",
+    "limit_115": "9日4309",
+    "sequence_disposition": "3489_CONTINUES_THE_DAY_RATE_SEQUENCE; 2489_BREAKS_IT",
+    "role": "CORROBORATION_ONLY_DIRECT_IMAGE_IS_GLYPH_AUTHORITY"
+  },
+  "page_mapping_correction": {
+    "rejected_claim": "FIXED_CADAL_TO_KRDB_SCAN_OFFSET",
+    "reason": "KRDB image 1114 directly prints limits 108-110 whereas CADAL scan 117 directly prints limits 114-116; page identity must be bound by printed headings, not a constant scan-number offset.",
+    "fixed_offset_as_evidence": "FORBIDDEN"
+  },
+  "epistemic_boundaries": {
+    "krdb_o_transcription_as_original_image": "FORBIDDEN",
+    "krdb_r_rendering_as_independent_witness": "FORBIDDEN",
+    "cadal_surface_alone_as_krdb_transcription_error_proof": "FORBIDDEN",
+    "fixed_cross_copy_scan_offset_as_page_identity": "FORBIDDEN",
+    "direct_l114_scan_as_other_control_glyph_proof": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  }
+}
