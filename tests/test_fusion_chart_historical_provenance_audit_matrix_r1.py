@@ -14,6 +14,7 @@ CI = ROOT / ".github" / "workflows" / "ci.yml"
 TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
+HISTORICAL_CALENDAR_CONTRACT = ROOT / "src" / "fortune_training" / "historical_calendar" / "contract.py"
 
 
 class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
@@ -62,14 +63,14 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(receipt["row_count"], len(self.rows))
         self.assertEqual(receipt["algorithm_reopen_authorized_count"], 0)
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 1)
-        self.assertGreaterEqual(receipt["historical_research_batch_count"], 19)
-        self.assertGreaterEqual(receipt["audited_row_count"], 158)
+        self.assertGreaterEqual(receipt["historical_research_batch_count"], 21)
+        self.assertGreaterEqual(receipt["audited_row_count"], 165)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
         self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 9)
         self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 9)
         self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 2)
         self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 2)
-        self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 12)
+        self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 13)
 
     def test_batch_07b_early_print_minor_rows_are_closed_without_reopen(self) -> None:
         expected = {f"HPA-ZMINOR-{index:03d}" for index in range(9, 20)}
@@ -223,6 +224,20 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn('TEMPORAL_CLASSICAL_ANNOTATION_PROFILE_VERSION = "1.0.2"', source)
         self.assertIn('TEMPORAL_CLASSICAL_ANNOTATION_HASH_VERSION = "1.0.1"', source)
         self.assertIn('"hidden_stem_registry_order"', source)
+
+    def test_batch_11c_historical_calendar_contract_stays_fail_closed(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        for rule_id in ("HPA-DAYUN-CAL-002", "HPA-DAYUN-CAL-003", "HPA-DAYUN-CAL-004"):
+            self.assertEqual(by_id[rule_id]["audit_status"], "MISSING_FROM_PRODUCT")
+            self.assertEqual(
+                by_id[rule_id]["adapter_contract_id"],
+                "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
+            )
+        self.assertIn("MING_DATONG", by_id["HPA-DAYUN-CAL-002"]["calendar_regime_context"])
+        source = HISTORICAL_CALENDAR_CONTRACT.read_text(encoding="utf-8")
+        self.assertIn("MING-DATONG-CALENDAR-CONTEXT-R1", source)
+        self.assertIn("QING-SHIXIAN-1645-CALENDAR-CONTEXT-R1", source)
+        self.assertIn("MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN", source)
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
