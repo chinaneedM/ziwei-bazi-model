@@ -34,7 +34,7 @@ Every row carries:
 - proposed action;
 - explicit algorithm-reopen authorization, which is **false for every inventory row at creation**.
 
-The initial inventory contained **107 rule/field families**. After Batches 01–11B and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **197 rows**, with **165 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **9 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 13 identified missing candidate families, 2 source-scoped historical candidate registries, and 2 runtime resolvers**.
+The initial inventory contained **107 rule/field families**. After Batches 01–11C and explicit splitting of historically distinct candidate families, the current machine-readable inventory contains **197 rows**, with **165 audited rows**. It intentionally keeps unresolved source work explicit rather than converting uncertainty into a chart defect. The current audit ledger records **9 confirmed provenance metadata defects repaired forward-only at the provenance/hash-lineage layer, 0 chart algorithm defects, 0 algorithm reopens, 13 identified missing candidate families, 2 source-scoped historical candidate registries, and 2 runtime resolvers**.
 
 ## Research-corpus authority
 
@@ -108,7 +108,7 @@ Historical research proceeds in evidence-risk order:
 No winner is selected for a genuinely disputed school rule solely to simplify product output.
 
 
-## Progress through Batch 11B
+## Progress through Batch 11C
 
 - Batch 01: Time / Dayun / Xiaoyun.
 - Batch 02: Bazi natal / derived foundations; repaired Twelve-Growth and NaYin provenance metadata.
@@ -130,6 +130,7 @@ No winner is selected for a genuinely disputed school rule solely to simplify pr
 - Batch 10C: productized four source-closed Bazi relation families through `BAZI-HISTORICAL-RELATION-CANDIDATES-R1`, an opt-in `PRESERVED_NOT_SELECTED` sidecar: four-earth bureau, directional triads, early four-break, and same-pillar stem-hidden five-combination. Raw-core defaults remain unchanged. `PROV-DEFECT-008` repaired the 《命理探源》 relation-chapter source-ID scope.
 - Batch 11A: decomposed hidden-stem membership from textual/display ordering. Received YHZP source order is historically attested; the repository normalized tuple remains lineage-only with no root-strength meaning; later `本气/余气` language is preserved as a distinct hierarchy concept rather than inferred from ordinal. Dynamic layers are confirmed to reuse the natal membership table. `PROV-DEFECT-009` moved dynamic hidden-stem order out of FactHash and into ComputationHash lineage, with no chart-coordinate change.
 - Batch 11B: decomposed Dayun calendar realization from the already-audited Jie interval and three-days-one-year symbolic ratio. Song 《五行精纪》 and Ming 《三命通会》 close the discrete day/shichen conversion family at source resolution; the current microsecond ×120 mapping remains an engineering interpolation. 《三命通会》 also preserves explicit small-month/leap-month correction and ten-anniversary recurrence, while 《千里命稿》 preserves a distinct later calendar-age-plus-remainder-days method. These historical calendarized schedules remain source-scoped missing-product candidates until an edition/regime-aware historical-calendar adapter exists; modern `ChineseCalendarEngine`, Gregorian anniversaries and Wenzhen compatibility are not relabeled as classical calendar authority.
+- Batch 11C: added the fail-closed `HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1`. The 1578 Ming `三命通会` context is researched against the Ming Datong calendar family, while the 1645 Shixian transition is registered as a distinct later regime boundary. The contract defines date mapping, Jiaoyun realization and calendar-year recurrence as required future operations, but implements no historical calendar arithmetic and explicitly forbids modern-Chinese-calendar fallback, cross-regime back-projection and implicit Gregorian anniversaries. HPA-DAYUN-CAL-002/003/004 remain `MISSING_FROM_PRODUCT`; no algorithm reopen.
 
 The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
 
