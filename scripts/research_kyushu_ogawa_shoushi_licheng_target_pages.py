@@ -12,18 +12,32 @@ from PIL import Image
 MANIFEST_URL = "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 TARGETS = {
-    68: {
+    50: {
+        "controls": ["STRUCT-LUNAR-CHIJI-TABLE-HEADER"],
+        "binding": "PRINTED_TITLE_TAIYIN_CHIJI_LICHENG_AND_FIELDS_LIMIT_DAYRATE_LOSSGAIN_ACCUMULATED",
+        "purpose": "FIELD_CONTEXT_ONLY_NOT_A_TARGET_NUMERIC_READING",
+    },
+    51: {
         "controls": ["VAR-NUM-LUNAR-L8-LOSSGAIN"],
-        "binding": "PRINTED_UPPER_BAND_LIMITS_INCLUDE_1_TO_13; L8_DIRECTLY_VISIBLE",
+        "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_6_TO_25_INCLUDE_L8",
     },
-    69: {
-        "controls": ["NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING", "VAR-NUM-LUNAR-L114-DAYRATE"],
-        "binding": "PRINTED_LOWER_BAND_LIMITS_INCLUDE_98_TO_117; L101_AND_L114_DIRECTLY_VISIBLE",
+    55: {
+        "controls": ["NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING"],
+        "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_86_TO_105_INCLUDE_L101",
     },
-    70: {
+    56: {
+        "controls": ["VAR-NUM-LUNAR-L114-DAYRATE"],
+        "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_106_TO_125_INCLUDE_L114",
+    },
+    57: {
         "controls": ["VAR-NUM-LUNAR-L132-LOSSGAIN"],
-        "binding": "PRINTED_LOWER_BAND_LIMITS_INCLUDE_118_TO_137; L132_DIRECTLY_VISIBLE",
+        "binding": "SAME_TAIYIN_CHIJI_TABLE_CONTINUATION; PRINTED_LIMITS_126_TO_145_INCLUDE_L132",
     },
+}
+REJECTED_PRIOR_BINDING = {
+    "canvases": [68, 69, 70],
+    "reason": "THESE_CANVASES_BELONG_TO_A_DIFFERENT_LIMIT_BASED_TABLE_FAMILY; SHARED_LIMIT_NUMBERING_DOES_NOT_ESTABLISH_FIELD_IDENTITY",
+    "target_value_authorized": False,
 }
 
 
@@ -81,6 +95,7 @@ def main() -> int:
             "canvas_label": canvas.get("label"),
             "controls": target["controls"],
             "printed_binding": target["binding"],
+            "purpose": target.get("purpose", "TARGET_PAGE_LOCALIZATION_ONLY"),
             "url": url,
             "ocr_used": False,
             "target_values_authorized_by_fetch": False,
@@ -102,8 +117,9 @@ def main() -> int:
         "viewing_direction": manifest.get("viewingDirection"),
         "ocr_used": False,
         "cross_copy_page_offset_used": False,
-        "localization_basis": "DIRECT_CONTACT_SHEET_INSPECTION_OF_PRINTED_LIMIT_HEADINGS_IN_THIS_KYUSHU_COPY",
+        "localization_basis": "DIRECT_CONTACT_SHEET_INSPECTION_OF_PRINTED_TABLE_TITLE_FIELD_HEADERS_AND_LIMIT_HEADINGS_IN_THIS_KYUSHU_COPY",
         "target_values_authorized_by_fetch": False,
+        "rejected_prior_binding": REJECTED_PRIOR_BINDING,
         "pages": records,
     }
     (out / "target-page-map.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
