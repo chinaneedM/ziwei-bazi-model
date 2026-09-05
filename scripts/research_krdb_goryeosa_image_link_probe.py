@@ -134,6 +134,7 @@ def endpoint_candidates(text: str, base_url: str) -> list[str]:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/krdb-goryeosa-image-link-probe")
+    ap.add_argument("--capture-thumbnails", action="store_true")
     args = ap.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
@@ -213,12 +214,23 @@ def main() -> int:
             rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
         return rec
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        thumb_capture = list(pool.map(capture_thumb, enumerate(img_paths, start=1)))
+    if args.capture_thumbnails:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+            thumb_capture = list(pool.map(capture_thumb, enumerate(img_paths, start=1)))
+    else:
+        thumb_capture = [
+            {
+                "page_no": page_no,
+                "rel_path": rel_path,
+                "status": "NOT_REQUESTED_THIS_RUN",
+            }
+            for page_no, rel_path in enumerate(img_paths, start=1)
+        ]
     (out / "viewer-page-map.json").write_text(json.dumps({
         "schema": "KRDB-GORYEOSA-VIEWER-PAGE-MAP-R1",
         "viewer": VIEWER,
         "ocr_used": False,
+        "thumbnail_capture_requested": args.capture_thumbnails,
         "page_count": len(img_paths),
         "pages": thumb_capture,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -308,6 +320,7 @@ def main() -> int:
         "viewer_forms": forms,
         "viewer_scripts": viewer_scripts,
         "viewer_page_count": len(img_paths),
+        "viewer_thumbnail_capture_requested": args.capture_thumbnails,
         "viewer_thumbnail_capture": thumb_capture,
         "viewer_full_candidate_capture": full_capture,
         "viewer_endpoint_candidates": relevant_endpoints,
