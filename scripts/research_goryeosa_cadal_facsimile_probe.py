@@ -68,6 +68,46 @@ def excerpt(text: str, needle: str, radius: int = 180) -> str:
         return compact[: radius * 2]
     return compact[max(0, i-radius):i+len(needle)+radius]
 
+def render_page(source: Path, page: int, dest: Path) -> Image.Image:
+    subprocess.run(
+        ["ddjvu", "-format=ppm", f"-page={page}", "-size=240x380", str(source), str(dest)],
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+    )
+    with Image.open(dest) as im:
+        image = im.convert("RGB")
+    dest.unlink(missing_ok=True)
+    return image
+
+def make_contact_sheets(source: Path, page_count: int, out: Path) -> list[dict[str, object]]:
+    contact_dir = out / "contact-sheets"
+    contact_dir.mkdir(parents=True, exist_ok=True)
+    cols, rows = 5, 6
+    cell_w, image_h, label_h = 250, 395, 24
+    font = ImageFont.load_default()
+    sheets = []
+    chunk = cols * rows
+    for start in range(1, page_count + 1, chunk):
+        end = min(page_count, start + chunk - 1)
+        pages = []
+        for page in range(start, end + 1):
+            tmp = out / f"page-{page:04d}.ppm"
+            pages.append((page, render_page(source, page, tmp)))
+        canvas = Image.new("RGB", (cols * cell_w, rows * (image_h + label_h)), "white")
+        draw = ImageDraw.Draw(canvas)
+        for idx, (page, im) in enumerate(pages):
+            x = (idx % cols) * cell_w
+            y = (idx // cols) * (image_h + label_h)
+            thumb = ImageOps.contain(im, (cell_w - 8, image_h - 8))
+            canvas.paste(thumb, (x + (cell_w-thumb.width)//2, y + (image_h-thumb.height)//2))
+            draw.text((x + 6, y + image_h + 4), f"scan page {page}", fill="black", font=font)
+        name = f"contact-{start:03d}-{end:03d}.jpg"
+        path = contact_dir / name
+        canvas.save(path, quality=78, optimize=True)
+        sheets.append({"file": f"contact-sheets/{name}", "start_page": start, "end_page": end})
+    return sheets
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/goryeosa-cadal-probe")
@@ -118,17 +158,23 @@ def main() -> int:
             })
 
     hits.sort(key=lambda x: (-x["score"], x["page"]))
+    contact_sheets = []
+    if text_pages == 0:
+        contact_sheets = make_contact_sheets(source, page_count, out)
+
     manifest = {
-        "schema": "GORYEOSA-CADAL-FACSIMILE-TEXT-LAYER-PROBE-R1",
+        "schema": "GORYEOSA-CADAL-FACSIMILE-PROBE-R2",
         "source_filename": args.filename,
         "source_url": url,
         "page_count": page_count,
         "pages_with_extracted_text": text_pages,
         "ocr_used": False,
-        "probe_scope": "EXISTING_DJVU_TEXT_LAYER_ONLY",
+        "probe_scope": "EXISTING_DJVU_TEXT_LAYER_THEN_LOW_RES_VISUAL_CONTACT_SHEETS_IF_TEXT_ABSENT",
+        "visual_contact_sheets_generated": bool(contact_sheets),
+        "contact_sheets": contact_sheets,
         "target_glyph_authority": False,
         "target_value_prepopulation_authorized": False,
-        "note": "Text-layer hits localize candidate scan pages only. Exact target glyph conclusions require direct page-image inspection.",
+        "note": "No OCR is run. Text-layer hits localize candidates when present; otherwise low-resolution contact sheets are visual navigation aids only. Exact target glyph conclusions require direct full-page image inspection.",
     }
     (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     (out / "hits.json").write_text(json.dumps(hits, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
