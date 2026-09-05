@@ -20,16 +20,49 @@ def fetch(url: str, timeout: int = 60) -> bytes:
         return r.read()
 
 
+def manifest_canvases(manifest: dict) -> tuple[str, list[dict]]:
+    sequences = manifest.get("sequences") or []
+    if sequences:
+        return "IIIF_PRESENTATION_2", sequences[0].get("canvases") or []
+    if manifest.get("type") == "Manifest" and isinstance(manifest.get("items"), list):
+        return "IIIF_PRESENTATION_3", manifest["items"]
+    raise SystemExit("unsupported IIIF manifest structure")
+
+
 def canvas_image_url(canvas: dict) -> str | None:
+    # IIIF Presentation 2
     images = canvas.get("images") or []
-    if not images:
+    if images:
+        resource = (images[0] or {}).get("resource") or {}
+        service = resource.get("service") or {}
+        if isinstance(service, list):
+            service = service[0] if service else {}
+        service_id = service.get("@id") or service.get("id")
+        if service_id:
+            return service_id.rstrip("/") + "/full/600,/0/default.jpg"
+        return resource.get("@id") or resource.get("id")
+
+    # IIIF Presentation 3: Canvas -> AnnotationPage -> Annotation -> body
+    pages = canvas.get("items") or []
+    if not pages:
         return None
-    resource = (images[0] or {}).get("resource") or {}
-    service = resource.get("service") or {}
-    service_id = service.get("@id") or service.get("id")
-    if service_id:
-        return service_id.rstrip("/") + "/full/600,/0/default.jpg"
-    return resource.get("@id") or resource.get("id")
+    annotations = (pages[0] or {}).get("items") or []
+    if not annotations:
+        return None
+    body = (annotations[0] or {}).get("body") or {}
+    service = body.get("service") or []
+    if isinstance(service, dict):
+        service = [service]
+    if service:
+        service_id = (service[0] or {}).get("id") or (service[0] or {}).get("@id")
+        if service_id:
+            return service_id.rstrip("/") + "/full/600,/0/default.jpg"
+    body_id = body.get("id") or body.get("@id")
+    if body_id:
+        if "/full/max/" in body_id:
+            return body_id.replace("/full/max/", "/full/600,/")
+        return body_id
+    return None
 
 
 def main() -> int:
@@ -42,11 +75,7 @@ def main() -> int:
     raw = fetch(MANIFEST_URL)
     manifest = json.loads(raw.decode("utf-8"))
     (out / "manifest.json").write_bytes(raw)
-
-    sequences = manifest.get("sequences") or []
-    if not sequences:
-        raise SystemExit("IIIF v2 sequence missing")
-    canvases = sequences[0].get("canvases") or []
+    presentation_version, canvases = manifest_canvases(manifest)
 
     records: list[dict] = []
     thumbs: list[tuple[int, Image.Image]] = []
@@ -92,6 +121,8 @@ def main() -> int:
         "schema": "KYUSHU-OGAWA-1673-IIIF-CONTACT-SHEET-R1",
         "manifest_url": MANIFEST_URL,
         "manifest_label": manifest.get("label"),
+        "presentation_version": presentation_version,
+        "viewing_direction": manifest.get("viewingDirection"),
         "canvas_count": len(canvases),
         "fetched_image_count": len(thumbs),
         "ocr_used": False,
