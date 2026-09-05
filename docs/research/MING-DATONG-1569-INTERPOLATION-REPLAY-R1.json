@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_MACHINE_REPLAYED_FULL_TABLE_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -12,8 +12,9 @@
   "source_radices": {
     "day_source_units_per_day": "10000",
     "day_source_subunit_radix": "100",
-    "lunar_limit_width_day_source_units": "820",
-    "note": "All arithmetic remains in historical fixed-point source units. Decimal normalization below is a machine representation of source place value, not a modern timezone/day model."
+    "note": "The printed limit-row day-rate lineage and the within-limit interpolation denominator are deliberately separate. The Ming worked example's limit 116 row is compatible with 116 × 820.08 -> printed 95129 source units, while its interpolated loss is reproduced only with divisor 820. Decimal normalization is a machine representation of source place value, not a modern timezone/day model.",
+    "lunar_table_day_rate_increment_source_units": "820.08",
+    "lunar_interpolation_denominator_source_units": "820"
   },
   "primary_formula_pages": {
     "solar_yingsuo_limit_and_interpolation": {
@@ -107,13 +108,23 @@
     "true_conjunction_source_units": "15039.22",
     "day_carry_count": 1,
     "true_conjunction_small_remainder_source_units": "5039.22",
-    "replay_status": "EXACT_AT_PRINTED_SOURCE_PRECISION"
+    "replay_status": "EXACT_AT_PRINTED_SOURCE_PRECISION",
+    "selected_row_day_rate_derivation_control": {
+      "limit": 116,
+      "nominal_increment_source_units": "820.08",
+      "raw_product_source_units": "95129.28",
+      "printed_row_total_source_units": "95129",
+      "printed_row_days": 9,
+      "printed_row_source_fraction": "5129",
+      "inference_scope": "CROSS_CHECK_OF_PRINTED_DAY_RATE_ROW_NOT_A_LICENSE_TO_REGENERATE_THE_FULL_TABLE_WITHOUT_COLLATION"
+    }
   },
   "epistemic_firewalls": {
     "worked_example_truncation_as_universal_precision_rule": "NOT_YET_AUTHORIZED",
     "full_1569_table_transcription_claim": "FORBIDDEN",
     "modern_decimal_as_historical_notation": "FORBIDDEN",
-    "qishuo_geographic_reference_inference": "FORBIDDEN"
+    "qishuo_geographic_reference_inference": "FORBIDDEN",
+    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN"
   },
   "remaining_gates": [
     "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
