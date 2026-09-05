@@ -1,0 +1,133 @@
+{
+  "schema": "MING-DATONG-1578-MONTH-START-ORACLE-R1",
+  "schema_version": "1.0.0",
+  "historical_context_id": "MING-DATONG-CALENDAR-CONTEXT-R1",
+  "regnal_year": "萬曆六年",
+  "western_year_label": 1578,
+  "authority_scope": "OFFICIAL_REIGN_RECORD_CORROBORATION_NOT_SAME_YEAR_ALMANAC_CERTIFICATION",
+  "calendar_system_label": "大統曆制度語境",
+  "primary_oracle_source_id": "EXT-MINGSHILU-WANLI-1578-MONTH-STARTS",
+  "independent_corroboration_source_id": "EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION",
+  "same_year_official_almanac_target_id": "EXT-NCL-DATONG-1578-ALMANAC",
+  "same_year_official_almanac_image_values_extracted": false,
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "sexagenary_index_convention": "ZERO_BASED_JIAZI_EQUALS_0",
+  "month_length_inference": "DIFFERENCE_MOD_60_BETWEEN_CONSECUTIVE_MONTH_STARTS; VALID_LUNAR_MONTH_LENGTH_MUST_BE_29_OR_30",
+  "represented_month_sequence_has_leap_month": false,
+  "represented_month_sequence_basis": "MONTH_LABELS_1_TO_12_ARE_CONSECUTIVE_AND_NEXT_ANCHOR_IS_WANLI_7_MONTH_1",
+  "months": [
+    {
+      "month": 1,
+      "label": "正月",
+      "start_ganzhi": "癸丑",
+      "start_index": 49,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十一"
+    },
+    {
+      "month": 2,
+      "label": "二月",
+      "start_ganzhi": "壬午",
+      "start_index": 18,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十二"
+    },
+    {
+      "month": 3,
+      "label": "三月",
+      "start_ganzhi": "壬子",
+      "start_index": 48,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十三"
+    },
+    {
+      "month": 4,
+      "label": "四月",
+      "start_ganzhi": "壬午",
+      "start_index": 18,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十四"
+    },
+    {
+      "month": 5,
+      "label": "五月",
+      "start_ganzhi": "辛亥",
+      "start_index": 47,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十五"
+    },
+    {
+      "month": 6,
+      "label": "六月",
+      "start_ganzhi": "辛巳",
+      "start_index": 17,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十六"
+    },
+    {
+      "month": 7,
+      "label": "七月",
+      "start_ganzhi": "庚戌",
+      "start_index": 46,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十七"
+    },
+    {
+      "month": 8,
+      "label": "八月",
+      "start_ganzhi": "庚辰",
+      "start_index": 16,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十八"
+    },
+    {
+      "month": 9,
+      "label": "九月",
+      "start_ganzhi": "己酉",
+      "start_index": 45,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之七十九"
+    },
+    {
+      "month": 10,
+      "label": "十月",
+      "start_ganzhi": "戊寅",
+      "start_index": 14,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之八十"
+    },
+    {
+      "month": 11,
+      "label": "十一月",
+      "start_ganzhi": "戊申",
+      "start_index": 44,
+      "length_days": 29,
+      "source_locator": "《明神宗顯皇帝實錄》卷之八十一"
+    },
+    {
+      "month": 12,
+      "label": "十二月",
+      "start_ganzhi": "丁丑",
+      "start_index": 13,
+      "length_days": 30,
+      "source_locator": "《明神宗顯皇帝實錄》卷之八十二"
+    }
+  ],
+  "next_anchor": {
+    "regnal_year": "萬曆七年",
+    "month": 1,
+    "label": "正月",
+    "start_ganzhi": "丁未",
+    "start_index": 43,
+    "source_locator": "《明神宗顯皇帝實錄》卷之八十三"
+  },
+  "derived_year_length_days": 354,
+  "inference_status": "CONSISTENT_COMPLETE_OFFICIAL_RECORD_CHAIN",
+  "limitations": [
+    "NOT_THE_SAME_PHYSICAL_1578_QINTIANJIAN_ALMANAC",
+    "DOES_NOT_CERTIFY_1569_DATONG_ALGORITHM_RECONSTRUCTION",
+    "DOES_NOT_CERTIFY_HISTORICAL_CLOCK_OR_DAY_BOUNDARY",
+    "DOES_NOT_AUTHORIZE_RUNTIME_SELECTION"
+  ]
+}

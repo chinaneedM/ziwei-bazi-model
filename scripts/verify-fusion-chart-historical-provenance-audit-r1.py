@@ -12,6 +12,8 @@ BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_applicatio
 BAZI_TEMPORAL_HIDDEN_ORDER_TEST = ROOT / "tests" / "test_bazi_temporal_hidden_stem_order_lineage_r1.py"
 HISTORICAL_CALENDAR_CONTRACT = ROOT / "src" / "fortune_training" / "historical_calendar" / "contract.py"
 HISTORICAL_CALENDAR_CONTRACT_TEST = ROOT / "tests" / "test_historical_calendar_adapter_contract_r1.py"
+MING_DATONG_1578_ORACLE = ROOT / "tests" / "fixtures" / "ming-datong-1578-month-start-oracle-r1.json"
+MING_DATONG_1578_ORACLE_TEST = ROOT / "tests" / "test_ming_datong_1578_month_start_oracle_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -95,6 +97,9 @@ def main() -> int:
             raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
     if by_source_id.get("EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI") is None:
         raise SystemExit("Batch 11A later hidden-stem hierarchy witness is missing")
+    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 11D/11E Ming Datong source witness missing: {source_id}")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -192,6 +197,10 @@ def main() -> int:
         raise SystemExit("Batch 11B Bazi Dayun calendar-realization audit is missing")
     if "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C" not in batches:
         raise SystemExit("Batch 11C historical-calendar adapter contract is missing")
+    if "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D" not in batches:
+        raise SystemExit("Batch 11D Ming Datong source closure is missing")
+    if "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E" not in batches:
+        raise SystemExit("Batch 11E Ming Datong 1578 oracle is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -329,6 +338,24 @@ def main() -> int:
         raise SystemExit("Ming Dayun calendarization lost Datong context research binding")
     if "MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN" not in by_rule_id["HPA-DAYUN-CAL-002"]["current_implementation_match"]:
         raise SystemExit("historical Dayun calendarization no longer forbids modern calendar fallback")
+    if "COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_MACHINE_FIXTURED" not in by_rule_id["HPA-DAYUN-CAL-002"]["current_implementation_match"]:
+        raise SystemExit("Batch 11E target-year oracle binding is missing")
+    if by_rule_id["HPA-DAYUN-CAL-002"].get("oracle_fixture") != "tests/fixtures/ming-datong-1578-month-start-oracle-r1.json":
+        raise SystemExit("Batch 11E oracle fixture binding mismatch")
+    if not MING_DATONG_1578_ORACLE.is_file() or not MING_DATONG_1578_ORACLE_TEST.is_file():
+        raise SystemExit("Batch 11E oracle fixture/test is missing")
+    oracle=json.loads(MING_DATONG_1578_ORACLE.read_text(encoding="utf-8"))
+    if oracle.get("schema")!="MING-DATONG-1578-MONTH-START-ORACLE-R1":
+        raise SystemExit("Batch 11E oracle schema mismatch")
+    if oracle.get("runtime_selection_authorized") is not False or oracle.get("general_calendar_arithmetic_certified") is not False:
+        raise SystemExit("Batch 11E evidence oracle was incorrectly promoted to runtime arithmetic")
+    months=oracle.get("months",())
+    if [item.get("month") for item in months] != list(range(1,13)):
+        raise SystemExit("Batch 11E oracle month sequence mismatch")
+    starts=[item.get("start_index") for item in months]+[oracle.get("next_anchor",{}).get("start_index")]
+    derived=[(starts[i+1]-starts[i])%60 for i in range(12)]
+    if derived != [29,30,30,29,30,29,30,29,29,30,29,30] or sum(derived)!=354:
+        raise SystemExit("Batch 11E oracle month-length replay mismatch")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

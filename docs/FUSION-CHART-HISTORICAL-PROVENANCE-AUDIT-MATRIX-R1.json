@@ -4470,24 +4470,26 @@
       "rule_or_field": "Classical lunisolar first Jiaoyun calendarization with small/leap-month correction",
       "current_implementation": "NOT IMPLEMENTED. HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 now supplies a fail-closed regime-scoped boundary; no certified Ming Datong calendar arithmetic adapter exists.",
       "current_profile": "S15:LHV-04 CLASSICAL_LUNISOLAR_ANNIVERSARY_ADJUST / NO_WINNER",
-      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-KOTENMON-DAMING-DATONG-1569; EXT-NCL-DATONG-1578-ALMANAC; S15 SMTH public capture family",
+      "primary_source": "EXT-CTEXT-SANMING-V2-DAYUN; EXT-KOTENMON-DAMING-DATONG-1569; EXT-NCL-DATONG-1578-ALMANAC; EXT-MINGSHILU-WANLI-1578-MONTH-STARTS; S15 SMTH public capture family",
       "source_quote": "The Ming passage instructs adjustment for small months and a leap month when converting symbolic age into the actual handover date.",
       "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN《论大运》; S15 LHV-04",
       "historical_period": "MING",
-      "later_witnesses": "EXT-IHNS-MING-DATONG-COMPILATION-2019 establishes that Ming-period official Datong witnesses must outrank the later Ming-shi redaction for arithmetic reconstruction. EXT-NLCPRESS-MING-DATONG-ALMANACS-2007 supplies a broad official-almanac facsimile series; EXT-NCL-DATONG-1578-ALMANAC is the exact same-year oracle target.",
+      "later_witnesses": "The 1578 official-record chain closes month-start Ganzhi for all twelve Wanli-6 months plus Wanli-7 month 1, yielding a reproducible 29/30-day sequence and a 354-day non-leap represented year. EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION independently checks multiple starts/within-month dates. The exact NCL 1578 almanac remains the preferred same-year physical oracle target; its image values are not yet collated.",
       "school_attribution": "CLASSICAL_LUNISOLAR_HANDOVER_CALENDARIZATION",
       "competing_methods": [
         "modern Gregorian calendar-age method",
         "absolute-duration method"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; PRIMARY_1569_MING_DATONG_METHOD_WITNESS_LOCATED; EXACT_1578_OFFICIAL_ALMANAC_LOCATED_BUT_ORACLE_VALUES_NOT_YET_EXTRACTED; ADAPTER_CONTRACT_ONLY; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
-      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_AND_MING_REGIME_IDENTITY; MEDIUM_FOR_METHOD_TEXT_COLLATION; INSUFFICIENT_FOR_CERTIFIED_EXECUTABLE_ADAPTER",
+      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; PRIMARY_1569_MING_DATONG_METHOD_WITNESS_LOCATED; COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_MACHINE_FIXTURED; TARGET_YEAR_MONTH_LENGTH_AND_NON_LEAP_STRUCTURE_REPRODUCIBLE; EXACT_1578_OFFICIAL_ALMANAC_IMAGE_VALUES_NOT_YET_EXTRACTED; GENERAL_DATONG_ARITHMETIC_AND_HISTORICAL_CLOCK_NOT_CERTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
+      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_MING_REGIME_IDENTITY_AND_1578_MONTH_START/MONTH_LENGTH_STRUCTURE; MEDIUM_FOR_PRIMARY_METHOD_TEXT_COLLATION; INSUFFICIENT_FOR_CERTIFIED_GENERAL_EXECUTABLE_ADAPTER",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Collate the 1569 primary 步氣朔/定朔/置閏 arithmetic against edition-critical witnesses, extract reproducible month/leap/time oracle values from the exact 1578 official almanac (or independently corroborated facsimile), and close historical clock/enforcement/invalid-date semantics before implementing. Keep fail-closed until all gates pass.",
+      "proposed_action": "Replay/collate the 1569 primary Datong arithmetic against the 1578 month-start fixture, obtain page-level confirmation from the exact 1578 official almanac or an independently equivalent facsimile, and close historical clock/day-boundary, enforcement scope, invalid-date behavior and multi-year generalization before implementation. Keep fail-closed until all gates pass.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "calendar_regime_context": "MING_DATONG_OFFICIAL_CONTEXT_RESEARCH_TARGET_NOT_ALGORITHM_WINNER",
-      "source_closure_batch": "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D"
+      "source_closure_batch": "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D",
+      "oracle_closure_batch": "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E",
+      "oracle_fixture": "tests/fixtures/ming-datong-1578-month-start-oracle-r1.json"
     },
     {
       "system": "BAZI",
@@ -4638,7 +4640,8 @@
     "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
     "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
     "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
-    "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D"
+    "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D",
+    "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",

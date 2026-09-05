@@ -43,3 +43,22 @@ The evidence stack is now narrower and stronger, but still non-executable:
 
 This does **not** certify arithmetic. The exact 1578 month-start, leap-month and time oracle values have not yet been extracted and replayed against the 1569 method witness, and clock/enforcement/invalid-date semantics remain open. `FailClosedHistoricalCalendarAdapter` therefore remains mandatory.
 
+## Batch 11E target-year oracle update
+
+The 1578 target-year **month-start oracle layer** is now machine-auditable without promoting it into calendar arithmetic.
+
+`tests/fixtures/ming-datong-1578-month-start-oracle-r1.json` records the complete Wanli-6 month-start Ganzhi chain from official reign records and the next-year first-month anchor. The resulting 29/30-day transitions, 354-day total and represented non-leap structure are recomputed in tests rather than trusted as prose.
+
+This closes only one evidence gate. It does **not** establish that the repository can generate those values from the 1569 Datong method, and it does not replace page-level collation of the exact 1578 `明欽天監刊本`.
+
+The remaining adapter gates are:
+
+1. edition-scoped replay of the 1569 `步氣朔` / month-new-moon arithmetic against the 1578 fixture;
+2. page-level confirmation from the exact 1578 official almanac or an independently equivalent facsimile;
+3. historical day boundary / clock coordinate;
+4. enforcement and geographic/institutional scope;
+5. invalid-date and month-length behavior required by Jiaoyun realization;
+6. multi-year generalization and ten-year recurrence under the same historical regime.
+
+`FailClosedHistoricalCalendarAdapter` remains mandatory until these are source-closed and replayed.
+
