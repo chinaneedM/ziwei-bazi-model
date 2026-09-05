@@ -32,3 +32,14 @@ R1 explicitly forbids:
 `FailClosedHistoricalCalendarAdapter` therefore returns `UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER`.
 
 Before a Ming implementation is permitted, research must source-close Datong/Shoushi-derived month and leap-month arithmetic for the target period, the historical date/clock coordinate, enforcement scope, reproducible almanac/oracle cases and invalid-date behavior.
+
+## Batch 11D source-closure update
+
+The evidence stack is now narrower and stronger, but still non-executable:
+
+- `EXT-KOTENMON-DAMING-DATONG-1569` is a Ming-period facsimile witness of Zhou Xiang's `《大明大統曆法》`; its preface and `步氣朔` volume provide a primary method target for arithmetic collation.
+- `EXT-NCL-DATONG-1578-ALMANAC` identifies an exact 1578 `明欽天監刊本` official almanac, matching the `《三命通會》` publication-year context.
+- `EXT-IHNS-MING-DATONG-COMPILATION-2019` requires us to treat the later `《明史·曆志》` redaction as contextual/received evidence rather than silently using it as the Ming official computational edition.
+
+This does **not** certify arithmetic. The exact 1578 month-start, leap-month and time oracle values have not yet been extracted and replayed against the 1569 method witness, and clock/enforcement/invalid-date semantics remain open. `FailClosedHistoricalCalendarAdapter` therefore remains mandatory.
+

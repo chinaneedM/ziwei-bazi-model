@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-04",
+  "access_date": "2026-09-05",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -430,6 +430,48 @@
       "url": "https://www.loc.gov/resource/gdcwdl.wdl_07092/?sp=2",
       "source_role": "INSTITUTIONAL_WITNESS_FOR_1645_SHIXIAN_REGIME_TRANSITION",
       "quality_notes": "Library of Congress description records the 1645 adoption of a new calendar based on the earlier reform program and notes differences from older Chinese calendrical calculations. Used only to establish a post-Ming regime boundary, not as a Ming calendar algorithm."
+    },
+    {
+      "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+      "title": "《大明大統曆法》",
+      "author": "周相",
+      "historical_period": "明隆慶三年（1569）刊本",
+      "edition": "日本國立公文書館內閣文庫藏明隆慶刊本之公開影像",
+      "provider": "Kotenmon digitized facsimile / Japan National Archives Cabinet Library witness",
+      "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "source_role": "PRIMARY_MING_DATONG_METHOD_WITNESS_FOR_CALENDAR_ARITHMETIC_RESEARCH",
+      "quality_notes": "Facsimile directly preserves the Ming-period method witness. The preface dates the current compilation context to 隆慶己巳; 卷一 is headed 步氣朔 and preserves source-era constants and push-step rules. Use page-image collation before coding; do not substitute the later 《明史·曆志》 redaction."
+    },
+    {
+      "source_id": "EXT-NCL-DATONG-1578-ALMANAC",
+      "title": "《大明萬曆六年歲次戊寅大統曆》",
+      "historical_period": "明萬曆六年（1578）",
+      "edition": "明欽天監刊本",
+      "catalog_identifier": "國家圖書館書號/登錄號 06313",
+      "provider": "臺灣國家圖書館古籍與特藏文獻資源",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=7f7f6490c2f2422aac9315c26e3caa27fDcyNTU50.hMjViGzcaOOa5vEdCarBoXaNfk7hci0mDSdt4InUo8I_&page=69",
+      "source_role": "SAME_YEAR_OFFICIAL_ALMANAC_ORACLE_TARGET_FOR_1578_SANMING_CONTEXT",
+      "quality_notes": "Catalog identifies a one-volume Ming Imperial Astronomical Bureau printed almanac for exactly 1578, matching the 《三命通會》 publication context. Current research has located the image-bearing record but has not yet extracted/collated month starts, leap-month status or time entries; therefore it is an oracle target, not yet a certified oracle fixture."
+    },
+    {
+      "source_id": "EXT-IHNS-MING-DATONG-COMPILATION-2019",
+      "title": "《明大統曆法彙編》簡介",
+      "author": "中國科學院自然科學史研究所（李亮整理成果介紹）",
+      "publication_date": "2020-07-20",
+      "historical_period": "modern critical bibliographic/collation witness",
+      "provider": "中國科學院自然科學史研究所",
+      "url": "https://ihns.cas.cn/yjcg/xszz/zztj/202212/t20221207_6570741.html",
+      "source_role": "MODERN_CRITICAL_COLLATION_GUIDE_FOR_SELECTING_MING_DATONG_PRIMARY_WITNESSES",
+      "quality_notes": "Explicitly warns that the later 《明史·曆志》 Datong material differs materially from Ming official Datong works and that some algorithms/tables were later altered or recompiled. Identifies Zhou Xiang's Ming Longqing 《大明大統曆法》 and Yuan Tong's 《大統曆法通軌》 among the primary Ming witnesses used in the critical compilation."
+    },
+    {
+      "source_id": "EXT-NLCPRESS-MING-DATONG-ALMANACS-2007",
+      "title": "《國家圖書館藏明代大統曆日彙編》（全六冊）",
+      "historical_period": "明代官頒曆書影印彙編；modern facsimile publication 2007",
+      "provider": "國家圖書館出版社",
+      "url": "https://www.nlcpress.com/productview.aspx?id=4027",
+      "source_role": "MING_OFFICIAL_ALMANAC_FACSIMILE_ORACLE_SERIES",
+      "quality_notes": "Publisher states the six-volume set contains 99 Ming Datong almanacs (105 fascicles), all Ming printed editions, from 1446 to 1641. Its table of contents includes nearby Longqing/Wanli years such as 1569, 1577, 1579 and 1581; the listed series does not include 1578, so the NCL 1578 witness remains the same-year oracle target."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
