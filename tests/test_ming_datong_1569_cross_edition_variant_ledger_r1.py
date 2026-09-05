@@ -190,6 +190,25 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_public_goryeosa_facsimile_containers_do_not_prejudge_target_glyphs(self) -> None:
+        containers={x["source_id"]:x for x in self.data["public_facsimile_containers"]}
+        cadal=containers["EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE"]
+        self.assertEqual(cadal["status"],"DIRECT_CONTAINER_IDENTITY_CONFIRMED_TARGET_TABLE_PAGES_UNBOUND")
+        self.assertEqual(cadal["direct_evidence"]["scan_page"],2)
+        self.assertIn("高麗史五十二",cadal["direct_evidence"]["visible_heading"])
+        self.assertEqual(cadal["target_effect"],"NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING")
+        nlc=containers["EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE"]
+        self.assertEqual(nlc["direct_evidence"]["edition"],"1909")
+        self.assertEqual(nlc["direct_evidence"]["catalogued_contents_unit"],"第六 高麗史五十二 曆三")
+        self.assertEqual(nlc["target_effect"],"NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING")
+        witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
+        self.assertEqual(witnesses["EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE"]["direct_target_image_status"],"V52_CONTAINER_CONFIRMED_TARGET_LICHENG_PAGES_PENDING")
+        self.assertEqual(witnesses["EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE"]["direct_target_image_status"],"V52_UNIT_CATALOGUED_TARGET_LICHENG_PAGES_PENDING")
+        self.assertEqual(self.data["epistemic_firewalls"]["external_wrapper_volume_number_as_internal_goryeosa_volume_number"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["public_facsimile_container_as_target_glyph_reading_before_page_binding"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["later_reprint_facsimile_as_early_physical_transmission_witness"],"FORBIDDEN")
+        self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
+
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
