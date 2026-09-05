@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import unittest
-from decimal import Decimal, ROUND_CEILING
+from decimal import Decimal, ROUND_CEILING, ROUND_DOWN
 from pathlib import Path
 
 
@@ -80,6 +80,24 @@ class MingDatong1569ChijiFullNumericReconstructionR1Tests(unittest.TestCase):
                 ji = Decimal("1.0960")
             self.assertEqual(chi, Decimal(row["chi_xingdu_degree"]), n)
             self.assertEqual(ji, Decimal(row["ji_xingdu_degree"]), n)
+
+    def test_loss_gain_shortcut_column_uses_820_and_truncates(self) -> None:
+        for n in range(0, 168):
+            row = self.rows[n]
+            loss = Decimal(row["loss_gain_source_fen"])
+            expected = (loss * Decimal("100") / Decimal("820")).quantize(
+                Decimal("0.0001"), rounding=ROUND_DOWN
+            )
+            self.assertEqual(expected, Decimal(row["loss_gain_shortcut_source_seconds"]), n)
+        self.assertIsNone(self.rows[168]["loss_gain_shortcut_source_seconds"])
+
+    def test_loss_gain_shortcut_primary_controls(self) -> None:
+        self.assertEqual(self.rows[0]["loss_gain_shortcut_source_seconds"], "1.3514")
+        self.assertEqual(self.rows[1]["loss_gain_shortcut_source_seconds"], "1.3443")
+        self.assertEqual(self.rows[83]["loss_gain_shortcut_source_seconds"], "0.0021")
+        self.assertEqual(self.rows[84]["loss_gain_shortcut_source_seconds"], "0.0021")
+        self.assertEqual(self.rows[167]["loss_gain_shortcut_source_seconds"], "1.3514")
+        self.assertIsNone(self.rows[168]["loss_gain_shortcut_source_seconds"])
 
     def test_worked_example_limit_116_is_exactly_present(self) -> None:
         row = self.rows[116]
