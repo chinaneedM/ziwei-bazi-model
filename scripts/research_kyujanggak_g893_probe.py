@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from urllib.parse import urlencode, urljoin
 
-import requests
+from curl_cffi import requests
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 BASE = "https://kyudb.snu.ac.kr"
@@ -156,13 +156,18 @@ def main() -> int:
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
 
-    s = requests.Session()
-    s.headers.update({"User-Agent": UA})
+    (out / "attempt.json").write_text(json.dumps({
+        "schema": "KYUJANGGAK-G893-PROBE-ATTEMPT-R1",
+        "book_cd": BOOK_CD,
+        "item_cd_seed": "SIC",
+        "transport": "curl_cffi_chrome_impersonation",
+        "read_only": True,
+        "ocr_used": False,
+    }, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
 
-    entry = s.get(BOOK_URL, timeout=45)
-    entry.raise_for_status()
-    (out / "book-view.html").write_text(entry.text, encoding="utf-8")
-    item_cd = extract_item_cd(entry.text)
+    s = requests.Session(impersonate="chrome")
+    s.headers.update({"User-Agent": UA})
+    item_cd = "SIC"
 
     vol_resp = post(s, RENDERER, {
         "item_cd": item_cd,
@@ -175,8 +180,9 @@ def main() -> int:
         "add_page_no": "",
     })
     (out / "renderer-volume-index.html").write_text(vol_resp.text, encoding="utf-8")
-    if not item_cd:
-        item_cd = extract_item_cd(vol_resp.text)
+    parsed_item_cd = extract_item_cd(vol_resp.text)
+    if parsed_item_cd:
+        item_cd = parsed_item_cd
     volumes = extract_volumes(vol_resp.text)
     if not volumes:
         volumes = ["0001"]
@@ -288,4 +294,18 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except Exception as exc:
+        out = Path("artifacts/g893-probe")
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "probe-error.json").write_text(
+            json.dumps({
+                "schema": "KYUJANGGAK-G893-PROBE-ERROR-R1",
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+                "transport": "curl_cffi_chrome_impersonation",
+            }, ensure_ascii=False, indent=2)+"\n",
+            encoding="utf-8",
+        )
+        raise
