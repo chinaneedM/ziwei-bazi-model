@@ -25,7 +25,11 @@ class MingDatong1569InterpolationReplayR1Tests(unittest.TestCase):
         self.assertEqual(pages["lunar_chiji_history_and_row_interpolation"]["pdf_page_index_zero_based"], 24)
         self.assertEqual(pages["d1_conjunction_correction"]["pdf_page_index_zero_based"], 32)
         self.assertFalse(pages["d1_conjunction_correction"]["received_d2_subtraction_of_820_used"])
-        self.assertFalse(pages["lunar_chiji_xingdu_table"]["full_numeric_transcription_complete"])
+        self.assertTrue(pages["lunar_chiji_xingdu_table"]["full_numeric_transcription_complete"])
+        self.assertEqual(
+            self.data["fixed_point_precision_audit_artifact"],
+            "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+        )
 
     def test_source_day_radix_and_limit_width_are_not_modern_time_units(self) -> None:
         radix = self.data["source_radices"]
@@ -100,11 +104,19 @@ class MingDatong1569InterpolationReplayR1Tests(unittest.TestCase):
     def test_observed_truncation_is_not_promoted_to_universal_rule(self) -> None:
         self.assertEqual(
             self.data["epistemic_firewalls"]["worked_example_truncation_as_universal_precision_rule"],
-            "NOT_YET_AUTHORIZED",
+            "FORBIDDEN",
         )
         self.assertIn(
-            "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
+            "GENERALIZE_DYNAMIC_INTERPOLATION_AND_D1_CONJUNCTION_PRECISION_BEYOND_1596_WORKED_EXAMPLE",
             self.data["remaining_gates"],
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["table_generation_precision_map_as_dynamic_interpolation_precision"],
+            "FORBIDDEN",
+        )
+        self.assertEqual(
+            self.data["fixed_point_precision_audit_status"],
+            "TABLE_GENERATION_PRECISION_MAP_CLOSED_DYNAMIC_INTERPOLATION_GENERALIZATION_OPEN",
         )
 
     def test_korean_1458_parallel_algorithm_is_not_1569_authority(self) -> None:

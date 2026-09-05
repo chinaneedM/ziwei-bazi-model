@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
-  "schema_version": "1.13.0",
-  "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_MACHINE_REPLAYED_FULL_TABLE_PENDING",
+  "schema_version": "1.14.0",
+  "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_PRIMARY_TABLE_PRECISION_MAP_CLOSED_DYNAMIC_PRECISION_GENERALIZATION_OPEN",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "authority_scope": "PRIMARY_1569_FORMULA_PAGES_PLUS_MING_AUTHORIAL_WORKED_DATONG_REPLAY",
@@ -53,7 +53,7 @@
       "pdf_page_index_zero_based_end": 40,
       "table_label": "太陰遲疾行度立成",
       "role": "D1_DIVISOR_TABLE",
-      "full_numeric_transcription_complete": false
+      "full_numeric_transcription_complete": true
     }
   },
   "solar_limit_thresholds": {
@@ -120,8 +120,8 @@
     }
   },
   "epistemic_firewalls": {
-    "worked_example_truncation_as_universal_precision_rule": "NOT_YET_AUTHORIZED",
-    "full_1569_table_transcription_claim": "FORBIDDEN",
+    "worked_example_truncation_as_universal_precision_rule": "FORBIDDEN",
+    "full_1569_table_transcription_claim": "PRIMARY_ROW_COLLATION_CLOSED_IN_DEDICATED_LEDGERS; DO_NOT_CLAIM_TRANSCRIPTION_FROM_RECONSTRUCTION_ALONE",
     "modern_decimal_as_historical_notation": "FORBIDDEN",
     "qishuo_geographic_reference_inference": "FORBIDDEN",
     "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN",
@@ -132,17 +132,18 @@
     "solar_terminal_support_row_as_initial_limit_input": "FORBIDDEN",
     "solar_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
     "lunar_shortcut_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
-    "xingdu_shortcut_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN"
+    "xingdu_shortcut_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
+    "table_generation_precision_map_as_dynamic_interpolation_precision": "FORBIDDEN",
+    "shoushi_worked_precision_as_datong_production_precision": "FORBIDDEN"
   },
   "remaining_gates": [
     "COMPLETE_1569_CROSS_EDITION_VARIANT_LEDGER_IMAGE_LEVEL_ADJUDICATION",
-    "COMPLETE_1578_QINTIANJIAN_ALMANAC_MONTH_6_DIRECT_PAGE_COLLATION",
-    "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
+    "GENERALIZE_DYNAMIC_INTERPOLATION_AND_D1_CONJUNCTION_PRECISION_BEYOND_1596_WORKED_EXAMPLE",
     "QISHUO_GEOGRAPHIC_REFERENCE"
   ],
   "lunar_day_rate_column_artifact": "docs/research/MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1.json",
   "formula_progress": {
-    "lunar_day_rate_column": "FULL_168_ROWS_MACHINE_DERIVED_WITH_PRIMARY_CONTROL_COLLATION",
+    "lunar_day_rate_column": "FULL_168_ROWS_MACHINE_DERIVED_AND_168_OF_168_NONBLANK_PRIMARY_DAY_RATE_ROWS_MATCH",
     "loss_gain_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE",
     "accumulated_chiji_degree_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE_WITH_TERMINAL_BLANK_PRESERVED",
     "chi_ji_xingdu_divisor_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE_WITH_82_85_CENTRAL_OVERRIDES_AND_TERMINAL_BLANK_PRESERVED",
@@ -150,15 +151,16 @@
     "solar_yingsuo_interpolation": "BOTH_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_ROW_BY_ROW_GLYPH_COLLATION_COMPLETE",
     "source_derived_d1_replay_to_1578_oracle": "COMPLETE_12_MONTHS_PLUS_NEXT_YEAR_ANCHOR_DAY_LEVEL_MATCH_13_OF_13",
     "solar_yingsuo_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_JIRI_XIAOXIFEN_YINGSUO_JIAFEN_YINGSUO_JIDU",
-    "solar_message_column": "FULL_NUMERIC_RECONSTRUCTION_FROM_ADJACENT_ADDS; PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
+    "solar_message_column": "FULL_NUMERIC_RECONSTRUCTION_FROM_ADJACENT_ADDS_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_181_OF_181_NONBLANK_MESSAGE_CELLS",
     "solar_primary_row_collation": "185_OF_185_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
     "lunar_chiji_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_LIMIT_DAY_RATE_SUNYI_JIEFA_SUNYI_FEN_CHIJI_DU",
-    "lunar_loss_gain_shortcut_column": "FULL_NUMERIC_RECONSTRUCTION_FROM_LOSS_GAIN_DIVIDED_BY_820; PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
+    "lunar_loss_gain_shortcut_column": "FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_168_OF_168",
     "lunar_chiji_primary_row_collation": "169_OF_169_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
     "lunar_xingdu_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_LIMIT_JI_XINGDU_JI_JIEFA_CHI_XINGDU_CHI_JIEFA",
-    "lunar_xingdu_shortcut_columns": "BOTH_SHORTCUT_COLUMNS_FULL_NUMERIC_RECONSTRUCTION_FROM_820_RECIPROCAL; PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
+    "lunar_xingdu_shortcut_columns": "BOTH_SHORTCUT_COLUMNS_FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_336_OF_336",
     "lunar_xingdu_primary_row_collation": "169_OF_169_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
-    "cross_edition_variant_ledger": "CREATED_WITH_STRUCTURAL_VARIANTS_AND_4_NUMERIC_VARIANT_CONTROLS; IMAGE_LEVEL_CAUSE_ADJUDICATION_AND_EXHAUSTIVE_ROW_COMPARE_PENDING"
+    "cross_edition_variant_ledger": "ACTIVE_WITH_5_NUMERIC_VARIANT_CONTROLS_AND_1_PHILOLOGICAL_NORMALIZATION_BRIDGE; DIRECT_IMAGE_CAUSE_ADJUDICATION_PENDING",
+    "fixed_point_table_generation_precision": "CLOSED_STAGE_SCOPED_MAP; NO_SINGLE_GLOBAL_ROUNDING_RULE"
   },
   "cross_regional_algorithm_controls": [
     {
@@ -185,5 +187,7 @@
   "solar_primary_collation_ledger": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json",
   "lunar_chiji_primary_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-CHIJI-PRIMARY-COLLATION-LEDGER-R1.json",
   "lunar_xingdu_primary_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-XINGDU-PRIMARY-COLLATION-LEDGER-R1.json",
-  "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
+  "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+  "fixed_point_precision_audit_artifact": "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+  "fixed_point_precision_audit_status": "TABLE_GENERATION_PRECISION_MAP_CLOSED_DYNAMIC_INTERPOLATION_GENERALIZATION_OPEN"
 }

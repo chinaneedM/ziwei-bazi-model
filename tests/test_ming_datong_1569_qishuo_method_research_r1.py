@@ -65,7 +65,11 @@ class MingDatong1569QishuoMethodResearchR1Tests(unittest.TestCase):
         self.assertIn("D1_REPORTED_56_OF_56", observed)
         self.assertIn("D2_MOSTLY_OUTSIDE", observed)
         self.assertTrue(self.oracle["months"])
-        self.assertIn("SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE", self.data["unresolved_before_runtime"])
+        self.assertNotIn("SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE", self.data["unresolved_before_runtime"])
+        self.assertEqual(
+            self.data["fixed_point_precision_audit_artifact"],
+            "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+        )
     
     def test_formula_semantics_artifact_refines_remaining_gates(self) -> None:
         self.assertEqual(
@@ -79,13 +83,18 @@ class MingDatong1569QishuoMethodResearchR1Tests(unittest.TestCase):
         unresolved = set(self.data["unresolved_before_runtime"])
         self.assertIn("QISHUO_GEOGRAPHIC_REFERENCE", unresolved)
         self.assertNotIn("HISTORICAL_DAY_BOUNDARY_AND_CLOCK_COORDINATE", unresolved)
-        self.assertIn(
+        self.assertNotIn(
             "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
             unresolved,
         )
+        self.assertIn("COMPLETE_CROSS_EDITION_VARIANT_IMAGE_CAUSE_ADJUDICATION", unresolved)
         self.assertIn(
-            "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
+            "GENERALIZE_DYNAMIC_INTERPOLATION_AND_D1_CONJUNCTION_PRECISION_BEYOND_1596_WORKED_EXAMPLE",
             unresolved,
+        )
+        self.assertEqual(
+            self.data["formula_semantics_status"]["general_precision_carry_policy"],
+            "TABLE_GENERATION_PRECISION_MAP_CLOSED_STAGE_SCOPED; DYNAMIC_INTERPOLATION_PRECISION_GENERALIZATION_OPEN",
         )
 
 

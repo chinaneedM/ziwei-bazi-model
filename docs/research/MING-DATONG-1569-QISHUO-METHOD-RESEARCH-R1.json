@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1",
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "status": "HISTORICAL_SUBRULE_ADJUDICATED_GENERAL_ADAPTER_NOT_RUNTIME",
   "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
   "primary_edition_scope": "周相《大明大統曆法》明隆慶三年（1569）刊本公開影像",
@@ -197,10 +197,8 @@
   ],
   "target_year_oracle_binding": "tests/fixtures/ming-datong-1578-month-start-oracle-r1.json",
   "unresolved_before_runtime": [
-    "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
-    "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES_ACROSS_FULL_1569_TABLE_REPLAY",
-    "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
-    "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
+    "COMPLETE_CROSS_EDITION_VARIANT_IMAGE_CAUSE_ADJUDICATION",
+    "GENERALIZE_DYNAMIC_INTERPOLATION_AND_D1_CONJUNCTION_PRECISION_BEYOND_1596_WORKED_EXAMPLE",
     "QISHUO_GEOGRAPHIC_REFERENCE",
     "ENFORCEMENT_GEOGRAPHIC_INSTITUTIONAL_SCOPE",
     "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
@@ -209,10 +207,10 @@
   ],
   "formula_semantics_artifact": "docs/research/MING-DATONG-1569-INTERPOLATION-REPLAY-R1.json",
   "formula_semantics_status": {
-    "solar_yingsuo_interpolation": "SOURCE_FORMULA_CLOSED_NUMERIC_TABLE_TRANSCRIPTION_PENDING",
-    "lunar_chiji_interpolation": "SOURCE_FORMULA_CLOSED_NUMERIC_TABLE_TRANSCRIPTION_PENDING",
+    "solar_yingsuo_interpolation": "SOURCE_FORMULA_AND_PRIMARY_TABLE_ROW_COLLATION_CLOSED",
+    "lunar_chiji_interpolation": "SOURCE_FORMULA_AND_PRIMARY_TABLE_ROW_COLLATION_CLOSED",
     "ming_d1_worked_replay": "MACHINE_REPLAYED_AT_PRINTED_SOURCE_PRECISION",
-    "general_precision_carry_policy": "PARTIALLY_OBSERVED_NOT_YET_GENERALIZED"
+    "general_precision_carry_policy": "TABLE_GENERATION_PRECISION_MAP_CLOSED_STAGE_SCOPED; DYNAMIC_INTERPOLATION_PRECISION_GENERALIZATION_OPEN"
   },
   "primary_table_transmission_conflicts": [
     {
@@ -222,5 +220,7 @@
       "received_mingshi_disposition": "820_SUMMARY_PRESERVED_AS_LATER_RECEIVED_VARIANT",
       "consequence": "DO_NOT_RECONSTRUCT_1569_PRINTED_DAY_RATE_COLUMN_FROM_RECEIVED_820_SUMMARY"
     }
-  ]
+  ],
+  "fixed_point_precision_audit_artifact": "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+  "fixed_point_precision_audit_batch": "BATCH-11-BAZI-MING-DATONG-FIXED-POINT-PRECISION-J"
 }
