@@ -55,17 +55,20 @@ class MingDatong1569LunarXingduPrimaryCollationLedgerR1Tests(unittest.TestCase):
         self.assertTrue(r["chi_xingdu_blank"])
         self.assertTrue(r["chi_shortcut_blank"])
 
-    def test_in_progress_ledger_does_not_promote_formula_rows(self) -> None:
-        self.assertFalse(self.data["full_row_by_row_primary_collation_complete"])
-        self.assertGreater(self.data["pending_rows"],0)
-        self.assertEqual(self.data["directly_collated_rows"]+self.data["pending_rows"],self.data["total_rows"])
+    def test_completed_ledger_closes_only_direct_primary_glyph_work(self) -> None:
+        self.assertTrue(self.data["full_row_by_row_primary_collation_complete"])
+        self.assertEqual(self.data["directly_collated_rows"], self.data["total_rows"])
+        self.assertEqual(self.data["pending_rows"], 0)
+        self.assertEqual(self.data["variant_rows"], 0)
+        self.assertEqual(self.data["glyph_ambiguous_rows"], 0)
         self.assertEqual(self.data["epistemic_firewalls"]["formula_expected_as_direct_primary_reading"],"FORBIDDEN")
 
-    def test_all_primary_pages_are_registered(self) -> None:
+    def test_all_primary_pages_are_fully_directly_collated(self) -> None:
         pages=self.data["page_summaries"]
         self.assertEqual([p["pdf_page_index_zero_based"] for p in pages],list(range(33,41)))
         self.assertTrue(all(p["page_image_reviewed"] for p in pages))
-        self.assertTrue(any(p["pending_direct_glyph_collation_count"]>0 for p in pages))
+        self.assertTrue(all(p["pending_direct_glyph_collation_count"] == 0 for p in pages))
+        self.assertTrue(all(p["page_collation_status"] == "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE" for p in pages))
 
     def test_research_only(self) -> None:
         self.assertFalse(self.data["runtime_selection_authorized"])

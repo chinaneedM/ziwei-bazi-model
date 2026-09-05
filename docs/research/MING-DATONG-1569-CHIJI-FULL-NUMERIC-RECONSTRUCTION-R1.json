@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1",
-  "schema_version": "1.2.0",
-  "status": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_WITH_CHIJI_AND_XINGDU_SHORTCUT_COLUMNS_RESTORED_PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
+  "schema_version": "1.3.0",
+  "status": "FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_1569_LUNAR_CHIJI_XINGDU_ROW_GLYPH_COLLATION_COMPLETE",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "authority_scope": "ZHOU_XIANG_1569_PRIMARY_FORMULA_AND_TABLE_PAGES; GORYEOSA_USED_ONLY_AS_CROSS_REGIONAL_NUMERIC_CONTROL; LATER_QING_EXEGESIS_USED_ONLY_TO_EXPLAIN_FIXED_POINT_AND_TABLE_CONSTRUCTION",
@@ -3628,8 +3628,7 @@
     }
   ],
   "remaining_work": [
-    "ROW_BY_ROW_PRIMARY_1569_COLLATION_OF_XINGDU_AND_BOTH_SHORTCUT_COLUMNS",
-    "ROW_BY_ROW_PRIMARY_1569_COLLATION_OF_CHIJI_DAY_RATE_SHORTCUT_LOSS_GAIN_AND_ACCUMULATED_COLUMNS",
+    "CROSS_EDITION_VARIANT_LEDGER_FOR_LUNAR_CHIJI_AND_XINGDU_TABLES",
     "CROSS_EDITION_VARIANT_LEDGER_FOR_ANY_NONMATCHING_ROWS",
     "COMPLETE_SOLAR_YINGSUO_NUMERIC_TABLE_TRANSCRIPTION",
     "GENERALIZE_SOURCE_PRECISION_AND_CARRY_RULES_ACROSS_QISHUO_REPLAY",
@@ -3668,5 +3667,46 @@
     "normalized_shortcut_formula": "shortcut = truncate_7dp(820 / line_speed_fixed_1e4_integer)",
     "fixed_point_note": "The divisor is the source table's 1e-4-degree integer representation of the corresponding line speed; shortcut is a source fixed-point multiplier, not modern SI time."
   },
-  "primary_xingdu_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-XINGDU-PRIMARY-COLLATION-LEDGER-R1.json"
+  "primary_xingdu_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-XINGDU-PRIMARY-COLLATION-LEDGER-R1.json",
+  "primary_collation_result": {
+    "chiji": {
+      "artifact": "docs/research/MING-DATONG-1569-LUNAR-CHIJI-PRIMARY-COLLATION-LEDGER-R1.json",
+      "directly_collated_rows": 169,
+      "pending_rows": 0,
+      "numeric_variant_rows": 0,
+      "glyph_ambiguous_rows": 0,
+      "pages_zero_based": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "disposition": "PRIMARY_1569_LUNAR_CHIJI_NUMERIC_LAYER_CLOSED_AT_ROW_GLYPH_LEVEL"
+    },
+    "xingdu": {
+      "artifact": "docs/research/MING-DATONG-1569-LUNAR-XINGDU-PRIMARY-COLLATION-LEDGER-R1.json",
+      "directly_collated_rows": 169,
+      "pending_rows": 0,
+      "numeric_variant_rows": 0,
+      "glyph_ambiguous_rows": 0,
+      "pages_zero_based": [
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "disposition": "PRIMARY_1569_LUNAR_XINGDU_NUMERIC_LAYER_CLOSED_AT_ROW_GLYPH_LEVEL"
+    },
+    "formula_reconstruction_still_not_equivalent_to_diplomatic_transcription": true,
+    "terminal_source_blanks_preserved": true
+  }
 }
