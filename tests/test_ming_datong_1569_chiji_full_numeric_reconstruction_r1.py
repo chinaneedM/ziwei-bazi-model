@@ -108,6 +108,29 @@ class MingDatong1569ChijiFullNumericReconstructionR1Tests(unittest.TestCase):
         self.assertEqual(row["chi_xingdu_degree"], "1.1526")
         self.assertEqual(row["ji_xingdu_degree"], "1.0400")
 
+    def test_xingdu_shortcut_columns_use_fixed_point_reciprocal(self) -> None:
+        quantum = Decimal("0.0000001")
+        for n in range(0, 168):
+            row = self.rows[n]
+            ji_int = int(Decimal(row["ji_xingdu_degree"]) * Decimal("10000"))
+            chi_int = int(Decimal(row["chi_xingdu_degree"]) * Decimal("10000"))
+            ji = (Decimal("820") / Decimal(ji_int)).quantize(quantum, rounding=ROUND_DOWN)
+            chi = (Decimal("820") / Decimal(chi_int)).quantize(quantum, rounding=ROUND_DOWN)
+            self.assertEqual(ji, Decimal(row["ji_xingdu_shortcut_source_ratio"]), n)
+            self.assertEqual(chi, Decimal(row["chi_xingdu_shortcut_source_ratio"]), n)
+        self.assertIsNone(self.rows[168]["ji_xingdu_shortcut_source_ratio"])
+        self.assertIsNone(self.rows[168]["chi_xingdu_shortcut_source_ratio"])
+
+    def test_xingdu_shortcut_primary_controls(self) -> None:
+        self.assertEqual(self.rows[0]["ji_xingdu_shortcut_source_ratio"], "0.0679314")
+        self.assertEqual(self.rows[0]["chi_xingdu_shortcut_source_ratio"], "0.0832064")
+        self.assertEqual(self.rows[83]["ji_xingdu_shortcut_source_ratio"], "0.0747834")
+        self.assertEqual(self.rows[83]["chi_xingdu_shortcut_source_ratio"], "0.0748106")
+        self.assertEqual(self.rows[84]["ji_xingdu_shortcut_source_ratio"], "0.0748106")
+        self.assertEqual(self.rows[84]["chi_xingdu_shortcut_source_ratio"], "0.0747834")
+        self.assertEqual(self.rows[167]["ji_xingdu_shortcut_source_ratio"], "0.0832064")
+        self.assertEqual(self.rows[167]["chi_xingdu_shortcut_source_ratio"], "0.0679314")
+
     def test_primary_row_124_quarantines_cross_witness_anomaly(self) -> None:
         row = self.rows[124]
         self.assertEqual(row["chi_xingdu_degree"], "1.1645")
