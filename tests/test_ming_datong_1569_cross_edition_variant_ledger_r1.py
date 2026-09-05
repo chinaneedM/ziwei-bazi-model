@@ -37,6 +37,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["ming_1569_primary"],"1.0281")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"1.0821")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"1.0821")
+        self.assertEqual(v["krdb_r_original_image_entry_reading_layer"],"1.0821")
         self.assertFalse(v["propagate_to_ming_primary"])
 
     def test_db_specific_limit_114_error_is_distinguished_from_shared_variant(self) -> None:
@@ -44,21 +45,30 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["ming_1569_primary"],"9日3489")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"9日3489")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"9日2489")
-        self.assertEqual(v["classification"],"KRDB_SPECIFIC_DIGITAL_TRANSCRIPTION_ERROR_STRONGLY_INDICATED")
+        self.assertEqual(v["krdb_r_original_image_entry_reading_layer"],"9日3489")
+        self.assertEqual(v["classification"],"KRDB_O_VIEW_TRANSCRIPTION_LAYER_ERROR_STRONGLY_INDICATED")
 
     def test_limit_8_and_solar_day16_are_not_silently_normalized(self) -> None:
         l8=self.variants["VAR-NUM-LUNAR-L8-LOSSGAIN"]
         self.assertEqual(l8["ming_1569_primary"],"10.561775")
         self.assertEqual(l8["wikisource_goryeosa_current_transcript"],"10.5601775")
+        self.assertEqual(l8["krdb_r_original_image_entry_reading_layer"],"10.5601775")
         s16=self.variants["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"]
         self.assertEqual(s16["ming_1569_primary"],"5.2362")
         self.assertEqual(s16["krdb_goryeosa_current_transcript"],"5.1362")
+        self.assertEqual(s16["krdb_r_original_image_entry_reading_layer"],"5.1362")
+        self.assertEqual(s16["wikisource_goryeosa_value"],"5.1362")
+        self.assertEqual(s16["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
 
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
         self.assertEqual(self.data["current_variant_count"],4)
         self.assertEqual(self.data["epistemic_firewalls"]["digital_transcript_difference_as_manuscript_variant_without_image"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_reading_layer_as_direct_original_image_glyph"],"FORBIDDEN")
+        self.assertTrue(self.data["reading_layer_comparison_complete_for_current_controls"])
+        self.assertEqual(self.data["current_classification_summary"]["shared_cross_regional_received_or_digital_variant_count"],3)
+        self.assertEqual(self.data["current_classification_summary"]["krdb_o_view_transcription_layer_error_strongly_indicated_count"],1)
         self.assertFalse(self.data["runtime_selection_authorized"])
         self.assertFalse(self.data["general_calendar_arithmetic_certified"])
 

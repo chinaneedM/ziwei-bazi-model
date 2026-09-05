@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.0.0",
-  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_CROSS_WITNESS_IMAGE_CAUSES_PENDING",
+  "schema_version": "1.1.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_READING_LAYERS_RESOLVED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_reference": {
@@ -94,10 +94,12 @@
         "day17": "5.2548",
         "increment": "0.0186"
       },
-      "wikisource_goryeosa_value": "NOT_YET_VERIFIED",
-      "classification": "KRDB_DIGITAL_TRANSCRIPT_SUSPECTED_ERROR",
-      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
-      "propagate_to_ming_primary": false
+      "wikisource_goryeosa_value": "5.1362",
+      "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
+      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "propagate_to_ming_primary": false,
+      "krdb_r_original_image_entry_reading_layer": "5.1362",
+      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource all currently preserve 5.1362, while the directly collated Ming 1569 primary is 5.2362 and the adjacent 5.2176/5.2548 sequence advances by 0.0186. The difference is therefore not isolated to the KRDB o transcript; its received-print versus shared-digital transmission stage remains unresolved."
     },
     {
       "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
@@ -106,9 +108,10 @@
       "krdb_goryeosa_current_transcript": "10.5601775",
       "wikisource_goryeosa_current_transcript": "10.5601775",
       "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
-      "note": "Both current digital transcriptions share the longer anomalous digit sequence; do not reduce it to a single-site OCR error without image evidence.",
-      "propagate_to_ming_primary": false
+      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource currently agree at 10.5601775 against Ming 1569 primary 10.561775. Do not reduce this to a single-site OCR error without direct image evidence.",
+      "propagate_to_ming_primary": false,
+      "krdb_r_original_image_entry_reading_layer": "10.5601775"
     },
     {
       "id": "VAR-NUM-LUNAR-L114-DAYRATE",
@@ -116,9 +119,11 @@
       "ming_1569_primary": "9日3489",
       "krdb_goryeosa_current_transcript": "9日2489",
       "wikisource_goryeosa_current_transcript": "9日3489",
-      "classification": "KRDB_SPECIFIC_DIGITAL_TRANSCRIPTION_ERROR_STRONGLY_INDICATED",
-      "image_level_cause_status": "OPTIONAL_IMAGE_CONFIRMATION_PENDING",
-      "propagate_to_ming_primary": false
+      "classification": "KRDB_O_VIEW_TRANSCRIPTION_LAYER_ERROR_STRONGLY_INDICATED",
+      "image_level_cause_status": "DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK_STILL_PENDING",
+      "propagate_to_ming_primary": false,
+      "krdb_r_original_image_entry_reading_layer": "9日3489",
+      "note": "KRDB o-view alone currently reads 9日2489; the KRDB r image-entry reading layer, Wikisource and the Ming 1569 primary all read 9日3489. This isolates the 2489 reading to the KRDB o presentation layer on present evidence, but the underlying original-image glyph has not yet been directly inspected."
     },
     {
       "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
@@ -127,9 +132,10 @@
       "krdb_goryeosa_current_transcript": "1.0821",
       "wikisource_goryeosa_current_transcript": "1.0821",
       "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
-      "image_level_cause_status": "PENDING_ORIGINAL_GORYEOSA_IMAGE_CHECK",
-      "note": "The 1569 Ming primary page is directly collated as 1.0281 and its surrounding sequence is continuous. Current Goryeosa digital witnesses agree with each other at 1.0821, so the transmission stage of the divergence remains unresolved.",
-      "propagate_to_ming_primary": false
+      "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
+      "note": "KRDB o-view, the KRDB r image-entry reading layer and Wikisource all currently agree at 1.0821, whereas the directly collated Ming 1569 primary is 1.0281 and its local sequence is continuous. The transmission stage of this shared divergence remains unresolved.",
+      "propagate_to_ming_primary": false,
+      "krdb_r_original_image_entry_reading_layer": "1.0821"
     }
   ],
   "matching_numeric_controls": [
@@ -169,13 +175,32 @@
     "matching_numeric_lineage_as_identical_table_schema": "FORBIDDEN",
     "similar_numeric_series_as_automatic_term_equivalence": "FORBIDDEN",
     "shared_digital_variant_as_formula_defect": "FORBIDDEN",
-    "runtime_activation_from_variant_ledger": "FORBIDDEN"
+    "runtime_activation_from_variant_ledger": "FORBIDDEN",
+    "krdb_r_reading_layer_as_direct_original_image_glyph": "FORBIDDEN"
   },
   "next_work": [
-    "CHECK_GORYEOSA_ORIGINAL_IMAGES_FOR_THE_FOUR_CURRENT_NUMERIC_VARIANT_CONTROLS",
+    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_THE_FOUR_CURRENT_GORYEOSA_CONTROLS",
     "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_BEYOND_CURRENT_CONTROL_RANGES",
-    "DISTINGUISH_RECEIVED_PRINT_VARIANTS_FROM_DATABASE_OR_OCR_TRANSCRIPTION_ERRORS",
+    "DISTINGUISH_RECEIVED_PRINT_VARIANTS_FROM_SHARED_DIGITAL_TRANSCRIPTION_VARIANTS",
     "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
-    "ONLY_AFTER_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
-  ]
+    "ONLY_AFTER_DIRECT_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
+  ],
+  "krdb_evidence_layers": {
+    "o_structured_transcript": {
+      "locator": "types=o",
+      "role": "STRUCTURED_DATABASE_TRANSCRIPT_LAYER",
+      "direct_original_image_glyph_inspection": false
+    },
+    "r_original_image_entry_reading_layer": {
+      "locator": "types=r / kr_052r_*",
+      "role": "TEXTUAL_READING_LAYER_REACHED_FROM_KRDB_ORIGINAL_IMAGE_ENTRY",
+      "direct_original_image_glyph_inspection": false,
+      "caution": "This layer is evidence about KRDB's image-associated reading presentation; it is not a direct pixel/glyph inspection of the underlying historical image."
+    }
+  },
+  "reading_layer_comparison_complete_for_current_controls": true,
+  "current_classification_summary": {
+    "shared_cross_regional_received_or_digital_variant_count": 3,
+    "krdb_o_view_transcription_layer_error_strongly_indicated_count": 1
+  }
 }
