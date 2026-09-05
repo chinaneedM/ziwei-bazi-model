@@ -42,6 +42,7 @@ jobs:
           python -m unittest discover -s tests -p "test_ming_datong_1569_chiji_day_rate_column_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_chiji_central_transition_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_chiji_full_numeric_reconstruction_r1.py" -v
+          python -m unittest discover -s tests -p "test_ming_datong_1569_yingsuo_full_numeric_reconstruction_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_time_coordinate_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_qishuo_geographic_critical_cases_r1.py" -v
       - name: Focused capability acceptance tests
