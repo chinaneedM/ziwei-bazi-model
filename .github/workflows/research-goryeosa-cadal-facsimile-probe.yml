@@ -29,7 +29,7 @@ jobs:
         run: |
           python scripts/research_goryeosa_cadal_facsimile_probe.py \
             --output artifacts/goryeosa-cadal-probe \
-            --target-pages 39,81,112,117,120,123
+            --target-pages 39,81,90,101,112,117,120,123
       - name: Upload localization evidence
         if: always()
         uses: actions/upload-artifact@v4
