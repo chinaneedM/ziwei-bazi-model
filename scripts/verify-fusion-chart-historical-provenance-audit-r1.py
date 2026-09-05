@@ -16,6 +16,8 @@ MING_DATONG_1578_ORACLE = ROOT / "tests" / "fixtures" / "ming-datong-1578-month-
 MING_DATONG_1578_ORACLE_TEST = ROOT / "tests" / "test_ming_datong_1578_month_start_oracle_r1.py"
 MING_DATONG_1569_QISHUO_RESEARCH = ROOT / "docs" / "research" / "MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json"
 MING_DATONG_1569_QISHUO_RESEARCH_TEST = ROOT / "tests" / "test_ming_datong_1569_qishuo_method_research_r1.py"
+MING_DATONG_1569_TIME_COORDINATE = ROOT / "docs" / "research" / "MING-DATONG-1569-TIME-COORDINATE-R1.json"
+MING_DATONG_1569_TIME_COORDINATE_TEST = ROOT / "tests" / "test_ming_datong_1569_time_coordinate_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -99,7 +101,7 @@ def main() -> int:
             raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
     if by_source_id.get("EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI") is None:
         raise SystemExit("Batch 11A later hidden-stem hierarchy witness is missing")
-    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998"):
+    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998","EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME","EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK","EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH","EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014","EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018","EXT-LOC-DATONG-1524-ALMANAC"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 11D/11E Ming Datong source witness missing: {source_id}")
     for item in source_registry["sources"]:
@@ -205,6 +207,8 @@ def main() -> int:
         raise SystemExit("Batch 11E Ming Datong 1578 oracle is missing")
     if "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F" not in batches:
         raise SystemExit("Batch 11F Ming Datong conjunction-method adjudication is missing")
+    if "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G" not in batches:
+        raise SystemExit("Batch 11G Ming Datong time-coordinate audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -379,6 +383,28 @@ def main() -> int:
         raise SystemExit("Batch 11F research adjudication status mismatch")
     if qishuo.get("runtime_selection_authorized") is not False or qishuo.get("general_calendar_arithmetic_certified") is not False:
         raise SystemExit("Batch 11F research was incorrectly promoted to executable calendar arithmetic")
+    if row_dayun_cal.get("historical_time_coordinate_status") != "INTERNAL_DAY_AND_CLOCK_COORDINATE_CLOSED_GEOGRAPHIC_QISHUO_REFERENCE_UNRESOLVED":
+        raise SystemExit("Batch 11G time-coordinate disposition mismatch")
+    if row_dayun_cal.get("historical_computational_day_boundary") != "ZI_ZHENG":
+        raise SystemExit("Batch 11G computational day boundary mismatch")
+    if row_dayun_cal.get("astrological_day_boundary_inference_forbidden") is not True:
+        raise SystemExit("Batch 11G astrological day-boundary firewall missing")
+    if row_dayun_cal.get("historical_time_coordinate_artifact") != "docs/research/MING-DATONG-1569-TIME-COORDINATE-R1.json":
+        raise SystemExit("Batch 11G time-coordinate artifact binding mismatch")
+    if not MING_DATONG_1569_TIME_COORDINATE.is_file() or not MING_DATONG_1569_TIME_COORDINATE_TEST.is_file():
+        raise SystemExit("Batch 11G time-coordinate artifact/test missing")
+    time_coord=json.loads(MING_DATONG_1569_TIME_COORDINATE.read_text(encoding="utf-8"))
+    if time_coord.get("schema") != "MING-DATONG-1569-TIME-COORDINATE-R1":
+        raise SystemExit("Batch 11G time-coordinate schema mismatch")
+    internal=time_coord.get("internal_coordinate",{})
+    if internal.get("computational_day_boundary") != "ZI_ZHENG" or internal.get("day_cycle_source_units") != 10000 or internal.get("ke_per_day") != 100:
+        raise SystemExit("Batch 11G internal time coordinate regressed")
+    scope=time_coord.get("scope_firewalls",{})
+    if scope.get("astrological_day_boundary_inference_forbidden") is not True:
+        raise SystemExit("Batch 11G astrological inference firewall regressed")
+    geography=time_coord.get("geographic_realization",{})
+    if geography.get("qishuo_meridian_reference_status") != "UNRESOLVED":
+        raise SystemExit("Batch 11G qishuo geographic reference was silently selected")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

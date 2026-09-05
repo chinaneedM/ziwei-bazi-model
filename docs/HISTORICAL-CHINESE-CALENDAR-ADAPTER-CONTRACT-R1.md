@@ -80,3 +80,33 @@ RUNTIME_SELECTION_AUTHORIZED=NO
 This historical subrule adjudication does **not** certify a full historical calendar adapter. The remaining gates are complete 1569 table/carry and interpolation transcription, source-derived replay to the 1578 oracle, page-level confirmation from the exact 1578 Qintianjian almanac, historical clock/day-boundary semantics, invalid-date behavior, leap-month generalization and same-regime ten-year recurrence.
 
 `FailClosedHistoricalCalendarAdapter` remains mandatory.
+## Batch 11G historical time-coordinate closure
+
+The Ming Datong event-time problem is now split into two independent layers.
+
+### A. Internal computational day/time coordinate — source-closed
+
+The 1569 Zhou Xiang primary facsimile directly gives `推合朔時刻法` and binds event `小餘` to the historical 12-shichen / 100-ke system. The received Datong text independently states `日周一萬=一百刻`, with decimal subdivision below ke. The primary procedure counts the event clock from `子正` and handles the half-shichen `子初` label.
+
+Xing Yunlu's Ming Datong worked example gives a replay case: its `定朔` small remainder is converted by the equivalent `發斂法一分二十秒` shorthand and printed as `乙丑日午正初刻`.
+
+Accordingly:
+
+MING_DATONG_INTERNAL_DAY_UNIT=10000_SOURCE_FEN
+MING_DATONG_KE_PER_DAY=100
+MING_DATONG_COMPUTATIONAL_DAY_BOUNDARY=ZI_ZHENG
+ASTROLOGICAL_DAY_BOUNDARY_INFERENCE=FORBIDDEN
+
+The last line is a hard scope boundary: a historical calendar-astronomy day coordinate does not select a Bazi or Ziwei day-boundary rule.
+
+### B. Geographic/meridian realization — still unresolved for qishuo
+
+Ming institutional sources show that Beijing and Nanjing had materially different polar altitude, clepsydra and sunrise/sunset values. Modern international scholarship independently verifies location dependence in the Datong/Shoushi table tradition. However, a Nanjing or Beijing sunrise/sunset table cannot simply be inherited as the meridian reference for conjunction `小餘`.
+
+Therefore:
+
+MING_DATONG_QISHUO_GEOGRAPHIC_REFERENCE=UNRESOLVED
+NO_IMPLICIT_UTC_OR_MODERN_TIMEZONE_MAPPING=TRUE
+NO_INHERITANCE_FROM_SUNRISE_SUNSET_TABLE_LOCATION=TRUE
+
+`FailClosedHistoricalCalendarAdapter` remains mandatory until the geographic reference, remaining 1569 tables/carry rules, 1578 source replay, exact official-almanac collation, invalid-date behavior and multi-year recurrence are closed.

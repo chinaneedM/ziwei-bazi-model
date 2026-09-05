@@ -4474,16 +4474,16 @@
       "source_quote": "The Ming passage instructs adjustment for small months and a leap month when converting symbolic age into the actual handover date.",
       "source_quote_location": "EXT-CTEXT-SANMING-V2-DAYUN《论大运》; S15 LHV-04",
       "historical_period": "MING",
-      "later_witnesses": "Batch 11F resolves the D1/D2 text conflict rather than preserving false equivalence. The 1569 Zhou Xiang facsimile directly uses corresponding lunar 迟/疾行度 as the divisor in 推加减差分法; Xing Yunlu's Ming Datong worked example independently divides by 迟行度. The Qing-compiled 《明史》 received text instead subtracts 820 to create 定限度. Modern comparison of 56 conjunction times in six surviving official Ming Datong almanacs reports 56/56 agreement for D1 and widespread D2 mismatch, including a near-midnight wrong-day case. D2 is therefore retained as a later received textual variant, not an equal Ming production candidate.",
+      "later_witnesses": "Batch 11F resolves the D1/D2 text conflict rather than preserving false equivalence. The 1569 Zhou Xiang facsimile directly uses corresponding lunar 迟/疾行度 as the divisor in 推加减差分法; Xing Yunlu's Ming Datong worked example independently divides by 迟行度. The Qing-compiled 《明史》 received text instead subtracts 820 to create 定限度. Modern comparison of 56 conjunction times in six surviving official Ming Datong almanacs reports 56/56 agreement for D1 and widespread D2 mismatch, including a near-midnight wrong-day case. D2 is therefore retained as a later received textual variant, not an equal Ming production candidate. Batch 11G closes the source-internal event-time coordinate: the 1569 primary facsimile directly counts 定朔小餘 from 子正 through the 12-shichen/100-ke system, and Xing Yunlu supplies a worked replay to 午正初刻. Received Ming-history text independently states 日周一萬=一百刻. Geographic realization is kept separate: Nanjing/Beijing sunrise-sunset tables changed historically, but no evidence yet authorizes assuming that table geography is the conjunction meridian reference.",
       "school_attribution": "CLASSICAL_LUNISOLAR_HANDOVER_CALENDARIZATION",
       "competing_methods": [
         "modern Gregorian calendar-age method",
         "absolute-duration method"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; PRIMARY_1569_MING_FACSIMILE_DIRECTLY_CLOSES_D1_CONJUNCTION_DENOMINATOR; MING_XINGYUNLU_DATONG_WORKED_EXAMPLE_CORROBORATES_D1; COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_MACHINE_FIXTURED; D2_QING_RECEIVED_TEXT_VARIANT_ADJUDICATED_NOT_MING_PRODUCTION_METHOD; GENERAL_DATONG_ARITHMETIC_HISTORICAL_CLOCK_AND_EXACT_1578_ALMANAC_PAGE_REPLAY_NOT_YET_CERTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
-      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_MING_REGIME_IDENTITY_1578_MONTH_STRUCTURE_AND_D1_CONJUNCTION_METHOD_IDENTITY; MEDIUM_FOR_FULL_TABLE_INTERPOLATION_AND_MULTI_YEAR_RECONSTRUCTION; INSUFFICIENT_FOR_CERTIFIED_GENERAL_EXECUTABLE_ADAPTER",
+      "current_implementation_match": "SOURCE_CLOSED_DAYUN_RULE_FAMILY_MISSING_FROM_RUNTIME; D1_CONJUNCTION_SUBRULE_HISTORICALLY_ADJUDICATED; 1569_PRIMARY_FACSIMILE_CLOSES_INTERNAL_TIME_COORDINATE_DAY_CYCLE_10000_100_KE_AND_ZI_ZHENG_COMPUTATIONAL_DAY_BOUNDARY; MING_WORKED_EXAMPLE_REPLAYS_EVENT_TIME_LABEL; LATE_ZI_BEFORE_ZI_ZHENG_REMAINS_PREVIOUS_COMPUTATIONAL_DAY; GEOGRAPHIC_MERIDIAN_REFERENCE_FOR_QISHUO_REMAINS_UNRESOLVED; COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_MACHINE_FIXTURED; GENERAL_DATONG_ARITHMETIC_NOT_YET_CERTIFIED; MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN",
+      "confidence": "HIGH_FOR_DAYUN_RULE_FAMILY_MING_REGIME_1578_MONTH_STRUCTURE_D1_CONJUNCTION_METHOD_AND_INTERNAL_DATONG_TIME_COORDINATE; MEDIUM_FOR_FULL_TABLE_INTERPOLATION; INSUFFICIENT_FOR_QISHUO_GEOGRAPHIC_MERIDIAN_AND_CERTIFIED_GENERAL_EXECUTABLE_ADAPTER",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Treat D1/迟疾行度 as the historically adjudicated Ming official conjunction subrule. Complete 1569 table/carry transcription and replay D1 from source constants through the 1578 oracle; obtain exact 1578 Qintianjian page confirmation; close historical clock/day-boundary, enforcement scope, invalid-date behavior and multi-year leap/recurrence semantics before implementation. Preserve D2 only as a later received-text transmission variant.",
+      "proposed_action": "Use the source-closed 子正/100-ke computational coordinate in all future Ming replay work, but do not map it to UTC or a modern zone yet. Next close the conjunction meridian/geographic reference, fully transcribe 1569 盈缩/迟疾 tables and carry/interpolation rules, replay D1 through the 1578 oracle and exact almanac pages, then close invalid-date and multi-year recurrence semantics.",
       "adapter_contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
       "adapter_design_batch": "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "calendar_regime_context": "MING_DATONG_OFFICIAL_CONTEXT_RESEARCH_TARGET_NOT_ALGORITHM_WINNER",
@@ -4494,7 +4494,12 @@
       "conjunction_method_research_batch": "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F",
       "conjunction_method_historical_adjudication": "D1_SHOUSHI_STYLE_CHIJIXINGDU_IS_MING_OFFICIAL_PRODUCTION_METHOD",
       "conjunction_method_runtime_authorized": false,
-      "d2_received_variant_disposition": "PRESERVE_FOR_TEXTUAL_TRANSMISSION_HISTORY_NOT_EQUAL_PRODUCTION_CANDIDATE"
+      "d2_received_variant_disposition": "PRESERVE_FOR_TEXTUAL_TRANSMISSION_HISTORY_NOT_EQUAL_PRODUCTION_CANDIDATE",
+      "historical_time_coordinate_artifact": "docs/research/MING-DATONG-1569-TIME-COORDINATE-R1.json",
+      "historical_time_coordinate_status": "INTERNAL_DAY_AND_CLOCK_COORDINATE_CLOSED_GEOGRAPHIC_QISHUO_REFERENCE_UNRESOLVED",
+      "historical_computational_day_boundary": "ZI_ZHENG",
+      "astrological_day_boundary_inference_forbidden": true,
+      "time_coordinate_research_batch": "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G"
     },
     {
       "system": "BAZI",
@@ -4647,7 +4652,8 @@
     "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
     "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D",
     "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E",
-    "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F"
+    "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F",
+    "BATCH-11-BAZI-MING-DATONG-TIME-COORDINATE-G"
   ],
   "audited_row_ids": [
     "HPA-TIME-007",

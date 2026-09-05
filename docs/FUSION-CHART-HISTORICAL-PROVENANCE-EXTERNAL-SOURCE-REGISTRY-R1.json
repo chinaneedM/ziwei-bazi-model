@@ -440,7 +440,7 @@
       "provider": "Kotenmon digitized facsimile / Japan National Archives Cabinet Library witness",
       "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
       "source_role": "PRIMARY_MING_DATONG_METHOD_WITNESS_FOR_CALENDAR_ARITHMETIC_RESEARCH",
-      "quality_notes": "Facsimile directly preserves the Ming-period method witness. The first computational volume is headed 步氣朔; pages 8–12 preserve epoch/constants and qishuo procedure headings, page 24 preserves迟疾差 interpolation, and page 32's 推加减差分法 directly divides the combined correction by the corresponding 太阴迟/疾行度. This is direct primary-facsimile support for the D1/Shoushi-style conjunction denominator. Use page-image collation for every glyph-critical transcription."
+      "quality_notes": "Facsimile directly preserves the Ming-period method witness. The first computational volume is headed 步氣朔; pages 8–12 preserve epoch/constants and qishuo procedure headings, page 24 preserves迟疾差 interpolation, and page 32's 推加减差分法 directly divides the combined correction by the corresponding 太阴迟/疾行度. This is direct primary-facsimile support for the D1/Shoushi-style conjunction denominator. Use page-image collation for every glyph-critical transcription. Batch 11G also collates zero-based PDF page 41, where the primary facsimile directly gives 推合朔時刻法: 定朔小餘 is converted through the 12-shichen / 100-ke historical clock, counted from 子正, with half-shichen 子初 labeling."
     },
     {
       "source_id": "EXT-NCL-DATONG-1578-ALMANAC",
@@ -500,7 +500,7 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/zh-hans/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B749",
       "source_role": "MING_AUTHORIAL_DATONG_WORKED_EXAMPLE_PRESERVED_IN_LATER_SIKU_EDITION",
-      "quality_notes": "The worked example is explicitly labeled 大统. At 求加减差 it multiplies the residual correction by 820 and divides by 迟行度, then obtains 加差 and 定朔. This independently agrees with the 1569 Zhou Xiang facsimile's D1 denominator. Because the digital witness is a later Siku recension, it corroborates Ming authorial practice but does not supersede the primary Ming facsimile."
+      "quality_notes": "The worked example is explicitly labeled 大统. At 求加减差 it multiplies the residual correction by 820 and divides by 迟行度, then obtains 加差 and 定朔. This independently agrees with the 1569 Zhou Xiang facsimile's D1 denominator. Because the digital witness is a later Siku recension, it corroborates Ming authorial practice but does not supersede the primary Ming facsimile. The same worked example converts 定朔 small remainder by 發斂法 (1分20秒 multiplier shorthand) and explicitly obtains 乙丑日午正初刻, providing a deterministic time-coordinate replay case."
     },
     {
       "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
@@ -545,6 +545,66 @@
       "url": "https://cdsarc.u-strasbg.fr/vizier/ftp/vizier/aa/papers/8332003/2301142.pdf",
       "source_role": "INTERNATIONAL_PEER_REVIEWED_BACKGROUND_FOR_SHOUSHI_SYZYGY_MODEL",
       "quality_notes": "International peer-reviewed mathematical reconstruction of the Shoushi syzygy model. Used as cross-language scholarship for model structure and historical astronomy context; not a Ming textual authority."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+      "title": "《明史》卷三十五《大統曆法三上·步氣朔發斂附》",
+      "historical_period": "清修《明史》received text recording Ming Datong procedure",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/%E6%98%8E%E5%8F%B2/%E5%8D%B735",
+      "source_role": "RECEIVED_WITNESS_FOR_DATONG_DAY_UNIT_AND_FALIAN_TIME_CONVERSION",
+      "quality_notes": "Records 日周一萬=一百刻, decimal subunits below ke, and 推發斂加時: multiply event small remainder by 12, count full 10000 units from 子正, handle half-shichen 子初, and derive ke. Used as received corroboration of the 1569 primary facsimile, not to override it."
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK",
+      "title": "《明史·天文志》北京/南京觀象臺、漏刻與日出入時刻差異",
+      "historical_period": "清修明史，記明代觀測制度",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=656119&if=en",
+      "source_role": "RECEIVED_INSTITUTIONAL_WITNESS_FOR_MING_BEIJING_NANJING_CLOCK_GEOGRAPHY",
+      "quality_notes": "Records that Beijing polar altitude and sunrise/sunset times differ from Nanjing and that old Nanjing clepsydra forms were unsuitable in Beijing. This proves geographic clock dependence but does not by itself identify the meridian reference of every Datong conjunction calculation."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH",
+      "title": "《萬曆野獲編》卷二十《釐正曆法》",
+      "author": "沈德符",
+      "historical_period": "明末筆記，追記正統/景泰大統曆晝夜時刻改議",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8/%E5%8D%B720",
+      "source_role": "LATE_MING_WITNESS_FOR_BEIJING_VS_NANJING_DATONG_DAYLENGTH_POLICY",
+      "quality_notes": "Preserves the debate over replacing Nanjing daylength values with Beijing observations and the subsequent reversion. Useful for regime/scope history; not direct evidence that qishuo/conjunction small remainder used the same geographic reference."
+    },
+    {
+      "source_id": "EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014",
+      "title": "Analysis of interval constants of Shoushili-affiliated calendars",
+      "author": "Byeong-Hee Mihn; Ki-Won Lee; Young Sook Ahn",
+      "publication": "Research in Astronomy and Astrophysics 14 (2014), 485–496",
+      "historical_period": "modern international peer-reviewed scholarship",
+      "provider": "Research in Astronomy and Astrophysics",
+      "url": "https://www.raa-journal.org/issues/all/2014/v14n4/202203/P020220325481992812448.pdf",
+      "source_role": "INTERNATIONAL_VALIDATION_OF_SHOUSHI_DATONG_INTERVAL_CONSTANTS_AND_LOCATION_DEPENDENT_TABLES",
+      "quality_notes": "Compares Shoushi/Datong-affiliated interval constants and modern astronomical results; independently verifies that Shoushi-Licheng sunrise/sunset data correspond to Beijing while Mingshi Datong sunrise/sunset data correspond to Nanjing. This validates geographic scope for those tables, not automatically for conjunction meridian reference."
+    },
+    {
+      "source_id": "EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018",
+      "title": "Investigating Chinese mathematical techniques to calculate sunrise and sunset times in Datongli",
+      "author": "G.-E. Choi; K.-W. Lee; B.-H. Mihn; L. Li; Y.-H. Ryu; Y. S. Ahn",
+      "publication": "Astronomische Nachrichten 339 (2018), 520–532",
+      "historical_period": "modern international peer-reviewed scholarship",
+      "provider": "Wiley / Astronomische Nachrichten",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/asna.201813480",
+      "source_role": "INTERNATIONAL_RECONSTRUCTION_OF_DATONGLI_SUNRISE_SUNSET_TECHNIQUES",
+      "quality_notes": "Reconstructs Datongli sunrise/sunset calculations and checks Mingshi tables, providing independent cross-language validation of the location-dependent clock/daylength subsystem. Not a primary historical source."
+    },
+    {
+      "source_id": "EXT-LOC-DATONG-1524-ALMANAC",
+      "title": "《大明嘉靖三年歲次甲申大統曆》",
+      "historical_period": "明嘉靖三年（1524）",
+      "edition": "明刻本；欽天監頒行系統",
+      "provider": "Library of Congress Chinese Rare Book Collection",
+      "url": "https://www.loc.gov/item/2014514059/",
+      "source_role": "OVERSEAS_LIBRARY_HELD_MING_OFFICIAL_DATONG_ALMANAC_ORACLE",
+      "quality_notes": "Library of Congress provides 37 digitized images and records the Qintianjian anti-counterfeit promulgation notice. Added to broaden official-almanac oracle coverage outside Chinese/Taiwanese holdings; page-level qishuo/time extraction remains future work."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
