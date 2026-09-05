@@ -1,0 +1,104 @@
+{
+  "schema": "NDL-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-CONTROL-READINGS-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_PAGE_BINDINGS_PARTIAL_TARGET_READINGS_IN_PROGRESS",
+  "source_id": "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
+  "title": "大元授時暦經立成 6卷",
+  "creator": "小川正意 新勘",
+  "publisher": "田原仁左衛門",
+  "publication_date": "寛文13 [1673]",
+  "call_number": "特2-86",
+  "bibliographic_id": "024612010",
+  "pids": ["14488128", "14488129", "14488130"],
+  "provider": "National Diet Library Digital Collections",
+  "access_restrictions": "PDM",
+  "ocr_used": false,
+  "cross_copy_page_offset_used": false,
+  "reproduction": {
+    "page_fetch_head_sha": "1aab536fe4b9059563698905f3341b5724bd3bc3",
+    "workflow_run_id": 33975870344,
+    "artifact_id": 9972290306,
+    "script": "scripts/research_ndl_ogawa_shoushi_licheng_target_pages.py",
+    "fetch_width_px": 3000
+  },
+  "structural_scope": {
+    "pid_14488128": "contains the directly inspected solar and Taiyin chiji table sequence relevant to the currently localized controls",
+    "l124_ji_xingdu_status": "UNRESOLVED_NOT_AUTHORIZED_FROM_R0000019",
+    "l124_reason": "R0000019 directly shows the Taiyin chiji table around limits 106-125. It is not, by that fact alone, evidence for the separately defined LUNAR_LIMIT_124_JI_XINGDU field.",
+    "page_identity_rule": "bind by printed table/limit headings and field context, never by cross-copy fixed offsets"
+  },
+  "controls": [
+    {
+      "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "pid": "14488128",
+      "canvas_index": 4,
+      "image_id": "R0000004",
+      "direct_page_status": "FETCHED_3000PX",
+      "diplomatic_reading_status": "PENDING_EXACT_FIELD_COLUMN_BINDING",
+      "target_value_authorized": false
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "pid": "14488128",
+      "canvas_index": 14,
+      "image_id": "R0000014",
+      "direct_page_status": "FETCHED_3000PX",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "target_value_authorized": false
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "pid": "14488128",
+      "canvas_index": 18,
+      "image_id": "R0000018",
+      "direct_page_status": "FETCHED_3000PX",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "target_value_authorized": false
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "pid": "14488128",
+      "canvas_index": 19,
+      "image_id": "R0000019",
+      "printed_limit_heading": "一百十四限",
+      "direct_surface": "九日三四八九",
+      "normalized_value": "9日3489",
+      "reading_confidence": "HIGH",
+      "direct_page_status": "FETCHED_3000PX_AND_DIRECTLY_READ",
+      "target_value_authorized": true,
+      "finding": "OGAWA_1673_ALIGNs_WITH_MING_1569_KRDB_DIRECT_CADAL_AND_WIKISOURCE_AT_3489"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "pid": "14488128",
+      "previous_candidate_canvas_index": 19,
+      "previous_candidate_image_id": "R0000019",
+      "direct_page_status": "PREVIOUS_CANDIDATE_PAGE_INSPECTED",
+      "diplomatic_reading_status": "REJECTED_AS_FIELD_BINDING",
+      "target_value_authorized": false,
+      "finding": "R0000019_IS_CHIJI_CONTEXT_NOT_SUFFICIENT_EVIDENCE_FOR_SEPARATE_JI_XINGDU_FIELD"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "pid": "14488128",
+      "canvas_index": 20,
+      "image_id": "R0000020",
+      "direct_page_status": "FETCHED_3000PX",
+      "diplomatic_reading_status": "PENDING_EXACT_PLACE_GROUP_TRANSCRIPTION",
+      "target_value_authorized": false
+    }
+  ],
+  "epistemic_boundaries": {
+    "page_fetch_as_target_value": "FORBIDDEN",
+    "nearby_limit_number_as_field_identity": "FORBIDDEN",
+    "chiji_page_as_ji_xingdu_evidence": "FORBIDDEN",
+    "later_1673_japanese_witness_as_early_g893_substitute": "FORBIDDEN",
+    "later_1673_japanese_witness_as_ming_1569_edition_authority": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "next_work": [
+    "LOCATE_OR_RULE_OUT_THE_SEPARATE_XINGDU_TABLE_FOR_L124_WITHIN_THE_THREE_NDL_PIDS",
+    "COMPLETE_NO_OCR_DIPLOMATIC_TRANSCRIPTION_FOR_D16_L8_L101_L132_FROM_EXACT_FIELD_COLUMNS",
+    "COMPARE_THE_1673_JAPANESE_RECEIVED_SURFACES_WITH_GORYEOSA_G893_AND_MING_1569_WITHOUT_SOURCE_RANK_COLLAPSE"
+  ]
+}
