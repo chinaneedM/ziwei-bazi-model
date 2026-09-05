@@ -628,7 +628,7 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/zh-hans/高丽史/卷五十二",
       "source_role": "CROSS_REGIONAL_TRANSMISSION_WITNESS_FOR_SHOUSHI_LUNAR_CHIJI_LICHENG",
-      "quality_notes": "Digital transcription of the received Shoushi table tradition. It agrees with KRDB on solar winter day 16 = 5.1362, lunar limit 8 received/digital surface, limit 114 = 9日3489, limit 124 疾曆限行度 = 1.0821, and limit 132 compact `七分八八六七五`; symmetric limit 35 preserves `七分八八六〇七五`. The compact limit-101 `五度二十四八一一二五` is treated philologically as grouped 5|20|48|11|25 rather than as a simple decimal digit string, because KRDB r exposes that grouping explicitly. This remains a digital witness, not authority to overwrite Ming 1569 primary readings or a substitute for direct image inspection.",
+      "quality_notes": "Digital transcription of the Goryeosa/Shoushi received tradition and useful as a second digital presentation, but not automatically an independent physical-edition witness. It agrees with KRDB o on several divergences from the Ming 1569 primary, including solar D16, lunar L8, L124 and L132; it aligns with Ming and KRDB r normalization on L114. Compact Han numeric surfaces such as L101 are parsed with positional awareness and are not treated as decimal digit strings. Direct physical-image comparison remains required for edition-level causal claims.",
       "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
     },
     {
@@ -703,8 +703,9 @@
       "provider": "韓國史資料庫 / 고려시대사료 DB",
       "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_052_0010_0010_0020&types=o",
       "source_role": "CROSS_REGIONAL_SHOUSHI_TRANSMISSION_DATABASE_TRANSCRIPT_WITH_ORIGINAL_IMAGE_ACCESS",
-      "quality_notes": "Structured `types=o` transcript and the image-entry-associated `types=r / kr_052r_*` textual reading layer are now kept distinct; neither is direct pixel/glyph inspection. Current numeric-variant controls: solar winter day 16 = 5.1362 in o/r; lunar limit 8 loss/gain preserves the 10.5601775 received/digital surface in o/r; limit 114 is 9日2489 in o but 9日3489 in r; limit 124 疾曆限行度 is 1.0821 in o/r; limit 132 loss/gain has compact/grouped 67/5-style surface while symmetric limit 35 preserves 60/75. Separately, limit 101 `五度二十四八一一二五` is NOT treated as a defect: r explicitly groups it as 5|20|48|11|25, agreeing mechanically with the Ming 1569 normalized 5.20481125. Direct original-image glyph adjudication remains required for variant causes.",
-      "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json"
+      "quality_notes": "KRDB layer semantics are explicitly separated. `types=o` is the Han-text transcription layer; `types=r / kr_052r_*` is a Korean translation/normalized numeric rendering and is NOT an independent edition witness; `원문이미지` is a separate UI entry whose underlying scan has not yet been directly retrieved in this workflow. Numeric controls therefore use r only as evidence of KRDB's editorial interpretation. Current controls: solar winter D16, lunar L8, L124 and L132 remain shared received/digital divergences against Ming 1569; L114 is an o-surface divergence because r/Wikisource/Ming show 3489, but it is no longer labeled a proven KRDB transcription error before direct image inspection. L101 remains a philological normalization bridge, not a numeric variant.",
+      "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+      "role": "KRDB_GORYEOSA_HAN_TEXT_TRANSCRIPTION_WITH_KOREAN_TRANSLATION_OR_NORMALIZED_RENDERING_AND_SEPARATE_ORIGINAL_IMAGE_ENTRY"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "1.2.0",
-  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_PHILOLOGY_BRIDGES_ACTIVE_IMAGE_CAUSES_PENDING",
+  "schema_version": "1.3.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_PRIMARY_MING_CLOSED_KRDB_LAYER_SEMANTICS_CORRECTED_IMAGE_CAUSES_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_reference": {
@@ -98,8 +98,8 @@
       "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
       "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
       "propagate_to_ming_primary": false,
-      "krdb_r_original_image_entry_reading_layer": "5.1362",
-      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource all currently preserve 5.1362, while the directly collated Ming 1569 primary is 5.2362 and the adjacent 5.2176/5.2548 sequence advances by 0.0186. The difference is therefore not isolated to the KRDB o transcript; its received-print versus shared-digital transmission stage remains unresolved."
+      "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource all currently preserve 5.1362, while the directly collated Ming 1569 primary is 5.2362 and the adjacent 5.2176/5.2548 sequence advances by 0.0186. The difference is therefore not isolated to the KRDB o transcript; its received-print versus shared-digital transmission stage remains unresolved.",
+      "krdb_r_korean_normalized_rendering": "5.1362"
     },
     {
       "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
@@ -111,7 +111,7 @@
       "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
       "note": "KRDB o-view, the KRDB r image-entry reading layer, and Wikisource currently agree at 10.5601775 against Ming 1569 primary 10.561775. Do not reduce this to a single-site OCR error without direct image evidence.",
       "propagate_to_ming_primary": false,
-      "krdb_r_original_image_entry_reading_layer": "10.5601775"
+      "krdb_r_korean_normalized_rendering": "10.5601775"
     },
     {
       "id": "VAR-NUM-LUNAR-L114-DAYRATE",
@@ -119,11 +119,11 @@
       "ming_1569_primary": "9日3489",
       "krdb_goryeosa_current_transcript": "9日2489",
       "wikisource_goryeosa_current_transcript": "9日3489",
-      "classification": "KRDB_O_VIEW_TRANSCRIPTION_LAYER_ERROR_STRONGLY_INDICATED",
+      "classification": "KRDB_O_TEXT_SURFACE_DIVERGENCE_R_NORMALIZATION_AND_WIKISOURCE_ALIGN_WITH_MING",
       "image_level_cause_status": "DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK_STILL_PENDING",
       "propagate_to_ming_primary": false,
-      "krdb_r_original_image_entry_reading_layer": "9日3489",
-      "note": "KRDB o-view alone currently reads 9日2489; the KRDB r image-entry reading layer, Wikisource and the Ming 1569 primary all read 9日3489. This isolates the 2489 reading to the KRDB o presentation layer on present evidence, but the underlying original-image glyph has not yet been directly inspected."
+      "note": "KRDB o Han-text transcription reads 9日2489, while KRDB r Korean normalized rendering, Wikisource and the Ming 1569 primary read 9日3489. Because r is an editorial/translation rendering rather than an independent edition witness, present evidence isolates an o-surface divergence but does NOT yet prove whether the cause lies in KRDB transcription, its underlying Goryeosa print, or another editorial normalization stage. Direct original-image glyph inspection remains required.",
+      "krdb_r_korean_normalized_rendering": "9日3489"
     },
     {
       "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
@@ -135,14 +135,13 @@
       "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
       "note": "KRDB o-view, the KRDB r image-entry reading layer and Wikisource all currently agree at 1.0821, whereas the directly collated Ming 1569 primary is 1.0281 and its local sequence is continuous. The transmission stage of this shared divergence remains unresolved.",
       "propagate_to_ming_primary": false,
-      "krdb_r_original_image_entry_reading_layer": "1.0821"
+      "krdb_r_korean_normalized_rendering": "1.0821"
     },
     {
       "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
       "field": "LUNAR_LIMIT_132_LOSS_GAIN_FEN",
       "ming_1569_primary_normalized": "7.886075",
       "krdb_o_exact_surface": "七分八八六七五",
-      "krdb_r_exact_grouped_surface": "7″88‴67''''5'''''",
       "wikisource_exact_surface": "七分八八六七五",
       "symmetric_control_limit_35": {
         "ming_1569_primary_normalized": "7.886075",
@@ -154,7 +153,8 @@
       "classification": "SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT",
       "image_level_cause_status": "PENDING_DIRECT_ORIGINAL_IMAGE_GLYPH_CHECK",
       "propagate_to_ming_primary": false,
-      "note": "Limit 132 is not silently decimal-normalized from the compact surface. KRDB o/r and Wikisource share a 67/5-style presentation while symmetric limit 35 and the directly collated Ming 1569 primary preserve 60/75 grouping. The difference is therefore a real control for transmission research, but its exact print-versus-digital cause and normalized historical value remain open pending direct image adjudication."
+      "note": "Limit 132 is not silently decimal-normalized from the compact surface. KRDB o and Wikisource share `七分八八六七五`; KRDB r's Korean normalized rendering presents a corresponding 67/5-style grouping, while symmetric limit 35 and the directly collated Ming 1569 primary preserve 60/75 grouping. Since r is not an independent textual witness, the transmission stage remains unresolved; direct image adjudication is required before assigning a print-level cause or normalized historical value.",
+      "krdb_r_korean_normalized_surface": "7″88‴67''''5'''''"
     }
   ],
   "matching_numeric_controls": [
@@ -195,34 +195,43 @@
     "similar_numeric_series_as_automatic_term_equivalence": "FORBIDDEN",
     "shared_digital_variant_as_formula_defect": "FORBIDDEN",
     "runtime_activation_from_variant_ledger": "FORBIDDEN",
-    "krdb_r_reading_layer_as_direct_original_image_glyph": "FORBIDDEN",
     "compact_han_numeric_surface_as_simple_decimal_digits": "FORBIDDEN",
-    "philological_normalization_bridge_as_numeric_variant": "FORBIDDEN"
+    "philological_normalization_bridge_as_numeric_variant": "FORBIDDEN",
+    "krdb_r_normalized_rendering_as_independent_textual_witness": "FORBIDDEN",
+    "krdb_r_normalized_rendering_as_direct_original_image_glyph": "FORBIDDEN"
   },
   "next_work": [
     "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_ALL_FIVE_CURRENT_NUMERIC_VARIANT_CONTROLS",
-    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_BEYOND_CURRENT_CONTROL_RANGES_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION",
-    "DISTINGUISH_RECEIVED_PRINT_VARIANTS_FROM_SHARED_DIGITAL_TRANSCRIPTION_VARIANTS",
+    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION_AND_SOURCE_LAYER_SEMANTICS",
+    "DISTINGUISH_KRDB_O_TRANSCRIPTION_FROM_UNDERLYING_GORYEOSA_PRINT_VARIANTS_BEFORE_ANY_ERROR_LABEL",
     "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
     "ONLY_AFTER_DIRECT_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
   ],
   "krdb_evidence_layers": {
-    "o_structured_transcript": {
-      "locator": "types=o",
-      "role": "STRUCTURED_DATABASE_TRANSCRIPT_LAYER",
-      "direct_original_image_glyph_inspection": false
-    },
-    "r_original_image_entry_reading_layer": {
-      "locator": "types=r / kr_052r_*",
-      "role": "TEXTUAL_READING_LAYER_REACHED_FROM_KRDB_ORIGINAL_IMAGE_ENTRY",
+    "o_original_han_transcript": {
+      "locator": "types=o / kr_052_*",
+      "role": "KRDB_ORIGINAL_HAN_TEXT_TRANSCRIPTION_LAYER",
       "direct_original_image_glyph_inspection": false,
-      "caution": "This layer is evidence about KRDB's image-associated reading presentation; it is not a direct pixel/glyph inspection of the underlying historical image."
+      "authority_note": "A database transcription of the Han-text surface; it is not the underlying facsimile."
+    },
+    "r_korean_translation_or_normalized_rendering": {
+      "locator": "types=r / kr_052r_*",
+      "role": "KRDB_KOREAN_TRANSLATION_OR_NORMALIZED_NUMERIC_RENDERING_LAYER",
+      "direct_original_image_glyph_inspection": false,
+      "independent_textual_witness": false,
+      "caution": "Use this layer to understand KRDB's editorial/normalized interpretation of the o-layer numbers. Do not treat it as an independent edition witness or as a direct reading of the original-image glyphs."
+    },
+    "original_image_button": {
+      "locator": "원문이미지 UI control",
+      "role": "SEPARATE_ORIGINAL_IMAGE_ENTRY_POINT",
+      "direct_original_image_glyph_inspection": false,
+      "current_access_status": "BUTTON_VISIBLE_BUT_UNDERLYING_SCAN_NOT_EXPOSED_THROUGH_CURRENT_RETRIEVAL_PATH"
     }
   },
   "reading_layer_comparison_complete_for_current_controls": true,
   "current_classification_summary": {
     "shared_cross_regional_received_or_digital_variant_count": 4,
-    "krdb_o_view_transcription_layer_error_strongly_indicated_count": 1,
+    "krdb_o_text_surface_divergence_pending_image_adjudication_count": 1,
     "philological_same_mechanical_value_bridge_count": 1
   },
   "philological_normalization_controls": [
@@ -231,7 +240,6 @@
       "field": "LUNAR_LIMIT_101_ACCUMULATED_CHIJI_DEGREE",
       "ming_1569_primary_normalized": "5.20481125",
       "krdb_o_surface": "五度二十四八一一二五",
-      "krdb_r_grouped_surface": "5′20″48‴11''''25'''''",
       "wikisource_surface": "五度二十四八一一二五",
       "explicit_place_groups": [
         "5",
@@ -241,9 +249,16 @@
         "25"
       ],
       "classification": "SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE",
-      "philological_disposition": "DO_NOT_TREAT 二十四八... AS A SIMPLE_DECIMAL_DIGIT_STRING; KRDB_R_EXPLICIT_GROUPING_RESOLVES_THE_POSITIONAL_PARSE",
+      "philological_disposition": "DO_NOT_TREAT_COMPACT_HAN_SURFACE_AS_A_SIMPLE_DECIMAL_DIGIT_STRING_OR_AS_A_NUMERIC_VARIANT_WITHOUT_POSITIONAL_ANALYSIS; KRDB_R_SHOWS_KRDBS_OWN_NORMALIZED_INTERPRETATION_BUT_IS_NOT_AN_INDEPENDENT_TEXTUAL_WITNESS",
       "variant_count_effect": 0,
-      "note": "The compact Han-character surface can be parsed by historical place groups as 5 | 20 | 48 | 11 | 25. KRDB r exposes those groups explicitly and agrees with the directly collated Ming 1569 normalized value. This is a normalization bridge, not a numeric variant."
+      "note": "The compact L101 Han surface `五度二十四八一一二五` and the L67 surface with an extra 〇 are editorially rendered by KRDB r as the same positional groups 5|20|48|11|25, matching Ming 1569 normalized 5.20481125. This supports a philological normalization bridge and blocks a premature numeric-variant claim. It does not prove the underlying original-image glyphs or edition-level punctuation/zero practice.",
+      "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
+      "symmetric_control_limit_67": {
+        "krdb_o_surface": "五度二十〇四八一一二五",
+        "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
+        "wikisource_surface": "五度二十〇四八一一二五",
+        "ming_1569_primary_normalized": "5.20481125"
+      }
     }
   ],
   "philological_normalization_control_count": 1

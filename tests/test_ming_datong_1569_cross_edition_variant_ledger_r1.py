@@ -37,7 +37,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["ming_1569_primary"],"1.0281")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"1.0821")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"1.0821")
-        self.assertEqual(v["krdb_r_original_image_entry_reading_layer"],"1.0821")
+        self.assertEqual(v["krdb_r_korean_normalized_rendering"],"1.0821")
         self.assertFalse(v["propagate_to_ming_primary"])
 
     def test_db_specific_limit_114_error_is_distinguished_from_shared_variant(self) -> None:
@@ -45,18 +45,18 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(v["ming_1569_primary"],"9日3489")
         self.assertEqual(v["wikisource_goryeosa_current_transcript"],"9日3489")
         self.assertEqual(v["krdb_goryeosa_current_transcript"],"9日2489")
-        self.assertEqual(v["krdb_r_original_image_entry_reading_layer"],"9日3489")
-        self.assertEqual(v["classification"],"KRDB_O_VIEW_TRANSCRIPTION_LAYER_ERROR_STRONGLY_INDICATED")
+        self.assertEqual(v["krdb_r_korean_normalized_rendering"],"9日3489")
+        self.assertEqual(v["classification"],"KRDB_O_TEXT_SURFACE_DIVERGENCE_R_NORMALIZATION_AND_WIKISOURCE_ALIGN_WITH_MING")
 
     def test_limit_8_and_solar_day16_are_not_silently_normalized(self) -> None:
         l8=self.variants["VAR-NUM-LUNAR-L8-LOSSGAIN"]
         self.assertEqual(l8["ming_1569_primary"],"10.561775")
         self.assertEqual(l8["wikisource_goryeosa_current_transcript"],"10.5601775")
-        self.assertEqual(l8["krdb_r_original_image_entry_reading_layer"],"10.5601775")
+        self.assertEqual(l8["krdb_r_korean_normalized_rendering"],"10.5601775")
         s16=self.variants["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"]
         self.assertEqual(s16["ming_1569_primary"],"5.2362")
         self.assertEqual(s16["krdb_goryeosa_current_transcript"],"5.1362")
-        self.assertEqual(s16["krdb_r_original_image_entry_reading_layer"],"5.1362")
+        self.assertEqual(s16["krdb_r_korean_normalized_rendering"],"5.1362")
         self.assertEqual(s16["wikisource_goryeosa_value"],"5.1362")
         self.assertEqual(s16["classification"],"SHARED_CROSS_REGIONAL_RECEIVED_OR_DIGITAL_VARIANT")
 
@@ -64,7 +64,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         v=self.variants["VAR-NUM-LUNAR-L132-LOSSGAIN"]
         self.assertEqual(v["ming_1569_primary_normalized"],"7.886075")
         self.assertEqual(v["krdb_o_exact_surface"],"七分八八六七五")
-        self.assertEqual(v["krdb_r_exact_grouped_surface"],"7″88‴67''''5'''''")
+        self.assertEqual(v["krdb_r_korean_normalized_surface"],"7″88‴67''''5'''''")
         self.assertEqual(v["wikisource_exact_surface"],"七分八八六七五")
         self.assertEqual(v["symmetric_control_limit_35"]["krdb_o_exact_surface"],"七分八八六〇七五")
         self.assertEqual(v["symmetric_control_limit_35"]["ming_1569_primary_normalized"],"7.886075")
@@ -80,20 +80,26 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(c["ming_1569_primary_normalized"],"5.20481125")
         self.assertEqual(c["krdb_o_surface"],"五度二十四八一一二五")
         self.assertEqual(c["explicit_place_groups"],["5","20","48","11","25"])
+        self.assertEqual(c["krdb_r_korean_normalized_surface"],"5′20″48‴11''''25'''''")
+        self.assertEqual(c["symmetric_control_limit_67"]["krdb_o_surface"],"五度二十〇四八一一二五")
+        self.assertEqual(c["symmetric_control_limit_67"]["ming_1569_primary_normalized"],"5.20481125")
         self.assertEqual(c["classification"],"SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE")
         self.assertEqual(c["variant_count_effect"],0)
         self.assertEqual(self.data["epistemic_firewalls"]["compact_han_numeric_surface_as_simple_decimal_digits"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["philological_normalization_bridge_as_numeric_variant"],"FORBIDDEN")
+        self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["independent_textual_witness"])
+        self.assertFalse(self.data["krdb_evidence_layers"]["r_korean_translation_or_normalized_rendering"]["direct_original_image_glyph_inspection"])
 
     def test_ledger_remains_open_until_image_and_exhaustive_comparison_complete(self) -> None:
         self.assertFalse(self.data["exhaustive_cross_witness_row_comparison_complete"])
         self.assertFalse(self.data["image_level_variant_cause_adjudication_complete"])
         self.assertEqual(self.data["current_variant_count"],5)
         self.assertEqual(self.data["epistemic_firewalls"]["digital_transcript_difference_as_manuscript_variant_without_image"],"FORBIDDEN")
-        self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_reading_layer_as_direct_original_image_glyph"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_normalized_rendering_as_independent_textual_witness"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["krdb_r_normalized_rendering_as_direct_original_image_glyph"],"FORBIDDEN")
         self.assertTrue(self.data["reading_layer_comparison_complete_for_current_controls"])
         self.assertEqual(self.data["current_classification_summary"]["shared_cross_regional_received_or_digital_variant_count"],4)
-        self.assertEqual(self.data["current_classification_summary"]["krdb_o_view_transcription_layer_error_strongly_indicated_count"],1)
+        self.assertEqual(self.data["current_classification_summary"]["krdb_o_text_surface_divergence_pending_image_adjudication_count"],1)
         self.assertEqual(self.data["current_classification_summary"]["philological_same_mechanical_value_bridge_count"],1)
         self.assertEqual(self.data["philological_normalization_control_count"],1)
         self.assertFalse(self.data["runtime_selection_authorized"])
