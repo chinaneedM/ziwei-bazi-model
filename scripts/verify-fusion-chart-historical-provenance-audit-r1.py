@@ -10,6 +10,8 @@ BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "h
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
 BAZI_TEMPORAL_HIDDEN_ORDER_TEST = ROOT / "tests" / "test_bazi_temporal_hidden_stem_order_lineage_r1.py"
+HISTORICAL_CALENDAR_CONTRACT = ROOT / "src" / "fortune_training" / "historical_calendar" / "contract.py"
+HISTORICAL_CALENDAR_CONTRACT_TEST = ROOT / "tests" / "test_historical_calendar_adapter_contract_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -146,7 +148,7 @@ def main() -> int:
         raise SystemExit("historical candidate registry is missing")
     if audit_summary.get("historical_candidate_extension_count", 0) < 4:
         raise SystemExit("historical candidate extension accounting regressed")
-    if audit_summary.get("identified_missing_candidate_family_count", 0) < 12:
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 13:
         raise SystemExit("known historical candidate gaps are missing")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
@@ -155,7 +157,7 @@ def main() -> int:
     if summary.get("row_count")!=len(rows):
         raise SystemExit("inventory row_count mismatch")
     audited_ids=data.get("audited_row_ids",())
-    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 158:
+    if summary.get("audited_row_count")!=len(audited_ids) or len(audited_ids) < 165:
         raise SystemExit("historical audited-row accounting mismatch or regressed below Batch 07A")
     batches=data.get("historical_research_batches",())
     if "BATCH-06-ZIWEI-NATAL-FOUNDATIONS" not in batches:
@@ -186,6 +188,10 @@ def main() -> int:
         raise SystemExit("Batch 10C Bazi historical relation candidate runtime is missing")
     if "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A" not in batches:
         raise SystemExit("Batch 11A Bazi hidden-stem order audit is missing")
+    if "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B" not in batches:
+        raise SystemExit("Batch 11B Bazi Dayun calendar-realization audit is missing")
+    if "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C" not in batches:
+        raise SystemExit("Batch 11C historical-calendar adapter contract is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -303,6 +309,26 @@ def main() -> int:
             raise SystemExit(f"Batch 11A temporal hash-lineage token missing: {token}")
     if "test_order_is_lineage_not_fact_identity" not in temporal_test or "test_membership_change_still_changes_fact_identity" not in temporal_test:
         raise SystemExit("Batch 11A temporal hidden-stem order tests are missing")
+    historical_calendar_source=HISTORICAL_CALENDAR_CONTRACT.read_text(encoding="utf-8")
+    historical_calendar_test=HISTORICAL_CALENDAR_CONTRACT_TEST.read_text(encoding="utf-8")
+    for token in ("HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1","MING-DATONG-CALENDAR-CONTEXT-R1","QING-SHIXIAN-1645-CALENDAR-CONTEXT-R1","MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN","PRESERVED_NOT_SELECTED"):
+        if token not in historical_calendar_source:
+            raise SystemExit(f"Batch 11C historical-calendar contract token missing: {token}")
+    if "test_fail_closed_adapter_never_falls_back_to_modern_calendar" not in historical_calendar_test:
+        raise SystemExit("Batch 11C historical-calendar contract tests are missing")
+    for source_id in ("EXT-CTEXT-MINGSHI-DATONG-CALENDAR","EXT-LOC-XINLI-XIAOHUO-SHIXIAN-1645"):
+        if source_id not in by_source_id:
+            raise SystemExit(f"Batch 11C calendar-regime source missing: {source_id}")
+    for rule_id in ("HPA-DAYUN-CAL-002","HPA-DAYUN-CAL-003","HPA-DAYUN-CAL-004"):
+        row=by_rule_id[rule_id]
+        if row["audit_status"]!="MISSING_FROM_PRODUCT":
+            raise SystemExit(f"historical Dayun calendar candidate was prematurely productized: {rule_id}")
+        if row.get("adapter_contract_id")!="HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1":
+            raise SystemExit(f"historical Dayun calendar row lost adapter contract binding: {rule_id}")
+    if "MING_DATONG" not in by_rule_id["HPA-DAYUN-CAL-002"].get("calendar_regime_context",""):
+        raise SystemExit("Ming Dayun calendarization lost Datong context research binding")
+    if "MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN" not in by_rule_id["HPA-DAYUN-CAL-002"]["current_implementation_match"]:
+        raise SystemExit("historical Dayun calendarization no longer forbids modern calendar fallback")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
