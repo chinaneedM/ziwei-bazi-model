@@ -121,6 +121,16 @@ class MingDatong1569FixedPointPrecisionAuditR1Tests(unittest.TestCase):
                 self.assertEqual(Decimal(r["loss_gain_source_fen"]),Decimal(pr["loss_gain_source_fen"])); loss+=1
         self.assertEqual((acc,loss),(167,168))
 
+    def test_later_mei_wending_exegesis_explains_but_does_not_override_primary_precision(self) -> None:
+        controls={x["control_id"]:x for x in self.audit["later_explanatory_precision_controls"]}
+        c=controls["MEI-WENDING-DATONG-LIZHI-V4-LINE-SPEED-PRECISION"]
+        self.assertEqual(c["source_id"],"EXT-WIKISOURCE-DATONG-LIZHI-V4")
+        self.assertEqual(c["authority_role"],"LATER_EXPLANATORY_WITNESS_NOT_1569_PRIMARY_AUTHORITY")
+        self.assertIn("秒以下有零數不拘多少俱收為秒",c["received_wording"])
+        self.assertIn("布立成法：秒以下數不用",c["received_wording"])
+        self.assertFalse(c["use_to_override_primary"])
+        self.assertFalse(c["runtime_authority"])
+
     def test_dynamic_controls_remain_scoped(self) -> None:
         c={x["control_id"]:x for x in self.audit["dynamic_worked_precision_controls"]}
         self.assertEqual(c["DATONG-1596-V49-LOCAL-TRUNCATION"]["printed_add_correction_source_units"],"1526.64")

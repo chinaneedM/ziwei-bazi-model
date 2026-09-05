@@ -39,3 +39,10 @@ Still open:
 - ten-year Dayun recurrence.
 
 The historical-calendar adapter remains fail-closed; no chart algorithm is reopened and no candidate is collapsed.
+
+
+## Later explanatory alignment
+
+A later explanatory witness strengthens the philological interpretation without changing the authority order. Mei Wending's Qing `《大統曆志》卷四` describes one lunar line-speed construction as `數止秒` and notes that any residue below seconds is collected upward into a second; in the alternate `布立成法` discussion it instead says values below seconds are discarded, while also preserving separate 83/84 transition treatment.
+
+This aligns with the primary numeric result that different table stages use different fixed-point operators. It is not used to derive the 1569 values, overwrite the Zhou Xiang primary, or authorize runtime arithmetic. The directly collated 1569 ledger remains the decisive numeric evidence.

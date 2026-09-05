@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.0.1",
   "status": "PRIMARY_1569_TABLE_GENERATION_PRECISION_MAP_CLOSED_DYNAMIC_INTERPOLATION_GENERALIZATION_OPEN",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -8,7 +8,8 @@
   "source_ids": [
     "EXT-KOTENMON-DAMING-DATONG-1569",
     "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
-    "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION"
+    "EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION",
+    "EXT-WIKISOURCE-DATONG-LIZHI-V4"
   ],
   "evidence_layers": {
     "primary_table_layer": "1569 direct row-by-row primary collation ledgers",
@@ -154,7 +155,8 @@
     "table_generation_precision_map": "CLOSED_FOR_1569_PRIMARY_TABLES",
     "dynamic_interpolation_and_d1_conjunction_precision": "OPEN_BEYOND_THE_1596_DATONG_WORKED_EXAMPLE",
     "carry_semantics": "SOURCE_DAY_CARRY_REPLAYED_IN_WORKED_AND_1578_CASES_BUT_NOT_YET_GENERALIZED_AS_A_COMPLETE_RUNTIME_POLICY",
-    "runtime_effect": "NONE"
+    "runtime_effect": "NONE",
+    "later_exegesis_alignment": "MEI_WENDING_V4_EXPLAINS_STAGE_SCOPED_COLLECT_UP_VS_DISCARD_SEMANTICS_WITHOUT_SUPERSEDING_1569_PRIMARY_NUMERIC_EVIDENCE"
   },
   "epistemic_firewalls": {
     "table_precision_map_as_single_global_rounding_function": "FORBIDDEN",
@@ -171,5 +173,22 @@
     "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
     "MULTI_YEAR_LEAP_MONTH_GENERALIZATION",
     "TEN_YEAR_DAYUN_RECURRENCE_UNDER_SAME_HISTORICAL_REGIME"
+  ],
+  "later_explanatory_precision_controls": [
+    {
+      "control_id": "MEI-WENDING-DATONG-LIZHI-V4-LINE-SPEED-PRECISION",
+      "source_id": "EXT-WIKISOURCE-DATONG-LIZHI-V4",
+      "historical_period": "QING",
+      "authority_role": "LATER_EXPLANATORY_WITNESS_NOT_1569_PRIMARY_AUTHORITY",
+      "received_wording": [
+        "數止秒",
+        "秒以下有零數不拘多少俱收為秒",
+        "布立成法：秒以下數不用"
+      ],
+      "primary_numeric_relation": "1569 primary generic line-speed cells independently require ceiling 334/334 with two central overrides; reciprocal shortcut cells independently require truncation 336/336",
+      "interpretation": "Later exegesis explicitly distinguishes collect-up versus discard-below-unit operations across construction paths, supporting stage-scoped precision semantics rather than a global rounding helper.",
+      "use_to_override_primary": false,
+      "runtime_authority": false
+    }
   ]
 }
