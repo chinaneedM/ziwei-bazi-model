@@ -110,6 +110,54 @@
       "source-faithful D1 replay from 1569 tables including interpolation/carry semantics",
       "explicit primary text defining the qishuo geographic/meridian reference",
       "comparison against modern conjunction times only as a diagnostic layer"
-    ]
-  }
+    ],
+    "reform_memorial_as_qishuo_meridian_proof": "FORBIDDEN",
+    "nanjing_sunrise_parameter_as_qishuo_meridian_proof": "FORBIDDEN",
+    "hongzhi_10_almanac_issuance_without_physical_copy": "ISSUANCE_ONLY_NOT_VALUE_CERTIFICATION"
+  },
+  "historical_operational_context": [
+    {
+      "context_id": "MING-1496-ISSUE-HONGZHI-10-ALMANAC",
+      "date": "弘治九年十一月甲辰朔",
+      "source": "《明孝宗敬皇帝實錄》卷一百十九",
+      "record": "欽天監進弘治十年大統曆；上御奉天殿受之，給賜文武群臣，頒行天下",
+      "implication": "TARGET_HONGZHI_10_DATONG_ALMANAC_WAS_OFFICIALLY_ISSUED_AND_DISTRIBUTED",
+      "physical_copy_located": false,
+      "inference_scope": "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION"
+    },
+    {
+      "context_id": "MING-1497-ZHUSHENG-REFORM-MEMORIAL",
+      "date": "弘治十年十二月丁亥",
+      "source": "《明孝宗敬皇帝實錄》卷一百三十二",
+      "official": "南京欽天監主簿諸升",
+      "observed_problem": "曆法有差月食不驗",
+      "requested_action": "選通曉天文曆理之人改定曆法",
+      "ministry_response_mentions": [
+        "推步測候",
+        "頒朔授時",
+        "歲差"
+      ],
+      "emperor_disposition": "曆法事重不必輕易更改",
+      "inference_scope": "CONTEMPORARY_REFORM_AND_ECLIPSE_FAILURE_CONTEXT_NOT_DIRECT_QISHUO_MERIDIAN_EVIDENCE",
+      "do_not_attribute_1497_m10_mismatch_to_memorial_without_direct_link": true
+    },
+    {
+      "context_id": "MING-1521-ZHUYU-MIXED-GEOGRAPHY-MEMORIAL",
+      "date": "正德十六年六月壬辰",
+      "source": "《明世宗肅皇帝實錄》卷三",
+      "official": "欽天監漏刻博士朱裕",
+      "direct_claims": [
+        "雖以大統為名實授時之曆",
+        "曆歲既久積數漸差",
+        "推算連年日月交食分杪已有不合時刻遂至爽忒",
+        "推算曆數用南京日出分杪似相矛盾",
+        "將內外晷影新舊曆書錯綜參驗",
+        "庶幾合朔得真交食不謬"
+      ],
+      "implication": "MING_OFFICIAL_RECOGNIZED_INHERITED_SYSTEM_AND_LOCATION_PARAMETER_INCONSISTENCY",
+      "nanjing_sunrise_parameter_use_supported": true,
+      "qishuo_meridian_explicitly_defined": false,
+      "inference_scope": "STRONG_SUPPORT_FOR_MODULE_SPECIFIC_MIXED_GEOGRAPHY_NOT_QISHUO_MERIDIAN_CLOSURE"
+    }
+  ]
 }

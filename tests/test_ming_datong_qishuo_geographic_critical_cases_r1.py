@@ -13,6 +13,7 @@ class MingDatongQishuoGeographicCriticalCasesR1Test(unittest.TestCase):
     def setUpClass(cls):
         cls.data = json.loads(FIXTURE.read_text(encoding="utf-8"))
         cls.cases = {item["case_id"]: item for item in cls.data["cases"]}
+        cls.contexts = {item["context_id"]: item for item in cls.data["historical_operational_context"]}
 
     def test_research_only_firewall(self):
         self.assertEqual(self.data["status"], "RESEARCH_ONLY_DIAGNOSTIC_NOT_RUNTIME")
@@ -78,6 +79,39 @@ class MingDatongQishuoGeographicCriticalCasesR1Test(unittest.TestCase):
         self.assertEqual(self.cases["MING-1497-M10"]["ming_shilu_ganzhi"], "己巳")
         self.assertEqual(self.cases["MING-1581-M10"]["ming_shilu_ganzhi"], "辛卯")
         self.assertEqual(self.data["adjudication"]["geographic_conclusion"], "UNRESOLVED")
+
+
+    def test_hongzhi_10_target_calendar_was_issued_but_not_physically_certified(self):
+        ctx = self.contexts["MING-1496-ISSUE-HONGZHI-10-ALMANAC"]
+        self.assertIn("弘治十年大統曆", ctx["record"])
+        self.assertFalse(ctx["physical_copy_located"])
+        self.assertEqual(
+            ctx["inference_scope"],
+            "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION",
+        )
+
+    def test_1497_reform_memorial_does_not_explain_qishuo_mismatch_by_itself(self):
+        ctx = self.contexts["MING-1497-ZHUSHENG-REFORM-MEMORIAL"]
+        self.assertEqual(ctx["observed_problem"], "曆法有差月食不驗")
+        self.assertIn("歲差", ctx["ministry_response_mentions"])
+        self.assertTrue(
+            ctx["do_not_attribute_1497_m10_mismatch_to_memorial_without_direct_link"]
+        )
+        self.assertEqual(
+            self.data["adjudication"]["reform_memorial_as_qishuo_meridian_proof"],
+            "FORBIDDEN",
+        )
+
+    def test_1521_mixed_geography_evidence_preserves_qishuo_firewall(self):
+        ctx = self.contexts["MING-1521-ZHUYU-MIXED-GEOGRAPHY-MEMORIAL"]
+        self.assertIn("雖以大統為名實授時之曆", ctx["direct_claims"])
+        self.assertIn("推算曆數用南京日出分杪似相矛盾", ctx["direct_claims"])
+        self.assertTrue(ctx["nanjing_sunrise_parameter_use_supported"])
+        self.assertFalse(ctx["qishuo_meridian_explicitly_defined"])
+        self.assertEqual(
+            self.data["adjudication"]["nanjing_sunrise_parameter_as_qishuo_meridian_proof"],
+            "FORBIDDEN",
+        )
 
 
 if __name__ == "__main__":

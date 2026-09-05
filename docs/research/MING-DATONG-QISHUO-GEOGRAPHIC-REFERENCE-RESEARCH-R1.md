@@ -206,3 +206,84 @@ Its regression test deliberately preserves the unresolved geographic conclusion.
 - Yuk Tung Liu, “明朝的定朔計算及曆表朔日訂正”, modern computational/source-collation research.
 
 Research principle: modern reconstruction may test and discriminate historical hypotheses, but it does not become primary historical authority by numerical fit alone. Reign records are closer to official historical production than modern tables, but a surviving same-year Qintianjian almanac remains the stronger oracle for the calendar actually promulgated.
+
+
+## 8. The exact 1497 target calendar was officially issued
+
+`《明孝宗敬皇帝實錄》卷一百十九` records that on `弘治九年十一月甲辰朔` the Qintianjian presented the **弘治十年大統曆**. The emperor received it in the Fengtian Hall, distributed it to civil and military officials, and promulgated it throughout the realm.
+
+This matters because the 1497 month-10 critical case is not an abstract reconstructed calendar year: a specific official Hongzhi-10 Datong almanac was produced and promulgated in late 1496.
+
+The current research gap is therefore precise:
+
+```text
+HONGZHI_10_DATONG_ALMANAC_OFFICIALLY_ISSUED = TRUE
+HONGZHI_10_DATONG_ALMANAC_PHYSICAL_COPY_LOCATED = FALSE
+```
+
+A surviving copy or page-level facsimile remains the decisive target.
+
+## 9. Contemporary 1497 reform dispute: Zhu Sheng
+
+The same reign year supplies an independent operational warning. `《明孝宗敬皇帝實錄》卷一百三十二` records on `弘治十年十二月丁亥` that **南京欽天監主簿諸升** complained:
+
+```text
+曆法有差，月食不驗
+```
+
+and requested a supervised reform by people skilled in astronomy and calendrical principles.
+
+The Ministry of Rites defended the founding Datong system, explicitly invoking `推步測候`, `頒朔授時`, and the gravity of changing `歲差`. The emperor declined to change the calendar lightly.
+
+This is strong evidence that a calendar-performance/reform dispute existed **in 1497 itself**, and that eclipse prediction was one observed point of failure.
+
+It is **not** evidence that:
+
+- the 1497 month-10 Shilu/D1 discrepancy was caused by the same defect;
+- the qishuo meridian was Nanjing;
+- a longitude shift explains the discrepancy.
+
+The repository therefore preserves:
+
+```text
+ZHU_SHENG_1497_REFORM_CONTEXT = RELEVANT_OPERATIONAL_CONTEXT
+ATTRIBUTE_1497_M10_QISHUO_MISMATCH_TO_ZHU_SHENG_MEMORIAL = FORBIDDEN_WITHOUT_DIRECT_LINK
+```
+
+## 10. 1521 Zhu Yu memorial: explicit mixed-location problem inside Datong practice
+
+An even more diagnostic official statement appears in `《明世宗肅皇帝實錄》卷三`, dated `正德十六年六月壬辰`.
+
+Qintianjian clepsydra doctor **朱裕** states, among other things:
+
+- `雖以大統為名，實授時之曆`;
+- accumulated calendrical values had gradually diverged and eclipse timing was no longer consistently matching;
+- the Beijing observatory's instruments were difficult to use accurately;
+- `推算曆數，用南京日出分杪，似相矛盾`;
+- he proposed distributed gnomon observations and collation of internal/external shadow measurements with old/new almanacs;
+- the stated goal was `庶幾合朔得真，交食不謬`.
+
+This is the strongest source found so far for the **module-specific mixed-geography / inherited-system problem**. A Ming calendrical official explicitly recognized that inherited Datong/Shoushi practice and Nanjing location parameters could sit awkwardly inside the Beijing operational environment.
+
+But the wording still identifies **南京日出分杪**, not the geographic reference of `定朔小餘` itself. Therefore:
+
+```text
+MING_DATONG_USED_NANJING_SUNRISE_PARAMETERS_IN_THE_CRITICIZED_WORKFLOW = SUPPORTED
+MING_OFFICIAL_RECOGNIZED_LOCATION_PARAMETER_INCONSISTENCY = SUPPORTED
+MING_QISHUO_MERIDIAN_DEFINED_BY_THIS_MEMORIAL = NO
+INFER_QISHUO_MERIDIAN_FROM_NANJING_SUNRISE_PARAMETERS = FORBIDDEN
+```
+
+This substantially strengthens H3 (module-specific mixed geography), but does not close H1/H2/H3.
+
+## 11. Updated evidential priority
+
+The next highest-value evidence is now:
+
+1. a physical/page-level **弘治十年大統曆**;
+2. a physical/page-level **弘治八年大統曆**, because its 1495 conflict is far from the day boundary and cannot be repaired by a Beijing–Nanjing longitude shift;
+3. direct primary wording connecting qishuo small remainder to a named place/meridian;
+4. full source-faithful 1569 D1 replay with table interpolation and carry semantics;
+5. comparison with eclipse/new-moon observations as a diagnostic layer only.
+
+The 1497 and 1521 memorials demonstrate why a single-cause longitude model is historically unsafe: Ming officials themselves discussed accumulated error, eclipse mismatch, inherited Shoushi rules, instruments, and Nanjing location parameters as distinct interacting problems.
