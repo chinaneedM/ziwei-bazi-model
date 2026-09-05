@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import html
 import json
 import re
@@ -158,15 +159,15 @@ def main() -> int:
     img_paths = re.findall(r'"(kr/052/kr_052_\d+\.jpg)"', viewer)
     thumb_dir = out / "viewer-thumbs"
     thumb_dir.mkdir(parents=True, exist_ok=True)
-    thumb_capture = []
-    for page_no, rel_path in enumerate(img_paths, start=1):
+    def capture_thumb(item: tuple[int, str]) -> dict[str, object]:
+        page_no, rel_path = item
         url = "https://db.history.go.kr/common/imageProxy.do?" + urllib.parse.urlencode({
             "mode": "thumb",
             "filePath": "/" + rel_path,
         })
         rec: dict[str, object] = {"page_no": page_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
         try:
-            body, img_headers = fetch_bytes(url, attempts=3, timeout=30)
+            body, img_headers = fetch_bytes(url, attempts=2, timeout=10)
             suffix = Path(rel_path).name
             (thumb_dir / suffix).write_bytes(body)
             rec.update({
@@ -176,7 +177,10 @@ def main() -> int:
             })
         except Exception as exc:
             rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
-        thumb_capture.append(rec)
+        return rec
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        thumb_capture = list(pool.map(capture_thumb, enumerate(img_paths, start=1)))
     (out / "viewer-page-map.json").write_text(json.dumps({
         "schema": "KRDB-GORYEOSA-VIEWER-PAGE-MAP-R1",
         "viewer": VIEWER,
