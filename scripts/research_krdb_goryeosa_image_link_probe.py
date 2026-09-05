@@ -17,9 +17,9 @@ KNOWN_VIEWER_CAPTURE_HEAD = "8ef0565fc215a266ca3c7c1138ed592dad869a4c"
 KNOWN_VIEWER_CAPTURE_ARTIFACT_ID = 9970511498
 KNOWN_VIEWER_IMAGE_START = 1034
 KNOWN_VIEWER_IMAGE_END = 1134
-# Full-resolution viewer set. These images stay in the transient Actions artifact and are
-# inspected manually without OCR; no glyph conclusion is produced by the fetch itself.
-FULL_IMAGE_TARGETS = tuple(range(KNOWN_VIEWER_IMAGE_START, KNOWN_VIEWER_IMAGE_END + 1))
+# Full-resolution control pages already localized by the CADAL↔KRDB page-order bridge.
+# The bridge only selects pages; glyph conclusions still require direct inspection of these pixels.
+FULL_IMAGE_TARGETS = (1036, 1078, 1087, 1098, 1109, 1114, 1117, 1120)
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
@@ -236,7 +236,7 @@ def main() -> int:
         })
         rec: dict[str, object] = {"image_no": image_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
         try:
-            body, img_headers = fetch_bytes(url, attempts=3, timeout=25)
+            body, img_headers = fetch_bytes(url, attempts=2, timeout=15)
             (full_dir / Path(rel_path).name).write_bytes(body)
             is_placeholder = b"NO IMAGE AVAILABLE" in body
             rec.update({
