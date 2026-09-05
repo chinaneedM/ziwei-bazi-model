@@ -27,8 +27,8 @@
   "normalization_note": "Decimal strings are normalized machine representations of source fixed-place numerals. They are not modern decimal-day notation.",
   "source_vs_reconstruction_policy": "A formula-derived value remains PENDING until directly read from the primary page. Only explicit DIRECT_PRIMARY_MATCH rows count as glyph-collated.",
   "total_rows": 185,
-  "directly_collated_rows": 66,
-  "pending_rows": 119,
+  "directly_collated_rows": 110,
+  "pending_rows": 75,
   "variant_rows": 0,
   "glyph_ambiguous_rows": 0,
   "full_row_by_row_primary_collation_complete": false,
@@ -70,11 +70,12 @@
     {
       "pdf_page_index_zero_based": 15,
       "row_count": 22,
-      "direct_primary_match_count": 0,
-      "pending_direct_glyph_collation_count": 22,
+      "direct_primary_match_count": 22,
+      "pending_direct_glyph_collation_count": 0,
       "variant_count": 0,
       "glyph_ambiguous_count": 0,
-      "page_image_reviewed": true
+      "page_image_reviewed": true,
+      "page_collation_status": "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE"
     },
     {
       "pdf_page_index_zero_based": 16,
@@ -117,11 +118,12 @@
     {
       "pdf_page_index_zero_based": 20,
       "row_count": 22,
-      "direct_primary_match_count": 0,
-      "pending_direct_glyph_collation_count": 22,
+      "direct_primary_match_count": 22,
+      "pending_direct_glyph_collation_count": 0,
       "variant_count": 0,
       "glyph_ambiguous_count": 0,
-      "page_image_reviewed": true
+      "page_image_reviewed": true,
+      "page_collation_status": "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE"
     },
     {
       "pdf_page_index_zero_based": 21,
@@ -901,11 +903,22 @@
       "expected_message_source_table_units": "5.4966",
       "expected_add_source_table_units": "354.6079",
       "expected_accumulated_source_table_units": "13101.9000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.4966",
+        "message_blank": false,
+        "add_source_table_units": "354.6079",
+        "add_blank": false,
+        "accumulated_source_table_units": "13101.9000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -915,11 +928,22 @@
       "expected_message_source_table_units": "5.5152",
       "expected_add_source_table_units": "349.1113",
       "expected_accumulated_source_table_units": "13456.5079",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.5152",
+        "message_blank": false,
+        "add_source_table_units": "349.1113",
+        "add_blank": false,
+        "accumulated_source_table_units": "13456.5079",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -929,11 +953,22 @@
       "expected_message_source_table_units": "5.5338",
       "expected_add_source_table_units": "343.5961",
       "expected_accumulated_source_table_units": "13805.6192",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.5338",
+        "message_blank": false,
+        "add_source_table_units": "343.5961",
+        "add_blank": false,
+        "accumulated_source_table_units": "13805.6192",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -943,11 +978,22 @@
       "expected_message_source_table_units": "5.5524",
       "expected_add_source_table_units": "338.0623",
       "expected_accumulated_source_table_units": "14149.2153",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.5524",
+        "message_blank": false,
+        "add_source_table_units": "338.0623",
+        "add_blank": false,
+        "accumulated_source_table_units": "14149.2153",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -957,11 +1003,22 @@
       "expected_message_source_table_units": "5.5710",
       "expected_add_source_table_units": "332.5099",
       "expected_accumulated_source_table_units": "14487.2776",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.5710",
+        "message_blank": false,
+        "add_source_table_units": "332.5099",
+        "add_blank": false,
+        "accumulated_source_table_units": "14487.2776",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -971,11 +1028,22 @@
       "expected_message_source_table_units": "5.5896",
       "expected_add_source_table_units": "326.9389",
       "expected_accumulated_source_table_units": "14819.7875",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.5896",
+        "message_blank": false,
+        "add_source_table_units": "326.9389",
+        "add_blank": false,
+        "accumulated_source_table_units": "14819.7875",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -985,11 +1053,22 @@
       "expected_message_source_table_units": "5.6082",
       "expected_add_source_table_units": "321.3493",
       "expected_accumulated_source_table_units": "15146.7264",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.6082",
+        "message_blank": false,
+        "add_source_table_units": "321.3493",
+        "add_blank": false,
+        "accumulated_source_table_units": "15146.7264",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -999,11 +1078,22 @@
       "expected_message_source_table_units": "5.6268",
       "expected_add_source_table_units": "315.7411",
       "expected_accumulated_source_table_units": "15468.0757",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.6268",
+        "message_blank": false,
+        "add_source_table_units": "315.7411",
+        "add_blank": false,
+        "accumulated_source_table_units": "15468.0757",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1013,11 +1103,22 @@
       "expected_message_source_table_units": "5.6454",
       "expected_add_source_table_units": "310.1143",
       "expected_accumulated_source_table_units": "15783.8168",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.6454",
+        "message_blank": false,
+        "add_source_table_units": "310.1143",
+        "add_blank": false,
+        "accumulated_source_table_units": "15783.8168",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1027,11 +1128,22 @@
       "expected_message_source_table_units": "5.6640",
       "expected_add_source_table_units": "304.4689",
       "expected_accumulated_source_table_units": "16093.9311",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.6640",
+        "message_blank": false,
+        "add_source_table_units": "304.4689",
+        "add_blank": false,
+        "accumulated_source_table_units": "16093.9311",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1041,11 +1153,22 @@
       "expected_message_source_table_units": "5.6826",
       "expected_add_source_table_units": "298.8049",
       "expected_accumulated_source_table_units": "16398.4000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.6826",
+        "message_blank": false,
+        "add_source_table_units": "298.8049",
+        "add_blank": false,
+        "accumulated_source_table_units": "16398.4000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1055,11 +1178,22 @@
       "expected_message_source_table_units": "5.7012",
       "expected_add_source_table_units": "293.1223",
       "expected_accumulated_source_table_units": "16697.2049",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7012",
+        "message_blank": false,
+        "add_source_table_units": "293.1223",
+        "add_blank": false,
+        "accumulated_source_table_units": "16697.2049",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1069,11 +1203,22 @@
       "expected_message_source_table_units": "5.7198",
       "expected_add_source_table_units": "287.4211",
       "expected_accumulated_source_table_units": "16990.3272",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7198",
+        "message_blank": false,
+        "add_source_table_units": "287.4211",
+        "add_blank": false,
+        "accumulated_source_table_units": "16990.3272",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1083,11 +1228,22 @@
       "expected_message_source_table_units": "5.7384",
       "expected_add_source_table_units": "281.7013",
       "expected_accumulated_source_table_units": "17277.7483",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7384",
+        "message_blank": false,
+        "add_source_table_units": "281.7013",
+        "add_blank": false,
+        "accumulated_source_table_units": "17277.7483",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1097,11 +1253,22 @@
       "expected_message_source_table_units": "5.7570",
       "expected_add_source_table_units": "275.9629",
       "expected_accumulated_source_table_units": "17559.4496",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7570",
+        "message_blank": false,
+        "add_source_table_units": "275.9629",
+        "add_blank": false,
+        "accumulated_source_table_units": "17559.4496",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1111,11 +1278,22 @@
       "expected_message_source_table_units": "5.7756",
       "expected_add_source_table_units": "270.2059",
       "expected_accumulated_source_table_units": "17835.4125",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7756",
+        "message_blank": false,
+        "add_source_table_units": "270.2059",
+        "add_blank": false,
+        "accumulated_source_table_units": "17835.4125",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1125,11 +1303,22 @@
       "expected_message_source_table_units": "5.7942",
       "expected_add_source_table_units": "264.4303",
       "expected_accumulated_source_table_units": "18105.6184",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.7942",
+        "message_blank": false,
+        "add_source_table_units": "264.4303",
+        "add_blank": false,
+        "accumulated_source_table_units": "18105.6184",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1139,11 +1328,22 @@
       "expected_message_source_table_units": "5.8128",
       "expected_add_source_table_units": "258.6361",
       "expected_accumulated_source_table_units": "18370.0487",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.8128",
+        "message_blank": false,
+        "add_source_table_units": "258.6361",
+        "add_blank": false,
+        "accumulated_source_table_units": "18370.0487",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1153,11 +1353,22 @@
       "expected_message_source_table_units": "5.8314",
       "expected_add_source_table_units": "252.8233",
       "expected_accumulated_source_table_units": "18628.6848",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.8314",
+        "message_blank": false,
+        "add_source_table_units": "252.8233",
+        "add_blank": false,
+        "accumulated_source_table_units": "18628.6848",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1167,11 +1378,22 @@
       "expected_message_source_table_units": "5.8500",
       "expected_add_source_table_units": "246.9919",
       "expected_accumulated_source_table_units": "18881.5081",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.8500",
+        "message_blank": false,
+        "add_source_table_units": "246.9919",
+        "add_blank": false,
+        "accumulated_source_table_units": "18881.5081",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1181,11 +1403,22 @@
       "expected_message_source_table_units": "5.8686",
       "expected_add_source_table_units": "241.1419",
       "expected_accumulated_source_table_units": "19128.5000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.8686",
+        "message_blank": false,
+        "add_source_table_units": "241.1419",
+        "add_blank": false,
+        "accumulated_source_table_units": "19128.5000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -1195,11 +1428,22 @@
       "expected_message_source_table_units": "5.8872",
       "expected_add_source_table_units": "235.2733",
       "expected_accumulated_source_table_units": "19369.6419",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.8872",
+        "message_blank": false,
+        "add_source_table_units": "235.2733",
+        "add_blank": false,
+        "accumulated_source_table_units": "19369.6419",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "YING_INITIAL_SUO_TERMINAL",
@@ -2524,11 +2768,22 @@
       "expected_message_source_table_units": "4.9222",
       "expected_add_source_table_units": "344.7143",
       "expected_accumulated_source_table_units": "12549.9000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "4.9222",
+        "message_blank": false,
+        "add_source_table_units": "344.7143",
+        "add_blank": false,
+        "accumulated_source_table_units": "12549.9000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2538,11 +2793,22 @@
       "expected_message_source_table_units": "4.9384",
       "expected_add_source_table_units": "339.7921",
       "expected_accumulated_source_table_units": "12894.6143",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "4.9384",
+        "message_blank": false,
+        "add_source_table_units": "339.7921",
+        "add_blank": false,
+        "accumulated_source_table_units": "12894.6143",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2552,11 +2818,22 @@
       "expected_message_source_table_units": "4.9546",
       "expected_add_source_table_units": "334.8537",
       "expected_accumulated_source_table_units": "13234.4064",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "4.9546",
+        "message_blank": false,
+        "add_source_table_units": "334.8537",
+        "add_blank": false,
+        "accumulated_source_table_units": "13234.4064",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2566,11 +2843,22 @@
       "expected_message_source_table_units": "4.9708",
       "expected_add_source_table_units": "329.8991",
       "expected_accumulated_source_table_units": "13569.2601",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "4.9708",
+        "message_blank": false,
+        "add_source_table_units": "329.8991",
+        "add_blank": false,
+        "accumulated_source_table_units": "13569.2601",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2580,11 +2868,22 @@
       "expected_message_source_table_units": "4.9870",
       "expected_add_source_table_units": "324.9283",
       "expected_accumulated_source_table_units": "13899.1592",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "4.9870",
+        "message_blank": false,
+        "add_source_table_units": "324.9283",
+        "add_blank": false,
+        "accumulated_source_table_units": "13899.1592",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2594,11 +2893,22 @@
       "expected_message_source_table_units": "5.0032",
       "expected_add_source_table_units": "319.9413",
       "expected_accumulated_source_table_units": "14224.0875",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0032",
+        "message_blank": false,
+        "add_source_table_units": "319.9413",
+        "add_blank": false,
+        "accumulated_source_table_units": "14224.0875",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2608,11 +2918,22 @@
       "expected_message_source_table_units": "5.0194",
       "expected_add_source_table_units": "314.9381",
       "expected_accumulated_source_table_units": "14544.0288",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0194",
+        "message_blank": false,
+        "add_source_table_units": "314.9381",
+        "add_blank": false,
+        "accumulated_source_table_units": "14544.0288",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2622,11 +2943,22 @@
       "expected_message_source_table_units": "5.0356",
       "expected_add_source_table_units": "309.9187",
       "expected_accumulated_source_table_units": "14858.9669",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0356",
+        "message_blank": false,
+        "add_source_table_units": "309.9187",
+        "add_blank": false,
+        "accumulated_source_table_units": "14858.9669",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2636,11 +2968,22 @@
       "expected_message_source_table_units": "5.0518",
       "expected_add_source_table_units": "304.8831",
       "expected_accumulated_source_table_units": "15168.8856",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0518",
+        "message_blank": false,
+        "add_source_table_units": "304.8831",
+        "add_blank": false,
+        "accumulated_source_table_units": "15168.8856",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2650,11 +2993,22 @@
       "expected_message_source_table_units": "5.0680",
       "expected_add_source_table_units": "299.8313",
       "expected_accumulated_source_table_units": "15473.7687",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0680",
+        "message_blank": false,
+        "add_source_table_units": "299.8313",
+        "add_blank": false,
+        "accumulated_source_table_units": "15473.7687",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2664,11 +3018,22 @@
       "expected_message_source_table_units": "5.0842",
       "expected_add_source_table_units": "294.7633",
       "expected_accumulated_source_table_units": "15773.6000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.0842",
+        "message_blank": false,
+        "add_source_table_units": "294.7633",
+        "add_blank": false,
+        "accumulated_source_table_units": "15773.6000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2678,11 +3043,22 @@
       "expected_message_source_table_units": "5.1004",
       "expected_add_source_table_units": "289.6791",
       "expected_accumulated_source_table_units": "16068.3633",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1004",
+        "message_blank": false,
+        "add_source_table_units": "289.6791",
+        "add_blank": false,
+        "accumulated_source_table_units": "16068.3633",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2692,11 +3068,22 @@
       "expected_message_source_table_units": "5.1166",
       "expected_add_source_table_units": "284.5787",
       "expected_accumulated_source_table_units": "16358.0424",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1166",
+        "message_blank": false,
+        "add_source_table_units": "284.5787",
+        "add_blank": false,
+        "accumulated_source_table_units": "16358.0424",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2706,11 +3093,22 @@
       "expected_message_source_table_units": "5.1328",
       "expected_add_source_table_units": "279.4621",
       "expected_accumulated_source_table_units": "16642.6211",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1328",
+        "message_blank": false,
+        "add_source_table_units": "279.4621",
+        "add_blank": false,
+        "accumulated_source_table_units": "16642.6211",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2720,11 +3118,22 @@
       "expected_message_source_table_units": "5.1490",
       "expected_add_source_table_units": "274.3293",
       "expected_accumulated_source_table_units": "16922.0832",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1490",
+        "message_blank": false,
+        "add_source_table_units": "274.3293",
+        "add_blank": false,
+        "accumulated_source_table_units": "16922.0832",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2734,11 +3143,22 @@
       "expected_message_source_table_units": "5.1652",
       "expected_add_source_table_units": "269.1803",
       "expected_accumulated_source_table_units": "17196.4125",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1652",
+        "message_blank": false,
+        "add_source_table_units": "269.1803",
+        "add_blank": false,
+        "accumulated_source_table_units": "17196.4125",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2748,11 +3168,22 @@
       "expected_message_source_table_units": "5.1814",
       "expected_add_source_table_units": "264.0151",
       "expected_accumulated_source_table_units": "17465.5928",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1814",
+        "message_blank": false,
+        "add_source_table_units": "264.0151",
+        "add_blank": false,
+        "accumulated_source_table_units": "17465.5928",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2762,11 +3193,22 @@
       "expected_message_source_table_units": "5.1976",
       "expected_add_source_table_units": "258.8337",
       "expected_accumulated_source_table_units": "17729.6079",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.1976",
+        "message_blank": false,
+        "add_source_table_units": "258.8337",
+        "add_blank": false,
+        "accumulated_source_table_units": "17729.6079",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2776,11 +3218,22 @@
       "expected_message_source_table_units": "5.2138",
       "expected_add_source_table_units": "253.6361",
       "expected_accumulated_source_table_units": "17988.4416",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.2138",
+        "message_blank": false,
+        "add_source_table_units": "253.6361",
+        "add_blank": false,
+        "accumulated_source_table_units": "17988.4416",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2790,11 +3243,22 @@
       "expected_message_source_table_units": "5.2300",
       "expected_add_source_table_units": "248.4223",
       "expected_accumulated_source_table_units": "18242.0777",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.2300",
+        "message_blank": false,
+        "add_source_table_units": "248.4223",
+        "add_blank": false,
+        "accumulated_source_table_units": "18242.0777",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2804,11 +3268,22 @@
       "expected_message_source_table_units": "5.2462",
       "expected_add_source_table_units": "243.1923",
       "expected_accumulated_source_table_units": "18490.5000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.2462",
+        "message_blank": false,
+        "add_source_table_units": "243.1923",
+        "add_blank": false,
+        "accumulated_source_table_units": "18490.5000",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
@@ -2818,11 +3293,22 @@
       "expected_message_source_table_units": "5.2624",
       "expected_add_source_table_units": "237.9461",
       "expected_accumulated_source_table_units": "18733.6923",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "message",
+        "add",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "message_source_table_units": "5.2624",
+        "message_blank": false,
+        "add_source_table_units": "237.9461",
+        "add_blank": false,
+        "accumulated_source_table_units": "18733.6923",
+        "accumulated_blank": false
+      },
       "discrepancy": null,
-      "notes": "Do not auto-promote from formula reconstruction; requires direct primary-page glyph reading."
+      "notes": "Direct row-by-row glyph check against the 1569 primary facsimile page; no numeric variant observed."
     },
     {
       "family_id": "SUO_INITIAL_YING_TERMINAL",
