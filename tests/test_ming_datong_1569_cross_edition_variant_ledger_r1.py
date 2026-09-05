@@ -189,7 +189,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         candidates={x["id"]:x for x in self.data["supplementary_physical_witness_candidates"]}
         kang=candidates["CAND-KANG-BO-SHOUSHI-JIEFA-LICHENG-G20981"]
         self.assertEqual(kang["relationship_to_g893"],"SEPARATE_KOREAN_DERIVED_LICHENG_WORK_NOT_G893_COPY")
-        self.assertEqual(kang["direct_image_status"],"PENDING")
+        self.assertEqual(kang["direct_image_status"],"SAMPLE_IMAGES_BOUND_FULL_BOOK_TARGET_COLLATION_PENDING")
         self.assertEqual(self.data["epistemic_firewalls"]["g893_thumbnail_filename_as_target_folio_binding"],"FORBIDDEN")
         self.assertEqual(self.data["epistemic_firewalls"]["kang_bo_jiefa_licheng_as_same_text_as_g893"],"FORBIDDEN")
 
