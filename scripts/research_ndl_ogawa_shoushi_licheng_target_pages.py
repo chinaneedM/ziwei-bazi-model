@@ -14,7 +14,8 @@ PID = "14488128"
 BASE = "https://dl.ndl.go.jp/api/iiif"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 TARGETS = {
-    4: ["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"],
+    3: ["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE_LOCATOR_CANDIDATE"],
+    4: ["SOLAR-D16-CONTEXT-ADD-ACCUMULATED-COLUMNS"],
     13: ["STRUCT-LUNAR-CHIJI-TABLE-HEADER"],
     14: ["VAR-NUM-LUNAR-L8-LOSSGAIN"],
     18: ["NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING"],
@@ -89,9 +90,17 @@ def main() -> int:
         "title": "大元授時暦經立成 6卷",
         "pid": PID,
         "ocr_used": False,
-        "localization_basis": "DIRECT_PRINTED_VOLUME_TABLE_AND_LIMIT_HEADINGS_FROM_PRIOR_1000PX_CONTACT_SHEET_INSPECTION",
+        "localization_basis": "DIRECT_PRINTED_VOLUME_TABLE_AND_LIMIT_HEADINGS_FROM_PRIOR_CONTACT_SHEET_AND_NATIVE_PAGE_INSPECTION",
         "cross_copy_page_offset_used": False,
         "native_canvas_width_px": 7392,
+        "solar_d16_locator_revision": {
+            "previous_canvas_index": 4,
+            "previous_image_id": "R0000004",
+            "inspection_result": "CONTEXT_PAGE_PRINTS_D16_DERIVED_ADD_AND_ACCUMULATED_COLUMNS_BUT_NOT_THE_TARGET_DIFFERENCE_COLUMN",
+            "new_locator_candidate_canvas_index": 3,
+            "new_locator_candidate_image_id": "R0000003",
+            "candidate_status": "FETCH_FOR_DIRECT_FIELD_BINDING_NOT_TARGET_VALUE_AUTHORIZATION",
+        },
         "structural_header_binding": {
             "canvas_index": 13,
             "image_id": "R0000013",
