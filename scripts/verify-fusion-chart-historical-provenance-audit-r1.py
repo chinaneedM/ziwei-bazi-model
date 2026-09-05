@@ -22,6 +22,8 @@ MING_DATONG_1578_D1_REPLAY = ROOT / "docs" / "research" / "MING-DATONG-1578-D1-S
 MING_DATONG_1578_D1_REPLAY_TEST = ROOT / "tests" / "test_ming_datong_1578_d1_source_replay_r1.py"
 MING_DATONG_1578_PHYSICAL_COLLATION = ROOT / "docs" / "research" / "MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json"
 MING_DATONG_1578_PHYSICAL_COLLATION_TEST = ROOT / "tests" / "test_ming_datong_1578_ncl_06313_physical_almanac_collation_r1.py"
+MING_DATONG_1569_FIXED_POINT_PRECISION = ROOT / "docs" / "research" / "MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json"
+MING_DATONG_1569_FIXED_POINT_PRECISION_TEST = ROOT / "tests" / "test_ming_datong_1569_fixed_point_precision_audit_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -105,7 +107,7 @@ def main() -> int:
             raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
     if by_source_id.get("EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI") is None:
         raise SystemExit("Batch 11A later hidden-stem hierarchy witness is missing")
-    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998","EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME","EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK","EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH","EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014","EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018","EXT-LOC-DATONG-1524-ALMANAC"):
+    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998","EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME","EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK","EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH","EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014","EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018","EXT-LOC-DATONG-1524-ALMANAC","EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 11D/11E Ming Datong source witness missing: {source_id}")
     for item in source_registry["sources"]:
@@ -217,6 +219,8 @@ def main() -> int:
         raise SystemExit("Batch 11H Ming Datong 1578 D1 source replay is missing")
     if "BATCH-11-BAZI-MING-DATONG-1578-PHYSICAL-ALMANAC-CLOSURE-I" not in batches:
         raise SystemExit("Batch 11I Ming Datong 1578 physical almanac closure is missing")
+    if "BATCH-11-BAZI-MING-DATONG-FIXED-POINT-PRECISION-J" not in batches:
+        raise SystemExit("Batch 11J Ming Datong fixed-point precision audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -473,6 +477,45 @@ def main() -> int:
         raise SystemExit("Batch 11I fine-glyph inference firewall missing")
     if physical1578.get("runtime_selection_authorized") is not False or physical1578.get("general_calendar_arithmetic_certified") is not False:
         raise SystemExit("Batch 11I physical evidence was promoted to runtime arithmetic")
+    if row_dayun_cal.get("fixed_point_precision_audit_artifact") != "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json":
+        raise SystemExit("Batch 11J precision artifact binding mismatch")
+    if row_dayun_cal.get("fixed_point_precision_audit_batch") != "BATCH-11-BAZI-MING-DATONG-FIXED-POINT-PRECISION-J":
+        raise SystemExit("Batch 11J precision batch binding mismatch")
+    if row_dayun_cal.get("table_generation_precision_map_status") != "CLOSED_FOR_1569_PRIMARY_TABLES_STAGE_SCOPED":
+        raise SystemExit("Batch 11J table precision map status mismatch")
+    if row_dayun_cal.get("single_global_rounding_rule_status") != "REJECTED_BY_PRIMARY_TABLE_EVIDENCE":
+        raise SystemExit("Batch 11J single-global-rounding adjudication regressed")
+    if row_dayun_cal.get("dynamic_interpolation_precision_status") != "OPEN_BEYOND_1596_DATONG_WORKED_EXAMPLE":
+        raise SystemExit("Batch 11J dynamic precision gate was silently closed")
+    for path in (MING_DATONG_1569_FIXED_POINT_PRECISION,MING_DATONG_1569_FIXED_POINT_PRECISION_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11J precision artifact/test missing: {path.relative_to(ROOT)}")
+    precision=json.loads(MING_DATONG_1569_FIXED_POINT_PRECISION.read_text(encoding="utf-8"))
+    if precision.get("schema") != "MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1":
+        raise SystemExit("Batch 11J precision schema mismatch")
+    if precision.get("adjudication",{}).get("single_global_rounding_rule") != "REJECTED_BY_PRIMARY_TABLE_EVIDENCE":
+        raise SystemExit("Batch 11J precision global-rounding adjudication mismatch")
+    if precision.get("adjudication",{}).get("table_generation_precision_map") != "CLOSED_FOR_1569_PRIMARY_TABLES":
+        raise SystemExit("Batch 11J table precision map was not closed")
+    if precision.get("adjudication",{}).get("dynamic_interpolation_and_d1_conjunction_precision") != "OPEN_BEYOND_THE_1596_DATONG_WORKED_EXAMPLE":
+        raise SystemExit("Batch 11J dynamic precision was overclaimed")
+    precision_rules={item.get("rule_id"):item for item in precision.get("table_generation_precision_rules",())}
+    expected_precision_counts={
+        "PREC-DAY-RATE-FLOOR":(168,168),
+        "PREC-LOSS-GAIN-SHORTCUT-TRUNCATE":(168,168),
+        "PREC-LINE-SPEED-CEILING":(334,334),
+        "PREC-XINGDU-SHORTCUT-TRUNCATE":(336,336),
+    }
+    for rule_id,(evaluated,matched) in expected_precision_counts.items():
+        item=precision_rules.get(rule_id)
+        if item is None:
+            raise SystemExit(f"Batch 11J precision rule missing: {rule_id}")
+        actual_eval=item.get("generic_evaluated_cells",item.get("evaluated_cells",item.get("evaluated_rows")))
+        actual_match=item.get("generic_ceiling_match_count",item.get("primary_match_count"))
+        if (actual_eval,actual_match)!=(evaluated,matched):
+            raise SystemExit(f"Batch 11J precision count mismatch: {rule_id}")
+    if precision.get("runtime_selection_authorized") is not False or precision.get("general_calendar_arithmetic_certified") is not False:
+        raise SystemExit("Batch 11J precision audit was promoted to runtime arithmetic")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
