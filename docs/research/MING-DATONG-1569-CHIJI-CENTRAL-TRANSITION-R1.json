@@ -1,0 +1,136 @@
+{
+  "schema": "MING-DATONG-1569-CHIJI-CENTRAL-TRANSITION-R1",
+  "schema_version": "1.0.0",
+  "status": "PRIMARY_1569_CENTRAL_83_84_TRANSITION_COLLATED_RESEARCH_ONLY",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "authority_scope": "ZHOU_XIANG_1569_PRIMARY_FACSIMILE_WITH_CROSS_REGIONAL_AND_LATER_EXPLANATORY_CONTROLS",
+  "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+  "primary_collation": {
+    "chiji_table_pdf_page_index_zero_based": 28,
+    "chiji_table_scope": "太陰立成 central limits 81–86",
+    "line_speed_table_pdf_page_index_zero_based": 36,
+    "line_speed_table_scope": "太陰遲疾行度立成 central limits 81–86",
+    "collation_status": "DIRECT_PAGE_IMAGE_COLLATION",
+    "observed_structure": [
+      "LIMIT_83_IS_LAST_YI_ROW",
+      "LIMIT_84_IS_FIRST_SUN_ROW",
+      "LIMIT_84_IS_CENTRAL_PEAK_OF_ACCUMULATED_CHIJI_DEGREE",
+      "LIMIT_83_AND_84_HAVE_EQUAL_MAGNITUDE_OPPOSITE_SIGN_ADJUSTMENT",
+      "LIMIT_83_AND_84_CHI_JI_LINE_SPEED_PAIRS_SWAP"
+    ]
+  },
+  "normalized_unit_note": "Fixed-point strings preserve the historical base-100 place structure: two decimal digits per 分/秒/微... group. A 損益 value expressed in source 分 is divided by 100 to add/subtract it from a degree-valued 遲疾度.",
+  "rows": [
+    {
+      "limit": 81,
+      "day_rate_total_source_units": 66426,
+      "day_rate_display": "6日6426",
+      "accumulated_chiji_degree": "5.42827575",
+      "loss_gain_sign": "益",
+      "loss_gain_source_fen": "0.053425",
+      "chi_xingdu_degree": "1.0958",
+      "ji_xingdu_degree": "1.0968"
+    },
+    {
+      "limit": 82,
+      "day_rate_total_source_units": 67246,
+      "day_rate_display": "6日7246",
+      "accumulated_chiji_degree": "5.42881000",
+      "loss_gain_sign": "益",
+      "loss_gain_source_fen": "0.035616",
+      "chi_xingdu_degree": "1.0960",
+      "ji_xingdu_degree": "1.0966"
+    },
+    {
+      "limit": 83,
+      "day_rate_total_source_units": 68066,
+      "day_rate_display": "6日8066",
+      "accumulated_chiji_degree": "5.42916616",
+      "loss_gain_sign": "益",
+      "loss_gain_source_fen": "0.017808",
+      "chi_xingdu_degree": "1.0961",
+      "ji_xingdu_degree": "1.0965"
+    },
+    {
+      "limit": 84,
+      "day_rate_total_source_units": 68886,
+      "day_rate_display": "6日8886",
+      "accumulated_chiji_degree": "5.42934424",
+      "loss_gain_sign": "損",
+      "loss_gain_source_fen": "0.017808",
+      "chi_xingdu_degree": "1.0965",
+      "ji_xingdu_degree": "1.0961"
+    },
+    {
+      "limit": 85,
+      "day_rate_total_source_units": 69706,
+      "day_rate_display": "6日9706",
+      "accumulated_chiji_degree": "5.42916616",
+      "loss_gain_sign": "損",
+      "loss_gain_source_fen": "0.035616",
+      "chi_xingdu_degree": "1.0966",
+      "ji_xingdu_degree": "1.0960"
+    },
+    {
+      "limit": 86,
+      "day_rate_total_source_units": 70526,
+      "day_rate_display": "7日0526",
+      "accumulated_chiji_degree": "5.42881000",
+      "loss_gain_sign": "損",
+      "loss_gain_source_fen": "0.053425",
+      "chi_xingdu_degree": "1.0968",
+      "ji_xingdu_degree": "1.0958"
+    }
+  ],
+  "transition_semantics": {
+    "last_yi_limit": 83,
+    "first_sun_limit": 84,
+    "peak_accumulated_chiji_degree_limit": 84,
+    "central_adjustment_magnitude_source_fen": "0.017808",
+    "limit_83_to_84_degree_delta": "+0.00017808",
+    "limit_84_to_85_degree_delta": "-0.00017808",
+    "d1_divisor_selection": {
+      "limit_83": {
+        "遲": "1.0961",
+        "疾": "1.0965"
+      },
+      "limit_84": {
+        "遲": "1.0965",
+        "疾": "1.0961"
+      }
+    },
+    "generic_same_sign_recurrence_across_83_84": "FORBIDDEN",
+    "reason": "The sign boundary and paired line-speed swap are explicit at the central transition; a generic recurrence that carries 益 through limit 84 or delays 損 until limit 85 is wrong."
+  },
+  "controls": [
+    {
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "result": "CENTRAL_ROWS_81_TO_86_NUMERICALLY_MATCH",
+      "authority_disposition": "CROSS_REGIONAL_TRANSMISSION_CONTROL_NOT_MING_EDITION_AUTHORITY"
+    },
+    {
+      "source_id": "EXT-CTEXT-LISUAN-QUANSHU-V21",
+      "result": "EXPLICITLY_STATES_1_TO_83_YI_AND_84_TO_168_SUN",
+      "authority_disposition": "LATER_EXPLANATORY_WITNESS"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-DATONG-LIZHI-V4",
+      "result": "EXPLICITLY_FLAGS_83_84_AS_SPECIAL_TRANSITION_RATE_CASE",
+      "authority_disposition": "LATER_CRITICAL_EXEGESIS"
+    }
+  ],
+  "epistemic_firewalls": {
+    "goryeosa_as_ming_1569_authority": "FORBIDDEN",
+    "later_qing_exegesis_as_primary_table_replacement": "FORBIDDEN",
+    "transition_closure_as_full_168_row_table_transcription": "FORBIDDEN",
+    "runtime_activation_from_transition_only": "FORBIDDEN"
+  },
+  "next_required_work": [
+    "TRANSCRIBE_AND_COLLATE_ALL_168_LOSS_GAIN_VALUES",
+    "TRANSCRIBE_AND_COLLATE_ALL_168_ACCUMULATED_CHIJI_DEGREES",
+    "TRANSCRIBE_AND_COLLATE_ALL_168_CHI_AND_JI_XINGDU_DIVISORS",
+    "CROSS_EDITION_CHECK_NONCENTRAL_ROWS_AND_PRECISION",
+    "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE"
+  ]
+}

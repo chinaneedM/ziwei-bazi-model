@@ -617,6 +617,37 @@
       "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS",
       "source_role": "KOREAN_SHOUSHI_DATONG_DERIVED_PARALLEL_ALGORITHM_WITNESS_NOT_MING_QINTIANJIAN_PRODUCTION_AUTHORITY",
       "quality_notes": "Kyujanggak catalogs the 1458 Korean edition. Its preface says the method was developed from Shoushi/Datong materials for Joseon use, explicitly criticizes direct use of Chinese Datong sunrise/sunset values at Hanyang, and states that several difference/correction procedures were recast to compute directly without the original licheng tables. Its chiji interpolation divides by 820.08 and its dingxian-line-speed path subtracts 8.2008, so it is a valuable cross-regional algorithm-divergence witness but must not be used to overwrite the 1569 Zhou Xiang Ming D1 method."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "title": "《高麗史》卷五十二·授時曆立成·太陰限數遲疾度",
+      "historical_period": "朝鮮王朝官修《高麗史》；1451成書，保存高麗受授時曆資料",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hans/高丽史/卷五十二",
+      "source_role": "CROSS_REGIONAL_TRANSMISSION_WITNESS_FOR_SHOUSHI_LUNAR_CHIJI_LICHENG",
+      "quality_notes": "Preserves a complete 168-limit table with headings 限數/遲疾曆日率/遲疾度/遲曆限行度/損益分/疾曆限行度. Central rows 81–86 match the Zhou Xiang 1569 facsimile values used in this audit. It is a Korean received-transmission witness, not authority to overwrite the Ming edition."
+    },
+    {
+      "source_id": "EXT-CTEXT-LISUAN-QUANSHU-V21",
+      "title": "梅文鼎《歷算全書》卷二十一《曆學駢枝》",
+      "author": "梅文鼎",
+      "historical_period": "清",
+      "digital_base_edition": "《欽定四庫全書》本",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=848934&if=gb",
+      "source_role": "LATER_MATHEMATICAL_EXEGESIS_FOR_DATONG_CHIJI_INTERPOLATION_AND_83_84_SIGN_BOUNDARY",
+      "quality_notes": "Explains the table semantics explicitly: limits 1–83 use 益, limits 84–168 use 損; row residual is multiplied by 損益分 and divided by 820. Used to explain and test the primary 1569 table, never to supersede it."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-DATONG-LIZHI-V4",
+      "title": "梅文鼎《大統曆志》卷四",
+      "author": "梅文鼎",
+      "historical_period": "清",
+      "digital_base_edition": "《欽定四庫全書》本",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷4",
+      "source_role": "LATER_CRITICAL_EXEGESIS_FOR_DATONG_LUNAR_LINE_SPEED_TABLE",
+      "quality_notes": "States that D1 line speed is formed from a mean lunar per-limit motion plus/minus the limit 損益分 and explicitly warns that limits 83/84 have a separate transition-rate treatment. Later explanatory witness only."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_MACHINE_REPLAYED_FULL_TABLE_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -125,7 +125,8 @@
     "modern_decimal_as_historical_notation": "FORBIDDEN",
     "qishuo_geographic_reference_inference": "FORBIDDEN",
     "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN",
-    "korean_jiaoshi_tuibufa_as_1569_ming_production_authority": "FORBIDDEN"
+    "korean_jiaoshi_tuibufa_as_1569_ming_production_authority": "FORBIDDEN",
+    "generic_recurrence_across_83_84_without_transition_rule": "FORBIDDEN"
   },
   "remaining_gates": [
     "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
@@ -139,7 +140,8 @@
     "lunar_day_rate_column": "FULL_168_ROWS_MACHINE_DERIVED_WITH_PRIMARY_CONTROL_COLLATION",
     "loss_gain_column": "PENDING_FULL_TRANSCRIPTION",
     "accumulated_chiji_degree_column": "PENDING_FULL_TRANSCRIPTION",
-    "chi_ji_xingdu_divisor_column": "PENDING_FULL_TRANSCRIPTION"
+    "chi_ji_xingdu_divisor_column": "PENDING_FULL_TRANSCRIPTION",
+    "central_83_84_transition": "PRIMARY_1569_CHIJI_AND_D1_DIVISOR_TABLES_COLLATED"
   },
   "cross_regional_algorithm_controls": [
     {
@@ -158,5 +160,6 @@
       "use_as_transmission_history_control": true,
       "inference_firewall": "DO_NOT_BACKPORT_JOSEON_DIRECT_CALCULATION_CONSTANTS_OR_D2_STYLE_DINGXIAN_PATH_INTO_ZHOU_XIANG_1569_D1"
     }
-  ]
+  ],
+  "central_transition_artifact": "docs/research/MING-DATONG-1569-CHIJI-CENTRAL-TRANSITION-R1.json"
 }
