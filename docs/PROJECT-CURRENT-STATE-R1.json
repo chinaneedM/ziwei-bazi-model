@@ -19,7 +19,11 @@
     "philology_required": true,
     "terminology_normalization_policy": "CONTEXTUAL_PHILOLOGY_BEFORE_MECHANICAL_RULE_IDENTITY",
     "homonym_policy": "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM",
-    "synonym_policy": "DIFFERENT_WORDING_MAY_MAP_TO_SAME_MECHANICAL_CONCEPT_WITH_EXPLICIT_BRIDGE"
+    "synonym_policy": "DIFFERENT_WORDING_MAY_MAP_TO_SAME_MECHANICAL_CONCEPT_WITH_EXPLICIT_BRIDGE",
+    "research_scope_policy": "OPEN_ENDED_CROSS_EDITION_CROSS_REGION_CROSS_LANGUAGE_CROSS_DISCIPLINE",
+    "first_source_stop_policy": "FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE",
+    "conflict_adjudication_policy": "EVIDENCE_WEIGHTED_NOT_SOURCE_COUNT; ADJUDICATE_WHEN_PRIMARY_TEXT_OPERATIONAL_ARTIFACTS_AND_REPLAY_CONVERGE",
+    "candidate_preservation_policy": "PRESERVE_ONLY_GENUINELY_UNRESOLVED_OR_SCHOOL_SCOPED_METHODS; DO_NOT_FALSELY_EQUALIZE_DEMONSTRATED_TRANSMISSION_ERRORS"
   },
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -63,11 +67,14 @@
       "BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B",
       "BATCH-11-BAZI-HISTORICAL-CALENDAR-ADAPTER-C",
       "BATCH-11-BAZI-MING-DATONG-SOURCE-CLOSURE-D",
-      "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E"
+      "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E",
+      "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F.md",
     "current_focus": [
-      "replay and collate the 1569 Zhou Xiang Datong month/new-moon arithmetic against the machine-checked 1578 official-record month-start oracle, then obtain page-level confirmation from the exact 1578 Qintianjian almanac; do not implement until historical clock/day-boundary, enforcement scope, invalid-date behavior and multi-year generalization also close",
+      "transcribe the complete 1569 Zhou Xiang 盈缩/迟疾 tables, source-unit carry/interpolation rules and then replay the now historically adjudicated D1 conjunction method against the 1578 official-record oracle and exact Qintianjian almanac pages before any executable Ming adapter",
+      "D1/迟疾行度 is now historically adjudicated as the Ming official conjunction production method; D2/定限度 is retained as a later received-text transmission variant, not an equal candidate",
+      "research remains open-ended across editions, regions, languages and disciplines; first-source stopping is forbidden when material additional witnesses remain searchable",
       "1578 target-year month-start/month-length/non-leap structure is now machine-auditable from official reign records, but this corroboration does not certify a general Datong calendar engine",
       "treat 《明史·曆志》 as a later received/contextual witness for Datong arithmetic, not as a substitute for Ming official method editions",
       "productize Ziwei 1581 day-anchored flow-hour and Zhongzhou leap-month source-scoped candidates through explicit unranked APIs",

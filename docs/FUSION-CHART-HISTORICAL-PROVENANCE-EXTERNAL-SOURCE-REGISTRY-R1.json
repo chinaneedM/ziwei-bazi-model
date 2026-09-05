@@ -420,7 +420,7 @@
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=798779&if=en",
       "source_role": "RECEIVED_DYNASTIC_HISTORY_WITNESS_FOR_MING_DATONG_CALENDAR_CONTEXT",
-      "quality_notes": "Records the Datong calendrical system and its computational framework. Used to identify the Ming regime context for research; not sufficient alone to reconstruct every historical month, leap-month, day-boundary or clock realization."
+      "quality_notes": "Qing-compiled dynastic-history witness for Ming Datong context. Vol.35 received text gives a different conjunction-correction denominator: 迟疾限行度 minus 820 (定限度). Batch 11F treats this as a later received textual variant because the 1569 Ming facsimile, a Ming-authorial Datong worked example, and surviving official-almanac timings converge on D1. Retain for transmission history, not as the production-method winner."
     },
     {
       "source_id": "EXT-LOC-XINLI-XIAOHUO-SHIXIAN-1645",
@@ -440,7 +440,7 @@
       "provider": "Kotenmon digitized facsimile / Japan National Archives Cabinet Library witness",
       "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
       "source_role": "PRIMARY_MING_DATONG_METHOD_WITNESS_FOR_CALENDAR_ARITHMETIC_RESEARCH",
-      "quality_notes": "Facsimile directly preserves the Ming-period method witness. The preface dates the current compilation context to 隆慶己巳; 卷一 is headed 步氣朔 and preserves source-era constants and push-step rules. Use page-image collation before coding; do not substitute the later 《明史·曆志》 redaction."
+      "quality_notes": "Facsimile directly preserves the Ming-period method witness. The first computational volume is headed 步氣朔; pages 8–12 preserve epoch/constants and qishuo procedure headings, page 24 preserves迟疾差 interpolation, and page 32's 推加减差分法 directly divides the combined correction by the corresponding 太阴迟/疾行度. This is direct primary-facsimile support for the D1/Shoushi-style conjunction denominator. Use page-image collation for every glyph-critical transcription."
     },
     {
       "source_id": "EXT-NCL-DATONG-1578-ALMANAC",
@@ -490,6 +490,61 @@
       "url": "https://www.shidianguji.com/zh/book/7473846407279935523/chapter/1l7s41p7besrq",
       "source_role": "INDEPENDENT_DAILY_COURT_RECORD_CORROBORATION_FOR_1578_MONTH_STARTS",
       "quality_notes": "Corroborates multiple Wanli 6 month-start Ganzhi and provides within-month dated entries that independently reproduce several month starts. Used as a second textual check only; the public transcription is not treated as an edition-critical facsimile or as a complete replacement for the official almanac."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+      "title": "《古今律历考》卷四十九·万历二十四年丙申岁闰八月朔日食历〈大统〉",
+      "author": "邢云路",
+      "historical_period": "明；卷中实例标万历二十四年（1596）",
+      "digital_base_edition": "《钦定四库全书》received text",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hans/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B749",
+      "source_role": "MING_AUTHORIAL_DATONG_WORKED_EXAMPLE_PRESERVED_IN_LATER_SIKU_EDITION",
+      "quality_notes": "The worked example is explicitly labeled 大统. At 求加减差 it multiplies the residual correction by 820 and divides by 迟行度, then obtains 加差 and 定朔. This independently agrees with the 1569 Zhou Xiang facsimile's D1 denominator. Because the digital witness is a later Siku recension, it corroborates Ming authorial practice but does not supersede the primary Ming facsimile."
+    },
+    {
+      "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
+      "title": "《明嘉靖六年〈大统历〉历书的气朔推步精度》",
+      "author": "李勇",
+      "publication": "《天文学进展》2011年第29卷第2期，218–227",
+      "historical_period": "modern peer-reviewed historical-astronomy reconstruction",
+      "provider": "中国科学院上海天文台《天文学进展》",
+      "url": "https://www.shao.cas.cn/twxjz/wzll/201102/",
+      "source_role": "PEER_REVIEWED_MODERN_RECONSTRUCTION_AND_VALIDATION_WITNESS_FOR_DATONG_QISHUO",
+      "quality_notes": "Peer-reviewed reconstruction of the 1527 Datong almanac's qishuo computation. Used to test recoverability and accuracy of historical algorithms and to locate D1/D2 issues; never substitutes for Ming primary wording or official-almanac page evidence."
+    },
+    {
+      "source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2",
+      "title": "《明朝〈大统历〉的定朔计算及历表朔日订正》",
+      "author": "Yuk Tung Liu",
+      "publication_date": "2019-08 initial draft; living web research page",
+      "historical_period": "modern computational validation",
+      "provider": "ChineseCalendar research site",
+      "url": "https://ytliu0.github.io/ChineseCalendar/MingCalendar_simp.html",
+      "source_role": "MODERN_COMPUTATIONAL_VALIDATION_AGAINST_SURVIVING_MING_OFFICIAL_ALMANACS",
+      "quality_notes": "Compares D1=迟疾限行度 and D2=定限度 against 56 conjunction-time entries in six surviving Ming Datong almanacs (1531, 1532, 1604, 1616, 1629, 1639). Reports all 56 D1 results within printed time bins, while most D2 results fall outside and one near-midnight case moves the conjunction day. Validation evidence only; historical method identity is anchored by primary/received Ming witnesses."
+    },
+    {
+      "source_id": "EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996",
+      "title": "《中国古历定朔推步综述》",
+      "author": "李勇、张培瑜",
+      "publication": "《天文学进展》1996年第14卷第1期，66–76",
+      "historical_period": "modern peer-reviewed historical-astronomy synthesis",
+      "provider": "中国科学院上海天文台《天文学进展》",
+      "url": "https://www.shao.cas.cn/twxjz/wzll/199601/",
+      "source_role": "PEER_REVIEWED_BACKGROUND_FOR_ANCIENT_CHINESE_REAL_NEW_MOON_METHODS",
+      "quality_notes": "Systematic review of ancient Chinese real-new-moon calculation, including Shoushi-family methods. Used for mathematical/genealogical background and terminology; primary Ming method adjudication remains edition- and oracle-scoped."
+    },
+    {
+      "source_id": "EXT-AA-LI-ZHANG-SYZYGY-1998",
+      "title": "Chinese syzygy calculation established in the 13th century",
+      "author": "Y. Li and C. Z. Zhang",
+      "publication": "Astronomy & Astrophysics 332 (1998), 1142–1146",
+      "historical_period": "modern peer-reviewed international scholarship",
+      "provider": "Astronomy & Astrophysics / CDS",
+      "url": "https://cdsarc.u-strasbg.fr/vizier/ftp/vizier/aa/papers/8332003/2301142.pdf",
+      "source_role": "INTERNATIONAL_PEER_REVIEWED_BACKGROUND_FOR_SHOUSHI_SYZYGY_MODEL",
+      "quality_notes": "International peer-reviewed mathematical reconstruction of the Shoushi syzygy model. Used as cross-language scholarship for model structure and historical astronomy context; not a Ming textual authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

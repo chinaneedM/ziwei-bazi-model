@@ -52,6 +52,14 @@ def main() -> int:
         fail("terminology normalization policy regressed")
     if authority.get("homonym_policy") != "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM":
         fail("historical homonym separation policy regressed")
+    if authority.get("research_scope_policy") != "OPEN_ENDED_CROSS_EDITION_CROSS_REGION_CROSS_LANGUAGE_CROSS_DISCIPLINE":
+        fail("open-ended cross-source research scope policy regressed")
+    if authority.get("first_source_stop_policy") != "FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE":
+        fail("first-source stopping prohibition regressed")
+    if "EVIDENCE_WEIGHTED_NOT_SOURCE_COUNT" not in authority.get("conflict_adjudication_policy", ""):
+        fail("evidence-weighted conflict adjudication policy regressed")
+    if "DO_NOT_FALSELY_EQUALIZE_DEMONSTRATED_TRANSMISSION_ERRORS" not in authority.get("candidate_preservation_policy", ""):
+        fail("false-equivalence prohibition for adjudicated transmission errors regressed")
 
     matrix_policy = matrix.get("canonical_source_policy", "")
     if "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY" not in matrix_policy:
@@ -121,6 +129,12 @@ def main() -> int:
     protocol_text = PROTOCOL.read_text(encoding="utf-8")
     if "Philology / 训诂" not in authority_text or "PHILOLOGICALLY_AMBIGUOUS_PRESERVE_CANDIDATES" not in authority_text:
         fail("research authority policy lost its philology/训诂 method")
+    if "Exhaustive research horizon and conflict adjudication" not in authority_text:
+        fail("research authority policy lost exhaustive-horizon/conflict-adjudication method")
+    if "FIRST_SOURCE_STOP=FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE" not in authority_text:
+        fail("research authority policy lost first-source stopping prohibition")
+    if "FALSE_EQUIVALENCE_OF_DEMONSTRATED_TRANSMISSION_ERROR=FORBIDDEN" not in authority_text:
+        fail("research authority policy lost false-equivalence prohibition")
     if "Philological continuity rule" not in protocol_text:
         fail("continuity protocol lost philological continuity rule")
 

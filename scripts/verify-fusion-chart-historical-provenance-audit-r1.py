@@ -14,6 +14,8 @@ HISTORICAL_CALENDAR_CONTRACT = ROOT / "src" / "fortune_training" / "historical_c
 HISTORICAL_CALENDAR_CONTRACT_TEST = ROOT / "tests" / "test_historical_calendar_adapter_contract_r1.py"
 MING_DATONG_1578_ORACLE = ROOT / "tests" / "fixtures" / "ming-datong-1578-month-start-oracle-r1.json"
 MING_DATONG_1578_ORACLE_TEST = ROOT / "tests" / "test_ming_datong_1578_month_start_oracle_r1.py"
+MING_DATONG_1569_QISHUO_RESEARCH = ROOT / "docs" / "research" / "MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json"
+MING_DATONG_1569_QISHUO_RESEARCH_TEST = ROOT / "tests" / "test_ming_datong_1569_qishuo_method_research_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -97,7 +99,7 @@ def main() -> int:
             raise SystemExit(f"Batch 10B relation source witness missing: {source_id}")
     if by_source_id.get("EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI") is None:
         raise SystemExit("Batch 11A later hidden-stem hierarchy witness is missing")
-    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION"):
+    for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 11D/11E Ming Datong source witness missing: {source_id}")
     for item in source_registry["sources"]:
@@ -201,6 +203,8 @@ def main() -> int:
         raise SystemExit("Batch 11D Ming Datong source closure is missing")
     if "BATCH-11-BAZI-MING-DATONG-1578-MONTH-ORACLE-E" not in batches:
         raise SystemExit("Batch 11E Ming Datong 1578 oracle is missing")
+    if "BATCH-11-BAZI-MING-DATONG-CONJUNCTION-METHOD-F" not in batches:
+        raise SystemExit("Batch 11F Ming Datong conjunction-method adjudication is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -356,6 +360,25 @@ def main() -> int:
     derived=[(starts[i+1]-starts[i])%60 for i in range(12)]
     if derived != [29,30,30,29,30,29,30,29,29,30,29,30] or sum(derived)!=354:
         raise SystemExit("Batch 11E oracle month-length replay mismatch")
+    row_dayun_cal=by_rule_id["HPA-DAYUN-CAL-002"]
+    if row_dayun_cal.get("conjunction_method_historical_adjudication") != "D1_SHOUSHI_STYLE_CHIJIXINGDU_IS_MING_OFFICIAL_PRODUCTION_METHOD":
+        raise SystemExit("Batch 11F D1 historical adjudication missing")
+    if row_dayun_cal.get("conjunction_method_runtime_authorized") is not False:
+        raise SystemExit("Batch 11F historical subrule was prematurely authorized for runtime")
+    if row_dayun_cal.get("d2_received_variant_disposition") != "PRESERVE_FOR_TEXTUAL_TRANSMISSION_HISTORY_NOT_EQUAL_PRODUCTION_CANDIDATE":
+        raise SystemExit("Batch 11F D2 received-variant disposition mismatch")
+    if row_dayun_cal.get("method_research_artifact") != "docs/research/MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json":
+        raise SystemExit("Batch 11F research artifact binding mismatch")
+    if not MING_DATONG_1569_QISHUO_RESEARCH.is_file() or not MING_DATONG_1569_QISHUO_RESEARCH_TEST.is_file():
+        raise SystemExit("Batch 11F research artifact/test missing")
+    qishuo=json.loads(MING_DATONG_1569_QISHUO_RESEARCH.read_text(encoding="utf-8"))
+    adjudication=qishuo.get("historical_subrule_adjudication",{})
+    if adjudication.get("winner_id") != "MING_DATONG_D1_SHOUSHI_STYLE_CHIJIXINGDU":
+        raise SystemExit("Batch 11F research winner identity mismatch")
+    if adjudication.get("status") != "HISTORICALLY_ADJUDICATED_FOR_MING_OFFICIAL_PRODUCTION":
+        raise SystemExit("Batch 11F research adjudication status mismatch")
+    if qishuo.get("runtime_selection_authorized") is not False or qishuo.get("general_calendar_arithmetic_certified") is not False:
+        raise SystemExit("Batch 11F research was incorrectly promoted to executable calendar arithmetic")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:

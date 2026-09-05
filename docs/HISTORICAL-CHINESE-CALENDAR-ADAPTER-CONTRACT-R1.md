@@ -61,4 +61,22 @@ The remaining adapter gates are:
 6. multi-year generalization and ten-year recurrence under the same historical regime.
 
 `FailClosedHistoricalCalendarAdapter` remains mandatory until these are source-closed and replayed.
+## Batch 11F conjunction-method adjudication
 
+The D1/D2 conflict is no longer treated as an unresolved tie.
+
+Primary and near-contemporary evidence converges on D1:
+
+- the 1569 Zhou Xiang facsimile's `推加减差分法` divides by the corresponding lunar `迟/疾行度`;
+- Xing Yunlu's Ming worked Datong example for Wanli 24 independently divides the correction by `迟行度`;
+- 56 conjunction-time entries from six surviving official Ming Datong almanacs are reported to agree with D1, while most D2 values do not and one near-midnight D2 result crosses to the wrong day.
+
+The Qing-compiled `《明史》` received text instead gives the later `定限度` denominator (D2). Batch 11F therefore classifies D2 as a received transmission variant rather than an equal Ming production candidate.
+
+MING_DATONG_CONJUNCTION_METHOD_HISTORICAL_ADJUDICATION=D1_SHOUSHI_STYLE_CHIJIXINGDU
+D2_DISPOSITION=LATER_RECEIVED_TEXT_VARIANT_NOT_EQUAL_PRODUCTION_CANDIDATE
+RUNTIME_SELECTION_AUTHORIZED=NO
+
+This historical subrule adjudication does **not** certify a full historical calendar adapter. The remaining gates are complete 1569 table/carry and interpolation transcription, source-derived replay to the 1578 oracle, page-level confirmation from the exact 1578 Qintianjian almanac, historical clock/day-boundary semantics, invalid-date behavior, leap-month generalization and same-regime ten-year recurrence.
+
+`FailClosedHistoricalCalendarAdapter` remains mandatory.

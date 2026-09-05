@@ -202,4 +202,53 @@ Allowed conclusion patterns include:
 both grammatically and historically viable and imply different coordinates,
 preserve them as competing candidates until stronger evidence closes the
 reading.
+## 9. Exhaustive research horizon and conflict adjudication
 
+Historical research is **open-ended**. Finding one plausible quotation, one familiar
+manual, or one repository source does not close a rule when materially relevant
+additional witnesses remain searchable.
+
+The research horizon should expand, when relevant, across:
+
+- different editions, recensions, manuscripts, printed books and facsimiles;
+- official almanacs, court records, gazetteers, archival and institutional documents;
+- Chinese, Japanese, Korean and other East Asian transmission witnesses;
+- overseas library holdings and catalogues;
+- Chinese- and foreign-language peer-reviewed scholarship, dissertations, critical editions and history-of-science research;
+- modern computational reconstructions used strictly as validation, never as replacements for historical authority.
+
+No finite search can prove that every surviving source has been found. Therefore the
+operational requirement is **exhaustive to the current searchable horizon**: continue
+until major source families, known edition variants, plausible contradictions and
+independent validation routes have been actively searched.
+
+### Conflict adjudication
+
+Conflicting books are not decided by source-count voting. Weight evidence by:
+
+1. chronological and textual proximity to the rule's actual use;
+2. edition identity and directness of the witness;
+3. independence of transmission;
+4. whether the source preserves a worked mechanical example;
+5. whether contemporary operational artifacts reproduce one reading rather than another;
+6. internal mathematical/textual consistency;
+7. deterministic replay against independently sourced oracle cases;
+8. later scholarship only after the historical evidence classes above are kept distinct.
+
+Candidate preservation is required for genuinely unresolved, school-specific or parallel
+historical methods. It is **not** a reason to create false equivalence.
+
+When primary/near-primary wording, independent contemporary worked evidence and
+operational artifacts converge strongly on one mechanical rule, the audit should
+adjudicate that historical rule and demote a contradicted reading to the appropriate
+category, such as scribal/printing error, later received-text variant, editorial
+normalization, school-specific alteration, or unresolved transmission variant.
+
+Such historical adjudication does not automatically authorize runtime implementation.
+Product implementation remains separately gated by complete mechanical reconstruction,
+reproducible tests and the repository reopen policy.
+
+RESEARCH_SCOPE=OPEN_ENDED_CROSS_EDITION_CROSS_REGION_CROSS_LANGUAGE_CROSS_DISCIPLINE
+FIRST_SOURCE_STOP=FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE
+CONFLICT_ADJUDICATION=EVIDENCE_WEIGHTED_NOT_SOURCE_COUNT
+FALSE_EQUIVALENCE_OF_DEMONSTRATED_TRANSMISSION_ERROR=FORBIDDEN

@@ -1,0 +1,210 @@
+{
+  "schema": "MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1",
+  "schema_version": "1.1.0",
+  "status": "HISTORICAL_SUBRULE_ADJUDICATED_GENERAL_ADAPTER_NOT_RUNTIME",
+  "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+  "primary_edition_scope": "周相《大明大統曆法》明隆慶三年（1569）刊本公開影像",
+  "general_calendar_arithmetic_certified": false,
+  "runtime_selection_authorized": false,
+  "historical_subrule_adjudication": {
+    "subrule": "CONJUNCTION_CORRECTION_DENOMINATOR",
+    "winner_id": "MING_DATONG_D1_SHOUSHI_STYLE_CHIJIXINGDU",
+    "status": "HISTORICALLY_ADJUDICATED_FOR_MING_OFFICIAL_PRODUCTION",
+    "d2_disposition": "LATER_RECEIVED_TEXT_VARIANT_NOT_EQUAL_PRODUCTION_CANDIDATE",
+    "rationale": [
+      "1569_PRIMARY_FACSIMILE_DIRECTLY_USES_CORRESPONDING_LUNAR_CHI_OR_JI_XINGDU_AS_DIVISOR",
+      "MING_XINGYUNLU_DATONG_WORKED_EXAMPLE_INDEPENDENTLY_DIVIDES_BY_CHIXINGDU",
+      "SIX_SURVIVING_MING_OFFICIAL_ALMANACS_FIFTY_SIX_CONJUNCTION_TIMES_REPORTED_56_OF_56_MATCH_D1",
+      "QING_COMPILED_MINGSHI_D2_RECEIVED_TEXT_MOSTLY_FAILS_THE_SAME_ALMANAC_TIME_BINS"
+    ]
+  },
+  "primary_facsimile_transcription": {
+    "qishuo_volume_heading": {
+      "text": "步氣朔卷第一",
+      "pdf_page_index_zero_based": 8,
+      "certainty": "HIGH"
+    },
+    "epoch_line": {
+      "normalized_text": "大元至元十八年辛巳為元；至大明成化十三年丁酉，所距積年一百九十七，算減一用之",
+      "pdf_page_index_zero_based": 8,
+      "certainty": "HIGH"
+    },
+    "base_constants": [
+      {
+        "label": "歲實",
+        "source_units": {
+          "分": 3652425
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "通餘",
+        "source_units": {
+          "分": 52425
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "朔實",
+        "source_units": {
+          "分": 295305,
+          "秒": 93
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "弦策",
+        "source_units": {
+          "分": 73826,
+          "秒": 48,
+          "微": 25
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "氣策",
+        "source_units": {
+          "分": 152184,
+          "秒": 37,
+          "微": 50
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "望策",
+        "source_units": {
+          "分": 147652,
+          "秒": 96,
+          "微": 50
+        },
+        "pdf_page_index_zero_based": 8,
+        "certainty": "HIGH"
+      },
+      {
+        "label": "紀法",
+        "source_units": {
+          "分": 600000
+        },
+        "pdf_page_index_zero_based": 9,
+        "certainty": "HIGH"
+      }
+    ],
+    "verified_method_headings": [
+      {
+        "text": "推中積分法",
+        "pdf_page_index_zero_based": 10
+      },
+      {
+        "text": "推通積分法",
+        "pdf_page_index_zero_based": 10
+      },
+      {
+        "text": "推冬至分法",
+        "pdf_page_index_zero_based": 10
+      },
+      {
+        "text": "推閏餘分法",
+        "pdf_page_index_zero_based": 11
+      },
+      {
+        "text": "推經朔分法",
+        "pdf_page_index_zero_based": 11
+      },
+      {
+        "text": "推盈縮曆分法",
+        "pdf_page_index_zero_based": 11
+      },
+      {
+        "text": "推遲疾曆分法",
+        "pdf_page_index_zero_based": 11
+      },
+      {
+        "text": "推交泛分法",
+        "pdf_page_index_zero_based": 11
+      },
+      {
+        "text": "推弦望及次朔分法",
+        "pdf_page_index_zero_based": 12
+      },
+      {
+        "text": "推遲疾差度分法",
+        "pdf_page_index_zero_based": 24
+      },
+      {
+        "text": "推加減差分法",
+        "pdf_page_index_zero_based": 32
+      }
+    ],
+    "d1_direct_method": {
+      "pdf_page_index_zero_based": 32,
+      "normalized_mechanics": "Combine or subtract 盈缩差 and 迟疾差 by same/different sign; multiply residual by 820; if in 迟历 divide by corresponding 迟行度, if in 疾历 divide by corresponding 疾行度; result is 加减差.",
+      "divisor_identity": "CORRESPONDING_LUNAR_CHI_OR_JI_XINGDU",
+      "candidate_id": "MING_DATONG_D1_SHOUSHI_STYLE_CHIJIXINGDU",
+      "certainty": "HIGH_DIRECT_PRIMARY_FACSIMILE"
+    },
+    "source_unit_note": "分/秒/微 are preserved as source units. No modern decimal-day conversion is treated as primary transcription until carry and interpolation conventions are fully replayed."
+  },
+  "corroborating_historical_witness": {
+    "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+    "work": "邢云路《古今律历考》卷四十九",
+    "example_scope": "万历二十四年丙申岁闰八月朔日食历〈大统〉",
+    "normalized_mechanics": "At 求加减差 the worked example multiplies the residual by 820 and divides by 迟行度一度一五二六, then adds the resulting 加差 to 经朔 to obtain 定朔.",
+    "evidence_class": "MING_AUTHORIAL_WORKED_EXAMPLE_PRESERVED_IN_LATER_SIKU_RECENSION",
+    "result": "INDEPENDENTLY_CORROBORATES_D1"
+  },
+  "contradicted_received_variant": {
+    "source_id": "EXT-CTEXT-MINGSHI-DATONG-CALENDAR",
+    "work": "《明史·历志》卷三十五 received Datong text",
+    "normalized_mechanics": "Creates 定限度 by subtracting 820 from 迟疾限行度 and uses 定限度 as divisor for 加减差.",
+    "candidate_id": "MING_DATONG_D2_RECEIVED_TEXT_DINGXIANDU",
+    "evidence_class": "QING_COMPILED_RECEIVED_DYNASTIC_HISTORY_TEXT",
+    "disposition": "PRESERVED_FOR_TRANSMISSION_HISTORY_NOT_EQUAL_MING_PRODUCTION_CANDIDATE"
+  },
+  "modern_validation": [
+    {
+      "source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2",
+      "evidence_scope": "56 conjunction-time entries in six surviving official Ming Datong almanacs",
+      "almanac_years": [
+        1531,
+        1532,
+        1604,
+        1616,
+        1629,
+        1639
+      ],
+      "result": "D1_REPORTED_56_OF_56_WITHIN_PRINTED_TIME_BINS; D2_MOSTLY_OUTSIDE; ONE_NEAR_MIDNIGHT_D2_WRONG_DAY"
+    },
+    {
+      "source_id": "EXT-SHAO-LIYONG-DATONG-1527-2011",
+      "evidence_scope": "peer-reviewed reconstruction of 1527 Datong qishuo",
+      "result": "SUPPORTS_SOURCE_RECONSTRUCTION_AND_HISTORICAL_ALMANAC_VALIDATION"
+    },
+    {
+      "source_id": "EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996",
+      "evidence_scope": "peer-reviewed review of ancient Chinese real-new-moon methods",
+      "result": "BACKGROUND_FOR_SHOUSHI_METHOD_GENEALOGY"
+    },
+    {
+      "source_id": "EXT-AA-LI-ZHANG-SYZYGY-1998",
+      "evidence_scope": "international peer-reviewed reconstruction of Shoushi syzygy model",
+      "result": "CROSS_LANGUAGE_BACKGROUND_FOR_MODEL_STRUCTURE"
+    }
+  ],
+  "target_year_oracle_binding": "tests/fixtures/ming-datong-1578-month-start-oracle-r1.json",
+  "unresolved_before_runtime": [
+    "COMPLETE_1569_YINGSUO_AND_CHIJI_TABLE_TRANSCRIPTION",
+    "COMPLETE_1569_INTERPOLATION_CARRY_AND_SOURCE_UNIT_SEMANTICS",
+    "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
+    "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
+    "HISTORICAL_DAY_BOUNDARY_AND_CLOCK_COORDINATE",
+    "ENFORCEMENT_GEOGRAPHIC_INSTITUTIONAL_SCOPE",
+    "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
+    "MULTI_YEAR_LEAP_MONTH_GENERALIZATION",
+    "TEN_YEAR_DAYUN_RECURRENCE_UNDER_SAME_HISTORICAL_REGIME"
+  ]
+}
