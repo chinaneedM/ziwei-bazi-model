@@ -165,5 +165,20 @@ class MingDatongQishuoGeographicCriticalCasesR1Test(unittest.TestCase):
         )
 
 
+    def test_hongzhi_17_survival_control_is_not_target_year_certification(self):
+        ctx = self.contexts["MING-1504-H17-SURVIVING-DATONG-ALMANAC"]
+        self.assertEqual(ctx["gregorian_year"], 1504)
+        self.assertEqual(ctx["title"], "大明弘治十七年歲次甲子大統曆")
+        self.assertIn("欽天監刻本", ctx["edition"])
+        self.assertEqual(ctx["holding_institution"], "北京市文物局")
+        self.assertTrue(ctx["physical_survival_supported"])
+        self.assertTrue(ctx["same_reign_as_targets"])
+        self.assertFalse(ctx["hongzhi_8_target_copy_certified"])
+        self.assertFalse(ctx["hongzhi_10_target_copy_certified"])
+        self.assertEqual(
+            self.data["adjudication"]["hongzhi_period_survival_as_hongzhi_8_or_10_target_certification"],
+            "FORBIDDEN",
+        )
+
 if __name__ == "__main__":
     unittest.main()

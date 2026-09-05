@@ -356,6 +356,32 @@ INFER_KOREA_WIDE_NONEXISTENCE = FORBIDDEN
 
 Other Korean institutional, private, and family collections remain searchable.
 
+### 13.3 Hongzhi-17 positive survival control
+
+A national-level catalogue and the holding institution now provide a positive control from the same reign. Entry `04638` of the second batch of the National Precious Ancient Books Register records:
+
+```text
+大明弘治十七年歲次甲子大統曆一卷
+（明）韓昂等撰
+明弘治十七年（1504）欽天監刻本
+北京市文物局
+```
+
+The Beijing Municipal Cultural Heritage Bureau Library and Documentation Center independently confirms among its holdings a Ming-printed `《大明弘治十七年大統曆》`.
+
+This changes the artifact-search logic in an important but narrow way:
+
+```text
+SURVIVING_HONGZHI_PERIOD_QINTIANJIAN_DATONG_ALMANAC = CONFIRMED
+INFER_NO_HONGZHI_ALMANACS_SURVIVE_FROM_NLC_2007_GAP = FORBIDDEN
+HONGZHI_8_TARGET_PHYSICAL_COPY_LOCATED = FALSE
+HONGZHI_10_TARGET_PHYSICAL_COPY_LOCATED = FALSE
+```
+
+The Hongzhi-17 copy does **not** certify the Hongzhi-8 or Hongzhi-10 month-start values, and it does not identify the qishuo meridian. It is instead a same-reign physical-survival control showing that Hongzhi Qintianjian almanacs can survive outside the National Library of China facsimile collection.
+
+The next artifact search should therefore include the Beijing holding lineage and national ancient-book census/catalogue data, while retaining the exact-title variants for `弘治八年歲次乙卯` and `弘治十年歲次丁巳`.
+
 ## 14. Joseon transmission lead
 
 `《明孝宗敬皇帝實錄》卷一百三十二`, preserved in the Korean Ming-Qing Shilu interface, records on `弘治十年十二月二十二日`:
