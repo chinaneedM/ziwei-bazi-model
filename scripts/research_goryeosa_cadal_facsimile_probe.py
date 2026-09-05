@@ -9,6 +9,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 DEFAULT_FILE = "CADAL02050311 高麗史（四十九）.djvu"
 UA = "ziwei-bazi-model-historical-research/1.0 (read-only Commons facsimile probe)"
