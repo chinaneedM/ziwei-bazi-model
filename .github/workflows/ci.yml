@@ -34,7 +34,7 @@ jobs:
       - name: Focused historical provenance audit tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
-          python -m unittest discover -s tests -p "test_ziwei_jielan_1581_historical_candidates_r1.py" -v
+          python -m unittest discover -s tests -p "test_ziwei_jielan_1581_historical_candidates_r1.py" -v\n          python -m unittest discover -s tests -p "test_historical_calendar_adapter_contract_r1.py" -v
       - name: Focused capability acceptance tests
         run: |
           python -m unittest discover -s tests -p "test_fusion_chart_capability_acceptance_r1.py" -v
