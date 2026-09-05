@@ -137,9 +137,11 @@ class MingDatong1569ChijiFullNumericReconstructionR1Tests(unittest.TestCase):
         self.assertEqual(row["ji_xingdu_degree"], "1.0281")
         anomaly = self.data["cross_regional_controls"]["quarantined_anomaly"]
         self.assertEqual(anomaly["limit"], 124)
-        self.assertEqual(anomaly["goryeosa_digital_value_ji_xingdu"], "0.0821")
+        self.assertEqual(anomaly["goryeosa_current_digital_value_ji_xingdu"], "1.0821")
         self.assertEqual(anomaly["reconstructed_and_1569_primary_value_ji_xingdu"], "1.0281")
-        self.assertEqual(anomaly["status"], "CROSS_WITNESS_ANOMALY_DO_NOT_PROPAGATE")
+        self.assertEqual(anomaly["previous_project_transcription"], "0.0821")
+        self.assertEqual(anomaly["previous_project_transcription_status"], "CORRECTED_PROJECT_METADATA_ERROR_NOT_SOURCE_VALUE")
+        self.assertEqual(anomaly["status"], "CROSS_WITNESS_VARIANT_DO_NOT_PROPAGATE")
 
     def test_terminal_limit_has_day_rate_but_no_next_interval_values(self) -> None:
         row = self.rows[168]

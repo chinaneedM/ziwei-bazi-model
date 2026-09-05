@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1",
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "status": "FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_1569_LUNAR_CHIJI_XINGDU_ROW_GLYPH_COLLATION_COMPLETE",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -386,11 +386,23 @@
     ],
     "quarantined_anomaly": {
       "limit": 124,
-      "goryeosa_digital_value_ji_xingdu": "0.0821",
       "reconstructed_and_1569_primary_value_ji_xingdu": "1.0281",
-      "status": "CROSS_WITNESS_ANOMALY_DO_NOT_PROPAGATE",
-      "manuscript_level_cause": "UNRESOLVED",
-      "implication": "Cross-regional digital/received table is a collation control, never a silent authority override."
+      "status": "CROSS_WITNESS_VARIANT_DO_NOT_PROPAGATE",
+      "manuscript_level_cause": "UNRESOLVED_DIGITAL_OR_RECEIVED_TEXT_VARIANT",
+      "implication": "The live Goryeosa digital witness currently reads 1.0821, while Zhou Xiang 1569 primary glyph collation reads 1.0281. Preserve both witness readings; never override the Ming primary row from the cross-regional received witness.",
+      "goryeosa_current_digital_value_ji_xingdu": "1.0821",
+      "previous_project_transcription": "0.0821",
+      "previous_project_transcription_status": "CORRECTED_PROJECT_METADATA_ERROR_NOT_SOURCE_VALUE",
+      "current_digital_source_locator": "《高麗史》卷五十二·太陰限數遲疾度·一百二十四限",
+      "current_digital_source_glyphs": "一度〇八二一"
+    },
+    "goryeosa_live_witness_refresh": {
+      "checked": "2026-09-05",
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "limit_124_current_reading": "1.0821",
+      "ming_1569_primary_reading": "1.0281",
+      "disposition": "EXPLICIT_CROSS_WITNESS_VARIANT",
+      "project_metadata_correction": "EARLIER_ARTIFACT_RECORDED_0.0821_IN_ERROR"
     }
   },
   "invariants": {
