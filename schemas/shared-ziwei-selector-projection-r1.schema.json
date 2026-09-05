@@ -5,254 +5,737 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema", "status", "source_ziwei_application_bundle_hash",
-    "source_ziwei_temporal_fact_hash", "source_ziwei_temporal_computation_hash",
-    "source_target_coordinate_fact_hash", "source_target_coordinate_computation_hash",
-    "source_target_coordinate_profile_id", "source_target_coordinate_profile_version",
-    "candidates", "hashes", "integrity"
+    "schema",
+    "status",
+    "source_ziwei_application_bundle_hash",
+    "source_ziwei_temporal_fact_hash",
+    "source_ziwei_temporal_computation_hash",
+    "source_target_coordinate_fact_hash",
+    "source_target_coordinate_computation_hash",
+    "source_target_coordinate_profile_id",
+    "source_target_coordinate_profile_version",
+    "candidates",
+    "hashes",
+    "integrity"
   ],
   "properties": {
-    "schema": {"const": "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"},
-    "status": {"const": "RESOLVED"},
-    "source_ziwei_application_bundle_hash": {"$ref": "#/$defs/hash"},
-    "source_ziwei_temporal_fact_hash": {"$ref": "#/$defs/hash"},
-    "source_ziwei_temporal_computation_hash": {"$ref": "#/$defs/hash"},
-    "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
-    "source_target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
-    "source_target_coordinate_profile_id": {"type": "string", "minLength": 1},
-    "source_target_coordinate_profile_version": {"type": "string", "minLength": 1},
+    "schema": {
+      "const": "SHARED-ZIWEI-SELECTOR-PROJECTION-RESOLUTION-R1"
+    },
+    "status": {
+      "const": "RESOLVED"
+    },
+    "source_ziwei_application_bundle_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source_ziwei_temporal_fact_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source_ziwei_temporal_computation_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source_target_coordinate_fact_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source_target_coordinate_computation_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "source_target_coordinate_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_target_coordinate_profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
     "candidates": {
       "type": "array",
       "minItems": 1,
-      "items": {"$ref": "#/$defs/candidate"}
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
     },
-    "hashes": {"$ref": "#/$defs/hashes"},
-    "integrity": {"$ref": "#/$defs/integrity"}
+    "hashes": {
+      "$ref": "#/$defs/hashes"
+    },
+    "integrity": {
+      "$ref": "#/$defs/integrity"
+    }
   },
   "$defs": {
-    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "dateTime": {"type": "string", "minLength": 19},
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "dateTime": {
+      "type": "string",
+      "minLength": 19
+    },
     "candidate": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "source_target_candidate_index", "source_target_candidate_id", "source_sample_index",
-        "sample_reported_local_datetime", "target_utc", "fold", "civil_year",
-        "source_annual_frame_id", "annual_year", "minor_limit_age", "minor_limit_ring_projection", "daxian_frame_id",
-        "daxian_layer_projection", "annual_layer_projection",
-        "ziwei_calendar_date_policy", "ziwei_day_boundary_policy",
-        "effective_lunar_year", "effective_lunar_month", "effective_lunar_day",
-        "effective_lunar_is_leap_month", "monthly_projection_status",
-        "monthly_frame_id", "monthly_ganzhi", "monthly_active_address_branch",
+        "source_target_candidate_index",
+        "source_target_candidate_id",
+        "source_sample_index",
+        "sample_reported_local_datetime",
+        "target_utc",
+        "fold",
+        "civil_year",
+        "source_annual_frame_id",
+        "annual_year",
+        "minor_limit_age",
+        "minor_limit_ring_projection",
+        "daxian_frame_id",
+        "daxian_layer_projection",
+        "annual_layer_projection",
+        "ziwei_calendar_date_policy",
+        "ziwei_day_boundary_policy",
+        "effective_lunar_year",
+        "effective_lunar_month",
+        "effective_lunar_day",
+        "effective_lunar_is_leap_month",
+        "monthly_projection_status",
+        "monthly_frame_id",
+        "monthly_ganzhi",
+        "monthly_active_address_branch",
         "monthly_layer_projection",
-        "daily_projection_status", "daily_frame_id", "daily_effective_gregorian_date",
-        "daily_ganzhi", "daily_active_address_branch", "daily_designation_overlay",
-        "daily_auxiliary_status", "daily_auxiliary_activations", "daily_auxiliary_source_refs", "daily_auxiliary_candidate_sets", "daily_rule_id",
-        "daily_source_refs", "daily_transformation_status",
-        "daily_transformation_rule_set_id", "daily_transformation_rule_set_version",
-        "daily_transformations", "daily_transformation_source_refs",
-        "hourly_projection_status", "hourly_method_candidates",
+        "daily_projection_status",
+        "daily_frame_id",
+        "daily_effective_gregorian_date",
+        "daily_ganzhi",
+        "daily_active_address_branch",
+        "daily_designation_overlay",
+        "daily_auxiliary_status",
+        "daily_auxiliary_activations",
+        "daily_auxiliary_source_refs",
+        "daily_auxiliary_candidate_sets",
+        "daily_rule_id",
+        "daily_source_refs",
+        "daily_transformation_status",
+        "daily_transformation_rule_set_id",
+        "daily_transformation_rule_set_version",
+        "daily_transformations",
+        "daily_transformation_source_refs",
+        "hourly_projection_status",
+        "hourly_method_candidates",
         "candidate_hash"
       ],
       "properties": {
-        "source_target_candidate_index": {"type": "integer", "minimum": 0},
-        "source_target_candidate_id": {"type": "string", "minLength": 1},
-        "source_sample_index": {"type": "integer", "minimum": 0},
-        "sample_reported_local_datetime": {"$ref": "#/$defs/dateTime"},
-        "target_utc": {"$ref": "#/$defs/dateTime"},
-        "fold": {"enum": [0, 1]},
-        "civil_year": {"type": "integer", "minimum": 1},
-        "source_annual_frame_id": {"type": "string", "pattern": "^ANNUAL:[0-9]+$"},
-        "annual_year": {"type": "integer", "minimum": 1},
-        "minor_limit_age": {"type": "integer", "minimum": 1},
-        "minor_limit_ring_projection": {"$ref": "#/$defs/minorLimitRingProjection"},
+        "source_target_candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_target_candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sample_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sample_reported_local_datetime": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "target_utc": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "fold": {
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "civil_year": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_annual_frame_id": {
+          "type": "string",
+          "pattern": "^ANNUAL:[0-9]+$"
+        },
+        "annual_year": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minor_limit_age": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minor_limit_ring_projection": {
+          "$ref": "#/$defs/minorLimitRingProjection"
+        },
         "daxian_frame_id": {
           "anyOf": [
-            {"type": "string", "pattern": "^DAXIAN:index=[1-9][0-9]*$"},
-            {"type": "null"}
+            {
+              "type": "string",
+              "pattern": "^DAXIAN:index=[1-9][0-9]*$"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "daxian_layer_projection": {
           "anyOf": [
-            {"$ref": "#/$defs/temporalLayerProjection"},
-            {"type": "null"}
+            {
+              "$ref": "#/$defs/temporalLayerProjection"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
-        "annual_layer_projection": {"$ref": "#/$defs/temporalLayerProjection"},
-        "ziwei_calendar_date_policy": {"enum": ["LOCAL_SOLAR_DATE_INDEXED", "ABSOLUTE_CALENDAR"]},
-        "ziwei_day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
-        "effective_lunar_year": {"type": "integer", "minimum": 1},
-        "effective_lunar_month": {"type": "integer", "minimum": 1, "maximum": 12},
-        "effective_lunar_day": {"type": "integer", "minimum": 1, "maximum": 30},
-        "effective_lunar_is_leap_month": {"type": "boolean"},
-        "monthly_projection_status": {"enum": ["REGULAR_LUNAR_MONTH_RESOLVED", "LEAP_MONTH_UNRESOLVED_NO_FRAME"]},
-        "monthly_frame_id": {"type": ["string", "null"], "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"},
-        "monthly_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
-        "monthly_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
+        "annual_layer_projection": {
+          "$ref": "#/$defs/temporalLayerProjection"
+        },
+        "ziwei_calendar_date_policy": {
+          "enum": [
+            "LOCAL_SOLAR_DATE_INDEXED",
+            "ABSOLUTE_CALENDAR"
+          ]
+        },
+        "ziwei_day_boundary_policy": {
+          "enum": [
+            "MIDNIGHT",
+            "ZI_START_23"
+          ]
+        },
+        "effective_lunar_year": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "effective_lunar_month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "effective_lunar_day": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "effective_lunar_is_leap_month": {
+          "type": "boolean"
+        },
+        "monthly_projection_status": {
+          "enum": [
+            "REGULAR_LUNAR_MONTH_RESOLVED",
+            "LEAP_MONTH_UNRESOLVED_NO_FRAME"
+          ]
+        },
+        "monthly_frame_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"
+        },
+        "monthly_ganzhi": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "monthly_active_address_branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1
+        },
         "monthly_layer_projection": {
           "anyOf": [
-            {"$ref": "#/$defs/temporalLayerProjection"},
-            {"type": "null"}
+            {
+              "$ref": "#/$defs/temporalLayerProjection"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
-        "daily_projection_status": {"enum": ["REGULAR_LUNAR_DAY_RESOLVED", "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"]},
-        "daily_frame_id": {"type": ["string", "null"], "pattern": "^DAY:[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
-        "daily_effective_gregorian_date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
-        "daily_ganzhi": {"type": ["string", "null"], "minLength": 2, "maxLength": 2},
-        "daily_active_address_branch": {"type": ["string", "null"], "minLength": 1, "maxLength": 1},
+        "daily_projection_status": {
+          "enum": [
+            "REGULAR_LUNAR_DAY_RESOLVED",
+            "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"
+          ]
+        },
+        "daily_frame_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^DAY:[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "daily_effective_gregorian_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "daily_ganzhi": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "daily_active_address_branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1
+        },
         "daily_designation_overlay": {
           "type": "array",
           "maxItems": 12,
-          "items": {"$ref": "#/$defs/designationBinding"}
+          "items": {
+            "$ref": "#/$defs/designationBinding"
+          }
         },
-        "daily_auxiliary_status": {"enum": ["SOURCE_RULE_RESOLVED", "PARENT_DAILY_FRAME_UNRESOLVED"]},
+        "daily_auxiliary_status": {
+          "enum": [
+            "SOURCE_RULE_RESOLVED",
+            "PARENT_DAILY_FRAME_UNRESOLVED"
+          ]
+        },
         "daily_auxiliary_activations": {
           "type": "array",
           "maxItems": 5,
-          "items": {"$ref": "#/$defs/temporalAuxiliaryActivation"}
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryActivation"
+          }
         },
-        "daily_auxiliary_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "daily_auxiliary_candidate_sets": {"type": "array", "maxItems": 1, "items": {"$ref": "#/$defs/temporalAuxiliaryCandidateSet"}},
-        "daily_rule_id": {"type": ["string", "null"]},
-        "daily_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "daily_transformation_status": {"enum": ["PROFILE_RULE_SET_RESOLVED", "PROFILE_TRANSFORMATIONS_DISABLED", "PARENT_DAILY_FRAME_UNRESOLVED"]},
-        "daily_transformation_rule_set_id": {"type": ["string", "null"]},
-        "daily_transformation_rule_set_version": {"type": ["string", "null"]},
-        "daily_transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
-        "daily_transformation_source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "hourly_projection_status": {"const": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME"},
+        "daily_auxiliary_source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "daily_auxiliary_candidate_sets": {
+          "type": "array",
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryCandidateSet"
+          }
+        },
+        "daily_rule_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "daily_source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "daily_transformation_status": {
+          "enum": [
+            "PROFILE_RULE_SET_RESOLVED",
+            "PROFILE_TRANSFORMATIONS_DISABLED",
+            "PARENT_DAILY_FRAME_UNRESOLVED"
+          ]
+        },
+        "daily_transformation_rule_set_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "daily_transformation_rule_set_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "daily_transformations": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/transformation"
+          }
+        },
+        "daily_transformation_source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "hourly_projection_status": {
+          "const": "CANDIDATES_PRESERVED_NO_SELECTED_FRAME"
+        },
         "hourly_method_candidates": {
           "type": "array",
           "minItems": 2,
           "maxItems": 2,
-          "items": {"$ref": "#/$defs/hourlyCandidate"}
+          "items": {
+            "$ref": "#/$defs/hourlyCandidate"
+          }
         },
-        "candidate_hash": {"$ref": "#/$defs/hash"}
+        "candidate_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "minorLimitRingProjection": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "source_layer", "frame_id", "nominal_age", "active_address",
-        "frame_rule_set_id", "frame_rule_set_version", "frame_algorithm_id",
-        "frame_algorithm_version", "frame_source_refs", "rule_id",
-        "authority_status", "source_refs", "encounters", "fact_hash", "computation_hash"
+        "source_layer",
+        "frame_id",
+        "nominal_age",
+        "active_address",
+        "frame_rule_set_id",
+        "frame_rule_set_version",
+        "frame_algorithm_id",
+        "frame_algorithm_version",
+        "frame_source_refs",
+        "rule_id",
+        "authority_status",
+        "source_refs",
+        "encounters",
+        "fact_hash",
+        "computation_hash"
       ],
       "properties": {
-        "source_layer": {"const": "MINOR_LIMIT"},
-        "frame_id": {"type": "string", "pattern": "^MINOR:age=[1-9][0-9]*$"},
-        "nominal_age": {"type": "integer", "minimum": 1},
-        "active_address": {"$ref": "#/$defs/address"},
-        "frame_rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
-        "frame_rule_set_version": {"const": "1.6.0"},
-        "frame_algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
-        "frame_algorithm_version": {"const": "1.6.0"},
-        "frame_source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-        "rule_id": {"const": "S05-MINOR-LIMIT-NATAL-RING-ENCOUNTER-R1"},
-        "authority_status": {"const": "SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION"},
-        "source_refs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+        "source_layer": {
+          "const": "MINOR_LIMIT"
+        },
+        "frame_id": {
+          "type": "string",
+          "pattern": "^MINOR:age=[1-9][0-9]*$"
+        },
+        "nominal_age": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "active_address": {
+          "$ref": "#/$defs/address"
+        },
+        "frame_rule_set_id": {
+          "const": "S10_CURRENT_TEMPORAL_R1"
+        },
+        "frame_rule_set_version": {
+          "const": "1.6.0"
+        },
+        "frame_algorithm_id": {
+          "const": "ZIWEI-TEMPORAL-FRAMES-V1"
+        },
+        "frame_algorithm_version": {
+          "const": "1.6.0"
+        },
+        "frame_source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rule_id": {
+          "const": "S05-MINOR-LIMIT-NATAL-RING-ENCOUNTER-R1"
+        },
+        "authority_status": {
+          "const": "SOURCE_DIRECTED_NATAL_RING_ENCOUNTER_NO_REGENERATION"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
         "encounters": {
           "type": "array",
           "minItems": 3,
           "maxItems": 3,
-          "items": {"$ref": "#/$defs/minorLimitRingEncounter"}
+          "items": {
+            "$ref": "#/$defs/minorLimitRingEncounter"
+          }
         },
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "minorLimitRingEncounter": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "source_ring_id", "source_ring_display_name", "source_ring_anchor_address",
-        "source_ring_direction", "source_ring_generator_id", "source_ring_algorithm_version",
-        "source_ring_refs", "member"
+        "source_ring_id",
+        "source_ring_display_name",
+        "source_ring_anchor_address",
+        "source_ring_direction",
+        "source_ring_generator_id",
+        "source_ring_algorithm_version",
+        "source_ring_refs",
+        "member"
       ],
       "properties": {
-        "source_ring_id": {"enum": ["RING.BOSHI12", "RING.JIANGQIAN12", "RING.TAISUI12"]},
-        "source_ring_display_name": {"enum": ["博士十二神", "将前十二神", "岁前十二神"]},
-        "source_ring_anchor_address": {"$ref": "#/$defs/address"},
-        "source_ring_direction": {"enum": ["FORWARD", "REVERSE"]},
-        "source_ring_generator_id": {"const": "ZIWEI-RING-RUNTIME-V1"},
-        "source_ring_algorithm_version": {"const": "1.0.0"},
-        "source_ring_refs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
-        "member": {"$ref": "#/$defs/ringMemberBinding"}
+        "source_ring_id": {
+          "enum": [
+            "RING.BOSHI12",
+            "RING.JIANGQIAN12",
+            "RING.TAISUI12"
+          ]
+        },
+        "source_ring_display_name": {
+          "enum": [
+            "博士十二神",
+            "将前十二神",
+            "岁前十二神"
+          ]
+        },
+        "source_ring_anchor_address": {
+          "$ref": "#/$defs/address"
+        },
+        "source_ring_direction": {
+          "enum": [
+            "FORWARD",
+            "REVERSE"
+          ]
+        },
+        "source_ring_generator_id": {
+          "const": "ZIWEI-RING-RUNTIME-V1"
+        },
+        "source_ring_algorithm_version": {
+          "const": "1.0.0"
+        },
+        "source_ring_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "member": {
+          "$ref": "#/$defs/ringMemberBinding"
+        }
       }
     },
     "ringMemberBinding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["member_id", "display_name", "address", "ordinal", "source_refs"],
+      "required": [
+        "member_id",
+        "display_name",
+        "address",
+        "ordinal",
+        "source_refs"
+      ],
       "properties": {
-        "member_id": {"type": "string", "minLength": 1},
-        "display_name": {"type": "string", "minLength": 1},
-        "address": {"$ref": "#/$defs/address"},
-        "ordinal": {"type": "integer", "minimum": 0, "maximum": 11},
-        "source_refs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}}
+        "member_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "$ref": "#/$defs/address"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "hourlyCandidate": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "candidate_id", "time_standard", "source_local_datetime",
-        "ziwei_day_boundary_policy", "effective_gregorian_date", "day_ganzhi",
-        "hour_branch", "hour_ganzhi", "frame_status", "active_address_branch",
-        "designation_overlay", "active_address_rule_id", "active_address_source_refs",
-        "auxiliary_status", "auxiliary_activations", "auxiliary_source_refs", "auxiliary_candidate_sets",
-        "transformation_status", "transformation_rule_set_id",
-        "transformation_rule_set_version", "transformations", "transformation_source_refs",
-        "rule_id", "authority_status", "source_refs"
+        "candidate_id",
+        "time_standard",
+        "source_local_datetime",
+        "ziwei_day_boundary_policy",
+        "effective_gregorian_date",
+        "day_ganzhi",
+        "hour_branch",
+        "hour_ganzhi",
+        "frame_status",
+        "active_address_branch",
+        "designation_overlay",
+        "active_address_rule_id",
+        "active_address_source_refs",
+        "auxiliary_status",
+        "auxiliary_activations",
+        "auxiliary_source_refs",
+        "auxiliary_candidate_sets",
+        "transformation_status",
+        "transformation_rule_set_id",
+        "transformation_rule_set_version",
+        "transformations",
+        "transformation_source_refs",
+        "rule_id",
+        "authority_status",
+        "source_refs"
       ],
       "properties": {
-        "candidate_id": {"type": "string", "minLength": 1},
-        "time_standard": {"enum": ["ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME", "LOCAL_APPARENT_SOLAR_TIME"]},
-        "source_local_datetime": {"$ref": "#/$defs/dateTime"},
-        "ziwei_day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
-        "effective_gregorian_date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
-        "day_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "hour_branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "hour_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "frame_status": {"const": "CASE_METHOD_ACTIVE_ADDRESS_CANDIDATE_NO_COMPLETE_CHART"},
-        "active_address_branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time_standard": {
+          "enum": [
+            "ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME",
+            "LOCAL_APPARENT_SOLAR_TIME"
+          ]
+        },
+        "source_local_datetime": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "ziwei_day_boundary_policy": {
+          "enum": [
+            "MIDNIGHT",
+            "ZI_START_23"
+          ]
+        },
+        "effective_gregorian_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "day_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "hour_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "hour_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "frame_status": {
+          "const": "CASE_METHOD_ACTIVE_ADDRESS_CANDIDATE_NO_COMPLETE_CHART"
+        },
+        "active_address_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
         "designation_overlay": {
           "type": "array",
           "minItems": 12,
           "maxItems": 12,
-          "items": {"$ref": "#/$defs/designationBinding"}
+          "items": {
+            "$ref": "#/$defs/designationBinding"
+          }
         },
-        "active_address_rule_id": {"const": "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1"},
+        "active_address_rule_id": {
+          "const": "S10-CASE-HOUR-BRANCH-ACTIVE-ADDRESS-CANDIDATE-R1"
+        },
         "active_address_source_refs": {
           "type": "array",
           "minItems": 2,
-          "items": {"type": "string", "minLength": 1}
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
-        "auxiliary_status": {"const": "CASE_METHOD_SOURCE_RULE_RESOLVED"},
+        "auxiliary_status": {
+          "const": "CASE_METHOD_SOURCE_RULE_RESOLVED"
+        },
         "auxiliary_activations": {
           "type": "array",
           "minItems": 5,
           "maxItems": 5,
-          "items": {"$ref": "#/$defs/temporalAuxiliaryActivation"}
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryActivation"
+          }
         },
-        "auxiliary_source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-        "auxiliary_candidate_sets": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/temporalAuxiliaryCandidateSet"}},
-        "transformation_status": {"enum": ["CASE_METHOD_PROFILE_RULE_SET_RESOLVED", "CASE_METHOD_PROFILE_TRANSFORMATIONS_DISABLED"]},
-        "transformation_rule_set_id": {"type": ["string", "null"]},
-        "transformation_rule_set_version": {"type": ["string", "null"]},
-        "transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
+        "auxiliary_source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "auxiliary_candidate_sets": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryCandidateSet"
+          }
+        },
+        "transformation_status": {
+          "enum": [
+            "CASE_METHOD_PROFILE_RULE_SET_RESOLVED",
+            "CASE_METHOD_PROFILE_TRANSFORMATIONS_DISABLED"
+          ]
+        },
+        "transformation_rule_set_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transformation_rule_set_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transformations": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/transformation"
+          }
+        },
         "transformation_source_refs": {
           "type": "array",
           "minItems": 2,
-          "items": {"type": "string", "minLength": 1}
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
-        "rule_id": {"const": "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"},
-        "authority_status": {"const": "CASE_METHOD_ONLY_NOT_GLOBAL_RULE"},
+        "rule_id": {
+          "const": "S10-CASE-FIVE-RATS-HOUR-CANDIDATE-R1"
+        },
+        "authority_status": {
+          "const": "CASE_METHOD_ONLY_NOT_GLOBAL_RULE"
+        },
         "source_refs": {
           "type": "array",
           "minItems": 6,
-          "items": {"type": "string", "minLength": 1}
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
@@ -260,118 +743,480 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "source_layer", "frame_id", "parent_frame_id", "source_stem",
-        "frame_rule_set_id", "frame_rule_set_version", "frame_algorithm_id",
-        "frame_algorithm_version", "source_refs", "transformations",
-        "auxiliary_activations", "auxiliary_candidate_sets", "fact_hash", "computation_hash"
+        "source_layer",
+        "frame_id",
+        "parent_frame_id",
+        "source_stem",
+        "frame_rule_set_id",
+        "frame_rule_set_version",
+        "frame_algorithm_id",
+        "frame_algorithm_version",
+        "source_refs",
+        "transformations",
+        "auxiliary_activations",
+        "auxiliary_candidate_sets",
+        "fact_hash",
+        "computation_hash"
       ],
       "properties": {
-        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH"]},
-        "frame_id": {"type": "string", "minLength": 1},
-        "parent_frame_id": {"type": ["string", "null"]},
-        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
-        "frame_rule_set_id": {"const": "S10_CURRENT_TEMPORAL_R1"},
-        "frame_rule_set_version": {"const": "1.6.0"},
-        "frame_algorithm_id": {"const": "ZIWEI-TEMPORAL-FRAMES-V1"},
-        "frame_algorithm_version": {"const": "1.6.0"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-        "transformations": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/transformation"}},
-        "auxiliary_activations": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/temporalAuxiliaryActivation"}},
-        "auxiliary_candidate_sets": {"type": "array", "minItems": 1, "maxItems": 2, "items": {"$ref": "#/$defs/temporalAuxiliaryCandidateSet"}},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "source_layer": {
+          "enum": [
+            "DAXIAN",
+            "ANNUAL",
+            "MONTH"
+          ]
+        },
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_frame_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_stem": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸"
+          ]
+        },
+        "frame_rule_set_id": {
+          "const": "S10_CURRENT_TEMPORAL_R1"
+        },
+        "frame_rule_set_version": {
+          "const": "1.6.0"
+        },
+        "frame_algorithm_id": {
+          "const": "ZIWEI-TEMPORAL-FRAMES-V1"
+        },
+        "frame_algorithm_version": {
+          "const": "1.6.0"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "transformations": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/transformation"
+          }
+        },
+        "auxiliary_activations": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryActivation"
+          }
+        },
+        "auxiliary_candidate_sets": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryCandidateSet"
+          }
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "address": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["index", "branch"],
+      "required": [
+        "index",
+        "branch"
+      ],
       "properties": {
-        "index": {"type": "integer", "minimum": 0, "maximum": 11},
-        "branch": {"enum": ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]}
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "branch": {
+          "enum": [
+            "子",
+            "丑",
+            "寅",
+            "卯",
+            "辰",
+            "巳",
+            "午",
+            "未",
+            "申",
+            "酉",
+            "戌",
+            "亥"
+          ]
+        }
       }
     },
     "designationBinding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["designation_id", "display_name", "address"],
+      "required": [
+        "designation_id",
+        "display_name",
+        "address"
+      ],
       "properties": {
         "designation_id": {
-          "enum": ["LIFE", "SIBLINGS", "SPOUSE", "CHILDREN", "WEALTH", "HEALTH", "TRAVEL", "SERVANTS_FRIENDS", "CAREER", "PROPERTY", "FORTUNE", "PARENTS"]
+          "enum": [
+            "LIFE",
+            "SIBLINGS",
+            "SPOUSE",
+            "CHILDREN",
+            "WEALTH",
+            "HEALTH",
+            "TRAVEL",
+            "SERVANTS_FRIENDS",
+            "CAREER",
+            "PROPERTY",
+            "FORTUNE",
+            "PARENTS"
+          ]
         },
-        "display_name": {"enum": ["命", "兄弟", "夫妻", "子女", "财帛", "疾厄", "迁移", "奴仆", "官禄", "田宅", "福德", "父母"]},
-        "address": {"$ref": "#/$defs/address"}
+        "display_name": {
+          "enum": [
+            "命",
+            "兄弟",
+            "夫妻",
+            "子女",
+            "财帛",
+            "疾厄",
+            "迁移",
+            "奴仆",
+            "官禄",
+            "田宅",
+            "福德",
+            "父母"
+          ]
+        },
+        "address": {
+          "$ref": "#/$defs/address"
+        }
       }
     },
     "transformation": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "activation_id", "transformation_type", "target_entity_id", "target_display_name",
-        "target_address", "source_layer", "source_stem", "context_id", "assignment_id",
-        "mechanism_id", "generator_id", "algorithm_version", "source_refs"
+        "activation_id",
+        "transformation_type",
+        "target_entity_id",
+        "target_display_name",
+        "target_address",
+        "source_layer",
+        "source_stem",
+        "context_id",
+        "assignment_id",
+        "mechanism_id",
+        "generator_id",
+        "algorithm_version",
+        "source_refs"
       ],
       "properties": {
-        "activation_id": {"type": "string", "minLength": 1},
-        "transformation_type": {"enum": ["化禄","化权","化科","化忌"]},
-        "target_entity_id": {"type": "string", "minLength": 1},
-        "target_display_name": {"type": "string", "minLength": 1},
-        "target_address": {"$ref": "#/$defs/address"},
-        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH", "DAY", "HOUR_CANDIDATE"]},
-        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
-        "context_id": {"type": "string", "minLength": 1},
-        "assignment_id": {"type": "string", "minLength": 1},
-        "mechanism_id": {"type": "string", "minLength": 1},
-        "generator_id": {"const": "ZIWEI-TRANSFORMATION-ACTIVATION-V1"},
-        "algorithm_version": {"const": "1.0.0"},
-        "source_refs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}}
+        "activation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transformation_type": {
+          "enum": [
+            "化禄",
+            "化权",
+            "化科",
+            "化忌"
+          ]
+        },
+        "target_entity_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_address": {
+          "$ref": "#/$defs/address"
+        },
+        "source_layer": {
+          "enum": [
+            "DAXIAN",
+            "ANNUAL",
+            "MONTH",
+            "DAY",
+            "HOUR_CANDIDATE"
+          ]
+        },
+        "source_stem": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸"
+          ]
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assignment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mechanism_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generator_id": {
+          "const": "ZIWEI-TRANSFORMATION-ACTIVATION-V1"
+        },
+        "algorithm_version": {
+          "const": "1.0.0"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "temporalAuxiliaryActivation": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "activation_id", "entity_id", "display_name", "target_address", "source_layer",
-        "source_stem", "context_id", "rule_id", "generator_id", "algorithm_version", "source_refs"
+        "activation_id",
+        "entity_id",
+        "display_name",
+        "target_address",
+        "source_layer",
+        "source_stem",
+        "context_id",
+        "rule_id",
+        "generator_id",
+        "algorithm_version",
+        "source_refs"
       ],
       "properties": {
-        "activation_id": {"type": "string", "minLength": 1},
-        "entity_id": {"enum": ["STAR.LUCUN", "STAR.QINGYANG", "STAR.TUOLUO", "STAR.WENCHANG", "STAR.WENQU", "STAR.TIANKUI", "STAR.TIANYUE", "STAR.TIANMA"]},
-        "display_name": {"enum": ["禄存", "擎羊", "陀罗", "文昌", "文曲", "天魁", "天钺", "天马"]},
-        "target_address": {"$ref": "#/$defs/address"},
-        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH", "DAY", "HOUR_CANDIDATE"]},
-        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
-        "context_id": {"type": "string", "minLength": 1},
-        "rule_id": {"enum": ["S10-STEM-LUCUN-QINGYANG-TUOLUO-R1", "S10-STEM-FLOW-WENCHANG-WENQU-R1", "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1", "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"]},
-        "generator_id": {"enum": ["ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1", "ZIWEI-TEMPORAL-FLOW-WENCHANG-WENQU-V1", "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1", "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"]},
-        "algorithm_version": {"const": "1.0.0"},
-        "source_refs": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}}
+        "activation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_id": {
+          "enum": [
+            "STAR.LUCUN",
+            "STAR.QINGYANG",
+            "STAR.TUOLUO",
+            "STAR.WENCHANG",
+            "STAR.WENQU",
+            "STAR.TIANKUI",
+            "STAR.TIANYUE",
+            "STAR.TIANMA"
+          ]
+        },
+        "display_name": {
+          "enum": [
+            "禄存",
+            "擎羊",
+            "陀罗",
+            "文昌",
+            "文曲",
+            "天魁",
+            "天钺",
+            "天马"
+          ]
+        },
+        "target_address": {
+          "$ref": "#/$defs/address"
+        },
+        "source_layer": {
+          "enum": [
+            "DAXIAN",
+            "ANNUAL",
+            "MONTH",
+            "DAY",
+            "HOUR_CANDIDATE"
+          ]
+        },
+        "source_stem": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸"
+          ]
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_id": {
+          "enum": [
+            "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1",
+            "S10-STEM-FLOW-WENCHANG-WENQU-R1",
+            "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1",
+            "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"
+          ]
+        },
+        "generator_id": {
+          "enum": [
+            "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1",
+            "ZIWEI-TEMPORAL-FLOW-WENCHANG-WENQU-V1",
+            "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1",
+            "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"
+          ]
+        },
+        "algorithm_version": {
+          "enum": [
+            "1.0.0",
+            "1.0.1"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       },
       "allOf": [
         {
-          "if": {"properties": {"entity_id": {"enum": ["STAR.LUCUN", "STAR.QINGYANG", "STAR.TUOLUO"]}}},
+          "if": {
+            "properties": {
+              "entity_id": {
+                "enum": [
+                  "STAR.LUCUN",
+                  "STAR.QINGYANG",
+                  "STAR.TUOLUO"
+                ]
+              }
+            }
+          },
           "then": {
             "properties": {
-              "rule_id": {"const": "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1"},
-              "generator_id": {"const": "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1"}
+              "rule_id": {
+                "const": "S10-STEM-LUCUN-QINGYANG-TUOLUO-R1"
+              },
+              "generator_id": {
+                "const": "ZIWEI-TEMPORAL-LUCUN-YANG-TUO-V1"
+              }
             }
           },
           "else": {
-            "if": {"properties": {"entity_id": {"enum": ["STAR.WENCHANG", "STAR.WENQU"]}}},
+            "if": {
+              "properties": {
+                "entity_id": {
+                  "enum": [
+                    "STAR.WENCHANG",
+                    "STAR.WENQU"
+                  ]
+                }
+              }
+            },
             "then": {
               "properties": {
-                "rule_id": {"const": "S10-STEM-FLOW-WENCHANG-WENQU-R1"},
-                "generator_id": {"const": "ZIWEI-TEMPORAL-FLOW-WENCHANG-WENQU-V1"}
+                "rule_id": {
+                  "const": "S10-STEM-FLOW-WENCHANG-WENQU-R1"
+                },
+                "generator_id": {
+                  "const": "ZIWEI-TEMPORAL-FLOW-WENCHANG-WENQU-V1"
+                }
               }
             },
             "else": {
-              "if": {"properties": {"entity_id": {"const": "STAR.TIANMA"}}},
-              "then": {"properties": {"rule_id": {"const": "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"}, "generator_id": {"const": "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"}}},
+              "if": {
+                "properties": {
+                  "entity_id": {
+                    "const": "STAR.TIANMA"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "rule_id": {
+                    "const": "S10-BRANCH-FLOW-TIANMA-CASE-CANDIDATES-R1"
+                  },
+                  "generator_id": {
+                    "const": "ZIWEI-TEMPORAL-FLOW-TIANMA-CASE-CANDIDATES-V1"
+                  }
+                }
+              },
               "else": {
-              "properties": {
-                "rule_id": {"const": "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1"},
-                "generator_id": {"const": "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1"}
+                "properties": {
+                  "rule_id": {
+                    "const": "S10-STEM-FLOW-KUI-YUE-CANDIDATES-R1"
+                  },
+                  "generator_id": {
+                    "const": "ZIWEI-TEMPORAL-FLOW-KUI-YUE-CANDIDATES-V1"
+                  }
+                }
               }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "entity_id": {
+                "enum": [
+                  "STAR.TIANKUI",
+                  "STAR.TIANYUE"
+                ]
+              }
+            },
+            "required": [
+              "entity_id"
+            ]
+          },
+          "then": {
+            "properties": {
+              "algorithm_version": {
+                "const": "1.0.1"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "algorithm_version": {
+                "const": "1.0.0"
               }
             }
           }
@@ -381,56 +1226,231 @@
     "temporalAuxiliaryMethodCandidate": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["candidate_id", "method_id", "authority_status", "activations", "source_refs", "fact_hash", "computation_hash"],
+      "required": [
+        "candidate_id",
+        "method_id",
+        "authority_status",
+        "activations",
+        "source_refs",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "candidate_id": {"type": "string", "minLength": 1},
-        "method_id": {"enum": ["S01-QS-STRICT-KUI-YUE-R1", "COMPAT-WENMO-KUI-YUE-R1", "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1", "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"]},
-        "authority_status": {"enum": ["CANONICAL_SOURCE_TABLE", "EXTERNAL_CASE_COMPATIBILITY", "CASE_METHOD_ONLY"]},
-        "activations": {"type": "array", "minItems": 1, "maxItems": 2, "items": {"$ref": "#/$defs/temporalAuxiliaryActivation"}},
-        "source_refs": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method_id": {
+          "enum": [
+            "S01-QS-STRICT-KUI-YUE-R1",
+            "COMPAT-WENMO-KUI-YUE-R1",
+            "S10-LIMIT-PALACE-BRANCH-TIANMA-CASE-R1",
+            "S10-ANNUAL-BRANCH-TIANMA-CASE-R1"
+          ]
+        },
+        "authority_status": {
+          "enum": [
+            "CANONICAL_SOURCE_TABLE",
+            "EXTERNAL_CASE_COMPATIBILITY",
+            "CASE_METHOD_ONLY",
+            "S01_STRICT_PROJECT_CORPUS_METHOD"
+          ]
+        },
+        "activations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryActivation"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "temporalAuxiliaryCandidateSet": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["candidate_set_id", "source_layer", "source_stem", "source_basis_type", "source_basis_value", "context_id", "entity_ids", "selection_status", "method_candidates", "source_refs", "fact_hash", "computation_hash"],
+      "required": [
+        "candidate_set_id",
+        "source_layer",
+        "source_stem",
+        "source_basis_type",
+        "source_basis_value",
+        "context_id",
+        "entity_ids",
+        "selection_status",
+        "method_candidates",
+        "source_refs",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "candidate_set_id": {"type": "string", "minLength": 1},
-        "source_layer": {"enum": ["DAXIAN", "ANNUAL", "MONTH", "DAY", "HOUR_CANDIDATE"]},
-        "source_stem": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]},
-        "source_basis_type": {"enum": ["STEM", "BRANCH"]},
-        "source_basis_value": {"enum": ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸","子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]},
-        "context_id": {"type": "string", "minLength": 1},
-        "entity_ids": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["STAR.TIANKUI", "STAR.TIANYUE", "STAR.TIANMA"]}},
-        "selection_status": {"enum": ["CANDIDATES_PRESERVED_NO_SELECTION", "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"]},
-        "method_candidates": {"type": "array", "minItems": 1, "maxItems": 2, "items": {"$ref": "#/$defs/temporalAuxiliaryMethodCandidate"}},
-        "source_refs": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "candidate_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_layer": {
+          "enum": [
+            "DAXIAN",
+            "ANNUAL",
+            "MONTH",
+            "DAY",
+            "HOUR_CANDIDATE"
+          ]
+        },
+        "source_stem": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸"
+          ]
+        },
+        "source_basis_type": {
+          "enum": [
+            "STEM",
+            "BRANCH"
+          ]
+        },
+        "source_basis_value": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸",
+            "子",
+            "丑",
+            "寅",
+            "卯",
+            "辰",
+            "巳",
+            "午",
+            "未",
+            "申",
+            "酉",
+            "戌",
+            "亥"
+          ]
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "STAR.TIANKUI",
+              "STAR.TIANYUE",
+              "STAR.TIANMA"
+            ]
+          }
+        },
+        "selection_status": {
+          "enum": [
+            "CANDIDATES_PRESERVED_NO_SELECTION",
+            "CASE_METHOD_CANDIDATE_PRESERVED_NO_SELECTION"
+          ]
+        },
+        "method_candidates": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/temporalAuxiliaryMethodCandidate"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "hashes": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "required": [
+        "fact_hash",
+        "computation_hash",
+        "algorithm_id",
+        "algorithm_version"
+      ],
       "properties": {
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"},
-        "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"},
-        "algorithm_version": {"const": "2.0.0"}
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "algorithm_id": {
+          "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
+        },
+        "algorithm_version": {
+          "const": "2.0.0"
+        }
       }
     },
     "integrity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "required": [
+        "status",
+        "diagnostics",
+        "algorithm_id",
+        "algorithm_version"
+      ],
       "properties": {
-        "status": {"const": "PASS"},
-        "diagnostics": {"type": "array", "maxItems": 0},
-        "algorithm_id": {"const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"},
-        "algorithm_version": {"const": "2.0.0"}
+        "status": {
+          "const": "PASS"
+        },
+        "diagnostics": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "algorithm_id": {
+          "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
+        },
+        "algorithm_version": {
+          "const": "2.0.0"
+        }
       }
     }
   }

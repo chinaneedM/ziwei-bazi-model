@@ -5,309 +5,1088 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema", "status", "base_application_bundle_hash", "base_application_source_fact_hash",
-    "application_profile_id", "application_profile_version", "natal_profile_id", "natal_profile_version",
-    "temporal_profile_id", "temporal_profile_version", "target_coordinate_profile_id",
-    "target_coordinate_profile_version", "dayun_count", "target_input", "target_coordinate_status",
-    "target_coordinate_effective_uncertainty_seconds_each_side", "target_coordinate_sample_count",
-    "target_coordinate_ambiguous_sample_count", "target_coordinate_unresolved_samples",
-    "target_coordinate_fact_hash", "target_coordinate_computation_hash", "candidates", "events",
-    "diagnostics", "source_fact_hash", "view_hash", "bundle_hash", "integrity"
+    "schema",
+    "status",
+    "base_application_bundle_hash",
+    "base_application_source_fact_hash",
+    "application_profile_id",
+    "application_profile_version",
+    "natal_profile_id",
+    "natal_profile_version",
+    "temporal_profile_id",
+    "temporal_profile_version",
+    "target_coordinate_profile_id",
+    "target_coordinate_profile_version",
+    "dayun_count",
+    "target_input",
+    "target_coordinate_status",
+    "target_coordinate_effective_uncertainty_seconds_each_side",
+    "target_coordinate_sample_count",
+    "target_coordinate_ambiguous_sample_count",
+    "target_coordinate_unresolved_samples",
+    "target_coordinate_fact_hash",
+    "target_coordinate_computation_hash",
+    "candidates",
+    "events",
+    "diagnostics",
+    "source_fact_hash",
+    "view_hash",
+    "bundle_hash",
+    "integrity"
   ],
   "properties": {
-    "schema": {"const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"},
-    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
-    "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
-    "base_application_source_fact_hash": {"$ref": "#/$defs/hash"},
-    "application_profile_id": {"type": "string", "minLength": 1},
-    "application_profile_version": {"type": "string", "minLength": 1},
-    "natal_profile_id": {"type": "string", "minLength": 1},
-    "natal_profile_version": {"type": "string", "minLength": 1},
-    "temporal_profile_id": {"type": "string", "minLength": 1},
-    "temporal_profile_version": {"type": "string", "minLength": 1},
-    "target_coordinate_profile_id": {"const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"},
-    "target_coordinate_profile_version": {"const": "1.0.0"},
-    "dayun_count": {"type": "integer", "minimum": 1, "maximum": 20},
-    "target_input": {"$ref": "#/$defs/targetInput"},
-    "target_coordinate_status": {"enum": ["RESOLVED", "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY"]},
-    "target_coordinate_effective_uncertainty_seconds_each_side": {"type": "integer", "minimum": 0},
-    "target_coordinate_sample_count": {"type": "integer", "minimum": 1},
-    "target_coordinate_ambiguous_sample_count": {"type": "integer", "minimum": 0},
-    "target_coordinate_unresolved_samples": {"type": "array", "items": {"$ref": "#/$defs/unresolvedSample"}},
-    "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
-    "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
-    "candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/candidate"}},
-    "events": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "diagnostics": {"type": "array", "maxItems": 0},
-    "source_fact_hash": {"$ref": "#/$defs/hash"},
-    "view_hash": {"$ref": "#/$defs/hash"},
-    "bundle_hash": {"$ref": "#/$defs/hash"},
-    "integrity": {"$ref": "#/$defs/integrity"}
+    "schema": {
+      "const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"
+    },
+    "status": {
+      "enum": [
+        "RESOLVED",
+        "MULTI_CANDIDATE"
+      ]
+    },
+    "base_application_bundle_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "base_application_source_fact_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "application_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "application_profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "natal_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "natal_profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "temporal_profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "temporal_profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_coordinate_profile_id": {
+      "const": "BAZI-TARGET-TEMPORAL-COORDINATE-FOUNDATION-R1"
+    },
+    "target_coordinate_profile_version": {
+      "const": "1.0.0"
+    },
+    "dayun_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20
+    },
+    "target_input": {
+      "$ref": "#/$defs/targetInput"
+    },
+    "target_coordinate_status": {
+      "enum": [
+        "RESOLVED",
+        "MULTI_CANDIDATE_OR_BOUNDARY_UNCERTAINTY"
+      ]
+    },
+    "target_coordinate_effective_uncertainty_seconds_each_side": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "target_coordinate_sample_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "target_coordinate_ambiguous_sample_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "target_coordinate_unresolved_samples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unresolvedSample"
+      }
+    },
+    "target_coordinate_fact_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "target_coordinate_computation_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/candidate"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "diagnostics": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "source_fact_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "view_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "bundle_hash": {
+      "$ref": "#/$defs/hash"
+    },
+    "integrity": {
+      "$ref": "#/$defs/integrity"
+    }
   },
   "$defs": {
-    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "targetCandidateId": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
-    "applicationCandidateId": {"type": "string", "pattern": "^BAZI-APPLICATION-CANDIDATE:[0-9a-f]{64}$"},
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "targetCandidateId": {
+      "type": "string",
+      "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"
+    },
+    "applicationCandidateId": {
+      "type": "string",
+      "pattern": "^BAZI-APPLICATION-CANDIDATE:[0-9a-f]{64}$"
+    },
     "targetInput": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["reported_local_datetime", "target_place", "latitude", "longitude", "timezone_id", "precision", "uncertainty_seconds"],
+      "required": [
+        "reported_local_datetime",
+        "target_place",
+        "latitude",
+        "longitude",
+        "timezone_id",
+        "precision",
+        "uncertainty_seconds"
+      ],
       "properties": {
-        "reported_local_datetime": {"type": "string"},
-        "target_place": {"type": "string", "minLength": 1},
-        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
-        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
-        "timezone_id": {"type": "string", "minLength": 1},
-        "precision": {"enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]},
-        "uncertainty_seconds": {"type": "integer", "minimum": 0}
+        "reported_local_datetime": {
+          "type": "string"
+        },
+        "target_place": {
+          "type": "string",
+          "minLength": 1
+        },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "timezone_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "precision": {
+          "enum": [
+            "EXACT_SECOND",
+            "NEAREST_MINUTE",
+            "NEAREST_HOUR",
+            "APPROXIMATE"
+          ]
+        },
+        "uncertainty_seconds": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "unresolvedSample": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source_sample_index", "sample_reported_local_datetime", "civil_status", "timezone_id", "tzdb_version", "historical_confidence", "warnings"],
+      "required": [
+        "source_sample_index",
+        "sample_reported_local_datetime",
+        "civil_status",
+        "timezone_id",
+        "tzdb_version",
+        "historical_confidence",
+        "warnings"
+      ],
       "properties": {
-        "source_sample_index": {"type": "integer", "minimum": 0},
-        "sample_reported_local_datetime": {"type": "string"},
-        "civil_status": {"type": "string", "minLength": 1},
-        "timezone_id": {"type": "string", "minLength": 1},
-        "tzdb_version": {"type": "string", "minLength": 1},
-        "historical_confidence": {"type": "string", "minLength": 1},
-        "warnings": {"type": "array", "items": {"type": "string"}}
+        "source_sample_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sample_reported_local_datetime": {
+          "type": "string"
+        },
+        "civil_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timezone_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tzdb_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "historical_confidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "activePreDayun": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "start_utc", "end_utc", "interval_semantics"],
+      "required": [
+        "frame_id",
+        "start_utc",
+        "end_utc",
+        "interval_semantics"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "minLength": 1},
-        "start_utc": {"type": "string"},
-        "end_utc": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"}
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_utc": {
+          "type": "string"
+        },
+        "end_utc": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        }
       }
     },
     "activeDayun": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "index", "ganzhi", "sexagenary_index", "start_utc", "end_utc", "interval_semantics", "source_refs"],
+      "required": [
+        "frame_id",
+        "index",
+        "ganzhi",
+        "sexagenary_index",
+        "start_utc",
+        "end_utc",
+        "interval_semantics",
+        "source_refs"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "minLength": 1},
-        "index": {"type": "integer", "minimum": 1},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "start_utc": {"type": "string"},
-        "end_utc": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "source_refs": {"type": "array", "items": {"type": "string"}}
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "start_utc": {
+          "type": "string"
+        },
+        "end_utc": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "annual": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "pillar_year", "ganzhi", "sexagenary_index", "start_term_name", "start_term_chinese_name", "start_utc", "end_term_name", "end_term_chinese_name", "end_utc", "interval_semantics", "year_boundary_policy", "solar_term_algorithm_id", "solar_term_algorithm_version", "source_refs"],
+      "required": [
+        "frame_id",
+        "pillar_year",
+        "ganzhi",
+        "sexagenary_index",
+        "start_term_name",
+        "start_term_chinese_name",
+        "start_utc",
+        "end_term_name",
+        "end_term_chinese_name",
+        "end_utc",
+        "interval_semantics",
+        "year_boundary_policy",
+        "solar_term_algorithm_id",
+        "solar_term_algorithm_version",
+        "source_refs"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "minLength": 1},
-        "pillar_year": {"type": "integer"},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "start_term_name": {"type": "string"},
-        "start_term_chinese_name": {"type": "string"},
-        "start_utc": {"type": "string"},
-        "end_term_name": {"type": "string"},
-        "end_term_chinese_name": {"type": "string"},
-        "end_utc": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "year_boundary_policy": {"const": "START_OF_SPRING"},
-        "solar_term_algorithm_id": {"type": "string"},
-        "solar_term_algorithm_version": {"type": "string"},
-        "source_refs": {"type": "array", "items": {"type": "string"}}
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pillar_year": {
+          "type": "integer"
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "start_term_name": {
+          "type": "string"
+        },
+        "start_term_chinese_name": {
+          "type": "string"
+        },
+        "start_utc": {
+          "type": "string"
+        },
+        "end_term_name": {
+          "type": "string"
+        },
+        "end_term_chinese_name": {
+          "type": "string"
+        },
+        "end_utc": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "year_boundary_policy": {
+          "const": "START_OF_SPRING"
+        },
+        "solar_term_algorithm_id": {
+          "type": "string"
+        },
+        "solar_term_algorithm_version": {
+          "type": "string"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "monthly": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "ganzhi", "sexagenary_index", "start_jie_name", "start_jie_chinese_name", "start_jie_longitude_degrees", "start_utc", "end_jie_name", "end_jie_chinese_name", "end_jie_longitude_degrees", "end_utc", "interval_semantics", "solar_term_algorithm_id", "solar_term_algorithm_version", "source_refs"],
+      "required": [
+        "frame_id",
+        "ganzhi",
+        "sexagenary_index",
+        "start_jie_name",
+        "start_jie_chinese_name",
+        "start_jie_longitude_degrees",
+        "start_utc",
+        "end_jie_name",
+        "end_jie_chinese_name",
+        "end_jie_longitude_degrees",
+        "end_utc",
+        "interval_semantics",
+        "solar_term_algorithm_id",
+        "solar_term_algorithm_version",
+        "source_refs"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "minLength": 1},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "start_jie_name": {"type": "string"},
-        "start_jie_chinese_name": {"type": "string"},
-        "start_jie_longitude_degrees": {"type": "integer"},
-        "start_utc": {"type": "string"},
-        "end_jie_name": {"type": "string"},
-        "end_jie_chinese_name": {"type": "string"},
-        "end_jie_longitude_degrees": {"type": "integer"},
-        "end_utc": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "solar_term_algorithm_id": {"type": "string"},
-        "solar_term_algorithm_version": {"type": "string"},
-        "source_refs": {"type": "array", "items": {"type": "string"}}
+        "frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "start_jie_name": {
+          "type": "string"
+        },
+        "start_jie_chinese_name": {
+          "type": "string"
+        },
+        "start_jie_longitude_degrees": {
+          "type": "integer"
+        },
+        "start_utc": {
+          "type": "string"
+        },
+        "end_jie_name": {
+          "type": "string"
+        },
+        "end_jie_chinese_name": {
+          "type": "string"
+        },
+        "end_jie_longitude_degrees": {
+          "type": "integer"
+        },
+        "end_utc": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "solar_term_algorithm_id": {
+          "type": "string"
+        },
+        "solar_term_algorithm_version": {
+          "type": "string"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "daily": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "ganzhi", "sexagenary_index", "effective_day_date", "start_las", "end_las", "interval_semantics", "day_boundary_policy", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "required": [
+        "frame_id",
+        "ganzhi",
+        "sexagenary_index",
+        "effective_day_date",
+        "start_las",
+        "end_las",
+        "interval_semantics",
+        "day_boundary_policy",
+        "source_flow_fact_hash",
+        "source_target_coordinate_fact_hash",
+        "source_target_coordinate_candidate_id",
+        "natal_profile_id",
+        "natal_profile_version"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "effective_day_date": {"type": "string"},
-        "start_las": {"type": "string"},
-        "end_las": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
-        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
-        "natal_profile_id": {"type": "string"},
-        "natal_profile_version": {"type": "string"}
+        "frame_id": {
+          "type": "string",
+          "pattern": "^DAILY:[0-9a-f]{64}$"
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "effective_day_date": {
+          "type": "string"
+        },
+        "start_las": {
+          "type": "string"
+        },
+        "end_las": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "day_boundary_policy": {
+          "enum": [
+            "MIDNIGHT",
+            "ZI_START_23"
+          ]
+        },
+        "source_flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_candidate_id": {
+          "$ref": "#/$defs/targetCandidateId"
+        },
+        "natal_profile_id": {
+          "type": "string"
+        },
+        "natal_profile_version": {
+          "type": "string"
+        }
       }
     },
     "hourly": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "ganzhi", "sexagenary_index", "branch", "start_las", "end_las", "interval_semantics", "hour_stem_source_date", "late_zi_hour_stem_policy", "daily_frame_id", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "required": [
+        "frame_id",
+        "ganzhi",
+        "sexagenary_index",
+        "branch",
+        "start_las",
+        "end_las",
+        "interval_semantics",
+        "hour_stem_source_date",
+        "late_zi_hour_stem_policy",
+        "daily_frame_id",
+        "source_flow_fact_hash",
+        "source_target_coordinate_fact_hash",
+        "source_target_coordinate_candidate_id",
+        "natal_profile_id",
+        "natal_profile_version"
+      ],
       "properties": {
-        "frame_id": {"type": "string", "pattern": "^HOURLY:[0-9a-f]{64}$"},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "start_las": {"type": "string"},
-        "end_las": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "hour_stem_source_date": {"type": "string"},
-        "late_zi_hour_stem_policy": {"enum": ["CLASSICAL_CONTINUOUS", "CURRENT_DAY_STEM", "ZI_START_ROLLOVER"]},
-        "daily_frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
-        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
-        "natal_profile_id": {"type": "string"},
-        "natal_profile_version": {"type": "string"}
+        "frame_id": {
+          "type": "string",
+          "pattern": "^HOURLY:[0-9a-f]{64}$"
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "start_las": {
+          "type": "string"
+        },
+        "end_las": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "hour_stem_source_date": {
+          "type": "string"
+        },
+        "late_zi_hour_stem_policy": {
+          "enum": [
+            "CLASSICAL_CONTINUOUS",
+            "CURRENT_DAY_STEM",
+            "ZI_START_ROLLOVER"
+          ]
+        },
+        "daily_frame_id": {
+          "type": "string",
+          "pattern": "^DAILY:[0-9a-f]{64}$"
+        },
+        "source_flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_target_coordinate_candidate_id": {
+          "$ref": "#/$defs/targetCandidateId"
+        },
+        "natal_profile_id": {
+          "type": "string"
+        },
+        "natal_profile_version": {
+          "type": "string"
+        }
       }
     },
     "temporalHiddenStem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["stem", "element", "registry_ordinal", "ten_god_semantic_role_id", "ten_god"],
+      "required": [
+        "stem",
+        "element",
+        "registry_ordinal",
+        "ten_god_semantic_role_id",
+        "ten_god"
+      ],
       "properties": {
-        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "element": {"enum": ["木", "火", "土", "金", "水"]},
-        "registry_ordinal": {"type": "integer", "minimum": 0, "maximum": 2},
-        "ten_god_semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
-        "ten_god": {"type": "string", "minLength": 1}
+        "stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "element": {
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水"
+          ]
+        },
+        "registry_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "ten_god_semantic_role_id": {
+          "enum": [
+            "BIJIAN",
+            "JIECAI",
+            "SHISHEN",
+            "SHANGGUAN",
+            "PIANCAI",
+            "ZHENGCAI",
+            "QISHA",
+            "ZHENGGUAN",
+            "PIANIN",
+            "ZHENGIN"
+          ]
+        },
+        "ten_god": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "temporalGrowth": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["profile_id", "profile_version", "source_stem", "target_branch", "stem_polarity", "direction", "growth_start_branch", "phase_ordinal", "phase", "source_refs", "semantic_scope"],
+      "required": [
+        "profile_id",
+        "profile_version",
+        "source_stem",
+        "target_branch",
+        "stem_polarity",
+        "direction",
+        "growth_start_branch",
+        "phase_ordinal",
+        "phase",
+        "source_refs",
+        "semantic_scope"
+      ],
       "properties": {
-        "profile_id": {"const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"},
-        "profile_version": {"const": "1.0.1"},
-        "source_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "target_branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "stem_polarity": {"enum": ["YANG", "YIN"]},
-        "direction": {"enum": ["FORWARD", "REVERSE"]},
-        "growth_start_branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "phase_ordinal": {"type": "integer", "minimum": 0, "maximum": 11},
-        "phase": {"enum": ["长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养"]},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "semantic_scope": {"const": "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION"}
+        "profile_id": {
+          "const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"
+        },
+        "profile_version": {
+          "const": "1.0.1"
+        },
+        "source_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "target_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "stem_polarity": {
+          "enum": [
+            "YANG",
+            "YIN"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "FORWARD",
+            "REVERSE"
+          ]
+        },
+        "growth_start_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "phase_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "phase": {
+          "enum": [
+            "长生",
+            "沐浴",
+            "冠带",
+            "临官",
+            "帝旺",
+            "衰",
+            "病",
+            "死",
+            "墓",
+            "绝",
+            "胎",
+            "养"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "semantic_scope": {
+          "const": "PHASE_IDENTITY_ONLY_NO_STRENGTH_CONCLUSION"
+        }
       }
     },
     "temporalAnnotation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["profile_id", "profile_version", "source_layer", "context_id", "day_master_stem", "ganzhi", "sexagenary_index", "stem", "branch", "visible_ten_god", "hidden_stems", "nayin", "xunkong", "day_master_twelve_growth", "self_twelve_growth", "rule_bindings", "semantic_scope", "source_refs", "fact_hash", "computation_hash"],
+      "required": [
+        "profile_id",
+        "profile_version",
+        "source_layer",
+        "context_id",
+        "day_master_stem",
+        "ganzhi",
+        "sexagenary_index",
+        "stem",
+        "branch",
+        "visible_ten_god",
+        "hidden_stems",
+        "nayin",
+        "xunkong",
+        "day_master_twelve_growth",
+        "self_twelve_growth",
+        "rule_bindings",
+        "semantic_scope",
+        "source_refs",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "profile_id": {"const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"},
-        "profile_version": {"const": "1.0.1"},
-        "source_layer": {"enum": ["DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"]},
-        "context_id": {"type": "string", "minLength": 1},
-        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
-        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "profile_id": {
+          "const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"
+        },
+        "profile_version": {
+          "const": "1.0.1"
+        },
+        "source_layer": {
+          "enum": [
+            "DAYUN",
+            "XIAOYUN",
+            "ANNUAL",
+            "MONTHLY",
+            "DAILY",
+            "HOURLY"
+          ]
+        },
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "day_master_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "sexagenary_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
         "visible_ten_god": {
-          "type": "object", "additionalProperties": false,
-          "required": ["semantic_role_id", "display_name"],
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "semantic_role_id",
+            "display_name"
+          ],
           "properties": {
-            "semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
-            "display_name": {"type": "string", "minLength": 1}
+            "semantic_role_id": {
+              "enum": [
+                "BIJIAN",
+                "JIECAI",
+                "SHISHEN",
+                "SHANGGUAN",
+                "PIANCAI",
+                "ZHENGCAI",
+                "QISHA",
+                "ZHENGGUAN",
+                "PIANIN",
+                "ZHENGIN"
+              ]
+            },
+            "display_name": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         },
-        "hidden_stems": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/temporalHiddenStem"}},
+        "hidden_stems": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/temporalHiddenStem"
+          }
+        },
         "nayin": {
-          "type": "object", "additionalProperties": false,
-          "required": ["profile_id", "profile_version", "registry_id", "registry_version", "semantic_id", "display_name", "element"],
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile_id",
+            "profile_version",
+            "registry_id",
+            "registry_version",
+            "semantic_id",
+            "display_name",
+            "element"
+          ],
           "properties": {
-            "profile_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
-            "profile_version": {"const": "1.0.1"},
-            "registry_id": {"const": "BAZI-NAYIN-REGISTRY-R1"},
-            "registry_version": {"const": "1.0.1"},
-            "semantic_id": {"type": "string", "pattern": "^NAYIN:PAIR:(0[0-9]|1[0-9]|2[0-9])$"},
-            "display_name": {"type": "string", "minLength": 1},
-            "element": {"enum": ["木", "火", "土", "金", "水"]}
+            "profile_id": {
+              "const": "BAZI-NAYIN-ANNOTATION-R1"
+            },
+            "profile_version": {
+              "const": "1.0.1"
+            },
+            "registry_id": {
+              "const": "BAZI-NAYIN-REGISTRY-R1"
+            },
+            "registry_version": {
+              "const": "1.0.1"
+            },
+            "semantic_id": {
+              "type": "string",
+              "pattern": "^NAYIN:PAIR:(0[0-9]|1[0-9]|2[0-9])$"
+            },
+            "display_name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "element": {
+              "enum": [
+                "木",
+                "火",
+                "土",
+                "金",
+                "水"
+              ]
+            }
           }
         },
         "xunkong": {
-          "type": "object", "additionalProperties": false,
-          "required": ["profile_id", "profile_version", "xun_index", "xun_start_ganzhi", "void_branches", "display_name", "source_refs", "semantic_scope"],
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile_id",
+            "profile_version",
+            "xun_index",
+            "xun_start_ganzhi",
+            "void_branches",
+            "display_name",
+            "source_refs",
+            "semantic_scope"
+          ],
           "properties": {
-            "profile_id": {"const": "BAZI-XUNKONG-YHZP-R1"},
-            "profile_version": {"const": "1.0.0"},
-            "xun_index": {"type": "integer", "minimum": 0, "maximum": 5},
-            "xun_start_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-            "void_branches": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string", "minLength": 1, "maxLength": 1}},
-            "display_name": {"type": "string", "minLength": 2, "maxLength": 2},
-            "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-            "semantic_scope": {"const": "IDENTITY_ONLY_NO_AUSPICIOUSNESS"}
+            "profile_id": {
+              "const": "BAZI-XUNKONG-YHZP-R1"
+            },
+            "profile_version": {
+              "const": "1.0.0"
+            },
+            "xun_index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "xun_start_ganzhi": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "void_branches": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1
+              }
+            },
+            "display_name": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 2
+            },
+            "source_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            },
+            "semantic_scope": {
+              "const": "IDENTITY_ONLY_NO_AUSPICIOUSNESS"
+            }
           }
         },
-        "day_master_twelve_growth": {"$ref": "#/$defs/temporalGrowth"},
-        "self_twelve_growth": {"$ref": "#/$defs/temporalGrowth"},
+        "day_master_twelve_growth": {
+          "$ref": "#/$defs/temporalGrowth"
+        },
+        "self_twelve_growth": {
+          "$ref": "#/$defs/temporalGrowth"
+        },
         "rule_bindings": {
-          "type": "object", "additionalProperties": false,
-          "required": ["hidden_stem_rule_set_id", "hidden_stem_rule_set_version", "ten_god_rule_set_id", "ten_god_rule_set_version", "ten_god_algorithm_id", "ten_god_algorithm_version", "nayin_algorithm_id", "nayin_algorithm_version", "xunkong_profile_id", "xunkong_profile_version", "twelve_growth_profile_id", "twelve_growth_profile_version"],
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hidden_stem_rule_set_id",
+            "hidden_stem_rule_set_version",
+            "ten_god_rule_set_id",
+            "ten_god_rule_set_version",
+            "ten_god_algorithm_id",
+            "ten_god_algorithm_version",
+            "nayin_algorithm_id",
+            "nayin_algorithm_version",
+            "xunkong_profile_id",
+            "xunkong_profile_version",
+            "twelve_growth_profile_id",
+            "twelve_growth_profile_version"
+          ],
           "properties": {
-            "hidden_stem_rule_set_id": {"const": "S11-STANDARD-HIDDEN-STEM-MEMBERSHIP-R1"},
-            "hidden_stem_rule_set_version": {"const": "1.0.0"},
-            "ten_god_rule_set_id": {"const": "S11-TEN-GOD-RELATION-R1"},
-            "ten_god_rule_set_version": {"const": "1.0.0"},
-            "ten_god_algorithm_id": {"const": "BAZI-TEN-GOD-GENERATOR-V1"},
-            "ten_god_algorithm_version": {"const": "1.0.0"},
-            "nayin_algorithm_id": {"const": "BAZI-NAYIN-ANNOTATION-R1"},
-            "nayin_algorithm_version": {"const": "1.0.0"},
-            "xunkong_profile_id": {"const": "BAZI-XUNKONG-YHZP-R1"},
-            "xunkong_profile_version": {"const": "1.0.0"},
-            "twelve_growth_profile_id": {"const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"},
-            "twelve_growth_profile_version": {"const": "1.0.1"}
+            "hidden_stem_rule_set_id": {
+              "const": "S11-STANDARD-HIDDEN-STEM-MEMBERSHIP-R1"
+            },
+            "hidden_stem_rule_set_version": {
+              "const": "1.0.0"
+            },
+            "ten_god_rule_set_id": {
+              "const": "S11-TEN-GOD-RELATION-R1"
+            },
+            "ten_god_rule_set_version": {
+              "const": "1.0.0"
+            },
+            "ten_god_algorithm_id": {
+              "const": "BAZI-TEN-GOD-GENERATOR-V1"
+            },
+            "ten_god_algorithm_version": {
+              "const": "1.0.0"
+            },
+            "nayin_algorithm_id": {
+              "const": "BAZI-NAYIN-ANNOTATION-R1"
+            },
+            "nayin_algorithm_version": {
+              "const": "1.0.0"
+            },
+            "xunkong_profile_id": {
+              "const": "BAZI-XUNKONG-YHZP-R1"
+            },
+            "xunkong_profile_version": {
+              "const": "1.0.0"
+            },
+            "twelve_growth_profile_id": {
+              "const": "BAZI-TWELVE-GROWTH-YIN-YANG-R1"
+            },
+            "twelve_growth_profile_version": {
+              "const": "1.0.1"
+            }
           }
         },
-        "semantic_scope": {"const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "semantic_scope": {
+          "const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "temporalAnnotationResolvedSlot": {
-      "type": "object", "additionalProperties": false,
-      "required": ["status", "annotation"],
-      "properties": {"status": {"const": "RESOLVED"}, "annotation": {"$ref": "#/$defs/temporalAnnotation"}}
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "annotation"
+      ],
+      "properties": {
+        "status": {
+          "const": "RESOLVED"
+        },
+        "annotation": {
+          "$ref": "#/$defs/temporalAnnotation"
+        }
+      }
     },
     "temporalAnnotationOptionalSlot": {
       "oneOf": [
-        {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
         {
-          "type": "object", "additionalProperties": false,
-          "required": ["status", "annotation"],
+          "$ref": "#/$defs/temporalAnnotationResolvedSlot"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "annotation"
+          ],
           "properties": {
-            "status": {"enum": ["PRE_DAYUN_NO_GANZHI_ANNOTATION", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]},
-            "annotation": {"type": "null"}
+            "status": {
+              "enum": [
+                "PRE_DAYUN_NO_GANZHI_ANNOTATION",
+                "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"
+              ]
+            },
+            "annotation": {
+              "type": "null"
+            }
           }
         }
       ]
@@ -315,430 +1094,1692 @@
     "temporalAnnotationProjection": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["profile_id", "profile_version", "day_master_stem", "dayun", "xiaoyun_candidates", "annual", "monthly", "daily", "hourly", "selection_semantics", "semantic_scope", "source_refs", "fact_hash", "computation_hash"],
+      "required": [
+        "profile_id",
+        "profile_version",
+        "day_master_stem",
+        "dayun",
+        "xiaoyun_candidates",
+        "annual",
+        "monthly",
+        "daily",
+        "hourly",
+        "selection_semantics",
+        "semantic_scope",
+        "source_refs",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "profile_id": {"const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"},
-        "profile_version": {"const": "1.0.0"},
-        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "dayun": {"$ref": "#/$defs/temporalAnnotationOptionalSlot"},
+        "profile_id": {
+          "const": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1"
+        },
+        "profile_version": {
+          "const": "1.0.2"
+        },
+        "day_master_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "dayun": {
+          "$ref": "#/$defs/temporalAnnotationOptionalSlot"
+        },
         "xiaoyun_candidates": {
-          "type": "array", "minItems": 2,
+          "type": "array",
+          "minItems": 2,
           "items": {
-            "type": "object", "additionalProperties": false,
-            "required": ["profile_id", "direction", "status", "annotation"],
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "profile_id",
+              "direction",
+              "status",
+              "annotation"
+            ],
             "properties": {
-              "profile_id": {"type": "string", "minLength": 1},
-              "direction": {"enum": ["FORWARD", "REVERSE"]},
-              "status": {"enum": ["RESOLVED", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]},
-              "annotation": {"oneOf": [{"$ref": "#/$defs/temporalAnnotation"}, {"type": "null"}]}
+              "profile_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "direction": {
+                "enum": [
+                  "FORWARD",
+                  "REVERSE"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "RESOLVED",
+                  "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"
+                ]
+              },
+              "annotation": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/temporalAnnotation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
             }
           }
         },
-        "annual": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
-        "monthly": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
-        "daily": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
-        "hourly": {"$ref": "#/$defs/temporalAnnotationResolvedSlot"},
-        "selection_semantics": {"const": "XIAOYUN_CANDIDATES_PRESERVED_NO_WINNER"},
-        "semantic_scope": {"const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "annual": {
+          "$ref": "#/$defs/temporalAnnotationResolvedSlot"
+        },
+        "monthly": {
+          "$ref": "#/$defs/temporalAnnotationResolvedSlot"
+        },
+        "daily": {
+          "$ref": "#/$defs/temporalAnnotationResolvedSlot"
+        },
+        "hourly": {
+          "$ref": "#/$defs/temporalAnnotationResolvedSlot"
+        },
+        "selection_semantics": {
+          "const": "XIAOYUN_CANDIDATES_PRESERVED_NO_WINNER"
+        },
+        "semantic_scope": {
+          "const": "IDENTITY_ANNOTATIONS_ONLY_NO_STRENGTH_PATTERN_OR_INTERPRETATION"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "structuralStem": {
-      "type": "object", "additionalProperties": false,
-      "required": ["instance_id", "position", "stem", "element", "polarity"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instance_id",
+        "position",
+        "stem",
+        "element",
+        "polarity"
+      ],
       "properties": {
-        "instance_id": {"type": "string", "minLength": 1},
-        "position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
-        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "element": {"enum": ["木", "火", "土", "金", "水"]},
-        "polarity": {"enum": ["YANG", "YIN"]}
+        "instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "position": {
+          "enum": [
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "element": {
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水"
+          ]
+        },
+        "polarity": {
+          "enum": [
+            "YANG",
+            "YIN"
+          ]
+        }
       }
     },
     "structuralBranch": {
-      "type": "object", "additionalProperties": false,
-      "required": ["instance_id", "position", "branch", "element_affiliation"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instance_id",
+        "position",
+        "branch",
+        "element_affiliation"
+      ],
       "properties": {
-        "instance_id": {"type": "string", "minLength": 1},
-        "position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
-        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "element_affiliation": {"enum": ["木", "火", "土", "金", "水"]}
+        "instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "position": {
+          "enum": [
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "element_affiliation": {
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水"
+          ]
+        }
       }
     },
     "structuralHiddenStem": {
-      "type": "object", "additionalProperties": false,
-      "required": ["instance_id", "branch_instance_id", "branch_position", "stem", "element", "registry_ordinal", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instance_id",
+        "branch_instance_id",
+        "branch_position",
+        "stem",
+        "element",
+        "registry_ordinal",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "instance_id": {"type": "string", "minLength": 1},
-        "branch_instance_id": {"type": "string", "minLength": 1},
-        "branch_position": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
-        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "element": {"enum": ["木", "火", "土", "金", "水"]},
-        "registry_ordinal": {"type": "integer", "minimum": 0, "maximum": 2},
-        "rule_set_id": {"type": "string", "minLength": 1},
-        "rule_set_version": {"type": "string", "minLength": 1},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch_position": {
+          "enum": [
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "element": {
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水"
+          ]
+        },
+        "registry_ordinal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "rule_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralTenGod": {
-      "type": "object", "additionalProperties": false,
-      "required": ["binding_id", "target_instance_id", "target_stem", "day_master_stem", "semantic_role_id", "display_name", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binding_id",
+        "target_instance_id",
+        "target_stem",
+        "day_master_stem",
+        "semantic_role_id",
+        "display_name",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "binding_id": {"type": "string", "minLength": 1},
-        "target_instance_id": {"type": "string", "minLength": 1},
-        "target_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "semantic_role_id": {"enum": ["BIJIAN", "JIECAI", "SHISHEN", "SHANGGUAN", "PIANCAI", "ZHENGCAI", "QISHA", "ZHENGGUAN", "PIANIN", "ZHENGIN"]},
-        "display_name": {"type": "string", "minLength": 1},
-        "rule_set_id": {"type": "string", "minLength": 1},
-        "rule_set_version": {"type": "string", "minLength": 1},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "binding_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "day_master_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "semantic_role_id": {
+          "enum": [
+            "BIJIAN",
+            "JIECAI",
+            "SHISHEN",
+            "SHANGGUAN",
+            "PIANCAI",
+            "ZHENGCAI",
+            "QISHA",
+            "ZHENGGUAN",
+            "PIANIN",
+            "ZHENGIN"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralExposure": {
-      "type": "object", "additionalProperties": false,
-      "required": ["link_id", "hidden_stem_instance_id", "visible_stem_instance_id", "stem", "match_kind", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "link_id",
+        "hidden_stem_instance_id",
+        "visible_stem_instance_id",
+        "stem",
+        "match_kind",
+        "source_refs"
+      ],
       "properties": {
-        "link_id": {"type": "string", "minLength": 1},
-        "hidden_stem_instance_id": {"type": "string", "minLength": 1},
-        "visible_stem_instance_id": {"type": "string", "minLength": 1},
-        "stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "match_kind": {"const": "EXACT_STEM"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "link_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hidden_stem_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visible_stem_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "match_kind": {
+          "const": "EXACT_STEM"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralAffinity": {
-      "type": "object", "additionalProperties": false,
-      "required": ["fact_id", "visible_stem_instance_id", "branch_instance_id", "exact_hidden_stem_instance_ids", "same_element_hidden_stem_instance_ids", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "visible_stem_instance_id",
+        "branch_instance_id",
+        "exact_hidden_stem_instance_ids",
+        "same_element_hidden_stem_instance_ids",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "fact_id": {"type": "string", "minLength": 1},
-        "visible_stem_instance_id": {"type": "string", "minLength": 1},
-        "branch_instance_id": {"type": "string", "minLength": 1},
-        "exact_hidden_stem_instance_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "same_element_hidden_stem_instance_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
-        "rule_set_id": {"type": "string", "minLength": 1},
-        "rule_set_version": {"type": "string", "minLength": 1},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "fact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visible_stem_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exact_hidden_stem_instance_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "same_element_hidden_stem_instance_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rule_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralProvenance": {
-      "type": "object", "additionalProperties": false,
-      "required": ["instance_id", "layer", "source_frame_id", "source_flow_fact_hash", "source_ganzhi"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instance_id",
+        "layer",
+        "source_frame_id",
+        "source_flow_fact_hash",
+        "source_ganzhi"
+      ],
       "properties": {
-        "instance_id": {"type": "string", "minLength": 1},
-        "layer": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]},
-        "source_frame_id": {"type": "string", "minLength": 1},
-        "source_flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2}
+        "instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layer": {
+          "enum": [
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "source_frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
       }
     },
     "structuralRelation": {
-      "type": "object", "additionalProperties": false,
-      "required": ["relation_id", "semantic_relation_id", "relation_family", "participant_instance_ids", "participant_layers", "relation_scope", "orientation", "arity", "nominal_transformation_element", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation_id",
+        "semantic_relation_id",
+        "relation_family",
+        "participant_instance_ids",
+        "participant_layers",
+        "relation_scope",
+        "orientation",
+        "arity",
+        "nominal_transformation_element",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "relation_id": {"type": "string", "minLength": 1},
-        "semantic_relation_id": {"type": "string", "minLength": 1},
-        "relation_family": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]},
-        "participant_instance_ids": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"type": "string", "minLength": 1}},
-        "participant_layers": {"type": "array", "minItems": 1, "items": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]}, "uniqueItems": true},
-        "relation_scope": {"enum": ["CROSS_LAYER", "TEMPORAL_ONLY"]},
-        "orientation": {"enum": ["SYMMETRIC", "DIRECTED", "SELF", "GROUP"]},
-        "arity": {"enum": [2, 3]},
-        "nominal_transformation_element": {"type": ["string", "null"]},
-        "rule_set_id": {"type": "string", "minLength": 1},
-        "rule_set_version": {"type": "string", "minLength": 1},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "relation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic_relation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relation_family": {
+          "enum": [
+            "STEM_COMBINATION",
+            "BRANCH_SIX_HARMONY",
+            "BRANCH_CLASH",
+            "BRANCH_CHUAN",
+            "BRANCH_PUNISHMENT",
+            "BRANCH_TRINE"
+          ]
+        },
+        "participant_instance_ids": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "participant_layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "NATAL",
+              "DAYUN",
+              "ANNUAL",
+              "MONTHLY"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "relation_scope": {
+          "enum": [
+            "CROSS_LAYER",
+            "TEMPORAL_ONLY"
+          ]
+        },
+        "orientation": {
+          "enum": [
+            "SYMMETRIC",
+            "DIRECTED",
+            "SELF",
+            "GROUP"
+          ]
+        },
+        "arity": {
+          "enum": [
+            2,
+            3
+          ]
+        },
+        "nominal_transformation_element": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule_set_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_set_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralProjection": {
-      "type": "object", "additionalProperties": false,
-      "required": ["schema", "profile_id", "profile_version", "algorithm_id", "algorithm_version", "source_flow_candidate_indices", "source_structural_fact_hash", "source_structural_computation_hash", "natal_day_master_stem", "active_layers", "excluded_layers", "active_temporal_stems", "active_temporal_branches", "participant_provenance", "temporal_hidden_stems", "temporal_ten_gods", "dynamic_exposures", "dynamic_affinities", "relations", "upstream_reference_ids", "semantic_scope", "fact_hash", "computation_hash"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "profile_id",
+        "profile_version",
+        "algorithm_id",
+        "algorithm_version",
+        "source_flow_candidate_indices",
+        "source_structural_fact_hash",
+        "source_structural_computation_hash",
+        "natal_day_master_stem",
+        "active_layers",
+        "excluded_layers",
+        "active_temporal_stems",
+        "active_temporal_branches",
+        "participant_provenance",
+        "temporal_hidden_stems",
+        "temporal_ten_gods",
+        "dynamic_exposures",
+        "dynamic_affinities",
+        "relations",
+        "upstream_reference_ids",
+        "semantic_scope",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "schema": {"const": "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1"},
-        "profile_id": {"const": "BAZI-STRUCTURAL-CONTEXT-R1"},
-        "profile_version": {"const": "1.1.0"},
-        "algorithm_id": {"const": "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-V1"},
-        "algorithm_version": {"const": "1.1.0"},
-        "source_flow_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
-        "source_structural_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_structural_computation_hash": {"$ref": "#/$defs/hash"},
-        "natal_day_master_stem": {"type": "string", "minLength": 1, "maxLength": 1},
-        "active_layers": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"enum": ["DAYUN", "ANNUAL", "MONTHLY"]}, "uniqueItems": true},
-        "excluded_layers": {"const": ["XIAOYUN", "DAILY", "HOURLY"]},
-        "active_temporal_stems": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"$ref": "#/$defs/structuralStem"}},
-        "active_temporal_branches": {"type": "array", "minItems": 2, "maxItems": 3, "items": {"$ref": "#/$defs/structuralBranch"}},
-        "participant_provenance": {"type": "array", "minItems": 4, "maxItems": 6, "items": {"$ref": "#/$defs/structuralProvenance"}},
-        "temporal_hidden_stems": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/structuralHiddenStem"}},
-        "temporal_ten_gods": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/structuralTenGod"}},
-        "dynamic_exposures": {"type": "array", "items": {"$ref": "#/$defs/structuralExposure"}},
-        "dynamic_affinities": {"type": "array", "items": {"$ref": "#/$defs/structuralAffinity"}},
-        "relations": {"type": "array", "items": {"$ref": "#/$defs/structuralRelation"}},
-        "upstream_reference_ids": {
-          "type": "object", "additionalProperties": false,
-          "required": ["natal_exposure_link_ids", "natal_affinity_fact_ids", "natal_raw_relation_ids"],
-          "properties": {
-            "natal_exposure_link_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
-            "natal_affinity_fact_ids": {"type": "array", "minItems": 16, "maxItems": 16, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
-            "natal_raw_relation_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+        "schema": {
+          "const": "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1"
+        },
+        "profile_id": {
+          "const": "BAZI-STRUCTURAL-CONTEXT-R1"
+        },
+        "profile_version": {
+          "const": "1.1.0"
+        },
+        "algorithm_id": {
+          "const": "BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-V1"
+        },
+        "algorithm_version": {
+          "const": "1.1.0"
+        },
+        "source_flow_candidate_indices": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "source_structural_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_structural_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "natal_day_master_stem": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "active_layers": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "DAYUN",
+              "ANNUAL",
+              "MONTHLY"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "excluded_layers": {
+          "const": [
+            "XIAOYUN",
+            "DAILY",
+            "HOURLY"
+          ]
+        },
+        "active_temporal_stems": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/structuralStem"
           }
         },
-        "semantic_scope": {"const": "NEUTRAL_STRUCTURAL_OCCURRENCES_ONLY_NO_EFFECT_STRENGTH_OR_TRANSFORMATION_SUCCESS"},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "active_temporal_branches": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/structuralBranch"
+          }
+        },
+        "participant_provenance": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/structuralProvenance"
+          }
+        },
+        "temporal_hidden_stems": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/structuralHiddenStem"
+          }
+        },
+        "temporal_ten_gods": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "$ref": "#/$defs/structuralTenGod"
+          }
+        },
+        "dynamic_exposures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/structuralExposure"
+          }
+        },
+        "dynamic_affinities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/structuralAffinity"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/structuralRelation"
+          }
+        },
+        "upstream_reference_ids": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "natal_exposure_link_ids",
+            "natal_affinity_fact_ids",
+            "natal_raw_relation_ids"
+          ],
+          "properties": {
+            "natal_exposure_link_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "natal_affinity_fact_ids": {
+              "type": "array",
+              "minItems": 16,
+              "maxItems": 16,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "natal_raw_relation_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "semantic_scope": {
+          "const": "NEUTRAL_STRUCTURAL_OCCURRENCES_ONLY_NO_EFFECT_STRENGTH_OR_TRANSFORMATION_SUCCESS"
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "supportNatalMonthCommand": {
-      "type": "object", "additionalProperties": false,
-      "required": ["reference_id", "role_id", "upstream_natal_fact_hash", "source_branch_instance_id", "natal_month_ganzhi", "branch", "natal_profile_id", "natal_profile_version", "source_temporal_seed_ids", "time_calendar_policy_registry_versions", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_id",
+        "role_id",
+        "upstream_natal_fact_hash",
+        "source_branch_instance_id",
+        "natal_month_ganzhi",
+        "branch",
+        "natal_profile_id",
+        "natal_profile_version",
+        "source_temporal_seed_ids",
+        "time_calendar_policy_registry_versions",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "reference_id": {"type": "string", "pattern": "^SEASONAL_ROLE:NATAL_MONTH_COMMAND:"},
-        "role_id": {"const": "NATAL_MONTH_COMMAND"},
-        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_branch_instance_id": {"const": "MONTH.BRANCH"},
-        "natal_month_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "natal_profile_id": {"type": "string", "minLength": 1},
-        "natal_profile_version": {"type": "string", "minLength": 1},
-        "source_temporal_seed_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"}},
-        "time_calendar_policy_registry_versions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-        "rule_set_id": {"const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"},
-        "rule_set_version": {"const": "1.0.0"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "reference_id": {
+          "type": "string",
+          "pattern": "^SEASONAL_ROLE:NATAL_MONTH_COMMAND:"
+        },
+        "role_id": {
+          "const": "NATAL_MONTH_COMMAND"
+        },
+        "upstream_natal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_branch_instance_id": {
+          "const": "MONTH.BRANCH"
+        },
+        "natal_month_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "natal_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "natal_profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_temporal_seed_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"
+          }
+        },
+        "time_calendar_policy_registry_versions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "rule_set_id": {
+          "const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"
+        },
+        "rule_set_version": {
+          "const": "1.0.0"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "supportActiveFlowMonth": {
-      "type": "object", "additionalProperties": false,
-      "required": ["reference_id", "role_id", "upstream_flow_fact_hash", "source_monthly_frame_id", "source_temporal_branch_instance_id", "active_month_ganzhi", "branch", "start_jie_name", "start_jie_chinese_name", "start_jie_longitude_degrees", "start_utc", "end_jie_name", "end_jie_chinese_name", "end_jie_longitude_degrees", "end_utc", "interval_semantics", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_id",
+        "role_id",
+        "upstream_flow_fact_hash",
+        "source_monthly_frame_id",
+        "source_temporal_branch_instance_id",
+        "active_month_ganzhi",
+        "branch",
+        "start_jie_name",
+        "start_jie_chinese_name",
+        "start_jie_longitude_degrees",
+        "start_utc",
+        "end_jie_name",
+        "end_jie_chinese_name",
+        "end_jie_longitude_degrees",
+        "end_utc",
+        "interval_semantics",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "reference_id": {"type": "string", "pattern": "^SEASONAL_ROLE:ACTIVE_FLOW_SOLAR_MONTH:"},
-        "role_id": {"const": "ACTIVE_FLOW_SOLAR_MONTH"},
-        "upstream_flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_monthly_frame_id": {"type": "string", "minLength": 1},
-        "source_temporal_branch_instance_id": {"type": "string", "pattern": "\\.BRANCH$"},
-        "active_month_ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
-        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
-        "start_jie_name": {"type": "string", "minLength": 1},
-        "start_jie_chinese_name": {"type": "string", "minLength": 1},
-        "start_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
-        "start_utc": {"type": "string"},
-        "end_jie_name": {"type": "string", "minLength": 1},
-        "end_jie_chinese_name": {"type": "string", "minLength": 1},
-        "end_jie_longitude_degrees": {"type": "integer", "minimum": 0, "maximum": 359},
-        "end_utc": {"type": "string"},
-        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
-        "rule_set_id": {"const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"},
-        "rule_set_version": {"const": "1.0.0"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "reference_id": {
+          "type": "string",
+          "pattern": "^SEASONAL_ROLE:ACTIVE_FLOW_SOLAR_MONTH:"
+        },
+        "role_id": {
+          "const": "ACTIVE_FLOW_SOLAR_MONTH"
+        },
+        "upstream_flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_monthly_frame_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_temporal_branch_instance_id": {
+          "type": "string",
+          "pattern": "\\.BRANCH$"
+        },
+        "active_month_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "start_jie_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_jie_chinese_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_jie_longitude_degrees": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 359
+        },
+        "start_utc": {
+          "type": "string"
+        },
+        "end_jie_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "end_jie_chinese_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "end_jie_longitude_degrees": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 359
+        },
+        "end_utc": {
+          "type": "string"
+        },
+        "interval_semantics": {
+          "const": "START_INCLUSIVE_END_EXCLUSIVE"
+        },
+        "rule_set_id": {
+          "const": "BAZI-SEASONAL-REFERENCE-ROLE-R1"
+        },
+        "rule_set_version": {
+          "const": "1.0.0"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "supportEvidence": {
-      "type": "object", "additionalProperties": false,
-      "required": ["candidate_id", "visible_stem_instance_id", "supporting_branch_instance_id", "matching_hidden_stem_instance_ids", "evidence_class", "visible_participant_layer", "supporting_branch_participant_layer", "participant_layers", "supporting_branch_role_ids", "source_affinity_fact_id", "source_exposure_link_ids", "rule_set_id", "rule_set_version", "source_refs"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "visible_stem_instance_id",
+        "supporting_branch_instance_id",
+        "matching_hidden_stem_instance_ids",
+        "evidence_class",
+        "visible_participant_layer",
+        "supporting_branch_participant_layer",
+        "participant_layers",
+        "supporting_branch_role_ids",
+        "source_affinity_fact_id",
+        "source_exposure_link_ids",
+        "rule_set_id",
+        "rule_set_version",
+        "source_refs"
+      ],
       "properties": {
-        "candidate_id": {"type": "string", "pattern": "^SUPPORT:"},
-        "visible_stem_instance_id": {"type": "string", "minLength": 1},
-        "supporting_branch_instance_id": {"type": "string", "minLength": 1},
-        "matching_hidden_stem_instance_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-        "evidence_class": {"enum": ["EXACT_HIDDEN_STEM_MATCH", "SAME_ELEMENT_HIDDEN_SUPPORT"]},
-        "visible_participant_layer": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]},
-        "supporting_branch_participant_layer": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]},
-        "participant_layers": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["NATAL", "DAYUN", "ANNUAL", "MONTHLY"]}},
-        "supporting_branch_role_ids": {"type": "array", "maxItems": 1, "uniqueItems": true, "items": {"enum": ["NATAL_MONTH_COMMAND", "ACTIVE_FLOW_SOLAR_MONTH"]}},
-        "source_affinity_fact_id": {"type": "string", "pattern": "^AFFINITY:"},
-        "source_exposure_link_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^EXPOSE:"}},
-        "rule_set_id": {"const": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1"},
-        "rule_set_version": {"const": "1.0.0"},
-        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^SUPPORT:"
+        },
+        "visible_stem_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supporting_branch_instance_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "matching_hidden_stem_instance_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence_class": {
+          "enum": [
+            "EXACT_HIDDEN_STEM_MATCH",
+            "SAME_ELEMENT_HIDDEN_SUPPORT"
+          ]
+        },
+        "visible_participant_layer": {
+          "enum": [
+            "NATAL",
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "supporting_branch_participant_layer": {
+          "enum": [
+            "NATAL",
+            "DAYUN",
+            "ANNUAL",
+            "MONTHLY"
+          ]
+        },
+        "participant_layers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "NATAL",
+              "DAYUN",
+              "ANNUAL",
+              "MONTHLY"
+            ]
+          }
+        },
+        "supporting_branch_role_ids": {
+          "type": "array",
+          "maxItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "NATAL_MONTH_COMMAND",
+              "ACTIVE_FLOW_SOLAR_MONTH"
+            ]
+          }
+        },
+        "source_affinity_fact_id": {
+          "type": "string",
+          "pattern": "^AFFINITY:"
+        },
+        "source_exposure_link_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^EXPOSE:"
+          }
+        },
+        "rule_set_id": {
+          "const": "BAZI-ROOT-SUPPORT-EVIDENCE-CANDIDATE-R1"
+        },
+        "rule_set_version": {
+          "const": "1.0.0"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
       }
     },
     "structuralSupportProjection": {
-      "type": "object", "additionalProperties": false,
-      "required": ["schema", "profile_id", "profile_version", "algorithm_id", "algorithm_version", "source_structural_candidate_indices", "source_flow_candidate_indices", "source_temporal_candidate_indices", "source_temporal_seed_ids", "source_support_fact_hash", "source_support_computation_hash", "upstream_natal_fact_hash", "upstream_temporal_fact_hash", "upstream_flow_fact_hash", "upstream_structural_fact_hash", "natal_month_command", "active_flow_solar_month", "support_evidence_candidates", "natal_month_command_support_candidate_ids", "active_flow_solar_month_support_candidate_ids", "algorithm_versions", "semantic_scope", "fact_hash", "computation_hash"],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "profile_id",
+        "profile_version",
+        "algorithm_id",
+        "algorithm_version",
+        "source_structural_candidate_indices",
+        "source_flow_candidate_indices",
+        "source_temporal_candidate_indices",
+        "source_temporal_seed_ids",
+        "source_support_fact_hash",
+        "source_support_computation_hash",
+        "upstream_natal_fact_hash",
+        "upstream_temporal_fact_hash",
+        "upstream_flow_fact_hash",
+        "upstream_structural_fact_hash",
+        "natal_month_command",
+        "active_flow_solar_month",
+        "support_evidence_candidates",
+        "natal_month_command_support_candidate_ids",
+        "active_flow_solar_month_support_candidate_ids",
+        "algorithm_versions",
+        "semantic_scope",
+        "fact_hash",
+        "computation_hash"
+      ],
       "properties": {
-        "schema": {"const": "BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1"},
-        "profile_id": {"const": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1"},
-        "profile_version": {"const": "1.0.0"},
-        "algorithm_id": {"const": "BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-V1"},
-        "algorithm_version": {"const": "1.0.0"},
-        "source_structural_candidate_indices": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
-        "source_flow_candidate_indices": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
-        "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
-        "source_temporal_seed_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"}},
-        "source_support_fact_hash": {"$ref": "#/$defs/hash"},
-        "source_support_computation_hash": {"$ref": "#/$defs/hash"},
-        "upstream_natal_fact_hash": {"$ref": "#/$defs/hash"},
-        "upstream_temporal_fact_hash": {"$ref": "#/$defs/hash"},
-        "upstream_flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "upstream_structural_fact_hash": {"$ref": "#/$defs/hash"},
-        "natal_month_command": {"$ref": "#/$defs/supportNatalMonthCommand"},
-        "active_flow_solar_month": {"$ref": "#/$defs/supportActiveFlowMonth"},
-        "support_evidence_candidates": {"type": "array", "items": {"$ref": "#/$defs/supportEvidence"}},
-        "natal_month_command_support_candidate_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^SUPPORT:"}},
-        "active_flow_solar_month_support_candidate_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^SUPPORT:"}},
-        "algorithm_versions": {
-          "type": "object", "additionalProperties": false,
-          "required": ["support", "seasonal_roles", "support_evidence"],
-          "properties": {"support": {"const": "1.0.0"}, "seasonal_roles": {"const": "1.0.0"}, "support_evidence": {"const": "1.0.0"}}
+        "schema": {
+          "const": "BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1"
         },
-        "semantic_scope": {"const": "NEUTRAL_SUPPORT_EVIDENCE_CANDIDATES_ONLY_NO_ROOT_STRENGTH_OR_WEIGHT"},
-        "fact_hash": {"$ref": "#/$defs/hash"},
-        "computation_hash": {"$ref": "#/$defs/hash"}
+        "profile_id": {
+          "const": "BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1"
+        },
+        "profile_version": {
+          "const": "1.0.0"
+        },
+        "algorithm_id": {
+          "const": "BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-V1"
+        },
+        "algorithm_version": {
+          "const": "1.0.0"
+        },
+        "source_structural_candidate_indices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "source_flow_candidate_indices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "source_temporal_candidate_indices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "source_temporal_seed_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^BAZI-TEMPORAL-SEED:[0-9a-f]{64}$"
+          }
+        },
+        "source_support_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "source_support_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "upstream_natal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "upstream_temporal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "upstream_flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "upstream_structural_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "natal_month_command": {
+          "$ref": "#/$defs/supportNatalMonthCommand"
+        },
+        "active_flow_solar_month": {
+          "$ref": "#/$defs/supportActiveFlowMonth"
+        },
+        "support_evidence_candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/supportEvidence"
+          }
+        },
+        "natal_month_command_support_candidate_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^SUPPORT:"
+          }
+        },
+        "active_flow_solar_month_support_candidate_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^SUPPORT:"
+          }
+        },
+        "algorithm_versions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "support",
+            "seasonal_roles",
+            "support_evidence"
+          ],
+          "properties": {
+            "support": {
+              "const": "1.0.0"
+            },
+            "seasonal_roles": {
+              "const": "1.0.0"
+            },
+            "support_evidence": {
+              "const": "1.0.0"
+            }
+          }
+        },
+        "semantic_scope": {
+          "const": "NEUTRAL_SUPPORT_EVIDENCE_CANDIDATES_ONLY_NO_ROOT_STRENGTH_OR_WEIGHT"
+        },
+        "fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "computation_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "targetView": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["target_place", "reported_local_datetime", "latitude", "longitude", "timezone_id", "precision", "uncertainty_seconds", "target_coordinate_candidate_index", "target_coordinate_candidate_id", "source_sample_index", "sample_reported_local_datetime", "civil_status", "fold", "utc_offset_seconds", "target_utc", "local_apparent_solar_datetime"],
+      "required": [
+        "target_place",
+        "reported_local_datetime",
+        "latitude",
+        "longitude",
+        "timezone_id",
+        "precision",
+        "uncertainty_seconds",
+        "target_coordinate_candidate_index",
+        "target_coordinate_candidate_id",
+        "source_sample_index",
+        "sample_reported_local_datetime",
+        "civil_status",
+        "fold",
+        "utc_offset_seconds",
+        "target_utc",
+        "local_apparent_solar_datetime"
+      ],
       "properties": {
-        "target_place": {"type": "string"},
-        "reported_local_datetime": {"type": "string"},
-        "latitude": {"type": "number", "minimum": -90, "maximum": 90},
-        "longitude": {"type": "number", "minimum": -180, "maximum": 180},
-        "timezone_id": {"type": "string"},
-        "precision": {"enum": ["EXACT_SECOND", "NEAREST_MINUTE", "NEAREST_HOUR", "APPROXIMATE"]},
-        "uncertainty_seconds": {"type": "integer", "minimum": 0},
-        "target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
-        "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
-        "source_sample_index": {"type": "integer", "minimum": 0},
-        "sample_reported_local_datetime": {"type": "string"},
-        "civil_status": {"type": "string"},
-        "fold": {"type": "integer", "minimum": 0, "maximum": 1},
-        "utc_offset_seconds": {"type": "integer"},
-        "target_utc": {"type": "string"},
-        "local_apparent_solar_datetime": {"type": "string"}
+        "target_place": {
+          "type": "string"
+        },
+        "reported_local_datetime": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "timezone_id": {
+          "type": "string"
+        },
+        "precision": {
+          "enum": [
+            "EXACT_SECOND",
+            "NEAREST_MINUTE",
+            "NEAREST_HOUR",
+            "APPROXIMATE"
+          ]
+        },
+        "uncertainty_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_coordinate_candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_coordinate_candidate_id": {
+          "$ref": "#/$defs/targetCandidateId"
+        },
+        "source_sample_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sample_reported_local_datetime": {
+          "type": "string"
+        },
+        "civil_status": {
+          "type": "string"
+        },
+        "fold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "utc_offset_seconds": {
+          "type": "integer"
+        },
+        "target_utc": {
+          "type": "string"
+        },
+        "local_apparent_solar_datetime": {
+          "type": "string"
+        }
       }
     },
     "view": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["target", "flow", "daily", "hourly", "timeline", "structural", "structural_support", "lineage", "integrity", "source_hashes"],
+      "required": [
+        "target",
+        "flow",
+        "daily",
+        "hourly",
+        "timeline",
+        "structural",
+        "structural_support",
+        "lineage",
+        "integrity",
+        "source_hashes"
+      ],
       "properties": {
-        "target": {"$ref": "#/$defs/targetView"},
+        "target": {
+          "$ref": "#/$defs/targetView"
+        },
         "flow": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["active_dayun_kind", "active_dayun_frame", "annual", "monthly"],
+          "required": [
+            "active_dayun_kind",
+            "active_dayun_frame",
+            "annual",
+            "monthly"
+          ],
           "properties": {
-            "active_dayun_kind": {"enum": ["PRE_DAYUN", "DAYUN"]},
-            "active_dayun_frame": {"oneOf": [{"$ref": "#/$defs/activePreDayun"}, {"$ref": "#/$defs/activeDayun"}]},
-            "annual": {"$ref": "#/$defs/annual"},
-            "monthly": {"$ref": "#/$defs/monthly"}
+            "active_dayun_kind": {
+              "enum": [
+                "PRE_DAYUN",
+                "DAYUN"
+              ]
+            },
+            "active_dayun_frame": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/activePreDayun"
+                },
+                {
+                  "$ref": "#/$defs/activeDayun"
+                }
+              ]
+            },
+            "annual": {
+              "$ref": "#/$defs/annual"
+            },
+            "monthly": {
+              "$ref": "#/$defs/monthly"
+            }
           }
         },
-        "daily": {"$ref": "#/$defs/daily"},
-        "hourly": {"$ref": "#/$defs/hourly"},
+        "daily": {
+          "$ref": "#/$defs/daily"
+        },
+        "hourly": {
+          "$ref": "#/$defs/hourly"
+        },
         "timeline": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["schema", "target_coordinate_candidate_id", "layer_order", "natal", "dayun", "xiaoyun", "annual", "monthly", "daily", "hourly", "classical_annotations", "semantic_scope"],
+          "required": [
+            "schema",
+            "target_coordinate_candidate_id",
+            "layer_order",
+            "natal",
+            "dayun",
+            "xiaoyun",
+            "annual",
+            "monthly",
+            "daily",
+            "hourly",
+            "classical_annotations",
+            "semantic_scope"
+          ],
           "properties": {
-            "schema": {"const": "BAZI-UNIFIED-TARGET-TIMELINE-R1"},
-            "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
-            "layer_order": {"const": ["NATAL", "DAYUN", "XIAOYUN", "ANNUAL", "MONTHLY", "DAILY", "HOURLY"]},
+            "schema": {
+              "const": "BAZI-UNIFIED-TARGET-TIMELINE-R1"
+            },
+            "target_coordinate_candidate_id": {
+              "$ref": "#/$defs/targetCandidateId"
+            },
+            "layer_order": {
+              "const": [
+                "NATAL",
+                "DAYUN",
+                "XIAOYUN",
+                "ANNUAL",
+                "MONTHLY",
+                "DAILY",
+                "HOURLY"
+              ]
+            },
             "natal": {
-              "type": "object", "additionalProperties": false,
-              "required": ["source_application_candidate_ids", "natal_fact_hash"],
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source_application_candidate_ids",
+                "natal_fact_hash"
+              ],
               "properties": {
-                "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
-                "natal_fact_hash": {"$ref": "#/$defs/hash"}
+                "source_application_candidate_ids": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "$ref": "#/$defs/applicationCandidateId"
+                  }
+                },
+                "natal_fact_hash": {
+                  "$ref": "#/$defs/hash"
+                }
               }
             },
             "dayun": {
-              "type": "object", "additionalProperties": false,
-              "required": ["kind", "frame"],
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "frame"
+              ],
               "properties": {
-                "kind": {"enum": ["PRE_DAYUN", "DAYUN"]},
-                "frame": {"oneOf": [{"$ref": "#/$defs/activePreDayun"}, {"$ref": "#/$defs/activeDayun"}]}
+                "kind": {
+                  "enum": [
+                    "PRE_DAYUN",
+                    "DAYUN"
+                  ]
+                },
+                "frame": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/activePreDayun"
+                    },
+                    {
+                      "$ref": "#/$defs/activeDayun"
+                    }
+                  ]
+                }
               }
             },
             "xiaoyun": {
-              "type": "object", "additionalProperties": false,
-              "required": ["selection_status", "age_coordinate", "candidates"],
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "selection_status",
+                "age_coordinate",
+                "candidates"
+              ],
               "properties": {
-                "selection_status": {"const": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES"},
+                "selection_status": {
+                  "const": "UNRESOLVED_CLASSICAL_METHOD_ALTERNATIVES"
+                },
                 "age_coordinate": {
-                  "type": "object", "additionalProperties": false,
-                  "required": ["nominal_age", "profile_id", "source_class", "formula", "classical_age_boundary_status"],
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "nominal_age",
+                    "profile_id",
+                    "source_class",
+                    "formula",
+                    "classical_age_boundary_status"
+                  ],
                   "properties": {
-                    "nominal_age": {"type": "integer", "minimum": 1},
-                    "profile_id": {"const": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1"},
-                    "source_class": {"const": "ENGINEERING_LINKAGE_COORDINATE"},
-                    "formula": {"const": "target_local_civil_year-birth_local_civil_year+1"},
-                    "classical_age_boundary_status": {"const": "NOT_ARBITRATED"}
+                    "nominal_age": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "profile_id": {
+                      "const": "TARGET-CIVIL-YEAR-NOMINAL-AGE-R1"
+                    },
+                    "source_class": {
+                      "const": "ENGINEERING_LINKAGE_COORDINATE"
+                    },
+                    "formula": {
+                      "const": "target_local_civil_year-birth_local_civil_year+1"
+                    },
+                    "classical_age_boundary_status": {
+                      "const": "NOT_ARBITRATED"
+                    }
                   }
                 },
                 "candidates": {
-                  "type": "array", "minItems": 2,
+                  "type": "array",
+                  "minItems": 2,
                   "items": {
-                    "type": "object", "additionalProperties": false,
-                    "required": ["profile_id", "direction", "source_refs", "active_frame", "activation_status"],
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "profile_id",
+                      "direction",
+                      "source_refs",
+                      "active_frame",
+                      "activation_status"
+                    ],
                     "properties": {
-                      "profile_id": {"type": "string"},
-                      "direction": {"enum": ["FORWARD", "REVERSE"]},
-                      "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-                      "active_frame": {
-                        "type": ["object", "null"],
-                        "properties": {"nominal_age": {"type": "integer"}, "ganzhi": {"type": "string"}},
-                        "required": ["nominal_age", "ganzhi"]
+                      "profile_id": {
+                        "type": "string"
                       },
-                      "activation_status": {"enum": ["OPERATIONAL_CIVIL_NOMINAL_AGE_MATCH", "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"]}
+                      "direction": {
+                        "enum": [
+                          "FORWARD",
+                          "REVERSE"
+                        ]
+                      },
+                      "source_refs": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "active_frame": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "nominal_age": {
+                            "type": "integer"
+                          },
+                          "ganzhi": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "nominal_age",
+                          "ganzhi"
+                        ]
+                      },
+                      "activation_status": {
+                        "enum": [
+                          "OPERATIONAL_CIVIL_NOMINAL_AGE_MATCH",
+                          "OUTSIDE_MATERIALIZED_XIAOYUN_RANGE"
+                        ]
+                      }
                     }
                   }
                 }
               }
             },
-            "annual": {"$ref": "#/$defs/annual"},
-            "monthly": {"$ref": "#/$defs/monthly"},
-            "daily": {"$ref": "#/$defs/daily"},
-            "hourly": {"$ref": "#/$defs/hourly"},
-            "classical_annotations": {"$ref": "#/$defs/temporalAnnotationProjection"},
-            "semantic_scope": {"const": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION"}
+            "annual": {
+              "$ref": "#/$defs/annual"
+            },
+            "monthly": {
+              "$ref": "#/$defs/monthly"
+            },
+            "daily": {
+              "$ref": "#/$defs/daily"
+            },
+            "hourly": {
+              "$ref": "#/$defs/hourly"
+            },
+            "classical_annotations": {
+              "$ref": "#/$defs/temporalAnnotationProjection"
+            },
+            "semantic_scope": {
+              "const": "TEMPORAL_COORDINATES_ONLY_NO_INTERPRETATION"
+            }
           }
         },
-        "structural": {"$ref": "#/$defs/structuralProjection"},
-        "structural_support": {"$ref": "#/$defs/structuralSupportProjection"},
+        "structural": {
+          "$ref": "#/$defs/structuralProjection"
+        },
+        "structural_support": {
+          "$ref": "#/$defs/structuralSupportProjection"
+        },
         "lineage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["natal_candidate_index", "source_temporal_candidate_indices", "source_application_candidate_ids", "source_flow_candidate_index", "source_target_coordinate_candidate_index"],
+          "required": [
+            "natal_candidate_index",
+            "source_temporal_candidate_indices",
+            "source_application_candidate_ids",
+            "source_flow_candidate_index",
+            "source_target_coordinate_candidate_index"
+          ],
           "properties": {
-            "natal_candidate_index": {"type": "integer", "minimum": 0},
-            "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
-            "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
-            "source_flow_candidate_index": {"type": "integer", "minimum": 0},
-            "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0}
+            "natal_candidate_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "source_temporal_candidate_indices": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uniqueItems": true
+            },
+            "source_application_candidate_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/applicationCandidateId"
+              }
+            },
+            "source_flow_candidate_index": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "source_target_coordinate_candidate_index": {
+              "type": "integer",
+              "minimum": 0
+            }
           }
         },
         "integrity": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["target_coordinate", "flow", "daily_hourly", "structural", "structural_support"],
+          "required": [
+            "target_coordinate",
+            "flow",
+            "daily_hourly",
+            "structural",
+            "structural_support"
+          ],
           "properties": {
-            "target_coordinate": {"const": "PASS"},
-            "flow": {"const": "PASS"},
-            "daily_hourly": {"const": "PASS"},
-            "structural": {"const": "PASS"},
-            "structural_support": {"const": "PASS"}
+            "target_coordinate": {
+              "const": "PASS"
+            },
+            "flow": {
+              "const": "PASS"
+            },
+            "daily_hourly": {
+              "const": "PASS"
+            },
+            "structural": {
+              "const": "PASS"
+            },
+            "structural_support": {
+              "const": "PASS"
+            }
           }
         },
         "source_hashes": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["natal_fact_hash", "temporal_fact_hash", "flow_fact_hash", "flow_computation_hash", "structural_fact_hash", "structural_computation_hash", "structural_support_fact_hash", "structural_support_computation_hash", "target_coordinate_fact_hash", "target_coordinate_computation_hash", "daily_hourly_fact_hash", "daily_hourly_computation_hash"],
+          "required": [
+            "natal_fact_hash",
+            "temporal_fact_hash",
+            "flow_fact_hash",
+            "flow_computation_hash",
+            "structural_fact_hash",
+            "structural_computation_hash",
+            "structural_support_fact_hash",
+            "structural_support_computation_hash",
+            "target_coordinate_fact_hash",
+            "target_coordinate_computation_hash",
+            "daily_hourly_fact_hash",
+            "daily_hourly_computation_hash"
+          ],
           "properties": {
-            "natal_fact_hash": {"$ref": "#/$defs/hash"},
-            "temporal_fact_hash": {"$ref": "#/$defs/hash"},
-            "flow_fact_hash": {"$ref": "#/$defs/hash"},
-            "flow_computation_hash": {"$ref": "#/$defs/hash"},
-            "structural_fact_hash": {"$ref": "#/$defs/hash"},
-            "structural_computation_hash": {"$ref": "#/$defs/hash"},
-            "structural_support_fact_hash": {"$ref": "#/$defs/hash"},
-            "structural_support_computation_hash": {"$ref": "#/$defs/hash"},
-            "target_coordinate_fact_hash": {"$ref": "#/$defs/hash"},
-            "target_coordinate_computation_hash": {"$ref": "#/$defs/hash"},
-            "daily_hourly_fact_hash": {"$ref": "#/$defs/hash"},
-            "daily_hourly_computation_hash": {"$ref": "#/$defs/hash"}
+            "natal_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "temporal_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "flow_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "flow_computation_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "structural_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "structural_computation_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "structural_support_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "structural_support_computation_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "target_coordinate_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "target_coordinate_computation_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "daily_hourly_fact_hash": {
+              "$ref": "#/$defs/hash"
+            },
+            "daily_hourly_computation_hash": {
+              "$ref": "#/$defs/hash"
+            }
           }
         }
       }
@@ -746,39 +2787,128 @@
     "candidate": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["candidate_id", "natal_candidate_index", "source_temporal_candidate_indices", "source_application_candidate_ids", "source_flow_candidate_index", "source_target_coordinate_candidate_index", "target_coordinate_candidate_id", "natal_fact_hash", "temporal_fact_hash", "flow_fact_hash", "flow_computation_hash", "structural_fact_hash", "structural_computation_hash", "structural_support_fact_hash", "structural_support_computation_hash", "daily_hourly_fact_hash", "daily_hourly_computation_hash", "view_schema", "view", "view_hash"],
+      "required": [
+        "candidate_id",
+        "natal_candidate_index",
+        "source_temporal_candidate_indices",
+        "source_application_candidate_ids",
+        "source_flow_candidate_index",
+        "source_target_coordinate_candidate_index",
+        "target_coordinate_candidate_id",
+        "natal_fact_hash",
+        "temporal_fact_hash",
+        "flow_fact_hash",
+        "flow_computation_hash",
+        "structural_fact_hash",
+        "structural_computation_hash",
+        "structural_support_fact_hash",
+        "structural_support_computation_hash",
+        "daily_hourly_fact_hash",
+        "daily_hourly_computation_hash",
+        "view_schema",
+        "view",
+        "view_hash"
+      ],
       "properties": {
-        "candidate_id": {"type": "string", "pattern": "^BAZI-APPLICATION-FLOW-CANDIDATE:[0-9a-f]{64}$"},
-        "natal_candidate_index": {"type": "integer", "minimum": 0},
-        "source_temporal_candidate_indices": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}, "uniqueItems": true},
-        "source_application_candidate_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/applicationCandidateId"}},
-        "source_flow_candidate_index": {"type": "integer", "minimum": 0},
-        "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
-        "target_coordinate_candidate_id": {"$ref": "#/$defs/targetCandidateId"},
-        "natal_fact_hash": {"$ref": "#/$defs/hash"},
-        "temporal_fact_hash": {"$ref": "#/$defs/hash"},
-        "flow_fact_hash": {"$ref": "#/$defs/hash"},
-        "flow_computation_hash": {"$ref": "#/$defs/hash"},
-        "structural_fact_hash": {"$ref": "#/$defs/hash"},
-        "structural_computation_hash": {"$ref": "#/$defs/hash"},
-        "structural_support_fact_hash": {"$ref": "#/$defs/hash"},
-        "structural_support_computation_hash": {"$ref": "#/$defs/hash"},
-        "daily_hourly_fact_hash": {"$ref": "#/$defs/hash"},
-        "daily_hourly_computation_hash": {"$ref": "#/$defs/hash"},
-        "view_schema": {"const": "BAZI-APPLICATION-FLOW-VIEW-R1"},
-        "view": {"$ref": "#/$defs/view"},
-        "view_hash": {"$ref": "#/$defs/hash"}
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^BAZI-APPLICATION-FLOW-CANDIDATE:[0-9a-f]{64}$"
+        },
+        "natal_candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_temporal_candidate_indices": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "source_application_candidate_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/applicationCandidateId"
+          }
+        },
+        "source_flow_candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_target_coordinate_candidate_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "target_coordinate_candidate_id": {
+          "$ref": "#/$defs/targetCandidateId"
+        },
+        "natal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "temporal_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "flow_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "flow_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "structural_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "structural_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "structural_support_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "structural_support_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "daily_hourly_fact_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "daily_hourly_computation_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "view_schema": {
+          "const": "BAZI-APPLICATION-FLOW-VIEW-R1"
+        },
+        "view": {
+          "$ref": "#/$defs/view"
+        },
+        "view_hash": {
+          "$ref": "#/$defs/hash"
+        }
       }
     },
     "integrity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "required": [
+        "status",
+        "diagnostics",
+        "algorithm_id",
+        "algorithm_version"
+      ],
       "properties": {
-        "status": {"const": "PASS"},
-        "diagnostics": {"type": "array", "maxItems": 0},
-        "algorithm_id": {"const": "BAZI-APPLICATION-FLOW-INTEGRITY-R1"},
-        "algorithm_version": {"const": "1.5.0"}
+        "status": {
+          "const": "PASS"
+        },
+        "diagnostics": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "algorithm_id": {
+          "const": "BAZI-APPLICATION-FLOW-INTEGRITY-R1"
+        },
+        "algorithm_version": {
+          "const": "1.5.0"
+        }
       }
     }
   }

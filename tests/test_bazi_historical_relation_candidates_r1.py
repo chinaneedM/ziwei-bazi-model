@@ -25,6 +25,9 @@ POSITIONS = ("YEAR", "MONTH", "DAY", "HOUR")
 def _chart(branches: tuple[str, ...], stems: tuple[str, ...]) -> BaziNatalState:
     if len(branches) != len(stems):
         raise ValueError("test chart branches/stems length mismatch")
+    if not 1 <= len(branches) <= len(POSITIONS):
+        raise ValueError("test chart must contain between one and four pillar fragments")
+    positions = POSITIONS[: len(branches)]
     branch_rows = tuple(
         BranchInstance(
             instance_id=f"{position}.BRANCH",
@@ -32,7 +35,7 @@ def _chart(branches: tuple[str, ...], stems: tuple[str, ...]) -> BaziNatalState:
             branch=branch,
             element_affiliation=BRANCH_ELEMENTS[branch],
         )
-        for position, branch in zip(POSITIONS, branches, strict=True)
+        for position, branch in zip(positions, branches, strict=True)
     )
     stem_rows = tuple(
         StemInstance(
@@ -42,7 +45,7 @@ def _chart(branches: tuple[str, ...], stems: tuple[str, ...]) -> BaziNatalState:
             element=STEM_ELEMENTS[stem],
             polarity=STEM_POLARITY[stem],
         )
-        for position, stem in zip(POSITIONS, stems, strict=True)
+        for position, stem in zip(positions, stems, strict=True)
     )
     hidden = generate_hidden_stems(branch_rows)
     raw = generate_raw_relations(stem_rows, branch_rows)
