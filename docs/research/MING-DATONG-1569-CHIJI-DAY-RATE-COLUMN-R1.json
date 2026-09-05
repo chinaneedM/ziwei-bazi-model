@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "status": "FULL_168_ROW_COLUMN_DERIVED_PRIMARY_CONTROLS_COLLATED_NOT_FULL_CHIJI_TABLE_TRANSCRIPTION",
   "runtime_selection_authorized": false,
   "source_scope": {
@@ -1651,7 +1651,8 @@
   "epistemic_firewalls": {
     "derived_column_as_verbatim_full_table_transcription": "FORBIDDEN",
     "this_column_as_complete_yingsuo_chiji_table_closure": "FORBIDDEN",
-    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN"
+    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN",
+    "received_820_summary_as_1569_printed_day_rate_generator": "FORBIDDEN"
   },
   "next_required_work": [
     "TRANSCRIBE_AND_COLLATE_ALL_168_LOSS_GAIN_VALUES",
@@ -1659,5 +1660,36 @@
     "TRANSCRIBE_AND_COLLATE_ALL_168_CHI_AND_JI_XINGDU_DIVISORS",
     "VERIFY_SPECIAL_83_84_LIMIT_TRANSITION_HANDLING",
     "CROSS_EDITION_CHECK_AGAINST_MING_AUTHORIAL_AND_RECEIVED_TABLES"
-  ]
+  ],
+  "cross_edition_conflict": {
+    "conflict_id": "CHIJI-DAY-RATE-820-VS-820.08",
+    "primary_1569_table_result": "PRINTED_ROWS_FIT_FLOOR_LIMIT_TIMES_820_08",
+    "decisive_primary_controls": [
+      {
+        "limit": 13,
+        "primary_printed_total": 10661,
+        "floor_limit_times_820_08": 10661,
+        "limit_times_received_820": 10660
+      },
+      {
+        "limit": 116,
+        "primary_printed_total": 95129,
+        "floor_limit_times_820_08": 95129,
+        "limit_times_received_820": 95120
+      },
+      {
+        "limit": 168,
+        "primary_printed_total": 137773,
+        "floor_limit_times_820_08": 137773,
+        "limit_times_received_820": 137760
+      }
+    ],
+    "received_witness": {
+      "source_id": "EXT-CTEXT-MINGSHI-DATONG-CALENDAR",
+      "summary": "Qing-compiled Ming-shi received text says one limit day-rate is 820 and accumulates 820 for each limit.",
+      "disposition": "PRESERVE_AS_RECEIVED_TRANSMISSION_VARIANT_NOT_AS_1569_PRINTED_TABLE_GENERATOR"
+    },
+    "adjudication": "FOR_THE_1569_PRINTED_DAY_RATE_COLUMN_USE_PRIMARY_TABLE_VALUES; DO_NOT_NORMALIZE_THE_820_08_LINEAGE_TO_RECEIVED_820",
+    "runtime_scope": "RESEARCH_ONLY_GENERAL_ADAPTER_STILL_CLOSED"
+  }
 }

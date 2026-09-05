@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "status": "HISTORICAL_SUBRULE_ADJUDICATED_GENERAL_ADAPTER_NOT_RUNTIME",
   "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
   "primary_edition_scope": "周相《大明大統曆法》明隆慶三年（1569）刊本公開影像",
@@ -213,5 +213,14 @@
     "lunar_chiji_interpolation": "SOURCE_FORMULA_CLOSED_NUMERIC_TABLE_TRANSCRIPTION_PENDING",
     "ming_d1_worked_replay": "MACHINE_REPLAYED_AT_PRINTED_SOURCE_PRECISION",
     "general_precision_carry_policy": "PARTIALLY_OBSERVED_NOT_YET_GENERALIZED"
-  }
+  },
+  "primary_table_transmission_conflicts": [
+    {
+      "conflict_id": "CHIJI-DAY-RATE-820-VS-820.08",
+      "primary_artifact": "docs/research/MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1.json",
+      "primary_1569_disposition": "PRINTED_DAY_RATE_ROWS_FOLLOW_820_08_LINEAGE_AT_DECISIVE_LIMITS",
+      "received_mingshi_disposition": "820_SUMMARY_PRESERVED_AS_LATER_RECEIVED_VARIANT",
+      "consequence": "DO_NOT_RECONSTRUCT_1569_PRINTED_DAY_RATE_COLUMN_FROM_RECEIVED_820_SUMMARY"
+    }
+  ]
 }

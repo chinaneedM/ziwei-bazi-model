@@ -83,6 +83,25 @@ class MingDatong1569ChijiDayRateColumnR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_received_820_summary_does_not_overwrite_primary_820_08_rows(self) -> None:
+        conflict = self.data["cross_edition_conflict"]
+        controls = {item["limit"]: item for item in conflict["decisive_primary_controls"]}
+        self.assertEqual(controls[13]["primary_printed_total"], 10661)
+        self.assertEqual(controls[13]["floor_limit_times_820_08"], 10661)
+        self.assertEqual(controls[13]["limit_times_received_820"], 10660)
+        self.assertEqual(controls[116]["primary_printed_total"], 95129)
+        self.assertEqual(controls[116]["limit_times_received_820"], 95120)
+        self.assertEqual(controls[168]["primary_printed_total"], 137773)
+        self.assertEqual(controls[168]["limit_times_received_820"], 137760)
+        self.assertEqual(
+            conflict["received_witness"]["disposition"],
+            "PRESERVE_AS_RECEIVED_TRANSMISSION_VARIANT_NOT_AS_1569_PRINTED_TABLE_GENERATOR",
+        )
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["received_820_summary_as_1569_printed_day_rate_generator"],
+            "FORBIDDEN",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
