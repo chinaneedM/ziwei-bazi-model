@@ -1,0 +1,36 @@
+name: research-kyujanggak-g893-probe
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-kyujanggak-g893-probe.yml"
+      - "scripts/research_kyujanggak_g893_probe.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install isolated research dependencies
+        run: python -m pip install --disable-pip-version-check requests pillow
+      - name: Probe Kyujanggak G893 read-only viewer
+        run: |
+          python scripts/research_kyujanggak_g893_probe.py \
+            --output artifacts/g893-probe \
+            --stride 8
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-g893-probe-${{ github.sha }}
+          path: artifacts/g893-probe/
+          if-no-files-found: error
+          retention-days: 7
