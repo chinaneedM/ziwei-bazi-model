@@ -1,0 +1,72 @@
+{
+  "schema": "KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1",
+  "schema_version": "1.0.0",
+  "status": "PUBLIC_THUMBNAIL_LINKS_EXPOSED_TARGET_FOLIOS_UNRESOLVED",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "book_cd": "GK00893_00",
+  "catalog_identifier": "奎貴893",
+  "item_cd": "SIC",
+  "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+  "ocr_used": false,
+  "target_glyphs_read": false,
+  "direct_target_folio_bound": false,
+  "catalog_exposed_thumbnail_links": [
+    {
+      "role": "CATALOG_COVER_OR_INITIAL_THUMBNAIL",
+      "image_file": "GK00893_00IH_0001_000a.jpg",
+      "filename_volume_token": "0001",
+      "folio_side_token": "000a",
+      "url": "https://kyudb.snu.ac.kr/ThumbServlet.do?book_cd=GK00893_00&cover=1&img=GK00893_00IH_0001_000a.jpg&item_cd=SIC&vol_no="
+    },
+    {
+      "role": "CATALOG_SECONDARY_SAMPLE_THUMBNAIL",
+      "image_file": "GK00893_00IH_0001_004b.jpg",
+      "filename_volume_token": "0001",
+      "folio_side_token": "004b",
+      "url": "https://kyudb.snu.ac.kr/ThumbServlet.do?book_cd=GK00893_00&cover=&img=GK00893_00IH_0001_004b.jpg&item_cd=SIC&vol_no="
+    }
+  ],
+  "access_findings": [
+    "KYUJANGGAK_CATALOG_EXPOSES_REAL_IMAGE_FILENAMES_WITH_GK00893_00IH_0001_PREFIX",
+    "OBSERVED_FILENAME_SUFFIXES_USE_FOLIO_SIDE_STYLE_TOKENS_000A_AND_004B",
+    "ITEM_CD_SIC_IS_EXPOSED_BY_THE_CATALOG_THUMBNAIL_LINKS",
+    "PUBLIC_THUMBNAIL_BINARY_ENDPOINT_IS_DISTINCT_FROM_THE_RENDERER_POST_ROUTE",
+    "EXACT_SIX_TARGET_FOLIOS_REMAIN_UNRESOLVED"
+  ],
+  "hosted_runner_boundary": {
+    "status": "DO_NOT_REPEAT_EQUIVALENT_GITHUB_HOSTED_UBUNTU_TRANSPORTS",
+    "prior_attempts": [
+      {
+        "workflow_run_id": 33962192868,
+        "transport": "python requests / urllib3",
+        "result": "TLS_CONNECTION_RESET"
+      },
+      {
+        "workflow_run_id": 33962291588,
+        "transport": "curl_cffi Chrome impersonation",
+        "result": "TLS_CONNECTION_RESET"
+      }
+    ],
+    "inference": "NETWORK_ENVIRONMENT_ONLY_NOT_SOURCE_OR_GLYPH_EVIDENCE"
+  },
+  "target_controls": [
+    "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "VAR-NUM-LUNAR-L8-LOSSGAIN",
+    "VAR-NUM-LUNAR-L114-DAYRATE",
+    "VAR-NUM-LUNAR-L124-JI-XINGDU",
+    "VAR-NUM-LUNAR-L132-LOSSGAIN",
+    "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING"
+  ],
+  "epistemic_boundaries": {
+    "thumbnail_filename_as_target_folio_binding": "FORBIDDEN",
+    "sample_thumbnail_as_target_glyph_reading": "FORBIDDEN",
+    "filename_volume_token_as_textual_volume_proof": "FORBIDDEN",
+    "secondary_article_figure_as_target_glyph_authority": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "next_work": [
+    "ENUMERATE_OR_BIND_THE_REAL_GK00893_00IH_0001_FOLIO_SIDE_SEQUENCE_THROUGH_A_NON_GITHUB_HOSTED_IMAGE_CHANNEL",
+    "LOCATE_SOLAR_D16_AND_LUNAR_L8_L101_L114_L124_L132_BY_PRINTED_TABLE_HEADINGS_AND_LIMIT_NUMBERS",
+    "READ_TARGET_GLYPHS_DIRECTLY_WITHOUT_OCR_BEFORE_ENTERING_ANY_G893_NUMERIC_VALUE"
+  ]
+}

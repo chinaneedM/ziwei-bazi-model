@@ -173,6 +173,26 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_g893_image_filename_topology_and_new_transmission_study_do_not_prejudge_glyphs(self) -> None:
+        topo=self.data["g893_image_access_topology"]
+        self.assertEqual(topo["item_cd"],"SIC")
+        self.assertEqual(
+            topo["observed_image_files"],
+            ["GK00893_00IH_0001_000a.jpg","GK00893_00IH_0001_004b.jpg"],
+        )
+        self.assertEqual(topo["exact_target_folio_status"],"UNRESOLVED")
+        self.assertEqual(topo["target_reading_status"],"PENDING_DIRECT_IMAGE")
+        evidence={x["source_id"]:x for x in self.data["transmission_history_evidence"]}
+        li=evidence["EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023"]
+        self.assertFalse(li["direct_target_glyph_authority"])
+        self.assertFalse(li["target_folio_certification_authorized"])
+        candidates={x["id"]:x for x in self.data["supplementary_physical_witness_candidates"]}
+        kang=candidates["CAND-KANG-BO-SHOUSHI-JIEFA-LICHENG-G20981"]
+        self.assertEqual(kang["relationship_to_g893"],"SEPARATE_KOREAN_DERIVED_LICHENG_WORK_NOT_G893_COPY")
+        self.assertEqual(kang["direct_image_status"],"PENDING")
+        self.assertEqual(self.data["epistemic_firewalls"]["g893_thumbnail_filename_as_target_folio_binding"],"FORBIDDEN")
+        self.assertEqual(self.data["epistemic_firewalls"]["kang_bo_jiefa_licheng_as_same_text_as_g893"],"FORBIDDEN")
+
     def test_early_physical_shoushi_witness_is_bound_without_prepopulated_readings(self) -> None:
         source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
