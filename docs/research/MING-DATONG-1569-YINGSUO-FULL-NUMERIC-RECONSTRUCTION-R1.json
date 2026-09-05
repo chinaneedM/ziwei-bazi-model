@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1",
-  "schema_version": "1.0.0",
-  "status": "BOTH_SOLAR_YINGSUO_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_PRIMARY_PAGE_CONTROLS_NOT_VERBATIM_ROW_BY_ROW_TRANSCRIPTION",
+  "schema_version": "1.1.0",
+  "status": "BOTH_SOLAR_YINGSUO_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_WITH_XIAOXI_COLUMN_PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
@@ -34,7 +34,9 @@
         "accumulated_degree": "C(n)=n*(D-n*(P+n*L))",
         "daily_add_degree": "A(n)=C(n+1)-C(n), for interpolation rows only",
         "interpolation": "difference = C(n) + (day_small_remainder_source_units / 10000) * A(n)",
-        "source_table_unit_relation": "source-table 盈縮加分/盈縮積 values equal degree magnitude × 10000"
+        "source_table_unit_relation": "source-table 盈縮加分/盈縮積 values equal degree magnitude × 10000",
+        "message_source_table_units": "M(n)=A(n)-A(n+1), where both adjacent 盈縮加分 rows exist",
+        "message_terminal_blank_rule": "消息分 is blank once no next 盈縮加分 row exists"
       },
       "rows": [
         {
@@ -45,7 +47,8 @@
           "accumulated_degree": null,
           "accumulated_source_table_units": null,
           "add_degree": "0.05108569",
-          "add_source_table_units": "510.8569"
+          "add_source_table_units": "510.8569",
+          "message_source_table_units": "4.9386"
         },
         {
           "day_index": 1,
@@ -55,7 +58,8 @@
           "accumulated_degree": "0.05108569",
           "accumulated_source_table_units": "510.8569",
           "add_degree": "0.05059183",
-          "add_source_table_units": "505.9183"
+          "add_source_table_units": "505.9183",
+          "message_source_table_units": "4.9572"
         },
         {
           "day_index": 2,
@@ -65,7 +69,8 @@
           "accumulated_degree": "0.10167752",
           "accumulated_source_table_units": "1016.7752",
           "add_degree": "0.05009611",
-          "add_source_table_units": "500.9611"
+          "add_source_table_units": "500.9611",
+          "message_source_table_units": "4.9758"
         },
         {
           "day_index": 3,
@@ -75,7 +80,8 @@
           "accumulated_degree": "0.15177363",
           "accumulated_source_table_units": "1517.7363",
           "add_degree": "0.04959853",
-          "add_source_table_units": "495.9853"
+          "add_source_table_units": "495.9853",
+          "message_source_table_units": "4.9944"
         },
         {
           "day_index": 4,
@@ -85,7 +91,8 @@
           "accumulated_degree": "0.20137216",
           "accumulated_source_table_units": "2013.7216",
           "add_degree": "0.04909909",
-          "add_source_table_units": "490.9909"
+          "add_source_table_units": "490.9909",
+          "message_source_table_units": "5.0130"
         },
         {
           "day_index": 5,
@@ -95,7 +102,8 @@
           "accumulated_degree": "0.25047125",
           "accumulated_source_table_units": "2504.7125",
           "add_degree": "0.04859779",
-          "add_source_table_units": "485.9779"
+          "add_source_table_units": "485.9779",
+          "message_source_table_units": "5.0316"
         },
         {
           "day_index": 6,
@@ -105,7 +113,8 @@
           "accumulated_degree": "0.29906904",
           "accumulated_source_table_units": "2990.6904",
           "add_degree": "0.04809463",
-          "add_source_table_units": "480.9463"
+          "add_source_table_units": "480.9463",
+          "message_source_table_units": "5.0502"
         },
         {
           "day_index": 7,
@@ -115,7 +124,8 @@
           "accumulated_degree": "0.34716367",
           "accumulated_source_table_units": "3471.6367",
           "add_degree": "0.04758961",
-          "add_source_table_units": "475.8961"
+          "add_source_table_units": "475.8961",
+          "message_source_table_units": "5.0688"
         },
         {
           "day_index": 8,
@@ -125,7 +135,8 @@
           "accumulated_degree": "0.39475328",
           "accumulated_source_table_units": "3947.5328",
           "add_degree": "0.04708273",
-          "add_source_table_units": "470.8273"
+          "add_source_table_units": "470.8273",
+          "message_source_table_units": "5.0874"
         },
         {
           "day_index": 9,
@@ -135,7 +146,8 @@
           "accumulated_degree": "0.44183601",
           "accumulated_source_table_units": "4418.3601",
           "add_degree": "0.04657399",
-          "add_source_table_units": "465.7399"
+          "add_source_table_units": "465.7399",
+          "message_source_table_units": "5.1060"
         },
         {
           "day_index": 10,
@@ -145,7 +157,8 @@
           "accumulated_degree": "0.48841000",
           "accumulated_source_table_units": "4884.1000",
           "add_degree": "0.04606339",
-          "add_source_table_units": "460.6339"
+          "add_source_table_units": "460.6339",
+          "message_source_table_units": "5.1246"
         },
         {
           "day_index": 11,
@@ -155,7 +168,8 @@
           "accumulated_degree": "0.53447339",
           "accumulated_source_table_units": "5344.7339",
           "add_degree": "0.04555093",
-          "add_source_table_units": "455.5093"
+          "add_source_table_units": "455.5093",
+          "message_source_table_units": "5.1432"
         },
         {
           "day_index": 12,
@@ -165,7 +179,8 @@
           "accumulated_degree": "0.58002432",
           "accumulated_source_table_units": "5800.2432",
           "add_degree": "0.04503661",
-          "add_source_table_units": "450.3661"
+          "add_source_table_units": "450.3661",
+          "message_source_table_units": "5.1618"
         },
         {
           "day_index": 13,
@@ -175,7 +190,8 @@
           "accumulated_degree": "0.62506093",
           "accumulated_source_table_units": "6250.6093",
           "add_degree": "0.04452043",
-          "add_source_table_units": "445.2043"
+          "add_source_table_units": "445.2043",
+          "message_source_table_units": "5.1804"
         },
         {
           "day_index": 14,
@@ -185,7 +201,8 @@
           "accumulated_degree": "0.66958136",
           "accumulated_source_table_units": "6695.8136",
           "add_degree": "0.04400239",
-          "add_source_table_units": "440.0239"
+          "add_source_table_units": "440.0239",
+          "message_source_table_units": "5.1990"
         },
         {
           "day_index": 15,
@@ -195,7 +212,8 @@
           "accumulated_degree": "0.71358375",
           "accumulated_source_table_units": "7135.8375",
           "add_degree": "0.04348249",
-          "add_source_table_units": "434.8249"
+          "add_source_table_units": "434.8249",
+          "message_source_table_units": "5.2176"
         },
         {
           "day_index": 16,
@@ -205,7 +223,8 @@
           "accumulated_degree": "0.75706624",
           "accumulated_source_table_units": "7570.6624",
           "add_degree": "0.04296073",
-          "add_source_table_units": "429.6073"
+          "add_source_table_units": "429.6073",
+          "message_source_table_units": "5.2362"
         },
         {
           "day_index": 17,
@@ -215,7 +234,8 @@
           "accumulated_degree": "0.80002697",
           "accumulated_source_table_units": "8000.2697",
           "add_degree": "0.04243711",
-          "add_source_table_units": "424.3711"
+          "add_source_table_units": "424.3711",
+          "message_source_table_units": "5.2548"
         },
         {
           "day_index": 18,
@@ -225,7 +245,8 @@
           "accumulated_degree": "0.84246408",
           "accumulated_source_table_units": "8424.6408",
           "add_degree": "0.04191163",
-          "add_source_table_units": "419.1163"
+          "add_source_table_units": "419.1163",
+          "message_source_table_units": "5.2734"
         },
         {
           "day_index": 19,
@@ -235,7 +256,8 @@
           "accumulated_degree": "0.88437571",
           "accumulated_source_table_units": "8843.7571",
           "add_degree": "0.04138429",
-          "add_source_table_units": "413.8429"
+          "add_source_table_units": "413.8429",
+          "message_source_table_units": "5.2920"
         },
         {
           "day_index": 20,
@@ -245,7 +267,8 @@
           "accumulated_degree": "0.92576000",
           "accumulated_source_table_units": "9257.6000",
           "add_degree": "0.04085509",
-          "add_source_table_units": "408.5509"
+          "add_source_table_units": "408.5509",
+          "message_source_table_units": "5.3106"
         },
         {
           "day_index": 21,
@@ -255,7 +278,8 @@
           "accumulated_degree": "0.96661509",
           "accumulated_source_table_units": "9666.1509",
           "add_degree": "0.04032403",
-          "add_source_table_units": "403.2403"
+          "add_source_table_units": "403.2403",
+          "message_source_table_units": "5.3292"
         },
         {
           "day_index": 22,
@@ -265,7 +289,8 @@
           "accumulated_degree": "1.00693912",
           "accumulated_source_table_units": "10069.3912",
           "add_degree": "0.03979111",
-          "add_source_table_units": "397.9111"
+          "add_source_table_units": "397.9111",
+          "message_source_table_units": "5.3478"
         },
         {
           "day_index": 23,
@@ -275,7 +300,8 @@
           "accumulated_degree": "1.04673023",
           "accumulated_source_table_units": "10467.3023",
           "add_degree": "0.03925633",
-          "add_source_table_units": "392.5633"
+          "add_source_table_units": "392.5633",
+          "message_source_table_units": "5.3664"
         },
         {
           "day_index": 24,
@@ -285,7 +311,8 @@
           "accumulated_degree": "1.08598656",
           "accumulated_source_table_units": "10859.8656",
           "add_degree": "0.03871969",
-          "add_source_table_units": "387.1969"
+          "add_source_table_units": "387.1969",
+          "message_source_table_units": "5.3850"
         },
         {
           "day_index": 25,
@@ -295,7 +322,8 @@
           "accumulated_degree": "1.12470625",
           "accumulated_source_table_units": "11247.0625",
           "add_degree": "0.03818119",
-          "add_source_table_units": "381.8119"
+          "add_source_table_units": "381.8119",
+          "message_source_table_units": "5.4036"
         },
         {
           "day_index": 26,
@@ -305,7 +333,8 @@
           "accumulated_degree": "1.16288744",
           "accumulated_source_table_units": "11628.8744",
           "add_degree": "0.03764083",
-          "add_source_table_units": "376.4083"
+          "add_source_table_units": "376.4083",
+          "message_source_table_units": "5.4222"
         },
         {
           "day_index": 27,
@@ -315,7 +344,8 @@
           "accumulated_degree": "1.20052827",
           "accumulated_source_table_units": "12005.2827",
           "add_degree": "0.03709861",
-          "add_source_table_units": "370.9861"
+          "add_source_table_units": "370.9861",
+          "message_source_table_units": "5.4408"
         },
         {
           "day_index": 28,
@@ -325,7 +355,8 @@
           "accumulated_degree": "1.23762688",
           "accumulated_source_table_units": "12376.2688",
           "add_degree": "0.03655453",
-          "add_source_table_units": "365.5453"
+          "add_source_table_units": "365.5453",
+          "message_source_table_units": "5.4594"
         },
         {
           "day_index": 29,
@@ -335,7 +366,8 @@
           "accumulated_degree": "1.27418141",
           "accumulated_source_table_units": "12741.8141",
           "add_degree": "0.03600859",
-          "add_source_table_units": "360.0859"
+          "add_source_table_units": "360.0859",
+          "message_source_table_units": "5.4780"
         },
         {
           "day_index": 30,
@@ -345,7 +377,8 @@
           "accumulated_degree": "1.31019000",
           "accumulated_source_table_units": "13101.9000",
           "add_degree": "0.03546079",
-          "add_source_table_units": "354.6079"
+          "add_source_table_units": "354.6079",
+          "message_source_table_units": "5.4966"
         },
         {
           "day_index": 31,
@@ -355,7 +388,8 @@
           "accumulated_degree": "1.34565079",
           "accumulated_source_table_units": "13456.5079",
           "add_degree": "0.03491113",
-          "add_source_table_units": "349.1113"
+          "add_source_table_units": "349.1113",
+          "message_source_table_units": "5.5152"
         },
         {
           "day_index": 32,
@@ -365,7 +399,8 @@
           "accumulated_degree": "1.38056192",
           "accumulated_source_table_units": "13805.6192",
           "add_degree": "0.03435961",
-          "add_source_table_units": "343.5961"
+          "add_source_table_units": "343.5961",
+          "message_source_table_units": "5.5338"
         },
         {
           "day_index": 33,
@@ -375,7 +410,8 @@
           "accumulated_degree": "1.41492153",
           "accumulated_source_table_units": "14149.2153",
           "add_degree": "0.03380623",
-          "add_source_table_units": "338.0623"
+          "add_source_table_units": "338.0623",
+          "message_source_table_units": "5.5524"
         },
         {
           "day_index": 34,
@@ -385,7 +421,8 @@
           "accumulated_degree": "1.44872776",
           "accumulated_source_table_units": "14487.2776",
           "add_degree": "0.03325099",
-          "add_source_table_units": "332.5099"
+          "add_source_table_units": "332.5099",
+          "message_source_table_units": "5.5710"
         },
         {
           "day_index": 35,
@@ -395,7 +432,8 @@
           "accumulated_degree": "1.48197875",
           "accumulated_source_table_units": "14819.7875",
           "add_degree": "0.03269389",
-          "add_source_table_units": "326.9389"
+          "add_source_table_units": "326.9389",
+          "message_source_table_units": "5.5896"
         },
         {
           "day_index": 36,
@@ -405,7 +443,8 @@
           "accumulated_degree": "1.51467264",
           "accumulated_source_table_units": "15146.7264",
           "add_degree": "0.03213493",
-          "add_source_table_units": "321.3493"
+          "add_source_table_units": "321.3493",
+          "message_source_table_units": "5.6082"
         },
         {
           "day_index": 37,
@@ -415,7 +454,8 @@
           "accumulated_degree": "1.54680757",
           "accumulated_source_table_units": "15468.0757",
           "add_degree": "0.03157411",
-          "add_source_table_units": "315.7411"
+          "add_source_table_units": "315.7411",
+          "message_source_table_units": "5.6268"
         },
         {
           "day_index": 38,
@@ -425,7 +465,8 @@
           "accumulated_degree": "1.57838168",
           "accumulated_source_table_units": "15783.8168",
           "add_degree": "0.03101143",
-          "add_source_table_units": "310.1143"
+          "add_source_table_units": "310.1143",
+          "message_source_table_units": "5.6454"
         },
         {
           "day_index": 39,
@@ -435,7 +476,8 @@
           "accumulated_degree": "1.60939311",
           "accumulated_source_table_units": "16093.9311",
           "add_degree": "0.03044689",
-          "add_source_table_units": "304.4689"
+          "add_source_table_units": "304.4689",
+          "message_source_table_units": "5.6640"
         },
         {
           "day_index": 40,
@@ -445,7 +487,8 @@
           "accumulated_degree": "1.63984000",
           "accumulated_source_table_units": "16398.4000",
           "add_degree": "0.02988049",
-          "add_source_table_units": "298.8049"
+          "add_source_table_units": "298.8049",
+          "message_source_table_units": "5.6826"
         },
         {
           "day_index": 41,
@@ -455,7 +498,8 @@
           "accumulated_degree": "1.66972049",
           "accumulated_source_table_units": "16697.2049",
           "add_degree": "0.02931223",
-          "add_source_table_units": "293.1223"
+          "add_source_table_units": "293.1223",
+          "message_source_table_units": "5.7012"
         },
         {
           "day_index": 42,
@@ -465,7 +509,8 @@
           "accumulated_degree": "1.69903272",
           "accumulated_source_table_units": "16990.3272",
           "add_degree": "0.02874211",
-          "add_source_table_units": "287.4211"
+          "add_source_table_units": "287.4211",
+          "message_source_table_units": "5.7198"
         },
         {
           "day_index": 43,
@@ -475,7 +520,8 @@
           "accumulated_degree": "1.72777483",
           "accumulated_source_table_units": "17277.7483",
           "add_degree": "0.02817013",
-          "add_source_table_units": "281.7013"
+          "add_source_table_units": "281.7013",
+          "message_source_table_units": "5.7384"
         },
         {
           "day_index": 44,
@@ -485,7 +531,8 @@
           "accumulated_degree": "1.75594496",
           "accumulated_source_table_units": "17559.4496",
           "add_degree": "0.02759629",
-          "add_source_table_units": "275.9629"
+          "add_source_table_units": "275.9629",
+          "message_source_table_units": "5.7570"
         },
         {
           "day_index": 45,
@@ -495,7 +542,8 @@
           "accumulated_degree": "1.78354125",
           "accumulated_source_table_units": "17835.4125",
           "add_degree": "0.02702059",
-          "add_source_table_units": "270.2059"
+          "add_source_table_units": "270.2059",
+          "message_source_table_units": "5.7756"
         },
         {
           "day_index": 46,
@@ -505,7 +553,8 @@
           "accumulated_degree": "1.81056184",
           "accumulated_source_table_units": "18105.6184",
           "add_degree": "0.02644303",
-          "add_source_table_units": "264.4303"
+          "add_source_table_units": "264.4303",
+          "message_source_table_units": "5.7942"
         },
         {
           "day_index": 47,
@@ -515,7 +564,8 @@
           "accumulated_degree": "1.83700487",
           "accumulated_source_table_units": "18370.0487",
           "add_degree": "0.02586361",
-          "add_source_table_units": "258.6361"
+          "add_source_table_units": "258.6361",
+          "message_source_table_units": "5.8128"
         },
         {
           "day_index": 48,
@@ -525,7 +575,8 @@
           "accumulated_degree": "1.86286848",
           "accumulated_source_table_units": "18628.6848",
           "add_degree": "0.02528233",
-          "add_source_table_units": "252.8233"
+          "add_source_table_units": "252.8233",
+          "message_source_table_units": "5.8314"
         },
         {
           "day_index": 49,
@@ -535,7 +586,8 @@
           "accumulated_degree": "1.88815081",
           "accumulated_source_table_units": "18881.5081",
           "add_degree": "0.02469919",
-          "add_source_table_units": "246.9919"
+          "add_source_table_units": "246.9919",
+          "message_source_table_units": "5.8500"
         },
         {
           "day_index": 50,
@@ -545,7 +597,8 @@
           "accumulated_degree": "1.91285000",
           "accumulated_source_table_units": "19128.5000",
           "add_degree": "0.02411419",
-          "add_source_table_units": "241.1419"
+          "add_source_table_units": "241.1419",
+          "message_source_table_units": "5.8686"
         },
         {
           "day_index": 51,
@@ -555,7 +608,8 @@
           "accumulated_degree": "1.93696419",
           "accumulated_source_table_units": "19369.6419",
           "add_degree": "0.02352733",
-          "add_source_table_units": "235.2733"
+          "add_source_table_units": "235.2733",
+          "message_source_table_units": "5.8872"
         },
         {
           "day_index": 52,
@@ -565,7 +619,8 @@
           "accumulated_degree": "1.96049152",
           "accumulated_source_table_units": "19604.9152",
           "add_degree": "0.02293861",
-          "add_source_table_units": "229.3861"
+          "add_source_table_units": "229.3861",
+          "message_source_table_units": "5.9058"
         },
         {
           "day_index": 53,
@@ -575,7 +630,8 @@
           "accumulated_degree": "1.98343013",
           "accumulated_source_table_units": "19834.3013",
           "add_degree": "0.02234803",
-          "add_source_table_units": "223.4803"
+          "add_source_table_units": "223.4803",
+          "message_source_table_units": "5.9244"
         },
         {
           "day_index": 54,
@@ -585,7 +641,8 @@
           "accumulated_degree": "2.00577816",
           "accumulated_source_table_units": "20057.7816",
           "add_degree": "0.02175559",
-          "add_source_table_units": "217.5559"
+          "add_source_table_units": "217.5559",
+          "message_source_table_units": "5.9430"
         },
         {
           "day_index": 55,
@@ -595,7 +652,8 @@
           "accumulated_degree": "2.02753375",
           "accumulated_source_table_units": "20275.3375",
           "add_degree": "0.02116129",
-          "add_source_table_units": "211.6129"
+          "add_source_table_units": "211.6129",
+          "message_source_table_units": "5.9616"
         },
         {
           "day_index": 56,
@@ -605,7 +663,8 @@
           "accumulated_degree": "2.04869504",
           "accumulated_source_table_units": "20486.9504",
           "add_degree": "0.02056513",
-          "add_source_table_units": "205.6513"
+          "add_source_table_units": "205.6513",
+          "message_source_table_units": "5.9802"
         },
         {
           "day_index": 57,
@@ -615,7 +674,8 @@
           "accumulated_degree": "2.06926017",
           "accumulated_source_table_units": "20692.6017",
           "add_degree": "0.01996711",
-          "add_source_table_units": "199.6711"
+          "add_source_table_units": "199.6711",
+          "message_source_table_units": "5.9988"
         },
         {
           "day_index": 58,
@@ -625,7 +685,8 @@
           "accumulated_degree": "2.08922728",
           "accumulated_source_table_units": "20892.2728",
           "add_degree": "0.01936723",
-          "add_source_table_units": "193.6723"
+          "add_source_table_units": "193.6723",
+          "message_source_table_units": "6.0174"
         },
         {
           "day_index": 59,
@@ -635,7 +696,8 @@
           "accumulated_degree": "2.10859451",
           "accumulated_source_table_units": "21085.9451",
           "add_degree": "0.01876549",
-          "add_source_table_units": "187.6549"
+          "add_source_table_units": "187.6549",
+          "message_source_table_units": "6.0360"
         },
         {
           "day_index": 60,
@@ -645,7 +707,8 @@
           "accumulated_degree": "2.12736000",
           "accumulated_source_table_units": "21273.6000",
           "add_degree": "0.01816189",
-          "add_source_table_units": "181.6189"
+          "add_source_table_units": "181.6189",
+          "message_source_table_units": "6.0546"
         },
         {
           "day_index": 61,
@@ -655,7 +718,8 @@
           "accumulated_degree": "2.14552189",
           "accumulated_source_table_units": "21455.2189",
           "add_degree": "0.01755643",
-          "add_source_table_units": "175.5643"
+          "add_source_table_units": "175.5643",
+          "message_source_table_units": "6.0732"
         },
         {
           "day_index": 62,
@@ -665,7 +729,8 @@
           "accumulated_degree": "2.16307832",
           "accumulated_source_table_units": "21630.7832",
           "add_degree": "0.01694911",
-          "add_source_table_units": "169.4911"
+          "add_source_table_units": "169.4911",
+          "message_source_table_units": "6.0918"
         },
         {
           "day_index": 63,
@@ -675,7 +740,8 @@
           "accumulated_degree": "2.18002743",
           "accumulated_source_table_units": "21800.2743",
           "add_degree": "0.01633993",
-          "add_source_table_units": "163.3993"
+          "add_source_table_units": "163.3993",
+          "message_source_table_units": "6.1104"
         },
         {
           "day_index": 64,
@@ -685,7 +751,8 @@
           "accumulated_degree": "2.19636736",
           "accumulated_source_table_units": "21963.6736",
           "add_degree": "0.01572889",
-          "add_source_table_units": "157.2889"
+          "add_source_table_units": "157.2889",
+          "message_source_table_units": "6.1290"
         },
         {
           "day_index": 65,
@@ -695,7 +762,8 @@
           "accumulated_degree": "2.21209625",
           "accumulated_source_table_units": "22120.9625",
           "add_degree": "0.01511599",
-          "add_source_table_units": "151.1599"
+          "add_source_table_units": "151.1599",
+          "message_source_table_units": "6.1476"
         },
         {
           "day_index": 66,
@@ -705,7 +773,8 @@
           "accumulated_degree": "2.22721224",
           "accumulated_source_table_units": "22272.1224",
           "add_degree": "0.01450123",
-          "add_source_table_units": "145.0123"
+          "add_source_table_units": "145.0123",
+          "message_source_table_units": "6.1662"
         },
         {
           "day_index": 67,
@@ -715,7 +784,8 @@
           "accumulated_degree": "2.24171347",
           "accumulated_source_table_units": "22417.1347",
           "add_degree": "0.01388461",
-          "add_source_table_units": "138.8461"
+          "add_source_table_units": "138.8461",
+          "message_source_table_units": "6.1848"
         },
         {
           "day_index": 68,
@@ -725,7 +795,8 @@
           "accumulated_degree": "2.25559808",
           "accumulated_source_table_units": "22555.9808",
           "add_degree": "0.01326613",
-          "add_source_table_units": "132.6613"
+          "add_source_table_units": "132.6613",
+          "message_source_table_units": "6.2034"
         },
         {
           "day_index": 69,
@@ -735,7 +806,8 @@
           "accumulated_degree": "2.26886421",
           "accumulated_source_table_units": "22688.6421",
           "add_degree": "0.01264579",
-          "add_source_table_units": "126.4579"
+          "add_source_table_units": "126.4579",
+          "message_source_table_units": "6.2220"
         },
         {
           "day_index": 70,
@@ -745,7 +817,8 @@
           "accumulated_degree": "2.28151000",
           "accumulated_source_table_units": "22815.1000",
           "add_degree": "0.01202359",
-          "add_source_table_units": "120.2359"
+          "add_source_table_units": "120.2359",
+          "message_source_table_units": "6.2406"
         },
         {
           "day_index": 71,
@@ -755,7 +828,8 @@
           "accumulated_degree": "2.29353359",
           "accumulated_source_table_units": "22935.3359",
           "add_degree": "0.01139953",
-          "add_source_table_units": "113.9953"
+          "add_source_table_units": "113.9953",
+          "message_source_table_units": "6.2592"
         },
         {
           "day_index": 72,
@@ -765,7 +839,8 @@
           "accumulated_degree": "2.30493312",
           "accumulated_source_table_units": "23049.3312",
           "add_degree": "0.01077361",
-          "add_source_table_units": "107.7361"
+          "add_source_table_units": "107.7361",
+          "message_source_table_units": "6.2778"
         },
         {
           "day_index": 73,
@@ -775,7 +850,8 @@
           "accumulated_degree": "2.31570673",
           "accumulated_source_table_units": "23157.0673",
           "add_degree": "0.01014583",
-          "add_source_table_units": "101.4583"
+          "add_source_table_units": "101.4583",
+          "message_source_table_units": "6.2964"
         },
         {
           "day_index": 74,
@@ -785,7 +861,8 @@
           "accumulated_degree": "2.32585256",
           "accumulated_source_table_units": "23258.5256",
           "add_degree": "0.00951619",
-          "add_source_table_units": "95.1619"
+          "add_source_table_units": "95.1619",
+          "message_source_table_units": "6.3150"
         },
         {
           "day_index": 75,
@@ -795,7 +872,8 @@
           "accumulated_degree": "2.33536875",
           "accumulated_source_table_units": "23353.6875",
           "add_degree": "0.00888469",
-          "add_source_table_units": "88.8469"
+          "add_source_table_units": "88.8469",
+          "message_source_table_units": "6.3336"
         },
         {
           "day_index": 76,
@@ -805,7 +883,8 @@
           "accumulated_degree": "2.34425344",
           "accumulated_source_table_units": "23442.5344",
           "add_degree": "0.00825133",
-          "add_source_table_units": "82.5133"
+          "add_source_table_units": "82.5133",
+          "message_source_table_units": "6.3522"
         },
         {
           "day_index": 77,
@@ -815,7 +894,8 @@
           "accumulated_degree": "2.35250477",
           "accumulated_source_table_units": "23525.0477",
           "add_degree": "0.00761611",
-          "add_source_table_units": "76.1611"
+          "add_source_table_units": "76.1611",
+          "message_source_table_units": "6.3708"
         },
         {
           "day_index": 78,
@@ -825,7 +905,8 @@
           "accumulated_degree": "2.36012088",
           "accumulated_source_table_units": "23601.2088",
           "add_degree": "0.00697903",
-          "add_source_table_units": "69.7903"
+          "add_source_table_units": "69.7903",
+          "message_source_table_units": "6.3894"
         },
         {
           "day_index": 79,
@@ -835,7 +916,8 @@
           "accumulated_degree": "2.36709991",
           "accumulated_source_table_units": "23670.9991",
           "add_degree": "0.00634009",
-          "add_source_table_units": "63.4009"
+          "add_source_table_units": "63.4009",
+          "message_source_table_units": "6.4080"
         },
         {
           "day_index": 80,
@@ -845,7 +927,8 @@
           "accumulated_degree": "2.37344000",
           "accumulated_source_table_units": "23734.4000",
           "add_degree": "0.00569929",
-          "add_source_table_units": "56.9929"
+          "add_source_table_units": "56.9929",
+          "message_source_table_units": "6.4266"
         },
         {
           "day_index": 81,
@@ -855,7 +938,8 @@
           "accumulated_degree": "2.37913929",
           "accumulated_source_table_units": "23791.3929",
           "add_degree": "0.00505663",
-          "add_source_table_units": "50.5663"
+          "add_source_table_units": "50.5663",
+          "message_source_table_units": "6.4452"
         },
         {
           "day_index": 82,
@@ -865,7 +949,8 @@
           "accumulated_degree": "2.38419592",
           "accumulated_source_table_units": "23841.9592",
           "add_degree": "0.00441211",
-          "add_source_table_units": "44.1211"
+          "add_source_table_units": "44.1211",
+          "message_source_table_units": "6.4638"
         },
         {
           "day_index": 83,
@@ -875,7 +960,8 @@
           "accumulated_degree": "2.38860803",
           "accumulated_source_table_units": "23886.0803",
           "add_degree": "0.00376573",
-          "add_source_table_units": "37.6573"
+          "add_source_table_units": "37.6573",
+          "message_source_table_units": "6.4824"
         },
         {
           "day_index": 84,
@@ -885,7 +971,8 @@
           "accumulated_degree": "2.39237376",
           "accumulated_source_table_units": "23923.7376",
           "add_degree": "0.00311749",
-          "add_source_table_units": "31.1749"
+          "add_source_table_units": "31.1749",
+          "message_source_table_units": "6.5010"
         },
         {
           "day_index": 85,
@@ -895,7 +982,8 @@
           "accumulated_degree": "2.39549125",
           "accumulated_source_table_units": "23954.9125",
           "add_degree": "0.00246739",
-          "add_source_table_units": "24.6739"
+          "add_source_table_units": "24.6739",
+          "message_source_table_units": "6.5196"
         },
         {
           "day_index": 86,
@@ -905,7 +993,8 @@
           "accumulated_degree": "2.39795864",
           "accumulated_source_table_units": "23979.5864",
           "add_degree": "0.00181543",
-          "add_source_table_units": "18.1543"
+          "add_source_table_units": "18.1543",
+          "message_source_table_units": "6.5382"
         },
         {
           "day_index": 87,
@@ -915,7 +1004,8 @@
           "accumulated_degree": "2.39977407",
           "accumulated_source_table_units": "23997.7407",
           "add_degree": "0.00116161",
-          "add_source_table_units": "11.6161"
+          "add_source_table_units": "11.6161",
+          "message_source_table_units": "6.5568"
         },
         {
           "day_index": 88,
@@ -925,7 +1015,8 @@
           "accumulated_degree": "2.40093568",
           "accumulated_source_table_units": "24009.3568",
           "add_degree": "0.00050593",
-          "add_source_table_units": "5.0593"
+          "add_source_table_units": "5.0593",
+          "message_source_table_units": null
         },
         {
           "day_index": 89,
@@ -935,7 +1026,8 @@
           "accumulated_degree": "2.40144161",
           "accumulated_source_table_units": "24014.4161",
           "add_degree": null,
-          "add_source_table_units": null
+          "add_source_table_units": null,
+          "message_source_table_units": null
         }
       ]
     },
@@ -960,7 +1052,9 @@
         "accumulated_degree": "C(n)=n*(D-n*(P+n*L))",
         "daily_add_degree": "A(n)=C(n+1)-C(n), for interpolation rows only",
         "interpolation": "difference = C(n) + (day_small_remainder_source_units / 10000) * A(n)",
-        "source_table_unit_relation": "source-table 盈縮加分/盈縮積 values equal degree magnitude × 10000"
+        "source_table_unit_relation": "source-table 盈縮加分/盈縮積 values equal degree magnitude × 10000",
+        "message_source_table_units": "M(n)=A(n)-A(n+1), where both adjacent 盈縮加分 rows exist",
+        "message_terminal_blank_rule": "消息分 is blank once no next 盈縮加分 row exists"
       },
       "rows": [
         {
@@ -971,7 +1065,8 @@
           "accumulated_degree": null,
           "accumulated_source_table_units": null,
           "add_degree": "0.04848473",
-          "add_source_table_units": "484.8473"
+          "add_source_table_units": "484.8473",
+          "message_source_table_units": "4.4362"
         },
         {
           "day_index": 1,
@@ -981,7 +1076,8 @@
           "accumulated_degree": "0.04848473",
           "accumulated_source_table_units": "484.8473",
           "add_degree": "0.04804111",
-          "add_source_table_units": "480.4111"
+          "add_source_table_units": "480.4111",
+          "message_source_table_units": "4.4524"
         },
         {
           "day_index": 2,
@@ -991,7 +1087,8 @@
           "accumulated_degree": "0.09652584",
           "accumulated_source_table_units": "965.2584",
           "add_degree": "0.04759587",
-          "add_source_table_units": "475.9587"
+          "add_source_table_units": "475.9587",
+          "message_source_table_units": "4.4686"
         },
         {
           "day_index": 3,
@@ -1001,7 +1098,8 @@
           "accumulated_degree": "0.14412171",
           "accumulated_source_table_units": "1441.2171",
           "add_degree": "0.04714901",
-          "add_source_table_units": "471.4901"
+          "add_source_table_units": "471.4901",
+          "message_source_table_units": "4.4848"
         },
         {
           "day_index": 4,
@@ -1011,7 +1109,8 @@
           "accumulated_degree": "0.19127072",
           "accumulated_source_table_units": "1912.7072",
           "add_degree": "0.04670053",
-          "add_source_table_units": "467.0053"
+          "add_source_table_units": "467.0053",
+          "message_source_table_units": "4.5010"
         },
         {
           "day_index": 5,
@@ -1021,7 +1120,8 @@
           "accumulated_degree": "0.23797125",
           "accumulated_source_table_units": "2379.7125",
           "add_degree": "0.04625043",
-          "add_source_table_units": "462.5043"
+          "add_source_table_units": "462.5043",
+          "message_source_table_units": "4.5172"
         },
         {
           "day_index": 6,
@@ -1031,7 +1131,8 @@
           "accumulated_degree": "0.28422168",
           "accumulated_source_table_units": "2842.2168",
           "add_degree": "0.04579871",
-          "add_source_table_units": "457.9871"
+          "add_source_table_units": "457.9871",
+          "message_source_table_units": "4.5334"
         },
         {
           "day_index": 7,
@@ -1041,7 +1142,8 @@
           "accumulated_degree": "0.33002039",
           "accumulated_source_table_units": "3300.2039",
           "add_degree": "0.04534537",
-          "add_source_table_units": "453.4537"
+          "add_source_table_units": "453.4537",
+          "message_source_table_units": "4.5496"
         },
         {
           "day_index": 8,
@@ -1051,7 +1153,8 @@
           "accumulated_degree": "0.37536576",
           "accumulated_source_table_units": "3753.6576",
           "add_degree": "0.04489041",
-          "add_source_table_units": "448.9041"
+          "add_source_table_units": "448.9041",
+          "message_source_table_units": "4.5658"
         },
         {
           "day_index": 9,
@@ -1061,7 +1164,8 @@
           "accumulated_degree": "0.42025617",
           "accumulated_source_table_units": "4202.5617",
           "add_degree": "0.04443383",
-          "add_source_table_units": "444.3383"
+          "add_source_table_units": "444.3383",
+          "message_source_table_units": "4.5820"
         },
         {
           "day_index": 10,
@@ -1071,7 +1175,8 @@
           "accumulated_degree": "0.46469000",
           "accumulated_source_table_units": "4646.9000",
           "add_degree": "0.04397563",
-          "add_source_table_units": "439.7563"
+          "add_source_table_units": "439.7563",
+          "message_source_table_units": "4.5982"
         },
         {
           "day_index": 11,
@@ -1081,7 +1186,8 @@
           "accumulated_degree": "0.50866563",
           "accumulated_source_table_units": "5086.6563",
           "add_degree": "0.04351581",
-          "add_source_table_units": "435.1581"
+          "add_source_table_units": "435.1581",
+          "message_source_table_units": "4.6144"
         },
         {
           "day_index": 12,
@@ -1091,7 +1197,8 @@
           "accumulated_degree": "0.55218144",
           "accumulated_source_table_units": "5521.8144",
           "add_degree": "0.04305437",
-          "add_source_table_units": "430.5437"
+          "add_source_table_units": "430.5437",
+          "message_source_table_units": "4.6306"
         },
         {
           "day_index": 13,
@@ -1101,7 +1208,8 @@
           "accumulated_degree": "0.59523581",
           "accumulated_source_table_units": "5952.3581",
           "add_degree": "0.04259131",
-          "add_source_table_units": "425.9131"
+          "add_source_table_units": "425.9131",
+          "message_source_table_units": "4.6468"
         },
         {
           "day_index": 14,
@@ -1111,7 +1219,8 @@
           "accumulated_degree": "0.63782712",
           "accumulated_source_table_units": "6378.2712",
           "add_degree": "0.04212663",
-          "add_source_table_units": "421.2663"
+          "add_source_table_units": "421.2663",
+          "message_source_table_units": "4.6630"
         },
         {
           "day_index": 15,
@@ -1121,7 +1230,8 @@
           "accumulated_degree": "0.67995375",
           "accumulated_source_table_units": "6799.5375",
           "add_degree": "0.04166033",
-          "add_source_table_units": "416.6033"
+          "add_source_table_units": "416.6033",
+          "message_source_table_units": "4.6792"
         },
         {
           "day_index": 16,
@@ -1131,7 +1241,8 @@
           "accumulated_degree": "0.72161408",
           "accumulated_source_table_units": "7216.1408",
           "add_degree": "0.04119241",
-          "add_source_table_units": "411.9241"
+          "add_source_table_units": "411.9241",
+          "message_source_table_units": "4.6954"
         },
         {
           "day_index": 17,
@@ -1141,7 +1252,8 @@
           "accumulated_degree": "0.76280649",
           "accumulated_source_table_units": "7628.0649",
           "add_degree": "0.04072287",
-          "add_source_table_units": "407.2287"
+          "add_source_table_units": "407.2287",
+          "message_source_table_units": "4.7116"
         },
         {
           "day_index": 18,
@@ -1151,7 +1263,8 @@
           "accumulated_degree": "0.80352936",
           "accumulated_source_table_units": "8035.2936",
           "add_degree": "0.04025171",
-          "add_source_table_units": "402.5171"
+          "add_source_table_units": "402.5171",
+          "message_source_table_units": "4.7278"
         },
         {
           "day_index": 19,
@@ -1161,7 +1274,8 @@
           "accumulated_degree": "0.84378107",
           "accumulated_source_table_units": "8437.8107",
           "add_degree": "0.03977893",
-          "add_source_table_units": "397.7893"
+          "add_source_table_units": "397.7893",
+          "message_source_table_units": "4.7440"
         },
         {
           "day_index": 20,
@@ -1171,7 +1285,8 @@
           "accumulated_degree": "0.88356000",
           "accumulated_source_table_units": "8835.6000",
           "add_degree": "0.03930453",
-          "add_source_table_units": "393.0453"
+          "add_source_table_units": "393.0453",
+          "message_source_table_units": "4.7602"
         },
         {
           "day_index": 21,
@@ -1181,7 +1296,8 @@
           "accumulated_degree": "0.92286453",
           "accumulated_source_table_units": "9228.6453",
           "add_degree": "0.03882851",
-          "add_source_table_units": "388.2851"
+          "add_source_table_units": "388.2851",
+          "message_source_table_units": "4.7764"
         },
         {
           "day_index": 22,
@@ -1191,7 +1307,8 @@
           "accumulated_degree": "0.96169304",
           "accumulated_source_table_units": "9616.9304",
           "add_degree": "0.03835087",
-          "add_source_table_units": "383.5087"
+          "add_source_table_units": "383.5087",
+          "message_source_table_units": "4.7926"
         },
         {
           "day_index": 23,
@@ -1201,7 +1318,8 @@
           "accumulated_degree": "1.00004391",
           "accumulated_source_table_units": "10000.4391",
           "add_degree": "0.03787161",
-          "add_source_table_units": "378.7161"
+          "add_source_table_units": "378.7161",
+          "message_source_table_units": "4.8088"
         },
         {
           "day_index": 24,
@@ -1211,7 +1329,8 @@
           "accumulated_degree": "1.03791552",
           "accumulated_source_table_units": "10379.1552",
           "add_degree": "0.03739073",
-          "add_source_table_units": "373.9073"
+          "add_source_table_units": "373.9073",
+          "message_source_table_units": "4.8250"
         },
         {
           "day_index": 25,
@@ -1221,7 +1340,8 @@
           "accumulated_degree": "1.07530625",
           "accumulated_source_table_units": "10753.0625",
           "add_degree": "0.03690823",
-          "add_source_table_units": "369.0823"
+          "add_source_table_units": "369.0823",
+          "message_source_table_units": "4.8412"
         },
         {
           "day_index": 26,
@@ -1231,7 +1351,8 @@
           "accumulated_degree": "1.11221448",
           "accumulated_source_table_units": "11122.1448",
           "add_degree": "0.03642411",
-          "add_source_table_units": "364.2411"
+          "add_source_table_units": "364.2411",
+          "message_source_table_units": "4.8574"
         },
         {
           "day_index": 27,
@@ -1241,7 +1362,8 @@
           "accumulated_degree": "1.14863859",
           "accumulated_source_table_units": "11486.3859",
           "add_degree": "0.03593837",
-          "add_source_table_units": "359.3837"
+          "add_source_table_units": "359.3837",
+          "message_source_table_units": "4.8736"
         },
         {
           "day_index": 28,
@@ -1251,7 +1373,8 @@
           "accumulated_degree": "1.18457696",
           "accumulated_source_table_units": "11845.7696",
           "add_degree": "0.03545101",
-          "add_source_table_units": "354.5101"
+          "add_source_table_units": "354.5101",
+          "message_source_table_units": "4.8898"
         },
         {
           "day_index": 29,
@@ -1261,7 +1384,8 @@
           "accumulated_degree": "1.22002797",
           "accumulated_source_table_units": "12200.2797",
           "add_degree": "0.03496203",
-          "add_source_table_units": "349.6203"
+          "add_source_table_units": "349.6203",
+          "message_source_table_units": "4.9060"
         },
         {
           "day_index": 30,
@@ -1271,7 +1395,8 @@
           "accumulated_degree": "1.25499000",
           "accumulated_source_table_units": "12549.9000",
           "add_degree": "0.03447143",
-          "add_source_table_units": "344.7143"
+          "add_source_table_units": "344.7143",
+          "message_source_table_units": "4.9222"
         },
         {
           "day_index": 31,
@@ -1281,7 +1406,8 @@
           "accumulated_degree": "1.28946143",
           "accumulated_source_table_units": "12894.6143",
           "add_degree": "0.03397921",
-          "add_source_table_units": "339.7921"
+          "add_source_table_units": "339.7921",
+          "message_source_table_units": "4.9384"
         },
         {
           "day_index": 32,
@@ -1291,7 +1417,8 @@
           "accumulated_degree": "1.32344064",
           "accumulated_source_table_units": "13234.4064",
           "add_degree": "0.03348537",
-          "add_source_table_units": "334.8537"
+          "add_source_table_units": "334.8537",
+          "message_source_table_units": "4.9546"
         },
         {
           "day_index": 33,
@@ -1301,7 +1428,8 @@
           "accumulated_degree": "1.35692601",
           "accumulated_source_table_units": "13569.2601",
           "add_degree": "0.03298991",
-          "add_source_table_units": "329.8991"
+          "add_source_table_units": "329.8991",
+          "message_source_table_units": "4.9708"
         },
         {
           "day_index": 34,
@@ -1311,7 +1439,8 @@
           "accumulated_degree": "1.38991592",
           "accumulated_source_table_units": "13899.1592",
           "add_degree": "0.03249283",
-          "add_source_table_units": "324.9283"
+          "add_source_table_units": "324.9283",
+          "message_source_table_units": "4.9870"
         },
         {
           "day_index": 35,
@@ -1321,7 +1450,8 @@
           "accumulated_degree": "1.42240875",
           "accumulated_source_table_units": "14224.0875",
           "add_degree": "0.03199413",
-          "add_source_table_units": "319.9413"
+          "add_source_table_units": "319.9413",
+          "message_source_table_units": "5.0032"
         },
         {
           "day_index": 36,
@@ -1331,7 +1461,8 @@
           "accumulated_degree": "1.45440288",
           "accumulated_source_table_units": "14544.0288",
           "add_degree": "0.03149381",
-          "add_source_table_units": "314.9381"
+          "add_source_table_units": "314.9381",
+          "message_source_table_units": "5.0194"
         },
         {
           "day_index": 37,
@@ -1341,7 +1472,8 @@
           "accumulated_degree": "1.48589669",
           "accumulated_source_table_units": "14858.9669",
           "add_degree": "0.03099187",
-          "add_source_table_units": "309.9187"
+          "add_source_table_units": "309.9187",
+          "message_source_table_units": "5.0356"
         },
         {
           "day_index": 38,
@@ -1351,7 +1483,8 @@
           "accumulated_degree": "1.51688856",
           "accumulated_source_table_units": "15168.8856",
           "add_degree": "0.03048831",
-          "add_source_table_units": "304.8831"
+          "add_source_table_units": "304.8831",
+          "message_source_table_units": "5.0518"
         },
         {
           "day_index": 39,
@@ -1361,7 +1494,8 @@
           "accumulated_degree": "1.54737687",
           "accumulated_source_table_units": "15473.7687",
           "add_degree": "0.02998313",
-          "add_source_table_units": "299.8313"
+          "add_source_table_units": "299.8313",
+          "message_source_table_units": "5.0680"
         },
         {
           "day_index": 40,
@@ -1371,7 +1505,8 @@
           "accumulated_degree": "1.57736000",
           "accumulated_source_table_units": "15773.6000",
           "add_degree": "0.02947633",
-          "add_source_table_units": "294.7633"
+          "add_source_table_units": "294.7633",
+          "message_source_table_units": "5.0842"
         },
         {
           "day_index": 41,
@@ -1381,7 +1516,8 @@
           "accumulated_degree": "1.60683633",
           "accumulated_source_table_units": "16068.3633",
           "add_degree": "0.02896791",
-          "add_source_table_units": "289.6791"
+          "add_source_table_units": "289.6791",
+          "message_source_table_units": "5.1004"
         },
         {
           "day_index": 42,
@@ -1391,7 +1527,8 @@
           "accumulated_degree": "1.63580424",
           "accumulated_source_table_units": "16358.0424",
           "add_degree": "0.02845787",
-          "add_source_table_units": "284.5787"
+          "add_source_table_units": "284.5787",
+          "message_source_table_units": "5.1166"
         },
         {
           "day_index": 43,
@@ -1401,7 +1538,8 @@
           "accumulated_degree": "1.66426211",
           "accumulated_source_table_units": "16642.6211",
           "add_degree": "0.02794621",
-          "add_source_table_units": "279.4621"
+          "add_source_table_units": "279.4621",
+          "message_source_table_units": "5.1328"
         },
         {
           "day_index": 44,
@@ -1411,7 +1549,8 @@
           "accumulated_degree": "1.69220832",
           "accumulated_source_table_units": "16922.0832",
           "add_degree": "0.02743293",
-          "add_source_table_units": "274.3293"
+          "add_source_table_units": "274.3293",
+          "message_source_table_units": "5.1490"
         },
         {
           "day_index": 45,
@@ -1421,7 +1560,8 @@
           "accumulated_degree": "1.71964125",
           "accumulated_source_table_units": "17196.4125",
           "add_degree": "0.02691803",
-          "add_source_table_units": "269.1803"
+          "add_source_table_units": "269.1803",
+          "message_source_table_units": "5.1652"
         },
         {
           "day_index": 46,
@@ -1431,7 +1571,8 @@
           "accumulated_degree": "1.74655928",
           "accumulated_source_table_units": "17465.5928",
           "add_degree": "0.02640151",
-          "add_source_table_units": "264.0151"
+          "add_source_table_units": "264.0151",
+          "message_source_table_units": "5.1814"
         },
         {
           "day_index": 47,
@@ -1441,7 +1582,8 @@
           "accumulated_degree": "1.77296079",
           "accumulated_source_table_units": "17729.6079",
           "add_degree": "0.02588337",
-          "add_source_table_units": "258.8337"
+          "add_source_table_units": "258.8337",
+          "message_source_table_units": "5.1976"
         },
         {
           "day_index": 48,
@@ -1451,7 +1593,8 @@
           "accumulated_degree": "1.79884416",
           "accumulated_source_table_units": "17988.4416",
           "add_degree": "0.02536361",
-          "add_source_table_units": "253.6361"
+          "add_source_table_units": "253.6361",
+          "message_source_table_units": "5.2138"
         },
         {
           "day_index": 49,
@@ -1461,7 +1604,8 @@
           "accumulated_degree": "1.82420777",
           "accumulated_source_table_units": "18242.0777",
           "add_degree": "0.02484223",
-          "add_source_table_units": "248.4223"
+          "add_source_table_units": "248.4223",
+          "message_source_table_units": "5.2300"
         },
         {
           "day_index": 50,
@@ -1471,7 +1615,8 @@
           "accumulated_degree": "1.84905000",
           "accumulated_source_table_units": "18490.5000",
           "add_degree": "0.02431923",
-          "add_source_table_units": "243.1923"
+          "add_source_table_units": "243.1923",
+          "message_source_table_units": "5.2462"
         },
         {
           "day_index": 51,
@@ -1481,7 +1626,8 @@
           "accumulated_degree": "1.87336923",
           "accumulated_source_table_units": "18733.6923",
           "add_degree": "0.02379461",
-          "add_source_table_units": "237.9461"
+          "add_source_table_units": "237.9461",
+          "message_source_table_units": "5.2624"
         },
         {
           "day_index": 52,
@@ -1491,7 +1637,8 @@
           "accumulated_degree": "1.89716384",
           "accumulated_source_table_units": "18971.6384",
           "add_degree": "0.02326837",
-          "add_source_table_units": "232.6837"
+          "add_source_table_units": "232.6837",
+          "message_source_table_units": "5.2786"
         },
         {
           "day_index": 53,
@@ -1501,7 +1648,8 @@
           "accumulated_degree": "1.92043221",
           "accumulated_source_table_units": "19204.3221",
           "add_degree": "0.02274051",
-          "add_source_table_units": "227.4051"
+          "add_source_table_units": "227.4051",
+          "message_source_table_units": "5.2948"
         },
         {
           "day_index": 54,
@@ -1511,7 +1659,8 @@
           "accumulated_degree": "1.94317272",
           "accumulated_source_table_units": "19431.7272",
           "add_degree": "0.02221103",
-          "add_source_table_units": "222.1103"
+          "add_source_table_units": "222.1103",
+          "message_source_table_units": "5.3110"
         },
         {
           "day_index": 55,
@@ -1521,7 +1670,8 @@
           "accumulated_degree": "1.96538375",
           "accumulated_source_table_units": "19653.8375",
           "add_degree": "0.02167993",
-          "add_source_table_units": "216.7993"
+          "add_source_table_units": "216.7993",
+          "message_source_table_units": "5.3272"
         },
         {
           "day_index": 56,
@@ -1531,7 +1681,8 @@
           "accumulated_degree": "1.98706368",
           "accumulated_source_table_units": "19870.6368",
           "add_degree": "0.02114721",
-          "add_source_table_units": "211.4721"
+          "add_source_table_units": "211.4721",
+          "message_source_table_units": "5.3434"
         },
         {
           "day_index": 57,
@@ -1541,7 +1692,8 @@
           "accumulated_degree": "2.00821089",
           "accumulated_source_table_units": "20082.1089",
           "add_degree": "0.02061287",
-          "add_source_table_units": "206.1287"
+          "add_source_table_units": "206.1287",
+          "message_source_table_units": "5.3596"
         },
         {
           "day_index": 58,
@@ -1551,7 +1703,8 @@
           "accumulated_degree": "2.02882376",
           "accumulated_source_table_units": "20288.2376",
           "add_degree": "0.02007691",
-          "add_source_table_units": "200.7691"
+          "add_source_table_units": "200.7691",
+          "message_source_table_units": "5.3758"
         },
         {
           "day_index": 59,
@@ -1561,7 +1714,8 @@
           "accumulated_degree": "2.04890067",
           "accumulated_source_table_units": "20489.0067",
           "add_degree": "0.01953933",
-          "add_source_table_units": "195.3933"
+          "add_source_table_units": "195.3933",
+          "message_source_table_units": "5.3920"
         },
         {
           "day_index": 60,
@@ -1571,7 +1725,8 @@
           "accumulated_degree": "2.06844000",
           "accumulated_source_table_units": "20684.4000",
           "add_degree": "0.01900013",
-          "add_source_table_units": "190.0013"
+          "add_source_table_units": "190.0013",
+          "message_source_table_units": "5.4082"
         },
         {
           "day_index": 61,
@@ -1581,7 +1736,8 @@
           "accumulated_degree": "2.08744013",
           "accumulated_source_table_units": "20874.4013",
           "add_degree": "0.01845931",
-          "add_source_table_units": "184.5931"
+          "add_source_table_units": "184.5931",
+          "message_source_table_units": "5.4244"
         },
         {
           "day_index": 62,
@@ -1591,7 +1747,8 @@
           "accumulated_degree": "2.10589944",
           "accumulated_source_table_units": "21058.9944",
           "add_degree": "0.01791687",
-          "add_source_table_units": "179.1687"
+          "add_source_table_units": "179.1687",
+          "message_source_table_units": "5.4406"
         },
         {
           "day_index": 63,
@@ -1601,7 +1758,8 @@
           "accumulated_degree": "2.12381631",
           "accumulated_source_table_units": "21238.1631",
           "add_degree": "0.01737281",
-          "add_source_table_units": "173.7281"
+          "add_source_table_units": "173.7281",
+          "message_source_table_units": "5.4568"
         },
         {
           "day_index": 64,
@@ -1611,7 +1769,8 @@
           "accumulated_degree": "2.14118912",
           "accumulated_source_table_units": "21411.8912",
           "add_degree": "0.01682713",
-          "add_source_table_units": "168.2713"
+          "add_source_table_units": "168.2713",
+          "message_source_table_units": "5.4730"
         },
         {
           "day_index": 65,
@@ -1621,7 +1780,8 @@
           "accumulated_degree": "2.15801625",
           "accumulated_source_table_units": "21580.1625",
           "add_degree": "0.01627983",
-          "add_source_table_units": "162.7983"
+          "add_source_table_units": "162.7983",
+          "message_source_table_units": "5.4892"
         },
         {
           "day_index": 66,
@@ -1631,7 +1791,8 @@
           "accumulated_degree": "2.17429608",
           "accumulated_source_table_units": "21742.9608",
           "add_degree": "0.01573091",
-          "add_source_table_units": "157.3091"
+          "add_source_table_units": "157.3091",
+          "message_source_table_units": "5.5054"
         },
         {
           "day_index": 67,
@@ -1641,7 +1802,8 @@
           "accumulated_degree": "2.19002699",
           "accumulated_source_table_units": "21900.2699",
           "add_degree": "0.01518037",
-          "add_source_table_units": "151.8037"
+          "add_source_table_units": "151.8037",
+          "message_source_table_units": "5.5216"
         },
         {
           "day_index": 68,
@@ -1651,7 +1813,8 @@
           "accumulated_degree": "2.20520736",
           "accumulated_source_table_units": "22052.0736",
           "add_degree": "0.01462821",
-          "add_source_table_units": "146.2821"
+          "add_source_table_units": "146.2821",
+          "message_source_table_units": "5.5378"
         },
         {
           "day_index": 69,
@@ -1661,7 +1824,8 @@
           "accumulated_degree": "2.21983557",
           "accumulated_source_table_units": "22198.3557",
           "add_degree": "0.01407443",
-          "add_source_table_units": "140.7443"
+          "add_source_table_units": "140.7443",
+          "message_source_table_units": "5.5540"
         },
         {
           "day_index": 70,
@@ -1671,7 +1835,8 @@
           "accumulated_degree": "2.23391000",
           "accumulated_source_table_units": "22339.1000",
           "add_degree": "0.01351903",
-          "add_source_table_units": "135.1903"
+          "add_source_table_units": "135.1903",
+          "message_source_table_units": "5.5702"
         },
         {
           "day_index": 71,
@@ -1681,7 +1846,8 @@
           "accumulated_degree": "2.24742903",
           "accumulated_source_table_units": "22474.2903",
           "add_degree": "0.01296201",
-          "add_source_table_units": "129.6201"
+          "add_source_table_units": "129.6201",
+          "message_source_table_units": "5.5864"
         },
         {
           "day_index": 72,
@@ -1691,7 +1857,8 @@
           "accumulated_degree": "2.26039104",
           "accumulated_source_table_units": "22603.9104",
           "add_degree": "0.01240337",
-          "add_source_table_units": "124.0337"
+          "add_source_table_units": "124.0337",
+          "message_source_table_units": "5.6026"
         },
         {
           "day_index": 73,
@@ -1701,7 +1868,8 @@
           "accumulated_degree": "2.27279441",
           "accumulated_source_table_units": "22727.9441",
           "add_degree": "0.01184311",
-          "add_source_table_units": "118.4311"
+          "add_source_table_units": "118.4311",
+          "message_source_table_units": "5.6188"
         },
         {
           "day_index": 74,
@@ -1711,7 +1879,8 @@
           "accumulated_degree": "2.28463752",
           "accumulated_source_table_units": "22846.3752",
           "add_degree": "0.01128123",
-          "add_source_table_units": "112.8123"
+          "add_source_table_units": "112.8123",
+          "message_source_table_units": "5.6350"
         },
         {
           "day_index": 75,
@@ -1721,7 +1890,8 @@
           "accumulated_degree": "2.29591875",
           "accumulated_source_table_units": "22959.1875",
           "add_degree": "0.01071773",
-          "add_source_table_units": "107.1773"
+          "add_source_table_units": "107.1773",
+          "message_source_table_units": "5.6512"
         },
         {
           "day_index": 76,
@@ -1731,7 +1901,8 @@
           "accumulated_degree": "2.30663648",
           "accumulated_source_table_units": "23066.3648",
           "add_degree": "0.01015261",
-          "add_source_table_units": "101.5261"
+          "add_source_table_units": "101.5261",
+          "message_source_table_units": "5.6674"
         },
         {
           "day_index": 77,
@@ -1741,7 +1912,8 @@
           "accumulated_degree": "2.31678909",
           "accumulated_source_table_units": "23167.8909",
           "add_degree": "0.00958587",
-          "add_source_table_units": "95.8587"
+          "add_source_table_units": "95.8587",
+          "message_source_table_units": "5.6836"
         },
         {
           "day_index": 78,
@@ -1751,7 +1923,8 @@
           "accumulated_degree": "2.32637496",
           "accumulated_source_table_units": "23263.7496",
           "add_degree": "0.00901751",
-          "add_source_table_units": "90.1751"
+          "add_source_table_units": "90.1751",
+          "message_source_table_units": "5.6998"
         },
         {
           "day_index": 79,
@@ -1761,7 +1934,8 @@
           "accumulated_degree": "2.33539247",
           "accumulated_source_table_units": "23353.9247",
           "add_degree": "0.00844753",
-          "add_source_table_units": "84.4753"
+          "add_source_table_units": "84.4753",
+          "message_source_table_units": "5.7160"
         },
         {
           "day_index": 80,
@@ -1771,7 +1945,8 @@
           "accumulated_degree": "2.34384000",
           "accumulated_source_table_units": "23438.4000",
           "add_degree": "0.00787593",
-          "add_source_table_units": "78.7593"
+          "add_source_table_units": "78.7593",
+          "message_source_table_units": "5.7322"
         },
         {
           "day_index": 81,
@@ -1781,7 +1956,8 @@
           "accumulated_degree": "2.35171593",
           "accumulated_source_table_units": "23517.1593",
           "add_degree": "0.00730271",
-          "add_source_table_units": "73.0271"
+          "add_source_table_units": "73.0271",
+          "message_source_table_units": "5.7484"
         },
         {
           "day_index": 82,
@@ -1791,7 +1967,8 @@
           "accumulated_degree": "2.35901864",
           "accumulated_source_table_units": "23590.1864",
           "add_degree": "0.00672787",
-          "add_source_table_units": "67.2787"
+          "add_source_table_units": "67.2787",
+          "message_source_table_units": "5.7646"
         },
         {
           "day_index": 83,
@@ -1801,7 +1978,8 @@
           "accumulated_degree": "2.36574651",
           "accumulated_source_table_units": "23657.4651",
           "add_degree": "0.00615141",
-          "add_source_table_units": "61.5141"
+          "add_source_table_units": "61.5141",
+          "message_source_table_units": "5.7808"
         },
         {
           "day_index": 84,
@@ -1811,7 +1989,8 @@
           "accumulated_degree": "2.37189792",
           "accumulated_source_table_units": "23718.9792",
           "add_degree": "0.00557333",
-          "add_source_table_units": "55.7333"
+          "add_source_table_units": "55.7333",
+          "message_source_table_units": "5.7970"
         },
         {
           "day_index": 85,
@@ -1821,7 +2000,8 @@
           "accumulated_degree": "2.37747125",
           "accumulated_source_table_units": "23774.7125",
           "add_degree": "0.00499363",
-          "add_source_table_units": "49.9363"
+          "add_source_table_units": "49.9363",
+          "message_source_table_units": "5.8132"
         },
         {
           "day_index": 86,
@@ -1831,7 +2011,8 @@
           "accumulated_degree": "2.38246488",
           "accumulated_source_table_units": "23824.6488",
           "add_degree": "0.00441231",
-          "add_source_table_units": "44.1231"
+          "add_source_table_units": "44.1231",
+          "message_source_table_units": "5.8294"
         },
         {
           "day_index": 87,
@@ -1841,7 +2022,8 @@
           "accumulated_degree": "2.38687719",
           "accumulated_source_table_units": "23868.7719",
           "add_degree": "0.00382937",
-          "add_source_table_units": "38.2937"
+          "add_source_table_units": "38.2937",
+          "message_source_table_units": "5.8456"
         },
         {
           "day_index": 88,
@@ -1851,7 +2033,8 @@
           "accumulated_degree": "2.39070656",
           "accumulated_source_table_units": "23907.0656",
           "add_degree": "0.00324481",
-          "add_source_table_units": "32.4481"
+          "add_source_table_units": "32.4481",
+          "message_source_table_units": "5.8618"
         },
         {
           "day_index": 89,
@@ -1861,7 +2044,8 @@
           "accumulated_degree": "2.39395137",
           "accumulated_source_table_units": "23939.5137",
           "add_degree": "0.00265863",
-          "add_source_table_units": "26.5863"
+          "add_source_table_units": "26.5863",
+          "message_source_table_units": "5.8780"
         },
         {
           "day_index": 90,
@@ -1871,7 +2055,8 @@
           "accumulated_degree": "2.39661000",
           "accumulated_source_table_units": "23966.1000",
           "add_degree": "0.00207083",
-          "add_source_table_units": "20.7083"
+          "add_source_table_units": "20.7083",
+          "message_source_table_units": "5.8942"
         },
         {
           "day_index": 91,
@@ -1881,7 +2066,8 @@
           "accumulated_degree": "2.39868083",
           "accumulated_source_table_units": "23986.8083",
           "add_degree": "0.00148141",
-          "add_source_table_units": "14.8141"
+          "add_source_table_units": "14.8141",
+          "message_source_table_units": "5.9104"
         },
         {
           "day_index": 92,
@@ -1891,7 +2077,8 @@
           "accumulated_degree": "2.40016224",
           "accumulated_source_table_units": "24001.6224",
           "add_degree": "0.00089037",
-          "add_source_table_units": "8.9037"
+          "add_source_table_units": "8.9037",
+          "message_source_table_units": "5.9266"
         },
         {
           "day_index": 93,
@@ -1901,7 +2088,8 @@
           "accumulated_degree": "2.40105261",
           "accumulated_source_table_units": "24010.5261",
           "add_degree": "0.00029771",
-          "add_source_table_units": "2.9771"
+          "add_source_table_units": "2.9771",
+          "message_source_table_units": null
         },
         {
           "day_index": 94,
@@ -1911,7 +2099,8 @@
           "accumulated_degree": "2.40135032",
           "accumulated_source_table_units": "24013.5032",
           "add_degree": null,
-          "add_source_table_units": null
+          "add_source_table_units": null,
+          "message_source_table_units": null
         }
       ]
     }
@@ -2032,14 +2221,18 @@
       "day_1_add_source_table_units": "505.9183",
       "day_2_accumulated_source_table_units": "1016.7752",
       "day_88_add_source_table_units": "5.0593",
-      "terminal_support_day_89_accumulated_source_table_units": "24014.4161"
+      "terminal_support_day_89_accumulated_source_table_units": "24014.4161",
+      "initial_message_source_table_units": "4.9386",
+      "day_87_message_source_table_units": "6.5568"
     },
     "suo_initial_ying_terminal": {
       "initial_add_source_table_units": "484.8473",
       "day_1_add_source_table_units": "480.4111",
       "day_2_accumulated_source_table_units": "965.2584",
       "day_93_add_source_table_units": "2.9771",
-      "terminal_support_day_94_accumulated_source_table_units": "24013.5032"
+      "terminal_support_day_94_accumulated_source_table_units": "24013.5032",
+      "initial_message_source_table_units": "4.4362",
+      "day_92_message_source_table_units": "5.9266"
     }
   },
   "interpolation_semantics": {
@@ -2058,14 +2251,29 @@
     "support_row_as_admissible_initial_limit_input": "FORBIDDEN",
     "goryeosa_solar_table_as_ming_1569_authority": "FORBIDDEN",
     "later_received_formula_as_primary_row_replacement": "FORBIDDEN",
-    "runtime_activation_from_solar_table_reconstruction_only": "FORBIDDEN"
+    "runtime_activation_from_solar_table_reconstruction_only": "FORBIDDEN",
+    "message_column_reconstruction_as_full_glyph_transcription": "FORBIDDEN"
   },
   "remaining_work": [
-    "ROW_BY_ROW_PRIMARY_1569_COLLATION_OF_BOTH_SOLAR_TABLES",
+    "CONTINUE_ROW_BY_ROW_PRIMARY_1569_COLLATION_OF_ALL_MESSAGES_ADDS_AND_ACCUMULATED_VALUES",
     "CROSS_EDITION_VARIANT_LEDGER_FOR_SOLAR_TABLES",
     "GENERALIZE_SOURCE_PRECISION_AND_CARRY_RULES_ACROSS_FULL_QISHUO_REPLAY",
     "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
     "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
     "QISHUO_GEOGRAPHIC_REFERENCE"
-  ]
+  ],
+  "primary_table_schema": {
+    "visible_columns": [
+      "積日",
+      "消息分",
+      "盈縮加分",
+      "盈縮積度"
+    ],
+    "primary_pdf_page_index_zero_based_start": 13,
+    "primary_pdf_page_index_zero_based_end": 22,
+    "column_discovery_status": "DIRECT_PRIMARY_FACSIMILE",
+    "message_column_semantics": "消息分(n) = 盈縮加分(n) - 盈縮加分(n+1); the last message-bearing row is day 87 for 盈初縮末 and day 92 for 縮初盈末.",
+    "source_scope": "1569_ZHOU_XIANG_PRIMARY_TABLE_STRUCTURE; LATER_EXEGESIS_ONLY_CORROBORATES_THE_NAME_AND_DIFFERENCE_SEMANTICS"
+  },
+  "primary_collation_ledger": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json"
 }

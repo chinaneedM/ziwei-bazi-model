@@ -57,6 +57,32 @@ class MingDatong1569YingsuoFullNumericReconstructionR1Tests(unittest.TestCase):
         self._verify_family_formula("YING_INITIAL_SUO_TERMINAL")
         self._verify_family_formula("SUO_INITIAL_YING_TERMINAL")
 
+    def test_message_column_is_adjacent_add_difference(self) -> None:
+        for family in self.families.values():
+            rows = {row["day_index"]: row for row in family["rows"]}
+            support = family["terminal_support_row_day"]
+            for n in range(support):
+                current = rows[n]
+                nxt = rows[n + 1]
+                if current["add_source_table_units"] is not None and nxt["add_source_table_units"] is not None:
+                    expected = Decimal(current["add_source_table_units"]) - Decimal(nxt["add_source_table_units"])
+                    self.assertEqual(expected, Decimal(current["message_source_table_units"]), (family["family_id"], n))
+                else:
+                    self.assertIsNone(current["message_source_table_units"])
+            self.assertIsNone(rows[support]["message_source_table_units"])
+
+    def test_message_column_source_controls_and_terminal_blanks(self) -> None:
+        a = {row["day_index"]: row for row in self.families["YING_INITIAL_SUO_TERMINAL"]["rows"]}
+        b = {row["day_index"]: row for row in self.families["SUO_INITIAL_YING_TERMINAL"]["rows"]}
+        self.assertEqual(a[0]["message_source_table_units"], "4.9386")
+        self.assertEqual(a[87]["message_source_table_units"], "6.5568")
+        self.assertIsNone(a[88]["message_source_table_units"])
+        self.assertIsNone(a[89]["message_source_table_units"])
+        self.assertEqual(b[0]["message_source_table_units"], "4.4362")
+        self.assertEqual(b[92]["message_source_table_units"], "5.9266")
+        self.assertIsNone(b[93]["message_source_table_units"])
+        self.assertIsNone(b[94]["message_source_table_units"])
+
     def test_primary_initial_controls(self) -> None:
         a = {row["day_index"]: row for row in self.families["YING_INITIAL_SUO_TERMINAL"]["rows"]}
         b = {row["day_index"]: row for row in self.families["SUO_INITIAL_YING_TERMINAL"]["rows"]}
