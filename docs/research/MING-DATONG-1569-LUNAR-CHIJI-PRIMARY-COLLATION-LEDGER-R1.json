@@ -33,8 +33,8 @@
   },
   "source_vs_reconstruction_policy": "Formula values remain PENDING until directly read from the primary page. Only DIRECT_PRIMARY_MATCH counts as glyph-collated.",
   "total_rows": 169,
-  "directly_collated_rows": 60,
-  "pending_rows": 109,
+  "directly_collated_rows": 82,
+  "pending_rows": 87,
   "variant_rows": 0,
   "glyph_ambiguous_rows": 0,
   "full_row_by_row_primary_collation_complete": false,
@@ -98,12 +98,12 @@
     {
       "pdf_page_index_zero_based": 27,
       "row_count": 22,
-      "direct_primary_match_count": 0,
-      "pending_direct_glyph_collation_count": 22,
+      "direct_primary_match_count": 22,
+      "pending_direct_glyph_collation_count": 0,
       "variant_count": 0,
       "glyph_ambiguous_count": 0,
       "page_image_reviewed": true,
-      "page_collation_status": "IN_PROGRESS"
+      "page_collation_status": "FULL_PAGE_ROW_GLYPH_COLLATION_COMPLETE"
     },
     {
       "pdf_page_index_zero_based": 28,
@@ -1936,11 +1936,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "5.472075",
       "expected_accumulated_chiji_degree": "4.56040000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 42644,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.6673",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "5.472075",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.56040000",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 53,
@@ -1953,11 +1970,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "5.312525",
       "expected_accumulated_chiji_degree": "4.61512075",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 43464,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.6478",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "5.312525",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.61512075",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 54,
@@ -1970,11 +2004,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "5.151025",
       "expected_accumulated_chiji_degree": "4.66824600",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 44284,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.6281",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "5.151025",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.66824600",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 55,
@@ -1987,11 +2038,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.987575",
       "expected_accumulated_chiji_degree": "4.71975625",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 45104,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.6082",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.987575",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.71975625",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 56,
@@ -2004,11 +2072,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.822175",
       "expected_accumulated_chiji_degree": "4.76963200",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 45924,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.5880",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.822175",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.76963200",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 57,
@@ -2021,11 +2106,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.654825",
       "expected_accumulated_chiji_degree": "4.81785375",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 46744,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.5676",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.654825",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.81785375",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 58,
@@ -2038,11 +2140,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.485525",
       "expected_accumulated_chiji_degree": "4.86440200",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 47564,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.5470",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.485525",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.86440200",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 59,
@@ -2055,11 +2174,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.314275",
       "expected_accumulated_chiji_degree": "4.90925725",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 48384,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.5261",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.314275",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.90925725",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 60,
@@ -2072,11 +2208,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "4.141075",
       "expected_accumulated_chiji_degree": "4.95240000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 49204,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.5050",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "4.141075",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.95240000",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 61,
@@ -2089,11 +2242,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.965925",
       "expected_accumulated_chiji_degree": "4.99381075",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 50024,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.4836",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.965925",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "4.99381075",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 62,
@@ -2106,11 +2276,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.788825",
       "expected_accumulated_chiji_degree": "5.03347000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 50844,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.4620",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.788825",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.03347000",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 63,
@@ -2123,11 +2310,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.609775",
       "expected_accumulated_chiji_degree": "5.07135825",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 51665,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.4402",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.609775",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.07135825",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 64,
@@ -2140,11 +2344,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.428775",
       "expected_accumulated_chiji_degree": "5.10745600",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 52485,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.4181",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.428775",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.10745600",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 65,
@@ -2157,11 +2378,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.245825",
       "expected_accumulated_chiji_degree": "5.14174375",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 53305,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.3958",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.245825",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.14174375",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 66,
@@ -2174,11 +2412,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "3.060925",
       "expected_accumulated_chiji_degree": "5.17420200",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 54125,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.3732",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "3.060925",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.17420200",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 67,
@@ -2191,11 +2446,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "2.874075",
       "expected_accumulated_chiji_degree": "5.20481125",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 54945,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.3504",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "2.874075",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.20481125",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 68,
@@ -2208,11 +2480,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "2.685275",
       "expected_accumulated_chiji_degree": "5.23355200",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 55765,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.3274",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "2.685275",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.23355200",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 69,
@@ -2225,11 +2514,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "2.494525",
       "expected_accumulated_chiji_degree": "5.26040475",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 56585,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.3042",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "2.494525",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.26040475",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 70,
@@ -2242,11 +2548,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "2.301825",
       "expected_accumulated_chiji_degree": "5.28535000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 57405,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.2807",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "2.301825",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.28535000",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 71,
@@ -2259,11 +2582,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "2.107175",
       "expected_accumulated_chiji_degree": "5.30836825",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 58225,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.2569",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "2.107175",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.30836825",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 72,
@@ -2276,11 +2616,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "1.910575",
       "expected_accumulated_chiji_degree": "5.32944000",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 59045,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.2329",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "1.910575",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.32944000",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 73,
@@ -2293,11 +2650,28 @@
       "expected_loss_gain_sign": "益",
       "expected_loss_gain_source_fen": "1.712025",
       "expected_accumulated_chiji_degree": "5.34854575",
-      "collation_status": "PENDING_DIRECT_GLYPH_COLLATION",
-      "directly_checked_fields": [],
-      "primary_reading": null,
+      "collation_status": "DIRECT_PRIMARY_MATCH",
+      "directly_checked_fields": [
+        "limit",
+        "day_rate",
+        "loss_gain_shortcut",
+        "loss_gain_sign",
+        "loss_gain",
+        "accumulated"
+      ],
+      "primary_reading": {
+        "day_rate_total_source_units": 59865,
+        "day_rate_blank": null,
+        "loss_gain_shortcut_source_seconds": "0.2087",
+        "loss_gain_shortcut_blank": null,
+        "loss_gain_sign": "益",
+        "loss_gain_source_fen": "1.712025",
+        "loss_gain_blank": null,
+        "accumulated_chiji_degree": "5.34854575",
+        "accumulated_blank": null
+      },
       "discrepancy": null,
-      "notes": "Formula-derived expectation only until direct glyph reading is completed."
+      "notes": "Direct row-by-row glyph check against 1569 primary p27; no numeric variant observed."
     },
     {
       "limit": 74,
