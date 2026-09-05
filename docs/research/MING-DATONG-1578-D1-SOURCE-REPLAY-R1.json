@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1578-D1-SOURCE-REPLAY-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "status": "SOURCE_DERIVED_D1_REPLAY_MATCHES_COMPLETE_1578_OFFICIAL_RECORD_MONTH_START_CHAIN_DAY_LEVEL_ONLY",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -406,7 +406,10 @@
     "mismatch_count": 0,
     "minimum_day_boundary_margin_source_units": "197.31",
     "minimum_day_boundary_margin_minutes_approx": "28.41264",
-    "precision_sensitivity_conclusion": "DAY_LABEL_RESULT_IS_NOT_SENSITIVE_TO_SUB_0_01_SOURCE_UNIT_TRUNCATION_UNCERTAINTY_IN_THIS_1578_CHAIN"
+    "precision_sensitivity_conclusion": "DAY_LABEL_RESULT_IS_NOT_SENSITIVE_TO_SUB_0_01_SOURCE_UNIT_TRUNCATION_UNCERTAINTY_IN_THIS_1578_CHAIN",
+    "same_year_physical_almanac_direct_month_page_match_count": 11,
+    "same_year_physical_almanac_direct_month_page_mismatch_count": 0,
+    "same_year_physical_almanac_complete_12_month_page_collation": false
   },
   "epistemic_firewalls": {
     "official_reign_record_as_physical_1578_almanac_substitute": "FORBIDDEN",
@@ -416,12 +419,13 @@
     "runtime_activation_from_single_year_replay": "FORBIDDEN"
   },
   "remaining_gates": [
-    "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
+    "COMPLETE_1578_QINTIANJIAN_ALMANAC_MONTH_6_DIRECT_PAGE_COLLATION",
     "ROW_BY_ROW_PRIMARY_1569_COLLATION_AND_VARIANT_LEDGER",
     "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES",
     "QISHUO_GEOGRAPHIC_REFERENCE",
     "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
     "MULTI_YEAR_LEAP_MONTH_GENERALIZATION",
     "TEN_YEAR_DAYUN_RECURRENCE_UNDER_SAME_HISTORICAL_REGIME"
-  ]
+  ],
+  "physical_almanac_collation_artifact": "docs/research/MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json"
 }

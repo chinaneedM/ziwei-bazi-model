@@ -38,6 +38,7 @@ jobs:
           python -m unittest discover -s tests -p "test_historical_calendar_adapter_contract_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1578_month_start_oracle_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1578_d1_source_replay_r1.py" -v
+          python -m unittest discover -s tests -p "test_ming_datong_1578_ncl_06313_physical_almanac_collation_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_qishuo_method_research_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_interpolation_replay_r1.py" -v
           python -m unittest discover -s tests -p "test_ming_datong_1569_chiji_day_rate_column_r1.py" -v
