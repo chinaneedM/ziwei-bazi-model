@@ -155,7 +155,7 @@ def main() -> int:
 
     # Capture the viewer's exact page array as bounded, read-only thumbnail evidence.
     # These artifacts are intentionally not committed to the repository and are not OCRed.
-    img_paths = re.findall(r'"(kr/052/kr_052_\\d+\\.jpg)"', viewer)
+    img_paths = re.findall(r'"(kr/052/kr_052_\d+\.jpg)"', viewer)
     thumb_dir = out / "viewer-thumbs"
     thumb_dir.mkdir(parents=True, exist_ok=True)
     thumb_capture = []
