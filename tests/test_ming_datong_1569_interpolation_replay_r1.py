@@ -106,6 +106,22 @@ class MingDatong1569InterpolationReplayR1Tests(unittest.TestCase):
             self.data["remaining_gates"],
         )
 
+    def test_korean_1458_parallel_algorithm_is_not_1569_authority(self) -> None:
+        controls = {
+            item["control_id"]: item
+            for item in self.data["cross_regional_algorithm_controls"]
+        }
+        control = controls["JOSEON-JIAOSHI-TUIBUFA-1458"]
+        self.assertEqual(control["date"], 1458)
+        self.assertEqual(control["chiji_interpolation_denominator_source_units"], "820.08")
+        self.assertEqual(control["dingxian_line_speed_subtraction_source_units"], "8.2008")
+        self.assertFalse(control["use_as_1569_table_authority"])
+        self.assertTrue(control["use_as_transmission_history_control"])
+        self.assertEqual(
+            self.data["epistemic_firewalls"]["korean_jiaoshi_tuibufa_as_1569_ming_production_authority"],
+            "FORBIDDEN",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

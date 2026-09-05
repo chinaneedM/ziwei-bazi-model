@@ -1,6 +1,6 @@
 {
   "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_MACHINE_REPLAYED_FULL_TABLE_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
@@ -124,7 +124,8 @@
     "full_1569_table_transcription_claim": "FORBIDDEN",
     "modern_decimal_as_historical_notation": "FORBIDDEN",
     "qishuo_geographic_reference_inference": "FORBIDDEN",
-    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN"
+    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN",
+    "korean_jiaoshi_tuibufa_as_1569_ming_production_authority": "FORBIDDEN"
   },
   "remaining_gates": [
     "COMPLETE_1569_FULL_YINGSUO_CHIJI_TABLE_TRANSCRIPTION_AND_CROSS_EDITION_COLLATION",
@@ -139,5 +140,23 @@
     "loss_gain_column": "PENDING_FULL_TRANSCRIPTION",
     "accumulated_chiji_degree_column": "PENDING_FULL_TRANSCRIPTION",
     "chi_ji_xingdu_divisor_column": "PENDING_FULL_TRANSCRIPTION"
-  }
+  },
+  "cross_regional_algorithm_controls": [
+    {
+      "control_id": "JOSEON-JIAOSHI-TUIBUFA-1458",
+      "source_id": "EXT-KYUJANGGAK-JIAOSHI-TUIBUFA-1458",
+      "date": 1458,
+      "lineage": "JOSEON_SEJONG_DERIVED_FROM_SHOUSHI_DATONG_MATERIALS_BUT_REFORMULATED",
+      "preface_scope": [
+        "HANYANG_LOCATION_SPECIFIC_SUNRISE_SUNSET_RECALCULATION",
+        "SEVERAL_METHODS_REFORMULATED_TO_DIRECT_CALCULATION_WITHOUT_LICHENG"
+      ],
+      "chiji_interpolation_denominator_source_units": "820.08",
+      "dingxian_line_speed_subtraction_source_units": "8.2008",
+      "algorithm_family_disposition": "PARALLEL_CROSS_REGIONAL_DERIVATION_NOT_1569_MING_PRODUCTION_RULE",
+      "use_as_1569_table_authority": false,
+      "use_as_transmission_history_control": true,
+      "inference_firewall": "DO_NOT_BACKPORT_JOSEON_DIRECT_CALCULATION_CONSTANTS_OR_D2_STYLE_DINGXIAN_PATH_INTO_ZHOU_XIANG_1569_D1"
+    }
+  ]
 }
