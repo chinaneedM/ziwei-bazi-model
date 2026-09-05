@@ -215,6 +215,8 @@ def main() -> int:
         raise SystemExit("Batch 11G Ming Datong time-coordinate audit is missing")
     if "BATCH-11-BAZI-MING-DATONG-1578-D1-SOURCE-REPLAY-H" not in batches:
         raise SystemExit("Batch 11H Ming Datong 1578 D1 source replay is missing")
+    if "BATCH-11-BAZI-MING-DATONG-1578-PHYSICAL-ALMANAC-CLOSURE-I" not in batches:
+        raise SystemExit("Batch 11I Ming Datong 1578 physical almanac closure is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -418,13 +420,22 @@ def main() -> int:
     if row_dayun_cal.get("d1_source_replay_result") != "1578_MONTHS_1_TO_12_PLUS_1579_MONTH_1_ANCHOR_13_OF_13_DAY_LEVEL_MATCH_ZERO_MISMATCH":
         raise SystemExit("Batch 11H D1 replay result mismatch")
     if row_dayun_cal.get("physical_almanac_collation_artifact") != "docs/research/MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json":
-        raise SystemExit("Batch 11H physical almanac artifact binding mismatch")
-    if row_dayun_cal.get("physical_almanac_direct_month_page_match_count") != 11 or row_dayun_cal.get("physical_almanac_direct_month_page_mismatch_count") != 0:
-        raise SystemExit("Batch 11H physical almanac direct-page counts mismatch")
-    if row_dayun_cal.get("physical_almanac_unresolved_direct_months") != [6] or row_dayun_cal.get("physical_almanac_complete_12_month_page_collation") is not False:
-        raise SystemExit("Batch 11H unresolved June-page firewall regressed")
+        raise SystemExit("Batch 11H/11I physical almanac artifact binding mismatch")
+    snapshot=row_dayun_cal.get("batch_11h_physical_snapshot",{})
+    if snapshot.get("batch_id") != "BATCH-11-BAZI-MING-DATONG-1578-D1-SOURCE-REPLAY-H":
+        raise SystemExit("Batch 11H physical snapshot binding mismatch")
+    if snapshot.get("direct_month_page_match_count") != 11 or snapshot.get("direct_month_page_mismatch_count") != 0:
+        raise SystemExit("Batch 11H historical physical snapshot counts regressed")
+    if snapshot.get("unresolved_direct_months") != [6] or snapshot.get("complete_12_month_page_collation") is not False:
+        raise SystemExit("Batch 11H historical June-gap snapshot regressed")
+    if row_dayun_cal.get("physical_almanac_closure_batch") != "BATCH-11-BAZI-MING-DATONG-1578-PHYSICAL-ALMANAC-CLOSURE-I":
+        raise SystemExit("Batch 11I physical almanac closure binding mismatch")
+    if row_dayun_cal.get("physical_almanac_direct_month_page_match_count") != 12 or row_dayun_cal.get("physical_almanac_direct_month_page_mismatch_count") != 0:
+        raise SystemExit("Batch 11I current physical almanac direct-page counts mismatch")
+    if row_dayun_cal.get("physical_almanac_unresolved_direct_months") != [] or row_dayun_cal.get("physical_almanac_complete_12_month_page_collation") is not True:
+        raise SystemExit("Batch 11I current 12-month physical collation did not close")
     if row_dayun_cal.get("general_historical_calendar_runtime_authorized") is not False or row_dayun_cal.get("audit_status") != "MISSING_FROM_PRODUCT":
-        raise SystemExit("Batch 11H prematurely authorized historical calendar runtime")
+        raise SystemExit("Batch 11I prematurely authorized historical calendar runtime")
     pku=by_source_id.get("EXT-PKU-DATONG-1578-ALMANAC")
     if pku is None or pku.get("catalog_identifier") != "北京大学图书馆善本索书号 528.7/1578":
         raise SystemExit("Batch 11H Peking University second-copy bibliography is missing")
@@ -446,17 +457,22 @@ def main() -> int:
     if physical1578.get("schema") != "MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1":
         raise SystemExit("Batch 11H physical collation schema mismatch")
     direct=physical1578.get("direct_collation_summary",{})
-    if direct.get("directly_rendered_month_pages") != 11 or direct.get("direct_month_size_mismatches") != 0:
-        raise SystemExit("Batch 11H physical collation direct-count regression")
-    if direct.get("unresolved_direct_page_months") != [6] or direct.get("complete_physical_month_page_collation") is not False:
-        raise SystemExit("Batch 11H physical June-page uncertainty was silently collapsed")
+    if direct.get("directly_rendered_month_pages") != 12 or direct.get("direct_month_identity_matches") != 12 or direct.get("direct_month_size_matches") != 12 or direct.get("direct_month_size_mismatches") != 0:
+        raise SystemExit("Batch 11I physical collation 12/12 direct-count regression")
+    if direct.get("unresolved_direct_page_months") != [] or direct.get("complete_physical_month_page_collation") is not True:
+        raise SystemExit("Batch 11I physical June-page closure regressed")
     month6=next((m for m in physical1578.get("months",()) if m.get("month")==6),None)
-    if month6 is None or month6.get("direct_physical_page_status") != "PDF_PAGE_SCREENSHOT_TOOL_ERROR_NOT_DIRECTLY_CERTIFIED":
-        raise SystemExit("Batch 11H month-6 technical-access status mismatch")
-    if physical1578.get("epistemic_firewalls",{}).get("infer_month6_direct_physical_reading_from_neighbors") != "FORBIDDEN":
-        raise SystemExit("Batch 11H month-6 inference firewall missing")
+    if month6 is None or month6.get("direct_physical_page_status") != "DIRECT_SCREENSHOT_COLLATION":
+        raise SystemExit("Batch 11I month-6 direct-render status mismatch")
+    if month6.get("physical_month_identity_match") is not True or month6.get("physical_size_label_match") is not True:
+        raise SystemExit("Batch 11I month-6 identity/size certification mismatch")
+    recovery=physical1578.get("public_scan",{}).get("direct_render_recovery",{})
+    if recovery.get("recovered_direct_render") is not True or recovery.get("directly_visible_heading") != "六月小":
+        raise SystemExit("Batch 11I June direct-render evidence binding mismatch")
+    if physical1578.get("epistemic_firewalls",{}).get("month_title_and_size_as_fine_first_day_ganzhi_glyph_transcription") != "FORBIDDEN":
+        raise SystemExit("Batch 11I fine-glyph inference firewall missing")
     if physical1578.get("runtime_selection_authorized") is not False or physical1578.get("general_calendar_arithmetic_certified") is not False:
-        raise SystemExit("Batch 11H physical evidence was promoted to runtime arithmetic")
+        raise SystemExit("Batch 11I physical evidence was promoted to runtime arithmetic")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
