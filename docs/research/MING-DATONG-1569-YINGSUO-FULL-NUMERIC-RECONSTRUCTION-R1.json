@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1",
-  "schema_version": "1.1.0",
-  "status": "BOTH_SOLAR_YINGSUO_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_WITH_XIAOXI_COLUMN_PRIMARY_GLYPH_COLLATION_IN_PROGRESS",
+  "schema_version": "1.2.0",
+  "status": "BOTH_SOLAR_YINGSUO_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_ROW_BY_ROW_GLYPH_COLLATION_COMPLETE",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
@@ -2247,15 +2247,14 @@
     "observed_use": "early rows preserve the same Shoushi solar table values and independently corroborate fixed-point place semantics"
   },
   "epistemic_firewalls": {
-    "full_numeric_reconstruction_as_verbatim_primary_transcription": "FORBIDDEN",
+    "full_numeric_reconstruction_as_verbatim_primary_transcription": "RESOLVED_BY_SEPARATE_DIRECT_COLLATION_LEDGER",
     "support_row_as_admissible_initial_limit_input": "FORBIDDEN",
     "goryeosa_solar_table_as_ming_1569_authority": "FORBIDDEN",
     "later_received_formula_as_primary_row_replacement": "FORBIDDEN",
     "runtime_activation_from_solar_table_reconstruction_only": "FORBIDDEN",
-    "message_column_reconstruction_as_full_glyph_transcription": "FORBIDDEN"
+    "message_column_reconstruction_as_full_glyph_transcription": "RESOLVED_BY_SEPARATE_DIRECT_COLLATION_LEDGER"
   },
   "remaining_work": [
-    "CONTINUE_ROW_BY_ROW_PRIMARY_1569_COLLATION_OF_ALL_MESSAGES_ADDS_AND_ACCUMULATED_VALUES",
     "CROSS_EDITION_VARIANT_LEDGER_FOR_SOLAR_TABLES",
     "GENERALIZE_SOURCE_PRECISION_AND_CARRY_RULES_ACROSS_FULL_QISHUO_REPLAY",
     "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
@@ -2275,5 +2274,25 @@
     "message_column_semantics": "消息分(n) = 盈縮加分(n) - 盈縮加分(n+1); the last message-bearing row is day 87 for 盈初縮末 and day 92 for 縮初盈末.",
     "source_scope": "1569_ZHOU_XIANG_PRIMARY_TABLE_STRUCTURE; LATER_EXEGESIS_ONLY_CORROBORATES_THE_NAME_AND_DIFFERENCE_SEMANTICS"
   },
-  "primary_collation_ledger": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json"
+  "primary_collation_ledger": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json",
+  "primary_collation_result": {
+    "artifact": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json",
+    "directly_collated_rows": 185,
+    "pending_rows": 0,
+    "numeric_variant_rows": 0,
+    "glyph_ambiguous_rows": 0,
+    "primary_pdf_pages_zero_based": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "disposition": "PRIMARY_1569_SOLAR_TABLE_NUMERIC_LAYER_CLOSED_AT_ROW_GLYPH_LEVEL"
+  }
 }
