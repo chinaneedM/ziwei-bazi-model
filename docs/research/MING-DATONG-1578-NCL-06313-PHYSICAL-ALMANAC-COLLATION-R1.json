@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1",
-  "schema_version": "1.0.0",
-  "status": "SAME_YEAR_QINTIANJIAN_PHYSICAL_SCAN_LOCATED_11_OF_12_MONTH_PAGES_DIRECTLY_COLLATED_ONE_PAGE_RENDER_GAP",
+  "schema_version": "1.1.0",
+  "status": "SAME_YEAR_QINTIANJIAN_PHYSICAL_SCAN_12_OF_12_MONTH_PAGES_DIRECTLY_COLLATED_ZERO_IDENTITY_OR_SIZE_MISMATCH",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "source_id": "EXT-NCL-DATONG-1578-ALMANAC",
@@ -29,7 +29,15 @@
     "month_calendar_zero_based_page_range": [
       8,
       19
-    ]
+    ],
+    "direct_render_recovery": {
+      "previously_unresolved_pdf_page_index_zero_based": 13,
+      "month": 6,
+      "fresh_pdf_context_fragment": "#page=14",
+      "recovered_direct_render": true,
+      "directly_visible_heading": "六月小",
+      "certification_scope": "MONTH_IDENTITY_AND_LARGE_SMALL_LABEL_ONLY; FINE_FIRST_DAY_GANZHI_GLYPH_REMAINS_CHAIN_BOUND"
+    }
   },
   "evidence_layering": {
     "physical_scan_role": "SAME_YEAR_OFFICIAL_ALMANAC_PHYSICAL_WITNESS",
@@ -121,12 +129,13 @@
       "expected_length_days": 29,
       "expected_size_label": "小",
       "pdf_page_index_zero_based": 13,
-      "direct_physical_page_status": "PDF_PAGE_SCREENSHOT_TOOL_ERROR_NOT_DIRECTLY_CERTIFIED",
-      "physical_size_label_match": null,
-      "physical_month_identity_match": null,
-      "start_ganzhi_direct_physical_certification": "NOT_DIRECTLY_CERTIFIED_IN_THIS_SESSION",
+      "direct_physical_page_status": "DIRECT_SCREENSHOT_COLLATION",
+      "physical_size_label_match": true,
+      "physical_month_identity_match": true,
+      "start_ganzhi_direct_physical_certification": "GRID_VISUALLY_CONSISTENT_BUT_FINE_GLYPH_READING_BOUND_TO_ORACLE_CHAIN",
       "d1_replay_match": true,
-      "official_reign_record_oracle_match": true
+      "official_reign_record_oracle_match": true,
+      "direct_render_note": "Recovered by reopening the same Wikimedia Commons PDF through a fresh #page=14 context and directly rendering zero-based page 13; the visible heading is 六月小. This closes month identity and size only, not a fine-glyph transcription of the first-day Ganzhi."
     },
     {
       "month": 7,
@@ -220,14 +229,12 @@
     }
   ],
   "direct_collation_summary": {
-    "directly_rendered_month_pages": 11,
-    "direct_month_identity_matches": 11,
-    "direct_month_size_matches": 11,
+    "directly_rendered_month_pages": 12,
+    "direct_month_identity_matches": 12,
+    "direct_month_size_matches": 12,
     "direct_month_size_mismatches": 0,
-    "unresolved_direct_page_months": [
-      6
-    ],
-    "complete_physical_month_page_collation": false,
+    "unresolved_direct_page_months": [],
+    "complete_physical_month_page_collation": true,
     "full_expected_month_size_sequence": [
       29,
       30,
@@ -242,13 +249,13 @@
       29,
       30
     ],
-    "directly_visible_sequence_with_render_gap": [
+    "directly_visible_month_length_sequence": [
       29,
       30,
       30,
       29,
       30,
-      null,
+      29,
       30,
       29,
       29,
@@ -263,16 +270,16 @@
     "implication": "THE_PHYSICAL_MONTH_GRID_CERTIFIES_CALENDAR_DAY/MONTH STRUCTURE; IT DOES_NOT BY ITSELF CERTIFY THE REPLAYED TRUE-CONJUNCTION SUBDAY VALUE"
   },
   "epistemic_firewalls": {
-    "infer_month6_direct_physical_reading_from_neighbors": "FORBIDDEN",
+    "infer_unread_physical_page_from_neighbors": "FORBIDDEN",
     "physical_day_grid_as_exact_conjunction_time_certification": "FORBIDDEN",
     "physical_scan_as_general_datong_runtime_certification": "FORBIDDEN",
     "same_year_match_as_qishuo_meridian_resolution": "FORBIDDEN",
-    "technical_renderer_failure_as_source_absence": "FORBIDDEN"
+    "technical_renderer_failure_as_source_absence": "FORBIDDEN",
+    "month_title_and_size_as_fine_first_day_ganzhi_glyph_transcription": "FORBIDDEN"
   },
   "remaining_gates": [
-    "OBTAIN_DIRECT_ALTERNATE_RENDER_OR_SECOND_COPY_COLLATION_FOR_PDF_ZERO_BASED_PAGE_13_MONTH_6",
     "FINE_GLYPH_PAGE_LEVEL_TRANSCRIPTION_OF_ALL_12_FIRST_DAY_GANZHI_IF_NEEDED_BEYOND_CHAIN_LEVEL_CERTIFICATION",
-    "ROW_BY_ROW_PRIMARY_1569_COLLATION_AND_VARIANT_LEDGER",
+    "CROSS_EDITION_VARIANT_CAUSE_ADJUDICATION_AFTER_PRIMARY_1569_COLLATION_CLOSED",
     "GENERALIZE_AND_VERIFY_SOURCE_PRECISION_RULES",
     "QISHUO_GEOGRAPHIC_REFERENCE",
     "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
