@@ -1,0 +1,33 @@
+name: research-krdb-goryeosa-image-link-probe
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-krdb-goryeosa-image-link-probe.yml"
+      - "scripts/research_krdb_goryeosa_image_link_probe.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe KRDB Goryeosa original-image frontend contract
+        run: |
+          python scripts/research_krdb_goryeosa_image_link_probe.py \
+            --output artifacts/krdb-goryeosa-image-link-probe
+      - name: Upload link-contract evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: krdb-goryeosa-image-link-probe-${{ github.sha }}
+          path: artifacts/krdb-goryeosa-image-link-probe/
+          if-no-files-found: warn
+          retention-days: 7
