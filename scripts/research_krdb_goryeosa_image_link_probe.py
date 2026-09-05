@@ -17,6 +17,9 @@ KNOWN_VIEWER_CAPTURE_HEAD = "8ef0565fc215a266ca3c7c1138ed592dad869a4c"
 KNOWN_VIEWER_CAPTURE_ARTIFACT_ID = 9970511498
 KNOWN_VIEWER_IMAGE_START = 1034
 KNOWN_VIEWER_IMAGE_END = 1134
+# Candidate full-resolution window selected only for page localization from the received-copy
+# section order; it carries no glyph conclusion until the returned pixels are inspected.
+FULL_IMAGE_TARGETS = tuple(range(1119, 1131))
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 PAGE_KEYS = ("원문이미지", "ico_viewImage", "kyudb", "viewImage", "image", "kr_052", "규귀5553", "을해자")
 VIEWER_KEYS = (
@@ -220,6 +223,37 @@ def main() -> int:
         "pages": thumb_capture,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+    # Fetch only a narrow full-resolution window for manual, no-OCR page localization.
+    full_dir = out / "viewer-full-candidates"
+    full_dir.mkdir(parents=True, exist_ok=True)
+
+    def capture_full(image_no: int) -> dict[str, object]:
+        rel_path = f"kr/052/kr_052_{image_no}.jpg"
+        url = "https://db.history.go.kr/common/imageProxy.do?" + urllib.parse.urlencode({
+            "filePath": rel_path,
+        })
+        rec: dict[str, object] = {"image_no": image_no, "rel_path": rel_path, "url": url, "status": "NOT_FETCHED"}
+        try:
+            body, img_headers = fetch_bytes(url, attempts=3, timeout=25)
+            (full_dir / Path(rel_path).name).write_bytes(body)
+            rec.update({
+                "status": "FETCHED",
+                "bytes": len(body),
+                "content_type": img_headers.get("Content-Type"),
+            })
+        except Exception as exc:
+            rec.update({"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"})
+        return rec
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        full_capture = list(pool.map(capture_full, FULL_IMAGE_TARGETS))
+    (out / "viewer-full-candidate-map.json").write_text(json.dumps({
+        "schema": "KRDB-GORYEOSA-FULL-CANDIDATE-MAP-R1",
+        "selection_basis": "PAGE_LOCALIZATION_HEURISTIC_ONLY_NOT_GLYPH_EVIDENCE",
+        "ocr_used": False,
+        "targets": full_capture,
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     forms = []
     for m in re.finditer(r"<form\b.*?</form>", viewer, re.I | re.S):
         frag = m.group(0)
@@ -271,6 +305,7 @@ def main() -> int:
         "viewer_scripts": viewer_scripts,
         "viewer_page_count": len(img_paths),
         "viewer_thumbnail_capture": thumb_capture,
+        "viewer_full_candidate_capture": full_capture,
         "viewer_endpoint_candidates": relevant_endpoints,
         "known_link_contract": {
             "holding_label": "규장각한국학연구원 소장본(규귀5553[을해자])",
@@ -289,6 +324,7 @@ def main() -> int:
         "target_status": target_status,
         "viewer_page_count": len(img_paths),
         "viewer_thumbnail_fetch_success_count": sum(1 for x in thumb_capture if x["status"] == "FETCHED"),
+        "viewer_full_candidate_fetch_success_count": sum(1 for x in full_capture if x["status"] == "FETCHED"),
         "viewer_matching_tag_count": len(viewer_tags),
         "viewer_form_count": len(forms),
         "viewer_scripts_with_hits": [x["url"] for x in viewer_scripts if x.get("hits")],
