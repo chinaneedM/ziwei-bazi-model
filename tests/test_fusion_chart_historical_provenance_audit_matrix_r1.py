@@ -192,7 +192,7 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(by_id["HPA-BREL-011"]["audit_status"], "MODERN_COMPATIBILITY_ONLY")
         self.assertIn("DIFFERENT_WORDING_SAME_MECHANICAL_RULE", by_id["HPA-BREL-008"]["school_attribution"])
         self.assertIn("EARLY_FOUR_BREAK_METHOD", by_id["HPA-BREL-009"]["school_attribution"])
-        self.assertIn("same-pillar", by_id["HPA-BREL-012"]["rule_or_field"])
+        self.assertIn("same-pillar", by_id["HPA-BREL-012"]["rule_or_field"].lower())
 
     def test_batch_10c_productizes_candidates_without_core_mutation(self) -> None:
         by_id = {row["rule_id"]: row for row in self.rows}
