@@ -17,8 +17,14 @@ TARGETS = {
     4: ["VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"],
     14: ["VAR-NUM-LUNAR-L8-LOSSGAIN"],
     18: ["NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING"],
-    19: ["VAR-NUM-LUNAR-L114-DAYRATE", "VAR-NUM-LUNAR-L124-JI-XINGDU"],
+    19: ["VAR-NUM-LUNAR-L114-DAYRATE"],
     20: ["VAR-NUM-LUNAR-L132-LOSSGAIN"],
+}
+UNRESOLVED_CONTROLS = {
+    "VAR-NUM-LUNAR-L124-JI-XINGDU": (
+        "R0000019 is a Taiyin chiji table page and must not be promoted to evidence for the separate ji-xingdu field; "
+        "locate the actual xingdu table or record this field as absent from this witness."
+    )
 }
 
 
@@ -85,6 +91,7 @@ def main() -> int:
         "localization_basis": "DIRECT_PRINTED_VOLUME_TABLE_AND_LIMIT_HEADINGS_FROM_PRIOR_1000PX_CONTACT_SHEET_INSPECTION",
         "cross_copy_page_offset_used": False,
         "target_values_authorized_by_fetch": False,
+        "unresolved_controls": UNRESOLVED_CONTROLS,
         "pages": records,
     }
     (out / "target-page-map.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
