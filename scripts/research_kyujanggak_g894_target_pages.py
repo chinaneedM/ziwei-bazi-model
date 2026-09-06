@@ -18,12 +18,14 @@ BOOK_CD = "GK00894_00"
 ITEM_CD = "GJB"
 VOL_NO = "0001"
 RENDERER = BASE + "/pf01/rendererImg.do"
-# These pages are selected from direct visual bracketing in workflow 34022309182:
-# 032a visibly contains limits 99-102 and 036a visibly contains 129-131.
-# Earlier solar/lunar pages are included only as bounded search neighbors.
+# Pages are selected from direct visual bracketing in workflow 34022309182.
+# 016b-018a are included to bind the method/header transition immediately before
+# the lunar table. Target pages and neighbors are still fetched only by first
+# requesting the provider page ID and parsing the exact imgFileNm returned by
+# that renderer response; filename-sequence inference is never evidence.
 TARGET_PAGES = (
     "009a", "009b", "010a", "010b", "011a", "011b",
-    "018a", "018b", "019a", "019b", "020a",
+    "016b", "017a", "017b", "018a", "018b", "019a", "019b", "020a",
     "032a", "032b", "033a", "033b", "034a", "034b",
     "035a", "035b", "036a", "036b", "037a", "037b",
 )
@@ -67,7 +69,7 @@ def main() -> int:
         "vol_no": VOL_NO,
         "ocr_used": False,
         "target_values_authorized_by_fetch": False,
-        "selection_basis": "DIRECT_VISUAL_BRACKETING_FROM_WORKFLOW_34022309182_PLUS_IMMEDIATE_NEIGHBORS",
+        "selection_basis": "DIRECT_VISUAL_BRACKETING_FROM_WORKFLOW_34022309182_PLUS_IMMEDIATE_NEIGHBORS_AND_METHOD_HEADER_CONTEXT",
         "filename_pattern_inference": "FORBIDDEN",
         "pages": [],
     }
