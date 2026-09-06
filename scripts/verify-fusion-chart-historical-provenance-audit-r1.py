@@ -709,6 +709,25 @@ def main() -> int:
     for fragment in ("損益分乘之如八百二十而一","以八百二十乘之","遲疾限下行度除之"):
         if fragment not in method_text:
             raise SystemExit(f"Batch 11P G894 method bridge missing: {fragment}")
+    if "BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P" not in data.get("historical_research_batches",()):
+        raise SystemExit("Batch 11P missing from Historical Audit Matrix batch ledger")
+    if row_dayun_cal.get("joseon_g894_native_collation_artifact") != "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json":
+        raise SystemExit("Batch 11P Matrix G894 artifact binding mismatch")
+    if row_dayun_cal.get("joseon_g894_field_semantic_bridge_artifact") != "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json":
+        raise SystemExit("Batch 11P Matrix G894 field-bridge binding mismatch")
+    if row_dayun_cal.get("joseon_g894_direct_lunar_control_count") != 5:
+        raise SystemExit("Batch 11P Matrix G894 direct-control count mismatch")
+    if row_dayun_cal.get("joseon_g894_direct_readings",{}).get("l124_ji_xingdu") != "1.0281":
+        raise SystemExit("Batch 11P Matrix G894 L124 reading mismatch")
+    if row_dayun_cal.get("joseon_g894_solar_d16_status") != "STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT":
+        raise SystemExit("Batch 11P Matrix G894 D16 status mismatch")
+    g894_registry=by_source_id.get("EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444")
+    if g894_registry is None or g894_registry.get("direct_reading_artifact") != "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json":
+        raise SystemExit("Batch 11P source-registry G894 artifact binding mismatch")
+    if g894_registry.get("direct_readings",{}).get("VAR-NUM-LUNAR-L124-JI-XINGDU",{}).get("normalized") != "1.0281":
+        raise SystemExit("Batch 11P source-registry G894 L124 reading mismatch")
+    if g894_registry.get("direct_readings",{}).get("VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",{}).get("status") != "STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT":
+        raise SystemExit("Batch 11P source-registry G894 D16 status mismatch")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
