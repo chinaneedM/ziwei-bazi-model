@@ -15,6 +15,8 @@ from PIL import Image, ImageDraw
 
 BASE = "https://sillok.history.go.kr"
 LEGACY_BASE = "http://sillok.history.go.kr"
+ROOT = Path(__file__).resolve().parents[1]
+DIRECT_BINDING_PATH = ROOT / "docs" / "research" / "SILLOK-CHILJEONGSAN-VIEWER-IMGARR-DIRECT-BINDING-R1.json"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 ARTICLES = {
     "wda_50016011": {
@@ -100,6 +102,7 @@ def main() -> int:
     args = ap.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
+    direct_binding = json.loads(DIRECT_BINDING_PATH.read_text(encoding="utf-8"))
 
     result = {
         "schema": "SILLOK-CHILJEONGSAN-NATIVE-PAGES-R1",
@@ -119,31 +122,55 @@ def main() -> int:
     any_error = False
 
     for article_id, meta in ARTICLES.items():
-        viewer_url = f"{BASE}/popup/viewer.do?type=view&id={article_id}"
-        vstatus, vctype, vbody = fetch(viewer_url)
-        vtext = vbody.decode("utf-8", "replace")
-        (out / f"{article_id}-viewer.html").write_text(vtext, encoding="utf-8")
+        viewer_urls = [
+            f"{BASE}/popup/viewer.do?type=view&id={article_id}",
+            f"{LEGACY_BASE}/popup/viewer.do?type=view&id={article_id}",
+            f"{BASE}/popup/viewer.do?id={article_id}&type=view",
+            f"{LEGACY_BASE}/popup/viewer.do?id={article_id}&type=view",
+        ]
+        viewer_attempts = []
+        tokens = None
+        vtext = ""
+        for viewer_url in viewer_urls:
+            vstatus, vctype, vbody = fetch(viewer_url)
+            current_text = vbody.decode("utf-8", "replace")
+            attempt = {
+                "url": viewer_url,
+                "status": vstatus,
+                "content_type": vctype,
+                "bytes": len(vbody),
+            }
+            try:
+                parsed = parse_imgarr(current_text)
+                attempt["imgarr_token_count"] = len(parsed)
+                tokens = parsed
+                vtext = current_text
+            except Exception as exc:
+                attempt["parse_error"] = f"{type(exc).__name__}: {exc}"
+            viewer_attempts.append(attempt)
+            if tokens is not None:
+                break
 
+        token_source = "LIVE_OFFICIAL_VIEWER"
+        if tokens is None:
+            bound = direct_binding["articles"].get(article_id, {})
+            tokens = list(bound.get("imgarr_tokens", ()))
+            token_source = "FAIL_SOFT_PRIOR_DIRECT_VIEWER_BINDING"
+            if not tokens:
+                raise SystemExit(f"no live or directly bound imgArr tokens for {article_id}")
+
+        (out / f"{article_id}-viewer.html").write_text(vtext, encoding="utf-8")
         article = {
             "article_id": article_id,
-            "viewer_url": viewer_url,
+            "viewer_attempts": viewer_attempts,
             **meta,
-            "viewer_status": vstatus,
-            "viewer_content_type": vctype,
-            "viewer_bytes": len(vbody),
+            "token_source": token_source,
+            "direct_binding_artifact": "docs/research/SILLOK-CHILJEONGSAN-VIEWER-IMGARR-DIRECT-BINDING-R1.json",
             "ocr_used": False,
             "target_values_authorized_by_fetch": False,
             "pages": [],
+            "imgarr_tokens": tokens,
         }
-        try:
-            tokens = parse_imgarr(vtext)
-        except Exception as exc:
-            article["parse_error"] = f"{type(exc).__name__}: {exc}"
-            result["articles"].append(article)
-            any_error = True
-            continue
-
-        article["imgarr_tokens"] = tokens
         native_for_sheet = []
 
         for index, token in enumerate(tokens):
