@@ -55,6 +55,17 @@ def context(text: str, needle: str, radius: int = 5000) -> str:
     return text[max(0, index-radius):min(len(text), index+len(needle)+radius)]
 
 
+def list_item_block(text: str, needle: str) -> str:
+    index = text.find(needle)
+    if index < 0:
+        return ""
+    start = text.rfind("<li", 0, index)
+    end = text.find("</li>", index)
+    if start < 0 or end < 0:
+        return context(text, needle, radius=1800)
+    return text[start:end + len("</li>")]
+
+
 def extract_urls(text: str) -> list[str]:
     urls = []
     for raw in re.findall(r'''(?:src|href)\s*=\s*["']([^"']+)["']''', text, flags=re.I):
@@ -155,8 +166,8 @@ def main() -> int:
 
     text = response.text
     (out / "official-list.html").write_text(text, encoding="utf-8")
-    ctx = context(text, CALL_NUMBER)
-    (out / "catalog-list-context.html").write_text(ctx, encoding="utf-8")
+    ctx = list_item_block(text, CALL_NUMBER)
+    (out / "catalog-list-item.html").write_text(ctx, encoding="utf-8")
 
     ids = observed_identifiers(ctx)
     result["list_observation"] = {
