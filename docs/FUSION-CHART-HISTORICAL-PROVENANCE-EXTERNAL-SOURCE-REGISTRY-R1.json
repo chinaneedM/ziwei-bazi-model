@@ -754,7 +754,7 @@
         "晨昏半晝"
       ],
       "direct_image_status": "CATALOG_CONFIRMS_ORIGINAL_IMAGES_AVAILABLE; TARGET_FOLIO_IMAGE_NOT_YET_BOUND_IN_PROJECT",
-      "quality_notes": "High-value independent physical witness for the Shoushi table transmission. Kyujanggak itself catalogs the surviving precious-book copy only as a first-half-15th-century, Sejong-reign 甲寅字 witness (1418-1450), not an exact-year print. KOSTMA and Li 2018 associate 授時曆立成/the extant copy with 1434, while Li's later 2022 numerical-table chapter cites the same Kyujanggak collection no. 893 as printed in 1444. Exact surviving-copy print year is therefore unresolved and must not be used as a weighting shortcut. Shi Yunli 1998 and other version studies still establish a substantive early Korean Shoushi-licheng transmission lineage. None of these bibliographic witnesses supplies the six pending target glyph readings.",
+      "quality_notes": "High-value independent physical witness for the Shoushi table transmission. Kyujanggak itself catalogs the surviving precious-book copy only as a first-half-15th-century, Sejong-reign 甲寅字 witness (1418-1450), not an exact-year print. KOSTMA and Li 2018 associate 授時曆立成/the extant copy with 1434, while Li's later 2022 numerical-table chapter cites the same Kyujanggak collection no. 893 as printed in 1444. Exact surviving-copy print year is therefore unresolved and must not be used as a weighting shortcut. Shi Yunli 1998 and other version studies still establish a substantive early Korean Shoushi-licheng transmission lineage. None of these bibliographic witnesses supplies the six pending target glyph readings. Batch 11U directly reads the 1940 internal 奎章閣貴重圖書目錄: page 0125 explicitly labels 書名/圖書番號/冊數/備考, and page 0129 directly records 授時曆立成 as 圖書番號 893, 1冊, adjacent to the separate 授時曆捷法立成 no.892. Together with the current provider title and 奎貴893 identifier and official collection custody continuity, catalog-item continuity to GK00893_00 is now resolved at identifier level. This still supplies no target folio, glyph, value, or exact print year.",
       "bibliographic_witnesses": [
         "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
         "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
@@ -874,39 +874,34 @@
         }
       ],
       "prewar_collection_continuity": {
-        "status": "COLLECTION_LEVEL_CONTINUITY_AND_PREWAR_OBJECT_FAMILY_WITNESS_CLOSED_EXACT_ITEM_IDENTITY_PENDING",
+        "status": "CATALOG_ITEM_CONTINUITY_RESOLVED_AT_1940_PRECIOUS_BOOK_NUMBER_LEVEL",
         "collection_custody_source_id": "EXT-SNU-KYUJANGGAK-COLLECTION-CONTINUITY-1928-1946",
         "prewar_object_family_source_id": "EXT-RASKB-RUFUS-ASTRONOMY-KOREA-1936",
-        "item_level_catalog_locator_source_id": "EXT-KYUJANGGAK-NUMERIC-ORDER-CATALOG-1930",
+        "1930_numeric_catalog_source_id": "EXT-KYUJANGGAK-NUMERIC-ORDER-CATALOG-1930",
+        "1940_precious_catalog_source_id": "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
         "rufus_observation": "KEIJO_LIBRARY_HELD_AN_UNDATED_授時曆立成_CREDITED_TO_WANG_XUN_AS_A_SEPARATE_COMPANION_VOLUME",
-        "exact_identity_to_current_gk00893_00": false,
-        "exact_identity_status": "PENDING_1930_CATALOG_ENTRY_OR_MATCHING_PHYSICAL_IDENTIFIER",
+        "1930_generic_number_893_effect": "DISPROVEN_AS_CURRENT_PRECIOUS_G893_BINDING",
+        "1940_direct_binding": {
+          "internal_catalog_title": "奎章閣貴重圖書目錄",
+          "section": "朝鮮本（一）",
+          "revision_note": "昭和十五年八月改訂",
+          "header_page": "0125",
+          "field_name": "圖書番號",
+          "target_page": "0129",
+          "title": "授時曆立成",
+          "book_number": 893,
+          "volume_count": 1,
+          "adjacent_control_title": "授時曆捷法立成",
+          "adjacent_control_book_number": 892,
+          "ocr_used": false,
+          "machine_evidence": "docs/research/KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
+        },
+        "exact_identity_to_current_gk00893_00": true,
+        "exact_identity_status": "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL_BY_1940_TITLE_PLUS_圖書番號_893_MATCH_TO_CURRENT_奎貴893",
+        "physical_leaf_or_seal_chain": "NOT_SEPARATELY_PROVEN",
         "target_folio_effect": "NONE",
         "target_glyph_effect": "NONE",
-        "exact_print_year_effect": "NONE",
-        "item_level_catalog_locator_access": {
-          "source_id": "EXT-KYUJANGGAK-NUMERIC-ORDER-CATALOG-1930",
-          "book_cd": "GK26775_00",
-          "item_cd": "BBG",
-          "volume_count": 7,
-          "direct_renderer_bound": true,
-          "internal_g893_entry_read": false,
-          "exact_identity_effect": "NONE_PENDING_DIRECT_ENTRY"
-        },
-        "early_catalog_controls": [
-          {
-            "source_id": "EXT-KYUJANGGAK-PRECIOUS-CATALOG-1908",
-            "year": 1908,
-            "catalog_scope": "貴重圖書目錄",
-            "direct_pdf_reviewed": true,
-            "ocr_used": false,
-            "visible_title_result": "授時曆立成 / 授時曆 NOT SEEN IN COMPLETE 子部 RANGE",
-            "item_identity_effect": "NONE",
-            "physical_absence_effect": "NONE",
-            "precious_designation_date_effect": "NONE",
-            "target_effect": "NONE"
-          }
-        ]
+        "exact_print_year_effect": "NONE"
       }
     },
     {
@@ -1362,6 +1357,59 @@
         "negative_catalog_entry_as_target_value_evidence": "FORBIDDEN"
       },
       "quality_notes": "This is a direct provider PDF negative-catalog witness only. The absence of a visible 授時曆立成/授時曆 title in the complete 子部 range means this 1908 precious-book catalog does not visibly list the title. It does not prove the physical G893 object was absent from the collection, does not date when its modern precious-book designation arose, does not bind or sever exact identity with the Rufus 1936 object, and supplies no target folio/glyph/value authority."
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
+      "title": "《奎章閣貴重圖書關係書類》及內含《奎章閣貴重圖書目錄》",
+      "compiler": "京城帝國大學",
+      "publication_year": 1940,
+      "provider": "서울대학교 규장각한국학연구원",
+      "catalog_identifier": "奎26786",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK26786_00",
+      "source_role": "DIRECT_PREWAR_PRECIOUS_BOOK_CATALOG_IDENTIFIER_WITNESS_BINDING_授時曆立成_TO_圖書番號_893",
+      "direct_digital_object_access": {
+        "book_cd": "GK26786_00",
+        "item_cd": "BBG",
+        "volume_ids": [
+          "0001"
+        ],
+        "renderer_page_count": 148,
+        "ocr_used": false,
+        "locator_workflow_run_id": 34040408637,
+        "locator_artifact_id": 9991493659
+      },
+      "direct_catalog_reading": {
+        "header_page": "0125",
+        "internal_title": "奎章閣貴重圖書目錄",
+        "section": "朝鮮本（一）",
+        "revision_note": "昭和十五年八月改訂",
+        "fields": [
+          "書名",
+          "圖書番號",
+          "冊數",
+          "備考"
+        ],
+        "target_page": "0129",
+        "target_title": "授時曆立成",
+        "target_book_number": 893,
+        "target_volume_count": 1,
+        "adjacent_control_title": "授時曆捷法立成",
+        "adjacent_control_book_number": 892,
+        "adjacent_control_volume_count": 1,
+        "ocr_used": false,
+        "machine_evidence": "docs/research/KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
+      },
+      "adjudication": {
+        "current_catalog_identifier": "奎貴893",
+        "current_book_cd": "GK00893_00",
+        "catalog_item_continuity": "RESOLVED_AT_IDENTIFIER_LEVEL",
+        "physical_leaf_or_seal_chain": "NOT_SEPARATELY_PROVEN",
+        "target_folio_effect": "NONE",
+        "target_glyph_effect": "NONE",
+        "target_value_effect": "NONE",
+        "exact_print_year_effect": "NONE"
+      },
+      "quality_notes": "Direct no-OCR provider-image evidence. The internal table itself labels the numeric field 圖書番號, eliminating the earlier ambiguity created by the unrelated generic 1930 numeric-order sequence. Page 0129 binds 授時曆立成 to 893 and the separate Kang-Bo work to 892. Use this source for catalog-item provenance only, never for the six pending computational readings."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
