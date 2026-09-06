@@ -771,11 +771,12 @@
         "basis": "Li 2018 states one volume contains Sun/Moon/five-planet tables and Figure 6 reproduces the solar table under the visible title 授時曆立成卷上; the Kyujanggak catalog lists the target solar and lunar table families.",
         "direct_target_glyph_status": "NOT_READ"
       },
-      "direct_image_access_status": "CATALOG_EXPOSES_REAL_FILENAMES_AND_PUBLIC_ADAPTER_DOCUMENTS_RENDERER_IMAGESERVLET_PROTOCOL; GITHUB_HOSTED_UBUNTU_NETWORK_PATH_BLOCKED; TARGET_FOLIOS_STILL_UNRESOLVED",
+      "direct_image_access_status": "CATALOG_EXPOSES_REAL_FILENAMES_AND_PUBLIC_ADAPTER_DOCUMENTS_RENDERER_IMAGESERVLET_PROTOCOL; ALL_TESTED_GITHUB_HOSTED_OS_FAMILIES_RESET_AT_G893_RENDERER; PUBLIC_NON_GITHUB_KYUJANGGAK_RENDERER_ACQUISITION_IS_INDEPENDENTLY_DEMONSTRATED_ON_ANOTHER_OBJECT; G893_TARGET_FOLIOS_STILL_UNRESOLVED",
       "hosted_runner_access_attempts": [
         {
           "workflow_run_id": 33962192868,
           "head_sha": "c9fd47ed1ec4893806486fb5d27001733498c496",
+          "runner_family": "GITHUB_HOSTED_UBUNTU",
           "transport": "python requests / urllib3",
           "endpoint_stage": "initial Kyujanggak HTTPS GET",
           "result": "CONNECTION_RESET_DURING_TLS_HANDSHAKE",
@@ -784,14 +785,39 @@
         {
           "workflow_run_id": 33962291588,
           "head_sha": "9bfb06a8cd4e3c789fa8e2aa9dc5302eb1fbd3db",
+          "runner_family": "GITHUB_HOSTED_UBUNTU",
           "transport": "curl_cffi Chrome impersonation",
           "endpoint_stage": "POST /pf01/rendererImg.do with item_cd=SIC",
           "result": "LIBCURL_35_SEND_FAILURE_CONNECTION_RESET_BY_PEER",
           "diagnostic_artifact_id": 9968309178,
           "source_availability_inference": "NONE"
+        },
+        {
+          "workflow_run_id": 34027558494,
+          "head_sha": "639243f6856ed5050f69b1cf11a948fe48ea44ef",
+          "job_id": 101471139340,
+          "runner_family": "GITHUB_HOSTED_MACOS",
+          "runner_image": "macos-26-arm64",
+          "transport": "curl_cffi Chrome impersonation",
+          "endpoint_stage": "POST /pf01/rendererImg.do with item_cd=SIC",
+          "result": "LIBCURL_35_RECV_FAILURE_CONNECTION_RESET_BY_PEER",
+          "diagnostic_artifact_id": 9987542932,
+          "source_availability_inference": "NONE"
+        },
+        {
+          "workflow_run_id": 34027558494,
+          "head_sha": "639243f6856ed5050f69b1cf11a948fe48ea44ef",
+          "job_id": 101471139387,
+          "runner_family": "GITHUB_HOSTED_WINDOWS",
+          "runner_image": "windows-2025-vs2026",
+          "transport": "curl_cffi Chrome impersonation",
+          "endpoint_stage": "POST /pf01/rendererImg.do with item_cd=SIC",
+          "result": "LIBCURL_35_RECV_FAILURE_CONNECTION_RESET",
+          "diagnostic_artifact_id": 9987546688,
+          "source_availability_inference": "NONE"
         }
       ],
-      "access_disposition": "Treat the two GitHub-hosted-runner failures as an execution-environment network restriction only. Kyujanggak's catalog and public web/thumbnail layer remain independently reachable and continue to establish the copy and original-image service. Do not infer missing images, missing folios, corrupt source, or any target value from runner resets.",
+      "access_disposition": "Treat all tested GitHub-hosted runner failures (Ubuntu, macOS, Windows) as execution-environment network restrictions only. Do not repeat equivalent GitHub-hosted transports. A 2026-08-26 Wikimedia Commons upload independently demonstrates successful acquisition from the same Kyujanggak renderer family for another book via a non-GitHub path, so the next G893 route should be a non-GitHub/browser/local network path or a public mirror/reproduction. No runner failure or other-object success supplies a G893 folio or glyph.",
       "public_thumbnail_topology": {
         "artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
         "item_cd": "SIC",
@@ -816,7 +842,8 @@
         }
       ],
       "technical_access_witnesses": [
-        "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER"
+        "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+        "EXT-WIKIMEDIA-COMMONS-KYUJANGGAK-RENDERER-ACCESS-2026"
       ],
       "version_identity_bridge": {
         "historical_received_source_id": "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
@@ -1151,6 +1178,18 @@
       "url": "https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_r300840",
       "source_role": "OFFICIAL_MODERN_BIBLIOGRAPHIC_AND_COMPILATION_HISTORY_WITNESS",
       "quality_notes": "States that Chiljeongsan Naepyeon/ Oepyeon culminated in publication in 1444 and are transmitted in Sejong Sillok volumes 156-163 while also having circulated as independent books. Use to separate composition/publication history from the physical identity of G893, G894, and later Sillok copies; not target-glyph authority."
+    },
+    {
+      "source_id": "EXT-WIKIMEDIA-COMMONS-KYUJANGGAK-RENDERER-ACCESS-2026",
+      "title": "Wikimedia Commons upload demonstrating successful Kyujanggak renderer acquisition for 奎17375",
+      "publication_context": "PUBLIC_TECHNICAL_ACCESS_WITNESS_CREATED_2026-08-26",
+      "provider": "Wikimedia Commons / uploader Ryuch; source identified as 서울대학교 규장각한국학연구원",
+      "url": "https://commons.wikimedia.org/wiki/File:%ED%9A%8C%EB%8D%95%ED%98%84%EC%9D%8D%EC%A7%80_(%E5%A5%8E17375).pdf",
+      "source_role": "MODERN_PUBLIC_NON_GITHUB_NETWORK_ACCESS_WITNESS_FOR_KYUJANGGAK_RENDERER_ONLY_NOT_G893_PAGE_OR_GLYPH_AUTHORITY",
+      "observed_source_renderer_url": "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=&book_cd=GK17375_00&vol_no=&page_no=",
+      "upload_date": "2026-08-26",
+      "observed_uploaded_file_size": "12.78 MB",
+      "quality_notes": "Wikimedia Commons' upload list records a 2026-08-26 PDF whose stated source is the SNU Kyujanggak renderer for book_cd=GK17375_00. This proves that the renderer is not globally inaccessible and that a non-GitHub network path successfully acquired enough page images to assemble a public PDF. It does not prove G893 accessibility from the same client, does not identify any G893 folio, and has no historical or target-glyph authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
