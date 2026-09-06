@@ -79,15 +79,14 @@ def extract_book_cds(text: str) -> list[str]:
 
 def extract_item_cds(text: str, book_cd: str) -> list[str]:
     vals=[]
-    pats=[
-        rf"item_cd=([A-Za-z0-9_-]+)[^\n\r\"']{{0,180}}book_cd={re.escape(book_cd)}",
-        rf"item_cd\s*[:=]\s*['"]([A-Za-z0-9_-]+)['"][^\n\r]{{0,300}}{re.escape(book_cd)}",
-        rf"fn_originalImg\(['"]([A-Za-z0-9_-]+)['"]\s*,\s*['"]{re.escape(book_cd)}['"]",
+    patterns=[
+        rf'''item_cd=([A-Za-z0-9_-]+)[^\n\r"']{{0,180}}book_cd={re.escape(book_cd)}''',
+        rf'''item_cd\s*[:=]\s*["']([A-Za-z0-9_-]+)["'][^\n\r]{{0,300}}{re.escape(book_cd)}''',
+        rf'''fn_originalImg\(["']([A-Za-z0-9_-]+)["']\s*,\s*["']{re.escape(book_cd)}["']''',
     ]
-    for pat in pats:
-        vals.extend(m.group(1) for m in re.finditer(pat,text,re.I))
+    for pattern in patterns:
+        vals.extend(m.group(1) for m in re.finditer(pattern,text,re.I))
     return unique(vals)
-
 def parse_renderer(text: str):
     vols=unique(m.group(1) for m in re.finditer(r'<option\s+value=["\']([A-Za-z0-9]+)["\']',text,re.I))
     pages=unique(m.group(1) for m in re.finditer(r'fn_goPageJumpWithMokIdxClear\(["\']([A-Za-z0-9]+)["\']\)',text))
