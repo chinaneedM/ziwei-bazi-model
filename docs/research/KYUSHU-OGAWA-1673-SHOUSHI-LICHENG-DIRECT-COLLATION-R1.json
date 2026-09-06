@@ -1,0 +1,197 @@
+{
+  "schema": "KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_SAME_YEAR_COLLATION_COMPLETE_FOR_D16_L114_SYMMETRY_AND_L124_DERIVED_CONTROL_LINEAR_SERIALIZATION_OF_SPLIT_PLACE_GROUPS_REMAINS_UNFORCED",
+  "source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+  "title": "大元授時暦經 巻上下, 巻1-6 / bound 大元授時暦經立成 6巻",
+  "creator": "小川正意",
+  "publisher": "田原二左衛門",
+  "publication_date": "寛文13年 [1673]",
+  "holding": "九州大学附属図書館・九大コレクション貴重資料",
+  "record_id": "6631038",
+  "iiif_manifest": "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json",
+  "access": "PUBLIC_DOMAIN",
+  "ocr_used": false,
+  "cross_copy_page_offset_used": false,
+  "reproduction": {
+    "workflow": ".github/workflows/research-kyushu-ogawa-shoushi-licheng-target-pages.yml",
+    "script": "scripts/research_kyushu_ogawa_shoushi_licheng_target_pages.py",
+    "head_sha": "8cd6d20dda9c7038daac3db884c3c1ea6b86c6f9",
+    "workflow_run_id": 34010515542,
+    "workflow_conclusion": "success",
+    "artifact_id": 9982311056,
+    "artifact_name": "kyushu-ogawa-target-pages-8cd6d20dda9c7038daac3db884c3c1ea6b86c6f9",
+    "artifact_digest": "sha256:bf85126c4d4a16ad4be17e28b089d921b8f7f1b986bf4bd2f480b4a308bb5944",
+    "artifact_size_bytes": 32778514,
+    "native_page_size": [
+      6592,
+      4672
+    ],
+    "page_map": "target-page-map.json",
+    "target_values_authorized_by_fetch": false
+  },
+  "direct_page_bindings": [
+    {
+      "canvas": 40,
+      "label": "41",
+      "role": "SOLAR_YINGSUO_TABLE_OPENING_AND_SCHEMA"
+    },
+    {
+      "canvas": 41,
+      "label": "42",
+      "role": "SOLAR_DAY16_CONTINUATION"
+    },
+    {
+      "canvas": 50,
+      "label": "51",
+      "role": "LUNAR_CHIJI_TABLE_OPENING_AND_SCHEMA"
+    },
+    {
+      "canvas": 51,
+      "label": "52",
+      "role": "L8_LOSSGAIN"
+    },
+    {
+      "canvas": 52,
+      "label": "53",
+      "role": "L35_SAME_COPY_SYMMETRY_CONTROL"
+    },
+    {
+      "canvas": 54,
+      "label": "55",
+      "role": "L67_SAME_COPY_POSITIONAL_CONTROL"
+    },
+    {
+      "canvas": 55,
+      "label": "56",
+      "role": "L101_POSITIONAL_TARGET"
+    },
+    {
+      "canvas": 56,
+      "label": "57",
+      "role": "L114_DAY_RATE"
+    },
+    {
+      "canvas": 57,
+      "label": "58",
+      "role": "L132_LOSSGAIN_TARGET"
+    },
+    {
+      "canvas": 58,
+      "label": "59",
+      "role": "L159_SAME_COPY_SYMMETRY_CONTROL"
+    },
+    {
+      "canvas": 68,
+      "label": "69",
+      "role": "LUNAR_LIMIT_XINGDU_TABLE_OPENING_AND_SCHEMA"
+    },
+    {
+      "canvas": 70,
+      "label": "71",
+      "role": "L124_DERIVED_LIMIT_XINGDU_CONTROL"
+    }
+  ],
+  "findings": {
+    "solar_d16": {
+      "visible_table": "太陽盈縮立成",
+      "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+      "finding": "The independent Kyushu 1673 copy repeats the Ogawa solar-table structure without a separate 日差/消息分-type D16 control column; neither 5.1362 nor 5.2362 may be inferred from neighboring derived columns.",
+      "direct_raw_target_value": null
+    },
+    "lunar_chiji_schema": {
+      "visible_fields": [
+        "限數",
+        "遲疾曆日率",
+        "損益分",
+        "遲疾積"
+      ],
+      "finding": "The Kyushu copy supplies same-copy positional controls for the split vertical typography; linear serialization is not required to establish relative surface identity."
+    },
+    "l8_l159_symmetry": {
+      "target_control": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "same_copy_control": "SYM-LUNAR-L159-LOSSGAIN",
+      "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_EXPECTED_SIGN_REVERSAL_益_TO_損",
+      "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+      "significance": "This directly constrains the Ogawa split-place typography without importing Goryeosa or Ming surface serialization."
+    },
+    "l35_l132_symmetry": {
+      "target_control": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "same_copy_control": "SYM-LUNAR-L35-LOSSGAIN-ZERO",
+      "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_EXPECTED_SIGN_REVERSAL_益_TO_損",
+      "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+      "significance": "The Kyushu Ogawa copy does not reproduce the Goryeosa L35-versus-L132 visible compact-surface contrast as an identical physical practice; source-specific typography must remain separate."
+    },
+    "l67_l101_positional": {
+      "target_control": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "same_copy_control": "SYM-LUNAR-L67-CHIJI-DEGREE-ZERO",
+      "relation": "SAME_SYMMETRIC_MECHANICAL_POSITION_WITH_DIFFERENT_VISIBLE_ZERO_PLACE_GROUP_SURFACE",
+      "normalized_value": "NOT_REDERIVED_FROM_PHOTOGRAPH_ALONE",
+      "significance": "Surface-string equality is rejected as a requirement for mechanical identity; explicit positional analysis is required."
+    },
+    "l114": {
+      "control": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "direct_surface": "九日三四八九",
+      "normalized_value": "9日3489",
+      "reading_confidence": "HIGH",
+      "finding": "KYUSHU_1673_ALIGNS_WITH_NDL_OGAWA_MING_1569_KRDB_DIRECT_CADAL_WIKISOURCE_AT_3489"
+    },
+    "lunar_limit_xingdu_schema": {
+      "visible_table_title": "遲疾限行度",
+      "visible_fields": [
+        "疾曆限行度",
+        "遲曆限行度"
+      ],
+      "philological_classification": "RELATED_LABEL_DIFFERENT_NUMERIC_LAYER_FROM_MING_1569_RAW_XINGDU",
+      "initial_limit_direct_normalized_controls": {
+        "疾曆限行度": "0.0679314",
+        "遲曆限行度": "0.0832064"
+      },
+      "ming_1569_correspondence": {
+        "疾曆捷法": "0.0679314",
+        "遲曆捷法": "0.0832064",
+        "relation": "NUMERIC_LAYER_MATCHES_RECIPROCAL_SHORTCUT_NOT_RAW_1E_MINUS_4_DEGREE_XINGDU"
+      }
+    },
+    "l124": {
+      "control": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "row_binding": "DIRECT_L124_ROW_IN_KYUSHU_遲疾限行度_TABLE",
+      "direct_raw_ji_xingdu_value": null,
+      "direct_derived_values": {
+        "疾曆限行度": "0.0797587",
+        "遲曆限行度": "0.0704164"
+      },
+      "ming_1569_link": {
+        "raw_ji_xingdu": "1.0281",
+        "raw_chi_xingdu": "1.1645",
+        "derived_ji_shortcut": "0.0797587",
+        "derived_chi_shortcut": "0.0704164",
+        "relation": "EXACT_DERIVED_LAYER_ALIGNMENT_AT_PRINTED_PRECISION"
+      },
+      "goryeosa_received_variant_counterfactual": {
+        "raw_ji_xingdu": "1.0821",
+        "derived_truncate_7dp": "0.0757785",
+        "printed_in_kyushu_l124_ji_derived_field": false
+      },
+      "classification": "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH",
+      "significance": "The prior claim that canvas 70 directly prints the raw Ji xingdu is rejected. The Kyushu witness nevertheless independently constrains the lineage through its reciprocal/shortcut layer and does not support a 1.0821-derived value at L124."
+    }
+  },
+  "epistemic_boundaries": {
+    "workflow_success_as_diplomatic_reading": "FORBIDDEN",
+    "page_fetch_as_target_value": "FORBIDDEN",
+    "same_named_or_related_table_as_same_numeric_layer": "FORBIDDEN",
+    "l124_derived_control_as_direct_raw_ji_xingdu_glyph": "FORBIDDEN",
+    "derived_control_as_transmission_cause": "FORBIDDEN",
+    "kyushu_1673_as_g893_substitute": "FORBIDDEN",
+    "kyushu_1673_as_ming_1569_primary_authority": "FORBIDDEN",
+    "unresolved_split_layout_as_forced_linear_string": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "runtime_effect": "NONE",
+  "next_work": [
+    "Bind the same six controls in the early G893 physical witness when direct images become reachable.",
+    "Use Ogawa same-copy symmetry only for philological/positional interpretation; do not back-fill a linear surface string where the photograph does not require one.",
+    "Continue transmission-genealogy adjudication among Goryeosa received surfaces, Ming 1569 primary, Ogawa 1673 NDL/Kyushu and G893 without collapsing chronology or source rank."
+  ]
+}
