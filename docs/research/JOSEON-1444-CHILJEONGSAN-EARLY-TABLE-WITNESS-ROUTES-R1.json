@@ -1,7 +1,7 @@
 {
   "schema": "JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1",
-  "schema_version": "1.0.0",
-  "status": "G894_1444_PRINT_AND_SEJONG_SILLOK_TABLE_ROUTES_BOUND_TARGET_GLYPHS_PENDING",
+  "schema_version": "1.1.0",
+  "status": "G894_FIVE_LUNAR_TARGETS_DIRECTLY_CLOSED_D16_STRUCTURALLY_NONCOMPARABLE_SILLOK_FIVE_LUNAR_CLOSED_G893_PENDING",
   "purpose": "Add independent early-Joseon Shoushi/Datong-derived table witnesses to the cross-edition transmission audit without conflating them with Kyujanggak G893.",
   "witnesses": {
     "kyujanggak_g894": {
@@ -16,7 +16,9 @@
       "original_text_advertised": true,
       "observed_catalog_image_surface_book_cd": "GK00894_00",
       "relationship_to_g893": "SEPARATE_WORK_AND_SEPARATE_CATALOG_OBJECT; ADJACENT_PRECIOUS_BOOK_CALL_NUMBER_DOES_NOT_PROVE_SHARED_IMPRESSION_OR_COPY_GENEALOGY",
-      "target_glyph_authority": "PENDING_EXACT_PAGE_BINDING"
+      "target_glyph_authority": "FIVE_LUNAR_CONTROLS_DIRECT_NATIVE_READINGS_CLOSED_AFTER_DIRECT_METHOD_FIELD_BRIDGE; SOLAR_D16_TARGET_FIELD_STRUCTURALLY_ABSENT",
+      "direct_reading_artifact": "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json",
+      "field_semantic_bridge_artifact": "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json"
     },
     "sejong_sillok_v156": {
       "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
@@ -62,37 +64,37 @@
   "target_controls": [
     {
       "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "g894_status": "EXACT_DAY16_PAGE_BOUND_TARGET_SECOND_DIFFERENCE_FIELD_STRUCTURALLY_ABSENT_NO_VALUE",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
       "g893_effect": "NONE"
     },
     {
       "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "g894_status": "DIRECT_NATIVE_READ_益一十〇分五六〇一七七五_NORMALIZED_10.5601775",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
       "g893_effect": "NONE"
     },
     {
       "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO_AND_POSITIONAL_READING",
+      "g894_status": "DIRECT_NATIVE_READ_五度二十〇四八一一二五_NORMALIZED_5.20481125_EXPLICIT_ZERO",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
       "g893_effect": "NONE"
     },
     {
       "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "g894_status": "DIRECT_NATIVE_READ_九日三四八九",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
       "g893_effect": "NONE"
     },
     {
       "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO_AND_FIELD_IDENTITY",
+      "g894_status": "DIRECT_NATIVE_READ_疾一度〇二八一_NORMALIZED_1.0281_FIELD_IDENTITY_CLOSED",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_AND_FIELD_IDENTITY_PENDING",
       "g893_effect": "NONE"
     },
     {
       "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
-      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "g894_status": "DIRECT_NATIVE_READ_損七分八八六〇七五_NORMALIZED_7.886075_EXPLICIT_ZERO",
       "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
       "g893_effect": "NONE"
     }
@@ -112,12 +114,12 @@
     "Adds a provider-dated 1444 Joseon official computational print witness (G894) to the transmission graph.",
     "Adds official Sejong Sillok article-level and Taebaeksan leaf-level localization for the same solar and lunar table families.",
     "Creates a non-G893 route to test whether the disputed Goryeosa/Ming surfaces persisted or changed in mid-15th-century Joseon computation.",
-    "Does not reduce any of the six G893 target statuses from pending."
+    "Does not reduce any of the six G893 target statuses from pending.",
+    "Direct G894 cell-level evidence is mixed rather than bloc-like: L8 follows the Goryeosa/Sillok value branch while L124 follows the Ming/Sillok 1.0281 branch; L101/L132 retain explicit zero surfaces. This forbids copy-wide variant inheritance."
   ],
   "next_work": [
-    "Extract or directly render the Sillok original-image viewer identifiers for wda_50016011 and wda_50016016, then read target cells without OCR.",
-    "Bind Kyujanggak G894 exact solar and lunar table folios through its original-image service.",
-    "Compare G894, Sejong Sillok, G893 and Goryeosa only after each exact target cell is independently read.",
-    "Preserve G893 as the required independent Shoushi-licheng physical witness; do not substitute G894 or Sillok for it."
+    "Continue G893 independent direct target-page acquisition; neither G894 nor Sillok substitutes for G893.",
+    "Use the five directly mapped G894 lunar controls only in cell-level transmission analysis.",
+    "Keep G894 solar D16 structurally non-comparable because the active second numeric difference field is absent rather than infer a value from neighboring columns."
   ]
 }
