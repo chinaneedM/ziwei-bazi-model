@@ -43,15 +43,25 @@ class NdlOgawa1673ShoushiLichengDirectControlReadingsR1Tests(unittest.TestCase):
         self.assertEqual(r["d16_locator_revision_width_px"], 7392)
         self.assertFalse(r["native_fetch_authorizes_target_values"])
 
-    def test_independent_same_edition_holding_does_not_promote_glyph_evidence(self) -> None:
+    def test_independent_same_edition_holding_is_now_cross_linked_to_direct_collation(self) -> None:
         b = self.data["bibliographic_corroboration"]
         kyushu = b["kyushu_university_independent_holding"]
         self.assertEqual(kyushu["publication_date"], "寛文13年 [1673]")
         self.assertTrue(kyushu["public_domain"])
         self.assertIn("manifest", kyushu["iiif_manifest"])
-        self.assertIn("NOT_YET_TARGET_GLYPH_EVIDENCE", kyushu["role"])
+        self.assertIn("NOW_DIRECTLY_COLLATED", kyushu["role"])
         self.assertEqual(
+            kyushu["direct_collation_artifact"],
+            "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
+        )
+        self.assertEqual(kyushu["direct_collation_workflow_run_id"], 34010515542)
+        self.assertEqual(kyushu["direct_collation_artifact_id"], 9982311056)
+        self.assertIn(
+            "FORBIDDEN_WITHOUT_DIRECT_IMAGE_BINDING",
             self.data["epistemic_boundaries"]["independent_same_edition_catalog_as_target_glyph"],
+        )
+        self.assertEqual(
+            self.data["epistemic_boundaries"]["ndl_l124_absence_as_all_ogawa_holdings"],
             "FORBIDDEN",
         )
 
