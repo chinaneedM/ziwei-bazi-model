@@ -1,0 +1,122 @@
+{
+  "schema": "KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "status": "COPY_LEVEL_DATE_RANGE_CLOSED_EXACT_YEAR_UNRESOLVED_PUBLIC_OPENING_SOLAR_OBJECT_FIGURE_BOUND_TARGET_FOLIOS_PENDING",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "catalog_identifier": "奎貴893",
+  "book_cd": "GK00893_00",
+  "provider_catalog": {
+    "edition": "甲寅字",
+    "date": "15世紀前半（世宗年間 1418-1450）",
+    "physical_description": "1冊(102張); 38×24.8cm; M/F73-102-37-A",
+    "digital_materials_available": true,
+    "exact_print_year_stated": false
+  },
+  "exact_print_year_adjudication": {
+    "project_copy_level_value": "UNRESOLVED_WITHIN_1418_1450_PROVIDER_RANGE",
+    "evidence": [
+      {
+        "source_id": "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+        "claim": "授時曆立成 listed under 1434 first-cast 甲寅字 print history",
+        "evidence_type": "MODERN_PRINT_HISTORY_DATABASE",
+        "copy_specific_colophon": false
+      },
+      {
+        "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+        "claim": "existing Kyujanggak copy reported as reprinted in 1434",
+        "evidence_type": "PEER_REVIEWED_SECONDARY_VERSION_STUDY",
+        "copy_specific_colophon": false
+      },
+      {
+        "source_id": "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+        "claim": "Kyujanggak collection no. 893 referenced as printed in 1444",
+        "evidence_type": "PEER_REVIEWED_NUMERICAL_TABLE_HISTORY_CHAPTER",
+        "copy_specific_colophon": false
+      }
+    ],
+    "disposition": "PRESERVE_1434_AND_1444_AS_CONFLICTING_SECONDARY_REPORTS; USE_PROVIDER_1418_1450_RANGE_FOR_SURVIVING_COPY_UNTIL_COPY_SPECIFIC_PRIMARY_OR_INSTITUTIONAL_EXACT_YEAR_EVIDENCE",
+    "target_value_effect": "NONE",
+    "chronological_weighting_effect": "DO_NOT_USE_1434_OR_1444_AS_A_TIE_BREAKER_FOR_NUMERIC_VARIANTS"
+  },
+  "public_object_figure": {
+    "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+    "article_figure_number": 1,
+    "image_url": "https://figures.academia-assets.com/113199903/figure_001.jpg",
+    "caption_identity": "Shoushi li licheng preserved in the Kyujanggak Library of Seoul National University",
+    "directly_visible": [
+      "cover title 授時曆",
+      "授時曆立成卷上",
+      "嘉儀大夫太史令臣王恂奉敕撰",
+      "太陽冬至前後二象盈初縮末限",
+      "solar day columns 初日, 一日, 二日, 三日, 四日, 五日, 六日, 七日, 八日"
+    ],
+    "object_level_role": "PUBLIC_SECONDARY_REPRODUCTION_OF_THE_ACTUAL_EARLY_KOREAN_SHOUSHI_LICHENG_OBJECT",
+    "direct_target_control_visible": false,
+    "exact_folio_number_visible": false,
+    "target_value_authorized": false,
+    "localization_result": "G893_SOLAR_TABLE_OPENING_AND_INITIAL_TO_DAY8_BLOCK_DIRECTLY_VISIBLE_OUTSIDE_PROVIDER_RENDERER"
+  },
+  "catalog_thumbnail_control": {
+    "directly_observed_links": [
+      {
+        "image_file": "GK00893_00IH_0001_000a.jpg",
+        "role": "CATALOG_COVER_OR_INITIAL_THUMBNAIL"
+      },
+      {
+        "image_file": "GK00893_00IH_0001_004b.jpg",
+        "role": "CATALOG_SECONDARY_SAMPLE_THUMBNAIL"
+      }
+    ],
+    "item_cd": "SIC",
+    "filename_prefix": "GK00893_00IH_0001_",
+    "relation_to_public_figure": "NOT_ASSUMED; THE_PUBLIC_FIGURE_IS_NOT_MAPPED_TO_004B_OR_ANY_THUMBNAIL_TOKEN_WITHOUT_DIRECT_PIXEL_OR_PROVIDER_BINDING",
+    "target_folio_effect": "NONE"
+  },
+  "six_target_status": [
+    {
+      "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "status": "PENDING_DIRECT_TARGET_PAGE",
+      "opening_figure_effect": "SEARCH_SPACE_REDUCED_TO_LATER_SOLAR_TABLE_PAGE_ONLY"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "status": "PENDING_DIRECT_TARGET_PAGE",
+      "opening_figure_effect": "NONE"
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "status": "PENDING_DIRECT_TARGET_PAGE",
+      "opening_figure_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "status": "PENDING_DIRECT_TARGET_PAGE",
+      "opening_figure_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "status": "PENDING_DIRECT_TARGET_PAGE_AND_FIELD_IDENTITY",
+      "opening_figure_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "status": "PENDING_DIRECT_TARGET_PAGE",
+      "opening_figure_effect": "NONE"
+    }
+  ],
+  "epistemic_boundaries": {
+    "exact_year_from_typeface_year": "FORBIDDEN",
+    "exact_year_from_single_secondary_source": "FORBIDDEN_WHILE_CONFLICTING_SECONDARY_REPORTS_EXIST",
+    "public_opening_figure_as_d16_value": "FORBIDDEN",
+    "public_opening_figure_as_lunar_value": "FORBIDDEN",
+    "catalog_thumbnail_token_as_public_figure_page_identity": "FORBIDDEN",
+    "goryeosa_or_ming_value_as_g893_prepopulation": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "next_work": [
+    "LOCATE_PUBLIC_REPRODUCTION_OR_DIRECT_RENDERER_PAGE_VISIBLY_CONTAINING_SOLAR_DAY16",
+    "LOCATE_G893_LUNAR_TABLE_TARGET_PAGES_BY_PRINTED_LIMIT_HEADINGS_AND_FIELD_IDENTITY",
+    "KEEP_EXACT_COPY_YEAR_UNRESOLVED_UNLESS_COPY_SPECIFIC_PRIMARY_OR_PROVIDER_EVIDENCE_CLOSES_1434_VS_1444",
+    "DO_NOT_ENTER_ANY_G893_TARGET_NUMERIC_VALUE_BEFORE_DIRECT_TARGET_IMAGE_READING"
+  ]
+}
