@@ -108,7 +108,7 @@ Historical research proceeds in evidence-risk order:
 No winner is selected for a genuinely disputed school rule solely to simplify product output.
 
 
-## Progress through Batch 11C
+## Progress through Batch 11O
 
 - Batch 01: Time / Dayun / Xiaoyun.
 - Batch 02: Bazi natal / derived foundations; repaired Twelve-Growth and NaYin provenance metadata.
@@ -153,6 +153,8 @@ No winner is selected for a genuinely disputed school rule solely to simplify pr
 - Batch 11M: resolved two prerequisites around the early Kyujanggak G893 witness without inventing a target value. First, copy chronology is now fail-closed: the live Kyujanggak provider dates the surviving 甲寅字 copy only to the first half of the 15th century / Sejong 1418-1450, while KOSTMA and Li 2018 report 1434 and Li's later 2022 numerical-table chapter cites collection no. 893 as printed in 1444. Therefore the exact surviving-copy print year is `UNRESOLVED_WITHIN_1418_1450_PROVIDER_RANGE`, and neither 1434 nor 1444 may be used as a numeric-variant tie-breaker. Second, Li 2023 Figure 1 is now bound as a public secondary reproduction of the actual Kyujanggak Shoushi-licheng object: it directly shows cover `授時曆`, `授時曆立成卷上`, `嘉儀大夫太史令臣王恂奉敕撰`, `太陽冬至前後二象盈初縮末限`, and the opening solar columns 初日–八日. This narrows the solar search to a later page containing 十六日 but does not bind D16, any lunar target, any exact folio token, or any target numeric value. All six G893 controls remain pending direct target-page reading; no runtime or algorithm effect.
 
 - Batch 11N: established two **independent early-Joseon comparison routes** adjacent to, but explicitly not substituting for, G893. Kyujanggak directly catalogs `七政算內篇 奎貴894-v.1-3` as 李純之/金淡受命編, 甲寅字, **1444**, with original-image/original-text services; call-number adjacency `893/894` is forbidden as a genealogy inference. Separately, the National Institute of Korean History official `世宗實錄 卷156` service binds `太陽冬至前後二象盈初縮末限` to Taebaeksan `60冊 156卷 6張 A面` and `太陰限數遲疾度` to `60冊 156卷 13張 A面`, with an original-image route. These create a same-period official Joseon computational/received-table control for future cross-edition adjudication, but no D16/L8/L101/L114/L124/L132 target glyph has yet been read from G894 or Sillok. G894≠G893, Sillok≠G894 physical glyph surface, source count is not adjudication, and runtime/algorithm effect remains none.
+
+- Batch 11O: directly collated five lunar controls from the National Institute of Korean History's official Taebaeksan native Sillok JPEGs, with no OCR. L8 reads `益一十〇分五六〇一七七五` (=10.5601775); L101 reads `五度二十〇四八一一二五` (=5.20481125) with explicit positional zero; L114 reads `九日三四八九`; L124 reads `疾一度〇二八一` (=1.0281); L132 reads `損七分八八六〇七五` (=7.886075). The evidence is mixed at cell level: L8 follows the Goryeosa received branch while L124 follows Ming 1569 / mechanically linked Ogawa evidence, so source-bloc voting is rejected. The directly bound solar 6A page does not contain D16; a physical-span transport probe and the official viewer next-node API walk were network-unavailable, so D16 remains pending and no guessed continuation filename/page/value is admitted. G894 and G893 remain independently pending; runtime and algorithm state are unchanged.
 
 The 1581 edition identity is independently corroborated by Shanghai Library linked-data instance `EXT-SHANGHAI-LIB-JIELAN-1581` (子4051; 明万历九年金陵书坊王洛川刻本). This is a bibliographic witness, not a substitute for chapter/facsimile rule-text collation.
 
