@@ -141,7 +141,7 @@ def main() -> int:
     for fragment in ("Batch 11P", "損益分", "五度二十〇四八一一二五", "STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT", "PENDING_DIRECT_TARGET_PAGE"):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11P G894 collation focus: {fragment}")
-    for fragment in ("Batch 11Q", "GITHUB_HOSTED_WINDOWS", "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015", "姜保", "PENDING_DIRECT_TARGET_PAGE"):
+    for fragment in ("Batch 11Q", "Ubuntu, macOS and Windows", "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015", "姜保", "PENDING_DIRECT_TARGET_PAGE"):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11Q G893 access/mirror focus: {fragment}")
 
