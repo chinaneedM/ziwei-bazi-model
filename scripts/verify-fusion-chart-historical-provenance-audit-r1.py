@@ -677,6 +677,38 @@ def main() -> int:
         raise SystemExit("Batch 11O source-registry L124 reading mismatch")
     if nikh_sillok.get("solar_d16_status") != "6A_DIRECT_NATIVE_PAGE_BOUND_BUT_D16_CONTINUATION_NOT_YET_DIRECTLY_BOUND":
         raise SystemExit("Batch 11O source-registry solar status mismatch")
+    for path in (KYUJANGGAK_G894_DIRECT_COLLATION,KYUJANGGAK_G894_DIRECT_COLLATION_TEST,KYUJANGGAK_G894_FIELD_BRIDGE,KYUJANGGAK_G894_FIELD_BRIDGE_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11P G894 artifact/test missing: {path.relative_to(ROOT)}")
+    g894_direct=json.loads(KYUJANGGAK_G894_DIRECT_COLLATION.read_text(encoding="utf-8"))
+    if g894_direct.get("schema") != "KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1":
+        raise SystemExit("Batch 11P G894 direct-collation schema mismatch")
+    if g894_direct.get("catalog_identifier") != "奎貴894-v.1-3" or g894_direct.get("book_cd") != "GK00894_00" or g894_direct.get("item_cd") != "GJB":
+        raise SystemExit("Batch 11P G894 provider object identity mismatch")
+    if g894_direct.get("runtime_effect") != "NONE" or g894_direct.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 11P G894 evidence was promoted to runtime")
+    g894_by_control={item.get("control_id"):item for item in g894_direct.get("target_pages",())}
+    expected_g894={
+        "VAR-NUM-LUNAR-L8-LOSSGAIN":("益一十〇分五六〇一七七五","10.5601775"),
+        "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING":("五度二十〇四八一一二五","5.20481125"),
+        "VAR-NUM-LUNAR-L114-DAYRATE":("九日三四八九","9日3489"),
+        "VAR-NUM-LUNAR-L124-JI-XINGDU":("疾一度〇二八一","1.0281"),
+        "VAR-NUM-LUNAR-L132-LOSSGAIN":("損七分八八六〇七五","7.886075"),
+    }
+    for control_id,(surface,normalized) in expected_g894.items():
+        item=g894_by_control.get(control_id,{})
+        if item.get("direct_surface") != surface or item.get("normalized_value") != normalized or item.get("reading_confidence") != "HIGH":
+            raise SystemExit(f"Batch 11P G894 direct reading mismatch: {control_id}")
+    d16=g894_by_control.get("VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",{})
+    if d16.get("target_value_status") != "STRUCTURALLY_NONCOMPARABLE_NO_G894_VALUE" or d16.get("target_value") is not None:
+        raise SystemExit("Batch 11P G894 solar D16 structural status mismatch")
+    bridge=json.loads(KYUJANGGAK_G894_FIELD_BRIDGE.read_text(encoding="utf-8"))
+    if bridge.get("direct_header",{}).get("columns") != ["限數","遲疾曆日率","損益分","遲疾度","疾曆限行度","遲曆限行度"]:
+        raise SystemExit("Batch 11P G894 six-column header mismatch")
+    method_text="\n".join(item.get("stable_surface","") for item in bridge.get("direct_method_fragments",()))
+    for fragment in ("損益分乘之如八百二十而一","以八百二十乘之","遲疾限下行度除之"):
+        if fragment not in method_text:
+            raise SystemExit(f"Batch 11P G894 method bridge missing: {fragment}")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
