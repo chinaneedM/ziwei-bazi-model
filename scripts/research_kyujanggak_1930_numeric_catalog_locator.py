@@ -103,6 +103,21 @@ def observed_identifiers(text: str) -> dict[str, object]:
     return {"book_cds": book_cds, "item_cds": item_cds}
 
 
+def target_item_cds(text: str, book_cd: str) -> list[str]:
+    values: list[str] = []
+    patterns = (
+        rf"ThumbServlet\\.do\\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
+        rf"fn_originalImg\\(['\"]([A-Za-z0-9_-]+)['\"]\\s*,\\s*['\"]{re.escape(book_cd)}['\"]",
+        rf"Sns\\.do\\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, text, flags=re.I):
+            value = match.group(1)
+            if value not in values:
+                values.append(value)
+    return values
+
+
 def parse_renderer(text: str) -> dict[str, object]:
     result: dict[str, object] = {}
     m = re.search(r'''first_page_no\s*=\s*["']([A-Za-z0-9]+)["']''', text)
@@ -210,15 +225,17 @@ def main() -> int:
             "observed_identifiers": detail_ids,
             "urls": extract_urls(detail)[:400],
         }
-        item_cds = detail_ids["item_cds"]
-        if len(item_cds) == 1:
-            observed_item_cd = item_cds[0]
+        target_items = target_item_cds(detail, book_cd)
+        result["detail_observation"]["target_bound_item_cds"] = target_items
+        if len(target_items) == 1:
+            observed_item_cd = target_items[0]
             result["observed_item_cd"] = observed_item_cd
 
     if not observed_item_cd:
-        item_cds = ids["item_cds"]
-        if len(item_cds) == 1:
-            observed_item_cd = item_cds[0]
+        target_items = target_item_cds(ctx, book_cd)
+        result["list_observation"]["target_bound_item_cds"] = target_items
+        if len(target_items) == 1:
+            observed_item_cd = target_items[0]
             result["observed_item_cd"] = observed_item_cd
 
     if observed_item_cd:
