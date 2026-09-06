@@ -115,6 +115,7 @@ def main() -> int:
         "BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N",
         "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
         "BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P",
+        "BATCH-11-BAZI-G893-ACCESS-MIRROR-ROUTES-Q",
     )
     for batch_id in required_recent_batches:
         if batch_id not in audit_state.get("completed_batches", ()):
@@ -124,7 +125,7 @@ def main() -> int:
     latest_batch_doc = ROOT / audit_state["latest_batch_doc"]
     if not latest_batch_doc.is_file():
         fail(f"current-state latest batch document does not exist: {audit_state['latest_batch_doc']}")
-    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P.md"
+    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-ACCESS-MIRROR-ROUTES-Q.md"
     if audit_state.get("latest_batch_doc") != expected_latest:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
     focus_text = "\n".join(audit_state.get("current_focus", ()))
@@ -140,6 +141,9 @@ def main() -> int:
     for fragment in ("Batch 11P", "損益分", "五度二十〇四八一一二五", "STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT", "PENDING_DIRECT_TARGET_PAGE"):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11P G894 collation focus: {fragment}")
+    for fragment in ("Batch 11Q", "GITHUB_HOSTED_WINDOWS", "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015", "姜保", "PENDING_DIRECT_TARGET_PAGE"):
+        if fragment not in focus_text:
+            fail(f"current-state lost Batch 11Q G893 access/mirror focus: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
