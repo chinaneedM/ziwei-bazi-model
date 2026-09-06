@@ -1,0 +1,32 @@
+name: research-sillok-solar-winter-physical-span
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-sillok-solar-winter-physical-span.yml"
+      - "scripts/research_sillok_solar_winter_physical_span.py"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check pillow
+      - name: Probe the physical-page span between the two officially located solar articles
+        run: python scripts/research_sillok_solar_winter_physical_span.py
+      - name: Upload no-OCR physical-page evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sillok-solar-winter-physical-span-${{ github.sha }}
+          path: artifacts/sillok-solar-winter-physical-span/
+          if-no-files-found: warn
+          retention-days: 7
