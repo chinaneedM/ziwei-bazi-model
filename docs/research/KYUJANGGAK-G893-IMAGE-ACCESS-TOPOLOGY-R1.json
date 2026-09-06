@@ -1,7 +1,7 @@
 {
   "schema": "KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1",
-  "schema_version": "1.3.0",
-  "status": "PUBLIC_THUMBNAIL_FILENAMES_PUBLIC_SCHOLARLY_OBJECT_FIGURE_DOCUMENTED_RENDERER_PROTOCOL_AND_NON_GITHUB_ACCESS_WITNESS_BOUND_TARGET_FOLIOS_UNRESOLVED",
+  "schema_version": "1.4.0",
+  "status": "GITHUB_HOSTED_ACCESS_ROUTES_CLOSED_NON_GITHUB_AND_LEGACY_MIRROR_ROUTES_IDENTIFIED_TARGET_FOLIOS_UNRESOLVED",
   "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
   "book_cd": "GK00893_00",
   "catalog_identifier": "奎貴893",
@@ -40,7 +40,9 @@
     "G893_CURL_CFFI_PROBE_RESETS_ON_GITHUB_HOSTED_UBUNTU_MACOS_AND_WINDOWS",
     "ALL_TESTED_GITHUB_HOSTED_OS_FAMILIES_ARE_NOW_EXHAUSTED_FOR_EQUIVALENT_G893_RENDERER_PROBES",
     "WIKIMEDIA_COMMONS_2026_08_26_UPLOAD_FOR_KYUJANGGAK_GK17375_00_DEMONSTRATES_SUCCESSFUL_NON_GITHUB_RENDERER_ACQUISITION_ON_ANOTHER_OBJECT",
-    "OTHER_OBJECT_NON_GITHUB_ACCESS_PROVES_RENDERER_NOT_GLOBALLY_UNAVAILABLE_BUT DOES_NOT_BIND_ANY_G893_PAGE_OR_GLYPH"
+    "OTHER_OBJECT_NON_GITHUB_ACCESS_PROVES_RENDERER_NOT_GLOBALLY_UNAVAILABLE_BUT DOES_NOT_BIND_ANY_G893_PAGE_OR_GLYPH",
+    "LEGACY_DVD04_CATALOG_LISTS_授時曆立成_AS_PDF_OR_DJVU_PACKAGE_MEMBER_BUT_FILE_IDENTITY_IS_UNVERIFIED",
+    "KASI_1997_TABLE_3_INDEPENDENTLY_LISTS_授時曆立成_AND_姜保授時曆捷法立成_AS_SEPARATE_WORKS"
   ],
   "hosted_runner_boundary": {
     "status": "DO_NOT_REPEAT_EQUIVALENT_GITHUB_HOSTED_TRANSPORTS_ON_ANY_TESTED_OS_FAMILY",
@@ -102,14 +104,18 @@
     "image_url_construction_as_target_glyph_reading": "FORBIDDEN",
     "secondary_exact_year_as_provider_copy_date": "FORBIDDEN_WHILE_1434_1444_REPORTS_CONFLICT_AND_PROVIDER_ONLY_GIVES_1418_1450",
     "other_kyujanggak_object_renderer_success_as_g893_access_proof": "FORBIDDEN",
-    "other_kyujanggak_object_renderer_success_as_g893_folio_or_glyph_evidence": "FORBIDDEN"
+    "other_kyujanggak_object_renderer_success_as_g893_folio_or_glyph_evidence": "FORBIDDEN",
+    "legacy_package_catalog_as_g893_copy_identity": "FORBIDDEN",
+    "legacy_package_catalog_as_target_page_or_glyph_evidence": "FORBIDDEN",
+    "kang_bo_jiefa_licheng_as_g893_substitute": "FORBIDDEN"
   },
   "next_work": [
+    "SEARCH_FOR_AN_AUTHORIZED_OR_PUBLICLY_REVIEWABLE_COPY_OF_THE_LEGACY_DVD04_授時曆立成_FILE_AND_BIND_IT_TO_GK00893_00_BY_VISIBLE_OBJECT_METADATA_BEFORE_USE",
     "SEARCH_FOR_ADDITIONAL_PUBLIC_REPRODUCTIONS_OR_MIRRORS_OF_G893_PAGES_BEYOND_THE_OPENING_SOLAR_PAGE",
     "USE_THE_DOCUMENTED_RENDERER_AND_IMAGESERVLET_PROTOCOL_ONLY_FROM_A_NON_GITHUB_HOSTED_BROWSER_OR_NETWORK_PATH; DO_NOT REPEAT EQUIVALENT GITHUB HOSTED RUNNERS",
     "BIND_SOLAR_D16_ONLY_FROM_A_PAGE_THAT_VISIBLY_CONTAINS_DAY16_AND_THE_CORRECT_FIELD_SCHEMA",
     "BIND_LUNAR_L8_L101_L114_L124_L132_BY_PRINTED_TABLE_HEADINGS_LIMIT_NUMBERS_AND_FIELD_IDENTITY",
-    "READ_TARGET_GLYPHS_DIRECTLY_WITHOUT_PREPOPULATING_VALUES_FROM_GORYEOSA_MING_OGAWA_G894_OR_SILLOK"
+    "READ_TARGET_GLYPHS_DIRECTLY_WITHOUT_PREPOPULATING_VALUES_FROM_GORYEOSA_MING_OGAWA_G894_SILLOK_OR_姜保授時曆捷法立成"
   ],
   "access_protocol_evidence": {
     "public_supported_url_example": {
@@ -214,5 +220,37 @@
     "same_object_as_g893": false,
     "g893_target_folio_effect": "NONE",
     "g893_target_glyph_effect": "NONE"
+  },
+  "mirror_and_reproduction_routes": [
+    {
+      "source_id": "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015",
+      "route_type": "THIRD_PARTY_LEGACY_OFFLINE_DIGITAL_PACKAGE_CATALOG",
+      "observed_title": "授時曆立成",
+      "observed_volume": "DVD04",
+      "observed_formats": [
+        "PDF",
+        "DJVU"
+      ],
+      "actual_file_retrieved": false,
+      "g893_identity_bound": false,
+      "target_folio_effect": "NONE",
+      "target_glyph_effect": "NONE",
+      "use_boundary": "LOCATOR_LEAD_ONLY_UNTIL_AUTHORIZED_OR_PUBLICLY_REVIEWABLE_FILE_IS_RETRIEVED_AND_MATCHED_TO_GK00893_00"
+    },
+    {
+      "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+      "route_type": "PUBLIC_PEER_REVIEWED_SECONDARY_REPRODUCTION",
+      "observed_surface": "G893-family opening solar table, 初日 through 八日",
+      "actual_target_page_reproduced": false,
+      "target_folio_effect": "NARROWS_SOLAR_SEARCH_TO_LATER_PAGE_WITH_VISIBLE_十六日_ONLY",
+      "target_glyph_effect": "NONE"
+    }
+  ],
+  "work_identity_separation_control": {
+    "source_id": "EXT-KASI-YU-GYUNG-RO-SEJONG-CALENDAR-PUBLICATION-1997",
+    "finding": "TABLE_3_LISTS_授時曆立成_AND_姜保_授時曆捷法立成_AS_SEPARATE_BOOKS",
+    "effect": "REINFORCES_EXISTING_NO_MERGE_BOUNDARY",
+    "target_folio_effect": "NONE",
+    "target_glyph_effect": "NONE"
   }
 }
