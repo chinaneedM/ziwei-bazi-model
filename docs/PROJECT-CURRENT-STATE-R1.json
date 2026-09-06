@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.8.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -77,15 +77,20 @@
       "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L",
       "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M",
       "BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N",
-      "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O"
+      "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
+      "BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P.md",
     "current_focus": [
+      "Batch 11P directly closes five Kyujanggak G894 1444 native-image lunar controls with no OCR after G894's own method prose closes field semantics: L8=10.5601775; L101=5.20481125 surface 五度二十〇四八一一二五 with explicit positional zero; L114=九日三四八九; L124=1.0281 surface 疾一度〇二八一; L132=7.886075 surface 損七分八八六〇七五 with explicit zero.",
+      "Batch 11P corrects the live G894 six-column header to 限數 / 遲疾曆日率 / 損益分 / 遲疾度 / 疾曆限行度 / 遲曆限行度. Page 041b 求遲疾差 directly uses 遲疾曆日率, 損益分, divisor 820 and 遲疾度; 求加減差 directly divides by the applicable 遲疾限下行度. The earlier in-progress 遲疾益分 label is superseded before batch closure and is not a chart algorithm defect.",
+      "G894 solar D16 is STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT: renderer-bound 009a/009b visibly carry day 16 but the table schema is 積日 / 盈縮加分 / 盈縮積 and omits the active second difference/message-difference field. No zero, blank, inferred, or neighboring-column substitute value is authorized.",
+      "G894 is not a copy-wide variant bloc: L8 aligns with the Goryeosa received/Sillok branch while L124 aligns with Ming 1569/Sillok at 1.0281; L101/L132 preserve explicit zeros. Whole-copy inheritance and source-count voting remain forbidden; analysis stays cell-level and mechanically field-mapped.",
+      "G893 remains independently required: all six G893 controls remain PENDING_DIRECT_TARGET_PAGE, and G894/Sillok do not substitute for 授時曆立成卷上 target glyphs. G893 exact copy year remains unresolved across provider 1418-1450 and conflicting secondary 1434/1444 reports.",
       "Batch 11O directly closes five Sejong Sillok Taebaeksan native-image lunar controls with no OCR: L8=10.5601775; L101=5.20481125 with explicit positional zero; L114=9日3489; L124=1.0281; L132=7.886075 with explicit zero.",
       "The Batch 11O Sillok evidence is deliberately cell-level rather than source-bloc: L8 aligns with the Goryeosa received branch against Ming 1569, while L124 aligns with Ming 1569 / mechanically linked Ogawa evidence against Goryeosa 1.0821. Source-count voting and copy-wide variant inheritance remain forbidden.",
       "L101 and L132 in Sillok retain explicit zero glyphs, so the Goryeosa received copy's corresponding zero-omission surfaces are not generalized to early Joseon computational-table practice.",
       "Solar D16 remains pending direct official continuation-image reading. The directly bound 6A image does not contain D16; physical-span workflow 34018914805 returned NO_INTERIOR_CANDIDATE_RETURNED_VALID_OFFICIAL_IMAGE_BYTES, and official image-tree workflow 34019510671 returned START_API_UNAVAILABLE. Neither network result authorizes a filename, page, or numeric inference.",
-      "G894 and G893 remain separate required independent witnesses; none of their six target values is pre-populated from Sillok, Goryeosa, Ming or Ogawa.",
       "Batch 11N witness identity remains active: Kyujanggak 七政算內篇 奎貴894-v.1-3 is a separate 1444 甲寅字 object; Sejong Sillok wda_50016011 is bound to 60冊 156卷 6張 A面 and wda_50016016 to 60冊 156卷 13張 A面. G894, Sillok and G893 remain separate physical/textual witnesses.",
       "G893 copy chronology is now fail-closed rather than silently fixed at 1434: Kyujanggak provider gives only first-half-15C / Sejong 1418-1450, KOSTMA and Li 2018 support 1434, while Li Liang's later 2022 numerical-table chapter cites collection no. 893 as printed in 1444. Preserve 1434/1444 as conflicting secondary reports; exact surviving-copy year remains unresolved and must not weight numeric variants.",
       "Li Liang 2023 Figure 1 is now bound as a public secondary reproduction of the actual Kyujanggak Shoushi-licheng object outside the blocked renderer. It directly shows cover 授時曆, 授時曆立成卷上, 嘉儀大夫太史令臣王恂奉敕撰, 太陽冬至前後二象盈初縮末限, and solar day columns 初日 through 八日. This is object/page-family localization, not a target glyph/value.",
