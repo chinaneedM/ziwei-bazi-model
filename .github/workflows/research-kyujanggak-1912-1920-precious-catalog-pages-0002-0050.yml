@@ -1,0 +1,41 @@
+name: research-kyujanggak-1912-1920-precious-catalog-pages-0002-0050
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - ".github/workflows/research-kyujanggak-1912-1920-precious-catalog-pages-0002-0050.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  page:
+    strategy:
+      fail-fast: false
+      matrix:
+        page: ["0002","0003","0004","0005","0006","0007","0008","0009","0010","0011","0012","0013","0014","0015","0016","0017","0018","0019","0020","0021","0022","0023","0024","0025","0026","0027","0028","0029","0030","0031","0032","0033","0034","0035","0036","0037","0038","0039","0040","0041","0042","0043","0044","0045","0046","0047","0048","0049","0050"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install isolated research dependencies
+        run: python -m pip install --disable-pip-version-check curl_cffi pillow
+      - name: Fetch one no-OCR provider page
+        run: |
+          python scripts/research_kyujanggak_1912_1920_precious_catalog_page.py \
+            --page "${{ matrix.page }}" \
+            --output "artifacts/page-${{ matrix.page }}"
+      - name: Upload provider page
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-1912-1920-full-page-${{ matrix.page }}-${{ github.sha }}
+          path: artifacts/page-${{ matrix.page }}/
+          if-no-files-found: warn
+          retention-days: 7
