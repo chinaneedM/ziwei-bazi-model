@@ -1,0 +1,32 @@
+name: research-sillok-native-transport-probe
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-sillok-native-transport-probe.yml"
+      - "scripts/research_sillok_native_transport_probe.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check pillow
+      - name: Probe two bound Sillok native-image tokens across current and legacy routes
+        run: python scripts/research_sillok_native_transport_probe.py
+      - name: Upload transport evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sillok-native-transport-probe-${{ github.sha }}
+          path: artifacts/sillok-native-transport-probe/
+          if-no-files-found: warn
+          retention-days: 7
