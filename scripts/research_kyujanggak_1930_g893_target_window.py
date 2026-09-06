@@ -17,7 +17,7 @@ BASE = "https://kyudb.snu.ac.kr"
 BOOK_CD = "GK26775_00"
 ITEM_CD = "BBG"
 VOL_NO = "0001"
-PAGES = ("027a","027b","028a","028b","029a","029b","030a","030b")
+PAGES = ("031a","031b","032a","032b")
 RENDERER = BASE + "/pf01/rendererImg.do"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
