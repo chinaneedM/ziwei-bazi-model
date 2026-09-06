@@ -10,9 +10,13 @@ PROTOCOL = ROOT / "docs" / "PROJECT-CONTINUITY-PROTOCOL-R1.md"
 AUTHORITY = ROOT / "docs" / "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
+LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T.md"
+LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1912-1920-PRECIOUS-CATALOG-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
+LATEST_BATCH_ID = "BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T.md"
 
 
 def fail(message: str) -> None:
@@ -20,13 +24,14 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -40,48 +45,46 @@ def main() -> int:
         fail("new-chat startup must require live remote refresh")
 
     authority = state.get("source_authority_policy", {})
-    if authority.get("s00_s19_status") != EXPECTED_S00_S19_STATUS:
-        fail("S00-S19 epistemic status regressed")
-    if authority.get("canonical_path_semantics") != "LEGACY_STORAGE_AND_FREEZE_IDENTITY_NOT_EPISTEMIC_TRUTH":
-        fail("canonical path is being conflated with epistemic truth")
-    if authority.get("modern_software_status") != "COMPATIBILITY_WITNESS_ONLY":
-        fail("modern software authority classification regressed")
-    if authority.get("philology_required") is not True:
-        fail("philological interpretation requirement regressed")
-    if authority.get("terminology_normalization_policy") != "CONTEXTUAL_PHILOLOGY_BEFORE_MECHANICAL_RULE_IDENTITY":
-        fail("terminology normalization policy regressed")
-    if authority.get("homonym_policy") != "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM":
-        fail("historical homonym separation policy regressed")
-    if authority.get("research_scope_policy") != "OPEN_ENDED_CROSS_EDITION_CROSS_REGION_CROSS_LANGUAGE_CROSS_DISCIPLINE":
-        fail("open-ended cross-source research scope policy regressed")
-    if authority.get("first_source_stop_policy") != "FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE":
-        fail("first-source stopping prohibition regressed")
+    required_authority = {
+        "s00_s19_status": EXPECTED_S00_S19_STATUS,
+        "canonical_path_semantics": "LEGACY_STORAGE_AND_FREEZE_IDENTITY_NOT_EPISTEMIC_TRUTH",
+        "modern_software_status": "COMPATIBILITY_WITNESS_ONLY",
+        "philology_required": True,
+        "terminology_normalization_policy": "CONTEXTUAL_PHILOLOGY_BEFORE_MECHANICAL_RULE_IDENTITY",
+        "homonym_policy": "SAME_NAME_DOES_NOT_IMPLY_SAME_RULE_OR_SYSTEM",
+        "research_scope_policy": "OPEN_ENDED_CROSS_EDITION_CROSS_REGION_CROSS_LANGUAGE_CROSS_DISCIPLINE",
+        "first_source_stop_policy": "FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE",
+    }
+    for key, expected in required_authority.items():
+        if authority.get(key) != expected:
+            fail(f"research authority policy regressed for {key}")
     if "EVIDENCE_WEIGHTED_NOT_SOURCE_COUNT" not in authority.get("conflict_adjudication_policy", ""):
         fail("evidence-weighted conflict adjudication policy regressed")
     if "DO_NOT_FALSELY_EQUALIZE_DEMONSTRATED_TRANSMISSION_ERRORS" not in authority.get("candidate_preservation_policy", ""):
-        fail("false-equivalence prohibition for adjudicated transmission errors regressed")
+        fail("false-equivalence prohibition regressed")
 
-    matrix_policy = matrix.get("canonical_source_policy", "")
-    if "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY" not in matrix_policy:
+    if "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY" not in matrix.get("canonical_source_policy", ""):
         fail("historical matrix still treats S00-S19 as unquestioned authority")
     if matrix.get("research_authority_policy_doc") != "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md":
         fail("historical matrix is not bound to research authority policy")
-
-    registry_policy = registry.get("authority_policy", "")
-    if "not infallible historical authority" not in registry_policy:
+    if "not infallible historical authority" not in registry.get("authority_policy", ""):
         fail("external source registry authority policy regressed")
     if registry.get("research_authority_policy_doc") != "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md":
         fail("external source registry is not bound to research authority policy")
+
     source_ids = {item.get("source_id") for item in registry.get("sources", ())}
-    for source_id in ("EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673", "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"):
+    required_sources = (
+        "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
+        "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+        "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+        "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+        "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
+        "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+        "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
+    )
+    for source_id in required_sources:
         if source_id not in source_ids:
-            fail(f"Ogawa continuity source witness missing: {source_id}")
-    for source_id in ("EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893", "EXT-LI-LIANG-SUNRISE-TABLES-2022"):
-        if source_id not in source_ids:
-            fail(f"G893 continuity source witness missing: {source_id}")
-    for source_id in ("EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444", "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES", "EXT-NIKH-CHILJEONGSAN-HISTORY-1444"):
-        if source_id not in source_ids:
-            fail(f"Batch 11N Joseon continuity source witness missing: {source_id}")
+            fail(f"required continuity source witness missing: {source_id}")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
@@ -92,7 +95,6 @@ def main() -> int:
     matrix_summary = matrix.get("inventory_summary", {})
     audit_summary = matrix.get("audit_summary", {})
     audit_state = state.get("historical_audit", {})
-
     parity = {
         "row_count": matrix_summary.get("row_count"),
         "audited_row_count": matrix_summary.get("audited_row_count"),
@@ -106,52 +108,44 @@ def main() -> int:
         if audit_state.get(key) != expected:
             fail(f"current-state historical audit parity mismatch for {key}: state={audit_state.get(key)!r} matrix={expected!r}")
 
-    if audit_state.get("completed_batches") != matrix.get("historical_research_batches"):
-        fail("current-state completed batch list differs from Historical Audit Matrix")
-    required_recent_batches = (
-        "BATCH-11-BAZI-OGAWA-1673-NATIVE-EVIDENCE-K",
-        "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L",
-        "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M",
-        "BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N",
-        "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
-        "BATCH-11-BAZI-JOSEON-G894-NATIVE-COLLATION-P",
-        "BATCH-11-BAZI-G893-ACCESS-MIRROR-ROUTES-Q",
-        "BATCH-11-BAZI-G893-PREWAR-COLLECTION-CONTINUITY-R",
-        "BATCH-11-BAZI-G893-1908-PRECIOUS-CATALOG-S",
-    )
-    for batch_id in required_recent_batches:
-        if batch_id not in audit_state.get("completed_batches", ()):
-            fail(f"current-state lost recent Ogawa research batch: {batch_id}")
-    if not audit_state.get("latest_batch_doc"):
-        fail("current-state latest batch document is missing")
-    latest_batch_doc = ROOT / audit_state["latest_batch_doc"]
-    if not latest_batch_doc.is_file():
-        fail(f"current-state latest batch document does not exist: {audit_state['latest_batch_doc']}")
-    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1908-PRECIOUS-CATALOG-S.md"
-    if audit_state.get("latest_batch_doc") != expected_latest:
+    # Provenance-only catalog batches can advance without changing any Matrix row.
+    # The Matrix batch ledger must remain an exact prefix; state may append explicitly
+    # documented, zero-row-effect provenance batches after that prefix.
+    matrix_batches = matrix.get("historical_research_batches", [])
+    state_batches = audit_state.get("completed_batches", [])
+    if state_batches[: len(matrix_batches)] != matrix_batches:
+        fail("current-state completed batch prefix differs from Historical Audit Matrix")
+    if state_batches[len(matrix_batches) :] != [LATEST_BATCH_ID]:
+        fail("unexpected supplemental provenance-only batch list after Historical Audit Matrix prefix")
+    if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
+
+    if evidence.get("status") != "COMPLETE_DIRECT_NO_OCR_FULL_RENDERER_OBJECT_TITLE_PRESENCE_REVIEW_NEGATIVE_CATALOG_WITNESS_ONLY":
+        fail("Batch 11T machine evidence status mismatch")
+    coverage = evidence.get("direct_digital_object_access", {}).get("page_coverage_validation", {})
+    if coverage.get("valid_image_count") != 75 or coverage.get("missing_page_count") != 0:
+        fail("Batch 11T full renderer page coverage regressed")
+    if coverage.get("all_pages_valid_image") is not True or coverage.get("all_pages_ocr_false") is not True:
+        fail("Batch 11T no-OCR full-image coverage regressed")
+    review = evidence.get("direct_visual_review", {})
+    if review.get("exact_title_visible") is not False or review.get("short_title_visible") is not False:
+        fail("Batch 11T negative title-presence result regressed")
+    if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11T G893 target-page fail-closed status regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
-    for fragment in ("1434", "1444", "PENDING_DIRECT_TARGET_PAGE", "授時曆立成卷上"):
+    for fragment in (
+        "Batch 11T",
+        "GK26787_00",
+        "[1912-1920]",
+        "NOT SEEN",
+        "1936 Rufus",
+        "UNRESOLVED",
+        "PENDING_DIRECT_TARGET_PAGE",
+        "奎26775-v.1-7",
+    ):
         if fragment not in focus_text:
-            fail(f"current-state lost Batch 11M G893 focus boundary: {fragment}")
-    for fragment in ("奎貴894-v.1-3", "wda_50016011", "wda_50016016", "60冊 156卷 6張 A面", "60冊 156卷 13張 A面"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11N Joseon witness-route focus: {fragment}")
-    for fragment in ("Batch 11O", "10.5601775", "九日三四八九", "1.0281", "START_API_UNAVAILABLE"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11O native-collation focus: {fragment}")
-    for fragment in ("Batch 11P", "損益分", "五度二十〇四八一一二五", "STRUCTURALLY_NONCOMPARABLE_TARGET_FIELD_ABSENT", "PENDING_DIRECT_TARGET_PAGE"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11P G894 collation focus: {fragment}")
-    for fragment in ("Batch 11Q", "Ubuntu, macOS and Windows", "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015", "姜保", "PENDING_DIRECT_TARGET_PAGE"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11Q G893 access/mirror focus: {fragment}")
-    for fragment in ("Batch 11R", "1928-1930", "Rufus 1936", "奎26775-v.1-7", "UNRESOLVED", "PENDING_DIRECT_TARGET_PAGE"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11R G893 prewar continuity focus: {fragment}")
-    for fragment in ("Batch 11S", "GR35006_00", "b4b7b14229a82f3f5da12dc069cf8943b1d4c1ff7ca0aa87e85eb3e5d2b06328", "NOT SEEN", "UNRESOLVED", "PENDING_DIRECT_TARGET_PAGE"):
-        if fragment not in focus_text:
-            fail(f"current-state lost Batch 11S G893 1908 catalog focus: {fragment}")
+            fail(f"current-state lost Batch 11T continuity boundary: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
@@ -160,24 +154,22 @@ def main() -> int:
     if invariants.get("candidate_collapse_count") != audit_summary.get("candidate_collapse_count"):
         fail("candidate collapse count drift")
 
-    bootstrap = state.get("new_chat_bootstrap_order", ())
-    required_bootstrap_fragments = (
+    bootstrap = "\n".join(state.get("new_chat_bootstrap_order", ()))
+    for fragment in (
         "live GitHub branch HEAD",
         "recent commit history",
         "GitHub Actions",
         "PROJECT-CONTINUITY-PROTOCOL-R1.md",
         "PROJECT-CURRENT-STATE-R1.json",
         "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
-    )
-    joined = "\n".join(bootstrap)
-    for fragment in required_bootstrap_fragments:
-        if fragment not in joined:
+    ):
+        if fragment not in bootstrap:
             fail(f"new-chat bootstrap order missing required step: {fragment}")
 
     authority_text = AUTHORITY.read_text(encoding="utf-8")
     protocol_text = PROTOCOL.read_text(encoding="utf-8")
     if "Philology / 训诂" not in authority_text or "PHILOLOGICALLY_AMBIGUOUS_PRESERVE_CANDIDATES" not in authority_text:
-        fail("research authority policy lost its philology/训诂 method")
+        fail("research authority policy lost philology/训诂 method")
     if "Exhaustive research horizon and conflict adjudication" not in authority_text:
         fail("research authority policy lost exhaustive-horizon/conflict-adjudication method")
     if "FIRST_SOURCE_STOP=FORBIDDEN_WHEN_MATERIAL_ADDITIONAL_WITNESSES_ARE_SEARCHABLE" not in authority_text:
@@ -200,7 +192,8 @@ def main() -> int:
         "stage": state.get("current_stage"),
         "row_count": audit_state.get("row_count"),
         "audited_row_count": audit_state.get("audited_row_count"),
-        "completed_batch_count": len(audit_state.get("completed_batches", ())),
+        "completed_batch_count": len(state_batches),
+        "latest_batch": LATEST_BATCH_ID,
         "provenance_defect_count": audit_state.get("confirmed_provenance_metadata_defect_count"),
         "chart_algorithm_defect_count": invariants.get("confirmed_chart_algorithm_defect_count"),
         "s00_s19_status": authority.get("s00_s19_status"),
