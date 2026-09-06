@@ -10,17 +10,18 @@ PROTOCOL = ROOT / "docs" / "PROJECT-CONTINUITY-PROTOCOL-R1.md"
 AUTHORITY = ROOT / "docs" / "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
-LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
-LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
+LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
+LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-MF-PDF-ROUTE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
 SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T",
     "BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U",
+    "BATCH-11-BAZI-G893-MF-PDF-ROUTE-V",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
 
 
 def fail(message: str) -> None:
@@ -113,61 +114,92 @@ def main() -> int:
         if audit_state.get(key) != expected:
             fail(f"current-state historical audit parity mismatch for {key}: state={audit_state.get(key)!r} matrix={expected!r}")
 
-    # Provenance-only catalog batches can advance without changing any Matrix row.
-    # The Matrix batch ledger must remain an exact prefix; state may append explicitly
-    # documented, zero-row-effect provenance batches after that prefix.
+    # Provenance/access-only batches can advance without changing any Matrix row.
+    # The Matrix batch ledger remains an exact prefix; state may append explicitly
+    # documented zero-row-effect batches after that prefix.
     matrix_batches = matrix.get("historical_research_batches", [])
     state_batches = audit_state.get("completed_batches", [])
     if state_batches[: len(matrix_batches)] != matrix_batches:
         fail("current-state completed batch prefix differs from Historical Audit Matrix")
     if state_batches[len(matrix_batches) :] != SUPPLEMENTAL_BATCH_IDS:
-        fail("unexpected supplemental provenance-only batch list after Historical Audit Matrix prefix")
+        fail("unexpected supplemental provenance/access batch list after Historical Audit Matrix prefix")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
 
-    if evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":
-        fail("Batch 11U machine evidence status mismatch")
-    source_object = evidence.get("source_object", {})
-    if source_object.get("book_cd") != "GK26786_00" or source_object.get("item_cd") != "BBG":
-        fail("Batch 11U 1940 provider-object binding regressed")
-    if source_object.get("renderer_page_count") != 148 or source_object.get("ocr_used") is not False:
-        fail("Batch 11U 1940 renderer/no-OCR controls regressed")
-    header = evidence.get("internal_catalog_header", {})
-    if header.get("page_id") != "0125" or header.get("visible_title") != "奎章閣貴重圖書目錄":
-        fail("Batch 11U internal precious-catalog header binding regressed")
-    for field in ("書名", "圖書番號", "冊數", "備考"):
-        if field not in header.get("visible_field_headers", ()):
-            fail(f"Batch 11U lost direct table-field header: {field}")
-    entry = evidence.get("direct_entry_binding", {})
-    target_entry = entry.get("target_entry", {})
-    adjacent = entry.get("adjacent_control_entry", {})
-    if entry.get("page_id") != "0129":
-        fail("Batch 11U target-entry page binding regressed")
-    if target_entry.get("title") != "授時曆立成" or target_entry.get("book_number") != 893 or target_entry.get("volume_count") != 1:
-        fail("Batch 11U 授時曆立成 / 圖書番號 893 direct reading regressed")
-    if adjacent.get("title") != "授時曆捷法立成" or adjacent.get("book_number") != 892:
-        fail("Batch 11U adjacent Kang-Bo control regressed")
-    current_binding = evidence.get("current_object_binding", {})
-    if current_binding.get("current_catalog_identifier") != "奎貴893" or current_binding.get("current_book_cd") != "GK00893_00":
-        fail("Batch 11U current G893 binding regressed")
-    if current_binding.get("exact_item_continuity_to_current_gk00893_00") != "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL":
-        fail("Batch 11U catalog-item continuity closure regressed")
+    if evidence.get("status") != "DIRECT_MF_PDF_ROUTE_CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED":
+        fail("Batch 11V machine evidence status mismatch")
+    if evidence.get("book_cd") != "GK00893_00" or evidence.get("item_cd") != "SIC" or evidence.get("volume_id") != "0001":
+        fail("Batch 11V G893 object/volume binding regressed")
+    if evidence.get("catalog_identifier") != "奎貴893" or evidence.get("title") != "授時曆立成":
+        fail("Batch 11V G893 title/catalog binding regressed")
+    if evidence.get("microfilm_number") != "M/F73-102-37-A":
+        fail("Batch 11V microfilm catalog number regressed")
+    if evidence.get("ocr_used") is not False:
+        fail("Batch 11V no-OCR boundary regressed")
+
+    probe = evidence.get("direct_provider_probe", {})
+    initial = probe.get("initial_list_probe", {})
+    returned = initial.get("returned_volume", {})
+    if initial.get("workflow_run_id") != 34044864073 or initial.get("artifact_id") != 9992787144:
+        fail("Batch 11V initial M/F list probe provenance regressed")
+    if initial.get("list_transport_http_200") is not True or initial.get("list_result") != "ERROR - DIR NOT EXIST":
+        fail("Batch 11V M/F list route result regressed")
+    expected_returned = {
+        "CALL_NUM": "奎貴893",
+        "ORI_TIT": "授時曆立成",
+        "BOOK_CD": "GK00893_00",
+        "ITEM_CD": "SIC",
+        "VOL_NO": "0001",
+    }
+    for key, expected in expected_returned.items():
+        if returned.get(key) != expected:
+            fail(f"Batch 11V returned G893 volume metadata regressed for {key}")
+    if returned.get("IS_PDF") is not None:
+        fail("Batch 11V unexpectedly claims an IS_PDF value")
+
+    direct = probe.get("direct_pdf_control", {})
+    if direct.get("workflow_run_id") != 34044991699 or direct.get("artifact_id") != 9992817769:
+        fail("Batch 11V direct-PDF control provenance regressed")
+    if direct.get("list_result") != "ERROR - DIR NOT EXIST" or direct.get("is_pdf_values") != [None]:
+        fail("Batch 11V direct-PDF list-state regressed")
+    if direct.get("direct_transport_http_200") is not True:
+        fail("Batch 11V direct mfPdf transport no longer records HTTP 200")
+    if direct.get("direct_pdf_magic") is not False or direct.get("direct_pdf_returned") is not False:
+        fail("Batch 11V must remain closed unless a real PDF object is directly observed")
+
+    adjudication = evidence.get("adjudication", {})
+    if adjudication.get("mf_pdf_route_status") != "CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED":
+        fail("Batch 11V route closure state regressed")
+    if adjudication.get("renderer_route_retried") is not False:
+        fail("Batch 11V must remain a distinct M/F route, not a renderer retry")
     if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
-        fail("Batch 11U G893 target-page fail-closed status regressed")
+        fail("Batch 11V G893 target-page fail-closed status regressed")
+
+    boundaries = evidence.get("epistemic_boundaries", {})
+    required_boundaries = {
+        "mf_pdf_ui_marker_as_downloadable_pdf_proof": "FORBIDDEN",
+        "microfilm_catalog_number_as_online_pdf_presence": "FORBIDDEN",
+        "error_dir_not_exist_as_physical_microfilm_absence": "FORBIDDEN",
+        "returned_thumbnail_filename_as_target_folio_binding": "FORBIDDEN",
+        "technical_endpoint_success_as_target_glyph_authority": "FORBIDDEN",
+    }
+    for key, expected in required_boundaries.items():
+        if boundaries.get(key) != expected:
+            fail(f"Batch 11V epistemic boundary regressed: {key}")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
-        "GK26786_00",
-        "圖書番號 893",
-        "授時曆捷法立成",
-        "奎貴893",
         "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL",
+        "Batch 11V",
+        "ERROR - DIR NOT EXIST",
+        "IS_PDF was null",
+        "CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED",
+        "M/F73-102-37-A",
         "PENDING_DIRECT_TARGET_PAGE",
-        "1930 generic main sequence number 893",
     ):
         if fragment not in focus_text:
-            fail(f"current-state lost Batch 11U continuity boundary: {fragment}")
+            fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
