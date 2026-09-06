@@ -883,7 +883,16 @@
         "exact_identity_status": "PENDING_1930_CATALOG_ENTRY_OR_MATCHING_PHYSICAL_IDENTIFIER",
         "target_folio_effect": "NONE",
         "target_glyph_effect": "NONE",
-        "exact_print_year_effect": "NONE"
+        "exact_print_year_effect": "NONE",
+        "item_level_catalog_locator_access": {
+          "source_id": "EXT-KYUJANGGAK-NUMERIC-ORDER-CATALOG-1930",
+          "book_cd": "GK26775_00",
+          "item_cd": "BBG",
+          "volume_count": 7,
+          "direct_renderer_bound": true,
+          "internal_g893_entry_read": false,
+          "exact_identity_effect": "NONE_PENDING_DIRECT_ENTRY"
+        }
       }
     },
     {
@@ -1274,7 +1283,28 @@
       "provider": "서울대학교 규장각한국학연구원",
       "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=COB02&mid=GDS",
       "source_role": "OFFICIAL_PREWAR_NUMERIC_ORDER_CATALOG_LOCATOR_FOR_FUTURE_ITEM_LEVEL_G893_CONTINUITY_BINDING",
-      "quality_notes": "The live SNU Kyujanggak catalog directly identifies this seven-volume 1930 numeric-order catalog compiled by the Keijo Imperial University Library and exposes original-image access. The project has not yet read the internal entry for 授時曆立成 / any old number corresponding to current 奎貴893. Until such an entry or an equivalent item-level identifier is directly bound, this source is a locator and custody-bridge target only, with zero target-page/glyph/value authority."
+      "quality_notes": "The live SNU Kyujanggak catalog directly identifies this seven-volume 1930 numeric-order catalog compiled by the Keijo Imperial University Library and exposes original-image access. The project has not yet read the internal entry for 授時曆立成 / any old number corresponding to current 奎貴893. Until such an entry or an equivalent item-level identifier is directly bound, this source is a locator and custody-bridge target only, with zero target-page/glyph/value authority. A later read-only provider probe directly bound the catalog's own digital object to BOOK_CD=GK26775_00 / ITEM_CD=BBG and seven renderer volumes. This upgrades access topology only; the internal 授時曆立成 / G893 item entry remains unread and no copy identity or target value is inferred.",
+      "direct_digital_object_access": {
+        "book_cd": "GK26775_00",
+        "item_cd": "BBG",
+        "volume_ids": [
+          "0001",
+          "0002",
+          "0003",
+          "0004",
+          "0005",
+          "0006",
+          "0007"
+        ],
+        "workflow_run_id": 34030028767,
+        "workflow_head_sha": "ee089d95217e0fe535081c0c374b7c48da90a523",
+        "artifact_id": 9988289425,
+        "access_status": "OFFICIAL_LIST_DETAIL_AND_RENDERER_DIRECTLY_BOUND",
+        "ocr_used": false,
+        "internal_g893_entry_read": false,
+        "g893_identity_effect": "NONE_UNTIL_DIRECT_INTERNAL_ENTRY_OR_COPY_SPECIFIC_IDENTIFIER_BINDING",
+        "target_effect": "NONE"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
