@@ -38,7 +38,7 @@ PATTERNS = (
     re.compile(r"""(?i)["']([^"']*(?:viewer\.do|imageProxy\.do|/s_img/SILLOK/|\.jpg|\.jpeg|\.png)[^"']*)["']"""),
 )
 
-def fetch(url: str, timeout: int = 45) -> tuple[int, str, bytes]:
+def fetch(url: str, timeout: int = 12) -> tuple[int, str, bytes]:
     req = urllib.request.Request(url, headers={
         "User-Agent": UA,
         "Accept": "text/html,application/xhtml+xml,image/avif,image/webp,image/*,*/*;q=0.8",
@@ -132,8 +132,9 @@ def main() -> int:
             if "viewer" in value.lower() and value.startswith("http"):
                 viewer_candidates.append(value)
 
+        viewer_candidates = list(dict.fromkeys(viewer_candidates))[:12]
         viewer_results = []
-        for url in dict.fromkeys(viewer_candidates):
+        for url in viewer_candidates:
             vstatus, vctype, vbody = fetch(url)
             vtext = vbody.decode("utf-8", "replace")
             rec = {
