@@ -976,6 +976,34 @@
       "adapter_path": "app/kyudbsnu.go",
       "adapter_blob_sha": "d5ebadc1ba11bb35d9205e136599dffa1197708e",
       "quality_notes": "Public adapter code implements Kyujanggak volume discovery and page discovery through /pf01/rendererImg.do, parses first_page_no, imgFileNm and fn_goPageJumpWithMokIdxClear page identifiers, then constructs full-image requests through /ImageServlet.do?imgFileNm=...&path=.... The project uses this only as reproducible technical-access evidence. It has no historical, bibliographic, target-folio or glyph authority, and the protocol-derived G893 renderer URL remains an unobserved candidate until successfully fetched through a non-blocked network path."
+    },
+    {
+      "source_id": "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
+      "title": "小川正意新勘《大元授時暦經立成 6巻》寛文13年（1673）国立国会図書館本",
+      "historical_period": "EDO_KANBUN_13_1673_JAPANESE_RECEIVED_SHOUSHI_LICHENG",
+      "creator": "小川正意新勘",
+      "publisher": "田原仁左衛門",
+      "provider": "National Diet Library Digital Collections / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1970023484922964747",
+      "source_role": "DIRECT_NATIVE_IMAGE_WITNESS_FOR_OGAWA_1673_TABLE_STRUCTURE_AND_CONTROL_SURFACES",
+      "reading_artifact": "docs/research/NDL-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-CONTROL-READINGS-R1.json",
+      "quality_notes": "Native-resolution no-OCR inspection directly established the Ogawa solar-table D16 structural non-comparability and L114=九日三四八九. L8/L101/L132 split-place linear serialization remained deliberately open. Earlier L124 non-comparability was scoped to the inspected NDL volume sequence and must not be generalized to the independent Kyushu holding, which exposes a separate 遲疾限行度 table."
+    },
+    {
+      "source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+      "title": "九州大学蔵 小川正意《大元授時暦經 巻上下, 巻1-6》寛文13年（1673）同年独立デジタル本",
+      "historical_period": "EDO_KANBUN_13_1673_INDEPENDENT_SAME_YEAR_OGAWA_HOLDING",
+      "creator": "小川正意",
+      "publisher": "田原二左衛門",
+      "provider": "九州大学附属図書館・九大コレクション貴重資料",
+      "url": "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json",
+      "source_role": "DIRECT_PUBLIC_DOMAIN_IIIF_IMAGE_WITNESS_FOR_INDEPENDENT_OGAWA_1673_COLLATION",
+      "catalog_record_id": "6631038",
+      "public_domain": true,
+      "workflow_run_id": 34010515542,
+      "artifact_id": 9982311056,
+      "reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
+      "quality_notes": "Exact-heading localization and native 6592x4672 no-OCR images directly confirm the same solar D16 schema omission, L114=九日三四八九, same-copy L8/L159 and L35/L132 symmetry controls, a distinct L67/L101 zero-place surface, and a separate 遲疾限行度 table. Initial and L124 values align with the Ming-1569 reciprocal shortcut layer rather than raw 1e-4-degree xingdu. L124 therefore supplies a mechanically linked derived control supporting the Ming 1.0281 lineage, not a direct raw-xingdu glyph."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
