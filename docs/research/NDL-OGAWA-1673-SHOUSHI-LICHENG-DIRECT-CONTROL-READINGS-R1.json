@@ -9,7 +9,11 @@
   "publication_date": "寛文13 [1673]",
   "call_number": "特2-86",
   "bibliographic_id": "024612010",
-  "pids": ["14488128", "14488129", "14488130"],
+  "pids": [
+    "14488128",
+    "14488129",
+    "14488130"
+  ],
   "provider": "National Diet Library Digital Collections",
   "access_restrictions": "PDM",
   "ocr_used": false,
@@ -51,7 +55,11 @@
       "holding": "九州大学附属図書館・九大コレクション貴重資料",
       "iiif_manifest": "https://catalog.lib.kyushu-u.ac.jp/image/manifest/1/820/6631038.json",
       "public_domain": true,
-      "role": "INDEPENDENT_SAME_YEAR_SAME_WORK_HOLDING_FOR_FUTURE_IMAGE_COLLATION_NOT_YET_TARGET_GLYPH_EVIDENCE"
+      "role": "INDEPENDENT_SAME_YEAR_SAME_WORK_HOLDING_NOW_DIRECTLY_COLLATED_IN_SEPARATE_KYUSHU_ARTIFACT",
+      "direct_collation_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
+      "direct_collation_head_sha": "8cd6d20dda9c7038daac3db884c3c1ea6b86c6f9",
+      "direct_collation_workflow_run_id": 34010515542,
+      "direct_collation_artifact_id": 9982311056
     }
   },
   "structural_scope": {
@@ -59,7 +67,11 @@
     "solar_table_title": "太陽盈縮立成",
     "solar_table_opening_canvas": 3,
     "solar_table_opening_image_id": "R0000003",
-    "solar_visible_schema": ["積日", "盈縮積度", "盈縮加分"],
+    "solar_visible_schema": [
+      "積日",
+      "盈縮積度",
+      "盈縮加分"
+    ],
     "solar_d16_difference_status": "NO_SEPARATE_DAY_DIFFERENCE_OR_MESSAGE_DIFFERENCE_COLUMN_VISIBLE_IN_THE_OGAWA_SOLAR_TABLE_OPENING_OR_D16_CONTINUATION_FIELD_NOT_DIRECTLY_COMPARABLE",
     "solar_d16_reason": "R0000003 directly shows the opening and printed schema of 太陽盈縮立成. R0000004 is the continuation containing day 16. Native-resolution inspection binds day 16 to the visible derived accumulated/add columns, but the separate 日差/消息分-type field used by the active cross-edition control is not printed as an independent column in this Ogawa table structure. Absence of that field cannot be converted into either 5.1362 or 5.2362.",
     "pid_14488129": "direct opening-page inspection is textual volume 3",
@@ -135,19 +147,20 @@
   "epistemic_boundaries": {
     "page_fetch_as_target_value": "FORBIDDEN",
     "native_resolution_fetch_as_target_value": "FORBIDDEN",
-    "independent_same_edition_catalog_as_target_glyph": "FORBIDDEN",
+    "independent_same_edition_catalog_as_target_glyph": "FORBIDDEN_WITHOUT_DIRECT_IMAGE_BINDING; KYUSHU_NOW_HAS_SEPARATE_DIRECT_IMAGE_ARTIFACT",
     "nearby_limit_number_as_field_identity": "FORBIDDEN",
     "absent_solar_difference_column_as_inferred_numeric_value": "FORBIDDEN",
     "chiji_page_as_ji_xingdu_evidence": "FORBIDDEN",
     "absence_of_separate_column_as_numeric_zero_or_variant": "FORBIDDEN",
     "later_1673_japanese_witness_as_early_g893_substitute": "FORBIDDEN",
     "later_1673_japanese_witness_as_ming_1569_edition_authority": "FORBIDDEN",
-    "algorithm_or_runtime_selection_effect": "NONE"
+    "algorithm_or_runtime_selection_effect": "NONE",
+    "ndl_l124_absence_as_all_ogawa_holdings": "FORBIDDEN"
   },
   "next_work": [
-    "COMPLETE_NO_OCR_DIPLOMATIC_TRANSCRIPTION_FOR_L8_L101_L132_BY_ESTABLISHING_THE_OGAWA_SPLIT_VERTICAL_PLACE_GROUP_TYPOGRAPHY_FROM_INTERNAL_CONTROLS",
-    "USE_THE_KYUSHU_UNIVERSITY_1673_IIIF_COPY_AS_AN_INDEPENDENT_SAME_EDITION_IMAGE_COLLATION_ROUTE_WITHOUT_ASSUMING_SCAN_OFFSETS",
-    "CONFIRM_FROM_THE_INDEPENDENT_1673_COPY_WHETHER_THE_SAME_SOLAR_DIFFERENCE_AND_SEPARATE_JI_XINGDU_FIELDS_ARE_STRUCTURALLY_ABSENT",
-    "COMPARE_THE_1673_JAPANESE_RECEIVED_SURFACES_WITH_GORYEOSA_G893_AND_MING_1569_WITHOUT_SOURCE_RANK_COLLAPSE"
+    "KYUSHU_1673_INDEPENDENT_IMAGE_COLLATION_IS_CLOSED_IN_SEPARATE_ARTIFACT; DO_NOT RETROACTIVELY_PROMOTE_CATALOG_ONLY_STATE_OR GENERALIZE_NDL_VOLUME_STRUCTURE",
+    "PRESERVE_NDL_L8_L101_L132_AS_NDL_COPY_SPLIT_VERTICAL_SURFACE_PENDING_LINEAR_SERIALIZATION; USE_KYUSHU_SAME_COPY_CONTROLS_ONLY_AS_SEPARATE_PHILOLOGICAL_EVIDENCE",
+    "CONTINUE_G893_DIRECT_TARGET_FOLIO_BINDING_AND_EARLY_TRANSMISSION_GENEALOGY",
+    "COMPARE_1673_JAPANESE_RECEIVED_SURFACES_WITH_GORYEOSA_G893_AND_MING_1569_WITHOUT_SOURCE_RANK_COLLAPSE"
   ]
 }
