@@ -28,6 +28,8 @@ KYUSHU_OGAWA_1673_COLLATION = ROOT / "docs" / "research" / "KYUSHU-OGAWA-1673-SH
 KYUSHU_OGAWA_1673_COLLATION_TEST = ROOT / "tests" / "test_kyushu_ogawa_1673_shoushi_licheng_direct_collation_r1.py"
 KYUJANGGAK_G893_PROVENANCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
 KYUJANGGAK_G893_PROVENANCE_TEST = ROOT / "tests" / "test_kyujanggak_g893_provenance_public_figure_r1.py"
+JOSEON_1444_WITNESS_ROUTES = ROOT / "docs" / "research" / "JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json"
+JOSEON_1444_WITNESS_ROUTES_TEST = ROOT / "tests" / "test_joseon_1444_chiljeongsan_witness_routes_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -125,6 +127,9 @@ def main() -> int:
         raise SystemExit("Batch 11M G893 exact-copy-year conflict boundary is missing")
     if "EXT-LI-LIANG-SUNRISE-TABLES-2022" not in g893_source.get("bibliographic_witnesses",()):
         raise SystemExit("Batch 11M G893 1444 secondary date witness is not bound")
+    for source_id in ("EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444","EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES","EXT-NIKH-CHILJEONGSAN-HISTORY-1444"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 11N Joseon witness source missing: {source_id}")
     kyushu_source=by_source_id["EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"]
     if kyushu_source.get("reading_artifact") != "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json":
         raise SystemExit("Batch 11L Kyushu source reading-artifact binding mismatch")
@@ -247,6 +252,8 @@ def main() -> int:
         raise SystemExit("Batch 11L Kyushu Ogawa direct collation audit is missing")
     if "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M" not in batches:
         raise SystemExit("Batch 11M G893 provenance/public-figure audit is missing")
+    if "BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N" not in batches:
+        raise SystemExit("Batch 11N Joseon 1444 witness-route audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -591,6 +598,31 @@ def main() -> int:
         raise SystemExit("Batch 11M G893 target-page fail-closed state regressed")
     if g893.get("epistemic_boundaries",{}).get("algorithm_or_runtime_selection_effect") != "NONE":
         raise SystemExit("Batch 11M G893 provenance evidence was promoted to runtime")
+    for path in (JOSEON_1444_WITNESS_ROUTES,JOSEON_1444_WITNESS_ROUTES_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11N Joseon witness artifact/test missing: {path.relative_to(ROOT)}")
+    joseon=json.loads(JOSEON_1444_WITNESS_ROUTES.read_text(encoding="utf-8"))
+    if joseon.get("schema") != "JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1":
+        raise SystemExit("Batch 11N Joseon witness-route schema mismatch")
+    g894=joseon.get("witnesses",{}).get("kyujanggak_g894",{})
+    if g894.get("catalog_identifier") != "奎貴894-v.1-3" or g894.get("publication_year") != 1444 or g894.get("edition") != "甲寅字":
+        raise SystemExit("Batch 11N G894 provider identity/date boundary regressed")
+    if "SEPARATE_WORK_AND_SEPARATE_CATALOG_OBJECT" not in g894.get("relationship_to_g893",""):
+        raise SystemExit("Batch 11N G894 was conflated with G893")
+    sillok=joseon.get("witnesses",{}).get("sejong_sillok_v156",{})
+    if sillok.get("solar",{}).get("article_id") != "wda_50016011" or sillok.get("solar",{}).get("taebaeksan_location") != "60冊 156卷 6張 A面":
+        raise SystemExit("Batch 11N Sillok solar table binding regressed")
+    if sillok.get("lunar",{}).get("article_id") != "wda_50016016" or sillok.get("lunar",{}).get("taebaeksan_location") != "60冊 156卷 13張 A面":
+        raise SystemExit("Batch 11N Sillok lunar table binding regressed")
+    targets=joseon.get("target_controls",())
+    if len(targets) != 6 or not all("PENDING" in item.get("g894_status","") and "PENDING" in item.get("sillok_status","") and item.get("g893_effect") == "NONE" for item in targets):
+        raise SystemExit("Batch 11N witness target fail-closed state regressed")
+    boundaries=joseon.get("epistemic_boundaries",{})
+    for key in ("g894_as_g893","adjacent_call_number_as_shared_copy_genealogy","sejong_sillok_table_as_1444_g894_same_glyph_surface","article_embedded_image_as_read_numeric_value","value_prepopulation_from_ming_goryeosa_ogawa","source_count_as_variant_adjudication"):
+        if boundaries.get(key) != "FORBIDDEN":
+            raise SystemExit(f"Batch 11N Joseon evidence boundary regressed: {key}")
+    if boundaries.get("algorithm_or_runtime_selection_effect") != "NONE":
+        raise SystemExit("Batch 11N Joseon witness evidence was promoted to runtime")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
