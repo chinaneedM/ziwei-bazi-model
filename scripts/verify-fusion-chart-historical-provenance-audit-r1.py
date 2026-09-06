@@ -24,6 +24,8 @@ MING_DATONG_1578_PHYSICAL_COLLATION = ROOT / "docs" / "research" / "MING-DATONG-
 MING_DATONG_1578_PHYSICAL_COLLATION_TEST = ROOT / "tests" / "test_ming_datong_1578_ncl_06313_physical_almanac_collation_r1.py"
 MING_DATONG_1569_FIXED_POINT_PRECISION = ROOT / "docs" / "research" / "MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json"
 MING_DATONG_1569_FIXED_POINT_PRECISION_TEST = ROOT / "tests" / "test_ming_datong_1569_fixed_point_precision_audit_r1.py"
+KYUSHU_OGAWA_1673_COLLATION = ROOT / "docs" / "research" / "KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json"
+KYUSHU_OGAWA_1673_COLLATION_TEST = ROOT / "tests" / "test_kyushu_ogawa_1673_shoushi_licheng_direct_collation_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -110,6 +112,14 @@ def main() -> int:
     for source_id in ("EXT-KOTENMON-DAMING-DATONG-1569","EXT-NCL-DATONG-1578-ALMANAC","EXT-IHNS-MING-DATONG-COMPILATION-2019","EXT-MINGSHILU-WANLI-1578-MONTH-STARTS","EXT-WANLI-QIJUZHU-1578-MONTH-CORROBORATION","EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG","EXT-SHAO-LIYONG-DATONG-1527-2011","EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2","EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996","EXT-AA-LI-ZHANG-SYZYGY-1998","EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME","EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK","EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH","EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014","EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018","EXT-LOC-DATONG-1524-ALMANAC","EXT-WIKISOURCE-GUJIN-LULIKAO-V50-SHOUSHI-PRECISION"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 11D/11E Ming Datong source witness missing: {source_id}")
+    for source_id in ("EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673","EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 11K/11L Ogawa source witness missing: {source_id}")
+    kyushu_source=by_source_id["EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"]
+    if kyushu_source.get("reading_artifact") != "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json":
+        raise SystemExit("Batch 11L Kyushu source reading-artifact binding mismatch")
+    if kyushu_source.get("workflow_run_id") != 34010515542 or kyushu_source.get("artifact_id") != 9982311056:
+        raise SystemExit("Batch 11L Kyushu exact evidence package binding mismatch")
     for item in source_registry["sources"]:
         if not item.get("url","").startswith("https://"):
             raise SystemExit(f"external source lacks https URL: {item.get('source_id')}")
@@ -221,6 +231,10 @@ def main() -> int:
         raise SystemExit("Batch 11I Ming Datong 1578 physical almanac closure is missing")
     if "BATCH-11-BAZI-MING-DATONG-FIXED-POINT-PRECISION-J" not in batches:
         raise SystemExit("Batch 11J Ming Datong fixed-point precision audit is missing")
+    if "BATCH-11-BAZI-OGAWA-1673-NATIVE-EVIDENCE-K" not in batches:
+        raise SystemExit("Batch 11K NDL Ogawa native evidence audit is missing")
+    if "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L" not in batches:
+        raise SystemExit("Batch 11L Kyushu Ogawa direct collation audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -516,6 +530,28 @@ def main() -> int:
             raise SystemExit(f"Batch 11J precision count mismatch: {rule_id}")
     if precision.get("runtime_selection_authorized") is not False or precision.get("general_calendar_arithmetic_certified") is not False:
         raise SystemExit("Batch 11J precision audit was promoted to runtime arithmetic")
+    for path in (KYUSHU_OGAWA_1673_COLLATION,KYUSHU_OGAWA_1673_COLLATION_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11L Kyushu artifact/test missing: {path.relative_to(ROOT)}")
+    kyushu=json.loads(KYUSHU_OGAWA_1673_COLLATION.read_text(encoding="utf-8"))
+    if kyushu.get("schema") != "KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1":
+        raise SystemExit("Batch 11L Kyushu direct-collation schema mismatch")
+    if kyushu.get("runtime_effect") != "NONE":
+        raise SystemExit("Batch 11L Kyushu evidence was promoted to runtime")
+    findings=kyushu.get("findings",{})
+    if findings.get("solar_d16",{}).get("result") != "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE":
+        raise SystemExit("Batch 11L D16 structural non-comparability regressed")
+    if findings.get("l114",{}).get("normalized_value") != "9日3489":
+        raise SystemExit("Batch 11L L114 direct reading regressed")
+    l124=being_l124=findings.get("l124",{})
+    if l124.get("raw_ji_xingdu_directly_printed") is not False or l124.get("direct_raw_ji_xingdu_value") is not None:
+        raise SystemExit("Batch 11L L124 derived control was mislabeled as a direct raw glyph")
+    if l124.get("direct_derived_values",{}).get("疾曆限行度") != "0.0797587":
+        raise SystemExit("Batch 11L L124 derived Ji control mismatch")
+    if l124.get("goryeosa_received_variant_counterfactual",{}).get("derived_truncate_7dp") != "0.0757785":
+        raise SystemExit("Batch 11L L124 Goryeosa counterfactual mismatch")
+    if l124.get("classification") != "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH":
+        raise SystemExit("Batch 11L L124 evidence classification regressed")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
