@@ -26,6 +26,8 @@ MING_DATONG_1569_FIXED_POINT_PRECISION = ROOT / "docs" / "research" / "MING-DATO
 MING_DATONG_1569_FIXED_POINT_PRECISION_TEST = ROOT / "tests" / "test_ming_datong_1569_fixed_point_precision_audit_r1.py"
 KYUSHU_OGAWA_1673_COLLATION = ROOT / "docs" / "research" / "KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json"
 KYUSHU_OGAWA_1673_COLLATION_TEST = ROOT / "tests" / "test_kyushu_ogawa_1673_shoushi_licheng_direct_collation_r1.py"
+KYUJANGGAK_G893_PROVENANCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
+KYUJANGGAK_G893_PROVENANCE_TEST = ROOT / "tests" / "test_kyujanggak_g893_provenance_public_figure_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -115,6 +117,14 @@ def main() -> int:
     for source_id in ("EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673","EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 11K/11L Ogawa source witness missing: {source_id}")
+    for source_id in ("EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893","EXT-LI-LIANG-SUNRISE-TABLES-2022"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 11M G893 provenance source witness missing: {source_id}")
+    g893_source=by_source_id["EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"]
+    if "CONFLICTING_1434_AND_1444" not in g893_source.get("exact_print_year_status",""):
+        raise SystemExit("Batch 11M G893 exact-copy-year conflict boundary is missing")
+    if "EXT-LI-LIANG-SUNRISE-TABLES-2022" not in g893_source.get("bibliographic_witnesses",()):
+        raise SystemExit("Batch 11M G893 1444 secondary date witness is not bound")
     kyushu_source=by_source_id["EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"]
     if kyushu_source.get("reading_artifact") != "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json":
         raise SystemExit("Batch 11L Kyushu source reading-artifact binding mismatch")
@@ -235,6 +245,8 @@ def main() -> int:
         raise SystemExit("Batch 11K NDL Ogawa native evidence audit is missing")
     if "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L" not in batches:
         raise SystemExit("Batch 11L Kyushu Ogawa direct collation audit is missing")
+    if "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M" not in batches:
+        raise SystemExit("Batch 11M G893 provenance/public-figure audit is missing")
     minor_child_ids={f"HPA-ZMINOR-{index:03d}" for index in range(1,27)}
     if not minor_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 07A/07B/07C minor-star child rows are incomplete")
@@ -552,6 +564,33 @@ def main() -> int:
         raise SystemExit("Batch 11L L124 Goryeosa counterfactual mismatch")
     if l124.get("classification") != "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH":
         raise SystemExit("Batch 11L L124 evidence classification regressed")
+    for path in (KYUJANGGAK_G893_PROVENANCE,KYUJANGGAK_G893_PROVENANCE_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11M G893 artifact/test missing: {path.relative_to(ROOT)}")
+    g893=json.loads(KYUJANGGAK_G893_PROVENANCE.read_text(encoding="utf-8"))
+    if g893.get("schema") != "KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1":
+        raise SystemExit("Batch 11M G893 provenance schema mismatch")
+    provider=g893.get("provider_catalog",{})
+    if provider.get("date") != "15世紀前半（世宗年間 1418-1450）" or provider.get("exact_print_year_stated") is not False:
+        raise SystemExit("Batch 11M G893 provider date-range boundary regressed")
+    date_adj=g893.get("exact_print_year_adjudication",{})
+    if date_adj.get("project_copy_level_value") != "UNRESOLVED_WITHIN_1418_1450_PROVIDER_RANGE":
+        raise SystemExit("Batch 11M G893 exact copy year was silently selected")
+    claims="\n".join(item.get("claim","") for item in date_adj.get("evidence",()))
+    if "1434" not in claims or "1444" not in claims:
+        raise SystemExit("Batch 11M G893 1434/1444 conflict evidence is incomplete")
+    fig=g893.get("public_object_figure",{})
+    if fig.get("direct_target_control_visible") is not False or fig.get("target_value_authorized") is not False:
+        raise SystemExit("Batch 11M public opening figure was overpromoted to target-value evidence")
+    visible="\n".join(fig.get("directly_visible",()))
+    for token in ("授時曆立成卷上","嘉儀大夫太史令臣王恂奉敕撰","太陽冬至前後二象盈初縮末限","初日","八日"):
+        if token not in visible:
+            raise SystemExit(f"Batch 11M public opening figure binding missing visible token: {token}")
+    targets=g893.get("six_target_status",())
+    if len(targets) != 6 or not all(item.get("status","").startswith("PENDING_DIRECT_TARGET_PAGE") for item in targets):
+        raise SystemExit("Batch 11M G893 target-page fail-closed state regressed")
+    if g893.get("epistemic_boundaries",{}).get("algorithm_or_runtime_selection_effect") != "NONE":
+        raise SystemExit("Batch 11M G893 provenance evidence was promoted to runtime")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
