@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "2.3.0",
-  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_G893_VERSION_IDENTITY_AND_ACCESS_PROTOCOL_BOUND_TARGET_FOLIOS_PENDING",
+  "schema_version": "2.4.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_G893_OPENING_OBJECT_FIGURE_BOUND_EXACT_COPY_YEAR_UNRESOLVED_TARGET_FOLIOS_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_reference": {
@@ -34,9 +34,16 @@
     {
       "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
       "role": "EARLY_15C_JOSEON_PHYSICAL_SHOUSHI_LICHENG_PRINT_WITH_CATALOGUED_ORIGINAL_IMAGES",
-      "date_context": "15th-century first half Joseon gapja movable-type print preserving the Shoushi table tradition",
+      "date_context": "Kyujanggak provider: first half of 15th century / Sejong 1418-1450 甲寅字; exact surviving-copy year unresolved because secondary reports conflict at 1434 vs 1444",
       "authority_disposition": "INDEPENDENT_PHYSICAL_TRANSMISSION_WITNESS; DO_NOT_OVERRIDE_MING_1569_EDITION_PRIMARY",
-      "direct_target_image_status": "PENDING_FOLIO_BINDING"
+      "direct_target_image_status": "PUBLIC_OPENING_SOLAR_OBJECT_FIGURE_VISIBLE_INITIAL_TO_DAY8; SIX_TARGET_FOLIOS_STILL_PENDING",
+      "date_adjudication_artifact": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json",
+      "public_opening_figure": {
+        "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+        "visible_block": "授時曆立成卷上 / 王恂奉敕撰 / 太陽冬至前後二象盈初縮末限 / 初日-八日",
+        "target_control_visible": false,
+        "target_value_effect": "NONE"
+      }
     },
     {
       "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
@@ -348,6 +355,8 @@
     "image_url_construction_as_target_value": "FORBIDDEN"
   },
   "next_work": [
+    "G893_OPENING_SOLAR_OBJECT_PAGE_IS_NOW_PUBLICLY_VISIBLE_THROUGH_LI_2023_FIGURE_1_BUT_CONTAINS_ONLY_INITIAL_TO_DAY8; DO_NOT_USE_IT_FOR_D16_OR_LUNAR_VALUES",
+    "KEEP_G893_EXACT_SURVIVING_COPY_YEAR_UNRESOLVED_WITHIN_PROVIDER_1418_1450_RANGE_PENDING_COPY_SPECIFIC_EVIDENCE; DO_NOT_SELECT_1434_OR_1444_BY_SOURCE_COUNT",
     "OGAWA_1673_KYUSHU_DIRECT_COLLATION_CLOSED_FOR_CURRENT_CONTROLS; KEEP_L124_AS_DERIVED_LINEAGE_EVIDENCE_NOT_DIRECT_RAW_GLYPH_AND_DO_NOT_FORCE_LINEAR_SERIALIZATION_OF_SPLIT_PLACE_GROUPS",
     "KRDB_L114_OWN_SCAN_ADJUDICATED_AS_3489_AND_O_TRANSCRIPTION_ERROR_CLOSED; EXTEND_DIRECT_IMAGE_BINDING_TO_OTHER_CONTROLS_ONLY_WHERE_IT_ADDS_SOURCE_VALUE",
     "BIND_NLC_1909_GORYEOSA_V52_TARGET_SCAN_PAGES_AS_LATER_RECEIVED_IMAGE_CROSSCHECK_WITHOUT_EARLY_WITNESS_PROMOTION",
@@ -453,7 +462,7 @@
   "philological_normalization_control_count": 1,
   "independent_physical_image_adjudication": {
     "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
-    "status": "SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
+    "status": "SOURCE_TEXTUAL_VOLUME_AND_OPENING_SOLAR_OBJECT_PAGE_BOUND_TARGET_FOLIOS_NOT_YET_BOUND",
     "purpose": "Adjudicate the five numeric variant controls and the L101 positional-normalization bridge against an independent early physical Shoushi-table print.",
     "targets": [
       {
@@ -510,7 +519,9 @@
     "search_space_reduction": "ALL_SIX_TARGETS_LOCALIZED_TO_SHOUSHI_LICHENG_JUANSHANG; DO_NOT_SCAN_SUNRISE_SUNSET_VOLUME",
     "hosted_runner_access_status": "NETWORK_BLOCKED_ON_GITHUB_HOSTED_UBUNTU_RUNNER_ONLY",
     "direct_image_source_status": "CATALOG_FILENAMES_AND_DOCUMENTED_RENDERER_IMAGESERVLET_PROTOCOL_BOUND; TARGET_FOLIOS_AND_GLYPHS_UNRESOLVED",
-    "image_access_topology_artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json"
+    "image_access_topology_artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
+    "exact_copy_year_status": "UNRESOLVED_WITHIN_PROVIDER_1418_1450_RANGE",
+    "public_opening_figure": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
   },
   "transmission_history_evidence": [
     {
@@ -609,7 +620,12 @@
       "use_as_target_value": false
     },
     "exact_folio_status": "UNRESOLVED",
-    "exact_image_filename_status": "UNRESOLVED"
+    "exact_image_filename_status": "UNRESOLVED",
+    "public_object_figure": {
+      "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+      "directly_visible": "授時曆立成卷上; 王恂奉敕撰; 太陽冬至前後二象盈初縮末限; 初日-八日",
+      "effect": "DIRECT_PUBLIC_SECONDARY_OBJECT_REPRODUCTION_CONFIRMS_OPENING_SOLAR_PAGE_FAMILY_NOT_TARGET_FOLIO"
+    }
   },
   "hosted_runner_access_diagnostics": {
     "status": "ENVIRONMENT_SCOPED_NETWORK_BLOCK_CONFIRMED_FOR_GITHUB_HOSTED_UBUNTU_RUNNER",
@@ -675,7 +691,7 @@
   ],
   "public_facsimile_control_readings_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json",
   "g893_image_access_topology": {
-    "status": "CATALOG_FILENAMES_AND_PUBLIC_RENDERER_IMAGESERVLET_PROTOCOL_BOUND_TARGET_FOLIOS_PENDING",
+    "status": "CATALOG_FILENAMES_PUBLIC_OPENING_OBJECT_FIGURE_AND_RENDERER_PROTOCOL_BOUND_TARGET_FOLIOS_PENDING",
     "artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
     "observed_image_files": [
       "GK00893_00IH_0001_000a.jpg",
@@ -687,7 +703,8 @@
     "renderer_get_candidate": "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=SIC&book_cd=GK00893_00&vol_no=0001&page_no=000a",
     "renderer_candidate_response_observed": false,
     "exact_target_folio_status": "UNRESOLVED",
-    "target_reading_status": "PENDING_DIRECT_IMAGE"
+    "target_reading_status": "PENDING_DIRECT_TARGET_IMAGE",
+    "public_opening_figure_status": "DIRECTLY_VISIBLE_NON_TARGET_SOLAR_OPENING_PAGE_INITIAL_TO_DAY8"
   },
   "supplementary_physical_witness_candidates": [
     {
@@ -747,5 +764,18 @@
     "kyushu_reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
     "conclusion": "INDEPENDENT_SAME_YEAR_COLLATION_ADDS_STRUCTURAL_SYMMETRY_PHILOLOGY_AND_L124_DERIVED_LINEAGE_EVIDENCE_WITHOUT_RUNTIME_EFFECT",
     "runtime_effect": "NONE"
+  },
+  "g893_copy_date_adjudication": {
+    "provider_range": "1418-1450",
+    "secondary_1434": [
+      "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+      "EXT-LI-LIANG-LICHENG-TABLES-2018"
+    ],
+    "secondary_1444": [
+      "EXT-LI-LIANG-SUNRISE-TABLES-2022"
+    ],
+    "status": "EXACT_COPY_YEAR_UNRESOLVED",
+    "disposition": "COPY_CHRONOLOGY_MUST_NOT_BE_USED_AS_NUMERIC_VARIANT_TIE_BREAKER_UNTIL_EXACT_YEAR_CLOSES",
+    "artifact": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
   }
 }
