@@ -183,5 +183,35 @@
     "Directly bind and visually collate the solar winter-table continuation carrying D16 without using an unobserved filename sequence as evidence.",
     "Bind G894 exact solar/lunar target folios and read all six controls independently.",
     "Only after independent target readings compare G894, Sillok, G893, Goryeosa, Ming and Ogawa at cell level."
-  ]
+  ],
+  "audit_batch": "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
+  "solar_navigation_evidence": {
+    "directly_bound_start": {
+      "article_id": "wda_50016011",
+      "taebaeksan_location": "60冊 156卷 6張 A面",
+      "image_id": "ide_d156006a00",
+      "token": "da/ide_d156006a00",
+      "sha256": "a669c3fcd1ef8d86df85f8c84640ec901f92954afe005539c98112e0a03327a6",
+      "direct_observation": "6A native image is directly bound and does not itself contain the D16 target cell"
+    },
+    "physical_span_probe": {
+      "workflow_run_id": 34018914805,
+      "head_sha": "cde7d4819d1ad95ec3f7f2f3d687808582c68e1f",
+      "artifact_id": 9984847854,
+      "artifact_digest": "sha256:1f19dd2af9d549ca7f49e23908bee8e81676685b2ace35e083fff9a8bae1f666",
+      "outcome": "NO_INTERIOR_CANDIDATE_RETURNED_VALID_OFFICIAL_IMAGE_BYTES",
+      "evidentiary_effect": "NONE_FOR_UNOBSERVED_FILENAME_CANDIDATES"
+    },
+    "official_image_tree_walk": {
+      "workflow_run_id": 34019510671,
+      "head_sha": "ff08c52383f4fcf6acb18b3beff02e66c9e6467c",
+      "artifact_id": 9985014616,
+      "artifact_digest": "sha256:b8742f0fb27130707870b07cb17007ba6d289f2521a853d154b6d98683fa099c",
+      "navigation_api": "/search/ajaxSelectImageInfo.do?imageId=ide_d156006a00",
+      "outcome": "START_API_UNAVAILABLE",
+      "observed_tree_node_count": 0,
+      "evidentiary_effect": "NETWORK_UNAVAILABILITY_ONLY_NOT_PAGE_OR_GLYPH_EVIDENCE"
+    },
+    "adjudication": "SOLAR_D16_REMAINS_PENDING_DIRECT_OFFICIAL_CONTINUATION_IMAGE; NO_FILENAME_OR_NEXT_NODE_VALUE_INFERRED"
+  }
 }
