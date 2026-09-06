@@ -223,7 +223,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         self.assertEqual(witnesses[source]["public_opening_figure"]["target_value_effect"],"NONE")
         adjudication=self.data["independent_physical_image_adjudication"]
         self.assertEqual(adjudication["source_id"],source)
-        self.assertEqual(adjudication["status"],"SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND")
+        self.assertEqual(adjudication["status"],"SOURCE_TEXTUAL_VOLUME_AND_OPENING_SOLAR_OBJECT_PAGE_BOUND_TARGET_FOLIOS_NOT_YET_BOUND")
         self.assertEqual(len(adjudication["targets"]),6)
         self.assertTrue(all(t["target_reading_status"]=="PENDING_DIRECT_IMAGE" for t in adjudication["targets"]))
         self.assertEqual(
