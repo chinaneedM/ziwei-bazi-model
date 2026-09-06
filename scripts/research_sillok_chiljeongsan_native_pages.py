@@ -14,6 +14,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 BASE = "https://sillok.history.go.kr"
+LEGACY_BASE = "http://sillok.history.go.kr"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 ARTICLES = {
     "wda_50016011": {
@@ -36,7 +37,7 @@ ARTICLES = {
     },
 }
 
-def fetch(url: str, timeout: int = 35) -> tuple[int, str, bytes]:
+def fetch(url: str, timeout: int = 15) -> tuple[int, str, bytes]:
     req = urllib.request.Request(url, headers={
         "User-Agent": UA,
         "Accept": "text/html,image/jpeg,image/*,*/*;q=0.8",
@@ -59,13 +60,17 @@ def parse_imgarr(viewer_html: str) -> list[str]:
             arrays.append(vals)
     if not arrays:
         raise ValueError("imgArr not found")
-    # Prefer the largest array because the viewer may contain both the active
-    # article image and a full image-only tab array for the same bound unit.
     return max(arrays, key=len)
 
-def image_proxy_url(token: str) -> str:
+def image_candidate_urls(token: str) -> list[str]:
     file_path = "/s_img/SILLOK/" + token + ".jpg"
-    return BASE + "/viewer/imageProxy.do?filePath=" + urllib.parse.quote(file_path, safe="/")
+    q = urllib.parse.quote(file_path, safe="/")
+    return [
+        LEGACY_BASE + "/viewer/imageProxy.do?filePath=" + q,
+        BASE + "/viewer/imageProxy.do?filePath=" + q,
+        LEGACY_BASE + file_path,
+        BASE + file_path,
+    ]
 
 def make_contact_sheet(images: list[tuple[str, Image.Image]], path: Path) -> None:
     if not images:
@@ -77,8 +82,7 @@ def make_contact_sheet(images: list[tuple[str, Image.Image]], path: Path) -> Non
     for token, im in images:
         ratio = thumb_w / im.width
         h = max(1, int(im.height * ratio))
-        thumb = im.resize((thumb_w, h))
-        thumbs.append((token, thumb))
+        thumbs.append((token, im.resize((thumb_w, h))))
     cell_h = max(t.height for _, t in thumbs) + label_h
     rows = (len(thumbs) + cols - 1) // cols
     sheet = Image.new("RGB", (cols * thumb_w, rows * cell_h), "white")
@@ -102,8 +106,14 @@ def main() -> int:
         "base": BASE,
         "ocr_used": False,
         "target_values_authorized_by_fetch": False,
-        "localization_basis": "OFFICIAL_ARTICLE_ID_TO_OFFICIAL_VIEWER_IMGARR_TO_OFFICIAL_IMAGEPROXY",
+        "localization_basis": "OFFICIAL_ARTICLE_ID_TO_OFFICIAL_VIEWER_IMGARR_TO_OFFICIAL_IMAGE_TRANSPORT",
         "source_layer": "NATIONAL_INSTITUTE_OF_KOREAN_HISTORY_SILLOK_VIEWER",
+        "image_route_priority": [
+            "HTTP_IMAGEPROXY",
+            "HTTPS_IMAGEPROXY",
+            "HTTP_DIRECT_S_IMG",
+            "HTTPS_DIRECT_S_IMG",
+        ],
         "articles": [],
     }
     any_error = False
@@ -112,8 +122,7 @@ def main() -> int:
         viewer_url = f"{BASE}/popup/viewer.do?type=view&id={article_id}"
         vstatus, vctype, vbody = fetch(viewer_url)
         vtext = vbody.decode("utf-8", "replace")
-        viewer_file = out / f"{article_id}-viewer.html"
-        viewer_file.write_text(vtext, encoding="utf-8")
+        (out / f"{article_id}-viewer.html").write_text(vtext, encoding="utf-8")
 
         article = {
             "article_id": article_id,
@@ -133,35 +142,61 @@ def main() -> int:
             result["articles"].append(article)
             any_error = True
             continue
+
         article["imgarr_tokens"] = tokens
         native_for_sheet = []
 
         for index, token in enumerate(tokens):
-            url = image_proxy_url(token)
-            status, ctype, body = fetch(url)
             rec = {
                 "index": index,
                 "token": token,
-                "proxy_url": url,
-                "status": status,
-                "content_type": ctype,
-                "bytes": len(body),
-                "sha256": hashlib.sha256(body).hexdigest(),
+                "attempts": [],
                 "ocr_used": False,
                 "target_values_authorized_by_fetch": False,
             }
-            if status == 200:
-                try:
-                    im = Image.open(io.BytesIO(body)).convert("RGB")
-                    rec["size"] = [im.width, im.height]
-                    filename = f"{article_id}-{index:03d}-{token.split('/')[-1]}.jpg"
-                    im.save(out / filename, quality=95)
-                    rec["file"] = filename
-                    native_for_sheet.append((token, im))
-                except Exception as exc:
-                    rec["image_error"] = f"{type(exc).__name__}: {exc}"
-                    any_error = True
+            selected_image = None
+            selected_body = None
+            selected_meta = None
+            for url in image_candidate_urls(token):
+                status, ctype, body = fetch(url)
+                attempt = {
+                    "url": url,
+                    "status": status,
+                    "content_type": ctype,
+                    "bytes": len(body),
+                    "sha256": hashlib.sha256(body).hexdigest(),
+                }
+                if status == 200:
+                    try:
+                        candidate = Image.open(io.BytesIO(body)).convert("RGB")
+                        attempt["valid_image"] = True
+                        attempt["size"] = [candidate.width, candidate.height]
+                        selected_image = candidate
+                        selected_body = body
+                        selected_meta = (url, status, ctype)
+                    except Exception as exc:
+                        attempt["valid_image"] = False
+                        attempt["image_error"] = f"{type(exc).__name__}: {exc}"
+                        if "text" in ctype.lower():
+                            attempt["body_prefix"] = body[:300].decode("utf-8", "replace")
+                rec["attempts"].append(attempt)
+                if selected_image is not None:
+                    break
+
+            if selected_image is not None and selected_meta is not None and selected_body is not None:
+                url, status, ctype = selected_meta
+                rec["selected_url"] = url
+                rec["status"] = status
+                rec["content_type"] = ctype
+                rec["bytes"] = len(selected_body)
+                rec["sha256"] = hashlib.sha256(selected_body).hexdigest()
+                rec["size"] = [selected_image.width, selected_image.height]
+                filename = f"{article_id}-{index:03d}-{token.split('/')[-1]}.jpg"
+                selected_image.save(out / filename, quality=95)
+                rec["file"] = filename
+                native_for_sheet.append((token, selected_image))
             else:
+                rec["status"] = "NO_VALID_IMAGE"
                 any_error = True
             article["pages"].append(rec)
 
