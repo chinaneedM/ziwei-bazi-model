@@ -10,7 +10,7 @@ BASE="https://kyudb.snu.ac.kr"
 BOOK_CD="GK26786_00"
 ITEM_CD="BBG"
 VOL_NO="0001"
-PAGES=("0128","0129","0130")
+PAGES=("0124","0125","0126","0127")
 RENDERER=BASE+"/pf01/rendererImg.do"
 UA="Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
@@ -36,10 +36,10 @@ def main():
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     s=requests.Session(impersonate="chrome"); s.headers.update({"User-Agent":UA})
     result={
-      "schema":"KYUJANGGAK-1940-SHOUSHI-ENTRY-FULLPAGES-R1",
+      "schema":"KYUJANGGAK-1940-PRECIOUS-TABLE-HEADER-FULLPAGES-R1",
       "book_cd":BOOK_CD,"item_cd":ITEM_CD,"vol_no":VOL_NO,
       "pages":list(PAGES),"ocr_used":False,
-      "role":"DIRECT_FULL_PAGE_BINDING_FOR_SHOUSHI_LICHENG_AND_KANG_BO_ADJACENT_ENTRIES",
+      "role":"DIRECT_FULL_PAGE_BINDING_FOR_PRECIOUS_TABLE_HEADER_AND_NUMBER_FIELD_SEMANTICS",
       "g893_identity_authorized":False,
       "target_numeric_values_authorized":False,
       "records":[]
