@@ -21,11 +21,16 @@ class SillokChiljeongsanNativeDirectCollationR1Test(unittest.TestCase):
         )
         self.assertFalse(self.data["ocr_used"])
         self.assertEqual(self.data["runtime_effect"], "NONE")
+        self.assertEqual(self.data["audit_batch"], "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O")
         self.assertFalse(self.data["algorithm_reopen_authorized"])
         self.assertEqual(self.data["reproduction"]["native_page_workflow_run_id"], 34015344051)
         self.assertEqual(self.data["reproduction"]["native_page_artifact_id"], 9983778498)
         self.assertEqual(self.data["solar_control"]["status"], "PENDING_DIRECT_SOLAR_TABLE_CONTINUATION_IMAGE")
         self.assertIsNone(self.data["solar_control"]["target_value"])
+        self.assertEqual(
+            self.data["solar_navigation_evidence"]["official_image_tree_walk"]["outcome"],
+            "START_API_UNAVAILABLE",
+        )
 
     def test_five_lunar_controls_are_directly_read(self) -> None:
         self.assertEqual(len(self.by_id), 5)
