@@ -10,13 +10,17 @@ PROTOCOL = ROOT / "docs" / "PROJECT-CONTINUITY-PROTOCOL-R1.md"
 AUTHORITY = ROOT / "docs" / "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
-LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T.md"
-LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1912-1920-PRECIOUS-CATALOG-R1.json"
+LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
+LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
-LATEST_BATCH_ID = "BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T"
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T.md"
+SUPPLEMENTAL_BATCH_IDS = [
+    "BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T",
+    "BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U",
+]
+LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 
 
 def fail(message: str) -> None:
@@ -81,6 +85,7 @@ def main() -> int:
         "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
         "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
         "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
+        "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -115,37 +120,54 @@ def main() -> int:
     state_batches = audit_state.get("completed_batches", [])
     if state_batches[: len(matrix_batches)] != matrix_batches:
         fail("current-state completed batch prefix differs from Historical Audit Matrix")
-    if state_batches[len(matrix_batches) :] != [LATEST_BATCH_ID]:
+    if state_batches[len(matrix_batches) :] != SUPPLEMENTAL_BATCH_IDS:
         fail("unexpected supplemental provenance-only batch list after Historical Audit Matrix prefix")
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
 
-    if evidence.get("status") != "COMPLETE_DIRECT_NO_OCR_FULL_RENDERER_OBJECT_TITLE_PRESENCE_REVIEW_NEGATIVE_CATALOG_WITNESS_ONLY":
-        fail("Batch 11T machine evidence status mismatch")
-    coverage = evidence.get("direct_digital_object_access", {}).get("page_coverage_validation", {})
-    if coverage.get("valid_image_count") != 75 or coverage.get("missing_page_count") != 0:
-        fail("Batch 11T full renderer page coverage regressed")
-    if coverage.get("all_pages_valid_image") is not True or coverage.get("all_pages_ocr_false") is not True:
-        fail("Batch 11T no-OCR full-image coverage regressed")
-    review = evidence.get("direct_visual_review", {})
-    if review.get("exact_title_visible") is not False or review.get("short_title_visible") is not False:
-        fail("Batch 11T negative title-presence result regressed")
+    if evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":
+        fail("Batch 11U machine evidence status mismatch")
+    source_object = evidence.get("source_object", {})
+    if source_object.get("book_cd") != "GK26786_00" or source_object.get("item_cd") != "BBG":
+        fail("Batch 11U 1940 provider-object binding regressed")
+    if source_object.get("renderer_page_count") != 148 or source_object.get("ocr_used") is not False:
+        fail("Batch 11U 1940 renderer/no-OCR controls regressed")
+    header = evidence.get("internal_catalog_header", {})
+    if header.get("page_id") != "0125" or header.get("visible_title") != "奎章閣貴重圖書目錄":
+        fail("Batch 11U internal precious-catalog header binding regressed")
+    for field in ("書名", "圖書番號", "冊數", "備考"):
+        if field not in header.get("visible_field_headers", ()):
+            fail(f"Batch 11U lost direct table-field header: {field}")
+    entry = evidence.get("direct_entry_binding", {})
+    target_entry = entry.get("target_entry", {})
+    adjacent = entry.get("adjacent_control_entry", {})
+    if entry.get("page_id") != "0129":
+        fail("Batch 11U target-entry page binding regressed")
+    if target_entry.get("title") != "授時曆立成" or target_entry.get("book_number") != 893 or target_entry.get("volume_count") != 1:
+        fail("Batch 11U 授時曆立成 / 圖書番號 893 direct reading regressed")
+    if adjacent.get("title") != "授時曆捷法立成" or adjacent.get("book_number") != 892:
+        fail("Batch 11U adjacent Kang-Bo control regressed")
+    current_binding = evidence.get("current_object_binding", {})
+    if current_binding.get("current_catalog_identifier") != "奎貴893" or current_binding.get("current_book_cd") != "GK00893_00":
+        fail("Batch 11U current G893 binding regressed")
+    if current_binding.get("exact_item_continuity_to_current_gk00893_00") != "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL":
+        fail("Batch 11U catalog-item continuity closure regressed")
     if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
-        fail("Batch 11T G893 target-page fail-closed status regressed")
+        fail("Batch 11U G893 target-page fail-closed status regressed")
 
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
-        "Batch 11T",
-        "GK26787_00",
-        "[1912-1920]",
-        "NOT SEEN",
-        "1936 Rufus",
-        "UNRESOLVED",
+        "Batch 11U",
+        "GK26786_00",
+        "圖書番號 893",
+        "授時曆捷法立成",
+        "奎貴893",
+        "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL",
         "PENDING_DIRECT_TARGET_PAGE",
-        "奎26775-v.1-7",
+        "1930 generic main sequence number 893",
     ):
         if fragment not in focus_text:
-            fail(f"current-state lost Batch 11T continuity boundary: {fragment}")
+            fail(f"current-state lost Batch 11U continuity boundary: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
