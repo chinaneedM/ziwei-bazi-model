@@ -65,13 +65,19 @@ def parse_imgarr(viewer_html: str) -> list[str]:
     return max(arrays, key=len)
 
 def image_candidate_urls(token: str) -> list[str]:
-    file_path = "/s_img/SILLOK/" + token + ".jpg"
-    q = urllib.parse.quote(file_path, safe="/")
+    current_path = "/images/org_images/" + token + ".jpg"
+    current_q = urllib.parse.quote(current_path, safe="/")
+    legacy_path = "/s_img/SILLOK/" + token + ".jpg"
+    legacy_q = urllib.parse.quote(legacy_path, safe="/")
     return [
-        LEGACY_BASE + "/viewer/imageProxy.do?filePath=" + q,
-        BASE + "/viewer/imageProxy.do?filePath=" + q,
-        LEGACY_BASE + file_path,
-        BASE + file_path,
+        BASE + current_path,
+        LEGACY_BASE + current_path,
+        BASE + "/viewer/imageProxy.do?filePath=" + current_q,
+        LEGACY_BASE + "/viewer/imageProxy.do?filePath=" + current_q,
+        BASE + legacy_path,
+        LEGACY_BASE + legacy_path,
+        BASE + "/viewer/imageProxy.do?filePath=" + legacy_q,
+        LEGACY_BASE + "/viewer/imageProxy.do?filePath=" + legacy_q,
     ]
 
 def make_contact_sheet(images: list[tuple[str, Image.Image]], path: Path) -> None:
@@ -112,11 +118,23 @@ def main() -> int:
         "localization_basis": "OFFICIAL_ARTICLE_ID_TO_OFFICIAL_VIEWER_IMGARR_TO_OFFICIAL_IMAGE_TRANSPORT",
         "source_layer": "NATIONAL_INSTITUTE_OF_KOREAN_HISTORY_SILLOK_VIEWER",
         "image_route_priority": [
-            "HTTP_IMAGEPROXY",
-            "HTTPS_IMAGEPROXY",
-            "HTTP_DIRECT_S_IMG",
-            "HTTPS_DIRECT_S_IMG",
+            "HTTPS_DIRECT_CURRENT_ORG_IMAGES",
+            "HTTP_DIRECT_CURRENT_ORG_IMAGES",
+            "HTTPS_IMAGEPROXY_CURRENT_ORG_IMAGES",
+            "HTTP_IMAGEPROXY_CURRENT_ORG_IMAGES",
+            "HTTPS_DIRECT_LEGACY_S_IMG",
+            "HTTP_DIRECT_LEGACY_S_IMG",
+            "HTTPS_IMAGEPROXY_LEGACY_S_IMG",
+            "HTTP_IMAGEPROXY_LEGACY_S_IMG",
         ],
+        "official_viewer_config_evidence": {
+            "head_sha": "1cb774234a4c91171e354d86058d779cd48a759f",
+            "workflow_run_id": 34015242124,
+            "artifact_id": 9983692998,
+            "imgFileRootDir": "/images/org_images/",
+            "imgFileExt": ".jpg",
+            "main_image_loader": "DIRECT_ROOT_PLUS_IMGARR_TOKEN_PLUS_EXT",
+        },
         "articles": [],
     }
     any_error = False
