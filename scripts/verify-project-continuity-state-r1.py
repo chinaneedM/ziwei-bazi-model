@@ -72,6 +72,10 @@ def main() -> int:
         fail("external source registry authority policy regressed")
     if registry.get("research_authority_policy_doc") != "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md":
         fail("external source registry is not bound to research authority policy")
+    source_ids = {item.get("source_id") for item in registry.get("sources", ())}
+    for source_id in ("EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673", "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"):
+        if source_id not in source_ids:
+            fail(f"Ogawa continuity source witness missing: {source_id}")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
@@ -98,11 +102,21 @@ def main() -> int:
 
     if audit_state.get("completed_batches") != matrix.get("historical_research_batches"):
         fail("current-state completed batch list differs from Historical Audit Matrix")
+    required_recent_batches = (
+        "BATCH-11-BAZI-OGAWA-1673-NATIVE-EVIDENCE-K",
+        "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L",
+    )
+    for batch_id in required_recent_batches:
+        if batch_id not in audit_state.get("completed_batches", ()):
+            fail(f"current-state lost recent Ogawa research batch: {batch_id}")
     if not audit_state.get("latest_batch_doc"):
         fail("current-state latest batch document is missing")
     latest_batch_doc = ROOT / audit_state["latest_batch_doc"]
     if not latest_batch_doc.is_file():
         fail(f"current-state latest batch document does not exist: {audit_state['latest_batch_doc']}")
+    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L.md"
+    if audit_state.get("latest_batch_doc") != expected_latest:
+        fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
