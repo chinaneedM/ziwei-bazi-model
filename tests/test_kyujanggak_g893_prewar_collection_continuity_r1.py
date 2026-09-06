@@ -74,6 +74,32 @@ class KyujanggakG893PrewarCollectionContinuityR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
+    def test_1908_precious_catalog_is_negative_title_witness_only(self) -> None:
+        self.assertEqual(self.data["schema_version"], "1.2.0")
+        controls = {x["source_id"]: x for x in self.data["early_catalog_controls"]}
+        witness = controls["EXT-KYUJANGGAK-PRECIOUS-CATALOG-1908"]
+        self.assertEqual(witness["book_cd"], "GR35006_00")
+        self.assertEqual(witness["item_cd"], "BBG")
+        self.assertEqual(
+            witness["direct_pdf"]["sha256"],
+            "b4b7b14229a82f3f5da12dc069cf8943b1d4c1ff7ca0aa87e85eb3e5d2b06328",
+        )
+        self.assertFalse(witness["direct_pdf"]["ocr_used"])
+        self.assertEqual(witness["direct_visual_review"]["visible_result"], "NOT_SEEN")
+        self.assertEqual(
+            witness["adjudication"]["negative_catalog_witness"],
+            "SUPPORTED_FOR_1908_PRECIOUS_CATALOG_TITLE_PRESENCE_ONLY",
+        )
+        self.assertEqual(
+            witness["adjudication"]["physical_absence_of_g893_in_1908"],
+            "NOT_PROVEN",
+        )
+        b = self.data["epistemic_boundaries"]
+        self.assertEqual(b["negative_catalog_witness_as_physical_absence"], "FORBIDDEN")
+        self.assertEqual(b["current_precious_status_backprojection_to_1908"], "FORBIDDEN")
+        self.assertEqual(b["negative_catalog_witness_as_exact_item_identity"], "FORBIDDEN")
+        self.assertEqual(b["negative_catalog_witness_as_target_value_evidence"], "FORBIDDEN")
+
     def test_all_six_targets_remain_pending_with_zero_runtime_effect(self) -> None:
         self.assertEqual(len(self.data["target_controls"]), 6)
         self.assertEqual(self.data["target_status"], "ALL_SIX_PENDING_DIRECT_TARGET_PAGE")
