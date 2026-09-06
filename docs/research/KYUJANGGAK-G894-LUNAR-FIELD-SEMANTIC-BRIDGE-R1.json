@@ -1,0 +1,139 @@
+{
+  "schema": "KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_G894_METHOD_PROSE_CLOSES_SIX_COLUMN_MECHANICAL_SEMANTICS",
+  "source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
+  "title": "七政算內篇",
+  "catalog_identifier": "奎貴894-v.1-3",
+  "edition": "甲寅字",
+  "publication_year": 1444,
+  "ocr_used": false,
+  "runtime_effect": "NONE",
+  "algorithm_reopen_authorized": false,
+  "reproduction": {
+    "workflow_run_id": 34024508098,
+    "workflow_head_sha": "af93758c7c167b89e302cbc6e3560e6923ee0a6b",
+    "artifact_id": 9986629487,
+    "artifact_digest": "sha256:5d53684ea507a3f2c7e576cf045356ac3a909c4319defc1c4ce1014ad903f540",
+    "header_page": {
+      "page_id": "018a",
+      "image_sha256": "28edfa14bd4ea71f93284f0924be98be38f75ecccc75a374db758a4ee4e47b85",
+      "img_path": "/data01/stream/GJB/IMG/GK00894_00/GK00894_00_0001/GK00894_00_IL_0001_018a.jpg"
+    },
+    "method_page": {
+      "page_id": "041b",
+      "image_sha256": "ee28d69a72b609923214d038180d1c5091f2571d53de8264448eaf4c596797de",
+      "img_path": "/data01/stream/GJB/IMG/GK00894_00/GK00894_00_0001/GK00894_00_IL_0001_041b.jpg"
+    }
+  },
+  "direct_header": {
+    "table_title_surface": "大陰限數遲疾度",
+    "normalized_table_title": "太陰限數遲疾度",
+    "columns": [
+      "限數",
+      "遲疾曆日率",
+      "損益分",
+      "遲疾度",
+      "疾曆限行度",
+      "遲曆限行度"
+    ],
+    "correction_to_prior_in_progress_artifact": {
+      "incorrect_label": "遲疾益分",
+      "corrected_label": "損益分",
+      "omitted_label_restored": "遲疾度",
+      "disposition": "IN_PROGRESS_EVIDENCE_ARTIFACT_CORRECTION_BEFORE_BATCH_CLOSURE_NOT_CHART_ALGORITHM_DEFECT"
+    }
+  },
+  "direct_method_fragments": [
+    {
+      "page_id": "018a",
+      "heading": "求經朔弦望入遲疾曆及限數",
+      "stable_surface": "視各入轉在轉中已下為疾曆已上減去轉中為遲曆置遲疾曆日及分秒以十二限二十分乘之得限數",
+      "mechanical_role": "Defines the current half as 疾曆 or 遲曆 and derives 限數 from the corresponding 遲疾曆 coordinate."
+    },
+    {
+      "page_id": "041b",
+      "heading": "求遲疾差",
+      "stable_surface": "置遲疾曆日及分秒以遲疾曆日率減之以其下損益分乘之如八百二十而一益加損減其下遲疾度即遲疾差",
+      "transcription_scope_note": "A small interlinear exception around insufficient subtraction is intentionally omitted here because it is not needed to identify the six table fields.",
+      "mechanical_role": "Subtract the row day-rate anchor; multiply the residual by 損益分; divide by 820; add or subtract the result from the row 遲疾度 to obtain 遲疾差."
+    },
+    {
+      "page_id": "041b",
+      "heading": "求加減差",
+      "stable_surface": "視經朔弦望盈縮差與遲疾差同名相從異名相消以八百二十乘之以所入遲疾限下行度除之即為加減差",
+      "mechanical_role": "Combine the solar 盈縮差 and lunar 遲疾差 by sign, multiply by 820, then divide by the applicable current-half limit line-speed field."
+    }
+  ],
+  "field_bridge": [
+    {
+      "g894_field": "限數",
+      "mechanical_identity": "LUNAR_CHIJI_LIMIT_INDEX",
+      "evidence": "018a method derives 限數 from the current 遲/疾曆 coordinate.",
+      "comparison_scope": "DIRECT"
+    },
+    {
+      "g894_field": "遲疾曆日率",
+      "mechanical_identity": "LUNAR_LIMIT_DAY_RATE_ANCHOR",
+      "evidence": "041b 求遲疾差 subtracts this field from the current 遲疾曆日及分秒 before interpolation.",
+      "active_control": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "comparison_scope": "DIRECT_FIELD_IDENTITY"
+    },
+    {
+      "g894_field": "損益分",
+      "mechanical_identity": "LUNAR_WITHIN_LIMIT_INTERPOLATION_INCREMENT",
+      "evidence": "041b multiplies the residual by 損益分 and divides by 820, then 益加/損減 the row base.",
+      "active_controls": [
+        "VAR-NUM-LUNAR-L8-LOSSGAIN",
+        "VAR-NUM-LUNAR-L132-LOSSGAIN"
+      ],
+      "comparison_scope": "DIRECT_FIELD_IDENTITY"
+    },
+    {
+      "g894_field": "遲疾度",
+      "mechanical_identity": "LUNAR_LIMIT_BASE_CHIJI_CORRECTION",
+      "evidence": "041b names the row 遲疾度 as the base to which the interpolated increment is added/subtracted.",
+      "active_control": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "comparison_scope": "DIRECT_FIELD_IDENTITY"
+    },
+    {
+      "g894_field": "疾曆限行度",
+      "mechanical_identity": "LUNAR_JI_HALF_LIMIT_LINE_SPEED_DENOMINATOR",
+      "evidence": "041b 求加減差 divides by the current 遲疾限下行度 after the current half has been identified at 018a.",
+      "active_control": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "comparison_scope": "DIRECT_MECHANICAL_IDENTITY_WITH_GORYEOSA_COMBINED_FIELD_AND_MING_SEPARATE_RAW_LINE_SPEED_LAYER"
+    },
+    {
+      "g894_field": "遲曆限行度",
+      "mechanical_identity": "LUNAR_CHI_HALF_LIMIT_LINE_SPEED_DENOMINATOR",
+      "evidence": "Same current-half denominator rule in 041b.",
+      "comparison_scope": "DIRECT"
+    }
+  ],
+  "solar_d16_scope": {
+    "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "page_ids": [
+      "009a",
+      "009b"
+    ],
+    "page_009a_sha256": "dd4479d192d7f70709927db00e0fcf6ba439d936a9c2afd9fbdffc82c8d174e2",
+    "direct_visible_schema": [
+      "積日",
+      "盈縮加分",
+      "盈縮積"
+    ],
+    "target_field": "WINTER_SOLAR_SECOND_COLUMN_DAY_16",
+    "target_field_presence": "STRUCTURALLY_ABSENT_IN_G894_SOLAR_TABLE",
+    "direct_numeric_reading": null,
+    "disposition": "NON_COMPARABLE_CONTROL_FOR_G894; DO_NOT SUBSTITUTE 盈縮加分 OR 盈縮積 FOR THE MISSING DIFFERENCE_COLUMN"
+  },
+  "epistemic_boundaries": {
+    "same_limit_number_as_same_field_semantics": "FORBIDDEN_WITHOUT_METHOD_BRIDGE",
+    "similar_name_as_mechanical_identity": "FORBIDDEN_WITHOUT_CONTEXTUAL_METHOD_PROSE",
+    "structurally_absent_field_as_zero_or_blank_value": "FORBIDDEN",
+    "g894_as_g893": "FORBIDDEN",
+    "g894_as_sillok_same_glyph_surface": "FORBIDDEN",
+    "source_count_as_variant_adjudication": "FORBIDDEN",
+    "runtime_or_algorithm_effect": "NONE"
+  }
+}
