@@ -27,7 +27,8 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["thumbnail_filename_as_target_folio_binding"],"FORBIDDEN")
         self.assertEqual(b["sample_thumbnail_as_target_glyph_reading"],"FORBIDDEN")
         self.assertEqual(b["filename_volume_token_as_textual_volume_proof"],"FORBIDDEN")
-        self.assertEqual(b["secondary_article_figure_as_target_glyph_authority"],"FORBIDDEN")
+        self.assertIn("FORBIDDEN_UNLESS_THE_TARGET_GLYPH_ITSELF_IS_VISIBLE_AND_BOUND",b["secondary_article_figure_as_target_glyph_authority"])
+        self.assertIn("CURRENT_FIGURE_ONLY_LOCALIZES_NON_TARGET_OPENING_SOLAR_PAGE",b["secondary_article_figure_as_target_glyph_authority"])
         self.assertEqual(b["algorithm_or_runtime_selection_effect"],"NONE")
 
     def test_documented_renderer_imageservlet_protocol_is_bound_without_claiming_response(self) -> None:
