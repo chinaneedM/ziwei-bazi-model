@@ -80,6 +80,27 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["other_kyujanggak_object_renderer_success_as_g893_access_proof"],"FORBIDDEN")
         self.assertEqual(b["other_kyujanggak_object_renderer_success_as_g893_folio_or_glyph_evidence"],"FORBIDDEN")
 
+    def test_mirror_routes_remain_locator_only_and_work_identity_stays_separate(self) -> None:
+        self.assertEqual(self.data["schema_version"],"1.4.0")
+        routes={x["source_id"]:x for x in self.data["mirror_and_reproduction_routes"]}
+        legacy=routes["EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015"]
+        self.assertFalse(legacy["actual_file_retrieved"])
+        self.assertFalse(legacy["g893_identity_bound"])
+        self.assertEqual(legacy["target_folio_effect"],"NONE")
+        self.assertEqual(legacy["target_glyph_effect"],"NONE")
+        separation=self.data["work_identity_separation_control"]
+        self.assertEqual(
+            separation["source_id"],
+            "EXT-KASI-YU-GYUNG-RO-SEJONG-CALENDAR-PUBLICATION-1997",
+        )
+        self.assertIn("SEPARATE_BOOKS",separation["finding"])
+        self.assertEqual(separation["target_folio_effect"],"NONE")
+        self.assertEqual(separation["target_glyph_effect"],"NONE")
+        b=self.data["epistemic_boundaries"]
+        self.assertEqual(b["legacy_package_catalog_as_g893_copy_identity"],"FORBIDDEN")
+        self.assertEqual(b["legacy_package_catalog_as_target_page_or_glyph_evidence"],"FORBIDDEN")
+        self.assertEqual(b["kang_bo_jiefa_licheng_as_g893_substitute"],"FORBIDDEN")
+
     def test_all_six_targets_remain_explicitly_pending(self) -> None:
         self.assertEqual(len(self.data["target_controls"]),6)
         self.assertIn("VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",self.data["target_controls"])
