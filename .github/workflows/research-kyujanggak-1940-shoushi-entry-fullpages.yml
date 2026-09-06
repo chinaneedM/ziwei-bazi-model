@@ -1,0 +1,37 @@
+name: research-kyujanggak-1940-shoushi-entry-fullpages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - ".github/workflows/research-kyujanggak-1940-shoushi-entry-fullpages.yml"
+      - "scripts/research_kyujanggak_1940_shoushi_entry_fullpages.py"
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install isolated research dependencies
+        run: python -m pip install --disable-pip-version-check curl_cffi pillow
+      - name: Fetch direct full pages for Shoushi entries
+        run: |
+          python scripts/research_kyujanggak_1940_shoushi_entry_fullpages.py \
+            --output artifacts/kyujanggak-1940-shoushi-entry-fullpages
+      - name: Upload direct full-page evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-1940-shoushi-entry-fullpages-${{ github.sha }}
+          path: artifacts/kyujanggak-1940-shoushi-entry-fullpages/
+          if-no-files-found: warn
+          retention-days: 7
