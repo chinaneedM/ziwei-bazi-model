@@ -47,6 +47,39 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["modern_download_adapter_as_historical_authority"],"FORBIDDEN")
         self.assertEqual(b["image_url_construction_as_target_glyph_reading"],"FORBIDDEN")
 
+    def test_github_hosted_runner_family_is_exhausted_without_source_inference(self) -> None:
+        boundary=self.data["hosted_runner_boundary"]
+        self.assertEqual(
+            boundary["status"],
+            "DO_NOT_REPEAT_EQUIVALENT_GITHUB_HOSTED_TRANSPORTS_ON_ANY_TESTED_OS_FAMILY",
+        )
+        self.assertEqual(
+            boundary["tested_runner_families"],
+            ["GITHUB_HOSTED_UBUNTU","GITHUB_HOSTED_MACOS","GITHUB_HOSTED_WINDOWS"],
+        )
+        attempts=boundary["prior_attempts"]
+        self.assertEqual(len(attempts),4)
+        self.assertEqual({x["workflow_run_id"] for x in attempts},{33962192868,33962291588,34027558494})
+        self.assertTrue(all("RESET" in x["result"] for x in attempts))
+        self.assertEqual(
+            boundary["inference"],
+            "GITHUB_HOSTED_NETWORK_BOUNDARY_ONLY_NOT_SOURCE_PAGE_FOLIO_OR_GLYPH_EVIDENCE",
+        )
+
+    def test_non_github_success_is_only_a_network_feasibility_control(self) -> None:
+        w=self.data["public_non_github_access_witness"]
+        self.assertEqual(
+            w["source_id"],
+            "EXT-WIKIMEDIA-COMMONS-KYUJANGGAK-RENDERER-ACCESS-2026",
+        )
+        self.assertEqual(w["observed_object"],"Kyujanggak 奎17375 / GK17375_00")
+        self.assertFalse(w["same_object_as_g893"])
+        self.assertEqual(w["g893_target_folio_effect"],"NONE")
+        self.assertEqual(w["g893_target_glyph_effect"],"NONE")
+        b=self.data["epistemic_boundaries"]
+        self.assertEqual(b["other_kyujanggak_object_renderer_success_as_g893_access_proof"],"FORBIDDEN")
+        self.assertEqual(b["other_kyujanggak_object_renderer_success_as_g893_folio_or_glyph_evidence"],"FORBIDDEN")
+
     def test_all_six_targets_remain_explicitly_pending(self) -> None:
         self.assertEqual(len(self.data["target_controls"]),6)
         self.assertIn("VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",self.data["target_controls"])
