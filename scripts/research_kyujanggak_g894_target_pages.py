@@ -28,6 +28,7 @@ TARGET_PAGES = (
     "016b", "017a", "017b", "018a", "018b", "019a", "019b", "020a",
     "032a", "032b", "033a", "033b", "034a", "034b",
     "035a", "035b", "036a", "036b", "037a", "037b",
+    "038a", "038b", "039a", "039b", "040a", "040b", "041a", "041b",
 )
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
