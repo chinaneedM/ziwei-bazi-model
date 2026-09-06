@@ -50,6 +50,14 @@
       "role": "1909_LATER_RECEIVED_GORYEOSA_FACSIMILE_CONTAINER",
       "authority_disposition": "USE_AS_LATER_REPRINT_IMAGE_CROSSCHECK_ONLY; NOT EARLY_TRANSMISSION_AUTHORITY",
       "direct_target_image_status": "V52_UNIT_CATALOGUED_TARGET_LICHENG_PAGES_PENDING"
+    },
+    {
+      "source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+      "role": "INDEPENDENT_1673_OGAWA_PUBLIC_DOMAIN_IIIF_DIRECT_IMAGE_WITNESS",
+      "date_context": "寛文13年（1673）same-year independent Ogawa holding",
+      "authority_disposition": "USE_FOR_OGAWA_SAME_EDITION_SURFACE_AND_DERIVED_LAYER_COLLATION; DO_NOT_PROMOTE_TO_MING_1569_PRIMARY_OR_G893_EARLY_TRANSMISSION_AUTHORITY",
+      "direct_target_image_status": "D16_L8_L35_L67_L101_L114_L124_DERIVED_L132_L159_DIRECTLY_BOUND_NO_OCR",
+      "reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json"
     }
   ],
   "structural_variants": [
@@ -127,6 +135,11 @@
         "surface": "五分一三六二",
         "normalized": "5.1362",
         "reading_confidence": "HIGH"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_raw_value": null,
+        "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+        "significance": "Independent 1673 Ogawa copy repeats the solar schema without the separate D16 difference/message-difference field."
       }
     },
     {
@@ -145,6 +158,14 @@
         "surface": "一十〇分五六〇一七七五",
         "normalized": "10.5601775",
         "reading_confidence": "MEDIUM_HIGH_FAINT_PRINT"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_target_page": 51,
+        "same_copy_symmetric_control_limit": 159,
+        "same_copy_control_page": 58,
+        "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
+        "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Constrains Ogawa split-place typography without importing the Goryeosa or Ming linear surface."
       }
     },
     {
@@ -177,6 +198,12 @@
         "workflow_run_id": 33971921953,
         "artifact_id": 9971177420,
         "reading_artifact": "docs/research/GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1.json"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH",
+        "significance": "Second independent 1673 Ogawa holding aligns at 3489."
       }
     },
     {
@@ -186,7 +213,7 @@
       "krdb_goryeosa_current_transcript": "1.0821",
       "wikisource_goryeosa_current_transcript": "1.0821",
       "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
-      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED; KYUSHU_1673_DERIVED_LAYER_SUPPORTS_MING_1_0281_LINEAGE; EARLIER_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
       "note": "CADAL Goryeosa V52 scan 120 directly reads 一度〇八二一 (1.0821), aligning with KRDB o/r and Wikisource against Ming 1569 1.0281. The disagreement is therefore not digital-transcription-only; transmission stage/cause remains open.",
       "propagate_to_ming_primary": false,
       "krdb_r_korean_normalized_rendering": "1.0821",
@@ -195,6 +222,21 @@
         "surface": "一度〇八二一",
         "normalized": "1.0821",
         "reading_confidence": "HIGH"
+      },
+      "ogawa_1673_kyushu": {
+        "raw_ji_xingdu_directly_printed": false,
+        "printed_table_title": "遲疾限行度",
+        "printed_derived_ji": "0.0797587",
+        "printed_derived_chi": "0.0704164",
+        "ming_1569_raw_and_derived_alignment": {
+          "ji_raw": "1.0281",
+          "ji_derived": "0.0797587",
+          "chi_raw": "1.1645",
+          "chi_derived": "0.0704164"
+        },
+        "goryeosa_1_0821_counterfactual_derived": "0.0757785",
+        "classification": "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH",
+        "significance": "Kyushu does not directly print the raw 1.x field, but its reciprocal/shortcut layer excludes the 1.0821-derived control at printed precision."
       }
     },
     {
@@ -225,6 +267,14 @@
           "normalized": "7.886075",
           "reading_confidence": "HIGH"
         }
+      },
+      "ogawa_1673_kyushu": {
+        "direct_target_page": 57,
+        "same_copy_symmetric_control_limit": 35,
+        "same_copy_control_page": 52,
+        "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
+        "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Ogawa same-copy typography differs from the Goryeosa L35/L132 compact-surface contrast; the Goryeosa zero-practice is not universalized."
       }
     }
   ],
@@ -298,6 +348,7 @@
     "image_url_construction_as_target_value": "FORBIDDEN"
   },
   "next_work": [
+    "OGAWA_1673_KYUSHU_DIRECT_COLLATION_CLOSED_FOR_CURRENT_CONTROLS; KEEP_L124_AS_DERIVED_LINEAGE_EVIDENCE_NOT_DIRECT_RAW_GLYPH_AND_DO_NOT_FORCE_LINEAR_SERIALIZATION_OF_SPLIT_PLACE_GROUPS",
     "KRDB_L114_OWN_SCAN_ADJUDICATED_AS_3489_AND_O_TRANSCRIPTION_ERROR_CLOSED; EXTEND_DIRECT_IMAGE_BINDING_TO_OTHER_CONTROLS_ONLY_WHERE_IT_ADDS_SOURCE_VALUE",
     "BIND_NLC_1909_GORYEOSA_V52_TARGET_SCAN_PAGES_AS_LATER_RECEIVED_IMAGE_CROSSCHECK_WITHOUT_EARLY_WITNESS_PROMOTION",
     "USE_BOOKGET_DOCUMENTED_KYUJANGGAK_RENDERER_AND_IMAGESERVLET_PROTOCOL_FROM_A_NON_HOSTED_NETWORK_PATH_TO_BIND_G893_TARGET_FOLIOS",
@@ -388,6 +439,14 @@
           "normalized": "5.20481125",
           "reading_confidence": "HIGH"
         }
+      },
+      "ogawa_1673_kyushu": {
+        "target_page": 55,
+        "same_copy_symmetric_control_limit": 67,
+        "control_page": 54,
+        "relation": "DIFFERENT_VISIBLE_ZERO_PLACE_GROUP_SURFACE_IN_A_SAME_SYMMETRIC_MECHANICAL_CONTEXT",
+        "normalized_value": "NOT_REDERIVED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Independent Ogawa typography confirms that surface-string inequality cannot by itself create a mechanical variant."
       }
     }
   ],
@@ -681,5 +740,12 @@
     ],
     "direct_same_physical_copy_proven": false,
     "target_glyph_effect": "NONE"
+  },
+  "ogawa_1673_independent_collation": {
+    "ndl_source_id": "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
+    "kyushu_source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+    "kyushu_reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
+    "conclusion": "INDEPENDENT_SAME_YEAR_COLLATION_ADDS_STRUCTURAL_SYMMETRY_PHILOLOGY_AND_L124_DERIVED_LINEAGE_EVIDENCE_WITHOUT_RUNTIME_EFFECT",
+    "runtime_effect": "NONE"
   }
 }
