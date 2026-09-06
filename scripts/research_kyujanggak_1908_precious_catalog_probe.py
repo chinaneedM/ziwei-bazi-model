@@ -70,6 +70,21 @@ def main():
         except Exception as exc: result["pdf_list_parse_error"]=f"{type(exc).__name__}: {exc}"
     except Exception as exc:
         result["pdf_list_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+    result["frontend_route_probe"]={}
+    for js_path in ("/js/common.js","/js/common2.js","/js/book/bookSearch.js"):
+        try:
+            j=s.get(BASE+js_path,headers={"Referer":detail},timeout=20)
+            rec={"transport":meta(j)}
+            (out/("js-"+js_path.rsplit("/",1)[-1])).write_bytes(j.content)
+            text=j.text
+            idx=text.find("fn_mfPdf")
+            rec["contains_fn_mfPdf"]=idx>=0
+            if idx>=0:
+                rec["context"]=text[max(0,idx-1200):idx+5000]
+            result["frontend_route_probe"][js_path]=rec
+        except Exception as exc:
+            result["frontend_route_probe"][js_path]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+
     result["conclusion"]={
         "catalog_object_bound":bool(result.get("book_cd")),
         "pdf_list_observed":bool(result.get("pdf_list_json")),
