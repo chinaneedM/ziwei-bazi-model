@@ -1,7 +1,7 @@
 {
   "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
-  "schema_version": "2.5.0",
-  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_G893_TARGETS_PENDING_JOSEON_1444_G894_AND_SEJONG_SILLOK_WITNESS_ROUTES_BOUND",
+  "schema_version": "2.6.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_G894_FIVE_LUNAR_CONTROLS_DIRECTLY_CLOSED_D16_STRUCTURALLY_NONCOMPARABLE_G893_PENDING",
   "runtime_selection_authorized": false,
   "general_calendar_arithmetic_certified": false,
   "primary_reference": {
@@ -70,17 +70,20 @@
       "source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
       "role": "INDEPENDENT_1444_JOSEON_OFFICIAL_CHILJEONGSAN_NAEPYEON_PRINT_WITNESS",
       "date_context": "Kyujanggak provider directly dates G894 七政算內篇 to 1444; separate work/object from G893",
-      "authority_disposition": "USE_AS_SAME_PERIOD_JOSEON_ALGORITHMIC_TRANSMISSION_CONTROL_AFTER_EXACT_TARGET_PAGE_BINDING; NEVER SUBSTITUTE_FOR_G893_OR_MING_1569_EDITION_PRIMARY",
-      "direct_target_image_status": "CATALOG_OBJECT_AND_ORIGINAL_IMAGE_SERVICE_BOUND; SIX_TARGET_TABLE_CELLS_PENDING",
-      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json"
+      "authority_disposition": "USE_AS_DIRECT_1444_JOSEON_ALGORITHMIC_TABLE_WITNESS_FOR_THE_FIVE_FIELD_MAPPED_LUNAR_CONTROLS; D16 IS STRUCTURALLY_NONCOMPARABLE; NEVER SUBSTITUTE_FOR_G893_OR_MING_1569_EDITION_PRIMARY",
+      "direct_target_image_status": "FIVE_LUNAR_CONTROLS_DIRECTLY_READ_NO_OCR_AFTER_G894_OWN_METHOD_PROSE_CLOSED_FIELD_SEMANTICS; SOLAR_D16_TARGET_FIELD_STRUCTURALLY_ABSENT",
+      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json",
+      "reading_artifact": "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json",
+      "field_bridge_artifact": "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json"
     },
     {
       "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
       "role": "OFFICIAL_SEJONG_SILLOK_RECEIVED_TABLE_WITNESS_WITH_TAEBAEKSAN_ORIGINAL_IMAGE_ROUTE",
       "date_context": "Sejong Sillok vol.156 transmits the Chiljeongsan solar/lunar table families; physical Sillok transmission layer is not assumed identical to 1444 G894 print",
       "authority_disposition": "USE_AS_OFFICIAL_RECEIVED_TABLE_AND_LEAF_LOCALIZATION_WITNESS; EXACT GLYPHS ONLY AFTER ORIGINAL IMAGE CELL READING; NEVER SUBSTITUTE_FOR_G893",
-      "direct_target_image_status": "SOLAR_AND_LUNAR_ARTICLES_PLUS_TAEBAEKSAN_LEAF_LOCATIONS_BOUND; TARGET_NUMERIC_GLYPHS_PENDING",
-      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json"
+      "direct_target_image_status": "FIVE_LUNAR_CONTROLS_DIRECTLY_READ_NO_OCR; SOLAR_D16_CONTINUATION_STILL_PENDING",
+      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json",
+      "reading_artifact": "docs/research/SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json"
     }
   ],
   "structural_variants": [
@@ -163,6 +166,17 @@
         "direct_raw_value": null,
         "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
         "significance": "Independent 1673 Ogawa copy repeats the solar schema without the separate D16 difference/message-difference field."
+      },
+      "g894_1444": {
+        "exact_day16_page": "0001-009b",
+        "target_field_directly_printed": false,
+        "directly_visible_solar_schema": [
+          "積日",
+          "盈縮加分",
+          "盈縮積"
+        ],
+        "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+        "significance": "G894 directly prints day 16 inside the winter solar table but omits the active second difference/message-difference field; no neighboring printed column is substituted."
       }
     },
     {
@@ -189,6 +203,14 @@
         "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
         "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
         "significance": "Constrains Ogawa split-place typography without importing the Goryeosa or Ming linear surface."
+      },
+      "g894_1444": {
+        "page": "0001-019b",
+        "direct_surface": "益一十〇分五六〇一七七五",
+        "normalized": "10.5601775",
+        "reading_confidence": "HIGH",
+        "field_identity": "損益分_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "Direct 1444 G894 agrees with the Sejong Sillok/Goryeosa received L8 branch against Ming 1569 10.561775."
       }
     },
     {
@@ -227,6 +249,14 @@
         "normalized": "9日3489",
         "reading_confidence": "HIGH",
         "significance": "Second independent 1673 Ogawa holding aligns at 3489."
+      },
+      "g894_1444": {
+        "page": "0001-034a",
+        "direct_surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH",
+        "field_identity": "遲疾曆日率_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "Independent 1444 G894 supports 3489, further isolating KRDB types=o 2489 as a transcription error."
       }
     },
     {
@@ -260,6 +290,14 @@
         "goryeosa_1_0821_counterfactual_derived": "0.0757785",
         "classification": "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH",
         "significance": "Kyushu does not directly print the raw 1.x field, but its reciprocal/shortcut layer excludes the 1.0821-derived control at printed precision."
+      },
+      "g894_1444": {
+        "page": "0001-035a",
+        "direct_surface": "疾一度〇二八一",
+        "normalized": "1.0281",
+        "reading_confidence": "HIGH",
+        "field_identity": "疾曆限行度_DIRECTLY_CLOSED_BY_G894_018A_041B_METHOD",
+        "significance": "Direct 1444 G894 aligns with Sejong Sillok and Ming 1569 at raw 1.0281 against Goryeosa received 1.0821."
       }
     },
     {
@@ -298,6 +336,14 @@
         "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
         "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
         "significance": "Ogawa same-copy typography differs from the Goryeosa L35/L132 compact-surface contrast; the Goryeosa zero-practice is not universalized."
+      },
+      "g894_1444": {
+        "page": "0001-036b",
+        "direct_surface": "損七分八八六〇七五",
+        "normalized": "7.886075",
+        "reading_confidence": "HIGH",
+        "field_identity": "損益分_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "G894 preserves the explicit positional zero, as does Sejong Sillok, so the Goryeosa received compact L132 surface is not generalized to early Joseon computational-table practice."
       }
     }
   ],
@@ -475,6 +521,21 @@
         "relation": "DIFFERENT_VISIBLE_ZERO_PLACE_GROUP_SURFACE_IN_A_SAME_SYMMETRIC_MECHANICAL_CONTEXT",
         "normalized_value": "NOT_REDERIVED_FROM_PHOTOGRAPH_ALONE",
         "significance": "Independent Ogawa typography confirms that surface-string inequality cannot by itself create a mechanical variant."
+      },
+      "g894_1444": {
+        "page": "0001-032a",
+        "direct_surface": "五度二十〇四八一一二五",
+        "explicit_place_groups": [
+          "5",
+          "20",
+          "48",
+          "11",
+          "25"
+        ],
+        "normalized": "5.20481125",
+        "reading_confidence": "HIGH",
+        "field_identity": "遲疾度_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "G894 preserves the explicit zero at L101 and therefore strengthens the same-mechanical-value positional normalization bridge without adding a numeric variant."
       }
     }
   ],
@@ -816,6 +877,22 @@
     },
     "relationship_to_g893": "INDEPENDENT_SAME_PERIOD_COMPARISON_ROUTES_NOT_SUBSTITUTES",
     "source_count_adjudication": "FORBIDDEN",
+    "runtime_effect": "NONE"
+  },
+  "g894_1444_direct_collation": {
+    "status": "FIVE_LUNAR_CONTROLS_DIRECTLY_CLOSED_D16_STRUCTURALLY_NONCOMPARABLE",
+    "reading_artifact": "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json",
+    "field_bridge_artifact": "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json",
+    "cell_level_alignment_summary": {
+      "l8": "GORYEOSA_RECEIVED_AND_SILLOK_BRANCH",
+      "l101": "SAME_NORMALIZED_VALUE_EXPLICIT_ZERO_SURFACE",
+      "l114": "3489_CONSENSUS_EXCEPT_KRDB_O_TRANSCRIPTION_ERROR",
+      "l124": "MING_1569_AND_SILLOK_1_0281_BRANCH",
+      "l132": "EXPLICIT_ZERO_SURFACE_WITH_MING_SILLOK_STYLE_NOT_GORYEOSA_COMPACT_SURFACE",
+      "solar_d16": "STRUCTURALLY_NONCOMPARABLE_FIELD_ABSENT"
+    },
+    "copy_wide_variant_inheritance": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN",
     "runtime_effect": "NONE"
   }
 }
