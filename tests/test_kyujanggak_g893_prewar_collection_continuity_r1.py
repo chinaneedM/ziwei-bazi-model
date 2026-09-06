@@ -51,10 +51,24 @@ class KyujanggakG893PrewarCollectionContinuityR1Tests(unittest.TestCase):
             "FORBIDDEN",
         )
 
-    def test_1930_catalog_is_locator_until_internal_entry_is_read(self) -> None:
+    def test_1930_catalog_is_directly_accessible_but_entry_is_still_unread(self) -> None:
         locator = self.data["prewar_catalog_locator"]
         self.assertEqual(locator["catalog_identifier"], "奎26775-v.1-7")
+        access = locator["direct_digital_object_access"]
+        self.assertEqual(access["book_cd"], "GK26775_00")
+        self.assertEqual(access["item_cd"], "BBG")
+        self.assertEqual(access["volume_ids"], ["0001","0002","0003","0004","0005","0006","0007"])
+        self.assertTrue(access["renderer_bound"])
+        self.assertFalse(access["ocr_used"])
         self.assertFalse(locator["g893_internal_entry_directly_read"])
+        self.assertEqual(
+            self.data["adjudication"]["prewar_catalog_digital_object_access"],
+            "DIRECTLY_BOUND",
+        )
+        self.assertEqual(
+            self.data["adjudication"]["exact_item_continuity_to_current_gk00893_00"],
+            "UNRESOLVED",
+        )
         self.assertEqual(
             self.data["epistemic_boundaries"]["prewar_catalog_locator_as_unread_item_binding"],
             "FORBIDDEN",
