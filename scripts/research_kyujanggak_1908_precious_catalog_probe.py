@@ -85,6 +85,34 @@ def main():
         except Exception as exc:
             result["frontend_route_probe"][js_path]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
 
+    pdf_view_url=f"{BASE}/book/mfPdf.do?book_cd={BOOK_CD}&vol_no=0001"
+    result["official_pdf_view_url"]=pdf_view_url
+    try:
+        vr=s.get(pdf_view_url,headers={"Referer":detail},timeout=30)
+        result["pdf_view_transport"]=meta(vr)
+        ctype=vr.headers.get("content-type","").lower()
+        if "pdf" in ctype or vr.content.startswith(b"%PDF"):
+            (out/"GR35006_00_0001.pdf").write_bytes(vr.content)
+            result["pdf_view_kind"]="DIRECT_PDF"
+            result["pdf_file"]="GR35006_00_0001.pdf"
+        else:
+            (out/"mfPdf-viewer.html").write_bytes(vr.content)
+            result["pdf_view_kind"]="HTML_OR_OTHER"
+            html=vr.text
+            candidates=[]
+            for pat in (
+                r'''(?:file|url|pdfUrl|pdf_url)\s*[:=]\s*["']([^"']+\.pdf(?:\?[^"']*)?)["']''',
+                r'''["']([^"']+\.pdf(?:\?[^"']*)?)["']''',
+                r'''(?:src|href)=["']([^"']+)["']''',
+            ):
+                for m in re.finditer(pat,html,re.I):
+                    value=m.group(1)
+                    if value not in candidates and ("pdf" in value.lower() or "file" in value.lower()):
+                        candidates.append(value)
+            result["viewer_pdf_candidates"]=candidates[:50]
+    except Exception as exc:
+        result["pdf_view_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+
     result["conclusion"]={
         "catalog_object_bound":bool(result.get("book_cd")),
         "pdf_list_observed":bool(result.get("pdf_list_json")),
