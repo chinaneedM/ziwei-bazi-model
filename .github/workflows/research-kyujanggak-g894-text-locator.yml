@@ -1,0 +1,35 @@
+name: research-kyujanggak-g894-text-locator
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-kyujanggak-g894-text-locator.yml"
+      - "scripts/research_kyujanggak_g894_text_locator.py"
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install transport dependency
+        run: python -m pip install --disable-pip-version-check curl_cffi
+      - name: Locate G894 target table families through provider text service
+        run: |
+          python scripts/research_kyujanggak_g894_text_locator.py \
+            --output artifacts/g894-text-locator
+      - name: Upload provider-text navigation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-g894-text-locator-${{ github.sha }}
+          path: artifacts/g894-text-locator/
+          if-no-files-found: warn
+          retention-days: 7
