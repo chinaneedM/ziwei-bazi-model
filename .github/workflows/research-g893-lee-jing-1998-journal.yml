@@ -16,14 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Probe official journal archive frontend
+      - name: Resolve 1998-02 issue and specialist article
         shell: python
         run: |
           import hashlib
           import html
           import json
           import re
-          import urllib.error
           import urllib.parse
           import urllib.request
           from pathlib import Path
@@ -31,11 +30,10 @@ jobs:
           OUT = Path("probe")
           OUT.mkdir()
           BASE = "https://zgks.cbpt.cnki.net"
-          TARGETS = {
-              "index": BASE + "/portal/journal/portal/client/index",
-              "advanced_search": BASE + "/portal/journal/portal/client/advSearchResult",
-              "known_1998_02_control": BASE + "/portal/journal/portal/client/paper/8655fa33499ad96cd0cc0a6151d0c5e9",
-          }
+          YEAR = "1998"
+          ISSUE = "02"
+          YEAR_ID = "adaf0591-da7f-47b1-a26b-f97893bc2011"
+          ISSUE_ID = "081bfc10-b643-4702-9389-346193d8815e"
           UA = "Mozilla/5.0 research-only historical bibliography probe"
 
           def get(url):
@@ -53,87 +51,138 @@ jobs:
               except Exception as exc:
                   return {"ok": False, "error": repr(exc), "data": b""}
 
-          summary = {"schema": "G893-LEE-JING-1998-JOURNAL-FRONTEND-PROBE-R1", "targets": {}, "scripts": []}
+          urls = {
+              "index": BASE + "/portal/journal/portal/client/index",
+              "guokan_list": BASE + "/portal/journal/portal/client/guokan_list?" + urllib.parse.urlencode({
+                  "year": YEAR, "issue": ISSUE, "yearId": YEAR_ID, "issueId": ISSUE_ID,
+              }),
+              "paperback_list": BASE + "/portal/journal/portal/client/paperback_list?" + urllib.parse.urlencode({
+                  "year": YEAR, "issue": ISSUE, "yearId": YEAR_ID, "issueId": ISSUE_ID, "pageNum": "1",
+              }),
+          }
+
+          summary = {
+              "schema": "G893-LEE-JING-1998-JOURNAL-ISSUE-RESOLUTION-R2",
+              "official_archive": BASE,
+              "year": YEAR,
+              "issue": ISSUE,
+              "year_id": YEAR_ID,
+              "issue_id": ISSUE_ID,
+              "ocr_used": False,
+              "paywall_or_auth_bypass_attempted": False,
+              "targets": {},
+              "article_candidates": [],
+          }
           pages = {}
-          for key, url in TARGETS.items():
+          for key, url in urls.items():
               r = get(url)
               data = r.pop("data")
               summary["targets"][key] = {
                   **r,
-                  "bytes": len(data),
-                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
-              }
-              pages[key] = data.decode("utf-8", "replace")
-              (OUT / f"{key}.html").write_text(pages[key], encoding="utf-8")
-
-          combined = "\n".join(pages.values())
-          script_srcs = sorted(set(html.unescape(x) for x in re.findall(r'<script[^>]+src=["\\\']([^"\\\']+)["\\\']', combined, re.I)))
-          for i, src in enumerate(script_srcs):
-              url = urllib.parse.urljoin(BASE + "/", src)
-              r = get(url)
-              data = r.pop("data")
-              text = data.decode("utf-8", "replace")
-              hits = []
-              for pat in [
-                  "advSearchResult", "paper", "issue", "year", "volume", "search",
-                  "/portal/", "ajax", "client/", "journal",
-              ]:
-                  for m in list(re.finditer(re.escape(pat), text, re.I))[:12]:
-                      s = max(0, m.start() - 220)
-                      e = min(len(text), m.end() + 320)
-                      hits.append(text[s:e])
-              route_like = sorted(set(
-                  x for x in re.findall(r'["\\\']([^"\\\']*(?:/portal/|advSearch|paper|issue|search)[^"\\\']*)["\\\']', text, re.I)
-                  if len(x) < 500
-              ))
-              meta = {
-                  **r,
-                  "src": src,
                   "url": url,
                   "bytes": len(data),
                   "sha256": hashlib.sha256(data).hexdigest() if data else None,
-                  "route_like": route_like[:200],
-                  "hit_count": len(hits),
               }
-              summary["scripts"].append(meta)
-              if hits or route_like:
-                  (OUT / f"script-{i:02d}-hits.txt").write_text(
-                      "\n\n===== HIT =====\n".join(hits) + "\n\n===== ROUTES =====\n" + "\n".join(route_like),
-                      encoding="utf-8",
-                  )
+              text = data.decode("utf-8", "replace")
+              pages[key] = text
+              (OUT / f"{key}.html").write_text(text, encoding="utf-8")
 
-          form_blocks = re.findall(r"<form\\b.*?</form>", pages.get("advanced_search", ""), re.I | re.S)
-          form_extracts = []
-          for block in form_blocks:
-              form_extracts.append({
-                  "tag": re.sub(r"\\s+", " ", re.search(r"<form\\b[^>]*>", block, re.I | re.S).group(0))[:2000],
-                  "input_names": sorted(set(re.findall(r'<input[^>]+name=["\\\']([^"\\\']+)["\\\']', block, re.I))),
-                  "select_names": sorted(set(re.findall(r'<select[^>]+name=["\\\']([^"\\\']+)["\\\']', block, re.I))),
-                  "action": (re.search(r'action=["\\\']([^"\\\']+)["\\\']', block, re.I) or [None, None])[1],
-                  "method": (re.search(r'method=["\\\']([^"\\\']+)["\\\']', block, re.I) or [None, None])[1],
-              })
-          summary["advanced_search_forms"] = form_extracts
+          index = pages.get("index", "")
+          expected_call = "guokanTurnPageList('1998', '02', 'adaf0591-da7f-47b1-a26b-f97893bc2011','081bfc10-b643-4702-9389-346193d8815e')"
+          summary["issue_binding"] = {
+              "expected_inline_call_present": expected_call in index,
+              "year_id": YEAR_ID,
+              "issue_id": ISSUE_ID,
+          }
 
-          target_terms = [
-              "朝鮮奎章閣本", "朝鲜奎章阁本", "授時曆立成", "授时历立成",
-              "李銀姬", "李银姬", "景冰", "1998", "02",
+          combined_issue = "\n".join([pages.get("guokan_list", ""), pages.get("paperback_list", "")])
+          paper_pattern = re.compile(r'/portal/journal/portal/client/paper/([0-9a-f]{32})', re.I)
+          ids = []
+          for m in paper_pattern.finditer(combined_issue):
+              if m.group(1) not in ids:
+                  ids.append(m.group(1))
+
+          title_terms = [
+              "朝鮮奎章閣本的〈授時曆立成〉",
+              "朝鮮奎章閣本的《授時曆立成》",
+              "朝鲜奎章阁本的〈授时历立成〉",
+              "朝鲜奎章阁本的《授时历立成》",
+              "授時曆立成",
+              "授时历立成",
           ]
-          summary["page_term_presence"] = {
-              key: {term: (term in body) for term in target_terms}
-              for key, body in pages.items()
+          author_terms = ["李銀姬", "李银姬", "景冰"]
+
+          issue_contexts = []
+          for term in title_terms + author_terms:
+              start = 0
+              while True:
+                  i = combined_issue.find(term, start)
+                  if i < 0:
+                      break
+                  issue_contexts.append({
+                      "term": term,
+                      "context": re.sub(r"\s+", " ", combined_issue[max(0, i-500):i+900]),
+                  })
+                  start = i + len(term)
+                  if sum(x["term"] == term for x in issue_contexts) >= 10:
+                      break
+          summary["issue_term_contexts"] = issue_contexts
+
+          for paper_id in ids:
+              url = BASE + "/portal/journal/portal/client/paper/" + paper_id
+              r = get(url)
+              data = r.pop("data")
+              text = data.decode("utf-8", "replace")
+              (OUT / f"paper-{paper_id}.html").write_text(text, encoding="utf-8")
+              normalized = html.unescape(re.sub(r"<[^>]+>", " ", text))
+              normalized = re.sub(r"\s+", " ", normalized)
+              title_hits = [t for t in title_terms if t in normalized]
+              author_hits = [t for t in author_terms if t in normalized]
+              cnki_links = sorted(set(html.unescape(x) for x in re.findall(r'https?://[^"\'<>\s]+', text, re.I) if "cnki" in x.lower()))
+              image_links = sorted(set(
+                  urllib.parse.urljoin(BASE + "/", html.unescape(x))
+                  for x in re.findall(r'<img[^>]+src=["\']([^"\']+)["\']', text, re.I)
+              ))
+              cand = {
+                  "paper_id": paper_id,
+                  "url": url,
+                  "transport": {**r, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest() if data else None},
+                  "title_hits": title_hits,
+                  "author_hits": author_hits,
+                  "is_target_candidate": bool(title_hits and author_hits),
+                  "cnki_links": cnki_links[:50],
+                  "image_links": image_links[:100],
+              }
+              summary["article_candidates"].append(cand)
+
+          target_candidates = [x for x in summary["article_candidates"] if x["is_target_candidate"]]
+          if not target_candidates:
+              # Fallback: issue pages can carry titles without rendering every paper into a direct link.
+              # Record candidate links adjacent to target strings without guessing a paper UUID.
+              contexts = []
+              for term in title_terms + author_terms:
+                  for m in re.finditer(re.escape(term), combined_issue):
+                      block = combined_issue[max(0, m.start()-1200):m.end()+1800]
+                      links = sorted(set(paper_pattern.findall(block)))
+                      contexts.append({"term": term, "paper_ids_nearby": links, "context": re.sub(r"\s+", " ", block)[:5000]})
+              summary["fallback_target_contexts"] = contexts
+
+          summary["conclusion"] = {
+              "official_1998_02_issue_resolved": summary["issue_binding"]["expected_inline_call_present"],
+              "issue_paper_id_count": len(ids),
+              "target_candidate_count": len(target_candidates),
+              "target_paper_ids": [x["paper_id"] for x in target_candidates],
+              "direct_fulltext_authorized": False,
+              "g893_target_page_effect": "NONE_UNLESS_TARGET_ARTICLE_PUBLICLY_EXPOSES_REVIEWABLE_G893_FIGURE_OR_PAGE",
+              "numeric_target_effect": "NONE",
           }
           (OUT / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
-          print(json.dumps({
-              "targets": summary["targets"],
-              "script_count": len(summary["scripts"]),
-              "scripts_with_routes": sum(bool(x["route_like"]) for x in summary["scripts"]),
-              "form_count": len(form_extracts),
-          }, ensure_ascii=False, indent=2))
+          print(json.dumps(summary["conclusion"], ensure_ascii=False, indent=2))
 
       - name: Upload probe evidence
         uses: actions/upload-artifact@v4
         with:
-          name: g893-lee-jing-1998-journal-frontend-probe
+          name: g893-lee-jing-1998-journal-issue-probe
           path: probe/
           if-no-files-found: error
           retention-days: 30
