@@ -159,6 +159,9 @@ def main() -> int:
                 rec["image_strings"] = image_strings[:200]
                 rec["imgarr_context"] = compact_context(vtext, "imgArr", 600)
                 rec["imageproxy_context"] = compact_context(vtext, "imageProxy", 600)
+            if vstatus == 200 and "javascript" in vctype.lower():
+                safe = re.sub(r"[^A-Za-z0-9_.-]+", "_", url)[-140:]
+                (out / f"{article_id}-script-{safe}.js").write_bytes(vbody)
             viewer_results.append(rec)
 
         article = {
