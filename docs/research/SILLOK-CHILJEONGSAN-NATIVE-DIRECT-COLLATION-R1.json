@@ -1,0 +1,187 @@
+{
+  "schema": "SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_NATIVE_IMAGE_COLLATION_COMPLETE_FOR_FIVE_LUNAR_CONTROLS_SOLAR_D16_PENDING",
+  "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+  "runtime_effect": "NONE",
+  "algorithm_reopen_authorized": false,
+  "ocr_used": false,
+  "reading_method": "DIRECT_HUMAN_VISUAL_READING_OF_OFFICIAL_TAEBAEKSAN_NATIVE_JPEG",
+  "reproduction": {
+    "direct_viewer_binding_artifact": "docs/research/SILLOK-CHILJEONGSAN-VIEWER-IMGARR-DIRECT-BINDING-R1.json",
+    "viewer_config_workflow_run_id": 34015242124,
+    "viewer_config_head_sha": "1cb774234a4c91171e354d86058d779cd48a759f",
+    "native_page_workflow_run_id": 34015344051,
+    "native_page_head_sha": "9bf393f5af9d4238fe8ef2198f6487da6501d377",
+    "native_page_artifact_id": 9983778498,
+    "native_page_artifact_digest": "sha256:2ced8f35b0b7eaca4f4388245b30768824ffb9cfa693570149e346b60492dc01",
+    "native_page_artifact_valid_lunar_images": 34,
+    "native_page_artifact_lunar_imgarr_tokens": 35,
+    "unavailable_lunar_token_in_that_run": "da/ide_d156016b00",
+    "transport_confirmation_workflow_run_id": 34015491636,
+    "transport_confirmation_head_sha": "81fa71a97209ef29cac77afffe4c836911c7ff5d",
+    "transport_confirmation_artifact_id": 9983772506,
+    "official_image_root": "https://sillok.history.go.kr/images/org_images/"
+  },
+  "solar_control": {
+    "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "article_id": "wda_50016011",
+    "article_title": "太陽冬至前後二象盈初縮末限",
+    "taebaeksan_location": "60冊 156卷 6張 A面",
+    "directly_bound_imgarr_token": "da/ide_d156006a00",
+    "direct_native_image": {
+      "sha256": "a669c3fcd1ef8d86df85f8c84640ec901f92954afe005539c98112e0a03327a6",
+      "size": [
+        2560,
+        3616
+      ]
+    },
+    "direct_observation": "BOUND_6A_NATIVE_PAGE_CONTAINS_PROSE_AND_TABLE_SETUP_BUT_NOT_THE_D16_TARGET_CELL",
+    "status": "PENDING_DIRECT_SOLAR_TABLE_CONTINUATION_IMAGE",
+    "target_value": null
+  },
+  "lunar_controls": [
+    {
+      "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "article_id": "wda_50016016",
+      "target_limit": 8,
+      "native_token": "da/ide_d156014a00",
+      "taebaeksan_leaf": "156卷14張A",
+      "image_sha256": "149e2a12076daccd4c69593ee0849a600c213764e2f5271f1545cc3ce5e744dc",
+      "image_size": [
+        2560,
+        3616
+      ],
+      "direct_surface": "益一十〇分五六〇一七七五",
+      "normalized_value": "10.5601775",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "10.561775",
+        "goryeosa_received_facsimile": "10.5601775"
+      },
+      "finding": "SILLOK_EARLY_JOSEON_NATIVE_PAGE_ALIGNS_WITH_GORYEOSA_RECEIVED_L8_VALUE_AGAINST_MING_1569"
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "article_id": "wda_50016016",
+      "target_limit": 101,
+      "heading_page_token": "da/ide_d156023a00",
+      "continuation_value_page_token": "da/ide_d156023b00",
+      "taebaeksan_leaf_span": "156卷23張A-B",
+      "heading_page_sha256": "728cb498a27208f31e570cf2392a1bf90b6db4d6ca1d8a6f6184e21f8204c63d",
+      "continuation_page_sha256": "0ac0d7a985e4ed97a9c7e8fb40d20f36d56d922774ef720bbeb25cca647a36c0",
+      "image_size": [
+        2560,
+        3616
+      ],
+      "direct_surface": "五度二十〇四八一一二五",
+      "explicit_place_groups": [
+        "5",
+        "20",
+        "48",
+        "11",
+        "25"
+      ],
+      "normalized_value": "5.20481125",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "goryeosa_l101_surface": "五度二十四八一一二五",
+        "goryeosa_l101_normalized": "5.20481125",
+        "goryeosa_same_copy_l67_explicit_zero_surface": "五度二十〇四八一一二五"
+      },
+      "finding": "SILLOK_L101_PRESERVES_EXPLICIT_POSITIONAL_ZERO_WHILE_KEEPING_THE_SAME_NORMALIZED_VALUE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "article_id": "wda_50016016",
+      "target_limit": 114,
+      "native_token": "da/ide_d156024b00",
+      "taebaeksan_leaf": "156卷24張B",
+      "image_sha256": "aaf7db737e2c662de2707cecdb9988015d8e39143851591a1f842e6229e633f0",
+      "image_size": [
+        2560,
+        3616
+      ],
+      "direct_surface": "九日三四八九",
+      "normalized_value": "9日3489",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "9日3489",
+        "goryeosa_received_facsimile": "9日3489",
+        "krdb_o_transcription_error": "9日2489"
+      },
+      "finding": "SILLOK_DIRECT_NATIVE_PAGE_INDEPENDENTLY_SUPPORTS_3489_AND_NOT_THE_KRDB_O_2489_TRANSCRIPTION"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "article_id": "wda_50016016",
+      "target_limit": 124,
+      "native_token": "da/ide_d156025b00",
+      "taebaeksan_leaf": "156卷25張B",
+      "image_sha256": "e6ad53305e9b3cb258241cec4a46c28f25300ffdbd3aec589ba6a1da32bfc1cd",
+      "image_size": [
+        2560,
+        3616
+      ],
+      "direct_surface": "疾一度〇二八一",
+      "normalized_value": "1.0281",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "1.0281",
+        "goryeosa_received_facsimile": "1.0821",
+        "kyushu_ogawa_1673_mechanically_linked_raw_lineage": "1.0281"
+      },
+      "finding": "SILLOK_EARLY_JOSEON_NATIVE_PAGE_DIRECTLY_SUPPORTS_THE_1_0281_RAW_JI_LINEAGE_AGAINST_GORYEOSA_RECEIVED_1_0821"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "article_id": "wda_50016016",
+      "target_limit": 132,
+      "native_token": "da/ide_d156026b00",
+      "taebaeksan_leaf": "156卷26張B",
+      "image_sha256": "bd2242742cd112ffae0776bc7aba4f23cf9c7018a10b76fc86abc09c0ad3b236",
+      "image_size": [
+        2560,
+        3616
+      ],
+      "direct_surface": "損七分八八六〇七五",
+      "normalized_value": "7.886075",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "goryeosa_received_l132_surface": "七分八八六七五",
+        "goryeosa_received_l132_normalized": "NOT_FORCED",
+        "goryeosa_same_copy_l35_explicit_zero_surface": "七分八八六〇七五"
+      },
+      "finding": "SILLOK_L132_PRESERVES_THE_EXPLICIT_ZERO_SURFACE_AND_SHOWS_THE_GORYEOSA_COMPACT_L132_FORM_IS_NOT_UNIVERSAL"
+    }
+  ],
+  "adjudication": {
+    "direct_lunar_controls_closed": 5,
+    "direct_solar_controls_closed": 0,
+    "direct_controls_still_pending": [
+      "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE"
+    ],
+    "g894_target_values_still_pending": true,
+    "g893_target_values_still_pending": true,
+    "variant_implications": [
+      "L8 shows the early Joseon Sillok witness can agree with the Goryeosa received branch rather than Ming 1569.",
+      "L124 shows the same Sillok witness can instead agree with Ming 1569 / mechanically linked Ogawa evidence against Goryeosa received 1.0821.",
+      "L101 and L132 preserve explicit positional zeros, so the Goryeosa received copy's zero-omission surfaces are not safely generalizable as early Joseon table practice.",
+      "The five readings therefore do not justify source-count voting or a single-copy genealogy; they strengthen cell-by-cell transmission analysis."
+    ]
+  },
+  "epistemic_boundaries": {
+    "sillok_as_g894_same_physical_copy": "FORBIDDEN",
+    "sillok_as_g893_same_physical_copy": "FORBIDDEN",
+    "viewer_token_as_numeric_value": "FORBIDDEN",
+    "missing_16b_as_numeric_evidence": "FORBIDDEN",
+    "value_prepopulation_into_pending_g894_or_g893": "FORBIDDEN",
+    "source_count_as_variant_adjudication": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "next_work": [
+    "Directly bind and visually collate the solar winter-table continuation carrying D16 without using an unobserved filename sequence as evidence.",
+    "Bind G894 exact solar/lunar target folios and read all six controls independently.",
+    "Only after independent target readings compare G894, Sillok, G893, Goryeosa, Ming and Ogawa at cell level."
+  ]
+}
