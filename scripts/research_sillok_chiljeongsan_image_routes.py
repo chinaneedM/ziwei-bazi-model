@@ -11,6 +11,7 @@ import urllib.request
 from pathlib import Path
 
 BASE = "https://sillok.history.go.kr"
+LEGACY_BASE = "http://sillok.history.go.kr"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 ARTICLES = {
     "wda_50016011": {
@@ -125,8 +126,10 @@ def main() -> int:
         )
 
         viewer_candidates = [
+            f"{LEGACY_BASE}/popup/viewer.do?type=view&id={urllib.parse.quote(article_id)}",
+            f"{LEGACY_BASE}/popup/viewer.do?id={urllib.parse.quote(article_id)}&type=view",
             f"{BASE}/popup/viewer.do?type=view&id={urllib.parse.quote(article_id)}",
-            f"{BASE}/popup/viewer.do?id={urllib.parse.quote(article_id)}",
+            f"{BASE}/popup/viewer.do?id={urllib.parse.quote(article_id)}&type=view",
         ]
         for value in candidates:
             if "viewer" in value.lower() and value.startswith("http"):
