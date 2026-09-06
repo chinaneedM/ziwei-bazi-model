@@ -30,6 +30,8 @@ KYUJANGGAK_G893_PROVENANCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-PROVE
 KYUJANGGAK_G893_PROVENANCE_TEST = ROOT / "tests" / "test_kyujanggak_g893_provenance_public_figure_r1.py"
 JOSEON_1444_WITNESS_ROUTES = ROOT / "docs" / "research" / "JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json"
 JOSEON_1444_WITNESS_ROUTES_TEST = ROOT / "tests" / "test_joseon_1444_chiljeongsan_witness_routes_r1.py"
+SILLOK_NATIVE_DIRECT_COLLATION = ROOT / "docs" / "research" / "SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json"
+SILLOK_NATIVE_DIRECT_COLLATION_TEST = ROOT / "tests" / "test_sillok_chiljeongsan_native_direct_collation_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
@@ -623,6 +625,54 @@ def main() -> int:
             raise SystemExit(f"Batch 11N Joseon evidence boundary regressed: {key}")
     if boundaries.get("algorithm_or_runtime_selection_effect") != "NONE":
         raise SystemExit("Batch 11N Joseon witness evidence was promoted to runtime")
+    for path in (SILLOK_NATIVE_DIRECT_COLLATION,SILLOK_NATIVE_DIRECT_COLLATION_TEST):
+        if not path.is_file():
+            raise SystemExit(f"Batch 11O Sillok native-collation artifact/test missing: {path.relative_to(ROOT)}")
+    sillok_native=json.loads(SILLOK_NATIVE_DIRECT_COLLATION.read_text(encoding="utf-8"))
+    if sillok_native.get("schema") != "SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1":
+        raise SystemExit("Batch 11O Sillok native-collation schema mismatch")
+    if sillok_native.get("audit_batch") != "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O":
+        raise SystemExit("Batch 11O Sillok native-collation batch binding mismatch")
+    if sillok_native.get("runtime_effect") != "NONE" or sillok_native.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 11O Sillok evidence was promoted to runtime/algorithm authority")
+    by_control={item.get("control_id"):item for item in sillok_native.get("lunar_controls",())}
+    expected_sillok={
+        "VAR-NUM-LUNAR-L8-LOSSGAIN":("益一十〇分五六〇一七七五","10.5601775"),
+        "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING":("五度二十〇四八一一二五","5.20481125"),
+        "VAR-NUM-LUNAR-L114-DAYRATE":("九日三四八九","9日3489"),
+        "VAR-NUM-LUNAR-L124-JI-XINGDU":("疾一度〇二八一","1.0281"),
+        "VAR-NUM-LUNAR-L132-LOSSGAIN":("損七分八八六〇七五","7.886075"),
+    }
+    if set(by_control) != set(expected_sillok):
+        raise SystemExit("Batch 11O Sillok lunar control set mismatch")
+    for control_id,(surface,normalized) in expected_sillok.items():
+        item=by_control[control_id]
+        if item.get("direct_surface") != surface or item.get("normalized_value") != normalized or item.get("reading_confidence") != "HIGH":
+            raise SystemExit(f"Batch 11O Sillok direct reading mismatch: {control_id}")
+    if sillok_native.get("solar_control",{}).get("status") != "PENDING_DIRECT_SOLAR_TABLE_CONTINUATION_IMAGE":
+        raise SystemExit("Batch 11O solar D16 was silently closed")
+    nav=sillok_native.get("solar_navigation_evidence",{})
+    if nav.get("official_image_tree_walk",{}).get("outcome") != "START_API_UNAVAILABLE":
+        raise SystemExit("Batch 11O official image-tree transport snapshot mismatch")
+    if nav.get("adjudication") != "SOLAR_D16_REMAINS_PENDING_DIRECT_OFFICIAL_CONTINUATION_IMAGE; NO_FILENAME_OR_NEXT_NODE_VALUE_INFERRED":
+        raise SystemExit("Batch 11O D16 fail-closed adjudication mismatch")
+    if "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O" not in data.get("historical_research_batches",()):
+        raise SystemExit("Batch 11O missing from Historical Audit Matrix batch ledger")
+    if row_dayun_cal.get("joseon_sillok_native_collation_artifact") != "docs/research/SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json":
+        raise SystemExit("Batch 11O Matrix artifact binding mismatch")
+    if row_dayun_cal.get("joseon_sillok_direct_lunar_control_count") != 5:
+        raise SystemExit("Batch 11O Matrix direct-control count mismatch")
+    if row_dayun_cal.get("joseon_sillok_direct_readings",{}).get("l124_ji_xingdu") != "1.0281":
+        raise SystemExit("Batch 11O Matrix L124 direct reading mismatch")
+    if row_dayun_cal.get("joseon_sillok_solar_d16_status") != "PENDING_DIRECT_OFFICIAL_CONTINUATION_IMAGE":
+        raise SystemExit("Batch 11O Matrix solar D16 status mismatch")
+    nikh_sillok=by_source_id.get("EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES")
+    if nikh_sillok is None or nikh_sillok.get("native_direct_collation_artifact") != "docs/research/SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json":
+        raise SystemExit("Batch 11O source-registry artifact binding mismatch")
+    if nikh_sillok.get("native_direct_readings",{}).get("VAR-NUM-LUNAR-L124-JI-XINGDU",{}).get("normalized") != "1.0281":
+        raise SystemExit("Batch 11O source-registry L124 reading mismatch")
+    if nikh_sillok.get("solar_d16_status") != "6A_DIRECT_NATIVE_PAGE_BOUND_BUT_D16_CONTINUATION_NOT_YET_DIRECTLY_BOUND":
+        raise SystemExit("Batch 11O source-registry solar status mismatch")
     actual_status_counts={}
     actual_module_counts={}
     for row in rows:
