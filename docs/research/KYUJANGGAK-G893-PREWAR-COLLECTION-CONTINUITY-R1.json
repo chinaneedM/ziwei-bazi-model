@@ -1,6 +1,6 @@
 {
   "schema": "KYUJANGGAK-G893-PREWAR-COLLECTION-CONTINUITY-R1",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "status": "COLLECTION_LEVEL_CUSTODY_AND_PREWAR_OBJECT_FAMILY_WITNESS_CLOSED_EXACT_ITEM_IDENTITY_PENDING",
   "current_object": {
     "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
@@ -91,7 +91,8 @@
     "target_glyph_effect": "NONE",
     "numeric_variant_effect": "NONE",
     "source_count_voting": "FORBIDDEN",
-    "prewar_catalog_digital_object_access": "DIRECTLY_BOUND"
+    "prewar_catalog_digital_object_access": "DIRECTLY_BOUND",
+    "precious_catalog_1908_title_presence": "NOT_SEEN_DIRECT_NO_OCR"
   },
   "epistemic_boundaries": {
     "collection_continuity_as_individual_copy_identity": "FORBIDDEN",
@@ -100,7 +101,11 @@
     "prewar_catalog_locator_as_unread_item_binding": "FORBIDDEN",
     "kang_bo_companion_relationship_as_textual_identity": "FORBIDDEN",
     "prewar_provenance_as_target_value_authority": "FORBIDDEN",
-    "algorithm_or_runtime_selection_effect": "NONE"
+    "algorithm_or_runtime_selection_effect": "NONE",
+    "negative_catalog_witness_as_physical_absence": "FORBIDDEN",
+    "current_precious_status_backprojection_to_1908": "FORBIDDEN",
+    "negative_catalog_witness_as_exact_item_identity": "FORBIDDEN",
+    "negative_catalog_witness_as_target_value_evidence": "FORBIDDEN"
   },
   "target_controls": [
     "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
@@ -112,10 +117,46 @@
   ],
   "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
   "next_work": [
-    "VISUALLY_LOCALIZE_授時曆立成_OR_奎貴893_WITHIN_THE_DIRECTLY_BOUND_1930_CATALOG_RENDERER_VOLUMES_WITHOUT_OCR",
+    "DIRECTLY_REVIEW_THE_1912_KYUJANGGAK_CATALOG_FOR_授時曆立成_OR_AN_ITEM_LEVEL_IDENTIFIER_USING_PROVIDER_PDF_OR_NATIVE_IMAGES",
     "DIRECTLY_READ_THE_1930_NUMERIC_ORDER_CATALOG_ENTRY_AND_BIND_OLD_IDENTIFIER_TO_CURRENT_奎貴893_OR_ANOTHER_COPY_SPECIFIC_IDENTIFIER",
-    "SEARCH_1908_1912_1920_1940_CATALOGS_FOR_COPY_SPECIFIC_IDENTIFIER_CONTINUITY",
+    "SEARCH_1920_AND_1940_CATALOGS_FOR_COPY_SPECIFIC_IDENTIFIER_CONTINUITY",
     "SEARCH_FOR_PREWAR_PHOTOGRAPH_MICROFILM_OR_DESCRIPTION_MATCHING_102_LEAVES_38X24_8CM_OR_MF73_102_37_A",
     "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION_INDEPENDENTLY"
+  ],
+  "early_catalog_controls": [
+    {
+      "source_id": "EXT-KYUJANGGAK-PRECIOUS-CATALOG-1908",
+      "year": 1908,
+      "catalog_title": "貴重圖書目錄",
+      "catalog_identifier": "古016.09-G995",
+      "book_cd": "GR35006_00",
+      "item_cd": "BBG",
+      "provider_extent": "1冊(13張)",
+      "direct_pdf": {
+        "workflow_run_id": 34031551270,
+        "workflow_head_sha": "3ab11fe651c2f24ae0515eb8d278de84ca9ce3e0",
+        "artifact_id": 9988774086,
+        "bytes": 1746005,
+        "sha256": "b4b7b14229a82f3f5da12dc069cf8943b1d4c1ff7ca0aa87e85eb3e5d2b06328",
+        "scan_pages": 17,
+        "ocr_used": false
+      },
+      "direct_visual_review": {
+        "scope": "COMPLETE_CHILD_SECTION_VISUALLY_BOUNDED_FROM_PDF_PAGE_9_LEFT_HALF_TO_PDF_PAGE_12_RIGHT_HALF; 集部 begins at PDF page 12 left half",
+        "target_title": "授時曆立成",
+        "short_title": "授時曆",
+        "visible_result": "NOT_SEEN",
+        "review_mode": "DIRECT_RENDERED_PAGE_VISUAL_REVIEW_NO_OCR"
+      },
+      "adjudication": {
+        "negative_catalog_witness": "SUPPORTED_FOR_1908_PRECIOUS_CATALOG_TITLE_PRESENCE_ONLY",
+        "physical_absence_of_g893_in_1908": "NOT_PROVEN",
+        "exact_item_continuity_effect": "NONE",
+        "precious_designation_date_effect": "NONE",
+        "exact_print_year_effect": "NONE",
+        "target_folio_effect": "NONE",
+        "target_glyph_effect": "NONE"
+      }
+    }
   ]
 }
