@@ -32,6 +32,10 @@ JOSEON_1444_WITNESS_ROUTES = ROOT / "docs" / "research" / "JOSEON-1444-CHILJEONG
 JOSEON_1444_WITNESS_ROUTES_TEST = ROOT / "tests" / "test_joseon_1444_chiljeongsan_witness_routes_r1.py"
 SILLOK_NATIVE_DIRECT_COLLATION = ROOT / "docs" / "research" / "SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json"
 SILLOK_NATIVE_DIRECT_COLLATION_TEST = ROOT / "tests" / "test_sillok_chiljeongsan_native_direct_collation_r1.py"
+KYUJANGGAK_G894_DIRECT_COLLATION = ROOT / "docs" / "research" / "KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json"
+KYUJANGGAK_G894_DIRECT_COLLATION_TEST = ROOT / "tests" / "test_kyujanggak_g894_direct_target_page_binding_r1.py"
+KYUJANGGAK_G894_FIELD_BRIDGE = ROOT / "docs" / "research" / "KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json"
+KYUJANGGAK_G894_FIELD_BRIDGE_TEST = ROOT / "tests" / "test_kyujanggak_g894_lunar_field_semantic_bridge_r1.py"
 
 ALLOWED = {
     "HISTORICALLY_SUPPORTED",
