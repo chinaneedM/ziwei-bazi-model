@@ -892,7 +892,21 @@
           "direct_renderer_bound": true,
           "internal_g893_entry_read": false,
           "exact_identity_effect": "NONE_PENDING_DIRECT_ENTRY"
-        }
+        },
+        "early_catalog_controls": [
+          {
+            "source_id": "EXT-KYUJANGGAK-PRECIOUS-CATALOG-1908",
+            "year": 1908,
+            "catalog_scope": "貴重圖書目錄",
+            "direct_pdf_reviewed": true,
+            "ocr_used": false,
+            "visible_title_result": "授時曆立成 / 授時曆 NOT SEEN IN COMPLETE 子部 RANGE",
+            "item_identity_effect": "NONE",
+            "physical_absence_effect": "NONE",
+            "precious_designation_date_effect": "NONE",
+            "target_effect": "NONE"
+          }
+        ]
       }
     },
     {
@@ -1306,6 +1320,48 @@
         "g893_identity_effect": "NONE_UNTIL_DIRECT_INTERNAL_ENTRY_OR_COPY_SPECIFIC_IDENTIFIER_BINDING",
         "target_effect": "NONE"
       }
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-PRECIOUS-CATALOG-1908",
+      "title": "《貴重圖書目錄》",
+      "compiler": "奎章閣／統監府時期整理體系（live provider record retained as controlling metadata）",
+      "publication_year": 1908,
+      "catalog_identifier": "古016.09-G995",
+      "provider": "서울대학교 규장각한국학연구원",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GR35006_00",
+      "source_role": "DIRECT_NO_OCR_NEGATIVE_CATALOG_WITNESS_FOR_G893_TITLE_PRESENCE_ONLY",
+      "direct_digital_object_access": {
+        "book_cd": "GR35006_00",
+        "item_cd": "BBG",
+        "pdf_list_endpoint": "https://kyudb.snu.ac.kr/ajax/book/mfPdfList.do",
+        "pdf_view_endpoint": "https://kyudb.snu.ac.kr/book/mfPdf.do?book_cd=GR35006_00&vol_no=0001",
+        "pdf_route_observed_from_provider_javascript": "fn_mfPdf(book_cd, vol_no) in /js/common2.js",
+        "workflow_run_id": 34031551270,
+        "workflow_head_sha": "3ab11fe651c2f24ae0515eb8d278de84ca9ce3e0",
+        "artifact_id": 9988774086,
+        "pdf_bytes": 1746005,
+        "pdf_sha256": "b4b7b14229a82f3f5da12dc069cf8943b1d4c1ff7ca0aa87e85eb3e5d2b06328",
+        "pdf_scan_pages": 17,
+        "provider_extent": "1冊(13張)",
+        "ocr_used": false
+      },
+      "direct_visual_review": {
+        "status": "COMPLETE_NO_OCR_FOR_FULL_CHILD_SECTION",
+        "pdf_page_range_reviewed": "PDF pages 9-12; 子部 begins on page 9 left half and 集部 begins on page 12 left half, so the full 子部 range is contained in this span",
+        "target_title_visible": false,
+        "exact_title_checked": "授時曆立成",
+        "short_title_checked": "授時曆",
+        "observation": "No visible 授時曆立成 or 授時曆 entry was identified in the complete visually bounded 子部 range.",
+        "target_effect": "NONE"
+      },
+      "epistemic_boundaries": {
+        "negative_catalog_entry_as_physical_absence": "FORBIDDEN",
+        "current_precious_status_backprojection_to_1908": "FORBIDDEN",
+        "negative_catalog_entry_as_exact_item_identity_evidence": "FORBIDDEN",
+        "negative_catalog_entry_as_print_year_evidence": "FORBIDDEN",
+        "negative_catalog_entry_as_target_value_evidence": "FORBIDDEN"
+      },
+      "quality_notes": "This is a direct provider PDF negative-catalog witness only. The absence of a visible 授時曆立成/授時曆 title in the complete 子部 range means this 1908 precious-book catalog does not visibly list the title. It does not prove the physical G893 object was absent from the collection, does not date when its modern precious-book designation arose, does not bind or sever exact identity with the Rufus 1936 object, and supplies no target folio/glyph/value authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
