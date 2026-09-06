@@ -1,7 +1,7 @@
 {
   "schema": "KYUJANGGAK-G893-PREWAR-COLLECTION-CONTINUITY-R1",
-  "schema_version": "1.2.0",
-  "status": "COLLECTION_LEVEL_CUSTODY_AND_PREWAR_OBJECT_FAMILY_WITNESS_CLOSED_EXACT_ITEM_IDENTITY_PENDING",
+  "schema_version": "1.3.0",
+  "status": "COLLECTION_CUSTODY_PREWAR_OBJECT_FAMILY_AND_1940_CATALOG_ITEM_CONTINUITY_CLOSED",
   "current_object": {
     "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
     "title": "授時曆立成",
@@ -57,7 +57,7 @@
     "year": 1930,
     "catalog_identifier": "奎26775-v.1-7",
     "original_images_available": true,
-    "g893_internal_entry_directly_read": false,
+    "g893_internal_entry_directly_read": true,
     "required_future_binding": [
       "directly read the 授時曆立成 entry or equivalent title/number entry",
       "bind old identifier to current 奎貴893 or another copy-specific identifier",
@@ -80,19 +80,22 @@
       "artifact_id": 9988289425,
       "renderer_bound": true,
       "ocr_used": false
-    }
+    },
+    "g893_internal_entry_result": "1930_GENERIC_MAIN_NUMBER_893_IS_NOT_CURRENT_PRECIOUS_G893; DIRECT_1930_PAGE_READING_DISPROVED_NUMERIC_SHORTCUT"
   },
   "adjudication": {
     "collection_level_continuity": "SUPPORTED_BY_OFFICIAL_SNU_HISTORY",
     "prewar_wang_xun_shoushi_licheng_object_family": "SUPPORTED_BY_RUFUS_1936",
-    "exact_item_continuity_to_current_gk00893_00": "UNRESOLVED",
+    "exact_item_continuity_to_current_gk00893_00": "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL_BY_1940_PRECIOUS_BOOK_NUMBER_893_TITLE_BINDING",
     "exact_print_year_effect": "NONE",
     "target_folio_effect": "NONE",
     "target_glyph_effect": "NONE",
     "numeric_variant_effect": "NONE",
     "source_count_voting": "FORBIDDEN",
     "prewar_catalog_digital_object_access": "DIRECTLY_BOUND",
-    "precious_catalog_1908_title_presence": "NOT_SEEN_DIRECT_NO_OCR"
+    "precious_catalog_1908_title_presence": "NOT_SEEN_DIRECT_NO_OCR",
+    "precious_catalog_1940_item_binding": "DIRECT_TITLE_PLUS_EXPLICIT_圖書番號_893",
+    "physical_leaf_or_seal_chain": "NOT_SEPARATELY_PROVEN"
   },
   "epistemic_boundaries": {
     "collection_continuity_as_individual_copy_identity": "FORBIDDEN",
@@ -105,7 +108,10 @@
     "negative_catalog_witness_as_physical_absence": "FORBIDDEN",
     "current_precious_status_backprojection_to_1908": "FORBIDDEN",
     "negative_catalog_witness_as_exact_item_identity": "FORBIDDEN",
-    "negative_catalog_witness_as_target_value_evidence": "FORBIDDEN"
+    "negative_catalog_witness_as_target_value_evidence": "FORBIDDEN",
+    "catalog_item_continuity_as_target_folio_identity": "FORBIDDEN",
+    "catalog_item_continuity_as_target_glyph_authority": "FORBIDDEN",
+    "catalog_item_continuity_as_exact_print_year": "FORBIDDEN"
   },
   "target_controls": [
     "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
@@ -117,11 +123,10 @@
   ],
   "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
   "next_work": [
-    "DIRECTLY_REVIEW_THE_1912_KYUJANGGAK_CATALOG_FOR_授時曆立成_OR_AN_ITEM_LEVEL_IDENTIFIER_USING_PROVIDER_PDF_OR_NATIVE_IMAGES",
-    "DIRECTLY_READ_THE_1930_NUMERIC_ORDER_CATALOG_ENTRY_AND_BIND_OLD_IDENTIFIER_TO_CURRENT_奎貴893_OR_ANOTHER_COPY_SPECIFIC_IDENTIFIER",
-    "SEARCH_1920_AND_1940_CATALOGS_FOR_COPY_SPECIFIC_IDENTIFIER_CONTINUITY",
-    "SEARCH_FOR_PREWAR_PHOTOGRAPH_MICROFILM_OR_DESCRIPTION_MATCHING_102_LEAVES_38X24_8CM_OR_MF73_102_37_A",
-    "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION_INDEPENDENTLY"
+    "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION_INDEPENDENTLY",
+    "USE_1940_CATALOG_ITEM_BINDING_AS_PROVENANCE_ONLY_NOT_TARGET_VALUE_AUTHORITY",
+    "OPTIONALLY_SEARCH_EARLIER_PREWAR_RECORDS_TO_DATE_WHEN_PRECIOUS_BOOK_NUMBER_893_FIRST_APPEARS",
+    "SEARCH_FOR_COPY_SPECIFIC_PHOTOGRAPH_SEAL_OR_MICROFILM_CONTROLS_ONLY_IF_NEEDED_FOR_PHYSICAL_MATERIAL_CONTINUITY"
   ],
   "early_catalog_controls": [
     {
@@ -158,5 +163,50 @@
         "target_glyph_effect": "NONE"
       }
     }
-  ]
+  ],
+  "prewar_precious_catalog_1940": {
+    "source_id": "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
+    "outer_title": "奎章閣貴重圖書關係書類",
+    "compiler": "京城帝國大學",
+    "year": 1940,
+    "catalog_identifier": "奎26786",
+    "book_cd": "GK26786_00",
+    "item_cd": "BBG",
+    "renderer_page_count": 148,
+    "internal_catalog": {
+      "page_id": "0125",
+      "title": "奎章閣貴重圖書目錄",
+      "section": "朝鮮本（一）",
+      "revision_note": "昭和十五年八月改訂",
+      "field_headers": [
+        "書名",
+        "圖書番號",
+        "冊數",
+        "備考"
+      ],
+      "image_sha256": "bdb4afa606130e8f2aeb6cc733e756fbb5a3818e828292a23c597c00323cb02f",
+      "ocr_used": false
+    },
+    "target_entry": {
+      "page_id": "0129",
+      "title": "授時曆立成",
+      "book_number": 893,
+      "volume_count": 1,
+      "image_sha256": "5f383f699c6db4a7d35549e6ea17fda939b832b9bd26bf8e15bcbee866bc221d",
+      "ocr_used": false
+    },
+    "adjacent_control_entry": {
+      "title": "授時曆捷法立成",
+      "book_number": 892,
+      "volume_count": 1,
+      "relationship": "SEPARATE_ADJACENT_ENTRY"
+    },
+    "current_binding": {
+      "current_title": "授時曆立成",
+      "current_catalog_identifier": "奎貴893",
+      "current_book_cd": "GK00893_00",
+      "status": "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL"
+    },
+    "machine_evidence": "docs/research/KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
+  }
 }
