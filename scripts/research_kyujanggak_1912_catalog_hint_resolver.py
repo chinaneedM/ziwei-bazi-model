@@ -57,24 +57,32 @@ def main():
     except Exception as exc:
         result["list_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
         block=""
-    if HINT_BOOK_CD in block:
-        detail=f"{BASE}/book/view.do?book_cd={HINT_BOOK_CD}&mid=GDS&target=master"
-        try:
-            d=s.get(detail,timeout=25)
-            result["detail_transport"]=meta(d)
-            (out/"detail.html").write_text(d.text,encoding="utf-8")
-            p=plain(d.text)
-            years=sorted(set(re.findall(r"(?<!\d)(18\d{2}|19\d{2}|20\d{2})(?!\d)",p)))
-            result["detail_observation"]={
-                "plain_prefix":p[:16000],
-                "years_visible":years,
-                "target_bound_item_cds":target_items(d.text,HINT_BOOK_CD)
-            }
-        except Exception as exc:
-            result["detail_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+    detail=f"{BASE}/book/view.do?book_cd={HINT_BOOK_CD}&mid=GDS&target=master"
+    try:
+        d=s.get(detail,timeout=25)
+        result["detail_transport"]=meta(d)
+        (out/"detail.html").write_text(d.text,encoding="utf-8")
+        p=plain(d.text)
+        years=sorted(set(re.findall(r"(?<!\\d)(18\\d{2}|19\\d{2}|20\\d{2})(?!\\d)",p)))
+        items=target_items(d.text,HINT_BOOK_CD)
+        result["detail_observation"]={
+            "book_cd_present":HINT_BOOK_CD in d.text,
+            "plain_prefix":p[:20000],
+            "years_visible":years,
+            "target_bound_item_cds":items
+        }
+        if len(items)==1:
+            result["item_cd"]=items[0]
+        result["detail_revalidates_object"]=bool(
+            d.status_code==200 and HINT_BOOK_CD in d.text and len(p)>500
+        )
+    except Exception as exc:
+        result["detail_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+        result["detail_revalidates_object"]=False
     result["conclusion"]={
-        "live_provider_reconfirmed_hint":bool(result.get("list_observation",{}).get("hint_present")),
-        "object_identity_status":"PENDING_MANUAL_DETAIL_REVIEW" if result.get("list_observation",{}).get("hint_present") else "UNRESOLVED",
+        "live_provider_list_reconfirmed_hint":bool(result.get("list_observation",{}).get("hint_present")),
+        "live_provider_detail_reconfirmed_hint":bool(result.get("detail_revalidates_object")),
+        "object_identity_status":"PENDING_MANUAL_DETAIL_REVIEW" if result.get("detail_revalidates_object") else "UNRESOLVED",
         "target_effect":"NONE"
     }
     (out/"resolver.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
