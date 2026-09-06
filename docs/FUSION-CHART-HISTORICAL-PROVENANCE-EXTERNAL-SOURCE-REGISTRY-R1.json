@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-05",
+  "access_date": "2026-09-06",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -1086,8 +1086,33 @@
         "embedded_table_image_segments": 4
       },
       "original_image_service": "PUBLIC_TAEBAEKSAN_HIGH_RESOLUTION_IMAGE_SERVICE",
-      "direct_target_status": "TABLE_FAMILIES_AND_OFFICIAL_LOCATIONS_DIRECTLY_BOUND; TARGET_NUMERIC_GLYPHS_NOT_YET_READ",
-      "quality_notes": "The National Institute of Korean History official Sillok service directly binds the solar and lunar table families inside Sejong Sillok volume 156 and exposes an original-image viewer backed by high-resolution Taebaeksan Sillok photography. The solar article is at 6張A and the lunar article at 13張A. This is an official received-record witness and a separate physical/digital transmission layer from the 1444 Kyujanggak G894 print and from G893. Article-level image presence does not itself authorize any numeric reading."
+      "direct_target_status": "FIVE_LUNAR_CONTROLS_DIRECTLY_READ_FROM_OFFICIAL_TAEBAEKSAN_NATIVE_IMAGES; SOLAR_D16_PENDING_DIRECT_CONTINUATION_IMAGE; G894_AND_G893_TARGETS_STILL_PENDING",
+      "quality_notes": "The National Institute of Korean History official Sillok service directly binds the solar and lunar table families inside Sejong Sillok volume 156 and exposes an original-image viewer backed by high-resolution Taebaeksan Sillok photography. The solar article is at 6張A and the lunar article at 13張A. This is an official received-record witness and a separate physical/digital transmission layer from the 1444 Kyujanggak G894 print and from G893. Article-level image presence does not itself authorize any numeric reading. Batch 11O directly collates five lunar controls from official Taebaeksan native JPEGs with no OCR: L8=10.5601775, L101=5.20481125 with explicit zero, L114=9日3489, L124=1.0281, and L132=7.886075 with explicit zero. The mixed alignment across L8 and L124 forbids source-bloc voting. Solar D16 remains pending because the directly bound 6A page does not contain the target and both a candidate physical-span transport probe and the official viewer next-node API walk were network-unavailable; those failures are not page/glyph evidence.",
+      "native_direct_collation_artifact": "docs/research/SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json",
+      "native_direct_collation_batch": "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
+      "native_direct_readings": {
+        "VAR-NUM-LUNAR-L8-LOSSGAIN": {
+          "surface": "益一十〇分五六〇一七七五",
+          "normalized": "10.5601775"
+        },
+        "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING": {
+          "surface": "五度二十〇四八一一二五",
+          "normalized": "5.20481125"
+        },
+        "VAR-NUM-LUNAR-L114-DAYRATE": {
+          "surface": "九日三四八九",
+          "normalized": "9日3489"
+        },
+        "VAR-NUM-LUNAR-L124-JI-XINGDU": {
+          "surface": "疾一度〇二八一",
+          "normalized": "1.0281"
+        },
+        "VAR-NUM-LUNAR-L132-LOSSGAIN": {
+          "surface": "損七分八八六〇七五",
+          "normalized": "7.886075"
+        }
+      },
+      "solar_d16_status": "6A_DIRECT_NATIVE_PAGE_BOUND_BUT_D16_CONTINUATION_NOT_YET_DIRECTLY_BOUND"
     },
     {
       "source_id": "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
