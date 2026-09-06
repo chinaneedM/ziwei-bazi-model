@@ -106,9 +106,9 @@ def observed_identifiers(text: str) -> dict[str, object]:
 def target_item_cds(text: str, book_cd: str) -> list[str]:
     values: list[str] = []
     patterns = (
-        rf"ThumbServlet\\.do\\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
-        rf"fn_originalImg\\(['\"]([A-Za-z0-9_-]+)['\"]\\s*,\\s*['\"]{re.escape(book_cd)}['\"]",
-        rf"Sns\\.do\\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
+        rf"ThumbServlet\.do\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
+        rf"fn_originalImg\([\'\"]([A-Za-z0-9_-]+)[\'\"]\s*,\s*[\'\"]{re.escape(book_cd)}[\'\"]",
+        rf"Sns\.do\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
     )
     for pattern in patterns:
         for match in re.finditer(pattern, text, flags=re.I):
