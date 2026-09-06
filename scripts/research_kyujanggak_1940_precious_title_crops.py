@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 
 BASE="https://kyudb.snu.ac.kr"
 BOOK_CD="GK26786_00"; ITEM_CD="BBG"; VOL_NO="0001"
-PAGES=tuple(f"{i:04d}" for i in range(47,52))
+PAGES=tuple([f"{i:04d}" for i in range(53,119)] + [f"{i:04d}" for i in range(125,137)])
 RENDERER=BASE+"/pf01/rendererImg.do"
 UA="Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
@@ -50,7 +50,7 @@ def main():
     args=ap.parse_args()
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     s=requests.Session(impersonate="chrome"); s.headers.update({"User-Agent":UA})
-    result={"schema":"KYUJANGGAK-1940-PRECIOUS-ADDITION-TITLE-CROPS-R1","book_cd":BOOK_CD,"item_cd":ITEM_CD,"vol_no":VOL_NO,"pages":list(PAGES),"ocr_used":False,"role":"DIRECT_VISUAL_TITLE_REVIEW","records":[],"contact_sheets":[]}
+    result={"schema":"KYUJANGGAK-1940-PRECIOUS-REMAINING-TITLE-CROPS-R1","book_cd":BOOK_CD,"item_cd":ITEM_CD,"vol_no":VOL_NO,"pages":list(PAGES),"ocr_used":False,"role":"DIRECT_VISUAL_TITLE_REVIEW","records":[],"contact_sheets":[]}
     sheet=[]; sheet_no=1
     for p in PAGES:
         rr,rm=req(s,"POST",RENDERER,data={"item_cd":ITEM_CD,"book_cd":BOOK_CD,"vol_no":VOL_NO,"page_no":p,"tool":"1"})
