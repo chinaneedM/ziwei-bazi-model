@@ -1,0 +1,35 @@
+name: research-kyujanggak-g894-visual-sampler
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-kyujanggak-g894-visual-sampler.yml"
+      - "scripts/research_kyujanggak_g894_visual_sampler.py"
+
+permissions:
+  contents: read
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install transport and image dependencies
+        run: python -m pip install --disable-pip-version-check curl_cffi pillow
+      - name: Build direct-renderer G894 visual samples
+        run: |
+          python scripts/research_kyujanggak_g894_visual_sampler.py \
+            --output artifacts/g894-visual-sampler
+      - name: Upload no-OCR visual localization evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-g894-visual-sampler-${{ github.sha }}
+          path: artifacts/g894-visual-sampler/
+          if-no-files-found: warn
+          retention-days: 7
