@@ -1,0 +1,126 @@
+{
+  "schema": "KYUJANGGAK-G893-1912-1920-PRECIOUS-CATALOG-R1",
+  "schema_version": "1.0.0",
+  "status": "COMPLETE_DIRECT_NO_OCR_FULL_RENDERER_OBJECT_TITLE_PRESENCE_REVIEW_NEGATIVE_CATALOG_WITNESS_ONLY",
+  "source_id": "EXT-KYUJANGGAK-PRECIOUS-CATALOG-1912-1920",
+  "provider_object": {
+    "title": "貴重圖書目錄",
+    "modern_korean_title": "귀중도서목록",
+    "compiler": "朝鮮總督府 編",
+    "catalog_identifier": "奎26787",
+    "book_cd": "GK26787_00",
+    "item_cd": "BBG",
+    "publication_date_provider": "[1912-1920]",
+    "extent": "1冊(72張)",
+    "edition": "筆寫本",
+    "size": "27.8×20cm",
+    "microfilm": "M/F82-16-42-A",
+    "provider": "서울대학교 규장각한국학연구원",
+    "provider_description": "奎章閣 도서 가운데 貴重圖書·特別取扱圖書 및 唐板子部目錄에 관한 8종의 문서를 合綴한 것",
+    "date_scope_rule": "PROVIDER_DATE_RANGE_ONLY_DO_NOT_ASSIGN_ANY_SINGLE_YEAR_TO_THE_COMPOSITE_OBJECT_OR_TO_AN_INDIVIDUAL_BOUND_DOCUMENT_WITHOUT_DIRECT_INTERNAL_DATING"
+  },
+  "direct_digital_object_access": {
+    "detail_page": {
+      "workflow_run_id": 34034296218,
+      "workflow_head_sha": "18dac61c01b4d4c2a815a73ea17aee33152141ac",
+      "artifact_id": 9989648339,
+      "detail_html_sha256": "f8625f7ef18ea0d3cb2e7934c8ec1fac3ec275f074c95816d9863f14b60e1ca5",
+      "object_identity_reconfirmed": true
+    },
+    "renderer_manifest": {
+      "workflow_run_id": 34034482284,
+      "workflow_head_sha": "ef5f09903aa304d8b838e8aa05e41f8770f03f87",
+      "artifact_id": 9989711290,
+      "renderer_html_sha256": "97ad8e70de6cd307e439ba77a40843a34be5321e4e9e8c5fda9fa25d1aae0881",
+      "first_page_no": "0001",
+      "last_page_no": "0075",
+      "page_count": 75,
+      "page_ids_contiguous": true,
+      "ocr_used": false
+    },
+    "native_page_acquisition": [
+      {
+        "page_range": "0001",
+        "workflow_run_id": 34034687434,
+        "workflow_head_sha": "2d08743345c6b83ef8f3a3f169578c8a3d72a986",
+        "artifact_id": 9989777921,
+        "role": "COVER_AND_OBJECT_TITLE_CONTROL"
+      },
+      {
+        "page_range": "0002-0050",
+        "workflow_run_id": 34034955051,
+        "workflow_head_sha": "cec6278e73475e2825ddebb23cb12fab48eb7b98",
+        "artifact_count": 49,
+        "role": "FULL_NATIVE_PAGE_REVIEW_SEGMENT_A"
+      },
+      {
+        "page_range": "0051-0075",
+        "workflow_run_id": 34037480798,
+        "workflow_head_sha": "59761d07550c612dd5369ad64072374fe1d077e9",
+        "artifact_count": 25,
+        "role": "FULL_NATIVE_PAGE_REVIEW_SEGMENT_B"
+      }
+    ],
+    "page_coverage_validation": {
+      "expected_page_ids": "0001-0075",
+      "valid_image_count": 75,
+      "missing_page_count": 0,
+      "ocr_used_true_count": 0,
+      "all_pages_valid_image": true,
+      "all_pages_ocr_false": true
+    }
+  },
+  "direct_visual_review": {
+    "status": "COMPLETE_NO_OCR_FOR_FULL_75_PAGE_RENDERER_OBJECT",
+    "review_scope": "ALL_PROVIDER_RENDERER_PAGES_0001_THROUGH_0075",
+    "page_boundary_observations": {
+      "0001": "COVER_VISIBLY_TITLED_貴重圖書目錄",
+      "0002-0074": "BOUND_CATALOG_DOCUMENT_CONTENT_OR_SECTION_TRANSITIONS_REVIEWED",
+      "0075": "TERMINAL_BLANK_RULED_PAGE"
+    },
+    "exact_title_checked": "授時曆立成",
+    "short_title_checked": "授時曆",
+    "exact_title_visible": false,
+    "short_title_visible": false,
+    "visible_result": "NOT_SEEN",
+    "review_mode": "DIRECT_NATIVE_IMAGE_VISUAL_REVIEW_NO_OCR",
+    "observation": "No visible 授時曆立成 or shortened 授時曆 entry was identified anywhere in the complete 75-page renderer object."
+  },
+  "adjudication": {
+    "negative_catalog_witness": "SUPPORTED_FOR_THE_SURVIVING_PROVIDER_DATED_1912_1920_COMPOSITE_CATALOG_OBJECT_TITLE_PRESENCE_ONLY",
+    "physical_absence_of_g893_during_1912_1920": "NOT_PROVEN",
+    "exact_item_continuity_to_current_gk00893_00": "UNRESOLVED",
+    "exact_year_of_any_internal_catalog_subdocument": "NOT_ASSIGNED_FROM_COMPOSITE_PROVIDER_RANGE",
+    "precious_designation_date_effect": "NONE",
+    "exact_g893_print_year_effect": "NONE",
+    "target_folio_effect": "NONE",
+    "target_glyph_effect": "NONE",
+    "numeric_variant_effect": "NONE",
+    "algorithm_or_runtime_effect": "NONE"
+  },
+  "epistemic_boundaries": {
+    "negative_catalog_witness_as_physical_absence": "FORBIDDEN",
+    "provider_composite_date_range_as_single_year": "FORBIDDEN",
+    "bound_document_date_inference_without_internal_dating": "FORBIDDEN",
+    "current_precious_status_backprojection": "FORBIDDEN",
+    "negative_catalog_witness_as_exact_item_identity": "FORBIDDEN",
+    "negative_catalog_witness_as_print_year_evidence": "FORBIDDEN",
+    "negative_catalog_witness_as_target_value_evidence": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN"
+  },
+  "target_controls": [
+    "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "VAR-NUM-LUNAR-L8-LOSSGAIN",
+    "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+    "VAR-NUM-LUNAR-L114-DAYRATE",
+    "VAR-NUM-LUNAR-L124-JI-XINGDU",
+    "VAR-NUM-LUNAR-L132-LOSSGAIN"
+  ],
+  "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
+  "next_work": [
+    "DIRECTLY_READ_THE_1930_奎章閣圖書番號順目錄_INTERNAL_ENTRY_FOR_授時曆立成_OR_A_COPY_SPECIFIC_IDENTIFIER",
+    "INSPECT_1940_OR_OTHER_PREWAR_CATALOG_CONTROLS_WITH_COPY_SPECIFIC_IDENTIFIERS",
+    "SEARCH_FOR_PREWAR_PHOTOGRAPH_MICROFILM_OR_DESCRIPTION_MATCHING_102_LEAVES_38X24_8CM_OR_MF73_102_37_A",
+    "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION_INDEPENDENTLY"
+  ]
+}
