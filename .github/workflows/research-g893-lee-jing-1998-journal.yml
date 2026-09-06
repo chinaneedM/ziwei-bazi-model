@@ -1,0 +1,139 @@
+name: research-g893-lee-jing-1998-journal
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-g893-lee-jing-1998-journal.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe official journal archive frontend
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          BASE = "https://zgks.cbpt.cnki.net"
+          TARGETS = {
+              "index": BASE + "/portal/journal/portal/client/index",
+              "advanced_search": BASE + "/portal/journal/portal/client/advSearchResult",
+              "known_1998_02_control": BASE + "/portal/journal/portal/client/paper/8655fa33499ad96cd0cc0a6151d0c5e9",
+          }
+          UA = "Mozilla/5.0 research-only historical bibliography probe"
+
+          def get(url):
+              req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read()
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "data": b""}
+
+          summary = {"schema": "G893-LEE-JING-1998-JOURNAL-FRONTEND-PROBE-R1", "targets": {}, "scripts": []}
+          pages = {}
+          for key, url in TARGETS.items():
+              r = get(url)
+              data = r.pop("data")
+              summary["targets"][key] = {
+                  **r,
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+              pages[key] = data.decode("utf-8", "replace")
+              (OUT / f"{key}.html").write_text(pages[key], encoding="utf-8")
+
+          combined = "\n".join(pages.values())
+          script_srcs = sorted(set(html.unescape(x) for x in re.findall(r'<script[^>]+src=["\\\']([^"\\\']+)["\\\']', combined, re.I)))
+          for i, src in enumerate(script_srcs):
+              url = urllib.parse.urljoin(BASE + "/", src)
+              r = get(url)
+              data = r.pop("data")
+              text = data.decode("utf-8", "replace")
+              hits = []
+              for pat in [
+                  "advSearchResult", "paper", "issue", "year", "volume", "search",
+                  "/portal/", "ajax", "client/", "journal",
+              ]:
+                  for m in list(re.finditer(re.escape(pat), text, re.I))[:12]:
+                      s = max(0, m.start() - 220)
+                      e = min(len(text), m.end() + 320)
+                      hits.append(text[s:e])
+              route_like = sorted(set(
+                  x for x in re.findall(r'["\\\']([^"\\\']*(?:/portal/|advSearch|paper|issue|search)[^"\\\']*)["\\\']', text, re.I)
+                  if len(x) < 500
+              ))
+              meta = {
+                  **r,
+                  "src": src,
+                  "url": url,
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+                  "route_like": route_like[:200],
+                  "hit_count": len(hits),
+              }
+              summary["scripts"].append(meta)
+              if hits or route_like:
+                  (OUT / f"script-{i:02d}-hits.txt").write_text(
+                      "\n\n===== HIT =====\n".join(hits) + "\n\n===== ROUTES =====\n" + "\n".join(route_like),
+                      encoding="utf-8",
+                  )
+
+          form_blocks = re.findall(r"<form\\b.*?</form>", pages.get("advanced_search", ""), re.I | re.S)
+          form_extracts = []
+          for block in form_blocks:
+              form_extracts.append({
+                  "tag": re.sub(r"\\s+", " ", re.search(r"<form\\b[^>]*>", block, re.I | re.S).group(0))[:2000],
+                  "input_names": sorted(set(re.findall(r'<input[^>]+name=["\\\']([^"\\\']+)["\\\']', block, re.I))),
+                  "select_names": sorted(set(re.findall(r'<select[^>]+name=["\\\']([^"\\\']+)["\\\']', block, re.I))),
+                  "action": (re.search(r'action=["\\\']([^"\\\']+)["\\\']', block, re.I) or [None, None])[1],
+                  "method": (re.search(r'method=["\\\']([^"\\\']+)["\\\']', block, re.I) or [None, None])[1],
+              })
+          summary["advanced_search_forms"] = form_extracts
+
+          target_terms = [
+              "朝鮮奎章閣本", "朝鲜奎章阁本", "授時曆立成", "授时历立成",
+              "李銀姬", "李银姬", "景冰", "1998", "02",
+          ]
+          summary["page_term_presence"] = {
+              key: {term: (term in body) for term in target_terms}
+              for key, body in pages.items()
+          }
+          (OUT / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+          print(json.dumps({
+              "targets": summary["targets"],
+              "script_count": len(summary["scripts"]),
+              "scripts_with_routes": sum(bool(x["route_like"]) for x in summary["scripts"]),
+              "form_count": len(form_extracts),
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload probe evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: g893-lee-jing-1998-journal-frontend-probe
+          path: probe/
+          if-no-files-found: error
+          retention-days: 30
