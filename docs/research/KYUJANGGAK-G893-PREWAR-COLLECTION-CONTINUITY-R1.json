@@ -1,6 +1,6 @@
 {
   "schema": "KYUJANGGAK-G893-PREWAR-COLLECTION-CONTINUITY-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "status": "COLLECTION_LEVEL_CUSTODY_AND_PREWAR_OBJECT_FAMILY_WITNESS_CLOSED_EXACT_ITEM_IDENTITY_PENDING",
   "current_object": {
     "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
@@ -62,7 +62,25 @@
       "directly read the 授時曆立成 entry or equivalent title/number entry",
       "bind old identifier to current 奎貴893 or another copy-specific identifier",
       "or bind copy-specific physical metadata/seal chain"
-    ]
+    ],
+    "direct_digital_object_access": {
+      "book_cd": "GK26775_00",
+      "item_cd": "BBG",
+      "volume_ids": [
+        "0001",
+        "0002",
+        "0003",
+        "0004",
+        "0005",
+        "0006",
+        "0007"
+      ],
+      "workflow_run_id": 34030028767,
+      "workflow_head_sha": "ee089d95217e0fe535081c0c374b7c48da90a523",
+      "artifact_id": 9988289425,
+      "renderer_bound": true,
+      "ocr_used": false
+    }
   },
   "adjudication": {
     "collection_level_continuity": "SUPPORTED_BY_OFFICIAL_SNU_HISTORY",
@@ -72,7 +90,8 @@
     "target_folio_effect": "NONE",
     "target_glyph_effect": "NONE",
     "numeric_variant_effect": "NONE",
-    "source_count_voting": "FORBIDDEN"
+    "source_count_voting": "FORBIDDEN",
+    "prewar_catalog_digital_object_access": "DIRECTLY_BOUND"
   },
   "epistemic_boundaries": {
     "collection_continuity_as_individual_copy_identity": "FORBIDDEN",
@@ -93,7 +112,8 @@
   ],
   "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
   "next_work": [
-    "DIRECTLY_BIND_THE_1930_NUMERIC_ORDER_CATALOG_ENTRY_FOR_授時曆立成_OR_CURRENT_奎貴893",
+    "VISUALLY_LOCALIZE_授時曆立成_OR_奎貴893_WITHIN_THE_DIRECTLY_BOUND_1930_CATALOG_RENDERER_VOLUMES_WITHOUT_OCR",
+    "DIRECTLY_READ_THE_1930_NUMERIC_ORDER_CATALOG_ENTRY_AND_BIND_OLD_IDENTIFIER_TO_CURRENT_奎貴893_OR_ANOTHER_COPY_SPECIFIC_IDENTIFIER",
     "SEARCH_1908_1912_1920_1940_CATALOGS_FOR_COPY_SPECIFIC_IDENTIFIER_CONTINUITY",
     "SEARCH_FOR_PREWAR_PHOTOGRAPH_MICROFILM_OR_DESCRIPTION_MATCHING_102_LEAVES_38X24_8CM_OR_MF73_102_37_A",
     "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION_INDEPENDENTLY"
