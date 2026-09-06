@@ -11,8 +11,10 @@ from curl_cffi import requests
 
 BASE = "https://kyudb.snu.ac.kr"
 BOOK_CD = "GK00893_00"
+VOL_NO = "0001"
 DETAIL = f"{BASE}/book/view.do?book_cd={BOOK_CD}&mid=GDS&target=master"
 PDF_LIST = f"{BASE}/ajax/book/mfPdfList.do"
+PDF_DIRECT = f"{BASE}/book/mfPdf.do?book_cd={BOOK_CD}&vol_no={VOL_NO}"
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
 
@@ -22,8 +24,10 @@ def response_meta(response):
         "url": response.url,
         "status": response.status_code,
         "content_type": response.headers.get("content-type", ""),
+        "content_disposition": response.headers.get("content-disposition", ""),
         "bytes": len(body),
         "sha256": hashlib.sha256(body).hexdigest(),
+        "pdf_magic": body.startswith(b"%PDF-"),
     }
 
 
@@ -53,13 +57,14 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
 
     result = {
-        "schema": "KYUJANGGAK-G893-MF-PDF-PROBE-R1",
+        "schema": "KYUJANGGAK-G893-MF-PDF-PROBE-R2",
         "book_cd": BOOK_CD,
+        "vol_no": VOL_NO,
         "catalog_identifier": "奎貴893",
         "microfilm_number": "M/F73-102-37-A",
         "read_only": True,
         "ocr_used": False,
-        "route_type": "DISTINCT_MF_PDF_LIST_ROUTE_NOT_RENDERER_RETRY",
+        "route_type": "DISTINCT_MF_PDF_ROUTE_NOT_RENDERER_RETRY",
         "target_values_authorized": False,
         "attempts": {},
     }
@@ -96,10 +101,38 @@ def main() -> int:
             result["mf_pdf_list_parse_error"] = f"{type(exc).__name__}: {exc}"
             result["mf_pdf_list_body_prefix"] = pdf_list.text[:8000]
 
+    direct, direct_meta = request(
+        session,
+        "GET",
+        PDF_DIRECT,
+        headers={"Referer": DETAIL, "Accept": "application/pdf,*/*;q=0.8"},
+    )
+    result["attempts"]["mf_pdf_direct"] = direct_meta
+    if direct is not None:
+        (out / "mfPdfDirect.raw").write_bytes(direct.content)
+        if direct.content.startswith(b"%PDF-"):
+            (out / "GK00893_00-0001.pdf").write_bytes(direct.content)
+        else:
+            try:
+                result["mf_pdf_direct_body_prefix"] = direct.text[:8000]
+            except Exception:
+                result["mf_pdf_direct_body_prefix"] = "BINARY_NON_PDF"
+
     payload = result.get("mf_pdf_list_json")
+    vol_list = payload.get("volList", []) if isinstance(payload, dict) else []
+    is_pdf_values = [v.get("IS_PDF") for v in vol_list if isinstance(v, dict)]
+    result["pdf_availability"] = {
+        "list_result": payload.get("RESULT") if isinstance(payload, dict) else None,
+        "vol_list_count": len(vol_list),
+        "is_pdf_values": is_pdf_values,
+        "direct_pdf_returned": bool(direct is not None and direct.content.startswith(b"%PDF-")),
+    }
     result["conclusion"] = {
         "mf_pdf_list_transport_success": bool(pdf_list is not None and pdf_list.status_code == 200),
         "mf_pdf_list_nonempty_json": bool(payload),
+        "mf_pdf_direct_transport_success": bool(direct is not None and direct.status_code == 200),
+        "mf_pdf_direct_pdf_magic": bool(direct is not None and direct.content.startswith(b"%PDF-")),
+        "route_status": "PDF_OBJECT_AVAILABLE" if direct is not None and direct.content.startswith(b"%PDF-") else "NO_DIRECT_PDF_OBJECT_OBSERVED",
         "renderer_boundary_effect": "NONE_DISTINCT_ROUTE",
         "direct_target_page_status": "PENDING_UNLESS_PDF_OBJECT_IS_RETURNED_AND_DIRECTLY_REVIEWED",
         "target_effect": "NONE",
@@ -108,8 +141,7 @@ def main() -> int:
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps(result["conclusion"], ensure_ascii=False))
-    if payload:
-        print(json.dumps(payload, ensure_ascii=False)[:12000])
+    print(json.dumps(result["pdf_availability"], ensure_ascii=False))
     return 0
 
 
