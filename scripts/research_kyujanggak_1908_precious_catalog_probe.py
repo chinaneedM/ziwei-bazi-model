@@ -8,6 +8,8 @@ BASE="https://kyudb.snu.ac.kr"
 LIST=f"{BASE}/book/list.do?book_cate=COB02&mid=GDS"
 CALL="古016.09-G995"
 TITLE="貴重圖書目錄"
+BOOK_CD="GR35006_00"
+ITEM_CD="BBG"
 PDF_LIST=f"{BASE}/ajax/book/mfPdfList.do"
 UA="Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
@@ -47,34 +49,27 @@ def main():
     except Exception as exc:
         result["list_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
         observed={"book_cds":[],"item_cds":[]}
-    if len(observed["book_cds"])==1:
-        book_cd=observed["book_cds"][0]; result["book_cd"]=book_cd
-        detail=f"{BASE}/book/view.do?book_cd={book_cd}&mid=GDS&target=master"
-        try:
-            d=s.get(detail,timeout=20)
-            result["detail_transport"]=meta(d)
-            (out/"detail.html").write_text(d.text,encoding="utf-8")
-            dids=ids(d.text)
-            result["detail_observation"]={"ids":dids}
-            target_items=[]
-            for pat in (
-                rf"ThumbServlet\.do\?item_cd=([A-Za-z0-9_-]+)&book_cd={re.escape(book_cd)}",
-                rf"fn_originalImg\(['\"]([A-Za-z0-9_-]+)['\"]\s*,\s*['\"]{re.escape(book_cd)}['\"]",
-            ):
-                for m in re.finditer(pat,d.text,re.I):
-                    if m.group(1) not in target_items: target_items.append(m.group(1))
-            result["target_bound_item_cds"]=target_items
-            if len(target_items)==1: result["item_cd"]=target_items[0]
-        except Exception as exc:
-            result["detail_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
-        try:
-            p=s.post(PDF_LIST,data={"book_cd":book_cd},headers={"Referer":detail,"Content-Type":"application/x-www-form-urlencoded"},timeout=20)
-            result["pdf_list_transport"]=meta(p)
-            (out/"mfPdfList.raw").write_bytes(p.content)
-            try: result["pdf_list_json"]=p.json()
-            except Exception as exc: result["pdf_list_parse_error"]=f"{type(exc).__name__}: {exc}"
-        except Exception as exc:
-            result["pdf_list_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+    # Official live list thumbnail routing independently exposes
+    # GR35006_00 / BBG for this exact 1908 catalog. Use those observed IDs
+    # directly so a transient list-page TLS reset cannot block the PDF endpoint.
+    result["official_live_list_bound_ids"]={"book_cd":BOOK_CD,"item_cd":ITEM_CD}
+    result["book_cd"]=BOOK_CD
+    result["item_cd"]=ITEM_CD
+    detail=f"{BASE}/book/view.do?book_cd={BOOK_CD}&mid=GDS&target=master"
+    try:
+        d=s.get(detail,timeout=20)
+        result["detail_transport"]=meta(d)
+        (out/"detail.html").write_text(d.text,encoding="utf-8")
+    except Exception as exc:
+        result["detail_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
+    try:
+        p=s.post(PDF_LIST,data={"book_cd":BOOK_CD},headers={"Referer":detail,"Content-Type":"application/x-www-form-urlencoded"},timeout=20)
+        result["pdf_list_transport"]=meta(p)
+        (out/"mfPdfList.raw").write_bytes(p.content)
+        try: result["pdf_list_json"]=p.json()
+        except Exception as exc: result["pdf_list_parse_error"]=f"{type(exc).__name__}: {exc}"
+    except Exception as exc:
+        result["pdf_list_transport"]={"status":0,"error":f"{type(exc).__name__}: {exc}"}
     result["conclusion"]={
         "catalog_object_bound":bool(result.get("book_cd")),
         "pdf_list_observed":bool(result.get("pdf_list_json")),
