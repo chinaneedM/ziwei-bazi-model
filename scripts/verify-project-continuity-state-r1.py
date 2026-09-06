@@ -113,6 +113,7 @@ def main() -> int:
         "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L",
         "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M",
         "BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N",
+        "BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O",
     )
     for batch_id in required_recent_batches:
         if batch_id not in audit_state.get("completed_batches", ()):
@@ -122,7 +123,7 @@ def main() -> int:
     latest_batch_doc = ROOT / audit_state["latest_batch_doc"]
     if not latest_batch_doc.is_file():
         fail(f"current-state latest batch document does not exist: {audit_state['latest_batch_doc']}")
-    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-JOSEON-1444-CHILJEONGSAN-WITNESS-ROUTES-N.md"
+    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-JOSEON-SILLOK-NATIVE-COLLATION-O.md"
     if audit_state.get("latest_batch_doc") != expected_latest:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
     focus_text = "\n".join(audit_state.get("current_focus", ()))
@@ -132,6 +133,9 @@ def main() -> int:
     for fragment in ("奎貴894-v.1-3", "wda_50016011", "wda_50016016", "60冊 156卷 6張 A面", "60冊 156卷 13張 A面"):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11N Joseon witness-route focus: {fragment}")
+    for fragment in ("Batch 11O", "10.5601775", "九日三四八九", "1.0281", "START_API_UNAVAILABLE"):
+        if fragment not in focus_text:
+            fail(f"current-state lost Batch 11O native-collation focus: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
