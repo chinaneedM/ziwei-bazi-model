@@ -47,7 +47,7 @@ class KyujanggakG894LunarFieldSemanticBridgeR1Test(unittest.TestCase):
         solar = self.data["solar_d16_scope"]
         self.assertEqual(solar["target_field_presence"], "STRUCTURALLY_ABSENT_IN_G894_SOLAR_TABLE")
         self.assertIsNone(solar["direct_numeric_reading"])
-        self.assertIn("DO_NOT_SUBSTITUTE", solar["disposition"])
+        self.assertIn("DO_NOT SUBSTITUTE", solar["disposition"])
 
     def test_no_runtime_or_witness_collapse(self) -> None:
         self.assertEqual(self.data["runtime_effect"], "NONE")
