@@ -152,7 +152,7 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         adjudication=self.data["independent_physical_image_adjudication"]
         self.assertEqual(
             adjudication["status"],
-            "SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND",
+            "SOURCE_TEXTUAL_VOLUME_AND_OPENING_SOLAR_OBJECT_PAGE_BOUND_TARGET_FOLIOS_NOT_YET_BOUND",
         )
         self.assertEqual(len(adjudication["targets"]),6)
         for target in adjudication["targets"]:
@@ -181,7 +181,8 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
             ["GK00893_00IH_0001_000a.jpg","GK00893_00IH_0001_004b.jpg"],
         )
         self.assertEqual(topo["exact_target_folio_status"],"UNRESOLVED")
-        self.assertEqual(topo["target_reading_status"],"PENDING_DIRECT_IMAGE")
+        self.assertEqual(topo["target_reading_status"],"PENDING_DIRECT_TARGET_IMAGE")
+        self.assertEqual(topo["public_opening_figure_status"],"DIRECTLY_VISIBLE_NON_TARGET_SOLAR_OPENING_PAGE_INITIAL_TO_DAY8")
         evidence={x["source_id"]:x for x in self.data["transmission_history_evidence"]}
         li=evidence["EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023"]
         self.assertFalse(li["direct_target_glyph_authority"])
@@ -217,7 +218,9 @@ class MingDatong1569CrossEditionVariantLedgerR1Tests(unittest.TestCase):
         source="EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
         witnesses={w["source_id"]:w for w in self.data["comparison_witnesses"]}
         self.assertIn(source,witnesses)
-        self.assertEqual(witnesses[source]["direct_target_image_status"],"PENDING_FOLIO_BINDING")
+        self.assertIn("SIX_TARGET_FOLIOS_STILL_PENDING",witnesses[source]["direct_target_image_status"])
+        self.assertFalse(witnesses[source]["public_opening_figure"]["target_control_visible"])
+        self.assertEqual(witnesses[source]["public_opening_figure"]["target_value_effect"],"NONE")
         adjudication=self.data["independent_physical_image_adjudication"]
         self.assertEqual(adjudication["source_id"],source)
         self.assertEqual(adjudication["status"],"SOURCE_AND_TEXTUAL_VOLUME_LOCATED_TARGET_FOLIOS_NOT_YET_BOUND")
