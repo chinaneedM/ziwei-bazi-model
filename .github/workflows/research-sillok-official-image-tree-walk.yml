@@ -1,0 +1,32 @@
+name: research-sillok-official-image-tree-walk
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-sillok-official-image-tree-walk.yml"
+      - "scripts/research_sillok_image_tree_walk.py"
+
+permissions:
+  contents: read
+
+jobs:
+  walk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check pillow
+      - name: Follow the official Sillok image-tree next-node chain from the directly bound 6A image
+        run: python scripts/research_sillok_image_tree_walk.py
+      - name: Upload no-OCR tree-walk evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sillok-official-image-tree-walk-${{ github.sha }}
+          path: artifacts/sillok-image-tree-walk/
+          if-no-files-found: warn
+          retention-days: 7
