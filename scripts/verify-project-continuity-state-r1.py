@@ -76,6 +76,9 @@ def main() -> int:
     for source_id in ("EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673", "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673"):
         if source_id not in source_ids:
             fail(f"Ogawa continuity source witness missing: {source_id}")
+    for source_id in ("EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893", "EXT-LI-LIANG-SUNRISE-TABLES-2022"):
+        if source_id not in source_ids:
+            fail(f"G893 continuity source witness missing: {source_id}")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
@@ -105,6 +108,7 @@ def main() -> int:
     required_recent_batches = (
         "BATCH-11-BAZI-OGAWA-1673-NATIVE-EVIDENCE-K",
         "BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L",
+        "BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M",
     )
     for batch_id in required_recent_batches:
         if batch_id not in audit_state.get("completed_batches", ()):
@@ -114,9 +118,13 @@ def main() -> int:
     latest_batch_doc = ROOT / audit_state["latest_batch_doc"]
     if not latest_batch_doc.is_file():
         fail(f"current-state latest batch document does not exist: {audit_state['latest_batch_doc']}")
-    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-OGAWA-1673-KYUSHU-COLLATION-L.md"
+    expected_latest = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-PROVENANCE-PUBLIC-FIGURE-M.md"
     if audit_state.get("latest_batch_doc") != expected_latest:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
+    focus_text = "\n".join(audit_state.get("current_focus", ()))
+    for fragment in ("1434", "1444", "PENDING_DIRECT_TARGET_PAGE", "授時曆立成卷上"):
+        if fragment not in focus_text:
+            fail(f"current-state lost Batch 11M G893 focus boundary: {fragment}")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
