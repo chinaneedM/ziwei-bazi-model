@@ -762,7 +762,8 @@
         "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998",
         "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
         "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
-        "EXT-LI-LIANG-SUNRISE-TABLES-2022"
+        "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+        "EXT-KASI-YU-GYUNG-RO-SEJONG-CALENDAR-PUBLICATION-1997"
       ],
       "textual_volume_localization": {
         "table_volume": "卷上",
@@ -861,7 +862,17 @@
         "li_2018": "reports extant Kyujanggak copy reprinted in 1434",
         "li_sunrise_tables_2022": "references collection no. 893 as printed in 1444",
         "disposition": "DO_NOT_COLLAPSE_TO_1434_OR_1444_WITHOUT_COPY_SPECIFIC_COLOPHON_OR_INSTITUTIONAL_EXACT_YEAR_STATEMENT"
-      }
+      },
+      "mirror_discovery_routes": [
+        {
+          "source_id": "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015",
+          "route_status": "CATALOG_ONLY_ACTUAL_FILE_NOT_RETRIEVED",
+          "identity_binding_to_g893": "UNPROVEN",
+          "target_folio_effect": "NONE",
+          "target_glyph_effect": "NONE",
+          "disposition": "SEARCH_FOR_AUTHORIZED_OR_PUBLICLY_REVIEWABLE_COPY_WITH_MATCHING_PROVIDER_IDENTITY_BEFORE_USE"
+        }
+      ]
     },
     {
       "source_id": "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
@@ -1190,6 +1201,35 @@
       "upload_date": "2026-08-26",
       "observed_uploaded_file_size": "12.78 MB",
       "quality_notes": "Wikimedia Commons' upload list records a 2026-08-26 PDF whose stated source is the SNU Kyujanggak renderer for book_cd=GK17375_00. This proves that the renderer is not globally inaccessible and that a non-GitHub network path successfully acquired enough page images to assemble a public PDF. It does not prove G893 accessibility from the same client, does not identify any G893 folio, and has no historical or target-glyph authority."
+    },
+    {
+      "source_id": "EXT-KASI-YU-GYUNG-RO-SEJONG-CALENDAR-PUBLICATION-1997",
+      "title": "Publication of Chil Jung San Nae Oe Pyun by the Great King Sejong",
+      "author": "Yu, Gyung Ro",
+      "publication_context": "International Conference on Astronomy in the Time of King Sejong to Commemorate the 600th Anniversary of his Birth; C. Park and K. J. Sim (eds.)",
+      "publication_year": 1997,
+      "provider": "Korea Astronomy and Space Science Institute historical astronomy archive",
+      "url": "https://harg.kasi.re.kr/pro_plus/down/199709/199709_33-57.pdf",
+      "source_role": "SCHOLARLY_SEJONG_PERIOD_ASTRONOMICAL_BOOK_LIST_AND_WORK_IDENTITY_SEPARATION_WITNESS",
+      "quality_notes": "Table 3 independently lists 授時曆立成 and 姜保《授時曆捷法立成》 as separate astronomical books around the Sejong period. Use this only to reinforce work-identity separation and historical research routes. The table's author/attribution details are not promoted over the live Kyujanggak catalog, and the paper supplies no direct G893 target folio or target numeric glyph."
+    },
+    {
+      "source_id": "EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015",
+      "title": "《奎章閣漢文文獻珍藏》第三方 DVD04 目录中的《授時曆立成》",
+      "publication_context": "2015 third-party legacy package catalog / discovery lead",
+      "provider": "PIXNET post by a300830",
+      "url": "https://a300830.pixnet.net/blog/posts/12181239463",
+      "source_role": "UNVERIFIED_LEGACY_DIGITAL_REPRODUCTION_DISCOVERY_ROUTE_ONLY_NOT_TEXTUAL_OR_GLYPH_AUTHORITY",
+      "observed_catalog_claims": {
+        "collection_size": "64 works / 16.5G / 5 DVDs",
+        "dominant_formats": [
+          "PDF",
+          "DJVU"
+        ],
+        "volume": "DVD04",
+        "listed_title": "授時曆立成"
+      },
+      "quality_notes": "The page demonstrates that a legacy offline digital package was advertised with 授時曆立成 in DVD04, making a non-renderer reproduction route historically plausible. The actual bundled file has not been retrieved, its identity has not been rebound to GK00893_00 / 奎貴893, and its provenance, completeness, authorization and image fidelity are unverified. It is therefore a locator lead only and contributes zero target-page, glyph, date or variant authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
