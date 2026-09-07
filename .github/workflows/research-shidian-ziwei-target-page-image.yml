@@ -1,0 +1,243 @@
+name: research-shidian-ziwei-target-page-image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-shidian-ziwei-target-page-image.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe known public Shidian target-page API objects
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import mimetypes
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public Shidian ancient-book page probe"
+          BASE = "https://www.shidianguji.com"
+          BOOK_ID = "SDZJ0170"
+          VOLUME_ID = "7330179081331277875"
+          MIDDLE_PAGE_ID = "7330179103183667235"
+          VERSION = "44"
+          TARGET_PAGE_URL = BASE + "/mid-page/" + MIDDLE_PAGE_ID
+
+          def fetch(url, *, max_bytes=12_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "application/json,text/html,image/avif,image/webp,image/*,*/*;q=0.8",
+                  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+                  "Referer": TARGET_PAGE_URL,
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {k: v for k, v in row.items() if k != "data"} | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def maybe_json(data):
+              if not data:
+                  return None
+              try:
+                  return json.loads(data.decode("utf-8", "replace"))
+              except Exception:
+                  return None
+
+          def collect_urls(obj, path=""):
+              rows = []
+              if isinstance(obj, dict):
+                  for k, v in obj.items():
+                      p = f"{path}.{k}" if path else k
+                      rows.extend(collect_urls(v, p))
+              elif isinstance(obj, list):
+                  for i, v in enumerate(obj):
+                      rows.extend(collect_urls(v, f"{path}[{i}]"))
+              elif isinstance(obj, str):
+                  if obj.startswith("http://") or obj.startswith("https://") or obj.startswith("//"):
+                      rows.append({"path": path, "value": obj})
+              return rows
+
+          result = {
+              "schema": "SHIDIAN-ZIWEI-LATE-ZI-PUBLIC-TARGET-PAGE-IMAGE-PROBE-R1",
+              "book_id": BOOK_ID,
+              "volume_id": VOLUME_ID,
+              "middle_page_id": MIDDLE_PAGE_ID,
+              "version": VERSION,
+              "ids_origin": "DIRECTLY_EXPOSED_BY_PUBLIC_SHIDIAN_TARGET_CHAPTER_HTML_AND_FRONTEND_CODE_REVIEWED_IN_BATCH_12A_ARTIFACT",
+              "identifier_guessing_attempted": False,
+              "identifier_enumeration_attempted": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "ptoken_guessed_or_reused": False,
+              "public_page": {},
+              "api_controls": {},
+              "returned_url_candidates": [],
+              "fetched_image_candidates": [],
+          }
+
+          page = fetch(TARGET_PAGE_URL, max_bytes=5_000_000)
+          result["public_page"] = meta(page)
+          if page.get("data"):
+              (OUT / "shidian-target-mid-page.html").write_bytes(page["data"])
+
+          endpoints = {
+              "volume": BASE + "/api/ancientlib/read/get/volume/?" + urllib.parse.urlencode({
+                  "volumeId": VOLUME_ID,
+                  "bookId": BOOK_ID,
+                  "version": VERSION,
+              }),
+              "middle_page_minimal": BASE + "/api/ancientlib/read/middle-page/get/?" + urllib.parse.urlencode({
+                  "middlePageId": MIDDLE_PAGE_ID,
+                  "isWebpSupported": "false",
+              }),
+              "middle_page_render_params": BASE + "/api/ancientlib/read/middle-page/get/?" + urllib.parse.urlencode({
+                  "middlePageId": MIDDLE_PAGE_ID,
+                  "isWebpSupported": "false",
+                  "charPicResizeWidth": "0",
+                  "charPicQvalue": "100",
+                  "figureResizeWidth": "0",
+                  "figureQvalue": "100",
+              }),
+          }
+
+          for key, url in endpoints.items():
+              row = fetch(url, max_bytes=8_000_000)
+              data = row.get("data", b"")
+              payload = maybe_json(data)
+              record = meta(row)
+              record["url"] = url
+              record["json_parse_success"] = payload is not None
+              if payload is not None:
+                  record["json"] = payload
+                  result["returned_url_candidates"].extend(collect_urls(payload, key))
+              elif data:
+                  record["text_excerpt"] = data.decode("utf-8", "replace")[:3000]
+              result["api_controls"][key] = record
+              if data:
+                  suffix = ".json" if payload is not None else ".txt"
+                  (OUT / f"{key}{suffix}").write_bytes(data)
+
+          # De-duplicate only URLs directly returned by the public API. No URL guessing.
+          dedup = []
+          seen = set()
+          for item in result["returned_url_candidates"]:
+              value = item["value"]
+              if value.startswith("//"):
+                  value = "https:" + value
+              if value not in seen:
+                  seen.add(value)
+                  dedup.append({"path": item["path"], "value": value})
+          result["returned_url_candidates"] = dedup
+
+          for idx, item in enumerate(dedup[:60]):
+              url = item["value"]
+              # Fetch only image-looking URLs or URLs explicitly returned under image/pic/figure paths.
+              lower_path = item["path"].lower()
+              looks_image = (
+                  any(tok in lower_path for tok in ("image", "img", "pic", "figure", "photo", "scan"))
+                  or re.search(r"\.(?:jpe?g|png|webp|gif)(?:\?|$)", url, flags=re.I)
+              )
+              if not looks_image:
+                  continue
+              row = fetch(url, max_bytes=12_000_000)
+              data = row.get("data", b"")
+              rec = {"source_path": item["path"], "url": url, **meta(row)}
+              ctype = str(row.get("content_type") or "").lower()
+              is_image = (
+                  ctype.startswith("image/")
+                  or data.startswith(b"\xff\xd8")
+                  or data.startswith(b"\x89PNG")
+                  or data.startswith(b"RIFF") and b"WEBP" in data[:16]
+              )
+              rec["is_image"] = bool(is_image)
+              if is_image and data:
+                  ext = ".jpg"
+                  if data.startswith(b"\x89PNG"):
+                      ext = ".png"
+                  elif data.startswith(b"RIFF") and b"WEBP" in data[:16]:
+                      ext = ".webp"
+                  name = f"returned-image-{idx:02d}{ext}"
+                  (OUT / name).write_bytes(data)
+                  rec["saved_file"] = name
+              result["fetched_image_candidates"].append(rec)
+
+          saved = [x for x in result["fetched_image_candidates"] if x.get("saved_file")]
+          result["adjudication"] = {
+              "known_target_page_api_reached": any(v.get("status") == 200 for k, v in result["api_controls"].items() if k.startswith("middle_page")),
+              "public_image_object_returned": bool(saved),
+              "saved_image_count": len(saved),
+              "target_physical_page_directly_observed": "REQUIRES_DIRECT_VISUAL_REVIEW" if saved else False,
+              "independent_physical_witness_status": "UNRESOLVED_UNTIL_RETURNED_IMAGE_IS_VISUALLY_AND_PROVENANCE_REVIEWED",
+              "hpa_zdate_006_effect": "NONE_UNTIL_DIRECT_IMAGE_REVIEW",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "shidian-ziwei-late-zi-target-page-image-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "public_page": result["public_page"],
+              "api_controls": {
+                  k: {
+                      "status": v.get("status"),
+                      "bytes": v.get("bytes"),
+                      "sha256": v.get("sha256"),
+                      "json_parse_success": v.get("json_parse_success"),
+                      "error": v.get("error"),
+                  }
+                  for k, v in result["api_controls"].items()
+              },
+              "returned_url_candidates": result["returned_url_candidates"],
+              "fetched_image_candidates": result["fetched_image_candidates"],
+              "adjudication": result["adjudication"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Shidian target-page evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shidian-ziwei-late-zi-public-target-page-image
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
