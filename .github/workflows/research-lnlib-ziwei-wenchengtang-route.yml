@@ -58,7 +58,7 @@ jobs:
                           return None
                   opener = urllib.request.build_opener(NoRedirect)
               try:
-                  with opener.open(req, timeout=45) as resp:
+                  with opener.open(req, timeout=12) as resp:
                       data = resp.read(max_bytes + 1)
                       if len(data) > max_bytes:
                           raise RuntimeError("response exceeded byte guard")
