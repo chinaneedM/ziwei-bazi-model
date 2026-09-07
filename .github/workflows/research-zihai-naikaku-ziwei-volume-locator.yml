@@ -16,11 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Probe externally discovered Google Books Volume 4 object
+      - name: Probe public standalone Google Books Fullbook object
         shell: python
         run: |
           import hashlib
           import json
+          import re
           import time
           import urllib.parse
           import urllib.request
@@ -29,11 +30,9 @@ jobs:
           OUT = Path("probe")
           OUT.mkdir()
           UA = "Mozilla/5.0 research-only public-book-index locator"
-          ISBN = "9787550624016"
-          # This ID is not guessed. It was exposed by the public Google Books
-          # bibliographic page titled 子海珍本编: 海外卷日本内阁文库, Volume 4.
-          VOLUME_ID = "hyotxQEACAAJ"
-          PUBLIC_BIB_URL = "https://books.google.com/books?id=hyotxQEACAAJ"
+          VOLUME_ID = "kxdy0QEACAAJ"
+          PUBLIC_BIB_URL = "https://books.google.com/books?id=kxdy0QEACAAJ"
+          TARGET_TITLE = "新鋟希夷陳先生紫微斗數全書"
           TARGET_TERMS = [
               "新鋟希夷陳先生紫微斗數全書",
               "新鋟希夷陳先生紫微斗数全書",
@@ -45,8 +44,10 @@ jobs:
               "下五刻",
               "亥時",
               "子時有十刻",
-              "陳摶 潘希尹",
-              "陈抟 潘希尹",
+              "南陽堂較梓",
+              "紅葉山文庫",
+              "陳摶",
+              "潘希尹",
           ]
 
           def fetch(url, max_bytes=5_000_000):
@@ -69,28 +70,40 @@ jobs:
                   return {"ok": False, "error": repr(exc), "data": b""}
 
           result = {
-              "schema": "ZIHAI-NAIKAKU-ZIWEI-GOOGLE-BOOKS-VOLUME-4-DIRECT-PROBE-R1",
-              "isbn": ISBN,
+              "schema": "ZIHAI-NAIKAKU-ZIWEI-GOOGLE-BOOKS-STANDALONE-FULLBOOK-PROBE-R1",
               "volume_id": VOLUME_ID,
-              "volume_id_origin": "PUBLIC_GOOGLE_BOOKS_BIBLIOGRAPHIC_PAGE_EXPLICITLY_LABELLED_VOLUME_4",
+              "volume_id_origin": "PUBLIC_GOOGLE_BOOKS_SEARCH_RESULT_WITH_EXACT_FULLBOOK_TITLE_AND_2016_PUBLICATION_YEAR",
               "public_bibliographic_url": PUBLIC_BIB_URL,
               "identifier_guessing_attempted": False,
               "authentication_or_paywall_bypass_attempted": False,
               "bibliographic_surface": {},
               "search_within_volume": [],
+              "embedded_viewer_tokens": {},
           }
 
           bib = fetch(PUBLIC_BIB_URL)
           data = bib.pop("data")
+          text = data.decode("utf-8", "replace") if data else ""
           result["bibliographic_surface"] = {
               **bib,
               "bytes": len(data),
               "sha256": hashlib.sha256(data).hexdigest() if data else None,
-              "volume_4_label_present": b"Volume 4" in data,
-              "isbn_present": ISBN.encode() in data,
+              "target_title_present": TARGET_TITLE in text,
+              "seven_juan_present": "七卷" in text,
+              "published_2016_present": "2016" in text,
           }
+          for key, pattern in {
+              "page_ids": r'page[_-]?id[^A-Za-z0-9]+([A-Za-z0-9_-]+)',
+              "viewer_urls": r'https?://[^\"\'<> ]+(?:jscmd|books.google|books.googleusercontent)[^\"\'<> ]*',
+          }.items():
+              matches = []
+              for match in re.findall(pattern, text, flags=re.I):
+                  value = match if isinstance(match, str) else match[0]
+                  if value not in matches:
+                      matches.append(value)
+              result["embedded_viewer_tokens"][key] = matches[:100]
           if data:
-              (OUT / "google-books-volume-4.html").write_bytes(data)
+              (OUT / "google-books-standalone-fullbook.html").write_bytes(data)
 
           templates = [
               "https://books.google.com/books?jscmd=SearchWithinVolume2&q={q}&vid={vid}",
@@ -137,23 +150,26 @@ jobs:
 
           result["positive_index_hits"] = positives
           result["adjudication"] = {
-              "volume_4_identity_role": "BIBLIOGRAPHIC_SUBVOLUME_LOCATOR_ONLY_UNTIL_TARGET_CONTENT_HIT",
-              "positive_index_hit_role": "TARGET_WORK_OR_PASSAGE_SUBVOLUME_BINDING_ONLY_NOT_GLYPH_AUTHORITY",
+              "standalone_record_role": "DIRECT_2016_BIBLIOGRAPHIC_OBJECT_FOR_TARGET_FULLBOOK_TITLE",
+              "relationship_to_zihai_naikaku_set": "SUPPORTED_BY_EXTERNAL_OFFICIAL_SDU_FACSIMILE_CATALOG_BUT_NOT_INFERRED_FROM_GOOGLE_OBJECT_ALONE",
+              "positive_index_hit_role": "TARGET_PASSAGE_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
               "zero_result_as_negative_textual_proof": "FORBIDDEN",
               "target_physical_page_status": "NOT_OBSERVED_UNLESS_FUTURE_DIRECT_FACSIMILE_PAGE_IS_BOUND",
               "algorithm_effect": "NONE",
           }
 
-          (OUT / "zihai-naikaku-ziwei-volume-4-direct-probe.json").write_text(
+          (OUT / "zihai-naikaku-ziwei-standalone-fullbook-probe.json").write_text(
               json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
           print(json.dumps({
               "bibliographic_surface": result["bibliographic_surface"],
+              "embedded_viewer_tokens": result["embedded_viewer_tokens"],
               "positive_index_hits": positives,
               "term_controls": [
                   {
                       "term": row["term"],
                       "statuses": [a.get("status") for a in row["attempts"]],
+                      "searchable": [a.get("searchable") for a in row["attempts"]],
                       "result_counts": [a.get("number_of_results") for a in row["attempts"]],
                       "page_ids": [[x.get("page_id") for x in a.get("search_results", [])] for a in row["attempts"]],
                   }
@@ -161,11 +177,11 @@ jobs:
               ],
           }, ensure_ascii=False, indent=2))
 
-      - name: Upload Zihai Volume 4 direct-probe evidence
+      - name: Upload standalone Fullbook probe evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zihai-naikaku-ziwei-google-books-volume-4-direct-probe
+          name: zihai-naikaku-ziwei-google-books-standalone-fullbook-probe
           path: probe/
           if-no-files-found: warn
           retention-days: 14
