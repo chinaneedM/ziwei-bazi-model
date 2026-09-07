@@ -1,0 +1,320 @@
+name: research-ziwei-quanshu-google-viewer-pt165
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-quanshu-google-viewer-pt165.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe PT165 through official public Embedded Viewer API
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check selenium
+          mkdir -p probe
+          cat > probe/viewer.html <<'HTML'
+          <!doctype html>
+          <html lang="zh-TW">
+          <head>
+            <meta charset="utf-8">
+            <title>Public Google Books preview probe</title>
+            <script src="https://www.google.com/books/jsapi.js"></script>
+            <style>
+              html, body { margin: 0; padding: 0; background: white; }
+              #viewerCanvas { width: 1500px; height: 2000px; }
+            </style>
+          </head>
+          <body>
+            <div id="viewerCanvas"></div>
+            <script>
+              window.__probeState = {
+                volumeId: "aIRbDgAAQBAJ",
+                requestedPageId: "PT165",
+                loaded: false,
+                notFound: false,
+                goToPageIdReturned: null,
+                initialPageId: null,
+                initialPageNumber: null,
+                afterPageId: null,
+                afterPageNumber: null,
+                error: null,
+                done: false
+              };
+              function finish() {
+                window.__probeState.done = true;
+              }
+              google.books.load({"language": "zh-TW"});
+              function initialize() {
+                try {
+                  const viewer = new google.books.DefaultViewer(
+                    document.getElementById("viewerCanvas"),
+                    {showLinkChrome: false}
+                  );
+                  window.__viewer = viewer;
+                  viewer.load(
+                    "aIRbDgAAQBAJ",
+                    function() {
+                      window.__probeState.notFound = true;
+                      finish();
+                    },
+                    function() {
+                      try {
+                        window.__probeState.loaded = true;
+                        window.__probeState.initialPageId = viewer.getPageId();
+                        window.__probeState.initialPageNumber = viewer.getPageNumber();
+                        window.__probeState.goToPageIdReturned = viewer.goToPageId("PT165");
+                        setTimeout(function() {
+                          try {
+                            viewer.zoomIn();
+                            viewer.zoomIn();
+                          } catch (e) {}
+                          setTimeout(function() {
+                            try {
+                              window.__probeState.afterPageId = viewer.getPageId();
+                              window.__probeState.afterPageNumber = viewer.getPageNumber();
+                            } catch (e) {
+                              window.__probeState.error = String(e);
+                            }
+                            finish();
+                          }, 7000);
+                        }, 4000);
+                      } catch (e) {
+                        window.__probeState.error = String(e);
+                        finish();
+                      }
+                    }
+                  );
+                } catch (e) {
+                  window.__probeState.error = String(e);
+                  finish();
+                }
+              }
+              google.books.setOnLoadCallback(initialize);
+            </script>
+          </body>
+          </html>
+          HTML
+
+          python <<'PY'
+          import json
+          import re
+          import subprocess
+          import time
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          OUT = Path("probe")
+          VOLUME_ID = "aIRbDgAAQBAJ"
+          TARGET_PAGE_ID = "PT165"
+          SEARCH_TERMS = [
+              "敦化堂",
+              "繼述堂",
+              "继述堂",
+              "文光堂",
+              "朱墨",
+              "上五刻",
+              "下五刻",
+              "亥時",
+              "子時乃一日之始",
+          ]
+          UA = "Mozilla/5.0 research-only public Google Books preview probe"
+
+          def search(term):
+              url = (
+                  "https://books.google.com/books?jscmd=SearchWithinVolume2&q="
+                  + urllib.parse.quote(term)
+                  + "&vid="
+                  + VOLUME_ID
+              )
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "application/json,*/*;q=0.8",
+                      "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
+                  },
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      raw = resp.read()
+                      payload = json.loads(raw.decode("utf-8"))
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "url": url,
+                          "number_of_results": payload.get("number_of_results"),
+                          "searchable": payload.get("searchable"),
+                          "search_results": payload.get("search_results", []),
+                      }
+              except Exception as exc:
+                  return {"ok": False, "url": url, "error": repr(exc)}
+
+          searches = {term: search(term) for term in SEARCH_TERMS}
+          (OUT / "edition-term-search.json").write_text(
+              json.dumps(searches, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+
+          server = subprocess.Popen(
+              ["python", "-m", "http.server", "8765", "--bind", "127.0.0.1", "--directory", str(OUT)],
+              stdout=subprocess.DEVNULL,
+              stderr=subprocess.DEVNULL,
+          )
+          time.sleep(1)
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1800,2200")
+          options.add_argument("--lang=zh-TW")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
+
+          result = {
+              "schema": "ZIWEI-QUANSHU-GOOGLE-EMBEDDED-VIEWER-PT165-R1",
+              "volume_id": VOLUME_ID,
+              "target_page_id": TARGET_PAGE_ID,
+              "official_api": "Google Books Embedded Viewer API",
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "public_preview_only": True,
+              "viewer_state": {},
+              "network_observations": [],
+              "search_summary": {},
+              "target_page_directly_observed": False,
+              "algorithm_effect": "NONE",
+          }
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              driver.get("http://127.0.0.1:8765/viewer.html")
+              deadline = time.time() + 90
+              while time.time() < deadline:
+                  state = driver.execute_script("return window.__probeState || {};")
+                  if state.get("done"):
+                      break
+                  time.sleep(1)
+              state = driver.execute_script("return window.__probeState || {};")
+              result["viewer_state"] = state
+              driver.save_screenshot(str(OUT / "pt165-viewer.png"))
+              (OUT / "viewer-page-source.html").write_text(driver.page_source, encoding="utf-8")
+
+              observations = []
+              for entry in driver.get_log("performance"):
+                  try:
+                      message = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  if message.get("method") not in (
+                      "Network.requestWillBeSent",
+                      "Network.responseReceived",
+                  ):
+                      continue
+                  params = message.get("params", {})
+                  url = ""
+                  status = None
+                  if message["method"] == "Network.requestWillBeSent":
+                      url = params.get("request", {}).get("url", "")
+                  else:
+                      response = params.get("response", {})
+                      url = response.get("url", "")
+                      status = response.get("status")
+                  if "books.google" not in url and "google.com/books" not in url:
+                      continue
+                  parsed = urllib.parse.urlsplit(url)
+                  query = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+                  safe_query = {}
+                  for key, value in query:
+                      if key.lower() in {"sig", "token", "auth", "wsec"}:
+                          safe_query[key] = "__REDACTED__"
+                      elif key in {"id", "pg", "jscmd", "q", "vid", "img", "zoom"}:
+                          safe_query[key] = value
+                  observations.append({
+                      "event": message["method"],
+                      "url": urllib.parse.urlunsplit(
+                          (parsed.scheme, parsed.netloc, parsed.path, "", "")
+                      ),
+                      "safe_query": safe_query,
+                      "status": status,
+                  })
+              result["network_observations"] = observations[-500:]
+          finally:
+              driver.quit()
+              server.terminate()
+              try:
+                  server.wait(timeout=5)
+              except Exception:
+                  server.kill()
+
+          for term, row in searches.items():
+              result["search_summary"][term] = {
+                  "ok": row.get("ok"),
+                  "status": row.get("status"),
+                  "number_of_results": row.get("number_of_results"),
+                  "page_ids": [
+                      item.get("page_id")
+                      for item in row.get("search_results", [])
+                  ],
+                  "snippets": [
+                      item.get("snippet_text")
+                      for item in row.get("search_results", [])
+                  ],
+              }
+
+          state = result["viewer_state"]
+          result["target_page_directly_observed"] = (
+              state.get("loaded") is True
+              and state.get("goToPageIdReturned") is True
+              and state.get("afterPageId") == TARGET_PAGE_ID
+          )
+          result["adjudication"] = {
+              "pt165_public_viewer_status": (
+                  "DIRECTLY_DISPLAYED_IN_PUBLIC_EMBEDDED_VIEWER"
+                  if result["target_page_directly_observed"]
+                  else "NOT_DIRECTLY_DISPLAYED_IN_PUBLIC_EMBEDDED_VIEWER"
+              ),
+              "search_index_text_status":
+                  "PUBLIC_SEARCH_INDEX_RETURNS_PT165_FOR_TARGET_WORDING",
+              "image_glyph_authority":
+                  "PENDING_DIRECT_VISUAL_REVIEW_OF_SAVED_SCREENSHOT"
+                  if result["target_page_directly_observed"]
+                  else "NOT_AVAILABLE_FROM_THIS_PUBLIC_VIEWER_RUN",
+              "candidate_effect": "NONE_UNTIL_DIRECT_SCREENSHOT_REVIEW",
+              "algorithm_effect": "NONE",
+          }
+          (OUT / "pt165-viewer-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "viewer_state": result["viewer_state"],
+              "target_page_directly_observed": result["target_page_directly_observed"],
+              "search_summary": result["search_summary"],
+              "network_event_count": len(result["network_observations"]),
+          }, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Upload PT165 viewer evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-quanshu-google-viewer-pt165
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
