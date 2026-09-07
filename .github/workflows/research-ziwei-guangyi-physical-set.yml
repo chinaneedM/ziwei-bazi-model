@@ -1,0 +1,200 @@
+name: research-ziwei-guangyi-physical-set
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-guangyi-physical-set.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture public Guangyi physical-set routes
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import struct
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public antiquarian-book physical-route probe"
+
+          YETNAL_ITEM = "https://www.yetnal.co.kr/shop/item.php?it_id=1142493235"
+          YETNAL_IMAGES = [
+              "https://www.yetnal.co.kr/data/item/1142493235/kkk011.jpg",
+              "https://www.yetnal.co.kr/data/item/1142493235/kkk012.jpg",
+              "https://www.yetnal.co.kr/data/item/1142493235/kkk013.jpg",
+              "https://www.yetnal.co.kr/data/item/1142493235/kkk014.jpg",
+          ]
+          HANAUCTION_ITEM = "https://www.hanauction.com/htm/off_auction_read.htm?ac_num=236&id=102035&off_id=258&page=4"
+
+          def fetch(url, max_bytes=15_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "text/html,image/avif,image/webp,image/*,*/*;q=0.8",
+                  "Accept-Language": "ko,en;q=0.8,zh;q=0.6",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {k: v for k, v in row.items() if k != "data"} | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def jpeg_size(data):
+              if not data.startswith(b"\\xff\\xd8"):
+                  return None
+              i = 2
+              while i + 9 < len(data):
+                  if data[i] != 0xFF:
+                      i += 1
+                      continue
+                  marker = data[i + 1]
+                  i += 2
+                  if marker in (0xD8, 0xD9):
+                      continue
+                  if i + 2 > len(data):
+                      break
+                  seglen = struct.unpack(">H", data[i:i+2])[0]
+                  if marker in (0xC0,0xC1,0xC2,0xC3,0xC5,0xC6,0xC7,0xC9,0xCA,0xCB,0xCD,0xCE,0xCF):
+                      if i + 7 <= len(data):
+                          h, w = struct.unpack(">HH", data[i+3:i+7])
+                          return [w, h]
+                      break
+                  i += seglen
+              return None
+
+          def decode_html(data):
+              if not data:
+                  return ""
+              for enc in ("utf-8", "euc-kr", "cp949"):
+                  try:
+                      return data.decode(enc)
+                  except UnicodeDecodeError:
+                      pass
+              return data.decode("utf-8", "replace")
+
+          result = {
+              "schema": "ZIWEI-GUANGYI-PUBLIC-PHYSICAL-SET-PROBE-R1",
+              "purpose": "Close public physical-photo identity for the Republican Shanghai Guangyi lithograph route already catalog-bound in Batch 12F, without treating vendor prose or non-target photos as late-Zi glyph authority.",
+              "hpa_rule_id": "HPA-ZDATE-006",
+              "ocr_used": False,
+              "identifier_guessing_attempted": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "yetnal": {"item": {}, "images": []},
+              "hanauction": {"item": {}},
+          }
+
+          page = fetch(YETNAL_ITEM, max_bytes=5_000_000)
+          text = decode_html(page.get("data", b""))
+          result["yetnal"]["item"] = meta(page) | {
+              "url": YETNAL_ITEM,
+              "text_controls": {
+                  "校正紫薇斗數全書": "校正紫薇斗數全書" in text,
+                  "紫薇斗數全書": "紫薇斗數全書" in text,
+                  "4권4책": "4권4책" in text.replace(" ", ""),
+                  "완질": "완질" in text,
+                  "상해판": "상해판" in text,
+              },
+              "title_context_hits": [
+                  re.sub(r"\\s+", " ", m.group(0))[:500]
+                  for m in re.finditer(r".{0,120}(?:校正紫薇斗數全書|紫薇斗數全書|4권4책|완질|상해판).{0,220}", text, flags=re.S)
+              ][:20],
+          }
+          if page.get("data"):
+              (OUT / "yetnal-item.html").write_bytes(page["data"])
+
+          for idx, url in enumerate(YETNAL_IMAGES, 1):
+              row = fetch(url)
+              data = row.get("data", b"")
+              rec = meta(row) | {
+                  "url": url,
+                  "jpeg_magic": data.startswith(b"\\xff\\xd8"),
+                  "dimensions": jpeg_size(data),
+              }
+              if data:
+                  fn = f"yetnal-{idx:02d}.jpg"
+                  (OUT / fn).write_bytes(data)
+                  rec["saved_file"] = fn
+              result["yetnal"]["images"].append(rec)
+
+          hp = fetch(HANAUCTION_ITEM, max_bytes=5_000_000)
+          htext = decode_html(hp.get("data", b""))
+          result["hanauction"]["item"] = meta(hp) | {
+              "url": HANAUCTION_ITEM,
+              "text_controls": {
+                  "校正紫薇斗數全書": "校正紫薇斗數全書" in htext,
+                  "紫薇斗數全書": "紫薇斗數全書" in htext,
+                  "廣益": "廣益" in htext or "广益" in htext,
+                  "4권": "4권" in htext,
+                  "4책": "4책" in htext,
+              },
+          }
+          if hp.get("data"):
+              (OUT / "hanauction-item.html").write_bytes(hp["data"])
+
+          saved = [x for x in result["yetnal"]["images"] if x.get("saved_file")]
+          result["adjudication"] = {
+              "public_physical_image_objects_saved": len(saved),
+              "physical_set_visual_review_status": "REQUIRES_DIRECT_VISUAL_REVIEW_OF_SAVED_IMAGES",
+              "target_section_or_hai_glyph_observed": "NOT_AUTHORIZED_UNTIL_DIRECT_VISUAL_REVIEW",
+              "independent_edition_route_effect": "PHYSICAL_IDENTITY_CANDIDATE_ONLY_UNTIL_REVIEW",
+              "hpa_zdate_006_effect": "NONE_UNTIL_DIRECT_TARGET_PAGE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "ziwei-guangyi-public-physical-set-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "yetnal_item": result["yetnal"]["item"],
+              "yetnal_images": result["yetnal"]["images"],
+              "hanauction_item": result["hanauction"]["item"],
+              "adjudication": result["adjudication"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Guangyi physical-set evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-guangyi-public-physical-set
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
