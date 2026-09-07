@@ -1504,7 +1504,26 @@
       "provider": "识典古籍",
       "url": "https://www.shidianguji.com/mid-page/7356346222958919731",
       "source_role": "DIGITAL_TRANSCRIPTION_CORROBORATION_FOR_NANYANGTANG_LATE_ZI_WORDING",
-      "quality_notes": "Digital text reproduces 上五刻属昨夜亥时、下五刻属今日子时 and thus agrees with the direct Nanyangtang page at the relevant phrase. It is corroboration only; the direct facsimile remains glyph authority."
+      "quality_notes": "Digital text reproduces 上五刻属昨夜亥时、下五刻属今日子时 and thus agrees with the direct Nanyangtang page at the relevant phrase. It is corroboration only; the direct facsimile remains glyph authority.",
+      "api_target_page_image_control": {
+        "workflow_run_id": 34138050721,
+        "job_id": 101793499709,
+        "artifact_id": 10024763004,
+        "artifact_zip_sha256": "d6087c445fedfd3a8eb75e8c2bec681e94e90d1cc642a3c3d6d4877e8c1244dd",
+        "book_id": "SDZJ0170",
+        "volume_id": "7330179081331277875",
+        "middle_page_id": "7330179103183667235",
+        "public_page_http_status": 200,
+        "known_api_http_statuses": [
+          200,
+          200,
+          200
+        ],
+        "returned_image_url_count": 0,
+        "saved_image_count": 0,
+        "target_physical_page_directly_observed": false,
+        "target_effect": "NONE_NO_GLYPH_AUTHORITY_UPGRADE"
+      }
     },
     {
       "source_id": "EXT-XINYITANG-ZWDSQS-WENGUANG-FACSIMILE-2017",
@@ -1743,6 +1762,43 @@
       "research_artifact": "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json",
       "workflow_run_id": 34134328002,
       "artifact_id": 10023353526
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-ZIHAI-ZWDSQS-STANDALONE-2016",
+      "title": "Google Books《新鋟希夷陳先生紫微斗數全書》七卷 2016 standalone bibliographic object",
+      "historical_period": "2016 BIBLIOGRAPHIC/DIGITAL INDEX OBJECT FOR A FORMAL FACSIMILE-ERA FULLBOOK RECORD",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=kxdy0QEACAAJ",
+      "source_role": "BIBLIOGRAPHIC_LOCATOR_FOR_ZIHAI_NAIKAKU_FULLBOOK_ROUTE_NOT_TARGET_GLYPH_AUTHORITY",
+      "quality_notes": "Public HTML directly exposes the target title, seven-juan scope and 2016 publication context. SearchWithinVolume reports searchable=false, so zero hits cannot prove textual absence. The object does not identify the exact subvolume in the 15-volume Zihai Naikaku set and exposes no target late-Zi page.",
+      "volume_id": "kxdy0QEACAAJ",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-ZIHAI-NAIKAKU-VOLUME-LOCATOR-R1.json",
+      "workflow_run_id": 34136387337,
+      "artifact_id": 10024140134
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-PAN-ZWDSQS-GUJUE-BIANZHENG-2017",
+      "title": "Google Books 潘國森《紫微斗數全書古訣辨正》",
+      "author_attribution": "潘國森",
+      "historical_period": "2017 MODERN SECONDARY EDITION-COMPARISON STUDY",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=RISpDgAAQBAJ",
+      "source_role": "SECONDARY_LOCATOR_FOR_WENGUANGTANG_DUNHUATANG_JISHUTANG_EDITION_ROUTES_NOT_PHYSICAL_GLYPH_AUTHORITY",
+      "quality_notes": "Public index directly locates discussion of 文光堂、敦化堂、繼述堂 and later lithographic comparison. Exact late-Zi target terms were not located; two 亥時 hits are unrelated ordinary birth-hour examples. Index or secondary prose must not be promoted to physical target-glyph authority.",
+      "volume_id": "RISpDgAAQBAJ",
+      "research_artifact": "docs/research/ZIWEI-WENGUANG-COMPARISON-BOOK-LATE-ZI-INDEX-LOCATOR-R1.json",
+      "workflow_run_id": 34137662618,
+      "artifact_id": 10024619096
+    },
+    {
+      "source_id": "EXT-SHUGE-ZWDSQS-NAIKAKU-PUBLIC-FACSIMILE-ROUTE",
+      "title": "书格《新锓希夷陈先生紫微斗数全书》日本内阁文库藏本公开影印路线",
+      "historical_period": "MODERN PUBLIC FACSIMILE DISTRIBUTION ROUTE FOR A MING NANYANGTANG/BAOHETANG NAIKAKU COPY",
+      "provider": "书格 / Shuge",
+      "url": "https://www.shuge.org/view/zi_wei_dou_shu_quan_shu/",
+      "source_role": "PUBLIC_FACSIMILE_ROUTE_AND_COPY_IDENTITY_CONTROL_NOT_INDEPENDENT_SECOND_PHYSICAL_WITNESS",
+      "quality_notes": "Public metadata describes a seven-juan Ming Nanyangtang/or Baohetang copy from Japan's Naikaku Bunko and lists 卷五《論人生時要審的確》. The source binary has not been acquired and hash-compared in this audit step. Current evidence highly supports the same physical-copy/digitization lineage as the Batch 12A mirror; do not count it as an independent cross-edition Hai-glyph witness.",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-NAAJ-PHYSICAL-COPY-BRIDGE-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

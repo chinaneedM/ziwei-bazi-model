@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.19.0",
+  "schema_version": "1.20.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -94,9 +94,10 @@
       "BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E",
       "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F",
       "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G",
-      "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H"
+      "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H",
+      "BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -152,7 +153,13 @@
       "Research later six-break Bazi genealogy without importing cross-system 六壬 authority.",
       "Keep modern half-trine/arched-trine as compatibility-only unless historical source scope closes.",
       "Preserve hidden-stem display order strictly as lineage; any 本中余 hierarchy must be separately source-scoped.",
-      "Preserve all Dayun calendar realization methods as explicit non-comparable profiles/candidates."
+      "Preserve all Dayun calendar realization methods as explicit non-comparable profiles/candidates.",
+      "Batch 12I closes every committed post-12H late-Zi probe as provenance/dedup/locator control; no independent physical target page was obtained and HPA-ZDATE-006 remains MISSING_FROM_PRODUCT.",
+      "Batch 12A Nanyangtang mirror and Batch 12H NAAJ/Naikaku route are now explicitly governed by DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE; official NAAJ JP2/page hash would close same-copy provenance only, not add a second independent edition witness.",
+      "Google Books kxdy0QEACAAJ closes a 2016 seven-juan Fullbook bibliographic object, while the exact 《子海珍本編·海外卷·日本：內閣文庫》 15-volume set subvolume and target page remain UNRESOLVED.",
+      "Google Books RISpDgAAQBAJ / 潘國森《紫微斗數全書古訣辨正》 strengthens 文光堂/敦化堂/繼述堂 locators but does not expose the late-Zi target passage; unrelated 亥時 hits are excluded from target evidence.",
+      "Shidian target-page API run 34138050721 / artifact 10024763004 reached the public page and known APIs but returned zero image URL candidates and zero saved images; received transcription gains no physical-glyph authority.",
+      "Next late-Zi priority is DIRECT_INDEPENDENT_PHYSICAL_TARGET_PAGES from Wenguangtang Dunhuatang/Jishutang, Jingluntang, Wenchengtang/Guangyi, or Lianyuange Quanji; another mirror of the same Naikaku copy is not cross-edition corroboration."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
