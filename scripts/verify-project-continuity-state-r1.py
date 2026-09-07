@@ -32,6 +32,8 @@ ZIWEI_POST_E_ROUTES_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_POST_E_ROUTES_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json"
 ZIWEI_QUANJI_LATE_ZI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G.md"
 ZIWEI_QUANJI_LATE_ZI_EVIDENCE = ROOT / "docs/research/ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-R1.json"
+ZIWEI_JAPAN_MING_FULLBOOK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H.md"
+ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE = ROOT / "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -48,9 +50,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E",
     "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F",
     "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G",
+    "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H.md"
 
 
 def fail(message: str) -> None:
@@ -58,7 +61,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -76,6 +79,7 @@ def main() -> int:
     ziwei_jingluntang_evidence = json.loads(ZIWEI_JINGLUNTANG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_post_e_routes_evidence = json.loads(ZIWEI_POST_E_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_quanji_late_zi_evidence = json.loads(ZIWEI_QUANJI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_japan_ming_fullbook_evidence = json.loads(ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -128,6 +132,10 @@ def main() -> int:
         "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
         "EXT-GOOGLE-BOOKS-JIELAN-WENCHENGTANG-COLLATION-INDEX",
         "EXT-DESTINYNET-ZWDSQJ-LATE-ZI-RECEIVED-TRANSCRIPTION",
+        "EXT-TOYO-BUNKO-ZWDSQJ-VII-3-157",
+        "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY",
+        "EXT-SDU-ZIHAI-NAIKAKU-ZWDSQS-FACSIMILE",
+        "EXT-NAJ-ZWDSQS-MING-1078787",
         "EXT-GOOGLE-BOOKS-JIELAN-LIANYUANGE-QUANJI-INDEX",
         "EXT-XINYITANG-JIELAN-LIANYUANGE-QUANJI-COLLATION",
         "EXT-DALIAN-LIB-ZWDSQS-GUANGYI-MINGUO",
@@ -565,6 +573,50 @@ def main() -> int:
     if nanyang_row.get("quanji_candidate_formalization_status") != "NOT_AUTHORIZED_PENDING_DIRECT_PHYSICAL_TARGET_PAGE":
         fail("Batch 12G Matrix candidate-formalization boundary regressed")
 
+
+    if ziwei_japan_ming_fullbook_evidence.get("batch_id") != "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H":
+        fail("Batch 12H Japan Ming Fullbook evidence batch identity mismatch")
+    naj12h = ziwei_japan_ming_fullbook_evidence.get("national_archives_japan", {})
+    idx12h = naj12h.get("official_public_search_index_observation", {})
+    if idx12h.get("call_number") != "子０６０－０００１" or idx12h.get("bibliographic_label") != "刊本:明:::" or idx12h.get("quantity") != "2冊":
+        fail("Batch 12H NAJ Ming Fullbook identity regressed")
+    if idx12h.get("first_item", {}).get("id") != "4468520" or idx12h.get("first_item", {}).get("access_class") != "公開":
+        fail("Batch 12H NAJ first digital-item binding regressed")
+    runner12h = naj12h.get("github_runner_route_probe", {})
+    if runner12h.get("workflow_run_id") != 34134081787 or runner12h.get("artifact_id") != 10023248966:
+        fail("Batch 12H NAJ runner provenance regressed")
+    if runner12h.get("all_routes_http_status") != 403 or runner12h.get("adjudication") != "GITHUB_RUNNER_ACCESS_BOUNDARY_ONLY_NOT_ARCHIVE_CONTENT_ABSENCE":
+        fail("Batch 12H NAJ runner-access boundary regressed")
+    sdu12h = ziwei_japan_ming_fullbook_evidence.get("sdu_formal_facsimile_route", {})
+    if sdu12h.get("direct_workflow_capture", {}).get("workflow_run_id") != 34134328002 or sdu12h.get("direct_workflow_capture", {}).get("artifact_id") != 10023353526:
+        fail("Batch 12H SDU facsimile provenance regressed")
+    statement12h = sdu12h.get("direct_catalog_statement", {})
+    if statement12h.get("work") != "《新鋟希夷陳先生紫微斗數全書》七卷" or statement12h.get("base_copy") != "據内閣文庫藏明刊本" or statement12h.get("reproduction") != "影印":
+        fail("Batch 12H SDU formal facsimile statement regressed")
+    ncku12h = ziwei_japan_ming_fullbook_evidence.get("ncku_scholarly_genealogy", {})
+    if ncku12h.get("direct_pdf_capture", {}).get("sha256") != "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e":
+        fail("Batch 12H NCKU PDF binding regressed")
+    if ncku12h.get("visual_review", {}).get("ocr_used") is not False or ncku12h.get("visual_review", {}).get("reviewed_printed_pages") != [60, 61]:
+        fail("Batch 12H NCKU no-OCR visual-review boundary regressed")
+    toyo12h = ziwei_japan_ming_fullbook_evidence.get("toyo_bunko_quanji_catalog_control", {})
+    if toyo12h.get("official_catalog_controls", {}).get("callmark") != "VII-3-157":
+        fail("Batch 12H Toyo callmark regressed")
+    labels12h = [x.get("publication_label") for x in toyo12h.get("official_catalog_controls", {}).get("entries", [])]
+    if "鈔本" not in labels12h or "寫本" not in labels12h:
+        fail("Batch 12H Toyo manuscript/copy labels regressed")
+    if not toyo12h.get("discrepancy_with_ncku_print_genealogy", "").startswith("PRESERVE_UNRESOLVED"):
+        fail("Batch 12H Toyo/NCKU provenance discrepancy was prematurely collapsed")
+    adj12h = ziwei_japan_ming_fullbook_evidence.get("adjudication", {})
+    if adj12h.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12h.get("japan_target_page") != "NOT_OBSERVED":
+        fail("Batch 12H target-page/product boundary regressed")
+    if adj12h.get("algorithm_reopen_authorized") is not False or adj12h.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12H algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("japan_ming_fullbook_route_artifact") != "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json":
+        fail("Batch 12H Matrix Japan route binding regressed")
+    if nanyang_row.get("japan_target_late_zi_page_status") != "NOT_OBSERVED":
+        fail("Batch 12H Matrix target-page boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -624,6 +676,14 @@ def main() -> int:
         "34133129317",
         "10022892119",
         "連元閣",
+        "Batch 12H",
+        "子０６０－０００１",
+        "34134081787",
+        "10023248966",
+        "34134328002",
+        "10023353526",
+        "VII-3-157",
+        "子海珍本編",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

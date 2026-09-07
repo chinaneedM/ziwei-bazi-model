@@ -1,0 +1,174 @@
+{
+  "schema": "ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H",
+  "status": "JAPAN_MING_FULLBOOK_ARCHIVE_AND_FORMAL_FACSIMILE_ROUTES_BOUND_TARGET_PAGE_NOT_OBSERVED_NO_ALGORITHM_REOPEN",
+  "scope": {
+    "target_rule": "HPA-ZDATE-006",
+    "target_section": "論人生時要審的確",
+    "target_question": "Can the Nanyangtang Hai glyph be collated against the Ming Fullbook witness held by Japan's National Archives or its formal facsimile reproduction?",
+    "ocr_used": false,
+    "direct_target_page_observed": false
+  },
+  "national_archives_japan": {
+    "provider": "国立公文書館デジタルアーカイブ",
+    "file_url": "https://www.digital.archives.go.jp/file/1078787",
+    "image_viewer_url": "https://www.digital.archives.go.jp/img/1078787",
+    "first_item_url": "https://www.digital.archives.go.jp/item/4468520",
+    "first_item_image_viewer_url": "https://www.digital.archives.go.jp/img/4468520",
+    "official_public_search_index_observation": {
+      "title": "新鋟希夷陳先生紫微斗数全書",
+      "call_number": "子０６０－０００１",
+      "old_owner": "紅葉山文庫",
+      "people": [
+        "選者:陳搏（宋）",
+        "補訂者:潘希尹（明）"
+      ],
+      "bibliographic_label": "刊本:明:::",
+      "quantity": "2冊",
+      "access_class": "公開",
+      "first_item": {
+        "id": "4468520",
+        "title": "新鋟希夷陳先生紫微斗数全書１",
+        "volume": "0001",
+        "subject_number": "0001",
+        "access_class": "公開",
+        "viewer_exposes_content_download_interface": true,
+        "indexed_content_filename_extension": ".jp2"
+      },
+      "capture_mode": "PUBLIC_WEB_SEARCH_INDEX_OF_OFFICIAL_ARCHIVE_URLS",
+      "authority_ceiling": "OFFICIAL_ARCHIVE_CATALOG_AND_DIGITAL_CONTENT_IDENTITY_NOT_TARGET_GLYPH"
+    },
+    "github_runner_route_probe": {
+      "workflow_run_id": 34134081787,
+      "artifact_id": 10023248966,
+      "artifact_zip_sha256": "5b3af6fb7c247d4153ad277dd1c947bbe6110f077bedab92b1339d4677e0a6ff",
+      "file_id": "1078787",
+      "item_id": "4468520",
+      "routes_checked": [
+        "file_html",
+        "file_json",
+        "file_ttl",
+        "file_rdf",
+        "item_html",
+        "item_json",
+        "item_ttl",
+        "item_rdf",
+        "image_viewer"
+      ],
+      "all_routes_http_status": 403,
+      "each_response_bytes": 919,
+      "explicit_iiif_manifest_urls_found": 0,
+      "adjudication": "GITHUB_RUNNER_ACCESS_BOUNDARY_ONLY_NOT_ARCHIVE_CONTENT_ABSENCE"
+    },
+    "target_page_observed": false
+  },
+  "sdu_formal_facsimile_route": {
+    "provider": "山东大学国际汉学研究中心 / 全球汉籍合璧工程",
+    "title": "《子海珍本编·日本卷》第一辑",
+    "urls": [
+      "https://zhyhb.sdu.edu.cn/info/1116/2247.htm",
+      "https://hanjihebi.sdu.edu.cn/info/1068/1260.htm"
+    ],
+    "direct_workflow_capture": {
+      "workflow_run_id": 34134328002,
+      "artifact_id": 10023353526,
+      "artifact_zip_sha256": "5acdf28e5cec0e5e848adf320586acdf591c15d7297933831f50abdd8f22e002",
+      "primary_page_http_status": 200,
+      "primary_page_sha256": "f47d5c0fff3466b4921a9a647a881a845efcda732c61bf216bce5d0e9ed4fcca",
+      "mirror_page_http_status": 200,
+      "mirror_page_sha256": "64aa9083fdbf3495a238adb673545c6c1b655e7ed289cbe74dc1eac2cef76dfc"
+    },
+    "direct_catalog_statement": {
+      "work": "《新鋟希夷陳先生紫微斗數全書》七卷",
+      "attribution": "（宋）陳摶撰，（明）潘希尹補",
+      "base_copy": "據内閣文庫藏明刊本",
+      "reproduction": "影印"
+    },
+    "adjudication": "FORMAL_FACSIMILE_PUBLICATION_ROUTE_TO_THE_NAIKAKU_BUNKO_MING_FULLBOOK_IS_DIRECTLY_BOUND",
+    "exact_15_volume_set_subvolume_for_target_work": "UNRESOLVED",
+    "target_page_observed": false
+  },
+  "ncku_scholarly_genealogy": {
+    "provider": "國立成功大學中文系 / 成大中文學報",
+    "article": "陳昭吟〈道經中署名羅洪先之著作考辨〉",
+    "pdf_url": "https://chinese.ncku.edu.tw/var/file/142/1142/img/4253/7502.pdf",
+    "direct_pdf_capture": {
+      "workflow_run_id": 34134328002,
+      "artifact_id": 10023353526,
+      "http_status": 200,
+      "bytes": 2105566,
+      "sha256": "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e"
+    },
+    "visual_review": {
+      "ocr_used": false,
+      "reviewed_printed_pages": [
+        60,
+        61
+      ],
+      "fullbook_row": {
+        "title": "《新鋟希夷陳先生紫微斗數全書》",
+        "edition_text": "書林棲和堂葉梓行、南陽堂較梓",
+        "holding": "紅葉山文庫；今收於日本國立公文書館"
+      },
+      "quanji_row": {
+        "title": "《新刊希夷陳先生紫微斗數全集》",
+        "edition_text": "金陵益軒唐謙梓",
+        "holding_note": "昭和17年（1942）6月收入東洋文庫"
+      },
+      "genealogy_statement": "The paper groups circulated Fullbook editions into two publishing-origin families: Jianyang Shulin Qihetang/Nanyangtang and Jinling Yixuan Tang Qian.",
+      "authority": "MODERN_SCHOLARLY_EDITION_GENEALOGY_LOCATOR_NOT_TARGET_GLYPH_AUTHORITY"
+    }
+  },
+  "toyo_bunko_quanji_catalog_control": {
+    "provider": "東洋文庫 漢籍統合データベース",
+    "search_result_url": "https://www.toyo-bunko.org/open/KansekiAllQueryResult.php?ORDERBY1=&UNIT=20&andor=1&bKanjiSeiki=&iPage=4048&iTotal=86958&navizonestart=405&searchtype=keyword&sw1=",
+    "direct_workflow_capture": {
+      "workflow_run_id": 34134328002,
+      "artifact_id": 10023353526,
+      "http_status": 200,
+      "html_sha256": "784eaa96b1a2a732bfe3eb6dc3a1a8396e571bd9d782759a87e38940641c68e8"
+    },
+    "official_catalog_controls": {
+      "callmark": "VII-3-157",
+      "entries": [
+        {
+          "title": "新刊希夷陳先生紫微斗數全集不分卷",
+          "authorship": "宋陳摶撰　宋白玉蟾增",
+          "publication_label": "鈔本"
+        },
+        {
+          "title": "新刊希夷陳先生紫微斗數全集",
+          "authorship": "宋陳搏撰　白玉蟾增",
+          "publication_label": "寫本"
+        }
+      ]
+    },
+    "discrepancy_with_ncku_print_genealogy": "PRESERVE_UNRESOLVED_DO_NOT_EQUATE_CURRENT_TOYO_MANUSCRIPT_CATALOG_OBJECTS_WITH_THE_PRINTED_JINLING_YIXUAN_TANG_QIAN_WITNESS_WITHOUT_DIRECT_PROVENANCE_BRIDGE",
+    "target_page_observed": false
+  },
+  "facsimile_acquisition_next_gate": {
+    "formal_set": "《子海珍本編·海外卷·日本：內閣文庫》",
+    "set_extent": "15冊",
+    "publisher_year": "2016-09-30",
+    "exact_subvolume_containing_ziwei_fullbook": "UNRESOLVED",
+    "direct_target_page_requirement": "Bind exact set volume, page, image/facsimile leaf and read the late-Zi glyph directly before any cross-edition closure."
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "japan_ming_fullbook_identity": "CLOSED_AT_OFFICIAL_ARCHIVE_CATALOG_AND_FORMAL_FACSIMILE_ROUTE_LEVEL",
+    "japan_target_page": "NOT_OBSERVED",
+    "toyo_quanji_print_vs_manuscript_provenance": "UNRESOLVED",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selection_authorized": false,
+    "candidate_formalization_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "matrix_row_count": 198,
+    "audited_row_count": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "candidate_collapse_count": 0
+  }
+}
