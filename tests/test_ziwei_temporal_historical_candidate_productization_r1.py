@@ -59,7 +59,7 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
         self.assertEqual(6, audit["historical_candidate_extension_count"])
         self.assertEqual(3, audit["historical_candidate_registry_count"])
         self.assertEqual(3, audit["historical_candidate_runtime_resolver_count"])
-        self.assertTrue(self.state["invariants"]["deterministic_fusion_chart_product_r1_closed"])
+        self.assertEqual("CLOSED", self.state["invariants"]["deterministic_fusion_chart_product_r1"])
         self.assertEqual(0, self.state["invariants"]["confirmed_chart_algorithm_defect_count"])
         self.assertEqual(0, self.state["invariants"]["algorithm_reopen_count"])
         self.assertEqual(0, self.state["invariants"]["candidate_collapse_count"])
