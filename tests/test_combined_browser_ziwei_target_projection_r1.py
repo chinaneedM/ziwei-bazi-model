@@ -52,6 +52,25 @@ class CombinedBrowserZiweiTargetProjectionR1Tests(unittest.TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, TARGET_FLOW_ZIWEI_PROJECTION_JS)
 
+    def test_projection_renders_source_scoped_historical_candidates_without_browser_math(self) -> None:
+        self.assertIn("1581《捷览》流时候选（日宫锚定；来源限定）", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("historical_hourly_method_candidates", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("candidate.parent_daily_frame_id", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("candidate.active_address_branch", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("PRESERVED_NOT_SELECTED", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("中州派闰月候选（月归属；来源限定）", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("leap_month_method_candidates", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("continuity.daily_active_address_emitted", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        self.assertIn("不替换当前 fail-closed 月/日帧", TARGET_FLOW_ZIWEI_PROJECTION_JS)
+        for forbidden_formula in (
+            "branch_index(",
+            "effective_lunar_day - 1",
+            "annual.doujun_address",
+            "five_rats_hour_pillar",
+        ):
+            with self.subTest(forbidden_formula=forbidden_formula):
+                self.assertNotIn(forbidden_formula, TARGET_FLOW_ZIWEI_PROJECTION_JS)
+
     def test_projection_is_additive_and_missing_field_is_safe(self) -> None:
         self.assertIn(
             "if (!projection || !Array.isArray(projection.candidates))",

@@ -190,6 +190,85 @@ TARGET_FLOW_ZIWEI_PROJECTION_JS = r"""
     });
     projectionRoot.append(hourly);
 
+    const historicalHourly = node('div', undefined, 'ziwei-target-hourly');
+    historicalHourly.append(node('strong', '1581《捷览》流时候选（日宫锚定；来源限定）'));
+    historicalHourly.append(node(
+      'div',
+      `状态 ${display(row.historical_hourly_projection_status)} · 与案例方法分列，PRESERVED_NOT_SELECTED。`,
+      'ziwei-target-projection-note',
+    ));
+    const historicalHourlyCandidates = Array.isArray(row.historical_hourly_method_candidates)
+      ? row.historical_hourly_method_candidates
+      : [];
+    if (historicalHourlyCandidates.length === 0) {
+      historicalHourly.append(node(
+        'div',
+        '当前目标没有可合法绑定的来源限定父流日，因此不生成1581流时候选。',
+        'ziwei-target-projection-note',
+      ));
+    }
+    historicalHourlyCandidates.forEach((candidate) => {
+      const box = node('div', undefined, 'ziwei-target-hourly-candidate');
+      box.append(node(
+        'div',
+        `${display(candidate.time_standard)} · ${display(candidate.source_local_datetime)}`,
+      ));
+      box.append(node(
+        'div',
+        `父流日 ${display(candidate.parent_daily_frame_id)} · 父日宫 ${display(candidate.parent_daily_active_branch)}`,
+      ));
+      box.append(node(
+        'div',
+        `${display(candidate.hour_ganzhi)} · ${display(candidate.hour_branch)}时 → 候选宫位 ${display(candidate.active_address_branch)}`,
+      ));
+      box.append(node('code', `method=${display(candidate.method_id)}`));
+      box.append(node('code', `selection=${display(candidate.selection_status)}`));
+      box.append(node('code', `authority=${display(candidate.authority_status)}`));
+      box.append(node('code', `candidate_hash=${display(candidate.candidate_hash)}`));
+      box.append(node('code', `sources=${Array.isArray(candidate.source_refs) ? candidate.source_refs.join(',') : '-'}`));
+      historicalHourly.append(box);
+    });
+    projectionRoot.append(historicalHourly);
+
+    const leapMonthCandidates = Array.isArray(row.leap_month_method_candidates)
+      ? row.leap_month_method_candidates
+      : [];
+    if (row.effective_lunar_is_leap_month || leapMonthCandidates.length > 0) {
+      const leap = node('div', undefined, 'ziwei-target-hourly');
+      leap.append(node('strong', '中州派闰月候选（月归属；来源限定）'));
+      leap.append(node(
+        'div',
+        `状态 ${display(row.leap_month_candidate_status)} · 不替换当前 fail-closed 月/日帧。`,
+        'ziwei-target-projection-note',
+      ));
+      if (leapMonthCandidates.length === 0) {
+        leap.append(node('div', '当前没有可完整绑定前后正常月的闰月候选。'));
+      }
+      leapMonthCandidates.forEach((candidate) => {
+        const assigned = candidate.assigned_regular_month || {};
+        const continuity = candidate.flow_day_continuity || {};
+        const box = node('div', undefined, 'ziwei-target-hourly-candidate');
+        box.append(node(
+          'div',
+          `闰${display(candidate.leap_lunar_month)}月 ${display(candidate.leap_lunar_day)}日 · ${display(candidate.segment)}`,
+        ));
+        box.append(node(
+          'div',
+          `归属 temporal year ${display(assigned.temporal_year)} / 月 ${display(assigned.month)} · ${display(assigned.ganzhi)} · ${display(assigned.active_address_branch)}宫`,
+        ));
+        box.append(node(
+          'div',
+          `十五/十六切分重置=${display(continuity.half_split_reset)} · 流日宫位由本候选生成=${display(continuity.daily_active_address_emitted)}`,
+        ));
+        box.append(node('code', `method=${display(candidate.method_id)}`));
+        box.append(node('code', `selection=${display(candidate.selection_status)}`));
+        box.append(node('code', `daily_origin=${display(continuity.daily_origin_semantics)}`));
+        box.append(node('code', `candidate_hash=${display(candidate.candidate_hash)}`));
+        leap.append(box);
+      });
+      projectionRoot.append(leap);
+    }
+
     const projection = projectionState.response.shared_ziwei_selector_projection;
     const lineage = node('div', undefined, 'ziwei-target-projection-lineage');
     lineage.append(node('code', `target_candidate_id=${display(row.source_target_candidate_id)}`));
