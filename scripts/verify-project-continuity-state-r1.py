@@ -10,8 +10,12 @@ PROTOCOL = ROOT / "docs" / "PROJECT-CONTINUITY-PROTOCOL-R1.md"
 AUTHORITY = ROOT / "docs" / "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
-LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
-LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-MF-PDF-ROUTE-R1.json"
+IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
+IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
+MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
+MF_PDF_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-MF-PDF-ROUTE-R1.json"
+LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W.md"
+LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "G893-LEE-JING-1998-OFFICIAL-JOURNAL-ARCHIVE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -19,9 +23,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-1912-1920-PRECIOUS-CATALOG-T",
     "BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U",
     "BATCH-11-BAZI-G893-MF-PDF-ROUTE-V",
+    "BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W.md"
 
 
 def fail(message: str) -> None:
@@ -29,13 +34,15 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    identity_evidence = json.loads(IDENTITY_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
+    mf_pdf_evidence = json.loads(MF_PDF_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
@@ -126,18 +133,52 @@ def main() -> int:
     if audit_state.get("latest_batch_doc") != LATEST_BATCH_DOC:
         fail(f"current-state latest batch drift: {audit_state.get('latest_batch_doc')!r}")
 
-    if evidence.get("status") != "DIRECT_MF_PDF_ROUTE_CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED":
-        fail("Batch 11V machine evidence status mismatch")
-    if evidence.get("book_cd") != "GK00893_00" or evidence.get("item_cd") != "SIC" or evidence.get("volume_id") != "0001":
+    # Batch 11U remains the controlling catalog-item identity gate.
+    if identity_evidence.get("status") != "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY":
+        fail("Batch 11U machine evidence status mismatch")
+    source_object = identity_evidence.get("source_object", {})
+    if source_object.get("book_cd") != "GK26786_00" or source_object.get("item_cd") != "BBG":
+        fail("Batch 11U 1940 provider-object binding regressed")
+    if source_object.get("renderer_page_count") != 148 or source_object.get("ocr_used") is not False:
+        fail("Batch 11U 1940 renderer/no-OCR controls regressed")
+    header = identity_evidence.get("internal_catalog_header", {})
+    if header.get("page_id") != "0125" or header.get("visible_title") != "奎章閣貴重圖書目錄":
+        fail("Batch 11U internal precious-catalog header binding regressed")
+    for field in ("書名", "圖書番號", "冊數", "備考"):
+        if field not in header.get("visible_field_headers", ()):
+            fail(f"Batch 11U lost direct table-field header: {field}")
+    entry = identity_evidence.get("direct_entry_binding", {})
+    target_entry = entry.get("target_entry", {})
+    adjacent = entry.get("adjacent_control_entry", {})
+    if entry.get("page_id") != "0129":
+        fail("Batch 11U target-entry page binding regressed")
+    if target_entry.get("title") != "授時曆立成" or target_entry.get("book_number") != 893 or target_entry.get("volume_count") != 1:
+        fail("Batch 11U 授時曆立成 / 圖書番號 893 direct reading regressed")
+    if adjacent.get("title") != "授時曆捷法立成" or adjacent.get("book_number") != 892:
+        fail("Batch 11U adjacent Kang-Bo control regressed")
+    current_binding = identity_evidence.get("current_object_binding", {})
+    if current_binding.get("current_catalog_identifier") != "奎貴893" or current_binding.get("current_book_cd") != "GK00893_00":
+        fail("Batch 11U current G893 binding regressed")
+    if current_binding.get("exact_item_continuity_to_current_gk00893_00") != "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL":
+        fail("Batch 11U catalog-item continuity closure regressed")
+    control_1930 = identity_evidence.get("1930_control", {})
+    if control_1930.get("generic_numeric_order_893_as_current_precious_893") != "DISPROVEN_BY_DIRECT_1930_PAGE_READING":
+        fail("Batch 11U 1930 generic-number disproof regressed")
+    if identity_evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11U G893 target-page fail-closed status regressed")
+
+    if mf_pdf_evidence.get("status") != "DIRECT_MF_PDF_ROUTE_CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED":
+        fail("Batch 11V machine mf_pdf_evidence status mismatch")
+    if mf_pdf_evidence.get("book_cd") != "GK00893_00" or mf_pdf_evidence.get("item_cd") != "SIC" or mf_pdf_evidence.get("volume_id") != "0001":
         fail("Batch 11V G893 object/volume binding regressed")
-    if evidence.get("catalog_identifier") != "奎貴893" or evidence.get("title") != "授時曆立成":
+    if mf_pdf_evidence.get("catalog_identifier") != "奎貴893" or mf_pdf_evidence.get("title") != "授時曆立成":
         fail("Batch 11V G893 title/catalog binding regressed")
-    if evidence.get("microfilm_number") != "M/F73-102-37-A":
+    if mf_pdf_evidence.get("microfilm_number") != "M/F73-102-37-A":
         fail("Batch 11V microfilm catalog number regressed")
-    if evidence.get("ocr_used") is not False:
+    if mf_pdf_evidence.get("ocr_used") is not False:
         fail("Batch 11V no-OCR boundary regressed")
 
-    probe = evidence.get("direct_provider_probe", {})
+    probe = mf_pdf_evidence.get("direct_provider_probe", {})
     initial = probe.get("initial_list_probe", {})
     returned = initial.get("returned_volume", {})
     if initial.get("workflow_run_id") != 34044864073 or initial.get("artifact_id") != 9992787144:
@@ -167,15 +208,15 @@ def main() -> int:
     if direct.get("direct_pdf_magic") is not False or direct.get("direct_pdf_returned") is not False:
         fail("Batch 11V must remain closed unless a real PDF object is directly observed")
 
-    adjudication = evidence.get("adjudication", {})
+    adjudication = mf_pdf_evidence.get("adjudication", {})
     if adjudication.get("mf_pdf_route_status") != "CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED":
         fail("Batch 11V route closure state regressed")
     if adjudication.get("renderer_route_retried") is not False:
         fail("Batch 11V must remain a distinct M/F route, not a renderer retry")
-    if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+    if mf_pdf_evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
         fail("Batch 11V G893 target-page fail-closed status regressed")
 
-    boundaries = evidence.get("epistemic_boundaries", {})
+    boundaries = mf_pdf_evidence.get("epistemic_boundaries", {})
     required_boundaries = {
         "mf_pdf_ui_marker_as_downloadable_pdf_proof": "FORBIDDEN",
         "microfilm_catalog_number_as_online_pdf_presence": "FORBIDDEN",
@@ -187,15 +228,55 @@ def main() -> int:
         if boundaries.get(key) != expected:
             fail(f"Batch 11V epistemic boundary regressed: {key}")
 
+    # Batch 11W upgrades the 1998 specialist paper to a direct official record/abstract witness.
+    if evidence.get("status") != "DIRECT_OFFICIAL_JOURNAL_RECORD_AND_ABSTRACT_BOUND_FULLTEXT_REMAINS_CNKI_ROUTED_NO_TARGET_PAGE_EXPOSED":
+        fail("Batch 11W machine evidence status mismatch")
+    archive = evidence.get("official_archive", {})
+    if archive.get("paper_uuid") != "5c4276d953bd47ca2679c70209d179cf":
+        fail("Batch 11W official paper UUID regressed")
+    if archive.get("title") != "朝鲜奎章阁本的《授时历立成》" or archive.get("authors") != ["李银姬", "景冰"]:
+        fail("Batch 11W title/author identity regressed")
+    if archive.get("year_id") != "adaf0591-da7f-47b1-a26b-f97893bc2011" or archive.get("issue_id") != "081bfc10-b643-4702-9389-346193d8815e":
+        fail("Batch 11W official 1998-02 issue binding regressed")
+    if archive.get("cnki_node_id") != "ZGKS802.008":
+        fail("Batch 11W CNKI node binding regressed")
+    if archive.get("paper_html_sha256") != "e36670c425afd627551d25acec219eb1b4c7cb4285edef6aceff83adaf454825":
+        fail("Batch 11W official paper HTML digest regressed")
+    access = evidence.get("access_boundary", {})
+    if access.get("official_portal_abstract_visible") is not True or access.get("official_portal_references_visible") is not True:
+        fail("Batch 11W direct official abstract/reference surface regressed")
+    if access.get("official_portal_fulltext_visible") is not False or access.get("full_article_directly_retrieved") is not False:
+        fail("Batch 11W must not claim direct full-article retrieval")
+    if access.get("public_target_figure_exposed_on_official_portal") is not False:
+        fail("Batch 11W must not claim a public target figure")
+    if evidence.get("paywall_or_auth_bypass_attempted") is not False:
+        fail("Batch 11W access-boundary control regressed")
+    if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11W G893 target-page fail-closed status regressed")
+
+    lee_source = next(
+        (item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998"),
+        None,
+    )
+    if not lee_source:
+        fail("Batch 11W Lee/Jing source registry entry missing")
+    official_binding = lee_source.get("official_archive_binding", {})
+    if official_binding.get("paper_uuid") != "5c4276d953bd47ca2679c70209d179cf" or official_binding.get("cnki_node_id") != "ZGKS802.008":
+        fail("Batch 11W source-registry official archive binding regressed")
+    if lee_source.get("target_effect") != "NONE_ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11W source-registry target-effect boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
         "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL",
+        "1930 generic main sequence number 893",
         "Batch 11V",
         "ERROR - DIR NOT EXIST",
-        "IS_PDF was null",
         "CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED",
-        "M/F73-102-37-A",
+        "Batch 11W",
+        "5c4276d953bd47ca2679c70209d179cf",
+        "ZGKS802.008",
         "PENDING_DIRECT_TARGET_PAGE",
     ):
         if fragment not in focus_text:
