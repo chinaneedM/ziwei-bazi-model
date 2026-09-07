@@ -746,9 +746,10 @@ jobs:
 
           URL = "https://www.shidianguji.com/zh/book/SDZJ0170/chapter/1jvzop58rvpyq"
           BOOK_ID = "SDZJ0170"
-          VERSION = 44
+          VERSION = 49
           START_PAGE = 313
-          END_PAGE = 382
+          CHAPTER_END_PAGE = 382
+          FETCH_END_PAGE = 383
           TARGET_PAGE_ID = "7330179103183667235"
 
           options = Options()
@@ -764,13 +765,20 @@ jobs:
               "chapter_url": URL,
               "book_id": BOOK_ID,
               "version": VERSION,
-              "chapter_page_range": [START_PAGE, END_PAGE],
+              "version_source": "frontend bookInfo.version -> U5.current",
+              "chapter_page_range": [START_PAGE, CHAPTER_END_PAGE],
+              "frontend_fetch_page_range": [START_PAGE, FETCH_END_PAGE],
+              "frontend_fetch_end_rule": "endPageNumWithoutSubchapter + 1",
               "target_page_id": TARGET_PAGE_ID,
               "ocr_used": False,
               "authentication_or_paywall_bypass_attempted": False,
               "identifier_bruteforce_attempted": False,
               "browser_public_anonymous_session": True,
               "page_api_route_from_frontend_source": "POST /api/ancientlib/read/book/pages/v3/",
+              "frontend_global_headers_replayed": [
+                  "Client-Type: web",
+                  "x-scm-version: 1.0.1.2162",
+              ],
           }
 
           driver = webdriver.Chrome(options=options)
@@ -837,13 +845,13 @@ jobs:
                     try {
                       const ptoken = await window.byted_psdk.getPtokenStatus();
                       const all = [];
-                      for (let pageIndex = 1; 40 * (pageIndex - 1) < (382 - 313 + 1); pageIndex++) {
+                      for (let pageIndex = 1; 40 * (pageIndex - 1) < (383 - 313 + 1); pageIndex++) {
                         const body = {
                           bookId: "SDZJ0170",
                           pageIndex,
                           pageSize: 40,
                           startPageNum: 313,
-                          endPageNum: 382,
+                          endPageNum: 383,
                           version: 49,
                           needCheckVersion: true,
                           ptoken,
@@ -852,7 +860,11 @@ jobs:
                         const resp = await fetch("/api/ancientlib/read/book/pages/v3/", {
                           method: "POST",
                           credentials: "include",
-                          headers: {"content-type": "application/json"},
+                          headers: {
+                            "content-type": "application/json",
+                            "Client-Type": "web",
+                            "x-scm-version": "1.0.1.2162"
+                          },
                           body: JSON.stringify(body)
                         });
                         const raw = await resp.text();
