@@ -1,0 +1,214 @@
+name: research-shlib-ziwei-jingluntang-route
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-shlib-ziwei-jingluntang-route.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe Shanghai Library public metadata and anonymous digital-object routes
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          INSTANCE_ID = "1pjr6vy1ffsq3l1y"
+          CALL_NO = "子30814110"
+          TITLE = "新鋟希夷陳先生紫微斗數全書四卷"
+          INSTANCE = f"https://data.library.sh.cn/gj/resource/instance/{INSTANCE_ID}"
+          UA = "Mozilla/5.0 research-only public library metadata probe"
+
+          def fetch(url, accept="text/html,*/*;q=0.8", max_bytes=8_000_000, redirect=True):
+              headers = {
+                  "User-Agent": UA,
+                  "Accept": accept,
+                  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+              }
+              req = urllib.request.Request(url, headers=headers)
+              opener = urllib.request.build_opener()
+              if not redirect:
+                  class NoRedirect(urllib.request.HTTPRedirectHandler):
+                      def redirect_request(self, req, fp, code, msg, headers, newurl):
+                          return None
+                  opener = urllib.request.build_opener(NoRedirect)
+              try:
+                  with opener.open(req, timeout=45) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "location": resp.headers.get("location"),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "location": exc.headers.get("location"),
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def urls(data):
+              text = data.decode("utf-8", "replace")
+              values = re.findall(r'https?://[^\s<>"\']+', text)
+              cleaned = []
+              for value in values:
+                  value = value.rstrip(".,;)]}>")
+                  if value not in cleaned:
+                      cleaned.append(value)
+              return cleaned
+
+          result = {
+              "schema": "SHLIB-ZIWEI-JINGLUNTANG-PUBLIC-ROUTE-PROBE-R1",
+              "instance_id": INSTANCE_ID,
+              "call_number": CALL_NO,
+              "title": TITLE,
+              "edition_label": "清經綸堂刻本",
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "token_reuse_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "content_negotiation": {},
+              "discovered_official_urls": [],
+              "anonymous_route_controls": {},
+          }
+
+          formats = {
+              "html": "text/html,application/xhtml+xml,*/*;q=0.8",
+              "jsonld": "application/ld+json,application/json;q=0.9,*/*;q=0.5",
+              "turtle": "text/turtle,*/*;q=0.5",
+              "rdfxml": "application/rdf+xml,application/xml;q=0.9,*/*;q=0.5",
+          }
+          discovered = []
+          for key, accept in formats.items():
+              row = fetch(INSTANCE, accept=accept)
+              result["content_negotiation"][key] = meta(row)
+              data = row.get("data", b"")
+              if data:
+                  suffix = {
+                      "html": ".html",
+                      "jsonld": ".json",
+                      "turtle": ".ttl",
+                      "rdfxml": ".rdf",
+                  }[key]
+                  (OUT / f"instance-{key}{suffix}").write_bytes(data)
+                  for url in urls(data):
+                      host = urllib.parse.urlsplit(url).netloc.lower()
+                      if host.endswith("library.sh.cn") and url not in discovered:
+                          discovered.append(url)
+
+          # Probe only URLs directly discovered from the official metadata object.
+          for idx, url in enumerate(discovered[:120]):
+              row = fetch(url, redirect=False, max_bytes=2_000_000)
+              result["discovered_official_urls"].append({
+                  "url": url,
+                  **meta(row),
+              })
+
+          # Control the documented current digital-reader root without parameters.
+          # No item id, token, login session, page number, or image endpoint is guessed.
+          for key, url in {
+              "dhapi_pdfview_root": "https://dhapi.library.sh.cn/pdfview/",
+              "gj_public_root": "https://gj.library.sh.cn/",
+              "data_instance": INSTANCE,
+          }.items():
+              row = fetch(url, redirect=False, max_bytes=2_000_000)
+              result["anonymous_route_controls"][key] = meta(row)
+              data = row.get("data", b"")
+              if data:
+                  (OUT / f"{key}.html").write_bytes(data)
+
+          all_text = "\n".join(
+              path.read_text(encoding="utf-8", errors="replace")
+              for path in OUT.iterdir()
+              if path.suffix in {".html", ".json", ".ttl", ".rdf"}
+          )
+          tokens = ("dhapi", "pdfview", "iiif", "manifest", "itemid", "itemId", "image", "digital")
+          result["surface_token_hits"] = {
+              token: bool(re.search(re.escape(token), all_text, re.I))
+              for token in tokens
+          }
+          result["adjudication"] = {
+              "catalog_identity_status": "DIRECT_OFFICIAL_LINKED_DATA_BOUND",
+              "digital_object_identifier_status":
+                  "DISCOVERED_FROM_PUBLIC_METADATA_ONLY_IF_EXPLICIT_URL_PRESENT",
+              "anonymous_page_image_status":
+                  "NO_PAGE_IMAGE_CLAIM_WITHOUT_EXPLICIT_PUBLIC_OBJECT_ROUTE",
+              "login_or_token_boundary": "NO_AUTHENTICATION_NO_TOKEN_REUSE_NO_GUESSED_ITEM_ID",
+              "target_late_zi_page_status": "NOT_OBSERVED",
+              "hpa_zdate_006_effect": "NONE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "shlib-jingluntang-route-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "instance_id": INSTANCE_ID,
+              "call_number": CALL_NO,
+              "content_negotiation": {
+                  k: {
+                      "status": v.get("status"),
+                      "content_type": v.get("content_type"),
+                      "bytes": v.get("bytes"),
+                      "sha256": v.get("sha256"),
+                  }
+                  for k, v in result["content_negotiation"].items()
+              },
+              "discovered_official_url_count": len(result["discovered_official_urls"]),
+              "anonymous_route_controls": {
+                  k: {
+                      "status": v.get("status"),
+                      "location": v.get("location"),
+                      "bytes": v.get("bytes"),
+                  }
+                  for k, v in result["anonymous_route_controls"].items()
+              },
+              "surface_token_hits": result["surface_token_hits"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Shanghai Library route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shlib-ziwei-jingluntang-public-route
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
