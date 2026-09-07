@@ -34,6 +34,8 @@ jobs:
           UA = "Mozilla/5.0 research-only public-library catalog route probe"
           NAV = "https://www.lnlib.com/html/shengtu/ziyuandaohang/neiwang123/dianzishu/index.html"
           HOME = "https://www.lnlib.com/"
+          LEGACY_GUJI_HTTPS = "https://www.lnlib.com/gj/index.htm"
+          LEGACY_GUJI_HTTP = "http://www.lnlib.com/gj/index.htm"
           LOCATOR = "https://www.guoxuedashi.com/shumu/gj-1372988uy.html"
           TARGET_TITLE = "新鐫希夷陳先生紫微斗數全書四卷"
           TARGET_EDITION = "清文誠堂刻本"
@@ -148,6 +150,7 @@ jobs:
               "catalog_parameter_guessing_attempted": False,
               "identifier_bruteforce_attempted": False,
               "official_surfaces": {},
+              "legacy_guji_catalog_controls": {},
               "catalog_link_candidates": [],
               "catalog_surfaces": [],
               "secondary_locator": {},
@@ -158,6 +161,20 @@ jobs:
               result["official_surfaces"][key] = meta(row)
               if row.get("data"):
                   (OUT / f"lnlib-{key}.html").write_bytes(row["data"])
+
+          # Directly probe the historically published Liaoning ancient-book catalog URL.
+          # This URL is not guessed: institutional and historical library-resource pages
+          # explicitly identify it as 辽宁省图书馆古籍书目查询.
+          for key, url in {
+              "legacy_guji_https": LEGACY_GUJI_HTTPS,
+              "legacy_guji_http": LEGACY_GUJI_HTTP,
+          }.items():
+              row = fetch(url, max_bytes=5_000_000)
+              record = meta(row)
+              record["forms"] = forms(row.get("final_url") or url, row.get("data", b""))
+              result["legacy_guji_catalog_controls"][key] = record
+              if row.get("data"):
+                  (OUT / f"{key}.html").write_bytes(row["data"])
 
           nav_data = fetch(NAV)
           if nav_data.get("data"):
@@ -209,7 +226,7 @@ jobs:
               "wenchengtang_liaoning_locator_status":
                   "SECONDARY_CATALOG_LOCATOR_BOUND_PENDING_OFFICIAL_LIBRARY_RECORD",
               "official_catalog_entry_status":
-                  "PENDING_PUBLIC_CATALOG_FORM_DISCOVERY_AND_NORMAL_QUERY",
+                  "PENDING_DIRECT_LEGACY_GUJI_CATALOG_RESPONSE_AND_NORMAL_QUERY",
               "target_page_status": "NOT_OBSERVED",
               "hpa_zdate_006_effect": "NONE",
               "algorithm_effect": "NONE",
@@ -227,6 +244,17 @@ jobs:
                       "bytes": v.get("bytes"),
                   }
                   for k, v in result["official_surfaces"].items()
+              },
+              "legacy_guji_catalog_controls": {
+                  k: {
+                      "status": v.get("status"),
+                      "final_url": v.get("final_url"),
+                      "location": v.get("location"),
+                      "bytes": v.get("bytes"),
+                      "form_count": len(v.get("forms", [])),
+                      "forms": v.get("forms", []),
+                  }
+                  for k, v in result["legacy_guji_catalog_controls"].items()
               },
               "catalog_link_candidates": result["catalog_link_candidates"],
               "catalog_surfaces": [
