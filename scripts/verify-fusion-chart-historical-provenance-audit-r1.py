@@ -188,14 +188,17 @@ def main() -> int:
         raise SystemExit("known provenance metadata defects are missing")
     if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 9:
         raise SystemExit("known provenance metadata repairs are missing")
-    if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 2:
-        raise SystemExit("source-scoped historical candidate runtime resolver is missing")
-    if audit_summary.get("historical_candidate_registry_count", 0) < 2:
-        raise SystemExit("historical candidate registry is missing")
-    if audit_summary.get("historical_candidate_extension_count", 0) < 4:
+    if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 3:
+        raise SystemExit("source-scoped historical candidate runtime resolver accounting regressed")
+    if audit_summary.get("historical_candidate_registry_count", 0) < 3:
+        raise SystemExit("historical candidate registry accounting regressed")
+    if audit_summary.get("historical_candidate_extension_count", 0) < 6:
         raise SystemExit("historical candidate extension accounting regressed")
     if audit_summary.get("identified_missing_candidate_family_count", 0) < 13:
-        raise SystemExit("known historical candidate gaps are missing")
+        raise SystemExit("cumulative historical candidate discovery accounting regressed")
+    current_missing = sum(row.get("audit_status") == "MISSING_FROM_PRODUCT" for row in rows)
+    if current_missing != 9 or audit_summary.get("current_missing_from_product_row_count") != 9:
+        raise SystemExit("current MISSING_FROM_PRODUCT row accounting mismatch after Ziwei temporal productization")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
@@ -276,10 +279,50 @@ def main() -> int:
     if not temporal_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 08B temporal-frame child rows are incomplete")
     temporal_by_id={row["rule_id"]: row for row in rows if row["rule_id"].startswith("HPA-ZTEMP-")}
-    if temporal_by_id["HPA-ZTEMP-004"]["audit_status"]!="MISSING_FROM_PRODUCT":
-        raise SystemExit("1581 day-anchored flow-hour product gap was not preserved")
-    if temporal_by_id["HPA-ZTEMP-006"]["audit_status"]!="MISSING_FROM_PRODUCT":
-        raise SystemExit("Zhongzhou leap-month product gap was not preserved")
+    ztemp004=temporal_by_id["HPA-ZTEMP-004"]
+    ztemp006=temporal_by_id["HPA-ZTEMP-006"]
+    if ztemp004["audit_status"]!="HISTORICALLY_SUPPORTED":
+        raise SystemExit("1581 day-anchored flow-hour candidate productization status regressed")
+    if ztemp006["audit_status"]!="SUPPORTED_BUT_SCHOOL_SPECIFIC":
+        raise SystemExit("Zhongzhou leap-month candidate school scope regressed")
+    for row,method_id in (
+        (ztemp004,"JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1"),
+        (ztemp006,"ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1"),
+    ):
+        if row.get("selection_status")!="PRESERVED_NOT_SELECTED":
+            raise SystemExit(f"Ziwei temporal candidate was silently selected: {row['rule_id']}")
+        if row.get("candidate_method_id")!=method_id:
+            raise SystemExit(f"Ziwei temporal candidate method identity regressed: {row['rule_id']}")
+        if row.get("runtime_resolver_id")!="ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1":
+            raise SystemExit(f"Ziwei temporal candidate runtime identity regressed: {row['rule_id']}")
+        if row.get("algorithm_reopen_authorized") is not False:
+            raise SystemExit(f"Ziwei temporal candidate incorrectly reopened production: {row['rule_id']}")
+    if "TIME_STANDARD_SPECIFIC_PARENT_DAILY_FRAME_REQUIRED" not in ztemp004.get("current_implementation_match",""):
+        raise SystemExit("1581 historical hour candidate lost parent-day/time-standard binding")
+    if "DAILY_ACTIVE_ADDRESS_NOT_EMITTED" not in ztemp006.get("current_implementation_match",""):
+        raise SystemExit("Zhongzhou leap-month candidate invented unresolved daily geometry")
+
+    temporal_candidate_paths=(
+        ROOT/"src"/"fortune_training"/"ziwei_chart"/"temporal_historical_candidates.py",
+        ROOT/"tests"/"test_ziwei_temporal_historical_candidate_api_r1.py",
+        ROOT/"tests"/"test_shared_ziwei_historical_temporal_candidates_r1.py",
+        ROOT/"schemas"/"shared-ziwei-selector-projection-r1.schema.json",
+        ROOT/"docs"/"ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+    )
+    for path in temporal_candidate_paths:
+        if not path.is_file():
+            raise SystemExit(f"Ziwei temporal candidate productization artifact missing: {path.relative_to(ROOT)}")
+    temporal_candidate_source=temporal_candidate_paths[0].read_text(encoding="utf-8")
+    for token in (
+        "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1",
+        "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1",
+        "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
+        "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+        "PRESERVED_NOT_SELECTED",
+        "NOT_CLOSED_BY_THIS_MONTH_POLICY_API",
+    ):
+        if token not in temporal_candidate_source:
+            raise SystemExit(f"Ziwei temporal candidate source contract missing: {token}")
     time_standard_child_ids={"HPA-ZTIME-001","HPA-ZTIME-002"}
     if not time_standard_child_ids.issubset(set(ids)):
         raise SystemExit("Batch 08C Ziwei time-standard child rows are incomplete")

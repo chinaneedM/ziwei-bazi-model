@@ -46,12 +46,12 @@
     "row_count": 197,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
-      "HISTORICALLY_SUPPORTED": 87,
+      "HISTORICALLY_SUPPORTED": 88,
       "DISPUTED_MULTIPLE_CANDIDATES": 30,
-      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 17,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
       "IMPLEMENTATION_REVIEW_REQUIRED": 11,
       "SOURCE_INSUFFICIENT": 9,
-      "MISSING_FROM_PRODUCT": 11,
+      "MISSING_FROM_PRODUCT": 9,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
@@ -3650,13 +3650,13 @@
     },
     {
       "system": "ZIWEI",
-      "current_profile": "ZIWEI temporal runtime / historical audit",
+      "current_profile": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.0.0 / ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
       "rule_id": "HPA-ZTEMP-004",
       "module": "流时",
       "rule_or_field": "1581 Jielan day-anchored flow-hour active palace candidate",
-      "current_implementation": "NOT EMITTED. Current hourly candidates use fixed hour-branch palace plus two time standards.",
+      "current_implementation": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.1.0 resolves JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1 as a PRESERVED_NOT_SELECTED source-scoped candidate. Shared Ziwei Selector Projection 2.1.0 binds each historical hour candidate to a time-standard-specific parent monthly/daily frame; the existing fixed-branch hourly_method_candidates remain separate and unchanged.",
       "primary_source": "EXT-ZIWEI-JIELAN-1581",
       "source_quote": "日上起子时皆顺行。",
       "source_quote_location": "EXT-ZIWEI-JIELAN-1581 chapter 54《安流年斗君法》",
@@ -3666,10 +3666,14 @@
       "competing_methods": [
         "S10_ZHONGZHOU_FIXED_BRANCH_CASE"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_METHOD_MISSING_FROM_RUNTIME; MUST_BIND_TO_TIME_STANDARD_SPECIFIC_PARENT_DAILY_FRAME",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; 1581_DAY_ANCHORED_GEOMETRY_MATCHES_SOURCE; TIME_STANDARD_SPECIFIC_PARENT_DAILY_FRAME_REQUIRED_AND_REPLAY_GATED; ZHONGZHOU_FIXED_BRANCH_CASE_REMAINS_SEPARATE; NO_WINNER_SELECTED",
       "confidence": "HIGH_FOR_TEXT; MEDIUM_HIGH_FOR_CONTEXTUAL_PHILOLOGY",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Add as unranked source-scoped candidate after parent-daily/time-standard binding is explicit."
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "Keep the 1581 method as an explicit unranked historical candidate. Continue edition/facsimile collation and never infer a calendar-date boundary or time-standard doctrine from the flow-hour wording.",
+      "productization_doc": "docs/ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+      "candidate_method_id": "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
+      "selection_status": "PRESERVED_NOT_SELECTED",
+      "runtime_resolver_id": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
     },
     {
       "system": "ZIWEI",
@@ -3696,13 +3700,13 @@
     },
     {
       "system": "ZIWEI",
-      "current_profile": "ZIWEI temporal runtime / historical audit",
+      "current_profile": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.0.0 / ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.0.0 / PRESERVED_NOT_SELECTED",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-08-ZIWEI-TEMPORAL-FRAMES-B",
       "rule_id": "HPA-ZTEMP-006",
       "module": "流月",
       "rule_or_field": "Zhongzhou leap-month half-split temporal candidate",
-      "current_implementation": "NOT GENERATED; runtime reports UNRESOLVED_NOT_GENERATED for leap-month temporal frames.",
+      "current_implementation": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.1.0 resolves ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1 as a PRESERVED_NOT_SELECTED month-assignment candidate. Shared Ziwei Selector Projection 2.1.0 exposes the candidate separately while the ordinary monthly/daily projection remains LEAP_MONTH_UNRESOLVED_NO_FRAME / PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME.",
       "primary_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI; S10:ZZTERM-P-0280..0281",
       "source_quote": "闰月前半属上月，后半属下月；流日顺轮不断。",
       "source_quote_location": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI; S10:ZZTERM-P-0280..0281",
@@ -3712,10 +3716,14 @@
       "competing_methods": [
         "other leap-month temporal methods"
       ],
-      "current_implementation_match": "SOURCE_CLOSED_SCHOOL_METHOD_MISSING_FROM_RUNTIME",
+      "current_implementation_match": "SOURCE_SCOPED_RUNTIME_AVAILABLE_PRESERVED_NOT_SELECTED; DAYS_1_15_PREVIOUS_MONTH_AND_16_END_FOLLOWING_MONTH_ASSIGNMENT_MATCHES_S10; HALF_SPLIT_RESET_FALSE; DAILY_ACTIVE_ADDRESS_NOT_EMITTED_BECAUSE_LEAP_MONTH_DAY_ONE_ORIGIN_SEMANTICS_REMAIN_NOT_CLOSED",
       "confidence": "HIGH",
-      "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Implement as explicit school-scoped candidate; preserve current fail-closed behavior until candidate path is wired."
+      "audit_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+      "proposed_action": "Keep the Zhongzhou half-split as an explicit school-scoped candidate. Continue source research for leap-month day-one flow-day origin and competing leap-month methods before any daily active-address candidate can be emitted.",
+      "productization_doc": "docs/ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-PRODUCTIZATION-R1.md",
+      "candidate_method_id": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+      "selection_status": "PRESERVED_NOT_SELECTED",
+      "runtime_resolver_id": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
     },
     {
       "system": "ZIWEI",
@@ -4890,10 +4898,11 @@
     "repaired_provenance_metadata_defect_count": 9,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
-    "historical_candidate_extension_count": 4,
+    "historical_candidate_extension_count": 6,
     "identified_missing_candidate_family_count": 13,
-    "historical_candidate_registry_count": 2,
-    "historical_candidate_runtime_resolver_count": 2
+    "historical_candidate_registry_count": 3,
+    "historical_candidate_runtime_resolver_count": 3,
+    "current_missing_from_product_row_count": 9
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 }
