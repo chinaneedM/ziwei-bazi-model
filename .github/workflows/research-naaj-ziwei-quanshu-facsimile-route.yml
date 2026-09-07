@@ -428,6 +428,153 @@ jobs:
           )
           print(json.dumps(result["conclusion"], ensure_ascii=False, indent=2))
 
+      - name: Resolve Shidian Reader-Image lazy assets
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          PAGE = OUT / "shidian-volume5.html"
+          text = PAGE.read_text(encoding="utf-8", errors="replace")
+          UA = "Mozilla/5.0 research-only historical-facsimile reader-protocol probe"
+          TARGET_PAGE_ID = "7330179103183667235"
+
+          # Asset base comes only from script URLs directly exposed in the same HTML.
+          direct_script_urls = [
+              html.unescape(x).replace("\\u002F", "/")
+              for x in re.findall(
+                  r'''<script[^>]+src=["']([^"']+)["']''',
+                  text,
+                  re.I,
+              )
+          ]
+          shidian_bases = []
+          for u in direct_script_urls:
+              marker = "/guji/shidian/"
+              if marker in u:
+                  base = u.split(marker, 1)[0] + marker
+                  if base not in shidian_bases:
+                      shidian_bases.append(base)
+
+          # Lazy reader asset paths are taken from the asset manifest serialized in raw HTML.
+          reader_block_match = re.search(
+              r'''"Reader-Image":\{"chunkIds":\[(.*?)\],"assets":\[(.*?)\],"referenceCssAssets"''',
+              text,
+              re.S,
+          )
+          if not reader_block_match:
+              raise SystemExit("Reader-Image asset manifest not found in raw HTML")
+          asset_field = reader_block_match.group(2)
+          asset_paths = [
+              html.unescape(x).replace("\\u002F", "/")
+              for x in re.findall(r'"([^"]+\.js)"', asset_field)
+          ]
+          if not shidian_bases:
+              raise SystemExit("direct Shidian asset base not found")
+          base = shidian_bases[0]
+          asset_urls = [urllib.parse.urljoin(base, p) for p in asset_paths]
+
+          def get(url):
+              req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read()
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "data": b""}
+
+          records = []
+          combined = []
+          for i, url in enumerate(asset_urls, 1):
+              r = get(url)
+              data = r.pop("data")
+              (OUT / f"reader-image-{i:02d}.js").write_bytes(data)
+              js = data.decode("utf-8", "replace")
+              combined.append(js)
+              # Preserve only direct literals / local contexts, not guessed endpoints.
+              literals = sorted(set(
+                  html.unescape(x)
+                  for x in re.findall(
+                      r'''["']([^"']*(?:pageId|page_id|picUrl|thumbUrl|uri|image|img|original|ancientlib|read)[^"']*)["']''',
+                      js,
+                      re.I,
+                  )
+                  if 0 < len(x) < 800
+              ))
+              contexts = []
+              for term in ("pageId", "picUrl", "thumbUrl", "urlEncryptType", "ancientlib", "read"):
+                  for m in list(re.finditer(term, js, re.I))[:20]:
+                      block = js[max(0, m.start()-900):m.start()+2600]
+                      if any(k in block for k in ("pageId", "picUrl", "thumbUrl", "ancientlib", "read")):
+                          contexts.append({
+                              "term": term,
+                              "context": block,
+                          })
+              records.append({
+                  "url": url,
+                  **r,
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+                  "literals": literals[:1000],
+                  "contexts": contexts[:100],
+              })
+
+          all_js = "\n".join(combined)
+          # Extract request-like URL/path literals directly present in reader code.
+          endpoint_literals = sorted(set(
+              html.unescape(x)
+              for x in re.findall(
+                  r'''["']([^"']*(?:/api/|ancientlib|page|image|img|read)[^"']*)["']''',
+                  all_js,
+                  re.I,
+              )
+              if 0 < len(x) < 1000
+          ))
+          key_literals = sorted(set(re.findall(
+              r'''\b(?:pageId|page_id|bookId|book_id|volumeId|volume_id|urlEncryptType|picUrl|thumbUrl|uri)\b''',
+              all_js,
+              re.I,
+          )))
+
+          result = {
+              "schema": "SHIDIAN-ZIWEI-QUANSHU-READER-IMAGE-PROTOCOL-R1",
+              "target_page_id": TARGET_PAGE_ID,
+              "asset_base_from_direct_html_script": base,
+              "reader_asset_paths_from_direct_manifest": asset_paths,
+              "reader_asset_urls": asset_urls,
+              "records": records,
+              "endpoint_literals": endpoint_literals[:4000],
+              "request_key_literals": key_literals,
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "target_image_requested": False,
+              "target_glyphs_read": False,
+              "late_zi_algorithm_effect": "NONE",
+          }
+          (OUT / "shidian-reader-protocol.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "asset_count": len(asset_urls),
+              "successful_asset_count": sum(bool(x.get("ok")) for x in records),
+              "endpoint_literal_count": len(endpoint_literals),
+              "request_keys": key_literals,
+          }, ensure_ascii=False, indent=2))
+
       - name: Upload route evidence
         if: always()
         uses: actions/upload-artifact@v4
