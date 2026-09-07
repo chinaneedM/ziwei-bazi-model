@@ -18,6 +18,8 @@ ARTICLE_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-
 ARTICLE_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "G893-LEE-JING-1998-OFFICIAL-JOURNAL-ARCHIVE-R1.json"
 LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X.md"
 LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json"
+ZIWEI_LATE_ZI_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A.md"
+ZIWEI_LATE_ZI_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -27,9 +29,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-MF-PDF-ROUTE-V",
     "BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W",
     "BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X",
+    "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A.md"
 
 
 def fail(message: str) -> None:
@@ -37,7 +40,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -48,6 +51,7 @@ def main() -> int:
     mf_pdf_evidence = json.loads(MF_PDF_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     article_evidence = json.loads(ARTICLE_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_late_zi_evidence = json.loads(ZIWEI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -311,6 +315,28 @@ def main() -> int:
     if reproduction.get("target_effect") != "NONE_ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
         fail("Batch 11X registry target boundary regressed")
 
+    if ziwei_late_zi_evidence.get("batch_id") != "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A":
+        fail("Batch 12A Ziwei late-Zi evidence batch identity mismatch")
+    source_obj = ziwei_late_zi_evidence.get("source_object", {})
+    if source_obj.get("pdf_sha256") != "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7" or source_obj.get("pdf_page_count") != 527:
+        fail("Batch 12A Ziwei Fullbook PDF identity regressed")
+    direct = ziwei_late_zi_evidence.get("direct_collation", {})
+    if direct.get("pdf_page_1_based") != 320 or direct.get("heading") != "論人生時要審的確":
+        fail("Batch 12A target-section binding regressed")
+    if direct.get("s01_claimed_sentence_status") != "NOT_OBSERVED_ON_DIRECT_TARGET_SECTION_PAGE" or direct.get("whole_volume_negative_claim_authorized") is not False:
+        fail("Batch 12A S01 exact-quotation scope firewall regressed")
+    philology = ziwei_late_zi_evidence.get("philological_adjudication", {})
+    if philology.get("candidate_method_id") != "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1":
+        fail("Batch 12A candidate identity regressed")
+    if philology.get("runtime_capability_status") != "MISSING_FROM_PRODUCT" or philology.get("runtime_selection_authorized") is not False:
+        fail("Batch 12A missing-product / no-selection boundary regressed")
+    nanyang_source = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN"), None)
+    if not nanyang_source or nanyang_source.get("pdf_sha256") != "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7":
+        fail("Batch 12A external-source registry binding regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12A HPA-ZDATE-006 continuity boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -327,6 +353,10 @@ def main() -> int:
         "2024-02-01",
         "No G893 reproduction request has been submitted",
         "PENDING_DIRECT_TARGET_PAGE",
+        "Batch 12A",
+        "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+        "HPA-ZDATE-006",
+        "MISSING_FROM_PRODUCT",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

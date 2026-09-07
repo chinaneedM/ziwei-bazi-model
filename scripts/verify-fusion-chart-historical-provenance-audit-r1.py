@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
+ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
@@ -105,6 +106,21 @@ def main() -> int:
         raise SystemExit("Batch 08D late-Zi dispute witness is missing")
     if by_source_id.get("EXT-XUANMEN-LINGDONGLAI-LATE-ZI") is None:
         raise SystemExit("Batch 08D late-Zi practice witness is missing")
+    nanyangtang=by_source_id.get("EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN")
+    if nanyangtang is None:
+        raise SystemExit("Batch 12A Nanyangtang Fullbook facsimile witness is missing")
+    if nanyangtang.get("pdf_sha256") != "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7" or nanyangtang.get("direct_target_page_1_based") != 320:
+        raise SystemExit("Batch 12A Nanyangtang source binding mismatch")
+    if not ZIWEI_QUANSHU_NANYANGTANG.is_file():
+        raise SystemExit("Batch 12A Nanyangtang direct-collation artifact is missing")
+    nanyang_evidence=json.loads(ZIWEI_QUANSHU_NANYANGTANG.read_text(encoding="utf-8"))
+    if nanyang_evidence.get("status") != "DIRECT_NO_OCR_TARGET_SECTION_COLLATION_COMPLETE_NEW_HISTORICAL_CANDIDATE_IDENTIFIED":
+        raise SystemExit("Batch 12A Nanyangtang evidence status mismatch")
+    direct=nanyang_evidence.get("direct_collation", {})
+    if direct.get("pdf_page_1_based") != 320 or direct.get("heading") != "論人生時要審的確":
+        raise SystemExit("Batch 12A direct target-page binding mismatch")
+    if direct.get("s01_claimed_sentence_status") != "NOT_OBSERVED_ON_DIRECT_TARGET_SECTION_PAGE" or direct.get("whole_volume_negative_claim_authorized") is not False:
+        raise SystemExit("Batch 12A S01 quotation quarantine boundary regressed")
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
@@ -194,11 +210,18 @@ def main() -> int:
         raise SystemExit("historical candidate registry accounting regressed")
     if audit_summary.get("historical_candidate_extension_count", 0) < 6:
         raise SystemExit("historical candidate extension accounting regressed")
-    if audit_summary.get("identified_missing_candidate_family_count", 0) < 13:
+    if audit_summary.get("identified_missing_candidate_family_count", 0) < 14:
         raise SystemExit("cumulative historical candidate discovery accounting regressed")
     current_missing = sum(row.get("audit_status") == "MISSING_FROM_PRODUCT" for row in rows)
-    if current_missing != 9 or audit_summary.get("current_missing_from_product_row_count") != 9:
-        raise SystemExit("current MISSING_FROM_PRODUCT row accounting mismatch after Ziwei temporal productization")
+    if current_missing != 10 or audit_summary.get("current_missing_from_product_row_count") != 10:
+        raise SystemExit("current MISSING_FROM_PRODUCT row accounting mismatch after Batch 12A Ziwei Fullbook facsimile discovery")
+    row_nanyang=next((row for row in rows if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if row_nanyang is None or row_nanyang.get("audit_status") != "MISSING_FROM_PRODUCT":
+        raise SystemExit("Batch 12A HPA-ZDATE-006 missing-product row is absent")
+    if row_nanyang.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12A historical candidate improperly authorized an algorithm reopen")
+    if row_nanyang.get("candidate_method_id") != "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1":
+        raise SystemExit("Batch 12A candidate method identity mismatch")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")

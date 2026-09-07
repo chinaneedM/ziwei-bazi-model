@@ -43,7 +43,7 @@
     "algorithm_reopen_authorized"
   ],
   "inventory_summary": {
-    "row_count": 197,
+    "row_count": 198,
     "status_counts": {
       "MODERN_COMPATIBILITY_ONLY": 31,
       "HISTORICALLY_SUPPORTED": 88,
@@ -51,11 +51,11 @@
       "SUPPORTED_BUT_SCHOOL_SPECIFIC": 18,
       "IMPLEMENTATION_REVIEW_REQUIRED": 11,
       "SOURCE_INSUFFICIENT": 9,
-      "MISSING_FROM_PRODUCT": 9,
+      "MISSING_FROM_PRODUCT": 10,
       "NOT_YET_FORMALIZED": 1
     },
     "module_counts": {
-      "Time / Calendar": 22,
+      "Time / Calendar": 23,
       "四柱本命": 1,
       "八字派生字段": 31,
       "大运": 16,
@@ -81,7 +81,7 @@
       "candidate/profile rules": 2,
       "provenance / hashes / lineage": 2
     },
-    "audited_row_count": 165
+    "audited_row_count": 166
   },
   "rows": [
     {
@@ -279,11 +279,11 @@
       "rule_or_field": "Ziwei effective calendar date",
       "current_implementation": "Production uses LOCAL_SOLAR_DATE_INDEXED and Ziwei day boundary ZI_START_23.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "Modern operational calendar-date policies + EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI / EXT-XUANMEN-LINGDONGLAI-LATE-ZI for late-Zi dispute; claimed Fullbook quote remains quarantined under HPA-ZIWEI-001",
+      "primary_source": "Modern operational calendar-date policies + EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI / EXT-XUANMEN-LINGDONGLAI-LATE-ZI for late-Zi date dispute; EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN is a separate historical hour-branch witness; claimed S01 Fullbook quote remains quarantined under HPA-ZIWEI-001",
       "source_quote": "Two separate decisions are currently composed: (A) map either the local-apparent-solar Gregorian date or the reported civil Gregorian date into the Chinese calendar; (B) optionally roll Ziwei's effective chart date at 23:00. Modern Ziwei witnesses preserve disagreement on B.",
       "source_quote_location": "config/time-calendar-policies.json; src/fortune_training/calendar_foundation/ziwei.py; src/fortune_training/ziwei_chart/engine.py; EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
       "historical_period": "MODERN_OPERATIONAL_DATE_INDEXING_PLUS_UNRESOLVED_ZIWEI_LATE_ZI_TRADITION",
-      "later_witnesses": "Modern Ziwei references explicitly preserve both late-Zi current-day and next-day methods. No edition-scoped early witness has yet closed a unique 23:00 rollover winner.",
+      "later_witnesses": "Modern Ziwei references explicitly preserve both late-Zi current-day and next-day date methods. Nanyangtang Fullbook page 320 separately preserves a ten-ke upper-five Hai / lower-five Zi birth-hour classification; it is not silently equated with either date-boundary axis.",
       "school_attribution": "TWO_ORTHOGONAL_POLICY_AXES: GREGORIAN_DATE_INDEX_BASIS × ZIWEI_DAY_BOUNDARY",
       "competing_methods": [
         "DATE_INDEX:LOCAL_SOLAR_DATE_INDEXED",
@@ -294,7 +294,7 @@
       "current_implementation_match": "RUNTIME_CORRECTLY_SEPARATES_DATE_INDEX_POLICY_FROM_ZIWEI_DAY_BOUNDARY; PRODUCTION_SELECTS_LOCAL_SOLAR_DATE_INDEXED_PLUS_ZI_START_23; HISTORICAL_UNIQUE_WINNER_NOT_CLOSED",
       "confidence": "HIGH_FOR_RUNTIME_DECOMPOSITION_AND_MODERN_DISPUTE; LOW_FOR_UNIQUE_PREMODERN_WINNER",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Keep the two axes explicit. Do not use 1581 Jielan `日上起子时` (a flow-hour palace instruction) as evidence for 23:00 calendar-date rollover. Preserve production closure and alternative profile capability.",
+      "proposed_action": "Keep date-index and day-boundary axes explicit. Keep HPA-ZDATE-006 as a separate hour-branch candidate. Do not use the 1581 Jielan flow-hour wording or the Nanyangtang ten-ke wording as automatic proof of a modern 23:00 calendar-date rollover.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D"
     },
@@ -1528,27 +1528,37 @@
       "rule_or_field": "Ziwei day-boundary policy",
       "current_implementation": "Production sets ziwei_day_boundary_policy=ZI_START_23.",
       "current_profile": "ZIWEI-CHART-ENGINE-V1",
-      "primary_source": "S01 normalized candidate layer under provenance quarantine; no edition-scoped Fullbook witness established for the attributed sentence; modern dispute witnesses EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI and EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
-      "source_quote": "Normalized S01 attributes `子时乃一日之始，当从新日计` to 《紫微斗数全书》, but Batch 06/08D do not treat that attribution as verified Fullbook verbatim. Modern sources explicitly preserve both current-day and next-day late-Zi methods.",
-      "source_quote_location": "S01:ZZZA-A-0052..0057; S01:ZZZA-CF-001; EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
-      "historical_period": "ATTRIBUTED_FULLBOOK_SENTENCE_UNVERIFIED; MODERN_DISPUTE_WELL_ATTESTED",
-      "later_witnesses": "Modern practice includes both methods; production ZI_START_23 is a selected profile policy, not a historically proven unique winner.",
+      "primary_source": "S01 normalized candidate layer under provenance quarantine + EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN direct Fullbook facsimile + modern dispute witnesses EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI and EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "source_quote": "S01 attributes `子时乃一日之始，当从新日计` to 《紫微斗数全书》. Direct Nanyangtang Fullbook facsimile page 320 instead preserves `如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時`; the S01 exact sentence is not observed on that directly reviewed target-section page.",
+      "source_quote_location": "S01:ZZZA-A-0052..0057; S01:ZZZA-CF-001; EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN PDF p.320; docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+      "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE_CONFIRMS_DISTINCT_RECEIVED_LATE_ZI_HOUR_RULE; S01_EXACT_ATTRIBUTED_SENTENCE_REMAINS_UNVERIFIED",
+      "later_witnesses": "Modern practice includes both date-attribution methods. The direct Nanyangtang Fullbook page adds a mechanically distinct ten-ke Hai/Zi hour-classification witness rather than validating a unique 23:00 date-rollover winner.",
       "school_attribution": "ZIWEI_LATE_ZI_DATE_ATTRIBUTION_DISPUTE",
       "competing_methods": [
         "ZI_START_23_NEXT_DAY",
         "MIDNIGHT_LATE_ZI_CURRENT_DAY"
       ],
-      "current_implementation_match": "PRODUCTION_SELECTS_ZI_START_23; MIDNIGHT_IS_SUPPORTED_BY_PROFILE_RUNTIME; NO_CROSS_SYSTEM_BAZI_COUPLING_IN_COMBINED_EXECUTION",
-      "confidence": "HIGH_FOR_DISPUTE_AND_RUNTIME_CAPABILITY; LOW_FOR_QUARANTINED_FULLBOOK_ATTRIBUTION",
+      "current_implementation_match": "PRODUCTION_SELECTS_ZI_START_23; MIDNIGHT_IS_SUPPORTED_BY_PROFILE_RUNTIME; DIRECT_FULLBOOK_TEN_KE_HAI_ZI_SPLIT_IS_NOT_EXPRESSIBLE_BY_CURRENT_NATAL_HOUR_BRANCH_RUNTIME; SEE HPA-ZDATE-006",
+      "confidence": "HIGH_FOR_DIRECT_FACSIMILE_PAGE_READING_AND_RUNTIME_GAP; LOW_FOR_S01_EXACT_ATTRIBUTED_SENTENCE; MEDIUM_FOR_EXACT_NANYANGTANG_PRINT_DATE",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Continue edition/facsimile research for the claimed Fullbook sentence. Do not backfill authority from modern consensus or from Jielan flow-hour wording.",
+      "proposed_action": "Keep PROV-DEFECT-005 quarantined. Preserve the direct ten-ke Hai/Zi rule separately as HPA-ZDATE-006; collate further editions and historical timekeeping before any modern-clock mapping or productization. Do not backfill authority from modern consensus.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D",
       "defect_id": "PROV-DEFECT-005",
       "defect_type": "UNVERIFIED_FULLBOOK_ATTRIBUTION_FOR_ZIWEI_DAY_BOUNDARY",
       "defect_scope": "S01 normalized layer attributes an exact Zi-hour day-boundary sentence to 《紫微斗数全书》, but Batch 06 did not locate that sentence in the repository-frozen ZZQS received-text layer or checked external received transcription.",
       "repair_status": "REPAIRED_BY_PROVENANCE_QUARANTINE_IN_BATCH_06",
-      "repair_action": "Preserved canonical source text unchanged but removed the attribution from primary-authority use in the Historical Audit Matrix; production algorithm was not reopened."
+      "repair_action": "Preserved canonical source text unchanged but removed the attribution from primary-authority use in the Historical Audit Matrix; production algorithm was not reopened.",
+      "facsimile_adjudication": {
+        "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+        "reading_artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+        "pdf_sha256": "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+        "target_page_1_based": 320,
+        "target_heading": "論人生時要審的確",
+        "s01_exact_sentence_status": "NOT_OBSERVED_ON_DIRECT_TARGET_SECTION_PAGE",
+        "whole_volume_negative_claim_authorized": false,
+        "distinct_candidate_row": "HPA-ZDATE-006"
+      }
     },
     {
       "rule_id": "HPA-ZIWEI-002",
@@ -3828,19 +3838,19 @@
       "rule_id": "HPA-ZDATE-003",
       "rule_or_field": "ZI_START_23 Ziwei effective chart-date rollover",
       "current_implementation": "When local apparent solar clock hour is 23, ZiweiChartEngine advances the local-solar Gregorian date by one day before converting to the chart lunar coordinate.",
-      "primary_source": "S01 normalized attribution under PROV-DEFECT-005 quarantine; modern dispute witnesses only",
-      "source_quote": "Current production behavior treats 23:00–23:59 local apparent solar time as the next Ziwei chart date. The attributed Fullbook sentence is not source-closed.",
-      "source_quote_location": "src/fortune_training/ziwei_chart/engine.py _chart_lunar_coordinate; S01:ZZZA-A-0053; HPA-ZIWEI-001",
+      "primary_source": "Selected production profile; S01 normalized attribution remains under PROV-DEFECT-005 quarantine and is not validated by EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN; modern dispute witnesses EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI and EXT-XUANMEN-LINGDONGLAI-LATE-ZI",
+      "source_quote": "Current production treats 23:00–23:59 local apparent solar time as the next Ziwei chart date. Direct Nanyangtang Fullbook page 320 instead records a ten-ke Hai/Zi hour split and therefore does not validate the quarantined S01 exact sentence or a unique simple 23:00 rollover.",
+      "source_quote_location": "src/fortune_training/ziwei_chart/engine.py _chart_lunar_coordinate; S01:ZZZA-A-0053; HPA-ZIWEI-001; EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN PDF p.320",
       "historical_period": "CURRENT_PRODUCTION_PROFILE_WITH_UNRESOLVED_HISTORICAL_GENEALOGY",
-      "later_witnesses": "EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI says next-day treatment is modern mainstream; EXT-XUANMEN-LINGDONGLAI-LATE-ZI preserves both methods.",
+      "later_witnesses": "Modern witnesses preserve next-day treatment as one practice. The direct Fullbook ten-ke rule is mechanically distinct and is registered separately as HPA-ZDATE-006.",
       "school_attribution": "ONE_ZIWEI_LATE_ZI_CANDIDATE_NOT_UNIQUE_WINNER",
       "competing_methods": [
         "MIDNIGHT_LATE_ZI_CURRENT_DAY"
       ],
-      "current_implementation_match": "EXACT_PRODUCTION_MATCH; HISTORICAL_AUTHORITY_INSUFFICIENT_FOR_UNIQUE_WINNER",
-      "confidence": "HIGH_FOR_RUNTIME; LOW_FOR_ATTRIBUTED_CLASSICAL_SOURCE",
+      "current_implementation_match": "EXACT_PRODUCTION_MATCH; HISTORICAL_UNIQUE_WINNER_NOT_CLOSED; DIRECT_NANYANGTANG_FULLBOOK_WITNESS_IS_NOT_EQUIVALENT_TO_THIS_SIMPLE_DATE_ROLLOVER",
+      "confidence": "HIGH_FOR_RUNTIME; HIGH_FOR_DIRECT_FACSIMILE_NON_EQUIVALENCE; LOW_FOR_S01_ATTRIBUTED_CLASSICAL_SENTENCE",
       "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
-      "proposed_action": "Keep as selected production candidate but not historical winner. Continue source research."
+      "proposed_action": "Keep as selected production candidate, not historical winner. Continue source research and keep the newly identified half-Zi Hai reclassification separate under HPA-ZDATE-006."
     },
     {
       "system": "ZIWEI",
@@ -3855,7 +3865,7 @@
       "source_quote": "Modern Ziwei practice explicitly records a method that keeps late Zi on the current day until midnight.",
       "source_quote_location": "EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI; EXT-XUANMEN-LINGDONGLAI-LATE-ZI; src/fortune_training/ziwei_chart/profile.py",
       "historical_period": "MODERN_RECEIVED_PRACTICE; EARLIER_GENEALOGY_UNRESOLVED",
-      "later_witnesses": "Modern software/practitioner implementations support this candidate.",
+      "later_witnesses": "Modern software/practitioner implementations support this date candidate. Nanyangtang Fullbook page 320 is not an exact match because it explicitly distinguishes upper-five Zi as previous-night Hai and lower-five as current-day Zi; that mechanism is tracked separately in HPA-ZDATE-006.",
       "school_attribution": "ALTERNATE_ZIWEI_LATE_ZI_CANDIDATE",
       "competing_methods": [
         "ZI_START_23_NEXT_DAY"
@@ -3863,7 +3873,7 @@
       "current_implementation_match": "RUNTIME_PROFILE_CAPABILITY_EXISTS; NOT_SELECTED_BY_PRODUCTION_PROFILE",
       "confidence": "HIGH_FOR_MODERN_PRACTICE",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
-      "proposed_action": "Preserve as explicit alternate; do not rank from anecdotal accuracy."
+      "proposed_action": "Preserve as explicit alternate. Do not relabel the Nanyangtang ten-ke Hai/Zi split as this modern MIDNIGHT candidate without additional timekeeping/branch-semantics collation."
     },
     {
       "system": "ZIWEI",
@@ -3885,6 +3895,35 @@
       "confidence": "HIGH",
       "audit_status": "MODERN_COMPATIBILITY_ONLY",
       "proposed_action": "Do not reopen V1 identity merely to rename frozen shared payload fields. Preserve behavioral independence and treat unused Bazi fields inside the Ziwei profile as legacy metadata debt."
+    },
+    {
+      "rule_id": "HPA-ZDATE-006",
+      "system": "ZIWEI",
+      "module": "Time / Calendar",
+      "rule_or_field": "Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate",
+      "current_implementation": "NatalStructureGenerator._hour_branch_index maps local apparent-solar 23:00..00:59 uniformly to Zi. Existing Ziwei profile variation changes calendar-date handling only; no source-scoped half-Zi-to-Hai branch reclassification exists.",
+      "current_profile": "ZIWEI-CHART-ENGINE-V1 / NatalStructureGenerator",
+      "primary_source": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+      "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+      "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+      "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
+      "later_witnesses": "Further Fullbook-edition and historical timekeeping collation remains required. This batch does not infer a modern clock interval from 上五刻/下五刻.",
+      "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
+      "competing_methods": [
+        "UNIFORM_ZI_BRANCH_FOR_23_TO_01",
+        "MIDNIGHT_DATE_BOUNDARY_WITH_ZI_BRANCH_RETAINED",
+        "ZI_START_23_DATE_ROLLOVER_WITH_ZI_BRANCH_RETAINED"
+      ],
+      "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: CURRENT_RUNTIME_CANNOT_EXPRESS_UPPER_FIVE_ZI_AS_PREVIOUS_NIGHT_HAI; MODERN_CLOCK_MAPPING_NOT_YET_FORMALIZED",
+      "confidence": "HIGH_FOR_DIRECT_FACSIMILE_GLYPHS_AND_RUNTIME_CAPABILITY_GAP; MEDIUM_FOR_EXACT_EDITION_DATE; MEDIUM_LOW_FOR_ANY_UNCOLLATED_MODERN_CLOCK_MAPPING",
+      "audit_status": "MISSING_FROM_PRODUCT",
+      "proposed_action": "Preserve as an unselected historical candidate family. Collate additional editions and historical ke/timekeeping semantics; determine upper/lower-five modern-clock orientation and branch/date composition before runtime productization. Do not reopen or replace the production default from this witness alone.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
+      "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
+      "selection_status": "NOT_IMPLEMENTED",
+      "reading_artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+      "runtime_gap_source": "src/fortune_training/ziwei_chart/natal.py::_hour_branch_index"
     },
     {
       "system": "BAZI",
@@ -4890,7 +4929,8 @@
     "HPA-DAYUN-CAL-004",
     "HPA-DAYUN-CAL-005",
     "HPA-DAYUN-CAL-006",
-    "HPA-DAYUN-CAL-007"
+    "HPA-DAYUN-CAL-007",
+    "HPA-ZDATE-006"
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
@@ -4899,10 +4939,10 @@
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,
-    "identified_missing_candidate_family_count": 13,
+    "identified_missing_candidate_family_count": 14,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
-    "current_missing_from_product_row_count": 9
+    "current_missing_from_product_row_count": 10
   },
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
 }
