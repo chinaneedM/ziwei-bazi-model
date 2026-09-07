@@ -73,6 +73,15 @@ from .target_temporal import (
     ZiweiTargetHourlyMethodCandidate,
     ZiweiTargetTemporalEngine,
 )
+from .temporal_historical_candidates import (
+    JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID,
+    TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS,
+    ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID,
+    ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID,
+    ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION,
+    resolve_jielan_1581_day_anchored_flow_hour_candidate,
+    resolve_zhongzhou_leap_month_half_split_candidate,
+)
 from .temporal_auxiliary import (
     TemporalAuxiliaryGenerator,
     temporal_auxiliary_candidate_set_hashes,
@@ -133,6 +142,11 @@ __all__ = [
     "TemporalAuxiliaryActivation",
     "TemporalAuxiliaryCandidateSet",
     "TemporalAuxiliaryMethodCandidate",
+    "JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID",
+    "TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS",
+    "ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID",
+    "ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID",
+    "ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION",
     "TemporalAuxiliaryGenerator",
     "temporal_auxiliary_candidate_set_hashes",
     "temporal_auxiliary_method_candidate_hashes",
@@ -165,6 +179,8 @@ __all__ = [
     "temporal_hash_bundle",
     "validate_natal_chart",
     "validate_temporal_state",
+    "resolve_jielan_1581_day_anchored_flow_hour_candidate",
+    "resolve_zhongzhou_leap_month_half_split_candidate",
     "ziwei_chart_engine_v1_profile",
 ]
 
