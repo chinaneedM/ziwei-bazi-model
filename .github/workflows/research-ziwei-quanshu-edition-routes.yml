@@ -38,6 +38,7 @@ jobs:
               "books_product": "https://www.books.com.tw/products/0010746528",
               "xingqiao": "https://www.ncc.com.tw/books/goods.php?id=14701",
               "secondary_woodblock_comparison": "https://superskylightfy.blogspot.com/2017/04/blog-post.html",
+              "wenchengtang_official_collation": "https://publish.sunyata.hk/product/972.html",
           }
           GOOGLE_APIS = {
               "google_books_isbn": "https://www.googleapis.com/books/v1/volumes?q=isbn%3A9789888266944",
@@ -199,11 +200,18 @@ jobs:
                   row["saved_file"] = name
               result["preview_images"].append(row)
 
+          saved_preview_count = sum(
+              1 for row in result["preview_images"] if row.get("saved_file")
+          )
           result["route_adjudication"] = {
               "heart_one_2017_facsimile_identity":
                   "BIBLIOGRAPHICALLY_PUBLICLY_DOCUMENTED_DUNHUATANG_PLUS_JISHUTANG_WENGUANGTANG_BLOCK_FAMILY",
-              "target_page_exposed_by_public_preview":
-                  "UNRESOLVED_UNTIL_SAVED_PREVIEW_IMAGES_ARE_VISUALLY_REVIEWED",
+              "target_page_exposed_by_public_preview": (
+                  "SAVED_PREVIEW_IMAGES_REQUIRE_DIRECT_VISUAL_REVIEW"
+                  if saved_preview_count
+                  else "NO_TARGET_PAGE_OBSERVED_NO_PREVIEW_IMAGE_RETRIEVED"
+              ),
+              "saved_preview_image_count": saved_preview_count,
               "wenchengtang_mid_qing_route":
                   "PUBLICLY_DOCUMENTED_AS_SEPARATE_FULLBOOK_COLLATION_WITNESS_TARGET_PAGE_NOT_YET_BOUND",
               "algorithm_effect": "NONE",
