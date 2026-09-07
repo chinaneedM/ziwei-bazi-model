@@ -37,6 +37,7 @@ jobs:
           LEGACY_GUJI_HTTPS = "https://www.lnlib.com/gj/index.htm"
           LEGACY_GUJI_HTTP = "http://www.lnlib.com/gj/index.htm"
           LOCATOR = "https://www.guoxuedashi.com/shumu/gj-1372988uy.html"
+          NANKAI_GUJI = "https://lib.nankai.edu.cn/gj/listm.psp"
           TARGET_TITLE = "新鐫希夷陳先生紫微斗數全書四卷"
           TARGET_EDITION = "清文誠堂刻本"
           TARGET_HOLDING = "遼寧省圖書館"
@@ -154,6 +155,7 @@ jobs:
               "catalog_link_candidates": [],
               "catalog_surfaces": [],
               "secondary_locator": {},
+              "institutional_route_witness": {},
           }
 
           for key, url in {"home": HOME, "resource_nav": NAV}.items():
@@ -202,6 +204,26 @@ jobs:
               if row.get("data"):
                   (OUT / f"catalog-surface-{idx:02d}.html").write_bytes(row["data"])
 
+          nankai = fetch(NANKAI_GUJI)
+          result["institutional_route_witness"] = meta(nankai)
+          result["institutional_route_witness"]["url"] = NANKAI_GUJI
+          if nankai.get("data"):
+              (OUT / "nankai-guji-external-resources.html").write_bytes(nankai["data"])
+              nankai_links = anchors(NANKAI_GUJI, nankai["data"])
+              matches = [
+                  row for row in nankai_links
+                  if "辽宁省图书馆古籍书目查询" in row["label"]
+                     or "遼寧省圖書館古籍書目查詢" in row["label"]
+              ]
+              result["institutional_route_witness"]["matched_links"] = matches
+              result["institutional_route_witness"]["lnlib_legacy_guji_url_bound"] = any(
+                  row["url"].rstrip("/") in {
+                      "http://www.lnlib.com/gj/index.htm",
+                      "https://www.lnlib.com/gj/index.htm",
+                  }
+                  for row in matches
+              )
+
           locator = fetch(LOCATOR)
           result["secondary_locator"] = meta(locator)
           result["secondary_locator"]["url"] = LOCATOR
@@ -225,6 +247,8 @@ jobs:
           result["adjudication"] = {
               "wenchengtang_liaoning_locator_status":
                   "SECONDARY_CATALOG_LOCATOR_BOUND_PENDING_OFFICIAL_LIBRARY_RECORD",
+              "institutional_route_identity":
+                  "NANKAI_LIBRARY_EXTERNAL_RESOURCE_PAGE_BINDS_LIAONING_ANCIENT_BOOK_CATALOG_TO_LEGACY_GJ_URL",
               "official_catalog_entry_status":
                   "PENDING_DIRECT_LEGACY_GUJI_CATALOG_RESPONSE_AND_NORMAL_QUERY",
               "target_page_status": "NOT_OBSERVED",
@@ -268,6 +292,13 @@ jobs:
                   }
                   for x in result["catalog_surfaces"]
               ],
+              "institutional_route_witness": {
+                  "status": result["institutional_route_witness"].get("status"),
+                  "bytes": result["institutional_route_witness"].get("bytes"),
+                  "sha256": result["institutional_route_witness"].get("sha256"),
+                  "matched_links": result["institutional_route_witness"].get("matched_links"),
+                  "lnlib_legacy_guji_url_bound": result["institutional_route_witness"].get("lnlib_legacy_guji_url_bound"),
+              },
               "secondary_locator": {
                   "status": result["secondary_locator"].get("status"),
                   "title_present": result["secondary_locator"].get("title_present"),
