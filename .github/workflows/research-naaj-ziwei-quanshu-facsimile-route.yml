@@ -844,7 +844,7 @@ jobs:
                           pageSize: 40,
                           startPageNum: 313,
                           endPageNum: 382,
-                          version: 44,
+                          version: 49,
                           needCheckVersion: true,
                           ptoken,
                           isWebpSupported: true
@@ -866,38 +866,79 @@ jobs:
                           done({ok:false, stage:"json", status:resp.status, body:raw.slice(0,2000), error:String(e)});
                           return;
                         }
-                        const pages = Array.isArray(data.pages)
-                          ? data.pages
-                          : (data.data && Array.isArray(data.data.pages) ? data.data.pages : []);
+                        const pageArrays = [];
+                        const walk = (value, path, depth) => {
+                          if (depth > 8 || value === null || value === undefined) return;
+                          if (Array.isArray(value)) {
+                            const pageLike = value.filter(v =>
+                              v && typeof v === "object" &&
+                              ("pageId" in v || "page_id" in v)
+                            );
+                            if (pageLike.length) {
+                              pageArrays.push({path, pages: pageLike});
+                            }
+                            value.forEach((v, idx) => walk(v, path + "[" + idx + "]", depth + 1));
+                            return;
+                          }
+                          if (typeof value === "object") {
+                            Object.entries(value).forEach(([k, v]) => walk(v, path + "." + k, depth + 1));
+                          }
+                        };
+                        walk(data, "root", 0);
+                        const pages = [];
+                        const seen = new Set();
+                        for (const group of pageArrays) {
+                          for (const p of group.pages) {
+                            const pid = String(p.pageId ?? p.page_id ?? "");
+                            const key = pid + ":" + String(p.pageNum ?? p.page_num ?? "");
+                            if (!seen.has(key)) {
+                              seen.add(key);
+                              pages.push(p);
+                            }
+                          }
+                        }
                         all.push(...pages);
+                        if (pageIndex === 1) {
+                          window.__ZIWEI_PAGE_API_DEBUG__ = {
+                            topKeys: data && typeof data === "object" ? Object.keys(data) : [],
+                            pageArrayPaths: pageArrays.map(x => x.path).slice(0, 100),
+                            rawExcerpt: JSON.stringify(data).slice(0, 12000)
+                          };
+                        }
                       }
-                      const target = all.find(p => String(p.pageId) === "7330179103183667235");
+                      const target = all.find(p =>
+                        String(p.pageId ?? p.page_id ?? "") === "7330179103183667235"
+                      );
                       if (!target) {
                         done({
                           ok:true,
                           pageCount:all.length,
-                          pageIds:all.map(p => String(p.pageId)).slice(0,500),
+                          debug: window.__ZIWEI_PAGE_API_DEBUG__ || null,
+                          pageIds:all.map(p => String(p.pageId ?? p.page_id ?? "")).slice(0,500),
                           target:null
                         });
                         return;
                       }
                       const dec = await window.byted_psdk.decrypt(
-                        target.picUrl || "",
+                        target.picUrl || target.pic_url || "",
                         ptoken,
-                        target.urlEncryptType
+                        target.urlEncryptType ?? target.url_encrypt_type
                       );
                       done({
                         ok:true,
                         pageCount:all.length,
+                        debug: window.__ZIWEI_PAGE_API_DEBUG__ || null,
                         target:{
-                          pageId:String(target.pageId),
-                          pageNum:target.pageNum,
-                          volumeId:String(target.volumeId || ""),
+                          pageId:String(target.pageId ?? target.page_id ?? ""),
+                          pageNum:target.pageNum ?? target.page_num,
+                          volumeId:String(target.volumeId ?? target.volume_id ?? ""),
                           uri:target.uri || "",
-                          urlEncryptType:target.urlEncryptType,
-                          thumbUrlPresent:!!target.thumbUrl,
-                          picUrlPresent:!!target.picUrl,
-                          decryptedPicUrl:(dec && dec.decrypt) ? dec.data : target.picUrl,
+                          urlEncryptType:target.urlEncryptType ?? target.url_encrypt_type,
+                          thumbUrlPresent:!!(target.thumbUrl || target.thumb_url),
+                          picUrlPresent:!!(target.picUrl || target.pic_url),
+                          decryptedPicUrl:(dec && dec.decrypt)
+                            ? dec.data
+                            : (target.picUrl || target.pic_url || ""),
                           decryptApplied:!!(dec && dec.decrypt)
                         }
                       });
@@ -913,6 +954,7 @@ jobs:
                   "page_count": api_result.get("pageCount"),
                   "error": api_result.get("error"),
                   "response_excerpt": api_result.get("body"),
+                  "debug": api_result.get("debug"),
               }
               target = api_result.get("target") if api_result.get("ok") else None
               if target:
