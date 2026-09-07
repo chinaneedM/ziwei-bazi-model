@@ -1,0 +1,80 @@
+{
+  "schema": "ZIWEI-WENGUANG-COMPARISON-BOOK-LATE-ZI-INDEX-LOCATOR-R1",
+  "schema_version": "1.0.0",
+  "status": "WENGUANG_EDITION_COMPARISON_LOCATOR_CLOSED_TARGET_LATE_ZI_NOT_LOCATED",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "source": {
+    "provider": "Google Books",
+    "volume_id": "RISpDgAAQBAJ",
+    "title": "紫微斗數全書古訣辨正",
+    "author": "潘國森",
+    "publication_year": 2017,
+    "role": "MODERN_SECONDARY_COMPARISON_USING_WENGUANGTANG_WOODBLOCK_FACSIMILE; LOCATOR_ONLY"
+  },
+  "research_provenance": {
+    "commit_sha": "576bed041b3e8799c1a531e7907bc957c909e6ea",
+    "workflow_run_id": 34137662618,
+    "job_id": 101792276066,
+    "artifact_id": 10024619096,
+    "artifact_zip_sha256": "1925cb92aa0ce9855991748cf39b9f0b659809ba3ac847f1d56ca10499f70351"
+  },
+  "bibliographic_surface": {
+    "http_status": 200,
+    "bytes": 88951,
+    "sha256": "11190b2e3aed0854bb1fc423e7a027675e6c1bb37cd9f801b614a9f33de5be0f",
+    "title_present": true,
+    "author_present": true,
+    "wenguang_present": true
+  },
+  "edition_locator_hits": {
+    "文光堂": {
+      "result_count": 10,
+      "page_ids": ["PA13", "PA14", "PA15", "PA17", "PA19", "PA72", "PA89", "PA95", "PA100", "PA214"],
+      "interpretation": "The book explicitly describes 虛白廬藏明末清初文光堂木刻本 and uses it to compare/correct later received lithographic texts."
+    },
+    "敦化堂": {
+      "result_count": 2,
+      "page_ids": ["PA13", "PA14"],
+      "interpretation": "Identified as one of the two Wenguangtang block-print witnesses."
+    },
+    "繼述堂": {
+      "result_count": 2,
+      "page_ids": ["PA13", "PA14"],
+      "interpretation": "Identified as the second Wenguangtang block-print witness, with red/black collation marks in the secondary description."
+    },
+    "民國石印本": {
+      "result_count": 5,
+      "page_ids": ["PA13", "PA14", "PA15", "PA183", "PA214"],
+      "interpretation": "The modern comparison author explicitly treats the Republican lithographic lineage as error-prone relative to the Wenguang woodblock witnesses."
+    }
+  },
+  "late_zi_target_controls": {
+    "論人生時要審的確": 0,
+    "论人生时要审的确": 0,
+    "上五刻": 0,
+    "下五刻": 0,
+    "子時有十刻": 0,
+    "南陽堂": 0,
+    "亥時": {
+      "result_count": 2,
+      "page_ids": ["PA43", "PA53"],
+      "classification": "UNRELATED_ORDINARY_BIRTH_HOUR_EXAMPLES_NOT_LATE_ZI_PASSAGE"
+    }
+  },
+  "epistemic_boundaries": {
+    "secondary_comparison_as_physical_wenguang_glyph_authority": "FORBIDDEN",
+    "google_books_index_as_physical_glyph_authority": "FORBIDDEN",
+    "zero_index_result_as_complete_whole_book_negative_proof": "FORBIDDEN",
+    "unrelated_hai_hour_hits_as_late_zi_evidence": "FORBIDDEN"
+  },
+  "adjudication": {
+    "wenguang_edition_route_strengthened": true,
+    "target_late_zi_wenguang_reading_obtained": false,
+    "direct_independent_hai_glyph_witness_added": 0,
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "hai_glyph_stability_across_independent_physical_editions": "UNRESOLVED_PENDING_DIRECT_INDEPENDENT_PHYSICAL_TARGET_PAGES",
+    "candidate_selection_authorized": false,
+    "algorithm_reopen_authorized": false,
+    "algorithm_effect": "NONE"
+  }
+}
