@@ -14,8 +14,10 @@ IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
 MF_PDF_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-MF-PDF-ROUTE-R1.json"
-LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W.md"
-LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "G893-LEE-JING-1998-OFFICIAL-JOURNAL-ARCHIVE-R1.json"
+ARTICLE_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W.md"
+ARTICLE_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "G893-LEE-JING-1998-OFFICIAL-JOURNAL-ARCHIVE-R1.json"
+LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X.md"
+LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -24,9 +26,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U",
     "BATCH-11-BAZI-G893-MF-PDF-ROUTE-V",
     "BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W",
+    "BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X.md"
 
 
 def fail(message: str) -> None:
@@ -34,7 +37,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -43,6 +46,7 @@ def main() -> int:
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
     identity_evidence = json.loads(IDENTITY_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     mf_pdf_evidence = json.loads(MF_PDF_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
+    article_evidence = json.loads(ARTICLE_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
@@ -229,9 +233,9 @@ def main() -> int:
             fail(f"Batch 11V epistemic boundary regressed: {key}")
 
     # Batch 11W upgrades the 1998 specialist paper to a direct official record/abstract witness.
-    if evidence.get("status") != "DIRECT_OFFICIAL_JOURNAL_RECORD_AND_ABSTRACT_BOUND_FULLTEXT_REMAINS_CNKI_ROUTED_NO_TARGET_PAGE_EXPOSED":
-        fail("Batch 11W machine evidence status mismatch")
-    archive = evidence.get("official_archive", {})
+    if article_evidence.get("status") != "DIRECT_OFFICIAL_JOURNAL_RECORD_AND_ABSTRACT_BOUND_FULLTEXT_REMAINS_CNKI_ROUTED_NO_TARGET_PAGE_EXPOSED":
+        fail("Batch 11W machine article_evidence status mismatch")
+    archive = article_evidence.get("official_archive", {})
     if archive.get("paper_uuid") != "5c4276d953bd47ca2679c70209d179cf":
         fail("Batch 11W official paper UUID regressed")
     if archive.get("title") != "朝鲜奎章阁本的《授时历立成》" or archive.get("authors") != ["李银姬", "景冰"]:
@@ -242,16 +246,16 @@ def main() -> int:
         fail("Batch 11W CNKI node binding regressed")
     if archive.get("paper_html_sha256") != "e36670c425afd627551d25acec219eb1b4c7cb4285edef6aceff83adaf454825":
         fail("Batch 11W official paper HTML digest regressed")
-    access = evidence.get("access_boundary", {})
+    access = article_evidence.get("access_boundary", {})
     if access.get("official_portal_abstract_visible") is not True or access.get("official_portal_references_visible") is not True:
         fail("Batch 11W direct official abstract/reference surface regressed")
     if access.get("official_portal_fulltext_visible") is not False or access.get("full_article_directly_retrieved") is not False:
         fail("Batch 11W must not claim direct full-article retrieval")
     if access.get("public_target_figure_exposed_on_official_portal") is not False:
         fail("Batch 11W must not claim a public target figure")
-    if evidence.get("paywall_or_auth_bypass_attempted") is not False:
+    if article_evidence.get("paywall_or_auth_bypass_attempted") is not False:
         fail("Batch 11W access-boundary control regressed")
-    if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+    if article_evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
         fail("Batch 11W G893 target-page fail-closed status regressed")
 
     lee_source = next(
@@ -266,6 +270,47 @@ def main() -> int:
     if lee_source.get("target_effect") != "NONE_ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
         fail("Batch 11W source-registry target-effect boundary regressed")
 
+    # Batch 11X binds the official institutional reproduction route without claiming fulfillment.
+    if evidence.get("status") != "OFFICIAL_REPRODUCTION_APPLICATION_ROUTE_DIRECTLY_CONFIRMED_REQUEST_NOT_SUBMITTED":
+        fail("Batch 11X machine evidence status mismatch")
+    obj = evidence.get("g893_object", {})
+    if obj.get("catalog_identifier") != "奎貴893" or obj.get("book_cd") != "GK00893_00":
+        fail("Batch 11X G893 object identity regressed")
+    if obj.get("microfilm_number") != "M/F73-102-37-A" or obj.get("reproduction_request_ui_visible") is not True:
+        fail("Batch 11X object-specific reproduction route regressed")
+    service = evidence.get("official_service_notice", {}).get("direct_observations", {})
+    if service.get("microfilm_method") != "MICROFILM_SCAN_PDF_UPLOADED_TO_HOMEPAGE":
+        fail("Batch 11X official microfilm PDF publication method regressed")
+    if service.get("procedure") != ["HOMEPAGE", "SEARCH_MATERIAL", "REPRODUCTION_REQUEST", "CHECK_APPROVAL_EMAIL"]:
+        fail("Batch 11X official application procedure regressed")
+    if service.get("normal_processing_period") != "WITHIN_2_WEEKS_OF_APPLICATION_UNLESS_DELAY_SEPARATELY_NOTIFIED":
+        fail("Batch 11X processing-period statement regressed")
+    nonmember = evidence.get("nonmember_cart_surface", {})
+    if nonmember.get("observed_service_change_effective_date") != "2024-02-01":
+        fail("Batch 11X 2024 service-change date regressed")
+    if "MICROFILM_SCAN_PDF" not in nonmember.get("observed_change", ""):
+        fail("Batch 11X non-member PDF-publication transition regressed")
+    if evidence.get("external_application_submitted") is not False or evidence.get("approval_received") is not False:
+        fail("Batch 11X must not claim a submitted or approved request")
+    route = evidence.get("route_adjudication", {})
+    if route.get("g893_request_acceptance") != "UNTESTED" or route.get("whole_volume_vs_selected_pages") != "UNRESOLVED_UNTIL_REQUEST_FORM_OR_APPROVAL":
+        fail("Batch 11X fulfillment uncertainty regressed")
+    if route.get("fee_or_charge") != "NOT_STATED_IN_REVIEWED_OFFICIAL_NOTICE_DO_NOT_INFER_FREE":
+        fail("Batch 11X fee boundary regressed")
+    if evidence.get("target_status") != "ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11X target-page fail-closed status regressed")
+    g893_source = next(
+        (item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"),
+        None,
+    )
+    if not g893_source:
+        fail("Batch 11X G893 registry source missing")
+    reproduction = g893_source.get("official_reproduction_route", {})
+    if reproduction.get("status") != "DIRECTLY_CONFIRMED_REQUEST_NOT_SUBMITTED" or reproduction.get("request_submitted") is not False:
+        fail("Batch 11X registry reproduction route regressed")
+    if reproduction.get("target_effect") != "NONE_ALL_SIX_PENDING_DIRECT_TARGET_PAGE":
+        fail("Batch 11X registry target boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -277,6 +322,10 @@ def main() -> int:
         "Batch 11W",
         "5c4276d953bd47ca2679c70209d179cf",
         "ZGKS802.008",
+        "Batch 11X",
+        "M/F73-102-37-A",
+        "2024-02-01",
+        "No G893 reproduction request has been submitted",
         "PENDING_DIRECT_TARGET_PAGE",
     ):
         if fragment not in focus_text:
