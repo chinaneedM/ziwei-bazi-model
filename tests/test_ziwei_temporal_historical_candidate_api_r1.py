@@ -7,12 +7,33 @@ from fortune_training.ziwei_chart import (
     JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID,
     TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS,
     ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID,
+    ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+    ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
+    temporal_historical_candidate_registry_hash,
+    temporal_historical_candidate_registry_payload,
     resolve_jielan_1581_day_anchored_flow_hour_candidate,
     resolve_zhongzhou_leap_month_half_split_candidate,
 )
 
 
 class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
+    def test_registry_has_two_source_scoped_methods_and_one_runtime_component(self) -> None:
+        registry = temporal_historical_candidate_registry_payload()
+        self.assertEqual(
+            ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+            registry["registry_id"],
+        )
+        self.assertEqual("PRESERVED_NOT_SELECTED", registry["selection_status"])
+        self.assertEqual(2, len(registry["methods"]))
+        self.assertEqual(
+            {
+                "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
+                "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+            },
+            {row["method_id"] for row in registry["methods"]},
+        )
+        self.assertEqual(64, len(temporal_historical_candidate_registry_hash()))
+
     def test_jielan_day_anchored_hour_uses_parent_day_then_hour_ordinal(self) -> None:
         row = resolve_jielan_1581_day_anchored_flow_hour_candidate(
             parent_daily_frame_id="DAY:2026-08-18",
@@ -30,6 +51,15 @@ class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
         self.assertEqual("亥", row["active_address_branch"])
         self.assertEqual("PARENT_DAILY_ACTIVE_ADDRESS", row["mechanics"]["zi_hour_anchor"])
         self.assertEqual(64, len(row["candidate_hash"]))
+        self.assertEqual(
+            ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+            row["registry_id"],
+        )
+        self.assertEqual(
+            ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
+            row["runtime_resolver_id"],
+        )
+        self.assertEqual(temporal_historical_candidate_registry_hash(), row["registry_hash"])
         self.assertEqual(
             "NOT_APPLIED_BY_THIS_SOURCE_SCOPED_GEOMETRY_API",
             row["downstream_cross_school_projection_status"],
@@ -106,6 +136,11 @@ class ZiweiTemporalHistoricalCandidateApiR1Tests(unittest.TestCase):
             row["downstream_projection_status"],
         )
         self.assertEqual(64, len(row["candidate_hash"]))
+        self.assertEqual(
+            ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
+            row["runtime_resolver_id"],
+        )
+        self.assertEqual(temporal_historical_candidate_registry_hash(), row["registry_hash"])
 
     def test_zhongzhou_leap_month_12_requires_next_year_month_1(self) -> None:
         row = resolve_zhongzhou_leap_month_half_split_candidate(

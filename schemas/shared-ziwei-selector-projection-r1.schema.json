@@ -1491,6 +1491,11 @@
         "schema",
         "api_id",
         "api_version",
+        "registry_id",
+        "registry_version",
+        "registry_hash",
+        "runtime_resolver_id",
+        "runtime_resolver_version",
         "method_id",
         "selection_status",
         "source_id",
@@ -1624,6 +1629,21 @@
         },
         "candidate_hash": {
           "$ref": "#/$defs/hash"
+        },
+        "registry_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1"
+        },
+        "registry_version": {
+          "const": "1.0.0"
+        },
+        "registry_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "runtime_resolver_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
+        },
+        "runtime_resolver_version": {
+          "const": "1.0.0"
         }
       }
     },
@@ -1670,6 +1690,11 @@
         "schema",
         "api_id",
         "api_version",
+        "registry_id",
+        "registry_version",
+        "registry_hash",
+        "runtime_resolver_id",
+        "runtime_resolver_version",
         "method_id",
         "selection_status",
         "source_id",
@@ -1774,6 +1799,21 @@
         },
         "candidate_hash": {
           "$ref": "#/$defs/hash"
+        },
+        "registry_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1"
+        },
+        "registry_version": {
+          "const": "1.0.0"
+        },
+        "registry_hash": {
+          "$ref": "#/$defs/hash"
+        },
+        "runtime_resolver_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
+        },
+        "runtime_resolver_version": {
+          "const": "1.0.0"
         }
       }
     }

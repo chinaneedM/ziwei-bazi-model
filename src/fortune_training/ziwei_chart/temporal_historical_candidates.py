@@ -13,6 +13,14 @@ ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID = (
 )
 ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION = "1.1.0"
 TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS = "PRESERVED_NOT_SELECTED"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID = (
+    "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1"
+)
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION = "1.0.0"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID = (
+    "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1"
+)
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_VERSION = "1.0.0"
 
 JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID = (
     "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1"
@@ -49,6 +57,33 @@ _SUPPORTED_DAY_BOUNDARIES = frozenset({"MIDNIGHT", "ZI_START_23"})
 _SUPPORTED_CALENDAR_DATE_POLICIES = frozenset(
     {"LOCAL_SOLAR_DATE_INDEXED", "ABSOLUTE_CALENDAR"}
 )
+
+
+def temporal_historical_candidate_registry_payload() -> dict[str, object]:
+    return {
+        "schema": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1",
+        "registry_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+        "registry_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION,
+        "selection_status": TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS,
+        "methods": (
+            {
+                "method_id": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID,
+                "source_id": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_SOURCE_ID,
+                "source_refs": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_SOURCE_REFS,
+                "authority_status": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_AUTHORITY_STATUS,
+            },
+            {
+                "method_id": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID,
+                "source_id": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_SOURCE_ID,
+                "source_refs": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_SOURCE_REFS,
+                "authority_status": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_AUTHORITY_STATUS,
+            },
+        ),
+    }
+
+
+def temporal_historical_candidate_registry_hash() -> str:
+    return object_sha256(temporal_historical_candidate_registry_payload())
 
 
 def _advance_branch(start_branch: str, offset: int) -> str:
@@ -130,6 +165,11 @@ def resolve_jielan_1581_day_anchored_flow_hour_candidate(
         "schema": "ZIWEI-JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-CANDIDATE-R1",
         "api_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID,
         "api_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION,
+        "registry_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+        "registry_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION,
+        "registry_hash": temporal_historical_candidate_registry_hash(),
+        "runtime_resolver_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
+        "runtime_resolver_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_VERSION,
         "method_id": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID,
         "selection_status": TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS,
         "source_id": JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_SOURCE_ID,
@@ -241,6 +281,11 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         "schema": "ZIWEI-ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-CANDIDATE-R1",
         "api_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID,
         "api_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION,
+        "registry_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_ID,
+        "registry_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_REGISTRY_VERSION,
+        "registry_hash": temporal_historical_candidate_registry_hash(),
+        "runtime_resolver_id": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_ID,
+        "runtime_resolver_version": ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_RUNTIME_RESOLVER_VERSION,
         "method_id": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID,
         "selection_status": TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS,
         "source_id": ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_SOURCE_ID,
@@ -279,3 +324,20 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         **payload,
         "candidate_hash": object_sha256(payload),
     }
+
+def validate_temporal_historical_candidate_registry() -> None:
+    payload = temporal_historical_candidate_registry_payload()
+    if payload["selection_status"] != "PRESERVED_NOT_SELECTED":
+        raise ValueError("temporal historical candidate registry must remain unselected")
+    methods = payload["methods"]
+    if len(methods) != 2:
+        raise ValueError("temporal historical candidate registry must contain two methods")
+    method_ids = {row["method_id"] for row in methods}
+    if method_ids != {
+        JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID,
+        ZHONGZHOU_LEAP_MONTH_HALF_SPLIT_METHOD_ID,
+    }:
+        raise ValueError("temporal historical candidate registry method identity mismatch")
+
+
+validate_temporal_historical_candidate_registry()
