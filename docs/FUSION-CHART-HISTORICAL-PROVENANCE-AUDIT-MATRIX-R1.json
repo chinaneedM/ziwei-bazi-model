@@ -3907,7 +3907,7 @@
       "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
       "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
       "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
-      "later_witnesses": "Batches 12B–12D remain controlling. Batch 12E adds an independent Qing Jingluntang Fullbook route: Shanghai Library official linked data binds 《新鋟希夷陳先生紫微斗數全書四卷》 to 清經綸堂刻本 / 子30814110, while Kumyo auction BBAA18036 independently exposes an approximately 19th-century 經綸堂梓行 four-volume physical set. Eight unique public physical photographs were directly reviewed and confirm the Jingluntang edition family but do not include the target 《論人生時要審的確》 page. No anonymous SHLIB page-image object is explicitly exposed in the reviewed metadata, so the critical 亥 glyph remains unclosed across physical editions.",
+      "later_witnesses": "Batches 12B–12D remain controlling. Batch 12E adds an independent Qing Jingluntang Fullbook route: Shanghai Library official linked data binds 《新鋟希夷陳先生紫微斗數全書四卷》 to 清經綸堂刻本 / 子30814110, while Kumyo auction BBAA18036 independently exposes an approximately 19th-century 經綸堂梓行 four-volume physical set. Eight unique public physical photographs were directly reviewed and confirm the Jingluntang edition family but do not include the target 《論人生時要審的確》 page. No anonymous SHLIB page-image object is explicitly exposed in the reviewed metadata, so the critical 亥 glyph remains unclosed across physical editions. Batch 12F adds three non-target-page controls: a Nankai institutional directory binds the Liaoning ancient-book catalog legacy route while the Wenchengtang/Liaoning holding itself remains a secondary locator; Dalian Library directly binds a Republican Shanghai Guangyi lithograph four-juan/four-volume edition, but all six saved image candidates were visually confirmed as website UI assets rather than book pages; Google Books volume rZRcCwAAQBAJ exposes an editorial PT176 collation note explicitly naming the Qing Wenchengtang Fullbook as 文本斗數全書, but no target late-Zi Wenchengtang glyph is directly exposed.",
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
         "UNIFORM_ZI_BRANCH_FOR_23_TO_01",
@@ -3915,9 +3915,9 @@
         "ZI_START_23_DATE_ROLLOVER_WITH_ZI_BRANCH_RETAINED"
       ],
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
-      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_WENGUANGTANG_ROUTES; HIGH_FOR_OFFICIAL_SHLIB_JINGLUNTANG_LIBRARY_IDENTITY; HIGH_FOR_PUBLIC_KUMYO_JINGLUNTANG_PHYSICAL_COPY_EXISTENCE; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANG_PUBLIC_INDEX_TEXT; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_TARGET_PAGES_ARE_READ",
+      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_WENGUANGTANG_ROUTES; HIGH_FOR_OFFICIAL_SHLIB_JINGLUNTANG_LIBRARY_IDENTITY; HIGH_FOR_PUBLIC_KUMYO_JINGLUNTANG_PHYSICAL_COPY_EXISTENCE; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANG_PUBLIC_INDEX_TEXT; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_TARGET_PAGES_ARE_READ; HIGH_FOR_DIRECT_DALIAN_LIBRARY_REPUBLIC_GUANGYI_CATALOG_IDENTITY; HIGH_FOR_NANKAI_INSTITUTIONAL_LEGACY_ROUTE_BINDING; MEDIUM_HIGH_FOR_JIELAN_GOOGLE_INDEX_EDITORIAL_WENCHENGTANG_COLLATION_NOTE; STILL_LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Continue direct target-page acquisition from Dunhuatang/Jishutang, Wenchengtang and now Jingluntang witnesses. SHLIB linked data and Kumyo physical photos establish edition identity only; do not infer target glyphs from title-page/cover evidence. Do not guess SHLIB item IDs or bypass authentication. Runtime time-standard binding remains independently unresolved.",
+      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Continue direct target-page acquisition from Dunhuatang/Jishutang, Wenchengtang, Jingluntang and later Guangyi witnesses. Treat the Liaoning Wenchengtang holding as secondary-locator-only until an official library record is directly read; treat Dalian image candidates as UI assets, not book pages; treat Jielan Google Books results as editorial/search-index evidence, not Wenchengtang glyph authority. Do not infer negative text from zero-result index searches. Runtime time-standard binding remains independently unresolved.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -3940,7 +3940,8 @@
         "WENGUANGTANG_DUNHUATANG_PUBLISHER_DOCUMENTED_ROUTE",
         "WENGUANGTANG_JISHUTANG_PUBLISHER_DOCUMENTED_ROUTE",
         "QING_MID_WENCHENGTANG_PUBLISHER_DOCUMENTED_ROUTE",
-        "WENSHENGTANG_SECONDARY_LOCATOR_ONLY"
+        "WENSHENGTANG_SECONDARY_LOCATOR_ONLY",
+        "REPUBLIC_GUANGYI_DALIAN_OFFICIAL_LIBRARY_CATALOG_ROUTE"
       ],
       "public_preview_route_status": "BOOKS_COM_PRODUCT_AND_13_PREVIEW_IMAGE_URLS_BLOCKED_403; GOOGLE_BOOKS_API_429; ZERO_PREVIEW_IMAGES_SAVED",
       "wenguang_google_index_artifact": "docs/research/ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json",
@@ -3956,7 +3957,14 @@
       "jingluntang_public_physical_copy": "KUMYO BBAA18036 / seller-described approx 19th century / 經綸堂梓行 / 合4冊",
       "jingluntang_public_image_review_status": "EIGHT_UNIQUE_PHYSICAL_IMAGES_DIRECTLY_REVIEWED_NO_TARGET_SECTION",
       "jingluntang_target_page_status": "NOT_OBSERVED_IN_PUBLIC_SHLIB_METADATA_OR_KUMYO_PHYSICAL_IMAGES",
-      "jingluntang_digital_page_route_status": "SHLIB_METADATA_HAS_NO_EXPLICIT_IIIF_MANIFEST_ITEMID_OR_DHAPI_OBJECT; GJ_AND_DHAPI_ROOTS_HTTP_412; NO_IDENTIFIER_GUESSING_OR_LOGIN_ATTEMPT"
+      "jingluntang_digital_page_route_status": "SHLIB_METADATA_HAS_NO_EXPLICIT_IIIF_MANIFEST_ITEMID_OR_DHAPI_OBJECT; GJ_AND_DHAPI_ROOTS_HTTP_412; NO_IDENTIFIER_GUESSING_OR_LOGIN_ATTEMPT",
+      "batch_12f_route_artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+      "liaoning_wenchengtang_route_status": "NANKAI_INSTITUTIONAL_LEGACY_CATALOG_ROUTE_BOUND; HOLDING_REMAINS_SECONDARY_LOCATOR_ONLY; OFFICIAL_LIAONING_TARGET_RECORD_NOT_RETRIEVED",
+      "dalian_guangyi_library_route_status": "DIRECT_OFFICIAL_REPUBLIC_GUANGYI_LITHOGRAPH_IDENTITY_BOUND; FOUR_JUAN; FOUR_VOLUMES_ONE_CASE",
+      "dalian_public_image_review_status": "SIX_SAVED_IMAGE_CANDIDATES_DIRECTLY_REVIEWED_ALL_SITE_UI_ASSETS_NO_BOOK_PAGE",
+      "dalian_catalog_search_control": "PUBLISHED_GET_FORM_EXERCISED_BUT_RETURNED_PAGES_DID_NOT_REFLECT_QUERY_TERMS; NO_NEGATIVE_CATALOG_CONCLUSION",
+      "jielan_wenchengtang_collation_index_status": "GOOGLE_BOOKS_RZRCCWAAQBAJ_PT176_EDITORIAL_NOTE_EXPLICITLY_NAMES_QING_WENCHENGTANG_FULLBOOK_AS_COLLATION_BASE; NOT_TARGET_GLYPH_AUTHORITY",
+      "wenchengtang_target_late_zi_glyph_status": "NOT_DIRECTLY_OBSERVED"
     },
     {
       "system": "BAZI",

@@ -1,0 +1,235 @@
+{
+  "schema": "ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F",
+  "status": "POST_12E_ROUTES_ADJUDICATED_NO_TARGET_PAGE_NO_ALGORITHM_REOPEN",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "ocr_policy": {
+    "dalian_public_image_review_ocr_used": false,
+    "google_books_search_index_is_glyph_authority": false,
+    "direct_wenchengtang_target_glyph_observed": false
+  },
+  "safety_boundaries": {
+    "authentication_or_paywall_bypass_attempted": false,
+    "identifier_bruteforce_attempted": false,
+    "catalog_parameter_guessing_attempted": false,
+    "zero_result_as_negative_textual_proof": "FORBIDDEN",
+    "secondary_locator_as_official_library_record": "FORBIDDEN",
+    "website_ui_asset_as_book_page": "FORBIDDEN"
+  },
+  "liaoning_wenchengtang_route": {
+    "target_title": "新鐫希夷陳先生紫微斗數全書四卷",
+    "target_edition": "清文誠堂刻本",
+    "research_workflow_run_id": 34128648242,
+    "artifact_id": 10021172329,
+    "artifact_zip_sha256": "eee66c39e9f130b56419bb051f334b8b6a1be5aa7bdcbaacab82e0726c847b2e",
+    "institutional_route_witness": {
+      "provider": "南开大学图书馆",
+      "url": "https://lib.nankai.edu.cn/gj/listm.psp",
+      "http_status": 200,
+      "html_sha256": "034e7712ca966a3d3850b62857f6bfb88172992316fb1e2d6a07702931089dc0",
+      "matched_label": "辽宁省图书馆古籍书目查询",
+      "matched_url": "http://www.lnlib.com/gj/index.htm",
+      "legacy_catalog_route_bound": true
+    },
+    "secondary_locator": {
+      "provider": "国学大师",
+      "url": "https://www.guoxuedashi.com/shumu/gj-1372988uy.html",
+      "http_status": 200,
+      "html_sha256": "02caec5b5779f98a9239dd0f783c4a1af6a2977457ca463de53847abf7b52c91",
+      "title_present": true,
+      "wenchengtang_present": true,
+      "liaoning_holding_present": true,
+      "authority": "SECONDARY_CATALOG_LOCATOR_ONLY_NOT_LIBRARY_PRIMARY_RECORD"
+    },
+    "liaoning_official_surfaces": {
+      "home": "TIMEOUT_NO_RESPONSE_BODY",
+      "resource_nav": "TIMEOUT_NO_RESPONSE_BODY",
+      "legacy_guji_https": "TIMEOUT_NO_RESPONSE_BODY",
+      "legacy_guji_http": "TIMEOUT_NO_RESPONSE_BODY"
+    },
+    "adjudication": "INSTITUTIONAL_LEGACY_CATALOG_ROUTE_BOUND_AND_SECONDARY_HOLDING_LOCATOR_FOUND_BUT_OFFICIAL_LIAONING_TARGET_RECORD_NOT_RETRIEVED",
+    "target_page_observed": false
+  },
+  "dalian_guangyi_route": {
+    "provider": "大连图书馆",
+    "official_item_url": "https://www.dl-library.net.cn/book/520/-xin-xiyi-xiansheng-ziwei--quan--519299.html",
+    "research_workflow_run_id": 34128596022,
+    "artifact_id": 10021127358,
+    "artifact_zip_sha256": "8b71b0e2b2a663e25bcaf832f7fae283e816cb555c420898b0c00f360628cbad",
+    "direct_item_http_status": 200,
+    "direct_item_html_sha256": "2bbe573903e136cc3d46a56cc7b7658d31b247bfe38b5f3407b3c7fee5f3e4eb",
+    "direct_catalog_identity": {
+      "title": "(新鐫希夷陳先生)紫微鬥數全書",
+      "juan": "四卷",
+      "author": "(宋)陳希夷撰",
+      "edition": "石印本",
+      "publication_place": "上海",
+      "publication_statement": "廣益書局 民國",
+      "physical_form": "四冊一函"
+    },
+    "public_image_candidate_review": {
+      "candidate_count": 7,
+      "successfully_saved_image_count": 6,
+      "direct_visual_review_completed": true,
+      "classification": "ALL_SIX_SAVED_IMAGES_ARE_SITE_UI_ASSETS_NOT_BOOK_PAGES",
+      "assets": [
+        {
+          "file": "dalian-item-image-01.jpg",
+          "dimensions": [
+            332,
+            51
+          ],
+          "sha256": "6166eb859c4a8133b25b045f2a362ca35862ccc586ff91ab8d0ac4951d8efbc2",
+          "classification": "DALIAN_LIBRARY_LOGO_UI_ASSET"
+        },
+        {
+          "file": "dalian-item-image-02.jpg",
+          "dimensions": [
+            5,
+            6
+          ],
+          "sha256": "0f2b3a20196ed04754cad73ad0bd56eb5f7073378c4c24ab8f57be7fff026952",
+          "classification": "UI_DECORATION"
+        },
+        {
+          "file": "dalian-item-image-03.jpg",
+          "dimensions": [
+            970,
+            5
+          ],
+          "sha256": "e3c44bd3d1e4774323f1f5f4dc172c23bd275a28375baccb902bac261a59b491",
+          "classification": "UI_SEPARATOR"
+        },
+        {
+          "file": "dalian-item-image-04.jpg",
+          "dimensions": [
+            7,
+            31
+          ],
+          "sha256": "6f10883b0193f3200dd15a1b5406f268f10f3b6ad8084103d6f157f477dcd2fa",
+          "classification": "UI_DECORATION"
+        },
+        {
+          "file": "dalian-item-image-05.jpg",
+          "dimensions": [
+            2,
+            31
+          ],
+          "sha256": "6b2c50588bd8d6720f102f7f7a2a3ea6508f8fe42d0e12d9f33ca0b0072ee486",
+          "classification": "UI_DECORATION"
+        },
+        {
+          "file": "dalian-item-image-06.jpg",
+          "dimensions": [
+            5,
+            31
+          ],
+          "sha256": "1d4f4cf4595894fcbc0d4e2fb71d9dc1cc1b43eab5e5ca226d6b3256fd808a33",
+          "classification": "UI_DECORATION"
+        }
+      ],
+      "target_page_observed": false
+    },
+    "published_get_form_search_control": {
+      "research_workflow_run_id": 34128847746,
+      "artifact_id": 10021385955,
+      "artifact_zip_sha256": "c9b8dc18bbe1cc922e8d281328d679be919ba4904652a225d967dd882346ae4e",
+      "query_count": 14,
+      "catalog_ids": [
+        7,
+        14
+      ],
+      "form_method": "GET",
+      "form_fields": [
+        "id",
+        "keyword",
+        "author"
+      ],
+      "every_query_http_200": true,
+      "every_query_term_present_in_returned_text": false,
+      "every_query_ziwei_present_in_returned_text": false,
+      "parser_collected_navigation_links": true,
+      "negative_catalog_conclusion_authorized": false,
+      "adjudication": "PUBLISHED_FORM_EXERCISED_BUT_RETURNED_PAGES_DID_NOT_REFLECT_QUERY_TERMS_SO_NO_NEGATIVE_CATALOG_INFERENCE"
+    },
+    "target_page_observed": false
+  },
+  "jielan_wenchengtang_collation_index": {
+    "provider": "Google Books public SearchWithinVolume2",
+    "volume_id": "rZRcCwAAQBAJ",
+    "publication_role": "HEART_ONE_JIELAN_FACSIMILE_PLUS_POINT_COLLATED_EDITION_USING_QING_WENCHENGTANG_FULLBOOK_AS_ONE_COLLATION_BASE",
+    "research_workflow_run_id": 34129199244,
+    "artifact_id": 10021353934,
+    "artifact_zip_sha256": "bcded5357aa9e2dd5b8129c0076f7bf59d8fbebf3f0ee986ad7bc17c330eb3f3",
+    "controls": {
+      "exact_target_heading_result_counts": [
+        0,
+        0,
+        0
+      ],
+      "exact_ten_ke_sentence_result_counts": [
+        0,
+        0,
+        0
+      ],
+      "wenchengtang_result_counts": [
+        1,
+        1,
+        1
+      ],
+      "wenchengtang_page_ids": [
+        "PT176"
+      ],
+      "upper_five_result_counts": [
+        0,
+        2,
+        2
+      ],
+      "upper_five_page_ids": [
+        "PT174",
+        "PT177"
+      ],
+      "lower_five_result_counts": [
+        2,
+        2,
+        2
+      ],
+      "lower_five_page_ids": [
+        "PT174",
+        "PT177"
+      ],
+      "hai_shi_result_counts": [
+        6,
+        6,
+        6
+      ],
+      "hai_shi_page_ids": [
+        "PT29",
+        "PT33",
+        "PT34",
+        "PT43",
+        "PT44",
+        "PT126"
+      ]
+    },
+    "editorial_collation_note": "PT176 public index text states that a Qing Wenchengtang-printed Ziwei Doushu Quanshu (文本斗數全書) and a Qing Lianyuange Ziwei Doushu Quanji were used to collate the Jielan text, with differences noted without altering Jielan base text.",
+    "authority_ceiling": "EDITORIAL_COLLATION_AND_SEARCH_INDEX_ONLY_NOT_DIRECT_WENCHENGTANG_GLYPH",
+    "target_late_zi_passage_bound_to_wenchengtang": false,
+    "target_hai_glyph_observed": false,
+    "zero_results_as_negative_proof_authorized": false
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "matrix_row_count": 198,
+    "audited_row_count": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "candidate_collapse_count": 0
+  }
+}

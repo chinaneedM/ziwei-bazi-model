@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-06",
+  "access_date": "2026-09-07",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -1606,6 +1606,54 @@
       "artifact_id": 10019806060,
       "unique_public_physical_image_count": 8,
       "target_page_observed": false
+    },
+    {
+      "source_id": "EXT-NANKAI-LNLIB-GUJI-LEGACY-ROUTE",
+      "title": "南开大学图书馆古籍外部资源页：辽宁省图书馆古籍书目查询",
+      "provider": "南开大学图书馆",
+      "url": "https://lib.nankai.edu.cn/gj/listm.psp",
+      "source_role": "INSTITUTIONAL_DIRECTORY_WITNESS_BINDING_LIAONING_LIBRARY_ANCIENT_BOOK_CATALOG_TO_LEGACY_GJ_URL",
+      "quality_notes": "Direct institutional page binds the label 辽宁省图书馆古籍书目查询 to http://www.lnlib.com/gj/index.htm. It proves an institutional access-route identity only; it does not prove any particular Wenchengtang holding or target page.",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+      "html_sha256": "034e7712ca966a3d3850b62857f6bfb88172992316fb1e2d6a07702931089dc0"
+    },
+    {
+      "source_id": "EXT-GUOXUEDASHI-ZWDSQS-WENCHENGTANG-LIAONING-LOCATOR",
+      "title": "《新鐫希夷陳先生紫微斗數全書四卷》清文誠堂刻本馆藏定位页",
+      "provider": "国学大师",
+      "url": "https://www.guoxuedashi.com/shumu/gj-1372988uy.html",
+      "source_role": "SECONDARY_CATALOG_LOCATOR_FOR_WENCHENGTANG_FULLBOOK_AND_CLAIMED_LIAONING_HOLDING",
+      "quality_notes": "Secondary page contains target title, 清文誠堂刻本 and 辽宁省图书馆 holding text. It is explicitly not treated as the official library record; the current Liaoning legacy catalog controls timed out.",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+      "html_sha256": "02caec5b5779f98a9239dd0f783c4a1af6a2977457ca463de53847abf7b52c91"
+    },
+    {
+      "source_id": "EXT-DALIAN-LIB-ZWDSQS-GUANGYI-MINGUO",
+      "title": "大连图书馆《(新鐫希夷陳先生)紫微鬥數全書》",
+      "author_attribution": "(宋)陳希夷撰",
+      "historical_period": "REPUBLIC_OF_CHINA; EXACT_YEAR_NOT_STATED_ON_REVIEWED_RECORD",
+      "edition": "上海廣益書局石印本 / 四卷 / 四冊一函",
+      "provider": "大连图书馆",
+      "url": "https://www.dl-library.net.cn/book/520/-xin-xiyi-xiansheng-ziwei--quan--519299.html",
+      "source_role": "OFFICIAL_LIBRARY_BIBLIOGRAPHIC_WITNESS_FOR_LATER_REPUBLIC_GUANGYI_FULLBOOK_EDITION",
+      "quality_notes": "Direct official item HTML records title, 四卷, 石印本, 上海, 廣益書局 民國 and 四冊一函. Six saved image candidates were directly visually reviewed without OCR and are all site UI assets, not book leaves; no target late-Zi page is exposed.",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+      "item_html_sha256": "2bbe573903e136cc3d46a56cc7b7658d31b247bfe38b5f3407b3c7fee5f3e4eb",
+      "target_page_observed": false
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-JIELAN-WENCHENGTANG-COLLATION-INDEX",
+      "title": "Google Books《新刻纂集紫微斗數捷覽》公开卷内索引之文誠堂校勘说明",
+      "historical_period": "2016 MODERN FACSIMILE/POINT-COLLATED PUBLICATION INDEX",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=rZRcCwAAQBAJ",
+      "source_role": "PUBLIC_SEARCH_INDEX_AND_EDITORIAL_COLLATION_WITNESS_EXPLICITLY_NAMING_QING_WENCHENGTANG_FULLBOOK",
+      "quality_notes": "PT176 index text explicitly names 文誠堂刊本《紫微斗數全書》 as 文本斗數全書 used to collate Jielan and note differences. This is editorial/search-index evidence only, not direct Wenchengtang glyph authority. Exact target-heading and 子時有十刻 searches returned zero and are not accepted as negative textual proof.",
+      "volume_id": "rZRcCwAAQBAJ",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+      "workflow_run_id": 34129199244,
+      "artifact_id": 10021353934,
+      "target_hai_glyph_observed": false
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

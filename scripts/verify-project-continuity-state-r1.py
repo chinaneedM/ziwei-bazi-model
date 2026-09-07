@@ -28,6 +28,8 @@ ZIWEI_WENGUANG_INDEX_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_WENGUANG_INDEX_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E.md"
 ZIWEI_JINGLUNTANG_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
+ZIWEI_POST_E_ROUTES_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F.md"
+ZIWEI_POST_E_ROUTES_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -42,9 +44,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C",
     "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D",
     "BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E",
+    "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F.md"
 
 
 def fail(message: str) -> None:
@@ -52,7 +55,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -68,6 +71,7 @@ def main() -> int:
     ziwei_edition_routes_evidence = json.loads(ZIWEI_EDITION_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_wenguang_index_evidence = json.loads(ZIWEI_WENGUANG_INDEX_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jingluntang_evidence = json.loads(ZIWEI_JINGLUNTANG_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_post_e_routes_evidence = json.loads(ZIWEI_POST_E_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -118,6 +122,10 @@ def main() -> int:
         "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
         "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
         "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
+        "EXT-GOOGLE-BOOKS-JIELAN-WENCHENGTANG-COLLATION-INDEX",
+        "EXT-DALIAN-LIB-ZWDSQS-GUANGYI-MINGUO",
+        "EXT-GUOXUEDASHI-ZWDSQS-WENCHENGTANG-LIAONING-LOCATOR",
+        "EXT-NANKAI-LNLIB-GUJI-LEGACY-ROUTE",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -464,6 +472,55 @@ def main() -> int:
     if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12E candidate/product boundary regressed")
 
+
+    if ziwei_post_e_routes_evidence.get("batch_id") != "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F":
+        fail("Batch 12F post-12E route evidence batch identity mismatch")
+    liaoning12f = ziwei_post_e_routes_evidence.get("liaoning_wenchengtang_route", {})
+    institutional12f = liaoning12f.get("institutional_route_witness", {})
+    locator12f = liaoning12f.get("secondary_locator", {})
+    if institutional12f.get("http_status") != 200 or institutional12f.get("legacy_catalog_route_bound") is not True:
+        fail("Batch 12F Liaoning institutional route binding regressed")
+    if locator12f.get("authority") != "SECONDARY_CATALOG_LOCATOR_ONLY_NOT_LIBRARY_PRIMARY_RECORD":
+        fail("Batch 12F Liaoning secondary-locator authority ceiling regressed")
+    if liaoning12f.get("target_page_observed") is not False or "OFFICIAL_LIAONING_TARGET_RECORD_NOT_RETRIEVED" not in liaoning12f.get("adjudication", ""):
+        fail("Batch 12F Liaoning target-record boundary regressed")
+    dalian12f = ziwei_post_e_routes_evidence.get("dalian_guangyi_route", {})
+    direct12f = dalian12f.get("direct_catalog_identity", {})
+    if dalian12f.get("direct_item_http_status") != 200 or direct12f.get("edition") != "石印本" or direct12f.get("publication_statement") != "廣益書局 民國":
+        fail("Batch 12F Dalian official Guangyi identity regressed")
+    if direct12f.get("juan") != "四卷" or direct12f.get("physical_form") != "四冊一函":
+        fail("Batch 12F Dalian physical-form identity regressed")
+    image12f = dalian12f.get("public_image_candidate_review", {})
+    if image12f.get("successfully_saved_image_count") != 6 or image12f.get("direct_visual_review_completed") is not True:
+        fail("Batch 12F Dalian image visual-review count regressed")
+    if image12f.get("classification") != "ALL_SIX_SAVED_IMAGES_ARE_SITE_UI_ASSETS_NOT_BOOK_PAGES" or image12f.get("target_page_observed") is not False:
+        fail("Batch 12F Dalian UI-asset/book-page firewall regressed")
+    search12f = dalian12f.get("published_get_form_search_control", {})
+    if search12f.get("query_count") != 14 or search12f.get("negative_catalog_conclusion_authorized") is not False:
+        fail("Batch 12F Dalian search-control boundary regressed")
+    if search12f.get("every_query_term_present_in_returned_text") is not False or search12f.get("every_query_ziwei_present_in_returned_text") is not False:
+        fail("Batch 12F Dalian returned-page query-reflection control regressed")
+    jielan12f = ziwei_post_e_routes_evidence.get("jielan_wenchengtang_collation_index", {})
+    if jielan12f.get("volume_id") != "rZRcCwAAQBAJ" or jielan12f.get("authority_ceiling") != "EDITORIAL_COLLATION_AND_SEARCH_INDEX_ONLY_NOT_DIRECT_WENCHENGTANG_GLYPH":
+        fail("Batch 12F Jielan/Wenchengtang authority ceiling regressed")
+    controls12f = jielan12f.get("controls", {})
+    if controls12f.get("wenchengtang_result_counts") != [1, 1, 1] or controls12f.get("wenchengtang_page_ids") != ["PT176"]:
+        fail("Batch 12F Jielan Wenchengtang PT176 index binding regressed")
+    if controls12f.get("exact_target_heading_result_counts") != [0, 0, 0] or jielan12f.get("zero_results_as_negative_proof_authorized") is not False:
+        fail("Batch 12F zero-result negative-proof firewall regressed")
+    adjudication12f = ziwei_post_e_routes_evidence.get("adjudication", {})
+    if adjudication12f.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adjudication12f.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        fail("Batch 12F HPA-ZDATE-006 fail-closed state regressed")
+    if adjudication12f.get("algorithm_reopen_authorized") is not False or adjudication12f.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12F algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("batch_12f_route_artifact") != "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json":
+        fail("Batch 12F matrix route-artifact binding regressed")
+    if nanyang_row.get("wenchengtang_target_late_zi_glyph_status") != "NOT_DIRECTLY_OBSERVED":
+        fail("Batch 12F matrix Wenchengtang glyph boundary regressed")
+    if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12F candidate/product boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -510,6 +567,15 @@ def main() -> int:
         "BBAA18036",
         "34124948029",
         "10019806060",
+        "Batch 12F",
+        "rZRcCwAAQBAJ",
+        "34128596022",
+        "10021127358",
+        "34128847746",
+        "10021385955",
+        "34129199244",
+        "10021353934",
+        "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
