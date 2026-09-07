@@ -759,6 +759,7 @@ jobs:
           options.add_argument("--disable-gpu")
           options.add_argument("--window-size=1440,1200")
           options.add_argument("--lang=zh-CN")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
 
           result = {
               "schema": "SHIDIAN-ZIWEI-QUANSHU-TARGET-SCAN-BROWSER-ROUTE-R1",
@@ -783,6 +784,7 @@ jobs:
 
           driver = webdriver.Chrome(options=options)
           try:
+              driver.execute_cdp_cmd("Network.enable", {})
               driver.set_page_load_timeout(90)
               driver.get(URL)
               deadline = time.time() + 60
@@ -837,6 +839,112 @@ jobs:
                       encoding="utf-8",
                   )
                   raise SystemExit(0)
+
+              # Observe the site's own Reader request before issuing any research replay.
+              # Persist only structural metadata; anonymous ptoken/cookie values are redacted.
+              time.sleep(4)
+              native_events = []
+              try:
+                  native_events = driver.get_log("performance")
+              except Exception as exc:
+                  result["native_page_api_log_error"] = repr(exc)
+
+              native_requests = {}
+              native_responses = {}
+              for entry in native_events:
+                  try:
+                      message = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  method = message.get("method")
+                  params = message.get("params", {})
+                  request_id = params.get("requestId")
+                  if method == "Network.requestWillBeSent":
+                      request = params.get("request", {})
+                      if "/api/ancientlib/read/book/pages/v3/" not in request.get("url", ""):
+                          continue
+                      body = request.get("postData")
+                      safe_body = None
+                      if body:
+                          try:
+                              safe_body = json.loads(body)
+                              if "ptoken" in safe_body:
+                                  safe_body["ptoken"] = "__REDACTED_PRESENT__" if safe_body.get("ptoken") else ""
+                          except Exception:
+                              safe_body = {"parse_error": True, "bytes": len(body)}
+                      headers = request.get("headers", {})
+                      native_requests[request_id] = {
+                          "url": request.get("url"),
+                          "method": request.get("method"),
+                          "post_data": safe_body,
+                          "header_names": sorted(str(k) for k in headers.keys()),
+                          "known_safe_headers": {
+                              k: headers.get(k)
+                              for k in (
+                                  "Content-Type",
+                                  "content-type",
+                                  "Client-Type",
+                                  "client-type",
+                                  "x-scm-version",
+                                  "Origin",
+                                  "Referer",
+                                  "Sec-Fetch-Mode",
+                                  "Sec-Fetch-Site",
+                              )
+                              if k in headers
+                          },
+                      }
+                  elif method == "Network.responseReceived" and request_id in native_requests:
+                      response = params.get("response", {})
+                      native_responses[request_id] = {
+                          "http_status": response.get("status"),
+                          "mime_type": response.get("mimeType"),
+                      }
+
+              native_target = None
+              native_observations = []
+              for request_id, request_meta in native_requests.items():
+                  observation = {
+                      "request": request_meta,
+                      "response": native_responses.get(request_id, {}),
+                  }
+                  try:
+                      body_result = driver.execute_cdp_cmd(
+                          "Network.getResponseBody",
+                          {"requestId": request_id},
+                      )
+                      raw_body = body_result.get("body", "")
+                      payload = json.loads(raw_body)
+                      observation["response"]["top_keys"] = (
+                          sorted(payload.keys()) if isinstance(payload, dict) else []
+                      )
+                      if isinstance(payload, dict):
+                          observation["response"]["errorCode"] = payload.get("errorCode")
+                          observation["response"]["errorMsg"] = payload.get("errorMsg")
+                      page_records = []
+                      def walk_pages(value, depth=0):
+                          if depth > 8:
+                              return
+                          if isinstance(value, dict):
+                              if "pageId" in value or "page_id" in value:
+                                  page_records.append(value)
+                              for child in value.values():
+                                  walk_pages(child, depth + 1)
+                          elif isinstance(value, list):
+                              for child in value:
+                                  walk_pages(child, depth + 1)
+                      walk_pages(payload)
+                      observation["response"]["page_record_count"] = len(page_records)
+                      for row in page_records:
+                          if str(row.get("pageId", row.get("page_id", ""))) == TARGET_PAGE_ID:
+                              native_target = row
+                              break
+                  except Exception as exc:
+                      observation["response_body_error"] = repr(exc)
+                  native_observations.append(observation)
+
+              result["native_page_api_observations"] = native_observations
+              result["native_target_page_record_found"] = bool(native_target)
 
               # Do not persist the ptoken. Use it only inside the browser page context.
               api_result = driver.execute_async_script("""
@@ -968,7 +1076,37 @@ jobs:
                   "response_excerpt": api_result.get("body"),
                   "debug": api_result.get("debug"),
               }
-              target = api_result.get("target") if api_result.get("ok") else None
+              target = native_target
+              if target:
+                  decrypt_result = driver.execute_async_script("""
+                      const target = arguments[0];
+                      const done = arguments[arguments.length - 1];
+                      (async () => {
+                        try {
+                          const ptoken = await window.byted_psdk.getPtokenStatus();
+                          const picUrl = target.picUrl || target.pic_url || "";
+                          const encType = target.urlEncryptType ?? target.url_encrypt_type;
+                          const dec = await window.byted_psdk.decrypt(picUrl, ptoken, encType);
+                          done({
+                            ok: true,
+                            decryptedPicUrl: (dec && dec.decrypt) ? dec.data : picUrl,
+                            decryptApplied: !!(dec && dec.decrypt)
+                          });
+                        } catch (e) {
+                          done({ok:false, error:String(e)});
+                        }
+                      })();
+                  """, target)
+                  target = dict(target)
+                  target["decryptedPicUrl"] = decrypt_result.get("decryptedPicUrl")
+                  target["decryptApplied"] = decrypt_result.get("decryptApplied")
+                  result["native_target_decrypt"] = {
+                      "ok": decrypt_result.get("ok"),
+                      "decrypt_applied": decrypt_result.get("decryptApplied"),
+                      "error": decrypt_result.get("error"),
+                  }
+              elif api_result.get("ok"):
+                  target = api_result.get("target")
               if target:
                   scan_url = target.pop("decryptedPicUrl", None)
                   result["target_page_record"] = target
