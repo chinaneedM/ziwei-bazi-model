@@ -1,0 +1,262 @@
+name: research-naaj-ziwei-quanshu-facsimile-route
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-naaj-ziwei-quanshu-facsimile-route.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Resolve NAAJ public facsimile route
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          BASE = "https://www.digital.archives.go.jp"
+          TITLE = "新鋟希夷陳先生紫微斗数全書"
+          CALL = "子０６０－０００１"
+          PARENT_ID = "1078787"
+          KNOWN_ITEM1 = "4468520"
+          UA = "Mozilla/5.0 research-only public historical-facsimile route probe"
+
+          def get(url):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
+                      "Accept-Language": "ja,en;q=0.8",
+                  },
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read()
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "headers": {
+                              k: v for k, v in resp.headers.items()
+                              if k.lower() in {
+                                  "content-type", "content-length", "location",
+                                  "content-disposition", "last-modified", "etag",
+                              }
+                          },
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "data": b""}
+
+          def save(key, result):
+              data = result.get("data", b"")
+              suffix = ".json" if "json" in str(result.get("content_type", "")).lower() else ".html"
+              (OUT / f"{key}{suffix}").write_bytes(data)
+              return {
+                  k: v for k, v in result.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def decode(data):
+              return data.decode("utf-8", "replace")
+
+          def extract(html_text, base_url):
+              hrefs = [
+                  html.unescape(x)
+                  for x in re.findall(r"""(?:href|src|action)\s*=\s*["']([^"']+)["']""", html_text, re.I)
+              ]
+              absolute = sorted(set(urllib.parse.urljoin(base_url, x) for x in hrefs))
+              relevant = [
+                  x for x in absolute
+                  if (
+                      "digital.archives.go.jp" in x
+                      and any(token in x.lower() for token in (
+                          "/item/", "/img/", "/file/", "download", "image", "viewer",
+                          "content", ".jp2", ".jpg", ".jpeg", ".png", ".pdf", ".json",
+                          ".js", "/api/", "ajax",
+                      ))
+                  )
+              ]
+              item_ids = sorted(set(re.findall(r"/item/(\d+)", html_text)))
+              img_ids = sorted(set(re.findall(r"/img/(\d+)", html_text)))
+              file_ids = sorted(set(re.findall(r"/file/(\d+)", html_text)))
+              content_ids = sorted(set(re.findall(r"\bC\d{6,}\b", html_text)))
+              jp2_names = sorted(set(re.findall(r"[A-Za-z0-9_\-]+\.jp2", html_text, re.I)))
+              return {
+                  "relevant_urls": relevant[:1000],
+                  "item_ids": item_ids,
+                  "img_ids": img_ids,
+                  "file_ids": file_ids,
+                  "content_ids": content_ids,
+                  "jp2_names": jp2_names,
+              }
+
+          summary = {
+              "schema": "NAAJ-ZIWEI-QUANSHU-FACSIMILE-ROUTE-PROBE-R1",
+              "official_provider": "National Archives of Japan Digital Archive",
+              "base_url": BASE,
+              "title": TITLE,
+              "call_number": CALL,
+              "parent_file_id": PARENT_ID,
+              "known_volume1_item_id": KNOWN_ITEM1,
+              "known_bibliography": {
+                  "old_collection": "紅葉山文庫",
+                  "publication": "刊本:明",
+                  "volume_count": 2,
+              },
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "targets": {},
+              "extractions": {},
+              "script_probes": [],
+              "discovered_child_items": [],
+          }
+
+          seed_urls = {
+              "parent_file": f"{BASE}/file/{PARENT_ID}",
+              "parent_viewer": f"{BASE}/img/{PARENT_ID}",
+              "volume1_item": f"{BASE}/item/{KNOWN_ITEM1}",
+              "volume1_viewer": f"{BASE}/img/{KNOWN_ITEM1}",
+              "search_query": f"{BASE}/search?" + urllib.parse.urlencode({"query": TITLE}),
+              "search_keyword": f"{BASE}/search?" + urllib.parse.urlencode({"keyword": TITLE}),
+          }
+
+          page_texts = {}
+          for key, url in seed_urls.items():
+              r = get(url)
+              summary["targets"][key] = {"url": url, **save(key, r)}
+              text = decode(r.get("data", b""))
+              page_texts[key] = text
+              summary["extractions"][key] = extract(text, url)
+
+          child_item_ids = set()
+          for e in summary["extractions"].values():
+              child_item_ids.update(e["item_ids"])
+          child_item_ids.discard(KNOWN_ITEM1)
+
+          # Only follow identifiers directly exposed by official seed pages.
+          for item_id in sorted(child_item_ids)[:20]:
+              url = f"{BASE}/item/{item_id}"
+              r = get(url)
+              key = f"child-item-{item_id}"
+              meta = save(key, r)
+              text = decode(r.get("data", b""))
+              ex = extract(text, url)
+              is_title_match = TITLE in text
+              is_volume2 = (
+                  ("冊次" in text and "0002" in text)
+                  or ("件名番号" in text and "0002" in text)
+                  or (TITLE + "２" in text)
+                  or (TITLE + "2" in text)
+              )
+              summary["discovered_child_items"].append({
+                  "item_id": item_id,
+                  "url": url,
+                  "transport": meta,
+                  "title_match": is_title_match,
+                  "volume2_signal": is_volume2,
+                  "extraction": ex,
+              })
+
+          # Probe only JS files directly referenced by official pages.
+          scripts = []
+          for e in summary["extractions"].values():
+              for url in e["relevant_urls"]:
+                  if url.lower().split("?", 1)[0].endswith(".js") and url not in scripts:
+                      scripts.append(url)
+          for index, url in enumerate(scripts[:30], 1):
+              r = get(url)
+              data = r.get("data", b"")
+              text = decode(data)
+              endpoints = sorted(set(
+                  html.unescape(x)
+                  for x in re.findall(
+                      r"""["']([^"']*(?:download|image|viewer|content|ajax|api|jp2)[^"']*)["']""",
+                      text,
+                      re.I,
+                  )
+                  if 0 < len(x) < 500
+              ))
+              rec = {
+                  "index": index,
+                  "url": url,
+                  "transport": save(f"script-{index:02d}", r),
+                  "endpoint_literals": endpoints[:500],
+              }
+              summary["script_probes"].append(rec)
+
+          aggregate_item_ids = set()
+          aggregate_content_ids = set()
+          aggregate_jp2 = set()
+          aggregate_urls = set()
+          for e in summary["extractions"].values():
+              aggregate_item_ids.update(e["item_ids"])
+              aggregate_content_ids.update(e["content_ids"])
+              aggregate_jp2.update(e["jp2_names"])
+              aggregate_urls.update(e["relevant_urls"])
+          for child in summary["discovered_child_items"]:
+              e = child["extraction"]
+              aggregate_item_ids.update(e["item_ids"])
+              aggregate_content_ids.update(e["content_ids"])
+              aggregate_jp2.update(e["jp2_names"])
+              aggregate_urls.update(e["relevant_urls"])
+
+          volume2 = [
+              x for x in summary["discovered_child_items"]
+              if x["title_match"] and x["volume2_signal"]
+          ]
+          summary["conclusion"] = {
+              "official_parent_transport_ok": summary["targets"]["parent_file"].get("ok", False),
+              "official_volume1_transport_ok": summary["targets"]["volume1_item"].get("ok", False),
+              "directly_exposed_item_ids": sorted(aggregate_item_ids),
+              "directly_exposed_content_ids": sorted(aggregate_content_ids),
+              "directly_exposed_jp2_names": sorted(aggregate_jp2),
+              "directly_exposed_relevant_url_count": len(aggregate_urls),
+              "volume2_candidate_count": len(volume2),
+              "volume2_candidates": [
+                  {"item_id": x["item_id"], "url": x["url"]}
+                  for x in volume2
+              ],
+              "target_chapter_page_bound": False,
+              "target_glyphs_read": False,
+              "late_zi_algorithm_effect": "NONE",
+              "next_action": (
+                  "FOLLOW_DIRECTLY_EXPOSED_VOLUME2_AND_IMAGE_ROUTE"
+                  if volume2
+                  else "RESOLVE_VOLUME2_FROM_OFFICIAL_FRONTEND_ROUTE_WITHOUT_IDENTIFIER_GUESSING"
+              ),
+          }
+          (OUT / "summary.json").write_text(
+              json.dumps(summary, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps(summary["conclusion"], ensure_ascii=False, indent=2))
+
+      - name: Upload route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: naaj-ziwei-quanshu-facsimile-route-${{ github.sha }}
+          path: probe/
+          if-no-files-found: error
+          retention-days: 30
