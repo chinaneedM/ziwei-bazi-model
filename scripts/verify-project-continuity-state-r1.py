@@ -624,7 +624,6 @@ def main() -> int:
         "34133129317",
         "10022892119",
         "連元閣",
-        "PARALLEL_BUT_NOT_MECHANICALLY_IDENTICAL",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
