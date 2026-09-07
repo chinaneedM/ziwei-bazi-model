@@ -30,6 +30,8 @@ ZIWEI_JINGLUNTANG_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_JINGLUNTANG_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
 ZIWEI_POST_E_ROUTES_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F.md"
 ZIWEI_POST_E_ROUTES_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json"
+ZIWEI_QUANJI_LATE_ZI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G.md"
+ZIWEI_QUANJI_LATE_ZI_EVIDENCE = ROOT / "docs/research/ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -45,9 +47,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D",
     "BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E",
     "BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F",
+    "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-F.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G.md"
 
 
 def fail(message: str) -> None:
@@ -55,7 +58,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -72,6 +75,7 @@ def main() -> int:
     ziwei_wenguang_index_evidence = json.loads(ZIWEI_WENGUANG_INDEX_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jingluntang_evidence = json.loads(ZIWEI_JINGLUNTANG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_post_e_routes_evidence = json.loads(ZIWEI_POST_E_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_quanji_late_zi_evidence = json.loads(ZIWEI_QUANJI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -123,6 +127,9 @@ def main() -> int:
         "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
         "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
         "EXT-GOOGLE-BOOKS-JIELAN-WENCHENGTANG-COLLATION-INDEX",
+        "EXT-DESTINYNET-ZWDSQJ-LATE-ZI-RECEIVED-TRANSCRIPTION",
+        "EXT-GOOGLE-BOOKS-JIELAN-LIANYUANGE-QUANJI-INDEX",
+        "EXT-XINYITANG-JIELAN-LIANYUANGE-QUANJI-COLLATION",
         "EXT-DALIAN-LIB-ZWDSQS-GUANGYI-MINGUO",
         "EXT-GUOXUEDASHI-ZWDSQS-WENCHENGTANG-LIAONING-LOCATOR",
         "EXT-NANKAI-LNLIB-GUJI-LEGACY-ROUTE",
@@ -521,6 +528,43 @@ def main() -> int:
     if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12F candidate/product boundary regressed")
 
+
+    if ziwei_quanji_late_zi_evidence.get("batch_id") != "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G":
+        fail("Batch 12G Quanji evidence batch identity mismatch")
+    pub12g = ziwei_quanji_late_zi_evidence.get("publisher_lianyuange_route", {})
+    if pub12g.get("http_status") != 200 or pub12g.get("lianyuange_present") is not True or pub12g.get("quanji_present") is not True:
+        fail("Batch 12G Lianyuange publisher-route binding regressed")
+    idx12g = ziwei_quanji_late_zi_evidence.get("google_books_jielan_index", {})
+    if idx12g.get("volume_id") != "rZRcCwAAQBAJ" or idx12g.get("workflow_run_id") != 34133129317 or idx12g.get("artifact_id") != 10022892119:
+        fail("Batch 12G Google Books provenance regressed")
+    if idx12g.get("lianyuange_query", {}).get("page_ids") != ["PT176", "PT177"]:
+        fail("Batch 12G Lianyuange PT176/PT177 index binding regressed")
+    anomaly12g = idx12g.get("ten_ke_query_anomaly", {})
+    if anomaly12g.get("page_id") != "PT88" or anomaly12g.get("snippet_contains_query_term") is not False or anomaly12g.get("positive_target_evidence_authorized") is not False:
+        fail("Batch 12G ten-ke index-mismatch firewall regressed")
+    if idx12g.get("zero_result_as_negative_textual_proof") != "FORBIDDEN" or idx12g.get("physical_lianyuange_target_page_observed") is not False:
+        fail("Batch 12G index/physical target fail-closed boundary regressed")
+    rec12g = ziwei_quanji_late_zi_evidence.get("received_quanji_transcription_control", {})
+    if rec12g.get("authority") != "SECONDARY_RECEIVED_TRANSCRIPTION_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY":
+        fail("Batch 12G received-transcription authority ceiling regressed")
+    controls12g = rec12g.get("controls", {})
+    for key in ("ten_ke_present", "upper_five_previous_night_present", "lower_five_current_night_zi_present"):
+        if controls12g.get(key) is not True:
+            fail(f"Batch 12G received Quanji control missing: {key}")
+    phil12g = ziwei_quanji_late_zi_evidence.get("philological_adjudication", {})
+    if phil12g.get("relation_to_nanyangtang_fullbook") != "PARALLEL_BUT_NOT_MECHANICALLY_IDENTICAL":
+        fail("Batch 12G philological relation regressed")
+    if phil12g.get("new_candidate_row_authorized") is not False or phil12g.get("hpa_zdate_006_reclassification_authorized") is not False:
+        fail("Batch 12G candidate/reclassification firewall regressed")
+    adj12g = ziwei_quanji_late_zi_evidence.get("adjudication", {})
+    if adj12g.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12g.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12G product/algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("quanji_lianyuange_collation_artifact") != "docs/research/ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-R1.json":
+        fail("Batch 12G Matrix Quanji artifact binding regressed")
+    if nanyang_row.get("quanji_candidate_formalization_status") != "NOT_AUTHORIZED_PENDING_DIRECT_PHYSICAL_TARGET_PAGE":
+        fail("Batch 12G Matrix candidate-formalization boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -576,6 +620,11 @@ def main() -> int:
         "34129199244",
         "10021353934",
         "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+        "Batch 12G",
+        "34133129317",
+        "10022892119",
+        "連元閣",
+        "PARALLEL_BUT_NOT_MECHANICALLY_IDENTICAL",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
