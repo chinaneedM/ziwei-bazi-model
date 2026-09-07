@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Discover Google Books volume objects and search only discovered IDs
+      - name: Probe externally discovered Google Books Volume 4 object
         shell: python
         run: |
           import hashlib
@@ -30,19 +30,23 @@ jobs:
           OUT.mkdir()
           UA = "Mozilla/5.0 research-only public-book-index locator"
           ISBN = "9787550624016"
+          # This ID is not guessed. It was exposed by the public Google Books
+          # bibliographic page titled 子海珍本编: 海外卷日本内阁文库, Volume 4.
+          VOLUME_ID = "hyotxQEACAAJ"
+          PUBLIC_BIB_URL = "https://books.google.com/books?id=hyotxQEACAAJ"
           TARGET_TERMS = [
               "新鋟希夷陳先生紫微斗數全書",
               "新鋟希夷陳先生紫微斗数全書",
               "紫微斗數全書",
               "紫微斗数全书",
+              "論人生時要審的確",
+              "论人生时要审的确",
+              "上五刻",
+              "下五刻",
+              "亥時",
+              "子時有十刻",
               "陳摶 潘希尹",
               "陈抟 潘希尹",
-          ]
-          DISCOVERY_QUERIES = [
-              f"isbn:{ISBN}",
-              "intitle:子海珍本编 海外卷 日本 内阁文库",
-              "intitle:子海珍本編 海外卷 日本 內閣文庫",
-              "子海珍本编 凤凰出版社 西山尚志 王震",
           ]
 
           def fetch(url, max_bytes=5_000_000):
@@ -65,159 +69,103 @@ jobs:
                   return {"ok": False, "error": repr(exc), "data": b""}
 
           result = {
-              "schema": "ZIHAI-NAIKAKU-ZIWEI-GOOGLE-BOOKS-VOLUME-LOCATOR-R1",
+              "schema": "ZIHAI-NAIKAKU-ZIWEI-GOOGLE-BOOKS-VOLUME-4-DIRECT-PROBE-R1",
               "isbn": ISBN,
+              "volume_id": VOLUME_ID,
+              "volume_id_origin": "PUBLIC_GOOGLE_BOOKS_BIBLIOGRAPHIC_PAGE_EXPLICITLY_LABELLED_VOLUME_4",
+              "public_bibliographic_url": PUBLIC_BIB_URL,
               "identifier_guessing_attempted": False,
               "authentication_or_paywall_bypass_attempted": False,
-              "discovery_queries": [],
-              "discovered_volume_ids": [],
-              "discovered_volume_metadata": [],
-              "search_within_discovered_volumes": [],
+              "bibliographic_surface": {},
+              "search_within_volume": [],
           }
 
-          seen = {}
-          for q in DISCOVERY_QUERIES:
-              url = "https://www.googleapis.com/books/v1/volumes?" + urllib.parse.urlencode({
-                  "q": q,
-                  "maxResults": 40,
-                  "printType": "books",
-              })
-              row = fetch(url)
-              data = row.pop("data")
-              rec = {
-                  "query": q,
-                  "url": url,
-                  **row,
-                  "bytes": len(data),
-                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
-              }
-              if data:
-                  try:
-                      payload = json.loads(data.decode("utf-8", "replace"))
-                      rec["totalItems"] = payload.get("totalItems")
-                      items = payload.get("items", [])
-                      rec["item_ids"] = [x.get("id") for x in items]
-                      for item in items:
-                          vid = item.get("id")
-                          info = item.get("volumeInfo", {})
-                          if not vid:
-                              continue
-                          title = str(info.get("title", ""))
-                          publisher = str(info.get("publisher", ""))
-                          published = str(info.get("publishedDate", ""))
-                          identifiers = info.get("industryIdentifiers", [])
-                          idvals = {str(x.get("identifier","")) for x in identifiers if isinstance(x, dict)}
-                          relevant = (
-                              "子海珍本" in title
-                              or ISBN in idvals
-                              or ("凤凰出版社" in publisher and published.startswith("2016"))
-                          )
-                          if relevant:
-                              seen[vid] = {
-                                  "id": vid,
-                                  "title": title,
-                                  "subtitle": info.get("subtitle"),
-                                  "authors": info.get("authors"),
-                                  "publisher": info.get("publisher"),
-                                  "publishedDate": info.get("publishedDate"),
-                                  "pageCount": info.get("pageCount"),
-                                  "industryIdentifiers": identifiers,
-                                  "previewLink": info.get("previewLink"),
-                                  "infoLink": info.get("infoLink"),
-                              }
-                  except Exception as exc:
-                      rec["parse_error"] = repr(exc)
-              result["discovery_queries"].append(rec)
-              time.sleep(0.2)
-
-          result["discovered_volume_ids"] = sorted(seen)
-          result["discovered_volume_metadata"] = [seen[k] for k in sorted(seen)]
+          bib = fetch(PUBLIC_BIB_URL)
+          data = bib.pop("data")
+          result["bibliographic_surface"] = {
+              **bib,
+              "bytes": len(data),
+              "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              "volume_4_label_present": b"Volume 4" in data,
+              "isbn_present": ISBN.encode() in data,
+          }
+          if data:
+              (OUT / "google-books-volume-4.html").write_bytes(data)
 
           templates = [
               "https://books.google.com/books?jscmd=SearchWithinVolume2&q={q}&vid={vid}",
               "https://books.google.com/books?id={vid}&jscmd=SearchWithinVolume2&q={q}",
+              "https://books.google.com/books?vid={vid}&jscmd=SearchWithinVolume2&q={q}",
           ]
-          for vid in result["discovered_volume_ids"]:
-              for term in TARGET_TERMS:
-                  attempts = []
-                  q = urllib.parse.quote(term)
-                  for template in templates:
-                      url = template.format(q=q, vid=vid)
-                      row = fetch(url, max_bytes=2_000_000)
-                      data = row.pop("data")
-                      rec = {
-                          "url": url,
-                          **row,
-                          "bytes": len(data),
-                          "sha256": hashlib.sha256(data).hexdigest() if data else None,
-                      }
-                      if data:
-                          try:
-                              payload = json.loads(data.decode("utf-8", "replace"))
-                              rec["number_of_results"] = payload.get("number_of_results")
-                              rec["searchable"] = payload.get("searchable")
-                              rec["search_results"] = payload.get("search_results", [])
-                          except Exception as exc:
-                              rec["parse_error"] = repr(exc)
-                      attempts.append(rec)
-                      time.sleep(0.1)
-                  result["search_within_discovered_volumes"].append({
-                      "volume_id": vid,
-                      "term": term,
-                      "attempts": attempts,
-                  })
+          for term in TARGET_TERMS:
+              attempts = []
+              q = urllib.parse.quote(term)
+              for template in templates:
+                  url = template.format(q=q, vid=VOLUME_ID)
+                  row = fetch(url, max_bytes=2_000_000)
+                  payload_bytes = row.pop("data")
+                  rec = {
+                      "url": url,
+                      **row,
+                      "bytes": len(payload_bytes),
+                      "sha256": hashlib.sha256(payload_bytes).hexdigest() if payload_bytes else None,
+                  }
+                  if payload_bytes:
+                      try:
+                          payload = json.loads(payload_bytes.decode("utf-8", "replace"))
+                          rec["number_of_results"] = payload.get("number_of_results")
+                          rec["searchable"] = payload.get("searchable")
+                          rec["search_results"] = payload.get("search_results", [])
+                      except Exception as exc:
+                          rec["parse_error"] = repr(exc)
+                  attempts.append(rec)
+                  time.sleep(0.1)
+              result["search_within_volume"].append({"term": term, "attempts": attempts})
 
           positives = []
-          for row in result["search_within_discovered_volumes"]:
+          for row in result["search_within_volume"]:
               for attempt in row["attempts"]:
                   n = attempt.get("number_of_results")
                   if isinstance(n, int) and n > 0:
                       positives.append({
-                          "volume_id": row["volume_id"],
                           "term": row["term"],
                           "number_of_results": n,
-                          "page_ids": [
-                              x.get("page_id") for x in attempt.get("search_results", [])
-                          ],
-                          "snippets": [
-                              x.get("snippet_text") for x in attempt.get("search_results", [])
-                          ],
+                          "page_ids": [x.get("page_id") for x in attempt.get("search_results", [])],
+                          "snippets": [x.get("snippet_text") for x in attempt.get("search_results", [])],
                       })
                       break
 
-          result["positive_target_index_hits"] = positives
+          result["positive_index_hits"] = positives
           result["adjudication"] = {
-              "volume_ids_origin": "GOOGLE_BOOKS_API_DISCOVERY_ONLY_NO_ID_GUESSING",
-              "positive_index_hit_role": "SUBVOLUME_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+              "volume_4_identity_role": "BIBLIOGRAPHIC_SUBVOLUME_LOCATOR_ONLY_UNTIL_TARGET_CONTENT_HIT",
+              "positive_index_hit_role": "TARGET_WORK_OR_PASSAGE_SUBVOLUME_BINDING_ONLY_NOT_GLYPH_AUTHORITY",
               "zero_result_as_negative_textual_proof": "FORBIDDEN",
               "target_physical_page_status": "NOT_OBSERVED_UNLESS_FUTURE_DIRECT_FACSIMILE_PAGE_IS_BOUND",
               "algorithm_effect": "NONE",
           }
 
-          (OUT / "zihai-naikaku-ziwei-volume-locator.json").write_text(
-              json.dumps(result, ensure_ascii=False, indent=2),
-              encoding="utf-8",
+          (OUT / "zihai-naikaku-ziwei-volume-4-direct-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
           print(json.dumps({
-              "discovered_volume_ids": result["discovered_volume_ids"],
-              "discovered_volume_metadata": result["discovered_volume_metadata"],
-              "positive_target_index_hits": positives,
-              "discovery_query_controls": [
+              "bibliographic_surface": result["bibliographic_surface"],
+              "positive_index_hits": positives,
+              "term_controls": [
                   {
-                      "query": x.get("query"),
-                      "status": x.get("status"),
-                      "totalItems": x.get("totalItems"),
-                      "item_ids": x.get("item_ids"),
+                      "term": row["term"],
+                      "statuses": [a.get("status") for a in row["attempts"]],
+                      "result_counts": [a.get("number_of_results") for a in row["attempts"]],
+                      "page_ids": [[x.get("page_id") for x in a.get("search_results", [])] for a in row["attempts"]],
                   }
-                  for x in result["discovery_queries"]
+                  for row in result["search_within_volume"]
               ],
           }, ensure_ascii=False, indent=2))
 
-      - name: Upload Zihai volume locator evidence
+      - name: Upload Zihai Volume 4 direct-probe evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zihai-naikaku-ziwei-google-books-volume-locator
+          name: zihai-naikaku-ziwei-google-books-volume-4-direct-probe
           path: probe/
           if-no-files-found: warn
           retention-days: 14
