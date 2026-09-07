@@ -24,6 +24,8 @@ ZIWEI_TIMEKEEPING_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_TIMEKEEPING_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 ZIWEI_EDITION_ROUTES_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C.md"
 ZIWEI_EDITION_ROUTES_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
+ZIWEI_WENGUANG_INDEX_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D.md"
+ZIWEI_WENGUANG_INDEX_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -36,9 +38,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
     "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
     "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C",
+    "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D.md"
 
 
 def fail(message: str) -> None:
@@ -46,7 +49,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -60,6 +63,7 @@ def main() -> int:
     ziwei_late_zi_evidence = json.loads(ZIWEI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_timekeeping_evidence = json.loads(ZIWEI_TIMEKEEPING_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_edition_routes_evidence = json.loads(ZIWEI_EDITION_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_wenguang_index_evidence = json.loads(ZIWEI_WENGUANG_INDEX_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -387,6 +391,41 @@ def main() -> int:
     if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12C candidate/product boundary regressed")
 
+    if ziwei_wenguang_index_evidence.get("batch_id") != "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D":
+        fail("Batch 12D Ziwei Wenguang index evidence batch identity mismatch")
+    distribution = ziwei_wenguang_index_evidence.get("distribution_volume", {})
+    if distribution.get("volume_id") != "aIRbDgAAQBAJ" or distribution.get("isbn") != "9789888266944" or distribution.get("declared_page_count") != 266:
+        fail("Batch 12D Google distribution identity regressed")
+    search_index = ziwei_wenguang_index_evidence.get("public_search_index", {})
+    if search_index.get("workflow_run_id") != 34121750009 or search_index.get("artifact_id") != 10018452113:
+        fail("Batch 12D search-index provenance regressed")
+    if search_index.get("target_heading_query", {}).get("target_page_id") != "PT165":
+        fail("Batch 12D target PT165 binding regressed")
+    reading = search_index.get("target_index_reading", "")
+    if "上五刻" not in reading or "下五刻" not in reading or "亥時" not in reading:
+        fail("Batch 12D target index text regressed")
+    if search_index.get("target_index_reading_authority") != "SEARCH_INDEX_TEXT_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY":
+        fail("Batch 12D index/glyph authority boundary regressed")
+    if search_index.get("negative_textual_claim_authorized") is not False:
+        fail("Batch 12D zero-result negative-proof firewall regressed")
+    viewer = ziwei_wenguang_index_evidence.get("embedded_viewer_control", {})
+    if viewer.get("workflow_run_id") != 34123161798 or viewer.get("artifact_id") != 10019011766:
+        fail("Batch 12D Embedded Viewer provenance regressed")
+    if viewer.get("go_to_pt165_returned") is not True or viewer.get("after_page_id") != "PT166" or viewer.get("target_page_directly_observed") is not False:
+        fail("Batch 12D viewer fail-closed state regressed")
+    adjudication12d = ziwei_wenguang_index_evidence.get("adjudication", {})
+    if adjudication12d.get("pt165_base_copy_identity") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
+        fail("Batch 12D PT165 base-copy identity was prematurely closed")
+    if adjudication12d.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        fail("Batch 12D HAI glyph stability boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("combined_facsimile_volume_id") != "aIRbDgAAQBAJ" or nanyang_row.get("combined_facsimile_target_index_page_id") != "PT165":
+        fail("Batch 12D matrix Google index binding regressed")
+    if nanyang_row.get("combined_facsimile_target_image_status") != "PUBLIC_EMBEDDED_VIEWER_DID_NOT_DISPLAY_TARGET_GLYPHS":
+        fail("Batch 12D matrix viewer boundary regressed")
+    if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12D candidate/product boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -419,6 +458,13 @@ def main() -> int:
         "34120317222",
         "10017909080",
         "UNRESOLVED",
+        "Batch 12D",
+        "aIRbDgAAQBAJ",
+        "PT165",
+        "34123161798",
+        "10019011766",
+        "34121401508",
+        "10018315848",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

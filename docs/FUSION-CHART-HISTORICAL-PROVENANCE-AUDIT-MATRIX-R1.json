@@ -3907,7 +3907,7 @@
       "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
       "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
       "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
-      "later_witnesses": "Batch 12B timekeeping controls remain. Batch 12C now closes independent edition-route identity: official Heart-One documentation binds its 2017 Fullbook facsimile to two late-Ming/early-Qing Wenguangtang woodblock witnesses (Dunhuatang and Jishutang), and its Jielan edition separately documents a mid-Qing Wenchengtang Fullbook used for collation. A secondary 2017 comparison reports Wenshengtang/Jishutang block-surface similarity but is not physical-page authority. None of these public routes exposed the target late-Zi page, so the critical 亥 glyph is not yet cross-edition closed.",
+      "later_witnesses": "Batch 12B timekeeping controls remain. Batch 12C closes the independent edition-route map. Batch 12D binds the exact Heart-One 2017 facsimile distribution volume aIRbDgAAQBAJ / ISBN 9789888266944: public Google Books search index resolves the target passage to PT165 and returns 上五刻/下五刻/亥時 text consistent with the Nanyangtang direct facsimile. However this is index text only; official Embedded Viewer did not display PT165 glyphs, seven public Xinyi sample images omit the target page, and PT165 cannot yet be assigned to Dunhuatang versus Jishutang. Therefore physical cross-edition glyph stability remains unresolved.",
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
         "UNIFORM_ZI_BRANCH_FOR_23_TO_01",
@@ -3915,9 +3915,9 @@
         "ZI_START_23_DATE_ROLLOVER_WITH_ZI_BRANCH_RETAINED"
       ],
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
-      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_INDEPENDENT_EDITION_ROUTES; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_TARGET_PAGES_ARE_DIRECTLY_READ",
+      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_INDEPENDENT_EDITION_ROUTES; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANGTANG_PUBLIC_INDEX_TEXT_CORROBORATION; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_BASE_COPY_TARGET_PAGES_ARE_READ",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Next priority is direct target-page acquisition from the documented Dunhuatang/Jishutang Wenguangtang facsimile bases and the separate mid-Qing Wenchengtang Fullbook. Do not infer 亥 glyph stability from publisher descriptions, modern transcriptions, or source count; runtime time-standard binding remains independently unresolved.",
+      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Treat Google PT165 as a locator/index-text corroboration only. Next priority remains direct target-page acquisition from a base-copy-identifiable Dunhuatang or Jishutang facsimile and from the separate mid-Qing Wenchengtang Fullbook; then compare 亥/子 and any S01-attributed wording at glyph level. Do not infer absence from Google zero-result queries or infer base-copy identity from a combined publication index.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -3942,7 +3942,15 @@
         "QING_MID_WENCHENGTANG_PUBLISHER_DOCUMENTED_ROUTE",
         "WENSHENGTANG_SECONDARY_LOCATOR_ONLY"
       ],
-      "public_preview_route_status": "BOOKS_COM_PRODUCT_AND_13_PREVIEW_IMAGE_URLS_BLOCKED_403; GOOGLE_BOOKS_API_429; ZERO_PREVIEW_IMAGES_SAVED"
+      "public_preview_route_status": "BOOKS_COM_PRODUCT_AND_13_PREVIEW_IMAGE_URLS_BLOCKED_403; GOOGLE_BOOKS_API_429; ZERO_PREVIEW_IMAGES_SAVED",
+      "wenguang_google_index_artifact": "docs/research/ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json",
+      "combined_facsimile_volume_id": "aIRbDgAAQBAJ",
+      "combined_facsimile_target_index_page_id": "PT165",
+      "combined_facsimile_index_text_status": "TARGET_PASSAGE_CORROBORATED_AT_PUBLIC_SEARCH_INDEX_LEVEL_NOT_GLYPH_AUTHORITY",
+      "combined_facsimile_target_image_status": "PUBLIC_EMBEDDED_VIEWER_DID_NOT_DISPLAY_TARGET_GLYPHS",
+      "combined_facsimile_base_copy_identity_for_pt165": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+      "search_index_zero_result_policy": "NO_NEGATIVE_TEXTUAL_CONCLUSION_AUTHORIZED_INDEX_RESULT_INSTABILITY_OBSERVED",
+      "public_sample_image_status": "SEVEN_XINYI_SAMPLE_IMAGES_VISUALLY_REVIEWED_NONE_IS_TARGET_PAGE"
     },
     {
       "system": "BAZI",

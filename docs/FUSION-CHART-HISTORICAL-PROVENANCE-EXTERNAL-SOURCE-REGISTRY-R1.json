@@ -1539,6 +1539,41 @@
       "source_role": "SECONDARY_LOCATOR_FOR_WENSHENGTANG_JISHUTANG_BLOCK_SIMILARITY_HYPOTHESIS",
       "quality_notes": "Author reports a 文盛堂 copy whose typeface/layout/missing-glyph pattern appears the same as 繼述堂 and suggests a possible shared printing/block relation; 敦化堂 appears typographically different. This is secondary comparison only, not a physical-page collation and not target-glyph authority.",
       "research_artifact": "docs/research/ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
+    },
+    {
+      "source_id": "EXT-GOOGLE-PLAY-ZWDSQS-WENGUANG-2017",
+      "title": "Google Play / Google Books：心一堂《紫微斗數全書（明末清初木刻真本）》",
+      "author_attribution": "題【宋】陳希夷撰、【明】潘希尹補輯；publication metadata only",
+      "historical_period": "2017 DIGITAL DISTRIBUTION OF HEART-ONE FACSIMILE PUBLICATION BASED ON PUBLISHER-DESCRIBED LATE-MING/EARLY-QING WENGUANGTANG WITNESSES",
+      "edition": "Google Books volume aIRbDgAAQBAJ / ISBN 9789888266944 / 266 pages",
+      "provider": "Google Play / Google Books",
+      "url": "https://play.google.com/store/books/details?id=aIRbDgAAQBAJ&hl=zh-TW",
+      "source_role": "PUBLIC_DISTRIBUTION_AND_SEARCH_INDEX_WITNESS_FOR_2017_COMBINED_WENGUANGTANG_FACSIMILE_PUBLICATION",
+      "quality_notes": "Public Play page directly binds volume aIRbDgAAQBAJ to the Heart-One 2017 publication and advertises a free sample. SearchWithinVolume2 resolves the late-Zi target to PT165 and returns index text containing 上五刻/下五刻 and 亥時 wording consistent with the Nanyangtang direct facsimile. This is search-index/OCR-like text, not glyph authority and not enough to identify whether PT165 derives from Dunhuatang or Jishutang. The official Embedded Viewer accepted goToPageId(PT165) but the saved screenshot displayed unavailable-preview placeholders and ended on PT166; no target glyph was directly visible. Zero-result queries are not accepted as negative textual proof because query-result instability was observed.",
+      "volume_id": "aIRbDgAAQBAJ",
+      "isbn": "9789888266944",
+      "page_count": 266,
+      "search_index_target_page_id": "PT165",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json",
+      "search_workflow_run_id": 34121750009,
+      "search_artifact_id": 10018452113,
+      "viewer_workflow_run_id": 34123161798,
+      "viewer_artifact_id": 10019011766
+    },
+    {
+      "source_id": "EXT-XINYI-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2021",
+      "title": "星易圖書：心一堂《紫微斗數全書（明末清初木刻真本）》公开商品页及七张样图",
+      "historical_period": "MODERN PUBLIC RETAIL/FACSIMILE SAMPLE SURFACE",
+      "edition": "ISBN 9789888266944 / Heart-One facsimile publication",
+      "provider": "星易圖書",
+      "url": "https://www.xinyi.hk/goods-7800.html",
+      "source_role": "PUBLIC_SAMPLE_IMAGE_AND_BIBLIOGRAPHIC_CONTROL_FOR_2017_WENGUANGTANG_FACSIMILE_PUBLICATION",
+      "quality_notes": "Public product HTML directly repeats the Dunhuatang/Jishutang Wenguangtang base-copy description. Research workflow run 34121401508 saved seven public JPEG samples without authentication or OCR. All seven were directly visually reviewed; none is the target 《論人生時要審的確》 page, so they provide edition/sample-surface control only and no late-Zi glyph adjudication.",
+      "research_artifact": "docs/research/ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json",
+      "workflow_run_id": 34121401508,
+      "artifact_id": 10018315848,
+      "public_sample_image_count": 7,
+      "target_page_observed": false
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

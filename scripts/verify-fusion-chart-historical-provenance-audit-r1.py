@@ -9,6 +9,7 @@ SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-S
 ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
+ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
@@ -161,6 +162,44 @@ def main() -> int:
         raise SystemExit("Batch 12C incorrectly claims an independent target page")
     if edition_adjudication.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
         raise SystemExit("Batch 12C HAI glyph stability boundary regressed")
+    for source_id in (
+        "EXT-GOOGLE-PLAY-ZWDSQS-WENGUANG-2017",
+        "EXT-XINYI-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2021",
+    ):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 12D Google/Heart-One source is missing: {source_id}")
+    if not ZIWEI_WENGUANG_GOOGLE_INDEX.is_file():
+        raise SystemExit("Batch 12D Wenguang Google index evidence is missing")
+    wenguang_index=json.loads(ZIWEI_WENGUANG_GOOGLE_INDEX.read_text(encoding="utf-8"))
+    if wenguang_index.get("status") != "COMBINED_WENGUANG_FACSIMILE_PUBLIC_INDEX_SUPPORTS_HAI_READING_TARGET_GLYPH_NOT_PUBLICLY_DISPLAYED":
+        raise SystemExit("Batch 12D evidence status mismatch")
+    volume=wenguang_index.get("distribution_volume", {})
+    if volume.get("volume_id") != "aIRbDgAAQBAJ" or volume.get("isbn") != "9789888266944" or volume.get("declared_page_count") != 266:
+        raise SystemExit("Batch 12D Google distribution identity mismatch")
+    index=wenguang_index.get("public_search_index", {})
+    if index.get("workflow_run_id") != 34121750009 or index.get("artifact_id") != 10018452113:
+        raise SystemExit("Batch 12D search-index provenance mismatch")
+    if index.get("target_heading_query", {}).get("target_page_id") != "PT165":
+        raise SystemExit("Batch 12D target PT165 binding mismatch")
+    reading=index.get("target_index_reading", "")
+    if "上五刻" not in reading or "下五刻" not in reading or "亥時" not in reading:
+        raise SystemExit("Batch 12D target index reading regressed")
+    if index.get("target_index_reading_authority") != "SEARCH_INDEX_TEXT_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY":
+        raise SystemExit("Batch 12D index/glyph authority firewall regressed")
+    if index.get("negative_textual_claim_authorized") is not False:
+        raise SystemExit("Batch 12D zero-result negative-proof firewall regressed")
+    viewer=wenguang_index.get("embedded_viewer_control", {})
+    if viewer.get("workflow_run_id") != 34123161798 or viewer.get("artifact_id") != 10019011766:
+        raise SystemExit("Batch 12D viewer provenance mismatch")
+    if viewer.get("go_to_pt165_returned") is not True or viewer.get("after_page_id") != "PT166" or viewer.get("target_page_directly_observed") is not False:
+        raise SystemExit("Batch 12D viewer fail-closed state regressed")
+    adjudication12d=wenguang_index.get("adjudication", {})
+    if adjudication12d.get("pt165_base_copy_identity") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
+        raise SystemExit("Batch 12D PT165 base-copy boundary regressed")
+    if adjudication12d.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        raise SystemExit("Batch 12D HAI glyph stability boundary regressed")
+    if adjudication12d.get("hpa_zdate_006_status") != "MISSING_FROM_PRODUCT" or adjudication12d.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12D candidate/product boundary regressed")
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
@@ -270,6 +309,14 @@ def main() -> int:
         raise SystemExit("Batch 12C HPA-ZDATE-006 edition-route binding regressed")
     if row_nanyang.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
         raise SystemExit("Batch 12C HPA-ZDATE-006 HAI glyph boundary regressed")
+    if row_nanyang.get("combined_facsimile_volume_id") != "aIRbDgAAQBAJ" or row_nanyang.get("combined_facsimile_target_index_page_id") != "PT165":
+        raise SystemExit("Batch 12D HPA-ZDATE-006 index-text binding regressed")
+    if row_nanyang.get("combined_facsimile_index_text_status") != "TARGET_PASSAGE_CORROBORATED_AT_PUBLIC_SEARCH_INDEX_LEVEL_NOT_GLYPH_AUTHORITY":
+        raise SystemExit("Batch 12D HPA-ZDATE-006 index authority boundary regressed")
+    if row_nanyang.get("combined_facsimile_target_image_status") != "PUBLIC_EMBEDDED_VIEWER_DID_NOT_DISPLAY_TARGET_GLYPHS":
+        raise SystemExit("Batch 12D HPA-ZDATE-006 viewer boundary regressed")
+    if row_nanyang.get("combined_facsimile_base_copy_identity_for_pt165") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
+        raise SystemExit("Batch 12D HPA-ZDATE-006 base-copy identity was prematurely closed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
