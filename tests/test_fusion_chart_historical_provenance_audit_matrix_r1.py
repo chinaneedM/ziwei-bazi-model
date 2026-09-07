@@ -121,9 +121,33 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertTrue(expected.issubset(by_id))
         for rule_id in ("HPA-ZTEMP-001", "HPA-ZTEMP-002", "HPA-ZTEMP-003"):
             self.assertEqual(by_id[rule_id]["audit_status"], "HISTORICALLY_SUPPORTED")
-        self.assertEqual(by_id["HPA-ZTEMP-004"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZTEMP-004"]["audit_status"], "HISTORICALLY_SUPPORTED")
         self.assertEqual(by_id["HPA-ZTEMP-005"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
-        self.assertEqual(by_id["HPA-ZTEMP-006"]["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(by_id["HPA-ZTEMP-006"]["audit_status"], "SUPPORTED_BUT_SCHOOL_SPECIFIC")
+        self.assertEqual(
+            by_id["HPA-ZTEMP-004"]["selection_status"],
+            "PRESERVED_NOT_SELECTED",
+        )
+        self.assertEqual(
+            by_id["HPA-ZTEMP-006"]["selection_status"],
+            "PRESERVED_NOT_SELECTED",
+        )
+        self.assertEqual(
+            by_id["HPA-ZTEMP-004"]["candidate_method_id"],
+            "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1",
+        )
+        self.assertEqual(
+            by_id["HPA-ZTEMP-006"]["candidate_method_id"],
+            "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+        )
+        self.assertIn(
+            "ZHONGZHOU_FIXED_BRANCH_CASE_REMAINS_SEPARATE",
+            by_id["HPA-ZTEMP-004"]["current_implementation_match"],
+        )
+        self.assertIn(
+            "DAILY_ACTIVE_ADDRESS_NOT_EMITTED",
+            by_id["HPA-ZTEMP-006"]["current_implementation_match"],
+        )
         self.assertEqual(by_id["HPA-ZT-015"]["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertEqual(by_id["HPA-ZT-014"]["audit_status"], "DISPUTED_MULTIPLE_CANDIDATES")
 
