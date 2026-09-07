@@ -19,6 +19,7 @@ jobs:
       - name: Probe Shanghai Library public metadata and anonymous digital-object routes
         shell: python
         run: |
+          import base64
           import hashlib
           import json
           import re
@@ -175,6 +176,27 @@ jobs:
                       image_candidates.append(url)
               result["kumyo_physical_copy"]["public_image_candidates"] = image_candidates[:80]
               saved = []
+              embedded = []
+              for idx, match in enumerate(re.finditer(
+                  r'data:image/(?:jpg|jpeg);base64,([A-Za-z0-9+/=]+)',
+                  kumyo_text,
+                  flags=re.I,
+              )):
+                  try:
+                      data = base64.b64decode(match.group(1), validate=False)
+                  except Exception:
+                      continue
+                  if not data.startswith(b"\xff\xd8"):
+                      continue
+                  name = f"kumyo-embedded-{idx:02d}.jpg"
+                  (OUT / name).write_bytes(data)
+                  embedded.append({
+                      "saved_file": name,
+                      "bytes": len(data),
+                      "sha256": hashlib.sha256(data).hexdigest(),
+                  })
+                  saved.append(name)
+              result["kumyo_physical_copy"]["embedded_public_images"] = embedded
               for idx, url in enumerate(image_candidates[:40]):
                   row = fetch(url, accept="image/*,*/*;q=0.8", max_bytes=6_000_000)
                   data = row.get("data", b"")
@@ -192,10 +214,17 @@ jobs:
                   result["kumyo_physical_copy"].setdefault("image_fetches", []).append(record)
               result["kumyo_physical_copy"]["saved_image_count"] = len(saved)
 
+          shlib_text_files = [
+              path for path in OUT.iterdir()
+              if (
+                  path.name.startswith("instance-")
+                  or path.name in {"data_instance.html", "dhapi_pdfview_root.html", "gj_public_root.html"}
+              )
+              and path.suffix in {".html", ".json", ".ttl", ".rdf"}
+          ]
           all_text = "\n".join(
               path.read_text(encoding="utf-8", errors="replace")
-              for path in OUT.iterdir()
-              if path.suffix in {".html", ".json", ".ttl", ".rdf"}
+              for path in shlib_text_files
           )
           tokens = ("dhapi", "pdfview", "iiif", "manifest", "itemid", "itemId", "image", "digital")
           result["surface_token_hits"] = {
@@ -246,6 +275,7 @@ jobs:
                   "bytes": result["kumyo_physical_copy"].get("bytes"),
                   "public_image_candidate_count": len(result["kumyo_physical_copy"].get("public_image_candidates", [])),
                   "saved_image_count": result["kumyo_physical_copy"].get("saved_image_count"),
+                  "embedded_public_images": result["kumyo_physical_copy"].get("embedded_public_images"),
               },
           }, ensure_ascii=False, indent=2))
 
