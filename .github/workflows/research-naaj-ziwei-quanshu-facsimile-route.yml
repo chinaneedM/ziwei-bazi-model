@@ -725,6 +725,253 @@ jobs:
               "module_candidates": module_candidates,
           }, ensure_ascii=False, indent=2))
 
+      - name: Resolve target scan through public browser client
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check selenium
+          python <<'PY'
+          import hashlib
+          import json
+          import os
+          import time
+          import urllib.request
+          from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          OUT = Path("probe")
+          OUT.mkdir(exist_ok=True)
+
+          URL = "https://www.shidianguji.com/zh/book/SDZJ0170/chapter/1jvzop58rvpyq"
+          BOOK_ID = "SDZJ0170"
+          VERSION = 44
+          START_PAGE = 313
+          END_PAGE = 382
+          TARGET_PAGE_ID = "7330179103183667235"
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1440,1200")
+          options.add_argument("--lang=zh-CN")
+
+          result = {
+              "schema": "SHIDIAN-ZIWEI-QUANSHU-TARGET-SCAN-BROWSER-ROUTE-R1",
+              "chapter_url": URL,
+              "book_id": BOOK_ID,
+              "version": VERSION,
+              "chapter_page_range": [START_PAGE, END_PAGE],
+              "target_page_id": TARGET_PAGE_ID,
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "browser_public_anonymous_session": True,
+              "page_api_route_from_frontend_source": "POST /api/ancientlib/read/book/pages/v3/",
+          }
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              driver.get(URL)
+              deadline = time.time() + 60
+              sdk_ready = False
+              while time.time() < deadline:
+                  sdk_ready = bool(driver.execute_script(
+                      "return !!(window.byted_psdk && window.byted_psdk.getPtokenStatus && window.byted_psdk.decrypt);"
+                  ))
+                  if sdk_ready:
+                      break
+                  time.sleep(1)
+              result["sdk_ready"] = sdk_ready
+              result["loaded_url"] = driver.current_url
+              result["title"] = driver.title
+              if not sdk_ready:
+                  result["conclusion"] = {
+                      "target_page_record_found": False,
+                      "target_scan_downloaded": False,
+                      "target_glyphs_read": False,
+                      "late_zi_algorithm_effect": "NONE",
+                      "status": "PUBLIC_BROWSER_SDK_NOT_READY",
+                  }
+                  (OUT / "shidian-target-scan-browser.json").write_text(
+                      json.dumps(result, ensure_ascii=False, indent=2),
+                      encoding="utf-8",
+                  )
+                  raise SystemExit(0)
+
+              ptoken = driver.execute_async_script("""
+                  const done = arguments[0];
+                  Promise.resolve(window.byted_psdk.getPtokenStatus())
+                    .then(v => done({ok:true, value:v}))
+                    .catch(e => done({ok:false, error:String(e)}));
+              """)
+              result["ptoken_observation"] = {
+                  "ok": bool(ptoken.get("ok")),
+                  "value_type": type(ptoken.get("value")).__name__ if ptoken.get("ok") else None,
+                  "value_present": bool(ptoken.get("value")) if ptoken.get("ok") else False,
+                  "error": ptoken.get("error"),
+                  "value_not_persisted": True,
+              }
+              if not ptoken.get("ok") or not ptoken.get("value"):
+                  result["conclusion"] = {
+                      "target_page_record_found": False,
+                      "target_scan_downloaded": False,
+                      "target_glyphs_read": False,
+                      "late_zi_algorithm_effect": "NONE",
+                      "status": "PUBLIC_BROWSER_PTOKEN_UNAVAILABLE",
+                  }
+                  (OUT / "shidian-target-scan-browser.json").write_text(
+                      json.dumps(result, ensure_ascii=False, indent=2),
+                      encoding="utf-8",
+                  )
+                  raise SystemExit(0)
+
+              # Do not persist the ptoken. Use it only inside the browser page context.
+              api_result = driver.execute_async_script("""
+                  const done = arguments[0];
+                  (async () => {
+                    try {
+                      const ptoken = await window.byted_psdk.getPtokenStatus();
+                      const all = [];
+                      for (let pageIndex = 1; 40 * (pageIndex - 1) < (382 - 313 + 1); pageIndex++) {
+                        const body = {
+                          bookId: "SDZJ0170",
+                          pageIndex,
+                          pageSize: 40,
+                          startPageNum: 313,
+                          endPageNum: 382,
+                          version: 44,
+                          needCheckVersion: true,
+                          ptoken,
+                          isWebpSupported: true
+                        };
+                        const resp = await fetch("/api/ancientlib/read/book/pages/v3/", {
+                          method: "POST",
+                          credentials: "include",
+                          headers: {"content-type": "application/json"},
+                          body: JSON.stringify(body)
+                        });
+                        const raw = await resp.text();
+                        if (!resp.ok) {
+                          done({ok:false, stage:"api", status:resp.status, body:raw.slice(0,2000)});
+                          return;
+                        }
+                        let data;
+                        try { data = JSON.parse(raw); }
+                        catch (e) {
+                          done({ok:false, stage:"json", status:resp.status, body:raw.slice(0,2000), error:String(e)});
+                          return;
+                        }
+                        const pages = Array.isArray(data.pages)
+                          ? data.pages
+                          : (data.data && Array.isArray(data.data.pages) ? data.data.pages : []);
+                        all.push(...pages);
+                      }
+                      const target = all.find(p => String(p.pageId) === "7330179103183667235");
+                      if (!target) {
+                        done({
+                          ok:true,
+                          pageCount:all.length,
+                          pageIds:all.map(p => String(p.pageId)).slice(0,500),
+                          target:null
+                        });
+                        return;
+                      }
+                      const dec = await window.byted_psdk.decrypt(
+                        target.picUrl || "",
+                        ptoken,
+                        target.urlEncryptType
+                      );
+                      done({
+                        ok:true,
+                        pageCount:all.length,
+                        target:{
+                          pageId:String(target.pageId),
+                          pageNum:target.pageNum,
+                          volumeId:String(target.volumeId || ""),
+                          uri:target.uri || "",
+                          urlEncryptType:target.urlEncryptType,
+                          thumbUrlPresent:!!target.thumbUrl,
+                          picUrlPresent:!!target.picUrl,
+                          decryptedPicUrl:(dec && dec.decrypt) ? dec.data : target.picUrl,
+                          decryptApplied:!!(dec && dec.decrypt)
+                        }
+                      });
+                    } catch (e) {
+                      done({ok:false, stage:"exception", error:String(e), stack:e && e.stack ? String(e.stack).slice(0,5000) : null});
+                    }
+                  })();
+              """)
+              result["api_result"] = {
+                  "ok": api_result.get("ok"),
+                  "stage": api_result.get("stage"),
+                  "status": api_result.get("status"),
+                  "page_count": api_result.get("pageCount"),
+                  "error": api_result.get("error"),
+                  "response_excerpt": api_result.get("body"),
+              }
+              target = api_result.get("target") if api_result.get("ok") else None
+              if target:
+                  scan_url = target.pop("decryptedPicUrl", None)
+                  result["target_page_record"] = target
+                  result["target_page_record"]["decrypted_pic_url_observed"] = bool(scan_url)
+                  if scan_url:
+                      # Persist provider URL only in evidence JSON; it is a public signed scan route.
+                      result["target_page_record"]["scan_url"] = scan_url
+                      req = urllib.request.Request(
+                          scan_url,
+                          headers={"User-Agent": "Mozilla/5.0 research-only historical-facsimile scan fetch"},
+                      )
+                      try:
+                          with urllib.request.urlopen(req, timeout=60) as resp:
+                              image = resp.read()
+                              ctype = resp.headers.get("content-type")
+                              final_url = resp.geturl()
+                          suffix = ".webp"
+                          if ctype and "png" in ctype.lower():
+                              suffix = ".png"
+                          elif ctype and ("jpeg" in ctype.lower() or "jpg" in ctype.lower()):
+                              suffix = ".jpg"
+                          img_path = OUT / ("shidian-target-page-" + TARGET_PAGE_ID + suffix)
+                          img_path.write_bytes(image)
+                          result["target_scan"] = {
+                              "downloaded": True,
+                              "path": str(img_path),
+                              "bytes": len(image),
+                              "sha256": hashlib.sha256(image).hexdigest(),
+                              "content_type": ctype,
+                              "final_url": final_url,
+                          }
+                      except Exception as exc:
+                          result["target_scan"] = {
+                              "downloaded": False,
+                              "error": repr(exc),
+                          }
+
+              result["conclusion"] = {
+                  "target_page_record_found": bool(result.get("target_page_record")),
+                  "target_scan_downloaded": bool(result.get("target_scan", {}).get("downloaded")),
+                  "target_glyphs_read": False,
+                  "late_zi_algorithm_effect": "NONE",
+                  "status": (
+                      "TARGET_SCAN_DOWNLOADED_PENDING_NO_OCR_VISUAL_REVIEW"
+                      if result.get("target_scan", {}).get("downloaded")
+                      else "TARGET_SCAN_NOT_DOWNLOADED"
+                  ),
+              }
+              (OUT / "shidian-target-scan-browser.json").write_text(
+                  json.dumps(result, ensure_ascii=False, indent=2),
+                  encoding="utf-8",
+              )
+              print(json.dumps(result["conclusion"], ensure_ascii=False, indent=2))
+          finally:
+              driver.quit()
+          PY
+
       - name: Upload route evidence
         if: always()
         uses: actions/upload-artifact@v4
