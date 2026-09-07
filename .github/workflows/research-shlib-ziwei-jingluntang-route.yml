@@ -33,6 +33,7 @@ jobs:
           CALL_NO = "子30814110"
           TITLE = "新鋟希夷陳先生紫微斗數全書四卷"
           INSTANCE = f"https://data.library.sh.cn/gj/resource/instance/{INSTANCE_ID}"
+          KUMYO = "https://kumyo.co.kr/web/auction/auction_view/29397/001001000000"
           UA = "Mozilla/5.0 research-only public library metadata probe"
 
           def fetch(url, accept="text/html,*/*;q=0.8", max_bytes=8_000_000, redirect=True):
@@ -107,6 +108,7 @@ jobs:
               "content_negotiation": {},
               "discovered_official_urls": [],
               "anonymous_route_controls": {},
+              "kumyo_physical_copy": {},
           }
 
           formats = {
@@ -154,6 +156,42 @@ jobs:
               if data:
                   (OUT / f"{key}.html").write_bytes(data)
 
+          # Independent public physical-copy locator: 19th-century Jingluntang four-volume set.
+          kumyo = fetch(KUMYO, accept="text/html,application/xhtml+xml,*/*;q=0.8", max_bytes=5_000_000)
+          result["kumyo_physical_copy"] = meta(kumyo)
+          result["kumyo_physical_copy"]["url"] = KUMYO
+          kumyo_data = kumyo.get("data", b"")
+          if kumyo_data:
+              (OUT / "kumyo-bbaa18036.html").write_bytes(kumyo_data)
+              kumyo_text = kumyo_data.decode("utf-8", "replace")
+              image_candidates = []
+              for value in re.findall(
+                  r'''(?:src|href)\s*=\s*["']([^"']+\.(?:jpg|jpeg|png|webp)(?:\?[^"']*)?)["']''',
+                  kumyo_text,
+                  flags=re.I,
+              ):
+                  url = urllib.parse.urljoin(KUMYO, value)
+                  if url not in image_candidates:
+                      image_candidates.append(url)
+              result["kumyo_physical_copy"]["public_image_candidates"] = image_candidates[:80]
+              saved = []
+              for idx, url in enumerate(image_candidates[:40]):
+                  row = fetch(url, accept="image/*,*/*;q=0.8", max_bytes=6_000_000)
+                  data = row.get("data", b"")
+                  record = {"url": url, **meta(row)}
+                  if row.get("ok") and (
+                      data.startswith(b"\xff\xd8")
+                      or data.startswith(b"\x89PNG")
+                      or "image/" in str(row.get("content_type", "")).lower()
+                  ):
+                      suffix = ".png" if data.startswith(b"\x89PNG") else ".jpg"
+                      name = f"kumyo-image-{idx:02d}{suffix}"
+                      (OUT / name).write_bytes(data)
+                      record["saved_file"] = name
+                      saved.append(name)
+                  result["kumyo_physical_copy"].setdefault("image_fetches", []).append(record)
+              result["kumyo_physical_copy"]["saved_image_count"] = len(saved)
+
           all_text = "\n".join(
               path.read_text(encoding="utf-8", errors="replace")
               for path in OUT.iterdir()
@@ -172,7 +210,8 @@ jobs:
                   "NO_PAGE_IMAGE_CLAIM_WITHOUT_EXPLICIT_PUBLIC_OBJECT_ROUTE",
               "login_or_token_boundary": "NO_AUTHENTICATION_NO_TOKEN_REUSE_NO_GUESSED_ITEM_ID",
               "target_late_zi_page_status": "NOT_OBSERVED",
-              "hpa_zdate_006_effect": "NONE",
+              "hpa_zdate_006_effect": "NONE_UNTIL_DIRECT_TARGET_PAGE",
+              "kumyo_physical_copy_role": "INDEPENDENT_19TH_CENTURY_JINGLUNTANG_PHYSICAL_LOCATOR_ONLY_UNTIL_IMAGES_REVIEWED",
               "algorithm_effect": "NONE",
           }
 
@@ -202,6 +241,12 @@ jobs:
                   for k, v in result["anonymous_route_controls"].items()
               },
               "surface_token_hits": result["surface_token_hits"],
+              "kumyo_physical_copy": {
+                  "status": result["kumyo_physical_copy"].get("status"),
+                  "bytes": result["kumyo_physical_copy"].get("bytes"),
+                  "public_image_candidate_count": len(result["kumyo_physical_copy"].get("public_image_candidates", [])),
+                  "saved_image_count": result["kumyo_physical_copy"].get("saved_image_count"),
+              },
           }, ensure_ascii=False, indent=2))
 
       - name: Upload Shanghai Library route evidence
