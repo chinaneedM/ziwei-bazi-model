@@ -1468,6 +1468,43 @@
         "exact_print_year_effect": "NONE"
       },
       "quality_notes": "Direct no-OCR provider-image evidence. The internal table itself labels the numeric field 圖書番號, eliminating the earlier ambiguity created by the unrelated generic 1930 numeric-order sequence. Page 0129 binds 授時曆立成 to 893 and the separate Kang-Bo work to 892. Use this source for catalog-item provenance only, never for the six pending computational readings."
+    },
+    {
+      "source_id": "EXT-NAOJ-KOYOMI-TEIJI-SHICHEN",
+      "title": "国立天文台暦計算室《暦Wiki／時刻／定時法と不定時法》",
+      "historical_period": "MODERN_SCHOLARLY_CALENDAR_HISTORY_REFERENCE",
+      "provider": "National Astronomical Observatory of Japan / Koyomi Computation Office",
+      "url": "https://eco.mtk.nao.ac.jp/koyomi/wiki/BBFEB9EF2FC4EABBFECBA1A4C8C9D4C4EABBFECBA1.html",
+      "source_role": "MODERN_SCHOLARLY_COORDINATE_TRANSLATION_FOR_TRADITIONAL_FIXED_SHICHEN_AND_100_KE_SYSTEM",
+      "quality_notes": "Explains the fixed-hour framework: one day = 100 ke, one shichen = 8+1/3 ke = two modern hours; Zi corresponds approximately to 23:00–01:00 and Zi-zheng is midnight. Used only for coordinate translation/terminology, never as Ziwei doctrinal authority."
+    },
+    {
+      "source_id": "EXT-CTEXT-RIZHILU-BAIKE",
+      "title": "顾炎武《日知录·百刻》",
+      "author": "顾炎武",
+      "historical_period": "清初",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=2891389&if=gb&remap=gb",
+      "source_role": "LATER_TIMEKEEPING_EXEGESIS_FOR_TEN_NAMED_KE_WITH_BIG_SMALL_KE_STRUCTURE",
+      "quality_notes": "Explains why a calendrical 'ten ke per shichen' naming scheme does not mean ten equal ke: eight large ke plus two small ke make the 100-ke day. Used as later timekeeping exegesis only."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-ZWDSQS-V3-LATE-ZI",
+      "title": "Wikisource《紫微斗数全书》卷三／全览·论人生时要审的确",
+      "historical_period": "MODERN_RECEIVED_TEXT_TRANSCRIPTION",
+      "provider": "Wikisource",
+      "url": "https://zh.wikisource.org/zh-hant/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%89",
+      "source_role": "RECEIVED_TRANSCRIPTION_CONTROL_FOR_FULLBOOK_LATE_ZI_PASSAGE",
+      "quality_notes": "Places the same section in received 卷三 and renders the crucial glyphs as 上午刻/下午刻, which conflicts with the direct Nanyangtang facsimile 上五刻/下五刻. This is therefore a transcription/received-text control, not glyph authority or an independent facsimile edition."
+    },
+    {
+      "source_id": "EXT-SHIDIAN-ZWDSQS-LATE-ZI",
+      "title": "识典古籍《新锓希夷陈先生紫微斗数全书·论人生时要审的确》",
+      "historical_period": "MODERN_DIGITAL_RECEIVED_TRANSCRIPTION",
+      "provider": "识典古籍",
+      "url": "https://www.shidianguji.com/mid-page/7356346222958919731",
+      "source_role": "DIGITAL_TRANSCRIPTION_CORROBORATION_FOR_NANYANGTANG_LATE_ZI_WORDING",
+      "quality_notes": "Digital text reproduces 上五刻属昨夜亥时、下五刻属今日子时 and thus agrees with the direct Nanyangtang page at the relevant phrase. It is corroboration only; the direct facsimile remains glyph authority."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

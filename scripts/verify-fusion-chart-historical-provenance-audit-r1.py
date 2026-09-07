@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
+ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
@@ -121,6 +122,21 @@ def main() -> int:
         raise SystemExit("Batch 12A direct target-page binding mismatch")
     if direct.get("s01_claimed_sentence_status") != "NOT_OBSERVED_ON_DIRECT_TARGET_SECTION_PAGE" or direct.get("whole_volume_negative_claim_authorized") is not False:
         raise SystemExit("Batch 12A S01 quotation quarantine boundary regressed")
+    for source_id in ("EXT-NAOJ-KOYOMI-TEIJI-SHICHEN","EXT-CTEXT-RIZHILU-BAIKE","EXT-WIKISOURCE-ZWDSQS-V3-LATE-ZI","EXT-SHIDIAN-ZWDSQS-LATE-ZI"):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 12B timekeeping/transcription source is missing: {source_id}")
+    if not ZIWEI_LATE_ZI_TIMEKEEPING.is_file():
+        raise SystemExit("Batch 12B timekeeping collation artifact is missing")
+    timekeeping=json.loads(ZIWEI_LATE_ZI_TIMEKEEPING.read_text(encoding="utf-8"))
+    if timekeeping.get("status") != "GENERIC_ZI_UPPER_LOWER_HALF_TIMEKEEPING_ORIENTATION_CLOSED_RUNTIME_BINDING_STILL_OPEN":
+        raise SystemExit("Batch 12B timekeeping adjudication status mismatch")
+    mapping=timekeeping.get("adjudication", {})
+    if mapping.get("upper_half_orientation") != "BEFORE_MIDNIGHT_PREVIOUS_DAY" or mapping.get("lower_half_orientation") != "AFTER_MIDNIGHT_CURRENT_DAY":
+        raise SystemExit("Batch 12B upper/lower-half orientation regressed")
+    if mapping.get("ten_ke_equal_duration_interpretation") != "REJECTED":
+        raise SystemExit("Batch 12B ten-ke equal-duration firewall regressed")
+    if mapping.get("runtime_time_standard_binding") != "UNRESOLVED":
+        raise SystemExit("Batch 12B runtime time-standard was prematurely selected")
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
@@ -222,6 +238,10 @@ def main() -> int:
         raise SystemExit("Batch 12A historical candidate improperly authorized an algorithm reopen")
     if row_nanyang.get("candidate_method_id") != "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1":
         raise SystemExit("Batch 12A candidate method identity mismatch")
+    if row_nanyang.get("timekeeping_orientation_status") != "CLOSED_AT_GENERIC_FIXED_SHICHEN_LEVEL":
+        raise SystemExit("Batch 12B HPA-ZDATE-006 timekeeping status regressed")
+    if row_nanyang.get("runtime_time_standard_binding") != "UNRESOLVED_DO_NOT_CHOOSE_CIVIL_MEAN_OR_APPARENT_SOLAR_TIME_FROM_TIMEKEEPING_TRANSLATION":
+        raise SystemExit("Batch 12B runtime time-standard firewall regressed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")

@@ -20,6 +20,8 @@ LATEST_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-1
 LATEST_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-OFFICIAL-REPRODUCTION-ROUTE-R1.json"
 ZIWEI_LATE_ZI_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A.md"
 ZIWEI_LATE_ZI_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
+ZIWEI_TIMEKEEPING_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B.md"
+ZIWEI_TIMEKEEPING_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -30,9 +32,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W",
     "BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X",
     "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
+    "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B.md"
 
 
 def fail(message: str) -> None:
@@ -40,7 +43,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -52,6 +55,7 @@ def main() -> int:
     article_evidence = json.loads(ARTICLE_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_late_zi_evidence = json.loads(ZIWEI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_timekeeping_evidence = json.loads(ZIWEI_TIMEKEEPING_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -337,6 +341,21 @@ def main() -> int:
     if not nanyang_row or nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12A HPA-ZDATE-006 continuity boundary regressed")
 
+    if ziwei_timekeeping_evidence.get("batch_id") != "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B":
+        fail("Batch 12B Ziwei timekeeping evidence batch identity mismatch")
+    adjudication = ziwei_timekeeping_evidence.get("adjudication", {})
+    if adjudication.get("upper_half_orientation") != "BEFORE_MIDNIGHT_PREVIOUS_DAY" or adjudication.get("lower_half_orientation") != "AFTER_MIDNIGHT_CURRENT_DAY":
+        fail("Batch 12B generic upper/lower-half orientation regressed")
+    if adjudication.get("ten_ke_equal_duration_interpretation") != "REJECTED":
+        fail("Batch 12B ten-ke equal-duration interpretation firewall regressed")
+    if adjudication.get("runtime_time_standard_binding") != "UNRESOLVED":
+        fail("Batch 12B runtime time-standard was prematurely selected")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("timekeeping_orientation_status") != "CLOSED_AT_GENERIC_FIXED_SHICHEN_LEVEL":
+        fail("Batch 12B matrix timekeeping status regressed")
+    if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12B candidate/product boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -357,6 +376,10 @@ def main() -> int:
         "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
         "HPA-ZDATE-006",
         "MISSING_FROM_PRODUCT",
+        "Batch 12B",
+        "8-large+2-small-ke structure",
+        "23:00–24:00",
+        "runtime time",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
