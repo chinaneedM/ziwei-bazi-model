@@ -735,6 +735,7 @@ jobs:
           import json
           import os
           import time
+          import urllib.parse
           import urllib.request
           from pathlib import Path
 
@@ -873,8 +874,22 @@ jobs:
                           except Exception:
                               safe_body = {"parse_error": True, "bytes": len(body)}
                       headers = request.get("headers", {})
+                      parsed_request_url = urllib.parse.urlsplit(request.get("url", ""))
                       native_requests[request_id] = {
-                          "url": request.get("url"),
+                          "url": urllib.parse.urlunsplit((
+                              parsed_request_url.scheme,
+                              parsed_request_url.netloc,
+                              parsed_request_url.path,
+                              "",
+                              "",
+                          )),
+                          "query_parameter_names": sorted({
+                              key
+                              for key, _ in urllib.parse.parse_qsl(
+                                  parsed_request_url.query,
+                                  keep_blank_values=True,
+                              )
+                          }),
                           "method": request.get("method"),
                           "post_data": safe_body,
                           "header_names": sorted(str(k) for k in headers.keys()),
@@ -1162,6 +1177,108 @@ jobs:
               print(json.dumps(result["conclusion"], ensure_ascii=False, indent=2))
           finally:
               driver.quit()
+          PY
+
+      - name: Fetch indexed Nanyangtang seven-juan public scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pypdf
+          python <<'PY'
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          from pypdf import PdfReader
+
+          OUT = Path("probe")
+          OUT.mkdir(exist_ok=True)
+          URL = (
+              "https://vr-d.com/pdf-file/"
+              "%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%2F"
+              "%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E5%85%A8%E4%B9%A6_"
+              "%E4%B8%83%E5%8D%B7_%E6%98%8E%E4%BB%A3%E5%8D%97%E9%98%B3%E5%A0%82"
+              "%E5%88%8A%E6%9C%AC.pdf"
+          )
+          PDF = OUT / "ziwei-quanshu-seven-juan-nanyangtang-public-scan.pdf"
+          META = OUT / "ziwei-quanshu-seven-juan-nanyangtang-public-scan.json"
+          UA = "Mozilla/5.0 research-only public historical-facsimile acquisition"
+
+          result = {
+              "schema": "ZIWEI-QUANSHU-NANYANGTANG-PUBLIC-SCAN-ACQUISITION-R1",
+              "source_url": URL,
+              "expected_title": "新鋟希夷陳先生紫微斗数全書",
+              "route_class": "PUBLIC_INDEXED_PDF_NO_AUTHENTICATION",
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+          }
+          try:
+              req = urllib.request.Request(
+                  URL,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "application/pdf,*/*;q=0.8",
+                      "Referer": "https://vr-d.com/",
+                  },
+              )
+              with urllib.request.urlopen(req, timeout=120) as resp:
+                  data = resp.read(50_000_001)
+                  result["http_status"] = getattr(resp, "status", None)
+                  result["content_type"] = resp.headers.get("content-type")
+                  result["content_length_header"] = resp.headers.get("content-length")
+                  result["final_url"] = resp.geturl()
+              if len(data) > 50_000_000:
+                  raise RuntimeError("public scan exceeded 50 MB research guard")
+              if not data.startswith(b"%PDF"):
+                  raise RuntimeError("public scan route did not return PDF magic")
+              PDF.write_bytes(data)
+              result["downloaded"] = True
+              result["bytes"] = len(data)
+              result["sha256"] = hashlib.sha256(data).hexdigest()
+              reader = PdfReader(str(PDF), strict=False)
+              result["page_count"] = len(reader.pages)
+              result["metadata"] = {
+                  str(k): str(v)
+                  for k, v in (reader.metadata or {}).items()
+              }
+              try:
+                  outline = reader.outline
+                  def flatten(items, depth=0):
+                      rows = []
+                      for item in items:
+                          if isinstance(item, list):
+                              rows.extend(flatten(item, depth + 1))
+                              continue
+                          title = getattr(item, "title", None)
+                          if title:
+                              try:
+                                  page_index = reader.get_destination_page_number(item)
+                              except Exception:
+                                  page_index = None
+                              rows.append({
+                                  "depth": depth,
+                                  "title": str(title),
+                                  "page_index_zero_based": page_index,
+                              })
+                      return rows
+                  result["outline"] = flatten(outline)[:500]
+              except Exception as exc:
+                  result["outline_error"] = repr(exc)
+          except Exception as exc:
+              result["downloaded"] = False
+              result["error"] = repr(exc)
+
+          META.write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              k: result.get(k)
+              for k in ("downloaded", "http_status", "content_type", "bytes", "sha256", "page_count", "error")
+          }, ensure_ascii=False, indent=2))
           PY
 
       - name: Upload route evidence
