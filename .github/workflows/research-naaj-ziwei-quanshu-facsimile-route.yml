@@ -459,6 +459,8 @@ jobs:
               marker = "/guji/shidian/"
               if marker in u:
                   base = u.split(marker, 1)[0] + marker
+                  if base.startswith("//"):
+                      base = "https:" + base
                   if base not in shidian_bases:
                       shidian_bases.append(base)
 
