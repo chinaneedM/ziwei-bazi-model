@@ -1,0 +1,315 @@
+name: research-naj-ziwei-quanshu-baohutang-physical-route
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-naj-ziwei-quanshu-baohutang-physical-route.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe National Archives of Japan public Ziwei Fullbook metadata and image routes
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public-archive metadata and image-route probe"
+
+          FILE_ID = "1078787"
+          ITEM_ID = "4468520"
+          BASE = "https://www.digital.archives.go.jp"
+          FILE = f"{BASE}/file/{FILE_ID}"
+          ITEM = f"{BASE}/item/{ITEM_ID}"
+          IMAGE_VIEWER = f"{BASE}/img/{ITEM_ID}"
+
+          # These ID-bearing routes are documented by the National Archives help pages:
+          # /file/[ID].json|ttl|rdf, /item/[ID].json|ttl|rdf, and /img/[ID].
+          # No adjacent ID, image identifier, page number, or manifest identifier is guessed.
+          seed_urls = {
+              "file_html": FILE,
+              "file_json": FILE + ".json",
+              "file_ttl": FILE + ".ttl",
+              "file_rdf": FILE + ".rdf",
+              "item_html": ITEM,
+              "item_json": ITEM + ".json",
+              "item_ttl": ITEM + ".ttl",
+              "item_rdf": ITEM + ".rdf",
+              "image_viewer": IMAGE_VIEWER,
+          }
+
+          def fetch(url, max_bytes=12_000_000, referer=None):
+              headers = {
+                  "User-Agent": UA,
+                  "Accept": "application/json,text/turtle,application/rdf+xml,text/html,application/xhtml+xml,*/*;q=0.8",
+                  "Accept-Language": "ja,en;q=0.8,zh;q=0.7",
+              }
+              if referer:
+                  headers["Referer"] = referer
+              req = urllib.request.Request(url, headers=headers)
+              try:
+                  with urllib.request.urlopen(req, timeout=35) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def record(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def decode(data):
+              for enc in ("utf-8", "utf-8-sig", "shift_jis", "cp932"):
+                  try:
+                      return data.decode(enc)
+                  except Exception:
+                      pass
+              return data.decode("utf-8", "replace")
+
+          def plain(data):
+              raw = decode(data)
+              raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
+              raw = re.sub(r"(?s)<[^>]+>", " ", raw)
+              return re.sub(r"\s+", " ", html.unescape(raw)).strip()
+
+          def explicit_urls(base, data):
+              text = decode(data)
+              found = []
+              # URLs directly written in metadata/HTML/text.
+              for raw in re.findall(r'https?://[^\s"\'<>]+', text):
+                  url = html.unescape(raw).rstrip(").,;")
+                  if url.startswith(BASE) and url not in found:
+                      found.append(url)
+              # HTML href/src values.
+              for raw in re.findall(r'''(?is)(?:href|src)\s*=\s*["']([^"']+)["']''', text):
+                  url = urllib.parse.urljoin(base, html.unescape(raw))
+                  if url.startswith(BASE) and url not in found:
+                      found.append(url)
+              return found
+
+          result = {
+              "schema": "NAJ-ZIWEI-QUANSHU-BAOHUTANG-PUBLIC-PHYSICAL-ROUTE-PROBE-R1",
+              "known_catalog_binding": {
+                  "file_id": FILE_ID,
+                  "item_id": ITEM_ID,
+                  "expected_title": "新鋟希夷陳先生紫微斗数全書",
+                  "expected_call_number": "子０６０－０００１",
+              },
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "adjacent_item_id_guessing_attempted": False,
+              "image_identifier_guessing_attempted": False,
+              "page_number_enumeration_attempted": False,
+              "seed_routes": {},
+              "explicit_discovered_urls": [],
+              "explicit_iiif_manifest_urls": [],
+              "followed_explicit_routes": [],
+          }
+
+          seed_payloads = {}
+          for key, url in seed_urls.items():
+              row = fetch(url)
+              result["seed_routes"][key] = record(row)
+              data = row.get("data", b"")
+              if data:
+                  seed_payloads[key] = data
+                  suffix = {
+                      "file_json": ".json",
+                      "item_json": ".json",
+                      "file_ttl": ".ttl",
+                      "item_ttl": ".ttl",
+                      "file_rdf": ".rdf",
+                      "item_rdf": ".rdf",
+                  }.get(key, ".html")
+                  (OUT / f"naj-{key}{suffix}").write_bytes(data)
+
+          all_explicit = []
+          for key, data in seed_payloads.items():
+              base = seed_urls[key]
+              for url in explicit_urls(base, data):
+                  if url not in all_explicit:
+                      all_explicit.append(url)
+          result["explicit_discovered_urls"] = all_explicit
+
+          # Follow only links explicitly exposed by the official seed payloads.
+          candidates = []
+          for url in all_explicit:
+              low = url.lower()
+              if (
+                  "/api/iiif/" in low
+                  or "manifest" in low
+                  or "/download" in low
+                  or "/img/" in low
+                  or low.endswith(".json")
+              ):
+                  if url not in seed_urls.values() and url not in candidates:
+                      candidates.append(url)
+
+          for idx, url in enumerate(candidates[:60]):
+              row = fetch(url, max_bytes=15_000_000, referer=IMAGE_VIEWER)
+              rec = {"url": url, **record(row)}
+              data = row.get("data", b"")
+              if data:
+                  name = f"explicit-{idx:02d}"
+                  ct = str(row.get("content_type") or "").lower()
+                  if "json" in ct or url.lower().endswith(".json"):
+                      name += ".json"
+                  elif "html" in ct:
+                      name += ".html"
+                  else:
+                      name += ".bin"
+                  (OUT / name).write_bytes(data)
+                  rec["saved_file"] = name
+                  for discovered in explicit_urls(url, data):
+                      if "/api/iiif/" in discovered.lower() and "manifest" in discovered.lower():
+                          if discovered not in result["explicit_iiif_manifest_urls"]:
+                              result["explicit_iiif_manifest_urls"].append(discovered)
+              result["followed_explicit_routes"].append(rec)
+
+          # Also capture manifest URLs explicitly present in the original seed payloads.
+          for url in all_explicit:
+              if "/api/iiif/" in url.lower() and "manifest" in url.lower():
+                  if url not in result["explicit_iiif_manifest_urls"]:
+                      result["explicit_iiif_manifest_urls"].append(url)
+
+          # Follow any manifest URI only if it was explicitly exposed, never construct one.
+          existing = {x["url"] for x in result["followed_explicit_routes"]}
+          for idx, url in enumerate(result["explicit_iiif_manifest_urls"][:10]):
+              if url in existing:
+                  continue
+              row = fetch(url, max_bytes=20_000_000, referer=IMAGE_VIEWER)
+              rec = {"url": url, **record(row)}
+              data = row.get("data", b"")
+              if data:
+                  name = f"manifest-{idx:02d}.json"
+                  (OUT / name).write_bytes(data)
+                  rec["saved_file"] = name
+              result["followed_explicit_routes"].append(rec)
+
+          # Direct identity controls from public metadata/HTML only.
+          identity_text = " ".join(plain(data) for data in seed_payloads.values())
+          result["identity_controls"] = {
+              "title_present": "新鋟希夷陳先生紫微斗数全書" in identity_text or "新鋟希夷陳先生紫微斗數全書" in identity_text,
+              "call_number_present": "子０６０－０００１" in identity_text or "子060-0001" in identity_text,
+              "ming_print_label_present": "刊本:明" in identity_text or "刊本：明" in identity_text or "明" in identity_text,
+              "momijiyama_bunko_present": "紅葉山文庫" in identity_text,
+              "two_volume_present": "2冊" in identity_text or "２冊" in identity_text,
+          }
+
+          manifest_summary = []
+          for rec in result["followed_explicit_routes"]:
+              saved = rec.get("saved_file")
+              if not saved or not saved.endswith(".json"):
+                  continue
+              p = OUT / saved
+              try:
+                  obj = json.loads(p.read_text(encoding="utf-8"))
+              except Exception:
+                  continue
+              if isinstance(obj, dict) and (
+                  "sequences" in obj or "items" in obj or str(obj.get("@context", "")).find("iiif") >= 0
+              ):
+                  canvases = []
+                  if isinstance(obj.get("sequences"), list):
+                      for seq in obj["sequences"]:
+                          if isinstance(seq, dict) and isinstance(seq.get("canvases"), list):
+                              canvases.extend(seq["canvases"])
+                  elif isinstance(obj.get("items"), list):
+                      canvases = obj["items"]
+                  manifest_summary.append({
+                      "url": rec["url"],
+                      "saved_file": saved,
+                      "label": obj.get("label"),
+                      "canvas_count": len(canvases),
+                      "first_canvas_labels": [
+                          c.get("label") for c in canvases[:10] if isinstance(c, dict)
+                      ],
+                  })
+          result["iiif_manifest_summary"] = manifest_summary
+
+          result["adjudication"] = {
+              "official_catalog_and_metadata_route": "DETERMINE_FROM_SEED_RESULTS",
+              "official_image_viewer_route": "DETERMINE_FROM_SEED_RESULTS",
+              "explicit_iiif_manifest_status": "BOUND_IF_EXPLICIT_MANIFEST_URL_PRESENT_ELSE_NOT_OBSERVED",
+              "target_page_status": "NOT_OBSERVED_BY_ROUTE_PROBE_UNTIL_DIRECT_PAGE_REVIEW",
+              "hpa_zdate_006_effect": "NONE_UNTIL_DIRECT_TARGET_PAGE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "naj-ziwei-quanshu-baohutang-route-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "seed_routes": {
+                  k: {
+                      "status": v.get("status"),
+                      "final_url": v.get("final_url"),
+                      "content_type": v.get("content_type"),
+                      "bytes": v.get("bytes"),
+                      "sha256": v.get("sha256"),
+                  }
+                  for k, v in result["seed_routes"].items()
+              },
+              "identity_controls": result["identity_controls"],
+              "explicit_url_count": len(result["explicit_discovered_urls"]),
+              "explicit_iiif_manifest_urls": result["explicit_iiif_manifest_urls"],
+              "followed_explicit_routes": [
+                  {
+                      "url": x.get("url"),
+                      "status": x.get("status"),
+                      "content_type": x.get("content_type"),
+                      "bytes": x.get("bytes"),
+                      "saved_file": x.get("saved_file"),
+                  }
+                  for x in result["followed_explicit_routes"]
+              ],
+              "iiif_manifest_summary": result["iiif_manifest_summary"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload National Archives of Japan route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: naj-ziwei-quanshu-baohutang-public-route
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
