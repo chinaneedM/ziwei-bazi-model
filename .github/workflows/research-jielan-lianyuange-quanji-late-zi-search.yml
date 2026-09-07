@@ -1,0 +1,204 @@
+name: research-jielan-lianyuange-quanji-late-zi-search
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-jielan-lianyuange-quanji-late-zi-search.yml
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Probe Jielan public index for Lianyuange Quanji late-Zi collation
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public book-index and received-text probe"
+          VOLUME_ID = "rZRcCwAAQBAJ"
+          PUBLISHER = "https://publish.sunyata.hk/product/972.html"
+          DESTINY = "https://destiny.to/ubbthreads/ubbthreads.php/ubb/printthread/Board/7/main/122653/type/thread"
+          TERMS = [
+              "凡論人命有稱兩時者可詳之",
+              "凡论人命有称两时者可详之",
+              "子有十刻",
+              "上五刻屬昨夜",
+              "上五刻属昨夜",
+              "下五刻屬今夜子",
+              "下五刻属今夜子",
+              "如今夜子即上五刻",
+              "五凶神",
+              "連元閣",
+              "连元阁",
+              "紫微斗數全集",
+              "紫微斗数全集",
+              "斗數全集",
+          ]
+
+          def fetch(url, max_bytes=5_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "application/json,text/html,application/xhtml+xml,*/*;q=0.8",
+                  "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read(max_bytes)
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def plain(data):
+              raw = data.decode("utf-8", "replace")
+              raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
+              raw = re.sub(r"(?s)<[^>]+>", " ", raw)
+              return re.sub(r"\s+", " ", html.unescape(raw)).strip()
+
+          result = {
+              "schema": "JIELAN-LIANYUANGE-QUANJI-LATE-ZI-PUBLIC-SEARCH-R1",
+              "volume_id": VOLUME_ID,
+              "goal": "TEST_WHETHER_PUBLIC_JIELAN_COLLATION_INDEX_EXPOSES_THE_QUANJI_LATE_ZI_VARIANT_WITHOUT_TREATING_INDEX_TEXT_AS_GLYPH_AUTHORITY",
+              "search_index_is_glyph_authority": False,
+              "received_web_transcription_is_glyph_authority": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "publisher_control": {},
+              "received_transcription_control": {},
+              "queries": [],
+          }
+
+          pub = fetch(PUBLISHER)
+          result["publisher_control"] = meta(pub)
+          if pub.get("data"):
+              (OUT / "heart-one-jielan-publisher.html").write_bytes(pub["data"])
+              text = plain(pub["data"])
+              result["publisher_control"]["lianyuange_present"] = "連元閣" in text or "连元阁" in text
+              result["publisher_control"]["quanji_present"] = "紫微斗數全集" in text or "紫微斗数全集" in text
+              result["publisher_control"]["wenchengtang_present"] = "文誠堂" in text or "文诚堂" in text
+
+          dest = fetch(DESTINY)
+          result["received_transcription_control"] = meta(dest)
+          if dest.get("data"):
+              (OUT / "destinynet-quanji-transcription.html").write_bytes(dest["data"])
+              text = plain(dest["data"])
+              result["received_transcription_control"]["quanji_title_present"] = "紫微斗數全集" in text or "紫微斗数全集" in text
+              result["received_transcription_control"]["five_evil_spirits_heading_present"] = "五凶神" in text
+              result["received_transcription_control"]["two_hour_sentence_present"] = "凡論人命有稱兩時者可詳之" in text or "凡论人命有称两时者可详之" in text
+              result["received_transcription_control"]["ten_ke_present"] = "子有十刻" in text
+              result["received_transcription_control"]["upper_five_previous_night_present"] = "上五刻屬昨夜" in text or "上五刻属昨夜" in text
+              result["received_transcription_control"]["lower_five_current_night_zi_present"] = "下五刻屬今夜子" in text or "下五刻属今夜子" in text
+              result["received_transcription_control"]["current_night_zi_upper_five_present"] = "如今夜子即上五刻" in text
+
+          templates = [
+              "https://books.google.com/books?jscmd=SearchWithinVolume2&q={q}&vid={vid}",
+              "https://books.google.com/books?id={vid}&jscmd=SearchWithinVolume2&q={q}",
+              "https://books.google.com/books?vid={vid}&jscmd=SearchWithinVolume2&q={q}",
+          ]
+          for term in TERMS:
+              attempts = []
+              q = urllib.parse.quote(term)
+              for template in templates:
+                  url = template.format(q=q, vid=VOLUME_ID)
+                  row = fetch(url, max_bytes=3_000_000)
+                  data = row.pop("data")
+                  rec = {
+                      "url": url,
+                      **row,
+                      "bytes": len(data),
+                      "sha256": hashlib.sha256(data).hexdigest() if data else None,
+                  }
+                  if data:
+                      raw = data.decode("utf-8", "replace")
+                      try:
+                          payload = json.loads(raw)
+                          rec["number_of_results"] = payload.get("number_of_results")
+                          rec["searchable"] = payload.get("searchable")
+                          rec["search_results"] = payload.get("search_results", [])
+                      except Exception as exc:
+                          rec["parse_error"] = repr(exc)
+                          rec["raw_excerpt"] = raw[:2500]
+                  attempts.append(rec)
+              result["queries"].append({"term": term, "attempts": attempts})
+
+          result["adjudication"] = {
+              "publisher_lianyuange_collation_route": "DETERMINE_FROM_DIRECT_PUBLISHER_TEXT",
+              "received_quanji_late_zi_transcription": "SECONDARY_RECEIVED_TEXT_CONTROL_ONLY",
+              "jielan_index_quanji_variant": "DETERMINE_FROM_RESULTS_ONLY",
+              "zero_result_as_negative_textual_proof": "FORBIDDEN",
+              "physical_lianyuange_target_glyph": "NOT_OBSERVED_BY_THIS_PROBE",
+              "hpa_zdate_006_effect": "NONE_UNTIL_EVIDENCE_REVIEW",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "jielan-lianyuange-quanji-late-zi-search.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "publisher_control": {
+                  k: result["publisher_control"].get(k)
+                  for k in ("status", "bytes", "sha256", "lianyuange_present", "quanji_present", "wenchengtang_present")
+              },
+              "received_transcription_control": {
+                  k: result["received_transcription_control"].get(k)
+                  for k in (
+                      "status", "bytes", "sha256", "quanji_title_present",
+                      "five_evil_spirits_heading_present", "two_hour_sentence_present",
+                      "ten_ke_present", "upper_five_previous_night_present",
+                      "lower_five_current_night_zi_present", "current_night_zi_upper_five_present",
+                  )
+              },
+              "queries": [
+                  {
+                      "term": row["term"],
+                      "result_counts": [a.get("number_of_results") for a in row["attempts"]],
+                      "page_ids": [
+                          [x.get("page_id") for x in a.get("search_results", [])]
+                          for a in row["attempts"]
+                      ],
+                      "snippets": [
+                          [x.get("snippet_text") for x in a.get("search_results", [])]
+                          for a in row["attempts"]
+                      ],
+                  }
+                  for row in result["queries"]
+              ],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Lianyuange Quanji route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jielan-lianyuange-quanji-late-zi-search
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
