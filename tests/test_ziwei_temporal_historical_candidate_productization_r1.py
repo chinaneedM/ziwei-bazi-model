@@ -40,9 +40,9 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
 
     def test_accounting_separates_cumulative_discovery_from_current_gap_rows(self) -> None:
         summary = self.matrix["audit_summary"]
-        self.assertEqual(13, summary["identified_missing_candidate_family_count"])
-        self.assertEqual(9, summary["current_missing_from_product_row_count"])
-        self.assertEqual(9, sum(
+        self.assertEqual(14, summary["identified_missing_candidate_family_count"])
+        self.assertEqual(10, summary["current_missing_from_product_row_count"])
+        self.assertEqual(10, sum(
             row["audit_status"] == "MISSING_FROM_PRODUCT"
             for row in self.matrix["rows"]
         ))
@@ -54,8 +54,8 @@ class ZiweiTemporalHistoricalCandidateProductizationR1Tests(unittest.TestCase):
 
     def test_state_preserves_closed_product_and_g893_boundaries(self) -> None:
         audit = self.state["historical_audit"]
-        self.assertEqual(9, audit["current_missing_from_product_row_count"])
-        self.assertEqual(13, audit["identified_missing_candidate_family_count"])
+        self.assertEqual(10, audit["current_missing_from_product_row_count"])
+        self.assertEqual(14, audit["identified_missing_candidate_family_count"])
         self.assertEqual(6, audit["historical_candidate_extension_count"])
         self.assertEqual(3, audit["historical_candidate_registry_count"])
         self.assertEqual(3, audit["historical_candidate_runtime_resolver_count"])
