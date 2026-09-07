@@ -3907,7 +3907,7 @@
       "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
       "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
       "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
-      "later_witnesses": "Batch 12B timekeeping controls remain. Batch 12C closes the independent edition-route map. Batch 12D binds the exact Heart-One 2017 facsimile distribution volume aIRbDgAAQBAJ / ISBN 9789888266944: public Google Books search index resolves the target passage to PT165 and returns 上五刻/下五刻/亥時 text consistent with the Nanyangtang direct facsimile. However this is index text only; official Embedded Viewer did not display PT165 glyphs, seven public Xinyi sample images omit the target page, and PT165 cannot yet be assigned to Dunhuatang versus Jishutang. Therefore physical cross-edition glyph stability remains unresolved.",
+      "later_witnesses": "Batches 12B–12D remain controlling. Batch 12E adds an independent Qing Jingluntang Fullbook route: Shanghai Library official linked data binds 《新鋟希夷陳先生紫微斗數全書四卷》 to 清經綸堂刻本 / 子30814110, while Kumyo auction BBAA18036 independently exposes an approximately 19th-century 經綸堂梓行 four-volume physical set. Eight unique public physical photographs were directly reviewed and confirm the Jingluntang edition family but do not include the target 《論人生時要審的確》 page. No anonymous SHLIB page-image object is explicitly exposed in the reviewed metadata, so the critical 亥 glyph remains unclosed across physical editions.",
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
         "UNIFORM_ZI_BRANCH_FOR_23_TO_01",
@@ -3915,9 +3915,9 @@
         "ZI_START_23_DATE_ROLLOVER_WITH_ZI_BRANCH_RETAINED"
       ],
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
-      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_INDEPENDENT_EDITION_ROUTES; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANGTANG_PUBLIC_INDEX_TEXT_CORROBORATION; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_BASE_COPY_TARGET_PAGES_ARE_READ",
+      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_WENGUANGTANG_ROUTES; HIGH_FOR_OFFICIAL_SHLIB_JINGLUNTANG_LIBRARY_IDENTITY; HIGH_FOR_PUBLIC_KUMYO_JINGLUNTANG_PHYSICAL_COPY_EXISTENCE; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANG_PUBLIC_INDEX_TEXT; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_TARGET_PAGES_ARE_READ",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Treat Google PT165 as a locator/index-text corroboration only. Next priority remains direct target-page acquisition from a base-copy-identifiable Dunhuatang or Jishutang facsimile and from the separate mid-Qing Wenchengtang Fullbook; then compare 亥/子 and any S01-attributed wording at glyph level. Do not infer absence from Google zero-result queries or infer base-copy identity from a combined publication index.",
+      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Continue direct target-page acquisition from Dunhuatang/Jishutang, Wenchengtang and now Jingluntang witnesses. SHLIB linked data and Kumyo physical photos establish edition identity only; do not infer target glyphs from title-page/cover evidence. Do not guess SHLIB item IDs or bypass authentication. Runtime time-standard binding remains independently unresolved.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -3950,7 +3950,13 @@
       "combined_facsimile_target_image_status": "PUBLIC_EMBEDDED_VIEWER_DID_NOT_DISPLAY_TARGET_GLYPHS",
       "combined_facsimile_base_copy_identity_for_pt165": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
       "search_index_zero_result_policy": "NO_NEGATIVE_TEXTUAL_CONCLUSION_AUTHORIZED_INDEX_RESULT_INSTABILITY_OBSERVED",
-      "public_sample_image_status": "SEVEN_XINYI_SAMPLE_IMAGES_VISUALLY_REVIEWED_NONE_IS_TARGET_PAGE"
+      "public_sample_image_status": "SEVEN_XINYI_SAMPLE_IMAGES_VISUALLY_REVIEWED_NONE_IS_TARGET_PAGE",
+      "jingluntang_physical_route_artifact": "docs/research/ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json",
+      "jingluntang_library_instance": "SHLIB 1pjr6vy1ffsq3l1y / 子30814110 / 清經綸堂刻本 / 四卷",
+      "jingluntang_public_physical_copy": "KUMYO BBAA18036 / seller-described approx 19th century / 經綸堂梓行 / 合4冊",
+      "jingluntang_public_image_review_status": "EIGHT_UNIQUE_PHYSICAL_IMAGES_DIRECTLY_REVIEWED_NO_TARGET_SECTION",
+      "jingluntang_target_page_status": "NOT_OBSERVED_IN_PUBLIC_SHLIB_METADATA_OR_KUMYO_PHYSICAL_IMAGES",
+      "jingluntang_digital_page_route_status": "SHLIB_METADATA_HAS_NO_EXPLICIT_IIIF_MANIFEST_ITEMID_OR_DHAPI_OBJECT; GJ_AND_DHAPI_ROOTS_HTTP_412; NO_IDENTIFIER_GUESSING_OR_LOGIN_ATTEMPT"
     },
     {
       "system": "BAZI",

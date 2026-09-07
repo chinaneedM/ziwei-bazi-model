@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.18.0",
+  "schema_version": "1.19.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -90,9 +90,10 @@
       "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
       "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C",
-      "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D"
+      "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D",
+      "BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-E.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -120,6 +121,11 @@
       "Official Embedded Viewer run 34123161798 / artifact 10019011766 loaded the volume and accepted goToPageId(PT165), but ended on PT166 and the saved screenshot shows unavailable-preview placeholders; no target glyph was directly displayed. Search zero-results are not negative proof because query-result instability was observed.",
       "Physical-locator run 34121401508 / artifact 10018315848 saved seven Xinyi public sample JPEGs; direct visual review found no target page. Kongfz physical-copy image routes redirected to login and were not bypassed. HPA-ZDATE-006 therefore remains MISSING_FROM_PRODUCT and HAI_GLYPH_STABILITY_ACROSS_PHYSICAL_EDITIONS remains UNRESOLVED.",
       "Batch 12D changes no Matrix counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families; chart algorithm defect, algorithm reopen and candidate collapse remain 0.",
+      "Batch 12E binds an independent Qing Jingluntang Fullbook edition at official-library level: Shanghai Library instance 1pjr6vy1ffsq3l1y / 子30814110 is titled 《新鋟希夷陳先生紫微斗數全書四卷》 and labelled 清經綸堂刻本 across public HTML/JSON-LD/Turtle/RDF/XML.",
+      "The SHLIB anonymous metadata exposes no explicit IIIF/manifest/itemId/dhapi page object; current gj and dhapi/pdfview root controls return HTTP 412. No itemId guessing, token reuse, login or page enumeration is authorized or attempted.",
+      "Kumyo BBAA18036 independently exposes a seller-described approximately 19th-century 經綸堂梓行 four-volume physical set. Run 34124948029 / artifact 10019806060 extracted 36 embedded JPEG occurrences collapsing to 8 unique hashes; all eight were directly visually reviewed.",
+      "The eight unique Kumyo images visibly establish physical Jingluntang edition identity, including a cover/label with 陳希夷先生著 / 紫微斗數 / 經綸堂梓行, but none is 《論人生時要審的確》. HPA-ZDATE-006 therefore remains MISSING_FROM_PRODUCT and HAI_GLYPH_STABILITY_ACROSS_PHYSICAL_EDITIONS remains UNRESOLVED.",
+      "Batch 12E changes no Matrix counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families; chart algorithm defect, algorithm reopen and candidate collapse remain 0.",
       "Research remains open-ended across editions, regions, languages and disciplines; first-source stopping is forbidden when material additional witnesses remain searchable.",
       "D1/迟疾行度 remains historically adjudicated as the Ming official conjunction production method; D2/定限度 remains a later received-text transmission variant, not an equal candidate.",
       "Ziwei HPA-ZTEMP-004 and HPA-ZTEMP-006 are now productized through ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1 as explicit PRESERVED_NOT_SELECTED candidates: the 1581 day-anchored flow-hour candidate is time-standard-specific-parent replay gated, while the Zhongzhou leap-month candidate exposes month assignment/no-half-split-reset only and keeps leap-month daily origin geometry fail-closed.",

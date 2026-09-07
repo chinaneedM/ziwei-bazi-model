@@ -10,6 +10,7 @@ ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGT
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
+ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
@@ -200,6 +201,43 @@ def main() -> int:
         raise SystemExit("Batch 12D HAI glyph stability boundary regressed")
     if adjudication12d.get("hpa_zdate_006_status") != "MISSING_FROM_PRODUCT" or adjudication12d.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12D candidate/product boundary regressed")
+    for source_id in (
+        "EXT-SHLIB-ZWDSQS-JINGLUNTANG-QING",
+        "EXT-KUMYO-ZWDSQS-JINGLUNTANG-19C-PHYSICAL",
+    ):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 12E Jingluntang source is missing: {source_id}")
+    if not ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE.is_file():
+        raise SystemExit("Batch 12E Jingluntang physical-route evidence is missing")
+    jingluntang=json.loads(ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE.read_text(encoding="utf-8"))
+    if jingluntang.get("status") != "INDEPENDENT_QING_JINGLUNTANG_EDITION_IDENTITY_AND_PHYSICAL_COPY_BOUND_TARGET_PAGE_NOT_OBSERVED":
+        raise SystemExit("Batch 12E evidence status mismatch")
+    shlib=jingluntang.get("shanghai_library", {})
+    if shlib.get("instance_id") != "1pjr6vy1ffsq3l1y" or shlib.get("identifier") != "子30814110" or shlib.get("edition_label") != "清經綸堂刻本":
+        raise SystemExit("Batch 12E SHLIB Jingluntang identity mismatch")
+    if shlib.get("public_content_negotiation", {}).get("jsonld", {}).get("http_status") != 200:
+        raise SystemExit("Batch 12E SHLIB JSON-LD route regressed")
+    if shlib.get("anonymous_route_controls", {}).get("dhapi_pdfview_root", {}).get("http_status") != 412:
+        raise SystemExit("Batch 12E SHLIB anonymous page-route boundary regressed")
+    tokens=shlib.get("public_metadata_token_scan", {})
+    if any(tokens.get(key) for key in ("iiif","manifest","itemid","itemId","dhapi","pdfview")):
+        raise SystemExit("Batch 12E SHLIB metadata unexpectedly exposes a page object route")
+    kumyo=jingluntang.get("kumyo_physical_copy", {})
+    if kumyo.get("auction_no") != "BBAA18036" or kumyo.get("unique_embedded_physical_image_count") != 8:
+        raise SystemExit("Batch 12E Kumyo physical-copy binding mismatch")
+    if len(kumyo.get("unique_image_sha256", ())) != 8 or len(set(kumyo.get("unique_image_sha256", ()))) != 8:
+        raise SystemExit("Batch 12E Kumyo unique-image digest set regressed")
+    if kumyo.get("jingluntang_label_visibly_observed") is not True:
+        raise SystemExit("Batch 12E Kumyo Jingluntang label review regressed")
+    if kumyo.get("target_heading_observed") is not False or kumyo.get("target_hai_glyph_observed") is not False:
+        raise SystemExit("Batch 12E incorrectly claims a target page/glyph")
+    adjudication12e=jingluntang.get("adjudication", {})
+    if adjudication12e.get("jingluntang_edition_family_identity") != "CLOSED_AT_LIBRARY_AND_PUBLIC_PHYSICAL_COPY_LEVEL":
+        raise SystemExit("Batch 12E Jingluntang identity closure regressed")
+    if adjudication12e.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        raise SystemExit("Batch 12E HAI glyph stability boundary regressed")
+    if adjudication12e.get("hpa_zdate_006_status") != "MISSING_FROM_PRODUCT" or adjudication12e.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12E candidate/product boundary regressed")
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
@@ -317,6 +355,14 @@ def main() -> int:
         raise SystemExit("Batch 12D HPA-ZDATE-006 viewer boundary regressed")
     if row_nanyang.get("combined_facsimile_base_copy_identity_for_pt165") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
         raise SystemExit("Batch 12D HPA-ZDATE-006 base-copy identity was prematurely closed")
+    if "子30814110" not in row_nanyang.get("jingluntang_library_instance", ""):
+        raise SystemExit("Batch 12E HPA-ZDATE-006 Jingluntang binding regressed")
+    if row_nanyang.get("jingluntang_public_image_review_status") != "EIGHT_UNIQUE_PHYSICAL_IMAGES_DIRECTLY_REVIEWED_NO_TARGET_SECTION":
+        raise SystemExit("Batch 12E HPA-ZDATE-006 physical-image review boundary regressed")
+    if row_nanyang.get("jingluntang_target_page_status") != "NOT_OBSERVED_IN_PUBLIC_SHLIB_METADATA_OR_KUMYO_PHYSICAL_IMAGES":
+        raise SystemExit("Batch 12E HPA-ZDATE-006 target-page boundary regressed")
+    if row_nanyang.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        raise SystemExit("Batch 12E HPA-ZDATE-006 HAI glyph boundary regressed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
