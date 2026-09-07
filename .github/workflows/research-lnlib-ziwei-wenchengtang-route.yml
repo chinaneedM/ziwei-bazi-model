@@ -1,0 +1,258 @@
+name: research-lnlib-ziwei-wenchengtang-route
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-lnlib-ziwei-wenchengtang-route.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Discover Liaoning Library public catalog route for Wenchengtang
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+
+          UA = "Mozilla/5.0 research-only public-library catalog route probe"
+          NAV = "https://www.lnlib.com/html/shengtu/ziyuandaohang/neiwang123/dianzishu/index.html"
+          HOME = "https://www.lnlib.com/"
+          LOCATOR = "https://www.guoxuedashi.com/shumu/gj-1372988uy.html"
+          TARGET_TITLE = "新鐫希夷陳先生紫微斗數全書四卷"
+          TARGET_EDITION = "清文誠堂刻本"
+          TARGET_HOLDING = "遼寧省圖書館"
+
+          def fetch(url, *, max_bytes=8_000_000, redirect=True):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "text/html,application/xhtml+xml,application/json,*/*;q=0.8",
+                      "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+                  },
+              )
+              opener = urllib.request.build_opener()
+              if not redirect:
+                  class NoRedirect(urllib.request.HTTPRedirectHandler):
+                      def redirect_request(self, req, fp, code, msg, headers, newurl):
+                          return None
+                  opener = urllib.request.build_opener(NoRedirect)
+              try:
+                  with opener.open(req, timeout=45) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "location": resp.headers.get("location"),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "location": exc.headers.get("location"),
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def plain(data):
+              raw = data.decode("utf-8", "replace")
+              raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
+              raw = re.sub(r"(?s)<[^>]+>", " ", raw)
+              return re.sub(r"\s+", " ", html.unescape(raw)).strip()
+
+          def anchors(base, data):
+              text = data.decode("utf-8", "replace")
+              rows = []
+              for m in re.finditer(
+                  r'''(?is)<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',
+                  text,
+              ):
+                  href = html.unescape(m.group(1)).strip()
+                  label = re.sub(r"(?s)<[^>]+>", " ", m.group(2))
+                  label = re.sub(r"\s+", " ", html.unescape(label)).strip()
+                  rows.append({
+                      "label": label,
+                      "url": urllib.parse.urljoin(base, href),
+                  })
+              return rows
+
+          def forms(base, data):
+              text = data.decode("utf-8", "replace")
+              out = []
+              for fm in re.finditer(r"(?is)<form\b([^>]*)>(.*?)</form>", text):
+                  attrs = fm.group(1)
+                  body = fm.group(2)
+                  action_match = re.search(r'''(?is)action\s*=\s*["']([^"']*)["']''', attrs)
+                  method_match = re.search(r'''(?is)method\s*=\s*["']([^"']*)["']''', attrs)
+                  inputs = []
+                  for im in re.finditer(r"(?is)<(?:input|select|textarea)\b([^>]*)>", body):
+                      a = im.group(1)
+                      name = re.search(r'''(?is)name\s*=\s*["']([^"']+)["']''', a)
+                      typ = re.search(r'''(?is)type\s*=\s*["']([^"']+)["']''', a)
+                      value = re.search(r'''(?is)value\s*=\s*["']([^"']*)["']''', a)
+                      if name:
+                          inputs.append({
+                              "name": name.group(1),
+                              "type": typ.group(1) if typ else None,
+                              "value": value.group(1) if value else None,
+                          })
+                  out.append({
+                      "action": urllib.parse.urljoin(base, action_match.group(1) if action_match else ""),
+                      "method": (method_match.group(1) if method_match else "GET").upper(),
+                      "inputs": inputs,
+                  })
+              return out
+
+          result = {
+              "schema": "LNLIB-ZIWEI-WENCHENGTANG-PUBLIC-CATALOG-ROUTE-PROBE-R1",
+              "target_title": TARGET_TITLE,
+              "target_edition": TARGET_EDITION,
+              "secondary_locator_claimed_holding": TARGET_HOLDING,
+              "authentication_or_paywall_bypass_attempted": False,
+              "catalog_parameter_guessing_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "official_surfaces": {},
+              "catalog_link_candidates": [],
+              "catalog_surfaces": [],
+              "secondary_locator": {},
+          }
+
+          for key, url in {"home": HOME, "resource_nav": NAV}.items():
+              row = fetch(url)
+              result["official_surfaces"][key] = meta(row)
+              if row.get("data"):
+                  (OUT / f"lnlib-{key}.html").write_bytes(row["data"])
+
+          nav_data = fetch(NAV)
+          if nav_data.get("data"):
+              nav_anchors = anchors(NAV, nav_data["data"])
+              result["catalog_link_candidates"] = [
+                  row for row in nav_anchors
+                  if (
+                      "书目检索" in row["label"]
+                      or "書目檢索" in row["label"]
+                      or "opac" in row["url"].lower()
+                      or "catalog" in row["url"].lower()
+                  )
+              ]
+
+          # Only follow links explicitly discovered from Liaoning Library's public page.
+          for idx, item in enumerate(result["catalog_link_candidates"][:12]):
+              row = fetch(item["url"])
+              surface = {
+                  "discovered_label": item["label"],
+                  "discovered_url": item["url"],
+                  **meta(row),
+                  "forms": forms(row.get("final_url") or item["url"], row.get("data", b"")),
+              }
+              result["catalog_surfaces"].append(surface)
+              if row.get("data"):
+                  (OUT / f"catalog-surface-{idx:02d}.html").write_bytes(row["data"])
+
+          locator = fetch(LOCATOR)
+          result["secondary_locator"] = meta(locator)
+          result["secondary_locator"]["url"] = LOCATOR
+          if locator.get("data"):
+              (OUT / "guoxuedashi-wenchengtang-locator.html").write_bytes(locator["data"])
+              text = plain(locator["data"])
+              result["secondary_locator"]["title_present"] = (
+                  "新鐫希夷陳先生紫微斗數全書四卷" in text
+                  or "新镌希夷陈先生紫微斗数全书四卷" in text
+              )
+              result["secondary_locator"]["wenchengtang_present"] = (
+                  "清文誠堂刻本" in text or "清文诚堂刻本" in text
+              )
+              result["secondary_locator"]["liaoning_holding_present"] = (
+                  "遼寧省圖書館" in text or "辽宁省图书馆" in text
+              )
+              result["secondary_locator"]["authority"] = (
+                  "SECONDARY_CATALOG_LOCATOR_ONLY_NOT_LIBRARY_PRIMARY_RECORD"
+              )
+
+          result["adjudication"] = {
+              "wenchengtang_liaoning_locator_status":
+                  "SECONDARY_CATALOG_LOCATOR_BOUND_PENDING_OFFICIAL_LIBRARY_RECORD",
+              "official_catalog_entry_status":
+                  "PENDING_PUBLIC_CATALOG_FORM_DISCOVERY_AND_NORMAL_QUERY",
+              "target_page_status": "NOT_OBSERVED",
+              "hpa_zdate_006_effect": "NONE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "lnlib-wenchengtang-route-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "official_surfaces": {
+                  k: {
+                      "status": v.get("status"),
+                      "final_url": v.get("final_url"),
+                      "bytes": v.get("bytes"),
+                  }
+                  for k, v in result["official_surfaces"].items()
+              },
+              "catalog_link_candidates": result["catalog_link_candidates"],
+              "catalog_surfaces": [
+                  {
+                      "label": x.get("discovered_label"),
+                      "url": x.get("discovered_url"),
+                      "status": x.get("status"),
+                      "final_url": x.get("final_url"),
+                      "form_count": len(x.get("forms", [])),
+                      "forms": x.get("forms", []),
+                  }
+                  for x in result["catalog_surfaces"]
+              ],
+              "secondary_locator": {
+                  "status": result["secondary_locator"].get("status"),
+                  "title_present": result["secondary_locator"].get("title_present"),
+                  "wenchengtang_present": result["secondary_locator"].get("wenchengtang_present"),
+                  "liaoning_holding_present": result["secondary_locator"].get("liaoning_holding_present"),
+              },
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Liaoning Library route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lnlib-ziwei-wenchengtang-public-catalog-route
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
