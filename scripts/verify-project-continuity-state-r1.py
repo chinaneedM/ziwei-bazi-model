@@ -22,6 +22,8 @@ ZIWEI_LATE_ZI_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_LATE_ZI_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 ZIWEI_TIMEKEEPING_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B.md"
 ZIWEI_TIMEKEEPING_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
+ZIWEI_EDITION_ROUTES_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C.md"
+ZIWEI_EDITION_ROUTES_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -33,9 +35,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X",
     "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
     "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
+    "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C.md"
 
 
 def fail(message: str) -> None:
@@ -43,7 +46,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -56,6 +59,7 @@ def main() -> int:
     evidence = json.loads(LATEST_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_late_zi_evidence = json.loads(ZIWEI_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_timekeeping_evidence = json.loads(ZIWEI_TIMEKEEPING_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_edition_routes_evidence = json.loads(ZIWEI_EDITION_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -356,6 +360,33 @@ def main() -> int:
     if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12B candidate/product boundary regressed")
 
+    if ziwei_edition_routes_evidence.get("batch_id") != "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C":
+        fail("Batch 12C Ziwei edition-route evidence batch identity mismatch")
+    route_workflow = ziwei_edition_routes_evidence.get("research_workflow", {})
+    if route_workflow.get("workflow_run_id") != 34120317222 or route_workflow.get("artifact_id") != 10017909080:
+        fail("Batch 12C exact workflow/artifact provenance regressed")
+    wenguang = ziwei_edition_routes_evidence.get("heart_one_wenguangtang_facsimile", {})
+    if wenguang.get("isbn") != "9789888266944" or wenguang.get("official_probe", {}).get("http_status") != 200:
+        fail("Batch 12C Wenguangtang facsimile identity regressed")
+    if {row.get("name") for row in wenguang.get("publisher_described_base_copies", ())} != {"敦化堂刊本", "繼述堂刊本"}:
+        fail("Batch 12C Dunhuatang/Jishutang base-copy identity regressed")
+    wencheng = ziwei_edition_routes_evidence.get("wenchengtang_route", {})
+    if wencheng.get("relation_to_wenguangtang_family") != "SEPARATE_QING_FULLBOOK_EDITION_ROUTE":
+        fail("Batch 12C Wenchengtang independence boundary regressed")
+    preview = ziwei_edition_routes_evidence.get("public_preview_controls", {}).get("books_preview_image_urls", {})
+    if preview.get("attempted_count") != 13 or preview.get("http_403_count") != 13 or preview.get("saved_image_count") != 0:
+        fail("Batch 12C public-preview access controls regressed")
+    route_adjudication = ziwei_edition_routes_evidence.get("adjudication", {})
+    if route_adjudication.get("independent_physical_target_page_status") != "NO_INDEPENDENT_TARGET_PAGE_OBSERVED":
+        fail("Batch 12C incorrectly claims a physical target page")
+    if route_adjudication.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        fail("Batch 12C HAI glyph stability boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        fail("Batch 12C matrix HAI glyph boundary regressed")
+    if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12C candidate/product boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -380,6 +411,14 @@ def main() -> int:
         "8-large+2-small-ke structure",
         "23:00–24:00",
         "runtime time",
+        "Batch 12C",
+        "9789888266944",
+        "敦化堂",
+        "繼述堂",
+        "文誠堂",
+        "34120317222",
+        "10017909080",
+        "UNRESOLVED",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

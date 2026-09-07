@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.16.0",
+  "schema_version": "1.17.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -88,9 +88,10 @@
       "BATCH-11-BAZI-G893-LEE-JING-1998-OFFICIAL-ARCHIVE-W",
       "BATCH-11-BAZI-G893-OFFICIAL-REPRODUCTION-ROUTE-X",
       "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
-      "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B"
+      "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
+      "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -109,6 +110,10 @@
       "Batch 12B uses NAOJ only as a modern scholarly coordinate translation: fixed Zi shichen ≈23:00–01:00 with Zi-zheng at midnight, hence upper/lower halves translate approximately to 23:00–24:00 and 00:00–01:00. This does not bind the Ziwei candidate to civil, mean-solar or apparent-solar runtime time.",
       "Received-text controls remain non-equivalent: Shidian agrees with the direct facsimile 上五刻/下五刻, while Wikisource renders 上午刻/下午刻. The direct Nanyangtang scan remains glyph authority; the Hai-vs-Zi lineage still requires additional physical-edition collation.",
       "Batch 12B changes no Matrix counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families; chart algorithm defects, algorithm reopen and candidate collapse remain 0.",
+      "Batch 12C closes the independent Fullbook edition-route map but not the target glyph: Heart-One's official 2017 Fullbook page binds ISBN 9789888266944 to two 虛白廬 late-Ming/early-Qing 文光堂 woodblock witnesses, 敦化堂 and 繼述堂; the publisher says 敦化堂 is somewhat earlier and 繼述堂 has red/black collation marks.",
+      "The Heart-One Jielan publisher page independently documents a separate 虛白廬清中期文誠堂刊本《紫微斗數全書》 used as a collation base. A secondary 2017 comparison suggests 文盛堂 and 繼述堂 may share block/layout features, but this remains a secondary locator only.",
+      "Batch 12C research workflow run 34120317222 / artifact 10017909080 retrieved the official publisher, Buybook, Xingqiao and secondary comparison HTML but no target page: Books.com product + all 13 preview-image routes returned 403, Google Books API routes returned 429, and zero preview images were saved.",
+      "Therefore HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; HAI_GLYPH_STABILITY_ACROSS_PHYSICAL_EDITIONS=UNRESOLVED. No Matrix counts, runtime selection, chart algorithm defect or algorithm-reopen counters change.",
       "Research remains open-ended across editions, regions, languages and disciplines; first-source stopping is forbidden when material additional witnesses remain searchable.",
       "D1/迟疾行度 remains historically adjudicated as the Ming official conjunction production method; D2/定限度 remains a later received-text transmission variant, not an equal candidate.",
       "Ziwei HPA-ZTEMP-004 and HPA-ZTEMP-006 are now productized through ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1 as explicit PRESERVED_NOT_SELECTED candidates: the 1581 day-anchored flow-hour candidate is time-standard-specific-parent replay gated, while the Zhongzhou leap-month candidate exposes month assignment/no-half-split-reset only and keeps leap-month daily origin geometry fail-closed.",

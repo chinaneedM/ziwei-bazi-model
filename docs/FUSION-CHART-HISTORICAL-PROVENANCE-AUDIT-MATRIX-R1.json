@@ -3907,7 +3907,7 @@
       "source_quote": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
       "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
       "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
-      "later_witnesses": "《三命通会》卷二《论时刻》 independently states that each shichen has eight large plus two small ke, with four large plus one small in each half, and that Zi upper half is before midnight/yesterday while lower half is after midnight/today. Gu Yanwu later explains the ten-ke naming structure. NAOJ gives the modern fixed-hour coordinate translation. Shidian matches the direct Fullbook 上五刻/下五刻 reading; Wikisource's 上午刻/下午刻 is retained as a transcription-control discrepancy, not glyph authority.",
+      "later_witnesses": "Batch 12B timekeeping controls remain. Batch 12C now closes independent edition-route identity: official Heart-One documentation binds its 2017 Fullbook facsimile to two late-Ming/early-Qing Wenguangtang woodblock witnesses (Dunhuatang and Jishutang), and its Jielan edition separately documents a mid-Qing Wenchengtang Fullbook used for collation. A secondary 2017 comparison reports Wenshengtang/Jishutang block-surface similarity but is not physical-page authority. None of these public routes exposed the target late-Zi page, so the critical 亥 glyph is not yet cross-edition closed.",
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
         "UNIFORM_ZI_BRANCH_FOR_23_TO_01",
@@ -3915,9 +3915,9 @@
         "ZI_START_23_DATE_ROLLOVER_WITH_ZI_BRANCH_RETAINED"
       ],
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
-      "confidence": "HIGH_FOR_DIRECT_FULLBOOK_GLYPHS; HIGH_FOR_GENERIC_UPPER/LOWER_HALF_TIMEKEEPING_ORIENTATION; HIGH_FOR_FIXED-SHICHEN_MODERN_COORDINATE_TRANSLATION; MEDIUM_FOR_EXACT_EDITION_DATE; LOW_FOR_UNIQUE_ZIWEI_RUNTIME_TIME-STANDARD_BINDING",
+      "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_INDEPENDENT_EDITION_ROUTES; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_TARGET_PAGES_ARE_DIRECTLY_READ",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep as unselected MISSING_FROM_PRODUCT candidate. Generic upper/lower-half orientation no longer blocks research, but collate additional physical Fullbook editions, adjudicate the Hai-vs-Zi textual lineage, and separately source-close which physical clock/time-standard the candidate uses before any runtime productization. Do not reopen or replace the production default.",
+      "proposed_action": "Keep HPA-ZDATE-006 unselected and MISSING_FROM_PRODUCT. Next priority is direct target-page acquisition from the documented Dunhuatang/Jishutang Wenguangtang facsimile bases and the separate mid-Qing Wenchengtang Fullbook. Do not infer 亥 glyph stability from publisher descriptions, modern transcriptions, or source count; runtime time-standard binding remains independently unresolved.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -3932,7 +3932,17 @@
       "generic_modern_clock_translation": "ASSUMING_STANDARD_FIXED_2_HOUR_SHICHEN: UPPER_HALF_ZI_APPROX_23:00-24:00; LOWER_HALF_ZI_APPROX_00:00-01:00",
       "runtime_time_standard_binding": "UNRESOLVED_DO_NOT_CHOOSE_CIVIL_MEAN_OR_APPARENT_SOLAR_TIME_FROM_TIMEKEEPING_TRANSLATION",
       "received_text_variant_status": "DIRECT_FACSIMILE_UPPER_FIVE_LOWER_FIVE; SHIDIAN_TRANSCRIPTION_AGREES; WIKISOURCE_HAS_AMBIGUOUS 上午刻/下午刻 TRANSCRIPTION",
-      "cross_system_firewall": "SANMING_TONGHUI_IS_USED_ONLY_FOR_GENERIC_MING_TIMEKEEPING_SEMANTICS_NOT_ZIWEI_DOCTRINAL_AUTHORITY"
+      "cross_system_firewall": "SANMING_TONGHUI_IS_USED_ONLY_FOR_GENERIC_MING_TIMEKEEPING_SEMANTICS_NOT_ZIWEI_DOCTRINAL_AUTHORITY",
+      "independent_edition_route_artifact": "docs/research/ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json",
+      "independent_physical_target_page_status": "NO_INDEPENDENT_TARGET_PAGE_OBSERVED",
+      "hai_glyph_cross_edition_status": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+      "independent_edition_routes": [
+        "WENGUANGTANG_DUNHUATANG_PUBLISHER_DOCUMENTED_ROUTE",
+        "WENGUANGTANG_JISHUTANG_PUBLISHER_DOCUMENTED_ROUTE",
+        "QING_MID_WENCHENGTANG_PUBLISHER_DOCUMENTED_ROUTE",
+        "WENSHENGTANG_SECONDARY_LOCATOR_ONLY"
+      ],
+      "public_preview_route_status": "BOOKS_COM_PRODUCT_AND_13_PREVIEW_IMAGE_URLS_BLOCKED_403; GOOGLE_BOOKS_API_429; ZERO_PREVIEW_IMAGES_SAVED"
     },
     {
       "system": "BAZI",

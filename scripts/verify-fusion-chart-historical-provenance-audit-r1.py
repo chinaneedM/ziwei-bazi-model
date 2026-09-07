@@ -8,6 +8,7 @@ MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.jso
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
+ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 BAZI_RELATION_CANDIDATES = ROOT / "src" / "fortune_training" / "bazi_chart" / "historical_relation_candidates.py"
 BAZI_RELATION_CANDIDATE_TEST = ROOT / "tests" / "test_bazi_historical_relation_candidates_r1.py"
 BAZI_TEMPORAL_ANNOTATIONS = ROOT / "src" / "fortune_training" / "bazi_application" / "temporal_annotations.py"
@@ -137,6 +138,29 @@ def main() -> int:
         raise SystemExit("Batch 12B ten-ke equal-duration firewall regressed")
     if mapping.get("runtime_time_standard_binding") != "UNRESOLVED":
         raise SystemExit("Batch 12B runtime time-standard was prematurely selected")
+    for source_id in (
+        "EXT-XINYITANG-ZWDSQS-WENGUANG-FACSIMILE-2017",
+        "EXT-XINYITANG-ZWDSQS-WENCHENGTANG-COLLATION",
+        "EXT-SKYLIGHT-ZWDSQS-WENSHENG-JISHU-COMPARISON-2017",
+    ):
+        if by_source_id.get(source_id) is None:
+            raise SystemExit(f"Batch 12C independent Fullbook edition source is missing: {source_id}")
+    if not ZIWEI_INDEPENDENT_EDITION_ROUTES.is_file():
+        raise SystemExit("Batch 12C independent-edition route artifact is missing")
+    edition_routes=json.loads(ZIWEI_INDEPENDENT_EDITION_ROUTES.read_text(encoding="utf-8"))
+    if edition_routes.get("status") != "INDEPENDENT_FULLBOOK_EDITION_ROUTES_BOUND_NO_INDEPENDENT_TARGET_PAGE_OBSERVED":
+        raise SystemExit("Batch 12C independent-edition route status mismatch")
+    workflow=edition_routes.get("research_workflow", {})
+    if workflow.get("workflow_run_id") != 34120317222 or workflow.get("artifact_id") != 10017909080:
+        raise SystemExit("Batch 12C workflow/artifact provenance mismatch")
+    preview=edition_routes.get("public_preview_controls", {}).get("books_preview_image_urls", {})
+    if preview.get("attempted_count") != 13 or preview.get("http_403_count") != 13 or preview.get("saved_image_count") != 0:
+        raise SystemExit("Batch 12C preview access boundary regressed")
+    edition_adjudication=edition_routes.get("adjudication", {})
+    if edition_adjudication.get("independent_physical_target_page_status") != "NO_INDEPENDENT_TARGET_PAGE_OBSERVED":
+        raise SystemExit("Batch 12C incorrectly claims an independent target page")
+    if edition_adjudication.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        raise SystemExit("Batch 12C HAI glyph stability boundary regressed")
     for source_id in ("EXT-HKO-24-SOLAR-TERMS","EXT-HKO-SOLAR-TERM-TIMES","EXT-CTEXT-SANMING-V2-SEASONS","EXT-CTEXT-MINGLI-TANYUAN-YEAR-MONTH","EXT-CTEXT-QIANLI-MINGGAO-YEAR"):
         if by_source_id.get(source_id) is None:
             raise SystemExit(f"Batch 09A source witness missing: {source_id}")
@@ -242,6 +266,10 @@ def main() -> int:
         raise SystemExit("Batch 12B HPA-ZDATE-006 timekeeping status regressed")
     if row_nanyang.get("runtime_time_standard_binding") != "UNRESOLVED_DO_NOT_CHOOSE_CIVIL_MEAN_OR_APPARENT_SOLAR_TIME_FROM_TIMEKEEPING_TRANSLATION":
         raise SystemExit("Batch 12B runtime time-standard firewall regressed")
+    if row_nanyang.get("independent_physical_target_page_status") != "NO_INDEPENDENT_TARGET_PAGE_OBSERVED":
+        raise SystemExit("Batch 12C HPA-ZDATE-006 edition-route binding regressed")
+    if row_nanyang.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
+        raise SystemExit("Batch 12C HPA-ZDATE-006 HAI glyph boundary regressed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
