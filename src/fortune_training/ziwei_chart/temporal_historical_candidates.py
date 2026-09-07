@@ -11,7 +11,7 @@ from .registries import EARTHLY_BRANCHES, branch_index
 ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_ID = (
     "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1"
 )
-ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION = "1.0.0"
+ZIWEI_TEMPORAL_HISTORICAL_CANDIDATE_API_VERSION = "1.1.0"
 TEMPORAL_HISTORICAL_CANDIDATE_SELECTION_STATUS = "PRESERVED_NOT_SELECTED"
 
 JIELAN_1581_DAY_ANCHORED_FLOW_HOUR_METHOD_ID = (
@@ -46,6 +46,9 @@ _SUPPORTED_TIME_STANDARDS = frozenset(
     }
 )
 _SUPPORTED_DAY_BOUNDARIES = frozenset({"MIDNIGHT", "ZI_START_23"})
+_SUPPORTED_CALENDAR_DATE_POLICIES = frozenset(
+    {"LOCAL_SOLAR_DATE_INDEXED", "ABSOLUTE_CALENDAR"}
+)
 
 
 def _advance_branch(start_branch: str, offset: int) -> str:
@@ -54,17 +57,27 @@ def _advance_branch(start_branch: str, offset: int) -> str:
 
 def _effective_gregorian_date(
     local_datetime: datetime,
+    reported_civil_date: date,
+    ziwei_calendar_date_policy: str,
     ziwei_day_boundary_policy: str,
 ) -> date:
     if local_datetime.tzinfo is not None:
         raise ValueError("source_local_datetime must be a naive local clock reading")
+    if ziwei_calendar_date_policy not in _SUPPORTED_CALENDAR_DATE_POLICIES:
+        raise ValueError(
+            f"unsupported Ziwei calendar-date policy: {ziwei_calendar_date_policy}"
+        )
     if ziwei_day_boundary_policy not in _SUPPORTED_DAY_BOUNDARIES:
         raise ValueError(
             f"unsupported Ziwei day-boundary policy: {ziwei_day_boundary_policy}"
         )
-    effective = local_datetime.date()
+    effective = (
+        local_datetime.date()
+        if ziwei_calendar_date_policy == "LOCAL_SOLAR_DATE_INDEXED"
+        else reported_civil_date
+    )
     if ziwei_day_boundary_policy == "ZI_START_23" and local_datetime.hour == 23:
-        effective += timedelta(days=1)
+        effective = local_datetime.date() + timedelta(days=1)
     return effective
 
 
@@ -74,6 +87,8 @@ def resolve_jielan_1581_day_anchored_flow_hour_candidate(
     parent_daily_effective_gregorian_date: date,
     parent_daily_active_branch: str,
     source_local_datetime: datetime,
+    reported_civil_date: date,
+    ziwei_calendar_date_policy: str,
     ziwei_day_boundary_policy: str,
     time_standard: str,
 ) -> dict[str, object]:
@@ -95,6 +110,8 @@ def resolve_jielan_1581_day_anchored_flow_hour_candidate(
 
     effective_date = _effective_gregorian_date(
         source_local_datetime,
+        reported_civil_date,
+        ziwei_calendar_date_policy,
         ziwei_day_boundary_policy,
     )
     if parent_daily_effective_gregorian_date != effective_date:
@@ -121,6 +138,8 @@ def resolve_jielan_1581_day_anchored_flow_hour_candidate(
         "time_standard": time_standard,
         "time_standard_authority": "ORTHOGONAL_INPUT_NOT_AUTHORIZED_BY_JIELAN_1581",
         "source_local_datetime": source_local_datetime.isoformat(),
+        "reported_civil_date": reported_civil_date.isoformat(),
+        "ziwei_calendar_date_policy": ziwei_calendar_date_policy,
         "ziwei_day_boundary_policy": ziwei_day_boundary_policy,
         "effective_gregorian_date": effective_date.isoformat(),
         "parent_daily_frame_id": parent_daily_frame_id,
@@ -150,12 +169,12 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
     leap_lunar_year: int,
     leap_lunar_month: int,
     leap_lunar_day: int,
-    previous_month_year: int,
+    previous_month_temporal_year: int,
     previous_month_number: int,
     previous_month_frame_id: str,
     previous_month_ganzhi: str,
     previous_month_active_branch: str,
-    following_month_year: int,
+    following_month_temporal_year: int,
     following_month_number: int,
     following_month_frame_id: str,
     following_month_ganzhi: str,
@@ -175,18 +194,18 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         raise ValueError("leap_lunar_month must be in [1, 12]")
     if not 1 <= leap_lunar_day <= 30:
         raise ValueError("leap_lunar_day must be in [1, 30]")
-    if previous_month_year != leap_lunar_year:
-        raise ValueError("previous-month year must equal leap lunar year")
+    if previous_month_temporal_year < 1:
+        raise ValueError("previous-month temporal year must be positive")
     if previous_month_number != leap_lunar_month:
         raise ValueError("previous-month number must equal leap lunar month")
 
     expected_following_month = 1 if leap_lunar_month == 12 else leap_lunar_month + 1
     expected_following_year = (
-        leap_lunar_year + 1 if leap_lunar_month == 12 else leap_lunar_year
+        previous_month_temporal_year + 1 if leap_lunar_month == 12 else previous_month_temporal_year
     )
     if (
         following_month_number != expected_following_month
-        or following_month_year != expected_following_year
+        or following_month_temporal_year != expected_following_year
     ):
         raise ValueError("following regular month is not the immediate successor")
 
@@ -202,7 +221,7 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
     if leap_lunar_day <= 15:
         segment = "PREVIOUS_MONTH"
         assigned = {
-            "year": previous_month_year,
+            "temporal_year": previous_month_temporal_year,
             "month": previous_month_number,
             "frame_id": previous_month_frame_id,
             "ganzhi": previous_month_ganzhi,
@@ -211,7 +230,7 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
     else:
         segment = "FOLLOWING_MONTH"
         assigned = {
-            "year": following_month_year,
+            "temporal_year": following_month_temporal_year,
             "month": following_month_number,
             "frame_id": following_month_frame_id,
             "ganzhi": following_month_ganzhi,
@@ -233,14 +252,14 @@ def resolve_zhongzhou_leap_month_half_split_candidate(
         "segment": segment,
         "assigned_regular_month": assigned,
         "previous_regular_month": {
-            "year": previous_month_year,
+            "temporal_year": previous_month_temporal_year,
             "month": previous_month_number,
             "frame_id": previous_month_frame_id,
             "ganzhi": previous_month_ganzhi,
             "active_address_branch": previous_month_active_branch,
         },
         "following_regular_month": {
-            "year": following_month_year,
+            "temporal_year": following_month_temporal_year,
             "month": following_month_number,
             "frame_id": following_month_frame_id,
             "ganzhi": following_month_ganzhi,

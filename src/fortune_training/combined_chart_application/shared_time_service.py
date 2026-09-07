@@ -15,7 +15,12 @@ from fortune_training.ziwei_application import (
     ApplicationResolutionError,
     validate_application_bundle,
 )
-from fortune_training.ziwei_chart import ZiweiTargetTemporalEngine, ZiweiTemporalEngine
+from fortune_training.ziwei_chart import (
+    ZiweiTargetTemporalEngine,
+    ZiweiTemporalEngine,
+    resolve_jielan_1581_day_anchored_flow_hour_candidate,
+    resolve_zhongzhou_leap_month_half_split_candidate,
+)
 
 from .shared_time_integrity import (
     project_shared_ziwei_minor_limit_ring_encounters,
@@ -45,12 +50,16 @@ class SharedZiweiSelectorProjectionService:
     schema = SHARED_ZIWEI_SELECTOR_PROJECTION_SCHEMA
 
     @staticmethod
-    def _effective_lunar_date(ziwei_bundle, target_candidate):
+    def _effective_lunar_date_for_clock(
+        ziwei_bundle,
+        reported_civil_date,
+        source_local_datetime,
+    ):
         profile = ziwei_bundle.calculation_profile
         resolver = ZiweiCalendarResolver()
         resolved = resolver.resolve(
-            target_candidate.sample_reported_local_datetime.date(),
-            target_candidate.local_apparent_solar_datetime,
+            reported_civil_date,
+            source_local_datetime,
             calendar_date_policy=(
                 profile.time_calendar_policies.ziwei_calendar_date_policy
             ),
@@ -61,13 +70,20 @@ class SharedZiweiSelectorProjectionService:
         effective = resolved.effective_ziwei_lunar_date
         if (
             profile.ziwei_day_boundary_policy == "ZI_START_23"
-            and target_candidate.local_apparent_solar_datetime.hour == 23
+            and source_local_datetime.hour == 23
         ):
             effective = resolver.calendar.from_gregorian_date(
-                target_candidate.local_apparent_solar_datetime.date()
-                + timedelta(days=1)
+                source_local_datetime.date() + timedelta(days=1)
             )
         return effective
+
+    @classmethod
+    def _effective_lunar_date(cls, ziwei_bundle, target_candidate):
+        return cls._effective_lunar_date_for_clock(
+            ziwei_bundle,
+            target_candidate.sample_reported_local_datetime.date(),
+            target_candidate.local_apparent_solar_datetime,
+        )
 
     @staticmethod
     def _validate_upstream(
@@ -139,6 +155,7 @@ class SharedZiweiSelectorProjectionService:
 
         candidates: list[SharedZiweiSelectorProjectionCandidate] = []
         target_temporal = ZiweiTargetTemporalEngine()
+        temporal_engine = ZiweiTemporalEngine()
         for index, target_candidate in enumerate(target_resolution.candidates):
             civil_year = target_candidate.sample_reported_local_datetime.year
             annual_matches = annual_by_year.get(civil_year, [])
@@ -165,14 +182,57 @@ class SharedZiweiSelectorProjectionService:
                     f"candidate_index={index};frame_id={annual.parent_daxian_frame_id}",
                 )
             lunar = self._effective_lunar_date(ziwei_bundle, target_candidate)
+            leap_month_candidate_status = "NOT_APPLICABLE_REGULAR_MONTH"
+            leap_month_method_candidates: tuple[dict[str, object], ...] = ()
             if lunar.is_leap_month:
                 monthly_status = "LEAP_MONTH_UNRESOLVED_NO_FRAME"
                 monthly = None
                 daily_status = "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME"
                 daily = None
+
+                previous_month = temporal_engine.monthly_frame(
+                    ziwei_bundle.temporal_context,
+                    ziwei_bundle.calculation_profile,
+                    annual,
+                    lunar.month,
+                )
+                if lunar.month == 12:
+                    following_matches = annual_by_year.get(annual.absolute_year + 1, [])
+                    following_annual = following_matches[0] if len(following_matches) == 1 else None
+                    following_month_number = 1
+                else:
+                    following_annual = annual
+                    following_month_number = lunar.month + 1
+                if following_annual is None:
+                    leap_month_candidate_status = "FOLLOWING_REGULAR_MONTH_FRAME_UNAVAILABLE"
+                else:
+                    following_month = temporal_engine.monthly_frame(
+                        ziwei_bundle.temporal_context,
+                        ziwei_bundle.calculation_profile,
+                        following_annual,
+                        following_month_number,
+                    )
+                    leap_month_method_candidates = (
+                        resolve_zhongzhou_leap_month_half_split_candidate(
+                            leap_lunar_year=lunar.year,
+                            leap_lunar_month=lunar.month,
+                            leap_lunar_day=lunar.day,
+                            previous_month_temporal_year=annual.absolute_year,
+                            previous_month_number=lunar.month,
+                            previous_month_frame_id=previous_month.frame_id,
+                            previous_month_ganzhi=previous_month.month_ganzhi,
+                            previous_month_active_branch=previous_month.active_address.branch,
+                            following_month_temporal_year=following_annual.absolute_year,
+                            following_month_number=following_month_number,
+                            following_month_frame_id=following_month.frame_id,
+                            following_month_ganzhi=following_month.month_ganzhi,
+                            following_month_active_branch=following_month.active_address.branch,
+                        ),
+                    )
+                    leap_month_candidate_status = "CANDIDATE_PRESERVED_NO_SELECTION"
             else:
                 monthly_status = "REGULAR_LUNAR_MONTH_RESOLVED"
-                monthly = ZiweiTemporalEngine().monthly_frame(
+                monthly = temporal_engine.monthly_frame(
                     ziwei_bundle.temporal_context,
                     ziwei_bundle.calculation_profile,
                     annual,
@@ -186,6 +246,15 @@ class SharedZiweiSelectorProjectionService:
                     profile=ziwei_bundle.calculation_profile,
                     placements=ziwei_bundle.temporal_context.placements,
                 )
+            hourly_source_rows = target_temporal.hourly_method_candidates(
+                target_utc=target_candidate.target_utc,
+                local_apparent_solar_datetime=target_candidate.local_apparent_solar_datetime,
+                ziwei_day_boundary_policy=(
+                    ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
+                ),
+                profile=ziwei_bundle.calculation_profile,
+                placements=ziwei_bundle.temporal_context.placements,
+            )
             hourly_candidates = tuple(
                 SharedZiweiHourlyMethodCandidate(
                     candidate_id=row.candidate_id,
@@ -216,15 +285,64 @@ class SharedZiweiSelectorProjectionService:
                     authority_status=row.authority_status,
                     source_refs=row.source_refs,
                 )
-                for row in target_temporal.hourly_method_candidates(
-                    target_utc=target_candidate.target_utc,
-                    local_apparent_solar_datetime=target_candidate.local_apparent_solar_datetime,
-                    ziwei_day_boundary_policy=(
-                        ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
-                    ),
+                for row in hourly_source_rows
+            )
+
+            historical_hourly_rows: list[dict[str, object]] = []
+            for hourly_source in hourly_source_rows:
+                hourly_lunar = self._effective_lunar_date_for_clock(
+                    ziwei_bundle,
+                    target_candidate.sample_reported_local_datetime.date(),
+                    hourly_source.source_local_datetime,
+                )
+                if hourly_lunar.is_leap_month:
+                    continue
+                parent_annual_matches = annual_by_year.get(
+                    hourly_lunar.source_gregorian_date.year,
+                    [],
+                )
+                if len(parent_annual_matches) != 1:
+                    continue
+                parent_annual = parent_annual_matches[0]
+                parent_month = temporal_engine.monthly_frame(
+                    ziwei_bundle.temporal_context,
+                    ziwei_bundle.calculation_profile,
+                    parent_annual,
+                    hourly_lunar.month,
+                )
+                parent_daily = target_temporal.daily_frame(
+                    parent_month,
+                    effective_gregorian_date=hourly_lunar.source_gregorian_date,
+                    effective_lunar_day=hourly_lunar.day,
                     profile=ziwei_bundle.calculation_profile,
                     placements=ziwei_bundle.temporal_context.placements,
                 )
+                historical_hourly_rows.append(
+                    resolve_jielan_1581_day_anchored_flow_hour_candidate(
+                        parent_daily_frame_id=parent_daily.frame_id,
+                        parent_daily_effective_gregorian_date=(
+                            parent_daily.effective_gregorian_date
+                        ),
+                        parent_daily_active_branch=parent_daily.active_address.branch,
+                        source_local_datetime=hourly_source.source_local_datetime,
+                        reported_civil_date=(
+                            target_candidate.sample_reported_local_datetime.date()
+                        ),
+                        ziwei_calendar_date_policy=(
+                            ziwei_bundle.calculation_profile.time_calendar_policies
+                            .ziwei_calendar_date_policy
+                        ),
+                        ziwei_day_boundary_policy=(
+                            ziwei_bundle.calculation_profile.ziwei_day_boundary_policy
+                        ),
+                        time_standard=hourly_source.time_standard,
+                    )
+                )
+            historical_hourly_method_candidates = tuple(historical_hourly_rows)
+            historical_hourly_projection_status = (
+                "CANDIDATES_PRESERVED_NO_SELECTED_FRAME"
+                if historical_hourly_method_candidates
+                else "NO_SOURCE_SCOPED_PARENT_DAILY_FRAME"
             )
             candidate = SharedZiweiSelectorProjectionCandidate(
                 source_target_candidate_index=index,
@@ -323,6 +441,10 @@ class SharedZiweiSelectorProjectionService:
                 ),
                 hourly_projection_status="CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
                 hourly_method_candidates=hourly_candidates,
+                historical_hourly_projection_status=historical_hourly_projection_status,
+                historical_hourly_method_candidates=historical_hourly_method_candidates,
+                leap_month_candidate_status=leap_month_candidate_status,
+                leap_month_method_candidates=leap_month_method_candidates,
                 candidate_hash="",
             )
             candidates.append(

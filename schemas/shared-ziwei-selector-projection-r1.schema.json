@@ -119,6 +119,10 @@
         "daily_transformation_source_refs",
         "hourly_projection_status",
         "hourly_method_candidates",
+        "historical_hourly_projection_status",
+        "historical_hourly_method_candidates",
+        "leap_month_candidate_status",
+        "leap_month_method_candidates",
         "candidate_hash"
       ],
       "properties": {
@@ -386,6 +390,33 @@
         },
         "candidate_hash": {
           "$ref": "#/$defs/hash"
+        },
+        "historical_hourly_projection_status": {
+          "enum": [
+            "CANDIDATES_PRESERVED_NO_SELECTED_FRAME",
+            "NO_SOURCE_SCOPED_PARENT_DAILY_FRAME"
+          ]
+        },
+        "historical_hourly_method_candidates": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/jielanHistoricalHourlyCandidate"
+          }
+        },
+        "leap_month_candidate_status": {
+          "enum": [
+            "NOT_APPLICABLE_REGULAR_MONTH",
+            "CANDIDATE_PRESERVED_NO_SELECTION",
+            "FOLLOWING_REGULAR_MONTH_FRAME_UNAVAILABLE"
+          ]
+        },
+        "leap_month_method_candidates": {
+          "type": "array",
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/zhongzhouLeapMonthCandidate"
+          }
         }
       }
     },
@@ -1424,7 +1455,7 @@
           "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-HASH-R1"
         },
         "algorithm_version": {
-          "const": "2.0.0"
+          "const": "2.1.0"
         }
       }
     },
@@ -1449,7 +1480,300 @@
           "const": "SHARED-TARGET-ZIWEI-SELECTOR-PROJECTION-INTEGRITY-R1"
         },
         "algorithm_version": {
-          "const": "2.0.0"
+          "const": "2.1.0"
+        }
+      }
+    },
+    "jielanHistoricalHourlyCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "api_id",
+        "api_version",
+        "method_id",
+        "selection_status",
+        "source_id",
+        "source_refs",
+        "authority_status",
+        "time_standard",
+        "time_standard_authority",
+        "source_local_datetime",
+        "reported_civil_date",
+        "ziwei_calendar_date_policy",
+        "ziwei_day_boundary_policy",
+        "effective_gregorian_date",
+        "parent_daily_frame_id",
+        "parent_daily_effective_gregorian_date",
+        "parent_daily_active_branch",
+        "hour_branch",
+        "hour_ganzhi",
+        "active_address_branch",
+        "mechanics",
+        "downstream_cross_school_projection_status",
+        "candidate_hash"
+      ],
+      "properties": {
+        "schema": {
+          "const": "ZIWEI-JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-CANDIDATE-R1"
+        },
+        "api_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1"
+        },
+        "api_version": {
+          "const": "1.1.0"
+        },
+        "method_id": {
+          "const": "JIELAN-1581-DAY-ANCHORED-FLOW-HOUR-R1"
+        },
+        "selection_status": {
+          "const": "PRESERVED_NOT_SELECTED"
+        },
+        "source_id": {
+          "const": "EXT-ZIWEI-JIELAN-1581"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "authority_status": {
+          "const": "EARLY_PRINT_DAY_ANCHORED_FLOW_HOUR_GEOMETRY_ONLY"
+        },
+        "time_standard": {
+          "enum": [
+            "ZHONGZHOU_LUOYANG_MEAN_SOLAR_TIME",
+            "LOCAL_APPARENT_SOLAR_TIME"
+          ]
+        },
+        "time_standard_authority": {
+          "const": "ORTHOGONAL_INPUT_NOT_AUTHORIZED_BY_JIELAN_1581"
+        },
+        "source_local_datetime": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "reported_civil_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "ziwei_calendar_date_policy": {
+          "enum": [
+            "LOCAL_SOLAR_DATE_INDEXED",
+            "ABSOLUTE_CALENDAR"
+          ]
+        },
+        "ziwei_day_boundary_policy": {
+          "enum": [
+            "MIDNIGHT",
+            "ZI_START_23"
+          ]
+        },
+        "effective_gregorian_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "parent_daily_frame_id": {
+          "type": "string",
+          "pattern": "^DAY:[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "parent_daily_effective_gregorian_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "parent_daily_active_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "hour_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "hour_ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "active_address_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "mechanics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "zi_hour_anchor",
+            "later_hours"
+          ],
+          "properties": {
+            "zi_hour_anchor": {
+              "const": "PARENT_DAILY_ACTIVE_ADDRESS"
+            },
+            "later_hours": {
+              "const": "FORWARD_BY_HOUR_BRANCH_ORDINAL_FROM_ZI"
+            }
+          }
+        },
+        "downstream_cross_school_projection_status": {
+          "const": "NOT_APPLIED_BY_THIS_SOURCE_SCOPED_GEOMETRY_API"
+        },
+        "candidate_hash": {
+          "$ref": "#/$defs/hash"
+        }
+      }
+    },
+    "regularMonthCandidateAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temporal_year",
+        "month",
+        "frame_id",
+        "ganzhi",
+        "active_address_branch"
+      ],
+      "properties": {
+        "temporal_year": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "frame_id": {
+          "type": "string",
+          "pattern": "^MONTH:[0-9]+:(?:[1-9]|1[0-2])$"
+        },
+        "ganzhi": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "active_address_branch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        }
+      }
+    },
+    "zhongzhouLeapMonthCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "api_id",
+        "api_version",
+        "method_id",
+        "selection_status",
+        "source_id",
+        "source_refs",
+        "authority_status",
+        "leap_lunar_year",
+        "leap_lunar_month",
+        "leap_lunar_day",
+        "segment",
+        "assigned_regular_month",
+        "previous_regular_month",
+        "following_regular_month",
+        "flow_day_continuity",
+        "downstream_projection_status",
+        "candidate_hash"
+      ],
+      "properties": {
+        "schema": {
+          "const": "ZIWEI-ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-CANDIDATE-R1"
+        },
+        "api_id": {
+          "const": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1"
+        },
+        "api_version": {
+          "const": "1.1.0"
+        },
+        "method_id": {
+          "const": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1"
+        },
+        "selection_status": {
+          "const": "PRESERVED_NOT_SELECTED"
+        },
+        "source_id": {
+          "const": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI"
+        },
+        "source_refs": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "authority_status": {
+          "const": "SOURCE_CLOSED_MODERN_ZHONGZHOU_SCHOOL_METHOD"
+        },
+        "leap_lunar_year": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "leap_lunar_month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "leap_lunar_day": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "segment": {
+          "enum": [
+            "PREVIOUS_MONTH",
+            "FOLLOWING_MONTH"
+          ]
+        },
+        "assigned_regular_month": {
+          "$ref": "#/$defs/regularMonthCandidateAssignment"
+        },
+        "previous_regular_month": {
+          "$ref": "#/$defs/regularMonthCandidateAssignment"
+        },
+        "following_regular_month": {
+          "$ref": "#/$defs/regularMonthCandidateAssignment"
+        },
+        "flow_day_continuity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "half_split_reset",
+            "direction",
+            "daily_active_address_emitted",
+            "daily_origin_semantics"
+          ],
+          "properties": {
+            "half_split_reset": {
+              "const": false
+            },
+            "direction": {
+              "const": "FORWARD_CONTINUOUS"
+            },
+            "daily_active_address_emitted": {
+              "const": false
+            },
+            "daily_origin_semantics": {
+              "const": "NOT_CLOSED_BY_THIS_MONTH_POLICY_API"
+            }
+          }
+        },
+        "downstream_projection_status": {
+          "const": "MONTH_ASSIGNMENT_CANDIDATE_ONLY_DAILY_GEOMETRY_REMAINS_FAIL_CLOSED"
+        },
+        "candidate_hash": {
+          "$ref": "#/$defs/hash"
         }
       }
     }
