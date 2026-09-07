@@ -16,12 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Probe public standalone Google Books Fullbook object
+      - name: Probe public Google Books index of Wenguang comparison monograph
         shell: python
         run: |
           import hashlib
           import json
-          import re
           import time
           import urllib.parse
           import urllib.request
@@ -30,31 +29,27 @@ jobs:
           OUT = Path("probe")
           OUT.mkdir()
           UA = "Mozilla/5.0 research-only public-book-index locator"
-          VOLUME_ID = "kxdy0QEACAAJ"
-          PUBLIC_BIB_URL = "https://books.google.com/books?id=kxdy0QEACAAJ"
-          TARGET_TITLE = "新鋟希夷陳先生紫微斗數全書"
-          TARGET_TERMS = [
-              "新鋟希夷陳先生紫微斗數全書",
-              "新鋟希夷陳先生紫微斗数全書",
-              "紫微斗數全書",
-              "紫微斗数全书",
+          VOLUME_ID = "RISpDgAAQBAJ"
+          PUBLIC_BIB_URL = "https://books.google.com/books?id=RISpDgAAQBAJ"
+          TERMS = [
               "論人生時要審的確",
               "论人生时要审的确",
               "上五刻",
               "下五刻",
               "亥時",
               "子時有十刻",
-              "南陽堂較梓",
-              "紅葉山文庫",
-              "陳摶",
-              "潘希尹",
+              "文光堂",
+              "敦化堂",
+              "繼述堂",
+              "民國石印本",
+              "南陽堂",
           ]
 
-          def fetch(url, max_bytes=5_000_000):
+          def fetch(url, max_bytes=4_000_000):
               req = urllib.request.Request(url, headers={
                   "User-Agent": UA,
                   "Accept": "application/json,text/html,*/*;q=0.8",
-                  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+                  "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
               })
               try:
                   with urllib.request.urlopen(req, timeout=30) as resp:
@@ -70,15 +65,16 @@ jobs:
                   return {"ok": False, "error": repr(exc), "data": b""}
 
           result = {
-              "schema": "ZIHAI-NAIKAKU-ZIWEI-GOOGLE-BOOKS-STANDALONE-FULLBOOK-PROBE-R1",
+              "schema": "ZIWEI-WENGUANG-COMPARISON-BOOK-LATE-ZI-INDEX-LOCATOR-R1",
               "volume_id": VOLUME_ID,
-              "volume_id_origin": "PUBLIC_GOOGLE_BOOKS_SEARCH_RESULT_WITH_EXACT_FULLBOOK_TITLE_AND_2016_PUBLICATION_YEAR",
-              "public_bibliographic_url": PUBLIC_BIB_URL,
-              "identifier_guessing_attempted": False,
+              "title": "紫微斗數全書古訣辨正",
+              "author": "潘國森",
+              "publication_year": 2017,
+              "source_role": "MODERN_SECONDARY_COMPARISON_USING_WENGUANGTANG_WOODBLOCK_FACSIMILE; LOCATOR_ONLY",
+              "search_index_is_physical_glyph_authority": False,
               "authentication_or_paywall_bypass_attempted": False,
               "bibliographic_surface": {},
-              "search_within_volume": [],
-              "embedded_viewer_tokens": {},
+              "queries": [],
           }
 
           bib = fetch(PUBLIC_BIB_URL)
@@ -88,29 +84,19 @@ jobs:
               **bib,
               "bytes": len(data),
               "sha256": hashlib.sha256(data).hexdigest() if data else None,
-              "target_title_present": TARGET_TITLE in text,
-              "seven_juan_present": "七卷" in text,
-              "published_2016_present": "2016" in text,
+              "title_present": "紫微斗數全書古訣辨正" in text,
+              "author_present": "潘國森" in text,
+              "wenguang_present": "文光堂" in text,
           }
-          for key, pattern in {
-              "page_ids": r'page[_-]?id[^A-Za-z0-9]+([A-Za-z0-9_-]+)',
-              "viewer_urls": r'https?://[^\"\'<> ]+(?:jscmd|books.google|books.googleusercontent)[^\"\'<> ]*',
-          }.items():
-              matches = []
-              for match in re.findall(pattern, text, flags=re.I):
-                  value = match if isinstance(match, str) else match[0]
-                  if value not in matches:
-                      matches.append(value)
-              result["embedded_viewer_tokens"][key] = matches[:100]
           if data:
-              (OUT / "google-books-standalone-fullbook.html").write_bytes(data)
+              (OUT / "wenguang-comparison-book.html").write_bytes(data)
 
           templates = [
               "https://books.google.com/books?jscmd=SearchWithinVolume2&q={q}&vid={vid}",
               "https://books.google.com/books?id={vid}&jscmd=SearchWithinVolume2&q={q}",
               "https://books.google.com/books?vid={vid}&jscmd=SearchWithinVolume2&q={q}",
           ]
-          for term in TARGET_TERMS:
+          for term in TERMS:
               attempts = []
               q = urllib.parse.quote(term)
               for template in templates:
@@ -133,10 +119,10 @@ jobs:
                           rec["parse_error"] = repr(exc)
                   attempts.append(rec)
                   time.sleep(0.1)
-              result["search_within_volume"].append({"term": term, "attempts": attempts})
+              result["queries"].append({"term": term, "attempts": attempts})
 
           positives = []
-          for row in result["search_within_volume"]:
+          for row in result["queries"]:
               for attempt in row["attempts"]:
                   n = attempt.get("number_of_results")
                   if isinstance(n, int) and n > 0:
@@ -147,23 +133,19 @@ jobs:
                           "snippets": [x.get("snippet_text") for x in attempt.get("search_results", [])],
                       })
                       break
-
           result["positive_index_hits"] = positives
           result["adjudication"] = {
-              "standalone_record_role": "DIRECT_2016_BIBLIOGRAPHIC_OBJECT_FOR_TARGET_FULLBOOK_TITLE",
-              "relationship_to_zihai_naikaku_set": "SUPPORTED_BY_EXTERNAL_OFFICIAL_SDU_FACSIMILE_CATALOG_BUT_NOT_INFERRED_FROM_GOOGLE_OBJECT_ALONE",
-              "positive_index_hit_role": "TARGET_PASSAGE_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+              "late_zi_comparison_locator": "DETERMINE_FROM_POSITIVE_HITS_ONLY",
+              "authority_ceiling": "MODERN_SECONDARY_COMPARISON_OR_SEARCH_INDEX_ONLY_NOT_WENGUANG_PHYSICAL_GLYPH",
               "zero_result_as_negative_textual_proof": "FORBIDDEN",
-              "target_physical_page_status": "NOT_OBSERVED_UNLESS_FUTURE_DIRECT_FACSIMILE_PAGE_IS_BOUND",
+              "hpa_zdate_006_effect": "NONE_UNLESS_FUTURE_DIRECT_PHYSICAL_TARGET_PAGE_IS_BOUND",
               "algorithm_effect": "NONE",
           }
-
-          (OUT / "zihai-naikaku-ziwei-standalone-fullbook-probe.json").write_text(
+          (OUT / "wenguang-comparison-book-late-zi-index-locator.json").write_text(
               json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
           print(json.dumps({
               "bibliographic_surface": result["bibliographic_surface"],
-              "embedded_viewer_tokens": result["embedded_viewer_tokens"],
               "positive_index_hits": positives,
               "term_controls": [
                   {
@@ -172,16 +154,17 @@ jobs:
                       "searchable": [a.get("searchable") for a in row["attempts"]],
                       "result_counts": [a.get("number_of_results") for a in row["attempts"]],
                       "page_ids": [[x.get("page_id") for x in a.get("search_results", [])] for a in row["attempts"]],
+                      "snippets": [[x.get("snippet_text") for x in a.get("search_results", [])] for a in row["attempts"]],
                   }
-                  for row in result["search_within_volume"]
+                  for row in result["queries"]
               ],
           }, ensure_ascii=False, indent=2))
 
-      - name: Upload standalone Fullbook probe evidence
+      - name: Upload Wenguang comparison locator evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: zihai-naikaku-ziwei-google-books-standalone-fullbook-probe
+          name: ziwei-wenguang-comparison-book-late-zi-index-locator
           path: probe/
           if-no-files-found: warn
           retention-days: 14
