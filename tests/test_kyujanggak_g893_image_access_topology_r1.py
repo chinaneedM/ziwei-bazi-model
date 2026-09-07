@@ -81,7 +81,7 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["other_kyujanggak_object_renderer_success_as_g893_folio_or_glyph_evidence"],"FORBIDDEN")
 
     def test_mirror_routes_remain_locator_only_and_work_identity_stays_separate(self) -> None:
-        self.assertEqual(self.data["schema_version"],"1.4.0")
+        self.assertEqual(self.data["schema_version"],"1.5.0")
         routes={x["source_id"]:x for x in self.data["mirror_and_reproduction_routes"]}
         legacy=routes["EXT-LEGACY-KYUJANGGAK-HANMUN-DVD04-CATALOG-2015"]
         self.assertFalse(legacy["actual_file_retrieved"])
@@ -100,6 +100,18 @@ class KyujanggakG893ImageAccessTopologyR1Tests(unittest.TestCase):
         self.assertEqual(b["legacy_package_catalog_as_g893_copy_identity"],"FORBIDDEN")
         self.assertEqual(b["legacy_package_catalog_as_target_page_or_glyph_evidence"],"FORBIDDEN")
         self.assertEqual(b["kang_bo_jiefa_licheng_as_g893_substitute"],"FORBIDDEN")
+        reproduction=self.data["official_reproduction_route"]
+        self.assertEqual(reproduction["status"],"DIRECTLY_CONFIRMED_REQUEST_NOT_SUBMITTED")
+        self.assertEqual(reproduction["g893_microfilm_number"],"M/F73-102-37-A")
+        self.assertTrue(reproduction["microfilm_scan_pdf_homepage_upload_policy"])
+        self.assertEqual(reproduction["service_change_effective_date"],"2024-02-01")
+        self.assertFalse(reproduction["request_submitted"])
+        self.assertFalse(reproduction["approval_received"])
+        self.assertEqual(reproduction["fulfillment_scope"],"UNRESOLVED")
+        self.assertEqual(reproduction["fee_status"],"UNKNOWN_DO_NOT_INFER_FREE")
+        self.assertTrue(reproduction["external_action_requires_user_authorization"])
+        self.assertEqual(reproduction["target_effect"],"NONE")
+        self.assertEqual(self.data["target_status"],"ALL_SIX_PENDING_DIRECT_TARGET_PAGE")
 
     def test_all_six_targets_remain_explicitly_pending(self) -> None:
         self.assertEqual(len(self.data["target_controls"]),6)
