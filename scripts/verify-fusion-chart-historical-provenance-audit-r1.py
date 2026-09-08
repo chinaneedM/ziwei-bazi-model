@@ -374,8 +374,8 @@ def main() -> int:
         raise SystemExit("Batch 12E HPA-ZDATE-006 physical-image review boundary regressed")
     if row_nanyang.get("jingluntang_target_page_status") != "NOT_OBSERVED_IN_PUBLIC_SHLIB_METADATA_OR_KUMYO_PHYSICAL_IMAGES":
         raise SystemExit("Batch 12E HPA-ZDATE-006 target-page boundary regressed")
-    if row_nanyang.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
-        raise SystemExit("Batch 12E HPA-ZDATE-006 HAI glyph boundary regressed")
+    if "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED" not in row_nanyang.get("hai_glyph_cross_edition_status", ""):
+        raise SystemExit("Batch 12E/12Z HPA-ZDATE-006 within-Fullbook HAI glyph boundary regressed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
