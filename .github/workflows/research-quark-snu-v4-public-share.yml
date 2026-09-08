@@ -1,0 +1,122 @@
+name: research-quark-snu-v4-public-share
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-public-share.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Probe source-published Quark share without authentication
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          SOURCE = "https://www.xinghunw.com/2056.html"
+          SHARE = "https://pan.quark.cn/s/3b7b731e41f2"
+          TARGET = "〖飛星策天紫微斗數全集〗一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+          UA = "Mozilla/5.0 provenance-research normal-public-share-probe"
+
+          def fetch(url, limit=8_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "text/html,application/xhtml+xml,application/json,*/*;q=0.8",
+                  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.7",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read(limit)
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(data),
+                          "sha256": hashlib.sha256(data).hexdigest(),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "bytes": 0, "data": b""}
+
+          result = {
+              "schema": "QUARK-SNU-MINGJINGGE-V4-PUBLIC-SHARE-PROBE-R1",
+              "source_page": SOURCE,
+              "source_published_share_url": SHARE,
+              "target_filename": TARGET,
+              "authentication_attempted": False,
+              "save_to_cloud_attempted": False,
+              "download_request_attempted": False,
+              "api_endpoint_guessing_attempted": False,
+              "access_control_bypass_attempted": False,
+              "routes": [],
+          }
+
+          for label, url in [("xinghun_source", SOURCE), ("quark_public_share", SHARE)]:
+              row = fetch(url)
+              data = row.pop("data")
+              rec = {"route": label, "url": url, **row}
+              if data:
+                  text = data.decode("utf-8", "replace")
+                  rec["target_filename_present"] = TARGET in text
+                  rec["target_basename_fragment_present"] = "飛星策天紫微斗數全集" in text and "木版本（4）" in text
+                  rec["share_token_present"] = "3b7b731e41f2" in text
+                  rec["login_words_present"] = any(x in text for x in ("登录", "登入", "login", "sign in"))
+                  rec["html_prefix"] = text[:4000]
+                  hrefs = []
+                  for m in re.finditer(r'''(?:href|src)\s*=\s*["']([^"']+)["']''', text, re.I):
+                      u = urllib.parse.urljoin(rec.get("final_url") or url, html.unescape(m.group(1)))
+                      if u not in hrefs:
+                          hrefs.append(u)
+                  rec["source_emitted_url_count"] = len(hrefs)
+                  rec["source_emitted_urls"] = hrefs[:300]
+                  (OUT / f"{label}.html").write_bytes(data)
+              result["routes"].append(rec)
+
+          result["adjudication"] = {
+              "scope": "NORMAL_PUBLIC_SOURCE_PUBLISHED_SHARE_URL_ONLY",
+              "target_file_static_html_exposed": any(
+                  r.get("route") == "quark_public_share" and r.get("target_filename_present")
+                  for r in result["routes"]
+              ),
+              "browser_render_required_if_static_shell_only": True,
+              "same_snu_physical_digitization_lineage": True,
+              "independent_physical_witness_increment": 0,
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "quark-snu-v4-public-share-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "routes": [
+                  {k:v for k,v in r.items() if k not in ("html_prefix","source_emitted_urls")}
+                  for r in result["routes"]
+              ],
+              "adjudication": result["adjudication"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload public-share evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-public-share-probe
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
