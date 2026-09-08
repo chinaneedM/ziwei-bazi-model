@@ -840,7 +840,7 @@ def main() -> int:
         "PT10/PT11",
         "PT165",
         "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
-        "source-name index positions are not base-copy segmentation boundaries",
+        "index positions are not base-copy segmentation boundaries",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
