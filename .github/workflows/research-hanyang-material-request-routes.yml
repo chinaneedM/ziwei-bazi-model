@@ -1,0 +1,133 @@
+name: research-hanyang-material-request-routes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-material-request-routes.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Follow only exact public menu labels for preservation-stack and document-copy requests
+        shell: python
+        run: |
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.keys import Keys
+
+          OUT=Path("probe"); OUT.mkdir()
+          HOME="https://lib.hanyang.ac.kr/"
+          LABELS=["보존서고자료 신청","원문제공신청"]
+          KEYWORDS=["보존서고","고전","고서","희귀","원문","복사","신청","로그인","이용대상","대상자료","제외"]
+
+          opts=Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,2600")
+          opts.add_argument("--lang=ko-KR")
+
+          result={
+            "schema":"ZIWEI-HANYANG-MATERIAL-REQUEST-ROUTES-R1",
+            "target_biblio_id":484926,
+            "target_accession":"HOM000001861",
+            "labels_from_complete_public_navigation":LABELS,
+            "authentication_attempted":False,
+            "form_submission_attempted":False,
+            "route_guessing_attempted":False,
+            "results":[]
+          }
+
+          driver=webdriver.Chrome(options=opts)
+          try:
+            driver.set_page_load_timeout(90)
+            for idx,label in enumerate(LABELS,1):
+              driver.get(HOME); time.sleep(7)
+              try:
+                driver.find_element(By.TAG_NAME,"body").send_keys(Keys.ESCAPE)
+                time.sleep(1)
+              except Exception: pass
+
+              buttons=[b for b in driver.find_elements(By.CSS_SELECTOR,'button[title="전체메뉴"]') if b.is_displayed()]
+              row={"label":label,"full_menu_button_count":len(buttons)}
+              if not buttons:
+                row["status"]="NO_PUBLIC_FULL_MENU_BUTTON"
+                result["results"].append(row); continue
+              try: buttons[0].click()
+              except Exception: driver.execute_script("arguments[0].click();",buttons[0])
+              time.sleep(3)
+
+              matches=[]
+              for e in driver.find_elements(By.XPATH,f"//a[normalize-space(text())='{label}']"):
+                try:
+                  if e.is_displayed(): matches.append(e)
+                except Exception: pass
+              row["visible_exact_label_count"]=len(matches)
+              if not matches:
+                row["status"]="NO_VISIBLE_EXACT_LABEL"
+                result["results"].append(row); continue
+
+              el=matches[0]
+              row["tag"]=el.tag_name
+              row["href_before_click"]=el.get_attribute("href")
+              try: el.click()
+              except Exception: driver.execute_script("arguments[0].click();",el)
+              time.sleep(7)
+
+              row["final_url"]=driver.current_url
+              row["title"]=driver.title
+              body=driver.find_element(By.TAG_NAME,"body").text
+              row["body_text"]=body[:70000]
+              row["login_language_visible"]=any(k in body for k in ("로그인","Login","登录"))
+              row["keyword_lines"]=[
+                line for line in body.splitlines()
+                if any(k.lower() in line.lower() for k in KEYWORDS)
+              ][:500]
+              driver.save_screenshot(str(OUT/f"{idx:02d}.png"))
+              (OUT/f"{idx:02d}.html").write_text(driver.page_source,encoding="utf-8")
+              result["results"].append(row)
+          finally:
+            driver.quit()
+
+          result["adjudication"]={
+            "preservation_stack_route_is_rarebook_route":"UNRESOLVED_UNLESS_PAGE_EXPLICITLY_SAYS_SO",
+            "document_copy_route_applies_to_rarebook":"UNRESOLVED_UNLESS_PAGE_EXPLICITLY_SAYS_SO",
+            "target_page_status":"PENDING_DIRECT_PAGE",
+            "algorithm_effect":"NONE"
+          }
+          (OUT/"hanyang-material-request-routes.json").write_text(
+            json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "results":[{
+              "label":r.get("label"),"visible_exact_label_count":r.get("visible_exact_label_count"),
+              "href_before_click":r.get("href_before_click"),"final_url":r.get("final_url"),
+              "title":r.get("title"),"login_language_visible":r.get("login_language_visible"),
+              "keyword_lines":r.get("keyword_lines")
+            } for r in result["results"]],
+            "adjudication":result["adjudication"]
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload Hanyang request-route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-material-request-routes
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
