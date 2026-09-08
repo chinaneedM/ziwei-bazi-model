@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.29.0",
+  "schema_version": "1.30.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -104,9 +104,10 @@
       "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
       "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
       "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q",
-      "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R"
+      "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R",
+      "BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -226,7 +227,13 @@
       "The detail-page rare-book text is a generic notice only; VII-3-157 itself is not displayed with 貴/貴重書 in the request-number field. Current 2025-11-28 Toyo first-party web guidance nevertheless says all reading is reservation-only during facility renovation; the GitHub runner did not obtain those .or.jp policy pages, so no machine-snapshot success is claimed.",
       "NCKU 2021 PDF SHA-256 17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e preserves the scholarly table statement 金陵益軒唐謙梓 and 昭和17年（1942）6月收入東洋文庫; this is secondary edition genealogy/provenance and does not override current Toyo/KOSTMA manuscript-form cataloging or provide a target glyph vote.",
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12R adds zero independent Hai-glyph witnesses, creates no new chart-rule candidate, changes no 198/166/10/14 accounting, and authorizes no algorithm reopen or candidate collapse.",
-      "Next high-value gate is a direct 五凶神 page through a first-party Toyo Media Repository/new Hanseki image route, an explicitly authorized reading/reproduction route, or another independently bound material witness."
+      "Next high-value gate is a direct 五凶神 page through a first-party Toyo Media Repository/new Hanseki image route, an explicitly authorized reading/reproduction route, or another independently bound material witness.",
+      "Batch 12S closes the post-12R Toyo Media Repository probes as a current first-party public digital-access search boundary; it does not change chart-rule accounting.",
+      "Controlling run 34221594363 / artifact 10053963935 / ZIP SHA-256 533efe6a70dbc7f1488adf13199e47a02b908ac3c184bb54be26b2075adedf0a binds source-emitted general advanced search plus 東洋文庫コレクション item_set_id=42942.",
+      "Five target terms across both scopes produce 10 valid HTTP-200 searches; every result page visibly reports 0 件 and returns zero concrete item/document resource objects and zero resource nodes.",
+      "Runs 34220952755 and 34221489266 are retained only as parser-hardening history: pagination-field misuse and /item/search self-link false positives were rejected before the controlling run.",
+      "The current public Media Repository zero result is not proof of no digitization ever, no internal/non-indexed Toyo image, or target-text absence; it adds zero independent text/Hai-glyph votes.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; counts remain 198/166/10/14 and confirmed chart algorithm defect / algorithm reopen / candidate collapse remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

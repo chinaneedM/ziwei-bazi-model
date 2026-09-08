@@ -1,0 +1,247 @@
+{
+  "schema": "ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "status": "CURRENT_PUBLIC_TOYO_MEDIA_REPOSITORY_SOURCE_EMITTED_GENERAL_AND_TOYO_COLLECTION_SEARCHES_EXPLICITLY_SHOW_ZERO_ITEMS_AND_RETURN_NO_CONCRETE_TARGET_RESOURCE_OBJECT_NO_DIGITIZATION_ABSENCE_CLAIM_NO_TEXTUAL_VOTE",
+  "controlling_research_capture": {
+    "head_sha": "9da578db289b0193bd3b0527d7f64bfcb34aa83e",
+    "workflow": ".github/workflows/research-toyo-media-repository-ziwei.yml",
+    "workflow_run_id": 34221594363,
+    "artifact_id": 10053963935,
+    "artifact_zip_sha256": "533efe6a70dbc7f1488adf13199e47a02b908ac3c184bb54be26b2075adedf0a",
+    "artifact_size_bytes": 90823,
+    "parser_generation": 4
+  },
+  "first_party_media_repository": {
+    "provider": "東洋文庫 Media Repository / Omeka S",
+    "home_url": "https://app.toyobunko-lab.jp/s/main/page/home",
+    "item_browse_url": "https://app.toyobunko-lab.jp/s/main/item",
+    "toyo_collection_url": "https://app.toyobunko-lab.jp/s/main/collection/top",
+    "toyo_collection_item_set_id": 42942,
+    "seed_pages": [
+      {
+        "role": "HOME",
+        "url": "https://app.toyobunko-lab.jp/s/main/page/home",
+        "http_status": 200,
+        "bytes": 8843,
+        "sha256": "044fd0ee86f3f0597b7b54281bd6cb71ee0dc3f1ca2ff28de5b9cd3d0a8eb1de"
+      },
+      {
+        "role": "ITEM_BROWSE",
+        "url": "https://app.toyobunko-lab.jp/s/main/item",
+        "http_status": 200,
+        "bytes": 84811,
+        "sha256": "05f61e422e9cc3263eb1221eeb119ac3fcc9cbf6a7b4d3988ab4ea411033ad9d",
+        "source_emitted_advanced_search": "https://app.toyobunko-lab.jp/s/main/item/search?sort_by=created&sort_order=desc&page=1"
+      },
+      {
+        "role": "TOYO_COLLECTION",
+        "url": "https://app.toyobunko-lab.jp/s/main/collection/top",
+        "http_status": 200,
+        "bytes": 87218,
+        "sha256": "79292f8ddaaf3f29247eb430e58eda9f3a7f11f24088cb8c8a39a37e4283ecdb",
+        "source_emitted_advanced_search": "https://app.toyobunko-lab.jp/s/main/item/search?sort_by=created&sort_order=desc&page=1&item_set_id=42942"
+      }
+    ],
+    "advanced_search_pages": [
+      {
+        "scope": "GENERAL",
+        "url": "https://app.toyobunko-lab.jp/s/main/item/search?sort_by=created&sort_order=desc&page=1",
+        "http_status": 200,
+        "sha256": "298f9b0f348b62b59dbda6c09e97fe69ce78258d3d9d022929003414695c4881"
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "url": "https://app.toyobunko-lab.jp/s/main/item/search?sort_by=created&sort_order=desc&page=1&item_set_id=42942",
+        "http_status": 200,
+        "sha256": "cddee0200e824dc5d29baad899ec8c5dbb1b0edffee383948e7cc048e8c5d317"
+      }
+    ],
+    "source_emitted_search_field": {
+      "text_field": "property[0][text]",
+      "joiner": "and",
+      "property": "",
+      "type": "in"
+    },
+    "query_terms": [
+      "新刊希夷陳先生紫微斗數全集",
+      "紫微斗數",
+      "VII-3-157",
+      "Ⅶ-3-157",
+      "TOYO_1646"
+    ],
+    "valid_query_count": 10,
+    "searches": [
+      {
+        "scope": "GENERAL",
+        "term": "新刊希夷陳先生紫微斗數全集",
+        "http_status": 200,
+        "html_sha256": "59d55f44c28105cd7541240e1cfa1305b7eabd565bfdda73af022dd6e361b2c3",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "GENERAL",
+        "term": "紫微斗數",
+        "http_status": 200,
+        "html_sha256": "5fc0b7a620d05730b7274108e7b1c0d1d11c752da4688ad22ae889d104fa7c78",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "GENERAL",
+        "term": "VII-3-157",
+        "http_status": 200,
+        "html_sha256": "4a141b110110e83cd7d1ecf53dfe27bfdfc371bbb1943f94e4950bc5e8639fa9",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "GENERAL",
+        "term": "Ⅶ-3-157",
+        "http_status": 200,
+        "html_sha256": "6e9475ed8d9861cedadcdadcc9df04f099fe25e663a075187ac1f6f53da11987",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "GENERAL",
+        "term": "TOYO_1646",
+        "http_status": 200,
+        "html_sha256": "6c0dde33e82195c8700b67867d3ef537a9430f49b77d0085122c831b69d56b94",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "term": "新刊希夷陳先生紫微斗數全集",
+        "http_status": 200,
+        "html_sha256": "021edf548f2f565d07f80d430b693aa28f232b3063512a9304761851a2900264",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "term": "紫微斗數",
+        "http_status": 200,
+        "html_sha256": "16228016bb74bbff3b021075865761a85f88591bb8d63c8a3345dbc2aa841be3",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "term": "VII-3-157",
+        "http_status": 200,
+        "html_sha256": "7aa9d671ff9c5882450220eecab28096f9b682749b33e88947781cf36952dc78",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "term": "Ⅶ-3-157",
+        "http_status": 200,
+        "html_sha256": "914a2dc82e6442184bdc30d2960b00dc02548b5e405beca6dfa31098a86cf2a2",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      },
+      {
+        "scope": "TOYO_COLLECTION_42942",
+        "term": "TOYO_1646",
+        "http_status": 200,
+        "html_sha256": "47aedd98c381606921c587070c1797bf7d4bd29c30074650be4499fb23a9e3bc",
+        "visible_result_count_strings": [
+          "0 件",
+          "0 件"
+        ],
+        "concrete_resource_links": [],
+        "resource_node_count": 0,
+        "no_concrete_resource_objects": true
+      }
+    ],
+    "all_valid_queries_visible_zero_items": true,
+    "all_valid_queries_no_concrete_resource_objects": true,
+    "concrete_target_resource_object_count_returned": 0,
+    "target_page_observed": false
+  },
+  "parser_hardening_history": {
+    "run_2_34220952755": "REJECTED_PAGINATION_FIELD_AS_QUERY_AND_SEARCH_SELF_LINK_FALSE_POSITIVE",
+    "run_3_34221489266": "REJECTED_SEARCH_SELF_LINK_AS_RESOURCE_OBJECT_FALSE_POSITIVE",
+    "controlling_run_4_34221594363": "RESERVED_SEARCH_ROUTE_EXCLUDED_AND_RESOURCE_NODE_COUNT_BOUND",
+    "prior_parser_false_positives_are_historical_probe_bugs_not_evidence": true
+  },
+  "guardrails": {
+    "guessed_item_ids": false,
+    "enumerated_item_ids": false,
+    "api_route_guessed": false,
+    "login_attempted": false,
+    "captcha_bypass_attempted": false,
+    "pagination_control_used_as_query": false,
+    "only_source_emitted_search_routes_and_fields_submitted": true
+  },
+  "epistemic_boundaries": {
+    "current_public_media_repository_zero_as_no_digitization_ever_proof": "FORBIDDEN",
+    "current_public_media_repository_zero_as_no_toyo_internal_image_proof": "FORBIDDEN",
+    "current_public_media_repository_zero_as_no_target_text_exists_proof": "FORBIDDEN",
+    "query_echo_as_resource_hit": "FORBIDDEN",
+    "advanced_search_self_link_as_resource_object": "FORBIDDEN",
+    "hidden_item_id_guessing_or_enumeration": "FORBIDDEN",
+    "media_repository_nonhit_as_independent_text_or_glyph_vote": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "new_chart_rule_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_FIVE_XIONG_SHEN_TARGET_PAGE_FROM_TOYO_VII_3_157_VIA_AN_ACTUAL_FIRST_PARTY_IMAGE_RESOURCE_OR_EXPLICITLY_AUTHORIZED_READING_REPRODUCTION_OR_ANOTHER_INDEPENDENT_WITNESS_WITH_PAGE_LEVEL_PROVENANCE"
+  }
+}

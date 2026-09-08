@@ -219,6 +219,16 @@ The 1581 edition identity is independently corroborated by Shanghai Library link
 - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; direct Hai-glyph increment = 0; 198/166/10/14 and algorithm invariants are unchanged.
 - Evidence: `docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json`.
 
+
+### Batch 12S — Toyo Bunko Media Repository public search-route control
+
+- First-party Media Repository run `34221594363` / artifact `10053963935` binds the provider-emitted general advanced search and the `東洋文庫コレクション` restricted route `item_set_id=42942`.
+- Five target terms were searched in both scopes (10 valid HTTP-200 queries). Every page visibly reports `0 件`, and the hardened parser finds zero concrete item/document links plus zero resource nodes.
+- Earlier query-echo, pagination-field and `/item/search` self-link false positives are explicitly rejected; only run 4 is controlling.
+- This is a current public access-surface boundary, **not** proof of no digitization, no internal image, or target-text absence.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; Hai-glyph increment = 0; counts remain 198 / 166 / 10 / 14; no candidate selection/collapse or algorithm reopen.
+- Evidence: `docs/research/ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-R1.json`.
+
 ## Cross-chat continuity
 
 Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` and restored according to `docs/PROJECT-CONTINUITY-PROTOCOL-R1.md`. CI runs `scripts/verify-project-continuity-state-r1.py` so Matrix progress, completed batches, defect counts and non-negotiable invariants cannot drift from the handoff state unnoticed.
