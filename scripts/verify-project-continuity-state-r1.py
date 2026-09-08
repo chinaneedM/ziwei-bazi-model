@@ -46,6 +46,8 @@ ZIWEI_MINGJINGGE_SNU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_MINGJINGGE_SNU_EVIDENCE = ROOT / "docs/research/ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-R1.json"
 ZIWEI_MINGJINGGE_HANYANG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N.md"
 ZIWEI_MINGJINGGE_HANYANG_EVIDENCE = ROOT / "docs/research/ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-R1.json"
+ZIWEI_KOREA_UNIVERSITY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O.md"
+ZIWEI_KOREA_UNIVERSITY_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -69,9 +71,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L",
     "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
     "BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N",
+    "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O.md"
 
 
 def fail(message: str) -> None:
@@ -79,7 +82,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -104,6 +107,7 @@ def main() -> int:
     ziwei_kangjie_typeset_evidence = json.loads(ZIWEI_KANGJIE_TYPESET_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_mingjingge_snu_evidence = json.loads(ZIWEI_MINGJINGGE_SNU_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_mingjingge_hanyang_evidence = json.loads(ZIWEI_MINGJINGGE_HANYANG_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_korea_university_evidence = json.loads(ZIWEI_KOREA_UNIVERSITY_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -897,6 +901,47 @@ def main() -> int:
     if nanyang_row.get("hanyang_current_public_digital_resource_status") != "NO_RECORD" or nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12n") != 0:
         fail("Batch 12N Matrix resource/witness-count boundary regressed")
 
+
+    # Batch 12O closes post-12N access probes while binding Korea University as a first-party physical set; no holding count may be promoted to a target-text/glyph vote.
+    if ziwei_korea_university_evidence.get("batch_id") != "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O":
+        fail("Batch 12O evidence batch identity mismatch")
+    ku12o = ziwei_korea_university_evidence.get("official_catalog_detail", {})
+    if ku12o.get("catalog_control") != "CAT000000737166" or ku12o.get("edition") != "木板本(中國)":
+        fail("Batch 12O Korea University catalog identity regressed")
+    if "江左書林" not in ku12o.get("publication", "") or ku12o.get("extent") != "6卷6冊 : 圖 ; 16.0 ×11.3 cm.":
+        fail("Batch 12O Korea University imprint/extent regressed")
+    ku_items12o = ku12o.get("items", ())
+    if len(ku_items12o) != 6 or ku_items12o[0].get("registration_number") != "465000245" or ku_items12o[-1].get("registration_number") != "465000250":
+        fail("Batch 12O Korea University physical item set regressed")
+    if ku12o.get("target_page_observed") is not False:
+        fail("Batch 12O target-page boundary regressed")
+    search12o = ziwei_korea_university_evidence.get("korea_university_public_search_controls", {})
+    if search12o.get("oldbook_workflow_run_id") != 34211721066 or search12o.get("negative_catalog_absence_claim_authorized") is not False:
+        fail("Batch 12O Korea University search-surface boundary regressed")
+    access12o = ziwei_korea_university_evidence.get("post_12n_access_controls", {})
+    snu12o = access12o.get("snu_public_preview", {})
+    if snu12o.get("workflow_run_id") != 34209828645 or snu12o.get("target_page_status") != "PREVIEW_ROUTE_BOUND_NOT_TARGET_PAGE":
+        fail("Batch 12O SNU preview boundary regressed")
+    hy12o = access12o.get("hanyang_material_requests", {})
+    if hy12o.get("workflow_run_id") != 34189277789 or hy12o.get("rarebook_applicability") != "UNRESOLVED" or hy12o.get("request_submitted") is not False:
+        fail("Batch 12O Hanyang request boundary regressed")
+    prov12o = ziwei_korea_university_evidence.get("provenance_adjudication", {})
+    if prov12o.get("korea_university_physical_copy_status") != "OFFICIALLY_BOUND_FIRST_PARTY_PHYSICAL_SET" or prov12o.get("textual_stemma_independence_established") is not False:
+        fail("Batch 12O physical/textual independence boundary regressed")
+    adj12o = ziwei_korea_university_evidence.get("adjudication", {})
+    if adj12o.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12o.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12O HPA-ZDATE-006 witness-count boundary regressed")
+    if adj12o.get("algorithm_reopen_authorized") is not False or adj12o.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12O algorithm boundary regressed")
+    ku_source12o = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-KOREA-UNIVERSITY-JIANGZUO-ZIWEI-QUANJI-CAT737166"), None)
+    if not ku_source12o or ku_source12o.get("catalog_control") != "CAT000000737166" or ku_source12o.get("target_page_status") != "PENDING_DIRECT_PAGE":
+        fail("Batch 12O source-registry binding regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("korea_university_independent_physical_copy_artifact") != "docs/research/ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-R1.json":
+        fail("Batch 12O Matrix artifact binding regressed")
+    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12o") != 0 or nanyang_row.get("snu_v4_public_preview_status_post_12n") != "PREVIEW_ROUTE_BOUND_NOT_TARGET_PAGE":
+        fail("Batch 12O Matrix access/witness boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -1013,6 +1058,18 @@ def main() -> int:
         "34178359903",
         "10038051901",
         "zero independent target-text/Hai-glyph votes",
+        "Batch 12O",
+        "CAT000000737166",
+        "江左書林",
+        "대학원 C10 B8",
+        "465000245",
+        "465000250",
+        "34211567451",
+        "10050023318",
+        "34209828645",
+        "10049328514",
+        "34189277789",
+        "10041642791",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
