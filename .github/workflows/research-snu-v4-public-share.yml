@@ -125,14 +125,28 @@ jobs:
             candidates.sort(key=lambda x:x[0])
             result["visible_target_candidate_count"]=len(candidates)
             if candidates:
-              _,el,txt=candidates[0]
+              _,label,txt=candidates[0]
               result["target_candidate_text"]=txt[:1000]
+              target=label
               try:
-                ActionChains(driver).double_click(el).perform()
+                target=label.find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+                result["target_interaction_class"]=target.get_attribute("class")
               except Exception:
-                try: el.click()
-                except Exception: driver.execute_script("arguments[0].click();",el)
-              time.sleep(12)
+                result["target_interaction_class"]=label.get_attribute("class")
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",target)
+              time.sleep(0.5)
+              before=driver.current_url
+              # Files may use a single-click preview handler while folders use double-click navigation.
+              try: target.click()
+              except Exception: driver.execute_script("arguments[0].click();",target)
+              time.sleep(6)
+              result["after_single_click_url"]=driver.current_url
+              result["after_single_click_changed"]=driver.current_url != before
+              if driver.current_url == before:
+                # Same exact visible file row; fallback to ordinary double-click, still no download/login action.
+                try: ActionChains(driver).double_click(target).perform()
+                except Exception: driver.execute_script("arguments[0].dispatchEvent(new MouseEvent('dblclick',{bubbles:true}))",target)
+                time.sleep(10)
 
             result["post_target_url"]=driver.current_url
             result["post_target_title"]=driver.title
@@ -200,6 +214,9 @@ jobs:
             "suffix_visible_in_folder":result.get("suffix_visible_in_folder"),
             "visible_target_candidate_count":result.get("visible_target_candidate_count"),
             "target_candidate_text":result.get("target_candidate_text"),
+            "target_interaction_class":result.get("target_interaction_class"),
+            "after_single_click_url":result.get("after_single_click_url"),
+            "after_single_click_changed":result.get("after_single_click_changed"),
             "post_target_url":result.get("post_target_url"),
             "post_target_title":result.get("post_target_title"),
             "preview_language_visible":result.get("preview_language_visible"),
