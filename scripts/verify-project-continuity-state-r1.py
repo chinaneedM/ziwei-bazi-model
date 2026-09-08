@@ -50,6 +50,8 @@ ZIWEI_KOREA_UNIVERSITY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-A
 ZIWEI_KOREA_UNIVERSITY_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-R1.json"
 ZIWEI_WEIJINGTANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md"
 ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
+ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md"
+ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE = ROOT / "docs/research/ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -75,9 +77,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N",
     "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
     "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
+    "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md"
 
 
 def fail(message: str) -> None:
@@ -85,7 +88,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -112,6 +115,7 @@ def main() -> int:
     ziwei_mingjingge_hanyang_evidence = json.loads(ZIWEI_MINGJINGGE_HANYANG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_university_evidence = json.loads(ZIWEI_KOREA_UNIVERSITY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_weijingtang_hanauction_evidence = json.loads(ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_kostma_scribd_fozhu_evidence = json.loads(ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -982,6 +986,33 @@ def main() -> int:
     if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12p") != 0:
         fail("Batch 12P Matrix witness-count firewall regressed")
 
+    # Batch 12Q keeps manuscript/catalog-cover and access-preview controls below target-text authority.
+    if ziwei_kostma_scribd_fozhu_evidence.get("batch_id") != "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q":
+        fail("Batch 12Q evidence batch identity mismatch")
+    k12q = ziwei_kostma_scribd_fozhu_evidence.get("kostma", {})
+    if k12q.get("uci") != "RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646" or k12q.get("call_number") != "Ⅶ-3-157":
+        fail("Batch 12Q KOSTMA object identity regressed")
+    if k12q.get("edition_form") != "筆寫本/필사본" or k12q.get("extent") != "1冊(100張)":
+        fail("Batch 12Q manuscript boundary regressed")
+    if k12q.get("exact_image_sha256") != "e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04" or k12q.get("target_page_observed") is not False:
+        fail("Batch 12Q KOSTMA image/target boundary regressed")
+    s12q = ziwei_kostma_scribd_fozhu_evidence.get("scribd", {})
+    if s12q.get("captcha_detected") is not True or s12q.get("captcha_bypass_attempted") is not False:
+        fail("Batch 12Q Scribd CAPTCHA boundary regressed")
+    f12q = ziwei_kostma_scribd_fozhu_evidence.get("fozhu", {})
+    if f12q.get("public_preview_count") != 6 or f12q.get("target_page_observed") is not False:
+        fail("Batch 12Q Fozhu preview boundary regressed")
+    a12q = ziwei_kostma_scribd_fozhu_evidence.get("adjudication", {})
+    if a12q.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or a12q.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12Q HPA-ZDATE-006 witness boundary regressed")
+    if a12q.get("new_chart_rule_candidate_authorized") is not False or a12q.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12Q candidate/algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("kostma_toyo1646_manuscript_access_artifact") != "docs/research/ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1.json":
+        fail("Batch 12Q Matrix artifact binding regressed")
+    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12q") != 0:
+        fail("Batch 12Q Matrix witness-count firewall regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -1118,6 +1149,17 @@ def main() -> int:
         "59973f47a016dc114c967506673b3e053681a6d4a3824ecb8385f7b450fd1385",
         "ac_num 120",
         "117",
+        "Batch 12Q",
+        "TOYO_1646",
+        "Ⅶ-3-157",
+        "34216448461",
+        "10051997835",
+        "34217047741",
+        "10052200564",
+        "e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04",
+        "34215179324",
+        "10051466410",
+        "Client Challenge CAPTCHA",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.27.0",
+  "schema_version": "1.28.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -102,9 +102,10 @@
       "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
       "BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N",
       "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
-      "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P"
+      "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
+      "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -212,7 +213,13 @@
       "The same public object id 102923 appeared with ac_num 120 and later 117; ac_num is therefore excluded from stable bibliographic identity as a dynamic presentation parameter, and the earlier search-engine ac_num=297 route is deprecated as canonical identity.",
       "味經堂藏板 and 清版/청판목판본 are preserved strictly at seller/auction-description scope: no institutional catalog verification, exact print year or textual-stemma independence is inferred.",
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12P creates no chart-rule candidate, changes no 198/166/10/14 accounting, and authorizes no candidate selection, collapse or algorithm reopen.",
-      "The next gate is a directly readable 五凶神 target page from the 味經堂 physical set or an institutionally bound equivalent copy with edition-level and page-level collation."
+      "The next gate is a directly readable 五凶神 target page from the 味經堂 physical set or an institutionally bound equivalent copy with edition-level and page-level collation.",
+      "Batch 12Q closes the seven post-12P KOSTMA/Scribd/Fozhu probe commits as catalog-object-image-access controls without changing rule accounting.",
+      "KOSTMA current first-party UCI RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646 / Ⅶ-3-157 identifies 新刊希夷陳先生紫微斗數全集 as a manuscript (필사본), 1冊(100張), held by Japan Toyo Bunko; it must not be conflated with a printed Jinling/Yixuan witness.",
+      "KOSTMA run 34216448461 / artifact 10051997835 binds the current result DOM; exact image run 34217047741 / artifact 10052200564 binds a 134x150 cover JPEG SHA-256 e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04, which exposes no 五凶神 target text.",
+      "Scribd run 34215179324 / artifact 10051466410 stops at Client Challenge CAPTCHA; no bypass was attempted and no public target terms were observed.",
+      "The Fozhu public page in the same artifact exposes six 780x780 previews; all six were directly visually reviewed without OCR and none is the 五凶神 target page. This is not a whole-volume negative claim.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; independent Hai-glyph increment is 0, no new chart-rule candidate is authorized, counts remain 198/166/10/14, and algorithm reopen/collapse remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
