@@ -66,6 +66,9 @@ ZIWEI_SNU_QUARK_FOZHU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_SNU_QUARK_FOZHU_EVIDENCE = ROOT / "docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json"
 ZIWEI_JIWEN_DAYUAN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md"
 ZIWEI_JIWEN_DAYUAN_EVIDENCE = ROOT / "docs/research/ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-R1.json"
+ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y.md"
+ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_EVIDENCE = ROOT / "docs/research/ZIWEI-NCC-JIWEN-DAYUAN-PUBLIC-SAMPLE-VISUAL-REVIEW-R1.json"
+ZIWEI_KAMO_ACCESS_EVIDENCE = ROOT / "docs/research/ZIWEI-KAMO-4174-03-04-PUBLIC-ROUTE-ACCESS-CONTROL-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -99,9 +102,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V",
     "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W",
     "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X",
+    "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y.md"
 
 
 def fail(message: str) -> None:
@@ -109,7 +113,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE, ZIWEI_JIWEN_DAYUAN_BATCH, ZIWEI_JIWEN_DAYUAN_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE, ZIWEI_JIWEN_DAYUAN_BATCH, ZIWEI_JIWEN_DAYUAN_EVIDENCE, ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_BATCH, ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_EVIDENCE, ZIWEI_KAMO_ACCESS_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -144,6 +148,8 @@ def main() -> int:
     ziwei_naikaku_1971_page_boundary_evidence = json.loads(ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_snu_quark_fozhu_evidence = json.loads(ZIWEI_SNU_QUARK_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jiwen_dayuan_evidence = json.loads(ZIWEI_JIWEN_DAYUAN_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_ncc_jiwen_dayuan_review_evidence = json.loads(ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_kamo_access_evidence = json.loads(ZIWEI_KAMO_ACCESS_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1514,6 +1520,59 @@ def main() -> int:
         fail("Batch 12X Jiwen registry authority boundary regressed")
     if not dysrc12x or dysrc12x.get("main_text_page_count") != 434 or dysrc12x.get("wushen_to_wuxiongshen_normalization_authorized") is not False:
         fail("Batch 12X Dayuan registry authority boundary regressed")
+
+    # Batch 12Y NCC/Kamo continuity evidence: direct sample review upgrades route evidence but adds no target-text vote.
+    if ziwei_ncc_jiwen_dayuan_review_evidence.get("schema") != "ZIWEI-NCC-JIWEN-DAYUAN-PUBLIC-SAMPLE-VISUAL-REVIEW-R1":
+        fail("Batch 12Y NCC sample-review schema mismatch")
+    rr12y = ziwei_ncc_jiwen_dayuan_review_evidence.get("research_run", {})
+    if rr12y.get("workflow_run_id") != 34241779981 or rr12y.get("artifact_id") != 10062285198:
+        fail("Batch 12Y NCC research run/artifact binding regressed")
+    if rr12y.get("artifact_zip_sha256") != "6fd5a1a6c160d93f186aa3a0e1572dd5fd0763ce4a27716ed8673ebf23eb5048":
+        fail("Batch 12Y NCC artifact digest regressed")
+    jw12y = ziwei_ncc_jiwen_dayuan_review_evidence.get("jiwen_995", {})
+    if jw12y.get("source_emitted_relevant_image_object_count") != 11 or jw12y.get("facsimile_nature_directly_observed") is not True:
+        fail("Batch 12Y Jiwen direct facsimile sample binding regressed")
+    if jw12y.get("direct_five_xiong_shen_target_page_observed") is not False or jw12y.get("late_zi_target_sentence_observed") is not False:
+        fail("Batch 12Y Jiwen target-page firewall regressed")
+    dy12y = ziwei_ncc_jiwen_dayuan_review_evidence.get("dayuan_7346", {})
+    if dy12y.get("source_emitted_relevant_image_object_count") != 11:
+        fail("Batch 12Y Dayuan source-emitted image count regressed")
+    if dy12y.get("direct_five_xiong_shen_target_page_observed") is not False or dy12y.get("direct_wushen_target_page_observed") is not False:
+        fail("Batch 12Y Dayuan target-page firewall regressed")
+    phil12y = ziwei_ncc_jiwen_dayuan_review_evidence.get("philological_control", {})
+    if phil12y.get("wushen_to_wuxiongshen_mechanical_normalization_authorized") is not False:
+        fail("Batch 12Y 五神/五凶神 philological firewall regressed")
+    a12y = ziwei_ncc_jiwen_dayuan_review_evidence.get("adjudication", {})
+    if a12y.get("direct_independent_hai_glyph_witness_count_added") != 0 or a12y.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12Y NCC witness/algorithm firewall regressed")
+
+    if ziwei_kamo_access_evidence.get("schema") != "ZIWEI-KAMO-4174-03-04-PUBLIC-ROUTE-ACCESS-CONTROL-R1":
+        fail("Batch 12Y Kamo route-control schema mismatch")
+    if ziwei_kamo_access_evidence.get("workflow_run_id") != 34242503503 or ziwei_kamo_access_evidence.get("artifact_id") != 10062627609:
+        fail("Batch 12Y Kamo run/artifact binding regressed")
+    if ziwei_kamo_access_evidence.get("artifact_zip_sha256") != "d20f179a18834e7a7d18207df8810c96e9290c5188a5771e62546e89b2426c11":
+        fail("Batch 12Y Kamo artifact digest regressed")
+    routes12y = ziwei_kamo_access_evidence.get("routes", [])
+    if len(routes12y) != 3 or any(r.get("result") != "TIMEOUT" or r.get("bytes") != 0 for r in routes12y):
+        fail("Batch 12Y Kamo timeout access-boundary record regressed")
+    ka12y = ziwei_kamo_access_evidence.get("adjudication", {})
+    if ka12y.get("content_absence_claim_authorized") is not False or ka12y.get("target_page_absence_claim_authorized") is not False:
+        fail("Batch 12Y Kamo negative-inference firewall regressed")
+    if ka12y.get("independent_textual_witness_increment") != 0 or ka12y.get("algorithm_effect") != "NONE":
+        fail("Batch 12Y Kamo witness/algorithm firewall regressed")
+
+    row12y = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12y or row12y.get("batch_12y_ncc_direct_review_artifact") != "docs/research/ZIWEI-NCC-JIWEN-DAYUAN-PUBLIC-SAMPLE-VISUAL-REVIEW-R1.json":
+        fail("Batch 12Y Matrix NCC artifact binding regressed")
+    if row12y.get("kamo_public_route_access_control_artifact_batch_12y") != "docs/research/ZIWEI-KAMO-4174-03-04-PUBLIC-ROUTE-ACCESS-CONTROL-R1.json":
+        fail("Batch 12Y Matrix Kamo artifact binding regressed")
+    if row12y.get("independent_hai_glyph_witness_count_added_batch_12y") != 0:
+        fail("Batch 12Y Matrix witness firewall regressed")
+
+    if not jwsrc12x or jwsrc12x.get("direct_public_sample_review_status") != "OLD_PRINT_FACSIMILE_NATURE_DIRECTLY_OBSERVED_TARGET_PAGE_NOT_OBSERVED":
+        fail("Batch 12Y Jiwen registry direct-sample status regressed")
+    if not dysrc12x or dysrc12x.get("direct_public_sample_review_status") != "HANDWRITTEN_COPY_TEXT_SAMPLES_DIRECTLY_OBSERVED_TARGET_PAGE_NOT_OBSERVED":
+        fail("Batch 12Y Dayuan registry direct-sample status regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
