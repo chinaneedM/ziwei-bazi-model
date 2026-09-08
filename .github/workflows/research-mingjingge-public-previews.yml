@@ -14,7 +14,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 8
     steps:
       - name: Capture explicit public preview images only
         shell: python
@@ -27,9 +27,9 @@ jobs:
           import urllib.request
           from pathlib import Path
 
-          OUT=Path("probe")
+          OUT = Path("probe")
           OUT.mkdir()
-          UA="Mozilla/5.0 research-only public-preview provenance probe"
+          UA = "Mozilla/5.0 research-only public-preview provenance probe"
 
           PAGES = {
               "shenjige": "https://www.shenjige.cn/details/w-USM3MWE.html",
@@ -39,188 +39,193 @@ jobs:
           }
 
           def fetch(url, max_bytes=6_000_000, accept="*/*"):
-              req=urllib.request.Request(url,headers={
-                  "User-Agent":UA,
-                  "Accept":accept,
-                  "Accept-Language":"zh-TW,zh;q=0.9,en;q=0.7",
-              })
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": accept,
+                      "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
+                  },
+              )
               try:
-                  with urllib.request.urlopen(req,timeout=12) as resp:
-                      data=resp.read(max_bytes+1)
-                      if len(data)>max_bytes:
+                  with urllib.request.urlopen(req, timeout=12) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
                           raise RuntimeError("response exceeded guard")
                       return {
-                          "ok":True,
-                          "status":getattr(resp,"status",None),
-                          "final_url":resp.geturl(),
-                          "content_type":resp.headers.get("content-type"),
-                          "data":data,
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
                       }
               except Exception as exc:
-                  return {"ok":False,"url":url,"error":repr(exc),"data":b""}
+                  return {
+                      "ok": False,
+                      "url": url,
+                      "error": repr(exc),
+                      "data": b"",
+                  }
 
           def meta(row):
-              data=row.get("data",b"")
-              return {k:v for k,v in row.items() if k!="data"} | {
-                  "bytes":len(data),
-                  "sha256":hashlib.sha256(data).hexdigest() if data else None,
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
               }
 
           def extract_urls(base_url, raw):
-              text=raw.decode("utf-8","replace")
-              urls=[]
-              # Only URLs explicitly emitted in HTML attributes; no guessed filenames or ID enumeration.
+              text = raw.decode("utf-8", "replace")
+              urls = []
               for m in re.finditer(
                   r'''(?:src|data-src|data-original|data-lazy-src|href)\s*=\s*["']([^"'<>]+)["']''',
                   text,
-                  flags=re.I
+                  flags=re.I,
               ):
-                  u=html.unescape(m.group(1)).strip()
-                  if not u or u.startswith(("data:","javascript:","#","mailto:","tel:")):
+                  value = html.unescape(m.group(1)).strip()
+                  if not value or value.startswith(("data:", "javascript:", "#", "mailto:", "tel:")):
                       continue
-                  full=urllib.parse.urljoin(base_url,u)
-                  scheme=urllib.parse.urlparse(full).scheme
-                  if scheme in ("http","https"):
+                  full = urllib.parse.urljoin(base_url, value)
+                  if urllib.parse.urlparse(full).scheme in ("http", "https"):
                       urls.append(full)
-              # Also retain explicit absolute image URLs embedded in JSON/script metadata.
+
               for m in re.finditer(r'''https?://[^"'<>\s\\]+''', text):
-                  u=html.unescape(m.group(0)).rstrip("),;")
-                  if re.search(r'\.(?:jpe?g|png|webp|gif)(?:\?|$)',u,re.I):
-                      urls.append(u)
-              out=[]
-              seen=set()
-              for u in urls:
-                  if u not in seen:
-                      seen.add(u); out.append(u)
+                  value = html.unescape(m.group(0)).rstrip("),;")
+                  if re.search(r'\.(?:jpe?g|png|webp|gif)(?:\?|$)', value, re.I):
+                      urls.append(value)
+
+              out = []
+              seen = set()
+              for value in urls:
+                  if value not in seen:
+                      seen.add(value)
+                      out.append(value)
               return out
 
-          result={
-              "schema":"ZIWEI-MINGJINGGE-PUBLIC-PREVIEW-ROUTES-R1",
-              "target_rule_id":"HPA-ZDATE-006",
-              "target_lineage":"1870_MINGJINGGE_FEIXING_CETIAN_ZIWEI_DOUSHU_QUANJI_VOLUME_4_FIVE_XIONG_SHEN",
-              "ocr_used":False,
-              "paid_download_attempted":False,
-              "authentication_or_paywall_bypass_attempted":False,
-              "identifier_guessing_attempted":False,
-              "pages":{},
+          result = {
+              "schema": "ZIWEI-MINGJINGGE-PUBLIC-PREVIEW-ROUTES-R2",
+              "target_rule_id": "HPA-ZDATE-006",
+              "target_lineage": "1870_MINGJINGGE_FEIXING_CETIAN_ZIWEI_DOUSHU_QUANJI_VOLUME_4_FIVE_XIONG_SHEN",
+              "ocr_used": False,
+              "paid_download_attempted": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_guessing_attempted": False,
+              "pages": {},
           }
 
-          for key,url in PAGES.items():
-              page=fetch(url,max_bytes=6_000_000,accept="text/html,*/*;q=0.8")
-              pm=meta(page) | {"url":url}
-              raw=page.get("data",b"")
+          for key, url in PAGES.items():
+              page = fetch(url, max_bytes=6_000_000, accept="text/html,*/*;q=0.8")
+              pm = meta(page) | {"url": url}
+              raw = page.get("data", b"")
               if raw:
-                  (OUT/f"{key}.html").write_bytes(raw)
-              candidates=extract_urls(page.get("final_url",url),raw) if raw else []
-              pm["explicit_url_candidate_count"]=len(candidates)
-              pm["candidate_urls"]=candidates[:300]
-              result["pages"][key]=pm
+                  (OUT / f"{key}.html").write_bytes(raw)
+              candidates = extract_urls(page.get("final_url", url), raw) if raw else []
+              pm["explicit_url_candidate_count"] = len(candidates)
+              pm["candidate_urls"] = candidates[:200]
+              result["pages"][key] = pm
 
-          saved=[]
-          seen_content=set()
-          seq=0
-          per_site_cap=12
-          total_cap=32
-          for key,pm in result["pages"].items():
-              site_saved=0
-              explicit_images=[]
-              for url in pm.get("candidate_urls",[]):
-                  path=urllib.parse.urlparse(url).path.lower()
-                  if re.search(r'\.(?:jpe?g|png|webp|gif)
-          result["saved_public_images"]=saved
-          result["adjudication"]={
-              "saved_public_image_count":len(saved),
-              "per_site_cap":per_site_cap,
-              "total_cap":total_cap,
-              "visual_review_status":"REQUIRES_DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
-              "five_xiong_shen_target_page_status":"UNRESOLVED_UNTIL_VISUAL_REVIEW",
-              "paid_or_restricted_full_file_access":"NOT_ATTEMPTED",
-              "hpa_zdate_006_effect":"NONE_UNTIL_DIRECT_TARGET_PAGE_AND_EDITION_PROVENANCE_REVIEW",
-              "algorithm_effect":"NONE",
-          }
-          (OUT/"mingjingge-public-preview-routes.json").write_text(
-              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
-          )
-          print(json.dumps({
-              "pages":{k:{
-                  "status":v.get("status"),
-                  "bytes":v.get("bytes"),
-                  "sha256":v.get("sha256"),
-                  "explicit_url_candidate_count":v.get("explicit_url_candidate_count"),
-              } for k,v in result["pages"].items()},
-              "saved_public_images":saved,
-              "adjudication":result["adjudication"],
-          },ensure_ascii=False,indent=2))
+          saved = []
+          seen_content = set()
+          seq = 0
+          per_site_cap = 12
+          total_cap = 32
 
-      - name: Upload Mingjingge public-preview evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ziwei-mingjingge-public-previews
-          path: probe/
-          if-no-files-found: warn
-          retention-days: 14
-, path):
+          for key, pm in result["pages"].items():
+              site_saved = 0
+              explicit_images = []
+              for url in pm.get("candidate_urls", []):
+                  image_path = urllib.parse.urlparse(url).path.lower()
+                  if re.search(r'\.(?:jpe?g|png|webp|gif)$', image_path):
                       explicit_images.append(url)
-              pm["explicit_image_url_count"]=len(explicit_images)
+              pm["explicit_image_url_count"] = len(explicit_images)
+
               for url in explicit_images:
-                  row=fetch(url,max_bytes=3_000_000,accept="image/avif,image/webp,image/*,*/*;q=0.8")
-                  data=row.get("data",b"")
-                  ctype=(row.get("content_type") or "").lower()
-                  is_image=(
+                  row = fetch(
+                      url,
+                      max_bytes=3_000_000,
+                      accept="image/avif,image/webp,image/*,*/*;q=0.8",
+                  )
+                  data = row.get("data", b"")
+                  ctype = (row.get("content_type") or "").lower()
+                  is_image = (
                       ctype.startswith("image/")
                       or data.startswith(b"\xff\xd8")
                       or data.startswith(b"\x89PNG")
                       or (data.startswith(b"RIFF") and b"WEBP" in data[:16])
                   )
-                  if not is_image or len(data)<20_000:
+                  if not is_image or len(data) < 20_000:
                       continue
-                  digest=hashlib.sha256(data).hexdigest()
+
+                  digest = hashlib.sha256(data).hexdigest()
                   if digest in seen_content:
                       continue
                   seen_content.add(digest)
-                  seq+=1
-                  site_saved+=1
-                  ext=".jpg"
-                  if data.startswith(b"\x89PNG"): ext=".png"
-                  elif data.startswith(b"RIFF") and b"WEBP" in data[:16]: ext=".webp"
-                  fn=f"{seq:03d}-{key}{ext}"
-                  (OUT/fn).write_bytes(data)
-                  saved.append({
-                      "source_page":key,
-                      "url":url,
-                      "file":fn,
-                      "bytes":len(data),
-                      "sha256":digest,
-                      "content_type":row.get("content_type"),
-                  })
-                  if site_saved>=per_site_cap or len(saved)>=total_cap:
+                  seq += 1
+                  site_saved += 1
+
+                  ext = ".jpg"
+                  if data.startswith(b"\x89PNG"):
+                      ext = ".png"
+                  elif data.startswith(b"RIFF") and b"WEBP" in data[:16]:
+                      ext = ".webp"
+
+                  filename = f"{seq:03d}-{key}{ext}"
+                  (OUT / filename).write_bytes(data)
+                  saved.append(
+                      {
+                          "source_page": key,
+                          "url": url,
+                          "file": filename,
+                          "bytes": len(data),
+                          "sha256": digest,
+                          "content_type": row.get("content_type"),
+                      }
+                  )
+
+                  if site_saved >= per_site_cap or len(saved) >= total_cap:
                       break
-              if len(saved)>=total_cap:
+              if len(saved) >= total_cap:
                   break
 
-          result["saved_public_images"]=saved
-          result["adjudication"]={
-              "saved_public_image_count":len(saved),
-              "visual_review_status":"REQUIRES_DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
-              "five_xiong_shen_target_page_status":"UNRESOLVED_UNTIL_VISUAL_REVIEW",
-              "paid_or_restricted_full_file_access":"NOT_ATTEMPTED",
-              "hpa_zdate_006_effect":"NONE_UNTIL_DIRECT_TARGET_PAGE_AND_EDITION_PROVENANCE_REVIEW",
-              "algorithm_effect":"NONE",
+          result["saved_public_images"] = saved
+          result["adjudication"] = {
+              "saved_public_image_count": len(saved),
+              "per_site_cap": per_site_cap,
+              "total_cap": total_cap,
+              "visual_review_status": "REQUIRES_DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
+              "five_xiong_shen_target_page_status": "UNRESOLVED_UNTIL_VISUAL_REVIEW",
+              "paid_or_restricted_full_file_access": "NOT_ATTEMPTED",
+              "hpa_zdate_006_effect": "NONE_UNTIL_DIRECT_TARGET_PAGE_AND_EDITION_PROVENANCE_REVIEW",
+              "algorithm_effect": "NONE",
           }
-          (OUT/"mingjingge-public-preview-routes.json").write_text(
-              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
+
+          (OUT / "mingjingge-public-preview-routes.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
           )
-          print(json.dumps({
-              "pages":{k:{
-                  "status":v.get("status"),
-                  "bytes":v.get("bytes"),
-                  "sha256":v.get("sha256"),
-                  "explicit_url_candidate_count":v.get("explicit_url_candidate_count"),
-              } for k,v in result["pages"].items()},
-              "saved_public_images":saved,
-              "adjudication":result["adjudication"],
-          },ensure_ascii=False,indent=2))
+
+          print(
+              json.dumps(
+                  {
+                      "pages": {
+                          k: {
+                              "status": v.get("status"),
+                              "bytes": v.get("bytes"),
+                              "sha256": v.get("sha256"),
+                              "explicit_url_candidate_count": v.get("explicit_url_candidate_count"),
+                              "explicit_image_url_count": v.get("explicit_image_url_count"),
+                          }
+                          for k, v in result["pages"].items()
+                      },
+                      "saved_public_images": saved,
+                      "adjudication": result["adjudication"],
+                  },
+                  ensure_ascii=False,
+                  indent=2,
+              )
+          )
 
       - name: Upload Mingjingge public-preview evidence
         if: always()
