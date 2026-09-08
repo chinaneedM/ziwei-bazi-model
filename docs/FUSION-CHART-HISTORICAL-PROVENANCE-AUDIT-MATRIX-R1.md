@@ -240,3 +240,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - NAJ first-party file `1078787` / item `4468520` remains `子060-0001`, Red-Leaves former holding, Ming print, 2 volumes; official 2019 digitization list confirms the call/title.
 - The evidence supports high-confidence same Naikaku/National-Archives Ming Fullbook lineage, while the explicit `15856 -> 子060-0001` catalog-number crosswalk remains unobserved.
 - Dedup: Batch 12A mirror and the NAJ route are not two independent witnesses. Hai-glyph increment = 0; HPA-ZDATE-006 and 198/166/10/14 are unchanged.
+
+
+### Batch 12U — Naikaku 1971 revised-catalog crosswalk access route
+
+- NDL officially binds the 1971 `改訂 内閣文庫漢籍分類目録` to `UP111-59`, bib ID `000001237342`, PID `12282052`, DOI `10.11501/12282052`.
+- Minna Search exposes the existence of an uncorrected OCR derivative and legitimate transmission route, but not the unauthenticated target entry; no login/request/bypass was attempted.
+- A 2009 National Archives catalog-method article confirms the revised catalog has a document-name list at the end, making it a high-value old-number crosswalk source, but it does not itself state `15856 -> 子060-0001`.
+- Crosswalk remains unresolved pending the direct catalog entry. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and algorithm invariants are unchanged.
