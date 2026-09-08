@@ -267,3 +267,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - These six hashes are all different from Batch 12Q's six Fozhu thread-20568 previews, but copy/scan identity remains unresolved; therefore they are not counted as an independent target witness.
 - HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and all deterministic-product invariants are unchanged.
 - Evidence: `docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json`.
+
+### Batch 12X — Jiwen 1982/1999 + Dayuan 2012 copy-text routes
+
+- 集文 1999 公開頁保留周祖勇序，直接稱其提供珍藏多年、清同治九年木刻再版的六卷古本供集文複梓；1982 Google Books record `YOwLlQEACAAJ` supplies the earlier publication route. Physical-copy identity versus SNU remains unresolved, so witness increment = 0.
+- 大元 2012 `9789866171680` is publicly described as a six-volume 434-page 精鈔本. Xinyi emits large internal samples; direct no-OCR visual review shows handwritten vertical copy text and a title/imprint surface reading `十八飛星策天紫微斗數全集 / 大宋扶搖子白雲先生陳摶著 / 南州草坪徐良弼校正 / 金陵益軒唐謙繡梓`.
+- Public directory text gives `五神 百字千金訣`. This is quarantined as a directory-level variant/possible omission and is **not** mechanically normalized to `五凶神` before the underlying target page is directly collated.
+- No target late-Zi page is observed. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all deterministic-product invariants remain unchanged.
+- Evidence: `docs/research/ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-R1.json`.

@@ -64,6 +64,8 @@ ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PR
 ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json"
 ZIWEI_SNU_QUARK_FOZHU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W.md"
 ZIWEI_SNU_QUARK_FOZHU_EVIDENCE = ROOT / "docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json"
+ZIWEI_JIWEN_DAYUAN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md"
+ZIWEI_JIWEN_DAYUAN_EVIDENCE = ROOT / "docs/research/ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -96,9 +98,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U",
     "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V",
     "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W",
+    "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md"
 
 
 def fail(message: str) -> None:
@@ -106,7 +109,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE, ZIWEI_JIWEN_DAYUAN_BATCH, ZIWEI_JIWEN_DAYUAN_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -140,6 +143,7 @@ def main() -> int:
     ziwei_naikaku_1971_catalog_evidence = json.loads(ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_naikaku_1971_page_boundary_evidence = json.loads(ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_snu_quark_fozhu_evidence = json.loads(ZIWEI_SNU_QUARK_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jiwen_dayuan_evidence = json.loads(ZIWEI_JIWEN_DAYUAN_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1469,6 +1473,47 @@ def main() -> int:
         fail("Batch 12W Fozhu16991 registry source missing or regressed")
     if fzsrc12w.get("target_page_observed") is not False or fzsrc12w.get("independent_witness_increment") != 0:
         fail("Batch 12W Fozhu16991 registry authority boundary regressed")
+
+    # Batch 12X binds Jiwen/Dayuan copy-text routes without silently normalizing directory variants or adding target-text votes.
+    if ziwei_jiwen_dayuan_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X":
+        fail("Batch 12X machine evidence batch identity mismatch")
+    rw12x = ziwei_jiwen_dayuan_evidence.get("research_run", {})
+    if rw12x.get("workflow_run_id") != 34240652003 or rw12x.get("artifact_id") != 10061841718:
+        fail("Batch 12X research run/artifact binding regressed")
+    if rw12x.get("artifact_zip_sha256") != "022d32ef5cb09043ea8b662a13b8a45d09c596e02cd612d673da1c7adde8d7ca":
+        fail("Batch 12X research artifact digest regressed")
+    jw12x = ziwei_jiwen_dayuan_evidence.get("jiwen_1982_1999_route", {})
+    if jw12x.get("isbn13") != "9789579789806" or "清同治九年木刻再版" not in jw12x.get("preface_copy_provenance_surface", ""):
+        fail("Batch 12X Jiwen copy-route provenance regressed")
+    if jw12x.get("direct_five_xiong_shen_target_page_observed") is not False or jw12x.get("independent_textual_witness_increment") != 0:
+        fail("Batch 12X Jiwen target/witness firewall regressed")
+    dy12x = ziwei_jiwen_dayuan_evidence.get("dayuan_2012_route", {})
+    if dy12x.get("isbn13") != "9789866171680" or dy12x.get("public_description", {}).get("main_text_page_count") != 434:
+        fail("Batch 12X Dayuan identity/page-count binding regressed")
+    phil12x = dy12x.get("public_toc_philology", {})
+    if phil12x.get("observed_surface") != "五神 百字千金訣" or phil12x.get("mechanical_equivalence_authorized") is not False:
+        fail("Batch 12X 五神/五凶神 philological firewall regressed")
+    vis12x = dy12x.get("direct_visual_public_samples_no_ocr", {})
+    if vis12x.get("completed") is not True or vis12x.get("five_xiong_shen_target_page_observed") is not False:
+        fail("Batch 12X Dayuan sample-review target boundary regressed")
+    if "金陵益軒唐謙繡梓" not in vis12x.get("sample_087", {}).get("direct_visible_glyphs", []):
+        fail("Batch 12X Dayuan title/imprint visual control regressed")
+    a12x = ziwei_jiwen_dayuan_evidence.get("adjudication", {})
+    if a12x.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or a12x.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12X HPA-ZDATE-006 witness boundary regressed")
+    if a12x.get("directory_variant_wushen_to_wuxiongshen_normalization_authorized") is not False or a12x.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12X philology/algorithm firewall regressed")
+    row12x = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12x or row12x.get("batch_12x_jiwen_dayuan_copy_text_artifact") != "docs/research/ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-R1.json":
+        fail("Batch 12X Matrix artifact binding regressed")
+    if row12x.get("dayuan_wushen_to_wuxiongshen_mechanical_normalization_authorized") is not False or row12x.get("independent_hai_glyph_witness_count_added_batch_12x") != 0:
+        fail("Batch 12X Matrix philology/witness firewall regressed")
+    jwsrc12x = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-JIWEN-ZWDSQJ-1982-1999-ZHOU-COPY-REPRINT"), None)
+    dysrc12x = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-DAYUAN-ZWDSQJ-JINGCHAOBEN-2012"), None)
+    if not jwsrc12x or jwsrc12x.get("target_page_observed") is not False or jwsrc12x.get("independent_witness_increment") != 0:
+        fail("Batch 12X Jiwen registry authority boundary regressed")
+    if not dysrc12x or dysrc12x.get("main_text_page_count") != 434 or dysrc12x.get("wushen_to_wuxiongshen_normalization_authorized") is not False:
+        fail("Batch 12X Dayuan registry authority boundary regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
