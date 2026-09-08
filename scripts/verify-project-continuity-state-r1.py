@@ -56,6 +56,8 @@ ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE = ROOT / "docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json"
 ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S.md"
 ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE = ROOT / "docs/research/ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-R1.json"
+ZIWEI_NAIKAKU_LINEAGE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T.md"
+ZIWEI_NAIKAKU_LINEAGE_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -84,9 +86,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q",
     "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R",
     "BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S",
+    "BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T.md"
 
 
 def fail(message: str) -> None:
@@ -94,7 +97,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -124,6 +127,7 @@ def main() -> int:
     ziwei_kostma_scribd_fozhu_evidence = json.loads(ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_toyo_detail_provenance_evidence = json.loads(ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_toyo_media_repository_evidence = json.loads(ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_naikaku_lineage_evidence = json.loads(ZIWEI_NAIKAKU_LINEAGE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1233,6 +1237,12 @@ def main() -> int:
         "0 件",
         "zero concrete item/document resource objects",
         "not proof of no digitization ever",
+        "Batch 12T",
+        "漢 / 子六十 / 一五八五六 / 全二",
+        "1078787",
+        "10054995877",
+        "HIGH_CONFIDENCE",
+        "not explicitly crosswalked",
                 "34176383486",
         "Hanyang University Library",
         "五凶神 target page",
@@ -1279,6 +1289,33 @@ def main() -> int:
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")
+
+    # Batch 12T upgrades/deduplicates the Batch 12A facsimile provenance without adding a new witness.
+    if ziwei_naikaku_lineage_evidence.get("batch_id") != "BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T":
+        fail("Batch 12T machine evidence batch identity mismatch")
+    bridge = ziwei_naikaku_lineage_evidence.get("lineage_adjudication", {})
+    if bridge.get("physical_lineage_relation") != "HIGH_CONFIDENCE_SAME_NAIKAKU_NATIONAL_ARCHIVES_MING_FULLBOOK_LINEAGE":
+        fail("Batch 12T physical-lineage convergence regressed")
+    if bridge.get("legacy_registration_15856_to_current_call_number_crosswalk") != "NOT_EXPLICITLY_DOCUMENTED_IN_REVIEWED_FIRST_PARTY_CATALOG_SURFACE":
+        fail("Batch 12T old-registration crosswalk uncertainty regressed")
+    if bridge.get("batch12a_and_batch12h_count_as_independent_textual_witnesses") is not False or bridge.get("independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12T dedup / zero-vote boundary regressed")
+    b12a = ziwei_naikaku_lineage_evidence.get("batch12a_direct_facsimile", {})
+    if b12a.get("pdf_sha256") != "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7":
+        fail("Batch 12T Batch12A PDF identity regressed")
+    if b12a.get("page_1_visual_review_no_ocr", {}).get("legacy_registration_number") != "15856":
+        fail("Batch 12T legacy registration visual binding regressed")
+    naj12t = ziwei_naikaku_lineage_evidence.get("national_archives_japan", {})
+    if naj12t.get("file_id") != "1078787" or naj12t.get("official_index_metadata", {}).get("call_number") != "子０６０－０００１":
+        fail("Batch 12T NAJ object binding regressed")
+    if naj12t.get("official_index_metadata", {}).get("quantity") != "2冊":
+        fail("Batch 12T NAJ two-volume binding regressed")
+    row12t = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12t or row12t.get("batch12a_naj_dedup_status") != "DO_NOT_DOUBLE_COUNT_AS_TWO_PHYSICAL_OR_TEXTUAL_WITNESSES":
+        fail("Batch 12T matrix dedup boundary regressed")
+    naj_source12t = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-NAJ-ZWDSQS-MING-1078787"), None)
+    if not naj_source12t or naj_source12t.get("batch12t_provenance_bridge", {}).get("independent_hai_glyph_increment") != 0:
+        fail("Batch 12T NAJ registry provenance bridge regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

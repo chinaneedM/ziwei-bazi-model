@@ -232,3 +232,11 @@ The 1581 edition identity is independently corroborated by Shanghai Library link
 ## Cross-chat continuity
 
 Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` and restored according to `docs/PROJECT-CONTINUITY-PROTOCOL-R1.md`. CI runs `scripts/verify-project-continuity-state-r1.py` so Matrix progress, completed batches, defect counts and non-negotiable invariants cannot drift from the handoff state unnoticed.
+
+
+### Batch 12T — Naikaku/National Archives Nanyangtang facsimile lineage bridge
+
+- Re-review of Batch 12A PDF SHA-256 `32ca49bb...e7` directly reads the p1 legacy label `漢 / 子六十 / 一五八五六 / 全二` and p2 `南陽堂較梓`.
+- NAJ first-party file `1078787` / item `4468520` remains `子060-0001`, Red-Leaves former holding, Ming print, 2 volumes; official 2019 digitization list confirms the call/title.
+- The evidence supports high-confidence same Naikaku/National-Archives Ming Fullbook lineage, while the explicit `15856 -> 子060-0001` catalog-number crosswalk remains unobserved.
+- Dedup: Batch 12A mirror and the NAJ route are not two independent witnesses. Hai-glyph increment = 0; HPA-ZDATE-006 and 198/166/10/14 are unchanged.
