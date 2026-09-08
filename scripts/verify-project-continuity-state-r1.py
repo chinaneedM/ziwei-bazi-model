@@ -48,6 +48,8 @@ ZIWEI_MINGJINGGE_HANYANG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_MINGJINGGE_HANYANG_EVIDENCE = ROOT / "docs/research/ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-R1.json"
 ZIWEI_KOREA_UNIVERSITY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O.md"
 ZIWEI_KOREA_UNIVERSITY_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-R1.json"
+ZIWEI_WEIJINGTANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md"
+ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -72,9 +74,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
     "BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N",
     "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
+    "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md"
 
 
 def fail(message: str) -> None:
@@ -82,7 +85,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -108,6 +111,7 @@ def main() -> int:
     ziwei_mingjingge_snu_evidence = json.loads(ZIWEI_MINGJINGGE_SNU_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_mingjingge_hanyang_evidence = json.loads(ZIWEI_MINGJINGGE_HANYANG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_university_evidence = json.loads(ZIWEI_KOREA_UNIVERSITY_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_weijingtang_hanauction_evidence = json.loads(ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -942,6 +946,42 @@ def main() -> int:
     if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12o") != 0 or nanyang_row.get("snu_v4_public_preview_status_post_12n") != "PREVIEW_ROUTE_BOUND_NOT_TARGET_PAGE":
         fail("Batch 12O Matrix access/witness boundary regressed")
 
+
+    # Batch 12P binds a secondary commercial physical-edition locator without promoting it to catalog, text, glyph or runtime authority.
+    if ziwei_weijingtang_hanauction_evidence.get("batch_id") != "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P":
+        fail("Batch 12P evidence batch identity mismatch")
+    listing12p = ziwei_weijingtang_hanauction_evidence.get("public_listing", {})
+    if listing12p.get("workflow_run_id") != 34214086632 or listing12p.get("artifact_id") != 10051026199:
+        fail("Batch 12P workflow/artifact binding regressed")
+    if listing12p.get("stable_object_id") != "102923" or listing12p.get("visible_lot_number") != 134 or listing12p.get("auction_round") != 229:
+        fail("Batch 12P lot identity regressed")
+    dom12p = listing12p.get("exact_dom_binding", {})
+    if dom12p.get("ac_num_observed_final_run") != "117" or dom12p.get("ac_num_observed_prior_successful_run") != "120" or dom12p.get("ac_num_is_stable_bibliographic_identity") is not False:
+        fail("Batch 12P dynamic ac_num boundary regressed")
+    thumb12p = ziwei_weijingtang_hanauction_evidence.get("rendered_thumbnail", {})
+    if thumb12p.get("sha256") != "59973f47a016dc114c967506673b3e053681a6d4a3824ecb8385f7b450fd1385" or thumb12p.get("width_px") != 114 or thumb12p.get("height_px") != 66:
+        fail("Batch 12P rendered thumbnail identity regressed")
+    if thumb12p.get("target_page_observed") is not False or thumb12p.get("target_hai_glyph_observed") is not False:
+        fail("Batch 12P thumbnail was promoted to target text/glyph authority")
+    prov12p = ziwei_weijingtang_hanauction_evidence.get("provenance_adjudication", {})
+    if prov12p.get("source_authority") != "SECONDARY_COMMERCIAL_AUCTION_PHYSICAL_EDITION_LOCATOR_NOT_TARGET_TEXT_AUTHORITY":
+        fail("Batch 12P source-authority boundary regressed")
+    if prov12p.get("institutional_holding_bound") is not False or prov12p.get("textual_stemma_independence_established") is not False:
+        fail("Batch 12P commercial/institutional-stemma boundary regressed")
+    adj12p = ziwei_weijingtang_hanauction_evidence.get("adjudication", {})
+    if adj12p.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12p.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12P HPA-ZDATE-006 witness boundary regressed")
+    if adj12p.get("new_chart_rule_candidate_authorized") is not False or adj12p.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12P candidate/algorithm boundary regressed")
+    wa_source12p = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-HANAUCTION-WEIJINGTANG-ZIWEI-QUANJI-LOT134-20260404"), None)
+    if not wa_source12p or wa_source12p.get("stable_object_id") != "102923" or wa_source12p.get("target_page_status") != "PENDING_DIRECT_PAGE":
+        fail("Batch 12P source-registry binding regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("weijingtang_hanauction_physical_edition_artifact") != "docs/research/ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json":
+        fail("Batch 12P Matrix artifact binding regressed")
+    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12p") != 0:
+        fail("Batch 12P Matrix witness-count firewall regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -1070,6 +1110,14 @@ def main() -> int:
         "10049328514",
         "34189277789",
         "10041642791",
+        "Batch 12P",
+        "102923",
+        "味經堂藏板",
+        "34214086632",
+        "10051026199",
+        "59973f47a016dc114c967506673b3e053681a6d4a3824ecb8385f7b450fd1385",
+        "ac_num 120",
+        "117",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

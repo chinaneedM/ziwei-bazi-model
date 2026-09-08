@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.26.0",
+  "schema_version": "1.27.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -101,9 +101,10 @@
       "BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L",
       "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
       "BATCH-12-ZIWEI-MINGJINGGE-HANYANG-OFFICIAL-PHYSICAL-COPY-PROVENANCE-N",
-      "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O"
+      "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
+      "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -204,7 +205,14 @@
       "Search-surface non-hits do not override the exact CAT000000737166 first-party detail and do not authorize physical-copy or digitization absence claims.",
       "SNU run 34209828645 / artifact 10049328514 binds the exact 一簑古523.5-J562b volume-4 public filename but does not open a preview; target status is PREVIEW_ROUTE_BOUND_NOT_TARGET_PAGE and adds zero independent target-text/Hai-glyph votes.",
       "Hanyang material-request run 34189277789 / artifact 10041642791 reaches generic preservation-stack and document-copy service pages, but rare-book applicability remains UNRESOLVED and no request has been submitted.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Korea University is independent at physical holding-object level only, textual-stemma independence is unproven, direct Hai-glyph witness increment is 0, and the next gate remains a directly readable 五凶神 target page."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Korea University is independent at physical holding-object level only, textual-stemma independence is unproven, direct Hai-glyph witness increment is 0, and the next gate remains a directly readable 五凶神 target page.",
+      "Batch 12P closes the Hanauction post-12O probe as a secondary commercial physical-edition locator: the public 229th-auction listing binds lot 134 / stable object id 102923 / auction id 260 to 新刻合倂十八飛星紫微斗數全集 described as 청판목판본 / 味經堂藏板 / 6卷 6冊 완질(函), auctioned 2026-04-04.",
+      "Hanauction run 34214086632 / artifact 10051026199 is the controlling machine capture; its exact lot row renders shopimage/102923S.JPG, 114x66, 7832 bytes, SHA-256 59973f47a016dc114c967506673b3e053681a6d4a3824ecb8385f7b450fd1385.",
+      "Direct visual review without OCR treats the thumbnail only as a low-resolution photographed physical multi-volume set; it does not expose 五凶神, the late-Zi sentence or the 亥 glyph and adds zero target-text/Hai-glyph votes.",
+      "The same public object id 102923 appeared with ac_num 120 and later 117; ac_num is therefore excluded from stable bibliographic identity as a dynamic presentation parameter, and the earlier search-engine ac_num=297 route is deprecated as canonical identity.",
+      "味經堂藏板 and 清版/청판목판본 are preserved strictly at seller/auction-description scope: no institutional catalog verification, exact print year or textual-stemma independence is inferred.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12P creates no chart-rule candidate, changes no 198/166/10/14 accounting, and authorizes no candidate selection, collapse or algorithm reopen.",
+      "The next gate is a directly readable 五凶神 target page from the 味經堂 physical set or an institutionally bound equivalent copy with edition-level and page-level collation."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
