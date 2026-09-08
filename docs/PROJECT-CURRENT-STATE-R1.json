@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.35.0",
+  "schema_version": "1.36.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -110,9 +110,10 @@
       "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U",
       "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V",
       "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W",
-      "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X"
+      "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X",
+      "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -263,7 +264,11 @@
       "Batch 12X binds a Jiwen 1982/1999 reproduction route whose public Zhou Zuyong preface says he supplied a privately held six-volume old edition identified as a Qing Tongzhi-9 woodblock reprint; physical-copy identity versus SNU remains unresolved and no textual vote is added.",
       "Batch 12X binds Dayuan 2012 ISBN 9789866171680 as a six-volume 434-page 精鈔本/copy-text route. Xinyi public internal samples directly show handwritten vertical text and the title/imprint surface 十八飛星策天紫微斗數全集 / 大宋扶搖子白雲先生陳摶著 / 南州草坪徐良弼校正 / 金陵益軒唐謙繡梓.",
       "Dayuan public directory text surfaces 五神 百字千金訣. This remains PHILOLOGICALLY_UNRESOLVED_DIRECTORY_VARIANT_OR_OMISSION and MUST NOT be mechanically normalized to 五凶神 before direct target-page collation.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12X adds zero independent Hai-glyph witnesses, changes no 198/166/10/14 accounting and authorizes no candidate selection, collapse or algorithm reopen. Next gate is a direct volume-four 五凶神 page from Jiwen, Dayuan, SNU, Hanyang or another copy with bound provenance."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12X adds zero independent Hai-glyph witnesses, changes no 198/166/10/14 accounting and authorizes no candidate selection, collapse or algorithm reopen. Next gate is a direct volume-four 五凶神 page from Jiwen, Dayuan, SNU, Hanyang or another copy with bound provenance.",
+      "Batch 12Y upgrades Jiwen/NCC evidence from reproduction-route wording to direct sample observation: 11 source-emitted image objects were reviewed without OCR, and old-print facsimile page layouts are directly visible; no 五凶神 target page or late-Zi sentence is present in the reviewed samples.",
+      "Batch 12Y upgrades Dayuan/NCC evidence with 11 source-emitted image objects: handwritten copy-text samples directly include pages 30–31, 160–161 and 394–395, but the target volume-four 五凶神 page remains unobserved.",
+      "The philological firewall remains active: retailer/directory 五神 must not be mechanically normalized to 五凶神 until the underlying target page is directly collated.",
+      "Kamo 4174-03 / 4174-04 / taiwan-sibi public routes all timed out in exact-head run 34242503503; this is only a GitHub-runner access boundary, adds zero textual/Hai-glyph votes and authorizes no negative content claim. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all algorithm invariants remain unchanged."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

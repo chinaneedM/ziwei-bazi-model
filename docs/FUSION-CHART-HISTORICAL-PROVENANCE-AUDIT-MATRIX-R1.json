@@ -3908,7 +3908,8 @@
       "source_quote_location": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN / PDF page 320 (one-based), 卷五《論人生時要審的確》 / docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
       "historical_period": "NANYANGTANG_FULLBOOK_FACSIMILE; PUBLIC_INDEX_ATTRIBUTED_MING; EXACT_PRINT_YEAR_UNRESOLVED",
       "later_witnesses": [
-        "Batch 12R: Toyo first-party detail targetids 471894/502596 bind 鈔本/寫本 catalog records under VII-3-157; physical multiplicity unresolved. NCKU 2021 preserves a 金陵益軒唐謙梓 / 1942-06 scholarly genealogy tension. No direct 五凶神 page or Hai-glyph vote."
+        "Batch 12R: Toyo first-party detail targetids 471894/502596 bind 鈔本/寫本 catalog records under VII-3-157; physical multiplicity unresolved. NCKU 2021 preserves a 金陵益軒唐謙梓 / 1942-06 scholarly genealogy tension. No direct 五凶神 page or Hai-glyph vote.",
+        "Batch 12Y: NCC source-emitted public samples for Jiwen id 995 and Dayuan id 7346 were directly visually reviewed without OCR. Jiwen sample spreads directly establish old-print facsimile nature; Dayuan samples directly establish handwritten copy-text pages at 30–31, 160–161 and 394–395. Neither route exposes the volume-four 五凶神 target page or late-Zi target sentence. Kamo 4174-03/04/catalog GitHub-runner probes timed out on all three routes, which is only an execution-environment access boundary and not a negative content claim."
       ],
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
@@ -3919,7 +3920,7 @@
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
       "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_WENGUANGTANG_ROUTES; HIGH_FOR_OFFICIAL_SHLIB_JINGLUNTANG_LIBRARY_IDENTITY; HIGH_FOR_PUBLIC_KUMYO_JINGLUNTANG_PHYSICAL_COPY_EXISTENCE; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANG_PUBLIC_INDEX_TEXT; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_TARGET_PAGES_ARE_READ; HIGH_FOR_DIRECT_DALIAN_LIBRARY_REPUBLIC_GUANGYI_CATALOG_IDENTITY; HIGH_FOR_NANKAI_INSTITUTIONAL_LEGACY_ROUTE_BINDING; MEDIUM_HIGH_FOR_JIELAN_GOOGLE_INDEX_EDITORIAL_WENCHENGTANG_COLLATION_NOTE; STILL_LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY; HIGH_FOR_OFFICIAL_LIANYUANGE_COLLATION_ROUTE; MEDIUM_FOR_SECONDARY_QUANJI_RECEIVED_TRANSCRIPTION; LOW_FOR_ORIGINAL_QUANJI_TARGET_GLYPHS_AND_PUNCTUATION_UNTIL_PHYSICAL_PAGE; HIGH_FOR_NAJ_OFFICIAL_MING_FULLBOOK_CATALOG_DIGITAL_OBJECT_IDENTITY; HIGH_FOR_SDU_FORMAL_FACSIMILE_ROUTE; MEDIUM_HIGH_FOR_NCKU_EDITION_GENEALOGY; HIGH_FOR_TOYO_CURRENT_CATALOG_COPY_LABELS; LOW_FOR_JAPAN_TARGET_LATE_ZI_GLYPH_UNTIL_DIRECT_PAGE",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep HPA-ZDATE-006 missing from product. Seek a directly readable 五凶神 target page through Toyo Bunko public Media Repository/new Hanseki image links, an explicitly authorized reading/reproduction request, or another independently bound witness; do not prepopulate a Hai glyph value from catalog or scholarship.",
+      "proposed_action": "Keep HPA-ZDATE-006 missing from product. Seek a directly readable volume-four 五凶神 target page from Jiwen, Dayuan, SNU, Hanyang, Toyo, or another independently bound copy; preserve 五神 vs 五凶神 as philologically unresolved until the underlying page is collated. Kamo runner timeouts are access-boundary evidence only and authorize no negative inference.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -4135,7 +4136,13 @@
       "dayuan_public_toc_surface": "五神 百字千金訣",
       "dayuan_wushen_to_wuxiongshen_mechanical_normalization_authorized": false,
       "direct_target_page_observed_batch_12x": false,
-      "independent_hai_glyph_witness_count_added_batch_12x": 0
+      "independent_hai_glyph_witness_count_added_batch_12x": 0,
+      "batch_12y_ncc_direct_review_artifact": "docs/research/ZIWEI-NCC-JIWEN-DAYUAN-PUBLIC-SAMPLE-VISUAL-REVIEW-R1.json",
+      "ncc_jiwen_public_sample_status_batch_12y": "11 SOURCE-EMITTED RELEVANT IMAGE OBJECTS; DIRECT NO-OCR REVIEW CONFIRMS OLD-PRINT FACSIMILE NATURE; TARGET PAGE NOT OBSERVED",
+      "ncc_dayuan_public_sample_status_batch_12y": "11 SOURCE-EMITTED RELEVANT IMAGE OBJECTS; DIRECT NO-OCR REVIEW BINDS HANDWRITTEN COPY-TEXT SAMPLES INCLUDING PAGES 30-31, 160-161, 394-395; TARGET PAGE NOT OBSERVED",
+      "kamo_public_route_access_control_artifact_batch_12y": "docs/research/ZIWEI-KAMO-4174-03-04-PUBLIC-ROUTE-ACCESS-CONTROL-R1.json",
+      "kamo_public_route_status_batch_12y": "RUN 34242503503 / ARTIFACT 10062627609 / 3 OF 3 ROUTES TIMEOUT / 0 IMAGES; EXECUTION-ENVIRONMENT ACCESS BOUNDARY ONLY",
+      "independent_hai_glyph_witness_count_added_batch_12y": 0
     },
     {
       "system": "BAZI",

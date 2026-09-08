@@ -1,0 +1,43 @@
+{
+  "schema": "ZIWEI-KAMO-4174-03-04-PUBLIC-ROUTE-ACCESS-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "access_date": "2026-09-08",
+  "parent_batch_id": "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "workflow_run_id": 34242503503,
+  "workflow_head_sha": "822956cdade256edd27df0fe92d656697d52597f",
+  "artifact_id": 10062627609,
+  "artifact_zip_sha256": "d20f179a18834e7a7d18207df8810c96e9290c5188a5771e62546e89b2426c11",
+  "routes": [
+    {
+      "url": "https://www.kamo-books.co.jp/4174-03.htm",
+      "label": "kamo_4174_03_jiwen",
+      "result": "TIMEOUT",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.kamo-books.co.jp/4174-04.htm",
+      "label": "kamo_4174_04_dayuan",
+      "result": "TIMEOUT",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.kamo-books.co.jp/taiwan-sibi.htm",
+      "label": "kamo_catalog",
+      "result": "TIMEOUT",
+      "bytes": 0
+    }
+  ],
+  "image_object_count": 0,
+  "authentication_attempted": false,
+  "purchase_attempted": false,
+  "identifier_guessing_attempted": false,
+  "access_control_bypass_attempted": false,
+  "adjudication": {
+    "classification": "GITHUB_RUNNER_EXECUTION_ENVIRONMENT_ACCESS_BOUNDARY_ONLY",
+    "content_absence_claim_authorized": false,
+    "target_page_absence_claim_authorized": false,
+    "independent_textual_witness_increment": 0,
+    "algorithm_effect": "NONE"
+  }
+}
