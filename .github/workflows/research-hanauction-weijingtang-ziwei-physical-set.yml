@@ -186,6 +186,8 @@ jobs:
                   if src:
                     imgs.append({'src':urljoin(d.current_url,src),'alt':im.get_attribute('alt') or '','width':im.get_attribute('naturalWidth'),'height':im.get_attribute('naturalHeight')})
                 rows.append({'text':txt,'links':links,'images':imgs})
+              except Exception:
+                pass
             result['target_rows']=rows
 
             downloaded=[]
