@@ -343,10 +343,23 @@ def main() -> int:
         raise SystemExit("Batch 12B HPA-ZDATE-006 timekeeping status regressed")
     if row_nanyang.get("runtime_time_standard_binding") != "UNRESOLVED_DO_NOT_CHOOSE_CIVIL_MEAN_OR_APPARENT_SOLAR_TIME_FROM_TIMEKEEPING_TRANSLATION":
         raise SystemExit("Batch 12B runtime time-standard firewall regressed")
-    if row_nanyang.get("independent_physical_target_page_status") != "NO_INDEPENDENT_TARGET_PAGE_OBSERVED":
-        raise SystemExit("Batch 12C HPA-ZDATE-006 edition-route binding regressed")
-    if row_nanyang.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
-        raise SystemExit("Batch 12C HPA-ZDATE-006 HAI glyph boundary regressed")
+    if row_nanyang.get("independent_physical_target_page_status") != "SEPARATE_KOREAN_SPRINGGANG_MANUSCRIPT_TARGET_PASSAGE_DIRECTLY_OBSERVED; INDEPENDENT_FULLBOOK_TARGET_PAGES_STILL_PENDING":
+        raise SystemExit("Batch 12Z HPA-ZDATE-006 physical target-page status regressed")
+    if row_nanyang.get("hai_glyph_cross_edition_status") != "EXPLICIT_HAI_IS_NOT_UNIVERSAL_ACROSS_BROADER_RECEIVED_ZIWEI_TRANSMISSION: NANYANGTANG_FULLBOOK_HAS 昨夜亥時, KOREA_SPRINGGANG_MANUSCRIPT HAS 昨夜 WITH NO 亥 IN EXACT TARGET SPAN; WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED":
+        raise SystemExit("Batch 12Z HPA-ZDATE-006 HAI glyph boundary regressed")
+    if row_nanyang.get("batch_12z_korea_cnts_direct_collation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1.json":
+        raise SystemExit("Batch 12Z HPA-ZDATE-006 Korea CNTS artifact binding regressed")
+    if row_nanyang.get("korea_cnts_explicit_hai_glyph_in_exact_target_span") is not False:
+        raise SystemExit("Batch 12Z HPA-ZDATE-006 Korea exact-span non-Hai boundary regressed")
+    if row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12z") != 0:
+        raise SystemExit("Batch 12Z HPA-ZDATE-006 Hai witness accounting regressed")
+    korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
+    if korea_cnts is None:
+        raise SystemExit("Batch 12Z Korea CNTS physical manuscript registry source is missing")
+    if korea_cnts.get("pdf_sha256") != "b21bbf3e2c7cdada4153f847ff9f359dbb29e71998e1f931417d108b571b23c3":
+        raise SystemExit("Batch 12Z Korea CNTS source PDF identity regressed")
+    if korea_cnts.get("explicit_hai_glyph_in_exact_target_span") is not False or korea_cnts.get("direct_ocr_used") is not False:
+        raise SystemExit("Batch 12Z Korea CNTS direct-glyph/no-OCR boundary regressed")
     if row_nanyang.get("combined_facsimile_volume_id") != "aIRbDgAAQBAJ" or row_nanyang.get("combined_facsimile_target_index_page_id") != "PT165":
         raise SystemExit("Batch 12D HPA-ZDATE-006 index-text binding regressed")
     if row_nanyang.get("combined_facsimile_index_text_status") != "TARGET_PASSAGE_CORROBORATED_AT_PUBLIC_SEARCH_INDEX_LEVEL_NOT_GLYPH_AUTHORITY":
