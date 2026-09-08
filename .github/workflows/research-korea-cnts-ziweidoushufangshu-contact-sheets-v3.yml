@@ -1,0 +1,91 @@
+name: research-korea-cnts-ziweidoushufangshu-contact-sheets-v3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-korea-cnts-ziweidoushufangshu-contact-sheets-v3.yml
+
+permissions:
+  contents: read
+
+jobs:
+  acquire-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Acquire and render public-domain Korea CNTS scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p probe/pages probe/contact
+          python -m pip install --quiet pymupdf pillow
+          python - <<'PY'
+          import hashlib, json, urllib.request, fitz, math
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+
+          url='https://upload.wikimedia.org/wikipedia/commons/9/98/CNTS-00047996572_%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E6%96%B9%E6%9B%B8.pdf'
+          pdf_path=Path('probe/CNTS-00047996572.pdf')
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 provenance-research public-domain-scan'})
+          with urllib.request.urlopen(req,timeout=90) as r:
+              data=r.read()
+          pdf_path.write_bytes(data)
+          digest=hashlib.sha256(data).hexdigest()
+
+          doc=fitz.open(str(pdf_path))
+          acq={
+            'schema':'ZIWEI-KOREA-CNTS-00047996572-PUBLIC-DOMAIN-ACQUISITION-R1',
+            'access_date':'2026-09-08',
+            'source_url':url,
+            'bytes':len(data),
+            'sha256':digest,
+            'page_count':doc.page_count,
+            'authentication_attempted':False,
+            'purchase_attempted':False,
+            'identifier_guessing_attempted':False,
+            'access_control_bypass_attempted':False,
+            'source_identity':'National Digital Library of Korea object CNTS-00047996572 mirrored on Wikimedia Commons as public-domain mechanical scan'
+          }
+          Path('probe/acquisition.json').write_text(json.dumps(acq,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(acq,ensure_ascii=False))
+
+          rendered=[]
+          for i,page in enumerate(doc,1):
+              pix=page.get_pixmap(matrix=fitz.Matrix(1.25,1.25),alpha=False)
+              p=Path('probe/pages')/f'p-{i:03d}.jpg'
+              pix.save(str(p),jpg_quality=78)
+              rendered.append(p)
+
+          font=ImageFont.load_default()
+          sheets=[]
+          for start in range(0,len(rendered),20):
+              chunk=rendered[start:start+20]
+              tiles=[]
+              for page_no,p in enumerate(chunk,start+1):
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((230,360))
+                  tile=Image.new('RGB',(250,390),'white')
+                  tile.paste(im,((250-im.width)//2,18))
+                  ImageDraw.Draw(tile).text((8,3),f'PDF page {page_no}',fill='black',font=font)
+                  tiles.append(tile)
+              cols=4; rows=math.ceil(len(tiles)/cols)
+              sheet=Image.new('RGB',(cols*250,rows*390),'white')
+              for j,t in enumerate(tiles):
+                  sheet.paste(t,((j%cols)*250,(j//cols)*390))
+              out=Path('probe/contact')/f'contact-{start+1:03d}-{start+len(chunk):03d}.jpg'
+              sheet.save(out,quality=84)
+              sheets.append(str(out))
+          Path('probe/contact-sheets.json').write_text(json.dumps({'page_count':len(rendered),'sheets':sheets},indent=2),encoding='utf-8')
+          print('rendered',len(rendered),'pages into',len(sheets),'contact sheets')
+          PY
+      - name: Upload scan and contact sheets
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-korea-cnts-00047996572-v3
+          path: probe/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 1
