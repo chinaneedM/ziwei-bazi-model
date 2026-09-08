@@ -1,0 +1,190 @@
+name: close-batch-12aa-huixian-official-catalog
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/close-batch-12aa-huixian-official-catalog.yml
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/fusion-chart-core-r1-20260822
+
+      - name: Fail closed if branch advanced after checkout
+        shell: bash
+        run: |
+          git fetch origin agent/fusion-chart-core-r1-20260822
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/agent/fusion-chart-core-r1-20260822)"
+
+      - name: Synchronize Batch 12AA state and gates
+        shell: python
+        run: |
+          import json, re
+          from pathlib import Path
+
+          BATCH='BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA'
+          DOC='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md'
+          EVID='docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json'
+          SRC='EXT-HUIXIAN-MUSEUM-NLCPRESS-2025-ZWDSQJ-CATALOG'
+
+          def load(p): return json.loads(Path(p).read_text(encoding='utf-8'))
+          def dump(p,x): Path(p).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          def append_once(text, marker, block):
+              return text if marker in text else text.rstrip()+'\n\n'+block.strip()+'\n'
+
+          for p in (DOC,EVID):
+              if not Path(p).is_file(): raise SystemExit(f'missing Batch 12AA artifact: {p}')
+          ev=load(EVID)
+          if ev.get('batch_id') != BATCH: raise SystemExit('Batch 12AA evidence id mismatch')
+          ad=ev.get('adjudication',{})
+          if ad.get('direct_independent_fullbook_hai_glyph_witness_increment') != 0: raise SystemExit('Batch 12AA must add zero Hai votes')
+          if ad.get('algorithm_reopen_authorized') is not False or ad.get('algorithm_effect') != 'NONE': raise SystemExit('Batch 12AA algorithm firewall')
+          off=ev.get('official_catalog_publication',{})
+          if off.get('ziwei_entry_start_page') != 233 or off.get('direct_page_233_image_observed') is not False: raise SystemExit('Batch 12AA official page boundary')
+          ae=ev.get('official_booktext_postback_ae',{})
+          if ae.get('response_sha256') != '9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10': raise SystemExit('Batch 12AA Booktext digest')
+          if ae.get('contains_late_zi_target_sentence') is not False: raise SystemExit('Batch 12AA target firewall')
+
+          # Matrix: enrich only HPA-ZDATE-006; row/count unchanged.
+          mp='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json'
+          matrix=load(mp)
+          row=next((r for r in matrix.get('rows',[]) if r.get('rule_id')=='HPA-ZDATE-006'),None)
+          if not row: raise SystemExit('HPA-ZDATE-006 missing')
+          row.update({
+            'batch_12aa_huixian_official_catalog_artifact':EVID,
+            'huixian_museum_fullbook_route_status':'OFFICIAL_PUBLICATION_LEVEL_PHYSICAL_HOLDING_BINDING_ENTRY_PAGE_233_TARGET_PAGE_PENDING',
+            'huixian_official_catalog_title':'辉县市博物馆藏古籍珍品书录',
+            'huixian_official_catalog_isbn':'978-7-5013-7612-4',
+            'huixian_official_catalog_ziwei_entry':'新鋟希夷陳先生紫微斗數全書四卷 二三三',
+            'huixian_official_catalog_entry_start_page':233,
+            'huixian_direct_entry_image_observed_batch_12aa':False,
+            'huixian_direct_late_zi_target_page_observed_batch_12aa':False,
+            'independent_hai_glyph_witness_count_added_batch_12aa':0,
+            'batch_12aa_route_dedup_status':'KUMYO_JINGLUNTANG_DUPLICATE_BATCH_12E; LIAONING_WENCHENGTANG_DUPLICATE_BATCH_12F; SHIDIAN_NANYANGTANG_RECEIVED_TEXT_NOT_INDEPENDENT; ANONYMOUS_33_75MB_PROVISIONAL_NANYANGTANG_DERIVATIVE; BUYBOOK_PREVIEW_ACCESS_BOUNDARY'
+          })
+          dump(mp,matrix)
+
+          # Registry: add the official-publication route, not a textual witness vote.
+          rp='docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json'
+          reg=load(rp)
+          if not any(s.get('source_id')==SRC for s in reg.get('sources',[])):
+              reg['sources'].append({
+                'source_id':SRC,
+                'title':'《辉县市博物馆藏古籍珍品书录》中的《新鋟希夷陳先生紫微斗數全書四卷》条目',
+                'author_attribution':'冯福珍编；馆藏主体：辉县市博物馆',
+                'historical_period':'2025 OFFICIAL PUBLISHED CATALOG OF AN UNDERLYING QING-PRINT FULLBOOK HOLDING',
+                'edition':'国家图书馆出版社 2025 / ISBN 978-7-5013-7612-4 / Ziwei entry starts p233',
+                'provider':'国家图书馆出版社 / 辉县市博物馆馆藏书录',
+                'url':'https://www.nlcpress.com/ProductView.aspx?Id=11941',
+                'source_role':'OFFICIAL_PUBLICATION_LEVEL_INSTITUTIONAL_BINDING_FOR_HUIXIAN_MUSEUM_FULLBOOK_PHYSICAL_HOLDING',
+                'quality_notes':'Official publisher product metadata and public TXT bind the title to the 2025 Hui County Museum ancient-book catalog and directory page 233. The publisher describes the catalog as including representative original-book images for each selected title, but the actual p233 entry image and the late-Zi target page were not publicly obtained. This source adds zero Hai-glyph votes.',
+                'isbn':'978-7-5013-7612-4',
+                'ziwei_directory_entry':'新鋟希夷陳先生紫微斗數全書四卷 二三三',
+                'entry_start_page':233,
+                'direct_entry_image_observed':False,
+                'direct_target_page_observed':False,
+                'independent_witness_increment':0,
+                'research_artifact':EVID
+              })
+          dump(rp,reg)
+
+          # Matrix narrative.
+          mdp='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md'
+          md=Path(mdp).read_text(encoding='utf-8')
+          md=append_once(md,'### Batch 12AA — Hui County Museum official illustrated-catalog route','''
+          ### Batch 12AA — Hui County Museum official illustrated-catalog route
+
+          - National Library Press's 2025 `《辉县市博物馆藏古籍珍品书录》` (ISBN `978-7-5013-7612-4`) officially binds a Hui County Museum `《新鋟希夷陳先生紫微斗數全書四卷》` holding; the directory places the entry at p233. The publisher states that each selected ancient book receives representative original-book imagery.
+          - The public product `Booktext` action returned only product metadata/description/directory text (32,920 bytes; SHA-256 `9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10`). No p233 entry image or late-Zi target page was obtained.
+          - Kumyo/Jingluntang is the already-reviewed Batch 12E object; Liaoning/Wenchengtang is already Batch 12F; Shidian explicitly belongs to the Nanyangtang received-text lineage; the anonymous 33.75 MB Fullbook file is conservatively quarantined as a likely Nanyangtang black-white derivative; Buybook/Books.com.tw preview images remain a runner-access boundary. None receives a new witness vote.
+          - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate remains a direct late-Zi target page from another Fullbook physical edition.
+          ''')
+          Path(mdp).write_text(md,encoding='utf-8')
+
+          # README.
+          readmep='README.md'
+          readme=Path(readmep).read_text(encoding='utf-8')
+          readme=append_once(readme,'**Batch 12AA (Hui County Museum official illustrated-catalog route):**','''
+          - **Batch 12AA (Hui County Museum official illustrated-catalog route):** National Library Press's 2025 Hui County Museum ancient-book catalog officially binds `《新鋟希夷陳先生紫微斗數全書四卷》` at directory p233 and describes representative original-book imagery for each selected title. The public TXT route exposes only metadata/description/directory text, so no p233 image, target late-Zi glyph, or independent Hai vote is claimed. Duplicate Kumyo/Liaoning/Nanyangtang routes and Buybook access boundaries remain quarantined. `HPA-ZDATE-006`, 198/166/10/14 and all algorithm invariants remain unchanged. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md`.
+          ''')
+          Path(readmep).write_text(readme,encoding='utf-8')
+
+          # Current state.
+          sp='docs/PROJECT-CURRENT-STATE-R1.json'
+          state=load(sp)
+          state['schema_version']='1.38.0'
+          audit=state['historical_audit']
+          if BATCH not in audit['completed_batches']: audit['completed_batches'].append(BATCH)
+          audit['latest_batch_doc']=DOC
+          additions=[
+            'Batch 12AA upgrades the Hui County Museum Fullbook route from a secondary locator to an official publication-level institutional binding: National Library Press 2025 《辉县市博物馆藏古籍珍品书录》 lists 新鋟希夷陳先生紫微斗數全書四卷 at p233 and states that each selected title receives representative original-book imagery.',
+            'The NLCPress public Booktext action returns only metadata/description/directory text; p233 entry imagery and the late-Zi target page remain unobserved. This adds zero independent Hai-glyph votes.',
+            'Batch 12AA deduplicates current Fullbook leads: Kumyo/Jingluntang is already Batch 12E, Liaoning/Wenchengtang already Batch 12F, Shidian is explicitly Nanyangtang received text, the anonymous 33.75 MB Fullbook file remains a likely Nanyangtang black-white derivative pending contrary imprint evidence, and Buybook preview images remain a runner access boundary.',
+            'HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate is still a direct late-Zi target page from another independently bound Fullbook physical edition.'
+          ]
+          for x in additions:
+              if x not in audit['current_focus']: audit['current_focus'].append(x)
+          dump(sp,state)
+
+          # Continuity verifier: bind AA robustly after Z.
+          vp='scripts/verify-project-continuity-state-r1.py'
+          v=Path(vp).read_text(encoding='utf-8')
+          if 'ZIWEI_HUIXIAN_CATALOG_BATCH' not in v:
+              marker='EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"'
+              const=(f'ZIWEI_HUIXIAN_CATALOG_BATCH = ROOT / "{DOC}"\n'
+                     f'ZIWEI_HUIXIAN_CATALOG_EVIDENCE = ROOT / "{EVID}"\n\n')
+              if marker not in v: raise SystemExit('AA verifier constants anchor missing')
+              v=v.replace(marker,const+marker,1)
+
+          # Batch ledger and latest doc.
+          if f'    "{BATCH}",' not in v:
+              anchor=']\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]'
+              pos=v.find(anchor,v.find('SUPPLEMENTAL_BATCH_IDS = ['))
+              if pos<0: raise SystemExit('AA verifier batch ledger anchor missing')
+              v=v[:pos]+f'    "{BATCH}",\n'+v[pos:]
+          v=re.sub(r'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-[^"]+\.md"',f'LATEST_BATCH_DOC = "{DOC}"',v,count=1)
+
+          # Evidence load.
+          if 'ziwei_huixian_catalog_evidence = json.loads' not in v:
+              load_anchor='    ziwei_korea_cnts_late_zi_evidence = json.loads(ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))\n'
+              if load_anchor not in v: raise SystemExit('AA verifier Z evidence-load anchor missing')
+              v=v.replace(load_anchor,load_anchor+'    ziwei_huixian_catalog_evidence = json.loads(ZIWEI_HUIXIAN_CATALOG_EVIDENCE.read_text(encoding="utf-8"))\n',1)
+
+          # AA validation before invariant checks.
+          if 'Batch 12AA Hui County official catalog binding' not in v:
+              inv_anchor='    if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):\n'
+              if inv_anchor not in v: raise SystemExit('AA verifier validation anchor missing')
+              block='''    # Batch 12AA Hui County official catalog binding: provenance upgrade only, zero Hai votes.\n    if not ZIWEI_HUIXIAN_CATALOG_BATCH.is_file() or not ZIWEI_HUIXIAN_CATALOG_EVIDENCE.is_file():\n        fail("Batch 12AA continuity artifacts missing")\n    if ziwei_huixian_catalog_evidence.get("batch_id") != "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA":\n        fail("Batch 12AA evidence identity mismatch")\n    off12aa = ziwei_huixian_catalog_evidence.get("official_catalog_publication", {})\n    if off12aa.get("ziwei_entry_start_page") != 233 or off12aa.get("direct_page_233_image_observed") is not False:\n        fail("Batch 12AA Hui County official catalog page boundary regressed")\n    if off12aa.get("direct_late_zi_target_page_observed") is not False:\n        fail("Batch 12AA target-page firewall regressed")\n    ae12aa = ziwei_huixian_catalog_evidence.get("official_booktext_postback_ae", {})\n    if ae12aa.get("response_sha256") != "9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10":\n        fail("Batch 12AA official Booktext digest regressed")\n    if ae12aa.get("contains_late_zi_target_sentence") is not False:\n        fail("Batch 12AA Booktext target firewall regressed")\n    ad12aa = ziwei_huixian_catalog_evidence.get("adjudication", {})\n    if ad12aa.get("direct_independent_fullbook_hai_glyph_witness_increment") != 0 or ad12aa.get("algorithm_reopen_authorized") is not False:\n        fail("Batch 12AA witness/algorithm firewall regressed")\n    row12aa = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)\n    if not row12aa or row12aa.get("batch_12aa_huixian_official_catalog_artifact") != "docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json":\n        fail("Batch 12AA Matrix artifact binding regressed")\n    if row12aa.get("independent_hai_glyph_witness_count_added_batch_12aa") != 0:\n        fail("Batch 12AA Matrix Hai-vote firewall regressed")\n    src12aa = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-HUIXIAN-MUSEUM-NLCPRESS-2025-ZWDSQJ-CATALOG"), None)\n    if not src12aa or src12aa.get("entry_start_page") != 233 or src12aa.get("independent_witness_increment") != 0:\n        fail("Batch 12AA registry binding regressed")\n\n'''
+              v=v.replace(inv_anchor,block+inv_anchor,1)
+          Path(vp).write_text(v,encoding='utf-8')
+
+      - name: Run gates before commit
+        shell: bash
+        run: |
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
+
+      - name: Commit and push Batch 12AA closure
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+                  docs/PROJECT-CURRENT-STATE-R1.json README.md scripts/verify-project-continuity-state-r1.py
+          git diff --cached --check
+          git commit -m "close Batch 12AA Hui County official catalog route"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
