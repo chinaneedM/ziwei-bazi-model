@@ -1,0 +1,279 @@
+name: close-batch-12q-kostma-scribd-fozhu
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/close-batch-12q-kostma-scribd-fozhu.yml
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+
+      - name: Refuse stale trigger
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin agent/fusion-chart-core-r1-20260822
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/agent/fusion-chart-core-r1-20260822)"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+
+      - name: Close Batch 12Q structurally
+        shell: python
+        run: |
+          import json,re
+          from pathlib import Path
+
+          BATCH_ID='BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q'
+          BATCH_PATH='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md'
+          EVIDENCE_PATH='docs/research/ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1.json'
+          STATE=Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          MATRIX=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json')
+          REGISTRY=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          MATRIX_MD=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md')
+          README=Path('README.md')
+          VERIFY=Path('scripts/verify-project-continuity-state-r1.py')
+
+          state=json.loads(STATE.read_text(encoding='utf-8'))
+          matrix=json.loads(MATRIX.read_text(encoding='utf-8'))
+          registry=json.loads(REGISTRY.read_text(encoding='utf-8'))
+
+          # Hard stale-state gate.
+          assert state['schema_version']=='1.27.0', state['schema_version']
+          assert state['historical_audit']['latest_batch_doc'].endswith('WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md')
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['identified_missing_candidate_family_count']==14
+          inv=state['invariants']
+          assert inv['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert inv['confirmed_chart_algorithm_defect_count']==0
+          assert inv['algorithm_reopen_count']==0
+          assert inv['candidate_collapse_count']==0
+
+          evidence={
+            'schema':'ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1',
+            'schema_version':'1.0.0','batch_id':BATCH_ID,'hpa_rule_id':'HPA-ZDATE-006',
+            'status':'KOSTMA_FIRST_PARTY_TOYO1646_MANUSCRIPT_OBJECT_AND_COVER_BOUND_SCRIBD_CAPTCHA_FOZHU_PUBLIC_PREVIEWS_REVIEWED_NO_TARGET_PAGE_NO_TEXTUAL_VOTE',
+            'kostma':{
+              'provider':'한국학자료포털 KOSTMA / 한국학중앙연구원',
+              'current_result_workflow_run_id':34216448461,'current_result_artifact_id':10051997835,
+              'current_result_artifact_zip_sha256':'a5b95a3b7721667c9194d280f1e428f71231d2fe1df9b412bcab44c5bdfae4c6',
+              'search_html_sha256':'571ab31b2517dac000f5502941acd4633f0dd40b8389dcaf8fe76ffcda7890b6',
+              'uci':'RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646',
+              'title':'新刊希夷陳先生紫微斗數全集','call_number':'Ⅶ-3-157','responsibility':'陳道南',
+              'edition_form':'筆寫本/필사본','binding':'線裝/선장','extent':'1冊(100張)','layout':'無界, 行字數不定',
+              'paper':'楮紙/저지','script':'漢字/한자','illustrated':True,'cover_title':'紫微全集','binding_detail':'四針眼',
+              'seal':'在山樓蒐書之一','provenance':'前間氏所藏','holding':'日本 東洋文庫/일본 동양문고',
+              'exact_image_workflow_run_id':34217047741,'exact_image_artifact_id':10052200564,
+              'exact_image_artifact_zip_sha256':'6f85cd1270864dd61ec08788c1625c0d3e09780e2db265045216cdb8820ed5c2',
+              'exact_image_url':'https://kostma.aks.ac.kr/inspection/getImageData.aspx?dataUCI=RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646',
+              'exact_image_sha256':'e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04',
+              'exact_image_dimensions':'134x150','exact_image_bytes':3609,
+              'direct_visual_review_without_ocr':'LOW_RESOLUTION_COVER_OR_LABEL_ONLY_NO_FIVE_XIONG_SHEN_TARGET_TEXT',
+              'data_view_popup_workflow_run_id':34216843904,'data_view_popup_artifact_id':10052147469,
+              'data_view_popup_artifact_zip_sha256':'6b3b38a47f3a4ebb7cfe65009a4da7208baabc11a225c99e0f8eb7876aaddfd1',
+              'old_overseas_center_route':'https://riks.korea.ac.kr/overseasCenter/index.jsp',
+              'old_overseas_center_status':'GENERIC_SHELL_NO_TARGET_BODY',
+              'target_page_observed':False,'independent_hai_glyph_vote_added':0
+            },
+            'scribd':{
+              'workflow_run_id':34215179324,'artifact_id':10051466410,
+              'artifact_zip_sha256':'b5cc34db4b1008e4cfee2abfea53f5176afea2689cadd90f041013933d37e66d',
+              'public_url':'https://www.scribd.com/document/734637272',
+              'public_html_target_terms':{'五凶神':False,'子有十刻':False,'上五刻':False,'下五刻':False,'亥時':False,'亥时':False},
+              'browser_title':'Client Challenge','captcha_detected':True,
+              'captcha_text_prefix':'Please prove that you are human to continue using Scribd.',
+              'captcha_bypass_attempted':False,'target_page_observed':False,'independent_hai_glyph_vote_added':0
+            },
+            'fozhu':{
+              'workflow_run_id':34215179324,'artifact_id':10051466410,
+              'public_url':'https://fozhu920.com/thread-20568-1-1.html',
+              'visible_description':'紫微斗数全集 古籍原版 高清 502p PDF电子版下载 / 新刻合併十八飛星策天紫微斗數全集',
+              'visible_post_date':'2020-01-30 23:45','public_preview_count':6,
+              'preview_images':[
+                {'n':1,'bytes':25898,'sha256':'9abf525f13a9757e6c49f3ef969b7a4ad4d4da7eae60c340b90b56b7a184def8','dimensions':'780x780'},
+                {'n':2,'bytes':186576,'sha256':'628bbd62dec9c8dd98540c23ac652bcc79dedd0a242aa6041c67fd9dbf4c29ef','dimensions':'780x780'},
+                {'n':3,'bytes':168483,'sha256':'d3200b9fcab23a4f43cce9df8c810ebbd71305166a233044ebe5ea97297a6a98','dimensions':'780x780'},
+                {'n':4,'bytes':170303,'sha256':'b162a335544c2121449145679ba9dd4a2e5d71abec574f388a68f9d7d13b1080','dimensions':'780x780'},
+                {'n':5,'bytes':182273,'sha256':'2baf682245562324764b324512b4a1a8deb500ea857869ddd7a485d4e8e8b74d','dimensions':'780x780'},
+                {'n':6,'bytes':205105,'sha256':'93c85f0fb49cbf50c57ce67157820bcbeaede42069a24356f96633500aaaaf6f','dimensions':'780x780'}],
+              'direct_visual_review_without_ocr':'ALL_SIX_PUBLIC_PREVIEWS_REVIEWED; COVER_TITLE_PREFACE_EARLY_TEXT_DIAGRAMS_ONLY; NO_FIVE_XIONG_SHEN_TARGET_PAGE',
+              'hidden_image_enumeration_attempted':False,'target_page_observed':False,'independent_hai_glyph_vote_added':0
+            },
+            'epistemic_boundaries':{
+              'toyo1646_manuscript_as_printed_jinling_yixuan_witness':'FORBIDDEN',
+              'kostma_cover_image_as_target_text_or_glyph_authority':'FORBIDDEN',
+              'global_txtbook_zero_as_target_page_absence_proof':'FORBIDDEN',
+              'scribd_captcha_bypass':'FORBIDDEN',
+              'fozhu_six_preview_nonhit_as_whole_volume_negative_proof':'FORBIDDEN',
+              'secondary_preview_as_independent_text_vote_without_target_page':'FORBIDDEN'
+            },
+            'adjudication':{
+              'hpa_zdate_006':'MISSING_FROM_PRODUCT','direct_independent_hai_glyph_witness_count_added':0,
+              'new_chart_rule_candidate_authorized':False,'candidate_selection_authorized':False,
+              'confirmed_chart_algorithm_defect_count':0,'algorithm_reopen_authorized':False,'candidate_collapse_count':0,
+              'algorithm_effect':'NONE','next_gate':'DIRECT_FIVE_XIONG_SHEN_TARGET_PAGE_FROM_AN_INDEPENDENTLY_BOUND_PRINTED_OR_MANUSCRIPT_WITNESS_WITH_PAGE_LEVEL_PROVENANCE'
+            }
+          }
+          Path(EVIDENCE_PATH).write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          batch=f'''# Fusion Chart Historical Provenance Audit R1 — Batch 12Q
+
+## KOSTMA TOYO_1646 manuscript object + Scribd/Fozhu access controls
+
+Status: **KOSTMA FIRST-PARTY MANUSCRIPT OBJECT BOUND / COVER IMAGE BOUND / SCRIBD CAPTCHA STOP / FOZHU SIX PUBLIC PREVIEWS REVIEWED / NO TARGET PAGE / ZERO TEXTUAL-GLYPH VOTES / NO ALGORITHM REOPEN**
+
+Batch 12Q closes the seven post-12P research commits as catalog/object/image/access controls. It does not promote any of them to a direct `五凶神` textual witness.
+
+### KOSTMA / Toyo Bunko
+
+The current first-party KOSTMA result binds UCI `RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646` to `新刊希夷陳先生紫微斗數全集`, call number `Ⅶ-3-157`, held by the Toyo Bunko. Critically, the current record identifies this object as a **manuscript** (`필사본`), one sewn volume of 100 leaves, not a printed Jinling/Yixuan copy.
+
+Run `34216448461` / artifact `10051997835` is the controlling current-result capture. The exact result DOM emits both the `goDataView(...)` control and the image URL for `TOYO_1646`. The exact image was captured by run `34217047741` / artifact `10052200564`: JPEG 134×150, 3609 bytes, SHA-256 `e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04`. Direct visual review without OCR shows only a low-resolution cover/label image; it cannot establish `五凶神` or the `亥` glyph.
+
+The old overseas-center route reached from the data-view chain currently resolves only to a generic shell. No target page is exposed.
+
+### Scribd
+
+Run `34215179324` / artifact `10051466410` found no target terms in the public HTML. Browser access stops at Scribd's `Client Challenge` CAPTCHA. No bypass was attempted. This route is an access boundary only.
+
+### Fozhu
+
+The same run captured six public 780×780 preview images from the Fozhu post describing a 502-page `新刻合併十八飛星策天紫微斗數全集`. All six were directly visually reviewed without OCR. They show cover/title, preface/early text and diagrams, but no `五凶神` target page and no target late-Zi sentence. Non-observation in six previews is not a whole-volume negative claim.
+
+### Adjudication
+
+```text
+HPA-ZDATE-006=MISSING_FROM_PRODUCT
+DIRECT_INDEPENDENT_HAI_GLYPH_WITNESS_ADDED=0
+NEW_CHART_RULE_CANDIDATE=NO
+CANDIDATE_SELECTION=NO
+CONFIRMED_CHART_ALGORITHM_DEFECT_COUNT=0
+ALGORITHM_REOPEN=NO
+CANDIDATE_COLLAPSE=0
+MATRIX_ROWS=198
+AUDITED_ROWS=166
+CURRENT_MISSING_FROM_PRODUCT_ROWS=10
+IDENTIFIED_MISSING_CANDIDATE_FAMILIES=14
+```
+
+The deterministic fusion-chart product remains CLOSED. The next gate is a directly readable `五凶神` target page with page-level provenance from an independently bound witness.
+
+Machine evidence: `{EVIDENCE_PATH}`.
+'''
+          Path(BATCH_PATH).write_text(batch,encoding='utf-8')
+
+          # State.
+          state['schema_version']='1.28.0'
+          ha=state['historical_audit']
+          assert BATCH_ID not in ha['completed_batches']
+          ha['completed_batches'].append(BATCH_ID)
+          ha['latest_batch_doc']=BATCH_PATH
+          ha['current_focus'].extend([
+            'Batch 12Q closes the seven post-12P KOSTMA/Scribd/Fozhu probe commits as catalog-object-image-access controls without changing rule accounting.',
+            'KOSTMA current first-party UCI RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646 / Ⅶ-3-157 identifies 新刊希夷陳先生紫微斗數全集 as a manuscript (필사본), 1冊(100張), held by Japan Toyo Bunko; it must not be conflated with a printed Jinling/Yixuan witness.',
+            'KOSTMA run 34216448461 / artifact 10051997835 binds the current result DOM; exact image run 34217047741 / artifact 10052200564 binds a 134x150 cover JPEG SHA-256 e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04, which exposes no 五凶神 target text.',
+            'Scribd run 34215179324 / artifact 10051466410 stops at Client Challenge CAPTCHA; no bypass was attempted and no public target terms were observed.',
+            'The Fozhu public page in the same artifact exposes six 780x780 previews; all six were directly visually reviewed without OCR and none is the 五凶神 target page. This is not a whole-volume negative claim.',
+            'HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; independent Hai-glyph increment is 0, no new chart-rule candidate is authorized, counts remain 198/166/10/14, and algorithm reopen/collapse remain 0.'
+          ])
+          STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Matrix row.
+          row=next(r for r in matrix['rows'] if r.get('rule_id')=='HPA-ZDATE-006')
+          row['kostma_toyo1646_manuscript_access_artifact']=EVIDENCE_PATH
+          row['kostma_toyo1646_object_type']='MANUSCRIPT_1_VOLUME_100_LEAVES'
+          row['kostma_toyo1646_target_page_status']='PENDING_DIRECT_PAGE'
+          row['scribd_target_page_status_batch_12q']='CAPTCHA_ACCESS_BOUNDARY_NO_BYPASS'
+          row['fozhu_public_preview_status_batch_12q']='SIX_PUBLIC_PREVIEWS_VISUALLY_REVIEWED_NO_TARGET_PAGE'
+          row['independent_hai_glyph_witness_count_added_batch_12q']=0
+          MATRIX.write_text(json.dumps(matrix,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Source registry: first-party KOSTMA object only; Scribd/Fozhu remain access/secondary controls in machine evidence.
+          sources=registry['sources']
+          sid='EXT-KOSTMA-TOYO1646-ZIWEI-QUANJI-MANUSCRIPT'
+          assert not any(x.get('source_id')==sid for x in sources)
+          sources.append({
+            'source_id':sid,'title':'KOSTMA / Toyo Bunko 新刊希夷陳先生紫微斗數全集 Ⅶ-3-157 manuscript',
+            'author_attribution':'陳道南 / 진도남','historical_period':'UNDATED_MANUSCRIPT_OBJECT; CURRENT_CATALOG_RECORD',
+            'edition':'筆寫本/필사본; 線裝; 1冊(100張); 表題 紫微全集','provider':'한국학자료포털 KOSTMA / 日本 東洋文庫',
+            'url':'https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=aksBook&curPage=72&fq=com_%ED%98%84%EC%86%8C%EC%9E%A5%EC%B2%98_fct:%EC%9D%BC%EB%B3%B8+%EB%8F%99%EC%96%91%EB%AC%B8%EA%B3%A0&pageSize=20&query=&sType=&sort=',
+            'source_role':'FIRST_PARTY_MANUSCRIPT_CATALOG_AND_COVER_IMAGE_CONTROL_NOT_TARGET_TEXT_AUTHORITY',
+            'quality_notes':'Current first-party KOSTMA result binds UCI TOYO_1646 / call number Ⅶ-3-157 as a manuscript, one volume 100 leaves. Exact 134x150 image is cover-only and no target page is observed. Do not equate this manuscript object with printed Jinling/Yixuan witnesses.',
+            'uci':'RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646','call_number':'Ⅶ-3-157','target_page_status':'PENDING_DIRECT_PAGE',
+            'research_artifact':EVIDENCE_PATH,'workflow_run_id':34216448461,'artifact_id':10051997835,
+            'exact_image_sha256':'e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04'
+          })
+          REGISTRY.write_text(json.dumps(registry,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Markdown matrix.
+          md=MATRIX_MD.read_text(encoding='utf-8')
+          anchor='## Cross-chat continuity'
+          assert anchor in md
+          bullet=f'''- Batch 12Q: closes the post-12P KOSTMA/Scribd/Fozhu probes without adding a textual vote. KOSTMA first-party UCI `RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646` / `Ⅶ-3-157` identifies the Toyo Bunko object as a manuscript (`필사본`), `1冊(100張)`, not a printed Jinling/Yixuan copy. Run `34216448461` / artifact `10051997835` binds the current catalog/result DOM; run `34217047741` / artifact `10052200564` binds the exact current 134×150 cover JPEG, SHA-256 `e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04`, which exposes no target text. Scribd run `34215179324` / artifact `10051466410` stops at `Client Challenge` CAPTCHA with no bypass. The Fozhu page in the same artifact exposes six 780×780 public previews; all six were visually reviewed without OCR and none is `五凶神`. `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; Hai-glyph increment = 0; counts remain 198 / 166 / 10 / 14; no candidate creation/selection/collapse or algorithm reopen. Machine evidence: `{EVIDENCE_PATH}`.\n\n'''
+          md=md.replace(anchor,bullet+anchor,1)
+          MATRIX_MD.write_text(md,encoding='utf-8')
+
+          # README minimal latest-batch pointer and summary.
+          rd=README.read_text(encoding='utf-8')
+          rd=rd.replace('截至 Batch 12P，Matrix 为','截至 Batch 12Q，Matrix 为',1)
+          old='最新历史批次见 `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md`；'
+          assert old in rd
+          new=('Batch 12Q 又将 KOSTMA 东洋文库 TOYO_1646、Scribd 与佛珠公开预览严格分层：KOSTMA 当前第一方记录明确把 `Ⅶ-3-157 / TOYO_1646` 记为笔写本 1册100张，当前精确图片仅为 134×150 封面；Scribd 停在 CAPTCHA 且未绕过；佛珠 6 张公开预览已逐张目验，均非《五凶神》目标页。12Q 不增加独立“亥”字票、不新增候选、不改变 198/166/10/14、不重开算法。最新历史批次见 `'+BATCH_PATH+'`；')
+          rd=rd.replace(old,new,1)
+          README.write_text(rd,encoding='utf-8')
+
+          # Continuity verifier: extend existing 12P pattern with 12Q constants, batch identity, existence/load, evidence gates, focus tokens.
+          vf=VERIFY.read_text(encoding='utf-8')
+          old='ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"\n'
+          assert old in vf
+          vf=vf.replace(old,old+f'ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH = ROOT / "{BATCH_PATH}"\nZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE = ROOT / "{EVIDENCE_PATH}"\n',1)
+          old='    "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P.md"\n'
+          assert old in vf
+          vf=vf.replace(old,'    "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",\n    "'+BATCH_ID+'",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "'+BATCH_PATH+'"\n',1)
+          old='ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE):'
+          assert old in vf
+          vf=vf.replace(old,'ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE):',1)
+          old='    ziwei_weijingtang_hanauction_evidence = json.loads(ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))\n'
+          assert old in vf
+          vf=vf.replace(old,old+'    ziwei_kostma_scribd_fozhu_evidence = json.loads(ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE.read_text(encoding="utf-8"))\n',1)
+          gate='''    # Batch 12Q binds KOSTMA TOYO_1646 as a manuscript/catalog-cover object and closes Scribd/Fozhu access controls without a target-text vote.\n    if ziwei_kostma_scribd_fozhu_evidence.get("batch_id") != "'''+BATCH_ID+'''":\n        fail("Batch 12Q evidence batch identity mismatch")\n    k12q = ziwei_kostma_scribd_fozhu_evidence.get("kostma", {})\n    if k12q.get("uci") != "RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646" or k12q.get("call_number") != "Ⅶ-3-157":\n        fail("Batch 12Q KOSTMA object identity regressed")\n    if k12q.get("edition_form") != "筆寫本/필사본" or k12q.get("extent") != "1冊(100張)":\n        fail("Batch 12Q manuscript boundary regressed")\n    if k12q.get("exact_image_sha256") != "e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04" or k12q.get("target_page_observed") is not False:\n        fail("Batch 12Q KOSTMA image/target boundary regressed")\n    s12q = ziwei_kostma_scribd_fozhu_evidence.get("scribd", {})\n    if s12q.get("captcha_detected") is not True or s12q.get("captcha_bypass_attempted") is not False:\n        fail("Batch 12Q Scribd CAPTCHA boundary regressed")\n    f12q = ziwei_kostma_scribd_fozhu_evidence.get("fozhu", {})\n    if f12q.get("public_preview_count") != 6 or f12q.get("target_page_observed") is not False:\n        fail("Batch 12Q Fozhu preview boundary regressed")\n    a12q = ziwei_kostma_scribd_fozhu_evidence.get("adjudication", {})\n    if a12q.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or a12q.get("direct_independent_hai_glyph_witness_count_added") != 0:\n        fail("Batch 12Q HPA-ZDATE-006 witness boundary regressed")\n    if a12q.get("new_chart_rule_candidate_authorized") is not False or a12q.get("algorithm_reopen_authorized") is not False:\n        fail("Batch 12Q candidate/algorithm boundary regressed")\n    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)\n    if not nanyang_row or nanyang_row.get("kostma_toyo1646_manuscript_access_artifact") != "'''+EVIDENCE_PATH+'''":\n        fail("Batch 12Q Matrix artifact binding regressed")\n    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12q") != 0:\n        fail("Batch 12Q Matrix witness-count firewall regressed")\n\n'''
+          marker='    focus_text = "\\n".join(audit_state.get("current_focus", ()))\n'
+          assert marker in vf
+          vf=vf.replace(marker,gate+marker,1)
+          old='        "117",\n    ):\n        if fragment not in focus_text:\n'
+          assert old in vf
+          vf=vf.replace(old,'        "117",\n        "Batch 12Q",\n        "TOYO_1646",\n        "Ⅶ-3-157",\n        "34216448461",\n        "10051997835",\n        "34217047741",\n        "10052200564",\n        "e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04",\n        "34215179324",\n        "10051466410",\n        "Client Challenge CAPTCHA",\n    ):\n        if fragment not in focus_text:\n',1)
+          VERIFY.write_text(vf,encoding='utf-8')
+
+          print(json.dumps({'status':'MUTATED','batch':BATCH_ID,'schema':state['schema_version'],'rows':ha['row_count'],'audited':ha['audited_row_count']},ensure_ascii=False))
+
+      - name: Run continuity and provenance gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python -m unittest discover -s tests -p 'test_fusion_chart_historical_provenance_audit*.py'
+
+      - name: Commit Batch 12Q
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "OpenAI Research Agent"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md docs scripts/verify-project-continuity-state-r1.py
+          git diff --cached --check
+          git commit -m "close KOSTMA Scribd Fozhu provenance batch 12Q"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
