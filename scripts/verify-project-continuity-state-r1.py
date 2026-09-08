@@ -60,6 +60,8 @@ ZIWEI_NAIKAKU_LINEAGE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_NAIKAKU_LINEAGE_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-R1.json"
 ZIWEI_NAIKAKU_1971_CATALOG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U.md"
 ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-R1.json"
+ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V.md"
+ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -90,9 +92,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S",
     "BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T",
     "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U",
+    "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V.md"
 
 
 def fail(message: str) -> None:
@@ -100,7 +103,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -132,6 +135,7 @@ def main() -> int:
     ziwei_toyo_media_repository_evidence = json.loads(ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_naikaku_lineage_evidence = json.loads(ZIWEI_NAIKAKU_LINEAGE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_naikaku_1971_catalog_evidence = json.loads(ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_naikaku_1971_page_boundary_evidence = json.loads(ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1368,6 +1372,47 @@ def main() -> int:
         fail("Batch 12U Matrix artifact binding regressed")
     if row12u.get("independent_hai_glyph_witness_count_added_batch_12u") != 0 or row12u.get("external_copy_request_submitted_batch_12u") is not False:
         fail("Batch 12U Matrix witness/request firewall regressed")
+
+    # Batch 12V closes the tested unauthenticated NDL 1971 page routes without claiming target-entry absence.
+    if ziwei_naikaku_1971_page_boundary_evidence.get("batch_id") != "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V":
+        fail("Batch 12V machine evidence batch identity mismatch")
+    tp12v = ziwei_naikaku_1971_page_boundary_evidence.get("target_entry_probe", {})
+    if tp12v.get("workflow_run_id") != 34230231815 or tp12v.get("artifact_id") != 10057469073:
+        fail("Batch 12V target-entry probe run/artifact binding regressed")
+    if tp12v.get("ndl_lab_page_search_hit_counts") != [0, 0, 0, 0, 0, 0, 0, 0]:
+        fail("Batch 12V NDL Lab target-query zero-hit control regressed")
+    if tp12v.get("ndl_lab_fulltext_json_status") != "HTTP_403_FORBIDDEN":
+        fail("Batch 12V NDL Lab full-text access boundary regressed")
+    if tp12v.get("item_api_status") != "HTTP_200" or tp12v.get("item_api_sha256") != "0642e44194b40c25380a3a8476d2e92f2b52eb94dcca99d2afb5bc08f91a4a8d":
+        fail("Batch 12V exact NDL item API binding regressed")
+    pr12v = ziwei_naikaku_1971_page_boundary_evidence.get("page_route_probe", {})
+    if pr12v.get("workflow_run_id") != 34234090185 or pr12v.get("artifact_id") != 10059056472:
+        fail("Batch 12V page-route probe run/artifact binding regressed")
+    if pr12v.get("content_object_count") != 405 or pr12v.get("tested_api_emitted_publicpath_count") != 32:
+        fail("Batch 12V 405-page / 32-route inventory regressed")
+    if pr12v.get("unauthenticated_http_401_count") != 32 or pr12v.get("saved_image_count") != 0:
+        fail("Batch 12V unauthenticated page access boundary regressed")
+    if pr12v.get("route_policy") != "ONLY_API_EMITTED_PUBLICPATH_VALUES_NO_IDENTIFIER_GUESSING":
+        fail("Batch 12V source-emitted-route policy regressed")
+    a12v = ziwei_naikaku_1971_page_boundary_evidence.get("adjudication", {})
+    if a12v.get("legacy_registration_crosswalk_status") != "UNRESOLVED_PENDING_DIRECT_1971_CATALOG_ENTRY_OR_EXPLICIT_FIRST_PARTY_CROSSWALK":
+        fail("Batch 12V old-number crosswalk fail-closed status regressed")
+    if a12v.get("target_entry_absence_proven") is not False or a12v.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12V target-absence/witness firewall regressed")
+    if a12v.get("algorithm_reopen_authorized") is not False or a12v.get("new_chart_rule_candidate_authorized") is not False:
+        fail("Batch 12V algorithm/candidate firewall regressed")
+    row12v = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12v or row12v.get("naikaku_1971_public_page_access_artifact") != "docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json":
+        fail("Batch 12V Matrix artifact binding regressed")
+    if row12v.get("naikaku_1971_digital_content_object_count") != 405 or row12v.get("naikaku_1971_api_emitted_page_route_http_401_count") != 32:
+        fail("Batch 12V Matrix page-access evidence regressed")
+    if row12v.get("whole_catalog_target_absence_claim_authorized_batch_12v") is not False or row12v.get("independent_hai_glyph_witness_count_added_batch_12v") != 0:
+        fail("Batch 12V Matrix negative-claim/witness firewall regressed")
+    src12v = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-NDL-NAIKAKU-KANSEKI-BUNRUI-MOKUROKU-1971"), None)
+    if not src12v or src12v.get("exact_item_api_content_object_count") != 405 or src12v.get("api_emitted_page_route_http_401_count") != 32:
+        fail("Batch 12V registry page-access binding regressed")
+    if src12v.get("whole_catalog_negative_authorized") is not False or src12v.get("target_crosswalk_entry_observed") is not False:
+        fail("Batch 12V registry authority boundary regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
