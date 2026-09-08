@@ -1,0 +1,238 @@
+name: research-hanyang-public-search-ui
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-public-search-ui.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Search exact title through public Hanyang UI only
+        shell: python
+        run: |
+          import json
+          import re
+          import time
+          import urllib.parse
+          from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.keys import Keys
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          ROUTE = "https://lib.hanyang.ac.kr/search/i-discovery"
+          QUERIES = [
+              "新刻合倂十八飛星策天紫微斗數全集",
+              "新刻合併十八飛星策天紫微斗數全集",
+              "十八飛星策天紫微斗數全集",
+              "飛星策天紫微斗數全集",
+          ]
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1800,2200")
+          options.add_argument("--lang=zh-TW")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
+
+          result = {
+              "schema": "ZIWEI-HANYANG-PUBLIC-SEARCH-UI-R1",
+              "route_source": "EXPLICIT_PUBLIC_PATH_LITERAL_FROM_MAIN_BUNDLE",
+              "route": ROUTE,
+              "queries": QUERIES,
+              "authentication_attempted": False,
+              "hidden_api_guessing_attempted": False,
+              "public_ui_only": True,
+              "query_runs": [],
+          }
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              driver.get(ROUTE)
+              time.sleep(8)
+              (OUT / "initial-page-source.html").write_text(driver.page_source, encoding="utf-8")
+              driver.save_screenshot(str(OUT / "initial.png"))
+
+              controls = []
+              for el in driver.find_elements(By.CSS_SELECTOR, "input, textarea, button, select"):
+                  try:
+                      if not el.is_displayed():
+                          continue
+                      controls.append({
+                          "tag": el.tag_name,
+                          "type": el.get_attribute("type"),
+                          "name": el.get_attribute("name"),
+                          "id": el.get_attribute("id"),
+                          "placeholder": el.get_attribute("placeholder"),
+                          "aria_label": el.get_attribute("aria-label"),
+                          "text": (el.text or "")[:300],
+                      })
+                  except Exception:
+                      pass
+              result["initial_visible_controls"] = controls[:200]
+
+              def find_search_input():
+                  candidates = []
+                  for el in driver.find_elements(By.CSS_SELECTOR, "input[type='search'], input[type='text'], input:not([type])"):
+                      try:
+                          if not el.is_displayed() or not el.is_enabled():
+                              continue
+                          hay = " ".join(filter(None, [
+                              el.get_attribute("placeholder"),
+                              el.get_attribute("aria-label"),
+                              el.get_attribute("name"),
+                              el.get_attribute("id"),
+                          ])).lower()
+                          score = 0
+                          if any(k in hay for k in ("검색", "search", "keyword", "query", "키워드")):
+                              score += 10
+                          rect = el.rect
+                          if rect.get("width", 0) > 150:
+                              score += 2
+                          candidates.append((score, el))
+                      except Exception:
+                          pass
+                  candidates.sort(key=lambda x: x[0], reverse=True)
+                  return candidates[0][1] if candidates else None
+
+              for idx, query in enumerate(QUERIES, 1):
+                  if idx > 1:
+                      driver.get(ROUTE)
+                      time.sleep(5)
+                  inp = find_search_input()
+                  row = {"query": query, "input_found": inp is not None}
+                  if inp is None:
+                      row["status"] = "NO_VISIBLE_SEARCH_INPUT"
+                      result["query_runs"].append(row)
+                      continue
+                  try:
+                      inp.click()
+                      inp.clear()
+                      inp.send_keys(query)
+                      inp.send_keys(Keys.ENTER)
+                      time.sleep(8)
+                  except Exception as exc:
+                      row["submit_error"] = repr(exc)
+                      result["query_runs"].append(row)
+                      continue
+
+                  row["final_url"] = driver.current_url
+                  body_text = driver.find_element(By.TAG_NAME, "body").text
+                  row["body_text_excerpt"] = body_text[:12000]
+                  row["target_literal_present"] = query in body_text
+                  row["title_fragments_present"] = {
+                      "紫微斗數": "紫微斗數" in body_text,
+                      "紫微斗数": "紫微斗数" in body_text,
+                      "十八飛星": "十八飛星" in body_text,
+                      "明經閣": "明經閣" in body_text,
+                      "1870": "1870" in body_text,
+                  }
+                  links = []
+                  for a in driver.find_elements(By.CSS_SELECTOR, "a[href]"):
+                      try:
+                          if not a.is_displayed():
+                              continue
+                          txt = " ".join((a.text or "").split())
+                          href = a.get_attribute("href")
+                          if href and (any(k in txt for k in ("紫微", "飛星", "斗數", "陈希", "陳希")) or any(k in href.lower() for k in ("biblio", "detail", "search"))):
+                              links.append({"text": txt[:500], "href": href})
+                      except Exception:
+                          pass
+                  # De-duplicate only links actually rendered by the public UI.
+                  dedup = []
+                  seen = set()
+                  for item in links:
+                      key = (item["text"], item["href"])
+                      if key not in seen:
+                          seen.add(key)
+                          dedup.append(item)
+                  row["rendered_relevant_links"] = dedup[:100]
+                  (OUT / f"query-{idx:02d}.html").write_text(driver.page_source, encoding="utf-8")
+                  driver.save_screenshot(str(OUT / f"query-{idx:02d}.png"))
+                  result["query_runs"].append(row)
+
+              # Capture only requests naturally emitted by those public UI interactions.
+              network = []
+              for entry in driver.get_log("performance"):
+                  try:
+                      message = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  if message.get("method") not in ("Network.requestWillBeSent", "Network.responseReceived"):
+                      continue
+                  params = message.get("params", {})
+                  if message["method"] == "Network.requestWillBeSent":
+                      req = params.get("request", {})
+                      url = req.get("url", "")
+                      method = req.get("method")
+                      status = None
+                  else:
+                      resp = params.get("response", {})
+                      url = resp.get("url", "")
+                      method = None
+                      status = resp.get("status")
+                  if "lib.hanyang.ac.kr" not in url:
+                      continue
+                  parsed = urllib.parse.urlsplit(url)
+                  safe_q = {}
+                  for k, v in urllib.parse.parse_qsl(parsed.query, keep_blank_values=True):
+                      if any(secret in k.lower() for secret in ("token", "auth", "password", "session")):
+                          safe_q[k] = "__REDACTED__"
+                      else:
+                          safe_q[k] = v[:500]
+                  network.append({
+                      "event": message["method"],
+                      "method": method,
+                      "status": status,
+                      "url": urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", "")),
+                      "safe_query": safe_q,
+                  })
+              result["public_ui_network_observations"] = network[-800:]
+
+          finally:
+              driver.quit()
+
+          positives = [r for r in result["query_runs"] if any(r.get("title_fragments_present", {}).values())]
+          result["adjudication"] = {
+              "public_search_ui_reached": bool(result.get("initial_visible_controls")),
+              "positive_title_like_result_count": len(positives),
+              "official_hanyang_record_status": "REVIEW_REQUIRED" if positives else "NO_POSITIVE_RESULT_OBSERVED_IN_THIS_PUBLIC_UI_RUN",
+              "negative_result_is_absence_proof": False,
+              "target_page_status": "NOT_REACHED_UNLESS_RENDERED_DETAIL_LINK_EXPLICITLY_EXPOSES_DIGITAL_OBJECT",
+              "algorithm_effect": "NONE",
+          }
+          (OUT / "hanyang-public-search-ui.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "initial_visible_controls": result.get("initial_visible_controls", []),
+              "query_runs": result["query_runs"],
+              "adjudication": result["adjudication"],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Hanyang public search evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-public-search-ui
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
