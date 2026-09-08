@@ -68,6 +68,18 @@ jobs:
             result["root_body"]=driver.find_element(By.TAG_NAME,"body").text[:60000]
             driver.save_screenshot(str(OUT/"01-root.png"))
 
+            # Close only the public login modal if it auto-opened; no login is attempted.
+            try:
+              closes=[x for x in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close") if x.is_displayed()]
+              if closes:
+                closes[0].click()
+                time.sleep(1)
+                result["auto_login_modal_closed"]=True
+              else:
+                result["auto_login_modal_closed"]=False
+            except Exception as exc:
+              result["auto_login_modal_close_error"]=repr(exc)
+
             # Navigate by the visibly rendered folder label only.
             folder_matches=[]
             for el in driver.find_elements(By.XPATH,f"//*[normalize-space(text())='{FOLDER}']"):
@@ -76,7 +88,16 @@ jobs:
               except Exception: pass
             result["visible_folder_label_count"]=len(folder_matches)
             if folder_matches:
-              target=folder_matches[-1]
+              label=folder_matches[-1]
+              target=label
+              # The public DOM exposes the filename row's file-click-wrap around this exact label.
+              try:
+                target=label.find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+                result["folder_interaction_class"]=target.get_attribute("class")
+              except Exception:
+                result["folder_interaction_class"]=label.get_attribute("class")
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",target)
+              time.sleep(0.5)
               try:
                 ActionChains(driver).double_click(target).perform()
               except Exception:
@@ -172,6 +193,8 @@ jobs:
           print(json.dumps({
             "root_url":result.get("root_url"),
             "visible_folder_label_count":result.get("visible_folder_label_count"),
+            "auto_login_modal_closed":result.get("auto_login_modal_closed"),
+            "folder_interaction_class":result.get("folder_interaction_class"),
             "folder_url":result.get("folder_url"),
             "stem_visible_in_folder":result.get("stem_visible_in_folder"),
             "suffix_visible_in_folder":result.get("suffix_visible_in_folder"),
