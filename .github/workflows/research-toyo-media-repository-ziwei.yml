@@ -123,11 +123,20 @@ jobs:
                   ss=BeautifulSoup(rr.text,"html.parser")
                   txt=" ".join(ss.stripped_strings)
                   hits=[]
+                  resource_links=[]
                   for a in ss.find_all("a",href=True):
                     at=" ".join(a.stripped_strings)
                     href=urljoin(rr.url,a["href"])
                     if any(k in at or k in href for k in ["紫微","VII-3-157","Ⅶ-3-157","TOYO_1646"]):
                       hits.append({"text":at,"href":href})
+                    p=urlparse(href).path
+                    if re.search(r"/s/main/(?:item|document)/[^/?#]+$",p):
+                      resource_links.append({"text":at,"href":href})
+                  result_count_text=None
+                  for st in ss.stripped_strings:
+                    if re.fullmatch(r"\s*(?:\d[\d,]*\s*[–-]\s*\d[\d,]*\s+of\s+)?\d[\d,]*\s+results\s*",st,re.I):
+                      result_count_text=st.strip()
+                      break
                   # Also bind any literal Omeka API links exposed by this page,
                   # but do not synthesize or call an API endpoint.
                   api_literals=sorted(set(re.findall(r'https?://[^"\'<> ]+/api/[^"\'<> ]*',rr.text)))
@@ -144,6 +153,9 @@ jobs:
                     "contains_call_roman":"Ⅶ-3-157" in txt,
                     "contains_toyo_1646":"TOYO_1646" in txt,
                     "matched_links":hits[:50],
+                    "resource_links":resource_links[:100],
+                    "result_count_text":result_count_text,
+                    "zero_resource_links":len(resource_links)==0,
                     "literal_api_links":api_literals[:50],
                   })
                 except Exception as e:
