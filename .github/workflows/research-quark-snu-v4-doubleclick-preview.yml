@@ -1,0 +1,165 @@
+name: research-quark-snu-v4-doubleclick-preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-doubleclick-preview.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Double-click visible public SNU v4 PDF and inspect preview
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.action_chains import ActionChains
+
+          OUT=Path("probe"); OUT.mkdir()
+          SHARE="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          TARGET="【飛星策天紫微斗數全集】一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+
+          result={
+            "schema":"QUARK-SNU-MINGJINGGE-V4-PUBLIC-DOUBLECLICK-PREVIEW-R1",
+            "share_url":SHARE,
+            "target_filename":TARGET,
+            "authentication_attempted":False,
+            "save_to_cloud_attempted":False,
+            "download_attempted":False,
+            "api_endpoint_guessing_attempted":False,
+            "access_control_bypass_attempted":False,
+            "normal_ui_actions":["CLOSE_LOGIN_MODAL","CLICK_VISIBLE_FOLDER","SCROLL_VISIBLE_FILE_LIST","DOUBLE_CLICK_VISIBLE_TARGET_FILENAME"],
+          }
+
+          def close_modals(driver):
+              c=0
+              for _ in range(5):
+                  vis=[e for e in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close[aria-label='Close']") if e.is_displayed()]
+                  if not vis: break
+                  try: vis[0].click(); c+=1; time.sleep(.7)
+                  except Exception: break
+              return c
+
+          def snap(driver,stem):
+              html=driver.page_source or ""
+              try: body=driver.find_element(By.TAG_NAME,"body").text or ""
+              except Exception: body=""
+              (OUT/f"{stem}.html").write_text(html,encoding="utf-8")
+              (OUT/f"{stem}.txt").write_text(body,encoding="utf-8")
+              try: driver.save_screenshot(str(OUT/f"{stem}.png"))
+              except Exception: pass
+              return {
+                "url":driver.current_url,
+                "title":driver.title,
+                "dom_bytes":len(html.encode("utf-8")),
+                "dom_sha256":hashlib.sha256(html.encode("utf-8")).hexdigest(),
+                "visible_text_bytes":len(body.encode("utf-8")),
+                "visible_text":body[:20000],
+              }
+
+          opts=Options()
+          for a in ("--headless=new","--no-sandbox","--disable-dev-shm-usage","--disable-gpu","--disable-background-networking","--disable-component-update","--disable-default-apps","--disable-sync","--no-first-run","--window-size=1600,1800"):
+              opts.add_argument(a)
+          opts.page_load_strategy="eager"
+          driver=webdriver.Chrome(options=opts)
+          driver.set_page_load_timeout(20)
+          try:
+              try: driver.get(SHARE)
+              except TimeoutException: pass
+              time.sleep(9)
+              result["root_modal_closed"]=close_modals(driver)
+
+              folders=[e for e in driver.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==FOLDER and e.is_displayed()]
+              result["folder_visible_count"]=len(folders)
+              if not folders: raise RuntimeError("folder not visible")
+              folders[0].click(); time.sleep(7); close_modals(driver)
+
+              scrollers=[]
+              for e in driver.find_elements(By.CSS_SELECTOR,".ant-table-body"):
+                  sh=driver.execute_script("return arguments[0].scrollHeight",e)
+                  ch=driver.execute_script("return arguments[0].clientHeight",e)
+                  if sh and ch and sh>ch+20: scrollers.append((sh-ch,e))
+              scroller=max(scrollers,key=lambda x:x[0])[1] if scrollers else None
+              if scroller is None: raise RuntimeError("scrollable file table not found")
+
+              target_elem=None
+              for step in range(13):
+                  maxscroll=driver.execute_script("return Math.max(0,arguments[0].scrollHeight-arguments[0].clientHeight)",scroller)
+                  driver.execute_script("arguments[0].scrollTop=Math.round(arguments[1]*arguments[2]/12); arguments[0].dispatchEvent(new Event('scroll',{bubbles:true}));",scroller,maxscroll,step)
+                  time.sleep(.9)
+                  elems=[e for e in driver.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==TARGET and e.is_displayed()]
+                  if elems:
+                      target_elem=elems[0]; break
+              result["target_visible_before_doubleclick"]=target_elem is not None
+              result["before"]=snap(driver,"before-doubleclick")
+
+              if target_elem is not None:
+                  driver.execute_script("arguments[0].scrollIntoView({block:'center'});",target_elem)
+                  time.sleep(1)
+                  result["doubleclick_attempted"]=True
+                  ActionChains(driver).double_click(target_elem).perform()
+                  result["doubleclick_dispatched"]=True
+                  time.sleep(12)
+                  result["modal_closed_after_doubleclick"]=close_modals(driver)
+                  time.sleep(2)
+              else:
+                  result["doubleclick_attempted"]=False
+                  result["doubleclick_dispatched"]=False
+
+              after=snap(driver,"after-doubleclick")
+              body=after.pop("visible_text")
+              html=(OUT/"after-doubleclick.html").read_text(encoding="utf-8")
+              result["after"]=after
+              result["after_visible_text"]=body
+              result["url_changed"]=result["before"]["url"]!=after["url"]
+              result["preview_terms"]=[x for x in ("PDF","预览","第一页","上一页","下一页","页码","放大","缩小","全屏","打开客户端","登录","扫码","下载","保存到网盘") if x in body]
+              result["five_xiong_shen_visible"]="五凶神" in body or "五凶神" in html
+              result["late_zi_upper_five_ke_visible"]="上五刻" in body or "上五刻" in html
+              result["target_filename_still_visible"]=TARGET in body or TARGET in html
+              result["pdf_canvas_or_embed_present"]=any(x in html.lower() for x in ("<canvas","application/pdf","pdf-viewer","pdfviewer","pdf-view"))
+              result["image_like_count"]=len(driver.find_elements(By.TAG_NAME,"img"))
+              result["canvas_count"]=len(driver.find_elements(By.TAG_NAME,"canvas"))
+              result["iframe_count"]=len(driver.find_elements(By.TAG_NAME,"iframe"))
+          except Exception as exc:
+              result["error"]=repr(exc)
+          finally:
+              try: driver.quit()
+              except Exception: pass
+
+          result["adjudication"]={
+            "same_snu_physical_digitization_lineage":True,
+            "independent_physical_witness_increment":0,
+            "direct_five_xiong_shen_target_page_observed":bool(result.get("five_xiong_shen_visible")),
+            "download_or_save_action_performed":False,
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"quark-snu-v4-doubleclick-preview.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({k:v for k,v in result.items() if k not in ("after_visible_text",)},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload double-click preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-doubleclick-preview
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
