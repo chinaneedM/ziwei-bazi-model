@@ -32,11 +32,11 @@ jobs:
           from selenium.common.exceptions import NoAlertPresentException
 
           OUT=Path('probe'); OUT.mkdir()
-          URL='https://www.hanauction.com/htm/off_auction_read.htm?ac_num=297&id=102923&off_id=260&page=3'
+          URL='https://www.hanauction.com/htm/off_auction_read.htm?id=102923&off_id=260&page=3&ac_num=120'
           result={
             'schema':'ZIWEI-HANAUCTION-WEIJINGTANG-PHYSICAL-SET-R1',
             'source_url':URL,
-            'source_origin':'PUBLIC_SEARCH_ENGINE_EXACT_LOT_ROUTE_WITH_SESSION_PARAMETER_REMOVED',
+            'source_origin':'EXACT_HREF_RENDERED_BY_PUBLIC_AUCTION_LISTING_WITH_SESSION_PARAMETER_REMOVED',
             'target_title':'新刻合倂十八飛星紫微斗數全集',
             'target_imprint':'味經堂藏板',
             'auction_round':229,
@@ -173,22 +173,41 @@ jobs:
             result['final_url']=d.current_url; result['title']=d.title
             body=d.find_element(By.TAG_NAME,'body').text
             result['target_lines']=[line for line in body.splitlines() if any(k.lower() in line.lower() for k in ('味經堂','신간합병십팔비성자미두수전집','新刻合倂十八飛星紫微斗數全集'))]
-            rows=[]
-            for tr in d.find_elements(By.CSS_SELECTOR,'tr'):
+            # Bind the exact lot anchor first, then choose the smallest enclosing table row
+            # that contains the visible lot text. This avoids treating a page-level outer
+            # layout table as the target row.
+            exact_anchors=[]
+            for a in d.find_elements(By.CSS_SELECTOR,'a[href*="id=102923"]'):
               try:
-                txt=' '.join((tr.text or '').split())
-                if not any(k.lower() in txt.lower() for k in ('味經堂','신간합병십팔비성자미두수전집','新刻合倂十八飛星紫微斗數全集')):
-                  continue
-                links=[{'text':' '.join((a.text or '').split()),'href':a.get_attribute('href') or ''} for a in tr.find_elements(By.CSS_SELECTOR,'a[href]')]
-                imgs=[]
-                for im in tr.find_elements(By.CSS_SELECTOR,'img'):
-                  src=im.get_attribute('currentSrc') or im.get_attribute('src') or ''
-                  if src:
-                    imgs.append({'src':urljoin(d.current_url,src),'alt':im.get_attribute('alt') or '','width':im.get_attribute('naturalWidth'),'height':im.get_attribute('naturalHeight')})
-                rows.append({'text':txt,'links':links,'images':imgs})
+                href=a.get_attribute('href') or ''
+                txt=' '.join((a.text or '').split())
+                exact_anchors.append({'text':txt,'href':href})
               except Exception:
                 pass
-            result['target_rows']=rows
+            result['exact_lot_anchors']=exact_anchors
+
+            candidates=[]
+            for a in d.find_elements(By.CSS_SELECTOR,'a[href*="id=102923"]'):
+              try:
+                el=a
+                for depth in range(8):
+                  el=el.find_element(By.XPATH,'..')
+                  txt=' '.join((el.text or '').split())
+                  if '味經堂' not in txt and '신간합병십팔비성자미두수전집' not in txt and '新刻合倂十八飛星紫微斗數全集' not in txt:
+                    continue
+                  if len(txt) > 1500:
+                    continue
+                  imgs=[]
+                  for im in el.find_elements(By.CSS_SELECTOR,'img'):
+                    src=im.get_attribute('currentSrc') or im.get_attribute('src') or ''
+                    if src:
+                      imgs.append({'src':urljoin(d.current_url,src),'alt':im.get_attribute('alt') or '','width':im.get_attribute('naturalWidth'),'height':im.get_attribute('naturalHeight')})
+                  links=[{'text':' '.join((x.text or '').split()),'href':x.get_attribute('href') or ''} for x in el.find_elements(By.CSS_SELECTOR,'a[href]')]
+                  candidates.append({'depth':depth+1,'tag':el.tag_name,'text':txt,'links':links,'images':imgs})
+              except Exception:
+                pass
+            candidates.sort(key=lambda x:(len(x['text']),x['depth']))
+            result['target_rows']=candidates[:3]
 
             downloaded=[]
             seen=set()
