@@ -95,17 +95,37 @@ jobs:
               result["target_row_key"]=row.get_attribute("data-row-key")
               driver.execute_script("arguments[0].scrollIntoView({block:'center'});",row)
               time.sleep(1)
-              # Public row hover renders its own download icon; click only that icon.
-              ActionChains(driver).move_to_element(row).perform()
+              # Public row hover renders its own download icon; bind that exact target-row control.
+              filename_cell=label.find_element(By.XPATH,"ancestor::td[1]")
+              ActionChains(driver).move_to_element(filename_cell).perform()
               time.sleep(1)
-              icons=[x for x in row.find_elements(By.CSS_SELECTOR,'[title="下载"]') if x.is_displayed()]
-              result["visible_target_row_download_count"]=len(icons)
+              icons=row.find_elements(By.CSS_SELECTOR,'.hover-oper-item.hoitem-down[title="下载"]')
+              result["target_row_download_dom_count"]=len(icons)
               if icons:
-                icons[0].click()
+                icon=icons[0]
+                result["target_row_download_displayed"]=icon.is_displayed()
+                result["target_row_download_computed_style"]=driver.execute_script(
+                  "var s=getComputedStyle(arguments[0]); return {display:s.display,visibility:s.visibility,opacity:s.opacity,pointerEvents:s.pointerEvents};",
+                  icon
+                )
+                # This is the exact publicly rendered target-row download control. JS click is only
+                # a fallback for CSS hover visibility in headless Chrome; it does not construct any API call.
+                try:
+                  icon.click()
+                except Exception:
+                  driver.execute_script("arguments[0].click();",icon)
                 result["public_download_control_clicked"]=True
                 time.sleep(5)
 
-            # If a login modal appears after clicking, record and stop. No credentials are entered.
+            # Only a visible login modal appearing after the click counts as an auth wall.
+            visible_modals=[m for m in driver.find_elements(By.CSS_SELECTOR,".ant-modal") if m.is_displayed()]
+            result["visible_login_modal_after_click"]=False
+            result["visible_modal_texts"]=[]
+            for m in visible_modals:
+              txt=" ".join((m.text or "").split())
+              result["visible_modal_texts"].append(txt[:3000])
+              if any(k in txt for k in ("登录账号","扫码登录","手机号登录","请登录")):
+                result["visible_login_modal_after_click"]=True
             body=driver.find_element(By.TAG_NAME,"body").text
             result["post_click_login_language_visible"]=any(k in body for k in ("登录账号","扫码登录","手机号登录","请登录"))
             result["post_click_body"]=body[:50000]
@@ -113,7 +133,7 @@ jobs:
             (OUT/"post-click.html").write_text(driver.page_source,encoding="utf-8")
 
             # Wait only for an ordinary browser download if no login wall appeared.
-            if result["public_download_control_clicked"] and not result["post_click_login_language_visible"]:
+            if result["public_download_control_clicked"] and not result["visible_login_modal_after_click"]:
               deadline=time.time()+90
               while time.time()<deadline:
                 files=[p for p in DL.iterdir() if p.is_file() and not p.name.endswith((".crdownload",".tmp"))]
@@ -137,7 +157,7 @@ jobs:
             driver.quit()
 
           result["adjudication"]={
-            "access_boundary":"STOP_IF_LOGIN_REQUIRED",
+            "access_boundary":"STOP_IF_VISIBLE_LOGIN_MODAL_APPEARS_AFTER_PUBLIC_DOWNLOAD_CLICK",
             "same_snu_lineage_independent_vote_added":0,
             "target_page_status":"READY_FOR_DIRECT_PAGE_REVIEW" if result.get("direct_public_pdf_download_established") else "PENDING_DIRECT_PAGE",
             "algorithm_effect":"NONE",
