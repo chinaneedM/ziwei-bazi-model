@@ -248,3 +248,12 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Minna Search exposes the existence of an uncorrected OCR derivative and legitimate transmission route, but not the unauthenticated target entry; no login/request/bypass was attempted.
 - A 2009 National Archives catalog-method article confirms the revised catalog has a document-name list at the end, making it a high-value old-number crosswalk source, but it does not itself state `15856 -> 子060-0001`.
 - Crosswalk remains unresolved pending the direct catalog entry. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and algorithm invariants are unchanged.
+
+
+### Batch 12V — Naikaku 1971 public page-access boundary
+
+- Exact NDL item API for PID `12282052` is publicly readable and exposes 405 content/page objects; response SHA-256 is `0642e44194b40c25380a3a8476d2e92f2b52eb94dcca99d2afb5bc08f91a4a8d`.
+- Run `34230231815` / artifact `10057469073` gives zero hits for all eight PID-scoped NDL Lab target queries; the documented Lab full-text JSON route returns HTTP 403. These are route boundaries, not target-entry absence proof.
+- Run `34234090185` / artifact `10059056472` tests only API-emitted `publicPath` values: page 1, page 203 and pages 376–405. All 32/32 return HTTP 401 unauthenticated and zero page images are obtained.
+- The old-number crosswalk therefore remains unresolved. No login/request/bypass occurred; no whole-catalog negative is authorized. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and all algorithm invariants are unchanged.
+- Evidence: `docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json`.
