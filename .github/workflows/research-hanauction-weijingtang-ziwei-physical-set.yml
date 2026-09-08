@@ -147,6 +147,78 @@ jobs:
             'adjudication':result.get('adjudication')
           },ensure_ascii=False,indent=2))
 
+      - name: Read public historical auction listing row and rendered thumbnail
+        shell: python
+        run: |
+          import json,time,hashlib
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path('probe'); OUT.mkdir(exist_ok=True)
+          URL='https://www.hanauction.com/htm/off_auction.htm?category=0001&id=260&page=3&pagesize=20&sortq=b2&viewtype=list'
+          result={'schema':'ZIWEI-HANAUCTION-WEIJINGTANG-LISTING-R1','source_url':URL,'target_lot':134,'authentication_attempted':False,'captcha_bypass_attempted':False,'route_guessing_attempted':False}
+
+          r=requests.get(URL,headers={'User-Agent':'Mozilla/5.0 (compatible; provenance-research/1.0)'},timeout=30,allow_redirects=True)
+          result['http_status']=r.status_code; result['http_bytes']=len(r.content); result['http_sha256']=hashlib.sha256(r.content).hexdigest()
+          (OUT/'listing-requests.html').write_bytes(r.content)
+
+          opts=Options(); opts.add_argument('--headless=new'); opts.add_argument('--no-sandbox'); opts.add_argument('--disable-dev-shm-usage'); opts.add_argument('--disable-gpu'); opts.add_argument('--window-size=1800,3200'); opts.add_argument('--lang=ko-KR')
+          d=webdriver.Chrome(options=opts)
+          try:
+            d.set_page_load_timeout(90); d.get(URL); time.sleep(8)
+            result['final_url']=d.current_url; result['title']=d.title
+            body=d.find_element(By.TAG_NAME,'body').text
+            result['target_lines']=[line for line in body.splitlines() if any(k.lower() in line.lower() for k in ('味經堂','신간합병십팔비성자미두수전집','新刻合倂十八飛星紫微斗數全集'))]
+            rows=[]
+            for tr in d.find_elements(By.CSS_SELECTOR,'tr'):
+              try:
+                txt=' '.join((tr.text or '').split())
+                if not any(k.lower() in txt.lower() for k in ('味經堂','신간합병십팔비성자미두수전집','新刻合倂十八飛星紫微斗數全集')):
+                  continue
+                links=[{'text':' '.join((a.text or '').split()),'href':a.get_attribute('href') or ''} for a in tr.find_elements(By.CSS_SELECTOR,'a[href]')]
+                imgs=[]
+                for im in tr.find_elements(By.CSS_SELECTOR,'img'):
+                  src=im.get_attribute('currentSrc') or im.get_attribute('src') or ''
+                  if src:
+                    imgs.append({'src':urljoin(d.current_url,src),'alt':im.get_attribute('alt') or '','width':im.get_attribute('naturalWidth'),'height':im.get_attribute('naturalHeight')})
+                rows.append({'text':txt,'links':links,'images':imgs})
+            result['target_rows']=rows
+
+            downloaded=[]
+            seen=set()
+            for row in rows:
+              for im in row['images']:
+                if im['src'] in seen: continue
+                seen.add(im['src'])
+                try:
+                  rr=requests.get(im['src'],headers={'User-Agent':'Mozilla/5.0','Referer':d.current_url},timeout=20)
+                  ctype=rr.headers.get('content-type','')
+                  if rr.status_code==200 and ctype.startswith('image/') and len(rr.content)>500:
+                    ext={'image/jpeg':'.jpg','image/png':'.png','image/gif':'.gif','image/webp':'.webp'}.get(ctype.split(';')[0],'.bin')
+                    p=OUT/f'listing-target-{len(downloaded):02d}{ext}'; p.write_bytes(rr.content)
+                    downloaded.append({'src':im['src'],'file':p.name,'bytes':len(rr.content),'sha256':hashlib.sha256(rr.content).hexdigest(),'content_type':ctype})
+                except Exception as e:
+                  downloaded.append({'src':im['src'],'error':type(e).__name__+': '+str(e)})
+            result['downloaded_target_images']=downloaded
+            d.save_screenshot(str(OUT/'listing.png'))
+            (OUT/'listing-browser.html').write_text(d.page_source,encoding='utf-8')
+          finally:
+            d.quit()
+
+          result['adjudication']={
+            'public_listing_target_row_bound':bool(result.get('target_rows')),
+            'rendered_target_image_count':len(result.get('downloaded_target_images',[])),
+            'target_five_xiong_shen_page':'PENDING_DIRECT_PAGE',
+            'independent_hai_glyph_vote_added':0,
+            'algorithm_effect':'NONE'
+          }
+          (OUT/'hanauction-weijingtang-listing.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'http_status':result['http_status'],'target_lines':result.get('target_lines'),'target_rows':result.get('target_rows'),'downloaded_target_images':result.get('downloaded_target_images'),'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+
       - name: Upload Hanauction Weijingtang evidence
         if: always()
         uses: actions/upload-artifact@v4
