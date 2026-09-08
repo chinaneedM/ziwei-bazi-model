@@ -55,7 +55,19 @@ jobs:
             visible=[b for b in buttons if b.is_displayed()]
             result["visible_full_menu_button_count"]=len(visible)
             if visible:
-              visible[0].click(); time.sleep(4)
+              # Dismiss only already-open public overlays (for example homepage notice/chat overlay).
+              try:
+                from selenium.webdriver.common.keys import Keys
+                driver.find_element(By.TAG_NAME,"body").send_keys(Keys.ESCAPE)
+                time.sleep(1)
+              except Exception:
+                pass
+              try:
+                visible[0].click()
+              except Exception:
+                # Same explicit public control; JS fallback only avoids click interception by a public overlay.
+                driver.execute_script("arguments[0].click();", visible[0])
+              time.sleep(4)
             links=[]
             for a in driver.find_elements(By.CSS_SELECTOR,"a"):
               try:
