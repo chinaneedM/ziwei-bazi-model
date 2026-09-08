@@ -1,0 +1,103 @@
+name: research-fozhu-16991-public-previews
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-fozhu-16991-public-previews.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Fetch only source-emitted public preview images
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          OUT=Path("probe"); OUT.mkdir()
+          URLS=[
+            "https://img.fozhu920.com/pdf/yj/001/16991_001.avif",
+            "https://img.fozhu920.com/pdf/yj/002/16991_002.avif",
+            "https://img.fozhu920.com/pdf/yj/003/16991_003.avif",
+            "https://img.fozhu920.com/pdf/yj/004/16991_004.avif",
+            "https://img.fozhu920.com/pdf/yj/005/16991_005.avif",
+            "https://img.fozhu920.com/pdf/yj/006/16991_006.avif",
+            "https://img.fozhu920.com/yjimg/yj016012_0001.jpg",
+            "https://img.fozhu920.com/yjimg/yj016012_0002.jpg",
+            "https://img.fozhu920.com/yjimg/yj016012_0003.jpg",
+          ]
+          UA="Mozilla/5.0 provenance-research public-preview-only"
+          result={
+            "schema":"FOZHU-16991-EIGHTEEN-FLYING-STARS-PUBLIC-PREVIEWS-R1",
+            "source_page":"https://www.fozhu920.com/16991.html",
+            "source_title":"《合并十八飞星紫微斗数全》6卷》(古本)_N16991",
+            "paid_full_download_price_cny":29,
+            "paid_full_download_attempted":False,
+            "authentication_attempted":False,
+            "access_control_bypass_attempted":False,
+            "source_emitted_preview_count":len(URLS),
+            "previews":[],
+          }
+          for i,url in enumerate(URLS,1):
+              req=urllib.request.Request(url,headers={"User-Agent":UA,"Accept":"image/avif,image/webp,image/jpeg,image/*,*/*;q=0.8","Referer":"https://www.fozhu920.com/16991.html"})
+              rec={"ordinal":i,"url":url}
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as resp:
+                      data=resp.read(12_000_000)
+                      ct=resp.headers.get("content-type")
+                      ext=".avif" if "avif" in (ct or "") or url.endswith(".avif") else ".jpg"
+                      p=OUT/f"preview-{i:02d}{ext}"
+                      p.write_bytes(data)
+                      rec.update({
+                        "status":getattr(resp,"status",None),"content_type":ct,"bytes":len(data),
+                        "sha256":hashlib.sha256(data).hexdigest(),"file":str(p),
+                        "prefix_hex":data[:16].hex(),
+                      })
+              except Exception as exc:
+                  rec["error"]=repr(exc)
+              result["previews"].append(rec)
+          result["adjudication"]={
+            "scope":"ONLY_NINE_PUBLIC_SOURCE_EMITTED_PREVIEW_IMAGES",
+            "full_paid_content_obtained":False,
+            "target_page_status":"PENDING_DIRECT_VISUAL_REVIEW_OF_SAVED_PREVIEWS",
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"fozhu-16991-public-previews.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+
+      - name: Convert previews for visual review when local tools support it
+        shell: bash
+        run: |
+          set +e
+          mkdir -p probe/converted
+          if command -v ffmpeg >/dev/null 2>&1; then
+            for f in probe/preview-*.avif; do
+              [ -e "$f" ] || continue
+              b="$(basename "$f" .avif)"
+              ffmpeg -loglevel error -y -i "$f" "probe/converted/$b.png" || true
+            done
+          fi
+          for f in probe/preview-*.jpg; do
+            [ -e "$f" ] || continue
+            cp "$f" probe/converted/
+          done
+          find probe/converted -type f -maxdepth 1 -printf '%f %s\n' || true
+
+      - name: Upload public preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fozhu-16991-public-previews
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
