@@ -45,7 +45,7 @@ jobs:
                   "Accept-Language":"zh-TW,zh;q=0.9,en;q=0.7",
               })
               try:
-                  with urllib.request.urlopen(req,timeout=35) as resp:
+                  with urllib.request.urlopen(req,timeout=12) as resp:
                       data=resp.read(max_bytes+1)
                       if len(data)>max_bytes:
                           raise RuntimeError("response exceeded guard")
@@ -119,12 +119,51 @@ jobs:
           saved=[]
           seen_content=set()
           seq=0
+          per_site_cap=12
+          total_cap=32
           for key,pm in result["pages"].items():
+              site_saved=0
+              explicit_images=[]
               for url in pm.get("candidate_urls",[]):
-                  # Public preview image probe only. Reject obvious scripts/styles/doc files before GET.
-                  lower=url.lower().split("?",1)[0]
-                  if any(lower.endswith(ext) for ext in (".js",".css",".pdf",".zip",".rar",".7z",".doc",".docx",".woff",".woff2",".ttf",".svg",".ico")):
-                      continue
+                  path=urllib.parse.urlparse(url).path.lower()
+                  if re.search(r'\.(?:jpe?g|png|webp|gif)
+          result["saved_public_images"]=saved
+          result["adjudication"]={
+              "saved_public_image_count":len(saved),
+              "per_site_cap":per_site_cap,
+              "total_cap":total_cap,
+              "visual_review_status":"REQUIRES_DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
+              "five_xiong_shen_target_page_status":"UNRESOLVED_UNTIL_VISUAL_REVIEW",
+              "paid_or_restricted_full_file_access":"NOT_ATTEMPTED",
+              "hpa_zdate_006_effect":"NONE_UNTIL_DIRECT_TARGET_PAGE_AND_EDITION_PROVENANCE_REVIEW",
+              "algorithm_effect":"NONE",
+          }
+          (OUT/"mingjingge-public-preview-routes.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps({
+              "pages":{k:{
+                  "status":v.get("status"),
+                  "bytes":v.get("bytes"),
+                  "sha256":v.get("sha256"),
+                  "explicit_url_candidate_count":v.get("explicit_url_candidate_count"),
+              } for k,v in result["pages"].items()},
+              "saved_public_images":saved,
+              "adjudication":result["adjudication"],
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload Mingjingge public-preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-mingjingge-public-previews
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
+, path):
+                      explicit_images.append(url)
+              pm["explicit_image_url_count"]=len(explicit_images)
+              for url in explicit_images:
                   row=fetch(url,max_bytes=3_000_000,accept="image/avif,image/webp,image/*,*/*;q=0.8")
                   data=row.get("data",b"")
                   ctype=(row.get("content_type") or "").lower()
@@ -141,6 +180,7 @@ jobs:
                       continue
                   seen_content.add(digest)
                   seq+=1
+                  site_saved+=1
                   ext=".jpg"
                   if data.startswith(b"\x89PNG"): ext=".png"
                   elif data.startswith(b"RIFF") and b"WEBP" in data[:16]: ext=".webp"
@@ -154,9 +194,9 @@ jobs:
                       "sha256":digest,
                       "content_type":row.get("content_type"),
                   })
-                  if len(saved)>=60:
+                  if site_saved>=per_site_cap or len(saved)>=total_cap:
                       break
-              if len(saved)>=60:
+              if len(saved)>=total_cap:
                   break
 
           result["saved_public_images"]=saved
