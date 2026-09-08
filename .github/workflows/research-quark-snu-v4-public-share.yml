@@ -112,6 +112,82 @@ jobs:
               "adjudication": result["adjudication"],
           }, ensure_ascii=False, indent=2))
 
+      - name: Render the same public share in headless Chrome
+        shell: bash
+        run: |
+          set +e
+          BROWSER=""
+          for b in google-chrome chrome chromium chromium-browser; do
+            if command -v "$b" >/dev/null 2>&1; then BROWSER="$(command -v "$b")"; break; fi
+          done
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path("probe/browser-capability.json")
+          p.write_text(json.dumps({"browser_path": None}, indent=2))
+          PY
+          if [ -z "$BROWSER" ]; then
+            echo "No Chrome/Chromium binary present" | tee probe/browser-stderr.txt
+            exit 0
+          fi
+          python - "$BROWSER" <<'PY'
+          import json, pathlib, sys
+          pathlib.Path("probe/browser-capability.json").write_text(
+              json.dumps({"browser_path": sys.argv[1]}, indent=2)
+          )
+          PY
+          "$BROWSER" --version > probe/browser-version.txt 2>&1
+          timeout 50s "$BROWSER"             --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage             --disable-background-networking --disable-default-apps             --virtual-time-budget=15000             --dump-dom "https://pan.quark.cn/s/3b7b731e41f2"             > probe/quark-rendered.html 2> probe/browser-stderr.txt
+          DOM_RC=$?
+          timeout 50s "$BROWSER"             --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage             --virtual-time-budget=15000 --window-size=1440,1600             --screenshot=probe/quark-rendered.png             "https://pan.quark.cn/s/3b7b731e41f2"             >> probe/browser-stderr.txt 2>&1
+          PNG_RC=$?
+          printf '{"dom_exit_code":%s,"screenshot_exit_code":%s}\n' "$DOM_RC" "$PNG_RC" > probe/browser-exit.json
+          exit 0
+
+      - name: Summarize rendered public-share DOM
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          from pathlib import Path
+
+          OUT = Path("probe")
+          TARGET = "〖飛星策天紫微斗數全集〗一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+          p = OUT / "quark-rendered.html"
+          raw = p.read_bytes() if p.exists() else b""
+          text = raw.decode("utf-8", "replace")
+          visible = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", text)
+          visible = re.sub(r"(?s)<[^>]+>", " ", visible)
+          visible = re.sub(r"\s+", " ", visible).strip()
+          result = {
+              "schema": "QUARK-SNU-MINGJINGGE-V4-NORMAL-BROWSER-RENDER-R1",
+              "share_url": "https://pan.quark.cn/s/3b7b731e41f2",
+              "authentication_attempted": False,
+              "save_to_cloud_attempted": False,
+              "download_attempted": False,
+              "api_endpoint_guessing_attempted": False,
+              "access_control_bypass_attempted": False,
+              "rendered_dom_exists": p.exists(),
+              "rendered_dom_bytes": len(raw),
+              "rendered_dom_sha256": hashlib.sha256(raw).hexdigest() if raw else None,
+              "target_filename_present": TARGET in text,
+              "target_fragment_present": "飛星策天紫微斗數全集" in text and "木版本（4）" in text,
+              "target_size_fragment_present": "31.47" in visible,
+              "file_list_terms_present": [x for x in ("文件", "文件夹", "分享", "保存到网盘", "下载", "31.47 MB") if x in visible],
+              "login_or_app_boundary_terms_present": [x for x in ("登录", "扫码", "打开夸克", "APP", "客户端") if x in visible],
+              "visible_text_prefix": visible[:12000],
+              "screenshot_exists": (OUT / "quark-rendered.png").exists(),
+              "screenshot_sha256": hashlib.sha256((OUT / "quark-rendered.png").read_bytes()).hexdigest()
+                  if (OUT / "quark-rendered.png").exists() else None,
+              "same_snu_physical_digitization_lineage": True,
+              "independent_physical_witness_increment": 0,
+              "algorithm_effect": "NONE",
+          }
+          (OUT / "quark-snu-v4-browser-render.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({k:v for k,v in result.items() if k != "visible_text_prefix"}, ensure_ascii=False, indent=2))
+
       - name: Upload public-share evidence
         if: always()
         uses: actions/upload-artifact@v4
