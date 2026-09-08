@@ -209,6 +209,16 @@ The 1581 edition identity is independently corroborated by Shanghai Library link
 
 - Batch 12Q: KOSTMA first-party `TOYO_1646 / Ⅶ-3-157` is a manuscript (`필사본`), one volume 100 leaves; exact cover image SHA-256 `e0fc07b305e12a5fe3636aafd727b0c27407006bb88f883f7f426c5ea54cff04` exposes no target text. Scribd stops at CAPTCHA with no bypass. Six Fozhu public previews were visually reviewed without OCR and none is `五凶神`. `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; Hai-glyph increment = 0; counts remain 198 / 166 / 10 / 14; no candidate or algorithm reopen. Machine evidence: `docs/research/ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1.json`.
 
+
+### Batch 12R — Toyo Bunko VII-3-157 detail/provenance tension
+
+- First-party Toyo detail forms bind targetid `502596` as `新刊希夷陳先生紫微斗數全集 / 寫本 / 1册` and targetid `471894` as `新刊希夷陳先生紫微斗數全集不分卷 / 鈔本 / 1册`, both under `VII-3-157`.
+- Two bibliographic target IDs are **not** counted as two physical/textual witnesses; physical multiplicity remains unresolved.
+- The generic `貴重書` notice on detail pages is not an item-specific rare marker; the actual request-number field contains only `VII-3-157`.
+- NCKU 2021, PDF SHA-256 `17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e`, preserves `金陵益軒唐謙梓` plus a June-1942 Toyo acquisition statement as **secondary scholarly genealogy/provenance**, not target-text authority.
+- HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; direct Hai-glyph increment = 0; 198/166/10/14 and algorithm invariants are unchanged.
+- Evidence: `docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json`.
+
 ## Cross-chat continuity
 
 Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` and restored according to `docs/PROJECT-CONTINUITY-PROTOCOL-R1.md`. CI runs `scripts/verify-project-continuity-state-r1.py` so Matrix progress, completed batches, defect counts and non-negotiable invariants cannot drift from the handoff state unnoticed.

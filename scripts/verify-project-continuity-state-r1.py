@@ -52,6 +52,8 @@ ZIWEI_WEIJINGTANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
 ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md"
 ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE = ROOT / "docs/research/ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-R1.json"
+ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R.md"
+ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE = ROOT / "docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -78,9 +80,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KOREA-UNIVERSITY-INDEPENDENT-PHYSICAL-COPY-PROVENANCE-O",
     "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
     "BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q",
+    "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOSTMA-TOYO1646-MANUSCRIPT-AND-SCRIBD-FOZHU-ACCESS-CONTROLS-Q.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R.md"
 
 
 def fail(message: str) -> None:
@@ -88,7 +91,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -116,6 +119,7 @@ def main() -> int:
     ziwei_korea_university_evidence = json.loads(ZIWEI_KOREA_UNIVERSITY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_weijingtang_hanauction_evidence = json.loads(ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_kostma_scribd_fozhu_evidence = json.loads(ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_toyo_detail_provenance_evidence = json.loads(ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1013,6 +1017,55 @@ def main() -> int:
     if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12q") != 0:
         fail("Batch 12Q Matrix witness-count firewall regressed")
 
+    # Batch 12R keeps dual catalog detail records and secondary genealogy below target-text authority.
+    if ziwei_toyo_detail_provenance_evidence.get("batch_id") != "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R":
+        fail("Batch 12R evidence batch identity mismatch")
+    cap12r = ziwei_toyo_detail_provenance_evidence.get("controlling_research_capture", {})
+    if cap12r.get("workflow_run_id") != 34220050125 or cap12r.get("artifact_id") != 10053423338:
+        fail("Batch 12R controlling run/artifact binding regressed")
+    if cap12r.get("artifact_zip_sha256") != "d107855bedcd579f89c2468f83aff047febe6cd94cd7d4ec6d06d27405d828c7":
+        fail("Batch 12R artifact digest regressed")
+    t12r = ziwei_toyo_detail_provenance_evidence.get("toyo_bunko_first_party", {})
+    recs12r = {x.get("targetid"): x for x in t12r.get("detail_records", ())}
+    if set(recs12r) != {"471894", "502596"}:
+        fail("Batch 12R Toyo targetid set regressed")
+    if recs12r["502596"].get("detail_sha256") != "f459ab7e651eec283d8c3b00be633ba36037ba13dc0f7d94c30ad5d17198d960":
+        fail("Batch 12R target 502596 detail digest regressed")
+    if recs12r["471894"].get("detail_sha256") != "b6a3e768d779fd0a5895b8936da9326ca8c4475513c5b78301ab1776193ae655":
+        fail("Batch 12R target 471894 detail digest regressed")
+    if any(x.get("five_xiong_shen_observed") is not False or x.get("hai_glyph_observed") is not False for x in recs12r.values()):
+        fail("Batch 12R catalog detail was promoted to target text/glyph authority")
+    if t12r.get("item_specific_rare_book_marker_observed") is not False:
+        fail("Batch 12R generic rare-book notice was promoted to item-specific status")
+    if t12r.get("dual_record_physical_multiplicity") != "UNRESOLVED_DO_NOT_COUNT_AS_TWO_PHYSICAL_OR_TEXTUAL_WITNESSES":
+        fail("Batch 12R dual-record physical multiplicity boundary regressed")
+    access12r = ziwei_toyo_detail_provenance_evidence.get("current_access_policy", {})
+    if access12r.get("github_runner_snapshot_status") != "UNAVAILABLE_NO_HTTP_RESPONSE_FOR_DOT_OR_JP_POLICY_PAGES_IN_CONTROLLING_RUN":
+        fail("Batch 12R runner policy-snapshot boundary regressed")
+    if access12r.get("external_reservation_or_copy_request_submitted") is not False:
+        fail("Batch 12R falsely records an external Toyo request")
+    n12r = ziwei_toyo_detail_provenance_evidence.get("ncku_scholarly_genealogy", {})
+    if n12r.get("pdf_sha256") != "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e" or n12r.get("ocr_used") is not False:
+        fail("Batch 12R NCKU PDF identity/no-OCR boundary regressed")
+    if n12r.get("source_authority") != "MODERN_SCHOLARLY_EDITION_GENEALOGY_NOT_TARGET_TEXT_OR_GLYPH_AUTHORITY":
+        fail("Batch 12R NCKU authority scope regressed")
+    a12r = ziwei_toyo_detail_provenance_evidence.get("adjudication", {})
+    if a12r.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or a12r.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12R HPA-ZDATE-006 witness boundary regressed")
+    if a12r.get("new_chart_rule_candidate_authorized") is not False or a12r.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12R candidate/algorithm boundary regressed")
+    toyo_source12r = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-TOYO-BUNKO-ZWDSQJ-VII-3-157"), None)
+    if not toyo_source12r or toyo_source12r.get("exact_detail_targetids") != ["471894", "502596"]:
+        fail("Batch 12R Toyo registry detail binding regressed")
+    ncku_source12r = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY"), None)
+    if not ncku_source12r or ncku_source12r.get("target_text_authority") is not False:
+        fail("Batch 12R NCKU registry authority boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("toyo_vii3_157_first_party_detail_artifact") != "docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json":
+        fail("Batch 12R Matrix artifact binding regressed")
+    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12r") != 0:
+        fail("Batch 12R Matrix witness-count firewall regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -1117,6 +1170,15 @@ def main() -> int:
         "34176539049",
         "10037447325",
         "Client Challenge CAPTCHA",
+        "Batch 12R",
+        "502596",
+        "471894",
+        "f459ab7e651eec283d8c3b00be633ba36037ba13dc0f7d94c30ad5d17198d960",
+        "b6a3e768d779fd0a5895b8936da9326ca8c4475513c5b78301ab1776193ae655",
+        "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e",
+        "金陵益軒唐謙梓",
+        "1942",
+        "runner did not obtain",
         "34176383486",
         "Hanyang University Library",
         "五凶神 target page",

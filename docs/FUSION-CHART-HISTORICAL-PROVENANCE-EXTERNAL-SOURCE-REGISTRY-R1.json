@@ -1749,7 +1749,19 @@
       "source_role": "SCHOLARLY_GENEALOGY_WITNESS_FOR_JAPAN_FULLBOOK_AND_QUANJI_EDITION_ROUTES",
       "quality_notes": "Direct PDF visually reviewed without OCR at printed pp.60–61. The table links the National Archives Fullbook to 書林棲和堂葉梓行 / 南陽堂較梓 and the Quanji route to 金陵益軒唐謙梓 / Toyo Bunko 1942; subsequent text groups Fullbook circulation around Jianyang Qihetang/Nanyangtang versus Jinling Yixuan Tang Qian origins. Used as scholarly genealogy only, not target-glyph authority.",
       "pdf_sha256": "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e",
-      "research_artifact": "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json"
+      "research_artifact": "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json",
+      "batch_12r_pdf_sha256": "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e",
+      "batch_12r_pdf_page_count": 42,
+      "batch_12r_printed_page_60_toyo_row": {
+        "title": "新刊希夷陳先生紫微斗數全集",
+        "imprint_or_genealogy_statement": "金陵益軒唐謙梓",
+        "acquisition_statement": "昭和17年（民國31年，1942）6月收入東洋文庫"
+      },
+      "toyo_relation_adjudication": "SCHOLARLY_ATTRIBUTION_UNRESOLVED_AS_PHYSICAL_PRINT_VS_MANUSCRIPT_EXEMPLAR_OR_COPIED_IMPRINT_STATEMENT",
+      "target_text_authority": false,
+      "batch_12r_research_artifact": "docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json",
+      "batch_12r_workflow_run_id": 34220050125,
+      "batch_12r_artifact_id": 10053423338
     },
     {
       "source_id": "EXT-TOYO-BUNKO-ZWDSQJ-VII-3-157",
@@ -1759,9 +1771,32 @@
       "url": "https://www.toyo-bunko.org/open/KansekiAllQueryResult.php?ORDERBY1=&UNIT=20&andor=1&bKanjiSeiki=&iPage=4048&iTotal=86958&navizonestart=405&searchtype=keyword&sw1=",
       "source_role": "OFFICIAL_LIBRARY_CATALOG_CONTROL_FOR_CURRENT_QUANJI_MANUSCRIPT_COPY_OBJECTS",
       "quality_notes": "Official result page lists call mark VII-3-157 with 新刊希夷陳先生紫微斗數全集不分卷 (宋陳摶撰、宋白玉蟾增) as 鈔本 and another 新刊希夷陳先生紫微斗數全集 as 寫本. These current catalog labels must not be silently equated with the printed 金陵益軒唐謙梓 genealogy in the NCKU article until a direct provenance bridge is established.",
-      "research_artifact": "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json",
-      "workflow_run_id": 34134328002,
-      "artifact_id": 10023353526
+      "research_artifact": "docs/research/ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1.json",
+      "workflow_run_id": 34220050125,
+      "artifact_id": 10053423338,
+      "exact_detail_endpoint": "https://www.toyo-bunko.org/open/show_detail_open_kanseki.php",
+      "exact_detail_targetids": [
+        "471894",
+        "502596"
+      ],
+      "target_502596": {
+        "title": "新刊希夷陳先生紫微斗數全集",
+        "publication_form": "寫本",
+        "extent": "1册",
+        "sha256": "f459ab7e651eec283d8c3b00be633ba36037ba13dc0f7d94c30ad5d17198d960"
+      },
+      "target_471894": {
+        "title": "新刊希夷陳先生紫微斗數全集不分卷",
+        "publication_form": "鈔本",
+        "extent": "1册",
+        "sha256": "b6a3e768d779fd0a5895b8936da9326ca8c4475513c5b78301ab1776193ae655"
+      },
+      "dual_record_physical_multiplicity": "UNRESOLVED_DO_NOT_COUNT_AS_TWO_PHYSICAL_OR_TEXTUAL_WITNESSES",
+      "item_specific_rare_book_marker_observed": false,
+      "current_access_policy": "2025-11-28 FIRST_PARTY_WEB_NOTICE_SAYS_ALL_READING_RESERVATION_ONLY_DURING_FACILITY_RENOVATION; CONTROLLING_GITHUB_RUNNER_POLICY_SNAPSHOT_UNAVAILABLE",
+      "target_page_status": "PENDING_DIRECT_FIVE_XIONG_SHEN_PAGE",
+      "previous_research_artifact": "docs/research/ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-R1.json",
+      "artifact_zip_sha256": "d107855bedcd579f89c2468f83aff047febe6cd94cd7d4ec6d06d27405d828c7"
     },
     {
       "source_id": "EXT-GOOGLE-BOOKS-ZIHAI-ZWDSQS-STANDALONE-2016",
