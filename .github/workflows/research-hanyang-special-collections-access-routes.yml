@@ -14,155 +14,152 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
-      - name: Inspect only public Hanyang navigation and explicitly exposed access-service routes
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Render only explicit public Hanyang access pages and record visible routes
         shell: python
         run: |
-          import hashlib
-          import html
           import json
           import re
+          import time
           import urllib.parse
-          import urllib.request
           from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
 
           OUT = Path("probe")
           OUT.mkdir()
-          BASE = "https://lib.hanyang.ac.kr"
-          HOME = BASE + "/"
+          PAGES = [
+              "https://lib.hanyang.ac.kr/library-guide/outer",
+              "https://lib.hanyang.ac.kr/",
+          ]
           KEYWORDS = (
               "고전자료실", "고서", "희귀", "열람", "복사", "원문", "상호대차",
-              "외부이용", "외부", "이용", "special", "rare", "copy", "document"
+              "외부이용", "외부", "이용", "copy", "document", "rare", "special"
           )
-          EXPLICIT_PUBLIC_PAGES = [
-              BASE + "/library-guide/outer",
-          ]
 
-          def fetch(url, accept="text/html,*/*;q=0.8", max_bytes=20_000_000):
-              req = urllib.request.Request(url, headers={
-                  "User-Agent": "Mozilla/5.0 research-only public navigation probe",
-                  "Accept": accept,
-                  "Accept-Language": "ko,zh;q=0.8,en;q=0.7",
-              })
-              try:
-                  with urllib.request.urlopen(req, timeout=60) as resp:
-                      data = resp.read(max_bytes + 1)
-                      if len(data) > max_bytes:
-                          raise RuntimeError("response exceeded guard")
-                      return {
-                          "ok": True,
-                          "status": getattr(resp, "status", None),
-                          "final_url": resp.geturl(),
-                          "content_type": resp.headers.get("content-type"),
-                          "data": data,
-                      }
-              except Exception as exc:
-                  return {"ok": False, "url": url, "error": repr(exc), "data": b""}
-
-          home = fetch(HOME)
-          home_text = home.get("data", b"").decode("utf-8", "replace")
-          (OUT / "home.html").write_text(home_text, encoding="utf-8")
-          script_srcs = re.findall(r'<script[^>]+src=["\']([^"\']+)["\']', home_text, flags=re.I)
-          main_srcs = [s for s in script_srcs if "main-" in s and s.endswith(".js")]
-          bundle_url = urllib.parse.urljoin(HOME, main_srcs[0]) if main_srcs else None
-
-          bundle = fetch(bundle_url, "text/javascript,application/javascript,text/plain,*/*;q=0.8") if bundle_url else {"ok": False, "data": b""}
-          bundle_text = bundle.get("data", b"").decode("utf-8", "replace")
-          if bundle_text:
-              (OUT / "main.js").write_text(bundle_text, encoding="utf-8")
-
-          literals = []
-          for m in re.finditer(r'''["']([^"'\\]{1,700})["']''', bundle_text):
-              s = html.unescape(m.group(1))
-              low = s.lower()
-              if any(k.lower() in low for k in KEYWORDS):
-                  literals.append(s)
-          literals = list(dict.fromkeys(literals))[:3000]
-
-          explicit_paths = []
-          for s in literals:
-              if s.startswith("/") and len(s) < 500:
-                  explicit_paths.append(s)
-          explicit_paths = list(dict.fromkeys(explicit_paths))
-
-          service_paths = []
-          for p in explicit_paths:
-              low = p.lower()
-              if any(k.lower() in low for k in ("library", "guide", "service", "copy", "document", "outer", "interlibrary", "rare", "special")):
-                  service_paths.append(p)
-          service_paths = service_paths[:100]
-
-          page_urls = list(EXPLICIT_PUBLIC_PAGES)
-          for p in service_paths:
-              u = urllib.parse.urljoin(BASE + "/", p)
-              if u.startswith(BASE + "/") and u not in page_urls:
-                  page_urls.append(u)
-
-          pages = []
-          for idx, url in enumerate(page_urls[:30], start=1):
-              row = fetch(url)
-              raw = row.pop("data", b"")
-              text = raw.decode("utf-8", "replace") if raw else ""
-              if text:
-                  (OUT / f"page-{idx:02d}.html").write_text(text, encoding="utf-8")
-              plain = re.sub(r"<script\b[^>]*>.*?</script>", " ", text, flags=re.I|re.S)
-              plain = re.sub(r"<style\b[^>]*>.*?</style>", " ", plain, flags=re.I|re.S)
-              plain = re.sub(r"<[^>]+>", " ", plain)
-              plain = html.unescape(re.sub(r"\s+", " ", plain)).strip()
-              hits = []
-              for kw in KEYWORDS:
-                  for m in re.finditer(re.escape(kw), plain, flags=re.I):
-                      a=max(0,m.start()-180); b=min(len(plain),m.end()+260)
-                      hits.append({"keyword":kw,"context":plain[a:b]})
-                      if len(hits)>=80: break
-                  if len(hits)>=80: break
-              pages.append({
-                  "url": url,
-                  "ok": row.get("ok"),
-                  "status": row.get("status"),
-                  "final_url": row.get("final_url"),
-                  "content_type": row.get("content_type"),
-                  "bytes": len(raw),
-                  "sha256": hashlib.sha256(raw).hexdigest() if raw else None,
-                  "keyword_hits": hits,
-              })
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1800,2200")
+          options.add_argument("--lang=ko-KR")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
 
           result = {
-              "schema": "ZIWEI-HANYANG-SPECIAL-COLLECTIONS-ACCESS-ROUTES-R1",
-              "scope": "PUBLIC_NAVIGATION_AND_EXPLICITLY_EXPOSED_SERVICE_ROUTES_ONLY",
+              "schema": "ZIWEI-HANYANG-SPECIAL-COLLECTIONS-ACCESS-ROUTES-R2",
               "target_biblio_id": 484926,
               "target_accession": "HOM000001861",
-              "home": {
-                  "status": home.get("status"),
-                  "final_url": home.get("final_url"),
-                  "bundle_url": bundle_url,
-              },
-              "bundle": {
-                  "ok": bundle.get("ok"),
-                  "status": bundle.get("status"),
-                  "final_url": bundle.get("final_url"),
-                  "bytes": len(bundle.get("data", b"")),
-                  "sha256": hashlib.sha256(bundle.get("data", b"")).hexdigest() if bundle.get("data") else None,
-              },
-              "relevant_literals": literals,
-              "explicit_relevant_paths": explicit_paths,
-              "service_candidate_paths_from_explicit_literals": service_paths,
-              "reviewed_public_pages": pages,
-              "route_guessing_attempted": False,
+              "scope": "PUBLIC_RENDERED_UI_ONLY",
               "authentication_attempted": False,
               "form_submission_attempted": False,
-              "hidden_api_enumeration_attempted": False,
-              "adjudication": {
-                  "goal": "FIND_EXPLICIT_PUBLIC_RARE_BOOK_READING_COPY_OR_REPRODUCTION_ROUTE",
-                  "target_page_status": "PENDING_DIRECT_PAGE",
-                  "algorithm_effect": "NONE",
-              },
+              "hidden_api_guessing_attempted": False,
+              "route_guessing_attempted": False,
+              "pages": [],
           }
-          (OUT / "hanyang-special-collections-access-routes.json").write_text(
-              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              for idx, url in enumerate(PAGES, start=1):
+                  driver.get(url)
+                  time.sleep(8)
+                  body = driver.find_element(By.TAG_NAME, "body").text
+                  driver.save_screenshot(str(OUT / f"page-{idx:02d}.png"))
+                  (OUT / f"page-{idx:02d}.html").write_text(driver.page_source, encoding="utf-8")
+
+                  keyword_contexts = []
+                  for kw in KEYWORDS:
+                      for m in re.finditer(re.escape(kw), body, flags=re.I):
+                          a=max(0,m.start()-220); b=min(len(body),m.end()+420)
+                          keyword_contexts.append({"keyword":kw,"context":body[a:b]})
+                          if len(keyword_contexts) >= 150:
+                              break
+                      if len(keyword_contexts) >= 150:
+                          break
+
+                  relevant_links = []
+                  for a in driver.find_elements(By.CSS_SELECTOR, "a[href]"):
+                      try:
+                          if not a.is_displayed():
+                              continue
+                          txt = " ".join((a.text or "").split())
+                          href = a.get_attribute("href") or ""
+                          hay = (txt + " " + href).lower()
+                          if any(k.lower() in hay for k in KEYWORDS):
+                              relevant_links.append({"text":txt[:500],"href":href})
+                      except Exception:
+                          pass
+                  dedup=[]; seen=set()
+                  for row in relevant_links:
+                      key=(row["text"],row["href"])
+                      if key not in seen:
+                          seen.add(key); dedup.append(row)
+
+                  result["pages"].append({
+                      "requested_url": url,
+                      "final_url": driver.current_url,
+                      "title": driver.title,
+                      "body_text": body[:40000],
+                      "keyword_contexts": keyword_contexts,
+                      "rendered_relevant_links": dedup[:300],
+                  })
+
+              network=[]
+              for entry in driver.get_log("performance"):
+                  try:
+                      msg=json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  if msg.get("method") not in ("Network.requestWillBeSent","Network.responseReceived"):
+                      continue
+                  params=msg.get("params",{})
+                  if msg["method"]=="Network.requestWillBeSent":
+                      req=params.get("request",{}); url=req.get("url",""); method=req.get("method"); status=None
+                  else:
+                      resp=params.get("response",{}); url=resp.get("url",""); method=None; status=resp.get("status")
+                  if "lib.hanyang.ac.kr" not in url:
+                      continue
+                  parsed=urllib.parse.urlsplit(url)
+                  safe_q={}
+                  for k,v in urllib.parse.parse_qsl(parsed.query,keep_blank_values=True):
+                      safe_q[k]="__REDACTED__" if any(s in k.lower() for s in ("token","auth","password","session")) else v[:500]
+                  network.append({
+                      "event":msg["method"],"method":method,"status":status,
+                      "url":urllib.parse.urlunsplit((parsed.scheme,parsed.netloc,parsed.path,"","")),
+                      "safe_query":safe_q,
+                  })
+              result["public_ui_network_observations"]=network[-1200:]
+          finally:
+              driver.quit()
+
+          all_text="\n".join(p["body_text"] for p in result["pages"])
+          result["adjudication"]={
+              "rare_book_specific_service_language_observed": any(k in all_text for k in ("고전자료실","고서","희귀")),
+              "copy_or_document_service_language_observed": any(k in all_text for k in ("복사","원문","상호대차")),
+              "next_action":"FOLLOW_ONLY_RENDERED_RELEVANT_PUBLIC_LINKS_OR_NATURALLY_EMITTED_PUBLIC_ROUTES",
+              "target_page_status":"PENDING_DIRECT_PAGE",
+              "algorithm_effect":"NONE",
+          }
+          (OUT/"hanyang-special-collections-access-routes.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
           )
-          print(json.dumps(result, ensure_ascii=False, indent=2))
+          print(json.dumps({
+              "pages":[{
+                  "requested_url":p["requested_url"],
+                  "final_url":p["final_url"],
+                  "title":p["title"],
+                  "keyword_contexts":p["keyword_contexts"],
+                  "rendered_relevant_links":p["rendered_relevant_links"],
+              } for p in result["pages"]],
+              "adjudication":result["adjudication"],
+          },ensure_ascii=False,indent=2))
 
       - name: Upload Hanyang access-route evidence
         if: always()
