@@ -192,6 +192,89 @@ jobs:
                       "error": type(e).__name__ + ": " + str(e),
                   })
 
+          # Submit only the exact POST forms emitted by the two target rows.
+          # targetid values and action are copied from current first-party HTML,
+          # never guessed or enumerated.
+          detail_responses = []
+          for row_index, t in enumerate(targets):
+              for form_index, form in enumerate(t["forms"]):
+                  action = form.get("action")
+                  method = (form.get("method") or "get").lower()
+                  if not action or method != "post":
+                      continue
+                  payload = {}
+                  for fld in form.get("fields", []):
+                      if fld.get("name") and fld.get("value") is not None:
+                          payload[fld["name"]] = fld["value"]
+                  if "targetid" not in payload:
+                      continue
+                  u = urljoin(r.url, action)
+                  if not u.startswith(("https://www.toyo-bunko.org/", "http://www.toyo-bunko.org/")):
+                      continue
+                  try:
+                      rr = sess.post(u, data=payload, timeout=30, allow_redirects=True,
+                                     headers={"Referer": r.url})
+                      body = rr.content
+                      fn = OUT / f"detail-row{row_index:02d}-target{payload['targetid']}.html"
+                      fn.write_bytes(body)
+                      ds = BeautifulSoup(rr.text, "html.parser")
+                      detail = {
+                          "row_index": row_index,
+                          "form_index": form_index,
+                          "action_emitted_by_source": action,
+                          "method": method,
+                          "payload": payload,
+                          "requested_url": u,
+                          "status": rr.status_code,
+                          "final_url": rr.url,
+                          "content_type": rr.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                          "title": ds.title.string.strip() if ds.title and ds.title.string else None,
+                          "text": " ".join(ds.stripped_strings),
+                          "links": [
+                              {
+                                  "text": " ".join(a.stripped_strings),
+                                  "href": a.get("href"),
+                                  "onclick": a.get("onclick"),
+                              }
+                              for a in ds.find_all("a")
+                          ],
+                          "forms": [
+                              {
+                                  "action": fm.get("action"),
+                                  "method": fm.get("method", "get"),
+                                  "fields": [
+                                      {
+                                          "tag": x.name,
+                                          "type": x.get("type"),
+                                          "name": x.get("name"),
+                                          "value": x.get("value"),
+                                          "onclick": x.get("onclick"),
+                                      }
+                                      for x in fm.find_all(["input", "button", "select"])
+                                  ],
+                              }
+                              for fm in ds.find_all("form")
+                          ],
+                          "contains_five_xiong_shen": "五凶神" in rr.text,
+                          "contains_hai": "亥" in rr.text,
+                          "contains_rare_marker": ("貴重書" in rr.text or "貴" in " ".join(ds.stripped_strings)),
+                          "contains_jinling_yixuan": "金陵益軒" in rr.text,
+                          "contains_1942": ("1942" in rr.text or "昭和17" in rr.text),
+                      }
+                      detail_responses.append(detail)
+                  except Exception as e:
+                      detail_responses.append({
+                          "row_index": row_index,
+                          "form_index": form_index,
+                          "action_emitted_by_source": action,
+                          "method": method,
+                          "payload": payload,
+                          "error": type(e).__name__ + ": " + str(e),
+                      })
+          result["detail_responses"] = detail_responses
+
           (OUT / "probe.json").write_text(
               json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
