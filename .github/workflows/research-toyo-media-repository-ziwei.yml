@@ -21,12 +21,12 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Probe source-emitted public search forms
+      - name: Probe source-emitted Omeka search routes
         shell: python
         run: |
           import hashlib, json, re
           from pathlib import Path
-          from urllib.parse import urljoin, urlparse
+          from urllib.parse import urljoin, urlparse, parse_qsl
           import requests
           from bs4 import BeautifulSoup
 
@@ -34,10 +34,10 @@ jobs:
           OUT.mkdir(exist_ok=True)
           sess=requests.Session()
           sess.headers.update({"User-Agent":"Mozilla/5.0 provenance-research/1.0"})
-          bases=[
+          seeds=[
             "https://app.toyobunko-lab.jp/s/main/page/home",
             "https://app.toyobunko-lab.jp/s/main/item",
-            "https://app.toyobunko-lab.jp/s/main/item/search?page=1&sort_by=created&sort_order=desc",
+            "https://app.toyobunko-lab.jp/s/main/collection/top",
           ]
           terms=[
             "新刊希夷陳先生紫微斗數全集",
@@ -49,7 +49,8 @@ jobs:
           result={
             "provider":"Toyo Bunko Media Repository / Omeka S",
             "terms":terms,
-            "source_pages":[],
+            "seed_pages":[],
+            "advanced_search_pages":[],
             "submitted_searches":[],
             "guardrails":{
               "guessed_item_ids":False,
@@ -57,125 +58,149 @@ jobs:
               "api_route_guessed":False,
               "login_attempted":False,
               "captcha_bypass_attempted":False,
-              "only_source_emitted_form_fields_submitted":True,
+              "pagination_control_used_as_query":False,
+              "only_source_emitted_search_routes_and_fields_submitted":True,
             }
           }
 
-          forms=[]
-          for bi,u in enumerate(bases):
+          advanced_urls=[]
+          for i,u in enumerate(seeds):
             r=sess.get(u,timeout=30,allow_redirects=True)
             r.raise_for_status()
             body=r.content
-            (OUT/f"source-{bi}.html").write_bytes(body)
+            (OUT/f"seed-{i}.html").write_bytes(body)
             soup=BeautifulSoup(r.text,"html.parser")
-            page={"url":u,"status":r.status_code,"final_url":r.url,"bytes":len(body),
-                  "sha256":hashlib.sha256(body).hexdigest(),"forms":[]}
+            page={
+              "url":u,"final_url":r.url,"status":r.status_code,"bytes":len(body),
+              "sha256":hashlib.sha256(body).hexdigest(),"advanced_links":[]
+            }
+            for a in soup.find_all("a",href=True):
+              text=" ".join(a.stripped_strings)
+              href=urljoin(r.url,a["href"])
+              if "詳細検索" in text and urlparse(href).netloc=="app.toyobunko-lab.jp":
+                page["advanced_links"].append({"text":text,"href":href})
+                advanced_urls.append(href)
+            result["seed_pages"].append(page)
+
+          # Deduplicate only exact source-emitted advanced-search URLs.
+          advanced_urls=list(dict.fromkeys(advanced_urls))
+
+          forms=[]
+          for i,u in enumerate(advanced_urls):
+            r=sess.get(u,timeout=30,allow_redirects=True)
+            r.raise_for_status()
+            body=r.content
+            (OUT/f"advanced-{i}.html").write_bytes(body)
+            soup=BeautifulSoup(r.text,"html.parser")
+            page={
+              "url":u,"final_url":r.url,"status":r.status_code,"bytes":len(body),
+              "sha256":hashlib.sha256(body).hexdigest(),"forms":[]
+            }
+            base_query=dict(parse_qsl(urlparse(r.url).query,keep_blank_values=True))
             for fi,f in enumerate(soup.find_all("form")):
+              method=(f.get("method") or "get").lower()
+              action=urljoin(r.url,f.get("action") or r.url)
               controls=[]
-              for x in f.find_all(["input","select","button","textarea"]):
-                opts=[]
+              for x in f.find_all(["input","select","textarea"]):
+                name=x.get("name")
+                value=x.get("value")
                 if x.name=="select":
-                  opts=[{"value":o.get("value"),"text":" ".join(o.stripped_strings)} for o in x.find_all("option")]
+                  selected=x.find("option",selected=True)
+                  if selected is None:
+                    selected=x.find("option")
+                  value=selected.get("value") if selected else None
                 controls.append({
-                  "tag":x.name,"type":x.get("type"),"name":x.get("name"),
-                  "value":x.get("value"),"placeholder":x.get("placeholder"),
-                  "options":opts[:300],
+                  "tag":x.name,"type":x.get("type"),"name":name,
+                  "value":value,"placeholder":x.get("placeholder"),
                 })
-              fr={"base_url":r.url,"source_index":bi,"form_index":fi,
-                  "action":f.get("action"),"method":(f.get("method") or "get").lower(),
-                  "controls":controls}
+              fr={
+                "source_url":r.url,"source_index":i,"form_index":fi,
+                "action":action,"method":method,"base_query":base_query,
+                "controls":controls,
+              }
               page["forms"].append(fr)
               forms.append(fr)
-            result["source_pages"].append(page)
+            result["advanced_search_pages"].append(page)
 
-          # Submit only public GET forms and only through text/search controls
-          # whose names are literally present in the source HTML.
           seen=set()
           for fr in forms:
             if fr["method"]!="get":
               continue
-            action=urljoin(fr["base_url"],fr.get("action") or fr["base_url"])
-            if urlparse(action).netloc!="app.toyobunko-lab.jp":
+            if urlparse(fr["action"]).netloc!="app.toyobunko-lab.jp":
               continue
-            text_controls=[
-              c for c in fr["controls"]
-              if c.get("name") and c.get("tag") in ("input","textarea")
-              and (c.get("type") in (None,"text","search") or c.get("tag")=="textarea")
+            # Only Omeka property value text fields are search terms.
+            fields=[
+              c["name"] for c in fr["controls"]
+              if c.get("name") and re.fullmatch(r"property\[\d+\]\[text\]",c["name"])
             ]
-            for ctrl in text_controls:
-              field=ctrl["name"]
+            for field in fields:
               for term in terms:
-                key=(action,field,term)
+                key=(fr["action"],field,term,tuple(sorted(fr["base_query"].items())))
                 if key in seen:
                   continue
                 seen.add(key)
-                params={}
-                # Preserve literal hidden/default inputs from source.
+                params=dict(fr["base_query"])
+                # Preserve only literal hidden/default controls from the source form.
                 for c in fr["controls"]:
-                  if c.get("name") and c.get("value") is not None and c.get("type")=="hidden":
-                    params[c["name"]]=c["value"]
+                  name=c.get("name")
+                  if not name or c.get("value") is None:
+                    continue
+                  if c.get("type")=="hidden" or c.get("tag")=="select":
+                    params[name]=c["value"]
                 params[field]=term
                 try:
-                  rr=sess.get(action,params=params,timeout=30,allow_redirects=True)
+                  rr=sess.get(fr["action"],params=params,timeout=30,allow_redirects=True)
                   body=rr.content
                   idx=len(result["submitted_searches"])
                   (OUT/f"search-{idx:02d}.html").write_bytes(body)
                   ss=BeautifulSoup(rr.text,"html.parser")
                   txt=" ".join(ss.stripped_strings)
-                  hits=[]
                   resource_links=[]
                   for a in ss.find_all("a",href=True):
-                    at=" ".join(a.stripped_strings)
                     href=urljoin(rr.url,a["href"])
-                    if any(k in at or k in href for k in ["紫微","VII-3-157","Ⅶ-3-157","TOYO_1646"]):
-                      hits.append({"text":at,"href":href})
                     p=urlparse(href).path
-                    if re.search(r"/s/main/(?:item|document)/[^/?#]+$",p):
-                      resource_links.append({"text":at,"href":href})
-                  result_count_text=None
-                  for st in ss.stripped_strings:
-                    if re.fullmatch(r"\s*(?:\d[\d,]*\s*[–-]\s*\d[\d,]*\s+of\s+)?\d[\d,]*\s+results\s*",st,re.I):
-                      result_count_text=st.strip()
+                    if re.fullmatch(r"/s/main/(?:item|document)/[^/?#]+",p):
+                      resource_links.append({"text":" ".join(a.stripped_strings),"href":href})
+                  # Deduplicate exact hrefs while preserving order.
+                  uniq=[]
+                  seen_href=set()
+                  for x in resource_links:
+                    if x["href"] not in seen_href:
+                      seen_href.add(x["href"]); uniq.append(x)
+                  count=None
+                  for s in ss.stripped_strings:
+                    m=re.fullmatch(r"\s*(?:(\d[\d,]*)\s*[–-]\s*(\d[\d,]*)\s+of\s+)?(\d[\d,]*)\s+results\s*",s,re.I)
+                    if m:
+                      count=int(m.group(3).replace(",",""))
                       break
-                  # Also bind any literal Omeka API links exposed by this page,
-                  # but do not synthesize or call an API endpoint.
-                  api_literals=sorted(set(re.findall(r'https?://[^"\'<> ]+/api/[^"\'<> ]*',rr.text)))
                   result["submitted_searches"].append({
-                    "source_index":fr["source_index"],"form_index":fr["form_index"],
-                    "action_emitted_by_source":fr.get("action"),
-                    "resolved_action":action,"field_name_emitted_by_source":field,
-                    "term":term,"status":rr.status_code,"final_url":rr.url,
-                    "bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),
+                    "source_url":fr["source_url"],
+                    "action":fr["action"],
+                    "field_name_emitted_by_source":field,
+                    "term":term,
+                    "status":rr.status_code,
+                    "final_url":rr.url,
+                    "bytes":len(body),
+                    "sha256":hashlib.sha256(body).hexdigest(),
                     "page_title":ss.title.string.strip() if ss.title and ss.title.string else None,
                     "contains_exact_title":"新刊希夷陳先生紫微斗數全集" in txt,
                     "contains_ziwei":"紫微" in txt,
                     "contains_call_ascii":"VII-3-157" in txt,
                     "contains_call_roman":"Ⅶ-3-157" in txt,
                     "contains_toyo_1646":"TOYO_1646" in txt,
-                    "matched_links":hits[:50],
-                    "resource_links":resource_links[:100],
-                    "result_count_text":result_count_text,
-                    "zero_resource_links":len(resource_links)==0,
-                    "literal_api_links":api_literals[:50],
+                    "resource_links":uniq[:100],
+                    "result_count":count,
+                    "explicit_zero_results":count==0 if count is not None else False,
                   })
                 except Exception as e:
                   result["submitted_searches"].append({
-                    "resolved_action":action,"field_name_emitted_by_source":field,
-                    "term":term,"error":type(e).__name__+": "+str(e)
+                    "source_url":fr["source_url"],"action":fr["action"],
+                    "field_name_emitted_by_source":field,"term":term,
+                    "error":type(e).__name__+": "+str(e)
                   })
 
           (OUT/"probe.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
-          print(json.dumps({
-            "source_pages":[{"url":p["url"],"status":p["status"],"sha256":p["sha256"],
-                             "forms":[{"action":f["action"],"method":f["method"],
-                                       "controls":[{"tag":c["tag"],"type":c["type"],"name":c["name"],
-                                                    "value":c["value"],"placeholder":c["placeholder"]}
-                                                   for c in f["controls"]]}
-                                      for f in p["forms"]]}
-                            for p in result["source_pages"]],
-            "submitted_searches":result["submitted_searches"],
-            "guardrails":result["guardrails"],
-          },ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
       - uses: actions/upload-artifact@v4
         with:
           name: toyo-media-repository-ziwei
