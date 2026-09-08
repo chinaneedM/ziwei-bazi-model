@@ -38,6 +38,8 @@ ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENA
 ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE = ROOT / "docs/research/ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-R1.json"
 ZIWEI_GUANGYI_PHYSICAL_SET_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J.md"
 ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE = ROOT / "docs/research/ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-R1.json"
+ZIWEI_WENGUANG_BASE_COPY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K.md"
+ZIWEI_WENGUANG_BASE_COPY_EVIDENCE = ROOT / "docs/research/ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -57,9 +59,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H",
     "BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I",
     "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J",
+    "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K.md"
 
 
 def fail(message: str) -> None:
@@ -67,7 +70,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -88,6 +91,7 @@ def main() -> int:
     ziwei_japan_ming_fullbook_evidence = json.loads(ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_late_zi_dedup_locator_evidence = json.loads(ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_guangyi_physical_set_evidence = json.loads(ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_wenguang_base_copy_evidence = json.loads(ZIWEI_WENGUANG_BASE_COPY_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -153,6 +157,7 @@ def main() -> int:
         "EXT-GOOGLE-BOOKS-PAN-ZWDSQS-GUJUE-BIANZHENG-2017",
         "EXT-SHUGE-ZWDSQS-NAIKAKU-PUBLIC-FACSIMILE-ROUTE",
         "EXT-YETNAL-ZWDSQS-GUANGYI-PHYSICAL-SET",
+        "EXT-SANMIN-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2017",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -706,6 +711,48 @@ def main() -> int:
     if nanyang_row.get("guangyi_exact_dalian_catalog_item_bridge") != "UNRESOLVED":
         fail("Batch 12J Matrix exact-item bridge was prematurely closed")
 
+    # Batch 12K locks the combined-Wenguang PT165 provenance boundary.
+    if ziwei_wenguang_base_copy_evidence.get("batch_id") != "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K":
+        fail("Batch 12K evidence batch identity mismatch")
+    rw12k = ziwei_wenguang_base_copy_evidence.get("research_workflow", {})
+    if rw12k.get("workflow_run_id") != 34174455835 or rw12k.get("artifact_id") != 10036772401:
+        fail("Batch 12K research provenance regressed")
+    if rw12k.get("artifact_zip_sha256") != "a5116e6a644fdb1ddd282296c853248fcb2d20ee3f4a7757ba32cef624a68a75":
+        fail("Batch 12K artifact digest regressed")
+    samples12k = ziwei_wenguang_base_copy_evidence.get("sanmin_public_color_samples", {})
+    if samples12k.get("image_count") != 8 or len(samples12k.get("images", ())) != 8:
+        fail("Batch 12K Sanmin sample count regressed")
+    visual12k = samples12k.get("direct_visual_review_no_ocr", {})
+    if visual12k.get("completed") is not True or visual12k.get("target_heading_observed") is not False or visual12k.get("target_hai_glyph_observed") is not False:
+        fail("Batch 12K visual target-page boundary regressed")
+    if visual12k.get("conspicuous_red_collation_marks_visible_on_samples") != [4, 6]:
+        fail("Batch 12K reviewed red-mark controls regressed")
+    index12k = ziwei_wenguang_base_copy_evidence.get("google_books_fresh_index_controls", {})
+    q12k = index12k.get("queries", {})
+    if q12k.get("敦化堂藏板", {}).get("page_ids") != ["PT10", "PT11"]:
+        fail("Batch 12K Dunhuatang index controls regressed")
+    if q12k.get("繼述堂藏板", {}).get("page_ids") != ["PT10"]:
+        fail("Batch 12K Jishutang index control regressed")
+    if q12k.get("論人生時要審的確", {}).get("page_ids") != ["PT16", "PT165"]:
+        fail("Batch 12K target heading index control regressed")
+    if q12k.get("上五刻", {}).get("page_ids") != ["PT165"] or q12k.get("下五刻", {}).get("page_ids") != ["PT165"]:
+        fail("Batch 12K target phrase index controls regressed")
+    prov12k = ziwei_wenguang_base_copy_evidence.get("provenance_adjudication", {})
+    if prov12k.get("pt165_base_copy_identity") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
+        fail("Batch 12K PT165 base-copy identity was prematurely selected")
+    if prov12k.get("positional_page_range_assignment_authorized") is not False or prov12k.get("red_collation_marks_as_exclusive_jishutang_identifier_authorized") is not False:
+        fail("Batch 12K provenance inference firewalls regressed")
+    adj12k = ziwei_wenguang_base_copy_evidence.get("adjudication", {})
+    if adj12k.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12k.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12K HPA-ZDATE-006 boundary regressed")
+    if adj12k.get("algorithm_reopen_authorized") is not False or adj12k.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12K algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("wenguang_public_sample_base_copy_artifact") != "docs/research/ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-R1.json":
+        fail("Batch 12K Matrix artifact binding regressed")
+    if nanyang_row.get("wenguang_pt165_base_copy_identity") != "UNRESOLVED_DUNHUATANG_VS_JISHUTANG":
+        fail("Batch 12K Matrix PT165 provenance boundary regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -787,6 +834,13 @@ def main() -> int:
         "上海廣益書局印行",
         "UNRESOLVED",
         "Ronghetang",
+        "Batch 12K",
+        "34174455835",
+        "10036772401",
+        "PT10/PT11",
+        "PT165",
+        "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+        "source-name index positions are not base-copy segmentation boundaries",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

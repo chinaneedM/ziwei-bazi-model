@@ -1,0 +1,221 @@
+{
+  "schema": "ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K",
+  "status": "PUBLIC_COLOR_SAMPLE_AND_INDEX_PROVENANCE_CLOSED_PT165_BASE_COPY_REMAINS_UNRESOLVED",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "purpose": "Test whether the Heart-One 2017 combined Wenguangtang facsimile target page PT165 can be assigned to Dunhuatang or Jishutang from public color samples, publisher metadata, and fresh Google Books index controls, without promoting search-index text or color marks beyond their evidentiary scope.",
+  "research_workflow": {
+    "commit_sha": "7b2f790fc893f587aa8f6bec82aa6e5622091afe",
+    "workflow": "research-wenguang-sanmin-public-samples",
+    "workflow_run_id": 34174455835,
+    "job_id": 101900988129,
+    "artifact_id": 10036772401,
+    "artifact_zip_sha256": "a5116e6a644fdb1ddd282296c853248fcb2d20ee3f4a7757ba32cef624a68a75",
+    "workflow_conclusion": "success",
+    "ocr_used": false,
+    "authentication_or_paywall_bypass_attempted": false,
+    "identifier_guessing_attempted": false
+  },
+  "publication_identity": {
+    "isbn": "9789888266944",
+    "google_books_volume_id": "aIRbDgAAQBAJ",
+    "title_role": "HEART_ONE_2017_COMBINED_WENGUANGTANG_FACSIMILE",
+    "publisher_statement": "The publication uses two late-Ming/early-Qing Wenguangtang woodblock witnesses from Xubailu: Dunhuatang and Jishutang; Dunhuatang is described as somewhat earlier and Jishutang as carrying red/black collation marks.",
+    "page_level_base_copy_map_published_on_reviewed_public_surface": false
+  },
+  "public_surfaces": {
+    "sanmin": {
+      "url": "https://www.sanmin.com.tw/product/index/006208971",
+      "http_status": 200,
+      "bytes": 100260,
+      "sha256": "73f1640948b386d38c090ad8cb9fee6a6540af94bee0b8cd29b4ffaf5175d6c0"
+    },
+    "publisher": {
+      "url": "https://publish.sunyata.hk/product/973.html",
+      "http_status": 200,
+      "bytes": 112219,
+      "sha256": "5b8d8f408983134561461b06fdc2c28fc7ea9404193d2ef8d3d7a6524e3c047b"
+    }
+  },
+  "sanmin_public_color_samples": {
+    "image_count": 8,
+    "images": [
+      {
+        "index": 1,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b1.jpg",
+        "bytes": 153018,
+        "sha256": "01b8836e54966d305bc2c6bf249642de927739dfb86dbbb451da27535eca5de1"
+      },
+      {
+        "index": 2,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b2.jpg",
+        "bytes": 159676,
+        "sha256": "de584f5fa6a819cbbf855f28a58261cc8fb0f4e27a0f23cd28f911bfbe972ca3"
+      },
+      {
+        "index": 3,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b3.jpg",
+        "bytes": 162118,
+        "sha256": "7e62ac0a7a3b25cdac72e46986a9bcf8c0c60035ad80da1ed3d80b2f2b2bddc2"
+      },
+      {
+        "index": 4,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b4.jpg",
+        "bytes": 161990,
+        "sha256": "b33fdf6b9d21d62b408a457eeae77738ab7c18d078cdaafd338ef6addc3e4445"
+      },
+      {
+        "index": 5,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b5.jpg",
+        "bytes": 163485,
+        "sha256": "c243b143798fbbbc3c020411a3c480a087e9a566b8d80fc833683fa291c7ec9f"
+      },
+      {
+        "index": 6,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b6.jpg",
+        "bytes": 162671,
+        "sha256": "6c0439d61a4cfe7582919bd47ebb83317437b84072d0e8a5fa1bb631ab7630da"
+      },
+      {
+        "index": 7,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b7.jpg",
+        "bytes": 159403,
+        "sha256": "ac2f226759fe5ba74ebcbaa7b5ba76fcc653ead056e2fc7bb01d558f1221e003"
+      },
+      {
+        "index": 8,
+        "url": "https://cdnec.sanmin.com.tw/tryread/big/988/988826694_b8.jpg",
+        "bytes": 162393,
+        "sha256": "2fa172551ee623955cf464542d01acdd96caffa7f9546d4cd77e55cd5ab695a7"
+      }
+    ],
+    "direct_visual_review_no_ocr": {
+      "completed": true,
+      "all_eight_are_facsimile_page_samples": true,
+      "conspicuous_red_collation_marks_visible_on_samples": [
+        4,
+        6
+      ],
+      "red_marks_on_sample_as_jishutang_page_identity": "NOT_AUTHORIZED_WITHOUT_EXPLICIT_PAGE_LEVEL_PROVENANCE",
+      "target_heading_observed": false,
+      "target_ten_ke_passage_observed": false,
+      "target_hai_glyph_observed": false
+    }
+  },
+  "google_books_fresh_index_controls": {
+    "run_id": 34174455835,
+    "index_authority": "SEARCH_INDEX_TEXT_ONLY_NOT_PHYSICAL_GLYPH_OR_BASE_COPY_AUTHORITY",
+    "queries": {
+      "敦化堂": {
+        "number_of_results": 2,
+        "page_ids": [
+          "PT10",
+          "PT11"
+        ]
+      },
+      "敦化堂藏板": {
+        "number_of_results": 2,
+        "page_ids": [
+          "PT10",
+          "PT11"
+        ]
+      },
+      "繼述堂": {
+        "number_of_results": 0,
+        "page_ids": []
+      },
+      "繼述堂藏板": {
+        "number_of_results": 1,
+        "page_ids": [
+          "PT10"
+        ]
+      },
+      "文光堂": {
+        "number_of_results": 8,
+        "page_ids": [
+          "PT18",
+          "PT28",
+          "PT79",
+          "PT122",
+          "PT154",
+          "PT237",
+          "PT250",
+          "PT251"
+        ]
+      },
+      "論人生時要審的確": {
+        "number_of_results": 2,
+        "page_ids": [
+          "PT16",
+          "PT165"
+        ]
+      },
+      "上五刻": {
+        "number_of_results": 1,
+        "page_ids": [
+          "PT165"
+        ]
+      },
+      "下五刻": {
+        "number_of_results": 1,
+        "page_ids": [
+          "PT165"
+        ]
+      },
+      "亥時": {
+        "number_of_results": 4,
+        "page_ids": [
+          "PT71",
+          "PT165",
+          "PT238",
+          "PT243"
+        ]
+      },
+      "子時有十刻": {
+        "number_of_results": 3,
+        "page_ids": [
+          "PT82",
+          "PT165",
+          "PT182"
+        ]
+      }
+    },
+    "target_index_reading": "如人生子亥二時最難定準要仔細推詳如子時有十刻上五刻属昨夜亥時下五刻属今日子時",
+    "target_page_id": "PT165",
+    "critical_provenance_observation": "PT10 is hit by both Dunhuatang and Jishutang-cangban queries, and its Jishutang snippet is editorial/publication-description context. Therefore source-name index hits are not page-range boundary markers and cannot be used to assign PT165 by positional interpolation.",
+    "pt165_dunhuatang_direct_binding": false,
+    "pt165_jishutang_direct_binding": false
+  },
+  "provenance_adjudication": {
+    "pt165_base_copy_identity": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+    "positional_page_range_assignment_authorized": false,
+    "red_collation_marks_as_exclusive_jishutang_identifier_authorized": false,
+    "reason": "Publisher-level provenance describes the two base copies, but reviewed public surfaces provide neither a page-by-page base-copy map nor a target-page imprint/paratext identifier. PT10 itself mixes source-name index hits, proving those hits cannot serve as segmentation boundaries.",
+    "stronger_statement_authorized": "THE_COMBINED_WENGUANGTANG_INDEX_CORROBORATES_THE_HAI_READING_AT_PT165",
+    "stronger_statement_not_authorized": "PT165_IS_DIRECTLY_READ_FROM_DUNHUATANG_OR_JISHUTANG_SPECIFIC_PHYSICAL_BASE_COPY"
+  },
+  "epistemic_boundaries": {
+    "search_index_as_physical_glyph_authority": "FORBIDDEN",
+    "source_name_hit_as_page_range_boundary": "FORBIDDEN",
+    "red_ink_as_exclusive_jishutang_identity_without_page_provenance": "FORBIDDEN",
+    "combined_facsimile_target_text_as_two_independent_base_copy_votes": "FORBIDDEN",
+    "zero_search_results_as_textual_absence": "FORBIDDEN",
+    "sample_page_without_target_heading_as_target_evidence": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "wenguang_pt165_base_copy_identity": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+    "wenguang_direct_target_glyph_support": "NOT_OBTAINED",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "new_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "OBTAIN_A_DIRECT_TARGET_PAGE_WITH_PAGE_LEVEL_DUNHUATANG_OR_JISHUTANG_PROVENANCE_OR_AN_INDEPENDENT_JINGLUNTANG_WENCHENGTANG_LIANYUANGE_TARGET_PAGE"
+  }
+}

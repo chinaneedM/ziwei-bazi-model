@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.21.0",
+  "schema_version": "1.22.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -96,9 +96,10 @@
       "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G",
       "BATCH-12-ZIWEI-JAPAN-MING-FULLBOOK-FACSIMILE-ROUTES-H",
       "BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I",
-      "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J"
+      "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J",
+      "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -165,7 +166,13 @@
       "Batch 12J photographed pages do NOT include 論人生時要審的確; no target Hai glyph witness is added and HPA-ZDATE-006 remains MISSING_FROM_PRODUCT.",
       "Batch 12J preserves photographed 紫薇 separately from Dalian/NCKU bibliographic 紫微; exact identity to the Dalian Guangyi Minguo lithograph catalog object is UNRESOLVED pending date/colophon/printing-specific controls.",
       "NCKU genealogy treats Shanghai Guangyi as a later Ronghetang-based Fullbook and groups Ronghetang/Nanyangtang in the same Jianyang publishing-origin family; do not count a future Guangyi target page as a fully independent stemmatic branch merely because it is a distinct physical edition.",
-      "Next high-value late-Zi evidence remains a direct target page, with Wenguangtang/Jingluntang/Wenchengtang/Lianyuange preferred for stronger stemmatic discrimination; Guangyi target-page acquisition remains useful as later-transmission collation."
+      "Next high-value late-Zi evidence remains a direct target page, with Wenguangtang/Jingluntang/Wenchengtang/Lianyuange preferred for stronger stemmatic discrimination; Guangyi target-page acquisition remains useful as later-transmission collation.",
+      "Batch 12K closes the public Wenguang color-sample/base-copy provenance question: run 34174455835 / artifact 10036772401 captured eight Sanmin facsimile samples plus fresh Google Books source-name/target index controls.",
+      "Direct no-OCR review of all eight Sanmin samples finds genuine facsimile pages and conspicuous red collation marks on samples 4 and 6, but none is 論人生時要審的確 and no target Hai glyph is directly observed.",
+      "Fresh Wenguang index replay gives 敦化堂/敦化堂藏板 at PT10/PT11 and 繼述堂藏板 at PT10, while the late-Zi target remains PT165. PT10's mixed source-name hits prove index positions are not base-copy segmentation boundaries.",
+      "PT165_BASE_COPY_IDENTITY=UNRESOLVED_DUNHUATANG_VS_JISHUTANG. Do not infer target-page provenance from page position, generic 文光堂 headers, or red marks without explicit page-level binding.",
+      "The combined Wenguang search index continues to corroborate 上五刻属昨夜亥時/下五刻属今日子時 at PT165, but direct physical target glyph support and independent base-copy voting remain unavailable.",
+      "Next high-value gate is a direct target page with explicit Dunhuatang/Jishutang provenance or an independent Jingluntang/Wenchengtang/Lianyuange target page."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
