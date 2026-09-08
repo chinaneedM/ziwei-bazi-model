@@ -156,11 +156,18 @@ jobs:
                   ss=BeautifulSoup(rr.text,"html.parser")
                   txt=" ".join(ss.stripped_strings)
                   resource_links=[]
+                  reserved={"search","browse","new","edit","delete"}
                   for a in ss.find_all("a",href=True):
                     href=urljoin(rr.url,a["href"])
-                    p=urlparse(href).path
-                    if re.fullmatch(r"/s/main/(?:item|document)/[^/?#]+",p):
+                    p=urlparse(href).path.rstrip("/")
+                    m=re.fullmatch(r"/s/main/(item|document)/([^/?#]+)",p)
+                    if m and m.group(2).lower() not in reserved:
                       resource_links.append({"text":" ".join(a.stripped_strings),"href":href})
+                  resource_node_count=len(ss.select("li.item.resource, li.resource.item, .resource-list .resource, .resource-list .item"))
+                  resultish_strings=[]
+                  for st in ss.stripped_strings:
+                    if re.search(r"(?:results?|検索結果|該当|件)",st,re.I):
+                      resultish_strings.append(st.strip())
                   # Deduplicate exact hrefs while preserving order.
                   uniq=[]
                   seen_href=set()
@@ -189,8 +196,11 @@ jobs:
                     "contains_call_roman":"Ⅶ-3-157" in txt,
                     "contains_toyo_1646":"TOYO_1646" in txt,
                     "resource_links":uniq[:100],
+                    "resource_node_count":resource_node_count,
+                    "resultish_strings":resultish_strings[:100],
                     "result_count":count,
                     "explicit_zero_results":count==0 if count is not None else False,
+                    "no_concrete_resource_objects":len(uniq)==0 and resource_node_count==0,
                   })
                 except Exception as e:
                   result["submitted_searches"].append({
