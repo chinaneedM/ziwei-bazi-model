@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.32.0",
+  "schema_version": "1.33.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -107,9 +107,10 @@
       "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R",
       "BATCH-12-ZIWEI-TOYO-MEDIA-REPOSITORY-PUBLIC-SEARCH-ROUTE-CONTROL-S",
       "BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T",
-      "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U"
+      "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U",
+      "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -246,7 +247,12 @@
       "NDL Minna Search confirms an uncorrected plain-text OCR derivative and library/individual transmission status; the unauthenticated surface does not expose the OCR body, and no login, transmission, copy request, paid request or access-control bypass was attempted.",
       "National Archives author Hiroshi Tsuchiya's 2009 catalog-method article states that the 1971 revised catalog contains a document-name list at its end, but it does not quote the Ziwei entry or assert legacy registration 15856 -> current 子060-0001.",
       "Accordingly the old-number crosswalk remains UNRESOLVED_PENDING_DIRECT_1971_CATALOG_ENTRY_OR_FIRST_PARTY_CROSSWALK; no whole-catalog negative claim is authorized.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12U adds zero independent target-text/Hai-glyph votes, changes no 198/166/10/14 accounting, and authorizes no candidate selection, collapse or algorithm reopen."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12U adds zero independent target-text/Hai-glyph votes, changes no 198/166/10/14 accounting, and authorizes no candidate selection, collapse or algorithm reopen.",
+      "Batch 12V run 34230231815 / artifact 10057469073 tests eight documented NDL Lab PID-scoped target terms against 12282052; every page-search response is HTTP 200 with hit=0, while the Lab full-text JSON route returns HTTP 403. These are route/index boundaries only and are not whole-catalog target-absence proof.",
+      "The exact NDL Digital Collections item API for PID 12282052 is HTTP 200 and exposes 405 content/page objects; item response SHA-256 is 0642e44194b40c25380a3a8476d2e92f2b52eb94dcca99d2afb5bc08f91a4a8d.",
+      "Batch 12V run 34234090185 / artifact 10059056472 tests only source-emitted publicPath values at pages 1, 203 and 376-405. All 32/32 unauthenticated JPEG requests return HTTP 401 and zero images are obtained; no hidden ID guessing, login, request or bypass occurred.",
+      "LEGACY_REGISTRATION_15856_TO_CURRENT_CALL remains UNRESOLVED_PENDING_DIRECT_1971_CATALOG_ENTRY_OR_EXPLICIT_FIRST_PARTY_CROSSWALK. The tested unauthenticated page route is closed, but authorized NDL access or another first-party crosswalk remains a valid future route.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12V adds zero independent Hai-glyph witnesses, changes no 198/166/10/14 accounting, and authorizes no candidate selection, collapse or algorithm reopen. Next high-value chart-rule gate remains a direct independent historical 五凶神 physical page."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
