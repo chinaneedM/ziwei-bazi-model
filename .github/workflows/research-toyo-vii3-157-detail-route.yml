@@ -284,6 +284,7 @@ jobs:
               "target_row_count": len(targets),
               "target_rows": targets,
               "followed_routes": result["followed_routes"],
+              "detail_responses": result.get("detail_responses", []),
           }, ensure_ascii=False, indent=2))
 
       - uses: actions/upload-artifact@v4
