@@ -1,0 +1,168 @@
+name: research-kyudb-search-surface
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-kyudb-search-surface.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Capture official Kyujanggak public search surface
+        shell: python
+        run: |
+          import hashlib
+          import html.parser
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          URL = "https://kyudb.snu.ac.kr/book/list.do?mid=GDS"
+          UA = "Mozilla/5.0 research-only public catalog surface probe"
+
+          req = urllib.request.Request(
+              URL,
+              headers={
+                  "User-Agent": UA,
+                  "Accept": "text/html,*/*;q=0.8",
+                  "Accept-Language": "ko,en;q=0.8,zh;q=0.6",
+              },
+          )
+          with urllib.request.urlopen(req, timeout=45) as resp:
+              raw = resp.read(8_000_001)
+              if len(raw) > 8_000_000:
+                  raise RuntimeError("HTML exceeded guard")
+              transport = {
+                  "status": getattr(resp, "status", None),
+                  "final_url": resp.geturl(),
+                  "content_type": resp.headers.get("content-type"),
+                  "bytes": len(raw),
+                  "sha256": hashlib.sha256(raw).hexdigest(),
+              }
+
+          (OUT / "kyudb-list.html").write_bytes(raw)
+          text = raw.decode("utf-8", "replace")
+
+          class FormParser(html.parser.HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.forms = []
+                  self.current = None
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if tag.lower() == "form":
+                      self.current = {
+                          "action": attrs.get("action"),
+                          "method": attrs.get("method"),
+                          "id": attrs.get("id"),
+                          "name": attrs.get("name"),
+                          "controls": [],
+                      }
+                      self.forms.append(self.current)
+                  elif self.current is not None and tag.lower() in ("input","select","textarea","button"):
+                      self.current["controls"].append({
+                          "tag": tag.lower(),
+                          "name": attrs.get("name"),
+                          "id": attrs.get("id"),
+                          "type": attrs.get("type"),
+                          "value": attrs.get("value"),
+                          "placeholder": attrs.get("placeholder"),
+                          "onclick": attrs.get("onclick"),
+                      })
+              def handle_endtag(self, tag):
+                  if tag.lower() == "form":
+                      self.current = None
+
+          parser = FormParser()
+          parser.feed(text)
+
+          script_srcs = []
+          for m in re.finditer(r'<script[^>]+src=["\']([^"\']+)["\']', text, flags=re.I):
+              script_srcs.append(urllib.parse.urljoin(URL, m.group(1)))
+
+          search_fragments = []
+          lines = text.splitlines()
+          needles = (
+              "검색어", "search", "srch", "keyword", "query", "book_cd",
+              "book/list.do", "book/view.do", "goSearch", "fnSearch"
+          )
+          for i, line in enumerate(lines):
+              if any(n.lower() in line.lower() for n in needles):
+                  frag = "\n".join(lines[max(0,i-2):min(len(lines),i+3)])
+                  if frag not in search_fragments:
+                      search_fragments.append(frag[:3000])
+              if len(search_fragments) >= 80:
+                  break
+
+          scripts = []
+          for src in script_srcs[:40]:
+              sreq = urllib.request.Request(src, headers={"User-Agent": UA, "Accept": "*/*"})
+              try:
+                  with urllib.request.urlopen(sreq, timeout=20) as resp:
+                      data = resp.read(2_000_001)
+                      if len(data) > 2_000_000:
+                          continue
+                  stxt = data.decode("utf-8", "replace")
+                  hits = []
+                  for i, line in enumerate(stxt.splitlines()):
+                      if any(n.lower() in line.lower() for n in needles):
+                          hits.append("\n".join(stxt.splitlines()[max(0,i-2):i+3])[:3000])
+                      if len(hits) >= 30:
+                          break
+                  scripts.append({
+                      "url": src,
+                      "bytes": len(data),
+                      "sha256": hashlib.sha256(data).hexdigest(),
+                      "search_fragments": hits,
+                  })
+              except Exception as exc:
+                  scripts.append({"url": src, "error": repr(exc)})
+
+          result = {
+              "schema": "KYUDB-PUBLIC-SEARCH-SURFACE-R1",
+              "source_url": URL,
+              "transport": transport,
+              "authentication_attempted": False,
+              "identifier_guessing_attempted": False,
+              "search_submission_attempted": False,
+              "forms": parser.forms,
+              "script_srcs": script_srcs,
+              "html_search_fragments": search_fragments,
+              "script_probes": scripts,
+              "next_gate": "DERIVE_EXACT_PUBLIC_SEARCH_PARAMETER_NAMES_BEFORE_QUERY_SUBMISSION",
+          }
+          (OUT / "kyudb-search-surface.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "transport": transport,
+              "forms": parser.forms,
+              "script_src_count": len(script_srcs),
+              "html_search_fragments": search_fragments[:30],
+              "script_hits": [
+                  {"url": s.get("url"), "hit_count": len(s.get("search_fragments", []))}
+                  for s in scripts
+              ],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Kyujanggak public search surface
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-public-search-surface
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
