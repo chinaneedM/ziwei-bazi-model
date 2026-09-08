@@ -1,0 +1,165 @@
+{
+  "schema": "ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
+  "status": "SNU_ILSA_MINGJINGGE_1870_PHYSICAL_COPY_AND_VOLUME4_DIGITIZATION_LINEAGE_BOUND_TARGET_FIVE_XIONG_SHEN_PAGE_NOT_OBTAINED",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "purpose": "Bind the 1870 Yangcheng Mingjingge Feixing Cetian Ziwei Doushu Quanji physical-copy/digitization routes, separate the Seoul National University Ilsa copy from the Hanyang University holding, and prevent public mirrors of the same SNU scan from being double-counted before a direct 五凶神 target page is obtained.",
+  "historical_object": {
+    "work": "飛星策天紫微斗數全集 / 新刻合倂十八飛星策天紫微斗數全集",
+    "edition": "同治九年新鐫 / 羊城明經閣板",
+    "stated_year": 1870,
+    "format": "WOODBLOCK_EDITION",
+    "target_volume": 4,
+    "target_section": "五凶神",
+    "received_text_target_line": "子有十刻，上五刻屬昨夜，下五刻屬今夜子",
+    "received_text_explicit_upper_half_hai_branch": false
+  },
+  "snu_ilsa_copy": {
+    "call_number_family": "一簑古523.5-J562b-v.1-6",
+    "physical_copy_status": "DIRECT_PUBLIC_SCAN_DERIVATIVE_REVIEWED",
+    "v1_public_physical_controls": {
+      "route": "Shenjige public image surface derived from the same call-number object family",
+      "acquisition_workflow_run_id": 34175536942,
+      "artifact_id": 10037255041,
+      "artifact_zip_sha256": "ba43bff36ac1e01e1c693218504bbed4759edb1e5937186ae8052eb887711a2c",
+      "cover": {
+        "file": "001-shenjige.png",
+        "sha256": "699da0ece518e51fb409cb6f289458b5324823ed592c2b31c447426c70f67342",
+        "direct_visual": "斗數 一; call-label surface 일사古 / 523.5 / J562b / V.1"
+      },
+      "title_imprint": {
+        "file": "002-shenjige.png",
+        "sha256": "e4868cacb6c8608d69c65af327b7f873506974d930c38c2601f5b5d027981311",
+        "direct_visual": [
+          "同治九年新鐫",
+          "飛星紫微斗數",
+          "陳希夷先生著",
+          "羊城明經閣板"
+        ],
+        "exact_full_work_title_from_this_single_image": "NOT_CLAIMED_BEYOND_VISIBLE_GLYPHS"
+      },
+      "ocr_used": false
+    },
+    "v4_public_controls": {
+      "route": "Pduola unauthenticated public preview; page images visibly carry Seoul National University Kyujanggak Korean Studies Institute branding",
+      "source_page": "https://www.pduola.com/file/GxfPRsC47l",
+      "acquisition_workflow_run_id": 34175536942,
+      "artifact_id": 10037255041,
+      "artifact_zip_sha256": "ba43bff36ac1e01e1c693218504bbed4759edb1e5937186ae8052eb887711a2c",
+      "directly_reviewed_pages": [
+        {
+          "public_page_label": "0001",
+          "file": "009-pduola_v4.jpg",
+          "sha256": "e0a1b490d64c4fc189215c7c533ac8bd16a56cecc41a93744e26be2659168548",
+          "direct_visual": "斗數 四; call-label 523.5 J562b V.4; SNU Kyujanggak branding"
+        },
+        {
+          "public_page_label": "0002",
+          "file": "010-pduola_v4.jpg",
+          "sha256": "fb74af59a724def7369383ffc86e81c0f5687f3f94f0ba3638ee827cd6dbb6eb",
+          "direct_visual": "volume-four opening material; 太微賦總括 visible; SNU Kyujanggak branding"
+        },
+        {
+          "public_page_label": "0003",
+          "file": "011-pduola_v4.jpg",
+          "sha256": "ac64c01cd065f63fdf83624f71a746660461bd289b60825b5b1f124caf9d0fb4",
+          "direct_visual": "early volume-four text; target heading not observed"
+        },
+        {
+          "public_page_label": "0004",
+          "file": "012-pduola_v4.jpg",
+          "sha256": "a64ffc0fcf5506875491006228ffa95e294ec68ba4cbe50961bc735536622b54",
+          "direct_visual": "early volume-four text; target heading not observed"
+        },
+        {
+          "public_page_label": "0005",
+          "file": "013-pduola_v4.jpg",
+          "sha256": "b15d2ebc40ca39ce98a2be0375843900067befe83b5721ce67f01631e8abb39f",
+          "direct_visual": "early volume-four text; target heading not observed"
+        }
+      ],
+      "five_xiong_shen_target_page_observed": false,
+      "late_zi_target_line_observed": false,
+      "explicit_hai_glyph_in_target_line_observed": false,
+      "paid_full_download_attempted": false,
+      "ocr_used": false
+    }
+  },
+  "mirror_deduplication": {
+    "rule": "DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE",
+    "pduola_snu_preview": "SNU_ILSA_DIGITIZATION_DERIVATIVE",
+    "shenjige_call_number_images": "SNU_ILSA_COPY_DERIVATIVE_OR_SAME_CALL_NUMBER_LINEAGE",
+    "scribd_public_indexed_pages": "SNU_KYUJANGGAK_DIGITIZATION_DERIVATIVE",
+    "independent_votes_from_these_routes": 0,
+    "reason": "They expose Seoul National University/Kyujanggak branding, the same work and the 一簑古 523.5 J562b volume structure; mirrors do not become independent physical witnesses by host count."
+  },
+  "scribd_access_control": {
+    "public_search_index_status": "SEARCH_ENGINE_INDEX_EXPOSES_SNU_KYUJANGGAK_LABELS_AND_PAGE_LABELS_0001_THROUGH_0035",
+    "static_probe": {
+      "workflow_run_id": 34176475112,
+      "artifact_id": 10037413911,
+      "artifact_zip_sha256": "14816d1d50170380cd4217530a9a8eacbf17999a012ae7436b5bf7b90ffec133",
+      "result": "DIRECT_HTTP_RETURNS_FRONTEND_SHELL_WITHOUT_DOCUMENT_PAGES"
+    },
+    "browser_probe": {
+      "workflow_run_id": 34176539049,
+      "artifact_id": 10037447325,
+      "artifact_zip_sha256": "de830ac0b314ce85b15b89698eb84e73a600552d4fdafae926d852893a4d1e32",
+      "title": "Client Challenge",
+      "visible_text": "Enter the characters seen in the image below: ... CAPTCHA ... Submit",
+      "captcha_bypass_attempted": false,
+      "document_page_directly_rendered": false
+    },
+    "adjudication": "CLOSED_PUBLIC_PREVIEW_EXECUTION_BOUNDARY_CAPTCHA_NOT_BYPASSED"
+  },
+  "official_kyudb_access_control": {
+    "url": "https://kyudb.snu.ac.kr/book/list.do?mid=GDS",
+    "metadata_surface_publicly_indexed": true,
+    "github_runner_probe": {
+      "workflow_run_id": 34176383486,
+      "job_id": 101906512978,
+      "result": "TLS_CONNECTION_RESET_BEFORE_HTML_RESPONSE",
+      "error": "Connection reset by peer",
+      "authentication_attempted": false,
+      "identifier_guessing_attempted": false
+    },
+    "adjudication": "EXECUTION_ENVIRONMENT_ACCESS_BOUNDARY_ONLY_NOT_EVIDENCE_OF_CATALOG_ABSENCE"
+  },
+  "hanyang_independent_holding_locator": {
+    "source": "AKS Sillokwiki 자미수(紫微數)",
+    "url": "https://dh.aks.ac.kr/sillokwiki/index.php/%EC%9E%90%EB%AF%B8%EC%88%98%28%E7%B4%AB%E5%BE%AE%E6%95%B8%29",
+    "recorded_title": "新刻合倂十八飛星策天紫微斗數全集",
+    "recorded_extent": "6卷6冊",
+    "recorded_format": "木板本",
+    "recorded_year": 1870,
+    "recorded_publisher": "明經閣",
+    "recorded_holding": "漢陽大學校圖書館",
+    "independent_physical_holding_candidate": true,
+    "target_volume_page_observed": false,
+    "target_line_observed": false,
+    "independence_effect": "SEPARATE_HOLDING_ROUTE_ONLY_UNTIL_DIRECT_COPY_LEVEL_TARGET_PAGE"
+  },
+  "philological_adjudication": {
+    "quanji_received_text_upper_half": "昨夜",
+    "fullbook_nanyangtang_upper_half": "昨夜亥時",
+    "mechanically_identical_reclassification": false,
+    "explanation": "The Quanji received text preserves a previous-night/current-Zi split but does not itself explicitly name the upper half as Hai branch; the Fullbook Nanyangtang wording does. Preserve the difference until a physical Quanji target page is directly collated."
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_quanji_physical_target_page_obtained": false,
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "snu_volume4_physical_scan_route": "BOUND_THROUGH_PUBLIC_DERIVATIVE_PAGES_0001_0005",
+    "snu_five_xiong_shen_target_page": "PENDING_DIRECT_PAGE",
+    "hanyang_target_page": "PENDING_DIRECT_PAGE",
+    "cross_mirror_vote_count": 0,
+    "new_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_FIVE_XIONG_SHEN_PAGE_FROM_SNU_ILSA_V4_OR_HANYANG_INDEPENDENT_COPY"
+  }
+}

@@ -42,6 +42,8 @@ ZIWEI_WENGUANG_BASE_COPY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_WENGUANG_BASE_COPY_EVIDENCE = ROOT / "docs/research/ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-R1.json"
 ZIWEI_KANGJIE_TYPESET_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L.md"
 ZIWEI_KANGJIE_TYPESET_EVIDENCE = ROOT / "docs/research/ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-R1.json"
+ZIWEI_MINGJINGGE_SNU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M.md"
+ZIWEI_MINGJINGGE_SNU_EVIDENCE = ROOT / "docs/research/ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -63,9 +65,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J",
     "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K",
     "BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L",
+    "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M.md"
 
 
 def fail(message: str) -> None:
@@ -73,7 +76,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -96,6 +99,7 @@ def main() -> int:
     ziwei_guangyi_physical_set_evidence = json.loads(ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_wenguang_base_copy_evidence = json.loads(ZIWEI_WENGUANG_BASE_COPY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_kangjie_typeset_evidence = json.loads(ZIWEI_KANGJIE_TYPESET_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_mingjingge_snu_evidence = json.loads(ZIWEI_MINGJINGGE_SNU_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -163,6 +167,8 @@ def main() -> int:
         "EXT-YETNAL-ZWDSQS-GUANGYI-PHYSICAL-SET",
         "EXT-SANMIN-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2017",
         "EXT-XUELIN-KANGJIE-ZIWEI-MODERN-TYPESET",
+        "EXT-SNU-ILSA-MINGJINGGE-ZWDSQJ-DIGITIZATION-DERIVATIVE",
+        "EXT-AKS-SILLOKWIKI-HANYANG-MINGJINGGE-ZWDSQJ-HOLDING",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -797,6 +803,55 @@ def main() -> int:
     if nanyang_row.get("kangjie_independent_old_edition_witness_count_added") != 0:
         fail("Batch 12L Matrix witness-count firewall regressed")
 
+    # Batch 12M binds the SNU Ilsa 1870 Mingjingge physical-copy/digitization lineage without inventing a target page.
+    if ziwei_mingjingge_snu_evidence.get("batch_id") != "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M":
+        fail("Batch 12M evidence batch identity mismatch")
+    obj12m = ziwei_mingjingge_snu_evidence.get("historical_object", {})
+    if obj12m.get("stated_year") != 1870 or obj12m.get("target_volume") != 4 or obj12m.get("target_section") != "五凶神":
+        fail("Batch 12M historical object scope regressed")
+    snu12m = ziwei_mingjingge_snu_evidence.get("snu_ilsa_copy", {})
+    if snu12m.get("call_number_family") != "一簑古523.5-J562b-v.1-6":
+        fail("Batch 12M SNU Ilsa call-number binding regressed")
+    v112m = snu12m.get("v1_public_physical_controls", {})
+    if v112m.get("artifact_id") != 10037255041 or v112m.get("artifact_zip_sha256") != "ba43bff36ac1e01e1c693218504bbed4759edb1e5937186ae8052eb887711a2c":
+        fail("Batch 12M v1 physical provenance regressed")
+    if v112m.get("cover", {}).get("sha256") != "699da0ece518e51fb409cb6f289458b5324823ed592c2b31c447426c70f67342":
+        fail("Batch 12M v1 cover hash regressed")
+    if v112m.get("title_imprint", {}).get("sha256") != "e4868cacb6c8608d69c65af327b7f873506974d930c38c2601f5b5d027981311":
+        fail("Batch 12M title/imprint hash regressed")
+    v412m = snu12m.get("v4_public_controls", {})
+    if v412m.get("five_xiong_shen_target_page_observed") is not False or v412m.get("late_zi_target_line_observed") is not False:
+        fail("Batch 12M v4 target page was prematurely claimed")
+    pages12m = v412m.get("directly_reviewed_pages", [])
+    if [p.get("public_page_label") for p in pages12m] != ["0001","0002","0003","0004","0005"]:
+        fail("Batch 12M v4 public page set regressed")
+    if pages12m[0].get("sha256") != "e0a1b490d64c4fc189215c7c533ac8bd16a56cecc41a93744e26be2659168548":
+        fail("Batch 12M v4 cover hash regressed")
+    dedup12m = ziwei_mingjingge_snu_evidence.get("mirror_deduplication", {})
+    if dedup12m.get("rule") != "DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE" or dedup12m.get("independent_votes_from_these_routes") != 0:
+        fail("Batch 12M mirror dedup firewall regressed")
+    scribd12m = ziwei_mingjingge_snu_evidence.get("scribd_access_control", {})
+    if scribd12m.get("browser_probe", {}).get("title") != "Client Challenge" or scribd12m.get("browser_probe", {}).get("captcha_bypass_attempted") is not False:
+        fail("Batch 12M Scribd CAPTCHA boundary regressed")
+    kyudb12m = ziwei_mingjingge_snu_evidence.get("official_kyudb_access_control", {})
+    if kyudb12m.get("adjudication") != "EXECUTION_ENVIRONMENT_ACCESS_BOUNDARY_ONLY_NOT_EVIDENCE_OF_CATALOG_ABSENCE":
+        fail("Batch 12M Kyudb access boundary regressed")
+    hy12m = ziwei_mingjingge_snu_evidence.get("hanyang_independent_holding_locator", {})
+    if hy12m.get("recorded_extent") != "6卷6冊" or hy12m.get("recorded_year") != 1870 or hy12m.get("recorded_holding") != "漢陽大學校圖書館":
+        fail("Batch 12M Hanyang holding locator regressed")
+    if hy12m.get("target_volume_page_observed") is not False:
+        fail("Batch 12M Hanyang target page was prematurely claimed")
+    adj12m = ziwei_mingjingge_snu_evidence.get("adjudication", {})
+    if adj12m.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or adj12m.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12M HPA-ZDATE-006 boundary regressed")
+    if adj12m.get("algorithm_reopen_authorized") is not False or adj12m.get("confirmed_chart_algorithm_defect_count") != 0:
+        fail("Batch 12M algorithm boundary regressed")
+    nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not nanyang_row or nanyang_row.get("mingjingge_snu_physical_copy_artifact") != "docs/research/ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-R1.json":
+        fail("Batch 12M Matrix artifact binding regressed")
+    if nanyang_row.get("independent_hai_glyph_witness_count_added_batch_12m") != 0:
+        fail("Batch 12M Matrix witness-count firewall regressed")
+
     focus_text = "\n".join(audit_state.get("current_focus", ()))
     for fragment in (
         "Batch 11U",
@@ -893,6 +948,17 @@ def main() -> int:
         "PDF p165 = printed p151",
         "上五刻属昨夜亥时 / 下五刻属今日子时",
         "MODERN_TYPESET_RECEIVED_TEXT_CORROBORATION_ONLY",
+        "Batch 12M",
+        "一簑古523.5-J562b-v.1-6",
+        "523.5 J562b V.4",
+        "太微賦總括",
+        "DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE",
+        "34176539049",
+        "10037447325",
+        "Client Challenge CAPTCHA",
+        "34176383486",
+        "Hanyang University Library",
+        "五凶神 target page",
     ):
         if fragment not in focus_text:
             fail(f"current-state lost Batch 11V continuity boundary: {fragment}")

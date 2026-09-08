@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.23.0",
+  "schema_version": "1.24.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -98,9 +98,10 @@
       "BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I",
       "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J",
       "BATCH-12-ZIWEI-WENGUANG-PUBLIC-SAMPLE-BASE-COPY-PROVENANCE-K",
-      "BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L"
+      "BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L",
+      "BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KANGJIE-MODERN-TYPESET-LATE-ZI-WITNESS-L.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MINGJINGGE-SNU-PHYSICAL-COPY-PROVENANCE-M.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -179,7 +180,14 @@
       "Batch 12L finite target run 34175090423 / artifact 10036973127 verifies PDF p165 = printed p151 and direct no-OCR review reads 上五刻属昨夜亥时 / 下五刻属今日子时.",
       "Modern simplified typeset text, editorial punctuation and the vr-d mirror are forbidden from being promoted to old-edition glyph authority, independent stemmatic voting, or physical-edition corroboration.",
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; received-text corroboration increases, but old-edition Hai-glyph stability and runtime time-standard binding remain unresolved.",
-      "Next gate remains a direct historical physical target page from explicit Dunhuatang/Jishutang/Jingluntang/Wenchengtang/Lianyuange provenance."
+      "Next gate remains a direct historical physical target page from explicit Dunhuatang/Jishutang/Jingluntang/Wenchengtang/Lianyuange provenance.",
+      "Batch 12M binds the 1870 Mingjingge Quanji to the SNU Ilsa 一簑古523.5-J562b-v.1-6 physical-copy/digitization lineage; public v.1 images directly show 同治九年新鐫 / 飛星紫微斗數 / 陳希夷先生著 / 羊城明經閣板.",
+      "Pduola public v.4 images visibly carry SNU Kyujanggak branding and directly bind 523.5 J562b V.4 pages 0001–0005; they reach early volume-four 太微賦總括 material but not 五凶神.",
+      "Pduola, Shenjige and Scribd SNU surfaces are governed by DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE; host count must not inflate physical witness count.",
+      "Scribd unauthenticated browser run 34176539049 / artifact 10037447325 reaches Client Challenge CAPTCHA only; CAPTCHA bypass is forbidden and was not attempted.",
+      "Official Kyudb runner run 34176383486 resets during TLS before search submission; this is an execution-environment access boundary only, not catalog absence.",
+      "AKS Sillokwiki independently locates a 6卷6冊 / 1870 / 明經閣 / 木板本 新刻合倂十八飛星策天紫微斗數全集 at Hanyang University Library; no Hanyang target page is yet observed.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT. Next gate is a direct 五凶神 target page from SNU Ilsa v.4 or the independent Hanyang copy; Quanji 昨夜 wording must not be silently upgraded to explicit 亥時."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
