@@ -72,8 +72,12 @@ class ZiweiQuanshuWenguangGoogleIndexPreviewR1Tests(unittest.TestCase):
             "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
             row["combined_facsimile_base_copy_identity_for_pt165"],
         )
-        self.assertEqual(
-            "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+        self.assertIn(
+            "EXPLICIT_HAI_IS_NOT_UNIVERSAL_ACROSS_BROADER_RECEIVED_ZIWEI_TRANSMISSION",
+            row["hai_glyph_cross_edition_status"],
+        )
+        self.assertIn(
+            "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED",
             row["hai_glyph_cross_edition_status"],
         )
         self.assertFalse(row["algorithm_reopen_authorized"])
