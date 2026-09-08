@@ -29,6 +29,7 @@ jobs:
           from selenium import webdriver
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.common.by import By
+          from selenium.common.exceptions import NoAlertPresentException
 
           OUT=Path('probe'); OUT.mkdir()
           URL='https://www.hanauction.com/htm/off_auction_read.htm?ac_num=297&id=102923&off_id=260&page=3'
@@ -61,6 +62,15 @@ jobs:
           d=webdriver.Chrome(options=opts)
           try:
             d.set_page_load_timeout(90); d.get(URL); time.sleep(8)
+            try:
+              alert=d.switch_to.alert
+              result['browser_alert_text']=alert.text
+              alert.accept()
+              result['browser_alert_accepted_as_normal_closed_auction_notice']=True
+              time.sleep(2)
+            except NoAlertPresentException:
+              result['browser_alert_text']=None
+              result['browser_alert_accepted_as_normal_closed_auction_notice']=False
             result['browser_final_url']=d.current_url
             result['browser_title']=d.title
             body=d.find_element(By.TAG_NAME,'body').text
