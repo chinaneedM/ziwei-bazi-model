@@ -182,3 +182,7 @@ or another independently bound Fullbook physical witness
 ```
 
 Only after that textual/edition question is sufficiently bounded should a separate runtime time-standard decision be considered. No historical wording in this batch authorizes civil-time, mean-solar-time or apparent-solar-time binding.
+
+## 7. Closure execution binding
+
+Batch 12AA state synchronization was executed by fail-closed workflow run `34255864333`. Before committing, that workflow passed the Historical Provenance machine gate, Project Continuity machine gate, and focused historical-provenance matrix tests. It then produced closure commit `d5d943de8e1835bae266c7360a44bc9d2984ef3b` (tree `b23fd0c60eeef1518dd5d65c1cb682d7591aa754`). This section is a durable execution binding only; it does not add textual evidence or alter any witness count.
