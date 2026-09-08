@@ -496,8 +496,8 @@ def main() -> int:
     if route_adjudication.get("hai_glyph_stability_across_physical_editions") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
         fail("Batch 12C HAI glyph stability boundary regressed")
     nanyang_row = next((row for row in matrix.get("rows", ()) if row.get("rule_id") == "HPA-ZDATE-006"), None)
-    if not nanyang_row or nanyang_row.get("hai_glyph_cross_edition_status") != "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES":
-        fail("Batch 12C matrix HAI glyph boundary regressed")
+    if not nanyang_row or "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED" not in nanyang_row.get("hai_glyph_cross_edition_status", ""):
+        fail("Batch 12C/12Z matrix within-Fullbook HAI glyph boundary regressed")
     if nanyang_row.get("audit_status") != "MISSING_FROM_PRODUCT" or nanyang_row.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12C candidate/product boundary regressed")
 
