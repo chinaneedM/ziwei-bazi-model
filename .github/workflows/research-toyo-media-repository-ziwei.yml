@@ -1,0 +1,170 @@
+name: research-toyo-media-repository-ziwei
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-toyo-media-repository-ziwei.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Probe source-emitted public search forms
+        shell: python
+        run: |
+          import hashlib, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+          from bs4 import BeautifulSoup
+
+          OUT=Path("toyo-media-ziwei")
+          OUT.mkdir(exist_ok=True)
+          sess=requests.Session()
+          sess.headers.update({"User-Agent":"Mozilla/5.0 provenance-research/1.0"})
+          bases=[
+            "https://app.toyobunko-lab.jp/s/main/page/home",
+            "https://app.toyobunko-lab.jp/s/main/item",
+            "https://app.toyobunko-lab.jp/s/main/item/search?page=1&sort_by=created&sort_order=desc",
+          ]
+          terms=[
+            "新刊希夷陳先生紫微斗數全集",
+            "紫微斗數",
+            "VII-3-157",
+            "Ⅶ-3-157",
+            "TOYO_1646",
+          ]
+          result={
+            "provider":"Toyo Bunko Media Repository / Omeka S",
+            "terms":terms,
+            "source_pages":[],
+            "submitted_searches":[],
+            "guardrails":{
+              "guessed_item_ids":False,
+              "enumerated_item_ids":False,
+              "api_route_guessed":False,
+              "login_attempted":False,
+              "captcha_bypass_attempted":False,
+              "only_source_emitted_form_fields_submitted":True,
+            }
+          }
+
+          forms=[]
+          for bi,u in enumerate(bases):
+            r=sess.get(u,timeout=30,allow_redirects=True)
+            r.raise_for_status()
+            body=r.content
+            (OUT/f"source-{bi}.html").write_bytes(body)
+            soup=BeautifulSoup(r.text,"html.parser")
+            page={"url":u,"status":r.status_code,"final_url":r.url,"bytes":len(body),
+                  "sha256":hashlib.sha256(body).hexdigest(),"forms":[]}
+            for fi,f in enumerate(soup.find_all("form")):
+              controls=[]
+              for x in f.find_all(["input","select","button","textarea"]):
+                opts=[]
+                if x.name=="select":
+                  opts=[{"value":o.get("value"),"text":" ".join(o.stripped_strings)} for o in x.find_all("option")]
+                controls.append({
+                  "tag":x.name,"type":x.get("type"),"name":x.get("name"),
+                  "value":x.get("value"),"placeholder":x.get("placeholder"),
+                  "options":opts[:300],
+                })
+              fr={"base_url":r.url,"source_index":bi,"form_index":fi,
+                  "action":f.get("action"),"method":(f.get("method") or "get").lower(),
+                  "controls":controls}
+              page["forms"].append(fr)
+              forms.append(fr)
+            result["source_pages"].append(page)
+
+          # Submit only public GET forms and only through text/search controls
+          # whose names are literally present in the source HTML.
+          seen=set()
+          for fr in forms:
+            if fr["method"]!="get":
+              continue
+            action=urljoin(fr["base_url"],fr.get("action") or fr["base_url"])
+            if urlparse(action).netloc!="app.toyobunko-lab.jp":
+              continue
+            text_controls=[
+              c for c in fr["controls"]
+              if c.get("name") and c.get("tag") in ("input","textarea")
+              and (c.get("type") in (None,"text","search") or c.get("tag")=="textarea")
+            ]
+            for ctrl in text_controls:
+              field=ctrl["name"]
+              for term in terms:
+                key=(action,field,term)
+                if key in seen:
+                  continue
+                seen.add(key)
+                params={}
+                # Preserve literal hidden/default inputs from source.
+                for c in fr["controls"]:
+                  if c.get("name") and c.get("value") is not None and c.get("type")=="hidden":
+                    params[c["name"]]=c["value"]
+                params[field]=term
+                try:
+                  rr=sess.get(action,params=params,timeout=30,allow_redirects=True)
+                  body=rr.content
+                  idx=len(result["submitted_searches"])
+                  (OUT/f"search-{idx:02d}.html").write_bytes(body)
+                  ss=BeautifulSoup(rr.text,"html.parser")
+                  txt=" ".join(ss.stripped_strings)
+                  hits=[]
+                  for a in ss.find_all("a",href=True):
+                    at=" ".join(a.stripped_strings)
+                    href=urljoin(rr.url,a["href"])
+                    if any(k in at or k in href for k in ["紫微","VII-3-157","Ⅶ-3-157","TOYO_1646"]):
+                      hits.append({"text":at,"href":href})
+                  # Also bind any literal Omeka API links exposed by this page,
+                  # but do not synthesize or call an API endpoint.
+                  api_literals=sorted(set(re.findall(r'https?://[^"\'<> ]+/api/[^"\'<> ]*',rr.text)))
+                  result["submitted_searches"].append({
+                    "source_index":fr["source_index"],"form_index":fr["form_index"],
+                    "action_emitted_by_source":fr.get("action"),
+                    "resolved_action":action,"field_name_emitted_by_source":field,
+                    "term":term,"status":rr.status_code,"final_url":rr.url,
+                    "bytes":len(body),"sha256":hashlib.sha256(body).hexdigest(),
+                    "page_title":ss.title.string.strip() if ss.title and ss.title.string else None,
+                    "contains_exact_title":"新刊希夷陳先生紫微斗數全集" in txt,
+                    "contains_ziwei":"紫微" in txt,
+                    "contains_call_ascii":"VII-3-157" in txt,
+                    "contains_call_roman":"Ⅶ-3-157" in txt,
+                    "contains_toyo_1646":"TOYO_1646" in txt,
+                    "matched_links":hits[:50],
+                    "literal_api_links":api_literals[:50],
+                  })
+                except Exception as e:
+                  result["submitted_searches"].append({
+                    "resolved_action":action,"field_name_emitted_by_source":field,
+                    "term":term,"error":type(e).__name__+": "+str(e)
+                  })
+
+          (OUT/"probe.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "source_pages":[{"url":p["url"],"status":p["status"],"sha256":p["sha256"],
+                             "forms":[{"action":f["action"],"method":f["method"],
+                                       "controls":[{"tag":c["tag"],"type":c["type"],"name":c["name"],
+                                                    "value":c["value"],"placeholder":c["placeholder"]}
+                                                   for c in f["controls"]]}
+                                      for f in p["forms"]]}
+                            for p in result["source_pages"]],
+            "submitted_searches":result["submitted_searches"],
+            "guardrails":result["guardrails"],
+          },ensure_ascii=False,indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: toyo-media-repository-ziwei
+          path: toyo-media-ziwei/
