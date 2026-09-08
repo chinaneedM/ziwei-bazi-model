@@ -1,0 +1,86 @@
+name: research-huixian-nlcpress-product-download-ad
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-huixian-nlcpress-product-download-ad.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Inspect only download/resource routes emitted by official NLCPress product page
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+          OUT=Path('probe'); OUT.mkdir()
+          page='https://www.nlcpress.com/ProductView.aspx?Id=11941'
+          ua='Mozilla/5.0 provenance-research official-product-public-resources'
+          req=urllib.request.Request(page,headers={'User-Agent':ua,'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.5'})
+          with urllib.request.urlopen(req,timeout=35) as r:
+            raw=r.read(); final=r.geturl(); status=r.status; ct=r.headers.get('content-type')
+          txt=None
+          for enc in ('utf-8','gb18030','latin1'):
+            try: txt=raw.decode(enc); break
+            except Exception: pass
+          txt=txt or raw.decode('utf-8','replace')
+          (OUT/'product-11941.html').write_text(txt,encoding='utf-8')
+
+          emitted=[]
+          patterns=[
+            r'''(?:href|src|action)\s*=\s*["']([^"']+)["']''',
+            r'''(?:url|file|path|download|attachment)\s*[:=]\s*["']([^"']+)["']'''
+          ]
+          for pat in patterns:
+            for m in re.finditer(pat,txt,re.I):
+              v=html.unescape(m.group(1)).strip()
+              if not v or v.lower().startswith(('javascript:','#')): continue
+              u=urllib.parse.urljoin(final,v)
+              if u not in emitted: emitted.append(u)
+          # Keep routes whose source context or URL indicates download/attachment/content resources.
+          candidates=[]
+          for u in emitted:
+            ul=u.lower()
+            pos=txt.lower().find(html.escape(u).lower())
+            if any(k in ul for k in ('download','downfile','attachment','upload','file','resource','content','catalog','directory','txt','pdf','doc','zip','rar')):
+              candidates.append(u)
+          # Also capture snippets around visible download labels and any onclick handlers.
+          snippets=[]
+          for needle in ('图书文件下载','目录附件下载','下载','attachment','downfile','download'):
+            start=0
+            while True:
+              i=txt.lower().find(needle.lower(),start)
+              if i<0: break
+              snippets.append(txt[max(0,i-450):min(len(txt),i+700)])
+              start=i+len(needle)
+          onclicks=re.findall(r'''onclick\s*=\s*["']([^"']+)["']''',txt,re.I)
+
+          probes=[]
+          for u in candidates:
+            # Only GET exact page-emitted resource URLs; no guessed path/ID and no forms/actions are submitted.
+            try:
+              rq=urllib.request.Request(u,headers={'User-Agent':ua,'Referer':page})
+              with urllib.request.urlopen(rq,timeout=30) as rr:
+                data=rr.read(2_000_000)
+                probes.append({'url':u,'status':rr.status,'final_url':rr.geturl(),'content_type':rr.headers.get('content-type'),'content_disposition':rr.headers.get('content-disposition'),'bytes_sampled':len(data),'sha256_sample':hashlib.sha256(data).hexdigest()})
+            except Exception as e:
+              probes.append({'url':u,'error':repr(e)})
+          result={'schema':'ZIWEI-HUIXIAN-NLCPRESS-PRODUCT-DOWNLOAD-AD-R1','access_date':'2026-09-09','product_url':page,'product_status':status,'product_content_type':ct,'product_bytes':len(raw),'product_sha256':hashlib.sha256(raw).hexdigest(),'candidate_resource_urls':candidates,'onclick_handlers':onclicks,'download_context_snippets':snippets,'resource_probes':probes,'authentication_attempted':False,'purchase_attempted':False,'form_submission_attempted':False,'identifier_guessing_attempted':False,'access_control_bypass_attempted':False,'adjudication':{'resource_route_status':'PENDING_REVIEW','physical_entry_image_status':'PENDING_REVIEW','target_page_status':'NOT_CLAIMED','algorithm_effect':'NONE'}}
+          (OUT/'huixian-nlcpress-product-download-ad.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'product_status':status,'product_bytes':len(raw),'candidate_resource_urls':candidates,'onclick_handlers':onclicks,'resource_probes':probes,'snippets':snippets[:8]},ensure_ascii=False,indent=2))
+      - name: Upload official product-route artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-huixian-nlcpress-product-download-ad
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
