@@ -87,13 +87,21 @@ jobs:
           resources = result["routes"].get("resources", {}).get("json_payload")
           items = result["routes"].get("items", {}).get("json_payload")
           biblio = result["routes"].get("biblio", {}).get("json_payload")
+          resources_no_record = (
+              isinstance(resources, dict)
+              and resources.get("success") is True
+              and resources.get("code") == "success.noRecord"
+          )
+          resources_empty = resources in (None, [], {}, "") or resources_no_record
           result["adjudication"] = {
               "official_hanyang_volume4_record": "BOUND_TO_BIBLIO_484926",
               "resources_payload_type": type(resources).__name__,
-              "resources_payload_empty": resources in (None, [], {}, ""),
+              "resources_response_code": resources.get("code") if isinstance(resources, dict) else None,
+              "resources_no_record": resources_no_record,
+              "resources_payload_empty": resources_empty,
               "public_catalog_current_digital_resource_status": (
                   "NO_PUBLIC_DIGITAL_RESOURCE_OBJECT_RETURNED_BY_OBSERVED_RESOURCES_ROUTE"
-                  if resources in (None, [], {}, "")
+                  if resources_empty
                   else "PUBLIC_RESOURCE_OBJECT_PRESENT_REQUIRES_REVIEW"
               ),
               "items_payload_present": items is not None,
