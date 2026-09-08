@@ -62,6 +62,8 @@ ZIWEI_NAIKAKU_1971_CATALOG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENAN
 ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-R1.json"
 ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V.md"
 ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE = ROOT / "docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json"
+ZIWEI_SNU_QUARK_FOZHU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W.md"
+ZIWEI_SNU_QUARK_FOZHU_EVIDENCE = ROOT / "docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -93,9 +95,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NAIKAKU-NANYANGTANG-FACSIMILE-PHYSICAL-LINEAGE-BRIDGE-T",
     "BATCH-12-ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-U",
     "BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V",
+    "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-V.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W.md"
 
 
 def fail(message: str) -> None:
@@ -103,7 +106,7 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE):
+    for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
 
@@ -136,6 +139,7 @@ def main() -> int:
     ziwei_naikaku_lineage_evidence = json.loads(ZIWEI_NAIKAKU_LINEAGE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_naikaku_1971_catalog_evidence = json.loads(ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_naikaku_1971_page_boundary_evidence = json.loads(ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_snu_quark_fozhu_evidence = json.loads(ZIWEI_SNU_QUARK_FOZHU_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1413,6 +1417,58 @@ def main() -> int:
         fail("Batch 12V registry page-access binding regressed")
     if src12v.get("whole_catalog_negative_authorized") is not False or src12v.get("target_crosswalk_entry_observed") is not False:
         fail("Batch 12V registry authority boundary regressed")
+
+    # Batch 12W strengthens SNU v4 file-level public provenance and adds a second Fozhu preview route without target-text votes.
+    if ziwei_snu_quark_fozhu_evidence.get("batch_id") != "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W":
+        fail("Batch 12W machine evidence batch identity mismatch")
+    sq12w = ziwei_snu_quark_fozhu_evidence.get("snu_quark_public_share", {})
+    inv12w = sq12w.get("full_inventory_run", {})
+    if inv12w.get("workflow_run_id") != 34236492659 or inv12w.get("artifact_id") != 10060095594:
+        fail("Batch 12W Quark inventory run/artifact binding regressed")
+    if inv12w.get("accumulated_visible_filename_count") != 49 or inv12w.get("target_candidate_count") != 1:
+        fail("Batch 12W Quark 49-of-49 / unique-target control regressed")
+    if inv12w.get("exact_target_visible_size") != "31.5M" or "523.5-J562b-v.1-6" not in inv12w.get("exact_target_filename", ""):
+        fail("Batch 12W exact SNU v4 public file binding regressed")
+    if sq12w.get("target_pdf_obtained") is not False or sq12w.get("five_xiong_shen_target_page_observed") is not False:
+        fail("Batch 12W falsely promotes Quark file inventory to target-page authority")
+    if sq12w.get("independent_target_text_vote_added") != 0:
+        fail("Batch 12W SNU same-lineage witness firewall regressed")
+    ui12w = sq12w.get("web_preview_interaction_controls", {})
+    if ui12w.get("selected_download_safety_gate_run", {}).get("selected_row_count_before") != 35:
+        fail("Batch 12W Quark multi-selection safety control regressed")
+    if ui12w.get("hover_download_run", {}).get("hidden_element_forced_click_attempted") is not False:
+        fail("Batch 12W falsely records hidden-control forcing")
+    fz12w = ziwei_snu_quark_fozhu_evidence.get("fozhu16991_public_preview_route", {})
+    if fz12w.get("workflow_run_id") != 34238366994 or fz12w.get("artifact_id") != 10060843332:
+        fail("Batch 12W Fozhu16991 run/artifact binding regressed")
+    if fz12w.get("successfully_obtained_preview_count") != 6 or fz12w.get("paid_full_content_obtained") is not False:
+        fail("Batch 12W Fozhu16991 public-preview / paid-content boundary regressed")
+    vis12w = fz12w.get("direct_visual_review_without_ocr", {})
+    if vis12w.get("target_page_observed") is not False or vis12w.get("five_xiong_shen_heading_observed") is not False or vis12w.get("shang_wu_ke_observed") is not False:
+        fail("Batch 12W Fozhu non-target previews were promoted to target text")
+    rel12w = fz12w.get("relation_to_batch_12q_fozhu", {})
+    if rel12w.get("byte_level_same_preview_set") is not False or "UNRESOLVED" not in rel12w.get("physical_scan_or_exemplar_identity", ""):
+        fail("Batch 12W Fozhu12Q dedup/independence boundary regressed")
+    a12w = ziwei_snu_quark_fozhu_evidence.get("adjudication", {})
+    if a12w.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or a12w.get("direct_independent_hai_glyph_witness_count_added") != 0:
+        fail("Batch 12W HPA-ZDATE-006 witness boundary regressed")
+    if a12w.get("new_chart_rule_candidate_authorized") is not False or a12w.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12W candidate/algorithm firewall regressed")
+    row12w = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12w or row12w.get("batch_12w_snu_quark_fozhu_route_artifact") != "docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json":
+        fail("Batch 12W Matrix artifact binding regressed")
+    if row12w.get("snu_quark_public_folder_filename_count") != 49 or row12w.get("fozhu16991_successful_public_preview_count") != 6:
+        fail("Batch 12W Matrix route-count binding regressed")
+    if row12w.get("independent_hai_glyph_witness_count_added_batch_12w") != 0:
+        fail("Batch 12W Matrix witness firewall regressed")
+    snusrc12w = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-SNU-ILSA-MINGJINGGE-ZWDSQJ-DIGITIZATION-DERIVATIVE"), None)
+    if not snusrc12w or snusrc12w.get("batch12w_quark_public_share", {}).get("folder_filename_count") != 49:
+        fail("Batch 12W SNU registry Quark binding regressed")
+    fzsrc12w = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-FOZHU-16991-EIGHTEEN-FLYING-STARS-PUBLIC-PREVIEWS"), None)
+    if not fzsrc12w or fzsrc12w.get("public_preview_count_obtained") != 6:
+        fail("Batch 12W Fozhu16991 registry source missing or regressed")
+    if fzsrc12w.get("target_page_observed") is not False or fzsrc12w.get("independent_witness_increment") != 0:
+        fail("Batch 12W Fozhu16991 registry authority boundary regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
