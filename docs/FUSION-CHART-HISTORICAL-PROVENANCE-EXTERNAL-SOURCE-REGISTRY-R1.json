@@ -2031,7 +2031,7 @@
       "provider": "国立国会図書館 / 内閣文庫",
       "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000001237342",
       "source_role": "OFFICIAL_CATALOG_OBJECT_AND_CONTROLLED_DIGITAL_OCR_ACCESS_ROUTE_FOR_LEGACY_TO_CURRENT_NAIKAKU_CALL_NUMBER_CROSSWALK_RESEARCH",
-      "quality_notes": "NDL public metadata binds call UP111-59, bibliographic ID 000001237342, PID 12282052 and DOI 10.11501/12282052. Minna Search binds an uncorrected plain-text OCR derivative and library/individual transmission status, but the unauthenticated surface does not expose the target catalog entry. National Archives author Hiroshi Tsuchiya (2009) states that the 1971 revised catalog contains a document-name list at the end. No 15856 -> 子060-0001 line was directly observed; no whole-catalog negative claim or access bypass is authorized.",
+      "quality_notes": "NDL public metadata binds call UP111-59, bibliographic ID 000001237342, PID 12282052 and DOI 10.11501/12282052. Minna Search binds an uncorrected plain-text OCR derivative and library/individual transmission status, but the unauthenticated surface does not expose the target catalog entry. National Archives author Hiroshi Tsuchiya (2009) states that the 1971 revised catalog contains a document-name list at the end. No 15856 -> 子060-0001 line was directly observed; no whole-catalog negative claim or access bypass is authorized. Batch 12V further binds the exact item API to 405 page/content objects. Eight documented NDL Lab PID-scoped target queries return zero hits, the Lab full-text JSON route returns HTTP 403, and all 32 tested source-emitted page JPEG routes return HTTP 401 without authentication. This closes only the unauthenticated tested routes; it is not a whole-catalog negative claim and does not expose the target crosswalk entry.",
       "ndl_call_number": "UP111-59",
       "ndl_bibliographic_id": "000001237342",
       "pid": "12282052",
@@ -2042,7 +2042,23 @@
       "target_crosswalk_entry_observed": false,
       "target_text_authority": false,
       "external_access_request_submitted": false,
-      "research_artifact": "docs/research/ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-R1.json"
+      "research_artifact": "docs/research/ZIWEI-NAIKAKU-1971-REVISED-CATALOG-CROSSWALK-ACCESS-ROUTE-R1.json",
+      "target_entry_public_probe_run_id": 34230231815,
+      "target_entry_public_probe_artifact_id": 10057469073,
+      "target_entry_public_probe_zip_sha256": "e900b2242ed74f087761d4b34ebc9ab1d00735b84aeda59b6344ecc38bc841c4",
+      "exact_item_api_content_object_count": 405,
+      "exact_item_api_sha256": "0642e44194b40c25380a3a8476d2e92f2b52eb94dcca99d2afb5bc08f91a4a8d",
+      "ndl_lab_target_query_count": 8,
+      "ndl_lab_target_query_hit_count": 0,
+      "ndl_lab_fulltext_json_status": "HTTP_403_FORBIDDEN",
+      "page_route_probe_run_id": 34234090185,
+      "page_route_probe_artifact_id": 10059056472,
+      "page_route_probe_zip_sha256": "4e174340a0fca80cfb2f0b44d387d18932a0ea2da8abc33695139f051d1cf147",
+      "api_emitted_page_route_probe_count": 32,
+      "api_emitted_page_route_http_401_count": 32,
+      "unauthenticated_page_image_status": "NOT_OBSERVED_ALL_32_TESTED_SOURCE_EMITTED_ROUTES_HTTP_401",
+      "whole_catalog_negative_authorized": false,
+      "batch12v_research_artifact": "docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
