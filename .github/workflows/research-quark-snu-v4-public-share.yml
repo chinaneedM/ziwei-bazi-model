@@ -112,81 +112,183 @@ jobs:
               "adjudication": result["adjudication"],
           }, ensure_ascii=False, indent=2))
 
-      - name: Render the same public share in headless Chrome
+      - name: Render public share through normal Selenium browser session
         shell: bash
         run: |
-          set +e
-          BROWSER=""
-          for b in google-chrome chrome chromium chromium-browser; do
-            if command -v "$b" >/dev/null 2>&1; then BROWSER="$(command -v "$b")"; break; fi
-          done
+          set -e
+          python -m pip install --quiet selenium
           python - <<'PY'
-          import json, pathlib
-          p=pathlib.Path("probe/browser-capability.json")
-          p.write_text(json.dumps({"browser_path": None}, indent=2))
-          PY
-          if [ -z "$BROWSER" ]; then
-            echo "No Chrome/Chromium binary present" | tee probe/browser-stderr.txt
-            exit 0
-          fi
-          python - "$BROWSER" <<'PY'
-          import json, pathlib, sys
-          pathlib.Path("probe/browser-capability.json").write_text(
-              json.dumps({"browser_path": sys.argv[1]}, indent=2)
-          )
-          PY
-          "$BROWSER" --version > probe/browser-version.txt 2>&1
-          timeout 50s "$BROWSER"             --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage             --disable-background-networking --disable-default-apps             --virtual-time-budget=15000             --dump-dom "https://pan.quark.cn/s/3b7b731e41f2"             > probe/quark-rendered.html 2> probe/browser-stderr.txt
-          DOM_RC=$?
-          timeout 50s "$BROWSER"             --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage             --virtual-time-budget=15000 --window-size=1440,1600             --screenshot=probe/quark-rendered.png             "https://pan.quark.cn/s/3b7b731e41f2"             >> probe/browser-stderr.txt 2>&1
-          PNG_RC=$?
-          printf '{"dom_exit_code":%s,"screenshot_exit_code":%s}\n' "$DOM_RC" "$PNG_RC" > probe/browser-exit.json
-          exit 0
-
-      - name: Summarize rendered public-share DOM
-        shell: python
-        run: |
           import hashlib
           import json
-          import re
+          import time
           from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException, WebDriverException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
 
           OUT = Path("probe")
+          SHARE = "https://pan.quark.cn/s/3b7b731e41f2"
           TARGET = "〖飛星策天紫微斗數全集〗一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
-          p = OUT / "quark-rendered.html"
-          raw = p.read_bytes() if p.exists() else b""
-          text = raw.decode("utf-8", "replace")
-          visible = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", text)
-          visible = re.sub(r"(?s)<[^>]+>", " ", visible)
-          visible = re.sub(r"\s+", " ", visible).strip()
+
           result = {
-              "schema": "QUARK-SNU-MINGJINGGE-V4-NORMAL-BROWSER-RENDER-R1",
-              "share_url": "https://pan.quark.cn/s/3b7b731e41f2",
+              "schema": "QUARK-SNU-MINGJINGGE-V4-SELENIUM-PUBLIC-RENDER-R1",
+              "share_url": SHARE,
               "authentication_attempted": False,
               "save_to_cloud_attempted": False,
               "download_attempted": False,
               "api_endpoint_guessing_attempted": False,
               "access_control_bypass_attempted": False,
-              "rendered_dom_exists": p.exists(),
-              "rendered_dom_bytes": len(raw),
-              "rendered_dom_sha256": hashlib.sha256(raw).hexdigest() if raw else None,
-              "target_filename_present": TARGET in text,
-              "target_fragment_present": "飛星策天紫微斗數全集" in text and "木版本（4）" in text,
-              "target_size_fragment_present": "31.47" in visible,
-              "file_list_terms_present": [x for x in ("文件", "文件夹", "分享", "保存到网盘", "下载", "31.47 MB") if x in visible],
-              "login_or_app_boundary_terms_present": [x for x in ("登录", "扫码", "打开夸克", "APP", "客户端") if x in visible],
-              "visible_text_prefix": visible[:12000],
-              "screenshot_exists": (OUT / "quark-rendered.png").exists(),
-              "screenshot_sha256": hashlib.sha256((OUT / "quark-rendered.png").read_bytes()).hexdigest()
-                  if (OUT / "quark-rendered.png").exists() else None,
-              "same_snu_physical_digitization_lineage": True,
-              "independent_physical_witness_increment": 0,
-              "algorithm_effect": "NONE",
+              "normal_target_click_attempted": False,
+              "normal_target_click_succeeded": False,
           }
-          (OUT / "quark-snu-v4-browser-render.json").write_text(
+
+          opts = Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--disable-background-networking")
+          opts.add_argument("--disable-component-update")
+          opts.add_argument("--disable-default-apps")
+          opts.add_argument("--disable-sync")
+          opts.add_argument("--no-first-run")
+          opts.add_argument("--window-size=1440,1600")
+          opts.page_load_strategy = "eager"
+
+          driver = None
+          try:
+              driver = webdriver.Chrome(options=opts)
+              driver.set_page_load_timeout(20)
+              try:
+                  driver.get(SHARE)
+                  result["initial_get"] = "RETURNED"
+              except TimeoutException:
+                  result["initial_get"] = "PAGE_LOAD_TIMEOUT_PARTIAL_DOM_RETAINED"
+              time.sleep(12)
+
+              initial_html = driver.page_source or ""
+              initial_body = ""
+              try:
+                  initial_body = driver.find_element(By.TAG_NAME, "body").text or ""
+              except Exception:
+                  pass
+              (OUT / "quark-selenium-initial.html").write_text(initial_html, encoding="utf-8")
+              (OUT / "quark-selenium-initial.txt").write_text(initial_body, encoding="utf-8")
+              try:
+                  driver.save_screenshot(str(OUT / "quark-selenium-initial.png"))
+              except Exception as exc:
+                  result["initial_screenshot_error"] = repr(exc)
+
+              result.update({
+                  "browser_title": driver.title,
+                  "current_url": driver.current_url,
+                  "initial_dom_bytes": len(initial_html.encode("utf-8")),
+                  "initial_dom_sha256": hashlib.sha256(initial_html.encode("utf-8")).hexdigest(),
+                  "initial_visible_text_bytes": len(initial_body.encode("utf-8")),
+                  "target_filename_present_initial": TARGET in initial_html or TARGET in initial_body,
+                  "target_fragment_present_initial": "飛星策天紫微斗數全集" in initial_html or "飛星策天紫微斗數全集" in initial_body,
+                  "target_size_31_47_present_initial": "31.47" in initial_html or "31.47" in initial_body,
+                  "login_or_app_terms_initial": [x for x in ("登录", "扫码", "打开夸克", "APP", "客户端") if x in initial_body],
+                  "file_action_terms_initial": [x for x in ("保存到网盘", "保存", "下载", "在线预览", "预览") if x in initial_body],
+              })
+
+              # Only perform a normal UI click if the exact target is already visibly
+              # exposed by the public share. No download/save button is clicked.
+              exact = driver.find_elements(By.XPATH, "//*[contains(normalize-space(.), '木版本（4）.pdf')]")
+              visible_exact = [e for e in exact if e.is_displayed()]
+              result["visible_target_element_count"] = len(visible_exact)
+              if visible_exact:
+                  result["normal_target_click_attempted"] = True
+                  try:
+                      driver.execute_script("arguments[0].scrollIntoView({block:'center'});", visible_exact[-1])
+                      visible_exact[-1].click()
+                      result["normal_target_click_succeeded"] = True
+                      time.sleep(10)
+                  except Exception as exc:
+                      result["normal_target_click_error"] = repr(exc)
+
+                  preview_html = driver.page_source or ""
+                  preview_body = ""
+                  try:
+                      preview_body = driver.find_element(By.TAG_NAME, "body").text or ""
+                  except Exception:
+                      pass
+                  (OUT / "quark-selenium-preview.html").write_text(preview_html, encoding="utf-8")
+                  (OUT / "quark-selenium-preview.txt").write_text(preview_body, encoding="utf-8")
+                  try:
+                      driver.save_screenshot(str(OUT / "quark-selenium-preview.png"))
+                  except Exception as exc:
+                      result["preview_screenshot_error"] = repr(exc)
+                  result.update({
+                      "preview_url": driver.current_url,
+                      "preview_title": driver.title,
+                      "preview_dom_bytes": len(preview_html.encode("utf-8")),
+                      "preview_visible_text_bytes": len(preview_body.encode("utf-8")),
+                      "preview_terms": [x for x in ("PDF", "页", "上一页", "下一页", "预览", "打开夸克", "登录", "扫码") if x in preview_body],
+                      "five_xiong_shen_text_visible_in_preview": "五凶神" in preview_html or "五凶神" in preview_body,
+                      "late_zi_received_text_visible_in_preview": "上五刻" in preview_html or "上五刻" in preview_body,
+                  })
+          except WebDriverException as exc:
+              result["webdriver_error"] = repr(exc)
+          finally:
+              if driver is not None:
+                  try:
+                      driver.quit()
+                  except Exception:
+                      pass
+
+          result["same_snu_physical_digitization_lineage"] = True
+          result["independent_physical_witness_increment"] = 0
+          result["algorithm_effect"] = "NONE"
+          (OUT / "quark-snu-v4-selenium-render.json").write_text(
               json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
-          print(json.dumps({k:v for k,v in result.items() if k != "visible_text_prefix"}, ensure_ascii=False, indent=2))
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Summarize public-share evidence package
+        shell: python
+        run: |
+          import hashlib
+          import json
+          from pathlib import Path
+
+          OUT = Path("probe")
+          static = json.loads((OUT / "quark-snu-v4-public-share-probe.json").read_text(encoding="utf-8"))
+          sp = OUT / "quark-snu-v4-selenium-render.json"
+          selenium = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else {}
+          result = {
+              "schema": "QUARK-SNU-MINGJINGGE-V4-PUBLIC-ROUTE-CONTROL-R1",
+              "static_probe": {
+                  "quark_http_200": any(r.get("route") == "quark_public_share" and r.get("status") == 200 for r in static.get("routes", [])),
+                  "static_target_exposed": static.get("adjudication", {}).get("target_file_static_html_exposed"),
+              },
+              "selenium_probe": selenium,
+              "route_adjudication": "PUBLIC_BROWSER_TARGET_LIST_OBSERVED" if selenium.get("target_filename_present_initial")
+                  else ("PUBLIC_BROWSER_PARTIAL_RENDER_NO_TARGET_OBSERVED" if selenium.get("initial_dom_bytes", 0) else "PUBLIC_BROWSER_RENDER_UNAVAILABLE"),
+              "target_physical_page_observed": False,
+              "five_xiong_shen_target_page_observed": False,
+              "same_snu_physical_digitization_lineage": True,
+              "independent_physical_witness_increment": 0,
+              "new_candidate_authorized": False,
+              "algorithm_reopen_authorized": False,
+          }
+          (OUT / "quark-snu-v4-public-route-control.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "route_adjudication": result["route_adjudication"],
+              "target_filename_present_initial": selenium.get("target_filename_present_initial"),
+              "target_fragment_present_initial": selenium.get("target_fragment_present_initial"),
+              "visible_target_element_count": selenium.get("visible_target_element_count"),
+              "normal_target_click_attempted": selenium.get("normal_target_click_attempted"),
+              "normal_target_click_succeeded": selenium.get("normal_target_click_succeeded"),
+              "preview_terms": selenium.get("preview_terms"),
+              "five_xiong_shen_text_visible_in_preview": selenium.get("five_xiong_shen_text_visible_in_preview"),
+              "late_zi_received_text_visible_in_preview": selenium.get("late_zi_received_text_visible_in_preview"),
+              "webdriver_error": selenium.get("webdriver_error"),
+          }, ensure_ascii=False, indent=2))
 
       - name: Upload public-share evidence
         if: always()
