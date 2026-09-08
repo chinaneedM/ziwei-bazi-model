@@ -1,0 +1,65 @@
+name: research-naj-ziwei-sh0600001-public-viewer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-naj-ziwei-sh0600001-public-viewer.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture first-party public routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifact
+          UA='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/152 Safari/537.36'
+          for spec in \
+            'file https://www.digital.archives.go.jp/file/1078787' \
+            'item https://www.digital.archives.go.jp/item/4468520' \
+            'viewer https://www.digital.archives.go.jp/img/4468520'; do
+            name="${spec%% *}"
+            url="${spec#* }"
+            curl -L --compressed --max-time 45 -A "$UA" -D "artifact/${name}.headers.txt" -o "artifact/${name}.html" -w '%{http_code}\n%{url_effective}\n%{content_type}\n' "$url" > "artifact/${name}.meta.txt" || true
+          done
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          out={}
+          for name in ('file','item','viewer'):
+              p=Path(f'artifact/{name}.html')
+              s=p.read_text('utf-8',errors='replace') if p.exists() else ''
+              links=[]
+              for m in re.finditer(r'''(?:href|src)=["']([^"']+)["']''',s,re.I):
+                  u=urljoin('https://www.digital.archives.go.jp/',m.group(1))
+                  if 'digital.archives.go.jp' in u:
+                      links.append(u)
+              patterns=[]
+              for pat in [r'https?://[^"\'<> ]+', r'/[^"\'<> ]*(?:api|download|image|img|viewer|content|manifest|iiif)[^"\'<> ]*']:
+                  patterns += re.findall(pat,s,re.I)
+              out[name]={
+                  'bytes':len(p.read_bytes()) if p.exists() else 0,
+                  'title': (re.search(r'<title[^>]*>(.*?)</title>',s,re.I|re.S).group(1).strip() if re.search(r'<title[^>]*>(.*?)</title>',s,re.I|re.S) else None),
+                  'known_id_mentions': {k:s.count(k) for k in ['1078787','4468520','子０６０－０００１','子060','0001']},
+                  'first_party_links': sorted(set(links)),
+                  'endpoint_like_strings': sorted(set(patterns))[:500],
+              }
+          Path('artifact/summary.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: naj-ziwei-sh0600001-public-viewer
+          path: artifact
+          if-no-files-found: error
