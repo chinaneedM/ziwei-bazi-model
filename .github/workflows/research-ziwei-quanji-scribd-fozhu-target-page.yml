@@ -1,0 +1,208 @@
+name: research-ziwei-quanji-scribd-fozhu-target-page
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-quanji-scribd-fozhu-target-page.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install public-page probe dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pillow pillow-avif-plugin selenium
+
+      - name: Probe public Scribd index surface and fozhu preview assets
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlsplit, urlunsplit
+
+          import requests
+          from bs4 import BeautifulSoup
+          from PIL import Image
+          import pillow_avif
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); OUT.mkdir()
+          UA="Mozilla/5.0 (compatible; ziwei-provenance-research/1.0)"
+
+          SCRIBD="https://www.scribd.com/document/947548430/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E5%85%A8%E9%9B%86-%E7%B4%AB%E5%BE%AE%E4%B9%8B%E6%BA%90"
+          FOZHU="https://www.fozhu920.com/16991.html"
+          FOZHU_PUBLIC_PREVIEWS=[
+            "https://img.fozhu920.com/pdf/yj/001/16991_001.avif",
+            "https://img.fozhu920.com/pdf/yj/002/16991_002.avif",
+            "https://img.fozhu920.com/pdf/yj/003/16991_003.avif",
+            "https://img.fozhu920.com/pdf/yj/004/16991_004.avif",
+            "https://img.fozhu920.com/pdf/yj/005/16991_005.avif",
+            "https://img.fozhu920.com/pdf/yj/006/16991_006.avif",
+          ]
+          TARGETS=("五凶神","子有十刻","上五刻","下五刻","昨夜","今夜子","亥時","亥时")
+          result={
+            "schema":"ZIWEI-QUANJI-SCRIBD-FOZHU-TARGET-PAGE-PROBE-R1",
+            "authentication_attempted":False,
+            "payment_attempted":False,
+            "captcha_bypass_attempted":False,
+            "hidden_download_attempted":False,
+            "guessed_page_asset_enumeration_attempted":False,
+            "target_section":"五凶神",
+          }
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+
+          # 1) Read only the public Scribd document landing page.
+          sr=s.get(SCRIBD,timeout=40,allow_redirects=True)
+          (OUT/"scribd.html").write_bytes(sr.content)
+          st=sr.text
+          result["scribd_http"]={
+            "status":sr.status_code,
+            "final_url":sr.url,
+            "bytes":len(sr.content),
+            "sha256":hashlib.sha256(sr.content).hexdigest(),
+            "target_terms_present":{t:(t in st) for t in TARGETS},
+          }
+          soup=BeautifulSoup(st,"html.parser")
+          visible="\n".join(x.strip() for x in soup.stripped_strings)
+          (OUT/"scribd-visible.txt").write_text(visible,encoding="utf-8")
+          result["scribd_visible_target_terms"]={t:(t in visible) for t in TARGETS}
+
+          # Capture only URLs actually present in the public HTML.
+          urls=set()
+          for tag in soup.find_all(True):
+            for attr in ("href","src","data-src","content"):
+              v=tag.get(attr)
+              if isinstance(v,str) and ("scribd" in v or "scribdassets" in v):
+                urls.add(urljoin(sr.url,v))
+          for m in re.finditer(r'https?://[^"\'<>\\ ]+',st):
+            u=m.group(0).replace("\\/","/")
+            if "scribd" in u or "scribdassets" in u:
+              urls.add(u)
+          result["scribd_public_urls"]=sorted(urls)[:1500]
+
+          # Record script fragments around target phrases and likely page/asset metadata.
+          fragments=[]
+          for term in TARGETS:
+            start=0
+            while True:
+              i=st.find(term,start)
+              if i<0: break
+              fragments.append({"term":term,"offset":i,"context":st[max(0,i-2500):i+3500]})
+              start=i+len(term)
+              if len(fragments)>=80: break
+          meta_patterns=("pageNum","page_num","pageIndex","page_index","pageId","page_id","asset","contentUrl","imageUrl","text_layer","document_id","access_key","embed")
+          meta_hits=[]
+          for pat in meta_patterns:
+            for m in re.finditer(re.escape(pat),st,re.I):
+              meta_hits.append({"pattern":pat,"offset":m.start(),"context":st[max(0,m.start()-700):m.start()+1400]})
+              if len(meta_hits)>=500: break
+            if len(meta_hits)>=500: break
+          result["scribd_target_fragments"]=fragments
+          result["scribd_metadata_fragments"]=meta_hits
+
+          # Browser control: no login, no CAPTCHA interaction, no challenge bypass.
+          opts=Options()
+          opts.add_argument("--headless=new"); opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage"); opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,3000"); opts.add_argument("--lang=zh-CN")
+          d=webdriver.Chrome(options=opts)
+          try:
+            d.set_page_load_timeout(80); d.get(SCRIBD); time.sleep(8)
+            body=d.find_element(By.TAG_NAME,"body").text
+            result["scribd_browser"]={
+              "final_url":d.current_url,
+              "title":d.title,
+              "challenge_visible":any(x.lower() in body.lower() for x in ("client challenge","captcha","recaptcha","prove that you are human")),
+              "target_terms_present":{t:(t in body) for t in TARGETS},
+              "body_excerpt":body[:60000],
+            }
+            (OUT/"scribd-browser.html").write_text(d.page_source,encoding="utf-8")
+            d.save_screenshot(str(OUT/"scribd-browser.png"))
+          except Exception as e:
+            result["scribd_browser_error"]=type(e).__name__+": "+str(e)
+          finally:
+            d.quit()
+
+          # 2) Bind fozhu page and only the six preview URLs already rendered by that public page.
+          fr=s.get(FOZHU,timeout=40,allow_redirects=True)
+          (OUT/"fozhu.html").write_bytes(fr.content)
+          ft=fr.text
+          result["fozhu_http"]={
+            "status":fr.status_code,
+            "final_url":fr.url,
+            "bytes":len(fr.content),
+            "sha256":hashlib.sha256(fr.content).hexdigest(),
+          }
+          listed=[u for u in FOZHU_PUBLIC_PREVIEWS if u in ft or u.replace("https://","http://") in ft]
+          # Some public HTML uses protocol-relative or transformed forms; verify by filename too.
+          listed_names=[Path(urlsplit(u).path).name for u in FOZHU_PUBLIC_PREVIEWS if Path(urlsplit(u).path).name in ft]
+          result["fozhu_public_preview_binding"]={
+            "exact_urls_present":listed,
+            "preview_filenames_present":listed_names,
+            "public_page_requires_payment_for_full_download":("¥29" in ft or "支付" in ft),
+          }
+
+          previews=[]
+          for idx,u in enumerate(FOZHU_PUBLIC_PREVIEWS,1):
+            rec={"index":idx,"url":u,"source_scope":"PUBLIC_PREVIEW_URL_ALREADY_EXPOSED_BY_FOZHU_PAGE"}
+            try:
+              rr=s.get(u,headers={"Referer":FOZHU,"User-Agent":UA},timeout=40,allow_redirects=True)
+              rec.update({"status":rr.status_code,"final_url":rr.url,"bytes":len(rr.content),"sha256":hashlib.sha256(rr.content).hexdigest(),"content_type":rr.headers.get("content-type","")})
+              if rr.status_code==200 and len(rr.content)>500:
+                raw=OUT/f"fozhu-preview-{idx:02d}.avif"; raw.write_bytes(rr.content)
+                try:
+                  with Image.open(raw) as im:
+                    rec["image_format"]=im.format; rec["width"],rec["height"]=im.size
+                    out=OUT/f"fozhu-preview-{idx:02d}.png"
+                    im.convert("RGB").save(out)
+                    rec["converted_png"]=out.name
+                except Exception as e:
+                  rec["decode_error"]=type(e).__name__+": "+str(e)
+            except Exception as e:
+              rec["error"]=type(e).__name__+": "+str(e)
+            previews.append(rec)
+          result["fozhu_previews"]=previews
+
+          result["adjudication"]={
+            "scribd_searchable_text_can_be_target_text_authority":False,
+            "fozhu_public_previews_can_be_target_glyph_authority_only_if_target_page_visibly_present":True,
+            "full_paid_download_accessed":False,
+            "target_page_status":"PENDING_DIRECT_VISUAL_REVIEW_OF_PUBLIC_PREVIEWS_OR_PUBLICLY_EXPOSED_SCRIBD_ASSET",
+            "independent_hai_glyph_vote_added":0,
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"probe.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "scribd_http":result.get("scribd_http"),
+            "scribd_visible_target_terms":result.get("scribd_visible_target_terms"),
+            "scribd_browser":result.get("scribd_browser"),
+            "scribd_public_url_count":len(result.get("scribd_public_urls",[])),
+            "scribd_target_fragment_count":len(result.get("scribd_target_fragments",[])),
+            "scribd_metadata_fragment_count":len(result.get("scribd_metadata_fragments",[])),
+            "fozhu_http":result.get("fozhu_http"),
+            "fozhu_public_preview_binding":result.get("fozhu_public_preview_binding"),
+            "fozhu_previews":result.get("fozhu_previews"),
+            "adjudication":result.get("adjudication"),
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload target-page probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-quanji-scribd-fozhu-target-page
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
