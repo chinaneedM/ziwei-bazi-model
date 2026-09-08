@@ -345,6 +345,35 @@ jobs:
               "target_rows": targets,
               "followed_routes": result["followed_routes"],
               "detail_responses": result.get("detail_responses", []),
+              "policy_snapshot_summary": {
+                  k: {
+                      "url": v.get("url"),
+                      "status": v.get("status"),
+                      "final_url": v.get("final_url"),
+                      "bytes": v.get("bytes"),
+                      "sha256": v.get("sha256"),
+                      "all_reading_reservation_phrase": "現在、閲覧は全て予約制" in v.get("text", ""),
+                      "two_business_days_deadline_phrase": "2営業日前" in v.get("text", "") or "２営業日前" in v.get("text", ""),
+                      "rare_db_marker_phrase": "貴" in v.get("text", ""),
+                      "contains_vii_3_157": v.get("contains_vii_3_157"),
+                  }
+                  for k, v in result.get("policy_snapshots", {}).items()
+              },
+              "ncku_snapshot_summary": {
+                  "url": result.get("ncku_scholarly_pdf", {}).get("url"),
+                  "status": result.get("ncku_scholarly_pdf", {}).get("status"),
+                  "bytes": result.get("ncku_scholarly_pdf", {}).get("bytes"),
+                  "sha256": result.get("ncku_scholarly_pdf", {}).get("sha256"),
+                  "page_count": result.get("ncku_scholarly_pdf", {}).get("page_count"),
+                  "ocr_used": result.get("ncku_scholarly_pdf", {}).get("ocr_used"),
+                  "hit_pages": [
+                      {
+                          "pdf_page_1_based": h.get("pdf_page_1_based"),
+                          "contains": h.get("contains"),
+                      }
+                      for h in result.get("ncku_scholarly_pdf", {}).get("text_layer_hits", [])
+                  ],
+              },
           }, ensure_ascii=False, indent=2))
 
       - uses: actions/upload-artifact@v4
