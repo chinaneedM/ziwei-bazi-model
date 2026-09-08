@@ -35,7 +35,7 @@ jobs:
           set -euo pipefail
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
           python scripts/verify-project-continuity-state-r1.py
-          python -m unittest discover -s tests -p 'test_historical_provenance_audit.py' -v
+          python -m unittest discover -s tests -p 'test_fusion_chart_historical_provenance_audit_matrix_r1.py' -v
       - name: Commit and push atomically
         shell: bash
         run: |
