@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Install Selenium
         run: python -m pip install --disable-pip-version-check selenium
-      - name: Search Korea University public KLIN advanced search for old books
+      - name: Search public KLIN old books by explicit title field
         shell: python
         run: |
           import json,time
@@ -26,77 +26,78 @@ jobs:
           from selenium import webdriver
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.common.by import By
-          from selenium.webdriver.common.keys import Keys
+          from selenium.webdriver.support.ui import Select
 
           OUT=Path('probe'); OUT.mkdir()
           URL='https://library.korea.ac.kr/datause/advanced-search/advanced-search-form/'
-          QUERIES=['新刻合併十八飛星策天紫微斗數全集','紫微斗數全集']
+          QUERIES=['新刻合併十八飛星策天紫微斗數全集','紫微斗數全集','飛星策天紫微斗數全集']
           opts=Options(); opts.add_argument('--headless=new'); opts.add_argument('--no-sandbox'); opts.add_argument('--disable-dev-shm-usage'); opts.add_argument('--window-size=1800,2600'); opts.add_argument('--lang=ko-KR')
-          result={'schema':'ZIWEI-KOREA-UNIVERSITY-KLIN-OLDBOOK-R1','source_url':URL,'authentication_attempted':False,'route_guessing_attempted':False,'results':[]}
+          result={'schema':'ZIWEI-KOREA-UNIVERSITY-KLIN-OLDBOOK-R2','source_url':URL,'authentication_attempted':False,'route_guessing_attempted':False,'results':[]}
           d=webdriver.Chrome(options=opts)
           try:
             d.set_page_load_timeout(90)
             for i,q in enumerate(QUERIES,1):
               d.get(URL); time.sleep(5)
               row={'query':q}
-              inputs=[]
-              for e in d.find_elements(By.CSS_SELECTOR,"input[type='text']"):
+              # Find the visible advanced-search selector that explicitly offers 서명 (title).
+              selector=None
+              for s in d.find_elements(By.CSS_SELECTOR,'select'):
                 try:
-                  if e.is_displayed(): inputs.append(e)
+                  if not s.is_displayed(): continue
+                  texts=[o.text.strip() for o in Select(s).options]
+                  if '서명' in texts and any(x in texts for x in ('저자','출판사')):
+                    selector=s; row['field_options']=texts; break
                 except Exception: pass
-              row['visible_text_inputs']=len(inputs)
-              # The advanced form's first visible keyword field is the title/general query row after header search fields.
-              candidates=[]
-              for e in inputs:
+              if selector is None:
+                row['status']='NO_TITLE_SELECTOR'; result['results'].append(row); continue
+              Select(selector).select_by_visible_text('서명')
+              row['selected_field']='서명'
+              # The query input paired with this selector is the first visible text input in the same search-row container.
+              container=selector
+              for xp in ('ancestor::li[1]','ancestor::div[contains(@class,"search")][1]','ancestor::form[1]'):
                 try:
-                  ph=e.get_attribute('placeholder') or ''
-                  if '검색어' in ph: candidates.append(e)
+                  c=selector.find_element(By.XPATH,xp)
+                  ins=[e for e in c.find_elements(By.CSS_SELECTOR,"input[type='text']") if e.is_displayed()]
+                  if ins:
+                    container=c; inp=ins[0]; break
                 except Exception: pass
-              if not candidates:
-                candidates=inputs
-              if not candidates:
-                row['status']='NO_INPUT'; result['results'].append(row); continue
-              inp=candidates[-3] if len(candidates)>=3 else candidates[-1]
-              inp.clear(); inp.send_keys(q)
-              # Select the public 자료유형 고서 checkbox/radio by its nearby label text when exposed.
-              old=[]
-              for lab in d.find_elements(By.XPATH,"//*[normalize-space(text())='고서']"):
-                try:
-                  if lab.is_displayed(): old.append(lab)
-                except Exception: pass
-              row['oldbook_label_count']=len(old)
-              if old:
-                try: old[-1].click()
-                except Exception: d.execute_script('arguments[0].click();',old[-1])
-              # Click the visible search button inside the content form; fallback Enter on query field.
-              buttons=[]
-              for b in d.find_elements(By.XPATH,"//button[normalize-space(text())='검색']"):
-                try:
-                  if b.is_displayed(): buttons.append(b)
-                except Exception: pass
-              if buttons:
-                try: buttons[-1].click()
-                except Exception: d.execute_script('arguments[0].click();',buttons[-1])
               else:
-                inp.send_keys(Keys.ENTER)
+                row['status']='NO_PAIRED_QUERY_INPUT'; result['results'].append(row); continue
+              inp.clear(); inp.send_keys(q)
+              # Select 자료유형: 고서 via the input associated with its visible label, without guessing a code.
+              old_labels=[e for e in d.find_elements(By.XPATH,"//*[normalize-space(text())='고서']") if e.is_displayed()]
+              row['oldbook_label_count']=len(old_labels)
+              if old_labels:
+                lab=old_labels[-1]
+                try:
+                  target=lab.find_element(By.XPATH,'preceding::input[1]')
+                  if not target.is_selected(): d.execute_script('arguments[0].click();',target)
+                except Exception:
+                  try: lab.click()
+                  except Exception: d.execute_script('arguments[0].click();',lab)
+              buttons=[b for b in d.find_elements(By.XPATH,"//button[normalize-space(text())='검색']") if b.is_displayed()]
+              if not buttons:
+                row['status']='NO_SEARCH_BUTTON'; result['results'].append(row); continue
+              try: buttons[-1].click()
+              except Exception: d.execute_script('arguments[0].click();',buttons[-1])
               time.sleep(7)
               row['after_url']=d.current_url
               body=d.find_element(By.TAG_NAME,'body').text
-              row['body_text']=body[:70000]
-              row['title_present']='紫微' in body or '飛星' in body
-              links=[]
-              for a in d.find_elements(By.CSS_SELECTOR,'a[href]'):
+              row['body_text']=body[:90000]
+              row['no_result_language']='검색 결과가 없습니다.' in body
+              row['query_summary_lines']=[x for x in body.splitlines() if '검색어 :' in x or '검색 결과' in x][:20]
+              relevant=[]
+              for el in d.find_elements(By.XPATH,"//*[contains(normalize-space(.),'紫微') or contains(normalize-space(.),'飛星') or contains(normalize-space(.),'斗數')]"):
                 try:
-                  if not a.is_displayed(): continue
-                  txt=' '.join((a.text or '').split()); href=a.get_attribute('href') or ''
-                  if any(k in txt for k in ('紫微','飛星','斗數')):
-                    links.append({'text':txt[:1500],'href':href})
+                  if not el.is_displayed(): continue
+                  txt=' '.join((el.text or '').split())
+                  if txt and len(txt)<4000: relevant.append({'tag':el.tag_name,'text':txt,'href':el.get_attribute('href'),'onclick':el.get_attribute('onclick')})
                 except Exception: pass
-              seen=set(); rr=[]
-              for x in links:
-                k=(x['text'],x['href'])
-                if k not in seen: seen.add(k); rr.append(x)
-              row['relevant_links']=rr[:100]
+              seen=set(); dedup=[]
+              for x in sorted(relevant,key=lambda z:len(z['text'])):
+                k=(x['tag'],x['text'],x['href'],x['onclick'])
+                if k not in seen: seen.add(k); dedup.append(x)
+              row['relevant_elements']=dedup[:100]
               d.save_screenshot(str(OUT/f'query-{i}.png'))
               (OUT/f'query-{i}.html').write_text(d.page_source,encoding='utf-8')
               result['results'].append(row)
@@ -104,7 +105,7 @@ jobs:
             d.quit()
           result['adjudication']={'third_physical_copy':'PENDING_FIRST_PARTY_DETAIL','target_page_status':'PENDING_DIRECT_PAGE','algorithm_effect':'NONE'}
           (OUT/'korea-university-klin-oldbook.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps({'results':[{'query':r.get('query'),'after_url':r.get('after_url'),'title_present':r.get('title_present'),'relevant_links':r.get('relevant_links'),'status':r.get('status')} for r in result['results']],'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+          print(json.dumps({'results':[{'query':r.get('query'),'selected_field':r.get('selected_field'),'after_url':r.get('after_url'),'no_result_language':r.get('no_result_language'),'query_summary_lines':r.get('query_summary_lines'),'relevant_elements':r.get('relevant_elements'),'status':r.get('status')} for r in result['results']],'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
       - name: Upload KLIN evidence
         if: always()
         uses: actions/upload-artifact@v4
