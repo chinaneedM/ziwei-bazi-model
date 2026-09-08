@@ -155,6 +155,8 @@ jobs:
                 except Exception: pass
                 clicked=True
                 break
+              except Exception:
+                pass
             result["clicked"]=clicked
 
             # Capture only network URLs actually observed by browser.
