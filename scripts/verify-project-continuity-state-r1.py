@@ -74,6 +74,8 @@ ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-CNTS-ZIWEI
 
 ZIWEI_HUIXIAN_CATALOG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md"
 ZIWEI_HUIXIAN_CATALOG_EVIDENCE = ROOT / "docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json"
+ZIWEI_JINGSHUTANG_ARTRON_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB.md"
+ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE = ROOT / "docs/research/ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -110,9 +112,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
     "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
     "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
+    "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB.md"
 
 
 def fail(message: str) -> None:
@@ -159,6 +162,7 @@ def main() -> int:
     ziwei_kamo_access_evidence = json.loads(ZIWEI_KAMO_ACCESS_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_cnts_late_zi_evidence = json.loads(ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_huixian_catalog_evidence = json.loads(ZIWEI_HUIXIAN_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jingshutang_artron_evidence = json.loads(ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1659,6 +1663,39 @@ def main() -> int:
     src12aa = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-HUIXIAN-MUSEUM-NLCPRESS-2025-ZWDSQJ-CATALOG"), None)
     if not src12aa or src12aa.get("entry_start_page") != 233 or src12aa.get("independent_witness_increment") != 0:
         fail("Batch 12AA registry binding regressed")
+
+    # Batch 12AB Jingshutang Artron physical imprint route: title-page identity only, zero target-text/Hai votes.
+    if not ZIWEI_JINGSHUTANG_ARTRON_BATCH.is_file() or not ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE.is_file():
+        fail("Batch 12AB continuity artifacts missing")
+    if ziwei_jingshutang_artron_evidence.get("batch_id") != "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB":
+        fail("Batch 12AB evidence identity mismatch")
+    img12ab = ziwei_jingshutang_artron_evidence.get("exact_source_emitted_image", {})
+    if img12ab.get("sha256") != "44c0369f078d27894579b10208f8906ed3592a814a2bc8d58a8f2760090a9685":
+        fail("Batch 12AB source image digest regressed")
+    if img12ab.get("imprint_reading") != "經述堂藏板" or img12ab.get("direct_ocr_used") is not False:
+        fail("Batch 12AB direct imprint/no-OCR boundary regressed")
+    if img12ab.get("target_late_zi_page_observed") is not False or img12ab.get("target_hai_glyph_observed") is not False:
+        fail("Batch 12AB target-page/Hai firewall regressed")
+    phil12ab = ziwei_jingshutang_artron_evidence.get("philological_adjudication", {})
+    if phil12ab.get("observed_imprint_is") != "經述堂" or phil12ab.get("independent_textual_witness_increment") != 0 or phil12ab.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AB philology/witness accounting regressed")
+    if "繼述堂" not in phil12ab.get("do_not_normalize_to", ()) or "經綸堂" not in phil12ab.get("do_not_normalize_to", ()):
+        fail("Batch 12AB imprint-normalization firewall regressed")
+    ad12ab = ziwei_jingshutang_artron_evidence.get("adjudication", {})
+    if ad12ab.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or ad12ab.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AB HPA/algorithm firewall regressed")
+    row12ab = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ab or row12ab.get("batch_12ab_jingshutang_artron_physical_imprint_artifact") != "docs/research/ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-R1.json":
+        fail("Batch 12AB Matrix artifact binding regressed")
+    if row12ab.get("jingshutang_artron_source_image_sha256") != "44c0369f078d27894579b10208f8906ed3592a814a2bc8d58a8f2760090a9685":
+        fail("Batch 12AB Matrix image binding regressed")
+    if row12ab.get("independent_textual_witness_count_added_batch_12ab") != 0 or row12ab.get("independent_hai_glyph_witness_count_added_batch_12ab") != 0:
+        fail("Batch 12AB Matrix witness firewall regressed")
+    src12ab = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-ARTRON-TAIHEJIACHENG-2017-JINGSHUTANG-ZWDSQS"), None)
+    if not src12ab or src12ab.get("source_image_sha256") != "44c0369f078d27894579b10208f8906ed3592a814a2bc8d58a8f2760090a9685":
+        fail("Batch 12AB registry source/image binding regressed")
+    if src12ab.get("target_page_observed") is not False or src12ab.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AB registry target/Hai firewall regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

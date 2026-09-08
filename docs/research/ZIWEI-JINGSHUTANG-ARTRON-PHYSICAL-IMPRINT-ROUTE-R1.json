@@ -1,0 +1,100 @@
+{
+  "schema": "ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
+  "access_date": "2026-09-09",
+  "source_surface": {
+    "provider": "雅昌拍卖 / 泰和嘉成",
+    "lot": "*2036",
+    "title": "紫微斗数全书",
+    "auction_date": "2017-04-09",
+    "catalog_description": [
+      "清刊本",
+      "线装1函4册"
+    ],
+    "dimensions_cm": "23.5×15",
+    "page_url": "https://auction.artron.net/paimai-art0064192036/",
+    "page_http_status": 200,
+    "page_bytes": 359731,
+    "page_sha256": "94abfdd0310f233c97f9e5481be56b4d396029297af5e592ae6d163867769277"
+  },
+  "exact_source_emitted_image": {
+    "url": "https://image.artron.net/wd/auction//300/art/35274/2a788545f5a9bd4c0982130a5a41c83b.jpg",
+    "content_type": "image/jpeg",
+    "bytes": 162457,
+    "dimensions_px": [
+      1018,
+      903
+    ],
+    "sha256": "44c0369f078d27894579b10208f8906ed3592a814a2bc8d58a8f2760090a9685",
+    "direct_visual_review_without_ocr": true,
+    "direct_ocr_used": false,
+    "visible_title_page_glyphs": [
+      "陳希夷先生著",
+      "紫微斗數全書",
+      "經述堂藏板"
+    ],
+    "imprint_reading": "經述堂藏板",
+    "imprint_reading_confidence": "HIGH",
+    "target_section_observed": false,
+    "target_late_zi_page_observed": false,
+    "target_hai_glyph_observed": false
+  },
+  "execution_binding": {
+    "probe_workflow": ".github/workflows/research-ziwei-fullbook-imprint-highres-ac.yml",
+    "workflow_run_id": 34257871010,
+    "workflow_job_id": 102168131300,
+    "artifact_id": 10068625939,
+    "artifact_name": "ziwei-fullbook-imprint-highres-ac",
+    "artifact_zip_sha256": "85f5fbe89ec450979646556bcb0ceeffc714441c0374a591b2b1fc4f9afb875e",
+    "probe_commit": "a3936aa698a4137c83c4e777682f1e6767856901"
+  },
+  "kongfz_public_access_controls": [
+    {
+      "object_id": "78170971",
+      "public_pic_url": "https://www.kongfz.cn/78170971/pic/",
+      "final_surface": "LOGIN_REDIRECT",
+      "response_sha256": "4ad3855216802c59cd4979c1f1b6c4d89b1264966955d2dbdcf6b0dfb2ff46f4",
+      "target_page_claim": "FORBIDDEN"
+    },
+    {
+      "object_id": "70370885",
+      "public_pic_url": "https://www.kongfz.cn/70370885/pic/",
+      "final_surface": "LOGIN_REDIRECT",
+      "response_sha256": "dedbaddbea3fcf7cfdbf9db9f5ffa9fff5f81104830f8976adec47aa05dce8ea",
+      "target_page_claim": "FORBIDDEN"
+    },
+    {
+      "object_id": "54804686",
+      "public_pic_url": "https://www.kongfz.cn/54804686/pic/",
+      "final_surface": "LOGIN_REDIRECT",
+      "response_sha256": "7565f241c6e3df1900d59463e2ed6c36bea7f61390b695910dad72f4dee3769d",
+      "target_page_claim": "FORBIDDEN"
+    }
+  ],
+  "philological_adjudication": {
+    "observed_imprint_is": "經述堂",
+    "do_not_normalize_to": [
+      "繼述堂",
+      "經綸堂"
+    ],
+    "reason": "The exact source-emitted physical title-page photograph directly distinguishes 經述堂藏板. Similar-looking known imprint names remain separate unless a provenance bridge is established.",
+    "stemmatic_relation_to_jishutang_and_jingluntang": "UNRESOLVED",
+    "physical_imprint_route_registered": true,
+    "independent_textual_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "within_fullbook_hai_glyph_stability": "UNRESOLVED",
+    "new_candidate_family": false,
+    "candidate_selection": false,
+    "candidate_collapse": 0,
+    "algorithm_reopen_authorized": false,
+    "algorithm_effect": "NONE",
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14
+  }
+}
