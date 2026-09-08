@@ -1,0 +1,112 @@
+{
+  "schema": "ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "access_date": "2026-09-09",
+  "official_catalog_publication": {
+    "title": "辉县市博物馆藏古籍珍品书录",
+    "publisher": "国家图书馆出版社",
+    "isbn": "978-7-5013-7612-4",
+    "publication_date": "2025-10-31",
+    "product_id": 11941,
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=11941",
+    "editor_author": "冯福珍",
+    "scope_statement": "selected catalog of 485 ancient-book titles held by Hui County Museum",
+    "illustration_policy": "official product description states that each selected ancient book is accompanied by representative images chosen from the original book, prioritizing volume beginnings and otherwise covers/title leaves, imprints, prefaces/postscripts or contents",
+    "ziwei_directory_entry": "新鋟希夷陳先生紫微斗數全書四卷 二三三",
+    "ziwei_entry_start_page": 233,
+    "institutional_binding_status": "OFFICIAL_PUBLICATION_LEVEL_BINDING_TO_HUI_COUNTY_MUSEUM_PHYSICAL_HOLDING",
+    "direct_page_233_image_observed": false,
+    "direct_late_zi_target_page_observed": false
+  },
+  "official_product_resource_probe_ad": {
+    "workflow_run_id": 34255004377,
+    "workflow_head_sha": "ca49b223ec69111c2eeb26f9090ae2f785c16283",
+    "job_id": 102158439504,
+    "artifact_id": 10067486405,
+    "artifact_zip_sha256": "c50a59d532ebfa0b4b1311071e6ff0c11dba258c1e1cd79d76473fc163a6c0ae",
+    "product_http_status": 200,
+    "product_html_bytes": 137682,
+    "public_booktext_action": "javascript:__doPostBack('Booktext','')",
+    "catalog_precis_file_href_present": false,
+    "general_download_lists_are_public": true,
+    "target_entry_image_obtained": false
+  },
+  "official_booktext_postback_ae": {
+    "workflow_run_id": 34255133141,
+    "workflow_head_sha": "df4c5ce2f8aff6c77607525477c6df1b0a5757e7",
+    "job_id": 102158880195,
+    "artifact_id": 10067525226,
+    "artifact_zip_sha256": "e1aa4ae2397080ad35e6b5f465f5711f07ea1813c79124c9de8e05fb42a61563",
+    "response_http_status": 200,
+    "response_content_type": "application/octet-stream",
+    "response_bytes": 32920,
+    "response_sha256": "9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10",
+    "response_role": "OFFICIAL_PRODUCT_METADATA_DESCRIPTION_AND_DIRECTORY_TEXT_ONLY",
+    "contains_hui_county_catalog_title": true,
+    "contains_ziwei_directory_entry": true,
+    "contains_late_zi_target_sentence": false,
+    "target_page_claim_authorized": false
+  },
+  "fullbook_route_dedup_controls": {
+    "kumyo_jingluntang": {
+      "status": "DUPLICATE_OF_EXISTING_BATCH_12E_BBAA18036",
+      "new_witness_increment": 0,
+      "note": "Batch 12E already reviewed the same Kumyo BBAA18036 object and the same 36-to-8 unique physical photographs; current re-observation must not be double counted."
+    },
+    "liaoning_wenchengtang": {
+      "status": "DUPLICATE_OF_EXISTING_BATCH_12F_SECONDARY_LOCATOR_ROUTE",
+      "new_witness_increment": 0,
+      "note": "The Liaoning Provincial Library / Qing Wenchengtang locator was already bound in Batch 12F; no newly public target page was obtained."
+    },
+    "shidian_nanyangtang": {
+      "status": "RECEIVED_TEXT_CONTROL_OF_EXISTING_NANYANGTANG_LINEAGE_NOT_INDEPENDENT",
+      "directory_base_surface": "南陽堂較梓",
+      "target_transcription_surface": "上五刻屬昨夜亥時，下五刻屬今日子時",
+      "new_witness_increment": 0,
+      "note": "Shidian is useful as a modern transcription control but its own book identity explicitly binds the text to the Nanyangtang lineage; it cannot add an independent Hai vote."
+    },
+    "anonymous_33_75mb_fullbook_1_pdf": {
+      "status": "PROVISIONALLY_DEDUPED_AS_LIKELY_NANYANGTANG_BLACK_WHITE_DERIVATIVE_PENDING_CONTRARY_IMPRINT_EVIDENCE",
+      "indexed_filename": "新鋟希夷陳先生紫微斗数全書１.pdf",
+      "indexed_size_mb": 33.75,
+      "comparison_control": "Shuge publicly identifies its Japan Cabinet Library Nanyangtang/Baohetang object and exposes a 34.5 MB black-and-white edition alongside the 813 MB color edition.",
+      "new_witness_increment": 0,
+      "note": "Filename/size/context are sufficient only for a conservative same-lineage presumption, not for positive edition identity. It must not count independently unless a distinct physical imprint/title-page surface is directly observed."
+    },
+    "buybook_2017_heart_one_preview": {
+      "status": "PUBLIC_PREVIEW_ROUTE_ACCESS_BOUNDARY",
+      "probe_run_id": 34254525122,
+      "probe_artifact_id": 10067299587,
+      "probe_artifact_zip_sha256": "a23789c7be6450a4183a9466f81d909d3e4acb960154db467e4bb4d0c2b30962",
+      "disclosed_image_run_id": 34254640708,
+      "disclosed_image_artifact_id": 10067344332,
+      "disclosed_image_artifact_zip_sha256": "c35777ba2ab4c22123f75b574ffee795471df2868dbcb29f76b1436ae31c33ea",
+      "page_emitted_underlying_image_urls_observed": true,
+      "direct_image_fetch_result": "HTTP_403_FROM_GITHUB_RUNNER",
+      "content_absence_claim_authorized": false,
+      "target_page_absence_claim_authorized": false,
+      "new_witness_increment": 0
+    }
+  },
+  "adjudication": {
+    "huixian_holding_provenance_upgrade": "SECONDARY_HOLDING_LOCATOR_TO_OFFICIAL_PUBLICATION_LEVEL_INSTITUTIONAL_BINDING",
+    "direct_huixian_physical_entry_image_observed": false,
+    "direct_huixian_late_zi_target_page_observed": false,
+    "direct_independent_fullbook_hai_glyph_witness_increment": 0,
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "new_missing_candidate_family": false,
+    "new_chart_rule_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_LATE_ZI_TARGET_PAGE_FROM_ANOTHER_FULLBOOK_PHYSICAL_EDITION_WITH_BOUND_PROVENANCE; PRIORITY_DUNHUATANG_JISHUTANG_WENSHENGTANG_JINGLUNTANG_WENCHENGTANG_HUIXIAN_OR_EQUIVALENT"
+  }
+}
