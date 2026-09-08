@@ -257,3 +257,13 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Run `34234090185` / artifact `10059056472` tests only API-emitted `publicPath` values: page 1, page 203 and pages 376–405. All 32/32 return HTTP 401 unauthenticated and zero page images are obtained.
 - The old-number crosswalk therefore remains unresolved. No login/request/bypass occurred; no whole-catalog negative is authorized. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and all algorithm invariants are unchanged.
 - Evidence: `docs/research/ZIWEI-NAIKAKU-1971-PUBLIC-PAGE-ACCESS-BOUNDARY-R1.json`.
+
+
+### Batch 12W — SNU Quark v4 exact file binding + Fozhu N16991 public route controls
+
+- Normal public Quark browser navigation/scrolling in run `34236492659` / artifact `10060095594` accumulates all 49 filenames inside the visible `紫微斗数` folder and binds exactly one SNU Ilsa target file: `【飛星策天紫微斗數全集】一簑古523.5-J562b-v.1-6 ... 木版本（4）.pdf`, visible size `31.5M`, public row key `43681e3e477149ecb2086f2dc25d8d32`.
+- This is the same SNU physical-copy/digitization lineage already controlled by Batch 12M, so it strengthens file-level acquisition provenance but adds zero independent textual votes. Normal Web double-click did not expose a PDF viewer, row-local download remained hidden, and a later download safety gate aborted when 35 mounted rows were already selected; no PDF bytes, login, cloud-save, forced hidden-control action or bypass was used.
+- Fozhu N16991 run `34238366994` / artifact `10060843332` retrieves six source-emitted public AVIF old-print previews. Direct no-OCR review finds title/contents, text and diagram surfaces but no `五凶神`, `子有十刻` or `上五刻` target passage.
+- These six hashes are all different from Batch 12Q's six Fozhu thread-20568 previews, but copy/scan identity remains unresolved; therefore they are not counted as an independent target witness.
+- HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai-glyph increment = 0; 198/166/10/14 and all deterministic-product invariants are unchanged.
+- Evidence: `docs/research/ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-R1.json`.
