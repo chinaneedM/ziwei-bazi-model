@@ -1,0 +1,147 @@
+name: research-hanauction-weijingtang-ziwei-physical-set
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanauction-weijingtang-ziwei-physical-set.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium requests
+
+      - name: Probe exact public Hanauction lot without bypassing anti-bot controls
+        shell: python
+        run: |
+          import json,time,hashlib
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path('probe'); OUT.mkdir()
+          URL='https://www.hanauction.com/htm/off_auction_read.htm?ac_num=297&id=102923&off_id=260&page=3'
+          result={
+            'schema':'ZIWEI-HANAUCTION-WEIJINGTANG-PHYSICAL-SET-R1',
+            'source_url':URL,
+            'source_origin':'PUBLIC_SEARCH_ENGINE_EXACT_LOT_ROUTE_WITH_SESSION_PARAMETER_REMOVED',
+            'target_title':'新刻合倂十八飛星紫微斗數全集',
+            'target_imprint':'味經堂藏板',
+            'auction_round':229,
+            'auction_lot':134,
+            'auction_date':'2026-04-04',
+            'authentication_attempted':False,
+            'captcha_bypass_attempted':False,
+            'route_guessing_attempted':False
+          }
+
+          headers={'User-Agent':'Mozilla/5.0 (compatible; provenance-research/1.0)'}
+          try:
+            r=requests.get(URL,headers=headers,timeout=30,allow_redirects=True)
+            result['http']={'status':r.status_code,'final_url':r.url,'bytes':len(r.content),'sha256':hashlib.sha256(r.content).hexdigest()}
+            (OUT/'requests.html').write_bytes(r.content)
+          except Exception as e:
+            result['http']={'error':type(e).__name__+': '+str(e)}
+
+          opts=Options()
+          opts.add_argument('--headless=new'); opts.add_argument('--no-sandbox')
+          opts.add_argument('--disable-dev-shm-usage'); opts.add_argument('--disable-gpu')
+          opts.add_argument('--window-size=1800,3000'); opts.add_argument('--lang=ko-KR')
+          d=webdriver.Chrome(options=opts)
+          try:
+            d.set_page_load_timeout(90); d.get(URL); time.sleep(8)
+            result['browser_final_url']=d.current_url
+            result['browser_title']=d.title
+            body=d.find_element(By.TAG_NAME,'body').text
+            result['body_text']=body[:120000]
+            challenge_terms=('자동등록방지','Please prove that you are human','captcha','recaptcha')
+            result['anti_bot_challenge_visible']=any(x.lower() in body.lower() for x in challenge_terms)
+            result['target_terms_visible']=[x for x in ('味經堂','新刻合倂十八飛星','紫微斗數全集','6卷','6冊','목판본','청판','11.2','15.8') if x.lower() in body.lower()]
+
+            imgs=[]
+            for i,el in enumerate(d.find_elements(By.CSS_SELECTOR,'img')):
+              try:
+                src=el.get_attribute('currentSrc') or el.get_attribute('src') or ''
+                if not src: continue
+                imgs.append({
+                  'index':i,'src':urljoin(d.current_url,src),
+                  'alt':el.get_attribute('alt') or '',
+                  'width':el.get_attribute('naturalWidth'),
+                  'height':el.get_attribute('naturalHeight'),
+                  'displayed':el.is_displayed()
+                })
+              except Exception:
+                pass
+            seen=set(); dedup=[]
+            for x in imgs:
+              if x['src'] not in seen:
+                seen.add(x['src']); dedup.append(x)
+            result['image_elements']=dedup[:200]
+
+            links=[]
+            for a in d.find_elements(By.CSS_SELECTOR,'a[href]'):
+              try:
+                href=a.get_attribute('href') or ''; txt=' '.join((a.text or '').split())
+                if any(k in (href+' '+txt).lower() for k in ('image','img','photo','picture','view','102923','13864')):
+                  links.append({'text':txt[:500],'href':href})
+              except Exception:
+                pass
+            result['relevant_links']=links[:300]
+            d.save_screenshot(str(OUT/'page.png'))
+            (OUT/'browser.html').write_text(d.page_source,encoding='utf-8')
+
+            # Download only image URLs already rendered by the public page; never enumerate guessed filenames.
+            downloads=[]
+            if not result['anti_bot_challenge_visible']:
+              for i,x in enumerate(dedup[:40]):
+                try:
+                  rr=requests.get(x['src'],headers={'User-Agent':headers['User-Agent'],'Referer':d.current_url},timeout=20)
+                  ctype=rr.headers.get('content-type','')
+                  if rr.status_code==200 and ctype.startswith('image/') and len(rr.content)>500:
+                    ext={'image/jpeg':'.jpg','image/png':'.png','image/gif':'.gif','image/webp':'.webp'}.get(ctype.split(';')[0],'.bin')
+                    p=OUT/f'image-{i:02d}{ext}'; p.write_bytes(rr.content)
+                    downloads.append({'src':x['src'],'file':p.name,'bytes':len(rr.content),'sha256':hashlib.sha256(rr.content).hexdigest(),'content_type':ctype})
+                except Exception as e:
+                  downloads.append({'src':x['src'],'error':type(e).__name__+': '+str(e)})
+            result['downloaded_rendered_images']=downloads
+          finally:
+            d.quit()
+
+          result['adjudication']={
+            'physical_set_identity':'PENDING_DIRECT_PAGE_OR_IMAGE_REVIEW',
+            'anti_bot_boundary':'STOP_NO_BYPASS' if result.get('anti_bot_challenge_visible') else 'NOT_TRIGGERED_IN_BROWSER',
+            'target_five_xiong_shen_page':'PENDING_DIRECT_PAGE',
+            'independent_hai_glyph_vote_added':0,
+            'algorithm_effect':'NONE'
+          }
+          (OUT/'hanauction-weijingtang.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({
+            'http':result.get('http'),
+            'browser_final_url':result.get('browser_final_url'),
+            'browser_title':result.get('browser_title'),
+            'anti_bot_challenge_visible':result.get('anti_bot_challenge_visible'),
+            'target_terms_visible':result.get('target_terms_visible'),
+            'image_elements':result.get('image_elements'),
+            'downloaded_rendered_images':result.get('downloaded_rendered_images'),
+            'adjudication':result.get('adjudication')
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload Hanauction Weijingtang evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanauction-weijingtang-physical-set
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
