@@ -1231,7 +1231,7 @@ def main() -> int:
         "item_set_id=42942",
         "10 valid HTTP-200 searches",
         "0 件",
-        "no concrete item/document resource objects",
+        "zero concrete item/document resource objects",
         "not proof of no digitization ever",
                 "34176383486",
         "Hanyang University Library",
