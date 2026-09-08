@@ -72,6 +72,9 @@ ZIWEI_KAMO_ACCESS_EVIDENCE = ROOT / "docs/research/ZIWEI-KAMO-4174-03-04-PUBLIC-
 ZIWEI_KOREA_CNTS_LATE_ZI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z.md"
 ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1.json"
 
+ZIWEI_HUIXIAN_CATALOG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md"
+ZIWEI_HUIXIAN_CATALOG_EVIDENCE = ROOT / "docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json"
+
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
 SUPPLEMENTAL_BATCH_IDS = [
@@ -106,9 +109,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X",
     "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
     "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
+    "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md"
 
 
 def fail(message: str) -> None:
@@ -154,6 +158,7 @@ def main() -> int:
     ziwei_ncc_jiwen_dayuan_review_evidence = json.loads(ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_kamo_access_evidence = json.loads(ZIWEI_KAMO_ACCESS_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_cnts_late_zi_evidence = json.loads(ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_huixian_catalog_evidence = json.loads(ZIWEI_HUIXIAN_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1627,6 +1632,33 @@ def main() -> int:
         fail("Batch 12Z registry source missing or PDF identity regressed")
     if src12z.get("explicit_hai_glyph_in_exact_target_span") is not False or src12z.get("direct_ocr_used") is not False:
         fail("Batch 12Z registry direct-glyph/no-OCR boundary regressed")
+
+    # Batch 12AA Hui County official catalog binding: provenance upgrade only, zero Hai votes.
+    if not ZIWEI_HUIXIAN_CATALOG_BATCH.is_file() or not ZIWEI_HUIXIAN_CATALOG_EVIDENCE.is_file():
+        fail("Batch 12AA continuity artifacts missing")
+    if ziwei_huixian_catalog_evidence.get("batch_id") != "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA":
+        fail("Batch 12AA evidence identity mismatch")
+    off12aa = ziwei_huixian_catalog_evidence.get("official_catalog_publication", {})
+    if off12aa.get("ziwei_entry_start_page") != 233 or off12aa.get("direct_page_233_image_observed") is not False:
+        fail("Batch 12AA Hui County official catalog page boundary regressed")
+    if off12aa.get("direct_late_zi_target_page_observed") is not False:
+        fail("Batch 12AA target-page firewall regressed")
+    ae12aa = ziwei_huixian_catalog_evidence.get("official_booktext_postback_ae", {})
+    if ae12aa.get("response_sha256") != "9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10":
+        fail("Batch 12AA official Booktext digest regressed")
+    if ae12aa.get("contains_late_zi_target_sentence") is not False:
+        fail("Batch 12AA Booktext target firewall regressed")
+    ad12aa = ziwei_huixian_catalog_evidence.get("adjudication", {})
+    if ad12aa.get("direct_independent_fullbook_hai_glyph_witness_increment") != 0 or ad12aa.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AA witness/algorithm firewall regressed")
+    row12aa = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12aa or row12aa.get("batch_12aa_huixian_official_catalog_artifact") != "docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json":
+        fail("Batch 12AA Matrix artifact binding regressed")
+    if row12aa.get("independent_hai_glyph_witness_count_added_batch_12aa") != 0:
+        fail("Batch 12AA Matrix Hai-vote firewall regressed")
+    src12aa = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-HUIXIAN-MUSEUM-NLCPRESS-2025-ZWDSQJ-CATALOG"), None)
+    if not src12aa or src12aa.get("entry_start_page") != 233 or src12aa.get("independent_witness_increment") != 0:
+        fail("Batch 12AA registry binding regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")

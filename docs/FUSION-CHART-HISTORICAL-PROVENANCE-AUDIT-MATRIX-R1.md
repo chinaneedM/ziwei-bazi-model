@@ -275,3 +275,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Public directory text gives `五神 百字千金訣`. This is quarantined as a directory-level variant/possible omission and is **not** mechanically normalized to `五凶神` before the underlying target page is directly collated.
 - No target late-Zi page is observed. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all deterministic-product invariants remain unchanged.
 - Evidence: `docs/research/ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-R1.json`.
+
+### Batch 12AA — Hui County Museum official illustrated-catalog route
+
+- National Library Press's 2025 `《辉县市博物馆藏古籍珍品书录》` (ISBN `978-7-5013-7612-4`) officially binds a Hui County Museum `《新鋟希夷陳先生紫微斗數全書四卷》` holding; the directory places the entry at p233. The publisher states that each selected ancient book receives representative original-book imagery.
+- The public product `Booktext` action returned only product metadata/description/directory text (32,920 bytes; SHA-256 `9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10`). No p233 entry image or late-Zi target page was obtained.
+- Kumyo/Jingluntang is the already-reviewed Batch 12E object; Liaoning/Wenchengtang is already Batch 12F; Shidian explicitly belongs to the Nanyangtang received-text lineage; the anonymous 33.75 MB Fullbook file is conservatively quarantined as a likely Nanyangtang black-white derivative; Buybook/Books.com.tw preview images remain a runner-access boundary. None receives a new witness vote.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate remains a direct late-Zi target page from another Fullbook physical edition.

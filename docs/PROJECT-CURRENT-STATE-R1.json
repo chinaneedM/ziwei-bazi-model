@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.37.0",
+  "schema_version": "1.38.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -112,9 +112,10 @@
       "BATCH-12-ZIWEI-SNU-QUARK-V4-AND-FOZHU16991-PUBLIC-ROUTE-CONTROLS-W",
       "BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X",
       "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
-      "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z"
+      "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
+      "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -273,7 +274,11 @@
       "Batch 12Z directly binds Korea National Library/National Digital Library object CNTS-00047996572 / KOL200100663 as a 153-page physical manuscript witness: catalog title 紫微斗數方書, 筆寫本, 2卷1冊; its cover directly reads 秘傳紫微 / 春岡藏.",
       "Batch 12Z PDF p124 directly shows 五神天殤天使奏書直符將軍 followed by 凡五凶神…, resolving the earlier 五神/五凶神 question as different phrase roles within one physical passage rather than authorizing a silent one-character correction.",
       "Batch 12Z PDF p125 directly reads 命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜. The exact target span contains neither 亥 nor 今夜子; this upgrades the non-Hai previous-night/current-night transmission from secondary transcription to direct physical manuscript evidence.",
-      "Nanyangtang Fullbook 昨夜亥時 is therefore not universal across the broader received Ziwei transmission. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT and source-scoped; within-Fullbook physical-edition stability and runtime time-standard binding remain open. Counts stay 198/166/10/14; algorithm defect/reopen/collapse remain 0."
+      "Nanyangtang Fullbook 昨夜亥時 is therefore not universal across the broader received Ziwei transmission. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT and source-scoped; within-Fullbook physical-edition stability and runtime time-standard binding remain open. Counts stay 198/166/10/14; algorithm defect/reopen/collapse remain 0.",
+      "Batch 12AA upgrades the Hui County Museum Fullbook route from a secondary locator to an official publication-level institutional binding: National Library Press 2025 《辉县市博物馆藏古籍珍品书录》 lists 新鋟希夷陳先生紫微斗數全書四卷 at p233 and states that each selected title receives representative original-book imagery.",
+      "The NLCPress public Booktext action returns only metadata/description/directory text; p233 entry imagery and the late-Zi target page remain unobserved. This adds zero independent Hai-glyph votes.",
+      "Batch 12AA deduplicates current Fullbook leads: Kumyo/Jingluntang is already Batch 12E, Liaoning/Wenchengtang already Batch 12F, Shidian is explicitly Nanyangtang received text, the anonymous 33.75 MB Fullbook file remains a likely Nanyangtang black-white derivative pending contrary imprint evidence, and Buybook preview images remain a runner access boundary.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate is still a direct late-Zi target page from another independently bound Fullbook physical edition."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
