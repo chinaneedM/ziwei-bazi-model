@@ -102,3 +102,8 @@ Modern contents pages, seller prose and reprint catalogs may locate that leaf bu
 ## 7. Machine evidence
 
 `docs/research/ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-R1.json`
+
+
+## 8. Closure execution binding
+
+Batch 12AE state synchronization was executed by fail-closed workflow run `34313376760`. Before committing, that workflow passed the Fusion Chart Historical Provenance Audit R1 machine gate, the Project Continuity State R1 machine gate, and the focused `test_fusion_chart_historical_provenance_audit_matrix_r1.py` suite. It then produced closure commit `a9be70d9635c655c02d4381bc9b4d76435716a63` (tree `6f2a8568f77ca6b044d40bffae04e5909be1270a`). The staging commit's full CI run `34313376716` also completed successfully. This binding records execution provenance only; it adds no textual evidence, no witness vote, and no algorithm effect.
