@@ -1,0 +1,92 @@
+name: research-ziwei-sanfenge-quark-public-share-ag
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sanfenge-quark-public-share-ag.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Inspect exact source-emitted Quark public-share pages
+        shell: python
+        run: |
+          import gzip, hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path('probe'); OUT.mkdir()
+          UA='Mozilla/5.0 provenance-research exact-source-emitted-public-share'
+          shares=[
+            ('volume4','https://pan.quark.cn/s/6956a639be12','紫薇术紫薇斗数全书卷4.pdf'),
+            ('four_volume','https://pan.quark.cn/s/9f7f6a4e7730','紫薇术《紫微斗数全书》四卷.pdf'),
+          ]
+
+          def fetch(url, referer=None, limit=10_000_000):
+            headers={'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.5','Accept-Encoding':'gzip, identity'}
+            if referer: headers['Referer']=referer
+            try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=40) as r:
+                raw=r.read(limit)
+                ce=(r.headers.get('content-encoding') or '').lower()
+                data=raw
+                if 'gzip' in ce:
+                  try: data=gzip.decompress(raw)
+                  except Exception: pass
+                return {'ok':True,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'content_encoding':ce or None,'raw_bytes':len(raw),'raw_sha256':hashlib.sha256(raw).hexdigest(),'decoded_bytes':len(data),'decoded_sha256':hashlib.sha256(data).hexdigest(),'data':data}
+            except Exception as e:
+              return {'ok':False,'error':repr(e),'raw_bytes':0,'decoded_bytes':0,'data':b''}
+
+          result={'schema':'ZIWEI-SANFENGE-QUARK-PUBLIC-SHARE-AG-R1','access_date':'2026-09-09','authentication_attempted':False,'cloud_save_attempted':False,'purchase_attempted':False,'identifier_guessing_attempted':False,'hidden_api_guessing_attempted':False,'access_control_bypass_attempted':False,'shares':[]}
+          for label,url,expected in shares:
+            row=fetch(url); data=row.pop('data')
+            rec={'label':label,'url':url,'expected_filename':expected,**row,'expected_filename_observed':False,'public_metadata_strings':[],'source_emitted_urls':[],'login_or_save_markers':[]}
+            if data:
+              txt=None
+              for enc in ('utf-8','gb18030','latin1'):
+                try: txt=data.decode(enc); break
+                except Exception: pass
+              txt=txt or data.decode('utf-8','replace')
+              (OUT/f'{label}.html').write_text(txt,encoding='utf-8')
+              rec['expected_filename_observed']=expected in txt
+              for needle in ('紫薇','紫微','斗数','斗數','pdf','文件','分享','登录','登入','转存','保存到网盘','下載','下载'):
+                if needle in txt:
+                  rec['public_metadata_strings'].append(needle)
+              urls=[]
+              for m in re.finditer(r'''(?:href|src|data-src|data-url|content)\s*=\s*["']([^"']+)["']''',txt,re.I):
+                v=html.unescape(m.group(1)).replace('\\/','/').strip()
+                if not v or v.startswith(('javascript:','#','data:')): continue
+                u=urllib.parse.urljoin(row.get('final_url') or url,v)
+                if u.startswith(('http://','https://')) and u not in urls: urls.append(u)
+              rec['source_emitted_urls']=urls[:200]
+              for marker in ('登录','登入','转存','保存到网盘','扫码','打开夸克','下载客户端'):
+                if marker in txt: rec['login_or_save_markers'].append(marker)
+            result['shares'].append(rec)
+
+          result['adjudication']={
+            'provider_share_links_bound_from_sanfenge_source':True,
+            'public_share_surface_reached':all(s.get('ok') and s.get('status')==200 for s in result['shares']),
+            'public_filename_observed_on_quark_surface':any(s.get('expected_filename_observed') for s in result['shares']),
+            'direct_pdf_bytes_observed':False,
+            'edition_identity':'UNRESOLVED',
+            'target_page_status':'NOT_CLAIMED',
+            'algorithm_effect':'NONE'
+          }
+          (OUT/'ziwei-sanfenge-quark-public-share-ag.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'shares':[{'label':s['label'],'status':s.get('status'),'final_url':s.get('final_url'),'raw_bytes':s.get('raw_bytes'),'decoded_bytes':s.get('decoded_bytes'),'expected_filename_observed':s.get('expected_filename_observed'),'public_metadata_strings':s.get('public_metadata_strings'),'login_or_save_markers':s.get('login_or_save_markers'),'source_emitted_urls':s.get('source_emitted_urls')[:30]} for s in result['shares']],'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+
+      - name: Upload public-share artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sanfenge-quark-public-share-ag
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
