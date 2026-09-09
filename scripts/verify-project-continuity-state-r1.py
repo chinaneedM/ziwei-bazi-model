@@ -86,6 +86,8 @@ ZIWEI_YULGOK_GUANGYI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_YULGOK_GUANGYI_EVIDENCE = ROOT / "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json"
 ZIWEI_JIAOJINGSHANFANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG.md"
 ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
+ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md"
+ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -128,9 +130,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
     "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF",
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
+    "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md"
 
 
 def fail(message: str) -> None:
@@ -138,6 +141,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_BATCH, ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AH continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (STATE, PROTOCOL, AUTHORITY, MATRIX, SOURCE_REGISTRY, IDENTITY_BATCH, IDENTITY_MACHINE_EVIDENCE, MF_PDF_BATCH, MF_PDF_MACHINE_EVIDENCE, ARTICLE_BATCH, ARTICLE_MACHINE_EVIDENCE, LATEST_BATCH, LATEST_MACHINE_EVIDENCE, ZIWEI_LATE_ZI_BATCH, ZIWEI_LATE_ZI_EVIDENCE, ZIWEI_TIMEKEEPING_BATCH, ZIWEI_TIMEKEEPING_EVIDENCE, ZIWEI_EDITION_ROUTES_BATCH, ZIWEI_EDITION_ROUTES_EVIDENCE, ZIWEI_WENGUANG_INDEX_BATCH, ZIWEI_WENGUANG_INDEX_EVIDENCE, ZIWEI_JINGLUNTANG_BATCH, ZIWEI_JINGLUNTANG_EVIDENCE, ZIWEI_POST_E_ROUTES_BATCH, ZIWEI_POST_E_ROUTES_EVIDENCE, ZIWEI_QUANJI_LATE_ZI_BATCH, ZIWEI_QUANJI_LATE_ZI_EVIDENCE, ZIWEI_JAPAN_MING_FULLBOOK_BATCH, ZIWEI_JAPAN_MING_FULLBOOK_EVIDENCE, ZIWEI_LATE_ZI_DEDUP_LOCATOR_BATCH, ZIWEI_LATE_ZI_DEDUP_LOCATOR_EVIDENCE, ZIWEI_GUANGYI_PHYSICAL_SET_BATCH, ZIWEI_GUANGYI_PHYSICAL_SET_EVIDENCE, ZIWEI_WENGUANG_BASE_COPY_BATCH, ZIWEI_WENGUANG_BASE_COPY_EVIDENCE, ZIWEI_KANGJIE_TYPESET_BATCH, ZIWEI_KANGJIE_TYPESET_EVIDENCE, ZIWEI_MINGJINGGE_SNU_BATCH, ZIWEI_MINGJINGGE_SNU_EVIDENCE, ZIWEI_MINGJINGGE_HANYANG_BATCH, ZIWEI_MINGJINGGE_HANYANG_EVIDENCE, ZIWEI_KOREA_UNIVERSITY_BATCH, ZIWEI_KOREA_UNIVERSITY_EVIDENCE, ZIWEI_WEIJINGTANG_HANAUCTION_BATCH, ZIWEI_WEIJINGTANG_HANAUCTION_EVIDENCE, ZIWEI_KOSTMA_SCRIBD_FOZHU_BATCH, ZIWEI_KOSTMA_SCRIBD_FOZHU_EVIDENCE, ZIWEI_TOYO_DETAIL_PROVENANCE_BATCH, ZIWEI_TOYO_DETAIL_PROVENANCE_EVIDENCE, ZIWEI_TOYO_MEDIA_REPOSITORY_BATCH, ZIWEI_TOYO_MEDIA_REPOSITORY_EVIDENCE, ZIWEI_NAIKAKU_LINEAGE_BATCH, ZIWEI_NAIKAKU_LINEAGE_EVIDENCE, ZIWEI_NAIKAKU_1971_CATALOG_BATCH, ZIWEI_NAIKAKU_1971_CATALOG_EVIDENCE, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_BATCH, ZIWEI_NAIKAKU_1971_PAGE_BOUNDARY_EVIDENCE, ZIWEI_SNU_QUARK_FOZHU_BATCH, ZIWEI_SNU_QUARK_FOZHU_EVIDENCE, ZIWEI_JIWEN_DAYUAN_BATCH, ZIWEI_JIWEN_DAYUAN_EVIDENCE, ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_BATCH, ZIWEI_NCC_JIWEN_DAYUAN_REVIEW_EVIDENCE, ZIWEI_KAMO_ACCESS_EVIDENCE, ZIWEI_KOREA_CNTS_LATE_ZI_BATCH, ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE):
         if not path.is_file():
             fail(f"continuity artifact missing: {path.relative_to(ROOT)}")
@@ -183,6 +190,7 @@ def main() -> int:
     ziwei_republic_routes_evidence = json.loads(ZIWEI_REPUBLIC_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_yulgok_guangyi_evidence = json.loads(ZIWEI_YULGOK_GUANGYI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jiaojingshanfang_hanauction_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jiaojingshanfang_detail_photo_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -402,6 +410,45 @@ def main() -> int:
         fail("Batch 12AG registry authority/stemma boundary regressed")
     if src12ag.get("independent_target_text_witness_increment") != 0 or src12ag.get("independent_hai_glyph_witness_increment") != 0:
         fail("Batch 12AG registry witness accounting regressed")
+
+    # Batch 12AH Jiaojingshanfang/Hanauction: direct media-scope correction.
+    if ziwei_jiaojingshanfang_detail_photo_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH":
+        fail("Batch 12AH evidence identity mismatch")
+    src_archive12ah = ziwei_jiaojingshanfang_detail_photo_evidence.get("source_archive_binding", {})
+    if src_archive12ah.get("workflow_run_id") != 34319318823 or src_archive12ah.get("artifact_id") != 10091275632:
+        fail("Batch 12AH parent archive binding regressed")
+    if src_archive12ah.get("artifact_zip_sha256") != "c348dc9207c5932421e58ca0b01160827a5468a9b7160ba2f6e28e0aacfdfdf1":
+        fail("Batch 12AH parent artifact digest regressed")
+    if src_archive12ah.get("artifact_member_browser_html_sha256") != "93e6d80fd3d65e58fccd81a683cdfcd013d1aff8eabadc934c7aca764d2fec65":
+        fail("Batch 12AH browser HTML binding regressed")
+    media12ah = ziwei_jiaojingshanfang_detail_photo_evidence.get("adjudicated_media", ())
+    if [m.get("sha256") for m in media12ah] != [
+        "c8705995aa695ba7ef285be939960bcef69516aed749937b00b309cf0df321c2",
+        "a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260",
+    ]:
+        fail("Batch 12AH media hash binding regressed")
+    if any(m.get("target_object_specific") is not False or m.get("target_book_page") is not False for m in media12ah):
+        fail("Batch 12AH target-object media firewall regressed")
+    defect12ah = ziwei_jiaojingshanfang_detail_photo_evidence.get("provenance_defect", {})
+    if defect12ah.get("defect_id") != "PROV-DEFECT-010" or defect12ah.get("repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
+        fail("Batch 12AH provenance defect repair binding regressed")
+    effect12ah = ziwei_jiaojingshanfang_detail_photo_evidence.get("evidence_effect", {})
+    if effect12ah.get("target_page_status") != "PENDING_DIRECT_VISUAL_TARGET_PAGE" or effect12ah.get("direct_target_text_witness_increment") != 0 or effect12ah.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AH target-page/witness firewall regressed")
+    row12ah = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ah or row12ah.get("batch_12ah_jiaojingshanfang_detail_photo_visual_adjudication_artifact") != "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json":
+        fail("Batch 12AH Matrix artifact binding regressed")
+    if row12ah.get("defect_id") != "PROV-DEFECT-010" or row12ah.get("repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
+        fail("Batch 12AH Matrix provenance-defect repair regressed")
+    if row12ah.get("jiaojingshanfang_2012_detail_photo_visual_review_status") != "DIRECTLY_REVIEWED_AND_RECLASSIFIED_AS_AUCTION_EVENT_MEDIA_NOT_TARGET_OBJECT":
+        fail("Batch 12AH Matrix visual adjudication regressed")
+    src12ah = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL"), None)
+    if not src12ah or src12ah.get("direct_visual_review_of_2012_detail_photos_completed") is not True:
+        fail("Batch 12AH registry visual-review status regressed")
+    if src12ah.get("media_scope_classification") != "AUCTION_ROUND_EVENT_SCENERY_VIDEO_THUMBNAILS_NOT_TARGET_OBJECT_PHOTOS":
+        fail("Batch 12AH registry media-scope repair regressed")
+    if src12ah.get("provenance_defect_id") != "PROV-DEFECT-010" or src12ah.get("provenance_defect_repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
+        fail("Batch 12AH registry provenance defect binding regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
