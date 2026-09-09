@@ -385,3 +385,15 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Counts remain 198/166/10/14; algorithm defect/reopen/collapse remain 0.
 - Evidence: docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json.
 
+
+
+## Batch 12AP — Jielan PT49 scope correction
+
+- `PROV-DEFECT-011=EVIDENCE_SCOPE_MISCLASSIFICATION` is confirmed and repaired forward-only.
+- Batch 12AO's exact Tianji aggregate-pagination pages 1–5 nonattestation remains valid **only for that finite surface**.
+- Google Books Jielan volume `rZRcCwAAQBAJ` source-emits `PT49` for `陰雨`; index text places the hit under `論十二生時難定訣` with inclement birth-time semantics. The AO transmission-level absence inference is therefore retracted.
+- PT49 physical glyph authority remains unavailable. Directly reviewed Google Books PT47/PT48 and NCC/Heart-One public facsimile samples do not include the target leaf.
+- `羅經 / 真確時候 / 行漏 / 壺漏` remain nonattested only on reviewed Jielan public index surfaces; no physical negative is authorized.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; runtime winner, candidate collapse and algorithm reopen remain forbidden.
+- Accounting: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
+- Machine evidence: `docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json`.
