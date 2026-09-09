@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.45.0",
+  "schema_version": "1.46.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -120,9 +120,10 @@
       "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
       "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF",
       "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
-      "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH"
+      "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
+      "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -313,7 +314,11 @@
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Batch 12AG changes no 198/166/10/14 accounting, creates/selects/collapses no candidate and authorizes no algorithm reopen.",
       "PROV-DEFECT-010=EVIDENCE_SCOPE_MISCLASSIFICATION is confirmed and repaired forward-only: the two Jiaojingshanfang/Hanauction hashes remain bound for archive lineage but their exact-target-detail-photo classification is revoked.",
       "Jiaojingshanfang 2012/2026 physical-edition row provenance remains valid; Batch 12AH adds zero target-text/Hai votes and does not alter the Baohutang-line genealogy scope.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Matrix remains 198/166/10/14; provenance metadata defects are now 10 confirmed / 10 repaired; chart algorithm defect/reopen/collapse remain 0."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Matrix remains 198/166/10/14; provenance metadata defects are now 10 confirmed / 10 repaired; chart algorithm defect/reopen/collapse remain 0.",
+      "Batch 12AI narrows HPA-ZDATE-006 historical clock semantics from an unconstrained civil/mean/apparent choice to a local observational astronomical family: reviewed Ming institutional evidence treats daytime sundial/true-Sun and nighttime stellar observation as fundamental, with clepsydra supplementary and geography materially relevant.",
+      "USNO is used only as a modern coordinate bridge: local apparent solar time is the strongest modern translation of a calibrated local sundial readout; local mean solar time is not the direct reviewed instrument output, and modern civil zone time is not supported as the premodern source clock by the reviewed Ming institutional witnesses.",
+      "Batch 12AI does NOT select local apparent solar time as the Ziwei natal runtime winner. Fullbook/Nanyangtang inheritance of this clock regime, nighttime star/clepsydra equivalence to the current apparent-solar engine, and natal birthplace/locality binding remain unresolved.",
+      "HPA-ZDATE-006 therefore remains MISSING_FROM_PRODUCT with runtime time-standard binding PARTIALLY_NARROWED_NOT_CLOSED; Matrix stays 198/166/10/14, provenance metadata defects 10 confirmed / 10 repaired, and chart algorithm defect/reopen/collapse remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
