@@ -129,9 +129,10 @@
       "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
       "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
       "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
-      "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ"
+      "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
+      "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -359,7 +360,11 @@
       "Batch 12AQ directly reviews 《中國古籍善本書目·子部三》 PDF p40 without OCR: 《新刻纂集紫微斗數捷覽四卷》 is catalog item 4051 and the edition line reads 明萬曆九年金陵書坊王洛川刻本.",
       "The external search-surface reading 王德川 and item 4052 are rejected as OCR/table-alignment artifacts: 4052 is visibly the adjacent 《上官拜命玉曆大全不分卷》 column. Repository Jielan imprint metadata 王洛川 is preserved; no new repository provenance defect is created.",
       "Taiwan NCL independently records an unrelated Ming book as 明金陵王氏洛川校刊本, supporting 王氏洛川 as a real Ming Jinling imprint/bookseller string without implying same-copy identity.",
-      "Anhui holding remains secondary-locator scope pending an official item-level record; PT49 physical glyph authority and the Fullbook cloudy/rainy current-time acquisition mechanism remain unresolved. HPA-ZDATE-006 stays MISSING_FROM_PRODUCT and 198/166/10/14, provenance defects 11/11, algorithm defect/reopen/collapse 0 remain unchanged."
+      "Anhui holding remains secondary-locator scope pending an official item-level record; PT49 physical glyph authority and the Fullbook cloudy/rainy current-time acquisition mechanism remain unresolved. HPA-ZDATE-006 stays MISSING_FROM_PRODUCT and 198/166/10/14, provenance defects 11/11, algorithm defect/reopen/collapse 0 remain unchanged.",
+      "Batch 12AR closes the reviewed Google public-preview route for Jielan PT49 without obtaining physical glyphs: classic Books PT49 is HTTP 200 but emits no PT49 image object, while the public Play reader directly emits a signed PT49 image URL.",
+      "Direct no-OCR visual control in Batch 12AR shows PT48 returns a genuine Jielan facsimile JPEG, but PT49 and PT50 return the identical visible image-not-available PNG placeholder (SHA-256 3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6). A source-emitted signed URL is therefore not page-image availability.",
+      "English accessible mode is HTTP 403; the previously source-emitted new-Google-Books route redirects to classic Books with PT49 token but no PT49 image object. iRead runner timeout remains execution-environment access-boundary only and is not a content negative.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT. Counts remain 198/166/10/14, provenance defects 11/11, chart algorithm defect/reopen/collapse 0. Stop repeating the reviewed Google preview paths; next chart-affecting priority is an explicit Fullbook-line cloudy/rainy current-time acquisition chain plus an independent physical PT49 route."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
