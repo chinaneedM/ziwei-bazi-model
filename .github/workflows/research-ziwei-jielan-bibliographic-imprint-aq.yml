@@ -1,0 +1,164 @@
+name: research-ziwei-jielan-bibliographic-imprint-aq
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jielan-bibliographic-imprint-aq.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF readers
+        run: python -m pip install --disable-pip-version-check pypdf pymupdf
+
+      - name: Bind direct bibliography scan and independent catalog controls
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import urllib.request
+          from pathlib import Path
+
+          import fitz
+          from pypdf import PdfReader
+
+          out = Path("batch12aq")
+          out.mkdir(exist_ok=True)
+
+          urls = {
+              "shanben_pdf": "https://upload.wikimedia.org/wikipedia/commons/d/db/SSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf",
+              "commons_api": "https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url%7Csize%7Csha1&titles=File%3ASSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf",
+              "shanghai_jielan": "https://data.library.sh.cn/gj/resource/instance/l611spx62774srpb",
+              "ncl_xuanhe": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=295571d85e4c45a397547d8f565dd050fDc0NjYx0.g5hCuW8N0Tx9niVfLTK2Rou7fzSw7C8VUWWII7g4nyU_&page=",
+              "anhui_access_policy": "https://www.ahm.cn/Wap/Service/Leaveword/zxzx",
+          }
+
+          def fetch(url, name, timeout=60):
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+              try:
+                  with urllib.request.urlopen(req, timeout=timeout) as r:
+                      data = r.read()
+                      rec = {
+                          "url": url,
+                          "final_url": r.geturl(),
+                          "http_status": r.status,
+                          "content_type": r.headers.get("Content-Type"),
+                          "bytes": len(data),
+                          "sha256": hashlib.sha256(data).hexdigest(),
+                      }
+              except Exception as e:
+                  return {"url": url, "error": repr(e)}
+              (out / name).write_bytes(data)
+              return rec
+
+          receipt = {
+              "scope": "JIELAN_1581_BIBLIOGRAPHIC_IMPRINT_AND_HOLDING_RECONCILIATION",
+              "direct_scan_visual_review_required": True,
+              "search_engine_ocr_is_glyph_authority": False,
+              "sources": {},
+          }
+
+          pdf_rec = fetch(urls["shanben_pdf"], "shanben-zibu3.pdf", 120)
+          receipt["sources"]["shanben_pdf"] = pdf_rec
+
+          scan = out / "shanben-zibu3.pdf"
+          page_hits = []
+          if scan.exists():
+              reader = PdfReader(str(scan))
+              receipt["shanben_pdf_page_count"] = len(reader.pages)
+              terms = [
+                  "新刻纂集紫微斗數捷覽四卷",
+                  "新刻纂集紫微斗数捷览四卷",
+                  "王德川",
+                  "王洛川",
+                  "四○五二",
+                  "4052",
+              ]
+              for idx, page in enumerate(reader.pages):
+                  try:
+                      txt = page.extract_text() or ""
+                  except Exception:
+                      txt = ""
+                  compact = re.sub(r"\s+", "", txt)
+                  hits = {t: (t in txt or t in compact) for t in terms}
+                  if any(hits.values()):
+                      page_hits.append({
+                          "page_1_based": idx + 1,
+                          "term_hits": hits,
+                          "text_sha256": hashlib.sha256(txt.encode("utf-8", errors="ignore")).hexdigest(),
+                          "text_excerpt": re.sub(r"\s+", " ", txt)[:4000],
+                      })
+
+              doc = fitz.open(str(scan))
+              rendered = []
+              for hit in page_hits:
+                  p = hit["page_1_based"] - 1
+                  for target in sorted(set([p - 1, p, p + 1])):
+                      if 0 <= target < len(doc):
+                          png = out / f"shanben-page-{target+1}.png"
+                          pix = doc.load_page(target).get_pixmap(matrix=fitz.Matrix(2.0, 2.0), alpha=False)
+                          pix.save(str(png))
+                          rendered.append({
+                              "page_1_based": target + 1,
+                              "filename": png.name,
+                              "sha256": hashlib.sha256(png.read_bytes()).hexdigest(),
+                          })
+              receipt["shanben_text_layer_hits"] = page_hits
+              receipt["shanben_rendered_pages"] = rendered
+              receipt["direct_scan_imprint_glyph_adjudication"] = "PENDING_MANUAL_VISUAL_REVIEW_OF_RENDERED_PAGES"
+          else:
+              receipt["shanben_text_layer_hits"] = []
+              receipt["shanben_rendered_pages"] = []
+
+          for key, fname in [
+              ("commons_api", "commons-api.json"),
+              ("shanghai_jielan", "shanghai-jielan.html"),
+              ("ncl_xuanhe", "ncl-xuanhe.html"),
+              ("anhui_access_policy", "anhui-access-policy.html"),
+          ]:
+              rec = fetch(urls[key], fname, 60)
+              p = out / fname
+              txt = p.read_text("utf-8", errors="ignore") if p.exists() else ""
+              compact = re.sub(r"\s+", "", txt)
+              rec["term_hits"] = {
+                  "新刻纂集紫微斗數捷覽": "新刻纂集紫微斗數捷覽" in txt or "新刻纂集紫微斗數捷覽" in compact,
+                  "王氏洛川": "王氏洛川" in txt or "王氏洛川" in compact,
+                  "王洛川": "王洛川" in txt or "王洛川" in compact,
+                  "王德川": "王德川" in txt or "王德川" in compact,
+                  "安徽省博物館": "安徽省博物館" in txt or "安徽省博物館" in compact,
+                  "安徽博物院": "安徽博物院" in txt or "安徽博物院" in compact,
+                  "古籍不再提供查閱服務": "古籍不再提供查閱服務" in txt or "古籍不再提供查閱服務" in compact,
+                  "古籍數字化": "古籍數字化" in txt or "古籍数字化" in txt or "古籍數字化" in compact or "古籍数字化" in compact,
+              }
+              for term in ["新刻纂集紫微斗數捷覽", "王氏洛川", "王洛川", "王德川", "古籍不再提供查閱服務", "古籍数字化"]:
+                  pos = txt.find(term)
+                  if pos >= 0:
+                      rec.setdefault("contexts", {})[term] = re.sub(r"\s+", " ", txt[max(0,pos-300):pos+len(term)+700])
+              receipt["sources"][key] = rec
+
+          receipt["adjudication"] = {
+              "wang_dechuan_search_surface_can_be_treated_as_direct_scan_glyph": False,
+              "wang_luochuan_current_registry_should_be_silently_rewritten_before_direct_scan_review": False,
+              "anhui_holding_claim_closed_by_official_item_record": False,
+              "bibliographic_imprint_conflict_requires_direct_scan_visual_review": True,
+              "chart_algorithm_reopen_authorized": False,
+          }
+
+          (out / "receipt.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", "utf-8")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jielan-bibliographic-imprint-aq
+          path: batch12aq
+          retention-days: 90
