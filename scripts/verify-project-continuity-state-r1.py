@@ -76,6 +76,8 @@ ZIWEI_HUIXIAN_CATALOG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_HUIXIAN_CATALOG_EVIDENCE = ROOT / "docs/research/ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-R1.json"
 ZIWEI_JINGSHUTANG_ARTRON_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB.md"
 ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE = ROOT / "docs/research/ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-R1.json"
+ZIWEI_WENGUANG_PT165_RESPONSE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC.md"
+ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE = ROOT / "docs/research/ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -113,9 +115,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
     "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
     "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
+    "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC.md"
 
 
 def fail(message: str) -> None:
@@ -163,6 +166,7 @@ def main() -> int:
     ziwei_korea_cnts_late_zi_evidence = json.loads(ZIWEI_KOREA_CNTS_LATE_ZI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_huixian_catalog_evidence = json.loads(ZIWEI_HUIXIAN_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jingshutang_artron_evidence = json.loads(ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_wenguang_pt165_response_evidence = json.loads(ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1696,6 +1700,45 @@ def main() -> int:
         fail("Batch 12AB registry source/image binding regressed")
     if src12ab.get("target_page_observed") is not False or src12ab.get("independent_hai_glyph_witness_increment") != 0:
         fail("Batch 12AB registry target/Hai firewall regressed")
+
+
+    # Batch 12AC Wenguang PT165 public Viewer-response closure: page metadata is not physical glyph authority.
+    if not ZIWEI_WENGUANG_PT165_RESPONSE_BATCH.is_file() or not ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE.is_file():
+        fail("Batch 12AC continuity artifacts missing")
+    if ziwei_wenguang_pt165_response_evidence.get("batch_id") != "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC":
+        fail("Batch 12AC evidence identity mismatch")
+    ctl12ac = ziwei_wenguang_pt165_response_evidence.get("controlling_public_probe", {})
+    if ctl12ac.get("workflow_run_id") != 34310657883 or ctl12ac.get("artifact_id") != 10088226638:
+        fail("Batch 12AC controlling execution binding regressed")
+    if ctl12ac.get("artifact_zip_sha256") != "cdbfaf35561588e6001f7eb6af5b61a4aed83261beba749ee0e6ccc45e5378d2":
+        fail("Batch 12AC controlling artifact digest regressed")
+    run12ac = ctl12ac.get("viewer_run_response", {})
+    if run12ac.get("http_status") != 200 or run12ac.get("bytes") != 0 or run12ac.get("source_emitted_image_url_count") != 0:
+        fail("Batch 12AC public Viewer run-response boundary regressed")
+    pages12ac = {item.get("page_id"): item for item in ctl12ac.get("click3_responses", ())}
+    pt165_12ac = pages12ac.get("PT165", {})
+    if pt165_12ac.get("http_status") != 200 or pt165_12ac.get("bytes") != 3288:
+        fail("Batch 12AC PT165 click3 response binding regressed")
+    if pt165_12ac.get("target_page_record") != {"pid": "PT165", "flags": 8, "order": 165}:
+        fail("Batch 12AC PT165 page-object record regressed")
+    if pt165_12ac.get("returned_page_record_count") != 209:
+        fail("Batch 12AC click3 page-count binding regressed")
+    if ctl12ac.get("source_emitted_image_url_count") != 0 or ctl12ac.get("pt165_image_saved") is not False or ctl12ac.get("target_glyph_directly_observed") is not False:
+        fail("Batch 12AC image/glyph firewall regressed")
+    ad12ac = ziwei_wenguang_pt165_response_evidence.get("adjudication", {})
+    if ad12ac.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or ad12ac.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AC HPA/algorithm firewall regressed")
+    if ad12ac.get("independent_textual_witness_increment") != 0 or ad12ac.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AC witness accounting regressed")
+    row12ac = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ac or row12ac.get("batch_12ac_wenguang_pt165_public_viewer_response_artifact") != "docs/research/ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1.json":
+        fail("Batch 12AC Matrix artifact binding regressed")
+    if row12ac.get("wenguang_pt165_click3_target_record") != {"pid": "PT165", "flags": 8, "order": 165}:
+        fail("Batch 12AC Matrix PT165 record regressed")
+    if row12ac.get("wenguang_pt165_click3_source_emitted_image_url_count") != 0 or row12ac.get("wenguang_pt165_direct_target_image_observed_batch_12ac") is not False:
+        fail("Batch 12AC Matrix image firewall regressed")
+    if row12ac.get("independent_textual_witness_count_added_batch_12ac") != 0 or row12ac.get("independent_hai_glyph_witness_count_added_batch_12ac") != 0:
+        fail("Batch 12AC Matrix witness firewall regressed")
 
     if invariants.get("confirmed_chart_algorithm_defect_count") != audit_summary.get("confirmed_chart_algorithm_defect_count"):
         fail("chart algorithm defect count drift")
