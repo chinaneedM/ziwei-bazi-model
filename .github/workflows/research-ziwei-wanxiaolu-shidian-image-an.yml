@@ -1,0 +1,113 @@
+name: research-ziwei-wanxiaolu-shidian-image-an
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-wanxiaolu-shidian-image-an.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bind Shidian source-emitted target image
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import pathlib
+          import re
+          import urllib.parse
+          import urllib.request
+
+          out = pathlib.Path("wanxiaolu-shidian-an")
+          out.mkdir(exist_ok=True)
+          page_url = "https://www.shidianguji.com/zh/book/NGJ892411999007380140073/chapter/1lr8vrbiuyale"
+          headers = {"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"}
+
+          receipt = {
+              "schema": "ZIWEI-WANXIAOLU-SHIDIAN-IMAGE-AN-PROBE-R1",
+              "requested_page_url": page_url,
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+              "image_identifier_guessed": False,
+              "ocr_generated_by_probe": False,
+          }
+
+          req = urllib.request.Request(page_url, headers=headers)
+          try:
+              with urllib.request.urlopen(req, timeout=40) as resp:
+                  body = resp.read()
+                  receipt.update({
+                      "page_status": resp.status,
+                      "page_final_url": resp.geturl(),
+                      "page_content_type": resp.headers.get("content-type"),
+                      "page_bytes": len(body),
+                      "page_sha256": hashlib.sha256(body).hexdigest(),
+                  })
+          except Exception as exc:
+              body = b""
+              receipt.update({"page_status": None, "page_error": repr(exc)})
+
+          (out / "shidian-target.html").write_bytes(body)
+          raw = body.decode("utf-8", errors="replace")
+          compact = re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", re.sub(r"<[^>]+>", "", html.unescape(raw)))
+          terms = [
+              "第四十二章論定時",
+              "地理分四十四山",
+              "曆書亦分二十四時",
+              "時與山每每相應",
+              "每日皆從太陽到處數",
+              "查時刻以考星躔之要法",
+          ]
+          receipt["term_hits"] = {t: re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", t) in compact for t in terms}
+
+          # Only follow hrefs literally emitted by anchors whose rendered text is Image.
+          emitted = []
+          for m in re.finditer(r'<a\\b[^>]*href=["\\\']([^"\\\']+)["\\\'][^>]*>(.*?)</a>', raw, flags=re.I | re.S):
+              href = html.unescape(m.group(1))
+              label = re.sub(r"<[^>]+>", "", html.unescape(m.group(2))).strip()
+              if label == "Image":
+                  emitted.append(urllib.parse.urljoin(receipt.get("page_final_url") or page_url, href))
+          emitted = list(dict.fromkeys(emitted))
+          receipt["source_emitted_image_anchor_urls"] = emitted
+
+          fetches = []
+          for idx, image_url in enumerate(emitted[:4]):
+              rec = {"source_emitted_url": image_url}
+              try:
+                  ireq = urllib.request.Request(image_url, headers=headers)
+                  with urllib.request.urlopen(ireq, timeout=45) as resp:
+                      data = resp.read()
+                      ctype = (resp.headers.get("content-type") or "").lower()
+                      rec.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": ctype,
+                          "bytes": len(data),
+                          "sha256": hashlib.sha256(data).hexdigest(),
+                      })
+                  if ctype.startswith("image/") and len(data) > 10000:
+                      suffix = ".png" if "png" in ctype else ".webp" if "webp" in ctype else ".jpg"
+                      name = f"shidian-source-emitted-target-{idx:02d}{suffix}"
+                      (out / name).write_bytes(data)
+                      rec["saved_as"] = name
+              except Exception as exc:
+                  rec.update({"status": None, "error": repr(exc)})
+              fetches.append(rec)
+          receipt["source_emitted_image_fetches"] = fetches
+
+          (out / "receipt.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-wanxiaolu-shidian-image-an
+          path: wanxiaolu-shidian-an/
