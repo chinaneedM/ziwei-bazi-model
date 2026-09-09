@@ -96,6 +96,8 @@ ZIWEI_GAOHOU_MENGQIU_AK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-
 ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE = ROOT / "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
 ZIWEI_KOREA_CNTS_AL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL.md"
 ZIWEI_KOREA_CNTS_AL_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
+ZIWEI_RENZI_XUZHI_AM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM.md"
+ZIWEI_RENZI_XUZHI_AM_EVIDENCE = ROOT / "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -143,9 +145,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
     "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
     "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
+    "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM.md"
 
 
 def fail(message: str) -> None:
@@ -153,6 +156,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_RENZI_XUZHI_AM_BATCH, ZIWEI_RENZI_XUZHI_AM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AM continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_KOREA_CNTS_AL_BATCH, ZIWEI_KOREA_CNTS_AL_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AL continuity artifact missing: {path.relative_to(ROOT)}")
@@ -223,6 +230,7 @@ def main() -> int:
     ziwei_fullbook_luojing_aj_evidence = json.loads(ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_gaohou_mengqiu_ak_evidence = json.loads(ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_cnts_al_evidence = json.loads(ZIWEI_KOREA_CNTS_AL_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_renzi_xuzhi_am_evidence = json.loads(ZIWEI_RENZI_XUZHI_AM_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -307,6 +315,9 @@ def main() -> int:
         "EXT-CTEXT-GAOHOU-MENGQIU-OCR",
         "EXT-SHIDIAN-GAOHOU-MENGQIU-V3",
         "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809",
+        "EXT-CINII-BB17866565-RENZI-XUZHI-1583",
+        "EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583",
+        "EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -699,8 +710,8 @@ def main() -> int:
         fail("Batch 12AL Matrix target-section variant regressed")
     if row12al.get("batch_12al_fullbook_interpolation_claim_authorized") is not False or row12al.get("batch_12al_korea_omission_error_claim_authorized") is not False:
         fail("Batch 12AL Matrix interpolation/error firewall regressed")
-    if row12al.get("runtime_time_standard_binding_status") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
-        fail("Batch 12AL Matrix current runtime state regressed")
+    if row12al.get("runtime_time_standard_binding_status_batch_12al") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
+        fail("Batch 12AL Matrix historical runtime snapshot regressed")
     if row12al.get("candidate_selected_batch_12al") is not False or row12al.get("candidate_collapsed_batch_12al") is not False:
         fail("Batch 12AL Matrix candidate firewall regressed")
     korea12al = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU"), None)
@@ -710,6 +721,65 @@ def main() -> int:
         fail("Batch 12AL Korea registry recount firewall regressed")
     if korea12al.get("target_location_negative_scope") != "P125_TARGET_LOCATION_PLUS_ADJACENT_P126_ONLY_NOT_WHOLE_MANUSCRIPT":
         fail("Batch 12AL Korea registry negative scope regressed")
+
+    # Batch 12AM early-Ming shushu Luojing/gnomon semantic bridge.
+    if ziwei_renzi_xuzhi_am_evidence.get("batch_id") != "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM":
+        fail("Batch 12AM evidence identity mismatch")
+    probe12am = ziwei_renzi_xuzhi_am_evidence.get("controlling_probe", {})
+    if probe12am.get("workflow_run_id") != 34332573715 or probe12am.get("artifact_id") != 10096390533:
+        fail("Batch 12AM controlling probe binding regressed")
+    if probe12am.get("artifact_zip_sha256") != "b79fb61aa46624a601c97fff386fb5090afeb4aaa8dd07f382e9c3f5cf6977b6":
+        fail("Batch 12AM artifact digest regressed")
+    if not all(probe12am.get("semantic_gates", {}).values()):
+        fail("Batch 12AM semantic gates regressed")
+    phys12am = ziwei_renzi_xuzhi_am_evidence.get("primary_physical_scan", {})
+    if phys12am.get("pdf_sha256") != "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba" or phys12am.get("pdf_page_count") != 510:
+        fail("Batch 12AM physical facsimile identity regressed")
+    if phys12am.get("source_emitted_not_guessed") is not True or phys12am.get("direct_visual_review_no_ocr") is not True:
+        fail("Batch 12AM source-emitted/no-OCR firewall regressed")
+    direct12am = {x.get("pdf_page_1_based"): x for x in ziwei_renzi_xuzhi_am_evidence.get("direct_physical_collation", ())}
+    if direct12am.get(415, {}).get("direct_heading") != "正針縫針":
+        fail("Batch 12AM direct 正針縫針 heading regressed")
+    decisive12am = direct12am.get(416, {}).get("decisive_direct_readings", ())
+    for phrase in ("臬測以景針以氣故不能符", "推七政之纏次皆准於臬"):
+        if phrase not in decisive12am:
+            fail(f"Batch 12AM direct physical reading regressed: {phrase}")
+    phil12am = ziwei_renzi_xuzhi_am_evidence.get("philological_mechanical_adjudication", {})
+    if phil12am.get("luojing_standalone_clock_equivalence") is not False or phil12am.get("fullbook_inclement_time_generation_procedure_closed") is not False:
+        fail("Batch 12AM clock/procedure firewall regressed")
+    if phil12am.get("luojing_equals_true_solar_time") is not False or phil12am.get("luojing_equals_local_apparent_solar_runtime") is not False:
+        fail("Batch 12AM solar-runtime normalization firewall regressed")
+    eff12am = ziwei_renzi_xuzhi_am_evidence.get("hpa_zdate_006_effect", {})
+    expected12am = "EARLY_MING_SHUSHU_GNOMON_NEEDLE_SEMANTIC_SEPARATION_CONFIRMED_FULLBOOK_INCLEMENT_TIME_REALIZATION_AND_RUNTIME_BINDING_STILL_OPEN"
+    if eff12am.get("audit_status") != "MISSING_FROM_PRODUCT" or eff12am.get("runtime_time_standard_binding_status") != expected12am:
+        fail("Batch 12AM HPA/runtime state regressed")
+    if eff12am.get("candidate_selected") is not False or eff12am.get("candidate_collapsed") is not False or eff12am.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AM candidate/algorithm firewall regressed")
+    row12am = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12am or row12am.get("batch_12am_renzi_xuzhi_luojing_gnomon_bridge_artifact") != "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json":
+        fail("Batch 12AM Matrix artifact binding regressed")
+    if row12am.get("batch_12am_pdf_sha256") != "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba" or row12am.get("batch_12am_pdf_page_count") != 510:
+        fail("Batch 12AM Matrix physical source binding regressed")
+    if row12am.get("batch_12am_decisive_direct_readings") != ["臬測以景針以氣故不能符", "推七政之纏次皆准於臬"]:
+        fail("Batch 12AM Matrix decisive reading regressed")
+    if row12am.get("batch_12am_fullbook_inclement_time_generation_procedure_closed") is not False:
+        fail("Batch 12AM Matrix unresolved-procedure firewall regressed")
+    if row12am.get("runtime_time_standard_binding_status") != expected12am:
+        fail("Batch 12AM Matrix current runtime state regressed")
+    if row12am.get("candidate_selected_batch_12am") is not False or row12am.get("candidate_collapsed_batch_12am") is not False:
+        fail("Batch 12AM Matrix candidate firewall regressed")
+    sources12am = {src.get("source_id"): src for src in registry.get("sources", ())}
+    physical12am = sources12am.get("EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583")
+    if not physical12am or physical12am.get("pdf_sha256") != "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba":
+        fail("Batch 12AM registry physical source regressed")
+    if physical12am.get("target_leaf_printing_phase") != "UNRESOLVED_WITHIN_LONGQING_3_WANLI_11_COMPOSITE_EDITION":
+        fail("Batch 12AM printing-phase firewall regressed")
+    cinii12am = sources12am.get("EXT-CINII-BB17866565-RENZI-XUZHI-1583")
+    if not cinii12am or cinii12am.get("exact_physical_copy_identity_to_commons_scan") != "NOT_ESTABLISHED":
+        fail("Batch 12AM CiNii exact-copy firewall regressed")
+    ctext12am = sources12am.get("EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN")
+    if not ctext12am or ctext12am.get("glyph_authority") is not False or ctext12am.get("independent_physical_witness_increment") != 0:
+        fail("Batch 12AM transcription authority firewall regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
