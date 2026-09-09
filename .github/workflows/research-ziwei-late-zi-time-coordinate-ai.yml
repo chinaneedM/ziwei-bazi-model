@@ -1,0 +1,92 @@
+name: research-ziwei-late-zi-time-coordinate-ai
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-late-zi-time-coordinate-ai.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch historical and astronomical time-coordinate witnesses
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import urllib.request
+
+          out = pathlib.Path("time-coordinate-ai")
+          out.mkdir(exist_ok=True)
+
+          targets = [
+              {
+                  "key": "mingshi_astronomy",
+                  "url": "https://ctext.org/wiki.pl?chapter=656119&if=gb&remap=gb",
+                  "terms": ["正漏之初", "正午初刻", "非定时之本", "日星", "天之正时刻", "日晷"],
+              },
+              {
+                  "key": "mingshi_calendar",
+                  "url": "https://ctext.org/wiki.pl?chapter=760533&if=gb&remap=gb",
+                  "terms": ["晷漏则随地势南北", "大都晷漏", "南京", "漏刻"],
+              },
+              {
+                  "key": "usno_equation_of_time",
+                  "url": "https://aa.usno.navy.mil/faq/eqtime",
+                  "terms": ["apparent solar time", "mean solar time", "sundial", "local hour angle"],
+              },
+          ]
+
+          receipt = {
+              "schema": "ZIWEI-LATE-ZI-TIME-COORDINATE-AI-PROBE-R1",
+              "targets": [],
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+          }
+
+          for target in targets:
+              req = urllib.request.Request(
+                  target["url"],
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              item = {"key": target["key"], "requested_url": target["url"]}
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      body = resp.read()
+                      item.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  item.update({"status": None, "error": repr(exc), "bytes": 0, "sha256": None})
+
+              raw_path = out / f'{target["key"]}.html'
+              raw_path.write_bytes(body)
+              text = body.decode("utf-8", errors="replace")
+              compact = re.sub(r"\s+", " ", text)
+              item["term_hits"] = {term: (term in compact) for term in target["terms"]}
+              receipt["targets"].append(item)
+
+          (out / "receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-late-zi-time-coordinate-ai
+          path: time-coordinate-ai/
