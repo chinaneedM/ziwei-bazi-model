@@ -6,12 +6,12 @@
   "status": "FULLBOOK_LUOJING_PHRASE_CROSS_EDITION_CONFIRMED_LUOJING_DIRECTIONAL_INSTRUMENT_SEMANTICS_CLOSED_STANDALONE_TIMEKEEPER_EQUIVALENCE_REJECTED_RUNTIME_CLOCK_BINDING_STILL_OPEN",
   "controlling_probe": {
     "workflow_file": ".github/workflows/research-ziwei-fullbook-luojing-semantics-aj.yml",
-    "workflow_run_id": 34324043522,
-    "probe_commit_sha": "3504438e6d682464494b170dbfecad54ca1843ab",
-    "artifact_id": 10093089382,
+    "workflow_run_id": 34324767233,
+    "probe_commit_sha": "63707407cbb3afd4e735432eacdcdbde81da3ad6",
+    "artifact_id": 10093334440,
     "artifact_name": "ziwei-fullbook-luojing-semantics-aj",
-    "artifact_zip_sha256": "2a9d8f383ab2756d3268645a95fd7a7233b7646fe8da7869b564d20448347f0c",
-    "note": "A later term-gate hardening commit 63707407cbb3afd4e735432eacdcdbde81da3ad6 changes no source interpretation; final closure may rebind to its successful rerun if available.",
+    "artifact_zip_sha256": "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2",
+    "all_control_terms_hit": true,
     "authentication_attempted": false,
     "captcha_bypass_attempted": false
   },
@@ -58,7 +58,16 @@
         "可用表臬或儀器求真子午，或依偏針加減另造正線羅經。"
       ],
       "semantic_role": "CONTEMPORANEOUS_MING_ASTRONOMICAL_TECHNICAL_CONTROL_SHOWING_LUOJING_AS_DIRECTION_MERIDIAN_AID_NOT_STANDALONE_CLOCK",
-      "authority_boundary": "NOT_ZIWEI_DOCTRINE"
+      "authority_boundary": "NOT_ZIWEI_DOCTRINE",
+      "machine_term_hits": [
+        "造正线罗经",
+        "以定子午",
+        "若晨昏阴雨",
+        "行漏",
+        "若专用罗经者",
+        "失于先天",
+        "指南针者"
+      ]
     },
     {
       "source_id": "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
@@ -66,21 +75,27 @@
       "historical_period": "MING",
       "provider": "識典古籍",
       "url": "https://www.shidianguji.com/zh/mid-page/7536324145912070182",
-      "response_sha256": "f42ca99ef91ef8285e2e0c161755b768ad992f96474450de5e94d509737ba770",
+      "response_sha256": "b2810c2d8643eeb24168fa5a3af7dd06972053546d575fb2c10ad0b88c445d03",
       "direct_text_findings": [
         "正文以磁、針之感應說明羅經針的方向性。",
         "正文可直接讀到「此針之所以必指南也」。",
         "正文續言「羅經備種種之妙」，其論域為羅經、方位與堪輿器具。"
       ],
       "semantic_role": "CONTEMPORANEOUS_MING_SHUSHU_CONTROL_FOR_LUOJING_MAGNETIC_NEEDLE_DIRECTIONAL_SEMANTICS",
-      "authority_boundary": "NOT_A_TIMEKEEPING_SPECIFICATION"
+      "authority_boundary": "NOT_A_TIMEKEEPING_SPECIFICATION",
+      "machine_term_hits": [
+        "磁者",
+        "針者",
+        "必指南也",
+        "羅經備種種之妙"
+      ]
     },
     {
       "source_id": "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
       "title": "《四庫全書總目》羅經頂門針二卷提要",
       "provider": "識典古籍",
       "url": "https://www.shidianguji.com/zh/book/SK0000A/chapter/1kgsnqvp989pe",
-      "response_sha256": "e58bde995cd162df0d8e920c2ce3befcbd7178c963fef5dbb78c4f09f6051132",
+      "response_sha256": "5fce54a29c90bf7cd07f156274d4a21771139214d3048f5e430b4fbdf42ce675",
       "machine_term_hits": [
         "羅經頂門針",
         "指南針法",
