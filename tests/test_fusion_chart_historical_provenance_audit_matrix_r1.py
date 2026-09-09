@@ -340,11 +340,54 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         )
         self.assertEqual(row["historical_nighttime_to_runtime_apparent_solar_equivalence"], "UNRESOLVED")
         self.assertEqual(row["natal_birthplace_time_coordinate_binding"], "UNRESOLVED")
-        self.assertEqual(row["runtime_time_standard_binding_status"], "PARTIALLY_NARROWED_NOT_CLOSED")
+        self.assertEqual(row["runtime_time_standard_binding_status_batch_12ai"], "PARTIALLY_NARROWED_NOT_CLOSED")
         self.assertFalse(row["candidate_selected_batch_12ai"])
         self.assertFalse(row["candidate_collapsed_batch_12ai"])
         self.assertEqual(row["independent_textual_witness_count_added_batch_12ai"], 0)
         self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ai"], 0)
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12aj_fullbook_luojing_is_directional_not_a_clock(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12aj_fullbook_luojing_timekeeping_semantics_artifact"],
+            "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json",
+        )
+        self.assertEqual(
+            row["fullbook_luojing_phrase"],
+            "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣",
+        )
+        self.assertEqual(
+            row["fullbook_luojing_phrase_direct_physical_edition_agreement"],
+            "CONFIRMED_NANYANGTANG_AND_GUANGYI",
+        )
+        self.assertEqual(row["fullbook_luojing_phrase_direct_physical_route_count"], 2)
+        self.assertEqual(
+            row["fullbook_luojing_term_mechanical_concept"],
+            "MAGNETIC_COMPASS_DIRECTION_AND_MERIDIAN_ORIENTATION_INSTRUMENT_FAMILY",
+        )
+        self.assertEqual(
+            row["fullbook_luojing_standalone_timekeeper_equivalence"],
+            "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL",
+        )
+        self.assertEqual(row["fullbook_luojing_direct_true_solar_time_equivalence"], "NOT_ESTABLISHED")
+        self.assertEqual(
+            row["fullbook_vs_ming_technical_instrument_semantic_relation"],
+            "REAL_TENSION_PRESERVE_DO_NOT_HARMONIZE_BY_ASSUMPTION",
+        )
+        self.assertFalse(row["local_apparent_solar_time_runtime_winner_selected"])
+        self.assertFalse(row["luojing_means_true_solar_time"])
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED",
+        )
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12aj"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12aj"], 0)
+        self.assertFalse(row["candidate_selected_batch_12aj"])
+        self.assertFalse(row["candidate_collapsed_batch_12aj"])
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
 
