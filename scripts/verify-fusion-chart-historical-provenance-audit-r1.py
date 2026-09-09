@@ -317,9 +317,9 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 9:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 10:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 9:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 10:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 3:
         raise SystemExit("source-scoped historical candidate runtime resolver accounting regressed")
@@ -374,8 +374,12 @@ def main() -> int:
     jiaojing=by_source_id.get("EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL")
     if jiaojing is None:
         raise SystemExit("Batch 12AG Jiaojingshanfang registry source is missing")
-    if jiaojing.get("direct_target_page_observed") is not False or jiaojing.get("direct_visual_review_of_2012_detail_photos_completed") is not False:
-        raise SystemExit("Batch 12AG target-page/image-review firewall regressed")
+    if jiaojing.get("direct_target_page_observed") is not False or jiaojing.get("direct_visual_review_of_2012_detail_photos_completed") is not True:
+        raise SystemExit("Batch 12AH target-page/image-review state regressed")
+    if jiaojing.get("media_scope_classification") != "AUCTION_ROUND_EVENT_SCENERY_VIDEO_THUMBNAILS_NOT_TARGET_OBJECT_PHOTOS":
+        raise SystemExit("Batch 12AH Jiaojingshanfang media-scope repair regressed")
+    if jiaojing.get("provenance_defect_id") != "PROV-DEFECT-010" or jiaojing.get("provenance_defect_repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
+        raise SystemExit("Batch 12AH Jiaojingshanfang provenance defect repair regressed")
     if jiaojing.get("independent_target_text_witness_increment") != 0 or jiaojing.get("independent_hai_glyph_witness_increment") != 0:
         raise SystemExit("Batch 12AG Jiaojingshanfang witness accounting regressed")
     if jiaojing.get("stemmatic_independence_claimed") is not False:
@@ -386,6 +390,14 @@ def main() -> int:
         raise SystemExit("Batch 12AG HPA-ZDATE-006 target-page status regressed")
     if row_nanyang.get("independent_textual_witness_count_added_batch_12ag") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ag") != 0:
         raise SystemExit("Batch 12AG HPA-ZDATE-006 witness firewall regressed")
+    if row_nanyang.get("batch_12ah_jiaojingshanfang_detail_photo_visual_adjudication_artifact") != "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json":
+        raise SystemExit("Batch 12AH HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("defect_id") != "PROV-DEFECT-010" or row_nanyang.get("repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
+        raise SystemExit("Batch 12AH HPA-ZDATE-006 provenance repair regressed")
+    if row_nanyang.get("jiaojingshanfang_2012_detail_photo_visual_review_status") != "DIRECTLY_REVIEWED_AND_RECLASSIFIED_AS_AUCTION_EVENT_MEDIA_NOT_TARGET_OBJECT":
+        raise SystemExit("Batch 12AH HPA-ZDATE-006 visual adjudication regressed")
+    if row_nanyang.get("independent_textual_witness_count_added_batch_12ah") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ah") != 0:
+        raise SystemExit("Batch 12AH HPA-ZDATE-006 witness firewall regressed")
 
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
