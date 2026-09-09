@@ -409,3 +409,15 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Anhui holding remains secondary-locator scope pending an official item-level record.
 - Accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
 - Machine evidence: `docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json`.
+
+
+## Batch 12AR — Jielan PT49 public preview access boundary
+
+- Classic Google Books PT49 is HTTP 200 and index-positive, but its returned public surface does not emit a PT49 target image.
+- Public Google Play reader directly emits signed image URLs for PT48/PT49/PT50 without authentication or signature construction.
+- PT48 direct response is a genuine facsimile JPEG (`4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0`).
+- PT49 and PT50 direct responses are the identical visible `image not available` PNG placeholder (`3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6`), so no PT49 physical glyph authority is obtained.
+- English accessible mode is HTTP 403; the historically source-emitted new-Books link redirects to classic Books and emits no PT49 image object. iRead runner timeout is access-boundary only, not a content negative.
+- No physical-book negative, runtime selection, candidate collapse, algorithm reopen or provenance-defect increment is authorized.
+- Accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
+- Machine evidence: `docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json`.
