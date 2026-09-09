@@ -94,6 +94,8 @@ ZIWEI_FULLBOOK_LUOJING_AJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE = ROOT / "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
 ZIWEI_GAOHOU_MENGQIU_AK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK.md"
 ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE = ROOT / "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
+ZIWEI_KOREA_CNTS_AL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL.md"
+ZIWEI_KOREA_CNTS_AL_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -140,9 +142,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
     "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
     "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
+    "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL.md"
 
 
 def fail(message: str) -> None:
@@ -150,6 +153,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_KOREA_CNTS_AL_BATCH, ZIWEI_KOREA_CNTS_AL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AL continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_GAOHOU_MENGQIU_AK_BATCH, ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AK continuity artifact missing: {path.relative_to(ROOT)}")
@@ -215,6 +222,7 @@ def main() -> int:
     ziwei_late_zi_time_coordinate_ai_evidence = json.loads(ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_fullbook_luojing_aj_evidence = json.loads(ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_gaohou_mengqiu_ak_evidence = json.loads(ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_korea_cnts_al_evidence = json.loads(ZIWEI_KOREA_CNTS_AL_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -627,8 +635,8 @@ def main() -> int:
         fail("Batch 12AK Matrix inclement Zi/Hai adjudication regressed")
     if row12ak.get("batch_12ak_fullbook_inheritance_proven") is not False:
         fail("Batch 12AK Matrix Fullbook inheritance firewall regressed")
-    if row12ak.get("runtime_time_standard_binding_status") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
-        fail("Batch 12AK Matrix current runtime binding regressed")
+    if row12ak.get("runtime_time_standard_binding_status_batch_12ak") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
+        fail("Batch 12AK Matrix batch-scoped runtime binding regressed")
     if row12ak.get("independent_textual_witness_count_added_batch_12ak") != 0 or row12ak.get("independent_hai_glyph_witness_count_added_batch_12ak") != 0:
         fail("Batch 12AK Matrix Fullbook witness firewall regressed")
     sources12ak = {s.get("source_id"): s for s in registry.get("sources", ())}
@@ -643,6 +651,65 @@ def main() -> int:
     ctext12ak = sources12ak.get("EXT-CTEXT-GAOHOU-MENGQIU-OCR")
     if not ctext12ak or ctext12ak.get("source_role") != "OCR_DISCOVERY_AND_CROSSCHECK_ONLY_NO_GLYPH_LEVEL_AUTHORITY":
         fail("Batch 12AK OCR authority firewall regressed")
+
+    # Batch 12AL Korea CNTS full target-section re-collation.
+    if ziwei_korea_cnts_al_evidence.get("batch_id") != "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL":
+        fail("Batch 12AL evidence identity mismatch")
+    inherited12al = ziwei_korea_cnts_al_evidence.get("inherited_acquisition", {})
+    if inherited12al.get("workflow_run_id") != 34247945308 or inherited12al.get("artifact_id") != 10064784871:
+        fail("Batch 12AL inherited Korea acquisition binding regressed")
+    if inherited12al.get("artifact_zip_sha256") != "64b1729df1523991a4ac764e8a4672cf7b6edeb41f94b56a47da49d5b17a6f95":
+        fail("Batch 12AL inherited artifact digest regressed")
+    source12al = ziwei_korea_cnts_al_evidence.get("source_object", {})
+    if source12al.get("pdf_sha256") != "b21bbf3e2c7cdada4153f847ff9f359dbb29e71998e1f931417d108b571b23c3" or source12al.get("pdf_page_count") != 153:
+        fail("Batch 12AL Korea physical source identity regressed")
+    recoll12al = ziwei_korea_cnts_al_evidence.get("direct_adjacent_page_recollation_no_ocr", {})
+    p125_12al = recoll12al.get("pdf_page_125", {})
+    p126_12al = recoll12al.get("pdf_page_126", {})
+    if p125_12al.get("direct_target_reading") != "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜":
+        fail("Batch 12AL direct p125 target reading regressed")
+    if p125_12al.get("explicit_hai_glyph_observed") is not False or p125_12al.get("fullbook_luojing_clause_observed_after_target") is not False:
+        fail("Batch 12AL p125 Hai/Luojing variant firewall regressed")
+    if p125_12al.get("page_local_negative_scope") != "AUTHORIZED_ONLY_FOR_THE_TARGET_LOCATION_AND_REMAINING_ADJACENT_TEXT_ON_P125; NOT_A_WHOLE_MANUSCRIPT_NEGATIVE":
+        fail("Batch 12AL negative-scope firewall regressed")
+    if p126_12al.get("fullbook_luojing_clause_continuation_observed") is not False:
+        fail("Batch 12AL p126 continuation adjudication regressed")
+    cross12al = ziwei_korea_cnts_al_evidence.get("cross_transmission_comparison", {})
+    if cross12al.get("explicit_hai_reclassification_universal") is not False or cross12al.get("fullbook_luojing_clause_universal_across_broader_ziwei_transmission") is not False:
+        fail("Batch 12AL broader-transmission universality firewall regressed")
+    if cross12al.get("within_reviewed_fullbook_physical_routes_luojing_clause_stability") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
+        fail("Batch 12AL Fullbook within-family stability regressed")
+    phil12al = ziwei_korea_cnts_al_evidence.get("philological_adjudication", {})
+    if phil12al.get("fullbook_luojing_clause_interpolation_claim_authorized") is not False or phil12al.get("korea_manuscript_omission_error_claim_authorized") is not False:
+        fail("Batch 12AL interpolation/error claim firewall regressed")
+    indep12al = ziwei_korea_cnts_al_evidence.get("evidence_independence", {})
+    if indep12al.get("new_physical_witness_increment") != 0 or indep12al.get("new_target_section_clause_variant_dimension_increment") != 1:
+        fail("Batch 12AL evidence independence accounting regressed")
+    eff12al = ziwei_korea_cnts_al_evidence.get("hpa_zdate_006_effect", {})
+    if eff12al.get("audit_status") != "MISSING_FROM_PRODUCT" or eff12al.get("runtime_time_standard_binding_status") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
+        fail("Batch 12AL HPA/runtime state regressed")
+    if eff12al.get("candidate_selected") is not False or eff12al.get("candidate_collapsed") is not False or eff12al.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AL candidate/algorithm firewall regressed")
+    row12al = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12al or row12al.get("batch_12al_korea_cnts_full_target_section_recollation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json":
+        fail("Batch 12AL Matrix artifact binding regressed")
+    if row12al.get("batch_12al_korea_same_physical_object_recount_forbidden") is not True or row12al.get("batch_12al_new_physical_witness_increment") != 0:
+        fail("Batch 12AL Matrix same-object recount firewall regressed")
+    if row12al.get("batch_12al_korea_fullbook_luojing_clause_at_target_location") is not False or row12al.get("batch_12al_korea_p126_target_continuation") is not False:
+        fail("Batch 12AL Matrix target-section variant regressed")
+    if row12al.get("batch_12al_fullbook_interpolation_claim_authorized") is not False or row12al.get("batch_12al_korea_omission_error_claim_authorized") is not False:
+        fail("Batch 12AL Matrix interpolation/error firewall regressed")
+    if row12al.get("runtime_time_standard_binding_status") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
+        fail("Batch 12AL Matrix current runtime state regressed")
+    if row12al.get("candidate_selected_batch_12al") is not False or row12al.get("candidate_collapsed_batch_12al") is not False:
+        fail("Batch 12AL Matrix candidate firewall regressed")
+    korea12al = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU"), None)
+    if not korea12al or korea12al.get("target_section_recollation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json":
+        fail("Batch 12AL Korea registry artifact binding regressed")
+    if korea12al.get("same_physical_object_recount_forbidden") is not True:
+        fail("Batch 12AL Korea registry recount firewall regressed")
+    if korea12al.get("target_location_negative_scope") != "P125_TARGET_LOCATION_PLUS_ADJACENT_P126_ONLY_NOT_WHOLE_MANUSCRIPT":
+        fail("Batch 12AL Korea registry negative scope regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
