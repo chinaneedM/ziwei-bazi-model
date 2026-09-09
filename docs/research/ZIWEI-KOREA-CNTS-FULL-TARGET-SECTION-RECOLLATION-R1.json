@@ -1,0 +1,111 @@
+{
+  "schema": "ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
+  "access_date": "2026-09-09",
+  "status": "DIRECT_NO_OCR_ADJACENT_PAGE_RECOLLATION_CONFIRMS_KOREA_TARGET_LOCATION_LACKS_FULLBOOK_EXPLICIT_HAI_AND_LUOJING_CLAUSE_BROADER_TRANSMISSION_VARIANT_ONLY",
+  "parent_evidence": "docs/research/ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1.json",
+  "source_object": {
+    "source_id": "EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU",
+    "title": "紫微斗數方書",
+    "catalog_edition": "筆寫本",
+    "catalog_author": "編者未詳",
+    "exact_copying_date": "UNRESOLVED",
+    "provider": "National Digital Library of Korea / National Library of Korea",
+    "cnts_id": "CNTS-00047996572",
+    "master_bib_no": "21581878",
+    "pdf_sha256": "b21bbf3e2c7cdada4153f847ff9f359dbb29e71998e1f931417d108b571b23c3",
+    "pdf_bytes": 75687209,
+    "pdf_page_count": 153
+  },
+  "inherited_acquisition": {
+    "workflow_run_id": 34247945308,
+    "artifact_id": 10064784871,
+    "artifact_zip_sha256": "64b1729df1523991a4ac764e8a4672cf7b6edeb41f94b56a47da49d5b17a6f95",
+    "authentication_attempted": false,
+    "purchase_attempted": false,
+    "identifier_guessing_attempted": false,
+    "access_control_bypass_attempted": false
+  },
+  "direct_adjacent_page_recollation_no_ocr": {
+    "pdf_page_124": {
+      "artifact_member_jpeg_sha256": "34de4a52101d8c9fee16c3a1103efd51b871c9fc1f742bfd41d3cede4e99976f",
+      "image_dimensions": "450x707",
+      "relation": "PRECEDING_PAGE_WITH_FIVE_SPIRIT_PASSAGE; NOT_THE_LUOJING_TARGET_CLAUSE"
+    },
+    "pdf_page_125": {
+      "artifact_member_jpeg_sha256": "6a09e465608f68af92190a85039de9e2031f50fc0b7cc167d722978960847023",
+      "image_dimensions": "450x707",
+      "direct_target_reading": "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜",
+      "explicit_hai_glyph_observed": false,
+      "explicit_current_zi_glyph_observed": false,
+      "fullbook_luojing_clause_observed_after_target": false,
+      "target_location_transition": "THE_IMMEDIATELY_ADJACENT_NEXT_TEXTUAL_COLUMN_SWITCHES_TO_A_DIFFERENT_LIMIT_PERIOD_TOPIC_BEGINNING_WITH_交限十年; THE TARGET-HOUR PASSAGE DOES_NOT_CONTINUE_WITH_THE_FULLBOOK_INCLMENT_WEATHER_LUOJING_SENTENCE",
+      "page_local_negative_scope": "AUTHORIZED_ONLY_FOR_THE_TARGET_LOCATION_AND_REMAINING_ADJACENT_TEXT_ON_P125; NOT_A_WHOLE_MANUSCRIPT_NEGATIVE"
+    },
+    "pdf_page_126": {
+      "artifact_member_jpeg_sha256": "855361ffc06ee1cd6fe4ca25ef733d2c5102f583c8fa2d4425b1b49004644cb4",
+      "image_dimensions": "450x707",
+      "direct_visual_adjudication": "PAGE_IS_ALREADY_A_DIFFERENT_LIMIT_PERIOD_TOPIC_SURFACE; NO_CONTINUATION_OF_THE_P125_BIRTH_HOUR_TARGET_PASSAGE",
+      "fullbook_luojing_clause_continuation_observed": false
+    },
+    "ocr_used": false
+  },
+  "cross_transmission_comparison": {
+    "nanyangtang_fullbook": [
+      "如人生子亥二時最難定凖要仔細推詳",
+      "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+      "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣"
+    ],
+    "guangyi_fullbook": [
+      "如人生子亥二時最難定凖要仔細推詳",
+      "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+      "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣"
+    ],
+    "korea_manuscript_target": "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜",
+    "mechanically_identical": false,
+    "explicit_hai_reclassification_universal": false,
+    "fullbook_luojing_clause_universal_across_broader_ziwei_transmission": false,
+    "within_reviewed_fullbook_physical_routes_luojing_clause_stability": "CONFIRMED_NANYANGTANG_AND_GUANGYI",
+    "broader_transmission_conclusion": "THE_FULLBOOK_HAI_AND_LUOJING_WORDING_IS_SOURCE_FAMILY_SCOPED_AND_NOT_UNIVERSAL_ACROSS_THE_BROADER_RECEIVED_ZIWEI_TRANSMISSION"
+  },
+  "philological_adjudication": {
+    "korea_surface_is_not_silently_corrected_to_fullbook": true,
+    "fullbook_surface_is_not_silently_corrected_to_korea": true,
+    "fullbook_luojing_clause_interpolation_claim_authorized": false,
+    "korea_manuscript_omission_error_claim_authorized": false,
+    "exact_stemmatic_direction": "UNRESOLVED",
+    "exact_copying_date": "UNRESOLVED",
+    "safest_conclusion": "PRESERVE_DISTINCT_SOURCE_SCOPED_TARGET_SECTION_FORMS; THE FULLBOOK_LUOJING_CLAUSE_REQUIRES_FULLBOOK_LINE_OR_SOURCE_SPECIFIC_OPERATIONAL_INTERPRETATION"
+  },
+  "evidence_independence": {
+    "new_physical_witness_increment": 0,
+    "reason": "SAME_KOREA_PHYSICAL_MANUSCRIPT_ALREADY_COUNTED_IN_BATCH_12Z",
+    "new_hai_glyph_witness_increment": 0,
+    "new_fullbook_textual_witness_increment": 0,
+    "new_target_section_clause_variant_dimension_increment": 1,
+    "candidate_collapse_increment": 0
+  },
+  "hpa_zdate_006_effect": {
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding_status": "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED",
+    "fullbook_luojing_clause_global_universality": false,
+    "fullbook_source_specific_procedure": "UNRESOLVED",
+    "new_candidate_created": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
