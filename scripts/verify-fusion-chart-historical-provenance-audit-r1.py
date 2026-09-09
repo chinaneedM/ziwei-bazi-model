@@ -619,8 +619,8 @@ def main() -> int:
         raise SystemExit("Batch 12AL Fullbook stability regressed")
     if row_nanyang.get("batch_12al_fullbook_interpolation_claim_authorized") is not False or row_nanyang.get("batch_12al_korea_omission_error_claim_authorized") is not False:
         raise SystemExit("Batch 12AL interpolation/error claim firewall regressed")
-    if row_nanyang.get("runtime_time_standard_binding_status") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
-        raise SystemExit("Batch 12AL current runtime binding regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status_batch_12al") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
+        raise SystemExit("Batch 12AL historical runtime snapshot regressed")
     if row_nanyang.get("candidate_selected_batch_12al") is not False or row_nanyang.get("candidate_collapsed_batch_12al") is not False:
         raise SystemExit("Batch 12AL candidate firewall regressed")
 
