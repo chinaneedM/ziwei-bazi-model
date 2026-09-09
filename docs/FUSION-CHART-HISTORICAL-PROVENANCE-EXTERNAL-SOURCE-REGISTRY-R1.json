@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-07",
+  "access_date": "2026-09-09",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -2570,6 +2570,104 @@
       },
       "independent_physical_witness_increment": 0,
       "research_artifact": "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-CINII-BB17866565-RENZI-XUZHI-1583",
+      "title": "《重刋人子須知資孝地理心學統宗》8卷 CiNii edition record",
+      "author_attribution": "(明) 徐善繼、徐善述同著",
+      "historical_period": "MING_WANLI_11_1583_EDITION_FAMILY_BIBLIOGRAPHIC_CONTROL",
+      "edition": "梅墅石渠閣 / 萬暦11 [1583] 序",
+      "provider": "CiNii Books",
+      "url": "https://ci.nii.ac.jp/ncid/BB17866565",
+      "source_role": "INDEPENDENT_LIBRARY_BIBLIOGRAPHIC_EDITION_FAMILY_CONTROL_NOT_TARGET_GLYPH_AUTHORITY",
+      "quality_notes": "CiNii HTML/DC metadata directly binds title, 徐善繼/徐善述, 梅墅石渠閣 and 1583; holding list includes 東京大学 東洋文化研究所 図書室. It corroborates the edition family only. Exact physical-copy identity to the Commons/故宮珍本叢刊 scan is not established and is not claimed.",
+      "ncid": "BB17866565",
+      "dc_date": "1583",
+      "holding": "東京大学 東洋文化研究所 図書室",
+      "machine_probe": {
+        "workflow_run_id": 34332573715,
+        "artifact_id": 10096390533,
+        "artifact_zip_sha256": "b79fb61aa46624a601c97fff386fb5090afeb4aaa8dd07f382e9c3f5cf6977b6",
+        "response_sha256": "ae5fb7196f65cee7d9e48b4ac97e4685abedbee90051d61e9ae74250abee3a41",
+        "term_hits": [
+          "重刋人子須知資孝地理心學統宗",
+          "徐善繼",
+          "徐善述",
+          "梅墅石渠閣",
+          "萬暦11",
+          "東京大学",
+          "東洋文化研究所"
+        ]
+      },
+      "exact_physical_copy_identity_to_commons_scan": "NOT_ESTABLISHED",
+      "research_artifact": "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583",
+      "title": "《重刊人子須知資孝地理心學統宗》八卷 GGZBCK411 直接影印",
+      "author_attribution": "明 徐善繼、徐善述",
+      "historical_period": "MING_LONGQING_3_PRINT_WANLI_11_MEISHU_SHIQU_GE_SUPPLEMENT_COMPOSITE_EDITION",
+      "edition": "Commons source label: 隆慶三年刊 / 萬曆十一年梅墅石渠閣補刊本",
+      "provider": "Wikimedia Commons mechanical scan; source label 故宮珍本叢刊",
+      "url": "https://commons.wikimedia.org/wiki/File:GGZBCK411_%E9%87%8D%E5%88%8A%E4%BA%BA%E5%AD%90%E9%A0%88%E7%9F%A5%E8%B3%87%E5%AD%9D%E5%9C%B0%E7%90%86%E5%BF%83%E5%AD%B8%E7%B5%B1%E5%AE%97.pdf",
+      "source_role": "DIRECT_FACSIMILE_WITNESS_FOR_EARLY_MING_SHUSHU_LUOJING_GNOMON_NEEDLE_SEMANTICS_NOT_ZIWEI_DOCTRINE",
+      "quality_notes": "Source-emitted 510-page PDF was downloaded by exact Commons API URL and reviewed without OCR. PDF p414 shows 三昧論有引, p415 shows 正針縫針, and p416 directly reads 臬測以景針以氣故不能符 / 推七政之纏次皆准於臬. The specific target leaves are not assigned individually to the 1569 original blocks versus 1583 supplementary blocks; that printing-phase distinction remains unresolved.",
+      "pdf_bytes": 263325842,
+      "pdf_sha256": "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba",
+      "pdf_page_count": 510,
+      "source_reported_sha1": "781bfed462cb49b62b01cb11e995ae7685c70825",
+      "direct_review_pages": [
+        414,
+        415,
+        416
+      ],
+      "direct_heading": "正針縫針",
+      "decisive_direct_readings": [
+        "臬測以景針以氣故不能符",
+        "推七政之纏次皆准於臬"
+      ],
+      "target_leaf_printing_phase": "UNRESOLVED_WITHIN_LONGQING_3_WANLI_11_COMPOSITE_EDITION",
+      "direct_ocr_used": false,
+      "machine_probe": {
+        "workflow_run_id": 34332573715,
+        "artifact_id": 10096390533,
+        "artifact_zip_sha256": "b79fb61aa46624a601c97fff386fb5090afeb4aaa8dd07f382e9c3f5cf6977b6",
+        "commons_api_response_sha256": "57baff78721318346e3ca2b8804ecdab9725c413b9a86228f0a4a2edeb731c5a",
+        "rendered_p415_sha256": "cfdeb2d59fe4be2dd75ea3c03bcb548be11688e80b128efb2a9fedc3c3080ee1",
+        "rendered_p416_sha256": "877d39d8d7cbe20adc50fe60a6aa84af1c1c5ba27d534037708dad07f267adab"
+      },
+      "new_fullbook_textual_witness_increment": 0,
+      "new_early_ming_shushu_semantic_control_increment": 1,
+      "research_artifact": "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN",
+      "title": "《人子須知》〈正針縫針〉公開轉錄",
+      "author_attribution": "徐善繼、徐善述",
+      "historical_period": "MODERN_DIGITAL_TRANSCRIPTION_OF_MING_SHUSHU_WORK",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=551648&if=gb",
+      "source_role": "TRANSCRIPTION_NAVIGATION_AND_SEMANTIC_CONTROL_ONLY_NOT_GLYPH_AUTHORITY",
+      "quality_notes": "Used to localize and cross-check the direct facsimile. Probe hits 地理之用莫切於羅經 / 立內外二盤 / 正針 / 縫針 / 臬測以景 / 針以氣 / 推七政之纏次 / 皆准於臬. It is not counted as an independent physical witness and cannot override direct facsimile glyphs.",
+      "machine_probe": {
+        "workflow_run_id": 34332573715,
+        "artifact_id": 10096390533,
+        "artifact_zip_sha256": "b79fb61aa46624a601c97fff386fb5090afeb4aaa8dd07f382e9c3f5cf6977b6",
+        "response_sha256": "71a3607c7fc0a4f117a8c13058e0eb701c1824cb1d900aacb26e573530700698",
+        "term_hits": [
+          "地理之用莫切於羅經",
+          "立內外二盤",
+          "正針",
+          "縫針",
+          "臬測以景",
+          "針以氣",
+          "推七政之纏次",
+          "皆准於臬"
+        ]
+      },
+      "independent_physical_witness_increment": 0,
+      "glyph_authority": false,
+      "research_artifact": "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
