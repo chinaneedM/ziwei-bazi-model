@@ -1,0 +1,102 @@
+name: research-ziwei-fullbook-luojing-semantics-aj
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-fullbook-luojing-semantics-aj.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Luojing philology and timekeeping controls
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import urllib.request
+
+          out = pathlib.Path("luojing-aj")
+          out.mkdir(exist_ok=True)
+
+          targets = [
+              {
+                  "key": "huangming_jingshi_xinfa_time",
+                  "url": "https://ctext.org/wiki.pl?chapter=210481&if=gb&remap=gb",
+                  "terms": [
+                      "造正線羅經以定子午",
+                      "若晨昏陰雨",
+                      "行漏",
+                      "若專用羅經者",
+                      "失於先天",
+                      "指南針者",
+                  ],
+              },
+              {
+                  "key": "luojing_dingmenzhen_catalog",
+                  "url": "https://www.shidianguji.com/zh/book/SK0000A/chapter/1kgsnqvp989pe",
+                  "terms": [
+                      "羅經頂門針",
+                      "指南針法",
+                      "堪輿家羅經",
+                      "二十四向",
+                  ],
+              },
+          ]
+
+          receipt = {
+              "schema": "ZIWEI-FULLBOOK-LUOJING-SEMANTICS-AJ-PROBE-R1",
+              "targets": [],
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+          }
+
+          for target in targets:
+              req = urllib.request.Request(
+                  target["url"],
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              item = {"key": target["key"], "requested_url": target["url"]}
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      body = resp.read()
+                      item.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  item.update({"status": None, "error": repr(exc), "bytes": 0, "sha256": None})
+
+              (out / f'{target["key"]}.html').write_bytes(body)
+              text = body.decode("utf-8", errors="replace")
+              compact = re.sub(r"\s+", " ", text)
+              item["term_hits"] = {term: (term in compact) for term in target["terms"]}
+              item["matched_contexts"] = {}
+              for term in target["terms"]:
+                  pos = compact.find(term)
+                  item["matched_contexts"][term] = compact[max(0,pos-120):pos+len(term)+180] if pos >= 0 else None
+              receipt["targets"].append(item)
+
+          (out / "receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-fullbook-luojing-semantics-aj
+          path: luojing-aj/
