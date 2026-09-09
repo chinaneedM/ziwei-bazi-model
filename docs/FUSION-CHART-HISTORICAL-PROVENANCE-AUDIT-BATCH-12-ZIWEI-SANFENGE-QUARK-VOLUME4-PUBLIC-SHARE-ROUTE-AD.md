@@ -94,3 +94,7 @@ The next high-value gate remains a directly readable `《論人生時要審的�
 Primary machine artifact:
 
 `docs/research/ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-R1.json`
+
+## 8. Closure execution binding
+
+Batch 12AD state synchronization was executed by fail-closed workflow run `34312602674`. Before committing, that workflow passed the Fusion Chart Historical Provenance Audit R1 machine gate, the Project Continuity State R1 machine gate, and the focused `test_fusion_chart_historical_provenance_audit_matrix_r1.py` suite. It then produced closure commit `0281adda29690e7f8bf5d9dee343f2098e85ba8b` (tree `16991d5755ffd1b07007eb8570e1b0bf11153b75`). This binding records execution provenance only; it adds no textual evidence, no witness vote, and no algorithm effect.
