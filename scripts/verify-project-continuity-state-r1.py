@@ -88,6 +88,8 @@ ZIWEI_JIAOJINGSHANFANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-P
 ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
 ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md"
 ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json"
+ZIWEI_LATE_ZI_TIME_COORDINATE_AI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI.md"
+ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE = ROOT / "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -131,9 +133,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF",
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
+    "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI.md"
 
 
 def fail(message: str) -> None:
@@ -141,6 +144,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_LATE_ZI_TIME_COORDINATE_AI_BATCH, ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AI continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_BATCH, ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AH continuity artifact missing: {path.relative_to(ROOT)}")
@@ -191,6 +198,7 @@ def main() -> int:
     ziwei_yulgok_guangyi_evidence = json.loads(ZIWEI_YULGOK_GUANGYI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jiaojingshanfang_hanauction_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jiaojingshanfang_detail_photo_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_late_zi_time_coordinate_ai_evidence = json.loads(ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -267,6 +275,7 @@ def main() -> int:
         "EXT-XINYI-JINYUAN-ZWDSQS-MODERN-TOC",
         "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS",
         "EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL",
+        "EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -449,6 +458,51 @@ def main() -> int:
         fail("Batch 12AH registry media-scope repair regressed")
     if src12ah.get("provenance_defect_id") != "PROV-DEFECT-010" or src12ah.get("provenance_defect_repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH":
         fail("Batch 12AH registry provenance defect binding regressed")
+
+    # Batch 12AI Ziwei late-Zi time-coordinate narrowing.
+    if ziwei_late_zi_time_coordinate_ai_evidence.get("batch_id") != "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI":
+        fail("Batch 12AI evidence identity mismatch")
+    probe12ai = ziwei_late_zi_time_coordinate_ai_evidence.get("controlling_probe", {})
+    if probe12ai.get("workflow_run_id") != 34322850489 or probe12ai.get("artifact_id") != 10092539912:
+        fail("Batch 12AI controlling probe binding regressed")
+    if probe12ai.get("artifact_zip_sha256") != "9e3151f558b6425586fc2e2c593f5a01f82529f42f6cbd7e8f3e3973fc6df98f":
+        fail("Batch 12AI artifact digest regressed")
+    witnesses12ai = {w.get("source_id"): w for w in ziwei_late_zi_time_coordinate_ai_evidence.get("witnesses", ())}
+    if witnesses12ai.get("EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR", {}).get("response_sha256") != "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16":
+        fail("Batch 12AI Ming time-determination response binding regressed")
+    if witnesses12ai.get("EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK", {}).get("response_sha256") != "9c70e872519a96ff0bf034bb53a760538e574c99cbdb331b75457fb1c3405f7f":
+        fail("Batch 12AI Ming geography response binding regressed")
+    if witnesses12ai.get("EXT-USNO-EQUATION-OF-TIME", {}).get("response_sha256") != "ae81510e2c00f993413f0593c4706836c6635b57a4b2eac7e11b7de85deee768":
+        fail("Batch 12AI USNO response binding regressed")
+    phil12ai = ziwei_late_zi_time_coordinate_ai_evidence.get("philological_and_coordinate_adjudication", {})
+    if phil12ai.get("normalized_mechanical_concept") != "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE":
+        fail("Batch 12AI historical coordinate family regressed")
+    if phil12ai.get("daytime_instrument_family") != "SUNDIAL_TRUE_SUN" or phil12ai.get("nighttime_instrument_family") != "STELLAR_TIME_READING_WITH_CLEPSYDRA_AS_SUPPLEMENT":
+        fail("Batch 12AI day/night historical time basis regressed")
+    if phil12ai.get("local_apparent_solar_time_status") != "STRONGEST_MODERN_TRANSLATION_OF_DAYTIME_SUNDIAL_READOUT_AT_A_LOCATION":
+        fail("Batch 12AI apparent-solar translation boundary regressed")
+    eff12ai = ziwei_late_zi_time_coordinate_ai_evidence.get("hpa_zdate_006_effect", {})
+    if eff12ai.get("status") != "MISSING_FROM_PRODUCT" or eff12ai.get("runtime_time_standard_binding") != "PARTIALLY_NARROWED_NOT_CLOSED":
+        fail("Batch 12AI HPA/runtime state regressed")
+    if eff12ai.get("candidate_selected") is not False or eff12ai.get("candidate_collapsed") is not False or eff12ai.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AI candidate/algorithm firewall regressed")
+    row12ai = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ai or row12ai.get("batch_12ai_ziwei_late_zi_time_coordinate_artifact") != "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json":
+        fail("Batch 12AI Matrix artifact binding regressed")
+    if row12ai.get("historical_time_coordinate_family") != "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE":
+        fail("Batch 12AI Matrix historical time-coordinate family regressed")
+    if row12ai.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_NOT_CLOSED":
+        fail("Batch 12AI Matrix runtime binding regressed")
+    if row12ai.get("local_apparent_solar_time_historical_binding") != "STRONGEST_MODERN_DAYTIME_TRANSLATION_NOT_NATAL_RUNTIME_WINNER":
+        fail("Batch 12AI Matrix apparent-solar authority firewall regressed")
+    if row12ai.get("independent_textual_witness_count_added_batch_12ai") != 0 or row12ai.get("independent_hai_glyph_witness_count_added_batch_12ai") != 0:
+        fail("Batch 12AI witness accounting regressed")
+    src12ai = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR"), None)
+    if not src12ai or src12ai.get("source_role") != "RECEIVED_INSTITUTIONAL_WITNESS_FOR_MING_SOLAR_STELLAR_TIME_DETERMINATION_NOT_ZIWEI_DOCTRINE":
+        fail("Batch 12AI registry source scope regressed")
+    mp12ai = src12ai.get("machine_probe", {})
+    if mp12ai.get("workflow_run_id") != 34322850489 or mp12ai.get("response_sha256") != "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16":
+        fail("Batch 12AI registry machine binding regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
