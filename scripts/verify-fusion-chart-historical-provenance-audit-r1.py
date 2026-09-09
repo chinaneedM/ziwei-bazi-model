@@ -12,6 +12,7 @@ ZIWEI_LATE_ZI_TIME_COORDINATE_AI = ROOT / "docs" / "research" / "ZIWEI-LATE-ZI-H
 ZIWEI_FULLBOOK_LUOJING_AJ = ROOT / "docs" / "research" / "ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
 ZIWEI_GAOHOU_MENGQIU_AK = ROOT / "docs" / "research" / "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
 ZIWEI_KOREA_CNTS_AL = ROOT / "docs" / "research" / "ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
+ZIWEI_RENZI_XUZHI_AM = ROOT / "docs" / "research" / "ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -212,6 +213,46 @@ def main() -> int:
     phil12al=al_evidence.get("philological_adjudication", {})
     if phil12al.get("fullbook_luojing_clause_interpolation_claim_authorized") is not False or phil12al.get("korea_manuscript_omission_error_claim_authorized") is not False:
         raise SystemExit("Batch 12AL interpolation/error firewall regressed")
+    # Batch 12AM early-Ming shushu Luojing/gnomon semantic bridge.
+    physical12am=by_source_id.get("EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583")
+    cinii12am=by_source_id.get("EXT-CINII-BB17866565-RENZI-XUZHI-1583")
+    ctext12am=by_source_id.get("EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN")
+    if physical12am is None or cinii12am is None or ctext12am is None:
+        raise SystemExit("Batch 12AM source triad is missing")
+    if physical12am.get("pdf_sha256") != "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba" or physical12am.get("pdf_page_count") != 510:
+        raise SystemExit("Batch 12AM physical facsimile identity regressed")
+    if physical12am.get("direct_ocr_used") is not False or physical12am.get("new_early_ming_shushu_semantic_control_increment") != 1:
+        raise SystemExit("Batch 12AM physical/no-OCR semantic-control binding regressed")
+    if cinii12am.get("ncid") != "BB17866565" or cinii12am.get("exact_physical_copy_identity_to_commons_scan") != "NOT_ESTABLISHED":
+        raise SystemExit("Batch 12AM CiNii edition/exact-copy boundary regressed")
+    if ctext12am.get("glyph_authority") is not False or ctext12am.get("independent_physical_witness_increment") != 0:
+        raise SystemExit("Batch 12AM transcription authority boundary regressed")
+    if not ZIWEI_RENZI_XUZHI_AM.is_file():
+        raise SystemExit("Batch 12AM evidence artifact is missing")
+    am_evidence=json.loads(ZIWEI_RENZI_XUZHI_AM.read_text(encoding="utf-8"))
+    if am_evidence.get("batch_id") != "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM":
+        raise SystemExit("Batch 12AM evidence identity mismatch")
+    probe12am=am_evidence.get("controlling_probe", {})
+    if probe12am.get("workflow_run_id") != 34332573715 or probe12am.get("artifact_id") != 10096390533:
+        raise SystemExit("Batch 12AM controlling probe binding regressed")
+    if probe12am.get("artifact_zip_sha256") != "b79fb61aa46624a601c97fff386fb5090afeb4aaa8dd07f382e9c3f5cf6977b6" or not all(probe12am.get("semantic_gates", {}).values()):
+        raise SystemExit("Batch 12AM probe digest/semantic gates regressed")
+    direct12am={x.get("pdf_page_1_based"): x for x in am_evidence.get("direct_physical_collation", ())}
+    if direct12am.get(415, {}).get("direct_heading") != "正針縫針":
+        raise SystemExit("Batch 12AM direct heading regressed")
+    for phrase in ("臬測以景針以氣故不能符", "推七政之纏次皆准於臬"):
+        if phrase not in direct12am.get(416, {}).get("decisive_direct_readings", ()):
+            raise SystemExit(f"Batch 12AM decisive direct reading regressed: {phrase}")
+    phil12am=am_evidence.get("philological_mechanical_adjudication", {})
+    if phil12am.get("luojing_standalone_clock_equivalence") is not False or phil12am.get("fullbook_inclement_time_generation_procedure_closed") is not False:
+        raise SystemExit("Batch 12AM clock/procedure firewall regressed")
+    row12am=next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12am="EARLY_MING_SHUSHU_GNOMON_NEEDLE_SEMANTIC_SEPARATION_CONFIRMED_FULLBOOK_INCLEMENT_TIME_REALIZATION_AND_RUNTIME_BINDING_STILL_OPEN"
+    if row12am is None or row12am.get("runtime_time_standard_binding_status_batch_12am") != expected12am:
+        raise SystemExit("Batch 12AM Matrix runtime snapshot regressed")
+    if row12am.get("candidate_selected_batch_12am") is not False or row12am.get("candidate_collapsed_batch_12am") is not False or row12am.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AM Matrix candidate/algorithm firewall regressed")
+
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
