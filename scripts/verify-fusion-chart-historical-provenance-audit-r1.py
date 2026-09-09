@@ -14,6 +14,7 @@ ZIWEI_GAOHOU_MENGQIU_AK = ROOT / "docs" / "research" / "ZIWEI-GAOHOU-MENGQIU-OPE
 ZIWEI_KOREA_CNTS_AL = ROOT / "docs" / "research" / "ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
 ZIWEI_RENZI_XUZHI_AM = ROOT / "docs" / "research" / "ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
 ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
+ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -277,6 +278,42 @@ def main() -> int:
         raise SystemExit("Batch 12AN Matrix runtime snapshot regressed")
     if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12AN candidate/algorithm firewall regressed")
+
+
+    # Batch 12AO complete-current-public-transcription early-Ziwei boundary.
+    jielan12ao = by_source_id.get("EXT-ZIWEI-JIELAN-1581")
+    if jielan12ao is None:
+        raise SystemExit("Batch 12AO Jielan registry source missing")
+    if jielan12ao.get("public_transcription_source_emitted_pagination_pages") != [1, 2, 3, 4, 5] or jielan12ao.get("public_transcription_declared_chapter_count") != 246 or jielan12ao.get("public_transcription_declared_character_count") != 67533:
+        raise SystemExit("Batch 12AO registry public-surface inventory regressed")
+    if jielan12ao.get("public_transcription_inclement_luojing_terms_attested") is not False or jielan12ao.get("whole_1581_physical_book_negative_authorized") is not False or jielan12ao.get("glyph_authority") is not False or jielan12ao.get("interpolation_claim_authorized") is not False:
+        raise SystemExit("Batch 12AO registry authority firewall regressed")
+    if not ZIWEI_JIELAN_AO.is_file():
+        raise SystemExit("Batch 12AO evidence artifact missing")
+    ev12ao = json.loads(ZIWEI_JIELAN_AO.read_text(encoding="utf-8"))
+    if ev12ao.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO":
+        raise SystemExit("Batch 12AO evidence identity mismatch")
+    probe12ao = ev12ao.get("probes", {}).get("jielan_full_pagination_probe", {})
+    if probe12ao.get("workflow_run_id") != 34341036879 or probe12ao.get("artifact_id") != 10099727992 or probe12ao.get("artifact_zip_sha256") != "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd":
+        raise SystemExit("Batch 12AO controlling probe binding regressed")
+    surf12ao = ev12ao.get("jielan_1581_public_transcription_surface", {})
+    if surf12ao.get("fetched_page_numbers") != [1, 2, 3, 4, 5] or surf12ao.get("all_source_discovered_pages_1_to_5_fetched") is not True:
+        raise SystemExit("Batch 12AO source-emitted pagination coverage regressed")
+    if not all(surf12ao.get("positive_control_terms", {}).values()) or any(surf12ao.get("inclement_luojing_term_hits", {}).values()):
+        raise SystemExit("Batch 12AO positive-control/nonattestation surface regressed")
+    if surf12ao.get("whole_1581_physical_book_negative_authorized") is not False or surf12ao.get("glyph_authority_claimed") is not False or surf12ao.get("interpolation_claim_authorized") is not False:
+        raise SystemExit("Batch 12AO physical-negative/glyph/interpolation firewall regressed")
+    adj12ao = ev12ao.get("adjudication", {})
+    if adj12ao.get("fullbook_clause_remains_source_scoped") is not True or adj12ao.get("ming_technical_inclement_time_input_is_clepsydra_not_compass") is not True:
+        raise SystemExit("Batch 12AO source-scope/technical-control adjudication regressed")
+    if adj12ao.get("fullbook_inclement_current_time_acquisition_mechanism_closed") is not False or adj12ao.get("runtime_standard_selected") is not False:
+        raise SystemExit("Batch 12AO unresolved runtime firewall regressed")
+    row12ao = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12ao = "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED"
+    if row12ao is None or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("runtime_time_standard_binding_status") != expected12ao:
+        raise SystemExit("Batch 12AO Matrix runtime state regressed")
+    if row12ao.get("candidate_selected_batch_12ao") is not False or row12ao.get("candidate_collapsed_batch_12ao") is not False or row12ao.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AO candidate/algorithm firewall regressed")
 
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")

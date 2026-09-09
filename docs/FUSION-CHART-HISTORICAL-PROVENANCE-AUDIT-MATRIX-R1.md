@@ -374,3 +374,14 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 
 
 - Batch 12AN: 《完孝錄》〈論定時〉 confirms a Ming shushu 24-mountain/time-sector coordinate bridge. CText source search emits physical locator `file=100720&page=144`; Shidian ROUTER_DATA binds the route to 國家圖書館 / 內府明萬曆35年刻本 and target PageIds mapping to global pages about 5607-5611. The text anchors time checking to 太陽到處 / 逐時逐刻考驗 / 考星躔, so a Luojing-like 24-sector ring is a coordinate aid, not a standalone clock. Target scan image bytes remain unobserved; no glyph authority is claimed. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; 198/166/10/14 and algorithm invariants remain unchanged.
+
+### Batch 12AO — 1581 Jielan complete public-transcription inclement-time boundary
+
+- Source-emitted Tianji pagination p1-p5 was fully traversed; the public surface declares 246 chapters / 67,533 characters.
+- Birth-time positive controls are present, while configured Fullbook inclement-Luojing terms are not attested on that complete current public transcription surface.
+- No whole-1581-physical-book negative, glyph authority or interpolation claim is authorized without direct facsimile review.
+- Nanyangtang + Guangyi direct Fullbook facsimile evidence remains controlling for the physical Fullbook clause; Ming technical control still uses clepsydra rather than magnetic compass as the inclement clock input.
+- HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime-binding status = EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED.
+- Counts remain 198/166/10/14; algorithm defect/reopen/collapse remain 0.
+- Evidence: docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json.
+
