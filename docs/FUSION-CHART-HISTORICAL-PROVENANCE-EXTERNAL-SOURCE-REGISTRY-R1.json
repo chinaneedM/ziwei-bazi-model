@@ -2489,6 +2489,79 @@
       "textual_witness_relation_to_source_id": "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
       "independent_technical_vote_increment": 1,
       "research_artifact": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
+    },
+    {
+      "source_id": "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809",
+      "title": "徐朝俊《高厚蒙求》初集、二至三集（早稻田大学蔵本）",
+      "historical_period": "QING_JIAQING_12_14_1807_1809",
+      "provider": "早稻田大学図書館 古典籍総合データベース",
+      "url": "https://www.wul.waseda.ac.jp/kotenseki/html/ni05/ni05_02158/index.html",
+      "source_role": "FIRST_PARTY_LIBRARY_PHYSICAL_SCAN_FOR_LATER_OPERATIONAL_TIMEKEEPING_BRIDGE_NOT_FULLBOOK_AUTHORITY",
+      "quality_notes": "Call no. ニ05 02158. Waseda catalogs 徐朝俊, 雲閒徐氏, 嘉慶12-14[1807-1809], and third-collection contents 日晷測時図法/星月測時図表/揆日正方図表/自鳴鐘表図法. Its archive directory directly emits ni05_02158.pdf. Batch 12AK captures the 74,443,272-byte 221-page scan (SHA-256 53ee7b0e...) and directly reviews p130, pp131-132, p143, p194 and p195 without OCR. It is later operational evidence only and cannot establish Ming Fullbook authorial inheritance.",
+      "catalog_call_number": "ニ05 02158",
+      "catalog_imprint": "雲閒 : 徐氏, 嘉慶12-14[1807-1809]",
+      "source_emitted_pdf_url": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02158/ni05_02158.pdf",
+      "pdf_bytes": 74443272,
+      "pdf_sha256": "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4",
+      "pdf_page_count": 221,
+      "machine_probe": {
+        "workflow_run_id": 34327928353,
+        "artifact_id": 10094524731,
+        "artifact_zip_sha256": "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8"
+      },
+      "direct_physical_review_pages": [
+        130,
+        131,
+        132,
+        143,
+        194,
+        195
+      ],
+      "direct_ocr_used": false,
+      "research_artifact": "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-GAOHOU-MENGQIU-V3",
+      "title": "《高厚蒙求》卷三公開轉錄",
+      "historical_period": "MODERN_DIGITAL_TRANSCRIPTION_OF_QING_JIAQING_WORK",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/book/NA06368/chapter/1m3qb3dkp3q5q",
+      "source_role": "TRANSCRIPTION_NAVIGATION_CONTROL_BOUND_TO_WASEDA_PHYSICAL_WORK_NOT_INDEPENDENT_PHYSICAL_WITNESS",
+      "quality_notes": "Machine probe binds 徐朝俊/嘉慶戊辰/羅經地平晷/用羅經可不用節氣/陰雨晦冥/辨子亥定支干. Used to navigate and cross-check the Waseda physical scan; not counted as another physical witness.",
+      "machine_probe": {
+        "workflow_run_id": 34327928353,
+        "artifact_id": 10094524731,
+        "artifact_zip_sha256": "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8",
+        "response_sha256": "c83636fd68ae10aa413a484deb7e3d41fc4509791bd0fca5d88f5f01eda797c2",
+        "term_hits": [
+          "高厚蒙求",
+          "徐朝俊",
+          "嘉慶戊辰",
+          "羅經地平晷",
+          "用羅經可不用節氣",
+          "陰雨晦冥",
+          "辨子亥定支干"
+        ]
+      },
+      "independent_physical_witness_increment": 0,
+      "research_artifact": "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-CTEXT-GAOHOU-MENGQIU-OCR",
+      "title": "《高厚蒙求》CText OCR discovery surface",
+      "historical_period": "MODERN_OCR_OF_QING_JIAQING_WORK",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=783418&if=en&remap=gb",
+      "source_role": "OCR_DISCOVERY_AND_CROSSCHECK_ONLY_NO_GLYPH_LEVEL_AUTHORITY",
+      "quality_notes": "OCR discovery surface only. Machine hits include 高厚蒙求/徐朝俊/罗经/阴雨晦冥/辨子亥定支干. No glyph-level or physical-edition vote is assigned.",
+      "machine_probe": {
+        "workflow_run_id": 34327928353,
+        "artifact_id": 10094524731,
+        "artifact_zip_sha256": "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8",
+        "response_sha256": "ba35d6ddbb829536386e64abc07ade2e5c7490841c8fe70090896c9a5785ae44"
+      },
+      "independent_physical_witness_increment": 0,
+      "research_artifact": "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
