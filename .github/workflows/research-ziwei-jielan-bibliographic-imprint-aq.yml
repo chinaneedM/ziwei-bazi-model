@@ -114,6 +114,36 @@ jobs:
                               "filename": png.name,
                               "sha256": hashlib.sha256(png.read_bytes()).hexdigest(),
                           })
+              # Batch 12AQ R2: manual scan navigation localized catalog item 4051 to physical PDF page 40.
+              # Render that page and a deterministic proportional crop around the target/neighbor columns.
+              manual_page_1_based = 40
+              if 1 <= manual_page_1_based <= len(doc):
+                  target_page = doc.load_page(manual_page_1_based - 1)
+                  page_png = out / "shanben-page-40-direct.png"
+                  target_page.get_pixmap(matrix=fitz.Matrix(3.0, 3.0), alpha=False).save(str(page_png))
+                  rendered.append({
+                      "page_1_based": manual_page_1_based,
+                      "filename": page_png.name,
+                      "sha256": hashlib.sha256(page_png.read_bytes()).hexdigest(),
+                      "locator_basis": "MANUAL_DIRECT_SCAN_NAVIGATION_BY_VISIBLE_CATALOG_ITEM_NUMBERS",
+                  })
+                  # Crop spans item 4050/4051 and left neighbor 4052, so the catalog number and imprint
+                  # can be judged in context without OCR. Coordinates are proportional to the source page.
+                  rect = target_page.rect
+                  clip = fitz.Rect(rect.x0 + rect.width * 0.50, rect.y0 + rect.height * 0.18,
+                                   rect.x0 + rect.width * 0.71, rect.y0 + rect.height * 0.97)
+                  crop_png = out / "shanben-page-40-items-4050-4052.png"
+                  target_page.get_pixmap(matrix=fitz.Matrix(4.0, 4.0), clip=clip, alpha=False).save(str(crop_png))
+                  receipt["shanben_manual_target_render"] = {
+                      "page_1_based": 40,
+                      "catalog_item_expected_from_visible_scan_navigation": 4051,
+                      "full_page_filename": page_png.name,
+                      "full_page_sha256": hashlib.sha256(page_png.read_bytes()).hexdigest(),
+                      "crop_filename": crop_png.name,
+                      "crop_sha256": hashlib.sha256(crop_png.read_bytes()).hexdigest(),
+                      "ocr_used_for_glyph_adjudication": False,
+                      "visual_adjudication": "PENDING_MANUAL_REVIEW",
+                  }
               receipt["shanben_text_layer_hits"] = page_hits
               receipt["shanben_rendered_pages"] = rendered
               receipt["direct_scan_imprint_glyph_adjudication"] = "PENDING_MANUAL_VISUAL_REVIEW_OF_RENDERED_PAGES"
