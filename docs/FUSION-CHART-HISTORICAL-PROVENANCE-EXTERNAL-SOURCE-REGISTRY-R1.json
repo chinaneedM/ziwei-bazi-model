@@ -116,7 +116,7 @@
       "provider": "Tianji digitized transcription; Xinyi/Heart & Yi Tang bibliographic facsimile description",
       "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan",
       "source_role": "EARLY_EXTANT_PRINT_WITNESS_FOR_ZIWEI_DETERMINISTIC_RULES",
-      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim.",
+      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim. Batch 12AP corrects Batch 12AO scope: the five Tianji aggregate pagination pages remain a finite nonattestation surface, but Google Books volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣; no transmission-level absence may be inferred from those aggregate pages.",
       "bibliographic_witnesses": [
         "EXT-SHANGHAI-LIB-JIELAN-1581"
       ],
@@ -139,7 +139,13 @@
       "whole_1581_physical_book_negative_authorized": false,
       "glyph_authority": false,
       "interpolation_claim_authorized": false,
-      "independent_physical_witness_increment_batch_12ao": 0
+      "independent_physical_witness_increment_batch_12ao": 0,
+      "public_transcription_scope_batch_12ao": "TIANJI_SOURCE_EMITTED_AGGREGATE_PAGINATION_PAGES_1_TO_5_ONLY",
+      "batch_12ap_scope_correction": "AO aggregate-page nonattestation remains true for that exact surface; it is not a complete Jielan-text negative. Google Books Heart-One Jielan index source-emits PT49 for 陰雨 within 論十二生時難定訣.",
+      "jielan_inclement_birth_time_discussion_public_index_attested": true,
+      "jielan_inclement_birth_time_public_index_target_page_id": "PT49",
+      "fullbook_style_luojing_true_time_chain_status_in_jielan": "NOT_ATTESTED_ON_REVIEWED_PUBLIC_INDEX_SURFACES; NO_PHYSICAL_NEGATIVE_AUTHORIZED",
+      "provenance_scope_defect_repaired_batch_12ap": "PROV-DEFECT-011"
     },
     {
       "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
@@ -2729,6 +2735,47 @@
       "target_image_bytes_observed": false,
       "glyph_authority": false,
       "research_artifact": "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-GOOGLE-BOOKS-JIELAN-PT49-INCLEMENT-BIRTH-TIME-INDEX",
+      "title": "Google Books《新刻纂集紫微斗數捷覽》PT49《論十二生時難定訣》公開卷內索引",
+      "historical_period": "2016 MODERN FACSIMILE/POINT-COLLATED PUBLICATION INDEX OF THE 1581 JIELAN LINE",
+      "provider": "Google Books",
+      "url": "https://books.google.com/books?id=rZRcCwAAQBAJ",
+      "source_role": "PUBLIC_SEARCH_INDEX_POSITIVE_WITNESS_FOR_JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_NOT_GLYPH_AUTHORITY",
+      "quality_notes": "SearchWithinVolume2 query 陰雨 source-emits PT49 and index text under 論十二生時難定訣 with 天陰雨下時難定 semantics. This blocks promotion of the Batch 12AO aggregate-pagination nonattestation to a complete Jielan-text negative. 羅經/真確時候/行漏/壺漏 zero-results remain index-surface only. PT49 physical glyphs were not obtained.",
+      "volume_id": "rZRcCwAAQBAJ",
+      "source_emitted_target_page_id": "PT49",
+      "inclement_query_response_sha256": "090d0b8d6f7b97adc123c4ec4164184d63264702b452e8bac6670ed195289eed",
+      "workflow_run_id": 34342819087,
+      "artifact_id": 10100441781,
+      "artifact_zip_sha256": "6bf56986a8a594c759e088521496ed9c43944c87b11b29e0a4fd489868b483c8",
+      "glyph_authority": false,
+      "target_physical_page_observed": false,
+      "research_artifact": "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+    },
+    {
+      "source_id": "EXT-NCC-XINYITANG-JIELAN-1581-FACSIMILE-SAMPLES",
+      "title": "星僑／心一堂《紫微斗數捷覽（明刊孤本）原（彩）色本附點校本》公開樣張",
+      "historical_period": "2016 MODERN FACSIMILE PUBLICATION OF THE JIELAN MING-PRINT LINE",
+      "edition": "ISBN 9789888317127 / 二冊不分售 / 462 pages",
+      "provider": "星僑網路書店 / 心一堂",
+      "url": "https://www.ncc.com.tw/books/goods.php?id=12865",
+      "source_role": "DIRECT_PUBLIC_FACSIMILE_SAMPLE_ROUTE_AND_PUBLICATION_IDENTITY_NOT_TARGET_PT49_GLYPH_AUTHORITY",
+      "quality_notes": "NCC source-emits 12 sample-image URLs. Direct no-OCR visual review confirms cover/package identity and several genuine historical facsimile spreads. None is PT49, so this source adds no target glyph vote.",
+      "product_id": 12865,
+      "publisher": "心一堂",
+      "publication_date": "2016-02-01",
+      "isbn13": "9789888317127",
+      "declared_page_count": 462,
+      "source_emitted_sample_image_count": 12,
+      "genuine_facsimile_spreads_directly_reviewed": true,
+      "target_pt49_observed": false,
+      "glyph_authority_for_pt49": false,
+      "workflow_run_id": 34343838518,
+      "artifact_id": 10100867678,
+      "artifact_zip_sha256": "0dfb22b33e9b11550e8e60ed55640dc839cbb926de6b8908de82da0c252272ca",
+      "research_artifact": "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
