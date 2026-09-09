@@ -1,0 +1,186 @@
+{
+  "schema": "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
+  "access_date": "2026-09-09",
+  "status": "JIAQING_OPERATIONAL_TIMEKEEPING_BRIDGE_DIRECT_PHYSICAL_SCAN_BOUND_LUOJING_SUNDIAL_AND_INCLEMENT_ZI_HAI_CLOCK_USE_CONFIRMED_NOT_FULLBOOK_AUTHORIAL_BINDING",
+  "controlling_probe": {
+    "workflow_file": ".github/workflows/research-ziwei-gaohou-mengqiu-operational-bridge-ak.yml",
+    "workflow_run_id": 34327928353,
+    "probe_commit_sha": "5d2ef77e606f9d3c029c8f9096362d5abecc9c72",
+    "artifact_id": 10094524731,
+    "artifact_name": "ziwei-gaohou-mengqiu-operational-bridge-ak",
+    "artifact_zip_sha256": "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8",
+    "semantic_gates": {
+      "waseda_identity_and_contents_bound": true,
+      "shidian_luojing_orientation_terms_bound": true,
+      "shidian_inclement_zi_hai_terms_bound": true,
+      "ctext_ocr_inclement_zi_hai_crosscheck": true
+    },
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "ocr_generated_by_probe": false
+  },
+  "primary_physical_source": {
+    "source_id": "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809",
+    "provider": "早稻田大学図書館 古典籍総合データベース",
+    "catalog_url": "https://www.wul.waseda.ac.jp/kotenseki/html/ni05/ni05_02158/index.html",
+    "call_number": "ニ05 02158",
+    "title": "高厚蒙求. 初集,2-3集",
+    "author": "徐朝俊",
+    "imprint": "雲閒 : 徐氏, 嘉慶12-14[1807-1809]",
+    "extent": "1冊(合4冊) ; 23cm",
+    "catalog_contents": "初集: 天学入門. 2集: 海域大観. 3集: 日晷測時図法. 星月測時図表. 揆日正方図表. 自鳴鐘表図法",
+    "catalog_response_sha256": "b25dfe0ecbad56af8a6ac5f374c03959b6430927b675e96962a1da6b84b7d5f2",
+    "source_emitted_archive_directory": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02158/",
+    "archive_directory_response_sha256": "102a6f1d4c4a5f7e4aa54e0f6d3c1b3ed2af9a05daea44c09b81f3d2ce770a93",
+    "source_emitted_pdf_href": "ni05_02158.pdf",
+    "source_emitted_pdf_url": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02158/ni05_02158.pdf",
+    "pdf_bytes": 74443272,
+    "pdf_sha256": "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4",
+    "pdf_page_count": 221,
+    "pdf_page_count_method": "DIRECT_LOCAL_PDF_CONTAINER_INSPECTION_AFTER_SOURCE_EMITTED_DOWNLOAD",
+    "source_emitted_not_guessed": true,
+    "direct_visual_review_no_ocr": true
+  },
+  "direct_physical_collation": [
+    {
+      "pdf_page_1_based": 130,
+      "reading_scope": "THIRD_COLLECTION_TITLE_AND_CONTENT_IDENTITY",
+      "direct_readings": [
+        "定時儀器",
+        "高厚蒙求",
+        "嘉慶己巳鐫",
+        "雲間徐氏藏版"
+      ],
+      "visible_content_labels": [
+        "日晷測時圖法",
+        "星月測時圖表",
+        "揆日正方圖表",
+        "自鳴鐘表圖法"
+      ],
+      "direct_ocr_used": false
+    },
+    {
+      "pdf_page_1_based_range": [
+        131,
+        132
+      ],
+      "reading_scope": "RIZHI_PREFACE_OPERATIONAL_FRAME",
+      "adjudicated_reading": "The preface treats accurate timekeeping as instrument work tied to celestial motion and local polar altitude; it explicitly discusses methods based on 羅經 and/or 節氣 and states that obtaining 實在真時 everywhere cannot ignore 北極出地.",
+      "source_transcription_control": "識典卷三 preserves the corresponding wording 用羅經可不用節氣、用節氣可不用羅經、要未有不本北極出地而可隨處得實在真時者也.",
+      "direct_ocr_used": false
+    },
+    {
+      "pdf_page_1_based": 143,
+      "reading_scope": "LUOJING_PINGGUI_DIRECT_PHYSICAL_PAGE",
+      "direct_heading": "一曰羅經平晷",
+      "direct_decisive_reading": "此即徽地所製牽線取影晷也",
+      "visual_instrument_structure": "The page directly depicts a sundial plate with an embedded circular compass/orientation component and shadow-measurement geometry.",
+      "mechanical_adjudication": "LUOJING_IS_AN_ORIENTATION_COMPONENT_INSIDE_A_SUNDIAL_SYSTEM; TIME_IS_REALIZED_BY_THE_SUNDIAL_SHADOW_GEOMETRY, NOT_BY_THE_COMPASS_ALONE.",
+      "direct_ocr_used": false
+    },
+    {
+      "pdf_page_1_based": 194,
+      "reading_scope": "CLOCK_SECTION_TITLE",
+      "direct_heading": "自鳴鐘表圖法",
+      "direct_ocr_used": false
+    },
+    {
+      "pdf_page_1_based": 195,
+      "reading_scope": "ZHONGBIAO_TUSHUO_PREFACE_DIRECT_PHYSICAL_PAGE",
+      "direct_heading": "鐘表圖說自序",
+      "decisive_direct_reading": "余既述日晷諸法以測晝時復述星月儀表諸法以測夜時而于陰雨晦冥之時尚未之及因輯是編所以辨子亥定支干非以供陳設玩好也",
+      "semantic_components": {
+        "daytime_timekeeping": "日晷諸法以測晝時",
+        "nighttime_timekeeping": "星月儀表諸法以測夜時",
+        "inclement_gap": "陰雨晦冥之時尚未之及",
+        "clock_compilation_purpose": "所以辨子亥定支干"
+      },
+      "direct_ocr_used": false
+    }
+  ],
+  "transcription_controls": [
+    {
+      "source_id": "EXT-SHIDIAN-GAOHOU-MENGQIU-V3",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/book/NA06368/chapter/1m3qb3dkp3q5q",
+      "response_sha256": "c83636fd68ae10aa413a484deb7e3d41fc4509791bd0fca5d88f5f01eda797c2",
+      "machine_term_hits": [
+        "高厚蒙求",
+        "徐朝俊",
+        "嘉慶戊辰",
+        "羅經地平晷",
+        "用羅經可不用節氣",
+        "陰雨晦冥",
+        "辨子亥定支干"
+      ],
+      "role": "PUBLIC_TRANSCRIPTION_CONTROL_BOUND_TO_DIRECT_PHYSICAL_SCAN_NOT_AN_INDEPENDENT_PHYSICAL_WITNESS"
+    },
+    {
+      "source_id": "EXT-CTEXT-GAOHOU-MENGQIU-OCR",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=783418&if=en&remap=gb",
+      "response_sha256": "ba35d6ddbb829536386e64abc07ade2e5c7490841c8fe70090896c9a5785ae44",
+      "machine_term_hits": [
+        "高厚蒙求",
+        "徐朝俊",
+        "罗经",
+        "阴雨晦冥",
+        "辨子亥定支干"
+      ],
+      "role": "OCR_DISCOVERY_AND_CROSSCHECK_ONLY",
+      "ocr_authority": "DO_NOT_USE_FOR_GLYPH_LEVEL_PRIMARY_COLLATION"
+    }
+  ],
+  "operational_bridge_adjudication": {
+    "historical_period": "QING_JIAQING_1807_1809",
+    "relation_to_fullbook": "LATER_OPERATIONAL_BRIDGE_NOT_FULLBOOK_AUTHORIAL_OR_MING_CLOCK_SPECIFICATION",
+    "demonstrated_system": [
+      "LUOJING_ORIENTATION_CAN_BE_INTEGRATED_INTO_SUNDIAL_CONSTRUCTION",
+      "DAYTIME_TIME_BY_SUNDIAL",
+      "NIGHTTIME_TIME_BY_STAR_MOON_INSTRUMENTS",
+      "INCLEMENT_DARK_TIME_GAP_FILLED_BY_MECHANICAL_CLOCK_TREATMENT",
+      "EXPLICIT_APPLICATION_TO_DISTINGUISH_ZI_HAI_AND_FIX_EARTHLY_BRANCH_STEM_TIME"
+    ],
+    "key_bridge": "A later technical practitioner explicitly treats 子亥 discrimination under inclement/dark conditions as a precision timekeeping problem and assigns distinct instruments to orientation, observable celestial time, and no-sky clock continuation.",
+    "fullbook_luojing_phrase_explained_as_exact_procedure": false,
+    "fullbook_inheritance_proven": false,
+    "true_solar_time_runtime_selected": false,
+    "local_apparent_solar_time_runtime_selected": false
+  },
+  "evidence_independence": {
+    "new_fullbook_textual_witness_increment": 0,
+    "new_hai_glyph_witness_increment": 0,
+    "new_stemmatically_independent_fullbook_branch_increment": 0,
+    "later_operational_bridge_increment": 1,
+    "same_work_transcription_double_count_forbidden": true
+  },
+  "hpa_zdate_006_effect": {
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding_status": "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN",
+    "source_scoped_fullbook_operational_procedure": "UNRESOLVED",
+    "candidate_created": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "safety": {
+    "direct_ocr_used": false,
+    "hidden_filename_guessing_attempted": false,
+    "authentication_attempted": false,
+    "access_control_bypass_attempted": false
+  }
+}
