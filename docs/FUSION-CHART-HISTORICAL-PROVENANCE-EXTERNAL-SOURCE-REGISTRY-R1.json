@@ -116,9 +116,11 @@
       "provider": "Tianji digitized transcription; Xinyi/Heart & Yi Tang bibliographic facsimile description",
       "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan",
       "source_role": "EARLY_EXTANT_PRINT_WITNESS_FOR_ZIWEI_DETERMINISTIC_RULES",
-      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim. Batch 12AP corrects Batch 12AO scope: the five Tianji aggregate pagination pages remain a finite nonattestation surface, but Google Books volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣; no transmission-level absence may be inferred from those aggregate pages.",
+      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim. Batch 12AP corrects Batch 12AO scope: the five Tianji aggregate pagination pages remain a finite nonattestation surface, but Google Books volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣; no transmission-level absence may be inferred from those aggregate pages. Batch 12AQ directly reviews 《中國古籍善本書目·子部三》 scan p40 without OCR: Jielan is item 4051 and the imprint reads 明萬曆九年金陵書坊王洛川刻本. Search-index 王德川 / 4052 is rejected as OCR/table-alignment error.",
       "bibliographic_witnesses": [
-        "EXT-SHANGHAI-LIB-JIELAN-1581"
+        "EXT-SHANGHAI-LIB-JIELAN-1581",
+        "EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051",
+        "EXT-NCL-WANGSHI-LUOCHUAN-XUANHE"
       ],
       "batch_12ao_full_pagination_probe": {
         "workflow_run_id": 34341036879,
@@ -145,7 +147,16 @@
       "jielan_inclement_birth_time_discussion_public_index_attested": true,
       "jielan_inclement_birth_time_public_index_target_page_id": "PT49",
       "fullbook_style_luojing_true_time_chain_status_in_jielan": "NOT_ATTESTED_ON_REVIEWED_PUBLIC_INDEX_SURFACES; NO_PHYSICAL_NEGATIVE_AUTHORIZED",
-      "provenance_scope_defect_repaired_batch_12ap": "PROV-DEFECT-011"
+      "provenance_scope_defect_repaired_batch_12ap": "PROV-DEFECT-011",
+      "batch_12aq_direct_bibliography_confirmation": {
+        "source_id": "EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051",
+        "catalog_item_number": 4051,
+        "direct_scan_page_1_based": 40,
+        "direct_visual_imprint": "明萬曆九年金陵書坊王洛川刻本",
+        "search_surface_wang_dechuan_rejected": true,
+        "search_surface_item_4052_rejected_as_alignment_error": true,
+        "research_artifact": "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+      }
     },
     {
       "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
@@ -2776,6 +2787,41 @@
       "artifact_id": 10100867678,
       "artifact_zip_sha256": "0dfb22b33e9b11550e8e60ed55640dc839cbb926de6b8908de82da0c252272ca",
       "research_artifact": "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+    },
+    {
+      "source_id": "EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051",
+      "title": "《中國古籍善本書目·子部三》4051《新刻纂集紫微斗數捷覽四卷》",
+      "historical_period": "MODERN NATIONAL RARE-BOOK BIBLIOGRAPHY RECORDING A MING WANLI 9 JINLING PRINT",
+      "provider": "《中國古籍善本書目》 printed bibliography / Wikimedia Commons scan",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/SSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf",
+      "source_role": "DIRECT_PRINTED_BIBLIOGRAPHIC_SCAN_FOR_JIELAN_CATALOG_ITEM_AND_IMPRINT_IDENTITY_NOT_RULE_TEXT_OR_TARGET_PAGE_GLYPH_AUTHORITY",
+      "quality_notes": "Direct no-OCR review of PDF p40 shows item 4051 aligned to 新刻纂集紫微斗數捷覽四卷 and reads 明萬曆九年金陵書坊王洛川刻本. The neighboring 4052 column is 上官拜命玉曆大全不分卷. Search-engine extraction 王德川 / 4052 is therefore rejected as OCR/table-alignment artifact.",
+      "pdf_sha256": "e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab",
+      "pdf_page_count": 160,
+      "target_page_1_based": 40,
+      "catalog_item_number": 4051,
+      "direct_visual_imprint": "明萬曆九年金陵書坊王洛川刻本",
+      "direct_page_render_sha256": "fe32995fed004f54e94795dafa528231ba7a670c99eb13e5bea79a6ac56802b6",
+      "direct_target_crop_sha256": "e24212dbf2213be31969b995f9058dd06df6bc1beabd87b486ad752edd2a053e",
+      "ocr_used_for_final_glyph_adjudication": false,
+      "workflow_run_id": 34350629959,
+      "artifact_id": 10103542053,
+      "artifact_zip_sha256": "c50fff947d5adf8e4eb9109d7d00485dbe7d04a7767090ca6e9109603b8c7f88",
+      "research_artifact": "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+    },
+    {
+      "source_id": "EXT-NCL-WANGSHI-LUOCHUAN-XUANHE",
+      "title": "國家圖書館《新刊大宋宣和遺事》明金陵王氏洛川校刊本書目",
+      "historical_period": "MING JINLING PRINT; OFFICIAL MODERN LIBRARY CATALOG RECORD",
+      "provider": "臺灣國家圖書館古籍與特藏文獻資源",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=295571d85e4c45a397547d8f565dd050fDc0NjYx0.g5hCuW8N0Tx9niVfLTK2Rou7fzSw7C8VUWWII7g4nyU_&page=",
+      "source_role": "INDEPENDENT_OFFICIAL_LIBRARY_BIBLIOGRAPHIC_CONTROL_FOR_WANG_SHI_LUOCHUAN_IMPRINT_NAME_NOT_JIELAN_COPY_IDENTITY",
+      "quality_notes": "Official NCL catalog HTML directly emits edition 明金陵王氏洛川校刊本 for an unrelated work. Used only to show 王氏洛川 is independently attested as a Ming Jinling imprint/bookseller string; it does not establish Jielan copy identity, target glyphs or textual transmission.",
+      "response_sha256": "3df3ad4cdc1dc6b8d54ff5fe96f6086c22753151888af18fa87de0f1707011cb",
+      "direct_catalog_term": "明金陵王氏洛川校刊本",
+      "workflow_run_id": 34350629959,
+      "artifact_id": 10103542053,
+      "research_artifact": "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
