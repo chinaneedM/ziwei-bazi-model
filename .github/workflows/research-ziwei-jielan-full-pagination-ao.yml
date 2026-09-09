@@ -1,0 +1,93 @@
+name: research-ziwei-jielan-full-pagination-ao
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jielan-full-pagination-ao.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Traverse only source-emitted Tianji pagination
+        shell: python
+        run: |
+          import hashlib, html, json, pathlib, re, urllib.parse, urllib.request
+          from collections import deque
+
+          out=pathlib.Path('jielan-full-ao'); out.mkdir(exist_ok=True)
+          start='https://tianjihq.com/zh-TW/learn/books/ziwei-jielan'
+          headers={'User-Agent':'Mozilla/5.0 historical-provenance-research/1.0'}
+          terms=['論人生時要審的確','论人生时要审的确','人生子亥二時','人生子亥二时','子時有十刻','子时有十刻','陰雨','阴雨','羅經','罗经','真確時候','真确时候','行漏','壺漏','壶漏','指南針','指南针','定小兒生時','定小儿生时','生時成形論','生时成形论']
+          def norm(x):
+              x=html.unescape(x); x=re.sub(r'<[^>]+>','',x)
+              return re.sub(r'[，、。；：？！,.!?;:「」『』（）()\[\]【】<>/\\=_\-\s]+','',x)
+          def fetch(url):
+              req=urllib.request.Request(url,headers=headers)
+              with urllib.request.urlopen(req,timeout=45) as resp:
+                  return resp.read(),resp.status,resp.geturl(),resp.headers.get('content-type')
+          q=deque([start]); seen=set(); pages=[]; emitted_edges=[]
+          while q and len(seen)<20:
+              url=q.popleft()
+              if url in seen: continue
+              seen.add(url)
+              try:
+                  body,status,final,ctype=fetch(url)
+              except Exception as exc:
+                  pages.append({'url':url,'status':None,'error':repr(exc)}); continue
+              raw=body.decode('utf-8',errors='replace'); n=norm(raw)
+              rec={'url':url,'status':status,'final_url':final,'content_type':ctype,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest(),'term_hits':{t:norm(t) in n for t in terms}}
+              # Extract declared book inventory metadata visible on page.
+              for label,pat in [('chapter_count',r'章數\s*([0-9,]+)\s*章'),('char_count',r'字數\s*([0-9,]+)\s*字')]:
+                  m=re.search(pat,re.sub(r'<[^>]+>',' ',html.unescape(raw)))
+                  if m: rec[label]=m.group(1)
+              page_no=urllib.parse.parse_qs(urllib.parse.urlparse(final).query).get('p',['1'])[0]
+              rec['page_no']=page_no
+              (out/f'page-{page_no}.html').write_bytes(body)
+              # Follow only same-book pagination hrefs literally emitted by the fetched page.
+              hrefs=re.findall(r'href=["\']([^"\']+)["\']',raw,flags=re.I)
+              emitted=[]
+              for href in hrefs:
+                  absolute=urllib.parse.urljoin(final,html.unescape(href))
+                  u=urllib.parse.urlparse(absolute)
+                  if u.netloc=='tianjihq.com' and u.path=='/zh-TW/learn/books/ziwei-jielan' and 'p' in urllib.parse.parse_qs(u.query):
+                      if absolute not in emitted: emitted.append(absolute)
+              rec['source_emitted_pagination_links']=emitted
+              for nxt in emitted:
+                  emitted_edges.append({'from':final,'to':nxt})
+                  if nxt not in seen: q.append(nxt)
+              pages.append(rec)
+          pages_sorted=sorted(pages,key=lambda x:int(x.get('page_no','999')) if str(x.get('page_no','')).isdigit() else 999)
+          aggregate={t:any(p.get('term_hits',{}).get(t,False) for p in pages_sorted) for t in terms}
+          receipt={
+            'schema':'ZIWEI-JIELAN-FULL-PAGINATION-AO-PROBE-R1',
+            'start_url':start,
+            'traversal_policy':'ONLY_SAME_BOOK_PAGINATION_URLS_LITERAL_EMITTED_BY_ALREADY_FETCHED_PAGES',
+            'fetched_page_count':len([p for p in pages_sorted if p.get('status')==200]),
+            'fetched_page_numbers':[p.get('page_no') for p in pages_sorted if p.get('status')==200],
+            'pages':pages_sorted,
+            'source_emitted_edges':emitted_edges,
+            'aggregate_term_hits':aggregate,
+            'surface_scope':'COMPLETE_PUBLIC_PAGINATED_TIANJI_JIELAN_TRANSCRIPTION_IF_ALL_SOURCE_DISCOVERED_PAGE_NUMBERS_1_TO_5_FETCHED_SUCCESSFULLY',
+            'whole_physical_book_negative_authorized':False,
+            'interpolation_claim_authorized':False,
+            'glyph_authority_claimed':False,
+            'authentication_attempted':False,
+            'captcha_bypass_attempted':False,
+            'ocr_generated_by_probe':False
+          }
+          receipt['all_pages_1_to_5_fetched']=receipt['fetched_page_numbers']==['1','2','3','4','5']
+          (out/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(receipt,ensure_ascii=False,indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jielan-full-pagination-ao
+          path: jielan-full-ao/
