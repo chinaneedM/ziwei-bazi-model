@@ -116,7 +116,7 @@
       "provider": "Tianji digitized transcription; Xinyi/Heart & Yi Tang bibliographic facsimile description",
       "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan",
       "source_role": "EARLY_EXTANT_PRINT_WITNESS_FOR_ZIWEI_DETERMINISTIC_RULES",
-      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim. Batch 12AP corrects Batch 12AO scope: the five Tianji aggregate pagination pages remain a finite nonattestation surface, but Google Books volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣; no transmission-level absence may be inferred from those aggregate pages. Batch 12AQ directly reviews 《中國古籍善本書目·子部三》 scan p40 without OCR: Jielan is item 4051 and the imprint reads 明萬曆九年金陵書坊王洛川刻本. Search-index 王德川 / 4052 is rejected as OCR/table-alignment error.",
+      "quality_notes": "Rule conclusions use chapter-level verbatim transcriptions. Edition identity is independently corroborated by Shanghai Library linked-data instance 子4051 (明万历9年 / begin 1581 / 金陵书坊王洛川刻本). Exact facsimile-page verification remains preferred for any glyph-critical dispute. Batch 12AO traversed all five current source-emitted Tianji pagination pages. The nonattestation is public-transcription-surface only, not glyph authority, not a physical-book negative, and not an interpolation claim. Batch 12AP corrects Batch 12AO scope: the five Tianji aggregate pagination pages remain a finite nonattestation surface, but Google Books volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣; no transmission-level absence may be inferred from those aggregate pages. Batch 12AQ directly reviews 《中國古籍善本書目·子部三》 scan p40 without OCR: Jielan is item 4051 and the imprint reads 明萬曆九年金陵書坊王洛川刻本. Search-index 王德川 / 4052 is rejected as OCR/table-alignment error. Batch 12AR closes the reviewed Google public-preview route for PT49: a source-emitted signed PT49 image URL exists, but its response is a visible placeholder; index-positive status remains, physical target glyphs remain unobserved.",
       "bibliographic_witnesses": [
         "EXT-SHANGHAI-LIB-JIELAN-1581",
         "EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051",
@@ -156,7 +156,8 @@
         "search_surface_wang_dechuan_rejected": true,
         "search_surface_item_4052_rejected_as_alignment_error": true,
         "research_artifact": "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
-      }
+      },
+      "batch_12ar_pt49_public_preview_boundary": "GOOGLE_PLAY_READER_SOURCE_EMITS_PT49_SIGNED_IMAGE_URL_BUT_TARGET_RESPONSE_IS_PLACEHOLDER; NO_PHYSICAL_GLYPH_AUTHORITY"
     },
     {
       "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
@@ -2754,7 +2755,7 @@
       "provider": "Google Books",
       "url": "https://books.google.com/books?id=rZRcCwAAQBAJ",
       "source_role": "PUBLIC_SEARCH_INDEX_POSITIVE_WITNESS_FOR_JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_NOT_GLYPH_AUTHORITY",
-      "quality_notes": "SearchWithinVolume2 query 陰雨 source-emits PT49 and index text under 論十二生時難定訣 with 天陰雨下時難定 semantics. This blocks promotion of the Batch 12AO aggregate-pagination nonattestation to a complete Jielan-text negative. 羅經/真確時候/行漏/壺漏 zero-results remain index-surface only. PT49 physical glyphs were not obtained.",
+      "quality_notes": "SearchWithinVolume2 query 陰雨 source-emits PT49 and index text under 論十二生時難定訣 with 天陰雨下時難定 semantics. This blocks promotion of the Batch 12AO aggregate-pagination nonattestation to a complete Jielan-text negative. 羅經/真確時候/行漏/壺漏 zero-results remain index-surface only. PT49 physical glyphs were not obtained. Batch 12AR follows only public source-emitted PT49/reader routes. Play reader directly emits a signed PT49 image URL; PT48 positive control returns a genuine facsimile page, while PT49 and PT50 return the identical visible image-not-available placeholder. Thus PT49 remains index-positive but not physical glyph authority on the reviewed Google public preview surface.",
       "volume_id": "rZRcCwAAQBAJ",
       "source_emitted_target_page_id": "PT49",
       "inclement_query_response_sha256": "090d0b8d6f7b97adc123c4ec4164184d63264702b452e8bac6670ed195289eed",
@@ -2763,7 +2764,20 @@
       "artifact_zip_sha256": "6bf56986a8a594c759e088521496ed9c43944c87b11b29e0a4fd489868b483c8",
       "glyph_authority": false,
       "target_physical_page_observed": false,
-      "research_artifact": "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+      "research_artifact": "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json",
+      "batch_12ar_public_preview_boundary": {
+        "research_artifact": "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json",
+        "standard_pt49_public_page_http_200": true,
+        "play_reader_public_http_200": true,
+        "play_reader_pt49_signed_image_url_source_emitted": true,
+        "pt48_real_facsimile_positive_control_sha256": "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0",
+        "pt49_response_sha256": "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6",
+        "pt49_response_visual_status": "IMAGE_NOT_AVAILABLE_PLACEHOLDER",
+        "pt50_same_placeholder_sha256": true,
+        "pt49_physical_page_observed": false,
+        "pt49_physical_glyph_authority": false,
+        "reviewed_google_public_preview_surface_closed_for_current_routes": true
+      }
     },
     {
       "source_id": "EXT-NCC-XINYITANG-JIELAN-1581-FACSIMILE-SAMPLES",
@@ -2822,6 +2836,26 @@
       "workflow_run_id": 34350629959,
       "artifact_id": 10103542053,
       "research_artifact": "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+    },
+    {
+      "source_id": "EXT-GOOGLE-PLAY-JIELAN-PT49-PREVIEW-BOUNDARY",
+      "title": "Google Play Books《紫微斗數捷覽》PT49 公開 reader 頁圖可用性邊界",
+      "historical_period": "2016 MODERN FACSIMILE PUBLICATION PREVIEW SURFACE OF THE 1581 JIELAN LINE",
+      "provider": "Google Play Books public reader",
+      "url": "https://play.google.com/books/reader?id=rZRcCwAAQBAJ",
+      "source_role": "PUBLIC_PREVIEW_ACCESS_BOUNDARY_CONTROL_NOT_TEXT_OR_GLYPH_AUTHORITY",
+      "quality_notes": "Public reader bootstrap directly emits signed image URLs for PT48/PT49/PT50. Direct fetch without modifying signatures returns a genuine PT48 facsimile JPEG, but PT49 and PT50 return the identical visible image-not-available PNG placeholder. This proves the current public reader map exposes a PT49 image contract but not PT49 physical pixels. No physical-book negative, private/licensed reader negative, or textual absence claim is authorized.",
+      "volume_id": "rZRcCwAAQBAJ",
+      "workflow_run_id": 34353510199,
+      "artifact_id": 10104715354,
+      "artifact_zip_sha256": "52c968a601a56732f293d2f25318d8d70ae6dc4f2e588baeee077e51ada6b1ed",
+      "pt48_real_facsimile_sha256": "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0",
+      "pt49_placeholder_sha256": "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6",
+      "pt50_placeholder_sha256": "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6",
+      "pt49_signed_image_url_source_emitted": true,
+      "target_physical_page_observed": false,
+      "glyph_authority": false,
+      "research_artifact": "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
