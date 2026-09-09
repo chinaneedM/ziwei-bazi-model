@@ -10,6 +10,7 @@ ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGT
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI = ROOT / "docs" / "research" / "ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
 ZIWEI_FULLBOOK_LUOJING_AJ = ROOT / "docs" / "research" / "ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
+ZIWEI_GAOHOU_MENGQIU_AK = ROOT / "docs" / "research" / "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -142,6 +143,44 @@ def main() -> int:
         raise SystemExit("Batch 12AJ controlling probe binding regressed")
     if probe12aj.get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95" or probe12aj.get("all_decisive_control_terms_hit") is not True:
         raise SystemExit("Batch 12AJ stabilized term gate regressed")
+    waseda12ak=by_source_id.get("EXT-WASEDA-GAOHOU-MENGQIU-1807-1809")
+    shidian12ak=by_source_id.get("EXT-SHIDIAN-GAOHOU-MENGQIU-V3")
+    ctext12ak=by_source_id.get("EXT-CTEXT-GAOHOU-MENGQIU-OCR")
+    if waseda12ak is None:
+        raise SystemExit("Batch 12AK Waseda physical source missing")
+    if waseda12ak.get("pdf_sha256") != "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4" or waseda12ak.get("pdf_page_count") != 221:
+        raise SystemExit("Batch 12AK Waseda PDF identity regressed")
+    if waseda12ak.get("machine_probe", {}).get("workflow_run_id") != 34327928353 or waseda12ak.get("machine_probe", {}).get("artifact_id") != 10094524731:
+        raise SystemExit("Batch 12AK Waseda machine binding regressed")
+    if shidian12ak is None or shidian12ak.get("independent_physical_witness_increment") != 0:
+        raise SystemExit("Batch 12AK Shidian scope/dedup binding regressed")
+    if ctext12ak is None or ctext12ak.get("source_role") != "OCR_DISCOVERY_AND_CROSSCHECK_ONLY_NO_GLYPH_LEVEL_AUTHORITY":
+        raise SystemExit("Batch 12AK CText OCR authority boundary regressed")
+    if not ZIWEI_GAOHOU_MENGQIU_AK.is_file():
+        raise SystemExit("Batch 12AK evidence artifact is missing")
+    ak_evidence=json.loads(ZIWEI_GAOHOU_MENGQIU_AK.read_text(encoding="utf-8"))
+    if ak_evidence.get("batch_id") != "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK":
+        raise SystemExit("Batch 12AK evidence identity mismatch")
+    probe12ak=ak_evidence.get("controlling_probe", {})
+    if probe12ak.get("workflow_run_id") != 34327928353 or probe12ak.get("artifact_id") != 10094524731:
+        raise SystemExit("Batch 12AK controlling probe binding regressed")
+    if probe12ak.get("artifact_zip_sha256") != "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8":
+        raise SystemExit("Batch 12AK artifact digest regressed")
+    if not all(probe12ak.get("semantic_gates", {}).values()):
+        raise SystemExit("Batch 12AK semantic gates regressed")
+    phys12ak=ak_evidence.get("primary_physical_source", {})
+    if phys12ak.get("source_emitted_not_guessed") is not True or phys12ak.get("pdf_sha256") != "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4":
+        raise SystemExit("Batch 12AK source-emitted physical PDF binding regressed")
+    direct12ak={x.get("pdf_page_1_based"): x for x in ak_evidence.get("direct_physical_collation", ()) if x.get("pdf_page_1_based")}
+    if direct12ak.get(143, {}).get("direct_heading") != "一曰羅經平晷":
+        raise SystemExit("Batch 12AK direct 羅經平晷 collation regressed")
+    if direct12ak.get(195, {}).get("decisive_direct_reading") != "余既述日晷諸法以測晝時復述星月儀表諸法以測夜時而于陰雨晦冥之時尚未之及因輯是編所以辨子亥定支干非以供陳設玩好也":
+        raise SystemExit("Batch 12AK direct inclement Zi/Hai collation regressed")
+    bridge12ak=ak_evidence.get("operational_bridge_adjudication", {})
+    if bridge12ak.get("relation_to_fullbook") != "LATER_OPERATIONAL_BRIDGE_NOT_FULLBOOK_AUTHORIAL_OR_MING_CLOCK_SPECIFICATION":
+        raise SystemExit("Batch 12AK Fullbook historical-scope firewall regressed")
+    if bridge12ak.get("fullbook_inheritance_proven") is not False or bridge12ak.get("true_solar_time_runtime_selected") is not False or bridge12ak.get("local_apparent_solar_time_runtime_selected") is not False:
+        raise SystemExit("Batch 12AK runtime/inheritance firewall regressed")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
@@ -466,12 +505,32 @@ def main() -> int:
         raise SystemExit("Batch 12AJ standalone-clock equivalence regressed")
     if row_nanyang.get("fullbook_luojing_direct_true_solar_time_equivalence") != "NOT_ESTABLISHED":
         raise SystemExit("Batch 12AJ true-solar inference firewall regressed")
-    if row_nanyang.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
-        raise SystemExit("Batch 12AJ runtime time-standard state regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status_batch_12aj") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
+        raise SystemExit("Batch 12AJ batch-scoped runtime time-standard state regressed")
     if row_nanyang.get("local_apparent_solar_time_runtime_winner_selected") is not False or row_nanyang.get("luojing_means_true_solar_time") is not False:
         raise SystemExit("Batch 12AJ solar-time winner firewall regressed")
     if row_nanyang.get("independent_textual_witness_count_added_batch_12aj") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12aj") != 0:
         raise SystemExit("Batch 12AJ witness double-counting firewall regressed")
+    if row_nanyang.get("batch_12ak_gaohou_mengqiu_operational_bridge_artifact") != "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json":
+        raise SystemExit("Batch 12AK HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("batch_12ak_primary_physical_source_id") != "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809":
+        raise SystemExit("Batch 12AK primary physical source binding regressed")
+    if row_nanyang.get("batch_12ak_waseda_pdf_sha256") != "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4" or row_nanyang.get("batch_12ak_waseda_pdf_page_count") != 221:
+        raise SystemExit("Batch 12AK physical PDF binding regressed")
+    if row_nanyang.get("batch_12ak_luojing_pinggui_status") != "DIRECT_PHYSICAL_CONFIRMED_COMPASS_ORIENTATION_COMPONENT_INSIDE_SUNDIAL":
+        raise SystemExit("Batch 12AK Luojing-pinggui adjudication regressed")
+    if row_nanyang.get("batch_12ak_inclement_zi_hai_status") != "DIRECT_PHYSICAL_CONFIRMED_CLOCK_SECTION_PURPOSE_INCLUDES_INCLEMENT_DARK_CONDITIONS_AND_BIAN_ZI_HAI_DING_ZHIGAN":
+        raise SystemExit("Batch 12AK inclement Zi/Hai adjudication regressed")
+    if row_nanyang.get("batch_12ak_historical_scope") != "QING_JIAQING_LATER_OPERATIONAL_BRIDGE_NOT_MING_FULLBOOK_AUTHORIAL_SPECIFICATION":
+        raise SystemExit("Batch 12AK historical scope regressed")
+    if row_nanyang.get("batch_12ak_fullbook_inheritance_proven") is not False or row_nanyang.get("batch_12ak_true_solar_runtime_selected") is not False or row_nanyang.get("batch_12ak_local_apparent_solar_runtime_selected") is not False:
+        raise SystemExit("Batch 12AK Fullbook/runtime firewall regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
+        raise SystemExit("Batch 12AK current runtime binding regressed")
+    if row_nanyang.get("independent_textual_witness_count_added_batch_12ak") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ak") != 0:
+        raise SystemExit("Batch 12AK Fullbook witness accounting regressed")
+    if row_nanyang.get("candidate_selected_batch_12ak") is not False or row_nanyang.get("candidate_collapsed_batch_12ak") is not False:
+        raise SystemExit("Batch 12AK candidate firewall regressed")
 
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
