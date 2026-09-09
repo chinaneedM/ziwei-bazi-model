@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 JIELAN_AQ_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+JIELAN_AR_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
 README = ROOT / "README.md"
 CI = ROOT / ".github" / "workflows" / "ci.yml"
 TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
@@ -639,6 +640,75 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         )
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+
+    def test_batch_12ar_closes_reviewed_google_pt49_preview_without_glyph_promotion(self) -> None:
+        evidence = json.loads(JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            evidence["batch_id"],
+            "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",
+        )
+        r4 = evidence["probes"]["ar_r4_direct_pt49_source_emitted_image"]
+        self.assertEqual(r4["workflow_run_id"], 34353510199)
+        self.assertEqual(r4["artifact_id"], 10104715354)
+        self.assertEqual(
+            r4["artifact_zip_sha256"],
+            "52c968a601a56732f293d2f25318d8d70ae6dc4f2e588baeee077e51ada6b1ed",
+        )
+        play = evidence["direct_play_reader_adjudication"]
+        self.assertEqual(
+            play["pt48_response_sha256"],
+            "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0",
+        )
+        self.assertEqual(play["pt48_manual_visual_review"], "GENUINE_JIELAN_FACSIMILE_PAGE_IMAGE")
+        placeholder = "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6"
+        self.assertEqual(play["pt49_response_sha256"], placeholder)
+        self.assertEqual(play["pt50_response_sha256"], placeholder)
+        self.assertTrue(play["pt49_pt50_identical_placeholder_hash"])
+        self.assertEqual(
+            play["pt49_manual_visual_review"],
+            "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE",
+        )
+        self.assertFalse(play["pt49_physical_page_observed"])
+        self.assertFalse(play["pt49_physical_glyph_authority"])
+
+        adjudication = evidence["adjudication"]
+        self.assertTrue(adjudication["reviewed_google_public_preview_surface_closed_for_current_routes"])
+        self.assertFalse(adjudication["google_public_preview_can_supply_pt49_physical_glyphs"])
+        self.assertEqual(adjudication["repository_provenance_metadata_defect_increment"], 0)
+        self.assertEqual(adjudication["chart_algorithm_defect_increment"], 0)
+        self.assertFalse(adjudication["algorithm_reopen_authorized"])
+
+        source = self.sources["EXT-GOOGLE-PLAY-JIELAN-PT49-PREVIEW-BOUNDARY"]
+        self.assertTrue(source["pt49_signed_image_url_source_emitted"])
+        self.assertEqual(source["pt49_placeholder_sha256"], placeholder)
+        self.assertFalse(source["target_physical_page_observed"])
+        self.assertFalse(source["glyph_authority"])
+
+        google_index = self.sources["EXT-GOOGLE-BOOKS-JIELAN-PT49-INCLEMENT-BIRTH-TIME-INDEX"]
+        boundary = google_index["batch_12ar_public_preview_boundary"]
+        self.assertTrue(boundary["play_reader_pt49_signed_image_url_source_emitted"])
+        self.assertEqual(boundary["pt49_response_visual_status"], "IMAGE_NOT_AVAILABLE_PLACEHOLDER")
+        self.assertFalse(boundary["pt49_physical_glyph_authority"])
+
+        row = next(row for row in self.rows if row["rule_id"] == "HPA-ZDATE-006")
+        self.assertTrue(row["batch_12ar_reviewed_google_public_preview_surface_closed"])
+        self.assertFalse(row["batch_12ar_pt49_physical_glyph_authority"])
+        self.assertFalse(row["candidate_selected_batch_12ar"])
+        self.assertFalse(row["candidate_collapsed_batch_12ar"])
+        self.assertEqual(
+            row["runtime_time_standard_binding_status_batch_12ar"],
+            "GOOGLE_PUBLIC_PREVIEW_PT49_INDEX_AND_SIGNED_IMAGE_URL_ATTESTED_TARGET_IMAGE_RETURNS_PLACEHOLDER_FULLBOOK_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED",
+        )
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED",
+        )
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+        self.assertEqual(self.payload["audit_summary"]["confirmed_provenance_metadata_defect_count"], 11)
+        self.assertEqual(self.payload["audit_summary"]["repaired_provenance_metadata_defect_count"], 11)
 
 
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
