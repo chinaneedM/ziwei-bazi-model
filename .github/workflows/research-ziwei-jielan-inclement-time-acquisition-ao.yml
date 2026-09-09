@@ -1,0 +1,85 @@
+name: research-ziwei-jielan-inclement-time-acquisition-ao
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jielan-inclement-time-acquisition-ao.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare early Ziwei transcription surfaces for inclement-time mechanism
+        shell: python
+        run: |
+          import hashlib, html, json, pathlib, re, urllib.request
+
+          out=pathlib.Path('ziwei-ao'); out.mkdir(exist_ok=True)
+          targets=[
+            {
+              'key':'jielan_1581_tianji',
+              'url':'https://tianjihq.com/zh-TW/learn/books/ziwei-jielan',
+              'role':'EARLY_EXTANT_1581_ZIWEI_TRANSCRIPTION_SURFACE_NOT_GLYPH_AUTHORITY'
+            },
+            {
+              'key':'quanshu_tianji',
+              'url':'https://tianjihq.com/en/learn/books/ziwei-doushu-quanshu',
+              'role':'FULLBOOK_RECEIVED_TRANSCRIPTION_COMPARISON_SURFACE_NOT_GLYPH_AUTHORITY'
+            },
+            {
+              'key':'quanshu_wikisource_v3',
+              'url':'https://zh.wikisource.org/zh-hant/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%B8%89',
+              'role':'FULLBOOK_RECEIVED_TEXT_CROSSCHECK_NOT_PHYSICAL_GLYPH_AUTHORITY'
+            },
+            {
+              'key':'xinfadianshu_shidian',
+              'url':'https://www.shidianguji.com/zh/book/SK1525/chapter/1lasu1xyun8dl',
+              'role':'MING_CALENDAR_BUREAU_TECHNICAL_CONTROL_ALREADY_ESTABLISHED_IN_BATCH_12AJ'
+            }
+          ]
+          terms=['論人生時要審的確','人生子亥二時','子時有十刻','陰雨','羅經','真確時候','行漏','壺漏','晨昏陰雨','指南針']
+          def norm(x):
+            x=html.unescape(x)
+            x=re.sub(r'<[^>]+>','',x)
+            return re.sub(r'[，、。；：？！,.!?;:「」『』（）()\[\]【】<>/\\=_\-\s]+','',x)
+          receipt={'schema':'ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO-PROBE-R1','targets':[],'authentication_attempted':False,'captcha_bypass_attempted':False,'ocr_generated_by_probe':False}
+          for t in targets:
+            rec={'key':t['key'],'url':t['url'],'role':t['role']}
+            try:
+              req=urllib.request.Request(t['url'],headers={'User-Agent':'Mozilla/5.0 historical-provenance-research/1.0'})
+              with urllib.request.urlopen(req,timeout=45) as resp:
+                body=resp.read(); rec.update(status=resp.status,final_url=resp.geturl(),content_type=resp.headers.get('content-type'),bytes=len(body),sha256=hashlib.sha256(body).hexdigest())
+            except Exception as exc:
+              body=b''; rec.update(status=None,error=repr(exc),bytes=0,sha256=None)
+            (out/f"{t['key']}.html").write_bytes(body)
+            raw=body.decode('utf-8',errors='replace'); n=norm(raw)
+            rec['term_hits']={term:norm(term) in n for term in terms}
+            rec['normalized_length']=len(n)
+            rec['negative_claim_scope']='THIS_FETCHED_PUBLIC_SURFACE_ONLY_NOT_WHOLE_PHYSICAL_BOOK'
+            receipt['targets'].append(rec)
+          by={x['key']:x for x in receipt['targets']}
+          receipt['comparison']={
+            'jielan_public_surface_luojing_hit':by['jielan_1581_tianji']['term_hits']['羅經'],
+            'jielan_public_surface_yinyu_hit':by['jielan_1581_tianji']['term_hits']['陰雨'],
+            'fullbook_wikisource_luojing_hit':by['quanshu_wikisource_v3']['term_hits']['羅經'],
+            'fullbook_wikisource_yinyu_hit':by['quanshu_wikisource_v3']['term_hits']['陰雨'],
+            'ming_technical_xinfadianshu_xinglou_hit':by['xinfadianshu_shidian']['term_hits']['行漏'],
+            'ming_technical_xinfadianshu_chenghun_yinyu_hit':by['xinfadianshu_shidian']['term_hits']['晨昏陰雨'],
+            'jielan_absence_authorizes_interpolation_claim':False,
+            'jielan_absence_authorizes_whole_book_negative':False,
+            'fullbook_runtime_standard_selection_authorized':False
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(receipt,ensure_ascii=False,indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jielan-inclement-time-acquisition-ao
+          path: ziwei-ao/
