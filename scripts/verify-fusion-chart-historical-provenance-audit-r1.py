@@ -15,6 +15,7 @@ ZIWEI_KOREA_CNTS_AL = ROOT / "docs" / "research" / "ZIWEI-KOREA-CNTS-FULL-TARGET
 ZIWEI_RENZI_XUZHI_AM = ROOT / "docs" / "research" / "ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
 ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
 ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
+ZIWEI_JIELAN_AP = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -310,10 +311,48 @@ def main() -> int:
         raise SystemExit("Batch 12AO unresolved runtime firewall regressed")
     row12ao = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
     expected12ao = "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED"
-    if row12ao is None or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("runtime_time_standard_binding_status") != expected12ao:
-        raise SystemExit("Batch 12AO Matrix runtime state regressed")
+    if row12ao is None or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao:
+        raise SystemExit("Batch 12AO historical Matrix snapshot regressed")
     if row12ao.get("candidate_selected_batch_12ao") is not False or row12ao.get("candidate_collapsed_batch_12ao") is not False or row12ao.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12AO candidate/algorithm firewall regressed")
+
+    # Batch 12AP corrects the AO evidence scope without changing runtime selection.
+    if not ZIWEI_JIELAN_AP.is_file():
+        raise SystemExit("Batch 12AP evidence artifact missing")
+    ev12ap = json.loads(ZIWEI_JIELAN_AP.read_text(encoding="utf-8"))
+    if ev12ap.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP":
+        raise SystemExit("Batch 12AP evidence identity mismatch")
+    p12ap = ev12ap.get("probes", {}).get("ap_r1", {})
+    if p12ap.get("workflow_run_id") != 34342819087 or p12ap.get("artifact_id") != 10100441781 or p12ap.get("artifact_zip_sha256") != "6bf56986a8a594c759e088521496ed9c43944c87b11b29e0a4fd489868b483c8":
+        raise SystemExit("Batch 12AP controlling PT49 index probe binding regressed")
+    idx12ap = ev12ap.get("google_books_jielan_index", {})
+    if idx12ap.get("inclement_query_source_emitted_page_ids") != ["PT49"] or idx12ap.get("pt49_index_attested_heading") != "論十二生時難定訣" or idx12ap.get("exact_ocr_glyphs_authoritative") is not False:
+        raise SystemExit("Batch 12AP PT49 public-index evidence regressed")
+    adj12ap = ev12ap.get("adjudication", {})
+    if adj12ap.get("batch12ao_tianji_pages_1_to_5_nonattestation_remains_true_for_that_exact_surface") is not True or adj12ap.get("jielan_inclement_birth_time_discussion_public_index_attested") is not True:
+        raise SystemExit("Batch 12AP AO-scope/Jielan-positive adjudication regressed")
+    if adj12ap.get("batch12ao_transmission_variant_inference_retracted") is not True or adj12ap.get("pt49_physical_glyph_authority_obtained") is not False:
+        raise SystemExit("Batch 12AP scope-repair/glyph firewall regressed")
+    if adj12ap.get("fullbook_inclement_current_time_acquisition_mechanism_closed") is not False or adj12ap.get("runtime_standard_selected") is not False or adj12ap.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AP runtime/algorithm firewall regressed")
+    ncc12ap = by_source_id.get("EXT-NCC-XINYITANG-JIELAN-1581-FACSIMILE-SAMPLES")
+    gb12ap = by_source_id.get("EXT-GOOGLE-BOOKS-JIELAN-PT49-INCLEMENT-BIRTH-TIME-INDEX")
+    if ncc12ap is None or gb12ap is None:
+        raise SystemExit("Batch 12AP registry sources missing")
+    if gb12ap.get("source_emitted_target_page_id") != "PT49" or gb12ap.get("glyph_authority") is not False:
+        raise SystemExit("Batch 12AP Google Books registry scope regressed")
+    if ncc12ap.get("source_emitted_sample_image_count") != 12 or ncc12ap.get("target_pt49_observed") is not False:
+        raise SystemExit("Batch 12AP NCC sample-route scope regressed")
+    row12ap = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12ap = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if row12ap is None or row12ap.get("runtime_time_standard_binding_status_batch_12ap") != expected12ap or row12ap.get("runtime_time_standard_binding_status") != expected12ap:
+        raise SystemExit("Batch 12AP current Matrix runtime state regressed")
+    if row12ap.get("batch_12ap_prov_defect_id") != "PROV-DEFECT-011" or row12ap.get("batch_12ap_repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AP":
+        raise SystemExit("Batch 12AP provenance repair binding regressed")
+    if row12ap.get("batch_12ao_new_early_ziwei_transcription_variant_dimension_current_status") != "RETRACTED_BY_BATCH_12AP_AS_OVER_BROAD_SURFACE_EXTRAPOLATION":
+        raise SystemExit("Batch 12AP AO-inference retraction regressed")
+    if row12ap.get("candidate_selected_batch_12ap") is not False or row12ap.get("candidate_collapsed_batch_12ap") is not False or row12ap.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AP candidate/algorithm firewall regressed")
 
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
@@ -528,9 +567,9 @@ def main() -> int:
         raise SystemExit("historical audit unexpectedly reports a chart algorithm defect")
     if audit_summary.get("algorithm_reopen_count") != 0:
         raise SystemExit("historical audit unexpectedly reopened an algorithm")
-    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 10:
+    if audit_summary.get("confirmed_provenance_metadata_defect_count", 0) < 11:
         raise SystemExit("known provenance metadata defects are missing")
-    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 10:
+    if audit_summary.get("repaired_provenance_metadata_defect_count", 0) < 11:
         raise SystemExit("known provenance metadata repairs are missing")
     if audit_summary.get("historical_candidate_runtime_resolver_count", 0) < 3:
         raise SystemExit("source-scoped historical candidate runtime resolver accounting regressed")
