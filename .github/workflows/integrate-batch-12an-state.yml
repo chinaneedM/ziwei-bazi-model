@@ -1,0 +1,139 @@
+name: integrate-batch-12an-state
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/integrate-batch-12an-state.yml
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Integrate Batch 12AN evidence into project state
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          BATCH = "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN"
+          DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md"
+          EVIDENCE = "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
+          AM = "EARLY_MING_SHUSHU_GNOMON_NEEDLE_SEMANTIC_SEPARATION_CONFIRMED_FULLBOOK_INCLEMENT_TIME_REALIZATION_AND_RUNTIME_BINDING_STILL_OPEN"
+          AN = "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN"
+
+          state_p = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          matrix_p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          registry_p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          matrix_md_p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          readme_p = Path("README.md")
+
+          state = json.loads(state_p.read_text(encoding="utf-8"))
+          matrix = json.loads(matrix_p.read_text(encoding="utf-8"))
+          registry = json.loads(registry_p.read_text(encoding="utf-8"))
+
+          if state["historical_audit"]["completed_batches"][-1] != "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM":
+              raise SystemExit("unexpected pre-12AN latest batch")
+
+          row = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZDATE-006")
+          if row.get("runtime_time_standard_binding_status") != AM:
+              raise SystemExit("unexpected pre-12AN runtime state")
+          row["runtime_time_standard_binding_status_batch_12am"] = AM
+          row["batch_12an_wanxiaolu_time_mountain_bridge_artifact"] = EVIDENCE
+          row["batch_12an_ctext_source_emitted_target_page"] = {"file":"100720","page":144,"guessed":False}
+          row["batch_12an_shidian_book_id"] = "NGJ892411999007380140073"
+          row["batch_12an_shidian_chapter_id"] = "1lr8vrbiuyale"
+          row["batch_12an_shidian_edition"] = "內府明萬曆35年刻本"
+          row["batch_12an_shidian_image_source"] = "國家圖書館"
+          row["batch_12an_source_emitted_target_global_page_span"] = [5607,5611]
+          row["batch_12an_direct_target_glyph_authority"] = False
+          row["batch_12an_twenty_four_mountain_time_sector_semantics_confirmed"] = True
+          row["batch_12an_solar_astronomical_anchor_required_in_witness"] = True
+          row["batch_12an_luojing_standalone_clock_equivalence"] = False
+          row["batch_12an_fullbook_inclement_time_generation_chain_closed"] = False
+          row["batch_12an_fullbook_authorial_inheritance_proven"] = False
+          row["batch_12an_new_fullbook_textual_witness_increment"] = 0
+          row["batch_12an_new_hai_glyph_witness_increment"] = 0
+          row["batch_12an_new_ming_shushu_time_sector_semantic_control_increment"] = 1
+          row["candidate_selected_batch_12an"] = False
+          row["candidate_collapsed_batch_12an"] = False
+          row["runtime_time_standard_binding_status_batch_12an"] = AN
+          row["runtime_time_standard_binding_status"] = AN
+          row["proposed_action"] = "Keep HPA-ZDATE-006 MISSING_FROM_PRODUCT and source-scoped. Batch 12AN confirms a Ming shushu 24-mountain/24-time-sector coordinate framework anchored to solar/astronomical reference, but does not supply the Fullbook inclement-weather current-time acquisition mechanism. Continue Fullbook-line/early-Ziwei operational research before runtime selection; no candidate collapse or algorithm reopen."
+          row["later_witnesses"].append("Batch 12AN: CText source search emits physical locator file=100720&page=144; Shidian ROUTER_DATA binds the corresponding semantic section to 國家圖書館 / 內府明萬曆35年刻本 and source-emitted PageIds spanning global pages about 5607-5611. The text maps time sectors to mountain sectors and anchors counting to 太陽到處 / 考星躔. No target image bytes are claimed, so OCR/transcription readings are not glyph authority. Zero Fullbook/Hai votes and no algorithm reopen.")
+
+          source_ids = {s.get("source_id") for s in registry["sources"]}
+          new_sources = [
+            {
+              "source_id":"EXT-CTEXT-WANXIAOLU-DINGSHI-RESOURCE437415",
+              "title":"《儒門崇理折衷堪輿完孝錄》第四十二章〈論定時〉CText text + physical-page locator",
+              "historical_period":"DIGITAL_TRANSCRIPTION_BOUND_TO_ZHENGTONG_DAOZANG_LIBRARY_SCAN_ROUTE",
+              "provider":"Chinese Text Project",
+              "url":"https://ctext.org/wiki.pl?chapter=835051&if=gb",
+              "source_role":"TRANSCRIPTION_SEMANTIC_CONTROL_AND_SOURCE_EMITTED_PHYSICAL_PAGE_LOCATOR_NOT_GLYPH_AUTHORITY",
+              "quality_notes":"Resource 437415 source search directly emits library file=100720&page=144 for the target phrase. Unauthenticated target-page HTML exposes no scan image URL; page number was not guessed. Text supports time-sector/mountain-sector and solar/stellar-anchor semantics only.",
+              "source_emitted_target_page":{"file":"100720","page":144,"guessed":False},
+              "glyph_authority":False,
+              "research_artifact":EVIDENCE
+            },
+            {
+              "source_id":"EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI",
+              "title":"《續道藏》識典國家圖書館本《完孝錄》論定時結構化頁圖譜",
+              "historical_period":"MING_WANLI_35_1607_EDITION_SCOPED_DIGITAL_SCAN_TRANSCRIPTION_ROUTE",
+              "provider":"識典古籍",
+              "url":"https://www.shidianguji.com/zh/book/NGJ892411999007380140073/chapter/1lr8vrbiuyale",
+              "source_role":"EDITION_SCOPED_STRUCTURED_TRANSCRIPTION_WITH_SOURCE_EMITTED_PHYSICAL_PAGE_MAPPING_NOT_DIRECT_GLYPH_AUTHORITY",
+              "edition":"內府明萬曆35年刻本",
+              "image_source":"國家圖書館",
+              "book_id":"NGJ892411999007380140073",
+              "chapter_id":"1lr8vrbiuyale",
+              "source_emitted_target_global_page_span":[5607,5611],
+              "router_probe":{"workflow_run_id":34339848620,"artifact_id":10099257417,"artifact_zip_sha256":"aed5ca502e3c41f14f0e4304cf60bf0816d77c54504dcec67d9c35455271466b","router_json_sha256":"3e42cd6cf8bfca6cd52184754d48ffe871d5fb7110ebd31bb63cd483b763e02c"},
+              "target_image_bytes_observed":False,
+              "glyph_authority":False,
+              "research_artifact":EVIDENCE
+            }
+          ]
+          for src in new_sources:
+              if src["source_id"] in source_ids:
+                  raise SystemExit("duplicate 12AN source: " + src["source_id"])
+              registry["sources"].append(src)
+
+          state["schema_version"] = "1.50.0"
+          state["historical_audit"]["completed_batches"].append(BATCH)
+          state["historical_audit"]["latest_batch_doc"] = DOC
+          state["historical_audit"]["current_focus"].extend([
+            "Batch 12AN binds CText resource 437415 target search to source-emitted physical locator file=100720&page=144; the unauthenticated page exposes no scan image URL, so it remains a locator rather than glyph authority.",
+            "Shidian ROUTER_DATA directly identifies the route as 國家圖書館 / 內府明萬曆35年刻本 and binds the target semantic paragraphs to source-emitted physical PageIds, deterministically mapping the target to global pages about 5607-5611 without hidden-ID or neighbor-page guessing.",
+            "The Ming shushu witness confirms a 24-position time-sector/mountain-sector coordinate framework: 時與山每每相應, with actual checking anchored to 太陽到處, 逐時逐刻考驗 and 考星躔. This explains how a Luojing-like plate can participate in temporal coordinates without making its magnetic needle a clock.",
+            "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Fullbook inclement-weather current-time acquisition remains unresolved, no civil/mean/apparent-solar runtime winner is selected, and algorithm defect/reopen/collapse remain 0.",
+            "Next gate: find a Fullbook-line or sufficiently early Ziwei witness that explicitly supplies the cloudy/rainy current-time acquisition mechanism; do not infer the missing clock input from the 24-mountain ring alone."
+          ])
+
+          state_p.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          matrix_p.write_text(json.dumps(matrix,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          registry_p.write_text(json.dumps(registry,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+          matrix_md = matrix_md_p.read_text(encoding="utf-8")
+          matrix_md += "\n\n- Batch 12AN: 《完孝錄》〈論定時〉 confirms a Ming shushu 24-mountain/time-sector coordinate bridge. CText source search emits physical locator `file=100720&page=144`; Shidian ROUTER_DATA binds the route to 國家圖書館 / 內府明萬曆35年刻本 and target PageIds mapping to global pages about 5607-5611. The text anchors time checking to 太陽到處 / 逐時逐刻考驗 / 考星躔, so a Luojing-like 24-sector ring is a coordinate aid, not a standalone clock. Target scan image bytes remain unobserved; no glyph authority is claimed. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; 198/166/10/14 and algorithm invariants remain unchanged.\n"
+          matrix_md_p.write_text(matrix_md,encoding="utf-8")
+
+          readme = readme_p.read_text(encoding="utf-8")
+          readme += "\n\n- **Batch 12AN (《完孝錄》 time-mountain bridge):** CText resource `437415` directly emits target physical locator `file=100720&page=144`; Shidian ROUTER_DATA identifies 國家圖書館 / 內府明萬曆35年刻本 and maps the target semantic section to source-emitted PageIds around global pp5607-5611. The chapter maps time sectors to mountain sectors and anchors the calculation to `太陽到處`, `逐時逐刻考驗` and `考星躔`. This explains how a 24-direction plate can carry a temporal coordinate without making the magnetic needle a clock. Target image bytes remain unavailable, so no glyph-critical correction such as `四十四山 -> 二十四山` is authorized. Fullbook inclement-weather time acquisition remains unresolved; `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`, with no runtime winner or algorithm reopen. See `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md`.\n"
+          readme_p.write_text(readme,encoding="utf-8")
+      - name: Commit integrated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json README.md
+          git commit -m "integrate Batch 12AN time-mountain bridge"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
