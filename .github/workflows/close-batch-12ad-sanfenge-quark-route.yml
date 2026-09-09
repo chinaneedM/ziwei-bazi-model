@@ -27,7 +27,7 @@ jobs:
         run: |
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
           python scripts/verify-project-continuity-state-r1.py
-          python -m unittest discover -s tests -p 'test_fusion_chart_historical_provenance_audit_r1.py'
+          python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
 
       - name: Commit Batch 12AD closure
         run: |
