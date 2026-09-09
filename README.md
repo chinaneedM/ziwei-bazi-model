@@ -298,3 +298,8 @@ ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 ### Historical provenance audit — Batch 12AO
 
 Batch 12AO completed a source-emitted five-page traversal of the current Tianji public transcription for the 1581 《新刻纂集紫微斗數捷覽》 (declared 246 chapters / 67,533 characters). Birth-time material is present, but configured Fullbook inclement-weather / 羅經 terminology is not attested on that complete current public transcription surface. This does not authorize a negative claim about the physical 1581 print, an interpolation claim, runtime winner, candidate collapse, or algorithm reopen. The reviewed Nanyangtang + Guangyi Fullbook physical clause remains source-scoped and real; cloudy/rainy current-time acquisition remains unresolved. Evidence: docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json.
+
+
+### Historical provenance audit — Batch 12AP
+
+Batch 12AP repairs `PROV-DEFECT-011` without reopening chart algorithms. Batch 12AO's five Tianji aggregate pagination pages remain a valid finite nonattestation surface, but Google Books Jielan volume `rZRcCwAAQBAJ` source-emits PT49 for `陰雨` under `論十二生時難定訣`; therefore the prior transmission-level extrapolation is retracted. PT49 physical glyphs remain unobserved despite direct review of source-emitted PT47/PT48 facsimile pages and NCC/Heart-One public samples. The Fullbook-style `羅經—真確時候` cloudy/rainy current-time chain remains unresolved, so `HPA-ZDATE-006=MISSING_FROM_PRODUCT`, with no runtime winner, candidate collapse or algorithm reopen. Provenance defects are now 11 confirmed / 11 repaired. Evidence: `docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json`.
