@@ -312,3 +312,14 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - NCKU 2021 scholarly genealogy places the Jiaojingshanfang late edition, like Guangyi, on the Baohutang-derived Fullbook line. It is therefore provenance breadth, not a stemmatically independent textual vote.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; target-text increment = 0, Hai-glyph increment = 0, 198/166/10/14 and all algorithm invariants remain unchanged.
 - Evidence: `docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json`.
+
+
+### Batch 12AH — Jiaojingshanfang/Hanauction detail-photo visual adjudication
+
+- The Batch 12AG artifact was reopened at evidence-scope level only. Direct review of artifact `10091275632` binds browser HTML SHA-256 `93e6d80f...fec65` and screenshot SHA-256 `8a5bc72c...771dd`.
+- The two previously labeled 300×225 “exact detail photos” are explicitly placed by the archived HTML under `제65회 우리 얼 찾기 경매전 풍경`, with roles `7/7 경매 전시 동영상` and `7/7 경매 진행 동영상`.
+- Direct no-OCR visual review shows, respectively, an auction-room/exhibition scene and an auction-event presenter at a lectern. They are not lot-173 object photographs and do not expose the target book page.
+- `PROV-DEFECT-010=EVIDENCE_SCOPE_MISCLASSIFICATION` is confirmed and repaired forward-only: the hashes remain preserved for archive lineage, but target-object/detail-photo authority is revoked.
+- Exact 2012/2026 Jiaojingshanfang auction-row provenance remains valid. Target-text increment = 0; Hai-glyph increment = 0; `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; 198/166/10/14 and algorithm invariants remain unchanged.
+- Provenance accounting is now 10 confirmed / 10 repaired metadata defects; confirmed chart algorithm defects remain 0.
+- Evidence: `docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json`.
