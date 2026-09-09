@@ -106,6 +106,8 @@ ZIWEI_JIELAN_AP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_JIELAN_AP_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
 ZIWEI_JIELAN_AQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ.md"
 ZIWEI_JIELAN_AQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+ZIWEI_JIELAN_AR_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR.md"
+ZIWEI_JIELAN_AR_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -158,9 +160,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
     "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
     "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
+    "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR.md"
 
 
 def fail(message: str) -> None:
@@ -168,6 +171,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_JIELAN_AR_BATCH, ZIWEI_JIELAN_AR_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AR continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_JIELAN_AQ_BATCH, ZIWEI_JIELAN_AQ_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AQ continuity artifact missing: {path.relative_to(ROOT)}")
@@ -263,6 +270,7 @@ def main() -> int:
     ziwei_jielan_ao_evidence = json.loads(ZIWEI_JIELAN_AO_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ap_evidence = json.loads(ZIWEI_JIELAN_AP_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_aq_evidence = json.loads(ZIWEI_JIELAN_AQ_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -943,6 +951,48 @@ def main() -> int:
         fail("Batch 12AQ unexpectedly changed HPA-ZDATE-006")
     if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:
         fail("Batch 12AQ provenance accounting should remain 11/11")
+
+    # Batch 12AR closes the reviewed public PT49 preview access surface without glyph promotion.
+    if ziwei_jielan_ar_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR":
+        fail("Batch 12AR evidence identity mismatch")
+    probes12ar = ziwei_jielan_ar_evidence.get("probes", {})
+    r4 = probes12ar.get("ar_r4_direct_pt49_source_emitted_image", {})
+    if r4.get("workflow_run_id") != 34353510199 or r4.get("artifact_id") != 10104715354 or r4.get("artifact_zip_sha256") != "52c968a601a56732f293d2f25318d8d70ae6dc4f2e588baeee077e51ada6b1ed":
+        fail("Batch 12AR controlling direct-image probe binding regressed")
+    play12ar = ziwei_jielan_ar_evidence.get("direct_play_reader_adjudication", {})
+    if play12ar.get("pt48_response_sha256") != "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0":
+        fail("Batch 12AR PT48 positive-control image binding regressed")
+    if play12ar.get("pt48_manual_visual_review") != "GENUINE_JIELAN_FACSIMILE_PAGE_IMAGE":
+        fail("Batch 12AR PT48 visual positive control regressed")
+    if play12ar.get("pt49_response_sha256") != "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6" or play12ar.get("pt50_response_sha256") != "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6":
+        fail("Batch 12AR PT49/PT50 placeholder hash binding regressed")
+    if play12ar.get("pt49_manual_visual_review") != "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE" or play12ar.get("pt50_manual_visual_review") != "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE":
+        fail("Batch 12AR placeholder visual adjudication regressed")
+    if play12ar.get("pt49_physical_page_observed") is not False or play12ar.get("pt49_physical_glyph_authority") is not False:
+        fail("Batch 12AR physical-glyph firewall regressed")
+    adj12ar = ziwei_jielan_ar_evidence.get("adjudication", {})
+    if adj12ar.get("reviewed_google_public_preview_surface_closed_for_current_routes") is not True or adj12ar.get("google_public_preview_can_supply_pt49_physical_glyphs") is not False:
+        fail("Batch 12AR public-preview closure adjudication regressed")
+    if adj12ar.get("repository_provenance_metadata_defect_increment") != 0 or adj12ar.get("chart_algorithm_defect_increment") != 0 or adj12ar.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AR defect/algorithm firewall regressed")
+    preview12ar = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-GOOGLE-PLAY-JIELAN-PT49-PREVIEW-BOUNDARY"), None)
+    gb12ar = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-GOOGLE-BOOKS-JIELAN-PT49-INCLEMENT-BIRTH-TIME-INDEX"), None)
+    if preview12ar is None or gb12ar is None:
+        fail("Batch 12AR registry sources missing")
+    if preview12ar.get("pt49_signed_image_url_source_emitted") is not True or preview12ar.get("pt49_placeholder_sha256") != "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6" or preview12ar.get("glyph_authority") is not False:
+        fail("Batch 12AR preview-boundary registry binding regressed")
+    gb_boundary = gb12ar.get("batch_12ar_public_preview_boundary", {})
+    if gb_boundary.get("pt49_response_visual_status") != "IMAGE_NOT_AVAILABLE_PLACEHOLDER" or gb_boundary.get("pt49_physical_glyph_authority") is not False:
+        fail("Batch 12AR Google Books registry boundary regressed")
+    row12ar = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected_current = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    expected_ar = "GOOGLE_PUBLIC_PREVIEW_PT49_INDEX_AND_SIGNED_IMAGE_URL_ATTESTED_TARGET_IMAGE_RETURNS_PLACEHOLDER_FULLBOOK_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if not row12ar or row12ar.get("runtime_time_standard_binding_status") != expected_current or row12ar.get("runtime_time_standard_binding_status_batch_12ar") != expected_ar:
+        fail("Batch 12AR Matrix runtime/access boundary regressed")
+    if row12ar.get("batch_12ar_pt49_physical_glyph_authority") is not False or row12ar.get("candidate_selected_batch_12ar") is not False or row12ar.get("candidate_collapsed_batch_12ar") is not False or row12ar.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AR candidate/algorithm firewall regressed")
+    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:
+        fail("Batch 12AR provenance accounting should remain 11/11")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
