@@ -78,6 +78,8 @@ ZIWEI_JINGSHUTANG_ARTRON_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE = ROOT / "docs/research/ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-R1.json"
 ZIWEI_WENGUANG_PT165_RESPONSE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC.md"
 ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE = ROOT / "docs/research/ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1.json"
+ZIWEI_SANFENGE_QUARK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD.md"
+ZIWEI_SANFENGE_QUARK_EVIDENCE = ROOT / "docs/research/ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -116,9 +118,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
     "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
     "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC",
+    "BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD.md"
 
 
 def fail(message: str) -> None:
@@ -167,6 +170,7 @@ def main() -> int:
     ziwei_huixian_catalog_evidence = json.loads(ZIWEI_HUIXIAN_CATALOG_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jingshutang_artron_evidence = json.loads(ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_wenguang_pt165_response_evidence = json.loads(ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_sanfenge_quark_evidence = json.loads(ZIWEI_SANFENGE_QUARK_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -237,10 +241,32 @@ def main() -> int:
         "EXT-SNU-ILSA-MINGJINGGE-ZWDSQJ-DIGITIZATION-DERIVATIVE",
         "EXT-AKS-SILLOKWIKI-HANYANG-MINGJINGGE-ZWDSQJ-HOLDING",
         "EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU",
+        "EXT-SANFENGE-ZWDSQS-V4-QUARK-PUBLIC-SHARE",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
             fail(f"required continuity source witness missing: {source_id}")
+
+    # Batch 12AD Sanfenge provider/share route: locator closure only, zero textual votes.
+    if not ZIWEI_SANFENGE_QUARK_BATCH.is_file() or not ZIWEI_SANFENGE_QUARK_EVIDENCE.is_file():
+        fail("Batch 12AD continuity artifacts missing")
+    if ziwei_sanfenge_quark_evidence.get("batch_id") != "BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD":
+        fail("Batch 12AD evidence identity mismatch")
+    p12ad = ziwei_sanfenge_quark_evidence.get("sanfenge_provider_page", {})
+    records12ad = {r.get("article_id"): r for r in p12ad.get("direct_provider_records", ())}
+    if records12ad.get(212163, {}).get("source_emitted_public_share") != "https://pan.quark.cn/s/6956a639be12":
+        fail("Batch 12AD volume-four provider/share binding regressed")
+    if records12ad.get(212173, {}).get("source_emitted_public_share") != "https://pan.quark.cn/s/9f7f6a4e7730":
+        fail("Batch 12AD four-volume provider/share binding regressed")
+    q12ad = ziwei_sanfenge_quark_evidence.get("quark_public_share_probe", {})
+    if q12ad.get("volume4_share", {}).get("direct_pdf_bytes_observed") is not False:
+        fail("Batch 12AD public-share byte boundary regressed")
+    a12ad = ziwei_sanfenge_quark_evidence.get("adjudication", {})
+    if a12ad.get("independent_textual_witness_increment") != 0 or a12ad.get("independent_hai_glyph_witness_increment") != 0 or a12ad.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AD witness/algorithm firewall regressed")
+    row12ad = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ad or row12ad.get("sanfenge_volume4_article_id") != 212163 or row12ad.get("independent_hai_glyph_witness_count_added_batch_12ad") != 0:
+        fail("Batch 12AD Matrix binding regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):

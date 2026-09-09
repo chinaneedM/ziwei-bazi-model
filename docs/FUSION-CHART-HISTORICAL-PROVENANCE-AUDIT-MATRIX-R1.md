@@ -282,3 +282,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The public product `Booktext` action returned only product metadata/description/directory text (32,920 bytes; SHA-256 `9172da23a2d292c9fc86965a0dad0673ac25be7bfb5e0944f628fa0ad035be10`). No p233 entry image or late-Zi target page was obtained.
 - Kumyo/Jingluntang is the already-reviewed Batch 12E object; Liaoning/Wenchengtang is already Batch 12F; Shidian explicitly belongs to the Nanyangtang received-text lineage; the anonymous 33.75 MB Fullbook file is conservatively quarantined as a likely Nanyangtang black-white derivative; Buybook/Books.com.tw preview images remain a runner-access boundary. None receives a new witness vote.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate remains a direct late-Zi target page from another Fullbook physical edition.
+
+
+### Batch 12AD — Sanfenge/Quark Fullbook volume-four public-share route
+
+- Sanfenge provider HTML directly binds `212163` → `紫薇术紫薇斗数全书卷4.pdf` → Quark `6956a639be12`, and `212173` → `紫薇术《紫微斗数全书》四卷.pdf` → Quark `9f7f6a4e7730`.
+- Both exact public Quark share URLs return HTTP 200 initial SPA shells, but no filename or PDF bytes are present in that initial HTML. This is an access boundary, not content absence.
+- Edition/imprint identity and the target late-Zi leaf remain unobserved; `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`, with zero new textual/Hai votes and no algorithm effect.
