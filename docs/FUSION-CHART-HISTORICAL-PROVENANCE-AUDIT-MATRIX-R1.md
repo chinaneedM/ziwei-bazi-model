@@ -397,3 +397,15 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; runtime winner, candidate collapse and algorithm reopen remain forbidden.
 - Accounting: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
 - Machine evidence: `docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json`.
+
+
+## Batch 12AQ — Jielan bibliographic imprint reconciliation
+
+- Direct no-OCR review of 《中國古籍善本書目·子部三》 PDF p40 confirms `新刻纂集紫微斗數捷覽四卷` as catalog item **4051**.
+- The printed edition line directly reads `明萬曆九年金陵書坊王洛川刻本`.
+- Search-engine extraction `王德川` and row `4052` are rejected as OCR/table-alignment artifacts; 4052 is visibly the adjacent 《上官拜命玉曆大全不分卷》.
+- Taiwan NCL independently records an unrelated Ming book as `明金陵王氏洛川校刊本`; this is a bookseller/imprint-name control only, not Jielan copy identity.
+- Existing repository Jielan imprint metadata is therefore preserved. No repository provenance defect, Matrix-row status, candidate selection or algorithm state changes.
+- Anhui holding remains secondary-locator scope pending an official item-level record.
+- Accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
+- Machine evidence: `docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json`.
