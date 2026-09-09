@@ -11,6 +11,7 @@ ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI = ROOT / "docs" / "research" / "ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
 ZIWEI_FULLBOOK_LUOJING_AJ = ROOT / "docs" / "research" / "ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
 ZIWEI_GAOHOU_MENGQIU_AK = ROOT / "docs" / "research" / "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
+ZIWEI_KOREA_CNTS_AL = ROOT / "docs" / "research" / "ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -181,6 +182,36 @@ def main() -> int:
         raise SystemExit("Batch 12AK Fullbook historical-scope firewall regressed")
     if bridge12ak.get("fullbook_inheritance_proven") is not False or bridge12ak.get("true_solar_time_runtime_selected") is not False or bridge12ak.get("local_apparent_solar_time_runtime_selected") is not False:
         raise SystemExit("Batch 12AK runtime/inheritance firewall regressed")
+    if not ZIWEI_KOREA_CNTS_AL.is_file():
+        raise SystemExit("Batch 12AL evidence artifact is missing")
+    al_evidence=json.loads(ZIWEI_KOREA_CNTS_AL.read_text(encoding="utf-8"))
+    if al_evidence.get("batch_id") != "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL":
+        raise SystemExit("Batch 12AL evidence identity mismatch")
+    inherited12al=al_evidence.get("inherited_acquisition", {})
+    if inherited12al.get("workflow_run_id") != 34247945308 or inherited12al.get("artifact_id") != 10064784871:
+        raise SystemExit("Batch 12AL inherited acquisition binding regressed")
+    if inherited12al.get("artifact_zip_sha256") != "64b1729df1523991a4ac764e8a4672cf7b6edeb41f94b56a47da49d5b17a6f95":
+        raise SystemExit("Batch 12AL inherited artifact digest regressed")
+    source12al=al_evidence.get("source_object", {})
+    if source12al.get("pdf_sha256") != "b21bbf3e2c7cdada4153f847ff9f359dbb29e71998e1f931417d108b571b23c3" or source12al.get("pdf_page_count") != 153:
+        raise SystemExit("Batch 12AL source PDF identity regressed")
+    recoll12al=al_evidence.get("direct_adjacent_page_recollation_no_ocr", {})
+    p125_12al=recoll12al.get("pdf_page_125", {})
+    p126_12al=recoll12al.get("pdf_page_126", {})
+    if p125_12al.get("direct_target_reading") != "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜":
+        raise SystemExit("Batch 12AL direct p125 reading regressed")
+    if p125_12al.get("explicit_hai_glyph_observed") is not False or p125_12al.get("fullbook_luojing_clause_observed_after_target") is not False:
+        raise SystemExit("Batch 12AL p125 variant boundary regressed")
+    if p126_12al.get("fullbook_luojing_clause_continuation_observed") is not False:
+        raise SystemExit("Batch 12AL p126 continuation boundary regressed")
+    cross12al=al_evidence.get("cross_transmission_comparison", {})
+    if cross12al.get("fullbook_luojing_clause_universal_across_broader_ziwei_transmission") is not False:
+        raise SystemExit("Batch 12AL broader Luojing universality firewall regressed")
+    if cross12al.get("within_reviewed_fullbook_physical_routes_luojing_clause_stability") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
+        raise SystemExit("Batch 12AL Fullbook route stability regressed")
+    phil12al=al_evidence.get("philological_adjudication", {})
+    if phil12al.get("fullbook_luojing_clause_interpolation_claim_authorized") is not False or phil12al.get("korea_manuscript_omission_error_claim_authorized") is not False:
+        raise SystemExit("Batch 12AL interpolation/error firewall regressed")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
@@ -525,12 +556,32 @@ def main() -> int:
         raise SystemExit("Batch 12AK historical scope regressed")
     if row_nanyang.get("batch_12ak_fullbook_inheritance_proven") is not False or row_nanyang.get("batch_12ak_true_solar_runtime_selected") is not False or row_nanyang.get("batch_12ak_local_apparent_solar_runtime_selected") is not False:
         raise SystemExit("Batch 12AK Fullbook/runtime firewall regressed")
-    if row_nanyang.get("runtime_time_standard_binding_status") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
-        raise SystemExit("Batch 12AK current runtime binding regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status_batch_12ak") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
+        raise SystemExit("Batch 12AK batch-scoped runtime binding regressed")
     if row_nanyang.get("independent_textual_witness_count_added_batch_12ak") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ak") != 0:
         raise SystemExit("Batch 12AK Fullbook witness accounting regressed")
     if row_nanyang.get("candidate_selected_batch_12ak") is not False or row_nanyang.get("candidate_collapsed_batch_12ak") is not False:
         raise SystemExit("Batch 12AK candidate firewall regressed")
+    if row_nanyang.get("batch_12al_korea_cnts_full_target_section_recollation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json":
+        raise SystemExit("Batch 12AL HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("batch_12al_korea_same_physical_object_recount_forbidden") is not True or row_nanyang.get("batch_12al_new_physical_witness_increment") != 0:
+        raise SystemExit("Batch 12AL same-object recount firewall regressed")
+    if row_nanyang.get("batch_12al_korea_explicit_hai_glyph_observed") is not False or row_nanyang.get("batch_12al_korea_fullbook_luojing_clause_at_target_location") is not False:
+        raise SystemExit("Batch 12AL Korea target variant regressed")
+    if row_nanyang.get("batch_12al_korea_p126_target_continuation") is not False:
+        raise SystemExit("Batch 12AL Korea adjacent-page boundary regressed")
+    if row_nanyang.get("batch_12al_page_local_negative_scope") != "TARGET_LOCATION_AND_ADJACENT_PAGE_ONLY_NOT_WHOLE_MANUSCRIPT":
+        raise SystemExit("Batch 12AL negative-scope firewall regressed")
+    if row_nanyang.get("batch_12al_fullbook_luojing_clause_global_universality") is not False:
+        raise SystemExit("Batch 12AL broader-transmission universality regressed")
+    if row_nanyang.get("batch_12al_within_reviewed_fullbook_luojing_clause_stability") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
+        raise SystemExit("Batch 12AL Fullbook stability regressed")
+    if row_nanyang.get("batch_12al_fullbook_interpolation_claim_authorized") is not False or row_nanyang.get("batch_12al_korea_omission_error_claim_authorized") is not False:
+        raise SystemExit("Batch 12AL interpolation/error claim firewall regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status") != "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED":
+        raise SystemExit("Batch 12AL current runtime binding regressed")
+    if row_nanyang.get("candidate_selected_batch_12al") is not False or row_nanyang.get("candidate_collapsed_batch_12al") is not False:
+        raise SystemExit("Batch 12AL candidate firewall regressed")
 
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
