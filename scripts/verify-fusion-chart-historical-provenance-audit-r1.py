@@ -122,15 +122,15 @@ def main() -> int:
         raise SystemExit("Batch 12AI evidence archive binding regressed")
     for source_id in (
         "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+        "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
         "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
-        "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
     ):
         src12aj=by_source_id.get(source_id)
         if src12aj is None:
             raise SystemExit(f"Batch 12AJ Luojing semantic source missing: {source_id}")
-        if src12aj.get("machine_probe", {}).get("workflow_run_id") != 34324767233:
+        if src12aj.get("machine_probe", {}).get("workflow_run_id") != 34325691911:
             raise SystemExit(f"Batch 12AJ source probe binding regressed: {source_id}")
-        if src12aj.get("machine_probe", {}).get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2":
+        if src12aj.get("machine_probe", {}).get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95":
             raise SystemExit(f"Batch 12AJ source artifact digest regressed: {source_id}")
     if not ZIWEI_FULLBOOK_LUOJING_AJ.is_file():
         raise SystemExit("Batch 12AJ Luojing evidence artifact is missing")
@@ -138,9 +138,9 @@ def main() -> int:
     if luojing12aj.get("batch_id") != "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ":
         raise SystemExit("Batch 12AJ evidence identity mismatch")
     probe12aj=luojing12aj.get("controlling_probe", {})
-    if probe12aj.get("workflow_run_id") != 34324767233 or probe12aj.get("artifact_id") != 10093334440:
+    if probe12aj.get("workflow_run_id") != 34325691911 or probe12aj.get("artifact_id") != 10093682981:
         raise SystemExit("Batch 12AJ controlling probe binding regressed")
-    if probe12aj.get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2" or probe12aj.get("all_control_terms_hit") is not True:
+    if probe12aj.get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95" or probe12aj.get("all_decisive_control_terms_hit") is not True:
         raise SystemExit("Batch 12AJ stabilized term gate regressed")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
@@ -454,6 +454,10 @@ def main() -> int:
         raise SystemExit("Batch 12AI HPA-ZDATE-006 witness firewall regressed")
     if row_nanyang.get("batch_12aj_fullbook_luojing_timekeeping_semantics_artifact") != "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json":
         raise SystemExit("Batch 12AJ HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("batch_12aj_primary_timekeeping_technical_control_source_id") != "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING":
+        raise SystemExit("Batch 12AJ primary technical source hierarchy regressed")
+    if row_nanyang.get("batch_12aj_same_memorial_transmission_control_source_id") != "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING" or row_nanyang.get("batch_12aj_same_memorial_double_count_forbidden") is not True:
+        raise SystemExit("Batch 12AJ same-memorial dedup firewall regressed")
     if row_nanyang.get("fullbook_luojing_phrase_direct_physical_edition_agreement") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
         raise SystemExit("Batch 12AJ Fullbook physical phrase agreement regressed")
     if row_nanyang.get("fullbook_luojing_term_mechanical_concept") != "MAGNETIC_COMPASS_DIRECTION_AND_MERIDIAN_ORIENTATION_INSTRUMENT_FAMILY":
