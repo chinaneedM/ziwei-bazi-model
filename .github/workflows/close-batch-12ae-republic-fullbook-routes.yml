@@ -1,0 +1,39 @@
+name: close-batch-12ae-republic-fullbook-routes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/close-batch-12ae-republic-fullbook-routes.yml
+
+permissions:
+  contents: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Materialize Batch 12AE
+        run: python scripts/close-batch-12ae-republic-fullbook-routes.py
+
+      - name: Run historical and continuity gates
+        run: |
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
+
+      - name: Commit Batch 12AE closure
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs README.md scripts/verify-project-continuity-state-r1.py
+          git diff --cached --check
+          git commit -m "close Batch 12AE Republic Fullbook routes"
+          git push origin HEAD:${GITHUB_REF_NAME}
