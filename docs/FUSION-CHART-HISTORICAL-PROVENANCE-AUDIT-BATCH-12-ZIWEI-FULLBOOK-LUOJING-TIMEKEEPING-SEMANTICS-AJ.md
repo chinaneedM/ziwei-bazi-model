@@ -46,9 +46,9 @@ The zero increment avoids double-counting physical copies already counted in ear
 
 ## 3. Contemporary Ming astronomical control
 
-Machine probe run `34324043522` / artifact `10093089382` binds the 《皇明經世文編》卷四百九十三 `制器測晷` passage.
+Machine probe run `34324767233` / artifact `10093334440` binds the 《皇明經世文編》卷四百九十三 `制器測晷` passage.
 
-Its instrument separation is explicit:
+Final stabilized probe ZIP SHA-256: `5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2`; all configured control terms hit.\n\nIts instrument separation is explicit:
 
 - `日晷` determines daytime time;
 - `星晷` determines nighttime time;
