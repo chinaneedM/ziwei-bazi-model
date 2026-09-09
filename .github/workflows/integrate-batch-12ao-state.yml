@@ -1,0 +1,335 @@
+name: integrate-batch-12ao-state
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/integrate-batch-12ao-state.yml
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Integrate Batch 12AO state and gates
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          from textwrap import dedent
+
+          AO = "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO"
+          AO_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO.md"
+          AO_EV = "docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
+          AO_STATUS = "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED"
+
+          def loadj(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def savej(path, data):
+              Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          def once(text, old, new, label):
+              if old not in text:
+                  raise SystemExit("missing patch marker: " + label)
+              return text.replace(old, new, 1)
+
+          # Current state.
+          p = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = loadj(p)
+          state["schema_version"] = "1.51.0"
+          ha = state["historical_audit"]
+          if AO not in ha["completed_batches"]:
+              ha["completed_batches"].append(AO)
+          ha["latest_batch_doc"] = AO_DOC
+          focus = ("Batch 12AO: complete current Tianji public transcription pagination 1-5 for the 1581 Jielan "
+                   "(declared 246 chapters / 67,533 characters) contains birth-time positive controls but no configured "
+                   "inclement-Luojing terms. This is not a physical-book negative or interpolation claim. Reviewed Fullbook "
+                   "physical routes retain the inclement-Luojing clause; cloudy/rainy current-time acquisition and runtime standard remain unresolved.")
+          if focus not in ha["current_focus"]:
+              ha["current_focus"].append(focus)
+          savej(p, state)
+
+          # Matrix JSON.
+          p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          matrix = loadj(p)
+          row = next(r for r in matrix["rows"] if r["rule_id"] == "HPA-ZDATE-006")
+          witness = ("Batch 12AO: complete current Tianji public transcription pages 1-5 for the 1581 Jielan "
+                     "(declared 246 chapters / 67,533 characters) contain birth-time positive controls but no configured "
+                     "Fullbook inclement-Luojing terms. This is a transcription-surface nonattestation only; no physical-book "
+                     "negative, interpolation claim, runtime winner, candidate collapse, or algorithm reopen is authorized.")
+          if witness not in row["later_witnesses"]:
+              row["later_witnesses"].append(witness)
+          row["proposed_action"] = ("Keep HPA-ZDATE-006 MISSING_FROM_PRODUCT and source-scoped. Obtain direct physical Jielan "
+                                    "target-section review or an explicit Fullbook-line cloudy/rainy current-time acquisition mechanism "
+                                    "before runtime selection; no candidate collapse or algorithm reopen.")
+          row.update({
+              "batch_12ao_jielan_inclement_time_acquisition_artifact": AO_EV,
+              "batch_12ao_controlling_workflow_run_id": 34341036879,
+              "batch_12ao_controlling_artifact_id": 10099727992,
+              "batch_12ao_controlling_artifact_zip_sha256": "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd",
+              "batch_12ao_jielan_public_pagination_pages": [1,2,3,4,5],
+              "batch_12ao_jielan_declared_chapter_count": 246,
+              "batch_12ao_jielan_declared_character_count": 67533,
+              "batch_12ao_birth_time_positive_control_present": True,
+              "batch_12ao_inclement_luojing_terms_attested_in_complete_current_public_transcription": False,
+              "batch_12ao_whole_1581_physical_book_negative_authorized": False,
+              "batch_12ao_interpolation_claim_authorized": False,
+              "batch_12ao_fullbook_clause_remains_source_scoped": True,
+              "batch_12ao_ming_technical_inclement_time_input_is_clepsydra_not_compass": True,
+              "batch_12ao_fullbook_inclement_current_time_acquisition_mechanism_closed": False,
+              "batch_12ao_runtime_standard_selected": False,
+              "batch_12ao_new_fullbook_textual_witness_increment": 0,
+              "batch_12ao_new_hai_glyph_witness_increment": 0,
+              "batch_12ao_new_early_ziwei_transcription_variant_dimension_increment": 1,
+              "batch_12ao_new_direct_physical_witness_increment": 0,
+              "candidate_selected_batch_12ao": False,
+              "candidate_collapsed_batch_12ao": False,
+              "runtime_time_standard_binding_status_batch_12ao": AO_STATUS,
+              "runtime_time_standard_binding_status": AO_STATUS,
+          })
+          savej(p, matrix)
+
+          # Registry: enrich the already registered 1581 Jielan route; do not double count.
+          p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          registry = loadj(p)
+          src = next(s for s in registry["sources"] if s["source_id"] == "EXT-ZIWEI-JIELAN-1581")
+          src["batch_12ao_full_pagination_probe"] = {
+              "workflow_run_id": 34341036879,
+              "artifact_id": 10099727992,
+              "artifact_zip_sha256": "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd",
+          }
+          src["public_transcription_source_emitted_pagination_pages"] = [1,2,3,4,5]
+          src["public_transcription_declared_chapter_count"] = 246
+          src["public_transcription_declared_character_count"] = 67533
+          src["public_transcription_birth_time_positive_control_present"] = True
+          src["public_transcription_inclement_luojing_terms_attested"] = False
+          src["whole_1581_physical_book_negative_authorized"] = False
+          src["glyph_authority"] = False
+          src["interpolation_claim_authorized"] = False
+          src["independent_physical_witness_increment_batch_12ao"] = 0
+          if "Batch 12AO traversed" not in src["quality_notes"]:
+              src["quality_notes"] += (" Batch 12AO traversed all five current source-emitted Tianji pagination pages. "
+                                       "The nonattestation is public-transcription-surface only, not glyph authority, "
+                                       "not a physical-book negative, and not an interpolation claim.")
+          savej(p, registry)
+
+          # Matrix Markdown.
+          p = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          md = p.read_text(encoding="utf-8")
+          if "### Batch 12AO —" not in md:
+              md = md.rstrip() + "\n\n### Batch 12AO — 1581 Jielan complete public-transcription inclement-time boundary\n\n"
+              md += "- Source-emitted Tianji pagination p1-p5 was fully traversed; the public surface declares 246 chapters / 67,533 characters.\n"
+              md += "- Birth-time positive controls are present, while configured Fullbook inclement-Luojing terms are not attested on that complete current public transcription surface.\n"
+              md += "- No whole-1581-physical-book negative, glyph authority or interpolation claim is authorized without direct facsimile review.\n"
+              md += "- Nanyangtang + Guangyi direct Fullbook facsimile evidence remains controlling for the physical Fullbook clause; Ming technical control still uses clepsydra rather than magnetic compass as the inclement clock input.\n"
+              md += "- HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime-binding status = " + AO_STATUS + ".\n"
+              md += "- Counts remain 198/166/10/14; algorithm defect/reopen/collapse remain 0.\n"
+              md += "- Evidence: " + AO_EV + ".\n"
+          p.write_text(md + "\n", encoding="utf-8")
+
+          # Continuity verifier.
+          p = Path("scripts/verify-project-continuity-state-r1.py")
+          s = p.read_text(encoding="utf-8")
+          s = once(s,
+              'ZIWEI_WANXIAOLU_AN_EVIDENCE = ROOT / "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"',
+              'ZIWEI_WANXIAOLU_AN_EVIDENCE = ROOT / "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"\n'
+              + 'ZIWEI_JIELAN_AO_BATCH = ROOT / "' + AO_DOC + '"\n'
+              + 'ZIWEI_JIELAN_AO_EVIDENCE = ROOT / "' + AO_EV + '"',
+              "continuity AO constants")
+          s = once(s,
+              '    "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",\n]',
+              '    "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",\n    "' + AO + '",\n]',
+              "continuity AO batch list")
+          s = once(s,
+              'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md"',
+              'LATEST_BATCH_DOC = "' + AO_DOC + '"',
+              "continuity latest doc")
+          s = once(s,
+              'def main() -> int:\n    for path in (ZIWEI_WANXIAOLU_AN_BATCH, ZIWEI_WANXIAOLU_AN_EVIDENCE):',
+              'def main() -> int:\n'
+              + '    for path in (ZIWEI_JIELAN_AO_BATCH, ZIWEI_JIELAN_AO_EVIDENCE):\n'
+              + '        if not path.is_file():\n'
+              + '            fail(f"Batch 12AO continuity artifact missing: {path.relative_to(ROOT)}")\n\n'
+              + '    for path in (ZIWEI_WANXIAOLU_AN_BATCH, ZIWEI_WANXIAOLU_AN_EVIDENCE):',
+              "continuity AO existence")
+          s = once(s,
+              '    ziwei_wanxiaolu_an_evidence = json.loads(ZIWEI_WANXIAOLU_AN_EVIDENCE.read_text(encoding="utf-8"))',
+              '    ziwei_wanxiaolu_an_evidence = json.loads(ZIWEI_WANXIAOLU_AN_EVIDENCE.read_text(encoding="utf-8"))\n'
+              + '    ziwei_jielan_ao_evidence = json.loads(ZIWEI_JIELAN_AO_EVIDENCE.read_text(encoding="utf-8"))',
+              "continuity AO load")
+          s = once(s,
+              '    if not row12an or row12an.get("runtime_time_standard_binding_status") != expected12an or row12an.get("audit_status") != "MISSING_FROM_PRODUCT":\n'
+              + '        fail("Batch 12AN current Matrix state regressed")',
+              '    if not row12an or row12an.get("runtime_time_standard_binding_status_batch_12an") != expected12an or row12an.get("audit_status") != "MISSING_FROM_PRODUCT":\n'
+              + '        fail("Batch 12AN historical Matrix snapshot regressed")',
+              "continuity AN snapshot")
+          aoblock = dedent("""
+              # Batch 12AO complete-current-public-transcription early-Ziwei boundary.
+              if ziwei_jielan_ao_evidence.get("batch_id") != "__AO__":
+                  fail("Batch 12AO evidence identity mismatch")
+              probe12ao = ziwei_jielan_ao_evidence.get("probes", {}).get("jielan_full_pagination_probe", {})
+              if probe12ao.get("workflow_run_id") != 34341036879 or probe12ao.get("artifact_id") != 10099727992 or probe12ao.get("artifact_zip_sha256") != "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd":
+                  fail("Batch 12AO controlling pagination probe binding regressed")
+              surface12ao = ziwei_jielan_ao_evidence.get("jielan_1581_public_transcription_surface", {})
+              if surface12ao.get("fetched_page_numbers") != [1, 2, 3, 4, 5] or surface12ao.get("all_source_discovered_pages_1_to_5_fetched") is not True:
+                  fail("Batch 12AO source-emitted pagination coverage regressed")
+              if surface12ao.get("declared_chapter_count") != 246 or surface12ao.get("declared_character_count") != 67533:
+                  fail("Batch 12AO declared public-surface inventory regressed")
+              if not all(surface12ao.get("positive_control_terms", {}).values()) or any(surface12ao.get("inclement_luojing_term_hits", {}).values()):
+                  fail("Batch 12AO positive-control/nonattestation surface regressed")
+              if surface12ao.get("whole_1581_physical_book_negative_authorized") is not False or surface12ao.get("glyph_authority_claimed") is not False or surface12ao.get("interpolation_claim_authorized") is not False:
+                  fail("Batch 12AO physical-negative/glyph/interpolation firewall regressed")
+              adj12ao = ziwei_jielan_ao_evidence.get("adjudication", {})
+              if adj12ao.get("fullbook_clause_remains_source_scoped") is not True or adj12ao.get("ming_technical_inclement_time_input_is_clepsydra_not_compass") is not True:
+                  fail("Batch 12AO source-scope/technical-control adjudication regressed")
+              if adj12ao.get("fullbook_inclement_current_time_acquisition_mechanism_closed") is not False or adj12ao.get("runtime_standard_selected") is not False or adj12ao.get("algorithm_reopen_authorized") is not False:
+                  fail("Batch 12AO unresolved-runtime/algorithm firewall regressed")
+              jielan12ao = next((item for item in registry.get("sources", ()) if item.get("source_id") == "EXT-ZIWEI-JIELAN-1581"), None)
+              if not jielan12ao or jielan12ao.get("public_transcription_source_emitted_pagination_pages") != [1, 2, 3, 4, 5]:
+                  fail("Batch 12AO registry pagination binding regressed")
+              if jielan12ao.get("public_transcription_inclement_luojing_terms_attested") is not False or jielan12ao.get("whole_1581_physical_book_negative_authorized") is not False or jielan12ao.get("glyph_authority") is not False:
+                  fail("Batch 12AO registry authority firewall regressed")
+              row12ao = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+              expected12ao = "__STATUS__"
+              if not row12ao or row12ao.get("runtime_time_standard_binding_status") != expected12ao or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("audit_status") != "MISSING_FROM_PRODUCT":
+                  fail("Batch 12AO current Matrix state regressed")
+              if row12ao.get("candidate_selected_batch_12ao") is not False or row12ao.get("candidate_collapsed_batch_12ao") is not False or row12ao.get("algorithm_reopen_authorized") is not False:
+                  fail("Batch 12AO candidate/algorithm firewall regressed")
+
+          """).replace("__AO__", AO).replace("__STATUS__", AO_STATUS)
+          s = once(s, '    invariants = state.get("invariants", {})', aoblock + '    invariants = state.get("invariants", {})', "continuity AO block")
+          p.write_text(s, encoding="utf-8")
+
+          # Historical audit verifier.
+          p = Path("scripts/verify-fusion-chart-historical-provenance-audit-r1.py")
+          s = p.read_text(encoding="utf-8")
+          s = once(s,
+              'ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"',
+              'ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"\n'
+              + 'ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"',
+              "audit AO constant")
+          marker = dedent("""
+              if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:
+                  raise SystemExit("Batch 12AN candidate/algorithm firewall regressed")
+
+          """)
+          block = dedent("""
+              # Batch 12AO complete-current-public-transcription early-Ziwei boundary.
+              jielan12ao = by_source_id.get("EXT-ZIWEI-JIELAN-1581")
+              if jielan12ao is None:
+                  raise SystemExit("Batch 12AO Jielan registry source missing")
+              if jielan12ao.get("public_transcription_source_emitted_pagination_pages") != [1, 2, 3, 4, 5] or jielan12ao.get("public_transcription_declared_chapter_count") != 246 or jielan12ao.get("public_transcription_declared_character_count") != 67533:
+                  raise SystemExit("Batch 12AO registry public-surface inventory regressed")
+              if jielan12ao.get("public_transcription_inclement_luojing_terms_attested") is not False or jielan12ao.get("whole_1581_physical_book_negative_authorized") is not False or jielan12ao.get("glyph_authority") is not False or jielan12ao.get("interpolation_claim_authorized") is not False:
+                  raise SystemExit("Batch 12AO registry authority firewall regressed")
+              if not ZIWEI_JIELAN_AO.is_file():
+                  raise SystemExit("Batch 12AO evidence artifact missing")
+              ev12ao = json.loads(ZIWEI_JIELAN_AO.read_text(encoding="utf-8"))
+              if ev12ao.get("batch_id") != "__AO__":
+                  raise SystemExit("Batch 12AO evidence identity mismatch")
+              probe12ao = ev12ao.get("probes", {}).get("jielan_full_pagination_probe", {})
+              if probe12ao.get("workflow_run_id") != 34341036879 or probe12ao.get("artifact_id") != 10099727992 or probe12ao.get("artifact_zip_sha256") != "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd":
+                  raise SystemExit("Batch 12AO controlling probe binding regressed")
+              surf12ao = ev12ao.get("jielan_1581_public_transcription_surface", {})
+              if surf12ao.get("fetched_page_numbers") != [1, 2, 3, 4, 5] or surf12ao.get("all_source_discovered_pages_1_to_5_fetched") is not True:
+                  raise SystemExit("Batch 12AO source-emitted pagination coverage regressed")
+              if not all(surf12ao.get("positive_control_terms", {}).values()) or any(surf12ao.get("inclement_luojing_term_hits", {}).values()):
+                  raise SystemExit("Batch 12AO positive-control/nonattestation surface regressed")
+              if surf12ao.get("whole_1581_physical_book_negative_authorized") is not False or surf12ao.get("glyph_authority_claimed") is not False or surf12ao.get("interpolation_claim_authorized") is not False:
+                  raise SystemExit("Batch 12AO physical-negative/glyph/interpolation firewall regressed")
+              adj12ao = ev12ao.get("adjudication", {})
+              if adj12ao.get("fullbook_clause_remains_source_scoped") is not True or adj12ao.get("ming_technical_inclement_time_input_is_clepsydra_not_compass") is not True:
+                  raise SystemExit("Batch 12AO source-scope/technical-control adjudication regressed")
+              if adj12ao.get("fullbook_inclement_current_time_acquisition_mechanism_closed") is not False or adj12ao.get("runtime_standard_selected") is not False:
+                  raise SystemExit("Batch 12AO unresolved runtime firewall regressed")
+              row12ao = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+              expected12ao = "__STATUS__"
+              if row12ao is None or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("runtime_time_standard_binding_status") != expected12ao:
+                  raise SystemExit("Batch 12AO Matrix runtime state regressed")
+              if row12ao.get("candidate_selected_batch_12ao") is not False or row12ao.get("candidate_collapsed_batch_12ao") is not False or row12ao.get("algorithm_reopen_authorized") is not False:
+                  raise SystemExit("Batch 12AO candidate/algorithm firewall regressed")
+
+          """).replace("__AO__", AO).replace("__STATUS__", AO_STATUS)
+          s = once(s, marker, marker + block, "audit AO block")
+          p.write_text(s, encoding="utf-8")
+
+          # Focused tests.
+          p = Path("tests/test_fusion_chart_historical_provenance_audit_matrix_r1.py")
+          s = p.read_text(encoding="utf-8")
+          s = once(s,
+              '        self.assertEqual(row["runtime_time_standard_binding_status"], "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN")',
+              '        self.assertEqual(row["runtime_time_standard_binding_status_batch_12an"], "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN")',
+              "test AN snapshot")
+          test = dedent("""
+              def test_batch_12ao_jielan_complete_public_surface_stays_non_physical_and_fail_closed(self) -> None:
+                  row = next(row for row in self.rows if row["rule_id"] == "HPA-ZDATE-006")
+                  self.assertEqual(row["batch_12ao_jielan_inclement_time_acquisition_artifact"], "__EV__")
+                  self.assertEqual(row["batch_12ao_controlling_workflow_run_id"], 34341036879)
+                  self.assertEqual(row["batch_12ao_controlling_artifact_id"], 10099727992)
+                  self.assertEqual(row["batch_12ao_jielan_public_pagination_pages"], [1, 2, 3, 4, 5])
+                  self.assertEqual(row["batch_12ao_jielan_declared_chapter_count"], 246)
+                  self.assertEqual(row["batch_12ao_jielan_declared_character_count"], 67533)
+                  self.assertTrue(row["batch_12ao_birth_time_positive_control_present"])
+                  self.assertFalse(row["batch_12ao_inclement_luojing_terms_attested_in_complete_current_public_transcription"])
+                  self.assertFalse(row["batch_12ao_whole_1581_physical_book_negative_authorized"])
+                  self.assertFalse(row["batch_12ao_interpolation_claim_authorized"])
+                  self.assertTrue(row["batch_12ao_fullbook_clause_remains_source_scoped"])
+                  self.assertTrue(row["batch_12ao_ming_technical_inclement_time_input_is_clepsydra_not_compass"])
+                  self.assertFalse(row["batch_12ao_fullbook_inclement_current_time_acquisition_mechanism_closed"])
+                  self.assertFalse(row["batch_12ao_runtime_standard_selected"])
+                  self.assertEqual(row["batch_12ao_new_early_ziwei_transcription_variant_dimension_increment"], 1)
+                  self.assertEqual(row["batch_12ao_new_direct_physical_witness_increment"], 0)
+                  self.assertFalse(row["candidate_selected_batch_12ao"])
+                  self.assertFalse(row["candidate_collapsed_batch_12ao"])
+                  self.assertEqual(row["runtime_time_standard_binding_status"], "__STATUS__")
+                  self.assertEqual(row["runtime_time_standard_binding_status_batch_12ao"], "__STATUS__")
+                  self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+                  self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+          """).replace("__EV__", AO_EV).replace("__STATUS__", AO_STATUS)
+          test = "\n".join("    " + line if line else line for line in test.splitlines()) + "\n"
+          s = once(s, '    def test_readme_and_ci_bind_the_audit_stage(self) -> None:', test + '    def test_readme_and_ci_bind_the_audit_stage(self) -> None:', "test AO insertion")
+          p.write_text(s, encoding="utf-8")
+
+          # README.
+          p = Path("README.md")
+          s = p.read_text(encoding="utf-8")
+          if "### Historical provenance audit — Batch 12AO" not in s:
+              s = s.rstrip() + "\n\n### Historical provenance audit — Batch 12AO\n\n"
+              s += ("Batch 12AO completed a source-emitted five-page traversal of the current Tianji public transcription "
+                    "for the 1581 《新刻纂集紫微斗數捷覽》 (declared 246 chapters / 67,533 characters). Birth-time material is "
+                    "present, but configured Fullbook inclement-weather / 羅經 terminology is not attested on that complete "
+                    "current public transcription surface. This does not authorize a negative claim about the physical 1581 print, "
+                    "an interpolation claim, runtime winner, candidate collapse, or algorithm reopen. The reviewed Nanyangtang + "
+                    "Guangyi Fullbook physical clause remains source-scoped and real; cloudy/rainy current-time acquisition remains unresolved. "
+                    "Evidence: " + AO_EV + ".\n")
+          p.write_text(s, encoding="utf-8")
+
+      - name: Historical provenance gate
+        run: python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+      - name: Project continuity gate
+        run: python scripts/verify-project-continuity-state-r1.py
+      - name: Focused historical matrix tests
+        run: python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
+      - name: Commit integrated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/PROJECT-CURRENT-STATE-R1.json \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+                  scripts/verify-project-continuity-state-r1.py \
+                  scripts/verify-fusion-chart-historical-provenance-audit-r1.py \
+                  tests/test_fusion_chart_historical_provenance_audit_matrix_r1.py \
+                  README.md
+          git commit -m "integrate Batch 12AO early Ziwei transmission boundary"
+          git push
