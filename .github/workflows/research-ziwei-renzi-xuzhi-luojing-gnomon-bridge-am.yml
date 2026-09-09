@@ -210,6 +210,25 @@ jobs:
           scan["rendered_page_count"] = rendered
           scan["contact_sheet_count"] = len(contact_names)
           scan["contact_sheets"] = contact_names
+
+          # First-pass no-OCR contact-sheet review narrowed the relevant compass
+          # section to PDF pp417-432. Preserve only this bounded window at
+          # full scan resolution for direct glyph review.
+          target_dir = out / "target-pages-417-432"
+          target_dir.mkdir(exist_ok=True)
+          target_pages = []
+          for p1 in range(417, 433):
+              page_obj = doc.load_page(p1 - 1)
+              pix = page_obj.get_pixmap(matrix=fitz.Matrix(1.0, 1.0), alpha=False)
+              target_path = target_dir / f"pdf-p{p1:03d}.jpg"
+              pix.save(target_path)
+              target_pages.append({
+                  "pdf_page_1_based": p1,
+                  "filename": target_path.name,
+                  "sha256": hashlib.sha256(target_path.read_bytes()).hexdigest(),
+              })
+          scan["bounded_target_render_window"] = [417, 432]
+          scan["bounded_target_pages"] = target_pages
           scan["direct_ocr_used"] = False
           receipt["physical_scan"] = scan
 
