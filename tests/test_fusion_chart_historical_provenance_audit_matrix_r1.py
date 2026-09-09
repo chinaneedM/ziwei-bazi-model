@@ -469,8 +469,41 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertFalse(row["candidate_selected_batch_12al"])
         self.assertFalse(row["candidate_collapsed_batch_12al"])
         self.assertEqual(
-            row["runtime_time_standard_binding_status"],
+            row["runtime_time_standard_binding_status_batch_12al"],
             "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED",
+        )
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12am_renzi_xuzhi_is_early_shushu_semantic_bridge_only(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12am_renzi_xuzhi_luojing_gnomon_bridge_artifact"],
+            "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json",
+        )
+        self.assertEqual(row["batch_12am_primary_physical_source_id"], "EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583")
+        self.assertEqual(row["batch_12am_bibliographic_source_id"], "EXT-CINII-BB17866565-RENZI-XUZHI-1583")
+        self.assertEqual(row["batch_12am_pdf_sha256"], "80de366d62066bf73046834771a43976fdf353de6ea1704d06c46dfa568a44ba")
+        self.assertEqual(row["batch_12am_pdf_page_count"], 510)
+        self.assertEqual(row["batch_12am_direct_physical_review_pages"], [414, 415, 416])
+        self.assertEqual(row["batch_12am_direct_heading"], "正針縫針")
+        self.assertEqual(row["batch_12am_decisive_direct_readings"], ["臬測以景針以氣故不能符", "推七政之纏次皆准於臬"])
+        self.assertFalse(row["batch_12am_luojing_standalone_clock_equivalence"])
+        self.assertFalse(row["batch_12am_luojing_equals_true_solar_time"])
+        self.assertFalse(row["batch_12am_luojing_equals_local_apparent_solar_runtime"])
+        self.assertFalse(row["batch_12am_fullbook_authorial_inheritance_proven"])
+        self.assertFalse(row["batch_12am_fullbook_inclement_time_generation_procedure_closed"])
+        self.assertEqual(row["batch_12am_target_leaf_printing_phase"], "UNRESOLVED_WITHIN_LONGQING_3_WANLI_11_COMPOSITE_EDITION")
+        self.assertEqual(row["batch_12am_new_fullbook_textual_witness_increment"], 0)
+        self.assertEqual(row["batch_12am_new_hai_glyph_witness_increment"], 0)
+        self.assertEqual(row["batch_12am_new_early_ming_shushu_semantic_control_increment"], 1)
+        self.assertFalse(row["candidate_selected_batch_12am"])
+        self.assertFalse(row["candidate_collapsed_batch_12am"])
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "EARLY_MING_SHUSHU_GNOMON_NEEDLE_SEMANTIC_SEPARATION_CONFIRMED_FULLBOOK_INCLEMENT_TIME_REALIZATION_AND_RUNTIME_BINDING_STILL_OPEN",
         )
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
