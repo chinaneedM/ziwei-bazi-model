@@ -333,3 +333,14 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - `HPA-ZDATE-006` is therefore narrowed to `LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE`, while nighttime runtime equivalence, natal birthplace locality and exact Fullbook clock-regime inheritance remain unresolved.
 - `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; runtime binding = `PARTIALLY_NARROWED_NOT_CLOSED`; no candidate selection/collapse and no algorithm reopen. Counts remain 198/166/10/14; provenance defects remain 10 confirmed / 10 repaired.
 - Evidence: `docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json`.
+
+
+### Batch 12AJ — Fullbook 羅經 timekeeping semantics
+
+- Direct no-OCR re-review confirms the same third line in both Nanyangtang p320 / 卷五 and Guangyi/Yulgok `B005_01_B00320_003_003` / 卷三: `如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣`.
+- The same two physical copies were already counted as target-text witnesses; Batch 12AJ adds zero textual/Hai votes and records only a new semantic collation.
+- 《皇明經世文編》卷493 `制器測晷` separates functions: 日晷=daytime time, 星晷=nighttime time, 正線羅經=子午 direction, 行漏=cloud/rain supplement. It also warns that exclusive compass use gives indeterminate timing error and generally runs early.
+- Ming 徐之鏌《新鐫徐氏家藏羅經頂門針》 directly anchors 羅經 in magnetic-needle/directional semantics.
+- Therefore `羅經以定真確時候` cannot be mechanically normalized to `羅經 itself is a clock`, `true solar time`, or `local apparent solar runtime`. The exact Fullbook operational procedure remains source-scoped and unresolved.
+- `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; runtime binding becomes `PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED`; no candidate selection/collapse and no algorithm reopen.
+- Evidence: `docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json`.
