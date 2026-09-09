@@ -13,6 +13,7 @@ ZIWEI_FULLBOOK_LUOJING_AJ = ROOT / "docs" / "research" / "ZIWEI-FULLBOOK-LUOJING
 ZIWEI_GAOHOU_MENGQIU_AK = ROOT / "docs" / "research" / "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
 ZIWEI_KOREA_CNTS_AL = ROOT / "docs" / "research" / "ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
 ZIWEI_RENZI_XUZHI_AM = ROOT / "docs" / "research" / "ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
+ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -252,6 +253,30 @@ def main() -> int:
         raise SystemExit("Batch 12AM Matrix runtime snapshot regressed")
     if row12am.get("candidate_selected_batch_12am") is not False or row12am.get("candidate_collapsed_batch_12am") is not False or row12am.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12AM Matrix candidate/algorithm firewall regressed")
+
+    # Batch 12AN time-mountain semantic bridge.
+    wan12an=by_source_id.get("EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI")
+    ct12an=by_source_id.get("EXT-CTEXT-WANXIAOLU-DINGSHI-RESOURCE437415")
+    if wan12an is None or ct12an is None:
+        raise SystemExit("Batch 12AN source pair missing")
+    if wan12an.get("edition") != "內府明萬曆35年刻本" or wan12an.get("target_image_bytes_observed") is not False or wan12an.get("glyph_authority") is not False:
+        raise SystemExit("Batch 12AN Shidian evidence boundary regressed")
+    if ct12an.get("source_emitted_target_page") != {"file":"100720","page":144,"guessed":False} or ct12an.get("glyph_authority") is not False:
+        raise SystemExit("Batch 12AN CText locator boundary regressed")
+    if not ZIWEI_WANXIAOLU_AN.is_file():
+        raise SystemExit("Batch 12AN evidence missing")
+    ev12an=json.loads(ZIWEI_WANXIAOLU_AN.read_text(encoding="utf-8"))
+    adj12an=ev12an.get("adjudication", {})
+    if ev12an.get("batch_id") != "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN" or adj12an.get("twenty_four_mountain_ring_can_encode_time_sector_coordinates") is not True or adj12an.get("actual_time_determination_is_solar_or_astronomical_reference_anchored_in_this_witness") is not True:
+        raise SystemExit("Batch 12AN evidence/semantic state regressed")
+    if adj12an.get("magnetic_needle_is_standalone_clock") is not False or adj12an.get("fullbook_cloudy_rainy_time_generation_chain_closed") is not False:
+        raise SystemExit("Batch 12AN clock/inclement firewall regressed")
+    row12an=next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12an="MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN"
+    if row12an is None or row12an.get("runtime_time_standard_binding_status_batch_12an") != expected12an:
+        raise SystemExit("Batch 12AN Matrix runtime snapshot regressed")
+    if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AN candidate/algorithm firewall regressed")
 
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")

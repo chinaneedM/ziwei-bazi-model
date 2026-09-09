@@ -98,6 +98,8 @@ ZIWEI_KOREA_CNTS_AL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDI
 ZIWEI_KOREA_CNTS_AL_EVIDENCE = ROOT / "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json"
 ZIWEI_RENZI_XUZHI_AM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM.md"
 ZIWEI_RENZI_XUZHI_AM_EVIDENCE = ROOT / "docs/research/ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-R1.json"
+ZIWEI_WANXIAOLU_AN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md"
+ZIWEI_WANXIAOLU_AN_EVIDENCE = ROOT / "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -146,9 +148,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
     "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
     "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM",
+    "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md"
 
 
 def fail(message: str) -> None:
@@ -156,6 +159,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_WANXIAOLU_AN_BATCH, ZIWEI_WANXIAOLU_AN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AN continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_RENZI_XUZHI_AM_BATCH, ZIWEI_RENZI_XUZHI_AM_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AM continuity artifact missing: {path.relative_to(ROOT)}")
@@ -231,6 +238,7 @@ def main() -> int:
     ziwei_gaohou_mengqiu_ak_evidence = json.loads(ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_korea_cnts_al_evidence = json.loads(ZIWEI_KOREA_CNTS_AL_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_renzi_xuzhi_am_evidence = json.loads(ZIWEI_RENZI_XUZHI_AM_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_wanxiaolu_an_evidence = json.loads(ZIWEI_WANXIAOLU_AN_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -318,6 +326,8 @@ def main() -> int:
         "EXT-CINII-BB17866565-RENZI-XUZHI-1583",
         "EXT-COMMONS-GGZBCK411-RENZI-XUZHI-1569-1583",
         "EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN",
+        "EXT-CTEXT-WANXIAOLU-DINGSHI-RESOURCE437415",
+        "EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -764,8 +774,8 @@ def main() -> int:
         fail("Batch 12AM Matrix decisive reading regressed")
     if row12am.get("batch_12am_fullbook_inclement_time_generation_procedure_closed") is not False:
         fail("Batch 12AM Matrix unresolved-procedure firewall regressed")
-    if row12am.get("runtime_time_standard_binding_status") != expected12am:
-        fail("Batch 12AM Matrix current runtime state regressed")
+    if row12am.get("runtime_time_standard_binding_status_batch_12am") != expected12am:
+        fail("Batch 12AM Matrix historical runtime snapshot regressed")
     if row12am.get("candidate_selected_batch_12am") is not False or row12am.get("candidate_collapsed_batch_12am") is not False:
         fail("Batch 12AM Matrix candidate firewall regressed")
     sources12am = {src.get("source_id"): src for src in registry.get("sources", ())}
@@ -780,6 +790,34 @@ def main() -> int:
     ctext12am = sources12am.get("EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN")
     if not ctext12am or ctext12am.get("glyph_authority") is not False or ctext12am.get("independent_physical_witness_increment") != 0:
         fail("Batch 12AM transcription authority firewall regressed")
+
+    # Batch 12AN Ming shushu time-mountain bridge.
+    if ziwei_wanxiaolu_an_evidence.get("batch_id") != "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN":
+        fail("Batch 12AN evidence identity mismatch")
+    router12an = ziwei_wanxiaolu_an_evidence.get("controlling_probes", {}).get("shidian_router_page_map", {})
+    if router12an.get("workflow_run_id") != 34339848620 or router12an.get("artifact_id") != 10099257417 or router12an.get("artifact_zip_sha256") != "aed5ca502e3c41f14f0e4304cf60bf0816d77c54504dcec67d9c35455271466b":
+        fail("Batch 12AN router probe binding regressed")
+    ctext12an=ziwei_wanxiaolu_an_evidence.get("ctext_source", {})
+    if ctext12an.get("source_emitted_target_page_url") != "https://ctext.org/library.pl?if=gb&file=100720&page=144" or ctext12an.get("target_page_number_guessed") is not False or ctext12an.get("glyph_authority_claimed") is not False:
+        fail("Batch 12AN CText locator/glyph firewall regressed")
+    shidian12an=ziwei_wanxiaolu_an_evidence.get("shidian_source", {})
+    if shidian12an.get("source_metadata", {}).get("edition") != "內府明萬曆35年刻本" or shidian12an.get("source_metadata", {}).get("image_source") != "國家圖書館":
+        fail("Batch 12AN Shidian edition binding regressed")
+    if shidian12an.get("target_source_emitted_global_page_span") != [5607, 5611] or shidian12an.get("direct_target_image_bytes_observed") is not False or shidian12an.get("glyph_authority_claimed") is not False:
+        fail("Batch 12AN page-map/evidence firewall regressed")
+    adj12an=ziwei_wanxiaolu_an_evidence.get("adjudication", {})
+    if adj12an.get("twenty_four_mountain_ring_can_encode_time_sector_coordinates") is not True or adj12an.get("actual_time_determination_is_solar_or_astronomical_reference_anchored_in_this_witness") is not True:
+        fail("Batch 12AN semantic bridge regressed")
+    if adj12an.get("magnetic_needle_is_standalone_clock") is not False or adj12an.get("fullbook_cloudy_rainy_time_generation_chain_closed") is not False:
+        fail("Batch 12AN clock/inclement firewall regressed")
+    row12an=next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12an="MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN"
+    if not row12an or row12an.get("runtime_time_standard_binding_status") != expected12an or row12an.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12AN current Matrix state regressed")
+    if row12an.get("batch_12an_direct_target_glyph_authority") is not False or row12an.get("batch_12an_fullbook_inclement_time_generation_chain_closed") is not False:
+        fail("Batch 12AN Matrix evidence firewall regressed")
+    if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AN candidate/algorithm firewall regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):

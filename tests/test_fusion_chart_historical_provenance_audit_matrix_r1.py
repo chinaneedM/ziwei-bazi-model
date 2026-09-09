@@ -502,9 +502,27 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertFalse(row["candidate_selected_batch_12am"])
         self.assertFalse(row["candidate_collapsed_batch_12am"])
         self.assertEqual(
-            row["runtime_time_standard_binding_status"],
+            row["runtime_time_standard_binding_status_batch_12am"],
             "EARLY_MING_SHUSHU_GNOMON_NEEDLE_SEMANTIC_SEPARATION_CONFIRMED_FULLBOOK_INCLEMENT_TIME_REALIZATION_AND_RUNTIME_BINDING_STILL_OPEN",
         )
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12an_wanxiaolu_time_sector_bridge_stays_fail_closed(self) -> None:
+        row = next(row for row in self.rows if row["rule_id"] == "HPA-ZDATE-006")
+        self.assertEqual(row["batch_12an_wanxiaolu_time_mountain_bridge_artifact"], "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json")
+        self.assertEqual(row["batch_12an_ctext_source_emitted_target_page"], {"file":"100720","page":144,"guessed":False})
+        self.assertEqual(row["batch_12an_shidian_edition"], "內府明萬曆35年刻本")
+        self.assertEqual(row["batch_12an_source_emitted_target_global_page_span"], [5607,5611])
+        self.assertFalse(row["batch_12an_direct_target_glyph_authority"])
+        self.assertTrue(row["batch_12an_twenty_four_mountain_time_sector_semantics_confirmed"])
+        self.assertTrue(row["batch_12an_solar_astronomical_anchor_required_in_witness"])
+        self.assertFalse(row["batch_12an_luojing_standalone_clock_equivalence"])
+        self.assertFalse(row["batch_12an_fullbook_inclement_time_generation_chain_closed"])
+        self.assertFalse(row["candidate_selected_batch_12an"])
+        self.assertFalse(row["candidate_collapsed_batch_12an"])
+        self.assertEqual(row["runtime_time_standard_binding_status"], "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN")
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
 
