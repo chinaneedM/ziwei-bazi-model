@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.48.0",
+  "schema_version": "1.49.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -123,9 +123,10 @@
       "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
       "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
       "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
-      "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK"
+      "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
+      "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -330,7 +331,11 @@
       "Batch 12AK binds Waseda first-party physical copy of Xu Chaojun 《高厚蒙求》, call no. ニ05 02158, 嘉慶12-14[1807-1809]. Its archive directly emits a 221-page PDF, SHA-256 53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4.",
       "Direct no-OCR review: p143 shows 羅經平晷 with a compass/orientation component integrated into a shadow-reading sundial; p195 鐘表圖說自序 explicitly separates daytime 日晷, nighttime 星月儀表, and 陰雨晦冥 fallback, stating the clock compilation is 所以辨子亥定支干.",
       "This closes a Qing-Jiaqing later operational bridge only: compass orientation + celestial time measurement + no-sky mechanical continuation is historically demonstrated, but Ming/Fullbook inheritance of this exact instrument stack remains unproven.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime binding is LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN; counts remain 198/166/10/14, provenance defects 10/10, chart algorithm defect/reopen/collapse 0."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime binding is LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN; counts remain 198/166/10/14, provenance defects 10/10, chart algorithm defect/reopen/collapse 0.",
+      "Batch 12AL re-collates the already-counted Korea National Library manuscript 《紫微斗數方書》 across p125-p126 with no OCR. P125 directly preserves 子有十刻上五刻屬昨夜下五刻屬今夜 and then changes topic; p126 is already a different limit-period surface.",
+      "Therefore the Korea target location lacks not only the Fullbook explicit 昨夜亥時/今日子時 wording but also the following 如天氣陰雨之際必須羅經以定真確時候 clause. The negative claim is target-location/adjacent-page scoped only; no whole-manuscript claim is made.",
+      "Nanyangtang and Guangyi physical Fullbook routes remain directly stable for both explicit Hai/current-Zi wording and the Luojing clause. Korea proves those forms are not universal across broader received Ziwei transmission; neither side is silently corrected and no interpolation/error claim is authorized.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime binding is BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED. Counts remain 198/166/10/14, provenance defects 10/10, chart algorithm defect/reopen/collapse 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
