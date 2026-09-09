@@ -323,6 +323,32 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertFalse(row["algorithm_reopen_authorized"])
 
 
+    def test_batch_12ai_ziwei_late_zi_time_coordinate_is_narrowed_not_selected(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12ai_ziwei_late_zi_time_coordinate_artifact"],
+            "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json",
+        )
+        self.assertEqual(row["historical_time_coordinate_family"], "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE")
+        self.assertEqual(row["historical_daytime_time_basis"], "SUNDIAL_TRUE_SUN")
+        self.assertEqual(row["historical_nighttime_time_basis"], "STELLAR_TIME_READING_WITH_CLEPSYDRA_AS_SUPPLEMENT")
+        self.assertEqual(row["historical_clock_geographic_dependence"], "DIRECTLY_ATTESTED")
+        self.assertEqual(
+            row["local_apparent_solar_time_historical_binding"],
+            "STRONGEST_MODERN_DAYTIME_TRANSLATION_NOT_NATAL_RUNTIME_WINNER",
+        )
+        self.assertEqual(row["historical_nighttime_to_runtime_apparent_solar_equivalence"], "UNRESOLVED")
+        self.assertEqual(row["natal_birthplace_time_coordinate_binding"], "UNRESOLVED")
+        self.assertEqual(row["runtime_time_standard_binding_status"], "PARTIALLY_NARROWED_NOT_CLOSED")
+        self.assertFalse(row["candidate_selected_batch_12ai"])
+        self.assertFalse(row["candidate_collapsed_batch_12ai"])
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12ai"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ai"], 0)
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
         ci = CI.read_text(encoding="utf-8")
