@@ -266,6 +266,73 @@ jobs:
               "searches": search_receipts,
           }
 
+          # Follow the exact physical page URL emitted by the source's own search
+          # result for 每日皆從太陽到處數. Fetch that one HTML page and the one
+          # scan image URL emitted by it; no neighboring-page enumeration.
+          target_page_url = None
+          for rec in search_receipts:
+              if rec.get("query") == "每日皆從太陽到處數":
+                  for link in rec.get("emitted_chapter_or_library_links", []):
+                      if "library.pl" in link and "file=100720" in link and "page=144" in link:
+                          target_page_url = link.split("#", 1)[0]
+                          break
+          physical_target = {
+              "locator_query": "每日皆從太陽到處數",
+              "source_emitted_target_page_url": target_page_url,
+              "page_number_guessed": False,
+          }
+          if target_page_url:
+              req = urllib.request.Request(target_page_url, headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      body = resp.read()
+                      physical_target.update({
+                          "page_status": resp.status,
+                          "page_final_url": resp.geturl(),
+                          "page_content_type": resp.headers.get("content-type"),
+                          "page_bytes": len(body),
+                          "page_sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  physical_target.update({"page_status": None, "page_error": repr(exc)})
+              (out / "ctext-file100720-page144.html").write_bytes(body)
+              raw = body.decode("utf-8", errors="replace")
+              srcs = [
+                  urllib.parse.urljoin(physical_target.get("page_final_url") or target_page_url, html.unescape(x))
+                  for x in re.findall(r"src=[\\\"']([^\\\"']+)[\\\"']", raw, flags=re.I)
+              ]
+              target_images = [
+                  x for x in dict.fromkeys(srcs)
+                  if "library.ctext.org/s2351089/" in x
+              ]
+              physical_target["source_emitted_scan_image_urls"] = target_images
+              physical_target["page_html_target_terms"] = {
+                  term: normalize(term) in normalize(raw)
+                  for term in ("第四十二章論定時", "每日皆從太陽到處數", "查時刻以考星躔")
+              }
+              if len(target_images) == 1:
+                  image_url = target_images[0]
+                  img_req = urllib.request.Request(image_url, headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"})
+                  try:
+                      with urllib.request.urlopen(img_req, timeout=45) as resp:
+                          image_body = resp.read()
+                          physical_target.update({
+                              "image_status": resp.status,
+                              "image_final_url": resp.geturl(),
+                              "image_content_type": resp.headers.get("content-type"),
+                              "image_bytes": len(image_body),
+                              "image_sha256": hashlib.sha256(image_body).hexdigest(),
+                          })
+                      ext = ".png" if "png" in (physical_target.get("image_content_type") or "").lower() else ".jpg"
+                      image_name = "ctext-file100720-page144-scan" + ext
+                      (out / image_name).write_bytes(image_body)
+                      physical_target["saved_image"] = image_name
+                  except Exception as exc:
+                      physical_target["image_status"] = None
+                      physical_target["image_error"] = repr(exc)
+          receipt["ctext_direct_physical_target"] = physical_target
+
           (out / "receipt.json").write_text(
               json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8",
