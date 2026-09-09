@@ -1,0 +1,81 @@
+name: research-ziwei-guangyi-yetnal-public-images-af
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-guangyi-yetnal-public-images-af.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture source-emitted Yetnal Guangyi public images
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path("probe"); IMG=OUT/"images"; OUT.mkdir(); IMG.mkdir()
+          page="https://www.yetnal.co.kr/shop/item.php?it_id=1142493235"
+          ua="Mozilla/5.0 provenance-research public-guangyi-yetnal"
+
+          def fetch(url, referer=None, limit=16000000):
+              headers={"User-Agent":ua,"Accept":"text/html,image/avif,image/webp,image/apng,image/*,*/*;q=0.8","Accept-Language":"ko,en;q=0.7,zh;q=0.6"}
+              if referer: headers["Referer"]=referer
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=40) as r:
+                      data=r.read(limit)
+                      return {"ok":True,"status":r.status,"final_url":r.geturl(),"content_type":r.headers.get("content-type"),"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest(),"data":data}
+              except Exception as e:
+                  return {"ok":False,"error":repr(e),"bytes":0,"data":b""}
+
+          row=fetch(page); raw=row.pop("data")
+          txt=""
+          if raw:
+              for enc in ("utf-8","euc-kr","cp949","latin1"):
+                  try:
+                      txt=raw.decode(enc); break
+                  except Exception: pass
+          (OUT/"yetnal.html").write_text(txt,encoding="utf-8")
+          urls=[]
+          for pat in [
+              r'''(?:src|href|data-src|data-original|data-lazy-src|content)\s*=\s*["']([^"']+)["']''',
+              r'''["'](https?:\\?/\\?/[^"']+\.(?:jpe?g|png|webp|gif)(?:\?[^"']*)?)["']'''
+          ]:
+              for m in re.finditer(pat,txt,re.I):
+                  v=html.unescape(m.group(1)).replace("\\/","/").strip()
+                  u=urllib.parse.urljoin(row.get("final_url") or page,v)
+                  if u.startswith(("http://","https://")) and re.search(r'\.(?:jpe?g|png|webp|gif)(?:\?|#|$)',u,re.I) and u not in urls:
+                      urls.append(u)
+          keep=[]
+          for u in urls:
+              ul=u.lower()
+              if any(x in ul for x in ("logo","icon","banner","qrcode","captcha","editor/","smarteditor")): continue
+              if "yetnal.co.kr" in ul and any(x in ul for x in ("/data/item/","/data/editor/","/data/file/")):
+                  keep.append(u)
+
+          result={"schema":"ZIWEI-GUANGYI-YETNAL-PUBLIC-IMAGES-AF-R1","access_date":"2026-09-09","page":{**row,"url":page,"source_emitted_image_urls":keep},"images":[],"authentication_attempted":False,"purchase_attempted":False,"identifier_guessing_attempted":False,"access_control_bypass_attempted":False}
+          for i,u in enumerate(keep,1):
+              x=fetch(u,referer=page,limit=12000000); data=x.pop("data")
+              item={"url":u,**x}
+              ct=(x.get("content_type") or "").lower()
+              magic=(data[:3]==b"\xff\xd8\xff" or data[:8]==b"\x89PNG\r\n\x1a\n" or data[:4]==b"RIFF" or data[:6] in (b"GIF87a",b"GIF89a"))
+              if data and x.get("ok") and (magic or "image/" in ct) and len(data)>15000:
+                  ext=".png" if data[:8]==b"\x89PNG\r\n\x1a\n" else ".webp" if data[:4]==b"RIFF" else ".gif" if data[:6] in (b"GIF87a",b"GIF89a") else ".jpg"
+                  p=IMG/f"yetnal-{i:03d}{ext}"; p.write_bytes(data); item["saved_file"]=str(p)
+              result["images"].append(item)
+          result["adjudication"]={"source_emitted_only":True,"visual_review_status":"PENDING_DIRECT_NO_OCR_REVIEW","direct_guangyi_imprint_status":"PENDING_DIRECT_IMAGE_REVIEW","target_leaf_status":"PENDING_DIRECT_NO_OCR_REVIEW","textual_witness_increment":0,"algorithm_effect":"NONE"}
+          (OUT/"ziwei-guangyi-yetnal-public-images-af.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({"page_ok":row.get("ok"),"status":row.get("status"),"emitted_count":len(keep),"saved":[{"file":x.get("saved_file"),"bytes":x.get("bytes"),"sha256":x.get("sha256"),"url":x.get("url")} for x in result["images"] if x.get("saved_file")],"adjudication":result["adjudication"]},ensure_ascii=False,indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-guangyi-yetnal-public-images-af
+          path: probe/
+          retention-days: 14
