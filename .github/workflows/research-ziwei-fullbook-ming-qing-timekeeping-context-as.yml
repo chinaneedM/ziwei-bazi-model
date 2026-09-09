@@ -1,0 +1,170 @@
+name: research-ziwei-fullbook-ming-qing-timekeeping-context-as
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-fullbook-ming-qing-timekeeping-context-as.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pypdf pillow
+      - name: Acquire direct scans and render target review surfaces
+        shell: python
+        run: |
+          import hashlib, io, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageOps, ImageDraw
+
+          out=Path("batch12as"); out.mkdir(exist_ok=True)
+
+          def get(url,name,timeout=90):
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+              try:
+                  with urllib.request.urlopen(req,timeout=timeout) as r:
+                      data=r.read(); status=r.status; final=r.geturl(); ctype=r.headers.get("Content-Type")
+              except Exception as e:
+                  return {"url":url,"error":repr(e)}
+              (out/name).write_bytes(data)
+              return {"url":url,"final_url":final,"http_status":status,"content_type":ctype,
+                      "bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()}
+
+          def commons_search(query):
+              url=("https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search&srnamespace=6"
+                   "&srlimit=50&srsearch="+urllib.parse.quote(query))
+              rec=get(url,"commons-search.json")
+              if "error" in rec: return rec,[]
+              obj=json.loads((out/"commons-search.json").read_text("utf-8"))
+              return rec,[x.get("title") for x in obj.get("query",{}).get("search",[])]
+
+          def commons_file(title,label):
+              url=("https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo"
+                   "&iiprop=url%7Csize%7Csha1&titles="+urllib.parse.quote(title))
+              rec=get(url,label+"-api.json")
+              if "error" in rec: return rec,None
+              obj=json.loads((out/(label+"-api.json")).read_text("utf-8"))
+              pages=obj.get("query",{}).get("pages",{})
+              page=next(iter(pages.values()),{})
+              info=(page.get("imageinfo") or [None])[0]
+              return rec,info
+
+          receipt={
+              "scope":"DIRECT_PUBLIC_PHYSICAL_SCANS_FOR_MING_TUSHUBIAN_AND_QING_WUAN_LISUAN_CONTEXT",
+              "authentication_attempted":False,
+              "ocr_generated_by_probe":False,
+              "sources":{},
+              "rendered_surfaces":{},
+              "adjudication":{
+                  "fullbook_authorial_inheritance_claimed":False,
+                  "runtime_standard_selected":False,
+                  "algorithm_reopen_authorized":False
+              }
+          }
+
+          # Harvard-Yenching 1613 blockprint: locate exact Commons file dynamically.
+          srec,titles=commons_search('intitle:"圖書編 v.22.pdf"')
+          receipt["sources"]["tushubian_search"]={"request":srec,"titles":titles}
+          ht=next((t for t in titles if "Harvard" in t and "圖書編" in t and "v.22.pdf" in t),None)
+          if ht:
+              arec,info=commons_file(ht,"tushubian")
+              receipt["sources"]["tushubian_commons"]={"title":ht,"api_request":arec,"imageinfo":info}
+              if info and info.get("url"):
+                  frec=get(info["url"],"tushubian-v22.pdf",180)
+                  receipt["sources"]["tushubian_pdf"]=frec
+
+          # Direct Commons scan of 勿庵歷算書目. Use the file surfaced by public indexing.
+          wuan_candidates=[
+            "https://upload.wikimedia.org/wikipedia/commons/4/4c/SSID-12633543_%E5%8B%BF%E5%BA%B5%E6%AD%B7%E7%AE%97%E6%9B%B8%E7%9B%AE.pdf",
+            "https://upload.wikimedia.org/wikipedia/commons/8/8d/NLC416-06jh006735-3057_%E5%8B%BF%E5%BA%B5%E6%AD%B7%E7%AE%97%E6%9B%B8%E7%9B%AE.pdf"
+          ]
+          for i,u in enumerate(wuan_candidates):
+              rec=get(u,f"wuan-{i}.pdf",120)
+              receipt["sources"][f"wuan_candidate_{i}"]=rec
+              if rec.get("http_status")==200 and str(rec.get("content_type","")).lower().startswith("application/pdf"):
+                  (out/f"wuan-{i}.pdf").rename(out/"wuan.pdf")
+                  receipt["sources"]["wuan_pdf"]={**rec,"chosen_candidate":i}
+                  break
+
+          def inspect_pdf(name,label,target_terms=None,render_all_contacts=False):
+              p=out/name
+              if not p.exists(): return
+              doc=fitz.open(str(p))
+              item={"page_count":len(doc),"text_layer_hits":[],"page_text_nonempty_count":0}
+              for i,page in enumerate(doc):
+                  txt=page.get_text("text") or ""
+                  if txt.strip(): item["page_text_nonempty_count"]+=1
+                  compact=re.sub(r"\s+","",txt)
+                  hits=[]
+                  for term in target_terms or []:
+                      if term in txt or term in compact: hits.append(term)
+                  if hits:
+                      item["text_layer_hits"].append({
+                          "page_1_based":i+1,
+                          "terms":hits,
+                          "text_sha256":hashlib.sha256(txt.encode()).hexdigest(),
+                          "excerpt":re.sub(r"\s+"," ",txt)[:3500]
+                      })
+              rendered=[]
+              targets=set()
+              for h in item["text_layer_hits"]:
+                  for j in range(max(0,h["page_1_based"]-2),min(len(doc),h["page_1_based"]+1)):
+                      targets.add(j)
+              # Always render first/last pages for volume identity and, for image-only Tushubian, all pages as contact sheets.
+              targets.update([0,max(0,len(doc)-1)])
+              for j in sorted(targets):
+                  pix=doc[j].get_pixmap(matrix=fitz.Matrix(1.8,1.8),alpha=False)
+                  fn=f"{label}-page-{j+1}.jpg"
+                  pix.save(str(out/fn))
+                  rendered.append({"page_1_based":j+1,"filename":fn,"sha256":hashlib.sha256((out/fn).read_bytes()).hexdigest()})
+              item["rendered_pages"]=rendered
+
+              if render_all_contacts:
+                  thumbs=[]
+                  for j,page in enumerate(doc):
+                      pix=page.get_pixmap(matrix=fitz.Matrix(0.45,0.45),alpha=False)
+                      im=Image.open(io.BytesIO(pix.tobytes("jpeg"))).convert("RGB")
+                      # label page number
+                      canvas=Image.new("RGB",(im.width,im.height+28),"white")
+                      canvas.paste(im,(0,28))
+                      d=ImageDraw.Draw(canvas); d.text((5,5),f"PDF p{j+1}",fill="black")
+                      thumbs.append(canvas)
+                  contacts=[]
+                  cols=2; rows=3
+                  for k in range(0,len(thumbs),cols*rows):
+                      batch=thumbs[k:k+cols*rows]
+                      w=max(x.width for x in batch); h=max(x.height for x in batch)
+                      sheet=Image.new("RGB",(cols*w,rows*h),"white")
+                      for idx,im in enumerate(batch):
+                          sheet.paste(im,((idx%cols)*w,(idx//cols)*h))
+                      fn=f"{label}-contact-{k//(cols*rows)+1}.jpg"
+                      sheet.save(out/fn,quality=88)
+                      contacts.append({"pages":[k+1,min(k+len(batch),len(thumbs))],"filename":fn,
+                                       "sha256":hashlib.sha256((out/fn).read_bytes()).hexdigest()})
+                  item["contact_sheets"]=contacts
+              receipt["rendered_surfaces"][label]=item
+
+          inspect_pdf("tushubian-v22.pdf","tushubian",
+                      ["若子時","上半時在夜半前","下半時在夜半後","刻漏總論","挈壺","時刻"],
+                      render_all_contacts=True)
+          inspect_pdf("wuan.pdf","wuan",
+                      ["測時之法","畫日景","夜候星度","陰雨之際","壺漏","自鳴之器","一壺漏考一卷"],
+                      render_all_contacts=True)
+
+          (out/"receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n","utf-8")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-fullbook-ming-qing-timekeeping-context-as
+          path: batch12as
+          retention-days: 90
