@@ -9,6 +9,7 @@ SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-S
 ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI = ROOT / "docs" / "research" / "ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
+ZIWEI_FULLBOOK_LUOJING_AJ = ROOT / "docs" / "research" / "ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -119,6 +120,28 @@ def main() -> int:
         raise SystemExit("Batch 12AI evidence identity mismatch")
     if time12ai_evidence.get("controlling_probe", {}).get("artifact_zip_sha256") != "9e3151f558b6425586fc2e2c593f5a01f82529f42f6cbd7e8f3e3973fc6df98f":
         raise SystemExit("Batch 12AI evidence archive binding regressed")
+    for source_id in (
+        "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+        "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
+        "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
+    ):
+        src12aj=by_source_id.get(source_id)
+        if src12aj is None:
+            raise SystemExit(f"Batch 12AJ Luojing semantic source missing: {source_id}")
+        if src12aj.get("machine_probe", {}).get("workflow_run_id") != 34324767233:
+            raise SystemExit(f"Batch 12AJ source probe binding regressed: {source_id}")
+        if src12aj.get("machine_probe", {}).get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2":
+            raise SystemExit(f"Batch 12AJ source artifact digest regressed: {source_id}")
+    if not ZIWEI_FULLBOOK_LUOJING_AJ.is_file():
+        raise SystemExit("Batch 12AJ Luojing evidence artifact is missing")
+    luojing12aj=json.loads(ZIWEI_FULLBOOK_LUOJING_AJ.read_text(encoding="utf-8"))
+    if luojing12aj.get("batch_id") != "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ":
+        raise SystemExit("Batch 12AJ evidence identity mismatch")
+    probe12aj=luojing12aj.get("controlling_probe", {})
+    if probe12aj.get("workflow_run_id") != 34324767233 or probe12aj.get("artifact_id") != 10093334440:
+        raise SystemExit("Batch 12AJ controlling probe binding regressed")
+    if probe12aj.get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2" or probe12aj.get("all_control_terms_hit") is not True:
+        raise SystemExit("Batch 12AJ stabilized term gate regressed")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
@@ -419,8 +442,8 @@ def main() -> int:
         raise SystemExit("Batch 12AI HPA-ZDATE-006 coordinate-family binding regressed")
     if row_nanyang.get("historical_daytime_time_basis") != "SUNDIAL_TRUE_SUN" or row_nanyang.get("historical_nighttime_time_basis") != "STELLAR_TIME_READING_WITH_CLEPSYDRA_AS_SUPPLEMENT":
         raise SystemExit("Batch 12AI HPA-ZDATE-006 day/night time basis regressed")
-    if row_nanyang.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_NOT_CLOSED":
-        raise SystemExit("Batch 12AI HPA-ZDATE-006 runtime binding was prematurely closed")
+    if row_nanyang.get("runtime_time_standard_binding_status_batch_12ai") != "PARTIALLY_NARROWED_NOT_CLOSED":
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 batch-scoped runtime binding regressed")
     if row_nanyang.get("local_apparent_solar_time_historical_binding") != "STRONGEST_MODERN_DAYTIME_TRANSLATION_NOT_NATAL_RUNTIME_WINNER":
         raise SystemExit("Batch 12AI apparent-solar translation was promoted beyond evidence")
     if row_nanyang.get("historical_nighttime_to_runtime_apparent_solar_equivalence") != "UNRESOLVED" or row_nanyang.get("natal_birthplace_time_coordinate_binding") != "UNRESOLVED":
@@ -429,6 +452,22 @@ def main() -> int:
         raise SystemExit("Batch 12AI candidate state regressed")
     if row_nanyang.get("independent_textual_witness_count_added_batch_12ai") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ai") != 0:
         raise SystemExit("Batch 12AI HPA-ZDATE-006 witness firewall regressed")
+    if row_nanyang.get("batch_12aj_fullbook_luojing_timekeeping_semantics_artifact") != "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json":
+        raise SystemExit("Batch 12AJ HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("fullbook_luojing_phrase_direct_physical_edition_agreement") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
+        raise SystemExit("Batch 12AJ Fullbook physical phrase agreement regressed")
+    if row_nanyang.get("fullbook_luojing_term_mechanical_concept") != "MAGNETIC_COMPASS_DIRECTION_AND_MERIDIAN_ORIENTATION_INSTRUMENT_FAMILY":
+        raise SystemExit("Batch 12AJ Luojing mechanical concept regressed")
+    if row_nanyang.get("fullbook_luojing_standalone_timekeeper_equivalence") != "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL":
+        raise SystemExit("Batch 12AJ standalone-clock equivalence regressed")
+    if row_nanyang.get("fullbook_luojing_direct_true_solar_time_equivalence") != "NOT_ESTABLISHED":
+        raise SystemExit("Batch 12AJ true-solar inference firewall regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
+        raise SystemExit("Batch 12AJ runtime time-standard state regressed")
+    if row_nanyang.get("local_apparent_solar_time_runtime_winner_selected") is not False or row_nanyang.get("luojing_means_true_solar_time") is not False:
+        raise SystemExit("Batch 12AJ solar-time winner firewall regressed")
+    if row_nanyang.get("independent_textual_witness_count_added_batch_12aj") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12aj") != 0:
+        raise SystemExit("Batch 12AJ witness double-counting firewall regressed")
 
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
