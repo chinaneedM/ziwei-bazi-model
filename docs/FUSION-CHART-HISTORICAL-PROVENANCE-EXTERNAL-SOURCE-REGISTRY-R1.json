@@ -2396,12 +2396,12 @@
       "historical_period": "MING_COMPILED_STATECRAFT_TEXT_PRESERVING_LATE_MING_ASTRONOMICAL_TECHNICAL_MEMORIAL",
       "provider": "Chinese Text Project",
       "url": "https://ctext.org/wiki.pl?chapter=210481&if=gb&remap=gb",
-      "source_role": "CONTEMPORANEOUS_MING_ASTRONOMICAL_TECHNICAL_CONTROL_FOR_LUOJING_DIRECTION_VS_TIMEKEEPING_NOT_ZIWEI_DOCTRINE",
+      "source_role": "SAME_XU_GUANGQI_MEMORIAL_TRANSMISSION_CONTROL_NOT_INDEPENDENT_TECHNICAL_VOTE",
       "quality_notes": "Batch 12AJ probe binds the passage separating instruments: 日晷定晝時, 星晷定夜時, 正線羅經定子午, 晨昏陰雨以行漏補二晷所不及. It further says 定時之本須準天行, ordinary 指南針所得子午非真子午, and 若專用羅經者 timing error has no fixed amount and generally runs 先天. Used to reject a mechanical equation 羅經=standalone clock/true-solar runtime; not used as Ziwei doctrine.",
       "machine_probe": {
-        "workflow_run_id": 34324767233,
-        "artifact_id": 10093334440,
-        "artifact_zip_sha256": "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2",
+        "workflow_run_id": 34325691911,
+        "artifact_id": 10093682981,
+        "artifact_zip_sha256": "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95",
         "response_sha256": "52481ce9aca217860b8f322c377a0539a08956b8fa800c01d7d97cc45af36616",
         "term_hits": [
           "造正线罗经",
@@ -2413,7 +2413,9 @@
           "指南针者"
         ]
       },
-      "research_artifact": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
+      "research_artifact": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json",
+      "textual_witness_relation_to_source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+      "independent_technical_vote_increment": 0
     },
     {
       "source_id": "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
@@ -2424,10 +2426,10 @@
       "source_role": "CONTEMPORANEOUS_MING_SHUSHU_CONTROL_FOR_LUOJING_MAGNETIC_NEEDLE_DIRECTIONAL_SEMANTICS_NOT_TIMEKEEPING_SPECIFICATION",
       "quality_notes": "Direct public text discusses 磁者/針者, states 此針之所以必指南也, and proceeds to 羅經 device usage. It independently supports 羅經 as a magnetic-compass/orientation instrument family. It does not specify a clock or natal time-standard.",
       "machine_probe": {
-        "workflow_run_id": 34324767233,
-        "artifact_id": 10093334440,
-        "artifact_zip_sha256": "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2",
-        "response_sha256": "b2810c2d8643eeb24168fa5a3af7dd06972053546d575fb2c10ad0b88c445d03",
+        "workflow_run_id": 34325691911,
+        "artifact_id": 10093682981,
+        "artifact_zip_sha256": "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95",
+        "response_sha256": "2c57c4d3837476385d585cfe0f4fe08a1478ef8ac21ceb9b11e227fc19a31a40",
         "term_hits": [
           "磁者",
           "針者",
@@ -2443,7 +2445,7 @@
       "historical_period": "QING_BIBLIOGRAPHIC_RECEIVED_CONTROL",
       "provider": "識典古籍",
       "url": "https://www.shidianguji.com/zh/book/SK0000A/chapter/1kgsnqvp989pe",
-      "source_role": "LATER_BIBLIOGRAPHIC_PHILOLOGY_CONTROL_FOR_LUOJING_COMPASS_GEOMANCY_SCOPE",
+      "source_role": "NON_CONTROLLING_LATER_BIBLIOGRAPHIC_PHILOLOGY_CONTROL",
       "quality_notes": "Later catalog/philology control only. Machine page exposes 羅經頂門針, 指南針法, 堪輿家羅經, 二十四向. It corroborates terminology but does not override the Ming technical controls.",
       "machine_probe": {
         "workflow_run_id": 34324767233,
@@ -2457,6 +2459,35 @@
           "二十四向"
         ]
       },
+      "research_artifact": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json",
+      "machine_probe_status": "NOT_IN_FINAL_DECISIVE_PROBE_DYNAMIC_PAGE_SURFACE"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+      "title": "徐光啟等《新法算書》卷一〈奉旨回奏／制器測晷〉定時羅經段",
+      "historical_period": "明崇禎三年十一月二十四日奏疏傳承",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/book/SK1525/chapter/1lasu1xyun8dl",
+      "source_role": "PRIMARY_OR_NEAR_PRIMARY_MING_CALENDAR_BUREAU_TECHNICAL_CONTROL_FOR_LUOJING_DIRECTION_VS_TIMEKEEPING_NOT_ZIWEI_DOCTRINE",
+      "quality_notes": "Direct public text identifies 徐光啟謹題 and preserves the memorial separating 日晷定晝時, 星晷定夜時, 正線羅經定子午, and 行漏 for 晨昏陰雨. It further says 定時之本必準天行 and warns 若專用羅經者 timing error is indeterminate and generally 先天. This is the controlling AJ technical witness. The 皇明經世文編 witness carries the same memorial and is not counted independently.",
+      "machine_probe": {
+        "workflow_run_id": 34325691911,
+        "artifact_id": 10093682981,
+        "artifact_zip_sha256": "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95",
+        "response_sha256": "bcb9bc78fe6ad26f50cd0d746b19491335d11e20dd0ebed10c44e8cd05434de2",
+        "term_hits": [
+          "徐光啓謹題",
+          "造正線羅經以定子午",
+          "若晨昏",
+          "隂雨",
+          "行漏",
+          "若專用羅經者",
+          "失於先天",
+          "天正時刻"
+        ]
+      },
+      "textual_witness_relation_to_source_id": "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+      "independent_technical_vote_increment": 1,
       "research_artifact": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
     }
   ],
