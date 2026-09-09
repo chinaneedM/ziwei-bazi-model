@@ -1,0 +1,185 @@
+name: research-ziwei-wanxiaolu-time-mountain-bridge-an
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-wanxiaolu-time-mountain-bridge-an.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe Wanxiaolu time-mountain physical routes
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import pathlib
+          import re
+          import urllib.parse
+          import urllib.request
+
+          out = pathlib.Path("wanxiaolu-an")
+          out.mkdir(exist_ok=True)
+
+          targets = [
+              {
+                  "key": "kanripo_ztdz_v2",
+                  "url": "https://www.kanripo.org/ed/KR5h0040/ZTDZ/002",
+                  "terms": [
+                      "第四十二章論定時",
+                      "地理分四十四山",
+                      "曆書亦分二十四時",
+                      "時與山每每相應",
+                      "每日皆從太陽到處數",
+                      "此是查時刻以考星躔之要法",
+                  ],
+                  "role": "KANRIPO_ZTDZ_TRANSCRIPTION_PLUS_SOURCE_EMITTED_IMAGE_ROUTE_DISCOVERY",
+              },
+              {
+                  "key": "ctext_target_chapter",
+                  "url": "https://ctext.org/wiki.pl?chapter=835051&if=gb",
+                  "terms": [
+                      "第四十二章論定時",
+                      "地理分四十四山",
+                      "曆書亦分二十四時",
+                      "時與山每每相應",
+                      "每日皆從太陽到處數",
+                      "七政氣孛",
+                      "查時刻以考星躔",
+                  ],
+                  "role": "OCR_OR_TRANSCRIPTION_NAVIGATION_CONTROL_NOT_GLYPH_AUTHORITY",
+              },
+              {
+                  "key": "ctext_library",
+                  "url": "https://ctext.org/library.pl?if=gb&res=85145",
+                  "terms": [
+                      "正統道藏",
+                      "1089",
+                      "1092",
+                      "續道藏",
+                      "八卷",
+                  ],
+                  "role": "CTEXT_LIBRARY_BASE_EDITION_AND_IMAGE_ROUTE_CONTROL",
+              },
+              {
+                  "key": "daoinfo_bibliography",
+                  "url": "https://zh.daoinfo.org/index.php?title=%E5%84%92%E9%96%80%E5%B4%87%E7%90%86%E6%8A%98%E8%A1%B7%E5%A0%AA%E8%BC%BF%E5%AE%8C%E5%AD%9D%E9%8C%84",
+                  "terms": [
+                      "約成書於明朝中葉",
+                      "萬曆續道藏",
+                      "八卷",
+                      "七政",
+                      "判斷星宿時辰",
+                  ],
+                  "role": "MODERN_BIBLIOGRAPHIC_CONTEXT_ONLY",
+              },
+          ]
+
+          def normalize(s):
+              s = html.unescape(s)
+              s = re.sub(r"<[^>]+>", "", s)
+              return re.sub(r"[，、。；：？！,.!?;:「」『』（）()\[\]【】<>/\\=_\-\s]+", "", s)
+
+          receipt = {
+              "schema": "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN-PROBE-R1",
+              "targets": [],
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+              "ocr_generated_by_probe": False,
+          }
+
+          for target in targets:
+              req = urllib.request.Request(
+                  target["url"],
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              item = {"key": target["key"], "requested_url": target["url"], "role": target["role"]}
+              try:
+                  with urllib.request.urlopen(req, timeout=40) as resp:
+                      body = resp.read()
+                      item.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  item.update({"status": None, "error": repr(exc), "bytes": 0, "sha256": None})
+
+              (out / f'{target["key"]}.html').write_bytes(body)
+              raw = body.decode("utf-8", errors="replace")
+              compact = normalize(raw)
+              item["term_hits"] = {term: normalize(term) in compact for term in target["terms"]}
+
+              # Preserve only source-emitted candidate image/viewer/download links.
+              hrefs = re.findall(r'href=["\']([^"\']+)["\']', raw, flags=re.I)
+              srcs = re.findall(r'src=["\']([^"\']+)["\']', raw, flags=re.I)
+              links = []
+              for link in dict.fromkeys(hrefs + srcs):
+                  low = link.lower()
+                  if any(token in low for token in ("image", ".jpg", ".jpeg", ".png", ".pdf", "library.pl", "showimage", "scan", "ztdz")):
+                      links.append(urllib.parse.urljoin(item.get("final_url") or target["url"], link))
+              item["source_emitted_candidate_links"] = links[:500]
+
+              # Target-local HTML context is diagnostic only, not evidence authority.
+              target_positions = []
+              for term in target["terms"]:
+                  pos = raw.find(term)
+                  if pos >= 0:
+                      target_positions.append({"term": term, "html_offset": pos})
+              item["literal_target_positions"] = target_positions
+              receipt["targets"].append(item)
+
+          # Follow only Kanripo links emitted by the target page and fetch public
+          # image-like objects. No ID guessing or enumeration beyond emitted links.
+          kan = next(x for x in receipt["targets"] if x["key"] == "kanripo_ztdz_v2")
+          fetched = []
+          for idx, url in enumerate(kan.get("source_emitted_candidate_links", [])):
+              if idx >= 120:
+                  break
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      body = resp.read()
+                      ctype = (resp.headers.get("content-type") or "").lower()
+                      rec = {
+                          "url": url,
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": ctype,
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      }
+                      if ctype.startswith("image/") and len(body) > 10000:
+                          ext = ".jpg"
+                          if "png" in ctype:
+                              ext = ".png"
+                          fn = f"kanripo-emitted-{len(fetched):03d}{ext}"
+                          (out / fn).write_bytes(body)
+                          rec["saved_as"] = fn
+                      fetched.append(rec)
+              except Exception as exc:
+                  fetched.append({"url": url, "status": None, "error": repr(exc)})
+          receipt["kanripo_emitted_link_fetches"] = fetched
+
+          (out / "receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-wanxiaolu-time-mountain-bridge-an
+          path: wanxiaolu-an/
