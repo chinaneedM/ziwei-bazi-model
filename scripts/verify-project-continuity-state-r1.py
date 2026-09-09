@@ -92,6 +92,8 @@ ZIWEI_LATE_ZI_TIME_COORDINATE_AI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PR
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE = ROOT / "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
 ZIWEI_FULLBOOK_LUOJING_AJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ.md"
 ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE = ROOT / "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
+ZIWEI_GAOHOU_MENGQIU_AK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK.md"
+ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE = ROOT / "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -137,9 +139,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
     "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
     "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
+    "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK.md"
 
 
 def fail(message: str) -> None:
@@ -147,6 +150,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_GAOHOU_MENGQIU_AK_BATCH, ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AK continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_FULLBOOK_LUOJING_AJ_BATCH, ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AJ continuity artifact missing: {path.relative_to(ROOT)}")
@@ -207,6 +214,7 @@ def main() -> int:
     ziwei_jiaojingshanfang_detail_photo_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_late_zi_time_coordinate_ai_evidence = json.loads(ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_fullbook_luojing_aj_evidence = json.loads(ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_gaohou_mengqiu_ak_evidence = json.loads(ZIWEI_GAOHOU_MENGQIU_AK_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -288,6 +296,9 @@ def main() -> int:
         "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
         "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
         "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+        "EXT-CTEXT-GAOHOU-MENGQIU-OCR",
+        "EXT-SHIDIAN-GAOHOU-MENGQIU-V3",
+        "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -550,8 +561,8 @@ def main() -> int:
         fail("Batch 12AJ Matrix physical phrase agreement regressed")
     if row12aj.get("fullbook_luojing_standalone_timekeeper_equivalence") != "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL":
         fail("Batch 12AJ Matrix standalone-timekeeper firewall regressed")
-    if row12aj.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
-        fail("Batch 12AJ Matrix runtime state regressed")
+    if row12aj.get("runtime_time_standard_binding_status_batch_12aj") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
+        fail("Batch 12AJ Matrix batch-scoped runtime state regressed")
     if row12aj.get("local_apparent_solar_time_runtime_winner_selected") is not False or row12aj.get("luojing_means_true_solar_time") is not False:
         fail("Batch 12AJ Matrix solar-time winner firewall regressed")
     if row12aj.get("independent_textual_witness_count_added_batch_12aj") != 0 or row12aj.get("independent_hai_glyph_witness_count_added_batch_12aj") != 0:
@@ -571,6 +582,67 @@ def main() -> int:
             fail(f"Batch 12AJ registry source/probe binding regressed: {sid}")
         if src.get("machine_probe", {}).get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95":
             fail(f"Batch 12AJ registry artifact digest regressed: {sid}")
+
+    # Batch 12AK Gaohou Mengqiu operational bridge.
+    if ziwei_gaohou_mengqiu_ak_evidence.get("batch_id") != "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK":
+        fail("Batch 12AK evidence identity mismatch")
+    probe12ak = ziwei_gaohou_mengqiu_ak_evidence.get("controlling_probe", {})
+    if probe12ak.get("workflow_run_id") != 34327928353 or probe12ak.get("artifact_id") != 10094524731:
+        fail("Batch 12AK controlling probe binding regressed")
+    if probe12ak.get("artifact_zip_sha256") != "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8":
+        fail("Batch 12AK artifact digest regressed")
+    gates12ak = probe12ak.get("semantic_gates", {})
+    if not gates12ak or not all(gates12ak.values()):
+        fail("Batch 12AK semantic gate regressed")
+    phys12ak = ziwei_gaohou_mengqiu_ak_evidence.get("primary_physical_source", {})
+    if phys12ak.get("source_id") != "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809":
+        fail("Batch 12AK primary physical source identity regressed")
+    if phys12ak.get("source_emitted_not_guessed") is not True:
+        fail("Batch 12AK source-emitted Waseda route firewall regressed")
+    if phys12ak.get("pdf_sha256") != "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4" or phys12ak.get("pdf_page_count") != 221:
+        fail("Batch 12AK Waseda PDF identity regressed")
+    direct12ak = {x.get("pdf_page_1_based"): x for x in ziwei_gaohou_mengqiu_ak_evidence.get("direct_physical_collation", ()) if x.get("pdf_page_1_based")}
+    if direct12ak.get(143, {}).get("direct_heading") != "一曰羅經平晷":
+        fail("Batch 12AK direct 羅經平晷 page binding regressed")
+    if direct12ak.get(195, {}).get("decisive_direct_reading") != "余既述日晷諸法以測晝時復述星月儀表諸法以測夜時而于陰雨晦冥之時尚未之及因輯是編所以辨子亥定支干非以供陳設玩好也":
+        fail("Batch 12AK direct inclement Zi/Hai reading regressed")
+    bridge12ak = ziwei_gaohou_mengqiu_ak_evidence.get("operational_bridge_adjudication", {})
+    if bridge12ak.get("relation_to_fullbook") != "LATER_OPERATIONAL_BRIDGE_NOT_FULLBOOK_AUTHORIAL_OR_MING_CLOCK_SPECIFICATION":
+        fail("Batch 12AK historical-scope firewall regressed")
+    if bridge12ak.get("fullbook_luojing_phrase_explained_as_exact_procedure") is not False or bridge12ak.get("fullbook_inheritance_proven") is not False:
+        fail("Batch 12AK Fullbook inheritance firewall regressed")
+    eff12ak = ziwei_gaohou_mengqiu_ak_evidence.get("hpa_zdate_006_effect", {})
+    if eff12ak.get("audit_status") != "MISSING_FROM_PRODUCT" or eff12ak.get("runtime_time_standard_binding_status") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
+        fail("Batch 12AK HPA/runtime state regressed")
+    if eff12ak.get("candidate_selected") is not False or eff12ak.get("candidate_collapsed") is not False or eff12ak.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AK candidate/algorithm firewall regressed")
+    row12ak = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ak or row12ak.get("batch_12ak_gaohou_mengqiu_operational_bridge_artifact") != "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json":
+        fail("Batch 12AK Matrix artifact binding regressed")
+    if row12ak.get("batch_12ak_primary_physical_source_id") != "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809":
+        fail("Batch 12AK Matrix primary physical source regressed")
+    if row12ak.get("batch_12ak_luojing_pinggui_status") != "DIRECT_PHYSICAL_CONFIRMED_COMPASS_ORIENTATION_COMPONENT_INSIDE_SUNDIAL":
+        fail("Batch 12AK Matrix Luojing-pinggui adjudication regressed")
+    if row12ak.get("batch_12ak_inclement_zi_hai_status") != "DIRECT_PHYSICAL_CONFIRMED_CLOCK_SECTION_PURPOSE_INCLUDES_INCLEMENT_DARK_CONDITIONS_AND_BIAN_ZI_HAI_DING_ZHIGAN":
+        fail("Batch 12AK Matrix inclement Zi/Hai adjudication regressed")
+    if row12ak.get("batch_12ak_fullbook_inheritance_proven") is not False:
+        fail("Batch 12AK Matrix Fullbook inheritance firewall regressed")
+    if row12ak.get("runtime_time_standard_binding_status") != "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN":
+        fail("Batch 12AK Matrix current runtime binding regressed")
+    if row12ak.get("independent_textual_witness_count_added_batch_12ak") != 0 or row12ak.get("independent_hai_glyph_witness_count_added_batch_12ak") != 0:
+        fail("Batch 12AK Matrix Fullbook witness firewall regressed")
+    sources12ak = {s.get("source_id"): s for s in registry.get("sources", ())}
+    waseda12ak = sources12ak.get("EXT-WASEDA-GAOHOU-MENGQIU-1807-1809")
+    if not waseda12ak or waseda12ak.get("pdf_sha256") != "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4":
+        fail("Batch 12AK Waseda registry source regressed")
+    if waseda12ak.get("machine_probe", {}).get("artifact_zip_sha256") != "cf81d001e0a2022afd560f3fedc060aefbc8ecdc8bc9b14fb88f745b0633dec8":
+        fail("Batch 12AK Waseda registry artifact binding regressed")
+    shidian12ak = sources12ak.get("EXT-SHIDIAN-GAOHOU-MENGQIU-V3")
+    if not shidian12ak or shidian12ak.get("independent_physical_witness_increment") != 0:
+        fail("Batch 12AK Shidian double-counting firewall regressed")
+    ctext12ak = sources12ak.get("EXT-CTEXT-GAOHOU-MENGQIU-OCR")
+    if not ctext12ak or ctext12ak.get("source_role") != "OCR_DISCOVERY_AND_CROSSCHECK_ONLY_NO_GLYPH_LEVEL_AUTHORITY":
+        fail("Batch 12AK OCR authority firewall regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
