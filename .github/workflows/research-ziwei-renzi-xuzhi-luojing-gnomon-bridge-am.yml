@@ -1,0 +1,242 @@
+name: research-ziwei-renzi-xuzhi-luojing-gnomon-bridge-am
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-renzi-xuzhi-luojing-gnomon-bridge-am.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF renderer
+        run: python -m pip install --quiet pymupdf pillow
+      - name: Bind early shushu witness and render scan contact sheets
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import pathlib
+          import re
+          import urllib.parse
+          import urllib.request
+
+          import fitz
+          from PIL import Image, ImageDraw
+
+          out = pathlib.Path("renzi-am")
+          contacts = out / "contacts"
+          out.mkdir(exist_ok=True)
+          contacts.mkdir(exist_ok=True)
+
+          def fetch(url, timeout=45):
+              req = urllib.request.Request(
+                  url,
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              with urllib.request.urlopen(req, timeout=timeout) as resp:
+                  body = resp.read()
+                  return body, resp.status, resp.geturl(), resp.headers.get("content-type")
+
+          def normalize(s):
+              s = html.unescape(s)
+              s = re.sub(r"<[^>]+>", "", s)
+              return re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", s)
+
+          receipt = {
+              "schema": "ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM-PROBE-R1",
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+              "ocr_generated_by_this_probe": False,
+              "targets": [],
+          }
+
+          targets = [
+              {
+                  "key": "cinii_bb17866565",
+                  "url": "https://ci.nii.ac.jp/ncid/BB17866565",
+                  "terms": [
+                      "重刋人子須知資孝地理心學統宗",
+                      "徐善繼",
+                      "徐善述",
+                      "梅墅石渠閣",
+                      "萬暦11",
+                      "東京大学",
+                      "東洋文化研究所",
+                  ],
+                  "role": "BIBLIOGRAPHIC_EDITION_IDENTITY_CONTROL",
+              },
+              {
+                  "key": "ctext_renzi_zhengzhen_fengzhen",
+                  "url": "https://ctext.org/wiki.pl?chapter=551648&if=gb",
+                  "terms": [
+                      "地理之用莫切於羅經",
+                      "立內外二盤",
+                      "正針",
+                      "縫針",
+                      "臬測以景",
+                      "針以氣",
+                      "推七政之纏次",
+                      "皆准於臬",
+                  ],
+                  "role": "PUBLIC_TRANSCRIPTION_NAVIGATION_AND_SEMANTIC_CONTROL_NOT_GLYPH_AUTHORITY",
+              },
+          ]
+
+          for target in targets:
+              item = {
+                  "key": target["key"],
+                  "requested_url": target["url"],
+                  "role": target["role"],
+              }
+              try:
+                  body, status, final_url, ctype = fetch(target["url"])
+                  item.update({
+                      "status": status,
+                      "final_url": final_url,
+                      "content_type": ctype,
+                      "bytes": len(body),
+                      "sha256": hashlib.sha256(body).hexdigest(),
+                  })
+              except Exception as exc:
+                  body = b""
+                  item.update({"status": None, "error": repr(exc), "bytes": 0, "sha256": None})
+              (out / f'{target["key"]}.html').write_bytes(body)
+              text = body.decode("utf-8", errors="replace")
+              ntext = normalize(text)
+              item["term_hits"] = {term: normalize(term) in ntext for term in target["terms"]}
+              receipt["targets"].append(item)
+
+          # Resolve the Commons original PDF through the MediaWiki API.
+          commons_title = "File:GGZBCK411 重刊人子須知資孝地理心學統宗.pdf"
+          api_query = urllib.parse.urlencode({
+              "action": "query",
+              "format": "json",
+              "prop": "imageinfo",
+              "iiprop": "url|size|sha1|mime",
+              "titles": commons_title,
+          })
+          api_url = "https://commons.wikimedia.org/w/api.php?" + api_query
+          api_body, api_status, api_final, api_ctype = fetch(api_url)
+          api_sha = hashlib.sha256(api_body).hexdigest()
+          (out / "commons-api.json").write_bytes(api_body)
+          payload = json.loads(api_body.decode("utf-8"))
+          page = next(iter(payload["query"]["pages"].values()))
+          imageinfo = page["imageinfo"][0]
+          original_url = imageinfo["url"]
+
+          scan = {
+              "commons_file_title": commons_title,
+              "api_url": api_url,
+              "api_status": api_status,
+              "api_response_sha256": api_sha,
+              "source_emitted_original_url": original_url,
+              "source_reported_size": imageinfo.get("size"),
+              "source_reported_sha1": imageinfo.get("sha1"),
+              "source_reported_mime": imageinfo.get("mime"),
+              "download_attempted": True,
+          }
+
+          pdf_req = urllib.request.Request(
+              original_url,
+              headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+          )
+          pdf_path = out / "renzi-xuzhi-ggzbck411.pdf"
+          h = hashlib.sha256()
+          total = 0
+          with urllib.request.urlopen(pdf_req, timeout=180) as resp, pdf_path.open("wb") as f:
+              scan["download_status"] = resp.status
+              scan["download_final_url"] = resp.geturl()
+              scan["download_content_type"] = resp.headers.get("content-type")
+              while True:
+                  chunk = resp.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  f.write(chunk)
+                  h.update(chunk)
+                  total += len(chunk)
+          scan["download_bytes"] = total
+          scan["download_sha256"] = h.hexdigest()
+
+          doc = fitz.open(pdf_path)
+          scan["pdf_page_count"] = doc.page_count
+
+          # Render all pages at low resolution for direct no-OCR visual localization.
+          # Sixteen pages per sheet keeps headings/page structure legible without
+          # committing or uploading the 251 MB source PDF.
+          cols, rows = 4, 4
+          thumb_w, thumb_h = 300, 430
+          margin = 18
+          label_h = 24
+          per_sheet = cols * rows
+          rendered = 0
+          contact_names = []
+          for start in range(0, doc.page_count, per_sheet):
+              end = min(start + per_sheet, doc.page_count)
+              sheet = Image.new(
+                  "RGB",
+                  (
+                      cols * (thumb_w + margin) + margin,
+                      rows * (thumb_h + label_h + margin) + margin,
+                  ),
+                  "white",
+              )
+              draw = ImageDraw.Draw(sheet)
+              for offset, pno in enumerate(range(start, end)):
+                  page_obj = doc.load_page(pno)
+                  pix = page_obj.get_pixmap(matrix=fitz.Matrix(0.30, 0.30), alpha=False)
+                  im = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                  im.thumbnail((thumb_w, thumb_h))
+                  cell_x = offset % cols
+                  cell_y = offset // cols
+                  x = margin + cell_x * (thumb_w + margin)
+                  y = margin + cell_y * (thumb_h + label_h + margin)
+                  sheet.paste(im, (x, y + label_h))
+                  draw.text((x, y), f"PDF p{pno + 1}", fill="black")
+                  rendered += 1
+              name = f"contact-{start+1:04d}-{end:04d}.jpg"
+              sheet.save(contacts / name, quality=88)
+              contact_names.append(name)
+
+          scan["rendered_page_count"] = rendered
+          scan["contact_sheet_count"] = len(contact_names)
+          scan["contact_sheets"] = contact_names
+          scan["direct_ocr_used"] = False
+          receipt["physical_scan"] = scan
+
+          by_key = {x["key"]: x for x in receipt["targets"]}
+          receipt["semantic_gates"] = {
+              "cinii_edition_identity_bound": all(by_key["cinii_bb17866565"]["term_hits"].values()),
+              "ctext_luojing_gnomon_semantics_bound": all(
+                  by_key["ctext_renzi_zhengzhen_fengzhen"]["term_hits"].get(k, False)
+                  for k in ("臬測以景", "針以氣", "立內外二盤", "推七政之纏次")
+              ),
+              "physical_scan_source_emitted_and_rendered": (
+                  scan["download_status"] == 200
+                  and scan["pdf_page_count"] == scan["rendered_page_count"]
+                  and scan["contact_sheet_count"] > 0
+              ),
+          }
+
+          (out / "receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+
+          # Do not upload the 251 MB source PDF; its provider URL/digest/size are
+          # bound in receipt.json. Upload only machine evidence and contact sheets.
+          pdf_path.unlink()
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-renzi-xuzhi-luojing-gnomon-bridge-am
+          path: renzi-am/
