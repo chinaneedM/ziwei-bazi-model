@@ -102,6 +102,8 @@ ZIWEI_WANXIAOLU_AN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_WANXIAOLU_AN_EVIDENCE = ROOT / "docs/research/ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
 ZIWEI_JIELAN_AO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO.md"
 ZIWEI_JIELAN_AO_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
+ZIWEI_JIELAN_AP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP.md"
+ZIWEI_JIELAN_AP_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -152,9 +154,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM",
     "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
     "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
+    "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP.md"
 
 
 def fail(message: str) -> None:
@@ -162,6 +165,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_JIELAN_AP_BATCH, ZIWEI_JIELAN_AP_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AP continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_JIELAN_AO_BATCH, ZIWEI_JIELAN_AO_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AO continuity artifact missing: {path.relative_to(ROOT)}")
@@ -247,6 +254,7 @@ def main() -> int:
     ziwei_renzi_xuzhi_am_evidence = json.loads(ZIWEI_RENZI_XUZHI_AM_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_wanxiaolu_an_evidence = json.loads(ZIWEI_WANXIAOLU_AN_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ao_evidence = json.loads(ZIWEI_JIELAN_AO_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jielan_ap_evidence = json.loads(ZIWEI_JIELAN_AP_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -855,10 +863,35 @@ def main() -> int:
         fail("Batch 12AO registry authority firewall regressed")
     row12ao = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
     expected12ao = "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED"
-    if not row12ao or row12ao.get("runtime_time_standard_binding_status") != expected12ao or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("audit_status") != "MISSING_FROM_PRODUCT":
-        fail("Batch 12AO current Matrix state regressed")
+    if not row12ao or row12ao.get("runtime_time_standard_binding_status_batch_12ao") != expected12ao or row12ao.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12AO historical Matrix snapshot regressed")
     if row12ao.get("candidate_selected_batch_12ao") is not False or row12ao.get("candidate_collapsed_batch_12ao") is not False or row12ao.get("algorithm_reopen_authorized") is not False:
         fail("Batch 12AO candidate/algorithm firewall regressed")
+
+    # Batch 12AP evidence-scope correction after the AO aggregate-page probe.
+    if ziwei_jielan_ap_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP":
+        fail("Batch 12AP evidence identity mismatch")
+    p12ap = ziwei_jielan_ap_evidence.get("probes", {}).get("ap_r1", {})
+    if p12ap.get("workflow_run_id") != 34342819087 or p12ap.get("artifact_id") != 10100441781 or p12ap.get("artifact_zip_sha256") != "6bf56986a8a594c759e088521496ed9c43944c87b11b29e0a4fd489868b483c8":
+        fail("Batch 12AP controlling PT49 probe binding regressed")
+    idx12ap = ziwei_jielan_ap_evidence.get("google_books_jielan_index", {})
+    if idx12ap.get("inclement_query_source_emitted_page_ids") != ["PT49"] or idx12ap.get("pt49_index_attested_heading") != "論十二生時難定訣":
+        fail("Batch 12AP PT49 index localization regressed")
+    adj12ap = ziwei_jielan_ap_evidence.get("adjudication", {})
+    if adj12ap.get("jielan_inclement_birth_time_discussion_public_index_attested") is not True or adj12ap.get("batch12ao_transmission_variant_inference_retracted") is not True:
+        fail("Batch 12AP scope repair adjudication regressed")
+    if adj12ap.get("pt49_physical_glyph_authority_obtained") is not False or adj12ap.get("runtime_standard_selected") is not False or adj12ap.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AP physical/runtime/algorithm firewall regressed")
+    row12ap = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12ap = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if not row12ap or row12ap.get("runtime_time_standard_binding_status") != expected12ap or row12ap.get("runtime_time_standard_binding_status_batch_12ap") != expected12ap or row12ap.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12AP current Matrix state regressed")
+    if row12ap.get("batch_12ap_prov_defect_id") != "PROV-DEFECT-011" or row12ap.get("batch_12ap_repair_status") != "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AP":
+        fail("Batch 12AP provenance repair state regressed")
+    if row12ap.get("candidate_selected_batch_12ap") is not False or row12ap.get("candidate_collapsed_batch_12ap") is not False or row12ap.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AP candidate/algorithm firewall regressed")
+    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:
+        fail("Batch 12AP provenance defect accounting regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
