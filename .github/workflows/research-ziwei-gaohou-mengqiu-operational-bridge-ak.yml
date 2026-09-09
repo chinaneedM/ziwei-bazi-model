@@ -147,6 +147,42 @@ jobs:
               ][:200]
               receipt["targets"].append(item)
 
+          # Bind and fetch only the PDF filename emitted by Waseda's archive directory.
+          archive_item = next(x for x in receipt["targets"] if x["key"] == "waseda_archive_directory")
+          emitted_pdf = next(
+              (x for x in archive_item.get("source_emitted_candidate_links", []) if x.lower().endswith(".pdf")),
+              None,
+          )
+          receipt["waseda_source_emitted_pdf"] = {
+              "emitted_href": emitted_pdf,
+              "download_attempted": emitted_pdf is not None,
+          }
+          if emitted_pdf is not None:
+              import urllib.parse
+              pdf_url = urllib.parse.urljoin(archive_item["final_url"], emitted_pdf)
+              pdf_req = urllib.request.Request(
+                  pdf_url,
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              try:
+                  with urllib.request.urlopen(pdf_req, timeout=90) as resp:
+                      pdf_body = resp.read()
+                      receipt["waseda_source_emitted_pdf"].update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(pdf_body),
+                          "sha256": hashlib.sha256(pdf_body).hexdigest(),
+                      })
+                      (out / "waseda-ni05_02158.pdf").write_bytes(pdf_body)
+              except Exception as exc:
+                  receipt["waseda_source_emitted_pdf"].update({
+                      "status": None,
+                      "error": repr(exc),
+                      "bytes": 0,
+                      "sha256": None,
+                  })
+
           # Explicit semantic gates. They may remain false; receipt is still preserved.
           by_key = {x["key"]: x for x in receipt["targets"]}
           receipt["semantic_gates"] = {
