@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.39.0",
+  "schema_version": "1.40.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -114,9 +114,10 @@
       "BATCH-12-ZIWEI-NCC-JIWEN-DAYUAN-DIRECT-SAMPLE-REVIEW-AND-KAMO-ACCESS-CONTROL-Y",
       "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
       "BATCH-12-ZIWEI-HUIXIAN-MUSEUM-OFFICIAL-ILLUSTRATED-CATALOG-ROUTE-AA",
-      "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB"
+      "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
+      "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -283,7 +284,11 @@
       "Batch 12AB directly reviews Artron/Taihe Jiacheng 2017 Lot *2036 source-emitted 1018×903 physical image (SHA-256 44c0369f078d27894579b10208f8906ed3592a814a2bc8d58a8f2760090a9685) without OCR; its title page reads 陳希夷先生著 / 紫微斗數全書 / 經述堂藏板.",
       "經述堂 is now a separately registered Fullbook physical imprint route and must not be silently normalized to the already-controlled 繼述堂 or 經綸堂 routes; stemmatic relation remains unresolved.",
       "The Artron photograph does not show 《論人生時要審的確》 or the late-Zi sentence. Kongfz object ids 78170971/70370885/54804686 redirect their public picture routes to login and were not bypassed. Batch 12AB adds zero textual/Hai-glyph votes.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate is a direct target late-Zi page from 經述堂 or another independently bound Fullbook physical edition."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; 198/166/10/14 and all algorithm invariants remain unchanged. Next gate is a direct target late-Zi page from 經述堂 or another independently bound Fullbook physical edition.",
+      "Batch 12AC closes the current unauthenticated Google Books Viewer response surface for combined Wenguangtang facsimile aIRbDgAAQBAJ: public jscmd=run returns HTTP 200 with zero body bytes; PT164/PT165/PT166 jscmd=click3 each return HTTP 200 metadata only.",
+      "PT165 is directly bound only as a page object record {pid: PT165, flags: 8, order: 165} inside a 209-page metadata array; both controlling probes expose zero source-emitted image URLs, so PAGE_OBJECT_EXISTS and HTTP_200 must not be promoted to physical-page/glyph authority.",
+      "The prior SearchWithinVolume PT165 reading with 上五刻/下五刻/亥時 remains search-index evidence only; PT165 base-copy identity remains unresolved Dunhuatang versus Jishutang and no physical target glyph is added.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Batch 12AC adds zero textual/Hai-glyph votes, changes no 198/166/10/14 accounting and authorizes no candidate selection/collapse or algorithm reopen. Next gate remains a directly readable target leaf from a physically bound Fullbook copy."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
