@@ -1,0 +1,141 @@
+name: research-ziwei-jielan-iread-public-preview-ar-r2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jielan-iread-public-preview-ar-r2.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trace only source-emitted public iRead preview contracts
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          out=Path("batch12ar-r2"); out.mkdir(exist_ok=True)
+          product="B000356384"
+          page_url="https://www.iread.com.tw/Detail/ProdDetail/"+product
+
+          def get(url,name):
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      data=r.read(); status=r.status; final=r.geturl(); ctype=r.headers.get("Content-Type")
+              except Exception as e:
+                  return {"url":url,"error":repr(e)}
+              (out/name).write_bytes(data)
+              return {"url":url,"final_url":final,"http_status":status,"content_type":ctype,
+                      "bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()}
+
+          receipt={
+              "scope":"IREAD_PRODUCT_PAGE_SOURCE_EMITTED_PUBLIC_PREVIEW_CONTRACTS_ONLY",
+              "product_id":product,
+              "authentication_attempted":False,
+              "drm_bypass_attempted":False,
+              "hidden_endpoint_guessing_attempted":False,
+              "product_page":{},
+              "source_emitted_links":[],
+              "inline_preview_contexts":[],
+              "source_emitted_scripts":[],
+              "script_preview_contracts":[],
+              "followed_public_preview_like_urls":[]
+          }
+
+          receipt["product_page"]=get(page_url,"product.html")
+          p=out/"product.html"
+          txt=p.read_text("utf-8",errors="ignore") if p.exists() else ""
+
+          # Preserve literal contexts around preview/read labels and product id.
+          for term in ["試閱","试阅","內容試閱","内容试阅","preview","Preview","sample","Sample","trial","Trial",product]:
+              for m in list(re.finditer(re.escape(term),txt,re.I))[:12]:
+                  receipt["inline_preview_contexts"].append({
+                      "term":term,
+                      "context":re.sub(r"\s+"," ",txt[max(0,m.start()-500):m.end()+900])[:1600]
+                  })
+
+          # Collect literal source-emitted URL-valued attributes and onclick/data attributes.
+          attrs=[]
+          for m in re.finditer(r'(href|src|data-[\w-]+|onclick)\s*=\s*["\']([^"\']+)["\']',txt,re.I):
+              key,val=m.group(1),html.unescape(m.group(2)).replace("\\u0026","&")
+              attrs.append({"attribute":key,"value":val})
+          receipt["source_emitted_attributes"]=attrs[:2000]
+
+          links=[]
+          for item in attrs:
+              val=item["value"]
+              if item["attribute"].lower()=="onclick":
+                  continue
+              if val.startswith(("javascript:","#","mailto:","tel:")):
+                  continue
+              try:
+                  u=urllib.parse.urljoin(page_url,val)
+              except Exception:
+                  continue
+              if u not in links: links.append(u)
+          receipt["source_emitted_links"]=links
+
+          # Fetch only script URLs literally emitted by the product HTML, capped.
+          scripts=[]
+          for item in attrs:
+              if item["attribute"].lower()=="src":
+                  u=urllib.parse.urljoin(page_url,item["value"])
+                  if u not in scripts and urllib.parse.urlparse(u).scheme in {"http","https"}:
+                      scripts.append(u)
+          for i,u in enumerate(scripts[:40]):
+              rec=get(u,f"script-{i}.txt")
+              sp=out/f"script-{i}.txt"
+              st=sp.read_text("utf-8",errors="ignore") if sp.exists() else ""
+              contexts=[]
+              for term in ["preview","試閱","sample","trial","ebook","read","ProdDetail","B000"]:
+                  for m in list(re.finditer(re.escape(term),st,re.I))[:8]:
+                      contexts.append({"term":term,"context":re.sub(r"\s+"," ",st[max(0,m.start()-350):m.end()+750])[:1300]})
+              receipt["source_emitted_scripts"].append({"url":u,"request":rec})
+              if contexts:
+                  receipt["script_preview_contracts"].append({"url":u,"contexts":contexts})
+
+          # Follow only literal public URLs emitted by the page itself whose path/query signals preview/sample/read.
+          candidates=[]
+          for u in links:
+              low=u.lower()
+              if any(k in low for k in ["preview","sample","trial","read","ebook","reader"]):
+                  # Do not follow app-store/help/static assets as preview candidates.
+                  if any(k in low for k in ["apps.apple.com","play.google.com/store/apps","support.","fonts.","googleapis.com"]):
+                      continue
+                  if u not in candidates: candidates.append(u)
+          for i,u in enumerate(candidates[:30]):
+              rec=get(u,f"candidate-{i}.bin")
+              receipt["followed_public_preview_like_urls"].append({"url":u,"request":rec})
+
+          receipt["adjudication"]={
+              "product_page_publicly_marks_preview": any(t in txt for t in ["試閱","内容试阅","內容試閱"]),
+              "literal_preview_url_emitted_by_product_page": any(
+                  any(k in u.lower() for k in ["preview","sample","trial","reader"])
+                  for u in links
+              ),
+              "public_preview_content_object_obtained": any(
+                  x.get("request",{}).get("http_status")==200 and
+                  ("pdf" in str(x.get("request",{}).get("content_type","")).lower() or
+                   str(x.get("request",{}).get("content_type","")).startswith("image/"))
+                  for x in receipt["followed_public_preview_like_urls"]
+              ),
+              "account_or_drm_boundary_crossed":False
+          }
+
+          (out/"receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n","utf-8")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jielan-iread-public-preview-ar-r2
+          path: batch12ar-r2
+          retention-days: 90
