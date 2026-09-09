@@ -287,6 +287,7 @@ def main() -> int:
         "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
         "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
         "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+        "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -519,9 +520,9 @@ def main() -> int:
     if ziwei_fullbook_luojing_aj_evidence.get("batch_id") != "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ":
         fail("Batch 12AJ evidence identity mismatch")
     probe12aj = ziwei_fullbook_luojing_aj_evidence.get("controlling_probe", {})
-    if probe12aj.get("workflow_run_id") != 34324767233 or probe12aj.get("artifact_id") != 10093334440:
+    if probe12aj.get("workflow_run_id") != 34325691911 or probe12aj.get("artifact_id") != 10093682981:
         fail("Batch 12AJ controlling probe binding regressed")
-    if probe12aj.get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2" or probe12aj.get("all_control_terms_hit") is not True:
+    if probe12aj.get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95" or probe12aj.get("all_decisive_control_terms_hit") is not True:
         fail("Batch 12AJ stabilized probe gate regressed")
     full12aj = ziwei_fullbook_luojing_aj_evidence.get("fullbook_direct_physical_phrase_collation", {})
     if full12aj.get("agreement_status") != "DIRECT_PHYSICAL_FULLBOOK_NANYANGTANG_AND_GUANGYI_AGREE_ON_LUOJING_SENTENCE":
@@ -555,16 +556,20 @@ def main() -> int:
         fail("Batch 12AJ Matrix solar-time winner firewall regressed")
     if row12aj.get("independent_textual_witness_count_added_batch_12aj") != 0 or row12aj.get("independent_hai_glyph_witness_count_added_batch_12aj") != 0:
         fail("Batch 12AJ Matrix witness double-counting firewall regressed")
+    if row12aj.get("batch_12aj_primary_timekeeping_technical_control_source_id") != "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING":
+        fail("Batch 12AJ primary technical-control source hierarchy regressed")
+    if row12aj.get("batch_12aj_same_memorial_transmission_control_source_id") != "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING" or row12aj.get("batch_12aj_same_memorial_double_count_forbidden") is not True:
+        fail("Batch 12AJ same-memorial transmission/dedup firewall regressed")
     sources12aj = {s.get("source_id"): s for s in registry.get("sources", ())}
     for sid in (
         "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+        "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
         "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
-        "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
     ):
         src = sources12aj.get(sid)
-        if not src or src.get("machine_probe", {}).get("workflow_run_id") != 34324767233:
+        if not src or src.get("machine_probe", {}).get("workflow_run_id") != 34325691911:
             fail(f"Batch 12AJ registry source/probe binding regressed: {sid}")
-        if src.get("machine_probe", {}).get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2":
+        if src.get("machine_probe", {}).get("artifact_zip_sha256") != "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95":
             fail(f"Batch 12AJ registry artifact digest regressed: {sid}")
 
     invariants = state.get("invariants", {})
