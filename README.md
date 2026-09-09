@@ -308,3 +308,8 @@ Batch 12AP repairs `PROV-DEFECT-011` without reopening chart algorithms. Batch 1
 ### Historical provenance audit — Batch 12AQ
 
 Batch 12AQ resolves the 1581 Jielan bibliographic-imprint conflict by returning to the printed 《中國古籍善本書目·子部三》 scan. Direct no-OCR review of PDF p40 shows 《新刻纂集紫微斗數捷覽四卷》 as catalog item 4051 and reads `明萬曆九年金陵書坊王洛川刻本`. The search-surface `王德川` / `4052` reading is rejected as OCR/table-alignment error; item 4052 is the adjacent 《上官拜命玉曆大全不分卷》. Taiwan NCL independently attests an unrelated Ming Jinling `王氏洛川` edition string, strengthening the bookseller-name identity without implying same-copy provenance. Repository imprint metadata remains unchanged and no new provenance defect is counted. Anhui holding stays locator-only; PT49 physical glyphs and the Fullbook cloudy/rainy time-acquisition chain remain open. Evidence: `docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json`.
+
+
+### Historical provenance audit — Batch 12AR
+
+Batch 12AR closes the reviewed public Google Books / Google Play preview route for Jielan PT49 without promoting index OCR to glyph authority. The public Play reader directly source-emits a signed PT49 image URL; the same route returns a genuine PT48 facsimile positive control, but PT49 and PT50 return the identical visible `image not available` placeholder. English accessible mode returns 403 and the source-emitted new-Books route redirects to classic Books without a PT49 image object. The iRead runner timeout is execution-environment access-boundary only. `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and provenance 11/11 remain unchanged. Evidence: `docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json`.
