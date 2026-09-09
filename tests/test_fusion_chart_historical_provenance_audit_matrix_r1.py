@@ -381,13 +381,55 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertFalse(row["local_apparent_solar_time_runtime_winner_selected"])
         self.assertFalse(row["luojing_means_true_solar_time"])
         self.assertEqual(
-            row["runtime_time_standard_binding_status"],
+            row["runtime_time_standard_binding_status_batch_12aj"],
             "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED",
         )
         self.assertEqual(row["independent_textual_witness_count_added_batch_12aj"], 0)
         self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12aj"], 0)
         self.assertFalse(row["candidate_selected_batch_12aj"])
         self.assertFalse(row["candidate_collapsed_batch_12aj"])
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12ak_gaohou_mengqiu_is_later_operational_bridge_only(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12ak_gaohou_mengqiu_operational_bridge_artifact"],
+            "docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json",
+        )
+        self.assertEqual(row["batch_12ak_primary_physical_source_id"], "EXT-WASEDA-GAOHOU-MENGQIU-1807-1809")
+        self.assertEqual(
+            row["batch_12ak_waseda_pdf_sha256"],
+            "53ee7b0e59fbb92304af08d6f1b58226bee6fff85f23e5b43e830b76b967f1e4",
+        )
+        self.assertEqual(row["batch_12ak_waseda_pdf_page_count"], 221)
+        self.assertEqual(row["batch_12ak_direct_physical_review_pages"], [130, 131, 132, 143, 194, 195])
+        self.assertEqual(
+            row["batch_12ak_luojing_pinggui_status"],
+            "DIRECT_PHYSICAL_CONFIRMED_COMPASS_ORIENTATION_COMPONENT_INSIDE_SUNDIAL",
+        )
+        self.assertEqual(
+            row["batch_12ak_inclement_zi_hai_status"],
+            "DIRECT_PHYSICAL_CONFIRMED_CLOCK_SECTION_PURPOSE_INCLUDES_INCLEMENT_DARK_CONDITIONS_AND_BIAN_ZI_HAI_DING_ZHIGAN",
+        )
+        self.assertEqual(
+            row["batch_12ak_historical_scope"],
+            "QING_JIAQING_LATER_OPERATIONAL_BRIDGE_NOT_MING_FULLBOOK_AUTHORIAL_SPECIFICATION",
+        )
+        self.assertFalse(row["batch_12ak_fullbook_inheritance_proven"])
+        self.assertFalse(row["batch_12ak_true_solar_runtime_selected"])
+        self.assertFalse(row["batch_12ak_local_apparent_solar_runtime_selected"])
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12ak"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ak"], 0)
+        self.assertEqual(row["later_operational_bridge_increment_batch_12ak"], 1)
+        self.assertFalse(row["candidate_selected_batch_12ak"])
+        self.assertFalse(row["candidate_collapsed_batch_12ak"])
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN",
+        )
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
 
