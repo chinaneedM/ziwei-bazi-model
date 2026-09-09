@@ -368,3 +368,6 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - No Fullbook interpolation claim, no Korean-copy error claim, no candidate collapse and no algorithm reopen are authorized.
 - `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; current runtime-binding status = `BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED`.
 - Evidence: `docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json`.
+
+
+- Batch 12AM: early-Ming shushu semantics are now directly bound to a 510-page facsimile of 徐善繼、徐善述《人子須知》. The composite is source-labelled 隆慶三年刊 / 萬曆十一年梅墅石渠閣補刊本; CiNii BB17866565 independently corroborates the 梅墅石渠閣 / 萬暦11 [1583] edition family without claiming the same physical copy. Direct no-OCR review locates 三昧論有引 at PDF p414 and 正針縫針 at p415; p416 directly reads `臬測以景針以氣故不能符` and `推七政之纏次皆准於臬`. This strengthens the mechanical firewall: the gnomon/shadow astronomical reference and qi-responsive magnetic needle are distinct operations, so 羅經 cannot be normalized to a standalone clock, 真太陽時 or local apparent-solar runtime. The Fullbook cloudy/rainy time-generation chain remains source-scoped and unresolved; `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`, counts remain 198/166/10/14, and algorithm defect/reopen/collapse remain 0.
