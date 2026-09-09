@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
     "audited_row_count": 166,
-    "confirmed_provenance_metadata_defect_count": 10,
-    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -127,9 +127,10 @@
       "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
       "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM",
       "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
-      "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO"
+      "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
+      "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -349,7 +350,11 @@
       "The Ming shushu witness confirms a 24-position time-sector/mountain-sector coordinate framework: 時與山每每相應, with actual checking anchored to 太陽到處, 逐時逐刻考驗 and 考星躔. This explains how a Luojing-like plate can participate in temporal coordinates without making its magnetic needle a clock.",
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Fullbook inclement-weather current-time acquisition remains unresolved, no civil/mean/apparent-solar runtime winner is selected, and algorithm defect/reopen/collapse remain 0.",
       "Next gate: find a Fullbook-line or sufficiently early Ziwei witness that explicitly supplies the cloudy/rainy current-time acquisition mechanism; do not infer the missing clock input from the 24-mountain ring alone.",
-      "Batch 12AO: complete current Tianji public transcription pagination 1-5 for the 1581 Jielan (declared 246 chapters / 67,533 characters) contains birth-time positive controls but no configured inclement-Luojing terms. This is not a physical-book negative or interpolation claim. Reviewed Fullbook physical routes retain the inclement-Luojing clause; cloudy/rainy current-time acquisition and runtime standard remain unresolved."
+      "Batch 12AO: complete current Tianji public transcription pagination 1-5 for the 1581 Jielan (declared 246 chapters / 67,533 characters) contains birth-time positive controls but no configured inclement-Luojing terms. This is not a physical-book negative or interpolation claim. Reviewed Fullbook physical routes retain the inclement-Luojing clause; cloudy/rainy current-time acquisition and runtime standard remain unresolved.",
+      "Batch 12AP repairs PROV-DEFECT-011 (EVIDENCE_SCOPE_MISCLASSIFICATION): Batch 12AO's exact Tianji pagination-pages-1-5 nonattestation remains valid, but its transmission-level extrapolation is retracted because Google Books Jielan volume rZRcCwAAQBAJ source-emits PT49 for 陰雨 under 論十二生時難定訣.",
+      "PT49 currently has public search-index attestation only. Source-emitted physical/facsimile PT47/PT48 and NCC Heart-One sample spreads were directly reviewed, but no PT49 target leaf was obtained; target glyph authority remains false.",
+      "The Jielan inclement birth-time discussion is now positive at index level, while 羅經 / 真確時候 / 行漏 / 壺漏 remain nonattested only on the reviewed index surfaces. No physical negative or interpolation claim is authorized, and the Fullbook cloudy/rainy current-time acquisition mechanism remains unresolved.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; counts are 198/166/10/14, provenance metadata defects 11 confirmed / 11 repaired, and chart algorithm defect/reopen/collapse remain 0. Next gates are direct PT49 physical review and an explicit Fullbook-line inclement-time acquisition chain."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
