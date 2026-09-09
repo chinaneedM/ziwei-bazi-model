@@ -204,6 +204,7 @@ jobs:
                   fail("Batch 12AO candidate/algorithm firewall regressed")
 
           """).replace("__AO__", AO).replace("__STATUS__", AO_STATUS)
+          aoblock = "\n".join(("    " + line if line else line) for line in aoblock.splitlines()) + "\n"
           s = once(s, '    invariants = state.get("invariants", {})', aoblock + '    invariants = state.get("invariants", {})', "continuity AO block")
           p.write_text(s, encoding="utf-8")
 
@@ -254,6 +255,7 @@ jobs:
                   raise SystemExit("Batch 12AO candidate/algorithm firewall regressed")
 
           """).replace("__AO__", AO).replace("__STATUS__", AO_STATUS)
+          block = "\n".join(("    " + line if line else line) for line in block.splitlines()) + "\n"
           s = once(s, marker, marker + block, "audit AO block")
           p.write_text(s, encoding="utf-8")
 
