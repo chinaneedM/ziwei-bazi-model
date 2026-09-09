@@ -143,10 +143,14 @@ jobs:
               downloaded.append({**obj,"request":rec})
           receipt["downloaded_candidate_objects"]=downloaded
 
+          def route_status_200(label):
+              request=(receipt["routes"].get(label,{}) or {}).get("request")
+              return isinstance(request,dict) and request.get("http_status")==200
+
           receipt["adjudication"]={
-              "accessible_route_reachable":receipt["routes"].get("accessible_text",{}).get("request",{}).get("http_status")==200,
-              "new_google_books_route_reachable":receipt["routes"].get("new_google_books",{}).get("request",{}).get("http_status")==200,
-              "play_reader_route_reachable":receipt["routes"].get("play_reader",{}).get("request",{}).get("http_status")==200,
+              "accessible_route_reachable":route_status_200("accessible_text"),
+              "new_google_books_route_reachable":route_status_200("new_google_books"),
+              "play_reader_route_reachable":route_status_200("play_reader"),
               "pt49_literal_page_token_seen_in_any_route":any("PT49" in x.get("page_tokens",[]) for x in receipt["routes"].values()),
               "pt49_source_emitted_image_object_obtained":any(
                   x.get("page_id")=="PT49" and
