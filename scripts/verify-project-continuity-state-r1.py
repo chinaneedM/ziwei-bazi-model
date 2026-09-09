@@ -104,6 +104,8 @@ ZIWEI_JIELAN_AO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_JIELAN_AO_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
 ZIWEI_JIELAN_AP_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP.md"
 ZIWEI_JIELAN_AP_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+ZIWEI_JIELAN_AQ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ.md"
+ZIWEI_JIELAN_AQ_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -155,9 +157,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
     "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
     "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
+    "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ.md"
 
 
 def fail(message: str) -> None:
@@ -165,6 +168,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_JIELAN_AQ_BATCH, ZIWEI_JIELAN_AQ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AQ continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_JIELAN_AP_BATCH, ZIWEI_JIELAN_AP_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AP continuity artifact missing: {path.relative_to(ROOT)}")
@@ -255,6 +262,7 @@ def main() -> int:
     ziwei_wanxiaolu_an_evidence = json.loads(ZIWEI_WANXIAOLU_AN_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ao_evidence = json.loads(ZIWEI_JIELAN_AO_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ap_evidence = json.loads(ZIWEI_JIELAN_AP_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jielan_aq_evidence = json.loads(ZIWEI_JIELAN_AQ_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -892,6 +900,49 @@ def main() -> int:
         fail("Batch 12AP candidate/algorithm firewall regressed")
     if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:
         fail("Batch 12AP provenance defect accounting regressed")
+
+    # Batch 12AQ direct printed-bibliography imprint reconciliation.
+    if ziwei_jielan_aq_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ":
+        fail("Batch 12AQ evidence identity mismatch")
+    aq_probe = ziwei_jielan_aq_evidence.get("controlling_probe", {})
+    if aq_probe.get("workflow_run_id") != 34350629959 or aq_probe.get("artifact_id") != 10103542053 or aq_probe.get("artifact_zip_sha256") != "c50fff947d5adf8e4eb9109d7d00485dbe7d04a7767090ca6e9109603b8c7f88":
+        fail("Batch 12AQ controlling probe binding regressed")
+    aq_scan = ziwei_jielan_aq_evidence.get("direct_bibliographic_scan", {})
+    if aq_scan.get("target_pdf_page_1_based") != 40 or aq_scan.get("catalog_item_number") != 4051:
+        fail("Batch 12AQ direct bibliography locator regressed")
+    aq_read = aq_scan.get("direct_visual_reading", {})
+    if aq_read.get("edition_imprint") != "明萬曆九年金陵書坊王洛川刻本" or aq_read.get("imprint_name") != "王洛川":
+        fail("Batch 12AQ direct imprint reading regressed")
+    if aq_scan.get("ocr_used_for_final_glyph_adjudication") is not False:
+        fail("Batch 12AQ OCR firewall regressed")
+    aq_conflict = ziwei_jielan_aq_evidence.get("search_surface_conflict", {})
+    if aq_conflict.get("surfaced_reading") != "明萬曆九年金陵書坊王德川刻本" or aq_conflict.get("surfaced_item_number") != 4052:
+        fail("Batch 12AQ search-surface conflict record regressed")
+    if aq_conflict.get("adjudication") != "REJECTED_AS_SEARCH_INDEX_OCR_AND_TABLE_ALIGNMENT_ARTIFACT" or aq_conflict.get("search_surface_is_glyph_authority") is not False:
+        fail("Batch 12AQ search-surface authority firewall regressed")
+    aq_adj = ziwei_jielan_aq_evidence.get("adjudication", {})
+    if aq_adj.get("current_registry_imprint_wang_luochuan_supported") is not True or aq_adj.get("current_registry_should_change_to_wang_dechuan") is not False:
+        fail("Batch 12AQ registry-imprint adjudication regressed")
+    if aq_adj.get("repository_provenance_metadata_defect_increment") != 0 or aq_adj.get("chart_algorithm_defect_increment") != 0 or aq_adj.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AQ defect/algorithm firewall regressed")
+    aq_catalog = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051"), None)
+    aq_ncl = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-NCL-WANGSHI-LUOCHUAN-XUANHE"), None)
+    aq_jielan = next((x for x in registry.get("sources", ()) if x.get("source_id") == "EXT-ZIWEI-JIELAN-1581"), None)
+    if aq_catalog is None or aq_ncl is None or aq_jielan is None:
+        fail("Batch 12AQ registry sources missing")
+    if aq_catalog.get("catalog_item_number") != 4051 or aq_catalog.get("direct_visual_imprint") != "明萬曆九年金陵書坊王洛川刻本" or aq_catalog.get("ocr_used_for_final_glyph_adjudication") is not False:
+        fail("Batch 12AQ direct catalog registry binding regressed")
+    if aq_ncl.get("direct_catalog_term") != "明金陵王氏洛川校刊本":
+        fail("Batch 12AQ NCL bookseller-name control regressed")
+    aq_binding = aq_jielan.get("batch_12aq_direct_bibliography_confirmation", {})
+    if aq_binding.get("catalog_item_number") != 4051 or aq_binding.get("direct_visual_imprint") != "明萬曆九年金陵書坊王洛川刻本" or aq_binding.get("search_surface_wang_dechuan_rejected") is not True:
+        fail("Batch 12AQ Jielan registry confirmation regressed")
+    row12aq = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12aq = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if not row12aq or row12aq.get("runtime_time_standard_binding_status") != expected12aq or row12aq.get("audit_status") != "MISSING_FROM_PRODUCT" or row12aq.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AQ unexpectedly changed HPA-ZDATE-006")
+    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:
+        fail("Batch 12AQ provenance accounting should remain 11/11")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
