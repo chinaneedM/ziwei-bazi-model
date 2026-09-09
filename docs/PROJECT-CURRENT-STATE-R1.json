@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.44.0",
+  "schema_version": "1.45.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -39,8 +39,8 @@
     "external_source_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
     "row_count": 198,
     "audited_row_count": 166,
-    "confirmed_provenance_metadata_defect_count": 9,
-    "repaired_provenance_metadata_defect_count": 9,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
     "historical_candidate_registry_count": 3,
     "historical_candidate_runtime_resolver_count": 3,
     "identified_missing_candidate_family_count": 14,
@@ -119,9 +119,10 @@
       "BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD",
       "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
       "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF",
-      "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG"
+      "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
+      "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -307,9 +308,12 @@
       "Nanyangtang seven-juan 卷五 and Guangyi/Yulgok 卷三 now directly agree on 昨夜亥時 / 今日子時 across two physical publisher-edition routes. This closes Nanyangtang↔Guangyi physical-edition agreement but does not claim universal Fullbook stability or stemmatic independence.",
       "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT because runtime time-standard binding is unresolved. Batch 12AF changes no 198/166/10/14 accounting, creates/selects/collapses no candidate and authorizes no algorithm reopen.",
       "Batch 12AG binds Shanghai Jiaojingshanfang 《改良紫微斗數全書》 as a repeatable secondary commercial physical-edition route through exact Hanauction 2012 object 27427 / lot 65-173 and 2026 object 101926 / lot 227-127; both are four-juan/four-book auction-description records.",
-      "The exact 2012 detail page source-emits two 300x225 JPEG objects with SHA-256 c8705995aa695ba7ef285be939960bcef69516aed749937b00b309cf0df321c2 and a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260, but current execution did not directly visually adjudicate those images; target heading/page/Hai glyph therefore remain unobserved and witness increments remain zero.",
+      "Batch 12AH directly reviews the two Batch-12AG 300x225 hashes and the archived browser HTML: they sit under 第65回 auction scenery/video context and visually show an auction-room scene plus a presenter, not lot-173 object photos or target-book pages.",
       "NCKU 2021 scholarly edition genealogy places both Guangyi and Jiaojingshanfang late editions on the Baohutang-derived Fullbook line. Jiaojingshanfang is not counted as a stemmatically independent third Hai witness merely because a separate physical-edition route exists.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Batch 12AG changes no 198/166/10/14 accounting, creates/selects/collapses no candidate and authorizes no algorithm reopen."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Batch 12AG changes no 198/166/10/14 accounting, creates/selects/collapses no candidate and authorizes no algorithm reopen.",
+      "PROV-DEFECT-010=EVIDENCE_SCOPE_MISCLASSIFICATION is confirmed and repaired forward-only: the two Jiaojingshanfang/Hanauction hashes remain bound for archive lineage but their exact-target-detail-photo classification is revoked.",
+      "Jiaojingshanfang 2012/2026 physical-edition row provenance remains valid; Batch 12AH adds zero target-text/Hai votes and does not alter the Baohutang-line genealogy scope.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime civil/mean/apparent-solar time-standard binding is unresolved. Matrix remains 198/166/10/14; provenance metadata defects are now 10 confirmed / 10 repaired; chart algorithm defect/reopen/collapse remain 0."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
