@@ -1,0 +1,178 @@
+name: research-ziwei-gaohou-mengqiu-operational-bridge-ak
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-gaohou-mengqiu-operational-bridge-ak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Gaohou Mengqiu operational bridge witnesses
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import pathlib
+          import re
+          import urllib.request
+
+          out = pathlib.Path("gaohou-ak")
+          out.mkdir(exist_ok=True)
+
+          targets = [
+              {
+                  "key": "waseda_catalog",
+                  "url": "https://www.wul.waseda.ac.jp/kotenseki/html/ni05/ni05_02158/index.html",
+                  "terms": [
+                      "高厚蒙求",
+                      "徐 朝俊",
+                      "嘉慶12-14[1807-1809]",
+                      "日晷測時図法",
+                      "星月測時図表",
+                      "自鳴鐘表図法",
+                  ],
+                  "role": "FIRST_PARTY_LIBRARY_BIBLIOGRAPHIC_AND_EXTENT_CONTROL",
+              },
+              {
+                  "key": "waseda_archive_directory",
+                  "url": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02158/",
+                  "terms": [],
+                  "role": "FIRST_PARTY_SCAN_ROUTE_DISCOVERY_ONLY",
+              },
+              {
+                  "key": "shidian_volume3",
+                  "url": "https://www.shidianguji.com/zh/book/NA06368/chapter/1m3qb3dkp3q5q",
+                  "terms": [
+                      "高厚蒙求",
+                      "徐朝俊",
+                      "嘉慶戊辰",
+                      "羅經地平晷",
+                      "用羅經可不用節氣",
+                      "陰雨晦冥",
+                      "辨子亥定支干",
+                  ],
+                  "role": "PUBLIC_TRANSCRIPTION_SURFACE_PRIMARY_TEXT_READING_CONTROL",
+              },
+              {
+                  "key": "ctext_ocr",
+                  "url": "https://ctext.org/wiki.pl?chapter=783418&if=en&remap=gb",
+                  "terms": [
+                      "高厚蒙求",
+                      "徐朝俊",
+                      "罗经",
+                      "阴雨晦冥",
+                      "辨子亥定支干",
+                  ],
+                  "role": "OCR_DISCOVERY_AND_CROSSCHECK_ONLY",
+              },
+          ]
+
+          # Normalize only for machine matching; preserve raw bytes and hashes.
+          trans = str.maketrans({
+              " ": "", "\n": "", "\r": "", "\t": "",
+              "曰": "日", "隂": "陰", "晦": "晦",
+              "锺": "鐘", "钟": "鐘", "罗": "羅", "经": "經",
+              "辨": "辨", "亥": "亥", "支": "支", "干": "干",
+          })
+          punct = re.compile(r"[，、。；：？！,.!?;:「」『』（）()\[\]【】<>/\\=_\-\s]+")
+
+          def normalize(s):
+              s = html.unescape(s)
+              s = re.sub(r"<[^>]+>", "", s)
+              s = punct.sub("", s)
+              return s.translate(trans)
+
+          receipt = {
+              "schema": "ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK-PROBE-R1",
+              "targets": [],
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+              "ocr_generated_by_this_probe": False,
+          }
+
+          for target in targets:
+              req = urllib.request.Request(
+                  target["url"],
+                  headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"},
+              )
+              item = {
+                  "key": target["key"],
+                  "requested_url": target["url"],
+                  "role": target["role"],
+              }
+              try:
+                  with urllib.request.urlopen(req, timeout=35) as resp:
+                      body = resp.read()
+                      item.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  item.update({
+                      "status": None,
+                      "error": repr(exc),
+                      "bytes": 0,
+                      "sha256": None,
+                  })
+
+              (out / f'{target["key"]}.html').write_bytes(body)
+              raw = body.decode("utf-8", errors="replace")
+              normalized = normalize(raw)
+              item["term_hits"] = {
+                  term: (normalize(term) in normalized)
+                  for term in target["terms"]
+              }
+
+              # Route discovery only: preserve source-emitted links; no guessing.
+              hrefs = re.findall(r'href=["\']([^"\']+)["\']', raw, flags=re.I)
+              srcs = re.findall(r'src=["\']([^"\']+)["\']', raw, flags=re.I)
+              item["source_emitted_candidate_links"] = [
+                  x for x in dict.fromkeys(hrefs + srcs)
+                  if any(token in x.lower() for token in (".jpg", ".jpeg", ".png", ".pdf", "image", "img", "viewer", "archive"))
+              ][:200]
+              receipt["targets"].append(item)
+
+          # Explicit semantic gates. They may remain false; receipt is still preserved.
+          by_key = {x["key"]: x for x in receipt["targets"]}
+          receipt["semantic_gates"] = {
+              "waseda_identity_and_contents_bound": all(
+                  by_key["waseda_catalog"]["term_hits"].values()
+              ),
+              "shidian_luojing_orientation_terms_bound": all(
+                  by_key["shidian_volume3"]["term_hits"].get(k, False)
+                  for k in ("羅經地平晷", "用羅經可不用節氣")
+              ),
+              "shidian_inclement_zi_hai_terms_bound": all(
+                  by_key["shidian_volume3"]["term_hits"].get(k, False)
+                  for k in ("陰雨晦冥", "辨子亥定支干")
+              ),
+              "ctext_ocr_inclement_zi_hai_crosscheck": all(
+                  by_key["ctext_ocr"]["term_hits"].get(k, False)
+                  for k in ("阴雨晦冥", "辨子亥定支干")
+              ),
+          }
+
+          (out / "receipt.json").write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-gaohou-mengqiu-operational-bridge-ak
+          path: gaohou-ak/
