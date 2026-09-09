@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.49.0",
+  "schema_version": "1.50.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -125,9 +125,10 @@
       "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
       "BATCH-12-ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-AK",
       "BATCH-12-ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-AL",
-      "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM"
+      "BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM",
+      "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-RENZI-XUZHI-LUOJING-GNOMON-BRIDGE-AM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -341,7 +342,12 @@
       "Direct no-OCR review localizes 三昧論有引 at PDF p414 and 正針縫針 at p415. P416 directly reads 臬測以景針以氣故不能符 and 推七政之纏次皆准於臬, explicitly separating gnomon/shadow astronomical reference from qi-responsive needle orientation.",
       "This strengthens the Batch 12AJ firewall from a generic directional reading to a same-period shushu internal mechanical distinction: 羅經/needle is not a standalone clock and is not itself true solar time or local apparent-solar runtime.",
       "The Fullbook phrase 陰雨之際必須羅經以定真確時候 remains source-scoped and mechanically unresolved because Batch 12AM still does not supply the missing cloudy/rainy time-generation chain. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; no candidate selection, collapse or algorithm reopen.",
-      "Next gate: obtain a Fullbook-line or sufficiently early Ziwei witness that states the complete cloudy/rainy operational chain from orientation/time reference to an actual birth-time reading; do not infer the chain from 羅經 alone."
+      "Next gate: obtain a Fullbook-line or sufficiently early Ziwei witness that states the complete cloudy/rainy operational chain from orientation/time reference to an actual birth-time reading; do not infer the chain from 羅經 alone.",
+      "Batch 12AN binds CText resource 437415 target search to source-emitted physical locator file=100720&page=144; the unauthenticated page exposes no scan image URL, so it remains a locator rather than glyph authority.",
+      "Shidian ROUTER_DATA directly identifies the route as 國家圖書館 / 內府明萬曆35年刻本 and binds the target semantic paragraphs to source-emitted physical PageIds, deterministically mapping the target to global pages about 5607-5611 without hidden-ID or neighbor-page guessing.",
+      "The Ming shushu witness confirms a 24-position time-sector/mountain-sector coordinate framework: 時與山每每相應, with actual checking anchored to 太陽到處, 逐時逐刻考驗 and 考星躔. This explains how a Luojing-like plate can participate in temporal coordinates without making its magnetic needle a clock.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Fullbook inclement-weather current-time acquisition remains unresolved, no civil/mean/apparent-solar runtime winner is selected, and algorithm defect/reopen/collapse remain 0.",
+      "Next gate: find a Fullbook-line or sufficiently early Ziwei witness that explicitly supplies the cloudy/rainy current-time acquisition mechanism; do not infer the missing clock input from the 24-mountain ring alone."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
