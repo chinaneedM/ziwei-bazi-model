@@ -357,3 +357,14 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - This is a later 嘉慶 operational bridge, not proof of Ming Fullbook authorial practice. No Fullbook witness/Hai vote is added; true/apparent-solar runtime remains unselected.
 - `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; current runtime-binding status = `LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN`.
 - Evidence: `docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json`.
+
+
+### Batch 12AL — Korea CNTS full target-section re-collation
+
+- Same already-counted physical manuscript: Korea National Library / CNTS `CNTS-00047996572`, 《紫微斗數方書》, 筆寫本, exact copying date unresolved. No new physical witness vote.
+- Direct no-OCR p125 re-review reads `命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜`; the immediately adjacent next column changes to a `交限十年...` topic.
+- Direct p126 review is already a different limit-period surface, so the p125 birth-hour passage does not continue with the Fullbook `如天氣陰雨之際必須羅經以定真確時候...` clause.
+- This establishes only that explicit Hai/current-Zi wording **and** the Fullbook Luojing clause are not universal across broader received Ziwei transmission. Nanyangtang + Guangyi Fullbook stability remains intact.
+- No Fullbook interpolation claim, no Korean-copy error claim, no candidate collapse and no algorithm reopen are authorized.
+- `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; current runtime-binding status = `BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED`.
+- Evidence: `docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json`.
