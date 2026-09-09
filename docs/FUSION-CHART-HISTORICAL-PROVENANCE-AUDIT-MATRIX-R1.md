@@ -337,6 +337,8 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 
 ### Batch 12AJ — Fullbook 羅經 timekeeping semantics
 
+- Final decisive probe `34325691911` / artifact `10093682981` promotes Xu Guangqi et al. `《新法算書》`卷一 as the controlling primary/near-primary technical witness; `《皇明經世文編》` carries the same memorial and is explicitly non-independent. The dynamic Siku catalog is non-controlling.
+
 - Direct no-OCR re-review confirms the same third line in both Nanyangtang p320 / 卷五 and Guangyi/Yulgok `B005_01_B00320_003_003` / 卷三: `如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣`.
 - The same two physical copies were already counted as target-text witnesses; Batch 12AJ adds zero textual/Hai votes and records only a new semantic collation.
 - 《皇明經世文編》卷493 `制器測晷` separates functions: 日晷=daytime time, 星晷=nighttime time, 正線羅經=子午 direction, 行漏=cloud/rain supplement. It also warns that exclusive compass use gives indeterminate timing error and generally runs early.
