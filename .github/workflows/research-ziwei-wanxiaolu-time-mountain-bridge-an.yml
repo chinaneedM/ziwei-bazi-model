@@ -46,6 +46,19 @@ jobs:
                   "role": "KANRIPO_ZTDZ_TRANSCRIPTION_PLUS_SOURCE_EMITTED_IMAGE_ROUTE_DISCOVERY",
               },
               {
+                  "key": "kanripo_krx_ztdz_v2",
+                  "url": "https://krx.kanripo.org/ed/KR5h0040/ZTDZ/002",
+                  "terms": [
+                      "第四十二章論定時",
+                      "地理分四十四山",
+                      "曆書亦分二十四時",
+                      "時與山每每相應",
+                      "每日皆從太陽到處數",
+                      "查時刻以考星躔",
+                  ],
+                  "role": "KANRIPO_KRX_PUBLIC_MIRROR_TARGET_VOLUME_AND_SOURCE_EMITTED_IMAGE_ROUTE",
+              },
+              {
                   "key": "ctext_target_chapter",
                   "url": "https://ctext.org/wiki.pl?chapter=835051&if=gb",
                   "terms": [
@@ -332,6 +345,69 @@ jobs:
                       physical_target["image_status"] = None
                       physical_target["image_error"] = repr(exc)
           receipt["ctext_direct_physical_target"] = physical_target
+
+          # If the public krx mirror exposes the target volume, preserve only
+          # source-emitted Image links located in the target chapter context.
+          krx = next(x for x in receipt["targets"] if x["key"] == "kanripo_krx_ztdz_v2")
+          krx_target = {
+              "requested_url": krx.get("requested_url"),
+              "status": krx.get("status"),
+              "response_sha256": krx.get("sha256"),
+              "target_terms": krx.get("term_hits"),
+              "image_links_guessed": False,
+          }
+          krx_html_path = out / "kanripo_krx_ztdz_v2.html"
+          if krx_html_path.exists() and krx_html_path.stat().st_size:
+              raw = krx_html_path.read_text(encoding="utf-8", errors="replace")
+              normalized = normalize(raw)
+              target_positions = [
+                  raw.find(term) for term in ("第四十二章論定時", "每日皆從太陽到處數", "查時刻以考星躔")
+                  if raw.find(term) >= 0
+              ]
+              if target_positions:
+                  lo = max(0, min(target_positions) - 12000)
+                  hi = min(len(raw), max(target_positions) + 16000)
+                  context = raw[lo:hi]
+              else:
+                  context = ""
+              hrefs = [
+                  urllib.parse.urljoin(krx.get("final_url") or krx.get("requested_url"), html.unescape(x))
+                  for x in re.findall(r"href=[\\\"']([^\\\"']+)[\\\"']", context, flags=re.I)
+              ]
+              srcs = [
+                  urllib.parse.urljoin(krx.get("final_url") or krx.get("requested_url"), html.unescape(x))
+                  for x in re.findall(r"src=[\\\"']([^\\\"']+)[\\\"']", context, flags=re.I)
+              ]
+              candidates = [
+                  x for x in dict.fromkeys(hrefs + srcs)
+                  if any(token in x.lower() for token in ("image", ".jpg", ".jpeg", ".png"))
+              ]
+              krx_target["source_emitted_target_context_image_links"] = candidates[:100]
+              fetched_images = []
+              for idx, url in enumerate(candidates[:12]):
+                  req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"})
+                  try:
+                      with urllib.request.urlopen(req, timeout=30) as resp:
+                          body = resp.read()
+                          ctype = (resp.headers.get("content-type") or "").lower()
+                          rec = {
+                              "url": url,
+                              "status": resp.status,
+                              "final_url": resp.geturl(),
+                              "content_type": ctype,
+                              "bytes": len(body),
+                              "sha256": hashlib.sha256(body).hexdigest(),
+                          }
+                          if ctype.startswith("image/") and len(body) > 10000:
+                              ext = ".png" if "png" in ctype else ".jpg"
+                              fn = f"kanripo-krx-target-{idx:02d}{ext}"
+                              (out / fn).write_bytes(body)
+                              rec["saved_as"] = fn
+                          fetched_images.append(rec)
+                  except Exception as exc:
+                      fetched_images.append({"url": url, "status": None, "error": repr(exc)})
+              krx_target["source_emitted_target_image_fetches"] = fetched_images
+          receipt["kanripo_krx_direct_target_probe"] = krx_target
 
           (out / "receipt.json").write_text(
               json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
