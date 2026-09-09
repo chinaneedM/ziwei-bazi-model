@@ -2330,7 +2330,7 @@
       "url": "https://www.hanauction.com/htm/off_auction_read.htm?id=27427&off_id=83&page=9",
       "alternate_url": "https://www.hanauction.com/htm/off_auction_read.htm?id=101926&off_id=258&page=5",
       "source_role": "SECONDARY_COMMERCIAL_AUCTION_PHYSICAL_EDITION_LOCATOR_NOT_TARGET_TEXT_AUTHORITY",
-      "quality_notes": "Exact 2012 and 2026 sale rows bind 上海校經山房 / 改良紫微斗數全書 / 4卷4冊 at auction-description scope. The 2012 exact detail page emits two 300x225 JPEG objects, but current execution did not directly visually adjudicate the target late-Zi leaf. NCKU 2021 places Jiaojingshanfang and Guangyi late editions on the Baohutang-derived line. Zero target-text/Hai votes; stemmatic independence is not claimed.",
+      "quality_notes": "Exact 2012 and 2026 sale rows bind 上海校經山房 / 改良紫微斗數全書 / 4卷4冊 at auction-description scope. Batch 12AH directly adjudicates the two previously labeled 300x225 'detail photos': archived HTML places them under 第65回 auction scenery/video context, and visual review shows an auction-room scene plus a presenter, not lot-173 object photos or target-book pages. PROV-DEFECT-010 repairs that evidence-scope misclassification. NCKU 2021 places Jiaojingshanfang and Guangyi late editions on the Baohutang-derived line. Zero target-text/Hai votes; stemmatic independence is not claimed.",
       "exact_stable_object_ids": [
         "27427",
         "101926"
@@ -2344,12 +2344,21 @@
         "a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260"
       ],
       "direct_target_page_observed": false,
-      "direct_visual_review_of_2012_detail_photos_completed": false,
+      "direct_visual_review_of_2012_detail_photos_completed": true,
       "independent_target_text_witness_increment": 0,
       "independent_hai_glyph_witness_increment": 0,
       "stemmatic_independence_claimed": false,
       "scholarly_genealogy_source_id": "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY",
-      "research_artifact": "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
+      "research_artifact": "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json",
+      "source_emitted_2012_detail_photo_sha256_legacy_label_status": "REVOKED_BY_PROV_DEFECT_010_NOT_TARGET_DETAIL_PHOTOS",
+      "source_emitted_2012_auction_event_media_sha256": [
+        "c8705995aa695ba7ef285be939960bcef69516aed749937b00b309cf0df321c2",
+        "a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260"
+      ],
+      "media_scope_classification": "AUCTION_ROUND_EVENT_SCENERY_VIDEO_THUMBNAILS_NOT_TARGET_OBJECT_PHOTOS",
+      "provenance_defect_id": "PROV-DEFECT-010",
+      "provenance_defect_repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH",
+      "prior_research_artifact": "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
