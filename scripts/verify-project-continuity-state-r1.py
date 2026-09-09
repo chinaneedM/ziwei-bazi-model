@@ -80,6 +80,8 @@ ZIWEI_WENGUANG_PT165_RESPONSE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVE
 ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE = ROOT / "docs/research/ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1.json"
 ZIWEI_SANFENGE_QUARK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD.md"
 ZIWEI_SANFENGE_QUARK_EVIDENCE = ROOT / "docs/research/ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-R1.json"
+ZIWEI_REPUBLIC_ROUTES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE.md"
+ZIWEI_REPUBLIC_ROUTES_EVIDENCE = ROOT / "docs/research/ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -119,9 +121,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JINGSHUTANG-ARTRON-PHYSICAL-IMPRINT-ROUTE-AB",
     "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC",
     "BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD",
+    "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE.md"
 
 
 def fail(message: str) -> None:
@@ -171,6 +174,7 @@ def main() -> int:
     ziwei_jingshutang_artron_evidence = json.loads(ZIWEI_JINGSHUTANG_ARTRON_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_wenguang_pt165_response_evidence = json.loads(ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_sanfenge_quark_evidence = json.loads(ZIWEI_SANFENGE_QUARK_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_republic_routes_evidence = json.loads(ZIWEI_REPUBLIC_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -242,6 +246,9 @@ def main() -> int:
         "EXT-AKS-SILLOKWIKI-HANYANG-MINGJINGGE-ZWDSQJ-HOLDING",
         "EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU",
         "EXT-SANFENGE-ZWDSQS-V4-QUARK-PUBLIC-SHARE",
+        "EXT-KONGFZ-HUIWENTANG-REPUBLIC-ZWDSQS-PHYSICAL",
+        "EXT-SHUCANG-JINZHANG-REPUBLIC-ZWDSQS-CATALOG",
+        "EXT-XINYI-JINYUAN-ZWDSQS-MODERN-TOC",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -267,6 +274,26 @@ def main() -> int:
     row12ad = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
     if not row12ad or row12ad.get("sanfenge_volume4_article_id") != 212163 or row12ad.get("independent_hai_glyph_witness_count_added_batch_12ad") != 0:
         fail("Batch 12AD Matrix binding regressed")
+
+    # Batch 12AE Republic Huiwentang/Jinzhang routes: edition identity only, zero target votes.
+    if not ZIWEI_REPUBLIC_ROUTES_BATCH.is_file() or not ZIWEI_REPUBLIC_ROUTES_EVIDENCE.is_file():
+        fail("Batch 12AE continuity artifacts missing")
+    if ziwei_republic_routes_evidence.get("batch_id") != "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE":
+        fail("Batch 12AE evidence identity mismatch")
+    h12ae = ziwei_republic_routes_evidence.get("huiwentang_kongfz", {})
+    if h12ae.get("direct_physical_title_image", {}).get("sha256") != "767f5d01986c8f4a2b655699fce7af50917afd76a34e321ecf8254e6e09a0e9a":
+        fail("Batch 12AE Huiwentang physical-image binding regressed")
+    if "上海會文堂書局印行" not in h12ae.get("direct_physical_title_image", {}).get("direct_no_ocr_reading", []):
+        fail("Batch 12AE Huiwentang imprint reading regressed")
+    j12ae = ziwei_republic_routes_evidence.get("jinzhang_routes", {}).get("shucang_catalog", {})
+    if j12ae.get("volume") != 59 or j12ae.get("start_page") != 333:
+        fail("Batch 12AE Jinzhang Shucang catalog binding regressed")
+    a12ae = ziwei_republic_routes_evidence.get("adjudication", {})
+    if a12ae.get("independent_target_text_witness_increment") != 0 or a12ae.get("independent_hai_glyph_witness_increment") != 0 or a12ae.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AE witness/algorithm firewall regressed")
+    row12ae = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ae or row12ae.get("huiwentang_physical_imprint_direct_reading") != "上海會文堂書局印行" or row12ae.get("independent_hai_glyph_witness_count_added_batch_12ae") != 0:
+        fail("Batch 12AE Matrix binding regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):

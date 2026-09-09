@@ -289,3 +289,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Sanfenge provider HTML directly binds `212163` → `紫薇术紫薇斗数全书卷4.pdf` → Quark `6956a639be12`, and `212173` → `紫薇术《紫微斗数全书》四卷.pdf` → Quark `9f7f6a4e7730`.
 - Both exact public Quark share URLs return HTTP 200 initial SPA shells, but no filename or PDF bytes are present in that initial HTML. This is an access boundary, not content absence.
 - Edition/imprint identity and the target late-Zi leaf remain unobserved; `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`, with zero new textual/Hai votes and no algorithm effect.
+
+
+### Batch 12AE — Republic Huiwentang physical + Jinzhang catalog routes
+
+- Kongfz source-emitted physical title image directly reads `上海會文堂書局印行`; no target late-Zi leaf is shown.
+- `《重刊術藏》` directly catalogs the Fullbook in volume 59 as a Republic Jinzhang lithograph, four juan in one volume, beginning at p333; this is bibliographic identity only.
+- Artron reviewed physical-set photos do not directly show a Jinzhang imprint or target leaf. Jinyuan's modern TOC locates `論人生時要審的確` at p175 but does not show its body page.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; zero new target-text/Hai votes and no algorithm effect.
