@@ -90,6 +90,8 @@ ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL
 ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json"
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI.md"
 ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE = ROOT / "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
+ZIWEI_FULLBOOK_LUOJING_AJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ.md"
+ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE = ROOT / "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -134,9 +136,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
     "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
     "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
+    "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ.md"
 
 
 def fail(message: str) -> None:
@@ -144,6 +147,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_FULLBOOK_LUOJING_AJ_BATCH, ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AJ continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_LATE_ZI_TIME_COORDINATE_AI_BATCH, ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AI continuity artifact missing: {path.relative_to(ROOT)}")
@@ -199,6 +206,7 @@ def main() -> int:
     ziwei_jiaojingshanfang_hanauction_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jiaojingshanfang_detail_photo_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_DETAIL_PHOTO_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_late_zi_time_coordinate_ai_evidence = json.loads(ZIWEI_LATE_ZI_TIME_COORDINATE_AI_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_fullbook_luojing_aj_evidence = json.loads(ZIWEI_FULLBOOK_LUOJING_AJ_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -276,6 +284,9 @@ def main() -> int:
         "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS",
         "EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL",
         "EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR",
+        "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
+        "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
+        "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -491,8 +502,8 @@ def main() -> int:
         fail("Batch 12AI Matrix artifact binding regressed")
     if row12ai.get("historical_time_coordinate_family") != "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE":
         fail("Batch 12AI Matrix historical time-coordinate family regressed")
-    if row12ai.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_NOT_CLOSED":
-        fail("Batch 12AI Matrix runtime binding regressed")
+    if row12ai.get("runtime_time_standard_binding_status_batch_12ai") != "PARTIALLY_NARROWED_NOT_CLOSED":
+        fail("Batch 12AI Matrix batch-scoped runtime binding regressed")
     if row12ai.get("local_apparent_solar_time_historical_binding") != "STRONGEST_MODERN_DAYTIME_TRANSLATION_NOT_NATAL_RUNTIME_WINNER":
         fail("Batch 12AI Matrix apparent-solar authority firewall regressed")
     if row12ai.get("independent_textual_witness_count_added_batch_12ai") != 0 or row12ai.get("independent_hai_glyph_witness_count_added_batch_12ai") != 0:
@@ -503,6 +514,58 @@ def main() -> int:
     mp12ai = src12ai.get("machine_probe", {})
     if mp12ai.get("workflow_run_id") != 34322850489 or mp12ai.get("response_sha256") != "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16":
         fail("Batch 12AI registry machine binding regressed")
+
+    # Batch 12AJ Fullbook Luojing semantics.
+    if ziwei_fullbook_luojing_aj_evidence.get("batch_id") != "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ":
+        fail("Batch 12AJ evidence identity mismatch")
+    probe12aj = ziwei_fullbook_luojing_aj_evidence.get("controlling_probe", {})
+    if probe12aj.get("workflow_run_id") != 34324767233 or probe12aj.get("artifact_id") != 10093334440:
+        fail("Batch 12AJ controlling probe binding regressed")
+    if probe12aj.get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2" or probe12aj.get("all_control_terms_hit") is not True:
+        fail("Batch 12AJ stabilized probe gate regressed")
+    full12aj = ziwei_fullbook_luojing_aj_evidence.get("fullbook_direct_physical_phrase_collation", {})
+    if full12aj.get("agreement_status") != "DIRECT_PHYSICAL_FULLBOOK_NANYANGTANG_AND_GUANGYI_AGREE_ON_LUOJING_SENTENCE":
+        fail("Batch 12AJ Fullbook Luojing physical-edition agreement regressed")
+    if full12aj.get("new_independent_text_witness_increment") != 0:
+        fail("Batch 12AJ double-counting firewall regressed")
+    phil12aj = ziwei_fullbook_luojing_aj_evidence.get("philological_adjudication", {})
+    if phil12aj.get("historically_attested_mechanical_concept") != "MAGNETIC_COMPASS_DIRECTION_AND_MERIDIAN_ORIENTATION_INSTRUMENT_FAMILY":
+        fail("Batch 12AJ Luojing mechanical concept regressed")
+    if phil12aj.get("standalone_clock_or_timepiece_equivalence") != "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL":
+        fail("Batch 12AJ Luojing standalone-clock firewall regressed")
+    if phil12aj.get("direct_equivalence_to_true_or_apparent_solar_time") != "NOT_ESTABLISHED":
+        fail("Batch 12AJ Luojing solar-time inference firewall regressed")
+    eff12aj = ziwei_fullbook_luojing_aj_evidence.get("hpa_zdate_006_effect", {})
+    if eff12aj.get("audit_status") != "MISSING_FROM_PRODUCT" or eff12aj.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
+        fail("Batch 12AJ HPA/runtime state regressed")
+    if eff12aj.get("local_apparent_solar_time_winner_selected") is not False or eff12aj.get("luojing_means_true_solar_time") is not False:
+        fail("Batch 12AJ true/apparent-solar winner firewall regressed")
+    if eff12aj.get("candidate_selected") is not False or eff12aj.get("candidate_collapsed") is not False or eff12aj.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AJ candidate/algorithm firewall regressed")
+    row12aj = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12aj or row12aj.get("batch_12aj_fullbook_luojing_timekeeping_semantics_artifact") != "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json":
+        fail("Batch 12AJ Matrix artifact binding regressed")
+    if row12aj.get("fullbook_luojing_phrase_direct_physical_edition_agreement") != "CONFIRMED_NANYANGTANG_AND_GUANGYI":
+        fail("Batch 12AJ Matrix physical phrase agreement regressed")
+    if row12aj.get("fullbook_luojing_standalone_timekeeper_equivalence") != "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL":
+        fail("Batch 12AJ Matrix standalone-timekeeper firewall regressed")
+    if row12aj.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED":
+        fail("Batch 12AJ Matrix runtime state regressed")
+    if row12aj.get("local_apparent_solar_time_runtime_winner_selected") is not False or row12aj.get("luojing_means_true_solar_time") is not False:
+        fail("Batch 12AJ Matrix solar-time winner firewall regressed")
+    if row12aj.get("independent_textual_witness_count_added_batch_12aj") != 0 or row12aj.get("independent_hai_glyph_witness_count_added_batch_12aj") != 0:
+        fail("Batch 12AJ Matrix witness double-counting firewall regressed")
+    sources12aj = {s.get("source_id"): s for s in registry.get("sources", ())}
+    for sid in (
+        "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+        "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
+        "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
+    ):
+        src = sources12aj.get(sid)
+        if not src or src.get("machine_probe", {}).get("workflow_run_id") != 34324767233:
+            fail(f"Batch 12AJ registry source/probe binding regressed: {sid}")
+        if src.get("machine_probe", {}).get("artifact_zip_sha256") != "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2":
+            fail(f"Batch 12AJ registry artifact digest regressed: {sid}")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
