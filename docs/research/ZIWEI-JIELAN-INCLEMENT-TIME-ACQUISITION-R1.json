@@ -1,0 +1,126 @@
+{
+  "schema": "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
+  "access_date": "2026-09-09",
+  "status": "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_SURFACE_LACKS_INCLEMENT_LUOJING_TERMS_FULLBOOK_CLAUSE_REMAINS_SOURCE_SCOPED_INCLEMENT_CLOCK_INPUT_UNRESOLVED",
+  "probes": {
+    "cross_surface_probe": {
+      "workflow_run_id": 34340761104,
+      "artifact_id": 10099621110,
+      "artifact_zip_sha256": "d0f842c38864902aad32940e78d19e69f51a56cabf2dfdf3ca139dfb09ab1026"
+    },
+    "jielan_full_pagination_probe": {
+      "workflow_run_id": 34341036879,
+      "artifact_id": 10099727992,
+      "artifact_zip_sha256": "75cf90fcfbdf4df9728dfec0bbc5c7d69c23e40922001a78e4421beeef3cb7fd"
+    }
+  },
+  "jielan_1581_public_transcription_surface": {
+    "source_id": "EXT-ZIWEI-JIELAN-1581",
+    "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan",
+    "edition_identity_in_registry": "萬曆九年（1581）金陵書坊王氏洛川刊本",
+    "traversal_policy": "ONLY_CANONICALIZED_SAME_BOOK_PAGINATION_URLS_LITERAL_EMITTED_BY_ALREADY_FETCHED_PAGES",
+    "fetched_page_numbers": [1, 2, 3, 4, 5],
+    "all_source_discovered_pages_1_to_5_fetched": true,
+    "declared_chapter_count": 246,
+    "declared_character_count": 67533,
+    "page_sha256": {
+      "1": "9f2d56bbf53d85abc39f4c4f8dbdba1af56fb7933f01cbf0b848b429a8c7379b",
+      "2": "4ebf043f37574c79ec6c5d686adac9517cc2ecaf81780c23dbef45f8c5feedad",
+      "3": "d3b54153e565510eaa76ff3b45cbbeeb72eda6395c532c59539a69610b9b532a",
+      "4": "834bd43f852962b62fd82ae7846e73fbaa833f9f86977caee9b899287e9cd5ac",
+      "5": "d61947e2ddb40efd8bdca66fbed902562634b9c4da77e33522f07db052389471"
+    },
+    "positive_control_terms": {
+      "定小儿生时": true,
+      "生时成形论": true
+    },
+    "inclement_luojing_term_hits": {
+      "論人生時要審的確": false,
+      "人生子亥二時": false,
+      "子時有十刻": false,
+      "陰雨": false,
+      "羅經": false,
+      "真確時候": false,
+      "行漏": false,
+      "壺漏": false,
+      "指南針": false
+    },
+    "negative_scope": "COMPLETE_CURRENT_TIANJI_PUBLIC_PAGINATED_TRANSCRIPTION_SURFACE_ONLY",
+    "whole_1581_physical_book_negative_authorized": false,
+    "glyph_authority_claimed": false,
+    "interpolation_claim_authorized": false
+  },
+  "fullbook_received_surface_control": {
+    "url": "https://zh.wikisource.org/zh-hant/紫微斗數全書/卷三",
+    "response_sha256": "a657b3bf6e788ee0de0bbd8abc2995e14d461cb9f1648c366b72785887315b24",
+    "term_hits": {
+      "論人生時要審的確": true,
+      "人生子亥二時": true,
+      "子時有十刻": true,
+      "陰雨": true,
+      "羅經": true,
+      "真確時候": true,
+      "行漏": false,
+      "壺漏": false
+    },
+    "physical_fullbook_confirmation_inherited": "NANYANGTANG_AND_GUANGYI_DIRECT_FACSIMILE_CONFIRM_FULLBOOK_CLAUSE_FROM_PRIOR_BATCHES"
+  },
+  "ming_technical_control": {
+    "source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+    "response_sha256_in_this_probe": "c26b1a1a409630eab2de7cd4afeafe2cd92385def407c130569719e9e3880a42",
+    "term_hits": {
+      "陰雨": true,
+      "羅經": true,
+      "行漏": true,
+      "壺漏": true,
+      "晨昏陰雨": true,
+      "指南針": true
+    },
+    "inherited_batch_12aj_adjudication": "DAY_SUNDIAL_NIGHT_STAR_DIAL_MERIDIAN_COMPASS_INCLEMENT_CLEPSYDRA; COMPASS_ALONE_NOT_CLOCK"
+  },
+  "adjudication": {
+    "early_1581_jielan_current_public_transcription_contains_inclement_luojing_clause": false,
+    "early_1581_jielan_current_public_transcription_contains_birth_time_material": true,
+    "absence_can_be_extended_to_physical_1581_print": false,
+    "absence_proves_fullbook_interpolation": false,
+    "fullbook_clause_is_universal_across_early_extant_ziwei_prints": false,
+    "fullbook_clause_remains_source_scoped": true,
+    "ming_technical_inclement_time_input_is_clepsydra_not_compass": true,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false,
+    "runtime_standard_selected": false,
+    "algorithm_reopen_authorized": false
+  },
+  "hpa_zdate_006_effect": {
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding_status": "EARLY_1581_JIELAN_COMPLETE_PUBLIC_TRANSCRIPTION_NONATTESTATION_CONFIRMED_FULLBOOK_INCLEMENT_LUOJING_CLAUSE_REMAINS_SOURCE_SCOPED_AND_CLOCK_INPUT_UNRESOLVED",
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "evidence_independence": {
+    "new_fullbook_textual_witness_increment": 0,
+    "new_hai_glyph_witness_increment": 0,
+    "new_early_ziwei_transcription_variant_dimension_increment": 1,
+    "new_direct_physical_witness_increment": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": "Obtain direct physical target-section review of the 1581 Jielan or another early independent Ziwei print/manuscript, and continue searching for an explicit Fullbook-line cloudy/rainy current-time acquisition mechanism; do not convert a transcription non-hit into an interpolation claim.",
+  "safety": {
+    "pagination_identifiers_guessed": false,
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "physical_glyph_negative_claim_without_scan": false
+  }
+}
