@@ -2359,6 +2359,36 @@
       "provenance_defect_id": "PROV-DEFECT-010",
       "provenance_defect_repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH",
       "prior_research_artifact": "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR",
+      "title": "《明史·天文志》定时之法／日晷／星晷段",
+      "historical_period": "清修《明史》received dynastic-history witness describing Ming institutional time determination",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=656119&if=gb&remap=gb",
+      "source_role": "RECEIVED_INSTITUTIONAL_WITNESS_FOR_MING_SOLAR_STELLAR_TIME_DETERMINATION_NOT_ZIWEI_DOCTRINE",
+      "quality_notes": "Batch 12AI machine probe and direct text review bind a Ming institutional clock family in which clepsydra is calibrated at 正午初刻 and treated as supplementary, daytime sundials obtain time from the Sun after meridian alignment, and nighttime star instruments obtain time from near-polar stars. This narrows the historical coordinate family toward local observational astronomical time. It does not itself prove that the Fullbook/Nanyangtang natal-hour rule inherits this regime, does not bind birthplace locality, and does not make local apparent solar time the Ziwei runtime winner.",
+      "machine_probe": {
+        "workflow_run_id": 34322850489,
+        "artifact_id": 10092539912,
+        "artifact_zip_sha256": "9e3151f558b6425586fc2e2c593f5a01f82529f42f6cbd7e8f3e3973fc6df98f",
+        "response_sha256": "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16",
+        "required_term_hits": [
+          "正漏之初",
+          "正午初刻",
+          "非定时之本",
+          "日星",
+          "天之正时刻",
+          "日晷"
+        ]
+      },
+      "authority_boundaries": [
+        "RECEIVED_INSTITUTIONAL_TIMEKEEPING_NOT_ZIWEI_DOCTRINE",
+        "NO_DIRECT_FULLBOOK_NANYANGTANG_CLOCK_REGIME_BINDING",
+        "NO_BIRTHPLACE_LOCALITY_BINDING",
+        "NO_AUTOMATIC_RUNTIME_TIME_STANDARD_SELECTION"
+      ],
+      "research_artifact": "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
