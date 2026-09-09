@@ -205,8 +205,8 @@ jobs:
               raw = body.decode("utf-8", errors="replace")
               page_num = urllib.parse.parse_qs(urllib.parse.urlparse(url).query).get("page", ["x"])[0]
               (out / f"ctext-file100720-page{page_num}.html").write_bytes(body)
-              hrefs = [urllib.parse.urljoin(rec.get("final_url") or url, html.unescape(x)) for x in re.findall(r'href=["\\']([^"\\']+)["\\']', raw, flags=re.I)]
-              srcs = [urllib.parse.urljoin(rec.get("final_url") or url, html.unescape(x)) for x in re.findall(r'src=["\\']([^"\\']+)["\\']', raw, flags=re.I)]
+              hrefs = [urllib.parse.urljoin(rec.get("final_url") or url, html.unescape(x)) for x in re.findall(r"href=[\\\"']([^\\\"']+)[\\\"']", raw, flags=re.I)]
+              srcs = [urllib.parse.urljoin(rec.get("final_url") or url, html.unescape(x)) for x in re.findall(r"src=[\\\"']([^\\\"']+)[\\\"']", raw, flags=re.I)]
               rec["emitted_file100720_page_links"] = [
                   x for x in dict.fromkeys(hrefs)
                   if "library.pl" in x and "file=100720" in x
