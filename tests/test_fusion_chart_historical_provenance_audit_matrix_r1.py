@@ -9,6 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
+REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
+JIELAN_AQ_EVIDENCE = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
 README = ROOT / "README.md"
 CI = ROOT / ".github" / "workflows" / "ci.yml"
 TEMPORAL_AUX = ROOT / "src" / "fortune_training" / "ziwei_chart" / "temporal_auxiliary.py"
@@ -21,6 +23,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
     def setUp(self) -> None:
         self.payload = json.loads(MATRIX.read_text(encoding="utf-8"))
         self.rows = self.payload["rows"]
+        self.registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+        self.sources = {item["source_id"]: item for item in self.registry["sources"]}
 
     def test_inventory_is_broad_and_unique(self) -> None:
         self.assertGreaterEqual(len(self.rows), 100)
@@ -577,6 +581,62 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(row["runtime_time_standard_binding_status_batch_12ap"], "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED")
         self.assertEqual(self.payload["audit_summary"]["confirmed_provenance_metadata_defect_count"], 11)
         self.assertEqual(self.payload["audit_summary"]["repaired_provenance_metadata_defect_count"], 11)
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+
+    def test_batch_12aq_direct_bibliography_confirms_item_4051_and_wang_luochuan(self) -> None:
+        evidence = json.loads(JIELAN_AQ_EVIDENCE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            evidence["batch_id"],
+            "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
+        )
+        probe = evidence["controlling_probe"]
+        self.assertEqual(probe["workflow_run_id"], 34350629959)
+        self.assertEqual(probe["artifact_id"], 10103542053)
+        self.assertEqual(
+            probe["artifact_zip_sha256"],
+            "c50fff947d5adf8e4eb9109d7d00485dbe7d04a7767090ca6e9109603b8c7f88",
+        )
+        scan = evidence["direct_bibliographic_scan"]
+        self.assertEqual(scan["target_pdf_page_1_based"], 40)
+        self.assertEqual(scan["catalog_item_number"], 4051)
+        self.assertFalse(scan["ocr_used_for_final_glyph_adjudication"])
+        self.assertEqual(
+            scan["direct_visual_reading"]["edition_imprint"],
+            "明萬曆九年金陵書坊王洛川刻本",
+        )
+        self.assertEqual(scan["direct_visual_reading"]["imprint_name"], "王洛川")
+        conflict = evidence["search_surface_conflict"]
+        self.assertEqual(conflict["surfaced_item_number"], 4052)
+        self.assertIn("王德川", conflict["surfaced_reading"])
+        self.assertEqual(
+            conflict["adjudication"],
+            "REJECTED_AS_SEARCH_INDEX_OCR_AND_TABLE_ALIGNMENT_ARTIFACT",
+        )
+        self.assertFalse(conflict["search_surface_is_glyph_authority"])
+
+        catalog = self.sources["EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051"]
+        self.assertEqual(catalog["catalog_item_number"], 4051)
+        self.assertEqual(catalog["direct_visual_imprint"], "明萬曆九年金陵書坊王洛川刻本")
+        self.assertFalse(catalog["ocr_used_for_final_glyph_adjudication"])
+        self.assertEqual(
+            self.sources["EXT-NCL-WANGSHI-LUOCHUAN-XUANHE"]["direct_catalog_term"],
+            "明金陵王氏洛川校刊本",
+        )
+        jielan = self.sources["EXT-ZIWEI-JIELAN-1581"]
+        binding = jielan["batch_12aq_direct_bibliography_confirmation"]
+        self.assertEqual(binding["catalog_item_number"], 4051)
+        self.assertEqual(binding["direct_visual_imprint"], "明萬曆九年金陵書坊王洛川刻本")
+        self.assertTrue(binding["search_surface_wang_dechuan_rejected"])
+        self.assertEqual(self.payload["audit_summary"]["confirmed_provenance_metadata_defect_count"], 11)
+        self.assertEqual(self.payload["audit_summary"]["repaired_provenance_metadata_defect_count"], 11)
+        row = next(row for row in self.rows if row["rule_id"] == "HPA-ZDATE-006")
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED",
+        )
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
 
