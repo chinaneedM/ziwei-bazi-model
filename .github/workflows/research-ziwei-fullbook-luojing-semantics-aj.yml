@@ -85,7 +85,11 @@ jobs:
               (out / f'{target["key"]}.html').write_bytes(body)
               text = body.decode("utf-8", errors="replace")
               compact = re.sub(r"\s+", " ", text)
-              item["term_hits"] = {term: (term in compact) for term in target["terms"]}
+              normalized = re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", compact)
+              item["term_hits"] = {
+                  term: (re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", term) in normalized)
+                  for term in target["terms"]
+              }
               item["matched_contexts"] = {}
               for term in target["terms"]:
                   term_norm = re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", term)
