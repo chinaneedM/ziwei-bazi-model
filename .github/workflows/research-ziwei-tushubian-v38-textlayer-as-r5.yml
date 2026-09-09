@@ -1,0 +1,98 @@
+name: research-ziwei-tushubian-v38-textlayer-as-r5
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-tushubian-v38-textlayer-as-r5.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf
+      - name: Resolve v38 and emit page-level text-layer locator
+        shell: python
+        run: |
+          import json, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+
+          out = Path('batch12as-r5')
+          out.mkdir(exist_ok=True)
+
+          def get_json(url):
+              req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  return json.loads(r.read().decode('utf-8'))
+
+          q = 'intitle:"圖書編 v.38.pdf"'
+          search_url = (
+              'https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search'
+              '&srnamespace=6&srlimit=50&srsearch=' + urllib.parse.quote(q)
+          )
+          obj = get_json(search_url)
+          titles = [x.get('title') for x in obj.get('query',{}).get('search',[])]
+          selected = next((t for t in titles if 'Harvard' in t and '圖書編' in t and 'v.38.pdf' in t), None)
+          print('SELECTED_TITLE=', selected)
+          print('SEARCH_TITLES=', json.dumps(titles, ensure_ascii=False))
+          if not selected:
+              raise SystemExit('No Harvard 圖書編 v.38.pdf title resolved')
+
+          info_url = (
+              'https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo'
+              '&iiprop=url%7Csize%7Csha1&titles=' + urllib.parse.quote(selected)
+          )
+          info_obj = get_json(info_url)
+          page = next(iter(info_obj.get('query',{}).get('pages',{}).values()))
+          info = (page.get('imageinfo') or [None])[0]
+          if not info or not info.get('url'):
+              raise SystemExit('No source-emitted PDF URL')
+          print('IMAGEINFO=', json.dumps(info, ensure_ascii=False, sort_keys=True))
+
+          pdf_path = out / 'tushubian-v38.pdf'
+          req = urllib.request.Request(info['url'], headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req, timeout=180) as r:
+              pdf_path.write_bytes(r.read())
+
+          doc = fitz.open(str(pdf_path))
+          print('PAGE_COUNT=', len(doc))
+          nonempty = []
+          for idx, pg in enumerate(doc):
+              txt = (pg.get_text('text') or '').strip()
+              if txt:
+                  nonempty.append(idx+1)
+          print('TEXT_LAYER_NONEMPTY_PAGES=', nonempty)
+
+          for p1 in range(1, min(len(doc), 12) + 1):
+              txt = (doc[p1-1].get_text('text') or '').strip()
+              print(f'--- PDF_PAGE_{p1}_TEXT_LAYER_BEGIN ---')
+              print(txt[:4000])
+              print(f'--- PDF_PAGE_{p1}_TEXT_LAYER_END ---')
+
+          receipt = {
+              'scope':'BATCH12AS_R5_V38_TEXT_LAYER_LOCATOR_ONLY',
+              'selected_title': selected,
+              'imageinfo': info,
+              'page_count': len(doc),
+              'text_layer_nonempty_pages': nonempty,
+              'evidence_class':'LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
+              'manual_visual_review_still_required': True,
+              'runtime_standard_selected': False,
+              'algorithm_reopen_authorized': False,
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2)+'\n','utf-8')
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-tushubian-v38-textlayer-as-r5
+          path: batch12as-r5/receipt.json
+          retention-days: 90
