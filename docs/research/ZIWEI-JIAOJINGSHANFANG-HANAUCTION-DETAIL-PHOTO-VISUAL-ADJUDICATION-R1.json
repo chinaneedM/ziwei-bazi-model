@@ -1,0 +1,104 @@
+{
+  "schema": "ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH",
+  "access_date": "2026-09-09",
+  "status": "AG_IMAGE_SCOPE_DEFECT_CONFIRMED_AND_REPAIRED_EVENT_MEDIA_NOT_TARGET_OBJECT_ZERO_TEXTUAL_VOTES",
+  "parent_batch": "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
+  "parent_evidence": "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json",
+  "source_archive_binding": {
+    "workflow_run_id": 34319318823,
+    "artifact_id": 10091275632,
+    "artifact_name": "ziwei-jiaojingshanfang-hanauction-physical-routes-ag",
+    "artifact_zip_sha256": "c348dc9207c5932421e58ca0b01160827a5468a9b7160ba2f6e28e0aacfdfdf1",
+    "artifact_member_browser_html": "auction-65-lot-173-detail-browser.html",
+    "artifact_member_browser_html_sha256": "93e6d80fd3d65e58fccd81a683cdfcd013d1aff8eabadc934c7aca764d2fec65",
+    "artifact_member_browser_screenshot": "auction-65-lot-173-detail.png",
+    "artifact_member_browser_screenshot_sha256": "8a5bc72cc904f6b953f3a99e3a4fb52ad87caf4e7f6c3ea5de42714e5f1771dd",
+    "raw_detail_http_member": "auction-65-lot-173-detail.html",
+    "raw_detail_http_sha256": "d5ce39994a436ede8b4ea9314f8c0ffaa37ecf7185dfc79417b4f2072bd6ff93",
+    "raw_detail_http_state": "ANTI_BOT_COOKIE_CHALLENGE_HTML_NOT_TARGET_OBJECT_CONTENT"
+  },
+  "html_context_adjudication": {
+    "context_heading": "제65회 우리 얼 찾기 경매전 풍경",
+    "first_media_label": "7/7 경매 전시 동영상",
+    "second_media_label": "7/7 경매 진행 동영상",
+    "target_lot_row_still_present_in_same_browser_surface": {
+      "lot_number": 173,
+      "stable_object_id": "27427",
+      "visible_title": "上海校經山房 印行 石印本 <개량 자미두수전서(改良 紫微斗數全書)> 4卷 4冊 완질"
+    },
+    "adjudication": "THE_TWO_300X225_IMAGES_ARE_AUCTION_ROUND_EVENT_MEDIA_ON_THE_BROWSER_DERIVED_LISTING_SURFACE_NOT_LOT_173_OBJECT_PHOTOS"
+  },
+  "adjudicated_media": [
+    {
+      "artifact_member": "auction-65-lot-173-detail-09.jpg",
+      "source_url": "https://hanauction.com/upload/20120708024841.jpg",
+      "sha256": "c8705995aa695ba7ef285be939960bcef69516aed749937b00b309cf0df321c2",
+      "bytes": 51812,
+      "width": 300,
+      "height": 225,
+      "direct_visual_observation": "Wide auction-room/exhibition scene with tables, books and wall displays; not a photographed page of the target book.",
+      "html_role": "AUCTION_EXHIBITION_VIDEO_THUMBNAIL",
+      "target_object_specific": false,
+      "target_book_page": false,
+      "target_heading_observed": false,
+      "late_zi_target_text_observed": false,
+      "explicit_hai_glyph_observed": false
+    },
+    {
+      "artifact_member": "auction-65-lot-173-detail-10.jpg",
+      "source_url": "https://hanauction.com/upload/20120708024758.jpg",
+      "sha256": "a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260",
+      "bytes": 38858,
+      "width": 300,
+      "height": 225,
+      "direct_visual_observation": "Auction-event scene showing a presenter at a lectern; not a photographed page of the target book.",
+      "html_role": "AUCTION_PROCEEDINGS_VIDEO_THUMBNAIL",
+      "target_object_specific": false,
+      "target_book_page": false,
+      "target_heading_observed": false,
+      "late_zi_target_text_observed": false,
+      "explicit_hai_glyph_observed": false
+    }
+  ],
+  "provenance_defect": {
+    "defect_id": "PROV-DEFECT-010",
+    "defect_type": "EVIDENCE_SCOPE_MISCLASSIFICATION",
+    "defect_scope": "Batch 12AG labeled two 300x225 browser-surface media objects as source-emitted exact-detail photos associated with the Jiaojingshanfang target route. The archived HTML context and direct visual review show that they are auction-round event scenery/video thumbnails, not lot-173 object photos or target-book pages.",
+    "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH",
+    "repair_action": "Reclassify the two hashes as auction-event media; remove them from target-object/detail-photo evidentiary scope while retaining hashes and archive lineage for reproducibility. No chart rule, candidate or algorithm changes."
+  },
+  "evidence_effect": {
+    "physical_jiaojingshanfang_route": "REMAINS_BOUND_BY_EXACT_2012_AND_2026_AUCTION_ROWS",
+    "target_page_status": "PENDING_DIRECT_VISUAL_TARGET_PAGE",
+    "direct_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "stemmatic_independent_branch_increment": 0,
+    "algorithm_effect": "NONE"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "safety": {
+    "direct_ocr_used": false,
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "hidden_image_filename_guessing_attempted": false
+  }
+}
