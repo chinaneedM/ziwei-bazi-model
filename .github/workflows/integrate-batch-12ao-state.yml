@@ -215,11 +215,8 @@ jobs:
               'ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"\n'
               + 'ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"',
               "audit AO constant")
-          marker = dedent("""
-              if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:
-                  raise SystemExit("Batch 12AN candidate/algorithm firewall regressed")
-
-          """)
+          marker = ('    if row12an.get("candidate_selected_batch_12an") is not False or row12an.get("candidate_collapsed_batch_12an") is not False or row12an.get("algorithm_reopen_authorized") is not False:\n'
+                    '        raise SystemExit("Batch 12AN candidate/algorithm firewall regressed")\n\n')
           block = dedent("""
               # Batch 12AO complete-current-public-transcription early-Ziwei boundary.
               jielan12ao = by_source_id.get("EXT-ZIWEI-JIELAN-1581")
