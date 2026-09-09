@@ -1,0 +1,82 @@
+{
+  "schema": "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
+  "access_date": "2026-09-09",
+  "status": "DIRECT_SHANBEN_CATALOG_SCAN_CONFIRMS_ITEM_4051_AND_WANG_LUOCHUAN_SEARCH_SURFACE_WANG_DECHUAN_4052_REJECTED_AS_OCR_TABLE_ALIGNMENT_ARTIFACT",
+  "controlling_probe": {
+    "workflow_run_id": 34350629959,
+    "artifact_id": 10103542053,
+    "artifact_zip_sha256": "c50fff947d5adf8e4eb9109d7d00485dbe7d04a7767090ca6e9109603b8c7f88",
+    "receipt_sha256": "f5a001f656f003a1a3e0d19f9941fe4a26210b265d6a21b51b26eee833e60a57"
+  },
+  "direct_bibliographic_scan": {
+    "source_title": "《中國古籍善本書目·子部三》",
+    "provider": "Wikimedia Commons scan of the printed bibliography",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/SSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf",
+    "pdf_sha256": "e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab",
+    "pdf_page_count": 160,
+    "target_pdf_page_1_based": 40,
+    "direct_full_page_render_sha256": "fe32995fed004f54e94795dafa528231ba7a670c99eb13e5bea79a6ac56802b6",
+    "direct_target_context_crop_sha256": "e24212dbf2213be31969b995f9058dd06df6bc1beabd87b486ad752edd2a053e",
+    "ocr_used_for_final_glyph_adjudication": false,
+    "catalog_item_number": 4051,
+    "adjacent_item_number_right": 4050,
+    "adjacent_item_number_left": 4052,
+    "direct_visual_reading": {
+      "title": "新刻纂集紫微斗數捷覽四卷",
+      "attribution": [
+        "題宋陳摶撰",
+        "宋白玉蟾增輯"
+      ],
+      "edition_imprint": "明萬曆九年金陵書坊王洛川刻本",
+      "imprint_name": "王洛川"
+    },
+    "confidence": "HIGH_DIRECT_PRINTED_BIBLIOGRAPHY_SCAN_VISUAL_REVIEW"
+  },
+  "search_surface_conflict": {
+    "surfaced_reading": "明萬曆九年金陵書坊王德川刻本",
+    "surfaced_item_number": 4052,
+    "adjudication": "REJECTED_AS_SEARCH_INDEX_OCR_AND_TABLE_ALIGNMENT_ARTIFACT",
+    "reason": "The direct scan page visibly assigns the Jielan column to catalog item 4051 and reads 王洛川. Item 4052 is the adjacent 上官拜命玉曆大全不分卷 column.",
+    "search_surface_is_glyph_authority": false
+  },
+  "independent_bookseller_identity_control": {
+    "source_title": "國家圖書館《新刊大宋宣和遺事》明刊本書目",
+    "provider": "臺灣國家圖書館古籍與特藏文獻資源",
+    "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=295571d85e4c45a397547d8f565dd050fDc0NjYx0.g5hCuW8N0Tx9niVfLTK2Rou7fzSw7C8VUWWII7g4nyU_&page=",
+    "response_sha256": "3df3ad4cdc1dc6b8d54ff5fe96f6086c22753151888af18fa87de0f1707011cb",
+    "direct_catalog_term": "明金陵王氏洛川校刊本",
+    "role": "INDEPENDENT_OFFICIAL_LIBRARY_BIBLIOGRAPHIC_CONTROL_SHOWING_WANG_SHI_LUOCHUAN_AS_A_REAL_MING_JINLING_BOOKSELLER_IMPRINT_STRING_NOT_SAME_COPY_PROOF"
+  },
+  "unresolved_holding_route": {
+    "anhui_item_level_official_record_obtained": false,
+    "secondary_catalog_locator_only": true,
+    "current_public_physical_pt49_route_obtained": false,
+    "holding_claim_upgrade_authorized": false
+  },
+  "adjudication": {
+    "current_registry_imprint_wang_luochuan_supported": true,
+    "current_registry_should_change_to_wang_dechuan": false,
+    "direct_catalog_item_number_is_4051": true,
+    "repository_provenance_metadata_defect_increment": 0,
+    "confirmed_provenance_metadata_defect_count_after_batch": 11,
+    "repaired_provenance_metadata_defect_count_after_batch": 11,
+    "chart_algorithm_defect_increment": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_selection_changed": false,
+    "hpa_zdate_006_status_changed": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": "Return to the chart-affecting evidence gate: acquire a directly readable Jielan PT49 physical facsimile leaf and independently close the Fullbook cloudy/rainy current-time acquisition mechanism. Keep Anhui holding at locator level until an official item record is bound."
+}
