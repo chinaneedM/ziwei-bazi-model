@@ -323,3 +323,13 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Exact 2012/2026 Jiaojingshanfang auction-row provenance remains valid. Target-text increment = 0; Hai-glyph increment = 0; `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; 198/166/10/14 and algorithm invariants remain unchanged.
 - Provenance accounting is now 10 confirmed / 10 repaired metadata defects; confirmed chart algorithm defects remain 0.
 - Evidence: `docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json`.
+
+
+### Batch 12AI — Ziwei late-Zi historical time-coordinate narrowing
+
+- Machine probe `34322850489` / artifact `10092539912` binds three public witness surfaces: 《明史·天文志》 time determination, 《明史·历志》 geographic gnomon/clepsydra differences, and USNO's modern apparent-vs-mean solar-time definition.
+- The received Ming institutional clock family is observational rather than a modern zone clock: daytime sundial/true-Sun and nighttime stellar observation are treated as fundamental; clepsydra is supplementary, and north-south geography materially changes historical gnomon/clepsydra realization.
+- USNO is a translation control only. A calibrated local sundial maps most directly to local apparent solar time; this does not prove that the Fullbook natal-hour rule inherits that regime or that the current Ziwei runtime should select apparent solar time.
+- `HPA-ZDATE-006` is therefore narrowed to `LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE`, while nighttime runtime equivalence, natal birthplace locality and exact Fullbook clock-regime inheritance remain unresolved.
+- `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; runtime binding = `PARTIALLY_NARROWED_NOT_CLOSED`; no candidate selection/collapse and no algorithm reopen. Counts remain 198/166/10/14; provenance defects remain 10 confirmed / 10 repaired.
+- Evidence: `docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json`.
