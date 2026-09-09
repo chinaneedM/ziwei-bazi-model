@@ -16,13 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Inspect public source-emitted click3 response for PT165
+      - name: Inspect public Viewer run and click3 responses for PT165
         shell: python
         run: |
           import hashlib
           import json
           import re
-          import urllib.parse
           import urllib.request
           from pathlib import Path
 
@@ -30,11 +29,11 @@ jobs:
           IMG = OUT / "images"
           OUT.mkdir()
           IMG.mkdir()
-          UA = "Mozilla/5.0 provenance-research public-google-books-click3"
+          UA = "Mozilla/5.0 provenance-research public-google-books-viewer-responses"
           VOLUME = "aIRbDgAAQBAJ"
           PAGES = ["PT164", "PT165", "PT166"]
 
-          def fetch(url, referer=None, limit=12_000_000):
+          def fetch(url, referer=None, limit=16_000_000):
               headers = {
                   "User-Agent": UA,
                   "Accept": "application/json,text/plain,text/html,image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
@@ -58,8 +57,32 @@ jobs:
               except Exception as exc:
                   return {"ok": False, "error": repr(exc), "bytes": 0, "data": b""}
 
+          def decode_and_urls(raw):
+              text = raw.decode("utf-8", "replace")
+              urls = []
+              for m in re.finditer(r'https?:\\?/\\?/[^"\'<>\\s]+', text):
+                  u = m.group(0).replace("\\/", "/").replace("\\u0026", "&").replace("&amp;", "&").rstrip("),;")
+                  if u not in urls:
+                      urls.append(u)
+              payload = None
+              try:
+                  payload = json.loads(text)
+                  def walk(x):
+                      if isinstance(x, dict):
+                          for v in x.values(): walk(v)
+                      elif isinstance(x, list):
+                          for v in x: walk(v)
+                      elif isinstance(x, str) and x.startswith(("http://", "https://")):
+                          u = x.replace("\\u0026", "&").replace("&amp;", "&")
+                          if u not in urls:
+                              urls.append(u)
+                  walk(payload)
+              except Exception:
+                  pass
+              return text, payload, urls
+
           result = {
-              "schema": "ZIWEI-WENGUANG-PT165-PUBLIC-CLICK3-AD-R1",
+              "schema": "ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSES-AD-R2",
               "access_date": "2026-09-09",
               "volume_id": VOLUME,
               "target_page_id": "PT165",
@@ -69,11 +92,40 @@ jobs:
               "identifier_guessing_attempted": False,
               "access_control_bypass_attempted": False,
               "source_emitted_urls_only": True,
+              "viewer_run": {},
               "pages": [],
               "images": [],
           }
 
           emitted = []
+
+          run_url = f"https://books.google.com/books?id={VOLUME}&jscmd=run"
+          run_row = fetch(run_url)
+          run_raw = run_row.pop("data")
+          result["viewer_run"] = {"request_url": run_url, **run_row}
+          if run_raw:
+              (OUT / "viewer-run.bin").write_bytes(run_raw)
+              run_text, run_payload, run_urls = decode_and_urls(run_raw)
+              (OUT / "viewer-run.txt").write_text(run_text, encoding="utf-8")
+              result["viewer_run"]["response_excerpt"] = run_text[:12000]
+              result["viewer_run"]["absolute_urls"] = run_urls
+              result["viewer_run"]["json_type"] = type(run_payload).__name__ if run_payload is not None else None
+              result["viewer_run"]["json_keys"] = sorted(run_payload.keys()) if isinstance(run_payload, dict) else None
+              if isinstance(run_payload, dict):
+                  # Preserve structural metadata only; no hidden identifier guessing.
+                  result["viewer_run"]["top_level_summary"] = {
+                      k: run_payload.get(k)
+                      for k in ("page", "viewability", "pageorder", "page_count", "num_pages", "title")
+                      if k in run_payload
+                  }
+              for u in run_urls:
+                  ul = u.lower()
+                  if (
+                      ("books.google" in ul or "googleusercontent" in ul or "ggpht" in ul)
+                      and ("books/content" in ul or "img=" in ul or re.search(r'\.(?:jpe?g|png|webp|avif)(?:[?&#]|$)', ul))
+                  ):
+                      emitted.append(("RUN", run_url, u))
+
           for pg in PAGES:
               url = f"https://books.google.com/books?id={VOLUME}&pg={pg}&jscmd=click3"
               row = fetch(url)
@@ -81,57 +133,33 @@ jobs:
               rec = {"page_id": pg, "request_url": url, **row}
               if raw:
                   (OUT / f"{pg}-click3.bin").write_bytes(raw)
-                  text = raw.decode("utf-8", "replace")
+                  text, payload, urls = decode_and_urls(raw)
                   (OUT / f"{pg}-click3.txt").write_text(text, encoding="utf-8")
                   rec["response_excerpt"] = text[:5000]
-                  rec["absolute_urls"] = []
-                  # Extract only URLs literally returned by the public click3 response.
-                  for m in re.finditer(r'https?:\\?/\\?/[^"\'<>\\s]+', text):
-                      u = m.group(0)
-                      u = u.replace("\\/", "/").replace("\\u0026", "&").replace("&amp;", "&")
-                      u = u.rstrip("),;")
-                      if u not in rec["absolute_urls"]:
-                          rec["absolute_urls"].append(u)
-                  # Also parse JSON recursively when possible.
-                  try:
-                      payload = json.loads(text)
-                      rec["json_type"] = type(payload).__name__
-                      rec["json_keys"] = sorted(payload.keys()) if isinstance(payload, dict) else None
-                      def walk(x):
-                          if isinstance(x, dict):
-                              for v in x.values(): walk(v)
-                          elif isinstance(x, list):
-                              for v in x: walk(v)
-                          elif isinstance(x, str) and x.startswith(("http://", "https://")):
-                              u = x.replace("\\u0026", "&").replace("&amp;", "&")
-                              if u not in rec["absolute_urls"]:
-                                  rec["absolute_urls"].append(u)
-                      walk(payload)
-                  except Exception as exc:
-                      rec["json_parse_error"] = repr(exc)
-
-                  for u in rec["absolute_urls"]:
+                  rec["absolute_urls"] = urls
+                  rec["json_type"] = type(payload).__name__ if payload is not None else None
+                  rec["json_keys"] = sorted(payload.keys()) if isinstance(payload, dict) else None
+                  if isinstance(payload, dict) and isinstance(payload.get("page"), list):
+                      target = next((x for x in payload["page"] if x.get("pid") == pg), None)
+                      rec["target_page_record"] = target
+                      rec["returned_page_record_count"] = len(payload["page"])
+                  for u in urls:
                       ul = u.lower()
                       if (
-                          "books.google" in ul
-                          or "googleusercontent" in ul
-                          or "ggpht" in ul
-                      ) and (
-                          "books/content" in ul
-                          or "img=" in ul
-                          or re.search(r'\\.(?:jpe?g|png|webp|avif)(?:[?&#]|$)', ul)
+                          ("books.google" in ul or "googleusercontent" in ul or "ggpht" in ul)
+                          and ("books/content" in ul or "img=" in ul or re.search(r'\.(?:jpe?g|png|webp|avif)(?:[?&#]|$)', ul))
                       ):
                           emitted.append((pg, url, u))
               result["pages"].append(rec)
 
           seen = set()
-          for pg, referer, u in emitted:
+          for source, referer, u in emitted:
               if u in seen:
                   continue
               seen.add(u)
               row = fetch(u, referer=referer)
               raw = row.pop("data")
-              item = {"source_page_id": pg, "source_click3_url": referer, "url": u, **row}
+              item = {"source": source, "source_request_url": referer, "url": u, **row}
               ct = (row.get("content_type") or "").lower()
               magic = (
                   raw[:3] == b"\xff\xd8\xff"
@@ -148,46 +176,51 @@ jobs:
                       ext = ".avif"
                   else:
                       ext = ".jpg"
-                  p = IMG / f"{pg}-{len(result['images'])+1:03d}{ext}"
+                  p = IMG / f"{source}-{len(result['images'])+1:03d}{ext}"
                   p.write_bytes(raw)
                   item["saved_file"] = str(p)
               result["images"].append(item)
 
           result["adjudication"] = {
-              "public_click3_response_observed": any(
-                  p.get("page_id") == "PT165" and p.get("status") == 200
-                  for p in result["pages"]
+              "public_viewer_run_response_observed": result["viewer_run"].get("status") == 200,
+              "public_click3_pt165_response_observed": any(
+                  p.get("page_id") == "PT165" and p.get("status") == 200 for p in result["pages"]
               ),
               "source_emitted_image_url_count": len(seen),
-              "target_page_image_saved": any(
-                  x.get("source_page_id") == "PT165" and x.get("saved_file")
-                  for x in result["images"]
+              "pt165_image_saved": any(
+                  x.get("source") == "PT165" and x.get("saved_file") for x in result["images"]
               ),
               "visual_review_status": "PENDING_DIRECT_NO_OCR_REVIEW",
-              "glyph_authority": "NONE_UNTIL_SAVED_PT165_IMAGE_IS_DIRECTLY_REVIEWED",
+              "glyph_authority": "NONE_UNTIL_A_SOURCE_EMITTED_PT165_IMAGE_IS_SAVED_AND_DIRECTLY_REVIEWED",
               "independent_textual_witness_increment": 0,
               "independent_hai_glyph_witness_increment": 0,
               "algorithm_effect": "NONE",
           }
-          (OUT / "ziwei-wenguang-pt165-click3-ad.json").write_text(
-              json.dumps(result, ensure_ascii=False, indent=2),
-              encoding="utf-8",
+          (OUT / "ziwei-wenguang-pt165-viewer-responses-ad.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
           )
           print(json.dumps({
+              "viewer_run": {
+                  "status": result["viewer_run"].get("status"),
+                  "bytes": result["viewer_run"].get("bytes"),
+                  "content_type": result["viewer_run"].get("content_type"),
+                  "json_keys": result["viewer_run"].get("json_keys"),
+                  "url_count": len(result["viewer_run"].get("absolute_urls", [])),
+              },
               "pages": [
                   {
                       "page_id": p["page_id"],
                       "status": p.get("status"),
                       "bytes": p.get("bytes"),
-                      "content_type": p.get("content_type"),
+                      "target_page_record": p.get("target_page_record"),
+                      "returned_page_record_count": p.get("returned_page_record_count"),
                       "url_count": len(p.get("absolute_urls", [])),
-                      "json_keys": p.get("json_keys"),
                   }
                   for p in result["pages"]
               ],
               "images": [
                   {
-                      "source_page_id": x["source_page_id"],
+                      "source": x["source"],
                       "status": x.get("status"),
                       "content_type": x.get("content_type"),
                       "bytes": x.get("bytes"),
@@ -200,7 +233,7 @@ jobs:
               "adjudication": result["adjudication"],
           }, ensure_ascii=False, indent=2))
 
-      - name: Upload PT165 click3 evidence
+      - name: Upload PT165 viewer-response evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
