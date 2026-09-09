@@ -304,3 +304,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Direct image `B005_01_B00320_001_004` reads `上海廣益書局印行`. Direct image `B005_01_B00320_003_003` shows `卷三 / 論人生時要審的確` and directly reads `如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時`. No OCR.
 - This adds one direct Fullbook physical target-text witness and one Hai-glyph physical witness. Nanyangtang↔Guangyi physical-edition agreement is closed; global all-edition stability and stemmatic independence are not claimed.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and all algorithm invariants remain unchanged.
+
+### Batch 12AG — Jiaojingshanfang/Hanauction physical-edition provenance
+
+- Hanauction exact historical rows bind Shanghai Jiaojingshanfang `《改良紫微斗數全書》` as a four-juan/four-book lithographic physical-edition route in 2012 (auction 65, lot 173, stable object `27427`) and 2026 (auction 227, lot 127, stable object `101926`).
+- Research run `34319318823` / artifact `10091275632` captures exact source-emitted target thumbnails and, on the 2012 exact detail page, two 300×225 JPEG objects with SHA-256 `c8705995...21c2` and `a22d0017...5260`. The current execution did **not** directly visually adjudicate those detail photos, so no target heading, late-Zi page or `亥` glyph is claimed.
+- NCKU 2021 scholarly genealogy places the Jiaojingshanfang late edition, like Guangyi, on the Baohutang-derived Fullbook line. It is therefore provenance breadth, not a stemmatically independent textual vote.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; target-text increment = 0, Hai-glyph increment = 0, 198/166/10/14 and all algorithm invariants remain unchanged.
+- Evidence: `docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json`.
