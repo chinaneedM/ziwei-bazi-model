@@ -371,6 +371,22 @@ def main() -> int:
     if yulgok_guangyi.get("independent_hai_glyph_witness_increment") != 1 or yulgok_guangyi.get("stemmatic_independence_claimed") is not False:
         raise SystemExit("Batch 12AF Yulgok Guangyi witness/stemma firewall regressed")
 
+    jiaojing=by_source_id.get("EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL")
+    if jiaojing is None:
+        raise SystemExit("Batch 12AG Jiaojingshanfang registry source is missing")
+    if jiaojing.get("direct_target_page_observed") is not False or jiaojing.get("direct_visual_review_of_2012_detail_photos_completed") is not False:
+        raise SystemExit("Batch 12AG target-page/image-review firewall regressed")
+    if jiaojing.get("independent_target_text_witness_increment") != 0 or jiaojing.get("independent_hai_glyph_witness_increment") != 0:
+        raise SystemExit("Batch 12AG Jiaojingshanfang witness accounting regressed")
+    if jiaojing.get("stemmatic_independence_claimed") is not False:
+        raise SystemExit("Batch 12AG Jiaojingshanfang stemmatic-independence firewall regressed")
+    if row_nanyang.get("batch_12ag_jiaojingshanfang_hanauction_physical_edition_artifact") != "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json":
+        raise SystemExit("Batch 12AG HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("jiaojingshanfang_target_page_status") != "PENDING_DIRECT_VISUAL_TARGET_PAGE":
+        raise SystemExit("Batch 12AG HPA-ZDATE-006 target-page status regressed")
+    if row_nanyang.get("independent_textual_witness_count_added_batch_12ag") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ag") != 0:
+        raise SystemExit("Batch 12AG HPA-ZDATE-006 witness firewall regressed")
+
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
         raise SystemExit("Batch 12Z Korea CNTS physical manuscript registry source is missing")
