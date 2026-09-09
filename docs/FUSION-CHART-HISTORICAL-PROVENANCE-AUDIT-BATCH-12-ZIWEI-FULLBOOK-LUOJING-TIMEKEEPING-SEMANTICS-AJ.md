@@ -46,9 +46,9 @@ The zero increment avoids double-counting physical copies already counted in ear
 
 ## 3. Contemporary Ming astronomical control
 
-Machine probe run `34324767233` / artifact `10093334440` binds the 《皇明經世文編》卷四百九十三 `制器測晷` passage.
+Final decisive machine probe run `34325691911` / artifact `10093682981` binds the 《皇明經世文編》卷四百九十三 `制器測晷` passage.
 
-Final stabilized probe ZIP SHA-256: `5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2`; all configured control terms hit.\n\nIts instrument separation is explicit:
+Final decisive probe ZIP SHA-256: `4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95`; all configured decisive-source control terms hit.\n\nIts instrument separation is explicit:
 
 - `日晷` determines daytime time;
 - `星晷` determines nighttime time;
@@ -59,6 +59,20 @@ Final stabilized probe ZIP SHA-256: `5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8
 - exclusive use of a compass can create indeterminate ke/fen timing error and tends to be early relative to the true time.
 
 This is a contemporary technical control, not Ziwei doctrine.
+
+## 3A. Primary technical control upgrade
+
+The final decisive probe adds Xu Guangqi et al. `《新法算書》`卷一 directly. The public text identifies `徐光啓謹題` and preserves the same instrument-separation memorial at a primary/near-primary calendar-bureau textual level.
+
+`《皇明經世文編》`卷493 is retained as a transmission control of the **same memorial**, not as an independent technical vote:
+
+```text
+XINFA_SUANSHU = CONTROLLING_PRIMARY_OR_NEAR_PRIMARY_TECHNICAL_WITNESS
+HUANGMING_JINGSHI_WENBIAN = SAME_MEMORIAL_TRANSMISSION_CONTROL
+INDEPENDENT_TECHNICAL_VOTE_COUNT_FOR_THESE_TWO = 1
+```
+
+The dynamic `《四庫全書總目》` catalog page is not part of the final decisive probe and has no effect on adjudication.
 
 ## 4. Contemporary Ming Luojing control inside shushu literature
 
