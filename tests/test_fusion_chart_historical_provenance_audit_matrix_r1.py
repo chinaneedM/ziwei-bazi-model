@@ -66,8 +66,8 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertGreaterEqual(receipt["historical_research_batch_count"], 21)
         self.assertGreaterEqual(receipt["audited_row_count"], 165)
         self.assertEqual(receipt["confirmed_chart_algorithm_defect_count"], 0)
-        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 9)
-        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 9)
+        self.assertGreaterEqual(receipt["confirmed_provenance_metadata_defect_count"], 10)
+        self.assertGreaterEqual(receipt["repaired_provenance_metadata_defect_count"], 10)
         self.assertGreaterEqual(receipt["historical_candidate_registry_count"], 2)
         self.assertGreaterEqual(receipt["historical_candidate_runtime_resolver_count"], 2)
         self.assertGreaterEqual(receipt["identified_missing_candidate_family_count"], 13)
@@ -295,11 +295,31 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(row["jiaojingshanfang_hanauction_exact_stable_object_ids"], ["101926", "27427"])
         self.assertEqual(
             row["jiaojingshanfang_2012_detail_photo_visual_review_status"],
-            "SOURCE_EMITTED_EXACT_DETAIL_PHOTOS_CAPTURED_NOT_DIRECTLY_VISUALLY_ADJUDICATED",
+            "DIRECTLY_REVIEWED_AND_RECLASSIFIED_AS_AUCTION_EVENT_MEDIA_NOT_TARGET_OBJECT",
         )
         self.assertEqual(row["jiaojingshanfang_target_page_status"], "PENDING_DIRECT_VISUAL_TARGET_PAGE")
         self.assertEqual(row["independent_textual_witness_count_added_batch_12ag"], 0)
         self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ag"], 0)
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12ah_jiaojingshanfang_event_media_scope_is_repaired(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12ah_jiaojingshanfang_detail_photo_visual_adjudication_artifact"],
+            "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json",
+        )
+        self.assertEqual(row["defect_id"], "PROV-DEFECT-010")
+        self.assertEqual(row["defect_type"], "EVIDENCE_SCOPE_MISCLASSIFICATION")
+        self.assertEqual(row["repair_status"], "REPAIRED_FORWARD_ONLY_DURING_BATCH_12AH")
+        self.assertEqual(
+            row["jiaojingshanfang_2012_detail_photo_context_status"],
+            "AUCTION_ROUND_EVENT_SCENERY_MEDIA_NOT_LOT_173_OBJECT_PHOTOS",
+        )
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12ah"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ah"], 0)
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
 
 
