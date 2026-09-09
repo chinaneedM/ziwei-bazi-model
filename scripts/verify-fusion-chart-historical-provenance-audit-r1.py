@@ -343,16 +343,34 @@ def main() -> int:
         raise SystemExit("Batch 12B HPA-ZDATE-006 timekeeping status regressed")
     if row_nanyang.get("runtime_time_standard_binding") != "UNRESOLVED_DO_NOT_CHOOSE_CIVIL_MEAN_OR_APPARENT_SOLAR_TIME_FROM_TIMEKEEPING_TRANSLATION":
         raise SystemExit("Batch 12B runtime time-standard firewall regressed")
-    if row_nanyang.get("independent_physical_target_page_status") != "SEPARATE_KOREAN_SPRINGGANG_MANUSCRIPT_TARGET_PASSAGE_DIRECTLY_OBSERVED; INDEPENDENT_FULLBOOK_TARGET_PAGES_STILL_PENDING":
-        raise SystemExit("Batch 12Z HPA-ZDATE-006 physical target-page status regressed")
-    if row_nanyang.get("hai_glyph_cross_edition_status") != "EXPLICIT_HAI_IS_NOT_UNIVERSAL_ACROSS_BROADER_RECEIVED_ZIWEI_TRANSMISSION: NANYANGTANG_FULLBOOK_HAS 昨夜亥時, KOREA_SPRINGGANG_MANUSCRIPT HAS 昨夜 WITH NO 亥 IN EXACT TARGET SPAN; WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED":
-        raise SystemExit("Batch 12Z HPA-ZDATE-006 HAI glyph boundary regressed")
+    if row_nanyang.get("independent_physical_target_page_status") != "NANYANGTANG_FULLBOOK_AND_GUANGYI_FULLBOOK_DIRECT_TARGET_PAGES_OBSERVED; KOREA_SPRINGGANG_MANUSCRIPT_DIRECT_TARGET_PASSAGE_ALSO_OBSERVED":
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 physical target-page status regressed")
+    if row_nanyang.get("hai_glyph_cross_edition_status") != "NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE 昨夜亥時/今日子時; GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED; KOREA_SPRINGGANG_BROADER_ZIWEI_TRANSMISSION_HAS_NON_HAI_VARIANT":
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 HAI glyph boundary regressed")
     if row_nanyang.get("batch_12z_korea_cnts_direct_collation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1.json":
         raise SystemExit("Batch 12Z HPA-ZDATE-006 Korea CNTS artifact binding regressed")
     if row_nanyang.get("korea_cnts_explicit_hai_glyph_in_exact_target_span") is not False:
         raise SystemExit("Batch 12Z HPA-ZDATE-006 Korea exact-span non-Hai boundary regressed")
     if row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12z") != 0:
         raise SystemExit("Batch 12Z HPA-ZDATE-006 Hai witness accounting regressed")
+    if row_nanyang.get("batch_12af_guangyi_yulgok_direct_collation_artifact") != "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json":
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 Guangyi/Yulgok artifact binding regressed")
+    if row_nanyang.get("yulgok_guangyi_direct_imprint") != "上海廣益書局印行":
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 Guangyi imprint binding regressed")
+    if row_nanyang.get("yulgok_guangyi_target_heading") != "論人生時要審的確" or row_nanyang.get("yulgok_guangyi_target_juan") != 3:
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 target location binding regressed")
+    if row_nanyang.get("yulgok_guangyi_target_decisive_direct_reading") != "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時":
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 direct target reading regressed")
+    if row_nanyang.get("direct_fullbook_physical_target_text_witness_count_added_batch_12af") != 1 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12af") != 1:
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 witness accounting regressed")
+    yulgok_guangyi=by_source_id.get("EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS")
+    if yulgok_guangyi is None:
+        raise SystemExit("Batch 12AF Yulgok Guangyi registry source is missing")
+    if yulgok_guangyi.get("target_image_sha256") != "2d1fc5ce8459d3696166b0471b2075fee247ede94b73eb833d435fe54ee847e0":
+        raise SystemExit("Batch 12AF Yulgok Guangyi target image binding regressed")
+    if yulgok_guangyi.get("independent_hai_glyph_witness_increment") != 1 or yulgok_guangyi.get("stemmatic_independence_claimed") is not False:
+        raise SystemExit("Batch 12AF Yulgok Guangyi witness/stemma firewall regressed")
+
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
         raise SystemExit("Batch 12Z Korea CNTS physical manuscript registry source is missing")
@@ -374,8 +392,8 @@ def main() -> int:
         raise SystemExit("Batch 12E HPA-ZDATE-006 physical-image review boundary regressed")
     if row_nanyang.get("jingluntang_target_page_status") != "NOT_OBSERVED_IN_PUBLIC_SHLIB_METADATA_OR_KUMYO_PHYSICAL_IMAGES":
         raise SystemExit("Batch 12E HPA-ZDATE-006 target-page boundary regressed")
-    if "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED" not in row_nanyang.get("hai_glyph_cross_edition_status", ""):
-        raise SystemExit("Batch 12E/12Z HPA-ZDATE-006 within-Fullbook HAI glyph boundary regressed")
+    if "GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED" not in row_nanyang.get("hai_glyph_cross_edition_status", ""):
+        raise SystemExit("Batch 12AF HPA-ZDATE-006 global Fullbook stability firewall regressed")
     defect_ids=[row.get("defect_id") for row in rows if row.get("defect_id")]
     if len(defect_ids)!=len(set(defect_ids)):
         raise SystemExit("duplicate historical provenance defect_id")
