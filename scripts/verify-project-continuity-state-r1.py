@@ -82,6 +82,8 @@ ZIWEI_SANFENGE_QUARK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUD
 ZIWEI_SANFENGE_QUARK_EVIDENCE = ROOT / "docs/research/ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-R1.json"
 ZIWEI_REPUBLIC_ROUTES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE.md"
 ZIWEI_REPUBLIC_ROUTES_EVIDENCE = ROOT / "docs/research/ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-R1.json"
+ZIWEI_YULGOK_GUANGYI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF.md"
+ZIWEI_YULGOK_GUANGYI_EVIDENCE = ROOT / "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -124,7 +126,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF.md"
 
 
 def fail(message: str) -> None:
@@ -175,6 +177,7 @@ def main() -> int:
     ziwei_wenguang_pt165_response_evidence = json.loads(ZIWEI_WENGUANG_PT165_RESPONSE_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_sanfenge_quark_evidence = json.loads(ZIWEI_SANFENGE_QUARK_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_republic_routes_evidence = json.loads(ZIWEI_REPUBLIC_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_yulgok_guangyi_evidence = json.loads(ZIWEI_YULGOK_GUANGYI_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -249,6 +252,7 @@ def main() -> int:
         "EXT-KONGFZ-HUIWENTANG-REPUBLIC-ZWDSQS-PHYSICAL",
         "EXT-SHUCANG-JINZHANG-REPUBLIC-ZWDSQS-CATALOG",
         "EXT-XINYI-JINYUAN-ZWDSQS-MODERN-TOC",
+        "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -294,6 +298,58 @@ def main() -> int:
     row12ae = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
     if not row12ae or row12ae.get("huiwentang_physical_imprint_direct_reading") != "上海會文堂書局印行" or row12ae.get("independent_hai_glyph_witness_count_added_batch_12ae") != 0:
         fail("Batch 12AE Matrix binding regressed")
+
+    # Batch 12AF Guangyi/Yulgok direct target collation: second direct Fullbook physical Hai witness, no algorithm reopen.
+    if not ZIWEI_YULGOK_GUANGYI_BATCH.is_file() or not ZIWEI_YULGOK_GUANGYI_EVIDENCE.is_file():
+        fail("Batch 12AF continuity artifacts missing")
+    if ziwei_yulgok_guangyi_evidence.get("batch_id") != "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF":
+        fail("Batch 12AF evidence identity mismatch")
+    tree12af = ziwei_yulgok_guangyi_evidence.get("source_emitted_tree_binding", {})
+    if tree12af.get("workflow_run_id") != 34315414878 or tree12af.get("artifact_id") != 10089871530:
+        fail("Batch 12AF source-tree execution binding regressed")
+    if tree12af.get("exact_data_ids") != ["B005_01_B00320_001", "B005_01_B00320_002", "B005_01_B00320_003", "B005_01_B00320_004"]:
+        fail("Batch 12AF exact four-book dataId binding regressed")
+    cap12af = ziwei_yulgok_guangyi_evidence.get("four_volume_manifest_capture", {})
+    if cap12af.get("artifact_id") != 10089901168 or cap12af.get("total_source_manifest_images") != 19 or cap12af.get("all_manifest_images_fetched") is not True:
+        fail("Batch 12AF four-volume manifest capture regressed")
+    imp12af = ziwei_yulgok_guangyi_evidence.get("direct_physical_imprint_no_ocr", {})
+    if imp12af.get("image_sha256") != "2a714616b5d4a33642003658516fc7d109b1f33a13892ff93604f07ab38ddf67" or imp12af.get("publisher_imprint") != "上海廣益書局印行":
+        fail("Batch 12AF Guangyi imprint binding regressed")
+    if imp12af.get("direct_ocr_used") is not False:
+        fail("Batch 12AF imprint no-OCR boundary regressed")
+    target12af = ziwei_yulgok_guangyi_evidence.get("direct_target_leaf_no_ocr", {})
+    if target12af.get("image_sha256") != "2d1fc5ce8459d3696166b0471b2075fee247ede94b73eb833d435fe54ee847e0":
+        fail("Batch 12AF target image digest regressed")
+    if target12af.get("visible_juan") != 3 or target12af.get("target_heading") != "論人生時要審的確":
+        fail("Batch 12AF target location binding regressed")
+    if target12af.get("decisive_direct_reading") != "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時":
+        fail("Batch 12AF decisive direct reading regressed")
+    if target12af.get("explicit_previous_night_hai_phrase") != "昨夜亥時" or target12af.get("explicit_current_day_zi_phrase") != "今日子時":
+        fail("Batch 12AF direct Hai/Zi phrase binding regressed")
+    if target12af.get("direct_ocr_used") is not False:
+        fail("Batch 12AF target no-OCR boundary regressed")
+    indep12af = ziwei_yulgok_guangyi_evidence.get("evidence_independence", {})
+    if indep12af.get("direct_fullbook_physical_target_text_witness_increment") != 1 or indep12af.get("independent_hai_glyph_witness_increment") != 1:
+        fail("Batch 12AF physical/Hai witness accounting regressed")
+    if indep12af.get("stemmatically_independent_branch_increment") != 0:
+        fail("Batch 12AF stemmatic-independence firewall regressed")
+    ad12af = ziwei_yulgok_guangyi_evidence.get("adjudication", {})
+    if ad12af.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or ad12af.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AF HPA/algorithm firewall regressed")
+    if ad12af.get("within_fullbook_hai_glyph_stability") != "CONFIRMED_ACROSS_NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_EDITIONS":
+        fail("Batch 12AF cross-edition agreement binding regressed")
+    if ad12af.get("global_all_fullbook_edition_stability") != "NOT_CLAIMED":
+        fail("Batch 12AF global-stability firewall regressed")
+    row12af = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12af or row12af.get("batch_12af_guangyi_yulgok_direct_collation_artifact") != "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json":
+        fail("Batch 12AF Matrix artifact binding regressed")
+    if row12af.get("independent_hai_glyph_witness_count_added_batch_12af") != 1 or row12af.get("direct_fullbook_physical_target_text_witness_count_added_batch_12af") != 1:
+        fail("Batch 12AF Matrix witness accounting regressed")
+    src12af = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS"), None)
+    if not src12af or src12af.get("target_image_sha256") != "2d1fc5ce8459d3696166b0471b2075fee247ede94b73eb833d435fe54ee847e0":
+        fail("Batch 12AF registry source/target binding regressed")
+    if src12af.get("independent_hai_glyph_witness_increment") != 1 or src12af.get("stemmatic_independence_claimed") is not False:
+        fail("Batch 12AF registry witness/stemma firewall regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):

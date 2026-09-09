@@ -297,3 +297,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - `《重刊術藏》` directly catalogs the Fullbook in volume 59 as a Republic Jinzhang lithograph, four juan in one volume, beginning at p333; this is bibliographic identity only.
 - Artron reviewed physical-set photos do not directly show a Jinzhang imprint or target leaf. Jinyuan's modern TOC locates `論人生時要審的確` at p175 but does not show its body page.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; zero new target-text/Hai votes and no algorithm effect.
+
+### Batch 12AF — Guangyi/Yulgok direct late-Zi collation
+
+- Yulgok first-party tree directly lists `B005_01_B00320_001..004` as the four books of `新鑴希夷陳先生紫薇斗數全書`; public viewers embed 19 representative `imgItems`.
+- Direct image `B005_01_B00320_001_004` reads `上海廣益書局印行`. Direct image `B005_01_B00320_003_003` shows `卷三 / 論人生時要審的確` and directly reads `如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時`. No OCR.
+- This adds one direct Fullbook physical target-text witness and one Hai-glyph physical witness. Nanyangtang↔Guangyi physical-edition agreement is closed; global all-edition stability and stemmatic independence are not claimed.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; 198/166/10/14 and all algorithm invariants remain unchanged.
