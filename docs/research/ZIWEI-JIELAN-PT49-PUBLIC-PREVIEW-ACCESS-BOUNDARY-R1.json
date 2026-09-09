@@ -1,0 +1,111 @@
+{
+  "schema": "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",
+  "access_date": "2026-09-09",
+  "status": "PT49_PUBLIC_INDEX_AND_PLAY_READER_SIGNED_IMAGE_URL_ATTESTED_BUT_PT49_IMAGE_RESPONSE_IS_PLACEHOLDER_NO_PHYSICAL_GLYPH_AUTHORITY",
+  "scope_firewall": {
+    "public_preview_routes_only": true,
+    "authentication_attempted": false,
+    "drm_bypass_attempted": false,
+    "hidden_endpoint_guessing_attempted": false,
+    "image_signature_constructed_forged_or_reused": false,
+    "whole_book_physical_negative_authorized": false,
+    "pt49_textual_absence_claim_authorized": false
+  },
+  "probes": {
+    "ar_r1_standard_public_pt49": {
+      "workflow_run_id": 34351724023,
+      "artifact_id": 10104042912,
+      "artifact_zip_sha256": "b19d1de4bee940b5c589b1023db45fb939e580e50e00b95eebb4023f0f1fb007",
+      "receipt_sha256": "ce3ac8dc5c8e3db758c56ca0b589cd2bf12a302e043043f7d1424d87123c4d9d",
+      "result": "PT49_STANDARD_PUBLIC_PAGE_HTTP_200_BUT_ONLY_PT48_SIGNED_PAGE_IMAGE_EMITTED_NO_PT49_IMAGE_URL"
+    },
+    "ar_r2_iread_public_preview": {
+      "workflow_run_id": 34352023215,
+      "artifact_id": 10104169134,
+      "artifact_zip_sha256": "8df2d8a17cec2ece796a86eb1e07b685d9d10f0d1e00c76fb75fa15ed241439c",
+      "receipt_sha256": "453eeb2e1b18b14ec48df09df7b69e4300bed0711cabf0ffdb4d369d5fc3b40b",
+      "result": "GITHUB_RUNNER_PRODUCT_PAGE_TIMEOUT_EXECUTION_ENVIRONMENT_ACCESS_BOUNDARY_ONLY_NO_CONTENT_NEGATIVE"
+    },
+    "ar_r3_source_emitted_reader_routes": {
+      "workflow_run_id": 34353366786,
+      "artifact_id": 10104661512,
+      "artifact_zip_sha256": "ae10f3184ffab3bbf14ee48f6015000aa2d99308cb6ba34bb65f3f9252580bd7",
+      "receipt_sha256": "25aa7a638aa04d60511274344f385d385a2ef0f9614edf6953b409c6f49215d3",
+      "result": "PLAY_READER_HTTP_200_AND_PUBLIC_BOOTSTRAP_EMITS_SIGNED_PAGE_IMAGE_URLS_INCLUDING_PT49"
+    },
+    "ar_r4_direct_pt49_source_emitted_image": {
+      "workflow_run_id": 34353510199,
+      "artifact_id": 10104715354,
+      "artifact_zip_sha256": "52c968a601a56732f293d2f25318d8d70ae6dc4f2e588baeee077e51ada6b1ed",
+      "receipt_sha256": "d4b7553e5e0d55f25931d2cc6e8ead590589c3ed93a200f1702ad2542408f9f4",
+      "result": "PT48_REAL_FACSIMILE_IMAGE_PT49_AND_PT50_IDENTICAL_IMAGE_NOT_AVAILABLE_PLACEHOLDERS"
+    },
+    "ar_r5_accessible_and_new_books": {
+      "workflow_run_id": 34353757432,
+      "artifact_id": 10104818160,
+      "artifact_zip_sha256": "2cb09e99dd917ee5a1b5c2fe00a9f1d1c35c027f82810758f8793517c369ddad",
+      "receipt_sha256": "9c73da62633b4a8365ca013b9b6b6c70386f4b83ae914f6e79a5dd3de1f3a4bb",
+      "result": "ACCESSIBLE_EN_HTTP_403_NEW_BOOKS_ROUTE_REDIRECTS_TO_CLASSIC_BOOKS_PT49_TOKEN_PRESENT_NO_PT49_IMAGE_OBJECT_EMITTED"
+    }
+  },
+  "direct_play_reader_adjudication": {
+    "reader_response_sha256": "b2bda3ba03150a83d2fa962e3baa4efd8511158e57ec0646c75376b970e79028",
+    "pt48_source_emitted_signed_image_url": true,
+    "pt49_source_emitted_signed_image_url": true,
+    "pt50_source_emitted_signed_image_url": true,
+    "pt48_response_http_status": 200,
+    "pt48_response_content_type": "image/jpeg",
+    "pt48_response_sha256": "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0",
+    "pt48_manual_visual_review": "GENUINE_JIELAN_FACSIMILE_PAGE_IMAGE",
+    "pt49_response_http_status": 200,
+    "pt49_response_content_type": "image/png",
+    "pt49_response_sha256": "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6",
+    "pt49_manual_visual_review": "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE",
+    "pt50_response_http_status": 200,
+    "pt50_response_content_type": "image/png",
+    "pt50_response_sha256": "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6",
+    "pt50_manual_visual_review": "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE",
+    "pt49_pt50_identical_placeholder_hash": true,
+    "pt49_physical_page_observed": false,
+    "pt49_physical_glyph_authority": false
+  },
+  "search_and_index_state": {
+    "google_books_volume_id": "rZRcCwAAQBAJ",
+    "pt49_inclement_index_attested": true,
+    "pt49_index_heading": "論十二生時難定訣",
+    "pt49_index_inclement_semantics": "天陰雨下時難定",
+    "index_is_glyph_authority": false,
+    "index_text_remains_positive_witness": true
+  },
+  "adjudication": {
+    "reviewed_google_public_preview_surface_closed_for_current_routes": true,
+    "google_public_preview_can_supply_pt49_physical_glyphs": false,
+    "public_signed_image_url_existence_does_not_equal_page_image_availability": true,
+    "pt49_physical_glyph_authority_obtained": false,
+    "jielan_inclement_birth_time_discussion_remains_positive_at_index_level": true,
+    "repository_provenance_metadata_defect_increment": 0,
+    "confirmed_provenance_metadata_defect_count_after_batch": 11,
+    "repaired_provenance_metadata_defect_count_after_batch": 11,
+    "chart_algorithm_defect_increment": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_selected": false,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": "Stop repeating the reviewed Google public preview routes. Seek an independently accessible physical Jielan PT49 leaf from a holding/facsimile source, while prioritizing an explicit Fullbook-line cloudy/rainy current-time acquisition procedure capable of binding the runtime time coordinate."
+}
