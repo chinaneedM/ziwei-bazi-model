@@ -1,0 +1,173 @@
+name: research-ziwei-jielan-pt49-source-emitted-reader-routes-ar-r3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jielan-pt49-source-emitted-reader-routes-ar-r3.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Follow only PT49 page source-emitted reader routes
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          out=Path("batch12ar-r3"); out.mkdir(exist_ok=True)
+          vid="rZRcCwAAQBAJ"
+          source_page="https://books.google.com/books?id="+vid+"&pg=PT49"
+
+          def get(url,name,timeout=40):
+              req=urllib.request.Request(url,headers={
+                  "User-Agent":"Mozilla/5.0",
+                  "Accept-Language":"zh-TW,zh;q=0.9,en;q=0.8"
+              })
+              try:
+                  with urllib.request.urlopen(req,timeout=timeout) as r:
+                      data=r.read(); status=r.status; final=r.geturl(); ctype=r.headers.get("Content-Type")
+              except Exception as e:
+                  return {"url":url,"error":repr(e)}
+              (out/name).write_bytes(data)
+              return {"url":url,"final_url":final,"http_status":status,"content_type":ctype,
+                      "bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()}
+
+          def emitted_urls(text):
+              vals=[]
+              patterns=[
+                  r'(?:href|src|data-src|data-url)\s*=\s*["\']([^"\']+)["\']',
+                  r'https?://[^"\'<> ]+'
+              ]
+              for pat in patterns:
+                  for x in re.findall(pat,text,re.I):
+                      if isinstance(x,tuple): x=x[0]
+                      x=html.unescape(x).replace("\\u0026","&").replace("\u0026","&")
+                      if x.startswith("//"): x="https:"+x
+                      if x.startswith("/"): x=urllib.parse.urljoin(source_page,x)
+                      if x.startswith(("http://","https://")) and x not in vals:
+                          vals.append(x)
+              return vals
+
+          receipt={
+              "scope":"ONLY_ROUTES_LITERAL_SOURCE_EMITTED_BY_PUBLIC_PT49_PAGE",
+              "volume_id":vid,
+              "source_pt49_page":source_page,
+              "access_control_bypass_attempted":False,
+              "authentication_attempted":False,
+              "hidden_endpoint_guessing_attempted":False,
+              "signature_forged_or_reused":False,
+              "source_page_request":{},
+              "source_emitted_route_binding":{},
+              "routes":{},
+              "candidate_objects":[]
+          }
+
+          # Re-fetch PT49 and derive the exact three public routes from its current HTML.
+          receipt["source_page_request"]=get(source_page,"source-pt49.html")
+          txt=(out/"source-pt49.html").read_text("utf-8",errors="ignore")
+          urls=emitted_urls(txt)
+
+          accessible=next((u for u in urls if "books.google.com/books" in u and "pg=PT49" in u and "output=html_text" in u),None)
+          new_books=next((u for u in urls if "/books/edition/" in u and "gbpv=1" in u and "pg=PT49" in u),None)
+          play_reader=next((u for u in urls if "play.google.com/books/reader" in u and ("id="+vid) in u),None)
+
+          receipt["source_emitted_route_binding"]={
+              "accessible_text_url":accessible,
+              "new_google_books_url":new_books,
+              "play_reader_url":play_reader,
+              "all_three_currently_emitted":all([accessible,new_books,play_reader])
+          }
+
+          route_specs=[
+              ("accessible_text",accessible),
+              ("new_google_books",new_books),
+              ("play_reader",play_reader),
+          ]
+
+          for label,url in route_specs:
+              item={"source_emitted_url":url,"request":None,"emitted_urls":[],"page_tokens":[],"contexts":[]}
+              if not url:
+                  receipt["routes"][label]=item
+                  continue
+              rec=get(url,f"{label}.html")
+              item["request"]=rec
+              p=out/f"{label}.html"
+              body=p.read_text("utf-8",errors="ignore") if p.exists() else ""
+              eus=emitted_urls(body)
+              item["emitted_urls"]=eus[:1000]
+              item["page_tokens"]=sorted(set(re.findall(r'\bPT\d+\b',body)))[:500]
+              for term in ["PT49","陰雨","天陰雨下時難定","論十二生時難定訣","pageImage","page_image","publisher/content","books/publisher/content"]:
+                  for m in list(re.finditer(re.escape(term),body,re.I))[:10]:
+                      item["contexts"].append({
+                          "term":term,
+                          "context":re.sub(r"\s+"," ",body[max(0,m.start()-400):m.end()+1000])[:1800]
+                      })
+
+              # Only follow literal image/PDF/page-content URLs emitted by the fetched route.
+              objects=[]
+              for u in eus:
+                  low=u.lower()
+                  parsed=urllib.parse.urlparse(u)
+                  q=urllib.parse.parse_qs(parsed.query)
+                  pg=(q.get("pg") or q.get("page") or [None])[0]
+                  source_like=(
+                      "books.google.com/books/publisher/content" in low or
+                      "books.googleusercontent.com" in low or
+                      "googleusercontent.com/books" in low or
+                      low.endswith((".jpg",".jpeg",".png",".webp",".pdf"))
+                  )
+                  if not source_like:
+                      continue
+                  if u in [x["url"] for x in receipt["candidate_objects"]]:
+                      continue
+                  obj={"url":u,"emitted_by_route":label,"page_id":pg}
+                  receipt["candidate_objects"].append(obj)
+                  objects.append(obj)
+              item["candidate_object_count"]=len(objects)
+              receipt["routes"][label]=item
+
+          # Download only literal source-emitted candidate objects, capped.
+          downloaded=[]
+          for i,obj in enumerate(receipt["candidate_objects"][:60]):
+              rec=get(obj["url"],f"object-{i}.bin")
+              downloaded.append({**obj,"request":rec})
+          receipt["downloaded_candidate_objects"]=downloaded
+
+          receipt["adjudication"]={
+              "accessible_route_reachable":receipt["routes"].get("accessible_text",{}).get("request",{}).get("http_status")==200,
+              "new_google_books_route_reachable":receipt["routes"].get("new_google_books",{}).get("request",{}).get("http_status")==200,
+              "play_reader_route_reachable":receipt["routes"].get("play_reader",{}).get("request",{}).get("http_status")==200,
+              "pt49_literal_page_token_seen_in_any_route":any("PT49" in x.get("page_tokens",[]) for x in receipt["routes"].values()),
+              "pt49_source_emitted_image_object_obtained":any(
+                  x.get("page_id")=="PT49" and
+                  x.get("request",{}).get("http_status")==200 and
+                  str(x.get("request",{}).get("content_type","")).startswith("image/")
+                  for x in downloaded
+              ),
+              "any_source_emitted_image_object_obtained":any(
+                  x.get("request",{}).get("http_status")==200 and
+                  str(x.get("request",{}).get("content_type","")).startswith("image/")
+                  for x in downloaded
+              ),
+              "physical_glyph_authority_claimed_before_manual_review":False,
+              "account_or_drm_boundary_crossed":False,
+              "constructed_or_forged_image_signature":False
+          }
+
+          (out/"receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n","utf-8")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jielan-pt49-source-emitted-reader-routes-ar-r3
+          path: batch12ar-r3
+          retention-days: 90
