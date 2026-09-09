@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-AJ",
+  "access_date": "2026-09-09",
+  "status": "FULLBOOK_LUOJING_PHRASE_CROSS_EDITION_CONFIRMED_LUOJING_DIRECTIONAL_INSTRUMENT_SEMANTICS_CLOSED_STANDALONE_TIMEKEEPER_EQUIVALENCE_REJECTED_RUNTIME_CLOCK_BINDING_STILL_OPEN",
+  "controlling_probe": {
+    "workflow_file": ".github/workflows/research-ziwei-fullbook-luojing-semantics-aj.yml",
+    "workflow_run_id": 34324043522,
+    "probe_commit_sha": "3504438e6d682464494b170dbfecad54ca1843ab",
+    "artifact_id": 10093089382,
+    "artifact_name": "ziwei-fullbook-luojing-semantics-aj",
+    "artifact_zip_sha256": "2a9d8f383ab2756d3268645a95fd7a7233b7646fe8da7869b564d20448347f0c",
+    "note": "A later term-gate hardening commit 63707407cbb3afd4e735432eacdcdbde81da3ad6 changes no source interpretation; final closure may rebind to its successful rerun if available.",
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false
+  },
+  "fullbook_direct_physical_phrase_collation": {
+    "nanyangtang": {
+      "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+      "artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+      "pdf_sha256": "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+      "location": "PDF p320 one-based / 卷五 / 論人生時要審的確",
+      "direct_no_ocr_lines": [
+        "如人生子亥二時最難定凖要仔細推詳",
+        "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+        "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣"
+      ]
+    },
+    "guangyi_yulgok": {
+      "source_id": "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS",
+      "artifact": "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json",
+      "data_id": "B005_01_B00320_003",
+      "img_id": "B005_01_B00320_003_003",
+      "image_sha256": "2d1fc5ce8459d3696166b0471b2075fee247ede94b73eb833d435fe54ee847e0",
+      "location": "卷三 / 論人生時要審的確",
+      "direct_no_ocr_re_review_20260909": [
+        "如人生子亥二時最難定凖要仔細推詳",
+        "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+        "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣"
+      ]
+    },
+    "agreement_status": "DIRECT_PHYSICAL_FULLBOOK_NANYANGTANG_AND_GUANGYI_AGREE_ON_LUOJING_SENTENCE",
+    "new_independent_text_witness_increment": 0,
+    "reason_for_zero_increment": "Both physical editions were already counted as target-text witnesses in earlier batches; AJ records a previously under-analyzed third-line semantic agreement without double counting the same copies."
+  },
+  "contemporaneous_technical_controls": [
+    {
+      "source_id": "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+      "title": "《皇明經世文編》卷四百九十三〈制器測晷〉定時／羅經段",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=210481&if=gb&remap=gb",
+      "response_sha256": "52481ce9aca217860b8f322c377a0539a08956b8fa800c01d7d97cc45af36616",
+      "direct_text_findings": [
+        "日晷以定晝時、星晷以定夜時、正線羅經以定子午、晨昏陰雨則以行漏補二晷所不及。",
+        "壺漏非定時之本；定時之本必準天行，晝測日、夜測星。",
+        "指南針用以定南北，但所得子午不必是真子午；若專用羅經，所差刻分無定數而大抵失於先天。",
+        "可用表臬或儀器求真子午，或依偏針加減另造正線羅經。"
+      ],
+      "semantic_role": "CONTEMPORANEOUS_MING_ASTRONOMICAL_TECHNICAL_CONTROL_SHOWING_LUOJING_AS_DIRECTION_MERIDIAN_AID_NOT_STANDALONE_CLOCK",
+      "authority_boundary": "NOT_ZIWEI_DOCTRINE"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
+      "title": "徐之鏌《新鐫徐氏家藏羅經頂門針》",
+      "historical_period": "MING",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/mid-page/7536324145912070182",
+      "response_sha256": "f42ca99ef91ef8285e2e0c161755b768ad992f96474450de5e94d509737ba770",
+      "direct_text_findings": [
+        "正文以磁、針之感應說明羅經針的方向性。",
+        "正文可直接讀到「此針之所以必指南也」。",
+        "正文續言「羅經備種種之妙」，其論域為羅經、方位與堪輿器具。"
+      ],
+      "semantic_role": "CONTEMPORANEOUS_MING_SHUSHU_CONTROL_FOR_LUOJING_MAGNETIC_NEEDLE_DIRECTIONAL_SEMANTICS",
+      "authority_boundary": "NOT_A_TIMEKEEPING_SPECIFICATION"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-SIKU-LUOJING-DINGMENZHEN-CATALOG",
+      "title": "《四庫全書總目》羅經頂門針二卷提要",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/book/SK0000A/chapter/1kgsnqvp989pe",
+      "response_sha256": "e58bde995cd162df0d8e920c2ce3befcbd7178c963fef5dbb78c4f09f6051132",
+      "machine_term_hits": [
+        "羅經頂門針",
+        "指南針法",
+        "堪輿家羅經",
+        "二十四向"
+      ],
+      "semantic_role": "LATER_BIBLIOGRAPHIC_PHILOLOGY_CONTROL_ONLY"
+    }
+  ],
+  "philological_adjudication": {
+    "term": "羅經",
+    "historically_attested_mechanical_concept": "MAGNETIC_COMPASS_DIRECTION_AND_MERIDIAN_ORIENTATION_INSTRUMENT_FAMILY",
+    "standalone_clock_or_timepiece_equivalence": "REJECTED_BY_CONTEMPORANEOUS_TECHNICAL_CONTROL",
+    "direct_equivalence_to_true_or_apparent_solar_time": "NOT_ESTABLISHED",
+    "fullbook_phrase": "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣",
+    "fullbook_phrase_status": "DIRECTLY_STABLE_ACROSS_TWO_REVIEWED_FULLBOOK_PHYSICAL_PUBLISHER_EDITION_ROUTES",
+    "technical_tension": "CONTEMPORANEOUS_ASTRONOMICAL_CONTROL_USES_LUOJING_FOR_DIRECTION_WHILE_CLOUD_RAIN_TIMEKEEPING_IS_FILLED_BY_RUNNING_CLEPSYDRA; IT_EXPLICITLY_WARNS_EXCLUSIVE_COMPASS_USE_CAN_CREATE_TIME_ERROR",
+    "safest_interpretation": "FULLBOOK_SENTENCE_IS_A_SOURCE_SCOPED_PRACTICE_STATEMENT_OR_SHORTHAND_WHOSE_EXACT_INSTRUMENT_COMPOSITION_IS_UNRESOLVED; DO_NOT_NORMALIZE_IT_TO_TRUE_SOLAR_TIME",
+    "inheritance_from_ming_institutional_clock": "NOT_PROVEN",
+    "runtime_bridge": "UNRESOLVED"
+  },
+  "hpa_zdate_006_effect": {
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding_status": "PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED",
+    "local_apparent_solar_time_winner_selected": false,
+    "luojing_means_true_solar_time": false,
+    "new_candidate_created": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "remaining_blockers": [
+      "Source-close what operational procedure Fullbook authors/practitioners intended by using 羅經 to determine 真確時候 in cloudy/rainy conditions.",
+      "Determine whether that source-scoped procedure maps to local apparent solar time, another local astronomical clock, or a distinct school practice.",
+      "Close nighttime and birthplace/locality binding before runtime selection."
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "safety": {
+    "direct_ocr_used": false,
+    "authentication_attempted": false,
+    "access_control_bypass_attempted": false
+  }
+}
