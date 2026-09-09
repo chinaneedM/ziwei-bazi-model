@@ -284,6 +284,25 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ac"], 0)
         self.assertFalse(row["algorithm_reopen_authorized"])
 
+    def test_batch_12ag_jiaojingshanfang_is_provenance_only(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(
+            row["batch_12ag_jiaojingshanfang_hanauction_physical_edition_artifact"],
+            "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json",
+        )
+        self.assertEqual(row["jiaojingshanfang_hanauction_exact_stable_object_ids"], ["101926", "27427"])
+        self.assertEqual(
+            row["jiaojingshanfang_2012_detail_photo_visual_review_status"],
+            "SOURCE_EMITTED_EXACT_DETAIL_PHOTOS_CAPTURED_NOT_DIRECTLY_VISUALLY_ADJUDICATED",
+        )
+        self.assertEqual(row["jiaojingshanfang_target_page_status"], "PENDING_DIRECT_VISUAL_TARGET_PAGE")
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12ag"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ag"], 0)
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
         ci = CI.read_text(encoding="utf-8")
