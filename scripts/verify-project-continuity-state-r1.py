@@ -84,6 +84,8 @@ ZIWEI_REPUBLIC_ROUTES_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_REPUBLIC_ROUTES_EVIDENCE = ROOT / "docs/research/ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-R1.json"
 ZIWEI_YULGOK_GUANGYI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF.md"
 ZIWEI_YULGOK_GUANGYI_EVIDENCE = ROOT / "docs/research/ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-R1.json"
+ZIWEI_JIAOJINGSHANFANG_HANAUCTION_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG.md"
+ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE = ROOT / "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -125,9 +127,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SANFENGE-QUARK-VOLUME4-PUBLIC-SHARE-ROUTE-AD",
     "BATCH-12-ZIWEI-REPUBLIC-HUIWENTANG-JINZHANG-ROUTES-AE",
     "BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF",
+    "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GUANGYI-YULGOK-DIRECT-LATE-ZI-COLLATION-AF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG.md"
 
 
 def fail(message: str) -> None:
@@ -179,6 +182,7 @@ def main() -> int:
     ziwei_sanfenge_quark_evidence = json.loads(ZIWEI_SANFENGE_QUARK_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_republic_routes_evidence = json.loads(ZIWEI_REPUBLIC_ROUTES_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_yulgok_guangyi_evidence = json.loads(ZIWEI_YULGOK_GUANGYI_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_jiaojingshanfang_hanauction_evidence = json.loads(ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -254,6 +258,7 @@ def main() -> int:
         "EXT-SHUCANG-JINZHANG-REPUBLIC-ZWDSQS-CATALOG",
         "EXT-XINYI-JINYUAN-ZWDSQS-MODERN-TOC",
         "EXT-YULGOK-B005-B00320-GUANGYI-ZWDSQS",
+        "EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
@@ -351,6 +356,52 @@ def main() -> int:
         fail("Batch 12AF registry source/target binding regressed")
     if src12af.get("independent_hai_glyph_witness_increment") != 1 or src12af.get("stemmatic_independence_claimed") is not False:
         fail("Batch 12AF registry witness/stemma firewall regressed")
+
+
+    # Batch 12AG Jiaojingshanfang/Hanauction: physical-edition locator only, target page not visually adjudicated.
+    if not ZIWEI_JIAOJINGSHANFANG_HANAUCTION_BATCH.is_file() or not ZIWEI_JIAOJINGSHANFANG_HANAUCTION_EVIDENCE.is_file():
+        fail("Batch 12AG continuity artifacts missing")
+    if ziwei_jiaojingshanfang_hanauction_evidence.get("batch_id") != "BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-AG":
+        fail("Batch 12AG evidence identity mismatch")
+    probe12ag = ziwei_jiaojingshanfang_hanauction_evidence.get("controlling_probe", {})
+    if probe12ag.get("workflow_run_id") != 34319318823 or probe12ag.get("artifact_id") != 10091275632:
+        fail("Batch 12AG controlling probe binding regressed")
+    if probe12ag.get("artifact_zip_sha256") != "c348dc9207c5932421e58ca0b01160827a5468a9b7160ba2f6e28e0aacfdfdf1":
+        fail("Batch 12AG artifact digest regressed")
+    routes12ag = {r.get("route_key"): r for r in ziwei_jiaojingshanfang_hanauction_evidence.get("public_auction_routes", ())}
+    if routes12ag.get("HAN-227-127", {}).get("stable_object_id") != "101926":
+        fail("Batch 12AG 2026 stable-object binding regressed")
+    if routes12ag.get("HAN-65-173", {}).get("stable_object_id") != "27427":
+        fail("Batch 12AG 2012 stable-object binding regressed")
+    photos12ag = routes12ag.get("HAN-65-173", {}).get("source_emitted_exact_detail_photo_objects", ())
+    if [p.get("sha256") for p in photos12ag] != [
+        "c8705995aa695ba7ef285be939960bcef69516aed749937b00b309cf0df321c2",
+        "a22d0017171dd0893019b551f9c986de3f89f6c16d2840260ffe8e3a3f685260",
+    ]:
+        fail("Batch 12AG exact-detail image identity regressed")
+    if routes12ag.get("HAN-65-173", {}).get("source_emitted_detail_photos_direct_visual_review_completed") is not False:
+        fail("Batch 12AG unreviewed-image firewall regressed")
+    gene12ag = ziwei_jiaojingshanfang_hanauction_evidence.get("scholarly_genealogy_control", {})
+    if gene12ag.get("source_id") != "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY" or gene12ag.get("stemmatic_independence_from_nanyangtang_or_guangyi") != "NOT_CLAIMED":
+        fail("Batch 12AG scholarly genealogy/stemma firewall regressed")
+    indep12ag = ziwei_jiaojingshanfang_hanauction_evidence.get("evidence_independence", {})
+    if indep12ag.get("direct_target_text_witness_increment") != 0 or indep12ag.get("independent_hai_glyph_witness_increment") != 0 or indep12ag.get("stemmatically_independent_branch_increment") != 0:
+        fail("Batch 12AG witness/stemma accounting regressed")
+    ad12ag = ziwei_jiaojingshanfang_hanauction_evidence.get("adjudication", {})
+    if ad12ag.get("hpa_zdate_006") != "MISSING_FROM_PRODUCT" or ad12ag.get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12AG HPA/algorithm firewall regressed")
+    if ad12ag.get("target_page_status") != "PENDING_DIRECT_VISUAL_TARGET_PAGE" or ad12ag.get("target_hai_glyph_status") != "NOT_OBSERVED":
+        fail("Batch 12AG target-page/Hai boundary regressed")
+    row12ag = next((r for r in matrix.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    if not row12ag or row12ag.get("batch_12ag_jiaojingshanfang_hanauction_physical_edition_artifact") != "docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1.json":
+        fail("Batch 12AG Matrix artifact binding regressed")
+    if row12ag.get("independent_textual_witness_count_added_batch_12ag") != 0 or row12ag.get("independent_hai_glyph_witness_count_added_batch_12ag") != 0:
+        fail("Batch 12AG Matrix witness firewall regressed")
+    src12ag = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-HANAUCTION-JIAOJINGSHANFANG-ZWDSQS-PHYSICAL"), None)
+    if not src12ag or src12ag.get("direct_target_page_observed") is not False or src12ag.get("stemmatic_independence_claimed") is not False:
+        fail("Batch 12AG registry authority/stemma boundary regressed")
+    if src12ag.get("independent_target_text_witness_increment") != 0 or src12ag.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AG registry witness accounting regressed")
 
     invariants = state.get("invariants", {})
     if invariants.get("deterministic_fusion_chart_product_r1") != matrix.get("deterministic_product_state"):
