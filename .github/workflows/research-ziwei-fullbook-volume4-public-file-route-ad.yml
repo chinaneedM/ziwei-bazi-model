@@ -1,0 +1,96 @@
+name: research-ziwei-fullbook-volume4-public-file-route-ad
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-fullbook-volume4-public-file-route-ad.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Inspect public pages that index the standalone Fullbook volume-four file
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path('probe'); OUT.mkdir()
+          UA='Mozilla/5.0 provenance-research public-file-route'
+          pages=[
+            ('sanfenge','https://www.sanfenge.com/col.jsp?id=112&m485pageno=2'),
+            ('xinghun','https://www.xinghunw.com/2056.html'),
+            ('fengba','https://www.fengba.net/resource/detail/HQV5MC5RFLKMTCQH7RG3I44B3M'),
+          ]
+          needles=['紫薇斗数全书卷4.pdf','紫薇斗数全书卷四.pdf','紫微斗数全书卷4.pdf','紫微斗数全书卷四.pdf']
+
+          def get(url, referer=None, limit=8_000_000):
+            headers={'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.5'}
+            if referer: headers['Referer']=referer
+            try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=35) as r:
+                data=r.read(limit)
+                return {'ok':True,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'data':data}
+            except Exception as e:
+              return {'ok':False,'error':repr(e),'bytes':0,'data':b''}
+
+          result={'schema':'ZIWEI-FULLBOOK-VOLUME4-PUBLIC-FILE-ROUTE-AD-R1','access_date':'2026-09-09','authentication_attempted':False,'purchase_attempted':False,'identifier_guessing_attempted':False,'access_control_bypass_attempted':False,'pages':[],'candidate_links':[]}
+          for label,url in pages:
+            row=get(url); raw=row.pop('data')
+            rec={'label':label,'url':url,**row,'needle_hits':[],'source_emitted_links':[],'contexts':[]}
+            if raw:
+              txt=None
+              for enc in ('utf-8','gb18030','big5','latin1'):
+                try: txt=raw.decode(enc); break
+                except Exception: pass
+              txt=txt or raw.decode('utf-8','replace')
+              (OUT/f'{label}.html').write_text(txt,encoding='utf-8')
+              low=txt.lower()
+              for needle in needles:
+                pos=low.find(needle.lower())
+                if pos>=0:
+                  rec['needle_hits'].append(needle)
+                  rec['contexts'].append(txt[max(0,pos-1500):min(len(txt),pos+2500)])
+              links=[]
+              for m in re.finditer(r'''(?:href|src|data-url|data-href|data-link|content)\s*=\s*["']([^"']+)["']''',txt,re.I):
+                v=html.unescape(m.group(1)).replace('\\/','/').strip()
+                if not v or v.startswith(('javascript:','#')): continue
+                u=urllib.parse.urljoin(row.get('final_url') or url,v)
+                if u not in links: links.append(u)
+              for u in links:
+                ul=u.lower()
+                if any(k in ul for k in ('quark','pan.baidu','aliyundrive','drive','download','file','resource','pdf')):
+                  rec['source_emitted_links'].append(u)
+                  result['candidate_links'].append({'source_page':label,'url':u})
+            result['pages'].append(rec)
+
+          # Probe only exact source-emitted candidate GET links; do not follow cloud-save/auth flows.
+          probes=[]
+          seen=set()
+          for item in result['candidate_links']:
+            u=item['url']
+            if u in seen: continue
+            seen.add(u)
+            row=get(u,referer=next(p['url'] for p in result['pages'] if p['label']==item['source_page']),limit=2_000_000)
+            raw=row.pop('data')
+            probes.append({'source_page':item['source_page'],'url':u,**row,'pdf_magic':raw[:5]==b'%PDF-'})
+          result['candidate_link_probes']=probes
+          result['adjudication']={'standalone_volume4_index_route':'PENDING_REVIEW','direct_pdf_observed':any(p.get('pdf_magic') for p in probes),'edition_identity':'UNRESOLVED','target_page_status':'NOT_CLAIMED','algorithm_effect':'NONE'}
+          (OUT/'ziwei-fullbook-volume4-public-file-route-ad.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'pages':[{'label':p['label'],'ok':p.get('ok'),'status':p.get('status'),'bytes':p.get('bytes'),'needle_hits':p['needle_hits'],'source_emitted_links':p['source_emitted_links'][:20]} for p in result['pages']],'probes':probes,'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+
+      - name: Upload public file-route artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-fullbook-volume4-public-file-route-ad
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14
