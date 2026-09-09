@@ -8,6 +8,7 @@ MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.jso
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 ZIWEI_QUANSHU_NANYANGTANG = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json"
 ZIWEI_LATE_ZI_TIMEKEEPING = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1.json"
+ZIWEI_LATE_ZI_TIME_COORDINATE_AI = ROOT / "docs" / "research" / "ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -104,6 +105,20 @@ def main() -> int:
         raise SystemExit("Batch 08B Zhongzhou bibliographic witness is missing")
     if by_source_id.get("EXT-USNO-EQUATION-OF-TIME") is None:
         raise SystemExit("Batch 08C USNO solar-time witness is missing")
+    time12ai=by_source_id.get("EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR")
+    if time12ai is None:
+        raise SystemExit("Batch 12AI Ming solar-stellar time witness is missing")
+    if time12ai.get("source_role") != "RECEIVED_INSTITUTIONAL_WITNESS_FOR_MING_SOLAR_STELLAR_TIME_DETERMINATION_NOT_ZIWEI_DOCTRINE":
+        raise SystemExit("Batch 12AI Ming time witness authority scope regressed")
+    if time12ai.get("machine_probe", {}).get("response_sha256") != "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16":
+        raise SystemExit("Batch 12AI Ming time witness response binding regressed")
+    if not ZIWEI_LATE_ZI_TIME_COORDINATE_AI.is_file():
+        raise SystemExit("Batch 12AI time-coordinate evidence artifact is missing")
+    time12ai_evidence=json.loads(ZIWEI_LATE_ZI_TIME_COORDINATE_AI.read_text(encoding="utf-8"))
+    if time12ai_evidence.get("batch_id") != "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI":
+        raise SystemExit("Batch 12AI evidence identity mismatch")
+    if time12ai_evidence.get("controlling_probe", {}).get("artifact_zip_sha256") != "9e3151f558b6425586fc2e2c593f5a01f82529f42f6cbd7e8f3e3973fc6df98f":
+        raise SystemExit("Batch 12AI evidence archive binding regressed")
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
     if by_source_id.get("EXT-CTEXT-ZIWEI-DATAWIKI-LATE-ZI") is None:
@@ -398,6 +413,22 @@ def main() -> int:
         raise SystemExit("Batch 12AH HPA-ZDATE-006 visual adjudication regressed")
     if row_nanyang.get("independent_textual_witness_count_added_batch_12ah") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ah") != 0:
         raise SystemExit("Batch 12AH HPA-ZDATE-006 witness firewall regressed")
+    if row_nanyang.get("batch_12ai_ziwei_late_zi_time_coordinate_artifact") != "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json":
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 artifact binding regressed")
+    if row_nanyang.get("historical_time_coordinate_family") != "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE":
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 coordinate-family binding regressed")
+    if row_nanyang.get("historical_daytime_time_basis") != "SUNDIAL_TRUE_SUN" or row_nanyang.get("historical_nighttime_time_basis") != "STELLAR_TIME_READING_WITH_CLEPSYDRA_AS_SUPPLEMENT":
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 day/night time basis regressed")
+    if row_nanyang.get("runtime_time_standard_binding_status") != "PARTIALLY_NARROWED_NOT_CLOSED":
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 runtime binding was prematurely closed")
+    if row_nanyang.get("local_apparent_solar_time_historical_binding") != "STRONGEST_MODERN_DAYTIME_TRANSLATION_NOT_NATAL_RUNTIME_WINNER":
+        raise SystemExit("Batch 12AI apparent-solar translation was promoted beyond evidence")
+    if row_nanyang.get("historical_nighttime_to_runtime_apparent_solar_equivalence") != "UNRESOLVED" or row_nanyang.get("natal_birthplace_time_coordinate_binding") != "UNRESOLVED":
+        raise SystemExit("Batch 12AI unresolved source bridges were silently closed")
+    if row_nanyang.get("candidate_selected_batch_12ai") is not False or row_nanyang.get("candidate_collapsed_batch_12ai") is not False:
+        raise SystemExit("Batch 12AI candidate state regressed")
+    if row_nanyang.get("independent_textual_witness_count_added_batch_12ai") != 0 or row_nanyang.get("independent_hai_glyph_witness_count_added_batch_12ai") != 0:
+        raise SystemExit("Batch 12AI HPA-ZDATE-006 witness firewall regressed")
 
     korea_cnts=by_source_id.get("EXT-KOREA-NLK-CNTS-00047996572-ZIWEIDOUSHUFANGSHU")
     if korea_cnts is None:
