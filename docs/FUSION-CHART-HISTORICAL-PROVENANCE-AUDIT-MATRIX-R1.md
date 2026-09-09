@@ -346,3 +346,14 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Therefore `羅經以定真確時候` cannot be mechanically normalized to `羅經 itself is a clock`, `true solar time`, or `local apparent solar runtime`. The exact Fullbook operational procedure remains source-scoped and unresolved.
 - `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; runtime binding becomes `PARTIALLY_NARROWED_WITH_FULLBOOK_INSTRUMENT_SEMANTIC_TENSION_NOT_CLOSED`; no candidate selection/collapse and no algorithm reopen.
 - Evidence: `docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json`.
+
+
+### Batch 12AK — Gaohou Mengqiu operational timekeeping bridge
+
+- Waseda first-party catalog binds 徐朝俊《高厚蒙求》, call no. `ニ05 02158`, 雲閒徐氏, 嘉慶12-14[1807-1809], with third-collection contents 日晷測時図法 / 星月測時図表 / 揆日正方図表 / 自鳴鐘表図法.
+- Waseda's archive directory source-emits `ni05_02158.pdf`; Batch 12AK captures the 74,443,272-byte / 221-page physical scan, SHA-256 `53ee7b0e...7f1e4`.
+- Direct no-OCR p143 review shows `一曰羅經平晷 / 此即徽地所製牽線取影晷也` with an embedded compass/orientation element: 羅經 participates in sundial orientation, while shadow geometry reads time.
+- Direct no-OCR p195 `鐘表圖說自序` separates `日晷諸法以測晝時`, `星月儀表諸法以測夜時`, then addresses `陰雨晦冥` and states `所以辨子亥定支干`.
+- This is a later 嘉慶 operational bridge, not proof of Ming Fullbook authorial practice. No Fullbook witness/Hai vote is added; true/apparent-solar runtime remains unselected.
+- `HPA-ZDATE-006=MISSING_FROM_PRODUCT`; current runtime-binding status = `LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN`.
+- Evidence: `docs/research/ZIWEI-GAOHOU-MENGQIU-OPERATIONAL-BRIDGE-R1.json`.
