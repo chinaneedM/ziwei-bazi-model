@@ -49,7 +49,7 @@ class ZiweiQuanshuJingluntangPhysicalRouteR1Tests(unittest.TestCase):
         self.assertFalse(kumyo["target_hai_glyph_observed"])
         self.assertIn("EXT-KUMYO-ZWDSQS-JINGLUNTANG-19C-PHYSICAL", self.by_source)
 
-    def test_hpa_zdate_006_stays_missing_and_hai_unresolved(self) -> None:
+    def test_hpa_zdate_006_stays_missing_with_new_fullbook_agreement(self) -> None:
         row = self.by_id["HPA-ZDATE-006"]
         self.assertEqual("MISSING_FROM_PRODUCT", row["audit_status"])
         self.assertEqual(
@@ -61,7 +61,11 @@ class ZiweiQuanshuJingluntangPhysicalRouteR1Tests(unittest.TestCase):
             row["hai_glyph_cross_edition_status"],
         )
         self.assertIn(
-            "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED",
+            "NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE",
+            row["hai_glyph_cross_edition_status"],
+        )
+        self.assertIn(
+            "GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED",
             row["hai_glyph_cross_edition_status"],
         )
         self.assertFalse(row["algorithm_reopen_authorized"])

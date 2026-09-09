@@ -345,7 +345,7 @@ def main() -> int:
         raise SystemExit("Batch 12B runtime time-standard firewall regressed")
     if row_nanyang.get("independent_physical_target_page_status") != "NANYANGTANG_FULLBOOK_AND_GUANGYI_FULLBOOK_DIRECT_TARGET_PAGES_OBSERVED; KOREA_SPRINGGANG_MANUSCRIPT_DIRECT_TARGET_PASSAGE_ALSO_OBSERVED":
         raise SystemExit("Batch 12AF HPA-ZDATE-006 physical target-page status regressed")
-    if row_nanyang.get("hai_glyph_cross_edition_status") != "NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE 昨夜亥時/今日子時; GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED; KOREA_SPRINGGANG_BROADER_ZIWEI_TRANSMISSION_HAS_NON_HAI_VARIANT":
+    if row_nanyang.get("hai_glyph_cross_edition_status") != "EXPLICIT_HAI_IS_NOT_UNIVERSAL_ACROSS_BROADER_RECEIVED_ZIWEI_TRANSMISSION: KOREA_SPRINGGANG_MANUSCRIPT_HAS_NON_HAI_VARIANT; NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE 昨夜亥時/今日子時; GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED":
         raise SystemExit("Batch 12AF HPA-ZDATE-006 HAI glyph boundary regressed")
     if row_nanyang.get("batch_12z_korea_cnts_direct_collation_artifact") != "docs/research/ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1.json":
         raise SystemExit("Batch 12Z HPA-ZDATE-006 Korea CNTS artifact binding regressed")

@@ -59,7 +59,7 @@ class ZiweiQuanshuIndependentEditionRoutesR1Tests(unittest.TestCase):
         source = self.by_source["EXT-SKYLIGHT-ZWDSQS-WENSHENG-JISHU-COMPARISON-2017"]
         self.assertIn("SECONDARY", source["source_role"])
 
-    def test_hai_glyph_stability_remains_fail_closed(self) -> None:
+    def test_hai_glyph_stability_preserves_broader_variant_and_fullbook_agreement(self) -> None:
         adjudication = self.evidence["adjudication"]
         self.assertEqual(
             "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
@@ -74,7 +74,11 @@ class ZiweiQuanshuIndependentEditionRoutesR1Tests(unittest.TestCase):
             row["hai_glyph_cross_edition_status"],
         )
         self.assertIn(
-            "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED",
+            "NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE",
+            row["hai_glyph_cross_edition_status"],
+        )
+        self.assertIn(
+            "GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED",
             row["hai_glyph_cross_edition_status"],
         )
         self.assertFalse(row["algorithm_reopen_authorized"])

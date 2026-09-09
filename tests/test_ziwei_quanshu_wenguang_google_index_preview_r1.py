@@ -61,7 +61,7 @@ class ZiweiQuanshuWenguangGoogleIndexPreviewR1Tests(unittest.TestCase):
         source = self.by_source["EXT-XINYI-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2021"]
         self.assertFalse(source["target_page_observed"])
 
-    def test_hpa_zdate_006_remains_missing_and_cross_edition_glyph_unresolved(self) -> None:
+    def test_hpa_zdate_006_remains_missing_with_scoped_cross_edition_agreement(self) -> None:
         row = self.by_id["HPA-ZDATE-006"]
         self.assertEqual("MISSING_FROM_PRODUCT", row["audit_status"])
         self.assertEqual(
@@ -77,7 +77,11 @@ class ZiweiQuanshuWenguangGoogleIndexPreviewR1Tests(unittest.TestCase):
             row["hai_glyph_cross_edition_status"],
         )
         self.assertIn(
-            "WITHIN_FULLBOOK_EDITION_FAMILY_STABILITY_REMAINS_UNRESOLVED",
+            "NANYANGTANG_AND_GUANGYI_DIRECT_PHYSICAL_FULLBOOK_EDITIONS_BOTH_HAVE",
+            row["hai_glyph_cross_edition_status"],
+        )
+        self.assertIn(
+            "GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED",
             row["hai_glyph_cross_edition_status"],
         )
         self.assertFalse(row["algorithm_reopen_authorized"])
