@@ -427,8 +427,50 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertFalse(row["candidate_selected_batch_12ak"])
         self.assertFalse(row["candidate_collapsed_batch_12ak"])
         self.assertEqual(
-            row["runtime_time_standard_binding_status"],
+            row["runtime_time_standard_binding_status_batch_12ak"],
             "LATER_OPERATIONAL_BRIDGE_CONFIRMED_FULLBOOK_SOURCE_SPECIFIC_BINDING_STILL_OPEN",
+        )
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
+
+    def test_batch_12al_korea_target_section_proves_broader_variant_only(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(
+            row["batch_12al_korea_cnts_full_target_section_recollation_artifact"],
+            "docs/research/ZIWEI-KOREA-CNTS-FULL-TARGET-SECTION-RECOLLATION-R1.json",
+        )
+        self.assertTrue(row["batch_12al_korea_same_physical_object_recount_forbidden"])
+        self.assertEqual(row["batch_12al_korea_direct_pages"], [125, 126])
+        self.assertEqual(
+            row["batch_12al_korea_target_surface"],
+            "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜",
+        )
+        self.assertFalse(row["batch_12al_korea_explicit_hai_glyph_observed"])
+        self.assertFalse(row["batch_12al_korea_fullbook_luojing_clause_at_target_location"])
+        self.assertFalse(row["batch_12al_korea_p126_target_continuation"])
+        self.assertEqual(
+            row["batch_12al_page_local_negative_scope"],
+            "TARGET_LOCATION_AND_ADJACENT_PAGE_ONLY_NOT_WHOLE_MANUSCRIPT",
+        )
+        self.assertFalse(row["batch_12al_fullbook_luojing_clause_global_universality"])
+        self.assertEqual(
+            row["batch_12al_within_reviewed_fullbook_luojing_clause_stability"],
+            "CONFIRMED_NANYANGTANG_AND_GUANGYI",
+        )
+        self.assertFalse(row["batch_12al_fullbook_interpolation_claim_authorized"])
+        self.assertFalse(row["batch_12al_korea_omission_error_claim_authorized"])
+        self.assertEqual(row["batch_12al_exact_stemmatic_direction"], "UNRESOLVED")
+        self.assertEqual(row["batch_12al_new_physical_witness_increment"], 0)
+        self.assertEqual(row["batch_12al_new_target_section_clause_variant_dimension_increment"], 1)
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12al"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12al"], 0)
+        self.assertFalse(row["candidate_selected_batch_12al"])
+        self.assertFalse(row["candidate_collapsed_batch_12al"])
+        self.assertEqual(
+            row["runtime_time_standard_binding_status"],
+            "BROADER_ZIWEI_TRANSMISSION_VARIANT_CONFIRMED_FULLBOOK_OPERATIONAL_PROCEDURE_REMAINS_SOURCE_SCOPED_AND_RUNTIME_UNRESOLVED",
         )
         self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
         self.assertFalse(row["algorithm_reopen_authorized"])
