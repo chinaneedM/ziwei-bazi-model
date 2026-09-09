@@ -6,12 +6,13 @@
   "status": "FULLBOOK_LUOJING_PHRASE_CROSS_EDITION_CONFIRMED_LUOJING_DIRECTIONAL_INSTRUMENT_SEMANTICS_CLOSED_STANDALONE_TIMEKEEPER_EQUIVALENCE_REJECTED_RUNTIME_CLOCK_BINDING_STILL_OPEN",
   "controlling_probe": {
     "workflow_file": ".github/workflows/research-ziwei-fullbook-luojing-semantics-aj.yml",
-    "workflow_run_id": 34324767233,
-    "probe_commit_sha": "63707407cbb3afd4e735432eacdcdbde81da3ad6",
-    "artifact_id": 10093334440,
+    "workflow_run_id": 34325691911,
+    "probe_commit_sha": "0f31240e91b21d65f438415c4a3d51ad23580eb6",
+    "artifact_id": 10093682981,
     "artifact_name": "ziwei-fullbook-luojing-semantics-aj",
-    "artifact_zip_sha256": "5e86d5837910be780e8f69ec0ad2f8ad2666f125ae8d9b0548d51b7d2a7f54f2",
-    "all_control_terms_hit": true,
+    "artifact_zip_sha256": "4374cfdb3bcdf6c36f939eb7168826d424b103d2cb42ea1722193f1ca38c9e95",
+    "decisive_target_count": 3,
+    "all_decisive_control_terms_hit": true,
     "authentication_attempted": false,
     "captcha_bypass_attempted": false
   },
@@ -46,6 +47,35 @@
   },
   "contemporaneous_technical_controls": [
     {
+      "source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+      "title": "徐光啟等《新法算書》卷一〈奉旨回奏／制器測晷〉定時羅經段",
+      "historical_period": "MING_CHONGZHEN_3_MEMORIAL_TRANSMITTED_IN_XINFA_SUANSHU",
+      "provider": "識典古籍",
+      "url": "https://www.shidianguji.com/zh/book/SK1525/chapter/1lasu1xyun8dl",
+      "semantic_role": "PRIMARY_OR_NEAR_PRIMARY_MING_CALENDAR_BUREAU_TECHNICAL_CONTROL_FOR_LUOJING_DIRECTION_VS_TIMEKEEPING",
+      "authority_boundary": "NOT_ZIWEI_DOCTRINE",
+      "response_sha256": "bcb9bc78fe6ad26f50cd0d746b19491335d11e20dd0ebed10c44e8cd05434de2",
+      "machine_term_hits": [
+        "徐光啓謹題",
+        "造正線羅經以定子午",
+        "若晨昏",
+        "隂雨",
+        "行漏",
+        "若專用羅經者",
+        "失於先天",
+        "天正時刻"
+      ],
+      "direct_text_findings": [
+        "徐光啟以奉旨回奏身份直接論定時器具。",
+        "日晷定晝時、星晷定夜時、正線羅經定子午。",
+        "晨昏陰雨以行漏補二晷所不及。",
+        "壺漏非定時之本，定時之本須準於天行；晝測日、夜測星。",
+        "指南針所得子午非真子午；若專用羅經，刻分誤差無定數而大抵失於先天。",
+        "表臬、儀器可求真子午，或依偏針加減另造正線羅經。"
+      ],
+      "textual_witness_relation_to_huangming_jingshi_wenbian": "SAME_XU_GUANGQI_MEMORIAL_TRANSMISSION_DO_NOT_COUNT_AS_INDEPENDENT_TECHNICAL_VOTE"
+    },
+    {
       "source_id": "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
       "title": "《皇明經世文編》卷四百九十三〈制器測晷〉定時／羅經段",
       "provider": "Chinese Text Project",
@@ -57,7 +87,7 @@
         "指南針用以定南北，但所得子午不必是真子午；若專用羅經，所差刻分無定數而大抵失於先天。",
         "可用表臬或儀器求真子午，或依偏針加減另造正線羅經。"
       ],
-      "semantic_role": "CONTEMPORANEOUS_MING_ASTRONOMICAL_TECHNICAL_CONTROL_SHOWING_LUOJING_AS_DIRECTION_MERIDIAN_AID_NOT_STANDALONE_CLOCK",
+      "semantic_role": "SAME_MEMORIAL_TRANSMISSION_CONTROL_FOR_XINFA_SUANSHU_TEXT_NOT_INDEPENDENT_TECHNICAL_VOTE",
       "authority_boundary": "NOT_ZIWEI_DOCTRINE",
       "machine_term_hits": [
         "造正线罗经",
@@ -67,7 +97,8 @@
         "若专用罗经者",
         "失于先天",
         "指南针者"
-      ]
+      ],
+      "textual_witness_relation_to_xinfa_suanshu": "SAME_XU_GUANGQI_MEMORIAL_TRANSMISSION"
     },
     {
       "source_id": "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
@@ -75,7 +106,7 @@
       "historical_period": "MING",
       "provider": "識典古籍",
       "url": "https://www.shidianguji.com/zh/mid-page/7536324145912070182",
-      "response_sha256": "b2810c2d8643eeb24168fa5a3af7dd06972053546d575fb2c10ad0b88c445d03",
+      "response_sha256": "2c57c4d3837476385d585cfe0f4fe08a1478ef8ac21ceb9b11e227fc19a31a40",
       "direct_text_findings": [
         "正文以磁、針之感應說明羅經針的方向性。",
         "正文可直接讀到「此針之所以必指南也」。",
@@ -102,7 +133,8 @@
         "堪輿家羅經",
         "二十四向"
       ],
-      "semantic_role": "LATER_BIBLIOGRAPHIC_PHILOLOGY_CONTROL_ONLY"
+      "semantic_role": "NON_CONTROLLING_LATER_BIBLIOGRAPHIC_PHILOLOGY_CONTROL_DYNAMIC_PAGE_NOT_PART_OF_FINAL_DECISIVE_PROBE",
+      "machine_probe_status": "REMOVED_FROM_FINAL_DECISIVE_PROBE_DUE_DYNAMIC_PAGE_SURFACE; DOES_NOT_AFFECT_ADJUDICATION"
     }
   ],
   "philological_adjudication": {
@@ -115,7 +147,11 @@
     "technical_tension": "CONTEMPORANEOUS_ASTRONOMICAL_CONTROL_USES_LUOJING_FOR_DIRECTION_WHILE_CLOUD_RAIN_TIMEKEEPING_IS_FILLED_BY_RUNNING_CLEPSYDRA; IT_EXPLICITLY_WARNS_EXCLUSIVE_COMPASS_USE_CAN_CREATE_TIME_ERROR",
     "safest_interpretation": "FULLBOOK_SENTENCE_IS_A_SOURCE_SCOPED_PRACTICE_STATEMENT_OR_SHORTHAND_WHOSE_EXACT_INSTRUMENT_COMPOSITION_IS_UNRESOLVED; DO_NOT_NORMALIZE_IT_TO_TRUE_SOLAR_TIME",
     "inheritance_from_ming_institutional_clock": "NOT_PROVEN",
-    "runtime_bridge": "UNRESOLVED"
+    "runtime_bridge": "UNRESOLVED",
+    "primary_timekeeping_technical_control_source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+    "same_memorial_transmission_control_source_id": "EXT-CTEXT-HUANGMING-JINGSHI-WENBIAN-V493-DINGSHI-LUOJING",
+    "independent_luojing_shushu_control_source_id": "EXT-SHIDIAN-XU-ZHIMO-LUOJING-DINGMENZHEN-MING",
+    "same_memorial_double_count_forbidden": true
   },
   "hpa_zdate_006_effect": {
     "audit_status": "MISSING_FROM_PRODUCT",
