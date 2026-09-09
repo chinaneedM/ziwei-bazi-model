@@ -16,6 +16,7 @@ ZIWEI_RENZI_XUZHI_AM = ROOT / "docs" / "research" / "ZIWEI-RENZI-XUZHI-LUOJING-G
 ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1.json"
 ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
 ZIWEI_JIELAN_AP = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+ZIWEI_JIELAN_AQ = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -353,6 +354,46 @@ def main() -> int:
         raise SystemExit("Batch 12AP AO-inference retraction regressed")
     if row12ap.get("candidate_selected_batch_12ap") is not False or row12ap.get("candidate_collapsed_batch_12ap") is not False or row12ap.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12AP candidate/algorithm firewall regressed")
+
+    # Batch 12AQ direct printed-bibliography imprint reconciliation.
+    if not ZIWEI_JIELAN_AQ.is_file():
+        raise SystemExit("Batch 12AQ evidence artifact missing")
+    ev12aq = json.loads(ZIWEI_JIELAN_AQ.read_text(encoding="utf-8"))
+    if ev12aq.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ":
+        raise SystemExit("Batch 12AQ evidence identity mismatch")
+    probe12aq = ev12aq.get("controlling_probe", {})
+    if probe12aq.get("workflow_run_id") != 34350629959 or probe12aq.get("artifact_id") != 10103542053 or probe12aq.get("artifact_zip_sha256") != "c50fff947d5adf8e4eb9109d7d00485dbe7d04a7767090ca6e9109603b8c7f88":
+        raise SystemExit("Batch 12AQ controlling probe binding regressed")
+    scan12aq = ev12aq.get("direct_bibliographic_scan", {})
+    if scan12aq.get("target_pdf_page_1_based") != 40 or scan12aq.get("catalog_item_number") != 4051 or scan12aq.get("ocr_used_for_final_glyph_adjudication") is not False:
+        raise SystemExit("Batch 12AQ direct scan locator/OCR firewall regressed")
+    read12aq = scan12aq.get("direct_visual_reading", {})
+    if read12aq.get("title") != "新刻纂集紫微斗數捷覽四卷" or read12aq.get("edition_imprint") != "明萬曆九年金陵書坊王洛川刻本" or read12aq.get("imprint_name") != "王洛川":
+        raise SystemExit("Batch 12AQ direct visual reading regressed")
+    conflict12aq = ev12aq.get("search_surface_conflict", {})
+    if conflict12aq.get("surfaced_reading") != "明萬曆九年金陵書坊王德川刻本" or conflict12aq.get("surfaced_item_number") != 4052:
+        raise SystemExit("Batch 12AQ recorded search conflict regressed")
+    if conflict12aq.get("adjudication") != "REJECTED_AS_SEARCH_INDEX_OCR_AND_TABLE_ALIGNMENT_ARTIFACT" or conflict12aq.get("search_surface_is_glyph_authority") is not False:
+        raise SystemExit("Batch 12AQ search-surface authority firewall regressed")
+    cat12aq = by_source_id.get("EXT-CHINESE-RARE-BOOKS-CATALOG-JIELAN-4051")
+    ncl12aq = by_source_id.get("EXT-NCL-WANGSHI-LUOCHUAN-XUANHE")
+    jielan12aq = by_source_id.get("EXT-ZIWEI-JIELAN-1581")
+    if cat12aq is None or ncl12aq is None or jielan12aq is None:
+        raise SystemExit("Batch 12AQ registry sources missing")
+    if cat12aq.get("catalog_item_number") != 4051 or cat12aq.get("direct_visual_imprint") != "明萬曆九年金陵書坊王洛川刻本" or cat12aq.get("ocr_used_for_final_glyph_adjudication") is not False:
+        raise SystemExit("Batch 12AQ direct bibliography registry binding regressed")
+    if ncl12aq.get("direct_catalog_term") != "明金陵王氏洛川校刊本":
+        raise SystemExit("Batch 12AQ NCL bookseller control regressed")
+    bind12aq = jielan12aq.get("batch_12aq_direct_bibliography_confirmation", {})
+    if bind12aq.get("catalog_item_number") != 4051 or bind12aq.get("direct_visual_imprint") != "明萬曆九年金陵書坊王洛川刻本" or bind12aq.get("search_surface_wang_dechuan_rejected") is not True:
+        raise SystemExit("Batch 12AQ Jielan registry confirmation regressed")
+    adj12aq = ev12aq.get("adjudication", {})
+    if adj12aq.get("repository_provenance_metadata_defect_increment") != 0 or adj12aq.get("chart_algorithm_defect_increment") != 0 or adj12aq.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AQ defect/algorithm firewall regressed")
+    row12aq = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected12aq = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if row12aq is None or row12aq.get("runtime_time_standard_binding_status") != expected12aq or row12aq.get("audit_status") != "MISSING_FROM_PRODUCT" or row12aq.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AQ unexpectedly changed HPA-ZDATE-006")
 
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
