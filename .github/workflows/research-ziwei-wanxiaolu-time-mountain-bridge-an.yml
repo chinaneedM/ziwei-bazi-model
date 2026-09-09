@@ -225,6 +225,47 @@ jobs:
               "pages": page_html_receipts,
           }
 
+          # The emitted page HTML exposes CText's normal full-text-search form
+          # target as wiki resource 437415. Use that explicit resource ID to locate
+          # the target chapter; no page-number enumeration is needed.
+          search_receipts = []
+          for query in ("第四十二章論定時", "每日皆從太陽到處數", "查時刻以考星躔"):
+              search_url = "https://ctext.org/wiki.pl?" + urllib.parse.urlencode({
+                  "if": "gb",
+                  "res": "437415",
+                  "searchu": query,
+              })
+              req = urllib.request.Request(search_url, headers={"User-Agent": "Mozilla/5.0 historical-provenance-research/1.0"})
+              rec = {"query": query, "requested_url": search_url}
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      body = resp.read()
+                      rec.update({
+                          "status": resp.status,
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(body),
+                          "sha256": hashlib.sha256(body).hexdigest(),
+                      })
+              except Exception as exc:
+                  body = b""
+                  rec.update({"status": None, "error": repr(exc), "bytes": 0, "sha256": None})
+              raw = body.decode("utf-8", errors="replace")
+              safe = re.sub(r"[^0-9A-Za-z]+", "-", query.encode("unicode_escape").decode("ascii")).strip("-")[:80]
+              (out / f"ctext-resource437415-search-{safe}.html").write_bytes(body)
+              hrefs = [urllib.parse.urljoin(rec.get("final_url") or search_url, html.unescape(x)) for x in re.findall(r"href=[\\\"']([^\\\"']+)[\\\"']", raw, flags=re.I)]
+              rec["emitted_chapter_or_library_links"] = [
+                  x for x in dict.fromkeys(hrefs)
+                  if ("chapter=" in x or "library.pl" in x or "#lib1007" in x)
+              ][:300]
+              rec["query_visible"] = normalize(query) in normalize(raw)
+              rec["lib_anchor_tokens"] = sorted(set(re.findall(r"lib10072[0-2]\\.\\d+", raw)))[:300]
+              search_receipts.append(rec)
+          receipt["ctext_resource437415_search_probe"] = {
+              "resource_id_source": "EXPLICIT_SEARCH_FORM_VALUE_ON_SOURCE_EMITTED_LIBRARY_PAGE",
+              "searches": search_receipts,
+          }
+
           (out / "receipt.json").write_text(
               json.dumps(receipt, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8",
