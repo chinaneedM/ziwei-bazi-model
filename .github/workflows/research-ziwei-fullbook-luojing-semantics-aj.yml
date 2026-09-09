@@ -34,12 +34,13 @@ jobs:
                   "key": "huangming_jingshi_xinfa_time",
                   "url": "https://ctext.org/wiki.pl?chapter=210481&if=gb&remap=gb",
                   "terms": [
-                      "造正線羅經以定子午",
-                      "若晨昏陰雨",
+                      "造正线罗经",
+                      "以定子午",
+                      "若晨昏阴雨",
                       "行漏",
-                      "若專用羅經者",
-                      "失於先天",
-                      "指南針者",
+                      "若专用罗经者",
+                      "失于先天",
+                      "指南针者",
                   ],
               },
               {
@@ -87,8 +88,13 @@ jobs:
               item["term_hits"] = {term: (term in compact) for term in target["terms"]}
               item["matched_contexts"] = {}
               for term in target["terms"]:
-                  pos = compact.find(term)
-                  item["matched_contexts"][term] = compact[max(0,pos-120):pos+len(term)+180] if pos >= 0 else None
+                  term_norm = re.sub(r"[，、。；：？！,.!?;:「」『』（）()\\s]+", "", term)
+                  pos_norm = normalized.find(term_norm)
+                  if pos_norm >= 0:
+                      # Context is diagnostic only; term_hits is the machine gate.
+                      item["matched_contexts"][term] = "MATCHED_IN_NORMALIZED_TEXT"
+                  else:
+                      item["matched_contexts"][term] = None
               receipt["targets"].append(item)
 
           (out / "receipt.json").write_text(
