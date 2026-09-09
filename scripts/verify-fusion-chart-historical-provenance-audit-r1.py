@@ -17,6 +17,7 @@ ZIWEI_WANXIAOLU_AN = ROOT / "docs" / "research" / "ZIWEI-WANXIAOLU-TIME-MOUNTAIN
 ZIWEI_JIELAN_AO = ROOT / "docs" / "research" / "ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-R1.json"
 ZIWEI_JIELAN_AP = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
 ZIWEI_JIELAN_AQ = ROOT / "docs" / "research" / "ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json"
+ZIWEI_JIELAN_AR = ROOT / "docs" / "research" / "ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
 ZIWEI_INDEPENDENT_EDITION_ROUTES = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1.json"
 ZIWEI_WENGUANG_GOOGLE_INDEX = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json"
 ZIWEI_JINGLUNTANG_PHYSICAL_ROUTE = ROOT / "docs" / "research" / "ZIWEI-QUANSHU-JINGLUNTANG-PHYSICAL-ROUTE-R1.json"
@@ -394,6 +395,45 @@ def main() -> int:
     expected12aq = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
     if row12aq is None or row12aq.get("runtime_time_standard_binding_status") != expected12aq or row12aq.get("audit_status") != "MISSING_FROM_PRODUCT" or row12aq.get("algorithm_reopen_authorized") is not False:
         raise SystemExit("Batch 12AQ unexpectedly changed HPA-ZDATE-006")
+
+    # Batch 12AR closes only the reviewed public PT49 preview access surface.
+    if not ZIWEI_JIELAN_AR.is_file():
+        raise SystemExit("Batch 12AR evidence artifact missing")
+    ev12ar = json.loads(ZIWEI_JIELAN_AR.read_text(encoding="utf-8"))
+    if ev12ar.get("batch_id") != "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR":
+        raise SystemExit("Batch 12AR evidence identity mismatch")
+    r4_12ar = ev12ar.get("probes", {}).get("ar_r4_direct_pt49_source_emitted_image", {})
+    if r4_12ar.get("workflow_run_id") != 34353510199 or r4_12ar.get("artifact_id") != 10104715354 or r4_12ar.get("artifact_zip_sha256") != "52c968a601a56732f293d2f25318d8d70ae6dc4f2e588baeee077e51ada6b1ed":
+        raise SystemExit("Batch 12AR direct-image probe binding regressed")
+    play12ar = ev12ar.get("direct_play_reader_adjudication", {})
+    if play12ar.get("pt48_response_sha256") != "4d95bcc7a8c14d842d1d735faa83cfbb33cc16773cc35ddb4ef18d3c679d95d0" or play12ar.get("pt48_manual_visual_review") != "GENUINE_JIELAN_FACSIMILE_PAGE_IMAGE":
+        raise SystemExit("Batch 12AR PT48 positive-control binding regressed")
+    placeholder12ar = "3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6"
+    if play12ar.get("pt49_response_sha256") != placeholder12ar or play12ar.get("pt50_response_sha256") != placeholder12ar or play12ar.get("pt49_pt50_identical_placeholder_hash") is not True:
+        raise SystemExit("Batch 12AR PT49/PT50 placeholder binding regressed")
+    if play12ar.get("pt49_manual_visual_review") != "VISIBLE_IMAGE_NOT_AVAILABLE_PLACEHOLDER_NOT_BOOK_PAGE" or play12ar.get("pt49_physical_glyph_authority") is not False:
+        raise SystemExit("Batch 12AR target physical-glyph adjudication regressed")
+    adj12ar = ev12ar.get("adjudication", {})
+    if adj12ar.get("reviewed_google_public_preview_surface_closed_for_current_routes") is not True or adj12ar.get("google_public_preview_can_supply_pt49_physical_glyphs") is not False:
+        raise SystemExit("Batch 12AR public-preview closure regressed")
+    if adj12ar.get("repository_provenance_metadata_defect_increment") != 0 or adj12ar.get("chart_algorithm_defect_increment") != 0 or adj12ar.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AR defect/algorithm firewall regressed")
+    preview12ar = by_source_id.get("EXT-GOOGLE-PLAY-JIELAN-PT49-PREVIEW-BOUNDARY")
+    gb12ar = by_source_id.get("EXT-GOOGLE-BOOKS-JIELAN-PT49-INCLEMENT-BIRTH-TIME-INDEX")
+    if preview12ar is None or gb12ar is None:
+        raise SystemExit("Batch 12AR registry sources missing")
+    if preview12ar.get("pt49_signed_image_url_source_emitted") is not True or preview12ar.get("pt49_placeholder_sha256") != placeholder12ar or preview12ar.get("glyph_authority") is not False:
+        raise SystemExit("Batch 12AR preview registry binding regressed")
+    gb_boundary12ar = gb12ar.get("batch_12ar_public_preview_boundary", {})
+    if gb_boundary12ar.get("pt49_response_visual_status") != "IMAGE_NOT_AVAILABLE_PLACEHOLDER" or gb_boundary12ar.get("pt49_physical_glyph_authority") is not False:
+        raise SystemExit("Batch 12AR Google index/preview boundary regressed")
+    row12ar = next((r for r in data.get("rows", ()) if r.get("rule_id") == "HPA-ZDATE-006"), None)
+    expected_current12ar = "JIELAN_INCLEMENT_BIRTH_TIME_DISCUSSION_INDEX_ATTESTED_AO_PAGINATION_SCOPE_CORRECTED_FULLBOOK_LUOJING_CLAUSE_AND_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    expected_access12ar = "GOOGLE_PUBLIC_PREVIEW_PT49_INDEX_AND_SIGNED_IMAGE_URL_ATTESTED_TARGET_IMAGE_RETURNS_PLACEHOLDER_FULLBOOK_INCLEMENT_CLOCK_INPUT_STILL_UNRESOLVED"
+    if row12ar is None or row12ar.get("runtime_time_standard_binding_status") != expected_current12ar or row12ar.get("runtime_time_standard_binding_status_batch_12ar") != expected_access12ar:
+        raise SystemExit("Batch 12AR Matrix runtime/access state regressed")
+    if row12ar.get("batch_12ar_pt49_physical_glyph_authority") is not False or row12ar.get("candidate_selected_batch_12ar") is not False or row12ar.get("candidate_collapsed_batch_12ar") is not False or row12ar.get("algorithm_reopen_authorized") is not False:
+        raise SystemExit("Batch 12AR candidate/algorithm firewall regressed")
 
     if by_source_id.get("EXT-ZIWEI-QVXIAN-TRUE-SOLAR-2022") is None:
         raise SystemExit("Batch 08C modern Ziwei true-solar witness is missing")
