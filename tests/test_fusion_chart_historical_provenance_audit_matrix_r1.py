@@ -263,6 +263,27 @@ class HistoricalProvenanceAuditMatrixR1Test(unittest.TestCase):
         self.assertIn("QING-SHIXIAN-1645-CALENDAR-CONTEXT-R1", source)
         self.assertIn("MODERN_CHINESE_CALENDAR_FALLBACK_FORBIDDEN", source)
 
+
+    def test_batch_12ac_pt165_page_object_is_not_glyph_authority(self) -> None:
+        by_id = {row["rule_id"]: row for row in self.rows}
+        row = by_id["HPA-ZDATE-006"]
+        self.assertEqual(row["audit_status"], "MISSING_FROM_PRODUCT")
+        self.assertEqual(
+            row["batch_12ac_wenguang_pt165_public_viewer_response_artifact"],
+            "docs/research/ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1.json",
+        )
+        self.assertEqual(
+            row["wenguang_pt165_click3_target_record"],
+            {"pid": "PT165", "flags": 8, "order": 165},
+        )
+        self.assertEqual(row["wenguang_pt165_click3_returned_page_record_count"], 209)
+        self.assertEqual(row["wenguang_pt165_click3_source_emitted_image_url_count"], 0)
+        self.assertFalse(row["wenguang_pt165_direct_target_image_observed_batch_12ac"])
+        self.assertTrue(row["wenguang_pt165_page_object_is_not_glyph_authority"])
+        self.assertEqual(row["independent_textual_witness_count_added_batch_12ac"], 0)
+        self.assertEqual(row["independent_hai_glyph_witness_count_added_batch_12ac"], 0)
+        self.assertFalse(row["algorithm_reopen_authorized"])
+
     def test_readme_and_ci_bind_the_audit_stage(self) -> None:
         readme = README.read_text(encoding="utf-8")
         ci = CI.read_text(encoding="utf-8")
