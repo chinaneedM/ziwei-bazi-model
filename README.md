@@ -303,3 +303,8 @@ Batch 12AO completed a source-emitted five-page traversal of the current Tianji 
 ### Historical provenance audit — Batch 12AP
 
 Batch 12AP repairs `PROV-DEFECT-011` without reopening chart algorithms. Batch 12AO's five Tianji aggregate pagination pages remain a valid finite nonattestation surface, but Google Books Jielan volume `rZRcCwAAQBAJ` source-emits PT49 for `陰雨` under `論十二生時難定訣`; therefore the prior transmission-level extrapolation is retracted. PT49 physical glyphs remain unobserved despite direct review of source-emitted PT47/PT48 facsimile pages and NCC/Heart-One public samples. The Fullbook-style `羅經—真確時候` cloudy/rainy current-time chain remains unresolved, so `HPA-ZDATE-006=MISSING_FROM_PRODUCT`, with no runtime winner, candidate collapse or algorithm reopen. Provenance defects are now 11 confirmed / 11 repaired. Evidence: `docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json`.
+
+
+### Historical provenance audit — Batch 12AQ
+
+Batch 12AQ resolves the 1581 Jielan bibliographic-imprint conflict by returning to the printed 《中國古籍善本書目·子部三》 scan. Direct no-OCR review of PDF p40 shows 《新刻纂集紫微斗數捷覽四卷》 as catalog item 4051 and reads `明萬曆九年金陵書坊王洛川刻本`. The search-surface `王德川` / `4052` reading is rejected as OCR/table-alignment error; item 4052 is the adjacent 《上官拜命玉曆大全不分卷》. Taiwan NCL independently attests an unrelated Ming Jinling `王氏洛川` edition string, strengthening the bookseller-name identity without implying same-copy provenance. Repository imprint metadata remains unchanged and no new provenance defect is counted. Anhui holding stays locator-only; PT49 physical glyphs and the Fullbook cloudy/rainy time-acquisition chain remain open. Evidence: `docs/research/ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-R1.json`.
