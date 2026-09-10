@@ -1,0 +1,56 @@
+name: research-ziwei-tushubian-v32-timekeeping-pages-as-r12
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-tushubian-v32-timekeeping-pages-as-r12.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow
+      - name: Render Harvard v32 timekeeping target pages
+        shell: python
+        run: |
+          import hashlib, io, json, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image
+          out=Path('batch12as-r12'); out.mkdir(exist_ok=True)
+          def gj(url):
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+              with urllib.request.urlopen(req,timeout=60) as r: return json.loads(r.read().decode('utf-8'))
+          q='intitle:"圖書編 v.32.pdf"'
+          s='https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search&srnamespace=6&srlimit=50&srsearch='+urllib.parse.quote(q)
+          titles=[x.get('title') for x in gj(s).get('query',{}).get('search',[])]
+          selected=next((t for t in titles if 'Harvard' in t and '圖書編' in t and 'v.32.pdf' in t),None)
+          if not selected: raise SystemExit('not found')
+          u='https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url%7Csize%7Csha1&titles='+urllib.parse.quote(selected)
+          page=next(iter(gj(u).get('query',{}).get('pages',{}).values()))
+          info=(page.get('imageinfo') or [None])[0]
+          pdf=out/'v32.pdf'
+          req=urllib.request.Request(info['url'],headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=180) as r: pdf.write_bytes(r.read())
+          doc=fitz.open(str(pdf)); rendered=[]
+          for p1 in range(35,46):
+              pix=doc[p1-1].get_pixmap(matrix=fitz.Matrix(1.45,1.45),alpha=False)
+              im=Image.open(io.BytesIO(pix.tobytes('jpeg'))).convert('RGB')
+              fn=f'page-{p1:03d}.jpg'; im.save(out/fn,quality=96)
+              rendered.append({'page':p1,'file':fn,'sha256':hashlib.sha256((out/fn).read_bytes()).hexdigest(),'width':im.width,'height':im.height})
+          receipt={'scope':'BATCH12AS_R12_HARVARD_V32_JUAN22_TIMEKEEPING_GLYPH_REVIEW','selected_title':selected,'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),'pages':[35,45],'rendered':rendered,'ocr_generated':False,'manual_visual_review_required':True,'cross_edition_juan_number_equivalence_assumed':False,'runtime_standard_selected':False,'algorithm_reopen_authorized':False}
+          (out/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n','utf-8'); pdf.unlink()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-tushubian-v32-timekeeping-pages-as-r12
+          path: batch12as-r12
+          retention-days: 90
