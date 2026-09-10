@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-09",
+  "access_date": "2026-09-11",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -2856,6 +2856,25 @@
       "target_physical_page_observed": false,
       "glyph_authority": false,
       "research_artifact": "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"
+    },
+    {
+      "source_id": "EXT-TUSHUBIAN-HARVARD-1613-V32",
+      "title": "《圖書編》卷二十二《時令總敘》/《刻漏總論》",
+      "author": "章潢",
+      "historical_period": "明",
+      "edition": "明萬曆四十一年（1613）涂鏡源等刊本系；Harvard-Yenching physical scan object v.32",
+      "provider": "Harvard-Yenching Library scan via Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Harvard_drs_428499316_%E5%9C%96%E6%9B%B8%E7%B7%A8_v.32.pdf",
+      "source_role": "DIRECT_PRIMARY_PHYSICAL_FACSIMILE_TIMEKEEPING_AND_RECENSION_MAPPING_WITNESS",
+      "quality_notes": "Batch 12AS no-OCR direct visual collation. PDF SHA-256 44512e7ca354ff94a87c7c5c84ddea61ba46812371707c2c4ecaf2a2d47f83ba. PDF p3 directly binds internal 卷二十二 / 時令總敘; p37 shows 古漏圖/今漏圖; p38 reads upper-half Zi before midnight as previous day and lower-half after midnight as current day; p39 is 刻漏總論; p41 calibrates timekeeping against 儀象/天星行度. This witness does not prove Fullbook upper-half-Zi Hai-branch reclassification and does not close the Fullbook cloudy/rain current-time acquisition mechanism. Cross-recension bare juan-number equivalence is explicitly forbidden.",
+      "research_artifact": "docs/research/ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1.json",
+      "audit_batch": "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS",
+      "workflow_evidence": {
+        "v32_locator_run": 34543115889,
+        "v32_locator_artifact": 10178011062,
+        "timekeeping_pages_run": 34543260640,
+        "timekeeping_pages_artifact": 10178062853
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

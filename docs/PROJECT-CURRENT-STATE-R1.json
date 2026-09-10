@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.51.0",
+  "schema_version": "1.52.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -130,9 +130,10 @@
       "BATCH-12-ZIWEI-JIELAN-INCLEMENT-TIME-ACQUISITION-AO",
       "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
       "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
-      "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR"
+      "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",
+      "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -364,7 +365,11 @@
       "Batch 12AR closes the reviewed Google public-preview route for Jielan PT49 without obtaining physical glyphs: classic Books PT49 is HTTP 200 but emits no PT49 image object, while the public Play reader directly emits a signed PT49 image URL.",
       "Direct no-OCR visual control in Batch 12AR shows PT48 returns a genuine Jielan facsimile JPEG, but PT49 and PT50 return the identical visible image-not-available PNG placeholder (SHA-256 3efa8c43e5b4348f303a528c81adf435f0111ea752fe9f0f6241478b60987fa6). A source-emitted signed URL is therefore not page-image availability.",
       "English accessible mode is HTTP 403; the previously source-emitted new-Google-Books route redirects to classic Books with PT49 token but no PT49 image object. iRead runner timeout remains execution-environment access-boundary only and is not a content negative.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT. Counts remain 198/166/10/14, provenance defects 11/11, chart algorithm defect/reopen/collapse 0. Stop repeating the reviewed Google preview paths; next chart-affecting priority is an explicit Fullbook-line cloudy/rainy current-time acquisition chain plus an independent physical PT49 route."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT. Counts remain 198/166/10/14, provenance defects 11/11, chart algorithm defect/reopen/collapse 0. Stop repeating the reviewed Google preview paths; next chart-affecting priority is an explicit Fullbook-line cloudy/rainy current-time acquisition chain plus an independent physical PT49 route.",
+      "Batch 12AS corrects the Tushu Bian physical locator: Harvard v.32 PDF p3 directly begins 圖書編卷之二十二 / 時令總敘, while Harvard v.38 p3 begins 卷二十八 and is not the timekeeping target. Bare juan numbers are recension-scoped and must not be cross-mapped without edition-specific physical evidence.",
+      "Batch 12AS Harvard v.32 p38 directly reads 若子時則上半時在夜半前屬昨日下半時在夜半後屬今日. This strongly corroborates the generic midnight previous/current-day orientation but is not mechanically identical to Fullbook 上五刻屬昨夜亥時 because 屬昨日 does not itself reclassify the upper half to Hai branch.",
+      "Batch 12AS Harvard v.32 p39/p41 directly binds 刻漏總論 and clepsydra timekeeping calibrated by astronomical instruments/celestial motion. This strengthens the early technical bridge but does not authorize inserting 行漏/刻漏 into the Fullbook 陰雨之際必須羅經 sentence.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AS. Fullbook-line cloudy/rainy current-time acquisition remains unresolved; runtime standard selection, candidate collapse and algorithm reopen all remain forbidden pending a source-scoped mechanical chain."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
