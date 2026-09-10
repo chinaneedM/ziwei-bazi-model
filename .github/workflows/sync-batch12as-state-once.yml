@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: agent/fusion-chart-core-r1-20260822
-      - name: Synchronize Batch 12AS continuity state and source registry
+      - name: Synchronize Batch 12AS continuity state, verifier and source registry
         shell: python
         run: |
           import json
@@ -26,6 +26,7 @@ jobs:
 
           batch = 'BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS'
           batch_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS.md'
+          evidence_doc = 'docs/research/ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1.json'
 
           state_path = Path('docs/PROJECT-CURRENT-STATE-R1.json')
           state = json.loads(state_path.read_text('utf-8'))
@@ -54,7 +55,6 @@ jobs:
           for item in focus_additions:
               if item not in focus:
                   focus.append(item)
-
           state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + '\n', 'utf-8')
 
           registry_path = Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
@@ -73,7 +73,7 @@ jobs:
                   'url': 'https://commons.wikimedia.org/wiki/File:Harvard_drs_428499316_%E5%9C%96%E6%9B%B8%E7%B7%A8_v.32.pdf',
                   'source_role': 'DIRECT_PRIMARY_PHYSICAL_FACSIMILE_TIMEKEEPING_AND_RECENSION_MAPPING_WITNESS',
                   'quality_notes': 'Batch 12AS no-OCR direct visual collation. PDF SHA-256 44512e7ca354ff94a87c7c5c84ddea61ba46812371707c2c4ecaf2a2d47f83ba. PDF p3 directly binds internal 卷二十二 / 時令總敘; p37 shows 古漏圖/今漏圖; p38 reads upper-half Zi before midnight as previous day and lower-half after midnight as current day; p39 is 刻漏總論; p41 calibrates timekeeping against 儀象/天星行度. This witness does not prove Fullbook upper-half-Zi Hai-branch reclassification and does not close the Fullbook cloudy/rain current-time acquisition mechanism. Cross-recension bare juan-number equivalence is explicitly forbidden.',
-                  'research_artifact': 'docs/research/ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1.json',
+                  'research_artifact': evidence_doc,
                   'audit_batch': batch,
                   'workflow_evidence': {
                       'v32_locator_run': 34543115889,
@@ -84,6 +84,46 @@ jobs:
               })
           registry['access_date'] = '2026-09-11'
           registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+
+          verifier_path = Path('scripts/verify-project-continuity-state-r1.py')
+          verifier = verifier_path.read_text('utf-8')
+          if 'ZIWEI_TUSHUBIAN_AS_BATCH' not in verifier:
+              anchor = 'ZIWEI_JIELAN_AR_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"\n\nEXPECTED_BRANCH'
+              replacement = (
+                  'ZIWEI_JIELAN_AR_EVIDENCE = ROOT / "docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json"\n'
+                  'ZIWEI_TUSHUBIAN_AS_BATCH = ROOT / "' + batch_doc + '"\n'
+                  'ZIWEI_TUSHUBIAN_AS_EVIDENCE = ROOT / "' + evidence_doc + '"\n\nEXPECTED_BRANCH'
+              )
+              assert anchor in verifier, 'AS verifier constant insertion anchor missing'
+              verifier = verifier.replace(anchor, replacement, 1)
+
+              old_tail = (
+                  '    "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",\n'
+                  ']\n'
+                  'LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\n'
+                  'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR.md"'
+              )
+              new_tail = (
+                  '    "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",\n'
+                  '    "' + batch + '",\n'
+                  ']\n'
+                  'LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\n'
+                  'LATEST_BATCH_DOC = "' + batch_doc + '"'
+              )
+              assert old_tail in verifier, 'AS supplemental batch insertion anchor missing'
+              verifier = verifier.replace(old_tail, new_tail, 1)
+
+              main_anchor = 'def main() -> int:\n    for path in (ZIWEI_JIELAN_AR_BATCH, ZIWEI_JIELAN_AR_EVIDENCE):'
+              main_replacement = (
+                  'def main() -> int:\n'
+                  '    for path in (ZIWEI_TUSHUBIAN_AS_BATCH, ZIWEI_TUSHUBIAN_AS_EVIDENCE):\n'
+                  '        if not path.is_file():\n'
+                  '            fail(f"Batch 12AS continuity artifact missing: {path.relative_to(ROOT)}")\n\n'
+                  '    for path in (ZIWEI_JIELAN_AR_BATCH, ZIWEI_JIELAN_AR_EVIDENCE):'
+              )
+              assert main_anchor in verifier, 'AS verifier main insertion anchor missing'
+              verifier = verifier.replace(main_anchor, main_replacement, 1)
+              verifier_path.write_text(verifier, 'utf-8')
       - name: Verify continuity invariants
         run: python scripts/verify-project-continuity-state-r1.py
       - name: Commit synchronized durable state
@@ -92,7 +132,7 @@ jobs:
           set -euo pipefail
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json scripts/verify-project-continuity-state-r1.py
           if git diff --cached --quiet; then
             echo 'No state changes required.'
             exit 0
