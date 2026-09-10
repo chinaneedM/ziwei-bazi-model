@@ -1,0 +1,79 @@
+name: research-ziwei-sanmintonghui-1578-timekeeping-contact-at-r1
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sanmintonghui-1578-timekeeping-contact-at-r1.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow
+      - name: Resolve NCL 1578 Sanming Tonghui volume 2 and render locator contacts
+        shell: python
+        run: |
+          import hashlib, io, json, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageDraw
+
+          out=Path('batch12at-r1'); out.mkdir(exist_ok=True)
+          title='File:NCL-06589 2 三命通會.pdf'
+          api=('https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo'
+               '&iiprop=url%7Csize%7Csha1&titles='+urllib.parse.quote(title))
+          req=urllib.request.Request(api,headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=60) as r:
+              obj=json.loads(r.read().decode('utf-8'))
+          page=next(iter(obj.get('query',{}).get('pages',{}).values()))
+          info=(page.get('imageinfo') or [None])[0]
+          if not info or not info.get('url'): raise SystemExit('No source-emitted NCL PDF URL')
+
+          pdf=out/'sanming-1578-v2.pdf'
+          req=urllib.request.Request(info['url'],headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=180) as r: pdf.write_bytes(r.read())
+          doc=fitz.open(str(pdf))
+          thumbs=[]
+          for i,pg in enumerate(doc):
+              pix=pg.get_pixmap(matrix=fitz.Matrix(0.28,0.28),alpha=False)
+              im=Image.open(io.BytesIO(pix.tobytes('jpeg'))).convert('RGB')
+              c=Image.new('RGB',(im.width,im.height+28),'white')
+              c.paste(im,(0,28)); ImageDraw.Draw(c).text((5,5),f'PDF p{i+1}',fill='black')
+              thumbs.append(c)
+          sheets=[]; cols=3; rows=3; per=9
+          for start in range(0,len(thumbs),per):
+              batch=thumbs[start:start+per]
+              w=max(x.width for x in batch); h=max(x.height for x in batch)
+              sh=Image.new('RGB',(cols*w,rows*h),'white')
+              for j,im in enumerate(batch): sh.paste(im,((j%cols)*w,(j//cols)*h))
+              fn=f'contact-{start+1:03d}-{start+len(batch):03d}.jpg'; sh.save(out/fn,quality=90)
+              sheets.append({'pages':[start+1,start+len(batch)],'file':fn,'sha256':hashlib.sha256((out/fn).read_bytes()).hexdigest()})
+          receipt={
+            'scope':'BATCH12AT_R1_SANMING_TONGHUI_1578_DIRECT_PHYSICAL_TIMEKEEPING_LOCATOR',
+            'commons_file_title':title,
+            'imageinfo':info,
+            'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
+            'page_count':len(doc),
+            'contact_sheets':sheets,
+            'ocr_generated':False,
+            'manual_visual_review_required':True,
+            'textual_independence_from_tushubian_assumed':False,
+            'runtime_standard_selected':False,
+            'algorithm_reopen_authorized':False
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n','utf-8')
+          pdf.unlink()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sanmintonghui-1578-timekeeping-contact-at-r1
+          path: batch12at-r1
+          retention-days: 90
