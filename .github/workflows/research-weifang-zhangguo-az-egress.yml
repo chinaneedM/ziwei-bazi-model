@@ -1,0 +1,74 @@
+name: research-weifang-zhangguo-az-egress
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-weifang-zhangguo-az-egress.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe official and object routes
+        shell: python
+        run: |
+          import hashlib, json, socket, urllib.error, urllib.request
+          from pathlib import Path
+
+          rid = '151613020240003'
+          urls = [
+              f'http://guji.sdlib.com/dev-api/ancientbooks/front/getFileContentPage/3/{rid}',
+              f'https://guji.sdlib.com/dev-api/ancientbooks/front/getFileContentPage/3/{rid}',
+              f'http://guji.sdlib.com/front/#/bookInfo?resId={rid}',
+              f'https://guji.sdlib.com/front/#/bookInfo?resId={rid}',
+              'http://124.133.52.174:9009/res-book/wsok/%E6%BD%8D%E5%9D%8A%E5%B8%82%E5%9B%BE%E4%B9%A6%E9%A6%8612%E7%A7%8D36%E5%86%8C2818%E6%8B%8D/151613020240003/object/PDF/0001/0001.pdf',
+          ]
+          opener = urllib.request.build_opener()
+          opener.addheaders = [('User-Agent', 'Mozilla/5.0 provenance-research/1.0')]
+          out = []
+          for url in urls:
+              rec = {'url': url}
+              try:
+                  with opener.open(url, timeout=12) as r:
+                      body = r.read(1024 * 1024)
+                      rec.update({
+                          'status': getattr(r, 'status', None),
+                          'final_url': r.geturl(),
+                          'content_type': r.headers.get('content-type'),
+                          'sample_bytes': len(body),
+                          'sample_sha256': hashlib.sha256(body).hexdigest(),
+                          'prefix_hex': body[:16].hex(),
+                          'pdf_magic': body.startswith(b'%PDF'),
+                      })
+              except Exception as exc:
+                  rec['error_type'] = type(exc).__name__
+                  rec['error'] = repr(exc)
+              out.append(rec)
+          payload = {
+              'schema': 'ZIWEI-ZHANGGUO-WEIFANG-1594-CROSS-EGRESS-PROBE-R1',
+              'runner_os': __import__('platform').platform(),
+              'resource_id': rid,
+              'attempts': out,
+          }
+          p = Path('az-egress')
+          p.mkdir(exist_ok=True)
+          (p / 'probe.json').write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps(payload, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weifang-az-egress-${{ runner.os }}
+          path: az-egress/probe.json
+          if-no-files-found: error
