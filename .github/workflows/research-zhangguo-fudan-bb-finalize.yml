@@ -22,10 +22,37 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Correct transient Fudan identifier transcription
+      - name: Correct transient Fudan evidence-layer transcription
         run: |
-          sed -i 's/fudan_ancient_001127121/34053686/g' .github/scripts/finalize-zhangguo-fudan-bb.py
-          python -c "import json,pathlib; p=pathlib.Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json'); d=json.loads(p.read_text(encoding='utf-8')); r=d['authority_chain']['target_search_record']; old=r.get('docId'); assert old in ('fudan_ancient_001127121','34053686'), old; r['docId']='34053686'; r['doc_id_correction']='Corrected against first-party OPAC search response: docId equals resource_smjlh 34053686.'; p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          script = Path('.github/scripts/finalize-zhangguo-fudan-bb.py')
+          text = script.read_text(encoding='utf-8')
+          text = text.replace('fudan_ancient_001127121', '34053686')
+          old_title_markers = "'34053686', 'rb2314', '10冊(1函)', '刻本', '善本', '綫裝',"
+          new_title_markers = "'34053686', 'rb2314',"
+          if old_title_markers not in text:
+              raise SystemExit('title-marker layer anchor missing')
+          text = text.replace(old_title_markers, new_title_markers, 1)
+          old_detail_markers = "for marker in ('AB0613271-80', '光华楼古籍书库', '古籍馆藏', '在馆', '34053686', 'rb2314'):"
+          new_detail_markers = "for marker in ('AB0613271-80', '光华楼古籍书库', '古籍馆藏', '在馆', '34053686', 'rb2314', '10冊(1函)', '刻本', '善本', '綫裝', '新編評註通玄先生張果星宗大全', '明萬曆間', 'FDU01001127121'):"
+          if old_detail_markers not in text:
+              raise SystemExit('detail-marker layer anchor missing')
+          text = text.replace(old_detail_markers, new_detail_markers, 1)
+          script.write_text(text, encoding='utf-8')
+
+          p = Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          rec = data['authority_chain']['target_search_record']
+          old = rec.get('docId')
+          if old not in ('fudan_ancient_001127121', '34053686'):
+              raise SystemExit(f'unexpected transient docId: {old}')
+          rec['docId'] = '34053686'
+          rec['doc_id_correction'] = 'Corrected against first-party OPAC search response: docId equals resource_smjlh 34053686.'
+          p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
       - name: Prepare Batch 12BB semantic closure
         run: python .github/scripts/finalize-zhangguo-fudan-bb.py
       - name: Verify prepared state
