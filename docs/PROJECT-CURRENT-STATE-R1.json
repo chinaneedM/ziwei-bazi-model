@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.59.0",
+  "schema_version": "1.60.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -138,9 +138,10 @@
       "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
       "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
       "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
-      "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ"
+      "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
+      "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -403,7 +404,11 @@
       "Batch 12AZ retains Shandong/Weifang resource 151613020240003 as a high-value locator for 新編評註通玄先生張果星宗大全 十卷, described by convergent discovery surfaces as 濰坊市圖書館藏 / 明萬曆二十二年(1594)唐謙刻本; because no first-party Shandong catalog/API response was obtained, the edition/holding claim remains locator-scoped and is not promoted to direct physical-witness authority.",
       "AZ initial run 34596426615 / artifact 10262594953 obtained no official API response or PDF bytes. Cross-egress run 34597728895 repeated the official API/front and one old object-host sample on Linux westus3, macOS westus and Windows eastus; every reviewed route timed out, with artifacts 10263155974 / 10263650215 / 10263550354 respectively.",
       "The AZ result is an execution-environment/public-route reachability boundary only: official Shandong object bytes and target leaf remain unobtained; no whole-holding negative, no resource-gone/no-digitization inference and no text/Hai-glyph vote are authorized. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen.",
-      "Next high-value gate is a reachable first-party binding for Weifang resource 151613020240003 followed by no-OCR target-leaf collation; parallel early-copy research may pursue the SOAS/NCL union-catalog lead while strictly separating genuine early copies from later reprints."
+      "Next high-value gate is a reachable first-party binding for Weifang resource 151613020240003 followed by no-OCR target-leaf collation; parallel early-copy research may pursue the SOAS/NCL union-catalog lead while strictly separating genuine early copies from later reprints.",
+      "Batch 12BA separates NCL/SOAS date semantics from physical-impression dating: NCL union record mirr0000375 gives 明萬曆癸巳[1593] but explicitly notes 原刊行年據韋環序, so 1593 is an original-publication-year inference from the preface and is not direct proof that the extant SOAS object was printed in 1593.",
+      "Morrison's 1824 manuscript catalogue records 張果老星宗 as RM no.65 / 5 vols.; the Morrison catalogue-number index directly maps RM 65 to current callmark RM c.41.c.1. The nineteenth-century UCL shelfmark inventory then binds L.g.9 / 張果星宗命格大全 / 1797 / one bound item to RM c.41.c.1.",
+      "The Morrison Collection edition description classifies 新編評註通玄先生張果星宗大全 as a 1797 reprint of a circa-1593 edition. Therefore RM c.41.c.1 is a later Qing reprint lineage control, not an independent genuine 1593 physical witness. NCL mirr0000375 -> RM c.41.c.1 is high-confidence but not formally closed because the reviewed NCL record exposes no RM callmark/number crosswalk.",
+      "Batch 12BA adds zero early physical-witness, target-text and Hai-glyph votes; NCL and Morrison may not be double-counted. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen. Next gate is first-party SOAS item/image binding or another genuinely independent 1593/1594 physical target leaf."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

@@ -124,6 +124,8 @@ ZIWEI_ZHANGGUO_AY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_ZHANGGUO_AY_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-JANGSEOGAK-PUBLIC-ACCESS-BOUNDARY-R1.json"
 ZIWEI_ZHANGGUO_AZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ.md"
 ZIWEI_ZHANGGUO_AZ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-R1.json"
+ZIWEI_ZHANGGUO_BA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA.md"
+ZIWEI_ZHANGGUO_BA_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -185,9 +187,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
     "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
     "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
+    "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA.md"
 
 
 def fail(message: str) -> None:
@@ -195,6 +198,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_BA_BATCH, ZIWEI_ZHANGGUO_BA_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12BA continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_ZHANGGUO_AZ_BATCH, ZIWEI_ZHANGGUO_AZ_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AZ continuity artifact missing: {path.relative_to(ROOT)}")
@@ -331,6 +338,7 @@ def main() -> int:
     ziwei_zhangguo_ax_evidence = json.loads(ZIWEI_ZHANGGUO_AX_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_ay_evidence = json.loads(ZIWEI_ZHANGGUO_AY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_az_evidence = json.loads(ZIWEI_ZHANGGUO_AZ_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_ba_evidence = json.loads(ZIWEI_ZHANGGUO_BA_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1196,6 +1204,46 @@ def main() -> int:
         fail("Batch 12AZ registry access/authority firewall regressed")
     if src12az.get("independent_target_text_witness_increment") != 0 or src12az.get("independent_hai_glyph_witness_increment") != 0:
         fail("Batch 12AZ registry witness accounting regressed")
+
+    # Batch 12BA SOAS/NCL/Morrison 1593-vs-1797 provenance reconciliation.
+    if ziwei_zhangguo_ba_evidence.get("batch_id") != "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA":
+        fail("Batch 12BA evidence identity mismatch")
+    ncl12ba = ziwei_zhangguo_ba_evidence.get("ncl_union_catalog_record", {})
+    if ncl12ba.get("registration_number") != "mirr0000375" or ncl12ba.get("catalog_date") != "明萬曆癸巳[1593]" or ncl12ba.get("critical_date_note") != "原刊行年據韋環序":
+        fail("Batch 12BA NCL record/date-note binding regressed")
+    if ncl12ba.get("date_semantics") != "ORIGINAL_PUBLICATION_YEAR_INFERRED_FROM_WEI_HUAN_PREFACE_NOT_DIRECT_PHYSICAL_IMPRESSION_DATE" or ncl12ba.get("physical_impression_1593_proven") is not False:
+        fail("Batch 12BA NCL date-semantics firewall regressed")
+    bridge12ba = ziwei_zhangguo_ba_evidence.get("rm_number_to_current_callmark_bridge", {})
+    if bridge12ba.get("rm_number") != 65 or bridge12ba.get("identification") != "RM c.41.c.1 [65]" or bridge12ba.get("bridge_status") != "DIRECTLY_ATTESTED_ON_CATALOG_NUMBER_INDEX":
+        fail("Batch 12BA Morrison RM65 callmark bridge regressed")
+    ucl12ba = ziwei_zhangguo_ba_evidence.get("ucl_shelfmark_inventory", {})
+    if ucl12ba.get("ucl_shelfmark") != "L.g.9" or ucl12ba.get("date") != "1797" or ucl12ba.get("bound_item_count") != 1 or ucl12ba.get("current_soas_callmark") != "RM c.41.c.1":
+        fail("Batch 12BA UCL 1797 physical-lineage binding regressed")
+    desc12ba = ziwei_zhangguo_ba_evidence.get("morrison_collection_edition_description", {})
+    if desc12ba.get("edition_description") != "1797 reprint of circa 1593 edition" or desc12ba.get("physical_copy_classification") != "QING_DYNASTY_REPRINT_OF_MING_EDITION" or desc12ba.get("genuine_1593_impression_claimed") is not False:
+        fail("Batch 12BA Morrison edition classification regressed")
+    identity12ba = ziwei_zhangguo_ba_evidence.get("identity_reconciliation", {})
+    if identity12ba.get("morrison_rm65_to_rm_c41c1") != "RESOLVED_BY_DIRECT_CATALOG_NUMBER_INDEX" or identity12ba.get("rm_c41c1_physical_date") != "1797_REPRINT":
+        fail("Batch 12BA Morrison physical identity/date reconciliation regressed")
+    if identity12ba.get("ncl_mirr0000375_to_rm_c41c1_exact_object_identity") != "HIGH_CONFIDENCE_BUT_NOT_FORMALLY_CLOSED":
+        fail("Batch 12BA NCL-to-Morrison identity confidence scope regressed")
+    if identity12ba.get("early_physical_witness_count_increment") != 0 or identity12ba.get("independent_target_text_witness_increment") != 0 or identity12ba.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12BA witness accounting regressed")
+    adj12ba = ziwei_zhangguo_ba_evidence.get("philological_and_bibliographic_adjudication", {})
+    if adj12ba.get("ncl_1593_may_be_used_as_original_edition_date_locator") is not True or adj12ba.get("ncl_1593_may_be_used_as_extant_soas_impression_date") is not False:
+        fail("Batch 12BA original-vs-impression-date firewall regressed")
+    if adj12ba.get("morrison_rm_c41c1_may_be_called_genuine_1593_physical_copy") is not False or adj12ba.get("double_count_ncl_and_morrison_as_two_physical_witnesses") is not False or adj12ba.get("preventive_scope_adjudication_not_project_provenance_defect_repair") is not True:
+        fail("Batch 12BA physical-witness/dedup/provenance-defect firewall regressed")
+    effect12ba = ziwei_zhangguo_ba_evidence.get("project_consequence", {})
+    if effect12ba.get("audit_status") != "MISSING_FROM_PRODUCT" or effect12ba.get("runtime_winner_selected") is not False or effect12ba.get("candidate_collapsed") is not False or effect12ba.get("algorithm_reopen") is not False or effect12ba.get("provenance_defect_count_change") is not False:
+        fail("Batch 12BA HPA/algorithm/accounting firewall regressed")
+    registry12ba = {s.get("source_id"): s for s in registry.get("sources", ())}
+    ncl_reg12ba = registry12ba.get("EXT-ZIWEI-ZHANGGUO-NCL-SOAS-MIRR0000375")
+    mor_reg12ba = registry12ba.get("EXT-ZIWEI-ZHANGGUO-SOAS-MORRISON-RM-C41-C1")
+    if not ncl_reg12ba or ncl_reg12ba.get("physical_impression_1593_proven") is not False or ncl_reg12ba.get("independent_early_physical_witness_increment") != 0:
+        fail("Batch 12BA NCL registry date/witness firewall regressed")
+    if not mor_reg12ba or mor_reg12ba.get("inventory_date") != "1797" or mor_reg12ba.get("genuine_1593_physical_impression") is not False or mor_reg12ba.get("independent_early_physical_witness_increment") != 0:
+        fail("Batch 12BA Morrison registry physical-date firewall regressed")
 
     # Provenance/access-only batches can advance without changing any Matrix row.
     # The Matrix batch ledger remains an exact prefix; state may append explicitly
