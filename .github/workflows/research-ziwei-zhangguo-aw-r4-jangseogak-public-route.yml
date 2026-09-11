@@ -1,0 +1,67 @@
+name: research-ziwei-zhangguo-aw-r4-jangseogak-public-route
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r4-jangseogak-public-route.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve only publicly exposed Jangseogak original-data route
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/js evidence/routes
+          ORIGIN='https://jsg.aks.ac.kr'
+          for JS in \
+            '/resources/js/common.js?20210925' \
+            '/resources/js/search.js?20190015' \
+            '/resources/js/analysis.js?20230101' \
+            '/resources/js/nodeView.js'; do
+            NAME=$(printf '%s' "$JS" | sed 's#[/?=&]#_#g')
+            curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 \
+              -A 'Mozilla/5.0 Batch12AW-R4 research' "${ORIGIN}${JS}" \
+              -D "evidence/js/${NAME}.headers" \
+              -o "evidence/js/${NAME}.txt"
+          done
+
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          chunks=[]
+          for p in Path('evidence/js').glob('*.txt'):
+              s=p.read_text('utf-8', errors='replace')
+              for pat in [r'function\s+goOrgDataView\s*\([^)]*\)\s*\{.*?\n\}', r'goOrgDataView\s*=\s*function\s*\([^)]*\)\s*\{.*?\n\}']:
+                  for m in re.finditer(pat, s, flags=re.S):
+                      chunks.append({'file':p.name,'match':m.group(0)[:12000]})
+              for m in re.finditer(r'.{0,300}SJ_LIB.{0,500}', s, flags=re.S):
+                  chunks.append({'file':p.name,'sj_lib_context':m.group(0)})
+          Path('evidence/routes/function-context.json').write_text(json.dumps(chunks,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(chunks,ensure_ascii=False,indent=2))
+          PY
+
+          # Capture public OpenAPI landing page only; do not guess API parameters.
+          curl --location --retry 3 --connect-timeout 20 --max-time 120 \
+            -A 'Mozilla/5.0 Batch12AW-R4 research' \
+            'https://jsg.aks.ac.kr/jsgimg/openAPI' \
+            -D evidence/routes/openapi.headers \
+            -o evidence/routes/openapi.html || true
+
+          sha256sum evidence/js/*.txt evidence/routes/* 2>/dev/null | tee evidence/SHA256SUMS.txt || true
+
+      - name: Upload Batch 12AW R4 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-aw-r4-jangseogak-public-route
+          path: evidence
+          if-no-files-found: error
