@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.61.0",
+  "schema_version": "1.62.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -140,9 +140,10 @@
       "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
       "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
       "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
-      "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB"
+      "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
+      "BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -413,7 +414,10 @@
       "Batch 12BB follows the Fudan ancient-book portal source-emitted 綫裝古籍書目 route into the Fudan OPAC, rather than misusing the 明人文集书目 specialty endpoint as a general holdings catalog.",
       "Fudan first-party OPAC directly binds 新編評註通玄先生張果星宗大全 / 10卷 / 10冊(1函) / 刻本 / 善本 / 綫裝 / 明萬曆間 to call number rb2314, resource book no FDU01001127121, docId 34053686 and catalogueId 34053686; the first-party holdings API then binds one actual in-library item, barcode AB0613271-80, at 复旦大学光华楼古籍书库.",
       "Batch 12BB therefore adds one independent Fudan Ming-Wanli material-holding control, but not an exact 1594 physical-witness vote: the first-party record exposes neither 萬曆二十二/1594 nor 唐謙. The secondary exact-1594/Tang-Qian locator remains unpromoted, and the Jiangsu timeout remains a route boundary rather than a no-holding conclusion.",
-      "Batch 12BB adds zero target-text and Hai-glyph votes because no target leaf was obtained. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen. Next gate is a Fudan/SOAS first-party image or reproduction route, or another independent first-party exact 1593/1594 physical target leaf."
+      "Batch 12BB adds zero target-text and Hai-glyph votes because no target leaf was obtained. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen. Next gate is a Fudan/SOAS first-party image or reproduction route, or another independent first-party exact 1593/1594 physical target leaf.",
+      "Batch 12BC binds NACSIS/CiNii NCID BD05367609 to a Tohoku Main Library Wanli-22 [1594] five-volume target-title holding with volume registrations 01793921822/831/849/857/865 and Zhou Shi Wenguang publication metadata; because no public metadata explicitly crosswalks those accessions to NIJL BID 100238879, exact physical accession identity is HIGH_CONFIDENCE_NOT_FORMALLY_CLOSED and duplicate voting against Batch 12AW is forbidden.",
+      "Batch 12BC establishes the current Fudan first-party access boundary for rb2314 / FDU01001127121 / catalogueId 34053686: rare-book appointment one working day in advance, closed-stack in-library reading, and special-document reproduction only case-by-case. No target-specific reproduction request or public target image has been obtained.",
+      "The Chongqing Wanli-22 / 1594 six-volume claim remains a secondary locator only: Chongqing Library first-party pages confirm a major ancient-book collection but no exact target item record or target leaf was obtained. BC adds zero exact-1594 independent witness, target-text or Hai-glyph votes; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT and all algorithm invariants remain unchanged."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
