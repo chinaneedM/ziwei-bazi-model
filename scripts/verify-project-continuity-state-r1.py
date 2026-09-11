@@ -120,6 +120,8 @@ ZIWEI_ZHANGGUO_AW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_ZHANGGUO_AW_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json"
 ZIWEI_ZHANGGUO_AX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX.md"
 ZIWEI_ZHANGGUO_AX_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-R1.json"
+ZIWEI_ZHANGGUO_AY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY.md"
+ZIWEI_ZHANGGUO_AY_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-JANGSEOGAK-PUBLIC-ACCESS-BOUNDARY-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -179,9 +181,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",
     "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
     "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
+    "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY.md"
 
 
 def fail(message: str) -> None:
@@ -189,6 +192,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_AY_BATCH, ZIWEI_ZHANGGUO_AY_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AY continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_ZHANGGUO_AX_BATCH, ZIWEI_ZHANGGUO_AX_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AX continuity artifact missing: {path.relative_to(ROOT)}")
@@ -315,6 +322,7 @@ def main() -> int:
     ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_aw_evidence = json.loads(ZIWEI_ZHANGGUO_AW_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_ax_evidence = json.loads(ZIWEI_ZHANGGUO_AX_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_ay_evidence = json.loads(ZIWEI_ZHANGGUO_AY_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1104,6 +1112,40 @@ def main() -> int:
     src_registry12ax = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-ZIWEI-ZHANGGUO-TOHOKU-HIRAYAMA-GUANGXU7"), None)
     if not src_registry12ax or src_registry12ax.get("whole_volume_negative_authorized") is not False:
         fail("Batch 12AX registry scope firewall regressed")
+
+    # Batch 12AY Jangseogak 1594 public-access boundary.
+    if ziwei_zhangguo_ay_evidence.get("batch_id") != "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY":
+        fail("Batch 12AY evidence identity mismatch")
+    holdings12ay = {h.get("source_id"): h for h in ziwei_zhangguo_ay_evidence.get("holdings", ())}
+    dated12ay = holdings12ay.get("EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-1594", {})
+    undated12ay = holdings12ay.get("EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-UNDATED-20A", {})
+    if dated12ay.get("data_id") != "LIB_169178" or dated12ay.get("display_call_number") != "PC9A-20" or dated12ay.get("catalog_date") != "萬曆22(1594)":
+        fail("Batch 12AY dated Jangseogak holding binding regressed")
+    if undated12ay.get("data_id") != "LIB_169177" or undated12ay.get("display_call_number") != "PC9A-20A" or undated12ay.get("catalog_date") != "[刊年未詳]":
+        fail("Batch 12AY undated Jangseogak holding scope regressed")
+    route12ay = ziwei_zhangguo_ay_evidence.get("object_specific_route_probe", {})
+    if route12ay.get("workflow_run_id") != 34593669934 or route12ay.get("artifact_id") != 10260891530:
+        fail("Batch 12AY route-probe provenance regressed")
+    if route12ay.get("result") != "ALL_TESTED_ROUTES_HTTP_404_TEXT_HTML_NO_PDF_MAGIC" or route12ay.get("live_pdf_routes") != [] or route12ay.get("rendered_target_books") != []:
+        fail("Batch 12AY public-route boundary regressed")
+    adjudication12ay = ziwei_zhangguo_ay_evidence.get("adjudication", {})
+    if adjudication12ay.get("public_target_leaf_obtained") is not False or adjudication12ay.get("direct_glyph_collation_authorized") is not False or adjudication12ay.get("whole_holding_text_negative_authorized") is not False:
+        fail("Batch 12AY access-vs-text firewall regressed")
+    if adjudication12ay.get("same_edition_text_stability_vote_increment") != 0 or adjudication12ay.get("independent_target_text_witness_increment") != 0 or adjudication12ay.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AY witness accounting regressed")
+    effect12ay = ziwei_zhangguo_ay_evidence.get("project_consequence", {})
+    if effect12ay.get("audit_status") != "MISSING_FROM_PRODUCT" or effect12ay.get("new_candidate_family") is not False or effect12ay.get("runtime_winner_selected") is not False or effect12ay.get("candidate_collapsed") is not False or effect12ay.get("algorithm_reopen") is not False:
+        fail("Batch 12AY HPA/algorithm firewall regressed")
+    ext12ay = ziwei_zhangguo_ay_evidence.get("external_action_boundary", {})
+    if ext12ay.get("request_submitted") is not False or ext12ay.get("authorization_required_before_submission") is not True:
+        fail("Batch 12AY institutional-request authorization boundary regressed")
+    registry12ay = {s.get("source_id"): s for s in registry.get("sources", ())}
+    for source_id in ("EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-1594", "EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-UNDATED-20A"):
+        source = registry12ay.get(source_id)
+        if not source or source.get("target_leaf_obtained") is not False or source.get("whole_holding_text_negative_authorized") is not False:
+            fail(f"Batch 12AY registry scope firewall regressed for {source_id}")
+        if source.get("independent_target_text_witness_increment") != 0 or source.get("independent_hai_glyph_witness_increment") != 0:
+            fail(f"Batch 12AY registry vote accounting regressed for {source_id}")
 
     # Provenance/access-only batches can advance without changing any Matrix row.
     # The Matrix batch ledger remains an exact prefix; state may append explicitly

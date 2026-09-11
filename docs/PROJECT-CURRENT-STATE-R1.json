@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.57.0",
+  "schema_version": "1.58.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -136,9 +136,10 @@
       "BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU",
       "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",
       "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
-      "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX"
+      "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
+      "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -393,7 +394,11 @@
       "Batch 12AX corrects the post-AW Tohoku Hirayama acquisition route: record 10020000001143 / 卷之5-6 is a wrong-volume control for the AW target, so its OCR candidates and non-hits are acquisition provenance only and cannot support target-text absence.",
       "The correct Hirayama control is Tohoku record 10020000001144 / MA/591 / 卷之7-8 / 光緒7序 / 89 images. Direct no-OCR review of image 57 reads 此段專命婦人之命 and 婦人以身福為重官星可作夫元, locating the female-destiny boundary.",
       "Direct no-OCR review of the immediately preceding Hirayama image 56 does not show the AW 1594 人命多有生時不定…子亥互誤 passage or the 七政曆 night-Zi upper/lower-four-ke annotation. This supports a later-recension boundary difference/omission only; no whole-volume absence or interpolation claim is authorized.",
-      "Batch 12AX adds zero independent target-text/Hai-glyph votes. The 1594 AW physical leaf remains controlling for its wording; HPA-ZDATE-006 stays MISSING_FROM_PRODUCT and chart algorithm defect/reopen/candidate-collapse counters remain 0. Next high-value gate is another directly readable 1594 copy/Jangseogak target leaf or an independent witness explicitly stating upper/night Zi -> Hai."
+      "Batch 12AX adds zero independent target-text/Hai-glyph votes. The 1594 AW physical leaf remains controlling for its wording; HPA-ZDATE-006 stays MISSING_FROM_PRODUCT and chart algorithm defect/reopen/candidate-collapse counters remain 0. Next high-value gate is another directly readable 1594 copy/Jangseogak target leaf or an independent witness explicitly stating upper/night Zi -> Hai.",
+      "Batch 12AY directly binds Jangseogak LIB_169178 / PC9A-20 / C9A-20 / MF16/1453-1454 as a 中國木板本 10卷10冊 cataloged 萬曆22(1594) holding of 新編評註通玄先生張果星宗大全; LIB_169177 / PC9A-20A / C9A-20A / MF35/8437 is separately bound as a 10卷5冊 [刊年未詳] holding and must not be promoted to 1594 by inference.",
+      "Jangseogak adjacent control PC9A-23 / LIB_169174 exposes a real serviceFiles/pdf MF-PDF route, but the two Zhangguo directory records expose no image/MF-PDF link. Workflow 34593669934 / artifact 10260891530 tested PC9A-20 books 1-10 and PC9A-20A books 1-5; all 15 routes returned HTTP 404 text/html with no PDF magic.",
+      "Batch 12AY is therefore an object-specific public access boundary only: no target leaf bytes were obtained, no whole-holding textual negative is authorized, and no same-edition text-stability, target-text or Hai-glyph vote is added. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen.",
+      "A formal Jangseogak image/reproduction request remains an explicit external-action boundary requiring user authorization and any required identity/contact details; no request has been submitted. Next high-value gate is another publicly readable 1594/same-edition/near-edition physical target leaf or an independent historical witness explicitly supplying the missing upper/night-Zi -> Hai mechanical bridge."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
