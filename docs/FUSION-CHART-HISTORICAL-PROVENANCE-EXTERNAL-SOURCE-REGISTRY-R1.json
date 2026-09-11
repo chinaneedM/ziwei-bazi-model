@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-11",
+  "access_date": "2026-09-12",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -3103,6 +3103,36 @@
       "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
       "research_artifact": "docs/research/ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-R1.json",
       "quality_notes": "UCL shelfmark inventory binds L.g.9 / 張果星宗命格大全 / 1797 / one bound item to RM c.41.c.1. The Morrison Collection description classifies the title as a 1797 Qing reprint of a circa-1593 edition. No target leaf has been collated."
+    },
+    {
+      "source_id": "EXT-ZIWEI-ZHANGGUO-FUDAN-RB2314-MING-WANLI",
+      "title": "《新編評註通玄先生張果星宗大全》复旦大学古籍馆藏 rb2314",
+      "provider": "复旦大学图书馆古籍特藏 / Fudan OPAC and holdings API",
+      "url": "https://opac.fudan.edu.cn/#/gjRedirect",
+      "source_role": "FIRST_PARTY_MING_WANLI_PHYSICAL_HOLDING_CONTROL_EXACT_1594_NOT_PROVEN",
+      "catalog_date": "明萬曆間",
+      "resource_book_no": "FDU01001127121",
+      "doc_id": "34053686",
+      "catalogue_id": "34053686",
+      "call_number": "rb2314",
+      "barcode": "AB0613271-80",
+      "holding_location": "复旦大学 / 光华楼古籍书库",
+      "item_status": "在馆",
+      "physical_extent": "10冊（1函）",
+      "edition_type": "刻本",
+      "rare_book_class": "善本",
+      "binding": "綫裝",
+      "first_party_physical_holding_bound": true,
+      "exact_1594_or_wanli_22_proven": false,
+      "tang_qian_proven": false,
+      "target_leaf_obtained": false,
+      "ming_wanli_material_holding_control_increment": 1,
+      "independent_exact_1594_material_witness_increment": 0,
+      "independent_target_text_witness_increment": 0,
+      "independent_hai_glyph_witness_increment": 0,
+      "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
+      "research_artifact": "docs/research/ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-FIRST-PARTY-HOLDING-RECONCILIATION-R1.json",
+      "quality_notes": "Fudan first-party ancient-book portal -> OPAC -> target result -> detail -> holdings chain binds one in-library target-title physical item dated only 明萬曆間. No first-party 萬曆二十二/1594 or 唐謙 marker and no target leaf were observed; secondary exact-1594 locator claims are not promoted."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

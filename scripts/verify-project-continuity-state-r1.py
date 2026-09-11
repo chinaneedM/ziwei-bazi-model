@@ -126,6 +126,8 @@ ZIWEI_ZHANGGUO_AZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_ZHANGGUO_AZ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-R1.json"
 ZIWEI_ZHANGGUO_BA_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA.md"
 ZIWEI_ZHANGGUO_BA_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-R1.json"
+ZIWEI_ZHANGGUO_BB_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB.md"
+ZIWEI_ZHANGGUO_BB_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-FIRST-PARTY-HOLDING-RECONCILIATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -188,9 +190,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
     "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
     "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
+    "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB.md"
 
 
 def fail(message: str) -> None:
@@ -198,6 +201,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_BB_BATCH, ZIWEI_ZHANGGUO_BB_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12BB continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_ZHANGGUO_BA_BATCH, ZIWEI_ZHANGGUO_BA_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12BA continuity artifact missing: {path.relative_to(ROOT)}")
@@ -339,6 +346,7 @@ def main() -> int:
     ziwei_zhangguo_ay_evidence = json.loads(ZIWEI_ZHANGGUO_AY_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_az_evidence = json.loads(ZIWEI_ZHANGGUO_AZ_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_ba_evidence = json.loads(ZIWEI_ZHANGGUO_BA_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_bb_evidence = json.loads(ZIWEI_ZHANGGUO_BB_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1244,6 +1252,31 @@ def main() -> int:
         fail("Batch 12BA NCL registry date/witness firewall regressed")
     if not mor_reg12ba or mor_reg12ba.get("inventory_date") != "1797" or mor_reg12ba.get("genuine_1593_physical_impression") is not False or mor_reg12ba.get("independent_early_physical_witness_increment") != 0:
         fail("Batch 12BA Morrison registry physical-date firewall regressed")
+
+    # Batch 12BB Fudan first-party Ming-Wanli target holding reconciliation.
+    if ziwei_zhangguo_bb_evidence.get("batch_id") != "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB":
+        fail("Batch 12BB evidence identity mismatch")
+    target12bb = ziwei_zhangguo_bb_evidence.get("target_catalog_record", {})
+    if target12bb.get("title") != "新編評註通玄先生張果星宗大全" or target12bb.get("catalog_date") != "不详#明萬曆間":
+        fail("Batch 12BB Fudan title/date binding regressed")
+    if target12bb.get("resource_book_no") != "FDU01001127121" or target12bb.get("resource_smjlh") != "34053686" or target12bb.get("call_number") != "rb2314":
+        fail("Batch 12BB Fudan catalog identifiers regressed")
+    hold12bb = ziwei_zhangguo_bb_evidence.get("physical_holding", {})
+    if hold12bb.get("holding_total") != 1 or hold12bb.get("barcode") != "AB0613271-80" or hold12bb.get("permanent_location_name") != "光华楼古籍书库" or hold12bb.get("item_status_name") != "在馆":
+        fail("Batch 12BB Fudan physical-holding binding regressed")
+    edition12bb = ziwei_zhangguo_bb_evidence.get("edition_adjudication", {})
+    if edition12bb.get("independent_fudan_ming_wanli_material_holding_control_established") is not True or edition12bb.get("ming_wanli_material_holding_control_increment") != 1:
+        fail("Batch 12BB Ming-Wanli material control accounting regressed")
+    if edition12bb.get("exact_wanli_22_or_1594_observed_in_first_party_record") is not False or edition12bb.get("tang_qian_observed_in_first_party_record") is not False or edition12bb.get("secondary_locator_exact_1594_tang_qian_claim_promoted") is not False:
+        fail("Batch 12BB exact-1594/Tang-Qian evidence firewall regressed")
+    if edition12bb.get("exact_1594_material_witness_increment") != 0 or edition12bb.get("target_leaf_obtained") is not False or edition12bb.get("independent_target_text_witness_increment") != 0 or edition12bb.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12BB target-witness accounting regressed")
+    effect12bb = ziwei_zhangguo_bb_evidence.get("project_consequence", {})
+    if effect12bb.get("audit_status") != "MISSING_FROM_PRODUCT" or effect12bb.get("runtime_winner_selected") is not False or effect12bb.get("candidate_collapsed") is not False or effect12bb.get("algorithm_reopen") is not False or effect12bb.get("matrix_row_count_change") is not False:
+        fail("Batch 12BB HPA/algorithm/matrix firewall regressed")
+    registry12bb = {s.get("source_id"): s for s in registry.get("sources", ())}.get("EXT-ZIWEI-ZHANGGUO-FUDAN-RB2314-MING-WANLI")
+    if not registry12bb or registry12bb.get("first_party_physical_holding_bound") is not True or registry12bb.get("exact_1594_or_wanli_22_proven") is not False or registry12bb.get("independent_exact_1594_material_witness_increment") != 0:
+        fail("Batch 12BB Fudan registry evidence firewall regressed")
 
     # Provenance/access-only batches can advance without changing any Matrix row.
     # The Matrix batch ledger remains an exact prefix; state may append explicitly
