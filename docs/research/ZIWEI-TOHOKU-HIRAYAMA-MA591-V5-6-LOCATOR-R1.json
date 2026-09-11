@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1",
-  "status": "OCR_LOCATOR_ONLY_PENDING_DIRECT_VISUAL_COLLATION",
+  "status": "WRONG_VOLUME_CONTROL_ONLY_SUPERSEDED_FOR_AW_TARGET",
   "source": {
     "record_id": "10020000001143",
     "record_url": "https://touda.tohoku.ac.jp/collection/database/library/10020000001143",
@@ -785,5 +785,12 @@
         "attempt=1:ConnectionError:('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
       ]
     }
-  ]
+  ],
+  "route_correction": {
+    "corrected_in_batch": "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
+    "correct_record_id": "10020000001144",
+    "correct_volume": "卷之7-8",
+    "negative_textual_evidence_authorized": false,
+    "reason": "AW target is in the volume-8/female-section context; volume 5-6 OCR candidates remain acquisition provenance only."
+  }
 }

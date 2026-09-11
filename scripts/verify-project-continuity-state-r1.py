@@ -118,6 +118,8 @@ ZIWEI_SANCAI_AV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_SANCAI_AV_EVIDENCE = ROOT / "docs/research/ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-R1.json"
 ZIWEI_ZHANGGUO_AW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"
 ZIWEI_ZHANGGUO_AW_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json"
+ZIWEI_ZHANGGUO_AX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX.md"
+ZIWEI_ZHANGGUO_AX_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -176,9 +178,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU",
     "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",
     "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
+    "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX.md"
 
 
 def fail(message: str) -> None:
@@ -186,6 +189,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_AX_BATCH, ZIWEI_ZHANGGUO_AX_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AX continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_ZHANGGUO_AW_BATCH, ZIWEI_ZHANGGUO_AW_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AW continuity artifact missing: {path.relative_to(ROOT)}")
@@ -307,6 +314,7 @@ def main() -> int:
     ziwei_jielan_aq_evidence = json.loads(ZIWEI_JIELAN_AQ_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_aw_evidence = json.loads(ZIWEI_ZHANGGUO_AW_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_ax_evidence = json.loads(ZIWEI_ZHANGGUO_AX_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1071,6 +1079,31 @@ def main() -> int:
     for key, expected in parity.items():
         if audit_state.get(key) != expected:
             fail(f"current-state historical audit parity mismatch for {key}: state={audit_state.get(key)!r} matrix={expected!r}")
+
+    # Batch 12AX Zhangguo Hirayama Guangxu-7 recension control.
+    if ziwei_zhangguo_ax_evidence.get("batch_id") != "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX":
+        fail("Batch 12AX evidence identity mismatch")
+    src12ax = ziwei_zhangguo_ax_evidence.get("source", {})
+    if src12ax.get("record_id") != "10020000001144" or src12ax.get("volume") != "卷之7-8" or src12ax.get("catalog_date_label") != "光緒7序":
+        fail("Batch 12AX corrected Hirayama source binding regressed")
+    route12ax = ziwei_zhangguo_ax_evidence.get("route_correction", {})
+    if route12ax.get("wrong_record_id") != "10020000001143" or route12ax.get("wrong_volume_negative_evidence_authorized") is not False:
+        fail("Batch 12AX wrong-volume firewall regressed")
+    vis12ax = ziwei_zhangguo_ax_evidence.get("direct_visual_collation", {})
+    if vis12ax.get("page_56", {}).get("sha256") != "f0c93d6a4a4a475008cf130edc2772a0cec5b99ee6b209bdf768070fd6ee88a7":
+        fail("Batch 12AX page-56 visual binding regressed")
+    if vis12ax.get("page_57", {}).get("sha256") != "3c4e174d21cab9722c39482b1ce1233eaeb476458f15c0b8c90fb3627b40f26c":
+        fail("Batch 12AX page-57 visual binding regressed")
+    if vis12ax.get("page_57", {}).get("secure_heading_note") != "此段專命婦人之命":
+        fail("Batch 12AX female-section anchor regressed")
+    effect12ax = ziwei_zhangguo_ax_evidence.get("project_consequence", {})
+    if effect12ax.get("audit_status") != "MISSING_FROM_PRODUCT" or effect12ax.get("algorithm_reopen") is not False or effect12ax.get("candidate_collapsed") is not False:
+        fail("Batch 12AX HPA/algorithm firewall regressed")
+    if effect12ax.get("independent_target_text_witness_increment") != 0 or effect12ax.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AX witness accounting regressed")
+    src_registry12ax = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-ZIWEI-ZHANGGUO-TOHOKU-HIRAYAMA-GUANGXU7"), None)
+    if not src_registry12ax or src_registry12ax.get("whole_volume_negative_authorized") is not False:
+        fail("Batch 12AX registry scope firewall regressed")
 
     # Provenance/access-only batches can advance without changing any Matrix row.
     # The Matrix batch ledger remains an exact prefix; state may append explicitly

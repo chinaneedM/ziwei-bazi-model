@@ -1,0 +1,94 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
+  "status": "DIRECT_RECENSION_CONTROL_COLLATED_WRONG_VOLUME_ROUTE_CORRECTED",
+  "question": "Does the Tohoku Hirayama MA/591 Guangxu-7 preface recension preserve the 1594 night-Zi / Zi-Hai passage at the female-section boundary?",
+  "source": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-TOHOKU-HIRAYAMA-GUANGXU7",
+    "provider": "Tohoku University Digital Archives / Main Library Hirayama Collection",
+    "record_id": "10020000001144",
+    "record_url": "https://touda.tohoku.ac.jp/collection/database/library/10020000001144",
+    "manifest_url": "https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000001144/manifest.json",
+    "title": "新編評註通玄先生張果星宗大全",
+    "creator": "陸位輯校",
+    "volume": "卷之7-8",
+    "catalog_date_label": "光緒7序",
+    "call_number": "MA/591",
+    "former_owner": "平山諦",
+    "declared_image_count": 89,
+    "catalog_role": "LATER_RECENSION_CONTROL_NOT_EARLIER_WITNESS"
+  },
+  "route_correction": {
+    "wrong_record_id": "10020000001143",
+    "wrong_volume": "卷之5-6",
+    "wrong_volume_catalog_date_label": "正徳5",
+    "wrong_route_artifact": "docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json",
+    "correct_record_id": "10020000001144",
+    "correct_volume": "卷之7-8",
+    "reason": "The AW target sits in the Zhangguo Xingzong volume-8 context immediately before the female-destiny section; volume 5-6 was therefore the wrong acquisition route for this proposition.",
+    "wrong_volume_negative_evidence_authorized": false
+  },
+  "machine_routes": {
+    "full_volume_locator_run_id": 34591055695,
+    "full_volume_locator_result": {
+      "declared_pages": 89,
+      "downloaded_pages": 89,
+      "failed_pages": 0,
+      "ocr_positive_pages": [
+        25,
+        42,
+        47,
+        84
+      ],
+      "ocr_positive_terms": [
+        "生時"
+      ],
+      "ocr_role": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+      "push_status": "LOCAL_EVIDENCE_COMMIT_CREATED_BUT_REMOTE_PUSH_REJECTED_AFTER_CONCURRENT_BRANCH_ADVANCE"
+    },
+    "direct_visual_pack_run_id": 34591234105,
+    "direct_visual_pack_artifact_id": 10195723595,
+    "direct_visual_pack_artifact_digest": "sha256:006af2fe24153f8b8d44fa5e05981a350fb17343aa9212868c514c80e71a843a",
+    "direct_visual_pack_scope": "TOHOKU_MA591_V7-8_PAGES_040_TO_089"
+  },
+  "direct_visual_collation": {
+    "page_56": {
+      "iiif_image_url_1200": "https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F05%2Fq065050056l.tif/full/1200,/0/default.jpg",
+      "sha256": "f0c93d6a4a4a475008cf130edc2772a0cec5b99ee6b209bdf768070fd6ee88a7",
+      "role": "IMMEDIATE_PRECEDING_IMAGE_BEFORE_DIRECTLY_OBSERVED_FEMALE_SECTION_ANCHOR",
+      "aw_1594_main_passage_observed": false,
+      "aw_1594_night_zi_four_ke_annotation_observed": false,
+      "scope_note": "Direct statement about this reviewed image only; not a whole-volume negative-search claim."
+    },
+    "page_57": {
+      "iiif_image_url_1200": "https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F05%2Fq065050057l.tif/full/1200,/0/default.jpg",
+      "sha256": "3c4e174d21cab9722c39482b1ce1233eaeb476458f15c0b8c90fb3627b40f26c",
+      "role": "DIRECT_FEMALE_SECTION_ANCHOR",
+      "secure_heading_note": "此段專命婦人之命",
+      "secure_main_text_opening": "婦人以身福為重官星可作夫元",
+      "female_section_anchor_observed": true
+    }
+  },
+  "philology": {
+    "1594_aw_witness_status": "CONTROLLING_DIRECT_PHYSICAL_WITNESS_FOR_ATTESTED_PASSAGE",
+    "guangxu7_hirayama_status": "LATER_RECENSION_CONTROL_WITH_TARGET_PASSAGE_NOT_OBSERVED_AT_REVIEWED_FEMALE_SECTION_BOUNDARY",
+    "authorized_inference": "RECENSIONAL_DIFFERENCE_OR_OMISSION_AT_THIS_REVIEWED_BOUNDARY",
+    "not_authorized": [
+      "Do not infer that the 1594 passage was interpolated merely because the later recension lacks it at the reviewed boundary.",
+      "Do not infer whole-volume absence from OCR non-hits.",
+      "Do not infer upper-Zi to Hai from the Guangxu-7 recension.",
+      "Do not count the wrong volume 5-6 probe as negative textual evidence."
+    ]
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "matrix_count_change": false
+  }
+}
