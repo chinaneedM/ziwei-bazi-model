@@ -36,9 +36,9 @@ jobs:
           manifest = []
           for page in pages:
               name = f'q065040{page:03d}l.tif'
-              service = f'{root}/{name}'
-              # The provider route is already proven at 1200px by the locator workflow.
-              # Preserve that exact retrieval shape instead of assuming a larger IIIF width.
+              # Preserve the provider's fully percent-encoded path exactly as emitted
+              # by the successful locator workflow. The final separator is %2F, not /.
+              service = f'{root}%2F{name}'
               url = service + '/full/1200,/0/default.jpg'
               last = None
               for attempt in range(1, 6):
