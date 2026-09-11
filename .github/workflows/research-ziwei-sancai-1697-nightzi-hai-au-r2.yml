@@ -1,0 +1,95 @@
+name: research-ziwei-sancai-1697-nightzi-hai-au-r2
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sancai-1697-nightzi-hai-au-r2.yml
+
+permissions:
+  contents: read
+
+jobs:
+  lock-target-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Render exact 1697 target pages without OCR
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          out = Path('out')
+          render = out / 'renders'
+          render.mkdir(parents=True)
+          title = 'File:Harvard drs 52822721 三才發秘天部二卷 v.3.pdf'
+          params = {
+              'action': 'query', 'format': 'json', 'prop': 'imageinfo',
+              'iiprop': 'url|sha1|size', 'titles': title,
+          }
+          api = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(params)
+          req = urllib.request.Request(api, headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          data = json.load(urllib.request.urlopen(req, timeout=60))
+          info = next(iter(data['query']['pages'].values()))['imageinfo'][0]
+          pdf = out / 'sancai-v3.pdf'
+          req = urllib.request.Request(info['url'], headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          with urllib.request.urlopen(req, timeout=180) as src, pdf.open('wb') as dst:
+              while True:
+                  chunk = src.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  dst.write(chunk)
+
+          pdf_sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
+          targets = [16, 17]
+          for p in targets:
+              subprocess.run([
+                  'pdftoppm', '-f', str(p), '-singlefile', '-jpeg', '-r', '400',
+                  str(pdf), str(render / f'page-{p:04d}')
+              ], check=True)
+
+          page_files = []
+          for path in sorted(render.glob('*.jpg')):
+              page_files.append({
+                  'file': path.name,
+                  'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                  'bytes': path.stat().st_size,
+              })
+
+          manifest = {
+              'schema': 'ZIWEI-SANCAI-1697-NIGHTZI-HAI-AU-R2-TARGET-LOCK',
+              'source_title': title,
+              'resolved_original_url': info['url'],
+              'commons_sha1': info.get('sha1'),
+              'commons_size': info.get('size'),
+              'pdf_sha256': pdf_sha,
+              'target_pdf_pages': targets,
+              'render_dpi': 400,
+              'ocr_used': False,
+              'visual_review_targets': {
+                  'p16': '原甲子日有兩子時; 前半子還屬陰原為昨日之辰; 子時八刻前四刻/後四刻 distinction',
+                  'p17': '今人不知此理，往往以夜子作亥，用于尅擇祿命...'
+              },
+              'interpretive_firewall': [
+                  'The author reports and rejects 夜子作亥; attestation is not endorsement.',
+                  'This witness does not by itself prove textual genealogy with 紫微斗數全書.',
+                  'This witness does not select a runtime winner or collapse candidates.'
+              ],
+              'page_files': page_files,
+          }
+          (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sancai-1697-nightzi-hai-au-r2-target-lock
+          path: out/
+          retention-days: 90
