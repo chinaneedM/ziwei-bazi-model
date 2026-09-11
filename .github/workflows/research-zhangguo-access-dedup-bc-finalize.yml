@@ -24,6 +24,25 @@ jobs:
           python-version: '3.12'
       - name: Prepare Batch 12BC semantic closure
         run: python .github/scripts/finalize-zhangguo-access-dedup-bc.py
+      - name: Register Batch 12BC in continuity verifier
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('scripts/verify-project-continuity-state-r1.py')
+          text = p.read_text(encoding='utf-8')
+          bb = '    "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",\n]'
+          bc = '    "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",\n    "BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC",\n]'
+          if bb not in text:
+              raise SystemExit('supplemental batch tail anchor missing')
+          text = text.replace(bb, bc, 1)
+          old_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB.md"'
+          new_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC.md"'
+          if old_doc not in text:
+              raise SystemExit('latest batch doc anchor missing')
+          text = text.replace(old_doc, new_doc, 1)
+          p.write_text(text, encoding='utf-8')
+          PY
       - name: Verify prepared state
         run: |
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
