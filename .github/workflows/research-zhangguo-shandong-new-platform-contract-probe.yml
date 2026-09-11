@@ -10,74 +10,82 @@ permissions:
   contents: read
 
 jobs:
-  probe:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
+  egress:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Probe source-emitted public contract only
+      - name: Cross-egress DNS TCP TLS HTTP probe
+        shell: bash
         run: |
           python - <<'PY'
-          import hashlib, html, json, re, urllib.parse, urllib.request
+          import json, socket, ssl, urllib.request
           from pathlib import Path
 
-          roots = ['https://guji.sdlib.cn/', 'https://guji.sdlib.cn/gujih5/']
-          target_id = '151613020240003'
-          target_title = '新編評註通玄先生張果星宗大全'
-          ua = 'Mozilla/5.0 research-contract-probe/1.0'
+          host='guji.sdlib.cn'
+          urls=['https://guji.sdlib.cn/','https://guji.sdlib.cn/gujih5/','http://guji.sdlib.cn/']
+          out={'schema':'SHANDONG-NEW-PLATFORM-CROSS-EGRESS-R1','host':host,'dns':[],'tcp':[],'tls':[],'http':[]}
+          try:
+              infos=socket.getaddrinfo(host,None)
+              vals=[]
+              for fam,typ,proto,canon,addr in infos:
+                  row={'family':fam,'address':addr[0]}
+                  if row not in vals: vals.append(row)
+              out['dns']=vals
+          except Exception as e:
+              out['dns_error']=f'{type(e).__name__}: {e}'
 
-          def fetch(url):
-              req = urllib.request.Request(url, headers={'User-Agent': ua, 'Accept': '*/*'})
+          for port in (443,80):
+              ips=[]
               try:
-                  with urllib.request.urlopen(req, timeout=20) as r:
-                      body = r.read(6_000_000)
-                      return {'requested_url': url, 'status': r.status, 'final_url': r.geturl(),
-                              'content_type': r.headers.get('content-type'), 'body_len': len(body),
-                              'sha256': hashlib.sha256(body).hexdigest(), 'body': body}
+                  infos=socket.getaddrinfo(host,port,type=socket.SOCK_STREAM)
+                  ips=[]
+                  for fam,typ,proto,canon,addr in infos:
+                      key=(fam,addr[0])
+                      if key not in ips: ips.append(key)
               except Exception as e:
-                  return {'requested_url': url, 'error': f'{type(e).__name__}: {e}', 'body': b''}
+                  out['tcp'].append({'port':port,'resolve_error':f'{type(e).__name__}: {e}'})
+              for fam,ip in ips[:6]:
+                  row={'port':port,'family':fam,'ip':ip}
+                  s=socket.socket(fam,socket.SOCK_STREAM); s.settimeout(7)
+                  try:
+                      s.connect((ip,port)); row['connected']=True
+                      if port==443:
+                          ctx=ssl.create_default_context()
+                          with ctx.wrap_socket(s,server_hostname=host) as ss:
+                              row['tls_version']=ss.version(); row['tls_cipher']=ss.cipher()[0]
+                              cert=ss.getpeercert(); row['cert_subject']=cert.get('subject'); row['cert_not_after']=cert.get('notAfter')
+                          s=None
+                  except Exception as e:
+                      row['connected']=False; row['error']=f'{type(e).__name__}: {e}'
+                  finally:
+                      if s:
+                          try:s.close()
+                          except:pass
+                  out['tcp'].append(row)
 
-          out = {'schema':'SHANDONG-NEW-ANCIENT-BOOK-PLATFORM-PUBLIC-CONTRACT-PROBE-R1',
-                 'roots':[], 'assets':[], 'candidate_literals':[], 'target_literal_hits':[]}
-          assets=[]
-          for root in roots:
-              r=fetch(root); body=r.pop('body',b''); text=body.decode('utf-8','replace')
-              r['target_id_literal_present']=target_id in text
-              r['target_title_literal_present']=target_title in text
-              r['html_prefix']=text[:1200]
-              out['roots'].append(r)
-              for raw in re.findall(r'''(?:src|href)=["']([^"']+)["']''', text, re.I):
-                  u=urllib.parse.urljoin(root, html.unescape(raw)); p=urllib.parse.urlparse(u)
-                  if p.hostname=='guji.sdlib.cn' and (p.path.endswith('.js') or '.js?' in u): assets.append(u)
-
-          for u in list(dict.fromkeys(assets))[:30]:
-              r=fetch(u); body=r.pop('body',b''); text=body.decode('utf-8','replace')
-              r['target_id_literal_present']=target_id in text
-              r['target_title_literal_present']=target_title in text
-              out['assets'].append(r)
-              if target_id in text or target_title in text:
-                  out['target_literal_hits'].append({'asset':u,'id':target_id in text,'title':target_title in text})
-              c=set()
-              for m in re.findall(r'''https?://[^"'\\\s<>]{4,300}''', text):
-                  if any(k in m.lower() for k in ('api','book','guji','search','resource','file','content','detail')): c.add(m[:300])
-              for m in re.findall(r'''["'](/[^"'\\]{2,240})["']''', text):
-                  if any(k in m.lower() for k in ('api','book','guji','search','resource','file','content','detail','ancient')): c.add(m)
-              for x in sorted(c): out['candidate_literals'].append({'asset':u,'literal':x})
-
-          out['candidate_literals']=out['candidate_literals'][:1200]
-          out['summary']={'root_success_count':sum(x.get('status')==200 for x in out['roots']),
-                          'js_asset_count':len(out['assets']),
-                          'candidate_literal_count':len(out['candidate_literals']),
-                          'target_literal_hit_count':len(out['target_literal_hits']),
-                          'policy':'SOURCE_EMITTED_CONTRACT_ONLY_NO_GUESSED_API_CALLS_NO_LOGIN_NO_AUTH_BYPASS'}
-          Path('sdlib-new-platform-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          for url in urls:
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 cross-egress-probe/1.0'})
+              row={'url':url}
+              try:
+                  with urllib.request.urlopen(req,timeout=10) as r:
+                      body=r.read(512)
+                      row.update(status=r.status,final_url=r.geturl(),content_type=r.headers.get('content-type'),prefix=body.decode('utf-8','replace'))
+              except Exception as e:
+                  row['error']=f'{type(e).__name__}: {e}'
+              out['http'].append(row)
+          p=Path('sdlib-egress.json'); p.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: sdlib-new-platform-public-contract-probe
-          path: sdlib-new-platform-probe.json
+          name: sdlib-new-platform-egress-${{ runner.os }}
+          path: sdlib-egress.json
           if-no-files-found: error
