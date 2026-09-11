@@ -37,7 +37,9 @@ jobs:
           for page in pages:
               name = f'q065040{page:03d}l.tif'
               service = f'{root}/{name}'
-              url = service + '/full/2400,/0/default.jpg'
+              # The provider route is already proven at 1200px by the locator workflow.
+              # Preserve that exact retrieval shape instead of assuming a larger IIIF width.
+              url = service + '/full/1200,/0/default.jpg'
               last = None
               for attempt in range(1, 6):
                   try:
