@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.52.0",
+  "schema_version": "1.53.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -131,9 +131,10 @@
       "BATCH-12-ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-AP",
       "BATCH-12-ZIWEI-JIELAN-BIBLIOGRAPHIC-IMPRINT-RECONCILIATION-AQ",
       "BATCH-12-ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-AR",
-      "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS"
+      "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS",
+      "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -369,7 +370,11 @@
       "Batch 12AS corrects the Tushu Bian physical locator: Harvard v.32 PDF p3 directly begins 圖書編卷之二十二 / 時令總敘, while Harvard v.38 p3 begins 卷二十八 and is not the timekeeping target. Bare juan numbers are recension-scoped and must not be cross-mapped without edition-specific physical evidence.",
       "Batch 12AS Harvard v.32 p38 directly reads 若子時則上半時在夜半前屬昨日下半時在夜半後屬今日. This strongly corroborates the generic midnight previous/current-day orientation but is not mechanically identical to Fullbook 上五刻屬昨夜亥時 because 屬昨日 does not itself reclassify the upper half to Hai branch.",
       "Batch 12AS Harvard v.32 p39/p41 directly binds 刻漏總論 and clepsydra timekeeping calibrated by astronomical instruments/celestial motion. This strengthens the early technical bridge but does not authorize inserting 行漏/刻漏 into the Fullbook 陰雨之際必須羅經 sentence.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AS. Fullbook-line cloudy/rainy current-time acquisition remains unresolved; runtime standard selection, candidate collapse and algorithm reopen all remain forbidden pending a source-scoped mechanical chain."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AS. Fullbook-line cloudy/rainy current-time acquisition remains unresolved; runtime standard selection, candidate collapse and algorithm reopen all remain forbidden pending a source-scoped mechanical chain.",
+      "Batch 12AT corrects the NCL 1578 Sanming Tonghui locator forward-only: Commons filename suffix 1/2 is a scan-file split, not juan number. Earlier suffix-2 p34-p44 probes are locator misses and authorize no content-negative inference.",
+      "Batch 12AT direct no-OCR physical collation locks NCL 1578 PDF p132 論日刻 to 銅壺貯水/漏下/百刻 and p133 論時刻 to 若子時則上半時在夜半前為昨日，下半時在夜半後屬今日. The 1578 physical glyph asymmetry 為昨日/屬今日 must not be normalized to the 1613 Tushu Bian 屬昨日/屬今日 reading.",
+      "Batch 12AT p136-p137 directly places birth-time accuracy, 夜半不分其日, 子亥中間厥時難定, 陰晴倏忽/寒煖迥別, 授時曆 and 密察而詳問 in one mantic operational discussion. This strengthens the historical timing context but does not itself reclassify upper-half Zi to Hai branch.",
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AT. Same-book clepsydra plus weather language does not supply the missing explicit Fullbook cloudy/rain current-time acquisition edge; genealogy, runtime winner, candidate collapse and algorithm reopen remain unresolved/forbidden."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
