@@ -1,0 +1,37 @@
+name: research-ziwei-zhangguo-aw-r10-nijl-pretable-window
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r10-nijl-pretable-window.yml
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch NIJL pages 250-325 for direct visual collation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          seq 250 325 | xargs -P12 -I{} bash -c '
+            i={}; printf -v n "%05d" "$i"; printf -v s "%03d" "$i";
+            curl -L --fail --retry 3 --silent --show-error \
+              "https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-${n}.tif/full/900,/0/default.jpg" \
+              -o "out/page-${s}.jpg"
+          '
+          sha256sum out/page-*.jpg > out/sha256.txt
+      - name: Upload pretable scan window
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-aw-r10-nijl-pretable-window
+          path: out/
+          if-no-files-found: error
+          compression-level: 0
