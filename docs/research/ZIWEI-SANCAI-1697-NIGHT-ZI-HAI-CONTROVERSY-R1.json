@@ -1,0 +1,126 @@
+{
+  "schema": "ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU",
+  "status": "DIRECT_1697_PHYSICAL_WITNESS_LOCKED_HISTORICAL_NIGHT_ZI_TO_HAI_PRACTICE_ATTESTED_BUT_REJECTED_BY_AUTHOR_NO_RUNTIME_WINNER_NO_ALGORITHM_REOPEN",
+  "question": {
+    "primary": "Does an edition-scoped historical shushu witness directly attest that practitioners treated night-Zi as Hai in selection or natal-fate work, rather than leaving the Fullbook Hai reclassification as an isolated modern interpretation?",
+    "secondary": "If attested, does that witness endorse the practice, prove textual genealogy with the Ziwei Fullbook, or justify selecting a runtime winner?"
+  },
+  "authority_firewall": {
+    "ocr_used_for_decisive_glyph_claims": false,
+    "modern_transcription_is_glyph_authority": false,
+    "reported_practice_equals_author_endorsement": false,
+    "mechanical_similarity_proves_textual_genealogy": false,
+    "eight_ke_equals_fullbook_ten_named_positions_without_bridge": false,
+    "runtime_standard_selected": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false
+  },
+  "source": {
+    "source_id": "EXT-SANCAI-HARVARD-1697-V3",
+    "work": "三才發秘",
+    "section": "天部卷二《原甲子日有兩子時》",
+    "author": "陳雯",
+    "historical_period": "清康熙",
+    "edition_scope": "Harvard-Yenching physical scan; Commons metadata dates the work 1697 from the preface and identifies 德星堂寶翰樓藏版",
+    "commons_file": "File:Harvard drs 52822721 三才發秘天部二卷 v.3.pdf",
+    "commons_page_url": "https://commons.wikimedia.org/wiki/File:Harvard_drs_52822721_%E4%B8%89%E6%89%8D%E7%99%BC%E7%A7%98%E5%A4%A9%E9%83%A8%E4%BA%8C%E5%8D%B7_v.3.pdf",
+    "harvard_catalog_url": "https://id.lib.harvard.edu/alma/990080884350203941/catalog",
+    "commons_sha1": "58b1b92aee55c190092e09c89b61993b4ca1ba40",
+    "pdf_sha256": "3c226eb8b1d70568e0ce6c5df7f4f4eae8c6ad35b44f6ed6ec47d78261786a11",
+    "pdf_page_count": 76
+  },
+  "bibliographic_controls": {
+    "commons_metadata": {
+      "author": "陳雯",
+      "publication_date": "1697? / 1697",
+      "date_basis": "imprint date from preface",
+      "holding": "Harvard-Yenching Library, Harvard University",
+      "extent": "10 v."
+    },
+    "author_self_preface_received_text_control": "康熙三十六年，歲次丁丑...新安後學陳雯耕山氏識",
+    "note": "Received-text/index surfaces were used for discovery and bibliographic orientation only. Physical-page glyph conclusions below come from the Harvard scan without OCR."
+  },
+  "workflow_evidence": {
+    "r1_broad_locator": {
+      "run_id": 34558586685,
+      "artifact_id": 10183491031,
+      "artifact_digest": "sha256:3029f9747b3ac4e2f6bc062de4e631cbf877ee1825427008c76fdfd53bb40b9e",
+      "rendered_pages": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
+      "adjudication": "LOCATOR_WINDOW_MISS_ONLY. Those pages are not used as a negative textual inference."
+    },
+    "r2_target_lock": {
+      "run_id": 34559011255,
+      "artifact_id": 10183637134,
+      "artifact_digest": "sha256:9df6312b4424a42243f4834e56252e07e087af4c8d56a9a3720479372da4af8a",
+      "render_dpi": 400,
+      "ocr_used": false,
+      "page_16_sha256": "313e7196e348aaa7801042c528095c795aa2b3e8bce581b56c6a8da702bdaa6b",
+      "page_17_sha256": "3fafcd95d7e60d7d1fcf350aecc35bdda5697b4fd9827d1555eeb8d516c998f7"
+    }
+  },
+  "direct_physical_collation": {
+    "pdf_p16": {
+      "heading": "原甲子日有兩子時",
+      "decisive_glyph_sequences": [
+        "子居正北之位前半子還屬陰原為昨日之辰",
+        "至交正子方一陽生始為今日之辰",
+        "至於子時八刻前四刻為昨日辰後四刻為今日辰"
+      ],
+      "mechanical_reading": [
+        "Zi is internally split around Zi-zheng.",
+        "The pre-Zi-zheng half is attributed to the previous day.",
+        "The post-Zi-zheng half is attributed to the current day.",
+        "This source describes eight ke and a four-ke/four-ke division; it is not silently normalized to the Fullbook's ten named positions."
+      ]
+    },
+    "pdf_p17": {
+      "decisive_glyph_sequence": "今人不知此理往往以夜子作亥用于尅擇祿命豈能協于天地之真機乎",
+      "mechanical_reading": [
+        "The text directly attests a practice of treating 夜子 as 亥.",
+        "The text explicitly places that practice in 尅擇 and 祿命 usage.",
+        "The author rejects the practice through a rhetorical criticism; the witness is attestation of controversy, not endorsement."
+      ]
+    }
+  },
+  "comparison_to_fullbook": {
+    "fullbook_direct_rule": "子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+    "sancai_author_rule": "前半子 remains the previous-day side while still being discussed as 夜子/子; the author rejects practitioners who make 夜子 into 亥",
+    "new_historical_result": "NIGHT_ZI_TO_HAI_RECLASSIFICATION_IS_A_HISTORICALLY_ATTESTED_SHUSHU_PRACTICE_AND_CONTROVERSY_NOT_A_MODERN_INVENTION",
+    "not_proved": [
+      "The Fullbook copied this exact practice from 三才發秘.",
+      "三才發秘 copied the Fullbook.",
+      "The two texts share a direct ancestor for this sentence.",
+      "The Fullbook's 上五刻 mechanics are identical to 三才發秘's 前四刻 mechanics.",
+      "Night-Zi-to-Hai is historically universal or should be the runtime default."
+    ]
+  },
+  "effect_on_hpa_zdate_006": {
+    "before": "MISSING_FROM_PRODUCT",
+    "after": "MISSING_FROM_PRODUCT",
+    "historical_status_refinement": "FULLBOOK_HAI_BRANCH_RECLASSIFICATION_NO_LONGER_ISOLATED; A SAME-PROBLEM HISTORICAL PRACTICE IS DIRECTLY ATTESTED AND CONTEMPORARILY DISPUTED",
+    "runtime_winner": null,
+    "new_candidate_family": false,
+    "candidate_collapse": false,
+    "algorithm_reopen": false,
+    "cloudy_rain_current_time_acquisition": "UNRESOLVED"
+  },
+  "accounting": {
+    "matrix_row_count": 198,
+    "audited_row_count": 166,
+    "current_missing_from_product_row_count": 10,
+    "identified_missing_candidate_family_count": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search for earlier or independent physical witnesses of 夜子作亥 / upper-half-Zi-to-Hai to establish the history and genealogy of the disputed practice.",
+    "Independently continue the still-open Fullbook cloudy/rain current-time acquisition chain; 三才發秘 1697 does not close that mechanism.",
+    "Do not select a runtime winner until source-scoped mechanics and school/genealogy evidence justify it."
+  ]
+}
