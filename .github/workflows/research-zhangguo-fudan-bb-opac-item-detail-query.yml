@@ -1,0 +1,184 @@
+name: research-zhangguo-fudan-bb-opac-item-detail-query
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-zhangguo-fudan-bb-opac-item-detail-query.yml
+
+permissions:
+  contents: write
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query first-party Fudan ancient-book detail and holdings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          CATALOGUE_ID = '34053686'
+          DETAIL = f'https://fdulspgw.fudan.edu.cn/urdh/open-api/opac/search/smjlh/{CATALOGUE_ID}'
+          HOLDINGS = 'https://fdulspgw.fudan.edu.cn/alsp/open-api/opac/v2/holdings'
+          OUT = Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json')
+          MARKERS = ['萬曆二十二', '万历二十二', '1594', '唐謙', '唐谦']
+          IMAGE_KEYS = ['resource_dzzydwyfw', 'resource_alephxtsjwybsf', 'ztbxcadal', 'iiif', 'manifest', 'image']
+
+          s = requests.Session()
+          s.headers.update({
+              'User-Agent': 'Mozilla/5.0 provenance-research/1.0',
+              'Accept': 'application/json, text/plain, */*',
+              'Origin': 'https://opac.fudan.edu.cn',
+              'Referer': 'https://opac.fudan.edu.cn/#/resultGj',
+          })
+
+          def fetch_json(url, params=None):
+              rec = {'url': url, 'params': params or {}}
+              try:
+                  r = s.get(url, params=params, timeout=30, allow_redirects=True)
+                  raw = r.content
+                  rec['response'] = {
+                      'status': r.status_code,
+                      'final_url': r.url,
+                      'content_type': r.headers.get('content-type'),
+                      'bytes': len(raw),
+                      'sha256': hashlib.sha256(raw).hexdigest(),
+                  }
+                  try:
+                      rec['json'] = r.json()
+                  except Exception as exc:
+                      rec['json_error'] = repr(exc)
+                      rec['text_prefix'] = raw[:4000].decode('utf-8', errors='replace')
+              except Exception as exc:
+                  rec['request_error_type'] = type(exc).__name__
+                  rec['request_error'] = repr(exc)
+              return rec
+
+          detail = fetch_json(DETAIL)
+          holdings = fetch_json(HOLDINGS, {'catalogueId': CATALOGUE_ID})
+
+          def json_text(obj):
+              return json.dumps(obj, ensure_ascii=False, sort_keys=True) if obj is not None else ''
+
+          dtext = json_text(detail.get('json'))
+          htext = json_text(holdings.get('json'))
+          marker_hits = {
+              marker: {
+                  'detail': marker in dtext,
+                  'holdings': marker in htext,
+              }
+              for marker in MARKERS
+          }
+
+          def extract_data_list(envelope):
+              j = envelope.get('json')
+              if not isinstance(j, dict): return []
+              data = j.get('data')
+              if isinstance(data, list): return data
+              if isinstance(data, dict):
+                  for key in ('list', 'records', 'items'):
+                      if isinstance(data.get(key), list): return data[key]
+              return []
+
+          detail_records = extract_data_list(detail)
+          holding_records = extract_data_list(holdings)
+          holdings_json = holdings.get('json')
+          holding_total = None
+          if isinstance(holdings_json, dict):
+              data = holdings_json.get('data')
+              if isinstance(data, dict):
+                  holding_total = data.get('total')
+
+          image_fields = []
+          for rec in detail_records:
+              if not isinstance(rec, dict): continue
+              for k, v in rec.items():
+                  lk = str(k).lower()
+                  if any(token.lower() in lk for token in IMAGE_KEYS) and v not in (None, '', [], {}):
+                      image_fields.append({'key': k, 'value': v})
+
+          report = {
+              'schema': 'ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1',
+              'batch_intent': 'BATCH-12BB-FIRST-PARTY-FUDAN-MING-WANLI-MATERIAL-HOLDING-BINDING',
+              'authority_chain': {
+                  'ancient_book_portal': 'https://guji.fudan.edu.cn/',
+                  'general_catalog_entry': 'https://opac.fudan.edu.cn/#/gjRedirect',
+                  'target_search_record': {
+                      'resource_smjlh': CATALOGUE_ID,
+                      'docId': 'fudan_ancient_001127121',
+                      'resource_book_no': 'FDU01001127121',
+                      'call_number': 'rb2314',
+                  },
+                  'source_emitted_detail_contract': DETAIL,
+                  'source_emitted_holdings_contract': HOLDINGS + '?catalogueId=' + CATALOGUE_ID,
+              },
+              'policy': {
+                  'public_open_api_only': True,
+                  'source_emitted_contract_only': True,
+                  'catalogue_id_from_positive_first_party_search_record': True,
+                  'authentication_attempted': False,
+                  'hidden_id_guessing': False,
+                  'target_leaf_or_glyph_authority': False,
+              },
+              'detail_request': detail,
+              'holdings_request': holdings,
+              'edition_marker_hits': marker_hits,
+              'detail_record_count': len(detail_records),
+              'holding_record_count': len(holding_records),
+              'holding_total': holding_total,
+              'source_emitted_image_or_fulltext_fields': image_fields,
+              'adjudication': {
+                  'detail_http_200': detail.get('response', {}).get('status') == 200,
+                  'holdings_http_200': holdings.get('response', {}).get('status') == 200,
+                  'first_party_catalog_item_bound': len(detail_records) > 0,
+                  'first_party_holding_item_bound': (holding_total or 0) > 0 or len(holding_records) > 0,
+                  'exact_1594_or_wanli_22_marker_observed': any(
+                      marker_hits[m]['detail'] or marker_hits[m]['holdings']
+                      for m in ('萬曆二十二', '万历二十二', '1594')
+                  ),
+                  'tang_qian_marker_observed': any(
+                      marker_hits[m]['detail'] or marker_hits[m]['holdings']
+                      for m in ('唐謙', '唐谦')
+                  ),
+                  'independent_exact_1594_material_witness_increment': 0,
+                  'independent_target_text_witness_increment': 0,
+                  'independent_hai_glyph_witness_increment': 0,
+                  'note': 'An actual holdings item can establish an independent Fudan material holding for the catalogued Ming-Wanli target-title copy. Exact 1594 remains zero unless the first-party detail/holdings response itself exposes Wanli 22 / 1594 or equivalent exact-edition evidence. No target leaf is collated here.'
+              }
+          }
+          OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps({
+              'detail_status': report['adjudication']['detail_http_200'],
+              'holdings_status': report['adjudication']['holdings_http_200'],
+              'detail_record_count': len(detail_records),
+              'holding_record_count': len(holding_records),
+              'holding_total': holding_total,
+              'marker_hits': marker_hits,
+              'image_field_count': len(image_fields),
+          }, ensure_ascii=False, indent=2))
+          PY
+      - name: Commit item-detail evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json
+          git commit -m "record Batch 12BB Fudan OPAC item detail"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
