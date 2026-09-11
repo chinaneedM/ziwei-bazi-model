@@ -1,0 +1,92 @@
+name: research-ziwei-zhangguo-aw-r3-targetlock-jangseogak-probe
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r3-targetlock-jangseogak-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Tohoku manuscript target lock and Jangseogak 1594 public route metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/tohoku-ms evidence/jangseogak
+
+          BASE='https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F04'
+          for P in 0003 0021 0022; do
+            URL="${BASE}%2Fq06504${P}l.tif/full/2200,/0/default.jpg"
+            curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 \
+              -A 'Mozilla/5.0 Batch12AW-R3 research' "$URL" \
+              -o "evidence/tohoku-ms/page-${P}.jpg"
+          done
+
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 \
+            -A 'Mozilla/5.0 Batch12AW-R3 research' \
+            'https://touda.tohoku.ac.jp/collection/database/library/10020000001143' \
+            -D evidence/tohoku-ms/record.headers \
+            -o evidence/tohoku-ms/record.html
+
+          JURL='https://jsg.aks.ac.kr/dir/view?dataId=LIB_169178'
+          curl --fail --location --retry 3 --connect-timeout 20 --max-time 120 \
+            -A 'Mozilla/5.0 Batch12AW-R3 research' "$JURL" \
+            -D evidence/jangseogak/record.headers \
+            -o evidence/jangseogak/record.html
+
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          root = Path('evidence')
+          out = {
+              'batch': '12AW',
+              'purpose': 'TARGET_LOCK_TOHOKU_MANUSCRIPT_AND_PUBLIC_ROUTE_PROBE_JANGSEOGAK_1594',
+              'tohoku': {
+                  'record_id': '10020000001143',
+                  'provider_item_number': '00070308511',
+                  'volume': '5-6',
+                  'status': 'LATER_MANUSCRIPT_TRANSMISSION_WITNESS_NOT_1594_PRINT',
+                  'target_page': 21,
+                  'context_pages': [3, 21, 22],
+              },
+              'jangseogak': {
+                  'data_id': 'LIB_169178',
+                  'call_number': 'PC9A-20',
+                  'mf_number': 'MF16/1453-1454',
+                  'catalog_claim': 'CHINESE_WOODBLOCK_PRINT_WANLI_22_1594_10_JUAN_10_CE',
+                  'route_status': 'PUBLIC_METADATA_PAGE_PROBED; IMAGE_ROUTE_NOT_ASSUMED',
+              },
+              'files': {},
+          }
+          for p in sorted(root.rglob('*')):
+              if p.is_file():
+                  b = p.read_bytes()
+                  out['files'][str(p)] = {'sha256': hashlib.sha256(b).hexdigest(), 'size': len(b)}
+          html = Path('evidence/jangseogak/record.html').read_text('utf-8', errors='replace')
+          refs = sorted(set(re.findall(r'''(?:href|src|action)=["']([^"']+)["']''', html, flags=re.I)))
+          literals = sorted(set(re.findall(r'''https?://[^\s"'<>]+''', html)))
+          interesting = [x for x in refs + literals if any(k.lower() in x.lower() for k in ['viewer','image','img','pdf','lib_','169178','sj_lib','ebook','book','source'])]
+          Path('evidence/jangseogak/public-route-candidates.txt').write_text('\n'.join(dict.fromkeys(interesting)), encoding='utf-8')
+          out['jangseogak']['public_route_candidate_count'] = len(dict.fromkeys(interesting))
+          Path('evidence/summary.json').write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+
+          sha256sum evidence/tohoku-ms/page-*.jpg evidence/jangseogak/record.html evidence/tohoku-ms/record.html | tee evidence/SHA256SUMS.txt
+          echo '--- Jangseogak route candidates ---'
+          cat evidence/jangseogak/public-route-candidates.txt || true
+
+      - name: Upload Batch 12AW R3 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-aw-r3-targetlock-jangseogak-probe
+          path: evidence
+          if-no-files-found: error
