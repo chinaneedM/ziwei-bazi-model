@@ -1,0 +1,139 @@
+name: sync-batch12at-state-once
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/sync-batch12at-state-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+      - name: Synchronize Batch 12AT continuity state, verifier and source registry
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          batch = 'BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT'
+          batch_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT.md'
+          evidence_doc = 'docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json'
+
+          state_path = Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          state = json.loads(state_path.read_text('utf-8'))
+          assert state['schema'] == 'ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1'
+          assert state['historical_audit']['row_count'] == 198
+          assert state['historical_audit']['audited_row_count'] == 166
+          assert state['historical_audit']['current_missing_from_product_count'] == 10
+          assert state['historical_audit']['identified_missing_candidate_count'] == 14
+          assert state['invariants']['deterministic_fusion_chart_product_r1'] == 'CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count'] == 0
+          assert state['invariants']['algorithm_reopen_count'] == 0
+          assert state['invariants']['candidate_collapse_count'] == 0
+          assert state['invariants']['ziwei_self_inward_transformation_direction'] == 'NOT_YET_FORMALIZED'
+
+          completed = state['historical_audit']['completed_batches']
+          if batch not in completed:
+              completed.append(batch)
+          state['historical_audit']['latest_batch_doc'] = batch_doc
+          state['schema_version'] = '1.53.0'
+
+          focus_additions = [
+              'Batch 12AT corrects the NCL 1578 Sanming Tonghui locator forward-only: Commons filename suffix 1/2 is a scan-file split, not juan number. Earlier suffix-2 p34-p44 probes are locator misses and authorize no content-negative inference.',
+              'Batch 12AT direct no-OCR physical collation locks NCL 1578 PDF p132 論日刻 to 銅壺貯水/漏下/百刻 and p133 論時刻 to 若子時則上半時在夜半前為昨日，下半時在夜半後屬今日. The 1578 physical glyph asymmetry 為昨日/屬今日 must not be normalized to the 1613 Tushu Bian 屬昨日/屬今日 reading.',
+              'Batch 12AT p136-p137 directly places birth-time accuracy, 夜半不分其日, 子亥中間厥時難定, 陰晴倏忽/寒煖迥別, 授時曆 and 密察而詳問 in one mantic operational discussion. This strengthens the historical timing context but does not itself reclassify upper-half Zi to Hai branch.',
+              'HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AT. Same-book clepsydra plus weather language does not supply the missing explicit Fullbook cloudy/rain current-time acquisition edge; genealogy, runtime winner, candidate collapse and algorithm reopen remain unresolved/forbidden.'
+          ]
+          focus = state['historical_audit']['current_focus']
+          for item in focus_additions:
+              if item not in focus:
+                  focus.append(item)
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+
+          registry_path = Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          registry = json.loads(registry_path.read_text('utf-8'))
+          assert registry['schema'] == 'FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1'
+          ids = {s.get('source_id') for s in registry['sources']}
+          source_id = 'EXT-SANMING-NCL-1578-MAIN'
+          if source_id not in ids:
+              registry['sources'].append({
+                  'source_id': source_id,
+                  'title': '《三命通會》萬曆六年（1578）刻本《論日刻》《論時刻》及時辰辨定《論曰》',
+                  'author': '萬民英',
+                  'historical_period': '明',
+                  'edition': '明萬曆六年（1578）刻本；National Central Library physical scan object, main 1000-page file',
+                  'provider': 'National Central Library scan via Wikimedia Commons',
+                  'url': 'https://commons.wikimedia.org/wiki/File:NCL-06589_1_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83.pdf',
+                  'source_role': 'DIRECT_PRIMARY_PHYSICAL_FACSIMILE_MANTIC_TIMEKEEPING_AND_HALF_ZI_DATE_ATTRIBUTION_WITNESS',
+                  'quality_notes': 'Batch 12AT no-OCR direct physical collation. Commons suffix 1/2 is a scan-file split, not juan number; wrong suffix-2 probes are retained only as locator-correction provenance. Main PDF SHA-256 3de5c45efb1919965afae00a3c97121054aaabd0f38f9fd5ab8f0a28bb8e36dd. PDF p132 directly binds 論日刻 to 銅壺貯水/漏下 and hundred-ke division. PDF p133 directly reads 若子時則上半時在夜半前為昨日，下半時在夜半後屬今日; preserve the physical 為/屬 asymmetry. PDF p136-p137 directly links mantic birth-time accuracy, midnight date separation, Zi-Hai boundary difficulty, ke subdivision, 陰晴/寒煖 variability, 授時曆 and 密察而詳問. The witness does not prove Fullbook upper-half-Zi Hai-branch reclassification, does not explicitly specify an inclement-weather replacement clock input, and is not counted as textually independent of the 1613 Tushu Bian without genealogy evidence.',
+                  'research_artifact': evidence_doc,
+                  'audit_batch': batch,
+                  'workflow_evidence': {
+                      'corrected_main_file_run': 34544892575,
+                      'corrected_main_file_artifact': 10178643326,
+                      'juan2_readable_run': 34545147295,
+                      'juan2_readable_artifact': 10178733130,
+                      'target_glyph_lock_run': 34545625767,
+                      'target_glyph_lock_artifact': 10178894706
+                  }
+              })
+          registry['access_date'] = '2026-09-11'
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+
+          verifier_path = Path('scripts/verify-project-continuity-state-r1.py')
+          verifier = verifier_path.read_text('utf-8')
+          if 'ZIWEI_SANMING_AT_BATCH' not in verifier:
+              constants_anchor = 'ZIWEI_TUSHUBIAN_AS_EVIDENCE = ROOT / "docs/research/ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1.json"\n\nEXPECTED_BRANCH'
+              constants_new = (
+                  'ZIWEI_TUSHUBIAN_AS_EVIDENCE = ROOT / "docs/research/ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1.json"\n'
+                  'ZIWEI_SANMING_AT_BATCH = ROOT / "' + batch_doc + '"\n'
+                  'ZIWEI_SANMING_AT_EVIDENCE = ROOT / "' + evidence_doc + '"\n\nEXPECTED_BRANCH'
+              )
+              assert constants_anchor in verifier, 'AT verifier constant anchor missing'
+              verifier = verifier.replace(constants_anchor, constants_new, 1)
+
+              list_anchor = '    "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS.md"'
+              list_new = (
+                  '    "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS",\n'
+                  '    "' + batch + '",\n'
+                  ']\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\n'
+                  'LATEST_BATCH_DOC = "' + batch_doc + '"'
+              )
+              assert list_anchor in verifier, 'AT supplemental list anchor missing'
+              verifier = verifier.replace(list_anchor, list_new, 1)
+
+              main_anchor = 'def main() -> int:\n    for path in (ZIWEI_TUSHUBIAN_AS_BATCH, ZIWEI_TUSHUBIAN_AS_EVIDENCE):'
+              main_new = (
+                  'def main() -> int:\n'
+                  '    for path in (ZIWEI_SANMING_AT_BATCH, ZIWEI_SANMING_AT_EVIDENCE):\n'
+                  '        if not path.is_file():\n'
+                  '            fail(f"Batch 12AT continuity artifact missing: {path.relative_to(ROOT)}")\n\n'
+                  '    for path in (ZIWEI_TUSHUBIAN_AS_BATCH, ZIWEI_TUSHUBIAN_AS_EVIDENCE):'
+              )
+              assert main_anchor in verifier, 'AT verifier main anchor missing'
+              verifier = verifier.replace(main_anchor, main_new, 1)
+              verifier_path.write_text(verifier, 'utf-8')
+      - name: Verify continuity invariants
+        run: python scripts/verify-project-continuity-state-r1.py
+      - name: Commit synchronized durable state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json scripts/verify-project-continuity-state-r1.py
+          if git diff --cached --quiet; then
+            echo 'No state changes required.'
+            exit 0
+          fi
+          git commit -m 'sync Batch 12AT continuity state'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
