@@ -1,0 +1,183 @@
+name: research-zhangguo-fudan-bb-opac-guji-contract-probe
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-zhangguo-fudan-bb-opac-guji-contract-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Trace first-party OPAC ancient-book entry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests beautifulsoup4
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+          from bs4 import BeautifulSoup
+
+          ENTRY = 'https://opac.fudan.edu.cn/#/gjRedirect'
+          ROOT = 'https://opac.fudan.edu.cn/'
+          OUT = Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-GUJI-CONTRACT-PROBE-R1.json')
+          TOKENS = [
+              'gjRedirect', '古籍', '線裝', '綫裝', '线装', '館藏', '馆藏',
+              'search', 'query', 'keyword', 'title', '書名', '书名', 'opac',
+          ]
+          s = requests.Session()
+          s.headers.update({'User-Agent': 'Mozilla/5.0 provenance-research/1.0'})
+
+          def get(url, timeout=25, cap=8_000_000):
+              rec = {'url': url}
+              try:
+                  r = s.get(url, timeout=timeout, allow_redirects=True)
+                  body = r.content[:cap]
+                  rec.update({
+                      'status': r.status_code,
+                      'final_url': r.url,
+                      'content_type': r.headers.get('content-type'),
+                      'bytes_captured': len(body),
+                      'sha256_captured': hashlib.sha256(body).hexdigest(),
+                  })
+                  return rec, body, r.encoding or 'utf-8'
+              except Exception as exc:
+                  rec.update({'error_type': type(exc).__name__, 'error': repr(exc)})
+                  return rec, b'', 'utf-8'
+
+          def decode(body, enc):
+              try: return body.decode(enc or 'utf-8', errors='replace')
+              except LookupError: return body.decode('utf-8', errors='replace')
+
+          def contexts(text, surface, token, radius=900, limit=30):
+              out=[]; low=text.lower(); needle=token.lower(); start=0
+              while len(out)<limit:
+                  i=low.find(needle,start)
+                  if i<0: break
+                  out.append({'surface':surface,'token':token,'offset':i,
+                              'context':text[max(0,i-radius):min(len(text),i+len(token)+radius)]})
+                  start=i+max(1,len(token))
+              return out
+
+          root_meta, root_body, root_enc = get(ROOT)
+          root_text = decode(root_body, root_enc)
+          soup = BeautifulSoup(root_text, 'html.parser')
+          seeds=[]
+          for tag in soup.find_all('script'):
+              src=tag.get('src')
+              if src: seeds.append(urljoin(root_meta.get('final_url') or ROOT,src))
+          seeds=list(dict.fromkeys(seeds))
+
+          queue=list(seeds); fetched={}; hits=[]; literals=[]; links=[]
+          while queue and len(fetched)<100:
+              url=queue.pop(0)
+              if url in fetched: continue
+              if urlparse(url).hostname!='opac.fudan.edu.cn': continue
+              meta, body, enc=get(url,timeout=20,cap=8_000_000)
+              fetched[url]=meta
+              if not body or meta.get('status')!=200: continue
+              text=decode(body,enc)
+              for tok in TOKENS:
+                  if tok.lower() in text.lower(): hits.extend(contexts(text,url,tok))
+              for m in re.finditer(r'''[\"']([^\"'\\]{1,700})[\"']''',text):
+                  lit=m.group(1); low=lit.lower()
+                  if any(x in low for x in ('api','search','query','opac','book','bibli','catalog','guji','ancient')) and ('/' in lit or 'http' in low):
+                      literals.append({'surface':url,'literal':lit})
+                  if lit.startswith(('http://','https://')):
+                      links.append({'surface':url,'url':lit})
+              candidates=set()
+              for pat in [
+                  r'''[\"'](\./[^\"']+\.js)[\"']''',
+                  r'''[\"'](/[^\"']+\.js)[\"']''',
+                  r'''[\"'](static/[^\"']+\.js)[\"']''',
+                  r'''[\"'](assets/[^\"']+\.js)[\"']''',
+                  r'''[\"']([A-Za-z0-9_.-]+-[A-Za-z0-9_-]+\.js)[\"']''',
+              ]: candidates.update(re.findall(pat,text))
+              for c in sorted(candidates):
+                  if c.startswith('./'): u=urljoin(url,c)
+                  elif c.startswith('/'): u=urljoin(ROOT,c)
+                  elif c.startswith(('static/','assets/')): u=urljoin(ROOT,c)
+                  else: u=urljoin(ROOT,c)
+                  if urlparse(u).hostname=='opac.fudan.edu.cn' and u not in fetched and u not in queue:
+                      queue.append(u)
+
+          # Root HTML can itself expose router/bootstrap details.
+          for tok in TOKENS:
+              if tok.lower() in root_text.lower(): hits.extend(contexts(root_text,ROOT,tok))
+
+          def uniq(recs,key):
+              seen=set(); out=[]
+              for x in recs:
+                  k=x[key]
+                  if k in seen: continue
+                  seen.add(k); out.append(x)
+              return out
+
+          literals=uniq(literals,'literal'); links=uniq(links,'url')
+          report={
+              'schema':'ZIWEI-ZHANGGUO-FUDAN-OPAC-GUJI-CONTRACT-PROBE-R1',
+              'batch_intent':'BATCH-12BB-FIRST_PARTY-GENERAL-CATALOG-CONTRACT',
+              'authority_chain':{
+                  'source_page':'https://guji.fudan.edu.cn/',
+                  'source_emitted_label':'綫裝古籍書目',
+                  'source_emitted_entry':ENTRY,
+                  'entry_role':'FIRST_PARTY_GENERAL_ANCIENT_BOOK_CATALOG_ENTRY',
+              },
+              'root':root_meta,
+              'policy':{
+                  'source_emitted_entry_only':True,
+                  'source_emitted_dependency_graph_only':True,
+                  'endpoint_invocation_in_this_probe':False,
+                  'hidden_id_guessing':False,
+                  'authentication_attempted':False,
+                  'negative_holding_claim_authorized':False,
+              },
+              'seed_scripts':seeds,
+              'fetched_scripts':list(fetched.values()),
+              'scope_contexts':hits,
+              'contract_literals':literals,
+              'public_links':links,
+              'adjudication':{
+                  'opac_root_reachable':root_meta.get('status')==200,
+                  'scripts_fetched':len(fetched),
+                  'gj_redirect_token_observed':any(x['token']=='gjRedirect' for x in hits),
+                  'search_contract_bound':False,
+                  'target_item_bound':False,
+                  'witness_increment':0,
+              }
+          }
+          OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({
+              'root':root_meta,
+              'scripts_fetched':len(fetched),
+              'gj_hits':sum(1 for x in hits if x['token']=='gjRedirect'),
+              'contract_literals':[x['literal'] for x in literals[:120]],
+              'links':[x['url'] for x in links[:60]],
+          },ensure_ascii=False,indent=2))
+          PY
+      - name: Commit OPAC contract evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-GUJI-CONTRACT-PROBE-R1.json
+          git commit -m "record Batch 12BB Fudan OPAC ancient-book contract"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
