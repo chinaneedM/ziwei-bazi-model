@@ -154,3 +154,7 @@ docs/research/ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-R1.json
 2. Continue first-party item-level pursuit of the Chongqing/Weifang locators; do not promote secondary exact-year claims without item metadata or object bytes.
 3. Fudan `rb2314` is now an explicit external-action boundary: a target-specific appointment/reproduction inquiry may be pursued only with user authorization and whatever identity/contact information the provider requires.
 4. Keep the separate Fullbook cloudy/rain current-time acquisition chain open; do not conflate that unresolved mechanism with late-Zi witness counting.
+
+## 10. Closure integrity gate
+
+The BC semantic commit was produced by a one-shot GitHub Actions finalizer and therefore does not recursively trigger a push workflow. This direct follow-up commit exists only to obtain an **exact-HEAD** run of the repository's normal CI gates against the durable BC state. It changes no historical adjudication, witness count, candidate state, or runtime behavior.
