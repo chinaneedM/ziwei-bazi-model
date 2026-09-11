@@ -1,0 +1,82 @@
+name: research-zhangguo-fudan-bb-opac-detail-contract-probe
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-zhangguo-fudan-bb-opac-detail-contract-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Extract Fudan ancient-book detail contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          import requests
+
+          URL='https://opac.fudan.edu.cn/static/js/app.cb9d606e7b88755efaf0.js'
+          OUT=Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-DETAIL-CONTRACT-PROBE-R1.json')
+          s=requests.Session(); s.headers['User-Agent']='Mozilla/5.0 provenance-research/1.0'
+          r=s.get(URL,timeout=30); r.raise_for_status(); text=r.text
+          needles=['/gjInfo/:id','/gjInfo/','singleVolume','resource_smjlh','ResultGj','resource_fddxtsgssh']
+          contexts=[]
+          for needle in needles:
+              start=0; n=0
+              while n<30:
+                  i=text.find(needle,start)
+                  if i<0: break
+                  contexts.append({'needle':needle,'offset':i,'context':text[max(0,i-3500):min(len(text),i+len(needle)+3500)]})
+                  start=i+len(needle); n+=1
+
+          # The public search result uses docId/resource_smjlh. Capture all direct calls to the
+          # singleVolume wrapper symbol H near ancient-book result/detail code, but invoke nothing here.
+          h_calls=[]
+          for m in re.finditer(r'\bH\(([^)]{0,600})\)',text):
+              ctx=text[max(0,m.start()-1800):min(len(text),m.end()+1800)]
+              if any(tok in ctx for tok in ('gjInfo','resource_smjlh','ResultGj','resourceType:"10"','古籍')):
+                  h_calls.append({'offset':m.start(),'argument_source':m.group(1),'context':ctx})
+
+          out={
+              'schema':'ZIWEI-ZHANGGUO-FUDAN-OPAC-DETAIL-CONTRACT-PROBE-R1',
+              'source_url':URL,
+              'source_status':r.status_code,
+              'source_bytes':len(r.content),
+              'source_sha256':hashlib.sha256(r.content).hexdigest(),
+              'policy':{
+                  'source_emitted_contract_only':True,
+                  'detail_endpoint_invoked':False,
+                  'hidden_id_guessing':False,
+              },
+              'contexts':contexts,
+              'ancient_related_single_volume_calls':h_calls,
+          }
+          OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'contexts':len(contexts),'h_calls':len(h_calls)},ensure_ascii=False))
+          PY
+      - name: Commit detail-contract evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-DETAIL-CONTRACT-PROBE-R1.json
+          git commit -m "record Batch 12BB Fudan OPAC detail contract"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
