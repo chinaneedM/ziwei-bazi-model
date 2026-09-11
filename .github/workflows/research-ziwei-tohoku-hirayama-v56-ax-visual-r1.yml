@@ -1,0 +1,73 @@
+name: research-ziwei-tohoku-hirayama-v56-ax-visual-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/research-ziwei-tohoku-hirayama-v56-ax-visual-r1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  package-selected-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch selected Tohoku IIIF pages for direct visual collation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          import requests
+
+          pages = [36, 37, 38, 39, 41, 42, 43, 82, 83, 84]
+          root = 'https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F04'
+          out = Path('ax-visual-pages')
+          out.mkdir(parents=True, exist_ok=True)
+          s = requests.Session()
+          s.headers.update({'User-Agent': 'ziwei-bazi-model direct visual collation/1.0'})
+          manifest = []
+          for page in pages:
+              name = f'q065040{page:03d}l.tif'
+              service = f'{root}/{name}'
+              url = service + '/full/2400,/0/default.jpg'
+              last = None
+              for attempt in range(1, 6):
+                  try:
+                      r = s.get(url, timeout=60)
+                      if r.status_code == 200:
+                          break
+                      last = f'HTTP {r.status_code}'
+                  except Exception as exc:
+                      last = f'{type(exc).__name__}: {exc}'
+                  if attempt < 5:
+                      time.sleep(min(2 ** (attempt - 1), 8))
+              else:
+                  raise SystemExit(f'page {page} acquisition failed: {last}')
+              path = out / f'page-{page:03d}.jpg'
+              path.write_bytes(r.content)
+              manifest.append({
+                  'page': page,
+                  'service_id': service,
+                  'image_url': url,
+                  'sha256': hashlib.sha256(r.content).hexdigest(),
+                  'bytes': len(r.content),
+              })
+              time.sleep(0.2)
+          (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(manifest, ensure_ascii=False))
+          PY
+      - name: Upload selected page images
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-tohoku-hirayama-v56-ax-visual-pages
+          path: ax-visual-pages
+          if-no-files-found: error
+          retention-days: 7
