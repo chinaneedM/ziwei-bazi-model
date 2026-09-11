@@ -116,6 +116,8 @@ ZIWEI_SANCAI_AU_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BA
 ZIWEI_SANCAI_AU_EVIDENCE = ROOT / "docs/research/ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-R1.json"
 ZIWEI_SANCAI_AV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV.md"
 ZIWEI_SANCAI_AV_EVIDENCE = ROOT / "docs/research/ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-R1.json"
+ZIWEI_ZHANGGUO_AW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"
+ZIWEI_ZHANGGUO_AW_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -173,9 +175,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT",
     "BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU",
     "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",
+    "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"
 
 
 def fail(message: str) -> None:
@@ -183,6 +186,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_AW_BATCH, ZIWEI_ZHANGGUO_AW_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AW continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_SANCAI_AV_BATCH, ZIWEI_SANCAI_AV_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AV continuity artifact missing: {path.relative_to(ROOT)}")
@@ -299,6 +306,7 @@ def main() -> int:
     ziwei_jielan_ap_evidence = json.loads(ZIWEI_JIELAN_AP_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_aq_evidence = json.loads(ZIWEI_JIELAN_AQ_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_aw_evidence = json.loads(ZIWEI_ZHANGGUO_AW_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -388,10 +396,30 @@ def main() -> int:
         "EXT-CTEXT-RENZI-XUZHI-ZHENGZHEN-FENGZHEN",
         "EXT-CTEXT-WANXIAOLU-DINGSHI-RESOURCE437415",
         "EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI",
+        "EXT-ZIWEI-ZHANGGUO-NIJL-1594",
     )
     for source_id in required_sources:
         if source_id not in source_ids:
             fail(f"required continuity source witness missing: {source_id}")
+
+    # Batch 12AW Zhangguo 1594: earlier independent genealogy, but no automatic upper-Zi->Hai rule vote.
+    if ziwei_zhangguo_aw_evidence.get("batch") != "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW":
+        fail("Batch 12AW evidence identity mismatch")
+    src12aw = ziwei_zhangguo_aw_evidence.get("source", {})
+    if src12aw.get("bid") != "100238879" or src12aw.get("date") != "萬曆22 / 1594":
+        fail("Batch 12AW physical-source identity regressed")
+    target12aw = ziwei_zhangguo_aw_evidence.get("target", {})
+    if target12aw.get("canvas_index") != 195 or target12aw.get("review_image_sha256_2400") != "39c22d31e99d950f4cfd81680fb12b537c55fa2425503a9b6f6c844a3f4fbfb6":
+        fail("Batch 12AW target-leaf binding regressed")
+    readings12aw = ziwei_zhangguo_aw_evidence.get("direct_readings", {})
+    if "以子為亥，亥為子" not in readings12aw.get("main_text", "") or "有夜子時之分" not in readings12aw.get("upper_annotation_secure_core", ""):
+        fail("Batch 12AW direct reading regressed")
+    weight12aw = ziwei_zhangguo_aw_evidence.get("evidence_weighting", {})
+    if weight12aw.get("explicit_upper_zi_to_hai_rule_vote") is not False or weight12aw.get("runtime_winner_selected") is not False or weight12aw.get("algorithm_reopen") is not False:
+        fail("Batch 12AW evidence-weight firewall regressed")
+    consequence12aw = ziwei_zhangguo_aw_evidence.get("project_consequence", {})
+    if consequence12aw.get("audit_status") != "MISSING_FROM_PRODUCT" or consequence12aw.get("matrix_count_change") is not False:
+        fail("Batch 12AW HPA/accounting firewall regressed")
 
     # Batch 12AD Sanfenge provider/share route: locator closure only, zero textual votes.
     if not ZIWEI_SANFENGE_QUARK_BATCH.is_file() or not ZIWEI_SANFENGE_QUARK_EVIDENCE.is_file():
