@@ -1,0 +1,130 @@
+name: research-ziwei-zhangguo-aw-r6-persist-jangseogak-api
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r6-persist-jangseogak-api.yml
+
+permissions:
+  contents: write
+
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+
+      - name: Query documented public Jangseogak API and persist normalized evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/research
+          python - <<'PY'
+          import datetime, hashlib, json, urllib.parse, urllib.request
+
+          base = 'https://jsg.aks.ac.kr/jsgimg/api/search'
+          record_url = 'https://jsg.aks.ac.kr/dir/view?dataId=LIB_169178'
+          queries = [
+              ('tit', '新編評註通玄先生張果星宗大全', 'title_exact'),
+              ('tit', '張果星宗', 'title_short'),
+              ('bookId', 'C9A-20', 'call_C9A_20'),
+              ('bookId', 'PC9A-20', 'call_PC9A_20'),
+          ]
+
+          def fetch(url):
+              req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 Batch12AW-R6 research'})
+              try:
+                  with urllib.request.urlopen(req, timeout=90) as r:
+                      body = r.read()
+                      return {
+                          'ok': True,
+                          'http_status': r.status,
+                          'content_type': r.headers.get('Content-Type', ''),
+                          'sha256': hashlib.sha256(body).hexdigest(),
+                          'body': body,
+                      }
+              except Exception as exc:
+                  return {'ok': False, 'error': repr(exc)}
+
+          out = {
+              'schema': 'ZIWEI-ZHANGGUO-1594-JANGSEOGAK-PUBLIC-API-R1',
+              'batch': 'BATCH-12AW',
+              'captured_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'provider': 'Academy of Korean Studies Digital Jangseogak',
+              'directory_record': {
+                  'data_id': 'LIB_169178',
+                  'url': record_url,
+                  'catalog_claim': '中國木板本 / 萬曆22(1594) / 10卷10冊',
+                  'directory_call_numbers': ['PC9A-20', 'C9A-20'],
+                  'mf_number': 'MF16/1453-1454',
+              },
+              'documented_search_api': base,
+              'queries': [],
+              'interpretation_guardrails': [
+                  'API search results are access-route evidence, not target-glyph authority.',
+                  'A zero result does not prove the physical object lacks images.',
+                  'A catalog record does not by itself establish the night-Zi target wording.',
+              ],
+          }
+
+          rec = fetch(record_url)
+          if rec.get('ok'):
+              out['directory_record']['http_status'] = rec['http_status']
+              out['directory_record']['content_type'] = rec['content_type']
+              out['directory_record']['sha256'] = rec['sha256']
+          else:
+              out['directory_record']['fetch_error'] = rec.get('error')
+
+          for cond, q, label in queries:
+              params = urllib.parse.urlencode({'qCond': cond, 'q': q, 'startIndex': 0, 'pageUnit': 100})
+              url = base + '?' + params
+              got = fetch(url)
+              row = {'label': label, 'qCond': cond, 'q': q, 'url': url}
+              if not got.get('ok'):
+                  row['error'] = got.get('error')
+                  out['queries'].append(row)
+                  continue
+              row.update({
+                  'http_status': got['http_status'],
+                  'content_type': got['content_type'],
+                  'sha256': got['sha256'],
+              })
+              try:
+                  data = json.loads(got['body'].decode('utf-8-sig'))
+              except Exception as exc:
+                  row['json_error'] = repr(exc)
+                  row['body_prefix_utf8'] = got['body'][:500].decode('utf-8', 'replace')
+                  out['queries'].append(row)
+                  continue
+              header = data.get('header') or {}
+              results = data.get('results') or []
+              row['totalCount'] = header.get('totalCount')
+              row['result_count'] = len(results)
+              row['results'] = results[:20]
+              out['queries'].append(row)
+
+          path = 'docs/research/ZIWEI-ZHANGGUO-1594-JANGSEOGAK-PUBLIC-API-R1.json'
+          with open(path, 'w', encoding='utf-8') as f:
+              json.dump(out, f, ensure_ascii=False, indent=2)
+              f.write('\n')
+          print(json.dumps(out, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit durable evidence snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/ZIWEI-ZHANGGUO-1594-JANGSEOGAK-PUBLIC-API-R1.json
+          if git diff --cached --quiet; then
+            echo 'No evidence change to commit.'
+            exit 0
+          fi
+          git commit -m 'record Batch 12AW Jangseogak API evidence'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
