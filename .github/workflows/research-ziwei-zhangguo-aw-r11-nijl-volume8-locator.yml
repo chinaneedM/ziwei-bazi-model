@@ -1,0 +1,37 @@
+name: research-ziwei-zhangguo-aw-r11-nijl-volume8-locator
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r11-nijl-volume8-locator.yml
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch NIJL pages 120-249 as low-res visual locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          seq 120 249 | xargs -P16 -I{} bash -c '
+            i={}; printf -v n "%05d" "$i"; printf -v s "%03d" "$i";
+            curl -L --fail --retry 3 --silent --show-error \
+              "https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-${n}.tif/full/500,/0/default.jpg" \
+              -o "out/page-${s}.jpg"
+          '
+          sha256sum out/page-*.jpg > out/sha256.txt
+      - name: Upload volume locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-aw-r11-nijl-volume8-locator
+          path: out/
+          if-no-files-found: error
+          compression-level: 0
