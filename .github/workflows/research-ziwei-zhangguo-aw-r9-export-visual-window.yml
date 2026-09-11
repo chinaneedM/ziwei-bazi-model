@@ -1,0 +1,26 @@
+name: research-ziwei-zhangguo-aw-r9-export-visual-window
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r9-export-visual-window.yml
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+      - name: Upload physical image window for direct visual collation
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-aw-r9-nijl-vol8-window
+          path: docs/research/media/batch-12aw-nijl-vol8-window/
+          if-no-files-found: error
+          compression-level: 0
