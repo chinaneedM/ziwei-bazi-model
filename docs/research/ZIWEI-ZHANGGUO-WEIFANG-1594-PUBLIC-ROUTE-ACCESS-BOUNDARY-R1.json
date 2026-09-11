@@ -1,0 +1,102 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
+  "status": "HIGH_VALUE_1594_LOCATOR_CROSS_EGRESS_PUBLIC_ROUTES_TIMEOUT_FIRST_PARTY_OBJECT_NOT_BOUND",
+  "question": "Can the Weifang Library/Shandong digital-platform locator for a Wanli-22 Zhangguo Xingzong copy be bound to first-party object bytes and directly collated?",
+  "locator_claim": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-WEIFANG-1594-LOCATOR",
+    "resource_id": "151613020240003",
+    "title": "新編評註通玄先生張果星宗大全",
+    "extent": "十卷",
+    "edition_claim": "明萬曆二十二年(1594)唐謙刻本",
+    "holding_claim": "濰坊市圖書館藏",
+    "authority_scope": "MULTI_INDEX_AND_ROUTE_LOCATOR_ONLY_PENDING_FIRST_PARTY_SHANDONG_OBJECT_BINDING",
+    "official_catalog_metadata_directly_bound": false,
+    "physical_copy_identity_directly_bound": false,
+    "note": "The resource ID, title, 1594/Tang-Qian edition claim and Weifang holding are a high-value discovery route, but this batch did not obtain a first-party Shandong catalog/object response and therefore does not promote the locator to direct physical-witness authority."
+  },
+  "reviewed_routes": {
+    "official_api_http": "http://guji.sdlib.com/dev-api/ancientbooks/front/getFileContentPage/3/151613020240003",
+    "official_api_https": "https://guji.sdlib.com/dev-api/ancientbooks/front/getFileContentPage/3/151613020240003",
+    "official_front_http": "http://guji.sdlib.com/front/#/bookInfo?resId=151613020240003",
+    "official_front_https": "https://guji.sdlib.com/front/#/bookInfo?resId=151613020240003",
+    "old_object_host_template": "http://124.133.52.174:9009/res-book/wsok/潍坊市图书馆12种36册2818拍/151613020240003/object/PDF/{volume}/{page}.pdf",
+    "route_origin_note": "The Shandong-domain API/front routes are first-party-domain route locators; the old object-host path template is secondary-locator-derived and was used only to test reachability, never as bibliographic authority."
+  },
+  "initial_linux_probe": {
+    "workflow_run_id": 34596426615,
+    "job_id": 103253128834,
+    "artifact_id": 10262594953,
+    "artifact_name": "weifang-zhangguo-az-public-object-probe",
+    "artifact_digest": "sha256:b87cc49072291d22824f233a4e9947e4bfc7ab7fa119d2774137b41115eed4bd",
+    "result": "OFFICIAL_DOMAIN_AND_OLD_OBJECT_HOST_CONNECT_TIMEOUT_NO_BYTES_OBTAINED",
+    "official_api_response_obtained": false,
+    "downloaded_pdf_samples": 0,
+    "rendered_pages": 0,
+    "whole_object_negative_authorized": false
+  },
+  "cross_egress_probe": {
+    "workflow_run_id": 34597728895,
+    "head_sha": "b690d207ccb2095a9387388edbb606e6e49c2b09",
+    "routes_tested_per_runner": 5,
+    "common_result": "ALL_REVIEWED_OFFICIAL_API_FRONT_AND_OLD_OBJECT_SAMPLE_ROUTES_TIMED_OUT",
+    "runners": [
+      {
+        "os": "Linux",
+        "job_id": 103257322652,
+        "azure_region": "westus3",
+        "artifact_id": 10263155974,
+        "artifact_name": "weifang-az-egress-Linux",
+        "artifact_digest": "sha256:09e64e311d183bec3118281067e87fd96efd77049122efd55e2aa4c79ad12813",
+        "all_reviewed_routes_timed_out": true
+      },
+      {
+        "os": "macOS",
+        "job_id": 103257322513,
+        "azure_region": "westus",
+        "artifact_id": 10263650215,
+        "artifact_name": "weifang-az-egress-macOS",
+        "artifact_digest": "sha256:27a7e18e197fc9d2f048cd5661f5be04119f594359290e8164aa43485aacc4e6",
+        "all_reviewed_routes_timed_out": true
+      },
+      {
+        "os": "Windows",
+        "job_id": 103257322572,
+        "azure_region": "eastus",
+        "artifact_id": 10263550354,
+        "artifact_name": "weifang-az-egress-Windows",
+        "artifact_digest": "sha256:94edec77055a666f98cf78d62febe80928e3c90435a2f7ca05c651e2dbd0e267",
+        "all_reviewed_routes_timed_out": true
+      }
+    ],
+    "interpretation": "Cross-platform/cross-region GitHub-hosted runners could not establish a response from the reviewed Shandong routes. This is an execution-environment/public-route reachability boundary, not proof that the catalog object, digitization, target passage or underlying physical book is absent."
+  },
+  "adjudication": {
+    "high_value_1594_locator_retained": true,
+    "official_shandong_object_bytes_obtained": false,
+    "official_catalog_metadata_directly_bound": false,
+    "target_leaf_obtained": false,
+    "direct_glyph_collation_authorized": false,
+    "whole_holding_text_negative_authorized": false,
+    "no_digitization_claim_authorized": false,
+    "resource_gone_claim_authorized": false,
+    "same_edition_text_stability_vote_increment": 0,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "reason": "The 1594/Weifang locator is research-significant, but no first-party response or page bytes were obtained from any reviewed execution path. Reachability failure cannot be converted into textual or bibliographic absence."
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "matrix_count_change": false
+  },
+  "next_gate": [
+    "Obtain a first-party Shandong/Weifang catalog or object response for resource 151613020240003 through a reachable network/archive route, then bind title, edition, holding and page bytes before treating it as a direct witness.",
+    "If the target leaf becomes readable, directly collate it without OCR for glyph authority and compare it to the AW 1594 NIJL/Tohoku physical witness.",
+    "In parallel, pursue other independently held early copies, including the SOAS/NCL union-catalog lead, while preventing later reprints from being misclassified as 1593/1594 physical witnesses."
+  ]
+}
