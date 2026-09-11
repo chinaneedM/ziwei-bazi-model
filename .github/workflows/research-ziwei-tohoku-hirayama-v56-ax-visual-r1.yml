@@ -15,15 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch Tohoku comparison pages and NIJL 1594 anchor leaves
+      - name: Fetch Tohoku Hirayama volume 7-8 back-half pages
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --quiet requests
           python - <<'PY'
-          import hashlib
-          import json
-          import time
+          import hashlib, json, time
           from pathlib import Path
           import requests
 
@@ -54,29 +52,21 @@ jobs:
                       time.sleep(min(2 ** (attempt - 1), 8))
               raise SystemExit(f'{label} acquisition failed: {last}')
 
-          tohoku_pages = [36, 37, 38, 39, 41, 42, 43, 82, 83, 84]
-          tohoku_root = 'https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F04'
-          for page in tohoku_pages:
-              name = f'q065040{page:03d}l.tif'
-              service = f'{tohoku_root}%2F{name}'
+          root = 'https://touda.tohoku.ac.jp/iiif/2/public%2Flibrary%2Fwasan%2Fportal%2Fq%2Fq065%2F05'
+          for page in range(40, 90):
+              name = f'q065050{page:03d}l.tif'
+              service = f'{root}%2F{name}'
               url = service + '/full/1200,/0/default.jpg'
-              fetch(url, out / f'tohoku-page-{page:03d}.jpg', f'TOHOKU_MA591_V5-6_PAGE_{page:03d}')
-              time.sleep(0.2)
-
-          nijl_root = 'https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306'
-          for canvas in range(193, 198):
-              service = f'{nijl_root}/THKW-04306-{canvas:05d}.tif'
-              url = service + '/full/2400,/0/default.jpg'
-              fetch(url, out / f'nijl-canvas-{canvas:03d}.jpg', f'NIJL_1594_CANVAS_{canvas:03d}')
-              time.sleep(0.2)
+              fetch(url, out / f'v78-page-{page:03d}.jpg', f'TOHOKU_MA591_V7-8_PAGE_{page:03d}')
+              time.sleep(0.1)
 
           (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          print(json.dumps({'count': len(manifest), 'labels': [x['label'] for x in manifest]}, ensure_ascii=False))
+          print(json.dumps({'count': len(manifest), 'first': manifest[0]['label'], 'last': manifest[-1]['label']}, ensure_ascii=False))
           PY
-      - name: Upload comparison images
+      - name: Upload volume 7-8 direct visual pages
         uses: actions/upload-artifact@v4
         with:
-          name: ziwei-zhangguo-ax-visual-comparison
+          name: ziwei-tohoku-hirayama-v78-backhalf-visual
           path: ax-visual-pages
           if-no-files-found: error
           retention-days: 7
