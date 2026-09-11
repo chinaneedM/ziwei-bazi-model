@@ -1,0 +1,43 @@
+name: finalize-batch-12ba
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/finalize-batch-12ba.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - name: Apply Batch 12BA closure
+        run: python scripts/finalize-batch-12ba.py
+      - name: Verify continuity
+        run: python scripts/verify-project-continuity-state-r1.py
+      - name: Diff hygiene
+        run: git diff --check
+      - name: Commit and push closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            scripts/verify-project-continuity-state-r1.py
+          if git diff --cached --quiet; then
+            echo "No Batch 12BA closure changes to commit"
+            exit 0
+          fi
+          git commit -m "close Batch 12BA SOAS NCL Morrison provenance"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
