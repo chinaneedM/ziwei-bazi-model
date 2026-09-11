@@ -1,0 +1,103 @@
+name: research-ziwei-sancai-1697-luming-nightzi-av-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sancai-1697-luming-nightzi-av-r1.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Resolve Harvard v8 and render opening Luming window
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          out = Path('out')
+          renders = out / 'renders'
+          renders.mkdir(parents=True)
+          title = 'File:Harvard drs 52822721 三才發秘天部二卷 v.8.pdf'
+          params = {
+              'action': 'query', 'format': 'json', 'prop': 'imageinfo',
+              'iiprop': 'url|sha1|size', 'titles': title,
+          }
+          api = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(params)
+          req = urllib.request.Request(api, headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          data = json.load(urllib.request.urlopen(req, timeout=60))
+          page = next(iter(data['query']['pages'].values()))
+          assert 'imageinfo' in page, page
+          info = page['imageinfo'][0]
+          pdf = out / 'sancai-v8.pdf'
+          req = urllib.request.Request(info['url'], headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          with urllib.request.urlopen(req, timeout=180) as src, pdf.open('wb') as dst:
+              while True:
+                  chunk = src.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  dst.write(chunk)
+
+          pdf_sha = hashlib.sha256(pdf.read_bytes()).hexdigest()
+          pdfinfo = subprocess.check_output(['pdfinfo', str(pdf)], text=True, errors='replace')
+          pages_line = next(line for line in pdfinfo.splitlines() if line.startswith('Pages:'))
+          page_count = int(pages_line.split(':', 1)[1].strip())
+
+          end = min(20, page_count)
+          for p in range(1, end + 1):
+              subprocess.run([
+                  'pdftoppm', '-f', str(p), '-singlefile', '-jpeg', '-r', '260',
+                  str(pdf), str(renders / f'page-{p:04d}')
+              ], check=True)
+
+          rendered = []
+          for path in sorted(renders.glob('*.jpg')):
+              rendered.append({
+                  'file': path.name,
+                  'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                  'bytes': path.stat().st_size,
+              })
+
+          manifest = {
+              'schema': 'ZIWEI-SANCAI-1697-LUMING-NIGHTZI-AV-R1-PROBE',
+              'source_title': title,
+              'commons_api': api,
+              'resolved_original_url': info['url'],
+              'commons_sha1': info.get('sha1'),
+              'commons_size': info.get('size'),
+              'pdf_sha256': pdf_sha,
+              'pdf_page_count': page_count,
+              'rendered_pdf_pages': list(range(1, end + 1)),
+              'render_dpi': 260,
+              'ocr_used': False,
+              'received_text_locator_only': 'CText/Shidian identify v8/person-section opening as 人部卷一 祿命 and contain the night-Zi/Hai controversy; physical glyph authority requires visual review of these Harvard renders.',
+              'target_phrases_for_visual_review': [
+                  '故夜半前之四刻乃是子時並非亥時',
+                  '若立支幹當立明日子時枝幹',
+                  '半夜之前卻有半個子時',
+                  '時人亦不知又作為亥論',
+                  '故在夜生者所生八字多有差謬'
+              ],
+              'rendered_files': rendered,
+          }
+          (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+          (out / 'pdfinfo.txt').write_text(pdfinfo, 'utf-8')
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sancai-1697-luming-nightzi-av-r1
+          path: out/
+          retention-days: 90
