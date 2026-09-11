@@ -1,0 +1,160 @@
+name: research-ziwei-tohoku-hirayama-v56-ax-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/research-ziwei-tohoku-hirayama-v56-ax-r1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  acquire-and-locate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install OCR locator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra
+          python -m pip install --quiet pillow requests
+      - name: Fetch Tohoku IIIF volume 5-6 and locate target pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os, re, subprocess, time
+          from pathlib import Path
+          import requests
+          from PIL import Image
+
+          manifest_url = 'https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000001143/manifest.json'
+          out = Path('tmp_ax')
+          imgdir = out / 'images'
+          txtdir = out / 'ocr'
+          imgdir.mkdir(parents=True, exist_ok=True)
+          txtdir.mkdir(parents=True, exist_ok=True)
+
+          s = requests.Session()
+          s.headers['User-Agent'] = 'ziwei-bazi-model historical provenance research/1.0'
+          r = s.get(manifest_url, timeout=60)
+          r.raise_for_status()
+          raw = r.content
+          manifest = r.json()
+          (out/'manifest.json').write_bytes(raw)
+
+          services = []
+          labels = []
+          if manifest.get('sequences'):
+              canvases = manifest['sequences'][0].get('canvases', [])
+              for c in canvases:
+                  labels.append(str(c.get('label','')))
+                  service = c.get('images',[{}])[0].get('resource',{}).get('service',{})
+                  sid = service.get('@id') or service.get('id')
+                  if not sid:
+                      rid = c.get('images',[{}])[0].get('resource',{}).get('@id')
+                      if rid and '/full/' in rid:
+                          sid = rid.split('/full/')[0]
+                  services.append(sid)
+          else:
+              for c in manifest.get('items', []):
+                  labels.append(str(c.get('label','')))
+                  sid = None
+                  try:
+                      body = c['items'][0]['items'][0]['body']
+                      svc = (body.get('service') or [{}])[0]
+                      sid = svc.get('id') or svc.get('@id')
+                  except Exception:
+                      pass
+                  services.append(sid)
+
+          rows = []
+          needles = ['人命','生時','不定','子為亥','亥為子','七政','夜子','上四刻','下四刻','今日日辰','明日日辰']
+          for i, sid in enumerate(services, start=1):
+              if not sid:
+                  rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': None, 'error': 'NO_SERVICE'})
+                  continue
+              image_url = sid.rstrip('/') + '/full/1800,/0/default.jpg'
+              ip = imgdir / f'{i:03d}.jpg'
+              rr = s.get(image_url, timeout=60)
+              if rr.status_code != 200:
+                  rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': sid, 'image_url': image_url, 'http_status': rr.status_code})
+                  continue
+              ip.write_bytes(rr.content)
+              sha = hashlib.sha256(rr.content).hexdigest()
+              proc = subprocess.run(['tesseract', str(ip), 'stdout', '-l', 'chi_tra', '--psm', '6'], capture_output=True, text=True, timeout=90)
+              text = proc.stdout.replace(' ', '')
+              (txtdir/f'{i:03d}.txt').write_text(text, encoding='utf-8')
+              score = sum(1 for n in needles if n in text)
+              rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': sid, 'image_url': image_url, 'image_sha256': sha, 'ocr_score': score, 'ocr_excerpt': text[:1200]})
+              time.sleep(0.05)
+
+          ranked = sorted([x for x in rows if x.get('image_sha256')], key=lambda x: (x.get('ocr_score',0), -x['page']), reverse=True)
+          candidates = [x for x in ranked if x.get('ocr_score',0) > 0][:12]
+          if not candidates:
+              candidates = ranked[:12]
+
+          selected = []
+          for c in candidates[:8]:
+              p = c['page']
+              for q in range(max(1,p-1), min(len(services),p+1)+1):
+                  if q not in selected:
+                      selected.append(q)
+          selected = selected[:18]
+
+          pdf_images = []
+          for q in selected:
+              ip = imgdir/f'{q:03d}.jpg'
+              if ip.exists():
+                  im = Image.open(ip).convert('RGB')
+                  pdf_images.append(im)
+          evidence_dir = Path('docs/research/evidence')
+          evidence_dir.mkdir(parents=True, exist_ok=True)
+          pdf_path = evidence_dir/'ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf'
+          if pdf_images:
+              pdf_images[0].save(pdf_path, save_all=True, append_images=pdf_images[1:])
+
+          report = {
+              'schema': 'ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1',
+              'status': 'OCR_LOCATOR_ONLY_PENDING_DIRECT_VISUAL_COLLATION',
+              'source': {
+                  'record_id': '10020000001143',
+                  'record_url': 'https://touda.tohoku.ac.jp/collection/database/library/10020000001143',
+                  'manifest_url': manifest_url,
+                  'manifest_sha256': hashlib.sha256(raw).hexdigest(),
+                  'collection': 'Tohoku University Main Library / Hirayama Collection',
+                  'call_number': 'MA/591',
+                  'volume': '卷之5-6',
+                  'catalog_date_label': '正徳5',
+                  'declared_image_count': len(services),
+              },
+              'method': {
+                  'ocr_role': 'LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
+                  'ocr_engine': 'tesseract chi_tra psm6',
+                  'image_width_request': 1800,
+                  'direct_visual_review_required': True,
+              },
+              'candidate_pages': candidates,
+              'pdf_selected_source_pages': selected,
+              'pdf_path': str(pdf_path),
+              'all_pages_summary': [{k:v for k,v in x.items() if k not in ('ocr_excerpt',)} for x in rows],
+          }
+          Path('docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          print(json.dumps({'page_count': len(services), 'top_candidates': [(c['page'],c.get('ocr_score')) for c in candidates[:12]], 'selected': selected}, ensure_ascii=False))
+          PY
+      - name: Commit locator evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf
+          if git diff --cached --quiet; then
+            echo 'No locator evidence changes'
+            exit 0
+          fi
+          git commit -m 'capture Tohoku Hirayama Zhangguo v5-6 locator evidence'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
