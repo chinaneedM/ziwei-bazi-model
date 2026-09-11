@@ -14,7 +14,7 @@ The batch deliberately distinguishes four questions:
 DOES_FUDAN_HAVE_A_TARGET_TITLE_PHYSICAL_ITEM?
 IS_THE_ITEM_MING_WANLI?
 IS_IT_EXACTLY_WANLI_22 / 1594?
-HAS_THE_TARGET_LATE-ZI LEAF BEEN DIRECTLY COLLATION-BOUND?
+HAS_THE_TARGET_LATE-ZI LEAF BEEN DIRECTLY_COLLATION_BOUND?
 ```
 
 A positive answer to an earlier question does not imply a positive answer to a later one.
@@ -161,3 +161,7 @@ docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json
 2. Continue seeking a genuinely independent first-party copy whose **physical edition field itself** binds Wanli-22 / 1594 (or 1593) and then bind the target leaf.
 3. Keep the Shandong/Weifang and Jiangsu/Nanjing leads locator-scoped until first-party object bytes or item metadata become reachable.
 4. Do not collapse HPA-ZDATE-006 until direct rule evidence supplies the missing upper/night-Zi -> Hai mapping.
+
+## 13. Closure integrity gate
+
+This batch is provenance/access-only. It authorizes no deterministic runtime change; project-continuity verification and exact-HEAD CI remain mandatory closure gates, and this section adds no historical witness vote.
