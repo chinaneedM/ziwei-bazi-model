@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, json, os, re, subprocess, time
+          import hashlib, json, subprocess, time
           from pathlib import Path
           import requests
           from PIL import Image
@@ -40,9 +40,28 @@ jobs:
           txtdir.mkdir(parents=True, exist_ok=True)
 
           s = requests.Session()
-          s.headers['User-Agent'] = 'ziwei-bazi-model historical provenance research/1.0'
-          r = s.get(manifest_url, timeout=60)
-          r.raise_for_status()
+          s.headers.update({
+              'User-Agent': 'ziwei-bazi-model historical provenance research/1.0',
+              'Accept': 'application/json,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          })
+
+          def get_with_retry(url, *, attempts=5, timeout=60):
+              errors = []
+              for attempt in range(1, attempts + 1):
+                  try:
+                      rr = s.get(url, timeout=timeout)
+                      if rr.status_code == 200:
+                          return rr, errors
+                      errors.append(f'attempt={attempt}:http={rr.status_code}')
+                  except requests.RequestException as exc:
+                      errors.append(f'attempt={attempt}:{type(exc).__name__}:{exc}')
+                  if attempt < attempts:
+                      time.sleep(min(2 ** (attempt - 1), 8))
+              return None, errors
+
+          r, manifest_errors = get_with_retry(manifest_url, attempts=5, timeout=60)
+          if r is None:
+              raise SystemExit('manifest acquisition failed: ' + ' | '.join(manifest_errors))
           raw = r.content
           manifest = r.json()
           (out/'manifest.json').write_bytes(raw)
@@ -75,25 +94,61 @@ jobs:
           rows = []
           needles = ['人命','生時','不定','子為亥','亥為子','七政','夜子','上四刻','下四刻','今日日辰','明日日辰']
           for i, sid in enumerate(services, start=1):
+              label = labels[i-1] if i-1 < len(labels) else ''
               if not sid:
-                  rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': None, 'error': 'NO_SERVICE'})
+                  rows.append({'page': i, 'label': label, 'service_id': None, 'error': 'NO_SERVICE'})
                   continue
-              image_url = sid.rstrip('/') + '/full/1800,/0/default.jpg'
+              image_url = sid.rstrip('/') + '/full/1200,/0/default.jpg'
               ip = imgdir / f'{i:03d}.jpg'
-              rr = s.get(image_url, timeout=60)
-              if rr.status_code != 200:
-                  rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': sid, 'image_url': image_url, 'http_status': rr.status_code})
+              rr, request_errors = get_with_retry(image_url, attempts=5, timeout=60)
+              if rr is None:
+                  rows.append({
+                      'page': i,
+                      'label': label,
+                      'service_id': sid,
+                      'image_url': image_url,
+                      'error': 'IMAGE_FETCH_FAILED_AFTER_RETRIES',
+                      'request_errors': request_errors,
+                  })
+                  time.sleep(0.25)
                   continue
               ip.write_bytes(rr.content)
               sha = hashlib.sha256(rr.content).hexdigest()
-              proc = subprocess.run(['tesseract', str(ip), 'stdout', '-l', 'chi_tra', '--psm', '6'], capture_output=True, text=True, timeout=90)
-              text = proc.stdout.replace(' ', '')
+              text = ''
+              ocr_error = None
+              try:
+                  proc = subprocess.run(
+                      ['tesseract', str(ip), 'stdout', '-l', 'chi_tra', '--psm', '6'],
+                      capture_output=True, text=True, timeout=90,
+                  )
+                  text = proc.stdout.replace(' ', '')
+                  if proc.returncode != 0:
+                      ocr_error = f'TESSERACT_RETURN_CODE_{proc.returncode}'
+              except Exception as exc:
+                  ocr_error = f'{type(exc).__name__}:{exc}'
               (txtdir/f'{i:03d}.txt').write_text(text, encoding='utf-8')
               score = sum(1 for n in needles if n in text)
-              rows.append({'page': i, 'label': labels[i-1] if i-1 < len(labels) else '', 'service_id': sid, 'image_url': image_url, 'image_sha256': sha, 'ocr_score': score, 'ocr_excerpt': text[:1200]})
-              time.sleep(0.05)
+              row = {
+                  'page': i,
+                  'label': label,
+                  'service_id': sid,
+                  'image_url': image_url,
+                  'image_sha256': sha,
+                  'ocr_score': score,
+                  'ocr_excerpt': text[:1200],
+              }
+              if request_errors:
+                  row['request_retry_history'] = request_errors
+              if ocr_error:
+                  row['ocr_error'] = ocr_error
+              rows.append(row)
+              time.sleep(0.25)
 
-          ranked = sorted([x for x in rows if x.get('image_sha256')], key=lambda x: (x.get('ocr_score',0), -x['page']), reverse=True)
+          ranked = sorted(
+              [x for x in rows if x.get('image_sha256')],
+              key=lambda x: (x.get('ocr_score',0), -x['page']),
+              reverse=True,
+          )
           candidates = [x for x in ranked if x.get('ocr_score',0) > 0][:12]
           if not candidates:
               candidates = ranked[:12]
@@ -102,7 +157,7 @@ jobs:
           for c in candidates[:8]:
               p = c['page']
               for q in range(max(1,p-1), min(len(services),p+1)+1):
-                  if q not in selected:
+                  if q not in selected and (imgdir/f'{q:03d}.jpg').exists():
                       selected.append(q)
           selected = selected[:18]
 
@@ -110,14 +165,15 @@ jobs:
           for q in selected:
               ip = imgdir/f'{q:03d}.jpg'
               if ip.exists():
-                  im = Image.open(ip).convert('RGB')
-                  pdf_images.append(im)
+                  pdf_images.append(Image.open(ip).convert('RGB'))
           evidence_dir = Path('docs/research/evidence')
           evidence_dir.mkdir(parents=True, exist_ok=True)
           pdf_path = evidence_dir/'ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf'
           if pdf_images:
               pdf_images[0].save(pdf_path, save_all=True, append_images=pdf_images[1:])
 
+          downloaded = sum(1 for x in rows if x.get('image_sha256'))
+          failed = [x for x in rows if x.get('error')]
           report = {
               'schema': 'ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1',
               'status': 'OCR_LOCATOR_ONLY_PENDING_DIRECT_VISUAL_COLLATION',
@@ -135,23 +191,42 @@ jobs:
               'method': {
                   'ocr_role': 'LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
                   'ocr_engine': 'tesseract chi_tra psm6',
-                  'image_width_request': 1800,
+                  'image_width_request': 1200,
+                  'per_image_retry_attempts': 5,
+                  'single_page_failure_policy': 'RECORD_AND_CONTINUE',
                   'direct_visual_review_required': True,
+              },
+              'acquisition_summary': {
+                  'declared_pages': len(services),
+                  'downloaded_pages': downloaded,
+                  'failed_pages': len(failed),
+                  'failed_page_numbers': [x['page'] for x in failed],
               },
               'candidate_pages': candidates,
               'pdf_selected_source_pages': selected,
-              'pdf_path': str(pdf_path),
+              'pdf_path': str(pdf_path) if pdf_images else None,
               'all_pages_summary': [{k:v for k,v in x.items() if k not in ('ocr_excerpt',)} for x in rows],
           }
-          Path('docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-          print(json.dumps({'page_count': len(services), 'top_candidates': [(c['page'],c.get('ocr_score')) for c in candidates[:12]], 'selected': selected}, ensure_ascii=False))
+          Path('docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8'
+          )
+          print(json.dumps({
+              'page_count': len(services),
+              'downloaded': downloaded,
+              'failed': len(failed),
+              'top_candidates': [(c['page'],c.get('ocr_score')) for c in candidates[:12]],
+              'selected': selected,
+          }, ensure_ascii=False))
           PY
       - name: Commit locator evidence
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf
+          git add docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-LOCATOR-R1.json
+          if [ -f docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf ]; then
+            git add docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V5-6-CANDIDATES-R1.pdf
+          fi
           if git diff --cached --quiet; then
             echo 'No locator evidence changes'
             exit 0
