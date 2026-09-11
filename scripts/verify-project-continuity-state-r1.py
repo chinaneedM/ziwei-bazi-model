@@ -122,6 +122,8 @@ ZIWEI_ZHANGGUO_AX_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-
 ZIWEI_ZHANGGUO_AX_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-R1.json"
 ZIWEI_ZHANGGUO_AY_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY.md"
 ZIWEI_ZHANGGUO_AY_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-JANGSEOGAK-PUBLIC-ACCESS-BOUNDARY-R1.json"
+ZIWEI_ZHANGGUO_AZ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ.md"
+ZIWEI_ZHANGGUO_AZ_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-R1.json"
 
 EXPECTED_BRANCH = "agent/fusion-chart-core-r1-20260822"
 EXPECTED_S00_S19_STATUS = "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY"
@@ -182,9 +184,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
     "BATCH-12-ZIWEI-ZHANGGUO-HIRAYAMA-GUANGXU7-RECENSION-COLLATION-AX",
     "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
+    "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ.md"
 
 
 def fail(message: str) -> None:
@@ -192,6 +195,10 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_ZHANGGUO_AZ_BATCH, ZIWEI_ZHANGGUO_AZ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12AZ continuity artifact missing: {path.relative_to(ROOT)}")
+
     for path in (ZIWEI_ZHANGGUO_AY_BATCH, ZIWEI_ZHANGGUO_AY_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12AY continuity artifact missing: {path.relative_to(ROOT)}")
@@ -323,6 +330,7 @@ def main() -> int:
     ziwei_zhangguo_aw_evidence = json.loads(ZIWEI_ZHANGGUO_AW_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_ax_evidence = json.loads(ZIWEI_ZHANGGUO_AX_EVIDENCE.read_text(encoding="utf-8"))
     ziwei_zhangguo_ay_evidence = json.loads(ZIWEI_ZHANGGUO_AY_EVIDENCE.read_text(encoding="utf-8"))
+    ziwei_zhangguo_az_evidence = json.loads(ZIWEI_ZHANGGUO_AZ_EVIDENCE.read_text(encoding="utf-8"))
 
     if state.get("schema") != "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1":
         fail("project current-state schema mismatch")
@@ -1146,6 +1154,48 @@ def main() -> int:
             fail(f"Batch 12AY registry scope firewall regressed for {source_id}")
         if source.get("independent_target_text_witness_increment") != 0 or source.get("independent_hai_glyph_witness_increment") != 0:
             fail(f"Batch 12AY registry vote accounting regressed for {source_id}")
+
+    # Batch 12AZ Weifang/Shandong 1594 locator and cross-egress access boundary.
+    if ziwei_zhangguo_az_evidence.get("batch_id") != "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-1594-PUBLIC-ROUTE-ACCESS-BOUNDARY-AZ":
+        fail("Batch 12AZ evidence identity mismatch")
+    locator12az = ziwei_zhangguo_az_evidence.get("locator_claim", {})
+    if locator12az.get("resource_id") != "151613020240003" or locator12az.get("edition_claim") != "明萬曆二十二年(1594)唐謙刻本" or locator12az.get("holding_claim") != "濰坊市圖書館藏":
+        fail("Batch 12AZ Weifang locator binding regressed")
+    if locator12az.get("official_catalog_metadata_directly_bound") is not False or locator12az.get("physical_copy_identity_directly_bound") is not False:
+        fail("Batch 12AZ locator-to-primary authority firewall regressed")
+    initial12az = ziwei_zhangguo_az_evidence.get("initial_linux_probe", {})
+    if initial12az.get("workflow_run_id") != 34596426615 or initial12az.get("artifact_id") != 10262594953 or initial12az.get("downloaded_pdf_samples") != 0 or initial12az.get("rendered_pages") != 0:
+        fail("Batch 12AZ initial acquisition boundary regressed")
+    egress12az = ziwei_zhangguo_az_evidence.get("cross_egress_probe", {})
+    if egress12az.get("workflow_run_id") != 34597728895 or egress12az.get("routes_tested_per_runner") != 5:
+        fail("Batch 12AZ cross-egress provenance regressed")
+    runners12az = {r.get("os"): r for r in egress12az.get("runners", ())}
+    expected12az = {
+        "Linux": (103257322652, 10263155974),
+        "macOS": (103257322513, 10263650215),
+        "Windows": (103257322572, 10263550354),
+    }
+    for os_name, (job_id, artifact_id) in expected12az.items():
+        runner = runners12az.get(os_name, {})
+        if runner.get("job_id") != job_id or runner.get("artifact_id") != artifact_id or runner.get("all_reviewed_routes_timed_out") is not True:
+            fail(f"Batch 12AZ cross-egress runner binding regressed for {os_name}")
+    adj12az = ziwei_zhangguo_az_evidence.get("adjudication", {})
+    if adj12az.get("official_shandong_object_bytes_obtained") is not False or adj12az.get("target_leaf_obtained") is not False or adj12az.get("direct_glyph_collation_authorized") is not False:
+        fail("Batch 12AZ byte/glyph authority firewall regressed")
+    if adj12az.get("whole_holding_text_negative_authorized") is not False or adj12az.get("no_digitization_claim_authorized") is not False or adj12az.get("resource_gone_claim_authorized") is not False:
+        fail("Batch 12AZ access-vs-absence firewall regressed")
+    if adj12az.get("same_edition_text_stability_vote_increment") != 0 or adj12az.get("independent_target_text_witness_increment") != 0 or adj12az.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AZ witness accounting regressed")
+    effect12az = ziwei_zhangguo_az_evidence.get("project_consequence", {})
+    if effect12az.get("audit_status") != "MISSING_FROM_PRODUCT" or effect12az.get("runtime_winner_selected") is not False or effect12az.get("candidate_collapsed") is not False or effect12az.get("algorithm_reopen") is not False:
+        fail("Batch 12AZ HPA/algorithm firewall regressed")
+    src12az = next((s for s in registry.get("sources", ()) if s.get("source_id") == "EXT-ZIWEI-ZHANGGUO-WEIFANG-1594-LOCATOR"), None)
+    if not src12az or src12az.get("source_role") != "SECONDARY_MULTI_INDEX_LOCATOR_PENDING_FIRST_PARTY_SHANDONG_OBJECT_BINDING":
+        fail("Batch 12AZ registry locator authority scope regressed")
+    if src12az.get("official_catalog_metadata_directly_bound") is not False or src12az.get("target_leaf_obtained") is not False or src12az.get("whole_holding_text_negative_authorized") is not False:
+        fail("Batch 12AZ registry access/authority firewall regressed")
+    if src12az.get("independent_target_text_witness_increment") != 0 or src12az.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12AZ registry witness accounting regressed")
 
     # Provenance/access-only batches can advance without changing any Matrix row.
     # The Matrix batch ledger remains an exact prefix; state may append explicitly
