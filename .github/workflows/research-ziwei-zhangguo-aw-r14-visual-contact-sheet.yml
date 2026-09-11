@@ -1,0 +1,62 @@
+name: research-ziwei-zhangguo-aw-r14-visual-contact-sheet
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r14-visual-contact-sheet.yml
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - name: Install image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+      - name: Build visual-only NIJL contact sheet
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out docs/research/media/batch-12aw-nijl-target-preview
+          for i in $(seq 188 198); do
+            printf -v n '%05d' "$i"
+            printf -v s '%03d' "$i"
+            url="https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-${n}.tif/full/1800,/0/default.jpg"
+            curl -L --fail --retry 3 --silent --show-error "$url" -o "out/page-${s}.jpg"
+            convert "out/page-${s}.jpg" -colorspace Gray -resize 300x -quality 28 "out/thumb-${s}.jpg"
+          done
+          montage out/thumb-*.jpg -tile 3x -geometry +8+28 -pointsize 18 -set label '%t' -quality 32 \
+            docs/research/media/batch-12aw-nijl-target-preview/contact-sheet-188-198.jpg
+          base64 -w 120 docs/research/media/batch-12aw-nijl-target-preview/contact-sheet-188-198.jpg \
+            > docs/research/media/batch-12aw-nijl-target-preview/contact-sheet-188-198.b64.txt
+          {
+            echo 'SCHEMA=ZIWEI-ZHANGGUO-NIJL-VOL8-VISUAL-CONTACT-SHEET-R1'
+            echo 'STATUS=VISUAL_LOCATOR_ONLY'
+            echo 'NIJL_BID=100238879'
+            echo 'IIIF_COLLECTION=THKW/THKW-04306'
+            echo 'IMAGE_RANGE=188-198'
+            echo 'THUMB_WIDTH=300'
+            echo 'RULE=CONTACT_SHEET_IS_FOR_LOCATING_THE_TARGET_LEAF_ONLY; FINAL_GLYPH_COLLATION_MUST_USE_A_HIGH_RESOLUTION_SOURCE_IMAGE'
+            sha256sum docs/research/media/batch-12aw-nijl-target-preview/contact-sheet-188-198.jpg
+          } > docs/research/media/batch-12aw-nijl-target-preview/manifest.txt
+      - name: Commit visual locator assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/media/batch-12aw-nijl-target-preview/
+          git commit -m 'record Batch 12AW NIJL visual contact sheet'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
