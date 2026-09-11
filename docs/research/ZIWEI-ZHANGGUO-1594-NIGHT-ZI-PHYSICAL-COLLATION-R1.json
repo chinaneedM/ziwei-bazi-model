@@ -1,0 +1,68 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1",
+  "batch": "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",
+  "status": "DIRECT_PHYSICAL_PAGE_COLLATED_NO_OCR_GLYPH_AUTHORITY",
+  "source": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-NIJL-1594",
+    "provider": "National Institute of Japanese Literature / Tohoku University Library",
+    "bid": "100238879",
+    "title": "新編評註通玄先生張果星宗大全",
+    "author": "陸位",
+    "date": "萬曆22 / 1594",
+    "manifest_url": "https://kokusho.nijl.ac.jp/biblio/100238879/manifest",
+    "biblio_url": "https://kokusho.nijl.ac.jp/biblio/100238879?ln=ja",
+    "manifest_sha256": "349da96570f24e59f8a875d6bbd806d5b4e0eee29344abc2769de7afb151a108",
+    "canvas_count": 439,
+    "attribution": "東北大学附属図書館 国文学研究資料館"
+  },
+  "target": {
+    "canvas_index": 195,
+    "service_id": "https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-00195.tif",
+    "review_image_url_2400": "https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-00195.tif/full/2400,/0/default.jpg",
+    "review_image_sha256_2400": "39c22d31e99d950f4cfd81680fb12b537c55fa2425503a9b6f6c844a3f4fbfb6",
+    "ocr_role": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+    "glyph_authority": "DIRECT_VISUAL_REVIEW_OF_PHYSICAL_PAGE_IMAGE"
+  },
+  "direct_readings": {
+    "main_text": "人命多有生時不定，以子為亥，亥為子，以初為末，末為初，則坐度不同……",
+    "upper_annotation_secure_core": "七政曆所載，有夜子時之分，有上四刻下四刻之法；上四刻正陰，下四刻正陽。",
+    "reading_scope_note": "Only the securely legible core needed for the mechanical audit is normalized here. Unneeded damaged/ambiguous continuation characters are not silently supplied."
+  },
+  "philology": {
+    "main_text_function": "DESCRIBES_BIRTH_TIME_MISIDENTIFICATION_OR_UNCERTAINTY; 子亥互誤 IS ATTESTED AS A PROBLEM, NOT AUTOMATICALLY AS AN AUTHORIAL PRESCRIPTION",
+    "annotation_function": "ATTESTS_A_NIGHT_ZI_UPPER_LOWER_FOUR_KE_DIVISION_IN_A_QIZHENG_CALENDAR_CONTEXT",
+    "not_proven": [
+      "The reviewed 1594 wording does not by itself securely state that the upper four ke must be reclassified to the Hai branch.",
+      "The reviewed page does not select a modern clock mapping or runtime time standard.",
+      "The reviewed page does not establish that all later Fullbook recensions copied this wording unchanged."
+    ]
+  },
+  "evidence_weighting": {
+    "earlier_than_sancai_1697": true,
+    "independent_work_from_sancai": true,
+    "supports_historical_night_zi_split_genealogy": true,
+    "supports_historical_zi_hai_confusion_genealogy": true,
+    "explicit_upper_zi_to_hai_rule_vote": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false
+  },
+  "jangseogak_control": {
+    "data_id": "LIB_169178",
+    "call_numbers": ["PC9A-20", "C9A-20"],
+    "catalog_claim": "中國木板本 / 萬曆22(1594) / 10卷10冊",
+    "relationship": "SEPARATE_INSTITUTIONAL_HOLDING_CATALOG_RECORD; TARGET_PAGE_NOT_OBTAINED",
+    "glyph_vote_increment": 0,
+    "reason": "Bibliographic identity is useful, but no Jangseogak target leaf has been directly collated."
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "historical_genealogy_strengthened": true,
+    "matrix_count_change": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
