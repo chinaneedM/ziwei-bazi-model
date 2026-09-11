@@ -421,3 +421,13 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - No physical-book negative, runtime selection, candidate collapse, algorithm reopen or provenance-defect increment is authorized.
 - Accounting remains 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / provenance defects 11 confirmed + 11 repaired / chart algorithm defect-reopen-collapse 0.
 - Machine evidence: `docs/research/ZIWEI-JIELAN-PT49-PUBLIC-PREVIEW-ACCESS-BOUNDARY-R1.json`.
+
+
+## Batch 12AW — Zhangguo 1594 night-Zi physical witness
+
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; Matrix counts are unchanged.
+- NIJL/Tohoku BID `100238879`, 《新編評註通玄先生張果星宗大全》, 陸位, 萬曆22/1594, canvas 195 was directly visually collated.
+- Main text securely attests `人命多有生時不定，以子為亥，亥為子，以初為末，末為初，則坐度不同……` in a birth-time uncertainty/error context.
+- The upper annotation securely attests `七政曆所載，有夜子時之分，有上四刻下四刻之法；上四刻正陰，下四刻正陽。`
+- This strengthens the pre-1697 genealogy of the night-Zi split and Zi/Hai confusion, but does **not** itself prove `upper four ke -> Hai branch`, does not select a modern time coordinate, and adds no runtime winner or algorithm reopen.
+- Durable collation: `docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json`; batch decision: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md`.
