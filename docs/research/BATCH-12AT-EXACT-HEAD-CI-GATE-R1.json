@@ -1,0 +1,18 @@
+{
+  "schema": "BATCH-12AT-EXACT-HEAD-CI-GATE-R1",
+  "schema_version": "1.0.0",
+  "purpose": "Create a user-authored no-algorithm-change push after the GitHub Actions bot durable-state commit so the repository's ordinary push-triggered full CI runs against a branch HEAD containing the complete Batch 12AT durable state.",
+  "batch": "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT",
+  "durable_state_parent_sha": "8b5f30fb6e67ea2868670b9c3c82c098d5e2c61b",
+  "durable_state_parent_tree": "51e5264f9225669fb6c5d8d60c8a7da2bf733c76",
+  "reason": "Commits created inside a workflow with GITHUB_TOKEN do not recursively trigger ordinary push workflows. This evidence-only commit changes no chart algorithm, runtime candidate, matrix count, or historical conclusion.",
+  "expected_ci_workflow": ".github/workflows/ci.yml",
+  "expected_ci_name": "clean-training-system",
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "ziwei_self_inward_transformation_direction": "NOT_YET_FORMALIZED"
+  }
+}
