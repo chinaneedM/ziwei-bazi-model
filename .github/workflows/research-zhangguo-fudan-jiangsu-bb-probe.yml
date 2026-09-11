@@ -1,0 +1,249 @@
+name: research-zhangguo-fudan-jiangsu-bb-probe
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-zhangguo-fudan-jiangsu-bb-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe first-party public catalog surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests beautifulsoup4
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib
+          import json
+          import re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+
+          import requests
+          from bs4 import BeautifulSoup
+
+          OUT = Path('docs/research/ZIWEI-ZHANGGUO-FUDAN-JIANGSU-1594-PUBLIC-CATALOG-PROBE-R1.json')
+          session = requests.Session()
+          session.headers.update({
+              'User-Agent': 'Mozilla/5.0 provenance-research/1.0 (+public-catalog-audit)'
+          })
+
+          target_terms = [
+              '新編評註通玄先生張果星宗大全',
+              '新编评注通玄先生张果星宗大全',
+              '新編評注通玄先生張果星宗大全',
+              '張果星宗',
+              '张果星宗',
+          ]
+          sites = [
+              {
+                  'site_id': 'FUDAN_GUJI',
+                  'institution': '复旦大学图书馆',
+                  'roots': ['https://guji.fudan.edu.cn/'],
+                  'authority_scope': 'FIRST_PARTY_ANCIENT_BOOK_CATALOG_FRONTEND',
+              },
+              {
+                  'site_id': 'JIANGSU_GUJI_PLATFORM',
+                  'institution': '南京图书馆 / 江苏古籍数字资源集群',
+                  'roots': ['https://zggj.jslib.org.cn/', 'http://zggj.jslib.org.cn/'],
+                  'authority_scope': 'PUBLIC_ANCIENT_BOOK_PLATFORM_FRONTEND',
+              },
+          ]
+
+          def sha256(data: bytes) -> str:
+              return hashlib.sha256(data).hexdigest()
+
+          def fetch(url: str, timeout: int = 25, max_bytes: int = 8_000_000):
+              rec = {'url': url}
+              try:
+                  r = session.get(url, timeout=timeout, allow_redirects=True)
+                  body = r.content[:max_bytes]
+                  rec.update({
+                      'status': r.status_code,
+                      'final_url': r.url,
+                      'content_type': r.headers.get('content-type'),
+                      'content_length_header': r.headers.get('content-length'),
+                      'bytes_captured': len(body),
+                      'sha256_captured': sha256(body),
+                      'truncated_at_bytes': max_bytes if len(r.content) > max_bytes else None,
+                  })
+                  return rec, body, r.encoding or 'utf-8'
+              except Exception as exc:
+                  rec.update({'error_type': type(exc).__name__, 'error': repr(exc)})
+                  return rec, b'', 'utf-8'
+
+          def decode(body: bytes, encoding: str) -> str:
+              try:
+                  return body.decode(encoding or 'utf-8', errors='replace')
+              except LookupError:
+                  return body.decode('utf-8', errors='replace')
+
+          def contexts(text: str, needle: str, radius: int = 260, limit: int = 12):
+              out = []
+              start = 0
+              while len(out) < limit:
+                  i = text.find(needle, start)
+                  if i < 0:
+                      break
+                  out.append(text[max(0, i-radius): min(len(text), i+len(needle)+radius)])
+                  start = i + max(1, len(needle))
+              return out
+
+          # Only source-emitted resource URLs are fetched. No guessed object IDs, login,
+          # hidden route enumeration, or access-control bypass is permitted.
+          report = {
+              'schema': 'ZIWEI-ZHANGGUO-FUDAN-JIANGSU-1594-PUBLIC-CATALOG-PROBE-R1',
+              'batch_intent': 'BATCH-12BB-DISCOVERY-PROBE',
+              'question': 'Can first-party Fudan or Jiangsu/Nanjing public ancient-book catalog surfaces bind another 1594 Zhangguo holding or expose a normal public search contract?',
+              'target_title': target_terms[0],
+              'probe_policy': {
+                  'source_emitted_resources_only': True,
+                  'hidden_id_guessing': False,
+                  'authentication_attempted': False,
+                  'captcha_bypass_attempted': False,
+                  'negative_catalog_claim_authorized_from_route_failure': False,
+                  'glyph_authority': False,
+              },
+              'sites': [],
+              'adjudication': {},
+          }
+
+          for site in sites:
+              site_rec = {k: v for k, v in site.items() if k != 'roots'}
+              site_rec['root_attempts'] = []
+              site_rec['source_emitted_scripts'] = []
+              site_rec['script_fetches'] = []
+              site_rec['target_term_hits'] = []
+              site_rec['source_emitted_api_contract_clues'] = []
+              chosen_html = None
+              chosen_base = None
+
+              for root in site['roots']:
+                  meta, body, enc = fetch(root)
+                  site_rec['root_attempts'].append(meta)
+                  if body and meta.get('status') == 200 and chosen_html is None:
+                      chosen_html = decode(body, enc)
+                      chosen_base = meta.get('final_url') or root
+
+              if chosen_html is not None:
+                  for term in target_terms:
+                      for c in contexts(chosen_html, term):
+                          site_rec['target_term_hits'].append({
+                              'surface': 'ROOT_HTML', 'term': term, 'context': c
+                          })
+
+                  soup = BeautifulSoup(chosen_html, 'html.parser')
+                  emitted = []
+                  for tag in soup.find_all('script'):
+                      src = tag.get('src')
+                      if not src:
+                          continue
+                      u = urljoin(chosen_base, src)
+                      if urlparse(u).scheme in ('http', 'https'):
+                          emitted.append(u)
+                  emitted = list(dict.fromkeys(emitted))
+                  site_rec['source_emitted_scripts'] = emitted[:60]
+
+                  base_host = urlparse(chosen_base).hostname
+                  for js_url in emitted[:40]:
+                      if urlparse(js_url).hostname != base_host:
+                          continue
+                      meta, body, enc = fetch(js_url, timeout=25, max_bytes=6_000_000)
+                      js_rec = dict(meta)
+                      js_rec['source_emitted_by_root'] = True
+                      site_rec['script_fetches'].append(js_rec)
+                      if not body or meta.get('status') != 200:
+                          continue
+                      text = decode(body, enc)
+
+                      for term in target_terms:
+                          for c in contexts(text, term, radius=320, limit=8):
+                              site_rec['target_term_hits'].append({
+                                  'surface': js_url, 'term': term, 'context': c
+                              })
+
+                      # Extract only literal strings already present in the site's own JS.
+                      # These are discovery clues, not automatically invoked endpoints.
+                      literal_pattern = re.compile(r'''[\"']([^\"'\\]{1,400})[\"']''')
+                      seen = set()
+                      for m in literal_pattern.finditer(text):
+                          s = m.group(1)
+                          low = s.lower()
+                          if not any(tok in low for tok in ('api', 'search', 'query', 'catalog', 'book', 'guji', 'ancient', 'resource')):
+                              continue
+                          if not ('/' in s or 'http' in low):
+                              continue
+                          key = (js_url, s)
+                          if key in seen:
+                              continue
+                          seen.add(key)
+                          site_rec['source_emitted_api_contract_clues'].append({
+                              'script': js_url,
+                              'literal': s,
+                          })
+                          if len(site_rec['source_emitted_api_contract_clues']) >= 500:
+                              break
+                      if len(site_rec['source_emitted_api_contract_clues']) >= 500:
+                          break
+
+              site_rec['target_term_hit_count'] = len(site_rec['target_term_hits'])
+              site_rec['api_contract_clue_count'] = len(site_rec['source_emitted_api_contract_clues'])
+              report['sites'].append(site_rec)
+
+          report['adjudication'] = {
+              'direct_exact_title_hit_observed': any(s['target_term_hit_count'] for s in report['sites']),
+              'first_party_item_record_bound': False,
+              'target_leaf_obtained': False,
+              'independent_1594_physical_witness_increment': 0,
+              'independent_target_text_witness_increment': 0,
+              'independent_hai_glyph_witness_increment': 0,
+              'next_step': 'Inspect only source-emitted public search-contract clues. A later probe may invoke an endpoint only after its method/parameters are recoverable from the public frontend itself.',
+          }
+
+          OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps({
+              'schema': report['schema'],
+              'sites': [
+                  {
+                      'site_id': s['site_id'],
+                      'root_attempts': s['root_attempts'],
+                      'source_emitted_script_count': len(s['source_emitted_scripts']),
+                      'script_fetch_count': len(s['script_fetches']),
+                      'target_term_hit_count': s['target_term_hit_count'],
+                      'api_contract_clue_count': s['api_contract_clue_count'],
+                  }
+                  for s in report['sites']
+              ],
+              'adjudication': report['adjudication'],
+          }, ensure_ascii=False, indent=2))
+          PY
+      - name: Commit probe evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/research/ZIWEI-ZHANGGUO-FUDAN-JIANGSU-1594-PUBLIC-CATALOG-PROBE-R1.json
+          if git diff --cached --quiet; then
+            echo "No probe evidence to commit"
+            exit 0
+          fi
+          git commit -m "record Batch 12BB Fudan Jiangsu public catalog probe"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
