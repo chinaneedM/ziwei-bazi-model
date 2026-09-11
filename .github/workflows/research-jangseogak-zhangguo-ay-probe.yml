@@ -1,0 +1,131 @@
+name: research-jangseogak-zhangguo-ay-probe
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/research-jangseogak-zhangguo-ay-probe.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe object-specific Jangseogak PDF routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet requests pymupdf pillow
+          python - <<'PY'
+          import hashlib
+          import json
+          import math
+          import time
+          from pathlib import Path
+
+          import fitz
+          import requests
+          from PIL import Image, ImageDraw
+
+          out = Path('jangseogak-ay')
+          out.mkdir(parents=True, exist_ok=True)
+          s = requests.Session()
+          s.headers.update({'User-Agent': 'ziwei-bazi-model public route probe/1.0'})
+
+          series = {
+              'PC9A-20': range(1, 11),
+              'PC9A-20A': range(1, 6),
+          }
+          results = []
+          live = []
+          for callno, nums in series.items():
+              for n in nums:
+                  url = f'https://jsg.aks.ac.kr/data/serviceFiles/pdf/{callno}_{n:03d}.pdf'
+                  rec = {'call_number': callno, 'book': n, 'url': url}
+                  try:
+                      r = s.get(url, headers={'Range': 'bytes=0-4095'}, timeout=40, allow_redirects=True)
+                      rec['status'] = r.status_code
+                      rec['content_type'] = r.headers.get('content-type')
+                      rec['content_length_header'] = r.headers.get('content-length')
+                      rec['content_range'] = r.headers.get('content-range')
+                      rec['final_url'] = r.url
+                      rec['prefix_hex'] = r.content[:8].hex()
+                      rec['pdf_magic'] = r.content.startswith(b'%PDF')
+                      rec['response_bytes'] = len(r.content)
+                      if rec['pdf_magic'] and r.status_code in (200, 206):
+                          live.append((callno, n, url))
+                  except Exception as exc:
+                      rec['error'] = f'{type(exc).__name__}: {exc}'
+                  results.append(rec)
+                  time.sleep(0.15)
+
+          probe = {
+              'schema': 'JANGSEOGAK-ZHANGGUO-PUBLIC-PDF-ROUTE-PROBE-R1',
+              'target_records': {
+                  'PC9A-20': {'data_id': 'LIB_169178', 'catalog_date': '萬曆22(1594)', 'mf': 'MF16/1453-1454', 'extent': '10卷10冊'},
+                  'PC9A-20A': {'data_id': 'LIB_169177', 'catalog_date': '[刊年未詳]', 'mf': 'MF35/8437', 'extent': '10卷5冊'},
+              },
+              'known_pattern_control': 'https://jsg.aks.ac.kr/data/serviceFiles/pdf/PC9A-23_001.pdf',
+              'results': results,
+              'live_pdf_routes': [{'call_number': c, 'book': n, 'url': u} for c, n, u in live],
+          }
+          (out / 'route-probe.json').write_text(json.dumps(probe, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({'live': probe['live_pdf_routes']}, ensure_ascii=False))
+
+          # If the mechanically expected target-volume objects are public, download and render them to JPG.
+          targets = [('PC9A-20', 8), ('PC9A-20A', 4)]
+          live_set = {(c, n) for c, n, _ in live}
+          rendered = []
+          for callno, n in targets:
+              if (callno, n) not in live_set:
+                  continue
+              url = f'https://jsg.aks.ac.kr/data/serviceFiles/pdf/{callno}_{n:03d}.pdf'
+              r = s.get(url, timeout=180)
+              if not (r.status_code == 200 and r.content.startswith(b'%PDF')):
+                  continue
+              pdf_path = out / f'{callno}_{n:03d}.pdf'
+              pdf_path.write_bytes(r.content)
+              pdf_sha = hashlib.sha256(r.content).hexdigest()
+              doc = fitz.open(stream=r.content, filetype='pdf')
+              page_dir = out / f'{callno}_{n:03d}-pages'
+              page_dir.mkdir(exist_ok=True)
+              thumb_paths = []
+              for i, page in enumerate(doc):
+                  pix = page.get_pixmap(matrix=fitz.Matrix(1.35, 1.35), alpha=False)
+                  p = page_dir / f'page-{i+1:03d}.jpg'
+                  pix.save(str(p), jpg_quality=86)
+                  thumb_paths.append(p)
+              # 4-column contact sheets, max 20 pages per sheet.
+              for start in range(0, len(thumb_paths), 20):
+                  block = thumb_paths[start:start+20]
+                  thumbs = []
+                  for p in block:
+                      im = Image.open(p).convert('RGB')
+                      im.thumbnail((330, 460))
+                      thumbs.append((p.name, im.copy()))
+                  cell_w, cell_h = 350, 500
+                  cols = 4
+                  rows = math.ceil(len(thumbs) / cols)
+                  sheet = Image.new('RGB', (cols * cell_w, rows * cell_h), 'white')
+                  draw = ImageDraw.Draw(sheet)
+                  for j, (name, im) in enumerate(thumbs):
+                      x = (j % cols) * cell_w
+                      y = (j // cols) * cell_h
+                      sheet.paste(im, (x + 10, y + 22))
+                      draw.text((x + 10, y + 4), name, fill='black')
+                  sheet.save(out / f'{callno}_{n:03d}-contact-{start+1:03d}-{start+len(block):03d}.jpg', quality=88)
+              rendered.append({'call_number': callno, 'book': n, 'pdf_sha256': pdf_sha, 'pages': len(doc), 'bytes': len(r.content)})
+          (out / 'rendered.json').write_text(json.dumps(rendered, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({'rendered': rendered}, ensure_ascii=False))
+          PY
+      - name: Upload route-probe and any direct visual pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: jangseogak-zhangguo-ay-public-route-probe
+          path: jangseogak-ay
+          if-no-files-found: error
+          retention-days: 7
