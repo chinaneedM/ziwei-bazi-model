@@ -20,6 +20,20 @@ jobs:
           ref: agent/fusion-chart-core-r1-20260822
           fetch-depth: 0
 
+      - name: Patch temporary finalizer registry tail
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("scripts/finalize-batch-12ay.py")
+          text = path.read_text(encoding="utf-8")
+          old = '    tail = "\\n  ]\\n}\\n"\n'
+          new = '    tail = "\\n  ],\\n  \\"research_authority_policy_doc\\": \\"docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md\\"\\n}\\n"\n'
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one old registry-tail assignment, found {text.count(old)}")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+
       - name: Apply Batch 12AY closure
         run: python scripts/finalize-batch-12ay.py
 
