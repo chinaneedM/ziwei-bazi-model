@@ -1,0 +1,83 @@
+name: research-zhangguo-shandong-new-platform-contract-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-zhangguo-shandong-new-platform-contract-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe source-emitted public contract only
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          roots = ['https://guji.sdlib.cn/', 'https://guji.sdlib.cn/gujih5/']
+          target_id = '151613020240003'
+          target_title = '新編評註通玄先生張果星宗大全'
+          ua = 'Mozilla/5.0 research-contract-probe/1.0'
+
+          def fetch(url):
+              req = urllib.request.Request(url, headers={'User-Agent': ua, 'Accept': '*/*'})
+              try:
+                  with urllib.request.urlopen(req, timeout=20) as r:
+                      body = r.read(6_000_000)
+                      return {'requested_url': url, 'status': r.status, 'final_url': r.geturl(),
+                              'content_type': r.headers.get('content-type'), 'body_len': len(body),
+                              'sha256': hashlib.sha256(body).hexdigest(), 'body': body}
+              except Exception as e:
+                  return {'requested_url': url, 'error': f'{type(e).__name__}: {e}', 'body': b''}
+
+          out = {'schema':'SHANDONG-NEW-ANCIENT-BOOK-PLATFORM-PUBLIC-CONTRACT-PROBE-R1',
+                 'roots':[], 'assets':[], 'candidate_literals':[], 'target_literal_hits':[]}
+          assets=[]
+          for root in roots:
+              r=fetch(root); body=r.pop('body',b''); text=body.decode('utf-8','replace')
+              r['target_id_literal_present']=target_id in text
+              r['target_title_literal_present']=target_title in text
+              r['html_prefix']=text[:1200]
+              out['roots'].append(r)
+              for raw in re.findall(r'''(?:src|href)=["']([^"']+)["']''', text, re.I):
+                  u=urllib.parse.urljoin(root, html.unescape(raw)); p=urllib.parse.urlparse(u)
+                  if p.hostname=='guji.sdlib.cn' and (p.path.endswith('.js') or '.js?' in u): assets.append(u)
+
+          for u in list(dict.fromkeys(assets))[:30]:
+              r=fetch(u); body=r.pop('body',b''); text=body.decode('utf-8','replace')
+              r['target_id_literal_present']=target_id in text
+              r['target_title_literal_present']=target_title in text
+              out['assets'].append(r)
+              if target_id in text or target_title in text:
+                  out['target_literal_hits'].append({'asset':u,'id':target_id in text,'title':target_title in text})
+              c=set()
+              for m in re.findall(r'''https?://[^"'\\\s<>]{4,300}''', text):
+                  if any(k in m.lower() for k in ('api','book','guji','search','resource','file','content','detail')): c.add(m[:300])
+              for m in re.findall(r'''["'](/[^"'\\]{2,240})["']''', text):
+                  if any(k in m.lower() for k in ('api','book','guji','search','resource','file','content','detail','ancient')): c.add(m)
+              for x in sorted(c): out['candidate_literals'].append({'asset':u,'literal':x})
+
+          out['candidate_literals']=out['candidate_literals'][:1200]
+          out['summary']={'root_success_count':sum(x.get('status')==200 for x in out['roots']),
+                          'js_asset_count':len(out['assets']),
+                          'candidate_literal_count':len(out['candidate_literals']),
+                          'target_literal_hit_count':len(out['target_literal_hits']),
+                          'policy':'SOURCE_EMITTED_CONTRACT_ONLY_NO_GUESSED_API_CALLS_NO_LOGIN_NO_AUTH_BYPASS'}
+          Path('sdlib-new-platform-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdlib-new-platform-public-contract-probe
+          path: sdlib-new-platform-probe.json
+          if-no-files-found: error
