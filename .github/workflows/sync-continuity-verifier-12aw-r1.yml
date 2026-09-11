@@ -1,0 +1,79 @@
+name: sync-continuity-verifier-12aw-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/sync-continuity-verifier-12aw-r1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - name: Advance continuity verifier through Batch 12AW
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --ff-only origin agent/fusion-chart-core-r1-20260822
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/verify-project-continuity-state-r1.py')
+          s = p.read_text(encoding='utf-8')
+
+          old = '''ZIWEI_SANCAI_AV_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV.md"\nZIWEI_SANCAI_AV_EVIDENCE = ROOT / "docs/research/ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-R1.json"\n'''
+          new = old + '''ZIWEI_ZHANGGUO_AW_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"\nZIWEI_ZHANGGUO_AW_EVIDENCE = ROOT / "docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json"\n'''
+          if 'ZIWEI_ZHANGGUO_AW_BATCH' not in s:
+              if old not in s: raise SystemExit('AW constant insertion anchor missing')
+              s = s.replace(old, new, 1)
+
+          old = '''    "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV.md"\n'''
+          new = '''    "BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV",\n    "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"\n'''
+          if 'BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW",\n]' not in s:
+              if old not in s: raise SystemExit('AW supplemental-list anchor missing')
+              s = s.replace(old, new, 1)
+          else:
+              s = s.replace('LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-LUMING-NIGHT-ZI-HAI-ERROR-AV.md"',
+                            'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md"')
+
+          anchor = '''def main() -> int:\n    for path in (ZIWEI_SANCAI_AV_BATCH, ZIWEI_SANCAI_AV_EVIDENCE):\n'''
+          replacement = '''def main() -> int:\n    for path in (ZIWEI_ZHANGGUO_AW_BATCH, ZIWEI_ZHANGGUO_AW_EVIDENCE):\n        if not path.is_file():\n            fail(f"Batch 12AW continuity artifact missing: {path.relative_to(ROOT)}")\n\n    for path in (ZIWEI_SANCAI_AV_BATCH, ZIWEI_SANCAI_AV_EVIDENCE):\n'''
+          if 'Batch 12AW continuity artifact missing' not in s:
+              if anchor not in s: raise SystemExit('AW existence-check anchor missing')
+              s = s.replace(anchor, replacement, 1)
+
+          anchor = '''    ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))\n\n    if state.get("schema")'''
+          replacement = '''    ziwei_jielan_ar_evidence = json.loads(ZIWEI_JIELAN_AR_EVIDENCE.read_text(encoding="utf-8"))\n    ziwei_zhangguo_aw_evidence = json.loads(ZIWEI_ZHANGGUO_AW_EVIDENCE.read_text(encoding="utf-8"))\n\n    if state.get("schema")'''
+          if 'ziwei_zhangguo_aw_evidence = json.loads' not in s:
+              if anchor not in s: raise SystemExit('AW evidence-load anchor missing')
+              s = s.replace(anchor, replacement, 1)
+
+          anchor = '''        "EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI",\n    )'''
+          replacement = '''        "EXT-SHIDIAN-WANLIXUDAOZANG-WANXIAOLU-DINGSHI",\n        "EXT-ZIWEI-ZHANGGUO-NIJL-1594",\n    )'''
+          if '"EXT-ZIWEI-ZHANGGUO-NIJL-1594",' not in s:
+              if anchor not in s: raise SystemExit('AW required-source anchor missing')
+              s = s.replace(anchor, replacement, 1)
+
+          # Add a scoped AW regression firewall immediately before the existing 12AD checks.
+          anchor = '''    # Batch 12AD Sanfenge provider/share route: locator closure only, zero textual votes.\n'''
+          check = '''    # Batch 12AW Zhangguo 1594: earlier independent genealogy, but no automatic upper-Zi->Hai rule vote.\n    if ziwei_zhangguo_aw_evidence.get("batch") != "BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW":\n        fail("Batch 12AW evidence identity mismatch")\n    src12aw = ziwei_zhangguo_aw_evidence.get("source", {})\n    if src12aw.get("bid") != "100238879" or src12aw.get("date") != "萬曆22 / 1594":\n        fail("Batch 12AW physical-source identity regressed")\n    target12aw = ziwei_zhangguo_aw_evidence.get("target", {})\n    if target12aw.get("canvas_index") != 195 or target12aw.get("review_image_sha256_2400") != "39c22d31e99d950f4cfd81680fb12b537c55fa2425503a9b6f6c844a3f4fbfb6":\n        fail("Batch 12AW target-leaf binding regressed")\n    readings12aw = ziwei_zhangguo_aw_evidence.get("direct_readings", {})\n    if "以子為亥，亥為子" not in readings12aw.get("main_text", "") or "有夜子時之分" not in readings12aw.get("upper_annotation_secure_core", ""):\n        fail("Batch 12AW direct reading regressed")\n    weight12aw = ziwei_zhangguo_aw_evidence.get("evidence_weighting", {})\n    if weight12aw.get("explicit_upper_zi_to_hai_rule_vote") is not False or weight12aw.get("runtime_winner_selected") is not False or weight12aw.get("algorithm_reopen") is not False:\n        fail("Batch 12AW evidence-weight firewall regressed")\n    consequence12aw = ziwei_zhangguo_aw_evidence.get("project_consequence", {})\n    if consequence12aw.get("audit_status") != "MISSING_FROM_PRODUCT" or consequence12aw.get("matrix_count_change") is not False:\n        fail("Batch 12AW HPA/accounting firewall regressed")\n\n'''
+          if 'Batch 12AW Zhangguo 1594: earlier independent genealogy' not in s:
+              if anchor not in s: raise SystemExit('AW regression-check anchor missing')
+              s = s.replace(anchor, check + anchor, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+          python -m py_compile scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/verify-project-continuity-state-r1.py
+          git commit -m 'advance continuity gate through Batch 12AW'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
