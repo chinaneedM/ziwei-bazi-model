@@ -1,0 +1,92 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-JANGSEOGAK-PUBLIC-ACCESS-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-JANGSEOGAK-1594-PUBLIC-ACCESS-BOUNDARY-AY",
+  "status": "HOLDINGS_IDENTIFIED_PUBLIC_IMAGE_ROUTE_NOT_EXPOSED_OBJECT_SPECIFIC_PDF_PATTERN_NEGATIVE",
+  "question": "Can the independent Jangseogak Zhangguo Xingzong holdings be directly collated through a public image or MF-PDF route?",
+  "holdings": [
+    {
+      "source_id": "EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-1594",
+      "data_id": "LIB_169178",
+      "display_call_number": "PC9A-20",
+      "detail_call_number": "C9A-20",
+      "mf_number": "MF16/1453-1454",
+      "title": "新編評註通玄先生張果星宗大全",
+      "catalog_date": "萬曆22(1594)",
+      "edition_type": "中國木板本",
+      "extent": "10卷10冊:圖, 四周雙邊, 上黑魚尾;25.7 × 15.5cm",
+      "public_record_url": "https://jsg.aks.ac.kr/dir/view?dataId=LIB_169178",
+      "public_directory_linkage": ["서지", "전자도서관", "xml"],
+      "public_image_link_exposed": false,
+      "public_mf_pdf_link_exposed": false,
+      "role": "INDEPENDENT_INSTITUTIONAL_1594_HOLDING_TARGET_LEAF_NOT_OBTAINED"
+    },
+    {
+      "source_id": "EXT-ZIWEI-ZHANGGUO-JANGSEOGAK-UNDATED-20A",
+      "data_id": "LIB_169177",
+      "display_call_number": "PC9A-20A",
+      "detail_call_number": "C9A-20A",
+      "mf_number": "MF35/8437",
+      "title": "新編評註通玄先生張果星宗大全",
+      "catalog_date": "[刊年未詳]",
+      "edition_type": "中國木板本",
+      "extent": "10卷5冊:圖, 四周雙邊, 上黑魚尾;25.3 × 15.4cm",
+      "public_record_url": "https://jsg.aks.ac.kr/dir/view?dataId=LIB_169177",
+      "public_directory_linkage": ["서지", "전자도서관", "xml"],
+      "public_image_link_exposed": false,
+      "public_mf_pdf_link_exposed": false,
+      "role": "UNDATED_RECENSION_HOLDING_ACCESS_CONTROL_TARGET_LEAF_NOT_OBTAINED"
+    }
+  ],
+  "public_route_control": {
+    "control_source": "Jangseogak adjacent directory item PC9A-23 / LIB_169174",
+    "control_title": "紫微斗數補遺",
+    "control_directory_exposes": ["이미지", "디지털아카이브", "MF-PDF"],
+    "verified_pdf_url": "https://jsg.aks.ac.kr/data/serviceFiles/pdf/PC9A-23_001.pdf",
+    "reason_for_use": "Proves that serviceFiles/pdf/{display_call_number}_{book}.pdf is a real public Jangseogak route for at least an adjacent MF-PDF-enabled item; it does not imply every holding is digitized."
+  },
+  "object_specific_route_probe": {
+    "workflow_run_id": 34593669934,
+    "artifact_id": 10260891530,
+    "artifact_digest": "sha256:10d7ee063b017464143f05dc9740903b40090ce65d782b1576c81fa9675b27fc",
+    "tested": {
+      "PC9A-20": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "PC9A-20A": [1, 2, 3, 4, 5]
+    },
+    "result": "ALL_TESTED_ROUTES_HTTP_404_TEXT_HTML_NO_PDF_MAGIC",
+    "response_signature": {
+      "status": 404,
+      "content_type": "text/html",
+      "response_bytes": 1259,
+      "prefix_hex": "3c21444f43545950"
+    },
+    "live_pdf_routes": [],
+    "rendered_target_books": []
+  },
+  "adjudication": {
+    "holding_identity_1594": "CONFIRMED_AT_CATALOG_LEVEL",
+    "holding_identity_20A": "CONFIRMED_AT_CATALOG_LEVEL_DATE_UNRESOLVED",
+    "public_target_leaf_obtained": false,
+    "direct_glyph_collation_authorized": false,
+    "whole_holding_text_negative_authorized": false,
+    "same_edition_text_stability_vote_increment": 0,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "reason": "Catalog identity and public-access topology are established, but no target page bytes are publicly exposed on the reviewed routes. Access failure is not textual absence."
+  },
+  "external_action_boundary": {
+    "institutional_image_request_possible": true,
+    "public_page_lists_image_use_contact": true,
+    "request_submitted": false,
+    "authorization_required_before_submission": true,
+    "note": "Any direct request to Jangseogak for target-page imaging or reproduction is an external institutional action and must not be submitted without explicit user authorization and required request identity/contact details."
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "matrix_count_change": false
+  }
+}
