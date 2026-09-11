@@ -1,0 +1,76 @@
+name: research-ziwei-zhangguo-aw-r13-ocr-locator
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r13-ocr-locator.yml
+
+permissions:
+  contents: write
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+
+      - name: Install locator OCR models
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert
+
+      - name: OCR NIJL 188-198 only as a non-authoritative locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out docs/research
+          report='docs/research/ZIWEI-ZHANGGUO-NIJL-VOL8-OCR-LOCATOR-R1.txt'
+          {
+            echo 'SCHEMA=ZIWEI-ZHANGGUO-NIJL-VOL8-OCR-LOCATOR-R1'
+            echo 'BATCH=BATCH-12AW'
+            echo 'STATUS=OCR_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY'
+            echo 'NIJL_BID=100238879'
+            echo 'IIIF_COLLECTION=THKW/THKW-04306'
+            echo 'IMAGE_RANGE=188-198'
+            echo 'RULE=NO_HISTORICAL_WORDING_OR_MECHANICAL_CONCLUSION_MAY_BE_BASED_ON_THIS_OCR_OUTPUT'
+            echo
+          } > "$report"
+
+          for i in $(seq 188 198); do
+            printf -v n '%05d' "$i"
+            printf -v s '%03d' "$i"
+            url="https://kokusho.nijl.ac.jp/api/iiif/100238879/v4/THKW/THKW-04306/THKW-04306-${n}.tif/full/2400,/0/default.jpg"
+            jpg="out/page-${s}.jpg"
+            curl -L --fail --retry 3 --silent --show-error "$url" -o "$jpg"
+            sha=$(sha256sum "$jpg" | awk '{print $1}')
+            echo "===== PAGE ${s} SHA256=${sha} URL=${url} =====" >> "$report"
+            echo '--- chi_tra_vert / psm 6 ---' >> "$report"
+            tesseract "$jpg" stdout -l chi_tra_vert --psm 6 2>/dev/null >> "$report" || true
+            echo >> "$report"
+            echo '--- chi_tra / psm 5 ---' >> "$report"
+            tesseract "$jpg" stdout -l chi_tra --psm 5 2>/dev/null >> "$report" || true
+            echo >> "$report"
+          done
+
+          echo '===== KEYWORD LOCATOR HITS (OCR ONLY) =====' >> "$report"
+          grep -nE '人命|生時|生时|子為亥|子为亥|亥為子|亥为子|七政|夜子|上四刻|下四刻|今日日辰|明日日辰|日辰' "$report" >> "$report.hits" || true
+          cat "$report.hits" >> "$report"
+          rm -f "$report.hits"
+
+      - name: Commit locator text only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/ZIWEI-ZHANGGUO-NIJL-VOL8-OCR-LOCATOR-R1.txt
+          git commit -m 'record Batch 12AW NIJL OCR locator'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
