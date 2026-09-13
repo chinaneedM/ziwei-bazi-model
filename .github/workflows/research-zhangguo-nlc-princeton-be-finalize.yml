@@ -26,17 +26,21 @@ jobs:
           sed -i 's/new_chat_startup_contract/continuity_contract/g' .github/scripts/finalize-zhangguo-nlc-princeton-be.py
       - name: Prepare Batch 12BE semantic closure
         run: python .github/scripts/finalize-zhangguo-nlc-princeton-be.py
-      - name: Align generated BE gate with current JSON-loading style
+      - name: Align generated BE gate with current verifier variable style
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('scripts/verify-project-continuity-state-r1.py')
           t=p.read_text(encoding='utf-8')
-          old='    princeton = load_json(princeton_path)\n'
-          new='    princeton = json.loads(princeton_path.read_text(encoding="utf-8"))\n'
-          if old not in t:
-              raise SystemExit('BE load_json compatibility anchor missing')
-          p.write_text(t.replace(old,new,1),encoding='utf-8')
+          replacements=[
+            ('    princeton = load_json(princeton_path)\n', '    princeton = json.loads(princeton_path.read_text(encoding="utf-8"))\n'),
+            ('source_registry.get("sources", [])', 'registry.get("sources", [])'),
+          ]
+          for old,new in replacements:
+              if old not in t:
+                  raise SystemExit(f'BE verifier compatibility anchor missing: {old!r}')
+              t=t.replace(old,new,1)
+          p.write_text(t,encoding='utf-8')
           PY
       - name: Verify prepared continuity state
         run: python scripts/verify-project-continuity-state-r1.py
