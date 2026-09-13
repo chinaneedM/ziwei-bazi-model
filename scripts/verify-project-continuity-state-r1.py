@@ -193,9 +193,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
     "BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC",
     "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD",
+    "BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE.md"
 
 
 def fail(message: str) -> None:
@@ -2789,6 +2790,47 @@ def main() -> int:
         fail("research authority policy lost false-equivalence prohibition")
     if "Philological continuity rule" not in protocol_text:
         fail("continuity protocol lost philological continuity rule")
+
+    # Batch 12BE: independent Princeton exact-1594 material witness; page viewer remains permission-gated.
+    princeton_path = ROOT / "docs/research/ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-R1.json"
+    princeton_doc = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE.md"
+    if not princeton_path.is_file() or not princeton_doc.is_file():
+        fail("Batch 12BE durable evidence/doc missing")
+    princeton = json.loads(princeton_path.read_text(encoding="utf-8"))
+    if princeton.get("schema") != "ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-R1":
+        fail("Batch 12BE evidence schema mismatch")
+    pobj = princeton.get("catalog_object", {})
+    if pobj.get("record_id") != "NJPX95-B1857" or pobj.get("shelf_or_collection_number") != "TC183/2991":
+        fail("Batch 12BE Princeton object identity mismatch")
+    if pobj.get("holding_institution") != "普林斯顿大学东亚图书馆":
+        fail("Batch 12BE Princeton holder mismatch")
+    if pobj.get("catalog_time_statement") != "明萬曆癸巳 [21年, 1593]":
+        fail("Batch 12BE 1593 catalog/preface control mismatch")
+    bib = pobj.get("bibliographic_adjudication", {})
+    if bib.get("preface_year") != 1593 or bib.get("cover_imprint_year") != 1594:
+        fail("Batch 12BE preface/imprint year separation mismatch")
+    if not bib.get("do_not_collapse_1593_preface_into_1594_imprint"):
+        fail("Batch 12BE 1593/1594 firewall missing")
+    if not bib.get("tang_qian_juanduan_observed") or not bib.get("zhou_wenguang_cover_imprint_observed"):
+        fail("Batch 12BE imprint controls missing")
+    image_access = princeton.get("image_access", {})
+    if not image_access.get("page_viewer_permission_gated") or image_access.get("direct_page_bytes_obtained"):
+        fail("Batch 12BE page-viewer access boundary mismatch")
+    if image_access.get("target_leaf_obtained") or image_access.get("direct_target_glyph_collation_authorized"):
+        fail("Batch 12BE target-leaf firewall violated")
+    indep = princeton.get("independence_adjudication", {})
+    if indep.get("independent_exact_1594_material_witness_increment") != 1:
+        fail("Batch 12BE exact-1594 material witness increment mismatch")
+    if indep.get("independent_target_text_witness_increment") != 0 or indep.get("independent_hai_glyph_witness_increment") != 0:
+        fail("Batch 12BE target-text/Hai-glyph vote firewall violated")
+    consequence = princeton.get("project_consequence", {})
+    if consequence.get("rule_id") != "HPA-ZDATE-006" or consequence.get("audit_status") != "MISSING_FROM_PRODUCT":
+        fail("Batch 12BE HPA-ZDATE-006 status mismatch")
+    if any(consequence.get(k) for k in ("matrix_count_change", "new_candidate_family", "runtime_winner_selected", "candidate_collapsed", "algorithm_reopen")):
+        fail("Batch 12BE product-state firewall violated")
+    psource = next((s for s in registry.get("sources", []) if s.get("source_id") == "EXT-ZIWEI-ZHANGGUO-NLC-PRINCETON-NJPX95-B1857"), None)
+    if psource is None or psource.get("record_id") != "NJPX95-B1857" or psource.get("shelf_or_collection_number") != "TC183/2991":
+        fail("Batch 12BE external-source registry binding missing")
 
     contract = state.get("continuity_contract", {})
     if contract.get("ci_gate_required") is not True:

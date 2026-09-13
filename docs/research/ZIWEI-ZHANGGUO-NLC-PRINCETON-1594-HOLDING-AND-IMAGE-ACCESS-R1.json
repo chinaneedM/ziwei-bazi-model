@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE",
+  "question": "Does the NLC Chinese Rare Books Union Catalogue expose a physically independent early-Wanli Zhang Guo Xingzong witness, and does its public image route expose the late-Zi target leaf?",
+  "first_party_provider": "国家图书馆/中华古籍善本联合书目",
+  "catalog_object": {
+    "title": "新編評註通玄先生張果星宗大全",
+    "responsibility": "陸位輯校",
+    "record_id": "NJPX95-B1857",
+    "index_name": "data_467",
+    "shelf_or_collection_number": "TC183/2991",
+    "holding_institution": "普林斯顿大学东亚图书馆",
+    "detail_url": "http://read.nlc.cn/allSearch/searchDetail?searchType=62&showType=3&indexName=data_467&fid=NJPX95-B1857",
+    "catalog_time_statement": "明萬曆癸巳 [21年, 1593]",
+    "preface_statement": "萬曆癸巳韓擢《張果星宗序》",
+    "juanduan_statement": "卷端又題\"金陵三山益軒唐謙鋟梓\"",
+    "cover_statement": "封面鐫\"萬曆閼逢敦牂張果星宗命格大全周氏文光新梓\". 萬曆閼逢敦牂即萬曆二十二年",
+    "bibliographic_adjudication": {
+      "preface_year": 1593,
+      "cover_imprint_year": 1594,
+      "cover_imprint_year_basis": "NLC detail explicitly glosses 萬曆閼逢敦牂 as 萬曆二十二年",
+      "tang_qian_juanduan_observed": true,
+      "zhou_wenguang_cover_imprint_observed": true,
+      "do_not_collapse_1593_preface_into_1594_imprint": true
+    }
+  },
+  "search_contract_chain": [
+    {
+      "stage": "NLC_HTTP_LANDING_AND_SOURCE_CONTRACT",
+      "workflow_run_id": 34752100584,
+      "artifact_id": 10316301987,
+      "artifact_digest": "sha256:73e4927440410b882927d73bfe503640dbf272d85d2043e6bd79913872cd7532",
+      "landing_http_status": 200,
+      "landing_body_len": 27201,
+      "landing_sha256": "58a1723fa25320a54bf2a6de15c19ef3b25edd0d94c2b2f7977c1183356d4843",
+      "search_type_62": "中华古籍资源库"
+    },
+    {
+      "stage": "NLC_SOURCE_EMITTED_TITLE_GET_QUERY",
+      "workflow_run_id": 34753132831,
+      "job_id": 103712921272,
+      "artifact_id": 10315982944,
+      "artifact_digest": "sha256:8efaae7d2caecd51db2ec14d283cddcff7622e43d9ffea5f3040660ace4b405d",
+      "long_traditional_hit": true,
+      "long_simplified_hit": true,
+      "short_traditional_hit": true,
+      "short_simplified_hit": true,
+      "result_emitted_record_id": "NJPX95-B1857"
+    },
+    {
+      "stage": "NLC_EXACT_RESULT_DETAIL",
+      "workflow_run_id": 34753175084,
+      "job_id": 103713032070,
+      "artifact_id": 10316627671,
+      "artifact_digest": "sha256:ec515b14ec414045532bc37333f82307b378afd95ae65f304d0b67644408b183",
+      "detail_http_status": 200,
+      "detail_body_len": 21409,
+      "detail_sha256": "a4699510e13d3e61154b2c4d0c4fd3894812c32429d7754de95199abeb44561e"
+    },
+    {
+      "stage": "NLC_DETAIL_EMITTED_IMAGE_VIEWER_CONTRACT",
+      "workflow_run_id": 34753246009,
+      "job_id": 103713217854,
+      "artifact_id": 10316806982,
+      "artifact_digest": "sha256:4d37a4c5228de76fa45cc81f22a332c8febd026bbbdec62632748d2ba9f2ad8e",
+      "open_object_pic_url": "http://read.nlc.cn/OutOpenBook/OpenObjectPic?aid=467&bid=3244.0&lid=905349&did=NJPX95-B1857",
+      "open_object_pic_http_status": 200,
+      "open_object_pic_body_len": 6200,
+      "open_object_pic_sha256": "b7e365d430aba452f9ceb9a31dc8f3c0b230740373afe1cfa32ffc3c7771abe8",
+      "permission_checks_observed": [
+        "/OutOpenBook/dataInOutPermission",
+        "/OutOpenBook/resInOutPermission",
+        "/allSearch/picPermission"
+      ],
+      "permission_conditional_iframe_route": "/OutOpenBook/openBookPic?aid=467&bid=3244.0&lid=905349&did=NJPX95-B1857",
+      "page_viewer_permission_gated": true,
+      "permission_bypass_attempted": false
+    }
+  ],
+  "image_access": {
+    "detail_emitted_thumbnail_url": "http://read.nlc.cn/doc1/data16/zhgjsblhsm_zhonghuagujishanbenlianheshumu/20120418_04/905349/L/NJPX95B1857.jpg",
+    "detail_emitted_large_image_entry_observed": true,
+    "large_image_entry_public_http_200": true,
+    "page_viewer_permission_gated": true,
+    "direct_page_bytes_obtained": false,
+    "target_leaf_obtained": false,
+    "direct_target_glyph_collation_authorized": false,
+    "login_or_auth_bypass_attempted": false
+  },
+  "independence_adjudication": {
+    "physical_holding_independent_from_tohoku_nijl_lineage": true,
+    "basis": "Distinct holder 普林斯顿大学东亚图书馆 and shelf/collection number TC183/2991; this is not the NIJL/Tohoku item-control chain closed in AW/BC.",
+    "independent_exact_1594_material_witness_increment": 1,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "whole_volume_text_negative_authorized": false
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "matrix_count_change": false,
+    "identified_missing_candidate_family_count_change": false,
+    "provenance_defect_count_change": false,
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "required_missing_bridge": "upper/night Zi -> Hai branch"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.63.0",
+  "schema_version": "1.64.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -142,9 +142,10 @@
       "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
       "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
       "BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC",
-      "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD"
+      "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD",
+      "BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -421,7 +422,8 @@
       "The Chongqing Wanli-22 / 1594 six-volume claim remains a secondary locator only: Chongqing Library first-party pages confirm a major ancient-book collection but no exact target item record or target leaf was obtained. BC adds zero exact-1594 independent witness, target-text or Hai-glyph votes; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT and all algorithm invariants remain unchanged.",
       "Batch 12BD reopens only the Shandong access layer after the 2026 replacement platform entry guji.sdlib.cn superseded the old sdlib.com route for current attempts; the high-value Weifang locator remains resource ID 151613020240003 with a secondary Wanli-22/1594 Tang-Qian/Weifang holding claim.",
       "Batch 12BD resolves guji.sdlib.cn to 58.59.15.30, but Linux/eastus, Windows/westus2 and macOS/westus hosted runners all time out on TCP 80 and 443 before TLS/HTTP. No first-party frontend, API contract, target catalog item or page bytes were obtained; this multi-region GitHub egress boundary authorizes no site-down, no-holding, no-digitization or resource-gone inference.",
-      "Batch 12BD adds zero exact-1594 material witness, target-text or Hai-glyph votes. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; deterministic product CLOSED, algorithm defect count 0, reopen count 0 and candidate collapse count 0 remain unchanged."
+      "Batch 12BD adds zero exact-1594 material witness, target-text or Hai-glyph votes. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; deterministic product CLOSED, algorithm defect count 0, reopen count 0 and candidate collapse count 0 remain unchanged.",
+      "Batch 12BE binds NLC union-catalog object NJPX95-B1857 / Princeton East Asian Library TC183/2991 as a physically independent early-Wanli copy: the first-party detail separates the 1593 Han Zhuo preface/catalog date from a cover explicitly glossed as Wanli 22 (1594), records Tang Qian at the juanduan and Zhou Wenguang on the cover, and therefore adds +1 independent exact-1594 material witness. The NLC detail emits a public large-image entry, but its viewer enforces data/resource/pic permission checks before the page iframe; no bypass was attempted, no page bytes or target late-Zi leaf were obtained, target-text/Hai-glyph increments remain 0, and HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no algorithm reopen or candidate collapse."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -458,5 +460,5 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-12"
+  "updated_at": "2026-09-13"
 }
