@@ -1,0 +1,71 @@
+name: research-zhangguo-national-shanghai-catalog-query
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-zhangguo-national-shanghai-catalog-query.yml
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query documented public catalog GET routes
+        run: |
+          python - <<'PY'
+          import hashlib, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          title_t='新編評註通玄先生張果星宗大全'
+          title_s='新编评注通玄先生张果星宗大全'
+          ua='Mozilla/5.0 public-catalog-research/1.0'
+          routes={
+            'national_survey_trad':'http://202.96.31.78/xlsworkbench/publish?'+urllib.parse.urlencode({'keyWord':title_t,'orderProperty':'PU_CHA_BIAN_HAO','orderWay':'asc'}),
+            'national_survey_simp':'http://202.96.31.78/xlsworkbench/publish?'+urllib.parse.urlencode({'keyWord':title_s,'orderProperty':'PU_CHA_BIAN_HAO','orderWay':'asc'}),
+            'shanghai_union_trad':'https://gj.library.sh.cn/unionCatalogue/search?'+urllib.parse.urlencode({'searchType':'simple','freetext':title_t}),
+            'shanghai_union_simp':'https://gj.library.sh.cn/unionCatalogue/search?'+urllib.parse.urlencode({'searchType':'simple','freetext':title_s}),
+          }
+          def get(url):
+            req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8'})
+            try:
+              with urllib.request.urlopen(req,timeout=25) as r:
+                b=r.read(12_000_000); t=b.decode('utf-8','replace')
+                return {'requested_url':url,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),
+                        'body_len':len(b),'sha256':hashlib.sha256(b).hexdigest(),'text':t}
+            except Exception as e:
+              return {'requested_url':url,'error':f'{type(e).__name__}: {e}','text':''}
+          out={'schema':'ZHANGGUO-NATIONAL-SHANGHAI-PUBLIC-CATALOG-QUERY-R1','queries':{},'policy':'DOCUMENTED_PUBLIC_GET_SEARCH_ROUTES_ONLY_NO_HIDDEN_API_GUESSING'}
+          terms=[title_t,title_s,'張果星宗','张果星宗','萬曆二十二','万历二十二','唐謙','唐谦','湖南','南京','安徽','河南','重慶','重庆','山東','山东','復旦','复旦']
+          for name,url in routes.items():
+            r=get(url); text=r.pop('text','')
+            hits={x:text.count(x) for x in terms if x in text}
+            # Retain compact contexts around target/title terms and obvious result markers.
+            contexts=[]
+            for term in (title_t,title_s,'張果星宗','张果星宗'):
+              start=0
+              while True:
+                i=text.find(term,start)
+                if i<0 or len(contexts)>=20: break
+                contexts.append(text[max(0,i-500):min(len(text),i+1200)])
+                start=i+len(term)
+            r['term_hits']=hits
+            r['contexts']=contexts
+            r['html_prefix']=text[:2000]
+            r['html_suffix']=text[-1000:] if text else ''
+            out['queries'][name]=r
+          Path('catalog-query.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zhangguo-national-shanghai-public-catalog-query
+          path: catalog-query.json
+          if-no-files-found: error
