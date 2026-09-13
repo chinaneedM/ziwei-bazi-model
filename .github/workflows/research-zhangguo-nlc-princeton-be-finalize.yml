@@ -21,6 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Align finalizer with current continuity-contract field
+        run: |
+          sed -i 's/new_chat_startup_contract/continuity_contract/g' .github/scripts/finalize-zhangguo-nlc-princeton-be.py
       - name: Prepare Batch 12BE semantic closure
         run: python .github/scripts/finalize-zhangguo-nlc-princeton-be.py
       - name: Verify prepared continuity state
