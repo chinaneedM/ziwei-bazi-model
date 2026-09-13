@@ -18,73 +18,66 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Resolve exact Japan Search records returned by prior public search
+      - name: Fetch exact National Archives fascicle-3 IIIF manifest returned by Japan Search
         run: |
           python - <<'PY'
-          import json, re, urllib.parse, urllib.request, urllib.error
+          import hashlib, json, re, urllib.request, urllib.error
           from pathlib import Path
 
-          ids={
-            'root':'najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ',
-            'fascicle3':'najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003',
-          }
-          ua='ziwei-bazi-model historical-provenance research/2.4 (+Japan-Search-item-reference)'
-          outdir=Path('jps-item'); outdir.mkdir()
-          manifest={'schema':'SHIQIE-JAPAN-SEARCH-ITEM-REFERENCE-R1','records':{},'policy':'ONLY ITEM IDS LITERALLY RETURNED BY THE PREVIOUS DOCUMENTED JAPAN SEARCH TITLE QUERY; NO ID DERIVATION OR ENUMERATION; FOLLOW ONLY LITERAL RESOURCE LINKS IN RETURNED JSON'}
-
-          def walk(obj,path='$',acc=None):
-              if acc is None: acc=[]
-              if isinstance(obj,dict):
-                  for k,v in obj.items():
-                      p=f'{path}.{k}'
-                      if isinstance(v,(dict,list)):
-                          walk(v,p,acc)
-                      elif isinstance(v,(str,int,float,bool)) or v is None:
-                          s='' if v is None else str(v)
-                          if re.search(r'https?://',s) or re.search(r'(url|uri|id|identifier|image|thumb|manifest|iiif|file|source|original|reference|access)',k,re.I):
-                              acc.append({'path':p,'key':k,'value':v})
-              elif isinstance(obj,list):
-                  for i,v in enumerate(obj):
-                      p=f'{path}[{i}]'
-                      if isinstance(v,(dict,list)): walk(v,p,acc)
-                      elif isinstance(v,str) and re.search(r'https?://',v): acc.append({'path':p,'key':None,'value':v})
-              return acc
-
-          for name,item_id in ids.items():
-              url='https://jpsearch.go.jp/api/item/'+urllib.parse.quote(item_id,safe='-_')
-              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
-              status=None; final=url; ctype=None; body=b''; error=None
-              try:
-                  with urllib.request.urlopen(req,timeout=30) as r:
-                      status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(8_000_000)
-              except urllib.error.HTTPError as e:
-                  status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(2_000_000); error=str(e)
-              except Exception as e:
-                  error=repr(e)
-              text=body.decode('utf-8','replace')
-              (outdir/f'{name}.json').write_text(text,encoding='utf-8')
-              rec={'item_id':item_id,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error}
-              try:
-                  data=json.loads(text)
-                  rec['top_level_keys']=list(data.keys()) if isinstance(data,dict) else []
-                  rec['interesting_fields']=walk(data)[:1000]
-                  # Preserve human-readable scalar fields near the National Archives raw namespace.
-                  raw={}
-                  if isinstance(data,dict):
-                      for k,v in data.items():
-                          if k.startswith('najda-') or k in ('id','common','rdfindex'):
-                              raw[k]=v
-                  rec['selected_raw']=raw
-              except Exception as exc:
-                  rec['parse_error']=repr(exc); rec['body_prefix']=text[:2000]
-              manifest['records'][name]=rec
-          Path('jps-item-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          url='https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json'
+          ua='ziwei-bazi-model historical-provenance research/2.5 (+exact-public-IIIF)'
+          req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json, application/ld+json;q=0.9, */*;q=0.1'})
+          status=None; final=url; ctype=None; body=b''; error=None
+          try:
+              with urllib.request.urlopen(req,timeout=45) as r:
+                  status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(20_000_000)
+          except urllib.error.HTTPError as e:
+              status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(4_000_000); error=str(e)
+          except Exception as e:
+              error=repr(e)
+          Path('fascicle3-manifest.raw').write_bytes(body)
+          text=body.decode('utf-8','replace')
+          Path('fascicle3-manifest.json').write_text(text,encoding='utf-8')
+          out={'schema':'SHIQIE-JNA-FASCICLE3-IIIF-MANIFEST-PROBE-R1','source_item_url':'https://www.digital.archives.go.jp/item/4756821','manifest_url':url,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'sha256':hashlib.sha256(body).hexdigest(),'error':error,'policy':'EXACT IIIF URL LITERALLY RETURNED BY OFFICIAL JAPAN SEARCH ITEM API FOR 筮篋理数日抄３; NO ADJACENT-ID OR PAGE-URL GUESSING'}
+          try:
+              data=json.loads(text)
+              out['top_level_keys']=list(data.keys()) if isinstance(data,dict) else []
+              seqs=data.get('sequences',[]) if isinstance(data,dict) else []
+              canvases=[]
+              if seqs and isinstance(seqs[0],dict): canvases=seqs[0].get('canvases',[]) or []
+              if not canvases and isinstance(data,dict): canvases=data.get('items',[]) or []
+              out['canvas_count']=len(canvases)
+              compact=[]
+              for i,c in enumerate(canvases):
+                  rec={'index':i+1,'id':c.get('@id') or c.get('id'),'label':c.get('label'),'height':c.get('height'),'width':c.get('width')}
+                  urls=[]
+                  def walk(x,path='$'):
+                      if isinstance(x,dict):
+                          for k,v in x.items():
+                              p=f'{path}.{k}'
+                              if isinstance(v,(dict,list)): walk(v,p)
+                              elif isinstance(v,str) and (v.startswith('http://') or v.startswith('https://')):
+                                  urls.append({'path':p,'value':v})
+                      elif isinstance(x,list):
+                          for j,v in enumerate(x): walk(v,f'{path}[{j}]')
+                  walk(c)
+                  dedup=[]; seen=set()
+                  for u in urls:
+                      key=(u['path'],u['value'])
+                      if key not in seen: seen.add(key); dedup.append(u)
+                  rec['literal_urls']=dedup
+                  compact.append(rec)
+              out['canvases']=compact
+          except Exception as exc:
+              out['parse_error']=repr(exc); out['body_prefix']=text[:4000]
+          Path('fascicle3-manifest-summary.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-japan-search-item-reference
+          name: shiqie-jna-fascicle3-iiif-manifest
           path: |
-            jps-item-manifest.json
-            jps-item/*
+            fascicle3-manifest.raw
+            fascicle3-manifest.json
+            fascicle3-manifest-summary.json
           if-no-files-found: error
