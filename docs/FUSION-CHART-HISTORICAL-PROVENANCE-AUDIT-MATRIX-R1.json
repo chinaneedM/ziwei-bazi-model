@@ -3924,7 +3924,8 @@
         "Jiajing-44/1565 Shiqie Lishu Rishu public transcription contains isolated 上四亥, but the parallel and explanatory text repeatedly says 上四刻/下四刻; without the physical target leaf this token is quarantined and contributes zero Hai-branch mechanical votes.",
         "Independent physical 《類編曆法通書大全》 CADAL02094403 pp.82–83 directly prints 係上四刻/係下四刻 with 本日/第二日 date assignment; this strongly corroborates the Shiqie 上四亥 transcription-anomaly diagnosis but does not physically settle the exact Shiqie glyph or attest a Hai-branch reassignment.",
         "Secondary public YFShuhua route exposes three National Archives of Japan-watermarked physical samples of the already-tracked Shiqie set (cover/preface/volume-one opening; visible 内閣文庫 15857 and 12(1)), but no volume-three target leaf, public PDF, or Hai-branch rule evidence.",
-        "Exact Japan Search/National Archives fascicle-three resolution now provides a 69-canvas first-party IIIF manifest, while the complete public Shidian volume-three transcription spans 56 pages (353–408) and places the isolated 上四亥 token on its fourth transcription page. Because 56 != 69 and official image/browser routes are HTTP 403 in the GitHub runner, no ordinal canvas mapping or physical glyph judgment is authorized; Hai vote remains zero."
+        "Exact Japan Search/National Archives fascicle-three resolution now provides a 69-canvas first-party IIIF manifest, while the complete public Shidian volume-three transcription spans 56 pages (353–408) and places the isolated 上四亥 token on its fourth transcription page. Because 56 != 69 and official image/browser routes are HTTP 403 in the GitHub runner, no ordinal canvas mapping or physical glyph judgment is authorized; Hai vote remains zero.",
+        "Ordinary anonymous Shidian navigation source-emits pages/v3 for pageIndex 1, pageSize 40, startPageNum 353, endPageNum 409, but the captured HTTP-200 response body is only application errorCode 31000; 15 source-emitted signed /ref/ images omit target pageId 7640563520069697576. No target glyph or Hai vote is added."
       ],
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
@@ -4599,6 +4600,31 @@
         "runtime_winner_selected": false,
         "algorithm_reopen_authorized": false,
         "research_artifact": "docs/research/ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-R1.json"
+      },
+      "batch_12bl_shiqie_shidian_source_emitted_read_api_boundary": {
+        "source_id": "EXT-ZIWEI-SHIQIE-LISHU-RISHU-1565-SHIDIAN",
+        "public_chapter_http_status": 200,
+        "target_page_id": "7640563520069697576",
+        "target_transcription": "巳上是上四亥。",
+        "ssr_target_locator_present": true,
+        "source_emitted_pages_request_scope": {
+          "pageIndex": 1,
+          "pageSize": 40,
+          "startPageNum": 353,
+          "endPageNum": 409
+        },
+        "captured_read_api_http_status": 200,
+        "captured_read_api_application_error_code": 31000,
+        "target_page_record_returned": false,
+        "source_emitted_ref_image_count": 15,
+        "target_page_present_in_ref_images": false,
+        "target_full_page_image_observed": false,
+        "url_pattern_inference_authorized": false,
+        "hai_glyph_witness_increment": 0,
+        "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+        "runtime_winner_selected": false,
+        "algorithm_reopen_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-SHIDIAN-SOURCE-EMITTED-READ-API-BOUNDARY-R1.json"
       }
     },
     {

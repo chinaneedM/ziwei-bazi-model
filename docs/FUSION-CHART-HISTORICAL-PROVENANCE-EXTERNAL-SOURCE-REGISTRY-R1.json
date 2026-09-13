@@ -3261,7 +3261,7 @@
       "provider": "識典古籍 public HTML transcription surface",
       "url": "https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab",
       "source_role": "PUBLIC_TRANSCRIPTION_LOCATOR_AND_HIGH_RISK_GLYPH_ANOMALY_NOT_PHYSICAL_AUTHORITY",
-      "quality_notes": "Public payload says 巳上是上四亥, but the parallel lower label is 下四刻 and the same passage repeatedly says 上四刻/下四刻. Target page/paragraph IDs are bound, but no literal target-image URL was emitted on the reviewed SSR surface and no physical leaf has been read. Zero Hai-branch/mechanical vote pending physical collation.",
+      "quality_notes": "Public payload says 巳上是上四亥, but the parallel lower label is 下四刻 and the same passage repeatedly says 上四刻/下四刻. Target page/paragraph IDs are bound, but no literal target-image URL was emitted on the reviewed SSR surface and no physical leaf has been read. Zero Hai-branch/mechanical vote pending physical collation. Batch 12BL passively captured the ordinary anonymous browser requests that the public chapter itself emits: pages/v3 and paragraphs/v3 are HTTP 200 but return only application errorCode 31000, while 15 successful signed /ref/ images omit the target page ID. No replay or URL-pattern derivation is authorized; the target physical leaf remains unread and Hai vote stays zero.",
       "batch_12bh": {
         "book_id": "NA06425",
         "target_page_id": "7640563520069697576",
@@ -3270,6 +3270,35 @@
         "physical_target_leaf_observed": false,
         "hai_branch_mechanical_vote": 0,
         "research_artifact": "docs/research/ZIWEI-SHIQIE-LISHU-RISHU-1565-TRANSCRIPTION-ANOMALY-R1.json"
+      },
+      "batch_12bl": {
+        "ordinary_browser_probe_run_id": 34765718210,
+        "ordinary_browser_probe_artifact_id": 10320391963,
+        "source_emitted_read_capture_run_id": 34765824117,
+        "source_emitted_read_capture_artifact_id": 10320861185,
+        "pages_request_scope": {
+          "pageIndex": 1,
+          "pageSize": 40,
+          "startPageNum": 353,
+          "endPageNum": 409
+        },
+        "captured_read_api_application_error_code": 31000,
+        "target_page_id": "7640563520069697576",
+        "target_page_returned_by_read_api": false,
+        "source_emitted_ref_image_unique_page_ids": [
+          "7640563520069746728",
+          "7640563520069763112",
+          "7640563520069795880",
+          "7640563520069812264",
+          "7640563520069828648",
+          "7640563520069845032",
+          "7640563520069861416",
+          "7640563520069877800"
+        ],
+        "target_page_present_in_ref_images": false,
+        "target_leaf_exposed": false,
+        "hai_glyph_witness_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-SHIDIAN-SOURCE-EMITTED-READ-API-BOUNDARY-R1.json"
       }
     },
     {

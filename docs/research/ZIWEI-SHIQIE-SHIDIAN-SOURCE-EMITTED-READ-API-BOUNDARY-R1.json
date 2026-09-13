@@ -1,0 +1,116 @@
+{
+  "schema": "ZIWEI-SHIQIE-SHIDIAN-SOURCE-EMITTED-READ-API-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-SHIQIE-SHIDIAN-SOURCE-EMITTED-READ-API-BOUNDARY-BL",
+  "question": "Does ordinary anonymous navigation of the public Shidian fascicle-three chapter itself return target-page image metadata or a target-page image for pageId 7640563520069697576, without replaying, constructing, or enumerating private/hidden routes?",
+  "public_chapter": {
+    "url": "https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab",
+    "navigation_http_status": 200,
+    "title": "卷三-筮篋理數日抄全文原文-識典古籍",
+    "book_id": "NA06425",
+    "chapter_id": "1m44zy4jwa4ab",
+    "target_page_id": "7640563520069697576",
+    "target_paragraph_id": "7649191097545588762",
+    "target_transcription": "巳上是上四亥。",
+    "rendered_ssr_contains_target_text": true,
+    "rendered_ssr_contains_target_page_id": true,
+    "authority_scope": "PUBLIC SSR TRANSCRIPTION/LOCATOR ONLY; NOT PHYSICAL GLYPH AUTHORITY"
+  },
+  "passive_browser_probe": {
+    "run_id": 34765718210,
+    "artifact_id": 10320391963,
+    "artifact_digest": "sha256:1665c297d024f7cf234574a5f38e6594168c7c1ab8c3742eb8546d586364060a",
+    "result": "ORDINARY BROWSER NAVIGATION EMITTED PUBLIC READ-API REQUESTS AND SIGNED REF-IMAGE REQUESTS; HYDRATED CLIENT DISPLAYED DATA-ERROR PLACEHOLDER WHILE SSR TARGET TEXT/PAGE ID REMAINED IN HTML."
+  },
+  "source_emitted_read_api_capture": {
+    "run_id": 34765824117,
+    "artifact_id": 10320861185,
+    "artifact_digest": "sha256:79ba56e995d27d26e7fb83fdf243c46ef3a03c4d43e261def860e30e9c5f29ae",
+    "captured_response_count": 4,
+    "all_http_status": 200,
+    "all_application_body": {
+      "errorCode": 31000,
+      "errorMsg": ""
+    },
+    "all_application_body_len": 33,
+    "all_application_body_sha256": "460a68650881f42750a8226fdd4a5ed610e1b7a200d4a4a95735c0724cd90572",
+    "target_text_returned_by_api": false,
+    "target_page_id_returned_by_api": false,
+    "endpoints": [
+      {
+        "path": "/api/ancientlib/read/book/dynamic-info/get",
+        "method": "POST",
+        "source_emitted_payload": {
+          "bookId": "NA06425"
+        }
+      },
+      {
+        "path": "/api/ancientlib/read/review/chapter-list/",
+        "method": "GET",
+        "source_emitted_query_scope": {
+          "bookId": "NA06425",
+          "chapterId": "1m44zy4jwa4ab",
+          "volumeVersion": 1
+        }
+      },
+      {
+        "path": "/api/ancientlib/read/book/paragraphs/v3/",
+        "method": "POST",
+        "source_emitted_payload_scope": {
+          "bookId": "NA06425",
+          "chapterId": "1m44zy4jwa4ab",
+          "pageSize": 100,
+          "currentPage": 0,
+          "forwardParaNum": 10,
+          "omitContent": false,
+          "requestMode": 0,
+          "bookVersion": 0
+        }
+      },
+      {
+        "path": "/api/ancientlib/read/book/pages/v3/",
+        "method": "POST",
+        "source_emitted_payload_scope": {
+          "bookId": "NA06425",
+          "pageIndex": 1,
+          "pageSize": 40,
+          "startPageNum": 353,
+          "endPageNum": 409,
+          "version": 1,
+          "needCheckVersion": true,
+          "ptoken_present": true
+        }
+      }
+    ],
+    "interpretation": "The public page itself attempted a pages request whose range covers the opening forty pages of the 353–408 volume-three transcription span, but the browser received only application error 31000. HTTP 200 therefore does not constitute page-data availability."
+  },
+  "source_emitted_image_capture": {
+    "successful_image_response_count": 16,
+    "signed_ref_image_response_count": 15,
+    "placeholder_response_count": 1,
+    "unique_ref_page_ids": [
+      "7640563520069746728",
+      "7640563520069763112",
+      "7640563520069795880",
+      "7640563520069812264",
+      "7640563520069828648",
+      "7640563520069845032",
+      "7640563520069861416",
+      "7640563520069877800"
+    ],
+    "target_page_id_present_in_ref_images": false,
+    "full_page_image_for_target_observed": false,
+    "inference_from_ref_url_pattern_authorized": false,
+    "note": "The signed images are source-emitted /ref/ resources. Their page IDs are preserved only as passive observations. The target page ID was absent, so no URL pattern may be extrapolated to construct a target resource."
+  },
+  "rule_adjudication": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "exact_shiqie_target_glyph_observed": false,
+    "hai_glyph_witness_increment": 0,
+    "upper_night_zi_to_hai_branch_directly_attested": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "next_gate": "Obtain a directly source-emitted/readable target-page image for pageId 7640563520069697576, or another independently bound physical witness. Do not replay anti-bot requests, derive target image URLs from neighboring /ref/ resources, or treat HTTP 200 with errorCode 31000 as page data."
+  },
+  "access_policy": "ORDINARY PUBLIC SHIDIAN BROWSER NAVIGATION + PASSIVE DOM/NETWORK OBSERVATION ONLY; CAPTURE ONLY REQUESTS/RESPONSES THE PAGE ITSELF EMITS; NO MANUAL API REPLAY; NO SIGNATURE/TOKEN RECONSTRUCTION; NO PAGE/OBJECT ID ENUMERATION; NO URL-PATTERN DERIVATION; NO LOGIN; NO COOKIE/TOKEN INJECTION; NO ACCESS BYPASS"
+}
