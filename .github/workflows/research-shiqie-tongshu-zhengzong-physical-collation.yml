@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p tongshu-collation/pages tongshu-collation/text
+          mkdir -p tongshu-collation/pages tongshu-collation/text tongshu-collation/tmp
           URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%96%B0%E5%88%8A%E7%90%86%E6%B0%A3%E8%A9%B3%E8%BE%AF%E7%BA%82%E8%A6%81%E4%B8%89%E5%8F%B0%E4%BE%BF%E8%A6%BD%E9%80%9A%E6%9B%B8%E6%AD%A3%E5%AE%97%28%E4%B8%80%29.djvu'
           curl -L --fail --retry 3 --user-agent 'ziwei-bazi-model historical provenance audit/1.0' "$URL" -o tongshu-collation/book.djvu
           sha256sum tongshu-collation/book.djvu | tee tongshu-collation/book.sha256
@@ -39,15 +39,17 @@ jobs:
             fi
           done
           cat tongshu-collation/hits.tsv
-          # The embedded text layer is sparse; page 68 is the only clear 百刻 locator.
-          # Render a wide physical neighborhood and adjudicate from page images only.
+          # Sparse embedded text identifies p68 with 百刻. Use it only as locator.
+          # Final reading is from the physical scan images below.
           seq 58 78 > tongshu-collation/render-pages.txt
           while read -r p; do
-            ddjvu -page="$p" -format=png -dpi=220 tongshu-collation/book.djvu "tongshu-collation/pages/page-${p}.png"
+            ppm="tongshu-collation/tmp/page-${p}.ppm"
+            ddjvu -page="$p" -format=ppm -dpi=220 tongshu-collation/book.djvu "$ppm"
+            convert "$ppm" "tongshu-collation/pages/page-${p}.png"
+            rm -f "$ppm"
           done < tongshu-collation/render-pages.txt
-          # Compact low-resolution contact sheet for page-order navigation only.
           montage tongshu-collation/pages/page-*.png -thumbnail 240x -tile 4x -geometry +4+4 tongshu-collation/contact-sheet.png
-          rm -f tongshu-collation/book.djvu
+          rm -rf tongshu-collation/tmp tongshu-collation/book.djvu
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
