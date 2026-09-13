@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq djvulibre-bin imagemagick
+          sudo apt-get install -y -qq djvulibre-bin imagemagick python3-pil
           URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL02094403%20%E9%A1%9E%E7%B7%A8%E6%9B%86%E6%B3%95%E9%80%9A%E6%9B%B8%E5%A4%A7%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89.djvu'
           curl -L --fail --retry 3 -A 'ziwei-bazi-model historical provenance research/1.8' "$URL" -o leibian.djvu
           sha256sum leibian.djvu | tee sha256.txt
@@ -31,13 +31,12 @@ jobs:
           print('TEXT_LEN',len(t))
           PY
           mkdir -p rendered tmp
-          # The target is in 卷一 near the opening timekeeping material. Render a finite first-35-page band.
           for p in $(seq 1 35); do
             ddjvu -format=tiff -page="$p" -scale=45 leibian.djvu "tmp/p${p}.tif"
             convert "tmp/p${p}.tif" "rendered/p${p}.png"
           done
           python - <<'PY'
-          from PIL import Image,ImageOps,ImageDraw
+          from PIL import Image,ImageDraw
           from pathlib import Path
           files=sorted(Path('rendered').glob('p*.png'), key=lambda p:int(p.stem[1:]))
           thumbs=[]
