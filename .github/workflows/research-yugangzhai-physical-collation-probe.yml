@@ -28,7 +28,7 @@ jobs:
           djvused yugangzhai-v3.djvu -e n | tee page-count.txt
           mkdir -p pages ppm
           for n in $(seq 70 96); do
-            ddjvu -format=ppm -page=$n -scale=1200 yugangzhai-v3.djvu "ppm/page-$(printf '%03d' $n).ppm"
+            ddjvu -format=ppm -page=$n -scale=60% yugangzhai-v3.djvu "ppm/page-$(printf '%03d' $n).ppm"
           done
           python - <<'PY'
           from PIL import Image,ImageDraw
