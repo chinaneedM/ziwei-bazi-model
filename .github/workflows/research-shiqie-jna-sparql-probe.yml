@@ -18,62 +18,66 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Query only the public JNA DAS search interface
+      - name: Query Japan Search documented public item-search API
         run: |
           python - <<'PY'
-          import html, json, re, urllib.parse, urllib.request, urllib.error
+          import json, urllib.parse, urllib.request, urllib.error
           from pathlib import Path
 
-          base='https://www.digital.archives.go.jp/DAS/meta/result'
+          endpoint='https://jpsearch.go.jp/api/item/search/jps-cross'
           terms={
-            'exact_title':'筮篋理数日抄',
+            'exact_title_traditional':'筮篋理數日抄',
+            'exact_title_japanese':'筮篋理数日抄',
             'title_fragment':'理数日抄',
             'catalog_ascii':'子060-0002',
             'catalog_fullwidth':'子０６０－０００２',
           }
-          common={
-            'DEF_XSL':'default','IS_KIND':'summary_normal','IS_STYLE':'default',
-            'DB_ID':'G9100001EXTERNAL','GRP_ID':'G9100001','IS_START':'1',
-            'IS_TAG_S1':'all','IS_NUMBER':'100','LIST_TYPE':'default',
-            'IS_LIST_ON_OF':'off','LIST_VIEW':'','ON_LYD':'on','IS_SORT_KND':'asc',
-            'IS_SORT_FLD':'sort.tror,sort.refc',
-          }
-          ua='ziwei-bazi-model historical-provenance research/2.2 (+public-DAS-search)'
-          outdir=Path('jna-das-search'); outdir.mkdir()
-          manifest={'schema':'SHIQIE-JNA-PUBLIC-DAS-SEARCH-PROBE-R1','endpoint':base,'queries':{},'policy':'PUBLIC DAS SEARCH FORM PARAMETERS ONLY; EXACT TITLE/CATALOG TERMS; EXTRACT ONLY LITERAL LINKS RETURNED BY OFFICIAL HTML; NO LOGIN; NO PRIVATE API; NO BID/ID GUESSING OR ENUMERATION'}
+          ua='ziwei-bazi-model historical-provenance research/2.3 (+Japan-Search-public-API)'
+          outdir=Path('jps-search'); outdir.mkdir()
+          manifest={'schema':'SHIQIE-JAPAN-SEARCH-PUBLIC-API-PROBE-R1','endpoint':endpoint,'queries':{},'policy':'DOCUMENTED JAPAN SEARCH PUBLIC API ONLY; EXACT TITLE/CATALOG TERMS; FOLLOW ONLY SOURCE LINKS AND ITEM IDS RETURNED BY API; NO GUESSING'}
           for name,term in terms.items():
-              params=dict(common); params['IS_KEY_S1']=term
-              url=base+'?'+urllib.parse.urlencode(params)
-              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml,*/*;q=0.5'})
+              url=endpoint+'?'+urllib.parse.urlencode({'keyword':term,'size':'100'})
+              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
               status=None; final=url; ctype=None; body=b''; error=None
               try:
                   with urllib.request.urlopen(req,timeout=30) as r:
-                      status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(4_000_000)
+                      status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(8_000_000)
               except urllib.error.HTTPError as e:
-                  status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(4_000_000); error=str(e)
+                  status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(2_000_000); error=str(e)
               except Exception as e:
                   error=repr(e)
               text=body.decode('utf-8','replace')
-              (outdir/f'{name}.html').write_text(text,encoding='utf-8')
-              decoded=html.unescape(text)
-              links=[]
-              for m in re.finditer(r'''(?:href|src)\s*=\s*["']([^"']+)["']''',decoded,re.I):
-                  raw=m.group(1).strip()
-                  if not raw or raw.startswith(('javascript:','#','data:')): continue
-                  full=urllib.parse.urljoin(final,raw)
-                  if any(tok in full for tok in ['/DAS/meta/','/img/','BID=','ID=','TYPE=','iiif','manifest']):
-                      if full not in links: links.append(full)
-              hits=[]
-              for needle in ['筮篋理数日抄','筮箧理数日抄','理数日抄','子060','子０６０','0002','０００２']:
-                  if needle in decoded: hits.append(needle)
-              manifest['queries'][name]={'term':term,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error,'matched_literals':hits,'literal_official_links':links[:200],'body_prefix':re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',decoded))[:2000]}
-          Path('jna-das-search-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+              (outdir/f'{name}.json').write_text(text,encoding='utf-8')
+              rec={'term':term,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error}
+              try:
+                  data=json.loads(text)
+                  rec['hit']=data.get('hit')
+                  items=data.get('list',[]) if isinstance(data,dict) else []
+                  compact=[]
+                  for item in items[:100]:
+                      common=item.get('common',{}) if isinstance(item,dict) else {}
+                      compact.append({
+                        'id':item.get('id'),
+                        'title':common.get('title'),
+                        'database':common.get('database'),
+                        'ownerOrg':common.get('ownerOrg'),
+                        'sourceInfo':common.get('sourceInfo'),
+                        'contents':common.get('contents'),
+                        'url':common.get('url'),
+                        'thumbnailUrl':common.get('thumbnailUrl'),
+                        'raw_keys':[k for k in item.keys() if k not in ('common','rdfindex')][:20],
+                      })
+                  rec['items']=compact
+              except Exception as exc:
+                  rec['parse_error']=repr(exc); rec['body_prefix']=text[:2000]
+              manifest['queries'][name]=rec
+          Path('jps-search-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(manifest,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-jna-public-das-search-probe
+          name: shiqie-japan-search-public-api-probe
           path: |
-            jna-das-search-manifest.json
-            jna-das-search/*
+            jps-search-manifest.json
+            jps-search/*
           if-no-files-found: error
