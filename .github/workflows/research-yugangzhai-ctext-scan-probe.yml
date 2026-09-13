@@ -1,4 +1,4 @@
-name: research-yugangzhai-ctext-scan-probe
+name: research-yugangzhai-shidian-public-probe
 
 on:
   push:
@@ -18,68 +18,42 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Probe public CText Yugangzhai scan routes
+      - name: Inspect public Shidian Yugangzhai payload only
         run: |
           python - <<'PY'
-          import hashlib, html, json, re, urllib.parse, urllib.request
-          from html.parser import HTMLParser
+          import hashlib, json, re, urllib.request
           from pathlib import Path
 
-          UA='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.0'
-          urls=[
-            'https://ctext.org/library.pl?if=gb&res=110944',
-            'https://ctext.org/wiki.pl?chapter=8333196&if=gb',
-            'https://ctext.org/wiki.pl?if=gb&res=454213',
-            'https://www.shidianguji.com/zh/book/CADAL02038284/chapter/1l7mkadqnliiy',
-          ]
-
-          class P(HTMLParser):
-            def __init__(self):
-              super().__init__(); self.links=[]; self.images=[]; self.forms=[]; self.text=[]
-            def handle_starttag(self,tag,attrs):
-              d=dict(attrs)
-              if tag=='a': self.links.append(d)
-              elif tag=='img': self.images.append(d)
-              elif tag=='form': self.forms.append(d)
-            def handle_data(self,data):
-              s=re.sub(r'\s+',' ',html.unescape(data)).strip()
-              if s: self.text.append(s)
-
-          def fetch(u):
-            req=urllib.request.Request(u,headers={'User-Agent':UA,'Accept':'text/html,*/*'})
-            try:
-              with urllib.request.urlopen(req,timeout=30) as r:
-                b=r.read(20_000_000)
-                return {'url':u,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'body_len':len(b),'sha256':hashlib.sha256(b).hexdigest(),'body':b}
-            except Exception as e:
-              return {'url':u,'error':f'{type(e).__name__}: {e}','body':b''}
-
-          out=[]
-          for u in urls:
-            r=fetch(u); b=r.pop('body'); s=b.decode('utf-8','replace')
-            p=P()
-            try:p.feed(s)
-            except Exception: pass
-            base=r.get('final_url') or u
-            candidates=[]
-            for a in p.links:
-              href=a.get('href')
-              if not href: continue
-              full=urllib.parse.urljoin(base,href)
-              if any(k in full.lower() for k in ['library.pl','file=','page=','image','scan','showimg','chapter=','res=']):
-                candidates.append({'url':full,'attrs':a})
-            imgs=[]
-            for a in p.images:
-              src=a.get('src')
-              if src:
-                imgs.append({'url':urllib.parse.urljoin(base,src),'attrs':a})
-            terms={t:s.count(t) for t in ['夜子時','夜子时','子之前四刻','萬曆壬寅','万历壬寅','王懋錕','王懋锟','CADAL02038284','110944','8333196'] if t in s}
-            out.append({**r,'terms':terms,'candidate_links':candidates[:1000],'images':imgs[:1000],'text_excerpt':' | '.join(p.text)[:80000]})
-          Path('yugangzhai-ctext-scan-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          UA='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.1'
+          url='https://www.shidianguji.com/zh/book/CADAL02038284/chapter/1l7mkadqnliiy'
+          req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html,*/*'})
+          with urllib.request.urlopen(req,timeout=30) as r:
+            b=r.read(20_000_000)
+            meta={'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'body_len':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+          s=b.decode('utf-8','replace')
+          snippets={}
+          for term in ['夜子時','子之前四刻','CADAL02038284','1l7mkadqnliiy']:
+            hits=[]; start=0
+            while True:
+              i=s.find(term,start)
+              if i<0: break
+              hits.append(s[max(0,i-2500):min(len(s),i+5000)])
+              start=i+len(term)
+              if len(hits)>=10: break
+            snippets[term]=hits
+          # Only record URLs literally present in the delivered HTML; do not infer API endpoints.
+          urls=[]
+          for m in re.finditer(r'https?(?:\\u002F|/)[^"<> ]{1,1000}',s):
+            u=m.group(0).replace('\\u002F','/')
+            if any(k in u.lower() for k in ['image','img','scan','cadal','source','reader','chapter']):
+              urls.append(u)
+          keys=sorted(set(re.findall(r'"([A-Za-z_][A-Za-z0-9_]{1,80}(?:image|img|scan|page|source|chapter)[A-Za-z0-9_]*)"\s*:',s,re.I)))
+          out={'schema':'YUGANGZHAI-SHIDIAN-PUBLIC-PAYLOAD-PROBE-R1','url':url,'response':meta,'snippets':snippets,'literal_candidate_urls':urls[:500],'candidate_keys':keys[:500],'policy':'PUBLIC_HTML_PAYLOAD_ONLY; NO LOGIN; NO PRIVATE API GUESSING; NO CREDENTIALS; NO ACCESS BYPASS'}
+          Path('yugangzhai-shidian-public-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: yugangzhai-ctext-scan-probe
-          path: yugangzhai-ctext-scan-probe.json
+          name: yugangzhai-shidian-public-probe
+          path: yugangzhai-shidian-public-probe.json
           if-no-files-found: error
