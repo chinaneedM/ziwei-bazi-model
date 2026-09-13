@@ -16,8 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install DjVu tools
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin
-      - name: Acquire exact public Commons CADAL scan and locate target parallel
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin imagemagick
+      - name: Acquire exact public Commons CADAL scan and render hundred-ke neighborhood
         shell: bash
         run: |
           set -euo pipefail
@@ -32,34 +32,25 @@ jobs:
           for i in $(seq 1 "$pages"); do
             txt="tongshu-collation/text/page-${i}.txt"
             djvutxt --page="$i" tongshu-collation/book.djvu "$txt" 2>/dev/null || true
-            if grep -Eq '選時寶鏡局|选时宝镜局|子時隔界|子时隔界|成化十八|上四刻|下四刻' "$txt"; then
+            if grep -Eq '選時寶鏡局|选时宝镜局|子時隔界|子时隔界|成化十八|上四刻|下四刻|百刻' "$txt"; then
               printf '%s\t' "$i" >> tongshu-collation/hits.tsv
-              grep -Eo '.{0,40}(選時寶鏡局|选时宝镜局|子時隔界|子时隔界|成化十八|上四刻|下四刻).{0,80}' "$txt" | tr '\n' ' ' >> tongshu-collation/hits.tsv || true
+              tr '\n' ' ' < "$txt" | head -c 1000 >> tongshu-collation/hits.tsv || true
               printf '\n' >> tongshu-collation/hits.tsv
             fi
           done
           cat tongshu-collation/hits.tsv
-          python - <<'PY'
-          from pathlib import Path
-          hits=[]
-          for line in Path('tongshu-collation/hits.tsv').read_text(errors='ignore').splitlines():
-              if not line.strip(): continue
-              try: hits.append(int(line.split('\t',1)[0]))
-              except: pass
-          pages=int(Path('tongshu-collation/page-count.txt').read_text().strip())
-          targets=set()
-          for p in hits:
-              for q in range(max(1,p-2), min(pages,p+2)+1): targets.add(q)
-          Path('tongshu-collation/render-pages.txt').write_text('\n'.join(map(str,sorted(targets)))+'\n')
-          PY
+          # The embedded text layer is sparse; page 68 is the only clear 百刻 locator.
+          # Render a wide physical neighborhood and adjudicate from page images only.
+          seq 58 78 > tongshu-collation/render-pages.txt
           while read -r p; do
-            [ -n "$p" ] || continue
             ddjvu -page="$p" -format=png -dpi=220 tongshu-collation/book.djvu "tongshu-collation/pages/page-${p}.png"
           done < tongshu-collation/render-pages.txt
+          # Compact low-resolution contact sheet for page-order navigation only.
+          montage tongshu-collation/pages/page-*.png -thumbnail 240x -tile 4x -geometry +4+4 tongshu-collation/contact-sheet.png
           rm -f tongshu-collation/book.djvu
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-tongshu-zhengzong-physical-collation
+          name: shiqie-tongshu-zhengzong-hundred-ke-neighborhood
           path: tongshu-collation/
           if-no-files-found: error
