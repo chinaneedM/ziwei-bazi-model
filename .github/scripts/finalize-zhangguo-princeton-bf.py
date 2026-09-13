@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import json
+
+batch_id='BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF'
+batch_doc='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF.md'
+evidence_path='docs/research/ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-R1.json'
+source_id='EXT-ZIWEI-ZHANGGUO-NLC-PRINCETON-NJPX95-B1857'
+prev='BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE'
+
+evidence={
+  'schema':'ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-R1',
+  'batch_id':batch_id,
+  'question':'Can Princeton first-party public services independently bind TC183/2991 to the early-Wanli Zhang Guo Xingzong copy and expose usable public image bytes without bypassing transport or access controls?',
+  'provider':'Princeton University Library',
+  'first_party_catalog_search':{
+    'endpoint':'https://allsearch-api.princeton.edu/search/catalog?query=TC183%2F2991',
+    'http_status':200,
+    'body_len':775,
+    'sha256':'7a5bd620b2f680a1172e27e9a6d765bf34355fbcfe6c8f7fa108d844fe58b850',
+    'result_count':1,
+    'record':{
+      'title':'Xin bian ping zhu Tongxuan xian sheng Zhang Guo xing zong da quan : shi juan / Lu Wei ji jiao.',
+      'creator':'Zhang, Guo, active 713-742',
+      'publisher':"[Jinling] : Tang Qian, Ming Wanli gui si [21 nian, 1593] (Zhou Wen'guang, Wanli 22 nian [1594] impression)",
+      'mms_id':'9940551833506421',
+      'catalog_url':'https://catalog.princeton.edu/catalog/9940551833506421',
+      'call_number':'TC183/2991',
+      'library':'Special Collections',
+      'status':'Available',
+      'online_access_count':1,
+      'resource_url':'https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+      'resource_url_label':'First page of main text'
+    }
+  },
+  'public_image_transport':{
+    'https_normal_certificate_validation':{
+      'url':'https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+      'result':'TLS_CERTIFICATE_HOSTNAME_MISMATCH',
+      'error':'certificate verify failed: Hostname mismatch; certificate is not valid for libimages1.princeton.edu',
+      'certificate_validation_disabled':False
+    },
+    'http_same_host_path':{
+      'url':'http://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+      'http_status':301,
+      'reason':'Moved Permanently',
+      'location':'https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+      'content_type':'text/html',
+      'body_len':169,
+      'sha256':'cf7421bf8021a6e56b4a9aa5e1a0f5bb5f5b341189e61c7776d15f44b82c1fa3'
+    },
+    'image_bytes_obtained':False,
+    'no_tls_bypass':True,
+    'no_page_identifier_guessing':True,
+    'no_login_or_permission_bypass':True
+  },
+  'workflow_evidence':{
+    'broad_allsearch_run_id':34754839962,
+    'broad_allsearch_job_id':103717362110,
+    'broad_allsearch_artifact_id':10315839892,
+    'broad_allsearch_artifact_zip_sha256':'7e77d032d20081de1bad1573de27afb8c138e435c0166058db8011a03ce29785',
+    'transport_run_id':34755007652,
+    'transport_job_id':103717792255,
+    'transport_artifact_id':10317430095,
+    'transport_artifact_zip_sha256':'48726c688fd612a032b0937a53983729b45ec574cbcd40deb5147766f48d18cd'
+  },
+  'deduplication':{
+    'same_physical_princeton_copy_as_batch_12be':True,
+    'independent_exact_1594_material_witness_increment':0,
+    'reason':'TC183/2991 / NJPX95-B1857 is the same Princeton copy already counted once in Batch 12BE; Princeton first-party binding strengthens provenance but cannot be counted as another material witness.'
+  },
+  'rule_adjudication':{
+    'target_late_zi_leaf_obtained':False,
+    'target_text_witness_increment':0,
+    'hai_glyph_witness_increment':0,
+    'hpa_zdate_006_status':'MISSING_FROM_PRODUCT',
+    'runtime_winner_selected':False,
+    'candidate_collapsed':False,
+    'algorithm_reopen':False,
+    'required_missing_bridge':'upper/night Zi -> Hai branch'
+  },
+  'access_policy':'PUBLIC_FIRST_PARTY_CATALOG_API_AND_EXACT_EMITTED_RESOURCE_ONLY; NORMAL_TLS_VALIDATION; SAME_HOST_PATH_HTTP_TRANSPORT_OBSERVATION; NO CERTIFICATE BYPASS; NO HIDDEN PAGE ID GUESSING; NO LOGIN OR PERMISSION BYPASS'
+}
+Path(evidence_path).write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+doc='''# Fusion Chart Historical Provenance Audit R1 — Batch 12BF
+
+## 《新編評註通玄先生張果星宗大全》普林斯顿本馆目录绑定与公开图像传输边界
+
+Status: **PRINCETON FIRST-PARTY CATALOG EXACTLY BINDS TC183/2991 / MMS 9940551833506421 / 1593 TANG QIAN + 1594 ZHOU WENGUANG IMPRESSION STATEMENT CONFIRMED / PUBLIC RECORD EMITS “FIRST PAGE OF MAIN TEXT” RESOURCE / NORMAL HTTPS VALIDATION FAILS ON HOSTNAME MISMATCH / SAME-PATH HTTP 301 RETURNS TO HTTPS / NO CERTIFICATE BYPASS / NO IMAGE BYTES / SAME PHYSICAL COPY AS 12BE, SO MATERIAL-WITNESS +0 / NO TARGET LEAF / ZERO TARGET-TEXT OR HAI-GLYPH VOTE / HPA-ZDATE-006 STILL MISSING_FROM_PRODUCT / NO RUNTIME WINNER / NO CANDIDATE COLLAPSE / NO ALGORITHM REOPEN**
+
+## 1. Scope
+
+Batch 12BE had already established the NLC union-catalog object `NJPX95-B1857` and Princeton call number `TC183/2991` as one independent early-Wanli physical witness, with the 1593 preface/catalog date kept distinct from the Wanli 22 / 1594 cover impression. Its unresolved question was whether a legitimate Princeton-side route could independently bind the holding and expose page images.
+
+This batch therefore asks only:
+
+1. Does a Princeton first-party public service resolve `TC183/2991` to the same early-Wanli item?
+2. Does that record expose a public image-resource contract?
+3. Can the exact emitted resource be obtained with normal transport validation, without guessing hidden page IDs or bypassing access controls?
+
+It does **not** reopen the deterministic Ziwei algorithm and does **not** treat catalog metadata or a first-page image as rule-text evidence.
+
+## 2. Princeton first-party exact binding
+
+The public Princeton Allsearch Catalog endpoint queried with exact call number `TC183/2991` returned exactly **1** result.
+
+That result directly records:
+
+- MMS/catalog ID: `9940551833506421`
+- call number: `TC183/2991`
+- library: `Special Collections`
+- status: `Available`
+- title: `Xin bian ping zhu Tongxuan xian sheng Zhang Guo xing zong da quan : shi juan / Lu Wei ji jiao.`
+- creator: `Zhang, Guo, active 713-742`
+- publisher statement: `[Jinling] : Tang Qian, Ming Wanli gui si [21 nian, 1593] (Zhou Wen'guang, Wanli 22 nian [1594] impression)`
+
+This is a materially stronger institutional binding than the prior union-catalog-only route: Princeton itself now directly ties `TC183/2991` to the 1593/1594 Zhang Guo Xingzong object.
+
+## 3. Public image-resource contract
+
+The same first-party result reports `online_access_count = 1` and emits:
+
+- label: `First page of main text`
+- resource URL: `https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg`
+
+This establishes that Princeton's own catalog metadata knows a specific image identifier for the **first page of main text**. It does not establish a public multi-page viewer, target late-Zi leaf, or page-sequence contract.
+
+## 4. Transport adjudication
+
+The exact emitted HTTPS URL was requested with ordinary certificate validation. The request failed because the certificate presented for `libimages1.princeton.edu` did not validate for that hostname.
+
+No certificate-verification bypass was used.
+
+The exact same host and path were then tested over plain HTTP solely to distinguish transport behavior. It returned:
+
+- HTTP `301 Moved Permanently`
+- `Location` back to the same HTTPS URL
+- no image bytes
+
+Therefore the current public contract is **discoverable but not normally retrievable from the hosted research runner**. This is a transport/access observation only; it does not authorize any claim that Princeton lacks the image, that the image is permanently unavailable, or that the digitization is incomplete.
+
+## 5. Deduplication
+
+Batch 12BF adds **0** new independent material witnesses.
+
+`TC183/2991` / `NJPX95-B1857` is the same Princeton physical copy already counted once in Batch 12BE. A stronger first-party catalog binding cannot be counted as a second copy.
+
+## 6. Rule-evidence effect
+
+No target late-Zi leaf was obtained. Consequently:
+
+- exact-1594 independent material witness increment: `0`
+- target-text witness increment: `0`
+- `亥` glyph/rule vote increment: `0`
+- `HPA-ZDATE-006`: remains `MISSING_FROM_PRODUCT`
+- runtime winner: none
+- candidate collapse: none
+- deterministic algorithm reopen: none
+
+The unresolved bridge remains the same: direct historical rule evidence must explicitly support `upper/night Zi -> Hai branch` before any source-scoped runtime candidate can be promoted.
+
+## 7. Research boundary
+
+The probe followed only:
+
+1. Princeton's public first-party Allsearch API;
+2. the exact catalog record returned for `TC183/2991`;
+3. the exact image resource emitted by that record;
+4. the same host/path over HTTP to observe redirect behavior.
+
+It did not disable TLS verification, guess adjacent image/page identifiers, enumerate hidden files, log in, or bypass NLC/Princeton permissions.
+
+## 8. Durable evidence
+
+Machine-readable evidence is stored at:
+
+`docs/research/ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-R1.json`
+
+Key hosted-run references:
+
+- broad Allsearch probe: run `34754839962`, job `103717362110`, artifact `10315839892`
+- exact transport probe: run `34755007652`, job `103717792255`, artifact `10317430095`
+
+## 9. Next gate
+
+1. Seek a legitimate first-party/reproduction path that exposes additional pages or the target late-Zi leaf without certificate or permission bypass.
+2. Prefer an independent early 1593/1594 copy with public page images over further duplicate catalog records.
+3. If a target leaf is lawfully obtained, bind provider URL/object ID/digest/page/leaf and visually collate the historical glyphs before assigning any rule vote.
+4. Keep `HPA-ZDATE-006` unresolved until direct evidence supplies the missing `upper/night Zi -> Hai` mechanical bridge.
+'''
+Path(batch_doc).write_text(doc,encoding='utf-8')
+
+reg_path=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+reg=json.loads(reg_path.read_text(encoding='utf-8'))
+matches=[s for s in reg['sources'] if s.get('source_id')==source_id]
+assert len(matches)==1, len(matches)
+src=matches[0]
+src['quality_notes'] = src['quality_notes'].rstrip('.') + '. Princeton first-party Allsearch now independently binds the same call number to MMS 9940551833506421 and emits a “First page of main text” image resource; normal HTTPS validation is blocked by a hostname-mismatch certificate and same-path HTTP redirects back to HTTPS, so no image bytes or target leaf were obtained.'
+src['batch_12bf']={
+  'princeton_first_party_catalog_exact_result_count':1,
+  'princeton_mms_id':'9940551833506421',
+  'princeton_call_number':'TC183/2991',
+  'princeton_library':'Special Collections',
+  'princeton_status':'Available',
+  'online_access_count':1,
+  'resource_url_label':'First page of main text',
+  'resource_url':'https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+  'https_normal_validation':'TLS_CERTIFICATE_HOSTNAME_MISMATCH',
+  'http_same_path_status':301,
+  'http_same_path_location':'https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg',
+  'image_bytes_obtained':False,
+  'independent_exact_1594_material_witness_increment':0,
+  'target_text_witness_increment':0,
+  'hai_glyph_witness_increment':0
+}
+reg_path.write_text(json.dumps(reg,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+state_path=Path('docs/PROJECT-CURRENT-STATE-R1.json')
+state=json.loads(state_path.read_text(encoding='utf-8'))
+assert state.get('schema_version')=='1.64.0', state.get('schema_version')
+audit=state['historical_audit']
+assert audit['completed_batches'][-1]==prev, audit['completed_batches'][-1]
+assert batch_id not in audit['completed_batches']
+audit['completed_batches'].append(batch_id)
+audit['latest_batch_doc']=batch_doc
+audit['current_focus'].append('Batch 12BF independently binds Princeton TC183/2991 through Princeton first-party Allsearch to MMS 9940551833506421 and the 1593 Tang Qian / 1594 Zhou Wenguang impression statement; the same record emits one “First page of main text” image resource, strengthening institutional provenance without adding another physical-witness count.')
+audit['current_focus'].append('The emitted libimages1 HTTPS resource fails ordinary hostname validation, while the exact HTTP host/path returns 301 back to that HTTPS URL. No certificate bypass, hidden page-ID guessing, image bytes or target late-Zi leaf were obtained; target-text/Hai-glyph increments remain 0 and HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no algorithm reopen or candidate collapse.')
+state['schema_version']='1.65.0'
+state['updated_at']='2026-09-13'
+state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+verifier_path=Path('scripts/verify-project-continuity-state-r1.py')
+text=verifier_path.read_text(encoding='utf-8')
+old='    "BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE.md"'
+new='    "BATCH-12-ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-BE",\n    "BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF.md"'
+assert old in text
+verifier_path.write_text(text.replace(old,new,1),encoding='utf-8')
