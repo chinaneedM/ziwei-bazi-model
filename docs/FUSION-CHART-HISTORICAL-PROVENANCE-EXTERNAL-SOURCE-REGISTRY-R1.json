@@ -3194,7 +3194,7 @@
       "record_id": "NJPX95-B1857",
       "shelf_or_collection_number": "TC183/2991",
       "source_role": "FIRST_PARTY_UNION_CATALOG_PHYSICAL_HOLDING_AND_EXACT_1594_IMPRINT_WITNESS",
-      "quality_notes": "First-party NLC union-catalog object directly binds Princeton holding TC183/2991 and records the 1593 Han Zhuo preface, Tang Qian juanduan imprint statement, and a Zhou Wenguang cover explicitly glossed as Wanli 22 (1594). The emitted page-viewer route is permission-gated; no target leaf or late-Zi glyph has been directly collated.",
+      "quality_notes": "First-party NLC union-catalog object directly binds Princeton holding TC183/2991 and records the 1593 Han Zhuo preface, Tang Qian juanduan imprint statement, and a Zhou Wenguang cover explicitly glossed as Wanli 22 (1594). The emitted page-viewer route is permission-gated; no target leaf or late-Zi glyph has been directly collated. Princeton first-party Allsearch now independently binds the same call number to MMS 9940551833506421 and emits a “First page of main text” image resource; normal HTTPS validation is blocked by a hostname-mismatch certificate and same-path HTTP redirects back to HTTPS, so no image bytes or target leaf were obtained.",
       "batch_12be": {
         "independent_exact_1594_material_witness_increment": 1,
         "target_leaf_obtained": false,
@@ -3208,6 +3208,23 @@
         "successful_detail_sha256": "a4699510e13d3e61154b2c4d0c4fd3894812c32429d7754de95199abeb44561e",
         "canonical_registry_url_is_https": true,
         "note": "Canonical external-source URL follows registry HTTPS policy; the durable Batch 12BE machine evidence retains the actually observed HTTP transport URL and response."
+      },
+      "batch_12bf": {
+        "princeton_first_party_catalog_exact_result_count": 1,
+        "princeton_mms_id": "9940551833506421",
+        "princeton_call_number": "TC183/2991",
+        "princeton_library": "Special Collections",
+        "princeton_status": "Available",
+        "online_access_count": 1,
+        "resource_url_label": "First page of main text",
+        "resource_url": "https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+        "https_normal_validation": "TLS_CERTIFICATE_HOSTNAME_MISMATCH",
+        "http_same_path_status": 301,
+        "http_same_path_location": "https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+        "image_bytes_obtained": false,
+        "independent_exact_1594_material_witness_increment": 0,
+        "target_text_witness_increment": 0,
+        "hai_glyph_witness_increment": 0
       }
     }
   ],

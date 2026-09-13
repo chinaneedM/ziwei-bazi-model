@@ -1,0 +1,73 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF",
+  "question": "Can Princeton first-party public services independently bind TC183/2991 to the early-Wanli Zhang Guo Xingzong copy and expose usable public image bytes without bypassing transport or access controls?",
+  "provider": "Princeton University Library",
+  "first_party_catalog_search": {
+    "endpoint": "https://allsearch-api.princeton.edu/search/catalog?query=TC183%2F2991",
+    "http_status": 200,
+    "body_len": 775,
+    "sha256": "7a5bd620b2f680a1172e27e9a6d765bf34355fbcfe6c8f7fa108d844fe58b850",
+    "result_count": 1,
+    "record": {
+      "title": "Xin bian ping zhu Tongxuan xian sheng Zhang Guo xing zong da quan : shi juan / Lu Wei ji jiao.",
+      "creator": "Zhang, Guo, active 713-742",
+      "publisher": "[Jinling] : Tang Qian, Ming Wanli gui si [21 nian, 1593] (Zhou Wen'guang, Wanli 22 nian [1594] impression)",
+      "mms_id": "9940551833506421",
+      "catalog_url": "https://catalog.princeton.edu/catalog/9940551833506421",
+      "call_number": "TC183/2991",
+      "library": "Special Collections",
+      "status": "Available",
+      "online_access_count": 1,
+      "resource_url": "https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+      "resource_url_label": "First page of main text"
+    }
+  },
+  "public_image_transport": {
+    "https_normal_certificate_validation": {
+      "url": "https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+      "result": "TLS_CERTIFICATE_HOSTNAME_MISMATCH",
+      "error": "certificate verify failed: Hostname mismatch; certificate is not valid for libimages1.princeton.edu",
+      "certificate_validation_disabled": false
+    },
+    "http_same_host_path": {
+      "url": "http://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+      "http_status": 301,
+      "reason": "Moved Permanently",
+      "location": "https://libimages1.princeton.edu/loris/CHRBPageImages/NJPX95B1857.jp2/full/full/0/default.jpg",
+      "content_type": "text/html",
+      "body_len": 169,
+      "sha256": "cf7421bf8021a6e56b4a9aa5e1a0f5bb5f5b341189e61c7776d15f44b82c1fa3"
+    },
+    "image_bytes_obtained": false,
+    "no_tls_bypass": true,
+    "no_page_identifier_guessing": true,
+    "no_login_or_permission_bypass": true
+  },
+  "workflow_evidence": {
+    "broad_allsearch_run_id": 34754839962,
+    "broad_allsearch_job_id": 103717362110,
+    "broad_allsearch_artifact_id": 10315839892,
+    "broad_allsearch_artifact_zip_sha256": "7e77d032d20081de1bad1573de27afb8c138e435c0166058db8011a03ce29785",
+    "transport_run_id": 34755007652,
+    "transport_job_id": 103717792255,
+    "transport_artifact_id": 10317430095,
+    "transport_artifact_zip_sha256": "48726c688fd612a032b0937a53983729b45ec574cbcd40deb5147766f48d18cd"
+  },
+  "deduplication": {
+    "same_physical_princeton_copy_as_batch_12be": true,
+    "independent_exact_1594_material_witness_increment": 0,
+    "reason": "TC183/2991 / NJPX95-B1857 is the same Princeton copy already counted once in Batch 12BE; Princeton first-party binding strengthens provenance but cannot be counted as another material witness."
+  },
+  "rule_adjudication": {
+    "target_late_zi_leaf_obtained": false,
+    "target_text_witness_increment": 0,
+    "hai_glyph_witness_increment": 0,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "required_missing_bridge": "upper/night Zi -> Hai branch"
+  },
+  "access_policy": "PUBLIC_FIRST_PARTY_CATALOG_API_AND_EXACT_EMITTED_RESOURCE_ONLY; NORMAL_TLS_VALIDATION; SAME_HOST_PATH_HTTP_TRANSPORT_OBSERVATION; NO CERTIFICATE BYPASS; NO HIDDEN PAGE ID GUESSING; NO LOGIN OR PERMISSION BYPASS"
+}
