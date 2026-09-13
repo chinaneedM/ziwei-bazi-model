@@ -1,0 +1,144 @@
+name: research-shiqie-shidian-target-browser-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-shiqie-shidian-target-browser-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium
+        run: |
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+      - name: Observe source-emitted target-page resources
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          url='https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab'
+          target='巳上是上四亥'
+          out=Path('shidian-target-browser'); out.mkdir()
+          result={
+            'schema':'SHIQIE-SHIDIAN-TARGET-PUBLIC-BROWSER-PROBE-R1',
+            'url':url,
+            'target_text':target,
+            'policy':'ORDINARY PUBLIC BROWSER NAVIGATION AND PASSIVE DOM/NETWORK OBSERVATION ONLY. SCROLL TO THE LITERAL TARGET TEXT ALREADY PRESENT IN PUBLIC SSR. RECORD ONLY HREF/SRC/CURRENTSRC AND NETWORK URLS EMITTED BY THE PUBLIC PAGE. DO NOT CONSTRUCT IMAGE/API URLS, DO NOT ENUMERATE IDS, DO NOT LOGIN, DO NOT INJECT COOKIES/TOKENS, DO NOT CLICK HIDDEN CONTROLS.',
+            'navigation':{}, 'target':{}, 'images':[], 'candidate_controls':[], 'network':[]
+          }
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True)
+            context=browser.new_context(viewport={'width':1440,'height':1200}, locale='zh-CN')
+            page=context.new_page()
+            network=[]
+            def on_response(resp):
+              try:
+                ct=resp.headers.get('content-type','')
+                u=resp.url
+                if ('shidianguji' in u or 'byte' in u or 'tos-' in u or ct.lower().startswith('image/')):
+                  network.append({'url':u,'status':resp.status,'content_type':ct})
+              except Exception:
+                pass
+            page.on('response',on_response)
+            nav=None; err=None
+            try:
+              nav=page.goto(url,wait_until='domcontentloaded',timeout=60000)
+              page.wait_for_timeout(5000)
+            except Exception as exc:
+              err=repr(exc)
+            result['navigation']={'status':nav.status if nav else None,'final_url':page.url,'title':page.title(),'error':err}
+
+            loc=page.get_by_text(target,exact=False)
+            count=loc.count()
+            result['target']['match_count']=count
+            if count:
+              el=loc.first
+              try:
+                el.scroll_into_view_if_needed(timeout=10000)
+                page.wait_for_timeout(7000)
+                result['target']['text']=el.inner_text(timeout=3000)
+                result['target']['outer_html']=el.evaluate('(e)=>e.outerHTML')[:20000]
+                result['target']['bounding_box']=el.bounding_box()
+                ancestors=el.evaluate('''(e)=>{let a=[],n=e; for(let i=0;i<7 && n;i++,n=n.parentElement){a.push({tag:n.tagName,id:n.id||null,cls:n.className||null,html:n.outerHTML.slice(0,12000)})}; return a}''')
+                result['target']['ancestors']=ancestors
+              except Exception as exc:
+                result['target']['inspect_error']=repr(exc)
+
+            # Record only resources the rendered page itself emits.
+            imgs=[]
+            for i in range(page.locator('img').count()):
+              im=page.locator('img').nth(i)
+              try:
+                rec={
+                  'src':im.get_attribute('src'),
+                  'currentSrc':im.evaluate('(e)=>e.currentSrc||null'),
+                  'alt':im.get_attribute('alt'),
+                  'loading':im.get_attribute('loading'),
+                  'naturalWidth':im.evaluate('(e)=>e.naturalWidth||0'),
+                  'naturalHeight':im.evaluate('(e)=>e.naturalHeight||0'),
+                  'box':im.bounding_box(),
+                }
+                if rec['src'] or rec['currentSrc']:
+                  imgs.append(rec)
+              except Exception:
+                pass
+            result['images']=imgs
+
+            controls=[]
+            rx=re.compile(r'(原图|原圖|影像|图像|圖像|图片|圖片|查看|阅读|閱讀|版面|扫描|掃描|切换|切換|古籍)',re.I)
+            for selector in ('a','button','[role="button"]'):
+              nodes=page.locator(selector)
+              for i in range(min(nodes.count(),500)):
+                n=nodes.nth(i)
+                try:
+                  text=' '.join((n.inner_text(timeout=500) or '').split())[:200]
+                  aria=(n.get_attribute('aria-label') or '')[:200]
+                  title=(n.get_attribute('title') or '')[:200]
+                  href=n.get_attribute('href')
+                  blob=' '.join([text,aria,title,href or ''])
+                  if rx.search(blob):
+                    controls.append({'selector':selector,'text':text,'aria_label':aria,'title':title,'href':href,'outer_html':n.evaluate('(e)=>e.outerHTML')[:3000]})
+                except Exception:
+                  pass
+            result['candidate_controls']=controls
+
+            seen=set(); compact=[]
+            for r in network:
+              key=(r['url'],r['status'],r['content_type'])
+              if key not in seen:
+                seen.add(key); compact.append(r)
+            result['network']=compact
+            result['image_network']=[r for r in compact if r['content_type'].lower().startswith('image/')]
+            page.screenshot(path=str(out/'target-view.png'),full_page=False)
+            (out/'rendered.html').write_text(page.content(),encoding='utf-8')
+            browser.close()
+
+          Path('shidian-target-browser-probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+            'navigation_status':result['navigation'].get('status'),
+            'target_match_count':result['target'].get('match_count'),
+            'image_elements':len(result['images']),
+            'image_network_responses':len(result.get('image_network',[])),
+            'candidate_controls':len(result['candidate_controls']),
+          },ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shiqie-shidian-target-public-browser-probe
+          path: |
+            shidian-target-browser-probe.json
+            shidian-target-browser/*
+          if-no-files-found: error
