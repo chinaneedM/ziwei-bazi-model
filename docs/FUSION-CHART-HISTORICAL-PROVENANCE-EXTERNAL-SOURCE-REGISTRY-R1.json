@@ -3366,7 +3366,7 @@
       "provider": "Japan Search + National Archives of Japan Digital Archive",
       "url": "https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json",
       "source_role": "FIRST_PARTY_CATALOG_AND_DIGITAL_OBJECT_STRUCTURE; ACCESS_BOUNDARY CONTROL; NOT TARGET_GLYPH AUTHORITY UNTIL TARGET CANVAS IS DIRECTLY READ",
-      "quality_notes": "Documented Japan Search item resolution binds the exact fascicle-three record to National Archives item 4756821. Its official IIIF manifest is HTTP 200 and contains 69 canvases. Public Shidian volume-three SSR independently defines a complete 56-page transcription span, so ordinal mapping is forbidden. Manifest image resources and ordinary Chromium item navigation are HTTP 403 in the GitHub runner. No bypass was attempted and the target physical glyph remains unread.",
+      "quality_notes": "Documented Japan Search item resolution binds the exact fascicle-three record to National Archives item 4756821. Its official IIIF manifest is HTTP 200 and contains 69 canvases. Public Shidian volume-three SSR independently defines a complete 56-page transcription span, so ordinal mapping is forbidden. Manifest image resources and ordinary Chromium item navigation are HTTP 403 in the GitHub runner. No bypass was attempted and the target physical glyph remains unread. Batch 12BM closes the remaining viewer-route ambiguity: the exact Japan Search fascicle record itself emits /img/4756821 and the exact thumbnail URI, yet ordinary Chromium receives CloudFront HTTP 403 for both; the first-party target glyph remains unread.",
       "batch_12bk": {
         "japan_search_item_id": "najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003",
         "official_item_id": 4756821,
@@ -3379,6 +3379,18 @@
         "explicit_hai_branch_reassignment": false,
         "hai_glyph_witness_increment": 0,
         "research_artifact": "docs/research/ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-R1.json"
+      },
+      "batch_12bm": {
+        "literal_japan_search_viewer_url": "https://www.digital.archives.go.jp/img/4756821",
+        "literal_japan_search_thumbnail_url": "https://www.digital.archives.go.jp/thumb/4756821/C103347219500.jpg",
+        "viewer_http_status": 403,
+        "thumbnail_http_status": 403,
+        "cloudfront_blocked": true,
+        "download_ui_observed": false,
+        "successful_image_response_count": 0,
+        "target_glyph_observed": false,
+        "hai_glyph_witness_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-R1.json"
       }
     }
   ],

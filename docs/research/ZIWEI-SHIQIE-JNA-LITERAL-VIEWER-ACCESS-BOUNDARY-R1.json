@@ -1,0 +1,52 @@
+{
+  "schema": "ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-BM",
+  "question": "Does the exact first-party National Archives viewer URI literally emitted by the exact Japan Search fascicle-three record expose a readable viewer/download/image route in an ordinary anonymous Chromium session, without constructing any URL or bypassing access controls?",
+  "japan_search_record": {
+    "record_id": "najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003",
+    "official_item_id": 4756821,
+    "literal_viewer_field": "najda-root.rdf:Description.owl:sameAs-u",
+    "literal_viewer_url": "https://www.digital.archives.go.jp/img/4756821",
+    "literal_thumbnail_url": "https://www.digital.archives.go.jp/thumb/4756821/C103347219500.jpg",
+    "resolution_run_id": 34762934050,
+    "resolution_artifact_id": 10319273767,
+    "resolution_artifact_digest": "sha256:a3c2e3b3f30455f4de316a9b4381ee5a65062e88eb5922357affb67243805b69",
+    "route_provenance": "EXACT VALUES RETURNED BY THE PUBLIC JAPAN SEARCH RECORD; NOT DERIVED FROM ITEM-ID PATTERNS"
+  },
+  "ordinary_browser_probe": {
+    "workflow_run_id": 34766246768,
+    "artifact_id": 10320761950,
+    "artifact_digest": "sha256:0093749d86190c8701e815f3158fefc4da6b9568cb9f77f2e2650e28c8b814dc",
+    "viewer_navigation_status": 403,
+    "viewer_final_url": "https://www.digital.archives.go.jp/img/4756821",
+    "viewer_title": "ERROR: The request could not be satisfied",
+    "viewer_cloudfront_error": true,
+    "viewer_anchor_count": 0,
+    "viewer_control_count": 0,
+    "viewer_image_element_count": 0,
+    "download_ui_observed": false,
+    "successful_image_response_count": 0,
+    "thumbnail_navigation_status": 403,
+    "thumbnail_final_url": "https://www.digital.archives.go.jp/thumb/4756821/C103347219500.jpg",
+    "thumbnail_cloudfront_error": true,
+    "route_guessing_used": false,
+    "login_used": false,
+    "cookie_or_token_injection_used": false,
+    "access_bypass_used": false
+  },
+  "adjudication": {
+    "exact_first_party_viewer_uri_identity_closed": true,
+    "previous_item_url_403_explained_by_wrong_route": false,
+    "github_runner_first_party_content_surface_blocked": true,
+    "target_canvas_identified": false,
+    "target_glyph_observed": false,
+    "download_resource_observed": false,
+    "hai_glyph_witness_increment": 0,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "next_gate": "Obtain a directly readable target physical leaf through another ordinary public first-party or independently bound facsimile route, or collate an independent early physical homolog. Do not infer viewer/download paths beyond source-emitted URIs."
+  },
+  "access_policy": "EXACT PUBLIC JAPAN SEARCH RECORD + EXACT SOURCE-EMITTED FIRST-PARTY VIEWER/THUMBNAIL URIS + ORDINARY ANONYMOUS CHROMIUM ONLY; NO URL CONSTRUCTION; NO ADJACENT-ID ENUMERATION; NO LOGIN; NO COOKIE/TOKEN INJECTION; NO ACCESS BYPASS"
+}
