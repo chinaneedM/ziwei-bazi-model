@@ -1,0 +1,137 @@
+name: research-zhangguo-princeton-allsearch-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-zhangguo-princeton-allsearch-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe Princeton public catalog and DPUL search routes
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from html.parser import HTMLParser
+          from pathlib import Path
+
+          API='https://allsearch-api.princeton.edu'
+          UA='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.0'
+          queries=[
+              'TC183/2991',
+              '新編評註通玄先生張果星宗大全',
+              '新编评注通玄先生张果星宗大全',
+              '張果星宗',
+              '张果星宗',
+              'Zhang guo xing zong',
+              'Lu Wei Zhang guo xing zong',
+              'NJPX95-B1857',
+          ]
+
+          def fetch(url, accept='application/json,text/html;q=0.9,*/*;q=0.8'):
+              req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':accept})
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      b=r.read(20_000_000)
+                      return {
+                          'requested_url':url,'status':r.status,'final_url':r.geturl(),
+                          'content_type':r.headers.get('content-type'),'body_len':len(b),
+                          'sha256':hashlib.sha256(b).hexdigest(),'body':b,
+                      }
+              except Exception as e:
+                  return {'requested_url':url,'error':f'{type(e).__name__}: {e}','body':b''}
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.links=[]; self.cur=None; self.visible=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=='a': self.cur={'href':d.get('href'),'text':''}
+              def handle_data(self,data):
+                  s=data.strip()
+                  if s: self.visible.append(s)
+                  if self.cur is not None: self.cur['text'] += data
+              def handle_endtag(self,tag):
+                  if tag=='a' and self.cur is not None:
+                      self.cur['text']=re.sub(r'\s+',' ',html.unescape(self.cur['text'])).strip()
+                      self.links.append(self.cur); self.cur=None
+
+          searches=[]; candidate_records=[]
+          for scope in ('catalog','dpul'):
+              for q in queries:
+                  u=API+f'/search/{scope}?'+urllib.parse.urlencode({'query':q})
+                  r=fetch(u); body=r.pop('body',b'')
+                  item={'scope':scope,'query':q,'response':r}
+                  try:
+                      data=json.loads(body.decode('utf-8')) if body else None
+                  except Exception as e:
+                      data={'decode_error':f'{type(e).__name__}: {e}','body_prefix':body[:2000].decode('utf-8','replace')}
+                  item['data']=data
+                  searches.append(item)
+                  if isinstance(data,dict):
+                      for rec in data.get('records') or []:
+                          if isinstance(rec,dict):
+                              candidate_records.append({'scope':scope,'query':q,'record':rec})
+
+          # Deduplicate and follow only URLs literally emitted by the first-party Allsearch responses.
+          emitted=[]; seen=set()
+          for x in candidate_records:
+              rec=x['record']; url=rec.get('url')
+              if isinstance(url,str) and url.startswith('https://') and url not in seen:
+                  seen.add(url); emitted.append({'scope':x['scope'],'query':x['query'],'url':url,'record':rec})
+
+          followed=[]
+          for x in emitted[:100]:
+              r=fetch(x['url'],'text/html,*/*'); body=r.pop('body',b'')
+              text=body.decode('utf-8','replace')
+              p=P();
+              try: p.feed(text)
+              except Exception: pass
+              first_party_links=[]
+              for a in p.links:
+                  href=a.get('href')
+                  if not href: continue
+                  u=urllib.parse.urljoin(r.get('final_url') or x['url'],href)
+                  host=urllib.parse.urlparse(u).hostname or ''
+                  if host.endswith('princeton.edu') or host.endswith('princeton.edu.') or host=='arks.princeton.edu':
+                      first_party_links.append({'url':u,'text':a.get('text','')})
+              followed.append({
+                  **x,'response':r,'visible_text':' | '.join(p.visible)[:40000],
+                  'first_party_links':first_party_links[:500],
+                  'term_hits':{t:text.count(t) for t in ['TC183/2991','張果星宗','张果星宗','萬曆','万历','1593','1594','唐謙','唐谦','周氏文光','Digital Content','Available online'] if t in text},
+              })
+
+          out={
+              'schema':'ZIWEI-ZHANGGUO-PRINCETON-PUBLIC-ALLSEARCH-PROBE-R1',
+              'api_base':API,
+              'queries':queries,
+              'searches':searches,
+              'candidate_records':candidate_records,
+              'emitted_unique_record_count':len(emitted),
+              'followed_emitted_records':followed,
+              'policy':'PUBLIC_FIRST_PARTY_ALLSEARCH_API_AND_LITERAL_RESULT_URLS_ONLY; NO LOGIN; NO AUTH BYPASS; NO HIDDEN ID GUESSING; NO CONDITIONAL VIEWER BYPASS',
+          }
+          Path('princeton-zhangguo-allsearch.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'candidate_record_count':len(candidate_records),
+              'emitted_unique_record_count':len(emitted),
+              'catalog_numbers':[(s['query'], (s.get('data') or {}).get('number')) for s in searches if s['scope']=='catalog' and isinstance(s.get('data'),dict)],
+              'dpul_numbers':[(s['query'], (s.get('data') or {}).get('number')) for s in searches if s['scope']=='dpul' and isinstance(s.get('data'),dict)],
+              'emitted':emitted,
+          },ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: princeton-zhangguo-public-allsearch-probe
+          path: princeton-zhangguo-allsearch.json
+          if-no-files-found: error
