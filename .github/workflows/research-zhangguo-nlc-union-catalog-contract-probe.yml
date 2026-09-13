@@ -18,65 +18,90 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Extract NLC source-emitted search form contract
+      - name: Query NLC with source-emitted POST contract
         run: |
           python - <<'PY'
-          import hashlib, json, re, urllib.parse, urllib.request
+          import hashlib, html, http.cookiejar, json, re, urllib.parse, urllib.request
           from html.parser import HTMLParser
           from pathlib import Path
 
-          ROOT='http://read.nlc.cn/allSearch/searchList?searchType=62&showType=1&pageNo=1'
-          UA='Mozilla/5.0 research-contract-probe/1.1'
+          BASE='http://read.nlc.cn'
+          LANDING=BASE+'/allSearch/searchList?searchType=62&showType=1&pageNo=1'
+          UA='Mozilla/5.0 research-contract-probe/1.2'
+          variants=[
+            ('long_trad','新編評註通玄先生張果星宗大全'),
+            ('long_simp','新编评注通玄先生张果星宗大全'),
+            ('short_trad','張果星宗'),
+            ('short_simp','张果星宗'),
+          ]
 
-          req=urllib.request.Request(ROOT,headers={'User-Agent':UA,'Accept':'text/html,*/*'})
-          with urllib.request.urlopen(req,timeout=25) as r:
-              body=r.read(5_000_000)
-              final_url=r.geturl(); status=r.status; ctype=r.headers.get('content-type')
-          text=body.decode('utf-8','replace')
+          cj=http.cookiejar.CookieJar()
+          opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+          def fetch(req):
+              try:
+                  with opener.open(req,timeout=30) as r:
+                      b=r.read(12_000_000)
+                      return {'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),
+                              'body_len':len(b),'sha256':hashlib.sha256(b).hexdigest(),'body':b}
+              except Exception as e:
+                  return {'error':f'{type(e).__name__}: {e}','body':b''}
 
-          class Parser(HTMLParser):
-              def __init__(self):
-                  super().__init__(); self.forms=[]; self.inputs=[]; self.selects=[]; self.buttons=[]
+          landing_req=urllib.request.Request(LANDING,headers={'User-Agent':UA,'Accept':'text/html,*/*'})
+          landing=fetch(landing_req); landing.pop('body',None)
+
+          class AParser(HTMLParser):
+              def __init__(self): super().__init__(); self.stack=[]; self.links=[]
               def handle_starttag(self,tag,attrs):
-                  d=dict(attrs)
-                  rec={'tag':tag, **{k:v for k,v in d.items() if k in ('id','name','type','value','action','method','onclick','class','placeholder')}}
-                  if tag=='form': self.forms.append(rec)
-                  elif tag=='input': self.inputs.append(rec)
-                  elif tag=='select': self.selects.append(rec)
-                  elif tag in ('button','a') and any(k in d for k in ('onclick','href','id','name')): self.buttons.append(rec | ({'href':d.get('href')} if 'href' in d else {}))
-          p=Parser(); p.feed(text)
+                  if tag=='a': self.stack.append({'href':dict(attrs).get('href'),'text':''})
+              def handle_data(self,data):
+                  if self.stack: self.stack[-1]['text']+=data
+              def handle_endtag(self,tag):
+                  if tag=='a' and self.stack: self.links.append(self.stack.pop())
 
-          terms=['searchWord','searchList','searchType','showType','pageNo','search','query','keyword','submit','simpleSearch','advanced']
-          contexts={}
-          for term in terms:
-              arr=[]; pos=0
-              while len(arr)<20:
-                  i=text.lower().find(term.lower(),pos)
-                  if i<0: break
-                  arr.append(text[max(0,i-450):min(len(text),i+900)])
-                  pos=i+len(term)
-              if arr: contexts[term]=arr
+          out={'schema':'NLC-RARE-BOOK-UNION-CATALOG-TITLE-QUERY-R1','landing':landing,'queries':{},
+               'source_contract':{'method':'POST','action':'/allSearch/searchList','searchType':'62','showType':'1',
+                                  'query_searchWord':True,'body_fields':['searchWord','searchType']},
+               'policy':'FIRST_PARTY_SOURCE_EMITTED_POST_CONTRACT_ONLY_NO_GUESSED_DETAIL_ENDPOINTS_NO_LOGIN_NO_AUTH_BYPASS'}
+          terms=['新編評註通玄先生張果星宗大全','新编评注通玄先生张果星宗大全','張果星宗','张果星宗',
+                 '萬曆','万历','二十二','1594','癸巳','唐謙','唐谦','南京','湖南','安徽','河南','重慶','重庆','山東','山东','復旦','复旦']
 
-          # Capture inline JS function headers/bodies only around search-related names.
-          functions=[]
-          for m in re.finditer(r'function\s+([A-Za-z0-9_$]+)\s*\([^)]*\)\s*\{',text):
-              name=m.group(1)
-              if any(k in name.lower() for k in ('search','query','submit','page')):
-                  functions.append(text[m.start():min(len(text),m.start()+2500)])
+          for name,q in variants:
+              qs=urllib.parse.urlencode({'searchType':'62','showType':'1','searchWord':q})
+              url=BASE+'/allSearch/searchList?'+qs
+              body=urllib.parse.urlencode({'searchWord':q,'searchType':'62'}).encode('utf-8')
+              req=urllib.request.Request(url,data=body,headers={'User-Agent':UA,'Accept':'text/html,*/*',
+                                                                'Content-Type':'application/x-www-form-urlencoded',
+                                                                'Referer':LANDING})
+              r=fetch(req); raw=r.pop('body',b''); text=raw.decode('utf-8','replace')
+              p=AParser(); p.feed(text)
+              hit_terms={t:text.count(t) for t in terms if t in text}
+              contexts=[]
+              for t in terms[:4]:
+                  pos=0
+                  while len(contexts)<30:
+                      i=text.find(t,pos)
+                      if i<0: break
+                      contexts.append({'term':t,'context':html.unescape(re.sub(r'\s+',' ',text[max(0,i-900):min(len(text),i+2200)]))})
+                      pos=i+len(t)
+              links=[]
+              for a in p.links:
+                  txt=re.sub(r'\s+',' ',html.unescape(a.get('text') or '')).strip()
+                  href=a.get('href')
+                  if any(k in txt for k in ('張果','张果','星宗')):
+                      links.append({'text':txt[:500],'href':href})
+              ded=[]; seen=set()
+              for x in links:
+                  key=(x['text'],x['href'])
+                  if key not in seen: seen.add(key); ded.append(x)
+              r['term_hits']=hit_terms; r['contexts']=contexts; r['matching_links']=ded[:100]
+              r['html_prefix']=text[:1200]; r['html_suffix']=text[-800:] if text else ''
+              out['queries'][name]=r
 
-          out={
-            'schema':'NLC-RARE-BOOK-UNION-CATALOG-FORM-CONTRACT-R1',
-            'status':status,'final_url':final_url,'content_type':ctype,'body_len':len(body),
-            'sha256':hashlib.sha256(body).hexdigest(),
-            'forms':p.forms,'inputs':p.inputs,'selects':p.selects,'buttons':p.buttons[:200],
-            'contexts':contexts,'search_functions':functions[:50],
-            'policy':'DIRECT_FIRST_PARTY_HTML_CONTRACT_EXTRACTION_NO_GUESSED_ENDPOINTS_NO_LOGIN_NO_AUTH_BYPASS'
-          }
-          Path('nlc-form-contract.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('nlc-title-query.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: nlc-union-catalog-form-contract
-          path: nlc-form-contract.json
+          name: nlc-union-catalog-title-query
+          path: nlc-title-query.json
           if-no-files-found: error
