@@ -1,0 +1,187 @@
+name: research-shiqie-jna-literal-viewer-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-shiqie-jna-literal-viewer-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium
+        run: |
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+      - name: Probe exact first-party viewer URI emitted by Japan Search
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          from playwright.sync_api import sync_playwright
+
+          # Literal values returned by the exact Japan Search fascicle-three record.
+          viewer_url='https://www.digital.archives.go.jp/img/4756821'
+          item_url='https://www.digital.archives.go.jp/item/4756821'
+          manifest_url='https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json'
+          thumbnail_url='https://www.digital.archives.go.jp/thumb/4756821/C103347219500.jpg'
+          out=Path('jna-literal-viewer'); out.mkdir()
+          result={
+            'schema':'SHIQIE-JNA-LITERAL-VIEWER-PROBE-R1',
+            'provenance':{
+              'source':'EXACT JAPAN SEARCH FASCICLE-THREE RECORD',
+              'record_id':'najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003',
+              'viewer_uri_field':'najda-root.rdf:Description.owl:sameAs-u',
+              'viewer_url':viewer_url,
+              'item_url':item_url,
+              'manifest_url':manifest_url,
+              'thumbnail_url':thumbnail_url,
+            },
+            'policy':'FOLLOW ONLY LITERAL FIRST-PARTY URIS RETURNED BY THE EXACT JAPAN SEARCH RECORD AND UI CONTROLS/HREF/SRC/NETWORK REQUESTS EMITTED BY THOSE PUBLIC PAGES. NO URL DERIVATION, NO ADJACENT-ID ENUMERATION, NO LOGIN, NO COOKIE/TOKEN INJECTION, NO ACCESS BYPASS. A VISIBLE PRINT/DOWNLOAD CONTROL MAY BE OPENED, BUT NO BULK DOWNLOAD IS INITIATED IN THIS PROBE.',
+            'viewer':{}, 'thumbnail':{}, 'network':[], 'download_ui':None
+          }
+
+          def inspect_page(page):
+            anchors=[]
+            for i in range(min(page.locator('a').count(),400)):
+              a=page.locator('a').nth(i)
+              try:
+                href=a.get_attribute('href')
+                text=' '.join((a.inner_text(timeout=500) or '').split())[:200]
+                if href:
+                  anchors.append({'text':text,'href':href,'absolute':urljoin(page.url,href)})
+              except Exception:
+                pass
+            controls=[]
+            rx=re.compile(r'(印刷|ダウンロード|download|画像|閲覧|サムネイル|資料情報)',re.I)
+            for selector in ('button','a','[role="button"]'):
+              nodes=page.locator(selector)
+              for i in range(min(nodes.count(),500)):
+                n=nodes.nth(i)
+                try:
+                  text=' '.join((n.inner_text(timeout=500) or '').split())[:240]
+                  aria=(n.get_attribute('aria-label') or '')[:240]
+                  title=(n.get_attribute('title') or '')[:240]
+                  href=n.get_attribute('href')
+                  if rx.search(' '.join([text,aria,title,href or ''])):
+                    controls.append({'selector':selector,'index':i,'text':text,'aria_label':aria,'title':title,'href':href,'outer_html':n.evaluate('(e)=>e.outerHTML')[:4000]})
+                except Exception:
+                  pass
+            images=[]
+            for i in range(min(page.locator('img').count(),300)):
+              im=page.locator('img').nth(i)
+              try:
+                src=im.get_attribute('src'); cur=im.evaluate('(e)=>e.currentSrc||null')
+                if src or cur:
+                  images.append({'src':src,'currentSrc':cur,'alt':im.get_attribute('alt'),'naturalWidth':im.evaluate('(e)=>e.naturalWidth||0'),'naturalHeight':im.evaluate('(e)=>e.naturalHeight||0')})
+              except Exception:
+                pass
+            body=''
+            try: body=page.locator('body').inner_text(timeout=3000)[:20000]
+            except Exception: pass
+            return {'url':page.url,'title':page.title(),'anchors':anchors,'controls':controls,'images':images,'body_preview':body}
+
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True)
+            context=browser.new_context(
+              viewport={'width':1440,'height':1200},
+              locale='ja-JP',
+              user_agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+            )
+            page=context.new_page()
+            network=[]
+            def on_response(resp):
+              try:
+                if 'digital.archives.go.jp' in resp.url:
+                  network.append({'url':resp.url,'status':resp.status,'content_type':resp.headers.get('content-type',''),'method':resp.request.method})
+              except Exception:
+                pass
+            page.on('response',on_response)
+
+            nav=None; err=None
+            try:
+              nav=page.goto(viewer_url,wait_until='domcontentloaded',timeout=60000)
+              page.wait_for_timeout(10000)
+            except Exception as exc:
+              err=repr(exc)
+            result['viewer']={'navigation_status':nav.status if nav else None,'error':err,**inspect_page(page)}
+            page.screenshot(path=str(out/'viewer-initial.png'),full_page=True)
+            (out/'viewer-initial.html').write_text(page.content(),encoding='utf-8')
+
+            # Open one visible public print/download control only if the viewer itself rendered it.
+            candidates=[]
+            for selector in ('button','a','[role="button"]'):
+              nodes=page.locator(selector)
+              for i in range(min(nodes.count(),500)):
+                n=nodes.nth(i)
+                try:
+                  text=' '.join((n.inner_text(timeout=500) or '').split())
+                  aria=n.get_attribute('aria-label') or ''
+                  title=n.get_attribute('title') or ''
+                  blob=' '.join([text,aria,title])
+                  if re.search(r'(印刷.*ダウンロード|ダウンロード|download)',blob,re.I) and n.is_visible():
+                    candidates.append((selector,i,text,aria,title))
+                except Exception:
+                  pass
+            if candidates:
+              selector,i,text,aria,title=candidates[0]
+              node=page.locator(selector).nth(i)
+              click_error=None
+              try:
+                node.click(timeout=10000)
+                page.wait_for_timeout(5000)
+              except Exception as exc:
+                click_error=repr(exc)
+              result['download_ui']={'clicked_control':{'selector':selector,'index':i,'text':text,'aria_label':aria,'title':title},'click_error':click_error,'after_click':inspect_page(page)}
+              page.screenshot(path=str(out/'viewer-download-ui.png'),full_page=True)
+              (out/'viewer-download-ui.html').write_text(page.content(),encoding='utf-8')
+
+            # Test the literal thumbnail URI from the exact same public record, without deriving anything.
+            tpage=context.new_page(); tnav=None; terr=None
+            try:
+              tnav=tpage.goto(thumbnail_url,wait_until='load',timeout=30000)
+              tpage.wait_for_timeout(1500)
+            except Exception as exc:
+              terr=repr(exc)
+            result['thumbnail']={'navigation_status':tnav.status if tnav else None,'final_url':tpage.url,'title':tpage.title(),'error':terr}
+            try: tpage.screenshot(path=str(out/'literal-thumbnail.png'),full_page=False)
+            except Exception: pass
+
+            browser.close()
+
+          seen=set(); compact=[]
+          for r in network:
+            key=(r['url'],r['status'],r['content_type'],r['method'])
+            if key not in seen:
+              seen.add(key); compact.append(r)
+          result['network']=compact
+          result['successful_image_responses']=[r for r in compact if r['status']==200 and r['content_type'].lower().startswith('image/')]
+          Path('jna-literal-viewer-probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+            'viewer_status':result['viewer'].get('navigation_status'),
+            'viewer_final_url':result['viewer'].get('url'),
+            'viewer_title':result['viewer'].get('title'),
+            'control_count':len(result['viewer'].get('controls',[])),
+            'image_element_count':len(result['viewer'].get('images',[])),
+            'download_ui_opened':result['download_ui'] is not None,
+            'thumbnail_status':result['thumbnail'].get('navigation_status'),
+            'successful_first_party_image_responses':len(result['successful_image_responses'])
+          },ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shiqie-jna-literal-viewer-probe
+          path: |
+            jna-literal-viewer-probe.json
+            jna-literal-viewer/*
+          if-no-files-found: error
