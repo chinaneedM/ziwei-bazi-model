@@ -18,59 +18,56 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Test exact public image contracts for one manifest-listed page
+      - name: Test Japan Search for page-level or OCR target records
         run: |
           python - <<'PY'
-          import hashlib, json, urllib.request, urllib.error
+          import json, urllib.parse, urllib.request, urllib.error
           from pathlib import Path
 
-          manifest_url='https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json'
-          item_url='https://www.digital.archives.go.jp/item/4756821'
-          ua='Mozilla/5.0 ziwei-bazi-model historical-provenance research/2.7'
-          mreq=urllib.request.Request(manifest_url,headers={'User-Agent':ua,'Accept':'application/json','Referer':item_url})
-          with urllib.request.urlopen(mreq,timeout=45) as r:
-              mbody=r.read(20_000_000); mstatus=r.status; mctype=r.headers.get('content-type')
-          data=json.loads(mbody.decode('utf-8'))
-          c=data['sequences'][0]['canvases'][0]
-          resource_url=c['images'][0]['resource']['@id']
-          service_url=c['images'][0]['resource']['service']['@id']
-          tests={
-            'literal_resource': resource_url,
-            'service_info': service_url.rstrip('/') + '/info.json',
-            'service_1200': service_url.rstrip('/') + '/full/1200,/0/default.jpg',
+          endpoint='https://jpsearch.go.jp/api/item/search/jps-cross'
+          terms={
+            'boundary_heading':'論子時隔界',
+            'anomaly_token':'上四亥',
+            'section_heading':'選時寶鏡局',
+            'opening_sentence':'日百刻配十二時',
+            'canvas_label':'C103347219500',
+            'scan_stem':'M2021052512424615606',
           }
-          outdir=Path('page1-contracts'); outdir.mkdir()
-          result={
-            'schema':'SHIQIE-JNA-FASCICLE3-PAGE1-IMAGE-CONTRACT-PROBE-R1',
-            'manifest_url':manifest_url,'manifest_status':mstatus,'manifest_content_type':mctype,
-            'manifest_sha256':hashlib.sha256(mbody).hexdigest(),
-            'item_referer':item_url,
-            'canvas_id':c.get('@id'),'canvas_label':c.get('label'),
-            'literal_resource_url':resource_url,'literal_service_id':service_url,
-            'tests':{},
-            'policy':'PAGE/RESOURCE/SERVICE IDS COME ONLY FROM THE EXACT OFFICIAL FASCICLE-3 MANIFEST. service_info AND service_1200 ARE STANDARD IIIF IMAGE API v2 TRANSFORMATIONS OF THE MANIFEST-DECLARED SERVICE ID, NOT OBJECT-ID GUESSING. REFERER IS THE PUBLIC ITEM PAGE FOR NORMAL PUBLIC NAVIGATION; NO LOGIN, TOKEN, COOKIE, OR ACCESS BYPASS.'
-          }
-          for name,url in tests.items():
-              headers={'User-Agent':ua,'Referer':item_url,'Accept':'application/json,*/*;q=0.5' if name=='service_info' else 'image/*,*/*;q=0.5'}
-              req=urllib.request.Request(url,headers=headers)
-              status=None; final=url; ctype=None; body=b''; error=None
+          ua='ziwei-bazi-model historical-provenance research/2.8 (+Japan-Search-page-target)'
+          result={'schema':'SHIQIE-JAPAN-SEARCH-PAGE-TARGET-PROBE-R1','endpoint':endpoint,'queries':{},'policy':'DOCUMENTED PUBLIC JAPAN SEARCH API ONLY; TARGET TEXT/CANVAS LITERALS ALREADY ESTABLISHED FROM PUBLIC TRANSCRIPTION OR OFFICIAL MANIFEST; NO ID GUESSING'}
+          outdir=Path('jps-target'); outdir.mkdir()
+          for name,term in terms.items():
+              url=endpoint+'?'+urllib.parse.urlencode({'keyword':term,'size':'100'})
+              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
+              status=None; ctype=None; body=b''; error=None
               try:
-                  with urllib.request.urlopen(req,timeout=60) as r:
-                      status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(30_000_000)
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      status=r.status; ctype=r.headers.get('content-type'); body=r.read(8_000_000)
               except urllib.error.HTTPError as e:
-                  status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(2_000_000); error=str(e)
+                  status=e.code; ctype=e.headers.get('content-type'); body=e.read(2_000_000); error=str(e)
               except Exception as e:
                   error=repr(e)
-              ext='.json' if name=='service_info' else '.bin'
-              (outdir/f'{name}{ext}').write_bytes(body)
-              result['tests'][name]={'url':url,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'sha256':hashlib.sha256(body).hexdigest(),'error':error,'body_prefix':body[:500].decode('utf-8','replace') if ctype and ('text' in ctype or 'json' in ctype) else None}
-          Path('page1-contract-probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+              text=body.decode('utf-8','replace')
+              (outdir/f'{name}.json').write_text(text,encoding='utf-8')
+              rec={'term':term,'status':status,'content_type':ctype,'body_len':len(body),'error':error}
+              try:
+                  data=json.loads(text); items=data.get('list',[]) if isinstance(data,dict) else []
+                  rec['hit']=data.get('hit') if isinstance(data,dict) else None
+                  compact=[]
+                  for item in items[:100]:
+                      common=item.get('common',{}) if isinstance(item,dict) else {}
+                      compact.append({'id':item.get('id'),'title':common.get('title'),'database':common.get('database'),'ownerOrg':common.get('ownerOrg'),'contents':common.get('contents'),'url':common.get('url'),'thumbnailUrl':common.get('thumbnailUrl')})
+                  rec['items']=compact
+              except Exception as exc:
+                  rec['parse_error']=repr(exc); rec['body_prefix']=text[:1000]
+              result['queries'][name]=rec
+          Path('jps-target-manifest.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-jna-page1-image-contracts
+          name: shiqie-japan-search-page-target
           path: |
-            page1-contract-probe.json
-            page1-contracts/*
+            jps-target-manifest.json
+            jps-target/*
           if-no-files-found: error
