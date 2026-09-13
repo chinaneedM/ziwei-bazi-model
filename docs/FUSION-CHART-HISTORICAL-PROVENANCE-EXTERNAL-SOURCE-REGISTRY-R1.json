@@ -3329,6 +3329,28 @@
         "hai_glyph_witness_increment": 0,
         "research_artifact": "docs/research/ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-ZIWEI-SHIQIE-JNA-JPSEARCH-IIIF-FASCICLE3-ACCESS-BOUNDARY",
+      "title": "《筮篋理數日抄》卷三 Japan Search / 國立公文書館 IIIF 精確數字物件與存取邊界",
+      "historical_period": "MING_JIAJING_44_COPY_DIGITIZED_BY_NATIONAL_ARCHIVES_OF_JAPAN; MODERN_FIRST_PARTY_DIGITAL_OBJECT_CONTRACT",
+      "provider": "Japan Search + National Archives of Japan Digital Archive",
+      "url": "https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json",
+      "source_role": "FIRST_PARTY_CATALOG_AND_DIGITAL_OBJECT_STRUCTURE; ACCESS_BOUNDARY CONTROL; NOT TARGET_GLYPH AUTHORITY UNTIL TARGET CANVAS IS DIRECTLY READ",
+      "quality_notes": "Documented Japan Search item resolution binds the exact fascicle-three record to National Archives item 4756821. Its official IIIF manifest is HTTP 200 and contains 69 canvases. Public Shidian volume-three SSR independently defines a complete 56-page transcription span, so ordinal mapping is forbidden. Manifest image resources and ordinary Chromium item navigation are HTTP 403 in the GitHub runner. No bypass was attempted and the target physical glyph remains unread.",
+      "batch_12bk": {
+        "japan_search_item_id": "najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003",
+        "official_item_id": 4756821,
+        "official_manifest_sha256": "e9b2af8117d8f45922cd8e8656ef0ab7165e727db5c81c59b3d805ab135ba48e",
+        "official_canvas_count": 69,
+        "shidian_transcription_page_count": 56,
+        "page_count_difference": 13,
+        "ordinal_mapping_authorized": false,
+        "target_leaf_exposed": false,
+        "explicit_hai_branch_reassignment": false,
+        "hai_glyph_witness_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-R1.json"
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
