@@ -3922,7 +3922,8 @@
         "Batch 12AR: Google public PT49 route review closes the current public-preview access surface without obtaining target glyphs. Classic Books PT49 is HTTP 200 but emits no PT49 page image; public Play reader directly emits a signed PT49 image URL, while PT48 positive control returns a genuine facsimile JPEG and PT49/PT50 return the identical visible image-not-available placeholder. English accessible mode is 403 and the source-emitted new-Books route redirects to classic Books. iRead runner timeout is access-boundary only. No physical-book negative, runtime selection, candidate collapse, or algorithm reopen.",
         "Independent Ming Wanli-30/1602 Wang Kentang Yugangzhai facsimile directly attests pre-midnight four ke as 今日/夜子時 and post-midnight four ke as 明日, but does not state a Hai-branch reassignment.",
         "Jiajing-44/1565 Shiqie Lishu Rishu public transcription contains isolated 上四亥, but the parallel and explanatory text repeatedly says 上四刻/下四刻; without the physical target leaf this token is quarantined and contributes zero Hai-branch mechanical votes.",
-        "Independent physical 《類編曆法通書大全》 CADAL02094403 pp.82–83 directly prints 係上四刻/係下四刻 with 本日/第二日 date assignment; this strongly corroborates the Shiqie 上四亥 transcription-anomaly diagnosis but does not physically settle the exact Shiqie glyph or attest a Hai-branch reassignment."
+        "Independent physical 《類編曆法通書大全》 CADAL02094403 pp.82–83 directly prints 係上四刻/係下四刻 with 本日/第二日 date assignment; this strongly corroborates the Shiqie 上四亥 transcription-anomaly diagnosis but does not physically settle the exact Shiqie glyph or attest a Hai-branch reassignment.",
+        "Secondary public YFShuhua route exposes three National Archives of Japan-watermarked physical samples of the already-tracked Shiqie set (cover/preface/volume-one opening; visible 内閣文庫 15857 and 12(1)), but no volume-three target leaf, public PDF, or Hai-branch rule evidence."
       ],
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
@@ -4559,6 +4560,25 @@
         "runtime_winner_selected": false,
         "algorithm_reopen_authorized": false,
         "research_artifact": "docs/research/ZIWEI-LEIBIAN-LIFA-TONGSHU-UPPER-FOUR-KE-PHYSICAL-COLLATION-R1.json"
+      },
+      "batch_12bj_shiqie_yfshuhua_naj_public_samples": {
+        "source_id": "EXT-ZIWEI-SHIQIE-YFSHUHUA-864433-PUBLIC-SAMPLES",
+        "route_scope": "SECONDARY PUBLIC LISTING + THREE LITERAL PUBLIC SAMPLE JPEGS WITH NATIONAL ARCHIVES OF JAPAN WATERMARK",
+        "physical_scope": "COVER + PREFACE + VOLUME-ONE OPENING ONLY; NO VOLUME-THREE TARGET LEAF",
+        "visible_copy_markers": [
+          "内閣文庫",
+          "15857",
+          "12 (1)",
+          "筮篋理數日抄序",
+          "筮篋理數日抄卷之一"
+        ],
+        "target_text_increment": 0,
+        "hai_glyph_witness_increment": 0,
+        "independent_material_witness_increment": 0,
+        "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+        "runtime_winner_selected": false,
+        "algorithm_reopen_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-R1.json"
       }
     },
     {

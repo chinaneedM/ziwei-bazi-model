@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.68.0",
+  "schema_version": "1.69.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -147,9 +147,10 @@
       "BATCH-12-ZIWEI-ZHANGGUO-PRINCETON-CATALOG-IMAGE-CONTRACT-BF",
       "BATCH-12-ZIWEI-YUGANGZHAI-1602-NIGHT-ZI-PHYSICAL-COLLATION-BG",
       "BATCH-12-ZIWEI-SHIQIE-LISHU-RISHU-1565-TRANSCRIPTION-ANOMALY-BH",
-      "BATCH-12-ZIWEI-LEIBIAN-LIFA-TONGSHU-UPPER-FOUR-KE-PHYSICAL-COLLATION-BI"
+      "BATCH-12-ZIWEI-LEIBIAN-LIFA-TONGSHU-UPPER-FOUR-KE-PHYSICAL-COLLATION-BI",
+      "BATCH-12-ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-BJ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-LIFA-TONGSHU-UPPER-FOUR-KE-PHYSICAL-COLLATION-BI.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-BJ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -435,7 +436,9 @@
       "Batch 12BH binds the Jiajing-44/1565 Shiqie Lishu Rishu public transcription to target page ID 7640563520069697576 and paragraph 7649191097545588762. The surface literally contains 巳上是上四亥, but the parallel lower label and explanatory mechanics repeatedly say 下四刻 / 上四刻屬本日管 / 下四刻屬第二日管.",
       "The Shiqie target physical leaf remains unread: the reviewed SSR surface emitted no literal target image URL, Japan National Archives public root returned hosted-runner 403, and a public Cabinet Library catalog mirror emitted no first-party object href. Therefore 上四亥 is quarantined as a transcription anomaly, Hai/mechanical vote increment remains 0, and HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no winner, collapse, or algorithm reopen.",
       "Batch 12BI directly collates the public-domain CADAL02094403 《類編曆法通書大全》 scan pp.82–83: the physical leaf prints 係上四刻/係下四刻 and assigns them to 本日/第二日 respectively; no OCR is used for final glyph judgment.",
-      "This independent physical parallel strongly corroborates the Batch 12BH diagnosis that Shiqie public-transcription 上四亥 is unsafe and likely anomalous, but the exact Jiajing-44 Shiqie target leaf remains unobserved. Hai-branch mechanical vote remains +0; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen."
+      "This independent physical parallel strongly corroborates the Batch 12BH diagnosis that Shiqie public-transcription 上四亥 is unsafe and likely anomalous, but the exact Jiajing-44 Shiqie target leaf remains unobserved. Hai-branch mechanical vote remains +0; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen.",
+      "Batch 12BJ binds the public YFShuhua Shiqie listing to three National Archives of Japan-watermarked physical sample images: cover with 内閣文庫 label / visible 15857 / 12(1), preface heading 筮篋理數日抄序, and volume-one heading 筮篋理數日抄卷之一.",
+      "The route exposes no volume-three target leaf, public PDF, or literal first-party National Archives object URL; its member/payment download boundary was not crossed. No new independent copy or Hai-rule vote is added; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with no runtime winner, candidate collapse or algorithm reopen."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
