@@ -40,11 +40,11 @@ jobs:
           done
           cat tongshu-collation/hits.tsv
           # Sparse embedded text identifies p68 with 百刻. Use it only as locator.
-          # Final reading is from the physical scan images below.
+          # Final reading is from the native-resolution physical scan images below.
           seq 58 78 > tongshu-collation/render-pages.txt
           while read -r p; do
             ppm="tongshu-collation/tmp/page-${p}.ppm"
-            ddjvu -page="$p" -format=ppm -dpi=220 tongshu-collation/book.djvu "$ppm"
+            ddjvu -page="$p" -format=ppm tongshu-collation/book.djvu "$ppm"
             convert "$ppm" "tongshu-collation/pages/page-${p}.png"
             rm -f "$ppm"
           done < tongshu-collation/render-pages.txt
