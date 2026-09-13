@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Acquire public-domain CADAL DJVU and render candidate leaves
+      - name: Acquire public-domain CADAL DJVU and render remaining leaves
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
@@ -24,14 +24,8 @@ jobs:
           curl -L --fail --retry 3 -A 'ziwei-bazi-model historical provenance research/1.8' "$URL" -o leibian.djvu
           sha256sum leibian.djvu | tee sha256.txt
           djvused leibian.djvu -e 'n' | tee page-count.txt
-          (djvutxt leibian.djvu > leibian.txt) || true
-          python - <<'PY'
-          from pathlib import Path
-          t=Path('leibian.txt').read_text(encoding='utf-8',errors='replace') if Path('leibian.txt').exists() else ''
-          print('TEXT_LEN',len(t))
-          PY
           mkdir -p rendered tmp
-          for p in $(seq 1 35); do
+          for p in $(seq 36 89); do
             ddjvu -format=tiff -page="$p" -scale=45 leibian.djvu "tmp/p${p}.tif"
             convert "tmp/p${p}.tif" "rendered/p${p}.png"
           done
@@ -50,15 +44,14 @@ jobs:
           cols=5; rows=(len(thumbs)+cols-1)//cols
           sheet=Image.new('RGB',(cols*320,rows*500),'white')
           for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*320,(i//cols)*500))
-          sheet.save('contact-sheet-p1-35.jpg',quality=90)
+          sheet.save('contact-sheet-p36-89.jpg',quality=90)
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: leibian-nightzi-physical-probe
+          name: leibian-nightzi-physical-probe-p36-89
           path: |
             sha256.txt
             page-count.txt
-            leibian.txt
-            contact-sheet-p1-35.jpg
+            contact-sheet-p36-89.jpg
             rendered/*.png
           if-no-files-found: error
