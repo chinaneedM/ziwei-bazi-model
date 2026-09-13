@@ -21,23 +21,28 @@ jobs:
       - name: Acquire only the three literal public sample images
         run: |
           python - <<'PY'
-          import hashlib, json, urllib.request
+          import hashlib, json, urllib.parse, urllib.request
           from pathlib import Path
           urls=[
             'https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142020_1.jpg',
             'https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142024_4.jpg',
             'https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142025_5.jpg',
           ]
-          ua='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/2.0'
+          ua='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/2.1'
           out=[]
           Path('samples').mkdir()
-          for i,url in enumerate(urls,1):
-              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'image/*,*/*'})
+          for i,source_url in enumerate(urls,1):
+              parts=urllib.parse.urlsplit(source_url)
+              encoded_path=urllib.parse.quote(urllib.parse.unquote(parts.path),safe='/%')
+              url=urllib.parse.urlunsplit((parts.scheme,parts.netloc,encoded_path,parts.query,parts.fragment))
+              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'image/*,*/*','Referer':'https://www.yfshuhua.com/864433.html'})
               with urllib.request.urlopen(req,timeout=30) as r:
                   b=r.read(20_000_000); status=r.status; final=r.geturl(); ctype=r.headers.get('content-type')
+              if not (ctype or '').lower().startswith('image/'):
+                  raise RuntimeError(f'public sample {i} returned non-image content-type {ctype!r}')
               path=Path('samples')/f'sample{i}.jpg'; path.write_bytes(b)
-              out.append({'index':i,'source_url':url,'final_url':final,'status':status,'content_type':ctype,'size':len(b),'sha256':hashlib.sha256(b).hexdigest()})
-          result={'schema':'SHIQIE-YFSHUHUA-PUBLIC-SAMPLE-IMAGES-R1','post_id':864433,'samples':out,'policy':'ONLY THREE LITERAL PUBLIC IMAGE URLS ALREADY EMITTED BY PUBLIC HTML; NO LOGIN; NO PAYMENT; NO MEMBER DOWNLOAD AJAX; NO PDF/DOWNLOAD TARGET ACCESS; NO URL OR ID GUESSING'}
+              out.append({'index':i,'source_url':source_url,'encoded_request_url':url,'final_url':final,'status':status,'content_type':ctype,'size':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          result={'schema':'SHIQIE-YFSHUHUA-PUBLIC-SAMPLE-IMAGES-R1','post_id':864433,'samples':out,'policy':'ONLY THREE LITERAL PUBLIC IMAGE URLS ALREADY EMITTED BY PUBLIC HTML; PERCENT-ENCODING ONLY FOR TRANSPORT; NO LOGIN; NO PAYMENT; NO MEMBER DOWNLOAD AJAX; NO PDF/DOWNLOAD TARGET ACCESS; NO URL OR ID GUESSING'}
           Path('sample-manifest.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(result,ensure_ascii=False,indent=2))
           PY
