@@ -1,0 +1,77 @@
+name: research-shiqie-jna-sparql-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-shiqie-jna-sparql-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query only the documented public JNA SPARQL endpoint
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request, urllib.error
+          from pathlib import Path
+
+          endpoint='https://www.digital.archives.go.jp/sparql'
+          queries={
+            'exact_title': 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "筮篋理数日抄")) } LIMIT 200',
+            'title_fragment': 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "理数日抄")) } LIMIT 200',
+            'catalog_ascii': 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "子060-0002")) } LIMIT 200',
+            'catalog_fullwidth': 'SELECT ?s ?p ?o WHERE { ?s ?p ?o . FILTER(CONTAINS(STR(?o), "子０６０－０００２")) } LIMIT 200',
+          }
+          outdir=Path('jna-sparql'); outdir.mkdir()
+          manifest={'schema':'SHIQIE-JNA-PUBLIC-SPARQL-PROBE-R1','endpoint':endpoint,'queries':{},'policy':'DOCUMENTED PUBLIC SPARQL ONLY; EXACT TITLE/CATALOG LITERALS; NO LOGIN; NO PRIVATE API; NO OBJECT-ID GUESSING; FOLLOW ONLY URIS RETURNED BY THE OFFICIAL ENDPOINT'}
+          ua='ziwei-bazi-model historical-provenance research/2.1 (+public-SPARQL)'
+          for name,q in queries.items():
+              params=urllib.parse.urlencode({'query':q})
+              url=endpoint+'?'+params
+              req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/sparql-results+json, application/json;q=0.9, application/sparql-results+xml;q=0.8, text/plain;q=0.5, */*;q=0.1'})
+              status=None; final=url; ctype=None; body=b''; error=None
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(2_000_000)
+              except urllib.error.HTTPError as e:
+                  status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(2_000_000); error=str(e)
+              except Exception as e:
+                  error=repr(e)
+              (outdir/f'{name}.body').write_bytes(body)
+              text=body.decode('utf-8','replace')
+              (outdir/f'{name}.txt').write_text(text,encoding='utf-8')
+              record={'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error}
+              if body:
+                  try:
+                      data=json.loads(text)
+                      bindings=data.get('results',{}).get('bindings',[]) if isinstance(data,dict) else []
+                      record['binding_count']=len(bindings)
+                      uris=[]
+                      for b in bindings:
+                          for v in b.values():
+                              if isinstance(v,dict) and v.get('type')=='uri' and v.get('value') and v['value'] not in uris:
+                                  uris.append(v['value'])
+                      record['returned_uris']=uris[:100]
+                  except Exception as exc:
+                      record['json_parse_error']=repr(exc)
+                      record['body_prefix']=text[:2000]
+              manifest['queries'][name]=record
+          Path('jna-sparql-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shiqie-jna-public-sparql-probe
+          path: |
+            jna-sparql-manifest.json
+            jna-sparql/*
+          if-no-files-found: error
