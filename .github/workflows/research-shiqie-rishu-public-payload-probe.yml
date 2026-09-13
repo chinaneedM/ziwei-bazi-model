@@ -12,82 +12,49 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Resolve target paragraph and literal public image payloads
+      - name: Resolve target binding from public HTML only
         run: |
           python - <<'PY'
           import hashlib, html, json, re, urllib.request
           from pathlib import Path
           url='https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab'
-          ua='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.3'
-          def get(u):
-              req=urllib.request.Request(u,headers={'User-Agent':ua,'Accept':'text/html,image/*,*/*'})
-              with urllib.request.urlopen(req,timeout=30) as r:
-                  return r.read(20_000_000), {'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type')}
-          b,h=get(url)
-          raw=b.decode('utf-8','replace')
-          s=html.unescape(raw.replace('\\u002F','/').replace('\\u0026','&'))
+          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.4','Accept':'text/html,*/*'})
+          with urllib.request.urlopen(req,timeout=30) as r: b=r.read(20_000_000)
+          s=html.unescape(b.decode('utf-8','replace').replace('\\u002F','/').replace('\\u0026','&'))
           target='巳上是上四亥'
-          occ=[]; start=0
-          while True:
-              i=s.find(target,start)
-              if i<0: break
-              ctx=s[max(0,i-2500):min(len(s),i+3500)]
-              before=s[max(0,i-5000):i+len(target)+5000]
-              occ.append({
-                  'index':i,
-                  'nearest_page_ids':re.findall(r'(?:startPageId|endPageId|PageId)\\?"?\s*[:=]\s*\\?"(\d+)',before)[-12:],
-                  'nearest_paragraph_ids':re.findall(r'paragraphId\\?"?\s*[:=]\s*\\?"(\d+)',before)[-12:],
+          positions=[m.start() for m in re.finditer(target,s)]
+          rows=[]
+          for i in positions:
+              # Keep a deliberately tight window so nearest IDs refer to the target paragraph/page neighborhood.
+              left=s[max(0,i-1800):i]
+              right=s[i:min(len(s),i+2200)]
+              ctx=left+right
+              rows.append({
+                  'target_index':i,
+                  'page_ids_before':re.findall(r'(?:startPageId|endPageId|PageId)\\?"?\s*[:=]\s*\\?"(\d+)',left)[-6:],
+                  'page_ids_after':re.findall(r'(?:startPageId|endPageId|PageId)\\?"?\s*[:=]\s*\\?"(\d+)',right)[:6],
+                  'paragraph_ids_before':re.findall(r'paragraphId\\?"?\s*[:=]\s*\\?"(\d+)',left)[-4:],
+                  'paragraph_ids_after':re.findall(r'paragraphId\\?"?\s*[:=]\s*\\?"(\d+)',right)[:4],
                   'context':ctx,
               })
-              start=i+len(target)
-          # Literal page-image URLs only, no inferred endpoint or guessed ID.
-          page_urls=[]
-          for m in re.finditer(r'https?://[^"<>\\ ]{1,1800}',s):
-              u=m.group(0).replace('\\u0026','&').replace('&amp;','&')
-              if '/read/NA06425/1/page/' in u and ('png' in u or 'webp' in u):
-                  u=u.split('\\n')[0]
-                  if u not in page_urls: page_urls.append(u)
-          downloads=[]
-          Path('shiqie-pages').mkdir(exist_ok=True)
-          for n,u in enumerate(page_urls[:20]):
-              try:
-                  data,meta=get(u)
-                  ext='.png' if 'png' in (meta.get('content_type') or '') or '.png' in u else '.webp'
-                  p=Path('shiqie-pages')/f'literal-page-{n:02d}{ext}'
-                  p.write_bytes(data)
-                  downloads.append({'url':u,'file':str(p),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),**meta})
-              except Exception as e:
-                  downloads.append({'url':u,'error':type(e).__name__+': '+str(e)})
-          out={
-              'schema':'SHIQIE-LISHU-RISHU-TARGET-PAGE-BINDING-PROBE-R1',
-              'source_url':url,
-              'source_sha256':hashlib.sha256(b).hexdigest(),
-              'target':target,
-              'occurrences':occ,
-              'literal_page_urls':page_urls,
-              'downloads':downloads,
-              'policy':'ONLY URLS LITERALLY DELIVERED IN PUBLIC HTML; NO LOGIN; NO PRIVATE API GUESSING; NO ID/URL INFERENCE; TRANSCRIPTION NOT FINAL GLYPH AUTHORITY'
-          }
-          Path('shiqie-target-binding.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps({
-              'source_sha256':out['source_sha256'],
-              'target_occurrence_count':len(occ),
-              'occurrence_bindings':[{'nearest_page_ids':x['nearest_page_ids'],'nearest_paragraph_ids':x['nearest_paragraph_ids']} for x in occ],
-              'literal_page_url_count':len(page_urls),
-              'downloads':downloads,
-              'policy':out['policy']
-          },ensure_ascii=False,indent=2))
+          # Literal URLs in a tight union around target occurrences only.
+          tight='\n'.join(r['context'] for r in rows)
+          urls=[]
+          for m in re.finditer(r'https?://[^"<>\\ ]{1,1800}',tight):
+              u=m.group(0).replace('\\u0026','&').replace('&amp;','&').split('\\n')[0]
+              if '/read/NA06425/' in u and u not in urls: urls.append(u)
+          out={'schema':'SHIQIE-LISHU-RISHU-TARGET-BINDING-R2','source_url':url,'source_sha256':hashlib.sha256(b).hexdigest(),'target':target,'occurrences':rows,'tight_literal_urls':urls,'policy':'PUBLIC_HTML_ONLY; NO DOWNLOAD GUESSING; NO LOGIN; NO PRIVATE API; NO ACCESS BYPASS'}
+          Path('shiqie-binding-r2.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'source_sha256':out['source_sha256'],'occurrence_count':len(rows),'bindings':[{k:v for k,v in r.items() if k!='context'} for r in rows],'tight_literal_urls':urls,'policy':out['policy']},ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-rishu-target-page-binding
-          path: |
-            shiqie-target-binding.json
-            shiqie-pages/
+          name: shiqie-rishu-target-binding-r2
+          path: shiqie-binding-r2.json
           if-no-files-found: error
