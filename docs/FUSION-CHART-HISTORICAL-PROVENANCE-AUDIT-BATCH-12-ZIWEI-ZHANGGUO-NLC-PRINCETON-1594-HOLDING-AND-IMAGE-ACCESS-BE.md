@@ -140,3 +140,7 @@ docs/research/ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-R1.json
 2. Continue independent exact-1593/1594 holdings research; prioritize a copy with public page images rather than another catalog-only duplicate.
 3. If a Princeton target page is lawfully obtained, bind provider URL/object ID/digest/page/leaf and visually collate it without OCR before adding a target-text or Hai-glyph vote.
 4. Keep HPA-ZDATE-006 unresolved until direct rule evidence supplies `upper/night Zi -> Hai branch`.
+
+## 11. Closure integrity
+
+This batch is provenance/access-only. Project-continuity verification and exact-HEAD standard CI remain mandatory closure gates. This section adds no historical witness vote, no Matrix count change, no candidate selection, and no product or algorithm state change.
