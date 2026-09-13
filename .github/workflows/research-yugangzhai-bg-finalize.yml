@@ -22,6 +22,28 @@ jobs:
           python-version: '3.12'
       - name: Finalize Batch 12BG continuity artifacts
         run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('.github/scripts/finalize-yugangzhai-bg.py')
+          s=p.read_text(encoding='utf-8')
+          old="""later=row.get('later_witnesses','')
+          addition=' Independent Ming Wanli-30/1602 Wang Kentang Yugangzhai facsimile directly attests pre-midnight four ke as 今日/夜子時 and post-midnight four ke as 明日, but does not state a Hai-branch reassignment.'
+          if addition.strip() not in later:
+              row['later_witnesses']=later.rstrip()+addition
+          """
+          new="""later=row.get('later_witnesses',[])
+          addition='Independent Ming Wanli-30/1602 Wang Kentang Yugangzhai facsimile directly attests pre-midnight four ke as 今日/夜子時 and post-midnight four ke as 明日, but does not state a Hai-branch reassignment.'
+          if isinstance(later,list):
+              if addition not in later:
+                  later.append(addition)
+              row['later_witnesses']=later
+          else:
+              if addition not in later:
+                  row['later_witnesses']=later.rstrip()+' '+addition
+          """
+          assert old in s
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
           python .github/scripts/finalize-yugangzhai-bg.py
           python scripts/verify-project-continuity-state-r1.py
           git diff --check
