@@ -1,0 +1,65 @@
+name: research-yugangzhai-physical-collation-probe
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-yugangzhai-physical-collation-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch public-domain Commons scan and locate target from existing text layer
+        run: |
+          set -euxo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL02038286%20%E9%AC%B1%E5%B2%A1%E9%BD%8B%E7%AD%86%E9%BA%88%EF%BC%88%E4%B8%89%EF%BC%89.djvu'
+          curl -L --fail --retry 3 --connect-timeout 20 --max-time 120 -A 'ziwei-bazi-model historical-provenance-research/1.1' "$URL" -o yugangzhai-v3.djvu
+          file yugangzhai-v3.djvu
+          sha256sum yugangzhai-v3.djvu | tee scan.sha256
+          djvused yugangzhai-v3.djvu -e n | tee page-count.txt
+          djvutxt yugangzhai-v3.djvu yugangzhai-v3.txt
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('yugangzhai-v3.txt').read_text(encoding='utf-8',errors='replace')
+          pages=text.split('\f')
+          terms=['夜子時','夜子时','子之前四刻','曆家以子','歷家以子']
+          out=[]
+          hits=[]
+          for i,p in enumerate(pages,1):
+              found=[t for t in terms if t in p]
+              if found:
+                  hits.append(i)
+                  out.append(f'PAGE={i} TERMS={found}\n{p[:6000]}\n')
+          Path('locator-hits.txt').write_text('\n'.join(out),encoding='utf-8')
+          print('HITS',hits)
+          if not hits:
+              # Embedded OCR may be noisy; use tolerant single-character anchors only as locator.
+              for i,p in enumerate(pages,1):
+                  if ('四刻' in p and ('子' in p or '夜' in p)):
+                      hits.append(i)
+              print('FALLBACK_HITS',hits)
+          Path('hit-pages.txt').write_text('\n'.join(map(str,hits))+'\n',encoding='utf-8')
+          for n in sorted(set(x for h in hits for x in (h-2,h-1,h,h+1,h+2) if x>0)):
+              import subprocess
+              subprocess.run(['ddjvu','-format=png',f'-page={n}','-scale=1600','yugangzhai-v3.djvu',f'page-{n:03d}.png'],check=True)
+          PY
+          cat locator-hits.txt || true
+          ls -lh page-*.png || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yugangzhai-physical-collation-probe
+          path: |
+            scan.sha256
+            page-count.txt
+            locator-hits.txt
+            hit-pages.txt
+            page-*.png
+          if-no-files-found: error
