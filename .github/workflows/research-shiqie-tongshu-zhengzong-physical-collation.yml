@@ -17,17 +17,54 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install DjVu tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin imagemagick
-      - name: Build full physical-page navigation sheets from exact Commons CADAL scan
+      - name: Collate exact Commons CADAL fascicle eight
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p tongshu-collation/thumbs tongshu-collation/sheets tongshu-collation/tmp
-          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%96%B0%E5%88%8A%E7%90%86%E6%B0%A3%E8%A9%B3%E8%BE%AF%E7%BA%82%E8%A6%81%E4%B8%89%E5%8F%B0%E4%BE%BF%E8%A6%BD%E9%80%9A%E6%9B%B8%E6%AD%A3%E5%AE%97%28%E4%B8%80%29.djvu'
+          mkdir -p tongshu-collation/text tongshu-collation/native tongshu-collation/thumbs tongshu-collation/sheets tongshu-collation/tmp
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL02094425%20%E6%96%B0%E5%88%8A%E7%90%86%E6%B0%A3%E8%A9%B3%E8%BE%AF%E7%BA%82%E8%A6%81%E4%B8%89%E5%8F%B0%E4%BE%BF%E8%A6%BD%E9%80%9A%E6%9B%B8%E6%AD%A3%E5%AE%97%EF%BC%88%E5%85%AB%EF%BC%89.djvu'
           curl -L --fail --retry 3 --user-agent 'ziwei-bazi-model historical provenance audit/1.0' "$URL" -o tongshu-collation/book.djvu
           sha256sum tongshu-collation/book.djvu | tee tongshu-collation/book.sha256
           stat -c '%s' tongshu-collation/book.djvu | tee tongshu-collation/book.size
           pages=$(djvused tongshu-collation/book.djvu -e n)
           echo "$pages" | tee tongshu-collation/page-count.txt
+
+          : > tongshu-collation/hits.tsv
+          for p in $(seq 1 "$pages"); do
+            txt="tongshu-collation/text/page-${p}.txt"
+            djvutxt --page="$p" tongshu-collation/book.djvu "$txt" 2>/dev/null || true
+            if grep -Eq '選時寶鏡局|选时宝镜局|子時隔界|子时隔界|成化十八|上四刻|下四刻|百刻|寶鏡|宝镜' "$txt"; then
+              printf '%s\t' "$p" >> tongshu-collation/hits.tsv
+              tr '\n' ' ' < "$txt" | head -c 1400 >> tongshu-collation/hits.tsv || true
+              printf '\n' >> tongshu-collation/hits.tsv
+            fi
+          done
+          cat tongshu-collation/hits.tsv
+
+          python - <<'PY'
+          from pathlib import Path
+          pages=int(Path('tongshu-collation/page-count.txt').read_text().strip())
+          hits=[]
+          for line in Path('tongshu-collation/hits.tsv').read_text(errors='ignore').splitlines():
+              if not line.strip(): continue
+              try: hits.append(int(line.split('\t',1)[0]))
+              except Exception: pass
+          targets=set()
+          for p in hits:
+              for q in range(max(1,p-2),min(pages,p+2)+1): targets.add(q)
+          Path('tongshu-collation/native-pages.txt').write_text('\n'.join(map(str,sorted(targets)))+'\n')
+          PY
+
+          # Render exact hit neighborhoods at native scan resolution for final glyph adjudication.
+          while read -r p; do
+            [ -n "$p" ] || continue
+            ppm="tongshu-collation/tmp/native-${p}.ppm"
+            ddjvu -page="$p" -format=ppm tongshu-collation/book.djvu "$ppm"
+            convert "$ppm" "tongshu-collation/native/page-${p}.png"
+            rm -f "$ppm"
+          done < tongshu-collation/native-pages.txt
+
+          # Build whole-fascicle navigation sheets so sparse OCR cannot hide the physical locus.
           for p in $(seq 1 "$pages"); do
             printf -v n '%03d' "$p"
             ppm="tongshu-collation/tmp/page-${n}.ppm"
@@ -40,9 +77,9 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           thumbs=sorted(Path('tongshu-collation/thumbs').glob('page-*.png'))
-          groups=[thumbs[i:i+9] for i in range(0,len(thumbs),9)]
-          for idx,g in enumerate(groups,1):
-              Path(f'tongshu-collation/sheets/group-{idx:02d}.lst').write_text('\n'.join(str(p) for p in g)+'\n')
+          for idx in range(0,len(thumbs),9):
+              g=thumbs[idx:idx+9]
+              Path(f'tongshu-collation/sheets/group-{idx//9+1:02d}.lst').write_text('\n'.join(str(p) for p in g)+'\n')
           PY
           for lst in tongshu-collation/sheets/group-*.lst; do
             base="${lst%.lst}"
@@ -54,6 +91,6 @@ jobs:
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-tongshu-zhengzong-full-physical-navigation
+          name: shiqie-tongshu-zhengzong-fascicle-eight-physical-collation
           path: tongshu-collation/
           if-no-files-found: error
