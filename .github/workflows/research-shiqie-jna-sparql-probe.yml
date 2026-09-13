@@ -12,72 +12,70 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch exact National Archives fascicle-3 IIIF manifest returned by Japan Search
+      - name: Render contact sheets from literal thumbnails in exact fascicle-3 IIIF manifest
         run: |
+          python -m pip install --quiet pillow
           python - <<'PY'
-          import hashlib, json, re, urllib.request, urllib.error
+          import hashlib, io, json, urllib.request
           from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
 
-          url='https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json'
-          ua='ziwei-bazi-model historical-provenance research/2.5 (+exact-public-IIIF)'
-          req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json, application/ld+json;q=0.9, */*;q=0.1'})
-          status=None; final=url; ctype=None; body=b''; error=None
-          try:
-              with urllib.request.urlopen(req,timeout=45) as r:
-                  status=r.status; final=r.geturl(); ctype=r.headers.get('content-type'); body=r.read(20_000_000)
-          except urllib.error.HTTPError as e:
-              status=e.code; final=e.geturl(); ctype=e.headers.get('content-type'); body=e.read(4_000_000); error=str(e)
-          except Exception as e:
-              error=repr(e)
-          Path('fascicle3-manifest.raw').write_bytes(body)
-          text=body.decode('utf-8','replace')
-          Path('fascicle3-manifest.json').write_text(text,encoding='utf-8')
-          out={'schema':'SHIQIE-JNA-FASCICLE3-IIIF-MANIFEST-PROBE-R1','source_item_url':'https://www.digital.archives.go.jp/item/4756821','manifest_url':url,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'sha256':hashlib.sha256(body).hexdigest(),'error':error,'policy':'EXACT IIIF URL LITERALLY RETURNED BY OFFICIAL JAPAN SEARCH ITEM API FOR 筮篋理数日抄３; NO ADJACENT-ID OR PAGE-URL GUESSING'}
-          try:
-              data=json.loads(text)
-              out['top_level_keys']=list(data.keys()) if isinstance(data,dict) else []
-              seqs=data.get('sequences',[]) if isinstance(data,dict) else []
-              canvases=[]
-              if seqs and isinstance(seqs[0],dict): canvases=seqs[0].get('canvases',[]) or []
-              if not canvases and isinstance(data,dict): canvases=data.get('items',[]) or []
-              out['canvas_count']=len(canvases)
-              compact=[]
-              for i,c in enumerate(canvases):
-                  rec={'index':i+1,'id':c.get('@id') or c.get('id'),'label':c.get('label'),'height':c.get('height'),'width':c.get('width')}
-                  urls=[]
-                  def walk(x,path='$'):
-                      if isinstance(x,dict):
-                          for k,v in x.items():
-                              p=f'{path}.{k}'
-                              if isinstance(v,(dict,list)): walk(v,p)
-                              elif isinstance(v,str) and (v.startswith('http://') or v.startswith('https://')):
-                                  urls.append({'path':p,'value':v})
-                      elif isinstance(x,list):
-                          for j,v in enumerate(x): walk(v,f'{path}[{j}]')
-                  walk(c)
-                  dedup=[]; seen=set()
-                  for u in urls:
-                      key=(u['path'],u['value'])
-                      if key not in seen: seen.add(key); dedup.append(u)
-                  rec['literal_urls']=dedup
-                  compact.append(rec)
-              out['canvases']=compact
-          except Exception as exc:
-              out['parse_error']=repr(exc); out['body_prefix']=text[:4000]
-          Path('fascicle3-manifest-summary.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps(out,ensure_ascii=False,indent=2))
+          manifest_url='https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json'
+          ua='ziwei-bazi-model historical-provenance research/2.6 (+exact-public-IIIF-thumbnails)'
+          req=urllib.request.Request(manifest_url,headers={'User-Agent':ua,'Accept':'application/json'})
+          with urllib.request.urlopen(req,timeout=45) as r:
+              body=r.read(20_000_000); status=r.status; ctype=r.headers.get('content-type')
+          data=json.loads(body.decode('utf-8'))
+          canvases=data['sequences'][0]['canvases']
+          assert len(canvases)==69
+          Path('fascicle3-manifest.json').write_bytes(body)
+          Path('thumbs').mkdir(); Path('sheets').mkdir()
+          records=[]; thumbs=[]
+          for i,c in enumerate(canvases,1):
+              thumb_url=c['thumbnail']['@id']
+              label=str(c.get('label') or f'page{i}')
+              # URL is consumed exactly as emitted by the official manifest.
+              treq=urllib.request.Request(thumb_url,headers={'User-Agent':ua,'Accept':'image/*,*/*;q=0.5'})
+              with urllib.request.urlopen(treq,timeout=30) as r:
+                  b=r.read(8_000_000); ts=r.status; tct=r.headers.get('content-type'); final=r.geturl()
+              p=Path('thumbs')/f'p{i:02d}.jpg'; p.write_bytes(b)
+              im=Image.open(io.BytesIO(b)).convert('RGB')
+              records.append({'index':i,'canvas_id':c.get('@id'),'canvas_label':label,'thumbnail_url':thumb_url,'thumbnail_final_url':final,'status':ts,'content_type':tct,'size':len(b),'sha256':hashlib.sha256(b).hexdigest(),'image_size':[im.width,im.height]})
+              thumbs.append((i,label,im.copy()))
+
+          # Four legible sheets: 1-18, 19-36, 37-54, 55-69.
+          groups=[(1,18),(19,36),(37,54),(55,69)]
+          for start,end in groups:
+              subset=[t for t in thumbs if start <= t[0] <= end]
+              cells=[]
+              for idx,label,im in subset:
+                  im.thumbnail((420,320))
+                  canvas=Image.new('RGB',(440,365),'white')
+                  x=(440-im.width)//2; y=8
+                  canvas.paste(im,(x,y))
+                  ImageDraw.Draw(canvas).text((8,338),f'p{idx:02d} {label}',fill='black')
+                  cells.append(canvas)
+              cols=3; rows=(len(cells)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*440,rows*365),'white')
+              for j,cell in enumerate(cells): sheet.paste(cell,((j%cols)*440,(j//cols)*365))
+              sheet.save(Path('sheets')/f'contact-p{start:02d}-{end:02d}.jpg',quality=92)
+
+          out={'schema':'SHIQIE-JNA-FASCICLE3-IIIF-THUMBNAIL-CONTACT-R1','manifest_url':manifest_url,'manifest_status':status,'manifest_content_type':ctype,'manifest_sha256':hashlib.sha256(body).hexdigest(),'canvas_count':len(canvases),'pages':records,'policy':'ALL PAGE URLS ARE LITERAL thumbnail.@id VALUES FROM THE EXACT OFFICIAL FASCICLE-3 IIIF MANIFEST; NO URL/ID DERIVATION; THUMBNAILS ARE LOCATORS ONLY, NOT FINAL GLYPH AUTHORITY'}
+          Path('thumbnail-manifest.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'canvas_count':len(canvases),'manifest_sha256':out['manifest_sha256'],'sheets':[f'{a}-{b}' for a,b in groups]},ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-jna-fascicle3-iiif-manifest
+          name: shiqie-jna-fascicle3-contact-sheets
           path: |
-            fascicle3-manifest.raw
             fascicle3-manifest.json
-            fascicle3-manifest-summary.json
+            thumbnail-manifest.json
+            sheets/*.jpg
+            thumbs/*.jpg
           if-no-files-found: error
