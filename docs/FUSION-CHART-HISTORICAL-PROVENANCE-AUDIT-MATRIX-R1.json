@@ -3920,7 +3920,8 @@
         "Batch 12AO: complete current Tianji public transcription pages 1-5 for the 1581 Jielan (declared 246 chapters / 67,533 characters) contain birth-time positive controls but no configured Fullbook inclement-Luojing terms. This is a transcription-surface nonattestation only; no physical-book negative, interpolation claim, runtime winner, candidate collapse, or algorithm reopen is authorized.",
         "Batch 12AP: Google Books Jielan volume rZRcCwAAQBAJ source-emits PT49 for 陰雨, with index text under 論十二生時難定訣 containing inclement birth-time semantics. This corrects Batch 12AO's over-broad transmission-level inference while preserving the exact Tianji aggregate-pagination nonattestation. PT49 physical glyphs remain unobserved; 羅經/真確時候/行漏/壺漏 zero-results are index-surface only and not physical negatives.",
         "Batch 12AR: Google public PT49 route review closes the current public-preview access surface without obtaining target glyphs. Classic Books PT49 is HTTP 200 but emits no PT49 page image; public Play reader directly emits a signed PT49 image URL, while PT48 positive control returns a genuine facsimile JPEG and PT49/PT50 return the identical visible image-not-available placeholder. English accessible mode is 403 and the source-emitted new-Books route redirects to classic Books. iRead runner timeout is access-boundary only. No physical-book negative, runtime selection, candidate collapse, or algorithm reopen.",
-        "Independent Ming Wanli-30/1602 Wang Kentang Yugangzhai facsimile directly attests pre-midnight four ke as 今日/夜子時 and post-midnight four ke as 明日, but does not state a Hai-branch reassignment."
+        "Independent Ming Wanli-30/1602 Wang Kentang Yugangzhai facsimile directly attests pre-midnight four ke as 今日/夜子時 and post-midnight four ke as 明日, but does not state a Hai-branch reassignment.",
+        "Jiajing-44/1565 Shiqie Lishu Rishu public transcription contains isolated 上四亥, but the parallel and explanatory text repeatedly says 上四刻/下四刻; without the physical target leaf this token is quarantined and contributes zero Hai-branch mechanical votes."
       ],
       "school_attribution": "RECEIVED_FULLBOOK_NANYANGTANG_TEN_KE_HOUR_BOUNDARY_METHOD",
       "competing_methods": [
@@ -3931,7 +3932,7 @@
       "current_implementation_match": "SOURCE_SCOPED_HISTORICAL_CANDIDATE_MISSING: GENERIC UPPER/LOWER HALF ORIENTATION IS NOW TIMEKEEPING-CLOSED, BUT CURRENT_RUNTIME_CANNOT EXPRESS UPPER-HALF-ZI AS HAI AND NO SOURCE-CLOSED RUNTIME TIME-STANDARD BINDING EXISTS",
       "confidence": "HIGH_FOR_DIRECT_NANYANGTANG_FACSIMILE_GLYPHS; HIGH_FOR_GENERIC_TIMEKEEPING_ORIENTATION; HIGH_FOR_PUBLISHER_DOCUMENTED_WENGUANGTANG_ROUTES; HIGH_FOR_OFFICIAL_SHLIB_JINGLUNTANG_LIBRARY_IDENTITY; HIGH_FOR_PUBLIC_KUMYO_JINGLUNTANG_PHYSICAL_COPY_EXISTENCE; MEDIUM_HIGH_FOR_2017_COMBINED_WENGUANG_PUBLIC_INDEX_TEXT; LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY_UNTIL_DIRECT_TARGET_PAGES_ARE_READ; HIGH_FOR_DIRECT_DALIAN_LIBRARY_REPUBLIC_GUANGYI_CATALOG_IDENTITY; HIGH_FOR_NANKAI_INSTITUTIONAL_LEGACY_ROUTE_BINDING; MEDIUM_HIGH_FOR_JIELAN_GOOGLE_INDEX_EDITORIAL_WENCHENGTANG_COLLATION_NOTE; STILL_LOW_FOR_HAI_GLYPH_CROSS_EDITION_STABILITY; HIGH_FOR_OFFICIAL_LIANYUANGE_COLLATION_ROUTE; MEDIUM_FOR_SECONDARY_QUANJI_RECEIVED_TRANSCRIPTION; LOW_FOR_ORIGINAL_QUANJI_TARGET_GLYPHS_AND_PUNCTUATION_UNTIL_PHYSICAL_PAGE; HIGH_FOR_NAJ_OFFICIAL_MING_FULLBOOK_CATALOG_DIGITAL_OBJECT_IDENTITY; HIGH_FOR_SDU_FORMAL_FACSIMILE_ROUTE; MEDIUM_HIGH_FOR_NCKU_EDITION_GENEALOGY; HIGH_FOR_TOYO_CURRENT_CATALOG_COPY_LABELS; LOW_FOR_JAPAN_TARGET_LATE_ZI_GLYPH_UNTIL_DIRECT_PAGE; HIGH_FOR_KOREA_NLK_CNTS_PHYSICAL_MANUSCRIPT_TARGET_GLYPHS; HIGH_FOR_DIRECT_FIVE_SPIRIT_VS_FIVE_OMINOUS_SPIRITS_PHRASE_ROLE_SEPARATION; HIGH_FOR_KOREAN_MANUSCRIPT_PREVIOUS_NIGHT_CURRENT_NIGHT_TEN_KE_WORDING; HIGH_FOR_NANYANGTANG_GUANGYI_DIRECT_PHYSICAL_HAI_AGREEMENT; GLOBAL_ALL_FULLBOOK_EDITION_STABILITY_NOT_CLAIMED",
       "audit_status": "MISSING_FROM_PRODUCT",
-      "proposed_action": "Keep HPA-ZDATE-006 MISSING_FROM_PRODUCT and source-scoped. Stop repeating the reviewed Google public preview routes; acquire a directly readable Jielan PT49 leaf from an independent holding/facsimile source and prioritize an explicit Fullbook-line cloudy/rainy current-time acquisition procedure before runtime selection. No candidate collapse or algorithm reopen.",
+      "proposed_action": "Keep HPA-ZDATE-006 MISSING_FROM_PRODUCT and source-scoped. Stop repeating the reviewed Google public preview routes; acquire a directly readable Jielan PT49 leaf from an independent holding/facsimile source and prioritize an explicit Fullbook-line cloudy/rainy current-time acquisition procedure before runtime selection. No candidate collapse or algorithm reopen. Do not count the Shiqie 上四亥 transcription token as a Hai-branch witness unless direct physical collation and contextual mechanics close the ambiguity.",
       "algorithm_reopen_authorized": false,
       "audit_batch": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
       "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
@@ -4529,6 +4530,22 @@
         "runtime_winner_selected": false,
         "algorithm_reopen_authorized": false,
         "research_artifact": "docs/research/ZIWEI-YUGANGZHAI-1602-NIGHT-ZI-PHYSICAL-COLLATION-R1.json"
+      },
+      "batch_12bh_shiqie_1565_transcription_anomaly": {
+        "source_id": "EXT-ZIWEI-SHIQIE-LISHU-RISHU-1565-SHIDIAN",
+        "edition_metadata": "嘉靖44年刊本 / 1565",
+        "public_transcription_token": "巳上是上四亥",
+        "same_passage_control": "巳上是下四刻；上四刻屬本日管；下四刻屬第二日管；是上四刻作二十六日管",
+        "target_page_id": "7640563520069697576",
+        "target_paragraph_id": "7649191097545588762",
+        "physical_target_leaf_observed": false,
+        "transcription_token_status": "QUARANTINED_PENDING_PHYSICAL_LEAF",
+        "mechanical_scope": "DATE_ORIENTATION_SUPPORTED_AT_TRANSCRIPTION_LEVEL; NO_DIRECT_UPPER_NIGHT_ZI_TO_HAI_BRANCH_REASSIGNMENT",
+        "hai_glyph_witness_increment": 0,
+        "runtime_winner_selected": false,
+        "candidate_collapsed": false,
+        "algorithm_reopen_authorized": false,
+        "research_artifact": "docs/research/ZIWEI-SHIQIE-LISHU-RISHU-1565-TRANSCRIPTION-ANOMALY-R1.json"
       }
     },
     {

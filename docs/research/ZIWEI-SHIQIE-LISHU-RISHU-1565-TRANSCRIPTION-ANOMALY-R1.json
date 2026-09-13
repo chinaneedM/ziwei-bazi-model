@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-SHIQIE-LISHU-RISHU-1565-TRANSCRIPTION-ANOMALY-R1",
+  "batch_id": "BATCH-12-ZIWEI-SHIQIE-LISHU-RISHU-1565-TRANSCRIPTION-ANOMALY-BH",
+  "question": "Does the public transcription token 上四亥 in the Jiajing-44 Shiqie Lishu Rishu constitute direct mechanical evidence that upper/night Zi is reassigned to Hai branch?",
+  "source": {
+    "title": "筮篋理數日抄",
+    "author_metadata": "一壺天俱道人",
+    "edition_metadata": "嘉靖44年刊本",
+    "edition_year_ce": 1565,
+    "dynasty_metadata": "明",
+    "book_id": "NA06425",
+    "chapter_id": "1m44zy4jwa4ab",
+    "chapter": "卷三 / 選時寶鏡局 / 論子時隔界",
+    "provider": "識典古籍 public HTML transcription surface",
+    "url": "https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab",
+    "image_source_metadata": "日本内阁文库",
+    "total_page_metadata": 2148,
+    "source_role": "PUBLIC_TRANSCRIPTION_LOCATOR_AND_TRANSMISSION_WITNESS_NOT_PHYSICAL_GLYPH_AUTHORITY"
+  },
+  "target_binding": {
+    "target_token": "巳上是上四亥",
+    "target_page_id": "7640563520069697576",
+    "preceding_page_id": "7640563520069681192",
+    "target_paragraph_id": "7649191097545588762",
+    "following_paragraph_ids": [
+      "7649191097545605146",
+      "7649191097545621530"
+    ],
+    "zi_boundary_body_paragraph_id": "7649191097545670682",
+    "physical_target_leaf_observed": false,
+    "literal_target_image_url_emitted_in_reviewed_public_ssr": false
+  },
+  "public_transcription": {
+    "excerpt": "初初刻、初一刻、初二刻、初三刻、初四刻，巳上是上四亥。正初刻、正一刻、正二刻、正三刻、正四刻，巳上是下四刻。論子時隔界，凡半夜子時隔界之類，一時有八刻二十分。上四刻屬本日管，下四刻屬第二日管。曰：謹按大明成化十八年壬寅歲，授時官曆，四月二十六日甲子夜子時初二刻，小滿，是上四刻作二十六日管，故有夜字。",
+    "anomaly_token": "上四亥",
+    "parallel_lower_label": "下四刻",
+    "same_passage_semantic_labels": [
+      "上四刻屬本日管",
+      "下四刻屬第二日管",
+      "是上四刻作二十六日管"
+    ],
+    "date_orientation_supported_at_transcription_level": true,
+    "explicit_upper_zi_to_hai_branch_rule_supported": false,
+    "reason": "The isolated 上四亥 occurs in a counting-label slot parallel to 下四刻 and is immediately followed by repeated 上四刻/下四刻 mechanics. Without the physical leaf, it cannot be promoted into a Hai-branch reassignment statement."
+  },
+  "independent_textual_control": {
+    "title": "類編曆法通書大全卷之一",
+    "compiler_metadata": "明 熊宗立 編纂",
+    "provider": "識典古籍 public transcription surface",
+    "url": "https://www.shidianguji.com/zh/book/SDZJ0731/chapter/1lcugwsgqj66n",
+    "excerpt": "論定半夜子時隔界。子初初刻、初二刻、初三刻、初四刻，係上四刻，屬本日管。子正一刻、正二刻、正三刻、正四刻，係下四刻，屬第二日管。",
+    "role": "INDEPENDENT_TRANSMISSION_TEXTUAL_CONTROL_FOR_UPPER_FOUR_KE_LABEL_AND_DATE_ORIENTATION; NOT_PHYSICAL_GLYPH_AUTHORITY",
+    "effect": "Strengthens the reading that the conceptual label is 上四刻, but does not itself settle the physical glyph in the Shiqie target leaf or prove Hai-branch reassignment."
+  },
+  "hosted_research_runs": [
+    {
+      "run_id": 34757884458,
+      "job_id": 103725325831,
+      "artifact_id": 10318013507,
+      "artifact_zip_sha256": "e4300ae6277c3add93dd9ad13cea527fb795a2bbcfac0f3d3623da4c58db5125",
+      "role": "PUBLIC_HTML_PAYLOAD_AND_METADATA_PROBE",
+      "observations": [
+        "HTTP 200",
+        "嘉靖44年刊本",
+        "日本内阁文库",
+        "巳上是上四亥 x2",
+        "上四刻屬本日管 x2"
+      ]
+    },
+    {
+      "run_id": 34757969310,
+      "job_id": 103725555573,
+      "artifact_id": 10316869368,
+      "artifact_zip_sha256": "05d3cce9694731ffe0c0b212e0fda80baa3b0ddb3c413e432bf34834ceff0221",
+      "role": "TARGET_PAGE_AND_PARAGRAPH_BINDING_PROBE"
+    },
+    {
+      "run_id": 34758029250,
+      "job_id": 103725721203,
+      "artifact_id": 10316913977,
+      "artifact_zip_sha256": "e587497eb097f0fb53f9f5234922756b7ffd4ade9e50ca183f9927f1964ed9f6",
+      "role": "EXACT_TARGET_PAGE_PUBLIC_IMAGE_CONTRACT_PROBE",
+      "target_image_download_count": 0
+    },
+    {
+      "run_id": 34758132419,
+      "job_id": 103726004114,
+      "artifact_id": 10317872820,
+      "artifact_zip_sha256": "6dc815e18d16e68844865291ef6d14180341afe54965f80b03e9c4d3f00dfad2",
+      "role": "JAPAN_NATIONAL_ARCHIVES_PUBLIC_ROOT_ACCESS_BOUNDARY",
+      "result": "HTTP 403 on public root URLs from hosted runner; no hidden endpoint guessed"
+    },
+    {
+      "run_id": 34758215209,
+      "job_id": 103726225297,
+      "artifact_id": 10318445180,
+      "artifact_zip_sha256": "9b3a50d8e3eb9649f47db26350a221b0857aa0589bcdd7288ed11234cbc95b8a",
+      "role": "PUBLIC_CABINET_LIBRARY_CATALOG_LINK_DISCOVERY",
+      "result": "Catalog page HTTP 200 and title occurrences observed; no literal National Archives href emitted around target entries"
+    }
+  ],
+  "adjudication": {
+    "transcription_token_status": "QUARANTINED_PENDING_PHYSICAL_LEAF",
+    "likely_label_family": "UPPER_FOUR_KE / LOWER_FOUR_KE",
+    "physical_glyph_judgment_authorized": false,
+    "hai_branch_reassignment_directly_attested": false,
+    "hai_glyph_witness_increment": 0,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "next_gate": "Acquire the physical target leaf for the Jiajing-44 Shiqie copy or another independent early leaf that unambiguously states upper/night Zi -> Hai branch."
+  },
+  "access_policy": "PUBLIC_HTML_AND_LITERAL_RESOURCE CONTRACTS ONLY; NO LOGIN; NO PRIVATE API OR OBJECT-ID GUESSING; NO CERTIFICATE/ACCESS BYPASS; TRANSCRIPTION NOT FINAL GLYPH AUTHORITY"
+}
