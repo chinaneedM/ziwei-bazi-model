@@ -144,3 +144,5 @@ docs/research/ZIWEI-ZHANGGUO-NLC-PRINCETON-1594-HOLDING-AND-IMAGE-ACCESS-R1.json
 ## 11. Closure integrity
 
 This batch is provenance/access-only. Project-continuity verification and exact-HEAD standard CI remain mandatory closure gates. This section adds no historical witness vote, no Matrix count change, no candidate selection, and no product or algorithm state change.
+
+The external-source registry uses the canonical HTTPS form of the NLC detail URL to satisfy project source-governance policy. The durable machine evidence separately preserves the actually observed successful HTTP transport URL, status and digest. Canonical citation transport and observed acquisition transport must not be conflated.
