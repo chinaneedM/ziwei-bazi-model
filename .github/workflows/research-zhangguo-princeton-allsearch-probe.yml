@@ -18,28 +18,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Fetch exact Princeton catalog record and emitted first-page resource
+      - name: Probe exact Princeton catalog image transport without TLS bypass
         run: |
           python - <<'PY'
-          import hashlib, json, urllib.parse, urllib.request
+          import hashlib, http.client, json, ssl, urllib.error, urllib.parse, urllib.request
           from pathlib import Path
 
           API='https://allsearch-api.princeton.edu/search/catalog'
-          UA='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.1'
+          UA='Mozilla/5.0 ziwei-bazi-model historical-provenance-research/1.2'
 
-          def fetch(url, accept='*/*'):
+          def https_fetch(url, accept='*/*'):
               req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':accept})
-              with urllib.request.urlopen(req,timeout=30) as r:
-                  b=r.read(40_000_000)
-                  return {
-                      'requested_url':url,'status':r.status,'final_url':r.geturl(),
-                      'content_type':r.headers.get('content-type'),'body_len':len(b),
-                      'sha256':hashlib.sha256(b).hexdigest(),'body':b,
-                  }
+              try:
+                  with urllib.request.urlopen(req,timeout=30) as r:
+                      b=r.read(40_000_000)
+                      return ({
+                          'requested_url':url,'status':r.status,'final_url':r.geturl(),
+                          'content_type':r.headers.get('content-type'),'body_len':len(b),
+                          'sha256':hashlib.sha256(b).hexdigest(),
+                      }, b)
+              except Exception as e:
+                  return ({'requested_url':url,'error':f'{type(e).__name__}: {e}'}, b'')
 
           search_url=API+'?'+urllib.parse.urlencode({'query':'TC183/2991'})
-          sr=fetch(search_url,'application/json')
-          sbody=sr.pop('body')
+          sr,sbody=https_fetch(search_url,'application/json')
           data=json.loads(sbody.decode('utf-8'))
           assert data.get('number') == 1, data
           rec=data['records'][0]
@@ -50,47 +52,56 @@ jobs:
           assert resource and resource.startswith('https://libimages1.princeton.edu/'), rec
           assert label == 'First page of main text', rec
 
-          cr=fetch(rec['url'],'text/html,*/*'); cbody=cr.pop('body')
-          ir=fetch(resource,'image/jpeg,image/*,*/*'); ibody=ir.pop('body')
-          assert ir.get('status') == 200 and len(ibody) > 1000, ir
-          Path('princeton-NJPX95B1857-first-main-text.jpg').write_bytes(ibody)
+          # First try the exact HTTPS resource with normal certificate validation.
+          https_meta,https_body=https_fetch(resource,'image/jpeg,image/*,*/*')
+          if https_meta.get('status') == 200 and len(https_body) > 1000:
+              Path('princeton-NJPX95B1857-first-main-text.jpg').write_bytes(https_body)
 
-          # Standard IIIF info request for the exact same image identifier emitted by Princeton;
-          # no other page identifier is derived or guessed.
-          info_url=resource.split('/full/full/0/default.jpg',1)[0]+'/info.json'
+          # Then test only the same emitted host/path over plain HTTP. This is a transport
+          # observation, not a guessed page/resource identifier, and no TLS check is disabled.
+          parsed=urllib.parse.urlparse(resource)
+          conn=http.client.HTTPConnection(parsed.hostname,80,timeout=30)
+          path=parsed.path + (('?' + parsed.query) if parsed.query else '')
           try:
-              xr=fetch(info_url,'application/json,*/*'); xbody=xr.pop('body')
-              try: xdata=json.loads(xbody.decode('utf-8'))
-              except Exception: xdata={'body_prefix':xbody[:4000].decode('utf-8','replace')}
+              conn.request('GET',path,headers={'User-Agent':UA,'Accept':'image/jpeg,image/*,*/*'})
+              resp=conn.getresponse(); hbody=resp.read(40_000_000)
+              http_meta={
+                  'requested_url':'http://'+parsed.netloc+path,
+                  'status':resp.status,'reason':resp.reason,
+                  'location':resp.getheader('Location'),
+                  'content_type':resp.getheader('Content-Type'),
+                  'body_len':len(hbody),'sha256':hashlib.sha256(hbody).hexdigest(),
+              }
+              if resp.status == 200 and len(hbody)>1000 and (resp.getheader('Content-Type') or '').lower().startswith('image/'):
+                  Path('princeton-NJPX95B1857-first-main-text-http.jpg').write_bytes(hbody)
           except Exception as e:
-              xr={'requested_url':info_url,'error':f'{type(e).__name__}: {e}'}; xdata=None
+              http_meta={'requested_url':'http://'+parsed.netloc+path,'error':f'{type(e).__name__}: {e}'}
+          finally:
+              conn.close()
 
           out={
-              'schema':'ZIWEI-ZHANGGUO-PRINCETON-PUBLIC-CATALOG-FIRST-PAGE-PROBE-R1',
+              'schema':'ZIWEI-ZHANGGUO-PRINCETON-PUBLIC-CATALOG-IMAGE-TRANSPORT-R1',
               'search_query':'TC183/2991',
               'search_response':sr,
               'search_number':data.get('number'),
               'record':rec,
-              'catalog_page_response':cr,
-              'catalog_page_sha256':hashlib.sha256(cbody).hexdigest(),
-              'catalog_page_body_len':len(cbody),
               'emitted_resource_label':label,
               'emitted_resource_url':resource,
-              'emitted_resource_response':ir,
-              'iiif_info_url_same_identifier':info_url,
-              'iiif_info_response':xr,
-              'iiif_info':xdata,
+              'https_normal_validation':https_meta,
+              'http_same_host_path_transport':http_meta,
+              'image_bytes_obtained_with_normal_validation':Path('princeton-NJPX95B1857-first-main-text.jpg').exists(),
+              'image_bytes_obtained_over_http_same_path':Path('princeton-NJPX95B1857-first-main-text-http.jpg').exists(),
               'target_leaf_obtained':False,
               'target_glyph_collation_authorized':False,
-              'policy':'FOLLOW_EXACT_PUBLIC_FIRST_PARTY_ALLSEARCH_RESULT_AND_EXACT_EMITTED_RESOURCE_URL_ONLY; STANDARD_IIIF_INFO_FOR_SAME_IDENTIFIER_ONLY; NO OTHER PAGE ID GUESSING; NO LOGIN; NO AUTH BYPASS',
+              'policy':'EXACT_PUBLIC_FIRST_PARTY_ALLSEARCH_RECORD_AND_EXACT_EMITTED IMAGE RESOURCE ONLY; NORMAL TLS VALIDATION; SAME HOST_PATH HTTP TRANSPORT OBSERVATION ONLY; NO CERTIFICATE BYPASS; NO PAGE ID GUESSING; NO LOGIN; NO AUTH BYPASS',
           }
-          Path('princeton-zhangguo-first-page-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('princeton-zhangguo-image-transport.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: princeton-zhangguo-public-first-page-probe
+          name: princeton-zhangguo-public-image-transport
           path: |
-            princeton-zhangguo-first-page-probe.json
-            princeton-NJPX95B1857-first-main-text.jpg
+            princeton-zhangguo-image-transport.json
+            princeton-NJPX95B1857-first-main-text*.jpg
           if-no-files-found: error
