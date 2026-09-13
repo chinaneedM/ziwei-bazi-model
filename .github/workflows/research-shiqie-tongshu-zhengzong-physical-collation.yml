@@ -17,42 +17,43 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install DjVu tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin imagemagick
-      - name: Acquire exact public Commons CADAL scan and render earlier target neighborhood
+      - name: Build full physical-page navigation sheets from exact Commons CADAL scan
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p tongshu-collation/pages tongshu-collation/text tongshu-collation/tmp
+          mkdir -p tongshu-collation/thumbs tongshu-collation/sheets tongshu-collation/tmp
           URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%96%B0%E5%88%8A%E7%90%86%E6%B0%A3%E8%A9%B3%E8%BE%AF%E7%BA%82%E8%A6%81%E4%B8%89%E5%8F%B0%E4%BE%BF%E8%A6%BD%E9%80%9A%E6%9B%B8%E6%AD%A3%E5%AE%97%28%E4%B8%80%29.djvu'
           curl -L --fail --retry 3 --user-agent 'ziwei-bazi-model historical provenance audit/1.0' "$URL" -o tongshu-collation/book.djvu
           sha256sum tongshu-collation/book.djvu | tee tongshu-collation/book.sha256
           stat -c '%s' tongshu-collation/book.djvu | tee tongshu-collation/book.size
           pages=$(djvused tongshu-collation/book.djvu -e n)
           echo "$pages" | tee tongshu-collation/page-count.txt
-          : > tongshu-collation/hits.tsv
-          for i in $(seq 1 "$pages"); do
-            txt="tongshu-collation/text/page-${i}.txt"
-            djvutxt --page="$i" tongshu-collation/book.djvu "$txt" 2>/dev/null || true
-            if grep -Eq '選時寶鏡局|选时宝镜局|子時隔界|子时隔界|成化十八|上四刻|下四刻|百刻' "$txt"; then
-              printf '%s\t' "$i" >> tongshu-collation/hits.tsv
-              tr '\n' ' ' < "$txt" | head -c 1000 >> tongshu-collation/hits.tsv || true
-              printf '\n' >> tongshu-collation/hits.tsv
-            fi
-          done
-          cat tongshu-collation/hits.tsv
-          # Native scan review shows p58 already in 太陰/月行 material and p59+ in diagrams;
-          # therefore the homologous 選時寶鏡局 locus must precede p58. Render p45–57.
-          seq 45 57 > tongshu-collation/render-pages.txt
-          while read -r p; do
-            ppm="tongshu-collation/tmp/page-${p}.ppm"
+          for p in $(seq 1 "$pages"); do
+            printf -v n '%03d' "$p"
+            ppm="tongshu-collation/tmp/page-${n}.ppm"
             ddjvu -page="$p" -format=ppm tongshu-collation/book.djvu "$ppm"
-            convert "$ppm" "tongshu-collation/pages/page-${p}.png"
+            convert "$ppm" -resize 600x -bordercolor white -border 3 \
+              -gravity south -splice 0x36 -pointsize 24 -annotate +0+5 "physical p${p}" \
+              "tongshu-collation/thumbs/page-${n}.png"
             rm -f "$ppm"
-          done < tongshu-collation/render-pages.txt
-          montage tongshu-collation/pages/page-*.png -thumbnail 260x -tile 4x -geometry +4+4 tongshu-collation/contact-sheet.png
-          rm -rf tongshu-collation/tmp tongshu-collation/book.djvu
+          done
+          python - <<'PY'
+          from pathlib import Path
+          thumbs=sorted(Path('tongshu-collation/thumbs').glob('page-*.png'))
+          groups=[thumbs[i:i+9] for i in range(0,len(thumbs),9)]
+          for idx,g in enumerate(groups,1):
+              Path(f'tongshu-collation/sheets/group-{idx:02d}.lst').write_text('\n'.join(str(p) for p in g)+'\n')
+          PY
+          for lst in tongshu-collation/sheets/group-*.lst; do
+            base="${lst%.lst}"
+            mapfile -t imgs < "$lst"
+            montage "${imgs[@]}" -tile 3x3 -geometry +8+8 "${base}.png"
+            rm -f "$lst"
+          done
+          rm -rf tongshu-collation/thumbs tongshu-collation/tmp tongshu-collation/book.djvu
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-tongshu-zhengzong-earlier-target-neighborhood
+          name: shiqie-tongshu-zhengzong-full-physical-navigation
           path: tongshu-collation/
           if-no-files-found: error
