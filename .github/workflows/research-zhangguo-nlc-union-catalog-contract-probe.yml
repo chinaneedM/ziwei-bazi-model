@@ -18,86 +18,62 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Query NLC source-emitted search URL by GET after observed POST 405
+      - name: Fetch exact NLC result-emitted detail object
         run: |
           python - <<'PY'
           import hashlib, html, json, re, urllib.parse, urllib.request
           from html.parser import HTMLParser
           from pathlib import Path
 
-          BASE='http://read.nlc.cn'
-          UA='Mozilla/5.0 research-contract-probe/1.3'
-          variants=[
-            ('long_trad','新編評註通玄先生張果星宗大全'),
-            ('long_simp','新编评注通玄先生张果星宗大全'),
-            ('short_trad','張果星宗'),
-            ('short_simp','张果星宗'),
-          ]
-          terms=['新編評註通玄先生張果星宗大全','新编评注通玄先生张果星宗大全','張果星宗','张果星宗',
-                 '萬曆','万历','二十二','1594','癸巳','唐謙','唐谦','南京','湖南','安徽','河南','重慶','重庆','山東','山东','復旦','复旦']
+          URL='http://read.nlc.cn/allSearch/searchDetail?searchType=62&showType=3&indexName=data_467&fid=NJPX95-B1857'
+          UA='Mozilla/5.0 research-contract-probe/1.4'
+          req=urllib.request.Request(URL,headers={'User-Agent':UA,'Accept':'text/html,*/*','Referer':'http://read.nlc.cn/allSearch/searchList?searchType=62&showType=1&searchWord=%E5%BC%B5%E6%9E%9C%E6%98%9F%E5%AE%97'})
+          try:
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  body=r.read(12_000_000); meta={'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'body_len':len(body),'sha256':hashlib.sha256(body).hexdigest()}
+          except Exception as e:
+              body=b''; meta={'error':f'{type(e).__name__}: {e}'}
+          text=body.decode('utf-8','replace')
 
-          class AParser(HTMLParser):
-              def __init__(self): super().__init__(); self.cur=None; self.links=[]
+          class P(HTMLParser):
+              def __init__(self): super().__init__(); self.visible=[]; self.links=[]; self.images=[]; self.cur=None
               def handle_starttag(self,tag,attrs):
-                  if tag=='a': self.cur={'href':dict(attrs).get('href'),'text':''}
+                  d=dict(attrs)
+                  if tag=='a': self.cur={'href':d.get('href'),'text':''}
+                  if tag=='img': self.images.append({k:d.get(k) for k in ('src','alt','title') if d.get(k)})
               def handle_data(self,data):
+                  s=data.strip()
+                  if s: self.visible.append(s)
                   if self.cur is not None: self.cur['text']+=data
               def handle_endtag(self,tag):
-                  if tag=='a' and self.cur is not None: self.links.append(self.cur); self.cur=None
-
-          def get(url):
-              req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html,*/*'})
-              try:
-                  with urllib.request.urlopen(req,timeout=30) as r:
-                      b=r.read(12_000_000)
-                      return {'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),
-                              'body_len':len(b),'sha256':hashlib.sha256(b).hexdigest(),'body':b}
-              except Exception as e:
-                  return {'error':f'{type(e).__name__}: {e}','body':b''}
-
-          out={'schema':'NLC-RARE-BOOK-UNION-CATALOG-TITLE-GET-QUERY-R1','queries':{},
-               'contract_basis':{
-                  'landing_get_200':True,
-                  'inline_js_action_pattern':'/allSearch/searchList?searchType=<type>&showType=<n>&searchWord=<encoded>',
-                  'source_form_method':'POST','observed_post_result':'HTTP_405_ALL_FOUR_VARIANTS'
-               },
-               'policy':'SAME_FIRST_PARTY_SOURCE_EMITTED_SEARCH_URL_ONLY_AFTER_POST_405_NO_GUESSED_ENDPOINTS_NO_LOGIN_NO_AUTH_BYPASS'}
-
-          for name,q in variants:
-              url=BASE+'/allSearch/searchList?'+urllib.parse.urlencode({'searchType':'62','showType':'1','searchWord':q})
-              r=get(url); raw=r.pop('body',b''); text=raw.decode('utf-8','replace')
-              p=AParser(); p.feed(text)
-              r['term_hits']={t:text.count(t) for t in terms if t in text}
-              contexts=[]
-              for t in terms:
-                  pos=0
-                  while len(contexts)<50:
-                      i=text.find(t,pos)
-                      if i<0: break
-                      contexts.append({'term':t,'context':html.unescape(re.sub(r'\s+',' ',text[max(0,i-1000):min(len(text),i+2600)]))})
-                      pos=i+len(t)
-              r['contexts']=contexts
-              links=[]
-              for a in p.links:
-                  txt=re.sub(r'\s+',' ',html.unescape(a.get('text') or '')).strip(); href=a.get('href')
-                  if any(k in txt for k in ('張果','张果','星宗')):
-                      links.append({'text':txt[:700],'href':href})
-              ded=[]; seen=set()
-              for x in links:
-                  key=(x['text'],x['href'])
-                  if key not in seen: seen.add(key); ded.append(x)
-              r['matching_links']=ded[:100]
-              # Detect common result-state language without interpreting it as a whole-catalog negative.
-              state_terms=['检索结果','搜索结果','共','条记录','没有找到','暂无数据','无相关','中华古籍资源库']
-              r['state_term_hits']={x:text.count(x) for x in state_terms if x in text}
-              r['html_prefix']=text[:1200]; r['html_suffix']=text[-1000:] if text else ''
-              out['queries'][name]=r
-
-          Path('nlc-title-get-query.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+                  if tag=='a' and self.cur is not None:
+                      self.cur['text']=re.sub(r'\s+',' ',self.cur['text']).strip(); self.links.append(self.cur); self.cur=None
+          p=P(); p.feed(text)
+          visible=' | '.join(p.visible)
+          terms=['新編評註通玄先生張果星宗大全','張果星宗','万历','萬曆','1593','1594','癸巳','甲午','唐謙','唐谦','金陵','南京','現藏','现藏','收藏','館藏','馆藏','亞非','亚非','SOAS','Morrison','周氏文光','文光','十卷','10卷','來源','来源','書號','书号','登錄號','登录号']
+          contexts=[]
+          for t in terms:
+              pos=0
+              while len(contexts)<80:
+                  i=text.find(t,pos)
+                  if i<0: break
+                  contexts.append({'term':t,'context':html.unescape(re.sub(r'\s+',' ',text[max(0,i-1200):min(len(text),i+3200)]))})
+                  pos=i+len(t)
+          emitted=[]
+          for a in p.links:
+              href=a.get('href'); txt=a.get('text','')
+              if href and (any(k in (href.lower()) for k in ('image','img','view','detail','book','resource','pdf','read')) or any(k in txt for k in ('书影','書影','查看','阅读','閱讀','图像','圖像'))):
+                  emitted.append(a)
+          out={'schema':'NLC-RARE-BOOK-UNION-CATALOG-DETAIL-NJPX95-B1857-R1','request_url':URL,'response':meta,
+               'fid':'NJPX95-B1857','indexName':'data_467','visible_text':visible[:30000],
+               'term_hits':{t:text.count(t) for t in terms if t in text},'contexts':contexts,
+               'links':p.links[:300],'images':p.images[:300],'candidate_emitted_routes':emitted[:200],
+               'policy':'FOLLOW_EXACT_FIRST_PARTY_SEARCH_RESULT_LINK_ONLY_NO_GUESSED_ENDPOINTS_NO_LOGIN_NO_AUTH_BYPASS'}
+          Path('nlc-detail.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(out,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: nlc-union-catalog-title-get-query
-          path: nlc-title-get-query.json
+          name: nlc-union-catalog-detail-NJPX95-B1857
+          path: nlc-detail.json
           if-no-files-found: error
