@@ -1,0 +1,63 @@
+name: fix-batch-12be-registry-https
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fix-batch-12be-registry-https.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Canonicalize registry URL without changing observed access evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          sid='EXT-ZIWEI-ZHANGGUO-NLC-PRINCETON-NJPX95-B1857'
+          s=next((x for x in d.get('sources',[]) if x.get('source_id')==sid),None)
+          if s is None:
+              raise SystemExit('12BE Princeton registry source missing')
+          old='http://read.nlc.cn/allSearch/searchDetail?searchType=62&showType=3&indexName=data_467&fid=NJPX95-B1857'
+          new='https://read.nlc.cn/allSearch/searchDetail?searchType=62&showType=3&indexName=data_467&fid=NJPX95-B1857'
+          if s.get('url') != old:
+              raise SystemExit(f'unexpected current 12BE registry URL: {s.get("url")}')
+          s['url']=new
+          s['observed_access_evidence']={
+              'successful_detail_transport_url': old,
+              'successful_detail_http_status': 200,
+              'successful_detail_sha256': 'a4699510e13d3e61154b2c4d0c4fd3894812c32429d7754de95199abeb44561e',
+              'canonical_registry_url_is_https': True,
+              'note': 'Canonical external-source URL follows registry HTTPS policy; the durable Batch 12BE machine evidence retains the actually observed HTTP transport URL and response.'
+          }
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Verify historical and continuity gates
+        run: |
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+      - name: Remove one-shot workflow and commit
+        run: |
+          git rm -f .github/workflows/fix-batch-12be-registry-https.yml
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs .github
+          git status --short
+          git commit -m "fix Batch 12BE canonical registry URL"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
