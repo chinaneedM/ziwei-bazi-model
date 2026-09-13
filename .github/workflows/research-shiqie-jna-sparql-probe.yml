@@ -18,25 +18,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Query Japan Search documented public item-search API
+      - name: Resolve exact Japan Search records returned by prior public search
         run: |
           python - <<'PY'
-          import json, urllib.parse, urllib.request, urllib.error
+          import json, re, urllib.parse, urllib.request, urllib.error
           from pathlib import Path
 
-          endpoint='https://jpsearch.go.jp/api/item/search/jps-cross'
-          terms={
-            'exact_title_traditional':'筮篋理數日抄',
-            'exact_title_japanese':'筮篋理数日抄',
-            'title_fragment':'理数日抄',
-            'catalog_ascii':'子060-0002',
-            'catalog_fullwidth':'子０６０－０００２',
+          ids={
+            'root':'najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ',
+            'fascicle3':'najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003',
           }
-          ua='ziwei-bazi-model historical-provenance research/2.3 (+Japan-Search-public-API)'
-          outdir=Path('jps-search'); outdir.mkdir()
-          manifest={'schema':'SHIQIE-JAPAN-SEARCH-PUBLIC-API-PROBE-R1','endpoint':endpoint,'queries':{},'policy':'DOCUMENTED JAPAN SEARCH PUBLIC API ONLY; EXACT TITLE/CATALOG TERMS; FOLLOW ONLY SOURCE LINKS AND ITEM IDS RETURNED BY API; NO GUESSING'}
-          for name,term in terms.items():
-              url=endpoint+'?'+urllib.parse.urlencode({'keyword':term,'size':'100'})
+          ua='ziwei-bazi-model historical-provenance research/2.4 (+Japan-Search-item-reference)'
+          outdir=Path('jps-item'); outdir.mkdir()
+          manifest={'schema':'SHIQIE-JAPAN-SEARCH-ITEM-REFERENCE-R1','records':{},'policy':'ONLY ITEM IDS LITERALLY RETURNED BY THE PREVIOUS DOCUMENTED JAPAN SEARCH TITLE QUERY; NO ID DERIVATION OR ENUMERATION; FOLLOW ONLY LITERAL RESOURCE LINKS IN RETURNED JSON'}
+
+          def walk(obj,path='$',acc=None):
+              if acc is None: acc=[]
+              if isinstance(obj,dict):
+                  for k,v in obj.items():
+                      p=f'{path}.{k}'
+                      if isinstance(v,(dict,list)):
+                          walk(v,p,acc)
+                      elif isinstance(v,(str,int,float,bool)) or v is None:
+                          s='' if v is None else str(v)
+                          if re.search(r'https?://',s) or re.search(r'(url|uri|id|identifier|image|thumb|manifest|iiif|file|source|original|reference|access)',k,re.I):
+                              acc.append({'path':p,'key':k,'value':v})
+              elif isinstance(obj,list):
+                  for i,v in enumerate(obj):
+                      p=f'{path}[{i}]'
+                      if isinstance(v,(dict,list)): walk(v,p,acc)
+                      elif isinstance(v,str) and re.search(r'https?://',v): acc.append({'path':p,'key':None,'value':v})
+              return acc
+
+          for name,item_id in ids.items():
+              url='https://jpsearch.go.jp/api/item/'+urllib.parse.quote(item_id,safe='-_')
               req=urllib.request.Request(url,headers={'User-Agent':ua,'Accept':'application/json'})
               status=None; final=url; ctype=None; body=b''; error=None
               try:
@@ -48,36 +63,28 @@ jobs:
                   error=repr(e)
               text=body.decode('utf-8','replace')
               (outdir/f'{name}.json').write_text(text,encoding='utf-8')
-              rec={'term':term,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error}
+              rec={'item_id':item_id,'status':status,'final_url':final,'content_type':ctype,'body_len':len(body),'error':error}
               try:
                   data=json.loads(text)
-                  rec['hit']=data.get('hit')
-                  items=data.get('list',[]) if isinstance(data,dict) else []
-                  compact=[]
-                  for item in items[:100]:
-                      common=item.get('common',{}) if isinstance(item,dict) else {}
-                      compact.append({
-                        'id':item.get('id'),
-                        'title':common.get('title'),
-                        'database':common.get('database'),
-                        'ownerOrg':common.get('ownerOrg'),
-                        'sourceInfo':common.get('sourceInfo'),
-                        'contents':common.get('contents'),
-                        'url':common.get('url'),
-                        'thumbnailUrl':common.get('thumbnailUrl'),
-                        'raw_keys':[k for k in item.keys() if k not in ('common','rdfindex')][:20],
-                      })
-                  rec['items']=compact
+                  rec['top_level_keys']=list(data.keys()) if isinstance(data,dict) else []
+                  rec['interesting_fields']=walk(data)[:1000]
+                  # Preserve human-readable scalar fields near the National Archives raw namespace.
+                  raw={}
+                  if isinstance(data,dict):
+                      for k,v in data.items():
+                          if k.startswith('najda-') or k in ('id','common','rdfindex'):
+                              raw[k]=v
+                  rec['selected_raw']=raw
               except Exception as exc:
                   rec['parse_error']=repr(exc); rec['body_prefix']=text[:2000]
-              manifest['queries'][name]=rec
-          Path('jps-search-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+              manifest['records'][name]=rec
+          Path('jps-item-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(manifest,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-japan-search-public-api-probe
+          name: shiqie-japan-search-item-reference
           path: |
-            jps-search-manifest.json
-            jps-search/*
+            jps-item-manifest.json
+            jps-item/*
           if-no-files-found: error
