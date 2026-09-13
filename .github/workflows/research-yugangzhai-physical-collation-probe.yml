@@ -26,13 +26,15 @@ jobs:
           file yugangzhai-v3.djvu
           sha256sum yugangzhai-v3.djvu | tee scan.sha256
           djvused yugangzhai-v3.djvu -e n | tee page-count.txt
-          mkdir -p pages
+          mkdir -p pages ppm
           for n in $(seq 70 96); do
-            ddjvu -format=png -page=$n -scale=1200 yugangzhai-v3.djvu "pages/page-$(printf '%03d' $n).png"
+            ddjvu -format=ppm -page=$n -scale=1200 yugangzhai-v3.djvu "ppm/page-$(printf '%03d' $n).ppm"
           done
           python - <<'PY'
-          from PIL import Image,ImageOps,ImageDraw
+          from PIL import Image,ImageDraw
           from pathlib import Path
+          for f in sorted(Path('ppm').glob('page-*.ppm')):
+              Image.open(f).convert('RGB').save(Path('pages')/(f.stem+'.png'))
           files=sorted(Path('pages').glob('page-*.png'))
           for batch_i in range(0,len(files),9):
               batch=files[batch_i:batch_i+9]
