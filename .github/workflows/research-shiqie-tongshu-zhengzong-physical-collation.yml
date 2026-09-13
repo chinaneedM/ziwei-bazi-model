@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install DjVu tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin imagemagick
-      - name: Acquire exact public Commons CADAL scan and render hundred-ke neighborhood
+      - name: Acquire exact public Commons CADAL scan and render earlier target neighborhood
         shell: bash
         run: |
           set -euo pipefail
@@ -39,20 +39,20 @@ jobs:
             fi
           done
           cat tongshu-collation/hits.tsv
-          # Sparse embedded text identifies p68 with 百刻. Use it only as locator.
-          # Final reading is from the native-resolution physical scan images below.
-          seq 58 78 > tongshu-collation/render-pages.txt
+          # Native scan review shows p58 already in 太陰/月行 material and p59+ in diagrams;
+          # therefore the homologous 選時寶鏡局 locus must precede p58. Render p45–57.
+          seq 45 57 > tongshu-collation/render-pages.txt
           while read -r p; do
             ppm="tongshu-collation/tmp/page-${p}.ppm"
             ddjvu -page="$p" -format=ppm tongshu-collation/book.djvu "$ppm"
             convert "$ppm" "tongshu-collation/pages/page-${p}.png"
             rm -f "$ppm"
           done < tongshu-collation/render-pages.txt
-          montage tongshu-collation/pages/page-*.png -thumbnail 240x -tile 4x -geometry +4+4 tongshu-collation/contact-sheet.png
+          montage tongshu-collation/pages/page-*.png -thumbnail 260x -tile 4x -geometry +4+4 tongshu-collation/contact-sheet.png
           rm -rf tongshu-collation/tmp tongshu-collation/book.djvu
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-tongshu-zhengzong-hundred-ke-neighborhood
+          name: shiqie-tongshu-zhengzong-earlier-target-neighborhood
           path: tongshu-collation/
           if-no-files-found: error
