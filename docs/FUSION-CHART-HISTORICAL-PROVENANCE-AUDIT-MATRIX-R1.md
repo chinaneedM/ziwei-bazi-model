@@ -539,3 +539,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - A no-OCR physical review of the 1533 Chengqiao-print 《運氣易覽·論四時氣候》 directly confirms `晝夜分五十刻`, `夏至日長不過六十刻`, and `冬至日短不過四十刻` in a pre-1578 medical-yunqi witness.
 - This closes an earlier 50/50 + 60/40 conceptual/disciplinary parallel, but the reviewed locus does not print Sanming Tonghui's distinctive multi-point 42/58...59/41 table. Exact table identity and direct genealogy are therefore not established.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no Hai-branch vote, runtime candidate, winner, collapse or algorithm reopen is introduced.
+
+
+## Progress through Batch 12CC
+
+- The complete 45-page public 1569 Zhou-Xiang 《大明大統曆法》 volume was rendered and visually reviewed without OCR. It directly strengthens the pre-1578 Ming Datong method-source stack.
+- The reviewed physical object does not directly expose the distinctive Sanming seasonal 42/58...59/41 table. This is strictly a volume-scoped nonattestation; it does not authorize a claim that the wider Datong tradition, other fascicles, official almanacs or separately transmitted tables lack such material.
+- Exact Sanming table provenance/locality therefore remains open. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; no Hai-branch vote, runtime candidate, winner, collapse or algorithm reopen is introduced.

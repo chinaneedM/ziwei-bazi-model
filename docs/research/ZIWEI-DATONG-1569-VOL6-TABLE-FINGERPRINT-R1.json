@@ -1,0 +1,107 @@
+{
+  "schema": "ZIWEI-DATONG-1569-VOL6-TABLE-FINGERPRINT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-1569-VOL6-DIRECT-SCOPE-AND-TABLE-FINGERPRINT-CC",
+  "prior_batch_id": "BATCH-12-ZIWEI-YUNQI-YILAN-1533-SEASONAL-EXTREMA-CB",
+  "question": "Does the directly reviewed 1569 Zhou Xiang Da Ming Datong Lifa volume physically print the exact seasonal day/night-ke multi-point table used by the 1578 Sanming Tonghui witness?",
+  "physical_witness": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "work": "大明大統曆法",
+    "author": "周相",
+    "edition": "明隆慶三年（1569）刊本公開影像；日本國立公文書館內閣文庫藏本路線",
+    "workflow_run_id": 34860488890,
+    "artifact_id": 10354907760,
+    "artifact_digest": "sha256:55dce049de5bf8ede84b0f2bae89dc4733617136033e6f6f8700964b7c8e981b",
+    "source_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "page_count": 45,
+    "ocr_used_for_glyph_claims": false,
+    "render_trigger_commit": "35f401a92e0d23f1292301b9372fea6546eab71b",
+    "exact_head_ci_run": 34860488925,
+    "contact_sheet_sha256": {
+      "all": "46c6087fc3a6ec781e552c18730fd50a3abe3f44aa1c7dfc7bb88d4b67ff3317",
+      "1_9": "d3041585b634f4dfecf48ba698b3ecc10fd26857de597bda54eb7b0b746c03ce",
+      "10_18": "7d6e15ef5b07e1e615d7eacb54e1e551ff4ab8ba478ce2484422ffc188c60ab9",
+      "19_27": "2b86d22b1a805a6e4b0a697fb0e56d098f662e263e3ffbca34b4a883f0f9d21f",
+      "28_36": "817bdf4a24d7e2bd3aaf1f31216afe452713438cdb8cd4fef48adecf155edc60",
+      "37_45": "ca8770343852bd6f3aecb1efbde0cab9db5397e24ecd23ecc801c91572ab55cb"
+    },
+    "selected_page_sha256": {
+      "1": "85dbb5145bd060c5daa1fb11bcc1bec153ae437848dcaf3424aa206b3c84f5f7",
+      "2": "bf5454c7eb3841ac83f78af2febb40673269d32f5782964c419b043d9ed0c66e",
+      "3": "25fad617d57211f5475dc675a4b97cc92af9badcf5674027135b843820fc9388",
+      "14": "cc76b8ef313fab42205ba027959244bb2cf94caa04cb20056ef8f5291f9f8be7",
+      "42": "449503670d4b2a9bb60c435c527b1f2ac9403b7156db11857859fcd84f9652f4"
+    }
+  },
+  "direct_physical_review": {
+    "all_rendered_pages_reviewed": true,
+    "page_1": "title/cover identifies 大明大統曆法",
+    "page_2": "曆原 and historical/calendrical exposition",
+    "page_14": "推盈縮曆初末限分法; adjacent heading 太陽冬至前後立成卷第二; table is solar-anomaly/calculation material, not a seasonal day/night-ke table",
+    "page_42": "later calculation/date-grid material associated with calendrical time calculation, not the Sanming seasonal multi-point day/night-ke table",
+    "overall_visible_scope": [
+      "calendar computational methods",
+      "solar anomaly / 盈縮 material",
+      "lunar motion / 遲疾 material",
+      "eclipse and related calculation tables"
+    ],
+    "sanming_exact_table_fingerprint_observed": false,
+    "target_fingerprint": [
+      "小寒 42/58",
+      "立春 45/55",
+      "雨水 47/53 then 48/52",
+      "春秋分 near/equal 50/50",
+      "夏至 59/41"
+    ]
+  },
+  "scope_firewall": {
+    "reviewed_object_nonattestation": true,
+    "all_datong_texts_absence_claim_authorized": false,
+    "all_1569_related_fascicles_absence_claim_authorized": false,
+    "all_ming_almanacs_absence_claim_authorized": false,
+    "reason": "The physical review closes only this 45-page public volume object's visible scope. A missing table in this object cannot be generalized to every Datong recension, separately transmitted table, official almanac, or companion fascicle."
+  },
+  "relationship_to_batch_12cb": {
+    "yunqi_yilan_1533_closes_broad_50_50_60_40_tradition": true,
+    "datong_1569_volume_is_primary_ming_method_witness": true,
+    "datong_1569_volume_directly_closes_sanming_exact_table_genealogy": false,
+    "exact_sanming_table_provenance_closed": false
+  },
+  "historical_hypothesis_status": {
+    "later_ming_datong_59_41_nanjing_explanatory_tradition_is_research_lead": true,
+    "promoted_to_pre1578_direct_table_proof": false,
+    "possible_composite_transmission_model": "older hundred-ke/midnight prose + older seasonal leak-arrow traditions + Ming locality/calendar adaptation",
+    "composite_model_proved": false
+  },
+  "adjudication": {
+    "direct_1569_datong_method_witness_strengthened": true,
+    "reviewed_1569_object_exact_sanming_table_match": false,
+    "exact_sanming_table_provenance_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "most_conservative_reading": "The 1569 Zhou Xiang object is a direct pre-1578 Ming Datong method witness, but the reviewed 45-page volume does not itself print the Sanming 42/58...59/41 seasonal table. It therefore cannot be used as direct proof of that table's ancestry."
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "remaining_blockers": [
+      "find a pre-1578 source that directly prints the distinctive Sanming seasonal multi-point numeric fingerprint or a demonstrably generative parent table",
+      "separate locality-specific Ming Datong/Nanjing 59/41 evidence from generic 40/60 traditions and from later retrospective explanations",
+      "independently close the Fullbook upper-five-ke -> previous-night Hai branch mechanism"
+    ]
+  },
+  "next_gate": [
+    "audit pre-Ming/Song-Yuan leak-arrow lineages for structural ancestry rather than endpoint coincidence",
+    "collate Zhao Youqin Gexiang Xinshu hundred-ke prose against Sanming wording and preserve the 40/60 versus Yandu 62/38 geographic distinction",
+    "collate Huqianjing and Leibian Lifa Tongshu seasonal arrow/table sequences against the Sanming fingerprint",
+    "continue search for a pre-1578 Ming Datong/Nanjing table witness carrying the 59/41 layer"
+  ]
+}
