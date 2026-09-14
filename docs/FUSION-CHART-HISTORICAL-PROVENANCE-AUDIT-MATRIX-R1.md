@@ -524,3 +524,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - A separate China National Library Ming-Wanli physical holding (juan 2 upper/lower across volumes 3–4) was rendered without OCR and reconfirms the same structural/textual sequence. Its exact identity with the 1578 impression is not assumed and it adds no independent textual vote.
 - HPA-ZDATE-006 historical time-standard provenance is therefore significantly narrowed to a Shoushi-calendar/seasonal-ke horizon, but no deterministic inverse birth-time formula, locality binding, modern-instant mapping, or upper-Zi-to-Hai reassignment is closed.
 - Result: HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; no runtime candidate, winner, collapse, or algorithm reopen.
+
+
+## Progress through Batch 12CA
+
+- Yuan Shoushi-calendar methods explicitly support regional realization: nine-region day/night ke depend on local pole altitude, and local solstitial leak values can be fixed by instruments or water clocks.
+- A Ming technical transmission explicitly distinguishes a 地中 40/60 standard from the Yandu Shoushi 62/38 standard. Sanming Tonghui's displayed mantic table is therefore not automatically the exact Yandu table; its summer-solstice line is 59/41.
+- Tianyige's Ming-print Huqianjing physically confirms that 40/60-style seasonal leak-arrow tables belong to a wider historical timekeeping tradition, but no direct genealogy from Huqianjing to Sanming is claimed.
+- Locality capability is closed at the calendar-system level; Wan Minying's selected locality/table genealogy and any modern-instant binding remain unresolved. HPA-ZDATE-006 stays MISSING_FROM_PRODUCT with no new candidate, winner, Hai vote, collapse or reopen.
