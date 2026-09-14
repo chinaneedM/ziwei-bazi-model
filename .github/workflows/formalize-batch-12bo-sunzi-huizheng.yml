@@ -1,0 +1,307 @@
+name: formalize-batch-12bo-sunzi-huizheng
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12bo-sunzi-huizheng.yml
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Formalize Batch 12BO evidence and state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from textwrap import dedent
+
+          BATCH_ID = "BATCH-12-ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-BO"
+          BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-BO.md"
+          RESEARCH_ARTIFACT = "docs/research/ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-R1.json"
+          SOURCE_ID = "EXT-TIME-SUNZI-HUIZHENG-KANGXI-GGZBCK360"
+          SOURCE_URL = "https://commons.wikimedia.org/wiki/File:GGZBCK360_%E5%AD%AB%E5%AD%90%E5%BD%99%E5%BE%B5_%E8%90%AC%E4%BB%A3%E6%B5%81%E5%82%B3%E5%96%AE%E5%88%80%E8%AD%9C_%E6%88%B0%E5%AE%88%E6%96%B0%E6%B3%95_%E6%BB%84%E5%A1%B5%E5%AD%90%E6%89%8B%E8%87%82%E9%8C%84_%E9%99%84%E5%B3%A8%E5%B5%8B%E6%A7%8D%E6%B3%95_%E5%A4%A2%E7%B6%A0%E5%A0%82%E6%A7%8D%E6%B3%95_%E7%A8%8B%E6%B2%96%E6%96%97%E5%8D%81%E5%85%AD%E6%A7%8D%E5%8B%A2.pdf"
+          SHIDIAN_URL = "https://www.shidianguji.com/zh/mid-page/7536323732445839369"
+
+          source_pdf_sha256 = "365ec6a579d197f6642698decf4229794dd24320faf296b901f228ebbd84533e"
+          target_page_pdf_sha256 = "49bbf2530d57195c0442ef0fa20a268707c89cec6229126f3f6b9bec9f9d2486"
+          target_render_sha256 = "a00f7df7e395590661676888a7497d15d70d1474f0392536c3c4425c9c1ba7d1"
+          workflow_run_id = 34813778276
+          artifact_id = 10336295301
+          artifact_digest = "sha256:04de0493707b215f0cec1e886a2a91e019357c0af2b262f6f0ccb03c06b733c1"
+
+          physical_reading = "若子時則上半時在夜半前屬昨日下半時在夜半後為今日"
+          public_transcription = "若子時，則上半時在夜半前，屬昨日，下半時在夜半後，屬今日"
+
+          batch_doc = dedent(f'''\
+          # Fusion Chart Historical Provenance Audit R1 — Batch 12BO
+
+          ## 《孫子彙徵》康熙中鈔本「百刻／子時夜半」實體校勘
+
+          Status: **DIRECT QING KANGXI-MANUSCRIPT PHYSICAL COLLATION / PDF P44 / HUNDRED-KE ZI-MIDNIGHT PREVIOUS-CURRENT-DAY RULE CONFIRMED / PHYSICAL GLYPHS READ 「屬昨日／為今日」 / PUBLIC TRANSCRIPTION NORMALIZES SECOND VERB TO 「屬今日」 / DIFFERENT WORDING SAME MECHANICAL RULE / CROSS-DISCIPLINARY TIMEKEEPING WITNESS ONLY / NO UPPER-ZI→HAI REASSIGNMENT / HPA-ZDATE-006 STILL MISSING_FROM_PRODUCT / HAI PHYSICAL VOTE +0 / NO RUNTIME WINNER / NO CANDIDATE COLLAPSE / NO ALGORITHM REOPEN**
+
+          ## 1. Scope
+
+          Batch 12BN strengthened the diagnosis that the Shidian 《筮篋理數日抄》 token `上四亥` is unsafe by obtaining a close physical homolog that reads `上四刻`. The next research question was whether additional physical timekeeping witnesses could clarify the generic upper/lower-Zi semantics without importing cross-system authority.
+
+          This batch closes a separate Qing physical witness in 鄭端《孫子彙徵》. It is deliberately classified as cross-disciplinary timekeeping evidence, not as a Ziwei or Bazi doctrinal lineage vote.
+
+          ## 2. Bibliographic identity
+
+          Wikimedia Commons / 《故宮珍本叢刊》 volume 360 identifies the scanned work as:
+
+          - 《孫子彙徵》八卷;
+          - 清 鄭端撰;
+          - 康熙中鈔本;
+          - provider scan: `{SOURCE_URL}`.
+
+          The combined public PDF contains 389 pages. Direct navigation establishes that 《孫子彙徵》 ends at PDF p281; the target timekeeping passage is in 卷一 and is physically located at PDF p44.
+
+          ## 3. Machine capture
+
+          Exact-head research workflow run: `{workflow_run_id}`.
+
+          - artifact: `{artifact_id}`;
+          - artifact digest: `{artifact_digest}`;
+          - full provider PDF SHA-256: `{source_pdf_sha256}`;
+          - extracted one-page PDF p44 SHA-256: `{target_page_pdf_sha256}`;
+          - 300-dpi p44 render SHA-256: `{target_render_sha256}`.
+
+          The workflow preserves source page objects for p43–p45 and renders them at 300 dpi. OCR is not used as glyph authority.
+
+          ## 4. Direct physical reading
+
+          PDF p44 physically carries the transition heading `日百刻配十二時之數天行之固` and the hundred-ke allocation discussion. Direct visual collation of the target sentence reads:
+
+          `{physical_reading}`
+
+          The decisive mechanical semantics are therefore:
+
+          - upper half of Zi is before midnight and belongs to the previous day;
+          - lower half is after midnight and is the current day;
+          - the passage does **not** reassign the upper half of Zi to the Hai branch.
+
+          ## 5. Philology / transcription control
+
+          The current Shidian public transcription renders the same sentence as:
+
+          `{public_transcription}`
+
+          The direct Kangxi-manuscript physical witness therefore preserves `屬昨日／為今日`, whereas the public transcription regularizes the second relation verb to `屬今日`.
+
+          This is not a mechanical divergence. It is classified as:
+
+          `DIFFERENT_WORDING_SAME_MECHANICAL_RULE`
+
+          The result is especially important because Batch 12AT directly collated the 1578 NCL 《三命通會》 physical witness with the opposite lexical asymmetry `為昨日／屬今日`, while received digital transcriptions commonly normalize both sides to `屬`. The three surfaces demonstrate that `為/屬` must be handled philologically rather than used as a false candidate split.
+
+          Strong phrase-level similarity to 《革象新書》 and 《三命通會·論時刻》 makes historical transmission/source reuse plausible, but this batch does **not** adjudicate textual genealogy or claim direct dependence.
+
+          ## 6. Evidentiary boundary
+
+          《孫子彙徵》 is a Qing military/technical compilation witness. It is not counted as an independent Ziwei or Bazi school vote and cannot authorize an astrological runtime choice.
+
+          In particular:
+
+          - no `亥` branch reassignment occurs in the target physical sentence;
+          - generic previous/current-day orientation is corroborated;
+          - HPA-ZDATE-006 still requires source-scoped Fullbook mechanical/runtime closure before productization;
+          - the exact 1565 Shiqie target physical leaf remains unread, so its online `上四亥` token remains quarantined.
+
+          ## 7. Effect on HPA-ZDATE-006
+
+          - `HPA-ZDATE-006 = MISSING_FROM_PRODUCT`
+          - physical Hai-branch witness increment: `0`
+          - generic midnight previous/current-day physical corroboration: `+1 cross-disciplinary witness`
+          - new chart-rule candidate: `false`
+          - runtime winner: `false`
+          - candidate collapse: `false`
+          - algorithm reopen: `false`
+
+          Matrix counts remain `198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families`; provenance defects remain `11 confirmed / 11 repaired`; chart algorithm defect/reopen/collapse remain `0/0/0`.
+
+          ## 8. Durable evidence
+
+          Research record: `{RESEARCH_ARTIFACT}`.
+
+          Public transcription comparison only: `{SHIDIAN_URL}`. It is not glyph authority.
+
+          ## 9. Next gate
+
+          Generic midnight previous/current-day semantics are now overdetermined and should not consume priority merely by adding more parallel late witnesses. Higher-value gates remain:
+
+          1. direct acquisition of the exact 《筮篋理數日抄》卷三 target leaf or an independently bound Shiqie facsimile;
+          2. an earlier or textually independent physical witness that explicitly states upper/night Zi → Hai if such a rule is historically present;
+          3. the separate Fullbook-line cloudy/rainy current-time acquisition chain required before any HPA-ZDATE-006 runtime selection.
+          ''')
+          Path(BATCH_DOC).write_text(batch_doc, encoding="utf-8")
+
+          research = {
+              "schema": "ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-R1",
+              "batch_id": BATCH_ID,
+              "source_id": SOURCE_ID,
+              "source": {
+                  "title": "《孫子彙徵》八卷",
+                  "author": "清·鄭端",
+                  "edition": "康熙中鈔本",
+                  "provider": "Wikimedia Commons / 故宮珍本叢刊 360",
+                  "url": SOURCE_URL,
+                  "role": "QING_CROSS_DISCIPLINARY_TIMEKEEPING_PHYSICAL_WITNESS_NOT_ZIWEI_OR_BAZI_LINEAGE_AUTHORITY"
+              },
+              "physical_target": {
+                  "pdf_page_1_based": 44,
+                  "section_anchor": "日百刻配十二時之數天行之固",
+                  "direct_no_ocr_reading": physical_reading,
+                  "upper_half_relation": "夜半前屬昨日",
+                  "lower_half_relation": "夜半後為今日",
+                  "explicit_hai_branch_reassignment": False
+              },
+              "transcription_comparison": {
+                  "provider": "識典古籍",
+                  "url": SHIDIAN_URL,
+                  "reading": public_transcription,
+                  "difference": "PHYSICAL_為今日_VS_TRANSCRIPTION_屬今日",
+                  "classification": "DIFFERENT_WORDING_SAME_MECHANICAL_RULE",
+                  "glyph_authority": False
+              },
+              "cross_witness_philology": {
+                  "batch_12at_ncl_1578_sanming_physical": "為昨日／屬今日",
+                  "batch_12bo_kangxi_sunzi_physical": "屬昨日／為今日",
+                  "received_transcription_common_normalization": "屬昨日／屬今日",
+                  "mechanical_divergence": False,
+                  "genealogy_adjudicated": False
+              },
+              "machine_capture": {
+                  "workflow_run_id": workflow_run_id,
+                  "artifact_id": artifact_id,
+                  "artifact_digest": artifact_digest,
+                  "source_pdf_sha256": source_pdf_sha256,
+                  "source_pdf_size_bytes": 161194791,
+                  "source_pdf_page_count": 389,
+                  "target_page_pdf_sha256": target_page_pdf_sha256,
+                  "target_render_300dpi_sha256": target_render_sha256
+              },
+              "effect": {
+                  "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+                  "hai_glyph_witness_increment": 0,
+                  "new_candidate_created": False,
+                  "runtime_winner_selected": False,
+                  "candidate_collapsed": False,
+                  "algorithm_reopen_authorized": False,
+                  "matrix_counts_changed": False
+              }
+          }
+          Path(RESEARCH_ARTIFACT).write_text(json.dumps(research, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          registry_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          if not any(s.get("source_id") == SOURCE_ID for s in registry["sources"]):
+              registry["sources"].append({
+                  "source_id": SOURCE_ID,
+                  "title": "《孫子彙徵》八卷·康熙中鈔本",
+                  "author": "清·鄭端",
+                  "historical_period": "清康熙中鈔本",
+                  "provider": "Wikimedia Commons / 故宮珍本叢刊 360",
+                  "url": SOURCE_URL,
+                  "source_role": "QING_CROSS_DISCIPLINARY_TIMEKEEPING_PHYSICAL_WITNESS_NOT_ZIWEI_OR_BAZI_LINEAGE_AUTHORITY",
+                  "quality_notes": "Batch 12BO directly collates PDF p44 without OCR as glyph authority. Physical text reads 若子時則上半時在夜半前屬昨日下半時在夜半後為今日. This confirms generic midnight previous/current-day semantics but contains no upper-Zi-to-Hai branch reassignment. Public Shidian transcription regularizes 為今日 to 屬今日; preserve the physical 屬/為 wording. Do not count this military/technical Qing witness as an independent Ziwei/Bazi doctrinal lineage vote.",
+                  "batch_12bo_machine_capture": {
+                      "workflow_run_id": workflow_run_id,
+                      "artifact_id": artifact_id,
+                      "artifact_digest": artifact_digest,
+                      "source_pdf_sha256": source_pdf_sha256,
+                      "target_page_1_based": 44,
+                      "target_page_pdf_sha256": target_page_pdf_sha256,
+                      "target_render_300dpi_sha256": target_render_sha256
+                  }
+              })
+          registry["access_date"] = "2026-09-14"
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+          row = next(r for r in matrix["rows"] if r.get("rule_id") == "HPA-ZDATE-006")
+          row["batch_12bo_sunzi_huizheng_kangxi_timekeeping_physical_collation"] = {
+              "source_id": SOURCE_ID,
+              "physical_witness": "《孫子彙徵》八卷 / 清鄭端撰 / 康熙中鈔本 / 故宮珍本叢刊360 / PDF p44",
+              "section_anchor": "日百刻配十二時之數天行之固",
+              "secure_reading": physical_reading,
+              "public_transcription_variant": public_transcription,
+              "philological_classification": "DIFFERENT_WORDING_SAME_MECHANICAL_RULE",
+              "mechanical_scope": "DIRECT_QING_CROSS_DISCIPLINARY_PHYSICAL_CORROBORATION_OF_UPPER_ZI_BEFORE_MIDNIGHT_PREVIOUS_DAY_AND_LOWER_ZI_AFTER_MIDNIGHT_CURRENT_DAY; NO_EXPLICIT_UPPER_ZI_TO_HAI_BRANCH_REASSIGNMENT; NOT_A_ZIWEI_OR_BAZI_LINEAGE_VOTE",
+              "source_pdf_sha256": source_pdf_sha256,
+              "target_page_pdf_sha256": target_page_pdf_sha256,
+              "target_render_300dpi_sha256": target_render_sha256,
+              "workflow_run_id": workflow_run_id,
+              "artifact_id": artifact_id,
+              "artifact_digest": artifact_digest,
+              "hai_glyph_witness_increment": 0,
+              "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+              "runtime_winner_selected": False,
+              "algorithm_reopen_authorized": False,
+              "research_artifact": RESEARCH_ARTIFACT
+          }
+          matrix_path.write_text(json.dumps(matrix, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          state_path = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          state["schema_version"] = "1.74.0"
+          audit = state["historical_audit"]
+          if BATCH_ID not in audit["completed_batches"]:
+              audit["completed_batches"].append(BATCH_ID)
+          audit["latest_batch_doc"] = BATCH_DOC
+          focus = audit["current_focus"]
+          additions = [
+              "Batch 12BO directly collates the Qing Kangxi-manuscript 《孫子彙徵》 physical target at PDF p44: 若子時則上半時在夜半前屬昨日下半時在夜半後為今日. The witness confirms generic previous/current-day midnight semantics but does not reassign upper Zi to Hai and is cross-disciplinary timekeeping evidence only, not a Ziwei/Bazi lineage vote.",
+              "Batch 12BO exposes a philological normalization boundary: the physical manuscript reads 屬昨日/為今日, Shidian regularizes to 屬昨日/屬今日, while Batch 12AT NCL 1578 《三命通會》 physically preserves 為昨日/屬今日. Treat these as DIFFERENT_WORDING_SAME_MECHANICAL_RULE; do not create false candidates from 為/屬 alternation.",
+              "Batch 12BO changes no rule accounting: HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; Hai physical vote increment 0; counts remain 198/166/10/14, provenance defects 11/11, and chart algorithm defect/reopen/collapse remain 0. Priority returns to the exact Shiqie target leaf, any genuinely independent explicit upper/night-Zi→Hai bridge, and the Fullbook cloudy/rain current-time acquisition chain."
+          ]
+          for item in additions:
+              if item not in focus:
+                  focus.append(item)
+          state["updated_at"] = "2026-09-14"
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          matrix_md = matrix_md_path.read_text(encoding="utf-8")
+          marker = "## Progress through Batch 12BO"
+          if marker not in matrix_md:
+              matrix_md += dedent('''\
+
+              ## Progress through Batch 12BO
+
+              - Batch 12BO directly collates the Qing Kangxi-manuscript 《孫子彙徵》 PDF p44 without OCR as glyph authority.
+              - The physical sentence reads `若子時則上半時在夜半前屬昨日下半時在夜半後為今日`; the public transcription regularizes the second relation verb to `屬今日`.
+              - This is `DIFFERENT_WORDING_SAME_MECHANICAL_RULE`: it corroborates generic midnight previous/current-day orientation, does not reassign upper Zi to Hai, and is not counted as an independent Ziwei/Bazi doctrinal lineage vote.
+              - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; row/audit/candidate counts and all algorithm invariants are unchanged.
+              ''')
+              matrix_md_path.write_text(matrix_md, encoding="utf-8")
+          PY
+
+          python scripts/verify-project-continuity-state-r1.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            "$BATCH_DOC" \
+            "$RESEARCH_ARTIFACT"
+          if git diff --cached --quiet; then
+            echo "Batch 12BO already formalized"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12BO Sunzi Huizheng timekeeping collation"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
