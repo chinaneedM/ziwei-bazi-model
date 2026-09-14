@@ -1,0 +1,45 @@
+name: render-ncl-sizijing-15275-0058-target-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-ncl-sizijing-15275-0058-target-pages.yml
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Download exact Taiwan NCL Sizijing scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          curl -L --fail --retry 3 'https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf' -o out/ncl-sizijing.pdf
+          pdfinfo out/ncl-sizijing.pdf > out/pdfinfo.txt
+          sha256sum out/ncl-sizijing.pdf > out/source-sha256.txt
+      - name: Render all 21 pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=96 -r 220 out/ncl-sizijing.pdf out/p
+          sha256sum out/p-*.jpg > out/rendered-sha256.txt
+      - name: Upload physical-scan evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl-sizijing-15275-0058-pages
+          path: |
+            out/p-*.jpg
+            out/pdfinfo.txt
+            out/source-sha256.txt
+            out/rendered-sha256.txt
+          retention-days: 30
