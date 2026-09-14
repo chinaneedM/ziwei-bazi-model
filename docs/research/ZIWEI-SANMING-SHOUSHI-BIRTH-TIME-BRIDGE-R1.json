@@ -1,0 +1,95 @@
+{
+  "schema": "ZIWEI-SANMING-SHOUSHI-BIRTH-TIME-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SANMING-SHOUSHI-BIRTH-TIME-BRIDGE-BZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-SIZIJING-SEASONAL-TIMEKEEPING-GEOGRAPHIC-CALIBRATION-BY",
+  "question": "Does a primary Ming mantic source directly bridge uncertain natal birth-time adjudication to a historical calendrical/timekeeping framework strongly enough to narrow HPA-ZDATE-006 runtime time-standard provenance?",
+  "existing_primary_witness": {
+    "source_id": "EXT-SANMING-NCL-1578-MAIN",
+    "research_artifact": "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json",
+    "edition": "萬曆六年（1578）刻本 / Taiwan National Central Library physical scan",
+    "direct_no_ocr_sequence": [
+      "論日刻: 銅壺貯水漏下壺箭 / 一日百刻",
+      "論時刻: 子時上半在夜半前為昨日、下半在夜半後屬今日",
+      "論曰: 看命之法以時為低昂 / 子亥中間厥時難定",
+      "論曰: 陰晴倏忽寒煖迥別",
+      "論曰: 余姑就授時曆分之 / 要在智者密察而詳問之"
+    ]
+  },
+  "new_cross_holding_physical_control": {
+    "source_id": "EXT-NLC-CHINA-SANMING-TONGHUI-WANLI-JUAN2-BIRTH-TIME-BRIDGE",
+    "bibliographic_scope": "National Library of China Ming Wanli [1573-1620] 刻本; exact 1578 impression identity not established",
+    "volume3": {
+      "role": "卷之二上",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999029701-67186_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_%E7%AC%AC3%E5%86%8A.pdf",
+      "workflow_run_id": 34830209613,
+      "artifact_id": 10341698973,
+      "artifact_digest": "sha256:cd7da63c991023c32ef6e730bb023bad74d43c78e3a16047ab59c86c918992f7",
+      "pdf_sha256": "112084f6f463038285d87c477a6f80527d44a3e3d4d16a5e0ecfb24159f320d2",
+      "decisive_render_page_34_sha256": "e101938a24c86ec8baa756b3983360e24e82afb20cec48a450c7d5f242393d4b",
+      "direct_no_ocr_findings": [
+        "page 33 begins 論日刻",
+        "page 34 begins 論時刻",
+        "論時刻 directly states 大晝夜十二時均分百刻 and the upper/lower Zi midnight split",
+        "the section then proceeds into seasonal solar-term sunrise/sunset and day/night-ke data and continues across the fascicle boundary"
+      ]
+    },
+    "volume4": {
+      "role": "卷之二下",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999029701-67187_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_%E7%AC%AC4%E5%86%8A.pdf",
+      "workflow_run_id": 34830529198,
+      "artifact_id": 10341699530,
+      "artifact_digest": "sha256:849473a7e9006c79ad9070c5cd8778ef641e73adeee0b8a1add04e3037ccbd7c",
+      "pdf_sha256": "3e2e924984f51628207bfec441729b1b616e4f051cfa3ea6661262888bba1f18",
+      "decisive_render_page_02_sha256": "f508e224012c4694a81d2a985bd1fb1911e9134afd2d77fc07cfb5b7c6aa4d14",
+      "direct_no_ocr_findings": [
+        "opening continues the late-year seasonal table through 立冬、小雪、大雪",
+        "the same physical page continues into 論曰看命之法以時為低昂時有八刻初正之氣不同",
+        "the continuation includes 子亥中間厥時難定 and the final appeal to 授時曆分之、密察而詳問"
+      ]
+    },
+    "independent_physical_holding_increment": 1,
+    "independent_textual_vote_increment": 0,
+    "same_impression_identity_proved": false,
+    "ocr_used_for_glyph_claims": false
+  },
+  "philological_and_operational_adjudication": {
+    "mantic_birth_time_to_shoushi_calendar_bridge": "DIRECT_PRIMARY_MING_PHYSICAL_ATTESTATION_CROSS_HOLDING_STABLE",
+    "bridge_scope": "The mantic text itself places uncertain natal birth-time adjudication beside sub-hour ke, seasonal solar-term sunrise/sunset/day-night data, and explicitly says to divide/adjudicate by the Shoushi calendar.",
+    "historical_time_standard_narrowing": "SIGNIFICANT: runtime provenance is no longer limited to an unspecified generic traditional clock; the source horizon explicitly invokes Shoushi-calendar time division and seasonal calendrical tables.",
+    "automatic_inverse_birth_time_formula_recovered": false,
+    "reason_formula_not_closed": "The passage does not supply a deterministic mapping from biographical/narrative birth evidence to an exact clock instant; it explicitly retains 密察而詳問 as part of adjudication.",
+    "location_binding_closed": false,
+    "modern_local_apparent_solar_time_equivalence_proved": false,
+    "upper_half_zi_reclassified_to_hai_branch": false,
+    "fullbook_luojing_sentence_explained": false,
+    "direct_textual_dependency_between_sizijing_and_sanming": false,
+    "functional_semantic_bridge_sizijing_to_sanming": "PLAUSIBLE_AND_NOW_PRIMARY-CONTROLLED: both concern difficult birth-time determination and seasonal/timekeeping context, but wording/formula identity is not proved."
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding": "PARTIALLY_NARROWED_TO_SHOUSHI_CALENDAR / SEASONAL KE FRAMEWORK, NOT CLOSED TO A MODERN INSTANT",
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "hai_branch_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "remaining_blockers": [
+      "source-close the Fullbook-specific upper-five-ke -> previous-night Hai branch reassignment as a mechanical rule across sufficient direct witnesses",
+      "resolve how the source-scoped Shoushi/seasonal framework maps to birthplace/locality and a reproducible modern instant or preserve it as a non-runtime historical practice",
+      "recover an explicit operational input rule if automated uncertain-birth-time reconstruction is ever proposed; do not infer one from 密察而詳問"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

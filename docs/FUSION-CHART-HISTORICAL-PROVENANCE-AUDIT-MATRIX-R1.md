@@ -516,3 +516,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Songshi likewise states geographic distance affects gnomon results and records Lin'an parameters differing from Yue-tai; separate calendar procedures compute daily dawn/dusk, sunrise/sunset and midnight leak for the standard location.
 - Therefore any future attempt to operationalize Sizijing `旦夕/月建/長短` must identify a geographic calibration basis. A universal month-only correction table is historically under-specified.
 - No direct bridge authorizes importing Song Yue-tai formulae into Sizijing, so no new runtime candidate, winner, Hai vote or algorithm reopen is created.
+
+
+## Progress through Batch 12BZ
+
+- The 1578 physical Sanming Tonghui witness already directly connects natal birth-time adjudication to Shoushi-calendar division after a seasonal sunrise/sunset/day-night-ke table; Batch 12BZ integrates that primary bridge with the later Sizijing seasonal-timekeeping research.
+- A separate China National Library Ming-Wanli physical holding (juan 2 upper/lower across volumes 3–4) was rendered without OCR and reconfirms the same structural/textual sequence. Its exact identity with the 1578 impression is not assumed and it adds no independent textual vote.
+- HPA-ZDATE-006 historical time-standard provenance is therefore significantly narrowed to a Shoushi-calendar/seasonal-ke horizon, but no deterministic inverse birth-time formula, locality binding, modern-instant mapping, or upper-Zi-to-Hai reassignment is closed.
+- Result: HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; no runtime candidate, winner, collapse, or algorithm reopen.
