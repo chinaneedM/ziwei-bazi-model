@@ -546,3 +546,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The complete 45-page public 1569 Zhou-Xiang 《大明大統曆法》 volume was rendered and visually reviewed without OCR. It directly strengthens the pre-1578 Ming Datong method-source stack.
 - The reviewed physical object does not directly expose the distinctive Sanming seasonal 42/58...59/41 table. This is strictly a volume-scoped nonattestation; it does not authorize a claim that the wider Datong tradition, other fascicles, official almanacs or separately transmitted tables lack such material.
 - Exact Sanming table provenance/locality therefore remains open. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; no Hai-branch vote, runtime candidate, winner, collapse or algorithm reopen is introduced.
+
+
+## Progress through Batch 12CD
+
+- Direct no-OCR review of received 《革象新書》 pp78-80 physically locks the near-verbatim hundred-ke / half-Zi prose lineage later seen in the 1578 《三命通會》, while preserving the `屬昨日` versus Sanming `為昨日` recension difference.
+- Re-reading the Tianyige Ming-print 《虎鈐經·傳箭》 as a complete sequence shows an older 40↔60 one-ke-step ladder containing many exact Sanming numeric pairs. Sanming changes term/date anchors and caps summer solstice at 59/41 rather than Huqianjing's 60/40.
+- The composite model—older prose lineage + older leak-arrow numeric ladder + Ming adaptation—is materially strengthened, but the exact pre-1578 Ming/Nanjing 59/41 parent remains open. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; no Hai vote or algorithm reopen is introduced.
