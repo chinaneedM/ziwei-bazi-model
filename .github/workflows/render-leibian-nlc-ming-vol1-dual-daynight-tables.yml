@@ -1,0 +1,59 @@
+name: render-leibian-nlc-ming-vol1-dual-daynight-tables
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-leibian-nlc-ming-vol1-dual-daynight-tables.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils imagemagick
+      - name: Download NLC Ming-print volume 1
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999018604-67969_%E9%A1%9E%E7%B7%A8%E6%9B%86%E6%B3%95%E9%80%9A%E6%9B%B8%E5%A4%A7%E5%85%A8_%E7%AC%AC1%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/leibian_lifa_ming_vol1.pdf
+          sha256sum evidence/leibian_lifa_ming_vol1.pdf | tee evidence/source.sha256
+          pdfinfo evidence/leibian_lifa_ming_vol1.pdf | tee evidence/pdfinfo.txt
+      - name: Render all pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=85 -r 105 evidence/leibian_lifa_ming_vol1.pdf evidence/pages/page
+          n=$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -eq 95
+          sha256sum evidence/pages/*.jpg | sort -V > evidence/pages.sha256
+          for start in 1 21 41 61 81; do
+            end=$((start+19)); [ "$end" -gt 95 ] && end=95
+            files=()
+            for p in $(seq "$start" "$end"); do
+              f=$(printf 'evidence/pages/page-%03d.jpg' "$p")
+              [ -f "$f" ] && files+=("$f")
+            done
+            montage "${files[@]}" -thumbnail 240x360 -tile 5x -geometry +4+4 "evidence/contact/contact-${start}-${end}.jpg"
+          done
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=MING_PRINT_LEIBIAN_LIFA_VOL1_DUAL_DAY_NIGHT_TABLE_LOCATOR\nTARGETS=COPPER_POT_24_QI_40_60_TABLE_AND_SISHI_JIAJIAN_38_62_TABLE\n' > evidence/manifest.txt
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: leibian-lifa-nlc-ming-vol1-dual-daynight-tables
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
