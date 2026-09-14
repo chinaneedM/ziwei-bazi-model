@@ -452,3 +452,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The extant physical-recension layer is the Ming Jiajing duplicate tradition; do not call the current scan an extant 1408 physical leaf. The textual incorporation layer belongs to the Yongle Dadian compilation tradition, while the internally cited `古經` remains unidentified and undated.
 - The wording is closely parallel to 1581 Jielan `天陰雨下時難定，便是神仙也有差`, establishing an early shared inclement-birth-time motif/formula but not direct copying or a single school lineage.
 - Public scan page 3 is located, but direct project screenshot/no-OCR glyph collation was not completed; HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`, Hai vote is unchanged, and the Fullbook cloudy/rain operational mechanism remains open.
+
+## Progress through Batch 12BR
+
+- Independent Ming-print transmission of 《四字經》 is now confirmed outside 《永樂大典》: Taiwan NCL catalogs a one-juan Ming-Wanli Jinling Jingshan-shulin object (15275-0058), while an NLC-sourced 1597 《夷門廣牘》 scan independently contains 《四字經》.
+- CText explicitly binds its automatic OCR to the 《夷門廣牘》 base. Despite OCR corruption, the opening `唐明皇論` preserves the same long ordered architecture as the Yongle-Dadian `四字經序`: fate/八字 and five-phase framing, seasonal/day-night analogies, weather and travel imagery, simultaneous-number wealth/rank/longevity differences, difficult 亥子丑寅 hours, inclement-weather time uncertainty, `便是神仙也有差`, and month-length/time reasoning.
+- This upgrades the evidence from a shared proverb/motif to a demonstrable Sizijing transmission/text-family bridge. It does not prove exact recension identity, direct copying, Tang authorship/date, or exact glyph variants.
+- Apparent variants `古經/古人`, `雨露/雨落`, and `子丑寅亥/亥子丑寅` remain OCR-bound and unadjudicated. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, runtime and algorithm invariants remain unchanged.
