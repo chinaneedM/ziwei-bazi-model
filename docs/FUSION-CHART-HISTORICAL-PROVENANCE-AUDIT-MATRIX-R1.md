@@ -500,3 +500,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Xu Guangqi's Chongzhen technical memorandum supplies the weather fallback explicitly: sun dial by day, star dial by night, corrected compass for meridian orientation, and calibrated running clepsydra for dawn/dusk/cloud/rain when the dials cannot operate.
 - This establishes a historically attested inclement-weather current-time mechanism in Ming technical practice, but does not rewrite the Fullbook physical reading `羅經` into `行漏` or prove what exact instrument composition Fullbook practitioners intended.
 - HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; no runtime winner, Hai mechanical vote, candidate collapse or algorithm reopen follows from this contextual closure.
+
+
+## Progress through Batch 12BX
+
+- The end of the Sizijing inclement-time passage now has a two-recension physical reading: Yongle `旦夕將月建長短而推言` versus 1597 Yimen `旦夕時刻且將月運長短定推言之`; `月建/月運` is a genuine recension variant, not OCR noise.
+- Premodern technical controls place `旦夕/長短` in a real seasonal timekeeping domain: Sui Shu says leak-clock allocation changes with qi and winter/summer day-night length, while Song Qunshu Kaosuo explicitly links 斗建 and seasonal progression to leak-arrow length and 48 arrows keyed to 24 qi.
+- Classical `月運` also means lunar motion (`方言`: 日運為躔、月運為逡; Tang 海濤論: 月運朔望), so the Yimen reading cannot be silently converted into a modern monthly-fortune cycle.
+- Semantic domain is narrowed, but exact 月建↔月運 operational equivalence and a numeric birth-time recovery formula remain unproved. HPA-ZDATE-006 and runtime invariants do not change.
