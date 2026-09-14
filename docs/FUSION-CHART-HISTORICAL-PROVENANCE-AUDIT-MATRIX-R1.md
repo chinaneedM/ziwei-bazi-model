@@ -492,3 +492,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - This closes the exact-glyph authority gap left by Batch 12BQ. Combined with Batch 12BS, both sides of the Sizijing comparison now have physical glyph authority: Yongle/Jiajing-duplicate recension `古經 / 雨露 / 子丑寅亥` versus 1597 Yimen `古人 / 雨落 / 亥子丑寅`.
 - The differences are therefore genuine recension variation, not OCR/transcription noise. No archetype, copying direction, stemmatic winner or runtime winner is selected.
 - The four-hour ordering remains a textual list, not an operational late-Zi-to-Hai reclassification rule. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai mechanical vote, candidate collapse and algorithm reopen remain unchanged.
+
+
+## Progress through Batch 12BW
+
+- Ming institutional timekeeping is now closed at the technical-context layer: the Zhengde and Wanli Huidian traditions record leak-clock time determination, hour-tablet changes, drum watch reporting, and bell/drum dawn-dusk signaling, with Qintianjian leak-clock personnel maintaining the system.
+- Xu Guangqi's Chongzhen technical memorandum supplies the weather fallback explicitly: sun dial by day, star dial by night, corrected compass for meridian orientation, and calibrated running clepsydra for dawn/dusk/cloud/rain when the dials cannot operate.
+- This establishes a historically attested inclement-weather current-time mechanism in Ming technical practice, but does not rewrite the Fullbook physical reading `羅經` into `行漏` or prove what exact instrument composition Fullbook practitioners intended.
+- HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; no runtime winner, Hai mechanical vote, candidate collapse or algorithm reopen follows from this contextual closure.
