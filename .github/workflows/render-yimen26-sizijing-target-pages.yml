@@ -1,0 +1,47 @@
+name: render-yimen26-sizijing-target-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yimen26-sizijing-target-pages.yml
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install DjVu tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+      - name: Download exact Yimen 26 scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          curl -L --fail --retry 3 'https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%98%8E%E5%88%BB%E6%9C%AC%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%9826.djvu' -o out/yimen26.djvu
+          sha256sum out/yimen26.djvu > out/source-sha256.txt
+      - name: Render p21-p24 at high resolution without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in 21 22 23 24; do
+            ddjvu -format=jpeg -quality=95 -page="$i" -scale=55 out/yimen26.djvu out/p${i}.jpg
+          done
+          sha256sum out/p*.jpg > out/rendered-sha256.txt
+      - name: Upload target evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: yimen26-sizijing-target-pages
+          path: |
+            out/p21.jpg
+            out/p22.jpg
+            out/p23.jpg
+            out/p24.jpg
+            out/*.txt
+          retention-days: 30
