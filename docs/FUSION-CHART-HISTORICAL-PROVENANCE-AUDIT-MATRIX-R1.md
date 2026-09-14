@@ -508,3 +508,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Premodern technical controls place `旦夕/長短` in a real seasonal timekeeping domain: Sui Shu says leak-clock allocation changes with qi and winter/summer day-night length, while Song Qunshu Kaosuo explicitly links 斗建 and seasonal progression to leak-arrow length and 48 arrows keyed to 24 qi.
 - Classical `月運` also means lunar motion (`方言`: 日運為躔、月運為逡; Tang 海濤論: 月運朔望), so the Yimen reading cannot be silently converted into a modern monthly-fortune cycle.
 - Semantic domain is narrowed, but exact 月建↔月運 operational equivalence and a numeric birth-time recovery formula remain unproved. HPA-ZDATE-006 and runtime invariants do not change.
+
+
+## Progress through Batch 12BY
+
+- Song official timekeeping evidence makes the seasonal-timekeeping interpretation more constrained: Wang Pu's Guanli Kelou Tu preface says Yue-tai is the standard, but regional solstitial day/night ke and even 24-qi arrow-change dates can differ across the realm.
+- Songshi likewise states geographic distance affects gnomon results and records Lin'an parameters differing from Yue-tai; separate calendar procedures compute daily dawn/dusk, sunrise/sunset and midnight leak for the standard location.
+- Therefore any future attempt to operationalize Sizijing `旦夕/月建/長短` must identify a geographic calibration basis. A universal month-only correction table is historically under-specified.
+- No direct bridge authorizes importing Song Yue-tai formulae into Sizijing, so no new runtime candidate, winner, Hai vote or algorithm reopen is created.

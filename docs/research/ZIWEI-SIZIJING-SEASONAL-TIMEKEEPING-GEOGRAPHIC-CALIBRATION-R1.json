@@ -1,0 +1,64 @@
+{
+  "schema": "ZIWEI-SIZIJING-SEASONAL-TIMEKEEPING-GEOGRAPHIC-CALIBRATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-SIZIJING-SEASONAL-TIMEKEEPING-GEOGRAPHIC-CALIBRATION-BY",
+  "prior_batch_id": "BATCH-12-ZIWEI-SIZIJING-DANXI-YUEJIAN-YUEYUN-SEMANTICS-BX",
+  "question": "If Sizijing yuejian/long-short belongs to seasonal timekeeping, was that technical system historically location-independent?",
+  "song_controls": [
+    {
+      "source_id": "EXT-WIKISOURCE-YUHAI-V11-WANGPU-GUANLI-KELOU-GEOGRAPHIC-CALIBRATION",
+      "title": "王應麟《玉海》卷11所錄王普《官曆刻漏圖》",
+      "url": "https://zh.wikisource.org/wiki/%E7%8E%89%E6%B5%B7_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B7011",
+      "core": "百刻分十二辰; 晝夜長短以岳臺為定; 九服之地冬夏至晝夜刻數或與岳臺不同; 二十四氣前後易箭之日亦皆少差",
+      "role": "SONG_BIBLIOGRAPHIC_AND_TECHNICAL_GEOGRAPHIC_CALIBRATION_CONTROL"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-SIKU-ZONGMU-V107-GUANLI-KELOU-GEOGRAPHIC-CALIBRATION",
+      "title": "《四庫全書總目》卷107《官曆刻漏圖》提要",
+      "url": "https://zh.wikisource.org/wiki/%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%B8%BD%E7%9B%AE%E6%8F%90%E8%A6%81/%E5%8D%B7107",
+      "core": "宋王普撰; 永樂大典本; 官曆漏刻以岳臺為定; 九服之地差異導致二十四氣易箭日差",
+      "role": "INDEPENDENT_CATALOG_TRANSMISSION_CONTROL_FOR_WANGPU_PREFACE"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-SONGSHI-V48-YUETAI-LINAN-GNOMON-GEOGRAPHY",
+      "title": "《宋史》卷48 天文志土圭",
+      "url": "https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B7048",
+      "core": "冬至晷景長短實與歲差相應而地里遠近古今亦不同; 臨安之晷景當與岳臺異",
+      "role": "OFFICIAL_HISTORIOGRAPHIC_GEOGRAPHIC_GNOMON_CALIBRATION_CONTROL"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-SONGSHI-V75-DAILY-SUNRISE-LEAK-FORMULAE",
+      "title": "《宋史》律曆志步晷漏術",
+      "url": "https://zh.wikisource.org/wiki/%E5%AE%8B%E5%8F%B2_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%85%A8%E8%A6%BD3",
+      "core": [
+        "求岳臺晷景",
+        "求每日晨昏分及日出入分",
+        "求每日夜半定漏"
+      ],
+      "role": "LOCATION_SCOPED_OPERATIONAL_DAILY_TIMEKEEPING_FORMULA_CONTROL"
+    }
+  ],
+  "adjudication": {
+    "seasonal_day_night_length_historically_geographically_calibrated": true,
+    "universal_month_only_table_historically_sufficient": false,
+    "direct_bridge_sizijing_to_wangpu_formula_found": false,
+    "sizijing_location_standard_found": false,
+    "sizijing_numeric_table_found": false,
+    "sizijing_birth_hour_mapping_formula_found": false,
+    "song_yuetai_formula_import_into_sizijing_authorized": false,
+    "minimum_future_candidate_requirements": [
+      "seasonal_or_qi_position",
+      "geographic_calibration_basis",
+      "day_night_or_dawn_dusk_model",
+      "event_to_time_mapping_rule"
+    ]
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "future_candidate_location_provenance_required": true,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}
