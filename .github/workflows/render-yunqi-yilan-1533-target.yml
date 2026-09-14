@@ -19,11 +19,11 @@ jobs:
       - name: Install PDF tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y poppler-utils imagemagick
+          sudo apt-get install -y poppler-utils
       - name: Download Xu Xiu Siku volume 983 facsimile
         run: |
           set -euo pipefail
-          mkdir -p evidence/pages evidence/contact
+          mkdir -p evidence/pages
           url='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC0983%E5%86%8A.pdf'
           curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/xuxiu_siku_0983.pdf
           sha256sum evidence/xuxiu_siku_0983.pdf | tee evidence/source.sha256
@@ -32,21 +32,9 @@ jobs:
         run: |
           set -euo pipefail
           pdftoppm -f 360 -l 445 -jpeg -jpegopt quality=85 -r 120 evidence/xuxiu_siku_0983.pdf evidence/pages/page
+          test "$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)" -eq 86
           sha256sum evidence/pages/*.jpg | sort -V | tee evidence/pages.sha256
-          mapfile -t pages < <(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | sort -V)
-          chunk=20
-          idx=1
-          total=${#pages[@]}
-          for ((start=0; start<total; start+=chunk)); do
-            end=$((start+chunk))
-            if (( end > total )); then end=$total; fi
-            slice=("${pages[@]:start:end-start}")
-            printf -v out 'evidence/contact/contact-%02d.jpg' "$idx"
-            montage "${slice[@]}" -thumbnail 360x480 -tile 4x5 -geometry +4+4 "$out"
-            idx=$((idx+1))
-          done
-          sha256sum evidence/contact/*.jpg | sort -V | tee evidence/contact.sha256
-          printf 'NO_OCR_USED=true\nSOURCE_ROLE=1533_CHENGQIAO_PRINT_FACSIMILE_TARGET_REVIEW\nPDF_RANGE=360-445\nFULL_PAGE_GLYPH_CLAIMS_AUTHORIZED=true\n' > evidence/manifest.txt
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=1533_CHENGQIAO_PRINT_FACSIMILE_TARGET_REVIEW\nPDF_RANGE=360-445\nFULL_PAGE_GLYPH_CLAIMS_AUTHORIZED=true\nCONTACT_SHEETS_OMITTED=true\n' > evidence/manifest.txt
       - name: Upload target evidence
         uses: actions/upload-artifact@v4
         with:
@@ -56,8 +44,7 @@ jobs:
             evidence/pdfinfo.txt
             evidence/pages/
             evidence/pages.sha256
-            evidence/contact/
-            evidence/contact.sha256
             evidence/manifest.txt
           if-no-files-found: error
+          compression-level: 6
           retention-days: 30
