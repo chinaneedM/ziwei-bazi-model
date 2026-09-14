@@ -1,0 +1,33 @@
+name: export-xuxiu-siku-0983-source
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/export-xuxiu-siku-0983-source.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download physical facsimile source
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC0983%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/xuxiu_siku_0983.pdf
+          sha256sum evidence/xuxiu_siku_0983.pdf | tee evidence/source.sha256
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=PHYSICAL_FACSIMILE_LOCAL_COLLATION\n' > evidence/manifest.txt
+      - name: Upload source facsimile
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu-siku-0983-source-facsimile
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
