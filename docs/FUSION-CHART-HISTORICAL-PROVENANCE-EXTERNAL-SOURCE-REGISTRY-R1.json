@@ -3512,7 +3512,8 @@
         "physical_toc_directly_attests_tang_minghuang_lun": true,
         "same_impression_with_yimen_proved": false,
         "disbound_identity_proved": false
-      }
+      },
+      "batch_12bu_current_first_party_crosswalk": "EXT-TW-NCL-RBOOK-SIZIJING-15275-0058-CURRENT-FIRST-PARTY"
     },
     {
       "source_id": "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN",
@@ -3542,6 +3543,12 @@
         ],
         "classification": "PUBLIC_21_PAGE_DERIVATIVE_TARGET_BODY_LEAF_LACUNA; PHYSICAL_HOLDING_LACUNA_NOT_PROVED",
         "target_variant_glyph_authority": false
+      },
+      "batch_12bu_first_party_viewer_comparison": {
+        "first_party_source_id": "EXT-TW-NCL-RBOOK-SIZIJING-15275-0058-CURRENT-FIRST-PARTY",
+        "commons_public_scan_lacuna_reversed": false,
+        "first_party_has_advertised_viewer_route": true,
+        "first_party_target_leaf_presence": "UNRESOLVED_AT_HUMAN_VERIFICATION_BOUNDARY"
       }
     },
     {
@@ -3597,6 +3604,34 @@
       "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1970023484950143408",
       "source_role": "DOWNSTREAM_RECEIVED_TEXT_CONTROL_NOT_INDEPENDENT_EARLY_WITNESS",
       "quality_notes": "Bibliographic note states 四字經據夷門廣牘本影印. Used only to document downstream transmission from the Yimen edition; no independent early vote."
+    },
+    {
+      "source_id": "EXT-TW-NCL-RBOOK-SIZIJING-15275-0058-CURRENT-FIRST-PARTY",
+      "title": "臺灣國家圖書館古籍與特藏文獻資源《四字經》15275-0058 current first-party record/viewer route",
+      "historical_period": "明萬曆間刊本館藏 / current first-party digital access surface",
+      "provider": "臺灣國家圖書館",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?item=4f498ed65b97408aaf74cfcc1bec50abfDU0NDQ40.ug9YiJNB_UJXAc_XtEgviCIhdiQ0ZG3qjeyuaPAXm5Q_&page=&SourceID=1&HasImage=",
+      "source_role": "CURRENT_FIRST_PARTY_OBJECT_BINDING_AND_IMAGE_VIEWER_ACCESS_CONTRACT_FOR_NCL_15275_0058",
+      "quality_notes": "Direct Batch 12BU probe binds the exact object and viewer target, but image enumeration is gated by an interactive puzzle captcha. No bypass was attempted. This source is access/provenance evidence until the target body leaf is directly viewed.",
+      "batch_12bu_probe": {
+        "probe_head": "3a78c8886d86db7b1904bcaaff4ee6b3c11d6457",
+        "workflow_run_id": 34826374689,
+        "artifact_id": 10340003938,
+        "artifact_digest": "sha256:8f76217d9614eda5f291614cae43fa0b6d58dbe68e388ec2b6ccbceb6f57517a",
+        "sha256": {
+          "catalog_html": "b1ae87e2742faa16e5df46dea2f4693a2fd5ecf5c4db96ef9e0d52d30a2619d2",
+          "image_s1_html": "24512ba9983778f8cdad16c0ec944019cd0880dc7c4a18f6daf623f640f800d4",
+          "image_blank_html": "e33d8e23c4db3da68de42eacd27ed2b7739570ff18479af0555948eac92569b8",
+          "image_control_js": "fa9a91352d743357cf854b89f303454187825c3cfe6a3d337d5df57ca5b5dfb9",
+          "puzzle_captcha_js": "f5a65376ac35efecbd2b1592ae61d7472298ddba2f5de4eddd0697cee638ad22"
+        },
+        "viewer_path": "/NCLSearch/Search/SearchDetail?item=4f498ed65b97408aaf74cfcc1bec50abfDU0NDQ40.ug9YiJNB_UJXAc_XtEgviCIhdiQ0ZG3qjeyuaPAXm5Q_&image=1&page=&SourceID=1&HasImage=",
+        "puzzle_captcha_generate": "/NCLSearch/Users/GenerateCaptcha",
+        "puzzle_captcha_verify": "/NCLSearch/Users/VerifyCaptcha",
+        "direct_get_imagec_entry_count": 0,
+        "target_leaf_presence": "UNRESOLVED_AT_HUMAN_VERIFICATION_BOUNDARY",
+        "captcha_bypass_attempted": false
+      }
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

@@ -476,3 +476,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Page 3 directly reads `四字經目錄終`; the next public page 4 opens the visible body as `四字經 / 甲甲`, and the remaining pages continue the stem-pair body through `癸癸`. No `唐明皇論` prose body leaf is exposed in the 21-page public derivative.
 - The admissible finding is a public-scan target-leaf lacuna, not proof that the physical holding lacks the leaf. Taiwan contributes no direct glyph vote for `古人/古經`, `雨落/雨露`, or hour ordering from this derivative, and same-impression/disbound identity with the Yimen object remains unproved.
 - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai-branch mechanical vote, runtime selection, candidate collapse and algorithm reopen remain unchanged. Next gate is another Taiwan image route or direct Yongle physical collation, while the Fullbook operational-current-time chain remains separate.
+
+
+## Progress through Batch 12BU
+
+- The current Taiwan NCL first-party `rbook.ncl.edu.tw` record is directly rebound to 《四字經》 / 15275-0058 and advertises an image-viewer target for the same holding.
+- Entry to image enumeration is guarded by an interactive puzzle captcha. The official page only navigates to the hidden viewer URL on successful verification; direct image=1 GETs without that human-verification state return the detail surface and expose zero `.ImageC` page entries.
+- The admitted-viewer JavaScript expects `.ImageC` page links and per-image watermark tokens, but no captcha bypass, fabricated solution or session replay was attempted. Therefore first-party target-leaf presence is `UNRESOLVED_AT_HUMAN_VERIFICATION_BOUNDARY`, not a negative holding result.
+- Batch 12BT's public-scan lacuna remains intact. Taiwan contributes no new target-variant glyph vote; HPA-ZDATE-006 stays `MISSING_FROM_PRODUCT`, with Hai mechanical vote/runtime selection/candidate collapse/algorithm reopen unchanged.
