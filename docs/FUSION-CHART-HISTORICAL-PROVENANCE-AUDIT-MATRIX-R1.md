@@ -438,3 +438,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The physical sentence reads `若子時則上半時在夜半前屬昨日下半時在夜半後為今日`; the public transcription regularizes the second relation verb to `屬今日`.
 - This is `DIFFERENT_WORDING_SAME_MECHANICAL_RULE`: it corroborates generic midnight previous/current-day orientation, does not reassign upper Zi to Hai, and is not counted as an independent Ziwei/Bazi doctrinal lineage vote.
 - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; row/audit/candidate counts and all algorithm invariants are unchanged.
+
+## Progress through Batch 12BP
+
+- Historical Tianyige catalogs independently record `筮箧理数日钞二十卷`; the Jiaqing catalog preface describes an actual cabinet-by-cabinet pavilion inventory, and the late-Qing `見存` catalog still lists the title.
+- The late-Qing Tianyige and Zhejiang collection catalogs attribute the work to `明柯佩編/輯`; the NAJ/Shidian copy carries `一壺天俱道人` responsibility wording. The identity/role relationship is unresolved and is not collapsed.
+- This is a historical holding-lineage advance only. Present survival, current shelfmark, textual identity with the NAJ 1565 copy, and the exact `上四亥` target glyph remain unresolved.
+- HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, candidate, runtime and algorithm invariants are unchanged.
