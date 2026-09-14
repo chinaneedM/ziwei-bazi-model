@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-14",
+  "access_date": "2026-09-15",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -3879,6 +3879,26 @@
       "url": "https://ctext.org/wiki.pl?chapter=539078&if=gb",
       "source_role": "LATER_MING_EXPLANATORY_CONTROL_FOR_NANJING_DATONG_59_41_VS_YANDU_SHOUSHI_62_38",
       "quality_notes": "卷47 explicitly says early-Ming Datong day/night change was recalibrated to Nanjing clepsydra: summer-solstice day and winter-solstice night 59 ke, reverse 41; Yandu Shoushi is 62/38. The 1600 work is later than the 1578 Sanming witness and therefore cannot be promoted into its ancestor; it is explanatory control only."
+    },
+    {
+      "source_id": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+      "title": "《明英宗睿皇帝實錄》三百六十一卷第16冊，卷160，正統十二年十一月甲寅條",
+      "author_attribution": "〔明〕孫繼宗等纂修",
+      "historical_period": "MING_OFFICIAL_RECORD_EVENT_1447; SURVIVING_COPY_CATALOGUED_MING_MANUSCRIPT_1368_1644",
+      "edition": "抄本，12行24字，平館藏書；第16冊收卷158-169；Wikimedia/NLC metadata",
+      "provider": "National Library of China digitization via Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM0103-366390_%E6%98%8E%E8%8B%B1%E5%AE%97%E7%9D%BF%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84_%E4%B8%89%E7%99%BE%E5%85%AD%E5%8D%81%E4%B8%80%E5%8D%B7_%E7%AC%AC16%E5%86%8A.pdf",
+      "source_role": "DIRECT_PHYSICAL_PRE1578_OFFICIAL_MING_RECORD_FOR_NANJING_59_KE_AND_BEIJING_62_KE_SOLSTITIAL_LOCALITY_STANDARD",
+      "quality_notes": "Batch 12CF direct no-OCR review. PDF p21 opens 卷160 / 正統十二年十一月; p28 contains the 甲寅 Peng Deqing memorial; p30 opens 卷161, binding the target securely inside vol.160. The physical text directly prints Nanjing winter-solstice night 59 and summer-solstice day 59, Beijing corresponding 62 values, and states palace/government clepsydra arrows were still the Nanjing old style. The complementary 41/38 values are derived only under the independently established 100-ke day/night framework; they are not printed as numerals in this memorial."
+    },
+    {
+      "source_id": "EXT-CTEXT-YINGZONG-SHILU-V160-1447-NANJING59",
+      "title": "中國哲學書電子化計劃《大明英宗睿皇帝實錄》卷160 received-text control",
+      "historical_period": "RECEIVED_TEXT_CONTROL_FOR_1447_EVENT",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=638064&if=gb",
+      "source_role": "SEARCHABLE_RECEIVED_TEXT_CONTROL_MATCHING_THE_PHYSICAL_1447_MEMORIAL",
+      "quality_notes": "Used as navigation/transcription control only; final glyph/date/location judgment rests on the NLC physical facsimile."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

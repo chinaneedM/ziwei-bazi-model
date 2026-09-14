@@ -561,3 +561,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The coarse table physically includes `小滿 59/41`, `夏至 60/40`, `大暑 59/41`; the fine table reaches `62/38`. Therefore Sanming's `夏至 59/41` equals neither table exactly, while dual-table coexistence materially strengthens a mixed/adapted lineage model.
 - A later Ming control, Xing Yunlu's 《古今律曆考》卷47, explicitly distinguishes Nanjing Datong `59/41` from Yandu Shoushi `62/38`. Because the work is later than the 1578 Sanming witness, this is explanatory control, not ancestor proof.
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no Hai vote, runtime winner, candidate collapse or algorithm reopen is introduced.
+
+
+## Progress through Batch 12CF
+
+- NLC physical collation of 《明英宗睿皇帝實錄》卷160, 正統十二年十一月甲寅 (1447), directly records Nanjing solstitial 59-ke extrema, Beijing 62-ke extrema, and states that palace/government clepsydra arrows were still the Nanjing old style.
+- This closes the pre-1578 Ming/Nanjing 59-ke locality layer. The complementary 41/38 values are explicitly classified as hundred-ke complements, not numerals directly printed in this memorial.
+- The exact bridge from the 1447 Nanjing endpoint to Sanming's 1578 multipoint solar-term sequence remains open; no Fullbook upper-five-ke -> Hai vote, runtime winner, candidate collapse or algorithm reopen is introduced.
