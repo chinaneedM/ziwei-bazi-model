@@ -445,3 +445,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The late-Qing Tianyige and Zhejiang collection catalogs attribute the work to `明柯佩編/輯`; the NAJ/Shidian copy carries `一壺天俱道人` responsibility wording. The identity/role relationship is unresolved and is not collapsed.
 - This is a historical holding-lineage advance only. Present survival, current shelfmark, textual identity with the NAJ 1565 copy, and the exact `上四亥` target glyph remain unresolved.
 - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, candidate, runtime and algorithm invariants are unchanged.
+
+## Progress through Batch 12BQ
+
+- 《永樂大典》卷18764 `前定數 → 諸家序 → 四字經序` preserves a pre-1581 textual attestation combining `子丑寅亥` hour-discrimination difficulty with the formula `古經云天陰雨露時難定，便是神仙也有差`.
+- The extant physical-recension layer is the Ming Jiajing duplicate tradition; do not call the current scan an extant 1408 physical leaf. The textual incorporation layer belongs to the Yongle Dadian compilation tradition, while the internally cited `古經` remains unidentified and undated.
+- The wording is closely parallel to 1581 Jielan `天陰雨下時難定，便是神仙也有差`, establishing an early shared inclement-birth-time motif/formula but not direct copying or a single school lineage.
+- Public scan page 3 is located, but direct project screenshot/no-OCR glyph collation was not completed; HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`, Hai vote is unchanged, and the Fullbook cloudy/rain operational mechanism remains open.
