@@ -568,3 +568,13 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - NLC physical collation of 《明英宗睿皇帝實錄》卷160, 正統十二年十一月甲寅 (1447), directly records Nanjing solstitial 59-ke extrema, Beijing 62-ke extrema, and states that palace/government clepsydra arrows were still the Nanjing old style.
 - This closes the pre-1578 Ming/Nanjing 59-ke locality layer. The complementary 41/38 values are explicitly classified as hundred-ke complements, not numerals directly printed in this memorial.
 - The exact bridge from the 1447 Nanjing endpoint to Sanming's 1578 multipoint solar-term sequence remains open; no Fullbook upper-five-ke -> Hai vote, runtime winner, candidate collapse or algorithm reopen is introduced.
+
+## Progress — Batch 12CG
+
+- Direct no-OCR review of NCL-06267 `《大統日出分》` closes a physical daily Nanjing Datong numerical substrate. Li Liang's independent table study classifies `大統日出入分` as 1380s Type `C-II-N` (Nanjing) and its published C-II-N opening/end fingerprints agree with the NCL object.
+- Converting `半晝分` to full daylight ke replays multiple distinct integer anchors across the 42→59 ladder seen in the 1578 `《三命通會》` seasonal table. This is a generative/numerical bridge, not proof that Wan Minying copied this exact surviving object or used modern nearest-integer rounding.
+- Song 日新 `《盂蘭盆經疏鈔餘義》` self-dates its lecture/republication to 熙寧元年 (1068); its received `〈節氣加減刻漏規式〉` says `今依本朝定景福殿秤漏` and assigns integer 40/60→60/40 day/night pairs to explicit intra-solar-term day ranges. It independently proves the stepped integer-bin algorithmic form long predates Sanming, while its exact change-days are not equated to Sanming.
+- Therefore the pre-1578 mechanical bridge is materially closed one layer: older integer-bin leak-clock practice + a Ming/Nanjing daily Datong numerical table can explain the form and value range of the Sanming ladder. Exact textual parent, compositing event and quantization thresholds remain unresolved.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts remain 198/166/10/14 and provenance defects remain 11/11.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md`. Research record: `docs/research/ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1.json`.

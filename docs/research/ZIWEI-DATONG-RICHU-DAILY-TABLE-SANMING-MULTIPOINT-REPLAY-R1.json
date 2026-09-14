@@ -1,0 +1,215 @@
+{
+  "schema": "ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG",
+  "prior_batch_id": "BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF",
+  "question": "Can the gap between the pre-1578 Nanjing 59-ke endpoint and the 1578 Sanming multipoint 42..59 ladder be narrowed by a directly bound Ming Nanjing daily sunrise/daylength table plus an independently earlier integer-bin timekeeping algorithm family?",
+  "physical_source": {
+    "source_id": "EXT-NCL-DATONG-RICHU-NCL06267",
+    "title": "大統日出分 / NCL-06267",
+    "workflow_run_id": 34869676923,
+    "artifact_id": 10358685142,
+    "artifact_digest": "sha256:fdb1fd4b9e0fc785d9fb467e00daa71544c412482e2093d31cf553152bd518fe",
+    "source_pdf_sha256": "0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d",
+    "page_count": 21,
+    "page_sha256": {
+      "02": "010e5bb728738126426bd784da05f53fe83a14ff540cdf0f46e627c4799a9d11",
+      "03": "3611a747aee0d01b57c87be4c32fbe66d1b7a6b7e5bb15f209a45d513fac528b",
+      "04": "44ee08862757b4b1581ba1386b0e0ceaebd73f8af5f21bd99796bccd03b953a4",
+      "05": "0ffa5e0c5f86a1ae1a1ebd63816475be26443f798bc4cbd4fdd2816a76d4eff4",
+      "06": "8424b8c33cdf04f8eabb52cacf55548096a27801fb49a1276812619cdd41157d",
+      "07": "39913feab54f7ae77bd129efa54610f903f0e3c2a799a1cc762343ef0c100ef8"
+    },
+    "ocr_used_for_glyph_claims": false,
+    "direct_structure": [
+      "daily argument sequence after winter solstice and after summer solstice",
+      "columns 晨分 / 日出分 / 半晝分 / 日入分 / 昏分",
+      "physical numerical progression is daily rather than only 24 fixed solar-term rows"
+    ]
+  },
+  "independent_scholarly_binding": {
+    "source_id": "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+    "url": "https://publikationen.badw.de/de/048385459/048385459%5BCC%20BY-NC-ND%5D.pdf",
+    "work": "Li Liang, Tables of Sunrise and Sunset in Yuan and Ming China (1271–1644) and their Adoption in Korea",
+    "table_identity": "大統日出入分 = Type C-II-N",
+    "dating": "1380s",
+    "site_code": "N = Nanjing",
+    "type_ii_argument": "days 0..182 after a solstice",
+    "type_ii_columns": [
+      "accumulated day",
+      "dawn",
+      "sunrise",
+      "half daytime",
+      "sunset",
+      "dusk"
+    ],
+    "published_cii_n_excerpt": {
+      "day0_half_day_fen": 2068.3,
+      "day10_half_day_fen": 2075.89,
+      "day178_half_day_fen": 2930.34,
+      "day179_half_day_fen": 2930.86,
+      "day180_half_day_fen": 2931.25,
+      "day181_half_day_fen": 2931.51,
+      "day182_half_day_fen": 2931.66
+    },
+    "physical_object_numeric_identity": "OPENING_AND_ENDPOINT_FINGERPRINTS_AGREE_WITH_NCL06267",
+    "direct_copy_genealogy_to_sanming_proved": false
+  },
+  "conversion_and_replay": {
+    "conversion": "full_daylight_ke = 2 * half_day_fen / 100, under the hundred-ke day and 10,000-fen day units used by the table tradition",
+    "replay_points": [
+      {
+        "day_after_winter_solstice": 21,
+        "half_day_fen": 2101.63,
+        "daylight_ke": 42.0326,
+        "nearest_integer_ke": 42,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 34,
+        "half_day_fen": 2154.21,
+        "daylight_ke": 43.0842,
+        "nearest_integer_ke": 43,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 43,
+        "half_day_fen": 2208.19,
+        "daylight_ke": 44.1638,
+        "nearest_integer_ke": 44,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 52,
+        "half_day_fen": 2257.14,
+        "daylight_ke": 45.1428,
+        "nearest_integer_ke": 45,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 59,
+        "half_day_fen": 2302.41,
+        "daylight_ke": 46.0482,
+        "nearest_integer_ke": 46,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 67,
+        "half_day_fen": 2348.62,
+        "daylight_ke": 46.9724,
+        "nearest_integer_ke": 47,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 74,
+        "half_day_fen": 2401.9,
+        "daylight_ke": 48.038,
+        "nearest_integer_ke": 48,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 89,
+        "half_day_fen": 2494.04,
+        "daylight_ke": 49.8808,
+        "nearest_integer_ke": 50,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 98,
+        "half_day_fen": 2559.25,
+        "daylight_ke": 51.185,
+        "nearest_integer_ke": 51,
+        "reading_scope": "DIRECT_VISUAL_APPROX"
+      },
+      {
+        "day_after_winter_solstice": 178,
+        "half_day_fen": 2930.34,
+        "daylight_ke": 58.6068,
+        "nearest_integer_ke": 59,
+        "reading_scope": "LI_LIANG_TABLE5_EXACT_TRANSCRIPTION"
+      },
+      {
+        "day_after_winter_solstice": 181,
+        "half_day_fen": 2931.51,
+        "daylight_ke": 58.6302,
+        "nearest_integer_ke": 59,
+        "reading_scope": "LI_LIANG_TABLE5_EXACT_TRANSCRIPTION"
+      }
+    ],
+    "coverage_review_days": [
+      21,
+      34,
+      43,
+      52,
+      59,
+      67,
+      74,
+      82,
+      89,
+      98,
+      106,
+      114,
+      122,
+      129,
+      137,
+      140,
+      148,
+      162,
+      178,
+      181
+    ],
+    "integer_ladder_result": "THE_DAILY_NANJING_CURVE_CONTINUOUSLY_SPANS_THE_SANMING_INTEGER_DAYLIGHT_LADDER_FROM_LOW_40S_TO_59; SELECTED_DIRECT_POINTS_REPLAY_MULTIPLE_DISTINCT_ANCHORS",
+    "exact_sanming_change_day_thresholds_recovered": false,
+    "nearest_integer_rounding_as_historical_sanming_rule_proved": false,
+    "reason_for_firewall": "A numerical replay can demonstrate a generative substrate without proving which historical quantization/rounding convention or source copy Wan Minying actually used."
+  },
+  "pre1578_integer_bin_mechanical_control": {
+    "source_id": "EXT-CBETA-X21N0376-JINGFUDIAN-CHENLOU",
+    "work_preface_date": "熙寧元年 / 1068",
+    "surviving_evidence_class": "LATER_RECEIVED_TEXT_PRESERVING_A_SELF_DATED_SONG_WORK; NOT_A_1068_PHYSICAL_SCAN",
+    "target_heading": "節氣加減刻漏規式",
+    "institutional_phrase": "今依本朝定景福殿秤漏，春秋二分各五十刻",
+    "mechanical_form": "integer day/night ke pairs are assigned to explicit day ranges within solar terms",
+    "range": "40/60 through 60/40",
+    "exact_sanming_change_days_identical": false,
+    "genealogy_to_sanming_proved": false,
+    "value": "This independently closes that intra-term integer-bin day/night tables are a much older operational form; it prevents treating Sanming's stepped format as a uniquely late invention."
+  },
+  "historical_synthesis": {
+    "pre1578_nanjing_daily_numeric_substrate": "CLOSED_AT_TABLE_FAMILY_LEVEL",
+    "pre1578_integer_bin_algorithm_family": "CLOSED_AT_RECEIVED_TEXT_LEVEL",
+    "sanming_1578_multipoint_table_mechanically_explainable_from_these_families": true,
+    "exact_textual_parent_or_borrowing_direction": "UNRESOLVED",
+    "exact_quantization_change_days": "UNRESOLVED",
+    "safe_model": "older integer-bin leak-clock tradition + Ming/Nanjing daily Datong numerical substrate -> a historically plausible generative bridge for the Sanming displayed ladder; exact compositing event/source remains open"
+  },
+  "adjudication": {
+    "mechanical_bridge_closed_one_layer": true,
+    "exact_pre1578_sanming_table_parent_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The new evidence strengthens the historical day/night-ke numerical substrate around natal time adjudication but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch transformation or a source-closed runtime clock binding.",
+    "next_gate": [
+      "find a securely pre-1578 source that prints the Sanming change-day fingerprint itself or gives its exact quantization rule",
+      "continue the independent Fullbook upper-five-ke -> Hai lineage and time-coordinate search"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
