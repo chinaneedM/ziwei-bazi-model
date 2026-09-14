@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install PDF/image tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils imagemagick
-      - name: Acquire Commons physical PDF and build volume-one navigation
+      - name: Acquire Commons physical PDF and build later volume-one navigation
         shell: bash
         run: |
           set -euo pipefail
@@ -27,21 +27,19 @@ jobs:
           sha256sum sunzi-pdf/book.pdf | tee sunzi-pdf/book.sha256
           stat -c '%s' sunzi-pdf/book.pdf | tee sunzi-pdf/book.size
           pdfinfo sunzi-pdf/book.pdf | tee sunzi-pdf/pdfinfo.txt
-          pdftotext -f 1 -l 120 -layout sunzi-pdf/book.pdf sunzi-pdf/text/first120.txt || true
-          grep -nE '日百刻|上四刻|下四刻|十二時|子時|百刻' sunzi-pdf/text/first120.txt > sunzi-pdf/text/hits.txt || true
+          pdftotext -f 73 -l 180 -layout sunzi-pdf/book.pdf sunzi-pdf/text/later.txt || true
+          grep -nE '日百刻|上四刻|下四刻|十二時|子時|百刻' sunzi-pdf/text/later.txt > sunzi-pdf/text/hits.txt || true
           cat sunzi-pdf/text/hits.txt
-          # Volume one is expected near the front of the combined Palace manuscript PDF.
-          # Render first 72 PDF pages at navigation resolution; final glyph reading will use native target pages only.
-          pdftoppm -f 1 -l 72 -jpeg -jpegopt quality=82 -scale-to 650 sunzi-pdf/book.pdf sunzi-pdf/pages/p >/dev/null 2>&1
+          # p59 is still the 九地 military text, so continue physical navigation through p144.
+          pdftoppm -f 73 -l 144 -jpeg -jpegopt quality=82 -scale-to 650 sunzi-pdf/book.pdf sunzi-pdf/pages/p >/dev/null 2>&1
           python - <<'PY'
           from pathlib import Path
           files=sorted(Path('sunzi-pdf/pages').glob('p-*.jpg'))
-          for i,p in enumerate(files,1):
-              # zero-pad names preserve physical PDF page order
-              p.rename(p.with_name(f'page-{i:03d}.jpg'))
+          for offset,p in enumerate(files,73):
+              p.rename(p.with_name(f'page-{offset:03d}.jpg'))
           PY
-          for start in 1 10 19 28 37 46 55 64; do
-            end=$((start+8)); [ "$end" -gt 72 ] && end=72
+          for start in 73 82 91 100 109 118 127 136; do
+            end=$((start+8)); [ "$end" -gt 144 ] && end=144
             imgs=()
             for p in $(seq "$start" "$end"); do
               printf -v n '%03d' "$p"
@@ -53,6 +51,6 @@ jobs:
           rm -f sunzi-pdf/book.pdf
       - uses: actions/upload-artifact@v4
         with:
-          name: sunzi-huizheng-kangxi-volume-one-navigation
+          name: sunzi-huizheng-kangxi-later-volume-one-navigation
           path: sunzi-pdf/
           if-no-files-found: error
