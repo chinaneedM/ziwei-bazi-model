@@ -1,0 +1,59 @@
+name: render-gexiang-xinshu-yuan-shifen-baike
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-gexiang-xinshu-yuan-shifen-baike.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install document tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y djvulibre-bin poppler-utils imagemagick
+      - name: Download public Gexiang Xinshu facsimile
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL06054852_%E9%9D%A9%E8%B1%A1%E6%96%B0%E6%9B%B8%C2%B7%E5%8D%B7%E4%B8%80~%E5%8D%B7%E4%BA%94.djvu'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/gexiang_xinshu.djvu
+          sha256sum evidence/gexiang_xinshu.djvu | tee evidence/source.sha256
+          djvudump evidence/gexiang_xinshu.djvu | head -80 > evidence/djvudump-head.txt
+          ddjvu -format=pdf evidence/gexiang_xinshu.djvu evidence/gexiang_xinshu.pdf
+          pdfinfo evidence/gexiang_xinshu.pdf | tee evidence/pdfinfo.txt
+      - name: Render all pages without OCR
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=82 -r 95 evidence/gexiang_xinshu.pdf evidence/pages/page
+          n=$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -eq 202
+          sha256sum evidence/pages/*.jpg | sort -V > evidence/pages.sha256
+          for start in 1 41 81 121 161 201; do
+            end=$((start+39)); [ "$end" -gt 202 ] && end=202
+            files=()
+            for p in $(seq "$start" "$end"); do
+              f=$(printf 'evidence/pages/page-%03d.jpg' "$p")
+              [ -f "$f" ] && files+=("$f")
+            done
+            montage "${files[@]}" -thumbnail 220x320 -tile 5x -geometry +4+4 "evidence/contact/contact-${start}-${end}.jpg"
+          done
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=YUAN_GEXIANG_XINSHU_FULL_FACSIMILE_LOCATOR\nTARGET=卷二_時分百刻_晝夜短長\nFULL_PAGE_GLYPH_CLAIMS_AUTHORIZED_AFTER_DIRECT_VISUAL_REVIEW=true\n' > evidence/manifest.txt
+      - name: Upload locator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gexiang-xinshu-yuan-shifen-baike-locator
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
