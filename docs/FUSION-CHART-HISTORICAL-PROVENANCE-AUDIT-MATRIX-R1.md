@@ -553,3 +553,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Direct no-OCR review of received 《革象新書》 pp78-80 physically locks the near-verbatim hundred-ke / half-Zi prose lineage later seen in the 1578 《三命通會》, while preserving the `屬昨日` versus Sanming `為昨日` recension difference.
 - Re-reading the Tianyige Ming-print 《虎鈐經·傳箭》 as a complete sequence shows an older 40↔60 one-ke-step ladder containing many exact Sanming numeric pairs. Sanming changes term/date anchors and caps summer solstice at 59/41 rather than Huqianjing's 60/40.
 - The composite model—older prose lineage + older leak-arrow numeric ladder + Ming adaptation—is materially strengthened, but the exact pre-1578 Ming/Nanjing 59/41 parent remains open. `HPA-ZDATE-006` stays `MISSING_FROM_PRODUCT`; no Hai vote or algorithm reopen is introduced.
+
+
+## Progress through Batch 12CE
+
+- An independent NLC-derived Ming-print physical copy of 《類編曆法通書大全》第1冊 directly confirms two day/night-ke systems in the same volume: a coarse 24-qi copper-pot 40/60 family and a fine `四時加減晝夜節氣` 38/62 one-ke ladder.
+- The coarse table physically includes `小滿 59/41`, `夏至 60/40`, `大暑 59/41`; the fine table reaches `62/38`. Therefore Sanming's `夏至 59/41` equals neither table exactly, while dual-table coexistence materially strengthens a mixed/adapted lineage model.
+- A later Ming control, Xing Yunlu's 《古今律曆考》卷47, explicitly distinguishes Nanjing Datong `59/41` from Yandu Shoushi `62/38`. Because the work is later than the 1578 Sanming witness, this is explanatory control, not ancestor proof.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no Hai vote, runtime winner, candidate collapse or algorithm reopen is introduced.

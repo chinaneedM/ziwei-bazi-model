@@ -1,0 +1,118 @@
+{
+  "schema": "ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE",
+  "prior_batch_id": "BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD",
+  "question": "Does a directly dated-to-Ming-print witness of Leibian Lifa Tongshu preserve multiple day/night-ke table families in the same physical volume, and what does that imply for Sanming Tonghui's 'Shoushi calendar' language and 59/41 display?",
+  "nlc_ming_print_witness": {
+    "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-MING-VOL1",
+    "bibliographic_scope": "Wikimedia/NLC metadata: 刻本, 明[1368-1644], 95 pages, author field 〔元〕宋魯珍通書; exact impression year unresolved",
+    "workflow_run_id": 34866426888,
+    "job_id": 104051295890,
+    "artifact_id": 10357132602,
+    "artifact_digest": "sha256:8dcf2e8e7ffeb987c3c2016545b3d252ed2d0e7ab118bcd240c0b28bafcdc098",
+    "source_pdf_sha256": "50a308f8adbfd7010b398cc68bc64dc66f7c1dbdcfe6470029e04aacd22e6419",
+    "page_count": 95,
+    "page_sha256": {
+      "20": "15325745229581c336e407d0eb405a8ef75c6d3bcf28117209f51f0484af7ce4",
+      "21": "a348fb2e6c4b06323bcdbc6851aa7f09ca72a76e8ab2d9e08bd50eabf79c3bbe",
+      "24": "0e94adaf05c5082b680ab210d2bf7703a5c184fe1217aa35b0ee96606870329f",
+      "25": "f4305f0f8b7e766dd0f31cb4d78ecb15154e6db1820975335bd53ddda109130f"
+    },
+    "render_trigger_commit": "2c854752663dcdd446ca3888145d4b28d3361830",
+    "exact_head_ci_run": 34866426723,
+    "ocr_used_for_glyph_claims": false,
+    "failed_prior_packaging_run": {
+      "run_id": 34866248129,
+      "source_download_succeeded": true,
+      "all_95_pages_rendered": true,
+      "failure_scope": "contact-sheet filename padding bug only",
+      "content_negative_authority": false
+    }
+  },
+  "coarse_copper_pot_24qi_table": {
+    "physical_pages": [
+      20,
+      21
+    ],
+    "observed_rows": [
+      "立夏 57/43",
+      "小滿 59/41",
+      "芒種 60/40",
+      "夏至 60/40",
+      "小暑 60/40",
+      "大暑 59/41",
+      "立秋 57/43",
+      "處暑 55/45"
+    ],
+    "broader_received_sequence_extrema": "winter-solstice family 40/60, summer-solstice family 60/40",
+    "sanming_exact_table_equivalence": false,
+    "decisive_difference": "This coarse table has 夏至 60/40; the 1578 Sanming display has 夏至 59/41."
+  },
+  "fine_four_seasons_daynight_table": {
+    "physical_pages": [
+      24,
+      25
+    ],
+    "heading": "四時加減晝夜節氣",
+    "observed_structure": "one-ke ladder from winter 38/62 upward through 39/61, 40/60, 41/59, 42/58 ... and reaches summer 62/38",
+    "yandu_shoushi_like_extrema": "38/62 <-> 62/38",
+    "sanming_exact_table_equivalence": false,
+    "decisive_difference": "The fine table reaches 62/38, not Sanming's summer-solstice 59/41."
+  },
+  "dual_table_coexistence": {
+    "same_physical_ming_print_volume": true,
+    "families": [
+      "coarse 24-qi copper-pot 40/60 family",
+      "fine 四時加減 38/62 family"
+    ],
+    "historical_consequence": "A Ming calendrical/almanac transmission can preserve multiple day/night-ke conventions side-by-side. Therefore a generic reference to 授時/曆分 cannot safely be collapsed to one literal Yandu 62/38 table without edition- and locus-specific evidence.",
+    "exact_sanming_parent_proved": false,
+    "pre1578_ancestry_proved_by_this_copy": false,
+    "reason_pre1578_not_proved": "The physical object is bibliographically Ming but its exact impression year within 1368-1644 is unresolved."
+  },
+  "xingyunlu_later_explanatory_control": {
+    "source_id": "EXT-XINGYUNLU-GUJIN-LVLIKAO-V47-NANJING-59-41",
+    "work_print_control": "NCL catalogs a Wanli-28 / 1600 print of 古今律曆考",
+    "received_v47_reading": "Early-Ming Datong recalibrated day/night change to Nanjing clepsydra: 夏至晝/冬至夜 59 ke, 冬至晝/夏至夜 41 ke; Yandu Shoushi 62/38.",
+    "explains_nanjing_59_41_layer": true,
+    "can_be_ancestor_of_1578_sanming": false,
+    "use": "later explanatory control only"
+  },
+  "sanming_comparison": {
+    "source_id": "EXT-SANMING-NCL-1578-MAIN",
+    "displayed_examples": [
+      "小寒 42/58",
+      "立春 45/55",
+      "雨水 47/53 then 48/52",
+      "夏至 59/41"
+    ],
+    "equals_coarse_leibian_table": false,
+    "equals_fine_leibian_table": false,
+    "nanjing_59_41_hypothesis_materially_strengthened": true,
+    "exact_pre1578_table_parent_closed": false,
+    "best_current_model": "older one-ke leak-arrow ladder + coexistence of multiple calendrical table families + Ming locality adaptation, with Nanjing 59/41 strongly explained by later Ming technical testimony"
+  },
+  "adjudication": {
+    "ming_print_dual_table_coexistence_physically_attested": true,
+    "one_literal_shoushi_table_assumption_rejected": true,
+    "sanming_table_exactly_equals_either_leibian_table": false,
+    "nanjing_59_41_explanatory_layer_supported": true,
+    "exact_pre1578_sanming_table_genealogy_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The batch materially narrows the historical table ecology but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch rule.",
+    "remaining_blockers": [
+      "find a securely pre-1578 direct Ming/Nanjing witness that actually prints or generates the 59/41 summer-solstice layer with Sanming-like term anchors",
+      "close the precise stemmatic/generative bridge from that table to the 1578 Sanming display",
+      "independently close the Fullbook upper-five-ke -> previous-night Hai branch mechanism"
+    ]
+  }
+}
