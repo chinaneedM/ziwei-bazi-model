@@ -16,42 +16,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install PDF/image tools
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils imagemagick
-      - name: Acquire Commons physical PDF and continue toward timekeeping section
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Capture native target evidence at PDF p44
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p sunzi-pdf/pages sunzi-pdf/sheets sunzi-pdf/text
+          mkdir -p sunzi-target/pages sunzi-target/render
           URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/GGZBCK360%20%E5%AD%AB%E5%AD%90%E5%BD%99%E5%BE%B5%20%E8%90%AC%E4%BB%A3%E6%B5%81%E5%82%B3%E5%96%AE%E5%88%80%E8%AD%9C%20%E6%88%B0%E5%AE%88%E6%96%B0%E6%B3%95%20%E6%BB%84%E5%A1%B5%E5%AD%90%E6%89%8B%E8%87%82%E9%8C%84%20%E9%99%84%E5%B3%A8%E5%B5%8B%E6%A7%8D%E6%B3%95%20%E5%A4%A2%E7%B6%A0%E5%A0%82%E6%A7%8D%E6%B3%95%20%E7%A8%8B%E6%B2%96%E6%96%97%E5%8D%81%E5%85%AD%E6%A7%8D%E5%8B%A2.pdf'
-          curl -L --fail --retry 3 --user-agent 'ziwei-bazi-model historical provenance audit/1.0' "$URL" -o sunzi-pdf/book.pdf
-          sha256sum sunzi-pdf/book.pdf | tee sunzi-pdf/book.sha256
-          stat -c '%s' sunzi-pdf/book.pdf | tee sunzi-pdf/book.size
-          pdfinfo sunzi-pdf/book.pdf | tee sunzi-pdf/pdfinfo.txt
-          pdftotext -f 217 -l 312 -layout sunzi-pdf/book.pdf sunzi-pdf/text/later.txt || true
-          grep -nE '日百刻|上四刻|下四刻|十二時|子時|百刻' sunzi-pdf/text/later.txt > sunzi-pdf/text/hits.txt || true
-          cat sunzi-pdf/text/hits.txt
-          # Public transcriptions place the target after 天官人事 in the volume-one timekeeping material.
-          # Continue visual navigation; the source PDF has no usable text layer.
-          pdftoppm -f 217 -l 288 -jpeg -jpegopt quality=82 -scale-to 650 sunzi-pdf/book.pdf sunzi-pdf/pages/p >/dev/null 2>&1
-          python - <<'PY'
-          from pathlib import Path
-          files=sorted(Path('sunzi-pdf/pages').glob('p-*.jpg'))
-          for offset,p in enumerate(files,217):
-              p.rename(p.with_name(f'page-{offset:03d}.jpg'))
-          PY
-          for start in 217 226 235 244 253 262 271 280; do
-            end=$((start+8)); [ "$end" -gt 288 ] && end=288
-            imgs=()
-            for p in $(seq "$start" "$end"); do
-              printf -v n '%03d' "$p"
-              imgs+=("sunzi-pdf/pages/page-${n}.jpg")
-            done
-            printf -v s '%03d' "$start"; printf -v e '%03d' "$end"
-            montage "${imgs[@]}" -tile 3x3 -geometry +6+6 sunzi-pdf/sheets/pages-${s}-${e}.jpg
-          done
-          rm -f sunzi-pdf/book.pdf
+          curl -L --fail --retry 3 --user-agent 'ziwei-bazi-model historical provenance audit/1.0' "$URL" -o sunzi-target/book.pdf
+          sha256sum sunzi-target/book.pdf | tee sunzi-target/book.sha256
+          stat -c '%s' sunzi-target/book.pdf | tee sunzi-target/book.size
+          pdfinfo sunzi-target/book.pdf | tee sunzi-target/pdfinfo.txt
+
+          # Navigation established that the hundred-ke / Zi-midnight passage is on PDF p44.
+          # Preserve source page objects and render p43-p45 at 300 dpi for direct no-OCR glyph review.
+          pdfseparate -f 43 -l 45 sunzi-target/book.pdf sunzi-target/pages/page-%d.pdf
+          pdftoppm -f 43 -l 45 -png -r 300 sunzi-target/book.pdf sunzi-target/render/page >/dev/null 2>&1
+          sha256sum sunzi-target/pages/page-*.pdf | tee sunzi-target/page-pdf.sha256
+          sha256sum sunzi-target/render/page-*.png | tee sunzi-target/page-render.sha256
+          pdfinfo sunzi-target/pages/page-44.pdf | tee sunzi-target/page-44-pdfinfo.txt
+          rm -f sunzi-target/book.pdf
       - uses: actions/upload-artifact@v4
         with:
-          name: sunzi-huizheng-kangxi-timekeeping-navigation-217-288
-          path: sunzi-pdf/
+          name: sunzi-huizheng-kangxi-p44-native-target-evidence
+          path: sunzi-target/
           if-no-files-found: error
