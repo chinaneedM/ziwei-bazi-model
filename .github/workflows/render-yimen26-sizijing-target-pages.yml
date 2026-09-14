@@ -15,10 +15,11 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Install DjVu tools
+      - name: Install DjVu tools and Pillow
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq djvulibre-bin
+          python -m pip install --quiet pillow
       - name: Download exact Yimen 26 scan
         shell: bash
         run: |
@@ -31,8 +32,16 @@ jobs:
         run: |
           set -euo pipefail
           for i in 21 22 23 24; do
-            ddjvu -format=jpeg -quality=95 -page="$i" -scale=55 out/yimen26.djvu out/p${i}.jpg
+            ddjvu -format=ppm -page="$i" -scale=55 out/yimen26.djvu out/p${i}.ppm
           done
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          for p in sorted(Path('out').glob('p*.ppm')):
+              im = Image.open(p).convert('RGB')
+              im.save(p.with_suffix('.jpg'), quality=96)
+              p.unlink()
+          PY
           sha256sum out/p*.jpg > out/rendered-sha256.txt
       - name: Upload target evidence
         uses: actions/upload-artifact@v4
