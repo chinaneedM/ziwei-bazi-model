@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install PDF/image tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils imagemagick
-      - name: Acquire Commons physical PDF and continue volume-one navigation
+      - name: Acquire Commons physical PDF and continue toward timekeeping section
         shell: bash
         run: |
           set -euo pipefail
@@ -27,20 +27,20 @@ jobs:
           sha256sum sunzi-pdf/book.pdf | tee sunzi-pdf/book.sha256
           stat -c '%s' sunzi-pdf/book.pdf | tee sunzi-pdf/book.size
           pdfinfo sunzi-pdf/book.pdf | tee sunzi-pdf/pdfinfo.txt
-          pdftotext -f 145 -l 240 -layout sunzi-pdf/book.pdf sunzi-pdf/text/later.txt || true
+          pdftotext -f 217 -l 312 -layout sunzi-pdf/book.pdf sunzi-pdf/text/later.txt || true
           grep -nE '日百刻|上四刻|下四刻|十二時|子時|百刻' sunzi-pdf/text/later.txt > sunzi-pdf/text/hits.txt || true
           cat sunzi-pdf/text/hits.txt
-          # Earlier navigation establishes the Sunzi thirteen-chapter commentary through roughly p80;
-          # continue through the later volume-one topical material without assuming OCR support.
-          pdftoppm -f 145 -l 216 -jpeg -jpegopt quality=82 -scale-to 650 sunzi-pdf/book.pdf sunzi-pdf/pages/p >/dev/null 2>&1
+          # Public transcriptions place the target after 天官人事 in the volume-one timekeeping material.
+          # Continue visual navigation; the source PDF has no usable text layer.
+          pdftoppm -f 217 -l 288 -jpeg -jpegopt quality=82 -scale-to 650 sunzi-pdf/book.pdf sunzi-pdf/pages/p >/dev/null 2>&1
           python - <<'PY'
           from pathlib import Path
           files=sorted(Path('sunzi-pdf/pages').glob('p-*.jpg'))
-          for offset,p in enumerate(files,145):
+          for offset,p in enumerate(files,217):
               p.rename(p.with_name(f'page-{offset:03d}.jpg'))
           PY
-          for start in 145 154 163 172 181 190 199 208; do
-            end=$((start+8)); [ "$end" -gt 216 ] && end=216
+          for start in 217 226 235 244 253 262 271 280; do
+            end=$((start+8)); [ "$end" -gt 288 ] && end=288
             imgs=()
             for p in $(seq "$start" "$end"); do
               printf -v n '%03d' "$p"
@@ -52,6 +52,6 @@ jobs:
           rm -f sunzi-pdf/book.pdf
       - uses: actions/upload-artifact@v4
         with:
-          name: sunzi-huizheng-kangxi-volume-one-navigation-145-216
+          name: sunzi-huizheng-kangxi-timekeeping-navigation-217-288
           path: sunzi-pdf/
           if-no-files-found: error
