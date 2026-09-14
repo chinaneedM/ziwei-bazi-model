@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.72.0",
+  "schema_version": "1.73.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -151,9 +151,10 @@
       "BATCH-12-ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-BJ",
       "BATCH-12-ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-BK",
       "BATCH-12-ZIWEI-SHIQIE-SHIDIAN-SOURCE-EMITTED-READ-API-BOUNDARY-BL",
-      "BATCH-12-ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-BM"
+      "BATCH-12-ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-BM",
+      "BATCH-12-ZIWEI-SHIQIE-TONGSHU-ZHENGZONG-HOMOLOGOUS-PHYSICAL-COLLATION-BN"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-JNA-LITERAL-VIEWER-ACCESS-BOUNDARY-BM.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-TONGSHU-ZHENGZONG-HOMOLOGOUS-PHYSICAL-COLLATION-BN.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -447,7 +448,9 @@
       "Batch 12BL passively captures the ordinary anonymous Shidian browser requests for the exact Shiqie volume-three chapter. The page itself emits paragraphs/v3 and pages/v3, and the pages request covers pageIndex 1 / pageSize 40 / startPageNum 353 / endPageNum 409, but every selected HTTP-200 read response contains only application errorCode 31000 and no target page data.",
       "Fifteen source-emitted signed /ref/ image responses were observed, spanning eight non-target page IDs; target pageId 7640563520069697576 is absent. No API replay, token reconstruction, ID enumeration or URL-pattern derivation is authorized. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; exact physical target glyph unread; Hai vote +0; no runtime winner, candidate collapse or algorithm reopen.",
       "Batch 12BM closes the National Archives viewer-route ambiguity: the exact Japan Search fascicle-three record literally emits first-party viewer /img/4756821 and its thumbnail URI, but ordinary Chromium receives CloudFront HTTP 403 for both in the GitHub runner.",
-      "This is an access/provenance closure only. The Shiqie physical target glyph remains unread; HPA-ZDATE-006 stays MISSING_FROM_PRODUCT with Hai vote +0, no runtime winner, no candidate collapse and no algorithm reopen."
+      "This is an access/provenance closure only. The Shiqie physical target glyph remains unread; HPA-ZDATE-006 stays MISSING_FROM_PRODUCT with Hai vote +0, no runtime winner, no candidate collapse and no algorithm reopen.",
+      "Batch 12BN directly collates CADAL02094425 physical p3 under 選時寶鏡局: 巳上是上四刻 / 巳上是下四刻.",
+      "This strongly strengthens the 刻→亥 transcription-anomaly diagnosis for Shidian Shiqie 上四亥; exact Shiqie target leaf remains unobserved, HPA-ZDATE-006 stays MISSING_FROM_PRODUCT, Hai physical vote +0, no winner/collapse/reopen."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
