@@ -431,3 +431,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The upper annotation securely attests `七政曆所載，有夜子時之分，有上四刻下四刻之法；上四刻正陰，下四刻正陽。`
 - This strengthens the pre-1697 genealogy of the night-Zi split and Zi/Hai confusion, but does **not** itself prove `upper four ke -> Hai branch`, does not select a modern time coordinate, and adds no runtime winner or algorithm reopen.
 - Durable collation: `docs/research/ZIWEI-ZHANGGUO-1594-NIGHT-ZI-PHYSICAL-COLLATION-R1.json`; batch decision: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHANGGUO-1594-NIGHT-ZI-FOUR-KE-PHYSICAL-COLLATION-AW.md`.
+
+## Progress through Batch 12BO
+
+- Batch 12BO directly collates the Qing Kangxi-manuscript 《孫子彙徵》 PDF p44 without OCR as glyph authority.
+- The physical sentence reads `若子時則上半時在夜半前屬昨日下半時在夜半後為今日`; the public transcription regularizes the second relation verb to `屬今日`.
+- This is `DIFFERENT_WORDING_SAME_MECHANICAL_RULE`: it corroborates generic midnight previous/current-day orientation, does not reassign upper Zi to Hai, and is not counted as an independent Ziwei/Bazi doctrinal lineage vote.
+- HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; row/audit/candidate counts and all algorithm invariants are unchanged.
