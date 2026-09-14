@@ -1,0 +1,354 @@
+name: formalize-batch-12bq-yongle-dadian-inclement-time
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12bq-yongle-dadian-inclement-time.yml
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Atomically formalize Batch 12BQ
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from textwrap import dedent
+
+          BATCH_ID = "BATCH-12-ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-BQ"
+          BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-BQ.md"
+          RESEARCH_ARTIFACT = "docs/research/ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-R1.json"
+          SOURCE_ID = "EXT-TIME-YONGLE-DADIAN-18764-QIANDINGSHU-SIZIJING"
+          NLC_SOURCE_ID = "EXT-NLC-YONGLE-DADIAN-JIAJING-COPY-HISTORY-2026"
+          MODERN_CONTROL_ID = "EXT-NCC-QIANDINGSHU-SIZIJING-2010-RECEIVED"
+
+          WS_PAGE = "https://zh.wikisource.org/wiki/Page:%E6%B0%B8%E6%A8%82%E5%A4%A7%E5%85%B818764.pdf/3"
+          WS_VOLUME = "https://zh.wikisource.org/zh/%E6%B0%B8%E6%A8%82%E5%A4%A7%E5%85%B8/%E5%8D%B718764"
+          COMMONS_FILE = "https://commons.wikimedia.org/wiki/File:%E6%B0%B8%E6%A8%82%E5%A4%A7%E5%85%B818764.pdf"
+          CTEXT_URL = "https://ctext.org/wiki.pl?chapter=645893&if=gb"
+          SHIDIAN_URL = "https://www.shidianguji.com/zh/book/YLDD00001/chapter/1lmfk6mg4gnqj"
+          NLC_URL = "https://www.nlc.cn/pcab/zx/xw/20260702_2653756.shtml"
+          NCC_URL = "https://www.ncc.com.tw/books/goods.php?id=6148"
+          JIELAN_ARTIFACT = "docs/research/ZIWEI-JIELAN-BIRTH-TIME-CHAPTER-SCOPE-CORRECTION-R1.json"
+
+          early_reading = "且子丑寅亥四箇時辰難以推分古經云天陰雨露時難定便是神仙也有差"
+          jielan_fragment = "天陰雨下時難定"
+
+          # Upgrade continuity contract in the same transaction.
+          verifier_path = Path("scripts/verify-project-continuity-state-r1.py")
+          verifier = verifier_path.read_text(encoding="utf-8")
+          prev_id = "BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP"
+          if BATCH_ID not in verifier:
+              needle = f'    "{prev_id}",\n]'
+              replacement = f'    "{prev_id}",\n    "{BATCH_ID}",\n]'
+              if needle not in verifier:
+                  raise SystemExit("cannot locate BP supplemental batch tail in continuity verifier")
+              verifier = verifier.replace(needle, replacement, 1)
+          old_latest = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP.md"'
+          new_latest = f'LATEST_BATCH_DOC = "{BATCH_DOC}"'
+          if new_latest not in verifier:
+              if old_latest not in verifier:
+                  raise SystemExit("cannot locate BP latest-batch doc in continuity verifier")
+              verifier = verifier.replace(old_latest, new_latest, 1)
+          verifier_path.write_text(verifier, encoding="utf-8")
+
+          batch_doc = dedent(f'''\
+          # Fusion Chart Historical Provenance Audit R1 — Batch 12BQ
+
+          ## 《永樂大典》卷18764《前定數·四字經序》：陰雨生時難定的早期文本橋
+
+          Status: **YONGLE-DADIAN COMPILATION-LAYER EARLY TEXTUAL ATTESTATION / EXTANT PHYSICAL RECENSION IS JIAJING-DUPLICATE LINEAGE / PUBLIC 42-PAGE FACSIMILE BINDS TARGET TO PAGE 3 BUT PROJECT PDF-SCREENSHOT CHANNEL DID NOT DIRECTLY COLLATE GLYPHS / WIKISOURCE + CTEXT + SHIDIAN TRANSCRIPTIONS CONVERGE ON 子丑寅亥難分 + 古經云天陰雨露時難定便是神仙也有差 / 1581 JIELAN PT49 HAS CLOSE FORMULA 天陰雨下時難定 / EARLY SHARED INCLEMENT-BIRTH-TIME MOTIF CONFIRMED / DIRECT DEPENDENCE NOT PROVED / 古經 IDENTITY UNRESOLVED / NO FULLBOOK CLOUDY-RAIN CURRENT-TIME ACQUISITION MECHANISM / HPA-ZDATE-006 STILL MISSING_FROM_PRODUCT / HAI VOTE +0 / NO RUNTIME WINNER / NO CANDIDATE COLLAPSE / NO ALGORITHM REOPEN**
+
+          ## 1. Scope
+
+          Batch 12AP established that the 1581 Jielan publication line contains an inclement-weather birth-time discussion at PT49, while Batch 12AJ/AK kept the distinct Fullbook `羅經以定真確時候` operational question open.
+
+          Batch 12BQ asks whether the Jielan phrase family is already attested substantially earlier. The answer is yes at the textual level, but the evidence must be dated in layers rather than collapsed into a single “1408 physical witness”.
+
+          ## 2. Exact locus in 《永樂大典》卷18764
+
+          Public volume transcription places the passage under:
+
+          `命〈諸家星命百二十六〉 → 前定數 → 諸家序 → 四字經序`.
+
+          The convergent public transcription reads, without modern punctuation:
+
+          `{early_reading}`
+
+          This joins two points in one local context: (1) 子、丑、寅、亥 are difficult to distinguish precisely; and (2) an explicitly quoted `古經` says inclement weather makes the time difficult to determine, even for an expert.
+
+          The Wikisource page layer binds this material to `永樂大典18764.pdf/3`. The Commons file page describes a 42-page, 7.01 MB scan. CText and Shidian independently expose the same textual sequence as public transcription/navigation controls.
+
+          Evidence URLs: `{WS_PAGE}`, `{WS_VOLUME}`, `{COMMONS_FILE}`, `{CTEXT_URL}`, `{SHIDIAN_URL}`.
+
+          ## 3. Physical-glyph authority boundary
+
+          This batch does **not** claim direct no-OCR glyph collation of PDF page 3. The public facsimile is clearly bound to the target page, but the project execution environment did not obtain that PDF as a screenshot-capable PDF object. Wikisource explicitly marks the page transcription as unproofread.
+
+          Therefore:
+
+          ```text
+          public facsimile locator                    CONFIRMED
+          target page = public scan page 3           CONFIRMED AT WIKISOURCE INDEX/LINKAGE LEVEL
+          direct project screenshot/no-OCR reading   NOT COMPLETED
+          transcription convergence                  CONFIRMED
+          glyph-critical physical authority          NOT CLAIMED
+          ```
+
+          ## 4. Dating firewall: Yongle compilation versus Jiajing physical copy
+
+          National Library of China material states that 《永樂大典》 was compiled in the Yongle reign, that only one original was first produced, that another copy was transcribed in the Jiajing reign, and that the Yongle original is lost while extant copies are Jiajing duplicates.
+
+          Accordingly this batch records two different dates/scopes:
+
+          - **textual incorporation layer:** the passage is present in the Yongle Dadian compilation tradition, giving an incorporation terminus ante quem no later than completion of the original compilation (1408 conventionally used for the completed Yongle project);
+          - **extant physical-recension layer:** the surviving manuscript tradition is the Jiajing duplicate, not an extant 1408 original leaf.
+
+          NLC control: `{NLC_URL}`.
+
+          The internal phrase `古經云` indicates the compiler/source text itself claims an earlier textual antecedent, but the identity and date of that `古經` are unresolved. It is not permissible to turn that formula into a dated pre-Yongle source without locating the cited work.
+
+          ## 5. Relation to 1581 《紫微斗數捷覽》
+
+          Existing Batch 12AP evidence binds Jielan PT49 / 《論十二生時難定訣》 to the index fragment `{jielan_fragment}`. Current public transcription continues `便是神仙也有差` and places the discussion around 亥、子、丑 birth-time ambiguity.
+
+          The comparison is therefore:
+
+          ```text
+          Yongle-Dadian 四字經序: 天陰雨露時難定，便是神仙也有差
+          1581 Jielan:             天陰雨下時難定，便是神仙也有差
+          ```
+
+          This is strong phrase-level and semantic continuity. It establishes an **early shared inclement-birth-time formula/motif**, but not direct copying, author identity, or a single school lineage. `雨露` versus `雨下` is preserved as a textual variant rather than silently normalized.
+
+          ## 6. Later received-text control
+
+          A modern 2010 edition, 《男命女命前定數》, states that its base text came from a manuscript supplied by 梁湘潤 and reproduces the same `四字經序` passage. This is useful received-text continuity control only. It is not an independent early witness and receives zero early-physical or school votes.
+
+          Control URL: `{NCC_URL}`.
+
+          ## 7. Effect on HPA-ZDATE-006
+
+          - `HPA-ZDATE-006 = MISSING_FROM_PRODUCT`
+          - early cross-lineage inclement-birth-time textual attestation: `+1`
+          - direct physical target-glyph witness: `0`
+          - Hai-branch glyph/mechanical vote: `0`
+          - Fullbook cloudy/rain current-time acquisition mechanism closed: `false`
+          - new runtime candidate: `false`
+          - runtime winner: `false`
+          - candidate collapse: `false`
+          - algorithm reopen: `false`
+
+          Counts remain `198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families`; provenance defects remain `11/11`; chart algorithm defect/reopen/collapse remain `0/0/0`.
+
+          ## 8. Next gate
+
+          The next admissible advances are deliberately separated:
+
+          1. obtain a screenshot-capable institutional/facsimile image of卷18764 target page and perform direct no-OCR glyph collation;
+          2. identify the `四字經` / quoted `古經` source lineage if an earlier independently dated witness survives;
+          3. separately continue the Fullbook-line search for an explicit cloudy/rainy **current-time acquisition mechanism**. The early “time is difficult to determine” formula does not itself specify how time was operationally acquired.
+
+          Research record: `{RESEARCH_ARTIFACT}`.
+          ''')
+          Path(BATCH_DOC).write_text(batch_doc, encoding="utf-8")
+
+          research = {
+              "schema": "ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-R1",
+              "batch_id": BATCH_ID,
+              "question": "Is the Jielan inclement-weather birth-time difficulty formula attested before 1581, and what evidence/date layer can safely be assigned to it?",
+              "yongle_dadian_locus": {
+                  "source_id": SOURCE_ID,
+                  "volume": 18764,
+                  "rhyme": "十九敬",
+                  "headword": "命",
+                  "section_path": ["諸家星命百二十六", "前定數", "諸家序", "四字經序"],
+                  "public_scan_page_1_based": 3,
+                  "public_scan_page_count": 42,
+                  "convergent_transcription": early_reading,
+                  "wikisource_page_unproofread": True,
+                  "direct_project_pdf_screenshot_completed": False,
+                  "direct_no_ocr_glyph_authority": False,
+                  "urls": {
+                      "wikisource_page": WS_PAGE,
+                      "wikisource_volume": WS_VOLUME,
+                      "commons_file": COMMONS_FILE,
+                      "ctext": CTEXT_URL,
+                      "shidian": SHIDIAN_URL
+                  }
+              },
+              "date_layering": {
+                  "original_compilation": "MING_YONGLE_REIGN; COMPLETION TERMINUS CONVENTIONALLY 1408",
+                  "textual_incorporation_terminus_ante_quem": "NO_LATER_THAN_YONGLE_DADIAN_ORIGINAL_COMPILATION_COMPLETION, SUBJECT_TO NORMAL COMPILATION-TRANSMISSION CAUTION",
+                  "extant_physical_recension": "MING_JIAJING_DUPLICATE_LINEAGE",
+                  "extant_1408_original_leaf_claimed": False,
+                  "nlc_source_id": NLC_SOURCE_ID,
+                  "nlc_url": NLC_URL,
+                  "internal_older_source_signal": "古經云",
+                  "quoted_gujing_identity_resolved": False,
+                  "quoted_gujing_date_resolved": False
+              },
+              "jielan_bridge": {
+                  "existing_artifact": JIELAN_ARTIFACT,
+                  "jielan_date": 1581,
+                  "jielan_heading": "論十二生時難定訣",
+                  "jielan_index_fragment": jielan_fragment,
+                  "shared_continuation": "便是神仙也有差",
+                  "yongle_variant": "天陰雨露時難定",
+                  "jielan_variant": "天陰雨下時難定",
+                  "shared_context": "亥/子/丑 and nearby hour discrimination difficulty",
+                  "classification": "EARLY_SHARED_INCLEMENT_BIRTH_TIME_FORMULA_OR_MOTIF; DIRECT_DEPENDENCE_NOT_PROVED",
+                  "direct_copying_claimed": False,
+                  "single_school_lineage_claimed": False
+              },
+              "modern_received_control": {
+                  "source_id": MODERN_CONTROL_ID,
+                  "title": "《男命女命前定數》",
+                  "publisher": "大元",
+                  "editor": "顏兆鴻 校編",
+                  "publication_date": "2010-09-02",
+                  "base_text_statement": "原文為梁湘潤所提供之手抄本",
+                  "same_sizijing_passage_present": True,
+                  "authority": "MODERN_RECEIVED_TEXT_CONTINUITY_CONTROL_ONLY",
+                  "independent_early_witness_increment": 0,
+                  "url": NCC_URL
+              },
+              "effect": {
+                  "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+                  "early_cross_lineage_inclement_birth_time_textual_attestation_increment": 1,
+                  "direct_physical_target_witness_increment": 0,
+                  "hai_glyph_witness_increment": 0,
+                  "fullbook_inclement_current_time_acquisition_mechanism_closed": False,
+                  "new_runtime_candidate_created": False,
+                  "runtime_winner_selected": False,
+                  "candidate_collapsed": False,
+                  "algorithm_reopen_authorized": False,
+                  "matrix_counts_changed": False
+              }
+          }
+          Path(RESEARCH_ARTIFACT).write_text(json.dumps(research, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          registry_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          additions = [
+              {
+                  "source_id": SOURCE_ID,
+                  "title": "《永樂大典》卷18764《前定數·四字經序》",
+                  "historical_period": "永樂大典原編纂文本層 / 現存嘉靖副本傳承層",
+                  "provider": "Wikimedia Commons facsimile locator + Wikisource/CText/Shidian public transcription controls",
+                  "url": WS_PAGE,
+                  "source_role": "EARLY_CROSS_LINEAGE_INCLEMENT_BIRTH_TIME_TEXTUAL_ATTESTATION_WITH_FACSIMILE_PAGE_LOCATOR_NOT_DIRECT_GLYPH_COLLATION",
+                  "quality_notes": "Target is bound to public scan page 3 and multiple transcription surfaces converge on 子丑寅亥難分 + 古經云天陰雨露時難定便是神仙也有差. Wikisource marks the page unproofread and the project PDF screenshot channel did not directly collate the glyphs, so this is not direct physical glyph authority. Date the extant physical recension as Jiajing duplicate lineage while keeping the textual incorporation layer no later than the Yongle Dadian compilation."
+              },
+              {
+                  "source_id": NLC_SOURCE_ID,
+                  "title": "國家圖書館：保藏、研究、活化——國圖與《永樂大典》",
+                  "historical_period": "MODERN_OFFICIAL_VERSION_HISTORY_CONTROL",
+                  "provider": "中國國家圖書館／中國古籍保護網",
+                  "url": NLC_URL,
+                  "source_role": "OFFICIAL_CONTROL_FOR_YONGLE_ORIGINAL_VS_JIAJING_DUPLICATE_VERSION_LAYER",
+                  "quality_notes": "States that the Dadian was compiled in the Yongle reign, an additional copy was made in the Jiajing reign, the Yongle original is lost, and extant copies are Jiajing duplicates. Used to prevent calling the current scan an extant 1408 physical leaf."
+              },
+              {
+                  "source_id": MODERN_CONTROL_ID,
+                  "title": "《男命女命前定數》2010整理本",
+                  "historical_period": "MODERN_RECEIVED_TEXT_CONTROL",
+                  "provider": "星僑網路書店商品文本 / 大元出版",
+                  "url": NCC_URL,
+                  "source_role": "MODERN_RECEIVED_SIZIJING_TEXT_CONTINUITY_CONTROL_NOT_EARLY_WITNESS",
+                  "quality_notes": "The product description states that the source text was a manuscript supplied by 梁湘潤 and reproduces the same 四字經序. It receives no independent early physical/textual vote and is used only as received-text continuity control."
+              }
+          ]
+          existing = {s.get("source_id") for s in registry["sources"]}
+          for item in additions:
+              if item["source_id"] not in existing:
+                  registry["sources"].append(item)
+          registry["access_date"] = "2026-09-14"
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+          row = next(r for r in matrix["rows"] if r.get("rule_id") == "HPA-ZDATE-006")
+          row["batch_12bq_yongle_dadian_18764_inclement_birth_time_early_textual_bridge"] = {
+              "source_ids": [SOURCE_ID, NLC_SOURCE_ID, MODERN_CONTROL_ID],
+              "target_locus": "《永樂大典》卷18764 / 命 / 諸家星命百二十六 / 前定數 / 諸家序 / 四字經序 / public scan p3",
+              "secure_transcription_level_reading": early_reading,
+              "physical_glyph_authority": False,
+              "extant_physical_recension": "JIAJING_DUPLICATE_LINEAGE_NOT_EXTANT_YONGLE_ORIGINAL",
+              "textual_incorporation_scope": "PRESENT_IN_YONGLE_DADIAN_COMPILATION_TRADITION; PRE_1581 AND NO_LATER_THAN ORIGINAL_COMPILATION COMPLETION SUBJECT_TO TRANSMISSION CAUTION",
+              "jielan_bridge": "Yongle-Dadian 天陰雨露時難定便是神仙也有差 versus 1581 Jielan 天陰雨下時難定便是神仙也有差; direct dependence not proved",
+              "mechanical_scope": "EARLY_INCLEMENT_BIRTH_TIME_DIFFICULTY_ATTESTATION_ONLY; DOES_NOT SPECIFY FULLBOOK CLOUDY/RAIN CURRENT-TIME ACQUISITION OR UPPER-ZI-TO-HAI REASSIGNMENT",
+              "early_cross_lineage_textual_attestation_increment": 1,
+              "direct_physical_target_witness_increment": 0,
+              "hai_glyph_witness_increment": 0,
+              "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+              "runtime_winner_selected": False,
+              "algorithm_reopen_authorized": False,
+              "research_artifact": RESEARCH_ARTIFACT
+          }
+          matrix_path.write_text(json.dumps(matrix, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          matrix_md = matrix_md_path.read_text(encoding="utf-8")
+          marker = "## Progress through Batch 12BQ"
+          if marker not in matrix_md:
+              matrix_md += dedent('''\
+
+              ## Progress through Batch 12BQ
+
+              - 《永樂大典》卷18764 `前定數 → 諸家序 → 四字經序` preserves a pre-1581 textual attestation combining `子丑寅亥` hour-discrimination difficulty with the formula `古經云天陰雨露時難定，便是神仙也有差`.
+              - The extant physical-recension layer is the Ming Jiajing duplicate tradition; do not call the current scan an extant 1408 physical leaf. The textual incorporation layer belongs to the Yongle Dadian compilation tradition, while the internally cited `古經` remains unidentified and undated.
+              - The wording is closely parallel to 1581 Jielan `天陰雨下時難定，便是神仙也有差`, establishing an early shared inclement-birth-time motif/formula but not direct copying or a single school lineage.
+              - Public scan page 3 is located, but direct project screenshot/no-OCR glyph collation was not completed; HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`, Hai vote is unchanged, and the Fullbook cloudy/rain operational mechanism remains open.
+              ''')
+              matrix_md_path.write_text(matrix_md, encoding="utf-8")
+
+          state_path = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          state["schema_version"] = "1.76.0"
+          audit = state["historical_audit"]
+          if BATCH_ID not in audit["completed_batches"]:
+              audit["completed_batches"].append(BATCH_ID)
+          audit["latest_batch_doc"] = BATCH_DOC
+          focus = audit["current_focus"]
+          additions_focus = [
+              "Batch 12BQ establishes a pre-1581 early textual bridge for inclement birth-time uncertainty: 《永樂大典》卷18764《前定數·四字經序》 joins 子丑寅亥難以推分 with 古經云天陰雨露時難定便是神仙也有差, closely paralleling the 1581 Jielan formula 天陰雨下時難定便是神仙也有差.",
+              "Batch 12BQ keeps date layers separate: the extant manuscript tradition is the Ming Jiajing duplicate, while the passage belongs to the Yongle-Dadian compilation textual layer; the internally cited 古經 is not identified or dated. Do not call the current scan a 1408 physical witness or infer direct Jielan copying.",
+              "Batch 12BQ does not close the Fullbook cloudy/rain current-time acquisition mechanism and does not affect Hai votes, runtime winner, candidate collapse or algorithm state. Highest-value next gates are direct target-page facsimile glyph collation, identification of an earlier 四字經/古經 lineage, and Fullbook-line operational time-acquisition evidence."
+          ]
+          for item in additions_focus:
+              if item not in focus:
+                  focus.append(item)
+          state["updated_at"] = "2026-09-14"
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+          python scripts/verify-project-continuity-state-r1.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/verify-project-continuity-state-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            "$BATCH_DOC" \
+            "$RESEARCH_ARTIFACT"
+          if git diff --cached --quiet; then
+            echo "Batch 12BQ already formalized"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12BQ Yongle Dadian inclement-time bridge"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
