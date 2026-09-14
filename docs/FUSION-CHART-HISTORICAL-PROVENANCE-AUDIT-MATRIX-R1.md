@@ -484,3 +484,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - Entry to image enumeration is guarded by an interactive puzzle captcha. The official page only navigates to the hidden viewer URL on successful verification; direct image=1 GETs without that human-verification state return the detail surface and expose zero `.ImageC` page entries.
 - The admitted-viewer JavaScript expects `.ImageC` page links and per-image watermark tokens, but no captcha bypass, fabricated solution or session replay was attempted. Therefore first-party target-leaf presence is `UNRESOLVED_AT_HUMAN_VERIFICATION_BOUNDARY`, not a negative holding result.
 - Batch 12BT's public-scan lacuna remains intact. Taiwan contributes no new target-variant glyph vote; HPA-ZDATE-006 stays `MISSING_FROM_PRODUCT`, with Hai mechanical vote/runtime selection/candidate collapse/algorithm reopen unchanged.
+
+
+## Progress through Batch 12BV
+
+- The public facsimile of 《永樂大典》卷18764 has now been directly rendered and reviewed without OCR. Page 3 physically reads `四字經序`, `且子丑寅亥`, `四箇時辰難以推分`, `古經云`, `天陰雨露時難定`, and `便是神仙也有差`.
+- This closes the exact-glyph authority gap left by Batch 12BQ. Combined with Batch 12BS, both sides of the Sizijing comparison now have physical glyph authority: Yongle/Jiajing-duplicate recension `古經 / 雨露 / 子丑寅亥` versus 1597 Yimen `古人 / 雨落 / 亥子丑寅`.
+- The differences are therefore genuine recension variation, not OCR/transcription noise. No archetype, copying direction, stemmatic winner or runtime winner is selected.
+- The four-hour ordering remains a textual list, not an operational late-Zi-to-Hai reclassification rule. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai mechanical vote, candidate collapse and algorithm reopen remain unchanged.

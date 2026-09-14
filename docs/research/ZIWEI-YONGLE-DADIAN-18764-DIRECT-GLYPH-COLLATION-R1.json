@@ -1,0 +1,69 @@
+{
+  "schema": "ZIWEI-YONGLE-DADIAN-18764-DIRECT-GLYPH-COLLATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-YONGLE-DADIAN-18764-DIRECT-GLYPH-COLLATION-BV",
+  "prior_batch_id": "BATCH-12-ZIWEI-TAIWAN-NCL-FIRST-PARTY-VIEWER-ACCESS-BOUNDARY-BU",
+  "prior_yongle_research": "docs/research/ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-R1.json",
+  "prior_yimen_research": "docs/research/ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-R1.json",
+  "question": "Do the Yongle-Dadian 18764 physical facsimile glyphs directly confirm the three transcription-level loci and establish real recension variation against the 1597 Yimen witness?",
+  "source_id": "EXT-TIME-YONGLE-DADIAN-18764-QIANDINGSHU-SIZIJING",
+  "evidence_chain": {
+    "source_file": "永樂大典18764.pdf",
+    "source_pdf_sha256": "69a2f0e63685d674fd5e0ddcd7a5ccd687a725f19cc601f8e77d6d446beb9f87",
+    "public_scan_page_count": 42,
+    "target_page_1_based": 3,
+    "renderer_head": "0f5a6daa9e7e0bc3901412083c07dd0183f58a88",
+    "renderer_tree": "0c2f707d6dcea3e8e8b2b542c7bab427954b1006",
+    "workflow_run_id": 34826953257,
+    "artifact_id": 10340044845,
+    "artifact_digest": "sha256:7ba40557f877f583830ee7d66838473ad5bbd73f99fb73cc679f220e8b83f05b",
+    "render_method": "pdftoppm page render at 300 dpi; final adjudication by direct visual review without OCR",
+    "rendered_page_sha256": {
+      "p2.jpg": "af9453278946f1b289b74aaae59d43e1bd9a8effa25dc4d8a351f77bf2047006",
+      "p3.jpg": "12e3f12fc9aeeeab06c459788757de0325f0f6214e1d062a77cc4c77483d038f",
+      "p4.jpg": "f42749d1e299caf73e46fde8d811c891a0e919d38c0077c1b8736c94cd420fdb"
+    }
+  },
+  "direct_collation": {
+    "heading": "四字經序",
+    "difficult_hour_order": "子丑寅亥",
+    "attribution": "古經云",
+    "inclement_phrase": "天陰雨露時難定",
+    "positive_continuation": "便是神仙也有差",
+    "local_sequence": "且子丑寅亥四箇時辰難以推分古經云天陰雨露時難定便是神仙也有差"
+  },
+  "two_sided_recension_comparison": {
+    "yongle_physical": {
+      "heading": "四字經序",
+      "attribution": "古經云",
+      "inclement_phrase": "天陰雨露時難定",
+      "difficult_hour_order": "子丑寅亥"
+    },
+    "yimen_1597_physical": {
+      "heading": "唐明皇論",
+      "attribution": "古人云",
+      "inclement_phrase": "天陰雨落難定",
+      "difficult_hour_order": "亥子丑寅"
+    },
+    "classification": "REAL_RECENSION_VARIATION_PHYSICALLY_CONFIRMED_ON_BOTH_SIDES",
+    "same_text_family_at_long_sequence_level": true,
+    "stemmatic_winner_selected": false,
+    "direct_copying_direction_proved": false
+  },
+  "dating_firewall": {
+    "yongle_textual_incorporation_layer": "YONGLE-DADIAN COMPILATION TRADITION",
+    "yongle_extant_physical_recension": "MING_JIAJING_DUPLICATE_LINEAGE",
+    "extant_1408_original_leaf_claimed": false,
+    "yimen_physical_print_year": 1597
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "direct_yongle_target_page_glyph_witness_increment": 1,
+    "two_sided_physical_recension_variation_confirmed": true,
+    "hai_branch_mechanical_vote_increment": 0,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}
