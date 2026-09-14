@@ -34,18 +34,16 @@ jobs:
         run: |
           set -euo pipefail
           pdftoppm -jpeg -jpegopt quality=85 -r 105 evidence/leibian_lifa_ming_vol1.pdf evidence/pages/page
-          n=$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          mapfile -t pages < <(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | sort -V)
+          n=${#pages[@]}
           echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
           test "$n" -eq 95
-          sha256sum evidence/pages/*.jpg | sort -V > evidence/pages.sha256
-          for start in 1 21 41 61 81; do
-            end=$((start+19)); [ "$end" -gt 95 ] && end=95
-            files=()
-            for p in $(seq "$start" "$end"); do
-              f=$(printf 'evidence/pages/page-%03d.jpg' "$p")
-              [ -f "$f" ] && files+=("$f")
-            done
-            montage "${files[@]}" -thumbnail 240x360 -tile 5x -geometry +4+4 "evidence/contact/contact-${start}-${end}.jpg"
+          sha256sum "${pages[@]}" | sort -V > evidence/pages.sha256
+          for offset in 0 20 40 60 80; do
+            start=$((offset+1))
+            end=$((offset+20)); [ "$end" -gt "$n" ] && end=$n
+            chunk=("${pages[@]:offset:20}")
+            montage "${chunk[@]}" -thumbnail 240x360 -tile 5x -geometry +4+4 "evidence/contact/contact-${start}-${end}.jpg"
           done
           sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
           printf 'NO_OCR_USED=true\nSOURCE_ROLE=MING_PRINT_LEIBIAN_LIFA_VOL1_DUAL_DAY_NIGHT_TABLE_LOCATOR\nTARGETS=COPPER_POT_24_QI_40_60_TABLE_AND_SISHI_JIAJIAN_38_62_TABLE\n' > evidence/manifest.txt
