@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install DjVu tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq djvulibre-bin imagemagick
-      - name: Collate exact Commons CADAL fascicle eight pre-copper target pages
+      - name: Collate exact Commons CADAL fascicle eight opening target pages
         shell: bash
         run: |
           set -euo pipefail
@@ -41,10 +41,9 @@ jobs:
           done
           cat tongshu-collation/hits.tsv
 
-          # Shidian order places 選時寶鏡局/upper-lower-four-ke before 銅壺晝夜百刻圖式.
-          # Native p88 is already the hundred-ke seasonal table and p89 is 晝夜循環時刻;
-          # p86–87 were visually excluded, so render p80–85 for the remaining locus.
-          seq 80 85 > tongshu-collation/native-pages.txt
+          # Shidian chapter text opens with 選時寶鏡局; physical p1 is cover and p2 illustration,
+          # so render the opening body pages directly for glyph adjudication.
+          seq 1 6 > tongshu-collation/native-pages.txt
           while read -r p; do
             ppm="tongshu-collation/tmp/native-${p}.ppm"
             ddjvu -page="$p" -format=ppm tongshu-collation/book.djvu "$ppm"
@@ -56,6 +55,6 @@ jobs:
           find tongshu-collation -maxdepth 2 -type f -printf '%P %s bytes\n' | sort
       - uses: actions/upload-artifact@v4
         with:
-          name: shiqie-tongshu-zhengzong-fascicle-eight-pre-copper-target-pages
+          name: shiqie-tongshu-zhengzong-fascicle-eight-opening-target-pages
           path: tongshu-collation/
           if-no-files-found: error
