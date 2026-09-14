@@ -459,3 +459,12 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - CText explicitly binds its automatic OCR to the 《夷門廣牘》 base. Despite OCR corruption, the opening `唐明皇論` preserves the same long ordered architecture as the Yongle-Dadian `四字經序`: fate/八字 and five-phase framing, seasonal/day-night analogies, weather and travel imagery, simultaneous-number wealth/rank/longevity differences, difficult 亥子丑寅 hours, inclement-weather time uncertainty, `便是神仙也有差`, and month-length/time reasoning.
 - This upgrades the evidence from a shared proverb/motif to a demonstrable Sizijing transmission/text-family bridge. It does not prove exact recension identity, direct copying, Tang authorship/date, or exact glyph variants.
 - Apparent variants `古經/古人`, `雨露/雨落`, and `子丑寅亥/亥子丑寅` remain OCR-bound and unadjudicated. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, runtime and algorithm invariants remain unchanged.
+
+
+## Progress through Batch 12BS
+
+- The 1597 NLC/Yimen 《四字經》 opening is now directly collated from a hashed physical DjVu render with no OCR used for final glyph judgment. Page 28 prints `四字經 / 唐德行禪師著 / 明周履靖校正 / 唐明皇論`.
+- Page 29 directly resolves the three Yimen-side Batch-12BR variants as `古人云`, `天陰雨落難定`, and contiguous hour order `亥子丑寅`. CText OCR is corroborated for these exact loci only.
+- The Yongle-Dadian readings `古經云 / 雨露 / 子丑寅亥` remain a separate recension/transmission witness; Batch 12BS does not call them errors or select a stemmatic winner.
+- The literal `亥` belongs to a difficult-hour list, not an upper-Zi-to-Hai reassignment rule. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai-branch mechanical vote, runtime selection, candidate collapse and algorithm reopen remain unchanged.
+- Next high-value gate is direct Taiwan NCL 15275-0058 target-leaf collation for edition/impression comparison, while the Fullbook inclement-current-time acquisition chain remains independently open.

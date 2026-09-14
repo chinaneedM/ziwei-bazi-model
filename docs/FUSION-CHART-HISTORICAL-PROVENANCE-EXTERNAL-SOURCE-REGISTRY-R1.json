@@ -3524,7 +3524,25 @@
       "provider": "Wikimedia Commons scan sourced to National Library of China",
       "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf",
       "source_role": "SECURELY_DATED_1597_YIMEN_GUANGDU_PRINT_HOLDING_CONTAINING_SIZIJING",
-      "quality_notes": "Metadata gives 荊山書林明萬曆25年[1597] and lists 四字經 among the internal works. This is a physical-print route; exact target glyphs remain uncollated in this batch."
+      "quality_notes": "Metadata gives 荊山書林明萬曆25年[1597] and lists 四字經 among the internal works. This is a physical-print route; exact target glyphs remain uncollated in this batch. Batch 12BS directly collates the exact 1597 Yimen scan without OCR: p28 prints 四字經 / 唐德行禪師著 / 明周履靖校正 / 唐明皇論, and p29 prints 古人云 / 天陰雨落難定 / 亥子丑寅. These readings are glyph authority for the listed Yimen loci only; they do not establish upper-Zi-to-Hai branch reassignment or a complete inclement-weather time-acquisition procedure.",
+      "batch_12bs_direct_glyph_collation": {
+        "source_djvu_sha256": "30ffe1ae111fc72d816cb9d2a507bb051b0b67a3eb6be0e80497f02ff4c853e2",
+        "renderer_head": "8e087490a48c42303c61cfe50840e3568624653a",
+        "workflow_run_id": 34824084899,
+        "artifact_id": 10339620251,
+        "page_28_sha256": "9a96a2f82313a74d24472d33a789258757ee2dbb5d8f470e94d1c7913d31f64a",
+        "page_29_sha256": "4ee4441255716dda76ac0a04eb8aa6460feb3f213526667a451a08bcd1038246",
+        "direct_no_ocr_readings": [
+          "四字經",
+          "唐德行禪師著",
+          "明周履靖校正",
+          "唐明皇論",
+          "古人云",
+          "天陰雨落難定",
+          "亥子丑寅"
+        ],
+        "scope": "DIRECT_PHYSICAL_GLYPH_AUTHORITY_FOR_THE_LISTED_YIMEN_1597_LOCI_ONLY; NOT_A_HPA_ZDATE_006_HAI_BRANCH_MECHANICAL_VOTE"
+      }
     },
     {
       "source_id": "EXT-CTEXT-YIMEN-GUANGDU-SIZIJING-OCR",

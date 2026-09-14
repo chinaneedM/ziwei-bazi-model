@@ -1,0 +1,65 @@
+{
+  "schema": "ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-BS",
+  "prior_batch_id": "BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR",
+  "prior_research": "docs/research/ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-R1.json",
+  "question": "Do the 1597 Yimen-Guangdu physical scan glyphs resolve the three Sizijing OCR-level variants isolated in Batch 12BR?",
+  "source_id": "EXT-NLC-YIMEN-GUANGDU-1597-SIZIJING",
+  "evidence_chain": {
+    "source_file": "明刻本夷門廣牘26.djvu",
+    "source_djvu_sha256": "30ffe1ae111fc72d816cb9d2a507bb051b0b67a3eb6be0e80497f02ff4c853e2",
+    "renderer_head": "8e087490a48c42303c61cfe50840e3568624653a",
+    "renderer_tree": "415c67fccddfad0a5f44307b139db8639d6a89bf",
+    "workflow_run_id": 34824084899,
+    "artifact_id": 10339620251,
+    "artifact_digest": "sha256:8e728d108f3e4f0b828e7fe6de3e8bc2ac53ae7cc41fec45c2c60fb5f58c5904",
+    "render_method": "ddjvu page render -> Pillow JPEG; final adjudication by direct visual review without OCR",
+    "rendered_page_sha256": {
+      "p27.jpg": "6356cdbc5880accfdb0d327ba75b7e7709db1b0c1988ac14e1bf71d2c74fe916",
+      "p28.jpg": "9a96a2f82313a74d24472d33a789258757ee2dbb5d8f470e94d1c7913d31f64a",
+      "p29.jpg": "4ee4441255716dda76ac0a04eb8aa6460feb3f213526667a451a08bcd1038246"
+    }
+  },
+  "direct_collation": {
+    "p28": {
+      "readings": [
+        "四字經",
+        "唐德行禪師著",
+        "明周履靖校正",
+        "唐明皇論"
+      ],
+      "heading_directly_closed": "唐明皇論",
+      "tang_composition_date_authenticated": false
+    },
+    "p29": {
+      "variant_readings": {
+        "attribution": "古人云",
+        "inclement_phrase": "天陰雨落難定",
+        "difficult_hour_order": "亥子丑寅"
+      },
+      "continuation_positive_control": "便是神仙也有差別"
+    }
+  },
+  "variant_adjudication": {
+    "yimen_古人_vs_yongle_古經": "YIMEN_1597_PHYSICAL=古人云; YONGLE READING PRESERVED SEPARATELY",
+    "yimen_雨落_vs_yongle_雨露": "YIMEN_1597_PHYSICAL=天陰雨落難定; YONGLE READING PRESERVED SEPARATELY",
+    "yimen_亥子丑寅_vs_yongle_子丑寅亥": "YIMEN_1597_PHYSICAL=亥子丑寅; YONGLE READING PRESERVED SEPARATELY",
+    "stemmatic_winner_selected": false,
+    "classification": "REAL_RECENSION_VARIATION_PHYSICALLY_CONFIRMED_ON_YIMEN_SIDE"
+  },
+  "edition_identity": {
+    "taiwan_ncl_15275_0058_vs_nlc_yimen_same_impression_proved": false,
+    "taiwan_ncl_disbound_from_yimen_proved": false,
+    "next_test": "DIRECT_TAIWAN_NCL_TARGET_LEAF_COLLATION"
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "direct_1597_sizijing_target_leaf_glyph_witness_increment": 1,
+    "hai_branch_mechanical_vote_increment": 0,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}
