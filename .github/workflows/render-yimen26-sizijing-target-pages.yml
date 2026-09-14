@@ -27,11 +27,11 @@ jobs:
           mkdir -p out
           curl -L --fail --retry 3 'https://commons.wikimedia.org/wiki/Special:Redirect/file/%E6%98%8E%E5%88%BB%E6%9C%AC%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%9826.djvu' -o out/yimen26.djvu
           sha256sum out/yimen26.djvu > out/source-sha256.txt
-      - name: Render p21-p24 at high resolution without OCR
+      - name: Render p25-p30 at high resolution without OCR
         shell: bash
         run: |
           set -euo pipefail
-          for i in 21 22 23 24; do
+          for i in 25 26 27 28 29 30; do
             ddjvu -format=ppm -page="$i" -scale=55 out/yimen26.djvu out/p${i}.ppm
           done
           python - <<'PY'
@@ -46,11 +46,13 @@ jobs:
       - name: Upload target evidence
         uses: actions/upload-artifact@v4
         with:
-          name: yimen26-sizijing-target-pages
+          name: yimen26-sizijing-body-opening
           path: |
-            out/p21.jpg
-            out/p22.jpg
-            out/p23.jpg
-            out/p24.jpg
+            out/p25.jpg
+            out/p26.jpg
+            out/p27.jpg
+            out/p28.jpg
+            out/p29.jpg
+            out/p30.jpg
             out/*.txt
           retention-days: 30
