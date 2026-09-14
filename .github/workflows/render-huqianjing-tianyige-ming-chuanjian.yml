@@ -1,0 +1,44 @@
+name: render-huqianjing-tianyige-ming-chuanjian
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-huqianjing-tianyige-ming-chuanjian.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF/image tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils imagemagick
+      - name: Download Tianyige Ming-print Huqianjing facsimile
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/rendered
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/Tianyige-330000-1705-0004205_%E8%99%8E%E9%88%90%E7%B6%93%E4%BA%8C%E5%8D%81%E5%8D%B7_%E5%AE%8B%E8%A8%B1%E6%B4%9E%E6%92%B0_%E6%98%8E%E5%88%BB%E6%9C%AC.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/huqianjing_ming.pdf
+          sha256sum evidence/huqianjing_ming.pdf | tee evidence/source.sha256
+          pdfinfo evidence/huqianjing_ming.pdf | tee evidence/pdfinfo.txt
+      - name: Render likely juan-7 range without OCR
+        run: |
+          set -euo pipefail
+          pdftoppm -f 50 -l 100 -jpeg -jpegopt quality=90 -r 180 evidence/huqianjing_ming.pdf evidence/rendered/page
+          sha256sum evidence/rendered/*.jpg | sort -V | tee evidence/rendered.sha256
+          montage evidence/rendered/*.jpg -thumbnail 180x180 -tile 6x -geometry +4+4 evidence/contact.jpg
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=TIANYIGE_MING_PRINT_PHYSICAL_CONTROL\nTARGET_SCOPE=JUAN7_LOUFA_CHUANJIAN_40_60_TABLE\nRENDERED_PDF_PAGES=50-100\n' > evidence/manifest.txt
+      - name: Upload facsimile evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: huqianjing-tianyige-ming-chuanjian
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 30
