@@ -1,0 +1,411 @@
+name: formalize-batch-12br-sizijing-ming-print-transmission
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12br-sizijing-ming-print-transmission.yml
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Atomically formalize Batch 12BR
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from textwrap import dedent
+
+          BATCH_ID = "BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR"
+          BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR.md"
+          RESEARCH_ARTIFACT = "docs/research/ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-R1.json"
+
+          SRC_TW_NCL = "EXT-TW-NCL-SIZIJING-15275-0058-MING-WANLI"
+          SRC_TW_COMMONS = "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN"
+          SRC_NLC_YIMEN = "EXT-NLC-YIMEN-GUANGDU-1597-SIZIJING"
+          SRC_CTEXT_YIMEN = "EXT-CTEXT-YIMEN-GUANGDU-SIZIJING-OCR"
+          SRC_WIKISOURCE_YIMEN = "EXT-WIKISOURCE-YIMEN-GUANGDU-26-1597"
+          SRC_NDL_RECEIVED = "EXT-NDL-SIZIJING-YIMEN-FACSIMILE-NOTE"
+
+          URL_TW_NCL = "https://catalog.digitalarchives.tw/item/00/08/6f/c0.html"
+          URL_TW_COMMONS = "https://commons.wikimedia.org/wiki/File:NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf"
+          URL_NLC_YIMEN = "https://commons.wikimedia.org/wiki/File:NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf"
+          URL_CTEXT = "https://ctext.org/wiki.pl?chapter=871842&if=en"
+          URL_WIKISOURCE = "https://zh.wikisource.org/wiki/Index:%E6%98%8E%E5%88%BB%E6%9C%AC%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%9826.djvu"
+          URL_NDL = "https://ndlsearch.ndl.go.jp/books/R100000136-I1970023484950143408"
+          BQ_ARTIFACT = "docs/research/ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-R1.json"
+
+          # Upgrade continuity contract in the same transaction.
+          verifier_path = Path("scripts/verify-project-continuity-state-r1.py")
+          verifier = verifier_path.read_text(encoding="utf-8")
+          prev_id = "BATCH-12-ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-BQ"
+          if BATCH_ID not in verifier:
+              needle = f'    "{prev_id}",\n]'
+              replacement = f'    "{prev_id}",\n    "{BATCH_ID}",\n]'
+              if needle not in verifier:
+                  raise SystemExit("cannot locate BQ supplemental batch tail in continuity verifier")
+              verifier = verifier.replace(needle, replacement, 1)
+          old_latest = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-BQ.md"'
+          new_latest = f'LATEST_BATCH_DOC = "{BATCH_DOC}"'
+          if new_latest not in verifier:
+              if old_latest not in verifier:
+                  raise SystemExit("cannot locate BQ latest-batch doc in continuity verifier")
+              verifier = verifier.replace(old_latest, new_latest, 1)
+          verifier_path.write_text(verifier, encoding="utf-8")
+
+          batch_doc = dedent(f'''\
+          # Fusion Chart Historical Provenance Audit R1 — Batch 12BR
+
+          ## 《四字經》獨立明刊傳本線：臺灣國圖單行本、1597《夷門廣牘》本與《永樂大典》卷18764文本橋
+
+          Status: **INDEPENDENT MING-PRINT SIZIJING TRANSMISSION CONFIRMED / TAIWAN NCL HOLDS MING-WANLI JINLING JINGSHAN-SHULIN ONE-JUAN SIZIJING WITH 21-PAGE PUBLIC SCAN / NLC YIMEN-GUANGDU 1597 PHYSICAL-SCAN LINE CONTAINS SIZIJING / CTEXT AUTOMATIC OCR OF YIMEN BASE PRESERVES THE SAME LONG STRUCTURAL SEQUENCE AS YONGLE-DADIAN 四字經序 / LATER UNIT LABEL 唐明皇論 VERSUS YONGLE LABEL 四字經序 PRESERVED / OCR VARIANTS 古人~古經, 雨落~雨露, 亥子丑寅~子丑寅亥 NOT GLYPH-ADJUDICATED / TANG 德行禪師 RESPONSIBILITY STATEMENT NOT TANG-DATE PROOF / TAIWAN SINGLE-ITEM VS NLC YIMEN EDITION IDENTITY NOT PROVED / NO DIRECT NO-OCR TARGET-LEAF COLLATION / HPA-ZDATE-006 STILL MISSING_FROM_PRODUCT / HAI VOTE +0 / NO RUNTIME WINNER / NO CANDIDATE COLLAPSE / NO ALGORITHM REOPEN**
+
+          ## 1. Scope
+
+          Batch 12BQ established that 《永樂大典》卷18764 preserves a pre-1581 textual bridge for inclement birth-time uncertainty under `前定數 → 諸家序 → 四字經序`, while keeping the extant physical-recension layer (Jiajing duplicate) separate from the Yongle compilation layer.
+
+          Batch 12BR asks the next philological question: does a separately transmitted work titled 《四字經》 survive outside 《永樂大典》, and does its opening textual unit preserve the same extended sequence rather than merely one proverbial phrase?
+
+          The answer is yes at the transmission/text-family level. Exact glyph adjudication remains open.
+
+          ## 2. Taiwan National Central Library single-title witness
+
+          Taiwan's National Central Library catalog records:
+
+          - title: `四字經`
+          - responsibility: `(唐)德行禪師撰`
+          - edition: `明萬曆間(1573-1620)金陵荊山書林刊本`
+          - extent: `一卷`
+          - book/registration number: `15275-0058`
+          - class: `子部-術數類-命相之屬`
+
+          The public Commons derivative explicitly identifies the NCL source and exposes a 21-page scan of this object.
+
+          Evidence URLs: `{URL_TW_NCL}` and `{URL_TW_COMMONS}`.
+
+          The responsibility statement `(唐)德行禪師撰` is a catalog/title-page tradition. Batch 12BR does **not** convert it into an authenticated Tang composition date.
+
+          ## 3. 1597 《夷門廣牘》 physical-print line
+
+          The National Library of China sourced Commons record for `《夷門廣牘一百○六種》第10冊` gives publication as `荊山書林明萬曆25年[1597]` and its internal content listing includes `四字經` between `相法十六篇` and `土牛經`.
+
+          Wikisource independently indexes `明刻本夷門廣牘26.djvu` as a 108-page scan, year 1597, containing `相法十六篇 / 四字經 / 土牛經 / 天文占驗`.
+
+          Evidence URLs: `{URL_NLC_YIMEN}` and `{URL_WIKISOURCE}`.
+
+          This proves a securely dated late-Ming printed transmission of a work titled 《四字經》. It does not by itself prove that the Taiwan NCL single-title object and the NLC 《夷門廣牘》 object are the same impression, same physical copy, or even a separable/disbound instance of one edition.
+
+          ## 4. CText 《夷門廣牘》-base OCR and long-sequence correspondence
+
+          CText explicitly labels the electronic base as `《夷門廣牘》本《相法十六篇 四字經 土牛經 天文占驗》` and marks the relevant text as automatically transcribed with OCR.
+
+          Its opening unit is titled `唐明皇論`. Although heavily corrupted at individual glyph level, the OCR preserves the following distinctive sequence in the same order:
+
+          ```text
+          人生天地間 / 造化皆由命數
+          八字超群 / 五行衰絕
+          草木—四季—榮枯
+          日月—晝夜—盈虧
+          雪/風/雲/雨 + 禽獸舟航
+          同時共數 + 富貴壽夭
+          亥子丑寅四時難分
+          古人云 + 天陰雨落難定 + 便是神仙也有差
+          旦夕時刻 + 月運長短
+          ```
+
+          Compare Batch 12BQ's 《永樂大典》 `四字經序`, which preserves the same extended architecture, including `同時共數`, the four difficult hours, and `古經云天陰雨露時難定便是神仙也有差`.
+
+          Evidence URL: `{URL_CTEXT}`.
+
+          The length and ordering of shared anchors are sufficient to classify the texts as the same **Sizijing transmission/text family at structural level**, not merely independent reuse of the short inclement-weather proverb.
+
+          ## 5. Title-layer and variant firewall
+
+          The two witnesses label the unit differently:
+
+          ```text
+          Yongle-Dadian compilation witness: 四字經序
+          Yimen-Guangdu OCR witness:         唐明皇論
+          ```
+
+          Batch 12BR preserves this as a recension/title-layer difference. It does not silently normalize the headings.
+
+          Likewise these apparent variants remain **unadjudicated** because the Yimen text is currently being read through automatic OCR rather than direct target-leaf collation:
+
+          ```text
+          永樂大典 transcription: 古經云 / 天陰雨露時難定 / 子丑寅亥
+          夷門廣牘 OCR:          古人云 / 天陰雨落難定 / 亥子丑寅
+          ```
+
+          No stemmatic conclusion may rely on those exact glyph differences until the corresponding Ming-print page is directly read.
+
+          ## 6. Downstream facsimile continuity
+
+          NDL/CiNii bibliographic records for modern `四字經 . 李虚中命書 . 珞琭子三命消息賦註` explicitly note that `四字經` was reproduced from the `夷門廣牘` edition (`據夷門廣牘本影印`). This is useful downstream transmission control only; it is not another independent early witness.
+
+          Evidence URL: `{URL_NDL}`.
+
+          ## 7. Effect on HPA-ZDATE-006
+
+          - `HPA-ZDATE-006 = MISSING_FROM_PRODUCT`
+          - independently surviving Ming-print Sizijing transmission confirmed: `true`
+          - securely dated Yimen-Guangdu print witness: `1597`
+          - independent physical holding routes located: `2` (Taiwan NCL single-title object; NLC Yimen-Guangdu object)
+          - independent edition count increment: `0` pending edition-identity adjudication
+          - direct Ming-print target-page glyph witness: `0`
+          - Hai-branch glyph/mechanical vote: `0`
+          - Fullbook cloudy/rain current-time acquisition mechanism closed: `false`
+          - runtime winner: `false`
+          - candidate collapse: `false`
+          - algorithm reopen: `false`
+
+          Counts remain `198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families`; provenance defects remain `11/11`; chart algorithm defect/reopen/collapse remain `0/0/0`.
+
+          ## 8. Next gate
+
+          The next admissible work is now much narrower:
+
+          1. directly collate the opening `唐明皇論` leaf in either the Taiwan NCL Ming-Wanli scan or the 1597 NLC/Yimen scan;
+          2. adjudicate `古人/古經`, `雨落/雨露`, and the four-hour ordering from physical glyphs rather than OCR;
+          3. determine whether the Taiwan NCL single-title witness is edition-identical with, extracted from, or textually independent of the 1597 《夷門廣牘》 impression;
+          4. separately continue the Fullbook operational-current-time question. The Sizijing evidence concerns difficulty of determining birth hour under inclement conditions, not a complete time-acquisition mechanism.
+
+          Research record: `{RESEARCH_ARTIFACT}`.
+          ''')
+          Path(BATCH_DOC).write_text(batch_doc, encoding="utf-8")
+
+          research = {
+              "schema": "ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-R1",
+              "batch_id": BATCH_ID,
+              "question": "Does 四字經 survive as an independently printed Ming transmission outside Yongle Dadian, and is the long inclement-birth-time passage part of the same text family?",
+              "prior_bridge": BQ_ARTIFACT,
+              "taiwan_ncl_single_title": {
+                  "source_ids": [SRC_TW_NCL, SRC_TW_COMMONS],
+                  "title": "四字經",
+                  "responsibility_statement": "(唐)德行禪師撰",
+                  "responsibility_statement_authenticated_as_tang_date": False,
+                  "edition_cataloged": "明萬曆間(1573-1620)金陵荊山書林刊本",
+                  "extent": "一卷",
+                  "book_number": "15275-0058",
+                  "public_scan_pages": 21,
+                  "physical_holding": "TAIWAN_NATIONAL_CENTRAL_LIBRARY",
+                  "urls": [URL_TW_NCL, URL_TW_COMMONS]
+              },
+              "nlc_yimen_guangdu": {
+                  "source_ids": [SRC_NLC_YIMEN, SRC_WIKISOURCE_YIMEN],
+                  "container": "夷門廣牘",
+                  "print_date": 1597,
+                  "publisher": "荊山書林",
+                  "internal_contents_include": ["相法十六篇", "四字經", "土牛經", "天文占驗"],
+                  "wikisource_scan_file": "明刻本夷門廣牘26.djvu",
+                  "wikisource_scan_pages": 108,
+                  "physical_holding_source": "NATIONAL_LIBRARY_OF_CHINA",
+                  "urls": [URL_NLC_YIMEN, URL_WIKISOURCE]
+              },
+              "ctext_yimen_ocr": {
+                  "source_id": SRC_CTEXT_YIMEN,
+                  "base_declared": "《夷門廣牘》本《相法十六篇 四字經 土牛經 天文占驗》",
+                  "ocr_declared_automatic": True,
+                  "unit_heading_ocr": "唐明皇論",
+                  "structural_anchor_sequence": [
+                      "人生天地間/造化皆由命數",
+                      "八字超群/五行衰絕",
+                      "草木四季榮枯",
+                      "日月晝夜盈虧",
+                      "雪風雲雨/禽獸舟航",
+                      "同時共數/富貴壽夭",
+                      "亥子丑寅四時難分",
+                      "古人云/天陰雨落難定/便是神仙也有差",
+                      "旦夕時刻/月運長短"
+                  ],
+                  "text_family_classification": "SAME_SIZIJING_TRANSMISSION_FAMILY_AT_LONG_SEQUENCE_STRUCTURAL_LEVEL",
+                  "exact_glyph_authority": False,
+                  "url": URL_CTEXT
+              },
+              "yongle_vs_yimen_variant_firewall": {
+                  "yongle_unit_heading": "四字經序",
+                  "yimen_ocr_unit_heading": "唐明皇論",
+                  "apparent_variants_unadjudicated": [
+                      ["古經云", "古人云"],
+                      ["天陰雨露時難定", "天陰雨落難定"],
+                      ["子丑寅亥", "亥子丑寅"]
+                  ],
+                  "policy": "DO_NOT_TREAT_AUTOMATIC_OCR_AS_PHYSICAL_GLYPH_AUTHORITY; PRESERVE HEADING AND GLYPH VARIANTS UNTIL DIRECT COLLATION"
+              },
+              "edition_identity": {
+                  "taiwan_single_title_vs_nlc_yimen_same_impression_proved": False,
+                  "taiwan_single_title_disbound_from_yimen_proved": False,
+                  "independent_physical_holding_routes": 2,
+                  "independent_edition_vote_increment": 0
+              },
+              "downstream_received_control": {
+                  "source_id": SRC_NDL_RECEIVED,
+                  "note": "四字經據夷門廣牘本影印",
+                  "independent_early_witness_increment": 0,
+                  "url": URL_NDL
+              },
+              "effect": {
+                  "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+                  "independent_ming_print_sizijing_transmission_confirmed": True,
+                  "securely_dated_yimen_print_year": 1597,
+                  "direct_ming_print_target_glyph_witness_increment": 0,
+                  "hai_glyph_witness_increment": 0,
+                  "fullbook_inclement_current_time_acquisition_mechanism_closed": False,
+                  "runtime_winner_selected": False,
+                  "candidate_collapsed": False,
+                  "algorithm_reopen_authorized": False,
+                  "matrix_counts_changed": False
+              }
+          }
+          Path(RESEARCH_ARTIFACT).write_text(json.dumps(research, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          registry_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          additions = [
+              {
+                  "source_id": SRC_TW_NCL,
+                  "title": "臺灣國家圖書館《四字經》15275-0058",
+                  "historical_period": "明萬曆間刊本館藏記錄",
+                  "provider": "數位典藏與學習聯合目錄 / 國家圖書館古籍資料",
+                  "url": URL_TW_NCL,
+                  "source_role": "INSTITUTIONAL_BIBLIOGRAPHIC_BINDING_FOR_SINGLE_TITLE_MING_WANLI_SIZIJING_PHYSICAL_HOLDING",
+                  "quality_notes": "Binds title, responsibility statement, one-juan extent, Jinling Jingshan-shulin Ming-Wanli edition statement and book number 15275-0058. Responsibility statement is not independent proof of Tang composition date."
+              },
+              {
+                  "source_id": SRC_TW_COMMONS,
+                  "title": "NCL-15275-0058 四字經 public scan",
+                  "historical_period": "明萬曆間刊本 / modern public scan",
+                  "provider": "Wikimedia Commons derivative sourced to Taiwan National Central Library",
+                  "url": URL_TW_COMMONS,
+                  "source_role": "PUBLIC_21_PAGE_SCAN_ROUTE_FOR_TAIWAN_NCL_MING_WANLI_SIZIJING",
+                  "quality_notes": "Confirms a 21-page public scan route for the cataloged NCL object. Batch 12BR did not obtain a screenshot-capable target leaf, so no direct glyph authority is claimed."
+              },
+              {
+                  "source_id": SRC_NLC_YIMEN,
+                  "title": "《夷門廣牘一百○六種》第10冊（含《四字經》）",
+                  "historical_period": "明萬曆二十五年（1597）",
+                  "provider": "Wikimedia Commons scan sourced to National Library of China",
+                  "url": URL_NLC_YIMEN,
+                  "source_role": "SECURELY_DATED_1597_YIMEN_GUANGDU_PRINT_HOLDING_CONTAINING_SIZIJING",
+                  "quality_notes": "Metadata gives 荊山書林明萬曆25年[1597] and lists 四字經 among the internal works. This is a physical-print route; exact target glyphs remain uncollated in this batch."
+              },
+              {
+                  "source_id": SRC_CTEXT_YIMEN,
+                  "title": "CText《夷門廣牘》本《四字經》自動OCR",
+                  "historical_period": "1597 base / modern OCR transcription",
+                  "provider": "Chinese Text Project",
+                  "url": URL_CTEXT,
+                  "source_role": "AUTOMATIC_OCR_TEXT_FAMILY_BRIDGE_BETWEEN_YIMEN_SIZIJING_AND_YONGLE_DADIAN_SIZIJING_XU",
+                  "quality_notes": "CText explicitly marks the transcription automatic OCR. The long ordered anchor sequence supports same-text-family classification, but exact forms 古人/古經, 雨落/雨露 and hour ordering are not glyph authority."
+              },
+              {
+                  "source_id": SRC_WIKISOURCE_YIMEN,
+                  "title": "Wikisource index: 明刻本夷門廣牘26.djvu",
+                  "historical_period": "1597 print / modern scan index",
+                  "provider": "Wikisource",
+                  "url": URL_WIKISOURCE,
+                  "source_role": "PUBLIC_SCAN_INDEX_CONTROL_FOR_YIMEN_GUANGDU_VOLUME_CONTAINING_SIZIJING",
+                  "quality_notes": "Indexes 108 scanned pages, year 1597, and contents including 相法十六篇, 四字經, 土牛經, 天文占驗. No target-page transcription/glyph authority is inferred from the index alone."
+              },
+              {
+                  "source_id": SRC_NDL_RECEIVED,
+                  "title": "NDL/CiNii received facsimile record for 四字經",
+                  "historical_period": "MODERN_RECEIVED_FACSIMILE_CONTROL",
+                  "provider": "National Diet Library Search / CiNii Books",
+                  "url": URL_NDL,
+                  "source_role": "DOWNSTREAM_RECEIVED_TEXT_CONTROL_NOT_INDEPENDENT_EARLY_WITNESS",
+                  "quality_notes": "Bibliographic note states 四字經據夷門廣牘本影印. Used only to document downstream transmission from the Yimen edition; no independent early vote."
+              }
+          ]
+          existing = {s.get("source_id") for s in registry["sources"]}
+          for item in additions:
+              if item["source_id"] not in existing:
+                  registry["sources"].append(item)
+          registry["access_date"] = "2026-09-14"
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+          row = next(r for r in matrix["rows"] if r.get("rule_id") == "HPA-ZDATE-006")
+          row["batch_12br_sizijing_independent_ming_print_transmission"] = {
+              "source_ids": [SRC_TW_NCL, SRC_TW_COMMONS, SRC_NLC_YIMEN, SRC_CTEXT_YIMEN, SRC_WIKISOURCE_YIMEN, SRC_NDL_RECEIVED],
+              "core_advance": "Independent Ming-print 四字經 transmission confirmed outside Yongle Dadian; 1597 Yimen-Guangdu base OCR preserves the same long ordered textual architecture as Yongle-Dadian 四字經序",
+              "taiwan_ncl_object": "15275-0058 / 明萬曆間金陵荊山書林刊本 / one juan / public 21-page scan route",
+              "nlc_yimen_object": "荊山書林明萬曆25年[1597] / Yimen-Guangdu volume containing 四字經",
+              "text_family_scope": "SAME_SIZIJING_TRANSMISSION_FAMILY_AT_STRUCTURAL_LEVEL; NOT EXACT RECENSION OR GLYPH IDENTITY",
+              "title_layer_difference": "Yongle label 四字經序 versus Yimen OCR unit 唐明皇論",
+              "unadjudicated_ocr_variants": ["古經~古人", "雨露~雨落", "子丑寅亥~亥子丑寅"],
+              "tang_authorship_date_authenticated": False,
+              "taiwan_vs_yimen_edition_identity_proved": False,
+              "direct_ming_print_target_page_collated": False,
+              "hai_glyph_witness_increment": 0,
+              "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+              "runtime_winner_selected": False,
+              "algorithm_reopen_authorized": False,
+              "research_artifact": RESEARCH_ARTIFACT
+          }
+          matrix_path.write_text(json.dumps(matrix, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          matrix_md = matrix_md_path.read_text(encoding="utf-8")
+          marker = "## Progress through Batch 12BR"
+          if marker not in matrix_md:
+              matrix_md += dedent('''\
+
+              ## Progress through Batch 12BR
+
+              - Independent Ming-print transmission of 《四字經》 is now confirmed outside 《永樂大典》: Taiwan NCL catalogs a one-juan Ming-Wanli Jinling Jingshan-shulin object (15275-0058), while an NLC-sourced 1597 《夷門廣牘》 scan independently contains 《四字經》.
+              - CText explicitly binds its automatic OCR to the 《夷門廣牘》 base. Despite OCR corruption, the opening `唐明皇論` preserves the same long ordered architecture as the Yongle-Dadian `四字經序`: fate/八字 and five-phase framing, seasonal/day-night analogies, weather and travel imagery, simultaneous-number wealth/rank/longevity differences, difficult 亥子丑寅 hours, inclement-weather time uncertainty, `便是神仙也有差`, and month-length/time reasoning.
+              - This upgrades the evidence from a shared proverb/motif to a demonstrable Sizijing transmission/text-family bridge. It does not prove exact recension identity, direct copying, Tang authorship/date, or exact glyph variants.
+              - Apparent variants `古經/古人`, `雨露/雨落`, and `子丑寅亥/亥子丑寅` remain OCR-bound and unadjudicated. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, runtime and algorithm invariants remain unchanged.
+              ''')
+              matrix_md_path.write_text(matrix_md, encoding="utf-8")
+
+          state_path = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          state["schema_version"] = "1.77.0"
+          audit = state["historical_audit"]
+          if BATCH_ID not in audit["completed_batches"]:
+              audit["completed_batches"].append(BATCH_ID)
+          audit["latest_batch_doc"] = BATCH_DOC
+          focus = audit["current_focus"]
+          additions_focus = [
+              "Batch 12BR confirms an independent Ming-print 四字經 transmission outside Yongle Dadian: Taiwan NCL 15275-0058 is cataloged as a one-juan Ming-Wanli Jinling Jingshan-shulin print with a public 21-page scan route, and an NLC-sourced Yimen-Guangdu witness securely dates another Sizijing print route to 1597.",
+              "Batch 12BR upgrades the Yongle-Dadian/Jielan bridge from short-motif similarity to a long-sequence Sizijing text-family bridge: CText's declared Yimen-base automatic OCR preserves the same ordered architecture as Yongle-Dadian 四字經序, but exact OCR variants 古人/古經, 雨落/雨露 and 亥子丑寅/子丑寅亥 are not physical-glyph evidence.",
+              "Batch 12BR does not authenticate the catalog responsibility statement 唐德行禪師 as a Tang composition date, does not prove edition identity between the Taiwan single-title and NLC Yimen objects, and does not close HPA-ZDATE-006 or the Fullbook inclement-current-time mechanism. Next gate is direct no-OCR collation of the Ming-print 唐明皇論 opening leaf."
+          ]
+          for item in additions_focus:
+              if item not in focus:
+                  focus.append(item)
+          state["updated_at"] = "2026-09-14"
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+          python scripts/verify-project-continuity-state-r1.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/verify-project-continuity-state-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR.md \
+            docs/research/ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-R1.json
+          if git diff --cached --quiet; then
+            echo "Batch 12BR already formalized"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12BR Sizijing Ming print transmission"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
