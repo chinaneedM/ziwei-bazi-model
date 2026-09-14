@@ -468,3 +468,11 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - The Yongle-Dadian readings `古經云 / 雨露 / 子丑寅亥` remain a separate recension/transmission witness; Batch 12BS does not call them errors or select a stemmatic winner.
 - The literal `亥` belongs to a difficult-hour list, not an upper-Zi-to-Hai reassignment rule. HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai-branch mechanical vote, runtime selection, candidate collapse and algorithm reopen remain unchanged.
 - Next high-value gate is direct Taiwan NCL 15275-0058 target-leaf collation for edition/impression comparison, while the Fullbook inclement-current-time acquisition chain remains independently open.
+
+
+## Progress through Batch 12BT
+
+- The complete 21-page Taiwan NCL 15275-0058 public 《四字經》 PDF derivative is now rendered and directly reviewed without OCR. Page 1's physical TOC lists `唐明皇論` before `甲甲`, independently strengthening the internal-unit bridge to the 1597 Yimen witness.
+- Page 3 directly reads `四字經目錄終`; the next public page 4 opens the visible body as `四字經 / 甲甲`, and the remaining pages continue the stem-pair body through `癸癸`. No `唐明皇論` prose body leaf is exposed in the 21-page public derivative.
+- The admissible finding is a public-scan target-leaf lacuna, not proof that the physical holding lacks the leaf. Taiwan contributes no direct glyph vote for `古人/古經`, `雨落/雨露`, or hour ordering from this derivative, and same-impression/disbound identity with the Yimen object remains unproved.
+- HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai-branch mechanical vote, runtime selection, candidate collapse and algorithm reopen remain unchanged. Next gate is another Taiwan image route or direct Yongle physical collation, while the Fullbook operational-current-time chain remains separate.

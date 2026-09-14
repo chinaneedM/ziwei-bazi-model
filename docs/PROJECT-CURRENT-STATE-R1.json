@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.78.0",
+  "schema_version": "1.79.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -157,9 +157,10 @@
       "BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP",
       "BATCH-12-ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-BQ",
       "BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR",
-      "BATCH-12-ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-BS"
+      "BATCH-12-ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-BS",
+      "BATCH-12-ZIWEI-TAIWAN-NCL-SIZIJING-PUBLIC-SCAN-LACUNA-BT"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-BS.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TAIWAN-NCL-SIZIJING-PUBLIC-SCAN-LACUNA-BT.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -470,7 +471,10 @@
       "Batch 12BR does not authenticate the catalog responsibility statement 唐德行禪師 as a Tang composition date, does not prove edition identity between the Taiwan single-title and NLC Yimen objects, and does not close HPA-ZDATE-006 or the Fullbook inclement-current-time mechanism. Next gate is direct no-OCR collation of the Ming-print 唐明皇論 opening leaf.",
       "Batch 12BS directly collates the hashed 1597 Yimen-Guangdu Sizijing physical scan without OCR for final glyph judgment: p28 prints 四字經 / 唐德行禪師著 / 明周履靖校正 / 唐明皇論, while p29 directly prints 古人云 / 天陰雨落難定 / contiguous 亥子丑寅.",
       "The three Batch-12BR Yimen-side OCR variants are now physical-glyph adjudicated, but the Yongle-Dadian readings remain a separate recension witness rather than being declared errors; no stemmatic winner is selected and Taiwan NCL 15275-0058 edition/impression identity remains unresolved.",
-      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT: the literal 亥 is part of the difficult-hour list, not an upper-Zi-to-Hai mechanical rule, and the Sizijing inclement-weather sentence is not a complete time-acquisition procedure. Hai-branch vote/runtime winner/candidate collapse/algorithm reopen remain 0; next gate is direct Taiwan-NCL target-leaf collation plus the separate Fullbook operational-time chain."
+      "HPA-ZDATE-006 remains MISSING_FROM_PRODUCT: the literal 亥 is part of the difficult-hour list, not an upper-Zi-to-Hai mechanical rule, and the Sizijing inclement-weather sentence is not a complete time-acquisition procedure. Hai-branch vote/runtime winner/candidate collapse/algorithm reopen remain 0; next gate is direct Taiwan-NCL target-leaf collation plus the separate Fullbook operational-time chain.",
+      "Batch 12BT directly reviews the complete 21-page Taiwan NCL 15275-0058 public Sizijing PDF without OCR: p1 physical TOC lists 唐明皇論 before 甲甲, p3 reads 四字經目錄終, and the next public page p4 begins the visible body 四字經 / 甲甲; the remaining scan proceeds through stem-pair material to 癸癸.",
+      "The Taiwan public derivative therefore does not expose the 唐明皇論 body leaf needed for the Batch-12BS variant loci. This is classified only as PUBLIC_SCAN_LACUNA; absence from the physical holding is not proved, and no Taiwan glyph reading for 古人/古經, 雨落/雨露 or hour ordering is inferred.",
+      "Taiwan's physical TOC and the Yimen physical body now independently share the 唐明皇論 internal unit, strengthening common Sizijing transmission correspondence while still not proving same impression or disbound identity. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT with Hai mechanical vote/runtime winner/candidate collapse/algorithm reopen unchanged; next gate is another Taiwan image route or direct Yongle target-leaf collation plus the separate Fullbook operational-time chain."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

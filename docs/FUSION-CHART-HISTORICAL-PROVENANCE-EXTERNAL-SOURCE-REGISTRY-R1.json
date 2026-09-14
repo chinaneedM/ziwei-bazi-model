@@ -3506,7 +3506,13 @@
       "provider": "數位典藏與學習聯合目錄 / 國家圖書館古籍資料",
       "url": "https://catalog.digitalarchives.tw/item/00/08/6f/c0.html",
       "source_role": "INSTITUTIONAL_BIBLIOGRAPHIC_BINDING_FOR_SINGLE_TITLE_MING_WANLI_SIZIJING_PHYSICAL_HOLDING",
-      "quality_notes": "Binds title, responsibility statement, one-juan extent, Jinling Jingshan-shulin Ming-Wanli edition statement and book number 15275-0058. Responsibility statement is not independent proof of Tang composition date."
+      "quality_notes": "Binds title, responsibility statement, one-juan extent, Jinling Jingshan-shulin Ming-Wanli edition statement and book number 15275-0058. Responsibility statement is not independent proof of Tang composition date.",
+      "batch_12bt_scan_crosscheck": {
+        "public_scan_source_id": "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN",
+        "physical_toc_directly_attests_tang_minghuang_lun": true,
+        "same_impression_with_yimen_proved": false,
+        "disbound_identity_proved": false
+      }
     },
     {
       "source_id": "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN",
@@ -3515,7 +3521,28 @@
       "provider": "Wikimedia Commons derivative sourced to Taiwan National Central Library",
       "url": "https://commons.wikimedia.org/wiki/File:NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf",
       "source_role": "PUBLIC_21_PAGE_SCAN_ROUTE_FOR_TAIWAN_NCL_MING_WANLI_SIZIJING",
-      "quality_notes": "Confirms a 21-page public scan route for the cataloged NCL object. Batch 12BR did not obtain a screenshot-capable target leaf, so no direct glyph authority is claimed."
+      "quality_notes": "Confirms a 21-page public scan route for the cataloged NCL object. Batch 12BR did not obtain a screenshot-capable target leaf, so no direct glyph authority is claimed. Batch 12BT directly reviewed the full 21-page public PDF without OCR. Its own p1 TOC lists 唐明皇論 before 甲甲; p3 reads 四字經目錄終; the next public page p4 begins 四字經 / 甲甲, and the remainder proceeds through the stem-pair body to 癸癸. The public derivative therefore does not expose the 唐明皇論 body leaf. This is a public-scan lacuna only; absence from the physical holding is not proved, and no target-variant glyphs may be inferred from the TOC.",
+      "batch_12bt_direct_public_scan_collation": {
+        "source_pdf_sha256": "e99bee3b210d9b078b11778f2e504277c821520ba16677b917a4a434661dbe02",
+        "page_count": 21,
+        "renderer_head": "46c4a4493d92b7697f78163f582402fbc02691d7",
+        "workflow_run_id": 34825456673,
+        "artifact_id": 10340620803,
+        "key_page_sha256": {
+          "p01": "5545620326b950aca74c508394971f063177c819ddc2f3ac7b513949fd2188f8",
+          "p03": "2a1fface07816bc46764da1be57b8e0d10f75c18fea3096d6678a2bebbf922cc",
+          "p04": "8ae30532d8d0bfc64886ff88e44ac9ed84af7537cb7d5b5496a62c213f2cd794",
+          "p21": "2921471d1ee787ce7d250225bfd2218ad57be740a0d914729b71c35a7388956c"
+        },
+        "direct_no_ocr_findings": [
+          "p01: 四字經目錄; first listed unit 唐明皇論; followed by 甲甲",
+          "p03: 四字經目錄終",
+          "p04: visible body opens 四字經 / 甲甲, with no exposed 唐明皇論 body leaf between TOC end and body start",
+          "p21: visible stem-pair material has reached 癸癸"
+        ],
+        "classification": "PUBLIC_21_PAGE_DERIVATIVE_TARGET_BODY_LEAF_LACUNA; PHYSICAL_HOLDING_LACUNA_NOT_PROVED",
+        "target_variant_glyph_authority": false
+      }
     },
     {
       "source_id": "EXT-NLC-YIMEN-GUANGDU-1597-SIZIJING",

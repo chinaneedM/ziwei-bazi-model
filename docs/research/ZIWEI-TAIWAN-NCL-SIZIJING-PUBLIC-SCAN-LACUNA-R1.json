@@ -1,0 +1,77 @@
+{
+  "schema": "ZIWEI-TAIWAN-NCL-SIZIJING-PUBLIC-SCAN-LACUNA-R1",
+  "batch_id": "BATCH-12-ZIWEI-TAIWAN-NCL-SIZIJING-PUBLIC-SCAN-LACUNA-BT",
+  "prior_batch_id": "BATCH-12-ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-BS",
+  "prior_research": "docs/research/ZIWEI-YIMEN-1597-SIZIJING-DIRECT-GLYPH-COLLATION-R1.json",
+  "question": "Does Taiwan NCL 15275-0058 expose the Tang Minghuang Lun body leaf needed to compare the three Sizijing variant loci with the 1597 Yimen witness?",
+  "source_ids": [
+    "EXT-TW-NCL-SIZIJING-15275-0058-MING-WANLI",
+    "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN"
+  ],
+  "evidence_chain": {
+    "source_pdf": "NCL-15275-0058_四字經.pdf",
+    "source_pdf_sha256": "e99bee3b210d9b078b11778f2e504277c821520ba16677b917a4a434661dbe02",
+    "page_count": 21,
+    "renderer_head": "46c4a4493d92b7697f78163f582402fbc02691d7",
+    "renderer_tree": "7744f048e0dd532a3d41209868660a46b28433d9",
+    "workflow_run_id": 34825456673,
+    "artifact_id": 10340620803,
+    "artifact_digest": "sha256:5448669de7e40c697a6a80007941514467cdb4dfb1880ac726fcf4f97ce32ffc",
+    "render_method": "pdftoppm JPEG render; final adjudication by direct visual review without OCR",
+    "key_page_sha256": {
+      "p01": "5545620326b950aca74c508394971f063177c819ddc2f3ac7b513949fd2188f8",
+      "p03": "2a1fface07816bc46764da1be57b8e0d10f75c18fea3096d6678a2bebbf922cc",
+      "p04": "8ae30532d8d0bfc64886ff88e44ac9ed84af7537cb7d5b5496a62c213f2cd794",
+      "p21": "2921471d1ee787ce7d250225bfd2218ad57be740a0d914729b71c35a7388956c"
+    }
+  },
+  "direct_collation": {
+    "p01": {
+      "heading": "四字經目錄",
+      "first_internal_unit": "唐明皇論",
+      "next_visible_toc_unit": "甲甲"
+    },
+    "p03": {
+      "reading": "四字經目錄終"
+    },
+    "p04": {
+      "visible_body_opening": [
+        "四字經",
+        "甲甲"
+      ],
+      "tang_minghuang_lun_body_exposed_before_jiajia": false
+    },
+    "p21": {
+      "visible_material": "癸癸 stem-pair body"
+    }
+  },
+  "scan_lacuna_adjudication": {
+    "public_21_page_derivative_exposes_tang_minghuang_lun_body": false,
+    "public_scan_lacuna_confirmed": true,
+    "physical_holding_lacuna_proved": false,
+    "allowed_explanations": [
+      "digitization_selection_or_omission",
+      "missing_leaf_in_digitized_object",
+      "other_unresolved_physical_history"
+    ],
+    "do_not_infer_target_glyphs_from_toc": true
+  },
+  "transmission_effect": {
+    "taiwan_physical_toc_and_yimen_physical_heading_both_attest_tang_minghuang_lun": true,
+    "same_transmission_family_correspondence_strengthened": true,
+    "same_impression_proved": false,
+    "taiwan_disbound_from_yimen_proved": false,
+    "exact_target_glyph_identity_proved": false
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "taiwan_public_scan_target_body_glyph_witness_increment": 0,
+    "taiwan_physical_toc_tang_minghuang_lun_structural_witness_increment": 1,
+    "hai_branch_mechanical_vote_increment": 0,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}
