@@ -532,3 +532,10 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - A Ming technical transmission explicitly distinguishes a 地中 40/60 standard from the Yandu Shoushi 62/38 standard. Sanming Tonghui's displayed mantic table is therefore not automatically the exact Yandu table; its summer-solstice line is 59/41.
 - Tianyige's Ming-print Huqianjing physically confirms that 40/60-style seasonal leak-arrow tables belong to a wider historical timekeeping tradition, but no direct genealogy from Huqianjing to Sanming is claimed.
 - Locality capability is closed at the calendar-system level; Wan Minying's selected locality/table genealogy and any modern-instant binding remain unresolved. HPA-ZDATE-006 stays MISSING_FROM_PRODUCT with no new candidate, winner, Hai vote, collapse or reopen.
+
+
+## Progress through Batch 12CB
+
+- A no-OCR physical review of the 1533 Chengqiao-print 《運氣易覽·論四時氣候》 directly confirms `晝夜分五十刻`, `夏至日長不過六十刻`, and `冬至日短不過四十刻` in a pre-1578 medical-yunqi witness.
+- This closes an earlier 50/50 + 60/40 conceptual/disciplinary parallel, but the reviewed locus does not print Sanming Tonghui's distinctive multi-point 42/58...59/41 table. Exact table identity and direct genealogy are therefore not established.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no Hai-branch vote, runtime candidate, winner, collapse or algorithm reopen is introduced.

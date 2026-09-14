@@ -1,0 +1,88 @@
+{
+  "schema": "ZIWEI-YUNQI-YILAN-1533-SEASONAL-EXTREMA-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YUNQI-YILAN-1533-SEASONAL-EXTREMA-CB",
+  "prior_batch_id": "BATCH-12-ZIWEI-SANMING-SHOUSHI-LOCALITY-AND-TABLE-MISMATCH-CA",
+  "question": "Does the 1533 Chengqiao-print Yunqi Yilan preserve the exact pre-1578 numeric seasonal day/night-ke table used in Sanming Tonghui, or only the broader seasonal extrema tradition?",
+  "physical_witness": {
+    "source_id": "EXT-XUXIU-SIKU-0983-YUNQI-YILAN-1533-CHENGQIAO",
+    "work": "運氣易覽",
+    "author": "汪機",
+    "edition": "明嘉靖十二年（1533）程鐈刻本",
+    "facsimile_container": "續修四庫全書第0983冊",
+    "workflow_run_id": 34859366584,
+    "artifact_id": 10354496404,
+    "artifact_digest": "sha256:65f611f28d8989ae4d2dc7d25e4ee2ed6e4075b065d8ee36db2bda090a2aff0a",
+    "source_pdf_sha256": "a1b0bcba30eaccacd7860d6444e7e7811d98b3fc3649b5cfcd7657edb31e0b0c",
+    "pdf_page": 8,
+    "page_render_sha256": "fcb0597a86bfaeead333ce610ec20114e119680f2583dffa2259dca3e83dadc6",
+    "ocr_used_for_glyph_claims": false
+  },
+  "direct_physical_collation": {
+    "heading": "論四時氣候",
+    "readings": [
+      "晝夜分五十刻亦陰陽之中分",
+      "夏至日長不過六十刻陽至此而極",
+      "冬至日短不過四十刻陰至此而極"
+    ],
+    "semantic_scope": "Seasonal/equinox-solstice day-night ke extrema inside a medical yunqi exposition.",
+    "independent_pre1578_conceptual_parallel": true
+  },
+  "sanming_comparison": {
+    "sanming_reference_source_id": "EXT-SANMING-NCL-1578-MAIN",
+    "sanming_distinctive_points": [
+      "小寒 42/58",
+      "立春 45/55",
+      "雨水 47/53 then 48/52",
+      "春秋分 near/equal 50/50",
+      "夏至 59/41"
+    ],
+    "yunqi_yilan_exact_multipoint_table_witness": false,
+    "exact_numeric_table_equivalence": false,
+    "reason": "The reviewed edition-scoped 論四時氣候 locus gives equinoctial 50/50 and solstitial bounds 60/40, but does not itself print the Sanming multi-point seasonal table; Sanming's displayed summer-solstice value is 59/41 rather than an exact 60/40 row.",
+    "direct_genealogy_to_sanming_proved": false,
+    "candidate_parent_rejected_as_exact_numeric_table_equivalent": true,
+    "broader_shared_tradition_remains_possible": true
+  },
+  "adjudication": {
+    "pre1578_40_60_medical_yunqi_tradition_attested": true,
+    "pre1578_50_50_equinox_language_attested": true,
+    "exact_sanming_table_provenance_closed": false,
+    "sanming_table_can_be_labeled_yunqi_yilan_table": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "most_conservative_reading": "The 1533 Yunqi Yilan physically proves an earlier medical-yunqi 50/50 and 60/40 seasonal-extrema tradition, but it does not supply the exact multi-point table printed by Sanming Tonghui. Exact table genealogy therefore remains open."
+  },
+  "received_text_cross_checks_not_glyph_authority": [
+    "https://ctext.org/wiki.pl?chapter=4158339&if=gb",
+    "https://jicheng.tw/tcm/book/%E9%81%8B%E6%B0%A3%E6%98%93%E8%A6%BD/index.html"
+  ],
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "remaining_blockers": [
+      "trace the exact pre-1578 source of the Sanming multi-point 42/58...59/41 seasonal table",
+      "identify the locality/standard encoded by that exact table rather than the broader 40/60 extrema tradition",
+      "independently close the Fullbook upper-five-ke -> previous-night Hai branch mechanism"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
