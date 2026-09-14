@@ -1,0 +1,62 @@
+name: locate-yunqi-yilan-1533-xuxiu-siku-983
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/locate-yunqi-yilan-1533-xuxiu-siku-983.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF/image tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils imagemagick
+      - name: Download Xu Xiu Siku volume 983 facsimile
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/low evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC0983%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/xuxiu_siku_0983.pdf
+          sha256sum evidence/xuxiu_siku_0983.pdf | tee evidence/source.sha256
+          pdfinfo evidence/xuxiu_siku_0983.pdf | tee evidence/pdfinfo.txt
+      - name: Render all pages at locator resolution without OCR
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=55 -r 32 evidence/xuxiu_siku_0983.pdf evidence/low/page
+          sha256sum evidence/low/*.jpg | sort -V > evidence/low.sha256
+          mapfile -t pages < <(find evidence/low -maxdepth 1 -name 'page-*.jpg' | sort -V)
+          total=${#pages[@]}
+          chunk=80
+          idx=1
+          for ((start=0; start<total; start+=chunk)); do
+            end=$((start+chunk))
+            if (( end > total )); then end=$total; fi
+            slice=("${pages[@]:start:end-start}")
+            printf -v out 'evidence/contact/contact-%02d-pages-%04d-%04d.jpg' "$idx" "$((start+1))" "$end"
+            montage "${slice[@]}" -thumbnail 125x160 -tile 8x10 -geometry +2+2 "$out"
+            idx=$((idx+1))
+          done
+          sha256sum evidence/contact/*.jpg | sort -V | tee evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=1533_CHENGQIAO_PRINT_FACSIMILE_LOCATOR\nPURPOSE=LOCATE_YUNQI_YILAN_AND_TARGET_SECTION_ONLY\nFULL_PAGE_GLYPH_CLAIMS_AUTHORIZED=false\n' > evidence/manifest.txt
+          rm -rf evidence/low
+      - name: Upload locator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: yunqi-yilan-1533-xuxiu-siku-983-locator
+          path: |
+            evidence/source.sha256
+            evidence/pdfinfo.txt
+            evidence/contact/
+            evidence/contact.sha256
+            evidence/manifest.txt
+          if-no-files-found: error
+          retention-days: 30
