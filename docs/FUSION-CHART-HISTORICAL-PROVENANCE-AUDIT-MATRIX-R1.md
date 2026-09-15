@@ -625,3 +625,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HU
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts and deterministic product invariants are unchanged.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK.md`. Research record: `docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json`.
+
+
+## Progress — Batch 12CL
+
+- NLC/Wikimedia volume 18 of `《明英宗睿皇帝實錄》` was rendered in GitHub Actions without OCR. Physical-surrogate page `090` binds `卷之一百八十六`; page `091` directly contains `詔更定大統曆晷刻` and the order `今後造曆，宜悉照洪武、永樂間舊式`.
+- The same official passage explicitly states that the Beijing adjustment differed from Nanjing by three degrees of polar altitude and by `冬至晝短三刻 / 夏至晝長三刻`. This is an official regional-calibration and policy-restoration statement, not a modern reconstruction.
+- The passage itself does **not** print `59/41` or `62/38`. Combined with Batch 12CF's direct 1447 `南京59 / 北京62` evidence, it strengthens the interpretation that the Nanjing 59-ke branch belonged to an older standard family restored after the Beijing-adjusted regime, while leaving row-for-row identity unresolved.
+- For the 1578 Sanming table, Batch 12CL upgrades the regional/policy continuity candidate but does not close the missing Huqian-style daily ladder, change-day fingerprint, or rounding/selection bridge. No direct-copy edge is asserted.
+- A separate continuation control rendered NLC volume 19 and confirmed that it begins with the卷187 sequence; the earlier suspicion that the target might continue into volume 19 is closed as a locator-scope correction only.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL.md`. Research record: `docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json`.

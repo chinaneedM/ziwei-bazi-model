@@ -1,0 +1,107 @@
+{
+  "schema": "ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL",
+  "prior_batch_id": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK",
+  "question": "Does the 1449 Yingzong Shilu preserve a near-contemporary official policy restoration from Beijing-adjusted Datong day/night-ke values back to the Hongwu/Yongle old style, and what does that do to the pre-1578 59-ke lineage problem?",
+  "source_binding": {
+    "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V18-186-1449",
+    "work": "明英宗睿皇帝實錄",
+    "target_volume": 186,
+    "target_reign_date": "正統十四年十二月戊申",
+    "target_event": "詔更定大統曆晷刻",
+    "date_firewall": {
+      "event_date": "MING_ZHENGTONG_14_12_1449",
+      "work_compilation_date": "POST_EVENT_MING_DYNASTIC_SHILU_COMPILATION; NOT_EQUATED_TO_EVENT_DATE",
+      "surviving_manuscript_copy_date": "UNRESOLVED_FROM_CURRENT_SURROGATE_METADATA",
+      "digital_surrogate_date": "MODERN_NLC_COMMONS_DIGITIZATION/MIRROR",
+      "rule": "event/compilation/copy/surrogate dates remain distinct"
+    }
+  },
+  "direct_physical_surrogate": {
+    "workflow_run_id": 34943188353,
+    "artifact_id": 10386575936,
+    "artifact_digest": "sha256:d0955fd7d29c05a2b1c2abcede8cd31d26269897af7eccc3f91b5fa5a5388fad",
+    "source_pdf_sha256": "ca44b5b876559842335f264950d36535cad3a95838e72c637fe8e27bda5459fd",
+    "rendered_page_count": 120,
+    "ocr_used_for_glyph_claims": false,
+    "page_sha256": {
+      "090": "0e845f89966e8f2b594962ceabbb5e3535f1040f2961358bed78fd13fa357aa3",
+      "091": "2a16c48279773be48e4c00fffb7d2a04794789988c9bfabf3862b48407f58942"
+    },
+    "page_090_binding": "Right leaf directly reads the volume heading 錄卷之一百八十六, establishing the target volume boundary inside volume 18.",
+    "page_091_binding": "The same rendered physical-page surrogate directly contains the Datong-calendar restoration passage; target wording is visually adjudicated against the page, while a modern transcription is used only as a locator/cross-check.",
+    "direct_reading_key_phrases": [
+      "詔更定大統曆晷刻",
+      "以北京較之南京北極出地上高三度，南極入地下低三度",
+      "冬至晝短三刻，夏至晝長三刻",
+      "今後造曆，宜悉照洪武、永樂間舊式"
+    ],
+    "normalized_crosscheck_excerpt": "詔更定大統曆晷刻。先是，天文生馬軾乞改大統曆晝夜時刻，命禮部會官議。欽天監監正許惇等奏：正統間監正彭德清于觀象臺測驗，以北京較之，南京北極出地上高三度，南極入地下低三度，冬至晝短三刻，夏至晝長三刻，逐一考究，奏准改入大統曆内，永爲定式。……今後造曆，宜悉照洪武、永樂間舊式。",
+    "glyph_claim_policy": "No OCR output is admitted as evidence. The transcription only cross-checks order and normalization after direct visual localization of the target on page 091."
+  },
+  "continuation_control": {
+    "workflow_run_id": 35007522124,
+    "artifact_id": 10411764656,
+    "artifact_digest": "sha256:422cb871c13b2fe2ba4a2db6532accd39238c78a45ce54127e7e945adf4f23a0",
+    "volume_19_source_sha256": "8c917af7b8a86450b6fffe8eaba1264d6537d081fd19516f473c6b50d05be9a7",
+    "rendered_page_count": 108,
+    "result": "Volume 19 starts with the卷187 sequence; it is not required for the卷186 target. This control repairs the initial mistaken suspicion that the target continued into volume 19.",
+    "research_defect_class": "LOCATOR_SCOPE_CORRECTION_ONLY; NOT_PRODUCT_OR_PROVENANCE_METADATA_DEFECT"
+  },
+  "historical_adjudication": {
+    "beijing_vs_nanjing_regional_difference_explicit": true,
+    "difference_magnitude": "3 ke at both solstitial extremes according to the passage",
+    "prior_beijing_adjustment_recorded": true,
+    "restoration_order": "Future calendar production shall follow the Hongwu/Yongle old style.",
+    "policy_meaning": "The 1449 record is an explicit official rollback/restoration decision, not merely a later commentator's numerical comparison.",
+    "direct_passage_prints_59_41": false,
+    "direct_passage_prints_62_38": false,
+    "numeric_bridge_requires_prior_batch": "Batch 12CF directly established Nanjing 59 versus Beijing 62; Batch 12CL independently establishes the 3-ke Beijing/Nanjing differential and restoration of the older Hongwu/Yongle style.",
+    "combined_inference": "The 59-ke Nanjing regional standard is no longer treated as an isolated 1447 measurement point: the 1449 court record proves a policy reversion away from the Beijing-adjusted regime toward the older standard family. Exact identity of every daily row remains unproved."
+  },
+  "relationship_to_sanming_1578": {
+    "strengthens_59_cap_policy_continuity_candidate": true,
+    "direct_copying_proved": false,
+    "exact_step_ladder_identity_proved": false,
+    "change_day_fingerprint_proved": false,
+    "rounding_selection_rule_proved": false,
+    "lineage_effect": "Strengthens the pre-1578 regional/policy ancestry layer for a 59-cap family but leaves the Huqian-style one-ke ladder and Sanming change-day/quantization bridge unresolved."
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V18",
+      "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "RULE-FAMILY-MING-HONGWU-YONGLE-OLD-STYLE-DATONG"
+    ],
+    "edges_added": [
+      "TG-E0016",
+      "TG-E0017",
+      "TG-E0018",
+      "TG-E0019"
+    ],
+    "claim_strengthening": "A Nanjing-vs-Beijing regional difference is now tied to an explicit 1449 official restoration decision rather than inferred only from later received histories.",
+    "claims_not_made": [
+      "1449 passage itself prints 59/41",
+      "Hongwu/Yongle old style is mechanically identical row-for-row to the 1578 Sanming table",
+      "1449 restoration directly copied into Sanming",
+      "policy continuity proves the missing daily step-ladder/change-day bridge"
+    ]
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status": "MISSING_FROM_PRODUCT",
+    "upper_zi_to_hai_vote_increment": 0,
+    "new_runtime_candidate": false,
+    "runtime_winner": false,
+    "candidate_collapse": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "deterministic_product_state": "CLOSED"
+  },
+  "next_gate": [
+    "Search 1449-1578 Nanjing/Jiangnan calendars, almanacs, or technical tables that preserve the restored old-style 59-ke cap together with an explicit intra-term daily ladder/change-day fingerprint.",
+    "Search for an explicit historical selection/rounding instruction capable of explaining the Batch 12CI (78,81]/147 precision-to-coarse threshold.",
+    "Continue the independent Fullbook upper-five-ke -> previous-night Hai lineage without conflating it with seasonal-table ancestry."
+  ]
+}

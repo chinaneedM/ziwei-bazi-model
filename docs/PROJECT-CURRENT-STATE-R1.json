@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.97.0",
+  "schema_version": "1.98.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -175,9 +175,10 @@
       "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
       "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI",
       "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ",
-      "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+      "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK",
+      "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -547,7 +548,10 @@
       "Tianwen transmission graph now records the Huqianjing 20-number-arrow operational family as cross-recension stable and as a strengthened structural ancestry candidate for Sanming, while withholding direct Tianyige->Siku, Han-Xianfu->Huqian, or Huqian->Sanming copy claims.",
       "Batch 12CK directly binds the 1444 Kyujanggak 奎貴894-v.1-3 Gabinja witness and its G894 physical day/night pages: Hanyang reaches winter 39/61 and summer 61/39.",
       "Batch 12CK fixes the Sejong 158 locator route to wda_50034: official article wda_50034002 states that the Inner Chapter derives daily sunrise/sunset and day/night values from the Hanyang solstitial gnomon for domestic use. The earlier wda_50018 probe was a research-locator inference error, not source absence.",
-      "Batch 12CK establishes regional calibration as an explicit genealogy variable: near-contemporary Hanyang 61, Nanjing 59, and Beijing 62 cannot be collapsed into one universal solstitial-ke tradition. Sanming 59/41 ancestry search is therefore narrowed toward 59-ke-cap regional intermediaries rather than generic East-Asian day/night tables."
+      "Batch 12CK establishes regional calibration as an explicit genealogy variable: near-contemporary Hanyang 61, Nanjing 59, and Beijing 62 cannot be collapsed into one universal solstitial-ke tradition. Sanming 59/41 ancestry search is therefore narrowed toward 59-ke-cap regional intermediaries rather than generic East-Asian day/night tables.",
+      "Batch 12CL directly binds NLC/Wikimedia Yingzong Shilu volume 18 page 090 to卷186 and page 091 to the 正統十四年十二月 '詔更定大統曆晷刻' passage, with no OCR used for glyph claims.",
+      "Batch 12CL establishes a near-contemporary official 1449 policy restoration: the record states the Beijing/Nanjing solstitial day-length difference as three ke and orders future Datong calendar production to follow the Hongwu/Yongle old style.",
+      "Batch 12CL strengthens the pre-1578 59-ke regional/policy continuity candidate when combined with Batch 12CF's direct Nanjing59/Beijing62 evidence, but it does not prove Sanming row-for-row descent; the daily ladder/change-day/rounding bridge remains the next gate."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -587,7 +591,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-15",
+  "updated_at": "2026-09-16",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",

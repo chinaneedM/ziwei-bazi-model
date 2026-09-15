@@ -248,6 +248,44 @@
         "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V18",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "NLC892-CBM0103-366392《明英宗睿皇帝實錄》第18冊數字替身",
+      "system_scope": "MING_OFFICIAL_HISTORIOGRAPHICAL_TIMEKEEPING",
+      "work_composition_date": "MING_SHILU_POST_EVENT_COMPILATION",
+      "edition_impression_date": null,
+      "physical_copy_date": "UNRESOLVED_FROM_CURRENT_METADATA",
+      "digital_surrogate_date": "MODERN_NLC_COMMONS_SURROGATE",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "node_id": "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "node_type": "PASSAGE",
+      "label": "《英宗實錄》卷186正統十四年十二月：詔更定大統曆晷刻／悉照洪武永樂間舊式",
+      "system_scope": "MING_OFFICIAL_CALENDRICAL_POLICY",
+      "historical_event_date": "ZHENGTONG_14_12_1449",
+      "physical_surrogate_locator": "NLC892 volume18 PDF pages 090-091; target passage page091",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "node_id": "RULE-FAMILY-MING-HONGWU-YONGLE-OLD-STYLE-DATONG",
+      "node_type": "RULE_FAMILY",
+      "label": "洪武永樂舊式大統曆晝夜刻規則家族（1449恢復令見證）",
+      "system_scope": "MING_OFFICIAL_CALENDRICAL_TIMEKEEPING",
+      "date": "ZHENGTONG_14_12_1449",
+      "mechanical_identity": "Official record states Beijing differs from Nanjing by three degrees of polar altitude and three ke at solstitial day length; court orders future calendar production to follow the Hongwu/Yongle old style. Exact 59/41 numerals and daily ladder are not printed in this passage.",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
     }
   ],
   "edges": [
@@ -468,6 +506,61 @@
       ],
       "scope_note": "Near-contemporary Hanyang 61 and Nanjing 59 are both directly localized standards. Coexistence proves regional variability, not transmission direction.",
       "adjudication_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "edge_id": "TG-E0016",
+      "from": "DIGITAL-SURROGATE-YINGZONG-SHILU-NLC892-V18",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_RENDERED_SURROGATE_PAGE_090_091_NO_OCR",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "edge_id": "TG-E0017",
+      "from": "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-MING-HONGWU-YONGLE-OLD-STYLE-DATONG",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "NEAR_CONTEMPORARY_OFFICIAL_SHILU_POLICY_PASSAGE_DIRECT_PAGE_COLLATION",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "edge_id": "TG-E0018",
+      "from": "RULE-FAMILY-MING-HONGWU-YONGLE-OLD-STYLE-DATONG",
+      "relation": "REGIONAL_ADAPTATION_CANDIDATE_FOR",
+      "to": "STANDARD-NANJING-59KE-1447",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "COMPOSITE_1447_DIRECT_NANJING59_PLUS_1449_EXPLICIT_THREE_KE_DIFFERENTIAL_AND_OLD_STYLE_RESTORATION",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF.md"
+      ],
+      "scope_note": "Candidate relation concerns the restored regional standard family only; row-for-row table identity is not asserted.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "edge_id": "TG-E0019",
+      "from": "RULE-FAMILY-MING-HONGWU-YONGLE-OLD-STYLE-DATONG",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM",
+      "evidence_class": "PRE1578_OFFICIAL_POLICY_CONTINUITY_FOR_59_CAP_REGIONAL_FAMILY_WITH_MISSING_DAILY_LADDER_BRIDGE",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ],
+      "scope_note": "This strengthens only the regional/policy component of a possible Sanming ancestry. Huqian-style daily ladder, change-day fingerprint, and rounding rule remain unbridged.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
     }
   ],
   "lineage_hypotheses": [
@@ -546,6 +639,16 @@
       "evidence": [
         "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
       ]
+    },
+    {
+      "from": "PASSAGE-YINGZONG186-DATONG-OLD-STYLE-RESTORATION-1449",
+      "relation": "DIRECT_TABLE_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The 1449 passage proves a policy restoration and three-ke regional differential but does not print Sanming's full daily ladder, change-day fingerprint, or 59/41 row set.",
+      "evidence": [
+        "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ]
     }
   ],
   "backfill": {
@@ -554,5 +657,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-09-15"
+  "updated_at": "2026-09-16"
 }
