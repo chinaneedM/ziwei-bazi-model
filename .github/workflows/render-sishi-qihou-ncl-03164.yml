@@ -1,0 +1,72 @@
+name: render-sishi-qihou-ncl-03164
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-sishi-qihou-ncl-03164.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python -m pip install pillow
+      - name: Download NCL-03164 Sishi Qihou Jijie
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03164%20%E5%9B%9B%E6%99%82%E6%B0%A3%E5%80%99%E9%9B%86%E8%A7%A3.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/sishi_qihou_ncl_03164.pdf
+          sha256sum evidence/sishi_qihou_ncl_03164.pdf | tee evidence/source.sha256
+          pdfinfo evidence/sishi_qihou_ncl_03164.pdf | tee evidence/pdfinfo.txt
+      - name: Render every physical page without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=94 -r 180 evidence/sishi_qihou_ncl_03164.pdf evidence/pages/page
+          n=$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -gt 0
+          sha256sum evidence/pages/*.jpg | sort -V > evidence/pages.sha256
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          pages=sorted(Path('evidence/pages').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for i in range(0,len(pages),8):
+              batch=pages[i:i+8]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((440,700))
+                  canvas=Image.new('RGB',(460,740),'white')
+                  canvas.paste(im,((460-im.width)//2,28))
+                  ImageDraw.Draw(canvas).text((8,7),p.name,fill='black')
+                  thumbs.append(canvas)
+              rows=(len(thumbs)+3)//4
+              sheet=Image.new('RGB',(4*460,rows*740),'white')
+              for j,im in enumerate(thumbs):
+                  sheet.paste(im,((j%4)*460,(j//4)*740))
+              a=i+1;b=i+len(batch)
+              sheet.save(f'evidence/contact/contact-{a:03d}-{b:03d}.jpg',quality=92)
+          PY
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nSOURCE=NCL-03164 四時氣候集解\nSOURCE_ROLE=DIRECT_PRE1578_MING_PHYSICAL_COLLATION\nTARGET=SANMING_LIKE_INTRA_SOLAR_TERM_DAY_NIGHT_KE_CHANGE_FINGERPRINT\n' > evidence/manifest.txt
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sishi-qihou-ncl-03164-physical-facsimile
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
