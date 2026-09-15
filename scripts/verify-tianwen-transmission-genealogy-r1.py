@@ -78,6 +78,9 @@ def main() -> int:
         "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
         "TABLE-SANMING-1578-DAYNIGHT-KE",
         "TABLE-HANXIANFU-1010-24QI-PRECISION",
+        "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+        "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+        "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -111,6 +114,13 @@ def main() -> int:
     e8 = next((e for e in edges if e.get("edge_id") == "TG-E0008"), None)
     if not e8 or e8.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e8.get("status") != "PROBABLE":
         fail("1010/coarse 24-row structural edge regressed")
+
+    e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)
+    if not e11 or e11.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e11.get("status") != "PROBABLE":
+        fail("Huqianjing/Sanming structural ancestry edge regressed")
+    e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)
+    if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":
+        fail("Huqianjing cross-recension common-ancestry edge regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":
