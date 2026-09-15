@@ -1,0 +1,57 @@
+name: render-zhouxiang-daming-datong-1569
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-zhouxiang-daming-datong-1569.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils imagemagick
+      - name: Download public Zhou Xiang Daming Datong PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://www.kotenmon.com/cal/arabe/vol6.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/zhouxiang_daming_datong_vol6.pdf
+          sha256sum evidence/zhouxiang_daming_datong_vol6.pdf | tee evidence/source.sha256
+          pdfinfo evidence/zhouxiang_daming_datong_vol6.pdf | tee evidence/pdfinfo.txt
+      - name: Render all pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=92 -r 180 evidence/zhouxiang_daming_datong_vol6.pdf evidence/pages/page
+          mapfile -t pages < <(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | sort -V)
+          n=${#pages[@]}
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -gt 0
+          sha256sum "${pages[@]}" | sort -V > evidence/pages.sha256
+          for offset in $(seq 0 12 "$((n-1))"); do
+            start=$((offset+1))
+            end=$((offset+12)); [ "$end" -gt "$n" ] && end=$n
+            chunk=("${pages[@]:offset:12}")
+            montage "${chunk[@]}" -thumbnail 300x420 -tile 4x -geometry +6+6 "evidence/contact/contact-${start}-${end}.jpg"
+          done
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nTARGET=ZHOU_XIANG_DAMING_DATONG_1569_PRE1578_DAYNIGHT_TABLE_BRIDGE\nSOURCE_ROLE=PUBLIC_REPRODUCTION_OF_NAIKAKU_BUNKO_MING_LONGQING_PRINT\n' > evidence/manifest.txt
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: zhouxiang-daming-datong-1569
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
