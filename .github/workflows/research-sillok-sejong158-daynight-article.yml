@@ -26,8 +26,10 @@ jobs:
         run: |
           python scripts/research_sillok_sejong158_daynight_article.py \
             --output artifacts/sillok-sejong158-daynight-article \
-            --max-article 80
+            --max-article 20 \
+            --workers 8
       - name: Upload article-locator evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sillok-sejong158-daynight-article
