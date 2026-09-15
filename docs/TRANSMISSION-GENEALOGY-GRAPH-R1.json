@@ -1,0 +1,311 @@
+{
+  "schema": "TIANWEN-TRANSMISSION-GENEALOGY-GRAPH-R1",
+  "schema_version": "1.0.0",
+  "status": "ACTIVE_INCREMENTAL",
+  "graph_model": "EVIDENCE_SCOPED_DIRECTED_MULTI_RELATION_GRAPH",
+  "authority_policy": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+  "protocol": "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md",
+  "system_charter": "docs/TIANWEN-SYSTEM-CHARTER-R1.md",
+  "invariants": {
+    "single_tree_assumption_forbidden": true,
+    "work_edition_physical_copy_digital_surrogate_dates_must_be_separated_when_material": true,
+    "same_wording_does_not_prove_direct_copy": true,
+    "same_numeric_pair_does_not_prove_same_table": true,
+    "same_title_does_not_prove_same_edition_or_copy": true,
+    "parallel_coexistence_does_not_prove_lineage": true,
+    "genealogy_change_does_not_automatically_reopen_chart_algorithm": true,
+    "prediction_ai_interpretation_scope_unchanged": true
+  },
+  "node_types": [
+    "TEXT_WORK",
+    "EDITION",
+    "PHYSICAL_COPY",
+    "DIGITAL_SURROGATE",
+    "PASSAGE",
+    "RULE_FAMILY",
+    "MECHANICAL_RULE",
+    "TERM_CONCEPT",
+    "REGIONAL_STANDARD",
+    "SCHOOL",
+    "PERSON",
+    "INSTITUTION",
+    "OPERATIONAL_ARTIFACT"
+  ],
+  "relation_types": [
+    "ATTESTS",
+    "EDITION_OF",
+    "PHYSICAL_COPY_OF_EDITION",
+    "DIGITAL_SURROGATE_OF",
+    "EXPLICITLY_CITES",
+    "TRANSMITS_RULE",
+    "RECENSION_VARIANT_OF",
+    "TERMINOLOGY_NORMALIZES_TO",
+    "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
+    "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+    "SHARED_COMMON_ANCESTOR_CANDIDATE",
+    "REGIONAL_ADAPTATION_CANDIDATE_FOR",
+    "SCHOOL_REINTERPRETATION_CANDIDATE_FOR",
+    "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+    "PARALLEL_COEXISTS_WITH",
+    "CONTRADICTS",
+    "DISPROVES_LINEAGE_SHORTCUT",
+    "TRANSMISSION_ERROR_OF"
+  ],
+  "allowed_statuses": [
+    "CONFIRMED",
+    "HIGH_CONFIDENCE",
+    "PROBABLE",
+    "POSSIBLE",
+    "UNRESOLVED",
+    "DISPROVED"
+  ],
+  "nodes": [
+    {
+      "node_id": "TEXT-WORK-SISHI-QIHOU-JIJIE",
+      "node_type": "TEXT_WORK",
+      "label": "《四時氣候集解》",
+      "system_scope": "CROSS_DISCIPLINARY_TIMEKEEPING",
+      "work_composition_date": "EARLY_MING; INTERNAL_PREFACE_HONGXI_1_1425",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "The work-level 1425 preface tradition must not be used to date every surviving copy.",
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+      "node_type": "EDITION",
+      "label": "《四時氣候集解四卷》明景泰六年胡廷璨刻本",
+      "system_scope": "CROSS_DISCIPLINARY_TIMEKEEPING",
+      "work_composition_date": "EARLY_MING; INTERNAL_PREFACE_HONGXI_1_1425",
+      "edition_impression_date": "MING_JINGTAI_6_1455",
+      "physical_copy_date": "BOUND_TO_SHANGHAI_LIBRARY_JINGTAI6_HUTINGCAN_PRINT_LINEAGE",
+      "digital_surrogate_date": "MODERN_CADAL_WIKIMEDIA_SURROGATE",
+      "evidence": [
+        "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NCL-03164《四時氣候集解》舊鈔本",
+      "system_scope": "CROSS_DISCIPLINARY_TIMEKEEPING",
+      "work_composition_date": "EARLY_MING; INTERNAL_PREFACE_HONGXI_1_1425",
+      "edition_impression_date": null,
+      "physical_copy_date": "UNRESOLVED",
+      "digital_surrogate_date": "MODERN_NCL_WIKIMEDIA_SURROGATE",
+      "date_scope_note": "Internal 1425 preface and 1455 postface do not by themselves prove the surviving old manuscript was physically copied before 1578.",
+      "evidence": [
+        "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "node_type": "RULE_FAMILY",
+      "label": "通書粗粒度40↔60晝夜刻表家族",
+      "system_scope": "CROSS_DISCIPLINARY_TIMEKEEPING",
+      "mechanical_identity": "Seasonal/solar-term day-night ke pairs within a 100-ke total, reaching a coarse 60/40 summer maximum in the directly reviewed 1455 branch.",
+      "direct_1455_anchors": {
+        "立夏": "57/43",
+        "小滿": "59/41",
+        "夏至": "60/40"
+      },
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "STANDARD-NANJING-59KE-1447",
+      "node_type": "REGIONAL_STANDARD",
+      "label": "1447南京至日59刻地域标准",
+      "system_scope": "MING_OFFICIAL_TIMEKEEPING",
+      "date": "MING_ZHENGTONG_12_1447",
+      "mechanical_identity": "Official memorial directly records Nanjing solstitial extreme as 59 ke and Beijing as 62 ke; 41/38 are complements under the separately established 100-ke day, not directly printed in that locus.",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "1380s南京大統日出入分逐日数表家族",
+      "system_scope": "MING_CALENDRICAL_TIMEKEEPING",
+      "date": "1380s_TABLE_FAMILY",
+      "mechanical_identity": "Daily post-solstice half-day numerical curve, independently classified as Type C-II-N / Nanjing; capable of generating the continuous 42→59 daylight-ke range after unit conversion.",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "node_type": "MECHANICAL_RULE",
+      "label": "1578《三命通會》晝夜刻显示表",
+      "system_scope": "BAZI_MINGLI_TIMEKEEPING_CONTEXT",
+      "date": "MING_WANLI_6_1578",
+      "mechanical_identity": "Stepped displayed seasonal day/night-ke ladder whose summer-solstice anchor is 59/41; exact parent and quantization/change-day rule remain unresolved.",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "TG-E0001",
+      "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-SISHI-QIHOU-JIJIE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING_PLUS_PHYSICAL_DATED_PARATEXT",
+      "evidence": [
+        "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0002",
+      "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+      "relation": "ATTESTS",
+      "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "1455 print rendered p41: 立夏 57/43",
+        "1455 print rendered p47: 小滿 59/41",
+        "1455 print rendered p57: 夏至 60/40",
+        "docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0003",
+      "from": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "STANDARD-NANJING-59KE-1447",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "INDEPENDENT_CONTEMPORARY_PHYSICAL_WITNESSES",
+      "evidence": [
+        "1447 official Nanjing 59-ke record",
+        "1455 printed Tongshu Xiazhi 60/40 record",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md"
+      ],
+      "scope_note": "Coexistence is confirmed; no direct transmission from one to the other is implied.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0004",
+      "from": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "relation": "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM",
+      "evidence_class": "SHARED_SEASONAL_INTEGER_LADDER_WITH_NONIDENTICAL_ANCHORS",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD.md",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE.md",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md"
+      ],
+      "scope_note": "The 1455 branch has Xiazhi 60/40 while Sanming has Xiazhi 59/41; direct-copy ancestry is not established.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0005",
+      "from": "STANDARD-NANJING-59KE-1447",
+      "relation": "REGIONAL_ADAPTATION_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "EARLIER_OFFICIAL_LOCALITY_STANDARD_PLUS_LATER_NUMERIC_CONVERGENCE",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF.md",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md"
+      ],
+      "scope_note": "This is a locality-adaptation candidate, not a direct text-parent claim.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0006",
+      "from": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "relation": "SYNTHESIS_COMPONENT_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "MECHANICAL_REPLAY_PLUS_INDEPENDENT_TABLE_IDENTITY",
+      "evidence": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md"
+      ],
+      "scope_note": "Daily curve mechanically spans and replays multiple Sanming integer anchors; exact historical quantization and direct borrowing remain unproved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0007",
+      "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+      "relation": "DISPROVES_LINEAGE_SHORTCUT",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_NUMERIC_ANCHOR_MISMATCH",
+      "evidence": [
+        "1455 Tongshu: 小滿 59/41, 夏至 60/40",
+        "1578 Sanming: 夏至 59/41"
+      ],
+      "scope_note": "This disproves the shortcut 'pre-1578 Tongshu occurrence of 59/41 = direct Sanming table identity'. It does not disprove more complex ancestry or synthesis.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    }
+  ],
+  "lineage_hypotheses": [
+    {
+      "hypothesis_id": "TG-H0001",
+      "label": "Sanming 1578 composite day/night-ke transmission model",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "components": [
+        "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+        "STANDARD-NANJING-59KE-1447",
+        "TABLE-NANJING-DATONG-DAILY-CII-N-1380S"
+      ],
+      "target": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "model": "older coarse seasonal/leak-clock integer table family + Ming Nanjing/Datong locality numerical layer + unresolved selection/quantization/editorial recomposition -> Sanming 1578 displayed ladder",
+      "direct_copy_parent_identified": false,
+      "exact_quantization_rule_identified": false,
+      "unresolved_questions": [
+        "Which securely pre-1578 witness first combines Xiazhi 59/41 with Sanming-like intermediate anchors?",
+        "Was an older 40↔60 Tongshu family explicitly recalibrated to Nanjing/Datong locality, or did Sanming inherit a separate already-recalibrated table?",
+        "What exact quantization/change-day rule maps the daily Nanjing Datong curve to Sanming's displayed bins?"
+      ]
+    }
+  ],
+  "explicit_non_edges": [
+    {
+      "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+      "relation": "DIRECT_TEXTUAL_DEPENDENCE_CONFIRMED",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "No direct-copy evidence; the summer-solstice numeric anchor differs."
+    },
+    {
+      "from": "STANDARD-NANJING-59KE-1447",
+      "relation": "DIRECT_TEXTUAL_DEPENDENCE_CONFIRMED",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The official locality standard is an earlier technical precedent, not an identified Sanming textual parent."
+    }
+  ],
+  "backfill": {
+    "policy": "INCREMENTAL_FROM_EXISTING_AUDIT_BATCHES",
+    "all_historical_batches_backfilled": false,
+    "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
+    "future_material_batches_require_transmission_impact": true
+  },
+  "updated_at": "2026-09-15"
+}
