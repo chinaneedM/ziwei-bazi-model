@@ -30,12 +30,39 @@ Every new work session must perform these steps in order:
 4. Read GitHub Actions for the exact live HEAD.
 5. Read `docs/PROJECT-CURRENT-STATE-R1.json`.
 6. Read `docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md`.
-7. Read the historical provenance Matrix JSON/MD and external source registry.
-8. Read the latest batch document named by the current-state JSON.
-9. Check recent commits for any batch/state changes newer than that document.
-10. Only then open the source/tests/docs needed for the next rule family.
+7. Read `docs/TIANWEN-SYSTEM-CHARTER-R1.md`.
+8. Read `docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md`.
+9. Read the historical provenance Matrix JSON/MD and external source registry.
+10. Read `docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json`.
+11. Read the latest batch document named by the current-state JSON.
+12. Check recent commits for any batch/state changes newer than that document.
+13. Only then open the source/tests/docs needed for the next rule family.
 
 If live GitHub state and any chat summary disagree, **live GitHub wins**.
+
+## Tianwen transmission-genealogy continuity rule
+
+The project umbrella identity is `天问 / TIANWEN`. Every new historical-research session must preserve the separate layers defined by `docs/TIANWEN-SYSTEM-CHARTER-R1.md`:
+
+```text
+deterministic charting != historical provenance/philology != transmission genealogy != future empirical/prediction work
+```
+
+Transmission genealogy is an evidence-scoped graph, not a presumed single lineage tree. When a research batch materially changes historical lineage, it should record a `transmission_impact` containing nodes, supported/revised/rejected edges and remaining lineage questions. Existing batches are backfilled incrementally.
+
+The following scope firewall is mandatory:
+
+```text
+work composition date != edition/impression date != physical-copy date != digital-surrogate date
+same wording != proven direct copying
+same numeric pair != proven same table
+same title != proven same edition/copy
+parallel coexistence != proven lineage
+```
+
+Graph revisions are forward-only. New evidence may strengthen, weaken or disprove a lineage edge, but the earlier status and revision reason must remain auditable. A genealogy revision never automatically reopens a deterministic chart algorithm and never activates prediction/AI interpretation.
+
+Machine graph: `docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json`.
 
 ## No self-referential HEAD in the handoff
 
@@ -172,4 +199,5 @@ DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
 FUSION_CHART_HISTORICAL_PROVENANCE_AUDIT_R1=IN_PROGRESS
 ZIWEI_SELF_INWARD_TRANSFORMATION_DIRECTION=NOT_YET_FORMALIZED
 PREDICTION_AI_INTERPRETATION=CURRENTLY_OUT_OF_SCOPE
+TIANWEN_TRANSMISSION_GENEALOGY_R1=ACTIVE_INCREMENTAL
 ```

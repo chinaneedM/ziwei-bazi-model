@@ -8,6 +8,10 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "docs" / "PROJECT-CURRENT-STATE-R1.json"
 PROTOCOL = ROOT / "docs" / "PROJECT-CONTINUITY-PROTOCOL-R1.md"
 AUTHORITY = ROOT / "docs" / "FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
+TIANWEN_CHARTER = ROOT / "docs/TIANWEN-SYSTEM-CHARTER-R1.md"
+TRANSMISSION_PROTOCOL = ROOT / "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md"
+TRANSMISSION_GRAPH = ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
+TIANWEN_VERIFIER = ROOT / "scripts/verify-tianwen-transmission-genealogy-r1.py"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
@@ -233,6 +237,29 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    # Tianwen / transmission-genealogy continuity gate.
+    for path in (TIANWEN_CHARTER, TRANSMISSION_PROTOCOL, TRANSMISSION_GRAPH, TIANWEN_VERIFIER):
+        if not path.is_file():
+            fail(f"Tianwen continuity artifact missing: {path.relative_to(ROOT)}")
+    tianwen_state = json.loads(STATE.read_text(encoding="utf-8"))
+    tianwen_identity = tianwen_state.get("tianwen_identity", {})
+    if tianwen_identity.get("umbrella_name_zh") != "天问" or tianwen_identity.get("umbrella_name_en") != "TIANWEN":
+        fail("Tianwen project identity missing from current state")
+    if tianwen_identity.get("transmission_genealogy_status") != "ACTIVE_INCREMENTAL":
+        fail("Tianwen transmission genealogy status regressed")
+    tianwen_graph = json.loads(TRANSMISSION_GRAPH.read_text(encoding="utf-8"))
+    if tianwen_graph.get("schema") != "TIANWEN-TRANSMISSION-GENEALOGY-GRAPH-R1" or tianwen_graph.get("status") != "ACTIVE_INCREMENTAL":
+        fail("Tianwen transmission graph identity/status regressed")
+    if not tianwen_graph.get("backfill", {}).get("future_material_batches_require_transmission_impact"):
+        fail("Tianwen future transmission-impact contract regressed")
+    protocol_text = TRANSMISSION_PROTOCOL.read_text(encoding="utf-8")
+    if "GENEALOGY_MODEL=EVIDENCE_SCOPED_GRAPH_NOT_SINGLE_TREE" not in protocol_text:
+        fail("Tianwen transmission graph-model contract missing")
+    if tianwen_state.get("invariants", {}).get("deterministic_fusion_chart_product_r1") != "CLOSED":
+        fail("Tianwen formalization reopened deterministic product")
+    if tianwen_state.get("invariants", {}).get("prediction_ai_interpretation_scope") != "OUT_OF_SCOPE_FOR_CURRENT_STAGE":
+        fail("Tianwen formalization changed prediction scope")
+
     for path in (ZIWEI_ZHANGGUO_BB_BATCH, ZIWEI_ZHANGGUO_BB_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12BB continuity artifact missing: {path.relative_to(ROOT)}")

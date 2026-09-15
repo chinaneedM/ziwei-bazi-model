@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.93.0",
+  "schema_version": "1.94.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -531,7 +531,11 @@
       "Batch 12CH directly reviews the Shanghai-Library-lineage Jingtai-6/1455 Hu Tingcan print of 四時氣候集解 via CADAL02090387: p41/p47/p57 physically preserve the Tongshu-labelled coarse sequence 立夏57/43, 小滿59/41, 夏至60/40; p123 preserves 景泰六年乙亥孟春 dated end matter.",
       "Batch 12CH closes an important coexistence layer: the official 1447 Nanjing 59-ke solstitial standard and a 1455 printed Tongshu Xiazhi 60/40 branch coexisted. Therefore generic 通書 wording or the isolated pair 59/41 cannot establish direct Sanming ancestry; the composite-transmission model is strengthened while exact parent/quantization remains open.",
       "Batch 12CH corrects NCL-03164 scope: it is publicly cataloged 舊鈔本 with internal 1425 preface and 1455 postface, so the surviving physical manuscript itself is not counted as pre-1578 without an independent copy-date binding.",
-      "Batch 12CH begins explicit per-batch transmission-genealogy recording through a transmission_impact graph section. Next Sanming gate is a securely pre-1578 source that combines Xiazhi59/41 with Sanming-like intermediate anchors or states the recalibration/quantization rule; Fullbook upper-five-ke -> Hai remains independently unresolved."
+      "Batch 12CH begins explicit per-batch transmission-genealogy recording through a transmission_impact graph section. Next Sanming gate is a securely pre-1578 source that combines Xiazhi59/41 with Sanming-like intermediate anchors or states the recalibration/quantization rule; Fullbook upper-five-ke -> Hai remains independently unresolved.",
+      "Tianwen (天问) is now the project umbrella identity. The deterministic chart product, historical provenance/philology, and transmission genealogy are separate layers; future empirical/prediction work remains outside the current stage.",
+      "Transmission Genealogy R1 is ACTIVE_INCREMENTAL. Future materially historical batches should emit transmission_impact; existing batches will be backfilled incrementally rather than rewritten in one pass.",
+      "Transmission genealogy is modeled as an evidence-scoped graph, not a forced lineage tree. Work composition date, edition/impression date, physical-copy date and digital-surrogate date must remain separate when material.",
+      "Batch 12CH is the first explicit graph seed: 1447 Nanjing 59-ke standard and 1455 Tongshu Xiazhi 60/40 are confirmed as parallel-coexisting layers; both remain only candidate components in the unresolved 1578 Sanming composite ancestry."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -543,8 +547,11 @@
     "read docs/PROJECT-CONTINUITY-PROTOCOL-R1.md",
     "read docs/PROJECT-CURRENT-STATE-R1.json",
     "read docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md",
+    "read docs/TIANWEN-SYSTEM-CHARTER-R1.md",
+    "read docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md",
     "read historical provenance matrix JSON and MD",
     "read external historical source registry",
+    "read docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
     "read latest completed batch document and any newer batch documents found in commit history",
     "read README historical-audit section",
     "read source/tests/docs only for the next affected rule family",
@@ -568,5 +575,17 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-15"
+  "updated_at": "2026-09-15",
+  "tianwen_identity": {
+    "umbrella_name_zh": "天问",
+    "umbrella_name_en": "TIANWEN",
+    "working_motto": "天以命运问人，人以命理问天。",
+    "system_charter": "docs/TIANWEN-SYSTEM-CHARTER-R1.md",
+    "transmission_genealogy_protocol": "docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md",
+    "transmission_genealogy_graph": "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
+    "transmission_genealogy_status": "ACTIVE_INCREMENTAL",
+    "historical_backfill_status": "INCREMENTAL",
+    "future_material_historical_batches_require_transmission_impact": true,
+    "prediction_model_status": "FUTURE_NOT_CURRENT_SCOPE"
+  }
 }
