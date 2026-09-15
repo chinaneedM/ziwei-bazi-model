@@ -1,0 +1,82 @@
+name: render-huqianjing-cadal06049792-chuanjian
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-huqianjing-cadal06049792-chuanjian.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install DJVU and image tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y djvulibre-bin poppler-utils
+          python -m pip install pillow
+      - name: Download CADAL06049792 Huqianjing juan 7-11
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL06049792%20%E8%99%8E%E9%88%90%E7%B6%93%C2%B7%E5%8D%B7%E4%B8%83~%E5%8D%B7%E5%8D%81%E4%B8%80.djvu'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/huqianjing_cadal06049792.djvu
+          sha256sum evidence/huqianjing_cadal06049792.djvu | tee evidence/source.sha256
+          djvused evidence/huqianjing_cadal06049792.djvu -e n | tee evidence/djvu-page-count.txt
+      - name: Convert and render every physical page without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          ddjvu -format=pdf evidence/huqianjing_cadal06049792.djvu evidence/huqianjing_cadal06049792.pdf
+          pdfinfo evidence/huqianjing_cadal06049792.pdf | tee evidence/pdfinfo.txt
+          pdftoppm -jpeg -jpegopt quality=94 -r 190 evidence/huqianjing_cadal06049792.pdf evidence/pages/page
+          n=$(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | wc -l)
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -eq 152
+          sha256sum evidence/pages/*.jpg | sort -V > evidence/pages.sha256
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          pages=sorted(Path('evidence/pages').glob('page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+          for i in range(0,len(pages),8):
+              batch=pages[i:i+8]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((470,740))
+                  canvas=Image.new('RGB',(490,780),'white')
+                  canvas.paste(im,((490-im.width)//2,28))
+                  ImageDraw.Draw(canvas).text((8,6),p.name,fill='black')
+                  thumbs.append(canvas)
+              rows=(len(thumbs)+3)//4
+              sheet=Image.new('RGB',(4*490,rows*780),'white')
+              for j,im in enumerate(thumbs):
+                  sheet.paste(im,((j%4)*490,(j//4)*780))
+              a=i+1;b=i+len(batch)
+              sheet.save(f'evidence/contact/contact-{a:03d}-{b:03d}.jpg',quality=93)
+          PY
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          cat > evidence/manifest.txt <<'EOF'
+          NO_OCR_USED_FOR_GLYPH_CLAIMS=true
+          SOURCE=CADAL06049792 虎鈐經·卷七~卷十一
+          SOURCE_ROLE=DIRECT_PHYSICAL_RECEIVED_WITNESS_FOR_LOUFA_AND_CHUANJIAN_OPERATIONAL_TIMEKEEPING
+          DIGITAL_PROVIDER=Wikimedia Commons / CADAL / Zhejiang University
+          TARGET=卷七 漏法第七十五 傳箭第七十六
+          WORK_DATE_FIREWALL=SONG_AUTHORSHIP_AND_EARLY_11TH_CENTURY_COMPOSITION_CONTEXT_DO_NOT_DATE_THIS_SURVIVING_SIKU_PHYSICAL_COPY
+          TRANSMISSION_FIREWALL=PARALLEL_OR_MECHANICALLY_SIMILAR_SONG_TABLES_DO_NOT_PROVE_DIRECT_COPYING_FROM_HAN_XIANFU
+          EOF
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: huqianjing-cadal06049792-chuanjian-physical-facsimile
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
