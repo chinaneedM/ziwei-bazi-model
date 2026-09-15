@@ -354,15 +354,14 @@ def graph_verifier() -> None:
         s = s.replace(needle, needle + block, 1)
     if 'e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)' not in s:
         needle = '    ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")\n'
-        block = dedent('''
-            e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)
-            if not e11 or e11.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e11.get("status") != "PROBABLE":
-                fail("Huqianjing/Sanming structural ancestry edge regressed")
-            e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)
-            if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":
-                fail("Huqianjing cross-recension common-ancestry edge regressed")
-
-        ''')
+        block = (
+            '    e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)\n'
+            '    if not e11 or e11.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e11.get("status") != "PROBABLE":\n'
+            '        fail("Huqianjing/Sanming structural ancestry edge regressed")\n'
+            '    e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)\n'
+            '    if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":\n'
+            '        fail("Huqianjing cross-recension common-ancestry edge regressed")\n\n'
+        )
         if needle not in s:
             raise SystemExit("cannot insert Huqian graph checks")
         s = s.replace(needle, block + needle, 1)
