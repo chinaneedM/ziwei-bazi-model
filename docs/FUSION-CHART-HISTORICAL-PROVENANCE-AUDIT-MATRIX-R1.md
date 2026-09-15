@@ -578,3 +578,15 @@ Long-running audit state is persisted in `docs/PROJECT-CURRENT-STATE-R1.json` an
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts remain 198/166/10/14 and provenance defects remain 11/11.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md`. Research record: `docs/research/ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1.json`.
+
+## Progress — Batch 12CH
+
+- Direct no-OCR review of `CADAL02090387 四時氣候集解` closes a securely pre-1578 printed Tongshu-labelled coarse day/night-ke branch. Bibliographic reproduction metadata binds the object to the Shanghai Library `明景泰六年胡廷璨刻本`; physical p123 independently preserves `景泰六年龍集乙亥孟春吉日` dated end matter.
+- Physical p41/p47/p57 read `立夏 57/43`, `小滿 59/41`, `夏至 60/40`. This is the same coarse `40↔60` family independently observed in Batch 12CE and is **not** the 1578 Sanming table at the summer-solstice anchor: Sanming prints `夏至 59/41`.
+- Batch 12CF already closed an official Nanjing solstitial `59` layer in 1447. Its coexistence with a 1455 printed Tongshu `夏至 60/40` branch proves that early-Ming technical transmission remained layered; one locality/calendar standard did not simply replace all older seasonal tables.
+- NCL-03164 is retained as an `舊鈔本` transmission control only. Its internal 1425 preface and 1455 postface do not by themselves date that surviving manuscript copy, so the earlier acquisition-manifest `DIRECT_PRE1578` label is explicitly narrowed rather than propagated.
+- The composite-transmission model is strengthened but direct genealogy remains open: coarse 40↔60 seasonal lineage + Nanjing/Datong 59-ke locality layer + unresolved selection/quantization/editorial recomposition may explain Sanming, but no direct-copy edge is asserted.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts remain 198/166/10/14 and provenance defects remain 11/11.
+- Batch 12CH also records an explicit `transmission_impact` graph section in its research JSON so future lineage work can distinguish attestation, coexistence, candidate ancestry and unproved direct-copy edges.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md`. Research record: `docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json`.
