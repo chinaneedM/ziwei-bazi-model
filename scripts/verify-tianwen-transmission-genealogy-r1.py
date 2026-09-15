@@ -77,6 +77,7 @@ def main() -> int:
         "STANDARD-NANJING-59KE-1447",
         "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
         "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "TABLE-HANXIANFU-1010-24QI-PRECISION",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -106,6 +107,10 @@ def main() -> int:
     e7 = next((e for e in edges if e.get("edge_id") == "TG-E0007"), None)
     if not e7 or e7.get("relation") != "DISPROVES_LINEAGE_SHORTCUT" or e7.get("status") != "CONFIRMED":
         fail("1455/Sanming lineage-shortcut firewall regressed")
+
+    e8 = next((e for e in edges if e.get("edge_id") == "TG-E0008"), None)
+    if not e8 or e8.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e8.get("status") != "PROBABLE":
+        fail("1010/coarse 24-row structural edge regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

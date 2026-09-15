@@ -590,3 +590,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DA
 - Batch 12CH also records an explicit `transmission_impact` graph section in its research JSON so future lineage work can distinguish attestation, coexistence, candidate ancestry and unproved direct-copy edges.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md`. Research record: `docs/research/ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1.json`.
+
+## Progress — Batch 12CI
+
+- Direct no-OCR review of `CADAL06060929 宋史·卷六十九~卷七十` physically closes the received `《宋史》卷七十` witness recording that in `大中祥符三年` (1010) 春官正韓顯符 submitted `《銅渾儀法要》` with a 24-qi day/night advance-retreat and sunrise/sunset ke-number established method. The 1010 date is the recorded technical event, not the date of the surviving scanned copy.
+- The 24-term day/night rows conserve exactly 100 ke. In every non-equinox row the integer parts total 99 and the residuals total 147, so the residual denominator is mechanically inferable as 147 per ke. `59刻142` must therefore not be misread as modern decimal `59.142`.
+- Re-review of the Ming-print `《類編曆法通書》` coarse table on physical pp18–24 closes all 24 integer term anchors. The entire table is compatible with one quantization threshold on the Song residuals: residuals `<=78` remain at the lower integer and residuals `>=81` advance one ke. No 79/80 residual occurs, so the exact threshold is only bounded to `(78,81]/147`.
+- Modern nearest-integer rounding is explicitly rejected as the historical explanation: it matches 22/24 but fails at `大寒` and `小雪`, where `41 + 78/147 ~= 41.531` would round to 42 while the direct Ming coarse table prints 41.
+- This establishes a full 24/24 **mechanical quantization compatibility** between the recorded 1010 precision table and the later coarse `40<->60` family. It does not prove direct textual copying, a specific historical rounding instruction, or the exact stemma.
+- The result explains the older coarse table family, not the 1578 `《三命通會》` Nanjing-like display: Sanming still differs materially (`小寒 42/58`, `立春 45/55`, `夏至 59/41`) and continues to require the separately evidenced Ming/Nanjing locality/daily-table adaptation layer.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi->Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Counts remain 198/166/10/14 and provenance defects 11/11.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI.md`. Research record: `docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json`.

@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.94.0",
+  "schema_version": "1.95.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -172,9 +172,10 @@
       "BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE",
       "BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF",
       "BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG",
-      "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+      "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
+      "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -535,7 +536,10 @@
       "Tianwen (天问) is now the project umbrella identity. The deterministic chart product, historical provenance/philology, and transmission genealogy are separate layers; future empirical/prediction work remains outside the current stage.",
       "Transmission Genealogy R1 is ACTIVE_INCREMENTAL. Future materially historical batches should emit transmission_impact; existing batches will be backfilled incrementally rather than rewritten in one pass.",
       "Transmission genealogy is modeled as an evidence-scoped graph, not a forced lineage tree. Work composition date, edition/impression date, physical-copy date and digital-surrogate date must remain separate when material.",
-      "Batch 12CH is the first explicit graph seed: 1447 Nanjing 59-ke standard and 1455 Tongshu Xiazhi 60/40 are confirmed as parallel-coexisting layers; both remain only candidate components in the unresolved 1578 Sanming composite ancestry."
+      "Batch 12CH is the first explicit graph seed: 1447 Nanjing 59-ke standard and 1455 Tongshu Xiazhi 60/40 are confirmed as parallel-coexisting layers; both remain only candidate components in the unresolved 1578 Sanming composite ancestry.",
+      "Batch 12CI directly closes the received Songshi physical witness for the recorded 1010 Han Xianfu 24-qi precision day/night-ke table; the 1010 date is the recorded technical event, not the surviving scanned-copy date.",
+      "Batch 12CI infers a 147-part per-ke residual denominator by exact day/night conservation and closes 24/24 mechanical quantization compatibility to the Ming coarse 40<->60 table. Modern nearest-integer rounding fails at Dahan/Xiaoxue; the historical threshold is only bounded to (78,81]/147, not textually named.",
+      "Tianwen transmission graph now records the 1010 precision table as a high-strength structural ancestry candidate for the coarse Tongshu family while explicitly withholding direct textual genealogy. Sanming 1578 still requires a separate Ming/Nanjing adaptation layer; HPA-ZDATE-006 remains MISSING_FROM_PRODUCT and no algorithm invariant changes."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

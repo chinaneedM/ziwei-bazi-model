@@ -154,6 +154,21 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "node_id": "TABLE-HANXIANFU-1010-24QI-PRECISION",
+      "node_type": "MECHANICAL_RULE",
+      "label": "《宋史》所錄1010韓顯符二十四氣精細晝夜刻表",
+      "system_scope": "SONG_TECHNICAL_TIMEKEEPING",
+      "recorded_event_date": "NORTHERN_SONG_DAZHONG_XIANGFU_3_1010",
+      "source_compilation_layer": "LATER_SONGSHI_HISTORIOGRAPHICAL_WITNESS",
+      "physical_copy_date": "UNRESOLVED_FOR_CURRENT_CADAL_SURROGATE",
+      "digital_surrogate_date": "MODERN_CADAL_WIKIMEDIA_SURROGATE",
+      "mechanical_identity": "24 solar-term day/night values totaling 100 ke, with residual denominator 147 inferred by conservation; summer solstice day = 59 + 142/147 ke.",
+      "evidence": [
+        "docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI"
     }
   ],
   "edges": [
@@ -261,6 +276,21 @@
       ],
       "scope_note": "This disproves the shortcut 'pre-1578 Tongshu occurrence of 59/41 = direct Sanming table identity'. It does not disprove more complex ancestry or synthesis.",
       "adjudication_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+    },
+    {
+      "edge_id": "TG-E0008",
+      "from": "TABLE-HANXIANFU-1010-24QI-PRECISION",
+      "relation": "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "status": "PROBABLE",
+      "confidence": "HIGH_FOR_MECHANICAL_COMPATIBILITY_MEDIUM_FOR_TRANSMISSION_ANCESTRY",
+      "evidence_class": "DIRECT_PHYSICAL_RECEIVED_SONGSHI_TABLE_PLUS_DIRECT_MING_COARSE_TABLE_24_OF_24_THRESHOLD_REPLAY",
+      "evidence": [
+        "docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json",
+        "docs/research/ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1.json"
+      ],
+      "scope_note": "All 24 Ming coarse anchors are reproducible from the Song precision rows with one threshold interval (78,81]/147, but no direct textual-copy edge or exact historical rounding instruction is proved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI"
     }
   ],
   "lineage_hypotheses": [
@@ -299,6 +329,16 @@
       "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
       "status": "UNRESOLVED",
       "reason": "The official locality standard is an earlier technical precedent, not an identified Sanming textual parent."
+    },
+    {
+      "from": "TABLE-HANXIANFU-1010-24QI-PRECISION",
+      "relation": "DIRECT_TEXTUAL_PARENT_OF",
+      "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "status": "UNRESOLVED",
+      "reason": "24/24 numerical quantization compatibility and chronology establish a strong structural ancestry candidate, not a stemmatically demonstrated copy chain.",
+      "evidence": [
+        "docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json"
+      ]
     }
   ],
   "backfill": {
