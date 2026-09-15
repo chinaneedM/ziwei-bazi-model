@@ -286,6 +286,58 @@
         "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-KOTENMON-ZHOUXIANG-DATONG-VOL6-2019",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "kotenmon公開《大明大統曆法》第6冊PDF（2019生成）",
+      "system_scope": "MING_DATONG_CALENDRICAL_TRANSMISSION",
+      "work_composition_date": "MULTILAYERED; DIRECT PAGE 9 USES CHENGHUA_13_1477_CALCULATION_EPOCH",
+      "edition_impression_date": "LONGQING_3_1569_REPRINT_LAYER_DIRECTLY_VISIBLE",
+      "physical_copy_date": "NAJ_HOLDING_LINEAGE_PER_SECONDARY_SCHOLARSHIP; EXACT_COPY_DATE/CALL_NUMBER_UNRESOLVED",
+      "digital_surrogate_date": "PDF_METADATA_2019_07_08",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "node_id": "EDITION-ZHOUXIANG-DAMING-DATONG-LONGQING3-1569",
+      "node_type": "EDITION",
+      "label": "周相重刊《大明大統曆法》隆慶三年1569層",
+      "system_scope": "MING_DATONG_CALENDRICAL_TRANSMISSION",
+      "work_composition_date": "CONTAINS_EARLIER_CALCULATION_MATERIAL; PAGE9_ANCHOR_1477",
+      "edition_impression_date": "LONGQING_3_1569_DIRECT_PAGE7",
+      "physical_copy_date": "EXACT_COPY_DATE_UNRESOLVED",
+      "digital_surrogate_date": "2019_PUBLIC_REPRODUCTION",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "node_id": "PASSAGE-ZHOUXIANG-VOL6-LONGQING3-1569",
+      "node_type": "PASSAGE",
+      "label": "周相本第6冊p7隆慶三年七月重刊層",
+      "system_scope": "MING_DATONG_CALENDRICAL_BIBLIOGRAPHY",
+      "date": "LONGQING_3_1569",
+      "locator": "public reproduction PDF page 7",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "node_id": "PASSAGE-ZHOUXIANG-VOL6-CHENGHUA13-EPOCH-1477",
+      "node_type": "PASSAGE",
+      "label": "周相本第6冊p9步氣朔：成化十三年丁酉計算紀元",
+      "system_scope": "MING_DATONG_CALENDRICAL_COMPUTATION",
+      "date": "CHENGHUA_13_1477_CALCULATION_EPOCH",
+      "locator": "public reproduction PDF page 9",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
     }
   ],
   "edges": [
@@ -561,6 +613,45 @@
       ],
       "scope_note": "This strengthens only the regional/policy component of a possible Sanming ancestry. Huqian-style daily ladder, change-day fingerprint, and rounding rule remain unbridged.",
       "adjudication_batch": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL"
+    },
+    {
+      "edge_id": "TG-E0020",
+      "from": "DIGITAL-SURROGATE-KOTENMON-ZHOUXIANG-DATONG-VOL6-2019",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-ZHOUXIANG-VOL6-LONGQING3-1569",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PUBLIC_REPRODUCTION_NO_OCR",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "edge_id": "TG-E0021",
+      "from": "DIGITAL-SURROGATE-KOTENMON-ZHOUXIANG-DATONG-VOL6-2019",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-ZHOUXIANG-VOL6-CHENGHUA13-EPOCH-1477",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PUBLIC_REPRODUCTION_NO_OCR",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "edge_id": "TG-E0022",
+      "from": "PASSAGE-ZHOUXIANG-VOL6-LONGQING3-1569",
+      "relation": "ATTESTS",
+      "to": "EDITION-ZHOUXIANG-DAMING-DATONG-LONGQING3-1569",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_EDITION_DATE_LAYER_ON_PUBLIC_REPRODUCTION",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
     }
   ],
   "lineage_hypotheses": [
@@ -648,6 +739,16 @@
       "reason": "The 1449 passage proves a policy restoration and three-ke regional differential but does not print Sanming's full daily ladder, change-day fingerprint, or 59/41 row set.",
       "evidence": [
         "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json"
+      ]
+    },
+    {
+      "from": "EDITION-ZHOUXIANG-DAMING-DATONG-LONGQING3-1569",
+      "relation": "DIRECT_TABLE_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The reviewed 45-page public vol6 reproduction is a genuine pre-1578 Datong technical witness but no independent 晨昏分/日出入/晝夜刻 target table is observed; direct Sanming day/night parentage is therefore not established.",
+      "evidence": [
+        "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
       ]
     }
   ],

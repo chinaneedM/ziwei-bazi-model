@@ -637,3 +637,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CH
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL.md`. Research record: `docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json`.
+
+
+## Progress — Batch 12CM
+
+- A public reproduction of Zhou Xiang's `《大明大統曆法》` book 6 was fetched and all `45` pages were rendered/reviewed without OCR (run `35009608549`, artifact `10412298745`, source SHA-256 `4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c`).
+- Direct page-level collation separates the date layers: p7 visibly bears `隆慶三年七月` (1569) and Zhou Xiang's reprint layer, while p9 `步氣朔卷第一` explicitly computes to `大明成化十三年丁酉` (1477). The modern PDF surrogate is dated 2019 and is not collapsed into either historical date.
+- The fascicle is a strong pre-1578 Datong technical-transmission witness: p14/p19 preserve solar winter/summer standing tables and later leaves preserve lunar/朔 and related computational tables. However, no independent `晨昏分 / 日出入 / 晝夜刻` table was observed within the finite 45-page public reproduction.
+- That nonattestation is strictly fascicle-scoped. It closes Zhou Xiang vol6 as a direct target-table shortcut, not the wider Datong tradition. The next gate moves to direct `大統曆通軌/日通軌` 晨昏立成, pre-1578 annual almanacs, and `閑中錄`.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no runtime candidate, winner, candidate collapse, chart algorithm defect, or algorithm reopen is created.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM.md`. Research record: `docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json`.
