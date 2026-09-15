@@ -12,12 +12,14 @@ from pathlib import Path
 from curl_cffi import requests
 
 BASE = "https://sillok.history.go.kr"
-PREFIX = "wda_50018"
-TARGETS = (
-    "日出入隨處各異",
-    "內篇據漢陽日至之晷",
-    "二至後日出入晝夜辰刻",
-)
+# Official Sejong Sillok vol. 158 routes the terminal Inner-Chapter
+# day/night table under wda_50034..., e.g. wda_50034001 = 冬至後.
+# The earlier wda_50018... prefix was a locator-only inference error.
+PREFIX = "wda_50034"
+TARGET_HEADING = "二至後日出入晝夜辰刻"
+TARGET_LOCALITY = "日出入隨處各異"
+TARGET_HANYANG = "內篇據漢陽日至之晷"
+TARGETS = (TARGET_HEADING, TARGET_LOCALITY, TARGET_HANYANG)
 UA = "Mozilla/5.0 (compatible; ziwei-bazi-model historical-research-probe/1.0)"
 
 
@@ -52,31 +54,52 @@ def probe(n: int) -> tuple[dict, str | None]:
             compact = text_only(html)
             hits = [t for t in TARGETS if t in compact]
             rec["target_hits"] = hits
+            rec["is_locality_explanation_candidate"] = (
+                TARGET_LOCALITY in compact or TARGET_HANYANG in compact
+            )
             title = re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.I | re.S)
             if title:
                 rec["html_title"] = re.sub(r"\s+", " ", title.group(1)).strip()
-            viewer_links = sorted(set(re.findall(r'''(?:href|onclick)=["'][^"']*(?:popup/viewer\.do|viewer\.do)[^"']*["']''', html, flags=re.I)))
+            viewer_links = sorted(
+                set(
+                    re.findall(
+                        r'''(?:href|onclick)=["'][^"']*(?:popup/viewer\.do|viewer\.do)[^"']*["']''',
+                        html,
+                        flags=re.I,
+                    )
+                )
+            )
             rec["viewer_link_fragments"] = viewer_links[:20]
             return rec, html if hits else None
         except Exception as exc:
             errors.append({"attempt": attempt, "type": type(exc).__name__, "error": str(exc)})
             time.sleep(0.4 * attempt)
-    return {"article_id": article_id, "transport": {"status": 0, "url": url, "errors": errors}}, None
+    return {
+        "article_id": article_id,
+        "transport": {"status": 0, "url": url, "errors": errors},
+    }, None
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", default="artifacts/sillok-sejong158-daynight-article")
-    ap.add_argument("--max-article", type=int, default=80)
-    ap.add_argument("--workers", type=int, default=16)
+    ap.add_argument("--max-article", type=int, default=20)
+    ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
 
     result = {
-        "schema": "SILLOK-SEJONG158-DAYNIGHT-ARTICLE-LOCATOR-R1",
+        "schema": "SILLOK-SEJONG158-DAYNIGHT-ARTICLE-LOCATOR-R2",
         "discovery_only": True,
         "article_id_inference_as_evidence": "FORBIDDEN",
+        "route_basis": {
+            "prefix": PREFIX,
+            "official_positive_control": f"{PREFIX}001",
+            "positive_control_scope": "Official page visibly labels Sejong Sillok vol. 158 / Inner Chapter / lower volume / 二至後日出入晝夜辰刻 / 冬至後.",
+            "prior_prefix": "wda_50018",
+            "prior_prefix_status": "REJECTED_LOCATOR_INFERENCE_ERROR",
+        },
         "acceptance_rule": "ONLY_AN_OFFICIAL_RESPONSE_WHOSE_BODY_CONTAINS_TARGET_TEXT_MAY_BIND_THE_ARTICLE_ID",
         "targets": list(TARGETS),
         "probes": [],
@@ -89,6 +112,7 @@ def main() -> int:
             n = futures[fut]
             rec, html = fut.result()
             completed.append((n, rec, html))
+
     for n, rec, html in sorted(completed):
         if html is not None:
             fn = f"{rec['article_id']}.html"
@@ -97,15 +121,29 @@ def main() -> int:
             result["matches"].append(rec)
         result["probes"].append(rec)
 
+    locality = [
+        x["article_id"]
+        for x in result["matches"]
+        if x.get("is_locality_explanation_candidate")
+    ]
     result["conclusion"] = {
         "match_count": len(result["matches"]),
         "matched_article_ids": [x["article_id"] for x in result["matches"]],
-        "glyph_authority": "OFFICIAL_HTML_TRANSCRIPTION_ONLY; PHYSICAL_IMAGE_STILL_REQUIRED",
+        "locality_explanation_article_ids": locality,
+        "search_boundary": f"provider route {PREFIX}001..{PREFIX}{args.max_article:03d}",
+        "no_match_semantics": "FINITE_PROVIDER_ROUTE_SEARCH_BOUNDARY_ONLY; NEVER_SOURCE_ABSENCE_PROOF",
+        "glyph_authority": "OFFICIAL_HTML_TRANSCRIPTION_ONLY; PHYSICAL_IMAGE_STILL_REQUIRED_FOR_GLYPH_CRITICAL_CLAIMS",
         "algorithm_or_runtime_effect": "NONE",
     }
-    (out / "article-locator.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (out / "article-locator.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     print(json.dumps(result["conclusion"], ensure_ascii=False, indent=2))
-    return 0 if result["matches"] else 3
+    # Discovery no-match is a valid evidence outcome. The artifact must still be
+    # retained so downstream review can distinguish access/search boundaries
+    # from historical absence.
+    return 0
 
 
 if __name__ == "__main__":
