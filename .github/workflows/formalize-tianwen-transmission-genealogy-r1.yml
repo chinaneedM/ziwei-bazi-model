@@ -1,0 +1,43 @@
+name: formalize-tianwen-transmission-genealogy-r1
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-tianwen-transmission-genealogy-r1.yml
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Formalize Tianwen and transmission genealogy continuity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/formalize-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/TIANWEN-SYSTEM-CHARTER-R1.md \
+            docs/TRANSMISSION-GENEALOGY-PROTOCOL-R1.md \
+            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+            docs/PROJECT-CONTINUITY-PROTOCOL-R1.md \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            scripts/verify-project-continuity-state-r1.py \
+            scripts/verify-tianwen-transmission-genealogy-r1.py \
+            scripts/formalize-tianwen-transmission-genealogy-r1.py
+          if git diff --cached --quiet; then
+            echo "No formalization changes required"
+            exit 0
+          fi
+          git commit -m "formalize Tianwen transmission genealogy R1"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
