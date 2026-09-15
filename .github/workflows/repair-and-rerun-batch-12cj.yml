@@ -1,0 +1,59 @@
+name: repair-and-rerun-batch-12cj
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/repair-and-rerun-batch-12cj.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair-and-formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Repair Batch 12CJ verifier insertion and formalize
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/formalize-batch-12cj-huqianjing-cross-recension.py')
+          s = p.read_text(encoding='utf-8')
+          old = '''        block = dedent('''\n            e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)\n            if not e11 or e11.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e11.get("status") != "PROBABLE":\n                fail("Huqianjing/Sanming structural ancestry edge regressed")\n            e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)\n            if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":\n                fail("Huqianjing cross-recension common-ancestry edge regressed")\n\n        ''')'''
+          new = '''        block = (\n            '    e11 = next((e for e in edges if e.get("edge_id") == "TG-E0011"), None)\\n'\n            '    if not e11 or e11.get("relation") != "STRUCTURAL_ANCESTRY_CANDIDATE_FOR" or e11.get("status") != "PROBABLE":\\n'\n            '        fail("Huqianjing/Sanming structural ancestry edge regressed")\\n'\n            '    e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)\\n'\n            '    if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":\\n'\n            '        fail("Huqianjing cross-recension common-ancestry edge regressed")\\n\\n'\n        )'''
+          if old not in s:
+              raise SystemExit('target verifier-insertion block not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+          python -m py_compile scripts/formalize-batch-12cj-huqianjing-cross-recension.py
+          python scripts/formalize-batch-12cj-huqianjing-cross-recension.py
+          python -m py_compile scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/formalize-batch-12cj-huqianjing-cross-recension.py \
+            scripts/verify-project-continuity-state-r1.py \
+            scripts/verify-tianwen-transmission-genealogy-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ.md \
+            docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json
+          if git diff --cached --quiet; then
+            echo "No repair/formalization changes required"
+            exit 0
+          fi
+          git commit -m "repair and formalize Batch 12CJ Huqianjing cross-recension"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
