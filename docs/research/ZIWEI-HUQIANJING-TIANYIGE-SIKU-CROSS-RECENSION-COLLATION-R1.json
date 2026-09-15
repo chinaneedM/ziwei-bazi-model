@@ -1,0 +1,167 @@
+{
+  "schema": "ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI",
+  "question": "Do an independent Tianyige Ming-print witness and a CADAL/Siku-recension witness preserve the same core Huqianjing Chuanjian operational mechanics, and what transmission claims are justified without inventing direct-copy direction?",
+  "research_text_correction": {
+    "prior_batch": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI",
+    "rejected_shorthand": "48-arrow system",
+    "corrected_mechanical_description": "20 numbered arrows (第一箭 through 第二十箭), with numbering reused after the solstitial reset for the opposite half-year direction",
+    "correction_class": "RESEARCH_TEXT_CORRECTION_NOT_CHART_ALGORITHM_DEFECT",
+    "provenance_defect_counter_increment": 0
+  },
+  "cadal_siku_received_witness": {
+    "source_id": "EXT-CADAL-HUQIANJING-SIKU-CHUANJIAN",
+    "workflow_run_id": 34933201296,
+    "job_id": 104265544592,
+    "artifact_id": 10382093979,
+    "artifact_digest": "sha256:7e5eeffd870581275a9e4968bb5061ae864142ad1e3dcdaac80068702c611eac",
+    "source_djvu_sha256": "287547b1867829d35a6c788f20e73714b1fbce80e4c81717b0fb2eaa6a3e2707",
+    "derived_pdf_sha256": "e6e191136e71a4bb2d2e6f1fc220830a5863c8c89c12ddf09b4aa6d8ffcb381d",
+    "pdf_page_count": 152,
+    "target_pages": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "target_page_sha256": {
+      "14": "02708ac131649012a2c592eb2cc4fc36b00a3d5f841753eee9a76b0cbf942107",
+      "15": "b6381ac14f6479163b2c2a10ac59b2c6f773aac44c613818eab950ff50402883",
+      "16": "e1fcd26c6d2749c0d627204c00fda4a3cdcb90525095b6cb380bb6642d61b0ef",
+      "17": "92a8c982afded23778dea7f8ea32f801825bd783514208dfc11d94a1ef4ff6f5",
+      "18": "b28425179b226185a86c24ce1ae12bdf2794c7b1315390ced165242b2b675182",
+      "19": "bdabbc178705bd7ae4e456ec7a61a09085ffe10baa516f00f1d66c5747d30b6a",
+      "20": "88eaa969c8508a00e71f0ce83d253475b4f3e5f42fd98ee450d825440ef5a96f",
+      "21": "18f24f70e5f625be7436e52935ffd2acbc2e3868ff61fc27339fa77d85bf3df6",
+      "22": "e95bef773ac636d7cbd9ffeff31029705c393412780beb1b470f6a412da7d1a3",
+      "23": "e68a844791550da54f8af6ad7ed65d4d4fecbd4f98ef88f87bc9dd4749b61029"
+    },
+    "ocr_used_for_glyph_claims": false,
+    "date_firewall": "The work is traditionally Song/early-11th-century; this does not date the surviving Siku-recension physical copy or modern CADAL surrogate.",
+    "direct_readings": [
+      "p14 heading: 傳箭第七十六",
+      "p14: 每時有八刻二十分",
+      "p14: 一刻六十分",
+      "p14: 一日十二時合一百刻",
+      "p14: 冬至前三日改第一箭 with day/night 40/60",
+      "p14: 小寒初日改第三箭 with day/night 42/58",
+      "p16: 雨水初日改第八箭 with day/night 47/53",
+      "p18-p19: pre-summer 第二十箭 reaches 59/41",
+      "p19: 夏至前三日改第一箭 with day/night 60/40",
+      "p19-p23: post-summer sequence decreases daylight one ke at a time while arrow numbering again advances from 第一箭",
+      "p23: late-year 第二十箭 is around 41/59 before winter reset"
+    ]
+  },
+  "tianyige_ming_print_witness": {
+    "source_id": "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+    "workflow_run_id": 34832306143,
+    "artifact_id": 10342711240,
+    "artifact_digest": "sha256:87bd11223e5fdbfe1ec79b2bc4e2a7577fbe459559e0386287c96f3074f2f27d",
+    "target_page_sha256": {
+      "74": "a86cade9b99ed1b5cc943370e4b66e914d7968bc08943225bb99530fb15721ab",
+      "75": "cc7546f4d93b85fb0327e30cead9c994ae017d81dc2f1dd1b86e994babb3cf83",
+      "76": "2136201c372c0f8ea51dce46c1babcfc135758a98c775afa52c09c39fc8d5534",
+      "77": "802b1bf753163ffe99daafb357201d89d1211463c5a2407031aa3f035f65cd6e",
+      "78": "6660683f3a6b3dde0423bdacf7689fd62cd51c53e5bcd77c8f237fa152530cd6"
+    },
+    "ocr_used_for_glyph_claims": false,
+    "direct_control": [
+      "p74 preserves the same opening hundred-ke / 60-fen-per-ke mechanics and winter 第一箭 40/60",
+      "p74-p76 preserves the ascending one-ke seasonal ladder and numbered-arrow sequence",
+      "p76 preserves 夏至前三日改第一箭 with 60/40",
+      "p77-p78 preserves the descending return sequence toward winter"
+    ]
+  },
+  "cross_recension_mechanical_adjudication": {
+    "core_operational_sequence_stable_across_two_physical_witnesses": true,
+    "arrow_number_domain": "1..20",
+    "summer_solstice_resets_to_first_arrow": true,
+    "annual_model": "TWO_OPPOSITE_HALF_YEAR_SEQUENCES_REUSING_ARROW_NUMBERS_1_TO_20",
+    "day_total_ke": 100,
+    "fen_per_ke": 60,
+    "winter_extreme": "40/60",
+    "summer_extreme": "60/40",
+    "one_ke_step_ladder": true,
+    "full_character_for_character_identity_all_loci_claimed": false,
+    "direct_tianyige_to_siku_copy_direction_proved": false,
+    "direct_siku_to_tianyige_copy_direction_proved": false,
+    "direct_han_xianfu_to_huqian_copying_proved": false,
+    "shared_work_or_common_recensional_ancestry_supported": true
+  },
+  "relationship_to_songshi_hanxianfu": {
+    "near_contemporary_technical_context": true,
+    "han_xianfu_recorded_event_date": 1010,
+    "huqianjing_traditional_early_song_context": true,
+    "shared_100_ke_day_context": true,
+    "shared_40_60_seasonal_extrema_family": true,
+    "mechanical_forms_differ": "Han Xianfu = precision 24-qi table with residuals; Huqianjing = operational integer arrow-change ladder with intra-term change dates.",
+    "direct_textual_parent_child_relation": "UNRESOLVED"
+  },
+  "relationship_to_sanming_1578": {
+    "shared_stepwise_pairs": [
+      "42/58",
+      "45/55",
+      "47/53",
+      "48/52",
+      "49/51",
+      "51/49",
+      "53/47",
+      "55/45",
+      "56/44",
+      "58/42",
+      "59/41"
+    ],
+    "same_mechanical_family": true,
+    "exact_table_identity": false,
+    "decisive_difference": "Huqianjing resets to 60/40 at summer solstice; Sanming displays 59/41 at 夏至 and has different date/term anchoring.",
+    "structural_ancestry_candidate_strengthened": true,
+    "direct_copying_proved": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+      "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+      "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60"
+    ],
+    "edges_supported": [
+      "TG-E0009",
+      "TG-E0010",
+      "TG-E0011",
+      "TG-E0012"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Tianyige Ming print -> Siku received copy direct-copy direction NOT PROVED",
+      "Han Xianfu precision table -> Huqianjing direct textual parent NOT PROVED"
+    ],
+    "unresolved_lineage_questions": [
+      "What intermediary source or rule connects the Huqian-style intra-term arrow-change ladder to the Ming Nanjing 59-ke cap?",
+      "Is there an explicit historical conversion/selection rule connecting the 1010 precision table to coarse integer tables?",
+      "Which pre-1578 witness combines a 59/41 solstitial cap with Sanming-like intermediate change dates?"
+    ]
+  },
+  "adjudication": {
+    "huqianjing_core_operational_sequence_cross_recension_stable": true,
+    "forty_eight_arrow_shorthand_rejected": true,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "This closes a cross-recension seasonal leak-arrow transmission layer but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch transformation or a runtime clock binding."
+  }
+}

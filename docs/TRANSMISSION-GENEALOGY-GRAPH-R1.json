@@ -169,6 +169,47 @@
         "docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+      "node_type": "PHYSICAL_COPY",
+      "label": "天一閣藏明刻本《虎鈐經》卷七《傳箭》第七十六",
+      "system_scope": "SONG_TECHNICAL_TIMEKEEPING_RECEIVED_IN_MING_PRINT",
+      "work_composition_date": "TRADITIONAL_NORTHERN_SONG_EARLY_11TH_CENTURY_CONTEXT",
+      "edition_impression_date": "MING_PRINT_EXACT_IMPRESSION_DATE_UNRESOLVED_IN_THIS_GRAPH_NODE",
+      "physical_copy_date": "MING_PRINT",
+      "digital_surrogate_date": "MODERN_TIANYIGE_WIKIMEDIA_SURROGATE",
+      "evidence": [
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+      "node_type": "PHYSICAL_COPY",
+      "label": "CADAL06049792《欽定四庫全書》系《虎鈐經》卷七~卷十一",
+      "system_scope": "SONG_TECHNICAL_TIMEKEEPING_RECEIVED_IN_SIKU_RECENSION",
+      "work_composition_date": "TRADITIONAL_NORTHERN_SONG_EARLY_11TH_CENTURY_CONTEXT",
+      "edition_impression_date": "SIKU_RECENSION; EXACT_CURRENT_COPY_DATE_UNRESOLVED",
+      "physical_copy_date": "UNRESOLVED_WITHIN_LATER_SIKU_RECENSION",
+      "digital_surrogate_date": "MODERN_CADAL_WIKIMEDIA_SURROGATE",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "node_id": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "node_type": "RULE_FAMILY",
+      "label": "《虎鈐經·傳箭》二十號箭循環40↔60季節漏刻家族",
+      "system_scope": "SONG_OPERATIONAL_TIMEKEEPING",
+      "mechanical_identity": "100-ke day; 60 fen per ke; arrows numbered 1..20; winter half-year ascends daylight 40->60 by one-ke steps, summer solstice resets numbering to 第一箭 and the opposite half-year descends 60->40.",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     }
   ],
   "edges": [
@@ -291,6 +332,62 @@
       ],
       "scope_note": "All 24 Ming coarse anchors are reproducible from the Song precision rows with one threshold interval (78,81]/147, but no direct textual-copy edge or exact historical rounding instruction is proved.",
       "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI"
+    },
+    {
+      "edge_id": "TG-E0009",
+      "from": "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_MING_PRINT_TEXT",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "edge_id": "TG-E0010",
+      "from": "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_SIKU_RECENSION_TEXT",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "edge_id": "TG-E0011",
+      "from": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "relation": "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "CROSS_RECENSION_PHYSICAL_STABILITY_PLUS_SHARED_ONE_KE_LADDER",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD.md"
+      ],
+      "scope_note": "Shared stepwise pairs and stable operational ladder strengthen structural ancestry; differing change dates and Huqian 60/40 versus Sanming 59/41 prohibit exact-table or direct-copy claims.",
+      "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "edge_id": "TG-E0012",
+      "from": "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+      "relation": "SHARED_COMMON_ANCESTOR_CANDIDATE",
+      "to": "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH",
+      "evidence_class": "INDEPENDENT_PHYSICAL_RECENSIONS_WITH_STABLE_SECTION_AND_CORE_MECHANICS",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ],
+      "scope_note": "The two witnesses preserve the same work/section and core mechanics. Direct copy direction between the physical witnesses is not inferred.",
+      "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     }
   ],
   "lineage_hypotheses": [
@@ -338,6 +435,26 @@
       "reason": "24/24 numerical quantization compatibility and chronology establish a strong structural ancestry candidate, not a stemmatically demonstrated copy chain.",
       "evidence": [
         "docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "TABLE-HANXIANFU-1010-24QI-PRECISION",
+      "relation": "DIRECT_TEXTUAL_PARENT_OF",
+      "to": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "status": "UNRESOLVED",
+      "reason": "Near-contemporary chronology and shared seasonal 100-ke context do not prove direct textual transmission; the mechanical forms are different.",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
+      "relation": "DIRECT_COPY_PARENT_OF",
+      "to": "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
+      "status": "UNRESOLVED",
+      "reason": "Cross-recension mechanical stability supports common textual ancestry, not direct physical-copy direction.",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
       ]
     }
   ],

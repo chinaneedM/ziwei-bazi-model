@@ -602,3 +602,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SI
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi->Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Counts remain 198/166/10/14 and provenance defects 11/11.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-CI.md`. Research record: `docs/research/SONGSHI-HANXIANFU-1010-DAYNIGHT-KE-PHYSICAL-COLLATION-R1.json`.
+
+
+## Progress — Batch 12CJ
+
+- A new no-OCR physical review of `CADAL06049792《虎鈐經·卷七~卷十一》` provides an independent Siku-recension control for `卷七《傳箭》第七十六`. It preserves the same core mechanics already observed in the Tianyige Ming-print witness: `每時有八刻二十分`, `一刻六十分`, `一日十二時合一百刻`, winter `40/60`, summer `60/40`, and the one-ke seasonal ladder.
+- Direct physical collation corrects the prior Batch 12CI shorthand `48-arrow system`. The section numbers arrows only `第一箭` through `第二十箭`; at summer solstice it resets to `第一箭` and reuses the numbering for the opposite half-year direction. This is a research-text correction, not a chart algorithm defect and not a provenance-defect counter increment.
+- The two physical witnesses materially strengthen the stability of the Huqianjing operational rule family across recensions, but no direct-copy direction between Tianyige and the Siku witness is asserted, and no direct Han-Xianfu -> Huqian textual edge is asserted.
+- For 1578 Sanming, the Huqian lineage remains a strong structural component candidate because it preserves the same one-ke stepwise numeric family, while its `夏至 60/40` reset and change-day schedule remain non-identical to Sanming's `夏至 59/41` display.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts and deterministic product invariants are unchanged.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ.md`. Research record: `docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json`.

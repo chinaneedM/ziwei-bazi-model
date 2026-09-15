@@ -135,7 +135,7 @@
     ## 7. Next gate
 
     1. locate an independent early physical witness for the same precision/coarse conversion or an explicit rounding/selection instruction that can resolve the `(78,81]/147` threshold;
-    2. audit the near-contemporary `《虎鈐經》傳箭` integer 48-arrow system as a separate Song operational lineage, without assuming it copied Han Xianfu;
+    2. audit the near-contemporary `《虎鈐經》傳箭` 20-number arrow cycle, reused across opposite half-year directions, as a separate Song operational lineage, without assuming it copied Han Xianfu;
     3. continue the separate pre-1578 search for the exact Nanjing/Sanming `59/41` cap plus intermediate change-day fingerprint;
     4. keep Fullbook upper-five-ke -> Hai research independent from this seasonal-table ancestry work.
 
