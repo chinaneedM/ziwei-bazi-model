@@ -81,6 +81,9 @@ def main() -> int:
         "PHYSICAL-COPY-HUQIANJING-TIANYIGE-MING",
         "PHYSICAL-COPY-HUQIANJING-CADAL06049792-SIKU",
         "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+        "PHYSICAL-COPY-CHILJEONGSAN-NAEPYEON-G894-1444",
+        "PASSAGE-SEJONG158-HANYANG-LOCAL-CALIBRATION",
+        "STANDARD-HANYANG-61KE-1444",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -121,6 +124,16 @@ def main() -> int:
     e12 = next((e for e in edges if e.get("edge_id") == "TG-E0012"), None)
     if not e12 or e12.get("relation") != "SHARED_COMMON_ANCESTOR_CANDIDATE" or e12.get("status") != "HIGH_CONFIDENCE":
         fail("Huqianjing cross-recension common-ancestry edge regressed")
+
+    e13 = next((e for e in edges if e.get("edge_id") == "TG-E0013"), None)
+    if not e13 or e13.get("relation") != "ATTESTS" or e13.get("status") != "CONFIRMED":
+        fail("G894 Hanyang standard attestation edge regressed")
+    e14 = next((e for e in edges if e.get("edge_id") == "TG-E0014"), None)
+    if not e14 or e14.get("relation") != "ATTESTS" or e14.get("status") != "CONFIRMED":
+        fail("Sejong 158 Hanyang-locality attestation edge regressed")
+    e15 = next((e for e in edges if e.get("edge_id") == "TG-E0015"), None)
+    if not e15 or e15.get("relation") != "PARALLEL_COEXISTS_WITH" or e15.get("status") != "CONFIRMED":
+        fail("Hanyang/Nanjing regional parallel edge regressed")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

@@ -613,3 +613,15 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SO
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts and deterministic product invariants are unchanged.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ.md`. Research record: `docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json`.
+
+
+## Progress — Batch 12CK
+
+- Seoul National University Kyujanggak directly catalogs `奎貴894-v.1-3《七政算內篇》` as 李純之、金淡受命編, `甲寅字`, publication year `1444`. A provider-renderer-bound no-OCR review of volume 0003 pages `039b..044b` localizes and reads the complete `二至後日出入晝夜辰刻` table family.
+- The physical 1444 witness gives winter-solstice first-day `晝39 / 夜61`, pre-summer day 159 `晝60 / 夜40`, and summer-solstice first-day `晝61 / 夜39`. This is not a Nanjing `59/41` table.
+- The official National Institute of Korean History Sillok route is now exactly bound: `wda_50034001` = 冬至後 and `wda_50034002` = 夏至後 + the statement that the Inner Chapter uses the Hanyang solstitial gnomon to derive daily sunrise/sunset and day/night values `定爲本國所用`. The previously probed `wda_50018...` prefix is recorded as a locator inference error only.
+- Combined with the already audited 1447 Ming memorial (`南京59`, `北京62`), the evidence establishes near-contemporary regional calibration as a first-order variable: Hanyang 61, Nanjing 59, Beijing 62. Numeric similarity alone is therefore insufficient for lineage claims.
+- For the 1578 Sanming `59/41` table, Hanyang becomes a parallel regional negative control rather than a proposed direct parent. The next ancestry gate should prioritize securely localized Nanjing/Jiangnan or other 59-ke-cap intermediaries with Huqian-like step ladders/change-day fingerprints.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; upper-Zi→Hai vote +0; runtime winner/candidate collapse/algorithm reopen remain none/0. Matrix counts and deterministic product invariants are unchanged.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK.md`. Research record: `docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json`.

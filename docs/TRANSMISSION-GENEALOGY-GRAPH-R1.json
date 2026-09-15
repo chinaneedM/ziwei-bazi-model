@@ -210,6 +210,44 @@
         "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-CHILJEONGSAN-NAEPYEON-G894-1444",
+      "node_type": "PHYSICAL_COPY",
+      "label": "奎章閣奎貴894-v.1-3《七政算內篇》甲寅字1444",
+      "system_scope": "JOSEON_CALENDRICAL_TIMEKEEPING",
+      "work_composition_date": "SEJONG_ERA; COMPILED_BEFORE_1444_PRINT",
+      "edition_impression_date": "PROVIDER_CATALOG_1444_GABINJA",
+      "physical_copy_date": "CATALOGUED_AS_1444_GABINJA_WITNESS",
+      "digital_surrogate_date": "MODERN_KYUJANGGAK_DIGITAL_SURROGATE",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "node_id": "PASSAGE-SEJONG158-HANYANG-LOCAL-CALIBRATION",
+      "node_type": "PASSAGE",
+      "label": "《世宗實錄》158卷：內篇據漢陽日至之晷推求本國日出入晝夜刻分",
+      "system_scope": "JOSEON_CALENDRICAL_HISTORIOGRAPHICAL_ATTESTATION",
+      "source_article_id": "wda_50034002",
+      "physical_leaf_binding": "太白山事故本62책158권29장B면",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "node_id": "STANDARD-HANYANG-61KE-1444",
+      "node_type": "REGIONAL_STANDARD",
+      "label": "1444漢陽日至校準39↔61晝夜刻地域標準",
+      "system_scope": "JOSEON_OFFICIAL_CALENDRICAL_TIMEKEEPING",
+      "date": "PROVIDER_CATALOG_1444",
+      "mechanical_identity": "100-ke total; winter-solstice day/night 39/61; summer-solstice day/night 61/39; official received-text statement says the Inner Chapter derives daily sunrise/sunset and day/night values from the Hanyang solstitial gnomon for domestic use.",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
     }
   ],
   "edges": [
@@ -388,6 +426,48 @@
       ],
       "scope_note": "The two witnesses preserve the same work/section and core mechanics. Direct copy direction between the physical witnesses is not inferred.",
       "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
+    },
+    {
+      "edge_id": "TG-E0013",
+      "from": "PHYSICAL-COPY-CHILJEONGSAN-NAEPYEON-G894-1444",
+      "relation": "ATTESTS",
+      "to": "STANDARD-HANYANG-61KE-1444",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PROVIDER_BOUND_PHYSICAL_PAGE_IMAGES_NO_OCR",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "edge_id": "TG-E0014",
+      "from": "PASSAGE-SEJONG158-HANYANG-LOCAL-CALIBRATION",
+      "relation": "ATTESTS",
+      "to": "STANDARD-HANYANG-61KE-1444",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "OFFICIAL_INSTITUTIONAL_TRANSCRIPTION_WITH_EXACT_ARTICLE_AND_LEAF_BINDING",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
+      ],
+      "scope_note": "This edge attests the locality/calibration rationale; physical table numerals are independently controlled by the G894 witness.",
+      "adjudication_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
+    },
+    {
+      "edge_id": "TG-E0015",
+      "from": "STANDARD-HANYANG-61KE-1444",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "STANDARD-NANJING-59KE-1447",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECTLY_LOCALIZED_NEAR_CONTEMPORARY_REGIONAL_STANDARDS",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF.md"
+      ],
+      "scope_note": "Near-contemporary Hanyang 61 and Nanjing 59 are both directly localized standards. Coexistence proves regional variability, not transmission direction.",
+      "adjudication_batch": "BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK"
     }
   ],
   "lineage_hypotheses": [
@@ -455,6 +535,16 @@
       "reason": "Cross-recension mechanical stability supports common textual ancestry, not direct physical-copy direction.",
       "evidence": [
         "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "STANDARD-HANYANG-61KE-1444",
+      "relation": "DIRECT_TABLE_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "Hanyang is explicitly local and has 61/39 at summer solstice, whereas Sanming prints 59/41. Regional coexistence forbids inferring a direct parent from generic day/night-table similarity.",
+      "evidence": [
+        "docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json"
       ]
     }
   ],
