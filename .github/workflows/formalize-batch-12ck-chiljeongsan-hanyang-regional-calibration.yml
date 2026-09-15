@@ -1,0 +1,46 @@
+name: formalize-batch-12ck-chiljeongsan-hanyang-regional-calibration
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12ck-chiljeongsan-hanyang-regional-calibration.yml
+      - scripts/formalize-batch-12ck-chiljeongsan-hanyang-regional-calibration.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Formalize and validate Batch 12CK
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/formalize-batch-12ck-chiljeongsan-hanyang-regional-calibration.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/verify-project-continuity-state-r1.py \
+            scripts/verify-tianwen-transmission-genealogy-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-CK.md \
+            docs/research/ZIWEI-CHILJEONGSAN-G894-HANYANG-DAYNIGHT-REGIONAL-CALIBRATION-R1.json
+          if git diff --cached --quiet; then
+            echo "No formalization changes required"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12CK Hanyang regional calibration"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
