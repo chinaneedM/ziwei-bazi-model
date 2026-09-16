@@ -1,141 +1,28 @@
-name: repair-batch-12cn-kostma-attribution
+name: verify-batch-12co-kostma-attribution-repair
 
 on:
   push:
     branches: [agent/fusion-chart-core-r1-20260822]
     paths:
       - .github/workflows/repair-batch-12cn-kostma-attribution.yml
-      - scripts/repair-batch-12cn-kostma-attribution.py
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  repair:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Harden Batch 12CO repair script
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("scripts/repair-batch-12cn-kostma-attribution.py")
-          text = path.read_text(encoding="utf-8")
-
-          url_marker = '    withdrawn = by_id[WITHDRAWN_SOURCE_ID]\n'
-          url_insertion = (
-              url_marker
-              + '    withdrawn["withdrawn_legacy_url"] = withdrawn.get("url")\n'
-              + '    withdrawn["url"] = DICVIEW_URL\n'
-              + '    withdrawn["provider"] = "KOSTMA exact-record correction anchor; withdrawn legacy Kyujanggak route retained as audit metadata"\n'
-          )
-          if 'withdrawn["withdrawn_legacy_url"]' not in text:
-              if url_marker not in text:
-                  raise SystemExit("withdrawn source patch marker missing")
-              text = text.replace(url_marker, url_insertion, 1)
-
-          summary_marker = '    dump(path, d)\n\n    md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")\n'
-          summary_insertion = (
-              '    audit_summary = d.setdefault("audit_summary", {})\n'
-              '    for field in ("confirmed_provenance_metadata_defect_count", "repaired_provenance_metadata_defect_count"):\n'
-              '        current = audit_summary.get(field)\n'
-              '        if current not in (11, 12):\n'
-              '            raise SystemExit(f"unexpected {field} before Batch 12CO repair: {current}")\n'
-              '        audit_summary[field] = 12\n'
-              '    dump(path, d)\n\n'
-              '    md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")\n'
-          )
-          if 'unexpected {field} before Batch 12CO repair' not in text:
-              if summary_marker not in text:
-                  raise SystemExit("matrix summary patch marker missing")
-              text = text.replace(summary_marker, summary_insertion, 1)
-
-          path.write_text(text, encoding="utf-8")
-          PY
-          git diff --check
-      - name: Repair Batch 12CN KOSTMA attribution
-        shell: bash
-        run: |
-          set -euo pipefail
-          python scripts/repair-batch-12cn-kostma-attribution.py
-          git diff --check
-      - name: Upgrade historical provenance accounting guards
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("scripts/verify-project-continuity-state-r1.py")
-          text = path.read_text(encoding="utf-8")
-
-          guards = [
-              (
-                  "12AP",
-                  '    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:\n        fail("Batch 12AP provenance defect accounting regressed")\n',
-                  '    batch12ap_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")\n    batch12ap_repaired = matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count")\n    if not isinstance(batch12ap_found, int) or batch12ap_found < 11 or not isinstance(batch12ap_repaired, int) or batch12ap_repaired < 11:\n        fail("Batch 12AP provenance defect accounting regressed")\n',
-                  'batch12ap_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")',
-              ),
-              (
-                  "12AQ",
-                  '    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:\n        fail("Batch 12AQ provenance accounting should remain 11/11")\n',
-                  '    batch12aq_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")\n    batch12aq_repaired = matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count")\n    if not isinstance(batch12aq_found, int) or batch12aq_found < 11 or not isinstance(batch12aq_repaired, int) or batch12aq_repaired < 11:\n        fail("Batch 12AQ provenance accounting regressed below its 11/11 floor")\n',
-                  'batch12aq_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")',
-              ),
-              (
-                  "12AR",
-                  '    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:\n        fail("Batch 12AR provenance accounting should remain 11/11")\n',
-                  '    batch12ar_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")\n    batch12ar_repaired = matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count")\n    if not isinstance(batch12ar_found, int) or batch12ar_found < 11 or not isinstance(batch12ar_repaired, int) or batch12ar_repaired < 11:\n        fail("Batch 12AR provenance accounting regressed below its 11/11 floor")\n',
-                  'batch12ar_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")',
-              ),
-          ]
-
-          for label, old, new, marker in guards:
-              if old in text:
-                  text = text.replace(old, new, 1)
-              elif marker not in text:
-                  raise SystemExit(f"Batch {label} accounting guard patch marker missing")
-
-          path.write_text(text, encoding="utf-8")
-          PY
-          git diff --check
-      - name: Verify provenance and continuity gates
+      - name: Verify Batch 12CO provenance state
         shell: bash
         run: |
           set -euo pipefail
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
           python scripts/verify-tianwen-transmission-genealogy-r1.py
           python scripts/verify-project-continuity-state-r1.py
-      - name: Commit repaired provenance state
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
-            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
-            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
-            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
-            docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json \
-            docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json \
-            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN.md \
-            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO.md \
-            docs/PROJECT-CURRENT-STATE-R1.json \
-            scripts/repair-batch-12cn-kostma-attribution.py \
-            scripts/verify-project-continuity-state-r1.py \
-            scripts/formalize-batch-12cn-datong-ritonggui-kyujanggak-daynight-bridge.py
-          git diff --cached --check
-          if git diff --cached --quiet; then
-            echo "NO_CHANGES_TO_COMMIT"
-            exit 0
-          fi
-          git commit -m "repair Batch 12CN KOSTMA attribution provenance"
-          git push origin HEAD:agent/fusion-chart-core-r1-20260822
+          git diff --exit-code
