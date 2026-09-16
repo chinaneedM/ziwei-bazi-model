@@ -28,11 +28,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python scripts/verify_fusion_chart_historical_source_matrix.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
           python scripts/verify-project-continuity-state-r1.py
-          for f in scripts/verify-transmission-genealogy-graph-r1.py scripts/verify_transmission_genealogy_graph_r1.py; do
-            if [ -f "$f" ]; then python "$f"; fi
-          done
       - name: Commit repaired provenance state
         shell: bash
         run: |
