@@ -13,10 +13,10 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - name: Bind physical pages 115-118 through Shidian browser SDK
+      - name: Bind physical pages 115-118 through Shidian browser SDK with retries
         shell: bash
         run: |
           set -euo pipefail
@@ -30,37 +30,50 @@ jobs:
           import fs from 'node:fs';
           import crypto from 'node:crypto';
           const root='audit/yangzan-xianzhonglu-shidian';
+          const source='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r';
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-          const source='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r';
-          await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
-          await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
-          const result=await page.evaluate(async()=>{
-            const ptoken=await window.byted_psdk.getPtokenStatus();
-            const payload={bookId:'NGJ89241199901864074070',pageSize:40,startPageNum:6,endPageNum:123,version:1,pageIndex:3,needCheckVersion:true,isWebpSupported:false,ptoken};
-            const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
-            const j=await r.json();
-            const pages=(j?.data?.pages || j?.pages || []).filter(x=>Number(x.pageNum)>=115 && Number(x.pageNum)<=118);
-            const out=[];
-            for(const row of pages){
-              const d=await window.byted_psdk.decrypt(row.picUrl||'',ptoken,row.urlEncryptType);
-              out.push({pageId:String(row.pageId),pageNum:Number(row.pageNum),uri:row.uri,urlEncryptType:row.urlEncryptType,decrypted:d?.decrypt ? d.data : row.picUrl});
+          const attempts=[];
+          let result=null;
+          for(let attempt=1; attempt<=4; attempt++){
+            await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
+            await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
+            const one=await page.evaluate(async()=>{
+              const ptoken=await window.byted_psdk.getPtokenStatus();
+              const payload={bookId:'NGJ89241199901864074070',pageSize:40,startPageNum:6,endPageNum:123,version:1,pageIndex:3,needCheckVersion:true,isWebpSupported:false,ptoken};
+              const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+              const j=await r.json();
+              const pages=(j?.data?.pages || j?.pages || []);
+              return {ptoken,ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,payload,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',page_count:pages.length,pages};
+            });
+            attempts.push({attempt,errorCode:one.errorCode,errorMsg:one.errorMsg,ptoken_present:one.ptoken_present,ptoken_length:one.ptoken_length,page_count:one.page_count});
+            if(one.errorCode===0 && one.pages.some(x=>Number(x.pageNum)>=115 && Number(x.pageNum)<=118)){
+              result=one;
+              break;
             }
-            return {errorCode:j?.errorCode,ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,pages:out};
-          });
-          const physical=[];
-          for(const row of result.pages){
-            const r=await fetch(row.decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
-            const b=Buffer.from(await r.arrayBuffer());
-            const file=`${root}/physical/page-${row.pageNum}.png`;
-            fs.writeFileSync(file,b);
-            physical.push({page_id:row.pageId,page_num:row.pageNum,uri:row.uri,status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')});
+            await new Promise(r=>setTimeout(r,2500*attempt));
           }
-          const report={schema:'YANGZAN-XIANZHONGLU-SHIDIAN-PHYSICAL-COLLATION-PROBE-R6',source,api_error_code:result.errorCode,ptoken_present:result.ptoken_present,ptoken_length:result.ptoken_length,physical_pages:physical,adjudication_rule:'Only direct visual review of these source-bound physical page images may support manuscript glyph/number claims.'};
+          const physical=[];
+          if(result){
+            const wanted=result.pages.filter(x=>Number(x.pageNum)>=115 && Number(x.pageNum)<=118);
+            for(const row of wanted){
+              const decrypted=await page.evaluate(async({picUrl,ptoken,urlEncryptType})=>{
+                const d=await window.byted_psdk.decrypt(picUrl||'',ptoken,urlEncryptType);
+                return d?.decrypt ? d.data : picUrl;
+              },{picUrl:row.picUrl,ptoken:result.ptoken,urlEncryptType:row.urlEncryptType});
+              const r=await fetch(decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
+              const b=Buffer.from(await r.arrayBuffer());
+              const file=`${root}/physical/page-${row.pageNum}.png`;
+              fs.writeFileSync(file,b);
+              physical.push({page_id:String(row.pageId),page_num:Number(row.pageNum),uri:row.uri,status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')});
+            }
+          }
+          const report={schema:'YANGZAN-XIANZHONGLU-SHIDIAN-PHYSICAL-COLLATION-PROBE-R7',source,attempts,successful_api_error_code:result?.errorCode ?? null,physical_pages:physical,adjudication_rule:'Only direct visual review of these source-bound physical page images may support manuscript glyph/number claims.'};
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
           console.log(JSON.stringify(report,null,2));
           await browser.close();
+          if(physical.length!==4) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
       - name: Upload physical-collation artifact
