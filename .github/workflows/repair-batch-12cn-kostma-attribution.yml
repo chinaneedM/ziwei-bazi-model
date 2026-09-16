@@ -1,0 +1,60 @@
+name: repair-batch-12cn-kostma-attribution
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/repair-batch-12cn-kostma-attribution.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Repair Batch 12CN KOSTMA attribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/repair-batch-12cn-kostma-attribution.py
+          git diff --check
+      - name: Verify provenance and continuity gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_fusion_chart_historical_source_matrix.py
+          python scripts/verify-project-continuity-state-r1.py
+          for f in scripts/verify-transmission-genealogy-graph-r1.py scripts/verify_transmission_genealogy_graph_r1.py; do
+            if [ -f "$f" ]; then python "$f"; fi
+          done
+      - name: Commit repaired provenance state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+            docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json \
+            docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO.md \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            scripts/verify-project-continuity-state-r1.py \
+            scripts/formalize-batch-12cn-datong-ritonggui-kyujanggak-daynight-bridge.py
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "NO_CHANGES_TO_COMMIT"
+            exit 0
+          fi
+          git commit -m "repair Batch 12CN KOSTMA attribution provenance"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
