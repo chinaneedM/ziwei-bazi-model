@@ -1,0 +1,464 @@
+name: finalize-yangzan-batch-cq
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/finalize-yangzan-batch-cq.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+
+      - name: Write Batch 12CQ and patch durable project state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          BATCH='BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ'
+          DOC='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md'
+          RESEARCH='docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json'
+          SOURCE_ID='EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS'
+          PHYSICAL_NODE='PHYSICAL-COPY-YANGZAN-XIANZHONGLU-SHIDIAN-MING-MS'
+          RULE_NODE='RULE-YANGZAN-BEIJING-PRECISION-DAYNIGHT'
+          SANMING_NODE='TABLE-SANMING-1578-DAYNIGHT-KE'
+
+          research={
+            'schema':'ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1',
+            'batch_id':BATCH,
+            'source_binding':{
+              'source_id':SOURCE_ID,
+              'book_id':'NGJ89241199901864074070',
+              'title':'閑中錄前集',
+              'author':'楊瓚',
+              'responsibility':'撰',
+              'provider_dynasty':'明',
+              'provider_edition':'明抄本',
+              'image_source':'國家圖書館',
+              'library':'國家圖書館',
+              'classification':['子部','天文算法类','推步之属'],
+              'chapter_id':'1lmbc0ddu2g4r',
+              'chapter_title':'閑中錄前集正文',
+              'chapter_page_range':[6,123],
+              'volume_id':'7581115603948142646',
+              'public_url':'https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r',
+              'date_firewall':{
+                'work_composition_date':'UNRESOLVED_IN_THIS_BATCH',
+                'edition_impression_date':None,
+                'physical_copy_date':'MING_MANUSCRIPT_PER_PROVIDER_METADATA; EXACT_COPY_DATE_UNRESOLVED',
+                'digital_surrogate_date':'MODERN_SHIDIAN_SURROGATE_OF_NATIONAL_LIBRARY_OF_CHINA_IMAGES',
+                'secure_pre1578_physical_copy_claim_authorized':False
+              }
+            },
+            'acquisition_gate':{
+              'workflow':'.github/workflows/audit-yangzan-xianzhonglu-shidian-route.yml',
+              'r7_commit':'df34d24bc7d8d90b7cd5c35c8317f764aa1a5f59',
+              'workflow_run_id':35088687110,
+              'artifact_id':10442714003,
+              'artifact_digest':'sha256:d09d3327fc14d5453f9819e292b8ea610271015bcadf7d407d37a4c15ed75289',
+              'browser_sdk_route':'real page -> byted_psdk.getPtokenStatus -> POST /api/ancientlib/read/book/pages/v3/ -> byted_psdk.decrypt',
+              'attempts':[{'attempt':1,'errorCode':40001,'ptoken_present':True,'ptoken_length':43,'page_count':0},{'attempt':2,'errorCode':0,'ptoken_present':True,'ptoken_length':43,'page_count':37}],
+              'required_physical_page_count':4,
+              'physical_gate_passed':True,
+              'machine_text_role':'LOCATOR_ONLY',
+              'ocr_glyph_authority':False
+            },
+            'physical_pages':[
+              {'page_num':115,'page_id':'7575481384166735924','bytes':2090880,'sha256':'b1dad12caa26bed26acb3c25455431b5fd6ce30ee891992cab08bd7968820193','content_type':'image/png','http_status':200},
+              {'page_num':116,'page_id':'7575481384166752308','bytes':2187078,'sha256':'fffe74fa40f80e3c98935d6463f880a3e0205f10f5fbb121f94d8770cd4118e5','content_type':'image/png','http_status':200},
+              {'page_num':117,'page_id':'7575481384166768692','bytes':2117052,'sha256':'1c39cdbf44e284ce53c5517e04794e3a17c286b27d730d7085452536c772683d','content_type':'image/png','http_status':200},
+              {'page_num':118,'page_id':'7575481384166785076','bytes':2514643,'sha256':'7c2a6989270d39837ab65656c8aeaf65a7ec816d3e0fd9c365fb53b7a9371611','content_type':'image/png','http_status':200}
+            ],
+            'direct_visual_collation':{
+              'page_115':[
+                'heading: 步中星',
+                '北京北極出地四十度',
+                'text explicitly scopes the following values to measured Beijing conditions and discusses north/south differences in polar altitude and sunrise timing',
+                '内外差并晝夜差俱係新儀測定每日所差的數',
+                '晝夜總差五百九十二分〇四秒'
+              ],
+              'page_116':[
+                '冬至晝夏至夜三千八百一十五分九十二秒',
+                '夏至晝冬至夜六千一百八十四分〇八秒',
+                '昏明分二百五十分',
+                'the manuscript explains sunset-to-dusk and dawn-to-sunrise as about two and a half ke each'
+              ],
+              'page_117':[
+                'daily internal/external degree values are obtained by cumulative subtraction/addition of the corresponding differences',
+                '冬晝夏夜半周一千九百〇七分九十六秒',
+                '夏晝冬夜半周三千〇九十二分〇四秒',
+                'the day/night difference is cumulatively added or subtracted to obtain successive daily values'
+              ],
+              'page_118':'new heading 超神接氣論; treated as the boundary page showing that the 步中星 numerical passage has ended'
+            },
+            'mechanical_replay':{
+              'center_fen':5000,
+              'daynight_total_difference_fen':592.04,
+              'winter_day_summer_night_fen':'5000 - 2*592.04 = 3815.92',
+              'summer_day_winter_night_fen':'5000 + 2*592.04 = 6184.08',
+              'half_values_fen':['3815.92/2 = 1907.96','6184.08/2 = 3092.04'],
+              'under_10000_fen_equals_100_ke':{'short_extreme_ke':38.1592,'long_extreme_ke':61.8408},
+              'sanming_1578_target_extreme_ke':{'night':41,'day':59},
+              'exact_numeric_identity_with_sanming_1578':False
+            },
+            'adjudication':{
+              'YANGZAN_BEIJING_PRECISION_LAYER':'DIRECT_PHYSICAL_ATTESTATION',
+              'YANGZAN_DIRECT_SANMING_59_41_PARENT':'DISPROVED_BY_DIRECT_NUMERIC_ANCHOR_MISMATCH',
+              'PRE1578_EXACT_PARENT':'UNRESOLVED',
+              'PRE1578_SAME_CHANGE_DAY_FINGERPRINT':'UNRESOLVED',
+              'EXACT_HISTORICAL_QUANTIZATION_RULE':'UNRESOLVED',
+              'secure_pre1578_physical_copy_status':'NOT_ESTABLISHED',
+              'direct_copy_from_or_to_other_work':'NOT_INFERRED'
+            },
+            'transmission_impact':{
+              'nodes_added_or_strengthened':[PHYSICAL_NODE,RULE_NODE],
+              'supported_edges':[f'{PHYSICAL_NODE} ATTESTS {RULE_NODE}'],
+              'rejected_shortcuts':[f'{RULE_NODE} is not a direct numeric parent of {SANMING_NODE}; solstitial anchors differ'],
+              'remaining_questions':['securely pre-1578 witness combining Nanjing 59/41 with Sanming-like intermediate anchors','same change-day fingerprint','exact historical quantization/selection rule']
+            },
+            'product_adjudication':{
+              'HPA-ZDATE-006':'MISSING_FROM_PRODUCT',
+              'runtime_change':'NONE',
+              'algorithm_reopen':'NONE',
+              'candidate_collapse':'NONE',
+              'confirmed_chart_algorithm_defect_count':0,
+              'deterministic_fusion_chart_product_r1':'CLOSED'
+            }
+          }
+          Path(RESEARCH).parent.mkdir(parents=True,exist_ok=True)
+          Path(RESEARCH).write_text(json.dumps(research,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          doc=f'''# Batch 12CQ — 楊瓚《閑中錄》北京晝夜精密計算物理校勘與《三命通會》父本捷徑排除
+
+## Status
+
+```text
+YANGZAN_XIANZHONGLU_BEIJING_PRECISION_PHYSICAL_LAYER=CLOSED
+YANGZAN_DIRECT_SANMING_59_41_PARENT=DISPROVED_BY_DIRECT_NUMERIC_ANCHOR_MISMATCH
+SECURE_PRE1578_PHYSICAL_COPY_STATUS=NOT_ESTABLISHED
+PRE1578_EXACT_PARENT=UNRESOLVED
+PRE1578_SAME_CHANGE_DAY_FINGERPRINT=UNRESOLVED
+EXACT_HISTORICAL_QUANTIZATION_RULE=UNRESOLVED
+OCR_GLYPH_AUTHORITY=false
+RUNTIME_CHANGE=NONE
+ALGORITHM_REOPEN=NONE
+CANDIDATE_COLLAPSE=NONE
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+```
+
+## 1. Why this batch exists
+
+Batch 12CP physically closed the 1578 NCL-06589-1 《三命通會》 seasonal day/night-ke target and fixed its summer-solstice anchor at 59/41, while leaving the pre-1578 direct parent, same change-day fingerprint and exact quantization rule unresolved. The next-state gate explicitly named the Yang Zan route, but that route could not be used genealogically until the exact object, target pages and numerical mechanism were bound to a physical witness.
+
+This batch closes that Yang Zan route at physical-page level and, more importantly, determines what it **does not** prove.
+
+## 2. Exact source binding and date firewall
+
+The public Shidian object identifies:
+
+```text
+BOOK_ID=NGJ89241199901864074070
+TITLE=閑中錄前集
+AUTHOR=楊瓚
+RESPONSIBILITY=撰
+PROVIDER_DYNASTY=明
+PROVIDER_EDITION=明抄本
+IMAGE_SOURCE=國家圖書館
+CLASSIFICATION=子部 / 天文算法类 / 推步之属
+CHAPTER=閑中錄前集正文
+CHAPTER_PAGES=6..123
+```
+
+The date layers are deliberately separated:
+
+```text
+work composition date = unresolved in this batch
+edition/impression date = not supplied as a dated print
+physical-copy date = Ming manuscript per provider metadata; exact copying date unresolved
+digital surrogate = modern Shidian route bound to National Library of China images
+```
+
+Therefore this batch does **not** call the surviving manuscript a securely pre-1578 physical copy, and does not identify a biographical Yang Zan merely from name coincidence.
+
+## 3. Physical acquisition gate
+
+The final browser-SDK gate is:
+
+```text
+R7_COMMIT=df34d24bc7d8d90b7cd5c35c8317f764aa1a5f59
+WORKFLOW_RUN=35088687110
+ARTIFACT=10442714003
+ARTIFACT_DIGEST=sha256:d09d3327fc14d5453f9819e292b8ea610271015bcadf7d407d37a4c15ed75289
+```
+
+The route executes the site's own public reader chain in a real browser:
+
+`page -> byted_psdk.getPtokenStatus -> pages/v3 -> byted_psdk.decrypt -> physical image`
+
+The first request returned transient `40001`; after a fresh page/token cycle the second request returned `errorCode=0` and 37 pages. The gate is hard-failed unless all four requested physical pages 115–118 are downloaded. Thus the successful run cannot be satisfied by an empty API response.
+
+| page | pageId | bytes | SHA-256 |
+|---|---|---:|---|
+| 115 | 7575481384166735924 | 2,090,880 | `b1dad12caa26bed26acb3c25455431b5fd6ce30ee891992cab08bd7968820193` |
+| 116 | 7575481384166752308 | 2,187,078 | `fffe74fa40f80e3c98935d6463f880a3e0205f10f5fbb121f94d8770cd4118e5` |
+| 117 | 7575481384166768692 | 2,117,052 | `1c39cdbf44e284ce53c5517e04794e3a17c286b27d730d7085452536c772683d` |
+| 118 | 7575481384166785076 | 2,514,643 | `7c2a6989270d39837ab65656c8aeaf65a7ec816d3e0fd9c365fb53b7a9371611` |
+
+Machine text was used only to locate the passage. All glyph and number claims below come from direct visual review of these images; OCR has no final authority.
+
+## 4. Direct physical collation
+
+### 4.1 p115 — locality and measured-difference layer
+
+The page directly shows the heading `步中星` and `北京北極出地四十度`. The surrounding prose explicitly treats north/south location as mechanically relevant to polar elevation and sunrise timing, and scopes the following values to measured Beijing conditions.
+
+The decisive numerical/mechanical lines directly include:
+
+```text
+内外差并晝夜差俱係新儀測定每日所差的數
+晝夜總差五百九十二分〇四秒
+```
+
+This is not a free-standing fortune-telling mnemonic. It is a locality-bound astronomical/timekeeping computation.
+
+### 4.2 p116 — solstitial extrema and dawn/dusk constant
+
+The physical page directly prints:
+
+```text
+冬至晝夏至夜三千八百一十五分九十二秒
+夏至晝冬至夜六千一百八十四分〇八秒
+昏明分二百五十分
+```
+
+The same locus explains sunset-to-dusk and dawn-to-sunrise as approximately two and a half ke each.
+
+### 4.3 p117 — half-values and daily recurrence
+
+The physical page directly gives the half-values:
+
+```text
+冬晝夏夜半周一千九百〇七分九十六秒
+夏晝冬夜半周三千〇九十二分〇四秒
+```
+
+It also explicitly instructs cumulative subtraction/addition of the internal/external and day/night differences to derive successive daily values. This is therefore a continuous precision computation layer rather than a 24-term integer display table.
+
+### 4.4 p118 — passage boundary
+
+p118 opens a new heading, `超神接氣論`. It functions here as a physical boundary control: the relevant `步中星` numerical mechanism is contained on pp115–117 rather than silently extended into the following topic.
+
+## 5. Exact mechanical replay
+
+The p115 total day/night difference is `592.04` fen. Taking the 10,000-fen day midpoint `5000`:
+
+```text
+5000 - 2 × 592.04 = 3815.92
+5000 + 2 × 592.04 = 6184.08
+```
+
+These exactly reproduce p116. Halving them gives:
+
+```text
+3815.92 / 2 = 1907.96
+6184.08 / 2 = 3092.04
+```
+
+which exactly reproduces p117.
+
+Under the 10,000-fen = 100-ke coordinate, the solstitial extreme is therefore approximately:
+
+```text
+short side = 38.1592 ke
+long side  = 61.8408 ke
+```
+
+By contrast, the exact 1578 《三命通會》 physical target closed in Batch 12CP is:
+
+```text
+夏至 -> 晝59 / 夜41
+```
+
+The two numerical fingerprints are not identical. Ordinary integer rounding of the Yang Zan values would be about 62/38, not 59/41.
+
+## 6. Genealogical adjudication
+
+The safe result is narrow but strong:
+
+```text
+Yang Zan physical witness ATTESTS a Beijing precision day/night computation layer.
+It does NOT supply the Sanming 59/41 solstitial anchor.
+It therefore cannot be promoted as Sanming's direct numeric parent merely because both discuss day/night length.
+```
+
+This is a `DISPROVES_LINEAGE_SHORTCUT` result, not a claim that the two works have no broader calendrical relationship. Same subject matter and possible shared technical background remain distinct from direct table parentage.
+
+The unresolved Sanming ancestry questions remain:
+
+1. which securely pre-1578 witness combines the Nanjing 59/41 cap with Sanming-like intermediate anchors;
+2. which witness reproduces the Sanming intra-term change-day fingerprint;
+3. what exact historical selection/quantization rule generated the displayed integer ladder.
+
+## 7. Transmission impact
+
+```text
+nodes added/strengthened:
+  - Shidian/National Library of China Ming-manuscript physical witness of Yang Zan 閑中錄前集
+  - Yang Zan 北京晝夜精密計算 mechanical-rule node
+
+edge supported:
+  - physical manuscript ATTESTS Beijing precision rule
+
+shortcut rejected:
+  - Yang Zan Beijing precision rule -> Sanming 1578 direct numeric parent
+    rejected because 61.8408/38.1592 != 59/41
+
+not asserted:
+  - exact work-composition date
+  - securely pre-1578 surviving physical-copy date
+  - direct copying between Yang Zan and Wan Minying
+  - complete single-tree lineage
+```
+
+## 8. Product adjudication
+
+This batch supplies no new chart-runtime rule and does not touch the Fullbook late-Zi issue:
+
+```text
+HPA-ZDATE-006=MISSING_FROM_PRODUCT
+RUNTIME_CHANGE=NONE
+NEW_RUNTIME_CANDIDATE=false
+ALGORITHM_REOPEN=NONE
+CANDIDATE_COLLAPSE=NONE
+CONFIRMED_CHART_ALGORITHM_DEFECT_COUNT=0
+DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED
+```
+
+Audit accounting remains:
+
+```text
+MATRIX_ROWS=198
+AUDITED_ROWS=166
+CURRENT_MISSING_FROM_PRODUCT=10
+CUMULATIVE_IDENTIFIED_MISSING_CANDIDATE_FAMILIES=14
+PROVENANCE_METADATA_DEFECTS=12/12_REPAIRED
+```
+
+## 9. Next gate
+
+The Yang Zan route has now done its job: it narrows rather than closes the Sanming parent search. Priority returns to the Nanjing/Datong branch:
+
+1. obtain direct `大統曆通軌 / 大統曆日通軌` morning-evening table cells, accepting that sunrise/sunset/half-day may be mechanically implicit in `晨昏分`;
+2. continue securely pre-1578 annual Datong almanac/table searches for the Nanjing 59/41 cap plus the Sanming intermediate/change-day fingerprint;
+3. test any candidate against the exact 1578 pp134–136 physical target rather than extrema alone;
+4. keep exact parentage and quantization unresolved until a page-level witness reproduces the necessary fingerprint.
+
+Research record:
+
+`{RESEARCH}`
+'''
+          Path(DOC).write_text(doc,encoding='utf-8')
+
+          state_path=Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          state=json.loads(state_path.read_text(encoding='utf-8'))
+          state['schema_version']='1.103.0'
+          ha=state['historical_audit']
+          if BATCH not in ha['completed_batches']:
+            ha['completed_batches'].append(BATCH)
+          ha['latest_batch_doc']=DOC
+          focus=ha.setdefault('current_focus',[])
+          additions=[
+            'Batch 12CQ directly binds Shidian/National Library of China Yang Zan 《閑中錄前集》 Ming-manuscript physical pages 115-117: 步中星 is explicitly Beijing-local, p115 gives day/night total difference 592.04 fen, p116 gives 3815.92/6184.08 fen and dawn/dusk 250 fen, and p117 gives the exact half-values 1907.96/3092.04 plus cumulative daily recurrence.',
+            'Batch 12CQ mechanically replays 5000±2×592.04 -> 3815.92/6184.08, equivalent to about 38.1592/61.8408 ke under a 100-ke day. This directly mismatches the 1578 Sanming 41/59 target and therefore rejects the shortcut that Yang Zan Beijing precision values are Sanming direct numeric parentage; broader technical relationship remains uncollapsed.',
+            'Batch 12CQ preserves the date firewall: Shidian identifies a Ming manuscript but exact work-composition and manuscript-copy dates are unresolved, so no securely pre-1578 surviving-copy claim is made. The next Sanming ancestry gate returns to direct Datong Tonggui/Ritonggui 晨昏 cells and pre-1578 Nanjing/Datong witnesses reproducing both 59/41 and the Sanming change-day fingerprint.'
+          ]
+          for x in additions:
+            if x not in focus: focus.append(x)
+          state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          reg_path=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          reg=json.loads(reg_path.read_text(encoding='utf-8'))
+          if not any(x.get('source_id')==SOURCE_ID for x in reg['sources']):
+            reg['sources'].append({
+              'source_id':SOURCE_ID,
+              'title':'《閑中錄前集》',
+              'author':'楊瓚',
+              'historical_period':'明',
+              'edition':'明抄本（provider metadata; exact physical copying date unresolved）',
+              'provider':'识典古籍；图像源/馆藏标注为国家图书馆',
+              'url':'https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r',
+              'source_role':'DIRECT_PHYSICAL_MANUSCRIPT_WITNESS_FOR_BEIJING_PRECISION_DAYNIGHT_COMPUTATION',
+              'quality_notes':'Batch 12CQ directly visually collates physical pages 115-117 and uses p118 as a passage-boundary control. Machine text is locator-only and OCR is not glyph authority. The provider label 明抄本 does not by itself establish an exact copying date or a securely pre-1578 surviving copy.',
+              'book_id':'NGJ89241199901864074070',
+              'image_source':'國家圖書館',
+              'batch_12cq':{'workflow_run_id':35088687110,'artifact_id':10442714003,'artifact_digest':'sha256:d09d3327fc14d5453f9819e292b8ea610271015bcadf7d407d37a4c15ed75289','research_artifact':RESEARCH}
+            })
+          reg_path.write_text(json.dumps(reg,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          graph_path=Path('docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json')
+          graph=json.loads(graph_path.read_text(encoding='utf-8'))
+          nodes=graph.setdefault('nodes',[])
+          if not any(n.get('node_id')==PHYSICAL_NODE for n in nodes):
+            nodes.append({
+              'node_id':PHYSICAL_NODE,'node_type':'PHYSICAL_COPY','label':'识典/国家图书馆《閑中錄前集》明抄本图像见证','system_scope':'MING_CALENDRICAL_TIMEKEEPING',
+              'work_composition_date':'UNRESOLVED_IN_THIS_BATCH','edition_impression_date':None,'physical_copy_date':'MING_MANUSCRIPT_PER_PROVIDER_METADATA; EXACT_COPY_DATE_UNRESOLVED','digital_surrogate_date':'MODERN_SHIDIAN_SURROGATE_OF_NATIONAL_LIBRARY_OF_CHINA_IMAGES',
+              'date_scope_note':'Provider metadata binds a Ming manuscript witness but does not authorize a securely pre-1578 physical-copy date or author-biography identification by name alone.','evidence':[RESEARCH,DOC],'first_explicit_graph_batch':BATCH
+            })
+          if not any(n.get('node_id')==RULE_NODE for n in nodes):
+            nodes.append({
+              'node_id':RULE_NODE,'node_type':'MECHANICAL_RULE','label':'楊瓚《閑中錄·步中星》北京晝夜精密計算層','system_scope':'MING_CALENDRICAL_TIMEKEEPING',
+              'mechanical_identity':'Beijing north-pole altitude 40 degrees; day/night total difference 592.04 fen; winter-day/summer-night 3815.92 fen; summer-day/winter-night 6184.08 fen; dawn/dusk constant 250 fen; daily values generated by cumulative internal/external and day/night differences.',
+              'physical_numeric_extreme_ke_under_10000fen_100ke':{'short':38.1592,'long':61.8408},'evidence':[RESEARCH,DOC],'first_explicit_graph_batch':BATCH
+            })
+          edges=graph.setdefault('edges',[])
+          nums=[]
+          for e in edges:
+            m=re.fullmatch(r'TG-E(\d+)',str(e.get('edge_id','')))
+            if m: nums.append(int(m.group(1)))
+          nxt=max(nums,default=0)+1
+          def add_edge(frm,rel,to,status,confidence,evidence_class,reason=None):
+            nonlocal_holder=None
+            global_dummy=None
+            existing=next((e for e in edges if e.get('from')==frm and e.get('relation')==rel and e.get('to')==to),None)
+            if existing: return
+            nonlocal_next[0]+=1
+            row={'edge_id':f'TG-E{nonlocal_next[0]:04d}','from':frm,'relation':rel,'to':to,'status':status,'confidence':confidence,'evidence_class':evidence_class,'evidence':[RESEARCH,DOC],'first_explicit_graph_batch':BATCH}
+            if reason: row['reason']=reason
+            edges.append(row)
+          nonlocal_next=[nxt-1]
+          add_edge(PHYSICAL_NODE,'ATTESTS',RULE_NODE,'CONFIRMED','HIGH','DIRECT_VISUAL_PHYSICAL_COLLATION')
+          add_edge(RULE_NODE,'DISPROVES_LINEAGE_SHORTCUT',SANMING_NODE,'CONFIRMED','HIGH','DIRECT_PHYSICAL_SOLSTITIAL_NUMERIC_ANCHOR_MISMATCH','Yang Zan Beijing precision extreme is approximately 61.8408/38.1592 ke, whereas the exact 1578 Sanming physical target is 59/41; direct numeric-parent identity is rejected without denying broader calendrical relationship.')
+          nonedges=graph.setdefault('explicit_non_edges',[])
+          if not any(x.get('from')==RULE_NODE and x.get('relation')=='DIRECT_NUMERIC_PARENT_OF' and x.get('to')==SANMING_NODE for x in nonedges):
+            nonedges.append({'from':RULE_NODE,'relation':'DIRECT_NUMERIC_PARENT_OF','to':SANMING_NODE,'status':'DISPROVED','reason':'Direct physical numerical fingerprint mismatch: Yang Zan Beijing precision layer yields 61.8408/38.1592 ke while Sanming 1578 prints 59/41.','evidence':[RESEARCH,DOC]})
+          graph_path.write_text(json.dumps(graph,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name 'Tianwen Research Bot'
+          git config user.email 'tianwen-research-bot@users.noreply.github.com'
+          git add docs/PROJECT-CURRENT-STATE-R1.json \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+                  docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+                  docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md \
+                  docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json
+          git rm .github/workflows/finalize-yangzan-batch-cq.yml
+          if git diff --cached --quiet; then
+            echo 'No semantic changes required.'
+            exit 0
+          fi
+          git commit -m 'close Yang Zan Beijing precision provenance batch 12CQ'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
