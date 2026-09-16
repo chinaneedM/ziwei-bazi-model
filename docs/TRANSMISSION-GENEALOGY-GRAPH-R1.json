@@ -338,6 +338,56 @@
         "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "node_id": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "KOSTMA 大統曆日通軌 DIC_A3_000150",
+      "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
+      "date": "MODERN_INSTITUTIONAL_DATABASE_RECORD; HISTORICAL_CONTEXT_RECORDED_AS_1433_1445",
+      "locator": "https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid=DIC_A3_000150",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+    },
+    {
+      "node_id": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
+      "node_type": "EDITION",
+      "label": "朝鮮世宗期《大統曆日通軌》技術編纂層（1433–1445記錄範圍）",
+      "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
+      "work_composition_date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
+      "edition_impression_date": "NOT_INDEPENDENTLY_VERIFIED_FROM_CURRENT_SCAN_IN_BATCH_12CN",
+      "physical_copy_date": "NOT_INDEPENDENTLY_VERIFIED",
+      "digital_surrogate_date": "KOSTMA_CURRENT_METADATA_SURFACE",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+    },
+    {
+      "node_id": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
+      "node_type": "PHYSICAL_COPY",
+      "label": "奎章閣《大統曆日通軌》legacy object GR35954_00",
+      "system_scope": "DATONG_TONGGUI_PHYSICAL_PROVENANCE",
+      "date": "CURRENT_HOLDING_BINDING; EXACT_PHYSICAL_IMPRESSION_DATE_UNRESOLVED",
+      "locator": "http://e-kyujanggak.snu.ac.kr/MOK/CONVIEW.jsp?ptype=list&subtype=oo&lclass=01&mclass=B124&sclass=G&ntype=oo&cn=GR35954_00",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+    },
+    {
+      "node_id": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "《大統曆日通軌》日出入晨刻表／晝夜刻分表 family",
+      "system_scope": "DAYNIGHT_KE_TIMEKEEPING",
+      "date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
+      "locator": "KOSTMA DIC_A3_000150 content description; physical cells not yet directly collated",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
     }
   ],
   "edges": [
@@ -652,6 +702,45 @@
         "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM"
+    },
+    {
+      "edge_id": "TG-E0023",
+      "from": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
+      "relation": "ATTESTS",
+      "to": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_INSTITUTIONAL_DATABASE_RECORD",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+    },
+    {
+      "edge_id": "TG-E0024",
+      "from": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
+      "relation": "ATTESTS",
+      "to": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_LEGACY_IDENTIFIER_BINDING_NOT_SCAN_ACCESS",
+      "evidence_class": "SOURCE_EMITTED_LEGACY_KYUJANGGAK_CONVIEW_BINDING",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+    },
+    {
+      "edge_id": "TG-E0025",
+      "from": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
+      "relation": "ATTESTS",
+      "to": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_TABLE_CLASS_MEDIUM_FOR_UNCOLLATED_PHYSICAL_CELLS",
+      "evidence_class": "DIRECT_INSTITUTIONAL_CONTENT_DESCRIPTION",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
     }
   ],
   "lineage_hypotheses": [
@@ -749,6 +838,16 @@
       "reason": "The reviewed 45-page public vol6 reproduction is a genuine pre-1578 Datong technical witness but no independent 晨昏分/日出入/晝夜刻 target table is observed; direct Sanming day/night parentage is therefore not established.",
       "evidence": [
         "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
+      "relation": "DIRECT_NUMERIC_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The institutional record proves the relevant pre-1578 table classes exist in the Joseon Datong-line recension, but Batch 12CN does not obtain the physical table cells, prove a Nanjing 59-ke cap, reproduce Sanming's daily ladder/change days, or establish direct Chinese transmission into Sanming.",
+      "evidence": [
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
       ]
     }
   ],

@@ -648,3 +648,14 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YI
 - `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no runtime candidate, winner, candidate collapse, chart algorithm defect, or algorithm reopen is created.
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM.md`. Research record: `docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json`.
+
+
+## Progress — Batch 12CN
+
+- Direct KOSTMA `dicView` retrieval binds `大統曆日通軌` to record `DIC_A3_000150`, a Sejong-era `1433–1445` technical-compilation context, and Seoul National University Kyujanggak Institute for Korean Studies.
+- The institutional content record explicitly lists `日出入晨刻表`, `晝夜刻分表`, and `四方每時初昏去中星度數表`. This advances the Sanming ancestry search from title-level expectation to an explicit pre-1578 Datong-line day/night-table class witness.
+- KOSTMA also emits the legacy Kyujanggak object binding `GR35954_00`. Direct route probing records HTTP `404` on the old HTTP endpoint and a connection reset on HTTPS from the GitHub runner, so no physical scan or numeric cells are claimed as directly collated.
+- The date firewall remains strict: Ming/Datong underlying work lineage, Joseon Sejong recension/compilation context, the present Kyujanggak physical holding locator, and modern KOSTMA metadata are separate layers. The object is not relabeled as a Chinese Ming physical edition.
+- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no runtime candidate, winner, candidate collapse, chart algorithm defect, or algorithm reopen is created. The next gate is numeric/stemmatic: obtain the table cells and test the `59/41`, daily-ladder, change-day, and rounding fingerprints against Sanming 1578.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN.md`. Research record: `docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json`.
