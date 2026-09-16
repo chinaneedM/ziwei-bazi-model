@@ -165,7 +165,7 @@ def graph() -> None:
     nodes = [
         {
             "node_id": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
-            "node_type": "CATALOG_RECORD",
+            "node_type": "DIGITAL_SURROGATE",
             "label": "KOSTMA 大統曆日通軌 DIC_A3_000150",
             "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
             "date": "MODERN_INSTITUTIONAL_DATABASE_RECORD; HISTORICAL_CONTEXT_RECORDED_AS_1433_1445",
@@ -175,7 +175,7 @@ def graph() -> None:
         },
         {
             "node_id": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
-            "node_type": "RECENSION",
+            "node_type": "EDITION",
             "label": "朝鮮世宗期《大統曆日通軌》技術編纂層（1433–1445記錄範圍）",
             "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
             "work_composition_date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
@@ -187,7 +187,7 @@ def graph() -> None:
         },
         {
             "node_id": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
-            "node_type": "PHYSICAL_HOLDING_LOCATOR",
+            "node_type": "PHYSICAL_COPY",
             "label": "奎章閣《大統曆日通軌》legacy object GR35954_00",
             "system_scope": "DATONG_TONGGUI_PHYSICAL_PROVENANCE",
             "date": "CURRENT_HOLDING_BINDING; EXACT_PHYSICAL_IMPRESSION_DATE_UNRESOLVED",
@@ -197,7 +197,7 @@ def graph() -> None:
         },
         {
             "node_id": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
-            "node_type": "TABLE_FAMILY",
+            "node_type": "OPERATIONAL_ARTIFACT",
             "label": "《大統曆日通軌》日出入晨刻表／晝夜刻分表 family",
             "system_scope": "DAYNIGHT_KE_TIMEKEEPING",
             "date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
@@ -215,7 +215,7 @@ def graph() -> None:
         {
             "edge_id": "TG-E0023",
             "from": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
-            "relation": "DESCRIBES",
+            "relation": "ATTESTS",
             "to": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
             "status": "CONFIRMED",
             "confidence": "HIGH",
@@ -226,7 +226,7 @@ def graph() -> None:
         {
             "edge_id": "TG-E0024",
             "from": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
-            "relation": "BINDS_TO_HOLDING",
+            "relation": "ATTESTS",
             "to": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
             "status": "CONFIRMED",
             "confidence": "HIGH_FOR_LEGACY_IDENTIFIER_BINDING_NOT_SCAN_ACCESS",
@@ -237,9 +237,9 @@ def graph() -> None:
         {
             "edge_id": "TG-E0025",
             "from": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
-            "relation": "CONTAINS_TABLE_FAMILY",
+            "relation": "ATTESTS",
             "to": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
-            "status": "CONFIRMED_AT_INSTITUTIONAL_CONTENT_RECORD_LEVEL",
+            "status": "CONFIRMED",
             "confidence": "HIGH_FOR_TABLE_CLASS_MEDIUM_FOR_UNCOLLATED_PHYSICAL_CELLS",
             "evidence_class": "DIRECT_INSTITUTIONAL_CONTENT_DESCRIPTION",
             "evidence": [RESEARCH],
