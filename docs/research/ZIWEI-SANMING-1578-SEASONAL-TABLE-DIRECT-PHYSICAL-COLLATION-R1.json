@@ -1,0 +1,151 @@
+{
+  "schema": "ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO",
+  "question": "Can the exact 1578 Sanming Tonghui seasonal day/night-ke target table be closed at direct physical-glyph level before continuing the still-open search for its pre-1578 parent, change-day ancestry and quantization rule?",
+  "answer": "YES_FOR_THE_1578_TARGET_TABLE; NO_FOR_PRE1578_PARENTAGE_OR_QUANTIZATION",
+  "physical_source": {
+    "source_id": "NCL-06589-1",
+    "title": "三命通會",
+    "edition": "明萬曆戊寅（六年，1578）刊本",
+    "pdf_sha256": "3de5c45efb1919965afae00a3c97121054aaabd0f38f9fd5ab8f0a28bb8e36dd",
+    "workflow_run_id": 35074754104,
+    "artifact_id": 10437955655,
+    "artifact_digest": "sha256:bcb11ee8e8fe384d36fccd9439a6942391ea0cef296ef134378334ec41cfc638",
+    "locator_report": "docs/research/SANMING-TONGHUI-1578-SEASONAL-TABLE-PHYSICAL-LOCATOR-R1.json",
+    "ocr_used_for_final_glyph_claims": false,
+    "ocr_used_for_localization_in_this_gate": false,
+    "physical_pages": {
+      "134": "0baaa3ec9f615a7f867c4cea2770d423d92485d8127417b2c7bb0cc7898635aa",
+      "135": "622dfb58c615e7eec1553d0f667934c35768fa822a4e3dd9f1bfa4844b72bca0",
+      "136": "abe0e129ace60f8cf29395f1f086972b17da8383ca20c3ab8323d3fd5ff42c59"
+    }
+  },
+  "direct_visual_collation": {
+    "adjudication_method": "Direct visual inspection of the 220dpi physical renders. OCR is not used as glyph authority.",
+    "day_night_ke_pairs": [
+      {"page": 134, "solar_term": "小寒", "day_ke": 42, "night_ke": 58},
+      {"page": 134, "solar_term": "大寒", "day_ke": 43, "night_ke": 57},
+      {"page": 134, "solar_term": "大寒後續", "literal_change_phrase": "十三後日", "day_ke": 44, "night_ke": 56, "philology_note": "Preserve the physical word order; do not silently normalize it into a modern change-day instruction."},
+      {"page": 134, "solar_term": "立春", "day_ke": 45, "night_ke": 55},
+      {"page": 134, "solar_term": "雨水", "day_ke": 47, "night_ke": 53},
+      {"page": 134, "solar_term": "雨水後續", "literal_change_phrase": "後四日", "day_ke": 48, "night_ke": 52},
+      {"page": 134, "solar_term": "驚蟄", "day_ke": 49, "night_ke": 51},
+      {"page": 134, "solar_term": "春分", "day_ke": 51, "night_ke": 49},
+      {"page": 135, "solar_term": "清明", "day_ke": 53, "night_ke": 47},
+      {"page": 135, "solar_term": "穀雨", "day_ke": 55, "night_ke": 45},
+      {"page": 135, "solar_term": "立夏", "day_ke": 56, "night_ke": 44},
+      {"page": 135, "solar_term": "小滿", "day_ke": 58, "night_ke": 42},
+      {"page": 135, "solar_term": "夏至", "day_ke": 59, "night_ke": 41},
+      {"page": 135, "solar_term": "小暑", "day_ke": 58, "night_ke": 42},
+      {"page": 135, "solar_term": "大暑", "day_ke": 57, "night_ke": 43},
+      {"page": 135, "solar_term": "立秋", "day_ke": 56, "night_ke": 44},
+      {"page": 136, "solar_term": "處暑", "day_ke": 54, "night_ke": 46},
+      {"page": 136, "solar_term": "白露", "day_ke": 52, "night_ke": 48},
+      {"page": 136, "solar_term": "秋分", "day_ke": 50, "night_ke": 50},
+      {"page": 136, "solar_term": "寒露", "day_ke": 48, "night_ke": 52},
+      {"page": 136, "solar_term": "霜降", "day_ke": 46, "night_ke": 54},
+      {"page": 136, "solar_term": "立冬", "day_ke": 44, "night_ke": 56},
+      {"page": 136, "solar_term": "小雪", "day_ke": 42, "night_ke": 58}
+    ],
+    "non_pair_control": {
+      "page": 135,
+      "solar_term": "芒種",
+      "physical_note": "The leaf states 其晝夜本無節 in the relevant locus; no day/night pair is inferred here from neighboring rows."
+    },
+    "target_fingerprint_result": "The 1578 physical witness directly fixes the displayed seasonal integer-ke ladder, including the 59/41 summer-solstice cap and the explicit intra-term 43/57 -> 44/56 and 47/53 -> 48/52 transitions, without relying on a later received transcription."
+  },
+  "recension_control": {
+    "received_control_source_id": "EXT-CTEXT-SMTHE-SIKU-V2",
+    "result": "DAY_NIGHT_KE_MECHANICS_BROADLY_STABLE_WHILE_ASTRONOMICAL_POSITION_WORDING_DIFFERS",
+    "examples": [
+      {
+        "locus": "冬至",
+        "physical_1578": "今在箕六度",
+        "received_siku_control": "今在箕三度"
+      },
+      {
+        "locus": "立春",
+        "physical_1578": "日在虛二度",
+        "received_siku_control": "日在危三度今在女六度"
+      },
+      {
+        "locus": "雨水",
+        "physical_1578": "日在危九度",
+        "received_siku_control": "日在危六度今在尾初度"
+      },
+      {
+        "locus": "驚蟄",
+        "physical_1578": "日在室八度",
+        "received_siku_control": "日在空八度今在危十五度"
+      }
+    ],
+    "adjudication": "A later received text may corroborate the ke ladder but is not an exact surrogate for the 1578 physical recension. These position-wording differences are not converted into a timekeeping-rule difference without separate evidence."
+  },
+  "relationship_to_prior_batches": {
+    "batch_12at": "Already established the exact 1578 physical object and directly collated p132/p133/p136/p137 for hundred-ke, late-Zi and birth-time semantics; it did not physically lock the full seasonal table beginning on p134.",
+    "batch_12cg": "Established a 1380s Nanjing Datong daily numerical substrate and mechanical replay compatibility, but left the exact Sanming parent/change-day ancestry and quantization rule open.",
+    "batch_12ci": "Established a much earlier precision/coarse table structural ancestry candidate and rejected modern 0.5 rounding for that separate Ming coarse family; it explicitly did not generate the Sanming table.",
+    "batch_12co": "Reopened the pre-1578 Datong day/night-table bridge after correcting the KOSTMA DIC_A3_000150 record-field attribution."
+  },
+  "historical_adjudication": {
+    "1578_target_table_direct_physical_glyph_layer": "CLOSED",
+    "summer_solstice_59_41_target_cell": "DIRECT_PHYSICAL_ATTESTATION",
+    "target_intra_term_step_display": "DIRECT_PHYSICAL_ATTESTATION_AT_SELECTED_LOCI",
+    "received_siku_exact_recension_identity": "DISPROVED_BY_MULTIPLE_POSITION_WORDING_DIFFERENCES",
+    "pre1578_exact_parent_text": "UNRESOLVED",
+    "pre1578_same_change_day_fingerprint": "UNRESOLVED",
+    "exact_historical_quantization_rule": "UNRESOLVED",
+    "direct_copy_from_ncl06267_datong_richu": false,
+    "direct_copy_from_song_precision_or_ming_coarse_table": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "1578 NCL-06589-1 Sanming Tonghui physical witness: seasonal-table passage pp134-136",
+      "1578 Sanming seasonal integer day/night-ke display as a directly attested target rule artifact"
+    ],
+    "edges_supported": [
+      "NCL-06589-1 1578 physical copy ATTESTS the Sanming seasonal integer-ke ladder on pp134-136"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "later Siku received transcription is not an exact physical-recension surrogate",
+      "direct NCL-06267 Datong daily-table -> Sanming copying remains unproved",
+      "direct Song/Ming coarse-table -> Sanming copying remains unproved"
+    ],
+    "unresolved_lineage_questions": [
+      "Which pre-1578 Datong/tongshu/almanac or other source first carries the same Sanming change-day fingerprint?",
+      "What explicit historical quantization/selection rule generates the Sanming integer transitions from a daily numerical substrate?",
+      "How do the 1578 astronomical-position variants relate stemmatically to the later Siku received recension?"
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "next_gate": [
+    "Continue direct 大統曆通軌 / 大統曆日通軌 晨昏立成 witness search, using the Ming-history formula that derives sunrise, sunset and half-daylight from 晨昏分 only as a locator/mechanical bridge until physical cells are obtained.",
+    "Continue pre-1578 annual Datong almanac and related table searches for the same 59/41 cap plus Sanming intra-term change-day fingerprint.",
+    "Audit the Yang Zan / related record route named in current state without conflating similarly titled Korean miscellanies or later received citations.",
+    "Keep the Fullbook upper-five-ke -> previous-night Hai branch line independent from this seasonal-table ancestry work."
+  ],
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
