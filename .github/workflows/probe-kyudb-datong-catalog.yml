@@ -99,3 +99,42 @@ jobs:
                       print(tag[:2500])
               print('HIT_COUNT',hits)
           PY
+      - name: Resolve legacy viewDicWord navigation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, urllib.parse, urllib.request
+          page='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&curPage=27&pageSize=100&query=&sType=&sort='
+          headers={'User-Agent':'Mozilla/5.0'}
+          text=urllib.request.urlopen(urllib.request.Request(page,headers=headers),timeout=30).read().decode('utf-8','replace')
+          def emit(label, body):
+              hits=[]
+              for pat in (r'function\s+viewDicWord\s*\([^)]*\)\s*\{', r'viewDicWord\s*=\s*function\s*\([^)]*\)\s*\{'):
+                  for m in re.finditer(pat,body,re.I):
+                      hits.append(m.start())
+              for pos in sorted(set(hits)):
+                  print('VIEWDICWORD_SOURCE',label)
+                  print(re.sub(r'\s+',' ',body[pos:min(len(body),pos+6000)])[:6000])
+          emit('INLINE_PAGE',text)
+          srcs=[]
+          for src in re.findall(r'<script[^>]+src=["\']([^"\']+)',text,re.I):
+              full=urllib.parse.urljoin(page,src)
+              if full not in srcs:
+                  srcs.append(full)
+          print('SCRIPT_COUNT',len(srcs))
+          for full in srcs:
+              print('SCRIPT',full)
+              try:
+                  js=urllib.request.urlopen(urllib.request.Request(full,headers=headers),timeout=20).read().decode('utf-8','replace')
+              except Exception as exc:
+                  print('SCRIPT_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              if 'viewDicWord' in js:
+                  emit(full,js)
+                  for m in re.finditer(r'viewDicWord',js,re.I):
+                      a=max(0,m.start()-1200); b=min(len(js),m.end()+4500)
+                      print('VIEWDICWORD_CONTEXT',full)
+                      print(re.sub(r'\s+',' ',js[a:b])[:5700])
+                      break
+          PY
