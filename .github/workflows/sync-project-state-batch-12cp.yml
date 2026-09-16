@@ -1,0 +1,68 @@
+name: sync-project-state-batch-12cp
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/sync-project-state-batch-12cp.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update continuity state forward-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          path = Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          data = json.loads(path.read_text(encoding='utf-8'))
+          audit = data['historical_provenance_audit']
+          batch_id = 'BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP'
+          batch_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP.md'
+
+          completed = audit.setdefault('completed_batches', [])
+          if batch_id not in completed:
+              completed.append(batch_id)
+          audit['latest_batch_doc'] = batch_doc
+
+          focus = audit.setdefault('current_focus', [])
+          additions = [
+              'Batch 12CP directly closes the exact 1578 NCL-06589-1 Sanming seasonal target table at physical-glyph level on PDF pp134-136; targeted workflow 35074754104 / artifact 10437955655 binds the three 220dpi physical pages with OCR excluded from both localization and final glyph judgment.',
+              'Direct 1578 physical review now locks the summer-solstice 59/41 cell and selected intra-term target transitions including Dahan 43/57 -> printed sequence 十三後日 -> 44/56 and Yushui 47/53 -> 後四日 -> 48/52; the physical word order is preserved rather than silently normalized.',
+              'The 1578 physical p134 astronomical-position wording differs at multiple loci from the registered Siku received control while the day/night-ke ladder broadly agrees; the Siku route may corroborate the ladder but is not an exact surrogate for the 1578 physical wording, and no complete stemma is inferred from this alone.',
+              'Batch 12CP does not close pre-1578 Sanming parentage, the same change-day fingerprint, or the exact historical quantization rule. The next ancestry gate remains direct Datong Tonggui/Ritonggui morning-evening table evidence, pre-1578 annual Datong almanacs and the separately identified Yang Zan-related route, with page-level numerical evidence required before genealogy upgrade.',
+              'HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; counts stay 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families / 12 provenance defects repaired, while confirmed chart algorithm defect, algorithm reopen and candidate collapse remain 0.'
+          ]
+          for item in additions:
+              if item not in focus:
+                  focus.append(item)
+
+          data['schema_version'] = '1.102.0'
+          data['updated_at'] = '2026-09-16'
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit continuity-state update
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add docs/PROJECT-CURRENT-STATE-R1.json
+          if git diff --cached --quiet; then echo 'continuity state already synchronized'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'advance continuity state through batch 12CP'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
