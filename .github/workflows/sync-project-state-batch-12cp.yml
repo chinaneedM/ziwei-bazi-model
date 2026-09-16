@@ -29,7 +29,7 @@ jobs:
 
           path = Path('docs/PROJECT-CURRENT-STATE-R1.json')
           data = json.loads(path.read_text(encoding='utf-8'))
-          audit = data['historical_provenance_audit']
+          audit = data['historical_audit']
           batch_id = 'BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP'
           batch_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP.md'
 
