@@ -1,0 +1,189 @@
+name: audit-sanming-1578-shike-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-sanming-1578-shike-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install physical-collation tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert
+          python -m pip install --quiet pillow
+
+      - name: Acquire and fingerprint 1578 Sanming Tonghui
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/sanming1578'
+          mkdir -p "$ROOT/coarse" "$ROOT/ocr" "$ROOT/physical" "$ROOT/contact"
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-06589%201%20%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83.pdf'
+          PDF="$ROOT/NCL-06589-1-sanming-tonghui-1578.pdf"
+          curl -fL --retry 4 --retry-delay 2 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' "$URL" -o "$PDF"
+          file "$PDF"
+          sha256sum "$PDF" | tee "$ROOT/sha256.txt"
+          pdfinfo "$PDF" | tee "$ROOT/pdfinfo.txt"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re
+          root=Path('audit/sanming1578')
+          pdf=root/'NCL-06589-1-sanming-tonghui-1578.pdf'
+          info=(root/'pdfinfo.txt').read_text(encoding='utf-8',errors='replace')
+          m=re.search(r'^Pages:\s*(\d+)\s*$',info,flags=re.M)
+          if not m: raise SystemExit('missing page count')
+          manifest={
+            'schema_version':'1.0.0',
+            'source_id':'NCL-06589-1',
+            'title':'三命通會',
+            'edition':'明萬曆戊寅（六年，1578）刊本',
+            'acquisition_url':'https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-06589%201%20%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83.pdf',
+            'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
+            'pdf_bytes':pdf.stat().st_size,
+            'pdf_page_count':int(m.group(1)),
+            'ocr_used_for_final_glyph_claims':False,
+          }
+          (root/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(manifest,ensure_ascii=False))
+          PY
+
+      - name: Coarse OCR volume-two search window
+        shell: bash
+        env:
+          OMP_THREAD_LIMIT: '1'
+        run: |
+          set -euo pipefail
+          ROOT='audit/sanming1578'
+          PDF="$ROOT/NCL-06589-1-sanming-tonghui-1578.pdf"
+          # Volume two is expected in the early part of the 12-volume aggregate.
+          # Search a deliberately broad first-450-page window; OCR only locates.
+          pdftoppm -f 1 -l 450 -jpeg -gray -r 78 -jpegopt quality=55 "$PDF" "$ROOT/coarse/page" >/dev/null
+          find "$ROOT/coarse" -name 'page-*.jpg' -print0 \
+            | xargs -0 -n1 -P8 bash -c '
+                img="$0"; base="$(basename "${img%.jpg}")"
+                timeout 12s tesseract "$img" "audit/sanming1578/ocr/$base" -l chi_tra_vert --psm 5 2>/dev/null || true
+              '
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/sanming1578')
+          manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          anchors=['夏至','小暑','大暑','五十九','四十一','五十八','四十二','五十七','四十三','鶉首','鶉火','井二十八','井十三']
+          weights={'夏至':20,'小暑':20,'大暑':20,'五十九':9,'四十一':9,'五十八':9,'四十二':9,'五十七':9,'四十三':9,'鶉首':7,'鶉火':7,'井二十八':5,'井十三':5}
+          rows=[]
+          for txt in sorted((root/'ocr').glob('page-*.txt'),key=lambda p:int(re.search(r'(\d+)$',p.stem).group(1))):
+              p=int(re.search(r'(\d+)$',txt.stem).group(1))
+              raw=txt.read_text(encoding='utf-8',errors='replace')
+              compact=re.sub(r'\s+','',raw)
+              hits=[a for a in anchors if a in compact]
+              score=sum(weights[a] for a in hits)
+              if score:
+                  snippets=[]
+                  for a in hits:
+                      i=compact.find(a); snippets.append(compact[max(0,i-45):i+len(a)+95])
+                  rows.append({'page_1_based':p,'score':score,'hits':hits,'ocr_snippets':snippets[:12]})
+          rows.sort(key=lambda x:(-x['score'],x['page_1_based']))
+          target={'夏至','小暑','大暑'}
+          seeds=[r['page_1_based'] for r in rows if len(target.intersection(r['hits']))>=2]
+          if not seeds:
+              seeds=[r['page_1_based'] for r in rows if target.intersection(r['hits']) and r['score']>=20][:16]
+          if not seeds:
+              seeds=[r['page_1_based'] for r in rows[:20] if r['score']>=9]
+          if not seeds:
+              raise SystemExit('No plausible target page found in pages 1-450; expand search window before adjudication.')
+          seeds=sorted(set(seeds))[:20]
+          expanded=set()
+          for p in seeds:
+              for q in range(max(1,p-2),min(manifest['pdf_page_count'],p+2)+1): expanded.add(q)
+          pages=sorted(expanded)
+          (root/'candidate-pages.txt').write_text('\n'.join(map(str,pages))+'\n',encoding='utf-8')
+          coarse={'locator_method':'78dpi grayscale OCR pages 1-450; localization only','ocr_used_for_final_glyph_claims':False,'anchors':anchors,'seed_pages':seeds,'expanded_physical_pages':pages,'top_candidates':rows[:100]}
+          (root/'coarse-locator.json').write_text(json.dumps(coarse,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'seed_pages':seeds,'expanded_physical_pages':pages,'top':rows[:15]},ensure_ascii=False))
+          PY
+
+      - name: Render candidate pages for physical adjudication
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/sanming1578'; PDF="$ROOT/NCL-06589-1-sanming-tonghui-1578.pdf"
+          while IFS= read -r page; do
+            [ -n "$page" ] || continue
+            printf -v p4 '%04d' "$page"
+            pdftoppm -f "$page" -l "$page" -singlefile -png -r 220 "$PDF" "$ROOT/physical/page-$p4" >/dev/null
+          done < "$ROOT/candidate-pages.txt"
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import hashlib,json,re
+          root=Path('audit/sanming1578')
+          manifest=json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          coarse=json.loads((root/'coarse-locator.json').read_text(encoding='utf-8'))
+          imgs=sorted((root/'physical').glob('page-*.png'),key=lambda p:int(re.search(r'(\d+)$',p.stem).group(1)))
+          physical=[]
+          for p in imgs:
+              n=int(re.search(r'(\d+)$',p.stem).group(1)); im=Image.open(p)
+              physical.append({'page_1_based':n,'file':p.name,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'width':im.width,'height':im.height,'render_dpi':220})
+          cols,rows=4,3; cw,ch=700,620
+          for start in range(0,len(imgs),cols*rows):
+              chunk=imgs[start:start+cols*rows]; sheet=Image.new('RGB',(cols*cw,rows*ch),'white'); draw=ImageDraw.Draw(sheet)
+              for i,p in enumerate(chunk):
+                  im=Image.open(p).convert('RGB'); im.thumbnail((cw-20,ch-50))
+                  x=(i%cols)*cw+(cw-im.width)//2; y=(i//cols)*ch+35; sheet.paste(im,(x,y))
+                  n=int(re.search(r'(\d+)$',p.stem).group(1)); draw.text(((i%cols)*cw+10,(i//cols)*ch+9),f'PDF page {n}',fill='black')
+              sheet.save(root/'contact'/f'physical-{start+1:04d}-{start+len(chunk):04d}.jpg',quality=90)
+          report={
+            **manifest,
+            'locator_method':coarse['locator_method'],
+            'adjudication_rule':'OCR locates candidate pages only. Final transcription and comparison require direct inspection of the 220dpi physical renders keyed by SHA-256.',
+            'seed_pages':coarse['seed_pages'],
+            'candidate_physical_page_count':len(physical),
+            'physical_pages':physical,
+            'top_ocr_candidates':coarse['top_candidates'],
+          }
+          out=Path('docs/research/SANMING-TONGHUI-1578-SHIKE-PAGE-LOCATOR-R1.json')
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'pdf_sha256':report['pdf_sha256'],'seed_pages':report['seed_pages'],'candidate_physical_page_count':len(physical)},ensure_ascii=False))
+          PY
+
+      - name: Persist reproducible page-locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT='docs/research/SANMING-TONGHUI-1578-SHIKE-PAGE-LOCATOR-R1.json'
+          git add "$REPORT"
+          if git diff --cached --quiet; then echo 'locator report unchanged'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'record 1578 Sanming shike page locator'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Trim coarse OCR intermediates
+        if: always()
+        shell: bash
+        run: rm -rf audit/sanming1578/coarse audit/sanming1578/ocr
+
+      - name: Upload physical-collation artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanming-1578-shike-physical
+          path: audit/sanming1578
+          if-no-files-found: error
+          retention-days: 30
