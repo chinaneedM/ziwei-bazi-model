@@ -19,7 +19,7 @@ jobs:
         with:
           ref: agent/fusion-chart-core-r1-20260822
           fetch-depth: 0
-      - name: Patch durable state and graph
+      - name: Patch durable state, graph, and continuity gate
         shell: bash
         run: |
           set -euo pipefail
@@ -27,7 +27,9 @@ jobs:
           from pathlib import Path
           import json, re
           BATCH='BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ'
+          CP='BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP'
           DOC='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md'
+          CP_DOC='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP.md'
           RESEARCH='docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json'
           SOURCE_ID='EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS'
           PHYSICAL_NODE='PHYSICAL-COPY-YANGZAN-XIANZHONGLU-SHIDIAN-MING-MS'
@@ -115,17 +117,7 @@ jobs:
           def add_edge(frm,rel,to,status,confidence,evidence_class,reason=None):
               if any(e.get('from')==frm and e.get('relation')==rel and e.get('to')==to for e in edges):
                   return
-              row={
-                  'edge_id':f'TG-E{next_id[0]:04d}',
-                  'from':frm,
-                  'relation':rel,
-                  'to':to,
-                  'status':status,
-                  'confidence':confidence,
-                  'evidence_class':evidence_class,
-                  'evidence':[RESEARCH,DOC],
-                  'first_explicit_graph_batch':BATCH
-              }
+              row={'edge_id':f'TG-E{next_id[0]:04d}','from':frm,'relation':rel,'to':to,'status':status,'confidence':confidence,'evidence_class':evidence_class,'evidence':[RESEARCH,DOC],'first_explicit_graph_batch':BATCH}
               next_id[0]+=1
               if reason:
                   row['reason']=reason
@@ -134,20 +126,29 @@ jobs:
           add_edge(RULE_NODE,'DISPROVES_LINEAGE_SHORTCUT',SANMING_NODE,'CONFIRMED','HIGH','DIRECT_PHYSICAL_SOLSTITIAL_NUMERIC_ANCHOR_MISMATCH','Yang Zan Beijing precision extreme is approximately 61.8408/38.1592 ke, whereas the exact 1578 Sanming physical target is 59/41; direct numeric-parent identity is rejected without denying broader calendrical relationship.')
           nonedges=graph.setdefault('explicit_non_edges',[])
           if not any(x.get('from')==RULE_NODE and x.get('relation')=='DIRECT_NUMERIC_PARENT_OF' and x.get('to')==SANMING_NODE for x in nonedges):
-              nonedges.append({
-                  'from':RULE_NODE,
-                  'relation':'DIRECT_NUMERIC_PARENT_OF',
-                  'to':SANMING_NODE,
-                  'status':'DISPROVED',
-                  'reason':'Direct physical numerical fingerprint mismatch: Yang Zan Beijing precision layer yields 61.8408/38.1592 ke while Sanming 1578 prints 59/41.',
-                  'evidence':[RESEARCH,DOC]
-              })
+              nonedges.append({'from':RULE_NODE,'relation':'DIRECT_NUMERIC_PARENT_OF','to':SANMING_NODE,'status':'DISPROVED','reason':'Direct physical numerical fingerprint mismatch: Yang Zan Beijing precision layer yields 61.8408/38.1592 ke while Sanming 1578 prints 59/41.','evidence':[RESEARCH,DOC]})
           graph_path.write_text(json.dumps(graph,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          verifier_path=Path('scripts/verify-project-continuity-state-r1.py')
+          verifier=verifier_path.read_text(encoding='utf-8')
+          if BATCH not in verifier:
+              needle='    "'+CP+'",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]'
+              replacement='    "'+CP+'",\n    "'+BATCH+'",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]'
+              if needle not in verifier:
+                  raise SystemExit('could not locate supplemental batch tail in continuity verifier')
+              verifier=verifier.replace(needle,replacement,1)
+          old='LATEST_BATCH_DOC = "'+CP_DOC+'"'
+          new='LATEST_BATCH_DOC = "'+DOC+'"'
+          if old in verifier:
+              verifier=verifier.replace(old,new,1)
+          elif new not in verifier:
+              raise SystemExit('could not locate latest batch doc constant in continuity verifier')
+          verifier_path.write_text(verifier,encoding='utf-8')
           PY
           python scripts/verify-project-continuity-state-r1.py
           git config user.name 'Tianwen Research Bot'
           git config user.email 'tianwen-research-bot@users.noreply.github.com'
-          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json scripts/verify-project-continuity-state-r1.py
           git rm .github/workflows/finalize-yangzan-batch-cq.yml
           git commit -m 'close Yang Zan Beijing precision provenance batch 12CQ'
           git push origin HEAD:agent/fusion-chart-core-r1-20260822
