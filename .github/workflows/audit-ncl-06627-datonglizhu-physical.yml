@@ -8,20 +8,22 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install physical-collation tools
         shell: bash
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq poppler-utils
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra
           python -m pip install --quiet pillow
       - name: Acquire and fingerprint NCL-06627
         shell: bash
@@ -75,6 +77,83 @@ jobs:
           (root/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps({k:manifest[k] for k in ('source_id','title','pdf_sha256','pdf_bytes','rendered_page_count','ocr_used_for_final_glyph_claims')},ensure_ascii=False))
           PY
+      - name: OCR only for target-page localization
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit/ncl06627/ocr
+          find audit/ncl06627/pages -name 'page-*.jpg' -print0 \
+            | xargs -0 -n1 -P4 bash -c '
+                img="$0"
+                base="$(basename "${img%.jpg}")"
+                tesseract "$img" "audit/ncl06627/ocr/$base" -l chi_tra --psm 6 2>/dev/null || true
+              '
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          root = Path('audit/ncl06627')
+          manifest = json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+          anchors = ['夏至','冬至','小暑','大暑','日出','日入','晝','夜','五十九','四十一','五十八','四十二','五十七','四十三']
+          strong = {'夏至':8,'冬至':8,'小暑':8,'大暑':8,'日出':3,'日入':3,'晝':2,'夜':2,'五十九':4,'四十一':4,'五十八':4,'四十二':4,'五十七':4,'四十三':4}
+          candidates=[]
+          for txt in sorted((root/'ocr').glob('page-*.txt'), key=lambda p:int(re.search(r'(\d+)$',p.stem).group(1))):
+              page=int(re.search(r'(\d+)$',txt.stem).group(1))
+              raw=txt.read_text(encoding='utf-8',errors='replace')
+              compact=re.sub(r'\s+','',raw)
+              hits=[a for a in anchors if a in compact]
+              score=sum(strong[a] for a in hits)
+              if score:
+                  snippets=[]
+                  for a in hits:
+                      pos=compact.find(a)
+                      snippets.append(compact[max(0,pos-28):pos+len(a)+52])
+                  page_meta=manifest['pages'][page-1]
+                  candidates.append({
+                      'page_1_based':page,
+                      'page_render_sha256':page_meta['sha256'],
+                      'score':score,
+                      'hits':hits,
+                      'ocr_snippets':snippets[:8],
+                  })
+          candidates.sort(key=lambda x:(-x['score'],x['page_1_based']))
+          report={
+              'schema_version':'1.0.0',
+              'source_id':'NCL-06627',
+              'title':'大統曆註',
+              'acquisition_url':manifest['acquisition_url'],
+              'pdf_sha256':manifest['pdf_sha256'],
+              'pdf_bytes':manifest['pdf_bytes'],
+              'rendered_page_count':manifest['rendered_page_count'],
+              'locator_method':'Tesseract chi_tra OCR over 110dpi rendered pages; candidate localization only',
+              'ocr_used_for_final_glyph_claims':False,
+              'adjudication_rule':'OCR output may identify pages to inspect but MUST NOT establish final glyph readings or historical claims.',
+              'anchors':anchors,
+              'candidate_count':len(candidates),
+              'top_candidates':candidates[:120],
+          }
+          out=Path('docs/research/NCL-06627-DATONGLIZHU-PAGE-LOCATOR-R1.json')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({k:report[k] for k in ('pdf_sha256','rendered_page_count','candidate_count')},ensure_ascii=False))
+          for row in candidates[:30]:
+              print(json.dumps(row,ensure_ascii=False))
+          PY
+      - name: Persist reproducible page-locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT='docs/research/NCL-06627-DATONGLIZHU-PAGE-LOCATOR-R1.json'
+          git add "$REPORT"
+          if git diff --cached --quiet; then
+            echo 'locator report unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'record NCL-06627 reproducible page locator'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - name: Upload physical-collation artifact
         uses: actions/upload-artifact@v4
         with:
