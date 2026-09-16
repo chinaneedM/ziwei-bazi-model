@@ -1,0 +1,177 @@
+name: audit-korea-datonglizhu-1434-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-korea-datonglizhu-1434-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
+      - name: Acquire KOSTMA and Encyclopedia physical-image witnesses
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/korea-datonglizhu-1434'
+          mkdir -p "$ROOT/source" "$ROOT/images"
+
+          # Bibliographic/source pages.
+          curl -fL --retry 4 --retry-delay 2 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+            'https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000151' \
+            -o "$ROOT/source/kostma-DIC_A3_000151.html"
+          curl -fL --retry 4 --retry-delay 2 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+            'https://encykorea.aks.ac.kr/Article/E0014864' \
+            -o "$ROOT/source/encykorea-E0014864.html"
+
+          # KOSTMA's explicitly bound old-dictionary image.
+          curl -fL --retry 4 --retry-delay 2 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+            -e 'https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000151' \
+            'https://kostma.aks.ac.kr/DicImage/OldDic/43353_02.jpg' \
+            -o "$ROOT/images/kostma-43353_02.jpg"
+
+          # Three physical-media objects currently bound to the Encyclopedia article.
+          declare -A MEDIA=(
+            [0615e1d4]='0615e1d4-3681-480b-96e3-b274dfe84e35'
+            [c11f4e4d]='c11f4e4d-2f1c-46bb-8f33-2da81fe581a9'
+            [f4e46338]='f4e46338-7ea4-45f2-87f6-20579a4a0faa'
+          )
+          for short in 0615e1d4 c11f4e4d f4e46338; do
+            uuid="${MEDIA[$short]}"
+            curl -fL --retry 4 --retry-delay 2 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+              -e 'https://encykorea.aks.ac.kr/Article/E0014864' \
+              "https://devin.aks.ac.kr/image/${uuid}?preset=orig" \
+              -o "$ROOT/images/encykorea-${short}.bin" || true
+          done
+
+          file "$ROOT"/images/* | tee "$ROOT/file-types.txt"
+          sha256sum "$ROOT/source"/* "$ROOT/images"/* | tee "$ROOT/sha256.txt"
+
+      - name: Build reproducible locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, html, json, re
+
+          root = Path('audit/korea-datonglizhu-1434')
+          src = root / 'source'
+          imgs = root / 'images'
+
+          def compact_markup(path):
+              raw = path.read_text(encoding='utf-8', errors='replace')
+              raw = re.sub(r'<script\b.*?</script>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<style\b.*?</style>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<[^>]+>', ' ', raw)
+              return re.sub(r'\s+', ' ', html.unescape(raw)).strip()
+
+          kostma_text = compact_markup(src/'kostma-DIC_A3_000151.html')
+          ency_text = compact_markup(src/'encykorea-E0014864.html')
+          anchors = {
+              'title_datonglizhu': '大統曆註',
+              '24_terms': '24절후',
+              'sun_moon_rise_set': '일월의 출입',
+              'day_night_length': '주야의 장단',
+              'postface_1434': '1434년',
+              'postface_author': '김빈',
+          }
+
+          files=[]
+          for path in sorted(imgs.iterdir()):
+              if not path.is_file() or path.stat().st_size == 0:
+                  continue
+              row={
+                  'file': path.name,
+                  'bytes': path.stat().st_size,
+                  'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+              }
+              try:
+                  with Image.open(path) as im:
+                      row.update({
+                          'image_format': im.format,
+                          'width': im.width,
+                          'height': im.height,
+                          'mode': im.mode,
+                          'physical_image_decodable': True,
+                      })
+              except Exception as exc:
+                  row.update({'physical_image_decodable': False, 'decode_error': type(exc).__name__})
+              files.append(row)
+
+          report={
+              'schema':'KOREA-DATONGLIZHU-1434-PHYSICAL-LOCATOR-R1',
+              'schema_version':'1.0.0',
+              'research_gate':'Batch 12CQ: pre-1578 transmission witness for the 1578 Sanming seasonal day/night-ke table',
+              'source_title':'大統曆註',
+              'source_record':'KOSTMA DIC_A3_000151 / Encyclopedia of Korean Culture E0014864',
+              'source_urls':[
+                  'https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000151',
+                  'https://encykorea.aks.ac.kr/Article/E0014864',
+              ],
+              'catalog_scope':'12 juan, 4 books; anonymous; Korean early-Joseon calendrical work as described by the cited catalog/encyclopedia record',
+              'adjudication_rule':'Catalog prose may establish bibliographic leads and source scope. Exact glyphs, table values, layout, edition identity, and transmission direction require direct inspection of the acquired physical images or full scans. The 1434 postface is not treated by itself as proof that every calendrical passage was composed in 1434.',
+              'text_anchor_presence':{
+                  key:{
+                      'anchor':value,
+                      'kostma': value in kostma_text,
+                      'encykorea': value in ency_text,
+                  }
+                  for key,value in anchors.items()
+              },
+              'known_catalog_claims_to_verify_physically':[
+                  'The work contains 24 solar-term records including sun/moon rise-set and day/night length.',
+                  'A Kim Bin postface dated 1434 is bound at the end; the postface itself concerns movable type rather than calendrical content.',
+              ],
+              'physical_media':files,
+              'media_bindings':[
+                  {'provider':'KOSTMA','id':'43353_02.jpg','url':'https://kostma.aks.ac.kr/DicImage/OldDic/43353_02.jpg'},
+                  {'provider':'Encyclopedia of Korean Culture','media_id':'0615e1d4','uuid':'0615e1d4-3681-480b-96e3-b274dfe84e35'},
+                  {'provider':'Encyclopedia of Korean Culture','media_id':'c11f4e4d','uuid':'c11f4e4d-2f1c-46bb-8f33-2da81fe581a9'},
+                  {'provider':'Encyclopedia of Korean Culture','media_id':'f4e46338','uuid':'f4e46338-7ea4-45f2-87f6-20579a4a0faa'},
+              ],
+              'ocr_used_for_final_glyph_claims':False,
+          }
+          out=Path('docs/research/KOREA-DATONGLIZHU-1434-PHYSICAL-LOCATOR-R1.json')
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Persist locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT='docs/research/KOREA-DATONGLIZHU-1434-PHYSICAL-LOCATOR-R1.json'
+          git add "$REPORT"
+          if git diff --cached --quiet; then echo 'locator report unchanged'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'record Korea Datonglizhu 1434 physical locator'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Upload source snapshots and physical images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: korea-datonglizhu-1434-physical
+          path: audit/korea-datonglizhu-1434
+          if-no-files-found: error
+          retention-days: 30
