@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Harden withdrawn legacy URL handling
+      - name: Harden Batch 12CO repair script
         shell: bash
         run: |
           set -euo pipefail
@@ -28,18 +28,36 @@ jobs:
 
           path = Path("scripts/repair-batch-12cn-kostma-attribution.py")
           text = path.read_text(encoding="utf-8")
-          marker = '    withdrawn = by_id[WITHDRAWN_SOURCE_ID]\n'
-          insertion = (
-              marker
+
+          url_marker = '    withdrawn = by_id[WITHDRAWN_SOURCE_ID]\n'
+          url_insertion = (
+              url_marker
               + '    withdrawn["withdrawn_legacy_url"] = withdrawn.get("url")\n'
               + '    withdrawn["url"] = DICVIEW_URL\n'
               + '    withdrawn["provider"] = "KOSTMA exact-record correction anchor; withdrawn legacy Kyujanggak route retained as audit metadata"\n'
           )
           if 'withdrawn["withdrawn_legacy_url"]' not in text:
-              if marker not in text:
+              if url_marker not in text:
                   raise SystemExit("withdrawn source patch marker missing")
-              text = text.replace(marker, insertion, 1)
-              path.write_text(text, encoding="utf-8")
+              text = text.replace(url_marker, url_insertion, 1)
+
+          summary_marker = '    dump(path, d)\n\n    md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")\n'
+          summary_insertion = (
+              '    audit_summary = d.setdefault("audit_summary", {})\n'
+              '    for field in ("confirmed_provenance_metadata_defect_count", "repaired_provenance_metadata_defect_count"):\n'
+              '        current = audit_summary.get(field)\n'
+              '        if current not in (11, 12):\n'
+              '            raise SystemExit(f"unexpected {field} before Batch 12CO repair: {current}")\n'
+              '        audit_summary[field] = 12\n'
+              '    dump(path, d)\n\n'
+              '    md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")\n'
+          )
+          if 'unexpected {field} before Batch 12CO repair' not in text:
+              if summary_marker not in text:
+                  raise SystemExit("matrix summary patch marker missing")
+              text = text.replace(summary_marker, summary_insertion, 1)
+
+          path.write_text(text, encoding="utf-8")
           PY
           git diff --check
       - name: Repair Batch 12CN KOSTMA attribution
