@@ -1,4 +1,4 @@
-name: repair-batch-12co-focused-test-guards
+name: verify-batch-12co-kostma-attribution-repair
 
 on:
   push:
@@ -8,54 +8,22 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  repair-tests:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Generalize historical snapshot test guards
+      - name: Verify Batch 12CO provenance state
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("tests/test_fusion_chart_historical_provenance_audit_matrix_r1.py")
-          text = path.read_text(encoding="utf-8")
-          replacements = {
-              'self.assertEqual(self.payload["audit_summary"]["confirmed_provenance_metadata_defect_count"], 11)':
-                  'self.assertGreaterEqual(self.payload["audit_summary"]["confirmed_provenance_metadata_defect_count"], 11)',
-              'self.assertEqual(self.payload["audit_summary"]["repaired_provenance_metadata_defect_count"], 11)':
-                  'self.assertGreaterEqual(self.payload["audit_summary"]["repaired_provenance_metadata_defect_count"], 11)',
-          }
-          for old, new in replacements.items():
-              count = text.count(old)
-              if count != 3:
-                  raise SystemExit(f"expected exactly 3 historical snapshot assertions for {old!r}, found {count}")
-              text = text.replace(old, new)
-          path.write_text(text, encoding="utf-8")
-          PY
-          git diff --check
-      - name: Verify focused provenance tests and gates
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
           python scripts/verify-tianwen-transmission-genealogy-r1.py
           python scripts/verify-project-continuity-state-r1.py
-      - name: Commit focused test repair
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/test_fusion_chart_historical_provenance_audit_matrix_r1.py
-          git diff --cached --check
-          git commit -m "generalize provenance snapshot defect-count tests"
-          git push origin HEAD:agent/fusion-chart-core-r1-20260822
+          python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v
+          git diff --exit-code
