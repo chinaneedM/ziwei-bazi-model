@@ -1,5 +1,4 @@
 name: audit-yangzan-xianzhonglu-shidian-route
-# Continuation audit trigger: 2026-09-16; no workflow logic change.
 
 on:
   push:
@@ -18,140 +17,178 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Probe exact public Shidian book/page route
+      - name: Probe exact public Shidian book/page route and target page
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/yangzan-xianzhonglu-shidian'
-          mkdir -p "$ROOT/physical"
-          URL='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
-          curl -L --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 60 \
-            -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
-            -D "$ROOT/headers.txt" -o "$ROOT/page.html" -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' \
-            "$URL" | tee "$ROOT/curl-result.txt"
+          mkdir -p "$ROOT/physical" "$ROOT/variants" "$ROOT/js"
+          BASE='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
+          TARGET_PAGE_ID='7575481384166735924'
+          TARGET_PAGE_NUM='115'
+
+          declare -A URLS
+          URLS[base]="$BASE"
+          URLS[page]="$BASE?page=$TARGET_PAGE_NUM"
+          URLS[pageNum]="$BASE?pageNum=$TARGET_PAGE_NUM"
+          URLS[pageId]="$BASE?pageId=$TARGET_PAGE_ID"
+
+          for key in base page pageNum pageId; do
+            curl -L --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 60 \
+              -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+              -D "$ROOT/variants/$key.headers.txt" \
+              -o "$ROOT/variants/$key.html" \
+              -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' \
+              "${URLS[$key]}" | tee "$ROOT/variants/$key.curl-result.txt"
+          done
 
           python - <<'PY'
           from pathlib import Path
-          import hashlib, json, re, urllib.request
+          import hashlib, json, re, urllib.parse, urllib.request
 
           root=Path('audit/yangzan-xianzhonglu-shidian')
-          html=(root/'page.html').read_text(encoding='utf-8',errors='replace')
-          curl=(root/'curl-result.txt').read_text(encoding='utf-8',errors='replace').splitlines()
-          headers=(root/'headers.txt').read_text(encoding='utf-8',errors='replace')
+          variants=root/'variants'
+          target_id='7575481384166735924'
+          target_num=115
+          base_url='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
 
           def unjson_string(value):
               return json.loads('"'+value+'"')
 
-          # Bind the page-image manifest emitted by the public SSR response.
           page_pattern=re.compile(
               r'\{\"pageId\":\"(?P<id>\d+)\",\"picUrl\":\"(?P<pic>.*?)\",'
               r'\"urlEncryptType\":(?P<enc>\d+),\"pageNum\":(?P<num>\d+),'
               r'\"thumbUrl\":\"(?P<thumb>.*?)\",\"volumeId\":\"(?P<vol>\d+)\",'
               r'\"uri\":\"(?P<uri>.*?)\"\}'
           )
-          page_by_id={}
-          page_by_num={}
-          for m in page_pattern.finditer(html):
-              row={
-                  'page_id':m.group('id'),
-                  'page_num':int(m.group('num')),
-                  'pic_url':unjson_string(m.group('pic')),
-                  'thumb_url':unjson_string(m.group('thumb')),
-                  'volume_id':m.group('vol'),
-                  'uri':unjson_string(m.group('uri')),
-              }
-              page_by_id[row['page_id']]=row
-              page_by_num[row['page_num']]=row
+          page_pass_pattern=re.compile(r'pagePass\\\":\{\\\"PageId\\\":\\\"(\d+)\\\"\}')
 
-          # Machine text is locator-only. Associate relevant paragraph hits with their source page ids.
-          locator_terms=['晨昏','晨分','昏分','日出','日入','半晝','昼夜','晝夜','漏刻','百刻','夏至','冬至']
-          hit_rows=[]
-          for term in locator_terms:
-              for m in re.finditer(re.escape(term),html):
-                  left=max(0,m.start()-2200)
-                  right=min(len(html),m.end()+2200)
-                  window=html[left:right]
-                  ids=re.findall(r'\"startPageId\":\"(\d+)\"',window)
-                  # closest serialized paragraph normally exposes one page id; retain all mapped ids as locator candidates.
-                  for pid in ids:
-                      if pid in page_by_id:
-                          hit_rows.append({'term':term,'page_id':pid,'page_num':page_by_id[pid]['page_num']})
-          hit_rows=list({(x['term'],x['page_id'],x['page_num']):x for x in hit_rows}.values())
-          hit_rows.sort(key=lambda x:(x['page_num'],x['term']))
+          def preview_rows(html):
+              out=[]
+              for m in page_pattern.finditer(html):
+                  out.append({
+                      'page_id':m.group('id'),
+                      'page_num':int(m.group('num')),
+                      'pic_url':unjson_string(m.group('pic')),
+                      'thumb_url':unjson_string(m.group('thumb')),
+                      'volume_id':m.group('vol'),
+                      'uri':unjson_string(m.group('uri')),
+                  })
+              return out
 
-          # Always bind the early computational locus around indexed page 7; also download all located timekeeping pages.
-          wanted=set(range(6,14))
-          wanted.update(x['page_num'] for x in hit_rows)
-          wanted={n for n in wanted if n in page_by_num}
-          # Avoid an accidental whole-book fetch if generic terms are over-broad.
-          if len(wanted)>30:
-              wanted=set(range(6,14)) | {x['page_num'] for x in hit_rows if x['term'] in {'晨昏','晨分','昏分','日出','日入','半晝','昼夜','晝夜','漏刻','百刻'}}
+          reports=[]
+          target_candidates=[]
+          for key in ['base','page','pageNum','pageId']:
+              hp=variants/f'{key}.html'
+              html=hp.read_text(encoding='utf-8',errors='replace')
+              curl=(variants/f'{key}.curl-result.txt').read_text(encoding='utf-8',errors='replace').splitlines()
+              rows=preview_rows(html)
+              passes=[]
+              for pid in page_pass_pattern.findall(html):
+                  if not passes or passes[-1] != pid:
+                      passes.append(pid)
+              inferred=None
+              if target_id in passes:
+                  inferred=6+passes.index(target_id)
+              reports.append({
+                  'variant':key,
+                  'http_code':curl[0] if len(curl)>0 else None,
+                  'effective_url':curl[1] if len(curl)>1 else None,
+                  'content_type':curl[2] if len(curl)>2 else None,
+                  'size_download':int(float(curl[3])) if len(curl)>3 and curl[3] else None,
+                  'html_sha256':hashlib.sha256(hp.read_bytes()).hexdigest(),
+                  'preview_page_nums':[x['page_num'] for x in rows],
+                  'preview_page_ids':[x['page_id'] for x in rows],
+                  'page_pass_count':len(passes),
+                  'target_page_id_index':passes.index(target_id) if target_id in passes else None,
+                  'target_page_num_inferred_from_page_pass':inferred,
+              })
+              target_candidates.extend([x for x in rows if x['page_id']==target_id or x['page_num']==target_num])
 
-          physical=[]
+          # Preserve the complete page-pass sequence as a deterministic locator map.
+          base_html=(variants/'base.html').read_text(encoding='utf-8',errors='replace')
+          passes=[]
+          for pid in page_pass_pattern.findall(base_html):
+              if not passes or passes[-1] != pid:
+                  passes.append(pid)
+          locator_map=[{'page_num':6+i,'page_id':pid} for i,pid in enumerate(passes)]
+          (root/'page-pass-map.json').write_text(json.dumps(locator_map,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Save the exact machine-text locator context. It is locator evidence only.
+          phrases=['歩中星','步中星','北京北極出地四十度','俱係新儀測定每','昼夜總差','昼夜总差','昏明分二百五十分']
+          contexts=[]
+          for phrase in phrases:
+              for m in re.finditer(re.escape(phrase),base_html):
+                  contexts.append({'phrase':phrase,'context':base_html[max(0,m.start()-900):min(len(base_html),m.end()+1700)]})
+                  break
+          (root/'target-machine-context.json').write_text(json.dumps(contexts,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Download target physical image if any SSR query variant exposes its signed image URL.
           opener=urllib.request.build_opener()
           opener.addheaders=[('User-Agent','Mozilla/5.0 Tianwen-Provenance-Audit/1.0'),('Referer','https://www.shidianguji.com/')]
-          for num in sorted(wanted):
-              row=page_by_num[num]
-              out=root/'physical'/f'page-{num:03d}.png'
+          physical=[]
+          dedup={x['pic_url']:x for x in target_candidates}
+          for row in dedup.values():
+              out=root/'physical'/f'page-{row["page_num"]:03d}-target.png'
               try:
                   with opener.open(row['pic_url'],timeout=45) as resp:
                       body=resp.read()
                   out.write_bytes(body)
                   physical.append({
-                      'page_num':num,
-                      'page_id':row['page_id'],
-                      'volume_id':row['volume_id'],
-                      'uri':row['uri'],
-                      'sha256':hashlib.sha256(body).hexdigest(),
-                      'bytes':len(body),
-                      'downloaded':True,
+                      'page_num':row['page_num'],'page_id':row['page_id'],'volume_id':row['volume_id'],
+                      'uri':row['uri'],'sha256':hashlib.sha256(body).hexdigest(),'bytes':len(body),'downloaded':True,
                   })
               except Exception as exc:
-                  physical.append({
-                      'page_num':num,
-                      'page_id':row['page_id'],
-                      'volume_id':row['volume_id'],
-                      'uri':row['uri'],
-                      'downloaded':False,
-                      'error':repr(exc),
-                  })
+                  physical.append({'page_num':row['page_num'],'page_id':row['page_id'],'downloaded':False,'error':repr(exc)})
 
-          # Explicit metadata fields visible in SSR are recorded as route facts, not inferred bibliography.
+          # If SSR query variants do not expose the target image, archive reader JS and endpoint hints for the next deterministic probe.
+          script_srcs=[]
+          for raw in re.findall(r'<script[^>]+src=["\']([^"\']+)["\']',base_html,re.I):
+              url=urllib.parse.urljoin(base_url, raw if not raw.startswith('//') else 'https:'+raw)
+              if 'shidian' in url and (url.endswith('.js') or '.js?' in url):
+                  script_srcs.append(url)
+          js_records=[]
+          hints=[]
+          for i,url in enumerate(dict.fromkeys(script_srcs)):
+              try:
+                  with opener.open(url,timeout=45) as resp:
+                      body=resp.read()
+                  path=root/'js'/f'{i:02d}.js'
+                  path.write_bytes(body)
+                  text=body.decode('utf-8','replace')
+                  js_records.append({'index':i,'url':url,'sha256':hashlib.sha256(body).hexdigest(),'bytes':len(body)})
+                  for pat in [r'.{0,240}previewPages.{0,500}',r'.{0,240}picUrl.{0,500}',r'.{0,240}pageNum.{0,500}',r'.{0,240}pageId.{0,500}',r'.{0,240}/api/.{0,500}']:
+                      for mm in list(re.finditer(pat,text,re.I|re.S))[:20]:
+                          hints.append({'script_index':i,'pattern':pat,'snippet':mm.group(0)})
+              except Exception as exc:
+                  js_records.append({'index':i,'url':url,'error':repr(exc)})
+          (root/'js-records.json').write_text(json.dumps(js_records,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'js-hints.json').write_text(json.dumps(hints[:500],ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
           report={
-              'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PUBLIC-ROUTE-PROBE-R2',
-              'target_url':'https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r',
+              'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PUBLIC-ROUTE-PROBE-R3',
+              'target_url':base_url,
+              'target_page_id':target_id,
+              'target_page_num':target_num,
               'book_binding':{
-                  'book_id':'NGJ89241199901864074070',
-                  'title':'閑中錄前集',
-                  'author':'楊瓚',
-                  'responsibility':'撰',
-                  'dynasty':'明',
-                  'edition':'明抄本',
-                  'image_source':'國家圖書館',
-                  'library':'國家圖書館',
-                  'classification':['子部','天文算法类','推步之属'],
-                  'chapter_id':'1lmbc0ddu2g4r',
-                  'chapter_title':'閑中錄前集正文',
-                  'chapter_start_page':6,
-                  'chapter_end_page':123,
-                  'chapter_paragraph_count':1384,
-                  'volume_id':'7581115603948142646'
+                  'book_id':'NGJ89241199901864074070','title':'閑中錄前集','author':'楊瓚','responsibility':'撰',
+                  'dynasty':'明','edition':'明抄本','image_source':'國家圖書館','library':'國家圖書館',
+                  'classification':['子部','天文算法类','推步之属'],'chapter_id':'1lmbc0ddu2g4r',
+                  'chapter_title':'閑中錄前集正文','chapter_start_page':6,'chapter_end_page':123,
+                  'chapter_paragraph_count':1384,'volume_id':'7581115603948142646'
               },
-              'web_index_locator':{
-                  'indexed_page':'第7页',
-                  'indexed_phrase':'求盈縮日差、縮未限盈縮差'
+              'variant_reports':reports,
+              'target_page_binding':{
+                  'page_pass_count':len(passes),
+                  'target_index':passes.index(target_id) if target_id in passes else None,
+                  'inferred_page_num':6+passes.index(target_id) if target_id in passes else None,
+                  'inference_basis':'chapter page 6 anchors page-pass index 0; previewPages physically bind indices 0..7 to pages 6..13',
               },
-              'http_code':curl[0] if len(curl)>0 else None,
-              'effective_url':curl[1] if len(curl)>1 else None,
-              'content_type':curl[2] if len(curl)>2 else None,
-              'size_download':int(float(curl[3])) if len(curl)>3 and curl[3] else None,
-              'html_sha256':hashlib.sha256((root/'page.html').read_bytes()).hexdigest(),
-              'page_manifest_count':len(page_by_num),
-              'machine_text_locator_terms':locator_terms,
-              'machine_text_locator_hits':hit_rows,
-              'physical_pages':physical,
-              'response_headers_excerpt':headers[:12000],
-              'adjudication_rule':'Machine-processed text is locator evidence only. Any manuscript glyph, number, table, recension, or transmission claim requires direct visual inspection of downloaded page images; the public SSR metadata binds the displayed images to the stated National Library of China source route.'
+              'target_preview_candidates':target_candidates,
+              'target_physical_pages':physical,
+              'js_script_count':len(js_records),
+              'js_hint_count':len(hints[:500]),
+              'adjudication_rule':'Machine-processed text and page-id arithmetic are locator evidence only. Any manuscript glyph, number, table, recension, or transmission claim requires direct visual inspection of the target page image bound to the National Library of China source route.'
           }
           (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(report,ensure_ascii=False,indent=2))
