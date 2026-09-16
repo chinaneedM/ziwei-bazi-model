@@ -16,14 +16,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Bind target page through Shidian browser SDK
+      - name: Bind physical pages 115-118 through Shidian browser SDK
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/yangzan-xianzhonglu-shidian'
           mkdir -p "$ROOT/physical"
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
-          printf '%s\n' "$BROWSER" > "$ROOT/browser-path.txt"
           test -n "$BROWSER"
           npm install --no-save --silent puppeteer-core@24.16.0
           cat > "$ROOT/probe.mjs" <<'JS'
@@ -34,41 +33,37 @@ jobs:
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-          const url='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r';
-          const consoleRows=[];
-          page.on('console',m=>consoleRows.push({type:m.type(),text:m.text()}));
-          await page.goto(url,{waitUntil:'networkidle2',timeout:90000});
+          const source='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r';
+          await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
           await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
           const result=await page.evaluate(async()=>{
             const ptoken=await window.byted_psdk.getPtokenStatus();
             const payload={bookId:'NGJ89241199901864074070',pageSize:40,startPageNum:6,endPageNum:123,version:1,pageIndex:3,needCheckVersion:true,isWebpSupported:false,ptoken};
             const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
             const j=await r.json();
-            const pages=(j?.data?.pages || j?.pages || []);
-            const target=pages.find(x=>String(x.pageId)==='7575481384166735924' || Number(x.pageNum)===115) || null;
-            let decrypted=null;
-            if(target){
-              const d=await window.byted_psdk.decrypt(target.picUrl||'',ptoken,target.urlEncryptType);
-              decrypted=d?.decrypt ? d.data : target.picUrl;
+            const pages=(j?.data?.pages || j?.pages || []).filter(x=>Number(x.pageNum)>=115 && Number(x.pageNum)<=118);
+            const out=[];
+            for(const row of pages){
+              const d=await window.byted_psdk.decrypt(row.picUrl||'',ptoken,row.urlEncryptType);
+              out.push({pageId:String(row.pageId),pageNum:Number(row.pageNum),uri:row.uri,urlEncryptType:row.urlEncryptType,decrypted:d?.decrypt ? d.data : row.picUrl});
             }
-            return {ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,payload,response:j,target,decrypted};
+            return {errorCode:j?.errorCode,ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,pages:out};
           });
-          fs.writeFileSync(`${root}/browser-result.json`,JSON.stringify(result,null,2));
-          fs.writeFileSync(`${root}/browser-console.json`,JSON.stringify(consoleRows,null,2));
-          let physical=null;
-          if(result.decrypted){
-            const r=await fetch(result.decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
+          const physical=[];
+          for(const row of result.pages){
+            const r=await fetch(row.decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
             const b=Buffer.from(await r.arrayBuffer());
-            fs.writeFileSync(`${root}/physical/page-115-target.png`,b);
-            physical={status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')};
+            const file=`${root}/physical/page-${row.pageNum}.png`;
+            fs.writeFileSync(file,b);
+            physical.push({page_id:row.pageId,page_num:row.pageNum,uri:row.uri,status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')});
           }
-          const report={schema:'YANGZAN-XIANZHONGLU-SHIDIAN-BROWSER-SDK-PROBE-R5',target_page_id:'7575481384166735924',target_page_num:115,ptoken_present:result.ptoken_present,ptoken_length:result.ptoken_length,api_error_code:result.response?.errorCode,target_found:!!result.target,decrypted_url_present:!!result.decrypted,physical_page:physical,adjudication_rule:'Browser SDK/API output is locator/binding evidence; manuscript glyph and number claims require direct visual review of the downloaded target image.'};
+          const report={schema:'YANGZAN-XIANZHONGLU-SHIDIAN-PHYSICAL-COLLATION-PROBE-R6',source,api_error_code:result.errorCode,ptoken_present:result.ptoken_present,ptoken_length:result.ptoken_length,physical_pages:physical,adjudication_rule:'Only direct visual review of these source-bound physical page images may support manuscript glyph/number claims.'};
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
           console.log(JSON.stringify(report,null,2));
           await browser.close();
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
-      - name: Upload target-page artifact
+      - name: Upload physical-collation artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
