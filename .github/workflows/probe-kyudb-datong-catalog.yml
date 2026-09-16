@@ -138,3 +138,50 @@ jobs:
                       print(re.sub(r'\s+',' ',js[a:b])[:5700])
                       break
           PY
+      - name: Fetch target dictionary records and resolve source URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html as htmlmod
+          import re, urllib.parse, urllib.request, xml.etree.ElementTree as ET
+          headers={'User-Agent':'Mozilla/5.0'}
+          ids=['DIC_A3_000150','DIC_A3_000151']
+          for uid in ids:
+              print('=== RECORD',uid,'===')
+              api='https://kostma.aks.ac.kr/api/API_dicView.aspx?searchid='+urllib.parse.quote(uid)
+              try:
+                  raw=urllib.request.urlopen(urllib.request.Request(api,headers=headers),timeout=30).read()
+              except Exception as exc:
+                  print('API_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              text=raw.decode('utf-8','replace')
+              print('API_URL',api)
+              print('API_LEN',len(text))
+              print('API_XML',re.sub(r'\s+',' ',text)[:30000])
+              try:
+                  root=ET.fromstring(text)
+                  print('XML_FIELDS')
+                  for elem in root.iter():
+                      val=(elem.text or '').strip()
+                      if val:
+                          print(elem.tag,repr(val[:12000]))
+                          for u in re.findall(r'https?://[^\s<>"\']+',htmlmod.unescape(val)):
+                              print('XML_URL',u)
+              except Exception as exc:
+                  print('XML_PARSE_ERROR',type(exc).__name__,str(exc))
+              detail='https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid='+urllib.parse.quote(uid)
+              try:
+                  d=urllib.request.urlopen(urllib.request.Request(detail,headers=headers),timeout=30).read().decode('utf-8','replace')
+                  print('DETAIL_URL',detail)
+                  print('DETAIL_LEN',len(d))
+                  for tag in re.findall(r'<(?:iframe|a|form|input)\b[^>]*>',d,re.I):
+                      low=tag.lower()
+                      if any(k in low for k in ('src=', 'href=', 'action=', 'searchid', 'kyuj', 'mok', 'url', 'dic')):
+                          print('DETAIL_TAG',htmlmod.unescape(re.sub(r'\s+',' ',tag))[:5000])
+                  for u in re.findall(r'https?://[^\s<>"\']+',htmlmod.unescape(d)):
+                      if any(k in u.lower() for k in ('kyuj','snu','kostma','mok')):
+                          print('DETAIL_URL_FOUND',u[:5000])
+              except Exception as exc:
+                  print('DETAIL_FETCH_ERROR',type(exc).__name__,str(exc))
+          PY
