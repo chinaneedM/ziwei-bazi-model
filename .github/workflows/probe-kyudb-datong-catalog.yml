@@ -185,3 +185,78 @@ jobs:
               except Exception as exc:
                   print('DETAIL_FETCH_ERROR',type(exc).__name__,str(exc))
           PY
+      - name: Fetch target dicView payloads and extract Kyujanggak bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html as htmlmod
+          import re, urllib.parse, urllib.request
+          from html.parser import HTMLParser
+
+          class TextExtractor(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.parts=[]
+              def handle_data(self,data):
+                  data=' '.join(data.split())
+                  if data:
+                      self.parts.append(data)
+
+          headers={'User-Agent':'Mozilla/5.0'}
+          ids=['DIC_A3_000150','DIC_A3_000151']
+          keywords=('e-kyujanggak','kyuj','mok','conview','규장각','청구','소장','원문','자료','url','href','source')
+          for uid in ids:
+              url='https://kostma.aks.ac.kr/dic/dicView.aspx?searchid='+urllib.parse.quote(uid)
+              print('=== DICVIEW',uid,'===')
+              try:
+                  text=urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=30).read().decode('utf-8','replace')
+              except Exception as exc:
+                  print('DICVIEW_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              print('DICVIEW_URL',url)
+              print('DICVIEW_LEN',len(text))
+              parser=TextExtractor()
+              parser.feed(text)
+              clean=htmlmod.unescape(' | '.join(parser.parts))
+              print('DICVIEW_TEXT',clean[:40000])
+              print('=== TARGET TAGS ===')
+              seen=set()
+              for tag in re.findall(r'<(?:a|iframe|frame|form|input|button|script)\b[^>]*>',text,re.I):
+                  normalized=htmlmod.unescape(re.sub(r'\s+',' ',tag))
+                  low=normalized.lower()
+                  if any(k in low for k in keywords) and normalized not in seen:
+                      seen.add(normalized)
+                      print('TAG',normalized[:8000])
+              print('=== URLS ===')
+              urls=[]
+              for pat in (r'https?://[^\s<>"\']+', r'(?:href|src|action)=["\']([^"\']+)', r'(?:location(?:\.href)?\s*=\s*)["\']([^"\']+)'):
+                  for match in re.findall(pat,htmlmod.unescape(text),re.I):
+                      u=match if isinstance(match,str) else match[0]
+                      full=urllib.parse.urljoin(url,u)
+                      if full not in urls:
+                          urls.append(full)
+              for full in urls:
+                  if any(k in full.lower() for k in ('kyuj','mok','conview','kostma','snu')):
+                      print('URL',full[:8000])
+              print('=== KEYWORD CONTEXTS ===')
+              low=text.lower()
+              emitted=set()
+              for key in keywords:
+                  start=0
+                  while True:
+                      pos=low.find(key.lower(),start)
+                      if pos < 0:
+                          break
+                      a=max(0,pos-2500); b=min(len(text),pos+6500)
+                      frag=htmlmod.unescape(re.sub(r'\s+',' ',text[a:b]))
+                      sig=frag[:500]
+                      if sig not in emitted:
+                          emitted.add(sig)
+                          print('CTX',key,frag[:9000])
+                      start=pos+len(key)
+                      if len(emitted) >= 30:
+                          break
+                  if len(emitted) >= 30:
+                      break
+          PY
