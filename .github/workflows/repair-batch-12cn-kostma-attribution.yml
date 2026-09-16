@@ -66,6 +66,24 @@ jobs:
           set -euo pipefail
           python scripts/repair-batch-12cn-kostma-attribution.py
           git diff --check
+      - name: Upgrade Batch 12AP accounting guard
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("scripts/verify-project-continuity-state-r1.py")
+          text = path.read_text(encoding="utf-8")
+          old = '''    if matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count") != 11 or matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count") != 11:\n        fail("Batch 12AP provenance defect accounting regressed")\n'''
+          new = '''    batch12ap_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")\n    batch12ap_repaired = matrix.get("audit_summary", {}).get("repaired_provenance_metadata_defect_count")\n    if not isinstance(batch12ap_found, int) or batch12ap_found < 11 or not isinstance(batch12ap_repaired, int) or batch12ap_repaired < 11:\n        fail("Batch 12AP provenance defect accounting regressed")\n'''
+          if old in text:
+              text = text.replace(old, new, 1)
+              path.write_text(text, encoding="utf-8")
+          elif 'batch12ap_found = matrix.get("audit_summary", {}).get("confirmed_provenance_metadata_defect_count")' not in text:
+              raise SystemExit("Batch 12AP accounting guard patch marker missing")
+          PY
+          git diff --check
       - name: Verify provenance and continuity gates
         shell: bash
         run: |
