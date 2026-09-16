@@ -16,86 +16,58 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Probe Shidian reader page API and bind target physical page
+      - name: Bind target page through Shidian browser SDK
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/yangzan-xianzhonglu-shidian'
-          mkdir -p "$ROOT/api" "$ROOT/physical"
-          BASE='https://www.shidianguji.com/api/ancientlib/read/book/pages/v2/'
-          BOOK='NGJ89241199901864074070'
-          REF='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
-          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
-          urls=(
-            "$BASE?bookId=$BOOK&startPageNum=115&endPageNum=115&version=1&needCheckVersion=true&isWebpSupported=false"
-            "$BASE?bookId=$BOOK&pageIndex=109&pageSize=1&version=1&needCheckVersion=true&isWebpSupported=false"
-            "$BASE?bookId=$BOOK&pageIndex=0&pageSize=123&startPageNum=115&endPageNum=115&version=1&needCheckVersion=true&isWebpSupported=false"
-            "$BASE?bookId=$BOOK&startPageNum=110&endPageNum=120&version=1&needCheckVersion=true&isWebpSupported=false"
-          )
-          i=0
-          for url in "${urls[@]}"; do
-            curl -L --retry 2 --connect-timeout 15 --max-time 60 -A "$UA" -e "$REF" \
-              -D "$ROOT/api/$i.headers.txt" -o "$ROOT/api/$i.body" \
-              -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' "$url" \
-              | tee "$ROOT/api/$i.curl-result.txt"
-            i=$((i+1))
-          done
-          python - <<'PY'
-          from pathlib import Path
-          import hashlib, json, re, urllib.request
-          root=Path('audit/yangzan-xianzhonglu-shidian')
-          target_id='7575481384166735924'; target_num=115
-          reports=[]; candidates=[]
-          def walk(x):
-              if isinstance(x,dict):
-                  yield x
-                  for v in x.values(): yield from walk(v)
-              elif isinstance(x,list):
-                  for v in x: yield from walk(v)
-          for i in range(4):
-              body=(root/'api'/f'{i}.body').read_bytes()
-              curl=(root/'api'/f'{i}.curl-result.txt').read_text().splitlines()
-              rec={'variant':i,'http_code':curl[0] if curl else None,'content_type':curl[2] if len(curl)>2 else None,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()}
-              try:
-                  data=json.loads(body.decode('utf-8'))
-                  rec['json']=True
-                  for d in walk(data):
-                      pid=str(d.get('pageId') or d.get('page_id') or '')
-                      try: pnum=int(d.get('pageNum') or d.get('page_num') or -1)
-                      except: pnum=-1
-                      pic=d.get('picUrl') or d.get('pic_url') or d.get('imageUrl') or d.get('image_url')
-                      if pic and (pid==target_id or pnum==target_num):
-                          candidates.append({'variant':i,'page_id':pid,'page_num':pnum,'pic_url':pic,'raw':d})
-                  rec['target_candidates']=len([x for x in candidates if x['variant']==i])
-                  rec['top_keys']=list(data)[:30] if isinstance(data,dict) else []
-              except Exception as e:
-                  rec['json']=False; rec['parse_error']=repr(e); rec['prefix']=body[:1000].decode('utf-8','replace')
-              reports.append(rec)
-          # fallback: find signed image URL near target identifiers in raw JSON text
-          for i in range(4):
-              txt=(root/'api'/f'{i}.body').read_text(encoding='utf-8',errors='replace')
-              if target_id in txt or '"pageNum":115' in txt or '"pageNum": 115' in txt:
-                  for m in re.finditer(r'https?:\\?/\\?/[^"\\]+(?:png|webp)[^"\\]*',txt):
-                      u=m.group(0).replace('\\/','/')
-                      if 'ancientlib' in u and not any(x['pic_url']==u for x in candidates):
-                          candidates.append({'variant':i,'page_id':'','page_num':target_num,'pic_url':u,'raw':{}})
-          opener=urllib.request.build_opener(); opener.addheaders=[('User-Agent','Mozilla/5.0 Tianwen-Provenance-Audit/1.0'),('Referer','https://www.shidianguji.com/')]
-          physical=[]
-          seen=set()
-          for j,c in enumerate(candidates):
-              u=c['pic_url']
-              if u in seen: continue
-              seen.add(u)
-              try:
-                  with opener.open(u,timeout=60) as r: b=r.read()
-                  out=root/'physical'/f'page-115-target-{j}.png'; out.write_bytes(b)
-                  physical.append({'file':str(out),'url':u,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'downloaded':True,'source':c})
-              except Exception as e:
-                  physical.append({'url':u,'downloaded':False,'error':repr(e),'source':c})
-          report={'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PAGE-API-PROBE-R4','target_page_id':target_id,'target_page_num':target_num,'api_reports':reports,'candidates':candidates,'physical_pages':physical,'adjudication_rule':'API response and machine text are locators only; manuscript glyph and number claims require direct visual review of the downloaded target image.'}
-          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps(report,ensure_ascii=False,indent=2))
-          PY
+          mkdir -p "$ROOT/physical"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          printf '%s\n' "$BROWSER" > "$ROOT/browser-path.txt"
+          test -n "$BROWSER"
+          npm install --no-save --silent puppeteer-core@24.16.0
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const root='audit/yangzan-xianzhonglu-shidian';
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+          const url='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r';
+          const consoleRows=[];
+          page.on('console',m=>consoleRows.push({type:m.type(),text:m.text()}));
+          await page.goto(url,{waitUntil:'networkidle2',timeout:90000});
+          await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
+          const result=await page.evaluate(async()=>{
+            const ptoken=await window.byted_psdk.getPtokenStatus();
+            const payload={bookId:'NGJ89241199901864074070',pageSize:40,startPageNum:6,endPageNum:123,version:1,pageIndex:3,needCheckVersion:true,isWebpSupported:false,ptoken};
+            const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+            const j=await r.json();
+            const pages=(j?.data?.pages || j?.pages || []);
+            const target=pages.find(x=>String(x.pageId)==='7575481384166735924' || Number(x.pageNum)===115) || null;
+            let decrypted=null;
+            if(target){
+              const d=await window.byted_psdk.decrypt(target.picUrl||'',ptoken,target.urlEncryptType);
+              decrypted=d?.decrypt ? d.data : target.picUrl;
+            }
+            return {ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,payload,response:j,target,decrypted};
+          });
+          fs.writeFileSync(`${root}/browser-result.json`,JSON.stringify(result,null,2));
+          fs.writeFileSync(`${root}/browser-console.json`,JSON.stringify(consoleRows,null,2));
+          let physical=null;
+          if(result.decrypted){
+            const r=await fetch(result.decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
+            const b=Buffer.from(await r.arrayBuffer());
+            fs.writeFileSync(`${root}/physical/page-115-target.png`,b);
+            physical={status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')};
+          }
+          const report={schema:'YANGZAN-XIANZHONGLU-SHIDIAN-BROWSER-SDK-PROBE-R5',target_page_id:'7575481384166735924',target_page_num:115,ptoken_present:result.ptoken_present,ptoken_length:result.ptoken_length,api_error_code:result.response?.errorCode,target_found:!!result.target,decrypted_url_present:!!result.decrypted,physical_page:physical,adjudication_rule:'Browser SDK/API output is locator/binding evidence; manuscript glyph and number claims require direct visual review of the downloaded target image.'};
+          fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          await browser.close();
+          JS
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
       - name: Upload target-page artifact
         if: always()
         uses: actions/upload-artifact@v4
