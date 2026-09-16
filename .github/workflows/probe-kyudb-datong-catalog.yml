@@ -54,28 +54,48 @@ jobs:
           for src in re.findall(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
               print(src)
           PY
-      - name: Probe legacy KOSTMA target URLs
+      - name: Probe legacy KOSTMA target anchors
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
+          import html as htmlmod
           import re, urllib.request
           url='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&curPage=27&pageSize=100&query=&sType=&sort='
           try:
               req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
-              html=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
+              text=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
           except Exception as exc:
               print('KOSTMA_ACCESS_BOUNDARY=NETWORK_OR_TLS_FAILURE')
               print(type(exc).__name__, str(exc))
               raise SystemExit(0)
           print('KOSTMA_ACCESS_BOUNDARY=OPEN')
-          for key in ['대통력일통궤','大統曆日通軌','대통력주','大統曆註']:
+          targets=['대통력일통궤','大統曆日通軌','대통력주','大統曆註']
+          anchors=list(re.finditer(r'<a\b[^>]*>.*?</a>', text, re.I|re.S))
+          for key in targets:
               print('===',key,'===')
-              for m in re.finditer(re.escape(key),html):
-                  a=max(0,m.start()-2500); b=min(len(html),m.end()+5000)
-                  frag=html[a:b]
-                  urls=re.findall(r'https?://[^"\'<> ]+',frag)
-                  for u in urls:
-                      if 'kyujanggak' in u or 'snu.ac.kr' in u:
-                          print(u.replace('&amp;','&'))
+              hits=0
+              for m in re.finditer(re.escape(key),text):
+                  hits += 1
+                  container=None
+                  for a in anchors:
+                      if a.start() <= m.start() < a.end():
+                          container=a.group(0)
+                          break
+                  if container:
+                      clean=htmlmod.unescape(re.sub(r'\s+',' ',container))
+                      print('ANCHOR', clean[:8000])
+                  else:
+                      a=max(0,m.start()-5000); b=min(len(text),m.end()+9000)
+                      frag=text[a:b]
+                      print('CONTEXT', htmlmod.unescape(re.sub(r'\s+',' ',frag))[:14000])
+                  near=text[max(0,m.start()-7000):min(len(text),m.end()+12000)]
+                  attrs=[]
+                  for tag in re.findall(r'<(?:a|input|button|form)\b[^>]*>',near,re.I):
+                      if any(token in tag.lower() for token in ('href=', 'onclick=', 'value=', 'name=', 'id=')):
+                          attrs.append(htmlmod.unescape(re.sub(r'\s+',' ',tag)))
+                  print('NEARBY_TAGS')
+                  for tag in attrs[:80]:
+                      print(tag[:2500])
+              print('HIT_COUNT',hits)
           PY
