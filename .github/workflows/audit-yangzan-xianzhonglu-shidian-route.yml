@@ -1,0 +1,86 @@
+name: audit-yangzan-xianzhonglu-shidian-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-yangzan-xianzhonglu-shidian-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe exact public Shidian book/page route
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/yangzan-xianzhonglu-shidian'
+          mkdir -p "$ROOT"
+          URL='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
+          curl -L --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 60 \
+            -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
+            -D "$ROOT/headers.txt" -o "$ROOT/page.html" -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' \
+            "$URL" | tee "$ROOT/curl-result.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re
+          root=Path('audit/yangzan-xianzhonglu-shidian')
+          html=(root/'page.html').read_text(encoding='utf-8',errors='replace') if (root/'page.html').exists() else ''
+          curl=(root/'curl-result.txt').read_text(encoding='utf-8',errors='replace').splitlines()
+          headers=(root/'headers.txt').read_text(encoding='utf-8',errors='replace') if (root/'headers.txt').exists() else ''
+          urls=[]
+          for m in re.finditer(r'https?://[^"\'<>\\\s]+', html):
+              u=m.group(0).replace('&amp;','&')
+              if any(k in u.lower() for k in ('api','image','img','book','chapter','pdf','oss','cdn','static')):
+                  urls.append(u[:1000])
+          script_srcs=re.findall(r'<script[^>]+src=["\']([^"\']+)', html, flags=re.I)
+          next_data=None
+          m=re.search(r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>',html,flags=re.I|re.S)
+          if m: next_data=m.group(1)[:200000]
+          markers={k:(k in html) for k in [
+              'NGJ89241199901864074070','1lmbc0ddu2g4r','閑中錄前集','闲中录前集','楊瓚','杨瓒','求盈縮日差','求盈缩日差'
+          ]}
+          report={
+              'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PUBLIC-ROUTE-PROBE-R1',
+              'target_url':'https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r',
+              'web_search_binding':{
+                  'title':'閑中錄前集',
+                  'author':'楊瓚',
+                  'copy_layer':'明抄本',
+                  'indexed_page':'第7页',
+                  'indexed_phrase':'求盈縮日差、縮未限盈縮差'
+              },
+              'http_code':curl[0] if len(curl)>0 else None,
+              'effective_url':curl[1] if len(curl)>1 else None,
+              'content_type':curl[2] if len(curl)>2 else None,
+              'size_download':int(float(curl[3])) if len(curl)>3 and curl[3] else None,
+              'html_sha256':hashlib.sha256((root/'page.html').read_bytes()).hexdigest() if (root/'page.html').exists() else None,
+              'html_markers':markers,
+              'script_srcs':script_srcs[:100],
+              'interesting_urls':list(dict.fromkeys(urls))[:200],
+              'has_next_data':next_data is not None,
+              'response_headers_excerpt':headers[:12000],
+              'adjudication_rule':'This probe establishes only public-route accessibility/metadata. Search-engine snippets are locator evidence, not physical-glyph authority; no manuscript reading is promoted without direct page-image inspection.'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          if next_data is not None:
+              (root/'next-data.json').write_text(next_data,encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload route-probe artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yangzan-xianzhonglu-shidian-route
+          path: audit/yangzan-xianzhonglu-shidian
+          if-no-files-found: error
+          retention-days: 30
