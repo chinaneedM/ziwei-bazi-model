@@ -5165,28 +5165,30 @@
           "research_artifact": "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json"
         },
         "batch_12cn_datong_ritonggui_kyujanggak_daynight_bridge": {
-          "source_ids": [
-            "EXT-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
-            "EXT-KYUJANGGAK-DATONGLI-RITONGGUI-GR35954-LEGACY"
-          ],
-          "institutional_record_directly_retrieved": true,
+          "status": "CORRECTED_BY_BATCH_12CO",
           "record_id": "DIC_A3_000150",
-          "repository": "Seoul National University Kyujanggak Institute for Korean Studies",
-          "legacy_holding_identifier": "GR35954_00",
-          "recorded_historical_context": "1433-1445_SEJONG_REFORM_CONTEXT",
-          "sunrise_sunset_table_class_explicit": true,
-          "daynight_ke_fen_table_class_explicit": true,
-          "direct_physical_scan_reviewed": false,
-          "legacy_http_route_status": "404_NOT_FOUND",
-          "legacy_https_route_status": "CONNECTION_RESET_FROM_GITHUB_RUNNER",
-          "exact_numeric_match_to_sanming_proved": false,
-          "direct_sanming_parent_proved": false,
-          "upper_zi_to_hai_vote_increment": 0,
-          "runtime_winner_selected": false,
-          "candidate_collapsed": false,
-          "algorithm_reopen_authorized": false,
-          "transmission_impact_recorded": true,
+          "record_context": "Sejong-era 1433-1445 Datong/Tonggui computational compilation context per KOSTMA",
+          "tables_actually_listed": [
+            "太陽冬至前後二象盈初縮末限",
+            "太陽夏至前後二象縮初盈末限",
+            "太陰遲疾度立成"
+          ],
+          "explicit_daynight_table_family": false,
+          "explicit_sunrise_sunset_table_family": false,
+          "correct_source_emitted_holding_identifier": "GK12437_00",
+          "withdrawn_misattributed_holding_identifier": "GR35954_00",
+          "direct_scan_reviewed": false,
+          "ancestry_gate": "UNRESOLVED_TABLE_LEVEL_EVIDENCE",
+          "correction_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO",
           "research_artifact": "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        },
+        "batch_12co_kostma_attribution_repair": {
+          "audit_run_id": 35058829315,
+          "audit_job_id": 104674602946,
+          "defect": "WRONG_RECORD_FIELD_AND_HOLDING_ATTRIBUTION",
+          "repair": "WITHDRAW_DAYNIGHT_TABLE_CLASS_CLAIM_AND_GR35954_BINDING; RETAIN_VALID_DATONG_COMPUTATIONAL_WITNESS; BIND_METADATA_TO_GK12437",
+          "runtime_change": false,
+          "research_artifact": "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
         }
       }
     },
@@ -6199,8 +6201,8 @@
   ],
   "audit_summary": {
     "confirmed_chart_algorithm_defect_count": 0,
-    "confirmed_provenance_metadata_defect_count": 11,
-    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
     "algorithm_reopen_count": 0,
     "candidate_collapse_count": 0,
     "historical_candidate_extension_count": 6,

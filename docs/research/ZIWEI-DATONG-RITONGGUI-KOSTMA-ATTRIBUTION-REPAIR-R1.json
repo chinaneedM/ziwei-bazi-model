@@ -1,0 +1,31 @@
+{
+  "schema": "ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO",
+  "repairs_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN",
+  "audit_run_id": 35058829315,
+  "audit_job_id": 104674602946,
+  "defect_class": "PROVENANCE_METADATA_WRONG_RECORD_FIELD_AND_HOLDING_ATTRIBUTION",
+  "before": {
+    "record_id": "DIC_A3_000150",
+    "claimed_daynight_tables": [
+      "日出入晨刻表",
+      "晝夜刻分表",
+      "四方每時初昏去中星度數表"
+    ],
+    "claimed_holding": "GR35954_00"
+  },
+  "after": {
+    "record_id": "DIC_A3_000150",
+    "tables_actually_listed": [
+      "太陽冬至前後二象盈初縮末限",
+      "太陽夏至前後二象縮初盈末限",
+      "太陰遲疾度立成"
+    ],
+    "daynight_table_claim": "WITHDRAWN_NOT_PRESENT_IN_EXACT_RECORD_AUDIT",
+    "correct_holding_identifier": "GK12437_00",
+    "holding_binding_authority": "SOURCE_EMITTED_METADATA_IDENTIFIER_ONLY"
+  },
+  "runtime_impact": "NONE",
+  "deterministic_product_state": "CLOSED"
+}

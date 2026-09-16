@@ -4007,16 +4007,28 @@
       "historical_period": "JOSEON_SEJONG_REFORM_RECORD_DATED_1433_1445; PHYSICAL_IMPRESSION_DATE_NOT_INDEPENDENTLY_REVERIFIED_HERE",
       "provider": "한국학자료센터 KOSTMA / 한국학중앙연구원",
       "url": "https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid=DIC_A3_000150",
-      "source_role": "INSTITUTIONAL_CONTENT_AND_HOLDING_BINDING_RECORD_FOR_PRE_1578_DATONG_RITONGGUI_DAYNIGHT_TABLE_FAMILY",
-      "quality_notes": "Direct dicView retrieval in Batch 12CN identifies the record as 大統曆日通軌, dates the represented Joseon compilation context to 1433-1445, names Seoul National University Kyujanggak Institute for Korean Studies as repository, and explicitly describes 日出入晨刻表, 晝夜刻分表, and 四方每時初昏去中星度數表. This is institutional database evidence, not a substitute for direct facsimile glyph or numeric-cell collation."
+      "source_role": "INSTITUTIONAL_CONTENT_RECORD_FOR_DATONG_RITONGGUI_SOLAR_LUNAR_COMPUTATION_TABLES_AND_SOURCE_EMITTED_KYUJANGGAK_BINDING",
+      "quality_notes": "Batch 12CO re-audit of KOSTMA dicView DIC_A3_000150 confirms the title 大統曆日通軌 and the Sejong-era 1433-1445 compilation context, but the record lists exactly three computational tables: 太陽冬至前後二象盈初縮末限, 太陽夏至前後二象縮初盈末限, and 太陰遲疾度立成. The prior Batch 12CN attribution of 日出入晨刻表 / 晝夜刻分表 / 四方每時初昏去中星度數表 to this record is withdrawn. The same re-audit exposes source-emitted Kyujanggak identifier GK12437_00, not GR35954_00.",
+      "correction_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO"
     },
     {
       "source_id": "EXT-KYUJANGGAK-DATONGLI-RITONGGUI-GR35954-LEGACY",
-      "title": "Kyujanggak legacy object binding for 大統曆日通軌",
-      "provider": "Seoul National University Kyujanggak legacy e-kyujanggak route emitted by KOSTMA",
-      "url": "http://e-kyujanggak.snu.ac.kr/MOK/CONVIEW.jsp?ptype=list&subtype=oo&lclass=01&mclass=B124&sclass=G&ntype=oo&cn=GR35954_00",
-      "source_role": "PHYSICAL_HOLDING_LOCATOR_AND_CURRENT_ACCESS_BOUNDARY_CONTROL",
-      "quality_notes": "KOSTMA dicView emits the legacy Kyujanggak CONVIEW binding with cn=GR35954_00. Batch 12CN direct route probe observes HTTP 404 on the legacy HTTP endpoint and connection reset on HTTPS from GitHub Actions. Therefore the holding/object binding is recorded, while scan availability, physical impression details, and page-glyph authority remain unresolved."
+      "title": "WITHDRAWN: GR35954_00 previously misattributed to 大統曆日通軌 DIC_A3_000150",
+      "provider": "KOSTMA exact-record correction anchor; withdrawn legacy Kyujanggak route retained as audit metadata",
+      "url": "https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000150",
+      "source_role": "WITHDRAWN_MISATTRIBUTED_LOCATOR_RETAINED_FOR_AUDIT_TRACE_ONLY",
+      "quality_notes": "Batch 12CO exact-record audit disproves the Batch 12CN binding of GR35954_00 to DIC_A3_000150. This registry entry is retained only as an audit-trace tombstone and must not be used as evidence for 大統曆日通軌. The corrected source-emitted identifier is GK12437_00.",
+      "withdrawn_legacy_url": "http://e-kyujanggak.snu.ac.kr/MOK/CONVIEW.jsp?ptype=list&subtype=oo&lclass=01&mclass=B124&sclass=G&ntype=oo&cn=GR35954_00",
+      "correction_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO"
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-DATONGLI-RITONGGUI-GK12437-BINDING",
+      "title": "Kyujanggak source-emitted holding binding for 大統曆日通軌: GK12437_00",
+      "historical_period": "MODERN_INSTITUTIONAL_HOLDING_BINDING; PHYSICAL_COPY_DATE_NOT_INDEPENDENTLY_VERIFIED_HERE",
+      "provider": "KOSTMA dicView record DIC_A3_000150 / Seoul National University Kyujanggak binding",
+      "url": "https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000150",
+      "source_role": "CORRECTED_SOURCE_EMITTED_PHYSICAL_HOLDING_IDENTIFIER_BINDING",
+      "quality_notes": "Batch 12CO audit run 35058829315 / job 104674602946 directly re-read DIC_A3_000150 and found the Kyujanggak identifier GK12437_00. This proves the metadata binding only; no live first-party item page, physical impression date, facsimile glyph, or table cell is claimed as directly inspected."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

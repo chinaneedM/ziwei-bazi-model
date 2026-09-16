@@ -343,11 +343,12 @@
       "node_id": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
       "node_type": "DIGITAL_SURROGATE",
       "label": "KOSTMA 大統曆日通軌 DIC_A3_000150",
-      "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
+      "system_scope": "DATONG_TONGGUI_CALENDRICAL_COMPUTATION_TRANSMISSION",
       "date": "MODERN_INSTITUTIONAL_DATABASE_RECORD; HISTORICAL_CONTEXT_RECORDED_AS_1433_1445",
       "locator": "https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid=DIC_A3_000150",
       "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json",
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
     },
@@ -355,39 +356,28 @@
       "node_id": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
       "node_type": "EDITION",
       "label": "朝鮮世宗期《大統曆日通軌》技術編纂層（1433–1445記錄範圍）",
-      "system_scope": "DATONG_TONGGUI_DAYNIGHT_TABLE_TRANSMISSION",
+      "system_scope": "DATONG_TONGGUI_CALENDRICAL_COMPUTATION_TRANSMISSION",
       "work_composition_date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
       "edition_impression_date": "NOT_INDEPENDENTLY_VERIFIED_FROM_CURRENT_SCAN_IN_BATCH_12CN",
       "physical_copy_date": "NOT_INDEPENDENTLY_VERIFIED",
       "digital_surrogate_date": "KOSTMA_CURRENT_METADATA_SURFACE",
       "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json",
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
     },
     {
-      "node_id": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
+      "node_id": "HOLDING-KYUJANGGAK-GK12437_00-DATONGLI-RITONGGUI",
       "node_type": "PHYSICAL_COPY",
-      "label": "奎章閣《大統曆日通軌》legacy object GR35954_00",
+      "label": "奎章閣《大統曆日通軌》source-emitted holding identifier GK12437_00",
       "system_scope": "DATONG_TONGGUI_PHYSICAL_PROVENANCE",
-      "date": "CURRENT_HOLDING_BINDING; EXACT_PHYSICAL_IMPRESSION_DATE_UNRESOLVED",
-      "locator": "http://e-kyujanggak.snu.ac.kr/MOK/CONVIEW.jsp?ptype=list&subtype=oo&lclass=01&mclass=B124&sclass=G&ntype=oo&cn=GR35954_00",
+      "date": "CURRENT_METADATA_BINDING; EXACT_PHYSICAL_IMPRESSION_DATE_UNRESOLVED",
+      "locator": "KOSTMA DIC_A3_000150 source-emitted identifier GK12437_00; first-party item page not directly inspected in Batch 12CO",
       "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
-    },
-    {
-      "node_id": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
-      "node_type": "OPERATIONAL_ARTIFACT",
-      "label": "《大統曆日通軌》日出入晨刻表／晝夜刻分表 family",
-      "system_scope": "DAYNIGHT_KE_TIMEKEEPING",
-      "date": "SEJONG_REFORM_CONTEXT_1433_1445_PER_KOSTMA_RECORD",
-      "locator": "KOSTMA DIC_A3_000150 content description; physical cells not yet directly collated",
-      "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
-      ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO"
     }
   ],
   "edges": [
@@ -712,35 +702,23 @@
       "confidence": "HIGH",
       "evidence_class": "DIRECT_INSTITUTIONAL_DATABASE_RECORD",
       "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json",
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
       ],
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO"
     },
     {
       "edge_id": "TG-E0024",
       "from": "CATALOG-KOSTMA-DATONGLI-RITONGGUI-DIC-A3-000150",
       "relation": "ATTESTS",
-      "to": "HOLDING-KYUJANGGAK-GR35954_00-DATONGLI-RITONGGUI",
+      "to": "HOLDING-KYUJANGGAK-GK12437_00-DATONGLI-RITONGGUI",
       "status": "CONFIRMED",
-      "confidence": "HIGH_FOR_LEGACY_IDENTIFIER_BINDING_NOT_SCAN_ACCESS",
-      "evidence_class": "SOURCE_EMITTED_LEGACY_KYUJANGGAK_CONVIEW_BINDING",
+      "confidence": "HIGH_FOR_SOURCE_EMITTED_IDENTIFIER_ONLY",
+      "evidence_class": "EXACT_KOSTMA_RECORD_IDENTIFIER_EXTRACTION",
       "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
+        "docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json"
       ],
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
-    },
-    {
-      "edge_id": "TG-E0025",
-      "from": "RECENSION-JOSEON-SEJONG-DATONGLI-RITONGGUI-1433-1445",
-      "relation": "ATTESTS",
-      "to": "TABLE-FAMILY-JOSEON-DATONGLI-RITONGGUI-DAYNIGHT",
-      "status": "CONFIRMED",
-      "confidence": "HIGH_FOR_TABLE_CLASS_MEDIUM_FOR_UNCOLLATED_PHYSICAL_CELLS",
-      "evidence_class": "DIRECT_INSTITUTIONAL_CONTENT_DESCRIPTION",
-      "evidence": [
-        "docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json"
-      ],
-      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN"
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO"
     }
   ],
   "lineage_hypotheses": [

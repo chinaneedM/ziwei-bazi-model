@@ -1,75 +1,65 @@
 {
   "schema": "ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "batch_id": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN",
-  "prior_batch_id": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM",
-  "question": "Does a pre-1578 Datong Tonggui-line witness explicitly contain sunrise/sunset and day/night-ke tables relevant to the Sanming 1578 day/night-ke ancestry search, and what is the strongest current physical-object binding?",
-  "evidence_runs": {
-    "kostma_dicview": {
-      "workflow_run_id": 35057301901,
-      "job_id": 104670045742,
-      "record_id": "DIC_A3_000150",
-      "record_url": "https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid=DIC_A3_000150",
-      "dicview_url": "https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000150"
-    },
-    "kyujanggak_legacy_route": {
-      "workflow_run_id": 35057437846,
-      "job_id": 104670447349,
-      "holding_identifier": "GR35954_00",
-      "legacy_url": "http://e-kyujanggak.snu.ac.kr/MOK/CONVIEW.jsp?ptype=list&subtype=oo&lclass=01&mclass=B124&sclass=G&ntype=oo&cn=GR35954_00",
-      "http_result": "HTTP_404_NOT_FOUND",
-      "https_result": "CONNECTION_RESET_BY_PEER_FROM_GITHUB_RUNNER"
-    }
+  "correction_batch_id": "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO",
+  "status": "CORRECTED_AFTER_EXACT_RECORD_ATTRIBUTION_AUDIT",
+  "question": "What does KOSTMA DIC_A3_000150 actually attest, and does it prove a pre-1578 Datong-line day/night-ke table witness?",
+  "correction_audit": {
+    "workflow_run_id": 35058829315,
+    "job_id": 104674602946,
+    "record_id": "DIC_A3_000150",
+    "record_url": "https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid=DIC_A3_000150",
+    "dicview_url": "https://kostma.aks.ac.kr/dic/dicView.aspx?searchid=DIC_A3_000150",
+    "method": "Exact-record re-fetch with term-by-term field attribution and identifier extraction"
   },
   "institutional_record_direct_fields": {
     "title_hanja": "大統曆日通軌",
     "title_hangul": "대통력일통궤",
     "record_id": "DIC_A3_000150",
-    "record_type": "고서/기술서",
-    "recorded_creation_context": "1433-1445 (Sejong-era calendar-reform context in the institutional record)",
+    "recorded_creation_context": "1433-1445 (Sejong-era calendar-reform context in KOSTMA)",
     "repository": "서울대학교 규장각한국학연구원",
-    "explicit_table_families": [
-      "日出入晨刻表 — sunrise/sunset morning-ke table by the 24 solar terms",
-      "晝夜刻分表 — day/night ke-fen table",
-      "四方每時初昏去中星度數表 — initial-dusk stellar-degree table by direction/time"
+    "tables_actually_listed": [
+      "太陽冬至前後二象盈初縮末限",
+      "太陽夏至前後二象縮初盈末限",
+      "太陰遲疾度立成"
     ],
-    "lineage_summary": "The record describes the work as produced in the Joseon Sejong calendar-reform context on the basis of Ming/Datong calendrical principles associated with Yuan Tong's tradition.",
+    "daynight_table_names_present": false,
+    "sunrise_sunset_table_name_present": false,
     "numeric_cells_directly_collated": false,
     "physical_page_glyphs_directly_collated": false
   },
-  "physical_object_binding": {
-    "repository": "Seoul National University Kyujanggak Institute for Korean Studies",
-    "legacy_identifier": "GR35954_00",
-    "legacy_conview_binding_emitted_by_kostma": true,
-    "legacy_http_current_status": "404_NOT_FOUND",
-    "legacy_https_current_status": "RUNNER_CONNECTION_RESET",
+  "holding_binding": {
+    "correct_source_emitted_identifier": "GK12437_00",
+    "withdrawn_misattributed_identifier": "GR35954_00",
+    "correct_binding_level": "SOURCE_EMITTED_METADATA_IDENTIFIER_ONLY",
+    "first_party_item_page_directly_opened": false,
     "current_scan_obtained": false,
-    "physical_impression_date_independently_verified_from_scan_or_live_item_page": false,
-    "rule": "Do not convert the institutional record or legacy identifier into a claim that a specific physical scan or Ming-China edition has been directly inspected."
+    "physical_impression_date_independently_verified": false
   },
-  "date_and_recension_firewall": {
-    "underlying_work_lineage": "Datong/Tonggui technical lineage attributed in the institutional record to the Ming calendrical tradition associated with Yuan Tong.",
-    "joseon_compilation_recension_layer": "Institutional record places the represented Joseon technical compilation in the Sejong-era 1433-1445 reform context.",
-    "physical_holding_layer": "Kyujanggak legacy object identifier GR35954_00; exact impression/copy description remains unverified through a presently reachable item page or scan in this batch.",
-    "digital_metadata_layer": "KOSTMA dictionary record DIC_A3_000150 and its current/legacy routing surfaces.",
-    "forbidden_collapse": "Do not call GR35954_00 a Chinese Ming Zhengtong physical edition merely because the underlying work lineage and historical era are Ming-contemporary."
-  },
+  "withdrawn_batch_12cn_claims": [
+    "DIC_A3_000150 explicitly lists 日出入晨刻表",
+    "DIC_A3_000150 explicitly lists 晝夜刻分表",
+    "DIC_A3_000150 explicitly lists 四方每時初昏去中星度數表",
+    "DIC_A3_000150 binds to GR35954_00",
+    "DIC_A3_000150 establishes a pre-1578 Datong-line day/night-table-class witness"
+  ],
   "historical_adjudication": {
-    "pre_1578_daynight_table_family_witness_recorded": true,
-    "explicit_daynight_table_family": true,
-    "explicit_sunrise_sunset_table_family": true,
+    "datong_ritonggui_bibliographic_and_computational_witness": true,
+    "pre_1578_daynight_table_family_witness_recorded": false,
+    "explicit_daynight_table_family": false,
+    "explicit_sunrise_sunset_table_family": false,
     "direct_physical_scan_reviewed": false,
     "exact_numeric_table_match_to_sanming_1578_proved": false,
     "nanjing_59_ke_cap_proved_for_this_witness": false,
     "daily_ladder_change_day_match_proved": false,
     "rounding_quantization_rule_proved": false,
     "sanming_direct_parentage_proved": false,
-    "impact": "The search gate advances from existence/title-level uncertainty to a concrete pre-1578 Joseon Datong-line technical record that explicitly contains the required sunrise/sunset and day/night-ke table classes. The next gate is numeric and stemmatic, not merely bibliographic."
+    "impact": "The Batch 12CN day/night bridge is withdrawn. DIC_A3_000150 remains useful as a Sejong-era Datong/Tonggui computational witness, but the ancestry search returns to an unresolved table-level gate."
   },
   "product_adjudication": {
     "matrix_rule_id": "HPA-ZDATE-006",
     "status": "MISSING_FROM_PRODUCT",
-    "upper_zi_to_hai_vote_increment": 0,
     "new_runtime_candidate": false,
     "runtime_winner": false,
     "candidate_collapse": false,
@@ -78,9 +68,9 @@
     "deterministic_product_state": "CLOSED"
   },
   "next_gate": [
-    "Acquire a lawful readable scan or replacement first-party item surface for GR35954_00 and collate the actual 日出入晨刻表 / 晝夜刻分表 cells.",
-    "Test whether the table's solstitial cap, daily ladder, and intra-term change days reproduce the Nanjing 59/41 and Sanming 1578 stepped display fingerprints.",
-    "Continue pre-1578 annual Datong almanac and 楊瓚《閑中錄》 search in parallel, because a Joseon recension cannot by itself prove the exact Chinese Sanming transmission path.",
-    "Keep Batch 12CI quantization/rounding selection unresolved until an explicit historical rule or exact table-cell reconstruction closes it."
+    "Do not use DIC_A3_000150 as day/night-table evidence unless a readable page or first-party record actually exposes such material.",
+    "Investigate DIC_A3_000151 大統曆註 separately: its general 日月出入 / 晝夜長短 description is not equivalent to an identified numerical table.",
+    "Continue pre-1578 annual Datong almanac, 楊瓚《閑中錄》, and other first-party table witnesses for explicit 晨昏分 / 日出入 / 晝夜刻 cells.",
+    "Keep Nanjing 59/41, Sanming 1578 stepped display, and Batch 12CI rounding/quantization ancestry unresolved."
   ]
 }

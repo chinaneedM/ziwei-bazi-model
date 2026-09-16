@@ -56,6 +56,9 @@ def update_external_registry() -> None:
     kostma["correction_batch"] = REPAIR_BATCH
 
     withdrawn = by_id[WITHDRAWN_SOURCE_ID]
+    withdrawn["withdrawn_legacy_url"] = withdrawn.get("url")
+    withdrawn["url"] = DICVIEW_URL
+    withdrawn["provider"] = "KOSTMA exact-record correction anchor; withdrawn legacy Kyujanggak route retained as audit metadata"
     withdrawn["title"] = "WITHDRAWN: GR35954_00 previously misattributed to 大統曆日通軌 DIC_A3_000150"
     withdrawn["source_role"] = "WITHDRAWN_MISATTRIBUTED_LOCATOR_RETAINED_FOR_AUDIT_TRACE_ONLY"
     withdrawn["quality_notes"] = (
@@ -215,6 +218,12 @@ def update_matrix() -> None:
         "runtime_change": False,
         "research_artifact": REPAIR_RESEARCH
     }
+    audit_summary = d.setdefault("audit_summary", {})
+    for field in ("confirmed_provenance_metadata_defect_count", "repaired_provenance_metadata_defect_count"):
+        current = audit_summary.get(field)
+        if current not in (11, 12):
+            raise SystemExit(f"unexpected {field} before Batch 12CO repair: {current}")
+        audit_summary[field] = 12
     dump(path, d)
 
     md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")

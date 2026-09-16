@@ -649,13 +649,19 @@ Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YI
 
 Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM.md`. Research record: `docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json`.
 
+## Progress — Batch 12CN (corrected by Batch 12CO)
 
-## Progress — Batch 12CN
+- KOSTMA `DIC_A3_000150` remains a valid `大統曆日通軌` institutional record in a Sejong-era `1433–1445` calendrical-reform context.
+- Exact-record re-audit shows that the record lists `太陽冬至前後二象盈初縮末限`, `太陽夏至前後二象縮初盈末限`, `太陰遲疾度立成`. It does **not** list `日出入晨刻表`, `晝夜刻分表`, or `四方每時初昏去中星度數表` in the audited record.
+- The source-emitted Kyujanggak identifier is `GK12437_00`. The prior `GR35954_00` attribution is withdrawn.
+- Therefore Batch 12CN no longer establishes a pre-1578 Datong-line day/night-table-class witness. `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no runtime change is authorized.
 
-- Direct KOSTMA `dicView` retrieval binds `大統曆日通軌` to record `DIC_A3_000150`, a Sejong-era `1433–1445` technical-compilation context, and Seoul National University Kyujanggak Institute for Korean Studies.
-- The institutional content record explicitly lists `日出入晨刻表`, `晝夜刻分表`, and `四方每時初昏去中星度數表`. This advances the Sanming ancestry search from title-level expectation to an explicit pre-1578 Datong-line day/night-table class witness.
-- KOSTMA also emits the legacy Kyujanggak object binding `GR35954_00`. Direct route probing records HTTP `404` on the old HTTP endpoint and a connection reset on HTTPS from the GitHub runner, so no physical scan or numeric cells are claimed as directly collated.
-- The date firewall remains strict: Ming/Datong underlying work lineage, Joseon Sejong recension/compilation context, the present Kyujanggak physical holding locator, and modern KOSTMA metadata are separate layers. The object is not relabeled as a Chinese Ming physical edition.
-- `HPA-ZDATE-006` remains `MISSING_FROM_PRODUCT`; no runtime candidate, winner, candidate collapse, chart algorithm defect, or algorithm reopen is created. The next gate is numeric/stemmatic: obtain the table cells and test the `59/41`, daily-ladder, change-day, and rounding fingerprints against Sanming 1578.
+## Progress — Batch 12CO
 
-Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN.md`. Research record: `docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json`.
+- Exact attribution audit: GitHub Actions run `35058829315` / job `104674602946`.
+- Provenance defect repaired across the external-source registry, matrix progress, research record, transmission graph, Batch 12CN narrative, continuity state, and formalizer guard.
+- Defect class: `PROVENANCE_METADATA_WRONG_RECORD_FIELD_AND_HOLDING_ATTRIBUTION`.
+- The valid evidence retained is bibliographic/computational (`大統曆日通軌`, its three solar/lunar computational tables, and metadata binding `GK12437_00`), not a day/night-ke numerical table witness.
+- The next gate returns to direct table discovery and page-level collation; `59/41`, daily ladders, change days, rounding, and direct Sanming parentage remain unresolved.
+
+Batch document: `docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO.md`. Research record: `docs/research/ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-R1.json`.
