@@ -13,188 +13,90 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-
-      - name: Probe exact public Shidian book/page route and target page
+      - name: Probe Shidian reader page API and bind target physical page
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/yangzan-xianzhonglu-shidian'
-          mkdir -p "$ROOT/physical" "$ROOT/variants" "$ROOT/js"
-          BASE='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
-          TARGET_PAGE_ID='7575481384166735924'
-          TARGET_PAGE_NUM='115'
-
-          declare -A URLS
-          URLS[base]="$BASE"
-          URLS[page]="$BASE?page=$TARGET_PAGE_NUM"
-          URLS[pageNum]="$BASE?pageNum=$TARGET_PAGE_NUM"
-          URLS[pageId]="$BASE?pageId=$TARGET_PAGE_ID"
-
-          for key in base page pageNum pageId; do
-            curl -L --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 60 \
-              -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' \
-              -D "$ROOT/variants/$key.headers.txt" \
-              -o "$ROOT/variants/$key.html" \
-              -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' \
-              "${URLS[$key]}" | tee "$ROOT/variants/$key.curl-result.txt"
+          mkdir -p "$ROOT/api" "$ROOT/physical"
+          BASE='https://www.shidianguji.com/api/ancientlib/read/book/pages/v2/'
+          BOOK='NGJ89241199901864074070'
+          REF='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          urls=(
+            "$BASE?bookId=$BOOK&startPageNum=115&endPageNum=115&version=1&needCheckVersion=true&isWebpSupported=false"
+            "$BASE?bookId=$BOOK&pageIndex=109&pageSize=1&version=1&needCheckVersion=true&isWebpSupported=false"
+            "$BASE?bookId=$BOOK&pageIndex=0&pageSize=123&startPageNum=115&endPageNum=115&version=1&needCheckVersion=true&isWebpSupported=false"
+            "$BASE?bookId=$BOOK&startPageNum=110&endPageNum=120&version=1&needCheckVersion=true&isWebpSupported=false"
+          )
+          i=0
+          for url in "${urls[@]}"; do
+            curl -L --retry 2 --connect-timeout 15 --max-time 60 -A "$UA" -e "$REF" \
+              -D "$ROOT/api/$i.headers.txt" -o "$ROOT/api/$i.body" \
+              -w '%{http_code}\n%{url_effective}\n%{content_type}\n%{size_download}\n' "$url" \
+              | tee "$ROOT/api/$i.curl-result.txt"
+            i=$((i+1))
           done
-
           python - <<'PY'
           from pathlib import Path
-          import hashlib, json, re, urllib.parse, urllib.request
-
+          import hashlib, json, re, urllib.request
           root=Path('audit/yangzan-xianzhonglu-shidian')
-          variants=root/'variants'
-          target_id='7575481384166735924'
-          target_num=115
-          base_url='https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r'
-
-          def unjson_string(value):
-              return json.loads('"'+value+'"')
-
-          page_pattern=re.compile(
-              r'\{\"pageId\":\"(?P<id>\d+)\",\"picUrl\":\"(?P<pic>.*?)\",'
-              r'\"urlEncryptType\":(?P<enc>\d+),\"pageNum\":(?P<num>\d+),'
-              r'\"thumbUrl\":\"(?P<thumb>.*?)\",\"volumeId\":\"(?P<vol>\d+)\",'
-              r'\"uri\":\"(?P<uri>.*?)\"\}'
-          )
-          page_pass_pattern=re.compile(r'pagePass\\\":\{\\\"PageId\\\":\\\"(\d+)\\\"\}')
-
-          def preview_rows(html):
-              out=[]
-              for m in page_pattern.finditer(html):
-                  out.append({
-                      'page_id':m.group('id'),
-                      'page_num':int(m.group('num')),
-                      'pic_url':unjson_string(m.group('pic')),
-                      'thumb_url':unjson_string(m.group('thumb')),
-                      'volume_id':m.group('vol'),
-                      'uri':unjson_string(m.group('uri')),
-                  })
-              return out
-
-          reports=[]
-          target_candidates=[]
-          for key in ['base','page','pageNum','pageId']:
-              hp=variants/f'{key}.html'
-              html=hp.read_text(encoding='utf-8',errors='replace')
-              curl=(variants/f'{key}.curl-result.txt').read_text(encoding='utf-8',errors='replace').splitlines()
-              rows=preview_rows(html)
-              passes=[]
-              for pid in page_pass_pattern.findall(html):
-                  if not passes or passes[-1] != pid:
-                      passes.append(pid)
-              inferred=None
-              if target_id in passes:
-                  inferred=6+passes.index(target_id)
-              reports.append({
-                  'variant':key,
-                  'http_code':curl[0] if len(curl)>0 else None,
-                  'effective_url':curl[1] if len(curl)>1 else None,
-                  'content_type':curl[2] if len(curl)>2 else None,
-                  'size_download':int(float(curl[3])) if len(curl)>3 and curl[3] else None,
-                  'html_sha256':hashlib.sha256(hp.read_bytes()).hexdigest(),
-                  'preview_page_nums':[x['page_num'] for x in rows],
-                  'preview_page_ids':[x['page_id'] for x in rows],
-                  'page_pass_count':len(passes),
-                  'target_page_id_index':passes.index(target_id) if target_id in passes else None,
-                  'target_page_num_inferred_from_page_pass':inferred,
-              })
-              target_candidates.extend([x for x in rows if x['page_id']==target_id or x['page_num']==target_num])
-
-          # Preserve the complete page-pass sequence as a deterministic locator map.
-          base_html=(variants/'base.html').read_text(encoding='utf-8',errors='replace')
-          passes=[]
-          for pid in page_pass_pattern.findall(base_html):
-              if not passes or passes[-1] != pid:
-                  passes.append(pid)
-          locator_map=[{'page_num':6+i,'page_id':pid} for i,pid in enumerate(passes)]
-          (root/'page-pass-map.json').write_text(json.dumps(locator_map,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-
-          # Save the exact machine-text locator context. It is locator evidence only.
-          phrases=['歩中星','步中星','北京北極出地四十度','俱係新儀測定每','昼夜總差','昼夜总差','昏明分二百五十分']
-          contexts=[]
-          for phrase in phrases:
-              for m in re.finditer(re.escape(phrase),base_html):
-                  contexts.append({'phrase':phrase,'context':base_html[max(0,m.start()-900):min(len(base_html),m.end()+1700)]})
-                  break
-          (root/'target-machine-context.json').write_text(json.dumps(contexts,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-
-          # Download target physical image if any SSR query variant exposes its signed image URL.
-          opener=urllib.request.build_opener()
-          opener.addheaders=[('User-Agent','Mozilla/5.0 Tianwen-Provenance-Audit/1.0'),('Referer','https://www.shidianguji.com/')]
+          target_id='7575481384166735924'; target_num=115
+          reports=[]; candidates=[]
+          def walk(x):
+              if isinstance(x,dict):
+                  yield x
+                  for v in x.values(): yield from walk(v)
+              elif isinstance(x,list):
+                  for v in x: yield from walk(v)
+          for i in range(4):
+              body=(root/'api'/f'{i}.body').read_bytes()
+              curl=(root/'api'/f'{i}.curl-result.txt').read_text().splitlines()
+              rec={'variant':i,'http_code':curl[0] if curl else None,'content_type':curl[2] if len(curl)>2 else None,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest()}
+              try:
+                  data=json.loads(body.decode('utf-8'))
+                  rec['json']=True
+                  for d in walk(data):
+                      pid=str(d.get('pageId') or d.get('page_id') or '')
+                      try: pnum=int(d.get('pageNum') or d.get('page_num') or -1)
+                      except: pnum=-1
+                      pic=d.get('picUrl') or d.get('pic_url') or d.get('imageUrl') or d.get('image_url')
+                      if pic and (pid==target_id or pnum==target_num):
+                          candidates.append({'variant':i,'page_id':pid,'page_num':pnum,'pic_url':pic,'raw':d})
+                  rec['target_candidates']=len([x for x in candidates if x['variant']==i])
+                  rec['top_keys']=list(data)[:30] if isinstance(data,dict) else []
+              except Exception as e:
+                  rec['json']=False; rec['parse_error']=repr(e); rec['prefix']=body[:1000].decode('utf-8','replace')
+              reports.append(rec)
+          # fallback: find signed image URL near target identifiers in raw JSON text
+          for i in range(4):
+              txt=(root/'api'/f'{i}.body').read_text(encoding='utf-8',errors='replace')
+              if target_id in txt or '"pageNum":115' in txt or '"pageNum": 115' in txt:
+                  for m in re.finditer(r'https?:\\?/\\?/[^"\\]+(?:png|webp)[^"\\]*',txt):
+                      u=m.group(0).replace('\\/','/')
+                      if 'ancientlib' in u and not any(x['pic_url']==u for x in candidates):
+                          candidates.append({'variant':i,'page_id':'','page_num':target_num,'pic_url':u,'raw':{}})
+          opener=urllib.request.build_opener(); opener.addheaders=[('User-Agent','Mozilla/5.0 Tianwen-Provenance-Audit/1.0'),('Referer','https://www.shidianguji.com/')]
           physical=[]
-          dedup={x['pic_url']:x for x in target_candidates}
-          for row in dedup.values():
-              out=root/'physical'/f'page-{row["page_num"]:03d}-target.png'
+          seen=set()
+          for j,c in enumerate(candidates):
+              u=c['pic_url']
+              if u in seen: continue
+              seen.add(u)
               try:
-                  with opener.open(row['pic_url'],timeout=45) as resp:
-                      body=resp.read()
-                  out.write_bytes(body)
-                  physical.append({
-                      'page_num':row['page_num'],'page_id':row['page_id'],'volume_id':row['volume_id'],
-                      'uri':row['uri'],'sha256':hashlib.sha256(body).hexdigest(),'bytes':len(body),'downloaded':True,
-                  })
-              except Exception as exc:
-                  physical.append({'page_num':row['page_num'],'page_id':row['page_id'],'downloaded':False,'error':repr(exc)})
-
-          # If SSR query variants do not expose the target image, archive reader JS and endpoint hints for the next deterministic probe.
-          script_srcs=[]
-          for raw in re.findall(r'<script[^>]+src=["\']([^"\']+)["\']',base_html,re.I):
-              url=urllib.parse.urljoin(base_url, raw if not raw.startswith('//') else 'https:'+raw)
-              if 'shidian' in url and (url.endswith('.js') or '.js?' in url):
-                  script_srcs.append(url)
-          js_records=[]
-          hints=[]
-          for i,url in enumerate(dict.fromkeys(script_srcs)):
-              try:
-                  with opener.open(url,timeout=45) as resp:
-                      body=resp.read()
-                  path=root/'js'/f'{i:02d}.js'
-                  path.write_bytes(body)
-                  text=body.decode('utf-8','replace')
-                  js_records.append({'index':i,'url':url,'sha256':hashlib.sha256(body).hexdigest(),'bytes':len(body)})
-                  for pat in [r'.{0,240}previewPages.{0,500}',r'.{0,240}picUrl.{0,500}',r'.{0,240}pageNum.{0,500}',r'.{0,240}pageId.{0,500}',r'.{0,240}/api/.{0,500}']:
-                      for mm in list(re.finditer(pat,text,re.I|re.S))[:20]:
-                          hints.append({'script_index':i,'pattern':pat,'snippet':mm.group(0)})
-              except Exception as exc:
-                  js_records.append({'index':i,'url':url,'error':repr(exc)})
-          (root/'js-records.json').write_text(json.dumps(js_records,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          (root/'js-hints.json').write_text(json.dumps(hints[:500],ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-
-          report={
-              'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PUBLIC-ROUTE-PROBE-R3',
-              'target_url':base_url,
-              'target_page_id':target_id,
-              'target_page_num':target_num,
-              'book_binding':{
-                  'book_id':'NGJ89241199901864074070','title':'閑中錄前集','author':'楊瓚','responsibility':'撰',
-                  'dynasty':'明','edition':'明抄本','image_source':'國家圖書館','library':'國家圖書館',
-                  'classification':['子部','天文算法类','推步之属'],'chapter_id':'1lmbc0ddu2g4r',
-                  'chapter_title':'閑中錄前集正文','chapter_start_page':6,'chapter_end_page':123,
-                  'chapter_paragraph_count':1384,'volume_id':'7581115603948142646'
-              },
-              'variant_reports':reports,
-              'target_page_binding':{
-                  'page_pass_count':len(passes),
-                  'target_index':passes.index(target_id) if target_id in passes else None,
-                  'inferred_page_num':6+passes.index(target_id) if target_id in passes else None,
-                  'inference_basis':'chapter page 6 anchors page-pass index 0; previewPages physically bind indices 0..7 to pages 6..13',
-              },
-              'target_preview_candidates':target_candidates,
-              'target_physical_pages':physical,
-              'js_script_count':len(js_records),
-              'js_hint_count':len(hints[:500]),
-              'adjudication_rule':'Machine-processed text and page-id arithmetic are locator evidence only. Any manuscript glyph, number, table, recension, or transmission claim requires direct visual inspection of the target page image bound to the National Library of China source route.'
-          }
+                  with opener.open(u,timeout=60) as r: b=r.read()
+                  out=root/'physical'/f'page-115-target-{j}.png'; out.write_bytes(b)
+                  physical.append({'file':str(out),'url':u,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest(),'downloaded':True,'source':c})
+              except Exception as e:
+                  physical.append({'url':u,'downloaded':False,'error':repr(e),'source':c})
+          report={'schema':'YANGZAN-XIANZHONGLU-SHIDIAN-PAGE-API-PROBE-R4','target_page_id':target_id,'target_page_num':target_num,'api_reports':reports,'candidates':candidates,'physical_pages':physical,'adjudication_rule':'API response and machine text are locators only; manuscript glyph and number claims require direct visual review of the downloaded target image.'}
           (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(report,ensure_ascii=False,indent=2))
           PY
-
-      - name: Upload route and physical-page artifact
+      - name: Upload target-page artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
