@@ -20,10 +20,16 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
-          import re, urllib.request, urllib.parse
+          import re, urllib.request
           base='https://kyudb.snu.ac.kr/book/list.do?mid=GDS'
-          req=urllib.request.Request(base, headers={'User-Agent':'Mozilla/5.0'})
-          html=urllib.request.urlopen(req, timeout=30).read().decode('utf-8','replace')
+          try:
+              req=urllib.request.Request(base, headers={'User-Agent':'Mozilla/5.0'})
+              html=urllib.request.urlopen(req, timeout=30).read().decode('utf-8','replace')
+          except Exception as exc:
+              print('KYUDB_ACCESS_BOUNDARY=NETWORK_OR_TLS_FAILURE')
+              print(type(exc).__name__, str(exc))
+              raise SystemExit(0)
+          print('KYUDB_ACCESS_BOUNDARY=OPEN')
           print('HTML_LEN', len(html))
           print('=== FORMS ===')
           for m in re.finditer(r'<form\b[^>]*>.*?</form>', html, re.I|re.S):
@@ -55,8 +61,14 @@ jobs:
           python - <<'PY'
           import re, urllib.request
           url='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&curPage=27&pageSize=100&query=&sType=&sort='
-          req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
-          html=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
+          try:
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+              html=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
+          except Exception as exc:
+              print('KOSTMA_ACCESS_BOUNDARY=NETWORK_OR_TLS_FAILURE')
+              print(type(exc).__name__, str(exc))
+              raise SystemExit(0)
+          print('KOSTMA_ACCESS_BOUNDARY=OPEN')
           for key in ['대통력일통궤','大統曆日通軌','대통력주','大統曆註']:
               print('===',key,'===')
               for m in re.finditer(re.escape(key),html):
