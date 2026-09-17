@@ -28,11 +28,14 @@ jobs:
           new_tail = '    "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",\n    "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",\n]'
           old_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md"'
           new_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md"'
-          if old_tail not in s:
-              raise SystemExit('expected CQ supplemental tail not found')
-          if old_doc not in s:
-              raise SystemExit('expected CQ latest-batch doc not found')
-          s = s.replace(old_tail, new_tail, 1).replace(old_doc, new_doc, 1)
+          if old_tail in s:
+              s = s.replace(old_tail, new_tail, 1)
+          elif '"BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",' not in s:
+              raise SystemExit('neither CQ tail nor CR supplemental batch found')
+          if old_doc in s:
+              s = s.replace(old_doc, new_doc, 1)
+          elif new_doc not in s:
+              raise SystemExit('neither CQ nor CR latest-batch doc found')
           p.write_text(s, encoding='utf-8')
           PY
           python scripts/verify-project-continuity-state-r1.py
