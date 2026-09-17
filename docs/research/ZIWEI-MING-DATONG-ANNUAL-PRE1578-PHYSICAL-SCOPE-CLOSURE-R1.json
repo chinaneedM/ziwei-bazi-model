@@ -1,0 +1,90 @@
+{
+  "schema": "ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-CU",
+  "research_question": "Do the four already-acquired, securely dated pre-1578 Ming official Datong annual calendars expose a directly comparable 晨昏分 / 日出入 / 晝夜刻 table carrying the 1578 Sanming 59/41 and intra-term change-day fingerprint?",
+  "locator_record": "docs/research/NCL-MING-DATONG-ANNUAL-PRE1578-PAGE-LOCATOR-R1.json",
+  "acquisition_workflow": ".github/workflows/audit-ncl-ming-datong-annual-pre1578.yml",
+  "acquisition_run_id": 35101414335,
+  "artifact_id": 10448114363,
+  "artifact_name": "ncl-ming-datong-annual-pre1578-physical",
+  "artifact_digest": "sha256:f56cfab2e5e51ac33e72dc08bb1b901be5c1b5ea0091726a60b1a888e13253b9",
+  "review_method": {
+    "ocr_role": "LOCATOR_ONLY_NOT_FINAL_AUTHORITY",
+    "all_physical_pages_rendered": true,
+    "physical_render_dpi": 200,
+    "page_layout_visual_review": "ALL_120_PAGES",
+    "enlarged_suspicious_or_nonmonthly_pages": [
+      "NCL-06283 p10 and pp17-18",
+      "NCL-06284 pp41 and 43",
+      "NCL-06289 pp21-23",
+      "NCL-06302 p21"
+    ],
+    "claim_scope": "PAGE-LAYOUT_AND_TARGET-TABLE_NONATTESTATION_ONLY; not a glyph-by-glyph negative search of every daily column"
+  },
+  "sources": [
+    {
+      "source_id": "NCL-06283",
+      "title": "大明永樂十五年大統曆",
+      "calendar_year_ce": 1417,
+      "edition_metadata": "明欽天監刊本",
+      "pdf_sha256": "3a6511b01c07e50f70ea3b8ccda4831604122703874a61a358564ee0e28b813c",
+      "page_count": 18,
+      "target_table_observed": false
+    },
+    {
+      "source_id": "NCL-06284",
+      "title": "大明景泰三年歲次壬申大統曆",
+      "calendar_year_ce": 1452,
+      "edition_metadata": "明欽天監刊本",
+      "pdf_sha256": "683bf93900aa90b57ef2c83e70b87f7aa927933cf0b607005daaae57eff71a1c",
+      "page_count": 49,
+      "target_table_observed": false
+    },
+    {
+      "source_id": "NCL-06289",
+      "title": "大明正德元年大統曆",
+      "calendar_year_ce": 1506,
+      "edition_metadata": "明欽天監刊本",
+      "pdf_sha256": "f42c04ff34847bce35cf0a28db761b9083db6b215cf2a2e300e69c34ed1fa2d7",
+      "page_count": 29,
+      "target_table_observed": false
+    },
+    {
+      "source_id": "NCL-06302",
+      "title": "大明嘉靖二十二年歲次癸卯大統曆",
+      "calendar_year_ce": 1543,
+      "edition_metadata": "明欽天監刊本",
+      "pdf_sha256": "3a1de17f7b2f63892472520900e9ee9dba15d7a19d09d8a0a91bf6b8ab15d6b6",
+      "page_count": 24,
+      "target_table_observed": false
+    }
+  ],
+  "direct_visual_result": {
+    "monthly_calendar_pages_dominate": true,
+    "endmatter_contains_miscellaneous_annual_tables_or_diagrams": true,
+    "standalone_chenhunfen_table_observed": false,
+    "standalone_sunrise_sunset_table_observed": false,
+    "standalone_day_night_ke_table_observed": false,
+    "directly_comparable_59_41_plus_change_day_table_observed": false,
+    "whole_datong_annual_tradition_absence_authorized": false
+  },
+  "adjudication": {
+    "four_specific_public_annual_calendar_route": "CLOSED_NO_DIRECT_TARGET_TABLE_OBSERVED",
+    "sanming_1578_direct_parentage_from_these_four_objects": "NOT_ESTABLISHED",
+    "independent_numeric_vote_increment": 0,
+    "transmission_edge_increment": 0,
+    "runtime_change": "NONE",
+    "algorithm_reopen": "NONE",
+    "candidate_collapse": "NONE"
+  },
+  "transmission_impact": {
+    "graph_mutation": "NONE",
+    "reason": "Negative scope closure only. The four annual calendars remain valid dated Datong witnesses but do not expose the target table on the reviewed physical surfaces; no positive transmission edge is created."
+  },
+  "next_gate": [
+    "Acquire a directly readable original 大統曆法通軌 witness, prioritizing the Kyujanggak Joseon movable-type recension and the NLC Ming manuscript route.",
+    "Locate and physically collate 晨昏立成 / 晨昏分 cells in that witness.",
+    "Only after page-level binding test 59/41, Sanming intermediate anchors, intra-term change days, and the exact historical quantization rule against the 1578 physical target."
+  ]
+}
