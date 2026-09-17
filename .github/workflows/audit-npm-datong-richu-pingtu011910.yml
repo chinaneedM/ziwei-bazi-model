@@ -1,0 +1,125 @@
+name: audit-npm-datong-richu-pingtu011910
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-npm-datong-richu-pingtu011910.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe NPM Pingtu 011910 public rare-book route
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/npm-datong-richu-pingtu011910'
+          mkdir -p "$ROOT"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          npm install --no-save --silent puppeteer-core@24.16.0
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/npm-datong-richu-pingtu011910';
+          const base='https://rarebooks-maps.npm.edu.tw/index.php';
+          const queryObj={pageing:'1-20',search:[{field:'CmnNumber',value:'平圖011910'}],pqfilter:[],tpfilter:{}};
+          const token=Buffer.from(JSON.stringify(queryObj),'utf8').toString('base64');
+          const searchUrl=`${base}?act=Archive%2Fsearch%2F1-20%2F${encodeURIComponent(token)}`;
+
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setViewport({width:1600,height:1200,deviceScaleFactor:1});
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          const network=[];
+          page.on('response',async res=>{
+            const u=res.url();
+            const ct=res.headers()['content-type']||'';
+            if(u.includes('rarebooks-maps.npm.edu.tw') || ct.startsWith('image/')){
+              network.push({status:res.status(),url:u,content_type:ct});
+            }
+          });
+
+          const saveSurface=async(name)=>{
+            const s=await page.evaluate(()=>({
+              title:document.title,
+              url:location.href,
+              body:document.body?.innerText||'',
+              html:document.documentElement?.outerHTML||'',
+              links:[...document.querySelectorAll('a[href]')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href})),
+              images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''})),
+              scripts:[...document.scripts].map(s=>s.src).filter(Boolean)
+            }));
+            fs.writeFileSync(`${root}/${name}.json`,JSON.stringify(s,null,2));
+            await page.screenshot({path:`${root}/${name}.png`,fullPage:true});
+            return s;
+          };
+
+          await page.goto(searchUrl,{waitUntil:'networkidle2',timeout:90000});
+          const search=await saveSurface('search');
+
+          const candidate=search.links.find(x=>/大統日出分/.test(x.text))
+            || search.links.find(x=>/Display%2Fimage|Display\/image|Archive%2Fdetail|Archive\/detail/i.test(x.href));
+
+          let detail=null;
+          if(candidate){
+            await page.goto(candidate.href,{waitUntil:'networkidle2',timeout:90000});
+            detail=await saveSurface('detail');
+          }
+
+          // If the detail page exposes an image-browser route, visit it.
+          let imageSurface=null;
+          if(detail){
+            const imageLink=detail.links.find(x=>/Display%2Fimage|Display\/image/i.test(x.href))
+              || detail.links.find(x=>/檢視影像|影像瀏覽|瀏覽影像/.test(x.text));
+            if(imageLink){
+              await page.goto(imageLink.href,{waitUntil:'networkidle2',timeout:90000});
+              imageSurface=await saveSurface('image-browser');
+            }
+          }
+
+          const interesting=[...new Set(network.filter(x=>x.status===200 && (x.content_type.startsWith('image/') || /iiif|image|archive|display/i.test(x.url))).map(x=>x.url))];
+          const report={
+            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-ROUTE-PROBE-R1',
+            search_url:searchUrl,
+            query:queryObj,
+            search_title:search.title,
+            search_url_final:search.url,
+            search_body_contains_title:/大統日出分/.test(search.body),
+            search_body_contains_identifier:/平圖011910/.test(search.body),
+            candidate,
+            detail_url:detail?.url||null,
+            detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
+            detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
+            image_browser_url:imageSurface?.url||null,
+            image_browser_image_count:imageSurface?.images?.length||0,
+            interesting_network_urls:interesting.slice(0,300),
+            network_count:network.length,
+            adjudication_rule:'This probe binds public NPM metadata/access routes only. No numerical or glyph claim may be upgraded until source-bound physical page images are directly downloaded and visually reviewed without OCR authority.'
+          };
+          fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
+          fs.writeFileSync(`${root}/network.json`,JSON.stringify(network,null,2));
+          fs.writeFileSync(`${root}/report.sha256`,crypto.createHash('sha256').update(JSON.stringify(report)).digest('hex')+'\n');
+          console.log(JSON.stringify(report,null,2));
+          await browser.close();
+          if(!report.search_body_contains_title || !report.search_body_contains_identifier) process.exitCode=2;
+          JS
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+      - name: Upload NPM route artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-datong-richu-pingtu011910-route
+          path: audit/npm-datong-richu-pingtu011910
+          if-no-files-found: error
+          retention-days: 30
