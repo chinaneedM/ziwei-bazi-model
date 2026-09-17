@@ -27,10 +27,7 @@ jobs:
           URL="$(python - <<'PY'
           import json
           j=json.load(open('audit/ncl06267-datong-richu/commons-api.json',encoding='utf-8'))
-          pages=j.get('query',{}).get('pages',{})
-          if not pages: raise SystemExit('no Commons page record')
-          page=next(iter(pages.values()))
-          if 'missing' in page: raise SystemExit('Commons file title missing')
+          page=next(iter(j.get('query',{}).get('pages',{}).values()))
           info=page.get('imageinfo') or []
           if not info: raise SystemExit('no imageinfo')
           print(info[0]['url'])
@@ -38,45 +35,30 @@ jobs:
           )"
           printf '%s\n' "$URL" | tee "$ROOT/resolved-url.txt"
           curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/NCL-06267-datong-richu.pdf"
-          file "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/file.txt"
           head -c 5 "$ROOT/NCL-06267-datong-richu.pdf" | grep -q '%PDF-'
           sha256sum "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdf.sha256"
           pdfinfo "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdfinfo.txt"
-          PAGES="$(pdfinfo "$ROOT/NCL-06267-datong-richu.pdf" | awk '/^Pages:/ {print $2}')"
+          PAGES="$(awk '/^Pages:/ {print $2}' "$ROOT/pdfinfo.txt")"
           test -n "$PAGES"
-          pdftoppm -png -r 180 "$ROOT/NCL-06267-datong-richu.pdf" "$ROOT/pages/page" >/dev/null 2>&1
-          COUNT="$(find "$ROOT/pages" -type f -name 'page-*.png' | wc -l | tr -d ' ')"
+          for i in $(seq 1 "$PAGES"); do
+            out="$ROOT/pages/page-$(printf '%02d' "$i")"
+            timeout 45 pdftoppm -f "$i" -l "$i" -singlefile -jpeg -jpegopt quality=88 -r 110 "$ROOT/NCL-06267-datong-richu.pdf" "$out" >/dev/null 2>&1
+          done
+          COUNT="$(find "$ROOT/pages" -type f -name 'page-*.jpg' | wc -l | tr -d ' ')"
           test "$COUNT" = "$PAGES"
           python - <<'PY'
-          import hashlib, json
+          import hashlib,json
           from pathlib import Path
-          root=Path('audit/ncl06267-datong-richu')
-          pdf=root/'NCL-06267-datong-richu.pdf'
-          pages=sorted((root/'pages').glob('page-*.png'))
-          api=json.loads((root/'commons-api.json').read_text(encoding='utf-8'))
-          resolved=(root/'resolved-url.txt').read_text(encoding='utf-8').strip()
-          report={
-            'schema':'NCL06267-DATONG-RICHU-PHYSICAL-ACQUISITION-R2',
-            'commons_api_record':api,
-            'resolved_source_url':resolved,
-            'source_listing':'Wikimedia Commons NCL rare-book microfilm backup list',
-            'source_id':'NCL-06267',
-            'title':'大統日出分',
-            'pdf_bytes':pdf.stat().st_size,
-            'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
-            'rendered_page_count':len(pages),
-            'rendered_pages':[{'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in pages],
-            'ocr_used_for_glyph_or_numeric_claims':False,
-            'adjudication_rule':'Acquisition only. Numerical/glyph claims require direct visual review of rendered physical pages; OCR is not authority.'
-          }
+          root=Path('audit/ncl06267-datong-richu'); pdf=root/'NCL-06267-datong-richu.pdf'; pages=sorted((root/'pages').glob('page-*.jpg'))
+          report={'schema':'NCL06267-DATONG-RICHU-PHYSICAL-ACQUISITION-R3','resolved_source_url':(root/'resolved-url.txt').read_text().strip(),'source_id':'NCL-06267','title':'大統日出分','pdf_bytes':pdf.stat().st_size,'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),'rendered_page_count':len(pages),'rendered_pages':[{'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in pages],'ocr_used_for_glyph_or_numeric_claims':False,'adjudication_rule':'Numerical/glyph claims require direct visual review of rendered physical pages; OCR is not authority.'}
           (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps({k:report[k] for k in ['source_id','title','pdf_bytes','pdf_sha256','rendered_page_count','resolved_source_url']},ensure_ascii=False,indent=2))
+          print(json.dumps({k:report[k] for k in ['source_id','pdf_bytes','pdf_sha256','rendered_page_count']},indent=2))
           PY
       - name: Upload NCL-06267 physical artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ncl06267-datong-richu-physical-r2
+          name: ncl06267-datong-richu-physical-r3
           path: audit/ncl06267-datong-richu
           if-no-files-found: error
           retention-days: 30
