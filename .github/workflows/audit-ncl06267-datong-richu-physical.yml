@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   audit:
@@ -16,39 +16,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Repair Batch 12CS registry URL contract
+      - name: Verify historical provenance baseline
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
-          text = path.read_text(encoding='utf-8')
-          source_id = '"source_id": "EXT-NPM-DATONG-RICHU-PINGTU011910"'
-          source_pos = text.find(source_id)
-          if source_pos < 0:
-              raise SystemExit('Batch 12CS NPM source registry entry is missing')
-          source_end = text.find('\n    }', source_pos)
-          if source_end < 0:
-              raise SystemExit('Batch 12CS NPM source registry entry boundary is missing')
-          block = text[source_pos:source_end]
-          url = 'https://rarebooks-maps.npm.edu.tw/index.php?act=Archive%2Fsearch%2F1-20%2FeyJwYWdlaW5nIjoiMS0yMCIsInNlYXJjaCI6W3siZmllbGQiOiJDbW5OdW1iZXIiLCJ2YWx1ZSI6IuW5s%2BWcljAxMTkxMCJ9XSwicHFmaWx0ZXIiOltdLCJ0cGZpbHRlciI6e319'
-          if '"url": "https://' not in block:
-              anchor = '      "identifier": "平圖011910",\n'
-              if anchor not in block:
-                  raise SystemExit('Batch 12CS NPM source registry identifier anchor is missing')
-              text = text[:source_pos] + block.replace(anchor, anchor + f'      "url": "{url}",\n', 1) + text[source_end:]
-              path.write_text(text, encoding='utf-8')
-          PY
           python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
-          if ! git diff --quiet -- docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
-            git commit -m 'fix Batch 12CS source URL contract'
-            git push origin HEAD:agent/fusion-chart-core-r1-20260822
-          fi
       - name: Install PDF rendering tools
         shell: bash
         run: |
@@ -57,7 +29,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends poppler-utils
           command -v pdfinfo
           command -v pdftoppm
-      - name: Acquire and render NCL-06267 physical facsimile
+      - name: Acquire render and deduplicate NCL-06267 physical facsimile
         shell: bash
         run: |
           set -euo pipefail
@@ -78,9 +50,12 @@ jobs:
           curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/NCL-06267-datong-richu.pdf"
           head -c 5 "$ROOT/NCL-06267-datong-richu.pdf" | grep -q '%PDF-'
           sha256sum "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdf.sha256"
+          ACTUAL_SHA="$(sha256sum "$ROOT/NCL-06267-datong-richu.pdf" | awk '{print $1}')"
+          PRIOR_BATCH_12CG_SHA='0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d'
+          test "$ACTUAL_SHA" = "$PRIOR_BATCH_12CG_SHA"
           pdfinfo "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdfinfo.txt"
           PAGES="$(awk '/^Pages:/ {print $2}' "$ROOT/pdfinfo.txt")"
-          test -n "$PAGES"
+          test "$PAGES" = '21'
           for i in $(seq 1 "$PAGES"); do
             out="$ROOT/pages/page-$(printf '%02d' "$i")"
             timeout 45 pdftoppm -f "$i" -l "$i" -singlefile -jpeg -jpegopt quality=88 -r 110 "$ROOT/NCL-06267-datong-richu.pdf" "$out" >/dev/null 2>&1
@@ -91,15 +66,36 @@ jobs:
           import hashlib,json
           from pathlib import Path
           root=Path('audit/ncl06267-datong-richu'); pdf=root/'NCL-06267-datong-richu.pdf'; pages=sorted((root/'pages').glob('page-*.jpg'))
-          report={'schema':'NCL06267-DATONG-RICHU-PHYSICAL-ACQUISITION-R4','resolved_source_url':(root/'resolved-url.txt').read_text().strip(),'source_id':'NCL-06267','title':'大統日出分','pdf_bytes':pdf.stat().st_size,'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),'rendered_page_count':len(pages),'rendered_pages':[{'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in pages],'ocr_used_for_glyph_or_numeric_claims':False,'adjudication_rule':'Numerical/glyph claims require direct visual review of rendered physical pages; OCR is not authority.'}
+          prior_sha='0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d'
+          actual_sha=hashlib.sha256(pdf.read_bytes()).hexdigest()
+          report={
+            'schema':'NCL06267-DATONG-RICHU-PHYSICAL-DEDUP-R5',
+            'resolved_source_url':(root/'resolved-url.txt').read_text().strip(),
+            'source_id':'EXT-NCL-DATONG-RICHU-NCL06267',
+            'title':'大統日出分',
+            'pdf_bytes':pdf.stat().st_size,
+            'pdf_sha256':actual_sha,
+            'rendered_page_count':len(pages),
+            'rendered_pages':[{'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in pages],
+            'prior_batch':'BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG',
+            'prior_source_id':'EXT-NCL-DATONG-RICHU-NCL06267',
+            'prior_pdf_sha256':prior_sha,
+            'same_pdf_as_batch_12cg':actual_sha == prior_sha,
+            'independent_physical_witness_increment':0,
+            'transmission_impact':'NONE',
+            'ocr_used_for_glyph_or_numeric_claims':False,
+            'adjudication_rule':'Exact PDF identity with Batch 12CG proves this route is a duplicate digital surrogate, not a new independent physical witness. Numerical/glyph claims remain bound to direct visual review.'
+          }
+          if not report['same_pdf_as_batch_12cg']:
+              raise SystemExit('NCL-06267 PDF identity diverged from Batch 12CG')
           (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps({k:report[k] for k in ['source_id','pdf_bytes','pdf_sha256','rendered_page_count']},indent=2))
+          print(json.dumps({k:report[k] for k in ['source_id','pdf_sha256','rendered_page_count','same_pdf_as_batch_12cg','independent_physical_witness_increment','transmission_impact']},indent=2))
           PY
-      - name: Upload NCL-06267 physical artifact
+      - name: Upload NCL-06267 physical dedup artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ncl06267-datong-richu-physical-r4
+          name: ncl06267-datong-richu-physical-dedup-r5
           path: audit/ncl06267-datong-richu
           if-no-files-found: error
           retention-days: 30
