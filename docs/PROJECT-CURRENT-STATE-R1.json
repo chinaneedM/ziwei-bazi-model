@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.104.0",
+  "schema_version": "1.105.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -182,9 +182,10 @@
       "BATCH-12-ZIWEI-DATONG-RITONGGUI-KOSTMA-ATTRIBUTION-REPAIR-CO",
       "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
       "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",
-      "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR"
+      "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",
+      "BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -574,7 +575,8 @@
       "Batch 12CQ preserves the date firewall: Shidian identifies a Ming manuscript but exact work-composition and manuscript-copy dates are unresolved, so no securely pre-1578 surviving-copy claim is made. The next Sanming ancestry gate returns to direct Datong Tonggui/Ritonggui 晨昏 cells and pre-1578 Nanjing/Datong witnesses reproducing both 59/41 and the Sanming change-day fingerprint.",
       "Batch 12CR closes Shidian NGJ8921188204889 as an alternate digital surrogate/rehost route for the already-counted Tianyige Ming-print Huqianjing scan sequence: Shidian leaves 137..158 map continuously to Tianyige spread halves 69R..79L, with high-confidence no-OCR image registration across the target Chuanjian leaves.",
       "Shidian does not increment the Huqian physical-witness, recension, mechanical or Sanming-ancestry vote counts. Same physical scan on multiple platforms must be deduplicated before evidence weighting; Batch 12CJ remains controlling for the independent Tianyige + Siku cross-recension mechanical result.",
-      "After the 12CR access/dedup closure, the Sanming ancestry gate returns to direct Datong Tonggui/Ritonggui morning-evening numerical cells and securely pre-1578 Nanjing/Datong witnesses reproducing both the 59/41 cap and the 1578 Sanming intermediate/change-day fingerprint."
+      "After the 12CR access/dedup closure, the Sanming ancestry gate returns to direct Datong Tonggui/Ritonggui morning-evening numerical cells and securely pre-1578 Nanjing/Datong witnesses reproducing both the 59/41 cap and the 1578 Sanming intermediate/change-day fingerprint.",
+      "Batch 12CS officially binds NPM 平圖011910 as 大統日出分一卷 / 明烏絲欄鈔本 / 未數位化 with NCL union-catalog number 6267. This is bibliographic identity and access-boundary evidence only: no physical page, 59/41 cell, Sanming intermediate fingerprint or direct-parentage edge is authorized. Next gate is a readable NCL/independent physical witness."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
