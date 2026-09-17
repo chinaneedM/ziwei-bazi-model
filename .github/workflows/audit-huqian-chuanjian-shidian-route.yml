@@ -13,72 +13,73 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Discover Huqian juan-7 physical reader binding
+      - name: Bind Huqian juan-7 physical pages through Shidian browser SDK
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/huqian-chuanjian-shidian'
-          mkdir -p "$ROOT"
+          mkdir -p "$ROOT/physical"
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
           npm install --no-save --silent puppeteer-core@24.16.0
           cat > "$ROOT/probe.mjs" <<'JS'
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
+          import crypto from 'node:crypto';
           const root='audit/huqian-chuanjian-shidian';
           const bookId='NGJ8921188204889';
           const source=`https://www.shidianguji.com/zh/book/${bookId}/chapter/1lule4i9rsz6x`;
+          const payloadBase={bookId,pageSize:40,startPageNum:137,endPageNum:159,version:4,pageIndex:1,needCheckVersion:true,isWebpSupported:true};
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-          const network=[];
-          page.on('request',req=>{
-            const u=req.url();
-            if(u.includes('/api/ancientlib/') || u.includes(bookId)) network.push({kind:'request',method:req.method(),url:u,postData:req.postData()||null});
-          });
-          page.on('response',res=>{
-            const u=res.url();
-            if(u.includes('/api/ancientlib/') || u.includes(bookId)) network.push({kind:'response',status:res.status(),url:u});
-          });
-          await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
-          await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
-          const surface=await page.evaluate((bookId)=>{
-            const html=document.documentElement.innerHTML;
-            const links=[...document.querySelectorAll('a[href]')].map(a=>a.href).filter(x=>x.includes(bookId)||x.includes('/read/')||x.includes('image')).slice(0,100);
-            const storage={local:{},session:{}};
-            for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); storage.local[k]=String(localStorage.getItem(k)).slice(0,2000);}
-            for(let i=0;i<sessionStorage.length;i++){const k=sessionStorage.key(i); storage.session[k]=String(sessionStorage.getItem(k)).slice(0,2000);}
-            const pageRangeSnippets=[...html.matchAll(/.{0,180}(?:startPageNum|endPageNum|pageIndex|pageNum).{0,220}/g)].slice(0,80).map(m=>m[0]);
-            return {title:document.title,body_head:document.body.innerText.slice(0,5000),links,storage,pageRangeSnippets,resource_urls:performance.getEntriesByType('resource').map(x=>x.name).filter(x=>x.includes('/api/ancientlib/')||x.includes(bookId)).slice(0,100)};
-          },bookId);
-          const probes=[];
-          for(const pageIndex of [1,2,3,4,5,6,7,8,9,10]){
-            const one=await page.evaluate(async({bookId,pageIndex})=>{
+          const attempts=[];
+          let result=null;
+          for(let attempt=1; attempt<=4; attempt++){
+            await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
+            await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
+            const one=await page.evaluate(async({payloadBase})=>{
               const ptoken=await window.byted_psdk.getPtokenStatus();
-              const payload={bookId,pageSize:40,startPageNum:1,endPageNum:999,version:1,pageIndex,needCheckVersion:true,isWebpSupported:false,ptoken};
+              const payload={...payloadBase,ptoken};
               const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
-              let j={}; try{j=await r.json();}catch{}
+              const j=await r.json();
               const pages=(j?.data?.pages || j?.pages || []);
-              return {pageIndex,http_status:r.status,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',ptoken_present:!!ptoken,page_count:pages.length,page_nums:pages.map(x=>Number(x.pageNum)).filter(Number.isFinite).slice(0,80),sample:pages.slice(0,3).map(x=>({pageId:String(x.pageId||''),pageNum:Number(x.pageNum),uri:x.uri||'',urlEncryptType:x.urlEncryptType}))};
-            },{bookId,pageIndex});
-            probes.push(one);
-            if(one.errorCode===0 && one.page_count>0 && Math.max(...one.page_nums)>=999) break;
-            await new Promise(r=>setTimeout(r,700));
+              return {ptoken,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',pages};
+            },{payloadBase});
+            attempts.push({attempt,errorCode:one.errorCode,errorMsg:one.errorMsg,page_count:one.pages.length,page_nums:one.pages.map(x=>Number(x.pageNum))});
+            if(one.errorCode===0 && one.pages.length>=20){result=one;break;}
+            await new Promise(r=>setTimeout(r,2500*attempt));
           }
-          const report={schema:'HUQIAN-CHUANJIAN-SHIDIAN-ROUTE-DISCOVERY-R1',source,bookId,surface,network,probes,adjudication_rule:'Discovery metadata only. No textual or numerical claim is upgraded to physical evidence until source-bound page images are downloaded and visually reviewed.'};
+          const physical=[];
+          if(result){
+            for(const row of result.pages){
+              const decrypted=await page.evaluate(async({picUrl,ptoken,urlEncryptType})=>{
+                const d=await window.byted_psdk.decrypt(picUrl||'',ptoken,urlEncryptType);
+                return d?.decrypt ? d.data : picUrl;
+              },{picUrl:row.picUrl,ptoken:result.ptoken,urlEncryptType:row.urlEncryptType});
+              const r=await fetch(decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
+              const b=Buffer.from(await r.arrayBuffer());
+              const ext=(r.headers.get('content-type')||'').includes('webp')?'webp':'png';
+              const file=`${root}/physical/page-${String(row.pageNum).padStart(4,'0')}.${ext}`;
+              fs.writeFileSync(file,b);
+              physical.push({page_id:String(row.pageId),page_num:Number(row.pageNum),uri:row.uri,status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type'),file});
+            }
+          }
+          const report={schema:'HUQIAN-CHUANJIAN-SHIDIAN-PHYSICAL-COLLATION-PROBE-R2',source,bookId,reader_binding:payloadBase,attempts,physical_pages:physical,adjudication_rule:'Only direct visual review of these source-bound physical page images may support edition glyph/number claims; OCR/transcription is locator-only.'};
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
-          console.log(JSON.stringify({source,probes,network_count:network.length,pageRangeSnippets:surface.pageRangeSnippets},null,2));
+          console.log(JSON.stringify({source,attempts,physical_count:physical.length,physical_pages:physical.map(x=>({page_num:x.page_num,bytes:x.bytes,sha256:x.sha256}))},null,2));
           await browser.close();
+          if(physical.length<20) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
-      - name: Upload route-discovery artifact
+      - name: Upload physical-collation artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: huqian-chuanjian-shidian-route-discovery
+          name: huqian-chuanjian-shidian-physical
           path: audit/huqian-chuanjian-shidian
           if-no-files-found: error
           retention-days: 30
