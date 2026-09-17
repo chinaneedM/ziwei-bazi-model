@@ -16,36 +16,11 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Repair continuity verifier for completed Batch 12CR
+      - name: Verify continuity baseline through Batch 12CR
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('scripts/verify-project-continuity-state-r1.py')
-          s = p.read_text(encoding='utf-8')
-          old_tail = '    "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",\n]'
-          new_tail = '    "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",\n    "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",\n]'
-          old_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md"'
-          new_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md"'
-          if old_tail in s:
-              s = s.replace(old_tail, new_tail, 1)
-          elif '"BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",' not in s:
-              raise SystemExit('neither CQ tail nor CR supplemental batch found')
-          if old_doc in s:
-              s = s.replace(old_doc, new_doc, 1)
-          elif new_doc not in s:
-              raise SystemExit('neither CQ nor CR latest-batch doc found')
-          p.write_text(s, encoding='utf-8')
-          PY
           python scripts/verify-project-continuity-state-r1.py
-          if ! git diff --quiet -- scripts/verify-project-continuity-state-r1.py; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add scripts/verify-project-continuity-state-r1.py
-            git commit -m 'sync continuity verifier through Batch 12CR'
-            git push origin HEAD:agent/fusion-chart-core-r1-20260822
-          fi
       - name: Probe NPM Pingtu 011910 public rare-book route
         shell: bash
         run: |
@@ -59,96 +34,92 @@ jobs:
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
           import crypto from 'node:crypto';
-
           const root='audit/npm-datong-richu-pingtu011910';
           const base='https://rarebooks-maps.npm.edu.tw/index.php';
           const queryObj={pageing:'1-20',search:[{field:'CmnNumber',value:'平圖011910'}],pqfilter:[],tpfilter:{}};
           const token=Buffer.from(JSON.stringify(queryObj),'utf8').toString('base64');
           const searchUrl=`${base}?act=Archive%2Fsearch%2F1-20%2F${encodeURIComponent(token)}`;
-
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setViewport({width:1600,height:1200,deviceScaleFactor:1});
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-
           const network=[];
-          page.on('response',res=>{
-            const u=res.url();
-            const ct=res.headers()['content-type']||'';
-            if(u.includes('rarebooks-maps.npm.edu.tw') || ct.startsWith('image/')){
-              network.push({status:res.status(),url:u,content_type:ct});
-            }
-          });
-
-          const saveSurface=async(name)=>{
-            const s=await page.evaluate(()=>({
-              title:document.title,
-              url:location.href,
-              body:document.body?.innerText||'',
-              links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href||'',className:a.className||'',acckey:a.getAttribute('acckey')})),
-              images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''}))
-            }));
-            fs.writeFileSync(`${root}/${name}.json`,JSON.stringify(s,null,2));
-            await page.screenshot({path:`${root}/${name}.png`,fullPage:true});
-            return s;
-          };
-
+          page.on('response',res=>{const u=res.url(); const ct=res.headers()['content-type']||''; if(u.includes('rarebooks-maps.npm.edu.tw')||ct.startsWith('image/')) network.push({status:res.status(),url:u,content_type:ct});});
+          const saveSurface=async(name)=>{const s=await page.evaluate(()=>({title:document.title,url:location.href,body:document.body?.innerText||'',links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href||'',className:a.className||'',acckey:a.getAttribute('acckey')})),images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''}))})); fs.writeFileSync(`${root}/${name}.json`,JSON.stringify(s,null,2)); await page.screenshot({path:`${root}/${name}.png`,fullPage:true}); return s;};
           await page.goto(searchUrl,{waitUntil:'networkidle2',timeout:90000});
           const search=await saveSurface('search');
-          const row=await page.evaluate(()=>{
-            const content=document.querySelector('a.act_content_display');
-            const book=document.querySelector('a.act_book_display');
-            const union=document.querySelector('a.act_similar_display');
-            const body=document.body?.innerText||'';
-            return {
-              content_acckey:content?.getAttribute('acckey')||null,
-              book_acckey:book?.getAttribute('acckey')||null,
-              content_text:(content?.textContent||'').trim(),
-              book_text:(book?.textContent||'').trim(),
-              union_catalog_url:union?.href||null,
-              union_catalog_text:(union?.textContent||'').trim(),
-              undigitized:/未數位化/.test(body),
-              ming_wusilan:/明烏絲欄鈔本/.test(body),
-              title_attested:/大統日出分/.test(body),
-              identifier_attested:/平圖011910/.test(body),
-              ncl_number_6267:/(?:國家圖書館[\s\S]{0,80}6267|6267[\s\S]{0,80}國家圖書館)/.test(body)
-            };
-          });
-
+          const row=await page.evaluate(()=>{const content=document.querySelector('a.act_content_display'); const book=document.querySelector('a.act_book_display'); const union=document.querySelector('a.act_similar_display'); const body=document.body?.innerText||''; return {content_acckey:content?.getAttribute('acckey')||null,book_acckey:book?.getAttribute('acckey')||null,content_text:(content?.textContent||'').trim(),book_text:(book?.textContent||'').trim(),union_catalog_url:union?.href||null,union_catalog_text:(union?.textContent||'').trim(),undigitized:/未數位化/.test(body),ming_wusilan:/明烏絲欄鈔本/.test(body),title_attested:/大統日出分/.test(body),identifier_attested:/平圖011910/.test(body),ncl_number_6267:/(?:國家圖書館[\s\S]{0,80}6267|6267[\s\S]{0,80}國家圖書館)/.test(body)};});
           let detail=null;
-          if(row.content_acckey){
-            try{
-              await page.evaluate(()=>document.querySelector('a.act_content_display')?.click());
-              await new Promise(r=>setTimeout(r,3000));
-              detail=await saveSurface('detail-layer');
-            }catch(err){
-              fs.writeFileSync(`${root}/detail-error.txt`,String(err));
-            }
-          }
-
-          const interesting=[...new Set(network.filter(x=>x.status===200 && (x.content_type.startsWith('image/') || /iiif|image|archive|display|meta/i.test(x.url))).map(x=>x.url))];
-          const report={
-            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-CATALOG-CLOSURE-R3',
-            search_url:searchUrl,
-            query:queryObj,
-            row,
-            detail_obtained:!!detail,
-            detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
-            detail_body_contains_identifier:detail?/平圖011910/.test(detail.body):false,
-            detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
-            interesting_network_urls:interesting.slice(0,300),
-            network_count:network.length,
-            adjudication:'OFFICIAL_NPM_CATALOG_BINDS_TITLE_IDENTIFIER_MING_WUSILAN_MANUSCRIPT_AND_UNDIGITIZED_STATUS; NO_PHYSICAL_PAGE_OR_NUMERIC_CLAIM_AUTHORIZED',
-            next_gate:'Use the NCL union-catalog route and other institutional copies to seek a digitized or directly readable physical witness before any 59/41 or Sanming-fingerprint comparison.'
-          };
+          if(row.content_acckey){try{await page.evaluate(()=>document.querySelector('a.act_content_display')?.click()); await new Promise(r=>setTimeout(r,3000)); detail=await saveSurface('detail-layer');}catch(err){fs.writeFileSync(`${root}/detail-error.txt`,String(err));}}
+          const interesting=[...new Set(network.filter(x=>x.status===200&&(x.content_type.startsWith('image/')||/iiif|image|archive|display|meta/i.test(x.url))).map(x=>x.url))];
+          const report={schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-CATALOG-CLOSURE-R3',search_url:searchUrl,query:queryObj,row,detail_obtained:!!detail,detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,detail_body_contains_identifier:detail?/平圖011910/.test(detail.body):false,detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,interesting_network_urls:interesting.slice(0,300),network_count:network.length,adjudication:'OFFICIAL_NPM_CATALOG_BINDS_TITLE_IDENTIFIER_MING_WUSILAN_MANUSCRIPT_AND_UNDIGITIZED_STATUS; NO_PHYSICAL_PAGE_OR_NUMERIC_CLAIM_AUTHORIZED',next_gate:'Use the NCL union-catalog route and other institutional copies to seek a digitized or directly readable physical witness before any 59/41 or Sanming-fingerprint comparison.'};
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
           fs.writeFileSync(`${root}/network.json`,JSON.stringify(network,null,2));
           fs.writeFileSync(`${root}/report.sha256`,crypto.createHash('sha256').update(JSON.stringify(report)).digest('hex')+'\n');
           console.log(JSON.stringify(report,null,2));
           await browser.close();
-          if(!row.title_attested || !row.identifier_attested || !row.ming_wusilan || !row.undigitized) process.exitCode=2;
+          if(!row.title_attested||!row.identifier_attested||!row.ming_wusilan||!row.undigitized) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+      - name: Finalize Batch 12CS repository state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          batch_id='BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS'
+          batch_doc='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS.md'
+          state_path=Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          state=json.loads(state_path.read_text(encoding='utf-8'))
+          state['schema_version']='1.105.0'
+          audit=state['historical_audit']
+          if batch_id not in audit['completed_batches']:
+              audit['completed_batches'].append(batch_id)
+          audit['latest_batch_doc']=batch_doc
+          focus='Batch 12CS officially binds NPM 平圖011910 as 大統日出分一卷 / 明烏絲欄鈔本 / 未數位化 with NCL union-catalog number 6267. This is bibliographic identity and access-boundary evidence only: no physical page, 59/41 cell, Sanming intermediate fingerprint or direct-parentage edge is authorized. Next gate is a readable NCL/independent physical witness.'
+          if focus not in audit['current_focus']:
+              audit['current_focus'].append(focus)
+          state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          reg_path=Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          reg=json.loads(reg_path.read_text(encoding='utf-8'))
+          reg['access_date']='2026-09-18'
+          sid='EXT-NPM-DATONG-RICHU-PINGTU011910'
+          if not any(x.get('source_id')==sid for x in reg['sources']):
+              reg['sources'].append({
+                'source_id':sid,
+                'title':'《大統日出分》一卷',
+                'historical_period':'MING_MANUSCRIPT_PER_PROVIDER_CATALOG; EXACT_COPY_DATE_UNRESOLVED',
+                'edition':'明烏絲欄鈔本',
+                'provider':'國立故宮博物院古籍與輿圖檢索系統',
+                'identifier':'平圖011910',
+                'source_role':'OFFICIAL_BIBLIOGRAPHIC_WITNESS_AND_UNDIGITIZED_ACCESS_BOUNDARY',
+                'quality_notes':'Batch 12CS source-bound NPM probe confirms title, identifier, 明烏絲欄鈔本 and 未數位化 status, plus an NCL union-catalog cross-reference showing number 6267. No physical target page or numerical cell is exposed; no 59/41 or Sanming ancestry vote is authorized.',
+                'batch_12cs':{'workflow_run_id':35251503927,'artifact_id':10508739636,'artifact_digest':'sha256:59a0f100b446c590d5f37b68d62415769ac3d0707106aff5f149353c8aab428e','research_artifact':'docs/research/ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-R1.json'}
+              })
+          reg_path.write_text(json.dumps(reg,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          v=Path('scripts/verify-project-continuity-state-r1.py')
+          s=v.read_text(encoding='utf-8')
+          cr='    "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",\n]'
+          cs='    "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",\n    "'+batch_id+'",\n]'
+          if cr in s and ('"'+batch_id+'",') not in s:
+              s=s.replace(cr,cs,1)
+          old='LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md"'
+          new='LATEST_BATCH_DOC = "'+batch_doc+'"'
+          if old in s: s=s.replace(old,new,1)
+          elif new not in s: raise SystemExit('latest batch verifier anchor missing')
+          v.write_text(s,encoding='utf-8')
+          PY
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json scripts/verify-project-continuity-state-r1.py
+          if ! git diff --cached --quiet; then
+            git commit -m 'finalize NPM Datong Richu catalog closure Batch 12CS'
+            git push origin HEAD:agent/fusion-chart-core-r1-20260822
+          fi
       - name: Upload NPM route artifact
         if: always()
         uses: actions/upload-artifact@v4
