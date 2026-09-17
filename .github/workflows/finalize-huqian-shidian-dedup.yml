@@ -1,0 +1,97 @@
+name: finalize-huqian-shidian-dedup
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/finalize-huqian-shidian-dedup.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+          fetch-depth: 0
+      - name: Synchronize Batch 12CR handoff and source registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          batch_id = "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR"
+          batch_doc = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md"
+
+          # Fix the human-authored status token forward-only before sealing the batch.
+          bp = Path(batch_doc)
+          text = bp.read_text(encoding="utf-8")
+          text = text.replace("SHIDIAN_TIAN YIGE_IMAGE_IDENTITY=HIGH_CONFIDENCE_SAME_UNDERLYING_PHYSICAL_COPY", "SHIDIAN_TIANYIGE_IMAGE_IDENTITY=HIGH_CONFIDENCE_SAME_UNDERLYING_PHYSICAL_COPY")
+          text = text.replace("\n> Note: the status token above should be read as `SHIDIAN_TIANYIGE_IMAGE_IDENTITY`; spacing in the human-readable label is not a schema identifier.\n", "")
+          bp.write_text(text, encoding="utf-8")
+
+          # Synchronize durable project handoff.
+          sp = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = json.loads(sp.read_text(encoding="utf-8"))
+          state["schema_version"] = "1.104.0"
+          hist = state["historical_audit"]
+          if batch_id not in hist["completed_batches"]:
+              hist["completed_batches"].append(batch_id)
+          hist["latest_batch_doc"] = batch_doc
+          focus = hist["current_focus"]
+          additions = [
+              "Batch 12CR closes Shidian NGJ8921188204889 as an alternate digital surrogate/rehost route for the already-counted Tianyige Ming-print Huqianjing scan sequence: Shidian leaves 137..158 map continuously to Tianyige spread halves 69R..79L, with high-confidence no-OCR image registration across the target Chuanjian leaves.",
+              "Shidian does not increment the Huqian physical-witness, recension, mechanical or Sanming-ancestry vote counts. Same physical scan on multiple platforms must be deduplicated before evidence weighting; Batch 12CJ remains controlling for the independent Tianyige + Siku cross-recension mechanical result.",
+              "After the 12CR access/dedup closure, the Sanming ancestry gate returns to direct Datong Tonggui/Ritonggui morning-evening numerical cells and securely pre-1578 Nanjing/Datong witnesses reproducing both the 59/41 cap and the 1578 Sanming intermediate/change-day fingerprint."
+          ]
+          for item in additions:
+              if item not in focus:
+                  focus.append(item)
+          sp.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          # Register the Shidian route without creating a false independent historical witness.
+          rp = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          reg = json.loads(rp.read_text(encoding="utf-8"))
+          source_id = "EXT-SHIDIAN-HUQIANJING-TIANYIGE-DIGITAL-SURROGATE"
+          if not any(x.get("source_id") == source_id for x in reg.get("sources", [])):
+              reg["sources"].append({
+                  "source_id": source_id,
+                  "title": "識典古籍《虎鈐經》卷七 NGJ8921188204889",
+                  "author": "許洞",
+                  "historical_period": "DIGITAL_SURROGATE_ROUTE_TO_ALREADY_COUNTED_MING_PRINT",
+                  "provider": "識典古籍 / Shidian",
+                  "url": "https://www.shidianguji.com/zh/book/NGJ8921188204889/chapter/1lule4i9rsz6x",
+                  "source_role": "ALTERNATE_DIGITAL_SURROGATE_OF_EXISTING_TIANYIGE_PHYSICAL_WITNESS",
+                  "quality_notes": "Batch 12CR downloaded source-bound WebP leaves 137..158 through the public reader API and no-OCR image-registered them against the previously archived Tianyige/Wikimedia Ming-print scan. Continuous leaf mapping and identical physical defects establish high-confidence same-underlying-copy identity. This route must not be counted as an independent physical witness or recension vote.",
+                  "batch_12cr": {
+                      "workflow_run_id": 35245252336,
+                      "artifact_id": 10507166653,
+                      "artifact_digest": "sha256:201c538217056e21b726c0ae9eb7b17eaa4d76e86543575f48f5e1730880c5bf",
+                      "shidian_page_range": "137..158",
+                      "tianyige_mapping": "69R..79L",
+                      "independent_physical_witness_increment": 0,
+                      "transmission_impact": "NONE"
+                  }
+              })
+          reg["access_date"] = "2026-09-18"
+          rp.write_text(json.dumps(reg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md
+          if git diff --cached --quiet; then
+            echo 'No synchronization changes needed.'
+            exit 0
+          fi
+          git commit -m 'finalize Huqian Shidian surrogate dedup batch'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822
