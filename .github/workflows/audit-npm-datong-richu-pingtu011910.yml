@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
@@ -16,6 +16,33 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Repair continuity verifier for completed Batch 12CR
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/verify-project-continuity-state-r1.py')
+          s = p.read_text(encoding='utf-8')
+          old_tail = '    "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",\n]'
+          new_tail = '    "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",\n    "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",\n]'
+          old_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md"'
+          new_doc = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md"'
+          if old_tail not in s:
+              raise SystemExit('expected CQ supplemental tail not found')
+          if old_doc not in s:
+              raise SystemExit('expected CQ latest-batch doc not found')
+          s = s.replace(old_tail, new_tail, 1).replace(old_doc, new_doc, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+          python scripts/verify-project-continuity-state-r1.py
+          if ! git diff --quiet -- scripts/verify-project-continuity-state-r1.py; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add scripts/verify-project-continuity-state-r1.py
+            git commit -m 'sync continuity verifier through Batch 12CR'
+            git push origin HEAD:agent/fusion-chart-core-r1-20260822
+          fi
       - name: Probe NPM Pingtu 011910 public rare-book route
         shell: bash
         run: |
@@ -42,7 +69,7 @@ jobs:
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
 
           const network=[];
-          page.on('response',async res=>{
+          page.on('response',res=>{
             const u=res.url();
             const ct=res.headers()['content-type']||'';
             if(u.includes('rarebooks-maps.npm.edu.tw') || ct.startsWith('image/')){
@@ -55,10 +82,8 @@ jobs:
               title:document.title,
               url:location.href,
               body:document.body?.innerText||'',
-              html:document.documentElement?.outerHTML||'',
               links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href||'',className:a.className||'',acckey:a.getAttribute('acckey')})),
-              images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''})),
-              scripts:[...document.scripts].map(s=>s.src).filter(Boolean)
+              images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''}))
             }));
             fs.writeFileSync(`${root}/${name}.json`,JSON.stringify(s,null,2));
             await page.screenshot({path:`${root}/${name}.png`,fullPage:true});
@@ -70,68 +95,62 @@ jobs:
           const row=await page.evaluate(()=>{
             const content=document.querySelector('a.act_content_display');
             const book=document.querySelector('a.act_book_display');
-            const digited=document.querySelector('.result_digital');
             const union=document.querySelector('a.act_similar_display');
+            const body=document.body?.innerText||'';
             return {
               content_acckey:content?.getAttribute('acckey')||null,
               book_acckey:book?.getAttribute('acckey')||null,
-              digitization_text:(digited?.textContent||'').trim(),
-              digitization_flag:digited?.getAttribute('digited')||null,
+              content_text:(content?.textContent||'').trim(),
+              book_text:(book?.textContent||'').trim(),
               union_catalog_url:union?.href||null,
-              union_catalog_text:(union?.textContent||'').trim()
+              union_catalog_text:(union?.textContent||'').trim(),
+              undigitized:/未數位化/.test(body),
+              ming_wusilan:/明烏絲欄鈔本/.test(body),
+              title_attested:/大統日出分/.test(body),
+              identifier_attested:/平圖011910/.test(body),
+              ncl_number_6267:/(?:國家圖書館[\s\S]{0,80}6267|6267[\s\S]{0,80}國家圖書館)/.test(body)
             };
           });
 
           let detail=null;
           if(row.content_acckey){
-            await page.evaluate(()=>document.querySelector('a.act_content_display')?.click());
-            await new Promise(r=>setTimeout(r,3500));
-            detail=await saveSurface('detail-layer');
-          }
-
-          let bookDetail=null;
-          if(!detail || !/平圖011910/.test(detail.body)){
-            await page.goto(searchUrl,{waitUntil:'networkidle2',timeout:90000});
-          }
-          if(row.book_acckey){
-            await page.evaluate(()=>document.querySelector('a.act_book_display')?.click());
-            await new Promise(r=>setTimeout(r,3500));
-            bookDetail=await saveSurface('book-layer');
+            try{
+              await page.evaluate(()=>document.querySelector('a.act_content_display')?.click());
+              await new Promise(r=>setTimeout(r,3000));
+              detail=await saveSurface('detail-layer');
+            }catch(err){
+              fs.writeFileSync(`${root}/detail-error.txt`,String(err));
+            }
           }
 
           const interesting=[...new Set(network.filter(x=>x.status===200 && (x.content_type.startsWith('image/') || /iiif|image|archive|display|meta/i.test(x.url))).map(x=>x.url))];
           const report={
-            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-ROUTE-PROBE-R2',
+            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-CATALOG-CLOSURE-R3',
             search_url:searchUrl,
             query:queryObj,
-            search_title:search.title,
-            search_url_final:search.url,
-            search_body_contains_title:/大統日出分/.test(search.body),
-            search_body_contains_identifier:/平圖011910/.test(search.body),
-            search_body_contains_ming_wusilan:/明烏絲欄鈔本/.test(search.body),
             row,
-            content_detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
-            content_detail_body_contains_identifier:detail?/平圖011910/.test(detail.body):false,
-            content_detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
-            book_detail_body_contains_identifier:bookDetail?/平圖011910/.test(bookDetail.body):false,
-            book_detail_body_contains_undigitized:bookDetail?/未數位化/.test(bookDetail.body):false,
+            detail_obtained:!!detail,
+            detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
+            detail_body_contains_identifier:detail?/平圖011910/.test(detail.body):false,
+            detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
             interesting_network_urls:interesting.slice(0,300),
             network_count:network.length,
-            adjudication_rule:'Official NPM metadata may establish title, identifier, edition-description and digitization status. No numerical/glyph claim or independent physical-text vote is authorized without a source-bound page image. A union-catalog link is a bibliographic cross-reference, not proof that two institutions hold the same physical object.'
+            adjudication:'OFFICIAL_NPM_CATALOG_BINDS_TITLE_IDENTIFIER_MING_WUSILAN_MANUSCRIPT_AND_UNDIGITIZED_STATUS; NO_PHYSICAL_PAGE_OR_NUMERIC_CLAIM_AUTHORIZED',
+            next_gate:'Use the NCL union-catalog route and other institutional copies to seek a digitized or directly readable physical witness before any 59/41 or Sanming-fingerprint comparison.'
           };
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
           fs.writeFileSync(`${root}/network.json`,JSON.stringify(network,null,2));
           fs.writeFileSync(`${root}/report.sha256`,crypto.createHash('sha256').update(JSON.stringify(report)).digest('hex')+'\n');
           console.log(JSON.stringify(report,null,2));
           await browser.close();
-          if(!report.search_body_contains_title || !report.search_body_contains_identifier || !report.search_body_contains_ming_wusilan) process.exitCode=2;
+          if(!row.title_attested || !row.identifier_attested || !row.ming_wusilan || !row.undigitized) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
       - name: Upload NPM route artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: npm-datong-richu-pingtu011910-route-r2
+          name: npm-datong-richu-pingtu011910-catalog-closure-r3
           path: audit/npm-datong-richu-pingtu011910
           if-no-files-found: error
           retention-days: 30
