@@ -1,0 +1,64 @@
+name: audit-ncl06267-datong-richu-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-ncl06267-datong-richu-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Acquire and render NCL-06267 physical facsimile
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl06267-datong-richu'
+          mkdir -p "$ROOT/pages"
+          URL='https://upload.wikimedia.org/wikipedia/commons/0/02/NCL-06267_%E5%A4%A7%E7%B5%B1%E6%97%A5%E5%87%BA%E5%88%86.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/NCL-06267-datong-richu.pdf"
+          file "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/file.txt"
+          head -c 5 "$ROOT/NCL-06267-datong-richu.pdf" | grep -q '%PDF-'
+          sha256sum "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdf.sha256"
+          pdfinfo "$ROOT/NCL-06267-datong-richu.pdf" | tee "$ROOT/pdfinfo.txt"
+          PAGES="$(pdfinfo "$ROOT/NCL-06267-datong-richu.pdf" | awk '/^Pages:/ {print $2}')"
+          test -n "$PAGES"
+          pdftoppm -png -r 180 "$ROOT/NCL-06267-datong-richu.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+          COUNT="$(find "$ROOT/pages" -type f -name 'page-*.png' | wc -l | tr -d ' ')"
+          test "$COUNT" = "$PAGES"
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('audit/ncl06267-datong-richu')
+          pdf=root/'NCL-06267-datong-richu.pdf'
+          pages=sorted((root/'pages').glob('page-*.png'))
+          report={
+            'schema':'NCL06267-DATONG-RICHU-PHYSICAL-ACQUISITION-R1',
+            'source_url':'https://upload.wikimedia.org/wikipedia/commons/0/02/NCL-06267_%E5%A4%A7%E7%B5%B1%E6%97%A5%E5%87%BA%E5%88%86.pdf',
+            'source_listing':'Wikimedia Commons NCL rare-book microfilm backup list',
+            'source_id':'NCL-06267',
+            'title':'大統日出分',
+            'pdf_bytes':pdf.stat().st_size,
+            'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
+            'rendered_page_count':len(pages),
+            'rendered_pages':[{'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in pages],
+            'ocr_used_for_glyph_or_numeric_claims':False,
+            'adjudication_rule':'Acquisition only. Numerical/glyph claims require direct visual review of rendered physical pages; OCR is not authority.'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({k:report[k] for k in ['source_id','title','pdf_bytes','pdf_sha256','rendered_page_count']},ensure_ascii=False,indent=2))
+          PY
+      - name: Upload NCL-06267 physical artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl06267-datong-richu-physical
+          path: audit/ncl06267-datong-richu
+          if-no-files-found: error
+          retention-days: 30
