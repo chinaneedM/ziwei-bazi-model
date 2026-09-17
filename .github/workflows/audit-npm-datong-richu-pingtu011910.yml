@@ -56,7 +56,7 @@ jobs:
               url:location.href,
               body:document.body?.innerText||'',
               html:document.documentElement?.outerHTML||'',
-              links:[...document.querySelectorAll('a[href]')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href})),
+              links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||a.textContent||'').trim(),href:a.href||'',className:a.className||'',acckey:a.getAttribute('acckey')})),
               images:[...document.querySelectorAll('img')].map(img=>({alt:img.alt||'',src:img.currentSrc||img.src||''})),
               scripts:[...document.scripts].map(s=>s.src).filter(Boolean)
             }));
@@ -67,59 +67,71 @@ jobs:
 
           await page.goto(searchUrl,{waitUntil:'networkidle2',timeout:90000});
           const search=await saveSurface('search');
-
-          const candidate=search.links.find(x=>/大統日出分/.test(x.text))
-            || search.links.find(x=>/Display%2Fimage|Display\/image|Archive%2Fdetail|Archive\/detail/i.test(x.href));
+          const row=await page.evaluate(()=>{
+            const content=document.querySelector('a.act_content_display');
+            const book=document.querySelector('a.act_book_display');
+            const digited=document.querySelector('.result_digital');
+            const union=document.querySelector('a.act_similar_display');
+            return {
+              content_acckey:content?.getAttribute('acckey')||null,
+              book_acckey:book?.getAttribute('acckey')||null,
+              digitization_text:(digited?.textContent||'').trim(),
+              digitization_flag:digited?.getAttribute('digited')||null,
+              union_catalog_url:union?.href||null,
+              union_catalog_text:(union?.textContent||'').trim()
+            };
+          });
 
           let detail=null;
-          if(candidate){
-            await page.goto(candidate.href,{waitUntil:'networkidle2',timeout:90000});
-            detail=await saveSurface('detail');
+          if(row.content_acckey){
+            await page.evaluate(()=>document.querySelector('a.act_content_display')?.click());
+            await new Promise(r=>setTimeout(r,3500));
+            detail=await saveSurface('detail-layer');
           }
 
-          // If the detail page exposes an image-browser route, visit it.
-          let imageSurface=null;
-          if(detail){
-            const imageLink=detail.links.find(x=>/Display%2Fimage|Display\/image/i.test(x.href))
-              || detail.links.find(x=>/檢視影像|影像瀏覽|瀏覽影像/.test(x.text));
-            if(imageLink){
-              await page.goto(imageLink.href,{waitUntil:'networkidle2',timeout:90000});
-              imageSurface=await saveSurface('image-browser');
-            }
+          let bookDetail=null;
+          if(!detail || !/平圖011910/.test(detail.body)){
+            await page.goto(searchUrl,{waitUntil:'networkidle2',timeout:90000});
+          }
+          if(row.book_acckey){
+            await page.evaluate(()=>document.querySelector('a.act_book_display')?.click());
+            await new Promise(r=>setTimeout(r,3500));
+            bookDetail=await saveSurface('book-layer');
           }
 
-          const interesting=[...new Set(network.filter(x=>x.status===200 && (x.content_type.startsWith('image/') || /iiif|image|archive|display/i.test(x.url))).map(x=>x.url))];
+          const interesting=[...new Set(network.filter(x=>x.status===200 && (x.content_type.startsWith('image/') || /iiif|image|archive|display|meta/i.test(x.url))).map(x=>x.url))];
           const report={
-            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-ROUTE-PROBE-R1',
+            schema:'NPM-DATONG-RICHU-PINGTU011910-PUBLIC-ROUTE-PROBE-R2',
             search_url:searchUrl,
             query:queryObj,
             search_title:search.title,
             search_url_final:search.url,
             search_body_contains_title:/大統日出分/.test(search.body),
             search_body_contains_identifier:/平圖011910/.test(search.body),
-            candidate,
-            detail_url:detail?.url||null,
-            detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
-            detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
-            image_browser_url:imageSurface?.url||null,
-            image_browser_image_count:imageSurface?.images?.length||0,
+            search_body_contains_ming_wusilan:/明烏絲欄鈔本/.test(search.body),
+            row,
+            content_detail_body_contains_title:detail?/大統日出分/.test(detail.body):false,
+            content_detail_body_contains_identifier:detail?/平圖011910/.test(detail.body):false,
+            content_detail_body_contains_ming_wusilan:detail?/明烏絲欄鈔本/.test(detail.body):false,
+            book_detail_body_contains_identifier:bookDetail?/平圖011910/.test(bookDetail.body):false,
+            book_detail_body_contains_undigitized:bookDetail?/未數位化/.test(bookDetail.body):false,
             interesting_network_urls:interesting.slice(0,300),
             network_count:network.length,
-            adjudication_rule:'This probe binds public NPM metadata/access routes only. No numerical or glyph claim may be upgraded until source-bound physical page images are directly downloaded and visually reviewed without OCR authority.'
+            adjudication_rule:'Official NPM metadata may establish title, identifier, edition-description and digitization status. No numerical/glyph claim or independent physical-text vote is authorized without a source-bound page image. A union-catalog link is a bibliographic cross-reference, not proof that two institutions hold the same physical object.'
           };
           fs.writeFileSync(`${root}/report.json`,JSON.stringify(report,null,2));
           fs.writeFileSync(`${root}/network.json`,JSON.stringify(network,null,2));
           fs.writeFileSync(`${root}/report.sha256`,crypto.createHash('sha256').update(JSON.stringify(report)).digest('hex')+'\n');
           console.log(JSON.stringify(report,null,2));
           await browser.close();
-          if(!report.search_body_contains_title || !report.search_body_contains_identifier) process.exitCode=2;
+          if(!report.search_body_contains_title || !report.search_body_contains_identifier || !report.search_body_contains_ming_wusilan) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
       - name: Upload NPM route artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: npm-datong-richu-pingtu011910-route
+          name: npm-datong-richu-pingtu011910-route-r2
           path: audit/npm-datong-richu-pingtu011910
           if-no-files-found: error
           retention-days: 30
