@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.106.0",
+  "schema_version": "1.107.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -184,9 +184,10 @@
       "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",
       "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",
       "BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS",
-      "BATCH-12-ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-CT"
+      "BATCH-12-ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-CT",
+      "BATCH-12-ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-CU"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-CT.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-CU.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -580,7 +581,10 @@
       "Batch 12CS officially binds NPM 平圖011910 as 大統日出分一卷 / 明烏絲欄鈔本 / 未數位化 with NCL union-catalog number 6267. This is bibliographic identity and access-boundary evidence only: no physical page, 59/41 cell, Sanming intermediate fingerprint or direct-parentage edge is authorized. Next gate is a readable NCL/independent physical witness.",
       "Batch 12CT resolves the Batch 12CS NCL-6267 follow-up public facsimile to EXT-NCL-DATONG-RICHU-NCL06267 and byte-identifies the acquired 21-page PDF with the already reviewed Batch 12CG object by SHA-256 0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d.",
       "Because the 12CT acquisition is the exact same digital object already counted in Batch 12CG, independent physical-witness, recension, 59/41, Sanming intermediate/change-day and transmission vote increments are all zero. NPM 平圖011910 and the NCL physical holding are not declared to be the same physical copy.",
-      "After 12CT dedup closure, the highest-value Sanming ancestry gate returns to an independent directly readable 大統曆通軌 / 大統曆日通軌 / 大統日出分 witness with 晨昏分 or equivalent cells, plus securely pre-1578 Nanjing/Datong evidence reproducing both 59/41 and the exact 1578 Sanming change-day fingerprint or a deterministic quantization rule. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime, algorithm-reopen and candidate-collapse states remain unchanged."
+      "After 12CT dedup closure, the highest-value Sanming ancestry gate returns to an independent directly readable 大統曆通軌 / 大統曆日通軌 / 大統日出分 witness with 晨昏分 or equivalent cells, plus securely pre-1578 Nanjing/Datong evidence reproducing both 59/41 and the exact 1578 Sanming change-day fingerprint or a deterministic quantization rule. HPA-ZDATE-006 remains MISSING_FROM_PRODUCT; runtime, algorithm-reopen and candidate-collapse states remain unchanged.",
+      "Batch 12CU reuses successful workflow run 35101414335 / artifact 10448114363 and visually closes 120 rendered physical pages across four securely dated Ming Qintianjian Datong annual calendars: 1417 NCL-06283, 1452 NCL-06284, 1506 NCL-06289 and 1543 NCL-06302.",
+      "The complete page-layout review plus enlarged review of structurally unusual endmatter found no independently identifiable 晨昏分 / 日出入 / 晝夜刻 numerical table and no direct 59/41 + Sanming intermediate/change-day table on these four physical surfaces. This is strictly a four-object nonattestation, not a whole Datong annual-tradition absence claim; numeric and transmission vote increments are zero.",
+      "After 12CU, the highest-value Sanming ancestry gate shifts to the original 大統曆法通軌 computational carrier: obtain a directly readable Kyujanggak Joseon movable-type or NLC Ming-manuscript witness, locate 晨昏立成/晨昏分 at page level, and only then test 59/41, intermediate anchors, change days and historical quantization against the 1578 physical target. Keep this route distinct from Batch 12CO DIC_A3_000150 / 大統曆日通軌 unless an explicit bridge is proved."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
