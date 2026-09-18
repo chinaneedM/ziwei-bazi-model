@@ -1,0 +1,264 @@
+{
+  "schema": "ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
+  "prior_batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+  "question": "After the 1551 NLC physical holding was census-bound in 12DJ, can OPAC, public-surrogate, microform-catalog, census-variant, or Chinese-ancient-books-union-bibliography routes expose a direct page surrogate or an independent second holding/copy suitable for target-table collation?",
+  "answer": "OPAC IDENTITY IS STRENGTHENED, BUT NO DIRECT PAGE SURROGATE OR SECOND INDEXED HOLDING IS FOUND IN THE REVIEWED PUBLIC ROUTES. NLC OPAC directly binds doc 001790345 / internal id 411999023866 / call 14202 to the 1551 Zhicheng copper-movable-type copy in the South Rare Books Reading Room. Wikimedia Commons identifier/title searches return zero; Internet Archive identifier searches return zero and broad title searches return unrelated objects. The OLCC B1MICU microform Z39.50 service accepts the connection but rejects anonymous searches with an access-control error, so its displayed zero hit counts have no negative authority. Google Books exposes the 2015 microform union catalog volume but SearchWithinVolume2 reports searchable:false. Broad National Ancient Books Census title/imprint variants still return only the known NLC target record; the Zhicheng movable-type query returns only the target plus a 1552 Mozi copy, both NLC. Finally, the NLC Chinese Ancient Books Union Bibliography fuzzy result set for title LIKE 通書類聚 is exhaustively closed at all 48 pages / 576 unique records; after full-record filtering there are zero hits for the contiguous target title, keze/jueze terms, Yao Kui, Wang Yining, Zhicheng, or target romanized-title/person forms. Only one exact 1551/Jiajing-30 record occurs and it is an unrelated Guwen Leichao. This closes these indexed public discovery routes only. It does not prove no private, historical, uncatalogued, authenticated-microform, reader-terminal, or nonpublic surrogate exists, and it contributes no numeric/table ancestry vote.",
+  "opac_control": {
+    "provider": "National Library of China OPAC",
+    "title": "通書類聚尅擇大全 [善本] : □□卷",
+    "format_note": "活字印本, 銅活字",
+    "imprint": "芝城, 明嘉靖30年[1551]",
+    "physical_extent": "1冊",
+    "doc_number": "001790345",
+    "internal_id": "411999023866",
+    "call_number": "14202",
+    "sublibrary": "南区善本阅览室",
+    "direct_title_record": true,
+    "session_item_page_obtained": true,
+    "session_item_holding_row": "14202\\南区善本阅览室",
+    "generic_service_rule_mentions_other_formats": [
+      "电子文献",
+      "缩微文献"
+    ],
+    "generic_service_rule_is_copy_specific_microform_proof": false,
+    "client_side_rare_book_message": "请到总馆南区善本阅览室办理相关阅览手续。",
+    "workflow_run_id": 35375192286,
+    "artifact_id": 10560310067,
+    "artifact_digest": "sha256:7e38443823690329ea4a8d05fdeeb1d35f40ad74238260e9c5e43f46ffd0308f"
+  },
+  "public_surrogate_probe": {
+    "workflow_run_id": 35375499098,
+    "artifact_id": 10559648198,
+    "artifact_digest": "sha256:f23451fc509c109db84fbe670ba07f8c48295f1763f11e76e144189de22af7ee",
+    "nlc_opac_session_item_follow_success": true,
+    "wikimedia_commons": {
+      "queries": [
+        "411999023866",
+        "NLC892-411999023866",
+        "通書類聚尅擇大全",
+        "通書類聚抉擇大全",
+        "通书类聚克择大全"
+      ],
+      "direct_search_total_hits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "target_public_surrogate_found": false,
+      "negative_scope": "COMMONS_SEARCH_INDEX_ONLY"
+    },
+    "internet_archive": {
+      "identifier_query_411999023866_total": 0,
+      "identifier_query_nlc892_total": 0,
+      "exact_title_query_returned_unrelated_objects": true,
+      "broad_title_query_returned_unrelated_objects": true,
+      "target_public_surrogate_found": false,
+      "negative_scope": "IDENTIFIER_SEARCH_STRONG; TITLE_SEARCH_DISCOVERY_ONLY"
+    }
+  },
+  "microform_catalog_access": {
+    "provider": "National Library of China / National Library Union Cataloging Center Z39.50",
+    "official_logical_database": "B1MICU",
+    "endpoint_primary": "ucs.nlc.cn:9991",
+    "endpoint_fallback": "202.96.31.28:9991",
+    "connection_accepted": true,
+    "anonymous_query_authorized": false,
+    "access_control_error": "Aleph error. Service: C9902. Code: 1. User name Z39 does not exist.",
+    "displayed_zero_hit_counts_have_content_negative_authority": false,
+    "microform_presence_for_target": "UNRESOLVED",
+    "workflow_run_id": 35376261851,
+    "artifact_id": 10560661850,
+    "artifact_digest": "sha256:519a21db7bf1e03269b53d2a64e6b7f94fbbe2f8e9c6f67b7da1688c6e5ca044"
+  },
+  "google_books_microform_catalog_control": {
+    "catalog_title": "全国公共图书馆缩微文献联合目录·古籍编",
+    "publication_year": 2015,
+    "known_volume_id": "K1wpxAEACAAJ",
+    "isbn": "9787501357062",
+    "search_within_volume_searchable": false,
+    "tested_queries": [
+      "通書類聚尅擇大全",
+      "通書類聚抉擇大全",
+      "通书类聚克择大全",
+      "通書類聚",
+      "姚奎",
+      "王以寧",
+      "芝城",
+      "嘉靖三十",
+      "1551"
+    ],
+    "zero_results_have_content_negative_authority": false,
+    "workflow_run_id": 35376706700,
+    "artifact_id": 10559549808,
+    "artifact_digest": "sha256:fe58f6abadb991f9a9d7ac064145b7e1667436ca2a0b2589e7deb9ad65dd3ba2"
+  },
+  "national_ancient_books_census_broad_variants": {
+    "provider": "全國古籍普查登記基本數據庫",
+    "workflow_run_id": 35376977033,
+    "artifact_id": 10561285274,
+    "artifact_digest": "sha256:50763fdee7b299228182e6b80ac9179d0cb893d73fd32c8f95c7e9cd3e05c162",
+    "direct_raw_html_controls": {
+      "通書類聚": {
+        "returned_record_count": 1,
+        "census_number": "110000-0101-0013797",
+        "call_number": "14202",
+        "holder": "國家圖書館",
+        "edition": "明嘉靖三十年（1551）芝城銅活字印本"
+      },
+      "通书类聚": {
+        "returned_record_count": 1,
+        "same_target_record": true
+      },
+      "芝城銅活字": {
+        "returned_record_count": 2,
+        "records": [
+          {
+            "census_number": "110000-0101-0004638",
+            "title": "墨子十五卷 （戰國）墨翟撰",
+            "edition": "明嘉靖三十一年（1552）芝城銅活字藍印本",
+            "holder": "國家圖書館"
+          },
+          {
+            "census_number": "110000-0101-0013797",
+            "title": "通書類聚尅擇大全□□卷",
+            "edition": "明嘉靖三十年（1551）芝城銅活字印本",
+            "holder": "國家圖書館"
+          }
+        ]
+      },
+      "姚奎": {
+        "returned_record_count": 0
+      },
+      "王以寧": {
+        "returned_record_count": 1,
+        "target_record": false,
+        "returned_title": "西臺疏草一卷北畿疏草一卷東粵疏草五卷南國疏草一卷 （明）王以寧撰",
+        "holder": "浙江圖書館"
+      }
+    },
+    "fujian_provincial_library_target_copy_directly_returned": false,
+    "secondary_fujian_holding_claim_status": "NOT_SUPPORTED_BY_REVIEWED_CURRENT_CENSUS_QUERIES; HISTORICAL_OR_VARIANT_COPY POSSIBILITY UNRESOLVED"
+  },
+  "chinese_ancient_books_union_bibliography": {
+    "provider": "中國國家圖書館 中華古籍聯合書目",
+    "resource_index": "0019",
+    "exact_query_workflow": {
+      "workflow_run_id": 35377746060,
+      "artifact_id": 10560729016,
+      "artifact_digest": "sha256:327bdcde8b572951da704feb100b0aa125fa8dd9d54b7764fc92afb1c3202d90",
+      "exact_title_variants_total_zero": true,
+      "fuzzy_short_total": 576,
+      "fuzzy_short_first_page_rows": 12
+    },
+    "exhaustive_fuzzy_query": {
+      "query": "title LIKE 通書類聚",
+      "source_reported_total": 576,
+      "pages": 48,
+      "page_size": 12,
+      "initial_workflow": {
+        "workflow_run_id": 35377985520,
+        "artifact_id": 10560996782,
+        "artifact_digest": "sha256:a8a5b3a46d03766382c0c9624874e02225829b04cd6a966e3ce6931f2306e68b",
+        "validated_pages": 15,
+        "timed_out_pages": 33
+      },
+      "retry_workflow": {
+        "workflow_run_id": 35379079830,
+        "artifact_id": 10560957890,
+        "artifact_digest": "sha256:93b2f5dfde12d5b333fa5ceaf64a5cdf260ea514253727c70fb80d94e3f1331e",
+        "recovered_pages": 32,
+        "still_missing_pages": [
+          38
+        ]
+      },
+      "final_page38_workflow": {
+        "workflow_run_id": 35379372970,
+        "artifact_id": 10561901955,
+        "artifact_digest": "sha256:6e14984cb189c17f6b8aa9f326e47026aa9ede6a5dc7894e016a07aa6f9c54a5",
+        "page": 38,
+        "valid": true,
+        "attempts_required": 1
+      },
+      "final_coverage": {
+        "validated_pages": 48,
+        "merged_unique_records": 576,
+        "contiguous_title_phrase_hits": 0,
+        "keze_jueze_term_hits": 0,
+        "yao_kui_hits": 0,
+        "wang_yining_hits": 0,
+        "zhicheng_hits": 0,
+        "romanized_target_title_hits": 0,
+        "romanized_yao_kui_hits": 0,
+        "romanized_wang_yining_hits": 0,
+        "exact_1551_or_jiajing30_hits": 1,
+        "exact_1551_or_jiajing30_only_record": {
+          "identifier": "NJPX96-B51",
+          "title": "新刊批點古文類抄 / 新刊古文類抄",
+          "publish_time": "Ming Jiajing xin hai [30 nian, 1551] 明嘉靖辛亥 [30年, 1551]",
+          "target_record": false
+        }
+      },
+      "target_or_independent_copy_found": false,
+      "negative_scope": "COMPLETE_576_RECORD_RESULT_SET_FOR_THIS_INDEXED_FUZZY_QUERY_ONLY"
+    }
+  },
+  "access_and_copy_adjudication": {
+    "known_nlc_physical_copy_identity_strengthened": true,
+    "public_direct_page_surrogate_found": false,
+    "authenticated_microform_catalog_search_completed": false,
+    "microform_presence": "UNRESOLVED",
+    "second_current_census_holding_found": false,
+    "second_union_bibliography_record_found": false,
+    "fujian_current_holding_proved": false,
+    "no_other_copy_anywhere_proved": false,
+    "reader_terminal_or_internal_digitization_status": "UNRESOLVED",
+    "direct_juan_16_19_page_obtained": false
+  },
+  "target_table_adjudication": {
+    "direct_target_page_obtained": false,
+    "exact_sanming_yueling_fingerprint_tested_on_1551_copy": false,
+    "table_family_identified": false,
+    "unchanged_parent_of_sanming_status": "UNRESOLVED",
+    "identity_with_yueling_generic_tongshu_source_status": "UNRESOLVED",
+    "numeric_ancestry_vote_increment": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+    ],
+    "positive_edges_added": [],
+    "explicit_non_edges_changed": [],
+    "status": "ACCESS_AND_HOLDING_PROVENANCE_STRENGTHENED_WITHOUT_TEXTUAL_OR_NUMERIC_TRANSMISSION_VOTE"
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the reviewed public Commons/IA identifier searches, NLC Digital Ancient Books exact-title/sbnumber route, or the completed 576-record Union Bibliography fuzzy result set unless the source index changes.",
+    "A microform-catalog answer requires authorized OLCC/B1MICU access or a directly searchable/physical copy of the 2015 microform union catalog; anonymous Z39.50 zero counts are invalid.",
+    "Prioritize lawful NLC South Rare Books Reading Room / reproduction-service access for call no. 14202, or independently located physical/reproduction copies outside the current NLC census/union-index routes.",
+    "Continue parallel search for an independently accessible pre-1578 exact-fingerprint Tongshu/almanac carrier, the Chinese Nanjing/Datong 59/41 carrier, and the exact whole-ke threshold/selection rule."
+  ]
+}
