@@ -34,6 +34,8 @@ ZIWEI_TONGSHU_LEIJU_12DK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
 ZIWEI_TONGSHU_LEIJU_12DL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md"
 ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json"
+ZIWEI_TONGSHU_LEIJU_12DM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM.md"
+ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -277,9 +279,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
+    "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM.md"
 
 
 def fail(message: str) -> None:
@@ -287,6 +290,33 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_TONGSHU_LEIJU_12DM_BATCH, ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DM continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dm = json.loads(ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dm.get("batch_id") != "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM":
+        fail("Batch 12DM evidence identity mismatch")
+    controls12dm = batch12dm.get("official_service_controls", [])
+    ids12dm = {x.get("source_id") for x in controls12dm}
+    required12dm = {
+        "EXT-NLC-CURRENT-RARE-BOOKS-READING-ROOM-20260919",
+        "EXT-NLC-DOCUMENT-SUPPLY-CENTER-CURRENT-ROUTE-20260919",
+        "EXT-NLC-MICROFILM-CENTER-DOCUMENT-SUPPLY-CURRENT-20260919",
+    }
+    if not required12dm.issubset(ids12dm):
+        fail("Batch 12DM official service controls incomplete")
+    req12dm = batch12dm.get("request_payload", {}).get("target_identity", {})
+    if req12dm.get("call_number") != "14202" or req12dm.get("census_number") != "110000-0101-0013797" or req12dm.get("opac_doc_number") != "001790345":
+        fail("Batch 12DM request identity binding regressed")
+    sub12dm = batch12dm.get("submission_boundary", {})
+    if sub12dm.get("request_submitted") is not False or sub12dm.get("provider_acceptance_obtained") is not False or sub12dm.get("target_microfilm_confirmed") is not False or sub12dm.get("direct_page_obtained") is not False:
+        fail("Batch 12DM external-service submission/access firewall regressed")
+    impact12dm = batch12dm.get("transmission_impact", {})
+    if impact12dm.get("textual_vote_increment") != 0 or impact12dm.get("numeric_vote_increment") != 0:
+        fail("Batch 12DM access-only genealogy vote firewall regressed")
+    if batch12dm.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DM unexpectedly reopened algorithm")
+
     for path in (ZIWEI_TONGSHU_LEIJU_12DL_BATCH, ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DL continuity artifact missing: {path.relative_to(ROOT)}")
@@ -669,6 +699,18 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dm_room = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-CURRENT-RARE-BOOKS-READING-ROOM-20260919"), None)
+    source12dm_supply = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-DOCUMENT-SUPPLY-CENTER-CURRENT-ROUTE-20260919"), None)
+    source12dm_micro = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-MICROFILM-CENTER-DOCUMENT-SUPPLY-CURRENT-20260919"), None)
+    if source12dm_room is None or source12dm_supply is None or source12dm_micro is None:
+        fail("Batch 12DM external-source registry bindings missing")
+    if source12dm_supply.get("target_copy_request_submitted") is not False or source12dm_supply.get("target_copy_acceptance") != "NOT_REQUESTED":
+        fail("Batch 12DM document-supply submission firewall regressed")
+    if source12dm_micro.get("target_microfilm_presence") != "UNRESOLVED":
+        fail("Batch 12DM target microfilm-presence firewall regressed")
+    if source12dm_room.get("target_copy_deliverability") != "UNRESOLVED_UNTIL_PROVIDER_CONFIRMATION":
+        fail("Batch 12DM rare-books deliverability firewall regressed")
+
     source12dl_scholar = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL"), None)
     source12dl_downstream = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-GUJIN-TUSHU-JICHENG-V597-SANMING-REUSE-CONTROL"), None)
     if source12dl_scholar is None or source12dl_downstream is None:
