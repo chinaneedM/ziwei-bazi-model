@@ -93,12 +93,12 @@ jobs:
           cat > "$ROOT/manifest.txt" <<'EOF'
           SOURCE=NLC892-1253-204870/204871 重刊革象新書
           WORK=趙友欽撰 / 王禕刪定
-          CATALOG_IDENTITY=平圖011907-011908
-          CATALOG_EDITION=明正德庚辰十五年(1520)宣威公署刊本
-          TARGET=physical edition binding + 時分百刻 + 若子時則上半時 wording
+          CATALOG_IDENTITY=UNRESOLVED_FOR_NLC892_SURROGATE_DO_NOT_BIND_TO_PINGTU011907_011908_WITHOUT_CROSSCOPY_PROOF
+          CATALOG_EDITION=UNRESOLVED_IN_THIS_PROBE_DO_NOT_PROMOTE_ZHENGDE15_FROM_SEPARATE_CATALOG_RECORD
+          TARGET=physical-text locator only; edition/cross-copy identity is not authoritative in this workflow
           TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_GLYPH_AUTHORITY
           OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false
-          PRE1578_TARGET=true
+          PRE1578_TARGET=UNRESOLVED_FOR_THIS_NLC892_SURROGATE
           EOF
 
           SMALL='audit/gexiang-1520-zhengde-compact'
