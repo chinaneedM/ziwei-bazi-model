@@ -1,0 +1,167 @@
+name: probe-tongshu-leiju-1551-surrogates
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-tongshu-leiju-1551-surrogates.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe OPAC item link and public surrogate indexes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/tongshu-leiju-1551-surrogates'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/opac" "$ROOT/commons" "$ROOT/archive"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          # Fresh OPAC title record; preserve cookies and follow the exact session-bearing item link.
+          curl -L -sS --connect-timeout 8 --max-time 30             -A "$UA" -c "$ROOT/opac/cookies.txt" -b "$ROOT/opac/cookies.txt"             'http://opac.nlc.cn/F/?func=find-b&find_code=WTI&request=%E9%80%9A%E6%9B%B8%E9%A1%9E%E8%81%9A%E5%B0%85%E6%93%87%E5%A4%A7%E5%85%A8&local_base=NLC01'             -o "$ROOT/opac/title.html"
+
+          python - <<'PY'
+          import html,re
+          from pathlib import Path
+          p=Path('audit/tongshu-leiju-1551-surrogates/opac/title.html')
+          s=p.read_text('utf-8',errors='replace')
+          links=[]
+          for m in re.finditer(r'HREF=([^ >]+func=item-global[^ >]+)',s,re.I):
+              u=html.unescape(m.group(1).strip("'\""))
+              links.append(u)
+          # Also keep any direct link carrying the exact doc number and SBYL sublibrary.
+          for m in re.finditer(r'https?://[^\s"\'<>]+doc_number=001790345[^\s"\'<>]+',s,re.I):
+              u=html.unescape(m.group(0))
+              if 'item-global' in u: links.append(u)
+          links=list(dict.fromkeys(links))
+          Path('audit/tongshu-leiju-1551-surrogates/opac/item-links.txt').write_text(
+              '\n'.join(links)+('\n' if links else ''),encoding='utf-8')
+          PY
+
+          : > "$ROOT/opac/item-status.tsv"
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1))
+            out="$ROOT/opac/item-session-$n.html"
+            set +e
+            timeout 35s curl -L -sS --connect-timeout 8 --max-time 25               -A "$UA" -c "$ROOT/opac/cookies.txt" -b "$ROOT/opac/cookies.txt"               "$url" -o "$out"
+            rc=$?
+            set -e
+            printf 'session-%s\t%s\t%s\t%s\n' "$n" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$url" >> "$ROOT/opac/item-status.tsv"
+          done < "$ROOT/opac/item-links.txt"
+
+          for u in             'http://opac.nlc.cn/F?func=item-global&doc_library=NLC01&doc_number=001790345&sub_library=SBYL'             'http://opac.nlc.cn/F/?func=item-global&doc_library=NLC01&doc_number=001790345&sub_library=SBYL'
+          do
+            n=$((n+1))
+            out="$ROOT/opac/item-stateless-$n.html"
+            set +e
+            timeout 35s curl -L -sS --connect-timeout 8 --max-time 25               -A "$UA" "$u" -o "$out"
+            rc=$?
+            set -e
+            printf 'stateless-%s\t%s\t%s\t%s\n' "$n" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$u" >> "$ROOT/opac/item-status.tsv"
+          done
+
+          # Public Wikimedia Commons source API. No search-engine snippet is promoted as source identity.
+          python - <<'PY'
+          import urllib.parse
+          from pathlib import Path
+          qs=[
+            '411999023866',
+            'NLC892-411999023866',
+            '"通書類聚尅擇大全"',
+            '"通書類聚抉擇大全"',
+            '"通书类聚克择大全"',
+          ]
+          root=Path('audit/tongshu-leiju-1551-surrogates/commons')
+          (root/'queries.tsv').write_text(
+              ''.join(f'{i+1}\t{q}\thttps://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srlimit=50&format=json&srsearch={urllib.parse.quote_plus(q)}\n' for i,q in enumerate(qs)),
+              encoding='utf-8')
+          PY
+          while IFS=$'\t' read -r i q url; do
+            set +e
+            timeout 35s curl -L -sS --connect-timeout 8 --max-time 25               -A "$UA" "$url" -o "$ROOT/commons/q$i.json"
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\t%s\n' "$i" "$rc" "$(wc -c < "$ROOT/commons/q$i.json" 2>/dev/null || echo 0)" "$q" >> "$ROOT/commons/status.tsv"
+          done < "$ROOT/commons/queries.tsv"
+
+          # Internet Archive exact identifier/title controls.
+          python - <<'PY'
+          import urllib.parse
+          from pathlib import Path
+          qs=['411999023866','NLC892-411999023866','通書類聚尅擇大全','通書類聚抉擇大全']
+          root=Path('audit/tongshu-leiju-1551-surrogates/archive')
+          (root/'queries.tsv').write_text(
+              ''.join(f'{i+1}\t{q}\thttps://archive.org/advancedsearch.php?q={urllib.parse.quote_plus(q)}&fl[]=identifier,title&rows=50&page=1&output=json\n' for i,q in enumerate(qs)),
+              encoding='utf-8')
+          PY
+          while IFS=$'\t' read -r i q url; do
+            set +e
+            timeout 35s curl -L -sS --connect-timeout 8 --max-time 25               -A "$UA" "$url" -o "$ROOT/archive/q$i.json"
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\t%s\n' "$i" "$rc" "$(wc -c < "$ROOT/archive/q$i.json" 2>/dev/null || echo 0)" "$q" >> "$ROOT/archive/status.tsv"
+          done < "$ROOT/archive/queries.tsv"
+
+          python - <<'PY'
+          import json,re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          root=Path('audit/tongshu-leiju-1551-surrogates')
+          out=[]
+          class H(HTMLParser):
+              def __init__(self): super().__init__(); self.text=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s: self.text.append(s)
+          for p in sorted((root/'opac').glob('item-*.html')):
+              h=H(); h.feed(p.read_text('utf-8',errors='replace'))
+              out.append(f'## {p.name}')
+              out += h.text
+          (root/'opac'/'item-text.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+
+          commons=[]
+          for p in sorted((root/'commons').glob('q*.json')):
+              try: d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  commons.append(f'{p.name}\tPARSE_ERROR\t{e}'); continue
+              hits=d.get('query',{}).get('search',[])
+              commons.append(f'{p.name}\ttotal={d.get("query",{}).get("searchinfo",{}).get("totalhits")}\trows={len(hits)}')
+              for x in hits:
+                  commons.append(p.name+'\t'+json.dumps({'title':x.get('title'),'pageid':x.get('pageid')},ensure_ascii=False))
+          (root/'commons'/'parsed.txt').write_text('\n'.join(commons)+'\n',encoding='utf-8')
+
+          ia=[]
+          for p in sorted((root/'archive').glob('q*.json')):
+              try: d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  ia.append(f'{p.name}\tPARSE_ERROR\t{e}'); continue
+              docs=d.get('response',{}).get('docs',[])
+              ia.append(f'{p.name}\ttotal={d.get("response",{}).get("numFound")}\trows={len(docs)}')
+              for x in docs:
+                  ia.append(p.name+'\t'+json.dumps(x,ensure_ascii=False))
+          (root/'archive'/'parsed.txt').write_text('\n'.join(ia)+'\n',encoding='utf-8')
+          PY
+
+          grep -RniE             '通書類聚|通书类聚|14202|001790345|411999023866|縮微|缩微|膠卷|胶卷|micro|SBYL|南区善本|可借|无法提供|無法提供|館藏|馆藏'             "$ROOT/opac" > "$ROOT/opac/target-hits.txt" || true
+
+          printf '%s\n'             'TARGET=通書類聚尅擇大全□□卷, NLC 1551 Zhicheng movable-type copy'             'NLC_OPAC_DOC_NUMBER=001790345'             'NLC_INTERNAL_ID=411999023866'             'NLC_CALL_NUMBER=14202'             'PURPOSE=resolve OPAC item-state and discover any public NLC892/Commons/Internet-Archive surrogate omitted from NLC Digital Ancient Books search'             'NEGATIVE_POLICY=public-index misses do not prove no microfilm, no digitization, or no internal reproduction exists'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload surrogate probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: tongshu-leiju-1551-surrogate-probe
+          path: audit/tongshu-leiju-1551-surrogates/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
