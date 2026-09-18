@@ -1,10 +1,10 @@
-name: audit-kyudb-datong-ritonggui-tonggui-physical
+name: audit-kyudb-datong-ritonggui-complete-physical
 
 on:
   push:
     branches: [agent/fusion-chart-core-r1-20260822]
     paths:
-      - .github/workflows/audit-kyudb-datong-ritonggui-tonggui-physical.yml
+      - .github/workflows/audit-kyudb-datong-ritonggui-complete-physical.yml
   workflow_dispatch:
 
 permissions:
@@ -24,11 +24,11 @@ jobs:
           npm install --no-save --silent puppeteer-core@24.16.0
           python -m pip install --quiet pillow
 
-      - name: Locate and acquire Kyudb Datong Ritonggui Tonggui physical pages
+      - name: Locate and acquire Kyudb Datong Ritonggui physical pages
         shell: bash
         run: |
           set -euo pipefail
-          ROOT='audit/kyudb-datong-ritonggui-tonggui-physical'
+          ROOT='audit/kyudb-datong-ritonggui-complete-physical'
           rm -rf "$ROOT"
           mkdir -p "$ROOT/physical"
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
@@ -38,7 +38,7 @@ jobs:
           import fs from 'node:fs';
           import crypto from 'node:crypto';
 
-          const root='audit/kyudb-datong-ritonggui-tonggui-physical';
+          const root='audit/kyudb-datong-ritonggui-complete-physical';
           const book='GK12437_00', vol='0001';
           const primaryTerms=['晨昏分','晨昏','晨分','昏分','日出分','日入分','半晝','半昼'];
           const secondaryTerms=['冬夏二至','冬夏','冬至','夏至','立成'];
@@ -186,7 +186,7 @@ jobs:
           from pathlib import Path
           from PIL import Image,ImageDraw
           import json
-          root=Path('audit/kyudb-datong-ritonggui-tonggui-physical')
+          root=Path('audit/kyudb-datong-ritonggui-complete-physical')
           r=json.loads((root/'report.json').read_text())
           imgs=[x for x in r['physical_pages'] if x.get('download_ok')]
           sheets=[]
@@ -214,6 +214,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: kyudb-datong-ritonggui-complete-physical-r1
-          path: audit/kyudb-datong-ritonggui-tonggui-physical
+          path: audit/kyudb-datong-ritonggui-complete-physical
           if-no-files-found: error
           retention-days: 30
