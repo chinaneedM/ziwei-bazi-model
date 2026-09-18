@@ -24,7 +24,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils imagemagick
 
-      - name: Render catalog item 451 at direct-reading resolution
+      - name: Render catalog item 450 at direct-reading resolution
         shell: bash
         run: |
           set -euo pipefail
@@ -50,7 +50,7 @@ jobs:
 
           sha256sum "$ROOT"/context-*.jpg "$ROOT"/page-048-400dpi*.png             | sort -V > "$ROOT/rendered.sha256"
 
-          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'SOURCE_SHA256=e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'             'PDF_PAGE=48'             'CATALOG_ITEM=四五一 / 451'             'TARGET=通書類聚抉擇大全 / 通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=Directly read exact title, surviving-volume statement, edition statement, and any holding code/name printed with item 451.'             'FINAL_GLYPH_AUTHORITY=page-048-400dpi.png'             'ROTATED_DERIVATIVE=page-048-400dpi-rotated.png'             'OCR_USED=false'             'SEARCH_SNIPPET_NOT_GLYPH_AUTHORITY=true'             > "$ROOT/manifest.txt"
+          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'SOURCE_SHA256=e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'             'PDF_PAGE=48'             'CATALOG_ITEM=四五〇 / 450'             'TARGET=通書類聚抉擇大全 / 通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=Directly read exact title, surviving-volume statement, edition statement, and any holding code/name printed with item 450.'             'FINAL_GLYPH_AUTHORITY=page-048-400dpi.png'             'ROTATED_DERIVATIVE=page-048-400dpi-rotated.png'             'OCR_USED=false'             'SEARCH_SNIPPET_NOT_GLYPH_AUTHORITY=true'             > "$ROOT/manifest.txt"
 
           rm "$ROOT/source.pdf"
 
