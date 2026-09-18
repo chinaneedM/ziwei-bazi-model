@@ -1,0 +1,165 @@
+{
+  "schema": "ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
+  "question": "Can a distinct pre-1578 Tongshu/almanac copy be bibliographically closed at physical-holding level after 12DI, and is that exact NLC-held 1551 copy publicly exposed in the NLC Digital Ancient Books index for direct target-table collation?",
+  "answer": "YES for physical-holding identity; NO PUBLIC DIGITAL-INDEX RECORD OBSERVED for the exact copy. The National Ancient Books Census directly records 《通書類聚尅擇大全□□卷》, Ming Jiajing 30 (1551) Zhicheng movable-metal-type edition, census no. 110000-0101-0013797, call no. 14202, one fascicle, held by the National Library of China, surviving four juan (16-19). The current NLC Digital Ancient Books advanced-search index returns zero for controlled exact-title variants and zero for exact sbnumber 14202, including title/year compounds. This closes only the current public Digital Ancient Books index route; it does not prove the physical copy is undigitized, inaccessible by other NLC services, or textually lacks the Sanming/Yueling target fingerprint.",
+  "bibliographic_controls": {
+    "shanben_catalog_direct_page": {
+      "source": "《中國古籍善本書目·子部三》 public scan",
+      "source_pdf_sha256": "e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab",
+      "pdf_page_1_based": 48,
+      "catalog_item": "四五〇 / 450",
+      "direct_page_sha256": "1c1a05e8db798c6c8b6995d0629c30934f17a0463ae96a87b8cedb2951ae07d4",
+      "direct_role": "Binds the target title family to the Ming Jiajing-30 Zhicheng movable-type edition and surviving juan 16-19; OCR/text snippets are not final glyph authority.",
+      "workflow_run_id": 35370570700,
+      "artifact_id": 10558651831,
+      "artifact_digest": "sha256:80ec57b1d53533471f9990ecae67dfe2a3d1c5a1e5be598eff2871ad6d003814",
+      "ocr_used": false
+    },
+    "national_ancient_books_census": {
+      "provider": "全國古籍普查登記基本數據庫 / National Center for Preservation & Conservation of Ancient Books",
+      "endpoint": "http://202.96.31.78/xlsworkbench/publish",
+      "query": "通書類聚尅擇大全",
+      "result_count_for_exact_traditional_title_query": 1,
+      "census_number": "110000-0101-0013797",
+      "call_number": "14202",
+      "title": "通書類聚尅擇大全□□卷",
+      "edition": "明嘉靖三十年（1551）芝城銅活字印本",
+      "physical_quantity": "1册",
+      "holding_institution": "國家圖書館",
+      "surviving_scope": "存四卷（十六至十九）",
+      "pre1578_catalog_bound": true,
+      "workflow_run_id": 35371456818,
+      "artifact_id": 10558264237,
+      "artifact_digest": "sha256:a134e16ee70a029540b936d1064db1634137045acc8bf9c217c5d3d22bc08ab9",
+      "raw_html_fields_directly_bound": true
+    }
+  },
+  "public_digital_access_boundary": {
+    "provider": "中國國家圖書館 中華古籍資源庫 / 數字古籍",
+    "advanced_search_endpoint": "http://read.nlc.cn/advanceSearch/gujiSearch/data",
+    "resource_index": "0003",
+    "source_declared_search_fields": {
+      "title": "标题",
+      "author": "责任者",
+      "publish_unit": "出版者",
+      "publish_time": "出版发行项",
+      "sbnumber": "善本书号"
+    },
+    "exact_title_checks": [
+      {
+        "query": "通書類聚尅擇大全",
+        "match": "must",
+        "total": 0
+      },
+      {
+        "query": "通書類聚尅擇大全□□卷",
+        "match": "must",
+        "total": 0
+      },
+      {
+        "query": "通书类聚克择大全",
+        "match": "must",
+        "total": 0
+      }
+    ],
+    "exact_title_workflow": {
+      "workflow_run_id": 35372409456,
+      "artifact_id": 10558009027,
+      "artifact_digest": "sha256:f237b420df568069173108c4113ad9ab6ee0c2292614319c6dcd8e7715cb6b0c"
+    },
+    "compound_checks": {
+      "exact_year": "明嘉靖30年[1551]",
+      "year_plus_title_daquan_total": 2,
+      "year_plus_title_daquan_positive_control_includes": {
+        "title": "類編曆法通書大全",
+        "identifier": "411999026677",
+        "sbnumber": "15897",
+        "publish_time": "明嘉靖30年[1551]"
+      },
+      "author_yaokui_fuzzy_is_not_identity_evidence": true,
+      "author_wangyining_fuzzy_is_not_identity_evidence": true,
+      "publish_unit_zhicheng_fuzzy_is_not_identity_evidence": true,
+      "workflow_run_id": 35373080523,
+      "artifact_id": 10558119833,
+      "artifact_digest": "sha256:1c511b60c4f6c548f9e6ffb7a193a54ec85bde93f65e41bae6889120e8865238"
+    },
+    "rare_book_number_checks": [
+      {
+        "query": "sbnumber=14202",
+        "total": 0
+      },
+      {
+        "query": "sbnumber=14202 AND publish_time=明嘉靖30年[1551]",
+        "total": 0
+      },
+      {
+        "query": "sbnumber=14202 AND title LIKE 通書",
+        "total": 0
+      }
+    ],
+    "rare_book_number_workflow": {
+      "workflow_run_id": 35373229704,
+      "artifact_id": 10559121597,
+      "artifact_digest": "sha256:59e814eaa0f522bca7b1cda797ec3b6b0ac4defc74d26cebcf6949da8ebd67b4"
+    },
+    "fuzzy_title_queries_are_content_negative_authority": false,
+    "public_digital_ancient_books_index_status": "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202",
+    "physical_copy_digitization_status": "UNRESOLVED",
+    "alternative_nlc_service_or_reproduction_route_status": "UNRESOLVED",
+    "direct_target_page_obtained": false,
+    "direct_target_glyph_collation_authorized": false
+  },
+  "target_table_adjudication": {
+    "exact_sanming_yueling_fingerprint_tested_on_1551_copy": false,
+    "table_family_identified": false,
+    "unchanged_parent_of_sanming_status": "UNRESOLVED",
+    "identity_with_yueling_generic_tongshu_source_status": "UNRESOLVED",
+    "reason": "The current evidence closes bibliographic identity and public-index access only. No page from juan 16-19 was obtained, so absence or presence of 大寒十三後 / 雨水後四日 cannot be inferred."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19 DIRECT_TARGET_FINGERPRINT_ATTESTATION TABLE-SANMING-1578-DAYNIGHT-KE = UNRESOLVED",
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19 DIRECT_TARGET_FINGERPRINT_ATTESTATION TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT = UNRESOLVED",
+      "Identity between this title/copy and the generic 通書 source label cited by Yueling 1589 remains UNRESOLVED"
+    ],
+    "unresolved_lineage_questions": [
+      "Can NLC physical-copy, reproduction, microfilm, reader-terminal, or another public surrogate route expose juan 16-19 for direct page-level collation?",
+      "Does the 1551 Zhicheng movable-type copy contain the Sanming/Yueling 大寒十三後 and 雨水後四日 fingerprint, a competing branch, or no relevant table?",
+      "Which pre-1578 Chinese carrier and historical whole-ke threshold/selection rule connect the Nanjing/Datong precision layer to the Sanming/Yueling displayed ladder?"
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Prioritize a lawful direct image/reproduction route for NLC census 110000-0101-0013797 / call no. 14202, specifically juan 16-19.",
+    "Do not treat current Digital Ancient Books index non-return as proof of no digitization, no physical access, or no target table.",
+    "If the physical pages remain inaccessible, continue searching independent copies/recensions of 《通書類聚尅擇大全》 and exact target-fingerprint Tongshu witnesses.",
+    "Keep the independent Nanjing/Datong 59/41 carrier and whole-ke threshold/selection-rule searches active."
+  ]
+}
