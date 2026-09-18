@@ -1,0 +1,115 @@
+name: query-nlc-gjpc-tongshu-leiju-1551
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-gjpc-tongshu-leiju-1551.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query National Ancient Books Census for the 1551 Tongshu Leiju copy
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-gjpc-tongshu-leiju-1551-query'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text"
+          BASE='http://202.96.31.78/xlsworkbench/publish'
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          title-trad	通書類聚尅擇大全
+          title-simp	通书类聚克择大全
+          title-variant	通書類聚剋擇大全
+          edition-trad	嘉靖三十年芝城銅活字
+          edition-simp	嘉靖三十年芝城铜活字
+          editor	姚奎
+          collation	王以寧
+          EOF
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote_plus
+          rows=[]
+          for line in Path('audit/nlc-gjpc-tongshu-leiju-1551-query/queries.tsv').read_text('utf-8').splitlines():
+              if not line.strip():
+                  continue
+              key,q=line.split('\t',1)
+              rows.append((key,q,'http://202.96.31.78/xlsworkbench/publish?keyWord='+quote_plus(q)))
+          Path('audit/nlc-gjpc-tongshu-leiju-1551-query/query-urls.tsv').write_text(
+              ''.join(f'{k}\t{q}\t{u}\n' for k,q,u in rows),encoding='utf-8')
+          PY
+
+          : > "$ROOT/query-status.tsv"
+          while IFS=$'\t' read -r key query url; do
+            out="$ROOT/raw/$key.html"
+            hdr="$ROOT/raw/$key.headers"
+            set +e
+            timeout 45s curl -L -sS               --connect-timeout 8 --max-time 35               -A "$UA" -D "$hdr" "$url" -o "$out"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\t%s\t%s\n' "$key" "$rc" "$size" "$query" >> "$ROOT/query-status.tsv"
+          done < "$ROOT/query-urls.tsv"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+
+          root=Path('audit/nlc-gjpc-tongshu-leiju-1551-query')
+          base='http://202.96.31.78/xlsworkbench/publish'
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.text=[]
+                  self.links=[]
+              def handle_data(self,data):
+                  s=' '.join(data.split())
+                  if s:
+                      self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  if tag=='a':
+                      d=dict(attrs)
+                      if d.get('href'):
+                          self.links.append((urljoin(base,d['href']),d.get('title','')))
+
+          all_links=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              parser=P()
+              parser.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(parser.text)+'\n',encoding='utf-8')
+              for href,title in parser.links:
+                  all_links.append((p.stem,href,title))
+          (root/'all-links.tsv').write_text(
+              ''.join(f'{src}\t{href}\t{title}\n' for src,href,title in all_links),encoding='utf-8')
+          PY
+
+          grep -RniE             '通書類聚|通书类聚|芝城|銅活字|铜活字|姚奎|王以寧|王以宁|十六至十九|存四卷|收藏單位|收藏单位|索書號|索书号|普查'             "$ROOT/text" "$ROOT/raw" > "$ROOT/target-hits.txt" || true
+
+          grep -Ei             'detail|view|show|record|publish/[A-Za-z0-9?=&._/-]+|xlsworkbench'             "$ROOT/all-links.tsv" | sort -u > "$ROOT/detail-candidates.tsv" || true
+
+          sha256sum "$ROOT"/raw/*.html | sort -V > "$ROOT/raw.sha256"
+
+          printf '%s\n'             'SOURCE=全國古籍普查登記基本數據庫 / National Ancient Books Census Registration Basic Database'             'SOURCE_ENDPOINT=http://202.96.31.78/xlsworkbench/publish'             'QUERY_METHOD=GET keyWord parameter confirmed from source homepage form'             'TARGET=通書類聚尅擇大全; 明嘉靖三十年芝城銅活字印本; known catalog survival 卷十六至十九'             'PURPOSE=resolve census record, holding institution, call number, census number, and surviving-volume metadata directly from the public source'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload NLC census query evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-gjpc-tongshu-leiju-1551-query
+          path: audit/nlc-gjpc-tongshu-leiju-1551-query/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
