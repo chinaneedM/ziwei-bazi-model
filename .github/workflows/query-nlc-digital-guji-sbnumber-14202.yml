@@ -1,0 +1,80 @@
+name: query-nlc-digital-guji-sbnumber-14202
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-digital-guji-sbnumber-14202.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query NLC digital ancient-books index by exact rare-book number
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-digital-guji-sbnumber-14202'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          sbnumber-only	[{"fldName":"sbnumber","content":"14202","match":"must"}]
+          sbnumber-year	[{"fldName":"sbnumber","content":"14202","match":"must"},{"aon":"AND","fldName":"publish_time","content":"明嘉靖30年[1551]","match":"must"}]
+          sbnumber-title	[{"fldName":"sbnumber","content":"14202","match":"must"},{"aon":"AND","fldName":"title","content":"通書","match":"like"}]
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key payload; do
+            set +e
+            timeout 35s curl -L -sS               --connect-timeout 8 --max-time 25 -A "$UA"               -X POST               --data-urlencode 'index=0003,'               --data-urlencode "searchJson=$payload"               --data-urlencode 'pageNo=1'               "$ENDPOINT" -o "$ROOT/$key.json"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$ROOT/$key.json" ] && size=$(wc -c < "$ROOT/$key.json")
+            printf '%s\t%s\t%s\n' "$key" "$rc" "$size" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('audit/nlc-digital-guji-sbnumber-14202')
+          out=[]
+          for p in sorted(root.glob('*.json')):
+              try:
+                  d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append(f'{p.name}\tPARSE_ERROR\t{e}')
+                  continue
+              rows=d.get('rows') or []
+              out.append(f'{p.name}\ttotal={d.get("total")}\trows={len(rows)}')
+              for r in rows:
+                  out.append(p.name+'\t'+json.dumps({
+                    'title':re.sub('<[^>]+>','',str(r.get('title',''))),
+                    'author':r.get('author'),'publish_unit':r.get('publish_unit'),
+                    'publish_time':r.get('publish_time'),'identifier':r.get('identifier'),
+                    'sbnumber':r.get('sbnumber'),'filepath':r.get('filepath'),
+                    'index_name':r.get('index_name'),'res_name':r.get('res_name')
+                  },ensure_ascii=False,separators=(',',':')))
+          (root/'parsed-results.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          printf '%s\n'             'SOURCE=中國國家圖書館 中華古籍資源庫 高級檢索'             'RESOURCE_INDEX=0003 數字古籍'             'FIELD=sbnumber / 善本書號'             'QUERY=14202'             'TARGET_CENSUS_ID=110000-0101-0013797'             'TARGET=通書類聚尅擇大全□□卷 / 明嘉靖三十年（1551）芝城銅活字印本'             'PURPOSE=strong identifier-level test for public digitization of the known NLC-held physical copy'             'NEGATIVE_RESULT_POLICY=if exact sbnumber and compound checks all return zero, close only the current public Digital Ancient Books route; retain physical-holding route'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload sbnumber query evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-digital-guji-sbnumber-14202-query
+          path: audit/nlc-digital-guji-sbnumber-14202/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
