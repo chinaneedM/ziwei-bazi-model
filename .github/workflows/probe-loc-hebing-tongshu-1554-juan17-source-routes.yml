@@ -1,0 +1,87 @@
+name: probe-loc-hebing-tongshu-1554-juan17-source-routes
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-loc-hebing-tongshu-1554-juan17-source-routes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe LOC item, IIIF and Juan-17 routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/loc-hebing-tongshu-1554-juan17-source-routes'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+
+          curl -L --fail --retry 3 -A 'Tianwen-Provenance-Audit/1.0'             'https://www.loc.gov/item/2012402919/?fo=json'             -o "$ROOT/item.json"
+
+          for u in             'https://www.loc.gov/item/2012402919/manifest.json'             'https://www.loc.gov/item/2012402919/manifest.json?fo=json'             'https://www.loc.gov/resource/lcnclscd.2012402919.1A017/?fo=json'             'https://www.loc.gov/resource/lcnclscd.2012402919.1A017/?st=list&fo=json'             'https://www.loc.gov/resource/lcnclscd.2012402919.1A017/?sp=1&fo=json'
+          do
+            name=$(echo "$u" | sha256sum | cut -c1-16)
+            code=$(curl -L -sS -A 'Tianwen-Provenance-Audit/1.0' -o "$ROOT/probe-$name.body" -w '%{http_code}' "$u" || true)
+            ctype=$(file -b --mime-type "$ROOT/probe-$name.body" || true)
+            printf '%s\t%s\t%s\t%s\n' "$code" "$ctype" "$name" "$u" >> "$ROOT/probes.tsv"
+          done
+
+          python - <<'PY'
+          import json, pathlib, re
+          root=pathlib.Path('audit/loc-hebing-tongshu-1554-juan17-source-routes')
+          obj=json.loads((root/'item.json').read_text(encoding='utf-8'))
+          (root/'item-top-keys.txt').write_text('\n'.join(sorted(obj.keys()))+'\n',encoding='utf-8')
+          resources=obj.get('resources',[])
+          (root/'resources-pretty.json').write_text(json.dumps(resources,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          strings=[]
+          def walk(x,path=''):
+              if isinstance(x,dict):
+                  for k,v in x.items(): walk(v, f'{path}/{k}')
+              elif isinstance(x,list):
+                  for i,v in enumerate(x): walk(v, f'{path}/{i}')
+              elif isinstance(x,str):
+                  if ('2012402919' in x or '1A017' in x or 'iiif' in x.lower() or
+                      x.startswith('http')):
+                      strings.append((path,x))
+          walk(obj)
+          with (root/'interesting-strings.tsv').open('w',encoding='utf-8') as f:
+              for p,s in strings:
+                  f.write(p+'\t'+s.replace('\n',' ')+'\n')
+
+          # Identify resource groups and likely Juan 17 by image/file counts and labels.
+          summary=[]
+          for i,r in enumerate(resources):
+              summary.append({
+                  'index':i,
+                  'caption':r.get('caption'),
+                  'title':r.get('title'),
+                  'url':r.get('url'),
+                  'files_type':type(r.get('files')).__name__,
+                  'files_len':len(r.get('files',[])) if isinstance(r.get('files'),list) else None,
+                  'image':r.get('image'),
+                  'pdf':r.get('pdf')
+              })
+          (root/'resources-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          sha256sum "$ROOT"/* | sort -k2 > "$ROOT/artifact.sha256"
+          printf '%s\n'             'LOC_ITEM=2012402919'             'TITLE=新刊類編陰陽選擇合併通書大全十七卷'             'CATALOG_DATE=明嘉靖33年[1554]'             'TARGET=卷十七 選時寶鏡局 / 銅壺晝夜百刻圖式'             'ROLE=SOURCE_ROUTE_DISCOVERY_ONLY; NO OCR OR TEXT TRANSCRIPTION IS GLYPH AUTHORITY'             > "$ROOT/manifest.txt"
+
+      - name: Upload LOC route evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: loc-hebing-tongshu-1554-juan17-source-routes
+          path: audit/loc-hebing-tongshu-1554-juan17-source-routes/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
