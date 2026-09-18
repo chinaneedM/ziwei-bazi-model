@@ -16,6 +16,8 @@ MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.jso
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
 ZIWEI_GEXIANG_1520_DC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
 ZIWEI_GEXIANG_1520_DC_EVIDENCE = ROOT / "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
+ZIWEI_YUELING_12DD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
+ZIWEI_YUELING_12DD_EVIDENCE = ROOT / "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -250,9 +252,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
     "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
     "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
+    "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
 
 
 def fail(message: str) -> None:
@@ -260,6 +263,23 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_YUELING_12DD_BATCH, ZIWEI_YUELING_12DD_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DD continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dd = json.loads(ZIWEI_YUELING_12DD_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dd.get("batch_id") != "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD":
+        fail("Batch 12DD evidence identity mismatch")
+    layout12dd = batch12dd.get("direct_layout_collation", {})
+    if layout12dd.get("page27_yushui", {}).get("source_label") != "通書" or layout12dd.get("page802_dahan", {}).get("source_label") != "通書":
+        fail("Batch 12DD physical Tongshu source-label binding regressed")
+    phil12dd = batch12dd.get("philological_adjudication", {})
+    if phil12dd.get("direct_generic_source_label_bound") is not True or phil12dd.get("exact_bibliographic_title") != "UNRESOLVED":
+        fail("Batch 12DD generic-vs-exact Tongshu firewall regressed")
+    if phil12dd.get("pre1578_source_status") != "UNRESOLVED" or phil12dd.get("label_equated_to_leibian_lifa_tongshu_daquan") is not False:
+        fail("Batch 12DD pre1578/title-equivalence firewall regressed")
+    if batch12dd.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DD unexpectedly reopened algorithm")
+
     for path in (ZIWEI_GEXIANG_1520_DC_BATCH, ZIWEI_GEXIANG_1520_DC_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DC continuity artifact missing: {path.relative_to(ROOT)}")
