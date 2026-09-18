@@ -17,173 +17,191 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install image tools
+      - name: Install browser/image tools
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet pillow requests
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
 
-      - name: Locate Morning-evening table in Kyudb Taiyin Tonggui and acquire physical pages
+      - name: Locate and acquire Kyudb Taiyin Tonggui physical pages
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/kyudb-taiyin-tonggui-physical'
           rm -rf "$ROOT"
-          mkdir -p "$ROOT/text" "$ROOT/physical"
+          mkdir -p "$ROOT/physical"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          cat > "$ROOT/acquire.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/kyudb-taiyin-tonggui-physical';
+          const book='GK12436_00', vol='0001';
+          const primaryTerms=['晨昏分','晨昏','晨分','昏分','日出分','日入分','半晝','半昼'];
+          const secondaryTerms=['冬夏二至','冬夏','冬至','夏至','立成'];
+          const pages=[];
+          for(let n=0;n<=77;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
+
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<30 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId) && t.url().includes('/pf01/rendererImg.do')){
+                viewer=await t.page(); break;
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+          await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
+
+          const textRows=[];
+          for(const p of pages){
+            let result=null, err=null;
+            for(let attempt=1;attempt<=4;attempt++){
+              try{
+                result=await viewer.evaluate(async({book,vol,p})=>{
+                  const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                  const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
+                  const text=await r.text();
+                  let j=null; try{j=JSON.parse(text)}catch{}
+                  const raw=j?.ORG?.list || '';
+                  const div=document.createElement('div'); div.innerHTML=raw;
+                  return {status:r.status,text:(div.innerText||div.textContent||'').replace(/\s+/g,' ').trim(),rawBytes:text.length};
+                },{book,vol,p});
+                if(result.status===200) break;
+              }catch(e){err=String(e)}
+              await new Promise(r=>setTimeout(r,350*attempt));
+            }
+            const text=result?.text || '';
+            const primary=primaryTerms.filter(t=>text.includes(t));
+            const secondary=secondaryTerms.filter(t=>text.includes(t));
+            textRows.push({page:p,status:result?.status??null,text,primary_hits:primary,secondary_hits:secondary,error:err});
+          }
+
+          const primaryPages=textRows.filter(x=>x.primary_hits.length).map(x=>x.page);
+          const seedPages=primaryPages.length ? primaryPages : textRows.filter(x=>x.secondary_hits.length).map(x=>x.page);
+          const idx=new Map(pages.map((p,i)=>[p,i]));
+          const wanted=new Set();
+          for(const p of seedPages){
+            const i=idx.get(p);
+            for(let j=Math.max(0,i-4);j<=Math.min(pages.length-1,i+4);j++) wanted.add(pages[j]);
+          }
+          let fallback=false;
+          if(!wanted.size){
+            fallback=true;
+            for(let i=36;i<=119;i++) wanted.add(pages[i]);
+          }
+
+          const physical=[];
+          for(const p of [...wanted].sort((a,b)=>idx.get(a)-idx.get(b))){
+            const fn=`${book}IH_${vol}_${p}.jpg`;
+            const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+            const url=`https://kyudb.snu.ac.kr/ImageDown.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
+            const imgPage=await browser.newPage();
+            await imgPage.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+            let buf=null,status=null,ctype=null,error=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                const resp=await imgPage.goto(url,{waitUntil:'networkidle0',timeout:60000});
+                status=resp?.status()??null; ctype=resp?.headers()?.['content-type']??null;
+                if(resp && resp.ok()){
+                  buf=await resp.buffer();
+                  if(buf.length>5000) break;
+                }
+              }catch(e){error=String(e)}
+              await new Promise(r=>setTimeout(r,500*attempt));
+            }
+            await imgPage.close();
+            if(buf && buf.length>5000){
+              const out=`${root}/physical/${p}.jpg`;
+              fs.writeFileSync(out,buf);
+              physical.push({page:p,download_ok:true,bytes:buf.length,sha256:crypto.createHash('sha256').update(buf).digest('hex'),content_type:ctype,url});
+            }else{
+              physical.push({page:p,download_ok:false,status,content_type:ctype,error,url});
+            }
+          }
+
+          const report={
+            schema:'KYUDB-TAIYIN-TONGGUI-MORNING-EVENING-PHYSICAL-LOCATOR-R2',
+            schema_version:'2.0.0',
+            provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
+            book_cd:book,
+            call_number:'奎貴12436',
+            title:'太陰通軌',
+            volume:vol,
+            viewer_page_range:'000a-077b',
+            page_count_probed:pages.length,
+            primary_locator_terms:primaryTerms,
+            secondary_locator_terms:secondaryTerms,
+            primary_locator_pages:primaryPages,
+            seed_pages:seedPages,
+            text_rows:textRows,
+            physical_pages_requested:[...wanted].sort((a,b)=>idx.get(a)-idx.get(b)),
+            physical_pages:physical,
+            fallback_window_used:fallback,
+            text_layer_authority:'LOCATOR_ONLY_NOT_GLYPH_OR_NUMERIC_AUTHORITY',
+            physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_AND_NUMERIC_CLAIMS',
+            ocr_used_for_final_glyph_claims:false,
+            numeric_claim_authorized_by_machine_step:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({primary_locator_pages:primaryPages,seed_pages:seedPages,physical_ok:physical.filter(x=>x.download_ok).length,physical_requested:physical.length,fallback},null,2));
+          await browser.close();
+          if(!physical.some(x=>x.download_ok)) process.exitCode=2;
+          JS
+          BROWSER="$BROWSER" node "$ROOT/acquire.mjs"
+
           python - <<'PY'
           from pathlib import Path
-          from PIL import Image, ImageOps, ImageDraw
-          import hashlib, html as htmlmod, io, json, re, requests, time
-
+          from PIL import Image,ImageDraw
+          import json
           root=Path('audit/kyudb-taiyin-tonggui-physical')
-          base='https://kyudb.snu.ac.kr'
-          s=requests.Session()
-          s.headers.update({
-              'User-Agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0',
-              'Referer':base+'/pf01/rendererImg.do',
-              'Accept-Language':'ko,en;q=0.8',
-          })
-
-          book='GK12436_00'
-          vol='0001'
-          terms=['晨昏分','晨昏','冬夏二至','冬夏','冬至','夏至','立成','晨分','昏分','日出分','日入分','半晝','半昼']
-          pages=[f'{n:03d}{ab}' for n in range(78) for ab in 'ab']
-
-          def compact_markup(x):
-              x=htmlmod.unescape(x or '')
-              x=re.sub(r'<br\s*/?>','\n',x,flags=re.I)
-              x=re.sub(r'<[^>]+>',' ',x)
-              return re.sub(r'\s+',' ',x).strip()
-
-          loc=[]
-          all_text=[]
-          for i,p in enumerate(pages):
-              r=s.post(base+'/pf01/pageText.do',data={'item_cd':'SIC','book_cd':book,'vol_no':vol,'page_no':p},timeout=30)
-              row={'page':p,'status':r.status_code,'bytes':len(r.content)}
-              txt=''
-              if r.ok:
-                  try:
-                      j=r.json()
-                      raw=((j.get('ORG') or {}).get('list') or '')
-                      txt=compact_markup(raw)
-                      row['text']=txt
-                      hits=[t for t in terms if t in txt]
-                      if hits:
-                          row['hits']=hits
-                          loc.append(row.copy())
-                  except Exception as e:
-                      row['parse_error']=type(e).__name__+': '+str(e)
-              all_text.append(row)
-              (root/'text'/f'{p}.txt').write_text(txt,encoding='utf-8')
-              if i % 25 == 0: time.sleep(0.2)
-
-          # Expand every locator hit by two folios on either side.
-          index={p:i for i,p in enumerate(pages)}
-          wanted=set()
-          for row in loc:
-              i=index[row['page']]
-              for j in range(max(0,i-4),min(len(pages),i+5)):
-                  wanted.add(pages[j])
-
-          # If text layer has no direct hit, keep a broad fallback window around the
-          # middle third for later visual review, but do not authorize a negative.
-          fallback=False
-          if not wanted:
-              fallback=True
-              for j in range(40,112):
-                  wanted.add(pages[j])
-
-          physical=[]
-          for p in sorted(wanted,key=lambda x:index[x]):
-              fn=f'{book}IH_{vol}_{p}.jpg'
-              path=f'/data01/stream/SIC/IMG/{book}/{book}_{vol}/{fn}'
-              urls=[
-                  base+'/ImageDown.do?imgFileNm='+fn+'&path='+path,
-                  base+'/ImageServlet.do?imgFileNm='+fn+'&path='+path,
-              ]
-              b=None; used=None; status=None; ctype=None
-              for u in urls:
-                  rr=s.get(u,timeout=60)
-                  status=rr.status_code; ctype=rr.headers.get('content-type')
-                  if rr.ok and len(rr.content)>5000:
-                      try:
-                          with Image.open(io.BytesIO(rr.content)) as im:
-                              im.verify()
-                          b=rr.content; used=u; break
-                      except Exception:
-                          pass
-              if b is None:
-                  physical.append({'page':p,'download_ok':False,'status':status,'content_type':ctype})
-                  continue
-              out=root/'physical'/f'{p}.jpg'
-              out.write_bytes(b)
-              with Image.open(out) as im:
-                  physical.append({
-                      'page':p,'download_ok':True,'bytes':len(b),
-                      'sha256':hashlib.sha256(b).hexdigest(),
-                      'width':im.width,'height':im.height,'mode':im.mode,
-                      'url':used,
-                  })
-
-          # Contact sheets, visual locator only.
-          imgs=[x for x in physical if x.get('download_ok')]
+          r=json.loads((root/'report.json').read_text())
+          imgs=[x for x in r['physical_pages'] if x.get('download_ok')]
           sheets=[]
-          if imgs:
-              for batch_start in range(0,len(imgs),24):
-                  batch=imgs[batch_start:batch_start+24]
-                  thumbs=[]
-                  for row in batch:
-                      im=Image.open(root/'physical'/f"{row['page']}.jpg").convert('RGB')
-                      im.thumbnail((360,520))
-                      canvas=Image.new('RGB',(380,560),'white')
-                      canvas.paste(im,((380-im.width)//2,25))
-                      d=ImageDraw.Draw(canvas)
-                      d.text((10,535),row['page'],fill='black')
-                      thumbs.append(canvas)
-                  cols=4; rows=(len(thumbs)+cols-1)//cols
-                  sheet=Image.new('RGB',(cols*380,rows*560),'white')
-                  for k,im in enumerate(thumbs):
-                      sheet.paste(im,((k%cols)*380,(k//cols)*560))
-                  sp=root/f'contact-{batch_start//24+1:02d}.jpg'
-                  sheet.save(sp,quality=88)
-                  sheets.append(sp.name)
-
-          report={
-              'schema':'KYUDB-TAIYIN-TONGGUI-MORNING-EVENING-PHYSICAL-LOCATOR-R1',
-              'schema_version':'1.0.0',
-              'provider':'Kyujanggak Institute for Korean Studies, Seoul National University',
-              'book_cd':book,
-              'call_number':'奎貴12436',
-              'title':'太陰通軌',
-              'volume':vol,
-              'viewer_page_range':'000a-077b',
-              'page_count_probed':len(pages),
-              'locator_terms':terms,
-              'text_locator_hits':loc,
-              'physical_pages_requested':sorted(wanted,key=lambda x:index[x]),
-              'physical_pages':physical,
-              'contact_sheets':sheets,
-              'fallback_window_used':fallback,
-              'text_layer_authority':'LOCATOR_ONLY_NOT_GLYPH_OR_NUMERIC_AUTHORITY',
-              'physical_image_authority':'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_AND_NUMERIC_CLAIMS',
-              'ocr_used_for_final_glyph_claims':False,
-              'numeric_claim_authorized_by_this_machine_step':False,
-          }
-          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(json.dumps({
-              'locator_hits':loc,
-              'physical_count':sum(1 for x in physical if x.get('download_ok')),
-              'requested_count':len(wanted),
-              'fallback_window_used':fallback,
-              'contact_sheets':sheets,
-          },ensure_ascii=False,indent=2))
+          for start in range(0,len(imgs),20):
+              batch=imgs[start:start+20]
+              thumbs=[]
+              for row in batch:
+                  im=Image.open(root/'physical'/f"{row['page']}.jpg").convert('RGB')
+                  row['width'],row['height']=im.size
+                  im.thumbnail((360,520))
+                  c=Image.new('RGB',(380,560),'white'); c.paste(im,((380-im.width)//2,20))
+                  ImageDraw.Draw(c).text((10,535),row['page'],fill='black')
+                  thumbs.append(c)
+              cols=4; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*380,rows*560),'white')
+              for i,im in enumerate(thumbs): sh.paste(im,((i%cols)*380,(i//cols)*560))
+              p=root/f'contact-{start//20+1:02d}.jpg'; sh.save(p,quality=88); sheets.append(p.name)
+          r['contact_sheets']=sheets
+          (root/'report.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'contact_sheets':sheets,'dimensions':[(x['page'],x.get('width'),x.get('height')) for x in imgs[:5]]},ensure_ascii=False,indent=2))
           PY
 
       - name: Upload Taiyin Tonggui physical locator
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kyudb-taiyin-tonggui-morning-evening-physical
+          name: kyudb-taiyin-tonggui-morning-evening-physical-r2
           path: audit/kyudb-taiyin-tonggui-physical
           if-no-files-found: error
           retention-days: 30
