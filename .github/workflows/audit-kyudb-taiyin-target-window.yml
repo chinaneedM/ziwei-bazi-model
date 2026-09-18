@@ -24,7 +24,7 @@ jobs:
           npm install --no-save --silent puppeteer-core@24.16.0
           python -m pip install --quiet pillow
 
-      - name: Acquire official Kyudb target window 050a-059b
+      - name: Acquire official Kyudb target window 044a-059b
         shell: bash
         run: |
           set -euo pipefail
@@ -41,7 +41,7 @@ jobs:
           const root='audit/kyudb-taiyin-target-window';
           const book='GK12436_00', vol='0001';
           const pages=[];
-          for(let n=50;n<=59;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
+          for(let n=44;n<=59;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
 
           const browser=await puppeteer.launch({
             headless:true,
@@ -110,7 +110,7 @@ jobs:
           }
 
           const report={
-            schema:'KYUDB-TAIYIN-TONGGUI-TARGET-WINDOW-PHYSICAL-R1',
+            schema:'KYUDB-TAIYIN-TONGGUI-TARGET-WINDOW-PHYSICAL-R2',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎貴12436',
@@ -165,7 +165,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kyudb-taiyin-target-window
+          name: kyudb-taiyin-target-window-r2
           path: audit/kyudb-taiyin-target-window
           if-no-files-found: error
           retention-days: 30
