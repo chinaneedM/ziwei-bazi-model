@@ -93,6 +93,7 @@ def main() -> int:
         "PASSAGE-SANMING-1578-HUNDRED-KE-HALF-ZI",
         "RULE-FAMILY-HUNDRED-KE-HALF-ZI-TEXTUAL-LINEAGE",
         "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
+        "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -162,6 +163,12 @@ def main() -> int:
     gexiang1520 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520")
     if gexiang1520.get("edition_impression_date") != "1520_ZHENGDE15":
         fail("Gexiang 1520 edition date regressed")
+    e47 = next((e for e in edges if e.get("edge_id") == "TG-E0047"), None)
+    if not e47 or e47.get("relation") != "EXPLICITLY_CITES" or e47.get("status") != "CONFIRMED":
+        fail("Yueling generic Tongshu citation edge regressed")
+    cited_tongshu = next(n for n in nodes if n.get("node_id") == "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT")
+    if cited_tongshu.get("source_label") != "通書" or cited_tongshu.get("exact_bibliographic_identity") != "UNRESOLVED" or cited_tongshu.get("pre1578_status") != "UNRESOLVED":
+        fail("Yueling cited Tongshu identity firewall regressed")
 
     shendao = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4")
     if "UNRESOLVED_WITHIN_RANGE" not in shendao.get("physical_copy_date", ""):
