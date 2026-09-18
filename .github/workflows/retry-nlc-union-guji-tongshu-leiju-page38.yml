@@ -1,0 +1,119 @@
+name: retry-nlc-union-guji-tongshu-leiju-page38
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/retry-nlc-union-guji-tongshu-leiju-page38.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recover union-bibliography fuzzy page 38
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-union-guji-tongshu-leiju-page38'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+          SEARCH_JSON='[{"fldName":"title","content":"通書類聚","match":"like"}]'
+          : > "$ROOT/attempts.tsv"
+
+          valid=0
+          for attempt in 1 2 3 4 5 6 7 8; do
+            tmp="$ROOT/page-038.attempt-$attempt.json"
+            set +e
+            timeout 55s curl -L -sS --connect-timeout 10 --max-time 45 -A "$UA" \
+              -X POST \
+              --data-urlencode 'index=0019,' \
+              --data-urlencode "searchJson=$SEARCH_JSON" \
+              --data-urlencode 'pageNo=38' \
+              "$ENDPOINT" -o "$tmp"
+            rc=$?
+            set -e
+            size=0; [ -f "$tmp" ] && size=$(wc -c < "$tmp")
+            check=0; rows=0; total=0
+            if [ "$rc" -eq 0 ] && [ -s "$tmp" ]; then
+              read -r check rows total < <(python - "$tmp" <<'PY'
+          import json,sys
+          try:
+              d=json.load(open(sys.argv[1],encoding='utf-8'))
+              rows=len(d.get('rows') or [])
+              total=int(d.get('total') or 0)
+              print(1 if rows==12 and total==576 else 0,rows,total)
+          except Exception:
+              print(0,0,0)
+          PY
+              )
+            fi
+            printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$attempt" "$rc" "$size" "$check" "$rows" "$total" >> "$ROOT/attempts.tsv"
+            if [ "$check" = "1" ]; then
+              mv "$tmp" "$ROOT/page-038.json"
+              valid=1
+              break
+            fi
+            rm -f "$tmp"
+            sleep $((attempt*3))
+          done
+
+          printf 'PAGE=38\nVALID=%s\n' "$valid" > "$ROOT/result.txt"
+
+          if [ "$valid" = "1" ]; then
+            python - <<'PY'
+          import json,html,re
+          from pathlib import Path
+          root=Path('audit/nlc-union-guji-tongshu-leiju-page38')
+          d=json.loads((root/'page-038.json').read_text('utf-8'))
+          out=[]
+          def clean(v):
+              if not isinstance(v,str): return ''
+              v=html.unescape(v).replace('###@@@',' ').replace('!@#',' ').replace('#@!',' ')
+              return ' '.join(re.sub(r'<[^>]+>','',v).split())
+          for r in d.get('rows') or []:
+              row={k:clean(r.get(k,'')) for k in ('title','author','publish_unit','publish_time','description')}
+              row.update({k:r.get(k) for k in ('identifier','id','index_name','l_id','cover','filepath')})
+              corpus=' | '.join(str(row.get(k,'')) for k in ('title','author','publish_unit','publish_time','description'))
+              reasons=[]
+              if any(x in row['title'] for x in ['通書類聚','通书类聚']): reasons.append('CONTIGUOUS_TITLE_PHRASE')
+              if ('通書' in row['title'] and '類聚' in row['title']) or ('通书' in row['title'] and '类聚' in row['title']): reasons.append('TITLE_HAS_BOTH_TOKENS')
+              if any(x in corpus for x in ['尅擇','尅择','抉擇','抉择','克擇','克择']): reasons.append('KEZE_JUEZE_TERM')
+              if '姚奎' in corpus: reasons.append('YAO_KUI')
+              if '王以寧' in corpus or '王以宁' in corpus: reasons.append('WANG_YINING')
+              if '芝城' in corpus: reasons.append('ZHICHENG')
+              if re.search(r'(^|[^0-9])1551([^0-9]|$)',corpus) or '嘉靖三十' in corpus or '嘉靖 30' in corpus or '嘉靖30' in corpus:
+                  reasons.append('EXACT_1551_OR_JIAJING30')
+              if reasons: out.append({'reasons':reasons,**row})
+          (root/'candidates.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+            sha256sum "$ROOT/page-038.json" > "$ROOT/page-038.sha256"
+          else
+            echo 'PAGE_38_STILL_UNRESOLVED=true' >> "$ROOT/result.txt"
+          fi
+
+          printf '%s\n' \
+            'SOURCE=中國國家圖書館 中華古籍聯合書目 resource index 0019' \
+            'QUERY=title LIKE 通書類聚' \
+            'TARGET_PAGE=38/48' \
+            'PURPOSE=close the final missing page from the 576-record fuzzy result set' \
+            'NEGATIVE_POLICY=if page38 is not validated, complete-result-set negative remains unauthorized' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload page-38 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-union-guji-tongshu-leiju-page38
+          path: audit/nlc-union-guji-tongshu-leiju-page38/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
