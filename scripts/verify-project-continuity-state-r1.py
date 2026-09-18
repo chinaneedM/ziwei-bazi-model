@@ -14,6 +14,8 @@ TRANSMISSION_GRAPH = ROOT / "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
 TIANWEN_VERIFIER = ROOT / "scripts/verify-tianwen-transmission-genealogy-r1.py"
 MATRIX = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
 SOURCE_REGISTRY = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json"
+ZIWEI_GEXIANG_1520_DC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
+ZIWEI_GEXIANG_1520_DC_EVIDENCE = ROOT / "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -247,9 +249,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
     "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
     "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
+    "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
 
 
 def fail(message: str) -> None:
@@ -257,6 +260,25 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_GEXIANG_1520_DC_BATCH, ZIWEI_GEXIANG_1520_DC_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DC continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dc = json.loads(ZIWEI_GEXIANG_1520_DC_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dc.get("batch_id") != "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC":
+        fail("Batch 12DC evidence identity mismatch")
+    source12dc = batch12dc.get("physical_source", {})
+    if source12dc.get("call_number") != "6265" or source12dc.get("edition_impression_date") != 1520 or source12dc.get("pre1578_physical_witness") is not True:
+        fail("Batch 12DC source identity/date binding regressed")
+    direct12dc = batch12dc.get("direct_physical_collation", {})
+    if direct12dc.get("page37", {}).get("sha256") != "908d0c1162f46090c1e57d1a4d2279b934a957db1e5fec0bb3900276c5b2bc3c":
+        fail("Batch 12DC decisive p37 binding regressed")
+    if "若子時則上半時在夜半前屬昨日" not in direct12dc.get("page37", {}).get("secure_readings", []):
+        fail("Batch 12DC decisive half-Zi reading regressed")
+    if batch12dc.get("chronology_and_stemma", {}).get("direct_gexiang_1520_to_sanming_copying_proved") is not False:
+        fail("Batch 12DC direct-copy firewall regressed")
+    if batch12dc.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DC unexpectedly reopened algorithm")
+
     # Tianwen / transmission-genealogy continuity gate.
     for path in (TIANWEN_CHARTER, TRANSMISSION_PROTOCOL, TRANSMISSION_GRAPH, TIANWEN_VERIFIER):
         if not path.is_file():
