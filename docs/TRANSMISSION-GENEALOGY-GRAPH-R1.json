@@ -775,9 +775,14 @@
       "evidence": [
         "docs/research/ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-R1.json",
         "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md",
+        "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
+      "chronology_prior_12de": "DIRECT_MING_PRINT_ATTESTATION_EXACT_IMPRESSION_YEAR_UNRESOLVED",
+      "chronology_after_12dh": "DIRECT_PRE1578_ATTESTATION_BY_NLC_JIAJING30_1551_CATALOG_BOUND_COPY",
+      "pre1578_physical_attestation_closed": true
     },
     {
       "node_id": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
@@ -821,6 +826,24 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "node_type": "PHYSICAL_COPY",
+      "label": "NLC892-411999026677-72517《類編曆法通書大全》第1冊 嘉靖三十年（1551）刻本遞修本",
+      "system_scope": "MING_PRE1578_TONGSHU_FINE_DAYNIGHT_TABLE_PHYSICAL_WITNESS",
+      "work_composition_date": "LAYERED_TONGSHU_TRADITION",
+      "edition_impression_date": "MING_JIAJING_30_1551_CATALOG_BOUND",
+      "physical_copy_date": "CATALOG_BOUND_AS_1551_REVISED_PRINT; INTERNAL_1551_COLOPHON_NOT_RE_READ",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATE",
+      "identifier": "NLC892-411999026677-72517 / set 411999026677 / 善本書號15897",
+      "source_pdf_sha256": "22811dd2b2291ed4a94a63b51665c24785a4c1795637a4a89b05f979208d76f2",
+      "target_result": "P20 attests fine 38/62 branch; 大寒40/60->41/59; 雨水45/55; exact Sanming/Yueling target identity false.",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
     }
   ],
   "edges": [
@@ -1558,6 +1581,22 @@
       ],
       "scope_note": "Coexistence confirms Tongshu transmission is multi-table; no derivation direction between the fine and coarse branches is implied.",
       "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+    },
+    {
+      "edge_id": "TG-E0050",
+      "from": "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "relation": "ATTESTS",
+      "to": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_1551_BIBLIOGRAPHIC_OBJECT_PLUS_360DPI_PHYSICAL_TARGET_COLLATION_NO_OCR",
+      "evidence": [
+        "NLC/Commons metadata: 劉釪明嘉靖30年[1551], 刻本 遞修本, 善本書號15897",
+        "p20 sha256 ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9",
+        "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json"
+      ],
+      "scope_note": "Closes pre-1578 chronology for the fine 38/62 branch; does not prove same-copy identity with the undated NLC Ming object or direct descent into Sanming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
     }
   ],
   "lineage_hypotheses": [
@@ -1628,6 +1667,10 @@
         {
           "batch": "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
           "update": "Xuxiu 1061-1062 directly recovers the missing front-volume-5 and back-collection boundary for Yinyang Baojian at reproduction scope, but structural review still exposes no candidate Sanming/Yueling fingerprint leaf. Copy/date identity against the current NLC early-Ming object remains unresolved, so the result narrows a search route without identifying the generic 通書 source or changing the composite ancestry model."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
+          "update": "A catalog-bound Jiajing-30/1551 NLC physical edition directly preserves the fine 38/62 Tongshu branch before Sanming 1578, while its Dahan/Yushui anchors directly mismatch the exact Sanming/Yueling target. This closes chronology for a competing pre-1578 branch without identifying the target parent."
         }
       ]
     }
@@ -1904,6 +1947,28 @@
       "evidence": [
         "docs/research/ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "1551 p20 has 大寒40/60->41/59 and 雨水45/55, while Sanming 1578 has 大寒43/57->十三後日->44/56 and 雨水47/53->後四日->48/52.",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "relation": "SAME_PHYSICAL_COPY_AS",
+      "to": "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
+      "status": "UNRESOLVED",
+      "reason": "Same title and matching table family do not prove same physical copy or direct-copy relation.",
+      "evidence": [
+        "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
       ]
     }
   ],

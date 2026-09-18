@@ -1,0 +1,173 @@
+{
+  "schema": "ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
+  "prior_batch_id": "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
+  "question": "Can a catalog-bound pre-1578 physical edition of 《類編曆法通書大全》 close the chronology of the fine 38/62 四時加減晝夜節氣 branch, and does that branch match the exact Sanming 1578 / Yueling 1589 target fingerprint?",
+  "answer": "YES_FOR_PRE1578_EXISTENCE_OF_THE_FINE_38_62_BRANCH; NO_FOR_EXACT_SANMING_YUELING_IDENTITY. NLC SET 411999026677 IS CATALOG_BOUND_AS 劉釪明嘉靖30年[1551] 刻本遞修本, WHILE DIRECT P20 COLLATION PRESERVES 大寒40/60->41/59 AND 雨水45/55, NOT THE TARGET 大寒43/57 AND 雨水47/53.",
+  "bibliographic_control": {
+    "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
+    "title": "《類編曆法通書大全》",
+    "nlc_set_id": "411999026677",
+    "public_file": "NLC892-411999026677-72517 類編曆法通書大全 第1冊",
+    "provider": "National Library of China digitization via Wikimedia Commons",
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:NLC892-411999026677-72517_%E9%A1%9E%E7%B7%A8%E6%9B%86%E6%B3%95%E9%80%9A%E6%9B%B8%E5%A4%A7%E5%85%A8_%E7%AC%AC1%E5%86%8A.pdf",
+    "author_metadata": [
+      "〔元〕宋魯珍通書",
+      "〔明〕蔡彬撰"
+    ],
+    "edition": "刻本 遞修本",
+    "surviving_scope": "存28卷：1～28",
+    "publication_date": "劉釪明嘉靖30年[1551]",
+    "good_book_number": 15897,
+    "four_part_classification": "子 術數 陰陽五行",
+    "pre1578_catalog_bound": true,
+    "internal_date_leaf_re_read_in_this_batch": false,
+    "date_scope_note": "1551 is used as a bibliographic-object binding; no unread internal colophon is promoted as direct glyph evidence."
+  },
+  "physical_source": {
+    "source_pdf_sha256": "22811dd2b2291ed4a94a63b51665c24785a4c1795637a4a89b05f979208d76f2",
+    "page_count": 70,
+    "file_size_bytes": 41741958,
+    "source_binding": "nlc:data_892,411999026677,72517"
+  },
+  "acquisition": {
+    "locator": {
+      "workflow_run_id": 35358583198,
+      "artifact_id": 10554020325,
+      "artifact_digest": "sha256:b557c123d8f67ee4a66b8ccf9e27c4d6fb60795459e993dfd9d927a8cfb110a1",
+      "render_dpi": 120,
+      "all_70_pages_structurally_reviewed": true
+    },
+    "high_resolution": {
+      "workflow_run_id": 35359354362,
+      "artifact_id": 10554051966,
+      "artifact_digest": "sha256:3c13f48b0df8b82989e765bfa8bd32f0bcf3e489838985ac75d6d7fb6cc47fb4",
+      "render_dpi": 360,
+      "page_sha256": {
+        "14": "6d5d5deba7a102eb67728e9d1ca69290a564a743ae746b171afec638d00d5fc5",
+        "17": "514c9fdd1c422b9d5672f135d67e14df07d920cecd69e4d21195973b684bd9b9",
+        "20": "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9",
+        "21": "8a3db3266ab5f9df78bc23792d5394b817930165430aca532e0faa0917b7961f"
+      }
+    },
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_physical_collation": {
+    "page14": {
+      "sha256": "6d5d5deba7a102eb67728e9d1ca69290a564a743ae746b171afec638d00d5fc5",
+      "secure_readings": [
+        "類編曆法通書大全總目",
+        "類編曆法通書大全卷之一"
+      ],
+      "role": "Internal work/volume identity control only."
+    },
+    "page20": {
+      "sha256": "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9",
+      "heading": "四時加減晝夜節氣",
+      "secure_target_rows": [
+        {
+          "date_range": "冬至節日連小寒後四日同",
+          "day_ke": 38,
+          "night_ke": 62
+        },
+        {
+          "date_range": "大寒節日至後六日",
+          "day_ke": 40,
+          "night_ke": 60
+        },
+        {
+          "date_range": "大寒後七日至後十三日",
+          "day_ke": 41,
+          "night_ke": 59
+        },
+        {
+          "date_range": "立春前一日至後三日",
+          "day_ke": 42,
+          "night_ke": 58
+        },
+        {
+          "date_range": "立春後四日至後九日",
+          "day_ke": 43,
+          "night_ke": 57
+        },
+        {
+          "date_range": "立春後十日至後十四日",
+          "day_ke": 44,
+          "night_ke": 56
+        },
+        {
+          "date_range": "雨水節日至後五日",
+          "day_ke": 45,
+          "night_ke": 55
+        }
+      ],
+      "table_family": "FINE_ONE_KE_38_62_BRANCH",
+      "glyph_authority": "DIRECT_360DPI_PHYSICAL_RENDER_NO_OCR"
+    }
+  },
+  "exact_target_comparison": {
+    "leibian_1551": {
+      "dahan": "大寒節日至後六日 = 40/60; 大寒後七日至後十三日 = 41/59",
+      "yushui": "雨水節日至後五日 = 45/55"
+    },
+    "sanming_1578": {
+      "dahan": "43/57, then 十三後日 -> 44/56",
+      "yushui": "47/53, then 後四日 -> 48/52"
+    },
+    "yueling_1589": {
+      "dahan": "43/57, then 十三後 -> 44/56",
+      "yushui": "47/53, then 後四日 -> 48/52",
+      "source_label": "通書"
+    },
+    "result": "DIRECT_PRE1578_NUMERIC_MISMATCH_AT_TERM_ANCHORS"
+  },
+  "chronology_and_copy_firewall": {
+    "fine_38_62_branch_securely_attested_pre1578": true,
+    "chronology_closed_at": "NLC_COMMONS_BIBLIOGRAPHIC_OBJECT_BOUND_1551",
+    "prior_undated_ming_copy": "NLC892-411999018604-67969",
+    "same_physical_copy_as_prior_undated_ming_copy_proved": false,
+    "direct_copy_relation_between_the_two_leibian_copies_proved": false,
+    "exact_target_parentage_closed": false,
+    "broader_structural_or_recensional_ancestry_possible": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "TABLE-LEIBIAN-FINE-SISHI-38-62"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1 ATTESTS TABLE-LEIBIAN-FINE-SISHI-38-62"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+      "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1 SAME_PHYSICAL_COPY_AS PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1 = UNRESOLVED"
+    ],
+    "unresolved_lineage_questions": [
+      "Which exact pre-1578 Tongshu/almanac title or recension carries both 大寒十三後 and 雨水後四日?",
+      "Which pre-1578 Nanjing/Datong physical carrier directly prints or generates the 59/41 layer?",
+      "What threshold/selection/quantization rule converts continuous Datong daily values into the Sanming/Yueling whole-ke display?"
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
