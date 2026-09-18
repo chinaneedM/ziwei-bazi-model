@@ -16,87 +16,80 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
-      - name: Resolve Shidian target chapter to scan locator
+      - name: Bind Shidian physical pages 111-115 around target table
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/shidian-taiyin-tonggui-locator'
-          mkdir -p "$ROOT"
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical"
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
           npm install --no-save --silent puppeteer-core@24.16.0
           cat > "$ROOT/probe.mjs" <<'JS'
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
+          import crypto from 'node:crypto';
 
           const root='audit/shidian-taiyin-tonggui-locator';
           const source='https://www.shidianguji.com/book/NGJ892411999012050103144/chapter/1lo7897ewdau2';
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-          const reqs=[], resps=[];
-          page.on('request',r=>{const u=r.url(); if(/ancientlib|pages|chapter|read|book/i.test(u)) reqs.push({method:r.method(),url:u,postData:r.postData()||null});});
-          page.on('response',async r=>{const u=r.url(); if(/api\/ancientlib/i.test(u)){let body=null; try{body=(await r.text()).slice(0,200000)}catch{} resps.push({status:r.status(),url:u,body});}});
-          await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
-          await page.waitForFunction(()=>document.body && document.body.innerText.length>100,{timeout:30000}).catch(()=>{});
-          const snapshot=await page.evaluate(()=>({
-            url:location.href,
-            title:document.title,
-            body:document.body.innerText.slice(0,80000),
-            links:[...document.querySelectorAll('a')].map(a=>({text:(a.innerText||'').trim(),href:a.href,onclick:a.getAttribute('onclick'),data:{...a.dataset}})).filter(x=>/原图|影像|圖片|图片|查看|閱讀|阅读|scan|image/i.test((x.text||'')+' '+(x.href||'')+' '+(x.onclick||''))).slice(0,200),
-            buttons:[...document.querySelectorAll('button')].map(a=>({text:(a.innerText||'').trim(),onclick:a.getAttribute('onclick'),data:{...a.dataset}})).filter(x=>/原图|影像|圖片|图片|查看|閱讀|阅读|scan|image/i.test((x.text||'')+' '+(x.onclick||''))).slice(0,200),
-            pageish:[...document.querySelectorAll('[data-page-num],[data-pagenum],[data-page],[class*=page]')].slice(0,500).map(e=>({tag:e.tagName,cls:e.className,text:(e.innerText||'').trim().slice(0,300),data:{...e.dataset}})),
-            globals:{
-              next:document.querySelector('#__NEXT_DATA__')?.textContent?.slice(0,500000)||null,
-              nuxt:document.querySelector('#__NUXT_DATA__')?.textContent?.slice(0,500000)||null
-            }
-          }));
-          fs.writeFileSync(root+'/snapshot.json',JSON.stringify(snapshot,null,2));
-          await page.screenshot({path:root+'/chapter.png',fullPage:true}).catch(()=>{});
-
-          // SDK status + broad page metadata. This is locator-only, no image/glyph adjudication.
-          let sdk=null;
-          try{
-            await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:30000});
-            sdk=await page.evaluate(async()=>{
+          const attempts=[];
+          let result=null;
+          for(let attempt=1; attempt<=4; attempt++){
+            await page.goto(source,{waitUntil:'networkidle2',timeout:90000});
+            await page.waitForFunction(()=>window.byted_psdk && typeof window.byted_psdk.getPtokenStatus==='function',{timeout:60000});
+            const one=await page.evaluate(async()=>{
               const ptoken=await window.byted_psdk.getPtokenStatus();
-              const tries=[];
-              for(const pageIndex of [1,2,3,4,5,6]){
-                const payload={bookId:'NGJ892411999012050103144',pageSize:40,startPageNum:1,endPageNum:240,version:1,pageIndex,needCheckVersion:true,isWebpSupported:false,ptoken};
-                try{
-                  const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
-                  const j=await r.json(); const pages=(j?.data?.pages||j?.pages||[]);
-                  tries.push({pageIndex,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',page_count:pages.length,pages:pages.map(x=>({pageId:x.pageId,pageNum:x.pageNum,uri:x.uri,urlEncryptType:x.urlEncryptType}))});
-                }catch(e){tries.push({pageIndex,error:String(e)})}
-              }
-              return {ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,tries};
+              const payload={bookId:'NGJ892411999012050103144',pageSize:40,startPageNum:4,endPageNum:163,version:1,pageIndex:3,needCheckVersion:true,isWebpSupported:false,ptoken};
+              const r=await fetch('/api/ancientlib/read/book/pages/v3/',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+              const j=await r.json();
+              const pages=(j?.data?.pages || j?.pages || []);
+              return {ptoken,ptoken_present:!!ptoken,ptoken_length:String(ptoken||'').length,payload,errorCode:j?.errorCode,errorMsg:j?.errorMsg||'',page_count:pages.length,pages};
             });
-          }catch(e){sdk={error:String(e)}}
-          fs.writeFileSync(root+'/sdk-pages.json',JSON.stringify(sdk,null,2));
-
+            attempts.push({attempt,errorCode:one.errorCode,errorMsg:one.errorMsg,ptoken_present:one.ptoken_present,ptoken_length:one.ptoken_length,page_count:one.page_count});
+            if(one.errorCode===0 && one.pages.some(x=>Number(x.pageNum)===113)){ result=one; break; }
+            await new Promise(r=>setTimeout(r,2500*attempt));
+          }
+          const physical=[];
+          if(result){
+            const wanted=result.pages.filter(x=>Number(x.pageNum)>=111 && Number(x.pageNum)<=115);
+            for(const row of wanted){
+              const decrypted=await page.evaluate(async({picUrl,ptoken,urlEncryptType})=>{
+                const d=await window.byted_psdk.decrypt(picUrl||'',ptoken,urlEncryptType);
+                return d?.decrypt ? d.data : picUrl;
+              },{picUrl:row.picUrl,ptoken:result.ptoken,urlEncryptType:row.urlEncryptType});
+              const r=await fetch(decrypted,{headers:{referer:'https://www.shidianguji.com/','user-agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0'}});
+              const b=Buffer.from(await r.arrayBuffer());
+              const file=`${root}/physical/page-${row.pageNum}.png`;
+              fs.writeFileSync(file,b);
+              physical.push({page_id:String(row.pageId),page_num:Number(row.pageNum),uri:row.uri,status:r.status,bytes:b.length,sha256:crypto.createHash('sha256').update(b).digest('hex'),content_type:r.headers.get('content-type')});
+            }
+          }
           const report={
-            schema:'SHIDIAN-TAIYIN-TONGGUI-CHAPTER-LOCATOR-R1',
+            schema:'SHIDIAN-TAIYIN-TONGGUI-TARGET-PHYSICAL-LOCATOR-R2',
             source,
-            snapshot,
-            requests:reqs,
-            api_responses:resps,
-            sdk,
-            locator_terms:['晨昏','冬夏二至','立成'],
-            authority:'LOCATOR_ONLY',
+            target_table_locator:{heading_transcription_locator_only:'冬夏玄日出晨昏分立成鈐',heading_page_num:113,column_heading_locator_only:'言積日 / 冬至晨分 / 冬至昏分 / 夏至晨分 / 夏至昏分'},
+            attempts,
+            successful_api_error_code:result?.errorCode ?? null,
+            physical_pages:physical,
+            authority:'LOCATOR_AND_SURROGATE_ONLY_UNTIL_DEDUP_WITH_KYUDB',
             independent_witness_increment_authorized:false,
-            glyph_or_numeric_claim_authorized:false,
-            note:'Shidian may be a rehost/digital surrogate. Any target page must be deduplicated against Kyudb before evidence weighting.'
+            adjudication_rule:'Shidian page images are used to map scan pagination and identify the corresponding Kyudb physical page. Final edition-scoped glyph/number claims must be checked against the official Kyudb ImageServlet original.'
           };
           fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
-          console.log(JSON.stringify({title:snapshot.title,url:snapshot.url,links:snapshot.links,buttons:snapshot.buttons,body:snapshot.body.slice(0,3000),api_requests:reqs.length,sdk:sdk?.tries?.map(x=>({pageIndex:x.pageIndex,page_count:x.page_count,errorCode:x.errorCode}))||sdk},null,2));
+          console.log(JSON.stringify(report,null,2));
           await browser.close();
+          if(physical.length!==5) process.exitCode=2;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
-      - name: Upload locator artifact
+      - name: Upload target-page locator artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: shidian-taiyin-tonggui-locator
+          name: shidian-taiyin-tonggui-target-physical-r2
           path: audit/shidian-taiyin-tonggui-locator
           if-no-files-found: error
           retention-days: 30
