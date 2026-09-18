@@ -1,0 +1,141 @@
+{
+  "schema": "ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+  "prior_batch_id": "BATCH-12-ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-CU",
+  "question": "Can directly readable pre-1578 Kyujanggak Tonggui witnesses close the 晨昏 daily numerical substrate and distinguish it from the corrected GK12437 大統曆日通軌 scope?",
+  "source_identity": {
+    "taiyin": {
+      "source_id": "EXT-KYUDB-TAIYIN-TONGGUI-GK12436-CHENHUN-TABLE",
+      "title": "太陰通軌",
+      "identifier": "GK12436_00 / 奎貴12436",
+      "edition": "甲寅字",
+      "provider_date_scope": "15世紀(世宗年間:1418-1450); exact impression year unresolved",
+      "physical_copy_pre1578": true
+    },
+    "ritonggui": {
+      "source_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL",
+      "title": "大統曆日通軌",
+      "identifier": "GK12437_00 / 奎貴12437",
+      "edition": "甲寅字",
+      "provider_date_scope": "Sejong-era / pre1578; exact impression year unresolved",
+      "physical_copy_pre1578": true
+    }
+  },
+  "acquisition": {
+    "route_probe": {
+      "workflow_run_id": 35308888364,
+      "artifact_id": 10532910411
+    },
+    "taiyin_physical": {
+      "workflow_run_id": 35310541833,
+      "artifact_id": 10533317802
+    },
+    "taiyin_heading_window": {
+      "workflow_run_id": 35312708831,
+      "artifact_id": 10534645509
+    },
+    "ritonggui_complete_physical": {
+      "workflow_run_id": 35317924654,
+      "artifact_id": 10536220506,
+      "pages_reviewed": 78
+    },
+    "ocr_used_for_final_glyph_or_numeric_claims": false
+  },
+  "taiyin_direct_physical_collation": {
+    "page_039a": {
+      "sha256": "eeacba803100e6391e2cda54f9d3f499eb89a7cae1ab32773fd82c294bcb3dc5",
+      "direct_heading": "冬夏二至日晨昏分立成鈐",
+      "day0": {
+        "morning_fen": 2681.7,
+        "dusk_fen": 7318.3,
+        "sum": 10000
+      }
+    },
+    "page_047a": {
+      "sha256": "57dad7c13b24f6a1a265a3b6794205102f95808bd73424d89519b0fd9c00250c",
+      "day178": {
+        "morning_fen": 1819.66,
+        "dusk_fen": 8180.34,
+        "sum": 10000
+      }
+    },
+    "structure": "Daily accumulated-day table from winter solstice toward summer solstice."
+  },
+  "mechanical_replay": {
+    "formula_scope": "Registered Ming-history Tonggui control: sunrise = morning + 250 fen; half-daylight = 5000 - sunrise; equivalently sunset = dusk - 250 and half-daylight = sunset - 5000.",
+    "day0": {
+      "morning_fen": 2681.7,
+      "sunrise_fen": 2931.7,
+      "half_day_fen": 2068.3
+    },
+    "day178": {
+      "morning_fen": 1819.66,
+      "sunrise_fen": 2069.66,
+      "half_day_fen": 2930.34
+    },
+    "ncl_cii_n_comparison": {
+      "day0": {
+        "kyudb_half_day_fen": 2068.3,
+        "ncl_li_liang_half_day_fen": 2068.3,
+        "exact_match": true
+      },
+      "day178": {
+        "kyudb_half_day_fen": 2930.34,
+        "ncl_li_liang_half_day_fen": 2930.34,
+        "exact_match": true
+      }
+    },
+    "result": "HIGH_CONFIDENCE_SAME_NUMERICAL_TABLE_FAMILY"
+  },
+  "ritonggui_scope_control": {
+    "complete_pages_reviewed": 78,
+    "directly_observed_family": "太陽冬至/夏至前後二象盈縮限 and related solar/lunar computational tables; page 006a begins 大陽冬至前後二象盈初縮末限",
+    "independent_morning_evening_daynight_table_observed": false,
+    "conclusion": "GK12437 is a genuine pre-1578 computational witness, but it does not itself supply the target 晨昏 daily table on the reviewed complete physical surface. Batch 12CO's corrected field attribution remains controlling."
+  },
+  "adjudication": {
+    "pre1578_independent_physical_transmission_witness_for_cii_n": "CLOSED",
+    "nanjing_cii_n_same_numeric_family": "HIGH_CONFIDENCE",
+    "gk12437_target_daynight_table_attribution": "NOT_ATTESTED_ON_COMPLETE_PHYSICAL_OBJECT",
+    "direct_ncl_copy_identity": false,
+    "direct_chinese_exemplar_identified": false,
+    "direct_parent_of_sanming_1578": false,
+    "exact_sanming_quantization_change_day_rule_identified": false,
+    "sanming_numeric_substrate_component_strengthened": true,
+    "runtime_change": "NONE",
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG",
+      "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+      "TABLE-NANJING-DATONG-DAILY-CII-N-1380S"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA ATTESTS PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG",
+      "PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG TRANSMITS_RULE TABLE-NANJING-DATONG-DAILY-CII-N-1380S"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA DIRECT_COPY_PARENT_OF TABLE-SANMING-1578-DAYNIGHT-KE remains unproved",
+      "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA direct day/night-table attribution remains unproved after complete physical review"
+    ],
+    "unresolved_lineage_questions": [
+      "Which Chinese pre-1578 Tonggui/Datong witness preserves the same daily table with secure physical identity?",
+      "What exact historical integer quantization/change-day rule maps this daily curve to the 1578 Sanming stepped display?",
+      "Was Sanming's display inherited from an already-quantized Nanjing table or recomposed from the daily curve plus an older integer-bin tradition?"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

@@ -410,6 +410,61 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "node_type": "PHYSICAL_COPY",
+      "label": "奎章閣奎貴12436《太陰通軌》甲寅字15世紀本",
+      "system_scope": "JOSEON_TRANSMISSION_OF_MING_DATONG_CALENDRICAL_COMPUTATION",
+      "work_composition_date": "DATONG/TONGGUI SOURCE TRADITION EARLIER THAN THIS JOSEON PRINT; exact Chinese source-work date not assigned here",
+      "edition_impression_date": "PROVIDER_CATALOG: 15世紀(世宗年間:1418-1450), 甲寅字; exact year unresolved",
+      "physical_copy_date": "CATALOGUED_PRE1578_15TH_CENTURY_JOSEON_PRINT",
+      "digital_surrogate_date": "MODERN_KYUJANGGAK_DIGITAL_SURROGATE",
+      "identifier": "GK12436_00 / 奎貴12436",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV"
+    },
+    {
+      "node_id": "PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG",
+      "node_type": "PASSAGE",
+      "label": "《太陰通軌》039a起《冬夏二至日晨昏分立成鈐》逐日表",
+      "system_scope": "DATONG_DAILY_SOLAR_TIME_NUMERICAL_TABLE_TRANSMITTED_WITHIN_TAIYIN_TONGGUI",
+      "physical_locator": "GK12436_00 vol0001 page 039a onward; day178 on 047a",
+      "direct_numeric_fingerprints": {
+        "day0": {
+          "morning_fen": 2681.7,
+          "dusk_fen": 7318.3,
+          "derived_half_day_fen": 2068.3
+        },
+        "day178": {
+          "morning_fen": 1819.66,
+          "dusk_fen": 8180.34,
+          "derived_half_day_fen": 2930.34
+        }
+      },
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+      "node_type": "PHYSICAL_COPY",
+      "label": "奎章閣奎貴12437《大統曆日通軌》甲寅字15世紀本",
+      "system_scope": "JOSEON_DATONGLI_RITONGGUI_COMPUTATIONAL_WITNESS",
+      "edition_impression_date": "PROVIDER_CATALOG: 甲寅字 / Sejong-era; exact year unresolved",
+      "physical_copy_date": "CATALOGUED_PRE1578_15TH_CENTURY_JOSEON_PRINT",
+      "digital_surrogate_date": "MODERN_KYUJANGGAK_DIGITAL_SURROGATE",
+      "identifier": "GK12437_00 / 奎貴12437",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV"
     }
   ],
   "edges": [
@@ -780,6 +835,38 @@
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",
       "reason": "Yang Zan Beijing precision extreme is approximately 61.8408/38.1592 ke, whereas the exact 1578 Sanming physical target is 59/41; direct numeric-parent identity is rejected without denying broader calendrical relationship."
+    },
+    {
+      "from": "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT_AND_NUMERIC_TABLE",
+      "evidence": [
+        "GK12436 039a sha256 eeacba803100e6391e2cda54f9d3f499eb89a7cae1ab32773fd82c294bcb3dc5",
+        "GK12436 047a sha256 57dad7c13b24f6a1a265a3b6794205102f95808bd73424d89519b0fd9c00250c",
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+      "edge_id": "TG-E0027"
+    },
+    {
+      "from": "PASSAGE-KYUDB-TAIYIN-039A-CHENHUN-LICHENG",
+      "relation": "TRANSMITS_RULE",
+      "to": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "status": "HIGH_CONFIDENCE",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_NUMERIC_FINGERPRINT_PLUS_MECHANICAL_REPLAY_PLUS_INDEPENDENT_TABLE_IDENTITY",
+      "evidence": [
+        "039a day0: 2681.70/7318.30 -> half-day 2068.30",
+        "047a day178: 1819.66/8180.34 -> half-day 2930.34",
+        "Batch 12CG NCL-06267 / Li Liang C-II-N",
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json"
+      ],
+      "scope_note": "Same numerical table family across an independent 15th-century Joseon movable-type witness; exact Chinese exemplar, physical-copy identity and direct path into Wan Minying are not proved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+      "edge_id": "TG-E0028"
     }
   ],
   "lineage_hypotheses": [
@@ -801,6 +888,12 @@
         "Which securely pre-1578 witness first combines Xiazhi 59/41 with Sanming-like intermediate anchors?",
         "Was an older 40↔60 Tongshu family explicitly recalibrated to Nanjing/Datong locality, or did Sanming inherit a separate already-recalibrated table?",
         "What exact quantization/change-day rule maps the daily Nanjing Datong curve to Sanming's displayed bins?"
+      ],
+      "evidence_updates": [
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+          "update": "A catalogued pre-1578 15th-century Joseon Gabinja physical witness (GK12436) directly transmits the same Nanjing C-II-N daily morning/evening numerical fingerprints at day0 and day178. This strengthens the daily Datong numerical-substrate component. Complete GK12437 review separately confirms the target day/night table must not be attributed to that Ritonggui object from title/metadata alone."
+        }
       ]
     }
   ],
@@ -899,6 +992,28 @@
         "docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ.md"
       ]
+    },
+    {
+      "from": "PHYSICAL-COPY-KYUDB-TAIYIN-GK12436-15C-GABINJA",
+      "relation": "DIRECT_COPY_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The 15th-century Korean witness transmits the Nanjing-type daily numerical substrate, but no evidence shows Wan Minying used this physical copy or its immediate exemplar, and the exact 1578 integer quantization/change-day rule remains unresolved.",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+      "relation": "DIRECT_DAYNIGHT_TABLE_ATTESTATION",
+      "to": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "status": "UNRESOLVED",
+      "reason": "Complete visual review of the 78-page GK12437 physical surface identifies the solar 盈縮/限 computation tables but no independent 晨昏分/日出入/晝夜刻 table. This is object-scoped nonattestation and blocks attribution of the target table to GK12437 without further evidence.",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ]
     }
   ],
   "backfill": {
@@ -907,5 +1022,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-09-16"
+  "updated_at": "2026-09-18"
 }
