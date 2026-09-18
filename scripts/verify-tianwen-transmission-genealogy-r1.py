@@ -96,6 +96,7 @@ def main() -> int:
         "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
         "TABLE-LEIBIAN-FINE-SISHI-38-62",
         "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
+        "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -180,6 +181,18 @@ def main() -> int:
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
         fail("Leibian fine-table exact-target mismatch regressed")
+    yinyang_baojian = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4")
+    if yinyang_baojian.get("surviving_scope") != "VOLUMES_1_TO_4_ONLY; VOLUME_5_MISSING_FROM_CURRENT_SCAN":
+        fail("Yinyang Baojian surviving-scope firewall regressed")
+    if yinyang_baojian.get("whole_work_negative") is not False:
+        fail("Yinyang Baojian whole-work negative was overpromoted")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4"
+        and x.get("to") == "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT"
+        and x.get("status") == "UNRESOLVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("Yinyang Baojian target-fingerprint scope control missing")
     if not any(
         x.get("from") == "TABLE-LEIBIAN-FINE-SISHI-38-62"
         and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
