@@ -23,6 +23,7 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils imagemagick
+          python -m pip install --quiet pillow
 
       - name: Acquire 1589 Yueling Tongkao and locate Sanming-like fingerprint
         shell: bash
