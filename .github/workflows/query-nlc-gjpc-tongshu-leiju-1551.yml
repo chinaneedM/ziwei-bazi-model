@@ -45,7 +45,7 @@ jobs:
               if not line.strip():
                   continue
               key,q=line.split('\t',1)
-              rows.append((key,q,'http://202.96.31.78/xlsworkbench/publish?keyWord='+quote_plus(q)))
+              rows.append((key,q,'http://202.96.31.78/xlsworkbench/publish?keyWord='+quote_plus(q)+'&orderProperty=PU_CHA_BIAN_HAO&orderWay=asc'))
           Path('audit/nlc-gjpc-tongshu-leiju-1551-query/query-urls.tsv').write_text(
               ''.join(f'{k}\t{q}\t{u}\n' for k,q,u in rows),encoding='utf-8')
           PY
@@ -103,7 +103,7 @@ jobs:
 
           sha256sum "$ROOT"/raw/*.html | sort -V > "$ROOT/raw.sha256"
 
-          printf '%s\n'             'SOURCE=全國古籍普查登記基本數據庫 / National Ancient Books Census Registration Basic Database'             'SOURCE_ENDPOINT=http://202.96.31.78/xlsworkbench/publish'             'QUERY_METHOD=GET keyWord parameter confirmed from source homepage form'             'TARGET=通書類聚尅擇大全; 明嘉靖三十年芝城銅活字印本; known catalog survival 卷十六至十九'             'PURPOSE=resolve census record, holding institution, call number, census number, and surviving-volume metadata directly from the public source'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+          printf '%s\n'             'SOURCE=全國古籍普查登記基本數據庫 / National Ancient Books Census Registration Basic Database'             'SOURCE_ENDPOINT=http://202.96.31.78/xlsworkbench/publish'             'QUERY_METHOD=GET keyWord + orderProperty=PU_CHA_BIAN_HAO + orderWay=asc, matching source homepage hidden fields and independently documented public search URL'             'TARGET=通書類聚尅擇大全; 明嘉靖三十年芝城銅活字印本; known catalog survival 卷十六至十九'             'PURPOSE=resolve census record, holding institution, call number, census number, and surviving-volume metadata directly from the public source'             'OCR_USED=false'             > "$ROOT/manifest.txt"
 
       - name: Upload NLC census query evidence
         uses: actions/upload-artifact@v4
