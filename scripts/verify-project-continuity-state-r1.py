@@ -28,6 +28,8 @@ ZIWEI_LEIBIAN_JIAJING30_12DH_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVEN
 ZIWEI_LEIBIAN_JIAJING30_12DH_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json"
 ZIWEI_HEBING_TONGSHU_12DI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
 ZIWEI_HEBING_TONGSHU_12DI_EVIDENCE = ROOT / "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json"
+ZIWEI_TONGSHU_LEIJU_12DJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
+ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -268,9 +270,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
     "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
     "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
+    "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
 
 
 def fail(message: str) -> None:
@@ -278,6 +281,38 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_TONGSHU_LEIJU_12DJ_BATCH, ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DJ continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dj = json.loads(ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dj.get("batch_id") != "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ":
+        fail("Batch 12DJ evidence identity mismatch")
+    census12dj = batch12dj.get("bibliographic_controls", {}).get("national_ancient_books_census", {})
+    if census12dj.get("census_number") != "110000-0101-0013797" or census12dj.get("call_number") != "14202":
+        fail("Batch 12DJ NLC census/call-number binding regressed")
+    if census12dj.get("holding_institution") != "國家圖書館" or census12dj.get("surviving_scope") != "存四卷（十六至十九）":
+        fail("Batch 12DJ holder/surviving-scope binding regressed")
+    if census12dj.get("pre1578_catalog_bound") is not True:
+        fail("Batch 12DJ pre-1578 catalog binding regressed")
+    digital12dj = batch12dj.get("public_digital_access_boundary", {})
+    if digital12dj.get("public_digital_ancient_books_index_status") != "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202":
+        fail("Batch 12DJ public digital-index boundary regressed")
+    if digital12dj.get("physical_copy_digitization_status") != "UNRESOLVED":
+        fail("Batch 12DJ digitization firewall regressed")
+    if digital12dj.get("direct_target_page_obtained") is not False or digital12dj.get("direct_target_glyph_collation_authorized") is not False:
+        fail("Batch 12DJ direct-target access firewall regressed")
+    if any(x.get("total") != 0 for x in digital12dj.get("exact_title_checks", [])):
+        fail("Batch 12DJ exact-title query result regressed")
+    if any(x.get("total") != 0 for x in digital12dj.get("rare_book_number_checks", [])):
+        fail("Batch 12DJ sbnumber query result regressed")
+    target12dj = batch12dj.get("target_table_adjudication", {})
+    if target12dj.get("exact_sanming_yueling_fingerprint_tested_on_1551_copy") is not False:
+        fail("Batch 12DJ falsely promoted target-table collation")
+    if target12dj.get("identity_with_yueling_generic_tongshu_source_status") != "UNRESOLVED":
+        fail("Batch 12DJ generic Tongshu identity firewall regressed")
+    if batch12dj.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DJ unexpectedly reopened algorithm")
+
     for path in (ZIWEI_HEBING_TONGSHU_12DI_BATCH, ZIWEI_HEBING_TONGSHU_12DI_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DI continuity artifact missing: {path.relative_to(ROOT)}")
@@ -551,6 +586,17 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dj = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-GJPC-TONGSHU-LEIJU-JIAJING30-1551-NLC14202"), None)
+    if source12dj is None:
+        fail("Batch 12DJ external-source registry binding missing")
+    if source12dj.get("identifier") != "普查編號 110000-0101-0013797 / 索書號 14202 / 《中國古籍善本書目》item 450":
+        fail("Batch 12DJ registry identifier binding regressed")
+    if source12dj.get("holding_institution") != "國家圖書館" or source12dj.get("surviving_scope") != "存四卷（十六至十九）":
+        fail("Batch 12DJ registry holder/scope binding regressed")
+    if source12dj.get("target_table_directly_collated") is not False or source12dj.get("exact_sanming_yueling_fingerprint_status") != "UNRESOLVED":
+        fail("Batch 12DJ registry target-text firewall regressed")
+    if source12dj.get("public_digital_ancient_books_boundary", {}).get("physical_copy_digitization_status") != "UNRESOLVED":
+        fail("Batch 12DJ registry digitization firewall regressed")
     identity_evidence = json.loads(IDENTITY_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     mf_pdf_evidence = json.loads(MF_PDF_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
     article_evidence = json.loads(ARTICLE_MACHINE_EVIDENCE.read_text(encoding="utf-8"))
