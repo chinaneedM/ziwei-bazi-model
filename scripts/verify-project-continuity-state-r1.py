@@ -30,6 +30,8 @@ ZIWEI_HEBING_TONGSHU_12DI_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANC
 ZIWEI_HEBING_TONGSHU_12DI_EVIDENCE = ROOT / "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json"
 ZIWEI_TONGSHU_LEIJU_12DJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
 ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
+ZIWEI_TONGSHU_LEIJU_12DK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md"
+ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -271,9 +273,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
     "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+    "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md"
 
 
 def fail(message: str) -> None:
@@ -281,6 +284,50 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_TONGSHU_LEIJU_12DK_BATCH, ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DK continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dk = json.loads(ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dk.get("batch_id") != "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK":
+        fail("Batch 12DK evidence identity mismatch")
+    opac12dk = batch12dk.get("opac_control", {})
+    if opac12dk.get("doc_number") != "001790345" or opac12dk.get("internal_id") != "411999023866" or opac12dk.get("call_number") != "14202":
+        fail("Batch 12DK OPAC identifier binding regressed")
+    if opac12dk.get("sublibrary") != "南区善本阅览室" or opac12dk.get("session_item_page_obtained") is not True:
+        fail("Batch 12DK OPAC holding/session binding regressed")
+    if opac12dk.get("generic_service_rule_is_copy_specific_microform_proof") is not False:
+        fail("Batch 12DK generic microform rule was overpromoted")
+    micro12dk = batch12dk.get("microform_catalog_access", {})
+    if micro12dk.get("connection_accepted") is not True or micro12dk.get("anonymous_query_authorized") is not False:
+        fail("Batch 12DK OLCC access boundary regressed")
+    if micro12dk.get("displayed_zero_hit_counts_have_content_negative_authority") is not False or micro12dk.get("microform_presence_for_target") != "UNRESOLVED":
+        fail("Batch 12DK OLCC negative-authority firewall regressed")
+    gbooks12dk = batch12dk.get("google_books_microform_catalog_control", {})
+    if gbooks12dk.get("search_within_volume_searchable") is not False or gbooks12dk.get("zero_results_have_content_negative_authority") is not False:
+        fail("Batch 12DK Google Books searchability firewall regressed")
+    union12dk = batch12dk.get("chinese_ancient_books_union_bibliography", {}).get("exhaustive_fuzzy_query", {})
+    coverage12dk = union12dk.get("final_coverage", {})
+    if coverage12dk.get("validated_pages") != 48 or coverage12dk.get("merged_unique_records") != 576:
+        fail("Batch 12DK union-bibliography exhaustive coverage regressed")
+    for key in ("contiguous_title_phrase_hits","keze_jueze_term_hits","yao_kui_hits","wang_yining_hits","zhicheng_hits","romanized_target_title_hits","romanized_yao_kui_hits","romanized_wang_yining_hits"):
+        if coverage12dk.get(key) != 0:
+            fail(f"Batch 12DK union-bibliography target filter regressed: {key}")
+    only1551 = coverage12dk.get("exact_1551_or_jiajing30_only_record", {})
+    if coverage12dk.get("exact_1551_or_jiajing30_hits") != 1 or only1551.get("identifier") != "NJPX96-B51" or only1551.get("target_record") is not False:
+        fail("Batch 12DK exact-1551 unrelated-record control regressed")
+    access12dk = batch12dk.get("access_and_copy_adjudication", {})
+    if access12dk.get("public_direct_page_surrogate_found") is not False or access12dk.get("direct_juan_16_19_page_obtained") is not False:
+        fail("Batch 12DK direct-page access firewall regressed")
+    if access12dk.get("no_other_copy_anywhere_proved") is not False or access12dk.get("microform_presence") != "UNRESOLVED":
+        fail("Batch 12DK global-copy/microform firewall regressed")
+    target12dk = batch12dk.get("target_table_adjudication", {})
+    if target12dk.get("exact_sanming_yueling_fingerprint_tested_on_1551_copy") is not False or target12dk.get("numeric_ancestry_vote_increment") != 0:
+        fail("Batch 12DK target-text/numeric firewall regressed")
+    if target12dk.get("identity_with_yueling_generic_tongshu_source_status") != "UNRESOLVED":
+        fail("Batch 12DK generic Tongshu identity firewall regressed")
+    if batch12dk.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DK unexpectedly reopened algorithm")
+
     for path in (ZIWEI_TONGSHU_LEIJU_12DJ_BATCH, ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DJ continuity artifact missing: {path.relative_to(ROOT)}")
@@ -586,6 +633,18 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dk_opac = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-OPAC-TONGSHU-LEIJU-JIAJING30-1551-001790345"), None)
+    source12dk_union = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-UNION-GUJI-TONGSHU-LEIJU-FUZZY-576-CLOSURE"), None)
+    source12dk_micro = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-OLCC-B1MICU-TONGSHU-LEIJU-AUTH-BOUNDARY"), None)
+    if source12dk_opac is None or source12dk_union is None or source12dk_micro is None:
+        fail("Batch 12DK external-source registry bindings missing")
+    if source12dk_opac.get("identifier") != "DOC_NUMBER 001790345 / internal ID 411999023866 / call 14202" or source12dk_opac.get("holding") != "南区善本阅览室":
+        fail("Batch 12DK OPAC registry binding regressed")
+    if source12dk_union.get("validated_pages") != 48 or source12dk_union.get("unique_records") != 576 or source12dk_union.get("target_title_or_variant_copy_found") is not False:
+        fail("Batch 12DK union registry coverage regressed")
+    if source12dk_micro.get("anonymous_search_authorized") is not False or source12dk_micro.get("displayed_zero_hits_have_negative_authority") is not False or source12dk_micro.get("target_microform_presence") != "UNRESOLVED":
+        fail("Batch 12DK microform registry firewall regressed")
+
     source12dj = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-GJPC-TONGSHU-LEIJU-JIAJING30-1551-NLC14202"), None)
     if source12dj is None:
         fail("Batch 12DJ external-source registry binding missing")
