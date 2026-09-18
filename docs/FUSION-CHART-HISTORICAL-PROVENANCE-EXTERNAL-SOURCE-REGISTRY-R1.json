@@ -4592,8 +4592,111 @@
       "generic_yueling_tongshu_identity_proved": false,
       "ocr_used_for_final_claims": false,
       "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json",
-      "quality_notes": "The national census closes physical-holding identity and surviving scope only. Controlled NLC Digital Ancient Books queries close the current public index route for this exact title/number, not digitization or physical-access status. No juan 16-19 target leaf was obtained, so no table-family or fingerprint claim is authorized.",
-      "query_endpoint_http": "http://202.96.31.78/xlsworkbench/publish"
+      "quality_notes": "National census and OPAC jointly close the NLC physical identity (census 110000-0101-0013797 / call 14202 / OPAC doc 001790345 / internal 411999023866). Batch 12DK closes reviewed public-surrogate and current indexed second-copy discovery routes without proving no microform, internal digitization, uncatalogued, private, transferred, historical, or differently catalogued copy exists. No juan 16-19 target page has been directly collated.",
+      "query_endpoint_http": "http://202.96.31.78/xlsworkbench/publish",
+      "opac_control": {
+        "doc_number": "001790345",
+        "internal_id": "411999023866",
+        "call_number": "14202",
+        "holding": "南区善本阅览室",
+        "title": "通書類聚尅擇大全 [善本] : □□卷",
+        "format": "活字印本, 銅活字",
+        "imprint": "芝城, 明嘉靖30年[1551]",
+        "extent": "1冊",
+        "item_session_followed": true,
+        "workflow_run_id": 35375192286,
+        "artifact_id": 10560310067,
+        "artifact_digest": "sha256:7e38443823690329ea4a8d05fdeeb1d35f40ad74238260e9c5e43f46ffd0308f"
+      },
+      "public_surrogate_and_union_closure": {
+        "public_direct_page_surrogate_found": false,
+        "commons_target_search_found": false,
+        "internet_archive_identifier_found": false,
+        "microform_catalog_presence": "UNRESOLVED_AUTHENTICATION_BLOCKED",
+        "current_census_second_holding_found": false,
+        "union_bibliography_target_or_variant_copy_found": false,
+        "union_bibliography_query": "title LIKE 通書類聚",
+        "union_bibliography_validated_pages": 48,
+        "union_bibliography_unique_records": 576,
+        "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
+      }
+    },
+    {
+      "source_id": "EXT-NLC-OPAC-TONGSHU-LEIJU-JIAJING30-1551-001790345",
+      "title": "國家圖書館 OPAC《通書類聚尅擇大全》善本記錄與館藏頁",
+      "historical_period": "MODERN_CATALOG_FOR_MING_JIAJING30_1551_PHYSICAL_COPY",
+      "edition": "OPAC bibliographic/item record for 明嘉靖30年[1551] 芝城銅活字本",
+      "provider": "National Library of China OPAC",
+      "identifier": "DOC_NUMBER 001790345 / internal ID 411999023866 / call 14202",
+      "url": "https://opac.nlc.cn/F/",
+      "source_role": "FIRST_PARTY_OPAC_IDENTITY_AND_READING_ROOM_ACCESS_CONTROL_FOR_NLC_1551_TONGSHU_LEIJU_COPY",
+      "holding": "南区善本阅览室",
+      "item_session_followed": true,
+      "generic_other_format_service_rule_is_copy_specific_microform_proof": false,
+      "workflow_run_id": 35375192286,
+      "artifact_id": 10560310067,
+      "artifact_digest": "sha256:7e38443823690329ea4a8d05fdeeb1d35f40ad74238260e9c5e43f46ffd0308f",
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json",
+      "quality_notes": "Direct OPAC title and session-bearing item pages strengthen identity and current reading-room routing. Generic UI language mentioning electronic/microform alternatives is not evidence that this specific title has such a surrogate."
+    },
+    {
+      "source_id": "EXT-NLC-UNION-GUJI-TONGSHU-LEIJU-FUZZY-576-CLOSURE",
+      "title": "中華古籍聯合書目 title LIKE 通書類聚 完整576條結果集",
+      "historical_period": "MODERN_UNION_BIBLIOGRAPHY_INDEX_CONTROL",
+      "edition": "Resource index 0019; 48 pages x 12 records; 576 unique records",
+      "provider": "中國國家圖書館 中華古籍聯合書目",
+      "identifier": "resource index 0019 / fuzzy title query 通書類聚 / 576 records",
+      "url": "https://read.nlc.cn/",
+      "source_role": "COMPLETE_INDEXED_RESULT_SET_NEGATIVE_CONTROL_FOR_TARGET_AND_INDEPENDENT_COPY_DISCOVERY",
+      "target_title_or_variant_copy_found": false,
+      "validated_pages": 48,
+      "unique_records": 576,
+      "target_field_hits": {
+        "contiguous_title_phrase": 0,
+        "keze_jueze_terms": 0,
+        "yao_kui": 0,
+        "wang_yining": 0,
+        "zhicheng": 0,
+        "romanized_target_title": 0
+      },
+      "workflow_evidence": [
+        {
+          "run_id": 35377985520,
+          "artifact_id": 10560996782,
+          "digest": "sha256:a8a5b3a46d03766382c0c9624874e02225829b04cd6a966e3ce6931f2306e68b"
+        },
+        {
+          "run_id": 35379079830,
+          "artifact_id": 10560957890,
+          "digest": "sha256:93b2f5dfde12d5b333fa5ceaf64a5cdf260ea514253727c70fb80d94e3f1331e"
+        },
+        {
+          "run_id": 35379372970,
+          "artifact_id": 10561901955,
+          "digest": "sha256:6e14984cb189c17f6b8aa9f326e47026aa9ede6a5dc7894e016a07aa6f9c54a5"
+        }
+      ],
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json",
+      "quality_notes": "The negative is scoped to this complete current indexed fuzzy-result set. It does not prove no uncatalogued/private/historical/differently indexed copy exists."
+    },
+    {
+      "source_id": "EXT-OLCC-B1MICU-TONGSHU-LEIJU-AUTH-BOUNDARY",
+      "title": "全國圖書館聯合編目中心 B1MICU 縮微品邏輯庫匿名訪問邊界",
+      "historical_period": "MODERN_MICROFORM_UNION_CATALOG_ACCESS_CONTROL",
+      "edition": "Z39.50 UTF-8 microform logical database B1MICU",
+      "provider": "National Library of China / National Library Union Cataloging Center",
+      "identifier": "ucs.nlc.cn:9991 / B1MICU; fallback 202.96.31.28:9991",
+      "url": "https://olcc.nlc.cn/book/faq/z3950-4.html",
+      "source_role": "MICROFORM_CATALOG_AUTHENTICATION_BOUNDARY_FOR_1551_TONGSHU_LEIJU_COPY",
+      "connection_accepted": true,
+      "anonymous_search_authorized": false,
+      "access_control_error": "Aleph error. Service: C9902. Code: 1. User name Z39 does not exist.",
+      "displayed_zero_hits_have_negative_authority": false,
+      "target_microform_presence": "UNRESOLVED",
+      "workflow_run_id": 35376261851,
+      "artifact_id": 10560661850,
+      "artifact_digest": "sha256:519a21db7bf1e03269b53d2a64e6b7f94fbbe2f8e9c6f67b7da1688c6e5ca044",
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
