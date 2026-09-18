@@ -1,7 +1,7 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1",
   "schema_version": "1.0.0",
-  "access_date": "2026-09-18",
+  "access_date": "2026-09-19",
   "authority_policy": "S00-S19 are a frozen project research corpus and discovery/index layer, not infallible historical authority. External primary/received/bibliographic witnesses may corroborate, refine, contradict, or expose scope/attribution defects in the project corpus. Modern software and secondary research never become historical authority by observation alone.",
   "sources": [
     {
@@ -4546,6 +4546,53 @@
       "ocr_used_for_final_glyph_claims": false,
       "research_artifact": "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
       "quality_notes": "The first live item-JSON high-resolution attempt failed with HTTP 503 before page acquisition and carries no negative authority. Final claims rely on fixed LOC source resource IDs preserved by the prior successful route artifact and direct JP2 visual collation."
+    },
+    {
+      "source_id": "EXT-NLC-GJPC-TONGSHU-LEIJU-JIAJING30-1551-NLC14202",
+      "title": "《通書類聚尅擇大全□□卷》明嘉靖三十年（1551）芝城銅活字印本",
+      "historical_period": "MING_JIAJING_30_1551_PRE1578_CATALOG_BOUND",
+      "edition": "明嘉靖三十年（1551）芝城銅活字印本；國家圖書館現藏1册，存卷十六至十九",
+      "provider": "全國古籍普查登記基本數據庫 / 國家圖書館；《中國古籍善本書目·子部三》public scan as independent bibliographic control",
+      "identifier": "普查編號 110000-0101-0013797 / 索書號 14202 / 《中國古籍善本書目》item 450",
+      "url": "http://202.96.31.78/xlsworkbench/publish",
+      "source_role": "FIRST_PARTY_NATIONAL_CENSUS_BIBLIOGRAPHIC_WITNESS_FOR_PRE1578_TONGSHU_LEIJU_PHYSICAL_HOLDING_AND_PUBLIC_DIGITAL_INDEX_ACCESS_BOUNDARY",
+      "publication_date": "1551",
+      "holding_institution": "國家圖書館",
+      "physical_quantity": "1册",
+      "surviving_scope": "存四卷（十六至十九）",
+      "pre1578_catalog_bound": true,
+      "shanben_catalog_control": {
+        "pdf_page": 48,
+        "catalog_item": "四五〇 / 450",
+        "source_pdf_sha256": "e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab",
+        "direct_page_sha256": "1c1a05e8db798c6c8b6995d0629c30934f17a0463ae96a87b8cedb2951ae07d4",
+        "workflow_run_id": 35370570700,
+        "artifact_id": 10558651831,
+        "artifact_digest": "sha256:80ec57b1d53533471f9990ecae67dfe2a3d1c5a1e5be598eff2871ad6d003814"
+      },
+      "census_query_evidence": {
+        "workflow_run_id": 35371456818,
+        "artifact_id": 10558264237,
+        "artifact_digest": "sha256:a134e16ee70a029540b936d1064db1634137045acc8bf9c217c5d3d22bc08ab9",
+        "exact_record_count": 1
+      },
+      "public_digital_ancient_books_boundary": {
+        "exact_title_total": 0,
+        "exact_sbnumber_14202_total": 0,
+        "exact_sbnumber_year_total": 0,
+        "exact_sbnumber_title_total": 0,
+        "route_status": "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202",
+        "physical_copy_digitization_status": "UNRESOLVED",
+        "exact_title_run_id": 35372409456,
+        "compound_run_id": 35373080523,
+        "sbnumber_run_id": 35373229704
+      },
+      "target_table_directly_collated": false,
+      "exact_sanming_yueling_fingerprint_status": "UNRESOLVED",
+      "generic_yueling_tongshu_identity_proved": false,
+      "ocr_used_for_final_claims": false,
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json",
+      "quality_notes": "The national census closes physical-holding identity and surviving scope only. Controlled NLC Digital Ancient Books queries close the current public index route for this exact title/number, not digitization or physical-access status. No juan 16-19 target leaf was obtained, so no table-family or fingerprint claim is authorized."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
