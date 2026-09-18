@@ -245,6 +245,22 @@ def main() -> int:
         for x in hyp12dk.get("evidence_updates", [])
     ):
         fail("Batch 12DL genealogy hypothesis locator/dedup update missing")
+    route12dm = tongshu_leiju_1551.get("current_lawful_access_route_after_12dm", {})
+    if route12dm.get("request_status") != "PRECISE_PAYLOAD_FROZEN_NOT_SUBMITTED":
+        fail("Batch 12DM access-route request status regressed")
+    if route12dm.get("target_call_number") != "14202" or route12dm.get("target_microfilm_presence") != "UNRESOLVED":
+        fail("Batch 12DM target access identity/microfilm boundary regressed")
+    if route12dm.get("direct_page_obtained") is not False or route12dm.get("provider_acceptance") is not False:
+        fail("Batch 12DM provider/direct-page firewall regressed")
+    if route12dm.get("textual_vote_increment") != 0 or route12dm.get("numeric_vote_increment") != 0:
+        fail("Batch 12DM access-route genealogy vote firewall regressed")
+    if not any(
+        x.get("batch") == "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM"
+        and "zero textual/numeric vote" in x.get("update", "")
+        and "no request has been submitted" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DM genealogy hypothesis access-route update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
