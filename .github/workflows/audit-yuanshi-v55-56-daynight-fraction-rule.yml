@@ -1,0 +1,102 @@
+name: audit-yuanshi-v55-56-daynight-fraction-rule
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-yuanshi-v55-56-daynight-fraction-rule.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install DjVu/image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+          python -m pip install --quiet pillow
+
+      - name: Acquire Yuan Shi vols 55-56 and bind day-night fractional rule
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/yuanshi-v55-56-daynight-fraction-rule'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render"
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL06056892%20%E5%85%83%E5%8F%B2%C2%B7%E5%8D%B7%E4%BA%94%E5%8D%81%E4%BA%94~%E5%8D%B7%E4%BA%94%E5%8D%81%E5%85%AD.djvu'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.djvu"
+          sha256sum "$ROOT/source.djvu" | tee "$ROOT/source.sha256"
+          djvused "$ROOT/source.djvu" -e n | tee "$ROOT/page-count.txt"
+          djvutxt "$ROOT/source.djvu" > "$ROOT/text.txt" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/yuanshi-v55-56-daynight-fraction-rule')
+          text=(root/'text.txt').read_text(encoding='utf-8',errors='ignore')
+          terms=['求晝夜刻','求昼夜刻','求日出入辰刻','不滿為分','不满为分','晝刻及分秒','昼刻及分秒','求四方所在漏刻']
+          hits={t:[m.start() for m in re.finditer(re.escape(t),text)] for t in terms}
+          (root/'text-hits.json').write_text(json.dumps(hits,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({k:len(v) for k,v in hits.items()},ensure_ascii=False))
+          PY
+
+          # Render every page at moderate resolution. The volume is only 156 pages;
+          # contact sheets permit direct no-OCR localization of the target passage.
+          PAGES="$(cat "$ROOT/page-count.txt")"
+          for i in $(seq 1 "$PAGES"); do
+            ddjvu -format=jpeg -page="$i" -scale=160 "$ROOT/source.djvu" "$ROOT/render/$(printf '%03d' "$i").jpg" >/dev/null 2>&1
+          done
+          sha256sum "$ROOT"/render/*.jpg > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path('audit/yuanshi-v55-56-daynight-fraction-rule')
+          imgs=sorted((root/'render').glob('*.jpg'))
+          sheets=[]
+          for start in range(0,len(imgs),24):
+              batch=imgs[start:start+24]
+              thumbs=[]
+              for p in batch:
+                  im=Image.open(p).convert('RGB')
+                  im.thumbnail((260,370))
+                  c=Image.new('RGB',(280,410),'white')
+                  c.paste(im,((280-im.width)//2,15))
+                  ImageDraw.Draw(c).text((8,388),p.stem,fill='black')
+                  thumbs.append(c)
+              cols=6; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*280,rows*410),'white')
+              for i,im in enumerate(thumbs): sh.paste(im,((i%cols)*280,(i//cols)*410))
+              out=root/f'contact-{start//24+1:02d}.jpg'
+              sh.save(out,quality=88); sheets.append(out.name)
+          report={
+            'schema':'YUANSHI-V55-56-DAYNIGHT-FRACTION-RULE-PHYSICAL-LOCATOR-R1',
+            'source':'CADAL06056892 元史·卷五十五~卷五十六',
+            'provider_route':'Wikimedia Commons public CADAL surrogate',
+            'page_count':len(imgs),
+            'contact_sheets':sheets,
+            'text_layer_authority':'LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
+            'physical_image_authority':'DIRECT_FACSIMILE_REVIEW_REQUIRED_FOR_FINAL_GLYPH_CLAIMS',
+            'ocr_used_for_final_glyph_claims':False,
+            'research_question':'Does the received Yuan-shi Shoushi algorithm explicitly retain fractional ke in the day/night conversion, thereby separating calendar computation from later integer display/binning?'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+      - name: Upload Yuan Shi physical locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: yuanshi-v55-56-daynight-fraction-rule
+          path: audit/yuanshi-v55-56-daynight-fraction-rule
+          if-no-files-found: error
+          retention-days: 30
