@@ -1,0 +1,189 @@
+{
+  "schema": "ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
+  "prior_batch_id": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
+  "question": "Does the securely dated 1554 《新刊類編陰陽選擇合併通書大全》 preserve the exact Sanming 1578 / Yueling 1589 Dahan-Yushui day/night-ke fingerprint, or a different pre-1578 Tongshu branch?",
+  "answer": "A DIFFERENT PRE1578 COARSE TONGSHU BRANCH IS DIRECTLY ATTESTED. LOC Juan 17 physically preserves 選時寶鏡局 and 銅壺晝夜百刻圖式, with 雨水 45/55, 大寒 41/59 and 夏至 60/40. These directly mismatch the exact Sanming/Yueling target (雨水47/53->後四日->48/52; 大寒43/57->十三後->44/56; Sanming 夏至59/41).",
+  "bibliographic_control": {
+    "provider": "Library of Congress, Chinese Rare Book Collection / Asian Division",
+    "lccn": "2012402919",
+    "title": "《新刊類編陰陽選擇合併通書大全》十七卷",
+    "contributors": [
+      "魏佛本纂要",
+      "劉世傑集成/序",
+      "大靈山人序",
+      "自新齋刻"
+    ],
+    "created_published": "[China] : Zi xin zhai, Ming Jiajing 33 nian [1554]",
+    "date": "1554",
+    "edition_note": "明嘉靖三十三年書林余氏自新齋刻本",
+    "colophon_note": "卷末牌記題：龍飛嘉靖甲寅歲（33年，1554）冬月書林余氏自新齋刊行",
+    "physical_extent": "10 volumes : illustrations",
+    "volume_scope": "冊10含卷17；卷16-17為數集",
+    "resource_group": "Juan 17 / lcnclscd.2012402919.1A017",
+    "juan17_resource_count": 61,
+    "source_url": "https://www.loc.gov/item/2012402919/",
+    "pre1578_catalog_bound": true
+  },
+  "route_acquisition": {
+    "source_route_probe": {
+      "workflow_run_id": 35361144052,
+      "artifact_id": 10553899912,
+      "artifact_digest": "sha256:43f86d58849983c03958f96803858acd1862f17c8fb7ef87ae9575a189810d07",
+      "item_json_saved": true,
+      "resources_json_saved": true,
+      "juan17_resource_count": 61
+    },
+    "failed_realtime_item_json_attempt": {
+      "workflow_run_id": 35361531424,
+      "failure_scope": "LOC item JSON returned repeated HTTP 503 before image acquisition",
+      "content_negative_authority": false,
+      "page_evidence_produced": false
+    },
+    "fixed_source_lock": {
+      "workflow_run_id": 35362394560,
+      "artifact_id": 10555656579,
+      "artifact_digest": "sha256:416a37750923c451a269524c2222ddc784e64b424b34257f9894b78f7578182a",
+      "route_strategy": "Fixed Juan-17 resource ids extracted from the prior successful route artifact; direct LOC storage-services JP2 downloads; no live item JSON dependency.",
+      "source_format": "JP2",
+      "review_derivative": "PNG via OpenJPEG/ImageMagick",
+      "opening_resources_locked": 12,
+      "ocr_used_for_glyph_claims": false
+    }
+  },
+  "direct_physical_collation": {
+    "resource_2": {
+      "loc_resource_index": 2,
+      "loc_leaf_id": "00001a",
+      "jp2_sha256": "67d5f5761a16074dd39a588eee74a23d8797514e39cce56cd895edabc2016676",
+      "png_sha256": "a21169b20c0300fd73914e0fe4bed16707b42369669297427e861621aad0fcde",
+      "secure_reading": "選時寶鏡局",
+      "role": "Direct heading binding for the target time-selection section."
+    },
+    "resource_3": {
+      "loc_resource_index": 3,
+      "loc_leaf_id": "01b02a",
+      "jp2_sha256": "20dd6e975228a7e352e2762f939aeea1847c1d1d8b6729aaf3c8d69394b7b08d",
+      "png_sha256": "177e1d383c68da1a3d9772faea256410829a2f20c60988e59f1ef675bfd98398",
+      "secure_readings": [
+        "銅壺晝夜百刻圖式",
+        "銅壺晝夜百刻之圖"
+      ],
+      "role": "Direct text-and-diagram binding for the hundred-ke day/night table sequence."
+    },
+    "resource_4": {
+      "loc_resource_index": 4,
+      "loc_leaf_id": "02b03a",
+      "jp2_sha256": "e2314b210ab98267b87bd39dc5bff9e94199720efdaacb3657123405082f6c14",
+      "png_sha256": "ce89dcc9905aaef954d042e01ff286d97ff113b16c48e625c8eac8056bd1c304",
+      "secure_rows": [
+        {
+          "solar_term": "雨水",
+          "lunar_label": "正月中",
+          "day_ke": 45,
+          "night_ke": 55
+        },
+        {
+          "solar_term": "夏至",
+          "lunar_label": "五月中",
+          "day_ke": 60,
+          "night_ke": 40
+        }
+      ],
+      "glyph_authority": "DIRECT_SOURCE_BOUND_JP2_VISUAL_COLLATION_NO_OCR"
+    },
+    "resource_5": {
+      "loc_resource_index": 5,
+      "loc_leaf_id": "03b04a",
+      "jp2_sha256": "3085244d2b61b247ad53a2ee526af1732ddd9e4db97dc70df27f90e35a565d32",
+      "png_sha256": "61bdf8583cc36d395de22ec691fbd157a416a9a34c2a141340cd1f84327a34a5",
+      "secure_rows": [
+        {
+          "solar_term": "大寒",
+          "lunar_label": "十二月中",
+          "day_ke": 41,
+          "night_ke": 59
+        }
+      ],
+      "glyph_authority": "DIRECT_SOURCE_BOUND_JP2_VISUAL_COLLATION_NO_OCR"
+    }
+  },
+  "family_adjudication": {
+    "table_family": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+    "direct_1554_anchors": {
+      "大寒": "41/59",
+      "雨水": "45/55",
+      "夏至": "60/40"
+    },
+    "securely_pre1578": true,
+    "same_family_as_1455_coarse_branch_supported": true,
+    "direct_copy_from_1455_witness_proved": false,
+    "same_physical_copy_as_other_tongshu_witness_proved": false
+  },
+  "exact_target_comparison": {
+    "sanming_1578": {
+      "dahan": "43/57 -> 十三後日 -> 44/56",
+      "yushui": "47/53 -> 後四日 -> 48/52",
+      "xiazhi": "59/41"
+    },
+    "yueling_1589": {
+      "dahan": "43/57 -> 十三後 -> 44/56",
+      "yushui": "47/53 -> 後四日 -> 48/52",
+      "source_label": "通書"
+    },
+    "hebing_tongshu_1554": {
+      "dahan": "41/59",
+      "yushui": "45/55",
+      "xiazhi": "60/40"
+    },
+    "unchanged_exact_parent_of_sanming": false,
+    "unchanged_exact_identity_with_yueling_cited_target": false,
+    "result": "DIRECT_PRE1578_COARSE_BRANCH_MISMATCH_AT_DAHAN_YUSHUI_AND_XIAZHI_ANCHORS"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+      "TABLE-FAMILY-TONGSHU-COARSE-40-60"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17 ATTESTS TABLE-FAMILY-TONGSHU-COARSE-40-60"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+      "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT = DISPROVED",
+      "DIRECT_COPY_RELATION between the 1554 copy and the 1455 coarse-table witness remains UNPROVED"
+    ],
+    "unresolved_lineage_questions": [
+      "Which exact pre-1578 Tongshu/almanac title or recension carries both 大寒十三後 and 雨水後四日 target fingerprints?",
+      "Which pre-1578 Chinese Nanjing/Datong physical carrier directly prints or generates the 59/41 layer with Sanming-like intermediate anchors?",
+      "What historical threshold/selection/quantization rule maps the Datong daily layer to the Sanming/Yueling whole-ke change-day display?"
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not continue treating the 1554 Hebing Tongshu coarse table as an exact-target candidate; it is physically excluded by Dahan/Yushui/Xiazhi anchors.",
+    "Continue searching distinct pre-1578 Tongshu/almanac recensions for both exact target fingerprints.",
+    "Keep the Chinese pre-1578 Nanjing/Datong 59/41 carrier and whole-ke threshold/selection-rule searches active."
+  ]
+}

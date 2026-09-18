@@ -98,6 +98,7 @@ def main() -> int:
         "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
         "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
         "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+        "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -184,6 +185,11 @@ def main() -> int:
         fail("1551 Leibian fine-table pre-1578 attestation edge regressed")
     if e50.get("from") != "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1" or e50.get("to") != "TABLE-LEIBIAN-FINE-SISHI-38-62":
         fail("1551 Leibian fine-table attestation endpoints regressed")
+    e51 = next((e for e in edges if e.get("edge_id") == "TG-E0051"), None)
+    if not e51 or e51.get("relation") != "ATTESTS" or e51.get("status") != "CONFIRMED":
+        fail("1554 Hebing Tongshu coarse-table attestation edge regressed")
+    if e51.get("from") != "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17" or e51.get("to") != "TABLE-FAMILY-TONGSHU-COARSE-40-60":
+        fail("1554 Hebing Tongshu attestation endpoints regressed")
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
         fail("Leibian fine-table exact-target mismatch regressed")
@@ -194,6 +200,19 @@ def main() -> int:
     leibian_1551 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1")
     if leibian_1551.get("edition_impression_date") != "MING_JIAJING_30_1551_CATALOG_BOUND":
         fail("1551 Leibian physical-copy date binding regressed")
+    hebing1554 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17")
+    if hebing1554.get("edition_impression_date") != "MING_JIAJING_33_1554_CATALOG_AND_COLOPHON_NOTE_BOUND":
+        fail("1554 Hebing Tongshu physical-copy date binding regressed")
+    coarse_family = next(n for n in nodes if n.get("node_id") == "TABLE-FAMILY-TONGSHU-COARSE-40-60")
+    if coarse_family.get("direct_1554_anchors") != {"大寒":"41/59","雨水":"45/55","夏至":"60/40"}:
+        fail("1554 Hebing Tongshu coarse anchors regressed")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17"
+        and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
+        and x.get("status") == "DISPROVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("1554 Hebing/Sanming unchanged-table non-edge missing")
     if not any(
         x.get("from") == "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1"
         and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"

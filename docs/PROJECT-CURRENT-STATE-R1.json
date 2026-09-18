@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.120.0",
+  "schema_version": "1.121.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -198,9 +198,10 @@
       "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
       "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF",
       "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
-      "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
+      "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
+      "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -655,7 +656,13 @@
       "The exact Sanming 1578 / Yueling 1589 target instead has 大寒43/57->十三後->44/56 and 雨水47/53->後四日->48/52. Thus the 1551 branch is a securely pre-1578 competing table branch, not the unchanged exact target parent.",
       "The 1551 object is not collapsed with NLC892-411999018604-67969: same physical copy and direct-copy relation remain unproved.",
       "Batch 12DH changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
-      "Next gate remains a distinct pre-1578 exact-fingerprint Tongshu/almanac carrier, plus the Chinese Nanjing/Datong 59/41 carrier and whole-ke threshold/selection rule."
+      "Next gate remains a distinct pre-1578 exact-fingerprint Tongshu/almanac carrier, plus the Chinese Nanjing/Datong 59/41 carrier and whole-ke threshold/selection rule.",
+      "Batch 12DI directly closes another securely pre-1578 Tongshu branch: LOC LCCN 2012402919 is catalogued as the 1554 Zixinzhai print of 《新刊類編陰陽選擇合併通書大全》, with Juan 17 exposed as 61 source images.",
+      "Source-bound JP2 review directly binds Juan-17 resource 2 to 選時寶鏡局, resource 3 to 銅壺晝夜百刻圖式/百刻之圖, resource 4 to 雨水45/55 and 夏至60/40, and resource 5 to 大寒41/59. OCR is not used as glyph authority.",
+      "The 1554 values directly mismatch the exact Sanming/Yueling target (大寒43/57->十三後->44/56; 雨水47/53->後四日->48/52; Sanming 夏至59/41), so this copy is excluded as an unchanged exact target parent.",
+      "The 1554 witness strengthens TABLE-FAMILY-TONGSHU-COARSE-40-60 as an independently attested pre-1578 branch but does not prove direct copying from the 1455 witness or collapse generic 通書 into one title.",
+      "Batch 12DI changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
+      "Next gate remains a distinct pre-1578 exact-fingerprint Tongshu/almanac carrier, plus the Chinese Nanjing/Datong 59/41 physical carrier and whole-ke threshold/selection rule."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10

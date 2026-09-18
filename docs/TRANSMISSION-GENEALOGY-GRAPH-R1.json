@@ -115,9 +115,17 @@
       },
       "evidence": [
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH.md",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE.md",
+        "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
+      "direct_1554_anchors": {
+        "大寒": "41/59",
+        "雨水": "45/55",
+        "夏至": "60/40"
+      },
+      "pre1578_1554_independent_physical_attestation": true
     },
     {
       "node_id": "STANDARD-NANJING-59KE-1447",
@@ -844,6 +852,23 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+      "node_type": "PHYSICAL_COPY",
+      "label": "LOC LCCN 2012402919《新刊類編陰陽選擇合併通書大全》卷十七 嘉靖三十三年（1554）刻本",
+      "system_scope": "MING_PRE1578_TONGSHU_COARSE_DAYNIGHT_TABLE_PHYSICAL_WITNESS",
+      "work_composition_date": "COMPOSITE_TONGSHU_TRADITION",
+      "edition_impression_date": "MING_JIAJING_33_1554_CATALOG_AND_COLOPHON_NOTE_BOUND",
+      "physical_copy_date": "1554",
+      "digital_surrogate_date": "MODERN_LOC_DIGITIZATION",
+      "identifier": "LCCN 2012402919 / lcnclscd.2012402919.1A017",
+      "target_result": "Juan-17 選時寶鏡局 / 銅壺晝夜百刻圖式 directly gives 大寒41/59, 雨水45/55, 夏至60/40; exact Sanming/Yueling target identity false.",
+      "evidence": [
+        "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
     }
   ],
   "edges": [
@@ -1597,6 +1622,23 @@
       ],
       "scope_note": "Closes pre-1578 chronology for the fine 38/62 branch; does not prove same-copy identity with the undated NLC Ming object or direct descent into Sanming.",
       "adjudication_batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH"
+    },
+    {
+      "edge_id": "TG-E0051",
+      "from": "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+      "relation": "ATTESTS",
+      "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_LOC_1554_CATALOG_BOUND_PHYSICAL_JP2_COLLATION_NO_OCR",
+      "evidence": [
+        "LOC item JSON: [China] : Zi xin zhai, Ming Jiajing 33 nian [1554]",
+        "Juan17 resource4 JP2 sha256 e2314b210ab98267b87bd39dc5bff9e94199720efdaacb3657123405082f6c14: 雨水45/55; 夏至60/40",
+        "Juan17 resource5 JP2 sha256 3085244d2b61b247ad53a2ee526af1732ddd9e4db97dc70df27f90e35a565d32: 大寒41/59",
+        "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Confirms an independently bound 1554 physical witness of the coarse Tongshu 40/60 family. It does not prove direct copying from the 1455 witness.",
+      "adjudication_batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
     }
   ],
   "lineage_hypotheses": [
@@ -1671,6 +1713,10 @@
         {
           "batch": "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
           "update": "A catalog-bound Jiajing-30/1551 NLC physical edition directly preserves the fine 38/62 Tongshu branch before Sanming 1578, while its Dahan/Yushui anchors directly mismatch the exact Sanming/Yueling target. This closes chronology for a competing pre-1578 branch without identifying the target parent."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
+          "update": "A securely dated 1554 LOC physical Tongshu independently preserves 選時寶鏡局 / 銅壺晝夜百刻圖式 with the coarse 40/60 branch (大寒41/59, 雨水45/55, 夏至60/40). Its direct mismatch with Sanming/Yueling strengthens the model that the target was recomposed/recalibrated rather than copied unchanged from the ordinary coarse Tongshu branch."
         }
       ]
     }
@@ -1969,6 +2015,28 @@
       "evidence": [
         "docs/research/ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "1554 has 大寒41/59, 雨水45/55, 夏至60/40; Sanming 1578 has 大寒43/57->44/56, 雨水47/53->48/52 and 夏至59/41.",
+      "evidence": [
+        "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+      "relation": "DIRECT_UNCHANGED_TABLE_IDENTITY_WITH",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "DISPROVED",
+      "reason": "1554 has 大寒41/59 and 雨水45/55, while the Yueling target has 大寒43/57->十三後->44/56 and 雨水47/53->後四日->48/52.",
+      "evidence": [
+        "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
       ]
     }
   ],
