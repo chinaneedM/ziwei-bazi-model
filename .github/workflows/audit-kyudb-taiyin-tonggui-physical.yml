@@ -73,29 +73,41 @@ jobs:
           if(!viewer) throw new Error('viewer target not resolved');
           await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
 
-          const textRows=[];
-          for(const p of pages){
+          async function locateOne(p){
             let result=null, err=null;
-            for(let attempt=1;attempt<=4;attempt++){
+            for(let attempt=1;attempt<=3;attempt++){
               try{
                 result=await viewer.evaluate(async({book,vol,p})=>{
-                  const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
-                  const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
-                  const text=await r.text();
-                  let j=null; try{j=JSON.parse(text)}catch{}
-                  const raw=j?.ORG?.list || '';
-                  const div=document.createElement('div'); div.innerHTML=raw;
-                  return {status:r.status,text:(div.innerText||div.textContent||'').replace(/\s+/g,' ').trim(),rawBytes:text.length};
+                  const ctl=new AbortController();
+                  const timer=setTimeout(()=>ctl.abort(),8000);
+                  try{
+                    const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                    const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body,signal:ctl.signal});
+                    const text=await r.text();
+                    let j=null; try{j=JSON.parse(text)}catch{}
+                    const raw=j?.ORG?.list || '';
+                    const div=document.createElement('div'); div.innerHTML=raw;
+                    return {status:r.status,text:(div.innerText||div.textContent||'').replace(/\\s+/g,' ').trim(),rawBytes:text.length};
+                  } finally { clearTimeout(timer); }
                 },{book,vol,p});
-                if(result.status===200) break;
+                if(result?.status===200) break;
               }catch(e){err=String(e)}
-              await new Promise(r=>setTimeout(r,350*attempt));
+              await new Promise(r=>setTimeout(r,250*attempt));
             }
             const text=result?.text || '';
-            const primary=primaryTerms.filter(t=>text.includes(t));
-            const secondary=secondaryTerms.filter(t=>text.includes(t));
-            textRows.push({page:p,status:result?.status??null,text,primary_hits:primary,secondary_hits:secondary,error:err});
+            return {page:p,status:result?.status??null,text,primary_hits:primaryTerms.filter(t=>text.includes(t)),secondary_hits:secondaryTerms.filter(t=>text.includes(t)),error:err};
           }
+
+          const textRows=new Array(pages.length);
+          let cursor=0;
+          const workers=Array.from({length:12},async()=>{
+            while(true){
+              const i=cursor++;
+              if(i>=pages.length) return;
+              textRows[i]=await locateOne(pages[i]);
+            }
+          });
+          await Promise.all(workers);
 
           const primaryPages=textRows.filter(x=>x.primary_hits.length).map(x=>x.page);
           const seedPages=primaryPages.length ? primaryPages : textRows.filter(x=>x.secondary_hits.length).map(x=>x.page);
