@@ -13,31 +13,32 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Resolve official Kyudb viewer contract for GK12436
+      - name: Locate and acquire Taiyin Tonggui target physical pages
         shell: bash
         run: |
           set -euo pipefail
           ROOT='audit/kyudb-taiyin-tonggui-physical'
-          mkdir -p "$ROOT"
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical"
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
           npm install --no-save --silent puppeteer-core@24.16.0
           cat > "$ROOT/probe.mjs" <<'JS'
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
+          import crypto from 'node:crypto';
 
           const root='audit/kyudb-taiyin-tonggui-physical';
-          const bookCd='GK12436_00';
+          const bookCd='GK12436_00', itemCd='SIC', volNo='0001';
+          const terms=['晨昏','冬夏二至','冬至','夏至','立成','昏分','晨分','日出','日入','盈日','縮日','缩日'];
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
           await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
-          const requests=[];
-          page.on('request',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) requests.push({kind:'request',method:r.method(),url:u,postData:r.postData()||null}); });
-          page.on('response',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) requests.push({kind:'response',status:r.status(),url:u}); });
 
+          // Enter current official viewer through the public detail form.
           await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
           await Promise.all([
             page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
@@ -45,84 +46,129 @@ jobs:
               const f=document.getElementById('frmBookSearchInf');
               f.querySelector('#book_cd').value=bookCd;
               f.querySelector('#target').value='master';
-              f.action='/book/view.do';
-              f.method='post';
-              f.submit();
+              f.action='/book/view.do'; f.method='post'; f.submit();
             },bookCd)
           ]);
-          const detailUrl=page.url();
-          const detailTitle=await page.$eval('.bookinfo h3',el=>el.innerText.trim()).catch(()=>null);
-          const functionSource=await page.evaluate(()=> typeof window.fn_originalImg==='function' ? String(window.fn_originalImg) : null);
-          const formBefore=await page.evaluate(()=>{
-            const f=document.forms.frmPopViewer;
-            return f ? {action:f.action,method:f.method,target:f.target,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))} : null;
-          });
-
-          const beforeTargets=(await browser.targets()).map(t=>t.url());
-          let callError=null;
-          try {
-            await page.evaluate((bookCd)=>window.fn_originalImg('SIC',bookCd,'',''),bookCd);
-          } catch(e) { callError=String(e); }
-          await new Promise(r=>setTimeout(r,5000));
-          const targets=browser.targets().map(t=>({type:t.type(),url:t.url()}));
-          const newTargets=targets.filter(t=>!beforeTargets.includes(t.url));
-          let viewer=null;
-          for (const t of browser.targets()) {
-            if (t.type()==='page' && t.url()!==detailUrl && t.url()!=='about:blank') {
-              try {
-                const p=await t.page();
-                if(!p) continue;
-                const vr=[];
-                p.on('request',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) vr.push({kind:'request',method:r.method(),url:u,postData:r.postData()||null}); });
-                p.on('response',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) vr.push({kind:'response',status:r.status(),url:u}); });
-                await p.waitForNetworkIdle({idleTime:1500,timeout:15000}).catch(()=>{});
-                const html=await p.content();
-                fs.writeFileSync(root+'/viewer.html',html);
-                const globals=await p.evaluate(()=>({
-                  href:location.href,
-                  title:document.title,
-                  forms:[...document.forms].map(f=>({name:f.name,id:f.id,action:f.action,method:f.method,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))})),
-                  scripts:[...document.scripts].map(s=>s.src).filter(Boolean),
-                  bodyText:document.body.innerText.slice(0,30000)
-                })).catch(()=>null);
-                viewer={url:p.url(),html_bytes:Buffer.byteLength(html),globals,network:vr};
-                await p.screenshot({path:root+'/viewer.png',fullPage:false}).catch(()=>{});
-                break;
-              } catch(e) {}
-            }
+          const detailMeta=await page.evaluate(()=>({
+            title:document.querySelector('.bookinfo h3')?.innerText?.trim()||'',
+            body:document.body.innerText.slice(0,25000),
+            originalHandler: typeof window.fn_originalImg==='function' ? String(window.fn_originalImg) : null,
+          }));
+          await page.evaluate((bookCd)=>window.fn_originalImg('SIC',bookCd,'',''),bookCd);
+          await new Promise(r=>setTimeout(r,2500));
+          let viewerPage=null;
+          for(const t of browser.targets()){
+            if(t.type()==='page' && t.url().includes('/pf01/rendererImg.do')) { viewerPage=await t.page(); break; }
           }
-          const formAfter=await page.evaluate(()=>{
-            const f=document.forms.frmPopViewer;
-            return f ? {action:f.action,method:f.method,target:f.target,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))} : null;
-          });
+          if(!viewerPage) throw new Error('official viewer popup not resolved');
+          await viewerPage.waitForNetworkIdle({idleTime:1000,timeout:30000}).catch(()=>{});
+
+          const routeMeta=await viewerPage.evaluate(()=>({
+            url:location.href,
+            min_page_no: typeof min_page_no!=='undefined' ? min_page_no : null,
+            max_page_no: typeof max_page_no!=='undefined' ? max_page_no : null,
+            imagePath: document.forms.frmOriText2?.path?.value||null,
+            pathId: document.forms.frmOriText2?.pathId?.value||null,
+          }));
+
+          // Official image list endpoint gives exact source-bound file/page order.
+          const imageListResp=await viewerPage.evaluate(async({itemCd,bookCd,volNo})=>{
+            const body=new URLSearchParams({item_cd:itemCd,book_cd:bookCd,vol_no:volNo});
+            const r=await fetch('/pf01/viewImgList.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
+            return {status:r.status,json:await r.json()};
+          },{itemCd,bookCd,volNo});
+          const list=imageListResp.json?.list||[];
+          fs.writeFileSync(root+'/image-list.json',JSON.stringify(imageListResp,null,2));
+
+          function pageIdFrom(row){
+            const candidates=[row.ORG_CD,row.DISP_PAGE,row.FILE_NM].filter(Boolean).map(String);
+            for(const s of candidates){
+              const m=s.match(/([0-9]{3}[ab])(?:_[0-9]{2})?(?:\.jpg)?$/i) || s.match(/_([0-9]{3}[ab])(?:_[0-9]{2})?\.jpg$/i);
+              if(m) return m[1];
+            }
+            return null;
+          }
+          function stripHtml(s){ return String(s||'').replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim(); }
+
+          // Page text is locator-only. It is never final glyph/numeric authority.
+          const locators=[];
+          for(let i=0;i<list.length;i++){
+            const row=list[i], pid=pageIdFrom(row);
+            if(!pid) continue;
+            const txt=await viewerPage.evaluate(async({itemCd,bookCd,volNo,pid})=>{
+              try{
+                const body=new URLSearchParams({item_cd:itemCd,book_cd:bookCd,vol_no:volNo,page_no:pid});
+                const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
+                return {status:r.status,json:await r.json()};
+              }catch(e){return {error:String(e)}}
+            },{itemCd,bookCd,volNo,pid});
+            const raw=txt?.json?.ORG?.list || '';
+            const plain=stripHtml(raw);
+            const hits=terms.filter(t=>plain.includes(t));
+            const score=hits.reduce((n,t)=>n+(t==='晨昏'?10:t==='冬夏二至'?8:t==='立成'?5:2),0);
+            locators.push({index:i,page_id:pid,file_nm:row.FILE_NM||null,org_cd:row.ORG_CD||null,disp_page:row.DISP_PAGE||null,status:txt.status||null,text_chars:plain.length,hits,score,text_locator_only:plain.slice(0,12000)});
+          }
+          fs.writeFileSync(root+'/page-text-locators.json',JSON.stringify(locators,null,2));
+
+          const positive=locators.filter(x=>x.score>0).sort((a,b)=>b.score-a.score || a.index-b.index);
+          // Include every positive page plus ±2 physical neighbors, bounded and deduped.
+          const idxs=new Set();
+          for(const x of positive){
+            for(let d=-2;d<=2;d++){ const j=x.index+d; if(j>=0 && j<list.length) idxs.add(j); }
+          }
+          const selected=[...idxs].sort((a,b)=>a-b);
+          const physical=[];
+          for(const i of selected){
+            const row=list[i], pid=pageIdFrom(row);
+            const file=String(row.FILE_NM||'');
+            if(!pid || !file) continue;
+            const path=(routeMeta.pathId||'/data01/stream/SIC/IMG/GK12436_00/GK12436_00_0001/')+file;
+            const url='https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm='+encodeURIComponent(file)+'&path='+encodeURIComponent(path);
+            const resp=await viewerPage.evaluate(async(url)=>{
+              const r=await fetch(url,{credentials:'include'});
+              const ab=await r.arrayBuffer();
+              return {status:r.status,contentType:r.headers.get('content-type'),bytes:[...new Uint8Array(ab)]};
+            },url);
+            const buf=Buffer.from(resp.bytes);
+            const outFile=`${root}/physical/page-${pid}.jpg`;
+            fs.writeFileSync(outFile,buf);
+            physical.push({index:i,page_id:pid,file_nm:file,url,status:resp.status,content_type:resp.contentType,bytes:buf.length,sha256:crypto.createHash('sha256').update(buf).digest('hex'),local_file:`physical/page-${pid}.jpg`});
+          }
+
           const report={
-            schema:'KYUDB-TAIYIN-TONGGUI-PHYSICAL-ROUTE-R1',
+            schema:'KYUDB-TAIYIN-TONGGUI-PHYSICAL-LOCATOR-R2',
+            schema_version:'2.0.0',
+            provider:'Seoul National University Kyujanggak Institute for Korean Studies',
+            title:'太陰通軌',
             book_cd:bookCd,
             call_number:'奎貴12436',
-            title:'太陰通軌',
-            detail_url:detailUrl,
-            detail_title:detailTitle,
-            fn_originalImg_source:functionSource,
-            frm_pop_viewer_before:formBefore,
-            frm_pop_viewer_after:formAfter,
-            call_error:callError,
-            targets,
-            new_targets:newTargets,
-            detail_network:requests,
-            viewer,
-            adjudication_rule:'Route acquisition only. No OCR, glyph, or numeric claim is authorized until source-bound physical pages are downloaded and directly reviewed.'
+            edition_scope:'Kyudb-held Joseon corrected Jiayin-type recension; not assumed identical to Ming/Nanjing parent recension.',
+            detail_meta:detailMeta,
+            route_meta:routeMeta,
+            image_list_status:imageListResp.status,
+            image_count:list.length,
+            locator_terms:terms,
+            locator_positive_count:positive.length,
+            locator_positives:positive,
+            selected_indices:selected,
+            physical_pages:physical,
+            ocr_used_for_final_glyph_claims:false,
+            page_text_used_for_final_glyph_claims:false,
+            adjudication_rule:'Kyudb pageText is locator-only. Exact glyphs, table values, layout, and transmission claims require direct visual inspection of the source-bound ImageServlet physical pages listed by SHA-256.'
           };
           fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
-          console.log(JSON.stringify(report,null,2));
+          console.log(JSON.stringify({image_count:list.length,route_meta:routeMeta,positives:positive.map(x=>({page_id:x.page_id,hits:x.hits,score:x.score,text:x.text_locator_only.slice(0,500)})),physical:physical.map(x=>({page_id:x.page_id,bytes:x.bytes,sha256:x.sha256}))},null,2));
           await browser.close();
-          if(!functionSource) process.exitCode=2;
+          if(list.length<100) process.exitCode=2;
+          if(physical.length===0) process.exitCode=3;
           JS
           BROWSER="$BROWSER" node "$ROOT/probe.mjs"
-      - name: Upload official viewer route evidence
+
+      - name: Upload physical locator evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kyudb-taiyin-tonggui-physical-route
+          name: kyudb-taiyin-tonggui-physical-r2
           path: audit/kyudb-taiyin-tonggui-physical
           if-no-files-found: error
           retention-days: 30
