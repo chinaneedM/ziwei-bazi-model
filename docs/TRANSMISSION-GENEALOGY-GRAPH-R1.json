@@ -595,9 +595,17 @@
       "chronology_relation_to_sanming": "POSTDATES_EXACT_1578_SANMING_BY_11_YEARS",
       "evidence": [
         "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md",
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
+      "source_label_scope": {
+        "physical_label": "通書",
+        "target_block_binding": "DIRECT_PHYSICAL_AT_P27_AND_P802_BLOCK_BOUNDARIES",
+        "exact_title_edition_date": "UNRESOLVED",
+        "pre1578_source_status": "UNRESOLVED",
+        "all_tongshu_branches_equivalent": false
+      }
     },
     {
       "node_id": "PERSON-ZHAO-YOUQIN-YUANDU",
@@ -720,6 +728,24 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC"
+    },
+    {
+      "node_id": "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+      "node_type": "SOURCE_FAMILY",
+      "label": "1589《月令通攷》目标昼夜刻材料所引『通書』来源层",
+      "system_scope": "MING_TONGSHU_ALMANAC_SOURCE_FAMILY_EXACT_TITLE_EDITION_UNRESOLVED",
+      "work_composition_date": "UNRESOLVED",
+      "edition_impression_date": "UNRESOLVED",
+      "physical_copy_date": "UNRESOLVED",
+      "digital_surrogate_date": "NOT_A_SINGLE_PHYSICAL_OBJECT",
+      "source_label": "通書",
+      "exact_bibliographic_identity": "UNRESOLVED",
+      "pre1578_status": "UNRESOLVED",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD"
     }
   ],
   "edges": [
@@ -1411,6 +1437,22 @@
       ],
       "scope_note": "Physically closes a 1520 pre-1578 witness of the Gexiang hundred-ke/half-Zi rule and 若子時則 wording. It does not prove direct copying into Shendao or Sanming.",
       "adjudication_batch": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC"
+    },
+    {
+      "edge_id": "TG-E0047",
+      "from": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "relation": "EXPLICITLY_CITES",
+      "to": "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_GENERIC_SOURCE_LABEL_ONLY",
+      "evidence_class": "DIRECT_PHYSICAL_SMALL_FONT_SOURCE_LABEL_AT_TARGET_BLOCK_BOUNDARIES_WITH_SAME_PAGE_SOURCE_LABEL_TYPOGRAPHIC_CONTROL",
+      "evidence": [
+        "p27 sha256 ec9b5aeb747c6a6a14a80923a1e1f0f4a56c8feb2db0ef303147b0b710638513",
+        "p802 sha256 ab6aeac3f163bd732cf92bc8639daee2a40c95b2671dad69c6653119d29f417e",
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json"
+      ],
+      "scope_note": "Confirms only that the 1589 compilation attributes the target material to a generic 通書 source layer. It does not identify title, recension, edition, date, or pre-1578 ancestry.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD"
     }
   ],
   "lineage_hypotheses": [
@@ -1429,8 +1471,7 @@
       "direct_copy_parent_identified": false,
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
-        "Which securely pre-1578 physical witness preserves the closer Zhao/Gexiang-derived Ming wording 若子時則上半時... before the exact 1578 Sanming print?",
-        "Which securely pre-1578 Chinese Tongshu/Yueling/calendar witness preserves both the 大寒 十三後 and 雨水 後四日 transition fingerprints?",
+        "Which exact pre-1578 Tongshu/almanac title, recension, or upstream source carries both the 大寒十三後 and 雨水後四日 fingerprints physically attributed to generic 通書 in Yueling 1589?",
         "What exact Nanjing/Datong post-computation reduction rule maps C-II-N daily values to the Sanming/Yueling integer-change fingerprint?",
         "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its reduction rule, distinguishing Chinese origin from Joseon transmission?"
       ],
@@ -1462,6 +1503,14 @@
         {
           "batch": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
           "update": "HKU/FPSLRBO B17672971 fascicle 4 v11 directly preserves a Zhao Yuandu-attributed essay group and hundred-ke/half-Zi wording unusually close to 1578 Sanming. It also directly states a regional-calibration principle, contrasting old 60/40 with Yandu Shoushi 62/38. This strengthens the prose/locality components of the composite model but does not identify the 59/41 numeric parent; the manuscript's broad 1522-1619 dating prevents direct Shendao->Sanming direction from being closed."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
+          "update": "NCL-06265 supplies a direct Zhengde-15/1520 print witness of Gexiang 時分百刻 and the closer 若子時則上半時在夜半前屬昨日 / 下半時在夜半後屬今日 wording, closing the pre-1578 textual-antecedent gate while leaving direct copying into Sanming unproved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
+          "update": "Direct p27 and p802 neighborhood collation shows the 1589 Yueling target fingerprint blocks carry the small source label 通書, with same-page small-font source labels such as 汲冢周書 providing typographic control. This materially narrows the common-source search to a Tongshu/almanac source family, but exact title/recension/date and pre-1578 status remain unresolved; distinct Tongshu numeric branches must not be collapsed."
         }
       ]
     }
@@ -1671,6 +1720,17 @@
       "evidence": [
         "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC.md"
+      ]
+    },
+    {
+      "from": "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The 1589 target material explicitly cites 通書, but the exact cited Tongshu title/recension/date is unidentified. It may predate Sanming, postdate it, or mediate a parallel lineage; no direct ancestor direction is authorized.",
+      "evidence": [
+        "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
       ]
     }
   ],
