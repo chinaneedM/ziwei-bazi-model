@@ -32,6 +32,8 @@ ZIWEI_TONGSHU_LEIJU_12DJ_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_TONGSHU_LEIJU_12DJ_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
 ZIWEI_TONGSHU_LEIJU_12DK_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md"
 ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
+ZIWEI_TONGSHU_LEIJU_12DL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md"
+ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -274,9 +276,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
+    "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md"
 
 
 def fail(message: str) -> None:
@@ -284,6 +287,39 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_TONGSHU_LEIJU_12DL_BATCH, ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DL continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dl = json.loads(ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dl.get("batch_id") != "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL":
+        fail("Batch 12DL evidence identity mismatch")
+    scholar12dl = batch12dl.get("scholarly_locator", {})
+    if scholar12dl.get("evidence_class") != "SECONDARY_SCHOLARSHIP_WITH_PUBLISHER_HOSTED_SEARCH_INDEX_EXCERPT":
+        fail("Batch 12DL scholarly evidence-class firewall regressed")
+    if scholar12dl.get("publisher_pdf_directly_opened_in_current_reader") is not False or scholar12dl.get("direct_pdf_page_screenshot_obtained") is not False:
+        fail("Batch 12DL publisher-PDF direct-access firewall regressed")
+    title12dl = scholar12dl.get("title_attribution_control", {})
+    if title12dl.get("yao_kui_role") != "纂辑" or title12dl.get("wang_yining_role") != "校刊" or title12dl.get("direct_1551_physical_title_page_observed_in_this_batch") is not False:
+        fail("Batch 12DL secondary title-attribution control regressed")
+    col12dl = scholar12dl.get("juan16_colophon_locator", {})
+    if col12dl.get("location") != "卷十六末" or col12dl.get("direct_1551_physical_colophon_page_observed_in_this_batch") is not False:
+        fail("Batch 12DL juan-16 secondary locator firewall regressed")
+    print12dl = scholar12dl.get("printing_provenance_scope", {})
+    if print12dl.get("same_shop_proves_textual_lineage") is not False or print12dl.get("same_shop_proves_table_lineage") is not False or print12dl.get("numeric_ancestry_vote_increment") != 0:
+        fail("Batch 12DL printing-shop/lineage firewall regressed")
+    downstream12dl = batch12dl.get("downstream_false_independence_control", {})
+    if downstream12dl.get("source_attribution_adjudication") != "EXPLICITLY_PRESENTED_UNDER_SANMING_TONGHUI_5":
+        fail("Batch 12DL Gujin Tushu Jicheng attribution control regressed")
+    if downstream12dl.get("independent_pre1578_witness") is not False or downstream12dl.get("independent_numeric_vote_increment") != 0:
+        fail("Batch 12DL downstream-reuse vote firewall regressed")
+    repro12dl = batch12dl.get("reproduction_targeting", {})
+    if repro12dl.get("nlc_call_number") != "14202" or repro12dl.get("known_surviving_scope") != "卷十六至十九":
+        fail("Batch 12DL reproduction identity/scope regressed")
+    if repro12dl.get("direct_reproduction_obtained") is not False or repro12dl.get("target_table_page_obtained") is not False or repro12dl.get("exact_fingerprint_tested_on_1551_copy") is not False:
+        fail("Batch 12DL direct-page/target-table firewall regressed")
+    if batch12dl.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DL unexpectedly reopened algorithm")
+
     for path in (ZIWEI_TONGSHU_LEIJU_12DK_BATCH, ZIWEI_TONGSHU_LEIJU_12DK_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DK continuity artifact missing: {path.relative_to(ROOT)}")
@@ -633,6 +669,19 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dl_scholar = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL"), None)
+    source12dl_downstream = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-GUJIN-TUSHU-JICHENG-V597-SANMING-REUSE-CONTROL"), None)
+    if source12dl_scholar is None or source12dl_downstream is None:
+        fail("Batch 12DL external-source registry bindings missing")
+    if source12dl_scholar.get("source_role") != "SECONDARY_SCHOLARLY_PROVENANCE_LOCATOR_AND_REPRODUCTION_TARGETING_CONTROL":
+        fail("Batch 12DL scholarly registry role regressed")
+    if source12dl_scholar.get("tongshu_leiju_controls", {}).get("direct_1551_physical_page_observed") is not False:
+        fail("Batch 12DL scholarly registry physical-page firewall regressed")
+    if source12dl_scholar.get("printing_shop_adjudication", {}).get("numeric_ancestry_vote_increment") != 0:
+        fail("Batch 12DL scholarly registry numeric-vote firewall regressed")
+    if source12dl_downstream.get("independent_pre1578_witness") is not False or source12dl_downstream.get("independent_numeric_vote_increment") != 0:
+        fail("Batch 12DL downstream registry independence firewall regressed")
+
     source12dk_opac = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-OPAC-TONGSHU-LEIJU-JIAJING30-1551-001790345"), None)
     source12dk_union = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-UNION-GUJI-TONGSHU-LEIJU-FUZZY-576-CLOSURE"), None)
     source12dk_micro = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-OLCC-B1MICU-TONGSHU-LEIJU-AUTH-BOUNDARY"), None)
