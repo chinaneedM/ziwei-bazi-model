@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.122.0",
+  "schema_version": "1.123.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -200,9 +200,10 @@
       "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
       "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
       "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
-      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ"
+      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -671,7 +672,17 @@
       "Batch 12DJ therefore closes only CURRENT_PUBLIC_DIGITAL_ANCIENT_BOOKS_INDEX_ROUTE=NO_TARGET_RECORD_OBSERVED. Physical-copy digitization, reader-terminal, reproduction/microfilm, alternate NLC service and other surrogate routes remain UNRESOLVED; no juan 16-19 target page has been directly collated.",
       "The 1551 Tongshu Leiju copy contributes no numeric/table ancestry vote yet. Its identity with Yueling's generic 通書 source and its Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint status remain UNRESOLVED.",
       "Batch 12DJ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
-      "Next gate: prioritize a lawful direct image/reproduction route for NLC census 110000-0101-0013797 / call no. 14202, juan 16-19; in parallel continue independent exact-fingerprint Tongshu witnesses, the Chinese Nanjing/Datong 59/41 carrier and the historical whole-ke threshold/selection rule."
+      "Next gate: prioritize a lawful direct image/reproduction route for NLC census 110000-0101-0013797 / call no. 14202, juan 16-19; in parallel continue independent exact-fingerprint Tongshu witnesses, the Chinese Nanjing/Datong 59/41 carrier and the historical whole-ke threshold/selection rule.",
+      "Batch 12DK strengthens the 1551 《通書類聚尅擇大全》 physical identity through NLC OPAC: doc 001790345 / internal id 411999023866 / call 14202 / 南区善本阅览室, with title, copper-movable-type format, Zhicheng Jiajing-30 [1551] imprint and 1-fascicle extent directly bound.",
+      "The OPAC item page exposes the specific holding row 14202\\\\南区善本阅览室. Its generic service text mentions electronic/microform alternatives, but that generic rule is not promoted as proof that this title has a microform or electronic surrogate.",
+      "Controlled Wikimedia Commons searches for 411999023866, NLC892-411999023866 and three title variants return zero. Internet Archive identifier searches also return zero; broad title hits are unrelated discovery noise. These are scoped public-surrogate negatives only.",
+      "OLCC Z39.50 B1MICU accepts a connection but rejects anonymous searches with Access-control failure / User name Z39 does not exist. Any client-displayed zero-hit value is invalid as content-negative evidence; target microform presence remains UNRESOLVED.",
+      "Google Books exposes the 2015 《全国公共图书馆缩微文献联合目录·古籍编》 route but SearchWithinVolume2 returns searchable=false for all tested target queries, so its zero-result arrays have no negative authority.",
+      "National Ancient Books Census broad controls return only the known NLC target for 通書類聚/通书类聚. 芝城銅活字 returns two NLC records: the 1551 target and a 1552 Mozi copy. 姚奎 returns zero; 王以寧 returns an unrelated Zhejiang Library memorial collection. No current Fujian Provincial Library target holding is directly supported by these reviewed census queries.",
+      "NLC Chinese Ancient Books Union Bibliography resource 0019 was exhaustively closed for title LIKE 通書類聚: all 48/48 pages and 576/576 unique records were validated across the initial, retry and final-page workflows. Full-record filtering yields zero contiguous target-title, keze/jueze, 姚奎, 王以寧, 芝城 or target romanization hits; the only exact 1551/Jiajing-30 record is unrelated NJPX96-B51 《新刊古文類抄》.",
+      "Batch 12DK closes these reviewed current public discovery/index routes without proving that no private, historical, uncatalogued, authenticated-microform, reader-terminal, transferred or differently catalogued copy/surrogate exists. No juan 16-19 page was obtained; target table/fingerprint and Yueling generic 通書 identity remain UNRESOLVED.",
+      "Batch 12DK changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
+      "Next gate: prioritize lawful NLC South Rare Books Reading Room / reproduction-service access for call 14202 or an independently accessible physical/reproduction copy; continue in parallel the pre-1578 exact-fingerprint Tongshu carrier, Chinese Nanjing/Datong 59/41 carrier, and exact whole-ke threshold/selection-rule searches."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
