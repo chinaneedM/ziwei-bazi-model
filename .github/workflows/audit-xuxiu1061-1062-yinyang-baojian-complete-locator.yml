@@ -1,0 +1,112 @@
+name: audit-xuxiu1061-1062-yinyang-baojian-complete-locator
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-xuxiu1061-1062-yinyang-baojian-complete-locator.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install locator tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+
+      - name: Build complete low-resolution physical locator for Xuxiu 1061-1062
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/xuxiu1061-1062-yinyang-baojian-complete-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render" "$ROOT/contact"
+
+          U61='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1061%E5%86%8A.pdf'
+          U62='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1062%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U61" -o "$ROOT/1061.pdf"
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U62" -o "$ROOT/1062.pdf"
+
+          sha256sum "$ROOT"/106*.pdf | sort -V | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/1061.pdf" | tee "$ROOT/1061-pdfinfo.txt"
+          pdfinfo "$ROOT/1062.pdf" | tee "$ROOT/1062-pdfinfo.txt"
+          pdftotext -layout "$ROOT/1061.pdf" "$ROOT/1061-text.txt" || true
+          pdftotext -layout "$ROOT/1062.pdf" "$ROOT/1062-text.txt" || true
+
+          for v in 1061 1062; do
+            pages=$(pdfinfo "$ROOT/$v.pdf" | awk '/^Pages:/ {print $2}')
+            pdftoppm -jpeg -jpegopt quality=82 -r 62 "$ROOT/$v.pdf" "$ROOT/render/$v-page" >/dev/null 2>&1
+            count=$(find "$ROOT/render" -name "$v-page-*.jpg" | wc -l)
+            test "$count" -eq "$pages"
+          done
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import json,re
+          root=Path('audit/xuxiu1061-1062-yinyang-baojian-complete-locator')
+          for vol in ('1061','1062'):
+              pages=sorted((root/'render').glob(f'{vol}-page-*.jpg'),key=lambda p:int(p.stem.split('-')[-1]))
+              for i in range(0,len(pages),40):
+                  batch=pages[i:i+40]
+                  thumbs=[]
+                  for p in batch:
+                      im=Image.open(p).convert('RGB')
+                      im.thumbnail((180,250))
+                      canvas=Image.new('RGB',(195,275),'white')
+                      canvas.paste(im,((195-im.width)//2,20))
+                      ImageDraw.Draw(canvas).text((6,5),p.name,fill='black')
+                      thumbs.append(canvas)
+                  cols=8
+                  rows=(len(thumbs)+cols-1)//cols
+                  sheet=Image.new('RGB',(cols*195,rows*275),'white')
+                  for j,im in enumerate(thumbs):
+                      sheet.paste(im,((j%cols)*195,(j//cols)*275))
+                  sheet.save(root/'contact'/f'{vol}-contact-{i+1:04d}-{i+len(batch):04d}.jpg',quality=88)
+
+          terms=[
+            '新刊陰陽寶鑒','克擇通書','前集','後集','卷之五',
+            '晝夜','百刻','雨水','大寒','四十三刻','四十四刻',
+            '四十七刻','四十八刻','十三後','後四日','日出','日入'
+          ]
+          hits={}
+          for vol in ('1061','1062'):
+              txt=(root/f'{vol}-text.txt').read_text(encoding='utf-8',errors='ignore')
+              hits[vol]={t:len(list(re.finditer(re.escape(t),txt))) for t in terms}
+          (root/'text-layer-hits.json').write_text(json.dumps(hits,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          printf '%s\n' \
+            'SOURCE=續修四庫全書第1061-1062冊' \
+            'PUBLIC_DESCRIPTION=includes 新刊陰陽寶鑒克擇通書前集五卷後集五卷; described by Xuxiu as 國家圖書館藏元刻本' \
+            'PURPOSE=locate complete front-five/back-five reproduction and especially material absent from current standalone volumes1-4 scan' \
+            'DATE_FIREWALL=Xuxiu 元刻本 description and current union-catalog 明初(1368-1424) dating conflict; do not adjudicate copy date from label alone' \
+            'RENDER_DPI=62' \
+            'CONTACT_ONLY_FOR_STRUCTURE_AND_PAGE_LOCALIZATION=true' \
+            'OCR_TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_GLYPH_OR_NEGATIVE_AUTHORITY' \
+            'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false' \
+            > "$ROOT/manifest.txt"
+
+          rm -rf "$ROOT/render" "$ROOT/1061.pdf" "$ROOT/1062.pdf"
+
+      - name: Upload complete two-volume locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu1061-1062-yinyang-baojian-complete-locator
+          path: audit/xuxiu1061-1062-yinyang-baojian-complete-locator
+          if-no-files-found: error
+          retention-days: 30
