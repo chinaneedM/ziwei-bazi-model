@@ -13,7 +13,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
 
@@ -23,22 +23,62 @@ jobs:
           set -euo pipefail
           ROOT='audit/nlc-gjpc-tongshu-leiju-1551'
           rm -rf "$ROOT"
-          mkdir -p "$ROOT/js"
-
-          BASE='https://gjpc.nlc.cn'
-          LANDING="$BASE/xlsworkbench/publish"
+          mkdir -p "$ROOT/probes" "$ROOT/js"
           UA='Tianwen-Provenance-Audit/1.0'
 
-          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2             --connect-timeout 20 --max-time 90 -A "$UA"             -D "$ROOT/landing.headers" "$LANDING" -o "$ROOT/landing.html"
+          cat > "$ROOT/candidates.txt" <<'EOF'
+          http://202.96.31.78/xlsworkbench/publish
+          http://202.96.31.78:8585/xlsworkbench/publish
+          https://gjpc.nlc.cn/xlsworkbench/publish
+          EOF
 
+          : > "$ROOT/probe-status.tsv"
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1))
+            body="$ROOT/probes/$(printf '%02d' "$n").html"
+            headers="$ROOT/probes/$(printf '%02d' "$n").headers"
+            meta="$ROOT/probes/$(printf '%02d' "$n").meta"
+            set +e
+            timeout 40s curl -L -sS               --connect-timeout 8 --max-time 30               -A "$UA" -D "$headers"               -w '%{http_code}\t%{url_effective}\t%{size_download}\n'               "$url" -o "$body" > "$meta" 2>"$ROOT/probes/$(printf '%02d' "$n").stderr"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$body" ] && size=$(wc -c < "$body")
+            printf '%s\t%s\t%s\t%s\n' "$n" "$rc" "$size" "$url" >> "$ROOT/probe-status.tsv"
+          done < "$ROOT/candidates.txt"
+
+          chosen=''
+          for f in "$ROOT"/probes/*.html; do
+            [ -f "$f" ] || continue
+            size=$(wc -c < "$f")
+            if [ "$size" -gt 200 ]; then
+              chosen="$f"
+              break
+            fi
+          done
+
+          if [ -z "$chosen" ]; then
+            printf '%s\n'               'RESULT=NO_FRONTEND_BODY'               'INTERPRETATION=network/frontend access unresolved; not evidence that the target catalog record is absent'               > "$ROOT/result.txt"
+            exit 0
+          fi
+
+          cp "$chosen" "$ROOT/landing.html"
           sha256sum "$ROOT/landing.html" > "$ROOT/landing.sha256"
 
-          python - <<'PY'
+          chosen_no=$(basename "$chosen" .html)
+          final_url=$(awk -F '\t' 'NF>=2 {print $2}' "$ROOT/probes/$chosen_no.meta" | tail -n1)
+          [ -n "$final_url" ] || final_url=$(sed -n "${chosen_no}p" "$ROOT/candidates.txt")
+          printf '%s\n' "$final_url" > "$ROOT/final-url.txt"
+
+          FINAL_URL="$final_url" python - <<'PY'
+          import os
           from html.parser import HTMLParser
           from urllib.parse import urljoin
           from pathlib import Path
 
-          base = 'https://gjpc.nlc.cn/xlsworkbench/publish'
+          base = os.environ['FINAL_URL']
           html = Path('audit/nlc-gjpc-tongshu-leiju-1551/landing.html').read_text('utf-8', errors='replace')
 
           class P(HTMLParser):
@@ -49,24 +89,28 @@ jobs:
                   d = dict(attrs)
                   if tag == 'script' and d.get('src'):
                       self.urls.append(urljoin(base, d['src']))
+
           p = P()
           p.feed(html)
           Path('audit/nlc-gjpc-tongshu-leiju-1551/script-urls.txt').write_text(
-              '\n'.join(dict.fromkeys(p.urls)) + '\n', encoding='utf-8')
+              '\n'.join(dict.fromkeys(p.urls)) + ('\n' if p.urls else ''), encoding='utf-8')
           PY
 
           i=0
+          : > "$ROOT/js-map.tsv"
           while IFS= read -r url; do
             [ -z "$url" ] && continue
             i=$((i+1))
             out="$ROOT/js/$(printf '%03d' "$i").js"
-            curl -L --fail --retry 3 --retry-all-errors --retry-delay 2               --connect-timeout 15 --max-time 90 -A "$UA" "$url" -o "$out" || true
-            printf '%s\t%s\n' "$out" "$url" >> "$ROOT/js-map.tsv"
+            set +e
+            timeout 35s curl -L -sS               --connect-timeout 8 --max-time 25               -A "$UA" "$url" -o "$out"
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\n' "$rc" "$out" "$url" >> "$ROOT/js-map.tsv"
           done < "$ROOT/script-urls.txt"
 
-          find "$ROOT/js" -type f -size +0c -print0 | xargs -0 sha256sum | sort -V > "$ROOT/js.sha256" || true
+          find "$ROOT/js" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/js.sha256"
 
-          # Discovery only: record likely API/search routes and field names from the public frontend.
           {
             grep -RaoE --binary-files=text               'https?://[^"'"'"'[:space:]<>]+|/[A-Za-z0-9_./?=&%-]{4,}'               "$ROOT/landing.html" "$ROOT/js" 2>/dev/null || true
           } | grep -Ei               'search|query|publish|book|title|version|collect|library|xls|workbench|api|古籍|題名|题名|版本|收藏|館藏|馆藏'               | sort -u > "$ROOT/route-candidates.txt" || true
@@ -75,7 +119,9 @@ jobs:
             grep -RaniE --binary-files=text               'search|query|title|version|collect|library|題名|题名|版本|收藏|館藏|馆藏|普查|索書號|索书号'               "$ROOT/landing.html" "$ROOT/js" 2>/dev/null || true
           } | head -n 4000 > "$ROOT/keyword-context.txt" || true
 
-          printf '%s\n'             'SOURCE=National Library of China / National Center for Preservation & Conservation of Ancient Books'             'DATABASE=全國古籍普查登記基本數據庫'             'LANDING=https://gjpc.nlc.cn/xlsworkbench/publish'             'TARGET_TITLE=通書類聚尅擇大全 / 通書類聚克擇大全 / 通書類聚剋擇大全'             'TARGET_EDITION=明嘉靖三十年芝城銅活字印本'             'KNOWN_SURVIVING_SCOPE=存四卷 十六至十九'             'PURPOSE=discover the public query endpoint/parameters needed to resolve holding institution and call number; do not infer a holder from secondary authorship or snippets'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+          printf '%s\n'             'RESULT=FRONTEND_CAPTURED'             "FINAL_URL=$final_url"             'NEXT=inspect route-candidates.txt and keyword-context.txt; then issue a title+edition query in a follow-up source-bound workflow'             > "$ROOT/result.txt"
+
+          printf '%s\n'             'SOURCE=National Library of China / National Center for Preservation & Conservation of Ancient Books'             'DATABASE=全國古籍普查登記基本數據庫'             'TARGET_TITLE=通書類聚尅擇大全 / 通書類聚克擇大全 / 通書類聚剋擇大全'             'TARGET_EDITION=明嘉靖三十年芝城銅活字印本'             'KNOWN_SURVIVING_SCOPE=存四卷 十六至十九'             'PURPOSE=discover the public query endpoint/parameters needed to resolve holding institution and call number; do not infer a holder from secondary authorship or snippets'             'OCR_USED=false'             > "$ROOT/manifest.txt"
 
       - name: Upload NLC census endpoint probe
         uses: actions/upload-artifact@v4
