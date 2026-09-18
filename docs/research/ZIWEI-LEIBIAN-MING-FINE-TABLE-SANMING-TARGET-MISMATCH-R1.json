@@ -1,0 +1,141 @@
+{
+  "schema": "ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
+  "prior_batch_id": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
+  "question": "Does the Ming-print 《類編曆法通書大全》 fine 四時加減晝夜節氣 38/62 table preserve the exact Dahan/Yushui values and change-day fingerprint shared by Sanming 1578 and Yueling 1589?",
+  "answer": "NO. DIRECT P24 PHYSICAL COLLATION DISPROVES UNCHANGED EXACT-TABLE IDENTITY AT BOTH DAHAN AND YUSHUI.",
+  "physical_source": {
+    "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-MING-VOL1",
+    "title": "《類編曆法通書大全》第1冊",
+    "provider": "National Library of China digitization via Wikimedia Commons",
+    "public_file": "NLC892-411999018604-67969 類編曆法通書大全 第1冊",
+    "edition_scope": "刻本；公開書目標示明[1368-1644]；exact impression year unresolved",
+    "page_count": 95,
+    "source_pdf_sha256": "50a308f8adbfd7010b398cc68bc64dc66f7c1dbdcfe6470029e04aacd22e6419",
+    "exact_pre1578_physical_copy_status": "UNRESOLVED",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "acquisition": {
+    "workflow_run_id": 35349106287,
+    "artifact_id": 10548946354,
+    "artifact_digest": "sha256:308b16283270f5f110dc962c39761f03e42f4266e4548b8e07033d955f957ca2",
+    "render_dpi": 360,
+    "page_sha256": {
+      "23": "e087452ab8421f22dcf52cbf255d8e10e44d480f4b2f6680f72b98dd24d07903",
+      "24": "2316baee2c40b9ffcb9add014dedab78aebb2914ffbfdd87cd96492fe5d7a154",
+      "25": "83583c1bb382f3fd0bfc940513e0ab85d0a38209a6815f34212100fe0974ac05",
+      "26": "7dea0f5a42937ee2cffa547b1a8374b06795a3c1b8f797f03d34847bf41aef4a"
+    }
+  },
+  "direct_physical_collation": {
+    "page24": {
+      "heading": "四時加減晝夜節氣",
+      "secure_target_rows": [
+        {
+          "date_range": "冬至節日連小寒後四日同",
+          "day_ke": 38,
+          "night_ke": 62
+        },
+        {
+          "date_range": "大寒節日至後六日",
+          "day_ke": 40,
+          "night_ke": 60
+        },
+        {
+          "date_range": "大寒後七日至後十三日",
+          "day_ke": 41,
+          "night_ke": 59
+        },
+        {
+          "date_range": "立春前一日至後三日",
+          "day_ke": 42,
+          "night_ke": 58
+        },
+        {
+          "date_range": "立春後四日至後九日",
+          "day_ke": 43,
+          "night_ke": 57
+        },
+        {
+          "date_range": "立春後十日至後十四日",
+          "day_ke": 44,
+          "night_ke": 56
+        },
+        {
+          "date_range": "雨水節日至後五日",
+          "day_ke": 45,
+          "night_ke": 55
+        }
+      ],
+      "layout_note": "The table pairs post-winter-solstice ranges with corresponding autumn/pre-winter ranges under the same day/night-ke cells. Only the securely read post-winter target ranges needed for adjudication are promoted here.",
+      "glyph_authority": "DIRECT_360DPI_PHYSICAL_RENDER_NO_OCR"
+    },
+    "page25": {
+      "role": "Continuation of the same fine one-ke table toward equinox/summer values; used as continuity/context control only in this batch.",
+      "promoted_ambiguous_rainwater_follow_on_wording": false,
+      "reason": "The exact unchanged-parent hypothesis is already decisively disproved by the p24 term-anchor values, so no uncertain p25 range wording is promoted."
+    }
+  },
+  "exact_target_comparison": {
+    "sanming_1578": {
+      "source": "NCL-06589-1 direct physical Batch 12CP",
+      "dahan": "43/57, then literal 十三後日 -> 44/56",
+      "yushui": "47/53, then 後四日 -> 48/52"
+    },
+    "yueling_1589": {
+      "source": "NCL-03165 direct physical Batch 12DA/DD",
+      "dahan": "43/57, then literal 十三後 -> 44/56",
+      "yushui": "47/53, then 後四日 -> 48/52",
+      "source_label": "通書"
+    },
+    "leibian_fine_ming": {
+      "dahan": "大寒節日至後六日 = 40/60; 大寒後七日至後十三日 = 41/59",
+      "yushui": "雨水節日至後五日 = 45/55"
+    },
+    "adjudication": "The Leibian fine 38/62 table cannot be the unchanged exact table behind the Sanming/Yueling fingerprint. The mismatch begins at the solar-term anchors themselves, not merely at a later change-day boundary."
+  },
+  "chronology_and_scope": {
+    "exact_ming_impression_year": "UNRESOLVED_WITHIN_1368_1644",
+    "can_be_called_securely_pre1578_physical_copy": false,
+    "unchanged_exact_parent_of_sanming_1578": false,
+    "unchanged_exact_identity_with_yueling_cited_tongshu": false,
+    "broader_structural_or_textual_ancestry_still_possible": true,
+    "safe_claim": "A Ming-print Tongshu title physically preserves a fine Yandu/Shoushi-like 38/62 branch whose Dahan and Yushui target values directly differ from the Sanming/Yueling exact fingerprint. This branch is excluded as the unchanged target table; layered transmission or later regional/editorial recomposition remains live."
+  },
+  "transmission_impact": {
+    "physical_node": "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
+    "table_node": "TABLE-LEIBIAN-FINE-SISHI-38-62",
+    "relations": [
+      "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1 ATTESTS TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "TABLE-LEIBIAN-FINE-SISHI-38-62 PARALLEL_COEXISTS_WITH TABLE-FAMILY-TONGSHU-COARSE-40-60",
+      "TABLE-LEIBIAN-FINE-SISHI-38-62 DIRECT_UNCHANGED_PARENT_OF TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED"
+    ],
+    "generic_yueling_tongshu_identity": "UNRESOLVED; do not collapse a generic 通書 citation into this exact 38/62 branch."
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search pre-1578 Tongshu/almanac recensions for the exact Sanming/Yueling 43/57->十三後->44/56 and 47/53->後四日->48/52 fingerprint.",
+    "Keep the Nanjing/Datong 59/41 carrier and C-II-N whole-ke reduction/selection-rule searches active.",
+    "Do not treat generic 通書 labels as proof of one invariant numerical table family."
+  ]
+}
