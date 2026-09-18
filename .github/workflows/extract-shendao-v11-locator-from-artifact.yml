@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SRC='prior/audit/shendao-v11-zhaoyuandu-timekeeping-bridge'
+          SRC='prior'
           OUT='compact'
           test -d "$SRC/contact"
           mkdir -p "$OUT"
