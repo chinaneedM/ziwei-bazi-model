@@ -97,6 +97,7 @@ def main() -> int:
         "TABLE-LEIBIAN-FINE-SISHI-38-62",
         "PHYSICAL-COPY-LEIBIAN-NLC-MING-VOL1",
         "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
+        "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -178,9 +179,28 @@ def main() -> int:
     e49 = next((e for e in edges if e.get("edge_id") == "TG-E0049"), None)
     if not e49 or e49.get("relation") != "PARALLEL_COEXISTS_WITH" or e49.get("status") != "CONFIRMED":
         fail("Leibian fine/coarse coexistence edge regressed")
+    e50 = next((e for e in edges if e.get("edge_id") == "TG-E0050"), None)
+    if not e50 or e50.get("relation") != "ATTESTS" or e50.get("status") != "CONFIRMED":
+        fail("1551 Leibian fine-table pre-1578 attestation edge regressed")
+    if e50.get("from") != "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1" or e50.get("to") != "TABLE-LEIBIAN-FINE-SISHI-38-62":
+        fail("1551 Leibian fine-table attestation endpoints regressed")
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
         fail("Leibian fine-table exact-target mismatch regressed")
+    if leibian_fine.get("pre1578_physical_attestation_closed") is not True:
+        fail("Leibian fine-table pre-1578 chronology closure regressed")
+    if leibian_fine.get("chronology_after_12dh") != "DIRECT_PRE1578_ATTESTATION_BY_NLC_JIAJING30_1551_CATALOG_BOUND_COPY":
+        fail("Leibian fine-table 1551 chronology binding regressed")
+    leibian_1551 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1")
+    if leibian_1551.get("edition_impression_date") != "MING_JIAJING_30_1551_CATALOG_BOUND":
+        fail("1551 Leibian physical-copy date binding regressed")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1"
+        and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
+        and x.get("status") == "DISPROVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("1551 Leibian/Sanming unchanged-table non-edge missing")
     yinyang_baojian = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4")
     if yinyang_baojian.get("surviving_scope") != "VOLUMES_1_TO_4_ONLY; VOLUME_5_MISSING_FROM_CURRENT_SCAN":
         fail("Yinyang Baojian surviving-scope firewall regressed")
