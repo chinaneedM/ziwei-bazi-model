@@ -1,0 +1,128 @@
+name: audit-kyudb-taiyin-tonggui-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-kyudb-taiyin-tonggui-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve official Kyudb viewer contract for GK12436
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-taiyin-tonggui-physical'
+          mkdir -p "$ROOT"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          npm install --no-save --silent puppeteer-core@24.16.0
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+
+          const root='audit/kyudb-taiyin-tonggui-physical';
+          const bookCd='GK12436_00';
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+          const requests=[];
+          page.on('request',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) requests.push({kind:'request',method:r.method(),url:u,postData:r.postData()||null}); });
+          page.on('response',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) requests.push({kind:'response',status:r.status(),url:u}); });
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((bookCd)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=bookCd;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do';
+              f.method='post';
+              f.submit();
+            },bookCd)
+          ]);
+          const detailUrl=page.url();
+          const detailTitle=await page.$eval('.bookinfo h3',el=>el.innerText.trim()).catch(()=>null);
+          const functionSource=await page.evaluate(()=> typeof window.fn_originalImg==='function' ? String(window.fn_originalImg) : null);
+          const formBefore=await page.evaluate(()=>{
+            const f=document.forms.frmPopViewer;
+            return f ? {action:f.action,method:f.method,target:f.target,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))} : null;
+          });
+
+          const beforeTargets=(await browser.targets()).map(t=>t.url());
+          let callError=null;
+          try {
+            await page.evaluate((bookCd)=>window.fn_originalImg('SIC',bookCd,'',''),bookCd);
+          } catch(e) { callError=String(e); }
+          await new Promise(r=>setTimeout(r,5000));
+          const targets=browser.targets().map(t=>({type:t.type(),url:t.url()}));
+          const newTargets=targets.filter(t=>!beforeTargets.includes(t.url));
+          let viewer=null;
+          for (const t of browser.targets()) {
+            if (t.type()==='page' && t.url()!==detailUrl && t.url()!=='about:blank') {
+              try {
+                const p=await t.page();
+                if(!p) continue;
+                const vr=[];
+                p.on('request',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) vr.push({kind:'request',method:r.method(),url:u,postData:r.postData()||null}); });
+                p.on('response',r=>{ const u=r.url(); if(/viewer|image|img|servlet|ajax/i.test(u)) vr.push({kind:'response',status:r.status(),url:u}); });
+                await p.waitForNetworkIdle({idleTime:1500,timeout:15000}).catch(()=>{});
+                const html=await p.content();
+                fs.writeFileSync(root+'/viewer.html',html);
+                const globals=await p.evaluate(()=>({
+                  href:location.href,
+                  title:document.title,
+                  forms:[...document.forms].map(f=>({name:f.name,id:f.id,action:f.action,method:f.method,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))})),
+                  scripts:[...document.scripts].map(s=>s.src).filter(Boolean),
+                  bodyText:document.body.innerText.slice(0,30000)
+                })).catch(()=>null);
+                viewer={url:p.url(),html_bytes:Buffer.byteLength(html),globals,network:vr};
+                await p.screenshot({path:root+'/viewer.png',fullPage:false}).catch(()=>{});
+                break;
+              } catch(e) {}
+            }
+          }
+          const formAfter=await page.evaluate(()=>{
+            const f=document.forms.frmPopViewer;
+            return f ? {action:f.action,method:f.method,target:f.target,inputs:[...f.elements].map(x=>({name:x.name,value:x.value}))} : null;
+          });
+          const report={
+            schema:'KYUDB-TAIYIN-TONGGUI-PHYSICAL-ROUTE-R1',
+            book_cd:bookCd,
+            call_number:'奎貴12436',
+            title:'太陰通軌',
+            detail_url:detailUrl,
+            detail_title:detailTitle,
+            fn_originalImg_source:functionSource,
+            frm_pop_viewer_before:formBefore,
+            frm_pop_viewer_after:formAfter,
+            call_error:callError,
+            targets,
+            new_targets:newTargets,
+            detail_network:requests,
+            viewer,
+            adjudication_rule:'Route acquisition only. No OCR, glyph, or numeric claim is authorized until source-bound physical pages are downloaded and directly reviewed.'
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify(report,null,2));
+          await browser.close();
+          if(!functionSource) process.exitCode=2;
+          JS
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+      - name: Upload official viewer route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-taiyin-tonggui-physical-route
+          path: audit/kyudb-taiyin-tonggui-physical
+          if-no-files-found: error
+          retention-days: 30
