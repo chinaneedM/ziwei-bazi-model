@@ -465,6 +465,43 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA",
+      "node_type": "PHYSICAL_COPY",
+      "label": "奎章閣奎貴893《授時曆立成》甲寅字15世紀本",
+      "system_scope": "YUAN_SHOUSHI_TABLE_TRADITION_TRANSMITTED_IN_JOSEON",
+      "work_composition_date": "YUAN_SHOUSHI_LICHENG_TRADITION; exact source-work recension not assigned here",
+      "edition_impression_date": "PROVIDER_CATALOG: 15世紀前半(世宗年間:1418-1450), 甲寅字; exact 1434/1444 unresolved",
+      "physical_copy_date": "CATALOGUED_PRE1578_15TH_CENTURY_JOSEON_PRINT",
+      "digital_surrogate_date": "MODERN_KYUJANGGAK_SOURCE_BOUND_VIEWER_IMAGES",
+      "identifier": "GK00893_00 / 奎貴893",
+      "complete_public_image_acquisition": {
+        "workflow_run_id": 35324088110,
+        "artifact_id": 10538746764,
+        "pages": 204,
+        "range": "000a-101b"
+      },
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW"
+    },
+    {
+      "node_id": "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "《授時曆立成》Type II 北京/燕都日出入晨昏半晝逐日表",
+      "system_scope": "SHOUSHI_BEIJING_LOCAL_DAYLENGTH_TABLE",
+      "date": "TABLE_TRADITION_YUAN; DIRECT_SURVIVING_G893_WITNESS_15TH_CENTURY_PRE1578",
+      "physical_locator": "GK00893_00 052a onward; summer transition/initial row 077a",
+      "mechanical_identity": "Daily post-solstice table with 積日/晨分/日出分/半晝分/日入分/昏分. Winter initial half-day 1907.96 -> daylight 38.1592 ke; summer initial half-day 3092.04 -> daylight 61.8408 ke.",
+      "modern_table_classification": "Li Liang: Type C-II-B / Beijing",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW"
     }
   ],
   "edges": [
@@ -867,6 +904,55 @@
       "scope_note": "Same numerical table family across an independent 15th-century Joseon movable-type witness; exact Chinese exemplar, physical-copy identity and direct path into Wan Minying are not proved.",
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
       "edge_id": "TG-E0028"
+    },
+    {
+      "from": "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA",
+      "relation": "ATTESTS",
+      "to": "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_COMPLETE_PHYSICAL_SEQUENCE_AND_NO_OCR_NUMERIC_COLLATION",
+      "evidence": [
+        "GK00893 052a sha256 12a9fcd04d87d00a401776fec63bb4fcc55db776b28eb37e8599dc672a1ac2c7",
+        "GK00893 077a sha256 629334d68177b84e551f9bdb0700d238800233832bbba417ba7cf29b247b7bbe",
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+      "edge_id": "TG-E0029"
+    },
+    {
+      "from": "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PHYSICAL_LOCAL_NUMERIC_CONTRAST_PLUS_PEER_REVIEWED_TYPE_II_CLASSIFICATION",
+      "evidence": [
+        "G893 C-II-B: winter/summer daylight 38.1592/61.8408 ke",
+        "C-II-N: day0 half-day 2068.30 and day182 half-day 2931.66 -> daylight 41.3660/58.6332 ke",
+        "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Both are daily Type-II sunrise/sunset/daylength table traditions with different geographic numerical calibration. Coexistence and structural homology do not prove direct derivation direction or copy identity.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+      "edge_id": "TG-E0030"
+    },
+    {
+      "from": "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "relation": "DISPROVES_LINEAGE_SHORTCUT",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_PRE1578_PHYSICAL_SOLSTITIAL_NUMERIC_MISMATCH",
+      "evidence": [
+        "G893 summer initial daylight = 61.8408 ke",
+        "1578 Sanming physical summer solstice = 59/41",
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP.md"
+      ],
+      "reason": "The phrase 授時曆 in Sanming cannot be collapsed into direct use of the raw Yandu/Beijing G893 numerical table. This rejects exact numeric-parent identity while preserving broader Shoushi methodological ancestry/locality capability.",
+      "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+      "edge_id": "TG-E0031"
     }
   ],
   "lineage_hypotheses": [
@@ -886,13 +972,17 @@
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
         "Which securely pre-1578 witness first combines Xiazhi 59/41 with Sanming-like intermediate anchors?",
-        "Was an older 40↔60 Tongshu family explicitly recalibrated to Nanjing/Datong locality, or did Sanming inherit a separate already-recalibrated table?",
-        "What exact quantization/change-day rule maps the daily Nanjing Datong curve to Sanming's displayed bins?"
+        "What exact quantization/change-day rule maps the daily Nanjing Datong C-II-N curve to Sanming's displayed bins?",
+        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its integer-reduction rule, distinguishing Chinese origin from Joseon transmission?"
       ],
       "evidence_updates": [
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
           "update": "A catalogued pre-1578 15th-century Joseon Gabinja physical witness (GK12436) directly transmits the same Nanjing C-II-N daily morning/evening numerical fingerprints at day0 and day178. This strengthens the daily Datong numerical-substrate component. Complete GK12437 review separately confirms the target day/night table must not be attributed to that Ritonggui object from title/metadata alone."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+          "update": "G893 now physically closes the pre-1578 Shoushi Type-II Beijing branch at 38.1592/61.8408 ke. Its direct mismatch with Sanming 59/41 strengthens the composite model: Shoushi supplies a method/table architecture, while the Sanming numerical substrate aligns with the Nanjing/Datong regional layer rather than raw Yandu values; exact integer reduction/change-day recomposition remains unresolved."
         }
       ]
     }
@@ -1013,6 +1103,17 @@
       "evidence": [
         "docs/research/ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA",
+      "relation": "DIRECT_NUMERIC_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "G893 direct physical Type-II Beijing table has solstitial 61.8408/38.1592 ke, whereas the exact 1578 Sanming target has 59/41 at summer solstice. Direct raw-table numeric identity is impossible; this does not disprove use of Shoushi methods or a regionally recalibrated derivative.",
+      "evidence": [
+        "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md"
       ]
     }
   ],

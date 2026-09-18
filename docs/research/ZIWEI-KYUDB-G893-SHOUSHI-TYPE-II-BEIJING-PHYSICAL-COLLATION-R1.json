@@ -1,0 +1,154 @@
+{
+  "schema": "ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+  "question": "Does the newly accessible pre-1578 G893 Shoushi Licheng physical witness directly identify the raw Shoushi Type-II daylength numerical branch, and can that branch be equated with the 1578 Sanming 59/41 display?",
+  "source_identity": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "title": "授時曆立成",
+    "identifier": "GK00893_00 / 奎貴893",
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "edition": "甲寅字",
+    "provider_date_scope": "15世紀前半(世宗年間:1418-1450)",
+    "exact_impression_year": "UNRESOLVED_1434_VS_1444_SECONDARY_CONFLICT",
+    "date_firewall": "Use provider's 15th-century Sejong-era range; do not select 1434 or 1444 without copy-specific primary evidence."
+  },
+  "acquisition": {
+    "workflow_run_id": 35324088110,
+    "artifact_id": 10538746764,
+    "artifact_name": "kyudb-g893-shoushi-licheng-complete-physical-r2",
+    "viewer_page_range": "000a-101b",
+    "physical_pages_acquired": 204,
+    "physical_pages_expected": 204,
+    "complete_sequence": true,
+    "ocr_used_for_final_glyph_or_numeric_claims": false
+  },
+  "direct_physical_collation": {
+    "winter_opening_052a": {
+      "sha256": "12a9fcd04d87d00a401776fec63bb4fcc55db776b28eb37e8599dc672a1ac2c7",
+      "heading": "授時曆日出入晨昏半晝分",
+      "section": "冬至後",
+      "argument": "初日",
+      "fields": {
+        "morning_fen": 2842.04,
+        "sunrise_fen": 3092.04,
+        "half_day_fen": 1907.96,
+        "sunset_fen": 6907.96,
+        "dusk_fen": 7157.96
+      },
+      "internal_checks": [
+        "2842.04 + 250 = 3092.04",
+        "5000 - 3092.04 = 1907.96",
+        "5000 + 1907.96 = 6907.96",
+        "6907.96 + 250 = 7157.96"
+      ]
+    },
+    "summer_transition_077a": {
+      "sha256": "629334d68177b84e551f9bdb0700d238800233832bbba417ba7cf29b247b7bbe",
+      "section": "夏至後每日 日出入晨昏半晝分",
+      "argument": "初日",
+      "fields": {
+        "morning_fen": 1657.96,
+        "sunrise_fen": 1907.96,
+        "half_day_fen": 3092.04,
+        "sunset_fen": 8092.04,
+        "dusk_fen": 8342.04
+      },
+      "internal_checks": [
+        "1657.96 + 250 = 1907.96",
+        "5000 - 1907.96 = 3092.04",
+        "5000 + 3092.04 = 8092.04",
+        "8092.04 + 250 = 8342.04"
+      ]
+    },
+    "transition_control_076b": {
+      "sha256": "8d74e5e12908e857ff489ffdcb4349f47b63e7bcbef538c58194d32cb53bdd62",
+      "role": "late winter-to-summer half daily rows immediately before day182/夏至 transition"
+    }
+  },
+  "unit_conversion": {
+    "basis": "日周10000 = 100 ke; half-day fen is half of daylight interval",
+    "winter_daylight_fen": 3815.92,
+    "winter_daylight_ke": 38.1592,
+    "winter_night_ke": 61.8408,
+    "summer_daylight_fen": 6184.08,
+    "summer_daylight_ke": 61.8408,
+    "summer_night_ke": 38.1592
+  },
+  "table_identity": {
+    "modern_classification_source": "EXT-LI-LIANG-SUNRISE-TABLES-2022",
+    "shoushi_type": "C-II-B",
+    "shoushi_locality": "Beijing/Dadu/Yandu",
+    "datong_comparator_type": "C-II-N",
+    "datong_locality": "Nanjing",
+    "independent_modern_locality_control": "EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014",
+    "classification_role": "MODERN_SECONDARY_IDENTIFICATION_ONLY; DIRECT NUMERIC CLAIMS REST ON PHYSICAL PAGES"
+  },
+  "cross_family_comparison": {
+    "g893_beijing": {
+      "winter_half_day_fen": 1907.96,
+      "winter_daylight_ke": 38.1592,
+      "summer_half_day_fen": 3092.04,
+      "summer_daylight_ke": 61.8408
+    },
+    "nanjing_cii_n": {
+      "winter_half_day_fen": 2068.3,
+      "winter_daylight_ke": 41.366,
+      "summer_day182_half_day_fen": 2931.66,
+      "summer_daylight_ke": 58.6332
+    },
+    "geographic_difference_ke": {
+      "winter_daylight_nanjing_minus_beijing": 3.2068,
+      "summer_daylight_beijing_minus_nanjing": 3.2076
+    },
+    "sanming_1578": {
+      "summer_solstice_daylight_ke": 59,
+      "night_ke": 41
+    },
+    "inference": "Sanming's 59-ke summer endpoint is numerically compatible with the Nanjing C-II-N neighborhood and incompatible with raw Beijing G893 61.8408 as an exact table. This does not by itself prove nearest-integer rounding or the exact Sanming change-day rule."
+  },
+  "adjudication": {
+    "g893_complete_public_physical_sequence": "CLOSED",
+    "g893_shoushi_type_ii_beijing_numeric_branch": "CLOSED_AT_DIRECT_PHYSICAL_NUMERIC_LEVEL",
+    "raw_yandu_shoushi_equals_sanming_1578_table": false,
+    "raw_yandu_numeric_parent_shortcut": "DISPROVED",
+    "shoushi_methodological_framework_for_sanming": "STRENGTHENED_NOT_DIRECT_NUMERIC_IDENTITY",
+    "nanjing_datong_regional_layer_for_sanming": "STRENGTHENED",
+    "exact_sanming_quantization_change_day_rule": "UNRESOLVED",
+    "direct_sanming_textual_parent": "UNRESOLVED",
+    "legacy_six_g893_controls": "NOT_ADJUDICATED_IN_THIS_BATCH",
+    "runtime_change": "NONE",
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA",
+      "TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "TABLE-SANMING-1578-DAYNIGHT-KE"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA ATTESTS TABLE-SHOUSHI-DAILY-CII-B-BEIJING",
+      "TABLE-SHOUSHI-DAILY-CII-B-BEIJING PARALLEL_COEXISTS_WITH TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "TABLE-SHOUSHI-DAILY-CII-B-BEIJING DISPROVES_LINEAGE_SHORTCUT TABLE-SANMING-1578-DAYNIGHT-KE"
+    ],
+    "rejected_shortcut": "Sanming says 授時曆 therefore use raw Yandu/Beijing Shoushi Type-II numerical table",
+    "unresolved_lineage_questions": [
+      "exact C-II-N -> integer-ke reduction/change-day convention",
+      "pre-1578 Chinese physical C-II-N carrier and reduction text",
+      "direct textual parent of Wan Minying's displayed table"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

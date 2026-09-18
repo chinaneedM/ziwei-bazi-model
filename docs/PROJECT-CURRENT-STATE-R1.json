@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.108.0",
+  "schema_version": "1.109.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -186,9 +186,10 @@
       "BATCH-12-ZIWEI-DATONG-RICHU-NPM-PINGTU011910-CATALOG-CLOSURE-CS",
       "BATCH-12-ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-CT",
       "BATCH-12-ZIWEI-MING-DATONG-ANNUAL-PRE1578-PHYSICAL-SCOPE-CLOSURE-CU",
-      "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV"
+      "BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV",
+      "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-TONGGUI-DAILY-TABLE-PHYSICAL-CLOSURE-CV.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -589,7 +590,11 @@
       "Batch 12CV directly closes Kyujanggak GK12436 / 奎貴12436 《太陰通軌》 as a pre-1578 15th-century Joseon Gabinja physical transmission witness for a daily table headed 冬夏二至日晨昏分立成鈐; exact impression year remains unresolved within the provider's Sejong-era scope.",
       "Direct 039a reads winter-solstice day0 晨分2681.70 / 昏分7318.30, replaying to 半晝2068.30; 047a day178 reads 晨分1819.66 / 昏分8180.34, replaying to 半晝2930.34. Both exactly match the independently bound NCL/Li-Liang C-II-N fingerprints.",
       "Complete 78-page physical review of GK12437 / 大統曆日通軌 confirms its 盈縮/限 computational-table scope and finds no independent 晨昏分/日出入/晝夜刻 table on that object, preserving Batch 12CO's corrected attribution and blocking title-based overreach.",
-      "The Sanming numerical-substrate component is materially strengthened, but direct parentage and the exact integer quantization/change-day rule remain unresolved. Next gate is a securely pre-1578 reduction rule plus a Chinese physical C-II-N witness; HPA-ZDATE-006 and all runtime/algorithm invariants remain unchanged."
+      "The Sanming numerical-substrate component is materially strengthened, but direct parentage and the exact integer quantization/change-day rule remain unresolved. Next gate is a securely pre-1578 reduction rule plus a Chinese physical C-II-N witness; HPA-ZDATE-006 and all runtime/algorithm invariants remain unchanged.",
+      "Batch 12CW closes the complete public physical sequence of Kyujanggak G893 / 奎貴893 《授時曆立成》: 204/204 source-bound pages acquired in workflow 35324088110 / artifact 10538746764; exact print year remains unresolved within the provider's 15th-century Sejong-era range.",
+      "Direct 052a reads 授時曆日出入晨昏半晝分 and winter initial 晨2842.04 / 日出3092.04 / 半晝1907.96 / 日入6907.96 / 昏7157.96, giving daylight 38.1592 ke; direct 077a gives the summer mirror and daylight 61.8408 ke.",
+      "The physical G893 values close the raw Shoushi Type-II Beijing/Yandu branch and directly disprove the shortcut Sanming 授時曆分之 = raw Yandu Shoushi numerical table, because the exact 1578 Sanming summer target is 59/41.",
+      "The composite ancestry model is strengthened: Shoushi supplies method/table architecture and locality capability; Nanjing Datong C-II-N supplies the numerically compatible regional daily substrate; the exact integer reduction/change-day layer into the Sanming displayed ladder remains the highest-priority unresolved gate."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
