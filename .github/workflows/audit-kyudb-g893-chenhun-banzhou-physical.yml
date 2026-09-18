@@ -13,7 +13,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +24,7 @@ jobs:
           npm install --no-save --silent puppeteer-core@24.16.0
           python -m pip install --quiet pillow
 
-      - name: Locate and acquire Kyudb G893 Shoushi Licheng physical pages
+      - name: Acquire complete Kyudb G893 Shoushi Licheng physical witness
         shell: bash
         run: |
           set -euo pipefail
@@ -112,20 +112,11 @@ jobs:
           const primaryPages=textRows.filter(x=>x.primary_hits.length).map(x=>x.page);
           const seedPages=primaryPages.length ? primaryPages : textRows.filter(x=>x.secondary_hits.length).map(x=>x.page);
           const idx=new Map(pages.map((p,i)=>[p,i]));
-          const wanted=new Set();
-          for(const p of seedPages){
-            const i=idx.get(p);
-            for(let j=Math.max(0,i-4);j<=Math.min(pages.length-1,i+4);j++) wanted.add(pages[j]);
-          }
-          let fallback=false;
-          if(!wanted.size){
-            fallback=true;
-            // No provider-text hit: acquire sparse control windows across the volume.
-            // This is a locator fallback only, not a whole-volume negative claim.
-            for(const center of [20,60,100,140,180]){
-              for(let j=Math.max(0,center-4);j<=Math.min(pages.length-1,center+4);j++) wanted.add(pages[j]);
-            }
-          }
+          // G893 is only 102 folios / 204 viewer surfaces. Acquire every public
+          // source-bound surface so target-page binding does not depend on OCR,
+          // cross-copy page offsets, or provider text-layer completeness.
+          const wanted=new Set(pages);
+          const fallback=false;
 
           const physical=[];
           for(const p of [...wanted].sort((a,b)=>idx.get(a)-idx.get(b))){
@@ -157,8 +148,8 @@ jobs:
           }
 
           const report={
-            schema:'KYUDB-G893-SHOUSHI-LICHENG-CHENHUN-BANZHOU-PHYSICAL-LOCATOR-R1',
-            schema_version:'1.0.0',
+            schema:'KYUDB-G893-SHOUSHI-LICHENG-COMPLETE-PHYSICAL-R2',
+            schema_version:'2.0.0',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,
             call_number:'奎貴893',
@@ -213,11 +204,11 @@ jobs:
           print(json.dumps({'contact_sheets':sheets,'dimensions':[(x['page'],x.get('width'),x.get('height')) for x in imgs[:5]]},ensure_ascii=False,indent=2))
           PY
 
-      - name: Upload G893 Shoushi Licheng physical locator
+      - name: Upload complete G893 Shoushi Licheng physical witness
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kyudb-taiyin-tonggui-morning-evening-physical-r2
+          name: kyudb-g893-shoushi-licheng-complete-physical-r2
           path: audit/kyudb-g893-chenhun-banzhou-physical
           if-no-files-found: error
           retention-days: 30
