@@ -869,6 +869,25 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19",
+      "node_type": "PHYSICAL_COPY",
+      "label": "國家圖書館《通書類聚尅擇大全□□卷》嘉靖三十年（1551）芝城銅活字印本，存卷十六至十九",
+      "system_scope": "MING_PRE1578_TONGSHU_BIBLIOGRAPHIC_PHYSICAL_COPY_PENDING_TEXT_COLLATION",
+      "work_composition_date": "UNKNOWN_COMPOSITE_TONGSHU_TRADITION",
+      "edition_impression_date": "MING_JIAJING_30_1551_CENSUS_AND_SHANBEN_CATALOG_BOUND",
+      "physical_copy_date": "1551_AS_CATALOGUED_NLC_HELD_COPY",
+      "digital_surrogate_date": "NO_PUBLIC_DIGITAL_ANCIENT_BOOKS_RECORD_OBSERVED_2026_09_19",
+      "identifier": "NLC census 110000-0101-0013797 / call no. 14202 / Shanben catalog item 450",
+      "surviving_scope": "ONE_FASCICLE; JUAN_16_TO_19",
+      "target_result": "Physical holding and surviving scope are catalog-bound; no juan 16-19 target page has been directly obtained. NLC public Digital Ancient Books exact-title and exact sbnumber 14202 checks return zero. Table family and Sanming/Yueling fingerprint remain unresolved.",
+      "public_digital_index_status": "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202",
+      "evidence": [
+        "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ"
     }
   ],
   "edges": [
@@ -1717,6 +1736,10 @@
         {
           "batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
           "update": "A securely dated 1554 LOC physical Tongshu independently preserves 選時寶鏡局 / 銅壺晝夜百刻圖式 with the coarse 40/60 branch (大寒41/59, 雨水45/55, 夏至60/40). Its direct mismatch with Sanming/Yueling strengthens the model that the target was recomposed/recalibrated rather than copied unchanged from the ordinary coarse Tongshu branch."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+          "update": "A distinct pre-1578 Tongshu title is now first-party census-bound to an NLC physical copy: 《通書類聚尅擇大全□□卷》, 1551 Zhicheng movable-type, call no. 14202, surviving juan 16-19. The current public Digital Ancient Books index returns no exact-title or exact-sbnumber record, so this batch narrows a concrete physical-copy acquisition route but contributes no table or numeric ancestry vote until the surviving pages are directly collated."
         }
       ]
     }
@@ -2038,6 +2061,26 @@
         "docs/research/ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md"
       ]
+    },
+    {
+      "from": "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19",
+      "relation": "DIRECT_TARGET_FINGERPRINT_ATTESTATION",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "UNRESOLVED",
+      "reason": "The 1551 NLC-held copy is bibliographically closed, but no juan 16-19 page has been directly acquired. Current public Digital Ancient Books index non-return is an access boundary, not textual evidence.",
+      "evidence": [
+        "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19",
+      "relation": "DIRECT_TARGET_FINGERPRINT_ATTESTATION",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "UNRESOLVED",
+      "reason": "Chronology and Tongshu title family are compatible with the search target, but same-title/source-family identity and the 大寒十三後 / 雨水後四日 fingerprint are untested without direct pages.",
+      "evidence": [
+        "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
+      ]
     }
   ],
   "backfill": {
@@ -2046,5 +2089,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-09-18"
+  "updated_at": "2026-09-19"
 }
