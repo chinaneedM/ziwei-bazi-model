@@ -1,0 +1,54 @@
+name: extract-shendao-v11-locator-from-artifact
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-shendao-v11-locator-from-artifact.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download prior complete Shendao evidence artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: shendao-v11-zhaoyuandu-timekeeping-bridge
+          path: prior
+          github-token: ${{ github.token }}
+          repository: chinaneedM/ziwei-bazi-model
+          run-id: 35338236414
+
+      - name: Build compact prior-artifact locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC='prior/audit/shendao-v11-zhaoyuandu-timekeeping-bridge'
+          OUT='compact'
+          test -d "$SRC/contact"
+          mkdir -p "$OUT"
+          cp -r "$SRC/contact" "$OUT/contact"
+          cp "$SRC/source.sha256" "$OUT/source.sha256"
+          cp "$SRC/render.sha256" "$OUT/render.sha256"
+          cp "$SRC/vol1-pdfinfo.txt" "$OUT/vol1-pdfinfo.txt"
+          cp "$SRC/vol2-pdfinfo.txt" "$OUT/vol2-pdfinfo.txt"
+          cp "$SRC/text-layer-hits.json" "$OUT/text-layer-hits.json"
+          cp "$SRC/manifest.txt" "$OUT/manifest.txt"
+          sha256sum "$OUT"/contact/*.jpg | sort -V > "$OUT/contact.sha256"
+          printf 'SOURCE_RUN=35338236414\nSOURCE_ARTIFACT=10544450345\nSOURCE_ARTIFACT_DIGEST=sha256:01e80b7a25e6849bc15f11f53826f4315713ed1b9229bb499993c46f6958d362\n' > "$OUT/provenance.txt"
+
+      - name: Upload compact locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: shendao-v11-prior-artifact-compact-locator
+          path: compact
+          if-no-files-found: error
+          retention-days: 30
