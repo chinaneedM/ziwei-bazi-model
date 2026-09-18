@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.117.0",
+  "schema_version": "1.118.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -195,9 +195,10 @@
       "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
       "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
       "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
-      "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+      "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
+      "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -637,7 +638,11 @@
       "Batch 12DE directly re-collates the Ming-print NLC《類編曆法通書大全》fine《四時加減晝夜節氣》branch at 360 dpi. Direct p24 fixes 大寒節日至後六日=40/60, 大寒後七日至後十三日=41/59, and 雨水節日至後五日=45/55.",
       "These term-anchor values directly mismatch the exact 1578 Sanming / 1589 Yueling fingerprint (大寒43/57->十三後->44/56; 雨水47/53->後四日->48/52). Therefore the Leibian fine 38/62 branch is excluded as an unchanged exact parent or unchanged numeric identity for the target table.",
       "This does not collapse generic 通書 into any one title: 12DD's cited 通書 source family remains bibliographically unresolved, while 12DE proves at least one Ming Tongshu title preserves a different fine table branch alongside a coarse branch. Layered structural ancestry/recomposition remains possible.",
-      "Next gate: prioritize pre-1578 Tongshu/almanac recensions with both exact Sanming/Yueling fingerprints; in parallel continue the pre-1578 Nanjing/Datong 59/41 carrier and C-II-N whole-ke reduction/selection-rule searches. Runtime and algorithm invariants remain unchanged."
+      "Next gate: prioritize pre-1578 Tongshu/almanac recensions with both exact Sanming/Yueling fingerprints; in parallel continue the pre-1578 Nanjing/Datong 59/41 carrier and C-II-N whole-ke reduction/selection-rule searches. Runtime and algorithm invariants remain unchanged.",
+      "Batch 12DF reviews 《新刊陰陽寶鑒克擇通書前集》 as a securely pre-1578 Tongshu witness at the current union-catalog scope: 刻本, 明初(1368-1424), 5 volumes, 2 fascicles, holder 中國國家圖書館; the public digital object explicitly survives only as volumes 1-4.",
+      "All 75 scanned pages (29+46) of surviving volumes 1-4 were covered by a complete 145-dpi structural locator. No candidate solar-term day/night-ke table, hundred-ke target table, or Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint leaf was observed. Zero text-layer hits are locator-only and have no content-negative authority.",
+      "12DF is deliberately not a whole-work negative: catalog volume 5 is missing from the current digital object, so missing volume 5, a complete copy, and other recensions remain open. This title is also not equated with the generic 通書 source label physically bound in Yueling 1589.",
+      "Next gate remains the exact pre-1578 Tongshu/almanac carrier of both fingerprints, with priority shifting away from rescanning this same surviving v1-4 object. In parallel continue the pre-1578 Nanjing/Datong 59/41 carrier and C-II-N whole-ke reduction/selection-rule searches. Runtime and algorithm invariants remain unchanged."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
