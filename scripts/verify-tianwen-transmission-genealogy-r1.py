@@ -84,6 +84,14 @@ def main() -> int:
         "PHYSICAL-COPY-CHILJEONGSAN-NAEPYEON-G894-1444",
         "PASSAGE-SEJONG158-HANYANG-LOCAL-CALIBRATION",
         "STANDARD-HANYANG-61KE-1444",
+        "PERSON-ZHAO-YOUQIN-YUANDU",
+        "PASSAGE-GEXIANG-HUNDRED-KE-HALF-ZI",
+        "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4",
+        "PASSAGE-SHENDAO-V11-ZHAOYUANDU-HUNDRED-KE-HALF-ZI",
+        "PASSAGE-SHENDAO-V11-REGIONAL-DAYNIGHT-CALIBRATION",
+        "PHYSICAL-COPY-SANMING-NCL06589-1578",
+        "PASSAGE-SANMING-1578-HUNDRED-KE-HALF-ZI",
+        "RULE-FAMILY-HUNDRED-KE-HALF-ZI-TEXTUAL-LINEAGE",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -134,6 +142,23 @@ def main() -> int:
     e15 = next((e for e in edges if e.get("edge_id") == "TG-E0015"), None)
     if not e15 or e15.get("relation") != "PARALLEL_COEXISTS_WITH" or e15.get("status") != "CONFIRMED":
         fail("Hanyang/Nanjing regional parallel edge regressed")
+
+    e37 = next((e for e in edges if e.get("edge_id") == "TG-E0037"), None)
+    if not e37 or e37.get("relation") != "ATTESTS" or e37.get("status") != "CONFIRMED":
+        fail("Shendao physical/prose attestation edge regressed")
+    e38 = next((e for e in edges if e.get("edge_id") == "TG-E0038"), None)
+    if not e38 or e38.get("relation") != "EXPLICITLY_CITES" or e38.get("status") != "CONFIRMED":
+        fail("Shendao Zhao-Yuandu attribution edge regressed")
+    e43 = next((e for e in edges if e.get("edge_id") == "TG-E0043"), None)
+    if not e43 or e43.get("relation") != "TEXTUAL_ANCESTRY_CANDIDATE_FOR" or e43.get("status") != "PROBABLE":
+        fail("Gexiang/Shendao textual ancestry candidate edge regressed")
+    e44 = next((e for e in edges if e.get("edge_id") == "TG-E0044"), None)
+    if not e44 or e44.get("relation") != "TEXTUAL_ANCESTRY_CANDIDATE_FOR" or e44.get("status") != "PROBABLE":
+        fail("Gexiang/Sanming textual ancestry candidate edge regressed")
+
+    shendao = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4")
+    if "UNRESOLVED_WITHIN_RANGE" not in shendao.get("physical_copy_date", ""):
+        fail("Shendao manuscript was falsely narrowed to a pre-1578 physical-copy date")
 
     ncl = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SISHI-QIHOU-NCL03164-OLD-MANUSCRIPT")
     if ncl.get("physical_copy_date") != "UNRESOLVED":

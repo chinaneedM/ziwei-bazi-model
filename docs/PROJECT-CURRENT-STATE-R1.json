@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.113.0",
+  "schema_version": "1.114.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -191,9 +191,10 @@
       "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX",
       "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY",
       "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
-      "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA"
+      "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA",
+      "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-DA.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -615,7 +616,12 @@
       "Direct physical p27 (sha256 3a732796e9a7a2a074bd9a5488ed554781a5726a4d92a2ea0234b875e5667c5c) preserves 雨水 47/53 -> 後四日 -> 48/52, exactly matching the high-information 1578 Sanming transition fingerprint.",
       "Direct physical p797 binds 卷十四 / 十二月, and p802 (sha256 5b451701c299daa05f737250a351f4cfb1dd3bbac92fff89a581573181df8544) directly preserves 晝43/夜57 followed by literal 十三後晝44/夜56, matching the second distinctive Sanming fingerprint.",
       "Chronology blocks 1589 Yueling as an ancestor of 1578 Sanming. Direct Sanming->Yueling copying is also unproved; the evidence instead strengthens persistence of a transmissible late-Ming table/textual layer and makes a pre-1578 Tongshu/calendar common source a higher-value hypothesis.",
-      "Next gate: search securely pre-1578 Chinese 通書/月令/曆法 witnesses for both 十三後 and 雨水後四日 fingerprints, bind any source label around the Yueling target loci, and continue the independent Chinese physical C-II-N / Nanjing threshold-rule search. Runtime and algorithm invariants remain unchanged."
+      "Next gate: search securely pre-1578 Chinese 通書/月令/曆法 witnesses for both 十三後 and 雨水後四日 fingerprints, bind any source label around the Yueling target loci, and continue the independent Chinese physical C-II-N / Nanjing threshold-rule search. Runtime and algorithm invariants remain unchanged.",
+      "Batch 12DB physically closes HKU/FPSLRBO B17672971 fascicle 4, volume 11 as a direct Ming manuscript witness for a Zhao Yuandu-attributed timekeeping discourse: p115 directly names 趙緣督, opens 革象論 and carries the small 凡十八 note; public linearization is not substituted for physical layout.",
+      "Direct p145-p146 preserve the hundred-ke and half-Zi mechanics with wording unusually close to 1578 Sanming: 晝夜十二時均分百刻 / 一時八大刻二小刻 / 若子時則上半時在夜半前屬昨日、下半時在夜半後屬今日. Sanming's exact 1578 recension remains 為昨日 / 屬今日.",
+      "Direct p154-p155 《論地域遠近》 explicitly contrasts old-calendar 60/40 with Yandu Shoushi 62/38 and states 偏南則長短較少、偏北則所較漸多, physically closing locality calibration as a historical theory layer without recovering Sanming 59/41.",
+      "The current Shendao manuscript is only catalogued/assigned broadly to Ming Jiajing-Wanli [1522-1619], so its physical copy is not proven pre-1578 and direct Shendao->Sanming copying remains unresolved. The result strengthens a Zhao/Gexiang textual-lineage mediation model, not an exact numeric-parent claim.",
+      "Next gate: seek a securely pre-1578 physical witness of the closer Zhao/Gexiang-derived Ming wording; separately continue the Nanjing/Datong 59-ke carrier, exact Sanming/Yueling 十三後/後四日 common source, and C-II-N threshold/selection-rule searches. Runtime and algorithm invariants remain unchanged."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
