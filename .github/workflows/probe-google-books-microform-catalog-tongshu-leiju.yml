@@ -1,0 +1,126 @@
+name: probe-google-books-microform-catalog-tongshu-leiju
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-google-books-microform-catalog-tongshu-leiju.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe Google Books metadata and in-volume search
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/google-books-microform-catalog-tongshu-leiju'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/api" "$ROOT/search"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA"             'https://www.googleapis.com/books/v1/volumes?q=isbn:9787501357062&maxResults=40'             -o "$ROOT/api/isbn.json" || true
+          curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA"             --get 'https://www.googleapis.com/books/v1/volumes'             --data-urlencode 'q=intitle:"全国公共图书馆缩微文献联合目录" 古籍编'             --data-urlencode 'maxResults=40'             -o "$ROOT/api/title.json" || true
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('audit/google-books-microform-catalog-tongshu-leiju')
+          vols={}
+          lines=[]
+          for p in [root/'api/isbn.json',root/'api/title.json']:
+              try: d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  lines.append(f'{p.name}\tPARSE_ERROR\t{e}')
+                  continue
+              lines.append(f'{p.name}\ttotalItems={d.get("totalItems")}')
+              for it in d.get('items',[]) or []:
+                  vi=it.get('volumeInfo',{})
+                  row={
+                    'id':it.get('id'),
+                    'title':vi.get('title'),
+                    'subtitle':vi.get('subtitle'),
+                    'publisher':vi.get('publisher'),
+                    'publishedDate':vi.get('publishedDate'),
+                    'pageCount':vi.get('pageCount'),
+                    'industryIdentifiers':vi.get('industryIdentifiers'),
+                    'previewLink':vi.get('previewLink'),
+                    'infoLink':vi.get('infoLink'),
+                    'accessInfo':it.get('accessInfo',{})
+                  }
+                  vols[it.get('id')]=row
+                  lines.append(json.dumps(row,ensure_ascii=False,separators=(',',':')))
+          vols.setdefault('K1wpxAEACAAJ',{'id':'K1wpxAEACAAJ','title':'全国公共图书馆缩微文献联合目录: 古籍编, Volume 1'})
+          (root/'volumes.json').write_text(json.dumps(list(vols.values()),ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'metadata-parsed.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          (root/'volume-ids.txt').write_text('\n'.join(sorted(vols))+'\n',encoding='utf-8')
+          PY
+
+          cat > "$ROOT/queries.txt" <<'EOF'
+          通書類聚尅擇大全
+          通書類聚抉擇大全
+          通书类聚克择大全
+          通書類聚
+          姚奎
+          王以寧
+          芝城
+          嘉靖三十
+          1551
+          EOF
+
+          : > "$ROOT/search/status.tsv"
+          while IFS= read -r vid; do
+            [ -z "$vid" ] && continue
+            i=0
+            while IFS= read -r q; do
+              [ -z "$q" ] && continue
+              i=$((i+1))
+              out="$ROOT/search/${vid}-q${i}.json"
+              set +e
+              timeout 30s curl -L -sS --connect-timeout 8 --max-time 20 -A "$UA"                 --get 'https://books.google.com/books'                 --data-urlencode 'jscmd=SearchWithinVolume2'                 --data-urlencode "q=$q"                 --data-urlencode "vid=$vid"                 -o "$out"
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              printf '%s\t%s\t%s\t%s\t%s\n' "$vid" "$i" "$rc" "$size" "$q" >> "$ROOT/search/status.tsv"
+            done < "$ROOT/queries.txt"
+          done < "$ROOT/volume-ids.txt"
+
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('audit/google-books-microform-catalog-tongshu-leiju')
+          out=[]
+          hits=[]
+          for p in sorted((root/'search').glob('*.json')):
+              try:
+                  raw=p.read_text('utf-8',errors='replace').strip()
+                  raw=re.sub(r'^[^{\[]*','',raw)
+                  d=json.loads(raw) if raw else {}
+              except Exception as e:
+                  out.append(f'{p.name}\tPARSE_ERROR\t{e}')
+                  continue
+              out.append(f'{p.name}\t{json.dumps(d,ensure_ascii=False,separators=(",",":"))[:4000]}')
+              s=json.dumps(d,ensure_ascii=False)
+              if any(x in s for x in ['通書類聚','通书类聚','姚奎','王以寧','王以宁','芝城','嘉靖三十','1551']):
+                  hits.append(f'{p.name}\t{s[:8000]}')
+          (root/'search-parsed.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'target-hits.txt').write_text('\n'.join(hits)+'\n',encoding='utf-8')
+          PY
+
+          printf '%s\n'             'SOURCE=Google Books public metadata / SearchWithinVolume2 endpoint'             'TARGET_CATALOG=全国公共图书馆缩微文献联合目录·古籍编 (国家图书馆出版社, 2015)'             'ISBN=9787501357062'             'KNOWN_VOLUME_ID=K1wpxAEACAAJ'             'TARGET_WORK=通書類聚尅擇大全, 1551 Zhicheng movable-type copy'             'PURPOSE=determine whether the published microform union catalog has a searchable indexed entry for the target; this does not itself prove image accessibility'             'NEGATIVE_POLICY=API/search unavailability or no-snippet behavior has no content-negative authority unless the endpoint demonstrably supports in-volume search for the target volume'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload Google Books catalog probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-books-microform-catalog-tongshu-leiju-probe
+          path: audit/google-books-microform-catalog-tongshu-leiju/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
