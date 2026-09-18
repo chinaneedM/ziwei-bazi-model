@@ -1,0 +1,100 @@
+name: audit-shendao-v11-zhaoyuandu-timekeeping-bridge
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-shendao-v11-zhaoyuandu-timekeeping-bridge.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install document tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+          python -m pip install --quiet pillow
+
+      - name: Acquire FPSLRBO Shendao Libian Lizong Tongyi set
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shendao-v11-zhaoyuandu-timekeeping-bridge'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/render" "$ROOT/contact"
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' 'https://commons.wikimedia.org/wiki/Special:Redirect/file/FPSLRBO%20B17672971%20%E7%A5%9E%E9%81%93%E5%A4%A7%E7%B7%A8%E6%9B%86%E5%AE%97%E9%80%9A%E8%AD%B0.%E5%8D%81%E5%85%AB%E5%8D%B7%20%E5%86%8C0001.pdf' -o "$ROOT/vol1.pdf"
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' 'https://commons.wikimedia.org/wiki/Special:Redirect/file/FPSLRBO%20B17672971%20%E7%A5%9E%E9%81%93%E5%A4%A7%E7%B7%A8%E6%9B%86%E5%AE%97%E9%80%9A%E8%AD%B0.%E5%8D%81%E5%85%AB%E5%8D%B7%20%E5%86%8C0002.pdf' -o "$ROOT/vol2.pdf"
+          sha256sum "$ROOT"/vol*.pdf | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/vol1.pdf" > "$ROOT/vol1-pdfinfo.txt"
+          pdfinfo "$ROOT/vol2.pdf" > "$ROOT/vol2-pdfinfo.txt"
+          pdftotext -layout "$ROOT/vol1.pdf" "$ROOT/vol1-text.txt" || true
+          pdftotext -layout "$ROOT/vol2.pdf" "$ROOT/vol2-text.txt" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/shendao-v11-zhaoyuandu-timekeeping-bridge')
+          terms=['趙緣督十八篇論','論晝夜百刻','晝夜十二時','子時','屬昨日','屬今日','晝夜長短']
+          out={}
+          for name in ('vol1','vol2'):
+              txt=(root/f'{name}-text.txt').read_text(encoding='utf-8',errors='ignore')
+              out[name]={t:len(list(re.finditer(re.escape(t),txt))) for t in terms}
+          (root/'text-layer-hits.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(out,ensure_ascii=False))
+          PY
+
+          pdftoppm -jpeg -jpegopt quality=88 -r 115 "$ROOT/vol1.pdf" "$ROOT/render/v1-page" >/dev/null 2>&1
+          pdftoppm -jpeg -jpegopt quality=88 -r 115 "$ROOT/vol2.pdf" "$ROOT/render/v2-page" >/dev/null 2>&1
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          root=Path('audit/shendao-v11-zhaoyuandu-timekeeping-bridge')
+          for prefix in ('v1','v2'):
+              pages=sorted((root/'render').glob(f'{prefix}-page-*.jpg'),key=lambda p:int(p.stem.split('-')[-1]))
+              for i in range(0,len(pages),30):
+                  batch=pages[i:i+30]
+                  thumbs=[]
+                  for p in batch:
+                      im=Image.open(p).convert('RGB')
+                      im.thumbnail((240,330))
+                      c=Image.new('RGB',(260,360),'white')
+                      c.paste(im,((260-im.width)//2,22))
+                      ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                      thumbs.append(c)
+                  cols=6; rows=(len(thumbs)+cols-1)//cols
+                  sh=Image.new('RGB',(cols*260,rows*360),'white')
+                  for j,im in enumerate(thumbs):
+                      sh.paste(im,((j%cols)*260,(j//cols)*360))
+                  sh.save(root/'contact'/f'{prefix}-contact-{i+1:04d}-{i+len(batch):04d}.jpg',quality=90)
+          PY
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          cat > "$ROOT/manifest.txt" <<'EOF'
+          SOURCE=FPSLRBO B17672971 神道大編曆宗通議十八卷
+          AUTHOR=周述學
+          EDITION_SCOPE=抄本; catalogued 明嘉靖萬曆間 [1522-1619]
+          TARGET=卷十一 趙緣督十八篇論 / 論晝夜長短 / 論晝夜百刻
+          TEXT_LAYER_ROLE=LOCATOR_ONLY_NOT_GLYPH_AUTHORITY
+          OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false
+          RESEARCH_QUESTION=Does the physical manuscript directly show Zhou Shuxue explicitly reframing Zhao Yuandu/Gexiang material and preserve a near-Sanming hundred-ke/half-Zi wording before or around the Sanming compilation horizon?
+          EOF
+
+      - name: Upload source-bound locator evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: shendao-v11-zhaoyuandu-timekeeping-bridge
+          path: audit/shendao-v11-zhaoyuandu-timekeeping-bridge
+          if-no-files-found: error
+          retention-days: 30
