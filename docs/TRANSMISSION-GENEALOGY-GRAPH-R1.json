@@ -778,6 +778,25 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
+      "node_type": "PHYSICAL_COPY",
+      "label": "《新刊陰陽寶鑒克擇通書前集》明初刻本现存卷1–4",
+      "system_scope": "MING_PRE1578_TONGSHU_SELECTION_ALMANAC_WITNESS",
+      "work_composition_date": "UNRESOLVED",
+      "edition_impression_date": "MING_EARLY_1368_1424_CURRENT_UNION_CATALOG_SCOPE",
+      "physical_copy_date": "CONTROLLED_AS_EARLY_MING_AT_CURRENT_UNION_CATALOG_LEVEL",
+      "digital_surrogate_date": "MODERN_NLC_WIKIMEDIA_SURROGATES",
+      "identifier": "NLC892-411999004958-98769 + NLC892-411999004958-98801 / rarecatx0302496",
+      "surviving_scope": "VOLUMES_1_TO_4_ONLY; VOLUME_5_MISSING_FROM_CURRENT_SCAN",
+      "target_locator_result": "NO_CANDIDATE_SANMING_YUELING_DAYNIGHT_FINGERPRINT_LEAF_OBSERVED_IN_COMPLETE_75_PAGE_STRUCTURAL_LOCATOR",
+      "whole_work_negative": false,
+      "evidence": [
+        "docs/research/ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF"
     }
   ],
   "edges": [
@@ -1577,6 +1596,10 @@
         {
           "batch": "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
           "update": "Direct 360-dpi p24 collation of the Ming-print Leibian fine 四時加減晝夜節氣 branch fixes Dahan at 40/60 then 41/59 and Yushui at 45/55, directly excluding this 38/62 branch as the unchanged exact table behind Sanming/Yueling. This sharpens the generic 通書 search by proving that a Tongshu title can preserve a numerically different fine branch alongside the coarse branch."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF",
+          "update": "A current union-catalog early-Ming (1368-1424) physical Tongshu witness, 《新刊陰陽寶鑒克擇通書前集》, was completely locator-reviewed across all 75 scanned pages of surviving volumes 1-4. No candidate seasonal day/night-ke or exact Sanming/Yueling fingerprint leaf was observed. This narrows the search but is not a whole-work negative because catalog volume 5 is missing from the digital object and other recensions remain open."
         }
       ]
     }
@@ -1820,6 +1843,17 @@
       "evidence": [
         "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json",
         "docs/research/ZIWEI-YUELING-TONGKAO-1589-SANMING-FINGERPRINT-HOMOLOG-COLLATION-R1.json"
+      ]
+    },
+    {
+      "from": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
+      "relation": "DIRECT_TARGET_FINGERPRINT_ATTESTATION",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "UNRESOLVED",
+      "reason": "Complete structural locator review of all 75 scanned pages in surviving volumes 1-4 found no candidate seasonal day/night-ke target leaf. Volume 5 is absent from this digital object, so no whole-work negative or direct-ancestry disproof is authorized.",
+      "evidence": [
+        "docs/research/ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
       ]
     }
   ],
