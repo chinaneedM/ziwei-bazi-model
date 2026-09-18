@@ -56,12 +56,7 @@ jobs:
             TMP="$ROOT/render/$(printf '%03d' "$i").tif"
             OUT="$ROOT/render/$(printf '%03d' "$i").jpg"
             ddjvu -format=tiff -page="$i" -scale=160 "$ROOT/source.djvu" "$TMP" >/dev/null 2>&1
-            python - "$TMP" "$OUT" <<'PY'
-import sys
-from PIL import Image
-im=Image.open(sys.argv[1]).convert('RGB')
-im.save(sys.argv[2],quality=90)
-PY
+            python -c "from PIL import Image; import sys; Image.open(sys.argv[1]).convert('RGB').save(sys.argv[2],quality=90)" "$TMP" "$OUT"
             rm -f "$TMP"
           done
           sha256sum "$ROOT"/render/*.jpg > "$ROOT/render.sha256"
