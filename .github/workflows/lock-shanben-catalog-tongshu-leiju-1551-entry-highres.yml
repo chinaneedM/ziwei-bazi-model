@@ -40,17 +40,17 @@ jobs:
           test "$(pdfinfo "$ROOT/source.pdf" | awk '/^Pages:/ {print $2}')" -eq 160
           test "$(sha256sum "$ROOT/source.pdf" | awk '{print $1}')" = 'e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'
 
-          # Context pages establish the page sequence; p35 is the direct glyph authority.
-          pdftoppm -f 34 -l 36 -jpeg -jpegopt quality=92 -r 180             "$ROOT/source.pdf" "$ROOT/context"
-          pdftoppm -f 35 -l 35 -singlefile -png -r 400             "$ROOT/source.pdf" "$ROOT/page-035-400dpi"
+          # Context pages establish the page sequence; p48 is the direct glyph authority.
+          pdftoppm -f 47 -l 49 -jpeg -jpegopt quality=92 -r 180             "$ROOT/source.pdf" "$ROOT/context"
+          pdftoppm -f 48 -l 48 -singlefile -png -r 400             "$ROOT/source.pdf" "$ROOT/page-048-400dpi"
 
           # A rotated derivative is for easier human reading only. The unrotated
           # source-bound 400 dpi render remains archived beside it.
-          convert "$ROOT/page-035-400dpi.png" -rotate 90             "$ROOT/page-035-400dpi-rotated.png"
+          convert "$ROOT/page-048-400dpi.png" -rotate 90             "$ROOT/page-048-400dpi-rotated.png"
 
-          sha256sum "$ROOT"/context-*.jpg "$ROOT"/page-035-400dpi*.png             | sort -V > "$ROOT/rendered.sha256"
+          sha256sum "$ROOT"/context-*.jpg "$ROOT"/page-048-400dpi*.png             | sort -V > "$ROOT/rendered.sha256"
 
-          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'SOURCE_SHA256=e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'             'PDF_PAGE=35'             'CATALOG_ITEM=四五一 / 451'             'TARGET=通書類聚抉擇大全 / 通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=Directly read exact title, surviving-volume statement, edition statement, and any holding code/name printed with item 451.'             'FINAL_GLYPH_AUTHORITY=page-035-400dpi.png'             'ROTATED_DERIVATIVE=page-035-400dpi-rotated.png'             'OCR_USED=false'             'SEARCH_SNIPPET_NOT_GLYPH_AUTHORITY=true'             > "$ROOT/manifest.txt"
+          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'SOURCE_SHA256=e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'             'PDF_PAGE=48'             'CATALOG_ITEM=四五一 / 451'             'TARGET=通書類聚抉擇大全 / 通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=Directly read exact title, surviving-volume statement, edition statement, and any holding code/name printed with item 451.'             'FINAL_GLYPH_AUTHORITY=page-048-400dpi.png'             'ROTATED_DERIVATIVE=page-048-400dpi-rotated.png'             'OCR_USED=false'             'SEARCH_SNIPPET_NOT_GLYPH_AUTHORITY=true'             > "$ROOT/manifest.txt"
 
           rm "$ROOT/source.pdf"
 
