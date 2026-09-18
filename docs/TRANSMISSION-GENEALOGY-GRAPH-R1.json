@@ -502,6 +502,42 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-CADAL06056892-YUANSHI-V55-56-SIKU",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "CADAL06056892《元史》卷55-56《欽定四庫全書》received-recension surrogate",
+      "system_scope": "YUANSHI_RECEIVED_SHOUSHI_CALENDRICAL_RULE_TRANSMISSION",
+      "work_composition_date": "YUANSHI_EARLY_MING_COMPILATION_LAYER; not equated with reviewed copy date",
+      "edition_impression_date": "QING_QINDING_SIKU_QUANSHU_RECEIVED_RECENSION_LAYER; exact scanned exemplar impression unresolved",
+      "physical_copy_date": "UNRESOLVED_FOR_CADAL_SOURCE_EXEMPLAR",
+      "digital_surrogate_date": "MODERN_CADAL_WIKIMEDIA_SURROGATE",
+      "identifier": "CADAL06056892",
+      "acquisition": {
+        "workflow_run_id": 35326506325,
+        "artifact_id": 10539204266,
+        "pages": 156,
+        "source_djvu_sha256": "6abcfe75ea823aa5a5548fe51a889256ae55949592b7ebe7739c42958beb96db"
+      },
+      "evidence": [
+        "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
+    },
+    {
+      "node_id": "RULE-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-RETENTION",
+      "node_type": "MECHANICAL_RULE",
+      "label": "《元史》卷56授時曆日出入/晝夜刻換算保留分秒規則",
+      "system_scope": "RECEIVED_YUANSHI_SHOUSHI_DAYNIGHT_CONVERSION",
+      "date": "EARLIER_RULE_TEXT_PRESERVED_IN_REVIEWED_QING_SIKU_RECENSION; exact recension history unresolved",
+      "mechanical_identity": "Sunrise/sunset conversion states incomplete quotient becomes 分; 求晝夜刻 likewise keeps incomplete quotient as 分 and describes the complementary result as 晝刻及分秒. Whole-ke truncation is therefore not the reviewed conversion rule.",
+      "physical_locator": "CADAL06056892 render 123-124",
+      "evidence": [
+        "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
     }
   ],
   "edges": [
@@ -953,6 +989,40 @@
       "reason": "The phrase 授時曆 in Sanming cannot be collapsed into direct use of the raw Yandu/Beijing G893 numerical table. This rejects exact numeric-parent identity while preserving broader Shoushi methodological ancestry/locality capability.",
       "adjudication_batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
       "edge_id": "TG-E0031"
+    },
+    {
+      "edge_id": "TG-E0032",
+      "from": "DIGITAL-SURROGATE-CADAL06056892-YUANSHI-V55-56-SIKU",
+      "relation": "ATTESTS",
+      "to": "RULE-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-RETENTION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_FACSIMILE_PAGE_COLLATION_NO_OCR_WITH_RECENSION_DATE_FIREWALL",
+      "evidence": [
+        "render 123 sha256 f37742072ae4e70e9e948060a7a1ab2d27914fd7eee4529ecb3d4e9c7c10cd87",
+        "render 124 sha256 3277b5fed27a758b75de6c2ba2573c34571393827273302c6f9d56f6ebde6f0d",
+        "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Attests the rule as preserved in the reviewed Qinding Siku Quanshu received recension; it does not date the scanned physical exemplar to Yuan/Ming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
+    },
+    {
+      "edge_id": "TG-E0033",
+      "from": "RULE-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-RETENTION",
+      "relation": "DISPROVES_LINEAGE_SHORTCUT",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_REVIEWED_RECEIVED_RECENSION_SCOPE",
+      "evidence_class": "DIRECT_RECEIVED_RECENSION_FRACTION_RETENTION_VS_1578_WHOLE_KE_DISPLAY",
+      "evidence": [
+        "Yuan-shi received rule: incomplete quotient retained as 分 and result described as 晝刻及分秒",
+        "1578 Sanming physical target: displayed whole-ke seasonal ladder with intra-term change instructions",
+        "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP.md"
+      ],
+      "reason": "The reviewed Shoushi conversion itself does not discard sub-ke remainders, so a same-step truncation shortcut cannot by itself explain the Sanming integer display. A separate/downstream reduction or table-abstraction layer is mechanically required, while its historical identity and exact rule remain unresolved.",
+      "scope_note": "This rejects only the simple same-step remainder-discard shortcut. It does not prove a direct textual transmission path from the reviewed Siku recension into Sanming.",
+      "adjudication_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
     }
   ],
   "lineage_hypotheses": [
@@ -983,6 +1053,10 @@
         {
           "batch": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
           "update": "G893 now physically closes the pre-1578 Shoushi Type-II Beijing branch at 38.1592/61.8408 ke. Its direct mismatch with Sanming 59/41 strengthens the composite model: Shoushi supplies a method/table architecture, while the Sanming numerical substrate aligns with the Nanjing/Datong regional layer rather than raw Yandu values; exact integer reduction/change-day recomposition remains unresolved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX",
+          "update": "Direct no-OCR collation of the reviewed Yuan-shi/Shoushi conversion preserves incomplete quotients as 分 and the day/night result as 刻及分秒. This rules out same-step remainder discard as the direct generator of Sanming's whole-ke display in the reviewed received-recension scope, strengthening the composite model by making the downstream integer-reduction/binning layer explicit while leaving its exact historical rule unresolved."
         }
       ]
     }
