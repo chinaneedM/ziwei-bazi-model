@@ -91,10 +91,26 @@ jobs:
           RESEARCH_QUESTION=Does the physical manuscript directly show Zhou Shuxue explicitly reframing Zhao Yuandu/Gexiang material and preserve a near-Sanming hundred-ke/half-Zi wording before or around the Sanming compilation horizon?
           EOF
 
-      - name: Upload source-bound locator evidence
+      - name: Build compact locator package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shendao-v11-zhaoyuandu-timekeeping-bridge'
+          SMALL='audit/shendao-v11-zhaoyuandu-timekeeping-bridge-locator'
+          rm -rf "$SMALL"
+          mkdir -p "$SMALL"
+          cp -r "$ROOT/contact" "$SMALL/contact"
+          cp "$ROOT/source.sha256" "$SMALL/source.sha256"
+          cp "$ROOT/render.sha256" "$SMALL/render.sha256"
+          cp "$ROOT/vol1-pdfinfo.txt" "$SMALL/vol1-pdfinfo.txt"
+          cp "$ROOT/vol2-pdfinfo.txt" "$SMALL/vol2-pdfinfo.txt"
+          cp "$ROOT/text-layer-hits.json" "$SMALL/text-layer-hits.json"
+          cp "$ROOT/manifest.txt" "$SMALL/manifest.txt"
+
+      - name: Upload compact source-bound locator evidence
         uses: actions/upload-artifact@v4
         with:
-          name: shendao-v11-zhaoyuandu-timekeeping-bridge
-          path: audit/shendao-v11-zhaoyuandu-timekeeping-bridge
+          name: shendao-v11-zhaoyuandu-timekeeping-bridge-locator
+          path: audit/shendao-v11-zhaoyuandu-timekeeping-bridge-locator
           if-no-files-found: error
           retention-days: 30
