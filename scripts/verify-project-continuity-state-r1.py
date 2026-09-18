@@ -36,6 +36,8 @@ ZIWEI_TONGSHU_LEIJU_12DL_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE
 ZIWEI_TONGSHU_LEIJU_12DL_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json"
 ZIWEI_TONGSHU_LEIJU_12DM_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM.md"
 ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE = ROOT / "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-R1.json"
+ZIWEI_DATONG_CIIN_12DN_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN.md"
+ZIWEI_DATONG_CIIN_12DN_EVIDENCE = ROOT / "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -280,9 +282,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
     "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
+    "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN.md"
 
 
 def fail(message: str) -> None:
@@ -290,6 +293,39 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_DATONG_CIIN_12DN_BATCH, ZIWEI_DATONG_CIIN_12DN_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DN continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dn = json.loads(ZIWEI_DATONG_CIIN_12DN_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dn.get("batch_id") != "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN":
+        fail("Batch 12DN evidence identity mismatch")
+    phy12dn = batch12dn.get("direct_physical_recollation", {})
+    cells12dn = {x.get("accumulated_day"): x for x in phy12dn.get("direct_cells", ())}
+    if cells12dn.get(66, {}).get("half_day_fen") != 2348.73 or cells12dn.get(67, {}).get("half_day_fen") != 2355.37:
+        fail("Batch 12DN day66/day67 direct-cell correction regressed")
+    if cells12dn.get(73, {}).get("full_daylight_ke") != 47.9052 or cells12dn.get(74, {}).get("full_daylight_ke") != 48.038:
+        fail("Batch 12DN day73/day74 crossing cells regressed")
+    crossings12dn = phy12dn.get("integer_crossing_controls", {})
+    if crossings12dn.get("47_ke", {}).get("lower_day") != 66 or crossings12dn.get("47_ke", {}).get("upper_day") != 67:
+        fail("Batch 12DN 47-ke crossing regressed")
+    if crossings12dn.get("48_ke", {}).get("lower_day") != 73 or crossings12dn.get("48_ke", {}).get("upper_day") != 74:
+        fail("Batch 12DN 48-ke crossing regressed")
+    corr12dn = batch12dn.get("batch_12cg_forward_only_correction", {})
+    if corr12dn.get("prior_day67_half_day_fen") != 2348.62 or corr12dn.get("corrected_day67_half_day_fen") != 2355.37:
+        fail("Batch 12DN forward-only correction values regressed")
+    if corr12dn.get("adjudication") != "SUPERSEDED_FOR_EXACT_DAY_INDEXING_ONLY" or corr12dn.get("prior_batch_rewritten") is not False or corr12dn.get("prior_macro_conclusion_changed") is not False:
+        fail("Batch 12DN forward-only history firewall regressed")
+    post12dn = batch12dn.get("post1578_received_controls", {})
+    if post12dn.get("zhu_yi_1616", {}).get("edition_year") != 1616 or post12dn.get("zhu_yi_1616", {}).get("pre1578_witness") is not False:
+        fail("Batch 12DN Zhu Yi chronology firewall regressed")
+    if post12dn.get("leijing_tuyi_1624", {}).get("edition_year") != 1624 or post12dn.get("leijing_tuyi_1624", {}).get("pre1578_witness") is not False:
+        fail("Batch 12DN Leijing Tuyi chronology firewall regressed")
+    mech12dn = batch12dn.get("mechanical_adjudication", {})
+    if mech12dn.get("exact_whole_ke_rule_identified") is not False or mech12dn.get("sanming_yueling_exact_fingerprint_explained") is not False:
+        fail("Batch 12DN unresolved-rule firewall regressed")
+    if batch12dn.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DN unexpectedly reopened algorithm")
+
     for path in (ZIWEI_TONGSHU_LEIJU_12DM_BATCH, ZIWEI_TONGSHU_LEIJU_12DM_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DM continuity artifact missing: {path.relative_to(ROOT)}")
@@ -699,6 +735,18 @@ def main() -> int:
     state = json.loads(STATE.read_text(encoding="utf-8"))
     matrix = json.loads(MATRIX.read_text(encoding="utf-8"))
     registry = json.loads(SOURCE_REGISTRY.read_text(encoding="utf-8"))
+    source12dn_zhu_bib = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616"), None)
+    source12dn_zhu_text = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER"), None)
+    source12dn_leijing = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER"), None)
+    if source12dn_zhu_bib is None or source12dn_zhu_text is None or source12dn_leijing is None:
+        fail("Batch 12DN source-registry bindings missing")
+    if source12dn_zhu_bib.get("pre1578_witness") is not False or source12dn_zhu_bib.get("direct_ancestor_of_sanming_1578") is not False:
+        fail("Batch 12DN Zhu Yi registry chronology firewall regressed")
+    if source12dn_zhu_text.get("direct_target_glyph_authority") is not False or source12dn_zhu_text.get("numeric_ancestry_vote_increment_for_pre1578_parent") != 0:
+        fail("Batch 12DN Zhu Yi transcription authority/vote firewall regressed")
+    if source12dn_leijing.get("pre1578_witness") is not False or source12dn_leijing.get("direct_ancestor_of_sanming_1578") is not False or source12dn_leijing.get("numeric_ancestry_vote_increment_for_pre1578_parent") != 0:
+        fail("Batch 12DN Leijing registry chronology/vote firewall regressed")
+
     source12dm_room = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-CURRENT-RARE-BOOKS-READING-ROOM-20260919"), None)
     source12dm_supply = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-DOCUMENT-SUPPLY-CENTER-CURRENT-ROUTE-20260919"), None)
     source12dm_micro = next((x for x in registry.get("sources", []) if x.get("source_id") == "EXT-NLC-MICROFILM-CENTER-DOCUMENT-SUPPLY-CURRENT-20260919"), None)

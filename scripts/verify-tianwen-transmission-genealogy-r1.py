@@ -100,6 +100,9 @@ def main() -> int:
         "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
         "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
         "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19",
+        "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
+        "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
+        "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -261,6 +264,30 @@ def main() -> int:
         for x in hyp12dk.get("evidence_updates", [])
     ):
         fail("Batch 12DM genealogy hypothesis access-route update missing")
+
+    zhu12dn = next(n for n in nodes if n.get("node_id") == "TEXT-WORK-ZHUYI-JIANGXUQI-1616")
+    leijing12dn = next(n for n in nodes if n.get("node_id") == "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624")
+    family12dn = next(n for n in nodes if n.get("node_id") == "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED")
+    if zhu12dn.get("pre1578_witness") is not False or "1616" not in zhu12dn.get("edition_impression_date", ""):
+        fail("Batch 12DN Zhu Yi graph chronology regressed")
+    if leijing12dn.get("pre1578_witness") is not False or "1624" not in leijing12dn.get("edition_impression_date", ""):
+        fail("Batch 12DN Leijing graph chronology regressed")
+    if family12dn.get("direct_pre1578_attestation") is not False or family12dn.get("exact_sanming_yueling_fingerprint_identity") is not False:
+        fail("Batch 12DN post1578 table-family firewall regressed")
+    e52 = next((e for e in edges if e.get("edge_id") == "TG-E0052"), None)
+    e53 = next((e for e in edges if e.get("edge_id") == "TG-E0053"), None)
+    e54 = next((e for e in edges if e.get("edge_id") == "TG-E0054"), None)
+    if not e52 or e52.get("relation") != "ATTESTS" or e52.get("to") != "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED":
+        fail("Batch 12DN Zhu Yi attestation edge regressed")
+    if not e53 or e53.get("relation") != "ATTESTS" or e53.get("to") != "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED":
+        fail("Batch 12DN Leijing attestation edge regressed")
+    if not e54 or e54.get("relation") != "STRUCTURAL_MECHANISM_CANDIDATE_FOR" or e54.get("status") != "PROBABLE":
+        fail("Batch 12DN C-II-N structural-mechanism edge regressed")
+    for later_id in ("TEXT-WORK-ZHUYI-JIANGXUQI-1616", "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624"):
+        if not any(x.get("from") == later_id and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE" and x.get("relation") == "DIRECT_ANCESTOR_OF" and x.get("status") == "DISPROVED" for x in graph.get("explicit_non_edges", [])):
+            fail(f"Batch 12DN chronology non-edge missing for {later_id}")
+    if not any(x.get("batch") == "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN" and "zero pre-1578 parent vote" in x.get("update", "") and "day67=47.1074" in x.get("update", "") for x in hyp12dk.get("evidence_updates", [])):
+        fail("Batch 12DN genealogy hypothesis correction/homology update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:

@@ -942,6 +942,55 @@
           "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM.md"
         ]
       }
+    },
+    {
+      "node_id": "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
+      "node_type": "TEXT_WORK",
+      "label": "江旭奇《朱翼》十二卷（1616刻本控制）",
+      "system_scope": "POST1578_DAYNIGHT_KE_TRANSMISSION_CONTROL",
+      "work_composition_date": "NO_LATER_THAN_1616; EXACT_COMPOSITION_DATE_NOT_SEPARATELY_CLOSED",
+      "edition_impression_date": "MING_WANLI44_1616_BIBLIOGRAPHICALLY_CONTROLLED",
+      "physical_copy_date": "HENGYANG_LIBRARY_HELD_COPY_BIBLIOGRAPHIC_CONTROL_ONLY",
+      "digital_surrogate_date": "MODERN_SOURCE_LINKED_TRANSCRIPTION",
+      "pre1578_witness": false,
+      "evidence": [
+        "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616",
+        "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "node_id": "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
+      "node_type": "TEXT_WORK",
+      "label": "張介賓《類經圖翼》天啟四年（1624）傳本控制",
+      "system_scope": "POST1578_DAYNIGHT_KE_TRANSMISSION_CONTROL",
+      "work_composition_date": "1624_TIANQI4_SELF_PREFACE_AND_EDITION_FAMILY",
+      "edition_impression_date": "MING_TIANQI4_1624_EDITION_FAMILY",
+      "physical_copy_date": "NOT_RE_ADJUDICATED_AS_ONE_SPECIFIC_PHYSICAL_COPY_IN_12DN",
+      "digital_surrogate_date": "MODERN_RECEIVED_TRANSCRIPTION_AND_BIBLIOGRAPHIC_SURFACES",
+      "pre1578_witness": false,
+      "evidence": [
+        "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "node_id": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+      "node_type": "RULE_FAMILY",
+      "label": "後出南京型59/41晝夜整刻階梯家族",
+      "system_scope": "POST1578_RECEIVED_DAYNIGHT_KE_TABLE_FAMILY",
+      "work_composition_date": "ATTESTED_BY_1616_AND_1624_POST1578_WITNESSES",
+      "mechanical_identity": "Whole-ke day/night ladder with winter 41/59 and summer 59/41 extrema; clean later recension includes Dahan +4=43/57,+13=44/56; Lichun +6=45/55,+13=46/54; Yushui +6=47/53,+13=48/52.",
+      "direct_pre1578_attestation": false,
+      "exact_sanming_yueling_fingerprint_identity": false,
+      "evidence": [
+        "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER",
+        "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
     }
   ],
   "edges": [
@@ -1712,6 +1761,53 @@
       ],
       "scope_note": "Confirms an independently bound 1554 physical witness of the coarse Tongshu 40/60 family. It does not prove direct copying from the 1455 witness.",
       "adjudication_batch": "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
+    },
+    {
+      "edge_id": "TG-E0052",
+      "from": "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
+      "relation": "ATTESTS",
+      "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM_HIGH_FOR_RECEIVED_MECHANICAL_SCOPE",
+      "evidence_class": "POST1578_BIBLIOGRAPHIC_CHRONOLOGY_PLUS_SOURCE_LINKED_RECEIVED_TABLE_CONTROL",
+      "evidence": [
+        "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616",
+        "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "scope_note": "Attests a post-1578 received table family only; OCR/transcription is not direct glyph authority and chronology forbids direct ancestry into Sanming 1578.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "edge_id": "TG-E0053",
+      "from": "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
+      "relation": "ATTESTS",
+      "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_RECEIVED_MECHANICAL_SEQUENCE",
+      "evidence_class": "POST1578_EDITION_CONTROL_PLUS_RECEIVED_EXPLICIT_STEPPED_TABLE",
+      "evidence": [
+        "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "scope_note": "Attests the clean +6/+13 stepped sequence at post-1578 scope; it does not establish earlier composition of that sequence.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "edge_id": "TG-E0054",
+      "from": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH",
+      "evidence_class": "DIRECT_CII_N_ADJACENT_DAY_INTEGER_CROSSINGS_PLUS_POST1578_COHERENT_WHOLE_KE_LADDER",
+      "evidence": [
+        "NCL-06267 page05/page06 direct no-OCR cells: day66=46.9746, day67=47.1074, day73=47.9052, day74=48.0380",
+        "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "scope_note": "Strengthens the continuous-substrate -> whole-ke-ladder mechanism. Exact historical selection rule, summer 59-ke endpoint handling and direct transmission path remain unresolved.",
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
     }
   ],
   "lineage_hypotheses": [
@@ -1806,6 +1902,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
           "update": "Current first-party NLC service pages expose lawful rare-books consultation, document-supply, and microfilm/digital-restoration routes. The call-14202 request is now operationalized as a precise juan-16-end plus target-table payload, but no request has been submitted, no provider acceptance or target microfilm has been confirmed, and no direct page was obtained. Access logistics only; zero textual/numeric vote."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
+          "update": "Direct no-OCR re-collation corrects the prior 12CG exact day indexing: C-II-N day66=46.9746 ke and day67=47.1074 ke cross 47, while day73=47.9052 and day74=48.0380 cross 48. The prior day67=2348.62 DIRECT_VISUAL_APPROX record is preserved but superseded for exact indexing only. Postdated 1616 Zhu Yi and 1624 Leijing Tuyi expose a coherent 59/41 whole-ke ladder family, strengthening the continuous Nanjing/Datong substrate -> whole-ke selection model. Chronology gives zero pre-1578 parent vote, and the summer endpoint prevents promotion of a single global floor/truncation rule; the exact Sanming/Yueling fingerprint parent remains unresolved."
         }
       ]
     }
@@ -2147,6 +2247,30 @@
       "evidence": [
         "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json"
       ]
+    },
+    {
+      "from": "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The controlled Zhu Yi edition is 1616, thirty-eight years later than the exact 1578 Sanming physical witness.",
+      "evidence": [
+        "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
+    },
+    {
+      "from": "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
+      "relation": "DIRECT_ANCESTOR_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "The controlled Leijing Tuyi edition family is 1624, forty-six years later than the exact 1578 Sanming physical witness.",
+      "evidence": [
+        "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+        "docs/research/ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN"
     }
   ],
   "backfill": {
