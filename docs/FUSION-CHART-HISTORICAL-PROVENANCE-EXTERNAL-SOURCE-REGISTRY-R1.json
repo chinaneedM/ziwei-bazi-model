@@ -3896,7 +3896,23 @@
       "provider": "National Library of China digitization via Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/File:NLC892-411999018604-67969_%E9%A1%9E%E7%B7%A8%E6%9B%86%E6%B3%95%E9%80%9A%E6%9B%B8%E5%A4%A7%E5%85%A8_%E7%AC%AC1%E5%86%8A.pdf",
       "source_role": "DIRECT_MING_PRINT_PHYSICAL_WITNESS_FOR_COEXISTING_40_60_AND_38_62_DAY_NIGHT_TABLE_FAMILIES",
-      "quality_notes": "Batch 12CE no-OCR physical review. PDF pp20-21 directly preserve the coarse copper-pot/24-qi family including 小滿59/41, 芒種60/40, 夏至60/40, 小暑60/40, 大暑59/41. PDF pp24-25 directly preserve 四時加減晝夜節氣 with a fine one-ke ladder from winter 38/62 toward summer 62/38. Exact Ming impression year is unresolved, so this object proves coexistence in Ming-print transmission but is not automatically a pre-1578 ancestor of Sanming Tonghui."
+      "quality_notes": "Batch 12CE no-OCR physical review. PDF pp20-21 directly preserve the coarse copper-pot/24-qi family including 小滿59/41, 芒種60/40, 夏至60/40, 小暑60/40, 大暑59/41. PDF pp24-25 directly preserve 四時加減晝夜節氣 with a fine one-ke ladder from winter 38/62 toward summer 62/38. Exact Ming impression year is unresolved, so this object proves coexistence in Ming-print transmission but is not automatically a pre-1578 ancestor of Sanming Tonghui. Batch 12DE re-renders pp23-26 at 360 dpi and directly locks the fine 四時加減晝夜節氣 target rows: 大寒節日至後六日 40/60, 大寒後七日至後十三日 41/59, 雨水節日至後五日 45/55. These directly mismatch the exact Sanming/Yueling 43/57->44/56 and 47/53->48/52 fingerprints, excluding this fine 38/62 branch as an unchanged exact parent without excluding broader layered Tongshu ancestry.",
+      "batch_12de_fine_table_target_mismatch": {
+        "workflow_run_id": 35349106287,
+        "artifact_id": 10548946354,
+        "artifact_digest": "sha256:308b16283270f5f110dc962c39761f03e42f4266e4548b8e07033d955f957ca2",
+        "page24_sha256": "2316baee2c40b9ffcb9add014dedab78aebb2914ffbfdd87cd96492fe5d7a154",
+        "direct_target_rows": {
+          "dahan_day_through_post6": "40/60",
+          "dahan_post7_through_post13": "41/59",
+          "yushui_day_through_post5": "45/55"
+        },
+        "exact_sanming_yueling_target_identity": false,
+        "unchanged_parent_shortcut": "DISPROVED_BY_DIRECT_NUMERIC_TARGET_MISMATCH",
+        "exact_ming_impression_year": "UNRESOLVED",
+        "ocr_used_for_final_glyph_claims": false,
+        "research_artifact": "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json"
+      }
     },
     {
       "source_id": "EXT-XINGYUNLU-GUJIN-LVLIKAO-V47-NANJING-59-41",
