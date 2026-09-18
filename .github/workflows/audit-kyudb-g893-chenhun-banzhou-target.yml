@@ -1,0 +1,214 @@
+name: audit-kyudb-g893-chenhun-banzhou-target
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-kyudb-g893-chenhun-banzhou-target.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser/image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+
+      - name: Acquire complete Kyudb G893 Shoushi Licheng physical witness
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-g893-chenhun-banzhou-target'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/physical"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          cat > "$ROOT/acquire.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/kyudb-g893-chenhun-banzhou-target';
+          const book='GK00893_00', vol='0001';
+          const primaryTerms=['授時曆日出入晨昏半晝分','晨昏半晝','晨分','日出分','半晝分','日入分','昏分'];
+          const secondaryTerms=['冬至後','夏至後','積日','初日','一百八十二日'];
+          const pages=[];
+          for(let n=0;n<=101;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
+
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<30 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId) && t.url().includes('/pf01/rendererImg.do')){
+                viewer=await t.page(); break;
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+          await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
+
+          async function locateOne(p){
+            let result=null, err=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                result=await viewer.evaluate(async({book,vol,p})=>{
+                  const ctl=new AbortController();
+                  const timer=setTimeout(()=>ctl.abort(),8000);
+                  try{
+                    const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                    const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body,signal:ctl.signal});
+                    const text=await r.text();
+                    let j=null; try{j=JSON.parse(text)}catch{}
+                    const raw=j?.ORG?.list || '';
+                    const div=document.createElement('div'); div.innerHTML=raw;
+                    return {status:r.status,text:(div.innerText||div.textContent||'').replace(/\\s+/g,' ').trim(),rawBytes:text.length};
+                  } finally { clearTimeout(timer); }
+                },{book,vol,p});
+                if(result?.status===200) break;
+              }catch(e){err=String(e)}
+              await new Promise(r=>setTimeout(r,250*attempt));
+            }
+            const text=result?.text || '';
+            return {page:p,status:result?.status??null,text,primary_hits:primaryTerms.filter(t=>text.includes(t)),secondary_hits:secondaryTerms.filter(t=>text.includes(t)),error:err};
+          }
+
+          const textRows=new Array(pages.length);
+          let cursor=0;
+          const workers=Array.from({length:12},async()=>{
+            while(true){
+              const i=cursor++;
+              if(i>=pages.length) return;
+              textRows[i]=await locateOne(pages[i]);
+            }
+          });
+          await Promise.all(workers);
+
+          const primaryPages=textRows.filter(x=>x.primary_hits.length).map(x=>x.page);
+          const seedPages=primaryPages.length ? primaryPages : textRows.filter(x=>x.secondary_hits.length).map(x=>x.page);
+          const idx=new Map(pages.map((p,i)=>[p,i]));
+          // G893 is only 102 folios / 204 viewer surfaces. Acquire every public
+          // source-bound surface so target-page binding does not depend on OCR,
+          // cross-copy page offsets, or provider text-layer completeness.
+          const wanted=new Set(pages);
+          const fallback=false;
+
+          const physical=[];
+          for(const p of [...wanted].sort((a,b)=>idx.get(a)-idx.get(b))){
+            const fn=`${book}IH_${vol}_${p}.jpg`;
+            const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+            const url=`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
+            const imgPage=await browser.newPage();
+            await imgPage.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+            let buf=null,status=null,ctype=null,error=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                const resp=await imgPage.goto(url,{waitUntil:'domcontentloaded',timeout:20000});
+                status=resp?.status()??null; ctype=resp?.headers()?.['content-type']??null;
+                if(resp && resp.ok()){
+                  buf=await resp.buffer();
+                  if(buf.length>5000) break;
+                }
+              }catch(e){error=String(e)}
+              await new Promise(r=>setTimeout(r,500*attempt));
+            }
+            await imgPage.close();
+            if(buf && buf.length>5000){
+              const out=`${root}/physical/${p}.jpg`;
+              fs.writeFileSync(out,buf);
+              physical.push({page:p,download_ok:true,bytes:buf.length,sha256:crypto.createHash('sha256').update(buf).digest('hex'),content_type:ctype,url});
+            }else{
+              physical.push({page:p,download_ok:false,status,content_type:ctype,error,url});
+            }
+          }
+
+          const report={
+            schema:'KYUDB-G893-SHOUSHI-LICHENG-COMPLETE-PHYSICAL-R2',
+            schema_version:'2.0.0',
+            provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
+            book_cd:book,
+            call_number:'奎貴893',
+            title:'授時曆立成',
+            volume:vol,
+            viewer_page_range:'000a-101b',
+            page_count_probed:pages.length,
+            primary_locator_terms:primaryTerms,
+            secondary_locator_terms:secondaryTerms,
+            primary_locator_pages:primaryPages,
+            seed_pages:seedPages,
+            text_rows:textRows,
+            physical_pages_requested:[...wanted].sort((a,b)=>idx.get(a)-idx.get(b)),
+            physical_pages:physical,
+            fallback_window_used:fallback,
+            text_layer_authority:'LOCATOR_ONLY_NOT_GLYPH_OR_NUMERIC_AUTHORITY',
+            physical_image_authority:'DIRECT_SOURCE_BOUND_FACSIMILE_REQUIRED_FOR_FINAL_GLYPH_AND_NUMERIC_CLAIMS',
+            ocr_used_for_final_glyph_claims:false,
+            numeric_claim_authorized_by_machine_step:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({primary_locator_pages:primaryPages,seed_pages:seedPages,physical_ok:physical.filter(x=>x.download_ok).length,physical_requested:physical.length,fallback},null,2));
+          await browser.close();
+          if(!physical.some(x=>x.download_ok)) process.exitCode=2;
+          JS
+          BROWSER="$BROWSER" node "$ROOT/acquire.mjs"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path('audit/kyudb-g893-chenhun-banzhou-target')
+          r=json.loads((root/'report.json').read_text())
+          imgs=[x for x in r['physical_pages'] if x.get('download_ok')]
+          sheets=[]
+          for start in range(0,len(imgs),20):
+              batch=imgs[start:start+20]
+              thumbs=[]
+              for row in batch:
+                  im=Image.open(root/'physical'/f"{row['page']}.jpg").convert('RGB')
+                  row['width'],row['height']=im.size
+                  im.thumbnail((360,520))
+                  c=Image.new('RGB',(380,560),'white'); c.paste(im,((380-im.width)//2,20))
+                  ImageDraw.Draw(c).text((10,535),row['page'],fill='black')
+                  thumbs.append(c)
+              cols=4; rows=(len(thumbs)+cols-1)//cols
+              sh=Image.new('RGB',(cols*380,rows*560),'white')
+              for i,im in enumerate(thumbs): sh.paste(im,((i%cols)*380,(i//cols)*560))
+              p=root/f'contact-{start//20+1:02d}.jpg'; sh.save(p,quality=88); sheets.append(p.name)
+          r['contact_sheets']=sheets
+          (root/'report.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'contact_sheets':sheets,'dimensions':[(x['page'],x.get('width'),x.get('height')) for x in imgs[:5]]},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload complete G893 Shoushi Licheng physical witness
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-g893-shoushi-licheng-complete-physical-r2
+          path: audit/kyudb-g893-chenhun-banzhou-target
+          if-no-files-found: error
+          retention-days: 30
