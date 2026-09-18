@@ -1,0 +1,93 @@
+name: audit-xuxiu-yinyang-baojian-target-range
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-xuxiu-yinyang-baojian-target-range.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install locator tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+
+      - name: Render page ranges anchored by published Xuxiu citations
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/xuxiu-yinyang-baojian-target-range'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contact"
+
+          U61='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1061%E5%86%8A.pdf'
+          U62='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1062%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U61" -o "$ROOT/1061.pdf"
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U62" -o "$ROOT/1062.pdf"
+          sha256sum "$ROOT"/106*.pdf | sort -V | tee "$ROOT/source.sha256"
+
+          # Published scholarship places 前集卷四 around Xuxiu-1061 p767.
+          # Separate citations place 後集卷三 around Xuxiu-1062 p106-108 and
+          # the next title 類編曆法通書大全 begins around Xuxiu-1062 p207.
+          pdftoppm -f 730 -l 846 -jpeg -jpegopt quality=90 -r 125 "$ROOT/1061.pdf" "$ROOT/pages/1061-page" >/dev/null 2>&1
+          pdftoppm -f 1 -l 215 -jpeg -jpegopt quality=90 -r 125 "$ROOT/1062.pdf" "$ROOT/pages/1062-page" >/dev/null 2>&1
+          sha256sum "$ROOT"/pages/*.jpg | sort -V > "$ROOT/pages.sha256"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('audit/xuxiu-yinyang-baojian-target-range')
+          for vol in ('1061','1062'):
+              pages=sorted((root/'pages').glob(f'{vol}-page-*.jpg'), key=lambda p:int(p.stem.split('-')[-1]))
+              for i in range(0,len(pages),12):
+                  batch=pages[i:i+12]
+                  thumbs=[]
+                  for p in batch:
+                      im=Image.open(p).convert('RGB')
+                      im.thumbnail((310,430))
+                      c=Image.new('RGB',(330,460),'white')
+                      c.paste(im,((330-im.width)//2,24))
+                      ImageDraw.Draw(c).text((8,6),p.name,fill='black')
+                      thumbs.append(c)
+                  cols=4; rows=(len(thumbs)+cols-1)//cols
+                  sh=Image.new('RGB',(cols*330,rows*460),'white')
+                  for j,im in enumerate(thumbs):
+                      sh.paste(im,((j%cols)*330,(j//cols)*460))
+                  first=int(batch[0].stem.split('-')[-1])
+                  last=int(batch[-1].stem.split('-')[-1])
+                  sh.save(root/'contact'/f'{vol}-contact-{first:04d}-{last:04d}.jpg',quality=92)
+          PY
+          sha256sum "$ROOT"/contact/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          printf '%s\n' \
+            'SOURCE=續修四庫全書第1061-1062冊' \
+            'RANGE_1061=PDF p730-p846; scholarship places 前集卷四 around printed p767' \
+            'RANGE_1062=PDF p1-p215; independent citations place 後集卷三 around printed p106-p108 and next title around p207' \
+            'PURPOSE=locate 前集卷五 + 後集卷1-5 + any day/night-ke or solar-term table architecture' \
+            'RENDER_DPI=125' \
+            'CONTACT_ROLE=STRUCTURAL_LOCATOR_NOT_FINAL_GLYPH_AUTHORITY' \
+            'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT/1061.pdf" "$ROOT/1062.pdf"
+
+      - name: Upload anchored target range
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu-yinyang-baojian-target-range
+          path: audit/xuxiu-yinyang-baojian-target-range
+          if-no-files-found: error
+          retention-days: 30
