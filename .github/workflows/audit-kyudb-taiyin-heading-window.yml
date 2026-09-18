@@ -22,7 +22,7 @@ jobs:
           set -euo pipefail
           npm install --no-save --silent puppeteer-core@24.16.0
           python -m pip install --quiet pillow
-      - name: Acquire official Kyudb heading window 040a-043b
+      - name: Acquire official Kyudb heading window 036a-039b
         shell: bash
         run: |
           set -euo pipefail
@@ -37,7 +37,7 @@ jobs:
           const root='audit/kyudb-taiyin-heading-window';
           const book='GK12436_00', vol='0001';
           const pages=[];
-          for(let n=40;n<=43;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
+          for(let n=36;n<=39;n++) for(const ab of ['a','b']) pages.push(String(n).padStart(3,'0')+ab);
 
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
@@ -88,11 +88,11 @@ jobs:
             }else physical.push({page:p,download_ok:false});
           }
           const report={
-            schema:'KYUDB-TAIYIN-TONGGUI-HEADING-WINDOW-PHYSICAL-R1',
+            schema:'KYUDB-TAIYIN-TONGGUI-HEADING-WINDOW-PHYSICAL-R2',
             provider:'Kyujanggak Institute for Korean Studies, Seoul National University',
             book_cd:book,call_number:'奎貴12436',title:'太陰通軌',
             pages_requested:pages,physical_pages:physical,
-            purpose:'Extend backward from the continuous 044a-055a numeric table to bind its official table heading and column labels.',
+            purpose:'Extend backward from the continuous 040a-055a numeric table to bind its official table heading and column labels.',
             cross_recension_page_mapping_authorized:false,
             authority:'OFFICIAL_KYUDB_SOURCE_BOUND_FACSIMILE',
             ocr_used_for_glyph_or_numeric_claims:false,
@@ -129,7 +129,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kyudb-taiyin-heading-window
+          name: kyudb-taiyin-heading-window-r2
           path: audit/kyudb-taiyin-heading-window
           if-no-files-found: error
           retention-days: 30
