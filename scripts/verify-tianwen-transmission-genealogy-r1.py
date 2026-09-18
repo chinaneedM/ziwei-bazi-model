@@ -92,6 +92,7 @@ def main() -> int:
         "PHYSICAL-COPY-SANMING-NCL06589-1578",
         "PASSAGE-SANMING-1578-HUNDRED-KE-HALF-ZI",
         "RULE-FAMILY-HUNDRED-KE-HALF-ZI-TEXTUAL-LINEAGE",
+        "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -155,6 +156,12 @@ def main() -> int:
     e44 = next((e for e in edges if e.get("edge_id") == "TG-E0044"), None)
     if not e44 or e44.get("relation") != "TEXTUAL_ANCESTRY_CANDIDATE_FOR" or e44.get("status") != "PROBABLE":
         fail("Gexiang/Sanming textual ancestry candidate edge regressed")
+    e46 = next((e for e in edges if e.get("edge_id") == "TG-E0046"), None)
+    if not e46 or e46.get("relation") != "ATTESTS" or e46.get("status") != "CONFIRMED":
+        fail("Gexiang 1520 physical attestation edge regressed")
+    gexiang1520 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520")
+    if gexiang1520.get("edition_impression_date") != "1520_ZHENGDE15":
+        fail("Gexiang 1520 edition date regressed")
 
     shendao = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-SHENDAO-HKU-B17672971-FASC4")
     if "UNRESOLVED_WITHIN_RANGE" not in shendao.get("physical_copy_date", ""):
