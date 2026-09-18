@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.121.0",
+  "schema_version": "1.122.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -199,9 +199,10 @@
       "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF",
       "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
       "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
-      "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI"
+      "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
+      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -662,7 +663,15 @@
       "The 1554 values directly mismatch the exact Sanming/Yueling target (大寒43/57->十三後->44/56; 雨水47/53->後四日->48/52; Sanming 夏至59/41), so this copy is excluded as an unchanged exact target parent.",
       "The 1554 witness strengthens TABLE-FAMILY-TONGSHU-COARSE-40-60 as an independently attested pre-1578 branch but does not prove direct copying from the 1455 witness or collapse generic 通書 into one title.",
       "Batch 12DI changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
-      "Next gate remains a distinct pre-1578 exact-fingerprint Tongshu/almanac carrier, plus the Chinese Nanjing/Datong 59/41 physical carrier and whole-ke threshold/selection rule."
+      "Next gate remains a distinct pre-1578 exact-fingerprint Tongshu/almanac carrier, plus the Chinese Nanjing/Datong 59/41 physical carrier and whole-ke threshold/selection rule.",
+      "Batch 12DJ closes a distinct pre-1578 Tongshu physical holding at first-party national-census scope: 《通書類聚尅擇大全□□卷》, 明嘉靖三十年（1551）芝城銅活字印本, 普查編號110000-0101-0013797, 索書號14202, 國家圖書館藏1册, 存卷十六至十九.",
+      "The direct 《中國古籍善本書目·子部三》 high-resolution page is corrected to catalog item 四五〇/450 (not 451); the exploratory item-number mistake never entered the formal Matrix/Registry/Graph, so provenance-defect accounting remains 12/12.",
+      "NLC Digital Ancient Books advanced search is source-bound to index 0003 with searchable title/author/publish_unit/publish_time/sbnumber fields. Exact-title variants for the target all return total=0; exact sbnumber 14202 alone and with year/title controls also return total=0.",
+      "The same live digital index returns the already audited 1551 《類編曆法通書大全》 under controlled year+title conditions, so the target non-return is a copy-specific public-index boundary rather than evidence that the index is globally broken.",
+      "Batch 12DJ therefore closes only CURRENT_PUBLIC_DIGITAL_ANCIENT_BOOKS_INDEX_ROUTE=NO_TARGET_RECORD_OBSERVED. Physical-copy digitization, reader-terminal, reproduction/microfilm, alternate NLC service and other surrogate routes remain UNRESOLVED; no juan 16-19 target page has been directly collated.",
+      "The 1551 Tongshu Leiju copy contributes no numeric/table ancestry vote yet. Its identity with Yueling's generic 通書 source and its Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint status remain UNRESOLVED.",
+      "Batch 12DJ changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
+      "Next gate: prioritize a lawful direct image/reproduction route for NLC census 110000-0101-0013797 / call no. 14202, juan 16-19; in parallel continue independent exact-fingerprint Tongshu witnesses, the Chinese Nanjing/Datong 59/41 carrier and the historical whole-ke threshold/selection rule."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
@@ -702,7 +711,7 @@
     "handoff_text_should_be_generated_from_repository_state_not_chat_memory": true,
     "new_chat_minimal_user_prompt": "继续项目。按仓库 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 启动，以 GitHub 远端最新状态为唯一事实源。"
   },
-  "updated_at": "2026-09-18",
+  "updated_at": "2026-09-19",
   "tianwen_identity": {
     "umbrella_name_zh": "天问",
     "umbrella_name_en": "TIANWEN",
