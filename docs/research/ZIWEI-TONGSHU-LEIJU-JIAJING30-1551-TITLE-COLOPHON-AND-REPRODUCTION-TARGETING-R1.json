@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
+  "prior_batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
+  "question": "Can post-12DK bibliographic/version scholarship materially narrow a lawful reproduction request for NLC call 14202, and do newly surfaced later compilations provide an independent exact-fingerprint witness?",
+  "answer": "YES TO REPRODUCTION TARGET NARROWING; NO TO A NEW INDEPENDENT FINGERPRINT WITNESS. The official Library Journal landing page identifies Shen Kaiwen's 2025 peer-reviewed bibliographic study. A search-indexed excerpt from the publisher-hosted PDF states that the 1551 Tongshu Leiju bears Yao Kui compilation / Wang Yining collation attribution, and its footnote locates the Jiajing-30 Zhicheng movable-type imprint statement specifically at the end of juan 16, citing Zhang Xiumin (2006:569). Because the NLC copy already survives juan 16-19, this creates a lawful high-value first-pass reproduction target at the end of juan 16. The PDF itself could not be opened through the current web reader because the publisher serves it as application/octet-stream, so this batch treats those interior-page details strictly as secondary scholarly/search-indexed locator evidence, not direct physical-page collation. Separately, a newly surfaced Gujin Tushu Jicheng volume reproduces the same high-information Dahan/Yushui fingerprint, but the volume explicitly labels the section Sanming Tonghui 5; therefore it is downstream reuse of Sanming material, not an independent pre-1578 carrier or second numeric vote.",
+  "scholarly_locator": {
+    "source_id": "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL",
+    "provider": "《图书馆杂志》 / Library Journal official site",
+    "article_title": "国家图书馆藏明活字本《墨子》考论",
+    "author": "沈凯文",
+    "publication": "图书馆杂志 2025, 44(409):136-144",
+    "official_landing_url": "https://www.libraryjournal.com.cn/CN/abstract/abstract2967.shtml",
+    "publisher_pdf_url": "https://www.libraryjournal.com.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=2967",
+    "official_landing_metadata_directly_observed": true,
+    "publisher_pdf_search_index_excerpt_observed": true,
+    "publisher_pdf_directly_opened_in_current_reader": false,
+    "publisher_pdf_open_failure": "Unsupported content-type: application/octet-stream",
+    "direct_pdf_page_screenshot_obtained": false,
+    "evidence_class": "SECONDARY_SCHOLARSHIP_WITH_PUBLISHER_HOSTED_SEARCH_INDEX_EXCERPT",
+    "interior_claim_authority": "SECONDARY_LOCATOR_ONLY_UNTIL_DIRECT_TARGET_PAGE_IS_OBTAINED",
+    "title_attribution_control": {
+      "yao_kui_role": "纂辑",
+      "wang_yining_role": "校刊",
+      "direct_1551_physical_title_page_observed_in_this_batch": false
+    },
+    "juan16_colophon_locator": {
+      "location": "卷十六末",
+      "normalized_imprint_statement": "嘉靖龙飞辛亥春正月谷旦芝城铜板活字印行",
+      "cited_by_shen_to": "张秀民《中国印刷史》2006:569",
+      "direct_1551_physical_colophon_page_observed_in_this_batch": false
+    },
+    "printing_provenance_scope": {
+      "article_inference": "1551 Tongshu Leiju and 1552 Zhicheng movable-type Mozi use the same type and same layout family, supporting same-printing-shop provenance.",
+      "project_adjudication": "PRINTING_PROVENANCE_ONLY",
+      "same_shop_proves_textual_lineage": false,
+      "same_shop_proves_table_lineage": false,
+      "numeric_ancestry_vote_increment": 0
+    }
+  },
+  "downstream_false_independence_control": {
+    "source_id": "EXT-SHIDIAN-GUJIN-TUSHU-JICHENG-V597-SANMING-REUSE-CONTROL",
+    "title": "《钦定古今图书集成·博物汇编·艺术典》卷597",
+    "provider": "识典古籍 public transcription",
+    "url": "https://www.shidianguji.com/book/GJTS17/chapter/1lpxdibth7sby",
+    "visible_section_heading": [
+      "星命部汇考三十三",
+      "三命通会五"
+    ],
+    "exact_fingerprint_surface": {
+      "dahan": "昼43/夜57 -> 后十三日 -> 昼44/夜56",
+      "yushui": "昼47/夜53 -> 后四日 -> 昼48/夜52",
+      "directly_visible_on_public_transcription": true
+    },
+    "source_attribution_adjudication": "EXPLICITLY_PRESENTED_UNDER_SANMING_TONGHUI_5",
+    "independent_pre1578_witness": false,
+    "independent_numeric_vote_increment": 0,
+    "reason": "This is a later compilation reproducing material under an explicit Sanming Tonghui heading; it cannot be counted as an independent source for the 1578 table."
+  },
+  "reproduction_targeting": {
+    "nlc_call_number": "14202",
+    "known_surviving_scope": "卷十六至十九",
+    "first_pass_priority": [
+      "卷十六末：核验1551芝城活字刊记及其物理页身份",
+      "卷十六至十九目录/篇题：定位昼夜百刻、四时节气、日出入、铜壶/漏刻或相近栏目",
+      "若目标表存在：直接核验大寒43/57->十三后44/56、雨水47/53->后四日48/52及夏至59/41"
+    ],
+    "direct_reproduction_obtained": false,
+    "target_table_page_obtained": false,
+    "exact_fingerprint_tested_on_1551_copy": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+    ],
+    "positive_edges_added": [],
+    "explicit_non_edges_changed": [],
+    "hypothesis_updated": [
+      "TG-H0001"
+    ],
+    "status": "SECONDARY_REPRODUCTION_LOCATOR_STRENGTHENED; DOWNSTREAM_FALSE_INDEPENDENCE_CLOSED; ZERO_TEXTUAL_NUMERIC_ANCESTRY_VOTE"
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use lawful NLC South Rare Books Reading Room / reproduction service for call 14202 with a first-pass request explicitly naming the end of juan 16 and the day/night-ke target table loci; do not treat the 2025 secondary locator as a substitute for the physical page.",
+    "Continue searching independently accessible pre-1578 Tongshu/almanac witnesses for both exact Sanming/Yueling fingerprints.",
+    "Continue the independent Chinese Nanjing/Datong 59/41 physical-carrier search and exact whole-ke threshold/selection-rule reconstruction."
+  ]
+}
