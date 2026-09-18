@@ -43,17 +43,17 @@ jobs:
           done
           sha256sum "$ROOT"/page-*.png | sort -V | tee "$ROOT/pages.sha256"
 
-          cat > "$ROOT/manifest.txt" <<'EOF'
-SOURCE=NLC892-1253-204870 重刊革象新書 第1冊
-CATALOG_IDENTITY=平圖011907
-CATALOG_EDITION=明正德庚辰十五年(1520)宣威公署刊本
-PAGE_5_ROLE=edition/preface date locator observed in compact scan
-PAGE_35_ROLE=時分百刻 section opening
-PAGE_36_ROLE=時分百刻 continuation and volume ending
-RENDER_DPI=360
-OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false
-TEXT_LAYER_ROLE=NONE_FOR_FINAL_GLYPH_CLAIMS
-EOF
+          printf '%s\n' \
+            'SOURCE=NLC892-1253-204870 重刊革象新書 第1冊' \
+            'CATALOG_IDENTITY=平圖011907' \
+            'CATALOG_EDITION=明正德庚辰十五年(1520)宣威公署刊本' \
+            'PAGE_5_ROLE=edition/preface date locator observed in compact scan' \
+            'PAGE_35_ROLE=時分百刻 section opening' \
+            'PAGE_36_ROLE=時分百刻 continuation and volume ending' \
+            'RENDER_DPI=360' \
+            'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false' \
+            'TEXT_LAYER_ROLE=NONE_FOR_FINAL_GLYPH_CLAIMS' \
+            > "$ROOT/manifest.txt"
 
           rm "$ROOT/vol1.pdf"
 
