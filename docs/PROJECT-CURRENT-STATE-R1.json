@@ -1,6 +1,6 @@
 {
   "schema": "ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1",
-  "schema_version": "1.123.0",
+  "schema_version": "1.124.0",
   "repository": "chinaneedM/ziwei-bazi-model",
   "development_branch": "agent/fusion-chart-core-r1-20260822",
   "github_remote_is_only_live_state_source": true,
@@ -201,9 +201,10 @@
       "BATCH-12-ZIWEI-LEIBIAN-JIAJING30-1551-PRE1578-FINE-TABLE-CHRONOLOGY-DH",
       "BATCH-12-ZIWEI-HEBING-TONGSHU-JIAJING33-1554-COARSE-DAYNIGHT-PHYSICAL-COLLATION-DI",
       "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
-      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK"
+      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
+      "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL"
     ],
-    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md",
+    "latest_batch_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL.md",
     "current_focus": [
       "Batch 11U remains controlling for G893 catalog-item identity: 授時曆立成 / 圖書番號 893 / 1冊 maps to current 奎貴893 / GK00893_00 with EXACT_ITEM_CONTINUITY_TO_CURRENT_GK00893_00=RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL; the 1930 generic main sequence number 893 remains directly disproven as a shortcut to current 奎貴893.",
       "Batch 11V remains controlling for the current pre-existing online M/F PDF route: mfPdfList reports ERROR - DIR NOT EXIST / IS_PDF null and direct mfPdf.do returns no PDF magic, so G893_CURRENT_MF_PDF_ROUTE=CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED.",
@@ -682,7 +683,13 @@
       "NLC Chinese Ancient Books Union Bibliography resource 0019 was exhaustively closed for title LIKE 通書類聚: all 48/48 pages and 576/576 unique records were validated across the initial, retry and final-page workflows. Full-record filtering yields zero contiguous target-title, keze/jueze, 姚奎, 王以寧, 芝城 or target romanization hits; the only exact 1551/Jiajing-30 record is unrelated NJPX96-B51 《新刊古文類抄》.",
       "Batch 12DK closes these reviewed current public discovery/index routes without proving that no private, historical, uncatalogued, authenticated-microform, reader-terminal, transferred or differently catalogued copy/surrogate exists. No juan 16-19 page was obtained; target table/fingerprint and Yueling generic 通書 identity remain UNRESOLVED.",
       "Batch 12DK changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
-      "Next gate: prioritize lawful NLC South Rare Books Reading Room / reproduction-service access for call 14202 or an independently accessible physical/reproduction copy; continue in parallel the pre-1578 exact-fingerprint Tongshu carrier, Chinese Nanjing/Datong 59/41 carrier, and exact whole-ke threshold/selection-rule searches."
+      "Next gate: prioritize lawful NLC South Rare Books Reading Room / reproduction-service access for call 14202 or an independently accessible physical/reproduction copy; continue in parallel the pre-1578 exact-fingerprint Tongshu carrier, Chinese Nanjing/Datong 59/41 carrier, and exact whole-ke threshold/selection-rule searches.",
+      "Batch 12DL uses the official Library Journal 2025 article metadata plus a publisher-hosted search-indexed full-text excerpt strictly as SECONDARY scholarly locator evidence: the 1551 Tongshu Leiju title attribution is Yao Kui compilation / Wang Yining collation, and the imprint is located at the end of juan 16. The publisher PDF itself was not directly opened/rendered in the current reader, so these interior claims are not promoted to direct physical-page authority.",
+      "Because NLC call 14202 is already first-party bound as surviving juan 16-19, the next lawful reproduction request is now narrowed to the end of juan 16 plus adjacent leaves and target-table loci in juan 16-19. No direct 1551 page or target table was obtained, so Sanming/Yueling fingerprint status remains UNRESOLVED.",
+      "The same-type/same-layout comparison between the 1551 Tongshu Leiju and 1552 Zhicheng Mozi is retained only as printing-provenance scholarship. Same printing shop does not prove same textual or numeric-table lineage; numeric ancestry vote increment remains 0.",
+      "A later Gujin Tushu Jicheng volume visibly preserves the same Dahan/Yushui fingerprint but explicitly files it under 三命通会五. It is therefore downstream reuse, not an independent pre-1578 witness and not a second numeric vote.",
+      "Batch 12DL changes no Matrix/product counts: 198 rows / 166 audited / 10 MISSING_FROM_PRODUCT; provenance defects 12/12; chart algorithm defect/reopen/collapse remain 0.",
+      "Next gate: pursue lawful NLC South Rare Books Reading Room / reproduction-service access for call 14202 with first-pass emphasis on juan 16 end and target-table leaves; continue in parallel the pre-1578 exact-fingerprint Tongshu carrier, Chinese Nanjing/Datong 59/41 carrier, and exact whole-ke threshold/selection-rule searches."
     ],
     "historical_candidate_extension_count": 6,
     "current_missing_from_product_row_count": 10
