@@ -4619,6 +4619,17 @@
         "union_bibliography_validated_pages": 48,
         "union_bibliography_unique_records": 576,
         "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
+      },
+      "batch_12dl_secondary_reproduction_locator": {
+        "source_id": "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL",
+        "title_attribution": "姚奎纂辑；王以宁校刊",
+        "colophon_location": "卷十六末",
+        "direct_physical_page_observed": false,
+        "authority_scope": "SECONDARY_LOCATOR_ONLY",
+        "first_pass_reproduction_target": "卷十六末及相邻叶；随后卷16-19中昼夜百刻/四时节气/日出入/漏刻或铜壶相关叶",
+        "same_printing_shop_is_not_textual_or_table_lineage": true,
+        "numeric_ancestry_vote_increment": 0,
+        "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json"
       }
     },
     {
@@ -4697,6 +4708,54 @@
       "artifact_id": 10560661850,
       "artifact_digest": "sha256:519a21db7bf1e03269b53d2a64e6b7f94fbbe2f8e9c6f67b7da1688c6e5ca044",
       "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json"
+    },
+    {
+      "source_id": "EXT-LIBRARY-JOURNAL-SHEN-2025-TONGSHU-LEIJU-COLOPHON-CONTROL",
+      "title": "沈凯文《国家图书馆藏明活字本〈墨子〉考论》",
+      "author": "沈凯文",
+      "publication": "《图书馆杂志》2025年第5期（总409期），136-144",
+      "provider": "《图书馆杂志》官方站",
+      "url": "https://www.libraryjournal.com.cn/CN/abstract/abstract2967.shtml",
+      "related_urls": [
+        "https://www.libraryjournal.com.cn/EN/article/downloadArticleFile.do?attachType=PDF&id=2967"
+      ],
+      "source_role": "SECONDARY_SCHOLARLY_PROVENANCE_LOCATOR_AND_REPRODUCTION_TARGETING_CONTROL",
+      "evidence_scope": "Official landing metadata directly observed; publisher-hosted PDF full-text details available only through search-indexed excerpt in this batch because direct reader fetch returns unsupported application/octet-stream.",
+      "tongshu_leiju_controls": {
+        "title_attribution": "姚奎纂辑；王以宁校刊",
+        "juan16_end_colophon_locator": "卷十六末",
+        "imprint_statement_normalized": "嘉靖龙飞辛亥春正月谷旦芝城铜板活字印行",
+        "cited_secondary_basis": "张秀民《中国印刷史》2006:569",
+        "direct_1551_physical_page_observed": false
+      },
+      "printing_shop_adjudication": {
+        "same_shop_with_1552_mozi": "SCHOLARLY_INFERENCE_ONLY",
+        "proves_textual_lineage": false,
+        "proves_table_lineage": false,
+        "numeric_ancestry_vote_increment": 0
+      },
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json",
+      "quality_notes": "Useful for lawful reproduction targeting because the known NLC copy survives juan 16-19 and the secondary study places the imprint at juan 16 end. It is not a substitute for direct physical collation."
+    },
+    {
+      "source_id": "EXT-SHIDIAN-GUJIN-TUSHU-JICHENG-V597-SANMING-REUSE-CONTROL",
+      "title": "《钦定古今图书集成·博物汇编·艺术典》卷597《星命部汇考三十三》",
+      "historical_period": "QING_COMPILATION_DOWNSTREAM_OF_SANMING_1578",
+      "provider": "识典古籍公开转录",
+      "url": "https://www.shidianguji.com/book/GJTS17/chapter/1lpxdibth7sby",
+      "source_role": "DOWNSTREAM_REUSE_CONTROL_FOR_FALSE_INDEPENDENT_FINGERPRINT_COUNTING",
+      "source_heading_control": [
+        "星命部汇考三十三",
+        "三命通会五"
+      ],
+      "fingerprint_control": {
+        "dahan": "43/57 -> 后十三日 -> 44/56",
+        "yushui": "47/53 -> 后四日 -> 48/52"
+      },
+      "independent_pre1578_witness": false,
+      "independent_numeric_vote_increment": 0,
+      "research_artifact": "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-R1.json",
+      "quality_notes": "The exact fingerprint is visible, but the compilation explicitly presents the material under 三命通会五; therefore it is downstream reuse, not an independent source or ancestry vote."
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"
