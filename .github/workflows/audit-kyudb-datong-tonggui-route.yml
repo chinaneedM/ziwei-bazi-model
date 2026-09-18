@@ -1,0 +1,149 @@
+name: audit-kyudb-datong-tonggui-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-kyudb-datong-tonggui-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe Kyudb and KOSTMA route bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datong-tonggui-route'
+          mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          import html as htmlmod
+          import json, re, urllib.parse, urllib.request
+
+          root=Path('audit/kyudb-datong-tonggui-route')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          TITLES=[
+            ('大統曆日通軌','대통력일통궤'),
+            ('太陽通軌','태양통궤'),
+            ('太陰通軌','태음통궤'),
+            ('交食通軌','교식통궤'),
+            ('五星通軌','오성통궤'),
+            ('四餘纏度通軌','사여전도통궤'),
+          ]
+
+          def get(url):
+              req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept-Language':'ko,en;q=0.8'})
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  return r.geturl(), r.read().decode('utf-8','replace')
+
+          def save(name,text):
+              (root/name).write_text(text,encoding='utf-8')
+
+          def compact(s):
+              return re.sub(r'\s+',' ',htmlmod.unescape(s)).strip()
+
+          rows=[]
+          # Current Kyudb category pages; search enough likely science-list pagination variants.
+          ky_urls=[
+            'https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC03&mid=GDS',
+            'https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',
+            'https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&mid=GDS',
+          ]
+          for i,u in enumerate(ky_urls):
+              try:
+                  final,h=get(u)
+                  save(f'kyudb-list-{i}.html',h)
+                  for cn,ko in TITLES:
+                      for term in (cn,ko):
+                          start=0
+                          while True:
+                              p=h.find(term,start)
+                              if p<0: break
+                              frag=h[max(0,p-4000):min(len(h),p+8000)]
+                              rows.append({'provider':'KYUDB_LIST','url':u,'final_url':final,'title':cn,'matched':term,'context':compact(frag)[:14000]})
+                              start=p+len(term)
+              except Exception as e:
+                  rows.append({'provider':'KYUDB_LIST','url':u,'error':type(e).__name__+': '+str(e)})
+
+          # Exact global-search endpoints.
+          for cn,ko in TITLES:
+              for term in (cn,ko):
+                  u='https://kyudb.snu.ac.kr/search/search.do?searchArea=0&totalSearchString='+urllib.parse.quote(term)
+                  try:
+                      final,h=get(u)
+                      fn='kyudb-search-'+re.sub(r'[^A-Za-z0-9]+','_',cn)+'-'+('ko' if term==ko else 'han')+'.html'
+                      save(fn,h)
+                      p=h.find(term)
+                      if p<0: p=h.find(cn)
+                      if p<0: p=h.find(ko)
+                      frag=h[max(0,p-6000):min(len(h),p+14000)] if p>=0 else h[:12000]
+                      rows.append({'provider':'KYUDB_SEARCH','url':u,'final_url':final,'title':cn,'matched':term,'found':p>=0,'context':compact(frag)[:18000]})
+                  except Exception as e:
+                      rows.append({'provider':'KYUDB_SEARCH','url':u,'title':cn,'matched':term,'error':type(e).__name__+': '+str(e)})
+
+          # KOSTMA search surfaces expose legacy e-kyujanggak target links.
+          for cn,ko in TITLES:
+              for term in (cn,ko):
+                  u='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&pageSize=100&query='+urllib.parse.quote(term)
+                  try:
+                      final,h=get(u)
+                      fn='kostma-search-'+re.sub(r'[^A-Za-z0-9]+','_',cn)+'-'+('ko' if term==ko else 'han')+'.html'
+                      save(fn,h)
+                      positions=[m.start() for m in re.finditer(re.escape(term),h)]
+                      if not positions:
+                          positions=[m.start() for m in re.finditer(re.escape(cn),h)]
+                      for p in positions[:8]:
+                          frag=h[max(0,p-5000):min(len(h),p+10000)]
+                          links=re.findall(r'(?:href|src)\s*=\s*["\']([^"\']+)["\']',htmlmod.unescape(frag),re.I)
+                          old=[x for x in links if 'kyujanggak' in x.lower() or 'MOK' in x or 'CONVIEW' in x]
+                          rows.append({'provider':'KOSTMA_SEARCH','url':u,'final_url':final,'title':cn,'matched':term,'context':compact(frag)[:16000],'legacy_links':old[:20]})
+                  except Exception as e:
+                      rows.append({'provider':'KOSTMA_SEARCH','url':u,'title':cn,'matched':term,'error':type(e).__name__+': '+str(e)})
+
+          # Extract likely identifiers and route fragments globally.
+          corpus='\n'.join(p.read_text(encoding='utf-8',errors='replace') for p in root.glob('*.html'))
+          ids=sorted(set(re.findall(r'(?:GK|GR)\d+_\d+(?:_\d+)?|奎貴\s*\d+|奎\s*貴\s*\d+|DIC_A3_\d{6}',corpus)))
+          urls=sorted(set(htmlmod.unescape(x) for x in re.findall(r'https?://[^"\'<>\s]+',corpus)))
+          route_urls=[u for u in urls if any(k in u.lower() for k in ('kyudb','kyujanggak','mok','conview','viewer','image'))]
+
+          # JS/onclick contexts around image/detail route terms in Kyudb html.
+          route_contexts=[]
+          for p in root.glob('kyudb-*.html'):
+              h=p.read_text(encoding='utf-8',errors='replace')
+              for pat in ('원문이미지','상세정보','MOK','CONVIEW','viewer','book_detail','bookDetail','imgView','imageView'):
+                  for m in list(re.finditer(re.escape(pat),h,re.I))[:12]:
+                      frag=h[max(0,m.start()-1800):min(len(h),m.end()+3500)]
+                      route_contexts.append({'file':p.name,'pattern':pat,'context':compact(frag)[:7000]})
+
+          report={
+            'schema':'KYUDB-DATONG-TONGGUI-ROUTE-PROBE-R1',
+            'schema_version':'1.0.0',
+            'purpose':'Bind current Kyudb holdings/call numbers and public image/detail routes for the six Joseon corrected Datong Tonggui components; locator only, no numeric/glyph adjudication.',
+            'titles':[x[0] for x in TITLES],
+            'rows':rows,
+            'identifiers':ids,
+            'route_urls':route_urls[:500],
+            'route_contexts':route_contexts[:300],
+            'ocr_used_for_final_glyph_claims':False,
+            'numeric_claim_authorized':False,
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'identifiers':ids,'route_urls':route_urls[:80],'rows':len(rows),'route_contexts':len(route_contexts)},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload route probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datong-tonggui-route
+          path: audit/kyudb-datong-tonggui-route
+          if-no-files-found: error
+          retention-days: 30
