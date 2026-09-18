@@ -1,0 +1,144 @@
+name: query-nlc-gjpc-tongshu-leiju-broad-variants
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-gjpc-tongshu-leiju-broad-variants.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query National Ancient Books Census with controlled broad variants
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-gjpc-tongshu-leiju-broad-variants'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw"
+          BASE='http://202.96.31.78/xlsworkbench/publish'
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          title-short-trad	通書類聚
+          title-short-simp	通书类聚
+          title-ketze-trad	尅擇大全
+          title-jueze-trad	抉擇大全
+          title-keze-simp	克择大全
+          editor-yaokui	姚奎
+          collator-wangyining-trad	王以寧
+          collator-wangyining-simp	王以宁
+          imprint-zhicheng-trad	芝城銅活字
+          imprint-zhicheng-simp	芝城铜活字
+          imprint-jiajing30	嘉靖三十年芝城
+          EOF
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote_plus
+          root=Path('audit/nlc-gjpc-tongshu-leiju-broad-variants')
+          rows=[]
+          for line in (root/'queries.tsv').read_text('utf-8').splitlines():
+              if not line.strip(): continue
+              key,q=line.split('\t',1)
+              url='http://202.96.31.78/xlsworkbench/publish?keyWord='+quote_plus(q)+'&orderProperty=PU_CHA_BIAN_HAO&orderWay=asc'
+              rows.append((key,q,url))
+          (root/'query-urls.tsv').write_text(''.join(f'{k}\t{q}\t{u}\n' for k,q,u in rows),encoding='utf-8')
+          PY
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key query url; do
+            out="$ROOT/raw/$key.html"
+            set +e
+            timeout 45s curl -L -sS --connect-timeout 8 --max-time 35 \
+              -A "$UA" "$url" -o "$out"
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\t%s\t%s\n' "$key" "$rc" "$size" "$query" >> "$ROOT/status.tsv"
+          done < "$ROOT/query-urls.tsv"
+
+          python - <<'PY'
+          import html,json,re
+          from pathlib import Path
+          root=Path('audit/nlc-gjpc-tongshu-leiju-broad-variants')
+          fields=['PUCHABIANHAO','SUOSHUHAO','TIMING','BANBEN','CESHU','DANWEI','CUNJUAN']
+          queries={}
+          for line in (root/'queries.tsv').read_text('utf-8').splitlines():
+              if line.strip():
+                  k,q=line.split('\t',1); queries[k]=q
+
+          def clean(s):
+              s=re.sub(r'<br\s*/?>',' / ',s,flags=re.I)
+              s=re.sub(r'<[^>]+>',' ',s)
+              return ' '.join(html.unescape(s).split())
+
+          allrows=[]
+          summary=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              s=p.read_text('utf-8',errors='replace')
+              # Source table uses data-field attributes; split rows first so fields cannot bleed across records.
+              trs=re.findall(r'<tr\b[^>]*>(.*?)</tr>',s,re.I|re.S)
+              rows=[]
+              for tr in trs:
+                  row={}
+                  for fld in fields:
+                      m=re.search(r'<t[dh]\b[^>]*data-field=["\']'+re.escape(fld)+r'["\'][^>]*>(.*?)</t[dh]>',tr,re.I|re.S)
+                      if m: row[fld]=clean(m.group(1))
+                  if row.get('PUCHABIANHAO') or row.get('TIMING'):
+                      rows.append(row)
+              summary.append({'query_key':p.stem,'query':queries.get(p.stem),'row_count':len(rows)})
+              for row in rows:
+                  allrows.append({'query_key':p.stem,'query':queries.get(p.stem),**row})
+          # De-duplicate by census number + call + title while retaining which queries hit.
+          grouped={}
+          for r in allrows:
+              key=(r.get('PUCHABIANHAO',''),r.get('SUOSHUHAO',''),r.get('TIMING',''),r.get('DANWEI',''))
+              g=grouped.setdefault(key,{'query_keys':[],'queries':[],**{f:r.get(f,'') for f in fields}})
+              if r['query_key'] not in g['query_keys']: g['query_keys'].append(r['query_key'])
+              if r['query'] not in g['queries']: g['queries'].append(r['query'])
+          rows=list(grouped.values())
+          (root/'parsed-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'parsed-records.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+          with (root/'parsed-records.tsv').open('w',encoding='utf-8') as f:
+              f.write('QUERY_KEYS\tPUCHABIANHAO\tSUOSHUHAO\tTIMING\tBANBEN\tCESHU\tDANWEI\tCUNJUAN\n')
+              for r in rows:
+                  vals=[';'.join(r['query_keys'])]+[r.get(x,'') for x in fields]
+                  f.write('\t'.join(v.replace('\t',' ') for v in vals)+'\n')
+          # Material candidates only: title/imprint target family or known people, preserving false-positive possibility.
+          pat=re.compile(r'通[書书]類[聚类]|尅擇|抉擇|克择|姚奎|王以[寧宁]|芝城.*[銅铜]活字|嘉靖三十')
+          cand=[r for r in rows if pat.search(' '.join(str(r.get(k,'')) for k in fields))]
+          (root/'candidate-records.json').write_text(json.dumps(cand,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+          grep -RniE \
+            '通書類聚|通书类聚|尅擇|抉擇|克择|姚奎|王以寧|王以宁|芝城|銅活字|铜活字|嘉靖三十|福建省圖書館|福建省图书馆|國家圖書館|国家图书馆' \
+            "$ROOT/raw" "$ROOT/parsed-records.tsv" > "$ROOT/target-hits.txt" || true
+
+          sha256sum "$ROOT"/raw/*.html | sort -V > "$ROOT/raw.sha256"
+
+          printf '%s\n' \
+            'SOURCE=全國古籍普查登記基本數據庫 / National Ancient Books Census Registration Basic Database' \
+            'QUERY_METHOD=GET keyWord + orderProperty=PU_CHA_BIAN_HAO + orderWay=asc' \
+            'PURPOSE=adjudicate independent-copy holdings and the secondary Fujian Provincial Library claim by controlled broad title/person/imprint variants' \
+            'KNOWN_NLC_RECORD=110000-0101-0013797 / call 14202' \
+            'NEGATIVE_POLICY=no hit for a person/imprint keyword does not prove no variant record; only directly returned catalog rows establish holdings' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload broad census evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-gjpc-tongshu-leiju-broad-variants
+          path: audit/nlc-gjpc-tongshu-leiju-broad-variants/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
