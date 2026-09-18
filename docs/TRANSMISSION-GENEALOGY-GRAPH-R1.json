@@ -797,6 +797,30 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-XUXIU-1061-1062-YINYANG-BAOJIAN",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "《續修四庫全書》1061–1062冊《新刊陰陽寶鑒克擇通書》完整再現范围",
+      "system_scope": "PRE1578_TONGSHU_YINYANG_BAOJIAN_REPRODUCTION_AND_TARGET_SCOPE_CONTROL",
+      "work_composition_date": "UNRESOLVED",
+      "edition_impression_date": "UNRESOLVED_XUXIU_YUAN_LABEL_VS_CURRENT_RELATED_UNION_CATALOG_EARLY_MING",
+      "physical_copy_date": "UNRESOLVED_CROSSCOPY_IDENTITY_NOT_BOUND_TO_BATCH12DF_OBJECT",
+      "digital_surrogate_date": "MODERN_XUXIU_REPRODUCTION_WIKIMEDIA_SURROGATE",
+      "identifier": "續修四庫全書 1061-1062 / Wikimedia public PDFs",
+      "source_pdf_sha256": {
+        "1061": "618a31924e05cbb8e8c5b49bfc0da2d7c7fb64526c6719175d685088cef29d83",
+        "1062": "f601dcab3bec1ac5cb958790c404c0e5a2ac3f3d6e2b6464352096fce48024e6"
+      },
+      "boundary_result": "1061 p800 directly binds 前集卷五; 1062 p66/p119/p167/p208 bind back-volume 2/3/4/5 surfaces; p209 separator; p210 begins 類編曆法通書大全序.",
+      "target_locator_result": "NO_CANDIDATE_SANMING_YUELING_DAYNIGHT_FINGERPRINT_LEAF_OBSERVED_AT_STRUCTURAL_LOCATOR_SCOPE",
+      "same_physical_copy_as_batch12df_proved": false,
+      "whole_work_textual_negative": false,
+      "evidence": [
+        "docs/research/ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG"
     }
   ],
   "edges": [
@@ -1600,6 +1624,10 @@
         {
           "batch": "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF",
           "update": "A current union-catalog early-Ming (1368-1424) physical Tongshu witness, 《新刊陰陽寶鑒克擇通書前集》, was completely locator-reviewed across all 75 scanned pages of surviving volumes 1-4. No candidate seasonal day/night-ke or exact Sanming/Yueling fingerprint leaf was observed. This narrows the search but is not a whole-work negative because catalog volume 5 is missing from the digital object and other recensions remain open."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG",
+          "update": "Xuxiu 1061-1062 directly recovers the missing front-volume-5 and back-collection boundary for Yinyang Baojian at reproduction scope, but structural review still exposes no candidate Sanming/Yueling fingerprint leaf. Copy/date identity against the current NLC early-Ming object remains unresolved, so the result narrows a search route without identifying the generic 通書 source or changing the composite ancestry model."
         }
       ]
     }
@@ -1854,6 +1882,28 @@
       "evidence": [
         "docs/research/ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
+      ]
+    },
+    {
+      "from": "DIGITAL-SURROGATE-XUXIU-1061-1062-YINYANG-BAOJIAN",
+      "relation": "SAME_PHYSICAL_COPY_AS",
+      "to": "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
+      "status": "UNRESOLVED",
+      "reason": "Xuxiu describes the reproduced object as 國家圖書館藏元刻本 while the current related union-catalog object used in Batch 12DF is 明初（1368-1424） and its standalone digital object contains only volumes 1-4. Same title, institution and reproduction proximity do not prove same physical copy or recension.",
+      "evidence": [
+        "docs/research/ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
+      ]
+    },
+    {
+      "from": "DIGITAL-SURROGATE-XUXIU-1061-1062-YINYANG-BAOJIAN",
+      "relation": "DIRECT_TARGET_FINGERPRINT_ATTESTATION",
+      "to": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT",
+      "status": "UNRESOLVED",
+      "reason": "The recovered front-volume-5/back-collection structural scope exposes no candidate Sanming/Yueling day/night-ke fingerprint leaf, but structural-locator resolution, damaged leaves and text-layer limitations do not authorize a whole-work textual negative or direct-ancestry disproof.",
+      "evidence": [
+        "docs/research/ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
       ]
     }
   ],

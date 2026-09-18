@@ -22,6 +22,8 @@ ZIWEI_LEIBIAN_12DE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT
 ZIWEI_LEIBIAN_12DE_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json"
 ZIWEI_YINYANG_BAOJIAN_12DF_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
 ZIWEI_YINYANG_BAOJIAN_12DF_EVIDENCE = ROOT / "docs/research/ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-R1.json"
+ZIWEI_XUXIU_YINYANG_BAOJIAN_12DG_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
+ZIWEI_XUXIU_YINYANG_BAOJIAN_12DG_EVIDENCE = ROOT / "docs/research/ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -261,7 +263,7 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YINYANG-BAOJIAN-MINGCHU-TONGSHU-SURVIVING-SCOPE-DF.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG.md"
 
 
 def fail(message: str) -> None:
@@ -269,6 +271,31 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_XUXIU_YINYANG_BAOJIAN_12DG_BATCH, ZIWEI_XUXIU_YINYANG_BAOJIAN_12DG_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DG continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12dg = json.loads(ZIWEI_XUXIU_YINYANG_BAOJIAN_12DG_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12dg.get("batch_id") != "BATCH-12-ZIWEI-XUXIU-YINYANG-BAOJIAN-COMPLETE-REPRODUCTION-DG":
+        fail("Batch 12DG evidence identity mismatch")
+    repro12dg = batch12dg.get("reproduction_source", {})
+    if repro12dg.get("page_counts", {}).get("1061") != 846 or repro12dg.get("page_counts", {}).get("1062") != 687:
+        fail("Batch 12DG source page-count binding regressed")
+    direct12dg = batch12dg.get("direct_highres_boundary_collation", {})
+    if direct12dg.get("front_volume5", {}).get("sha256") != "a2647361c71fc54a3ff021c664c14baa88dba25be3a9b8b9eef738516a1f078c":
+        fail("Batch 12DG front-volume-5 binding regressed")
+    if direct12dg.get("back_volume5_end_scope", {}).get("sha256") != "0a052c82ed6123a4bdb86be76d7c014dd3cc15dd786c3052aae8df6251c4292d":
+        fail("Batch 12DG back-volume-5 binding regressed")
+    if direct12dg.get("next_work_boundary", {}).get("sha256") != "9557e9eab3683360695b8f8a35a2a53926340c7078ec4b799b7b052bdbe4557d":
+        fail("Batch 12DG next-work boundary binding regressed")
+    firewall12dg = batch12dg.get("date_and_copy_firewall", {})
+    if firewall12dg.get("same_physical_copy_as_df_nlc_v1_4_proved") is not False or firewall12dg.get("exact_underlying_impression_date") != "UNRESOLVED":
+        fail("Batch 12DG date/copy firewall regressed")
+    adjud12dg = batch12dg.get("adjudication", {})
+    if adjud12dg.get("structural_target_candidate_observed") is not False or adjud12dg.get("whole_work_textual_target_absence_proved") is not False:
+        fail("Batch 12DG target-scope negative was overpromoted")
+    if batch12dg.get("product_adjudication", {}).get("algorithm_reopen_authorized") is not False:
+        fail("Batch 12DG unexpectedly reopened algorithm")
+
     for path in (ZIWEI_YINYANG_BAOJIAN_12DF_BATCH, ZIWEI_YINYANG_BAOJIAN_12DF_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DF continuity artifact missing: {path.relative_to(ROOT)}")
