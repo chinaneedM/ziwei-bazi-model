@@ -127,13 +127,13 @@ jobs:
           for(const p of [...wanted].sort((a,b)=>idx.get(a)-idx.get(b))){
             const fn=`${book}IH_${vol}_${p}.jpg`;
             const path=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
-            const url=`https://kyudb.snu.ac.kr/ImageDown.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
+            const url=`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
             const imgPage=await browser.newPage();
             await imgPage.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
             let buf=null,status=null,ctype=null,error=null;
             for(let attempt=1;attempt<=3;attempt++){
               try{
-                const resp=await imgPage.goto(url,{waitUntil:'networkidle0',timeout:60000});
+                const resp=await imgPage.goto(url,{waitUntil:'domcontentloaded',timeout:20000});
                 status=resp?.status()??null; ctype=resp?.headers()?.['content-type']??null;
                 if(resp && resp.ok()){
                   buf=await resp.buffer();
