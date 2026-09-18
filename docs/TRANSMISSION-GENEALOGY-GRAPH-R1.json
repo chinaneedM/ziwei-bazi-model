@@ -539,6 +539,34 @@
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX.md"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-SONGSHI-CADAL06060932-SIKU",
+      "node_type": "PHYSICAL_COPY",
+      "label": "CADAL06060932《欽定四庫全書》系《宋史》卷76~77受傳物理本",
+      "system_scope": "YUAN_HISTORIOGRAPHY_PRESERVING_NORTHERN_SONG_TIMEKEEPING_IN_LATER_SIKU_RECENSION",
+      "work_composition_date": "SONGSHI YUAN-COMPILED HISTORIOGRAPHY; TARGET RECORDS NORTHERN-SONG HUANGYOU RULE",
+      "edition_impression_date": "QINDING_SIKU_RECENSION_CURRENT_COPY_DATE_NOT_PROMOTED_TO_SONG_OR_YUAN",
+      "physical_copy_date": "LATER_RECEIVED_RECENSION_UNRESOLVED_EXACT_COPY_DATE",
+      "digital_surrogate_date": "MODERN_CADAL_WIKIMEDIA_SURROGATE",
+      "identifier": "CADAL06060932",
+      "evidence": [
+        "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ.md"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
+    },
+    {
+      "node_id": "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "node_type": "RULE_FAMILY",
+      "label": "黃道差閾值→改箭整刻離散化規則家族",
+      "system_scope": "HISTORICAL_ASTRONOMICAL_TIMEKEEPING_DISCRETIZATION",
+      "mechanical_identity": "A finer solar/ecliptic-distance argument controls discrete one-ke arrow states. Direct Songshi Huangyou witness: each one-ke difference has a separate arrow; 41 arrows; 黃道升降差2度40分 triggers 增減改箭. Sui received control preserves an older threshold-to-arrow architecture with different parameters.",
+      "exact_sanming_parameter_identity": false,
+      "evidence": [
+        "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json"
+      ],
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
     }
   ],
   "edges": [
@@ -1027,6 +1055,37 @@
       "reason": "The reviewed Shoushi conversion itself does not discard sub-ke remainders, so a same-step truncation shortcut cannot by itself explain the Sanming integer display. A separate/downstream reduction or table-abstraction layer is mechanically required, while its historical identity and exact rule remain unresolved.",
       "scope_note": "This rejects only the simple same-step remainder-discard shortcut. It does not prove a direct textual transmission path from the reviewed Siku recension into Sanming.",
       "adjudication_batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX"
+    },
+    {
+      "edge_id": "TG-E0034",
+      "from": "PHYSICAL-COPY-SONGSHI-CADAL06060932-SIKU",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "status": "CONFIRMED",
+      "confidence": "HIGH",
+      "evidence_class": "DIRECT_SOURCE_BOUND_PHYSICAL_RECEIVED_RECENSION_NO_OCR",
+      "evidence": [
+        "render 011 sha256 a8f9c0e466631bb4f550ccb03b222a468444d3fa3d2c036c15252d3c71834280",
+        "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json"
+      ],
+      "scope_note": "Attests the rule wording in the reviewed Siku-recension physical witness; does not date the scanned exemplar to Northern Song.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
+    },
+    {
+      "edge_id": "TG-E0035",
+      "from": "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "relation": "STRUCTURAL_MECHANISM_CANDIDATE_FOR",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "POSSIBLE",
+      "confidence": "MEDIUM",
+      "evidence_class": "EXPLICIT_HISTORICAL_THRESHOLD_TO_INTEGER_ARROW_ARCHITECTURE_PLUS_POST_SHOUSHI_REDUCTION_REQUIREMENT",
+      "evidence": [
+        "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json",
+        "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "scope_note": "Supports the historical plausibility and rule class of a downstream threshold/binning layer only. Huangyou's 60/40 cap and parameters do not equal the 1578 Sanming 59/41/change-day fingerprint.",
+      "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
     }
   ],
   "lineage_hypotheses": [
@@ -1045,8 +1104,8 @@
       "direct_copy_parent_identified": false,
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
-        "Which securely pre-1578 Chinese witness combines a Huqian-like integer-step/change-day architecture with the Nanjing/Datong 59-ke cap?",
-        "What exact post-conversion reduction/change-day rule maps the daily Nanjing Datong C-II-N curve to Sanming's literal 大寒 十三後日 and 雨水 後四日 transitions?",
+        "Which securely pre-1578 Chinese Nanjing/Datong-calibrated rule maps a fine astronomical/daylength argument to integer arrow/ke states with a 59-ke summer cap?",
+        "What exact threshold or selection rule reproduces the 1578 Sanming literal 大寒 十三後日 and 雨水 後四日 transitions from the C-II-N daily curve?",
         "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its reduction rule, distinguishing Chinese origin from Joseon transmission?"
       ],
       "evidence_updates": [
@@ -1065,6 +1124,10 @@
         {
           "batch": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY",
           "update": "Direct no-OCR re-collation of both Tianyige Ming and Siku Huqian witnesses fixes the older arrow schedule at 大寒後三日 -> 44/56 and 雨水後第九日 -> 48/52. These mismatch the exact 1578 Sanming literal 十三後日 / 後四日 transition fingerprint. The older integer-step/change-day family remains a structural component candidate, but verbatim Huqian-table parentage is now explicitly disproved; the missing layer is narrowed to recalibration/downstream binning/editorial recomposition."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
+          "update": "Source-bound no-OCR Songshi v76 physical collation directly closes a historical threshold-driven discretization rule: each one-ke change has a separate arrow and 黃道升降差2度40分 triggers 增減改箭. This materially fills the generic post-conversion reduction-layer gap left by 12CX, but Huangyou 60/40 and its parameters differ from Sanming 59/41, so only the rule class—not the exact Sanming rule—is strengthened."
         }
       ]
     }
@@ -1210,6 +1273,18 @@
         "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY"
+    },
+    {
+      "from": "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "relation": "EXACT_UNCHANGED_REDUCTION_RULE_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED_FOR_HUANGYOU_PARAMETERIZATION",
+      "reason": "The physically reviewed Huangyou rule has summer 60/40 and an explicit 2度40分 threshold, while the exact 1578 Sanming target has summer 59/41 and distinct intra-term anchors. Historical rule-class ancestry remains possible; exact unchanged Huangyou parameter identity does not.",
+      "evidence": [
+        "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ"
     }
   ],
   "backfill": {

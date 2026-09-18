@@ -3724,7 +3724,13 @@
       "provider": "Wikisource",
       "url": "https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B719",
       "source_role": "PREMING_TECHNICAL_SEASONAL_LEAK_CLOCK_CONTROL",
-      "quality_notes": "Explicitly states 漏刻皆隨氣增損 and winter/summer day-night length differences; used for semantic/technical control, not Ziwei doctrine."
+      "quality_notes": "Explicitly states 漏刻皆隨氣增損 and winter/summer day-night length differences; used for semantic/technical control, not Ziwei doctrine. Batch 12CZ narrows the received-text control further: it records the Han Yongyuan-14 objection to fixed nine-day change rates and a 黄道去极-distance threshold in which each 二度四分 changes one ke, with 48 arrows. This is deeper historical control for threshold-driven arrow discretization, not direct physical or direct-genealogy authority.",
+      "batch_12cz_threshold_control": {
+        "received_text_statement": "永元十四年霍融奏後採用依日行黃道去極每差二度四分為增減一刻，凡用四十八箭",
+        "role": "DEEPER_HISTORICAL_TEXTUAL_CONTROL_FOR_THRESHOLD_TO_ARROW_ARCHITECTURE_ONLY",
+        "direct_physical_copy_observed_in_batch_12cz": false,
+        "direct_genealogy_to_huangyou_or_sanming_proved": false
+      }
     },
     {
       "source_id": "EXT-WIKISOURCE-QUNSHU-KAOSUO-V56-YUEJIAN-LOUKE",
@@ -4185,6 +4191,29 @@
         "pre1578_physical_witness": false,
         "research_artifact": "docs/research/ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1.json"
       }
+    },
+    {
+      "source_id": "EXT-WIKIMEDIA-SONGSHI-V76-HUANGYOU-ARROW-THRESHOLD",
+      "title": "《欽定四庫全書》系《宋史》卷七十六~卷七十七 / 皇祐漏刻",
+      "author_attribution": "元托克托等修《宋史》；target passage records Northern-Song Huangyou clepsydra reform",
+      "historical_period": "YUAN_HISTORIOGRAPHY_PRESERVING_NORTHERN_SONG_HUANGYOU_TIMEKEEPING; CURRENT_FACSIMILE_IS_LATER_SIKU_RECENSION",
+      "provider": "Wikimedia Commons / CADAL",
+      "url": "https://commons.wikimedia.org/wiki/File:CADAL06060932_%E5%AE%8B%E5%8F%B2%C2%B7%E5%8D%B7%E4%B8%83%E5%8D%81%E5%85%AD~%E5%8D%B7%E4%B8%83%E5%8D%81%E4%B8%83.djvu",
+      "source_role": "DIRECT_RECEIVED_PHYSICAL_WITNESS_FOR_EXPLICIT_HUANGYOU_ASTRONOMICAL_THRESHOLD_TO_ARROW_DISCRETIZATION_RULE",
+      "workflow_run_id": 35334800072,
+      "artifact_id": 10543435082,
+      "artifact_digest": "sha256:c2c7b13866062e49c241f66652ef3f4dadc0393877189dbf636b4aec3b79ad1b",
+      "source_djvu_sha256": "f98aa642f30220a3a84406ca3f4739a519f765caafdd1a8ef103da080cacf132",
+      "page_count": 152,
+      "direct_pages": {
+        "heading_009": "34d182f86af9ad229e40cd94da037d023f70b05db9dfceb58a95abe4226c546f",
+        "framework_010": "00f5013166a08a11f10d4957e614b6265c95de2495311f5bb5acd9f8d04679e9",
+        "threshold_011": "a8f9c0e466631bb4f550ccb03b222a468444d3fa3d2c036c15252d3c71834280",
+        "summer_014": "2662f74e20d96bf10d3ded381d6ef27a34798cc4d20285d0b1bf74446f936df0"
+      },
+      "direct_ocr_used": false,
+      "quality_notes": "Direct physical collation of the later Qinding Siku received recension. Render 011 explicitly preserves 凡黃道升降差二度四十分則隨曆增減改箭 and one-ke/one-arrow architecture; render 014 physically preserves summer 60/40. This closes a historical threshold-to-discrete-arrow rule family, not a Northern-Song physical-copy claim and not an exact Sanming parent.",
+      "research_artifact": "docs/research/ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1.json"
     }
   ],
   "research_authority_policy_doc": "docs/FUSION-CHART-RESEARCH-AUTHORITY-POLICY-R1.md"

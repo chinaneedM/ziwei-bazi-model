@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SONGSHI-HUANGYOU-ARROW-THRESHOLD-DISCRETIZATION-CZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY",
+  "question": "Does a source-bound physical received witness of Songshi v76 directly preserve an explicit astronomical-threshold-to-integer-arrow-change rule, thereby proving a historical downstream discretization family without conflating it with the exact 1578 Sanming reduction rule?",
+  "answer": "YES_FOR_EXPLICIT_HISTORICAL_THRESHOLD_TO_ARROW_DISCRETIZATION_FAMILY; NO_FOR_EXACT_SANMING_RULE_OR_DIRECT_PARENTAGE",
+  "physical_source": {
+    "source_id": "EXT-WIKIMEDIA-SONGSHI-V76-HUANGYOU-ARROW-THRESHOLD",
+    "title": "《欽定四庫全書》系《宋史》卷七十六~卷七十七 / CADAL06060932",
+    "historical_work_layer": "元代官修《宋史》所記北宋皇祐漏刻制度",
+    "physical_recension_layer": "LATER_QINDING_SIKU_QUANSHU_RECEIVED_RECENSION; DO_NOT DATE CURRENT SCAN TO NORTHERN SONG",
+    "provider": "Wikimedia Commons / CADAL",
+    "workflow_run_id": 35334800072,
+    "artifact_id": 10543435082,
+    "artifact_digest": "sha256:c2c7b13866062e49c241f66652ef3f4dadc0393877189dbf636b4aec3b79ad1b",
+    "source_djvu_sha256": "f98aa642f30220a3a84406ca3f4739a519f765caafdd1a8ef103da080cacf132",
+    "page_count": 152,
+    "text_layer_target_hits": 0,
+    "text_layer_role": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY; ZERO HITS HAVE NO CONTENT-NEGATIVE AUTHORITY",
+    "ocr_used_for_final_glyph_claims": false,
+    "direct_pages": {
+      "009": "34d182f86af9ad229e40cd94da037d023f70b05db9dfceb58a95abe4226c546f",
+      "010": "00f5013166a08a11f10d4957e614b6265c95de2495311f5bb5acd9f8d04679e9",
+      "011": "a8f9c0e466631bb4f550ccb03b222a468444d3fa3d2c036c15252d3c71834280",
+      "012": "8991574632ce8d540fd60de89e8d847567bf3a8bf0289745f2a00fce1440c4ed",
+      "013": "affcaf5c65e3340d66228342dd6ad47593ac9d1a9aa3c72a6b29ce0c257d1291",
+      "014": "2662f74e20d96bf10d3ded381d6ef27a34798cc4d20285d0b1bf74446f936df0"
+    }
+  },
+  "direct_physical_collation": {
+    "page_009": [
+      "皇祐漏刻"
+    ],
+    "page_010": [
+      "分百刻於晝夜",
+      "冬至晝漏四十刻 / 夜漏六十刻",
+      "夏至晝漏六十刻 / 夜漏四十刻",
+      "春秋二分晝夜各五十刻",
+      "冬至夏至之間晝夜長短凡差二十刻，每差一刻..."
+    ],
+    "page_011": [
+      "刻別為一箭，冬至互起其首，凡有四十一箭",
+      "凡黃道升降差二度四十分，則隨曆增減改箭",
+      "每時初行一刻，至四刻六分之一為時正，終八刻六分之二則交次時",
+      "今列二十四氣晝夜日出入辰刻昏曉中星以備參合"
+    ],
+    "page_014": [
+      "夏至晝六十刻 / 夜四十刻"
+    ],
+    "adjudication_method": "Direct visual collation of source-bound physical renders; OCR/text layer not used as glyph authority."
+  },
+  "deeper_received_control": {
+    "source_id": "EXT-WIKISOURCE-SUI-SHU-V19-LOUKE-SEASONAL-LENGTH",
+    "historical_statement": "《隋書》卷19 received text records Han Yongyuan 14 / 102 CE Huo Rong criticism of fixed nine-day changes and an adopted rule: 依日行黃道去極，每差二度四分，為增減一刻，凡用四十八箭.",
+    "role": "DEEPER_HISTORICAL_TEXTUAL_CONTROL_FOR_THRESHOLD_TO_ARROW_ARCHITECTURE_ONLY",
+    "physical_copy_authority_in_this_batch": false,
+    "direct_genealogy_to_huangyou_or_sanming_proved": false
+  },
+  "mechanical_adjudication": {
+    "historical_post_computation_discretization_architecture": "DIRECTLY_ATTESTED_IN_RECEIVED_SONGSHI_PHYSICAL_WITNESS",
+    "continuous_or_fine_argument": "黃道升降差",
+    "discrete_output": "one-ke arrow/bin change",
+    "explicit_threshold": "2度40分 per arrow change in Huangyou rule",
+    "arrow_count": 41,
+    "hundred_ke_day": true,
+    "fractional_clock_boundary_retained": true,
+    "significance": "The downstream reduction/binning layer required after Batch 12CX is historically real as a rule family; it need not be invented as a modern rounding hypothesis.",
+    "exact_sanming_threshold_recovered": false,
+    "exact_sanming_change_days_recovered": false,
+    "nearest_integer_rounding_proved": false
+  },
+  "sanming_1578_comparison": {
+    "controlling_target_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "huangyou_summer_solstice": "60/40",
+    "sanming_summer_solstice": "59/41",
+    "huangyou_equinox_framework": "50/50",
+    "sanming_spring_equinox_display": "51/49",
+    "exact_rule_identity": false,
+    "direct_parent_shortcut": "DISPROVED_AS_UNCHANGED_RULE",
+    "safe_relation": "STRUCTURAL_MECHANISM_PRECEDENT / ANCESTRY_CANDIDATE ONLY"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-SONGSHI-CADAL06060932-SIKU",
+      "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "TABLE-SANMING-1578-DAYNIGHT-KE"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-SONGSHI-CADAL06060932-SIKU ATTESTS RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION",
+      "RULE-FAMILY-HUANGDAO-THRESHOLD-ARROW-DISCRETIZATION STRUCTURAL_MECHANISM_CANDIDATE_FOR TABLE-SANMING-1578-DAYNIGHT-KE"
+    ],
+    "explicit_non_edge": "Exact Huangyou 2度40分 / 40↔60 rule is not the unchanged direct reduction rule of Sanming 1578.",
+    "unresolved": [
+      "Identify a pre-1578 Nanjing/Datong-calibrated threshold or arrow rule with 59-ke cap.",
+      "Replay the exact Sanming 大寒 literal 十三後日 and 雨水 後四日 transitions from a securely attested rule.",
+      "Bind an independent Chinese physical C-II-N carrier and distinguish Chinese origin from Joseon transmission."
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}
