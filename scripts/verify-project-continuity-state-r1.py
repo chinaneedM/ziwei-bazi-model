@@ -18,6 +18,8 @@ ZIWEI_GEXIANG_1520_DC_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AU
 ZIWEI_GEXIANG_1520_DC_EVIDENCE = ROOT / "docs/research/ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1.json"
 ZIWEI_YUELING_12DD_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
 ZIWEI_YUELING_12DD_EVIDENCE = ROOT / "docs/research/ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1.json"
+ZIWEI_LEIBIAN_12DE_BATCH = ROOT / "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
+ZIWEI_LEIBIAN_12DE_EVIDENCE = ROOT / "docs/research/ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-R1.json"
 IDENTITY_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-1940-PRECIOUS-CATALOG-U.md"
 IDENTITY_MACHINE_EVIDENCE = ROOT / "docs" / "research" / "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1.json"
 MF_PDF_BATCH = ROOT / "docs" / "FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-G893-MF-PDF-ROUTE-V.md"
@@ -253,9 +255,10 @@ SUPPLEMENTAL_BATCH_IDS = [
     "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
     "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
     "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
+    "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE",
 ]
 LATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]
-LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD.md"
+LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE.md"
 
 
 def fail(message: str) -> None:
@@ -263,6 +266,36 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
+    for path in (ZIWEI_LEIBIAN_12DE_BATCH, ZIWEI_LEIBIAN_12DE_EVIDENCE):
+        if not path.is_file():
+            fail(f"Batch 12DE continuity artifact missing: {path.relative_to(ROOT)}")
+    batch12de = json.loads(ZIWEI_LEIBIAN_12DE_EVIDENCE.read_text(encoding="utf-8"))
+    if batch12de.get("batch_id") != "BATCH-12-ZIWEI-LEIBIAN-MING-FINE-TABLE-SANMING-TARGET-MISMATCH-DE":
+        fail("Batch 12DE evidence identity mismatch")
+    src12de = batch12de.get("physical_source", {})
+    if src12de.get("exact_pre1578_physical_copy_status") != "UNRESOLVED" or src12de.get("ocr_used_for_final_glyph_claims") is not False:
+        fail("Batch 12DE chronology/OCR firewall regressed")
+    acq12de = batch12de.get("acquisition", {})
+    if acq12de.get("page_sha256", {}).get("24") != "2316baee2c40b9ffcb9add014dedab78aebb2914ffbfdd87cd96492fe5d7a154":
+        fail("Batch 12DE decisive p24 binding regressed")
+    rows12de = batch12de.get("direct_physical_collation", {}).get("page24", {}).get("secure_target_rows", [])
+    expected12de = {
+        ("大寒節日至後六日", 40, 60),
+        ("大寒後七日至後十三日", 41, 59),
+        ("雨水節日至後五日", 45, 55),
+    }
+    got12de = {(r.get("date_range"), r.get("day_ke"), r.get("night_ke")) for r in rows12de}
+    if not expected12de.issubset(got12de):
+        fail("Batch 12DE direct target rows regressed")
+    scope12de = batch12de.get("chronology_and_scope", {})
+    if scope12de.get("unchanged_exact_parent_of_sanming_1578") is not False or scope12de.get("unchanged_exact_identity_with_yueling_cited_tongshu") is not False:
+        fail("Batch 12DE unchanged-parent mismatch adjudication regressed")
+    if scope12de.get("broader_structural_or_textual_ancestry_still_possible") is not True:
+        fail("Batch 12DE overclosed broader ancestry")
+    prod12de = batch12de.get("product_adjudication", {})
+    if prod12de.get("hpa_zdate_006_after") != "MISSING_FROM_PRODUCT" or prod12de.get("algorithm_reopen_authorized") is not False or prod12de.get("candidate_collapsed") is not False:
+        fail("Batch 12DE product firewall regressed")
+
     for path in (ZIWEI_YUELING_12DD_BATCH, ZIWEI_YUELING_12DD_EVIDENCE):
         if not path.is_file():
             fail(f"Batch 12DD continuity artifact missing: {path.relative_to(ROOT)}")
