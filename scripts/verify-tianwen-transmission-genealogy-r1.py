@@ -231,6 +231,20 @@ def main() -> int:
         for x in hyp12dk.get("evidence_updates", [])
     ):
         fail("Batch 12DK genealogy hypothesis access-only update missing")
+    locator12dl = tongshu_leiju_1551.get("secondary_reproduction_locator_after_12dl", {})
+    if locator12dl.get("status") != "SCHOLARLY_LOCATOR_ONLY_PENDING_DIRECT_PHYSICAL_PAGE":
+        fail("Batch 12DL secondary locator status regressed")
+    if locator12dl.get("juan16_end_colophon_locator") != "卷十六末" or locator12dl.get("direct_physical_colophon_page_observed") is not False:
+        fail("Batch 12DL juan-16 physical-page firewall regressed")
+    if locator12dl.get("same_printing_shop_proves_textual_or_table_lineage") is not False or locator12dl.get("numeric_ancestry_vote_increment") != 0:
+        fail("Batch 12DL printing-shop lineage firewall regressed")
+    if not any(
+        x.get("batch") == "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL"
+        and "zero textual/numeric vote" in x.get("update", "")
+        and "downstream reuse" in x.get("update", "")
+        for x in hyp12dk.get("evidence_updates", [])
+    ):
+        fail("Batch 12DL genealogy hypothesis locator/dedup update missing")
 
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
