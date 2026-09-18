@@ -99,6 +99,7 @@ def main() -> int:
         "PHYSICAL-COPY-YINYANG-BAOJIAN-NLC-MINGCHU-V1-4",
         "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
         "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17",
+        "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19",
     }
     if not required_nodes.issubset(set(node_ids)):
         fail("Transmission graph seed nodes incomplete")
@@ -190,6 +191,30 @@ def main() -> int:
         fail("1554 Hebing Tongshu coarse-table attestation edge regressed")
     if e51.get("from") != "PHYSICAL-COPY-HEBING-TONGSHU-LOC-JIAJING33-1554-JUAN17" or e51.get("to") != "TABLE-FAMILY-TONGSHU-COARSE-40-60":
         fail("1554 Hebing Tongshu attestation endpoints regressed")
+    tongshu_leiju_1551 = next(n for n in nodes if n.get("node_id") == "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19")
+    if tongshu_leiju_1551.get("edition_impression_date") != "MING_JIAJING_30_1551_CENSUS_AND_SHANBEN_CATALOG_BOUND":
+        fail("1551 Tongshu Leiju edition binding regressed")
+    if tongshu_leiju_1551.get("identifier") != "NLC census 110000-0101-0013797 / call no. 14202 / Shanben catalog item 450":
+        fail("1551 Tongshu Leiju identifier binding regressed")
+    if tongshu_leiju_1551.get("public_digital_index_status") != "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202":
+        fail("1551 Tongshu Leiju public digital-index boundary regressed")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+        and x.get("to") == "TABLE-SANMING-1578-DAYNIGHT-KE"
+        and x.get("relation") == "DIRECT_TARGET_FINGERPRINT_ATTESTATION"
+        and x.get("status") == "UNRESOLVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("1551 Tongshu Leiju/Sanming target-fingerprint unresolved firewall missing")
+    if not any(
+        x.get("from") == "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+        and x.get("to") == "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT"
+        and x.get("relation") == "DIRECT_TARGET_FINGERPRINT_ATTESTATION"
+        and x.get("status") == "UNRESOLVED"
+        for x in graph.get("explicit_non_edges", [])
+    ):
+        fail("1551 Tongshu Leiju/Yueling target-fingerprint unresolved firewall missing")
+
     leibian_fine = next(n for n in nodes if n.get("node_id") == "TABLE-LEIBIAN-FINE-SISHI-38-62")
     if leibian_fine.get("exact_sanming_yueling_target_identity") is not False:
         fail("Leibian fine-table exact-target mismatch regressed")
