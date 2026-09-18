@@ -879,15 +879,31 @@
       "edition_impression_date": "MING_JIAJING_30_1551_CENSUS_AND_SHANBEN_CATALOG_BOUND",
       "physical_copy_date": "1551_AS_CATALOGUED_NLC_HELD_COPY",
       "digital_surrogate_date": "NO_PUBLIC_DIGITAL_ANCIENT_BOOKS_RECORD_OBSERVED_2026_09_19",
-      "identifier": "NLC census 110000-0101-0013797 / call no. 14202 / Shanben catalog item 450",
+      "identifier": "NLC census 110000-0101-0013797 / call no. 14202 / OPAC doc 001790345 / internal id 411999023866 / Shanben catalog item 450",
       "surviving_scope": "ONE_FASCICLE; JUAN_16_TO_19",
-      "target_result": "Physical holding and surviving scope are catalog-bound; no juan 16-19 target page has been directly obtained. NLC public Digital Ancient Books exact-title and exact sbnumber 14202 checks return zero. Table family and Sanming/Yueling fingerprint remain unresolved.",
+      "target_result": "Physical holding and surviving scope are catalog-bound and OPAC-strengthened (doc 001790345 / internal 411999023866 / call 14202 / South Rare Books Reading Room). Reviewed public digital/surrogate and current indexed second-copy discovery routes are closed without obtaining a juan 16-19 page. Microform presence remains unresolved because B1MICU anonymous search is authentication-blocked. Table family and Sanming/Yueling fingerprint remain unresolved.",
       "public_digital_index_status": "CLOSED_NO_TARGET_RECORD_OBSERVED_UNDER_EXACT_TITLE_OR_EXACT_SBNUMBER_14202",
       "evidence": [
         "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ.md",
+        "docs/research/ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK.md"
       ],
-      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ"
+      "first_explicit_graph_batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
+      "opac_control": {
+        "doc_number": "001790345",
+        "internal_id": "411999023866",
+        "holding": "南区善本阅览室",
+        "item_session_followed": true
+      },
+      "public_surrogate_discovery": {
+        "nlc_digital_ancient_books": "NO_TARGET_RECORD_OBSERVED",
+        "wikimedia_commons": "NO_TARGET_SURROGATE_OBSERVED_IN_REVIEWED_QUERIES",
+        "internet_archive_identifier": "NO_TARGET_SURROGATE_OBSERVED",
+        "olcc_b1micu": "AUTHENTICATION_BLOCKED_TARGET_PRESENCE_UNRESOLVED",
+        "google_books_microform_catalog": "SEARCHABLE_FALSE",
+        "union_bibliography": "48_OF_48_PAGES_576_OF_576_RECORDS_NO_TARGET_OR_VARIANT_COPY"
+      }
     }
   ],
   "edges": [
@@ -1740,6 +1756,10 @@
         {
           "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CENSUS-AND-DIGITAL-ACCESS-BOUNDARY-DJ",
           "update": "A distinct pre-1578 Tongshu title is now first-party census-bound to an NLC physical copy: 《通書類聚尅擇大全□□卷》, 1551 Zhicheng movable-type, call no. 14202, surviving juan 16-19. The current public Digital Ancient Books index returns no exact-title or exact-sbnumber record, so this batch narrows a concrete physical-copy acquisition route but contributes no table or numeric ancestry vote until the surviving pages are directly collated."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-OPAC-SURROGATE-AND-UNION-BIBLIOGRAPHY-CLOSURE-DK",
+          "update": "The 1551 NLC Tongshu Leiju route is strengthened to OPAC doc 001790345 / internal id 411999023866 / call 14202 / South Rare Books Reading Room. Commons/IA public-surrogate discovery and the complete 48-page/576-record NLC Union Bibliography fuzzy result set yield no target or independent indexed copy, while OLCC B1MICU is authentication-blocked. This narrows access and copy-discovery routes only; no juan 16-19 page or numeric fingerprint was obtained, so the composite ancestry model receives zero textual/numeric vote."
         }
       ]
     }
