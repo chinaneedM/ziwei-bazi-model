@@ -1,0 +1,64 @@
+name: lock-shanben-catalog-tongshu-leiju-1551-entry-highres
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/lock-shanben-catalog-tongshu-leiju-1551-entry-highres.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install render tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Render catalog item 451 at direct-reading resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shanben-catalog-tongshu-leiju-1551-entry-highres'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/d/db/SSID-13990657_%E4%B8%AD%E5%9C%8B%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E5%AD%90%E9%83%A8_3.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2             -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          test "$(pdfinfo "$ROOT/source.pdf" | awk '/^Pages:/ {print $2}')" -eq 160
+          test "$(sha256sum "$ROOT/source.pdf" | awk '{print $1}')" = 'e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'
+
+          # Context pages establish the page sequence; p35 is the direct glyph authority.
+          pdftoppm -f 34 -l 36 -jpeg -jpegopt quality=92 -r 180             "$ROOT/source.pdf" "$ROOT/context"
+          pdftoppm -f 35 -l 35 -singlefile -png -r 400             "$ROOT/source.pdf" "$ROOT/page-035-400dpi"
+
+          # A rotated derivative is for easier human reading only. The unrotated
+          # source-bound 400 dpi render remains archived beside it.
+          convert "$ROOT/page-035-400dpi.png" -rotate 90             "$ROOT/page-035-400dpi-rotated.png"
+
+          sha256sum "$ROOT"/context-*.jpg "$ROOT"/page-035-400dpi*.png             | sort -V > "$ROOT/rendered.sha256"
+
+          printf '%s\n'             'SOURCE=中國古籍善本書目 子部 三'             'SOURCE_SHA256=e562a7af9c9aac5daf641172110133f8f203cebeb1ebcd1bad4fd515979cf2ab'             'PDF_PAGE=35'             'CATALOG_ITEM=四五一 / 451'             'TARGET=通書類聚抉擇大全 / 通書類聚尅擇大全 / 明嘉靖三十年芝城銅活字印本'             'QUESTION=Directly read exact title, surviving-volume statement, edition statement, and any holding code/name printed with item 451.'             'FINAL_GLYPH_AUTHORITY=page-035-400dpi.png'             'ROTATED_DERIVATIVE=page-035-400dpi-rotated.png'             'OCR_USED=false'             'SEARCH_SNIPPET_NOT_GLYPH_AUTHORITY=true'             > "$ROOT/manifest.txt"
+
+          rm "$ROOT/source.pdf"
+
+      - name: Upload source-bound high-resolution catalog evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanben-catalog-tongshu-leiju-1551-entry-highres
+          path: audit/shanben-catalog-tongshu-leiju-1551-entry-highres/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
