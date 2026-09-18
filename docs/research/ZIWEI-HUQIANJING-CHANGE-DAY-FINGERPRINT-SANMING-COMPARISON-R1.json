@@ -1,0 +1,136 @@
+{
+  "schema": "ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY",
+  "prior_batch_id": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX",
+  "question": "Do the pre-1578 Huqianjing Chuanjian change-day instructions reproduce the distinctive 1578 Sanming Tonghui Dahan/Yushui integer-bin transition fingerprint, or only an older structurally homologous stepped-arrow family?",
+  "answer": "STRUCTURAL_HOMOLOGY_CONFIRMED_BUT_EXACT_CHANGE_DAY_FINGERPRINT_MISMATCHES; DIRECT_UNCHANGED_TABLE_PARENT_SHORTCUT_DISPROVED",
+  "physical_witnesses": {
+    "tianyige_ming_print": {
+      "source_id": "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+      "prior_workflow_run_id": 34832306143,
+      "prior_artifact_id": 10342711240,
+      "pages_reviewed": [
+        74,
+        75
+      ],
+      "page_sha256": {
+        "74": "a86cade9b99ed1b5cc943370e4b66e914d7968bc08943225bb99530fb15721ab",
+        "75": "cc7546f4d93b85fb0327e30cead9c994ae017d81dc2f1dd1b86e994babb3cf83"
+      },
+      "direct_no_ocr_readings": [
+        "大寒後三日改第五箭 -> 晝44 / 夜56",
+        "雨水初日改第八箭 -> 晝47 / 夜53",
+        "後第九日改第九箭 -> 晝48 / 夜52"
+      ]
+    },
+    "cadal_siku_recension": {
+      "source_id": "EXT-CADAL-HUQIANJING-SIKU-CHUANJIAN",
+      "prior_workflow_run_id": 34933201296,
+      "prior_artifact_id": 10382093979,
+      "pages_reviewed": [
+        15,
+        16
+      ],
+      "page_sha256": {
+        "15": "b6381ac14f6479163b2c2a10ac59b2c6f773aac44c613818eab950ff50402883",
+        "16": "e1fcd26c6d2749c0d627204c00fda4a3cdcb90525095b6cb380bb6642d61b0ef"
+      },
+      "direct_no_ocr_readings": [
+        "大寒後三日改第五箭 -> 晝44 / 夜56",
+        "雨水初日改第八箭 -> 晝47 / 夜53",
+        "後第九日改第九箭 -> 晝48 / 夜52",
+        "驚蟄後三日改第十箭 -> 晝49 / 夜51",
+        "春分前三日改第十一箭 -> 晝50 / 夜50; 後六日改第十二箭 -> 晝51 / 夜49"
+      ]
+    },
+    "independence_firewall": "Tianyige Ming print and later Siku-recension witness independently preserve the same decisive change-day loci. This supports recension-stable rule-family transmission; it does not prove either surviving copy directly descends from the other."
+  },
+  "sanming_1578_control": {
+    "source_id": "NCL-06589-1",
+    "controlling_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "physical_pages": [
+      134,
+      135,
+      136
+    ],
+    "direct_target_loci": [
+      "大寒 -> 43/57; physical sequence 十三後日 before 44/56",
+      "雨水 -> 47/53; 後四日 before 48/52",
+      "驚蟄 -> 49/51",
+      "春分 -> 51/49",
+      "夏至 -> 59/41"
+    ],
+    "philology_firewall": "Preserve the literal 1578 sequence 十三後日; do not silently normalize it into a modern phrase or into Huqianjing's 後三日."
+  },
+  "mechanical_comparison": [
+    {
+      "locus": "大寒 transition to 44/56",
+      "huqianjing": "後三日",
+      "sanming_1578": "literal 十三後日",
+      "result": "MISMATCH"
+    },
+    {
+      "locus": "雨水 transition 47/53 -> 48/52",
+      "huqianjing": "雨水初日 47/53; 後第九日 48/52",
+      "sanming_1578": "雨水 47/53; 後四日 48/52",
+      "result": "MISMATCH"
+    },
+    {
+      "locus": "春分 neighborhood",
+      "huqianjing": "春分前三日 50/50; 後六日 51/49",
+      "sanming_1578": "春分 51/49",
+      "result": "ANCHOR_MISMATCH"
+    },
+    {
+      "locus": "summer extreme",
+      "huqianjing": "夏至前三日 60/40",
+      "sanming_1578": "夏至 59/41",
+      "result": "EXTREME_AND_ANCHOR_MISMATCH"
+    }
+  ],
+  "adjudication": {
+    "pre1578_integer_step_change_day_operational_family": "CONFIRMED",
+    "decisive_change_day_loci_cross_recension_stable": "CONFIRMED_FOR_REVIEWED_TIANYIGE_AND_SIKU_WITNESSES",
+    "huqianjing_exact_change_day_table_equals_sanming_1578": false,
+    "huqianjing_direct_unchanged_mechanical_parent_shortcut": "DISPROVED",
+    "huqianjing_structural_ancestry_candidate": "RETAINED",
+    "implication": "Sanming's whole-ke display requires a modified/recalibrated/downstream binning or editorial recomposition beyond verbatim Huqianjing Chuanjian transmission.",
+    "exact_sanming_reduction_threshold": "UNRESOLVED",
+    "direct_sanming_textual_parent": "UNRESOLVED",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "TABLE-SANMING-1578-DAYNIGHT-KE"
+    ],
+    "edges_supported": [
+      "TG-E0009 and TG-E0010 are strengthened at the decisive change-day fingerprint loci",
+      "TG-E0011 remains a structural ancestry candidate, now explicitly bounded by direct change-day mismatches"
+    ],
+    "edges_rejected_or_unproved": [
+      "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60 DIRECT_CHANGE_DAY_TABLE_PARENT_OF TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED_AS_UNCHANGED_TABLE_IDENTITY",
+      "No direct-copy direction from either surviving Huqianjing witness into Sanming is proved"
+    ],
+    "unresolved_lineage_questions": [
+      "Which pre-1578 Chinese source recalibrates a Huqian-like integer ladder to the Nanjing 59-ke cap?",
+      "Which source or rule changes the Huqian Dahan +3 / Yushui +9 thresholds into the Sanming literal Dahan 十三後日 / Yushui +4 fingerprint?",
+      "What deterministic post-conversion reduction/binning rule maps the C-II-N daily curve to the exact Sanming transitions?"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

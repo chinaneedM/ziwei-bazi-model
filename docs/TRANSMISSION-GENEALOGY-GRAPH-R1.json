@@ -204,10 +204,11 @@
       "node_type": "RULE_FAMILY",
       "label": "《虎鈐經·傳箭》二十號箭循環40↔60季節漏刻家族",
       "system_scope": "SONG_OPERATIONAL_TIMEKEEPING",
-      "mechanical_identity": "100-ke day; 60 fen per ke; arrows numbered 1..20; winter half-year ascends daylight 40->60 by one-ke steps, summer solstice resets numbering to 第一箭 and the opposite half-year descends 60->40.",
+      "mechanical_identity": "100-ke day; 60 fen per ke; arrows numbered 1..20; winter half-year ascends daylight 40->60 by one-ke steps, summer solstice resets numbering to 第一箭 and the opposite half-year descends 60->40. Batch 12CY physically re-collates decisive stable change loci across Tianyige Ming and Siku witnesses: 大寒後三日 -> 44/56; 雨水初日 47/53 -> 後第九日 48/52.",
       "evidence": [
         "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
-        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
       ],
       "first_explicit_graph_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     },
@@ -671,7 +672,8 @@
       "evidence_class": "DIRECT_PHYSICAL_MING_PRINT_TEXT",
       "evidence": [
         "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
-        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json"
+        "docs/research/ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     },
@@ -684,7 +686,8 @@
       "confidence": "HIGH",
       "evidence_class": "DIRECT_PHYSICAL_SIKU_RECENSION_TEXT",
       "evidence": [
-        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json"
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
       ],
       "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     },
@@ -698,9 +701,10 @@
       "evidence_class": "CROSS_RECENSION_PHYSICAL_STABILITY_PLUS_SHARED_ONE_KE_LADDER",
       "evidence": [
         "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
-        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD.md"
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD.md",
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json"
       ],
-      "scope_note": "Shared stepwise pairs and stable operational ladder strengthen structural ancestry; differing change dates and Huqian 60/40 versus Sanming 59/41 prohibit exact-table or direct-copy claims.",
+      "scope_note": "Huqian's one-ke step/change-day operational architecture remains a strong structural ancestry candidate, but Batch 12CY directly shows the reviewed Huqian fingerprint is not the Sanming table: Huqian has 大寒後三日 -> 44/56 and 雨水後第九日 -> 48/52, while 1578 Sanming preserves literal 十三後日 and 後四日 at the corresponding transitions; Huqian also reaches 60/40 versus Sanming 59/41. Direct unchanged-table parentage is disproved.",
       "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ"
     },
     {
@@ -1041,9 +1045,9 @@
       "direct_copy_parent_identified": false,
       "exact_quantization_rule_identified": false,
       "unresolved_questions": [
-        "Which securely pre-1578 witness first combines Xiazhi 59/41 with Sanming-like intermediate anchors?",
-        "What exact quantization/change-day rule maps the daily Nanjing Datong C-II-N curve to Sanming's displayed bins?",
-        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its integer-reduction rule, distinguishing Chinese origin from Joseon transmission?"
+        "Which securely pre-1578 Chinese witness combines a Huqian-like integer-step/change-day architecture with the Nanjing/Datong 59-ke cap?",
+        "What exact post-conversion reduction/change-day rule maps the daily Nanjing Datong C-II-N curve to Sanming's literal 大寒 十三後日 and 雨水 後四日 transitions?",
+        "Can a pre-1578 Chinese physical witness directly bind the C-II-N daily table and/or its reduction rule, distinguishing Chinese origin from Joseon transmission?"
       ],
       "evidence_updates": [
         {
@@ -1057,6 +1061,10 @@
         {
           "batch": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX",
           "update": "Direct no-OCR collation of the reviewed Yuan-shi/Shoushi conversion preserves incomplete quotients as 分 and the day/night result as 刻及分秒. This rules out same-step remainder discard as the direct generator of Sanming's whole-ke display in the reviewed received-recension scope, strengthening the composite model by making the downstream integer-reduction/binning layer explicit while leaving its exact historical rule unresolved."
+        },
+        {
+          "batch": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY",
+          "update": "Direct no-OCR re-collation of both Tianyige Ming and Siku Huqian witnesses fixes the older arrow schedule at 大寒後三日 -> 44/56 and 雨水後第九日 -> 48/52. These mismatch the exact 1578 Sanming literal 十三後日 / 後四日 transition fingerprint. The older integer-step/change-day family remains a structural component candidate, but verbatim Huqian-table parentage is now explicitly disproved; the missing layer is narrowed to recalibration/downstream binning/editorial recomposition."
         }
       ]
     }
@@ -1189,6 +1197,19 @@
         "docs/research/ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-R1.json",
         "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW.md"
       ]
+    },
+    {
+      "from": "RULE-FAMILY-HUQIANJING-CHUANJIAN-20ARROW-40-60",
+      "relation": "DIRECT_CHANGE_DAY_TABLE_PARENT_OF",
+      "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+      "status": "DISPROVED",
+      "reason": "Two physically reviewed Huqian recensions preserve 大寒後三日 -> 44/56 and 雨水後第九日 -> 48/52, while the exact 1578 Sanming physical target preserves literal 十三後日 and 後四日 at the corresponding transitions; spring-equinoctial anchoring and the 60/40 vs 59/41 summer cap also differ. This disproves verbatim/direct unchanged mechanical-table identity without disproving broader structural ancestry or later recalibration.",
+      "evidence": [
+        "docs/research/ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-R1.json",
+        "docs/research/ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-R1.json",
+        "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json"
+      ],
+      "adjudication_batch": "BATCH-12-ZIWEI-HUQIANJING-CHANGE-DAY-FINGERPRINT-SANMING-COMPARISON-CY"
     }
   ],
   "backfill": {
